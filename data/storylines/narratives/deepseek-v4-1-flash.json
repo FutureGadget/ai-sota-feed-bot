@@ -1,16 +1,12 @@
 {
   "slug": "deepseek-v4-1-flash",
-  "generated_at": "2026-10-02T05:04:13+00:00",
+  "generated_at": "2026-10-02T10:03:18+00:00",
   "covers_last_updated": "2026-09-27T05:47:25+00:00",
   "covers_member_sids": [
     "01a617c33f0013bb",
     "1bc5bf8717fc17be",
-    "457fb6ff524d5b8a",
     "4cc7a7bea4b884e3",
     "4ce1e97ce10c119a",
-    "5a254df52928f177",
-    "6a7c8171f04a20cb",
-    "7382513381514afd",
     "7f7e6754ebc2c737",
     "82bd95dd18d293f1",
     "88c84b7dce9138f2",
@@ -20,26 +16,20 @@
     "d1d28ac13afc9a24",
     "e3fd47e3082f9e2b"
   ],
-  "tldr": "DeepSeek launched V4.1-Flash around Sep 10-11 as a smaller, faster model that cuts the memory agents need to run it. The claim rattled Samsung, SK Hynix, and Micron shares within a day, and DeepSeek quantified it Sep 13 as a 75% HBM and 87.5% SSD cut.",
+  "tldr": "DeepSeek launched V4.1-Flash around Sep 10-11 as a smaller, faster model, and Sep 12 analysis called its encoder-decoder design a v5-caliber step. On Sep 13 DeepSeek quantified the efficiency claim as a 75% HBM and 87.5% SSD cut.",
   "whats_new": "A Sep 27 shattered.io write-up claims V4.1-Flash beats Anthropic's Opus 5 at 70% lower cost -- the fifth benchmark comparison in this series since launch, now aimed at a Western flagship instead of DeepSeek's own prior models, still with no independent verification.",
   "why_it_matters": "Anyone calling the V4-Pro endpoint is now served different weights than they pinned, at a price that keeps falling, without a version bump to signal either change -- and now a third-party host serves the same model, so routing choices need re-checking too.",
   "status": {
     "state": "Shipped · V4-Pro traffic silently rerouted, now on third-party hosts too",
     "tone": "turn",
     "changed": "2026-09-14",
-    "detail": "V4.1-Flash launched Sep 10-11 as a smaller, faster model; the efficiency claim rattled memory-chip stocks within a day, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a falling price. Sep 20-27 added architecture specifics, third-party hosting, and a run of benchmark claims culminating in a Sep 27 claim of beating Opus 5 at 70% lower cost.",
+    "detail": "V4.1-Flash launched Sep 10-11 as a smaller, faster model, and by Sep 14 DeepSeek was routing all V4-Pro traffic to it at a falling price. Sep 17-27 added benchmark write-ups, architecture specifics, third-party hosting, and a Sep 27 claim of beating Opus 5 at 70% lower cost.",
     "track": [
       {
         "label": "launch",
         "detail": "Sep 10-11",
         "tone": "launch",
-        "weight": 22
-      },
-      {
-        "label": "chip-stock jitters",
-        "detail": "Sep 11–13",
-        "tone": "rising",
-        "weight": 22
+        "weight": 30
       },
       {
         "label": "traffic rerouted + price cuts",
@@ -65,26 +55,11 @@
     {
       "kicker": "LAUNCH",
       "tone": "launch",
-      "headline": "DeepSeek launches smaller, faster V4.1-Flash; efficiency claim rattles memory-chip stocks",
-      "summary": "Outlets tie the memory-savings claim to a Sep 11 dip in Samsung and SK Hynix shares.",
-      "sids": [
-        "457fb6ff524d5b8a",
-        "5a254df52928f177",
-        "7382513381514afd"
-      ]
-    },
-    {
-      "kicker": "MARKET IMPACT",
-      "tone": "now",
-      "headline": "Benchmark series widens from Chinese rivals to a Western flagship",
-      "summary": "A Sep 17 benchmark puts the coding gap at 11 points over Qwen3-Coder and Devstral, a Sep 20 follow-up adds architecture specifics (a 1M-token context window via extreme KV-cache compression), a Sep 25 write-up claims a 4.4x gap over V4-Pro and V4-Flash, and a Sep 27 piece from the same benchmark series claims V4.1-Flash beats Anthropic's Opus 5 at 70% lower cost.",
+      "headline": "DeepSeek launches smaller, faster V4.1-Flash and puts pressure on AI pricing",
+      "summary": "A Sep 12 deep dive describes a causal encoder-decoder architecture and says it should have been DeepSeek v5.",
       "sids": [
         "82bd95dd18d293f1",
-        "d1d28ac13afc9a24",
-        "94c7e66f5dacc673",
-        "01a617c33f0013bb",
-        "8a60defe95a4d885",
-        "4ce1e97ce10c119a"
+        "d1d28ac13afc9a24"
       ]
     },
     {
@@ -114,11 +89,27 @@
       ]
     },
     {
-      "kicker": "NOW",
+      "kicker": "PRICE CUT",
       "tone": "now",
       "headline": "Cached-input pricing drops again to $0.003 per million tokens",
       "sids": [
         "95e33866f411d3ef"
+      ]
+    },
+    {
+      "kicker": "BENCHMARKS",
+      "tone": "now",
+      "headline": "Benchmark write-ups put the coding gap at 11 points over Qwen3-Coder and Devstral",
+      "sids": [
+        "94c7e66f5dacc673"
+      ]
+    },
+    {
+      "kicker": "ARCHITECTURE",
+      "tone": "rising",
+      "headline": "Second outlet confirms 1M-token context via extreme KV-cache compression",
+      "sids": [
+        "01a617c33f0013bb"
       ]
     },
     {
@@ -128,6 +119,16 @@
       "summary": "First sign the model is spreading to inference platforms beyond DeepSeek's own API.",
       "sids": [
         "88c84b7dce9138f2"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Benchmark series now targets a Western flagship: Opus 5 at 70% lower cost",
+      "summary": "A Sep 25 write-up claims a 4.4x gap over V4-Pro and V4-Flash; a Sep 27 piece claims V4.1-Flash beats Opus 5. Neither is independently verified.",
+      "sids": [
+        "8a60defe95a4d885",
+        "4ce1e97ce10c119a"
       ]
     }
   ],
@@ -141,9 +142,6 @@
   ],
   "take_for_builders": "Re-run your eval suite against the V4-Pro endpoint: you're getting V4.1-Flash's outputs at a still-falling price, and any prompt or behavior tuned to V4-Pro specifically may have silently drifted. If you route through ZenMux or another third-party host, verify it serves the same weights before trusting cross-provider evals.",
   "day_captions": {
-    "457fb6ff524d5b8a": "Names Samsung and SK Hynix specifically as feeling the volatility.",
-    "5a254df52928f177": "Confirms the Samsung/SK Hynix dip while noting Micron and SanDisk held up.",
-    "7382513381514afd": "A market wrap-up folds the chip pressure into the day's broader trading notes.",
     "82bd95dd18d293f1": "First sign the release is already moving competitor pricing.",
     "d1d28ac13afc9a24": "AINews' technical deep dive frames the architecture as v5-caliber.",
     "94c7e66f5dacc673": "Independent benchmark puts V4-Pro 11 points ahead of Qwen3-Coder and Devstral on coding tasks.",
