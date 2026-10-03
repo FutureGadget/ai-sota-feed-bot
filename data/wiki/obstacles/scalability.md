@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [485666e1560ba32b, 6a60d1242802c6f9, 14ca1514017a2ee2]
-updated: 2026-09-26
-covers_evidence: [485666e1560ba32b, 6a60d1242802c6f9, 14ca1514017a2ee2]
+evidence: [485666e1560ba32b, 6a60d1242802c6f9, 14ca1514017a2ee2, 72249bd53d8a5849]
+updated: 2026-10-03
+covers_evidence: [485666e1560ba32b, 6a60d1242802c6f9, 14ca1514017a2ee2, 72249bd53d8a5849]
 ---
 
 ## TL;DR
@@ -61,8 +61,17 @@ coordinating server — the same fix Modal applied to sandbox scheduling and
 vLLM's paged cache applies to serving, now landing in the tool-calling
 protocol itself (see [MCP](/topic/mcp) for the full protocol change).
 
+Google's September GKE update adds the density side of the same problem. The
+open-source **GKE Agent Substrate** targets millions of sandboxes at 10x the
+density of standard container runtimes, with sub-500ms resume at over 500
+suspend/resume activations per second and kernel- and network-level
+isolation. GKE also now scales workloads to zero natively, via the HPA with
+KEP-2021 support, so idle agent fleets stop holding capacity.
+
 ## What's new
-The MCP specification's stateless rewrite removes protocol-level sessions
+Google's GKE Agent Substrate claims 10x container density, sub-500ms resume and 500+ suspend/resume activations per second, making suspend/resume the scaling lever for idle agent sandboxes (see State of the art above).
+
+Prior update: The MCP specification's stateless rewrite removes protocol-level sessions
 and sticky-session requirements for remote servers, extending this page's
 "remove the coordinator, don't scale it" pattern from sandbox scheduling and
 inference serving to the tool-calling protocol itself (see State of the art
