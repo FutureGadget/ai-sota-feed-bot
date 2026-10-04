@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. New Archestra's OpenAPPA Saturates Two Major Security Benchmarks with a 0% Attack Success Rate
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/10/open-APPA-zero-security-breach/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.123 | Reliability: 1.0
+- Score: 3.095 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
 ## 2. We're going to need default hard budget caps on pretty much everything
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Oct/3/default-hard-budget-caps/
-- Score: 3.123 | Reliability: 1.0
+- Score: 3.095 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. Pi-based coding agent with hard budget caps
-- Type: news | Source: hackernews_ai
-- URL: https://kimchi.dev/
-- Score: 2.739 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 4. September sponsors-only newsletter
+## 3. September sponsors-only newsletter
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Oct/3/newsletter/
-- Score: 2.692 | Reliability: 1.0
+- Score: 2.669 | Reliability: 1.0
 - Why it matters: 
 
-## 5. Presentation: Building GenAI Platform at DoorDash
+## 4. Presentation: Building GenAI Platform at DoorDash
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/doordash-genai-platform-architecture/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.557 | Reliability: 1.0
+- Score: 2.536 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. claude-code v2.1.289
+## 5. claude-code v2.1.289
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.289
-- Score: 2.538 | Reliability: 1.0
+- Score: 2.522 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
+
+## 6. codex rust-v0.162.0-alpha.12
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.162.0-alpha.12
+- Score: 2.393 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
 
 ## 7. The Agent Said It Was Done. The Database Disagreed.
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/microsoft/thinkingbox
-- Score: 2.267 | Reliability: 1.0
+- Score: 2.277 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 8. Claude Frontier Academy: $100M to train 10,000 engineers
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-frontier-academy
-- Score: 1.953 | Reliability: 1.0
+- Score: 1.936 | Reliability: 1.0
 - Why it matters: 
 
 ## 9. A model guide for the GPT-6 family
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/practical-guide-building-gpt-6
-- Score: 1.787 | Reliability: 1.0
+- Score: 1.772 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. Chatham scales its capital markets expertise with OpenAI
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/chatham-financial
-- Score: 1.709 | Reliability: 1.0
+- Score: 1.697 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 11. ScholarCatalyst: A Benchmark for Retrieving Papers That Inspire New Research
-- Type: paper | Source: arxiv_cs_ai
+- Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2610.02202v1
-- Score: 2.247 | Reliability: 1.0
+- Score: 2.194 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
-## 12. codex 0.162.0-alpha.11
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.162.0-alpha.11
-- Score: 2.21 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
+## 12. Homomorphic Advantage Operator: Stabilizing Reinforcement Learning Under Fully Homomorphic Encryption Constraints
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2610.02074v1
+- Score: 2.13 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
-## 13. AI is changing developer work. Here are three skills to strengthen.
+## 13. KaliBench: A Fine-Grained Benchmark for Cybersecurity Tool Use on Kali Linux with Runtime-Free Verifiable Rewards
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.02206v1
+- Score: 2.04 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
+
+## 14. AI is changing developer work. Here are three skills to strengthen.
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/ai-is-rewriting-the-developer-career-ladder-heres-how-to-stand-out/
-- Score: 1.914 | Reliability: 1.0
+- Score: 1.9 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 14. [AINews] Pi 1.0, Pi Durable, and AIE NYC
+## 15. [AINews] Pi 1.0, Pi Durable, and AIE NYC
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-pi-10-pi-durable-and-aie-nyc
-- Score: 1.893 | Reliability: 1.0
+- Score: 1.88 | Reliability: 1.0
 - Why it matters: Matches feed focus: harness.
 
-## 15. How to Build a Model Router in the Harness
+## 16. How to Build a Model Router in the Harness
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/how-to-build-a-model-router-in-the-harness
-- Score: 1.889 | Reliability: 1.0
+- Score: 1.876 | Reliability: 1.0
 - Why it matters: Matches feed focus: harness.
 
-## 16. Claude-shaped science
+## 17. Claude-shaped science
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/claude-shaped-science
-- Score: 1.805 | Reliability: 1.0
+- Score: 1.82 | Reliability: 1.0
 - Why it matters: 
-
-## 17. Faynt: Scaling and Optimizing Policies for Competitive Melee
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2610.02144v1
-- Score: 1.776 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
 
 ## 18. Inside-Out AI: Rebuilding Airbnb Behind the Scenes and Across the Guest Experience
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/airbnb
-- Score: 1.722 | Reliability: 1.0
+- Score: 1.71 | Reliability: 1.0
 - Why it matters: 
 
 ## 19. Getting started with Claude Code mods
 - Type: news | Source: claude_dev_blog
 - URL: https://claude.dev/blog/getting-started-with-claude-code-mods/
-- Score: 1.674 | Reliability: 1.0
+- Score: 1.664 | Reliability: 1.0
 - Why it matters: Matches feed focus: claude code.
 
-## 20. Chinese AI model Qwen gives alarming answers to questions about Hong Kong, controversial topics
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiwwFBVV95cUxOZXBudnlWNHplOXVzQTFRN0lrSVVHUDFneFI4a0RKb053YkFkZXJ5MENTSDZSTlNPbG8xQzJYejdpbU5PYjNRdFRVcE80Sm1ldHZkalhQR1NINUZzZlNmNnRVSGhHaWxhY21nckQtTVhLSXMtWVZOalpTaF9BeGhpdGZuZDVMV2NQTFN2Z0dVX2t0cXFOTnZNZ0lwZmljdnlKN29UdVVSblZ2bVJiY1dMNkVKUFVsNWVlb1RabTA3RnE1LXc?oc=5
-- Score: 1.607 | Reliability: 1.0
-- Why it matters: 
-
-## 21. Barclays scales Claude to upgrade operations and improve client experience
+## 20. Barclays scales Claude to upgrade operations and improve client experience
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/barclays-scales-claude
-- Score: 1.579 | Reliability: 1.0
+- Score: 1.569 | Reliability: 1.0
 - Why it matters: 
 
-## 22. External Observers May See More Clearly: Cross-Model Span-Level Hallucination Detection in Large Language Models via Hidden State Probing
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2610.02066v1
-- Score: 1.553 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 23. The eternal complement
+## 21. The eternal complement
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/the-eternal-complement
-- Score: 1.542 | Reliability: 1.0
+- Score: 1.533 | Reliability: 1.0
 - Why it matters: 
 
-## 24. How Albertsons Companies is reimagining retail from the inside out
+## 22. How Albertsons Companies is reimagining retail from the inside out
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/albertsons-reimagining-retail
-- Score: 1.534 | Reliability: 1.0
-- Why it matters:
+- Score: 1.525 | Reliability: 1.0
+- Why it matters: 
+
+## 23. Chinese AI model Qwen gives alarming answers to questions about Hong Kong, controversial topics
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiwwFBVV95cUxOZXBudnlWNHplOXVzQTFRN0lrSVVHUDFneFI4a0RKb053YkFkZXJ5MENTSDZSTlNPbG8xQzJYejdpbU5PYjNRdFRVcE80Sm1ldHZkalhQR1NINUZzZlNmNnRVSGhHaWxhY21nckQtTVhLSXMtWVZOalpTaF9BeGhpdGZuZDVMV2NQTFN2Z0dVX2t0cXFOTnZNZ0lwZmljdnlKN29UdVVSblZ2bVJiY1dMNkVKUFVsNWVlb1RabTA3RnE1LXc?oc=5
+- Score: 1.479 | Reliability: 1.0
+- Why it matters: 
+
+## 24. claude-agent-sdk-python v0.2.163
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.163
+- Score: 1.42 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
