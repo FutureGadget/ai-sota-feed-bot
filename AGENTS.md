@@ -117,7 +117,8 @@ in `ops_daily_summary.py`'s log line.
   signal for open-weight labs), normalization, dedupe, crawl cooldown per source,
   optional per-source `exclude_title_regex` title blocklist, optional
   per-source `fetch_content: true` page-body enrichment → `content_excerpt`
-  for feeds that publish only a teaser)
+  for feeds that publish only a teaser, with optional `content_exclude_regex`
+  to strip per-page boilerplate such as an author bio)
 - `pipeline/` — all processing:
   - `ranking.py` — unified ranking engine (stage A prefilter → slot assignment
     → stage C scoring → global merge → top-band constraints)
