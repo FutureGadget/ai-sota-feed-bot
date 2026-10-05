@@ -178,16 +178,20 @@
  },
  "0e1dc4b876f48358": {
   "first_seen": "2026-10-05T18:02:49.147916+00:00",
-  "id": "16d4f16822f866fe",
+  "id": "deec08bb9dca03f5",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-10-05T17:16:59+00:00",
+  "published": "2026-10-05T18:31:33+00:00",
+  "release_highlights": [
+   "Preserve SYSTEMROOT , TEMP , and TMP when launching remote stdio MCP servers with explicitly configured remote environment variables, allowing Unix hosts to...",
+   "#51121 : Backport Windows remote MCP environment preservation to 0.160"
+  ],
   "sid": "0e1dc4b876f48358",
   "source": "openai_codex_releases",
-  "summary": "Release 0.160.1",
-  "summary_1line": "Release 0.160.1",
-  "title": "codex rust-v0.160.1",
+  "summary": "Bug Fixes Preserve SYSTEMROOT , TEMP , and TMP when launching remote stdio MCP servers with explicitly configured remote environment variables, allowing Unix hosts to retain the Windows executor's startup environment. Changelog #51121 : Backport Windows remote MCP environment preservation to 0.160.",
+  "summary_1line": "Preserve SYSTEMROOT , TEMP , and TMP when launching remote stdio MCP servers with explicitly configured remote environment variables, allowing Unix hosts to... · #51121 : Backport Windows remote MCP environment preser...",
+  "title": "codex 0.160.1",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.160.1",
   "why_it_matters": "Matches feed focus: codex."
@@ -799,6 +803,18 @@
   "type": "news",
   "url": "https://www.anchorterminal.com/tools",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "70ef3a77c8467af2": {
+  "first_seen": "2026-10-05T19:04:14.300148+00:00",
+  "id": "43d5ca4bbcc685af",
+  "published": "2026-10-05T19:01:48+00:00",
+  "sid": "70ef3a77c8467af2",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Reflection’s founders on building a DeepSeek of the West Sources | Alex Heath",
+  "summary_1line": "Reflection’s founders on building a DeepSeek of the West Sources | Alex Heath",
+  "title": "Reflection’s founders on building a DeepSeek of the West",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBfOURaUldkQW9fWTRyR2VRUUxuTElKUXpvQkhPa2E5TFJ5M1pJMU92VFk4TUF4Ri1XNnlFWHBsYXJpSnJGYzJPZVRNeHVILVRYZW1USEFGZks2NEZmaEllRDg2cWdmaWZXMHoxTVVZMXdMN200QkE?oc=5"
  },
  "751a14146cee1c7c": {
   "first_seen": "2026-10-05T02:04:13.028325+00:00",
@@ -1553,6 +1569,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.02144v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "bce120e0a7180126": {
+  "first_seen": "2026-10-05T19:04:14.300148+00:00",
+  "id": "24d686f46b81c0d1",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-10-05T18:13:54+00:00",
+  "sid": "bce120e0a7180126",
+  "source": "hackernews_ai",
+  "summary": "I have been working on Rashomon, an open-source execution recorder for AI coding agents. The basic idea is that the agent transcript is not ground truth. Rashomon keeps its own record of what happened and compares it against the agent’s account. For Claude Code, it records things like: * shell commands, exit codes, and whether they may have written files * tool calls and outcomes * test commands and their outcomes * subagent lifecycle and ordering * timestamps and parent/child relationships * keyed digests of command/tool inputs and working directories It builds a timeline from these events. It does not store prompts, responses, file contents, or tool output. For example, it now detects patterns like: `test fails → only test files change → same test passes` and: `test command fails → same command passes → no corresponding file edit` These can indicate that an agent changed a test instead of fixing the underlying issue. Rashomon currently runs as a Claude Code plugin or through the CLI. CLI: `rashomon watch` then: `rashomon report` Plugin: `/rashomon:report` There are still edge cases around cwd, git state, test-selection arguments, generated files, retries, and parallel execution. I would be interested in feedback from people building agents on what execution signals you would want Rashomon to capture or correlate. GitHub: https://github.com/altrace-dev-role/rashomon",
+  "summary_1line": "I have been working on Rashomon, an open-source execution recorder for AI coding agents. The basic idea is that the agent transcript is not ground truth. Rashomon keeps its own record of what happened and compares it...",
+  "title": "Show HN: Rashomon – An independent execution record for AI coding agents",
+  "type": "news",
+  "url": "https://github.com/altrace-dev-role/rashomon",
+  "why_it_matters": "Matches feed focus: agent, claude code."
  },
  "bd1136d0fcfd6f13": {
   "first_seen": "2026-10-03T23:03:38.856733+00:00",
