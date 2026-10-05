@@ -84,11 +84,11 @@ python3 pipeline/render_static_pages.py --base-url "${BASE_URL}"
 
 echo -e "\n=== [5/5] Committing & Publishing to Remote Main ==="
 # Check if there are changes to publish
-if [[ -z "$(git status --porcelain data/i18n/ko/ web/ko/ web/og/ web/sitemap.xml web/story/ web/daily/ web/weekly/ web/storyline/ web/topic/ web/foundations/)" ]]; then
+if [[ -z "$(git status --porcelain data/i18n/ web/ko/ web/og/ web/sitemap.xml web/story/ web/daily/ web/weekly/ web/storyline/ web/topic/ web/foundations/)" ]]; then
   echo "No translation updates or rendered pages changed. Nothing to commit."
 else
   echo "Translation updates detected. Staging and committing..."
-  git add data/i18n/ko/ web/ko/ web/og/ web/sitemap.xml web/story/ web/daily/ web/weekly/ web/storyline/ web/topic/ web/foundations/
+  git add data/i18n/ web/ko/ web/og/ web/sitemap.xml web/story/ web/daily/ web/weekly/ web/storyline/ web/topic/ web/foundations/
   git commit -m "chore(data): refresh Korean feed snapshots, static pages, and OG cards"
   
   echo "Syncing with remote main (pull with rebase) and pushing..."

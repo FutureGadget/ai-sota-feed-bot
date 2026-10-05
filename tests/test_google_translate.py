@@ -344,3 +344,43 @@ class TestTranslateTexts(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestPayloadEfficiency(unittest.TestCase):
+    def setUp(self):
+        gt._glossary_cache = None
+
+    def test_quotes_are_not_escaped_but_markup_chars_are(self):
+        self.assertEqual(gt.prepare_payload("It's a \"test\" & <b>"), "It's a \"test\" &amp; &lt;b&gt;")
+
+    def test_non_letter_strings_skip_the_api(self):
+        self.assertFalse(gt.needs_translation("2026-10-04 12%"))
+        self.assertFalse(gt.needs_translation("  "))
+        self.assertTrue(gt.needs_translation("Hello"))
+
+    def test_duplicates_and_non_letters_are_not_sent_but_results_keep_order(self):
+        sent: list[list[str]] = []
+
+        def fake_call(texts, target, source, key):
+            sent.append(list(texts))
+            return [f"KO({t})" for t in texts]
+
+        with patch.object(gt, "_call_api", side_effect=fake_call):
+            stats: dict = {}
+            out = gt.translate_texts(["Hello", "2026", "Hello", "World", ""], "ko", api_key="k", stats=stats)
+
+        self.assertEqual(sent, [["Hello", "World"]])
+        self.assertEqual(out, ["KO(Hello)", "2026", "KO(Hello)", "KO(World)", ""])
+        self.assertEqual(stats["chars_sent"], 10)
+
+    def test_estimate_matches_what_is_sent(self):
+        texts = ["Hello", "Hello", "99", "Don't & stop"]
+        sent: list[int] = []
+
+        def fake_call(batch, target, source, key):
+            sent.append(sum(len(t) for t in batch))
+            return list(batch)
+
+        with patch.object(gt, "_call_api", side_effect=fake_call):
+            gt.translate_texts(texts, "ko", api_key="k")
+        self.assertEqual(gt.estimate_billed_chars(texts), sum(sent))

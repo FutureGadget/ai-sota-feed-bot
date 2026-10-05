@@ -30,6 +30,8 @@ GLOSSARY_PATH = ROOT / "config" / "glossary.yaml"
 _NT_OPEN = '<span class="notranslate">'
 _NT_CLOSE = "</span>"
 
+_LETTER_RE = re.compile(r"[A-Za-z]")
+
 # Max chars per API request (v2 limit is ~100K; stay well under)
 _BATCH_CHAR_LIMIT = 50_000
 _BATCH_ITEM_LIMIT = 128
@@ -48,6 +50,33 @@ class QuotaExceededError(ConnectionError):
     def __init__(self, message: str, reason: str = "quota_exceeded"):
         super().__init__(message)
         self.reason = reason
+
+
+class SpendLimitError(QuotaExceededError):
+    """Raised by the local spend guard before a request is sent.
+
+    Subclasses QuotaExceededError so existing callers pause exactly as they do
+    for a provider quota, but nothing was sent and nothing was billed.
+    """
+
+
+# Installed by entry points via translation_guard.install_default(); None means
+# unguarded (unit tests, ad hoc imports).
+_spend_guard: Any = None
+
+
+def set_spend_guard(guard: Any) -> None:
+    global _spend_guard
+    _spend_guard = guard
+
+
+def get_spend_guard() -> Any:
+    return _spend_guard
+
+
+def _is_daily_exhaustion(reason: str) -> bool:
+    low = reason.lower()
+    return "daily" in low or low == "quotaexceeded"
 
 
 def _detect_quota_reason(err_body: str) -> str | None:
@@ -183,11 +212,21 @@ def translate_texts(
     if not texts:
         return []
 
-    import html
-
-    # Escape HTML-sensitive characters (e.g. <, >, &) to prevent format:html interpretation issues,
-    # then wrap glossary terms in notranslate spans.
-    protected = [protect_terms(html.escape(t)) for t in texts]
+    # Billing counts every character sent, so send as little as possible:
+    # strings with no letters (numbers, dates, emoji) need no translation, and
+    # identical strings are sent once and fanned back out.
+    unique_payloads: dict[str, int] = {}  # protected payload -> index in `protected`
+    protected: list[str] = []
+    slot_for_text: list[int | None] = []
+    for t in texts:
+        if not needs_translation(t):
+            slot_for_text.append(None)
+            continue
+        payload = prepare_payload(t)
+        if payload not in unique_payloads:
+            unique_payloads[payload] = len(protected)
+            protected.append(payload)
+        slot_for_text.append(unique_payloads[payload])
 
     # Batch to stay under API limits
     results: list[str] = []
@@ -216,8 +255,35 @@ def translate_texts(
         if stats is not None:
             stats["chars_sent"] = stats.get("chars_sent", 0) + batch_chars
 
-    # Unprotect glossary terms from results
-    return [unprotect_terms(t) for t in results]
+    # Unprotect glossary terms, then fan results back out to the input order.
+    translated = [unprotect_terms(t) for t in results]
+    return [texts[i] if slot is None else translated[slot] for i, slot in enumerate(slot_for_text)]
+
+
+def needs_translation(text: str) -> bool:
+    """False for strings with no Latin letters (numbers, dates, emoji, blanks)."""
+    return bool(_LETTER_RE.search(text))
+
+
+def prepare_payload(text: str) -> str:
+    """The exact string sent to the API for ``text``.
+
+    format=html requires escaping &, < and >; quotes are legal in text nodes, so
+    they are left alone (html.escape's default would turn each apostrophe into
+    the six-character &#x27;). Glossary terms are wrapped in notranslate spans.
+    """
+    import html
+
+    return protect_terms(html.escape(text, quote=False))
+
+
+def estimate_billed_chars(texts: list[str]) -> int:
+    """Characters Google will bill for translating ``texts`` (markup included).
+
+    Mirrors ``translate_texts`` exactly: untranslatable strings are skipped,
+    duplicates counted once, markup included. Google bills every code point sent.
+    """
+    return sum(len(p) for p in {prepare_payload(t) for t in texts if needs_translation(t)})
 
 
 def translate_text(
@@ -263,16 +329,27 @@ def _call_api(
 
     max_attempts = 3
     body = None
+    request_chars = sum(len(t) for t in texts)
     for attempt in range(1, max_attempts + 1):
+        # Reserve before sending; every attempt (retries included) is charged.
+        guard = _spend_guard
+        if guard is not None:
+            guard.reserve(request_chars)
         try:
             with urllib.request.urlopen(req, timeout=30) as resp:
                 body = json.loads(resp.read().decode("utf-8"))
                 break
         except urllib.error.HTTPError as exc:
             err_body = exc.read().decode("utf-8", errors="replace")
+            if guard is not None and 400 <= exc.code < 500:
+                # Definitively rejected, so not billed. 5xx stays charged (ambiguous).
+                guard.refund(request_chars)
             if exc.code == 403:
                 quota_reason = _detect_quota_reason(err_body)
                 if quota_reason:
+                    if guard is not None and _is_daily_exhaustion(quota_reason):
+                        # Google disagrees with our ledger: fail closed for the day.
+                        guard.trip_day()
                     raise QuotaExceededError(
                         f"Google Translate API quota exceeded (HTTP 403, reason={quota_reason}): {err_body}",
                         reason=quota_reason,
@@ -337,6 +414,7 @@ def translate_fields(
     source_lang: str = "en",
     *,
     api_key: str | None = None,
+    stats: dict | None = None,
 ) -> dict[str, Any]:
     """Translate specific fields in a dict, returning a new dict with translations.
 
@@ -358,7 +436,7 @@ def translate_fields(
 
     # 2. Batch translate all collected strings
     texts = [v for _, v in entries]
-    translated = translate_texts(texts, target, source_lang, api_key=api_key)
+    translated = translate_texts(texts, target, source_lang, api_key=api_key, stats=stats)
 
     # 3. Build the result dict by placing translated values at their addresses
     result: dict[str, Any] = {}

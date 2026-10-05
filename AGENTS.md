@@ -140,6 +140,10 @@ in `ops_daily_summary.py`'s log line.
   - `build_skill_lab.py` - validates Agent Skill Lab protocol/result records,
     binds sources to index rows with SHA-256, and replaces the derived
     `data/playbook/lab/{index,latest}.json` files after full validation
+  - `translation_guard.py` - fail-closed spend guard in front of every Google
+    Translate request (reserve-before-send ledger `data/i18n/spend_guard.json`,
+    16,000/day and 500,000/month, paced); see
+    `docs/how-to/translation-budget-and-quota.md`
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
   - `north_star_metric.py` — weekly returning readers rollup (the one metric;
     PostHog `page_view` → `data/metrics/weekly_returning_readers.json`)

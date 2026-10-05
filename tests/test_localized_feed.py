@@ -436,10 +436,14 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
         self._env_patch = patch.dict(os.environ, {
             "GOOGLE_TRANSLATE_API_KEY": "test-key",
             "GOOGLE_TRANSLATE_MONTHLY_CHAR_CAP": "1000000",
+            # main() installs the real spend guard (data/i18n/spend_guard.json);
+            # these tests mock the translation call and must not touch it.
+            "GOOGLE_TRANSLATE_GUARD": "0",
         }, clear=False)
         self._env_patch.start()
 
     def tearDown(self) -> None:
+        gt.set_spend_guard(None)
         self._clock_patch.stop()
         self._root_patch.stop()
         self._env_patch.stop()

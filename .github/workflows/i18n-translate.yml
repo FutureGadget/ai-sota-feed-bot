@@ -24,7 +24,9 @@ on:
         type: string
 
 concurrency:
-  group: i18n-translate
+  # Same group as feed-full-publish: both spend from one translation budget, and
+  # the spend ledgers only stay exact when the two jobs never run side by side.
+  group: feed-pipeline
   cancel-in-progress: false
 
 permissions:
@@ -86,11 +88,16 @@ jobs:
             $SURFACE_ARG \
             $DAYS_ARG
 
+      # Always render and commit, even when some candidates failed: the API bills
+      # every successful call, so discarding finished translations (and the spend
+      # ledger) made the next run pay for the same pages again.
       - name: Render static pages
+        if: ${{ !cancelled() }}
         run: |
           .venv/bin/python pipeline/render_static_pages.py
 
       - name: Commit and push
+        if: ${{ !cancelled() }}
         env:
           INPUT_LOCALE: ${{ inputs.locale || 'ko' }}
         run: |

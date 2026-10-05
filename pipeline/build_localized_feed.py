@@ -15,8 +15,10 @@ from zoneinfo import ZoneInfo
 
 try:
     from . import google_translate
+    from . import translation_guard
 except ImportError:
     import google_translate
+    import translation_guard
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -24,7 +26,11 @@ ROOT = Path(__file__).resolve().parent.parent
 # Budget governor constants
 # ---------------------------------------------------------------------------
 
-DEFAULT_MONTHLY_CAP = 500_000
+# Google's free tier is 500,000 characters/month per billing account, shared by
+# the live feed and the static-page translator (scripts/translate.py, which
+# keeps its own 100,000 allowance). 400,000 + 100,000 = the whole free tier; the
+# fail-closed spend guard (translation_guard.py) is the exact hard stop.
+DEFAULT_MONTHLY_CAP = 400_000
 DEFAULT_CONSERVE_MIN_AGE_HOURS = 6.0
 PAUSE_FLOOR_FRACTION = 0.02
 ECONOMY_OVER_PACE = 0.15
@@ -506,6 +512,9 @@ def main():
             to_translate.append((it, False))  # (item, is_target)
 
     api_key = google_translate.get_api_key()
+    if to_translate and api_key:
+        # Hard, fail-closed spend ceiling in front of every API request.
+        translation_guard.install_default()
     if to_translate and not api_key:
         print("GOOGLE_TRANSLATE_API_KEY not set — skipping translation.", file=sys.stderr)
         status = {
@@ -546,7 +555,7 @@ def main():
             monthly_cap_val = max(1, int(ledger.get("monthly_cap") or DEFAULT_MONTHLY_CAP))
             chars_used_val = int(ledger.get("chars_used") or 0)
             remaining_fraction = (monthly_cap_val - chars_used_val) / monthly_cap_val
-            if remaining_fraction < PAUSE_FLOOR_FRACTION:
+            if remaining_fraction < PAUSE_FLOOR_FRACTION or exc.reason == "spend_guard_monthly":
                 pause_reason = "monthly_budget"
                 pause_resumes_at = _next_month_start(now).isoformat()
             else:
