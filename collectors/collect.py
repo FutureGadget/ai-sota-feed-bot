@@ -1031,9 +1031,21 @@ def attach_content_excerpts(items: list[dict], sources: list[dict]) -> int:
         print(f"content_fetch_failed error={e}")
         return 0
 
+    strip_by_source = {
+        str(s.get("name", "")).strip(): [re.compile(str(p)) for p in (s.get("content_exclude_regex") or [])]
+        for s in (sources or [])
+        if s.get("fetch_content", False)
+    }
     attached = 0
     for it in targets:
         text = content.get((it.get("url", "") or "").split("#")[0].strip(), "")
+        # Per-source boilerplate (an author bio on every page) would otherwise
+        # hand every post the same topic keywords and defeat relevance_floor.
+        patterns = strip_by_source.get(it.get("source", ""), [])
+        if patterns and text:
+            for pat in patterns:
+                text = pat.sub(" ", text)
+            text = re.sub(r"\s+", " ", text).strip()
         if text:
             it["content_excerpt"] = text
             attached += 1

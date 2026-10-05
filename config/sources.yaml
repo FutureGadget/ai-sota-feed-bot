@@ -261,3 +261,19 @@ sources:
     # the page body the keyword gates see no AI vocabulary at all — "I probed
     # Jev with 10,000 API calls" floors a post about transformer architecture.
     fetch_content: true
+  - name: kun_chen
+    type: rss
+    # Kun Chen (ex-Meta/Microsoft/Atlassian) — "Kun's Field Notes" on Substack.
+    # Practical agentic-engineering notes (AGENTS.md design, agent configs,
+    # language choice for agents, agent org simulations), ~2 posts/month, plus
+    # off-topic posts (Nix setup, TUI demos, career). Owner-requested as a
+    # credible source; see the 2026-10-05 ADR.
+    url: "https://blog.kunchenguid.com/feed"
+    # Substack teasers are one line ("Minimal, practical, and elegant"), so the
+    # keyword gates need the page body, same as archer_hume.
+    fetch_content: true
+    # Every page carries the author bio ("...field notes about frontier agentic
+    # engineering"), which would pass relevance_floor for his Nix/TUI/career
+    # posts too. Strip it from the excerpt before the gates see it.
+    content_exclude_regex:
+      - "(?i)[^.]*field notes (about|on) (frontier )?agentic engineering\\.?"

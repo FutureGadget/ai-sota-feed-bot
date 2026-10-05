@@ -193,3 +193,27 @@ class AttachContentExcerptsTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+    def test_content_exclude_regex_strips_per_source_boilerplate(self) -> None:
+        """An author bio on every page must not hand every post the same keywords."""
+        sources = [
+            {
+                "name": "kun_chen",
+                "fetch_content": True,
+                "content_exclude_regex": ["(?i)[^.]*field notes (about|on) (frontier )?agentic engineering\\.?"],
+            }
+        ]
+        items = [{"source": "kun_chen", "url": "https://blog.kunchenguid.com/p/nix"}]
+        body = (
+            "How I Built a Reproducible Mac Setup with Nix. Former L8 engineer. "
+            "I share practical field notes about frontier agentic engineering. "
+            "What Nix, nix-darwin, and Home Manager do."
+        )
+        with patch(
+            "collectors.collect.build_content_map",
+            return_value={"https://blog.kunchenguid.com/p/nix": body},
+        ):
+            self.assertEqual(attach_content_excerpts(items, sources), 1)
+        self.assertNotIn("agentic", items[0]["content_excerpt"])
+        self.assertIn("nix-darwin", items[0]["content_excerpt"])
+

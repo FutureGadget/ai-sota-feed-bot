@@ -199,6 +199,13 @@ Two asymmetries keep the excerpt from moving anything it shouldn't:
   match; the excerpt is matched whole-word, so "decoder" in the body is not
   evidence of "code". Same failure `relevance_floor` was fixed for.
 
+Page boilerplate can defeat the excerpt in the other direction. Kun Chen's
+Substack prints his bio ("...field notes about frontier agentic engineering")
+on every post, so his Nix and career posts would pass `relevance_floor` on the
+bio alone. A source can list `content_exclude_regex` patterns in
+`config/sources.yaml`; the collector removes matches from the excerpt before
+storing it.
+
 An item with no `content_excerpt` scores exactly as it did before the feature
 existed, so enabling it for one source cannot move another's ranking.
 
