@@ -2115,3 +2115,66 @@ Impact: One new source in `config/sources.yaml`, one slot entry and one
 older ones fall to the `frontier_official` freshness window.
 
 Rollback: Remove `claude_dev_blog` from `sources.yaml` and `ranking.yaml`.
+
+
+## 2026-10-04 - Meter static-page translation and lower the feed cap
+
+Decision: `scripts/translate.py` now estimates billed characters per candidate,
+skips candidates that exceed a separate monthly allowance (100,000, ledger
+`data/i18n/<locale>/feed/static_budget.json`), and records spend after every
+candidate including failed ones. The live-feed default cap drops from 500,000
+to 350,000 (raised to 400,000 below). `i18n-translate.yml` renders and commits with `if: !cancelled()`.
+
+Rationale: Billing was above the 500,000-character free tier although the feed
+ledger read 220-313K per month. The daily static workflow had failed every run
+since July (any failed candidate gives exit 1), so the commit step never ran,
+translations were discarded, and the same ~50-100K characters were re-billed
+daily with no ledger watching. The two jobs share one free tier, so each needs
+its own cap summing under it.
+
+Impact: Static translation stops at 100K characters per month; the backlog of
+untranslated story pages fills slowly. The feed may enter conserve/economy
+mode earlier in the month (Sept usage was 313K).
+
+Rollback: Set `GOOGLE_TRANSLATE_MONTHLY_CHAR_CAP=500000` and a large
+`GOOGLE_TRANSLATE_STATIC_MONTHLY_CHAR_CAP`, and revert the workflow `if:` lines.
+
+
+## 2026-10-04 - Fail-closed translation spend guard (reserve before send)
+
+Decision: Add `pipeline/translation_guard.py`, installed by the two entry points
+that call Google Translate. Each request reserves its characters in
+`data/i18n/spend_guard.json` before sending, and is refused above 16,000/day or
+500,000/month (matching the Console quota and free tier; the count is exact). Timeouts, 5xx and retries stay charged; only 4xx is refunded. A
+corrupt ledger blocks requests, a Google daily-quota 403 trips the day shut, and
+a pacer caps 4,000 characters per minute. `i18n-translate.yml` joins the
+`feed-pipeline` concurrency group.
+
+Rationale: The Console daily quota is enforced with lag, so bursts can overshoot
+it, and lowering it does not remove that. Metering after success also missed
+billed-but-failed requests. Reserving before send under our own ceilings makes
+the repo the authority and the Console quota a second line of defence.
+
+Impact: Feed runs can be paused earlier on busy days (the feed used up to 15.9K
+characters on a Pacific day in September). Static pages translate only on quiet
+days. A guard-stopped feed run reuses the existing `budget_paused` status.
+
+Rollback: `GOOGLE_TRANSLATE_GUARD=0`, or raise the two ceilings.
+
+
+## 2026-10-04 - Send fewer billed characters per translation
+
+Decision: `translate_texts` skips strings with no Latin letters, sends duplicate
+strings once, and escapes only `&`, `<`, `>` (not quotes). The live-feed cap is
+400,000 so feed plus static pages (100,000) add up to the 500,000 free tier.
+
+Rationale: Google bills markup and does not translate tags. The only tags sent
+are the glossary `notranslate` spans (about 15% of a feed batch) and escapes.
+Wrapping stays, since dropping it changes Korean output and cannot be tested
+without a live key. Checked and rejected: a per-string cache (only 37 existing
+items changed in 250 runs) and shrinking the lookahead cache (it only wastes
+about 14% of spend and the API overlay uses it).
+
+Impact: Roughly 1-12% fewer characters on typical batches; no change to output.
+
+Rollback: Revert `prepare_payload` / `needs_translation` in `google_translate.py`.

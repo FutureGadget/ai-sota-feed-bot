@@ -184,6 +184,18 @@ Response fields served from the accumulated ranked pool above:
   a source of truth. See `docs/product-specs/localized-live-feed.md`
   ("Translation Budget Governor") and
   `docs/how-to/translation-budget-and-quota.md`.
+- `data/i18n/<locale>/feed/static_budget.json` — pipeline-only character ledger
+  for static-page translation (`scripts/translate.py`); same shape as
+  `budget.json`, separate allowance (env
+  `GOOGLE_TRANSLATE_STATIC_MONTHLY_CHAR_CAP`, default 100,000). Kept under
+  `feed/` so the static renderer ignores it. Candidates whose estimated billed
+  characters exceed the remaining allowance are skipped.
+
+- `data/i18n/spend_guard.json` — pipeline-only, fail-closed hard spend ledger
+  shared by every Google Translate caller (locale-agnostic because the Console
+  quota is project-wide). Shape: `{month, month_chars, day, day_chars,
+  updated_at, tripped_at?}` on the Pacific clock. Written *before* each API
+  request by `pipeline/translation_guard.py`. Not served or bundled.
 
 ## Agent-engineering wiki (`data/wiki/`)
 LLM-curated obstacle→solution knowledge graph (Karpathy's LLM-wiki pattern).

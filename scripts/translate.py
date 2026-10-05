@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 from datetime import datetime, timezone
@@ -34,14 +35,32 @@ from typing import Any
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "pipeline"))
 
+import build_localized_feed as ledger_lib  # noqa: E402
 import export_i18n_candidates as exporter  # noqa: E402
 import google_translate  # noqa: E402
+import translation_guard  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Constants
 # ---------------------------------------------------------------------------
 DEFAULT_LOCALE = "ko"
 MODEL_NAME = "google-translate-v2"
+
+# Static pages get their own monthly character allowance, separate from the live
+# feed ledger (data/i18n/<locale>/feed/budget.json). Google's free tier is
+# 500,000 chars/month per billing account; feed cap (400,000) + this (100,000)
+# add up to the whole allowance.
+DEFAULT_STATIC_MONTHLY_CAP = 100_000
+
+
+def _static_cap_from_env() -> int:
+    raw = os.environ.get("GOOGLE_TRANSLATE_STATIC_MONTHLY_CHAR_CAP")
+    if not raw:
+        return DEFAULT_STATIC_MONTHLY_CAP
+    try:
+        return max(0, int(raw))
+    except ValueError:
+        return DEFAULT_STATIC_MONTHLY_CAP
 
 
 # ---------------------------------------------------------------------------
@@ -175,6 +194,69 @@ def _rebuild_playbook_i18n_index(locale: str) -> None:
 # Main translation loop
 # ---------------------------------------------------------------------------
 
+# Google Cloud Console "characters per day" quota (v2 and v3 are set separately;
+# the project uses v2). The live feed shares it and has priority: static pages
+# only spend what is left after the feed's usage so far today plus a reserve for
+# the rest of the Pacific day (the quota resets at Pacific midnight).
+DEFAULT_DAILY_QUOTA = 16_000
+DEFAULT_FEED_RESERVE = 6_000
+
+
+def _int_env(name: str, default: int) -> int:
+    raw = os.environ.get(name)
+    if not raw:
+        return default
+    try:
+        return max(0, int(raw))
+    except ValueError:
+        return default
+
+
+def _chars_today(ledger: dict[str, Any], now: datetime) -> int:
+    """Characters recorded in this ledger's history during the current Pacific day."""
+    pacific = ledger_lib.PACIFIC_TZ
+    today = now.astimezone(pacific).date()
+    total = 0
+    for entry in ledger.get("history") or []:
+        try:
+            at = datetime.fromisoformat(str(entry["at"]).replace("Z", "+00:00"))
+            if at.astimezone(pacific).date() == today:
+                total += int(entry.get("chars") or 0)
+        except (KeyError, ValueError, TypeError):
+            continue
+    return total
+
+
+def _daily_headroom(feed_ledger_path: Path, static_ledger: dict[str, Any], now: datetime) -> int:
+    """Characters static translation may still spend today without starving the feed."""
+    feed_ledger = ledger_lib._read_json(feed_ledger_path) or {}
+    quota = _int_env("GOOGLE_TRANSLATE_DAILY_CHAR_QUOTA", DEFAULT_DAILY_QUOTA)
+    reserve = _int_env("GOOGLE_TRANSLATE_STATIC_FEED_RESERVE", DEFAULT_FEED_RESERVE)
+    used = _chars_today(feed_ledger, now) + _chars_today(static_ledger, now)
+    return quota - reserve - used
+
+
+def _estimate_candidate_chars(candidate: dict[str, Any]) -> int:
+    """Billed characters for one candidate (same fields translate_fields sends)."""
+    entries: list[tuple[list[Any], str]] = []
+    for path in candidate["contract"]["translated_fields"]:
+        google_translate._collect_strings(
+            candidate["source"], google_translate._parse_path(path), [], entries
+        )
+    return google_translate.estimate_billed_chars([v for _, v in entries])
+
+
+def _record_spend(
+    ledger_path: Path, ledger: dict[str, Any], stats: dict[str, int], run_id: str
+) -> None:
+    chars = int(stats.get("chars_sent", 0))
+    if chars <= 0:
+        return
+    now = datetime.now(timezone.utc)
+    ledger_lib.record_usage(ledger, chars, run_id, now)
+    ledger_lib.save_ledger(ledger_path, ledger, now)
+
+
 def translate_candidates(
     *,
     locale: str,
@@ -219,6 +301,20 @@ def translate_candidates(
 
     successes = 0
     failures = 0
+    budget_skipped = 0
+
+    # Character budget: every candidate is estimated before the API call and
+    # skipped when it would push the month past the cap. Spend is persisted after
+    # each candidate so a crash or cancelled run never loses metering.
+    now = datetime.now(timezone.utc)
+    ledger_path = ROOT / "data" / "i18n" / locale / "feed" / "static_budget.json"
+    ledger = ledger_lib.load_ledger(ledger_path, _static_cap_from_env(), now)
+    feed_ledger_path = ROOT / "data" / "i18n" / locale / "feed" / "budget.json"
+    run_id = now.strftime("%Y%m%d-%H%M%S") + "-static"
+    print(
+        f"translate_static_budget chars_used={ledger['chars_used']} "
+        f"cap={ledger['monthly_cap']} month={ledger['month']}"
+    )
 
     for i, candidate in enumerate(items, 1):
         surface = candidate["surface"]
@@ -235,14 +331,35 @@ def translate_candidates(
             failures += 1
             continue
 
+        # Budget pre-flight: estimate billed characters for this candidate.
+        estimate = _estimate_candidate_chars(candidate)
+        remaining = int(ledger["monthly_cap"]) - int(ledger["chars_used"])
+        if estimate > remaining:
+            print(
+                f"  SKIP: budget (needs ~{estimate} chars, {max(remaining, 0)} left "
+                f"of {ledger['monthly_cap']} this month)"
+            )
+            budget_skipped += 1
+            continue
+        headroom = _daily_headroom(feed_ledger_path, ledger, datetime.now(timezone.utc))
+        if estimate > headroom:
+            print(
+                f"  SKIP: daily quota (needs ~{estimate} chars, {max(headroom, 0)} "
+                "left after the feed's share today)"
+            )
+            budget_skipped += 1
+            continue
+
         # Call Google Cloud Translation API
         print(f"  Translating via {MODEL_NAME}...", end="", flush=True)
         start = time.monotonic()
+        stats: dict[str, int] = {}
         try:
             translated = google_translate.translate_fields(
                 candidate["source"],
                 contract["translated_fields"],
                 locale,
+                stats=stats,
             )
             elapsed = time.monotonic() - start
             print(f" done ({elapsed:.1f}s)")
@@ -251,7 +368,14 @@ def translate_candidates(
             print(f" FAILED ({elapsed:.1f}s)")
             print(f"  Error: {exc}", file=sys.stderr)
             failures += 1
+            # Batches that succeeded before the failure were still billed.
+            _record_spend(ledger_path, ledger, stats, run_id)
+            if isinstance(exc, google_translate.QuotaExceededError):
+                # Spend guard or provider quota: every later candidate would fail too.
+                print("  STOP: quota exhausted, not trying remaining candidates")
+                break
             continue
+        _record_spend(ledger_path, ledger, stats, run_id)
 
         warnings = _validate_translation(translated, contract, surface)
         for w in warnings:
@@ -268,7 +392,14 @@ def translate_candidates(
         successes += 1
 
     print(f"\n{'='*50}")
-    print(f"Done: {successes} translated, {failures} failed, {len(items)} total")
+    print(
+        f"Done: {successes} translated, {failures} failed, "
+        f"{budget_skipped} skipped (budget), {len(items)} total"
+    )
+    print(
+        f"translate_static_budget_done chars_used={ledger['chars_used']} "
+        f"cap={ledger['monthly_cap']} month={ledger['month']}"
+    )
 
     if successes > 0 and not dry_run:
         _rebuild_playbook_i18n_index(locale)
@@ -329,6 +460,9 @@ def main() -> int:
         return 1
 
     args = parse_args()
+    if not args.dry_run:
+        # Hard, fail-closed spend ceiling in front of every API request.
+        translation_guard.install_default()
     return translate_candidates(
         locale=args.locale,
         surfaces=set(args.surface or []) or None,

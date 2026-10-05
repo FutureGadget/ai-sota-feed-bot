@@ -11,6 +11,40 @@ The governor paces `/ko/` translation spend against
 ledger's starting count right — and setting the console daily cap — is the
 one owner action this feature needs; everything else runs unattended.
 
+## 0. The free tier and what shares it
+
+Cloud Translation Basic (v2) is free for the **first 500,000 characters per
+month per billing account** (applied as a $10 credit), then $20 per 1M
+characters. Billing counts every code point sent, including HTML markup and
+whitespace, so the glossary `<span class="notranslate">` wrappers and
+`&amp;` escapes count. Two jobs share that one allowance:
+
+| Job | Ledger | Default cap |
+|---|---|---|
+| Live feed (`build_localized_feed.py`, hourly) | `feed/budget.json` | 400,000 (`GOOGLE_TRANSLATE_MONTHLY_CHAR_CAP`) |
+| Static pages (`scripts/translate.py`, daily workflow + local script) | `feed/static_budget.json` | 100,000 (`GOOGLE_TRANSLATE_STATIC_MONTHLY_CHAR_CAP`) |
+
+The two caps sum to the whole free tier. The spend guard (section 4b) is the
+exact hard stop, and it charges ambiguous requests (timeouts, retries), so no
+safety margin is needed for those.
+
+## 0b. What is sent (and why tags still cost)
+
+Google bills every character in the request, including HTML markup, and does not
+translate tags. The only markup we send is our own: glossary terms wrapped in
+`<span class="notranslate">` (33 characters per term, about 15% of a typical
+feed batch) and `&`, `<`, `>` escaping. To keep the bill down, `translate_texts`:
+
+- skips strings with no Latin letters (numbers, dates, emoji, blanks);
+- sends identical strings once and fans the result back out;
+- escapes only `&`, `<`, `>` (apostrophes and quotes stay one character).
+
+`estimate_billed_chars` mirrors this exactly, so budget estimates match the bill.
+
+The 2026-10 incident: the static workflow exited non-zero on any failed
+candidate, so its commit step never ran and every translation was discarded.
+The same pages were re-translated and re-billed each day, outside any ledger.
+
 ## 1. Seed the ledger from Cloud Console (mid-month, one-off)
 
 Do this once, the first time the governor goes live mid-month, so the ledger
@@ -87,6 +121,64 @@ including how a simultaneous monthly-floor pause takes precedence.
 | `GOOGLE_TRANSLATE_MONTHLY_CHAR_CAP` | — | The ledger's `monthly_cap`. Set this to match (or sit slightly under) the actual monthly quota/budget you want the governor to pace against. Pattern matches the existing `LOCALIZED_FEED_ENABLED` env toggle in `run_full.sh`. |
 | `LOCALIZED_FEED_CONSERVE_MIN_AGE_HOURS` | `6` | In `conserve` mode, skip translating this run if the existing snapshot is younger than this many hours. The 24-hour freshness contract keeps `/ko/` "current" regardless of the skip. |
 | `LOCALIZED_FEED_BUDGET_GOVERNOR` | on | Set to `0` to force `normal` mode unconditionally — the kill switch. Metering still records spend into the ledger; only the degradation ladder is bypassed. Use this to roll back the whole feature without touching code. |
+
+## 4b. The spend guard (the actual hard stop)
+
+Google's quota enforcement lags, so a burst can overshoot it. The authority is
+`pipeline/translation_guard.py`, installed by `build_localized_feed.py` and
+`scripts/translate.py` in front of every API request:
+
+- **Reserve before send.** Characters are written to
+  `data/i18n/spend_guard.json` (day and month counters on the Pacific clock)
+  before the request leaves; over the ceiling raises `SpendLimitError`
+  and nothing is sent.
+- **Ceilings match Google's limits:** 16,000/day (the Console quota) and
+  500,000/month (the free tier). The count is exact: Python `len()` counts code
+  points, which is what Google bills. 16,000 x 31 days is 496,000, so the daily
+  limit binds first; raise the Console quota to 16,129 to reach 500,000 in a
+  31-day month. After a few days compare `month_chars` to Console usage.
+- **Ambiguous outcomes stay charged.** Timeouts, connection errors, 5xx and each
+  retry count as spent; only HTTP 4xx rejections are refunded.
+- **Fail closed.** A corrupt ledger blocks requests. If Google reports the daily
+  quota exhausted, the guard trips the day shut regardless of its own count.
+- **Paced.** At most 4,000 characters per minute leave the process (a single
+  larger request passes when the window is empty).
+- **Serialized.** `i18n-translate.yml` shares the `feed-pipeline` concurrency
+  group, so the feed and static jobs never run side by side and the committed
+  ledger is exact.
+
+| Var | Default | Effect |
+|---|---|---|
+| `GOOGLE_TRANSLATE_HARD_DAILY_CHARS` | 16000 | Daily ceiling |
+| `GOOGLE_TRANSLATE_HARD_MONTHLY_CHARS` | 500000 | Monthly ceiling |
+| `GOOGLE_TRANSLATE_MAX_CHARS_PER_MINUTE` | 4000 | Pacer; 0 disables |
+| `GOOGLE_TRANSLATE_GUARD_PATH` | `data/i18n/spend_guard.json` | Ledger location |
+| `GOOGLE_TRANSLATE_GUARD` | 1 | `0` disables the guard (kill switch) |
+
+Mid-month rollout: the ledger starts at zero. Seed it from Console usage by
+setting `month` (`YYYY-MM`) and `month_chars` in the file. A feed run stopped by
+the guard writes `budget_paused` (`monthly_budget` or `provider_daily_cap`).
+
+## 5. Hard stops that do not depend on this repo
+
+Local ledgers only see our own runs. Set both of these in Cloud Console:
+
+- **APIs & Services -> Cloud Translation API -> Quotas**: "Characters per day"
+  to ~16,000 (500,000 / 31) for both v2 and v3 general models (done
+  2026-10-04). Google then returns 403 instead of billing.
+  The project only calls v2; v3 is set as a precaution.
+
+  The live feed uses 3-16K characters per Pacific day, so it nearly fills this
+  quota on busy days. Static-page translation therefore yields to it: before
+  each page it computes `16000 - 6000 reserve - feed chars today - static
+  chars today` (Pacific day, from the ledger histories) and skips the page if
+  it does not fit. Tune with `GOOGLE_TRANSLATE_DAILY_CHAR_QUOTA` and
+  `GOOGLE_TRANSLATE_STATIC_FEED_RESERVE`. Static pages are 3-13K characters
+  each, so expect them to translate only on quiet days. If the quota is
+  raised, raise the env var to match.
+- **Billing -> Budgets & alerts**: a budget of $1 with alerts at 50% and 100%.
+  Budgets alert, they do not stop spend; the quota above is what stops it.
+- Restrict the API key to the Cloud Translation API only.
 
 ## Troubleshooting
 
