@@ -3503,6 +3503,70 @@ WIKI_PAGE_CSS = """\
     .topic-prose p:last-child { margin-bottom:0; }
     .topic-prose strong { font-weight:650; }
     .topic-evidence .topic-rail { color:var(--muted); }
+    .topic-evidence details > summary, .topic-more > summary { cursor:pointer;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; letter-spacing:.04em;
+      color:var(--accent); padding:.3rem 0; }
+    .topic-evidence details[open] > summary { margin-bottom:.7rem; }
+
+    /* Latest updates (topic) + Recently filed (map): a dated ledger. */
+    .wiki-latest { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .wiki-latest li { display:grid; grid-template-columns:6.6rem minmax(0,1fr); gap:.8rem;
+      font-size:.94rem; line-height:1.4; }
+    .wiki-latest time { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
+      color:var(--muted); padding-top:.18rem; white-space:nowrap; }
+    .wiki-latest a { text-decoration:none; font-weight:600; }
+    .wiki-latest a:hover { text-decoration:underline; }
+    .wiki-latest .latest-topic { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; color:var(--warm); margin:0 0 .1rem; }
+
+    /* Developments: entries grouped by theme. */
+    .topic-developments { margin:2.6rem 0 0; scroll-margin-top:5rem; }
+    .topic-dev-title { margin:0 0 .7rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.7rem; letter-spacing:-.03em; line-height:1.05; }
+    .topic-dev-title span { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.8rem;
+      color:var(--muted); letter-spacing:0; margin-left:.3rem; vertical-align:middle; }
+    .topic-theme-nav ul { margin:0; padding:0 0 1rem; list-style:none; display:flex; flex-wrap:wrap; gap:.45rem; }
+    .topic-theme-nav a { display:inline-flex; align-items:center; gap:.45rem; padding:.36rem .6rem;
+      border:1px solid var(--border); font-size:.84rem; text-decoration:none; color:var(--fg); }
+    .topic-theme-nav a:hover { border-color:var(--accent); color:var(--accent); }
+    .topic-theme-nav .count { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; color:var(--muted); }
+    .topic-theme { margin:1.4rem 0 0; scroll-margin-top:5rem; }
+    .topic-theme-head { padding:0 0 .5rem; border-bottom:2px solid var(--fg); }
+    .topic-theme-head h3 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.3rem; line-height:1.15; }
+    .topic-theme-meta { display:block; margin:.2rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+    .topic-theme-head p { margin:.45rem 0 0; max-width:44rem; font-size:.95rem; line-height:1.55; color:var(--muted); }
+    .wiki-entry { margin:0; padding:1.05rem 0 1.1rem; border:0; border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; box-shadow:none; scroll-margin-top:5rem; max-width:46rem; }
+    .wiki-entry:target { background:var(--brief-wash); box-shadow:-.8rem 0 0 var(--brief-wash), .8rem 0 0 var(--brief-wash); }
+    .entry-meta { margin:0 0 .25rem; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem;
+      color:var(--muted); letter-spacing:.03em; }
+    .entry-meta .sep { color:var(--border); margin:0 .4rem; }
+    .entry-title { margin:0 0 .45rem; font-size:1.05rem; line-height:1.35; font-weight:650; }
+    .entry-title a { color:inherit; text-decoration:none; }
+    .entry-title a:hover { color:var(--accent); }
+    .entry-body p { margin:0 0 .6rem; font-size:.96rem; line-height:1.6; }
+    .entry-body ul { margin:0 0 .6rem; padding-left:1.2rem; font-size:.96rem; line-height:1.55; }
+    .entry-body > :last-child { margin-bottom:0; }
+    .entry-sources { margin:.55rem 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.25rem; }
+    .entry-sources li { position:relative; padding-left:1.1rem; font-size:.84rem; line-height:1.4; }
+    .entry-sources li::before { content:"↗"; position:absolute; left:0; top:0; color:var(--muted); }
+    .entry-sources a { text-decoration:none; color:var(--muted); }
+    .entry-sources a:hover { color:var(--accent); text-decoration:underline; }
+    .entry-also { margin:.45rem 0 0; font-size:.8rem; color:var(--muted); }
+    .topic-more, .topic-evidence details { margin:.2rem 0 0; padding:0; border:0; border-radius:0;
+      background:transparent; }
+    .topic-more > summary { padding:.8rem 0; }
+
+    /* /map additions */
+    .map-row-meta { margin:.45rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; letter-spacing:.04em; color:var(--muted); }
+    .map-recent { margin:2rem 0 0; padding:1.1rem 1.2rem; border-left:2px solid var(--warm);
+      background:var(--brief-wash); }
+    .map-recent h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.35rem; line-height:1.1; }
+    .map-recent-lede { margin:.3rem 0 .9rem; font-size:.86rem; color:var(--muted); }
     .evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.55rem; }
     .evidence-list li { font-size:.92rem; line-height:1.45; }
     .evidence-list .ev-story a { font-weight:600; text-decoration:none; }
@@ -3597,6 +3661,8 @@ WIKI_PAGE_CSS = """\
         padding:1.1rem 0 1rem; }
       .map-solutions { padding:1rem 0 1.2rem; }
       .topic-section { grid-template-columns:1fr; gap:.5rem; }
+      .wiki-latest li { grid-template-columns:1fr; gap:.1rem; }
+      .map-recent { padding:1rem .9rem; }
       .ku-stage { height:clamp(380px,58vh,520px); }
       .ku-legend { margin-left:0; }
       .ku-panel { top:auto; left:.6rem; right:.6rem; bottom:.6rem; width:auto; max-height:64%; }
@@ -3612,6 +3678,16 @@ def _slugify_area(area: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", str(area or "").lower()).strip("-") or "area"
 
 
+def wiki_short_date(value) -> str:
+    """'2026-10-05' -> 'Oct 5, 2026' (falls back to the raw string)."""
+    raw = str(value or "")[:10]
+    try:
+        d = datetime.strptime(raw, "%Y-%m-%d")
+    except ValueError:
+        return raw
+    return f"{d.strftime('%b')} {d.day}, {d.year}"
+
+
 def wiki_topic_hero(node: dict) -> str:
     """Status readout + title for a /topic node (passed as title_html)."""
     kind = node.get("kind", "")
@@ -3620,6 +3696,9 @@ def wiki_topic_hero(node: dict) -> str:
         bits.append(escape(str(node["area"])))
     if node.get("status"):
         bits.append(escape(str(node["status"])))
+    n_entries = int(node.get("entry_count") or len(node.get("entries") or []))
+    if n_entries:
+        bits.append(f"{n_entries} entr{'y' if n_entries == 1 else 'ies'}")
     ev = node.get("evidence") or []
     if ev:
         bits.append(f"{len(ev)} source{'' if len(ev) == 1 else 's'}")
@@ -3638,9 +3717,88 @@ def wiki_topic_hero(node: dict) -> str:
     )
 
 
+# Entries shown per theme before the rest collapse behind "Show N earlier".
+WIKI_THEME_VISIBLE = 3
+# Entries in a topic page's "Latest updates" list.
+WIKI_LATEST_ON_TOPIC = 5
+# Entries in /map's cross-wiki "Recently filed" list.
+WIKI_LATEST_ON_MAP = 10
+
+# Opens the collapsed theme group that holds a #entry anchor, so links from
+# "Latest updates" (and shared deep links) land on a visible entry.
+WIKI_ENTRY_ANCHOR_JS = """<script>
+(function () {
+  function reveal() {
+    var id = decodeURIComponent((location.hash || '').slice(1));
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    for (var d = el.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) d.open = true;
+    el.scrollIntoView();
+  }
+  window.addEventListener('hashchange', reveal);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', reveal);
+  else reveal();
+})();
+</script>"""
+
+
+def wiki_entry_html(entry: dict, nodes: dict) -> str:
+    """One dated, source-backed entry card (anchor = entry id)."""
+    eid = escape(str(entry.get("id") or ""))
+    sources = entry.get("evidence") or []
+    n = len(sources)
+    meta = (
+        f'<time datetime="{escape(str(entry.get("date") or ""))}">'
+        f'{escape(wiki_short_date(entry.get("date")))}</time>'
+        f'<span class="sep">·</span>{n} source{"" if n == 1 else "s"}'
+    )
+    src_items = "".join(
+        f'<li><a href="/story/{escape(ev["sid"])}">{escape(squeeze(ev.get("title")) or ev["sid"])}</a></li>'
+        for ev in sources
+        if ev.get("sid")
+    )
+    also = [a for a in (entry.get("also") or []) if a.get("slug") in nodes]
+    also_html = ""
+    if also:
+        links = ", ".join(
+            f'<a href="/topic/{escape(a["slug"])}">{escape(squeeze(a.get("title")) or a["slug"])}</a>'
+            for a in also
+        )
+        also_html = f'<p class="entry-also">Also relevant to {links}</p>'
+    return (
+        f'<article class="wiki-entry" id="{eid}">'
+        f'<p class="entry-meta">{meta}</p>'
+        f'<h4 class="entry-title"><a href="#{eid}">{escape(squeeze(entry.get("title")))}</a></h4>'
+        f'<div class="entry-body">{entry.get("html") or ""}</div>'
+        + (f'<ul class="entry-sources">{src_items}</ul>' if src_items else "")
+        + also_html
+        + "</article>"
+    )
+
+
+def wiki_latest_list(rows: list[dict], *, with_topic: bool) -> str:
+    """Compact dated list of entries -> /topic/<slug>#<id>."""
+    items = []
+    for e in rows:
+        href = f'/topic/{escape(str(e.get("topic") or ""))}#{escape(str(e.get("id") or ""))}'
+        topic = (
+            f'<span class="latest-topic">{escape(squeeze(e.get("topic_title")) or str(e.get("topic") or ""))}</span>'
+            if with_topic
+            else ""
+        )
+        items.append(
+            f'<li><time datetime="{escape(str(e.get("date") or ""))}">'
+            f'{escape(wiki_short_date(e.get("date")))}</time>'
+            f'<span class="latest-main">{topic}<a href="{href}">{escape(squeeze(e.get("title")))}</a></span></li>'
+        )
+    return f'<ol class="wiki-latest">{"".join(items)}</ol>'
+
+
 def render_topic_body(node: dict, nodes: dict) -> str:
     """Body for a single /topic/<slug> node: TL;DR lead, graph cross-links,
-    synthesized sections (left-rail dossier), and a source ledger."""
+    latest updates, the bounded overview (left-rail dossier), developments
+    grouped by theme, and a collapsed source ledger."""
     parts: list[str] = []
 
     # Pull the TL;DR out as the lead; the rest become dossier sections.
@@ -3689,6 +3847,19 @@ def render_topic_body(node: dict, nodes: dict) -> str:
     if xgroups:
         parts.append(f'<aside class="topic-xlinks">{"".join(xgroups)}</aside>')
 
+    entries = [e for e in (node.get("entries") or []) if e.get("id")]
+    themes = [t for t in (node.get("themes") or []) if t.get("key")]
+
+    # What changed lately: derived from entry dates, never hand-written.
+    if entries:
+        latest = [dict(e, topic=node.get("slug")) for e in entries[:WIKI_LATEST_ON_TOPIC]]
+        parts.append(
+            '<section class="topic-section topic-latest">'
+            '<div class="topic-rail">Latest updates</div>'
+            f'<div class="topic-prose">{wiki_latest_list(latest, with_topic=False)}</div>'
+            "</section>"
+        )
+
     # Synthesized state, as a left-rail dossier (label left, prose right).
     for heading, html in body_sections:
         parts.append(
@@ -3698,20 +3869,80 @@ def render_topic_body(node: dict, nodes: dict) -> str:
             "</section>"
         )
 
-    # Source ledger: evidence sids resolve to durable /story permalinks.
+    # Developments: one dated card per entry, grouped by theme, newest first.
+    if entries:
+        known = {t["key"] for t in themes}
+        groups = [(t, [e for e in entries if e.get("theme") == t["key"]]) for t in themes]
+        stray = [e for e in entries if e.get("theme") not in known]
+        if stray:
+            groups.append(({"key": "other", "title": "Other developments", "summary": ""}, stray))
+        groups = [(t, es) for t, es in groups if es]
+        nav = "".join(
+            f'<li><a href="#theme-{escape(t["key"])}">{escape(squeeze(t.get("title")) or t["key"])}'
+            f'<span class="count">{len(es)}</span></a></li>'
+            for t, es in groups
+        )
+        blocks = []
+        for t, es in groups:
+            shown = "".join(wiki_entry_html(e, nodes) for e in es[:WIKI_THEME_VISIBLE])
+            rest = es[WIKI_THEME_VISIBLE:]
+            more = ""
+            if rest:
+                more = (
+                    '<details class="topic-more">'
+                    f"<summary>Show {len(rest)} earlier entr{'y' if len(rest) == 1 else 'ies'}</summary>"
+                    + "".join(wiki_entry_html(e, nodes) for e in rest)
+                    + "</details>"
+                )
+            summary = squeeze(t.get("summary"))
+            blocks.append(
+                f'<section class="topic-theme" id="theme-{escape(t["key"])}">'
+                '<header class="topic-theme-head">'
+                f'<h3>{escape(squeeze(t.get("title")) or t["key"])}</h3>'
+                f'<span class="topic-theme-meta">{len(es)} entr{"y" if len(es) == 1 else "ies"}'
+                f' · latest {escape(wiki_short_date(es[0].get("date")))}</span>'
+                + (f"<p>{escape(summary)}</p>" if summary else "")
+                + "</header>"
+                f"{shown}{more}</section>"
+            )
+        parts.append(
+            '<section class="topic-developments" id="developments">'
+            f'<h2 class="topic-dev-title">Developments <span>{len(entries)}</span></h2>'
+            f'<nav class="topic-theme-nav" aria-label="Themes"><ul>{nav}</ul></nav>'
+            + "".join(blocks)
+            + "</section>"
+        )
+
+    # Entries filed under neighbouring topics that list this one in `also`.
+    cross = [e for e in (node.get("cross_entries") or []) if e.get("topic") in nodes]
+    if cross:
+        parts.append(
+            '<section class="topic-section topic-cross">'
+            '<div class="topic-rail">From related topics</div>'
+            f'<div class="topic-prose">{wiki_latest_list(cross[:12], with_topic=True)}</div>'
+            "</section>"
+        )
+
+    # Source ledger: every evidence sid resolves to a durable /story permalink.
     evidence = node.get("evidence") or []
     if evidence:
         items = "".join(
             f'<li class="ev-story"><a href="/story/{escape(ev["sid"])}">{escape(squeeze(ev["title"]))}</a></li>'
             for ev in evidence
         )
+        label = f'Evidence · {len(evidence)} source{"" if len(evidence) == 1 else "s"}'
+        ledger = f'<ul class="evidence-list">{items}</ul>'
+        if entries:  # the entries already show their sources inline
+            ledger = f"<details><summary>All sources behind this page</summary>{ledger}</details>"
         parts.append(
             '<section class="topic-section topic-evidence">'
-            f'<div class="topic-rail">Evidence · {len(evidence)} source{"" if len(evidence) == 1 else "s"}</div>'
-            f'<ul class="evidence-list">{items}</ul>'
+            f'<div class="topic-rail">{label}</div>'
+            f'<div class="topic-prose">{ledger}</div>'
             "</section>"
         )
 
+    if entries:
+        parts.append(WIKI_ENTRY_ANCHOR_JS)
     return f'<div class="topic">{chr(10).join(parts)}</div>'
 
 
@@ -3835,6 +4066,17 @@ def wiki_universe_section(wiki: dict) -> str:
     )
 
 
+def wiki_map_row_meta(node: dict) -> str:
+    """'12 entries · updated Oct 5, 2026' under an obstacle on /map."""
+    n = int(node.get("entry_count") or 0)
+    bits = []
+    if n:
+        bits.append(f"{n} entr{'y' if n == 1 else 'ies'}")
+    if node.get("updated"):
+        bits.append(f"updated {escape(wiki_short_date(node.get('updated')))}")
+    return f'<p class="map-row-meta">{" · ".join(bits)}</p>' if bits else ""
+
+
 def wiki_map_body(wiki: dict) -> str | None:
     """Build the /map body: the knowledge-universe orbit view (progressive
     enhancement), then an obstacle → solution adjacency map (areas group
@@ -3868,7 +4110,8 @@ def wiki_map_body(wiki: dict) -> str | None:
                 '<article class="map-row">'
                 '<div class="map-obstacle"><span class="map-tag">Obstacle</span>'
                 f'<h3><a href="/topic/{escape(slug)}">{escape(squeeze(node.get("title")) or slug)}</a></h3>'
-                f'<p class="map-summary">{escape(clip(squeeze(node.get("summary")), 180))}</p></div>'
+                f'<p class="map-summary">{escape(clip(squeeze(node.get("summary")), 180))}</p>'
+                f"{wiki_map_row_meta(node)}</div>"
                 '<div class="map-solutions"><span class="map-tag">Solved by</span>'
                 f"{sol_html}</div>"
                 "</article>"
@@ -3914,6 +4157,17 @@ def wiki_map_body(wiki: dict) -> str | None:
         if blocks
         else ""
     )
+    latest = [e for e in (wiki.get("latest_entries") or []) if e.get("topic") in nodes]
+    recent = ""
+    if latest:
+        recent = (
+            '<section class="map-recent" id="recently-filed">'
+            '<h2>Recently filed</h2>'
+            '<p class="map-recent-lede">The newest developments added across every topic. '
+            "Each links to its dated entry, with sources.</p>"
+            + wiki_latest_list(latest[:WIKI_LATEST_ON_MAP], with_topic=True)
+            + "</section>"
+        )
     body = (
         '<div class="map">'
         '<section class="wiki-hero">'
@@ -3927,6 +4181,7 @@ def wiki_map_body(wiki: dict) -> str | None:
         f'<span class="sep">·</span>{n_solutions} solution{"" if n_solutions == 1 else "s"}'
         f'<span class="sep">·</span>{len(legend_links)} area{"" if len(legend_links) == 1 else "s"}</p>'
         f"{legend}</section>"
+        + recent
         + wiki_universe_section(wiki)
         + list_lede
         + ("\n".join(blocks) or "<p>No topics yet.</p>")

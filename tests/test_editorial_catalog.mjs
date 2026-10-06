@@ -56,6 +56,12 @@ try {
   concept.sections[0].html = '<p>Second edit on the same calendar day.</p>';
   write('wiki/index.json', { nodes: { 'agent-memory': concept } });
   assert.notEqual(find('map:agent-memory').version, wikiVersion);
+  const beforeEntry = find('map:agent-memory').version;
+  const topic = { ...concept, entries: [{ id: '2026-09-10-tiered-memory', date: day, title: 'Tiered memory ships', theme: 'stores', html: '<p>New store.</p>' }] };
+  write('wiki/index.json', { nodes: { 'agent-memory': topic } });
+  assert.notEqual(find('map:agent-memory').version, beforeEntry, 'a new wiki entry is a content update');
+  assert.equal(find('map:agent-memory').summary, 'Tiered memory ships', 'topic summary leads with its newest entry');
+  write('wiki/index.json', { nodes: { 'agent-memory': concept } });
 
   // A later scheduled edition and a new concept require no manual registration.
   publishRecap('daily', '2026-09-11', recap('2026-09-11', 'Tomorrow in AI'));

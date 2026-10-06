@@ -16,10 +16,11 @@ The schema is authoritative if it disagrees with the skill.
 ## Run the routine
 
 The wiki-curator skill owns the domain steps. Run it in order, exactly as
-written: build the ingest bundle, ingest genuinely new on-brand stories into
-`data/wiki/{obstacles,solutions}/*.md`, then lint the full existing graph. One
-override: skip the skill's own commit/push step — this routine's own commit
-and publish steps below replace it.
+written: build the ingest bundle, file genuinely new on-brand stories as dated
+entries under `data/wiki/entries/<slug>/`, update topic overviews only where
+the synthesis changed, then lint the full existing graph. One override: skip
+the skill's own commit/push step — this routine's own commit and publish steps
+below replace it.
 
 You may edit `data/wiki/` and, when regenerated, `web/map.html`,
 `web/topic/`, and `web/sitemap.xml`. Read `data/raw/`, `data/stories/`, and

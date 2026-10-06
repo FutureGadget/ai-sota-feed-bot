@@ -1,45 +1,37 @@
 ---
 name: wiki-curator
-description: Maintain the agent-engineering knowledge wiki for ai-sota-feed-bot — the reader-facing obstacle→solution graph at /map and /topic/<slug>. Reads new stories and folds them into cross-linked markdown pages (the LLM-wiki pattern), then compiles + validates them. Use this when running the wiki ingest/lint routine.
+description: Maintain the agent-engineering knowledge wiki for ai-sota-feed-bot — the reader-facing obstacle→solution graph at /map and /topic/<slug>. Files new stories as dated, themed entries under each topic, keeps each topic's short overview current, then compiles + validates. Use this when running the wiki ingest/lint routine.
 ---
 
 You are the curator of an LLM-maintained **knowledge wiki** for AI **platform
 engineers** (see `AGENTS.md` → Product Positioning). The wiki maps the
 **obstacles** to building and operating agents (memory, reliability, tool use,
 cost, …) to the **solutions** the field uses for each, and grounds every claim
-in real source articles. It is the site's **semantic memory** — "the current
-state of the agent-memory problem" — and powers the `/map` and `/topic/<slug>`
-pages.
+in real source articles. It powers `/map` and `/topic/<slug>`.
 
-This is Karpathy's **LLM wiki** pattern: rather than re-reading raw sources every
-time, you incrementally **synthesize** a persistent, cross-linked artifact. Three
-layers, three operations. Read the schema first: **`config/wiki_schema.md`** is
-the contract (page format, obstacle areas, invariants). It is authoritative — if
-this file and the schema ever disagree, the schema wins.
+Read the schema first: **`config/wiki_schema.md`** is the contract (topic page
+format, entry format, themes, word caps, invariants). If this file and the
+schema disagree, the schema wins.
 
-Audience + quality bar: "would the owner read this `/topic` page and understand
-the state of this problem in 60 seconds, and trust it because every claim links
-to a real source." Anti-hype, platform-engineer lens, no invented sources.
+Quality bar: "would the owner read this `/topic` page and understand the state
+of this problem in 60 seconds, then find exactly what changed and its source in
+one click." Anti-hype, platform-engineer lens, no invented sources.
 
-Prose bar: **State of the art**, **What's new**, and every other prose section
-you write follow `.agents/skills/writing-style/SKILL.md` — BLUF, one idea per
-paragraph, scannability, specifics over generalities.
+Prose bar: every overview section, theme summary, and entry follows
+`.agents/skills/writing-style/SKILL.md` — BLUF, one idea per paragraph,
+specifics over generalities.
 
-## How it fits the system (read once)
+## Files
 
-- **Raw sources** = `data/raw/`, the durable `data/stories/`, and `data/storylines/`.
-  You read them; you never edit them.
-- **The wiki** = `data/wiki/{obstacles,solutions}/*.md` — the markdown pages you
-  write. These are the **source of truth**.
-- **Compiled artifact** = `data/wiki/index.json`, produced deterministically by
-  `pipeline/build_wiki.py`. The static renderer and `/api/topics` read *only*
-  this. You do not hand-edit it.
-- **Separate from storylines.** Storylines are *episodic* (what happened next);
-  the wiki is *semantic* (the state of a problem). Reference storylines/stories
-  as evidence — never re-cluster them into the wiki.
-
-The LLM is disabled in the deterministic pipeline; all synthesis is your job,
-run **outside GitHub Actions**, exactly like `storyline-editor` / `daily-summary`.
+- **Topic pages** `data/wiki/{obstacles,solutions}/<slug>.md` — the short
+  overview (TL;DR, State of the art, Trade-offs, Why it matters) plus the
+  topic's `themes:`. Word-capped.
+- **Entries** `data/wiki/entries/<slug>/<YYYY-MM-DD>-<name>.md` — one dated,
+  source-backed development per file, filed under one theme.
+- **Generated, never hand-edit:** `data/wiki/index.json` and
+  `data/wiki/index.md` (both written by `pipeline/build_wiki.py`).
+- **Log** `data/wiki/log.md` — append-only, one short line per run.
+- **Read-only evidence:** `data/raw/`, `data/stories/`, `data/storylines/`.
 
 ## The routine (run in order)
 
@@ -47,55 +39,65 @@ run **outside GitHub Actions**, exactly like `storyline-editor` / `daily-summary
 ```bash
 python .agents/skills/wiki-curator/scripts/build_wiki_input.py
 #   --days N     only stories from the last N days (default 7)
-#   --slug S     focus one node
+#   --slug S     add a `focus` dossier: topic S's themes, entries, and every source it cites
 ```
-Writes `data/wiki/input/latest.json` — your reading material: recent stories
-(sid, title, url, source, summary, type) grouped by the obstacle `area` their
-keywords suggest, plus the current node list and each node's `covers_evidence`
-snapshot so you can see what's already filed.
+Writes `data/wiki/input/latest.json`: recent stories grouped by the obstacle
+`area` their keywords suggest, each with `filed_in` (topics already citing it),
+plus every topic with its themes and entry counts.
 
-### 2. Ingest — fold new sources into pages (your editorial work)
-For each cluster of related new stories:
-- Find the obstacle page it belongs to (one of the areas in the schema). If none
-  exists and the cluster is substantial, create `data/wiki/obstacles/<slug>.md`.
-- Update **State of the art** *in place* (compounding synthesis — edit the
-  understanding, don't append a changelog), refresh **What's new** with the one
-  thing the latest sources changed, and add the relevant solution page(s) under
-  `solutions:` (creating `data/wiki/solutions/<slug>.md` when needed).
-- Add the real story `sid`s to `evidence:` and any `related_storylines:` slugs.
-- Refresh `covers_evidence:` (the staleness snapshot — copy the new `evidence`
-  list) and `updated:`.
-- Append **one line** to `data/wiki/log.md` and update `data/wiki/index.md` —
-  do this for every substantive page change: ingest, lint fix, or correction.
+### 2. Ingest — file new sources as entries
+Work only from stories with an empty `filed_in` that are on-brand and carry
+real content (skip title-only aggregator redirects, version-bump changelogs,
+and business news). For each genuinely new development:
 
-Rules (the validator enforces these — see schema invariants):
-- **Never invent sources.** Every `evidence` sid must exist in
-  `data/stories/index.json`; every `related_storylines` slug in the storylines
-  index. The build fails otherwise.
-- Declare each obstacle↔solution edge from **one** side (by convention the
-  obstacle's `solutions:`); the build symmetrizes it.
-- Keep it on-brand: agent *engineering* obstacles, platform-engineer lens, not
-  generic AI news.
+1. Pick the topic it belongs to. Create a new topic page only for a
+   substantial cluster that fits no existing topic.
+2. Pick the theme. Add a theme to the page's `themes:` only when no existing
+   theme fits and the topic has at most 5 themes.
+3. Write one entry file `data/wiki/entries/<slug>/<today>-<name>.md`:
+   - `title`: the claim, not the source name (<= 110 chars).
+   - `date`: today (the filing date); it must match the filename.
+   - `theme`, `evidence` (1-6 real sids; a launch post and its cloud-provider
+     write-up share one entry), optional `also:` for other topics it informs.
+   - Body <= 130 words: what the source shows, with the specific mechanism or
+     number, then what it changes for builders. Mark vendor-reported numbers
+     as vendor-reported.
+4. If the entry changes the big picture, rewrite **State of the art** (and the
+   theme's `summary`) so it still reads as one synthesis within 350 words —
+   replace or compress older sentences; never append a running list. Bump the
+   page's `updated`. Most entries do not need an overview change.
+5. Declare new obstacle↔solution edges from the obstacle's `solutions:`.
 
-### 3. Lint (periodic health check)
-Read the current pages and flag/fix:
-- **orphans** — nodes with no edges, **stubs** that never got synthesized,
-- **stale** — `evidence` has moved on vs `covers_evidence` (new sources exist you
-  haven't folded in),
-- **dangling/unresolved** — edges or evidence that no longer resolve,
-- **contradictions** — two pages that disagree.
-`build_wiki.py --check` catches the mechanical ones; the judgment calls
-(staleness, contradictions, thinness) are yours.
+Never invent sources: every sid must exist in `data/stories/index.json`, every
+`related_storylines` slug in the storylines index.
 
-### 4. Compile + validate
+### 3. Lint (every run, whole graph)
+- **Overview drift** — a topic's State of the art no longer reflects its newest
+  entries: rewrite it.
+- **Theme health** — a theme over ~15 entries, or two themes that overlap: split
+  or merge (edit `themes:` and the affected entries' `theme:`).
+- **Misfiled entries** — an entry that belongs under another topic: move the
+  file to that topic's directory (keep its filename) and fix `theme:`.
+- **Graph** — orphan topics (no edges), `stub` pages, contradictions between
+  pages.
+`build_wiki.py --check` catches the mechanical problems (caps, unknown themes,
+unresolved sids, dangling edges); the judgment calls are yours.
+
+### 4. Log
+Append one line to `data/wiki/log.md`, at most 60 words:
+```text
+YYYY-MM-DD  ingest+lint  <slugs touched>  — <N> entries filed (<entry titles, shortened>); overview rewrites: <slugs or none>; lint: <fixes or clean>.
+```
+
+### 5. Compile + validate
 ```bash
-python pipeline/build_wiki.py          # writes data/wiki/index.json
-# or: python pipeline/build_wiki.py --check   # validate without writing
+python pipeline/build_wiki.py --check            # or --check --slug <slug> while editing one topic
+python pipeline/build_wiki.py                    # writes data/wiki/index.json + index.md
 ```
-Exits non-zero with `WIKI_BUILD_FAIL …` on any schema/reference error. Fix the
-page and re-run until you get `WIKI_BUILD_OK`.
+Exits non-zero with `WIKI_BUILD_FAIL …` listing every problem. Fix them all and
+re-run until it prints `WIKI_BUILD_OK`.
 
-### 5. Render (optional local check) + publish
+### 6. Render (optional local check) + publish
 ```bash
 python pipeline/render_static_pages.py   # regenerates web/map.html + web/topic/*.html
 git add data/wiki/ web/map.html web/topic/ web/sitemap.xml
@@ -105,17 +107,17 @@ git -c user.name="Claude" -c user.email="noreply@anthropic.com" \
   commit -m "wiki: <slugs touched>"
 git push
 ```
-Committing `data/wiki/` *is* publishing — the renderer and `/api/topics` read the
-committed files. Keep this in a data-only commit (see `docs/status/git-hygiene.md`).
-On the production hourly run the renderer regenerates the pages anyway; you only
-need to commit `web/` when you want the change live before the next render.
+Committing `data/wiki/` publishes. Keep this a data-only commit (see
+`docs/status/git-hygiene.md`).
 
-## Scaling to many pages (optional Workflow)
-With a few pages, edit them inline. When ingest touches **many** independent
-pages at once, fan out with the `Workflow` tool — one agent per page, each
-writing its own `data/wiki/.../*.md`, against the schema in `config/wiki_schema.md`
-(independent files, no write conflicts). Mirrors the `storyline-editor` fan-out.
+## Scaling to many topics (optional Workflow)
+When a run reorganizes many topics at once (theme splits, overview rewrites),
+fan out with the `Workflow` tool — one agent per topic, each touching only its
+own page and `entries/<slug>/` directory, validating with
+`build_wiki.py --check --slug <slug>`.
 
 ## Where it shows up
-- Pages: `/map` (the obstacle→solution index) and `/topic/<slug>` (a node).
+- `/map`: obstacle→solution map with a cross-wiki "Recently filed" list.
+- `/topic/<slug>`: TL;DR, Latest updates, overview, then entries grouped by
+  theme (newest first, older ones collapsed), each linking to its sources.
 - API: `/api/topics`, `/api/topics?slug=<slug>`.

@@ -132,9 +132,11 @@ in `ops_daily_summary.py`'s log line.
     `/weekly` and the crawler-visible feed seed in `web/index.html`)
   - `og_cards.py` — per-edition Open Graph share cards → `web/og/*.png`
     (Pillow-optional; no-ops gracefully where Pillow is absent)
-  - `build_wiki.py` — compiles the agent-engineering wiki markdown pages
-    (`data/wiki/`) into the served `data/wiki/index.json` (deterministic; LLM
-    synthesis is the `wiki-curator` routine's job)
+  - `build_wiki.py` — compiles the agent-engineering wiki markdown (topic
+    pages + dated entries under `data/wiki/`) into the served
+    `data/wiki/index.json` and the generated `index.md` catalog; enforces the
+    overview word caps and theme/entry rules (deterministic; LLM synthesis is
+    the `wiki-curator` routine's job)
   - `build_foundations.py` — compiles Agent Builder Foundations concept pages
     (`data/foundations/concepts/`) into the served `data/foundations/index.json`
   - `build_skill_lab.py` - validates Agent Skill Lab protocol/result records,
@@ -251,8 +253,9 @@ in `ops_daily_summary.py`'s log line.
   `storyline-editor/` (narrates cross-day threads into a sidecar the pipeline
   overlays), `storyline-scout/` (proposes thread links the clustering missed,
   applied through the deterministic floor), `wiki-curator/` (LLM-wiki routine:
-  ingests new stories into the cross-linked obstacle→solution markdown pages
-  under `data/wiki/`, then `build_wiki.py` compiles + validates them — serves
+  files new stories as dated, themed entries under the cross-linked
+  obstacle→solution topic pages in `data/wiki/`, then `build_wiki.py` compiles
+  + validates them — serves
   `/map` and `/topic/<slug>`), `playbook/` (writes dated **Playbook editions** —
   actionable problem→apply→result cards for agent builders — to
   `data/playbook/<date>.json`, validated by `build_playbook_index.py`; serves
@@ -310,9 +313,12 @@ in `ops_daily_summary.py`'s log line.
   `narratives/<slug>.json` agent-written sidecars + `input/` bundles;
   `scout/{candidates,links}.json` recall candidates + confirmed links
 - `data/wiki/` — agent-engineering knowledge wiki: `{obstacles,solutions}/*.md`
-  source pages (LLM-curated; the source of truth), `index.json` (compiled by
-  `build_wiki.py`; the only file served/bundled), `index.md` (catalog), `log.md`
-  (append-only activity), `input/` ingest bundles. Schema: `config/wiki_schema.md`
+  topic pages (word-capped overview + declared themes) and
+  `entries/<slug>/<YYYY-MM-DD>-<name>.md` (one dated, sourced development per
+  file) — LLM-curated, the source of truth; `index.json` (compiled by
+  `build_wiki.py`; the only file served/bundled), `index.md` (generated
+  catalog), `log.md` (append-only activity), `input/` ingest bundles. Schema:
+  `config/wiki_schema.md`
 - `data/daily/`, `data/weekly/` — recap JSONs + `input/` bundles + indices
 - `data/foundations/` — Agent Builder Foundations: `concepts/*.md` source pages
   (agent-curated source of truth), `index.json` compiled by
