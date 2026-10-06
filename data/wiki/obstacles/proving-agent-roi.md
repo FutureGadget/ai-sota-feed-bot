@@ -7,135 +7,65 @@ status: active
 solutions: [cost-controls, llm-as-judge]
 obstacles: []
 related_storylines: []
-evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f, a1b72811dd254b50, 27f2f50d69e9ceef, 3c123bff8ba1a302]
-updated: 2026-09-17
-covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f, a1b72811dd254b50, 27f2f50d69e9ceef, 3c123bff8ba1a302]
+evidence: []
+updated: 2026-10-06
+themes:
+  - key: per-task-attribution
+    title: Metering spend per user, project, and session
+    summary: Session-level meters, self-hosted gateways, and platform governance hubs push spend attribution below the account aggregate, the data a cost-per-task case needs.
+  - key: roi-metric
+    title: Converging on cost per successful task as the ROI metric
+    summary: Finance and model vendors now frame ROI and model choice as cost per successful task, settled by workload-specific evals rather than per-token price or leaderboards.
+  - key: outcome-evidence
+    title: Outcome case studies, and the rollout that raised spend
+    summary: Vendor-published case studies report productivity and conversion gains, but a 3,500-engineer rollout that raised spend ~60% shows unattributed deployment can erase them.
 ---
 
 ## TL;DR
-Calculating the true return on investment (ROI) for agent systems is blocked by the difficulty of measuring time-savings, tracking per-task token usage, and accounting for hidden costs like token inflation in low-bit quantized models. Platform engineers must transition from generic productivity claims to precise, instrumented cost-per-task accounting and evidence-based time-savings measurement.
+Calculating the true return on investment (ROI) for agent systems is blocked by
+the difficulty of measuring time savings, tracking per-task token usage, and
+accounting for hidden costs like token inflation in quantized models. Platform
+engineers must move from generic productivity claims to instrumented
+cost-per-task accounting and evidence-based measurement of outcomes.
 
 ## State of the art
-Proving that an agent is cost-efficient requires attributing model spend and execution latency directly to the business outcome it delivers, rather than looking at aggregate API usage.
+**The ROI vocabulary is converging on cost per successful task.** OpenAI's
+CFO proposes it as a core scorecard metric, and Anthropic tells buyers to pick
+models on cost per task, settled by their own evals rather than a
+leaderboard. Proving ROI means attributing spend and outcome to the same unit
+of work.
 
-**Attribution and Metering:**
-Tools like AgentMeter and Prtokens enable developers to attribute token costs down to the individual unit of work, such as a pull request or a user session. This granular data is necessary to prove whether an agent's cost is justified by the task outcome. Local guardrail packages (like ai-costguard) enforce hard cost budgets directly in the runtime loop, preventing runaway agents from consuming resources. Model vendors are shipping the admin side of the same job: Claude Enterprise's new usage analytics add model-level entitlements and spend alerts on top of adoption tracking, so an org can attribute and cap spend centrally instead of every team building its own metering. AWS's self-hosted Claude apps gateway extends that same governance job past a single vendor's own console — a control plane an org runs itself, giving central access, cost, and policy control over Claude Code and Claude Desktop usage on Bedrock rather than relying on Anthropic's own admin surface. Google Cloud and Databricks are now shipping the same job at the platform level rather than the single-vendor level: Google Cloud's new agent billing stack adds per-project spend caps with automatic API pause, anomaly detection that flags the top 3 SKUs behind a spend spike, and deferred-execution pricing that discounts eligible agent workloads up to 50% for running in off-peak capacity; Databricks' Governance Hub layers an AI-specific view on top of its account-wide cost dashboards, tracking token consumption and model activity through Unity AI Gateway and flagging per-user spend against budget thresholds alongside the untagged-spend surfacing that chargeback and budgeting need. Both push attribution and capping down to the project/user level the cost-per-task framing above actually needs, instead of leaving it as an account-wide aggregate.
+**Attribution tooling now reaches that unit.** Open-source meters attribute
+tokens to a pull request or a coding agent. Vendor consoles, self-hosted
+gateways, and platform governance hubs track spend per user and project and
+surface untagged spend, the gap that breaks chargeback.
 
-**Hidden Costs of Optimization:**
-Teams frequently downshift from frontier models to smaller or quantized models to improve cost efficiency, but this optimization has a hidden cost. Low-bit post-training quantization is widely used to reduce model size, but it degrades reasoning capability. Research shows that quantized reasoning models (like "Quantization Inflates Reasoning") emit *more* tokens to arrive at the same answer, meaning the per-token price discount is partially offset by token inflation. True ROI analysis must measure the total tokens spent per task run, not just the per-token model rate.
+**The cost side has hidden traps.** Per-token savings can vanish in total
+tokens: quantized reasoning models emit more of them. Measured splits show
+how much spend buys nothing: only about 7% of agent turns needed a frontier
+model, and dropping a central orchestrator cut multi-agent cost about half.
 
-**Cost-Sensitive Topologies:**
-Decentralizing agent orchestrations also dramatically cuts task execution spend. Stanford's DeLM demonstrates that removing the central orchestrator from multi-agent structures cuts task costs by up to 50% while maintaining target completion rates, shifting the optimization focus from model choosing to topology design. Similarly, using cheaper fine-tuned open models (like Fireworks trace judges) to evaluate production runs cuts trace-evaluation costs by 100x compared to frontier judges.
+**The outcome side is still mostly vendor case studies.** Reported numbers
+include a 21% engineering productivity lift and a 250% conversion lift with
+40 hours saved per rep. Each is a single, vendor-published customer figure.
 
-**Naming the metric itself:**
-The ROI conversation is also converging on which numbers to track: OpenAI's
-own CFO has proposed a practical AI scorecard built on useful work delivered,
-cost per successful task, dependability, and return on compute — the same
-per-task attribution this page argues for, but pushed by a finance function
-rather than an engineering team, evidence the cost-per-task framing is
-becoming the standard ROI vocabulary rather than one platform-engineering
-convention among several.
+**The counter-example is the most useful data point.** A frontier
+coding-model rollout to about 3,500 engineers raised total coding spend
+about 60%, because the model helps on complex work but not the medium- and
+low-complexity majority. The fix was a budget tier steering the model to
+tasks where it pays off: cost-per-task attribution, applied after the fact.
 
-**Model selection is becoming part of the same cost-per-task calculation,**
-not a separate choice made on raw benchmark scores: Anthropic's own model
-selection guide tells buyers to weigh cost per task against cost per token
-per model class, then settle the choice with evals built for the actual
-workload rather than a leaderboard number — tying model selection directly
-to the per-task attribution and eval-driven decision-making this page
-already argues for, from the vendor whose models are being chosen between.
-
-**A benchmarked routing result puts a concrete number on "how much of that
-spend is actually justified":** NVIDIA's NeMo Switchyard, tested across 145
-agent tasks, found only 7% of turns needed a frontier model — routing the
-rest to cheaper models cut total cost 74% for a six-point accuracy
-trade-off (see [agent cost](/topic/agent-cost) for the full serving-stack
-detail). It sharpens the cost-per-task argument above from "measure spend
-per task" to a specific finding: on a typical agent workload, most per-task
-spend isn't buying frontier capability the task actually needed.
-
-**A named customer case study puts a number on the outcome side, not just
-spend:** 1Password reports a 21% engineering productivity lift from adopting
-Codex while maintaining its existing security review policies — evidence
-of the "attribute spend to outcome" argument above working from the outcome
-end, though a single vendor-published customer figure is a data point, not
-yet the independent per-task instrumentation the rest of this page argues
-for.
-
-**A second named customer case study widens the outcome-side metric set
-past a single productivity percentage:** LangChain's own GTM sales agent,
-in production since December 2025, reports a 250% lift in
-lead-to-qualified-opportunity conversion and 40 hours reclaimed per sales
-rep per month (1,320 hours across the team), alongside 50% daily and 86%
-weekly active usage. The same vendor-published-single-customer caveat as
-1Password's 21% figure applies, but conversion lift, hours reclaimed, and
-adoption rate broaden the ROI vocabulary this page tracks beyond a single
-productivity number.
-
-**A rollout-scale counter-example complicates the outcome-side case studies
-above:** Databricks reports that rolling out a frontier coding model to
-roughly 3,500 engineers raised total coding spend by about 60%, despite the
-model's reputation for token efficiency — because the model "unambiguously"
-helps on complex, long-horizon tasks but "may not materially improve
-medium/low-complexity coding," the bulk of day-to-day work. Databricks'
-response was to add a dedicated budget tier steering the model toward the
-tasks it actually pays off on, rather than blanket-deploying it — the
-practical instance of the cost-per-task attribution this page already
-argues for, arrived at only after an unattributed rollout produced a spend
-spike the case studies above don't surface. The report reached the public
-secondhand (an executive's own social-media post via a newsletter), not a
-company blog, so treat the 60% figure as directional rather than audited.
-
-## What's new
-A rollout-scale counter-example complicates this page's outcome-side case
-studies: Databricks reports a ~60% total coding-spend increase after
-deploying a frontier coding model to ~3,500 engineers, because the model
-helps most on complex/long-horizon work but not the medium/low-complexity
-majority of day-to-day tasks — prompting a dedicated budget tier to steer
-the model toward where it pays off, a practical instance of the
-cost-per-task attribution this page argues for (see State of the art
-above).
-
-Prior update: A second named customer case study widens the outcome-side ROI vocabulary
-past a single productivity percentage: LangChain's own GTM sales agent
-reports a 250% lift in lead-to-qualified-opportunity conversion, 40
-hours/month reclaimed per rep (1,320 hours team-wide), and 50%/86%
-daily/weekly active usage — the same vendor-published-single-customer
-caveat as 1Password's 21% figure applies, but the metric set (conversion
-lift, hours reclaimed, adoption rate) is broader than a single
-productivity percentage (see State of the art above).
-
-Prior update: A named customer case study puts one of the first concrete productivity
-percentages behind coding-agent ROI rather than a spend or cost-per-task
-number: 1Password reports Codex lifted engineering productivity 21% while
-its team kept its existing security review policies in place — the
-outcome-side complement to the cost-attribution tooling this page tracks,
-though a vendor-published single-customer figure is not yet the
-independent, per-task instrumentation the rest of this page argues for
-(see State of the art above).
-
-Prior update: Google Cloud and Databricks both shipped agent-specific cost governance
-stacks in the same week: Google Cloud added per-project spend caps,
-spend-spike anomaly detection, and up to 50% off deferred-execution pricing
-for agent workloads, while Databricks' Governance Hub added per-user AI
-spend tracking through Unity AI Gateway on top of its cost dashboards — both
-push the attribution and capping tools this page argues for down to the
-project/user level rather than leaving it as an account-wide aggregate (see
-State of the art above).
-
-Prior update: NVIDIA's NeMo Switchyard routing benchmark found only 7% of 145 agent-task
-turns actually needed a frontier model, and routing the rest to cheaper
-models cut total cost 74% for a six-point accuracy trade-off — a measured
-number behind this page's cost-per-task attribution argument (see State of
-the art above).
-
-Prior update: Model selection is being folded into the cost-per-task framing directly:
-Anthropic's model-choice guidance tells teams to compare model classes on
-cost per task (not just cost per token) and settle the trade-off with evals
-built for their own workload — connecting the ROI-attribution instinct this
-page tracks to the model-selection decision itself, not just to spend
-monitoring after the model is already chosen.
+**The open problem is independent, per-task instrumentation on the outcome
+side.** Spend is now measurable per task; value delivered per task mostly is
+not.
 
 ## Why it matters for platform engineers
-Platform engineers cannot justify AI budgets on vague productivity claims alone. They must build the instrumentation to track cost-per-task, measure execution efficiency against human labor costs, and prevent token runaway. 
+Platform engineers cannot justify AI budgets on vague productivity claims.
+They need instrumentation that tracks cost per task, measures outcomes
+against the labor they replace, and stops token runaway.
 
-When evaluating model downshifting or quantization optimizations, platform engineers must calculate cost based on total tokens consumed in the trace, rather than the sticker price per token, to avoid the hidden trap of token inflation.
+When evaluating a model downshift, routing policy, or quantization, cost it
+on total tokens consumed in the trace, not the sticker price per token. Roll
+out expensive models by task tier, with attribution in place first, rather
+than blanket deployment. See [cost controls](/topic/cost-controls) and
+[agent cost](/topic/agent-cost).

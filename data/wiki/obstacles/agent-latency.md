@@ -7,392 +7,82 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff, a3b54d5a91acaa5a, 3762ff1d2e307774, c30b19170c960cb5, b37c7cb1295646d6, 0588c8c0813b65e1]
-updated: 2026-10-01
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff, a3b54d5a91acaa5a, 3762ff1d2e307774, c30b19170c960cb5, b37c7cb1295646d6, 0588c8c0813b65e1]
+evidence: []
+updated: 2026-10-06
+themes:
+  - key: agent-traffic
+    title: Scheduling, batching, and routing for agent-shaped traffic
+    summary: Agent traffic is bursty, long-context, and cache-heavy; session-aware scheduling, learned batching, and routing inside the serving layer beat chat-tuned defaults, and the levers compound when tuned together.
+  - key: kv-state
+    title: "KV state: compress it, offload it, shard it, reuse it"
+    summary: Moving the agent's growing KV state is the bottleneck; quantization, shared RAM/NVMe tiers, context parallelism, and prefix-aware routing cut it, but reuse outside a clean prefix needs repair.
+  - key: engine-architecture
+    title: Disaggregated and specialized serving engines
+    summary: Engines now split serving by phase (prefill/decode) and by compute type (attention/FFN), add hardware-specific kernels, and are what large deployers run in production.
+  - key: day-0-support
+    title: Day-0 serving for new models and hardware
+    summary: New open-weight models and accelerators get quantized, speculative, disaggregated serving at launch, followed by steady per-release kernel gains of a few percent per token.
+  - key: less-work-per-step
+    title: "Less work per step: small models, shorter prompts, faster drafting"
+    summary: Latency-first small models, learned prompt compression, protocol-aware trimming, and better speculative drafting cut decode work; trimming below half the context budget sharply raises failure.
+  - key: beyond-the-engine
+    title: "Latency outside the model: tools, cold starts, and voice"
+    summary: Tool round-trips (search APIs, data queries, CI) and cold starts often dominate the loop, and voice sets a hard floor the whole stack must meet.
 ---
 
 ## TL;DR
-A chatbot waits on one model call; an agent waits on *many*, in sequence —
-plan, call a tool, read the result, decide again — so the wall-clock a user
-feels is the per-token decode latency multiplied by the loop length, and a
-serving stack tuned for single-shot throughput can still leave an agent feeling
-slow. Latency is the run-time twin of [cost](/topic/agent-cost): the same loop
-that runs up the bill also runs out the clock.
+A chatbot waits on one model call; an agent waits on *many*, in sequence:
+plan, call a tool, read the result, decide again. The wall-clock a user feels
+is per-step latency multiplied by loop length, so a serving stack tuned for
+single-shot throughput can still leave an agent slow. Latency is the run-time
+twin of [cost](/topic/agent-cost): the loop that runs up the bill also runs
+out the clock.
 
 ## State of the art
-Latency for agents is being attacked at the **serving layer** and the
-**workload-shape layer** at once. The serving engines that host agent traffic
-are competing hard on decode latency and throughput — vLLM has moved fastest,
-with v0.25.0 deleting the legacy PagedAttention implementation outright now
-that Model Runner V2 (MRv2) is the default execution path for every dense
-model, and unifying tool-call/reasoning-token parsing across model families
-under one Streaming Parser Engine — while Modular's 26.4 ships
-state-of-the-art MoE serving, and infra partnerships (NVIDIA + AWS) are pitched
-explicitly on "low-latency inference at scale" — but raw engine speed only moves
-one term in the agent's latency budget. That serving-layer work is
-increasingly hardware- and model-specific rather than generic: vLLM's
-integration with Tencent's HPC-Ops backend adds Hopper-optimized attention
-and FP8 MoE kernels tuned for the Hunyuan Hy3 model on NVIDIA H20, cutting
-time-to-first-token and per-output-token latency on the mixed-length,
-bursty decode pattern agent loops actually produce, rather than the uniform
-batches a generic benchmark assumes. The newer recognition is that **agent
-workloads do not look like chat**: coding agents issue bursty, long-context,
-tool-interleaved requests, and characterizing that shape is now its own research
-target (TraceLab profiles real coding-agent workloads for LLM serving so the
-server can be tuned to them rather than to a generic chat trace). That work is
-surfacing agent-specific bottlenecks the chat era never hit — DualPath finds the
-binding constraint in agentic inference is **storage bandwidth**, not compute,
-because the agent's growing KV/context state has to be streamed back each step —
-and one direct answer is shrinking that state: RaBitQCache uses randomized
-rotated binary quantization to compress the KV cache and an adaptive top-p token
-budget instead of a fixed top-k, cutting the memory-I/O DualPath identifies as the
-bottleneck while holding generation quality. A second answer targets the same
-bottleneck from the storage side rather than the compute side: OpenLake offloads
-KV state from GPU memory into a shared RAM/NVMe tier with a CUDA kernel that
-losslessly compresses blocks before they leave the GPU, so a prefix cached on one
-host is cheap to fetch from another instead of forcing a fresh GPU to redo the
-work — on a 128K-context workload it cut time-to-first-token from 44 seconds to
-0.6 seconds when the prefix was reused across hosts. A third answer attacks
-the same storage-bandwidth bottleneck through parallelism instead of
-compression or offload: vLLM's Decode Context Parallelism (DCP) shards the
-KV cache across GPUs by sequence dimension, reporting 3x higher decode
-throughput on long-context agentic workloads versus standard tensor
-parallelism. A fourth answer attacks the same bottleneck through a memory
-*tier*, not compression, offload, or sharding: vLLM's HiSparse composes with
-the existing Hybrid Memory Allocator and KV offloading as a pressure-driven
-tier that activates once a request's KV state no longer fits in GPU memory,
-letting GLM 5.3 requests keep decoding under memory pressure instead of
-stalling or falling back to a slower path — concurrency stays high precisely
-where the storage-bandwidth bottleneck above would otherwise cap it. That agent-workload-shape argument now has a benchmarked serving-stack
-validation behind it, not just a research characterization: vLLM's own
-account of optimizing for SemiAnalysis's AgentX benchmark — which scores
-serving stacks specifically on agentic traffic rather than chat-shaped
-requests — combines the KV-cache, parallelism, scheduling, and
-prefill/decode-disaggregation levers already on this page into one tuned
-stack, reaching up to 130K tokens per GPU-second and a 14.6x-106x
-serving-cost advantage on the benchmark. It is less a new lever than proof
-the levers this page already tracks compound when tuned together for the
-shape agent traffic actually has.
+Agent latency is attacked at several layers at once, and the binding
+constraint has moved from compute to memory.
 
-The dev-loop side of latency counts
-too: local CI (running checks on the developer's machine instead of round-tripping
-to a remote runner) cuts the feedback loop for both human developers and coding
-agents, since round-trip time to a CI runner is on the same wall-clock budget as
-each model call.
-The other lever is the model itself: latency-first small models (Kog's Laneformer
-2B, built for its inference engine) trade frontier breadth for predictable speed
-on the bulk of an agent's calls, the same downshift logic that drives cost.
-Latency also has a hard product floor in interactive modes — a voice agent that
-pauses too long gets hung up on, which is why low-latency voice stacks (Loka on
-Amazon Nova 2 Sonic) treat round-trip time as a first-class design constraint,
-not a tuning afterthought.
+**Agent traffic is not chat.** Coding agents send bursty, long-context,
+tool-interleaved requests with over 80% KV-cache reuse. Schedulers, batchers,
+and routers are being rebuilt for that shape: session-aware scheduling,
+learned batching policies, and routing logic pulled inside the serving layer.
+vLLM's AgentX tuning shows these levers compound when tuned together, though
+its cost comparison is vendor-reported.
 
-**Query volume compounds the same way tool calls do**: a single agent
-request that fans out into tens of database or API queries, and a
-multi-step workflow into hundreds, inherits chat-era latency expectations
-("a few hundred milliseconds feels responsive, a couple of seconds feels
-broken") for every one of those queries, not just the top-level turn — so a
-semantic-layer pattern built for dashboards (pre-aggregated rollups serving
-many queries through query rewriting, columnar storage with partition
-pruning) is being repurposed as agent infrastructure precisely because it
-was already built for many small, interactive queries instead of a few large
-batch ones. That per-query budget is worse than benchmark numbers suggest once
-the call leaves the serving stack entirely: measuring nine web-search APIs
-under identical 10-result requests found a 12x spread in median response time
-(320ms to 3.9s across providers) and up to a 37x gap between one provider's
-cached and cold response (105ms vs 3,937ms) — and because most providers'
-caches expire in 5-60 minutes, an agent's search tool calls land cold far more
-often than a benchmark run against a warm cache would suggest. Picking a
-search tool is a latency decision, not just a capability one. **New models get
-latency-tuned serving on day one, not
-retrofitted later**: vLLM shipped full-feature-parity support for Thinking
-Machines' 1T-parameter Inkling model the day it released, reaching 380
-tokens/sec/user with speculative decoding versus 140 without on 4 GB200
-GPUs — folding a brand-new architecture into the same speculative-decoding
-and disaggregation levers already on this page instead of waiting for a
-follow-up optimization pass.
+**The bottleneck is moving KV state, not FLOPs.** The context grows every
+step, and streaming it back is bandwidth-bound. Four answers compete: compress
+the cache, offload it to shared RAM/NVMe tiers, shard it across GPUs, or reuse
+it through prefix caching, prefix-aware routing, and cross-model KV transfer.
+Reuse has a sharp edge: once reused text sits mid-prompt, as in RAG and
+multi-agent handoffs, an unrepaired cache can score worse than none.
 
-**Batching** is the other lever a bursty agent workload stresses directly:
-static batching policies need manual tuning per traffic shape and cannot
-adapt when request patterns shift mid-run, so adaptive inference batching
-that learns a batching policy with reinforcement learning targets exactly the
-bursty, heterogeneous load agent tool-calling produces instead of assuming
-the steady arrival rate a chat workload has. The same batching principle also
-transfers to a deployment target platform engineers don't usually plan
-serving budgets around: a from-scratch Swift port of vLLM's continuous-batching
-design onto an iPhone's MLX kernels — left-padding late-arriving requests and
-merging them into a shared KV-cache offset — hit 169 aggregate tokens/sec
-across 8 concurrent streams versus llama.cpp's 90, and ran a 16-request,
-~17K-prompt-token multi-agent workload in 25 seconds without thermal
-throttling where llama.cpp needed 47 seconds for half the load. Continuous
-batching is a general answer to concurrent decode, not a data-center-only one.
+**Engines are specializing.** Disaggregation now splits by phase
+(prefill/decode) and by compute type (attention/FFN). New open-weight models
+and accelerators get tuned serving on day 0, then steady per-release kernel
+gains of a few percent per token, which multiply across every step of a loop.
 
-The serving layer itself is starting to absorb **agentic behavior**: vLLM's
-Semantic Router turns its `vllm-sr/auto` routing feature into a bounded
-"micro-agent" runtime — confidence scoring, ratings, and workflow fusion happen
-*inside* the serving layer rather than in a separate orchestration hop above
-it, collapsing a round-trip that would otherwise cost a full extra model call
-and its latency.
+**Doing less work per step** is the other lever: small latency-first models
+for the bulk of calls, learned prompt compression (Shopify cut end-to-end
+latency from 6.8s to 4.2s), and better speculative drafting. Context trimming
+has a measured cliff: below half the budget, failure odds rise sharply unless
+trimming preserves instructions and tool state.
 
-**Disaggregation is going one step further than prefill/decode splitting**:
-vLLM's TileRT integration plugs a decode-only runtime into vLLM's existing
-prefill/decode split, transferring KV state from stock-vLLM prefill nodes to
-specialized decode nodes over RDMA and running multi-token speculative
-decoding immediately after that state lands — reaching peak decode
-throughput at a best-case 4.0-token speculative-acceptance rate on an
-8-GPU setup, though today it's limited to one in-flight request per decode
-node and a narrow model list. It's a further specialization of the same
-disaggregation trend already on this page, pushing decode itself onto
-purpose-tuned hardware/software rather than just splitting prefill from
-decode.
-
-**Disaggregation is also splitting along a second axis — compute type, not
-just pipeline phase**: vLLM's AFD (Attention-FFN Disaggregation) plugin
-separates attention and FFN computation onto different execution paths for
-MoE model serving, with GPU and Ascend NPU backend support, connector-based
-execution, and graph and micro-batching ("ubatching") support. Where the
-prefill/decode split above divides a request by *phase*, AFD divides a
-single forward pass by *compute type*, giving operators a second knob for
-allocating hardware across the attention and FFN paths of the large open MoE
-models now shipping in volume.
-
-**Scheduling** is getting an agent-specific rework, not just faster kernels:
-SMetric finds agent traffic already has high KV-cache reuse (>80% in
-production) but generic schedulers over-index on cache locality and let
-load imbalance cap cluster throughput, so it splits requests into a
-load-balanced first hop per agent session and a cache-aware routing decision
-for every request after — reporting 10-16% throughput gains under
-prefill-decode colocation and 2-34% prefill gains under disaggregated
-serving versus prior schedulers, without giving up the cache-reuse win a
-purely cache-aware scheduler chases. On the engine side, vLLM's transformers
-backend uses `torch.fx` graph analysis plus AST rewriting to fuse operations
-into optimized vLLM kernels automatically, matching native per-model
-integration throughput on dense and MoE Qwen3 models without hand-written
-per-model code — cutting the engineering cost of *keeping up* with new model
-architectures, which is itself a latency-relevant maintenance tax.
-
-**Day-0 support is extending to hardware, not just models**: vLLM now runs
-end-to-end on pre-release NVIDIA Vera Rubin hardware, joined Tenstorrent as
-an out-of-tree platform plugin built around that accelerator's own
-mesh-architecture choices (phase-based scheduling, single-process data
-parallelism on Galaxy, on-device sampling with a host fallback, async decode
-overlap), and separately shipped a production-scale preview of Kimi K3
-support — KDA-aware prefix caching,
-fused kernels, optimized MXFP4 MoE, multimodal integration, and initial
-NVIDIA and AMD paths — extending the "new models get latency-tuned serving
-on day one" pattern already on this page (the 1T-parameter Inkling launch)
-to a new GPU generation and a new open-weight architecture at once. Release
-v0.26.0 folds a new model family into the same day-0 pattern from the start:
-the Inkling family ships with piecewise CUDA graph support, Hopper FA4
-relative attention, MTP=1 speculative decoding, LoRA, and NVFP4 quantization
-all in one release, alongside a DeepSeek-V4 performance push (a specialized
-routing kernel, fused top-k bias, and redundant-copy removal) that shaves
-E2E decode latency without touching the serving architecture — the routine,
-compounding kind of engine-side gain that adds up across every agent loop
-step on that model.
-
-The preview-to-production pattern this page already tracks (day-0 support
-landing ahead of a full optimization pass) gets a concrete follow-through:
-vLLM's production-scale Kimi K3 preview became efficient day-0 serving
-support in the same release cycle, keeping the hybrid KDA prefix caching,
-speculative decoding, and disaggregation from the preview while adding
-optimized kernels across both NVIDIA and AMD GPUs — evidence the "new
-open-weight model, latency-tuned serving on day one" pattern holds across a
-model's preview-to-GA transition, not just its initial launch. That Kimi-K3
-optimization arc continues stack-wide in release v0.28.0: Decode Context
-Parallel support, fused FlashKDA kernels for both decode and prefill, and
-combined all-gather operations for a reported 1.5-3x kernel-level speedup,
-plus an adaptive speculative token budget that cuts DSpark time-to-first-token
-by roughly 60% and shared-expert sharding that saves about 17 GiB of memory
-per GPU. The same release lands DeepSeek V4's sparse MLA end-to-end — covering
-plain decode, MTP, and DSpark speculative decoding, not just the
-routing-kernel work v0.26.0 shipped — closing the gap between "the fast path
-exists" and "the fast path covers every decode mode the model actually runs."
-Vendors
-outside the model labs are running the same in-house serving playbook this
-page already tracks: Netflix's own LLM-serving platform pairs Triton and
-vLLM, a practitioner data point that the serving-layer techniques here
-(disaggregation, batching, kernel fusion) are standard operating practice
-at large deployers, not just a model lab's launch-day flex. The
-serving-layer-absorbs-agentic-behavior thread also gains a name for what
-comes after routing: vLLM's Semantic Router frames its next phase as
-building the training, evaluation, and inference engine for a
-**Mixture-of-Models** era — treating "which model handles this request" as
-a first-class serving-layer decision with its own eval loop, not a one-off
-routing feature bolted onto an existing engine.
-
-**Speculative decoding's drafting step is getting its own accuracy lever**,
-distinct from the disaggregation and scheduling levers above: DARTree
-extends a pretrained autoregressive correction head from single draft chains
-to draft *trees*, scoring and pruning candidates across the whole tree in
-one batch instead of correcting one sequential chain. Across seven math,
-code, and chat benchmarks it accepts up to 12.97 tokens per verification
-round — 98.6% more than the DFlash baseline and 27.9% more than Domino — for
-up to 9.73x lossless speedup over plain autoregressive decoding, training-free,
-sharpening the [speculative decoding](/topic/speculative-decoding) lever
-this page already tracks rather than adding a new one.
-
-**Speculative decoding is also picking up a context-shape lever**, not just a
-tree-search one: AsymSpec drops the standing requirement that draft and target
-see identical context, letting a lightweight drafter read the agent's full,
-uncompressed input while the large verifier decodes from a compressed context
-view, using a divergence-aware acceptance gate to keep verification stable.
-That recovers roughly 90% of full-context accuracy at 1.3-1.7x the throughput
-and 0.2-0.3x the compute cost of decoding on the full context — a direct
-answer to this page's own tension between compressing an agent's growing
-context to control latency/cost and the accuracy that compression normally
-costs. See [speculative decoding](/topic/speculative-decoding) for the
-drafting mechanics.
-
-OpenAI's own account of building GPT-Live — a turnless (no push-to-talk
-turn-taking) speech system with a continuous, low-latency voice
-architecture — sharpens this page's standing "interactive modes set a hard
-latency floor" argument with a concrete engineering case study of hitting
-that floor in six months, from the model provider's own product side rather
-than a serving-stack vendor's benchmark.
-
-**Serving very large models on limited HBM gets a distributed answer**:
-vLLM-Omni's Distributed Layerwise Offload shards and streams DiT model
-weights across devices, serving a measured 124 GB model on 64 GB HBM and
-estimating a path toward 200B+ parameter models — the same
-offload-instead-of-fit-everything-on-one-GPU instinct OpenLake already
-applies to KV cache, here applied to model weights themselves rather than
-the growing context state.
-
-A separate KV-reuse answer targets a different bottleneck than same-model
-prefix caching: rather than reusing one model's own cache, a cross-model
-KV-sharing layer translates the KV state one model produced into a
-representation a *different* model can consume directly, skipping that
-second model's own prefill pass entirely. Within a model family (Qwen2.5-7B
-handing off to Qwen2.5-1.5B) the transferred cache actually improves
-downstream accuracy — 27.59% to 34.48% on LongBench2 — by carrying over the
-larger model's richer context representation; across families (Qwen2.5-1.5B
-to Gemma-2-2B) it cuts the target model's prefill cost by up to 67.05% at 4K
-context; and in a heterogeneous large-to-small handoff (Llama3.1-70B to
-Qwen2.5-7B) it drops end-to-end latency from 899ms to 138ms for a small
-accuracy trade-off (44.0% vs. 45.7%). It's the same offload-and-reuse
-instinct OpenLake and RaBitQCache apply to a single model's own cache above,
-extended to a multi-model serving pipeline where a cheap model would
-otherwise redo prefill work a bigger model already paid for.
-
-**Compressing the prompt itself, not just the KV cache it produces, is a
-distinct lever**: Shopify's gisting trains a small set of learned "gist"
-tokens to reproduce a long system prompt's behavior — a teacher model runs
-with the full prompt while a student model learns the gist tokens by
-minimizing KL divergence between the two outputs — then swaps the compact
-tokens in at serving time instead of the original prompt. Applied to
-Shopify's Sidekick GraphQL agent, gisting cut the system prompt from about
-6,000 tokens to 1,500 (a 4:1 ratio) while holding quality, and moved every
-latency number in the loop: time to first token dropped from 438ms to
-354ms, end-to-end latency from 6.8s to 4.2s, and throughput rose from 20.2
-to 23.4 queries/sec — freeing enough serving capacity to cut the GPU
-allocation for the same load (see [agent cost](/topic/agent-cost) for the
-spend side of the same technique). It's a training-time answer to the
-same "the system prompt gets re-sent every turn" cost this page's serving
-and caching levers already attack from the infrastructure side, this time
-shrinking the prompt itself rather than the KV state or the request
-pattern around it.
-
-The KV-cache-reuse lever above assumes the reused text sits at the exact
-start of the prompt; two workloads this page already tracks break that
-assumption outright. A retrieval-augmented agent assembles a different set
-of retrieved chunks for every query, and a multi-agent coordinator reads
-reports other agents wrote — in both cases the reusable text lands in the
-*middle* of a new prompt, at the wrong position, sometimes written by a
-different model checkpoint entirely, so a naive prefix-cache hit either
-misses or silently corrupts the request. KVShareArena is the first
-benchmark to score cache-reuse methods against exactly that non-prefix
-case rather than only exact-prefix reuse, charging each method's compute,
-memory, and per-request latency against how much of the no-cache-to-
-full-recompute gap it actually recovers. Its finding narrows the fix
-considerably: correcting cache positions alone (no recomputation needed)
-suffices until a question needs several retrieved sources at once, at
-which point only methods that pay a cost — partial re-encoding or extra
-training — recover half to two-thirds of the gap, and an unrepaired cache
-can score worse than no cache at all. Cache-compression techniques that
-look harmless on a single prompt fall well behind plain position
-correction once reuse gets non-prefix, a caution for the compression and
-cache-reuse levers already on this page as multi-agent and RAG workloads
-push more of an agent's KV cache away from a clean prefix.
-
-A complementary lever attacks cache locality at the **routing** layer
-instead of the cache content: Amazon SageMaker Inference's prefix-aware
-routing sends requests that share the same prompt prefix to the same
-backing instance, so the KV cache an earlier request built is still warm
-when a later one reuses that prefix — no cache-content repair needed, just
-keeping requests co-located. On a Llama 3.1 70B benchmark it cut P50
-time-to-first-token by up to 77% and raised the KV cache hit rate from
-about 25% to over 80%, evidence that fleet-level request placement matters
-as much as the cache-reuse and compression techniques already on this page
-once a service fans a workload out across many instances.
-
-**Aggressive context trimming has a quantified failure cliff, not just a
-token-savings number**: a study evaluating five agentic-workflow trimming
-strategies — recency-based, relevance-based, summarization, protocol-aware,
-and adaptive budget guardrails — finds conventional trimming (recency,
-relevance, summarization) saves about 60% of tokens but drops task success
-to 66.6-77.3% and protocol adherence to 85.5-88.6%; protocol-aware trimming,
-which preserves instructions, tool state, and unresolved dependencies rather
-than trimming blindly, lifts success to 92.2%, and stacking adaptive budget
-guardrails on top reaches 96.0% task success, 96.3% protocol adherence, and
-just 1.0% cascading failure while still saving 56.0% of tokens. The retained
-budget itself is the cliff edge: dropping to 25% or less of context raises
-failure odds 10.92x versus keeping 50% or more (p < 0.001), and protocol-aware
-trimming has 5.24x greater odds of finishing successfully than conventional
-trimming once the budget gets that aggressive — a concrete floor under how
-far the compaction lever this page already tracks (gisting, KV-cache
-compression) can be pushed before latency and cost savings start trading
-away correctness.
-
-The day-0-support pattern this page tracks continues with vLLM v0.30.0,
-which folds in DeepSeek-V4.1-Flash support with its entire KV cache stored
-in MXFP8 and a FlashMLA speedup on SM100 hardware, alongside a "Fast Start"
-path that trims cold-start time on the same release — the routine,
-compounding kind of serving-layer gain this page already tracks rather
-than a single named breakthrough. A companion vLLM write-up puts a
-concrete throughput number behind the same disaggregation levers already
-tracked here: prefill/decode-disaggregated serving of Qwen3.8-2.4T reaches
-5,000 tokens/sec aggregate throughput and 180 tokens/sec per-user
-interactivity on GB300 NVL72 hardware, with the methodology published so
-other teams can reproduce the result on their own serving stack.
-
-Cold start is the other latency term, and snapshots are the current answer:
-GKE Pod snapshots checkpoint CPU and GPU memory through gVisor to Cloud
-Storage, and Google reports up to 89% lower startup latency, with a 70B model
-loading in 37 seconds and an 8B model in 15. GKE Agent Sandbox uses them to
-suspend idle agents instead of holding warm pools. The catch is invalidation:
-a snapshot matches only on the Pod spec hash, machine series, CPU architecture,
-gVisor version, and GPU driver version, and any mismatch falls back to a normal
-slow start. A separate arXiv study characterizes high-bandwidth flash as extra
-accelerator memory for retaining agentic KV state, noting its write-endurance
-limits complicate use.
-
-## What's new
-Google's GKE Pod snapshot benchmarks (up to 89% lower startup latency; 70B
-model loaded in 37 seconds) put numbers on snapshot/restore as a cold-start fix,
-with spec-hash and driver-version matching as the operational caveat (see State
-of the art above).
-
-Prior update: vLLM v0.30.0 adds DeepSeek-V4.1-Flash support with an MXFP8-resident KV
-cache and FlashMLA speedups on SM100, and a companion vLLM report reaches
-5K tokens/sec aggregate throughput and 180 tok/sec/user interactivity
-serving Qwen3.8-2.4T via prefill/decode disaggregation on GB300 NVL72 (see
-State of the art above).
-
-Prior update: A benchmark of five agentic-workflow context-trimming strategies finds a
-hard failure cliff below a 50%-context budget — dropping to 25% or less
-raises failure odds 10.92x — while protocol-aware trimming plus adaptive
-budget guardrails still saves 56.0% of tokens with 96.0% task success and
-just 1.0% cascading failure.
+**The open problem sits outside the engine.** Tool round-trips (search APIs
+with a 12x latency spread and short-lived caches, fan-out data queries, remote
+CI) and cold starts often dominate wall-clock time, and no serving
+optimization touches them. Voice sets a hard floor the whole loop must meet.
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the
-GPU's bill — the three trade against each other directly. The job is to budget
-latency across the *whole loop*, not per call: count the sequential model hops,
-push what you can to a faster or smaller model, cut the tokens that have to be
-decoded and streamed each step (compaction, KV reuse), and pick a serving engine
-tuned to the bursty, long-context shape agents actually produce rather than to a
-chat benchmark. Interactive modes (voice, live coding) set a hard ceiling, so the
-deliverable is a latency budget you can reason about per task, not a one-time
-inference optimization.
+GPU bill, and the three trade against each other directly.
+
+Budget latency across the *whole loop*, not per call: count the sequential
+model hops, push what you can to a faster or smaller model, and cut the tokens
+decoded and streamed each step ([compaction](/topic/context-compaction), KV
+reuse, [speculative decoding](/topic/speculative-decoding)). Pick a serving
+engine tuned to the bursty, long-context shape agents produce, not a chat
+benchmark. Measure tool latency cold, not against a warm cache.
+
+Interactive modes (voice, live coding) set a hard ceiling, so the deliverable
+is a latency budget you can reason about per task, not a one-time inference
+optimization.

@@ -7,495 +7,77 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c, 487ee06b84c7fedd, a3b54d5a91acaa5a, b81a99111a5a8671, f9027d80e820682e, 73461b3e97af0d93, 3fcefd9c665fb2c2, 3d1eacfa6636ae86, a26eb8af87253d8b, aae8bc1ed323e6eb, 09e1fe5d7a6f40d9, 378de5b0a4ef1ffb, 47be91cd52d348eb, cff5d80a676b706a]
-updated: 2026-10-04
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c, 487ee06b84c7fedd, a3b54d5a91acaa5a, b81a99111a5a8671, f9027d80e820682e, 73461b3e97af0d93, 3fcefd9c665fb2c2, 3d1eacfa6636ae86, a26eb8af87253d8b, aae8bc1ed323e6eb, 09e1fe5d7a6f40d9, 378de5b0a4ef1ffb, 47be91cd52d348eb, cff5d80a676b706a]
+evidence: []
+updated: 2026-10-06
+themes:
+  - key: harness-and-context
+    title: Harness, context, and topology drive the per-step bill
+    summary: What the agent re-reads, fetches, and re-sends each turn sets most of the bill; validated compaction, tool-instruction tuning, and task-level measurement beat naive truncation.
+  - key: cheaper-models
+    title: Downshifting to cheaper models, costed on total tokens
+    summary: Contracts and harness tuning let cheaper models take frontier work at 5-8x lower cost, but quantization and hallucinations can claw the discount back in extra tokens.
+  - key: routing
+    title: Routing each turn to the cheapest model that can handle it
+    summary: Benchmarks find most agent turns don't need a frontier model; per-thread routing inside the harness cuts cost 64-74%, and online tuning of the routing policy is emerging.
+  - key: caching-and-serving
+    title: Caching and serving efficiency set the floor price
+    summary: Prompt caching at 90%+ hit rates, KV-cache offload, GPU packing, and pay-for-use runtimes cut fixed cost by large factors before any model choice.
+  - key: price-curve
+    title: Falling token prices, rising workflow spend
+    summary: Frontier and open-weight per-token prices fall together and open weights now win gateway traffic, yet spend per agentic workflow is forecast to keep climbing.
 ---
 
 ## TL;DR
 A chatbot turn costs a predictable number of tokens; an agent can loop, re-read
 its whole context every step, spawn sub-agents, and call a model to grade its
-own work — so the bill is a function of *behavior*, not request count, and a
-single misbehaving run or a topology choice can multiply spend without anyone
-noticing until the invoice arrives. Cost is the run-time obstacle that the
-build-time decisions (memory, multi-agent, eval) silently determine.
+own work. The bill is a function of *behavior*, not request count, so one
+misbehaving run or one topology choice can multiply spend before anyone sees
+the invoice.
 
 ## State of the art
-Cost is being attacked on two fronts: **making it visible** and **making it
-smaller**.
+**Per-token prices are falling, but per-task spend is not.** Frontier and
+open-weight prices drop together, yet Gartner forecasts cost per agentic
+workflow rising more than fivefold through 2028, because spend scales with
+steps and tool calls. The deliverable is a cost model per task, not a price
+list.
 
-Visibility is moving from a monthly surprise to a first-class signal —
-enterprise platforms now ship usage analytics and hard spend controls
-(OpenAI's enterprise spend caps), and developer tooling attributes cost down
-to the unit of work, e.g. showing how many agent tokens a single pull
-request consumed (Prtokens). Visibility is even being automated *as an
-agent*: AWS's FinOps Agent (public preview) investigates cost anomalies and
-correlates spend changes with account activity, turning the after-the-fact
-bill review into a continuous, queryable analysis — cost analysis is itself
-becoming an agentic product.
+Teams pull four levers, roughly in order of payoff:
 
-The **reduction side** is the sum of the other obstacles' solutions: keeping
-the working set small via [context compaction](/topic/context-compaction)
-attacks the per-step token bill directly — naive context accumulation grows
-that bill quadratically in conversation length, crude summarization buys
-linear cost at the price of an accuracy cliff, and only validated compaction
-achieves linear cost with fidelity preserved, per "Agentic Context
-Management" (ACM)'s framing and its reference implementation, Maximem Synap;
-choosing a cheaper [orchestration](/topic/agent-orchestration) topology
-matters because the coordination structure dominates spend — Stanford's DeLM
-reports cutting multi-agent task cost ~50% by dropping the central
-orchestrator; and even evaluation is a cost line item, which is why teams
-fine-tune small judges to cut trace-judging cost ~100×.
+- **Cache the stable prefix.** An agent re-sends its system prompt, tool
+  schemas, and history every turn. Production setups report 90-99% cache
+  hits, and Anthropic's worked example shows one session at $11.20 uncached
+  versus $1.62 cached.
+- **Route per task.** Benchmarks find only about 7% of agent turns need a
+  frontier model; routing inside the harness cut cost 64-74%.
+- **Shrink what the agent re-reads.** Validated compaction, tighter tool
+  instructions, and leaner fetched content attack the per-step bill. Naive
+  truncation backfires: agents re-fetch what was cut.
+- **Downshift with guardrails.** Boundary contracts and harness tuning let
+  cheap models match frontier runs at several times lower cost.
 
-**Naive context trimming has failure regimes of its own, not just a fidelity
-cliff at the wrong compression ratio**: "Protocol-Preserving Context Trimming
-for Agentic Workflows" studies agentic systems whose long interaction
-histories — instructions, tool states, intermediate decisions, unresolved
-dependencies — drive up compute cost as they grow unrestricted, and shows
-that trimming this history without preserving the interaction protocol
-itself can break the agent rather than just make it less accurate; its
-budget guardrails are aimed at keeping compaction inside the protocol's
-constraints instead of only inside a token count, complementing ACM's
-linear-cost/fidelity framing above with an account of *how* trimming fails,
-not just how much it saves.
+**Cost every downshift on total tokens, not sticker price.** Quantized
+reasoning models emit more tokens, cheaper models hallucinate more, and
+truncation triggers retries. Each can erase the discount. Billing data
+backs the routing case: a weeks-old frontier model took 3.5% of one vendor's
+spend.
 
-**Training-time trimming is a newer lever alongside inference-time
-compaction**: rather than compress a live context window, one approach
-treats a multi-turn agent trajectory itself as a round-level dependency
-DAG, identifies which rounds (failed tool calls, parallel sub-queries,
-verification-only steps) are load-bearing for the final answer, and
-fine-tunes on the pruned trajectories instead of the raw ones. Across four
-multi-modal QA benchmarks this improves downstream accuracy by up to 1.7
-points over vanilla fine-tuning while cutting per-sample inference messages
-~40% and inference tokens ~48% — evidence that redundant *training* data
-inflates the same per-step bill as redundant *context*, so the fix belongs
-upstream of compaction, in what the agent is trained on, not only in what
-it re-reads at inference time.
-
-**The routing layer itself is becoming a build-vs-buy cost decision**: as
-hosted LLM routers proliferate (Ramp Router, Vercel's AI Gateway) and
-OpenRouter faces a possible acquisition, Millwright — a self-hosted,
-Rust-based LLM router — reframes routing as infrastructure a team owns for
-cost savings and transparency, rather than a hosted layer with vendor
-consolidation and lock-in risk baked in (see [cost
-controls](/topic/cost-controls) for the concrete instance). Routing is also
-getting a formal treatment as an allocation problem rather than a heuristic:
-"Pandora's AI Model Routing Box" frames choosing among heterogeneous models
-and harnesses as efficient allocation under a costly-to-estimate value
-signal, and Glean's CEO makes the buyer-side case for the same shift —
-frontier price and open-weight uptake are both pushing organizations toward
-routing, with feedback loops at scale improving the router's decisions over
-time. The runaway-spend failure mode this page's TL;DR describes is still
-the default without an enforced ceiling: an open-source terminal research
-agent (Mole) documents its own motivation as agents that "blow way past
-budget, jumble the sources, and don't even give you the best possible
-answer" — told from the tool builder's side rather than a vendor's
-mitigation (see [cost controls](/topic/cost-controls) for the concrete
-per-call spend-enforcement answer, AgentCore Payments).
-
-**Infra-level levers** help too, and the serving stack is increasingly
-pitched as a cost lever in its own right: vendors now frame the buying
-decision as cost per useful token — tokens per dollar and per watt — rather
-than peak chip specs, with hard numbers behind the pitch: NVIDIA reports its
-GB300 NVL72 rack delivering 10-25x the performance-per-watt of the prior
-Hopper generation across three current open models, a further 5x
-software-only gain on one of them within a single month (quantization,
-disaggregated serving, KV-cache offloading, no new hardware), and power-shifting
-software that lets an operator run up to 40% more GPUs inside the same power
-budget — a reminder that for self-hosted agents the inference stack sets the
-floor price every other optimization multiplies against. A production case
-study puts a number on the utilization side of that floor price: Heidi
-Health found individual ASR inference requests using only 15-20% of an
-NVIDIA L40S's streaming multiprocessors, with the rest sitting idle each
-forward pass — packing 4-8 concurrent requests onto one GPU via CUDA's
-Multi-Process Service instead of dedicating a GPU per request cut the GPU
-count needed for the same throughput by 75%, from 16 instances down to 4.
-
-**Runtime billing is shifting from holding a whole container in memory to
-metering what an agent actually uses**: Amazon Bedrock AgentCore's updated
-runtime pages memory in on demand and reclaims it when a session goes idle,
-instead of billing for the full container image for the session's whole
-lifetime, and cuts cold-start variance at the same time — P75 cold start
-holds around 2 seconds from a 200MB image up to 2GB, versus the prior
-runtime's 5.4-to-30-second range across the same sizes, achieved by
-snapshotting a warmed environment rather than re-initializing it. The
-per-GB rate is higher, but most agents bill lower overall because they stop
-paying for memory they aren't touching — the same "pay for behavior, not
-for holding capacity" shift this page's serving-stack levers already argue
-for, applied to the runtime billing model itself rather than the model call.
-
-The **sandboxing layer doubles as a cost lever**, not just a security
-control: Google's GKE Agent Sandbox reports cutting cost per agent by
-roughly 75% for platform teams running many concurrent agent workloads —
-tying [sandboxing](/topic/agent-sandboxing)'s isolation choice directly to
-this page's cost line rather than only to blast-radius containment.
-
-**Caching** cuts fixed cost at every layer: container/image caching (Amazon
-SageMaker) cuts cold-start scaling cost and latency; prompt caching the
-agent loop's stable prefix is becoming a framework default (LangChain's Deep
-Agents reports up to ~80% token-cost cuts across providers with no config),
-since an agent re-sends its system prompt, tool schemas, and prior steps
-every turn; and inside the model, KV-cache reuse cuts a cost specific to
-multimodal agents that re-read the same frames or screenshots each step —
-Kamera's position-invariant cache reuses those visual tokens across context
-shifts instead of re-encoding them every look-back. Compaction is starting to
-treat images as a first-class part of the token budget too: Codex's remote
-compaction now counts retained images against its budget by default and
-trims the oldest ones as needed, instead of letting accumulated screenshots
-silently inflate the context it has to re-send every turn. **KV-cache offload is
-becoming its own storage-engineering problem**: OpenLake moves the cache
-from GPU memory into a shared RAM/NVMe tier and compresses blocks losslessly
-before they leave the GPU, so a prefix cached on one host is cheap to fetch
-from another instead of being recomputed — on a 128K-context workload this
-cut total GPU time from 1,169 to 606 seconds, a 48.2% GPU-cost reduction.
-A parallelism-based answer attacks the same long-context bottleneck from a
-different angle: vLLM's Decode Context Parallelism shards the KV cache
-across GPUs by sequence dimension instead of offloading it, reporting 3x
-higher decode throughput on long-context agentic workloads versus standard
-tensor parallelism — more throughput per GPU-hour on the same hardware is a
-direct cost lever, not just a latency one (see [agent
-latency](/topic/agent-latency) for the full serving-stack detail).
-
-A subtler driver is the **context cost of instructions themselves** — every
-skill, hook, or subagent you add to steer an agent consumes context budget,
-so steering and cost are the same knob viewed from two sides.
-
-**Fetched content is its own cost line**, and it's now measured directly: one
-practitioner clocked an average Wikipedia article at 68,240 raw-HTML tokens
-against a 950-token summary once a web-fetch tool condenses it — and found
-the cheap path can invert on JS-rendered or anti-bot-protected pages, where
-the fetch returns nothing useful and the agent dumps the full raw HTML back
-into context anyway, paying the worst-case token bill for a failed read.
-
-The flip side of that knob is the biggest single lever: **spending context
-to downshift the model**. Cheap models are far cheaper per token but ignore
-architecture rules — ANMA reports Claude Haiku 4.5 violating its constraints
-in 13 of 19 runs unguided, but 0 of 20 once wrapped in explicit boundary
-contracts (YAML rules plus `CLAUDE.md`, hooks, and CI checks) — so a bit of
-contract overhead can make a cheaper model reliable enough to replace a
-frontier one on the bulk of the work.
-
-A second case makes the same point with a harder cost number attached:
-LangChain retuned only the harness — prompts, tool schemas, control flow —
-around NVIDIA's Nemotron 3 Ultra and matched Claude Opus 4.8's best agent
-run at roughly 8x lower cost, without fine-tuning the model or swapping in a
-bigger one. Scaffolding investment pays off on every call a harness handles;
-buying a bigger model buys quality once, per call.
-
-A third report puts the same cost/reliability exchange on a frontier-adjacent
-model swap rather than harness tuning or contract engineering: coverage of
-Grok 4.5 puts the coding-agent cost cut at roughly 80% versus a comparable
-frontier setup, at near-frontier speed, but with a higher hallucination
-rate — the same trade the Haiku and Nemotron cases above make explicit with
-boundary contracts and harness tuning, here left unmitigated.
-
-The cheaper-model lever has a hidden counterweight, though: **a lower
-per-token price can be eaten by a higher token count**. "Quantization
-Inflates Reasoning" shows that low-bit post-training quantization — the
-standard way to cut inference cost — makes reasoning models emit *more*
-tokens to reach the same answer, so final-answer accuracy and per-token
-latency both miss the real bill; the cost that matters for an agent is
-price-per-token times the tokens the run actually spends, and a quantized
-model can claw back its discount in inflated reasoning traces.
-
-The lesson generalizes: every downshift (smaller model, quantized model,
-cheaper judge) has to be costed on *total tokens emitted in the loop*, not
-the sticker price per token.
-
-A fourth lever trades data rights for price rather than model size or
-reasoning effort: Meta's Muse Code Mac coding agent cuts subscription cost
-up to 20x for users who opt into letting the agent train on their code and
-usage data — the same downshift logic as the model-size and
-reasoning-effort levers above, but the currency paid is data access rather
-than accuracy or latency.
-
-**Test-time-scaling cost** is a related but distinct lever from the model
-downshift above: generating many parallel attempts per problem to improve
-answer quality is a reliable but expensive pattern, and by default those
-attempts are independent, wasting inference budget on redundant samples.
-QuasiMoTTo applies quasi-Monte Carlo sampling to spread parallel attempts
-more evenly across the solution space instead of drawing them independently,
-cutting the redundancy tax on a pattern (parallel sampling) that agent
-harnesses increasingly reach for when a single pass isn't reliable enough.
-
-**Reasoning effort itself is becoming a trainable, explicit dial** rather than
-a fixed per-model setting. Models increasingly expose low/medium/high
-reasoning-effort modes through several mechanisms — system-prompt
-conditioning that tells the model how hard to think, RL training with
-per-token cost coefficients that reward shorter traces at low effort and
-allow longer ones at high effort, SFT that mixes thinking and non-thinking
-examples, or distilling several separately-trained reasoning-depth
-specialists into one model. Token consumption swings roughly 25-50% across
-effort levels, and a smaller model at high effort can match a larger model at
-low effort — so model size and reasoning effort have to be tuned jointly, not
-model size alone. For an agent harness this turns reasoning effort into a
-routing decision: effort should be selected per request, based on task
-complexity and how much verification the step needs, rather than fixed once
-for the whole agent.
-
-A benchmarked routing result puts a hard number on that per-request decision:
-NVIDIA's NeMo Switchyard, run across 145 agent tasks, found only 7% of turns
-actually needed a frontier model — routing the rest to cheaper models cut
-total cost 74% for a six-point accuracy trade-off. It's direct evidence that
-most of an agent's turn-by-turn cost is spent on calls that didn't need
-frontier capability in the first place, sharpening the reasoning-effort-as-
-routing-decision argument above into a measured split rather than a
-qualitative one.
-
-That argument is already shipping as a dedicated product rather than only a
-routing policy over general-purpose models: TypeSafe's Jev, pitched as a
-"System One Model" that only decides, classifies, routes, or scores, reports
-running more than 100x faster and more than 200x cheaper than small frontier
-LLMs on those narrow jobs — the same "most turns don't need frontier
-capability" case NeMo Switchyard makes empirically, packaged as a
-purpose-built model instead of a policy that picks among existing ones.
-
-That per-request routing decision is starting to get automated rather than
-hand-tuned: IMABO frames inference-time choices — model selection,
-retrieval depth, prompting strategy, decoding temperature — as a bandit
-problem, since production systems can only judge a configuration by using
-it on live traffic and reading noisy feedback back, not by holding out a
-validation set the way offline tuning does. Its policy (IMOSS) grows its
-active set of candidate configurations over time rather than committing to
-a fixed exploration budget upfront, and the authors evaluate it against
-three oracle variants (a Tree-structured Parzen Estimator, a
-per-coordinate mutation oracle, and a pretrained tabular foundation model)
-on both classical ML tuning and LLM agent configuration tasks. It's a
-mechanism for the "effort should be selected per request" argument above,
-rather than a routing table a team hand-writes and forgets to revisit.
-
-**Tool-calling behavior**, not just model choice, is now a cost lever in its
-own right: when GitHub retuned Copilot code review onto shared Unix-style
-tools (`grep`/`glob`/`view`), average cost went *up* at first, because the
-new tools' instructions invited broad, exploratory browsing suited to an
-interactive coding assistant rather than the narrow, diff-anchored search a
-reviewer actually needs. Rewriting the tool instructions — not the tools
-themselves — to start from the diff, batch searches before reading, and read
-only the needed line ranges cut average review cost roughly 20% while
-holding review quality, evidence that a tool's *instructions* are as much a
-cost surface as the tool's schema. Judge cost gets the same treatment as
-agent cost: mining production traces for failure clusters and fine-tuning a
-small judge on them, rather than running a frontier model as the judge,
-is the same cheap-instrumentation-over-model-swap move already established
-for [evaluation](/topic/agent-evaluation).
-
-**Shorter output is not automatically cheaper output**, which sharpens the
-standing "cost is a function of behavior, not request count" argument in
-the TL;DR into a concrete failure mode: GitHub found that when a coding
-agent's output was truncated or summarized to save tokens, the agent would
-sometimes reopen the original output or rerun the command to recover
-information it needed — turning one apparently-cheaper turn into more total
-turns and more total context. Its fix works across the whole task rather
-than any single tool call: selectively compress repetitive build/test logs
-while preserving source code (the highest-value cut), strip unused
-line-number formatting (5% cost reduction on its own), rewrite Task-tool
-prompts to be less verbose (2.9%), and deliver background-work results
-without an extra retrieval call (2.3%) — each change validated with offline
-benchmarks and online A/B tests before shipping, and measured across the
-complete task rather than per tool call, the same task-level accounting
-this page's harness-bug and reasoning-effort levers already argue for. A
-different team attacks the same "compress the recurring, expensive part of
-the prompt" problem from the training side rather than the log-shaping
-side: Shopify's gisting trains learned tokens to reproduce a long system
-prompt's behavior, cutting its Sidekick agent's prompt 4:1 (6,000 to 1,500
-tokens) while holding quality and freeing enough serving capacity to reduce
-the GPU footprint for the same load (see [agent
-latency](/topic/agent-latency) for the latency numbers behind the same
-technique).
-
-**Harness-side cost bugs are their own line item**, distinct from model or
-architecture choice: Claude Code v2.1.216 fixed a slowdown where long-session
-message normalization cost grew *quadratically* with the number of turns,
-causing multi-second stalls and slow resumes — a reminder that the harness's
-own bookkeeping, not just the model calls it makes, can be the thing that
-turns a long-running agent session expensive and slow. The same release
-also split filesystem isolation from network egress control as independent
-sandbox settings (see [sandboxing](/topic/agent-sandboxing)), letting a team
-tune the security/cost trade-off of each control separately instead of
-paying for both whenever either is needed. A later release turned that same
-bookkeeping toward accuracy rather than speed: v2.1.239 folds the 1.1x
-US-only-inference premium that data-residency workspaces pay into the cost
-estimates `/cost`, the status line, and `--max-budget-usd` actually show, so
-a team on a residency-locked workspace sees its real regional cost instead
-of the base rate.
-
-**Falling code-generation cost is reshaping the ROI calculation itself**, not
-just the per-call bill: coding agents have made reverse-engineering
-undocumented home-device APIs cheap enough that the traditional "is it worth
-the maintenance risk" calculus barely applies — when writing the automation
-is nearly free, so is throwing it away and rewriting it if the undocumented
-API changes, which removes the psychological cost that used to gate the
-work. It's the same cost/ROI reframing [proving agent
-ROI](/topic/proving-agent-roi) tracks from the enterprise side, showing up
-here as a change in what individuals bother to build at all.
-
-**The frontier price war just got sharper on both ends at once**: GPT-5.6
-cut list price 20-80%, with the cost of GPT-5.4-level intelligence reported
-down roughly 13x in four months via recursive self-optimization (using the
-model to distill and improve its own successor), while China's open-weight
-labs keep pushing the same curve down from the other side — DeepSeek shipped
-another cheaper model as the domestic price war intensifies, and
-AMD's MI355X now undercuts Nvidia's B300 on cost-per-token to run China's
-Kimi K3. The frontier and open-weight price curves are falling together, not
-one converging toward the other. DeepSeek's V4 Flash sharpens that open-weight
-side with a specific number: running a full test suite at $72 against Kimi
-K3 on the same job, a roughly 33x gap — evidence the domestic price war isn't
-just cutting list price, it's compounding the gap between individual
-open-weight releases too.
-
-That price pressure now shows up in where the traffic actually goes, not
-just in list prices: open-weight models overtook proprietary ones on
-Vercel's AI Gateway for the first time, taking 54% of token volume on one
-day and a record 62% on another, up from just 28% on June 24 — with
-DeepSeek-V4-Flash the single most-used model by volume and Chinese models
-filling out the rest of the top five (StepFun's Step 3.7 Flash, Zhipu's
-GLM-5.2). The next wave of releases keeps widening that gap on cost rather
-than capability: Zhipu's GLM-5.3-Flash lands within three points of its own
-larger GLM-5.3 on Artificial Analysis's Intelligence Index at roughly a
-seventh of the cost, with all inference running on Chinese chips instead of
-Nvidia hardware, and Alibaba's Qwen3.8-Flash-Next prices in at $0.16/$0.47
-per million input/output tokens — about a twelfth of Qwen3.8-Max's cost and
-a ninth of Qwen3.7-Plus's training cost — while beating Claude Opus 4.6 on
-SWE-bench Pro (62.5 vs. 53.4).
-
-Zooming out, the aggregate trend is still climbing even as every lever above
-pushes down: Gartner forecasts inference cost per agentic *workflow* will
-increase more than fivefold through 2028, because workflow spend scales with
-the number of steps and tool calls an agent takes, not with the price of any
-single token — the same reason a falling per-token price, frontier or
-open-weight, doesn't guarantee a falling bill once workflows get more
-agentic, not just cheaper per call.
-
-**The frontier price war's newest round is GPT-6's own launch lineup.**
-OpenAI shipped Sol and Luna, two GPT-6-family models pitched explicitly as
-different capability/cost balances for everyday work rather than a single
-frontier tier, alongside a prompt-caching overhaul for GPT-6 itself — higher
-cache hit rates, a caching dashboard with hit-rate diagnostics, and explicit
-cache breakpoints that give a team direct control over what stays cached
-instead of relying on an opaque default. A named customer case study puts a
-number on what that combination buys in production: Parallel's research
-agents cut both research time and API cost in half on the same labor-market
-synthesis task after moving to GPT-6 Astra, versus the prior model
-generation — the same "downshift the model, keep the task" lever this page's
-Haiku, Nemotron, and Grok cases already demonstrate, this time from the model
-vendor's own launch-day case study.
-
-**Anthropic's own task-cost breakdown makes the "cost is a function of
-behavior" argument in the TL;DR literally computable.** Opus 5.5 lists at
-$4/$20 per million input/output tokens on the API (roughly 20% below Opus 5),
-with cache reads at $0.20/Mtok (about 60% cheaper than before) — and
-Anthropic's own worked numbers show how much a single lever moves the bill:
-the same 2.8M-token session costs $11.20 with no caching versus $1.62 at a
-90% cache-hit rate, a high-effort turn adds roughly $0.40 in extra thinking
-tokens but can avoid a similarly expensive retry loop, and a $0.25 compaction
-pass pays for itself within about ten subsequent turns by cutting each one's
-cache-read cost. It is a concrete, vendor-published instance of this page's
-standing argument that the deliverable is a cost model a team can reason
-about turn by turn, not a single per-token sticker price.
-
-Anthropic frames that pricing and training update around a demand-side
-shift, not just a cost-modeling exercise: its own announcement states that
-coding sessions are running longer and consuming more context than when
-Opus 5 shipped, and Opus 5.5 is priced and trained specifically to keep that
-growing-context workload affordable — the vendor's own rationale for why the
-caching and effort-level levers above matter more now than at the prior
-model's launch.
-
-**Real billing data shows where that spend actually lands, and it isn't the
-frontier model.** A breakdown of Anthropic's own July spend by model (the
-Ramp AI Index, built from 70,000 companies' credit-card billing data) shows
-Opus 5 — the newest, most capable model, released weeks earlier — capturing
-only 3.5% of spend, while the prior-generation Opus 4.8 still takes 28%.
-Anthropic's annualized revenue climbed to $65bn in the same period, up from
-$47bn two months earlier, so the spend itself is real and growing; it just
-isn't concentrating on the frontier model, evidence for the routing and
-reasoning-effort arguments above that most per-task spend doesn't need
-frontier capability.
-
-A second production case study puts an even higher number on the same
-caching lever, plus the discipline that gets there: Anthropic's own
-commerce-agents guide reports 90-99% prompt-cache hit rates in production,
-achieved by keeping a byte-identical prefix across three cache segments —
-global (rarely changes), session (stable for the conversation), and volatile
-(changes every turn) — so only the volatile segment actually breaks the
-cache each turn, with cached tokens reading back 1.5-2x faster than an
-uncached read. The same guide's latency playbook targets three separate
-levers rather than one: fewer turns (pre-loaded context, parallel tool
-calls), faster tools (backend optimization, dispatching a tool call's
-arguments as they stream instead of waiting for the full response before
-acting), and faster tokens (model selection driven by eval sweeps over real
-traffic, not a leaderboard score). It pairs the cost playbook with a
-safety-in-code discipline that keeps spend-relevant actions off the model's
-say-so alone: no financial action executes without staging and human
-approval, writes accept only server-issued IDs rather than a model-typed
-one, and transaction caps enforce a ceiling on the resulting state instead
-of the request.
-
-**Selective multi-model orchestration is reaching production** rather than
-staying a routing-theory argument: GitHub's Project HydraFusion, a research
-preview in Copilot, routes each coding step to the model that step actually
-needs and reports its selective workflows matching or exceeding an Opus 5
-baseline in controlled offline evaluations while cutting estimated workflow
-cost — a concrete instance of the "most turns don't need frontier capability"
-argument NVIDIA's NeMo Switchyard result already makes above, this time
-shipped inside a mainstream coding assistant rather than a benchmark paper.
-
-**Routing inside the harness beats routing at a gateway**: LangChain's Open SWE
-coding agent cut median cost per thread by 64% against an always-frontier
-baseline, with no measurable quality change, by classifying each thread's first
-human message into one of three tiers (GLM-5.3-Flash, GPT-5.6 Sol, GPT-6 Astra)
-and holding that model for the whole thread. The build order is the reusable
-part: label a week of traces by task type, pick tiers off the Artificial
-Analysis cost-per-task Pareto frontier, write tier criteria from your own task
-mix, then verify with merged-PR rate and thumbs feedback in an A/B test. The
-router is deliberately not a generic gateway because tier criteria depend on
-the agent's own prompt and task knowledge. Mid-thread re-routing is left
-unsolved.
-
-Model-tier choice is a cost lever on top of caching and effort. Claude Sonnet 5.5
-lists at $2 input / $10 output per million tokens, half of Opus 5.5's $4 / $20,
-with an identical $0.20 cache-read rate. Its per-token price matches Sonnet 5,
-but Anthropic reports it needs far fewer tokens per task, so the bill for the
-same work falls by up to 30%. Anthropic's routing rule: Sonnet 5.5 for
-well-specified tasks with a way to check the result, Opus 5.5 for long-horizon
-work. Raising Sonnet to `xhigh` or `max` effort spends the tokens the
-cheaper tier was meant to save.
-
-**Hard budget caps as a default.** Simon Willison argues metered APIs and services should ship a spend cap that stops usage by default, not an alert that arrives after the bill. A Pi-based coding agent on Show HN enforces the same limit inside the agent. Both treat the cap as the backstop under the visibility and spend-control levers above.
-
-## What's new
-Simon Willison argues pay-by-usage APIs and services need **default hard budget caps**: a limit on spend that stops usage rather than just alerting, because agents can burn through metered usage faster than a human notices. A Show HN coding agent built on Pi ships the pattern as a product feature, with hard budget caps at the agent layer (see State of the art above).
-
-Prior update: LangChain's Open SWE model router cut median cost per coding task by 64% with
-no measurable quality change, by picking a cheaper model tier once per thread
-from the first request (see State of the art above).
-
-Prior update: Claude Sonnet 5.5 (also on Bedrock) keeps Sonnet 5's per-token price while using
-fewer tokens per task, for up to 30% lower cost on most work. Its default effort
-is `high` on the API but `medium` in Claude Code, so the same model can bill
-differently by surface (see State of the art above).
-
-Prior update: Anthropic frames Opus 5.5's pricing and training explicitly around longer,
-more context-heavy coding sessions rather than a general capability bump —
-the demand-side rationale behind the caching and effort-level cost levers
-this page already quantifies (see State of the art above).
-
-Prior update: OpenAI launched GPT-6 Sol and Luna as tiered capability/cost options and
-overhauled GPT-6 prompt caching with a hit-rate dashboard and explicit
-breakpoints; a launch-day case study reports Parallel halving both research
-time and cost on GPT-6 Astra. Separately, Anthropic's own worked Opus 5.5
-cost breakdown quantifies the caching, effort-level, and compaction levers
-this page already tracks: $11.20 vs. $1.62 for the same 2.8M-token session at
-0% vs. 90% cache hit rate (see State of the art above).
+**The open problem is accounting at the right unit.** Most reported savings
+are vendor-measured, offline, or single-customer. Mid-thread re-routing is
+unsolved, and runaway spend remains the default without an enforced cap
+(see [cost controls](/topic/cost-controls)). Self-hosters face a parallel
+floor: GPU utilization, KV-cache placement, and runtime billing often matter
+more than list price.
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.
 
-The job is to make spend observable per task and per user, set budgets and
-caps before a loop runs away, and treat the architecture (compact vs.
-retrieve, single-agent vs. orchestrated, frontier vs. fine-tuned judge) as
-the primary cost control — because the biggest savings come from *how* the
-agent is built, not from shaving the model price.
+Make spend observable per task and per user, and set budgets and caps before
+a loop runs away. Then treat architecture as the main cost control: compact
+vs. retrieve, single-agent vs. orchestrated, frontier vs. routed or
+fine-tuned models. The biggest savings come from *how* the agent is built,
+not from shaving the model price.
 
 Cost, latency, and reliability trade against each other, so the deliverable
-is a cost model you can reason about, not a one-time optimization.
+is a cost model you re-run on each model release, not a one-time
+optimization. See [context compaction](/topic/context-compaction) and
+[orchestration](/topic/agent-orchestration).

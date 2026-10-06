@@ -5,9 +5,18 @@ title: "Tracing and trace analysis for agent runs"
 status: active
 obstacles: [agent-observability]
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9, f07f7955a1ecbd39, f49b38f16a2b7158, dadedf10efb45ade, 0ada5d894838d46e, ec596dac47b8163f, b60131f089d99489]
-updated: 2026-09-24
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9, f07f7955a1ecbd39, f49b38f16a2b7158, dadedf10efb45ade, 0ada5d894838d46e, ec596dac47b8163f, b60131f089d99489]
+evidence: []
+updated: 2026-10-06
+themes:
+  - key: capture
+    title: "Capturing the run: zero-config SDKs, platform spans, new modalities"
+    summary: Capture is commoditizing into drop-in SDKs and platform-native spans and now covers voice; payload defaults, truncation, and per-span billing differ by integration, and latent multi-agent channels escape the span schema entirely.
+  - key: storage
+    title: Storing and searching traces at fleet scale
+    summary: Vendors are hardening trace stores with inverted indexes over object storage and one table for traces plus evals, while self-owned archives in your own S3 bucket keep sessions portable.
+  - key: diagnosis
+    title: Reading and diagnosing traces
+    summary: Tools now run a model over trace corpora to cluster failures and triage alerts, and viewers are moving to chat-style session threads and inline, query-backed visualizations.
 ---
 
 ## TL;DR
@@ -17,139 +26,47 @@ find what broke and why. Tracing is the substrate that makes an agent debuggable
 evaluable, and operable instead of a black box that occasionally misbehaves.
 
 ## State of the art
-Two layers are maturing. The **capture** layer is standardizing: OpenInference /
-OpenTelemetry-style span schemas and trace stores (Langfuse, Arize) give a portable
-record of a run, and lightweight setups fall back to plain JSONL so the trace isn't
-locked to one vendor. The **analysis** layer is where the recent movement is: rather
-than asking an engineer to scroll spans, tools run a model over the trace corpus to
-cluster recurring failures and propose harness fixes — HALO is an open-source,
-local example that ingests Langfuse/Arize/JSONL traces and uses an RLM-based engine
-to find repeating failure patterns across runs. Managed platforms are pushing the
-same pattern as a product: LangSmith's fleet on-call copilot triages alerts off
-live traces and adds voice/trace debugging and experiment status tracking, turning
-trace reading into an assistive workflow. The common direction is *trace-in,
-explanation-out*: the trace is no longer just an audit log, it's the input to an
-automated diagnosis loop.
+Tracing now has three layers, and each moved this year.
 
-The storage layer is also consolidating on the vendor side: Langfuse v4
-rebuilds both trace capture and evaluation results onto one immutable
-ClickHouse table, collapsing what were separate storage paths for traces
-and evals into a single queryable store — the same infra-hardening
-instinct as LangSmith's SmithDB below, this time unifying capture and
-analysis on one table rather than indexing traces alone.
+**Capture is commoditizing.** OpenTelemetry/OpenInference-style span schemas are
+the common format, zero-config SDKs instrument LLM calls without code changes,
+and serving platforms such as Cloudflare emit agent spans (`invoke_agent`,
+`execute_tool`, `tool_approval`) natively. Coverage is widening past text to
+voice agents. The catch is in the defaults: payload recording, truncation, and
+billing differ per integration, not per vendor.
 
-Capture itself is starting to commoditize into a **zero-config** setup:
-Foglamp has an agent auto-detect its own LLM calls and instrument them
-without the developer touching config or code, then surfaces cost-per-call,
-latency, and quality/eval scores on a dashboard — the same drop-in
-instinct as commoditized sandboxing tools, applied to observability instead
-of isolation.
+**Storage is becoming real infrastructure.** Traces are large, nested JSON
+documents, and searching them at fleet scale takes purpose-built indexes (an
+inverted index over object storage) or one store for traces and eval results.
+The self-owned alternative is a lossless archive in your own bucket, searchable
+and exposed to agents over MCP.
 
-Analysis tooling is also going **cross-vendor** on the capture side:
-LangSmith now markets itself as a single debug console across whichever
-coding agent produced the trace — Claude Code, Codex, Cursor, or Copilot —
-inspecting tool calls, sub-agent handoffs, errors, cost, and retries in one
-place, so the trace format matters more than which agent product wrote it.
+**Analysis is where the movement is.** The pattern is trace-in,
+explanation-out: a model reads the trace corpus, clusters recurring failures,
+and proposes harness fixes, or triages an alert from live traces. Viewers are
+getting more readable too: chat-style session threads instead of span trees,
+and inline visualizations that render the actual query result so an engineer
+can check what the agent claims.
 
-Capture is also widening past text to a **new modality**: LangSmith now
-traces voice agents built on Pipecat, LiveKit, OpenAI Realtime, and Gemini
-Live, capturing audio alongside STT/TTS latency, interruptions, and tool
-calls in one trace — the same span-capture discipline applied to a
-turn-taking, real-time interface instead of a request/response loop.
-
-The **storage layer underneath trace search** is now getting engineering
-attention too, not just capture and analysis: LangSmith's SmithDB builds a
-custom inverted index over object storage so trace data can be
-full-text-searched and JSON-filtered directly, holding a 400ms median (P50)
-query latency even though each trace is a large, deeply nested JSON
-document — the piece of infrastructure that turns "traces are stored
-somewhere" into "traces are queryable at fleet scale."
-
-A serving platform is now folding capture directly into its own request
-tracing rather than leaving it to a bolt-on SDK: Cloudflare's agent tracing
-adds `invoke_agent` → `chat`/`execute_tool` → `tool_approval` spans onto its
-existing Workers traces, keyed by agent name, agent ID, and conversation ID.
-It sharpens the retention/PII trade-off below into a concrete platform-level
-gotcha: whether message and tool payloads are captured *by default* is
-opposite between its two supported SDKs (off in one, on in the other), and
-captured payloads are also subject to undisclosed span-size truncation — so
-the same capture feature can silently over-retain personal data on one stack
-and silently drop the exact reasoning or tool arguments a debugging session
-needed on another.
-
-The **self-owned** end of that storage layer is filling in too, against the
-vendor consolidation above: Pond archives agent sessions losslessly into a
-team's own S3 bucket, with no database service to run, sessions from several
-machines landing in one remote store, search over the archive, and the
-archive itself exposed to the agent as an MCP server. It is the portable-JSONL
-position with the missing pieces attached — multi-machine collection and
-search — and it treats the session as an asset worth keeping rather than a
-debugging byproduct that ages out with a retention window.
-
-Trace analysis tooling is also folding the **visualization step directly
-into the agent conversation** rather than leaving it as a separate
-dashboard: Amazon OpenSearch Service's MCP Apps return an interactive
-visualization alongside the agent's text response over a locally-run MCP
-server, so investigating an alert — trace lookup, log-pattern clustering,
-distributed-trace analysis, RED metrics, service-dependency mapping —
-happens inline in the same IDE chat thread instead of the engineer
-tab-switching to re-run the same query in a separate dashboard to verify
-it. The response is deliberately deterministic (the actual OpenSearch query
-result, not an AI-generated chart), which keeps the visualization
-trustworthy as a verification step rather than another layer of model
-output to double-check.
-
-The **capture UI** itself is now getting the same trace-first treatment as
-the storage and analysis layers above: LangSmith's Trajectories reads a
-full agent session as one chat-style thread — user turns, tool calls,
-sub-agent handoffs — instead of the tree of nested spans a generic trace
-viewer shows, trading completeness of the span tree for a faster
-top-to-bottom read of what a long-running session actually did.
-
-A different limit shows up once the agents being traced talk to *each other*:
-work on Verifiable Latent Alignments argues that agents can coordinate through
-continuous hidden states that never surface in the transcript, so a
-message-and-tool-call span schema is not a complete record of a multi-agent
-run. Its answer is to key each private latent-state record to the public
-action it caused through a shared event identifier — a monitoring unit
-underneath the span rather than a richer span (see
+**The open problem is completeness.** Traces are not lossless when payloads get
+truncated, model-over-trace analyzers can miss the rare failure, and agents in
+a multi-agent system can coordinate through hidden states that no
+message-and-tool-call span records (see [multi-agent](/topic/multi-agent) and
 [agent observability](/topic/agent-observability)).
 
-## What's new
-LangSmith shipped **Trajectories**, rendering a full agent session as one
-chat-style thread — user turns, tool calls, sub-agent handoffs — instead of
-a tree of nested spans, aimed at making a long-running session fast to scan
-without expanding every span by hand (see State of the art above).
-
-Prior update: Amazon OpenSearch Service's MCP Apps return an interactive visualization
-inline alongside an agent's text response over a locally-run MCP server,
-moving alert-to-trace verification (log clustering, distributed traces, RED
-metrics, service topology) into the same IDE chat thread instead of a
-separate dashboard tab — deterministic because the visualization renders
-the actual query result, not a model's interpretation of it (see State of
-the art above).
-
-Prior update: Pond archives agent sessions losslessly into a team's own S3 bucket — no
-database service, several machines into one store, searchable, and reachable
-by the agent over MCP — giving the portable-format position this page's
-trade-offs recommend the multi-machine collection and search it was missing.
-
-Prior update: Langfuse v4 rebuilds both trace capture and evaluation results onto one
-immutable ClickHouse table, collapsing separate storage paths for traces
-and evals into a single queryable store (see State of the art above).
-
 ## Trade-offs
-Tracing adds instrumentation overhead and storage, and high-cardinality traces get
-expensive to retain and search at fleet scale — so retention, sampling, and PII
-scrubbing become real decisions. Cloudflare's launch shows those decisions
-aren't even consistent within one platform: the same feature ships opposite
-payload-storage defaults depending on which of its two supported SDKs a team
-picked, so "does this platform capture PII by default" can only be answered
-per-integration, not per-vendor. Model-over-trace analysis is itself an
-LLM-cost-and-reliability line item (the analyzer can be wrong or miss the rare
-failure), and a vendor trace format can lock you in. Plain JSONL is portable but
-shifts the analysis burden onto you. Best value comes from standardizing the
-capture format early so the analysis layer — homegrown or managed — stays swappable.
+Tracing adds instrumentation overhead and storage, and high-cardinality traces
+get expensive to retain and search at fleet scale, so retention, sampling, and
+PII scrubbing are real decisions. They are not even consistent within one
+platform: payload defaults can differ by SDK, so "does this capture PII by
+default" is answered per integration, not per vendor.
+
+Model-over-trace analysis is its own LLM cost and reliability line item; the
+analyzer can be wrong or miss the rare failure. A vendor trace format can lock
+you in, while plain JSONL is portable but shifts the analysis burden onto you.
+
+Best value comes from standardizing the capture format early, so the storage
+and analysis layers, homegrown or managed, stay swappable.
 
 ## Why it matters for platform engineers
 Traces are the agent equivalent of logs and metrics: the precondition for

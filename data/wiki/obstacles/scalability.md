@@ -7,92 +7,57 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [485666e1560ba32b, 6a60d1242802c6f9, 14ca1514017a2ee2, 72249bd53d8a5849]
-updated: 2026-10-03
-covers_evidence: [485666e1560ba32b, 6a60d1242802c6f9, 14ca1514017a2ee2, 72249bd53d8a5849]
+evidence: []
+updated: 2026-10-06
+themes:
+  - key: coordinator-free-scheduling
+    title: Removing the central coordinator instead of scaling it
+    summary: Sandbox schedulers and the MCP protocol both drop central, strongly consistent coordination so each worker or request decides locally and scales horizontally.
+  - key: concurrent-serving
+    title: Serving many agents at once without padding waste
+    summary: Paged KV caches and packed, ragged batching keep time to first token flat as concurrent agent requests share a batch, now down to Apple Silicon.
+  - key: fleet-density
+    title: Sandbox density and scale-to-zero for idle fleets
+    summary: Platforms now suspend idle agent sandboxes and resume them in under a second, so idle fleets stop holding capacity; density claims are vendor-reported.
 ---
 
 ## TL;DR
 A single agent is a serving problem; a fleet of agents is a distributed-systems
 problem. Every agent that spins up a sandbox, holds a serving slot, or opens a
-session adds concurrent, short-lived state — and the coordination layer meant
-to track that state, not raw compute, is what breaks first at agent-native
-scale.
+session adds concurrent, short-lived state. The coordination layer that tracks
+that state, not raw compute, is what breaks first at agent-native scale.
 
 ## State of the art
-Two vendors hit the same wall from different directions and answered it the
-same way: stop treating agent concurrency as a bigger version of the old
-problem, and remove the central coordinator instead of scaling it.
+**The consensus fix is to remove the central coordinator, not scale it.** The
+same move now shows up at three layers:
 
-Modal rebuilt its sandbox infrastructure after finding that Kubernetes-style
-orchestration — a centrally coordinated scheduler backed by strongly
-consistent state in etcd — caps out well short of what agent workloads need:
-etcd can't be sharded within a keyspace, and scheduling and node-management
-operations scale with the number of containers and nodes, so the coordinator
-itself becomes the bottleneck long before the hardware does. Their rebuild
-removes the central coordinator entirely: a horizontally scalable fleet of
-scheduling servers load-balances requests instead of routing every decision
-through one source of truth, each worker accepts or rejects a sandbox
-creation directly over RPC based on its own available resources, and workers
-publish state to a single Redis stream that the team expects to hold up past
-100,000 workers. The result is a system that created 1 million concurrent
-sandboxes in under 60 seconds, sustained roughly 50,000 sandbox creations per
-second, and brought median cold-start (startup-to-running-code) latency under
-0.5 seconds — evidence that removing the coordinator, not adding more of it,
-is what unlocks concurrency at this scale.
+- **Sandbox scheduling.** A Kubernetes-style scheduler backed by strongly
+  consistent state caps out before the hardware does. The working design lets
+  each worker accept or reject work on its own resources and publish state to
+  a shared stream. Modal reports 1 million concurrent sandboxes in under 60
+  seconds this way.
+- **Inference serving.** Paged KV caches and packed, ragged batching stop
+  padding overhead from compounding as concurrent requests share a batch.
+- **Tool protocol.** Stateless MCP drops sessions and sticky routing so remote
+  servers scale like any stateless service.
 
-The serving layer is hitting the same concurrency pressure from the inference
-side: vLLM's new vllm-metal brings vLLM's scheduler and paged KV cache to
-Apple Silicon (M1 Pro through M5 Pro), replacing padded batching with a
-"packed queries" design that concatenates request tokens into one ragged
-batch instead of padding every request to the same length — a directly
-concurrency-shaped fix, since padding overhead compounds as more concurrent
-requests share a batch. The paged KV cache's per-request block tables carry
-the same benefit further: fixed-size pages let variable-length sequences
-share memory without reshaping the cache, which is what makes admission
-control practical under concurrent load in the first place.
+**Density is the second lever.** Instead of keeping sandboxes warm, platforms
+suspend idle ones and resume them in under a second, and Kubernetes can now
+scale agent workloads to zero.
 
-MCP's own protocol evolution shows the same "remove the coordinator" pattern
-a third time, at the application layer rather than the sandbox or serving
-layer: the specification's stateless rewrite removes protocol-level sessions
-and sticky-session requirements for remote servers, letting requests route
-independently and scale horizontally instead of pinning each session to one
-coordinating server — the same fix Modal applied to sandbox scheduling and
-vLLM's paged cache applies to serving, now landing in the tool-calling
-protocol itself (see [MCP](/topic/mcp) for the full protocol change).
-
-Google's September GKE update adds the density side of the same problem. The
-open-source **GKE Agent Substrate** targets millions of sandboxes at 10x the
-density of standard container runtimes, with sub-500ms resume at over 500
-suspend/resume activations per second and kernel- and network-level
-isolation. GKE also now scales workloads to zero natively, via the HPA with
-KEP-2021 support, so idle agent fleets stop holding capacity.
-
-## What's new
-Google's GKE Agent Substrate claims 10x container density, sub-500ms resume and 500+ suspend/resume activations per second, making suspend/resume the scaling lever for idle agent sandboxes (see State of the art above).
-
-Prior update: The MCP specification's stateless rewrite removes protocol-level sessions
-and sticky-session requirements for remote servers, extending this page's
-"remove the coordinator, don't scale it" pattern from sandbox scheduling and
-inference serving to the tool-calling protocol itself (see State of the art
-above).
-
-Prior update: Modal published the engineering account of rebuilding its sandbox scheduler
-around per-worker autonomy instead of central coordination, reaching 1
-million concurrent sandboxes and sub-second cold starts; vLLM's vllm-metal
-brought the same paged, concurrency-aware serving design to Apple Silicon the
-same week (see State of the art above).
+**The open problem is where the state goes.** Removing the coordinator or the
+session does not remove the state. Retries, idempotency, application state,
+and observability move to layers the platform team now owns. Most published
+numbers are vendor-reported and not independently reproduced.
 
 ## Why it matters for platform engineers
-Concurrency is a different failure mode than throughput, and it shows up
-first in the layer a team is least likely to have load-tested: the scheduler
-or coordinator that tracks which sandbox, session, or KV-cache page belongs
-to which agent. A platform built to serve one agent well can still fall over
-the moment a thousand agents run at once, because the bottleneck was never
-the model call — it was the shared, strongly consistent state every request
-had to pass through. Budget for concurrent state (sandbox lifecycle, session
-tracking, KV-cache admission), not just aggregate request volume, and prefer
-architectures where each worker can make a local decision over ones that
-route every request through one coordinator (see [agent
-sandboxing](/topic/agent-sandboxing) for the isolation side of the same
-sandbox-fleet problem).
+Concurrency fails differently from throughput, and it fails first in the layer
+teams rarely load-test: the scheduler or coordinator that tracks which
+sandbox, session, or KV-cache page belongs to which agent. A platform that
+serves one agent well can still fall over when a thousand run at once.
+
+Budget for concurrent state (sandbox lifecycle, session tracking, KV-cache
+admission), not just aggregate request volume. Prefer designs where each worker
+decides locally over ones that route every request through one coordinator. See
+[agent sandboxing](/topic/agent-sandboxing) for the isolation side of the same
+fleet problem.
