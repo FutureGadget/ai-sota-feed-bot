@@ -61,21 +61,29 @@ quantitative claims unless the evidence tier supports them.
 
 ## Page Shape
 
-Each concept starts from a builder question and uses this structure:
+A concept page has two parts:
 
-- `Builder consequence`
-- `Short answer`
-- `Builder model`
-- `Mechanism`
-- `Math intuition` when math is central or `math_depth: intuition`
-- `Evidence`
-- `How to apply`
-- `Failure modes`
-- `Related`
+- **The explanation** — the sections below, each word-capped by the build.
+  Name patterns; cite a study by name and key number at most. Never retell a
+  study across several paragraphs.
+- **The evidence list** — front-matter entries, each with `added` (filing date)
+  and a `note` of at most 80 words saying what the source shows. Study detail
+  lives only here; the page renders it newest first.
 
-The first screen should answer why the concept changes the builder's work. The
-middle should explain the mechanism. The end should turn that explanation into
-design and testing guidance.
+Sections, in this order (caps in `config/foundations_schema.md`):
+
+- `Builder consequence` (≤80 words)
+- `Short answer` (≤120)
+- `Builder model` (≤200, optional)
+- `Mechanism` (≤350)
+- `Math intuition` (≤200; required when `math_depth: intuition`)
+- `How to apply` (≤250)
+- `Failure modes` (≤150)
+- `Related` (≤60, optional)
+
+Do not write an `Evidence` section. The first screen should answer why the
+concept changes the builder's work. The middle should explain the mechanism.
+The end should turn that explanation into design and testing guidance.
 
 ## Routine
 
@@ -85,15 +93,16 @@ design and testing guidance.
 python .agents/skills/foundations-curator/scripts/build_foundations_input.py --days 14
 ```
 
-Read `data/foundations/input/latest.json`. It includes recent candidate stories,
-current Foundation concepts, related wiki topics, Playbook card references, and
-staleness hints.
+Read `data/foundations/input/latest.json`. It includes recent candidate stories
+(each with `cited_in`: concepts that already cite it), current concepts with
+their evidence and newest `added` date, related wiki topics, and Playbook card
+references.
 
 ### 2. Decide whether to edit
 
 Create or update a page only when the evidence supports a durable concept. Thin
 ideas stay in the input bundle or backlog. Prefer one excellent update over many
-weak pages.
+weak pages. Skip stories whose `cited_in` already lists the concept.
 
 Update an existing concept when new evidence changes the mechanism,
 application guidance, or failure-mode treatment.
@@ -108,23 +117,37 @@ Good first topics are builder questions:
 
 ### 3. Edit source pages
 
-Write or update `data/foundations/concepts/<slug>.md`:
+**Adding evidence to an existing concept:**
 
-- Edit synthesis in place; do not append changelogs inside the page.
-- Add only real evidence entries.
-- Refresh `updated` and `covers_evidence`.
-- Cross-link to related `/topic/<slug>`, Playbook card ids, or storylines only
-  when those references resolve.
+1. Add one evidence entry per new source with `added:` set to today and a
+   `note` (≤80 words) stating what it shows, with its key number. If the source
+   arrived through a feed story, put the story `sid` on the same entry; do not
+   add a separate `story` entry.
+2. At 12 entries, remove the weakest or superseded entry first.
+3. Rewrite only the sections the finding changes, keeping each within its cap:
+   replace or compress older sentences instead of adding paragraphs. Bump
+   `updated` only when the explanation changed.
+4. Never change `added` on existing entries.
+
+**Creating a new concept:** write `data/foundations/concepts/<slug>.md` in the
+same shape from the start — capped sections, no `Evidence` section, every
+evidence entry with `added:` (today) and a note — then validate it with
+`--check --slug <slug>`.
+
+For both: add only real evidence; cross-link to `/topic/<slug>`, Playbook card
+ids, or storylines only when those references resolve.
 
 ### 4. Validate and compile
 
 ```bash
-python pipeline/build_foundations.py --check
+python pipeline/build_foundations.py --check     # or --check --slug <slug> while editing one page
 python pipeline/build_foundations.py
 python pipeline/render_static_pages.py
 ```
 
-Fix all schema, reference, or render errors before publishing.
+The build lists every problem (over-cap sections, missing `added`, long notes,
+unresolved references) with `FOUNDATIONS_BUILD_FAIL`. Fix them all and re-run
+until it prints `FOUNDATIONS_BUILD_OK` before publishing.
 
 ### 5. Publish
 

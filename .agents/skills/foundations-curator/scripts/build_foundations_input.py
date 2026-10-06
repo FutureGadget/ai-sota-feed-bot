@@ -2,8 +2,9 @@
 """Build the Foundations curator input bundle.
 
 The bundle is reading material for the agent routine. It proposes candidate
-source stories and shows current Foundation/wiki/Playbook context, but it never
-creates or edits published concept pages.
+source stories (each marked with the concepts that already cite it) and shows
+current Foundation/wiki/Playbook context, but it never creates or edits
+published concept pages.
 
 Usage:
     python .agents/skills/foundations-curator/scripts/build_foundations_input.py
@@ -20,12 +21,15 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT / "pipeline"))
 from story_store import load_store, parse_dt  # noqa: E402
 
 FOUNDATIONS_DIR = ROOT / "data" / "foundations"
 INPUT_DIR = FOUNDATIONS_DIR / "input"
+FRONT_MATTER_RE = re.compile(r"^---\n(.*?)\n---\n?", re.DOTALL)
 
 CLUSTER_CUES: dict[str, list[str]] = {
     "prompting": ["prompt", "instruction", "few-shot", "chain-of-thought", "cot", "schema"],
@@ -90,21 +94,33 @@ def recent_stories(days: int) -> list[dict[str, Any]]:
 
 
 def current_foundations() -> list[dict[str, Any]]:
-    index = load_json(FOUNDATIONS_DIR / "index.json", {})
-    concepts = index.get("concepts") if isinstance(index, dict) else {}
+    """Concepts as written in the source pages (the compiled index can lag)."""
     out = []
-    for slug, concept in sorted((concepts or {}).items()):
-        evidence = concept.get("evidence") or []
-        covers = concept.get("covers_evidence") or []
+    for path in sorted((FOUNDATIONS_DIR / "concepts").glob("*.md")):
+        m = FRONT_MATTER_RE.match(path.read_text(encoding="utf-8"))
+        meta = (yaml.safe_load(m.group(1)) if m else None) or {}
+        if not isinstance(meta, dict):
+            continue
+        evidence = [
+            {
+                "id": ev.get("id"),
+                "kind": ev.get("kind"),
+                "title": ev.get("title"),
+                "sid": ev.get("sid"),
+                "added": str(ev.get("added") or ""),
+            }
+            for ev in meta.get("evidence") or []
+            if isinstance(ev, dict)
+        ]
         out.append(
             {
-                "slug": slug,
-                "title": concept.get("title"),
-                "cluster": concept.get("cluster"),
-                "updated": concept.get("updated"),
-                "evidence_ids": [e.get("id") for e in evidence if isinstance(e, dict)],
-                "covers_evidence": covers,
-                "stale_hint": bool(covers) and set(covers) != {e.get("id") for e in evidence if isinstance(e, dict)},
+                "slug": meta.get("slug") or path.stem,
+                "title": meta.get("title"),
+                "cluster": meta.get("cluster"),
+                "updated": str(meta.get("updated") or ""),
+                "evidence_count": len(evidence),
+                "latest_evidence_added": max((e["added"] for e in evidence), default="") or None,
+                "evidence": evidence,
             }
         )
     return out
@@ -150,12 +166,20 @@ def main() -> None:
     args = ap.parse_args()
 
     stories = recent_stories(args.days)
+    foundations = current_foundations()
+    cited: dict[str, list[str]] = {}
+    for concept in foundations:
+        for ev in concept["evidence"]:
+            if ev.get("sid"):
+                cited.setdefault(str(ev["sid"]), []).append(str(concept["slug"]))
+    for story in stories:
+        story["cited_in"] = sorted(set(cited.get(story["sid"], [])))
     bundle = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "window_days": args.days,
         "candidate_story_count": len(stories),
         "candidate_stories": stories,
-        "current_foundations": current_foundations(),
+        "current_foundations": foundations,
         "wiki_topics": wiki_topics(),
         "latest_playbook_cards": playbook_cards(),
         "cluster_cues": CLUSTER_CUES,

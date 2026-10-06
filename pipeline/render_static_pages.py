@@ -4313,11 +4313,33 @@ FOUNDATIONS_PAGE_CSS = """\
       font-size:.68rem; color:var(--accent); letter-spacing:.04em; text-transform:uppercase; }
     .foundation-evidence-tier { display:inline; color:var(--muted); font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.7rem; margin-left:.35rem; }
+    .foundation-evidence-list li { scroll-margin-top:5rem; padding:.2rem 0; }
+    .foundation-evidence-list li:target { background:var(--brief-wash);
+      box-shadow:-.7rem 0 0 var(--brief-wash), .7rem 0 0 var(--brief-wash); }
+    .foundation-evidence-list p { margin:.3rem 0 0; color:var(--fg); font-size:.9rem; line-height:1.55; }
+    .foundation-evidence-meta { display:block; margin:.15rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.68rem; color:var(--muted); }
+    .foundation-evidence-meta a { font-weight:400; color:var(--muted); text-decoration:underline; }
+    .foundation-new-list, .foundations-recent ol { margin:0; padding:0; list-style:none;
+      display:flex; flex-direction:column; gap:.45rem; }
+    .foundation-new-list li, .foundations-recent li { display:grid; grid-template-columns:6.6rem minmax(0,1fr);
+      gap:.8rem; font-size:.94rem; line-height:1.4; }
+    .foundation-new-list time, .foundations-recent time { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.7rem; color:var(--muted); padding-top:.18rem; white-space:nowrap; }
+    .foundation-new-list a, .foundations-recent a { font-weight:600; text-decoration:none; }
+    .foundation-new-list a:hover, .foundations-recent a:hover { text-decoration:underline; }
+    .foundations-recent { margin:1.6rem 0 0; padding:1.05rem 1.15rem; border-left:2px solid var(--warm);
+      background:var(--brief-wash); }
+    .foundations-recent h2 { margin:0 0 .8rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.3rem; line-height:1.1; }
+    .fr-concept { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.62rem;
+      letter-spacing:.06em; text-transform:uppercase; color:var(--warm); margin:0 0 .1rem; }
     button:focus-visible, a:focus-visible, select:focus-visible {
       outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
     @media (max-width:620px) {
       main { padding-left:1rem; padding-right:1rem; }
       .foundations-headline { font-size:2.65rem; }
+      .foundation-new-list li, .foundations-recent li { grid-template-columns:1fr; gap:.1rem; }
       .foundation-card { grid-template-columns:1fr; gap:.45rem; }
       .foundation-card-meta { white-space:normal; }
       .foundation-section { grid-template-columns:1fr; gap:.5rem; }
@@ -4333,6 +4355,37 @@ def load_foundations() -> dict:
     data.setdefault("clusters", [])
     data.setdefault("concepts", {})
     return data
+
+
+def foundation_evidence_anchor(ev: dict) -> str:
+    return "ev-" + re.sub(r"[^a-z0-9-]+", "-", str(ev.get("id") or "").lower()).strip("-")
+
+
+def foundations_recent_evidence(foundations: dict) -> str:
+    """/foundations 'Recently added evidence': newest sources across concepts."""
+    concepts = foundations.get("concepts") or {}
+    rows = []
+    for ev in (foundations.get("recent_evidence") or [])[:8]:
+        slug = str(ev.get("concept") or "")
+        if slug not in concepts:
+            continue
+        kind = FOUNDATION_KIND_LABELS.get(str(ev.get("kind") or ""), "")
+        href = f"/foundations/{escape(slug)}#{escape(foundation_evidence_anchor(ev))}"
+        rows.append(
+            f'<li><time datetime="{escape(str(ev.get("added") or ""))}">'
+            f'{escape(wiki_short_date(ev.get("added")))}</time>'
+            f'<span><span class="fr-concept">{escape(squeeze(ev.get("concept_title")) or slug)}</span>'
+            f'<a href="{href}">{escape(squeeze(ev.get("title")))}</a>'
+            + (f' <span class="foundation-evidence-kind">{escape(kind)}</span>' if kind else "")
+            + "</span></li>"
+        )
+    if not rows:
+        return ""
+    return (
+        '<section class="foundations-recent" id="recent-evidence">'
+        "<h2>Recently added evidence</h2>"
+        f'<ol>{"".join(rows)}</ol></section>'
+    )
 
 
 def foundations_index_body(foundations: dict) -> str | None:
@@ -4351,11 +4404,15 @@ def foundations_index_body(foundations: dict) -> str | None:
             title = squeeze(concept.get("title")) or slug
             summary = clip(squeeze(concept.get("summary")), 220)
             evidence_count = len(concept.get("evidence") or [])
+            updated = str(concept.get("updated") or "")[:10]
+            meta = f'{evidence_count} source{"" if evidence_count == 1 else "s"}'
+            if updated:
+                meta += f'<br>updated {escape(wiki_short_date(updated))}'
             rows.append(
                 '<li class="foundation-card">'
                 f'<div><h3><a href="/foundations/{escape(slug)}">{escape(title)}</a></h3>'
                 f'<p>{escape(summary)}</p></div>'
-                f'<span class="foundation-card-meta">{evidence_count} evidence tier{"" if evidence_count == 1 else "s"}</span>'
+                f'<span class="foundation-card-meta">{meta}</span>'
                 "</li>"
             )
         if rows:
@@ -4379,6 +4436,7 @@ def foundations_index_body(foundations: dict) -> str | None:
         f'<span class="sep">·</span>{len(blocks)} cluster{"" if len(blocks) == 1 else "s"}'
         '<span class="sep">·</span>evidence-tiered</p>'
         '</section>'
+        + foundations_recent_evidence(foundations)
         + ("\n".join(blocks) or "<p>No Foundation concepts yet.</p>")
         + "</div>"
     )
@@ -4394,7 +4452,7 @@ def foundation_concept_hero(concept: dict) -> str:
         bits.append(f'math {escape(str(concept["math_depth"]).replace("-", " "))}')
     evidence = concept.get("evidence") or []
     if evidence:
-        bits.append(f"{len(evidence)} evidence tier{'' if len(evidence) == 1 else 's'}")
+        bits.append(f"{len(evidence)} source{'' if len(evidence) == 1 else 's'}")
     updated = (iso_or_none(concept.get("updated")) or str(concept.get("updated") or ""))[:10]
     if updated:
         bits.append(f"updated {escape(updated)}")
@@ -4449,9 +4507,24 @@ def render_foundation_body(concept: dict) -> str:
     if xgroups:
         parts.append(f'<aside class="foundation-xlinks">{"".join(xgroups)}</aside>')
 
+    evidence = concept.get("evidence") or []
+    dated = [ev for ev in evidence if ev.get("added")]
+    if dated:
+        lis = "".join(
+            f'<li><time datetime="{escape(str(ev["added"]))}">{escape(wiki_short_date(ev["added"]))}</time>'
+            f'<a href="#{escape(foundation_evidence_anchor(ev))}">'
+            f'{escape(squeeze(ev.get("title")) or str(ev.get("id")))}</a></li>'
+            for ev in dated[:3]
+        )
+        parts.append(
+            '<section class="foundation-section foundation-new">'
+            '<div class="foundation-rail">What\'s new in the evidence</div>'
+            f'<div class="foundation-prose"><ol class="foundation-new-list">{lis}</ol></div>'
+            "</section>"
+        )
+
     for heading, html in body_sections:
-        # The source ledger below renders the canonical evidence list, so the
-        # prose Evidence section remains explanation rather than the only ledger.
+        # The source ledger below is the only place study detail lives.
         parts.append(
             '<section class="foundation-section">'
             f'<div class="foundation-rail">{escape(heading)}</div>'
@@ -4459,7 +4532,6 @@ def render_foundation_body(concept: dict) -> str:
             "</section>"
         )
 
-    evidence = concept.get("evidence") or []
     if evidence:
         items = []
         for ev in evidence:
@@ -4477,16 +4549,27 @@ def render_foundation_body(concept: dict) -> str:
             else:
                 title_html = escape(title)
             note_html = f'<p>{escape(note)}</p>' if note else ""
+            meta_bits = []
+            if ev.get("added"):
+                meta_bits.append(
+                    f'<time datetime="{escape(str(ev["added"]))}">added {escape(wiki_short_date(ev["added"]))}</time>'
+                )
+            if kind != "story" and ev.get("sid"):
+                meta_bits.append(f'<a href="/story/{escape(str(ev["sid"]))}">in the feed</a>')
+            meta_html = (
+                f'<span class="foundation-evidence-meta">{" · ".join(meta_bits)}</span>' if meta_bits else ""
+            )
             items.append(
-                '<li>'
+                f'<li id="{escape(foundation_evidence_anchor(ev))}">'
                 f'<span class="foundation-evidence-kind">{escape(kind_label)}</span>{title_html}'
                 f'<span class="foundation-evidence-tier">{escape(tier)}</span>'
-                f"{note_html}</li>"
+                f"{meta_html}{note_html}</li>"
             )
         parts.append(
-            '<section class="foundation-section foundation-evidence">'
-            f'<div class="foundation-rail">Evidence · {len(evidence)} source{"" if len(evidence) == 1 else "s"}</div>'
-            f'<ul class="foundation-evidence-list">{"".join(items)}</ul>'
+            '<section class="foundation-section foundation-evidence" id="evidence">'
+            f'<div class="foundation-rail">Evidence · {len(evidence)} source{"" if len(evidence) == 1 else "s"}'
+            "<br>newest first</div>"
+            f'<ol class="foundation-evidence-list">{"".join(items)}</ol>'
             "</section>"
         )
 

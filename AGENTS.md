@@ -138,7 +138,8 @@ in `ops_daily_summary.py`'s log line.
     overview word caps and theme/entry rules (deterministic; LLM synthesis is
     the `wiki-curator` routine's job)
   - `build_foundations.py` — compiles Agent Builder Foundations concept pages
-    (`data/foundations/concepts/`) into the served `data/foundations/index.json`
+    (`data/foundations/concepts/`) into the served `data/foundations/index.json`;
+    enforces section word caps and the dated evidence-list rules
   - `build_skill_lab.py` - validates Agent Skill Lab protocol/result records,
     binds sources to index rows with SHA-256, and replaces the derived
     `data/playbook/lab/{index,latest}.json` files after full validation
@@ -321,7 +322,8 @@ in `ops_daily_summary.py`'s log line.
   `config/wiki_schema.md`
 - `data/daily/`, `data/weekly/` — recap JSONs + `input/` bundles + indices
 - `data/foundations/` — Agent Builder Foundations: `concepts/*.md` source pages
-  (agent-curated source of truth), `index.json` compiled by
+  (agent-curated source of truth: word-capped explanation sections plus up to
+  12 dated, noted evidence entries), `index.json` compiled by
   `build_foundations.py`, and `input/` bundles for the curator routine. Served at
   `/foundations` and `/foundations/<slug>`. Schema: `config/foundations_schema.md`
 - `data/playbook/` — agent-written **Playbook editions** (`<date>.json`:
