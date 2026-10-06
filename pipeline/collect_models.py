@@ -279,21 +279,35 @@ Commands:
            join, and write data/models/latest.json + a dated history snapshot
   summary  print the currently stored models as a table
 
-Artificial Analysis response shape (GET /api/v2/data/llms/models, header
-`x-api-key`), verified live 2026-08-05 against ~591 models: top level
-{"status", "prompt_options", "data": [...]}; each model carries "id",
-"name", "slug", "release_date", "model_creator": {"id", "name", "slug"},
-"evaluations": {...index/benchmark scores...}, "pricing":
-{"price_1m_blended_3_to_1", "price_1m_input_tokens",
-"price_1m_output_tokens"}, and top-level "median_output_tokens_per_second".
-Confirmed absent on this tier: context_window_tokens, parameters_total,
-parameters_active, and open_weights - see
-`AA_FIELDS_UNAVAILABLE_ON_FREE_TIER`. `extract_aa_field` still probes a
-short list of plausible key paths per field (verified path listed first)
-rather than hardcoding a single path, so a future AA response shape change -
-or a higher tier that adds the fields above - degrades to "not found"
-instead of crashing, and the `models_collect_aa_fields_unmapped` warning
-stays meaningful for fields that are genuinely supposed to be there.
+Artificial Analysis response shape (GET /api/v2/language/models/free,
+header `x-api-key`; the legacy /api/v2/data/llms/models retires
+2026-11-04 23:59 UTC and answers 410 Gone afterwards), per the published
+API reference read 2026-10-06: top level {"tier",
+"intelligence_index_version", "pagination": {"page", "page_size",
+"total_pages", "has_more"}, "data": [...]}, 200 models per page, `?page=N`
+1-indexed. Each model carries "id", "name", "slug", "release_date",
+"model_creator": {"id", "name"} (no slug on this endpoint), "evaluations":
+{headline + capability indices only}, "pricing": {"price_1m_input_tokens",
+"price_1m_output_tokens", cache prices}, and "performance":
+{"median_output_tokens_per_second", ...}. The Free endpoint omits the
+per-benchmark scores, the published 3:1 blend, context_window_tokens,
+parameters and licensing (Pro `/language/models` returns them) - see
+`AA_FIELDS_UNAVAILABLE_ON_FREE_TIER`. `fetch_aa_models` walks every page or
+returns no models at all: a partial catalog would silently drop models.
+`extract_aa_field` still probes a short list of plausible key paths per
+field (verified path listed first) rather than hardcoding a single path, so
+a future AA response shape change - or a higher tier that adds the fields
+above - degrades to "not found" instead of crashing, and the
+`models_collect_aa_fields_unmapped` warning stays meaningful for fields
+that are genuinely supposed to be there.
+
+Failure policy (`cmd_collect`): a source that worked last run and fails now
+keeps the previous artifact (`source_regressions`), and the run exits 0 for
+a transient failure. Two cases exit 1 so the workflow turns red instead of
+the page quietly freezing: Artificial Analysis rejecting the request in a
+way no retry will fix (401/403/404/410, an unexpected body, a pagination
+walk that does not finish), and the published artifact being older than
+`max_artifact_age_hours`.
 """
 
 import argparse
@@ -331,9 +345,11 @@ DEFAULT_CONFIG = {
         },
         "artificial_analysis": {
             "enabled": True,
-            "base_url": "https://artificialanalysis.ai/api/v2/data/llms/models",
+            "base_url": "https://artificialanalysis.ai/api/v2/language/models/free",
             "api_key_env": "AA_API_KEY",
             "attribution": "Artificial Analysis (https://artificialanalysis.ai/) - independent benchmarking",
+            "attribution_url": "https://artificialanalysis.ai/",
+            "max_pages": 20,
             "benchmarks": [],
         },
         "deepswe": {
@@ -349,6 +365,7 @@ DEFAULT_CONFIG = {
     },
     "request_timeout_seconds": 20,
     "trust_env_proxies": False,
+    "max_artifact_age_hours": 48,
     "recency_days": 90,
     "max_models": 200,
     "aliases": {},
@@ -379,8 +396,9 @@ AA_FIELD_PATHS: dict[str, list[tuple[str, ...]]] = {
     ],
     # Prefer model_creator.slug so a joined row's organization matches the
     # lowercase-slug convention LMArena rows already use ("anthropic",
-    # "openai", "google"); model_creator.name is the fallback for an AA-only
-    # row if slug is ever absent.
+    # "openai", "google"). The Free v2 endpoint sends only
+    # model_creator.name ("OpenAI"); `build_aa_index` slugifies whichever
+    # value is found so both shapes land on the same convention.
     "organization": [
         ("model_creator", "slug"),
         ("model_creator", "name"),
@@ -438,25 +456,33 @@ AA_FIELD_PATHS: dict[str, list[tuple[str, ...]]] = {
     ],
     # AA's own 3:1 blend - see `finalize_model` and the module docstring for
     # why this is preferred over the locally computed `blended_price`.
+    # Pro-only on the v2 endpoints; Free falls back to the local blend.
     "price_blended_per_1m": [
         ("pricing", "price_1m_blended_3_to_1"),
     ],
     "median_output_tokens_per_second": [
-        ("median_output_tokens_per_second",),
         ("performance", "median_output_tokens_per_second"),
+        ("median_output_tokens_per_second",),
         ("speed", "median_output_tokens_per_second"),
     ],
 }
 
-# AA fields confirmed absent from the free tier (verified live 2026-08-05
-# across all 591 models). They stay in AA_FIELD_PATHS above so probing keeps
-# picking them up for free the moment a higher tier (or an AA response
-# change) adds them - see `split_missing_aa_fields`, which keeps them out of
-# the `models_collect_aa_fields_unmapped` anomaly warning (that warning
-# firing on every single run trains the operator to ignore it) while still
-# logging a calm one-line note so the gap stays visible.
+# AA fields absent from the Free tier (context/parameters/open_weights
+# verified live 2026-08-05; the blend moved to Pro with the v2 endpoints per
+# the 2026-10-06 API reference). They stay in AA_FIELD_PATHS above so
+# probing keeps picking them up for free the moment a higher tier (or an AA
+# response change) adds them - see `split_missing_aa_fields`, which keeps
+# them out of the `models_collect_aa_fields_unmapped` anomaly warning (that
+# warning firing on every single run trains the operator to ignore it)
+# while still logging a calm one-line note so the gap stays visible.
 AA_FIELDS_UNAVAILABLE_ON_FREE_TIER = frozenset(
-    {"context_window_tokens", "parameters_total", "parameters_active", "open_weights"}
+    {
+        "context_window_tokens",
+        "parameters_total",
+        "parameters_active",
+        "open_weights",
+        "price_blended_per_1m",
+    }
 )
 
 # Fields join_models merges with custom logic instead of the generic
@@ -1153,6 +1179,8 @@ def build_aa_index(
             record[field] = value
             if found:
                 found_any[field] = True
+        if record.get("organization"):
+            record["organization"] = slugify(str(record["organization"])) or record["organization"]
         record["benchmarks"] = extract_aa_benchmarks(raw, benchmark_names)
         records.append((norm_slug, norm_name, record))
 
@@ -2030,25 +2058,30 @@ def _make_session(cfg: dict):
     return session
 
 
+# HTTP statuses worth retrying. The datasets-server answers a cold cache with
+# `500 {"error": "the dataset index is loading, this may take longer than
+# usual"}`. That is transient and self-healing, so it must be retried rather
+# than failing the run. Client errors (AA's 401 for a bad key, a 404 for a
+# renamed dataset) are real and are surfaced immediately instead of being
+# retried pointlessly.
 RETRYABLE_STATUSES = frozenset({429, 500, 502, 503, 504})
 
 
-def is_retryable_status(status_code: int) -> bool:
-    """Whether an HTTP status is worth retrying.
-
-    The datasets-server answers a cold cache with `500 {"error": "the dataset
-    index is loading, this may take longer than usual"}`. That is transient and
-    self-healing, so it must be retried rather than failing the run. Client
-    errors (AA's 401 for a bad key, a 404 for a renamed dataset) are real and
-    are surfaced immediately instead of being retried pointlessly.
-    """
-    return status_code in RETRYABLE_STATUSES
-
-
-def _get_with_retry(session, url: str, *, timeout: float, headers: dict | None = None, max_attempts: int = 4):
+def _get_with_retry(
+    session,
+    url: str,
+    *,
+    timeout: float,
+    headers: dict | None = None,
+    max_attempts: int = 4,
+    retry_statuses: frozenset[int] = RETRYABLE_STATUSES,
+):
     """GET with exponential backoff for transient network errors and 5xx.
 
     Both source APIs are read-only and idempotent, so retrying is safe.
+    `retry_statuses` lets a caller opt a status out of retrying (Artificial
+    Analysis's 429 means the daily window is spent, so a retry only burns
+    more of the next one).
     """
     import requests
 
@@ -2057,7 +2090,7 @@ def _get_with_retry(session, url: str, *, timeout: float, headers: dict | None =
     for attempt in range(max_attempts):
         try:
             response = session.get(url, timeout=timeout, headers=headers)
-            if not is_retryable_status(response.status_code):
+            if response.status_code not in retry_statuses:
                 return response
             last_exc = None
         except (requests.ConnectionError, requests.Timeout) as exc:
@@ -2168,38 +2201,116 @@ def fetch_lmarena_category(cfg: dict, category: str) -> list[dict]:
     return rows
 
 
-def fetch_aa_models(cfg: dict) -> list[dict] | None:
-    """Return raw AA model dicts, or None when the key is missing/request fails."""
+# 429 is left out on purpose: AA's quota is a fixed 24-hour window, so a
+# retry inside one run cannot succeed and only spends the next window.
+AA_RETRY_STATUSES = frozenset({500, 502, 503, 504})
+
+
+def classify_aa_status(status_code: int) -> str:
+    """"transient" when a later run can succeed unchanged (429 quota, 5xx),
+    "permanent" when only a code or credential change will fix it (401 bad
+    key, 403 tier, 404/410 retired endpoint, any other 4xx)."""
+    if status_code == 429 or status_code >= 500:
+        return "transient"
+    return "permanent"
+
+
+def parse_aa_page(payload, requested_page: int) -> tuple[list[dict], bool]:
+    """Validate one v2 list page and return `(rows, has_more)`.
+
+    Raises ValueError when the body is not the documented paginated shape -
+    that includes the legacy unpaginated body, so a stale `base_url` fails
+    loudly instead of being read as a one-page catalog.
+    """
+    if not isinstance(payload, dict):
+        raise ValueError(f"body_type={type(payload).__name__}")
+    rows = payload.get("data")
+    pagination = payload.get("pagination")
+    if not isinstance(rows, list) or not isinstance(pagination, dict):
+        raise ValueError(f"keys={','.join(sorted(payload.keys()))}")
+    has_more = pagination.get("has_more")
+    if not isinstance(has_more, bool):
+        raise ValueError("pagination.has_more_missing")
+    page = pagination.get("page")
+    if page is not None and page != requested_page:
+        raise ValueError(f"pagination.page={page} requested={requested_page}")
+    return [r for r in rows if isinstance(r, dict)], has_more
+
+
+def _aa_page_url(base_url: str, page: int) -> str:
+    return f"{base_url}{'&' if '?' in base_url else '?'}page={page}"
+
+
+def fetch_aa_models(cfg: dict) -> dict:
+    """Fetch the full Artificial Analysis catalog across every page.
+
+    Returns a dict: `models` (list of raw model dicts, or None when nothing
+    usable was fetched), `failure` (None, "missing_key", "transient" or
+    "permanent" - see `classify_aa_status`), `reason`/`detail`, `tier`,
+    `intelligence_index_version`, `pages`, and `ratelimit_remaining`.
+    All-or-nothing: if any page fails, `models` is None, never a partial
+    list.
+    """
     src = cfg["sources"]["artificial_analysis"]
-    api_key_env = src.get("api_key_env", "AA_API_KEY")
-    api_key = os.environ.get(api_key_env, "").strip()
+    result = {
+        "models": None,
+        "failure": None,
+        "reason": None,
+        "detail": None,
+        "tier": None,
+        "intelligence_index_version": None,
+        "pages": 0,
+        "ratelimit_remaining": None,
+    }
+    api_key = os.environ.get(src.get("api_key_env", "AA_API_KEY"), "").strip()
     if not api_key:
-        return None
+        result.update(failure="missing_key", reason="missing_aa_key")
+        return result
 
     import requests
 
     session = _make_session(cfg)
-    try:
-        resp = _get_with_retry(
-            session,
-            src["base_url"],
-            headers={"x-api-key": api_key},
-            timeout=cfg["request_timeout_seconds"],
-        )
-        resp.raise_for_status()
-        payload = resp.json()
-    except requests.RequestException as exc:
-        print(f"models_collect_aa_fetch_failed error={exc!r}")
-        return None
-
-    if isinstance(payload, list):
-        return payload
-    for key in ("data", "models", "results"):
-        value = payload.get(key) if isinstance(payload, dict) else None
-        if isinstance(value, list):
-            return value
-    print(f"models_collect_aa_unexpected_shape keys={list(payload.keys()) if isinstance(payload, dict) else type(payload).__name__}")
-    return []
+    base_url = src["base_url"]
+    max_pages = int(src.get("max_pages") or 20)
+    models: list[dict] = []
+    seen_ids: set[str] = set()
+    for page in range(1, max_pages + 1):
+        try:
+            resp = _get_with_retry(
+                session,
+                _aa_page_url(base_url, page),
+                headers={"x-api-key": api_key},
+                timeout=cfg["request_timeout_seconds"],
+                retry_statuses=AA_RETRY_STATUSES,
+            )
+        except requests.RequestException as exc:
+            result.update(failure="transient", reason=f"network_{type(exc).__name__}")
+            return result
+        result["pages"] = page
+        result["ratelimit_remaining"] = resp.headers.get("X-RateLimit-Remaining")
+        if resp.status_code >= 400:
+            result.update(failure=classify_aa_status(resp.status_code), reason=f"http_{resp.status_code}")
+            return result
+        try:
+            payload = resp.json()
+            rows, has_more = parse_aa_page(payload, page)
+        except ValueError as exc:
+            result.update(failure="permanent", reason="unexpected_shape", detail=str(exc) or "invalid_json")
+            return result
+        result["tier"] = payload.get("tier")
+        result["intelligence_index_version"] = payload.get("intelligence_index_version")
+        ids = {str(r.get("id") or r.get("slug") or "") for r in rows} - {""}
+        if page > 1 and rows and ids <= seen_ids:
+            # The server ignored `page` and replayed an earlier page.
+            result.update(failure="permanent", reason="pagination_not_advancing")
+            return result
+        seen_ids |= ids
+        models.extend(rows)
+        if not has_more:
+            result["models"] = models
+            return result
+    result.update(failure="permanent", reason="page_cap_exceeded", detail=f"max_pages={max_pages}")
+    return result
 
 
 def fetch_first_party_releases(cfg: dict) -> list[dict]:
@@ -2333,6 +2444,48 @@ def source_regressions(
     return sorted(regressed)
 
 
+def artifact_age_hours(output: dict | None, now: datetime) -> float | None:
+    """Hours since `output` was generated, or None when unknown."""
+    if not output:
+        return None
+    try:
+        generated = datetime.fromisoformat(str(output.get("generated_at")))
+    except ValueError:
+        return None
+    if generated.tzinfo is None:
+        generated = generated.replace(tzinfo=timezone.utc)
+    return (now - generated).total_seconds() / 3600
+
+
+def collect_exit_code(
+    *,
+    wrote: bool,
+    aa_failure: str | None,
+    aa_reason: str | None,
+    previous_output: dict | None,
+    now: datetime,
+    max_age_hours: float,
+) -> int:
+    """Decide the `collect` exit status and print the matching log line.
+
+    Exit 1 for a permanent Artificial Analysis failure, and for a skipped
+    write that leaves the published artifact older than `max_age_hours`
+    (or leaves nothing published at all). A transient failure inside that
+    window stays 0 so one flaky run does not turn the workflow red.
+    """
+    if aa_failure == "permanent":
+        print(f"models_collect_failed reason=aa_permanent_error cause={aa_reason}")
+        return 1
+    if wrote or not max_age_hours:
+        return 0
+    age = artifact_age_hours(previous_output, now)
+    if age is None or age > max_age_hours:
+        age_text = "none" if age is None else f"{age:.1f}"
+        print(f"models_collect_failed reason=artifact_stale age_hours={age_text} max_age_hours={max_age_hours:g}")
+        return 1
+    return 0
+
+
 def cmd_collect(args: argparse.Namespace) -> int:
     cfg = load_config()
     now = utc_now()
@@ -2366,16 +2519,34 @@ def cmd_collect(args: argparse.Namespace) -> int:
     aa_meta = {
         "available": False,
         "attribution": aa_cfg.get("attribution", ""),
-        "url": aa_cfg.get("base_url", ""),
+        # Readers follow `url` from the attribution line, so it is the public
+        # site; the API endpoint answers a browser with 401.
+        "url": aa_cfg.get("attribution_url") or "https://artificialanalysis.ai/",
+        "api_url": aa_cfg.get("base_url", ""),
+        "tier": None,
+        "intelligence_index_version": None,
     }
-    aa_raw = None
-    aa_key_present = bool(os.environ.get(aa_cfg.get("api_key_env", "AA_API_KEY"), "").strip())
-    if aa_cfg.get("enabled", True):
-        aa_raw = fetch_aa_models(cfg)
+    aa_fetch = fetch_aa_models(cfg) if aa_cfg.get("enabled", True) else None
+    aa_raw = aa_fetch["models"] if aa_fetch else None
+    if aa_fetch:
+        aa_meta["tier"] = aa_fetch["tier"]
+        aa_meta["intelligence_index_version"] = aa_fetch["intelligence_index_version"]
     if aa_raw is None:
-        reason = "aa_fetch_failed" if aa_key_present else "missing_aa_key"
-        print(f"models_collect_partial reason={reason}")
+        if aa_fetch is None or aa_fetch["failure"] == "missing_key":
+            print("models_collect_partial reason=missing_aa_key" if aa_fetch else "models_collect_partial reason=aa_disabled")
+        else:
+            print(
+                "models_collect_partial reason=aa_fetch_failed "
+                f"failure={aa_fetch['failure']} cause={aa_fetch['reason']} "
+                f"detail={(aa_fetch['detail'] or '-').replace(' ', '_')} pages={aa_fetch['pages']}"
+            )
     else:
+        print(
+            "models_collect_aa_fetched "
+            f"models={len(aa_raw)} pages={aa_fetch['pages']} tier={aa_fetch['tier']} "
+            f"index_version={aa_fetch['intelligence_index_version']} "
+            f"ratelimit_remaining={aa_fetch['ratelimit_remaining']}"
+        )
         aa_idx, missing_fields = build_aa_index(aa_raw, aa_cfg.get("benchmarks") or [])
         aa_meta["available"] = bool(aa_idx)
         if missing_fields:
@@ -2384,6 +2555,10 @@ def cmd_collect(args: argparse.Namespace) -> int:
                 print(f"models_collect_aa_fields_unmapped fields={','.join(sorted(genuinely_unmapped))}")
             if known_unavailable:
                 print(f"models_collect_aa_fields_known_unavailable fields={','.join(sorted(known_unavailable))}")
+        if aa_cfg.get("benchmarks") and not any(rec.get("benchmarks") for rec in aa_idx.values()):
+            # Expected on the Free endpoint, which carries no per-benchmark
+            # scores; on Pro it means the configured names went stale.
+            print(f"models_collect_aa_benchmarks_unavailable tier={aa_fetch['tier']}")
 
     first_party_cfg = cfg["sources"].get("first_party") or {}
     first_party_idx: dict[str, dict] = {}
@@ -2450,23 +2625,36 @@ def cmd_collect(args: argparse.Namespace) -> int:
         first_party_meta=first_party_meta,
     )
 
+    previous_output = load_output()
+
+    def finish(wrote: bool) -> int:
+        return collect_exit_code(
+            wrote=wrote,
+            aa_failure=aa_fetch["failure"] if aa_fetch else None,
+            aa_reason=aa_fetch["reason"] if aa_fetch else None,
+            previous_output=previous_output,
+            now=now,
+            max_age_hours=float(cfg.get("max_artifact_age_hours") or 0),
+        )
+
     if not output["models"]:
         print("models_collect_failed reason=no_models_from_any_source")
-        return 0
+        return finish(False)
 
     enabled_sources = {
         name
         for name, src_cfg in (cfg.get("sources") or {}).items()
         if isinstance(src_cfg, dict) and src_cfg.get("enabled", True)
     }
-    regressed = source_regressions(output, load_output(), enabled_sources)
+    regressed = source_regressions(output, previous_output, enabled_sources)
     if regressed:
         # Degrading gracefully must never mean publishing worse data. A source
         # that succeeded last run but failed this one would strip its whole
         # column (Elo, org, open-weights) from every row, so keep the previous
-        # artifact and let the next run recover.
+        # artifact and let the next run recover - `finish` turns the run red
+        # once that previous artifact is too old to keep serving quietly.
         print(f"models_collect_skipped_write reason=source_regression sources={','.join(regressed)}")
-        return 0
+        return finish(False)
 
     save_output(output)
     joined = sum(1 for m in output["models"] if len(m["joined_sources"]) > 1)
@@ -2477,7 +2665,7 @@ def cmd_collect(args: argparse.Namespace) -> int:
         f"first_party={str(first_party_meta['available']).lower()} deepswe={str(deepswe_meta['available']).lower()} deepswe_rows={len(deepswe_rows)} "
         f"deepswe_joined={deepswe_joined} deepswe_unjoined={deepswe_unjoined}"
     )
-    return 0
+    return finish(True)
 
 
 def cmd_summary(args: argparse.Namespace) -> int:

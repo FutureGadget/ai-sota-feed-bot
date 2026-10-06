@@ -2192,3 +2192,41 @@ about 14% of spend and the API overlay uses it).
 Impact: Roughly 1-12% fewer characters on typical batches; no change to output.
 
 Rollback: Revert `prepare_payload` / `needs_translation` in `google_translate.py`.
+
+
+## 2026-10-06 - Move Model Radar to the Artificial Analysis v2 Free endpoint; fail loudly instead of freezing
+
+Decision: `pipeline/collect_models.py` reads `GET /api/v2/language/models/free`
+instead of the legacy `/api/v2/data/llms/models`, which retires
+2026-11-04 23:59 UTC (410 Gone afterwards). It walks every `?page=N` until
+`pagination.has_more` is false and keeps nothing unless every page succeeded.
+Failures are classed: 429 and 5xx are transient; 401/403/404/410, a body
+without the documented pagination envelope, a replayed page, and a walk past
+`max_pages` are permanent. A permanent failure exits 1. Separately, a skipped
+write (the existing source-regression guard) exits 1 once
+`data/models/latest.json` is older than `max_artifact_age_hours` (48h).
+`sources.artificial_analysis.url` becomes the public site
+(`attribution_url`); the endpoint moves to `api_url`, alongside the response's
+`tier` and `intelligence_index_version`.
+
+Rationale: The regression guard keeps the previous artifact and exits 0 when
+a source that worked last run fails. After the retirement every run would
+have hit that branch: the workflow stays green while `/models` (LMArena and
+DeepSWE included) stops updating. A rejected key or a retired endpoint never
+heals on the next run, and the age cap catches every other way the guard can
+hold the artifact back, including a removed secret.
+
+Impact: The Free endpoint omits per-benchmark scores, the published 3:1 blend,
+and `model_creator.slug`. Model detail pages lose their per-benchmark rows
+(the intelligence and coding indices stay); the blend is computed locally
+with the same 3:1 weighting; AA-only rows take a slugified creator name
+("OpenAI" -> "openai"), which may need new `organization_aliases` entries
+after the first live run. About 3 requests per run (4 runs/day) against the
+Free quota of 100 per 24 hours. Restoring benchmark scores requires a Pro key,
+`base_url` set to `/api/v2/language/models`, and a re-check of the
+`benchmarks` list (the Pro reference renames several, e.g. `tau2_telecom`,
+`gpqa_diamond`, `aa_lcr`).
+
+Rollback: Revert the commit before 2026-11-04 to return to the legacy endpoint;
+after that date only the v2 endpoints work. Set `max_artifact_age_hours: 0` to
+disable the age check alone.

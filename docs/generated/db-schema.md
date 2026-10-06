@@ -240,7 +240,10 @@ collect`; config in `config/models.yaml`.
   artificial_analysis, first_party, deepswe}, models: [...], axis_metric_options: [...]}`.
   `sources.*` carries `{available, attribution, url, publish_date?}` per
   source (Artificial Analysis and DeepSWE attribution are mandatory wherever
-  their data is displayed); `sources.deepswe` additionally carries
+  their data is displayed); `sources.artificial_analysis.url` is the public
+  attribution link, and the source additionally carries `{api_url, tier,
+  intelligence_index_version}` from the v2 list response (2026-10-06);
+  `sources.deepswe` additionally carries
   `{generated_at, n_tasks_in_set}` - the DeepSWE leaderboard run's own
   metadata, not this collector's run time. Each model row: `{slug, name,
   base_slug, variant_label, organization, license, open_weights,
@@ -361,7 +364,9 @@ collect`; config in `config/models.yaml`.
   never hardcoded in `pipeline/collect_models.py`, since AA adds/renames
   benchmarks over time) via `extract_aa_benchmarks`. A benchmark AA reports
   as null for a model is OMITTED from that model's `benchmarks` dict (never
-  zero-filled or invented); a model with no benchmark data gets `{}`. SCALE
+  zero-filled or invented); a model with no benchmark data gets `{}`. The
+  Artificial Analysis Free endpoint carries no per-benchmark scores, so on
+  that tier every row's `benchmarks` is `{}` (2026-10-06). SCALE
   WARNING: every value in `benchmarks` is a 0-1 fraction, a completely
   different scale from the ~0-100 `aa_intelligence_index`/`aa_coding_index`
   composites - `web/models.html` rescales its chart axis per the active
