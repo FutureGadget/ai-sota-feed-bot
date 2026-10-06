@@ -53,12 +53,12 @@ Schema: `config/wiki_schema.md`.
   - theme `proving-attribution` — Proving the answer is backed by its source (4)
 
 ### evaluation
-- [agent-evaluation](obstacles/agent-evaluation.md) — Measuring whether an agent actually worked is hard (124 entries, updated 2026-10-06)
+- [agent-evaluation](obstacles/agent-evaluation.md) — Measuring whether an agent actually worked is hard (125 entries, updated 2026-10-06)
   → solutions: agent-benchmarks, llm-as-judge
   - theme `grading-trajectories` — Grading the trajectory, and checking the grader (22)
   - theme `score-validity` — Benchmark scores are noisier and less valid than they look (20)
   - theme `gaming-and-containment` — Gamed metrics, leaky eval sandboxes, and who audits the evaluator (13)
-  - theme `coding-benchmarks` — Coding-agent benchmarks beyond "the tests pass" (18)
+  - theme `coding-benchmarks` — Coding-agent benchmarks beyond "the tests pass" (19)
   - theme `domain-benchmarks` — Narrow benchmarks for domains, platforms, and failure modes (20)
   - theme `eval-in-production` — Evals as a production workflow: mined from traces, gated in CI (31)
 
@@ -86,9 +86,9 @@ Schema: `config/wiki_schema.md`.
   - theme `outcome-evidence` — Outcome case studies, and the rollout that raised spend (4)
 
 ### latency
-- [agent-latency](obstacles/agent-latency.md) — Agent loops multiply per-call latency into slow, expensive runs (46 entries, updated 2026-10-06)
+- [agent-latency](obstacles/agent-latency.md) — Agent loops multiply per-call latency into slow, expensive runs (47 entries, updated 2026-10-06)
   → solutions: context-compaction, speculative-decoding
-  - theme `agent-traffic` — Scheduling, batching, and routing for agent-shaped traffic (7)
+  - theme `agent-traffic` — Scheduling, batching, and routing for agent-shaped traffic (8)
   - theme `kv-state` — KV state: compress it, offload it, shard it, reuse it (10)
   - theme `engine-architecture` — Disaggregated and specialized serving engines (9)
   - theme `day-0-support` — Day-0 serving for new models and hardware (9)
@@ -105,9 +105,9 @@ Schema: `config/wiki_schema.md`.
   - theme `monitoring-limits` — When the trace is not enough (2)
 
 ### security
-- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (54 entries, updated 2026-10-06)
+- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (55 entries, updated 2026-10-06)
   → solutions: agent-sandboxing
-  - theme `injection-paths` — New paths for injected instructions (8)
+  - theme `injection-paths` — New paths for injected instructions (9)
   - theme `model-defenses` — Guardrail models, model hardening, and how defenses are measured (12)
   - theme `harness-controls` — Permissions, approvals, and sandboxes in the agent harness (9)
   - theme `agent-authorization` — Agents as identities with scoped, per-action authorization (11)

@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-06T01:30:38.197047+00:00",
+ "generated_at": "2026-10-06T18:18:48.496364+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,30 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-06-copex-mcp-attack-surfaces",
+   "topic": "prompt-injection",
+   "topic_title": "Untrusted input and tools can hijack an agent",
+   "kind": "obstacle",
+   "date": "2026-10-06",
+   "title": "MCP clients fail 64.4% of adversarial-context trials, and some attacks bypass the model"
+  },
+  {
+   "id": "2026-10-06-hear-harness-engine-protocol",
+   "topic": "agent-latency",
+   "topic_title": "Agent loops multiply per-call latency into slow, expensive runs",
+   "kind": "obstacle",
+   "date": "2026-10-06",
+   "title": "A harness-to-engine protocol cuts agent time-to-first-token 2.23x by sharing workflow intent"
+  },
+  {
+   "id": "2026-10-06-swe-cc-policy-compliance",
+   "topic": "agent-evaluation",
+   "topic_title": "Measuring whether an agent actually worked is hard",
+   "kind": "obstacle",
+   "date": "2026-10-06",
+   "title": "Passing tests is not mergeable: agents violate 43.1% of repository policies"
+  },
   {
    "id": "2026-10-05-openappa-egress-control",
    "topic": "prompt-injection",
@@ -230,30 +254,6 @@
    "kind": "solution",
    "date": "2026-09-28",
    "title": "Gemini Managed Agents' Credentials API makes egress-proxy secret injection a platform primitive"
-  },
-  {
-   "id": "2026-09-27-stateless-mcp-no-session-affinity",
-   "topic": "scalability",
-   "topic_title": "Agent infrastructure buckles under concurrency, not just load",
-   "kind": "obstacle",
-   "date": "2026-09-27",
-   "title": "Stateless MCP removes sticky sessions, so remote MCP servers scale like any stateless service"
-  },
-  {
-   "id": "2026-09-27-stateless-mcp-drops-session-affinity",
-   "topic": "mcp",
-   "topic_title": "Model Context Protocol: a standard interface for agent tools",
-   "kind": "solution",
-   "date": "2026-09-27",
-   "title": "Stateless MCP lets remote servers drop sticky sessions and scale horizontally"
-  },
-  {
-   "id": "2026-09-27-docker-cloud-sandboxes",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-09-27",
-   "title": "Docker Cloud Sandboxes move the same microVM-isolated agent workload from laptop to cloud"
   }
  ],
  "nodes": {
@@ -1445,7 +1445,7 @@
      "key": "coding-benchmarks",
      "title": "Coding-agent benchmarks beyond \"the tests pass\"",
      "summary": "Coding evaluation is fragmenting into narrow suites that grade review constraints, validation, regressions over many rounds, harness efficiency, and specific subskills, because a green test suite no longer predicts whether a change is mergeable.",
-     "count": 18
+     "count": 19
     },
     {
      "key": "domain-benchmarks",
@@ -1461,6 +1461,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-06-swe-cc-policy-compliance",
+     "topic": "agent-evaluation",
+     "date": "2026-10-06",
+     "title": "Passing tests is not mergeable: agents violate 43.1% of repository policies",
+     "theme": "coding-benchmarks",
+     "html": "<p><strong>SWE-CC</strong> turns the contribution docs of 12 open-source repositories into <strong>823 machine-checkable atomic policies</strong> (style, git, testing workflow), each backed by a deterministic checker. It audits both the agent&#x27;s runtime steps and its final patch across 500 tasks extended from SWE-bench Verified.</p>\n<p>Across four LLMs and two scaffolds, agents that produce functionally correct patches still violate <strong>43.1%</strong> of applicable policies, and nearly half of the violations happen in intermediate execution steps rather than in the diff.</p>\n<p>For builders: unit-test pass rate overstates merge readiness. Encode your own repo&#x27;s contribution rules as deterministic checks and grade the trajectory, not only the patch.</p>",
+     "evidence": [
+      {
+       "sid": "4508ce1f38669dd3",
+       "title": "Correct Code, Broken Contributions? SWE-CC: Benchmarking Repository Policy Compliance for Coding Agents"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-05-agents-are-systems-not-models",
      "topic": "agent-evaluation",
@@ -3390,8 +3405,8 @@
     }
    ],
    "cross_entries": [],
-   "entry_count": 124,
-   "latest_entry_date": "2026-10-05",
+   "entry_count": 125,
+   "latest_entry_date": "2026-10-06",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -3405,6 +3420,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "4508ce1f38669dd3",
+     "title": "Correct Code, Broken Contributions? SWE-CC: Benchmarking Repository Policy Compliance for Coding Agents"
+    },
     {
      "sid": "068e3817b6d56fbd",
      "title": "Agents Are Systems, Not Models: Rethinking Agentic Evaluation"
@@ -3958,7 +3977,7 @@
      "key": "agent-traffic",
      "title": "Scheduling, batching, and routing for agent-shaped traffic",
      "summary": "Agent traffic is bursty, long-context, and cache-heavy; session-aware scheduling, learned batching, and routing inside the serving layer beat chat-tuned defaults, and the levers compound when tuned together.",
-     "count": 7
+     "count": 8
     },
     {
      "key": "kv-state",
@@ -3992,6 +4011,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-06-hear-harness-engine-protocol",
+     "topic": "agent-latency",
+     "date": "2026-10-06",
+     "title": "A harness-to-engine protocol cuts agent time-to-first-token 2.23x by sharing workflow intent",
+     "theme": "agent-traffic",
+     "html": "<p><strong>HEAR</strong> is a bidirectional protocol: the agent harness sends workflow intent (dependencies, context lifecycle, objectives) and the inference engine returns live state (queues, KV-cache, resource pressure, capabilities). Policy stays separate from protocol semantics.</p>\n<p>Under memory-constrained concurrent serving, cache-aware coordination gave a <strong>1.61x</strong> batch speedup and <strong>2.23x</strong> lower median time-to-first-token on SCBench. Workload-specific execution modes gave <strong>1.23x</strong> (BrowseComp-Plus) and <strong>2.45x</strong> (DeepResearchBench) end-to-end speedups. These are paper-reported benchmark results.</p>\n<p>For builders: the harness knows what will be reused; engines cannot infer it from request streams alone.</p>",
+     "evidence": [
+      {
+       "sid": "3ef8a9b8fee4fad6",
+       "title": "Can Agent Harnesses and Inference Engines Hear Each Other? The HEAR Protocol for Agentic LLM Serving"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-01-high-bandwidth-flash-kv",
      "topic": "agent-latency",
@@ -4696,8 +4730,8 @@
      "title": "AsymSpec recovers ~90% of full-context accuracy while decoding from compressed context"
     }
    ],
-   "entry_count": 46,
-   "latest_entry_date": "2026-10-01",
+   "entry_count": 47,
+   "latest_entry_date": "2026-10-06",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -4711,6 +4745,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "3ef8a9b8fee4fad6",
+     "title": "Can Agent Harnesses and Inference Engines Hear Each Other? The HEAR Protocol for Agentic LLM Serving"
+    },
     {
      "sid": "0588c8c0813b65e1",
      "title": "Characterizing High Bandwidth Flash for LLM Serving"
@@ -10619,7 +10657,7 @@
      "key": "injection-paths",
      "title": "New paths for injected instructions",
      "summary": "Injected instructions now arrive through fetched pages, API routers, self-spreading documents, caches shared between sandboxes, and even the agent's own compaction summaries; the root cause is role confusion, not a missing filter.",
-     "count": 8
+     "count": 9
     },
     {
      "key": "model-defenses",
@@ -10653,6 +10691,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-06-copex-mcp-attack-surfaces",
+     "topic": "prompt-injection",
+     "date": "2026-10-06",
+     "title": "MCP clients fail 64.4% of adversarial-context trials, and some attacks bypass the model",
+     "theme": "injection-paths",
+     "html": "<p><strong>COPEX</strong> fixes the agent stack and varies only the tool-selecting model, so model susceptibility is not confused with guardrails or orchestration. It covers 25 attack types in 125 scenarios across four entry surfaces: model/agent, client, server/tool, and transport.</p>\n<p>Across nine models and 3,375 trials, mean attack success was <strong>64.4%</strong> (58.3% to 71.4% by surface). Some client- and transport-level attacks succeed partly outside the model&#x27;s view, so a better model alone cannot close them. Combined input and context scanning cut mean success by 49.6% on an eight-attack subset.</p>\n<p>For builders: defend the MCP client and transport layers, not just the model.</p>",
+     "evidence": [
+      {
+       "sid": "b0a6adb95dddda44",
+       "title": "COPEX: Benchmarking LLM Robustness to Adversarial Context Across Model Context Protocol Layers"
+      }
+     ],
+     "also": [
+      {
+       "slug": "mcp",
+       "title": "Model Context Protocol: a standard interface for agent tools"
+      }
+     ]
+    },
     {
      "id": "2026-10-05-openappa-egress-control",
      "topic": "prompt-injection",
@@ -11515,8 +11573,8 @@
      "title": "Agent memory systems readily admit poisoned facts, a reproducible benchmark shows"
     }
    ],
-   "entry_count": 54,
-   "latest_entry_date": "2026-10-05",
+   "entry_count": 55,
+   "latest_entry_date": "2026-10-06",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -11526,6 +11584,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "b0a6adb95dddda44",
+     "title": "COPEX: Benchmarking LLM Robustness to Adversarial Context Across Model Context Protocol Layers"
+    },
     {
      "sid": "36b791854c0867eb",
      "title": "New Archestra's OpenAPPA Saturates Two Major Security Benchmarks with a 0% Attack Success Rate"
@@ -17783,6 +17845,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-10-06-copex-mcp-attack-surfaces",
+     "topic": "prompt-injection",
+     "topic_title": "Untrusted input and tools can hijack an agent",
+     "date": "2026-10-06",
+     "title": "MCP clients fail 64.4% of adversarial-context trials, and some attacks bypass the model"
+    },
     {
      "id": "2026-09-24-morgan-stanley-generates-mcp-from-architecture",
      "topic": "tool-use",
