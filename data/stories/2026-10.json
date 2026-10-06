@@ -532,6 +532,23 @@
   "url": "https://github.blog/ai-and-ml/ai-is-rewriting-the-developer-career-ladder-heres-how-to-stand-out",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "3ef8a9b8fee4fad6": {
+  "first_seen": "2026-10-06T03:04:18.759325+00:00",
+  "id": "608e835c4e14adc6",
+  "matched_topics": [
+   "agentic",
+   "harness"
+  ],
+  "published": "2026-10-05T16:07:33+00:00",
+  "sid": "3ef8a9b8fee4fad6",
+  "source": "arxiv_agent_systems_research",
+  "summary": "LLM agents increasingly execute complex workflows involving multi-turn reasoning, tool use, and parallel agents. Efficient serving requires decisions that span two layers with complementary information: the agent harness understands workflow dependencies, context lifecycles, and execution objectives, whereas the inference engine observes request queues, KV-cache state, resource pressure, and execution capabilities. Existing interfaces do not systematically connect these views, limiting workflow-aware execution. HEAR, a bidirectional Harness--Engine Pairing protocol for agentic LLM serving. HEAR standardizes how the harness communicates workflow intent and execution requirements and how the engine returns runtime state, capabilities, and outcomes. By separating protocol semantics from optimization policies, HEAR supports diverse coordination strategies without changing workflow or model semantics. We instantiate HEAR for online cache-aware runtime coordination and workload-aware execution-mode selection for agent roles. Across four conversational and research-agent benchmarks under memory-constrained, concurrent serving, HEAR achieves a $1.61\\times$ batch speedup and reduces median time-to-first-token by $2.23\\times$ on SCBench. Mooncake shows that workflow intent and live engine state provide complementary benefits across load regimes. On BrowseComp-Plus and DeepResearchBench, workload-specific configurations yield $1.23\\times$ and $2.45\\times$ end-to-end speedups, respective",
+  "summary_1line": "LLM agents increasingly execute complex workflows involving multi-turn reasoning, tool use, and parallel agents. Efficient serving requires decisions that span two layers with complementary information: the agent harn...",
+  "title": "Can Agent Harnesses and Inference Engines Hear Each Other? The HEAR Protocol for Agentic LLM Serving",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.06597v1",
+  "why_it_matters": "Matches feed focus: agentic, harness."
+ },
  "41083152db5bf575": {
   "first_seen": "2026-10-01T14:04:08.904644+00:00",
   "id": "e0332c38909cab98",
@@ -591,6 +608,23 @@
   "type": "news",
   "url": "https://www.infoq.com/presentations/ai-production-operations/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: software delivery."
+ },
+ "4508ce1f38669dd3": {
+  "first_seen": "2026-10-06T03:04:18.759325+00:00",
+  "id": "22091b7111e2e466",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-05T12:08:33+00:00",
+  "sid": "4508ce1f38669dd3",
+  "source": "arxiv_llm_reliability",
+  "summary": "Autonomous coding agents now resolve a substantial share of real-world GitHub issues. However, passing functional tests differs fundamentally from producing a high-quality contribution acceptable for merging. Mature open-source projects publish repository-specific contribution policies, spanning style, git, testing workflows, to ensure code quality and long-term maintainability. Because existing benchmarks evaluate patches solely on unit tests, agent compliance with repository governance remains unknown. In this paper, we introduce SWE-CC, a benchmark evaluating code and process compliance in autonomous software engineering. We develop a semi-automated pipeline that converts developer documentation across 12 open-source repositories into 823 machine-checkable atomic policies. SWE-CC introduces two features: 1) lightweight, deterministic checker functions that represent each policy, 2) a comprehensive auditing mechanism that inspects both agent runtime behaviors and final deliverables. We evaluate the compliance of agent workflows in 500 end-to-end software contribution tasks extended from SWE-bench Verified. Our evaluation of four LLMs under two agent scaffolds shows that modern agents suffer from coding compliance issues: although agents produce functionally correct patches, they still violate 43.1 percent of applicable project policies, with nearly half of all violations occurring during intermediate execution steps. These results show that functional correctness does not g",
+  "summary_1line": "Autonomous coding agents now resolve a substantial share of real-world GitHub issues. However, passing functional tests differs fundamentally from producing a high-quality contribution acceptable for merging. Mature o...",
+  "title": "Correct Code, Broken Contributions? SWE-CC: Benchmarking Repository Policy Compliance for Coding Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.06193v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "47be91cd52d348eb": {
   "first_seen": "2026-10-04T00:04:01.078549+00:00",
@@ -919,6 +953,23 @@
   "url": "http://arxiv.org/abs/2610.03713v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "7866a5b7fe98e94b": {
+  "first_seen": "2026-10-06T03:04:18.759325+00:00",
+  "id": "fb666a219f8c47c8",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-05T03:31:51+00:00",
+  "sid": "7866a5b7fe98e94b",
+  "source": "arxiv_cs_lg",
+  "summary": "LLM agents rely on long-term memory to retain and reuse information when performing tasks over long horizons. Existing methods provide limited support for handling memories that become outdated as new observations or domain evidence arrive. Such outdated memories may remain semantically relevant, continue to affect dependent records, and retain value as historical evidence. This calls for two capabilities: dependency tracking to identify downstream effects and historical preservation to retain useful past records. We propose Provenance-Aware Cascading Memory Invalidation (PACMI), a framework that represents memories and new evidence in a provenance graph with typed dependency edges. PACMI assigns records to a four-state validity lattice, propagates validity changes to dependent memories, and uses the resulting states for retrieval and stale-premise detection. We also introduce a diagnostic benchmark with 100 cases and 300 queries across five domains. The evaluation separates node, context-, and answer-level performance. PACMI achieves the highest final-answer accuracy on this benchmark, and its paired difference from the strongest baseline is significant under an exact McNemar test. The premise checker achieves perfect precision, recall, and F 1 on the controlled query distribution. Cascading propagation primarily improves memorystate correctness: removing it increases final-answer errors from 3 to 11, but the paired difference does not reach the 0.05 significance threshold. ",
+  "summary_1line": "LLM agents rely on long-term memory to retain and reuse information when performing tasks over long horizons. Existing methods provide limited support for handling memories that become outdated as new observations or...",
+  "title": "PACMI: Provenance-Aware Cascading Memory Invalidation for Long-Term LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.05732v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "7963eace5d088283": {
   "first_seen": "2026-10-05T18:02:49.147916+00:00",
   "id": "39e49cc7ce4b8484",
@@ -1082,6 +1133,18 @@
   "url": "https://aws.amazon.com/blogs/machine-learning/fine-tune-a-search-agent-with-multi-turn-rl-on-amazon-sagemaker-ai",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "820593532cb498a1": {
+  "first_seen": "2026-10-06T03:04:18.759325+00:00",
+  "id": "2db57524784e5ae9",
+  "published": "2026-10-06T00:12:56+00:00",
+  "sid": "820593532cb498a1",
+  "source": "search_cn_open_weight_labs",
+  "summary": "DeepSeek closes in on US rivals despite chip curbs digitimes.com",
+  "summary_1line": "DeepSeek closes in on US rivals despite chip curbs digitimes.com",
+  "title": "DeepSeek closes in on US rivals despite chip curbs",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQeUxLRk50ZS10VGxNZ2Qzajh2cGxLbUt1X1M0cGZPZFEwLWNYQWpwbnZLamtjbXE5RHFMcjZ4ejBicEwzTk9NMlJGVE1KUzh6RU4tcUlwXzhOenJGREZsOG5SVWtRaEVlVUFmMFlEYS0zUnBzczA3dDVCOVpKWFgwbFliM2JxNHVmQzhsWmYySmxFcVJpQWdScFlGRk1ReVE?oc=5"
+ },
  "838c637e1163045a": {
   "first_seen": "2026-10-01T13:04:06.005664+00:00",
   "id": "3159cf18dae8690b",
@@ -1096,6 +1159,24 @@
   "type": "news",
   "url": "https://github.com/rodmontiel/uai",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "8559733bbe469bbb": {
+  "first_seen": "2026-10-06T03:04:18.759325+00:00",
+  "id": "bca10a4c796a08ab",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-10-05T04:22:28+00:00",
+  "sid": "8559733bbe469bbb",
+  "source": "arxiv_cs_cl",
+  "summary": "LLM agents are increasingly built for medical work and scored on clinical benchmarks. Each such score, however, comes from a model running inside an agent harness, the system that controls the loop between the model and its environment. An agent's score is therefore a property of a model--harness pair. For medical agents, how much outcomes change with the harness has rarely been measured. Measuring this change, and explaining it, raises two challenges. First, a harness comparison must change nothing but the harness and be repeated across models and kinds of task. Second, comparing whole harnesses leaves their mechanisms bundled together, so it cannot show when an individual mechanism helps. To address these challenges, we present MedicalHarness, a controlled study of models and agent harnesses on medical tasks. We first build MedicalHarnessBench to evaluate agents on $107$ tasks across four domains that each test a different harness capability. Using this benchmark, we run five open-weight models under five agent harnesses, changing only the harness within a comparison, and analyze both outcomes and execution traces. To study individual mechanisms, we build MH-Lab, a controlled harness that switches off context management, planning or tool exposure one at a time within a shared execution loop. We find that the harness and its interaction with the model account for about a quarter of the outcome variance, and that no single harness is best across models and tasks. Code and dat",
+  "summary_1line": "LLM agents are increasingly built for medical work and scored on clinical benchmarks. Each such score, however, comes from a model running inside an agent harness, the system that controls the loop between the model a...",
+  "title": "MedicalHarness: A Controlled Evaluation of LLMs and Agent Harnesses on Medical Tasks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.05778v1",
+  "why_it_matters": "Matches feed focus: agent, harness, evaluation."
  },
  "86a4c7af9988467e": {
   "first_seen": "2026-10-06T02:04:32.462554+00:00",
@@ -1273,6 +1354,18 @@
   "type": "news",
   "url": "https://www.latent.space/p/ainews-pi-10-pi-durable-and-aie-nyc",
   "why_it_matters": "Matches feed focus: harness."
+ },
+ "910657809987cc3e": {
+  "first_seen": "2026-10-06T03:04:18.759325+00:00",
+  "id": "3607354b9f581e41",
+  "published": "2026-10-05T20:00:00+00:00",
+  "sid": "910657809987cc3e",
+  "source": "databricks_blog",
+  "summary": "Vector search originated as a serving problem. The classical use case is a chatbot...",
+  "summary_1line": "Vector search originated as a serving problem. The classical use case is a chatbot...",
+  "title": "NEAREST BY Join: Scaling Vector Search in Databricks Runtime",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/nearest-join-scaling-vector-search-databricks-runtime"
  },
  "914f78823eb69ce9": {
   "first_seen": "2026-10-01T07:03:47.673848+00:00",
@@ -1841,6 +1934,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.03625v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "c33c7fb2e9e07549": {
+  "first_seen": "2026-10-06T03:04:18.759325+00:00",
+  "id": "9be581b10cdae8a3",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-05T02:47:01+00:00",
+  "sid": "c33c7fb2e9e07549",
+  "source": "arxiv_cs_ai",
+  "summary": "Language-model agents are evolving into long-running services that interact with models, tools, computers, mobile devices, and distributed environments. Existing agent frameworks simplify reasoning and tool invocation. However, cloud-centric designs face three limitations: centralized execution increases failure impact, scaling pressure, and compute cost; extending agents across computers, mobile devices, and edge environments requires a unified execution abstraction with permission control; and long-running executions require consistent lifecycle management across failures, recovery, results, usage, and settlement. We present Nexus, a cloud-edge platform that treats each invocation as a persistent task. Nexus uses an OpenWrt-based runtime for distributed serving, run-scoped delegation for authorized access to Computer and Mobile environments, and persistent records to track execution, outputs, failures, recovery, usage, and charging across cloud and edge components. We evaluate Nexus on controlled, cross-device, and model-driven workloads. All ten Computer-Android workflows succeed, and all six revocation tests block subsequent writes while preserving prior authorized reads. Under worker loss, journaling eliminates duplicate appends (six to zero per task), adding 0.933 s mean normal-path overhead. Across 24 matched task pairs, Nexus completes 24 tasks versus Dify's 22 and is a median 3.88 s faster on jointly successful pairs. In a separate workload, Nexus operates under a sm",
+  "summary_1line": "Language-model agents are evolving into long-running services that interact with models, tools, computers, mobile devices, and distributed environments. Existing agent frameworks simplify reasoning and tool invocation...",
+  "title": "Nexus: An Execution Fabric for AI Agents Across Cloud, Edge, and Devices",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.05709v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "c38af6e5cae43e23": {
   "first_seen": "2026-10-02T17:04:00.868647+00:00",
