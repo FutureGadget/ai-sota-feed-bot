@@ -212,6 +212,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0-alpha.7",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "1452e1cfc9374ea1": {
+  "first_seen": "2026-10-06T00:04:09.606456+00:00",
+  "id": "ea1ab8bc4d679a88",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-05T23:56:47+00:00",
+  "sid": "1452e1cfc9374ea1",
+  "source": "simon_willison",
+  "summary": "The \"old\" version of Cowork runs model inference in the cloud, executing tool calls in an Anthropic-provided VM we shipped to your computer. We added the VM for capability, safety, and security reasons - mapping in just the data you explicitly added to your session. People loved what they were able to do with Claude but didn't love the disk, battery, and performance cost of running the VM locally. Also, people didn't love that closing your laptop means the work stops. The \"new\" version of Cowork runs model inference and the VM in the cloud. Each session gets its own sandbox, not sharing state with other sessions. When the VM needs something on the users' device (like a file), the desktop app is responsible for that file access tool call. [...] We think this solves a lot of problems we've heard about (like using Cowork from a phone, keeping work running, or getting all the same power without losing battery to the VM) — Felix Rieseberg , Anthropic, see also this help page Tags: claude-cowork , anthropic , claude , generative-ai , ai , general-agents , llms",
+  "summary_1line": "The \"old\" version of Cowork runs model inference in the cloud, executing tool calls in an Anthropic-provided VM we shipped to your computer. We added the VM for capability, safety, and security reasons - mapping in ju...",
+  "title": "Quoting Felix Rieseberg",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Oct/5/felix-rieseberg",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "1a6e65e3e7381e62": {
   "first_seen": "2026-10-04T14:03:58.560930+00:00",
   "id": "968dd41d6b16d33c",
@@ -800,6 +816,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPeTV4ODAyQ2wwMHJPMWFmdEdvMm5JcW9GZzE0REFNczVZTjZBaXRBQ29fRndWNVBxZ19SRGtBdnM4dW9iTFFpeW42TmlmWklyOTlEek5tMF9oQVR3b08tZDFTU1h2aXZwUl85ODN3aXVNcTJCMHlXdTdYODdROHVQa0dB?oc=5"
  },
+ "5f6bef588cafa007": {
+  "first_seen": "2026-10-06T01:04:24.218171+00:00",
+  "id": "494aea63a52c87ba",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-03T15:48:24+00:00",
+  "sid": "5f6bef588cafa007",
+  "source": "arxiv_llm_reliability",
+  "summary": "Many visual explanation methods in computer vision highlight pixel importance but struggle to link these low-level cues to semantically meaningful concepts, limiting their interpretability and trustworthiness. We introduce Concept-based Explanations (ConEx), a novel framework that bridges saliency visualization with concept-based reasoning to provide both faithfulness and interpretability. ConEx automatically discovers class-specific concepts and represents them through concept activation vectors (CAVs), learned without manual supervision using an architecture-specific masking mechanism that reduces noise introduced by the segmentation masks to enhance concept purity. ConEx generates faithful saliency maps that reveal where each concept appears in the image and how it contributes to the prediction. To evaluate the reliability of these learned concepts, we propose two complementary metrics, Vector-Concept Match (VCM) and Concept-Class Match (CCM), that quantify concept alignment and enable direct comparison with existing methods. Extensive experiments across diverse settings demonstrate that ConEx achieves state-of-the-art performance on faithfulness, segmentation, and concept-quality benchmarks. Overall, ConEx advances the field toward truly interpretable and concept-grounded explanations in vision models.",
+  "summary_1line": "Many visual explanation methods in computer vision highlight pixel importance but struggle to link these low-level cues to semantically meaningful concepts, limiting their interpretability and trustworthiness. We intr...",
+  "title": "ConEx: Human-Interpretable Saliency Maps via Concept-Aware Attribution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.04605v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "61688cf01673e9ce": {
   "first_seen": "2026-10-02T08:04:01.313827+00:00",
   "id": "a42028709c93c1e4",
@@ -854,6 +886,22 @@
   "title": "Reflection’s founders on building a DeepSeek of the West",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBfOURaUldkQW9fWTRyR2VRUUxuTElKUXpvQkhPa2E5TFJ5M1pJMU92VFk4TUF4Ri1XNnlFWHBsYXJpSnJGYzJPZVRNeHVILVRYZW1USEFGZks2NEZmaEllRDg2cWdmaWZXMHoxTVVZMXdMN200QkE?oc=5"
+ },
+ "734c12b48d882553": {
+  "first_seen": "2026-10-06T01:04:24.218171+00:00",
+  "id": "29ecec88395afe02",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-03T14:07:04+00:00",
+  "sid": "734c12b48d882553",
+  "source": "arxiv_cs_lg",
+  "summary": "On-device assistants run GPU-based LLM inference alongside CPU retrieval on unified-memory systems. Under a saturated local-retrieval workload, four concurrent retrieval workers raise 95th-percentile (p95) decode latency by 60-61% on two M4 systems, whereas prefill latency rises by only 5.7-6.9%. We study LLM phase as an admission signal for independent CPU retrieval under controlled LLM workloads. PHASEGATE calibrates separate concurrency limits for prefill and decode, selecting four and one on our base-M4 configuration. Under a backlogged queue, it achieves 2.0 times the aggregate retrieval throughput of the best tested feasible fixed policy, with both p95 LLM latency metrics within 1.25 times their no-retrieval baselines in all seven held-out runs. A phase-blind control, TimeGate, uses the same two limits on a calibration-derived schedule without observing LLM phase. It achieves similar retrieval throughput but violates the output-token latency limit in every run. M2 and M2 Pro Mac minis reproduce the policy ordering, while output-length sweeps show that the advantage narrows as decode occupies more of each request.",
+  "summary_1line": "On-device assistants run GPU-based LLM inference alongside CPU retrieval on unified-memory systems. Under a saturated local-retrieval workload, four concurrent retrieval workers raise 95th-percentile (p95) decode late...",
+  "title": "PhaseGate: Phase-Aware CPU Retrieval Scheduling for On-Device LLMs on Unified Memory",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.04537v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "751a14146cee1c7c": {
   "first_seen": "2026-10-05T02:04:13.028325+00:00",
@@ -1450,6 +1498,23 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0-alpha.9",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "b0a6adb95dddda44": {
+  "first_seen": "2026-10-06T01:04:24.218171+00:00",
+  "id": "a24ebb8868de5761",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-03T08:44:20+00:00",
+  "sid": "b0a6adb95dddda44",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large language models increasingly mediate tool use in Model Context Protocol (MCP) systems, where adversarial influence may enter through user instructions, tool schemas, tool outputs, or protocol messages. Existing benchmarks often evaluate deployed agents, conflating model susceptibility with guardrails, orchestration, and general task capability. We introduce COPEX (COntext Provider EXploitation), a controlled benchmark that isolates the model as an MCP client by fixing the surrounding agent stack and varying only the tool-selecting model. COPEX covers 25 attack types instantiated as 125 scenarios across four entry surfaces: model/agent, client, server/tool, and transport. Across nine models and 3,375 trials, the mean attack success rate is 64.4%, with surface-level means ranging from 58.3% to 71.4%. Some client- and transport-level attacks succeed partly outside the model's observation or control, separating system exposure from model susceptibility. Combined input and context scanning reduces mean attack success by 49.6% on an eight-attack defense subset relative to the undefended setting. The benchmark is available at https://github.com/inspire-center/copex.",
+  "summary_1line": "Large language models increasingly mediate tool use in Model Context Protocol (MCP) systems, where adversarial influence may enter through user instructions, tool schemas, tool outputs, or protocol messages. Existing...",
+  "title": "COPEX: Benchmarking LLM Robustness to Adversarial Context Across Model Context Protocol Layers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.04378v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "b23597f2ce603f9a": {
   "first_seen": "2026-10-04T17:04:02.218647+00:00",
   "id": "ad5126672309283f",
@@ -1959,6 +2024,28 @@
   "url": "https://github.blog/ai-and-ml/github-copilot/reviewbench-an-open-benchmark-for-ai-code-review",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "d9b88297cf0d952f": {
+  "first_seen": "2026-10-06T00:04:09.606456+00:00",
+  "id": "6afc6121bcd252b2",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-10-05T23:33:17+00:00",
+  "release_highlights": [
+   "Added serverToolUses to the result of a mod's turn.step hook: the tool calls the API ran itself (the advisor), each with its id, name, input, start and end",
+   "Added agentId to the tool.check event of plugin hooks, so a hook can tell a subagent's permission check from the main session's",
+   "Added ceiling to the question and verdict a mod's tool.check hook reads, naming the approval an organization requires for a tool"
+  ],
+  "sid": "d9b88297cf0d952f",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added serverToolUses to the result of a mod's turn.step hook: the tool calls the API ran itself (the advisor), each with its id, name, input, start and end Added agentId to the tool.check event of plugin hooks, so a hook can tell a subagent's permission check from the main session's Added ceiling to the question and verdict a mod's tool.check hook reads, naming the approval an organization requires for a tool Added ThemeKey and Color types to the plugin hooks typings, so an editor lists the theme colors a mod's drawing can name Added to claude plugin validate : each hook a mod registers at a gating site is listed with whether it has a .catch ( gatingHooks under --json ) Added a Deny button to the Claude apps gateway's sign-in approval page: it ends the pending sign-in, so the waiting terminal stops within seconds Added claude attach and claude logs : part of a session name works in place of the id Added /claude-api managed-agents-onboard to set up the Managed Agents pattern a page describes as ant apply files Added /claude-api managed-agents-onboard to build a Console quickstart template, such as deep-researcher , with the ant CLI Added a warning when a managed settings file is a link to a file outside the managed settings folder Added a /status and doctor warning when managed settings ignore user-configured sandbox allowRead paths or allowed domains Fixed requests failing behind proxies and gateways that reject one of Claude Code's beta headers with a status o",
+  "summary_1line": "Added serverToolUses to the result of a mod's turn.step hook: the tool calls the API ran itself (the advisor), each with its id, name, input, start and end · Added agentId to the tool.check event of plugin hooks, so a...",
+  "title": "claude-code v2.1.290",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.290",
+  "why_it_matters": "Matches feed focus: agent, claude code."
+ },
  "da0034913ac66df2": {
   "first_seen": "2026-10-02T01:03:18.152649+00:00",
   "id": "3cdae9992e6399e4",
@@ -2159,6 +2246,23 @@
   "title": "NVIDIA Heavily Backs “U.S. DeepSeek” as It Prepares to Release Open-Source Model",
   "type": "release",
   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPMnZhcjNtb0dQV0tkSXlGck9SQWJJMmFqbWZ1ZWhxMmdhU0pKQW5nSENGYjNsNUpWLXBvVHpXTXlqY1FKaVNrS0s2dzJQTjU2aGlBM0NrcmlLa3YxemJfM185SVB2Q0pzbmlmUzUwUE4yaHM0ekdHa0VqVmp1NkdPVTdndWRTWTg2Tl94NzZjTU5aX1hPLXB4aWg1N0JrM3lDRl9J?oc=5"
+ },
+ "e7da4707a58178f3": {
+  "first_seen": "2026-10-06T00:04:09.606456+00:00",
+  "id": "5376065ea6776f38",
+  "matched_topics": [
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-10-05T22:51:05+00:00",
+  "sid": "e7da4707a58178f3",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Meet Together Link: A Free CLI That Runs Open Models Like Kimi K3 and GLM 5.3 Inside Claude Code, Codex, and OpenCode MarkTechPost",
+  "summary_1line": "Meet Together Link: A Free CLI That Runs Open Models Like Kimi K3 and GLM 5.3 Inside Claude Code, Codex, and OpenCode MarkTechPost",
+  "title": "Meet Together Link: A Free CLI That Runs Open Models Like Kimi K3 and GLM 5.3 Inside Claude Code, Codex, and OpenCode",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxQWXNlZUxiUFItZmprSndiU1hfR0NBdWU2T3hoR3hzTXVFWmxBeDNSQW1PaTFJaWlMeS1lUmVBcjBrcmtGWE5ZVFRiSjV0bmxsYXNkVUZhcUhnSnpFWkc2WXo3N2o1Y3h5Mnk1Wno3eXN3czJWN1FCMTQwa25iOC1KeGlLcG95VmZSMHRxOHdqV1p6MDlFWmNZRlc0WmdSSjhWVzkyRUN4LVRHTDJTbm9DRENKMjRjUFlocEVPbTBWNXRYcDF1VkhMUHZlUmVvWHNkUlluVWNraklrSVNSaHFna2VPc0pTOW43S3ZiNkRIY24wWXPSAfMBQVVfeXFMUFlzZWVMYlBSLWZqa0p3YlNYX0dDQXVlNk94aEd4c011RVpsQXgzUkFtT2kxSWlpTHktZVJlQXIwa3JrRlhOWVRUYko1dG5sbGFzZFVGYXFIZ0p6RVpHNll6NzdqNWN4eTJ5NVp6N3lzd3MyVjdRQjE0MGtuYjgtSnhpS3BveVZmUjB0cTh3aldaejA5RVpjWUZXNFpnUko4Vlc5MkVDeC1UR0wyU25vQ0RDSjI0Y1BZaHBFT20wVjV0WHAxdVZITFB2ZVJlb1hzZFJZblVja2pJa0lTUmhxZ2tlT3NKUzluN0t2YjZESGNuMFlz?oc=5",
+  "why_it_matters": "Matches feed focus: codex, claude code."
  },
  "e8099ac11401f85a": {
   "first_seen": "2026-10-04T13:03:58.580811+00:00",
