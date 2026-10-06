@@ -816,6 +816,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPeTV4ODAyQ2wwMHJPMWFmdEdvMm5JcW9GZzE0REFNczVZTjZBaXRBQ29fRndWNVBxZ19SRGtBdnM4dW9iTFFpeW42TmlmWklyOTlEek5tMF9oQVR3b08tZDFTU1h2aXZwUl85ODN3aXVNcTJCMHlXdTdYODdROHVQa0dB?oc=5"
  },
+ "5f6bef588cafa007": {
+  "first_seen": "2026-10-06T01:04:24.218171+00:00",
+  "id": "494aea63a52c87ba",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-03T15:48:24+00:00",
+  "sid": "5f6bef588cafa007",
+  "source": "arxiv_llm_reliability",
+  "summary": "Many visual explanation methods in computer vision highlight pixel importance but struggle to link these low-level cues to semantically meaningful concepts, limiting their interpretability and trustworthiness. We introduce Concept-based Explanations (ConEx), a novel framework that bridges saliency visualization with concept-based reasoning to provide both faithfulness and interpretability. ConEx automatically discovers class-specific concepts and represents them through concept activation vectors (CAVs), learned without manual supervision using an architecture-specific masking mechanism that reduces noise introduced by the segmentation masks to enhance concept purity. ConEx generates faithful saliency maps that reveal where each concept appears in the image and how it contributes to the prediction. To evaluate the reliability of these learned concepts, we propose two complementary metrics, Vector-Concept Match (VCM) and Concept-Class Match (CCM), that quantify concept alignment and enable direct comparison with existing methods. Extensive experiments across diverse settings demonstrate that ConEx achieves state-of-the-art performance on faithfulness, segmentation, and concept-quality benchmarks. Overall, ConEx advances the field toward truly interpretable and concept-grounded explanations in vision models.",
+  "summary_1line": "Many visual explanation methods in computer vision highlight pixel importance but struggle to link these low-level cues to semantically meaningful concepts, limiting their interpretability and trustworthiness. We intr...",
+  "title": "ConEx: Human-Interpretable Saliency Maps via Concept-Aware Attribution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.04605v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "61688cf01673e9ce": {
   "first_seen": "2026-10-02T08:04:01.313827+00:00",
   "id": "a42028709c93c1e4",
@@ -870,6 +886,22 @@
   "title": "Reflection’s founders on building a DeepSeek of the West",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBfOURaUldkQW9fWTRyR2VRUUxuTElKUXpvQkhPa2E5TFJ5M1pJMU92VFk4TUF4Ri1XNnlFWHBsYXJpSnJGYzJPZVRNeHVILVRYZW1USEFGZks2NEZmaEllRDg2cWdmaWZXMHoxTVVZMXdMN200QkE?oc=5"
+ },
+ "734c12b48d882553": {
+  "first_seen": "2026-10-06T01:04:24.218171+00:00",
+  "id": "29ecec88395afe02",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-03T14:07:04+00:00",
+  "sid": "734c12b48d882553",
+  "source": "arxiv_cs_lg",
+  "summary": "On-device assistants run GPU-based LLM inference alongside CPU retrieval on unified-memory systems. Under a saturated local-retrieval workload, four concurrent retrieval workers raise 95th-percentile (p95) decode latency by 60-61% on two M4 systems, whereas prefill latency rises by only 5.7-6.9%. We study LLM phase as an admission signal for independent CPU retrieval under controlled LLM workloads. PHASEGATE calibrates separate concurrency limits for prefill and decode, selecting four and one on our base-M4 configuration. Under a backlogged queue, it achieves 2.0 times the aggregate retrieval throughput of the best tested feasible fixed policy, with both p95 LLM latency metrics within 1.25 times their no-retrieval baselines in all seven held-out runs. A phase-blind control, TimeGate, uses the same two limits on a calibration-derived schedule without observing LLM phase. It achieves similar retrieval throughput but violates the output-token latency limit in every run. M2 and M2 Pro Mac minis reproduce the policy ordering, while output-length sweeps show that the advantage narrows as decode occupies more of each request.",
+  "summary_1line": "On-device assistants run GPU-based LLM inference alongside CPU retrieval on unified-memory systems. Under a saturated local-retrieval workload, four concurrent retrieval workers raise 95th-percentile (p95) decode late...",
+  "title": "PhaseGate: Phase-Aware CPU Retrieval Scheduling for On-Device LLMs on Unified Memory",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.04537v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "751a14146cee1c7c": {
   "first_seen": "2026-10-05T02:04:13.028325+00:00",
@@ -1465,6 +1497,23 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0-alpha.9",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "b0a6adb95dddda44": {
+  "first_seen": "2026-10-06T01:04:24.218171+00:00",
+  "id": "a24ebb8868de5761",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-03T08:44:20+00:00",
+  "sid": "b0a6adb95dddda44",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large language models increasingly mediate tool use in Model Context Protocol (MCP) systems, where adversarial influence may enter through user instructions, tool schemas, tool outputs, or protocol messages. Existing benchmarks often evaluate deployed agents, conflating model susceptibility with guardrails, orchestration, and general task capability. We introduce COPEX (COntext Provider EXploitation), a controlled benchmark that isolates the model as an MCP client by fixing the surrounding agent stack and varying only the tool-selecting model. COPEX covers 25 attack types instantiated as 125 scenarios across four entry surfaces: model/agent, client, server/tool, and transport. Across nine models and 3,375 trials, the mean attack success rate is 64.4%, with surface-level means ranging from 58.3% to 71.4%. Some client- and transport-level attacks succeed partly outside the model's observation or control, separating system exposure from model susceptibility. Combined input and context scanning reduces mean attack success by 49.6% on an eight-attack defense subset relative to the undefended setting. The benchmark is available at https://github.com/inspire-center/copex.",
+  "summary_1line": "Large language models increasingly mediate tool use in Model Context Protocol (MCP) systems, where adversarial influence may enter through user instructions, tool schemas, tool outputs, or protocol messages. Existing...",
+  "title": "COPEX: Benchmarking LLM Robustness to Adversarial Context Across Model Context Protocol Layers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.04378v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "b23597f2ce603f9a": {
   "first_seen": "2026-10-04T17:04:02.218647+00:00",
