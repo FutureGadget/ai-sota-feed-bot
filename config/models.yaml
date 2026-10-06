@@ -53,9 +53,20 @@ sources:
     enabled: true
     # Requires AA_API_KEY in the environment; collector no-ops gracefully
     # when it is absent (see pipeline/collect_models.py).
-    base_url: https://artificialanalysis.ai/api/v2/data/llms/models
+    # Free v2 list endpoint. The legacy /api/v2/data/llms/models retires
+    # 2026-11-04 23:59 UTC (410 Gone afterwards). A Pro key must switch this
+    # to /api/v2/language/models - the /free URL returns the Free field set
+    # to every tier. Free omits per-benchmark scores, the published 3:1
+    # blend, context window, parameters and licensing.
+    base_url: https://artificialanalysis.ai/api/v2/language/models/free
+    # 200 models per page; ~3 pages per run x 4 runs/day against a Free
+    # quota of 100 requests per 24 hours. A walk that is still has_more at
+    # this cap fails the run rather than publishing a truncated catalog.
+    max_pages: 20
     api_key_env: AA_API_KEY
     attribution: "Artificial Analysis (https://artificialanalysis.ai/) - independent benchmarking"
+    # Reader-facing attribution link (the API URL answers a browser with 401).
+    attribution_url: https://artificialanalysis.ai/
     # Raw per-model benchmark scores to persist verbatim from AA's
     # `evaluations` block, in ADDITION to aa_intelligence_index/
     # aa_coding_index above (those two are separate blended composites AA
@@ -68,6 +79,11 @@ sources:
     # indices above (roughly 0-100) - see the module docstring in
     # pipeline/collect_models.py and docs/design-docs/decision-log.md,
     # 2026-08-16.
+    # Pro-only on the v2 endpoints: on Free every model gets `benchmarks: {}`
+    # and the collector logs models_collect_aa_benchmarks_unavailable. The
+    # v2 Pro reference names several of these differently (tau2_telecom,
+    # gpqa_diamond, aa_lcr) - re-check this list against a live Pro response
+    # before relying on it.
     benchmarks:
       - livecodebench
       - scicode
@@ -137,6 +153,12 @@ request_timeout_seconds: 60
 # true in an environment that legitimately routes egress through a proxy -
 # otherwise those requests would silently bypass it and fail to route.
 trust_env_proxies: false
+
+# A skipped write (a source that worked last run failed this one) keeps the
+# previous data/models/latest.json and exits 0 - until that artifact is older
+# than this, when `collect` exits 1 so the workflow turns red instead of
+# /models freezing quietly. 48h = 8 consecutive missed 6-hourly runs.
+max_artifact_age_hours: 48
 
 # Inclusion / recency policy.
 # NOTE: recency ordering only activates once a model has a release_date,

@@ -46,6 +46,9 @@ jobs:
       # with Artificial Analysis only when the secret is configured, and
       # exits 0 with AA fields null / sources.artificial_analysis.available
       # false when it is absent. This step skips cleanly without credentials.
+      # It exits 1 (red run, nothing committed) when a configured key is
+      # rejected for good (401/403/404/410, unexpected body) or when
+      # data/models/latest.json is older than max_artifact_age_hours.
       - name: Collect model release data
         env:
           AA_API_KEY: ${{ secrets.AA_API_KEY }}
