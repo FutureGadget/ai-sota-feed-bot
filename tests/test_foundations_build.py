@@ -185,5 +185,17 @@ class FoundationsBuildTest(unittest.TestCase):
         self.assertEqual(slugs, {"prompt-reliability", "other-concept"})
 
 
+class MarkdownTest(unittest.TestCase):
+    def test_numbered_and_bulleted_lists(self) -> None:
+        html = build_foundations.md_to_html(
+            "Intro line.\n1. **One.** first\n   wrapped\n2. Two\n- bullet"
+        )
+        self.assertEqual(
+            html,
+            "<p>Intro line.</p>\n<ol><li><strong>One.</strong> first wrapped</li><li>Two</li></ol>\n"
+            "<ul><li>bullet</li></ul>",
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

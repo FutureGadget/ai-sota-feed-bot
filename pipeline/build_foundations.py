@@ -140,9 +140,11 @@ def md_inline(text: str) -> str:
 
 
 def md_to_html(text: str) -> str:
+    """Paragraphs plus ``-``/``*`` bullet and ``1.`` numbered lists."""
     blocks: list[str] = []
     para: list[str] = []
     items: list[str] = []
+    list_tag = "ul"
 
     def flush_para() -> None:
         if para:
@@ -151,18 +153,26 @@ def md_to_html(text: str) -> str:
 
     def flush_list() -> None:
         if items:
-            blocks.append("<ul>" + "".join(f"<li>{md_inline(i)}</li>" for i in items) + "</ul>")
+            lis = "".join(f"<li>{md_inline(i)}</li>" for i in items)
+            blocks.append(f"<{list_tag}>{lis}</{list_tag}>")
             items.clear()
 
     for line in text.splitlines():
         stripped = line.strip()
         bullet = re.match(r"^[-*]\s+(.*)$", stripped)
-        if bullet:
+        numbered = re.match(r"^\d+[.)]\s+(.*)$", stripped)
+        if bullet or numbered:
+            tag = "ul" if bullet else "ol"
+            if items and tag != list_tag:
+                flush_list()
             flush_para()
-            items.append(bullet.group(1))
+            list_tag = tag
+            items.append((bullet or numbered).group(1))
         elif not stripped:
             flush_para()
             flush_list()
+        elif items and line.startswith((" ", "\t")):
+            items[-1] += " " + stripped  # wrapped continuation of a list item
         else:
             flush_list()
             para.append(stripped)

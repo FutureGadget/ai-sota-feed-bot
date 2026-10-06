@@ -4301,7 +4301,7 @@ FOUNDATIONS_PAGE_CSS = """\
     .foundation-prose { min-width:0; max-width:46rem; }
     .foundation-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.67; }
     .foundation-prose p:last-child { margin-bottom:0; }
-    .foundation-prose ul { margin:.1rem 0 0; padding-left:1.1rem; }
+    .foundation-prose ul, .foundation-prose ol:not(.foundation-new-list) { margin:.1rem 0 0; padding-left:1.1rem; }
     .foundation-prose li { margin:.45rem 0; line-height:1.58; }
     .foundation-prose strong { font-weight:650; }
     .foundation-evidence .foundation-rail { color:var(--muted); }
