@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-06T00:03:17.289424+00:00",
+ "generated_at": "2026-10-06T05:05:15.739864+00:00",
  "window_days": 21,
  "storylines": [
   {
@@ -71,6 +71,44 @@
      "tone": "rising",
      "changed": "2026-10-05",
      "detail": "Claude Code mods have an official guide, an experimental DeepSeek Harness compatibility layer, and now trade-press framing as an anti-lock-in move."
+    }
+   }
+  },
+  {
+   "slug": "long-term-memory",
+   "label": "Long-Term Memory",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-09-18T15:55:29+00:00",
+   "last_updated": "2026-10-05T03:31:51+00:00",
+   "latest_title": "PACMI: Provenance-Aware Cascading Memory Invalidation for Long-Term LLM Agents",
+   "days": [
+    "2026-09-18",
+    "2026-09-22",
+    "2026-10-05"
+   ],
+   "member_sids": [
+    "eddc39b344540bb2",
+    "e1b58c64b7362aaf",
+    "7866a5b7fe98e94b"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2609.21940v1",
+    "https://twitter.com/AgentMemoryL/status/2101312784688726331",
+    "http://arxiv.org/abs/2610.05732v1"
+   ],
+   "editorial": {
+    "tldr": "Agent memory research started with how to store conversational memory: AutoViewMem proposed self-configuring views instead of fixed granularities. A benchmark post then asked how to evaluate long-term memory beyond the context window.",
+    "stale": false,
+    "whats_new": "PACMI (Oct 5) tackles stale memory: it invalidates dependent memories when an upstream fact is outdated, tracked through provenance.",
+    "why_it_matters": "Agents that persist memory across sessions need an update and invalidation policy, not only a retrieval layer; stale memories are a reliability risk that retrieval benchmarks do not catch.",
+    "take_for_builders": "If your agent persists memory across sessions, record where each memory came from and test that correcting one fact also retires memories derived from it.",
+    "status": {
+     "state": "Developing",
+     "tone": "rising",
+     "changed": "2026-10-05",
+     "detail": "Research focus is moving from how to store memory to how to keep it correct and measure it."
     }
    }
   },
@@ -467,44 +505,6 @@
        "weight": 70
       }
      ]
-    }
-   }
-  },
-  {
-   "slug": "claude-plugins",
-   "label": "Claude Plugins",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 2,
-   "first_seen": "2026-09-20T14:36:07+00:00",
-   "last_updated": "2026-09-25T00:00:00+00:00",
-   "latest_title": "Build plugins for Claude with the directory submission portal | Claude by Anthropic",
-   "days": [
-    "2026-09-20",
-    "2026-09-23",
-    "2026-09-25"
-   ],
-   "member_sids": [
-    "4e91ea817dad6bfa",
-    "49c476b235ce64c9",
-    "c14a84a1fa6159bc"
-   ],
-   "member_urls": [
-    "https://news.google.com/rss/articles/CBMib0FVX3lxTFA0N2ZwWGczUmdsd1V6b3lYNEZ4Ujlfc3lKaGFPZFJ6WkZZUEs5ZTNCbkIwN2czQVpEZDNhakpxNGx3M0VzUVhkVHJYRGlEc3Ffb21WdXpMdVBhemZwMy0ydUJ1QVhOZmw3aV94anZyMA?oc=5",
-    "https://claude.com/blog/claude-marketplace",
-    "https://claude.com/blog/build-plugins-for-claude"
-   ],
-   "editorial": {
-    "tldr": "Unity shipped official Claude Code and Codex plugins on Sep 20. Anthropic followed on Sep 23 with Claude Marketplace, one place for plugins, connectors, agents and service partners.",
-    "stale": false,
-    "whats_new": "Anthropic opened a directory submission portal on Sep 25 where builders package MCP connectors and Agent Skills as plugins, track review, and see usage once listed.",
-    "why_it_matters": "Distribution for Claude tooling is moving from ad-hoc repos to a reviewed directory, which affects how you package, version and get MCP connectors and skills adopted.",
-    "take_for_builders": "If you maintain an MCP connector or Agent Skill, check the portal's packaging requirements before publishing, and keep a direct-install path until review timing is known.",
-    "status": {
-     "state": "Directory opening",
-     "tone": "rising",
-     "changed": "2026-09-25",
-     "detail": "Vendor plugins arrived first; Anthropic then launched the Marketplace and a submission portal for third-party plugins."
     }
    }
   }
