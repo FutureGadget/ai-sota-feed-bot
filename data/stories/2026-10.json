@@ -16,6 +16,22 @@
   "url": "https://blogs.nvidia.com/blog/local-ai-dgx-spark-64gb-sync",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "013363dfd69202ec": {
+  "first_seen": "2026-10-06T06:03:43.474133+00:00",
+  "id": "5acadf3e13f819d3",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-05T16:51:21+00:00",
+  "sid": "013363dfd69202ec",
+  "source": "arxiv_cs_lg",
+  "summary": "Long context inference with large language models becomes increasingly expensive as attention must operate over an ever growing KV cache. Page sparse attention reduces this cost by representing each KV page compactly and retrieving only a subset for each query. Existing retrieval methods are designed to estimate attention scores or page relevance, but their objectives do not directly account for how approximation errors affect the resulting value weighted attention output. We introduce \\method{}, an output aware page encoding derived from the joint structure of keys and values while preserving the key information needed for accurate retrieval. \\method{} is training free and requires no additional value dependent statistics at inference time. Once constructed, its stored representation has the same size and decode time scoring cost as a key only spectral representation. Across long reasoning, long context understanding, and long generation benchmarks, \\method{} consistently improves over the key only spectral baseline and performs competitively with recent KV cache compression and retrieval methods. On long reasoning benchmarks, it achieves strong avg@\\(k\\) performance across model benchmark pairs, while matching or surpassing leading baselines on several long context understanding and generation settings with modest decoding overhead. Code is available at \\url{https://github.com/Ashkan13776/oval-kv}.",
+  "summary_1line": "Long context inference with large language models becomes increasingly expensive as attention must operate over an ever growing KV cache. Page sparse attention reduces this cost by representing each KV page compactly...",
+  "title": "OVAL: Output-Aware Local Page Bases for KV Cache Retrieval",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.06686v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "015ccf980c076bf6": {
   "first_seen": "2026-10-01T07:03:47.673848+00:00",
   "id": "89391046572016ec",
@@ -41,6 +57,22 @@
   "title": "Inside-Out AI: Rebuilding Airbnb Behind the Scenes and Across the Guest Experience",
   "type": "news",
   "url": "https://www.latent.space/p/airbnb"
+ },
+ "0454b1774c5113d7": {
+  "first_seen": "2026-10-06T06:03:43.474133+00:00",
+  "id": "36494e46d09dfbd2",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-05T17:48:14+00:00",
+  "sid": "0454b1774c5113d7",
+  "source": "arxiv_cs_ai",
+  "summary": "The unprecedented computational scale of modern artificial intelligence depends on complex, multi-billion-transistor Systems-on-Chip, yet the workflows that verify these chips remain stubbornly manual. Although Large Language Models (LLMs) have made rapid inroads into Electronic Design Automation (EDA), approximately 74.6% of existing studies target static Register-Transfer Level (RTL) code generation, leaving post-simulation verification and interactive waveform debugging largely untouched. We introduce Back-to-the-Future (BTTF), an end-to-end agentic framework that closes this infrastructural gap. BTTF distills massive, unstructured simulation dumps into a normalized relational SQLite database and couples it with a collaborative multi-agent orchestration engine that translates natural-language verification queries into schema-aware SQL while correlating signal anomalies with versioned RTL repositories. Across a 150-query benchmark, BTTF attains 95.33% execution accuracy, charting a practical path toward autonomous EDA verification.",
+  "summary_1line": "The unprecedented computational scale of modern artificial intelligence depends on complex, multi-billion-transistor Systems-on-Chip, yet the workflows that verify these chips remain stubbornly manual. Although Large...",
+  "title": "Back to the Future: Rethinking EDA Infrastructure for Agentic Systems in Chip Design Verification",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.06790v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "04f7c28a71222487": {
   "first_seen": "2026-10-02T03:02:46.514202+00:00",
@@ -161,7 +193,7 @@
   ],
   "published": "2026-10-05T16:12:41+00:00",
   "sid": "09745d52e85555e7",
-  "source": "arxiv_cs_cl",
+  "source": "arxiv_llm_reliability",
   "summary": "Text from multiple sources can become interleaved into a single sequence when attribution metadata is lost, such as overlapping speech transcripts, document reading flows, or concurrent agent streams. We formalize this challenge as Word-Level Text Unmixing: given an interleaved lexical stream and source count K, recover the original source sequences while preserving every word occurrence and its within-source order exactly. Directly generating separated texts with LLMs can omit, duplicate, or hallucinate words, violating this exact-reconstruction objective. We therefore propose Evidence-Preserving Ownership Routing (EPOR), which decouples source-ownership prediction from reconstruction. EPOR adapts a causal LLM to predict canonical ownership routes conditioned on the mixed stream and prior routing decisions. At inference, completion-safe constrained decoding is combined with deterministic indexed reconstruction, yielding structurally valid K-source partitions that preserve every observed occurrence exactly once. We also introduce UNMIXBENCH, covering controlled synthetic mixtures, timestamp-derived speech from AMI and ICSI, layout-derived document streams from ReadingBank, and simulated concurrent digital outputs. Across five evaluation tracks, a 4B EPOR model achieves the lowest mean minimum-permutation word error rate among finetuned baselines, reducing the five-track mean by 22.3% relative to compact source-array generation and remaining competitive with zero-shot frontier",
   "summary_1line": "Text from multiple sources can become interleaved into a single sequence when attribution metadata is lost, such as overlapping speech transcripts, document reading flows, or concurrent agent streams. We formalize thi...",
   "title": "Word-Level Text Unmixing via Evidence-Preserving Ownership Routing with Language Models",
@@ -362,16 +394,16 @@
  },
  "2c08daff04a10158": {
   "first_seen": "2026-10-06T04:04:10.386931+00:00",
-  "id": "2b0f97f22a45a649",
+  "id": "1af3e7679d45c8f0",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-10-06T03:36:51+00:00",
+  "published": "2026-10-06T05:38:59+00:00",
   "sid": "2c08daff04a10158",
   "source": "openai_codex_releases",
   "summary": "Release 0.161.0-alpha.13.1",
   "summary_1line": "Release 0.161.0-alpha.13.1",
-  "title": "codex rust-v0.161.0-alpha.13.1",
+  "title": "codex 0.161.0-alpha.13.1",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.161.0-alpha.13.1",
   "why_it_matters": "Matches feed focus: codex."
@@ -392,6 +424,23 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Oct/4/qwen38-addition-in-words",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "2d4aeb219b535679": {
+  "first_seen": "2026-10-06T06:03:43.474133+00:00",
+  "id": "4e41433a047248ad",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-10-05T16:52:57+00:00",
+  "sid": "2d4aeb219b535679",
+  "source": "arxiv_cs_cl",
+  "summary": "Search agents adapt their queries, yet fixed search interfaces leave candidate processing and evidence presentation outside the agent's direct control. Our trajectory analysis shows that supporting passages can be retrieved yet never delivered to the agent; a same-page oracle intervention shows that changing the returned evidence can reduce subsequent search. We introduce Programmatic Search Agent (PSA), which makes a local executable computation over candidates the unit of a search action. PSA unifies a persistent candidate workspace, flexible primitive composition, and selective evidence presentation. It incrementally generates program cells that reuse candidates, execute dependent operations, and select what the agent inspects next. The runtime resolves specified data dependencies within each cell, while the agent adapts its search strategy across cells as new evidence arrives. We compare PSA with the Query-based Agent and Tool-based Agent on InfoSeek-Eval and BrowseComp-Plus using five policy backbones without task-specific training. All three interfaces share the search substrate, and the Tool-based Agent also shares PSA's primitives and persistent workspace. Relative to the Query-based Agent, PSA improves macro-averaged task success by 4.00 and 7.56 percentage points on the two benchmarks, respectively; within-backbone reductions in final-step tokens average 28.3% and 33.9%. These results support extending agent control beyond query reformulation to the processing and p",
+  "summary_1line": "Search agents adapt their queries, yet fixed search interfaces leave candidate processing and evidence presentation outside the agent's direct control. Our trajectory analysis shows that supporting passages can be ret...",
+  "title": "Programmatic Search Agents: Extending Agentic Search Beyond Query Reformulation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.06689v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "2d8e70fb45cef747": {
   "first_seen": "2026-10-05T11:04:07.064357+00:00",
@@ -2194,6 +2243,18 @@
   "type": "release",
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.287",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "d4fa66eda79dab6f": {
+  "first_seen": "2026-10-06T06:03:43.474133+00:00",
+  "id": "2e561b23991f5e60",
+  "published": "2026-10-06T05:38:05+00:00",
+  "sid": "d4fa66eda79dab6f",
+  "source": "search_cn_open_weight_labs",
+  "summary": "DeepSeek set to raise at least $12 bln in Tencent, CATL-led round- Bloomberg By Investing.com Investing.com South Africa",
+  "summary_1line": "DeepSeek set to raise at least $12 bln in Tencent, CATL-led round- Bloomberg By Investing.com Investing.com South Africa",
+  "title": "DeepSeek set to raise at least $12 bln in Tencent, CATL-led round- Bloomberg By Investing.com",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPODluc281d2FqYzdlREJMTVFBYnhBWXY4WHF4Q2pXTDBMT2RfSWJ5YjNxaVp5TUh5ZVFPWkstN09UU2dFaXJVclVOVHhMUkQxTWhNaEN2YWVNa3QxVkpfSWt6X1FhSWVfbjBJdUNrSzNGcTJsc2V2TW9zaDlNM0NhZnZ1UVBNRzl3Yzc1TXdVcElYSWRnX0RxQlBXM0hfZVdVTGZsMnRmWVRVNEhiTTEwR0xZZ1pQckJHTUNCM0hhZkl0WVJkVnpr?oc=5"
  },
  "d6c2ec02ba75a55f": {
   "first_seen": "2026-10-04T10:03:33.279751+00:00",
