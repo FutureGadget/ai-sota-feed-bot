@@ -3,7 +3,8 @@
 This is the **schema layer** of the LLM-maintained knowledge wiki (Karpathy's
 "LLM wiki" pattern: raw sources → wiki → schema). It is the contract the
 `wiki-curator` agent routine writes against and that `pipeline/build_wiki.py`
-compiles deterministically into the served `data/wiki/index.json`.
+compiles deterministically into the served `data/wiki/index.json` (and the
+generated catalog `data/wiki/index.md`).
 
 The wiki is a **reader-facing knowledge graph** for AI **platform engineers**
 (see `AGENTS.md` → Product Positioning), organized as *obstacles* (problems you
@@ -20,14 +21,24 @@ storylines and stories as evidence; they never re-cluster them.
 
 ## The graph
 
-- **Node** = one markdown page under `data/wiki/`, of `kind: obstacle | solution`.
+- **Topic** = one markdown page under `data/wiki/{obstacles,solutions}/`, of
+  `kind: obstacle | solution`. It holds a short, bounded **overview** and the
+  topic's declared **themes**.
+- **Entry** = one markdown file under `data/wiki/entries/<topic-slug>/`: a
+  single dated, source-backed development (a launch, a paper, a field report),
+  filed under exactly one theme of its topic.
 - **Edge** = a cross-reference. An obstacle lists the `solutions:` that address
   it; a solution lists the `obstacles:` it addresses. Edges are **bidirectional
   by construction** — `build_wiki.py` reconciles both sides, so you only need to
   declare a link from one end (declare from the obstacle by convention).
-- **Evidence** = real story `sid`s (and optionally `related_storylines` slugs)
-  that ground the node. Never invent these — they must resolve in
-  `data/stories/index.json` / `data/storylines/`.
+- **Evidence** = real story `sid`s that ground an entry (and optionally the
+  overview), plus optional `related_storylines` slugs on the topic. Never invent
+  these — they must resolve in `data/stories/index.json` / `data/storylines/`.
+
+Why two file kinds: a topic page answers "what is the state of this problem" in
+about a minute; entries answer "what exactly happened, when, and where is the
+source". New sources become **new entry files**. The overview is **rewritten**
+when the synthesis changes — never appended to.
 
 ## Obstacle areas (the spine)
 
@@ -58,11 +69,9 @@ Every obstacle belongs to exactly one `area`. Seed taxonomy:
 
 Adding an area is a schema change: add the row here, then use it.
 
-## Page format
+## Topic page format
 
-Each page is YAML front matter + a markdown body with **known section
-headings**. `build_wiki.py` parses both; unknown sections are ignored, missing
-optional sections are fine.
+`data/wiki/obstacles/<slug>.md` or `data/wiki/solutions/<slug>.md`:
 
 ```markdown
 ---
@@ -73,57 +82,119 @@ area: memory                  # obstacle pages only; must be a known area above
 status: active                # active | stub  (stub = seeded, not yet synthesized)
 solutions: [vector-kb, context-compaction]   # obstacle pages: edges to solutions
 obstacles: []                 # solution pages: edges to obstacles
-related_storylines: [deep-research]           # storyline slugs (optional)
-evidence: [9022c498f1c24442, b3b803dc3d3ab1b8]  # real story sids
-updated: 2026-06-18
-# covers snapshot — lets the curator detect when a node has gone stale,
-# mirroring the storyline narrative sidecar's covers_* fields.
-covers_evidence: [9022c498f1c24442, b3b803dc3d3ab1b8]
+related_storylines: [deep-research]          # storyline slugs (optional)
+evidence: []                  # optional: sids backing the overview itself
+updated: 2026-10-06           # last edit to this page's overview/themes
+themes:                       # 1-6 themes; every theme needs >= 1 entry
+  - key: tiered-memory        # [a-z0-9-], unique within the page
+    title: Tiered memory stores           # <= 80 chars
+    summary: One sentence on the state of this sub-thread.   # <= 45 words
 ---
 
 ## TL;DR
 One or two sentences: what this problem/solution is, in plain terms.
 
 ## State of the art
-The synthesized current understanding. Compounds over time — edit in place as
-new sources arrive; do not append a changelog here (that is what `log.md` is).
+The current synthesis across all entries: the main approaches, the consensus,
+and the open problem. Names patterns, not a list of every source — the entries
+carry the specifics. Rewrite in place when the picture changes.
 
-## What's new
-1-2 sentences on what the most recent ingested sources changed vs. before.
-Omit on a brand-new stub.
+## Trade-offs            (solution pages only)
+When this approach helps and where it breaks down.
 
 ## Why it matters for platform engineers
 The platform-engineer lens — cost, reliability, ops, build-vs-buy — not generic
 significance.
-
-## Trade-offs            (solution pages)
-When this approach helps and where it breaks down.
 ```
 
-### Body sections by kind
-- **Obstacle**: `TL;DR`, `State of the art`, `What's new`, `Why it matters for platform engineers`.
-- **Solution**: `TL;DR`, `State of the art`, `What's new`, `Trade-offs`, `Why it matters for platform engineers`.
+### Section rules (enforced)
 
-Only `TL;DR` is required to render; the rest render when present.
+| section | pages | max words |
+|---|---|---|
+| `TL;DR` (required) | all | 80 |
+| `State of the art` | all | 350 |
+| `Trade-offs` | solution | 200 |
+| `Why it matters for platform engineers` | all | 150 |
+
+No other `##` sections are allowed. In particular there is **no `What's new`
+section**: "what's new" is derived from entry dates and rendered as the page's
+*Latest updates* list.
+
+## Entry format
+
+`data/wiki/entries/<topic-slug>/<YYYY-MM-DD>-<name>.md`:
+
+```markdown
+---
+title: "LangSmith Align Evals calibrates judges against human labels"   # <= 110 chars
+date: 2026-07-30              # date filed; must equal the filename date
+theme: trusting-the-judge     # a theme key declared on the topic page
+evidence: [1923a6eccdfa6038]  # 1-6 real story sids
+also: [agent-evaluation]      # optional: other topics this entry is listed on
+---
+What the source shows, with the specific mechanism or number, then what it
+changes for builders. One or two short paragraphs or a few bullets, no
+headings, <= 130 words. Inline markdown: **bold**, *italic*, `code`,
+[links](/topic/<slug>).
+```
+
+- **One entry per development.** A launch post and its cloud-provider
+  write-up of the same launch share one entry; two unrelated papers are two
+  entries.
+- **Title = the claim, not the source name.** "Encoder classifiers can match
+  generative judges for guardrail verdicts", not "Do Encoders Suffice?".
+- `<name>` is a short kebab-case handle; the file stem is the entry's anchor on
+  the topic page (`/topic/<slug>#<stem>`), so never rename a published entry.
+- `also:` lists the entry on other topics' pages under *From related topics*,
+  linking back to this one. Prefer it over writing a duplicate entry.
+- Entries are not edited after filing except to fix an error. A newer
+  development gets its own entry; it may say what it supersedes.
+
+## Themes
+
+A theme is a sub-thread of the topic ("Cheaper judges", "Trusting the judge").
+The topic page renders entries grouped by theme, newest first, with older
+entries collapsed. Keep 2-5 themes on a mature page (max 6). When a theme grows
+past ~15 entries or two themes blur together, re-split or merge them: change
+the `themes:` list and update each affected entry's `theme:`.
 
 ## Operations (run by `wiki-curator`)
 
-- **ingest** — fold new `data/stories/` deltas into the right obstacle/solution
-  pages: update `State of the art` in place, refresh `What's new`, add real
-  `evidence` sids and `related_storylines`, refresh the `covers_*` snapshot and
-  `updated`. Append one line to `log.md`.
-- **lint** — periodic health check: orphan nodes (no edges), stale nodes
-  (evidence moved on vs `covers_*`), thin/`stub` pages, dangling edges, evidence
-  sids that no longer resolve, contradictions across pages.
+- **ingest** — for each genuinely new on-brand story: write a new entry under
+  the right topic and theme (create a theme or topic only when the cluster is
+  substantial). If the entry changes the synthesis, rewrite `State of the art`
+  and the theme summary within their caps, and bump `updated`. Append one short
+  line to `log.md`.
+- **lint** — periodic health check: orphan topics (no edges), thin/`stub`
+  pages, dangling edges, evidence that no longer resolves, overviews that no
+  longer match their newest entries, overgrown or blurred themes, and
+  contradictions across pages.
 - **query** *(later phase)* — answers worth keeping get filed back as a new page.
 
 ## Invariants `build_wiki.py` enforces
 
 1. `slug` matches `^[a-z0-9][a-z0-9-]{0,80}$` and equals the filename stem; unique.
-2. `kind ∈ {obstacle, solution}`; obstacle `area` is one of the known areas.
-3. Every edge resolves to an existing node of the opposite kind (no dangling links).
-4. Edges are symmetrized (obstacle↔solution) regardless of which side declared them.
-5. Every `evidence` sid resolves in `data/stories/index.json`; every
-   `related_storylines` slug resolves in `data/storylines/index.json`.
-   Unresolved references fail the build (caught before publish, like
-   `validate_narratives.py`).
+2. `kind ∈ {obstacle, solution}` and matches its directory; obstacle `area` is
+   one of the known areas.
+3. Every edge resolves to an existing node of the opposite kind (no dangling
+   links); edges are symmetrized regardless of which side declared them.
+4. Every `evidence` sid (page and entry) resolves in `data/stories/index.json`;
+   every `related_storylines` slug resolves in `data/storylines/index.json`.
+5. Only the allowed sections appear, each within its word cap; `TL;DR` exists.
+6. 1-6 themes per page, each with a unique key, a title, and a summary within
+   caps, and each used by at least one entry.
+7. Every entry lives under an existing topic's `entries/<slug>/` directory, is
+   named `<YYYY-MM-DD>-<name>.md` with a matching `date`, has a title within
+   caps, a declared `theme`, 1-6 resolving evidence sids, a body of at most 130
+   words without headings, and `also` slugs that name other existing topics.
+
+`build_wiki.py` reports every violation at once and exits non-zero with
+`WIKI_BUILD_FAIL …`; `--slug <slug>` limits the report to one topic.
+
+## Compiled shape (`data/wiki/index.json`)
+
+`{generated_at, areas[], latest_entries[], nodes{slug: node}}`. Each node has
+the overview `sections`, `themes` (with counts), `entries` (newest first, each
+with resolved evidence), `cross_entries` (entries from other topics listing this
+one in `also`), the symmetrized edges, the de-duplicated `evidence` ledger, and
+`updated` = the later of the page's `updated` and its newest entry date.

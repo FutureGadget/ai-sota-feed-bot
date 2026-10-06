@@ -5,284 +5,82 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d, 2690558920b683f4, 14ca1514017a2ee2, 15939a0632edddf1]
-updated: 2026-09-28
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d, 2690558920b683f4, 14ca1514017a2ee2, 15939a0632edddf1]
+evidence: []
+updated: 2026-10-06
+themes:
+  - key: stateless-spec
+    title: The stateless spec and what MCP is actually for
+    summary: The 2026-07-28 spec made MCP stateless and clients are catching up, which sharpens the debate over whether its value is discovery and auth isolation or just another API.
+  - key: auth-and-governance
+    title: Authorization and governance of connector fleets
+    summary: Connector access is now provisioned through identity providers and managed settings, with gateways and server-side write controls deciding what a connection may do.
+  - key: webmcp
+    title: WebMCP and the browser as a tool surface
+    summary: WebMCP lets web pages expose functions and forms as tools; it moved from a Chrome origin trial to a one-click Cloudflare toggle and agent browsers that call it.
+  - key: servers-in-production
+    title: Vendor servers and hosted deployments
+    summary: Infrastructure and SaaS vendors now ship official MCP servers and managed gateways, but GA does not yet mean every major client can connect.
+  - key: beyond-tools
+    title: Beyond tool calls - knowledge, memory, work, and computation
+    summary: MCP now carries reference data, agent memory, task queues, symbolic reasoning, and execution primitives, making it a general plug for anything an agent consumes.
 ---
 
 ## TL;DR
 The Model Context Protocol (MCP) is a standard way to describe, discover, and
 call tools so any MCP-speaking agent can use any MCP server. It collapses the
-N×M problem of bespoke integrations into a common interface — the agent
-equivalent of "speak HTTP" instead of writing a custom client per service.
+N×M problem of bespoke integrations into one interface: the agent equivalent
+of "speak HTTP" instead of writing a custom client per service.
 
 ## State of the art
-MCP is moving from a client-side convenience to **production infrastructure**.
-Vendors are shipping official servers — HashiCorp's Terraform MCP server reached
-GA so agents can drive Terraform Registry APIs, and reference builds wire up SaaS
-servers (Amazon Quick, Cisco Webex) into working assistants.
+**MCP is production infrastructure now.** Infrastructure and SaaS vendors ship
+official servers, clouds host the tool loop and front MCP servers with managed
+gateways, and the browser is becoming a tool surface through WebMCP. The
+payload has widened past tool calls to reference data, agent memory, task
+queues, and deterministic computation.
 
-The actuation surface is expanding to the **browser**: WebMCP is in Chrome
-origin trials, letting a site expose JavaScript functions and HTML forms as
-tools to an in-page agent. The open-source client side is filling in
-alongside the browser trial, with MIT, framework-free libraries (Persona.js)
-that ship native WebMCP so any site can build agentic experiences without a
-vendor SDK. A second browser vendor is now shipping the same surface as a
-platform feature rather than a library: Cloudflare previewed automatic
-WebMCP support that any site turns on from a dashboard toggle, no code
-change required, letting an in-browser agent interact with an unmodified
-page — the origin-trial pattern moving from "a team opts in" to "an operator
-flips a switch."
-Cloudflare's Kitesurf, its Workers-based agent browser, now supports WebMCP
-too, so an agent can call exposed site tools (Cloudflare Radar's `navigate-to`,
-`set-location`) instead of simulating clicks, and reports passing 730,000+
-Web Platform subtests, about 500,000 more than at its August launch.
+**The protocol itself just changed shape.** The 2026-07-28 spec made MCP
+stateless, added governed extensions, and hardened authorization. Remote
+servers can drop sticky sessions and scale like any stateless service, and
+clients and SDKs are adopting the new version.
 
-MCP is also becoming the assumed plug for **hosted runtimes** — Azure
-Functions' agents runtime gives every agent MCP server access (alongside
-1,400+ connectors) out of the box — and the long tail keeps filling in with
-small task servers (e.g. a "coding tools" MCP that hands any agent file/shell
-coding primitives, and an AGPL-licensed search MCP built on Cloudflare AI
-Search so an agent can look up project-specific reference material instead
-of relying on what's already in its context).
+**Governance is where the work moved.** Connector access is provisioned
+through identity providers rather than per-user consent, managed settings
+decide which servers exist at all, and gateways and server-side controls
+decide what a connection may write. Production security guidance treats this
+as layered defense, not one gateway setting.
 
-Crucially, the protocol's growth is forcing the **governance** layer —
-Claude's enterprise managed authorization provisions MCP connectors org-wide
-through an identity provider (Okta first), so connector access and
-authorization are configured centrally rather than per user. That move from
-"connect a tool" to "govern a fleet of connectors" is the sign of a maturing
-standard.
+**The open question is what MCP is for.** Statelessness makes it look like
+"just an API" to some developers. The durable value is the shared
+tool-description and discovery layer and keeping credentials out of the
+agent's context, which matters most where an agent cannot call APIs freely.
+Interop is also unfinished: a server can reach GA while major clients still
+cannot connect because of identity-provider gaps.
 
-A parallel control targets the **server side of the connection** rather
-than who connects: Cloudflare's WriteGuard (private beta) adds
-fine-grained security controls to MCP servers themselves — governing what
-actions a connected agent's tool calls are allowed to take, not just which
-servers it may reach — sharpening the auth story above (who connects) with
-a permissions story (what the connection is then allowed to do) at the
-layer MCP servers themselves control (see [agent
-sandboxing](/topic/agent-sandboxing) for the same write-scoping instinct
-applied to sandboxes rather than servers).
-
-The same maturation is landing in the client tooling: Claude Code added
-`claude mcp login` / `logout` to authenticate servers from the CLI without
-the interactive menu, and practitioners increasingly argue MCP's *core*
-value is exactly this — isolating the **auth flow** outside the agent's
-context window (and ideally out of the harness entirely) rather than the
-tool-description format itself. Read that way, the durable win of MCP is
-credential handling, not schema standardization.
-
-That governance push is now backed at the **protocol** level: the MCP
-project promoted its Enterprise-Managed Authorization extension to stable
-status, replacing per-server consent prompts with a single sign-on flow
-through an org's identity provider. It generalizes what Claude's enterprise
-auth already did for one vendor into a spec any MCP client or server can
-implement.
-
-The auth maturation is also spreading to a **second client**: OpenAI's Codex
-CLI 0.144.0 lets MCP tools request interactive authentication without an
-experimental opt-in flag, the same "auth flow isolated from the harness"
-pattern Claude Code's `mcp login`/`logout` already shipped, now landing
-outside Anthropic's own tooling.
-
-The protocol itself just crossed a bigger threshold than any single vendor
-feature: the **MCP 2026-07-28 specification** is the largest revision since
-launch, making the protocol **stateless** and adding a governed extensions
-system alongside hardened authorization — a foundational rewrite of how
-clients and servers interoperate, not another connector. AWS's AgentCore
-Gateway already supports the new spec, giving platform teams a concrete
-reference implementation for what adopting it looks like in a managed
-gateway rather than a bespoke client patch.
-
-That statelessness change is already paying off in production
-infrastructure terms, not just protocol design: AWS describes how removing
-protocol-level sessions, sticky-session requirements, and session storage
-lets a remote MCP server route each request independently and scale
-horizontally like any other stateless service, pushing retries,
-observability, and idempotency to the layers that already handle them for
-other APIs instead of keeping them as MCP-specific concerns (see
-[scalability](/topic/scalability) for the same "remove the coordinator"
-pattern showing up in sandbox scheduling).
-
-Production security guidance is maturing alongside the spec: an InfoQ field
-guide lays out **defense-in-depth for MCP in production** across four
-architectural layers — safe execution, management infrastructure, outbound
-network calls, and the gateway itself — treating "securing MCP" as a layered
-architecture decision rather than a single gateway config toggle. It is the
-production-hardening counterpart to the governance and auth work below (see
-[prompt injection](/topic/prompt-injection) and
-[agent sandboxing](/topic/agent-sandboxing) for the attack surface this
-defends against).
-
-The statelessness change is also drawing developer skepticism, not just
-adoption: dropping the initialize handshake and session header in favor of
-required method and tool-name headers reads to some practitioners as MCP
-converging back toward "just an API." That reaction sharpens what the
-protocol's durable value actually is: the shared tool-description and
-discovery layer this page tracks, not the stateful session the new spec just
-removed — a distinction worth stating plainly now that statelessness has
-made the two easy to conflate.
-
-Enterprise adoption is also arriving through the **API-governance** door
-rather than a bespoke MCP build: Morgan Stanley models its API program with
-Architecture as Code (the CALM framework) and generates MCP and
-Agent-to-Agent (A2A) integration surfaces from that same architecture
-description, treating MCP servers as a generated artifact of API governance
-already in place rather than a hand-written integration project (see
-[tool-use](/topic/tool-use)).
-
-Two further signs of maturation:
-
-- **Tool discovery is becoming a scaling problem** — as a single agent faces dozens of connectors, listing every tool schema blows the context budget, so clients are shifting to *search* over the registry; OpenAI's Codex now uses MCP tool search by default, treating "find the right tool" as a retrieval step rather than dumping the full catalog.
-- **What MCP carries is widening beyond tools**: reference data and memory now ride the same protocol — Mozilla's MDN MCP service (and community spinoffs that repackage browser-compat data as a queryable SQLite-backed server) expose knowledge, while Elastic's Atlas serves *agent memory* over MCP — so MCP is becoming the generic plug for tools, data, and state alike.
-
-MCP's governance thread picks up a matching **org-wide provisioning
-control** on the client side: Claude Code's `managedMcpServers` setting lets
-an organization push HTTP/SSE MCP servers to every user with the same entry
-shape as a project's own `.mcp.json`, extending connector governance from
-"who may connect" (identity-provider auth) to "which servers are available
-at all," configured centrally rather than per developer.
-
-That "more than tools" widening now includes **work distribution**: TaskPeace
-is a task queue that coding agents pull work *from* over MCP, using the
-protocol as the plug for a job queue rather than a single tool call or a
-data/memory fetch — a third payload type alongside tools and knowledge/state.
-
-The widening reaches **symbolic computation** too: Euclid-MCP puts a full
-SWI-Prolog engine behind the protocol, so an LLM client delegates
-deterministic logical inference instead of reasoning it out itself. It
-introduces Euclid-IR, an engine-agnostic intermediate representation for
-Horn-clause logic that's LLM-generatable and compiles to Prolog (or other
-backends), and exposes a translate-run-inspect-repair tool loop so the
-client keeps full access to proof traces and derivation logs rather than a
-black-box answer. On a compliance-sensitive IT security use case, LLMs alone
-hold up on small knowledge bases but hallucinate systematically as they
-grow, while Euclid-MCP returns exact answers with lower latency and more
-compact output — the authors argue semantic RAG is structurally unsuited to
-rule enforcement, positioning an MCP server, not the model, as the shared
-reasoning substrate for both RAG assistants and agentic systems.
-
-Tool **definition design** is now a subject in its own right, separate from
-the auth/governance work above. AWS's field guide names two failure modes —
-bloated context (every tool schema loads on every call, whether used or
-not, contributing to context rot) and confusion (vague parameter names and
-oversized result payloads make the model call the wrong tool or the right
-tool wrong) — and walks a concrete progression from V1 (raw API exposed
-as-is) through richer descriptions, `Literal`-typed schema constraints, and
-lazy-loaded taxonomies (a separate discovery tool fetched only when needed)
-to a leanest-baseline design that cut per-turn context usage from 4% to 2%.
-The same guide cites Anthropic's own lazy-loading work reaching up to 85%
-token reduction, and recommends capping tool parameter counts at roughly
-eight. This is the tool-schema-quality half of the [context-compaction](/topic/context-compaction)
-problem: cutting the tokens a tool *definition* burns, not the tokens a
-conversation accumulates.
-
-Two production deployments show the protocol carrying **non-tool payloads**
-into everyday enterprise workflows rather than just connecting an API.
-Dropbox wired MCP into its internal knowledge platform, Dash, so an
-AI-assisted code review can pull the threat model and security requirements
-for a pull request and check the implementation against design intent —
-security context riding the same protocol as a tool call (see [prompt
-injection](/topic/prompt-injection)). Amazon Bedrock AgentCore uses
-pre-built MCP server connectors, plus fine-grained access control and
-persistent memory, to let an agent query multiple business data sources in
-natural language while automatically enforcing role-based boundaries —
-cross-system business intelligence assembled from configuration rather than
-custom integration code.
-
-A cloud-vs-local gap gets a concrete bridge: AWS built a secure MCP bridge
-that lets a cloud-hosted Bedrock AgentCore agent call MCP servers running on
-a user's own laptop, tunneling signed messages over an existing WebSocket
-connection through a browser extension and Chrome native messaging — no open
-inbound ports or VPN required. It is the reverse direction of the usual MCP
-story (a cloud agent reaching local tools and files rather than a local agent
-reaching a cloud API), addressing the "AgentCore runs in the cloud, but the
-user's tools live on their laptop" gap directly.
-
-Governance is also consolidating at the **cloud gateway** layer, not just
-inside the protocol's own auth extensions: Azure API Management shipped a
-dedicated AI Gateway tier whose control plane is organized around models,
-MCP servers, and tools — not REST APIs — fronting Foundry, Bedrock, Vertex
-AI, and OpenAI behind one policy surface. It puts MCP server governance next
-to model governance in the same managed product, the tool-fleet counterpart
-to AWS's Claude Apps Gateway spend-and-telemetry control plane.
-
-Client-side version interop widens too: the Claude Agent SDK for Python
-added support for MCP 2.x alongside 1.x for in-process SDK MCP servers,
-loosening the coupling between a harness's own dependency version and the
-protocol version its in-process servers speak. And a platform-native GA
-doesn't yet guarantee cross-client support: Microsoft's Azure DevOps Remote
-MCP Server reached general availability with a hosted endpoint into work
-items, repos, and pipelines, but shipped without Claude Desktop, Claude
-Code, ChatGPT, or Cursor support at launch — a reminder that "GA" and
-"works with every major MCP client" are still two separate milestones.
-
-Production adoption keeps widening even as the protocol's own maturation
-draws pushback. Databricks' Genie MCP server reached general availability,
-another named vendor putting a core product surface behind the protocol
-rather than a bespoke API for AI coworkers and coding agents to query. At
-the same time, the statelessness debate this page already tracks has a
-sharper public voice: commentary responding to "MCP was always a bad
-idea?" argues the critique misses MCP's actual value today, sharpening
-rather than resolving the standing tension between "MCP is converging back
-toward a plain API" and "the shared tool-description and discovery layer
-is the durable win" already argued on this page.
-
-A fourth payload type joins tools, knowledge/state, and work distribution:
-**execution primitives for an autonomous security pipeline**. GitHub's
-Security Lab Taskflow Agent runs an LLM-driven fuzzing pipeline for C/C++
-projects behind a clean split — "the LLM agent owns the decisions, and the
-MCP tools own the execution" — where MCP tools run AFL with progressively
-longer time budgets, compile harnesses, and store crashes, while the model
-reads coverage reports and decides whether to add seeds, edit a harness,
-enrich a dictionary, or skip a plateaued path. Structure-aware fuzzing adds
-four complementary mechanisms (pre-built format dictionaries, source-level
-dictionary extraction, dynamic AFL-dictionary enrichment, corpus-splice
-recombination) that give the agent enough signal to reason about input
-formats rather than fuzz blind. It is a concrete instance of MCP's tool
-layer as a pure execution boundary — the model never runs AFL itself, it
-only decides what AFL should try next.
-
-## What's new
-Cloudflare's Kitesurf agent browser added WebMCP support, letting agents call
-site-exposed functions rather than click through pages, alongside 730,000+
-passing Web Platform subtests (see State of the art above).
-
-Prior update: AWS detailed how the MCP spec's stateless rewrite plays out in production:
-removing protocol-level sessions and sticky-session requirements lets a
-remote MCP server route each request independently and scale horizontally,
-pushing retries, observability, and idempotency onto layers that already
-handle them for other APIs (see State of the art above).
-
-Prior update: GitHub's Security Lab Taskflow Agent uses MCP tools as pure execution
-primitives (run AFL, compile harnesses, store crashes) behind an LLM
-agent's coverage-guided decisions, adding autonomous security-fuzzing
-pipelines to MCP's growing set of non-tool-call payload types (see State
-of the art above).
-
-Prior update: Morgan Stanley generates its MCP and Agent-to-Agent integration surfaces
-directly from an Architecture-as-Code model of its API program (the CALM
-framework), rather than hand-writing servers — MCP adoption arriving
-through existing API governance instead of a separate integration effort
-(see State of the art above).
-
-Prior update: Databricks' Genie MCP server reached general availability while public
-commentary kept sharpening the "is MCP still adding value" debate this
-page already tracks — production adoption and protocol skepticism
-widening in parallel (see State of the art above).
+Tool-definition quality and catalog search, the main levers for making many
+MCP tools usable at once, are tracked on [tool use](/topic/tool-use).
 
 ## Trade-offs
-A shared protocol buys interoperability and reuse, but every connector you expose
-is a new permission and a new attack surface — MCP standardizes *access*, which
-makes authorization and blast-radius the hard part (see
-[prompt injection](/topic/prompt-injection)). It also adds a moving dependency:
-server quality, versioning, and uptime become yours to manage, and a misbehaving
-or malicious server is now reachable by every agent that speaks the protocol.
-Best when you have many tools and many agents; overkill for a single hardcoded
-integration.
+A shared protocol buys interoperability and reuse, but every connector you
+expose is a new permission and a new attack surface. MCP standardizes
+*access*, which makes authorization and blast radius the hard part (see
+[prompt injection](/topic/prompt-injection)).
+
+It also adds a moving dependency: server quality, spec versions, and uptime
+become yours to manage, and a misbehaving or malicious server is reachable by
+every agent that speaks the protocol. The stateless spec simplifies scaling but
+pushes state, retries, and idempotency back onto your own layers.
+
+Best when you have many tools and many agents. It is overkill for a single
+hardcoded integration, or for a fully trusted terminal agent that can call
+APIs directly.
 
 ## Why it matters for platform engineers
-MCP is the integration layer you adopt instead of writing API wrappers — it
-turns tool connectivity into a fleet you provision and govern (identity-provider
-auth, per-connector permissions) rather than scattered glue code. The platform
-job shifts accordingly: from building connectors to running a connector
-registry safely, which is squarely an infra-and-security responsibility.
+MCP is the integration layer you adopt instead of writing API wrappers. It
+turns tool connectivity into a fleet you provision and govern
+(identity-provider auth, managed server lists, per-connector write controls)
+rather than scattered glue code.
+
+The platform job shifts from building connectors to running a connector
+registry safely: tracking spec versions across clients and servers, checking
+which clients your identity provider can actually admit, and treating each
+server as a dependency with its own security review.

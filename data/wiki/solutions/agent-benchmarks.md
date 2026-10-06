@@ -5,436 +5,89 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b, 96e818e4eab0da8b, 71d13489a25b073e, 2e209b3bcae89889, dc621be83d95aa16, 444fb602f604192e, 8953d96ac6a84322, 38522ce275c55bf2, 58e167770f5901f7]
-updated: 2026-09-17
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b, 96e818e4eab0da8b, 71d13489a25b073e, 2e209b3bcae89889, dc621be83d95aa16, 444fb602f604192e, 8953d96ac6a84322, 38522ce275c55bf2, 58e167770f5901f7]
+evidence: []
+updated: 2026-10-06
+themes:
+  - key: trusting-the-score
+    title: "What a score measures: model, harness, or noise"
+    summary: Harness choice, protocol artifacts, and run-to-run noise can outweigh model differences; fixed environments, replays, counterfactual checks, and paired statistical trials are how scores earn trust.
+  - key: own-workload
+    title: Benchmarking on your own tools and real work
+    summary: Public leaderboards overstate out-of-distribution performance; suites built from your own tools, real sessions, and held-out environments predict production better, and authoring them is getting cheaper.
+  - key: domain-suites
+    title: Domain-specific suites mined from real work
+    summary: New suites target one job at a time (Java migration, Stripe integrations, AWS operations, Rails, code review, scientific imaging) and keep finding domain-specific failures, often in validation rather than code generation.
+  - key: adversarial-and-security
+    title: Adversarial tools, poisoned inputs, and security
+    summary: Benchmarks now test the failure path (unreliable tools, poisoned business data, malicious issues) and score defenses on precision and recall together; cost-optimized models fail these far more often.
+  - key: long-horizon-and-subsystems
+    title: Long horizons and subsystem diagnostics
+    summary: Long-horizon suites show final-answer scores overstate success, while subsystem benchmarks (memory, knowledge conflicts, root-cause reasoning, coordination) grade the inner process so a regression can be localized.
 ---
 
 ## TL;DR
 Pin down a fixed set of tasks with known good outcomes and run agents against
 them repeatedly. Unlike model benchmarks, agent benchmarks have to exercise
-*tool use and multi-step trajectories* — booking, querying, fixing, coordinating
-— so they double as integration tests for the whole agent, not just the model.
+*tool use and multi-step trajectories* (booking, querying, fixing,
+coordinating), so they double as integration tests for the whole agent, not
+just the model.
 
 ## State of the art
-**Benchmark what the agent did**, not just its answer: rubric-style suites
-score whether the right tools were called and the task was actually completed,
-and structural benchmarks probe specific failure axes (e.g. DPBench on the
-determinants of multi-agent coordination).
+Agent benchmarks now score the trajectory, not only the final answer: which
+tools were called, whether the task was really done, and whether each
+intermediate step was right.
 
-**Measure capability on your own tooling and out of distribution**: Hugging
-Face's "is it agentic enough" workbench benchmarks open models against the
-caller's actual tools, and "Running the Gauntlet" shows agents that top
-familiar leaderboards degrade sharply in unfamiliar environments — so a high
-public score is weak evidence for your workload. Reusable eval workbenches
-(olmo-eval) package this into the model/agent development loop so
-benchmarking is a standing harness, not a one-off.
+**Public scores transfer poorly.** Agents that top familiar leaderboards
+degrade sharply in unfamiliar environments, so the strongest signal comes from
+suites built on your own tools and real sessions. Authoring them is getting
+cheaper through small CLIs, standing workbenches, and automated task curation.
 
-**The harness is part of what you benchmark**: a cross-harness study reports
-a deliberately simple agent loop reaching SOTA across 21 models on SWE-pro and
-Terminal-Bench-style suites, evidence that elaborate scaffolding often adds
-cost and variance without adding capability — so the benchmark should hold
-the harness fixed and let it earn its complexity. Vendors are running this
-in-house: GitHub's evaluation of its Copilot agentic harness across 20+ models
-and many tasks scores results *and* token efficiency together, treating the
-scaffold as a benchmark variable and elevating cost-per-solved-task to a
-first-class metric alongside accuracy.
+**The harness is part of what you measure.** A deliberately simple loop
+reaches SOTA across 21 models, and the same model can gain inside one
+commercial harness and lose inside another. Run-to-run noise compounds this:
+one practitioner measured a model's own variance as larger than the
+best-to-worst model gap. Credible results now come with fixed environments
+(signed bundles, full replays), cost per solved task, repeated runs, and
+checks against harness gaming.
 
-**Mined from real sessions**: rather than synthetic tasks, the newest suites
-are mined from real sessions — EnterpriseClawBench builds enterprise-agent
-tasks from actual workplace sessions where an agent reads heterogeneous
-files, calls tools, and has to deliver a business artifact, so the benchmark
-inherits the messiness of production instead of approximating it.
+**Suites are fragmenting by domain and failure mode.** Each new suite targets
+one job and keeps finding domain-specific failures, often in validation rather
+than code generation. Adversarial suites test the failure path: unreliable
+tools, poisoned business data, malicious issues. Cost-optimized models fail
+these far more often than frontier ones.
 
-**Reproducibility** is the flip side of trusting a benchmark: because agent
-runs touch the network, filesystem, and shifting tool versions, a score only
-means something if the environment is fixed — Proctor packages coding-agent
-benchmarks as signed, isolated bundles so a run can be reproduced (and a
-leaderboard claim audited) rather than taken on faith.
+**Long horizons expose what short tasks hide.** Over hundreds of turns,
+agents skip checks they planned themselves; on long multimodal research chains
+the best system reaches 43.1% accuracy. Subsystem benchmarks (memory,
+knowledge conflicts, root-cause reasoning) localize the part that broke.
 
-**A production instance names what "trust the benchmark" takes in
-practice**: Elastic built an agent harness that lets an AI agent propose
-Elasticsearch performance optimizations, phased into exploration
-(mining real workloads for opportunities), exploitation (iterating against
-microbenchmarks), and validation (production-workload testing). Trust comes
-from statistical discipline, not a single before/after run: a paired
-stash-flip comparison runs candidate and baseline back to back to cancel
-thermal drift, a two-sided Mann-Whitney U test plus a seeded bootstrap
-confidence interval judges significance with the fork (not the iteration)
-as the statistical unit, and the accept bar is benchmark-and-machine
-specific — the minimum effect size has to clear that pairing's own
-A/A-calibrated noise floor, not a global threshold. Anti-gaming guards run
-alongside the primary benchmark: adversarial guard workloads catch
-regressions the target metric misses (one candidate improved the common
-case while degrading collision-heavy key distributions), an allocation
-check flags wins bought with more than ~15% extra garbage, and the agent
-can add tests but never modify or delete one, closing off the easiest way
-to game a correctness check. Human approval gates the handoffs that matter
-— benchmark registration, opportunity promotion, branch publication — so
-the agent proposes and the statistical machinery plus a human decide,
-rather than either alone.
-
-**Adversarial tool environments**: rather than assuming tools behave, "Beyond
-Function Calling" scores agents when tools time out, error, or return
-malformed results, exposing agents that pass clean tool suites but cannot
-recover when the environment misbehaves — the benchmark targets the *failure
-recovery* path, not the happy path.
-
-**Value-poisoning** is a related but distinct adversarial axis: rather than
-malformed tool results, ActionRail's benchmark tests whether an agent
-executes corrupted-but-plausible business data — an altered payment account,
-a fake refund address — buried inside an otherwise legitimate document.
-Across 8 models and 4 providers on 10 consequential workflows, cost-optimized
-models failed 48.3-63.3% of the time versus 1.7-21.7% for frontier models,
-and a guard layer blocked all 480 protected attack cases with zero false
-positives on legitimate ones — evidence that this failure mode needs a
-dedicated defense, not just a stronger model.
-
-**Held-out, hard-to-memorize tasks**: practitioners are reaching for novel
-environments a model can't have trained on (a Sherlock Holmes deduction board
-game run as an LLM-agent eval) precisely because familiar leaderboards leak
-into training. Both this and the adversarial-tool-environment axis answer a
-gap practitioners keep voicing — public threads asking "what benchmarks
-actually compare agent *harnesses*" (beyond Terminal-Bench) — that the
-standard model leaderboards don't fill.
-
-**Subsystem-specific benchmarks** isolate one capability instead of scoring
-end-to-end task success: a suite for the failure modes of agent memory
-(forgetting, stale recall, poisoned entries) and OpenRCA 2.0's shift from
-outcome labels to causal process supervision for root-cause analysis both
-grade an inner subsystem — the memory layer, the reasoning trajectory — so a
-regression can be localized to the part that broke rather than inferred from
-a fallen aggregate score. A microservice-failure-diagnosis benchmark
-(AgentOps) extends the same process-over-outcome grading to ops agents,
-scoring the diagnosis path over multimodal trace data and pulling
-benchmarking toward [observability](/topic/agent-observability).
-
-Eval **transparency** is improving too, on the meta side: Hugging Face now
-surfaces community "Every Eval Ever" results directly on model pages, making
-the spread of scores visible rather than relying on a single headline number.
-
-**Whole-agent breadth and harness-level replay** are a newer axis alongside
-the domain-narrow and long-horizon ones below: OmniaBench derives an
-application-oriented taxonomy from app stores, product docs, and web
-retrieval to span 1,431 tasks across 90 top-level domains with explicit
-state spaces, exposing headroom (even frontier models clear only about half
-the suite) that narrower coding/tool-use benchmarks don't surface. On the
-harness side, Favur Evals scores a 14-agent multi-model harness on eight
-composite engineering subjects computed from each run's own artifacts (lint,
-test results, tool telemetry) and pairs every score with a full deterministic
-replay of that run — turning the reproducibility this page argues for into a
-feature of the benchmark itself, not just a property to demand of one.
-
-The **domain-specific and long-horizon** fronts are both advancing: ScarfBench
-narrows to a single high-stakes enterprise task (migrating Java frameworks)
-rather than a generic coding benchmark, following the "mined from real work"
-pattern EnterpriseClawBench set; and Emergence World is built specifically to
-grade long-horizon autonomy — sustained multi-step operation rather than a
-single bounded task — the harder distribution-shift edge the "familiar
-leaderboards degrade out of distribution" finding already flags.
-
-**Benchmark upkeep is being automated**, addressing the standing trade-off
-that a hand-built benchmark is real work to author and maintain: Reap
-automates curation of coding-agent benchmark tasks rather than requiring a
-team to hand-pick and refresh them. A new **environment-readiness** angle
-also appears: AeroScore scores how well existing documentation portals
-support AI agents in the first place, evaluating the environment an agent
-has to operate in rather than the agent itself — a precondition check that
-sits upstream of any task benchmark. On the subsystem-specific front,
-TestEvo-Bench adds an executable, live benchmark for test-and-code
-co-evolution, isolating whether an agent keeps tests in sync with the code
-it changes. And a new capability frontier opens on program understanding:
-MirrorCode benchmarks agents rebuilding entire programs from behavior alone
-(black-box reconstruction), pushing past "modify existing code" into
-"reconstruct it from how it behaves." The domain-narrow list keeps growing:
-GameEngineBench scores coding agents against real C++ game-engine runtime
-environments, extending "mined from real work, one domain at a time"
-(alongside ScarfBench's Java migrations) into a runtime with real-time
-simulation, physics, and rendering constraints a generic coding benchmark
-doesn't exercise.
-
-The domain-narrow list keeps widening past coding into **cross-system
-integration**: Stripe's 11-environment benchmark scores agents on checkout
-migration, billing API work, and full-stack browser checkout, with the best
-runs needing roughly 63 interaction turns — a numbered, named-vendor
-addition alongside ScarfBench and GameEngineBench, and one where the two
-leading models (92% vs. 73%) failed the identical validation step rather
-than differing on raw coding capability. The scientific-computing edge of
-the domain-narrow trend also gets a benchmark: Imaging-101 scores coding
-agents on 57 expert-verified computational-imaging tasks across six
-scientific domains and three tracks (planning, unit tests, end-to-end
-reconstruction), finding failures specific to the domain (physical-convention
-handling, pipeline integration) beyond generic coding skill.
-
-**Harness-vs-harness comparison** gets its own named entrant: OpenBench
-scores different coding-agent harnesses against each other on the same
-tasks, answering the standing practitioner question this page already
-flags ("what benchmarks actually compare agent harnesses, beyond
-Terminal-Bench") with a dedicated suite rather than repurposing a
-model-comparison benchmark.
-
-**Language and domain granularity** is a newer axis alongside the
-domain-narrow and subsystem-specific ones above: HalluTruthQA benchmarks
-hallucination detection, span-level localization, factual verification, and
-explanation quality in Arabic question answering across four
-knowledge-intensive domains (Islamic knowledge, history, science,
-geography), with 2,400 expert-curated examples pairing each answer with a
-verified reference, six verification candidates, and — for hallucinated
-answers — character-level erroneous spans and human-written explanations.
-Evaluated zero-shot against 4 open-source LLMs, no model tops every
-sub-task, evidence the benchmark landscape is starting to move past
-English-centric, response-level hallucination labels into non-English,
-finer-grained grading.
-
-**Physical-world action** opens as a domain frontier alongside the
-domain-narrow suites above: Anthropic and Andon Labs built Drone-Bench to
-test whether a model can autonomously fly a drone to locate and follow a
-person, extending "exercise real tool use" past software environments into
-embodied control — a harder distribution shift than a new coding domain,
-since the tool being called is a physical actuator with real-world latency
-and failure modes rather than an API.
-
-A **construct-validity critique** now questions what a benchmark score
-actually measures, not just how reproducible or adversarial-resistant it is:
-a protocol-validity analysis argues many agent benchmarks conflate genuine
-task difficulty with scaffolding and protocol artifacts, so two agents can
-score differently because of how their harness happens to interact with the
-benchmark's protocol, not because one is more capable — sharpening this
-page's standing "the harness is part of what you benchmark" finding into a
-challenge to the benchmark's own validity as a measurement instrument, not
-just its reproducibility or noise.
-
-The construct-validity critique gets a **measured** instance rather than
-only an analytical one: ReFigBench scores coding agents on reconstructing
-1,000 real arXiv overview figures as editable PowerPoint slides, running
-the strongest model inside two commercial harnesses under two workflows
-(direct code generation and a specialized PPTX pipeline) for ten
-configurations total. The same model gains from the specialized workflow
-inside one harness and loses inside the other, and harness choice shifts
-scores even under an identical direct prompt — a concrete, numbered
-instance of "score differences reflect the harness, not just the model"
-rather than an argument that they might.
-
-The gaming risk the construct-validity critique implies — that a harness
-itself can be optimized to inflate a released-benchmark score without
-genuine capability gains — gets a named countermeasure: Counterfactual
-Harness Search and Evolution (CHASE) treats harness evolution as a search
-for protocol changes that would destroy most of a claimed gain while
-preserving task semantics, maintaining a validity firewall and a finite
-archive of confirmed counterfactuals so a "cheating harness" that exploits
-a benchmark-wide shortcut gets flagged rather than rewarded. On OfficeQA it
-retains most of a harness's genuine released-benchmark gains while
-substantially reducing the gain that a counterfactual protocol change would
-destroy — a mechanism for the benchmark itself to resist the same harness
-gaming this page's construct-validity critique names as a risk.
-
-The domain-narrow list adds a **code-review** instance alongside ScarfBench's
-Java migrations and GameEngineBench's game-engine runtimes: LangChain's
-ReviewBench scores code-review agents against real PR feedback from trusted
-human reviewers instead of a synthetic rubric, mining ground truth from
-actual review decisions the way EnterpriseClawBench mines real work
-sessions.
-
-**Self-authored, tool-specific suites** are the newest instance of "measure
-capability on your own tooling": Supabase's open-source Evals scores Claude
-Code, Codex, and OpenCode on real Supabase tasks rather than a generic
-coding benchmark, and Simon Willison's smevals packages the authoring loop
-itself as a small CLI — `uvx smevals run/grade/serve` builds, runs, and
-grades a directory-of-YAML-files eval suite across model configurations —
-lowering the cost of the "build it on your own tooling" recommendation this
-page already makes from a bespoke harness to a reusable command-line tool.
-
-The domain-narrow list keeps growing along axes this page hasn't covered
-yet: SWE-Touch scores coding agents against the concrete case of a user
-inspecting or editing code *while* the agent is still working, rather than
-assuming an uninterrupted solo run; IssueTrojanBench tests whether a coding
-agent executes a malicious instruction smuggled inside an otherwise ordinary
-GitHub issue, extending the adversarial-tool-environment thread above from
-malformed tool output to malicious task input; ExtractBench grades
-schema-guided enterprise document extraction against source-attributed
-evidence rather than a bare accuracy number; and TREK stress-tests
-trip-planning agents on a property most single-answer benchmarks don't
-exercise — every flight, hotel, and attraction in an itinerary has to be
-correct and bookable at once, so one wrong leg fails the whole task even if
-every other step was right.
-
-The domain-narrow list widens twice more. The Rails Foundation commissioned
-the first systematic benchmark for coding agents on Ruby on Rails
-specifically, scoring accuracy, speed, token consumption, and cost across 8
-models on self-contained tasks and checking whether agents reach for current
-Rails APIs rather than stale training data — a Stage 2 covering multi-step
-feature work, and the open-sourced Ruby harness behind it, are planned.
-Separately, an open, **tool-agnostic security benchmark** joins the list as
-its own axis rather than a coding variant: it tests any HTTP-addressable
-classifier against 497 attacks across 13 categories — direct/indirect
-injection, credential exfiltration, tool abuse, system-prompt extraction,
-memory poisoning, supply-chain manipulation — plus 1,172 benign samples,
-scoring F1, precision, and recall together so a defense that blocks
-everything doesn't look artificially strong (see [prompt
-injection](/topic/prompt-injection)).
-
-The long-horizon and subsystem-specific fronts each get a sharper entrant.
-CivBench runs 300+-turn episodes across 76 MCP-exposed tools inside a real
-strategy game (Civilization VI), grading sustained planning and state
-monitoring under partial observability rather than a single bounded task —
-the MCP-tool-mediated environment this page's [MCP](/topic/mcp) coverage
-tracks, used here as the benchmark surface itself. Its pilot run (23
-admissible runs across four model families) is explicit that aggregate
-scores don't yet discriminate models at this scale, but it introduces two
-interface-level metrics the environment makes measurable that a bounded task
-can't: Proactive Monitoring Rate (whether an agent actively queries latent
-strategic state) and RAG@10 (whether a commitment stated in the agent's own
-planning reflections gets executed within ten subsequent turns). Both
-metrics caught concrete failures — agents told to check victory progress
-every 20 turns did so only every 30-75, and missed the check inside the
-20-turn warning window before 7 of 20 detectable defeats — a benchmark
-result that grades whether an agent follows through on its own stated plan,
-not just whether the final answer is right. KC-Bench isolates a narrower
-subsystem: reconciling conflicts between user instructions, an agent's
-parametric knowledge, and what a tool just told it, across 238
-manually-screened multi-turn tasks (from over 1,000 generated candidates)
-combining a user simulator, stateful tools, and human trajectory
-verification. Across nine models (including DeepSeek-V4-Flash, GLM-5.2,
-MiniMax-M3) no model reliably handles factual correction, identity
-consistency, and temporal conflict resolution across every setting, and a
-missed conflict can propagate straight into a tool call — evidence that
-knowledge-conflict handling needs its own diagnostic, distinct from general
-tool-use or hallucination benchmarks.
-
-The domain-narrow list widens to cloud operations: AWS-Bench measures AI
-coding agents against real AWS infrastructure work rather than a
-self-contained coding task, splitting tasks into read-only introspection
-(diagnosing a live misconfiguration) and mutation (provisioning or modifying
-resources, checked with programmatic verification against the resulting
-account state instead of a static expected answer). Its curated sets run
-from a 9-task quickstart to a 78-task "basic" and 47-task "advanced" suite
-across several scenarios, with reference agent/model pairings (including
-Claude Sonnet 5) wired in and a fuller reference-results report still to
-come — the same "benchmark the agent against its actual operating
-environment, not a generic coding task" thesis this page already argues for
-Rails and security, now applied to cloud-infrastructure operations
-specifically.
-
-The long-horizon front picks up a **multimodal** entrant: Mr.LHDR benchmarks
-deep-research agents on long, irreducible chains of interdependent evidence —
-each question built from a hidden node-relation graph requiring an average of
-12.1 necessary intermediate conclusions at a mean dependency depth of 10.4,
-with at least one non-text element (image, map, PDF, logo, chart, table,
-video frame) that changes the reasoning state. Scoring both the final answer
-and the correctness of intermediate conclusions against annotated
-dependencies, even the strongest evaluated system reaches only 43.1% Overall
-Accuracy and 34.3% Strict Accuracy — evidence that final-answer accuracy
-substantially overestimates complete research success — and removing images
-cuts the dependency-aware checklist score by 12.6 points, the multimodal
-counterpart to this page's mostly-text long-horizon suites (CivBench,
-Emergence World) above.
-
-The security-adjacent domain-narrow list adds a **localization**, not
-detection, benchmark: the Vulnerability Localization Benchmark (VLoc Bench)
-tests whether an agent given only a CWE description and read-only terminal
-access can identify which files in an unfamiliar repository implement a
-named weakness — 500 real vulnerabilities across 290 repositories, six
-package ecosystems, and 147 CWE categories, with matched pre-fix and
-post-fix repository snapshots so the same task also checks whether an agent
-correctly reports a patched repository as clean. Across 27 language models
-and four static-analysis tools, the strongest system reaches only 0.229 File
-F1 and 38.4% of tasks get no correct localization from any evaluated
-system — and localization skill doesn't transfer to remediation-awareness:
-systems that find vulnerable files effectively can still flag unsupported
-locations on the already-patched snapshot. It adds a capability distinct
-from the detect/reproduce/repair axis the tool-agnostic security benchmark
-above already measures (see [prompt injection](/topic/prompt-injection) for
-the attack-surface side of agentic security evaluation).
-
-## What's new
-Two entries sharpen this page's construct-validity critique with a
-measured instance and a named countermeasure: ReFigBench finds the same
-model gains from a specialized workflow inside one commercial harness and
-loses inside another, with harness choice shifting scores even under an
-identical prompt, across ten model/harness/workflow configurations
-reconstructing 1,000 arXiv figures as editable slides; CHASE (Counterfactual
-Harness Search and Evolution) answers the resulting gaming risk by searching
-for protocol changes that would destroy most of a harness's claimed gain
-while preserving task semantics, retaining genuine gains on OfficeQA while
-substantially reducing gain that doesn't survive a valid counterfactual.
-Separately, Elastic's production code-optimization harness names what
-"trust the benchmark" costs at that scale: paired stash-flip trials against
-thermal drift, a Mann-Whitney U test plus bootstrap CI with the fork as the
-statistical unit, benchmark-specific noise floors, adversarial guard
-workloads, an allocation check against garbage-bought speed, add-only
-testing, and human approval on registration/promotion/publication (see
-State of the art above).
-
-Prior update: The Vulnerability Localization Benchmark (VLoc Bench) tests agentic
-vulnerability *localization* rather than detection or repair — 500
-vulnerabilities across 290 repositories and 147 CWE categories — and finds
-the strongest of 27 evaluated models reaches only 0.229 File F1, with
-localization skill not transferring to correctly clearing an already-patched
-repository (see State of the art above).
-
-Prior update: Mr.LHDR extends the long-horizon axis to multimodal deep research: questions
-built from a hidden node-relation graph averaging 12.1 necessary intermediate
-conclusions at dependency depth 10.4, with the strongest system reaching only
-43.1% Overall Accuracy and losing 12.6 dependency-aware-score points when
-images are removed (see State of the art above).
-
-Prior update: AWS-Bench extends the domain-narrow list to cloud infrastructure work:
-read-only introspection and programmatic-verification mutation tasks against
-real AWS accounts, in curated sets from 9 to 78 tasks, rather than a
-self-contained coding benchmark (see State of the art above).
-
-Prior update: CivBench and KC-Bench extend this page's long-horizon and subsystem-specific
-axes: CivBench's 300+-turn MCP-tool-mediated game environment introduces
-metrics (Proactive Monitoring Rate, RAG@10) that catch agents ignoring their
-own planning reflections and under-monitoring state they were explicitly
-told to check; KC-Bench isolates knowledge-conflict resolution across 238
-tasks and finds no evaluated model handles it reliably across settings (see
-State of the art above).
-
-Prior update: An independently authored guardrail benchmark (Show HN) demonstrates its own
-value by catching a gap in the author's own plugin — continuing this page's
-standing "benchmarks are fragmenting into narrow, task-specific suites"
-trend.
-
-Prior update: The domain-narrow list widens along two more axes. The Rails Foundation
-commissioned the first systematic benchmark for coding agents on Ruby on
-Rails specifically — small, self-contained tasks scored on accuracy, speed,
-token consumption, and cost across 8 frontier and open-weight models,
-checking whether agents use current Rails APIs rather than stale training
-data; a harder multi-step Stage 2 and the open-sourced Ruby harness
-("lemans") are planned. Separately, security joins the domain list as its
-own axis: an open, tool-agnostic agent-security benchmark tests any
-HTTP-addressable classifier against 497 attacks across 13 categories (direct
-and indirect injection, credential exfiltration, tool abuse, system-prompt
-extraction, memory poisoning, supply-chain manipulation) plus 1,172 benign
-samples, scored on F1/precision/recall together so a defense that blocks
-everything doesn't look artificially strong (see [prompt
-injection](/topic/prompt-injection)).
+**The open problem is validity.** A score is a claim about one task set,
+harness, and protocol, and protocol artifacts can masquerade as capability.
+Elastic's production harness shows what trusting a benchmark costs: paired
+trials, significance tests against a measured noise floor, guard workloads,
+and human approval gates.
 
 ## Trade-offs
-A fixed benchmark is reproducible and cheap to re-run, but it's a static
+A fixed benchmark is reproducible and cheap to re-run, but it is a static
 target: agents over-fit to it, it goes stale as tools change, and "passing"
 can mean "memorized the distribution."
 
-Building a benchmark on your own tooling is more predictive but is real work
-to author and maintain, and small task sets have high variance — measured,
-not just suspected: one practitioner found a model's own run-to-run standard
-deviation (7.5% on a coding task) exceeded the best-to-worst-model gap, and
-swapping a few tasks out of a ~100-task set flipped which model ranked
-first. Two models can also both look "cheaper" and "more expensive" than
-each other depending on which tasks the comparison uses — so a single
-leaderboard number is a claim about that task set, not a general fact about
-the model.
+A benchmark built on your own tooling is more predictive but is real work to
+author and maintain. Small task sets have high variance: swapping a few tasks
+out of a ~100-task set can flip which model ranks first, so a single number is
+a claim about that task set, not a general fact about the model.
 
-Best as a regression gate (catch known failures) — complement with
+Best as a regression gate that catches known failures. Complement it with
 [LLM-as-judge](/topic/llm-as-judge) on live traces for the open-ended cases a
 fixed suite can't enumerate.
 
 ## Why it matters for platform engineers
 Agent benchmarks are the CI gate of the agent stack: a fixed suite you run on
-every prompt, model, or tool change to catch regressions before users do.
+every prompt, model, harness, or tool change to catch regressions before users
+do.
 
 The leverage is building it from *your* environment and tools, because public
-leaderboards systematically over-state how an agent will do on your workload
-— and budgeting the upkeep, since a benchmark is only useful while it still
-resembles production.
+leaderboards systematically overstate how an agent will do on your workload.
+Budget the upkeep and repeated runs too: a benchmark is only useful while it
+still resembles production and its noise is smaller than the change you are
+trying to detect.

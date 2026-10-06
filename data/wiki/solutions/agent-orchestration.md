@@ -5,9 +5,21 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, fc95810347d73a68, b32e9b8471353987, 7292eba504d2de73]
-updated: 2026-09-20
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, fc95810347d73a68, b32e9b8471353987, 7292eba504d2de73]
+evidence: []
+updated: 2026-10-06
+themes:
+  - key: code-driven
+    title: Coordination written as code, not tool calls
+    summary: Harnesses now drive sub-agent fan-out from programs, generated per task or written in plain JavaScript or Python, so coverage comes from control flow and one script can mix agents from different providers.
+  - key: orchestrator-tooling
+    title: Open-source orchestrators and multi-model routers
+    summary: A wave of open-source and vendor orchestrators routes steps across models and makes sub-agent wiring visible; most are early, but they put the value in the routing and handoff layer, not the agents.
+  - key: runtime-substrate
+    title: The durable runtime underneath the agents
+    summary: Workspace layout, durable queues, leases, and checkpoints are the load-bearing parts; options range from a Postgres recipe to purpose-built kernels and Google's Kubernetes-style AX.
+  - key: harness-choice
+    title: "Choosing a harness: frameworks, managed runtimes, portability"
+    summary: Microsoft, LangChain, and OpenAI now sell harnesses as managed runtimes, while practitioner guides and AWS argue for matching the framework to the workflow and keeping a multi-vendor estate portable.
 ---
 
 ## TL;DR
@@ -18,178 +30,39 @@ graph vs. one generated per task) sets the cost, latency, and reliability
 ceiling of the whole system.
 
 ## State of the art
-Two axes are in play.
+Orchestration is converging on **coordination written as code**. Instead of a
+model emitting one tool call per worker, harnesses drive fan-out from a program
+(Deep Agents' dynamic subagents), generate a harness per task (Claude Code
+Dynamic Workflows), or let a plain JavaScript or Python script spawn Claude
+Code, Codex, and other agents side by side. Control flow becomes
+deterministic, testable code around non-deterministic agents, and mixing
+providers becomes a lever for decorrelated errors.
 
-**Topology**: the orchestrator-worker (star) pattern is the simplest to
-reason about but makes the coordinator a throughput bottleneck and a single
-point of failure — Stanford's DeLM reports cutting task cost ~50% by
-removing the central orchestrator, and DPBench finds the communication
-structure is the dominant determinant of whether coordination helps at all.
+**Topology is a cost decision.** A central orchestrator is easy to trace but is
+a throughput bottleneck and a single point of failure; removing it cut task
+cost about 50% in one study. The value sits in the interface contracts between
+agents (structured handoffs, explicit roles, what context each sub-agent sees),
+not in how many agents run.
 
-**Dynamism**: orchestration is moving from hand-wired graphs toward
-*generated* control flow — Anthropic's Claude Code Dynamic Workflows
-generate a custom execution harness per task to coordinate sub-agents rather
-than committing to one static shape. More concretely, it's moving toward
-orchestrating sub-agents **in code rather than tool calls**: LangChain's
-dynamic subagents in Deep Agents drive fan-out from a program so coverage is
-guaranteed by control flow instead of by the model emitting one tool call
-per worker, making the coordination layer ordinary deterministic, testable
-code wrapped around non-deterministic agents.
+**The runtime substrate is load-bearing.** Where each sub-agent runs, what files
+and state it sees, and how work survives a crash decide reliability. Options
+span a Postgres recipe (`SKIP LOCKED` dispatch, primary-key checkpoints,
+leases), purpose-built queues with leases and dead-letter states, and Google's
+Kubernetes-style AX.
 
-Across both axes the durable lesson is that the value lives in the
-**interface contracts** between agents — structured handoffs, compact wire
-formats, explicit roles — not in the number of agents you spin up.
+**Harnesses are becoming managed platforms.** Microsoft's Agent Framework and
+Foundry Hosted Agents are GA, LangChain's Managed Deep Agents is in beta, and
+OpenAI's Agents API sells the Codex harness as a service. Enterprises already
+run Strands, LangGraph, and Deep Agents in production (see
+[multi-agent](/topic/multi-agent)). The counterweight is portability: AWS
+argues for patterns that survive a multi-framework, multi-model estate, and a
+practitioner guide reserves graph frameworks for long-running stateful
+workflows.
 
-A third, quieter axis is the **runtime substrate**: writeups from teams
-building orchestration libraries report that the load-bearing design is
-workspace, runtime, and directory layout — where each sub-agent runs, what
-filesystem and state it sees, how outputs are isolated and collected — i.e.
-orchestration is as much an execution-environment problem as a
-control-flow one.
-
-A fourth axis is now appearing as **shipping tooling rather than research**:
-practitioner orchestrators that make the wiring tangible —
-
-- Multi-model routing built into a terminal coding agent (**Kimchi**, sending refactors and codegen to different models)
-- Visual sub-agent wiring for Claude Code (**rondoflow**)
-- Transparency-first multi-agent runners that expose each agent's actions (**OpenOrb**)
-
-They are early and uneven, but they confirm where the value sits: the
-routing, handoff, and observability layer between agents, not the agents
-themselves.
-
-A fifth axis makes the code-driven pattern **provider-agnostic**: Omegacode
-composes `agent()`/`parallel()`/`pipeline()`/`phase()` in a plain JavaScript
-DSL, and any `agent()` call can spawn a Codex, Claude Code, OpenCode, or pi
-agent — the same workflow script mixing providers instead of one script per
-framework. Its built-in patterns (adversarial code review, model bake-offs)
-treat the provider mix itself as the design lever, deliberately using
-decorrelated errors across models rather than picking one "best" agent. The
-same provider-agnostic pattern is landing in Python, not just JavaScript:
-h5i-python defines and executes multi-agent coding workflows across Claude
-Code, Codex, and other runtimes as ordinary Python programs, confirming the
-pattern is a language-agnostic design choice rather than one DSL's idea.
-
-A sixth axis names the **conflict-resolution** gap directly: an arbiter role
-resolves disagreement between a planning agent and a coding agent by
-checking the code against the plan rather than trusting either agent's own
-report, packaged with per-role credentials and human-readable communication
-into a governance layer — a concrete answer to "who's in charge when two
-agents disagree," distinct from the topology question of who talks to whom.
-Low-code platforms are also folding orchestration and the agent loop into
-one engine rather than two layers: one open-source platform embeds a full
-model-call/tool-call/observation loop as a drag-and-drop workflow step,
-sharing an audit trail across agent decisions, tool calls, and workflow
-steps alike.
-
-A seventh axis supplies **field-tested recipes at the framework level**: a
-LangGraph practitioner guide positions the framework by workflow-complexity
-fit — typed state, conditional routing, deterministic tools, retries,
-interrupts, checkpoints, and traces earn their keep on long-running stateful
-processes (SQL analytics with repair loops, evidence-gated RAG,
-human-in-the-loop policy review) — but recommends simpler ReAct-style loops,
-schema-first tools, or DSPy when the job doesn't need that structure. A
-production deployment backs the same "orchestration pays for itself when the
-task is real" argument with numbers: a live 5G-core security-operations
-center's A2A+MCP multi-agent architecture cut mean time to detect/respond
-40% and human review load 12x.
-
-An eighth axis is the orchestration SDK itself showing up by name in
-production deployments outside that one showcase: Jefferies, an investment
-bank, built a front-office trading assistant on Strands Agents — an open
-agent-harness SDK for building agents that reason, plan, and act by
-orchestrating calls to foundation models and tools — paired with Amazon
-Bedrock, Amazon Bedrock Knowledge Bases, and MCP for unified access to
-trading data sources and tools. Apollo's GTM AI Assistant orchestrates a
-different harness, "Deep Agents," with LangSmith and its own MCP
-integrations, across prospecting, enrichment, outreach, and analytics. Two
-distinct harnesses reaching production in two distinct industries (finance,
-sales/GTM) rather than one orchestration framework winning outright.
-
-A ninth axis adds a fourth named deployment on the checkpoint-and-recovery
-side of harness choice: an AWS reference architecture for market
-surveillance orchestrates LangGraph for workflow control and Strands for
-agent reasoning on Amazon Bedrock AgentCore, using checkpoint-based recovery
-plus AgentCore's built-in memory and observability instead of hand-rolling
-either — a fourth harness/platform combination in production alongside
-Strands+Bedrock (Jefferies) and Deep Agents+LangSmith (Apollo).
-
-A tenth axis is a framework vendor making the same SDK-to-platform jump
-from the provider side rather than the enterprise-adopter side: Microsoft's
-Agent Framework — the Agent Harness, GitHub Copilot and Claude Agent SDK
-connectors, and its orchestration patterns, all stable since Build 2026 —
-now ships the harness and Foundry Hosted Agents at general availability, a
-supported runtime rather than an SDK you assemble yourself. It's the same
-shift the Strands and LangGraph deployments above make by adoption; here
-the framework itself reaches that bar.
-
-An eleventh axis is a framework vendor making the same SDK-to-platform jump
-for its own harness rather than watching enterprises deploy it on top of
-someone else's platform: LangChain's Managed Deep Agents reached public
-beta, wrapping the Deep Agents harness this page already tracks (dynamic
-subagents, RLM chunk-dispatch) in a managed LangSmith runtime with durable
-execution, memory, sandboxes, agent-to-agent channels, and evals — shipping
-the production infrastructure around the harness itself instead of leaving
-deployment to whichever platform (Bedrock, Foundry) an adopter picks.
-
-A twelfth axis treats **portability itself** as the design constraint, which
-cuts against the managed-platform jump the last two axes describe. AWS's
-enterprise multi-agent series starts from the observation that an
-organization running many agentic systems is already a "multi-everything"
-environment — several frameworks, several models, several providers
-concurrently — and argues the orchestration patterns worth standardizing on
-are the ones that survive that mix changing under them. It generalizes the
-provider-agnostic scripting axis above (Omegacode, h5i-python) from one
-workflow file to an estate: the harness choices the Jefferies, Apollo, and
-AgentCore deployments each made independently are exactly the decisions that
-become expensive to unwind.
-
-A thirteenth axis adds the model vendor most directly upstream of the
-harness itself to the SDK-to-platform jump the last several axes track:
-OpenAI's Agents API is a managed service, powered by the Codex harness, for
-building and launching cloud agents with orchestration, long-running
-sessions, and tool use handled by the platform rather than assembled by the
-adopting team. It's the same jump Microsoft's Agent Framework and
-LangChain's Managed Deep Agents already made from the framework side, this
-time from the lab that trains the model the harness runs on — one more
-managed-runtime option an adopter has to weigh against the portability
-argument the twelfth axis makes.
-
-The **runtime substrate** axis above now has a purpose-built, single-project
-answer rather than only a report from teams assembling their own: Enjambre
-packages a SQLite-backed durable queue, DAG task dependencies, and
-lease-based crash recovery (auto-expiring leases, heartbeat-derived
-liveness, dead-letter states) as one open "kernel" for agent swarms, with a
-permission gate and a success-rate/latency/cost router layered on top and
-MCP tools (`enqueue_task`, `claim_task`, `complete_task`) exposing the
-queue to any MCP client. It's early-stage (ten commits, no adoption signal
-yet), but it packages the same durable-execution properties multi-agent's
-Postgres recipe assembles from general infrastructure into a single
-deployable substrate purpose-built for agent orchestration.
-
-## What's new
-Enjambre packages a durable task queue, DAG dependencies, lease-based crash
-recovery, a permission gate, and a cost/latency/success-rate router into
-one SQLite-backed orchestration substrate exposed over MCP — a purpose-built
-answer to this page's runtime-substrate axis (see State of the art above).
-
-Prior update: OpenAI's Agents API packages the Codex harness as a managed cloud service —
-orchestration, long-running sessions, and tool use handled by the platform —
-the model vendor's own version of the SDK-to-platform jump this page already
-tracks for Microsoft and LangChain.
-
-Prior update: AWS's enterprise multi-agent series makes vendor lock-in an explicit
-orchestration design constraint: teams already run several frameworks,
-models, and providers at once, so the patterns that matter are the ones that
-keep an estate composable — the counterweight to the managed-runtime jump
-(Foundry, Managed Deep Agents) this page tracks.
-
-Prior update: LangChain's Managed Deep Agents reached public beta: a LangSmith-hosted
-runtime wrapping the Deep Agents harness in durable execution, memory,
-sandboxes, agent-to-agent channels, and evals — the same SDK-to-managed-
-platform jump Microsoft's Agent Framework made (see State of the art), this
-time from the framework vendor whose harness already shows up in production
-via the Bedrock and Foundry deployments above.
+The open question is which layer to own. Managed runtimes remove the plumbing
+but tie durable state, memory, and evals to one vendor. Code-driven,
+provider-agnostic orchestration keeps you portable at the cost of running the
+substrate yourself.
 
 ## Trade-offs
 A central orchestrator is easy to trace and debug but caps throughput and adds a
@@ -199,6 +72,9 @@ predictable and harder to test than a fixed graph. More agents and more
 coordination nearly always cost more tokens and latency, so the pattern only
 pays off when the task genuinely decomposes and the handoffs are cheap and
 well-typed — otherwise the orchestration overhead is pure loss.
+
+A managed runtime removes the queue, checkpoint, and sandbox plumbing but
+couples durable state and evals to one vendor's platform.
 
 ## Why it matters for platform engineers
 This is distributed-systems design wearing an LLM hat: topology choice,

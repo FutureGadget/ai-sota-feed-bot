@@ -96,7 +96,10 @@ SURFACE_CONTRACTS = {
     },
     "topic": {
         "artifact_path": "data/i18n/<locale>/topic/<slug>.json",
-        "translated_fields": ["title", "description", "summary", "sections[].html"],
+        "translated_fields": [
+            "title", "description", "summary", "sections[].html",
+            "themes[].title", "themes[].summary", "entries[].title", "entries[].html",
+        ],
         "preserve_fields": ["slug", "evidence", "related_storylines", "graph links"],
     },
     "foundations": {

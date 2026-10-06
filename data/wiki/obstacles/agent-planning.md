@@ -7,337 +7,72 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c, a4a0601f1f87b20e, c989986c344e129f, 27f54a99fd45b38c, 31358a263041f691, a2fec596dc68701f, 44bb531f443ceb51]
-updated: 2026-09-25
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c, a4a0601f1f87b20e, c989986c344e129f, 27f54a99fd45b38c, 31358a263041f691, a2fec596dc68701f, 44bb531f443ceb51]
+evidence: []
+updated: 2026-10-06
+themes:
+  - key: loop-as-infrastructure
+    title: The agent loop as reusable infrastructure
+    summary: The reason-act-observe loop is now packaged as frameworks, portable libraries, and production harnesses; vendors agree that structure around the loop, not a cleverer prompt, keeps multi-step runs on track.
+  - key: ask-or-proceed
+    title: Deciding when to ask, explore, or how much to do
+    summary: Clarification benchmarks, uncertainty signals, live state models, scope estimation, and reasoning-effort dials give a harness explicit moves before it commits to a plan.
+  - key: verify-and-replan
+    title: Verification loops and re-planning on failure
+    summary: Bounded worker/critic pairs, rubric graders with iteration caps, test-anchored coding, and multi-hypothesis failure diagnosis replace blind retry with an explicit check-then-revise step.
+  - key: learned-planning
+    title: Learning to plan from experience, RL, and code
+    summary: Agents improve plans with hindsight experience, RL on real tool interactions, evolvable harnesses, and plans written as reusable code; the evaluation signal remains the limiting factor.
+  - key: measuring-planning
+    title: Benchmarks for loops and long-horizon procedures
+    summary: New benchmarks score the loop controller separately from the agent, test reasoning about the harness's own lifecycle, and stretch planning horizons to hundreds of pages of procedures.
 ---
 
 ## TL;DR
-Give an agent a goal that takes ten steps and it will often take the wrong ones:
-charge ahead on an ambiguous request instead of asking, decompose the task into a
-plan that drifts, get stuck in a retry loop, or skip a step it needed. Planning —
-turning a goal into the right ordered sequence of actions, and knowing when to stop
-or ask — is a distinct failure mode from tool use or memory, and it's where
-long-horizon agents most visibly fall down.
+Give an agent a goal that takes ten steps and it will often take the wrong
+ones: charge ahead on an ambiguous request instead of asking, follow a plan
+that drifts, get stuck in a retry loop, or skip a step it needed. Planning,
+turning a goal into the right ordered actions and knowing when to stop or ask,
+is a distinct failure mode from tool use or memory.
 
 ## State of the art
-The dominant control structure is still the **ReAct loop** (reason → act → observe,
-repeat), and the production lesson is that the loop alone isn't enough — Stripe's
-financial-compliance agent pairs a ReAct framework with dedicated infrastructure
-and guardrails to keep multi-step runs on track at production scale, evidence that
-planning reliability is an architecture problem, not a prompt. Two refinements are
-emerging on top. First, **knowing when to ask vs. proceed**: DiscoBench measures
-clarification-aware deep search, scoring whether an agent recognizes an
-under-specified goal and asks rather than confidently planning down the wrong path —
-treating "ask a question" as a first-class planning action. Second, **learning to
-plan from experience** rather than re-deriving a plan cold each run: GUI agents that
-autonomously explore and reuse *hindsight* experience plan repetitive interface
-tasks better than zero-shot decomposition, and DAIN's dynamic agent-interaction
-network adapts the collaboration/reasoning structure to the task instead of running
-a fixed plan. The through-line is that robust planning comes from *structure around
-the loop* — explicit decomposition, clarification gates, learned priors, and a
-harness that can re-plan — not from a single cleverer prompt. That the loop
-itself is now the industry's shared vocabulary for this problem showed up at the
-AI Engineer World's Fair, where "loops" and "software factories" — production
-setups that wrap a planning loop in enough infrastructure to run it repeatedly and
-reliably — were a dominant theme alongside forward-deployed engineering, evidence
-that planning-as-harness-problem has moved from research framing to mainstream
-practitioner conversation.
+**Robust planning comes from structure around the loop, not a better prompt.**
+The ReAct loop (reason, act, observe, repeat) is the shared base, and the
+field now treats it as engineered infrastructure: framework APIs with
+persisted state and detached turns, portable loop libraries, and hooks that
+change an agent's tools mid-run. LangGraph, GitHub, and OpenAI describe the
+same practice under different names: graph, loop, or harness engineering.
 
-"The loop" is now solidifying into an engineered, reusable artifact rather than
-a one-off prompt pattern. A provider-agnostic reference implementation built on
-ports-and-adapters (call model, run tools, feed results back, stop) treats the
-loop itself as portable infrastructure any OpenAI-compatible backend can plug
-into, and QUALITY.md proposes an open spec, agent skill, and CLI for grading
-"loop engineering" quality directly — naming and measuring the harness-quality
-axis rather than leaving it implicit. Self-improving variants are also
-emerging: an "autoresearch" pattern has agents iterate on their own task
-*recipes* across runs, closing a feedback loop over the plan itself rather than
-just over individual steps, though practitioners are explicit that humans stay
-central to steering it — the case against one-shot AI design argues skill
-engineering (iterative, human-curated task specs) beats hoping a single prompt
-gets the plan right.
+Three refinements sit on top of the loop:
 
-The "know when to ask vs. proceed" thread also gains a metacognitive angle:
-CoMet targets uncertainty estimation directly — decomposing *what kind* of
-uncertainty a multimodal model has, since "knowing what you don't know" is
-exactly the signal a planning loop needs to decide whether to ask a
-clarifying question or charge ahead, extending DiscoBench's clarification-aware
-benchmark with a mechanism for producing that signal in the first place.
+- **Decide before committing.** Ask for clarification on vague goals, explore
+  when the path is unclear, estimate how much work a task needs, and set
+  reasoning effort per step. Scope estimation alone cut cost 85% at equal
+  success in one benchmark.
+- **Verify, then revise.** Bounded worker/critic pairs, rubric graders with an
+  iteration cap, and tests that guide implementation replace open-ended retry.
+  Diagnosing why a step failed, across several hypotheses, is itself a
+  planning step.
+- **Learn the plan.** Hindsight experience, RL on real tool interactions, and
+  agents that write plans as reusable code all beat re-deriving a plan cold.
+  Coding agents' synthesized planners outperformed hand-engineered ones.
 
-Training is starting to target planning **directly**, not just the harness
-around it: OpenAI's Agent RFT fine-tunes reasoning models against reward
-signals from real tool interactions, using reinforcement learning to solve the
-credit-assignment problem — which of the many steps in a long trajectory
-actually caused success or failure — rather than relying entirely on prompting
-or a hand-built harness to keep the loop on track. AWS SageMaker's multi-turn
-RL best practices name the same credit-assignment job from the infrastructure
-side: build a training environment you can trust, run an external evaluation
-separate from the reward signal, design the reward to actually match the end
-task, and manage state across turns — the operational checklist underneath
-"just fine-tune on tool interactions."
+**How the harness carries state between steps matters as much as the model.**
+Retaining reasoning and enabling compaction roughly tripled one model's
+ARC-AGI-3 score.
 
-Re-planning on failure is also getting a more structured answer than
-retry-and-hope: rather than a single reflection pass, a multi-hypothesis
-failure-attribution approach has autonomous research agents generate several
-candidate explanations for why an experiment failed, weigh them, and re-plan
-around the most likely cause — treating failure diagnosis itself as a
-planning step, not just a trigger for blind retry.
-
-The "ask vs. proceed" question is also moving from a benchmark score to a
-**live control signal**: Candidly built a per-turn state model (an IO-HMM
-over signals like message length and semantic alignment) that infers whether
-a conversation is Engaged, Detailed, Guided, or Disengaging and steers the
-agent's next-turn behavior accordingly. Closing that loop in production
-halved disengaging turns (23% → 11%) and shifted traffic toward the
-high-resolution Engaged state (53% → 64%) — concrete evidence that inferring
-"is this plan working" mid-episode, not just at the end, is worth the extra
-model.
-
-Lilian Weng's survey of ~35 papers on **harness engineering for recursive
-self-improvement** gives the "loop as reusable infra" thread a literature
-map: it names goal-oriented plan→execute→observe→improve loops, a
-file-system-as-persistent-memory pattern (durable state instead of
-cramming everything into context), and parent agents spawning inspectable
-sub-agents as the three recurring harness design patterns, then goes one
-step further than this page's existing "the loop is infra" framing —
-treating the **harness code itself** as an evolvable artifact that an
-LLM-driven mutation operator can improve (AlphaEvolve, Darwin Gödel
-Machine), not just the prompt or the loop structure around it. The essay's
-own caveat matters as much as its taxonomy: self-improvement loops work
-only as well as their evaluation signal, and weak or fuzzy evaluators
-remain the standing bottleneck — a reminder to pair any harness-evolution
-experiment with the [trajectory-level eval](/topic/agent-evaluation) this
-page already argues planning reliability depends on.
-
-The "loop as reusable infra" thesis now has a **major-framework preview**
-behind it: Google's Genkit ships an Agents API for TypeScript and Go that
-packages message history, the tool-call loop, streaming, and state
-persistence behind a single `chat()` interface — the same portable-loop
-instinct as the provider-agnostic reference implementation above, but
-shipped as a maintained framework rather than a pattern to hand-roll.
-Genkit adds a primitive this page hadn't covered: **detached turns**, which
-let a long-running step decouple from the request/response cycle instead of
-blocking it, paired with human-in-the-loop hooks for approval gates mid-plan
-— giving "ask vs. proceed" a concrete framework-level mechanism rather than
-only a benchmark score (DiscoBench) or a bespoke state model (Candidly).
-
-Planning also gains a **scope-before-you-commit** mechanism distinct from
-the ask-vs-proceed and re-planning threads above: the E3 method (Estimate,
-Execute, Expand) has an agent estimate a minimal operating point, execute a
-minimum-sufficient path, and only expand scope once verification actually
-fails. On a 121-edit benchmark it matches the strongest baseline's 100%
-success rate while cutting cost 85%, tokens 91%, and files inspected 92% —
-evidence that the cheapest fix for over-scoped planning is deciding how much
-work a task needs *before* executing, not compressing or re-planning after
-the fact.
-
-The "loop as reusable infra" thesis gets a naming retrospective, not just
-another framework: LangGraph's three-years-in review argues graph
-engineering, loop engineering, and harness engineering are the same
-underlying idea under three different names — putting model reasoning
-inside an explicit, inspectable control structure instead of trusting a
-single prompt to plan correctly — which reframes this page's own recurring
-"loop as infra" thread as an industry convergence rather than one vendor's
-pattern. A separate practitioner survey, "Agents in the Wild," backs that
-convergence with deployment evidence: production agentic systems are moving
-from research prototype to production scale specifically by adding the
-structure (decomposition, checkpoints, guardrails) this page's control-
-structure thread already argues for, not by relying on a stronger model
-alone.
-
-Planning also has a **reasoning-effort dial** as a distinct lever from
-decomposition or clarification: providers now expose low/medium/high
-reasoning-effort modes that trade latency and cost for deliberation depth on
-a per-step basis, giving a harness an explicit knob for "how hard should the
-model think before acting here" instead of a fixed reasoning budget applied
-uniformly across every step of a plan.
-
-**Verification loops** get a first-party, productized instance: Anthropic's
-guide to Claude Code shows how to turn a developer's own manual checks (does
-the output compile, does it match the spec, did the test actually pass) into
-reusable skills, so the agent runs its own verification step and closes the
-loop itself instead of a human re-checking every output by hand — a concrete
-version of the "structure around the loop" thesis this page already argues
-for, packaged as a repeatable skill rather than a one-off harness.
-
-A concrete architecture also answers the "just scale one bigger reasoner"
-default directly: PoTRE (Poly-Topological Reasoning Ensembles) decouples
-inference into four heterogeneous agents — an Adversarial Refinement Agent,
-a Hierarchical Strategic Planning Agent, a Spectrum Search Agent, and a
-Direct Chain Agent — reconciled by a Task-Adaptive Aggregation Layer
-(candidate selection, semantic synthesis, or neuro-symbolic verification)
-into one global solution. On Humanity's Last Exam it reaches 49.92%
-accuracy, surpassing the previous best official score, using similar or
-fewer inference tokens than heavily scaled homogeneous baselines — evidence
-that decomposing long-horizon planning across specialized agent roles beats
-scaling one bigger single-stream reasoner, at comparable cost, the same
-heterogeneous-coordination thesis [multi-agent](/topic/multi-agent) argues
-for applied to planning itself.
-
-A second major coding-agent vendor backs the "loop as reusable infra, not a
-novelty to chase" convergence with its own practitioner voice: GitHub's
-Copilot team frames a stable, repeatable harness — prototype, plan,
-implement, review — as the thing worth building discipline around, instead
-of re-architecting the workflow every time a new agent tool ships. It is
-the same discipline-over-novelty argument LangGraph's three-years
-retrospective makes above, this time from the other major coding-agent
-product rather than a single framework vendor.
-
-A concrete case ties the reasoning-effort dial to a capability jump rather
-than only a cost or latency trade-off: OpenAI found that retaining reasoning
-state across steps and enabling context compaction as two separate API
-settings together roughly tripled GPT-5.6's score on ARC-AGI-3 — evidence
-that how a harness manages state *between* planning steps, not just which
-model executes them, is itself a planning lever (see [agent
-evaluation](/topic/agent-evaluation) for the eval-side framing of the same
-result). Separately, an inside look at how ChatGPT tunes its own agent
-loop — harness, API, and inference working together — reinforces this
-page's standing "the loop is infra, not a prompt" thesis from inside a
-shipping consumer product rather than a framework or research write-up.
-
-The "loop as reusable infra" thesis also gains a **composition primitive**
-distinct from Genkit's single `chat()` interface: Flue's Agent Hooks borrow
-React's hooks pattern — `useSkill()`, `useTool()`, `useSubagent()`, and
-custom hooks among 16 built-ins — so an agent's tools, resources, and state
-can attach or change *during* a run instead of being fixed in a static
-config up front. The creator's own framing names the planning gap directly:
-a real support or triage bot "can't be fully configured in advance... it has
-to adapt in real-time," and unlike frameworks that add a harness as an
-afterthought, hooks make the harness itself the foundation the rest of the
-agent is built on — a concrete answer to *how* a loop re-plans mid-run, not
-just that it should.
-
-The "loop as reusable infra" thread also picks up a named, structural
-pattern for the loop's control shape itself: the Krystal Loop Protocol
-structures a coding agent's loop as a bounded worker/critic pair — one role
-proposes work, a second role checks it, within an explicit bound rather than
-an open-ended retry — the same structure-around-the-loop instinct this page
-already argues for (decomposition, clarification gates, re-planning),
-packaged as a named, reusable protocol rather than a bespoke harness detail.
-
-A domain-specific instance backs the worker/critic structure above with a
-production system rather than a coding-agent protocol: Netflix open-sourced
-an agentic workflow for observational causal inference that pairs an actor
-proposing an analysis with a critic checking it in a loop, reducing the
-toil of causal analysis given observational data and a human analyst's own
-plan — the same bounded-role-pair structure the Krystal Loop Protocol names
-for coding agents, this time applied to a data-science task rather than
-software.
-
-A concrete production case backs the standing "structure beats a single
-prompt" thesis with a measured before/after: Cloudflare cut GitHub
-issue-triage work on the Astro project 85% by wrapping AI agents around the
-workflow rather than routing raw model calls at each issue — a
-domain-specific instance of the harness-over-model argument this page
-already makes. A named technique answers "the way forward is unclear"
-directly instead of assuming decomposition is obvious up front: the
-/wayfinder skill treats greenfield or ambiguous work as navigating a "fog of
-war," giving a harness an explicit move for exploring before committing to a
-plan, alongside clarification gates (DiscoBench) and re-planning after
-failure. And a domain-specific verification loop answers the "prove it did
-the work" thread from the code-generation side: TDD-Agent uses test-driven
-reasoning to keep a coding agent's plan anchored to passing tests rather
-than a plausible-looking diff, extending the same
-verification-as-a-first-class-planning-step idea Anthropic's Claude Code
-skills guide already argues for.
-
-The verification-loop thread gains a productized, general-purpose
-mechanism rather than a single practitioner's skill: LangChain's
-RubricMiddleware for Deep Agents turns a newline-delimited checklist of
-success criteria into an explicit grade-then-revise cycle — a dedicated
-grader sub-agent (its own model, system prompt, and optional tools) checks
-the agent's output against the rubric, injects per-criterion feedback back
-into the conversation on failure, and the agent revises until it passes or
-hits a configured max-iteration cap. It is the same
-verification-as-a-first-class-planning-step idea TDD-Agent and Anthropic's
-Claude Code skills guide already argue for, now shipped as a reusable
-middleware component instead of a bespoke harness or domain-specific skill.
-
-"Loop engineering" is also solidifying as shared vocabulary outside a
-single vendor's blog: GitHub's own podcast devotes an episode to decoding
-the new terms — loops, harnesses, squads, hill climbing — showing the
-vocabulary this page already tracks (AI Engineer World's Fair, LangGraph's
-retrospective) has spread into mainstream developer conversation rather
-than staying research-adjacent. Two new benchmarks give the discipline
-something to measure: LoopArena scores the loop's own guidance — whether it
-trusts a stale progress note, skips verification, or stops before a task is
-safe to submit — separately from the coding agent's raw capability, since a
-single end-to-end pass/fail can't tell which one caused the outcome;
-CordisBench tests whether a model can reason about a dynamic harness's own
-component lifecycle — predicting what breaks and what needs reconfiguring
-after a plugin change propagates through dependencies and cleanup —
-treating the harness's own state as something a model has to model, not
-just execute inside. A lighter-weight entrant argues for a narrower control
-shape on the same theme: Keel pitches itself as "a conductor, not an agent
-loop," an explicit alternative framing to the loop-as-primitive pattern
-this page's harness thread already assumes.
-
-A new benchmark sharpens exactly how far "long-horizon" planning really
-extends: Tasks over Application Manuals (TAM) tests whether a model can
-follow real-world procedural instructions spanning hundreds of pages of
-interdependent guidelines, rather than the short-horizon, few-step
-retrieval chains most multi-hop-reasoning benchmarks use — a
-distribution-shift edge for planning specifically, alongside the
-reasoning-only long-horizon gaps [agent evaluation](/topic/agent-evaluation)
-already tracks (OmniaBench, CivBench), this time testing whether a plan can
-stay consistent against a manual instead of a task graph.
-
-Planning also gets a **generalization-over-memorization** result outside
-software: coding agents (Claude Opus 5, Codex GPT-5.6 Sol, GPT-6 Astra)
-tasked with synthesizing a reusable program for task and motion planning —
-interacting with a simulator during a fixed synthesis budget, then freezing
-the program and testing it on unseen instances — substantially outperform
-hand-engineered planners, 56-95% mean success versus 47%, across 980
-programs tested on 98,000 episodes in 28 environments. As object counts
-grow the agents' programs hold their success-rate edge while using an order
-of magnitude less computation per instance, evidence that letting an agent
-write and calibrate the plan-as-code rather than re-plan from scratch each
-episode generalizes better and cheaper than a purpose-built planner, the
-same "structure the loop, don't just scale the reasoner" thesis this page
-already argues applied to a domain (task and motion planning) outside
-coding and tool use.
-
-## What's new
-Coding agents synthesizing reusable task-and-motion-planning programs
-(56-95% success vs. 47% for hand-engineered planners, an order of magnitude
-less compute per instance as object counts grow) extend this page's
-structure-over-scale thesis to a physical-planning domain outside coding and
-tool use (see State of the art above).
-
-Prior update: A new benchmark, Tasks over Application Manuals (TAM), tests long-horizon
-procedural reasoning against real manuals spanning hundreds of pages of
-interdependent guidelines — a harder distribution-shift edge than the
-short-horizon multi-hop benchmarks most planning evals use (see State of the
-art above).
-
-Prior update: "Loop engineering" gains mainstream vocabulary (GitHub's own podcast
-decodes the term alongside "harnesses" and "squads") and two new
-benchmarks: LoopArena scores a loop's guidance separately from the coding
-agent's raw capability, and CordisBench tests reasoning about a dynamic
-harness's own component lifecycle after a plugin change (see State of the
-art above).
-
-Prior update: LangChain's RubricMiddleware packages the "verify, then correct" pattern
-into a reusable component: a grader sub-agent checks output against a
-rubric checklist, feeds targeted per-criterion feedback back into the
-loop on failure, and the agent revises until it passes or hits a max-
-iteration cap (see State of the art above).
-
-Prior update: Cloudflare cut GitHub issue-triage work on the Astro project 85% by wrapping
-AI agents around the workflow — a measured production instance of this
-page's standing harness-over-model thesis. The /wayfinder skill gives
-ambiguous, greenfield planning an explicit "explore before committing"
-move, and TDD-Agent anchors a coding agent's plan to passing tests rather
-than a plausible-looking diff (see State of the art above).
+**The open problem is measurement.** Self-improving loops are only as good as
+their evaluator, and an end-to-end pass/fail cannot tell whether the agent or
+the loop failed. Benchmarks that score the loop controller separately and test
+procedures hundreds of pages long are first steps; production teams still lean
+on humans for most planning decisions.
 
 ## Why it matters for platform engineers
-Bad planning is what turns a capable model into an unreliable agent: it's the source
-of runaway loops (a [cost](/topic/agent-cost) problem), of confidently wrong work on
-ambiguous tickets, and of the long-horizon failures that erode trust. The
-engineering job is to wrap the model's reasoning in a controllable harness —
-bounded loops, explicit decomposition, clarification checkpoints, and re-planning on
-failure — and to prove it works with [trajectory-level eval](/topic/agent-evaluation)
-rather than hoping a bigger model plans better on its own. Planning sits upstream of
-[orchestration](/topic/agent-orchestration): once you can decompose reliably, the
-question becomes who executes each step.
+Bad planning turns a capable model into an unreliable agent. It causes runaway
+loops (a [cost](/topic/agent-cost) problem), confidently wrong work on
+ambiguous tickets, and the long-horizon failures that erode trust. The job is
+to wrap the model in a controllable harness: bounded loops, explicit
+decomposition, clarification checkpoints, verification, and re-planning on
+failure. Prove it with [trajectory-level eval](/topic/agent-evaluation)
+rather than hoping a bigger model plans better. Planning sits upstream of
+[orchestration](/topic/agent-orchestration): once you can decompose reliably,
+the question becomes who executes each step.

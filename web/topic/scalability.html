@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agent infrastructure buckles under concurrency, not just load — agent engineering | LLM Digest</title>
-  <meta name="description" content="A single agent is a serving problem; a fleet of agents is a distributed-systems problem. Every agent that spins up a sandbox, holds a serving slot, or opens a session adds concurrent, short-lived state — and the coordination layer meant to track…" />
+  <meta name="description" content="A single agent is a serving problem; a fleet of agents is a distributed-systems problem. Every agent that spins up a sandbox, holds a serving slot, or opens a session adds concurrent, short-lived state. The coordination layer that tracks that…" />
   <link rel="canonical" href="https://www.llm-digest.com/topic/scalability" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
@@ -13,14 +13,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
   <meta property="og:title" content="Agent infrastructure buckles under concurrency, not just load — agent engineering" />
-  <meta property="og:description" content="A single agent is a serving problem; a fleet of agents is a distributed-systems problem. Every agent that spins up a sandbox, holds a serving slot, or opens a session adds concurrent, short-lived state — and the coordination layer meant to track…" />
+  <meta property="og:description" content="A single agent is a serving problem; a fleet of agents is a distributed-systems problem. Every agent that spins up a sandbox, holds a serving slot, or opens a session adds concurrent, short-lived state. The coordination layer that tracks that…" />
   <meta property="og:url" content="https://www.llm-digest.com/topic/scalability" />
   <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agent infrastructure buckles under concurrency, not just load — agent engineering" />
-  <meta name="twitter:description" content="A single agent is a serving problem; a fleet of agents is a distributed-systems problem. Every agent that spins up a sandbox, holds a serving slot, or opens a session adds concurrent, short-lived state — and the coordination layer meant to track…" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Agent infrastructure buckles under concurrency, not just load", "description": "A single agent is a serving problem; a fleet of agents is a distributed-systems problem. Every agent that spins up a sandbox, holds a serving slot, or opens a session adds concurrent, short-lived state — and the coordination layer meant to track…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/scalability", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Agent Know-How", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "Agent infrastructure buckles under concurrency, not just load", "item": "https://www.llm-digest.com/topic/scalability"}]}]}</script>
+  <meta name="twitter:description" content="A single agent is a serving problem; a fleet of agents is a distributed-systems problem. Every agent that spins up a sandbox, holds a serving slot, or opens a session adds concurrent, short-lived state. The coordination layer that tracks that…" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Agent infrastructure buckles under concurrency, not just load", "description": "A single agent is a serving problem; a fleet of agents is a distributed-systems problem. Every agent that spins up a sandbox, holds a serving slot, or opens a session adds concurrent, short-lived state. The coordination layer that tracks that…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/scalability", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Agent Know-How", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "Agent infrastructure buckles under concurrency, not just load", "item": "https://www.llm-digest.com/topic/scalability"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#15171c" media="(prefers-color-scheme: dark)" />
@@ -280,6 +280,70 @@
     .topic-prose p:last-child { margin-bottom:0; }
     .topic-prose strong { font-weight:650; }
     .topic-evidence .topic-rail { color:var(--muted); }
+    .topic-evidence details > summary, .topic-more > summary { cursor:pointer;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; letter-spacing:.04em;
+      color:var(--accent); padding:.3rem 0; }
+    .topic-evidence details[open] > summary { margin-bottom:.7rem; }
+
+    /* Latest updates (topic) + Recently filed (map): a dated ledger. */
+    .wiki-latest { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .wiki-latest li { display:grid; grid-template-columns:6.6rem minmax(0,1fr); gap:.8rem;
+      font-size:.94rem; line-height:1.4; }
+    .wiki-latest time { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
+      color:var(--muted); padding-top:.18rem; white-space:nowrap; }
+    .wiki-latest a { text-decoration:none; font-weight:600; }
+    .wiki-latest a:hover { text-decoration:underline; }
+    .wiki-latest .latest-topic { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; color:var(--warm); margin:0 0 .1rem; }
+
+    /* Developments: entries grouped by theme. */
+    .topic-developments { margin:2.6rem 0 0; scroll-margin-top:5rem; }
+    .topic-dev-title { margin:0 0 .7rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.7rem; letter-spacing:-.03em; line-height:1.05; }
+    .topic-dev-title span { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.8rem;
+      color:var(--muted); letter-spacing:0; margin-left:.3rem; vertical-align:middle; }
+    .topic-theme-nav ul { margin:0; padding:0 0 1rem; list-style:none; display:flex; flex-wrap:wrap; gap:.45rem; }
+    .topic-theme-nav a { display:inline-flex; align-items:center; gap:.45rem; padding:.36rem .6rem;
+      border:1px solid var(--border); font-size:.84rem; text-decoration:none; color:var(--fg); }
+    .topic-theme-nav a:hover { border-color:var(--accent); color:var(--accent); }
+    .topic-theme-nav .count { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; color:var(--muted); }
+    .topic-theme { margin:1.4rem 0 0; scroll-margin-top:5rem; }
+    .topic-theme-head { padding:0 0 .5rem; border-bottom:2px solid var(--fg); }
+    .topic-theme-head h3 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.3rem; line-height:1.15; }
+    .topic-theme-meta { display:block; margin:.2rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+    .topic-theme-head p { margin:.45rem 0 0; max-width:44rem; font-size:.95rem; line-height:1.55; color:var(--muted); }
+    .wiki-entry { margin:0; padding:1.05rem 0 1.1rem; border:0; border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; box-shadow:none; scroll-margin-top:5rem; max-width:46rem; }
+    .wiki-entry:target { background:var(--brief-wash); box-shadow:-.8rem 0 0 var(--brief-wash), .8rem 0 0 var(--brief-wash); }
+    .entry-meta { margin:0 0 .25rem; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem;
+      color:var(--muted); letter-spacing:.03em; }
+    .entry-meta .sep { color:var(--border); margin:0 .4rem; }
+    .entry-title { margin:0 0 .45rem; font-size:1.05rem; line-height:1.35; font-weight:650; }
+    .entry-title a { color:inherit; text-decoration:none; }
+    .entry-title a:hover { color:var(--accent); }
+    .entry-body p { margin:0 0 .6rem; font-size:.96rem; line-height:1.6; }
+    .entry-body ul { margin:0 0 .6rem; padding-left:1.2rem; font-size:.96rem; line-height:1.55; }
+    .entry-body > :last-child { margin-bottom:0; }
+    .entry-sources { margin:.55rem 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.25rem; }
+    .entry-sources li { position:relative; padding-left:1.1rem; font-size:.84rem; line-height:1.4; }
+    .entry-sources li::before { content:"↗"; position:absolute; left:0; top:0; color:var(--muted); }
+    .entry-sources a { text-decoration:none; color:var(--muted); }
+    .entry-sources a:hover { color:var(--accent); text-decoration:underline; }
+    .entry-also { margin:.45rem 0 0; font-size:.8rem; color:var(--muted); }
+    .topic-more, .topic-evidence details { margin:.2rem 0 0; padding:0; border:0; border-radius:0;
+      background:transparent; }
+    .topic-more > summary { padding:.8rem 0; }
+
+    /* /map additions */
+    .map-row-meta { margin:.45rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; letter-spacing:.04em; color:var(--muted); }
+    .map-recent { margin:2rem 0 0; padding:1.1rem 1.2rem; border-left:2px solid var(--warm);
+      background:var(--brief-wash); }
+    .map-recent h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.35rem; line-height:1.1; }
+    .map-recent-lede { margin:.3rem 0 .9rem; font-size:.86rem; color:var(--muted); }
     .evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.55rem; }
     .evidence-list li { font-size:.92rem; line-height:1.45; }
     .evidence-list .ev-story a { font-weight:600; text-decoration:none; }
@@ -374,6 +438,8 @@
         padding:1.1rem 0 1rem; }
       .map-solutions { padding:1rem 0 1.2rem; }
       .topic-section { grid-template-columns:1fr; gap:.5rem; }
+      .wiki-latest li { grid-template-columns:1fr; gap:.1rem; }
+      .map-recent { padding:1rem .9rem; }
       .ku-stage { height:clamp(380px,58vh,520px); }
       .ku-legend { margin-left:0; }
       .ku-panel { top:auto; left:.6rem; right:.6rem; bottom:.6rem; width:auto; max-height:64%; }
@@ -419,21 +485,40 @@
     </header>
 
     <section id="recap">
-      <section class="wiki-hero"><p class="wiki-kicker">Agent engineering · know-how</p><h2 class="wiki-headline">Agent infrastructure buckles under concurrency, not just load</h2><p class="wiki-readout"><span class="on">🧱 Obstacle</span><span class="sep">·</span>scalability<span class="sep">·</span>active<span class="sep">·</span>4 sources<span class="sep">·</span>updated 2026-10-03</p></section>
+      <section class="wiki-hero"><p class="wiki-kicker">Agent engineering · know-how</p><h2 class="wiki-headline">Agent infrastructure buckles under concurrency, not just load</h2><p class="wiki-readout"><span class="on">🧱 Obstacle</span><span class="sep">·</span>scalability<span class="sep">·</span>active<span class="sep">·</span>4 entries<span class="sep">·</span>4 sources<span class="sep">·</span>updated 2026-10-06</p></section>
       <!-- range is included in the custom hero -->
       
-      <div class="topic"><div class="topic-lead"><p>A single agent is a serving problem; a fleet of agents is a distributed-systems problem. Every agent that spins up a sandbox, holds a serving slot, or opens a session adds concurrent, short-lived state — and the coordination layer meant to track that state, not raw compute, is what breaks first at agent-native scale.</p></div>
+      <div class="topic"><div class="topic-lead"><p>A single agent is a serving problem; a fleet of agents is a distributed-systems problem. Every agent that spins up a sandbox, holds a serving slot, or opens a session adds concurrent, short-lived state. The coordination layer that tracks that state, not raw compute, is what breaks first at agent-native scale.</p></div>
 <aside class="topic-xlinks"><div class="topic-xgroup"><span class="topic-xgroup-label">→ Solved by</span><ul><li><a href="/topic/agent-sandboxing">Sandboxing, scoped credentials, and guardrails</a></li></ul></div></aside>
-<section class="topic-section"><div class="topic-rail">State of the art</div><div class="topic-prose"><p>Two vendors hit the same wall from different directions and answered it the same way: stop treating agent concurrency as a bigger version of the old problem, and remove the central coordinator instead of scaling it.</p>
-<p>Modal rebuilt its sandbox infrastructure after finding that Kubernetes-style orchestration — a centrally coordinated scheduler backed by strongly consistent state in etcd — caps out well short of what agent workloads need: etcd can&#x27;t be sharded within a keyspace, and scheduling and node-management operations scale with the number of containers and nodes, so the coordinator itself becomes the bottleneck long before the hardware does. Their rebuild removes the central coordinator entirely: a horizontally scalable fleet of scheduling servers load-balances requests instead of routing every decision through one source of truth, each worker accepts or rejects a sandbox creation directly over RPC based on its own available resources, and workers publish state to a single Redis stream that the team expects to hold up past 100,000 workers. The result is a system that created 1 million concurrent sandboxes in under 60 seconds, sustained roughly 50,000 sandbox creations per second, and brought median cold-start (startup-to-running-code) latency under 0.5 seconds — evidence that removing the coordinator, not adding more of it, is what unlocks concurrency at this scale.</p>
-<p>The serving layer is hitting the same concurrency pressure from the inference side: vLLM&#x27;s new vllm-metal brings vLLM&#x27;s scheduler and paged KV cache to Apple Silicon (M1 Pro through M5 Pro), replacing padded batching with a &quot;packed queries&quot; design that concatenates request tokens into one ragged batch instead of padding every request to the same length — a directly concurrency-shaped fix, since padding overhead compounds as more concurrent requests share a batch. The paged KV cache&#x27;s per-request block tables carry the same benefit further: fixed-size pages let variable-length sequences share memory without reshaping the cache, which is what makes admission control practical under concurrent load in the first place.</p>
-<p>MCP&#x27;s own protocol evolution shows the same &quot;remove the coordinator&quot; pattern a third time, at the application layer rather than the sandbox or serving layer: the specification&#x27;s stateless rewrite removes protocol-level sessions and sticky-session requirements for remote servers, letting requests route independently and scale horizontally instead of pinning each session to one coordinating server — the same fix Modal applied to sandbox scheduling and vLLM&#x27;s paged cache applies to serving, now landing in the tool-calling protocol itself (see <a href="/topic/mcp">MCP</a> for the full protocol change).</p>
-<p>Google&#x27;s September GKE update adds the density side of the same problem. The open-source <strong>GKE Agent Substrate</strong> targets millions of sandboxes at 10x the density of standard container runtimes, with sub-500ms resume at over 500 suspend/resume activations per second and kernel- and network-level isolation. GKE also now scales workloads to zero natively, via the HPA with KEP-2021 support, so idle agent fleets stop holding capacity.</p></div></section>
-<section class="topic-section"><div class="topic-rail">What&#x27;s new</div><div class="topic-prose"><p>Google&#x27;s GKE Agent Substrate claims 10x container density, sub-500ms resume and 500+ suspend/resume activations per second, making suspend/resume the scaling lever for idle agent sandboxes (see State of the art above).</p>
-<p>Prior update: The MCP specification&#x27;s stateless rewrite removes protocol-level sessions and sticky-session requirements for remote servers, extending this page&#x27;s &quot;remove the coordinator, don&#x27;t scale it&quot; pattern from sandbox scheduling and inference serving to the tool-calling protocol itself (see State of the art above).</p>
-<p>Prior update: Modal published the engineering account of rebuilding its sandbox scheduler around per-worker autonomy instead of central coordination, reaching 1 million concurrent sandboxes and sub-second cold starts; vLLM&#x27;s vllm-metal brought the same paged, concurrency-aware serving design to Apple Silicon the same week (see State of the art above).</p></div></section>
-<section class="topic-section"><div class="topic-rail">Why it matters for platform engineers</div><div class="topic-prose"><p>Concurrency is a different failure mode than throughput, and it shows up first in the layer a team is least likely to have load-tested: the scheduler or coordinator that tracks which sandbox, session, or KV-cache page belongs to which agent. A platform built to serve one agent well can still fall over the moment a thousand agents run at once, because the bottleneck was never the model call — it was the shared, strongly consistent state every request had to pass through. Budget for concurrent state (sandbox lifecycle, session tracking, KV-cache admission), not just aggregate request volume, and prefer architectures where each worker can make a local decision over ones that route every request through one coordinator (see <a href="/topic/agent-sandboxing">agent sandboxing</a> for the isolation side of the same sandbox-fleet problem).</p></div></section>
-<section class="topic-section topic-evidence"><div class="topic-rail">Evidence · 4 sources</div><ul class="evidence-list"><li class="ev-story"><a href="/story/485666e1560ba32b">Beyond Kubernetes at Modal: How to Scale 1 Million Concurrent Sandboxes in Seconds</a></li><li class="ev-story"><a href="/story/6a60d1242802c6f9">Announcing vllm-metal: Concurrent Serving on Apple Silicon</a></li><li class="ev-story"><a href="/story/14ca1514017a2ee2">Stateless MCP Removes Session Affinity Requirements for AWS Server Deployments</a></li><li class="ev-story"><a href="/story/72249bd53d8a5849">What’s new in AI infrastructure and orchestration in September</a></li></ul></section></div>
+<section class="topic-section topic-latest"><div class="topic-rail">Latest updates</div><div class="topic-prose"><ol class="wiki-latest"><li><time datetime="2026-10-03">Oct 3, 2026</time><span class="latest-main"><a href="/topic/scalability#2026-10-03-gke-agent-substrate-density">GKE Agent Substrate targets 10x sandbox density with sub-500ms resume, and GKE scales to zero</a></span></li><li><time datetime="2026-09-27">Sep 27, 2026</time><span class="latest-main"><a href="/topic/scalability#2026-09-27-stateless-mcp-no-session-affinity">Stateless MCP removes sticky sessions, so remote MCP servers scale like any stateless service</a></span></li><li><time datetime="2026-09-23">Sep 23, 2026</time><span class="latest-main"><a href="/topic/scalability#2026-09-23-vllm-metal-packed-batching">vllm-metal brings paged KV cache and packed batching to Apple Silicon for concurrent agent load</a></span></li><li><time datetime="2026-09-23">Sep 23, 2026</time><span class="latest-main"><a href="/topic/scalability#2026-09-23-modal-coordinator-free-sandboxes">Modal drops central coordination to reach 1 million concurrent sandboxes in under 60 seconds</a></span></li></ol></div></section>
+<section class="topic-section"><div class="topic-rail">State of the art</div><div class="topic-prose"><p><strong>The consensus fix is to remove the central coordinator, not scale it.</strong> The same move now shows up at three layers:</p>
+<ul><li><strong>Sandbox scheduling.</strong> A Kubernetes-style scheduler backed by strongly consistent state caps out before the hardware does. The working design lets each worker accept or reject work on its own resources and publish state to a shared stream. Modal reports 1 million concurrent sandboxes in under 60 seconds this way.</li><li><strong>Inference serving.</strong> Paged KV caches and packed, ragged batching stop padding overhead from compounding as concurrent requests share a batch.</li><li><strong>Tool protocol.</strong> Stateless MCP drops sessions and sticky routing so remote servers scale like any stateless service.</li></ul>
+<p><strong>Density is the second lever.</strong> Instead of keeping sandboxes warm, platforms suspend idle ones and resume them in under a second, and Kubernetes can now scale agent workloads to zero.</p>
+<p><strong>The open problem is where the state goes.</strong> Removing the coordinator or the session does not remove the state. Retries, idempotency, application state, and observability move to layers the platform team now owns. Most published numbers are vendor-reported and not independently reproduced.</p></div></section>
+<section class="topic-section"><div class="topic-rail">Why it matters for platform engineers</div><div class="topic-prose"><p>Concurrency fails differently from throughput, and it fails first in the layer teams rarely load-test: the scheduler or coordinator that tracks which sandbox, session, or KV-cache page belongs to which agent. A platform that serves one agent well can still fall over when a thousand run at once.</p>
+<p>Budget for concurrent state (sandbox lifecycle, session tracking, KV-cache admission), not just aggregate request volume. Prefer designs where each worker decides locally over ones that route every request through one coordinator. See <a href="/topic/agent-sandboxing">agent sandboxing</a> for the isolation side of the same fleet problem.</p></div></section>
+<section class="topic-developments" id="developments"><h2 class="topic-dev-title">Developments <span>4</span></h2><nav class="topic-theme-nav" aria-label="Themes"><ul><li><a href="#theme-coordinator-free-scheduling">Removing the central coordinator instead of scaling it<span class="count">2</span></a></li><li><a href="#theme-concurrent-serving">Serving many agents at once without padding waste<span class="count">1</span></a></li><li><a href="#theme-fleet-density">Sandbox density and scale-to-zero for idle fleets<span class="count">1</span></a></li></ul></nav><section class="topic-theme" id="theme-coordinator-free-scheduling"><header class="topic-theme-head"><h3>Removing the central coordinator instead of scaling it</h3><span class="topic-theme-meta">2 entries · latest Sep 27, 2026</span><p>Sandbox schedulers and the MCP protocol both drop central, strongly consistent coordination so each worker or request decides locally and scales horizontally.</p></header><article class="wiki-entry" id="2026-09-27-stateless-mcp-no-session-affinity"><p class="entry-meta"><time datetime="2026-09-27">Sep 27, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-09-27-stateless-mcp-no-session-affinity">Stateless MCP removes sticky sessions, so remote MCP servers scale like any stateless service</a></h4><div class="entry-body"><p>AWS details how the latest MCP specification removes <strong>protocol-level sessions, sticky-session requirements, and session storage</strong> for remote MCP servers. Requests can route independently, so servers scale horizontally behind an ordinary load balancer.</p>
+<p>It is the same &quot;remove the coordinator&quot; move Modal made for sandbox scheduling, applied to the tool-calling protocol. The state does not disappear: application state, retries, observability, and idempotency move to other layers that you now own. See <a href="/topic/mcp">MCP</a> for the full protocol change.</p></div><ul class="entry-sources"><li><a href="/story/14ca1514017a2ee2">Stateless MCP Removes Session Affinity Requirements for AWS Server Deployments</a></li></ul></article><article class="wiki-entry" id="2026-09-23-modal-coordinator-free-sandboxes"><p class="entry-meta"><time datetime="2026-09-23">Sep 23, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-09-23-modal-coordinator-free-sandboxes">Modal drops central coordination to reach 1 million concurrent sandboxes in under 60 seconds</a></h4><div class="entry-body"><p>Modal rebuilt its sandbox infrastructure after Kubernetes-style orchestration capped out: etcd can&#x27;t be sharded within a keyspace, and scheduling work grows with container and node count, so <strong>the coordinator became the bottleneck before the hardware did</strong>.</p>
+<p>The rebuild removes it. A horizontally scaled fleet of scheduling servers load-balances requests, each worker accepts or rejects a sandbox creation over RPC based on its own free resources, and workers publish state to one Redis stream the team expects to hold past 100,000 workers. Reported results: <strong>1 million concurrent sandboxes in under 60 seconds</strong>, about 50,000 creations per second, and median cold start under 0.5 seconds.</p></div><ul class="entry-sources"><li><a href="/story/485666e1560ba32b">Beyond Kubernetes at Modal: How to Scale 1 Million Concurrent Sandboxes in Seconds</a></li></ul></article></section><section class="topic-theme" id="theme-concurrent-serving"><header class="topic-theme-head"><h3>Serving many agents at once without padding waste</h3><span class="topic-theme-meta">1 entry · latest Sep 23, 2026</span><p>Paged KV caches and packed, ragged batching keep time to first token flat as concurrent agent requests share a batch, now down to Apple Silicon.</p></header><article class="wiki-entry" id="2026-09-23-vllm-metal-packed-batching"><p class="entry-meta"><time datetime="2026-09-23">Sep 23, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-09-23-vllm-metal-packed-batching">vllm-metal brings paged KV cache and packed batching to Apple Silicon for concurrent agent load</a></h4><div class="entry-body"><p>vllm-metal brings vLLM&#x27;s scheduler, paged KV cache, and continuous batching to Apple Silicon (M1 Pro through M5 Pro). It replaces padded batching with <strong>packed queries</strong>, concatenating request tokens into one ragged batch instead of padding each request to the same length. The release also adds batched MTP and automatic M5 prefill acceleration, and reports flatter TTFT under concurrent agent load.</p>
+<p>Padding overhead grows with every request sharing a batch, so this is a concurrency fix, not a raw-speed one. Paged block tables let variable-length sequences share memory without reshaping the cache, which is what makes admission control workable under concurrent load.</p></div><ul class="entry-sources"><li><a href="/story/6a60d1242802c6f9">Announcing vllm-metal: Concurrent Serving on Apple Silicon</a></li></ul></article></section><section class="topic-theme" id="theme-fleet-density"><header class="topic-theme-head"><h3>Sandbox density and scale-to-zero for idle fleets</h3><span class="topic-theme-meta">1 entry · latest Oct 3, 2026</span><p>Platforms now suspend idle agent sandboxes and resume them in under a second, so idle fleets stop holding capacity; density claims are vendor-reported.</p></header><article class="wiki-entry" id="2026-10-03-gke-agent-substrate-density"><p class="entry-meta"><time datetime="2026-10-03">Oct 3, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-10-03-gke-agent-substrate-density">GKE Agent Substrate targets 10x sandbox density with sub-500ms resume, and GKE scales to zero</a></h4><div class="entry-body"><p>Google&#x27;s September AI-infrastructure update adds the open-source <strong>GKE Agent Substrate</strong>, aimed at millions of sandboxes at <strong>10x the density</strong> of standard container runtimes. Google claims sub-500ms resume, over 500 suspend/resume activations per second, and kernel- and network-level isolation. GKE also now scales workloads to zero natively, through the HPA with KEP-2021 support.</p>
+<p>These are vendor-reported targets. The pattern they point to: suspend idle agent sandboxes and resume them on demand instead of keeping them warm, so an idle fleet stops holding capacity.</p></div><ul class="entry-sources"><li><a href="/story/72249bd53d8a5849">What’s new in AI infrastructure and orchestration in September</a></li></ul></article></section></section>
+<section class="topic-section topic-cross"><div class="topic-rail">From related topics</div><div class="topic-prose"><ol class="wiki-latest"><li><time datetime="2026-07-15">Jul 15, 2026</time><span class="latest-main"><span class="latest-topic">Agents forget across steps and sessions</span><a href="/topic/agent-memory#2026-07-15-postgres-agent-memory">Postgres as the agent memory layer: JSONB, HNSW vectors, and row-level locking</a></span></li></ol></div></section>
+<section class="topic-section topic-evidence"><div class="topic-rail">Evidence · 4 sources</div><div class="topic-prose"><details><summary>All sources behind this page</summary><ul class="evidence-list"><li class="ev-story"><a href="/story/72249bd53d8a5849">What’s new in AI infrastructure and orchestration in September</a></li><li class="ev-story"><a href="/story/14ca1514017a2ee2">Stateless MCP Removes Session Affinity Requirements for AWS Server Deployments</a></li><li class="ev-story"><a href="/story/6a60d1242802c6f9">Announcing vllm-metal: Concurrent Serving on Apple Silicon</a></li><li class="ev-story"><a href="/story/485666e1560ba32b">Beyond Kubernetes at Modal: How to Scale 1 Million Concurrent Sandboxes in Seconds</a></li></ul></details></div></section>
+<script>
+(function () {
+  function reveal() {
+    var id = decodeURIComponent((location.hash || '').slice(1));
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    for (var d = el.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) d.open = true;
+    el.scrollIntoView();
+  }
+  window.addEventListener('hashchange', reveal);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', reveal);
+  else reveal();
+})();
+</script></div>
     </section>
 
     <footer>
