@@ -493,6 +493,25 @@
     },
     "edition_date": "2026-07-24"
   },
+  "20a4e05ee8382ef8": {
+    "id": "pb-replay-harness-verify-agent-refactors",
+    "kind": "source-backed",
+    "title": "Verify large agent refactors with a replay harness, not just tests",
+    "area": "Reliability",
+    "problem": "Agents can rewrite hundreds of thousands of lines, and unit tests alone do not prove behavior is preserved.",
+    "apply": "Record the program's observable output before the change and diff it against the agent's output on each commit, as CodeScene did with a frame-by-frame replay.",
+    "result": "The case study reports 300K lines of C refactored in three weeks for about $4,000 in tokens, with behavior checked mechanically.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/09/agentic-refactoring-case-study/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "20a4e05ee8382ef8",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "CodeScene's published case study reports the line count, duration and token cost."
+    },
+    "edition_date": "2026-10-06"
+  },
   "20cd66043e9dab55": {
     "id": "pb-dont-trust-leaderboard-perf-benchmarks",
     "kind": "source-backed",
@@ -968,6 +987,25 @@
     },
     "edition_date": "2026-07-17"
   },
+  "38f39e05799f77e0": {
+    "id": "pb-check-graders-before-hill-climb",
+    "kind": "source-backed",
+    "title": "Validate your eval graders before hill-climbing on them",
+    "area": "Evals",
+    "problem": "Optimizing an agent against an unchecked grader tunes it to the grader's mistakes.",
+    "apply": "Before iterating on prompts or tools, audit the grader against hand-labeled cases, then hill-climb only against the checked grader, as the claude-api plugin's build_eval and hill-climb commands do.",
+    "result": "Score gains reflect real improvement instead of grader quirks.",
+    "effort": "low",
+    "source": "hamel_husain",
+    "source_url": "https://hamel.dev/blog/posts/claude-auto-evals/",
+    "source_sid": "38f39e05799f77e0",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Based on Hamel Husain's description of the new tooling; no measured result."
+    },
+    "edition_date": "2026-10-06"
+  },
   "3c227e4c9b2cd2eb": {
     "id": "pb-adopt-mcp-enterprise-managed-auth",
     "kind": "source-backed",
@@ -1157,6 +1195,25 @@
       "note": "AWS reports the token-cost percentages for RAG vs. TAKC compression tiers directly."
     },
     "edition_date": "2026-07-28"
+  },
+  "47be91cd52d348eb": {
+    "id": "pb-hard-budget-caps",
+    "kind": "source-backed",
+    "title": "Set a hard spend cap on every agent that calls a paid API",
+    "area": "Cost & latency",
+    "problem": "A looping or runaway agent on pay-per-use APIs can burn an unbounded bill before anyone notices.",
+    "apply": "Enforce a hard per-run and per-day spend ceiling at the gateway or key level, so the call is refused at the cap instead of alerting after the fact.",
+    "result": "A runaway loop costs at most the cap, not the month's budget.",
+    "effort": "low",
+    "source": "simon_willison",
+    "source_url": "https://simonwillison.net/2026/Oct/3/default-hard-budget-caps/",
+    "source_sid": "47be91cd52d348eb",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Editorial argument from the source; no measured figure."
+    },
+    "edition_date": "2026-10-06"
   },
   "488d1511cc2dd895": {
     "id": "pb-track-behavioral-identity-not-agent-name",
@@ -1728,6 +1785,25 @@
     },
     "edition_date": "2026-07-21"
   },
+  "7866a5b7fe98e94b": {
+    "id": "pb-invalidate-dependent-memories",
+    "kind": "source-backed",
+    "title": "Invalidate dependent memories when a source fact changes",
+    "area": "Memory",
+    "problem": "Long-term agent memory keeps serving facts that newer observations have made outdated.",
+    "apply": "Store provenance with each memory (which observation or memory it derives from), and when a source is corrected, mark every derived memory stale and re-derive or drop it.",
+    "result": "The agent stops acting on stale derived facts after an update.",
+    "effort": "high",
+    "source": "arxiv_cs_lg",
+    "source_url": "http://arxiv.org/abs/2610.05732v1",
+    "source_sid": "7866a5b7fe98e94b",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Applies the PACMI paper's provenance-aware invalidation idea; no measured figure cited."
+    },
+    "edition_date": "2026-10-06"
+  },
   "78aa501471a8665a": {
     "id": "pb-trace-and-cap-coding-agent-spend",
     "kind": "source-backed",
@@ -1765,6 +1841,25 @@
       "note": "Describes the new spec's mechanism; no measured before/after deployment numbers given."
     },
     "edition_date": "2026-08-04"
+  },
+  "7a763bdc370e95b8": {
+    "id": "pb-parallel-hydration-less-retrieval",
+    "kind": "source-backed",
+    "title": "Cut retrieval work and hydrate results in parallel to halve latency",
+    "area": "Cost & latency",
+    "problem": "Serial retrieval and result hydration put the full pipeline cost on every request's critical path.",
+    "apply": "Retrieve fewer candidates, fetch the per-result data in parallel instead of in sequence, and measure latency to what the user sees first rather than to the last byte.",
+    "result": "Uber reports a 50% cut in end-to-end Uber Eats search latency after these changes.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/10/uber-eats-search-latency/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "7a763bdc370e95b8",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Uber reports the 50% latency reduction for its own search pipeline."
+    },
+    "edition_date": "2026-10-06"
   },
   "7b0c24a5e0c92a10": {
     "id": "pb-vllm-hpc-ops-hunyuan-kernels",
@@ -1822,6 +1917,25 @@
       "note": "Slack's post describes the intent-based testing pattern and its current CI-cost tradeoff qualitatively, without reporting maintenance or flakiness numbers."
     },
     "edition_date": "2026-07-14"
+  },
+  "7edf4e7424aeb5ca": {
+    "id": "pb-judge-plus-deterministic-evals",
+    "kind": "source-backed",
+    "title": "Pair LLM judges with deterministic checks in one shared eval framework",
+    "area": "Evals",
+    "problem": "Ad-hoc, per-team agent evals each use different judges and are not comparable across products.",
+    "apply": "Put every agent eval behind one reusable harness, and run deterministic rule checks wherever the answer can be verified, reserving the LLM judge for what rules cannot score.",
+    "result": "Evals become comparable across agents and less exposed to judge noise.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/presentations/elastic-ai-agent-evaluations/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "7edf4e7424aeb5ca",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Based on Elastic's talk on moving from siloed evals to one framework."
+    },
+    "edition_date": "2026-10-06"
   },
   "7f18e7dd55749326": {
     "id": "pb-suspend-resume-idle-agents",
@@ -2050,6 +2164,25 @@
       "note": "The paper decomposes skill-driven agent performance into gains and regressions and measures each directly."
     },
     "edition_date": "2026-07-28"
+  },
+  "8c2466d58106f2ad": {
+    "id": "pb-beat-majority-vote-before-debate",
+    "kind": "source-backed",
+    "title": "Benchmark multi-agent debate against majority voting before shipping it",
+    "area": "Orchestration",
+    "problem": "Multi-agent debate adds cost and latency, yet often fails to beat simple majority voting.",
+    "apply": "Run a majority-vote baseline over the same samples on your eval set, and keep debate only if it wins, with a verifier-aware step to pick the final answer.",
+    "result": "The paper claims debate helps only when it surfaces a correct answer and the readout verifies it, so you pay for it only where it wins.",
+    "effort": "low",
+    "source": "arxiv_cs_cl",
+    "source_url": "http://arxiv.org/abs/2610.04686v1",
+    "source_sid": "8c2466d58106f2ad",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "The paper states debate often fails to beat majority voting."
+    },
+    "edition_date": "2026-10-06"
   },
   "8c698247d726e3de": {
     "id": "pb-llm-gateway-runtime-controls",
@@ -2601,6 +2734,25 @@
       "note": "Stripe's benchmark measured 92% (Claude Opus 4.5) and 73% (GPT-5.2) on full-stack tasks and named the validation gap; the specific validation-layer architecture is the editor's translation of that finding into a concrete build step."
     },
     "edition_date": "2026-07-17"
+  },
+  "b0a6adb95dddda44": {
+    "id": "pb-treat-all-mcp-layers-untrusted",
+    "kind": "source-backed",
+    "title": "Treat every MCP layer as an injection surface, not just user input",
+    "area": "Safety",
+    "problem": "Adversarial instructions can arrive through tool schemas, tool outputs and protocol messages, not only the user prompt.",
+    "apply": "Sanitize and constrain tool descriptions and tool results as untrusted data, allowlist the MCP servers you connect, and test your agent against injections at each of the four layers.",
+    "result": "Fewer injection paths go untested, so hostile tool content is less likely to steer the agent.",
+    "effort": "medium",
+    "source": "arxiv_agent_systems_research",
+    "source_url": "http://arxiv.org/abs/2610.04378v1",
+    "source_sid": "b0a6adb95dddda44",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "COPEX names the four MCP layers where adversarial context enters; no measured result cited."
+    },
+    "edition_date": "2026-10-06"
   },
   "b37c7cb1295646d6": {
     "id": "pb-snapshot-gpu-pods",
