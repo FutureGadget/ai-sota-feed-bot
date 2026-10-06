@@ -5,7 +5,7 @@ question: "What makes a prompt reliable?"
 summary: "Reliable prompts reduce ambiguity, constrain outputs, and make failures measurable."
 status: active
 cluster: prompting
-updated: 2026-07-02
+updated: 2026-10-06
 audience: "strong-software-engineer"
 math_depth: intuition
 related_topics: [agent-evaluation, context-compaction, prompt-injection]
@@ -16,32 +16,31 @@ evidence:
     kind: theory-paper
     title: "Language Models are Few-Shot Learners"
     url: "https://arxiv.org/abs/2005.14165"
+    added: 2026-06-25
     note: "Shows that task behavior can be specified through instructions and examples in context, without gradient updates."
   - id: wei-2022-chain-of-thought
     kind: benchmark-result
     title: "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models"
     url: "https://arxiv.org/abs/2201.11903"
+    added: 2026-06-25
     note: "Reports that exemplars with intermediate reasoning improve performance on arithmetic, commonsense, and symbolic reasoning tasks."
   - id: wang-2022-self-consistency
     kind: benchmark-result
     title: "Self-Consistency Improves Chain of Thought Reasoning in Language Models"
     url: "https://arxiv.org/abs/2203.11171"
+    added: 2026-06-25
     note: "Shows that sampling multiple reasoning paths and selecting a consistent answer can improve reasoning benchmark accuracy."
   - id: liu-2023-lost-in-the-middle
     kind: benchmark-result
     title: "Lost in the Middle: How Language Models Use Long Contexts"
     url: "https://arxiv.org/abs/2307.03172"
+    added: 2026-06-25
     note: "Finds that long-context models can perform worse when relevant information appears in the middle of the context."
   - id: prompt-reliability-editorial-synthesis
     kind: editorial-inference
     title: "LLM Digest synthesis"
+    added: 2026-06-25
     note: "For agent builders, prompt reliability should be treated as an interface and evaluation problem, not a copywriting problem."
-covers_evidence:
-  - brown-2020-language-models
-  - wei-2022-chain-of-thought
-  - wang-2022-self-consistency
-  - liu-2023-lost-in-the-middle
-  - prompt-reliability-editorial-synthesis
 ---
 
 ## Builder consequence
@@ -58,21 +57,15 @@ An autoregressive language model predicts the next token conditioned on the toke
 
 Four techniques work for the same underlying reason — they narrow which continuations the model finds likely:
 
-- **Few-shot examples** place a pattern directly in context.
+- **Few-shot examples** place a pattern directly in context; GPT-3's few-shot results showed tasks can be specified this way without gradient updates.
 - **Chain-of-thought examples** demonstrate an intermediate representation before the final answer, which helps on multi-step problems.
 - **Self-consistency** helps when the model can reach the same answer through multiple sampled paths.
-- **Long context is not automatically reliable context** — relevant information can be harder to use when it is buried in the middle.
+- **Long context is not automatically reliable context** — "Lost in the Middle" shows relevant information is harder to use when it is buried mid-context.
 
 ## Math intuition
 Think of the model as assigning probability mass across possible next-token paths. A vague prompt spreads mass across many plausible completions: explanation, refusal, partial answer, wrong format, hidden assumption. A reliable prompt concentrates mass around the acceptable region.
 
 Examples act like local coordinates: they show the model what kind of mapping you want. A schema narrows the output subspace. Delimiters reduce accidental mixing between instructions, retrieved text, and user data. Evals estimate whether the probability mass stays in the right region across the cases you actually care about.
-
-## Evidence
-- Theory/paper-backed: "Language Models are Few-Shot Learners" shows that large language models can adapt to new tasks from instructions and examples placed directly in context.
-- Benchmark/result-backed: chain-of-thought prompting and self-consistency report improvements on reasoning benchmarks when prompts demonstrate intermediate reasoning or sample multiple reasoning paths.
-- Benchmark/result-backed: "Lost in the Middle" shows that adding more context can reduce reliability when the relevant evidence is positioned poorly.
-- Editorial inference: for production agents, these findings imply that prompt quality is inseparable from interface design and evaluation.
 
 ## How to apply
 Write the prompt contract before polishing wording:

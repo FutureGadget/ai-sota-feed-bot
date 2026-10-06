@@ -5,7 +5,7 @@ question: "Why do reusable skills sometimes make an agent worse?"
 summary: "Grading a procedural skill by average task-success improvement hides its cost: the best-performing skills win mainly by regressing less on tasks the agent already solved, not by solving more — and most regressions trace to the skill changing behavior it was never meant to touch."
 status: active
 cluster: tool-use
-updated: 2026-07-29
+updated: 2026-10-06
 audience: "strong-software-engineer"
 math_depth: ""
 related_topics: [tool-use, agent-reliability]
@@ -16,11 +16,9 @@ evidence:
     kind: benchmark-result
     title: "The Regression Tax: Decomposing Why Skills Help and Hurt LLM Agents"
     url: "http://arxiv.org/abs/2607.22520v1"
-    note: "Compares agents with and without a procedural skill across nearly 6,000 runs spanning two office-automation benchmarks and three model harness stacks. Splits outcomes into a regression (a task the agent solved without the skill but fails once the skill is added) versus a residual failure (a task that fails both with and without the skill). Finds the best-performing skills win primarily by regressing less, not by gaining more, and identifies three regression causes: skill description osmosis (the skill changes behavior just by being present in context, even when never invoked), grounding displacement (the skill's prescribed procedure overrides how the agent reads its inputs), and verification displacement (the procedure suppresses checks the agent would otherwise run on its own outputs). Analyzing persistent (residual) failures finds the same pattern in reverse: existing skills overemphasize procedural guidance, the stage least often responsible for failure, while under-supporting grounding and verification, the stages that cause most remaining errors."
-  - id: story-89a606f362d88b4e-regression-tax
-    kind: story
-    sid: 89a606f362d88b4e
-covers_evidence: [regression-tax-2026-skills, story-89a606f362d88b4e-regression-tax]
+    sid: "89a606f362d88b4e"
+    added: 2026-07-29
+    note: "Nearly 6,000 runs across two office-automation benchmarks and three harness stacks, with and without a procedural skill. Splits outcomes into regressions (solved without the skill, failed with it) and residual failures. The best skills win mainly by regressing less. Names three regression causes: description osmosis, grounding displacement, verification displacement. Reports direction and mechanism, not per-mechanism percentages."
 ---
 
 ## Builder consequence
@@ -33,18 +31,22 @@ Average success-rate improvement hides that skills cut both ways. Splitting outc
 Treat a skill as a change to the agent's whole context, not a subroutine that only runs when invoked. A skill sitting in context can shift behavior on tasks that never call it, override how the agent reads its own inputs, and quietly turn off checks the agent would have run anyway. None of that shows up if you only measure "did the task pass," because a pass/fail count doesn't distinguish a task that was already broken from one your own change just broke.
 
 ## Mechanism
-The study runs agents with and without a candidate skill across nearly 6,000 tasks, two office-automation benchmarks, and three harness stacks, then buckets every outcome change into one of two categories: a **regression** (solved without the skill, failed with it) or a **residual failure** (failed either way). This decomposition is the whole point — it separates "the skill didn't help" from "the skill actively broke something that worked."
+The useful move is to split every outcome change into a **regression** (solved
+without the skill, failed with it) and a **residual failure** (failed either
+way). That separates "the skill didn't help" from "the skill broke something
+that worked". The Regression Tax study did this across nearly 6,000 runs and
+found three mechanisms behind most regressions:
 
-Three mechanisms explain most regressions:
+- **Skill description osmosis** — the skill's presence in context changes
+  behavior even on turns where it is never invoked.
+- **Grounding displacement** — the prescribed procedure overrides how the agent
+  reads its actual inputs, so it follows the recipe instead of the evidence.
+- **Verification displacement** — the procedure supplies its own sense of
+  "done" and suppresses checks the agent would otherwise run.
 
-- **Skill description osmosis** — the skill's presence in context changes agent behavior even on turns where the agent never invokes it. The text doesn't have to run to have an effect.
-- **Grounding displacement** — the skill's prescribed procedure overrides how the agent interprets its actual inputs, so the agent follows the recipe instead of what's in front of it.
-- **Verification displacement** — the procedure supplies its own sense of "done," which suppresses the output checks the agent would otherwise perform.
-
-Looking at residual failures (tasks that still fail with the skill) turns up a matching imbalance rather than a different problem: existing skills over-invest in procedural guidance, the stage the study finds is least often the actual cause of failure, while under-supporting grounding and verification, the stages responsible for most of what's left unsolved.
-
-## Evidence
-Benchmark/result-backed: nearly 6,000 runs across two office-automation benchmarks and three harness stacks, with outcomes decomposed into regressions vs. residual failures rather than reported as a single success-rate delta. The paper reports the direction and mechanism of the effect (regressing-less beats gaining-more among top skills; three named regression causes) without publishing a specific percentage for how much of the improvement each mechanism explains — treat the mechanism finding as established and any percentage as unstated by the source.
+Residual failures show the same imbalance from the other side: skills
+over-invest in procedural guidance, the stage least often at fault, and
+under-support grounding and verification, where most remaining failures start.
 
 ## How to apply
 - **Score two numbers, not one.** For every candidate skill, measure tasks newly solved and previously-passing tasks now failing separately — never collapse them into a single success-rate delta before shipping.

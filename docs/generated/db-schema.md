@@ -230,6 +230,29 @@ Source of truth is markdown; `index.json` is the only file served/bundled.
   (recent stories grouped by obstacle area with `filed_in`, plus an optional
   per-topic `focus` dossier; excluded from deploys).
 
+## Agent Builder Foundations (`data/foundations/`)
+Agent-curated concept explanations; markdown is the source of truth and
+`index.json` is the only file served/bundled.
+- `data/foundations/concepts/<slug>.md` — one concept. Front matter: `slug`,
+  `title`, `question`, `summary` (≤45 words), `status`, `cluster`, `updated`,
+  `audience`, `math_depth`, `related_topics`, `related_playbook_cards`,
+  `related_storylines`, and `evidence` (1-12 entries: `id`, `kind`, `title`,
+  `url`, optional `sid`, `added` date, `note` ≤80 words; `story` entries carry
+  `sid`, `storyline` entries `slug`). Body: word-capped sections (no
+  `Evidence` section). Contract: `config/foundations_schema.md`.
+- `data/foundations/index.json` — compiled by `pipeline/build_foundations.py`:
+  `{generated_at, clusters:[{slug,label,concepts}], recent_evidence:[{concept,
+  concept_title,id,title,tier,kind,added}], concepts:{slug:{slug,title,
+  question,summary,status,cluster,cluster_label,updated,latest_evidence_added,
+  audience,math_depth,sections:[{heading,html}],evidence:[{id,kind,tier,title,
+  note,added,url?,sid?,slug?}],related_topics,related_playbook_cards,
+  related_storylines}}}`. Evidence is newest `added` first; `updated` is the
+  later of the page's `updated` and its newest evidence. Served by
+  `/api/foundations` and rendered to `web/foundations.html` +
+  `web/foundations/<slug>.html`.
+- `data/foundations/input/` — curator input bundles (candidate stories with
+  `cited_in`, current concepts with evidence dates); excluded from deploys.
+
 ## Model Release Radar (`data/models/`)
 Deterministic model-release data joined from first-party announcements,
 LMArena (keyless), Artificial Analysis (when `AA_API_KEY` is configured),

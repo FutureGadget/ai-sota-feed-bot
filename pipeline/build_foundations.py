@@ -6,9 +6,14 @@ The ``foundations-curator`` routine writes markdown pages under
 schema, resolves internal links, renders a small safe Markdown subset to HTML,
 and writes ``data/foundations/index.json`` for the API and static renderer.
 
+Each concept is a bounded explanation (word-capped sections) plus a dated
+evidence list: new findings arrive as new evidence entries with an ``added``
+date and a short note, and the explanation is rewritten rather than appended
+to. Every violation is reported at once.
+
 Run after editing Foundation pages:
 
-    python pipeline/build_foundations.py [--check]
+    python pipeline/build_foundations.py [--check] [--slug SLUG]
 """
 
 from __future__ import annotations
@@ -17,7 +22,7 @@ import argparse
 import json
 import re
 import sys
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from html import escape
 from pathlib import Path
 from urllib.parse import urlparse
@@ -45,14 +50,30 @@ CLUSTERS: list[tuple[str, str]] = [
 ]
 CLUSTER_LABELS = dict(CLUSTERS)
 
+# Allowed sections in reading order, with word caps. The caps keep a concept
+# readable in a few minutes; study-by-study detail belongs in evidence notes.
+SECTION_LIMITS: dict[str, int] = {
+    "builder consequence": 80,
+    "short answer": 120,
+    "builder model": 200,
+    "mechanism": 350,
+    "math intuition": 200,
+    "how to apply": 250,
+    "failure modes": 150,
+    "related": 60,
+}
 REQUIRED_SECTIONS = {
     "builder consequence",
     "short answer",
     "mechanism",
-    "evidence",
     "how to apply",
     "failure modes",
 }
+MAX_EVIDENCE = 12
+EVIDENCE_NOTE_MAX_WORDS = 80
+SUMMARY_MAX_WORDS = 45
+RECENT_EVIDENCE = 8
+DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 EVIDENCE_TIERS = {
     "theory-paper": "theory/paper-backed",
@@ -119,9 +140,11 @@ def md_inline(text: str) -> str:
 
 
 def md_to_html(text: str) -> str:
+    """Paragraphs plus ``-``/``*`` bullet and ``1.`` numbered lists."""
     blocks: list[str] = []
     para: list[str] = []
     items: list[str] = []
+    list_tag = "ul"
 
     def flush_para() -> None:
         if para:
@@ -130,18 +153,26 @@ def md_to_html(text: str) -> str:
 
     def flush_list() -> None:
         if items:
-            blocks.append("<ul>" + "".join(f"<li>{md_inline(i)}</li>" for i in items) + "</ul>")
+            lis = "".join(f"<li>{md_inline(i)}</li>" for i in items)
+            blocks.append(f"<{list_tag}>{lis}</{list_tag}>")
             items.clear()
 
     for line in text.splitlines():
         stripped = line.strip()
         bullet = re.match(r"^[-*]\s+(.*)$", stripped)
-        if bullet:
+        numbered = re.match(r"^\d+[.)]\s+(.*)$", stripped)
+        if bullet or numbered:
+            tag = "ul" if bullet else "ol"
+            if items and tag != list_tag:
+                flush_list()
             flush_para()
-            items.append(bullet.group(1))
+            list_tag = tag
+            items.append((bullet or numbered).group(1))
         elif not stripped:
             flush_para()
             flush_list()
+        elif items and line.startswith((" ", "\t")):
+            items[-1] += " " + stripped  # wrapped continuation of a list item
         else:
             flush_list()
             para.append(stripped)
@@ -171,64 +202,123 @@ def valid_url(url: str) -> bool:
     return parsed.scheme in {"http", "https"} and bool(parsed.netloc)
 
 
-def validate_page(page: dict, path: Path) -> None:
-    slug = str(page.get("slug") or "")
-    if not SLUG_RE.match(slug):
-        raise FoundationsError(f"{path.name}: invalid slug {slug!r}")
-    if slug != path.stem:
-        raise FoundationsError(f"{path.name}: slug {slug!r} != filename stem")
+def word_count(text: str) -> int:
+    plain = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text or "")
+    return len(plain.split())
+
+
+def as_date(value) -> str:
+    if isinstance(value, (date, datetime)):
+        return value.isoformat()[:10]
+    return str(value or "").strip()
+
+
+def validate_page(page: dict, path: Path, errors: list[tuple[str, str]]) -> None:
+    """Append (slug, message) for every schema problem on one page."""
+    slug = str(page.get("slug") or path.stem)
+
+    def err(msg: str) -> None:
+        errors.append((slug, f"{slug}: {msg}"))
+
+    if not SLUG_RE.match(str(page.get("slug") or "")):
+        err(f"{path.name}: invalid slug {page.get('slug')!r}")
+    elif page.get("slug") != path.stem:
+        err(f"{path.name}: slug {page.get('slug')!r} != filename stem")
     for field in ("title", "question", "summary", "status", "cluster", "updated"):
         if not str(page.get(field) or "").strip():
-            raise FoundationsError(f"{slug}: missing {field}")
+            err(f"missing {field}")
+    if word_count(str(page.get("summary") or "")) > SUMMARY_MAX_WORDS:
+        err(f"summary is {word_count(str(page.get('summary')))} words (max {SUMMARY_MAX_WORDS})")
     if page.get("status") not in {"active", "draft"}:
-        raise FoundationsError(f"{slug}: unknown status {page.get('status')!r}")
+        err(f"unknown status {page.get('status')!r}")
     if page.get("cluster") not in CLUSTER_LABELS:
-        raise FoundationsError(f"{slug}: unknown cluster {page.get('cluster')!r}")
+        err(f"unknown cluster {page.get('cluster')!r}")
+
+    seen: set[str] = set()
+    for heading, body in page["_sections_raw"]:
+        key = str(heading).strip().lower()
+        if key not in SECTION_LIMITS:
+            hint = " (study details go in evidence notes)" if key == "evidence" else ""
+            err(f"section '## {heading}' is not allowed{hint}; allowed: {', '.join(h.capitalize() for h in SECTION_LIMITS)}")
+            continue
+        if key in seen:
+            err(f"duplicate section '## {heading}'")
+        seen.add(key)
+        n = word_count(body)
+        if n > SECTION_LIMITS[key]:
+            err(f"'## {heading}' is {n} words (max {SECTION_LIMITS[key]}); rewrite it tighter")
     headings = {str(h).strip().lower() for h, body in page["_sections_raw"] if body.strip()}
     missing = sorted(REQUIRED_SECTIONS - headings)
     if missing:
-        raise FoundationsError(f"{slug}: missing required sections {', '.join(missing)}")
+        err(f"missing required sections {', '.join(missing)}")
     if page.get("math_depth") == "intuition" and "math intuition" not in headings:
-        raise FoundationsError(f"{slug}: math_depth intuition requires Math intuition section")
+        err("math_depth intuition requires Math intuition section")
+
     evidence = page.get("evidence") or []
     if not isinstance(evidence, list) or not evidence:
-        raise FoundationsError(f"{slug}: evidence must be a non-empty list")
+        err("evidence must be a non-empty list")
+        return
+    if len(evidence) > MAX_EVIDENCE:
+        err(f"{len(evidence)} evidence entries (max {MAX_EVIDENCE}); retire the weakest or superseded ones")
+    ids: set[str] = set()
     for ev in evidence:
         if not isinstance(ev, dict):
-            raise FoundationsError(f"{slug}: evidence entries must be mappings")
+            err("evidence entries must be mappings")
+            continue
         kind = str(ev.get("kind") or "")
+        eid = str(ev.get("id") or "").strip()
+        label = eid or "<no id>"
         if kind not in EVIDENCE_TIERS:
-            raise FoundationsError(f"{slug}: unknown evidence kind {kind!r}")
-        if not str(ev.get("id") or "").strip():
-            raise FoundationsError(f"{slug}: evidence missing id")
+            err(f"evidence {label}: unknown kind {kind!r}")
+            continue
+        if not eid:
+            err("evidence missing id")
+        elif eid in ids:
+            err(f"duplicate evidence id {eid!r}")
+        ids.add(eid)
+        added = as_date(ev.get("added"))
+        if not DATE_RE.match(added):
+            err(f"evidence {label}: `added:` must be YYYY-MM-DD (the date it was filed)")
+        note = str(ev.get("note") or "")
+        if word_count(note) > EVIDENCE_NOTE_MAX_WORDS:
+            err(f"evidence {label}: note is {word_count(note)} words (max {EVIDENCE_NOTE_MAX_WORDS})")
         if kind in EXTERNAL_EVIDENCE:
             if not str(ev.get("title") or "").strip() or not valid_url(str(ev.get("url") or "")):
-                raise FoundationsError(f"{slug}: {kind} evidence requires title and http(s) url")
+                err(f"evidence {label}: {kind} evidence requires title and http(s) url")
+            if not note.strip():
+                err(f"evidence {label}: needs a note saying what it shows")
         elif kind == "editorial-inference":
-            if not str(ev.get("title") or "").strip() or not str(ev.get("note") or "").strip():
-                raise FoundationsError(f"{slug}: editorial inference requires title and note")
+            if not str(ev.get("title") or "").strip() or not note.strip():
+                err(f"evidence {label}: editorial inference requires title and note")
         elif kind == "story" and not str(ev.get("sid") or "").strip():
-            raise FoundationsError(f"{slug}: story evidence requires sid")
+            err(f"evidence {label}: story evidence requires sid")
         elif kind == "storyline" and not str(ev.get("slug") or "").strip():
-            raise FoundationsError(f"{slug}: storyline evidence requires slug")
+            err(f"evidence {label}: storyline evidence requires slug")
 
 
-def load_pages() -> dict[str, dict]:
+def load_pages(errors: list[tuple[str, str]]) -> dict[str, dict]:
     concepts_dir = FOUNDATIONS_DIR / CONCEPTS_DIRNAME
     pages: dict[str, dict] = {}
     if not concepts_dir.is_dir():
         return pages
     for path in sorted(concepts_dir.glob("*.md")):
-        page = parse_page(path)
-        validate_page(page, path)
-        slug = str(page["slug"])
+        try:
+            page = parse_page(path)
+        except FoundationsError as e:
+            errors.append((path.stem, str(e)))
+            continue
+        validate_page(page, path, errors)
+        slug = str(page.get("slug") or path.stem)
         if slug in pages:
-            raise FoundationsError(f"duplicate concept slug {slug!r}")
+            errors.append((slug, f"duplicate concept slug {slug!r}"))
+            continue
         pages[slug] = page
     return pages
 
 
-def resolve_references(page: dict, stories: dict, storylines: dict, wiki: dict) -> tuple[list[dict], list[dict], list[dict]]:
+def resolve_references(
+    page: dict, stories: dict, storylines: dict, wiki: dict, errors: list[tuple[str, str]]
+) -> tuple[list[dict], list[dict], list[dict]]:
     slug = str(page["slug"])
     sl_labels = {
         str(s.get("slug")): s.get("label") or s.get("slug")
@@ -237,37 +327,53 @@ def resolve_references(page: dict, stories: dict, storylines: dict, wiki: dict) 
     }
     wiki_nodes = wiki.get("nodes") or {}
 
+    def err(msg: str) -> None:
+        errors.append((slug, f"{slug}: {msg}"))
+
     evidence: list[dict] = []
     for ev in page.get("evidence") or []:
+        if not isinstance(ev, dict) or str(ev.get("kind")) not in EVIDENCE_TIERS:
+            continue
         kind = str(ev.get("kind"))
         item = {
             "id": str(ev.get("id")),
             "kind": kind,
             "tier": EVIDENCE_TIERS[kind],
             "title": str(ev.get("title") or ""),
-            "note": str(ev.get("note") or ""),
+            "note": " ".join(str(ev.get("note") or "").split()),
+            "added": as_date(ev.get("added")),
         }
         if ev.get("url"):
             item["url"] = str(ev["url"])
-        if kind == "story":
-            sid = str(ev.get("sid") or "")
+        sid = str(ev.get("sid") or "")
+        if sid:
+            # External evidence may carry the feed story it arrived through, so
+            # one entry links both the primary source and its /story permalink.
             rec = stories.get(sid)
             if rec is None:
-                raise FoundationsError(f"{slug}: story sid {sid} not in stories index")
-            item["sid"] = sid
-            item["title"] = str(rec.get("title") or ev.get("title") or sid)
+                err(f"story sid {sid} not in stories index")
+            else:
+                item["sid"] = sid
+                if kind == "story":
+                    item["title"] = str(rec.get("title") or ev.get("title") or sid)
         if kind == "storyline":
             sl = str(ev.get("slug") or "")
             if sl not in sl_labels:
-                raise FoundationsError(f"{slug}: storyline {sl!r} not in index")
-            item["slug"] = sl
-            item["title"] = str(sl_labels[sl])
+                err(f"storyline {sl!r} not in index")
+            else:
+                item["slug"] = sl
+                item["title"] = str(sl_labels[sl])
         evidence.append(item)
+    # Newest evidence first; ties keep the page's own order.
+    evidence = [
+        ev for _, ev in sorted(enumerate(evidence), key=lambda t: (t[1]["added"], -t[0]), reverse=True)
+    ]
 
     topics = []
     for topic in as_list(page.get("related_topics")):
         if wiki_nodes and topic not in wiki_nodes:
-            raise FoundationsError(f"{slug}: related topic {topic!r} not in wiki index")
+            err(f"related topic {topic!r} not in wiki index")
+            continue
         title = topic
         if isinstance(wiki_nodes.get(topic), dict):
             title = str(wiki_nodes[topic].get("title") or topic)
@@ -276,14 +382,17 @@ def resolve_references(page: dict, stories: dict, storylines: dict, wiki: dict) 
     related_storylines = []
     for sl in as_list(page.get("related_storylines")):
         if sl not in sl_labels:
-            raise FoundationsError(f"{slug}: related storyline {sl!r} not in index")
+            err(f"related storyline {sl!r} not in index")
+            continue
         related_storylines.append({"slug": sl, "label": str(sl_labels[sl])})
 
     return evidence, topics, related_storylines
 
 
-def build_index() -> dict:
-    pages = load_pages()
+def compile_foundations() -> tuple[dict, list[tuple[str, str]]]:
+    """Return (index, errors); errors are (slug, message) pairs."""
+    errors: list[tuple[str, str]] = []
+    pages = load_pages(errors)
     stories = load_json(STORIES_INDEX, {})
     storylines = load_json(STORYLINES_INDEX, {"storylines": []})
     wiki = load_json(WIKI_INDEX, {"nodes": {}})
@@ -291,14 +400,17 @@ def build_index() -> dict:
     concepts: dict[str, dict] = {}
     used_clusters: dict[str, list[str]] = {slug: [] for slug, _ in CLUSTERS}
     for slug, page in pages.items():
-        evidence, topics, related_storylines = resolve_references(page, stories, storylines, wiki)
+        evidence, topics, related_storylines = resolve_references(page, stories, storylines, wiki, errors)
         sections = [
             {"heading": heading, "html": md_to_html(body)}
             for heading, body in page["_sections_raw"]
             if body.strip()
         ]
-        cluster = str(page["cluster"])
+        cluster = str(page.get("cluster"))
+        if cluster not in CLUSTER_LABELS:
+            continue
         used_clusters.setdefault(cluster, []).append(slug)
+        latest = max((ev["added"] for ev in evidence if DATE_RE.match(ev["added"])), default="")
         concepts[slug] = {
             "slug": slug,
             "title": str(page.get("title")),
@@ -307,7 +419,8 @@ def build_index() -> dict:
             "status": str(page.get("status")),
             "cluster": cluster,
             "cluster_label": CLUSTER_LABELS[cluster],
-            "updated": str(page.get("updated")),
+            "updated": max(as_date(page.get("updated")), latest),
+            "latest_evidence_added": latest or None,
             "audience": str(page.get("audience") or ""),
             "math_depth": str(page.get("math_depth") or ""),
             "sections": sections,
@@ -315,7 +428,6 @@ def build_index() -> dict:
             "related_topics": topics,
             "related_playbook_cards": as_list(page.get("related_playbook_cards")),
             "related_storylines": related_storylines,
-            "covers_evidence": as_list(page.get("covers_evidence")),
         }
 
     clusters = [
@@ -323,30 +435,66 @@ def build_index() -> dict:
         for slug, label in CLUSTERS
         if used_clusters.get(slug)
     ]
-    return {
+    recent = sorted(
+        (
+            {
+                "concept": slug,
+                "concept_title": c["title"],
+                "id": ev["id"],
+                "title": ev["title"],
+                "tier": ev["tier"],
+                "kind": ev["kind"],
+                "added": ev["added"],
+            }
+            for slug, c in concepts.items()
+            for ev in c["evidence"]
+            if ev["kind"] not in ("story", "storyline", "editorial-inference") and ev["added"]
+        ),
+        key=lambda r: (r["added"], r["concept"], r["id"]),
+        reverse=True,
+    )[:RECENT_EVIDENCE]
+    index = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "clusters": clusters,
+        "recent_evidence": recent,
         "concepts": concepts,
     }
+    return index, errors
+
+
+def build_index() -> dict:
+    index, errors = compile_foundations()
+    if errors:
+        raise FoundationsError("; ".join(msg for _, msg in errors))
+    return index
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--check", action="store_true", help="validate without writing index.json")
+    ap.add_argument("--slug", default=None, help="report only errors for this concept")
     args = ap.parse_args()
-    try:
-        index = build_index()
-        if not args.check:
-            FOUNDATIONS_DIR.mkdir(parents=True, exist_ok=True)
-            (FOUNDATIONS_DIR / "index.json").write_text(
-                json.dumps(index, ensure_ascii=False, indent=2) + "\n",
-                encoding="utf-8",
-            )
-        suffix = "" if args.check else " -> data/foundations/index.json"
-        print(f"FOUNDATIONS_BUILD_OK concepts={len(index['concepts'])} clusters={len(index['clusters'])}{suffix}")
-    except FoundationsError as e:
-        print(f"FOUNDATIONS_BUILD_FAIL {e}", file=sys.stderr)
-        raise SystemExit(1) from e
+    index, errors = compile_foundations()
+    problems = [msg for slug, msg in errors if args.slug is None or slug == args.slug]
+    if problems:
+        for msg in problems:
+            print(f"FOUNDATIONS_BUILD_FAIL {msg}", file=sys.stderr)
+        raise SystemExit(1)
+    if args.slug is not None:
+        concept = index["concepts"].get(args.slug)
+        if concept is None:
+            print(f"FOUNDATIONS_BUILD_FAIL unknown slug {args.slug!r}", file=sys.stderr)
+            raise SystemExit(1)
+        print(f"FOUNDATIONS_BUILD_OK slug={args.slug} evidence={len(concept['evidence'])} (validated only)")
+        return
+    if not args.check:
+        FOUNDATIONS_DIR.mkdir(parents=True, exist_ok=True)
+        (FOUNDATIONS_DIR / "index.json").write_text(
+            json.dumps(index, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+    suffix = "" if args.check else " -> data/foundations/index.json"
+    print(f"FOUNDATIONS_BUILD_OK concepts={len(index['concepts'])} clusters={len(index['clusters'])}{suffix}")
 
 
 if __name__ == "__main__":

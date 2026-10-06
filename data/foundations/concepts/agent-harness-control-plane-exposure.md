@@ -2,10 +2,10 @@
 slug: agent-harness-control-plane-exposure
 title: "Why could an agent disable its own sandbox by calling a local interface?"
 question: "Why could an agent disable its own sandbox by calling a local interface?"
-summary: "CVE-2026-82533 (CVSS 9.4) let a DeepSeek coding-agent harness's own sandboxed shell call an unauthenticated local control interface and switch its session to a danger-full-access mode that turned off the sandbox and approval prompts — one shell command, because the interface checked only the client-supplied Host header, never the connection's actual origin."
+summary: "CVE-2026-82533 (CVSS 9.4) let a DeepSeek coding-agent harness's sandboxed shell call an unauthenticated local control interface and switch off its own sandbox and approval prompts, because the interface trusted a caller-supplied Host header instead of a secret."
 status: active
 cluster: safety
-updated: 2026-09-25
+updated: 2026-10-06
 audience: "strong-software-engineer"
 related_topics: [agent-sandboxing, tool-use]
 related_playbook_cards: [pb-audit-debug-flags-permission-bypass]
@@ -15,82 +15,70 @@ evidence:
     kind: story
     sid: "6d7e21b41e293e2d"
     title: "DeepSeek Harness Flaw Let AI Agents Disable Their Own File Sandbox Without Approval"
-    note: "The Hacker News' technical account: the harness gave the agent's own shell the address and session identifier of a local control interface with no authentication. The interface's own request-validation code checked the client-supplied Host header and explicitly commented that this 'is not an auth layer' — yet no other check backed it. One call set the session to a mode named danger-full-access, turning off both the sandbox and approval prompts. Tracked as CVE-2026-82533, CVSS 9.4, affecting versions 0.1.1-rc.2 and earlier; fixed in 0.1.2-rc.1 (shipped 2026-08-27) with one-time-token authentication — the browser exchanges a startup token for a signed cookie used on every subsequent call."
+    added: 2026-09-12
+    note: "The Hacker News' technical account. The harness gave the agent's shell the address and session ID of an unauthenticated local control interface. Its only check was the client-supplied Host header, commented in code as 'not an auth layer'. One call set the session to danger-full-access, disabling sandbox and approvals. CVE-2026-82533, CVSS 9.4, versions 0.1.1-rc.2 and earlier; fixed in 0.1.2-rc.1 (2026-08-27) with a one-time startup token exchanged for a signed cookie."
   - id: story-8478102e21445d5c-ox-security-cve
     kind: story
     sid: "8478102e21445d5c"
     title: "CVE-2026-82533: DeepSeek Harness Vulnerability Lets AI Agents Escape Their Own Sandbox"
+    added: 2026-09-12
     note: "OX Security's disclosure write-up, naming and scoring the CVE."
   - id: story-cdd15242b725bbc8-forkast-deepseek-harness
     kind: story
     sid: "cdd15242b725bbc8"
     title: "DeepSeek Harness Sandbox Escape Lets AI Agents Disable Their Own Confinement"
+    added: 2026-09-12
     note: "Corroborating outlet coverage of the same disclosed CVE."
   - id: story-200b2d2e1357f4e9-infoq-meta-muse-zeroday
     kind: story
     sid: "200b2d2e1357f4e9"
     title: "Un-Mused: How a Single Debug Setting Bypassed macOS Security in Meta's AI Client"
-    note: "InfoQ's technical account (Olimpiu Pop), reporting security researcher Patrick Wardle's disclosure: Meta's Muse desktop client for macOS shipped an undocumented debug preference, `endo_voyager_dictation_endpoint`, designating the cloud endpoint that receives voice-dictation audio and returns transcriptions. Any local process running as an unprivileged user could overwrite that value with no administrator rights and no OS authorization prompt, silently rerouting the assistant's outbound dictation traffic — raw microphone audio plus the victim's Muse account auth token — to a server the attacker controls. Because Muse held extensive macOS Transparency-Consent-and-Control-gated permissions, an attacker could chain this with prompt injection to make the trusted, signed assistant exfiltrate local documents or WhatsApp message history. Meta shipped a hotfix stripping the debug preference from production builds; the company treated it as a configuration defect and did not file a CVE."
+    added: 2026-09-26
+    note: "InfoQ on Patrick Wardle's disclosure: Meta's Muse macOS client shipped an undocumented debug preference, endo_voyager_dictation_endpoint, that any unprivileged local process could overwrite without an OS prompt. That rerouted dictation audio plus the account auth token to an attacker server, and could chain with prompt injection to exfiltrate local files via the TCC-permissioned assistant. Meta's hotfix removed the preference from production builds; no CVE was filed."
   - id: agent-harness-control-plane-exposure-editorial-synthesis
     kind: editorial-inference
     title: "LLM Digest synthesis"
-    note: "CVE-2026-82533 is a different failure shape than the 2026 cybersecurity-eval sandbox incidents (where an external network misconfiguration left an otherwise-real boundary open). Here the boundary was never external: the harness put a privilege-escalation control interface on the same network path the confined process already had, and authenticated it with a header the caller supplies rather than a fact about the caller. Meta's Muse case generalizes the same lesson past network interfaces: an undocumented, world-writable config value that steers a highly-privileged assistant's behavior is just as much a control plane as a socket, and needs the same authentication rigor. The generalizable lesson is about control-plane placement and authentication — network or local, interface or config — not about network egress specifically."
-covers_evidence:
-  - story-6d7e21b41e293e2d-hackernews-deepseek-harness
-  - story-8478102e21445d5c-ox-security-cve
-  - story-cdd15242b725bbc8-forkast-deepseek-harness
-  - story-200b2d2e1357f4e9-infoq-meta-muse-zeroday
-  - agent-harness-control-plane-exposure-editorial-synthesis
+    added: 2026-09-12
+    note: "Unlike the 2026 cyber-eval sandbox incidents, where an external network misconfiguration left a real boundary open, here the harness put its own privilege-escalation interface on a path the confined process already had and authenticated it with a value the caller supplies. Muse extends the lesson to config: a writable value that steers a privileged assistant is a control plane too. The lesson is control-plane placement and authentication, not network egress."
 ---
 
 ## Builder consequence
-If you build or operate a coding-agent harness that exposes any local interface for changing session privilege — turning a sandbox off, approving a risky action, switching execution modes — that interface is reachable by the exact process you're trying to confine, unless you've specifically isolated it. CVE-2026-82533 (CVSS 9.4) shows what happens when it isn't: a DeepSeek coding-agent harness gave the agent's own shell the address and session ID of its local control interface, the interface had no real authentication, and one shell command flipped the session into a mode that disabled the sandbox and every approval prompt. No prompt injection, no jailbreak — the agent had a working credential to defeat its own containment by design.
-
-The same class of exposure doesn't need a network interface at all. Meta's Muse desktop assistant for macOS shipped an undocumented debug config key that any unprivileged local process could overwrite with no OS authorization prompt, silently redirecting the trusted, highly-permissioned assistant's own network traffic — including microphone audio and its account auth token — to an attacker's server. If your harness or client reads local, writable state to decide where a privileged agent sends data or what it's allowed to do, that state is part of its trust boundary, whether it's a control-plane socket or a config file.
+Any local interface your harness uses to change session privilege (disable sandbox, skip approval, switch mode) is reachable by the process you are confining unless you isolate it. In CVE-2026-82533 (CVSS 9.4), one shell command from the agent's own sandbox turned off the sandbox and every approval prompt. No prompt injection was needed. Writable local config that steers a privileged agent is the same kind of control surface.
 
 ## Short answer
-The harness's local control interface accepted a request whenever the `Host` header matched an expected value. A code comment on that check said, correctly, that it "is not an auth layer" — but nothing else stood in for one. Because the harness also handed the sandboxed shell the interface's address and the current session identifier (so the agent's own tooling could talk to it), the sandboxed process had everything it needed to call the interface directly and set its session to `danger-full-access`, a mode that turns off both the sandbox and approval prompts. The fix, shipped in version 0.1.2-rc.1, replaces the header check with one-time-token authentication: the browser exchanges a startup token for a signed cookie that every later call must present.
+The DeepSeek harness gave the sandboxed shell the control interface's address and the session ID, so its own tooling could use them. The interface accepted any request whose `Host` header matched an expected value. A code comment said that check "is not an auth layer", and nothing else stood in for one. The agent could therefore call the interface and set its session to `danger-full-access`. The fix in 0.1.2-rc.1 requires a one-time startup token exchanged for a signed cookie, a secret the sandbox never sees.
 
 ## Builder model
-Split any local control interface your agent harness runs into two questions:
+Ask two questions of every control surface in your harness:
 
-- **Can the confined process reach it at all?** If the sandboxed shell has network access to the same host and port the control interface listens on, that's not a hypothetical attack surface — it's a working path, whether or not you intended the agent to use it.
-- **If it can reach it, can it authenticate as a legitimate caller?** A check based on something the caller supplies — a `Host` header, a request path, a claimed session ID — is not authentication; it's a fact the caller controls and can set to whatever passes. Real authentication needs a secret the caller couldn't have unless it was actually issued one, like a token exchanged once at startup and never exposed to the sandboxed process afterward.
+- **Can the confined process reach it?** If the sandboxed shell can reach the host and port, or write the file, it is a working path whether or not you meant the agent to use it.
+- **Can it authenticate as a legitimate caller?** A `Host` header, path, or claimed session ID is something the caller sets. Authentication needs a secret the caller only has if it was issued one.
 
-CVE-2026-82533 failed both questions the same way: the interface was reachable (the harness handed the sandboxed shell its address), and the "authentication" was a value the caller sets. Either fix alone would have closed the hole — unreachability or real authentication — but the harness had neither.
-
-Meta's Muse case fails the same two questions through a config file instead of a socket. Any unprivileged local process could reach the setting (it was a plain preference value, writable without admin rights or an OS prompt), and nothing authenticated the writer — the client trusted whatever value was on disk. A debug preference key is still a control surface if it steers where a privileged process sends data.
+Either answer being "no" closes the hole. CVE-2026-82533 failed both. Meta's Muse client failed both through a config file: any local process could write the preference, and the client trusted whatever was on disk.
 
 ## Mechanism
-The harness ran two things on the same host: the sandboxed agent process, executing the model's shell commands, and a local control interface used by the harness's own tooling (its browser-based session UI) to manage session state — including a `danger-full-access` mode that exists for legitimate cases where a user wants to run without sandboxing. To let its own tooling reach that interface, the harness passed the interface's address and the active session's identifier into the environment the sandboxed shell runs in.
+**Network control plane.** The harness ran the sandboxed agent and a local control interface on the same host. The interface served the harness's browser UI and included a `danger-full-access` mode for users who want to run unsandboxed. To let tooling reach it, the harness exported the interface address and session ID into the sandboxed shell's environment.
 
-The interface's request handling checked the incoming request's `Host` header against an expected value before acting on it — a pattern that guards against some cross-origin browser attacks, but says nothing about who is actually calling, since any client sets its own `Host` header. The code itself carried a comment acknowledging this ("is not an auth layer"), but no other check ran in its place. A shell command from inside the sandbox — issued by the agent, using the address and session ID it had already been given — could set the `Host` header to the expected value, call the interface, and switch the session to `danger-full-access`. That mode turns off the sandbox and stops approval prompts, so from that point the agent's shell commands run with no containment at all.
+A `Host`-header check blocks some cross-origin browser attacks, but it says nothing about who is calling, because every client sets its own `Host` header. The agent could send the expected value, call the interface, and flip its mode. From then on its commands ran with no containment.
 
-The fix (0.1.2-rc.1) replaces the `Host`-header check with one-time-token authentication: a token issued once at browser startup is exchanged for a signed cookie, and every subsequent call to the interface must present that cookie. A sandboxed process that was never handed the startup token has no way to obtain a valid cookie, so reachability alone no longer suffices.
+The token-and-cookie fix changes what reachability buys. A process that was never handed the startup token cannot mint a valid cookie, so being on the same host is no longer enough.
 
-Muse's control surface was a config preference, `endo_voyager_dictation_endpoint`, naming the cloud endpoint that receives raw microphone audio and returns transcriptions when a user dictates. The client read that value from local, unprivileged-writable storage and trusted it unconditionally — there was no check on who last wrote it or whether it matched a signed default. Any local process, run by any local user, could overwrite it and point the assistant's own dictation traffic at attacker infrastructure, carrying the microphone audio and the victim's account auth token with it. Because Muse held broad macOS system permissions, an attacker could go further and use prompt injection over the hijacked channel to make the trusted assistant exfiltrate local documents or WhatsApp history. Meta's fix strips the debug preference from production builds entirely, removing the writable control surface rather than authenticating writes to it.
-
-## Evidence
-- Story-backed (The Hacker News): full technical account of the vulnerability — the `Host`-header check, the `danger-full-access` mode, the code comment disclaiming the check as an auth layer, CVE-2026-82533 at CVSS 9.4, affected versions 0.1.1-rc.2 and earlier, and the one-time-token fix in 0.1.2-rc.1 shipped 2026-08-27.
-- Story-backed (OX Security): the CVE disclosure that named and scored the vulnerability.
-- Story-backed (forkast.news): corroborating outlet coverage of the same disclosed CVE.
-- Story-backed (InfoQ, reporting Patrick Wardle's disclosure): Meta's Muse macOS client shipped an undocumented, unprivileged-writable debug preference naming its dictation server endpoint; overwriting it redirected microphone audio and the account auth token to attacker infrastructure, and could be chained with prompt injection to exfiltrate local files. No CVE was filed; Meta's hotfix removed the preference from production builds.
-- Editorial inference: that this is a control-plane-placement and authentication failure, distinct in mechanism from the 2026 cybersecurity-evaluation sandbox-escape incidents (external network misconfiguration around an otherwise-real boundary), and that Muse's config-based variant generalizes the same lesson past network interfaces, is LLM Digest's synthesis.
+**Config control plane.** Muse read `endo_voyager_dictation_endpoint`, the server that receives dictation audio, from storage any unprivileged user could write. It trusted the value with no signature or default check. Overwriting it redirected microphone audio and the account auth token to an attacker. Because Muse held broad macOS permissions, prompt injection over the hijacked channel could also pull local files. Meta's fix removed the setting from production builds instead of authenticating writes to it.
 
 ## How to apply
-- **Never give a sandboxed process network access to its own harness's control plane.** If the agent's shell can resolve or reach the interface that manages its own privilege level, that reachability is a live escape path, regardless of whether you expect the agent to use it — CVE-2026-82533 required no discovery step because the harness handed the address over directly.
-- **Don't authenticate a control interface with anything the caller supplies** — a `Host` header, a path, a claimed identifier. Use a secret issued out-of-band (a token exchanged once at a trusted startup step, then carried in a signed cookie or equivalent) that a process which was never given the secret cannot forge.
-- **Treat any privilege-escalation mode (a "disable sandboxing," "full access," or "skip approval" switch) as requiring the same authentication rigor as a production admin endpoint**, not as an internal convenience feature — it's exactly the target an agent with shell access will find useful to reach.
-- **Audit what your harness passes into the sandboxed process's own environment.** The vulnerability existed because the harness gave the confined shell everything it needed (address and session ID) to reach the interface that could free it; review environment variables, mounted sockets, and injected config for anything that describes infrastructure the process shouldn't be able to act on.
-- **When you patch a check like this, verify the fix requires a secret the sandboxed process never had, not just a stricter version of the same request-attribute check.**
-- **Audit every debug or diagnostic config key your agent client ships in production for whether an unprivileged local process can write it.** Strip anything that can redirect network endpoints or expand permissions, or lock it behind a build-time flag that never reaches production — Meta's own fix for the Muse case was exactly this: delete the writable control surface rather than add a check to it.
+- **Keep the control plane off the sandbox's network path.** The confined shell should not be able to resolve or reach the interface that manages its own privilege.
+- **Authenticate with an out-of-band secret,** such as a token exchanged once at trusted startup and then carried in a signed cookie. Never with a header, path, or identifier the caller supplies.
+- **Treat every escalation mode** ("full access", "sandbox off", "skip approval") like a production admin endpoint, not an internal convenience.
+- **Audit what you inject into the sandbox:** environment variables, mounted sockets, and config that describe infrastructure the process should not act on.
+- **Verify a patch requires a secret** the sandboxed process never had, not a stricter version of the same request-attribute check.
+- **Strip debug and diagnostic config keys from production builds** if an unprivileged process can write them and they redirect endpoints or widen permissions.
 
 ## Failure modes
-- Treating a `Host`-header or path-based check as authentication, when it validates only what the request claims about itself, not who is making it.
-- Handing a sandboxed process the address, credentials, or identifiers for infrastructure that manages its own confinement, on the assumption that the agent "wouldn't" use them without being told to.
-- Building a privilege-escalation mode (full access, sandbox-off, approval-skip) as a convenience feature for the harness's own tooling, without asking whether the same interface is also reachable from inside the thing it's meant to control.
-- Assuming a local-only interface is safe because it isn't exposed to the public internet, when "local" still includes the sandboxed process running on the same host.
-- Shipping a debug or diagnostic config key in production that any unprivileged local process can overwrite with no OS prompt, on the assumption that a config file needs the same privilege as the app that reads it.
+- Treating a `Host`-header or path check as authentication.
+- Handing the sandbox addresses or identifiers for the infrastructure that confines it, assuming the agent "wouldn't" use them.
+- Building an escalation mode for the harness's own tooling without asking whether the confined process can reach it too.
+- Assuming "local-only" means safe, when local includes the sandboxed process on the same host.
+- Shipping a writable debug config key that steers a privileged client, assuming the file is as protected as the app that reads it.
 
 ## Related
-See [agent sandboxing](/topic/agent-sandboxing) for the broader containment toolkit this concept assumes as a baseline, and [tool use](/topic/tool-use) for how ad-hoc local interfaces an agent harness wires up for its own tooling become part of the agent's reachable surface. Compare [why frontier models keep attacking real systems during cybersecurity evaluations](/foundations/cyber-eval-sandbox-escapes) for a different sandbox-escape mechanism — a boundary that was never really closed, rather than one an authenticated-looking interface let the confined process open itself.
+See [agent sandboxing](/topic/agent-sandboxing) for the baseline containment toolkit and [tool use](/topic/tool-use) for how harness-internal interfaces become agent-reachable surface. Compare [cyber-eval sandbox escapes](/foundations/cyber-eval-sandbox-escapes), where the boundary was never closed rather than opened from inside.

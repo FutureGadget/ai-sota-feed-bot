@@ -22,20 +22,41 @@ usable intuition before notation.
 
 ## Page Contract
 
-Each concept page starts from a builder consequence, then works downward:
+Each concept page has two parts.
 
-1. Builder consequence
-2. Short answer
-3. Builder model
-4. Mechanism
-5. Math intuition, when useful
-6. Evidence
-7. How to apply
-8. Failure modes
-9. Related links
+**The explanation** starts from a builder consequence and works downward, with
+each section word-capped by `pipeline/build_foundations.py`:
+
+1. Builder consequence (≤80 words)
+2. Short answer (≤120)
+3. Builder model (≤200, optional)
+4. Mechanism (≤350)
+5. Math intuition (≤200, when useful)
+6. How to apply (≤250)
+7. Failure modes (≤150)
+8. Related links (≤60, optional)
+
+**The evidence list** holds at most 12 sources. Each has the date it was filed
+(`added`) and a note of at most 80 words saying what it shows. Study-by-study
+detail lives only there; the explanation names a study once, with its key
+number. A source that arrived through a feed story carries that story's `sid`,
+so one entry links both the primary source and its `/story` permalink.
 
 Explanation must be careful and source-grounded. Application guidance should be
 opinionated: what to do, what to test, and what mistake to avoid.
+
+### Reading surfaces (2026-10-06)
+
+- Concept page: lead, cross-links, **What's new in the evidence** (the three
+  newest sources, dated, deep-linking into the list), the explanation, then the
+  evidence list newest first with tier, date, note, and an "in the feed" link.
+- `/foundations`: a **Recently added evidence** list (newest external sources
+  across concepts) above the clusters; each concept card shows its source count
+  and last update.
+
+New concepts and updates follow the same contract: the curator adds dated
+evidence and rewrites sections within their caps, and the build rejects pages
+that don't comply.
 
 ## Evidence Tiers
 
