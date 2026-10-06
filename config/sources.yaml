@@ -277,3 +277,15 @@ sources:
     # posts too. Strip it from the excerpt before the gates see it.
     content_exclude_regex:
       - "(?i)[^.]*field notes (about|on) (frontier )?agentic engineering\\.?"
+  - name: semianalysis
+    type: rss
+    # SemiAnalysis (Dylan Patel et al.) on Substack. Data-heavy AI infrastructure
+    # analysis, ~3 posts/week: inference cost and serving benchmarks
+    # (InferenceX), GPU cloud ratings (ClusterMAX), accelerator and HBM memory
+    # deep dives, mixed with datacenter power, chip teardowns and AI
+    # geopolitics/finance. Owner-requested; see the 2026-10-06 ADR.
+    url: "https://newsletter.semianalysis.com/feed"
+    # No fetch_content: unlike kun_chen the feed teasers are descriptive
+    # ("Limit testing every AI subscription plan from Anthropic, OpenAI, ..."),
+    # so relevance_floor can already tell the AI posts from the pure
+    # chip/datacenter-power ones on title + teaser alone.
