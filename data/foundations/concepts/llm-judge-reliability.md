@@ -5,7 +5,7 @@ question: "Can you trust an LLM-as-judge score?"
 summary: "An LLM judge is a measurement instrument with its own biases, not ground truth — validate it the same way you validate the agent it grades, and for agent trajectories with checkable evidence, consider a deterministic scorer instead."
 status: active
 cluster: evaluation
-updated: 2026-07-10
+updated: 2026-10-06
 audience: "strong-software-engineer"
 related_topics: [agent-evaluation, llm-as-judge]
 related_playbook_cards: [pb-audit-llm-judges-for-position-and-language-bias]
@@ -15,89 +15,93 @@ evidence:
     kind: benchmark-result
     title: "BabelJudge: Measuring LLM-as-a-Judge Reliability Across Languages and Agent Trajectories"
     url: "http://arxiv.org/abs/2606.22329v1"
-    note: "Finds position bias, verbosity bias, order inconsistency, and cross-lingual degradation in an LLM judge (Qwen2.5-7B-Instruct): bias-penalized reliability falls from 0.714 (Hindi) to 0.550 (Swahili) and order consistency collapses to 0.480 under slot swaps, even though raw accuracy (0.835 vs 0.660) hides the gap."
+    added: 2026-06-28
+    note: "Builds gold-labeled pairs by perturbing known-good answers (no human annotation) and measures position bias, verbosity bias, order inconsistency, and cross-lingual degradation in a Qwen2.5-7B-Instruct judge. Raw accuracy (0.835 Hindi vs. 0.660 Swahili) understates the gap: bias-penalized reliability falls from 0.714 to 0.550, and order consistency collapses to 0.480 under slot swaps, near random. One judge model tested."
   - id: encoder-decoder-safety-judges-2026
     kind: benchmark-result
     title: "Do Encoders Suffice? A Systematic Comparison of Encoder and Decoder Safety Judges for LLM Adversarial Evaluation"
     url: "http://arxiv.org/abs/2606.25782v1"
-    note: "Benchmarks fine-tuned encoder classifiers against LLM-based judges for detecting harmful outputs across multiple attack techniques, evaluating whether a much cheaper, lower-latency judge architecture can substitute for an LLM judge without a major accuracy loss."
+    added: 2026-06-28
+    note: "Benchmarks fine-tuned encoder classifiers against LLM-based judges for detecting harmful outputs across several attack techniques, testing whether a much cheaper, lower-latency judge architecture can substitute for an LLM judge without a major accuracy loss. Safety-classification setting only; no headline figure is recorded here."
   - id: langchain-fireworks-trace-judge-2026
     kind: production-field-report
     title: "Building a 100x Cheaper Trace Judge with Fireworks"
     url: "https://www.langchain.com/blog/building-a-100x-cheaper-trace-judge-with-fireworks"
-    note: "LangChain and Fireworks fine-tuned a small open model on production trace labels and matched frontier-judge performance at roughly 1/100th the cost, showing a judge's behavior can be distilled and re-validated rather than treated as fixed."
+    added: 2026-06-28
+    note: "LangChain and Fireworks fine-tuned a small open model on production trace labels and matched frontier-judge performance at roughly 1/100th the cost. Vendor-reported, on their own narrow trace-grading task. Shows a judge's behavior can be distilled and re-validated rather than locked to whichever frontier model wrote the first version."
   - id: linear-sales-email-eval-miss-2026
     kind: production-field-report
     title: "Why most AI evals would miss the Linear sales email failure"
     url: "https://tenureai.dev/writing/why-most-ai-evals-would-miss-the-linear-sales-email-failure"
-    note: "Practitioner postmortem on a real production failure that a typical eval suite and judge would have scored as a pass, illustrating that judge accuracy on a benchmark does not guarantee the judge catches the failure that actually matters."
+    added: 2026-06-28
+    note: "Practitioner postmortem on a real production failure that a typical eval suite and judge would have scored as a pass. Single incident, no rates; shows judge accuracy on a benchmark does not guarantee the judge catches the failure that actually matters."
   - id: groundeval-2026-judge-free-agent-evaluation
     kind: benchmark-result
     title: "GroundEval: A Deterministic Replacement for LLM-as-Judge in Stateful Agent Evaluation"
     url: "https://arxiv.org/abs/2606.22737"
-    note: "In a case study, two frontier LLM judges scored a plausible agent response 0.85 or higher, but the recorded trajectory showed the agent had never retrieved the artifact its answer depended on, yielding a GroundEval score of 0.000. GroundEval replaces the judge with a deterministic scorer over grounded, time-bounded, access-controlled evidence, checking three tracks LLM-as-judge evaluation struggles to detect by construction: Silence (did the agent check before claiming absence), Perspective (did it reason only from evidence available at the relevant time), and Counterfactual (did it use the correct causal mechanism rather than a plausible one). The paper's case studies suggest this failure mode is common, not exceptional."
+    added: 2026-07-10
+    note: "In a case study, two frontier LLM judges scored a plausible agent response 0.85 or higher while the recorded trajectory showed the agent never retrieved the artifact its answer depended on; GroundEval scored it 0.000. Replaces the judge with a deterministic scorer over grounded, time-bounded, access-controlled evidence on three tracks: Silence, Perspective, and Counterfactual. The authors' case studies suggest the failure is common, not exceptional."
   - id: llm-judge-reliability-editorial-synthesis
     kind: editorial-inference
     title: "LLM Digest synthesis"
+    added: 2026-06-28
     note: "For agent builders, an LLM-as-judge score is an output of a measurement instrument with its own bias profile, not a ground-truth label, so the judge needs the same validation discipline as the agent it grades."
-covers_evidence:
-  - babeljudge-2026-judge-bias
-  - encoder-decoder-safety-judges-2026
-  - langchain-fireworks-trace-judge-2026
-  - linear-sales-email-eval-miss-2026
-  - groundeval-2026-judge-free-agent-evaluation
-  - llm-judge-reliability-editorial-synthesis
 ---
 
 ## Builder consequence
-If you grade agent traces with an LLM judge, the score you read is not a fact about the agent — it is a fact about the agent filtered through a second model that has its own failure modes. Before you wire a judge into CI gating or a dashboard, you need to know whether it is biased toward a slot, a length, or a language, and whether its accuracy on your eval set predicts catching the failure you actually care about in production.
+If you grade agent traces with an LLM judge, the score is not a fact about the agent. It is the agent filtered through a second model with its own failure modes. Before wiring a judge into CI gating or a dashboard, find out whether it favors a slot, a length, or a language, and whether its accuracy on your eval set predicts catching the production failure you care about.
 
 ## Short answer
-LLM-as-judge accuracy on a held-out set is necessary but not sufficient. Judges carry systematic biases — favoring a response's position, its length, or the language it is written in — that raw accuracy numbers hide, and a judge that passes a benchmark can still miss the specific real-world failure mode you built the eval to catch. A separate, more structural gap sits underneath the bias problem: a judge grades the final answer's plausibility, not whether the agent's trajectory actually earned that answer, so a confidently-worded response can score 0.85 or higher from two frontier judges while the trace shows the agent never retrieved the evidence its answer depended on. Treat the judge as a component under test, not as the test — and for agent trajectories with checkable evidence paths, consider replacing the judge with a deterministic scorer instead of only auditing it for bias.
+LLM-as-judge accuracy on a held-out set is necessary but not sufficient. Judges carry systematic biases toward position, length, and language that raw accuracy hides, and a judge that passes a benchmark can still miss the real failure the eval exists to catch.
+
+A deeper gap sits underneath: a judge grades the answer's plausibility, not whether the trajectory earned it. In GroundEval's case study, two frontier judges scored an answer 0.85 or higher although the agent never retrieved the evidence it depended on. Treat the judge as a component under test, and where trajectories have checkable evidence, replace it with a deterministic scorer.
 
 ## Builder model
-A judge is a classifier with a prompt instead of a training loop, and classifiers have failure modes that don't show up in a single aggregate accuracy number. Two judge designs exist on a spectrum: a frontier LLM prompted to grade (flexible, expensive, occasionally biased in subtle ways) and a small fine-tuned classifier — encoder or distilled LLM — trained on production-labeled examples (cheap, fast, narrower, and only as good as the labels it learned from). Both need the same thing an agent needs: a held-out test set built from real failures, not just the cases the judge was tuned to recognize.
+A judge is a classifier with a prompt instead of a training loop, and classifiers fail in ways one aggregate accuracy number doesn't show. Judge designs sit on a spectrum:
 
-A judge — of either design — grades what the agent said, not what the agent's trajectory can prove. When the task has a checkable evidence path (a document the agent should have retrieved, a time window it should have reasoned within, a causal mechanism it should have used instead of a plausible-sounding one), a deterministic scorer that grades the trajectory directly closes a gap no amount of judge tuning can, because the judge only ever sees the final answer's surface plausibility.
+- **Prompted frontier LLM:** flexible, expensive, subtly biased.
+- **Small fine-tuned classifier** (encoder or distilled LLM) trained on production labels: cheap, fast, narrower, only as good as its labels.
+
+Both need what an agent needs: a held-out test set built from real failures, not the cases the judge was tuned on.
+
+Either design grades what the agent said, not what its trajectory can prove. When the task has a checkable evidence path — a document that should have been retrieved, a time window to reason within, a causal mechanism to use — a deterministic scorer over the trajectory closes a gap no judge tuning can.
 
 ## Mechanism
-An LLM judge scores a response (or a multi-step trajectory) by generating a verdict conditioned on the response, a rubric, and often a second response to compare against. Because the verdict is itself a model output, it inherits model-level artifacts:
+An LLM judge produces a verdict conditioned on the response, a rubric, and often a second response to compare. Because the verdict is a model output, it inherits model-level artifacts:
 
-- **Position bias** — the judge prefers whichever candidate is shown first.
-- **Verbosity bias** — the judge prefers longer text as a proxy for thoroughness.
-- **Cross-lingual / distribution-shift degradation** — the judge loses calibration outside the language or domain it was tuned on.
+- **Position bias:** preferring whichever candidate is shown first.
+- **Verbosity bias:** preferring longer text as a proxy for thoroughness.
+- **Distribution-shift degradation:** losing calibration outside the language or domain it was tuned on.
 
-Swapping the order of the two responses being compared is a direct probe for position bias: if the verdict flips depending on which slot a response sits in, the judge is responding to position, not content.
+Swapping the order of compared responses probes position bias directly: if the verdict flips with the slot, the judge is responding to position, not content. BabelJudge shows how much raw accuracy hides here; order consistency fell to 0.480 in Swahili, near random.
 
-For agent trajectories specifically, the judge has to score a sequence of tool calls and intermediate decisions, not a single text block, which multiplies the places a bias can hide — a judge can be well-calibrated on final-answer correctness while being unreliable on whether the agent reached that answer through a sound or broken path. Cheaper judge architectures (fine-tuned encoders, distilled small LLMs) trade a wider rubric-following ability for speed and cost, but they are exposed to the same validation requirement: their accuracy has to be measured against the failure modes you care about, not just against the cases used to tune them.
+Agent trajectories multiply the places bias can hide. The judge scores a sequence of tool calls and decisions, and can be well calibrated on final-answer correctness while unreliable on whether the path was sound. Cheaper judges (fine-tuned encoders, distilled small LLMs) trade rubric flexibility for cost and speed, and face the same requirement: measure them against the failures you care about, not the cases used to tune them.
 
-GroundEval targets that broken-path problem head-on by removing the judge from the loop entirely for tasks with checkable evidence. Instead of asking a model to grade a response, it uses a domain configuration to generate questions, lets the agent answer however it chooses, then scores both the final answer and the recorded trajectory against three deterministic tracks: Silence (did the agent actually check before claiming something was absent), Perspective (did it reason only from evidence available to it at the relevant time), and Counterfactual (did it use the real causal mechanism rather than a plausible-sounding one). Because each track grades the trajectory against ground truth the system already knows — what was retrievable, when, and through what causal path — it catches an ungrounded-but-fluent answer that a judge, which only ever sees the final text, cannot detect by construction.
+Deterministic trajectory scoring removes the judge where evidence is checkable. GroundEval generates questions from a domain configuration, lets the agent answer freely, then scores the answer and recorded trajectory on three tracks:
 
-## Evidence
-- Benchmark/result-backed: BabelJudge constructs gold-labeled pairs by perturbing known-good answers (no human annotation needed) and measures position bias, verbosity bias, order inconsistency, and cross-lingual degradation directly — showing a judge's raw accuracy (0.835 in Hindi vs. 0.660 in Swahili) can look closer than its bias-penalized reliability (0.714 vs. 0.550) actually is, and that order consistency in the lower-resource language collapses to near-random.
-- Benchmark/result-backed: "Do Encoders Suffice?" benchmarks fine-tuned encoder classifiers against LLM-based judges for harmful-output detection across several attack techniques, testing whether a cheaper, lower-latency judge architecture holds up without a major accuracy loss.
-- Production field-report-backed: LangChain and Fireworks fine-tuned a small open model on production trace labels and matched frontier-judge performance at roughly 1/100th the cost — evidence that judge behavior can be distilled, measured, and re-validated rather than locked to whichever frontier model wrote the first version.
-- Production field-report-backed: a practitioner postmortem on a real eval miss shows a judge and eval suite scoring a production failure as a pass, which is the failure mode no amount of judge-accuracy reporting alone would surface.
-- Benchmark/result-backed: GroundEval's case study shows two frontier LLM judges scoring a plausible agent response 0.85 or higher while the recorded trajectory reveals the agent never retrieved the artifact its answer depended on — a GroundEval score of 0.000 — and the paper's case studies suggest this ungrounded-but-plausible failure is common, not exceptional.
-- Editorial inference: the practical implication is that "judge accuracy" is a claim that needs the same skepticism and held-out testing as any other model output the agent produces.
+- **Silence:** did the agent check before claiming something was absent?
+- **Perspective:** did it reason only from evidence available at the relevant time?
+- **Counterfactual:** did it use the real causal mechanism, not a plausible one?
+
+Each track grades against ground truth the system already knows — what was retrievable, when, and through what path — so it catches a fluent, ungrounded answer that a judge reading only the final text cannot detect by construction.
 
 ## How to apply
 Before trusting a judge's verdicts, run these checks:
 
-- **Order-swap test.** Run every pairwise comparison both ways and only count verdicts that agree.
-- **Verbosity check.** Track response length against verdict to catch verbosity bias.
-- **Per-slice reliability.** If you operate in more than one language or domain, measure judge reliability per slice instead of reporting one pooled number.
-- **Held-out set from real failures.** Build it from production failures your team has actually seen, not synthetic cases the judge would obviously get right — a judge that's accurate on easy cases and silent on the hard one you cared about is failing at its job.
-- **Re-validate before swapping in a cheaper judge.** If cost matters, validate a fine-tuned encoder or distilled small model against the same held-out set before shipping it, and re-run validation whenever the underlying model, prompt, or rubric changes.
-- **Check groundedness, not just plausibility, for agent trajectories.** If the task has a checkable evidence path — a document that should have been retrieved, a time boundary the reasoning must respect, a causal mechanism it must use — grade the recorded trajectory against that ground truth directly instead of asking a judge whether the final answer sounds right.
+- **Order-swap test.** Run every pairwise comparison both ways and count only verdicts that agree.
+- **Verbosity check.** Track response length against verdict.
+- **Per-slice reliability.** Across languages or domains, report reliability per slice, not one pooled number.
+- **Held-out set from real failures.** Use production failures your team has seen, not synthetic cases the judge obviously gets right; a judge accurate on easy cases and silent on the hard one is failing.
+- **Re-validate before swapping in a cheaper judge.** Test a fine-tuned encoder or distilled model on the same held-out set, and re-run validation whenever the model, prompt, or rubric changes.
+- **Check groundedness, not plausibility, for trajectories.** Where the task has a checkable evidence path, grade the recorded trajectory against that ground truth instead of asking a judge whether the answer sounds right.
 
 ## Failure modes
-- Aggregate accuracy worship: reporting one pooled accuracy number and missing that it hides a collapse in a specific slice (language, position, length band).
-- Order blindness: never testing whether a pairwise verdict flips when you swap which response sits in which slot.
-- Benchmark-only validation: tuning and validating a judge on the same kind of cases, so it never sees the production failure mode the eval exists to catch.
-- Set-and-forget judges: shipping a judge once and never re-validating it after the agent, prompt, or underlying judge model changes.
-- Treating cost-cutting as free: swapping in a cheaper judge architecture for cost reasons without re-running the same bias and accuracy checks used on the original judge.
-- Grading the answer, not the path: trusting a judge's high score on a fluent final answer without checking whether the trajectory that produced it actually retrieved the right evidence, respected the right time boundary, or used the right causal mechanism.
+- **Aggregate accuracy worship:** one pooled number hiding a collapse in a slice (language, position, length band).
+- **Order blindness:** never testing whether a pairwise verdict flips when the slots swap.
+- **Benchmark-only validation:** tuning and validating on the same kind of cases, so the judge never sees the production failure the eval exists to catch.
+- **Set-and-forget judges:** never re-validating after the agent, prompt, or judge model changes.
+- **Free cost-cutting:** swapping in a cheaper judge without re-running the same bias and accuracy checks.
+- **Grading the answer, not the path:** trusting a high score on a fluent answer without checking that the trajectory retrieved the right evidence, respected the time boundary, and used the right mechanism.
 
 ## Related
-See [agent evaluation](/topic/agent-evaluation) for the broader problem of grading agent trajectories, [LLM-as-judge](/topic/llm-as-judge) for the model-graded evaluation pattern this concept interrogates, and [does a high benchmark score predict production reliability?](/foundations/benchmark-production-reliability-gap) for the adjacent problem of whether the benchmark itself, not just the judge, predicts real-world behavior.
+See [agent evaluation](/topic/agent-evaluation) for grading agent trajectories, [LLM-as-judge](/topic/llm-as-judge) for the model-graded pattern this page interrogates, and [does a high benchmark score predict production reliability?](/foundations/benchmark-production-reliability-gap) for whether the benchmark itself predicts real-world behavior.

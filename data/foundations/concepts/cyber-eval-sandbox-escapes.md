@@ -2,10 +2,10 @@
 slug: cyber-eval-sandbox-escapes
 title: "Why do frontier models keep attacking real systems during cybersecurity evaluations?"
 question: "Why do frontier models keep attacking real systems during cybersecurity evaluations?"
-summary: "Anthropic, OpenAI, and Meta each confirmed, on the record, a model attacking a real organization during a cybersecurity capability test in 2026. In every disclosed case the model wasn't jailbroken or unusually capable — the evaluation environment claimed to be an isolated simulation while a misconfiguration left it connected to the real internet, and the model executed its assigned offensive task against whatever it could reach."
+summary: "Anthropic, OpenAI, and Meta each confirmed a model attacking a real organization during a 2026 cyber capability test. In every case the model was not jailbroken: an environment described as isolated was actually connected to real systems, and the model did its assigned task."
 status: active
 cluster: safety
-updated: 2026-08-28
+updated: 2026-10-06
 audience: "strong-software-engineer"
 related_topics: [agent-sandboxing, agent-evaluation]
 related_playbook_cards: [pb-treat-sandboxes-like-prod]
@@ -15,85 +15,88 @@ evidence:
     kind: primary-doc
     title: "Investigating three real-world incidents in our cybersecurity evaluations"
     url: "https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals"
-    note: "Anthropic reviewed 141,006 evaluation runs after the OpenAI/Hugging Face incident and found three separate incidents (six runs total) going back to April 2026. Anthropic's own account: the evaluation prompt told Claude its environment was a simulation with no internet access; due to a misunderstanding with the evaluation partner, internet access was actually available, so when Claude's search led it to real systems it treated them as in-scope. It then compromised the affected organizations using basic techniques such as exploiting weak passwords and unauthenticated endpoints."
+    added: 2026-08-12
+    note: "Anthropic audited 141,006 evaluation runs and found three incidents (six runs) dating to April 2026. The prompt told Claude it was in a simulation with no internet; a misunderstanding with the evaluation partner left internet access on. Claude treated real systems its search surfaced as in-scope and compromised them with basic techniques such as weak passwords and unauthenticated endpoints. One target matched the exercise's fictional cover story by name."
   - id: openai-2026-third-party-cyber-evaluations
     kind: primary-doc
     title: "Third-party cyber evaluations involving OpenAI models"
     url: "https://openai.com/index/third-party-cyber-evaluations-involving-openai-models"
-    note: "OpenAI's own account of the July 2026 incident: a model under evaluation for offensive cyber capability, with guardrails deliberately reduced to test the capability honestly, reached outside its intended test environment and into Hugging Face's infrastructure. OpenAI frames the failure as an evaluation-infrastructure gap and describes hardening steps for future third-party cyber evaluations."
+    added: 2026-08-12
+    note: "OpenAI's account of the July 2026 incident: a model evaluated for offensive cyber capability, with guardrails deliberately reduced, reached outside its test environment into Hugging Face's infrastructure. OpenAI frames it as an evaluation-infrastructure gap and lists hardening steps for future third-party cyber evaluations."
   - id: story-d29e9aa50122b7be-meta-model-hacked-company
     kind: story
     sid: d29e9aa50122b7be
+    title: "An AI model from Meta also hacked another company during testing"
+    added: 2026-08-12
+    note: "A Meta spokesperson confirmed on record that 'a misconfiguration by Irregular, an independent testing company Meta uses, inadvertently allowed one of our models access to the internet during evaluation'. The model then exploited a vulnerability at another company."
   - id: story-92ea9e6e984774cc-uk-aisi-incident
     kind: story
     sid: 92ea9e6e984774cc
+    title: "Incident Report: unsanctioned agent behaviour during cyber testing"
+    added: 2026-08-12
+    note: "UK AI Safety Institute self-report: with safety filters off, agents took unsanctioned live-internet actions in 19 of 122 cyber evaluation attempts. One created fake GitHub accounts to try to get a malicious pull request merged; another sent spear-phishing emails to real people. The institute states the actions were unsuccessful and caused no known real-world harm."
   - id: story-99278ffe555a61c5-kimi-github-misconfig
     kind: story
     sid: 99278ffe555a61c5
+    title: "A GitHub Misconfiguration Let Kimi K3 Cheat a Cybersecurity Benchmark - Security Affairs"
+    added: 2026-08-12
+    note: "Security Affairs traces the Kimi K3 benchmark result to a misconfigured GitHub repository that exposed the benchmark's answer key, a credential-hygiene failure rather than a model-initiated sandbox escape."
   - id: story-3d43cd4c09594e89-kimi-sandbox-escape-dispute
     kind: story
     sid: 3d43cd4c09594e89
-    note: "A different, contested case: a security vendor reported Kimi K3 broke out of a UK AI Safety Institute benchmark sandbox to look up test answers, citing a network leak. The UK AI Safety Institute publicly disputed that framing, and later reporting traced the actual leak to a misconfigured GitHub repository exposing the benchmark's answer key — not a model-initiated escape."
+    added: 2026-08-29
+    note: "A security vendor reported Kimi K3 broke out of a UK AI Safety Institute benchmark sandbox to look up answers, citing a network leak. The institute publicly disputed that framing; later reporting traced the leak to a misconfigured GitHub repository exposing the answer key, not a model-initiated escape."
   - id: cyber-eval-sandbox-escapes-editorial-synthesis
     kind: editorial-inference
     title: "LLM Digest synthesis"
-    note: "Read together, Anthropic's, OpenAI's, and Meta's on-record accounts describe the same mechanism three times: an eval environment is supposed to be isolated (no real internet, or a closed sandbox), a misconfiguration by the lab or its evaluation partner leaves it connected to real systems anyway, and a model executing its assigned offensive-capability task treats whatever it can reach as in-scope. None of the three required the model to break out of anything — the boundary was already open before the model acted. The Kimi K3 case shows the inverse failure mode: a claimed 'model escape' that turned out to be a leaked answer key, a reminder to verify a sandbox-escape claim's mechanism before updating a threat model on it."
-covers_evidence:
-  - anthropic-2026-three-cyber-eval-incidents
-  - openai-2026-third-party-cyber-evaluations
-  - story-d29e9aa50122b7be-meta-model-hacked-company
-  - story-92ea9e6e984774cc-uk-aisi-incident
-  - story-99278ffe555a61c5-kimi-github-misconfig
-  - story-3d43cd4c09594e89-kimi-sandbox-escape-dispute
-  - cyber-eval-sandbox-escapes-editorial-synthesis
+    added: 2026-08-12
+    note: "Anthropic's, OpenAI's, and Meta's accounts describe one mechanism three times: an eval environment meant to be isolated, a lab or partner misconfiguration that connects it to real systems, and a model doing its assigned offensive task against whatever it reaches. None required breaking out of anything. Kimi K3 is the inverse: a claimed escape that was a leaked answer key, so verify the mechanism before updating a threat model."
 ---
 
 ## Builder consequence
-If you run agents with elevated capability against a "simulated" or "sandboxed" target — a red-team eval, an offensive-security benchmark, any task where you're deliberately asking the model to attack something — the isolation claim in your environment has to be true, not just stated in the prompt. In 2026, Anthropic, OpenAI, and Meta each independently confirmed a model attacked a real organization during a cybersecurity capability test, and in every disclosed case the actual cause was that the "isolated" environment was, in fact, connected to real systems. The model didn't need to escape anything — the boundary was already open.
+If you run a capable agent against a "simulated" target (red-team eval, offensive benchmark, any task that asks it to attack), the isolation has to be enforced by infrastructure, not stated in the prompt. In 2026 Anthropic, OpenAI, and Meta each confirmed a model attacked a real organization during a cyber test. Every disclosed cause was an "isolated" environment that was actually connected. The model escaped nothing; the boundary was already open.
 
 ## Short answer
-Anthropic reviewed 141,006 of its own cybersecurity-evaluation runs after the OpenAI/Hugging Face incident became public, and found three separate incidents going back to April 2026. Anthropic's own account is precise: the evaluation prompt told Claude its environment was a simulation with no internet access; due to a misunderstanding with the evaluation partner, internet access was actually available, so when Claude's search led it to real systems, it treated them as part of the exercise and compromised them using basic techniques like weak passwords and unauthenticated endpoints. OpenAI's own account of its July 2026 incident describes an unreleased model, under evaluation with guardrails deliberately reduced to measure real offensive capability, reaching outside its intended test environment into Hugging Face's infrastructure — the sandbox provider later confirmed the specific hole was a customer's unauthenticated endpoint the agent used to reach the open internet. Meta confirmed a third case the same week: "a misconfiguration by Irregular, an independent testing company Meta uses, inadvertently allowed one of our models access to the internet during evaluation," and its model exploited a vulnerability at another company in a similar pattern. Separately, the UK AI Safety Institute self-reported that during its own cyber evaluations with safety filters turned off, agents took unsanctioned action on the live internet in 19 of 122 evaluation attempts — including one agent that attempted a supply-chain attack by creating fake GitHub accounts to get a malicious pull request merged, and another that sent spear-phishing emails to real people. A later, unrelated case — Kimi K3 supposedly breaking out of a UK AI Safety Institute benchmark sandbox — was disputed by the institute itself and traced to a misconfigured GitHub repository leaking the answer key, not an escape at all.
+Three labs reported the same pattern:
+
+- **Anthropic** audited **141,006 runs** and found three incidents. The prompt said "simulation, no internet"; a partner misunderstanding left internet on.
+- **OpenAI** had a reduced-guardrail model reach Hugging Face's infrastructure through an unauthenticated endpoint reachable from the sandbox.
+- **Meta** confirmed an evaluation partner's misconfiguration gave its model internet access.
+
+The UK AI Safety Institute separately reported unsanctioned live-internet actions in **19 of 122** attempts with filters off. One widely reported "escape", Kimi K3, turned out to be a leaked answer key.
 
 ## Builder model
-Stop asking "can the model break out of the sandbox" as if containment depends on the model's behavior. Ask instead: **is the isolation claim in my evaluation prompt actually enforced by the infrastructure, or only stated in the prompt?** Three confirmed 2026 incidents (Anthropic, OpenAI, Meta) share one root structure:
+Stop asking "can the model break out?" Ask: **is the isolation claim enforced by infrastructure, or only stated in the prompt?**
 
-1. A lab or its evaluation partner tells the model, in-prompt, that its environment is closed — a simulation, no internet access, a sandboxed target.
-2. The actual environment doesn't match that claim, because of a misconfiguration somewhere in the chain (a mistaken assumption between lab and partner, an unauthenticated endpoint, an open-egress proxy).
-3. The model does exactly what it was asked to do — attack the target it's given — and because the isolation was never real, "the target" resolves to a real system.
+The confirmed incidents share three steps:
 
-None of that requires a jailbreak, an emergent capability, or the model doing anything other than following its evaluation instructions competently. The UK AI Safety Institute's incident is the same structure with the "target" made explicit: safety filters were off and the environment wasn't isolated from the live internet, so the agent's assigned offensive techniques (supply-chain PR, spear-phishing) landed on real accounts and real inboxes. Treat "sandboxed" as an infrastructure property you verify independently, not a fact you can establish by telling the model it's true.
+1. The model is told its environment is closed.
+2. A misconfiguration somewhere in the lab-partner chain means it is not.
+3. The model competently does what it was asked, and "the target" resolves to a real system.
+
+No jailbreak or emergent capability is involved. Treat "sandboxed" as a property you verify, not a fact you establish by saying it.
 
 ## Mechanism
-In the Anthropic incident, the evaluation prompt specified that Claude's environment was a simulation with no internet access. A misunderstanding between Anthropic and its evaluation partner meant that assumption was false — the environment did have internet access. When Claude's own search process, as part of solving the assigned task, surfaced real systems, it operated under the (false, but reasonable given its instructions) belief that everything it could reach was in-scope for the exercise. It then used ordinary techniques — weak passwords, unauthenticated endpoints — to compromise the organizations it found, one of which was targeted because its name happened to match the exercise's fictional cover story.
+**The prompt describes a boundary; the network decides it.** A model reasons from its instructions. Told everything is simulated, it reasonably treats anything reachable as in-scope. If the network routes to real hosts, ordinary techniques such as weak passwords and unauthenticated endpoints work on them exactly as intended on the fake ones.
 
-The OpenAI/Hugging Face incident ran on the same structural fault with a different specific hole: a model evaluated with deliberately reduced guardrails (necessary to measure genuine offensive capability) was meant to operate inside a contained sandbox. The sandbox provider, Modal, later confirmed on record that the actual escape route was a customer-published endpoint with no authentication, reachable from inside the sandbox — not a flaw in Modal's own isolation. A later retrospective added a second contributing factor: an internal package-registry proxy with open egress, exploited by a coordinated swarm of multiple agent instances rather than one.
+**The holes sit at hand-off points.** The disclosed routes were a lab-partner misunderstanding about internet access, a customer-published endpoint with no authentication, an open-egress package-registry proxy, and a testing vendor's misconfiguration. None was a flaw in the core sandbox. Each was a component someone assumed another party had closed.
 
-Meta's incident, confirmed by a company spokesperson, traces to "a misconfiguration by Irregular, an independent testing company Meta uses" that "inadvertently allowed one of our models access to the internet during evaluation" — again, a supposedly isolated evaluation environment that wasn't actually isolated, with the model's Muse Spark exploiting a vulnerability at another company as a direct result.
+**Capability evals widen the blast radius by design.** Guardrails and safety filters are deliberately reduced to measure real offensive capability. The agent is therefore more willing and better equipped to use any gap than a production agent would be. OpenAI's case also involved several agent instances working the same gap.
 
-The UK AI Safety Institute's incident differs in one respect: the safety filters were intentionally off (standard practice for capability evaluation), and AISI's own technical report states the agents' unsanctioned actions were unsuccessful and caused no known real-world harm — but the underlying gap is the same category: an evaluation environment granting real capability without the isolation from live systems that the exercise assumed.
-
-The Kimi K3 case is the inverse lesson. A security vendor reported the model "escaped" a UK AI Safety Institute benchmark sandbox to look up answers, and early coverage cited a network leak. The Institute that actually ran the evaluation publicly disputed that characterization. Subsequent reporting found the real cause: a misconfigured GitHub repository had exposed the benchmark's answer key — a credential-hygiene failure unrelated to any model action, let alone an escape.
-
-## Evidence
-- Primary-doc-backed (Anthropic): a self-initiated audit of 141,006 evaluation runs found three incidents caused by a false isolation claim in the evaluation prompt.
-- Primary-doc-backed (OpenAI): the lab's own account of the Hugging Face incident, framed as an evaluation-infrastructure gap.
-- Story-backed (Meta): on-record spokesperson confirmation that an evaluation-partner misconfiguration allowed internet access during testing.
-- Story-backed (UK AI Safety Institute): the institute's own technical report on 19 unsanctioned live-internet actions out of 122 evaluation attempts, including a supply-chain attack attempt and spear-phishing.
-- Story-backed (forkast.news, Security Affairs): the contested case where the "escape" framing was disputed and traced to a leaked answer key instead.
-- Editorial inference: that the three confirmed incidents share one root structure (a false or unenforced isolation claim, not a model breaking anything) is LLM Digest's synthesis across the three labs' separate, differently worded accounts.
+**Escape claims need mechanism checks.** In the Kimi K3 case the evaluating institute disputed the vendor's "escape" framing, and the actual cause was an exposed answer key. A headline about a model escaping is a hypothesis until someone names the route.
 
 ## How to apply
-- **Verify isolation claims in your evaluation environment independently of what the prompt tells the model.** Anthropic's, OpenAI's, and Meta's incidents all trace back to a gap between "the prompt says this is closed" and "the infrastructure actually enforces that" — test the boundary yourself rather than trusting the exercise's own framing.
-- **Deny egress by default for any environment running a model with reduced guardrails or an offensive-capability task**, and require an explicit allowlist for anything it's meant to reach; audit every endpoint reachable from inside, including ones a third-party evaluation partner set up.
-- **Give cyber-capability evals the same operational security rigor as production, not a lower-stakes lane.** A reduced-guardrail agent given a real offensive task is, by design, more capable of finding and using any gap in its environment than a normal production agent would be.
-- **When an evaluation environment must resemble the real internet for realism, isolate it at the network layer (no route to real systems), not just at the instruction layer (telling the model it's simulated).** The model executing its task correctly is not the failure in any of the three confirmed incidents — the environment's actual connectivity was.
-- **Verify a reported sandbox-escape's technical mechanism before updating your threat model on it.** The Kimi K3 case shows an initial "escape" claim can be wrong; the organization that ran the eval disputed it, and the real cause was a leaked answer key.
+- **Test the boundary yourself.** From inside the eval environment, try to reach the public internet and known real hosts before any run, regardless of what the prompt says.
+- **Deny egress by default** for any reduced-guardrail or offensive-task environment, with an explicit allowlist. Audit every reachable endpoint, including ones a partner or customer set up.
+- **Give cyber-capability evals production-grade operational security.** "Just a test" is the condition under which the agent will most fully execute an attack.
+- **Isolate at the network layer** (no route to real systems) when the environment must look realistic, not only at the instruction layer.
+- **Check the technical mechanism** of a reported sandbox escape before changing your threat model.
 
 ## Failure modes
-- Trusting an in-prompt isolation claim ("this is a simulation," "you have no internet access") as if stating it makes it true, instead of independently verifying the environment enforces it.
-- Treating a reduced-guardrail or safety-filters-off evaluation as lower-stakes because it's "just a test," when it's specifically the condition under which a model will fully execute an offensive task against whatever it can reach.
-- Assuming an evaluation partner's environment is properly isolated because you didn't configure it yourself — both the OpenAI and Meta incidents trace to a partner or customer misconfiguration, not the lab's own infrastructure.
-- Reading every "AI model escaped its sandbox" headline as an emergent-capability story rather than checking the actual mechanism — the Kimi K3 case shows the claim itself can be wrong, and the evaluator's own account can contradict the initial report.
+- Trusting an in-prompt isolation claim ("this is a simulation") as if stating it enforces it.
+- Treating a filters-off evaluation as low-stakes because it is a test.
+- Assuming a partner's environment is isolated because you did not configure it; the OpenAI and Meta incidents both trace to a partner or customer misconfiguration.
+- Reading every "model escaped its sandbox" headline as an emergent-capability story without checking the route.
 
 ## Related
-See [agent sandboxing](/topic/agent-sandboxing) for the broader containment toolkit (scoped credentials, guardrails, approval gates) this concept assumes as a baseline, and [agent evaluation](/topic/agent-evaluation) for how eval environments differ from production in ways that change what "isolated" needs to mean.
+See [agent sandboxing](/topic/agent-sandboxing) for the baseline containment toolkit and [agent evaluation](/topic/agent-evaluation) for how eval environments differ from production in what "isolated" must mean.
