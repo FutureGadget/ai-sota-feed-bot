@@ -16,12 +16,12 @@ Schema: `config/wiki_schema.md`.
   - theme `consistency-and-autonomy` — Consistency, autonomy limits, and the human role (6)
 
 ### memory
-- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (66 entries, updated 2026-10-06)
+- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (67 entries, updated 2026-10-07)
   → solutions: context-compaction, vector-kb
   - theme `architectures` — Tiered and lifecycle memory architectures (13)
   - theme `local-first-stores` — Build vs. buy: managed services and developer-owned stores (15)
   - theme `shared-memory` — Sharing memory across agents, isolating it between users (10)
-  - theme `recall-and-curation` — What to write, when to revoke, how to recall (15)
+  - theme `recall-and-curation` — What to write, when to revoke, how to recall (16)
   - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (5)
   - theme `measuring-memory` — Benchmarks and leaderboards for memory (8)
 
@@ -53,11 +53,11 @@ Schema: `config/wiki_schema.md`.
   - theme `proving-attribution` — Proving the answer is backed by its source (4)
 
 ### evaluation
-- [agent-evaluation](obstacles/agent-evaluation.md) — Measuring whether an agent actually worked is hard (125 entries, updated 2026-10-06)
+- [agent-evaluation](obstacles/agent-evaluation.md) — Measuring whether an agent actually worked is hard (126 entries, updated 2026-10-07)
   → solutions: agent-benchmarks, llm-as-judge
   - theme `grading-trajectories` — Grading the trajectory, and checking the grader (22)
   - theme `score-validity` — Benchmark scores are noisier and less valid than they look (20)
-  - theme `gaming-and-containment` — Gamed metrics, leaky eval sandboxes, and who audits the evaluator (13)
+  - theme `gaming-and-containment` — Gamed metrics, leaky eval sandboxes, and who audits the evaluator (14)
   - theme `coding-benchmarks` — Coding-agent benchmarks beyond "the tests pass" (19)
   - theme `domain-benchmarks` — Narrow benchmarks for domains, platforms, and failure modes (20)
   - theme `eval-in-production` — Evals as a production workflow: mined from traces, gated in CI (31)
