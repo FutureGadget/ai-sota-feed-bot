@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-06T11:29:46.763464+00:00",
+  "generated_at": "2026-10-07T10:09:52.426555+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -70,6 +70,15 @@
   ],
   "recent_evidence": [
     {
+      "concept": "mcp-security-control-layers",
+      "concept_title": "What actually breaks when you run MCP in production, and how do you defend it?",
+      "id": "copex-2026-mcp-adversarial-context",
+      "title": "COPEX: Benchmarking LLM Robustness to Adversarial Context Across Model Context Protocol Layers",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-10-07"
+    },
+    {
       "concept": "agent-model-routing",
       "concept_title": "When should an agent route a call to a cheaper model instead of the frontier model?",
       "id": "langchain-2026-open-swe-model-router",
@@ -128,15 +137,6 @@
       "concept_title": "Does a network allowlist make an AI agent sandbox trustworthy?",
       "id": "anthropic-2026-how-we-contain-claude",
       "title": "How we contain Claude across products",
-      "tier": "primary-doc-backed",
-      "kind": "primary-doc",
-      "added": "2026-09-09"
-    },
-    {
-      "concept": "agent-sandbox-trust-boundary",
-      "concept_title": "Does a network allowlist make an AI agent sandbox trustworthy?",
-      "id": "anthropic-2026-claude-code-sandboxing",
-      "title": "Making Claude Code more secure and autonomous with sandboxing",
       "tier": "primary-doc-backed",
       "kind": "primary-doc",
       "added": "2026-09-09"
@@ -1708,8 +1708,8 @@
       "status": "active",
       "cluster": "safety",
       "cluster_label": "Safety and control",
-      "updated": "2026-10-06",
-      "latest_evidence_added": "2026-08-08",
+      "updated": "2026-10-07",
+      "latest_evidence_added": "2026-10-07",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -1731,7 +1731,7 @@
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li><strong>Audit execution paths first; it is the largest CVE category.</strong> Grep for <code>shell=True</code>, <code>exec()</code>, <code>eval()</code>, and string-built commands; require argument arrays and fail CI on violations.</li><li><strong>Treat inspectors, test harnesses, and registration endpoints as production services</strong>, with authentication, network isolation, and minimal filesystem access.</li><li><strong>Put an egress allow-list on every server and scope credentials per tool purpose</strong>, so one leaked token cannot reach everything the server can.</li><li><strong>Pin tool manifests at registration</strong> with a SHA-256 hash of the canonical definition, and require operator review for any material change.</li><li><strong>Budget for controls beyond the gateway.</strong> It provides inbound routing, auth, and observability; execution, outbound, and integrity controls are separate work.</li></ul>"
+          "html": "<ul><li><strong>Audit execution paths first; it is the largest CVE category.</strong> Grep for <code>shell=True</code>, <code>exec()</code>, <code>eval()</code>, and string-built commands; require argument arrays and fail CI on violations.</li><li><strong>Treat inspectors, test harnesses, and registration endpoints as production services</strong>, with authentication, network isolation, and minimal filesystem access.</li><li><strong>Put an egress allow-list on every server and scope credentials per tool purpose</strong>, so one leaked token cannot reach everything the server can.</li><li><strong>Pin tool manifests at registration</strong> with a SHA-256 hash of the canonical definition, and require operator review for any material change.</li><li><strong>Add input and context scanning on tool schemas and outputs.</strong> COPEX measured a 49.6% mean drop in attack success on an eight-attack subset; it is a mitigation, not a replacement for the controls above.</li><li><strong>Budget for controls beyond the gateway.</strong> It provides inbound routing, auth, and observability; execution, outbound, and integrity controls are separate work.</li></ul>"
         },
         {
           "heading": "Failure modes",
@@ -1743,6 +1743,16 @@
         }
       ],
       "evidence": [
+        {
+          "id": "copex-2026-mcp-adversarial-context",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "COPEX: Benchmarking LLM Robustness to Adversarial Context Across Model Context Protocol Layers",
+          "note": "Holds the agent stack fixed and varies only the tool-selecting model: 25 attack types, 125 scenarios, four entry surfaces (model/agent, client, server/tool, transport), nine models, 3,375 trials. Mean attack success is 64.4%, 58.3% to 71.4% by surface. Some client and transport attacks succeed outside the model's view. Combined input and context scanning cut mean success 49.6% on an eight-attack subset.",
+          "added": "2026-10-07",
+          "url": "http://arxiv.org/abs/2610.04378v1",
+          "sid": "b0a6adb95dddda44"
+        },
         {
           "id": "infoq-mcp-defense-in-depth",
           "kind": "production-field-report",

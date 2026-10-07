@@ -5,7 +5,7 @@ question: "What actually breaks when you run MCP in production, and how do you d
 summary: "Documented MCP CVEs cluster in four layers: unsafe tool execution, unauthenticated management endpoints, unrestricted outbound calls, and undetected tool-definition drift. A gateway defends none of them directly; each needs its own control, enforced closer to the failure."
 status: active
 cluster: safety
-updated: 2026-10-06
+updated: 2026-10-07
 audience: "strong-software-engineer"
 related_topics: [mcp, agent-sandboxing, prompt-injection]
 related_playbook_cards: []
@@ -17,6 +17,13 @@ evidence:
     url: "https://www.infoq.com/articles/securing-mcp-production-gateway/"
     added: 2026-08-08
     note: "Groups 30 documented MCP CVEs into four layers: 13 from unsafe execution (shell interpolation, exec/eval on input), six from unauthenticated inspector, test-harness, or registration endpoints, outbound trust (CVE-2026-26118, an Azure SSRF leaking a managed-identity token), and post-registration definition drift ('rug-pull'). Recommends argument arrays, authenticated and isolated management endpoints, egress allow-lists with per-purpose credentials, and SHA-256 manifest pinning with operator review."
+  - id: copex-2026-mcp-adversarial-context
+    kind: benchmark-result
+    title: "COPEX: Benchmarking LLM Robustness to Adversarial Context Across Model Context Protocol Layers"
+    url: "http://arxiv.org/abs/2610.04378v1"
+    sid: "b0a6adb95dddda44"
+    added: 2026-10-07
+    note: "Holds the agent stack fixed and varies only the tool-selecting model: 25 attack types, 125 scenarios, four entry surfaces (model/agent, client, server/tool, transport), nine models, 3,375 trials. Mean attack success is 64.4%, 58.3% to 71.4% by surface. Some client and transport attacks succeed outside the model's view. Combined input and context scanning cut mean success 49.6% on an eight-attack subset."
   - id: aws-agentcore-mcp-2026-07-28-spec
     kind: story
     sid: b734d716b0d66f96
@@ -67,6 +74,7 @@ A gateway answers "who may call this server," a real but separate question.
 - **Treat inspectors, test harnesses, and registration endpoints as production services**, with authentication, network isolation, and minimal filesystem access.
 - **Put an egress allow-list on every server and scope credentials per tool purpose**, so one leaked token cannot reach everything the server can.
 - **Pin tool manifests at registration** with a SHA-256 hash of the canonical definition, and require operator review for any material change.
+- **Add input and context scanning on tool schemas and outputs.** COPEX measured a 49.6% mean drop in attack success on an eight-attack subset; it is a mitigation, not a replacement for the controls above.
 - **Budget for controls beyond the gateway.** It provides inbound routing, auth, and observability; execution, outbound, and integrity controls are separate work.
 
 ## Failure modes
