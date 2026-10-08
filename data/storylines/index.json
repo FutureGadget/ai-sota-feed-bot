@@ -1,7 +1,45 @@
 {
- "generated_at": "2026-10-08T05:03:19.347753+00:00",
+ "generated_at": "2026-10-08T10:03:48.383048+00:00",
  "window_days": 21,
  "storylines": [
+  {
+   "slug": "inference-serving",
+   "label": "Inference Serving",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-09-24T23:34:34+00:00",
+   "last_updated": "2026-10-08T05:11:39+00:00",
+   "latest_title": "Prime Inference: Fast, Reliable Serving for Frontier Open Models",
+   "days": [
+    "2026-09-24",
+    "2026-10-05",
+    "2026-10-08"
+   ],
+   "member_sids": [
+    "485a8d96b72d9981",
+    "3ef8a9b8fee4fad6",
+    "a2c8f859aabbe1d2"
+   ],
+   "member_urls": [
+    "https://research.nvidia.com/benchmarks/swe-serve",
+    "http://arxiv.org/abs/2610.06597v1",
+    "https://www.primeintellect.ai/blog/prime-inference"
+   ],
+   "editorial": {
+    "tldr": "A Sep 24 benchmark, SWE-Serve, set out to measure how well agents handle production inference-serving engineering work. An Oct 5 paper then proposed a protocol for agent harnesses and inference engines to share scheduling information.",
+    "stale": false,
+    "whats_new": "Prime Inference launched Oct 8 as a hosted serving service for frontier open models, pitched on speed and reliability.",
+    "why_it_matters": "Agent workloads span tool calls and parallel sub-agents, so serving choices (scheduling, hosting, reliability) now affect agent latency and cost, not just raw model speed.",
+    "take_for_builders": "Benchmark your own agent workload (multi-turn, tool-heavy, parallel) on any serving option before switching; the sources here give no head-to-head numbers.",
+    "status": {
+     "state": "Developing",
+     "tone": "rising",
+     "changed": "2026-10-08",
+     "detail": "Three independent items on agent-era serving: a benchmark, a harness-engine protocol and a hosted service."
+    }
+   }
+  },
   {
    "slug": "claude-5-5",
    "label": "Claude 5.5",
@@ -10,7 +48,7 @@
    "source_count": 6,
    "first_seen": "2026-09-22T17:28:01+00:00",
    "last_updated": "2026-10-07T20:56:21+00:00",
-   "latest_title": "Claude Haiku 5.5",
+   "latest_title": "[AINews] Claude Haiku 5.5 — better than GPT-6 Luna at the same pricing",
    "days": [
     "2026-09-22",
     "2026-09-23",
@@ -31,7 +69,8 @@
     "aae8bc1ed323e6eb",
     "b3f30a7d2d0e3a0c",
     "ac41a808ac11619d",
-    "fdc864340b44ea6e"
+    "fdc864340b44ea6e",
+    "c07b5023822db3bc"
    ],
    "member_urls": [
     "https://aws.amazon.com/blogs/machine-learning/claude-opus-5-5-is-now-available-on-aws",
@@ -44,7 +83,8 @@
     "https://aws.amazon.com/blogs/machine-learning/introducing-claude-sonnet-5-5-on-aws",
     "https://simonwillison.net/2026/Sep/28/claude-sonnet-5-5",
     "https://www.latent.space/p/ainews-opus-55-is-good-at-explainer",
-    "https://simonwillison.net/2026/Oct/7/claude-haiku-5-5"
+    "https://simonwillison.net/2026/Oct/7/claude-haiku-5-5",
+    "https://www.latent.space/p/ainews-claude-haiku-55-better-than"
    ],
    "editorial": {
     "tldr": "Claude Opus 5.5 shipped Sep 22 on AWS and direct, an hour before OpenAI's GPT-6 Sol and Luna, and the launch coincided with 40-50% price cuts across vendors. Sonnet 5.5 followed Sep 28 with a lower cost per task.",
@@ -443,46 +483,6 @@
     "whats_new": "Hamel Husain reviewed the new build_eval and hill-climb commands on Sep 30, calling a first-party Anthropic eval tool likely to shape how teams build evals.",
     "why_it_matters": "A first-party eval workflow in the Claude Code plugin sets a default for how many teams will build graders and iterate prompts, so its grader checks and overfitting guardrails are worth auditing before you adopt them.",
     "take_for_builders": "Run build_eval on one existing agent task and compare its graders against your hand-written ones before replacing them; hold out a case set that hillclimb never sees."
-   }
-  },
-  {
-   "slug": "openai-devday-2026",
-   "label": "OpenAI DevDay",
-   "item_count": 3,
-   "day_count": 2,
-   "source_count": 4,
-   "first_seen": "2026-09-29T10:00:00+00:00",
-   "last_updated": "2026-09-30T05:53:10+00:00",
-   "via_scout": true,
-   "latest_title": "[AINews] OpenAI DevDay 2026: Dots, 6.1 Sol, Ultrafast, Decisions API, Agents API, Spaces, Marketplace, and 1.2 Billion ChatGPT WAU",
-   "days": [
-    "2026-09-29",
-    "2026-09-30"
-   ],
-   "member_sids": [
-    "6071f63e21f64254",
-    "586dbd8a8714534d",
-    "0dc9ce3083b6cf68",
-    "3439063e9fd745f7"
-   ],
-   "member_urls": [
-    "https://openai.com/index/devday-2026-recap",
-    "https://www.infoq.com/news/2026/10/openai-devday-2026/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-    "https://simonwillison.net/2026/Sep/29/openai-devday-2026-live-blog",
-    "https://www.latent.space/p/ainews-openai-devday-2026-dots-61"
-   ],
-   "editorial": {
-    "tldr": "OpenAI's DevDay 2026 keynote ran in San Francisco on Sep 29, with Simon Willison live blogging it. OpenAI's recap post cataloged more than 20 announcements spanning GPT-6 Astra, ChatGPT, Codex, APIs, security, and builder tools.",
-    "stale": false,
-    "whats_new": "Latent Space's Sep 30 roundup lists the headline launches by name: Dots, 6.1 Sol, Ultrafast, a Decisions API, an Agents API, Spaces, and a Marketplace, alongside 1.2 billion ChatGPT weekly users.",
-    "why_it_matters": "The Decisions API, Agents API, and Ultrafast are the items that could change how you build and pay for agent workloads; check OpenAI's recap before your next architecture review.",
-    "take_for_builders": "Read OpenAI's DevDay recap for the Agents API and Decisions API terms before rewriting orchestration; hold migrations until pricing and limits are documented.",
-    "status": {
-     "state": "Announced · details pending",
-     "tone": "rising",
-     "changed": "2026-09-30",
-     "detail": "Announcements are out, but the sources so far are a recap, a live blog, and a newsletter roundup; none documents pricing, limits, or availability."
-    }
    }
   }
  ]
