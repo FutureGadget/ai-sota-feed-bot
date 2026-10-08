@@ -86,12 +86,12 @@ Schema: `config/wiki_schema.md`.
   - theme `outcome-evidence` — Outcome case studies, and the rollout that raised spend (4)
 
 ### latency
-- [agent-latency](obstacles/agent-latency.md) — Agent loops multiply per-call latency into slow, expensive runs (47 entries, updated 2026-10-06)
+- [agent-latency](obstacles/agent-latency.md) — Agent loops multiply per-call latency into slow, expensive runs (48 entries, updated 2026-10-08)
   → solutions: context-compaction, speculative-decoding
   - theme `agent-traffic` — Scheduling, batching, and routing for agent-shaped traffic (8)
   - theme `kv-state` — KV state: compress it, offload it, shard it, reuse it (10)
   - theme `engine-architecture` — Disaggregated and specialized serving engines (9)
-  - theme `day-0-support` — Day-0 serving for new models and hardware (9)
+  - theme `day-0-support` — Day-0 serving for new models and hardware (10)
   - theme `less-work-per-step` — Less work per step: small models, shorter prompts, faster drafting (5)
   - theme `beyond-the-engine` — Latency outside the model: tools, cold starts, and voice (6)
 
@@ -105,9 +105,9 @@ Schema: `config/wiki_schema.md`.
   - theme `monitoring-limits` — When the trace is not enough (2)
 
 ### security
-- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (55 entries, updated 2026-10-06)
+- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (56 entries, updated 2026-10-08)
   → solutions: agent-sandboxing
-  - theme `injection-paths` — New paths for injected instructions (9)
+  - theme `injection-paths` — New paths for injected instructions (10)
   - theme `model-defenses` — Guardrail models, model hardening, and how defenses are measured (12)
   - theme `harness-controls` — Permissions, approvals, and sandboxes in the agent harness (9)
   - theme `agent-authorization` — Agents as identities with scoped, per-action authorization (11)

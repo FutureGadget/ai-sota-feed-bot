@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-07T18:19:17.867399+00:00",
+ "generated_at": "2026-10-08T18:19:33.348768+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,22 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-08-packhallu-rule-file-dependency-swap",
+   "topic": "prompt-injection",
+   "topic_title": "Untrusted input and tools can hijack an agent",
+   "kind": "obstacle",
+   "date": "2026-10-08",
+   "title": "Injected rule files can steer coding agents to swap in attacker-controlled packages"
+  },
+  {
+   "id": "2026-10-08-vllm-deepseek-v41-flash-agentic-throughput",
+   "topic": "agent-latency",
+   "topic_title": "Agent loops multiply per-call latency into slow, expensive runs",
+   "kind": "obstacle",
+   "date": "2026-10-08",
+   "title": "vLLM lifts DeepSeek-V4.1-Flash agentic throughput 5x within three weeks of release"
+  },
   {
    "id": "2026-10-07-daedalus-self-generated-memory",
    "topic": "agent-memory",
@@ -238,22 +254,6 @@
    "kind": "obstacle",
    "date": "2026-09-29",
    "title": "Anthropic's hillclimbing guide sets four checks for an eval and a held-out split"
-  },
-  {
-   "id": "2026-09-29-agentperfbench-agentic-serving-load",
-   "topic": "agent-evaluation",
-   "topic_title": "Measuring whether an agent actually worked is hard",
-   "kind": "obstacle",
-   "date": "2026-09-29",
-   "title": "AgentPerfBench shows chatbot-style serving benchmarks understate agentic load"
-  },
-  {
-   "id": "2026-09-29-sonnet-55-cost-per-task",
-   "topic": "agent-cost",
-   "topic_title": "Agent token costs are unpredictable and easily run away",
-   "kind": "obstacle",
-   "date": "2026-09-29",
-   "title": "Sonnet 5.5 keeps Sonnet 5's token price but cuts cost per task up to 30%"
   }
  ],
  "nodes": {
@@ -4014,7 +4014,7 @@
      "key": "day-0-support",
      "title": "Day-0 serving for new models and hardware",
      "summary": "New open-weight models and accelerators get quantized, speculative, disaggregated serving at launch, followed by steady per-release kernel gains of a few percent per token.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "less-work-per-step",
@@ -4030,6 +4030,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-08-vllm-deepseek-v41-flash-agentic-throughput",
+     "topic": "agent-latency",
+     "date": "2026-10-08",
+     "title": "vLLM lifts DeepSeek-V4.1-Flash agentic throughput 5x within three weeks of release",
+     "theme": "day-0-support",
+     "html": "<p>vLLM reports that, three weeks after DeepSeek-V4.1-Flash shipped, it made the model <strong>1.9x faster at low concurrency</strong> and raised throughput <strong>5x on SemiAnalysis AgentX</strong>, an agentic benchmark (vendor-reported). The gains come from SWA bounded replay, CUDA graphs, DeepSeek&#x27;s new kernels, and vLLM&#x27;s own kernel fusions.</p>\n<p>For builders: day-0 support is the start of the serving curve, not the end. Re-benchmark a self-hosted model a few weeks after launch before sizing capacity from launch-week numbers.</p>",
+     "evidence": [
+      {
+       "sid": "611a6830e42643a9",
+       "title": "DeepSeek-V4.1-Flash on vLLM: 5x Agentic Throughput Since Day 0"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-06-hear-harness-engine-protocol",
      "topic": "agent-latency",
@@ -4749,8 +4764,8 @@
      "title": "AsymSpec recovers ~90% of full-context accuracy while decoding from compressed context"
     }
    ],
-   "entry_count": 47,
-   "latest_entry_date": "2026-10-06",
+   "entry_count": 48,
+   "latest_entry_date": "2026-10-08",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -4764,6 +4779,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "611a6830e42643a9",
+     "title": "DeepSeek-V4.1-Flash on vLLM: 5x Agentic Throughput Since Day 0"
+    },
     {
      "sid": "3ef8a9b8fee4fad6",
      "title": "Can Agent Harnesses and Inference Engines Hear Each Other? The HEAR Protocol for Agentic LLM Serving"
@@ -4957,7 +4976,7 @@
      "title": "DualPath: Breaking the Storage Bandwidth Bottleneck in Agentic LLM Inference"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-08"
   },
   "agent-memory": {
    "slug": "agent-memory",
@@ -10695,7 +10714,7 @@
      "key": "injection-paths",
      "title": "New paths for injected instructions",
      "summary": "Injected instructions now arrive through fetched pages, API routers, self-spreading documents, caches shared between sandboxes, and even the agent's own compaction summaries; the root cause is role confusion, not a missing filter.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "model-defenses",
@@ -10729,6 +10748,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-08-packhallu-rule-file-dependency-swap",
+     "topic": "prompt-injection",
+     "date": "2026-10-08",
+     "title": "Injected rule files can steer coding agents to swap in attacker-controlled packages",
+     "theme": "injection-paths",
+     "html": "<p>A new paper defines the <strong>package hallucination attack</strong>: an attacker injects prompts into otherwise benign community rule files (<code>AGENTS.md</code>, <code>.cursorrules</code>) so a coding agent replaces legitimate dependencies with attacker-controlled packages. Its PackHallu framework evolves the injected prompt using trajectory-level feedback and LLM-guided mutations. The authors report high attack success and strong transfer across models and agent frameworks; the abstract gives no figures.</p>\n<p>For builders: treat shared rule files as untrusted input, review dependency diffs an agent produces, and pin or allowlist package sources.</p>",
+     "evidence": [
+      {
+       "sid": "7846186c47bfadc6",
+       "title": "Package Hallucination Attacks on Coding Agents through Prompt Injection in Rule Files"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-06-copex-mcp-attack-surfaces",
      "topic": "prompt-injection",
@@ -11611,8 +11645,8 @@
      "title": "Agent memory systems readily admit poisoned facts, a reproducible benchmark shows"
     }
    ],
-   "entry_count": 55,
-   "latest_entry_date": "2026-10-06",
+   "entry_count": 56,
+   "latest_entry_date": "2026-10-08",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -11622,6 +11656,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "7846186c47bfadc6",
+     "title": "Package Hallucination Attacks on Coding Agents through Prompt Injection in Rule Files"
+    },
     {
      "sid": "b0a6adb95dddda44",
      "title": "COPEX: Benchmarking LLM Robustness to Adversarial Context Across Model Context Protocol Layers"
@@ -11871,7 +11909,7 @@
      "title": "Show HN: Deep-XPIA – Prompt injection benchmark for multi-agent AI systems"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-08"
   },
   "proving-agent-roi": {
    "slug": "proving-agent-roi",
