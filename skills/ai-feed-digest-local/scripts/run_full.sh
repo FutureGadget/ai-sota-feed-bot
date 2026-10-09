@@ -67,7 +67,9 @@ PY
 
 # Korean live-feed snapshots are optional and translation-provider gated.
 # Missing credentials must never block the English hourly feed publish.
-if [ "${LOCALIZED_FEED_ENABLED:-1}" = "1" ]; then
+if [ "${STATIC_I18N_RECOVERY_BLOCKED:-0}" = "1" ]; then
+  echo "localized_feed_step_skipped=true reason=unpersisted_static_usage_or_dry_run"
+elif [ "${LOCALIZED_FEED_ENABLED:-1}" = "1" ]; then
   python pipeline/build_localized_feed.py --locale ko --label brief --limit 20 || echo "localized_feed_step_failed=1"
 else
   LOCALIZED_FEED_ENABLED=0 python pipeline/build_localized_feed.py --locale ko --label brief --limit 20 || true

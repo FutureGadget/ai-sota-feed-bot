@@ -33,6 +33,61 @@ def _candidate(ident: str, text: str) -> dict:
 
 
 class StaticTranslateBudgetTests(unittest.TestCase):
+    def test_metadata_only_rebuild_cannot_buy_a_lost_translation_again(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            candidate = _candidate("a", "already billed")
+            candidate["source"]["generated_at"] = "before"
+            original_hash = static_translate._candidate_payload_hash(candidate)
+            guard = root / "data/i18n/spend_guard.json"
+            guard.parent.mkdir(parents=True)
+            guard.write_text(json.dumps({"static_runs": {"actions-123-1": {
+                "lost_outputs": {candidate["artifact_path"]: "original-source-hash"},
+                "lost_payloads": {candidate["artifact_path"]: original_hash},
+            }}}))
+            candidate["source"]["generated_at"] = "after"
+            candidate["source_hash"] = "rebuilt-source-hash"
+            self.assertEqual(static_translate._candidate_payload_hash(candidate), original_hash)
+            with (
+                patch.object(static_translate, "ROOT", root),
+                patch.object(static_translate.exporter, "build_export", return_value={"items": [candidate]}),
+                patch.object(static_translate.google_translate, "translate_fields") as paid,
+                patch.dict("os.environ", {}, clear=True),
+            ):
+                code = static_translate.translate_candidates(
+                    locale="ko", surfaces=None, target_id=None, limit=10,
+                    dry_run=False, include_fresh=True,
+                )
+            self.assertEqual(code, 0)
+            paid.assert_not_called()
+            self.assertFalse((root / candidate["artifact_path"]).exists())
+            candidate["source"]["title"] = "new translation text"
+            self.assertNotEqual(static_translate._candidate_payload_hash(candidate), original_hash)
+
+    def test_acknowledged_lost_output_is_not_bought_again(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            candidate = _candidate("a", "already billed")
+            guard = root / "data/i18n/spend_guard.json"
+            guard.parent.mkdir(parents=True)
+            guard.write_text(json.dumps({"static_runs": {"actions-123-1": {
+                "lost_outputs": {candidate["artifact_path"]: candidate["source_hash"]},
+            }}}))
+            with (
+                patch.object(static_translate, "ROOT", root),
+                patch.object(static_translate.exporter, "build_export", return_value={"items": [candidate]}),
+                patch.object(static_translate.google_translate, "translate_fields") as paid,
+                patch.dict("os.environ", {}, clear=True),
+            ):
+                code = static_translate.translate_candidates(
+                    locale="ko", surfaces=None, target_id=None, limit=10,
+                    dry_run=False, include_fresh=True,
+                )
+            self.assertEqual(code, 0)
+            paid.assert_not_called()
+            self.assertFalse((root / candidate["artifact_path"]).exists())
+            self.assertFalse((root / "data/i18n/ko/feed/static_budget.json").exists())
+
     def test_estimate_matches_payload_chars(self):
         text = "OpenAI & friends"
         self.assertEqual(

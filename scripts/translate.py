@@ -21,6 +21,7 @@ Prerequisites:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import sys
@@ -39,6 +40,7 @@ import build_localized_feed as ledger_lib  # noqa: E402
 import export_i18n_candidates as exporter  # noqa: E402
 import google_translate  # noqa: E402
 import translation_guard  # noqa: E402
+import persist_static_i18n as persistence  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -236,13 +238,27 @@ def _daily_headroom(feed_ledger_path: Path, static_ledger: dict[str, Any], now: 
     return quota - reserve - used
 
 
-def _estimate_candidate_chars(candidate: dict[str, Any]) -> int:
-    """Billed characters for one candidate (same fields translate_fields sends)."""
+def _candidate_entries(candidate: dict[str, Any]) -> list[tuple[list[Any], str]]:
+    """The exact translated strings and addresses, excluding source metadata."""
     entries: list[tuple[list[Any], str]] = []
     for path in candidate["contract"]["translated_fields"]:
         google_translate._collect_strings(
-            candidate["source"], google_translate._parse_path(path), [], entries
+            candidate.get("source", {}), google_translate._parse_path(path), [], entries
         )
+    return entries
+
+
+def _candidate_payload_hash(candidate: dict[str, Any]) -> str:
+    payload = json.dumps(
+        [candidate["locale"], _candidate_entries(candidate)],
+        ensure_ascii=False, separators=(",", ":"),
+    )
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def _estimate_candidate_chars(candidate: dict[str, Any]) -> int:
+    """Billed characters for one candidate (same fields translate_fields sends)."""
+    entries = _candidate_entries(candidate)
     return google_translate.estimate_billed_chars([v for _, v in entries])
 
 
@@ -302,6 +318,7 @@ def translate_candidates(
     successes = 0
     failures = 0
     budget_skipped = 0
+    unavailable_skipped = 0
 
     # Character budget: every candidate is estimated before the API call and
     # skipped when it would push the month past the cap. Spend is persisted after
@@ -325,6 +342,21 @@ def translate_candidates(
 
         print(f"\n[{i}/{len(items)}] {surface}/{ident} ({status})")
         print(f"  Title: {title}")
+
+        # An acknowledged lost output was already billed. A later scheduled run
+        # must not silently buy the identical text after metadata-only rebuilds.
+        try:
+            lost_run = persistence.lost_output_run(
+                ROOT, candidate["artifact_path"], candidate["source_hash"],
+                _candidate_payload_hash(candidate),
+            )
+        except persistence.PersistenceError as exc:
+            print(f"  STOP: unreadable persistence receipt: {exc}", file=sys.stderr)
+            return 1
+        if lost_run:
+            print(f"  SKIP: paid output unavailable run={lost_run} source_hash={candidate['source_hash']}")
+            unavailable_skipped += 1
+            continue
 
         if not candidate.get("source"):
             print("  SKIP: No source data available")
@@ -387,14 +419,17 @@ def translate_candidates(
         artifact_path.parent.mkdir(parents=True, exist_ok=True)
 
         text = json.dumps(artifact, ensure_ascii=False, indent=2) + "\n"
-        artifact_path.write_text(text, encoding="utf-8")
+        temporary_path = artifact_path.with_name(artifact_path.name + ".tmp")
+        temporary_path.write_text(text, encoding="utf-8")
+        temporary_path.replace(artifact_path)
         print(f"  Written: {artifact_path.relative_to(ROOT)}")
         successes += 1
 
     print(f"\n{'='*50}")
     print(
         f"Done: {successes} translated, {failures} failed, "
-        f"{budget_skipped} skipped (budget), {len(items)} total"
+        f"{budget_skipped} skipped (budget), {unavailable_skipped} skipped (paid output unavailable), "
+        f"{len(items)} total"
     )
     print(
         f"translate_static_budget_done chars_used={ledger['chars_used']} "
