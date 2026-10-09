@@ -26,7 +26,7 @@
   <meta name="theme-color" content="#11151c" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
   <link rel="stylesheet" href="/site-chrome.css?v=20260924-inline-subscribe" />
-  <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
+  <script defer src="/posthog-client.js?v=20261009-feed-layout"></script>
   <script>
     (function () {
       var stored = null;
@@ -35,6 +35,28 @@
       try { stored = localStorage.getItem('theme'); } catch (e) {}
       document.documentElement.setAttribute('data-theme',
         stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+    })();
+    // Front-page layout experiment (docs/product-specs/feed-front-page.md):
+    // a sticky per-browser assignment, overridable with ?layout=, exposed to
+    // CSS as html[data-feed-layout] and to PostHog as the feed_layout super
+    // property so weekly returning readers can be compared per arm.
+    (function () {
+      var FRONT_PAGE_ROLLOUT = 0.5;
+      var KEY = 'feed_layout_v1';
+      var requested = new URLSearchParams(window.location.search).get('layout');
+      var layout = (requested === 'frontpage' || requested === 'ledger') ? requested : '';
+      try {
+        var stored = localStorage.getItem(KEY);
+        if (!layout && (stored === 'frontpage' || stored === 'ledger')) layout = stored;
+        if (!layout) layout = Math.random() < FRONT_PAGE_ROLLOUT ? 'frontpage' : 'ledger';
+        localStorage.setItem(KEY, layout);
+      } catch (e) {
+        // Without storage the arm cannot stay sticky across visits, so such
+        // readers stay on the control layout unless they asked for one.
+        layout = layout || 'ledger';
+      }
+      document.documentElement.setAttribute('data-feed-layout', layout);
+      window.__llmDigestSuperProps = Object.assign(window.__llmDigestSuperProps || {}, { feed_layout: layout });
     })();
   </script>
   <script src="/oat.min.js?v=20260824-selfhost" defer></script>
@@ -1332,6 +1354,129 @@
     @media (min-width:1440px) {
       main { max-width:1280px; }
       .model-radar-rail { flex:0 0 280px; width:280px; }
+    }
+
+    /* Front-page layout (experiment arm; html[data-feed-layout="frontpage"],
+       set by the head script). A broadsheet reading of the same ranked Brief:
+       paper palette, serif headlines, a lead story with a column of
+       secondaries, then the ledger continues under a section rule.
+       Spec: docs/product-specs/feed-front-page.md. */
+    html[data-feed-layout="frontpage"] {
+      --fp-serif:"Iowan Old Style","Charter","Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
+      --fp-display:"Bodoni 72","Didot","Playfair Display","Iowan Old Style",Georgia,serif;
+      --fp-caps:"Avenir Next","Segoe UI",system-ui,sans-serif;
+    }
+    html[data-feed-layout="frontpage"][data-theme="light"],
+    html[data-feed-layout="frontpage"]:not([data-theme]) {
+      /* muted holds 4.5:1 on --bg; accent (kickers, active tab) holds 4.5:1. */
+      --bg:#f4f0e6; --card:#fbf8f1; --border:#d6cdbb; --accent:#a3301c;
+      --muted:#625a4d; --fg:#1b1814; --feed-wash:#ebe4d5; --feed-ink:#2a241c;
+      --signal:#2f7a52;
+    }
+    html[data-feed-layout="frontpage"][data-theme="dark"] {
+      --bg:#17150f; --card:#1f1c16; --border:#3b362c; --accent:#e8907a;
+      --muted:#aba292; --fg:#f0eadd; --feed-wash:#26221a; --feed-ink:#ebe3d3;
+      --signal:#6cc293;
+    }
+    html[data-feed-layout="frontpage"] .feed-hero { grid-template-columns:1fr; gap:.35rem;
+      margin:1.6rem 0 0; padding-bottom:1rem; text-align:center; }
+    html[data-feed-layout="frontpage"] .feed-kicker { display:block; margin:0 0 .5rem;
+      font-family:var(--fp-caps); font-size:.72rem; font-weight:600; letter-spacing:.2em; color:var(--muted); }
+    html[data-feed-layout="frontpage"] .feed-title { font-family:var(--fp-display);
+      font-size:clamp(2.6rem,7vw,4.9rem); font-weight:700; letter-spacing:-.02em; line-height:1; }
+    html[data-feed-layout="frontpage"] .feed-promise { max-width:36rem; margin:.5rem auto 0;
+      font-family:var(--fp-serif); font-style:italic; font-size:1rem; }
+    html[data-feed-layout="frontpage"] .feed-promise strong { font-style:normal; }
+    html[data-feed-layout="frontpage"] #meta { margin-top:.35rem; }
+    html[data-feed-layout="frontpage"] .controls-bar { border-top:3px double var(--fg); }
+    html[data-feed-layout="frontpage"] .sections button.active { border-bottom-color:var(--fg); }
+    html[data-feed-layout="frontpage"] .model-radar-rail,
+    html[data-feed-layout="frontpage"] .model-radar-inline { padding:1rem 1.1rem;
+      border:1px solid var(--fg); background:color-mix(in srgb,var(--fg) 4%,transparent); }
+    html[data-feed-layout="frontpage"] .mr-rail-kicker { font-family:var(--fp-caps);
+      letter-spacing:.16em; color:var(--fg); padding-bottom:.45rem; border-bottom:2px solid var(--fg); }
+    html[data-feed-layout="frontpage"] .mr-rail-heading,
+    html[data-feed-layout="frontpage"] .end-marker-title,
+    html[data-feed-layout="frontpage"] article h3 { font-family:var(--fp-serif); letter-spacing:0; }
+    html[data-feed-layout="frontpage"] article h3 a { font-weight:700; }
+
+    /* The front page itself: only rendered when #list holds a lead story
+       (Brief lens, no search, enough stories). Floats rather than grid so
+       the cards stay direct #list children in rank order. */
+    /* min-width:0 keeps the one-line (nowrap) ranked rows from widening
+       the reading-column grid track past the viewport. */
+    #list:has(> article.fp-lead) { display:flow-root; min-width:0; }
+    #list > article:is(.fp-lead,.fp-second,.fp-pair) { min-width:0; }
+    .fp-edition { display:flex; justify-content:space-between; gap:.5rem 1rem; flex-wrap:wrap;
+      margin:0 0 1.1rem; padding:.45rem 0; border-bottom:2px solid var(--fg);
+      font-family:var(--fp-serif); font-variant:small-caps; font-size:.92rem; color:var(--fg); }
+    .fp-kicker { margin:0 0 .4rem; font-family:var(--fp-caps); font-size:.7rem; font-weight:700;
+      letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
+    .fp-rank { margin-right:.35rem; color:var(--muted); font-variant-numeric:tabular-nums; }
+    #list > article:is(.fp-lead,.fp-second,.fp-pair) { display:flex; flex-direction:column;
+      padding:0 0 1rem; border-top:0; }
+    #list > article:is(.fp-lead,.fp-second,.fp-pair)::after { display:none; }
+    /* Reading order inside a front-page card: kicker, headline, summary,
+       then the byline row (source, time, badges, save/share/hide). */
+    #list > article:is(.fp-lead,.fp-second,.fp-pair) .card-main { order:1; }
+    #list > article:is(.fp-lead,.fp-second,.fp-pair) .card-top { order:2; margin:.55rem 0 0; padding-right:0; }
+    #list > article:is(.fp-lead,.fp-second,.fp-pair) .matters { order:3; }
+    #list > article:is(.fp-lead,.fp-second,.fp-pair) .also { order:4; }
+    #list > article:is(.fp-lead,.fp-second,.fp-pair) .fb-row { order:5; }
+    #list > article:is(.fp-lead,.fp-second,.fp-pair) .thumb { display:none; }
+    #list > article:is(.fp-lead,.fp-second,.fp-pair) .card-top .src { font-family:var(--fp-caps);
+      font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+    #list > article:is(.fp-lead,.fp-second,.fp-pair) .matters { margin-top:.35rem; padding:0; border:0;
+      background:transparent; color:var(--muted); font-family:var(--fp-caps); font-size:.72rem;
+      font-style:normal; letter-spacing:.02em; }
+    #list > article:is(.fp-second,.fp-pair) .matters,
+    #list > article:is(.fp-second,.fp-pair) .also { overflow:hidden;
+      white-space:nowrap; text-overflow:ellipsis; }
+    #list > article:is(.fp-lead,.fp-second,.fp-pair) .fb-row { margin-top:.35rem; padding-top:0; border-top:0; }
+    /* Feedback stays in the DOM and keyboard-reachable; on hover devices it
+       surfaces with the card instead of repeating under every headline. */
+    @media (hover:hover) {
+      #list > article:is(.fp-lead,.fp-second,.fp-pair) .fb-row { opacity:0; }
+      #list > article:is(.fp-lead,.fp-second,.fp-pair):hover .fb-row,
+      #list > article:is(.fp-lead,.fp-second,.fp-pair):focus-within .fb-row,
+      #list > article:is(.fp-lead,.fp-second,.fp-pair) .fb-row.fb-has-voted { opacity:1; }
+    }
+    #list > article.fp-lead h3 { margin:0 0 .6rem; font-family:var(--fp-display);
+      font-size:clamp(1.9rem,3.6vw,2.7rem); line-height:1.08; letter-spacing:-.01em; }
+    #list > article.fp-lead .why { display:block; -webkit-line-clamp:unset; overflow:visible;
+      font-family:var(--fp-serif); font-size:1.08rem; line-height:1.65; }
+    #list > article.fp-lead .why::first-letter { float:left; margin:.08em .1em 0 0;
+      font-family:var(--fp-display); font-size:3.4em; line-height:.8; font-weight:700; }
+    #list > article:is(.fp-second,.fp-pair) { padding-top:.9rem; border-bottom:1px solid var(--border); }
+    #list > article:is(.fp-second,.fp-pair) h3 { font-size:1.22rem; line-height:1.2; }
+    #list > article:is(.fp-second,.fp-pair) .why { font-family:var(--fp-serif); font-size:.95rem; line-height:1.5;
+      -webkit-line-clamp:2; }
+    .fp-rule { clear:both; display:flex; align-items:center; gap:.8rem; margin:0; padding-top:1.2rem;
+      font-family:var(--fp-caps); font-size:.72rem; font-weight:700; letter-spacing:.18em;
+      text-transform:uppercase; color:var(--fg); }
+    .fp-rule::before, .fp-rule::after { content:""; flex:1; border-top:1px solid var(--fg); }
+    #list:has(> article.fp-lead) > :not(article:is(.fp-lead,.fp-second,.fp-pair)):not(.fp-edition) { clear:both; }
+    @media (min-width:860px) {
+      #list > article.fp-lead { float:left; width:58%; padding-right:1.6rem; border-bottom:0; }
+      #list > article.fp-second { margin-left:58%; padding-left:1.6rem;
+        border-left:1px solid var(--border); }
+      #list > article.fp-lead + article.fp-second { padding-top:0; }
+      #list > article.fp-pair { float:left; width:50%; padding-top:1rem;
+        border-top:1px solid var(--fg); border-bottom:0; }
+      #list > article.fp-second + article.fp-pair { clear:left; padding-right:1.6rem; }
+      #list > article.fp-pair + article.fp-pair { clear:none; padding-left:1.6rem;
+        border-left:1px solid var(--border); }
+    }
+    @media (max-width:859.98px) {
+      #list > article.fp-lead { border-bottom:1px solid var(--border); }
+      .fp-edition span:last-child { display:none; }
+    }
+    @media (max-width:640px) {
+      html[data-feed-layout="frontpage"] .feed-hero { text-align:left; margin-top:.45rem; padding-bottom:.4rem; }
+      html[data-feed-layout="frontpage"] .feed-title { font-size:2.2rem; }
+      html[data-feed-layout="frontpage"] .feed-promise { margin-left:0; font-size:.9rem; }
+      #list > article.fp-lead, #list > article.fp-second { padding-left:0; }
+      #list > article.fp-lead h3 { font-size:1.75rem; }
     }
 
     /* Shared instrument focus ring — keeps keyboard focus on-brand and matches
@@ -3306,7 +3451,10 @@
       return /^(bug fixes|reliability improvements|maintenance( release)?|minor fixes|no release notes)\b/i.test(String(s || '').trim());
     }
 
-    function cardHtml(it, { rank = null, runId = '', hideable = true } = {}) {
+    // frontPage: '' (ledger card), 'lead', 'second', or 'pair' - the front-page
+    // layout's top stories (see renderFeedList). Same markup and controls;
+    // only a kicker replaces the rank column so CSS can set it as a column.
+    function cardHtml(it, { rank = null, runId = '', hideable = true, frontPage = '' } = {}) {
       const key = itemKey(it);
       const rawTitle = String(it.title || 'Untitled');
       const title = esc(trimTitleSuffix(rawTitle, it.source, it.url));
@@ -3385,10 +3533,12 @@
       // Release items without a real excerpt render as compact rows, not
       // full cards; class-only so save/share/hide/swipe handlers keep working.
       const isReleaseRow = type === 'release' && (!summaryRaw || isGenericReleaseNotes(summaryRaw));
-      const articleClass = [sourceCount >= 3 ? 'big-story' : '', hidden ? 'card-hidden' : '', isReleaseRow ? 'release-row' : ''].filter(Boolean).join(' ');
+      const articleClass = [sourceCount >= 3 ? 'big-story' : '', hidden ? 'card-hidden' : '', isReleaseRow ? 'release-row' : '', frontPage ? `fp-${frontPage}` : ''].filter(Boolean).join(' ');
+      const kicker = SLOT_LABELS[it.slot] || (type !== 'news' ? typeLabel : 'News');
       return `
         <article${articleClass ? ` class="${articleClass}"` : ''} data-item-key="${itemId}">
-          ${rank !== null ? `<span class="rank-no"${isClimbing ? ` title="Moved up from #${prevRank} to #${lastRank} between runs"` : ''} aria-label="Rank ${rank}${climbingLabel}">${String(rank).padStart(2, '0')}</span>` : ''}
+          ${frontPage && rank !== null ? `<p class="fp-kicker"><span class="fp-rank" aria-label="Rank ${rank}${climbingLabel}">${String(rank).padStart(2, '0')}</span> ${esc(kicker)}</p>` : ''}
+          ${!frontPage && rank !== null ? `<span class="rank-no"${isClimbing ? ` title="Moved up from #${prevRank} to #${lastRank} between runs"` : ''} aria-label="Rank ${rank}${climbingLabel}">${String(rank).padStart(2, '0')}</span>` : ''}
           <div class="card-top">
             <div class="card-meta">
               <span class="src">${source}</span>
@@ -3413,7 +3563,7 @@
             </div>
             ${image !== '#' ? `<img class="thumb" width="96" height="72" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.remove();" />` : ''}
           </div>
-          ${why && why !== summaryRaw ? `<p class="${whyRaw ? 'matters' : 'matters ranked-why'}">💡 ${esc(why)}</p>` : ''}
+          ${why && why !== summaryRaw ? `<p class="${whyRaw ? 'matters' : 'matters ranked-why'}">${frontPage ? '' : '💡 '}${esc(why)}</p>` : ''}
           ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
           <div class="fb-row ${fbActive ? 'fb-has-voted' : ''}"><span class="fb-label">${fbActive ? FEEDBACK_THANKS : ''}</span><div class="fb-actions">${fbButtons}</div></div>
         </article>`;
@@ -3908,6 +4058,46 @@
       modelRadarInlineObserver.observe(inline);
     }
 
+    // Front-page layout (experiment arm, see the head script): the Brief's
+    // first stories are set as a lead plus a column of secondaries, then the
+    // ledger continues. Cards stay direct children of #list so selection,
+    // swipe, focus restore and feedback handlers are untouched.
+    const FRONT_PAGE_STORIES = 5;
+
+    function frontPageLayoutEnabled() {
+      return document.documentElement.getAttribute('data-feed-layout') === 'frontpage';
+    }
+
+    // Rank 1 leads, 2-3 run beside it, 4-5 sit side by side underneath.
+    function frontPageRole(index) {
+      if (index === 0) return 'lead';
+      if (index < 3) return 'second';
+      return index < FRONT_PAGE_STORIES ? 'pair' : '';
+    }
+
+    function frontPageEditionName(date) {
+      const hour = date.getHours();
+      if (hour >= 5 && hour < 12) return 'Morning edition';
+      if (hour >= 12 && hour < 17) return 'Afternoon edition';
+      if (hour >= 17 && hour < 21) return 'Evening edition';
+      return 'Late edition';
+    }
+
+    function frontPageEditionHtml(latestRunAt) {
+      const at = latestRunAt ? new Date(latestRunAt) : new Date();
+      const date = at.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      return `
+        <div class="fp-edition">
+          <span>${esc(date)}</span>
+          <span>${frontPageEditionName(at)}</span>
+          <span>One ranking for every reader</span>
+        </div>`;
+    }
+
+    function frontPageRuleHtml() {
+      return '<h2 class="fp-rule"><span>The rest of the brief</span></h2>';
+    }
+
     function renderFeedList() {
       const list = document.getElementById('list');
       const { items, runs, freshAdded, runId, totalItems, hasMore } = feedCache;
@@ -3995,7 +4185,15 @@
           }${somethingToClear ? ` <button type="button" data-clear-filters="1">Clear filters</button>` : ''}</div>`;
         }
       } else {
-        const storyCards = visible.map((it, i) => cardHtml(it, { rank: i + 1, runId }));
+        const frontPage = !q
+          && frontPageLayoutEnabled()
+          && activeSection() === 'brief'
+          && visible.length >= FRONT_PAGE_STORIES;
+        const storyCards = visible.map((it, i) => cardHtml(it, {
+          rank: i + 1,
+          runId,
+          frontPage: frontPage ? frontPageRole(i) : '',
+        }));
         if (!q) {
           // Promos and editorial companion surfaces use story ranks, not the
           // rendered-card index. That keeps the Radar directly after story 4
@@ -4010,9 +4208,18 @@
           for (const insert of editorInserts) {
             feedInserts.push(insert);
           }
+          if (frontPage) {
+            // Nothing interrupts the front page: companions that would land
+            // inside it move to just below, after the section rule.
+            for (const insert of feedInserts) {
+              insert.after = Math.max(Number(insert.after) || 0, FRONT_PAGE_STORIES);
+            }
+            feedInserts.unshift({ after: FRONT_PAGE_STORIES, html: frontPageRuleHtml() });
+          }
           const cards = interleaveFeedCards(storyCards, feedInserts);
           if (hiddenInView > 0) cards.unshift(hiddenBarHtml(hiddenInView));
           cards.unshift(catchupHtml(items));
+          if (frontPage) cards.unshift(frontPageEditionHtml(latestRunAt));
           // Finish line for the Brief default — make the "finishable" promise
           // visible. Only on the Brief lens (not the firehose/topic views).
           if (activeSection() === 'brief') {

@@ -44,6 +44,15 @@ links.
 Product contract:
 `docs/product-specs/mobile-site-chrome.md`.
 
+## Feed layout experiment
+
+`web/index.html` assigns each browser a sticky feed layout arm
+(`html[data-feed-layout="frontpage"|"ledger"]`, override with `?layout=`).
+Front-page styles are scoped to that attribute and to
+`#list:has(> article.fp-lead)`, and they reflow ordinary cards without wrapping
+them. Keep `#list > article` as the card contract. Contract:
+`docs/product-specs/feed-front-page.md`.
+
 ## Editorial discovery
 
 `web/nav-updates.js` renders item previews in the Desk, feed and section roots.
