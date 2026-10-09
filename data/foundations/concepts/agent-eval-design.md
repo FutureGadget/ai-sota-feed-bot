@@ -25,6 +25,13 @@ evidence:
     sid: "068e3817b6d56fbd"
     added: 2026-10-02
     note: "Runs a coding agent on four scientific tasks that require operating specialist models, across more than 18,000 trajectories varying task information, reasoning approach, self-verification, time budget, and backbone model. 54% of outcome variance came from run-to-run variability within identical configurations. Task information had the largest effect, above time budget or model size; extra time helped only with enough information or a capable model. Verification tools changed behavior substantially; verification prompts had minimal effect."
+  - id: arxiv-2610-11678-trace-verifier-brittleness
+    kind: benchmark-result
+    title: "TRACE: Diagnosing Verifier Brittleness in Agentic Evaluation"
+    url: "http://arxiv.org/abs/2610.11678v1"
+    sid: "10abc73be739f08b"
+    added: 2026-10-09
+    note: "Protocol that mutates one part of an eval, compares paired runs, and rescores unchanged trajectories. Renaming tools cut a scripted agent's score by 0.250 with identical operations; restoring names at scoring time closed the gap. On tau2-bench (88 tasks), misleading tool names lowered every agent's reward 0.20-0.44, while identical reruns flipped 15-36% of outcomes. Two frontier judges disagreed on 57% of records."
   - id: agent-eval-design-editorial-synthesis
     kind: editorial-inference
     title: "LLM Digest synthesis"
@@ -59,7 +66,9 @@ Treat an eval as software with the usual failure surface: bugs, ambiguous specs,
 - Research: groundedness, coverage, and source quality as separate checks.
 - Computer use: interface state (DOM, screenshots) and backend state, since a correct-looking screen can hide a failed action.
 
-**Measure the configuration, repeatedly.** In an 18,000-trajectory study of coding agents, 54% of outcome variance was run-to-run noise within identical configurations, and task information moved results more than time budget or model size. A verification tool changed behavior where a verification prompt barely did. One run per configuration cannot separate an improvement from luck.
+**Measure the configuration, repeatedly.** In an 18,000-trajectory study of coding agents, 54% of outcome variance was run-to-run noise within identical configurations, and task information moved results more than time budget or model size. A verification tool changed behavior where a verification prompt barely did. One run per configuration cannot separate an improvement from luck: TRACE found identical reruns flip 15-36% of task outcomes.
+
+**Test the scorer when a score moves.** A score change can come from the scoring rule, not the agent. TRACE rescored unchanged trajectories after renaming tools: restoring the original names at scoring time erased a 0.250 drop in a scripted agent. Misleading tool names, by contrast, cut every real agent's reward 0.20-0.44, so the check can also confirm a genuine effect.
 
 **Watch for saturation.** Once scores plateau near the ceiling, the eval stops separating good from great, and further optimization tunes to its blind spots — the dynamic covered in [does a high benchmark score predict production reliability?](/foundations/benchmark-production-reliability-gap).
 
@@ -69,6 +78,7 @@ Treat an eval as software with the usual failure surface: bugs, ambiguous specs,
 - **Report pass@k and pass^k.** They answer "can it ever solve this" and "can I trust it every time"; one aggregate hides which you have.
 - **Match grader type to cadence.** Code-based graders for anything deterministic, on every commit; model-based graders for tone, groundedness, and nuance; humans for periodic calibration of the automated graders.
 - **Grade the trajectory as well as the output.** A lucky pass through a bad process is a risk the outcome score won't show.
+- **Rescore before you blame the agent.** After a score change, rescore the unchanged trajectories under the old format; if the gap closes, the scorer moved, not the agent.
 - **Run each configuration several times and report the spread.** At 54% run-to-run variance, a single run is mostly noise.
 - **Change behavior with tools, not prompt lines.** Treat task information, budget, and tooling as explicit eval dimensions, and test self-verification as a tool or dedicated component.
 - **Retire saturated evals.** At ceiling, raise the difficulty or discount further gains.
@@ -79,6 +89,7 @@ Treat an eval as software with the usual failure surface: bugs, ambiguous specs,
 - **Exact step matching:** penalizing a correct result reached by a different valid path.
 - **No negative cases:** overconfidence and unwarranted refusals never get caught.
 - **Flaky environments:** sandbox noise read as an agent regression.
+- **Brittle scorers:** a verifier that keys on tool names or output formatting turns a cosmetic change into a fake regression.
 - **Single-run comparisons:** run-to-run variance read as a real difference.
 - **Misattribution:** crediting the model for a change when task information, budget, or tooling also changed.
 - **Optimizing a saturated eval:** tuning to its blind spots instead of real capability.
