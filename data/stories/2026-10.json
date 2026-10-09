@@ -534,7 +534,7 @@
   "matched_topics": [
    "agent"
   ],
-  "published": "2026-10-09T16:52:14+00:00",
+  "published": "2026-10-09T19:34:01+00:00",
   "sid": "159c1db9c1130325",
   "source": "langchain_blog",
   "summary": "Managed Deep Agents includes a new API for managing reactions for your distributed agents, and a system to dynamically assign emoji responses with your instrument of choice. Learn more.",
@@ -567,8 +567,8 @@
   "published": "2026-10-09T04:50:01+00:00",
   "sid": "167c7efa09e6db36",
   "source": "hf_qwen_releases",
-  "summary": "New model weights from Qwen on Hugging Face. Task: text-to-image. Likes: 225, downloads: 0.",
-  "summary_1line": "New model weights from Qwen on Hugging Face. Task: text-to-image. Likes: 225, downloads: 0.",
+  "summary": "New model weights from Qwen on Hugging Face. Task: text-to-image. Likes: 248, downloads: 0.",
+  "summary_1line": "New model weights from Qwen on Hugging Face. Task: text-to-image. Likes: 248, downloads: 0.",
   "title": "Qwen/Qwen-Image-2.1-Turbo released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/Qwen/Qwen-Image-2.1-Turbo"
@@ -688,8 +688,8 @@
   "published": "2026-10-09T06:42:18+00:00",
   "sid": "1cbfc46844b39240",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 34, downloads: 50.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 34, downloads: 50.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 37, downloads: 50.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 37, downloads: 50.",
   "title": "tencent/Youtu-Parsing-Omni released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Youtu-Parsing-Omni"
@@ -1189,7 +1189,7 @@
   "matched_topics": [
    "harness"
   ],
-  "published": "2026-10-09T17:19:13+00:00",
+  "published": "2026-10-09T19:34:01+00:00",
   "sid": "378de5b0a4ef1ffb",
   "source": "langchain_blog",
   "summary": "How we built a model router into Open SWE's harness that cut median cost per coding task by 64% with no measurable drop in quality, and how to build your own.",
@@ -1232,16 +1232,20 @@
  },
  "396d5f6b9bc0a0f2": {
   "first_seen": "2026-10-09T18:07:12.284543+00:00",
-  "id": "0c3a3111625dc815",
+  "id": "dd61ff6f874aef7f",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-10-09T17:39:06+00:00",
+  "published": "2026-10-09T19:47:24+00:00",
+  "release_highlights": [
+   "Fixed a TUI crash when asynchronous questions contain multiple lines, preserving line breaks and complete hyperlink destinations",
+   "Fixed startup failures caused by differences between a running background server's feature settings and CLI defaults. Compatibility checks now apply only to..."
+  ],
   "sid": "396d5f6b9bc0a0f2",
   "source": "openai_codex_releases",
-  "summary": "Release 0.162.1",
-  "summary_1line": "Release 0.162.1",
-  "title": "codex rust-v0.162.1",
+  "summary": "Bug Fixes Fixed a TUI crash when asynchronous questions contain multiple lines, preserving line breaks and complete hyperlink destinations. ( #51866 ) Fixed startup failures caused by differences between a running background server's feature settings and CLI defaults. Compatibility checks now apply only to explicit command-line feature overrides. ( #52648 ) Full Changelog: rust-v0.162.0...rust-v0.162.1",
+  "summary_1line": "Fixed a TUI crash when asynchronous questions contain multiple lines, preserving line breaks and complete hyperlink destinations · Fixed startup failures caused by differences between a running background server's fea...",
+  "title": "codex 0.162.1",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.1",
   "why_it_matters": "Matches feed focus: codex."
@@ -5124,6 +5128,27 @@
   "type": "paper",
   "url": "https://arxiv.org/abs/2602.11243",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "e75aaf1e12900808": {
+  "first_seen": "2026-10-09T20:03:04.943975+00:00",
+  "id": "a9480a671b0cd110",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-09T19:28:59+00:00",
+  "release_highlights": [
+   "Added a code key to the Claude apps gateway's managed.policies[] : the same settings as cli , also applied in Claude Desktop's Code tab; beside desktop , it...",
+   "Added autoCompactWindow to subagent frontmatter and --agents definitions, so a subagent can auto-compact earlier than the main conversation's window",
+   "Added CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL to run every workflow agent on one model while other subagents keep theirs"
+  ],
+  "sid": "e75aaf1e12900808",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added a code key to the Claude apps gateway's managed.policies[] : the same settings as cli , also applied in Claude Desktop's Code tab; beside desktop , it turns on Claude Desktop's gateway mode Added autoCompactWindow to subagent frontmatter and --agents definitions, so a subagent can auto-compact earlier than the main conversation's window Added CLAUDE_CODE_WORKFLOW_SUBAGENT_MODEL to run every workflow agent on one model while other subagents keep theirs Added CLAUDE_CODE_OVERLOADED_RETRY_MAX_DELAY_MS environment variable to set a longer maximum delay for the backoff when retrying an overloaded (529) request Added a note in /plugin on a plugin whose hooks are left out because another enabled plugin has the same name Added an allow_large option to the Read tool so Claude can read a text file past the usual size limits in one call when it needs the whole file and the context has room Fixed managed-settings PreToolUse hooks that deny a tool call with \"continue\": false , and managed prompt hooks that block one, refusing the call but not ending the turn Fixed PostToolUse hooks in managed settings not applying updatedMCPToolOutput in some sessions Fixed headless sessions starting a folder's .mcp.json or plugin MCP server that was switched off for that folder, after changing directory or reloading plugins Fixed a Claude apps gateway that serves allowedProviders with \"gateway\" locking out laptops that name that gateway in user settings Fixed a saved Claude apps gate",
+  "summary_1line": "Added a code key to the Claude apps gateway's managed.policies[] : the same settings as cli , also applied in Claude Desktop's Code tab; beside desktop , it... · Added autoCompactWindow to subagent frontmatter and --a...",
+  "title": "claude-code v2.1.296",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.296",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "e7651bad514e3e27": {
   "first_seen": "2026-10-05T02:04:13.028325+00:00",
