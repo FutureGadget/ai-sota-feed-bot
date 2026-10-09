@@ -227,6 +227,25 @@
     },
     "edition_date": "2026-09-18"
   },
+  "10abc73be739f08b": {
+    "id": "pb-audit-verifier-before-trusting-scores",
+    "kind": "source-backed",
+    "title": "Audit your verifier before reading a score change as capability",
+    "area": "Evals",
+    "problem": "A rising eval or reward score may reflect a change in the verifier, not in the agent.",
+    "apply": "Freeze the verifier version per comparison, and re-score a fixed sample of past agent traces whenever you change it. Treat any score shift that appears on identical traces as verifier drift.",
+    "result": "Score changes you report to your team trace to the agent, not the grader.",
+    "effort": "medium",
+    "source": "arxiv_cs_cl",
+    "source_url": "http://arxiv.org/abs/2610.11678v1",
+    "source_sid": "10abc73be739f08b",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "TRACE argues verifier scores serve as both benchmark metrics and training rewards, so verifier changes can masquerade as capability changes."
+    },
+    "edition_date": "2026-10-09"
+  },
   "11989be201950b67": {
     "id": "pb-git-worktree-isolate-parallel-coding-agents",
     "kind": "source-backed",
@@ -702,6 +721,25 @@
     },
     "edition_date": "2026-09-18"
   },
+  "294b77aa7e2dc166": {
+    "id": "pb-seed-harness-with-blocked-attacks",
+    "kind": "source-backed",
+    "title": "Seed your red-team harness with attacks your defenses already blocked",
+    "area": "Reliability",
+    "problem": "Static test suites for a protective layer go stale as soon as attackers vary their payloads.",
+    "apply": "Run models inside a sandboxed harness that takes blocked requests from your logs, has the model mutate them, and reports which variants get through.",
+    "result": "Cloudflare reports this surfaces WAF bypasses from variants of attacks it already blocks, before attackers find them.",
+    "effort": "high",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/10/cloudflare-sec-harness/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "294b77aa7e2dc166",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Cloudflare describes using blocked attacks as starting points for models to generate and refine WAF-probing variants."
+    },
+    "edition_date": "2026-10-09"
+  },
   "2a7072ece5f3372b": {
     "id": "pb-route-doc-drafts-to-the-pr-author-not-autopublish",
     "kind": "source-backed",
@@ -1157,6 +1195,25 @@
       "note": "Databricks measured the failure counts and $1.2M/year cost via Unity Gateway tracing before and after the fix."
     },
     "edition_date": "2026-09-04"
+  },
+  "45d6a2b79938283a": {
+    "id": "pb-route-codex-models-by-task",
+    "kind": "source-backed",
+    "title": "Route each coding task to the cheapest model that clears it",
+    "area": "Cost & latency",
+    "problem": "Running every coding-agent task on your top model inflates daily spend without speeding anyone up.",
+    "apply": "Label your recurring agent tasks by difficulty, assign each label a model tier, and set a daily budget per team. Review the mapping weekly against rework rates.",
+    "result": "LegalOn reports a 65% cut in estimated daily Codex cost with development speed unchanged.",
+    "effort": "low",
+    "source": "openai_blog",
+    "source_url": "https://openai.com/index/legalon-halves-codex-costs",
+    "source_sid": "45d6a2b79938283a",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "LegalOn states the 65% figure for its own estimated daily Codex costs."
+    },
+    "edition_date": "2026-10-09"
   },
   "45f01235e11c1ae2": {
     "id": "pb-adaptive-stopping-for-eval-budget",
@@ -1785,6 +1842,25 @@
     },
     "edition_date": "2026-07-21"
   },
+  "7846186c47bfadc6": {
+    "id": "pb-treat-rule-files-as-untrusted",
+    "kind": "source-backed",
+    "title": "Review AGENTS.md and rule files like code before agents read them",
+    "area": "Safety",
+    "problem": "Community-shared rule files can steer a coding agent into installing hallucinated or attacker-registered packages.",
+    "apply": "Pin rule files to reviewed commits, diff them on every update, and require the agent to check any new dependency against an allowlist or lockfile before installing.",
+    "result": "Injected rule-file instructions can no longer add a dependency without a human-visible change.",
+    "effort": "medium",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2610.09264v1",
+    "source_sid": "7846186c47bfadc6",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "The paper studies package hallucination attacks delivered through prompt injection in AGENTS.md and .cursorrules-style files."
+    },
+    "edition_date": "2026-10-09"
+  },
   "7866a5b7fe98e94b": {
     "id": "pb-invalidate-dependent-memories",
     "kind": "source-backed",
@@ -2316,6 +2392,25 @@
       "note": "AWS's worked five-turn example shows the failure count before and after decomposition."
     },
     "edition_date": "2026-09-11"
+  },
+  "92349bd4a8c11233": {
+    "id": "pb-hooks-fail-closed",
+    "kind": "source-backed",
+    "title": "Make guardrail hooks block the action when they fail",
+    "area": "Safety",
+    "problem": "A policy hook that crashes, times out, or exits unexpectedly silently lets the risky action through.",
+    "apply": "Set `onFailure: \"block\"` on command and HTTP hooks that enforce policy, and keep the default pass-through only for advisory hooks. Test by killing the hook process.",
+    "result": "A broken guardrail now stops the action instead of disabling itself unnoticed.",
+    "effort": "low",
+    "source": "claude_code_releases",
+    "source_url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.295",
+    "source_sid": "92349bd4a8c11233",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "claude-code v2.1.295 adds onFailure: \"block\" for command and HTTP hooks."
+    },
+    "edition_date": "2026-10-09"
   },
   "9283a6f418d96ab7": {
     "id": "pb-filter-agent-memory-by-metadata-before-vector-search",
@@ -3399,6 +3494,25 @@
       "note": "The source describes the architecture qualitatively without a quantified production result."
     },
     "edition_date": "2026-07-24"
+  },
+  "d89ca29fbd41ee94": {
+    "id": "pb-bind-tools-to-skills",
+    "kind": "source-backed",
+    "title": "Bind tools to skills so they load only when the skill does",
+    "area": "Tool use",
+    "problem": "A large skill library plus every tool schema in context crowds out the task and confuses tool selection.",
+    "apply": "Declare each skill's tools alongside the skill, pin the skills a run needs at start, and reload skills mid-thread instead of preloading all of them.",
+    "result": "Context stays focused on the active task even as the skill repository grows.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/revamping-skills-in-deep-agents",
+    "source_sid": "d89ca29fbd41ee94",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Deep Agents now supports binding tools to skills, runtime pinning, and mid-thread reload."
+    },
+    "edition_date": "2026-10-09"
   },
   "d9524ab76177d5be": {
     "id": "pb-multi-vector-retrieval-rerank",
