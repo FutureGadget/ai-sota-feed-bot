@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-08T18:19:33.348768+00:00",
+ "generated_at": "2026-10-09T18:18:12.123127+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,22 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-09-option-channel-guardrail-attack",
+   "topic": "prompt-injection",
+   "topic_title": "Untrusted input and tools can hijack an agent",
+   "kind": "obstacle",
+   "date": "2026-10-09",
+   "title": "Typed-decision guardrail models are easily flipped to fail-open, so they should not be the gate"
+  },
+  {
+   "id": "2026-10-09-epistemic-humility-ise",
+   "topic": "agent-evaluation",
+   "topic_title": "Measuring whether an agent actually worked is hard",
+   "kind": "obstacle",
+   "date": "2026-10-09",
+   "title": "High task accuracy does not imply an agent admits unresolved uncertainty"
+  },
   {
    "id": "2026-10-08-packhallu-rule-file-dependency-swap",
    "topic": "prompt-injection",
@@ -238,22 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-01",
    "title": "GKE Pod snapshots cut model startup latency up to 89%, but invalidation is the catch"
-  },
-  {
-   "id": "2026-09-29-provenanceguard-source-attribution",
-   "topic": "grounding",
-   "topic_title": "An agent's answer is only as good as what it retrieved — and whether it can prove it",
-   "kind": "obstacle",
-   "date": "2026-09-29",
-   "title": "ProvenanceGuard checks per claim that an MCP agent cites the source a fact actually came from"
-  },
-  {
-   "id": "2026-09-29-anthropic-eval-hillclimbing-guide",
-   "topic": "agent-evaluation",
-   "topic_title": "Measuring whether an agent actually worked is hard",
-   "kind": "obstacle",
-   "date": "2026-09-29",
-   "title": "Anthropic's hillclimbing guide sets four checks for an eval and a held-out split"
   }
  ],
  "nodes": {
@@ -1451,7 +1451,7 @@
      "key": "domain-benchmarks",
      "title": "Narrow benchmarks for domains, platforms, and failure modes",
      "summary": "Maintained, domain-narrow suites for oncall, memory, finance, extraction, security, serving load, and poisoned inputs are becoming how a sub-capability gets evaluated, and they routinely find frontier agents clearing half the tasks or less.",
-     "count": 20
+     "count": 21
     },
     {
      "key": "eval-in-production",
@@ -1461,6 +1461,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-09-epistemic-humility-ise",
+     "topic": "agent-evaluation",
+     "date": "2026-10-09",
+     "title": "High task accuracy does not imply an agent admits unresolved uncertainty",
+     "theme": "domain-benchmarks",
+     "html": "<p>A new paper scores agents on <strong>epistemic humility</strong>: whether they identify, solve, and escalate knowledge conflicts, where retrieved evidence contradicts the model&#x27;s prior or two sources disagree. Across four agents, higher accuracy did not track more humility. Some high-accuracy configurations noticed conflicts mid-run yet gave incorrect final answers without flagging uncertainty, and agents often detected conflicts early but lost them in later steps. Model-level interventions improved humility, often at the cost of accuracy.</p>\n<p>For builders: grade trajectories for conflict handling, and check the final answer surfaces what the run noticed.</p>",
+     "evidence": [
+      {
+       "sid": "4353ed3c68ccb423",
+       "title": "Accurate but Not Humble: Evaluating Epistemic Humility in LLM Agents under Knowledge Conflict"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-07-deception-benchmark-inducements",
      "topic": "agent-evaluation",
@@ -3420,8 +3435,8 @@
     }
    ],
    "cross_entries": [],
-   "entry_count": 126,
-   "latest_entry_date": "2026-10-07",
+   "entry_count": 127,
+   "latest_entry_date": "2026-10-09",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -3435,6 +3450,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "4353ed3c68ccb423",
+     "title": "Accurate but Not Humble: Evaluating Epistemic Humility in LLM Agents under Knowledge Conflict"
+    },
     {
      "sid": "fc7d42488a2d4c9c",
      "title": "DecepEval: A Benchmark for Evaluating Deception in LLM Agents"
@@ -3968,7 +3987,7 @@
      "title": "Running the Gauntlet: Re-evaluating the Capabilities of Agents Beyond Familiar Environments"
     }
    ],
-   "updated": "2026-10-07"
+   "updated": "2026-10-09"
   },
   "agent-latency": {
    "slug": "agent-latency",
@@ -10720,7 +10739,7 @@
      "key": "model-defenses",
      "title": "Guardrail models, model hardening, and how defenses are measured",
      "summary": "Guardrail classifiers and model hardening cut measured jailbreak and injection rates sharply, but guardrails can be attacked themselves, and long-context, non-English, and self-improving red-team tests show published defense numbers run optimistic.",
-     "count": 12
+     "count": 13
     },
     {
      "key": "harness-controls",
@@ -10748,6 +10767,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-09-option-channel-guardrail-attack",
+     "topic": "prompt-injection",
+     "date": "2026-10-09",
+     "title": "Typed-decision guardrail models are easily flipped to fail-open, so they should not be the gate",
+     "theme": "model-defenses",
+     "html": "<p>A paper tests seven open-weight &quot;typed decision&quot; models as agent guardrails (read a tool call or message, return a probability over allow/block options). Allow-or-block accuracy on injection, jailbreak, and toxicity screening ranged <strong>36% to 72%</strong> against a 50% chance level. Six lines of irrelevant server-log text raised one gate&#x27;s fail-open rate from 0% to 63%; renaming the permissive option raised it to 93-100% on four models. Every defense tested was defeated, and escalating low-confidence decisions did not help.</p>\n<p>For builders: use such models to shrink the review queue, not to decide. A deterministic rule over typed policy fields reached 100% accuracy on all six policies.</p>",
+     "evidence": [
+      {
+       "sid": "0f0c80587e932ad4",
+       "title": "One Word Opens the Gate: The Option-Channel Attack on Typed Decision Models as Agent Guardrails"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-08-packhallu-rule-file-dependency-swap",
      "topic": "prompt-injection",
@@ -11645,8 +11679,8 @@
      "title": "Agent memory systems readily admit poisoned facts, a reproducible benchmark shows"
     }
    ],
-   "entry_count": 56,
-   "latest_entry_date": "2026-10-08",
+   "entry_count": 57,
+   "latest_entry_date": "2026-10-09",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -11656,6 +11690,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "0f0c80587e932ad4",
+     "title": "One Word Opens the Gate: The Option-Channel Attack on Typed Decision Models as Agent Guardrails"
+    },
     {
      "sid": "7846186c47bfadc6",
      "title": "Package Hallucination Attacks on Coding Agents through Prompt Injection in Rule Files"
@@ -11909,7 +11947,7 @@
      "title": "Show HN: Deep-XPIA – Prompt injection benchmark for multi-agent AI systems"
     }
    ],
-   "updated": "2026-10-08"
+   "updated": "2026-10-09"
   },
   "proving-agent-roi": {
    "slug": "proving-agent-roi",

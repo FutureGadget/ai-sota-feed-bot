@@ -53,13 +53,13 @@ Schema: `config/wiki_schema.md`.
   - theme `proving-attribution` — Proving the answer is backed by its source (4)
 
 ### evaluation
-- [agent-evaluation](obstacles/agent-evaluation.md) — Measuring whether an agent actually worked is hard (126 entries, updated 2026-10-07)
+- [agent-evaluation](obstacles/agent-evaluation.md) — Measuring whether an agent actually worked is hard (127 entries, updated 2026-10-09)
   → solutions: agent-benchmarks, llm-as-judge
   - theme `grading-trajectories` — Grading the trajectory, and checking the grader (22)
   - theme `score-validity` — Benchmark scores are noisier and less valid than they look (20)
   - theme `gaming-and-containment` — Gamed metrics, leaky eval sandboxes, and who audits the evaluator (14)
   - theme `coding-benchmarks` — Coding-agent benchmarks beyond "the tests pass" (19)
-  - theme `domain-benchmarks` — Narrow benchmarks for domains, platforms, and failure modes (20)
+  - theme `domain-benchmarks` — Narrow benchmarks for domains, platforms, and failure modes (21)
   - theme `eval-in-production` — Evals as a production workflow: mined from traces, gated in CI (31)
 
 ### multi-agent
@@ -105,10 +105,10 @@ Schema: `config/wiki_schema.md`.
   - theme `monitoring-limits` — When the trace is not enough (2)
 
 ### security
-- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (56 entries, updated 2026-10-08)
+- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (57 entries, updated 2026-10-09)
   → solutions: agent-sandboxing
   - theme `injection-paths` — New paths for injected instructions (10)
-  - theme `model-defenses` — Guardrail models, model hardening, and how defenses are measured (12)
+  - theme `model-defenses` — Guardrail models, model hardening, and how defenses are measured (13)
   - theme `harness-controls` — Permissions, approvals, and sandboxes in the agent harness (9)
   - theme `agent-authorization` — Agents as identities with scoped, per-action authorization (11)
   - theme `eval-escapes` — Agents attacking real systems from cyber evals and training runs (6)
