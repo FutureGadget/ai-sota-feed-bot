@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T10:09:52.426555+00:00",
+  "generated_at": "2026-10-09T18:15:23.115442+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -70,6 +70,15 @@
   ],
   "recent_evidence": [
     {
+      "concept": "agent-eval-design",
+      "concept_title": "What should an agent eval actually measure?",
+      "id": "arxiv-2610-11678-trace-verifier-brittleness",
+      "title": "TRACE: Diagnosing Verifier Brittleness in Agentic Evaluation",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-10-09"
+    },
+    {
       "concept": "mcp-security-control-layers",
       "concept_title": "What actually breaks when you run MCP in production, and how do you defend it?",
       "id": "copex-2026-mcp-adversarial-context",
@@ -130,15 +139,6 @@
       "title": "Security: unauthenticated local/remote code execution via the dsh web UI control plane (verified on 0.1.0-rc.6)",
       "tier": "production field-report-backed",
       "kind": "production-field-report",
-      "added": "2026-09-09"
-    },
-    {
-      "concept": "agent-sandbox-trust-boundary",
-      "concept_title": "Does a network allowlist make an AI agent sandbox trustworthy?",
-      "id": "anthropic-2026-how-we-contain-claude",
-      "title": "How we contain Claude across products",
-      "tier": "primary-doc-backed",
-      "kind": "primary-doc",
       "added": "2026-09-09"
     }
   ],
@@ -248,8 +248,8 @@
       "status": "active",
       "cluster": "evaluation",
       "cluster_label": "Evals and reliability",
-      "updated": "2026-10-06",
-      "latest_evidence_added": "2026-10-02",
+      "updated": "2026-10-09",
+      "latest_evidence_added": "2026-10-09",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -267,15 +267,15 @@
         },
         {
           "heading": "Mechanism",
-          "html": "<p><strong>Start from real failures.</strong> Anthropic recommends 20-50 tasks drawn from cases that actually went wrong, not hundreds of synthetic ones; manual QA checks convert directly into test cases. Each task needs an unambiguous spec and a reference solution, because an ambiguous task is graded inconsistently however good the grader is. That bug class produced the 42%-to-95% CORE-Bench jump. Include negative cases where the right behavior is to refuse, defer, or say it doesn&#x27;t know; a suite of only solvable tasks cannot detect overconfidence.</p>\n<p><strong>Keep the environment stable and grade outcomes.</strong> A flaky sandbox or shared external state produces score noise indistinguishable from a regression. Exact step-sequence matching penalizes agents that reach a correct result by a different valid path, so grade the outcome and, separately, the soundness of the trajectory.</p>\n<p><strong>Grade the artifact each agent type produces.</strong></p>\n<ul><li>Coding: unit tests for the outcome, a transcript pass for process.</li><li>Conversational: backend state verification plus an LLM rubric for tone.</li><li>Research: groundedness, coverage, and source quality as separate checks.</li><li>Computer use: interface state (DOM, screenshots) and backend state, since a correct-looking screen can hide a failed action.</li></ul>\n<p><strong>Measure the configuration, repeatedly.</strong> In an 18,000-trajectory study of coding agents, 54% of outcome variance was run-to-run noise within identical configurations, and task information moved results more than time budget or model size. A verification tool changed behavior where a verification prompt barely did. One run per configuration cannot separate an improvement from luck.</p>\n<p><strong>Watch for saturation.</strong> Once scores plateau near the ceiling, the eval stops separating good from great, and further optimization tunes to its blind spots — the dynamic covered in <a href=\"/foundations/benchmark-production-reliability-gap\">does a high benchmark score predict production reliability?</a>.</p>"
+          "html": "<p><strong>Start from real failures.</strong> Anthropic recommends 20-50 tasks drawn from cases that actually went wrong, not hundreds of synthetic ones; manual QA checks convert directly into test cases. Each task needs an unambiguous spec and a reference solution, because an ambiguous task is graded inconsistently however good the grader is. That bug class produced the 42%-to-95% CORE-Bench jump. Include negative cases where the right behavior is to refuse, defer, or say it doesn&#x27;t know; a suite of only solvable tasks cannot detect overconfidence.</p>\n<p><strong>Keep the environment stable and grade outcomes.</strong> A flaky sandbox or shared external state produces score noise indistinguishable from a regression. Exact step-sequence matching penalizes agents that reach a correct result by a different valid path, so grade the outcome and, separately, the soundness of the trajectory.</p>\n<p><strong>Grade the artifact each agent type produces.</strong></p>\n<ul><li>Coding: unit tests for the outcome, a transcript pass for process.</li><li>Conversational: backend state verification plus an LLM rubric for tone.</li><li>Research: groundedness, coverage, and source quality as separate checks.</li><li>Computer use: interface state (DOM, screenshots) and backend state, since a correct-looking screen can hide a failed action.</li></ul>\n<p><strong>Measure the configuration, repeatedly.</strong> In an 18,000-trajectory study of coding agents, 54% of outcome variance was run-to-run noise within identical configurations, and task information moved results more than time budget or model size. A verification tool changed behavior where a verification prompt barely did. One run per configuration cannot separate an improvement from luck: TRACE found identical reruns flip 15-36% of task outcomes.</p>\n<p><strong>Test the scorer when a score moves.</strong> A score change can come from the scoring rule, not the agent. TRACE rescored unchanged trajectories after renaming tools: restoring the original names at scoring time erased a 0.250 drop in a scripted agent. Misleading tool names, by contrast, cut every real agent&#x27;s reward 0.20-0.44, so the check can also confirm a genuine effect.</p>\n<p><strong>Watch for saturation.</strong> Once scores plateau near the ceiling, the eval stops separating good from great, and further optimization tunes to its blind spots — the dynamic covered in <a href=\"/foundations/benchmark-production-reliability-gap\">does a high benchmark score predict production reliability?</a>.</p>"
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li><strong>Audit the eval before touching the agent.</strong> When a score looks bad, read failing transcripts by hand and check for ambiguous specs, wrong reference solutions, or a grader that missed a valid path.</li><li><strong>Start from 20-50 real failures.</strong> A small set from production catches the failures that matter faster than a large synthetic one.</li><li><strong>Report pass@k and pass^k.</strong> They answer &quot;can it ever solve this&quot; and &quot;can I trust it every time&quot;; one aggregate hides which you have.</li><li><strong>Match grader type to cadence.</strong> Code-based graders for anything deterministic, on every commit; model-based graders for tone, groundedness, and nuance; humans for periodic calibration of the automated graders.</li><li><strong>Grade the trajectory as well as the output.</strong> A lucky pass through a bad process is a risk the outcome score won&#x27;t show.</li><li><strong>Run each configuration several times and report the spread.</strong> At 54% run-to-run variance, a single run is mostly noise.</li><li><strong>Change behavior with tools, not prompt lines.</strong> Treat task information, budget, and tooling as explicit eval dimensions, and test self-verification as a tool or dedicated component.</li><li><strong>Retire saturated evals.</strong> At ceiling, raise the difficulty or discount further gains.</li></ul>"
+          "html": "<ul><li><strong>Audit the eval before touching the agent.</strong> When a score looks bad, read failing transcripts by hand and check for ambiguous specs, wrong reference solutions, or a grader that missed a valid path.</li><li><strong>Start from 20-50 real failures.</strong> A small set from production catches the failures that matter faster than a large synthetic one.</li><li><strong>Report pass@k and pass^k.</strong> They answer &quot;can it ever solve this&quot; and &quot;can I trust it every time&quot;; one aggregate hides which you have.</li><li><strong>Match grader type to cadence.</strong> Code-based graders for anything deterministic, on every commit; model-based graders for tone, groundedness, and nuance; humans for periodic calibration of the automated graders.</li><li><strong>Grade the trajectory as well as the output.</strong> A lucky pass through a bad process is a risk the outcome score won&#x27;t show.</li><li><strong>Rescore before you blame the agent.</strong> After a score change, rescore the unchanged trajectories under the old format; if the gap closes, the scorer moved, not the agent.</li><li><strong>Run each configuration several times and report the spread.</strong> At 54% run-to-run variance, a single run is mostly noise.</li><li><strong>Change behavior with tools, not prompt lines.</strong> Treat task information, budget, and tooling as explicit eval dimensions, and test self-verification as a tool or dedicated component.</li><li><strong>Retire saturated evals.</strong> At ceiling, raise the difficulty or discount further gains.</li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li><strong>Debugging the wrong thing:</strong> changing the agent to chase a low score without checking the eval for ambiguous specs, wrong references, or grader bugs.</li><li><strong>One aggregate score:</strong> hiding whether failure is occasional (decent pass@k, bad pass^k) or total.</li><li><strong>Exact step matching:</strong> penalizing a correct result reached by a different valid path.</li><li><strong>No negative cases:</strong> overconfidence and unwarranted refusals never get caught.</li><li><strong>Flaky environments:</strong> sandbox noise read as an agent regression.</li><li><strong>Single-run comparisons:</strong> run-to-run variance read as a real difference.</li><li><strong>Misattribution:</strong> crediting the model for a change when task information, budget, or tooling also changed.</li><li><strong>Optimizing a saturated eval:</strong> tuning to its blind spots instead of real capability.</li></ul>"
+          "html": "<ul><li><strong>Debugging the wrong thing:</strong> changing the agent to chase a low score without checking the eval for ambiguous specs, wrong references, or grader bugs.</li><li><strong>One aggregate score:</strong> hiding whether failure is occasional (decent pass@k, bad pass^k) or total.</li><li><strong>Exact step matching:</strong> penalizing a correct result reached by a different valid path.</li><li><strong>No negative cases:</strong> overconfidence and unwarranted refusals never get caught.</li><li><strong>Flaky environments:</strong> sandbox noise read as an agent regression.</li><li><strong>Brittle scorers:</strong> a verifier that keys on tool names or output formatting turns a cosmetic change into a fake regression.</li><li><strong>Single-run comparisons:</strong> run-to-run variance read as a real difference.</li><li><strong>Misattribution:</strong> crediting the model for a change when task information, budget, or tooling also changed.</li><li><strong>Optimizing a saturated eval:</strong> tuning to its blind spots instead of real capability.</li></ul>"
         },
         {
           "heading": "Related",
@@ -283,6 +283,16 @@
         }
       ],
       "evidence": [
+        {
+          "id": "arxiv-2610-11678-trace-verifier-brittleness",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "TRACE: Diagnosing Verifier Brittleness in Agentic Evaluation",
+          "note": "Protocol that mutates one part of an eval, compares paired runs, and rescores unchanged trajectories. Renaming tools cut a scripted agent's score by 0.250 with identical operations; restoring names at scoring time closed the gap. On tau2-bench (88 tasks), misleading tool names lowered every agent's reward 0.20-0.44, while identical reruns flipped 15-36% of outcomes. Two frontier judges disagreed on 57% of records.",
+          "added": "2026-10-09",
+          "url": "http://arxiv.org/abs/2610.11678v1",
+          "sid": "10abc73be739f08b"
+        },
         {
           "id": "arxiv-2610-01618-agents-are-systems",
           "kind": "benchmark-result",
