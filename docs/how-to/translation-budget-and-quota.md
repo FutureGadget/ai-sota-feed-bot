@@ -143,9 +143,11 @@ Google's quota enforcement lags, so a burst can overshoot it. The authority is
   quota exhausted, the guard trips the day shut regardless of its own count.
 - **Paced.** At most 4,000 characters per minute leave the process (a single
   larger request passes when the window is empty).
-- **Serialized.** `i18n-translate.yml` shares the `feed-pipeline` concurrency
-  group, so the feed and static jobs never run side by side and the committed
-  ledger is exact.
+- **Serialized and refreshed.** `i18n-translate.yml` shares the `feed-pipeline`
+  concurrency group and refreshes main before spending. A queued workflow's
+  triggering SHA can predate an earlier feed publish even with serialization.
+  Static publication adds usage deltas to fresh main rather than text-rebasing
+  the shared ledger (see section 6).
 
 | Var | Default | Effect |
 |---|---|---|
@@ -195,3 +197,93 @@ Local ledgers only see our own runs. Set both of these in Cloud Console:
 - **Want to ship without any of this** → `LOCALIZED_FEED_BUDGET_GOVERNOR=0`
   restores full-cadence translation immediately; the ledger keeps counting in
   the background so re-enabling later starts from an accurate number.
+
+## 6. Persist paid static outputs and recover publishing failures
+
+`scripts/persist_static_i18n.py` owns the static workflow's persistence path:
+
+1. Recover unacknowledged attempts before allowing another translation call.
+2. Refresh main while the checkout is clean, then save the run identity and
+   base commit in `$RUNNER_TEMP/static-i18n/checkpoint.json`.
+3. After translation, checkpoint changed translation JSON and the before/after
+   versions of both spend ledgers. Save this as an Actions artifact named
+   `static-i18n-<run-id>-<attempt>`, retained for 90 days, before rendering.
+   These steps also run after partial translation failure or cancellation.
+4. Materialize the checkpoint in a disposable worktree on current main. Add
+   the shared guard and static ledger deltas to current counters, retain feed
+   usage, and rebuild the website with the offline renderer. Retry a rejected
+   push only when main advanced; no retry invokes the translator.
+5. Commit the outputs, counters, and a receipt together. The guard's
+   `static_runs["actions-<run-id>-<attempt>"]` stores the checkpoint SHA-256,
+   locale, timestamp, usage periods/deltas, and any acknowledged lost output
+   paths/source hashes plus translated-field fingerprints (`lost_payloads`).
+   It survives day/month rollover. Replaying the same
+   checkpoint is a no-op; reusing an identity for different content fails.
+
+Both paid workflows recover saved attempts from oldest to newest before
+spending. The feed workflow also recovers static usage before its next paid
+request, so an unpublished static run cannot temporarily disappear from the
+shared ceiling. If recovery fails, `STATIC_I18N_RECOVERY_BLOCKED=1` skips the
+localized feed builder while English collection/rendering/publishing continues.
+Feed workflow dry runs also skip that paid step because they cannot durably
+publish usage. No spending ceiling or schedule changes.
+
+A missing, incomplete, or expired checkpoint after the paid step
+blocks new calls. Concurrent changes to the same translation artifact also
+stop publication and preserve the checkpoint for review. An existing static
+usage history entry without a corresponding receipt is an accounting
+uncertainty and is not charged again automatically.
+
+For manual recovery, download the saved artifact and inspect its
+`checkpoint.json`. In a clean checkout with a configured Git identity:
+
+```bash
+# Apply locally for review. This does not push, render, or call any API.
+python3 scripts/persist_static_i18n.py apply --checkpoint /path/to/checkpoint.json
+
+# After publication authorization, publish the saved outputs against fresh main.
+# This renders offline and pushes; it does not call the translation API.
+python3 scripts/persist_static_i18n.py publish --checkpoint /path/to/checkpoint.json
+```
+
+Counter merging follows the Pacific accounting period. Recovering an old day
+does not add its usage to today's daily counter; recovering an old month does
+not change the current month's counter. Historical usage remains in the
+receipt and static history. A provider daily-quota trip remains a stop floor,
+not an additional billed character count. The hard guard retains ambiguous
+request/retry charges even when no translation output was returned. A runner
+that is destroyed before uploading a checkpoint can lose its outputs; the
+following workflow blocks instead of automatically buying them again.
+
+### October 9, 2026 reconciliation
+
+[Run 37877382078](https://github.com/FutureGadget/ai-sota-feed-bot/actions/runs/37877382078)
+generated three Korean storyline translations and recorded 1,509 characters,
+zero translation errors, and seven budget skips. Its local commit
+`43f71f7e13` was never pushed: rebasing from `b8101e9ccb` onto feed commit
+`db6b019363` conflicted in `data/i18n/spend_guard.json`. No recovery artifact
+was uploaded, and the commit/output files are unavailable in GitHub and the
+inspected local checkouts.
+
+The feed commit added 1,459 characters, moving the shared counters from
+8,370 to 9,829 for Pacific October 8 and 49,829 to 51,288 for October. The
+missing static run contributes an additional 1,509, rather than replacing
+those totals. On that verified snapshot, the reconciled counts are 11,338
+and 52,797. The static partition also receives the 1,509 characters and an
+original-run timestamp/history entry. These values are evidence for the
+reconciliation; the checkpoint publisher adds the delta to whatever main
+contains when it is applied.
+
+The original source payloads at `b8101e9ccb` estimate to exactly 726
+(Qwen Image 2.1), 611 (Claude 5.5), and 172 (Inference Serving) characters.
+The reconciliation receipt acknowledges their missing outputs and records
+their source hashes and fingerprints of the actual translated fields.
+`scripts/translate.py` skips those billed strings, including under
+`--include-fresh` and after metadata-only changes such as `generated_at`, so
+they cannot be silently bought again. Changed translation text has a new
+fingerprint and can be translated normally. The existing Korean text could
+not be recovered; no replacement
+translations were generated. Any decision to buy replacements requires a
+separate explicit change to this loss acknowledgement while keeping the usage
+receipt. Older unrecorded spend and Cloud Console usage remain outside what
+this incident's logs can establish.

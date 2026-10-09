@@ -24,18 +24,25 @@ on:
         type: string
 
 concurrency:
-  # Same group as feed-full-publish: both spend from one translation budget, and
-  # the spend ledgers only stay exact when the two jobs never run side by side.
+  # Same group as feed-full-publish: serialize paid work against one budget.
+  # Refresh main before spending and delta-merge saved usage when publishing.
   group: feed-pipeline
   cancel-in-progress: false
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   translate:
     runs-on: ubuntu-latest
     steps:
+      - name: Reject publishing from a non-main ref
+        if: ${{ github.ref != 'refs/heads/main' }}
+        run: |
+          echo "Static translation publishing is only allowed from main." >&2
+          exit 1
+
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
@@ -66,6 +73,21 @@ jobs:
           git remote set-url origin \
             https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
+      - name: Recover pending paid outputs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: .venv/bin/python scripts/persist_static_i18n.py recover
+
+      - name: Refresh main before spending
+        id: prepare
+        env:
+          INPUT_LOCALE: ${{ inputs.locale || 'ko' }}
+        run: |
+          .venv/bin/python scripts/persist_static_i18n.py prepare \
+            --checkpoint "$RUNNER_TEMP/static-i18n/checkpoint.json" \
+            --run-id "actions-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" \
+            --locale "$INPUT_LOCALE"
+
       - name: Translate static pages
         env:
           GOOGLE_TRANSLATE_API_KEY: ${{ secrets.GOOGLE_TRANSLATE_API_KEY }}
@@ -88,24 +110,27 @@ jobs:
             $SURFACE_ARG \
             $DAYS_ARG
 
-      # Always render and commit, even when some candidates failed: the API bills
-      # every successful call, so discarding finished translations (and the spend
-      # ledger) made the next run pay for the same pages again.
-      - name: Render static pages
-        if: ${{ !cancelled() }}
+      # Save outputs and both ledger versions before rendering or publishing.
+      # This also runs after partial failures/cancellation. Recovery is required
+      # before a later run can enter the paid step.
+      - name: Checkpoint paid outputs
+        if: ${{ always() && steps.prepare.outcome == 'success' }}
         run: |
-          .venv/bin/python pipeline/render_static_pages.py
+          .venv/bin/python scripts/persist_static_i18n.py checkpoint \
+            --checkpoint "$RUNNER_TEMP/static-i18n/checkpoint.json"
 
-      - name: Commit and push
-        if: ${{ !cancelled() }}
-        env:
-          INPUT_LOCALE: ${{ inputs.locale || 'ko' }}
+      - name: Save paid translation outputs
+        id: save
+        if: ${{ always() && steps.prepare.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-i18n-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/static-i18n/checkpoint.json
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Publish saved outputs
+        if: ${{ always() && steps.save.outcome == 'success' }}
         run: |
-          git add data/i18n/ web/
-          if git diff --cached --quiet; then
-            echo "i18n_push_skipped=true reason=no_changes"
-          else
-            git commit -m "i18n: translate $INPUT_LOCALE static pages $(date +%F)"
-            git pull --rebase origin main
-            git push origin main
-          fi
+          .venv/bin/python scripts/persist_static_i18n.py publish \
+            --checkpoint "$RUNNER_TEMP/static-i18n/checkpoint.json"

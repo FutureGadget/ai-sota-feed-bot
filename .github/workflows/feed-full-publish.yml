@@ -15,6 +15,7 @@ concurrency:
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   publish:
@@ -63,9 +64,22 @@ jobs:
           git remote set-url origin \
             https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
+      # A failed static publish must be reconciled before the feed spends from
+      # the shared guard. Keep English publishing available if recovery fails.
+      - name: Recover pending paid static outputs
+        id: recovery
+        if: ${{ !inputs.dry_run }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: .venv/bin/python scripts/persist_static_i18n.py recover
+
       - name: Run full publish
         env:
           AUTO_PUSH_RUNTIME: ${{ inputs.dry_run && '0' || '1' }}
+          # Unpublished usage cannot be omitted from the next paid request.
+          # A no-push dry run cannot durably record paid usage either.
+          STATIC_I18N_RECOVERY_BLOCKED: ${{ (inputs.dry_run || steps.recovery.outcome == 'failure') && '1' || '0' }}
           # Google Cloud Translation API key for Korean live-feed snapshots
           # (pipeline/build_localized_feed.py). Optional: when absent the
           # localized feed step emits localized_feed_missing_credentials
