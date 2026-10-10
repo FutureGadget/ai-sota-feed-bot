@@ -44,15 +44,6 @@
       align-items: end;
       margin: 2rem 0 1.45rem;
     }
-    .feed-kicker {
-      margin: 0 0 .35rem;
-      font-family: ui-monospace, "SFMono-Regular", monospace;
-      font-size: 0.67rem;
-      font-weight: 700;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
     .feed-title {
       margin: 0;
       font-family: var(--font-display);
@@ -60,15 +51,6 @@
       font-weight: 700;
       letter-spacing: -0.048em;
       line-height: 0.92;
-    }
-    .feed-promise {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-    .feed-promise strong {
-      color: var(--fg);
     }
     #meta {
       margin: 0.75rem 0 0;
@@ -313,9 +295,7 @@
     @media (max-width:640px) {
       main { padding-left:1rem; padding-right:1rem; }
       .feed-hero { grid-template-columns:1fr; gap:0.15rem; margin:0.9rem 0 0.8rem; }
-      .feed-kicker { display:none; }
       .feed-title { font-size:1.9rem; line-height:1.05; letter-spacing:-.035em; }
-      .feed-promise { display:none; }
       #meta { margin-top:0.4rem; }
     }
   </style>
@@ -353,15 +333,9 @@
       </div>
 
       <section class="feed-hero">
-        <div>
-          <p class="feed-kicker">Brief · 한국어 snapshot</p>
-          <h2 class="feed-title">AI 엔지니어를 위한 데일리 페이퍼.</h2>
-          <p class="edition-heading" id="editionHeading" hidden></p>
-        </div>
-        <div>
-          <p class="feed-promise"><strong>하나의 공유 랭킹.</strong> 최신 주요 뉴스를 훑어보고, 기억할 소식을 저장한 뒤, 할 일을 마치세요.</p>
-          <p id="meta">순위 브리프 · 2시간마다 갱신</p>
-        </div>
+        <h2 class="feed-title">AI 엔지니어를 위한 데일리 페이퍼.</h2>
+        <p class="edition-heading" id="editionHeading" hidden></p>
+        <p id="meta">순위 브리프 · 2시간마다 갱신</p>
       </section>
     </header>
     <div id="pausedNotice" class="paused-notice" hidden></div>
@@ -458,13 +432,21 @@
         .join(' ');
     }
 
+    // Feeds mix ISO and RFC 2822 dates ("Sat, 10 Oct 2026 …"); slicing the
+    // raw string cut the latter to "Sat, 10 Oc". Normalize to YYYY-MM-DD.
+    function publishedDate(value) {
+      if (!value) return '';
+      const at = new Date(value);
+      return Number.isNaN(at.getTime()) ? String(value).slice(0, 10) : at.toISOString().slice(0, 10);
+    }
+
     // Simplified dated card for the frozen snapshot (paused state): same
     // card markup/classes as the live render, minus live-only badges
     // (Fresh/New/Climbing need live rank data a frozen snapshot doesn't have).
     function frozenCardHtml(it, i) {
       const rank = i + 1;
       const source = esc(prettifySource(it.source));
-      const published = it.published ? esc(String(it.published).slice(0, 10)) : '';
+      const published = esc(publishedDate(it.published));
       const title = esc(it.title || 'Untitled');
       const href = esc(it.url || '#');
       const summary = it.summary_1line ? esc(it.summary_1line) : '';
@@ -604,13 +586,13 @@
       // Same front page as the English feed (web/front-page.css): rank 1 leads,
       // 2-3 run beside it, 4-5 sit side by side underneath.
       const frontPage = data.items.length >= 5;
-      const frontPageRole = (index) => (index === 0 ? 'lead' : index < 3 ? 'second' : index < 5 ? 'pair' : '');
+      const frontPageRole = (index) => (index === 0 ? 'lead' : index < 5 ? 'second' : '');
       document.getElementById('list').innerHTML = data.items.map((it, i) => {
         const rank = i + 1;
         const role = frontPage ? frontPageRole(i) : '';
         const kicker = String(it.slot || '').replace(/_/g, ' ');
         const source = esc(prettifySource(it.source));
-        const published = it.published ? esc(it.published.slice(0, 10)) : '';
+        const published = esc(publishedDate(it.published));
         const title = esc(it.title || 'Untitled');
         const href = esc(it.url || '#');
         const summary = it.summary_1line ? esc(it.summary_1line) : '';
@@ -647,30 +629,30 @@
 
         return `
           <article${role ? ` class="fp-${role}"` : ''}>
-            ${role
+            ${role === 'lead'
               ? `<p class="fp-kicker"><span class="fp-rank" aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span> ${esc(kicker)}</p>`
               : `<span class="rank-no" aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>`}
             <div class="card-top">
               <div class="card-meta">
                 <span class="src">${source}</span>
                 ${published ? `<span class="when">${published}</span>` : ''}
-                ${isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
+                ${!frontPage && isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
                 ${isNew ? `<span class="badge badge-new">New</span>` : ''}
-                ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
-                ${isClimbing ? `<span class="badge badge-trend">⬆️ Climbing</span>` : ''}
-                ${isReaderBoosted ? `<span class="badge badge-trend">👍 Reader-boosted</span>` : ''}
+                ${!frontPage && sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
+                ${!frontPage && isClimbing ? `<span class="badge badge-trend">⬆️ Climbing</span>` : ''}
+                ${!frontPage && isReaderBoosted ? `<span class="badge badge-trend">👍 Reader-boosted</span>` : ''}
                 ${storylineBadge}
               </div>
             </div>
             <div class="card-main">
               <div class="card-text">
                 <h3><a href="${href}" target="_blank" rel="noopener">${title}</a></h3>
-                ${summary ? `<p class="why">${summary}</p>` : ''}
+                ${summary && (role === 'lead' || !frontPage) ? `<p class="why">${summary}</p>` : ''}
               </div>
             </div>
-            ${why ? `<p class="matters">${role ? '' : '💡 '}${why}</p>` : ''}
-            ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
-          </article>${i === 4 && frontPage ? '<div class="fp-rule" aria-hidden="true"></div>' : ''}
+            ${why && !frontPage ? `<p class="matters">💡 ${why}</p>` : ''}
+            ${alsoHtml && !frontPage ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
+          </article>${i === 4 && frontPage && data.items.length > 5 ? '<div class="fp-head fp-head-more"><h2>나머지 브리프</h2></div>' : ''}
         `;
       }).join('') + '<div class="state">번역된 상위 Brief snapshot의 끝입니다. 최신 전체 피드는 <a href="/">영어 feed</a>에서 볼 수 있습니다.</div>';
     }

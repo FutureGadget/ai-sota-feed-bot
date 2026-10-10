@@ -42,8 +42,12 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         cls.ko_html = (ROOT / "web" / "ko" / "index.html").read_text(encoding="utf-8")
 
     def test_feed_uses_ranked_finite_reading_hierarchy(self) -> None:
-        self.assertIn("Ranked signal · finite reading", self.html)
-        self.assertIn("The daily paper for AI engineers.", self.html)
+        # The masthead is the title plus one status line; no kicker or promise.
+        hero = self.html.split('<section class="feed-hero">', 1)[1].split("</section>", 1)[0]
+        self.assertIn('<h2 class="feed-title">The daily paper for AI engineers.</h2>', hero)
+        self.assertIn('<p id="meta">', hero)
+        self.assertNotIn("feed-kicker", hero)
+        self.assertNotIn("feed-promise", hero)
         self.assertIn("AI 엔지니어를 위한 데일리 페이퍼.", self.ko_html)
         self.assertIn('class="rank-no"', self.html)
         self.assertIn("You're all caught up", self.html)
@@ -164,15 +168,15 @@ class LiveFeedSurfaceTest(unittest.TestCase):
           {role}
           console.log([0, 1, 2, 3, 4, 5, 9].map(frontPageRole).join(','));
         """
-        self.assertEqual(_run_node(script), "lead,second,second,pair,pair,,")
+        self.assertEqual(_run_node(script), "lead,second,second,second,second,,")
 
     def test_front_page_only_on_the_unsearched_brief(self) -> None:
         render = _extract_js_function(self.html, "renderFeedList")
         self.assertIn("const frontPage = !q\n          && activeSection() === 'brief'", render)
         self.assertIn("&& visible.length >= FRONT_PAGE_STORIES;", render)
-        # Companions never split the front page; they move below its rule.
-        self.assertIn("insert.after = Math.max(Number(insert.after) || 0, FRONT_PAGE_STORIES);", render)
-        self.assertIn("feedInserts.unshift({ after: FRONT_PAGE_STORIES, html: frontPageRuleHtml() });", render)
+        # Companions never split the front page or its section heading.
+        self.assertIn("insert.after = Math.max(Number(insert.after) || 0, FRONT_PAGE_STORIES + 3);", render)
+        self.assertIn("html: frontPageRuleHtml(visible.length - FRONT_PAGE_STORIES)", render)
 
     def test_front_page_cards_stay_direct_list_children(self) -> None:
         # Selection, swipe and focus restore all query `#list > article`, so
@@ -184,6 +188,38 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn('class="fp-kicker"', card)
         css = (ROOT / "web" / "front-page.css").read_text(encoding="utf-8")
         self.assertIn("#list:has(> article.fp-lead) { display:flow-root; min-width:0; }", css)
+
+    def test_story_cards_are_a_headline_and_one_source_line(self) -> None:
+        card = self.html.split("function cardHtml(", 1)[1].split("function matchesQuery(", 1)[0]
+        # Only the lead story carries its summary; thumbnails are gone.
+        self.assertIn("${summary && frontPage === 'lead' ? `<p class=\"why\">${summary}</p>` : ''}", card)
+        self.assertNotIn('class="thumb"', card)
+        # Save stays one tap away; everything else sits in the card's "⋯" panel.
+        more = card.split('<details class="card-more">', 1)[1].split("</details>", 1)[0]
+        for marker in ("data-share-id", "data-hide-id", 'class="fb-row', "matters", "Also covered by", "badge-boost"):
+            with self.subTest(marker=marker):
+                self.assertIn(marker, more)
+        before_more = card.split('<details class="card-more">', 1)[0]
+        self.assertIn("data-save-id", before_more)
+        self.assertNotIn("data-share-id", before_more)
+        # The panel closes on outside click and Escape, one open at a time.
+        panels = _extract_js_function(self.html, "initCardMorePanels")
+        self.assertIn("e.key !== 'Escape'", panels)
+        self.assertIn("if (!d.contains(e.target)) d.open = false;", panels)
+        self.assertIn("initCardMorePanels();", self.html)
+
+    def test_korean_front_page_cards_keep_one_source_line(self) -> None:
+        # The Korean feed has no "⋯" panel, so its front page drops the ranking signals.
+        for badge in ("isFresh ?", "sourceCount >= 2 ?", "isClimbing ?", "isReaderBoosted ?"):
+            with self.subTest(badge=badge):
+                self.assertIn("${!frontPage && " + badge, self.ko_html)
+        self.assertIn("${isNew ? `<span class=\"badge badge-new\">New</span>` : ''}", self.ko_html)
+
+    def test_default_brief_shows_no_filter_chips(self) -> None:
+        chips = _extract_js_function(self.html, "renderSelectedLabelsChips")
+        self.assertIn("if (sameLabels(labels, DEFAULT_SECTION_LABELS)) {", chips)
+        css = (ROOT / "web" / "front-page.css").read_text(encoding="utf-8")
+        self.assertIn(".selected-labels:empty { display:none; }", css)
 
     def test_feed_has_responsive_and_reduced_motion_rules(self) -> None:
         self.assertIn("@media (max-width:640px)", self.html)
@@ -387,10 +423,12 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("일부 최신 항목의 번역을 준비 중입니다", self.ko_html)
         esc = _extract_js_function(self.ko_html, "esc")
         pretty = _extract_js_function(self.ko_html, "prettifySource")
+        dates = _extract_js_function(self.ko_html, "publishedDate")
         card = _extract_js_function(self.ko_html, "frozenCardHtml")
         script = f"""
           {esc}
           {pretty}
+          {dates}
           {card}
           const html = frozenCardHtml({{
             url: 'https://example.com/a', source: 'simon_willison',
@@ -402,12 +440,15 @@ class LiveFeedSurfaceTest(unittest.TestCase):
             src: html.includes('Simon Willison'),
             href: html.includes('https://example.com/a'),
             title: html.includes('한국어 제목'),
+            date: html.includes('>2026-07-09<'),
+            rfc: publishedDate('Fri, 09 Oct 2026 17:00:00 GMT'),
             rank: html.includes('>01<'),
           }}));
         """
         self.assertEqual(
             _run_node(script),
-            '{"article":true,"src":true,"href":true,"title":true,"rank":true}',
+            '{"article":true,"src":true,"href":true,"title":true,'
+            '"date":true,"rfc":"2026-10-09","rank":true}',
         )
 
     # 내일 takes no particle; explicit dates take 에 (8월 1일에 vs 내일).
