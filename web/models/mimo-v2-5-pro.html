@@ -39,14 +39,6 @@
   </script>
   <style>
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
-    }
     body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
     *, *::before, *::after { box-sizing: border-box; }
     button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
@@ -112,7 +104,7 @@
       border-left: 3px solid var(--accent); border-radius: 0;
       background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
     .subscribe-cta p { margin: 0; }
-    .subscribe-cta p strong { font-family: "Avenir Next Condensed", "Arial Narrow", sans-serif;
+    .subscribe-cta p strong { font-family: var(--font-display);
       font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
     .subscribe-cta p .muted { font-size: 0.93rem; }
     .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
@@ -170,18 +162,6 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --signal:#23875b; --warm:#b6780c;
-      --apply-wash:#eef3ff;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --signal:#54b886; --warm:#e0ad4e;
-      --apply-wash:#1b2436;
-    }
     body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
     #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
@@ -189,7 +169,7 @@
     .md-hero { margin:2.3rem 0 1.7rem; }
     .md-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
-    .md-headline { margin:0; max-width:28ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .md-headline { margin:0; max-width:28ch; font-family:var(--font-display);
       font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.3rem,5.6vw,3.8rem); }
     .md-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.75rem; letter-spacing:.03em; color:var(--muted); }
@@ -290,8 +270,8 @@
       <section class="md-hero"><p class="md-kicker">Model Release Radar</p><h2 class="md-headline">MiMo-V2.5-Pro</h2><p class="md-readout">xiaomi<span class="sep">·</span>open weights<span class="sep">·</span>MIT<span class="sep">·</span>released Wednesday, Apr 22, 2026</p></section>
       <!-- range is included in the custom hero -->
       <!-- intro is inside the model hero -->
-      <section class="md-section md-pricing"><div class="md-rail">Token prices</div><div class="md-prose"><p>USD per million tokens via <a href="https://openrouter.ai/api/v1/models/xiaomi/mimo-v2.5-pro/endpoints">OpenRouter</a>, Xiaomi (xiaomi/fp8). Checked 2026-10-09 21:12 UTC.</p><table class="mr-table"><thead><tr><th scope="col">Token type</th><th scope="col">USD /1M</th></tr></thead><tbody><tr><th scope="row">Input</th><td>$0.435</td></tr><tr><th scope="row">Output</th><td>$0.87</td></tr><tr><th scope="row">Cache read</th><td>$0.0036</td></tr><tr><th scope="row">Cache write (default)</th><td>Unknown</td></tr><tr><th scope="row">Cache write (1 hour)</th><td>Unknown</td></tr></tbody></table><p>Cache-write rates with a verified basis replace the ordinary input charge. Unknown rates are never treated as zero.</p><p><a href="/models/compare">Compare cost and intelligence →</a></p></div></section>
-<section class="md-section md-frontier"><div class="md-rail">Frontier position</div><div class="md-prose"><ul class="md-frontier-list"><li class="md-frontier-item md-frontier-off"><span class="badge badge-off">Behind frontier</span> AA coding index (blended per-1M-token price, 3:1 input/output; not a measured per-task cost) - <a href="/models/gpt-5-6-luna">GPT-5.6 Luna</a>, <a href="/models/qwen3-8-27b">Qwen3.8 27B</a>, <a href="/models/glm-5-3-flash">GLM-5.3-Flash</a>, <a href="/models/deepseek-v4-pro-0813">DeepSeek V4 Pro 0813</a>, <a href="/models/deepseek-v4-flash-0731">DeepSeek V4 Flash 0731</a> are priced the same or lower and at least as capable.</li><li class="md-frontier-item md-frontier-off"><span class="badge badge-off">Behind frontier</span> AA intelligence index (blended per-1M-token price, 3:1 input/output; not a measured per-task cost) - <a href="/models/mimo-v2-6-pro">MiMo-V2.6-Pro</a>, <a href="/models/minimax-m3">MiniMax-M3</a>, <a href="/models/gpt-5-6-luna">GPT-5.6 Luna</a>, <a href="/models/qwen3-8-27b">Qwen3.8 27B</a>, <a href="/models/glm-5-3-flash">GLM-5.3-Flash</a> are priced the same or lower and at least as capable.</li></ul></div></section>
+      <section class="md-section md-pricing"><div class="md-rail">Token prices</div><div class="md-prose"><p>USD per million tokens via <a href="https://openrouter.ai/api/v1/models/xiaomi/mimo-v2.5-pro/endpoints">OpenRouter</a>, Xiaomi (xiaomi/fp8). Checked 2026-10-10 06:59 UTC.</p><table class="mr-table"><thead><tr><th scope="col">Token type</th><th scope="col">USD /1M</th></tr></thead><tbody><tr><th scope="row">Input</th><td>$0.435</td></tr><tr><th scope="row">Output</th><td>$0.87</td></tr><tr><th scope="row">Cache read</th><td>$0.0036</td></tr><tr><th scope="row">Cache write (default)</th><td>Unknown</td></tr><tr><th scope="row">Cache write (1 hour)</th><td>Unknown</td></tr></tbody></table><p>Cache-write rates with a verified basis replace the ordinary input charge. Unknown rates are never treated as zero.</p><p><a href="/models/compare">Compare cost and intelligence →</a></p></div></section>
+<section class="md-section md-frontier"><div class="md-rail">Frontier position</div><div class="md-prose"><ul class="md-frontier-list"><li class="md-frontier-item md-frontier-off"><span class="badge badge-off">Behind frontier</span> AA coding index (blended per-1M-token price, 3:1 input/output; not a measured per-task cost) - <a href="/models/gpt-5-6-luna">GPT-5.6 Luna</a>, <a href="/models/qwen3-8-27b">Qwen3.8 27B</a>, <a href="/models/deepseek-v4-flash-0731">DeepSeek V4 Flash 0731</a>, <a href="/models/glm-5-3-flash">GLM-5.3-Flash</a> are priced the same or lower and at least as capable.</li><li class="md-frontier-item md-frontier-off"><span class="badge badge-off">Behind frontier</span> AA intelligence index (blended per-1M-token price, 3:1 input/output; not a measured per-task cost) - <a href="/models/mimo-v2-6-pro">MiMo-V2.6-Pro</a>, <a href="/models/minimax-m3">MiniMax-M3</a>, <a href="/models/gpt-5-6-luna">GPT-5.6 Luna</a>, <a href="/models/qwen3-8-27b">Qwen3.8 27B</a>, <a href="/models/deepseek-v4-flash-0731">DeepSeek V4 Flash 0731</a> are priced the same or lower and at least as capable.</li></ul></div></section>
 <section class="md-section md-chart"><div class="md-rail">Cost vs. capability</div><div class="md-prose"><p>This model has not been measured on DeepSWE (or any other benchmark with a real measured per-task cost) yet, so no cost/capability chart is drawn. Its Artificial Analysis benchmark scores are listed below.</p></div></section>
 <section class="md-section md-scores"><div class="md-rail">Benchmark scores</div><div class="md-prose"><h3 class="md-subhead">Measured cost per task (DeepSWE)</h3><p>This model has not been measured on DeepSWE (or any other benchmark with a real measured per-task cost) yet.</p><h3 class="md-subhead">Artificial Analysis scores</h3><p class="md-cost-caveat">Artificial Analysis scores describe capability. <a href="/models/compare">Compare them against estimated token spend</a> with your cache mix; these estimates are not measured task costs.</p><div class="mr-table-wrap"><table class="mr-table"><thead><tr><th scope="col">Benchmark</th><th scope="col">Score</th></tr></thead><tbody><tr><td>AA intelligence index</td><td class="mr-num">26.0</td></tr><tr><td>AA coding index</td><td class="mr-num">60.2</td></tr></tbody></table></div></div></section>
 <section class="md-section md-community"><div class="md-rail">Community signal</div><div class="md-prose"><div class="mr-table-wrap"><table class="mr-table"><thead><tr><th scope="col">Variant</th><th scope="col">Coding Elo</th><th scope="col">Overall Elo</th><th scope="col">Votes</th></tr></thead><tbody><tr><td>Rating</td><td class="mr-num">1,503</td><td class="mr-num">1,465</td><td class="mr-num">73,197</td></tr></tbody></table></div></div></section>

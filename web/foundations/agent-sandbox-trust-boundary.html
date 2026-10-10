@@ -38,14 +38,6 @@
   </script>
   <style>
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
-    }
     body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
     *, *::before, *::after { box-sizing: border-box; }
     button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
@@ -111,7 +103,7 @@
       border-left: 3px solid var(--accent); border-radius: 0;
       background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
     .subscribe-cta p { margin: 0; }
-    .subscribe-cta p strong { font-family: "Avenir Next Condensed", "Arial Narrow", sans-serif;
+    .subscribe-cta p strong { font-family: var(--font-display);
       font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
     .subscribe-cta p .muted { font-size: 0.93rem; }
     .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
@@ -169,18 +161,6 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg:#f7f8fb; --card:#ffffff; --border:#d8dee8; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
-      --signal:#23875b; --warm:#a15c16;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
-      --signal:#54b886; --warm:#e0ad4e;
-    }
     body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
     code {
@@ -191,7 +171,7 @@
     .foundations-hero { margin:2.3rem 0 1.8rem; }
     .foundations-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
-    .foundations-headline { margin:0; max-width:25ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .foundations-headline { margin:0; max-width:25ch; font-family:var(--font-display);
       font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.45rem,6vw,4.1rem); }
     .foundations-thesis { max-width:48rem; margin:1rem 0 0; font-size:1.02rem; line-height:1.65; }
     .foundations-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
@@ -200,12 +180,12 @@
     .foundations-readout .sep { color:var(--border); margin:0 .45rem; }
 
     .foundation-cluster { margin:2.2rem 0 0; border-top:2px solid var(--fg); }
-    .foundation-cluster h2 { margin:.7rem 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .foundation-cluster h2 { margin:.7rem 0 .35rem; font-family:var(--font-display);
       font-size:1.5rem; line-height:1.1; }
     .foundation-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; }
     .foundation-card { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1rem;
       padding:1rem 0; border-bottom:1px solid var(--border); }
-    .foundation-card h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .foundation-card h3 { margin:0 0 .35rem; font-family:var(--font-display);
       font-size:1.35rem; line-height:1.1; }
     .foundation-card h3 a { color:inherit; text-decoration:none; }
     .foundation-card h3 a:hover { color:var(--accent); }
@@ -262,7 +242,7 @@
     .foundation-new-list a:hover, .foundations-recent a:hover { text-decoration:underline; }
     .foundations-recent { margin:1.6rem 0 0; padding:1.05rem 1.15rem; border-left:2px solid var(--warm);
       background:var(--brief-wash); }
-    .foundations-recent h2 { margin:0 0 .8rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .foundations-recent h2 { margin:0 0 .8rem; font-family:var(--font-display);
       font-size:1.3rem; line-height:1.1; }
     .fr-concept { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.62rem;
       letter-spacing:.06em; text-transform:uppercase; color:var(--warm); margin:0 0 .1rem; }
