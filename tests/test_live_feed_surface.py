@@ -43,7 +43,8 @@ class LiveFeedSurfaceTest(unittest.TestCase):
 
     def test_feed_uses_ranked_finite_reading_hierarchy(self) -> None:
         self.assertIn("Ranked signal · finite reading", self.html)
-        self.assertIn("The AI brief that ends.", self.html)
+        self.assertIn("The daily paper for AI engineers.", self.html)
+        self.assertIn("AI 엔지니어를 위한 데일리 페이퍼.", self.ko_html)
         self.assertIn('class="rank-no"', self.html)
         self.assertIn("You're all caught up", self.html)
         self.assertEqual(self.html.count('id="meta"'), 1)
