@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 import unittest
 from pathlib import Path
 
@@ -372,6 +373,89 @@ class SiteChromeContractTest(unittest.TestCase):
                 self.assertNotIn("data-local-translate-surface", html)
                 self.assertNotIn("data-translate-ui-slot", html)
 
+
+
+THEMED_SOURCES = (
+    "web/index.html",
+    "web/ko/index.html",
+    "web/daily.html",
+    "web/weekly.html",
+    "web/storyline.html",
+    "web/playbook.html",
+    "web/playbook-lab.html",
+    "web/voices.html",
+    "web/subscribe.html",
+    "web/updates.html",
+    "web/models.html",
+    "web/models-compare.html",
+    "web/model-comparison.css",
+    "web/front-page.css",
+    "pipeline/render_static_pages.py",
+)
+SHARED_TOKENS = ("bg", "card", "border", "accent", "muted", "fg", "signal", "warm", "brief-wash", "brief-ink")
+
+
+def _theme_block(css: str, selector: str) -> dict[str, str]:
+    body = css.split(selector + " {", 1)[1].split("}", 1)[0]
+    tokens = {}
+    for line in body.split(";"):
+        line = re.sub(r"/\*.*?\*/", "", line, flags=re.S).strip()
+        if line.startswith("--") and ":" in line:
+            name, value = line.split(":", 1)
+            tokens[name.strip()[2:]] = value.strip()
+    return tokens
+
+
+def _contrast(fg: str, bg: str) -> float:
+    def lum(hex_color: str) -> float:
+        h = hex_color.lstrip("#")
+        c = [int(h[i : i + 2], 16) / 255 for i in (0, 2, 4)]
+        c = [x / 12.92 if x <= 0.03928 else ((x + 0.055) / 1.055) ** 2.4 for x in c]
+        return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+
+    hi, lo = sorted((lum(fg), lum(bg)), reverse=True)
+    return (hi + 0.05) / (lo + 0.05)
+
+
+class BroadsheetThemeTest(unittest.TestCase):
+    """One palette and type system for every page, owned by site-chrome.css."""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.css = (ROOT / "web" / "site-chrome.css").read_text(encoding="utf-8")
+        cls.light = _theme_block(cls.css, ':root,\nhtml[data-theme="light"]')
+        cls.dark = _theme_block(cls.css, 'html[data-theme="dark"]')
+
+    def test_site_chrome_defines_both_themes_and_type(self) -> None:
+        for token in SHARED_TOKENS:
+            with self.subTest(token=token):
+                self.assertIn(token, self.light)
+                self.assertIn(token, self.dark)
+        for token in ("font-display", "font-serif", "font-sans"):
+            self.assertIn(token, self.light)
+
+    def test_text_tokens_hold_contrast_in_both_themes(self) -> None:
+        for name, theme in (("light", self.light), ("dark", self.dark)):
+            for fg in ("fg", "muted", "accent", "brief-ink"):
+                for bg in ("bg", "card", "brief-wash"):
+                    with self.subTest(theme=name, fg=fg, bg=bg):
+                        self.assertGreaterEqual(_contrast(theme[fg], theme[bg]), 4.5)
+
+    def test_pages_do_not_redefine_shared_tokens(self) -> None:
+        # A page-local --bg/--accent would silently fork the palette again.
+        pattern = re.compile(r"--(?:%s)\s*:" % "|".join(re.escape(t) for t in SHARED_TOKENS))
+        for rel in THEMED_SOURCES:
+            with self.subTest(source=rel):
+                text = (ROOT / rel).read_text(encoding="utf-8")
+                self.assertIsNone(pattern.search(text), pattern.search(text) and text[pattern.search(text).start() - 80 : pattern.search(text).end() + 20])
+                self.assertNotIn('"Avenir Next Condensed"', text)
+
+    def test_feeds_load_front_page_css_after_their_inline_styles(self) -> None:
+        for rel in ("web/index.html", "web/ko/index.html"):
+            with self.subTest(source=rel):
+                head = (ROOT / rel).read_text(encoding="utf-8").split("</head>", 1)[0]
+                self.assertIn("/front-page.css", head)
+                self.assertGreater(head.index("/front-page.css"), head.rindex("</style>"))
 
 
 if __name__ == "__main__":

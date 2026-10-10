@@ -95,12 +95,12 @@ WIKI = {
 
 
 class WikiCssTest(unittest.TestCase):
-    def test_shared_instrument_token_system(self) -> None:
+    def test_shared_broadsheet_tokens(self) -> None:
         css = render.WIKI_PAGE_CSS
-        self.assertIn("--bg:#f5f7fa;", css)
-        self.assertIn("--accent:#2457d6;", css)
-        self.assertIn("--bg:#11151c;", css)  # dark
-        self.assertIn('"Avenir Next Condensed"', css)
+        # Palette and display face come from site-chrome.css.
+        self.assertNotIn("--bg:", css)
+        self.assertNotIn("--accent:", css)
+        self.assertIn("var(--font-display)", css)
         self.assertIn("ui-monospace", css)
         # Quality floor + no Oat gray hover fill.
         self.assertIn("outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent)", css)

@@ -44,6 +44,31 @@ links.
 Product contract:
 `docs/product-specs/mobile-site-chrome.md`.
 
+## Site theme
+
+Every page uses one broadsheet theme: warm paper with an ink-red accent, a
+matching dark variant, and serif headlines.
+
+- `web/site-chrome.css` owns the palette tokens (`--bg`, `--card`, `--border`,
+  `--accent`, `--muted`, `--fg`, `--signal`, `--warm`, the editorial washes
+  such as `--brief-wash`) for light and dark, plus the type tokens
+  `--font-display` (titles), `--font-serif` (headlines, reading text) and
+  `--font-sans` (UI). Every page already loads it.
+- Pages and `pipeline/render_static_pages.py` templates consume these tokens
+  and never redefine them. Page-local tokens are fine for things that are not
+  palette, such as storyline timeline hues (`--t-*`) or layout knobs.
+- `tests/test_site_chrome.py` (`BroadsheetThemeTest`) enforces both rules and
+  checks that text tokens hold 4.5:1 contrast on `--bg`, `--card` and the wash.
+
+## Feed front page
+
+`web/front-page.css` sets the Brief's first five stories as a front page
+(lead, two secondaries, a pair). The English and Korean feeds link it after
+their inline `<style>` so it wins ties with the ledger rules. It reflows
+ordinary cards via `#list:has(> article.fp-lead)` without wrapping them; keep
+`#list > article` as the card contract. Contract:
+`docs/product-specs/feed-front-page.md`.
+
 ## Editorial discovery
 
 `web/nav-updates.js` renders item previews in the Desk, feed and section roots.

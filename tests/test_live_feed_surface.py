@@ -156,6 +156,34 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("/^Matches feed focus:/i.test(why)", self.html)
         self.assertIn(".trust-banner[hidden]", self.html)
 
+    def test_front_page_roles_follow_rank(self) -> None:
+        role = _extract_js_function(self.html, "frontPageRole")
+        script = f"""
+          const FRONT_PAGE_STORIES = 5;
+          {role}
+          console.log([0, 1, 2, 3, 4, 5, 9].map(frontPageRole).join(','));
+        """
+        self.assertEqual(_run_node(script), "lead,second,second,pair,pair,,")
+
+    def test_front_page_only_on_the_unsearched_brief(self) -> None:
+        render = _extract_js_function(self.html, "renderFeedList")
+        self.assertIn("const frontPage = !q\n          && activeSection() === 'brief'", render)
+        self.assertIn("&& visible.length >= FRONT_PAGE_STORIES;", render)
+        # Companions never split the front page; they move below its rule.
+        self.assertIn("insert.after = Math.max(Number(insert.after) || 0, FRONT_PAGE_STORIES);", render)
+        self.assertIn("feedInserts.unshift({ after: FRONT_PAGE_STORIES, html: frontPageRuleHtml() });", render)
+
+    def test_front_page_cards_stay_direct_list_children(self) -> None:
+        # Selection, swipe and focus restore all query `#list > article`, so
+        # the front page is a CSS reflow of ordinary cards, never a wrapper.
+        # Slice by position: the destructured signature defeats the brace
+        # matcher in _extract_js_function.
+        card = self.html.split("function cardHtml(", 1)[1].split("function matchesQuery(", 1)[0]
+        self.assertIn("frontPage ? `fp-${frontPage}` : ''", card)
+        self.assertIn('class="fp-kicker"', card)
+        css = (ROOT / "web" / "front-page.css").read_text(encoding="utf-8")
+        self.assertIn("#list:has(> article.fp-lead) { display:flow-root; min-width:0; }", css)
+
     def test_feed_has_responsive_and_reduced_motion_rules(self) -> None:
         self.assertIn("@media (max-width:640px)", self.html)
         self.assertIn("prefers-reduced-motion", self.html)

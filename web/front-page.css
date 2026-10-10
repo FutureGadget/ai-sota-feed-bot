@@ -1,0 +1,105 @@
+/* Feed front page: the Brief's first stories set as a broadsheet front page
+   (lead, two secondaries, a pair), then the ledger continues under a section
+   rule. Shared by the English feed (web/index.html) and the Korean feed
+   (web/ko/index.html); each links it after its inline <style> so these rules
+   win ties with the ledger styles. Spec: docs/product-specs/feed-front-page.md. */
+.feed-hero { grid-template-columns:1fr; gap:.35rem;
+  margin:1.6rem 0 0; padding-bottom:1rem; text-align:center; }
+.feed-kicker { display:block; margin:0 0 .5rem;
+  font-family:var(--font-sans); font-size:.72rem; font-weight:600; letter-spacing:.2em; color:var(--muted); }
+.feed-title { font-family:var(--font-display);
+  font-size:clamp(2.6rem,7vw,4.9rem); font-weight:700; letter-spacing:-.02em; line-height:1; }
+.feed-promise { max-width:36rem; margin:.5rem auto 0;
+  font-family:var(--font-serif); font-style:italic; font-size:1rem; }
+.feed-promise strong { font-style:normal; }
+#meta { margin-top:.35rem; }
+.controls-bar { border-top:3px double var(--fg); }
+.sections button.active { border-bottom-color:var(--fg); }
+.model-radar-rail,
+.model-radar-inline { padding:1rem 1.1rem;
+  border:1px solid var(--fg); background:color-mix(in srgb,var(--fg) 4%,transparent); }
+.mr-rail-kicker { font-family:var(--font-sans);
+  letter-spacing:.16em; color:var(--fg); padding-bottom:.45rem; border-bottom:2px solid var(--fg); }
+.mr-rail-heading,
+.end-marker-title,
+article h3 { font-family:var(--font-serif); letter-spacing:0; }
+article h3 a { font-weight:700; }
+
+/* The front page itself: only rendered when #list holds a lead story
+   (Brief lens, no search, enough stories). Floats rather than grid so
+   the cards stay direct #list children in rank order. */
+/* min-width:0 keeps the one-line (nowrap) ranked rows from widening
+   the reading-column grid track past the viewport. */
+#list:has(> article.fp-lead) { display:flow-root; min-width:0; }
+#list > article:is(.fp-lead,.fp-second,.fp-pair) { min-width:0; }
+.fp-edition { display:flex; justify-content:space-between; gap:.5rem 1rem; flex-wrap:wrap;
+  margin:0 0 1.1rem; padding:.45rem 0; border-bottom:2px solid var(--fg);
+  font-family:var(--font-serif); font-variant:small-caps; font-size:.92rem; color:var(--fg); }
+.fp-kicker { margin:0 0 .4rem; font-family:var(--font-sans); font-size:.7rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
+.fp-rank { margin-right:.35rem; color:var(--muted); font-variant-numeric:tabular-nums; }
+#list > article:is(.fp-lead,.fp-second,.fp-pair) { display:flex; flex-direction:column;
+  padding:0 0 1rem; border-top:0; }
+#list > article:is(.fp-lead,.fp-second,.fp-pair)::after { display:none; }
+/* Reading order inside a front-page card: kicker, headline, summary,
+   then the byline row (source, time, badges, save/share/hide). */
+#list > article:is(.fp-lead,.fp-second,.fp-pair) .card-main { order:1; }
+#list > article:is(.fp-lead,.fp-second,.fp-pair) .card-top { order:2; margin:.55rem 0 0; padding-right:0; }
+#list > article:is(.fp-lead,.fp-second,.fp-pair) .matters { order:3; }
+#list > article:is(.fp-lead,.fp-second,.fp-pair) .also { order:4; }
+#list > article:is(.fp-lead,.fp-second,.fp-pair) .fb-row { order:5; }
+#list > article:is(.fp-lead,.fp-second,.fp-pair) .thumb { display:none; }
+#list > article:is(.fp-lead,.fp-second,.fp-pair) .card-top .src { font-family:var(--font-sans);
+  font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+#list > article:is(.fp-lead,.fp-second,.fp-pair) .matters { margin-top:.35rem; padding:0; border:0;
+  background:transparent; color:var(--muted); font-family:var(--font-sans); font-size:.72rem;
+  font-style:normal; letter-spacing:.02em; }
+#list > article:is(.fp-second,.fp-pair) .matters,
+#list > article:is(.fp-second,.fp-pair) .also { overflow:hidden;
+  white-space:nowrap; text-overflow:ellipsis; }
+#list > article:is(.fp-lead,.fp-second,.fp-pair) .fb-row { margin-top:.35rem; padding-top:0; border-top:0; }
+/* Feedback stays in the DOM and keyboard-reachable; on hover devices it
+   surfaces with the card instead of repeating under every headline. */
+@media (hover:hover) {
+  #list > article:is(.fp-lead,.fp-second,.fp-pair) .fb-row { opacity:0; }
+  #list > article:is(.fp-lead,.fp-second,.fp-pair):hover .fb-row,
+  #list > article:is(.fp-lead,.fp-second,.fp-pair):focus-within .fb-row,
+  #list > article:is(.fp-lead,.fp-second,.fp-pair) .fb-row.fb-has-voted { opacity:1; }
+}
+#list > article.fp-lead h3 { margin:0 0 .6rem; font-family:var(--font-display);
+  font-size:clamp(1.9rem,3.6vw,2.7rem); line-height:1.08; letter-spacing:-.01em; }
+#list > article.fp-lead .why { display:block; -webkit-line-clamp:unset; overflow:visible;
+  font-family:var(--font-serif); font-size:1.08rem; line-height:1.65; }
+#list > article.fp-lead .why::first-letter { float:left; margin:.08em .1em 0 0;
+  font-family:var(--font-display); font-size:3.4em; line-height:.8; font-weight:700; }
+#list > article:is(.fp-second,.fp-pair) { padding-top:.9rem; border-bottom:1px solid var(--border); }
+#list > article:is(.fp-second,.fp-pair) h3 { font-size:1.22rem; line-height:1.2; }
+#list > article:is(.fp-second,.fp-pair) .why { font-family:var(--font-serif); font-size:.95rem; line-height:1.5;
+  -webkit-line-clamp:2; }
+.fp-rule { clear:both; display:flex; align-items:center; gap:.8rem; margin:0; padding-top:1.2rem;
+  font-family:var(--font-sans); font-size:.72rem; font-weight:700; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--fg); }
+.fp-rule::before, .fp-rule::after { content:""; flex:1; border-top:1px solid var(--fg); }
+#list:has(> article.fp-lead) > :not(article:is(.fp-lead,.fp-second,.fp-pair)):not(.fp-edition) { clear:both; }
+@media (min-width:860px) {
+  #list > article.fp-lead { float:left; width:58%; padding-right:1.6rem; border-bottom:0; }
+  #list > article.fp-second { margin-left:58%; padding-left:1.6rem;
+    border-left:1px solid var(--border); }
+  #list > article.fp-lead + article.fp-second { padding-top:0; }
+  #list > article.fp-pair { float:left; width:50%; padding-top:1rem;
+    border-top:1px solid var(--fg); border-bottom:0; }
+  #list > article.fp-second + article.fp-pair { clear:left; padding-right:1.6rem; }
+  #list > article.fp-pair + article.fp-pair { clear:none; padding-left:1.6rem;
+    border-left:1px solid var(--border); }
+}
+@media (max-width:859.98px) {
+  #list > article.fp-lead { border-bottom:1px solid var(--border); }
+  .fp-edition span:last-child { display:none; }
+}
+@media (max-width:640px) {
+  .feed-hero { text-align:left; margin-top:.45rem; padding-bottom:.4rem; }
+  .feed-title { font-size:2.2rem; }
+  .feed-promise { margin-left:0; font-size:.9rem; }
+  #list > article.fp-lead, #list > article.fp-second { padding-left:0; }
+  #list > article.fp-lead h3 { font-size:1.75rem; }
+}

@@ -13,6 +13,10 @@ ranked, finite brief for platform and agent engineers—not an infinite stream.
    controls.
 4. **Finish line** — only shown when the selected Brief range is complete.
 
+The first five Brief stories are set as a newspaper front page (lead, two
+secondaries, a pair) before the ledger continues. Ranking and order are
+unchanged. Contract: `feed-front-page.md`.
+
 Ranking diagnostics such as `Matches feed focus:` are internal explanations,
 not reader-facing editorial “why it matters” copy. Genuine significance text
 may appear as supporting context.

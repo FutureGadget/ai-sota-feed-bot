@@ -65,16 +65,6 @@
        three generic benefit cards are replaced by a "what arrives" delivery spec
        whose rows link to live daily/weekly samples. */
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b; --err:#b42318;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb; --err:#ff9b8a;
-    }
     * { box-sizing: border-box; }
     body { margin:0; background:var(--bg); color:var(--fg); line-height:1.55;
       font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; overflow-x: clip; }
@@ -95,14 +85,14 @@
     .hero { margin:2.7rem 0 1.6rem; }
     .hero-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
-    .hero h2 { margin:0; max-width:18ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .hero h2 { margin:0; max-width:18ch; font-family:var(--font-display);
       font-size:clamp(2.3rem,6.5vw,3.6rem); font-weight:700; letter-spacing:-.04em; line-height:.96; }
     .lede { margin:1rem 0 0; max-width:42rem; color:var(--fg); font-size:1.04rem; line-height:1.6; }
 
     /* The focal action. */
     .signup { margin:1.8rem 0 0; padding:1.35rem 1.4rem; border-left:3px solid var(--accent);
       background:var(--brief-wash); color:var(--brief-ink); }
-    .signup h2 { margin:0 0 .25rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .signup h2 { margin:0 0 .25rem; font-family:var(--font-display);
       font-size:1.5rem; line-height:1.1; }
     .signup > p { margin:0 0 1.1rem; color:var(--muted); font-size:.95rem; }
     form { display:flex; gap:.6rem; align-items:flex-start; }
@@ -140,7 +130,7 @@
     .delivery-when { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.64rem;
       font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.5; }
     .delivery-what { min-width:0; }
-    .delivery-what h3 { margin:0 0 .25rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .delivery-what h3 { margin:0 0 .25rem; font-family:var(--font-display);
       font-size:1.18rem; line-height:1.15; }
     .delivery-what p { margin:0; font-size:.93rem; line-height:1.55; color:var(--muted); }
     .delivery-what a.sample { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
