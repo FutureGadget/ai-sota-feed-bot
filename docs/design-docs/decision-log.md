@@ -3,7 +3,7 @@
 ## 2026-10-10 (Feed masthead: "The daily paper for AI engineers.")
 - **Decision:** Replace the feed masthead "The AI brief that ends." with "The daily paper for AI engineers." The line under it ("One shared ranking. Scan what changed, save what matters, and stop when the finish line appears.") stays, so the finishable promise is still stated.
 - **Rationale:** The old line described a feature (it stops) without naming who the feed is for, and "ends" read as a limitation until the subtitle explained it. The new line names the audience and matches the broadsheet front page shipped the same day. A paper is finite by nature, and "daily" points at the habit the north-star metric measures (weekly returning readers). "AI engineers" is the reader's own term; the precise "platform & agent engineers" wording stays in the page subtitle and metadata.
-- **Impact:** `web/index.html` (masthead copy only), `tests/test_live_feed_surface.py`, `docs/product-specs/feed-front-page.md`. The Korean feed title and the default share image (`og-default.png`, whose tagline predates the agent-engineer widening) are unchanged pending the owner's call.
+- **Impact:** `web/index.html` and `web/ko/index.html` (masthead copy only; the Korean feed reads "AI 엔지니어를 위한 데일리 페이퍼.", chosen by the owner), `tests/test_live_feed_surface.py`, `docs/product-specs/feed-front-page.md`. The default share image (`og-default.png`, whose tagline predates the agent-engineer widening) is handled separately.
 - **Rollback:** Restore the previous `.feed-title` text.
 
 ## 2026-10-10 (Broadsheet theme for every page; the feed front page replaces the ledger opening)
