@@ -8,7 +8,7 @@ solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-10-10
 themes:
   - key: trace-capture
     title: Capturing the full trajectory

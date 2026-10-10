@@ -72,11 +72,11 @@ Schema: `config/wiki_schema.md`.
   - theme `shared-context` — What each agent gets to see (2)
 
 ### cost
-- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (48 entries, updated 2026-10-06)
+- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (49 entries, updated 2026-10-10)
   → solutions: agent-orchestration, context-compaction, cost-controls
   - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (10)
   - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (10)
-  - theme `routing` — Routing each turn to the cheapest model that can handle it (8)
+  - theme `routing` — Routing each turn to the cheapest model that can handle it (9)
   - theme `caching-and-serving` — Caching and serving efficiency set the floor price (9)
   - theme `price-curve` — Falling token prices, rising workflow spend (11)
 - [proving-agent-roi](obstacles/proving-agent-roi.md) — Proving agent ROI and measuring cost efficiency is hard (9 entries, updated 2026-10-06)
@@ -96,9 +96,9 @@ Schema: `config/wiki_schema.md`.
   - theme `beyond-the-engine` — Latency outside the model: tools, cold starts, and voice (6)
 
 ### observability
-- [agent-observability](obstacles/agent-observability.md) — You can't see why an agent did what it did (23 entries, updated 2026-10-06)
+- [agent-observability](obstacles/agent-observability.md) — You can't see why an agent did what it did (24 entries, updated 2026-10-10)
   → solutions: agent-tracing
-  - theme `trace-capture` — Capturing the full trajectory (6)
+  - theme `trace-capture` — Capturing the full trajectory (7)
   - theme `reading-traces` — Making traces readable and analyzable (6)
   - theme `agentic-rca` — Agents doing root-cause analysis and on-call (6)
   - theme `telemetry-ownership` — Where agent telemetry lives (3)

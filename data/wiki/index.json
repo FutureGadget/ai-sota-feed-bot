@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-09T18:18:12.123127+00:00",
+ "generated_at": "2026-10-10T18:18:53.674435+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,22 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-10-cloudflare-traces-proxy-spans",
+   "topic": "agent-observability",
+   "topic_title": "You can't see why an agent did what it did",
+   "kind": "obstacle",
+   "date": "2026-10-10",
+   "title": "Cloudflare Traces emits proxy-layer steps as OpenTelemetry spans that join your agent traces"
+  },
+  {
+   "id": "2026-10-10-asana-legalon-model-matching",
+   "topic": "agent-cost",
+   "topic_title": "Agent token costs are unpredictable and easily run away",
+   "kind": "obstacle",
+   "date": "2026-10-10",
+   "title": "Matching model tier to task cut agent costs 65-76x in two vendor-reported case studies"
+  },
   {
    "id": "2026-10-09-option-channel-guardrail-attack",
    "topic": "prompt-injection",
@@ -238,22 +254,6 @@
    "kind": "solution",
    "date": "2026-10-01",
    "title": "Azure Container Apps Sandboxes reach GA: one microVM per workload, subsecond start, suspend/resume"
-  },
-  {
-   "id": "2026-10-01-high-bandwidth-flash-kv",
-   "topic": "agent-latency",
-   "topic_title": "Agent loops multiply per-call latency into slow, expensive runs",
-   "kind": "obstacle",
-   "date": "2026-10-01",
-   "title": "High-bandwidth flash could hold agentic KV state, but write endurance limits it"
-  },
-  {
-   "id": "2026-10-01-gke-pod-snapshots-cold-start",
-   "topic": "agent-latency",
-   "topic_title": "Agent loops multiply per-call latency into slow, expensive runs",
-   "kind": "obstacle",
-   "date": "2026-10-01",
-   "title": "GKE Pod snapshots cut model startup latency up to 89%, but invalidation is the catch"
   }
  ],
  "nodes": {
@@ -295,7 +295,7 @@
      "key": "routing",
      "title": "Routing each turn to the cheapest model that can handle it",
      "summary": "Benchmarks find most agent turns don't need a frontier model; per-thread routing inside the harness cuts cost 64-74%, and online tuning of the routing policy is emerging.",
-     "count": 8
+     "count": 9
     },
     {
      "key": "caching-and-serving",
@@ -311,6 +311,25 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-10-asana-legalon-model-matching",
+     "topic": "agent-cost",
+     "date": "2026-10-10",
+     "title": "Matching model tier to task cut agent costs 65-76x in two vendor-reported case studies",
+     "theme": "routing",
+     "html": "<p>Two OpenAI customer stories report savings from picking the model per task, not from a cheaper model overall. Both figures are <strong>vendor-reported</strong> and from the customers&#x27; own tests.</p>\n<ul><li><strong>Asana</strong> made its browser agent <strong>76x cheaper and 5x faster</strong> in tests by moving to GPT-6 Astra in Codex.</li><li><strong>LegalOn</strong> cut estimated daily Codex costs <strong>65%</strong> with no loss of development speed by matching Astra, Sol, and Luna to task types and managing budgets per tier.</li></ul>\n<p>Neither post publishes its task mix or quality metric, so treat the ratios as upper bounds. The reusable step is the same as in <a href=\"/topic/agent-cost#2026-10-02-open-swe-harness-router\">Open SWE&#x27;s router</a>: measure cost per task by type, then assign tiers.</p>",
+     "evidence": [
+      {
+       "sid": "9bf93d58cc35db99",
+       "title": "Asana cuts model costs 76x in browser tests with GPT-6.1 Sol"
+      },
+      {
+       "sid": "45d6a2b79938283a",
+       "title": "LegalOn halves Codex costs while maintaining development speed"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-02-open-swe-harness-router",
      "topic": "agent-cost",
@@ -1167,8 +1186,8 @@
      "title": "OpenAI adds usage analytics and enforceable spend controls to ChatGPT Enterprise"
     }
    ],
-   "entry_count": 48,
-   "latest_entry_date": "2026-10-02",
+   "entry_count": 49,
+   "latest_entry_date": "2026-10-10",
    "solutions": [
     {
      "slug": "agent-orchestration",
@@ -1186,6 +1205,14 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "9bf93d58cc35db99",
+     "title": "Asana cuts model costs 76x in browser tests with GPT-6.1 Sol"
+    },
+    {
+     "sid": "45d6a2b79938283a",
+     "title": "LegalOn halves Codex costs while maintaining development speed"
+    },
     {
      "sid": "378de5b0a4ef1ffb",
      "title": "How to Build a Model Router in the Harness"
@@ -1399,7 +1426,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-10"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -6517,7 +6544,7 @@
      "key": "trace-capture",
      "title": "Capturing the full trajectory",
      "summary": "Harnesses, serving platforms, and CLIs now emit agent spans natively over OpenTelemetry, across text and voice, but payload defaults, truncation, and retention vary by tool.",
-     "count": 6
+     "count": 7
     },
     {
      "key": "reading-traces",
@@ -6545,6 +6572,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-10-cloudflare-traces-proxy-spans",
+     "topic": "agent-observability",
+     "date": "2026-10-10",
+     "title": "Cloudflare Traces emits proxy-layer steps as OpenTelemetry spans that join your agent traces",
+     "theme": "trace-capture",
+     "html": "<p>Cloudflare put Traces into open beta, extending automatic tracing beyond Workers to security rules, transformations, cache, routing, and origin handling, all as <strong>OpenTelemetry spans</strong>. It accepts and forwards W3C <code>traceparent</code> headers, so edge spans attach to the trace your agent harness already started. <strong>Trace Rules</strong> sample selectively.</p>\n<p>For builders, tool calls and model-gateway traffic that cross the edge no longer break the trace at the proxy. Pricing moves to <strong>ingestion and retention volume from December 1</strong>, so budget for span volume from agent loops before enabling it broadly.</p>",
+     "evidence": [
+      {
+       "sid": "c96d66505e1261e7",
+       "title": "Cloudflare Traces Turns the Proxy Layer into OpenTelemetry Spans, with New Volume-Based Pricing"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-09-24-langsmith-trajectories-view",
      "topic": "agent-observability",
@@ -6892,8 +6934,8 @@
     }
    ],
    "cross_entries": [],
-   "entry_count": 23,
-   "latest_entry_date": "2026-09-24",
+   "entry_count": 24,
+   "latest_entry_date": "2026-10-10",
    "solutions": [
     {
      "slug": "agent-tracing",
@@ -6903,6 +6945,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "c96d66505e1261e7",
+     "title": "Cloudflare Traces Turns the Proxy Layer into OpenTelemetry Spans, with New Volume-Based Pricing"
+    },
     {
      "sid": "b60131f089d99489",
      "title": "Trajectories now in LangSmith: A readable view of every agent session"
@@ -6996,7 +7042,7 @@
      "title": "A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-10"
   },
   "agent-planning": {
    "slug": "agent-planning",
