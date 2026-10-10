@@ -311,14 +311,6 @@
     article.release-row .card-meta .badge {
       font-size: 0.78rem;
     }
-    .thumb {
-      width: 84px;
-      height: 84px;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid var(--border, #e5e5e5);
-      flex-shrink: 0;
-    }
     .card-main {
       display: flex;
       align-items: flex-start;
@@ -1042,10 +1034,6 @@
       .subscribe-toggle-icon {
         margin-right: 0;
       }
-      .thumb {
-        width: 64px;
-        height: 64px;
-      }
     }
 
     /* Live-feed identity: a ranked reading ledger. The feed keeps all existing
@@ -1059,12 +1047,8 @@
       border-radius:3px; background:transparent; min-height:40px; }
     .feed-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
       gap:1.5rem 2.5rem; align-items:end; margin:2rem 0 1.45rem; }
-    .feed-kicker { display:none; margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.75rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
     .feed-title { margin:0; font-family:var(--font-display);
       font-size:clamp(2.8rem,7vw,4.7rem); font-weight:700; letter-spacing:-.048em; line-height:.92; }
-    .feed-promise { margin:0; color:var(--muted); font-size:.9rem; line-height:1.6; }
-    .feed-promise strong { color:var(--fg); }
     #meta { margin:.75rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.75rem; line-height:1.55; }
     .controls-bar { display: flex; align-items: center; justify-content: space-between;
@@ -1197,7 +1181,6 @@
       border-left:2px solid var(--accent); background:var(--feed-wash);
       color:var(--feed-ink); font-size:.84rem; line-height:1.5; }
     .ranked-why { max-width:45rem; margin:.3rem 0 0; font-size:.78rem; }
-    .thumb { width:96px; height:72px; border:0; border-radius:2px; object-fit:cover; }
     .also { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.75rem; }
     .fb-row { margin-top:.7rem; padding-top:.6rem; border-top:1px solid color-mix(in srgb,var(--border) 65%,transparent); }
     .fb-label { font-size:.75rem; }
@@ -1233,21 +1216,8 @@
       .site-page-heading { margin-top:0; }
       .site-page-heading h1 { position:absolute; width:1px; height:1px; margin:-1px;
         overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
-      /* Restore the masthead positioning copy on mobile (kicker + promise):
-         two clamped lines at legible sizes, with hero margins tightened so
-         the restored rows cost ~50px of scroll before the first story. */
       .feed-hero { grid-template-columns:1fr; gap:0.15rem; margin:0.45rem 0 0.35rem; }
-      .feed-kicker { display:block; margin:0 0 .15rem; }
       .feed-title { font-size:1.9rem; line-height:1.05; letter-spacing:-.035em; }
-      .feed-promise {
-        display:-webkit-box;
-        -webkit-box-orient:vertical;
-        -webkit-line-clamp:2;
-        overflow:hidden;
-        margin:0.3rem 0 0;
-        font-size:0.85rem;
-        line-height:1.4;
-      }
       #meta { margin-top:0.4rem; }
       .sections {
         overflow-x: auto;
@@ -1261,7 +1231,6 @@
       .card-top { padding-right:0; }
       #list > article.big-story::after { display:none; }
       article h3 { font-size:1.18rem; }
-      .thumb { width:72px; height:64px; }
       .fb-btn {
         min-height: 44px;
         padding: 0.2rem 0.5rem;
@@ -1470,14 +1439,8 @@
       </div>
 
       <section class="feed-hero">
-        <div>
-          <p class="feed-kicker">Ranked signal · finite reading</p>
-          <h2 class="feed-title">The daily paper for AI engineers.</h2>
-        </div>
-        <div>
-          <p class="feed-promise"><strong>One shared ranking.</strong> Scan what changed, save what matters, and stop when the finish line appears.</p>
-          <p id="meta">Ranked brief · refreshes every 2 hours</p>
-        </div>
+        <h2 class="feed-title">The daily paper for AI engineers.</h2>
+        <p id="meta">Ranked brief · refreshes every 2 hours</p>
       </section>
 
       <div class="controls-bar">
@@ -1503,8 +1466,6 @@
       <input type="search" id="searchBox" class="searchbar" placeholder="Search the feed…" aria-label="Search the feed" hidden />
       <div id="selectedLabels" class="selected-labels"></div>
     </header>
-
-    <aside id="readerTuningBanner" class="trust-banner" aria-label="Reader-tuned ranking" hidden></aside>
 
     <div class="feed-layout">
     <div class="feed-column">
@@ -1567,6 +1528,8 @@
          slow or failed models fetch never shifts layout or shows a trace. -->
     <aside id="modelRadarRail" class="model-radar-rail" aria-label="Model Release Radar" data-model-radar-placement="desktop_rail" hidden></aside>
     </div>
+
+    <aside id="readerTuningBanner" class="trust-banner" aria-label="Reader-tuned ranking" hidden></aside>
 
     <footer class="sitefooter" role="contentinfo">
       <button type="button" id="aboutToggle" aria-haspopup="dialog" aria-expanded="false">About</button> · <button type="button" id="shortcutsToggle" aria-haspopup="dialog" aria-expanded="false">Shortcuts</button> · <a href="/daily">Daily recap</a> · <a href="/weekly">Weekly recap</a> · <a href="/storylines">Storylines</a> · <a href="/models">Model Radar</a> · <a href="/rss.xml">RSS</a> · <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a> · <a href="/api/feed">JSON feed</a>
@@ -2396,6 +2359,31 @@
       });
       const label = row?.querySelector('.fb-label');
       if (label) label.textContent = FEEDBACK_THANKS;
+      // Feedback lives in the card's "⋯" panel; open it so the vote is visible.
+      const more = card?.querySelector('details.card-more');
+      if (more) more.open = true;
+    }
+
+    // Each card keeps share, hide, feedback and its ranking reason in a "⋯"
+    // panel. One panel is open at a time; a click elsewhere or Escape closes it.
+    function initCardMorePanels() {
+      document.addEventListener('toggle', (e) => {
+        const opened = e.target;
+        if (!(opened instanceof HTMLDetailsElement) || !opened.matches('details.card-more') || !opened.open) return;
+        document.querySelectorAll('details.card-more[open]').forEach((d) => { if (d !== opened) d.open = false; });
+      }, true);
+      document.addEventListener('click', (e) => {
+        document.querySelectorAll('details.card-more[open]').forEach((d) => {
+          if (!d.contains(e.target)) d.open = false;
+        });
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        const open = document.querySelector('details.card-more[open]');
+        if (!open) return;
+        open.open = false;
+        open.querySelector('summary')?.focus();
+      });
     }
 
     function updateSavedTab() {
@@ -2569,6 +2557,14 @@
       const box = document.getElementById('selectedLabels');
       if (!box) return;
       const labels = getSelectedLabels();
+      // The default Brief lens needs no chip: the active tab already says so.
+      // Chips appear only for a real topic selection (or a pinned one to apply).
+      if (sameLabels(labels, DEFAULT_SECTION_LABELS)) {
+        box.innerHTML = pinnedLabelsState.length && !sameLabels(pinnedLabelsState, DEFAULT_SECTION_LABELS)
+          ? `<button type="button" class="badge" data-pin-apply="1" title="Apply your pinned labels">📌 My topics: ${pinnedLabelsState.map((l) => `#${esc(l)}`).join(' ')}</button>`
+          : '';
+        return;
+      }
       const chips = labels.map((l) => `<button type="button" class="badge" data-chip-remove="${esc(l)}">#${esc(l)} ×</button>`);
 
       if (labels.length) {
@@ -3339,12 +3335,6 @@
       const whyRaw = whyItMattersText(it);
       const why = whyRaw || rankedBecauseText(it);
       const href = safeUrl(it.url);
-      // Only use an absolute http(s) image URL. safeUrl() resolves bare/relative
-      // strings against our origin (e.g. a scraped placeholder "URL to first
-      // frame"), which would request that path on our own domain and 404; an
-      // absolute image src cannot be a relative reference.
-      const rawImage = String(it.image_url || '');
-      const image = /^https?:\/\//i.test(rawImage) ? safeUrl(rawImage) : '#';
       const alsoCoveredAll = (Array.isArray(it.also_covered) ? it.also_covered : [])
         .filter((e) => e && e.source && safeUrl(e.url) !== '#');
       const alsoCovered = alsoCoveredAll.slice(0, 4);
@@ -3386,35 +3376,43 @@
       const kicker = SLOT_LABELS[it.slot] || (type !== 'news' ? typeLabel : 'News');
       return `
         <article${articleClass ? ` class="${articleClass}"` : ''} data-item-key="${itemId}">
-          ${frontPage && rank !== null ? `<p class="fp-kicker"><span class="fp-rank" aria-label="Rank ${rank}${climbingLabel}">${String(rank).padStart(2, '0')}</span> ${esc(kicker)}</p>` : ''}
-          ${!frontPage && rank !== null ? `<span class="rank-no"${isClimbing ? ` title="Moved up from #${prevRank} to #${lastRank} between runs"` : ''} aria-label="Rank ${rank}${climbingLabel}">${String(rank).padStart(2, '0')}</span>` : ''}
+          ${frontPage === 'lead' && rank !== null ? `<p class="fp-kicker"><span class="fp-rank" aria-label="Rank ${rank}${climbingLabel}">${String(rank).padStart(2, '0')}</span> ${esc(kicker)}</p>` : ''}
+          ${frontPage !== 'lead' && rank !== null ? `<span class="rank-no"${isClimbing ? ` title="Moved up from #${prevRank} to #${lastRank} between runs"` : ''} aria-label="Rank ${rank}${climbingLabel}">${String(rank).padStart(2, '0')}</span>` : ''}
           <div class="card-top">
             <div class="card-meta">
               <span class="src">${source}</span>
               ${published ? `<span class="when">${esc(published)}</span>` : ''}
               ${type !== 'news' ? `<span class="badge">${typeLabel}</span>` : ''}
-              ${isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
               ${isNew ? `<span class="badge badge-new">New</span>` : ''}
-              ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
               ${storylineBadge}
-              ${isReaderBoosted ? `<span class="badge badge-boost" title="Reader clicks and feedback boosted ${source} in the ranking">👍 Reader-boosted</span>` : ''}
             </div>
             <div class="card-actions">
               <button type="button" class="save-btn" data-save-id="${itemId}" aria-pressed="${saved ? 'true' : 'false'}" aria-label="${saved ? 'Remove from saved' : 'Save for later'}" title="${saved ? 'Remove from saved' : 'Save for later'}">${saved ? '★' : '☆'}</button>
-              <button type="button" class="share-btn" data-share-id="${itemId}" aria-label="Share this story" title="Share">📤</button>
-              ${hideable ? `<button type="button" class="hide-btn" data-hide-id="${itemId}" aria-pressed="${hidden ? 'true' : 'false'}" aria-label="${hidden ? 'Restore this story to the feed' : 'Hide this story from the feed'}" title="${hidden ? 'Restore to feed' : 'Hide from feed'}">${hidden ? '↩︎' : '✕'}</button>` : ''}
+              <details class="card-more">
+                <summary aria-label="More for this story" title="More">⋯</summary>
+                <div class="card-more-panel">
+                  <div class="card-more-actions">
+                    <button type="button" class="share-btn" data-share-id="${itemId}" aria-label="Share this story" title="Share">📤 Share</button>
+                    ${hideable ? `<button type="button" class="hide-btn" data-hide-id="${itemId}" aria-pressed="${hidden ? 'true' : 'false'}" aria-label="${hidden ? 'Restore this story to the feed' : 'Hide this story from the feed'}" title="${hidden ? 'Restore to feed' : 'Hide from feed'}">${hidden ? '↩︎ Restore' : '✕ Hide'}</button>` : ''}
+                  </div>
+                  ${why && why !== summaryRaw ? `<p class="${whyRaw ? 'matters' : 'matters ranked-why'}">${esc(why)}</p>` : ''}
+                  ${isFresh || sourceCount >= 2 || isReaderBoosted ? `<p class="card-signals">
+                    ${isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
+                    ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
+                    ${isReaderBoosted ? `<span class="badge badge-boost" title="Reader clicks and feedback boosted ${source} in the ranking">👍 Reader-boosted</span>` : ''}
+                  </p>` : ''}
+                  ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
+                  <div class="fb-row ${fbActive ? 'fb-has-voted' : ''}"><span class="fb-label">${fbActive ? FEEDBACK_THANKS : ''}</span><div class="fb-actions">${fbButtons}</div></div>
+                </div>
+              </details>
             </div>
           </div>
           <div class="card-main">
             <div class="card-text">
               <h3><a href="${href}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${itemId}" data-source="${sourceSlug}" data-rank="${rank ?? ''}" data-run-id="${itemRunId}" data-title="${title}">${title}</a></h3>
-              ${summary ? `<p class="why">${summary}</p>` : ''}
+              ${summary && frontPage === 'lead' ? `<p class="why">${summary}</p>` : ''}
             </div>
-            ${image !== '#' ? `<img class="thumb" width="96" height="72" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.remove();" />` : ''}
           </div>
-          ${why && why !== summaryRaw ? `<p class="${whyRaw ? 'matters' : 'matters ranked-why'}">${frontPage ? '' : '💡 '}${esc(why)}</p>` : ''}
-          ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
-          <div class="fb-row ${fbActive ? 'fb-has-voted' : ''}"><span class="fb-label">${fbActive ? FEEDBACK_THANKS : ''}</span><div class="fb-actions">${fbButtons}</div></div>
         </article>`;
     }
 
@@ -3912,11 +3910,10 @@
     // swipe, focus restore and feedback handlers are untouched.
     const FRONT_PAGE_STORIES = 5;
 
-    // Rank 1 leads, 2-3 run beside it, 4-5 sit side by side underneath.
+    // Rank 1 leads with its summary; 2-5 run beside it as a headline list.
     function frontPageRole(index) {
       if (index === 0) return 'lead';
-      if (index < 3) return 'second';
-      return index < FRONT_PAGE_STORIES ? 'pair' : '';
+      return index < FRONT_PAGE_STORIES ? 'second' : '';
     }
 
     function frontPageEditionName(date) {
@@ -3927,19 +3924,24 @@
       return 'Late edition';
     }
 
+    // Section headings in the style of a paper's section fronts: a bold
+    // title on the left, one quiet line of context on the right.
     function frontPageEditionHtml(latestRunAt) {
       const at = latestRunAt ? new Date(latestRunAt) : new Date();
-      const date = at.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      const date = at.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
       return `
-        <div class="fp-edition">
-          <span>${esc(date)}</span>
-          <span>${frontPageEditionName(at)}</span>
-          <span>One ranking for every reader</span>
+        <div class="fp-head">
+          <h2>Front page</h2>
+          <span class="fp-head-meta">${esc(date)}&ensp;·&ensp;${frontPageEditionName(at)}</span>
         </div>`;
     }
 
-    function frontPageRuleHtml() {
-      return '<h2 class="fp-rule"><span>The rest of the brief</span></h2>';
+    function frontPageRuleHtml(remaining) {
+      return `
+        <div class="fp-head fp-head-more">
+          <h2>The rest of the brief</h2>
+          <span class="fp-head-meta">${remaining} more ${remaining === 1 ? 'story' : 'stories'}</span>
+        </div>`;
     }
 
     function renderFeedList() {
@@ -4052,12 +4054,14 @@
             feedInserts.push(insert);
           }
           if (frontPage) {
-            // Nothing interrupts the front page: companions that would land
-            // inside it move to just below, after the section rule.
+            // Nothing interrupts the front page or the heading under it:
+            // companions move a few stories into the rest of the brief.
             for (const insert of feedInserts) {
-              insert.after = Math.max(Number(insert.after) || 0, FRONT_PAGE_STORIES);
+              insert.after = Math.max(Number(insert.after) || 0, FRONT_PAGE_STORIES + 3);
             }
-            feedInserts.unshift({ after: FRONT_PAGE_STORIES, html: frontPageRuleHtml() });
+            if (visible.length > FRONT_PAGE_STORIES) {
+              feedInserts.unshift({ after: FRONT_PAGE_STORIES, html: frontPageRuleHtml(visible.length - FRONT_PAGE_STORIES) });
+            }
           }
           const cards = interleaveFeedCards(storyCards, feedInserts);
           if (hiddenInView > 0) cards.unshift(hiddenBarHtml(hiddenInView));
@@ -4650,6 +4654,7 @@
     });
 
     initThemeToggle();
+    initCardMorePanels();
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         initAboutDialog();

@@ -83,7 +83,10 @@ Examples: `docs/assets/share-images-2026-10-10/`.
 ## Feed front page
 
 `web/front-page.css` sets the Brief's first five stories as a front page
-(lead, two secondaries, a pair). The English and Korean feeds link it after
+(a lead with its summary, four headlines beside it) and styles every story card
+as a headline plus one source line, with share, hide, feedback and the ranking
+reason in a `details.card-more` "⋯" panel. It resets the UI library's boxed
+`<details>` styles for that panel. The English and Korean feeds link it after
 their inline `<style>` so it wins ties with the ledger rules. It reflows
 ordinary cards via `#list:has(> article.fp-lead)` without wrapping them; keep
 `#list > article` as the card contract. Contract:
