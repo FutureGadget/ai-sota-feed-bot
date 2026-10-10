@@ -994,6 +994,39 @@ def fmt_long_date(day_id: str) -> str:
     return f"{d.strftime('%A')}, {d.strftime('%b')} {d.day}, {d.year}"
 
 
+def og_dek(recap: dict) -> str:
+    """Share-card summary line: the recap's first highlight, the same bullet
+    the page leads with ("In 30 seconds" / "The week in signals")."""
+    for item in recap.get("highlights") or []:
+        text = squeeze(item if isinstance(item, str) else (item or {}).get("text"))
+        if text:
+            return clip(text, 200)
+    return ""
+
+
+def og_week_dateline(week: str, start: str, end: str) -> str:
+    """e.g. 'Oct 3 – 9, 2026'; falls back to the ISO week id."""
+    try:
+        a, b = date.fromisoformat(start), date.fromisoformat(end)
+    except Exception:
+        return week
+    if a.year != b.year:
+        return f"{a.strftime('%b')} {a.day}, {a.year} – {b.strftime('%b')} {b.day}, {b.year}"
+    if a.month != b.month:
+        return f"{a.strftime('%b')} {a.day} – {b.strftime('%b')} {b.day}, {b.year}"
+    return f"{a.strftime('%b')} {a.day} – {b.day}, {b.year}"
+
+
+def og_storyline_dateline(sl: dict) -> str:
+    """e.g. 'Updated Oct 8, 2026' from the storyline's last update."""
+    raw = str(sl.get("last_updated") or "")[:10]
+    try:
+        d = date.fromisoformat(raw)
+    except Exception:
+        return ""
+    return f"Updated {d.strftime('%b')} {d.day}, {d.year}"
+
+
 def safe_http_url(value) -> str:
     s = str(value or "").strip()
     return s if s.startswith("http://") or s.startswith("https://") else "#"
@@ -1320,8 +1353,8 @@ def render_head(
   <meta name="twitter:title" content="{escape(title)}" />
   <meta name="twitter:description" content="{escape(description)}" />{ld}
   <link rel="alternate" type="application/rss+xml" title="{escape(SITE_NAME)} feed" href="/rss.xml" />
-  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#15171c" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#17150f" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
   <link rel="stylesheet" href="/site-chrome.css?v={SITE_CHROME_ASSET_VERSION}" />
   {POSTHOG_CLIENT_TAG}
@@ -1679,7 +1712,9 @@ def render_daily_pages(
             day,
             kicker="The finishable daily brief",
             title=title,
-            stats=f"{fmt_long_date(day)} · {total} articles · {len(cats)} categories",
+            stats=f"{total} articles · {len(cats)} categories",
+            dateline=fmt_long_date(day),
+            dek=og_dek(recap),
         )
         return render_page(
             title=title,
@@ -2149,13 +2184,14 @@ def render_weekly_pages(
         title = squeeze(recap.get("title")) or f"AI Weekly Recap — {week}"
         description = recap_description(recap)
         published = iso_or_none(recap.get("generated_at"))
-        og_stats = " · ".join(s for s in (f"{start} → {end}" if start and end else week, f"{total} articles") if s)
         og_rel = og_cards.ensure(
             "weekly",
             week,
             kicker="Weekly pattern report",
             title=title,
-            stats=og_stats,
+            stats=f"{total} articles · {len(cats)} categories",
+            dateline=og_week_dateline(week, start, end),
+            dek=og_dek(recap),
         )
         return render_page(
             title=title,
@@ -3290,6 +3326,8 @@ def render_storyline_pages(
             kicker="AI storyline · what happened next",
             title=label,
             stats=" · ".join(meta_bits),
+            dateline=og_storyline_dateline(sl),
+            dek=clip(squeeze(ed.get("whats_new")) or squeeze(sl.get("latest_title")), 200),
         )
         html = render_page(
             title=title,
@@ -5887,7 +5925,15 @@ def render_i18n_language_action(source_path: str) -> str:
     )
 
 
-def localized_og_rel(source_path: str, locale: str, *, title: str, stats: str = "") -> str:
+def localized_og_rel(
+    source_path: str,
+    locale: str,
+    *,
+    title: str,
+    stats: str = "",
+    dateline: str = "",
+    dek: str = "",
+) -> str:
     parts = [p for p in source_path.strip("/").split("/") if p]
     if len(parts) < 2 or not title:
         return ""
@@ -5907,7 +5953,9 @@ def localized_og_rel(source_path: str, locale: str, *, title: str, stats: str = 
         ident,
         kicker=kicker,
         title=title,
-        stats=stats or "Korean edition · LLM Digest",
+        stats=stats or "Korean edition",
+        dateline=dateline,
+        dek=dek,
         locale=locale,
     )
 
@@ -5987,7 +6035,9 @@ def render_i18n_daily_page(
         source_path,
         locale,
         title=title,
-        stats=f"{fmt_long_date(day)} · {total} articles · {len(cats)} categories",
+        stats=f"{total} articles · {len(cats)} categories",
+        dateline=fmt_long_date(day),
+        dek=og_dek(recap),
     )
     og_image = f"{base_url}{og_rel}" if og_rel else ""
     html = render_page(
@@ -6075,10 +6125,14 @@ def render_i18n_weekly_page(
         (f"/weekly/{r['week']}", f"{r['week']} · {squeeze(r.get('title'))}")
         for r in load_recaps(WEEKLY_DIR, WEEK_FILE_RE, "week")
     ]
-    og_stats = " · ".join(
-        s for s in (f"{start} → {end}" if start and end else week, f"{total} articles") if s
+    og_rel = localized_og_rel(
+        source_path,
+        locale,
+        title=title,
+        stats=f"{total} articles · {len(cats)} categories",
+        dateline=og_week_dateline(week, start, end),
+        dek=og_dek(recap),
     )
-    og_rel = localized_og_rel(source_path, locale, title=title, stats=og_stats)
     og_image = f"{base_url}{og_rel}" if og_rel else ""
     html = render_page(
         title=title,

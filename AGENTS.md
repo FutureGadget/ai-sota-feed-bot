@@ -131,7 +131,11 @@ in `ops_daily_summary.py`'s log line.
     stories, threads, static SEO pages (incl. pre-rendered latest `/daily` and
     `/weekly` and the crawler-visible feed seed in `web/index.html`)
   - `og_cards.py` — per-edition Open Graph share cards → `web/og/*.png`
-    (Pillow-optional; no-ops gracefully where Pillow is absent)
+    in the broadsheet style (nameplate + dateline, red kicker, Playfair
+    headline, one-line summary from the page's lead bullet, counts). Needs
+    Pillow and the vendored fonts in `assets/fonts/playfair/`; without either
+    it keeps the committed cards untouched
+
   - `build_wiki.py` — compiles the agent-engineering wiki markdown (topic
     pages + dated entries under `data/wiki/`) into the served
     `data/wiki/index.json` and the generated `index.md` catalog; enforces the
@@ -216,8 +220,9 @@ in `ops_daily_summary.py`'s log line.
   Lab result records; the builder proves referenced files exist and Vercel
   stages the directory at `/lab-artifacts/`.
   Brand assets:
-  `favicon.svg` (hand-authored), `og-default.png` + `logo.png` (from
-  `scripts/make_og_assets.py`). Also `robots.txt`, `llms.txt`, `llm-guide.txt`.
+  `favicon.svg` (hand-authored stack mark), and `og-default.png`, `logo.png`
+  ("LD" monogram), `icon-512/192.png`, `apple-touch-icon.png`,
+  `favicon-32/16.png`, `favicon.ico` (all from `scripts/make_og_assets.py`). Also `robots.txt`, `llms.txt`, `llm-guide.txt`.
   `mascot/mascot.js` — "Bubble Buddy", the decorative WebGL/Three.js mascot
   (lazy-loaded on idle, motion-respecting, parks render loop between random
   appearances; loader snippet lives in the five shells + the
@@ -254,8 +259,9 @@ in `ops_daily_summary.py`'s log line.
   `spend_guard.json`; see `docs/how-to/translation-budget-and-quota.md`),
   `git_commit_runtime.sh` (data-only commits),
   `git_commit_code.sh` (code/docs commits), `llm_bridge.mjs`, `oauth_login.sh`
-  (legacy), `compare_v1_v2.py`, `make_og_assets.py` (regenerates the social
-  card + logo PNGs; run only when the brand/tagline changes)
+  (legacy), `compare_v1_v2.py`, `make_og_assets.py` (regenerates the default
+  share card, logo and icon PNGs; run only when the brand, title or tagline
+  changes)
 - `skills/` — local run helpers: `ai-feed-digest-local/` (`run_full.sh`,
   `run_dev.sh`, `run_tier1_fast.sh`), `ops-daily-summary/`
 - `.agents/skills/` — agent recap routines: `daily-summary/`, `weekly-summary/`,
@@ -284,6 +290,9 @@ in `ops_daily_summary.py`'s log line.
   the agent-visible `prompt.md`; `COMMON.md` owns shared checkout, validation,
   commit, rebase/retry, and direct-to-`main` publishing rules. Harness metadata
   must not be injected into agent context.
+- `assets/fonts/playfair/` — vendored Playfair (SIL OFL) static instances used
+  only to draw share images; excluded from the Vercel deployment
+  (`.vercelignore`). `build_fonts.py` rebuilds them from upstream
 - `data/` — generated runtime artifacts (committed by bots; see Data Artifacts)
 - `docs/` — living documentation:
   - `docs/status/` — operational snapshots (`current-system-state.md`,

@@ -450,6 +450,18 @@ class BroadsheetThemeTest(unittest.TestCase):
                 self.assertIsNone(pattern.search(text), pattern.search(text) and text[pattern.search(text).start() - 80 : pattern.search(text).end() + 20])
                 self.assertNotIn('"Avenir Next Condensed"', text)
 
+    def test_browser_theme_color_follows_the_palette(self) -> None:
+        # The mobile browser bar tints with <meta name="theme-color">.
+        for rel in THEMED_SOURCES:
+            if not rel.endswith((".html", ".py")):
+                continue
+            text = (ROOT / rel).read_text(encoding="utf-8")
+            if 'name="theme-color"' not in text:
+                continue
+            with self.subTest(source=rel):
+                self.assertIn(f'name="theme-color" content="{self.light["bg"]}" media="(prefers-color-scheme: light)"', text)
+                self.assertIn(f'name="theme-color" content="{self.dark["bg"]}" media="(prefers-color-scheme: dark)"', text)
+
     def test_feeds_load_front_page_css_after_their_inline_styles(self) -> None:
         for rel in ("web/index.html", "web/ko/index.html"):
             with self.subTest(source=rel):

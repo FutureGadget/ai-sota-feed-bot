@@ -60,6 +60,26 @@ matching dark variant, and serif headlines.
 - `tests/test_site_chrome.py` (`BroadsheetThemeTest`) enforces both rules and
   checks that text tokens hold 4.5:1 contrast on `--bg`, `--card` and the wash.
 
+## Share images and icons
+
+Share images follow the same theme (light palette only, since they appear
+outside the site).
+
+- `pipeline/og_cards.py` draws the per-edition cards in `web/og/` during the
+  feed run: nameplate and dateline, the page's red kicker, a Playfair headline,
+  a one-line summary (the recap's first highlight, or a storyline's latest
+  change), and counts. No reading-time claims.
+- `scripts/make_og_assets.py` draws the default card (nameplate, the feed
+  masthead, the line under it), the "LD" logo, and the stack-mark icons. Re-run
+  it when the brand, masthead or tagline changes.
+- Fonts: vendored Playfair in `assets/fonts/playfair/` (OFL). Korean text
+  falls back to Nanum Myeongjo/Gothic from the workflow's `fonts-nanum`.
+- `web/favicon.svg` is the vector stack mark; keep its colours in step with
+  `MARK_*` in `make_og_assets.py`. `theme-color` meta tags and
+  `site.webmanifest` use the palette's paper and red.
+
+Examples: `docs/assets/share-images-2026-10-10/`.
+
 ## Feed front page
 
 `web/front-page.css` sets the Brief's first five stories as a front page
