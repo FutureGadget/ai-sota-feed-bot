@@ -1,5 +1,11 @@
 # Decision Log
 
+## 2026-10-10 (Feed masthead: "The daily paper for AI engineers.")
+- **Decision:** Replace the feed masthead "The AI brief that ends." with "The daily paper for AI engineers." The line under it ("One shared ranking. Scan what changed, save what matters, and stop when the finish line appears.") stays, so the finishable promise is still stated.
+- **Rationale:** The old line described a feature (it stops) without naming who the feed is for, and "ends" read as a limitation until the subtitle explained it. The new line names the audience and matches the broadsheet front page shipped the same day. A paper is finite by nature, and "daily" points at the habit the north-star metric measures (weekly returning readers). "AI engineers" is the reader's own term; the precise "platform & agent engineers" wording stays in the page subtitle and metadata.
+- **Impact:** `web/index.html` (masthead copy only), `tests/test_live_feed_surface.py`, `docs/product-specs/feed-front-page.md`. The Korean feed title and the default share image (`og-default.png`, whose tagline predates the agent-engineer widening) are unchanged pending the owner's call.
+- **Rollback:** Restore the previous `.feed-title` text.
+
 ## 2026-10-10 (Broadsheet theme for every page; the feed front page replaces the ledger opening)
 - **Decision:** Drop the 50/50 layout experiment from the 2026-10-09 entry. The front page is now the feed's only opening (Brief, no search, at least 5 stories), and the Korean feed uses the same arrangement. Apply the broadsheet look to every page: `web/site-chrome.css` becomes the single owner of the palette and type tokens (paper and ink-red light theme, matching dark theme, `--font-display`/`--font-serif`/`--font-sans`). Every hand-edited shell, `web/model-comparison.css` and every `render_static_pages.py` CSS template dropped its own copy of the shared tokens and its hard-coded condensed display stack. Front-page rules moved to `web/front-page.css`, shared by both feeds.
 - **Context / Problem:** The owner preferred the front-page design outright and asked for it everywhere rather than a measured split. Before this change each page defined the same palette in its own `<style>` (about 20 copies, with drifted values such as `#f7f8fb` vs `#f5f7fa`), so a site-wide restyle meant editing every copy.

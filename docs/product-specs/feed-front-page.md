@@ -13,7 +13,7 @@ rest of the list.
 
 | Element | Treatment |
 |---|---|
-| Masthead | Centered serif "The AI brief that ends.", kicker line, double rule above the lens controls |
+| Masthead | Centered serif "The daily paper for AI engineers.", kicker line, double rule above the lens controls |
 | Edition strip | Date · Morning/Afternoon/Evening/Late edition (local time of the latest run) · "One ranking for every reader" |
 | Rank 1 | **Lead**: large serif headline, drop-cap summary, left 58% column |
 | Ranks 2-3 | **Secondaries**: beside the lead, 2-line summary |
