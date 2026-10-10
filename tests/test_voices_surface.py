@@ -19,11 +19,12 @@ class VoicesSurfaceTest(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.html = (ROOT / "web" / "voices.html").read_text(encoding="utf-8")
 
-    def test_uses_shared_instrument_token_system(self) -> None:
-        self.assertIn("--bg:#f5f7fa;", self.html)
-        self.assertIn("--accent:#2457d6;", self.html)
-        self.assertIn("--bg:#11151c;", self.html)  # dark
-        self.assertIn('"Avenir Next Condensed"', self.html)
+    def test_uses_shared_broadsheet_tokens(self) -> None:
+        # Broadsheet theme: palette and display face come from site-chrome.css.
+        self.assertNotIn("--bg:", self.html)
+        self.assertNotIn("--accent:", self.html)
+        self.assertIn("/site-chrome.css", self.html)
+        self.assertIn("var(--font-display)", self.html)
         self.assertIn("ui-monospace", self.html)
 
     def test_annotated_reading_guide_signature(self) -> None:

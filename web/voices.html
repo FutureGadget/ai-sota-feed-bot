@@ -41,16 +41,6 @@
        line). No boxed cards, no link pills, no ranking numbers — the curated
        order is editorial, not a leaderboard. */
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --signal:#23875b;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --signal:#54b886;
-    }
     body { margin:0; line-height:1.5; overflow-x:clip; background:var(--bg); color:var(--fg);
       font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     *, *::before, *::after { box-sizing: border-box; }
@@ -80,7 +70,7 @@
     .voices-hero { margin:2.3rem 0 1.6rem; }
     .voices-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
-    .voices-headline { margin:0; max-width:20ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .voices-headline { margin:0; max-width:20ch; font-family:var(--font-display);
       font-size:clamp(2.4rem,6vw,4rem); font-weight:700; letter-spacing:-.045em; line-height:.95; }
     .voices-thesis { max-width:44rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
 
@@ -88,7 +78,7 @@
     .voice { display:grid; grid-template-columns:minmax(11rem,.34fr) minmax(0,1.66fr);
       gap:.5rem 2.2rem; padding:1.5rem 0; border-bottom:1px solid var(--border); }
     .voice-who { min-width:0; }
-    .voice-name { margin:0 0 .4rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .voice-name { margin:0 0 .4rem; font-family:var(--font-display);
       font-size:1.42rem; line-height:1.08; letter-spacing:-.02em; }
     .voice-name a { color:inherit; text-decoration:none; }
     .voice-name a:hover { color:var(--accent); }

@@ -36,28 +36,6 @@
       document.documentElement.setAttribute('data-theme',
         stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
     })();
-    // Front-page layout experiment (docs/product-specs/feed-front-page.md):
-    // a sticky per-browser assignment, overridable with ?layout=, exposed to
-    // CSS as html[data-feed-layout] and to PostHog as the feed_layout super
-    // property so weekly returning readers can be compared per arm.
-    (function () {
-      var FRONT_PAGE_ROLLOUT = 0.5;
-      var KEY = 'feed_layout_v1';
-      var requested = new URLSearchParams(window.location.search).get('layout');
-      var layout = (requested === 'frontpage' || requested === 'ledger') ? requested : '';
-      try {
-        var stored = localStorage.getItem(KEY);
-        if (!layout && (stored === 'frontpage' || stored === 'ledger')) layout = stored;
-        if (!layout) layout = Math.random() < FRONT_PAGE_ROLLOUT ? 'frontpage' : 'ledger';
-        localStorage.setItem(KEY, layout);
-      } catch (e) {
-        // Without storage the arm cannot stay sticky across visits, so such
-        // readers stay on the control layout unless they asked for one.
-        layout = layout || 'ledger';
-      }
-      document.documentElement.setAttribute('data-feed-layout', layout);
-      window.__llmDigestSuperProps = Object.assign(window.__llmDigestSuperProps || {}, { feed_layout: layout });
-    })();
   </script>
   <script src="/oat.min.js?v=20260824-selfhost" defer></script>
   <script defer src="/site-chrome.js?v=20260924-inline-subscribe"></script>
@@ -1071,25 +1049,11 @@
     }
 
     /* Live-feed identity: a ranked reading ledger. The feed keeps all existing
-       behavior; this layer makes order, evidence, and completion visually true. */
-    :root,
-    html[data-theme="light"] {
-      color-scheme: light;
-      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      /* muted must hold 4.5:1 on --bg (it carries bylines, meta, and the rank
-         column); #626d81 is the darkest-warm gray that clears it. */
-      --muted:#626d81; --fg:#121722; --feed-wash:#eaf0ff; --feed-ink:#18243b;
-      --signal:#23875b; --warm:#b6780c; --alert:#c4483f;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --feed-wash:#1c2a48; --feed-ink:#e8eefb;
-      --signal:#54b886; --warm:#e0ad4e; --alert:#ef756d;
-    }
+       behavior; this layer makes order, evidence, and completion visually true.
+       Colours and type tokens come from site-chrome.css. */
     body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
-    .topbar h1 { font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .topbar h1 { font-family:var(--font-display);
       font-size:1.7rem; letter-spacing:-.025em; }
     .topbar-actions button, .topbar-actions select {
       border-radius:3px; background:transparent; min-height:40px; }
@@ -1097,7 +1061,7 @@
       gap:1.5rem 2.5rem; align-items:end; margin:2rem 0 1.45rem; }
     .feed-kicker { display:none; margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.75rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
-    .feed-title { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .feed-title { margin:0; font-family:var(--font-display);
       font-size:clamp(2.8rem,7vw,4.7rem); font-weight:700; letter-spacing:-.048em; line-height:.92; }
     .feed-promise { margin:0; color:var(--muted); font-size:.9rem; line-height:1.6; }
     .feed-promise strong { color:var(--fg); }
@@ -1156,7 +1120,7 @@
       border-bottom:1px solid var(--border); }
     .mr-rail-kicker { margin:0 0 .3rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.75rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
-    .mr-rail-heading { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .mr-rail-heading { margin:0 0 .35rem; font-family:var(--font-display);
       font-size:1.15rem; font-weight:700; letter-spacing:-.01em; line-height:1.1; }
     .mr-rail-lede { margin:0 0 .8rem; font-size:.78rem; line-height:1.5; color:var(--muted); }
     .mr-rail-list { list-style:none; margin:0 0 .8rem; padding:0; border-top:1px solid var(--border); }
@@ -1208,7 +1172,7 @@
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem;
       letter-spacing:.07em; text-transform:uppercase; color:var(--alert); }
     .rank-no { position:absolute; left:0; top:1rem; width:2.25rem;
-      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.65rem;
+      font-family:var(--font-display); font-size:1.65rem;
       line-height:1; font-weight:700; color:var(--muted); }
     .card-top { margin:0 0 .4rem; padding-right:5.5rem; gap:.5rem; }
     .card-meta { gap:.45rem .7rem; }
@@ -1225,7 +1189,7 @@
     a.badge-storyline { border:0; background:transparent; color:var(--accent);
       display:inline-flex; align-items:center; min-height:44px; }
     .card-main { gap:1rem; }
-    article h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    article h3 { margin:0 0 .35rem; font-family:var(--font-display);
       font-size:1.28rem; line-height:1.22; }
     article h3 a { font-weight:650; }
     .why { max-width:45rem; margin:.3rem 0 0; font-size:.93rem; line-height:1.56; }
@@ -1246,7 +1210,7 @@
       margin:2rem 0 .5rem; padding:1.2rem 0; border-top:1px solid var(--border);
       border-bottom:1px solid var(--border); opacity:1; }
     .end-marker::before { content:""; width:2rem; height:5px; background:var(--signal); }
-    .end-marker-title { font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .end-marker-title { font-family:var(--font-display);
       font-size:1.2rem; flex-shrink:0; }
     .end-marker-sub { color:var(--muted); }
     /* Inline signup under the finish line: centered with it, one quiet step
@@ -1356,128 +1320,6 @@
       .model-radar-rail { flex:0 0 280px; width:280px; }
     }
 
-    /* Front-page layout (experiment arm; html[data-feed-layout="frontpage"],
-       set by the head script). A broadsheet reading of the same ranked Brief:
-       paper palette, serif headlines, a lead story with a column of
-       secondaries, then the ledger continues under a section rule.
-       Spec: docs/product-specs/feed-front-page.md. */
-    html[data-feed-layout="frontpage"] {
-      --fp-serif:"Iowan Old Style","Charter","Bitstream Charter","Sitka Text",Cambria,Georgia,serif;
-      --fp-display:"Bodoni 72","Didot","Playfair Display","Iowan Old Style",Georgia,serif;
-      --fp-caps:"Avenir Next","Segoe UI",system-ui,sans-serif;
-    }
-    html[data-feed-layout="frontpage"][data-theme="light"],
-    html[data-feed-layout="frontpage"]:not([data-theme]) {
-      /* muted holds 4.5:1 on --bg; accent (kickers, active tab) holds 4.5:1. */
-      --bg:#f4f0e6; --card:#fbf8f1; --border:#d6cdbb; --accent:#a3301c;
-      --muted:#625a4d; --fg:#1b1814; --feed-wash:#ebe4d5; --feed-ink:#2a241c;
-      --signal:#2f7a52;
-    }
-    html[data-feed-layout="frontpage"][data-theme="dark"] {
-      --bg:#17150f; --card:#1f1c16; --border:#3b362c; --accent:#e8907a;
-      --muted:#aba292; --fg:#f0eadd; --feed-wash:#26221a; --feed-ink:#ebe3d3;
-      --signal:#6cc293;
-    }
-    html[data-feed-layout="frontpage"] .feed-hero { grid-template-columns:1fr; gap:.35rem;
-      margin:1.6rem 0 0; padding-bottom:1rem; text-align:center; }
-    html[data-feed-layout="frontpage"] .feed-kicker { display:block; margin:0 0 .5rem;
-      font-family:var(--fp-caps); font-size:.72rem; font-weight:600; letter-spacing:.2em; color:var(--muted); }
-    html[data-feed-layout="frontpage"] .feed-title { font-family:var(--fp-display);
-      font-size:clamp(2.6rem,7vw,4.9rem); font-weight:700; letter-spacing:-.02em; line-height:1; }
-    html[data-feed-layout="frontpage"] .feed-promise { max-width:36rem; margin:.5rem auto 0;
-      font-family:var(--fp-serif); font-style:italic; font-size:1rem; }
-    html[data-feed-layout="frontpage"] .feed-promise strong { font-style:normal; }
-    html[data-feed-layout="frontpage"] #meta { margin-top:.35rem; }
-    html[data-feed-layout="frontpage"] .controls-bar { border-top:3px double var(--fg); }
-    html[data-feed-layout="frontpage"] .sections button.active { border-bottom-color:var(--fg); }
-    html[data-feed-layout="frontpage"] .model-radar-rail,
-    html[data-feed-layout="frontpage"] .model-radar-inline { padding:1rem 1.1rem;
-      border:1px solid var(--fg); background:color-mix(in srgb,var(--fg) 4%,transparent); }
-    html[data-feed-layout="frontpage"] .mr-rail-kicker { font-family:var(--fp-caps);
-      letter-spacing:.16em; color:var(--fg); padding-bottom:.45rem; border-bottom:2px solid var(--fg); }
-    html[data-feed-layout="frontpage"] .mr-rail-heading,
-    html[data-feed-layout="frontpage"] .end-marker-title,
-    html[data-feed-layout="frontpage"] article h3 { font-family:var(--fp-serif); letter-spacing:0; }
-    html[data-feed-layout="frontpage"] article h3 a { font-weight:700; }
-
-    /* The front page itself: only rendered when #list holds a lead story
-       (Brief lens, no search, enough stories). Floats rather than grid so
-       the cards stay direct #list children in rank order. */
-    /* min-width:0 keeps the one-line (nowrap) ranked rows from widening
-       the reading-column grid track past the viewport. */
-    #list:has(> article.fp-lead) { display:flow-root; min-width:0; }
-    #list > article:is(.fp-lead,.fp-second,.fp-pair) { min-width:0; }
-    .fp-edition { display:flex; justify-content:space-between; gap:.5rem 1rem; flex-wrap:wrap;
-      margin:0 0 1.1rem; padding:.45rem 0; border-bottom:2px solid var(--fg);
-      font-family:var(--fp-serif); font-variant:small-caps; font-size:.92rem; color:var(--fg); }
-    .fp-kicker { margin:0 0 .4rem; font-family:var(--fp-caps); font-size:.7rem; font-weight:700;
-      letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
-    .fp-rank { margin-right:.35rem; color:var(--muted); font-variant-numeric:tabular-nums; }
-    #list > article:is(.fp-lead,.fp-second,.fp-pair) { display:flex; flex-direction:column;
-      padding:0 0 1rem; border-top:0; }
-    #list > article:is(.fp-lead,.fp-second,.fp-pair)::after { display:none; }
-    /* Reading order inside a front-page card: kicker, headline, summary,
-       then the byline row (source, time, badges, save/share/hide). */
-    #list > article:is(.fp-lead,.fp-second,.fp-pair) .card-main { order:1; }
-    #list > article:is(.fp-lead,.fp-second,.fp-pair) .card-top { order:2; margin:.55rem 0 0; padding-right:0; }
-    #list > article:is(.fp-lead,.fp-second,.fp-pair) .matters { order:3; }
-    #list > article:is(.fp-lead,.fp-second,.fp-pair) .also { order:4; }
-    #list > article:is(.fp-lead,.fp-second,.fp-pair) .fb-row { order:5; }
-    #list > article:is(.fp-lead,.fp-second,.fp-pair) .thumb { display:none; }
-    #list > article:is(.fp-lead,.fp-second,.fp-pair) .card-top .src { font-family:var(--fp-caps);
-      font-size:.7rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
-    #list > article:is(.fp-lead,.fp-second,.fp-pair) .matters { margin-top:.35rem; padding:0; border:0;
-      background:transparent; color:var(--muted); font-family:var(--fp-caps); font-size:.72rem;
-      font-style:normal; letter-spacing:.02em; }
-    #list > article:is(.fp-second,.fp-pair) .matters,
-    #list > article:is(.fp-second,.fp-pair) .also { overflow:hidden;
-      white-space:nowrap; text-overflow:ellipsis; }
-    #list > article:is(.fp-lead,.fp-second,.fp-pair) .fb-row { margin-top:.35rem; padding-top:0; border-top:0; }
-    /* Feedback stays in the DOM and keyboard-reachable; on hover devices it
-       surfaces with the card instead of repeating under every headline. */
-    @media (hover:hover) {
-      #list > article:is(.fp-lead,.fp-second,.fp-pair) .fb-row { opacity:0; }
-      #list > article:is(.fp-lead,.fp-second,.fp-pair):hover .fb-row,
-      #list > article:is(.fp-lead,.fp-second,.fp-pair):focus-within .fb-row,
-      #list > article:is(.fp-lead,.fp-second,.fp-pair) .fb-row.fb-has-voted { opacity:1; }
-    }
-    #list > article.fp-lead h3 { margin:0 0 .6rem; font-family:var(--fp-display);
-      font-size:clamp(1.9rem,3.6vw,2.7rem); line-height:1.08; letter-spacing:-.01em; }
-    #list > article.fp-lead .why { display:block; -webkit-line-clamp:unset; overflow:visible;
-      font-family:var(--fp-serif); font-size:1.08rem; line-height:1.65; }
-    #list > article.fp-lead .why::first-letter { float:left; margin:.08em .1em 0 0;
-      font-family:var(--fp-display); font-size:3.4em; line-height:.8; font-weight:700; }
-    #list > article:is(.fp-second,.fp-pair) { padding-top:.9rem; border-bottom:1px solid var(--border); }
-    #list > article:is(.fp-second,.fp-pair) h3 { font-size:1.22rem; line-height:1.2; }
-    #list > article:is(.fp-second,.fp-pair) .why { font-family:var(--fp-serif); font-size:.95rem; line-height:1.5;
-      -webkit-line-clamp:2; }
-    .fp-rule { clear:both; display:flex; align-items:center; gap:.8rem; margin:0; padding-top:1.2rem;
-      font-family:var(--fp-caps); font-size:.72rem; font-weight:700; letter-spacing:.18em;
-      text-transform:uppercase; color:var(--fg); }
-    .fp-rule::before, .fp-rule::after { content:""; flex:1; border-top:1px solid var(--fg); }
-    #list:has(> article.fp-lead) > :not(article:is(.fp-lead,.fp-second,.fp-pair)):not(.fp-edition) { clear:both; }
-    @media (min-width:860px) {
-      #list > article.fp-lead { float:left; width:58%; padding-right:1.6rem; border-bottom:0; }
-      #list > article.fp-second { margin-left:58%; padding-left:1.6rem;
-        border-left:1px solid var(--border); }
-      #list > article.fp-lead + article.fp-second { padding-top:0; }
-      #list > article.fp-pair { float:left; width:50%; padding-top:1rem;
-        border-top:1px solid var(--fg); border-bottom:0; }
-      #list > article.fp-second + article.fp-pair { clear:left; padding-right:1.6rem; }
-      #list > article.fp-pair + article.fp-pair { clear:none; padding-left:1.6rem;
-        border-left:1px solid var(--border); }
-    }
-    @media (max-width:859.98px) {
-      #list > article.fp-lead { border-bottom:1px solid var(--border); }
-      .fp-edition span:last-child { display:none; }
-    }
-    @media (max-width:640px) {
-      html[data-feed-layout="frontpage"] .feed-hero { text-align:left; margin-top:.45rem; padding-bottom:.4rem; }
-      html[data-feed-layout="frontpage"] .feed-title { font-size:2.2rem; }
-      html[data-feed-layout="frontpage"] .feed-promise { margin-left:0; font-size:.9rem; }
-      #list > article.fp-lead, #list > article.fp-second { padding-left:0; }
-      #list > article.fp-lead h3 { font-size:1.75rem; }
-    }
 
     /* Shared instrument focus ring — keeps keyboard focus on-brand and matches
        the other surfaces (replaces Oat's default gray outline). */
@@ -1593,6 +1435,7 @@
       color: var(--muted);
     }
   </style>
+  <link rel="stylesheet" href="/front-page.css?v=20261010-broadsheet" />
 </head>
 <body>
   <a class="skip-link" href="#list">Skip to stories</a>
@@ -4058,15 +3901,10 @@
       modelRadarInlineObserver.observe(inline);
     }
 
-    // Front-page layout (experiment arm, see the head script): the Brief's
-    // first stories are set as a lead plus a column of secondaries, then the
-    // ledger continues. Cards stay direct children of #list so selection,
+    // Front page: the Brief's first stories are set as a lead plus a column
+    // of secondaries, then the ledger continues. Cards stay direct children of #list so selection,
     // swipe, focus restore and feedback handlers are untouched.
     const FRONT_PAGE_STORIES = 5;
-
-    function frontPageLayoutEnabled() {
-      return document.documentElement.getAttribute('data-feed-layout') === 'frontpage';
-    }
 
     // Rank 1 leads, 2-3 run beside it, 4-5 sit side by side underneath.
     function frontPageRole(index) {
@@ -4186,7 +4024,6 @@
         }
       } else {
         const frontPage = !q
-          && frontPageLayoutEnabled()
           && activeSection() === 'brief'
           && visible.length >= FRONT_PAGE_STORIES;
         const storyCards = visible.map((it, i) => cardHtml(it, {

@@ -210,9 +210,6 @@
         persistence: 'localStorage+cookie',
         loaded: function (sdk) {
           var anon = getAnonUserId();
-          // Page-declared super properties (e.g. the feed layout experiment
-          // arm) ride on every event, including the initial `$pageview`.
-          if (window.__llmDigestSuperProps) sdk.register(window.__llmDigestSuperProps);
           sdk.identify(anon);
           window.__posthogEnabled = true;
           enabled = true;

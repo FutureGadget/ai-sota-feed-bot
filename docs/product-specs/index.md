@@ -12,7 +12,7 @@
 - email-digest.md
 - feed-date-ranges.md
 - live-feed.md
-- feed-front-page.md (layout experiment)
+- feed-front-page.md
 - feed-hide.md
 - mobile-site-chrome.md
 - multilingual-pretranslated-pages.md

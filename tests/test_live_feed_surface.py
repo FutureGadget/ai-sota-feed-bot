@@ -156,19 +156,6 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("/^Matches feed focus:/i.test(why)", self.html)
         self.assertIn(".trust-banner[hidden]", self.html)
 
-    def test_front_page_layout_assignment_is_sticky_and_reported(self) -> None:
-        # The experiment is only measurable if the arm survives across visits
-        # and rides on every PostHog event, including the first $pageview.
-        head = self.html.split("</head>", 1)[0]
-        self.assertIn("var FRONT_PAGE_ROLLOUT = 0.5;", head)
-        self.assertIn("var KEY = 'feed_layout_v1';", head)
-        self.assertIn("get('layout')", head)
-        self.assertIn("document.documentElement.setAttribute('data-feed-layout', layout);", head)
-        self.assertIn("{ feed_layout: layout }", head)
-        client = (ROOT / "web" / "posthog-client.js").read_text(encoding="utf-8")
-        register = client.index("sdk.register(window.__llmDigestSuperProps)")
-        self.assertLess(register, client.index("sdk.identify(anon)"))
-
     def test_front_page_roles_follow_rank(self) -> None:
         role = _extract_js_function(self.html, "frontPageRole")
         script = f"""
@@ -180,9 +167,7 @@ class LiveFeedSurfaceTest(unittest.TestCase):
 
     def test_front_page_only_on_the_unsearched_brief(self) -> None:
         render = _extract_js_function(self.html, "renderFeedList")
-        self.assertIn("const frontPage = !q", render)
-        self.assertIn("&& frontPageLayoutEnabled()", render)
-        self.assertIn("&& activeSection() === 'brief'", render)
+        self.assertIn("const frontPage = !q\n          && activeSection() === 'brief'", render)
         self.assertIn("&& visible.length >= FRONT_PAGE_STORIES;", render)
         # Companions never split the front page; they move below its rule.
         self.assertIn("insert.after = Math.max(Number(insert.after) || 0, FRONT_PAGE_STORIES);", render)
@@ -196,7 +181,8 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         card = self.html.split("function cardHtml(", 1)[1].split("function matchesQuery(", 1)[0]
         self.assertIn("frontPage ? `fp-${frontPage}` : ''", card)
         self.assertIn('class="fp-kicker"', card)
-        self.assertIn("#list:has(> article.fp-lead) { display:flow-root; min-width:0; }", self.html)
+        css = (ROOT / "web" / "front-page.css").read_text(encoding="utf-8")
+        self.assertIn("#list:has(> article.fp-lead) { display:flow-root; min-width:0; }", css)
 
     def test_feed_has_responsive_and_reduced_motion_rules(self) -> None:
         self.assertIn("@media (max-width:640px)", self.html)

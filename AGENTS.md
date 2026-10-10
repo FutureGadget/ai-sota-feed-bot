@@ -186,7 +186,12 @@ in `ops_daily_summary.py`'s log line.
   top-level `site-chrome.css` + `site-chrome.js`: semantic fallback links are
   progressively moved into Browse/More dialogs, while date/week/edition
   controls remain visible. Generated pages receive the same chrome through
-  `pipeline/render_static_pages.py`. `nav-updates.js` (shared, deferred) renders
+  `pipeline/render_static_pages.py`. `site-chrome.css` is also the **only
+  owner of the site theme** (broadsheet palette for light/dark plus
+  `--font-display`/`--font-serif`/`--font-sans`); pages and render templates
+  consume those tokens and must not redefine them (`BroadsheetThemeTest`).
+  `front-page.css` sets the Brief's first five stories as a newspaper front
+  page for both `index.html` and `ko/index.html`. `nav-updates.js` (shared, deferred) renders
   published-item discovery in the
   feed, Desk, and section roots; `editorial-state.js` tracks opened versions.
   `updates.html` is the complete Latest/Unread collection.

@@ -229,14 +229,6 @@ def _trim_gnews_site_tail(title: str) -> str:
 # are indistinguishable to readers. Keep in sync when restyling those shells.
 PAGE_CSS = """\
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
-    }
     body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
     *, *::before, *::after { box-sizing: border-box; }
     button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
@@ -302,7 +294,7 @@ PAGE_CSS = """\
       border-left: 3px solid var(--accent); border-radius: 0;
       background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
     .subscribe-cta p { margin: 0; }
-    .subscribe-cta p strong { font-family: "Avenir Next Condensed", "Arial Narrow", sans-serif;
+    .subscribe-cta p strong { font-family: var(--font-display);
       font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
     .subscribe-cta p .muted { font-size: 0.93rem; }
     .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
@@ -458,17 +450,13 @@ STORYLINE_FOLLOW_JS = """\
 # tone colors are semantic mid-tones that read on both light and dark). Scoped
 # under .sl so it never leaks into recap/story pages. See render_storyline_body.
 STORYLINE_ARC_CSS = """\
-    /* Storyline pages borrow from an operations trace: cool instrument paper,
+    /* Storyline pages borrow from an operations trace: broadsheet paper,
        condensed display type, and one continuous state/evidence signal. */
-    :root, html[data-theme="light"] {
-      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --sl-wash:#eaf0ff; --sl-ink:#18243b;
+    :root, html[data-theme="light"]{
       --t-launch:#23875b; --t-rising:#718096; --t-turn:#c4483f;
       --t-now:#b6780c; --t-resolved:#2457d6; --t-neutral:#a8b1bf;
     }
-    html[data-theme="dark"] {
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --sl-wash:#1c2a48; --sl-ink:#e8eefb;
+    html[data-theme="dark"]{
       --t-launch:#54b886; --t-rising:#9aa6b6; --t-turn:#ef756d;
       --t-now:#e0ad4e; --t-resolved:#7ca0ff; --t-neutral:#596575;
     }
@@ -480,7 +468,7 @@ STORYLINE_ARC_CSS = """\
     .sl-hero-kicker { margin:0 0 0.25rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:0.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase;
       color:var(--accent); }
-    .sl-hero .recap-title { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .sl-hero .recap-title { margin:0; font-family:var(--font-display);
       font-size:clamp(2.6rem,7vw,4.6rem); font-weight:700; letter-spacing:-0.045em; line-height:.92; }
     .sl-hero #followBtn { font-family:inherit; font-size:0.84rem; font-weight:600; min-height:44px;
       padding:0.55rem 0.9rem; border-radius:3px; cursor:pointer; color:var(--accent);
@@ -612,7 +600,7 @@ STORYLINE_ARC_CSS = """\
     .sl-beat.tone-launch .sl-kicker{color:var(--t-launch);} .sl-beat.tone-now .sl-kicker{color:var(--t-now);}
     .sl-beat.tone-alert .sl-kicker{color:var(--t-turn);}
     .sl-beat.tone-turn .sl-kicker{color:var(--t-turn); font-weight:700;}
-    .sl-beat-title { max-width:44rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .sl-beat-title { max-width:44rem; font-family:var(--font-display);
       font-size:1.16rem; font-weight:650; letter-spacing:-0.015em; line-height:1.3; }
     .sl-beat.tone-turn .sl-beat-title { font-size:1.28rem; font-weight:700; }
     .sl-beat-sum { font-size:0.92rem; color:var(--fg); opacity:0.82; margin-top:0.35rem; line-height:1.5; }
@@ -1568,23 +1556,13 @@ def meta_line_for(recap: dict) -> str:
 
 
 DAILY_RECAP_CSS = """\
-    :root, html[data-theme="light"] {
-      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
-      --signal:#23875b;
-    }
-    html[data-theme="dark"] {
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
-      --signal:#54b886;
-    }
     body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
     .daily-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
       gap:1.5rem 2.5rem; align-items:end; margin:2.3rem 0 1.6rem; }
     .daily-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
-    .daily-hero .recap-title { margin:0; max-width:48rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .daily-hero .recap-title { margin:0; max-width:48rem; font-family:var(--font-display);
       font-size:clamp(2.65rem,6.7vw,4.55rem); font-weight:700; letter-spacing:-.045em; line-height:.94; }
     .daily-date { margin:0 0 .3rem; color:var(--muted); text-align:right;
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; line-height:1.6; }
@@ -1612,14 +1590,14 @@ DAILY_RECAP_CSS = """\
     .toc a:hover { color:var(--accent); background:var(--brief-wash); }
     .cat { margin-bottom:2.5rem; }
     .cat h2 { padding-bottom:.7rem; margin:0; border-bottom:1px solid var(--border);
-      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.55rem; line-height:1.1; }
+      font-family:var(--font-display); font-size:1.55rem; line-height:1.1; }
     .cat-summary { margin:.7rem 0 .2rem; color:var(--muted); font-size:.88rem; line-height:1.55; }
     .articles { gap:0; }
     article { display:grid; grid-template-columns:minmax(12rem,.62fr) minmax(0,1.38fr);
       gap:.35rem 2rem; padding:1rem 0; border:0; border-bottom:1px solid var(--border);
       border-radius:0; background:transparent; box-shadow:none; }
     article h3 { grid-column:1; grid-row:1 / span 3; margin:0;
-      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.12rem; line-height:1.25; }
+      font-family:var(--font-display); font-size:1.12rem; line-height:1.25; }
     article h3 a:hover { color:var(--accent); }
     .art-meta, .art-summary { grid-column:2; }
     .art-meta { margin:0; }
@@ -1771,15 +1749,9 @@ def render_daily_pages(
 
 
 WEEKLY_RECAP_CSS = """\
-    :root, html[data-theme="light"] {
-      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --week-wash:#eaf0ff; --week-ink:#18243b;
-      --signal:#23875b; --warm:#b6780c; --turn:#c4483f;
+    :root, html[data-theme="light"]{ --turn:#c4483f;
     }
-    html[data-theme="dark"] {
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --week-wash:#1c2a48; --week-ink:#e8eefb;
-      --signal:#54b886; --warm:#e0ad4e; --turn:#ef756d;
+    html[data-theme="dark"]{ --turn:#ef756d;
     }
     body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
@@ -1788,7 +1760,7 @@ WEEKLY_RECAP_CSS = """\
     .weekly-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
     .weekly-hero .recap-title { margin:0; max-width:49rem;
-      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-family:var(--font-display);
       font-size:clamp(2.75rem,7vw,4.75rem); font-weight:700; letter-spacing:-.047em; line-height:.92; }
     .weekly-range { margin:0 0 .25rem; color:var(--muted); text-align:right;
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; line-height:1.65; }
@@ -1944,7 +1916,7 @@ WEEKLY_RECAP_CSS = """\
     .cat:nth-of-type(3n+1)::before { background:var(--signal); }
     .cat:nth-of-type(3n+2)::before { background:var(--warm); }
     .cat h2 { margin:0; padding:0 0 .8rem; border-bottom:1px solid var(--border);
-      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.85rem; line-height:1; }
+      font-family:var(--font-display); font-size:1.85rem; line-height:1; }
     .cat h2 .count { display:block; margin-top:.45rem;
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.64rem; font-weight:400; color:var(--muted); }
     .cat-summary { margin:.85rem 0 .2rem; max-width:48rem; color:var(--fg); font-size:1rem; line-height:1.58; }
@@ -1955,7 +1927,7 @@ WEEKLY_RECAP_CSS = """\
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
     article:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       border-color: color-mix(in srgb, var(--accent) 30%, var(--border)); }
-    article h3 { margin:0 0 .5rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    article h3 { margin:0 0 .5rem; font-family:var(--font-display);
       font-size:1.15rem; line-height:1.25; font-weight:600; }
     article h3 a { text-decoration: none; color: var(--fg); transition: color 0.15s ease; }
     article h3 a:hover { color:var(--accent); }
@@ -2495,16 +2467,6 @@ def render_story_body(
 
 
 STORY_PAGE_CSS = """\
-    :root, html[data-theme="light"] {
-      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --story-wash:#eaf0ff; --story-ink:#18243b;
-      --signal:#23875b;
-    }
-    html[data-theme="dark"] {
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --story-wash:#1c2a48; --story-ink:#e8eefb;
-      --signal:#54b886;
-    }
     body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
     .story-hero { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1rem 2rem;
@@ -2513,7 +2475,7 @@ STORY_PAGE_CSS = """\
     .story-kicker { margin:0 0 .4rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
     .story-hero .recap-title { margin:0; max-width:49rem;
-      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-family:var(--font-display);
       font-size:clamp(2.45rem,6.4vw,4.25rem); font-weight:700; letter-spacing:-.043em; line-height:.96; }
     .story-hero .recap-title a { color:var(--fg); }
     .story-hero .recap-title a:hover { color:var(--accent); text-decoration:none; }
@@ -2551,12 +2513,12 @@ STORY_PAGE_CSS = """\
     .covered { padding:1rem 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
     .story-related { margin-top:2.5rem; }
     .story-related h2 { padding-bottom:.75rem; border-bottom:1px solid var(--border);
-      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.45rem; }
+      font-family:var(--font-display); font-size:1.45rem; }
     .story-related .articles { gap:0; }
     .story-related article { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center;
       gap:1rem; padding:.9rem 0; border:0; border-bottom:1px solid var(--border);
       border-radius:0; background:transparent; box-shadow:none; }
-    .story-related article h3 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .story-related article h3 { margin:0; font-family:var(--font-display);
       font-size:1.05rem; }
     .story-related .art-meta { margin:0; }
     .story-related .badge { padding:0; border:0; border-radius:0; background:transparent;
@@ -3392,18 +3354,6 @@ KIND_LABEL = {"obstacle": "Obstacle", "solution": "Solution"}
 #             cross-link panel, the synthesized sections as a left-rail dossier,
 #             and a source ledger. Semantic state, not a chronology.
 WIKI_PAGE_CSS = """\
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
-      --signal:#23875b; --warm:#b6780c;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
-      --signal:#54b886; --warm:#e0ad4e;
-    }
     body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
     code {
@@ -3424,7 +3374,7 @@ WIKI_PAGE_CSS = """\
     .wiki-hero { margin:2.3rem 0 1.7rem; }
     .wiki-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
-    .wiki-headline { margin:0; max-width:30ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .wiki-headline { margin:0; max-width:30ch; font-family:var(--font-display);
       font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.1rem,4.8vw,3.3rem); }
     .map .wiki-headline { font-size:clamp(2.5rem,6.4vw,4.3rem); max-width:24ch; }
     .wiki-thesis { max-width:46rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
@@ -3446,7 +3396,7 @@ WIKI_PAGE_CSS = """\
     .map-area { margin:2.4rem 0 0; scroll-margin-top:1rem; }
     .map-area-head { display:flex; align-items:baseline; gap:.7rem; padding:0 0 .2rem;
       border-bottom:2px solid var(--fg); }
-    .map-area-head h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .map-area-head h2 { margin:0; font-family:var(--font-display);
       font-size:1.5rem; line-height:1.1; }
     .map-area-head .map-area-meta { font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
@@ -3458,7 +3408,7 @@ WIKI_PAGE_CSS = """\
       font-weight:700; letter-spacing:.13em; text-transform:uppercase; margin:0 0 .45rem; }
     .map-obstacle .map-tag { color:var(--warm); }
     .map-solutions .map-tag { color:var(--accent); }
-    .map-obstacle h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .map-obstacle h3 { margin:0 0 .35rem; font-family:var(--font-display);
       font-size:1.2rem; line-height:1.15; }
     .map-obstacle h3 a { color:inherit; text-decoration:none; }
     .map-obstacle h3 a:hover { color:var(--accent); }
@@ -3471,7 +3421,7 @@ WIKI_PAGE_CSS = """\
     .map-none { color:var(--muted); font-size:.86rem; font-style:italic; }
 
     .map-solindex { margin:3rem 0 0; padding:1.1rem 0 0; border-top:1px solid var(--border); }
-    .map-solindex h2 { margin:0 0 .8rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .map-solindex h2 { margin:0 0 .8rem; font-family:var(--font-display);
       font-size:1.25rem; line-height:1.1; }
     .map-sol-list { margin:0; padding:0; list-style:none; display:grid;
       grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); gap:.4rem 1.5rem; }
@@ -3521,7 +3471,7 @@ WIKI_PAGE_CSS = """\
 
     /* Developments: entries grouped by theme. */
     .topic-developments { margin:2.6rem 0 0; scroll-margin-top:5rem; }
-    .topic-dev-title { margin:0 0 .7rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .topic-dev-title { margin:0 0 .7rem; font-family:var(--font-display);
       font-size:1.7rem; letter-spacing:-.03em; line-height:1.05; }
     .topic-dev-title span { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.8rem;
       color:var(--muted); letter-spacing:0; margin-left:.3rem; vertical-align:middle; }
@@ -3532,7 +3482,7 @@ WIKI_PAGE_CSS = """\
     .topic-theme-nav .count { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; color:var(--muted); }
     .topic-theme { margin:1.4rem 0 0; scroll-margin-top:5rem; }
     .topic-theme-head { padding:0 0 .5rem; border-bottom:2px solid var(--fg); }
-    .topic-theme-head h3 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .topic-theme-head h3 { margin:0; font-family:var(--font-display);
       font-size:1.3rem; line-height:1.15; }
     .topic-theme-meta { display:block; margin:.2rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.64rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
@@ -3564,7 +3514,7 @@ WIKI_PAGE_CSS = """\
       font-size:.64rem; letter-spacing:.04em; color:var(--muted); }
     .map-recent { margin:2rem 0 0; padding:1.1rem 1.2rem; border-left:2px solid var(--warm);
       background:var(--brief-wash); }
-    .map-recent h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .map-recent h2 { margin:0; font-family:var(--font-display);
       font-size:1.35rem; line-height:1.1; }
     .map-recent-lede { margin:.3rem 0 .9rem; font-size:.86rem; color:var(--muted); }
     .evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.55rem; }
@@ -3624,7 +3574,7 @@ WIKI_PAGE_CSS = """\
       padding:.75rem .85rem .6rem; background:rgba(10,14,23,.97); border-bottom:1px solid #232c3f; }
     .ku-chip { flex:none; width:.72rem; height:.72rem; border-radius:50%;
       background:var(--ku-c,#63a3ff); box-shadow:0 0 10px var(--ku-c,#63a3ff); }
-    .ku-panel h3 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .ku-panel h3 { margin:0; font-family:var(--font-display);
       font-size:1.2rem; font-weight:700; letter-spacing:-.02em; line-height:1.05; }
     .ku-panel header p { margin:.12rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.62rem; color:#9aa6b6; }
@@ -3650,7 +3600,7 @@ WIKI_PAGE_CSS = """\
     .ku-badge-upd { color:#8fd3ff; border-color:#3c5f7d; }
     .ku-panel footer { padding:.55rem .85rem .85rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.6rem; color:#7f8ca3; }
-    .map-list-title { margin:2.6rem 0 0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .map-list-title { margin:2.6rem 0 0; font-family:var(--font-display);
       font-weight:700; letter-spacing:-.03em; font-size:1.5rem; color:var(--muted); }
 
     @media (max-width:620px) {
@@ -4237,18 +4187,6 @@ FOUNDATION_KIND_LABELS = {
 
 
 FOUNDATIONS_PAGE_CSS = """\
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg:#f7f8fb; --card:#ffffff; --border:#d8dee8; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
-      --signal:#23875b; --warm:#a15c16;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
-      --signal:#54b886; --warm:#e0ad4e;
-    }
     body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
     code {
@@ -4259,7 +4197,7 @@ FOUNDATIONS_PAGE_CSS = """\
     .foundations-hero { margin:2.3rem 0 1.8rem; }
     .foundations-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
-    .foundations-headline { margin:0; max-width:25ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .foundations-headline { margin:0; max-width:25ch; font-family:var(--font-display);
       font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.45rem,6vw,4.1rem); }
     .foundations-thesis { max-width:48rem; margin:1rem 0 0; font-size:1.02rem; line-height:1.65; }
     .foundations-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
@@ -4268,12 +4206,12 @@ FOUNDATIONS_PAGE_CSS = """\
     .foundations-readout .sep { color:var(--border); margin:0 .45rem; }
 
     .foundation-cluster { margin:2.2rem 0 0; border-top:2px solid var(--fg); }
-    .foundation-cluster h2 { margin:.7rem 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .foundation-cluster h2 { margin:.7rem 0 .35rem; font-family:var(--font-display);
       font-size:1.5rem; line-height:1.1; }
     .foundation-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; }
     .foundation-card { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1rem;
       padding:1rem 0; border-bottom:1px solid var(--border); }
-    .foundation-card h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .foundation-card h3 { margin:0 0 .35rem; font-family:var(--font-display);
       font-size:1.35rem; line-height:1.1; }
     .foundation-card h3 a { color:inherit; text-decoration:none; }
     .foundation-card h3 a:hover { color:var(--accent); }
@@ -4330,7 +4268,7 @@ FOUNDATIONS_PAGE_CSS = """\
     .foundation-new-list a:hover, .foundations-recent a:hover { text-decoration:underline; }
     .foundations-recent { margin:1.6rem 0 0; padding:1.05rem 1.15rem; border-left:2px solid var(--warm);
       background:var(--brief-wash); }
-    .foundations-recent h2 { margin:0 0 .8rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .foundations-recent h2 { margin:0 0 .8rem; font-family:var(--font-display);
       font-size:1.3rem; line-height:1.1; }
     .fr-concept { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.62rem;
       letter-spacing:.06em; text-transform:uppercase; color:var(--warm); margin:0 0 .1rem; }
@@ -5425,18 +5363,6 @@ def model_body(
 
 
 MODEL_DETAIL_CSS = """\
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --signal:#23875b; --warm:#b6780c;
-      --apply-wash:#eef3ff;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --signal:#54b886; --warm:#e0ad4e;
-      --apply-wash:#1b2436;
-    }
     body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
     #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
@@ -5444,7 +5370,7 @@ MODEL_DETAIL_CSS = """\
     .md-hero { margin:2.3rem 0 1.7rem; }
     .md-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
-    .md-headline { margin:0; max-width:28ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .md-headline { margin:0; max-width:28ch; font-family:var(--font-display);
       font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.3rem,5.6vw,3.8rem); }
     .md-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.75rem; letter-spacing:.03em; color:var(--muted); }
