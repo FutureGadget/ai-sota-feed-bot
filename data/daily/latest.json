@@ -1,105 +1,91 @@
 {
-  "date": "2026-10-10",
-  "title": "What happened in AI — Oct 10, 2026",
-  "generated_at": "2026-10-10T21:09:46Z",
+  "date": "2026-10-11",
+  "title": "What happened in AI — Oct 11, 2026",
+  "generated_at": "2026-10-11T20:30:00Z",
   "intro": [
-    "Human review, not code generation, is the limit on AI coding agents: a new study finds agent output gains are absorbed by review.",
-    "Tooling is adapting around agents: Cloudflare Traces emits OpenTelemetry spans from the proxy layer, and docs vendors now audit pages for agent readability."
+    "Context management moved into the model: Meta, MIT and the University of Washington introduced Context Language Models, which edit their own context instead of relying on predefined rules.",
+    "Builders also shipped coding-agent tooling and harness write-ups, while DeepSeek's V4.1 Flash reached a hosted inference API and DeepSeek and Huawei were reported shipping six Ascend tools aimed at CUDA."
   ],
   "highlights": [
-    "Study: AI coding agents write more code, but review bottleneck absorbs the gains.",
-    "Lenovo TianxiCode Agent with DeepSeek-V4.1-Flash reaches 71% on SWE-bench-Live Lite.",
-    "Cloudflare Traces opens beta with OpenTelemetry spans and volume-based pricing.",
-    "Velu ships a check for how readable docs are to AI agents.",
-    "NYT reports Anthropic agents submitted visa applications on live sites."
+    "Context Language Models let a model manage and edit its own context to cut compute cost.",
+    "A Show HN coding agent writes its own multi-agent workflows.",
+    "A from-scratch agent harness walkthrough and a file-tree memory for coding agents landed on HN.",
+    "DeepSeek V4.1 Flash is live on the Dolphin inference API.",
+    "DeepSeek and Huawei reportedly ship six Ascend tools to rival CUDA."
   ],
-  "article_count": 8,
+  "article_count": 9,
   "categories": [
     {
-      "name": "Coding agents: review, not generation, is the bottleneck",
-      "slug": "coding-agents-review-bottleneck",
-      "summary": "A new study finds agent-written code gains are absorbed by human review, while evals and benchmarks are how teams measure real improvement.",
+      "name": "Agent Context, Memory and Harnesses",
+      "slug": "agent-context-memory-harnesses",
+      "summary": "Context handling and memory are being rebuilt as explicit, inspectable components, from model-managed context to plain-file memory and hand-built harnesses.",
       "articles": [
         {
-          "title": "Study on AI coding agents finds gains \"absorbed\" by human review \"bottleneck.\"",
-          "summary": "A study finds AI coding agents generate more code but not more shipped software, with gains absorbed by the human review bottleneck.",
-          "source": "hackernews_ai",
-          "url": "https://arstechnica.com/ai/2026/10/ai-coding-agents-generate-more-code-but-not-more-software/",
-          "published": "2026-10-10T07:55:10Z"
-        },
-        {
-          "title": "Lenovo's TianxiCode Agent and DeepSeek-V4.1-Flash Top SWE-bench-Live Lite at 71%, Verified",
-          "summary": "Lenovo's TianxiCode Agent paired with DeepSeek-V4.1-Flash tops SWE-bench-Live Lite at 71%, per Pandaily.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "Pandaily",
-          "publisher_domain": "pandaily.com",
-          "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQUk5DLU53ZzBjVVMwVHZnY19hUDl6SXN5T2JUcXIybWZxQ2c5TFR4SDVkUER5RzhzUno2aG1pdGdmN3lwakFQb3lpcGlmajdXeEtnR0k3ZTJDMk9Cb3A4aHIybm1QbGNEVk83VlFKU0hRTm43MHRtb1B5TVJlODJGZVU3OXdmempFaGFIUjdUYTlEejhJ?oc=5",
-          "published": "2026-10-10T02:40:46Z"
-        },
-        {
-          "title": "Show HN: Eval-skills for automatic agent improvement",
-          "summary": "Open-source eval skills from confident-ai aimed at automatically improving agents against measured results.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/confident-ai/eval-skills",
-          "published": "2026-10-10T18:46:27Z"
-        }
-      ]
-    },
-    {
-      "name": "Observability and agent-readable infrastructure",
-      "slug": "observability-agent-readable-infra",
-      "summary": "Tracing is moving into the proxy layer, and docs are being audited for the agents that now read them first.",
-      "articles": [
-        {
-          "title": "Cloudflare Traces Turns the Proxy Layer into OpenTelemetry Spans, with New Volume-Based Pricing",
-          "summary": "Cloudflare Traces enters open beta, emitting OpenTelemetry spans for security rules, transformations, cache, routing and origin handling, with new volume-based pricing.",
+          "title": "Context Language Models: Self-Managing Context to Improve Performance and Reduce Compute Costs",
+          "summary": "Meta, MIT and UW researchers propose models that edit their own context rather than follow predefined management rules, targeting better performance at lower compute.",
           "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/10/cloudflare-traces-open-beta/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-10-10T07:12:00Z"
+          "url": "https://www.infoq.com/news/2026/10/context-language-models/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-10-11T14:00:00Z"
         },
         {
-          "title": "Show HN: Check how readable your docs are to AI agents",
-          "summary": "Velu's checker scores docs on agent readability: client-rendered pages, missing llms.txt and markdown versions, and soft 404s all hurt.",
+          "title": "Long-term memory for AI coding agents as a tree of plain files",
+          "summary": "Open-source project storing coding-agent long-term memory as a tree of plain files.",
           "source": "hackernews_ai",
-          "url": "https://www.veludocs.com/agent-friendly-documentation/",
-          "published": "2026-10-10T06:48:05Z"
-        }
-      ]
-    },
-    {
-      "name": "Agent conduct and safety in the wild",
-      "slug": "agent-conduct-safety",
-      "summary": "Anthropic disclosed activity by its own agents on live websites, a reminder that agent actions need auditing.",
-      "articles": [
-        {
-          "title": "Quoting The New York Times",
-          "summary": "Per the NYT, Anthropic detailed its agents' activity in a Friday blog post; two sources said the agents had submitted 20 visa applications.",
-          "source": "simon_willison",
-          "url": "https://simonwillison.net/2026/Oct/10/the-new-york-times/",
-          "published": "2026-10-10T02:04:12Z"
-        }
-      ]
-    },
-    {
-      "name": "Models and deployment signals",
-      "slug": "models-deployment-signals",
-      "summary": "Chinese open-weight labs post benchmark results, and robotics shows how corrections from deployment feed model improvement.",
-      "articles": [
-        {
-          "title": "Tencent Hunyuan tops China in Arena alignment index — Yao Shunyu's first report card since taking charge of AI Data",
-          "summary": "Tencent Hunyuan tops Chinese models on Arena's alignment index, per BigGo Finance.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "BigGo Finance",
-          "publisher_domain": "finance.biggo.com",
-          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1KMGpCQmFSWG9SM25NV05DS2x6LXg0NHNobUxTWGYyZjEtaXR0MzhSLWhfV0haTlNTcjZTZzFFaEdMVHZQMW5KNmpOYTBMa3BIVEpnVUpKczZGeHI2b0tqQlFacjAwZTBydEY5VFgxYmM1VGRsT3c?oc=5",
-          "published": "2026-10-10T03:35:00Z"
+          "url": "https://github.com/gonzaroman/IHMT-MEMORY",
+          "published": "2026-10-11T01:02:14Z"
         },
         {
-          "title": "Building AI for Reliable Execution: Lessons From Industrial Robotics",
-          "summary": "Standard Bots pretrains models on factory demonstrations and improves them through corrections from real deployments.",
-          "source": "latent_space",
-          "url": "https://www.latent.space/p/standard-bots",
-          "published": "2026-10-10T14:04:11Z"
+          "title": "Build an agent harness from scratch to pass Ian Goodfellow's intelligence test",
+          "summary": "Walkthrough of building an agent harness from scratch.",
+          "source": "hackernews_ai",
+          "url": "https://notesbylex.com/building-an-agent-harness-from-scratch",
+          "published": "2026-10-11T08:46:09Z"
+        }
+      ]
+    },
+    {
+      "name": "Coding Agents Ship in New Forms",
+      "slug": "coding-agents-new-forms",
+      "summary": "Two new coding agents appeared: one that composes its own multi-agent workflows and one that runs in the browser.",
+      "articles": [
+        {
+          "title": "Show HN: A free coding agent that writes its own multi-agent workflows",
+          "summary": "Free coding agent that generates its own multi-agent workflows.",
+          "source": "hackernews_ai",
+          "url": "https://kolega.ai/code",
+          "published": "2026-10-11T11:01:23Z"
+        },
+        {
+          "title": "Shelley – a coding agent that lives in the browser",
+          "summary": "Coding agent that runs in the browser.",
+          "source": "hackernews_ai",
+          "url": "https://shelley.dev/",
+          "published": "2026-10-11T09:29:08Z"
+        }
+      ]
+    },
+    {
+      "name": "DeepSeek Inference and Ascend Tooling",
+      "slug": "deepseek-inference-ascend",
+      "summary": "DeepSeek's V4.1 Flash gained a hosted API, and a report says DeepSeek and Huawei released six Ascend tools positioned against CUDA.",
+      "articles": [
+        {
+          "title": "Dolphin: Inference API goes live with DeepSeek V4.1 Flash - 11 Oct 2026",
+          "summary": "Dolphin's inference API went live serving DeepSeek V4.1 Flash.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "TradingView",
+          "publisher_domain": "tradingview.com",
+          "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNMmV0X3hDcW12NDFmN3RRem9ieGxsSGZOdm9kaHRvc2dCN2h1NVdGTTBXRnpyQnk5YTFDcDRfcjl6SXNlb0hJajlrMnlGYmxYcngtdFJJUlB2dFFTdDdFYmFGUS1mVFN4eWU5Z1JnYkZFSXhpbHlmRUFaWThKbWhJVjJ3aHpQN3dPaUdEcHNDallUeEctNnZ6NUhPUlQyTVRUSnRaZ1QtaFk3anJ2dExXdENJdG5RaHhrdDdJXzBWUVptNUZLNmEtSE9ndjM?oc=5",
+          "published": "2026-10-11T17:00:10Z"
+        },
+        {
+          "title": "DeepSeek, Huawei Ship 6 Ascend Tools to Rival CUDA [2026]",
+          "summary": "Report of six DeepSeek and Huawei Ascend tools aimed at rivaling CUDA.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "https://tech-insider.org/",
+          "publisher_domain": "tech-insider.org",
+          "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOUGlLMTB5NElwZFZmMU5mTTRVd0hMVXVuXzFOU3ZSLTFuV250UXhWcDlkV2VhV3pIdmpEQ2dTNGhQWTlwNzBuSHNCWUZpT3hPZlItakl1eEF4bkp4aVJ6dEEtVHh5ck1panp3dGpZcG45clExaXdGUmk1Wi0zUXNpZ2Zn?oc=5",
+          "published": "2026-10-11T07:41:23Z"
         }
       ]
     }
