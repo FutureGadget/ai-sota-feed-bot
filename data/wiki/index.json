@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-10T18:18:53.674435+00:00",
+ "generated_at": "2026-10-11T18:18:50.302712+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,22 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-11-securesd-early-token-verification",
+   "topic": "speculative-decoding",
+   "topic_title": "Speculative decoding: draft cheaply, verify in parallel",
+   "kind": "solution",
+   "date": "2026-10-11",
+   "title": "Lossy speculative decoding raises jailbreak and injection success faster than it costs utility"
+  },
+  {
+   "id": "2026-10-11-judge-trustworthy-verdict-rate",
+   "topic": "llm-as-judge",
+   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
+   "kind": "solution",
+   "date": "2026-10-11",
+   "title": "Zero-temperature judges still flip verdicts; the most consistent one was right only 51% of the time"
+  },
   {
    "id": "2026-10-10-cloudflare-traces-proxy-spans",
    "topic": "agent-observability",
@@ -238,22 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-03",
    "title": "Isolated sandboxes still pass messages: agents left each other instructions in a shared cache"
-  },
-  {
-   "id": "2026-10-02-open-swe-harness-router",
-   "topic": "agent-cost",
-   "topic_title": "Agent token costs are unpredictable and easily run away",
-   "kind": "obstacle",
-   "date": "2026-10-02",
-   "title": "Routing in the harness cut Open SWE's median cost per task 64% with no quality drop"
-  },
-  {
-   "id": "2026-10-01-azure-container-apps-sandboxes",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-10-01",
-   "title": "Azure Container Apps Sandboxes reach GA: one microVM per workload, subsecond start, suspend/resume"
   }
  ],
  "nodes": {
@@ -3461,7 +3461,15 @@
      "also": []
     }
    ],
-   "cross_entries": [],
+   "cross_entries": [
+    {
+     "id": "2026-10-11-judge-trustworthy-verdict-rate",
+     "topic": "llm-as-judge",
+     "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
+     "date": "2026-10-11",
+     "title": "Zero-temperature judges still flip verdicts; the most consistent one was right only 51% of the time"
+    }
+   ],
    "entry_count": 127,
    "latest_entry_date": "2026-10-09",
    "solutions": [
@@ -4802,6 +4810,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-10-11-securesd-early-token-verification",
+     "topic": "speculative-decoding",
+     "topic_title": "Speculative decoding: draft cheaply, verify in parallel",
+     "date": "2026-10-11",
+     "title": "Lossy speculative decoding raises jailbreak and injection success faster than it costs utility"
+    },
     {
      "id": "2026-08-28-asymspec-asymmetric-speculative-decoding",
      "topic": "context-compaction",
@@ -11704,6 +11719,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-10-11-securesd-early-token-verification",
+     "topic": "speculative-decoding",
+     "topic_title": "Speculative decoding: draft cheaply, verify in parallel",
+     "date": "2026-10-11",
+     "title": "Lossy speculative decoding raises jailbreak and injection success faster than it costs utility"
+    },
+    {
      "id": "2026-07-10-forged-reasoning-attacks",
      "topic": "agent-memory",
      "topic_title": "Agents forget across steps and sessions",
@@ -17079,10 +17101,30 @@
      "key": "trusting-the-judge",
      "title": "Auditing the judge, the rubric, and whether you need one",
      "summary": "Judges carry position, verbosity, and language bias, and rubrics can be wrong; calibrate against human labels or replace the judge with a deterministic check.",
-     "count": 5
+     "count": 6
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-11-judge-trustworthy-verdict-rate",
+     "topic": "llm-as-judge",
+     "date": "2026-10-11",
+     "title": "Zero-temperature judges still flip verdicts; the most consistent one was right only 51% of the time",
+     "theme": "trusting-the-judge",
+     "html": "<p>A reliability audit stress-tested six frontier models as judges across four benchmarks, five prompt formats, two presentation orders, three temperatures, and ten repetitions. Verdicts changed across identical runs at temperature zero, and swapping answer order flipped the majority of verdicts on hard tasks. The most deterministic judge was perfectly consistent only by repeating wrong verdicts, agreeing with ground truth <strong>51%</strong> of the time.</p>\n<p>The authors propose a <em>trustworthy verdict rate</em>: the joint probability a verdict is reproducible, order-invariant, and accurate. Holistic rubric scoring beat pairwise win-rate and any single prompt tweak.</p>\n<p>For builders: measure consistency and order-invariance per item, not just agreement, and prefer rubric scores over pairwise comparisons.</p>",
+     "evidence": [
+      {
+       "sid": "5a0ce18b71c2722a",
+       "title": "All Verdicts are Not Equal: Rethinking LLM Judge Reliability"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-evaluation",
+       "title": "Measuring whether an agent actually worked is hard"
+      }
+     ]
+    },
     {
      "id": "2026-08-27-deep-agents-rubric-middleware",
      "topic": "llm-as-judge",
@@ -17315,8 +17357,8 @@
      "title": "Checking 100 human-annotated traces shows automated evals diverge from human raters"
     }
    ],
-   "entry_count": 12,
-   "latest_entry_date": "2026-08-27",
+   "entry_count": 13,
+   "latest_entry_date": "2026-10-11",
    "solutions": [],
    "obstacles": [
     {
@@ -17330,6 +17372,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "5a0ce18b71c2722a",
+     "title": "All Verdicts are Not Equal: Rethinking LLM Judge Reliability"
+    },
     {
      "sid": "92884e6fce9aba7c",
      "title": "Introducing Rubrics: Build Agents that Evaluate and Correct Their Work"
@@ -17379,7 +17425,7 @@
      "title": "Building a 100x Cheaper Trace Judge with Fireworks"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-11"
   },
   "mcp": {
    "slug": "mcp",
@@ -18276,7 +18322,7 @@
      "key": "draft-methods",
      "title": "Picking and tuning the draft method per model and accelerator",
      "summary": "MTP, EAGLE-3, DFlash, and DSpark now run on both NVIDIA and AMD GPUs; the fastest method changes by model and task, so tune and measure acceptance per workload.",
-     "count": 3
+     "count": 4
     },
     {
      "key": "agent-context",
@@ -18286,6 +18332,30 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-11-securesd-early-token-verification",
+     "topic": "speculative-decoding",
+     "date": "2026-10-11",
+     "title": "Lossy speculative decoding raises jailbreak and injection success faster than it costs utility",
+     "theme": "draft-methods",
+     "html": "<p>A measurement study of lossy speculative decoding methods finds a security-utility asymmetry: as inference gets faster, jailbreak and prompt-injection attack success rises much faster than utility degrades. The authors trace the loss to early tokens proposed by the draft model.</p>\n<p>Their fix, <strong>SecureSD</strong>, applies a stricter verification criterion to draft tokens at early decoding positions, and reports better security at maintained efficiency and utility (paper-reported, no deployment numbers).</p>\n<p>For builders: if you enable lossy acceptance to buy throughput, rerun your injection and jailbreak suite on the speculative configuration, not just the base model.</p>",
+     "evidence": [
+      {
+       "sid": "c47efdba3284bb9f",
+       "title": "Secure Speculative Decoding for Large Language Models"
+      }
+     ],
+     "also": [
+      {
+       "slug": "prompt-injection",
+       "title": "Untrusted input and tools can hijack an agent"
+      },
+      {
+       "slug": "agent-latency",
+       "title": "Agent loops multiply per-call latency into slow, expensive runs"
+      }
+     ]
+    },
     {
      "id": "2026-08-28-vllm-amd-method-benchmarks",
      "topic": "speculative-decoding",
@@ -18386,8 +18456,8 @@
      "title": "AsymSpec recovers ~90% of full-context accuracy while decoding from compressed context"
     }
    ],
-   "entry_count": 6,
-   "latest_entry_date": "2026-08-28",
+   "entry_count": 7,
+   "latest_entry_date": "2026-10-11",
    "solutions": [],
    "obstacles": [
     {
@@ -18397,6 +18467,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "c47efdba3284bb9f",
+     "title": "Secure Speculative Decoding for Large Language Models"
+    },
     {
      "sid": "b4fa4d7778a6247d",
      "title": "Exploring Speculative Decoding in vLLM on AMD GPUs"
@@ -18422,7 +18496,7 @@
      "title": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding - NVIDIA Developer"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-11"
   },
   "vector-kb": {
    "slug": "vector-kb",
