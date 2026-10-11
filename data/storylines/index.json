@@ -1,7 +1,45 @@
 {
- "generated_at": "2026-10-11T00:03:32.251982+00:00",
+ "generated_at": "2026-10-11T05:03:48.777130+00:00",
  "window_days": 21,
  "storylines": [
+  {
+   "slug": "long-term-memory",
+   "label": "Long-Term Memory",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-09-22T06:40:56+00:00",
+   "last_updated": "2026-10-11T01:02:14+00:00",
+   "latest_title": "Long-term memory for AI coding agents as a tree of plain files",
+   "days": [
+    "2026-09-22",
+    "2026-10-05",
+    "2026-10-11"
+   ],
+   "member_sids": [
+    "e1b58c64b7362aaf",
+    "7866a5b7fe98e94b",
+    "ed432b017107d755"
+   ],
+   "member_urls": [
+    "https://twitter.com/AgentMemoryL/status/2101312784688726331",
+    "http://arxiv.org/abs/2610.05732v1",
+    "https://github.com/gonzaroman/IHMT-MEMORY"
+   ],
+   "editorial": {
+    "tldr": "A Sep 22 post asked how to evaluate agent memory beyond the context window. PACMI (Oct 5) then shifted the focus to keeping memory correct by invalidating stale entries.",
+    "stale": false,
+    "whats_new": "An open-source repo (Oct 11) stores coding-agent long-term memory as a tree of plain files, a simple alternative to a dedicated memory service.",
+    "why_it_matters": "Agents that persist memory across sessions need an update and invalidation policy, not only a retrieval layer; plain-file stores make that state inspectable and diffable, but give you no invalidation for free.",
+    "take_for_builders": "If your agent persists memory across sessions, record where each memory came from and test that correcting one fact also retires memories derived from it, whatever the storage backend.",
+    "status": {
+     "state": "Developing",
+     "tone": "rising",
+     "changed": "2026-10-11",
+     "detail": "Memory work spans evaluation, invalidation research, and lightweight file-based implementations for coding agents."
+    }
+   }
+  },
   {
    "slug": "reflection-ai-releases-beam-an-american-open-weight-model",
    "label": "Reflection AI releases Beam, an American open-weight model",
@@ -465,44 +503,6 @@
      "tone": "launch",
      "changed": "2026-09-29",
      "detail": "DevDay products were announced Sep 29; the coverage here does not give GA dates, pricing or limits."
-    }
-   }
-  },
-  {
-   "slug": "anthropic-s-claude",
-   "label": "Anthropic's Claude",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 2,
-   "first_seen": "2026-09-22T18:45:38+00:00",
-   "last_updated": "2026-09-30T00:00:00+00:00",
-   "latest_title": "How Anthropic's sales team rebuilt inbound with Claude Managed Agents | Claude by Anthropic",
-   "days": [
-    "2026-09-22",
-    "2026-09-23",
-    "2026-09-30"
-   ],
-   "member_sids": [
-    "ca035a6e92e53586",
-    "08881bff49c385e1",
-    "1da339ee1ba2547f"
-   ],
-   "member_urls": [
-    "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNalNQRnNqazhhNmxmWWVWcm11dDR5NU1xMmpWTi1jNmVxWVNCMnBKQjJvNzJCcVkxMDBkMzlQQ3V2RllHLS1abE9DUmJDRTVLZ2tJYjdOM0dhLWhqRV9rSGpWWW5pWlJwOExpTWJJb200aUVfNGhTR29ucW5CVlNxWFBFOUNsblJwdnQ2QnE3LWJnV0FSY2xkZkJlSUZsdVBqS2VubThFOHdOVkwwZTZlYXNLRENpNVBs?oc=5",
-    "https://news.google.com/rss/articles/CBMijAFBVV95cUxOUzVMdEdTckVuMUl2UEJYdWpxOHVreWFtU1ZDcXdXT1U2Tkt0Vlc1TU5FUEdYVFVkY0tmRHVqMHo5djdfRFFTNVdxRjAzeTBBclFnZkFDRTVWN1hXWmt1MGJXLVFLbS1GbWRYMXVuakIxOThRZW5hcDRGOHNpV2JkM0xWVDBQSk8wWmhtY9IBlAFBVV95cUxPdzZBSXg3MEFHeWUweGdieDV0d0NvbmFaQVUwUTBCRzViZ2NydWZyUlltSHRSQ3cycXR2MkxlSk9CS3JJRUdrYjNQMkdiNTJ0Nkg1UzdPZFV5S2xtX2NQaVZqQzJMUXlSdmFMUGtGVWlmWDk1ZEpkcGFrLVJCSUplalFRZm1qbWw4LVNnTHp4c1pkdkJr?oc=5",
-    "https://claude.com/blog/how-anthropics-sales-team-rebuilt-inbound-with-claude-managed-agents"
-   ],
-   "editorial": {
-    "tldr": "Anthropic's Claude is a loose grouping, not one developing story. On Sep 22-23 two reports said Chinese regulators opened a probe of DeepSeek and Moonshot AI over Anthropic's claims that they route requests to Claude.",
-    "stale": false,
-    "whats_new": "Anthropic published a first-party account of rebuilding its own inbound sales on Claude Managed Agents, where a buying agent now answers most inbound customers.",
-    "why_it_matters": "The probe shows Claude API traffic now carries regulatory risk for Chinese labs, while Anthropic's sales post is a worked Managed Agents deployment pattern to compare against your own.",
-    "take_for_builders": "If you run Managed Agents, compare the sales post's buying-agent design against your own handoff and escalation rules; treat the probe as context only until findings are published.",
-    "status": {
-     "state": "Loose grouping",
-     "tone": "neutral",
-     "changed": "2026-09-30",
-     "detail": "Two China-probe reports and one unrelated Anthropic product post share only the Claude name."
     }
    }
   }

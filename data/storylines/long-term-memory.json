@@ -3,32 +3,15 @@
  "label": "Long-Term Memory",
  "item_count": 3,
  "day_count": 3,
- "source_count": 3,
- "first_seen": "2026-09-18T15:55:29+00:00",
- "last_updated": "2026-10-05T03:31:51+00:00",
- "generated_at": "2026-10-09T15:05:24.465341+00:00",
+ "source_count": 2,
+ "first_seen": "2026-09-22T06:40:56+00:00",
+ "last_updated": "2026-10-11T01:02:14+00:00",
+ "generated_at": "2026-10-11T05:03:48.777130+00:00",
  "sources": [
-  "arxiv_cs_ai",
   "arxiv_cs_lg",
   "hackernews_ai"
  ],
  "days": [
-  {
-   "date": "2026-09-18",
-   "items": [
-    {
-     "title": "AutoViewMem: Self-Configuring Orthogonal Views for Conversational Long-Term Memory",
-     "url": "http://arxiv.org/abs/2609.21940v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "Long-term memory is essential for large language model (LLM) agents to maintain consistency and personalization over extended interactions. Existing memory systems typically rely on fixed granularities or static schem...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "eddc39b344540bb2",
-     "published": "2026-09-18T15:55:29+00:00",
-     "editor_note": "Paper proposing self-configuring memory views for conversational agents."
-    }
-   ]
-  },
   {
    "date": "2026-09-22",
    "items": [
@@ -60,52 +43,68 @@
      "editor_note": "Adds provenance-aware invalidation for memories that go stale."
     }
    ]
+  },
+  {
+   "date": "2026-10-11",
+   "items": [
+    {
+     "title": "Long-term memory for AI coding agents as a tree of plain files",
+     "url": "https://github.com/gonzaroman/IHMT-MEMORY",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Long-term memory for AI coding agents as a tree of plain files",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "ed432b017107d755",
+     "published": "2026-10-11T01:02:14+00:00",
+     "editor_note": "A file-tree implementation of long-term memory for coding agents."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Agent memory research started with how to store conversational memory: AutoViewMem proposed self-configuring views instead of fixed granularities. A benchmark post then asked how to evaluate long-term memory beyond the context window.",
+  "tldr": "A Sep 22 post asked how to evaluate agent memory beyond the context window. PACMI (Oct 5) then shifted the focus to keeping memory correct by invalidating stale entries.",
   "stale": false,
-  "whats_new": "PACMI (Oct 5) tackles stale memory: it invalidates dependent memories when an upstream fact is outdated, tracked through provenance.",
-  "why_it_matters": "Agents that persist memory across sessions need an update and invalidation policy, not only a retrieval layer; stale memories are a reliability risk that retrieval benchmarks do not catch.",
-  "take_for_builders": "If your agent persists memory across sessions, record where each memory came from and test that correcting one fact also retires memories derived from it.",
+  "whats_new": "An open-source repo (Oct 11) stores coding-agent long-term memory as a tree of plain files, a simple alternative to a dedicated memory service.",
+  "why_it_matters": "Agents that persist memory across sessions need an update and invalidation policy, not only a retrieval layer; plain-file stores make that state inspectable and diffable, but give you no invalidation for free.",
+  "take_for_builders": "If your agent persists memory across sessions, record where each memory came from and test that correcting one fact also retires memories derived from it, whatever the storage backend.",
   "status": {
    "state": "Developing",
    "tone": "rising",
-   "changed": "2026-10-05",
-   "detail": "Research focus is moving from how to store memory to how to keep it correct and measure it."
+   "changed": "2026-10-11",
+   "detail": "Memory work spans evaluation, invalidation research, and lightweight file-based implementations for coding agents."
   },
   "beats": [
    {
-    "kicker": "STORAGE",
-    "tone": "launch",
-    "headline": "AutoViewMem configures memory views per conversation",
-    "summary": "Replaces fixed granularities and static schemas in conversational memory.",
-    "sids": [
-     "eddc39b344540bb2"
-    ]
-   },
-   {
     "kicker": "EVALUATION",
-    "tone": "rising",
+    "tone": "launch",
     "headline": "A benchmark post asks how to evaluate memory beyond context windows",
     "sids": [
      "e1b58c64b7362aaf"
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "CORRECTNESS",
+    "tone": "rising",
     "headline": "PACMI cascades invalidation through provenance-linked memories",
     "summary": "Targets memories that become outdated as new observations arrive.",
     "sids": [
      "7866a5b7fe98e94b"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Coding-agent memory as a tree of plain files",
+    "summary": "An open-source repo implements long-term memory without a dedicated store.",
+    "sids": [
+     "ed432b017107d755"
+    ]
    }
   ],
   "open_questions": [
    "Does PACMI's invalidation cascade hold up on an independent long-horizon agent benchmark?",
-   "Will the long-term memory benchmark be extended to score stale-memory handling?"
+   "Will any file-based memory store publish results on stale-memory handling?"
   ],
-  "generated_at": "2026-10-06T05:20:00+00:00"
+  "generated_at": "2026-10-11T05:10:00+00:00"
  }
 }
