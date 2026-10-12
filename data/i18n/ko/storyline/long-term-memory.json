@@ -1,0 +1,116 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/long-term-memory",
+  "source_hash": "592dc9bd2ef403272bf993bb62655670a3a1b8bb6e431b864f4757f9e9f274b5",
+  "translated_at": "2026-10-12T02:39:23.400618+00:00",
+  "model": "google-translate-v2",
+  "review_status": "machine",
+  "slug": "long-term-memory",
+  "label": "Long-Term Memory",
+  "item_count": 3,
+  "day_count": 3,
+  "source_count": 2,
+  "first_seen": "2026-09-22T06:40:56+00:00",
+  "last_updated": "2026-10-11T01:02:14+00:00",
+  "generated_at": "2026-10-12T00:04:20.037221+00:00",
+  "sources": [
+    "arxiv_cs_lg",
+    "hackernews_ai"
+  ],
+  "days": [
+    {
+      "date": "2026-09-22",
+      "items": [
+        {
+          "title": "Beyond Context Windows: Evaluating Long-Term Memory for AI Agents",
+          "url": "https://twitter.com/AgentMemoryL/status/2101312784688726331",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Beyond Context Windows: Evaluating Long-Term Memory for AI Agents",
+          "why_it_matters": "Matches feed focus: agent, eval.",
+          "sid": "e1b58c64b7362aaf",
+          "published": "2026-09-22T06:40:56+00:00",
+          "editor_note": "장기 에이전트 기억에 대한 평가 프레임은 회상 전용 테스트에서 발생하는 공백을 메웁니다."
+        }
+      ]
+    },
+    {
+      "date": "2026-10-05",
+      "items": [
+        {
+          "title": "PACMI: Provenance-Aware Cascading Memory Invalidation for Long-Term LLM Agents",
+          "url": "http://arxiv.org/abs/2610.05732v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "LLM agents rely on long-term memory to retain and reuse information when performing tasks over long horizons. Existing methods provide limited support for handling memories that become outdated as new observations or...",
+          "why_it_matters": "Matches feed focus: agent, evaluation.",
+          "sid": "7866a5b7fe98e94b",
+          "published": "2026-10-05T03:31:51+00:00",
+          "editor_note": "오래된 메모리에 대해 출처를 인식하는 무효화 기능을 추가합니다."
+        }
+      ]
+    },
+    {
+      "date": "2026-10-11",
+      "items": [
+        {
+          "title": "Long-term memory for AI coding agents as a tree of plain files",
+          "url": "https://github.com/gonzaroman/IHMT-MEMORY",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Long-term memory for AI coding agents as a tree of plain files",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "ed432b017107d755",
+          "published": "2026-10-11T01:02:14+00:00",
+          "editor_note": "코딩 에이전트를 위한 파일 트리 기반 장기 기억 구현 방식."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "A Sep 22 post asked how to evaluate agent memory beyond the context window. PACMI (Oct 5) then shifted the focus to keeping memory correct by invalidating stale entries.",
+    "stale": false,
+    "whats_new": "An open-source repo (Oct 11) stores coding-agent long-term memory as a tree of plain files, a simple alternative to a dedicated memory service.",
+    "why_it_matters": "Agents that persist memory across sessions need an update and invalidation policy, not only a retrieval layer; plain-file stores make that state inspectable and diffable, but give you no invalidation for free.",
+    "take_for_builders": "If your agent persists memory across sessions, record where each memory came from and test that correcting one fact also retires memories derived from it, whatever the storage backend.",
+    "status": {
+      "state": "Developing",
+      "tone": "rising",
+      "changed": "2026-10-11",
+      "detail": "Memory work spans evaluation, invalidation research, and lightweight file-based implementations for coding agents."
+    },
+    "beats": [
+      {
+        "kicker": "EVALUATION",
+        "tone": "launch",
+        "headline": "A benchmark post asks how to evaluate memory beyond context windows",
+        "sids": [
+          "e1b58c64b7362aaf"
+        ]
+      },
+      {
+        "kicker": "CORRECTNESS",
+        "tone": "rising",
+        "headline": "PACMI cascades invalidation through provenance-linked memories",
+        "summary": "Targets memories that become outdated as new observations arrive.",
+        "sids": [
+          "7866a5b7fe98e94b"
+        ]
+      },
+      {
+        "kicker": "NOW",
+        "tone": "now",
+        "headline": "Coding-agent memory as a tree of plain files",
+        "summary": "An open-source repo implements long-term memory without a dedicated store.",
+        "sids": [
+          "ed432b017107d755"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Does PACMI's invalidation cascade hold up on an independent long-horizon agent benchmark?",
+      "Will any file-based memory store publish results on stale-memory handling?"
+    ],
+    "generated_at": "2026-10-11T05:10:00+00:00"
+  }
+}
