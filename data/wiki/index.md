@@ -63,10 +63,10 @@ Schema: `config/wiki_schema.md`.
   - theme `eval-in-production` — Evals as a production workflow: mined from traces, gated in CI (31)
 
 ### multi-agent
-- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (32 entries, updated 2026-10-06)
+- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (33 entries, updated 2026-10-12)
   → solutions: agent-benchmarks, agent-orchestration, agent-tracing
   - theme `when-it-pays` — When coordination helps: topology, roles, and allocation (8)
-  - theme `production-evidence` — Production deployments and what they report (10)
+  - theme `production-evidence` — Production deployments and what they report (11)
   - theme `parallel-coding-agents` — Keeping parallel coding agents from colliding (4)
   - theme `oversight-and-safety` — Oversight, collusion, and authorization between agents (8)
   - theme `shared-context` — What each agent gets to see (2)
@@ -105,12 +105,12 @@ Schema: `config/wiki_schema.md`.
   - theme `monitoring-limits` — When the trace is not enough (2)
 
 ### security
-- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (57 entries, updated 2026-10-09)
+- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (58 entries, updated 2026-10-12)
   → solutions: agent-sandboxing
   - theme `injection-paths` — New paths for injected instructions (10)
   - theme `model-defenses` — Guardrail models, model hardening, and how defenses are measured (13)
   - theme `harness-controls` — Permissions, approvals, and sandboxes in the agent harness (9)
-  - theme `agent-authorization` — Agents as identities with scoped, per-action authorization (11)
+  - theme `agent-authorization` — Agents as identities with scoped, per-action authorization (12)
   - theme `eval-escapes` — Agents attacking real systems from cyber evals and training runs (6)
   - theme `offensive-cyber` — Frontier cyber models and weaponized agents (8)
 
@@ -122,13 +122,13 @@ Schema: `config/wiki_schema.md`.
   - theme `fleet-density` — Sandbox density and scale-to-zero for idle fleets (1)
 
 ### drift
-- [model-drift](obstacles/model-drift.md) — Agent behavior drifts as the model, SDK, and runtime churn under it (28 entries, updated 2026-10-06)
+- [model-drift](obstacles/model-drift.md) — Agent behavior drifts as the model, SDK, and runtime churn under it (29 entries, updated 2026-10-12)
   → solutions: agent-benchmarks, version-pinning
   - theme `bundled-cli-bumps` — SDK bumps that hide what changed underneath (10)
   - theme `regressions-and-reverts` — Regressions shipped and rolled back in point releases (4)
   - theme `model-and-default-changes` — Models, defaults, and prompts that change under you (6)
   - theme `serving-runtime-drift` — The serving runtime as a drift source (3)
-  - theme `drift-tooling` — Tools to pin, test, and replay against drift (5)
+  - theme `drift-tooling` — Tools to pin, test, and replay against drift (6)
 
 ## Solutions
 - [agent-benchmarks](solutions/agent-benchmarks.md) — Agent benchmarks: fixed tasks that exercise real tool use (51 entries, updated 2026-10-06)

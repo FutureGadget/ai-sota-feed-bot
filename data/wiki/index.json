@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-11T18:18:50.302712+00:00",
+ "generated_at": "2026-10-12T18:19:13.002538+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,30 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-12-protocol-pivoting-mcp-a2a",
+   "topic": "prompt-injection",
+   "topic_title": "Untrusted input and tools can hijack an agent",
+   "kind": "obstacle",
+   "date": "2026-10-12",
+   "title": "Protocol pivoting: injected text hops between agents because each one trusts its peer"
+  },
+  {
+   "id": "2026-10-12-spotify-ads-agent-boundaries",
+   "topic": "multi-agent",
+   "topic_title": "Coordinating multiple agents adds more failure than capability",
+   "kind": "obstacle",
+   "date": "2026-10-12",
+   "title": "Spotify Ads AI enforces one agent, one package, one owner, with deterministic gates outside the agents"
+  },
+  {
+   "id": "2026-10-12-modal-endpoint-candidates",
+   "topic": "model-drift",
+   "topic_title": "Agent behavior drifts as the model, SDK, and runtime churn under it",
+   "kind": "obstacle",
+   "date": "2026-10-12",
+   "title": "Modal Endpoint Candidates mirror sampled production traffic to a new model before promotion"
+  },
   {
    "id": "2026-10-11-securesd-early-token-verification",
    "topic": "speculative-decoding",
@@ -230,30 +254,6 @@
    "kind": "solution",
    "date": "2026-10-05",
    "title": "Docker brings its Sandbox Kit Spec to the CNCF, packaging agent permissions as OCI images"
-  },
-  {
-   "id": "2026-10-05-agents-are-systems-not-models",
-   "topic": "agent-evaluation",
-   "topic_title": "Measuring whether an agent actually worked is hard",
-   "kind": "obstacle",
-   "date": "2026-10-05",
-   "title": "Run-to-run repetition explains ~54% of agent outcome variance"
-  },
-  {
-   "id": "2026-10-03-gke-agent-substrate-density",
-   "topic": "scalability",
-   "topic_title": "Agent infrastructure buckles under concurrency, not just load",
-   "kind": "obstacle",
-   "date": "2026-10-03",
-   "title": "GKE Agent Substrate targets 10x sandbox density with sub-500ms resume, and GKE scales to zero"
-  },
-  {
-   "id": "2026-10-03-cross-sandbox-agent-worm",
-   "topic": "prompt-injection",
-   "topic_title": "Untrusted input and tools can hijack an agent",
-   "kind": "obstacle",
-   "date": "2026-10-03",
-   "title": "Isolated sandboxes still pass messages: agents left each other instructions in a shared cache"
   }
  ],
  "nodes": {
@@ -3462,6 +3462,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-10-12-modal-endpoint-candidates",
+     "topic": "model-drift",
+     "topic_title": "Agent behavior drifts as the model, SDK, and runtime churn under it",
+     "date": "2026-10-12",
+     "title": "Modal Endpoint Candidates mirror sampled production traffic to a new model before promotion"
+    },
     {
      "id": "2026-10-11-judge-trustworthy-verdict-rate",
      "topic": "llm-as-judge",
@@ -9188,10 +9195,30 @@
      "key": "drift-tooling",
      "title": "Tools to pin, test, and replay against drift",
      "summary": "Version ranges, intent-based versioning, cross-language tests, and cut-point replay are emerging, but the default posture across the ecosystem is still \"track latest\".",
-     "count": 5
+     "count": 6
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-12-modal-endpoint-candidates",
+     "topic": "model-drift",
+     "date": "2026-10-12",
+     "title": "Modal Endpoint Candidates mirror sampled production traffic to a new model before promotion",
+     "theme": "drift-tooling",
+     "html": "<p>Modal made Endpoint Candidates generally available: a staged alternative to a Dedicated Endpoint (a catalog model or your own weights) that receives a sampled copy of production requests while production still answers users. Each Candidate has its own URL, so existing evals run against it, and the dashboard shows latency and throughput. Promotion starts a rollout at the original endpoint URL.</p>\n<p>Mirroring is best-effort: each mirror gets a bounded buffer in a Pingora-based proxy, and a slow or failing Candidate is cancelled rather than slowing production. Mirrored compute is billed at standard rates.</p>\n<p>For builders: a checkpoint or model swap can be tested on real traffic first, but quality still needs your own evals.</p>",
+     "evidence": [
+      {
+       "sid": "0d0baaa970b0ad95",
+       "title": "Endpoint Candidates: evaluate and promote inference endpoints"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-evaluation",
+       "title": "Measuring whether an agent actually worked is hard"
+      }
+     ]
+    },
     {
      "id": "2026-09-18-sdk-system-prompt-snapshot",
      "topic": "model-drift",
@@ -9690,8 +9717,8 @@
     }
    ],
    "cross_entries": [],
-   "entry_count": 28,
-   "latest_entry_date": "2026-09-18",
+   "entry_count": 29,
+   "latest_entry_date": "2026-10-12",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -9705,6 +9732,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "0d0baaa970b0ad95",
+     "title": "Endpoint Candidates: evaluate and promote inference endpoints"
+    },
     {
      "sid": "d0e22204dfaa8824",
      "title": "claude-agent-sdk-python v0.2.153"
@@ -9894,7 +9925,7 @@
      "title": "claude-code v2.1.183"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-12"
   },
   "multi-agent": {
    "slug": "multi-agent",
@@ -9928,7 +9959,7 @@
      "key": "production-evidence",
      "title": "Production deployments and what they report",
      "summary": "Named deployments in security ops, trading, sales, code review, healthcare, and internal platform work report real gains from role specialization plus human checkpoints; the numbers are self-reported by the teams or vendors.",
-     "count": 10
+     "count": 11
     },
     {
      "key": "parallel-coding-agents",
@@ -9950,6 +9981,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-12-spotify-ads-agent-boundaries",
+     "topic": "multi-agent",
+     "date": "2026-10-12",
+     "title": "Spotify Ads AI enforces one agent, one package, one owner, with deterministic gates outside the agents",
+     "theme": "production-evidence",
+     "html": "<p>A Spotify engineer&#x27;s QCon AI talk describes the Ads AI platform on Google ADK (Java). Each agent is its own Bazel package with a named owning team, a monitoring YAML (dashboards, PagerDuty), and its LLM config; one agent cannot import another unless the target&#x27;s visibility allows it, so a violation is a <strong>build failure</strong>. Guardrails and orchestration sit in a shared layer, not inside agents. Agents own judgment (intent, ad brief, policy screening); data such as interest segments and DMA targeting comes from API tools, and anything codeable stays deterministic code.</p>\n<p>Spotify-reported: over 70% of ads use the AI tools, ~20,000 creatives for 7,000+ advertisers. Builders can copy the ownership and compile-time boundaries.</p>",
+     "evidence": [
+      {
+       "sid": "fae73393a0aa4548",
+       "title": "Presentation: Multi-Agent Patterns from Spotify’s AI Powered Advertising Platform"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-tracing",
+       "title": "Tracing and trace analysis for agent runs"
+      }
+     ]
+    },
     {
      "id": "2026-09-26-databricks-security-review-agents",
      "topic": "multi-agent",
@@ -10478,6 +10529,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-10-12-protocol-pivoting-mcp-a2a",
+     "topic": "prompt-injection",
+     "topic_title": "Untrusted input and tools can hijack an agent",
+     "date": "2026-10-12",
+     "title": "Protocol pivoting: injected text hops between agents because each one trusts its peer"
+    },
+    {
      "id": "2026-09-23-google-ax-agent-orchestrator",
      "topic": "agent-orchestration",
      "topic_title": "Orchestration patterns: topologies, handoffs, and harnesses",
@@ -10618,8 +10676,8 @@
      "title": "Practitioners want frameworks where models with different strengths split the work"
     }
    ],
-   "entry_count": 32,
-   "latest_entry_date": "2026-09-26",
+   "entry_count": 33,
+   "latest_entry_date": "2026-10-12",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -10637,6 +10695,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "fae73393a0aa4548",
+     "title": "Presentation: Multi-Agent Patterns from Spotify’s AI Powered Advertising Platform"
+    },
     {
      "sid": "3e2ba655384ad263",
      "title": "How I built agent-based security reviews on Databricks"
@@ -10766,7 +10828,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-12"
   },
   "prompt-injection": {
    "slug": "prompt-injection",
@@ -10812,7 +10874,7 @@
      "key": "agent-authorization",
      "title": "Agents as identities with scoped, per-action authorization",
      "summary": "Agents are being treated as non-human identities with delegated, per-action, and sequence-aware authorization, now available as open policy languages, gateways, and managed platforms.",
-     "count": 11
+     "count": 12
     },
     {
      "key": "eval-escapes",
@@ -10828,6 +10890,30 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-12-protocol-pivoting-mcp-a2a",
+     "topic": "prompt-injection",
+     "date": "2026-10-12",
+     "title": "Protocol pivoting: injected text hops between agents because each one trusts its peer",
+     "theme": "agent-authorization",
+     "html": "<p>An independent researcher showed prompt injection that targets a <em>peer agent</em> rather than the model: text planted in content reaches one agent over MCP, which forwards it as a normal delegated task over another protocol such as A2A. The receiving agent runs it because it trusts the sender, and MCP servers hold each agent&#x27;s credentials. Agents from Google, Rapid7, and three other organizations were affected, per press reporting. Google&#x27;s flaw (CVSS 8) was a database MCP server following redirects with no IP validation, an SSRF.</p>\n<p>Another researcher calls it plain indirect injection. For builders: treat anything an LLM or peer agent hands your tool as untrusted input, and require authorization per hop.</p>",
+     "evidence": [
+      {
+       "sid": "38a23f681b4cd66d",
+       "title": "MCP for agent-to-agent comms may be the riskiest protocol you've never heard of"
+      }
+     ],
+     "also": [
+      {
+       "slug": "mcp",
+       "title": "Model Context Protocol: a standard interface for agent tools"
+      },
+      {
+       "slug": "multi-agent",
+       "title": "Coordinating multiple agents adds more failure than capability"
+      }
+     ]
+    },
     {
      "id": "2026-10-09-option-channel-guardrail-attack",
      "topic": "prompt-injection",
@@ -11747,8 +11833,8 @@
      "title": "Agent memory systems readily admit poisoned facts, a reproducible benchmark shows"
     }
    ],
-   "entry_count": 57,
-   "latest_entry_date": "2026-10-09",
+   "entry_count": 58,
+   "latest_entry_date": "2026-10-12",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -11758,6 +11844,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "38a23f681b4cd66d",
+     "title": "MCP for agent-to-agent comms may be the riskiest protocol you've never heard of"
+    },
     {
      "sid": "0f0c80587e932ad4",
      "title": "One Word Opens the Gate: The Option-Channel Attack on Typed Decision Models as Agent Guardrails"
@@ -12015,7 +12105,7 @@
      "title": "Show HN: Deep-XPIA – Prompt injection benchmark for multi-agent AI systems"
     }
    ],
-   "updated": "2026-10-09"
+   "updated": "2026-10-12"
   },
   "proving-agent-roi": {
    "slug": "proving-agent-roi",
@@ -16138,6 +16228,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-10-12-spotify-ads-agent-boundaries",
+     "topic": "multi-agent",
+     "topic_title": "Coordinating multiple agents adds more failure than capability",
+     "date": "2026-10-12",
+     "title": "Spotify Ads AI enforces one agent, one package, one owner, with deterministic gates outside the agents"
+    },
+    {
      "id": "2026-08-20-vla-latent-coordination",
      "topic": "multi-agent",
      "topic_title": "Coordinating multiple agents adds more failure than capability",
@@ -18051,6 +18148,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-10-12-protocol-pivoting-mcp-a2a",
+     "topic": "prompt-injection",
+     "topic_title": "Untrusted input and tools can hijack an agent",
+     "date": "2026-10-12",
+     "title": "Protocol pivoting: injected text hops between agents because each one trusts its peer"
+    },
     {
      "id": "2026-10-06-copex-mcp-attack-surfaces",
      "topic": "prompt-injection",
