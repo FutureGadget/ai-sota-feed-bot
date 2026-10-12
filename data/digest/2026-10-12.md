@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. Context Language Models: Self-Managing Context to Improve Performance and Reduce Compute Costs
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/10/context-language-models/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.584 | Reliability: 1.0
+- Score: 2.575 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
-## 2. Microsoft-Decision-1 runs on Alibaba’s Qwen and costs $0.042 a million
+## 2. DeepSeek Solves AI Memory Problem with Compression
 - Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMid0FVX3lxTE5ELTNqd3JiMVpPRHN3Y0ZQYVFMUUtFREVMRjlkZVVqT01DVzVZZmg1Zjh0SjAtZFVyeXVpNlhXNHpaUE04RzUzTEE1cVVIX1FCWnFrX0EwbHg5aVBjY29kSmhaSndUWEYzVHZXdzRDOVdxMU9qZEhF?oc=5
-- Score: 2.398 | Reliability: 1.0
+- URL: https://news.google.com/rss/articles/CBMibkFVX3lxTFA4Tk5Wd25vdGk1Tmk3VGdPaHNWSXp2SXJrZU9lZkVLSXA3WXZJaWhxUE1TLTRrQmdaZHVzUnBLRzdneXQtQmphYUhfMmQzaW1VSUhYbEdKX0N3dGNsX3N3RWdTbVVqOHFnYjhsVG1n?oc=5
+- Score: 2.439 | Reliability: 1.0
 - Why it matters: 
 
-## 3. RATED: Reliability-Aware AI Agent Tool Retrieval via Execution Dynamics
+## 3. Article: When Should You Use Liquid Clustering? Benchmarking Lakehouse Layout Strategies
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/articles/liquid-clustering-lakehouse-layout/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.367 | Reliability: 1.0
+- Why it matters: 
+
+## 4. RATED: Reliability-Aware AI Agent Tool Retrieval via Execution Dynamics
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2610.13889v1
-- Score: 2.234 | Reliability: 1.0
+- Score: 2.223 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 4. Python 3.15.0 added to actions/python-versions
+## 5. Python 3.15.0 added to actions/python-versions
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Oct/10/python-actions/
-- Score: 2.109 | Reliability: 1.0
+- Score: 2.105 | Reliability: 1.0
 - Why it matters: 
 
-## 5. Codex CLI 0.162 vs Claude Code 2.1.296 [2026]
+## 6. Codex CLI 0.162 vs Claude Code 2.1.296 [2026]
 - Type: news | Source: search_agent_engineering_news
 - URL: https://news.google.com/rss/articles/CBMieEFVX3lxTE1SaU1sVEFFQzNhZDM1d1VJZmc4Y1NpTlFvRlBRVlBCUXFCYkx3TzFUcE8xSmkzS253bmY0RmVDaHk4aDFfY3JJWGZCOWw5azBqNnBXRmRtekNRU3JLT24zRWUwNVQyajZMaXk4eWx1NlFFZ3duX25SNw?oc=5
-- Score: 1.997 | Reliability: 1.0
+- Score: 1.974 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex, claude code.
 
-## 6. Quoting The New York Times
+## 7. Quoting The New York Times
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Oct/10/the-new-york-times/
 - Score: 1.88 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. Investigating unintended model actions in our evaluations and internal use
-- Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/investigating-unintended-model-actions
-- Score: 1.857 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
 ## 8. Building effective agent automations
 - Type: news | Source: claude_dev_blog
 - URL: https://claude.dev/blog/building-effective-agent-automations/
-- Score: 1.496 | Reliability: 1.0
+- Score: 1.49 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 9. Asana cuts model costs 76x in browser tests with GPT-6.1 Sol
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/asana-browser-agent
-- Score: 1.481 | Reliability: 1.0
+- Score: 1.474 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
 ## 10. 2026 Usage Policy update
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/2026-usage-policy-update
-- Score: 1.41 | Reliability: 1.0
+- Score: 1.405 | Reliability: 1.0
 - Why it matters: 
 
-## 11. A Baseline Assessment for the Agentic Web Technology Stack
+## 11. Investigating unintended model actions in our evaluations and internal use
+- Type: research | Source: anthropic_research
+- URL: https://www.anthropic.com/research/investigating-unintended-model-actions
+- Score: 1.847 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 12. A Baseline Assessment for the Agentic Web Technology Stack
 - Type: paper | Source: arxiv_agent_systems_research
 - URL: http://arxiv.org/abs/2610.13703v1
-- Score: 1.849 | Reliability: 1.0
+- Score: 1.84 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 12. Enhancing Legal Reasoning in Pre-trained Language Models via Knowledge Graph-Guided Multi-Task Pre-training
+## 13. Enhancing Legal Reasoning in Pre-trained Language Models via Knowledge Graph-Guided Multi-Task Pre-training
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2610.13722v1
-- Score: 1.836 | Reliability: 1.0
+- Score: 1.827 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 13. QTestBench: A Test Framework for Evaluating LLM-Generated Quantum Code
+## 14. QTestBench: A Test Framework for Evaluating LLM-Generated Quantum Code
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2610.13811v1
-- Score: 1.764 | Reliability: 1.0
+- Score: 1.755 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
-
-## 14. Cloudflare Traces Turns the Proxy Layer into OpenTelemetry Spans, with New Volume-Based Pricing
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/10/cloudflare-traces-open-beta/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 1.738 | Reliability: 1.0
-- Why it matters: 
 
 ## 15. [Subscriber Exclusive] NYC Subscriber Meetups!
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/nyc2026
-- Score: 1.706 | Reliability: 1.0
+- Score: 1.705 | Reliability: 1.0
 - Why it matters: 
 
 ## 16. How to build great out-of-the-box user experiences with Managed Deep Agents
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/slack-sdk-managed-deep-agents
-- Score: 1.695 | Reliability: 1.0
+- Score: 1.696 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 17. Building AI for Reliable Execution: Lessons From Industrial Robotics
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/standard-bots
-- Score: 1.621 | Reliability: 1.0
+- Score: 1.623 | Reliability: 1.0
 - Why it matters: 
 
 ## 18. How to Build a Model Router in the Harness
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/how-to-build-a-model-router-in-the-harness
-- Score: 1.595 | Reliability: 1.0
+- Score: 1.598 | Reliability: 1.0
 - Why it matters: Matches feed focus: harness.
 
 ## 19. claude-code v2.1.296
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.296
-- Score: 1.496 | Reliability: 1.0
+- Score: 1.486 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 20. codex rust-v0.163.0-alpha.6
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.163.0-alpha.6
-- Score: 1.403 | Reliability: 1.0
+- Score: 1.394 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 21. Sophos cuts threat investigation time by 96% with OpenAI Daybreak
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/sophos
-- Score: 1.396 | Reliability: 1.0
+- Score: 1.39 | Reliability: 1.0
 - Why it matters: 
 
 ## 22. How Oracle turns days of work into minutes with ChatGPT and Codex
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/oracle
-- Score: 1.395 | Reliability: 1.0
+- Score: 1.389 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 23. Introducing the Anthropic Cyber Mission
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/anthropic-cyber-mission
-- Score: 1.373 | Reliability: 1.0
+- Score: 1.368 | Reliability: 1.0
 - Why it matters: 
 
 ## 24. tencent/Youtu-Parsing-Omni released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
 - URL: https://huggingface.co/tencent/Youtu-Parsing-Omni
-- Score: 1.349 | Reliability: 1.0
+- Score: 1.342 | Reliability: 1.0
 - Why it matters:
