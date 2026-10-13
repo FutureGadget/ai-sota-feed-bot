@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-13",
+  "title": "What happened in AI — Oct 13, 2026",
+  "generated_at": "2026-10-13T21:10:26Z",
+  "intro": [
+    "Google launched Gemini 4 Argon on DeepMind and Google Cloud, but the more actionable news for builders came from agent teams quantifying what works: LangChain's harness changes lifted a coding agent from Top 30 to Top 5 on Terminal Bench without a model change.",
+    "Open models are closing the gap on agent tasks, and the infrastructure underneath is being rebuilt for agent volume, from Anthropic's new version control system to Modal's mixed-hardware RL."
+  ],
+  "highlights": [
+    "Gemini 4 Argon launches on DeepMind and Google Cloud, with a safety write-up.",
+    "LangChain: harness engineering took its coding agent from Top 30 to Top 5 on Terminal Bench.",
+    "LangChain evals: GLM-5 and MiniMax M2.7 match closed frontier models on core agent tasks.",
+    "Anthropic replaced its source control with an in-house system after a tenfold rise in merges per day.",
+    "Modal keeps RL stable across mixed-precision, mixed-accelerator samplers.",
+    "GitHub's secret classifier cuts median scan time by 86%."
+  ],
+  "article_count": 36,
+  "categories": [
+    {
+      "name": "Agent harnesses, evals, and production builds",
+      "slug": "agent-harnesses-evals-production",
+      "summary": "Teams are showing measured gains from harness changes and eval-driven builds rather than model swaps.",
+      "articles": [
+        {
+          "title": "Improving Deep Agents with harness engineering",
+          "summary": "Self-verification, tracing, and context optimization moved LangChain's coding agent from Top 30 to Top 5 on Terminal Bench.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering",
+          "published": "2026-10-13T16:04:23Z"
+        },
+        {
+          "title": "Open Models have crossed a threshold",
+          "summary": "LangChain's evals say GLM-5 and MiniMax M2.7 now match closed frontier models on file operations, tool use, and instruction following, at lower cost and latency.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/open-models-have-crossed-a-threshold",
+          "published": "2026-10-13T16:11:23Z"
+        },
+        {
+          "title": "Coinbase Built, Evaluated, and Post-Trained a Fraud Agent",
+          "summary": "Coinbase details how it built, evaluated, and post-trained a fraud-detection agent.",
+          "source": "hackernews_ai",
+          "url": "https://www.coinbase.com/blog/part-one-how-coinbase-built-evaluated-and-post-trained-a-fraud-agent",
+          "published": "2026-10-13T19:16:20Z"
+        },
+        {
+          "title": "Search agent traces by behavior with AI Search in LangSmith",
+          "summary": "LangSmith AI Search finds traces by describing the behavior in natural language instead of filtering on fields.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/agent-traces-ai-search-langsmith",
+          "published": "2026-10-13T12:59:12Z"
+        },
+        {
+          "title": "Quoting Geoffrey Huntley",
+          "summary": "Geoffrey Huntley's fix for agent drift: enforce diagnostics-library use with a pre-commit hook on the git diff, not AGENTS.md edits.",
+          "source": "simon_willison",
+          "url": "https://simonwillison.net/2026/Oct/13/geoffrey-huntley/",
+          "published": "2026-10-13T13:32:00Z"
+        }
+      ]
+    },
+    {
+      "name": "Gemini 4 Argon launch",
+      "slug": "gemini-4-argon-launch",
+      "summary": "Google shipped Gemini 4 Argon across DeepMind, Google Cloud, and robotics, with a safety write-up the same day.",
+      "articles": [
+        {
+          "title": "Gemini 4 Argon: Built to solve your hardest problems",
+          "summary": "Google DeepMind introduces Gemini 4 Argon, pitched at its hardest-problem workloads.",
+          "source": "google_deepmind_blog",
+          "url": "https://deepmind.google/blog/introducing-gemini-4-argon/",
+          "published": "2026-10-13T16:01:52Z"
+        },
+        {
+          "title": "Gemini 4 Argon available on Google Cloud, built to help solve your business’ hardest problems",
+          "summary": "Gemini 4 Argon is available on Google Cloud for enterprise use, tied to the Gemini agent in Gemini Enterprise.",
+          "source": "google_cloud_blog",
+          "url": "https://cloud.google.com/blog/products/ai-machine-learning/gemini-4-argon-available-on-google-cloud/",
+          "published": "2026-10-13T16:00:00Z"
+        },
+        {
+          "title": "Developing Gemini 4 Argon responsibly and safely",
+          "summary": "DeepMind publishes the safety and responsibility approach behind the Gemini 4 Argon release.",
+          "source": "google_deepmind_blog",
+          "url": "https://deepmind.google/blog/developing-gemini-4-argon-responsibly-and-safely/",
+          "published": "2026-10-13T19:43:07Z"
+        }
+      ]
+    },
+    {
+      "name": "Training and developer infrastructure",
+      "slug": "training-developer-infrastructure",
+      "summary": "Infrastructure posts focus on stable RL across mixed hardware and on scaling source control for agent-driven commit volume.",
+      "articles": [
+        {
+          "title": "Toward RL on mixed-precision, mixed-accelerator samplers",
+          "summary": "Modal trained an agentic-coding model with fully asynchronous RL on mixed-precision, mixed-accelerator samplers; off-policy correction kept training stable and on par with homogeneous samplers.",
+          "source": "modal_blog",
+          "url": "https://modal.com/blog/toward-rl-on-mixed-precision-mixed-accelerator-samplers",
+          "published": "2026-10-13T12:00:00Z"
+        },
+        {
+          "title": "Redesigning source control at Anthropic",
+          "summary": "Anthropic migrated to an in-house version control system in five months after merges per day grew more than tenfold.",
+          "source": "anthropic_engineering",
+          "url": "https://www.anthropic.com/engineering/redesigning-source-control",
+          "published": "2026-10-13T00:00:00Z"
+        },
+        {
+          "title": "GitHub’s model for secret detection: Finding more secrets with less noise",
+          "summary": "GitHub's context-aware secret classifier raises weighted acceptance by 11.5% and cuts median scan time by 86%.",
+          "source": "github_blog_ai_ml",
+          "url": "https://github.blog/ai-and-ml/githubs-model-for-secret-detection-finding-more-secrets-with-less-noise/",
+          "published": "2026-10-13T17:56:33Z"
+        }
+      ]
+    },
+    {
+      "name": "Open-weight and frontier model moves",
+      "slug": "open-weight-frontier-model-moves",
+      "summary": "Open-weight agent tooling from Alibaba and a new Meta frontier model add competitive pressure on closed labs.",
+      "articles": [
+        {
+          "title": "Alibaba's Qwen team open sources QwenGyre to train AI agents that run for hours",
+          "summary": "Alibaba's Qwen team open-sources QwenGyre to train agents that run for hours.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Startup Fortune",
+          "publisher_domain": "startupfortune.com",
+          "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOWjRmbC1iVXVLRGp0cjM1ZU5Zd01HSFU3bkhtU0hWN0NEQ0kxRl9DODQwMVZKYnRoRElTYkN6RkN3NGVFXzBfaDFZazBFY0RYemNRT25uNGx1UmVSY21BR3JtRjYydzhRVGtPRlI0M1VOTzRNQUZER1RIdkdzWlpYY1V3eTVpM1pDVl9KMHBtTjBIT0k1U3dsM3RGOTB2MWdJVGs4ZC1naFVUdw?oc=5",
+          "published": "2026-10-13T01:20:21Z"
+        },
+        {
+          "title": "[AINews] Meta Muse Wonder & Wonder Full: MSL’s Claude 5.5-tier Frontier Model",
+          "summary": "Latent Space covers Meta's Muse Wonder models and what they mean for MSL as a frontier lab.",
+          "source": "latent_space",
+          "url": "https://www.latent.space/p/ainews-meta-muse-wonder-and-wonder",
+          "published": "2026-10-13T09:37:04Z"
+        }
+      ]
+    }
+  ]
+}
