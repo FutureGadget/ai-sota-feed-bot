@@ -56,6 +56,25 @@
     },
     "edition_date": "2026-08-25"
   },
+  "071b57e4971f2973": {
+    "id": "pb-verify-agent-test-claims",
+    "kind": "source-backed",
+    "title": "Verify \"tests pass\" by running the tests yourself",
+    "area": "Reliability",
+    "problem": "A coding agent can report that tests passed when they never ran, and a human trusts the sentence.",
+    "apply": "Make your harness execute the test command itself and gate completion on its exit code and captured output, not on the agent's final message.",
+    "result": "Completion claims become checkable, so unrun tests fail the task instead of reaching review.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://coldtake.dev/blog/bondsmith-hard-bonds-for-soft-claims",
+    "source_sid": "071b57e4971f2973",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Editorial inference from the reported failure mode; the source is a single practitioner account."
+    },
+    "edition_date": "2026-10-13"
+  },
   "077b61a0fed02bcc": {
     "id": "pb-selective-context-retrieval-not-full-playbook",
     "kind": "source-backed",
@@ -1481,6 +1500,25 @@
     },
     "edition_date": "2026-09-18"
   },
+  "5a0ce18b71c2722a": {
+    "id": "pb-calibrate-llm-judges",
+    "kind": "source-backed",
+    "title": "Calibrate your LLM judge against human labels before trusting scores",
+    "area": "Evals",
+    "problem": "Teams treat LLM-as-a-judge verdicts as deterministic ground truth, though their reliability is poorly understood.",
+    "apply": "Label a sample of 50-100 outputs by hand, rerun the judge several times on it, and track agreement with humans and run-to-run variance before using it as a release gate.",
+    "result": "You learn how noisy the judge is and can set pass thresholds above that noise.",
+    "effort": "low",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2610.12083v1",
+    "source_sid": "5a0ce18b71c2722a",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Editorial inference from the paper's reliability finding; the sample size is a suggested starting point."
+    },
+    "edition_date": "2026-10-13"
+  },
   "5a8e678fa2f5fb55": {
     "id": "pb-block-lethal-trifecta-exfil",
     "kind": "source-backed",
@@ -2526,6 +2564,25 @@
     },
     "edition_date": "2026-08-18"
   },
+  "9bf93d58cc35db99": {
+    "id": "pb-route-browser-agent-cheaper-model",
+    "kind": "source-backed",
+    "title": "Re-benchmark your browser agent on a cheaper model before scaling it",
+    "area": "Cost & latency",
+    "problem": "Browser agents burn the most tokens per task, and teams default to the frontier model without testing alternatives.",
+    "apply": "Build a fixed browser-task test set from real customer flows, run it against a cheaper current-generation model, and switch the default if task success holds.",
+    "result": "Asana reports its browser agent became 76x cheaper and 5x faster in its tests.",
+    "effort": "medium",
+    "source": "openai_blog",
+    "source_url": "https://openai.com/index/asana-browser-agent",
+    "source_sid": "9bf93d58cc35db99",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "OpenAI's case study reports 76x lower cost and 5x speed-up in Asana's tests."
+    },
+    "edition_date": "2026-10-13"
+  },
   "9c19b2212d6264ac": {
     "id": "pb-pin-governance-constraints-past-compaction",
     "kind": "source-backed",
@@ -3191,6 +3248,25 @@
     },
     "edition_date": "2026-09-15"
   },
+  "bfe6eaadf6028df8": {
+    "id": "pb-reuse-kv-multiturn",
+    "kind": "source-backed",
+    "title": "Reuse decode-node KV on later turns of multi-turn agents",
+    "area": "Cost & latency",
+    "problem": "Disaggregated serving recomputes prefill for the whole conversation on every agent turn, so time-to-first-token grows with history.",
+    "apply": "If you run vLLM with separate prefill and decode nodes, enable bi-directional KV transfer so prefill nodes pull previously computed KV back from decode nodes instead of recomputing it. Benchmark it on your longest multi-turn traces first.",
+    "result": "vLLM reports up to 3.3x lower TTFT on long multi-turn prompts.",
+    "effort": "medium",
+    "source": "vllm_blog",
+    "source_url": "https://vllm.ai/blog/2026-10-12-bidirectional-kvxfer-multiturn-agentic-workload",
+    "source_sid": "bfe6eaadf6028df8",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "vLLM reports up to 3.3x TTFT reduction on long multi-turn workloads."
+    },
+    "edition_date": "2026-10-13"
+  },
   "c0bd012b2b5ce51e": {
     "id": "pb-treat-sandboxes-like-prod",
     "kind": "source-backed",
@@ -3342,6 +3418,25 @@
       "note": "GitHub measured average review cost before and after the diff-anchored prompting change on its own Copilot code review pipeline."
     },
     "edition_date": "2026-07-14"
+  },
+  "c96d66505e1261e7": {
+    "id": "pb-trace-edge-otel",
+    "kind": "source-backed",
+    "title": "Join edge-proxy spans to agent traces with W3C trace context",
+    "area": "Reliability",
+    "problem": "Latency or errors added at the proxy, cache, or routing layer are invisible in agent traces that start at your app server.",
+    "apply": "Send W3C traceparent headers from your agent runtime through the proxy and enable OpenTelemetry tracing there so edge spans land in the same trace as tool and model calls.",
+    "result": "A slow tool call can be attributed to the edge, origin, or model in one trace view.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/10/cloudflare-traces-open-beta/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "c96d66505e1261e7",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Editorial inference from Cloudflare's open-beta Traces announcement."
+    },
+    "edition_date": "2026-10-13"
   },
   "ca2d50c836ec2bc8": {
     "id": "pb-scope-agent-sandbox-network-access",
@@ -3779,6 +3874,25 @@
       "note": "Anthropic reports measured test-pass rate, regression count, token spend, and performance deltas from the Bun migration."
     },
     "edition_date": "2026-07-21"
+  },
+  "ef645fe4269a2e1f": {
+    "id": "pb-let-model-edit-context",
+    "kind": "source-backed",
+    "title": "Prototype model-managed context edits for long-running agents",
+    "area": "Memory",
+    "problem": "Fixed context-management rules (truncate, summarize at N tokens) drop useful state and keep stale state.",
+    "apply": "In a long-horizon agent, add a tool that lets the model delete or rewrite its own earlier context blocks, and compare against your current truncation rule on the same tasks.",
+    "result": "The researchers report better performance and lower compute; verify on your own tasks before adopting.",
+    "effort": "high",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/10/context-language-models/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "ef645fe4269a2e1f",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Meta/MIT/UW researchers claim improved performance and reduced compute; no figures in the feed summary."
+    },
+    "edition_date": "2026-10-13"
   },
   "f07f7955a1ecbd39": {
     "id": "pb-audit-trace-payload-defaults-before-shipping",
