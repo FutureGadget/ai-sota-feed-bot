@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-12T18:19:13.002538+00:00",
+ "generated_at": "2026-10-13T18:18:23.706678+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,22 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-13-full-sandbox-snapshot-search",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-10-13",
+   "title": "Restoring full sandbox snapshots beats restarting coding agents when state lives outside the repo"
+  },
+  {
+   "id": "2026-10-13-vllm-bidirectional-kv-transfer",
+   "topic": "agent-latency",
+   "topic_title": "Agent loops multiply per-call latency into slow, expensive runs",
+   "kind": "obstacle",
+   "date": "2026-10-13",
+   "title": "vLLM bi-directional KV transfer lets prefill nodes reuse decode-side KV on later turns"
+  },
   {
    "id": "2026-10-12-protocol-pivoting-mcp-a2a",
    "topic": "prompt-injection",
@@ -238,22 +254,6 @@
    "kind": "solution",
    "date": "2026-10-05",
    "title": "Metered APIs and agents should ship hard budget caps on by default"
-  },
-  {
-   "id": "2026-10-05-modal-vm-sandboxes",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-10-05",
-   "title": "Modal VM Sandboxes give agents a full computer instead of a container"
-  },
-  {
-   "id": "2026-10-05-docker-sandbox-kit-spec",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-10-05",
-   "title": "Docker brings its Sandbox Kit Spec to the CNCF, packaging agent permissions as OCI images"
   }
  ],
  "nodes": {
@@ -4063,7 +4063,7 @@
      "key": "kv-state",
      "title": "KV state: compress it, offload it, shard it, reuse it",
      "summary": "Moving the agent's growing KV state is the bottleneck; quantization, shared RAM/NVMe tiers, context parallelism, and prefix-aware routing cut it, but reuse outside a clean prefix needs repair.",
-     "count": 10
+     "count": 11
     },
     {
      "key": "engine-architecture",
@@ -4091,6 +4091,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-13-vllm-bidirectional-kv-transfer",
+     "topic": "agent-latency",
+     "date": "2026-10-13",
+     "title": "vLLM bi-directional KV transfer lets prefill nodes reuse decode-side KV on later turns",
+     "theme": "kv-state",
+     "html": "<p>In a disaggregated vLLM deployment, the decode node already holds the KV cache for tokens it generated. The vLLM blog describes sending that KV back to the prefill node so later turns of a conversation skip recomputing it, cutting time to first token by <strong>up to 3.3x on long multi-turn prompts</strong> (vendor-reported).</p>\n<p>For builders: multi-turn agent traffic re-sends a growing history every turn, so prefill recompute dominates TTFT. If you run disaggregated serving, check whether your engine reuses decode-side KV before adding prefill capacity.</p>",
+     "evidence": [
+      {
+       "sid": "bfe6eaadf6028df8",
+       "title": "Improve TTFT for Multi-Turn Agentic Workloads with Bi-Directional KV Transfer in vLLM"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-08-vllm-deepseek-v41-flash-agentic-throughput",
      "topic": "agent-latency",
@@ -4832,8 +4847,8 @@
      "title": "AsymSpec recovers ~90% of full-context accuracy while decoding from compressed context"
     }
    ],
-   "entry_count": 48,
-   "latest_entry_date": "2026-10-08",
+   "entry_count": 49,
+   "latest_entry_date": "2026-10-13",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -4847,6 +4862,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "bfe6eaadf6028df8",
+     "title": "Improve TTFT for Multi-Turn Agentic Workloads with Bi-Directional KV Transfer in vLLM"
+    },
     {
      "sid": "611a6830e42643a9",
      "title": "DeepSeek-V4.1-Flash on vLLM: 5x Agentic Throughput Since Day 0"
@@ -5044,7 +5063,7 @@
      "title": "DualPath: Breaking the Storage Bandwidth Bottleneck in Agentic LLM Inference"
     }
    ],
-   "updated": "2026-10-08"
+   "updated": "2026-10-13"
   },
   "agent-memory": {
    "slug": "agent-memory",
@@ -14884,7 +14903,7 @@
      "key": "managed-platforms",
      "title": "Managed and self-hosted sandbox platforms",
      "summary": "MicroVM platforms from Modal, Docker, Azure, and Cloudflare, plus self-hosted hypervisors and paved-road internal platforms, compete on startup time, scale, and persistence.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "egress-and-escapes",
@@ -14900,6 +14919,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-13-full-sandbox-snapshot-search",
+     "topic": "agent-sandboxing",
+     "date": "2026-10-13",
+     "title": "Restoring full sandbox snapshots beats restarting coding agents when state lives outside the repo",
+     "theme": "managed-platforms",
+     "html": "<p>A paper applies Go-Explore-style search to full <strong>Daytona</strong> snapshots: after a failed attempt, the agent restores an intermediate machine state and branches from it instead of restarting from scratch. Higher and cheaper solve rates depended mainly on progress outside the repository, such as databases and running services.</p>\n<p>For builders: snapshot-and-branch pays off for long-horizon work spanning several services whose state a single diff cannot rebuild. For repo-only edits, a plain retry is enough. Sandbox platforms that expose snapshot and restore are the prerequisite.</p>",
+     "evidence": [
+      {
+       "sid": "d1fefa038faa8d84",
+       "title": "Returning to Development States: When Full Sandbox Snapshots Help Coding Agents"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-05-modal-vm-sandboxes",
      "topic": "agent-sandboxing",
@@ -15744,8 +15778,8 @@
     }
    ],
    "cross_entries": [],
-   "entry_count": 54,
-   "latest_entry_date": "2026-10-05",
+   "entry_count": 55,
+   "latest_entry_date": "2026-10-13",
    "solutions": [],
    "obstacles": [
     {
@@ -15763,6 +15797,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "d1fefa038faa8d84",
+     "title": "Returning to Development States: When Full Sandbox Snapshots Help Coding Agents"
+    },
     {
      "sid": "28f3ff3d29c68add",
      "title": "VM Sandboxes: Full computers for agents"
@@ -16012,7 +16050,7 @@
      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-13"
   },
   "agent-tracing": {
    "slug": "agent-tracing",

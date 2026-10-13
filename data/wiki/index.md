@@ -86,10 +86,10 @@ Schema: `config/wiki_schema.md`.
   - theme `outcome-evidence` — Outcome case studies, and the rollout that raised spend (4)
 
 ### latency
-- [agent-latency](obstacles/agent-latency.md) — Agent loops multiply per-call latency into slow, expensive runs (48 entries, updated 2026-10-08)
+- [agent-latency](obstacles/agent-latency.md) — Agent loops multiply per-call latency into slow, expensive runs (49 entries, updated 2026-10-13)
   → solutions: context-compaction, speculative-decoding
   - theme `agent-traffic` — Scheduling, batching, and routing for agent-shaped traffic (8)
-  - theme `kv-state` — KV state: compress it, offload it, shard it, reuse it (10)
+  - theme `kv-state` — KV state: compress it, offload it, shard it, reuse it (11)
   - theme `engine-architecture` — Disaggregated and specialized serving engines (9)
   - theme `day-0-support` — Day-0 serving for new models and hardware (10)
   - theme `less-work-per-step` — Less work per step: small models, shorter prompts, faster drafting (5)
@@ -142,11 +142,11 @@ Schema: `config/wiki_schema.md`.
   - theme `orchestrator-tooling` — Open-source orchestrators and multi-model routers (7)
   - theme `runtime-substrate` — The durable runtime underneath the agents (4)
   - theme `harness-choice` — Choosing a harness: frameworks, managed runtimes, portability (5)
-- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (54 entries, updated 2026-10-06)
+- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (55 entries, updated 2026-10-13)
   - theme `credential-boundary` — Keeping secrets and authority out of the sandbox (7)
   - theme `permission-policy` — Scoping what the agent may do (8)
   - theme `local-sandboxes` — Local sandboxes and tool-call supervisors (9)
-  - theme `managed-platforms` — Managed and self-hosted sandbox platforms (9)
+  - theme `managed-platforms` — Managed and self-hosted sandbox platforms (10)
   - theme `egress-and-escapes` — Real escapes: egress, allowlists, and harness bugs (12)
   - theme `guardrails-and-verification` — Guardrails, red-teaming, and checks on agent output (9)
 - [agent-tracing](solutions/agent-tracing.md) — Tracing and trace analysis for agent runs (11 entries, updated 2026-10-06)
