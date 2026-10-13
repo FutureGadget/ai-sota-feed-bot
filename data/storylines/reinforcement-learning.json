@@ -1,36 +1,19 @@
 {
  "slug": "reinforcement-learning",
  "label": "Reinforcement Learning",
- "item_count": 5,
- "day_count": 4,
- "source_count": 5,
- "first_seen": "2026-09-22T16:27:46+00:00",
+ "item_count": 4,
+ "day_count": 3,
+ "source_count": 4,
+ "first_seen": "2026-09-25T16:00:00+00:00",
  "last_updated": "2026-10-12T21:41:50+00:00",
- "generated_at": "2026-10-13T15:04:09.140587+00:00",
+ "generated_at": "2026-10-13T20:04:40.269471+00:00",
  "sources": [
   "arxiv_cs_ai",
-  "arxiv_cs_lg",
   "aws_ml_blog",
   "google_cloud_blog",
   "search_cn_open_weight_labs"
  ],
  "days": [
-  {
-   "date": "2026-09-22",
-   "items": [
-    {
-     "title": "MAGIC: Mixed-Granularity Agent Graphs via Incremental Construction with Dense-Reward Reinforcement Learning",
-     "url": "http://arxiv.org/abs/2609.26667v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Collaboration topology shapes both the performance and execution cost of LLM-based multi-agent systems. Because tasks differ in complexity and required capabilities, recent approaches generate task-specific collaborat...",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "e24d8bc5a3c1ce39",
-     "published": "2026-09-22T16:27:46+00:00",
-     "editor_note": "New arXiv paper incrementally constructing task-specific multi-agent collaboration graphs with dense-reward RL, rather than reusing a fixed team topology."
-    }
-   ]
-  },
   {
    "date": "2026-09-25",
    "items": [
@@ -91,21 +74,12 @@
   }
  ],
  "editorial": {
-  "tldr": "Reinforcement Learning is a loose grouping of RL developments, not one developing story. Since Sep 22 it has collected a multi-agent training paper, Google Cloud and AWS production-scaling guides, and a privacy-constrained RL paper.",
+  "tldr": "Reinforcement Learning is a loose grouping of RL developments, not one developing story. Since Sep 25 it has collected Google Cloud and AWS production-scaling guides and a privacy-constrained RL paper.",
   "stale": false,
   "whats_new": "Alibaba Qwen introduced QwenGyre on Oct 12, an elastic reinforcement-learning approach for extra-long-horizon agents; the item is a MarkTechPost summary, not a primary release.",
   "why_it_matters": "Teams running RL post-training have AWS and Google reference architectures plus a new long-horizon agent approach from Qwen to evaluate; the encrypted-training work remains research, not a production recipe.",
   "take_for_builders": "Scaling MoE RL training? Start from the AWS EKS/EFA/DeepEP and Google Gemini RL guides. Wait for Qwen's primary QwenGyre release before planning around it, and treat the encrypted-data RL paper as research.",
   "beats": [
-   {
-    "kicker": "RESEARCH",
-    "tone": "neutral",
-    "headline": "MAGIC learns task-specific multi-agent collaboration graphs with dense-reward RL",
-    "summary": "Targets the cost/performance tradeoff of fixed agent-team topologies by constructing task-specific collaboration structure incrementally instead of reusing one fixed graph.",
-    "sids": [
-     "e24d8bc5a3c1ce39"
-    ]
-   },
    {
     "kicker": "GUIDE",
     "tone": "neutral",
@@ -144,12 +118,11 @@
    }
   ],
   "open_questions": [
-   "Does MAGIC's learned collaboration topology hold up on agent teams larger than its evaluated benchmarks?",
    "Does Google's Gemini RL customization guide extend to models outside the Gemini family, or is it Gemini-specific tooling?",
    "Does the AWS EKS/EFA/DeepEP throughput gain hold for MoE models smaller or larger than the benchmarked configuration?",
    "Does the Homomorphic Advantage Operator stay stable at realistic model sizes, or only on the small benchmarks in the paper?",
    "Does Qwen publish QwenGyre weights, code, or benchmarks that show the elastic RL gain on long-horizon agent tasks?"
   ],
-  "generated_at": "2026-10-13T05:03:59+00:00"
+  "generated_at": "2026-10-13T20:04:04+00:00"
  }
 }
