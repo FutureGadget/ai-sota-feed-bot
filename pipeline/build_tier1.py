@@ -114,7 +114,15 @@ def dedupe(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
         toks = title_tokens(it.get("title", ""))
         match_idx = next((i for i, prev_toks in enumerate(signatures) if jaccard(toks, prev_toks) >= 0.85), None)
         if match_idx is not None:
-            record_duplicate(out[match_idx], it)
+            # Same story under a near-identical title: keep the earliest
+            # publication as the card (the original, e.g. a first-party post)
+            # and list later echoes such as link-blog commentary as coverage.
+            prev = out[match_idx]
+            if freshness_score(it.get("published", "")) < freshness_score(prev.get("published", "")):
+                record_duplicate(it, prev)
+                out[match_idx] = it
+            else:
+                record_duplicate(prev, it)
             continue
         signatures.append(toks)
         out.append(it)

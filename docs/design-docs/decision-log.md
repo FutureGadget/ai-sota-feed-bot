@@ -2284,3 +2284,24 @@ Free quota of 100 per 24 hours. Restoring benchmark scores requires a Pro key,
 Rollback: Revert the commit before 2026-11-04 to return to the legacy endpoint;
 after that date only the v2 endpoints work. Set `max_artifact_age_hours: 0` to
 disable the age check alone.
+
+
+## 2026-10-13 - Title dedupe keeps the original publication as the card
+
+Decision: When two items from different URLs collapse on near-identical titles
+(Jaccard >= 0.85) in `build_tier1.dedupe` / `build_digest.dedupe`, the
+earliest-published item survives and later ones go to `also_covered`.
+Previously the freshest item survived.
+
+Rationale: Anthropic's "Redesigning source control at Anthropic" sat in the
+feed from its own `anthropic_engineering` entry for seven runs, then Simon
+Willison's same-titled link post arrived and replaced it as the card, so the
+feed showed the commentary while the first-party post shrank to an
+"also covered" link. Echoes (link blogs, aggregators) publish after the
+original, so earliest-wins picks the source readers want to open.
+
+Impact: Cards for echoed stories point at the original and carry its
+(older) timestamp, so time decay can rank them slightly lower than the echo
+would have been. Same-URL dedupe is unchanged.
+
+Rollback: Revert the swap branch in both `dedupe` functions.
