@@ -1,16 +1,17 @@
 {
   "slug": "reinforcement-learning",
-  "generated_at": "2026-10-02T05:04:13+00:00",
-  "covers_last_updated": "2026-10-01T17:14:32+00:00",
+  "generated_at": "2026-10-13T00:03:50+00:00",
+  "covers_last_updated": "2026-10-12T21:41:50+00:00",
   "covers_member_sids": [
-    "e24d8bc5a3c1ce39",
     "8c09c3a2477816c8",
     "95f314d9972fcd38",
-    "c805ac88165186b6"
+    "c805ac88165186b6",
+    "e24d8bc5a3c1ce39",
+    "f3c8da2fe4584033"
   ],
-  "tldr": "Reinforcement Learning is a loose grouping of unrelated RL developments, not a developing story. Since Sep 22 it has collected a multi-agent training paper, Google Cloud and AWS production-scaling guides, and a privacy-constrained RL paper.",
-  "whats_new": "An Oct 1 arXiv paper proposes a Homomorphic Advantage Operator to stabilize RL training under fully homomorphic encryption, aimed at cloud deployments with confidential data.",
-  "why_it_matters": "Teams running RL post-training at scale now have AWS and Google reference architectures; teams with confidential data have a research direction, not yet a production recipe, for training under encryption.",
+  "tldr": "Reinforcement Learning is a loose grouping of RL developments, not one developing story. Since Sep 22 it has collected a multi-agent training paper, Google Cloud and AWS production-scaling guides, and a privacy-constrained RL paper.",
+  "whats_new": "Alibaba Qwen introduced QwenGyre on Oct 12, an elastic reinforcement-learning approach for extra-long-horizon agents; the item is a MarkTechPost summary, not a primary release.",
+  "why_it_matters": "Teams running RL post-training have AWS and Google reference architectures plus a new long-horizon agent approach from Qwen to evaluate; the encrypted-training work remains research, not a production recipe.",
   "beats": [
     {
       "kicker": "RESEARCH",
@@ -47,19 +48,30 @@
       "sids": [
         "c805ac88165186b6"
       ]
+    },
+    {
+      "kicker": "AGENTS",
+      "tone": "rising",
+      "headline": "Alibaba Qwen introduces QwenGyre for elastic RL on extra-long-horizon agents",
+      "summary": "Reported via MarkTechPost; targets agent tasks that run far longer than standard RL rollouts.",
+      "sids": [
+        "f3c8da2fe4584033"
+      ]
     }
   ],
   "open_questions": [
     "Does MAGIC's learned collaboration topology hold up on agent teams larger than its evaluated benchmarks?",
     "Does Google's Gemini RL customization guide extend to models outside the Gemini family, or is it Gemini-specific tooling?",
     "Does the AWS EKS/EFA/DeepEP throughput gain hold for MoE models smaller or larger than the benchmarked configuration?",
-    "Does the Homomorphic Advantage Operator stay stable at realistic model sizes, or only on the small benchmarks in the paper?"
+    "Does the Homomorphic Advantage Operator stay stable at realistic model sizes, or only on the small benchmarks in the paper?",
+    "Does Qwen publish QwenGyre weights, code, or benchmarks that show the elastic RL gain on long-horizon agent tasks?"
   ],
-  "take_for_builders": "Scaling MoE RL training? Start from the AWS EKS/EFA/DeepEP and Google Gemini RL guides. For encrypted-data RL, treat the Oct 1 paper as research to watch, not something to deploy.",
+  "take_for_builders": "Scaling MoE RL training? Start from the AWS EKS/EFA/DeepEP and Google Gemini RL guides. Wait for Qwen's primary QwenGyre release before planning around it, and treat the encrypted-data RL paper as research.",
   "day_captions": {
     "e24d8bc5a3c1ce39": "New arXiv paper incrementally constructing task-specific multi-agent collaboration graphs with dense-reward RL, rather than reusing a fixed team topology.",
     "8c09c3a2477816c8": "Google Cloud's best-practices guide for customizing Gemini models via RL without cluster-scale compute or model-internals access.",
     "95f314d9972fcd38": "AWS reference architecture scaling MoE reinforcement learning on EKS with EFA and DeepEP for 40% more training throughput.",
-    "c805ac88165186b6": "Arxiv paper on stabilizing RL advantage estimates under fully homomorphic encryption constraints."
+    "c805ac88165186b6": "Arxiv paper on stabilizing RL advantage estimates under fully homomorphic encryption constraints.",
+    "f3c8da2fe4584033": "MarkTechPost's summary of Qwen's elastic RL approach for extra-long-horizon agents; the first long-horizon agent item in this thread."
   }
 }
