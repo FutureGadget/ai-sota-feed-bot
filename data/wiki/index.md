@@ -26,11 +26,11 @@ Schema: `config/wiki_schema.md`.
   - theme `measuring-memory` — Benchmarks and leaderboards for memory (8)
 
 ### planning
-- [agent-planning](obstacles/agent-planning.md) — Agents plan multi-step work badly — they loop, stall, or skip steps (39 entries, updated 2026-10-06)
+- [agent-planning](obstacles/agent-planning.md) — Agents plan multi-step work badly — they loop, stall, or skip steps (40 entries, updated 2026-10-14)
   → solutions: agent-orchestration
   - theme `loop-as-infrastructure` — The agent loop as reusable infrastructure (12)
   - theme `ask-or-proceed` — Deciding when to ask, explore, or how much to do (6)
-  - theme `verify-and-replan` — Verification loops and re-planning on failure (7)
+  - theme `verify-and-replan` — Verification loops and re-planning on failure (8)
   - theme `learned-planning` — Learning to plan from experience, RL, and code (10)
   - theme `measuring-planning` — Benchmarks for loops and long-horizon procedures (4)
 
@@ -72,10 +72,10 @@ Schema: `config/wiki_schema.md`.
   - theme `shared-context` — What each agent gets to see (2)
 
 ### cost
-- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (49 entries, updated 2026-10-10)
+- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (50 entries, updated 2026-10-14)
   → solutions: agent-orchestration, context-compaction, cost-controls
   - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (10)
-  - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (10)
+  - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (11)
   - theme `routing` — Routing each turn to the cheapest model that can handle it (9)
   - theme `caching-and-serving` — Caching and serving efficiency set the floor price (9)
   - theme `price-curve` — Falling token prices, rising workflow spend (11)

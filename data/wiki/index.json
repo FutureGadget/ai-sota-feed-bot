@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-13T18:18:23.706678+00:00",
+ "generated_at": "2026-10-14T18:18:33.044402+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,22 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-14-harness-only-terminal-bench-gain",
+   "topic": "agent-planning",
+   "topic_title": "Agents plan multi-step work badly — they loop, stall, or skip steps",
+   "kind": "obstacle",
+   "date": "2026-10-14",
+   "title": "Harness changes alone lifted LangChain's coding agent from 52.8% to 66.5% on Terminal Bench 2.0"
+  },
+  {
+   "id": "2026-10-14-open-models-agent-evals",
+   "topic": "agent-cost",
+   "topic_title": "Agent token costs are unpredictable and easily run away",
+   "kind": "obstacle",
+   "date": "2026-10-14",
+   "title": "LangChain's early evals put GLM-5 within 4 points of Opus 4.6 at roughly a fifth of the price"
+  },
   {
    "id": "2026-10-13-full-sandbox-snapshot-search",
    "topic": "agent-sandboxing",
@@ -238,22 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-06",
    "title": "Passing tests is not mergeable: agents violate 43.1% of repository policies"
-  },
-  {
-   "id": "2026-10-05-openappa-egress-control",
-   "topic": "prompt-injection",
-   "topic_title": "Untrusted input and tools can hijack an agent",
-   "kind": "obstacle",
-   "date": "2026-10-05",
-   "title": "Archestra's OpenAPPA blocks exfiltration at the data-flow layer, with vendor-reported 0% attack success"
-  },
-  {
-   "id": "2026-10-05-default-hard-budget-caps",
-   "topic": "cost-controls",
-   "topic_title": "Cost controls: budgets, metering, and per-task attribution",
-   "kind": "solution",
-   "date": "2026-10-05",
-   "title": "Metered APIs and agents should ship hard budget caps on by default"
   }
  ],
  "nodes": {
@@ -289,7 +289,7 @@
      "key": "cheaper-models",
      "title": "Downshifting to cheaper models, costed on total tokens",
      "summary": "Contracts and harness tuning let cheaper models take frontier work at 5-8x lower cost, but quantization and hallucinations can claw the discount back in extra tokens.",
-     "count": 10
+     "count": 11
     },
     {
      "key": "routing",
@@ -311,6 +311,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-14-open-models-agent-evals",
+     "topic": "agent-cost",
+     "date": "2026-10-14",
+     "title": "LangChain's early evals put GLM-5 within 4 points of Opus 4.6 at roughly a fifth of the price",
+     "theme": "cheaper-models",
+     "html": "<p>LangChain ran 138 Deep Agents test cases per model and reports <strong>vendor-reported, early</strong> results. Correctness: Opus 4.6 0.68, Gemini 3.1 Pro 0.65, GLM-5 0.64, GPT-5.4 0.61, MiniMax M2.7 0.57.</p>\n<ul><li>Output pricing per million tokens: GLM-5 $3.15 vs Opus 4.6 $25.</li><li>LangChain&#x27;s estimate for 10M output tokens a day: about $250 on Opus vs about $12 on MiniMax M2.7.</li><li>Open models trail on memory and conversation; categories hold only a handful of cases each.</li></ul>\n<p>Each model ran at its provider&#x27;s default thinking level, and the open models ran on different hosts. Rerun the eval on your own task mix before downshifting.</p>",
+     "evidence": [
+      {
+       "sid": "40a221f953410175",
+       "title": "Open Models have crossed a threshold"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-10-asana-legalon-model-matching",
      "topic": "agent-cost",
@@ -1186,8 +1201,8 @@
      "title": "OpenAI adds usage analytics and enforceable spend controls to ChatGPT Enterprise"
     }
    ],
-   "entry_count": 49,
-   "latest_entry_date": "2026-10-10",
+   "entry_count": 50,
+   "latest_entry_date": "2026-10-14",
    "solutions": [
     {
      "slug": "agent-orchestration",
@@ -1205,6 +1220,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "40a221f953410175",
+     "title": "Open Models have crossed a threshold"
+    },
     {
      "sid": "9bf93d58cc35db99",
      "title": "Asana cuts model costs 76x in browser tests with GPT-6.1 Sol"
@@ -1426,7 +1445,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-10-10"
+   "updated": "2026-10-14"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -7123,7 +7142,7 @@
      "key": "verify-and-replan",
      "title": "Verification loops and re-planning on failure",
      "summary": "Bounded worker/critic pairs, rubric graders with iteration caps, test-anchored coding, and multi-hypothesis failure diagnosis replace blind retry with an explicit check-then-revise step.",
-     "count": 7
+     "count": 8
     },
     {
      "key": "learned-planning",
@@ -7139,6 +7158,30 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-14-harness-only-terminal-bench-gain",
+     "topic": "agent-planning",
+     "date": "2026-10-14",
+     "title": "Harness changes alone lifted LangChain's coding agent from 52.8% to 66.5% on Terminal Bench 2.0",
+     "theme": "verify-and-replan",
+     "html": "<p>With the model fixed (gpt-5.2-codex), LangChain reports (<strong>vendor-reported</strong>) a 13.7-point gain on Terminal Bench 2.0 from harness edits alone.</p>\n<ul><li><strong>Self-verification:</strong> a middleware blocks exit until the agent runs a verification pass against the task spec; before, it often wrote code, reread it, and stopped.</li><li><strong>Loop detection:</strong> counts per-file edits and prompts a rethink after N edits.</li><li><strong>Reasoning budget:</strong> xhigh for planning, high for implementation, xhigh for verification scored 66.5%; xhigh throughout scored 53.9% due to timeouts.</li><li><strong>Trace analysis:</strong> a LangSmith-trace skill drives the edits; the authors warn about task-specific overfitting.</li></ul>",
+     "evidence": [
+      {
+       "sid": "2e12fd56c15d4708",
+       "title": "Improving Deep Agents with harness engineering"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-reliability",
+       "title": "Agents give fluent, confident-looking output even when it's wrong"
+      },
+      {
+       "slug": "agent-tracing",
+       "title": "Tracing and trace analysis for agent runs"
+      }
+     ]
+    },
     {
      "id": "2026-09-26-coding-agents-tamp-programs",
      "topic": "agent-planning",
@@ -7738,8 +7781,8 @@
      "title": "In 400,000 Claude Code sessions, people make 70% of planning calls but only 20% of execution calls"
     }
    ],
-   "entry_count": 39,
-   "latest_entry_date": "2026-09-26",
+   "entry_count": 40,
+   "latest_entry_date": "2026-10-14",
    "solutions": [
     {
      "slug": "agent-orchestration",
@@ -7749,6 +7792,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "2e12fd56c15d4708",
+     "title": "Improving Deep Agents with harness engineering"
+    },
     {
      "sid": "44bb531f443ceb51",
      "title": "Coding Agents for Generalized Task and Motion Planning Problems"
@@ -7910,7 +7957,7 @@
      "title": "DAIN: Dynamic Agent-Based Interaction Network for Efficient and Collaborative Multimodal Reasoning"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-14"
   },
   "agent-reliability": {
    "slug": "agent-reliability",
@@ -8392,7 +8439,15 @@
      "also": []
     }
    ],
-   "cross_entries": [],
+   "cross_entries": [
+    {
+     "id": "2026-10-14-harness-only-terminal-bench-gain",
+     "topic": "agent-planning",
+     "topic_title": "Agents plan multi-step work badly — they loop, stall, or skip steps",
+     "date": "2026-10-14",
+     "title": "Harness changes alone lifted LangChain's coding agent from 52.8% to 66.5% on Terminal Bench 2.0"
+    }
+   ],
    "entry_count": 28,
    "latest_entry_date": "2026-09-21",
    "solutions": [
@@ -16265,6 +16320,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-10-14-harness-only-terminal-bench-gain",
+     "topic": "agent-planning",
+     "topic_title": "Agents plan multi-step work badly — they loop, stall, or skip steps",
+     "date": "2026-10-14",
+     "title": "Harness changes alone lifted LangChain's coding agent from 52.8% to 66.5% on Terminal Bench 2.0"
+    },
     {
      "id": "2026-10-12-spotify-ads-agent-boundaries",
      "topic": "multi-agent",
