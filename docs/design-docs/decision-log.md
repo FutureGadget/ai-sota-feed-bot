@@ -2305,3 +2305,27 @@ Impact: Cards for echoed stories point at the original and carry its
 would have been. Same-URL dedupe is unchanged.
 
 Rollback: Revert the swap branch in both `dedupe` functions.
+
+## 2026-10-14 - RSS sources can take publication dates from the article page
+
+Decision: `rss` sources accept `extract_published_from_page: true`. The
+collector then replaces each item's feed date with the page's own publication
+date (`datePublished` and the existing sitemap extractors), falling back to the
+feed date when the page has none or cannot be fetched. Lookups reuse
+`data/cache/sitemap_meta.json`: found dates are cached permanently, no-date
+misses retry after `page_meta_cache_ttl_hours` (default 24), and new fetches
+per run are capped by `page_meta_fetch_budget` (default 40). Enabled for
+`langchain_blog`.
+
+Rationale: LangChain's Webflow RSS re-stamps every listed item with the site's
+republish time. On 2026-10-13 eight posts got the same `19:56:07 GMT` pubDate,
+seven of them from January to September, and "Improving Deep Agents with
+harness engineering" (published 2026-02-17) went out as new in the Oct 13 daily
+recap and email. The blog's move from blog.langchain.com to
+www.langchain.com/blog also changed the URL, so the story store did not
+recognize the February copy either.
+
+Impact: One page fetch per new LangChain URL, then none. Old re-stamped posts
+fall outside the freshness window instead of reaching the feed.
+
+Rollback: Remove the flag from `langchain_blog` in `config/sources.yaml`.

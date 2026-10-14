@@ -137,6 +137,9 @@ sources:
   - name: langchain_blog
     type: rss
     url: "https://www.langchain.com/blog/rss.xml"
+    # Webflow re-stamps every item's pubDate on each site republish, so old
+    # posts resurface as new. Use each page's datePublished instead.
+    extract_published_from_page: true
   - name: search_agent_engineering_news
     type: rss
     url: "https://news.google.com/rss/search?q=%28agentic+coding+OR+coding+agent+OR+agent+harness+OR+claude+code+OR+openai+codex%29&hl=en-US&gl=US&ceid=US:en"
