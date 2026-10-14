@@ -32,6 +32,13 @@ evidence:
     sid: "10abc73be739f08b"
     added: 2026-10-09
     note: "Protocol that mutates one part of an eval, compares paired runs, and rescores unchanged trajectories. Renaming tools cut a scripted agent's score by 0.250 with identical operations; restoring names at scoring time closed the gap. On tau2-bench (88 tasks), misleading tool names lowered every agent's reward 0.20-0.44, while identical reruns flipped 15-36% of outcomes. Two frontier judges disagreed on 57% of records."
+  - id: arxiv-2609-37315-executable-contract-audit
+    kind: benchmark-result
+    title: "Do Agent Benchmarks Do What They Say? An Executable-Contract Audit of Tool-Using Agent Environments"
+    url: "https://arxiv.org/abs/2609.37315"
+    sid: "ec84f4f58551c9cf"
+    added: 2026-10-14
+    note: "Checks each simulated tool against its advertised interface across 34 mutating tools in four benchmarks and confirms seven tool defects plus one evaluator property. On AgentDojo, at least 5 of 25 mutating tools diverge from their contract. On tau2-bench, the evaluator rewards a refuel of a suspended line and fails the repaired tool. A clinical benchmark's tool reports writes it never made, and its grader counts that message as success."
   - id: agent-eval-design-editorial-synthesis
     kind: editorial-inference
     title: "LLM Digest synthesis"
@@ -55,9 +62,9 @@ Treat an eval as software with the usual failure surface: bugs, ambiguous specs,
 - **The unit under test is the system.** Task information, tools, budget, and model all move the score, so a result describes the configuration, not the model alone.
 
 ## Mechanism
-**Start from real failures.** Anthropic recommends 20-50 tasks drawn from cases that actually went wrong, not hundreds of synthetic ones; manual QA checks convert directly into test cases. Each task needs an unambiguous spec and a reference solution, because an ambiguous task is graded inconsistently however good the grader is. That bug class produced the 42%-to-95% CORE-Bench jump. Include negative cases where the right behavior is to refuse, defer, or say it doesn't know; a suite of only solvable tasks cannot detect overconfidence.
+**Start from real failures.** Anthropic recommends 20-50 tasks drawn from cases that actually went wrong. Each needs an unambiguous spec and a reference solution; ambiguity produced the 42%-to-95% CORE-Bench jump. Include negative cases where the right behavior is to refuse or say it doesn't know; solvable-only suites cannot detect overconfidence.
 
-**Keep the environment stable and grade outcomes.** A flaky sandbox or shared external state produces score noise indistinguishable from a regression. Exact step-sequence matching penalizes agents that reach a correct result by a different valid path, so grade the outcome and, separately, the soundness of the trajectory.
+**Keep the environment stable and grade outcomes.** A flaky sandbox produces noise indistinguishable from a regression. Exact step matching penalizes a correct result reached by a different path, so grade the outcome and, separately, the trajectory.
 
 **Grade the artifact each agent type produces.**
 
@@ -66,9 +73,11 @@ Treat an eval as software with the usual failure surface: bugs, ambiguous specs,
 - Research: groundedness, coverage, and source quality as separate checks.
 - Computer use: interface state (DOM, screenshots) and backend state, since a correct-looking screen can hide a failed action.
 
-**Measure the configuration, repeatedly.** In an 18,000-trajectory study of coding agents, 54% of outcome variance was run-to-run noise within identical configurations, and task information moved results more than time budget or model size. A verification tool changed behavior where a verification prompt barely did. One run per configuration cannot separate an improvement from luck: TRACE found identical reruns flip 15-36% of task outcomes.
+**Measure the configuration, repeatedly.** In an 18,000-trajectory study of coding agents, 54% of outcome variance was run-to-run noise within identical configurations, and task information moved results more than time budget or model size. A verification tool changed behavior where a verification prompt barely did. TRACE found identical reruns flip 15-36% of task outcomes.
 
-**Test the scorer when a score moves.** A score change can come from the scoring rule, not the agent. TRACE rescored unchanged trajectories after renaming tools: restoring the original names at scoring time erased a 0.250 drop in a scripted agent. Misleading tool names, by contrast, cut every real agent's reward 0.20-0.44, so the check can also confirm a genuine effect.
+**Test the scorer when a score moves.** A score change can come from the scoring rule, not the agent. TRACE rescored unchanged trajectories after renaming tools: restoring the names at scoring time erased a 0.250 drop in a scripted agent.
+
+**Audit the simulated tools.** Benchmarks grade what a simulated tool reports having done. An audit of 34 mutating tools in four benchmarks confirmed seven tool defects; in one clinical benchmark the tool claimed writes it never made, and the grader scored that claim as success. A defect like this is present on every rerun, so repeated runs never expose it.
 
 **Watch for saturation.** Once scores plateau near the ceiling, the eval stops separating good from great, and further optimization tunes to its blind spots — the dynamic covered in [does a high benchmark score predict production reliability?](/foundations/benchmark-production-reliability-gap).
 
@@ -81,6 +90,7 @@ Treat an eval as software with the usual failure surface: bugs, ambiguous specs,
 - **Rescore before you blame the agent.** After a score change, rescore the unchanged trajectories under the old format; if the gap closes, the scorer moved, not the agent.
 - **Run each configuration several times and report the spread.** At 54% run-to-run variance, a single run is mostly noise.
 - **Change behavior with tools, not prompt lines.** Treat task information, budget, and tooling as explicit eval dimensions, and test self-verification as a tool or dedicated component.
+- **Check the tools against their contract.** Probe each mutating tool in the eval and confirm the state it reports matches the state it wrote.
 - **Retire saturated evals.** At ceiling, raise the difficulty or discount further gains.
 
 ## Failure modes
@@ -88,7 +98,7 @@ Treat an eval as software with the usual failure surface: bugs, ambiguous specs,
 - **One aggregate score:** hiding whether failure is occasional (decent pass@k, bad pass^k) or total.
 - **Exact step matching:** penalizing a correct result reached by a different valid path.
 - **No negative cases:** overconfidence and unwarranted refusals never get caught.
-- **Flaky environments:** sandbox noise read as an agent regression.
+- **Trusting tool output as ground truth:** a defective simulated tool makes the grader reward actions that never happened.
 - **Brittle scorers:** a verifier that keys on tool names or output formatting turns a cosmetic change into a fake regression.
 - **Single-run comparisons:** run-to-run variance read as a real difference.
 - **Misattribution:** crediting the model for a change when task information, budget, or tooling also changed.
