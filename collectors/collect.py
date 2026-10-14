@@ -286,7 +286,47 @@ def collect_from_rss(source: dict, now: datetime) -> list[dict]:
             if publisher_domain:
                 item["publisher_domain"] = publisher_domain
             out.append(item)
+    if source.get("extract_published_from_page"):
+        _apply_page_published_dates(source, out, now)
     return out
+
+
+def _apply_page_published_dates(source: dict, items: list[dict], now: datetime) -> None:
+    """Replace feed dates with each article page's own publication date.
+
+    Some CMS feeds (LangChain's Webflow RSS) stamp every item with the time the
+    site was last republished, so a months-old post resurfaces as brand new.
+    The page's `datePublished` is authoritative; feed dates stay as the
+    fallback when a page has none or cannot be fetched. Found dates are cached
+    permanently in the sitemap metadata cache; misses retry after the source's
+    `page_meta_cache_ttl_hours`, and new fetches per run are capped.
+    """
+    cache = _load_sitemap_meta_cache()
+    budget = int(source.get("page_meta_fetch_budget", 40))
+    ttl_hours = max(1, int(source.get("page_meta_cache_ttl_hours", 24)))
+    fetched = 0
+    for item in items:
+        url = item["url"]
+        row = cache.get(url) if isinstance(cache.get(url), dict) else {}
+        published = row.get("published")
+        stale_miss = True
+        if not published and row.get("published_missing") and row.get("fetched_at"):
+            try:
+                fetched_dt = dt_parser.parse(row["fetched_at"])
+                stale_miss = (now - fetched_dt).total_seconds() / 3600.0 > ttl_hours
+            except Exception:
+                stale_miss = True
+        if not published and stale_miss and fetched < budget:
+            fetched += 1
+            try:
+                cache[url] = _sitemap_meta_cache_row(_fetch_page_meta(url), row, now)
+                published = cache[url].get("published")
+            except Exception:
+                published = None  # transient failure; keep the feed date
+        if published:
+            item["published"] = published
+    if fetched:
+        _save_sitemap_meta_cache(cache)
 
 
 # Quantization/format re-uploads shipped alongside a main model drop

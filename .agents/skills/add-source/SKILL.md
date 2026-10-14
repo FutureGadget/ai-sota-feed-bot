@@ -44,7 +44,7 @@ Pick the `type` and required fields:
 
 | type | fields | use for |
 |---|---|---|
-| `rss` | `url` | RSS/Atom feeds; GitHub releases (`.../releases.atom`); Google News search RSS |
+| `rss` | `url`; optional `extract_published_from_page` when the feed's dates are re-stamped (check that old posts carry old pubDates) | RSS/Atom feeds; GitHub releases (`.../releases.atom`); Google News search RSS |
 | `sitemap` | `url`, `include_prefixes`, `extract_published_from_page`, `page_meta_cache_ttl_hours` | sites with no clean RSS (filter URLs by path prefix) |
 | `arxiv_api` | `category`, `max_results` | arXiv categories |
 
