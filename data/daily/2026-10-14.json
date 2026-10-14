@@ -1,0 +1,164 @@
+{
+  "date": "2026-10-14",
+  "title": "What happened in AI — Oct 14, 2026",
+  "generated_at": "2026-10-14T21:11:22Z",
+  "intro": [
+    "Agent builders got practical patterns today: context engineering for long-running agents, a code review agent design, and 10,000-agent runs lasting 36+ hours.",
+    "Underneath, serving and spend controls are maturing, with vLLM's push-based KV transfer and BigQuery's cost management for AI functions, while Antigravity's local-model support pushes agents onto developer machines."
+  ],
+  "highlights": [
+    "LangChain: offloading, summarization, skills, subagents, and memory keep long-running agent context focused.",
+    "Third Moment Research runs 10,000 agents for 36+ hours on GPT-6 Astra and GPT-6.1 Sol.",
+    "vLLM adds a push-based NIXL connector that writes KV straight into decode memory over RDMA.",
+    "BigQuery adds cost management for AI.GENERATE, AI.IF, AI.CLASSIFY, and AI.SCORE.",
+    "Google's Antigravity SDK adds local model support.",
+    "Meta extends Private Processing to AI glasses with confidential VMs and remote attestation."
+  ],
+  "article_count": 37,
+  "categories": [
+    {
+      "name": "Agent context, code review, and reliability",
+      "slug": "agent-context-review-reliability",
+      "summary": "Builders are publishing concrete patterns for keeping long-running and code-writing agents focused and checkable.",
+      "articles": [
+        {
+          "title": "Context Engineering with Deep Agents: How To Remember Without Keeping Everything In Context",
+          "summary": "Offloading, summarization, skills, subagents, and memory keep a long-running agent's context window focused instead of growing without bound.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/context-engineering-deep-agents-remember",
+          "published": "2026-10-14T17:00:00Z"
+        },
+        {
+          "title": "How to build a code review agent",
+          "summary": "Greptile walks through building a code review agent, a concrete reference design for the review step of an agent pipeline.",
+          "source": "hackernews_ai",
+          "url": "https://www.greptile.com/blog/how-to-build-a-code-review-agent",
+          "published": "2026-10-14T17:52:56Z"
+        },
+        {
+          "title": "How Third Moment Research runs 10,000 agents for 36+ hours",
+          "summary": "Third Moment Research runs 10,000 agents for 36+ hours on GPT-6 Astra and GPT-6.1 Sol, a data point for multi-day agent runs that improve with use.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/third-moment-research",
+          "published": "2026-10-14T07:00:00Z"
+        },
+        {
+          "title": "Amp puts AI agents to work beyond code with OpenAI models",
+          "summary": "Amp uses GPT-6 Astra, Ultrafast, and GPT-Live-1 to run agents beyond coding, with Sign in with ChatGPT for user auth.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/amp-beyond-coding",
+          "published": "2026-10-14T12:00:00Z"
+        },
+        {
+          "title": "Show HN: Agent-trials – a smoke-test runner for coding agent CLIs",
+          "summary": "A smoke-test runner for coding agent CLIs, aimed at catching regressions across agent versions.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/princejain756/agent-trials",
+          "published": "2026-10-14T06:10:12Z"
+        }
+      ]
+    },
+    {
+      "name": "Inference and AI cost control",
+      "slug": "inference-cost-control",
+      "summary": "Serving latency and spend are getting purpose-built controls, from KV transfer to SQL-level budgets.",
+      "articles": [
+        {
+          "title": "Push-Based KV Transfer to Improve TTFT and TPOT for Disaggregated Inference in vLLM",
+          "summary": "vLLM's push-based NIXL connector has the prefill instance write KV directly into decode memory over RDMA, targeting TTFT and TPOT in disaggregated serving.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-10-14-nixl-push-connector",
+          "published": "2026-10-14T00:00:00Z"
+        },
+        {
+          "title": "Predictable AI spend in BigQuery: Introducing cost management for generative AI functions",
+          "summary": "BigQuery adds cost management for AI.GENERATE, AI.IF, AI.CLASSIFY, and AI.SCORE so LLM calls inside SQL have predictable spend.",
+          "source": "google_cloud_blog",
+          "url": "https://cloud.google.com/blog/products/data-analytics/using-bigquerys-generative-ai-cost-management-features/",
+          "published": "2026-10-14T16:00:00Z"
+        },
+        {
+          "title": "AMD MI355X joins AA-AgentPerf with DeepSeek V4.1 Flash results",
+          "summary": "AMD MI355X posts DeepSeek V4.1 Flash results on AA-AgentPerf, adding a non-Nvidia agent-workload data point.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Crypto Briefing",
+          "publisher_domain": "cryptobriefing.com",
+          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBPYmFLcFNqS0FGb0M4TDEtb0FmNGpLQjlkajFqTGswTHFNWUZqeHBGYlpkSVp0S21mLTRTc3J6SU1WNE9Ddm5kZEhtMDE0cFgzZ1pISEFMdHBHQ1g4NzV2UEgwZzhJVXNKYV9RcEVFSzRmREpEaXg0?oc=5",
+          "published": "2026-10-14T17:24:40Z"
+        },
+        {
+          "title": "Modal crosses $1B in Annualized Run Rate and raises $750M Series D",
+          "summary": "Modal crossed $1B annualized run rate and raised a $750M Series D led by Accel for AI application infrastructure.",
+          "source": "modal_blog",
+          "url": "https://modal.com/blog/1-billion-annualized-run-rate-series-d",
+          "published": "2026-10-14T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "name": "Security, identity, and private execution",
+      "slug": "security-identity-private-execution",
+      "summary": "Security work this week centers on attested private compute, agent authorization, and faster malware triage.",
+      "articles": [
+        {
+          "title": "Meta Extends Confidential Computing to AI Glasses with Private Processing",
+          "summary": "Meta extends Private Processing to AI glasses using confidential VMs, TEEs, remote attestation, anonymous credentials, and OHTTP routing.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/10/meta-private-process-ai-glasses/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-10-14T13:57:00Z"
+        },
+        {
+          "title": "SentinelOne cuts malware analysis from weeks to hours",
+          "summary": "With OpenAI Daybreak, SentinelOne cuts malware analysis from weeks to hours.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/sentinelone",
+          "published": "2026-10-14T12:00:00Z"
+        },
+        {
+          "title": "Show HN: AgentGate – Fast authorization gateway for AI agent tools",
+          "summary": "An authorization gateway that sits between AI agents and their tools.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/mohitdebian/AgentGate",
+          "published": "2026-10-14T04:16:48Z"
+        },
+        {
+          "title": "Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection",
+          "summary": "DeepMind and GovTech Singapore fine-tune lightweight on-device Gemma models to catch conversational scams with no cloud data.",
+          "source": "google_deepmind_blog",
+          "url": "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/",
+          "published": "2026-10-14T02:00:14Z"
+        }
+      ]
+    },
+    {
+      "name": "Local models and the open-weight gap",
+      "slug": "local-models-open-weight-gap",
+      "summary": "Agent SDKs are adding local execution while Chinese open models close in on the US frontier.",
+      "articles": [
+        {
+          "title": "Google Antigravity SDK Adds Local Model Support for Greater Token Efficiency and Code Privacy",
+          "summary": "Google's Antigravity SDK now supports local models, so agentic workflows can run on a developer's machine for token efficiency and code privacy.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/10/antigravity-sdk-local-models/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-10-14T09:00:00Z"
+        },
+        {
+          "title": "China's open AI models now trail the US frontier by just seven months",
+          "summary": "Reporting puts China's open AI models about seven months behind the US frontier.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Startup Fortune",
+          "publisher_domain": "startupfortune.com",
+          "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNY0YwYkhUWWFoalQwTDNJd0ZseUtISUFxXzJrQXh6MmFTSnMta2Y2VzdONi1MQWV0OUdVdFozWnJwMi1vcS13ZnhXcF9GZm5SMmk4c3o4RG40LXZKUWFwc2xxa0NwWllSZ1ZDaHUzcjI4alowLXBEWVE0RnJabDc2SlF6WWpzeGZwQlZPRXpROXBUX3l0aDBOZkFpMVQ?oc=5",
+          "published": "2026-10-14T13:35:10Z"
+        },
+        {
+          "title": "Singapore office and government MOU | Anthropic",
+          "summary": "Anthropic opens its fifth Asia-Pacific office in Singapore and signs an MOU on AI safety, evaluation, and responsible adoption.",
+          "source": "anthropic_newsroom",
+          "url": "https://www.anthropic.com/news/singapore-office-opening",
+          "published": "2026-10-14T08:30:00Z"
+        }
+      ]
+    }
+  ]
+}
