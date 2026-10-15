@@ -280,6 +280,15 @@ sources:
     # posts too. Strip it from the excerpt before the gates see it.
     content_exclude_regex:
       - "(?i)[^.]*field notes (about|on) (frontier )?agentic engineering\\.?"
+  - name: felix_rieseberg
+    type: rss
+    # Felix Rieseberg (Electron maintainer, works on Claude at Anthropic) - Ghost
+    # blog. Very low volume: 2026 posts are first-hand "how I build with Claude"
+    # workflow essays (parallel cloud threads, delegation, prompts); the archive is
+    # Electron/JavaScript/git. Owner-requested; see the 2026-10-15 ADR.
+    # No fetch_content: Ghost's <description> is the post excerpt and pubDates are
+    # the real publish dates (archive posts carry 2018-2025 dates).
+    url: "https://felixrieseberg.com/rss/"
   - name: semianalysis
     type: rss
     # SemiAnalysis (Dylan Patel et al.) on Substack. Data-heavy AI infrastructure
