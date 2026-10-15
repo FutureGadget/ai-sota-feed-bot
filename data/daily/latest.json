@@ -1,162 +1,154 @@
 {
-  "date": "2026-10-14",
-  "title": "What happened in AI — Oct 14, 2026",
-  "generated_at": "2026-10-14T21:11:22Z",
+  "date": "2026-10-15",
+  "title": "What happened in AI — Oct 15, 2026",
+  "generated_at": "2026-10-15T21:10:05Z",
   "intro": [
-    "Agent builders got practical patterns today: context engineering for long-running agents, a code review agent design, and 10,000-agent runs lasting 36+ hours.",
-    "Underneath, serving and spend controls are maturing, with vLLM's push-based KV transfer and BigQuery's cost management for AI functions, while Antigravity's local-model support pushes agents onto developer machines."
+    "Agent builders got concrete guidance on evals and bounded autonomy from LangChain, AWS and Anthropic, while LangChain and Modal showed the tooling and sandbox layer maturing.",
+    "Meta's open-weights release and vLLM's day-0 Nemotron support moved the serving story, and DeepSeek's second major outage was a reminder to plan for provider failover."
   ],
   "highlights": [
-    "LangChain: offloading, summarization, skills, subagents, and memory keep long-running agent context focused.",
-    "Third Moment Research runs 10,000 agents for 36+ hours on GPT-6 Astra and GPT-6.1 Sol.",
-    "vLLM adds a push-based NIXL connector that writes KV straight into decode memory over RDMA.",
-    "BigQuery adds cost management for AI.GENERATE, AI.IF, AI.CLASSIFY, and AI.SCORE.",
-    "Google's Antigravity SDK adds local model support.",
-    "Meta extends Private Processing to AI glasses with confidential VMs and remote attestation."
+    "LangChain answers common agent-eval questions: offline vs online, LLM judges, multi-turn, cost control.",
+    "AWS Trust in Depth: scope, know, bound, observe, prove for agent autonomy.",
+    "LangChain ships LangSmith AI Search, Trajectories and Managed Deep Agents v0.9.",
+    "Modal hits $1B ARR on a $16B Series D as sandboxes become core infra.",
+    "Meta Muse Spark Open lands as a top U.S. open-weights model; vLLM adds Nemotron 3.5 Super VL day 0.",
+    "DeepSeek down again, with refunds offered."
   ],
-  "article_count": 37,
+  "article_count": 25,
   "categories": [
     {
-      "name": "Agent context, code review, and reliability",
-      "slug": "agent-context-review-reliability",
-      "summary": "Builders are publishing concrete patterns for keeping long-running and code-writing agents focused and checkable.",
+      "name": "Agent Evals and Trust Boundaries",
+      "slug": "evals-trust-boundaries",
+      "summary": "Three vendors published practical guidance on measuring agents and bounding their autonomy rather than trusting them blindly.",
       "articles": [
         {
-          "title": "Context Engineering with Deep Agents: How To Remember Without Keeping Everything In Context",
-          "summary": "Offloading, summarization, skills, subagents, and memory keep a long-running agent's context window focused instead of growing without bound.",
+          "title": "The Most Common Questions About Agent Evals, Answered",
+          "summary": "LangChain's FAQ covers offline vs online evals, LLM judges, multi-turn evals and Harbor benchmarks, with tips for keeping eval cost down.",
           "source": "langchain_blog",
-          "url": "https://www.langchain.com/blog/context-engineering-deep-agents-remember",
-          "published": "2026-10-14T17:00:00Z"
+          "url": "https://www.langchain.com/blog/common-questions-about-agent-evals",
+          "published": "2026-10-15T19:00:00+00:00"
         },
         {
-          "title": "How to build a code review agent",
-          "summary": "Greptile walks through building a code review agent, a concrete reference design for the review step of an agent pipeline.",
-          "source": "hackernews_ai",
-          "url": "https://www.greptile.com/blog/how-to-build-a-code-review-agent",
-          "published": "2026-10-14T17:52:56Z"
+          "title": "Trust in Depth: Giving agents more autonomy without losing control",
+          "summary": "AWS's Trust in Depth frames agent autonomy as five layers: scope, know, bound, observe, prove.",
+          "source": "aws_ml_blog",
+          "url": "https://aws.amazon.com/blogs/machine-learning/trust-in-depth-giving-agents-more-autonomy-without-losing-control/",
+          "published": "Thu, 15 Oct 2026 15:05:35 +0000"
         },
         {
-          "title": "How Third Moment Research runs 10,000 agents for 36+ hours",
-          "summary": "Third Moment Research runs 10,000 agents for 36+ hours on GPT-6 Astra and GPT-6.1 Sol, a data point for multi-day agent runs that improve with use.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/third-moment-research",
-          "published": "2026-10-14T07:00:00Z"
-        },
-        {
-          "title": "Amp puts AI agents to work beyond code with OpenAI models",
-          "summary": "Amp uses GPT-6 Astra, Ultrafast, and GPT-Live-1 to run agents beyond coding, with Sign in with ChatGPT for user auth.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/amp-beyond-coding",
-          "published": "2026-10-14T12:00:00Z"
-        },
-        {
-          "title": "Show HN: Agent-trials – a smoke-test runner for coding agent CLIs",
-          "summary": "A smoke-test runner for coding agent CLIs, aimed at catching regressions across agent versions.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/princejain756/agent-trials",
-          "published": "2026-10-14T06:10:12Z"
-        }
-      ]
-    },
-    {
-      "name": "Inference and AI cost control",
-      "slug": "inference-cost-control",
-      "summary": "Serving latency and spend are getting purpose-built controls, from KV transfer to SQL-level budgets.",
-      "articles": [
-        {
-          "title": "Push-Based KV Transfer to Improve TTFT and TPOT for Disaggregated Inference in vLLM",
-          "summary": "vLLM's push-based NIXL connector has the prefill instance write KV directly into decode memory over RDMA, targeting TTFT and TPOT in disaggregated serving.",
-          "source": "vllm_blog",
-          "url": "https://vllm.ai/blog/2026-10-14-nixl-push-connector",
-          "published": "2026-10-14T00:00:00Z"
-        },
-        {
-          "title": "Predictable AI spend in BigQuery: Introducing cost management for generative AI functions",
-          "summary": "BigQuery adds cost management for AI.GENERATE, AI.IF, AI.CLASSIFY, and AI.SCORE so LLM calls inside SQL have predictable spend.",
-          "source": "google_cloud_blog",
-          "url": "https://cloud.google.com/blog/products/data-analytics/using-bigquerys-generative-ai-cost-management-features/",
-          "published": "2026-10-14T16:00:00Z"
-        },
-        {
-          "title": "AMD MI355X joins AA-AgentPerf with DeepSeek V4.1 Flash results",
-          "summary": "AMD MI355X posts DeepSeek V4.1 Flash results on AA-AgentPerf, adding a non-Nvidia agent-workload data point.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "Crypto Briefing",
-          "publisher_domain": "cryptobriefing.com",
-          "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBPYmFLcFNqS0FGb0M4TDEtb0FmNGpLQjlkajFqTGswTHFNWUZqeHBGYlpkSVp0S21mLTRTc3J6SU1WNE9Ddm5kZEhtMDE0cFgzZ1pISEFMdHBHQ1g4NzV2UEgwZzhJVXNKYV9RcEVFSzRmREpEaXg0?oc=5",
-          "published": "2026-10-14T17:24:40Z"
-        },
-        {
-          "title": "Modal crosses $1B in Annualized Run Rate and raises $750M Series D",
-          "summary": "Modal crossed $1B annualized run rate and raised a $750M Series D led by Accel for AI application infrastructure.",
-          "source": "modal_blog",
-          "url": "https://modal.com/blog/1-billion-annualized-run-rate-series-d",
-          "published": "2026-10-14T00:00:00Z"
-        }
-      ]
-    },
-    {
-      "name": "Security, identity, and private execution",
-      "slug": "security-identity-private-execution",
-      "summary": "Security work this week centers on attested private compute, agent authorization, and faster malware triage.",
-      "articles": [
-        {
-          "title": "Meta Extends Confidential Computing to AI Glasses with Private Processing",
-          "summary": "Meta extends Private Processing to AI glasses using confidential VMs, TEEs, remote attestation, anonymous credentials, and OHTTP routing.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/10/meta-private-process-ai-glasses/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-10-14T13:57:00Z"
-        },
-        {
-          "title": "SentinelOne cuts malware analysis from weeks to hours",
-          "summary": "With OpenAI Daybreak, SentinelOne cuts malware analysis from weeks to hours.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/sentinelone",
-          "published": "2026-10-14T12:00:00Z"
-        },
-        {
-          "title": "Show HN: AgentGate – Fast authorization gateway for AI agent tools",
-          "summary": "An authorization gateway that sits between AI agents and their tools.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/mohitdebian/AgentGate",
-          "published": "2026-10-14T04:16:48Z"
-        },
-        {
-          "title": "Google DeepMind and Singapore Government collaborate to build fine-tuned AI model for scam detection",
-          "summary": "DeepMind and GovTech Singapore fine-tune lightweight on-device Gemma models to catch conversational scams with no cloud data.",
-          "source": "google_deepmind_blog",
-          "url": "https://deepmind.google/blog/on-device-ai-scam-detection-mddi/",
-          "published": "2026-10-14T02:00:14Z"
-        }
-      ]
-    },
-    {
-      "name": "Local models and the open-weight gap",
-      "slug": "local-models-open-weight-gap",
-      "summary": "Agent SDKs are adding local execution while Chinese open models close in on the US frontier.",
-      "articles": [
-        {
-          "title": "Google Antigravity SDK Adds Local Model Support for Greater Token Efficiency and Code Privacy",
-          "summary": "Google's Antigravity SDK now supports local models, so agentic workflows can run on a developer's machine for token efficiency and code privacy.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/10/antigravity-sdk-local-models/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-10-14T09:00:00Z"
-        },
-        {
-          "title": "China's open AI models now trail the US frontier by just seven months",
-          "summary": "Reporting puts China's open AI models about seven months behind the US frontier.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "Startup Fortune",
-          "publisher_domain": "startupfortune.com",
-          "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNY0YwYkhUWWFoalQwTDNJd0ZseUtISUFxXzJrQXh6MmFTSnMta2Y2VzdONi1MQWV0OUdVdFozWnJwMi1vcS13ZnhXcF9GZm5SMmk4c3o4RG40LXZKUWFwc2xxa0NwWllSZ1ZDaHUzcjI4alowLXBEWVE0RnJabDc2SlF6WWpzeGZwQlZPRXpROXBUX3l0aDBOZkFpMVQ?oc=5",
-          "published": "2026-10-14T13:35:10Z"
-        },
-        {
-          "title": "Singapore office and government MOU | Anthropic",
-          "summary": "Anthropic opens its fifth Asia-Pacific office in Singapore and signs an MOU on AI safety, evaluation, and responsible adoption.",
+          "title": "Anthropic update on independent evaluators",
+          "summary": "Anthropic updates how it embeds independent evaluators into its model assessment process.",
           "source": "anthropic_newsroom",
-          "url": "https://www.anthropic.com/news/singapore-office-opening",
-          "published": "2026-10-14T08:30:00Z"
+          "url": "https://www.anthropic.com/news/an-update-on-independent-evaluators",
+          "published": "2026-10-15T17:20:00+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Agent Platforms and Developer Tooling",
+      "slug": "agent-platforms-tooling",
+      "summary": "Agent infrastructure vendors shipped tracing, search and managed runtimes, while sandboxes drew major capital.",
+      "articles": [
+        {
+          "title": "October 2026 LangChain Newsletter: Everything we shipped at Interrupt NYC & London",
+          "summary": "LangChain ships LangSmith AI Search, Engine v2, Trajectories, Custom Apps, fine-tuning and Managed Deep Agents v0.9.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/october-2026-langchain-newsletter",
+          "published": "2026-10-15T16:00:00+00:00"
+        },
+        {
+          "title": "[AINews] Modal’s $1B ARR, $16B Series D makes it NYC’s newest AI Infra Decacorn, 3x usage and 3x valuation in 5 months, 15x in 1 yr",
+          "summary": "Modal reaches $1B ARR and a $16B Series D, with usage up 3x in five months, a signal that agent sandboxes are now core infrastructure.",
+          "source": "latent_space",
+          "url": "https://www.latent.space/p/ainews-modals-1b-arr-16b-series-d",
+          "published": "Thu, 15 Oct 2026 10:08:08 GMT"
+        },
+        {
+          "title": "Codex CLI Defaults to GPT-6.1 Sol, 77% Cheaper [2026]",
+          "summary": "Codex CLI reportedly defaults to GPT-6.1 Sol at a 77% lower price; the report is from a secondary site, so confirm against OpenAI's docs.",
+          "source": "search_agent_engineering_news",
+          "publisher_name": "tech-insider.org",
+          "publisher_domain": "tech-insider.org",
+          "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE03ZjdnMTVPWGVSMTZvNUNITlFMTk5sc3JieXhqZzBLTVlSajd0TTJLWVFoZFpoU1N6UGgyNjlmbklPU1FTR0VSOG9MNklUZzM2OXA2SGdkRWFydmwwaVJvWjFhQWNZRzNyYXRTSTgwUm0?oc=5",
+          "published": "Thu, 15 Oct 2026 02:02:45 GMT"
+        },
+        {
+          "title": "Show HN: Reproducible failure drills for AI coding agents",
+          "summary": "A Show HN project offers reproducible failure drills for testing how coding agents break.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/second-time-is-a-bug-book/book-companion",
+          "published": "Thu, 15 Oct 2026 09:14:09 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Open Weights and Inference Serving",
+      "slug": "open-weights-inference",
+      "summary": "Open-weight model news centered on Meta's new release and same-day serving support in vLLM.",
+      "articles": [
+        {
+          "title": "Meta unveils Muse Spark Open, the new top U.S. open weights model — and it runs on two paired Mac desktops",
+          "summary": "Meta's Muse Spark Open is billed as the top U.S. open-weights model and runs on two paired Mac desktops.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "VentureBeat",
+          "publisher_domain": "venturebeat.com",
+          "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPM1FzN21LNDNtZDF6TmVXc2xQcU5BQUtrYUk4eVFSb3E2NERlOUoxb3VtN2J4REdMVkhDMFNIam9Ja29EekFuZm90dWNvbExEdGNNVXJLX0xPdjFMa3l2UHAtUHNKWnJQY0RVeHBlOFNqREhpVlBib3hkRzRjZWlNOWQ1V1dFTUJZRXNoR1ZVcm5Mem5MbXR1RDcyTk12T05sSWhOV09Iak5DdUdFcWJxVXlxZ0ktblZPQ05YU25QVmM5aHhtOHVnN2EzUEkwZjJMRTY4?oc=5",
+          "published": "Thu, 15 Oct 2026 19:05:47 GMT"
+        },
+        {
+          "title": "Announcing Day 0 Support for NVIDIA Nemotron 3.5 Super VL on vLLM",
+          "summary": "vLLM adds day-0 support for NVIDIA Nemotron 3.5 Super VL, with OpenAI-compatible serving and multi-token prediction for multimodal agent workflows.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-10-15-nemotron-3-5-super-vl-vllm",
+          "published": "Thu, 15 Oct 2026 00:00:00 GMT"
+        },
+        {
+          "title": "FLock.io Launches Qwen-powered, Open-Source Decision Model for Local Edge Deployment",
+          "summary": "FLock.io releases an open-source, Qwen-based decision model aimed at local edge deployment.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "HackerNoon",
+          "publisher_domain": "hackernoon.com",
+          "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNSDhzeWVDY0pnSWZ3NWZrb1RhNlEtdjJIMUZYemFtaGNDcUY4M0JHN0tIMXBSSFBYc21RVTRGZ2dYdWFJN3ZsN28wRGFfcnU3MlNpWDNhNXQxQVJKTkpEbmt6ZzJYc0VDTnlEVTlsTFpGLVdnZ0taYnZ4TmJrSFZvdE12SVpTc084V1ZPblhEeUttc1dSMnl4d0l4YUFENDFWVEdCWVlRam0?oc=5",
+          "published": "Thu, 15 Oct 2026 16:20:33 GMT"
+        }
+      ]
+    },
+    {
+      "name": "Provider Reliability and Adoption Signals",
+      "slug": "reliability-adoption",
+      "summary": "A DeepSeek outage and new adoption data show where API dependence and trust bite.",
+      "articles": [
+        {
+          "title": "DeepSeek suffers another major outage as company offers user refunds",
+          "summary": "DeepSeek suffered a second major outage and is offering user refunds.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "South China Morning Post",
+          "publisher_domain": "scmp.com",
+          "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQei1iZTlCN1NrVzJOYmNjMmFjejVKU05obGxmdHkwbG1YWFNRclFyV1NacmJ3Q1o5RUVPMkRVNWsxTlJJQ2V0SEF4YTdDV05lUHgzSURSc0QwVF9LeE4wRmplUUFwSzZkYjJGUGhjalQ1SHZhWk5mTmlNcGxLZWtGLU5UcHI4NTJpWENQZThBS0xsQ3lsSENabmhKQlhEN1JBWlVwZnU1UWRVVExYWU1mU2xqUEVlbjDSAbcBQVVfeXFMUGRtSmxxc3hJSkFKeF80MkVyVGRFMG1ISlZlV0RjbUZfS05Ra1U1azZjeWFJX1UycUxvSjlqcnVnZFFicHhTODVpeXdiUDBMcnMyQ3IyXzRqaTFDUm11VFhTS2JndTVGdTJYQ3c1bHl4clJHaC16V3VHNldpZVNPWlJvUmxBTHJMU1Q5Y2F5R2tlYk93WlZiVTc3U1RsRVhjWnRaX3JxOVNRR3IwQ01WLXlPSF9BZS1Z?oc=5",
+          "published": "Thu, 15 Oct 2026 12:55:26 GMT"
+        },
+        {
+          "title": "DeepSeek Went Down for 5 Hours. The Silence Afterward Is the Real Story.",
+          "summary": "A post-mortem-style analysis notes DeepSeek was down about 5 hours and faults the silence that followed.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Vocal",
+          "publisher_domain": "vocal.media",
+          "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPeHJhZlJ4bFJmdllpS2NTclBIOFpQU1hnTjktdlNHUElOUGRFbHJoVDBKbEVMRmgza01wMFRTcmxaXzVtVEprTzlhRVlBR0Myb0tTWGNmUGhFdWhIWmlhVzBfS1FESzFteWxpblJvanFtLXB2SnFmUU9lSzdWQWkzUHZZams0NVdBS2FoZG81M1l1WW02d05OQw?oc=5",
+          "published": "Thu, 15 Oct 2026 10:36:16 GMT"
+        },
+        {
+          "title": "Presentation: What 25 Trillion Tokens Reveal About How Developers Actually Adopt AI Agents",
+          "summary": "InfoQ talk draws on usage data across tens of trillions of tokens: agent adoption hinges on trust, not benchmark chasing.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/presentations/agentic-ai-developer-trust-adoption/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Thu, 15 Oct 2026 11:00:00 GMT"
+        },
+        {
+          "title": "Anthropic tells investors quarterly revenue up nearly 50% to $16.8bn ahead of IPO",
+          "summary": "Anthropic told investors quarterly revenue rose nearly 50% to $16.8bn ahead of a planned IPO.",
+          "source": "simon_willison",
+          "url": "https://simonwillison.net/2026/Oct/15/anthropic-tells-investors/",
+          "published": "2026-10-15T13:04:03+00:00"
         }
       ]
     }
