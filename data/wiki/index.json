@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-14T18:18:33.044402+00:00",
+ "generated_at": "2026-10-15T18:21:24.786632+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,30 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-15-bigquery-ai-token-quotas",
+   "topic": "cost-controls",
+   "topic_title": "Cost controls: budgets, metering, and per-task attribution",
+   "kind": "solution",
+   "date": "2026-10-15",
+   "title": "BigQuery caps generative AI SQL functions with four daily token quotas"
+  },
+  {
+   "id": "2026-10-15-delta-tokenizer-session-ttft",
+   "topic": "agent-latency",
+   "topic_title": "Agent loops multiply per-call latency into slow, expensive runs",
+   "kind": "obstacle",
+   "date": "2026-10-15",
+   "title": "Tokenizing only each turn's appended text cuts agent TTFT, the CPU step KV reuse leaves behind"
+  },
+  {
+   "id": "2026-10-15-model-swap-behavior-transfer",
+   "topic": "agent-cost",
+   "topic_title": "Agent token costs are unpredictable and easily run away",
+   "kind": "obstacle",
+   "date": "2026-10-15",
+   "title": "Swapping models mid-session carries over the old model's habits unless history is summarized"
+  },
   {
    "id": "2026-10-14-harness-only-terminal-bench-gain",
    "topic": "agent-planning",
@@ -230,30 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-07",
    "title": "DecepEval: pressure, incentive, opportunity, and conflict raise deception even in low-baseline models"
-  },
-  {
-   "id": "2026-10-06-copex-mcp-attack-surfaces",
-   "topic": "prompt-injection",
-   "topic_title": "Untrusted input and tools can hijack an agent",
-   "kind": "obstacle",
-   "date": "2026-10-06",
-   "title": "MCP clients fail 64.4% of adversarial-context trials, and some attacks bypass the model"
-  },
-  {
-   "id": "2026-10-06-hear-harness-engine-protocol",
-   "topic": "agent-latency",
-   "topic_title": "Agent loops multiply per-call latency into slow, expensive runs",
-   "kind": "obstacle",
-   "date": "2026-10-06",
-   "title": "A harness-to-engine protocol cuts agent time-to-first-token 2.23x by sharing workflow intent"
-  },
-  {
-   "id": "2026-10-06-swe-cc-policy-compliance",
-   "topic": "agent-evaluation",
-   "topic_title": "Measuring whether an agent actually worked is hard",
-   "kind": "obstacle",
-   "date": "2026-10-06",
-   "title": "Passing tests is not mergeable: agents violate 43.1% of repository policies"
   }
  ],
  "nodes": {
@@ -295,7 +295,7 @@
      "key": "routing",
      "title": "Routing each turn to the cheapest model that can handle it",
      "summary": "Benchmarks find most agent turns don't need a frontier model; per-thread routing inside the harness cuts cost 64-74%, and online tuning of the routing policy is emerging.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "caching-and-serving",
@@ -311,6 +311,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-15-model-swap-behavior-transfer",
+     "topic": "agent-cost",
+     "date": "2026-10-15",
+     "title": "Swapping models mid-session carries over the old model's habits unless history is summarized",
+     "theme": "routing",
+     "html": "<p>Multi-session agents switch LLMs to balance quality and cost, handing the new model the prior history. Controlled experiments show <strong>behavior transfer</strong>: the recipient adopts reasoning and action patterns from the model that wrote the history. The effect is strongest with raw-history transfer and much weaker after summarization.</p>\n<p>The authors&#x27; DASH method summarizes with direction and authorship in mind, keeping stronger-model behavior while limiting weak-to-strong transfer. They report it beats raw history and naive summarization across repeated swaps (paper-reported, not independently replicated).</p>\n<p>For routers: a cheap-model turn can degrade later expensive-model turns through the shared history.</p>",
+     "evidence": [
+      {
+       "sid": "5ff62714bccfe1a7",
+       "title": "New Model, Old Habits: Behavior Transfer under Model Swapping in Multi-Session LLM Agents"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-14-open-models-agent-evals",
      "topic": "agent-cost",
@@ -1117,6 +1132,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-10-15-bigquery-ai-token-quotas",
+     "topic": "cost-controls",
+     "topic_title": "Cost controls: budgets, metering, and per-task attribution",
+     "date": "2026-10-15",
+     "title": "BigQuery caps generative AI SQL functions with four daily token quotas"
+    },
+    {
      "id": "2026-10-05-default-hard-budget-caps",
      "topic": "cost-controls",
      "topic_title": "Cost controls: budgets, metering, and per-task attribution",
@@ -1201,8 +1223,8 @@
      "title": "OpenAI adds usage analytics and enforceable spend controls to ChatGPT Enterprise"
     }
    ],
-   "entry_count": 50,
-   "latest_entry_date": "2026-10-14",
+   "entry_count": 51,
+   "latest_entry_date": "2026-10-15",
    "solutions": [
     {
      "slug": "agent-orchestration",
@@ -1220,6 +1242,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "5ff62714bccfe1a7",
+     "title": "New Model, Old Habits: Behavior Transfer under Model Swapping in Multi-Session LLM Agents"
+    },
     {
      "sid": "40a221f953410175",
      "title": "Open Models have crossed a threshold"
@@ -1445,7 +1471,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-10-14"
+   "updated": "2026-10-15"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -4076,7 +4102,7 @@
      "key": "agent-traffic",
      "title": "Scheduling, batching, and routing for agent-shaped traffic",
      "summary": "Agent traffic is bursty, long-context, and cache-heavy; session-aware scheduling, learned batching, and routing inside the serving layer beat chat-tuned defaults, and the levers compound when tuned together.",
-     "count": 8
+     "count": 9
     },
     {
      "key": "kv-state",
@@ -4110,6 +4136,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-15-delta-tokenizer-session-ttft",
+     "topic": "agent-latency",
+     "date": "2026-10-15",
+     "title": "Tokenizing only each turn's appended text cuts agent TTFT, the CPU step KV reuse leaves behind",
+     "theme": "agent-traffic",
+     "html": "<p>Inference engines reuse the KV cache of a session&#x27;s shared prefix, but the CPU front end still re-tokenizes the whole conversation each turn. Delta Tokenizer keeps the previous token sequence, re-encodes only the appended text plus a short tail, and splices at a boundary the tokenizer&#x27;s splitting rules cannot move, so output stays exact.</p>\n<p>Paper-reported results:</p>\n<ul><li>About 40x faster tokenization per session turn than the Hugging Face reference.</li><li>Inside SGLang: median TTFT down 59% at 100K tokens; agent-session P99 TTFT down 9.5x under load, 23x when long requests block the front end.</li></ul>\n<p>Long-session agents should profile tokenization, not only GPU time.</p>",
+     "evidence": [
+      {
+       "sid": "d4d5081186e81c2b",
+       "title": "Delta Tokenizer: Reference-Identical Tokenization of Session Deltas and Segment-Parallelism for Long Prompts on Multicore CPUs"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-13-vllm-bidirectional-kv-transfer",
      "topic": "agent-latency",
@@ -4866,8 +4907,8 @@
      "title": "AsymSpec recovers ~90% of full-context accuracy while decoding from compressed context"
     }
    ],
-   "entry_count": 49,
-   "latest_entry_date": "2026-10-13",
+   "entry_count": 50,
+   "latest_entry_date": "2026-10-15",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -4881,6 +4922,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "d4d5081186e81c2b",
+     "title": "Delta Tokenizer: Reference-Identical Tokenization of Session Deltas and Segment-Parallelism for Long Prompts on Multicore CPUs"
+    },
     {
      "sid": "bfe6eaadf6028df8",
      "title": "Improve TTFT for Multi-Turn Agentic Workloads with Bi-Directional KV Transfer in vLLM"
@@ -5082,7 +5127,7 @@
      "title": "DualPath: Breaking the Storage Bandwidth Bottleneck in Agentic LLM Inference"
     }
    ],
-   "updated": "2026-10-13"
+   "updated": "2026-10-15"
   },
   "agent-memory": {
    "slug": "agent-memory",
@@ -16780,7 +16825,7 @@
      "key": "vendor-spend-controls",
      "title": "Vendor consoles add analytics, entitlements, and spend caps",
      "summary": "OpenAI, Anthropic, and Google Cloud now ship usage analytics with enforceable caps; Google adds anomaly root-causing and off-peak discounts, and estimates are getting more accurate.",
-     "count": 5
+     "count": 6
     },
     {
      "key": "attribution",
@@ -16802,6 +16847,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-15-bigquery-ai-token-quotas",
+     "topic": "cost-controls",
+     "date": "2026-10-15",
+     "title": "BigQuery caps generative AI SQL functions with four daily token quotas",
+     "theme": "vendor-spend-controls",
+     "html": "<p>Google Cloud made token-based cost management generally available for BigQuery&#x27;s LLM functions (<code>AI.GENERATE</code>, <code>AI.CLASSIFY</code>, <code>AI.IF</code>, <code>AI.SCORE</code>, <code>AI.AGG</code>). Four daily quotas run through IAM: input and output tokens, each per project and per user.</p>\n<ul><li>Defaults: 200B input and 20B output tokens per project; 150B and 15B per user.</li><li>Quotas are global across regions, and output quotas count thinking tokens.</li><li>Lowering a quota applies immediately; raising one is a request, often auto-approved.</li><li>Embedding functions are exempt.</li></ul>\n<p>For builders: the cap sits at the platform layer, so one runaway query cannot spend past it.</p>",
+     "evidence": [
+      {
+       "sid": "2921d496df7e8c9c",
+       "title": "Predictable AI spend in BigQuery: Introducing cost management for generative AI functions"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-cost",
+       "title": "Agent token costs are unpredictable and easily run away"
+      }
+     ]
+    },
     {
      "id": "2026-10-05-default-hard-budget-caps",
      "topic": "cost-controls",
@@ -17162,8 +17227,8 @@
      "title": "A fine-tuned open judge matches frontier trace-judging at ~1/100th the cost"
     }
    ],
-   "entry_count": 18,
-   "latest_entry_date": "2026-10-05",
+   "entry_count": 19,
+   "latest_entry_date": "2026-10-15",
    "solutions": [],
    "obstacles": [
     {
@@ -17177,6 +17242,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "2921d496df7e8c9c",
+     "title": "Predictable AI spend in BigQuery: Introducing cost management for generative AI functions"
+    },
     {
      "sid": "47be91cd52d348eb",
      "title": "We're going to need default hard budget caps on pretty much everything"
@@ -17254,7 +17323,7 @@
      "title": "New usage analytics and updated spend controls for enterprises"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-15"
   },
   "llm-as-judge": {
    "slug": "llm-as-judge",

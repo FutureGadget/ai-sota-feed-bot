@@ -72,11 +72,11 @@ Schema: `config/wiki_schema.md`.
   - theme `shared-context` — What each agent gets to see (2)
 
 ### cost
-- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (50 entries, updated 2026-10-14)
+- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (51 entries, updated 2026-10-15)
   → solutions: agent-orchestration, context-compaction, cost-controls
   - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (10)
   - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (11)
-  - theme `routing` — Routing each turn to the cheapest model that can handle it (9)
+  - theme `routing` — Routing each turn to the cheapest model that can handle it (10)
   - theme `caching-and-serving` — Caching and serving efficiency set the floor price (9)
   - theme `price-curve` — Falling token prices, rising workflow spend (11)
 - [proving-agent-roi](obstacles/proving-agent-roi.md) — Proving agent ROI and measuring cost efficiency is hard (9 entries, updated 2026-10-06)
@@ -86,9 +86,9 @@ Schema: `config/wiki_schema.md`.
   - theme `outcome-evidence` — Outcome case studies, and the rollout that raised spend (4)
 
 ### latency
-- [agent-latency](obstacles/agent-latency.md) — Agent loops multiply per-call latency into slow, expensive runs (49 entries, updated 2026-10-13)
+- [agent-latency](obstacles/agent-latency.md) — Agent loops multiply per-call latency into slow, expensive runs (50 entries, updated 2026-10-15)
   → solutions: context-compaction, speculative-decoding
-  - theme `agent-traffic` — Scheduling, batching, and routing for agent-shaped traffic (8)
+  - theme `agent-traffic` — Scheduling, batching, and routing for agent-shaped traffic (9)
   - theme `kv-state` — KV state: compress it, offload it, shard it, reuse it (11)
   - theme `engine-architecture` — Disaggregated and specialized serving engines (9)
   - theme `day-0-support` — Day-0 serving for new models and hardware (10)
@@ -158,8 +158,8 @@ Schema: `config/wiki_schema.md`.
   - theme `compaction-safety` — The compactor as a safety surface (2)
   - theme `skipping-compaction` — Skipping compaction with bigger windows or recursive dispatch (4)
   - theme `compressed-serving` — Buying back accuracy lost to compression (1)
-- [cost-controls](solutions/cost-controls.md) — Cost controls: budgets, metering, and per-task attribution (18 entries, updated 2026-10-06)
-  - theme `vendor-spend-controls` — Vendor consoles add analytics, entitlements, and spend caps (5)
+- [cost-controls](solutions/cost-controls.md) — Cost controls: budgets, metering, and per-task attribution (19 entries, updated 2026-10-15)
+  - theme `vendor-spend-controls` — Vendor consoles add analytics, entitlements, and spend caps (6)
   - theme `attribution` — Attributing spend to the PR, the agent, and the anomaly (3)
   - theme `hard-caps` — Hard caps that run before the call, not after the bill (5)
   - theme `caching-and-filtering` — Caching and pre-filtering cut fixed overhead (5)

@@ -8,7 +8,7 @@ solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-10-15
 themes:
   - key: harness-and-context
     title: Harness, context, and topology drive the per-step bill
