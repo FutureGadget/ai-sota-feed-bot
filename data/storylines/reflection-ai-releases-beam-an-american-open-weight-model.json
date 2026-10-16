@@ -1,16 +1,17 @@
 {
  "slug": "reflection-ai-releases-beam-an-american-open-weight-model",
- "label": "Reflection AI releases Beam, an American open-weight model",
- "item_count": 7,
- "day_count": 3,
- "source_count": 2,
+ "label": "Reflection Beam",
+ "item_count": 8,
+ "day_count": 4,
+ "source_count": 3,
  "first_seen": "2026-10-05T01:09:00+00:00",
- "last_updated": "2026-10-10T21:25:00+00:00",
+ "last_updated": "2026-10-16T00:00:00+00:00",
  "via_scout": true,
- "generated_at": "2026-10-16T10:05:23.640540+00:00",
+ "generated_at": "2026-10-16T15:03:53.259784+00:00",
  "sources": [
   "latent_space",
-  "search_cn_open_weight_labs"
+  "search_cn_open_weight_labs",
+  "vllm_blog"
  ],
  "days": [
   {
@@ -97,14 +98,30 @@
      "editor_note": "First report of an Nvidia acquisition bid for Reflection, framed as a counter to DeepSeek."
     }
    ]
+  },
+  {
+   "date": "2026-10-16",
+   "items": [
+    {
+     "title": "Serving Reflection Beam on vLLM from Day 0",
+     "url": "https://vllm.ai/blog/2026-10-16-reflection-beam",
+     "source": "vllm_blog",
+     "type": "news",
+     "summary_1line": "vLLM supports Reflection's Beam-1.0 (501B total, 23B active) from day 0, with agent-driven optimization that cut decode latency 2.71× and DFlash2 speculative decoding with adaptive verification.",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "5726df15bb134984",
+     "published": "2026-10-16T00:00:00+00:00",
+     "editor_note": "Official vLLM day-0 support, with the first published decode-latency figure."
+    }
+   ]
   }
  ],
  "editorial": {
   "tldr": "Nvidia-backed Reflection AI was reported on Oct 5 to be preparing a \"DeepSeek of the West\" open model. Beam, a 501B-parameter model with 23B active, shipped Oct 6 and was framed against low-cost Chinese models.",
   "stale": false,
-  "whats_new": "On Oct 10, a report said Nvidia is pursuing an acquisition of Reflection AI, four days after Beam's release, to counter DeepSeek.",
-  "why_it_matters": "Beam's maintainer may change owners within days of release, which affects how far you can count on its license terms and release cadence.",
-  "take_for_builders": "Add Beam to your open-weight eval shortlist, but pin the exact weights and license text you test until the ownership question is settled.",
+  "whats_new": "On Oct 16, vLLM shipped day-0 serving for Beam-1.0 (501B total, 23B active), so the model is now deployable on a mainstream open inference stack.",
+  "why_it_matters": "Beam can now run on vLLM, so you can test it on your own serving stack; the reported Nvidia acquisition bid still leaves its license and release cadence unsettled.",
+  "take_for_builders": "Run Beam on vLLM against your open-weight eval shortlist, and pin the exact weights and license text you test until the ownership question is settled.",
   "beats": [
    {
     "kicker": "PRE-RELEASE",
@@ -134,19 +151,29 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "OWNERSHIP",
+    "tone": "turn",
     "headline": "Report: Nvidia pursues acquisition of Reflection to counter DeepSeek",
     "sids": [
      "df3495e4c286ffa0"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "vLLM adds day-0 Beam-1.0 serving",
+    "summary": "vLLM reports a 2.71× decode-latency cut from agent-driven optimization, plus DFlash2 speculative decoding.",
+    "sids": [
+     "5726df15bb134984"
     ]
    }
   ],
   "open_questions": [
    "How does Beam score against DeepSeek and Kimi on independent evals?",
    "What license and inference cost does Beam ship with?",
-   "Does Nvidia confirm an acquisition, and does Beam's open-weight license change?"
+   "Does Nvidia confirm an acquisition, and does Beam's open-weight license change?",
+   "Does the 2.71× vLLM decode speedup hold on hardware outside vLLM's own test setup?"
   ],
-  "generated_at": "2026-10-11T00:03:32+00:00"
+  "generated_at": "2026-10-16T15:03:52+00:00"
  }
 }
