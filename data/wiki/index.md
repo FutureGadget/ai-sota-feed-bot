@@ -7,11 +7,11 @@ Schema: `config/wiki_schema.md`.
 ## Obstacles by area
 
 ### reliability
-- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong (28 entries, updated 2026-10-06)
+- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong (29 entries, updated 2026-10-16)
   → solutions: agent-sandboxing
   - theme `deterministic-boundaries` — Deterministic boundaries around the model (5)
   - theme `execution-and-identity` — Agent identity, durable execution, and spend guards (3)
-  - theme `hallucination-containment` — Containing hallucination during and after generation (8)
+  - theme `hallucination-containment` — Containing hallucination during and after generation (9)
   - theme `verifying-the-work` — Proving the work instead of trusting "done" (6)
   - theme `consistency-and-autonomy` — Consistency, autonomy limits, and the human role (6)
 
@@ -96,13 +96,13 @@ Schema: `config/wiki_schema.md`.
   - theme `beyond-the-engine` — Latency outside the model: tools, cold starts, and voice (6)
 
 ### observability
-- [agent-observability](obstacles/agent-observability.md) — You can't see why an agent did what it did (24 entries, updated 2026-10-10)
+- [agent-observability](obstacles/agent-observability.md) — You can't see why an agent did what it did (25 entries, updated 2026-10-16)
   → solutions: agent-tracing
   - theme `trace-capture` — Capturing the full trajectory (7)
   - theme `reading-traces` — Making traces readable and analyzable (6)
   - theme `agentic-rca` — Agents doing root-cause analysis and on-call (6)
   - theme `telemetry-ownership` — Where agent telemetry lives (3)
-  - theme `monitoring-limits` — When the trace is not enough (2)
+  - theme `monitoring-limits` — When the trace is not enough (3)
 
 ### security
 - [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (58 entries, updated 2026-10-12)
@@ -163,10 +163,10 @@ Schema: `config/wiki_schema.md`.
   - theme `attribution` — Attributing spend to the PR, the agent, and the anomaly (3)
   - theme `hard-caps` — Hard caps that run before the call, not after the bill (5)
   - theme `caching-and-filtering` — Caching and pre-filtering cut fixed overhead (5)
-- [llm-as-judge](solutions/llm-as-judge.md) — LLM-as-judge: model-graded evaluation of traces and outputs (13 entries, updated 2026-10-11)
+- [llm-as-judge](solutions/llm-as-judge.md) — LLM-as-judge: model-graded evaluation of traces and outputs (14 entries, updated 2026-10-16)
   - theme `structured-verdicts` — From a 1-5 score to structured, trace-level verdicts (3)
   - theme `cheaper-judges` — Making the judge cheap enough to run on every trace (4)
-  - theme `trusting-the-judge` — Auditing the judge, the rubric, and whether you need one (6)
+  - theme `trusting-the-judge` — Auditing the judge, the rubric, and whether you need one (7)
 - [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools (33 entries, updated 2026-10-06)
   - theme `stateless-spec` — The stateless spec and what MCP is actually for (7)
   - theme `auth-and-governance` — Authorization and governance of connector fleets (8)

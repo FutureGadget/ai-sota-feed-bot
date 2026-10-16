@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-15T18:21:24.786632+00:00",
+ "generated_at": "2026-10-16T18:18:29.588016+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,30 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-16-mechanical-checks-beat-llm-judges",
+   "topic": "llm-as-judge",
+   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
+   "kind": "solution",
+   "date": "2026-10-16",
+   "title": "Mechanical checks catch errors LLM judges accept"
+  },
+  {
+   "id": "2026-10-16-dialfork-procedural-hallucination",
+   "topic": "agent-reliability",
+   "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
+   "kind": "obstacle",
+   "date": "2026-10-16",
+   "title": "Procedural hallucination: fluent turns that leave the intended process"
+  },
+  {
+   "id": "2026-10-16-grafana-agent-slos-error-budgets",
+   "topic": "agent-observability",
+   "topic_title": "You can't see why an agent did what it did",
+   "kind": "obstacle",
+   "date": "2026-10-16",
+   "title": "Grafana turns agent behaviour into SLOs with error budgets"
+  },
   {
    "id": "2026-10-15-bigquery-ai-token-quotas",
    "topic": "cost-controls",
@@ -230,30 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-08",
    "title": "Injected rule files can steer coding agents to swap in attacker-controlled packages"
-  },
-  {
-   "id": "2026-10-08-vllm-deepseek-v41-flash-agentic-throughput",
-   "topic": "agent-latency",
-   "topic_title": "Agent loops multiply per-call latency into slow, expensive runs",
-   "kind": "obstacle",
-   "date": "2026-10-08",
-   "title": "vLLM lifts DeepSeek-V4.1-Flash agentic throughput 5x within three weeks of release"
-  },
-  {
-   "id": "2026-10-07-daedalus-self-generated-memory",
-   "topic": "agent-memory",
-   "topic_title": "Agents forget across steps and sessions",
-   "kind": "obstacle",
-   "date": "2026-10-07",
-   "title": "DAEDALUS bootstraps agent memory from self-generated tasks, with no oracle verifier"
-  },
-  {
-   "id": "2026-10-07-deception-benchmark-inducements",
-   "topic": "agent-evaluation",
-   "topic_title": "Measuring whether an agent actually worked is hard",
-   "kind": "obstacle",
-   "date": "2026-10-07",
-   "title": "DecepEval: pressure, incentive, opportunity, and conflict raise deception even in low-baseline models"
   }
  ],
  "nodes": {
@@ -3508,6 +3508,20 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-10-16-grafana-agent-slos-error-budgets",
+     "topic": "agent-observability",
+     "topic_title": "You can't see why an agent did what it did",
+     "date": "2026-10-16",
+     "title": "Grafana turns agent behaviour into SLOs with error budgets"
+    },
+    {
+     "id": "2026-10-16-dialfork-procedural-hallucination",
+     "topic": "agent-reliability",
+     "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
+     "date": "2026-10-16",
+     "title": "Procedural hallucination: fluent turns that leave the intended process"
+    },
+    {
      "id": "2026-10-12-modal-endpoint-candidates",
      "topic": "model-drift",
      "topic_title": "Agent behavior drifts as the model, SDK, and runtime churn under it",
@@ -6673,10 +6687,30 @@
      "key": "monitoring-limits",
      "title": "When the trace is not enough",
      "summary": "Offline monitoring covers agents you cannot instrument live, and latent-channel work shows a complete transcript can still miss how agents coordinated.",
-     "count": 2
+     "count": 3
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-16-grafana-agent-slos-error-budgets",
+     "topic": "agent-observability",
+     "date": "2026-10-16",
+     "title": "Grafana turns agent behaviour into SLOs with error budgets",
+     "theme": "monitoring-limits",
+     "html": "<p>Latency, error rate, and token counts say nothing about whether an answer was grounded or useful. Grafana proposes running <strong>evaluations</strong> per interaction (grounded, request fulfilled, toxic, PII exposed, injected) and treating each result as an SLI. Checks can be an LLM judge or deterministic rules such as regexes.</p>\n<p>Each behaviour gets its own objective instead of one &quot;quality score&quot;. Example: 95% of conversations judged fulfilled over 30 days; the other 5% is the error budget. While budget remains, teams can change prompts or models. Once it burns, effort shifts to quality.</p>\n<p>For builders, budget burn surfaces slow drift (a prompt, model, or retrieval change costing a fraction of a point per day) that error-rate alerts miss. Grafana-described proposal, not a measured result.</p>",
+     "evidence": [
+      {
+       "sid": "d771557f3f2a708f",
+       "title": "Grafana Applies SLOs and Error Budgets to AI Agent Behaviour"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-evaluation",
+       "title": "Measuring whether an agent actually worked is hard"
+      }
+     ]
+    },
     {
      "id": "2026-10-10-cloudflare-traces-proxy-spans",
      "topic": "agent-observability",
@@ -7039,8 +7073,8 @@
     }
    ],
    "cross_entries": [],
-   "entry_count": 24,
-   "latest_entry_date": "2026-10-10",
+   "entry_count": 25,
+   "latest_entry_date": "2026-10-16",
    "solutions": [
     {
      "slug": "agent-tracing",
@@ -7050,6 +7084,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "d771557f3f2a708f",
+     "title": "Grafana Applies SLOs and Error Budgets to AI Agent Behaviour"
+    },
     {
      "sid": "c96d66505e1261e7",
      "title": "Cloudflare Traces Turns the Proxy Layer into OpenTelemetry Spans, with New Volume-Based Pricing"
@@ -7147,7 +7185,7 @@
      "title": "A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis"
     }
    ],
-   "updated": "2026-10-10"
+   "updated": "2026-10-16"
   },
   "agent-planning": {
    "slug": "agent-planning",
@@ -8042,7 +8080,7 @@
      "key": "hallucination-containment",
      "title": "Containing hallucination during and after generation",
      "summary": "Hallucination is treated as a containable failure through layered oversight, decoding-time calibration, and calibrated detectors, with evidence that some hallucinations widen useful context rather than mislead.",
-     "count": 8
+     "count": 9
     },
     {
      "key": "verifying-the-work",
@@ -8058,6 +8096,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-16-dialfork-procedural-hallucination",
+     "topic": "agent-reliability",
+     "date": "2026-10-16",
+     "title": "Procedural hallucination: fluent turns that leave the intended process",
+     "theme": "hallucination-containment",
+     "html": "<p>DialFork targets a failure factual checks miss: each utterance is fluent and plausible, but the dialogue drifts from the intended procedure. The benchmark forks conformant dialogues at chosen turns and injects one of four hallucination types, giving 36,278 dialogues across 24 tasks in 12 domains (30 annotators validated construction).</p>\n<p>It defines three tasks: fleet-level deviation (monitoring deployed agents), single-dialogue deviation, and the turn where a dialogue first goes off-track (real-time guardrails). Its flow-aware FlowScore beat all baselines across seven encoders, which the authors read as semantic similarity being no substitute for procedural similarity. Paper-reported; MIT-licensed.</p>\n<p>For builders running scripted workflows, monitor process adherence separately from factuality.</p>",
+     "evidence": [
+      {
+       "sid": "8dd49219f40d9b76",
+       "title": "DialFork: Going Beyond Factuality to Evaluate Procedural Hallucination in Conversational Agents"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-evaluation",
+       "title": "Measuring whether an agent actually worked is hard"
+      }
+     ]
+    },
     {
      "id": "2026-09-21-harness-invariants",
      "topic": "agent-reliability",
@@ -8486,6 +8544,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-10-16-mechanical-checks-beat-llm-judges",
+     "topic": "llm-as-judge",
+     "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
+     "date": "2026-10-16",
+     "title": "Mechanical checks catch errors LLM judges accept"
+    },
+    {
      "id": "2026-10-14-harness-only-terminal-bench-gain",
      "topic": "agent-planning",
      "topic_title": "Agents plan multi-step work badly — they loop, stall, or skip steps",
@@ -8493,8 +8558,8 @@
      "title": "Harness changes alone lifted LangChain's coding agent from 52.8% to 66.5% on Terminal Bench 2.0"
     }
    ],
-   "entry_count": 28,
-   "latest_entry_date": "2026-09-21",
+   "entry_count": 29,
+   "latest_entry_date": "2026-10-16",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -8504,6 +8569,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "8dd49219f40d9b76",
+     "title": "DialFork: Going Beyond Factuality to Evaluate Procedural Hallucination in Conversational Agents"
+    },
     {
      "sid": "0a7a12052d2d17b7",
      "title": "Presentation: The Agent Harness: Control Planes, Invariants, and Approval Boundaries for Production AI Agents"
@@ -8617,7 +8686,7 @@
      "title": "Show HN: Make No Mistakes – AI coding agents must prove their work"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-16"
   },
   "grounding": {
    "slug": "grounding",
@@ -17367,10 +17436,30 @@
      "key": "trusting-the-judge",
      "title": "Auditing the judge, the rubric, and whether you need one",
      "summary": "Judges carry position, verbosity, and language bias, and rubrics can be wrong; calibrate against human labels or replace the judge with a deterministic check.",
-     "count": 6
+     "count": 7
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-16-mechanical-checks-beat-llm-judges",
+     "topic": "llm-as-judge",
+     "date": "2026-10-16",
+     "title": "Mechanical checks catch errors LLM judges accept",
+     "theme": "trusting-the-judge",
+     "html": "<p>A paper on verifying Lean autoformalizations pairs an LLM semantic review with <strong>mechanical numerical and vacuity checks</strong>. Statements are checked by computation, not only by a model&#x27;s reading of faithfulness.</p>\n<p>On three labeled datasets the combined method had the lowest accepted-error rate (fraction of incorrect statements it accepted) among the methods the authors evaluated. Expert review also found translation and source defects in existing datasets. Results are paper-reported, in a formal-math domain.</p>\n<p>For builders: where a claim can be checked by execution, arithmetic, or a vacuity test, run that check alongside the judge and return its output as checkable feedback. Keep the LLM judge for what only a model can assess.</p>",
+     "evidence": [
+      {
+       "sid": "12ce418f6930dbfb",
+       "title": "Beyond LLM Judge: Mechanical Verification for Agentic Autoformalization"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-reliability",
+       "title": "Agents give fluent, confident-looking output even when it's wrong"
+      }
+     ]
+    },
     {
      "id": "2026-10-11-judge-trustworthy-verdict-rate",
      "topic": "llm-as-judge",
@@ -17623,8 +17712,8 @@
      "title": "Checking 100 human-annotated traces shows automated evals diverge from human raters"
     }
    ],
-   "entry_count": 13,
-   "latest_entry_date": "2026-10-11",
+   "entry_count": 14,
+   "latest_entry_date": "2026-10-16",
    "solutions": [],
    "obstacles": [
     {
@@ -17638,6 +17727,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "12ce418f6930dbfb",
+     "title": "Beyond LLM Judge: Mechanical Verification for Agentic Autoformalization"
+    },
     {
      "sid": "5a0ce18b71c2722a",
      "title": "All Verdicts are Not Equal: Rethinking LLM Judge Reliability"
@@ -17691,7 +17784,7 @@
      "title": "Building a 100x Cheaper Trace Judge with Fireworks"
     }
    ],
-   "updated": "2026-10-11"
+   "updated": "2026-10-16"
   },
   "mcp": {
    "slug": "mcp",
