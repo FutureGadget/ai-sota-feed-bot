@@ -1,119 +1,116 @@
 {
-  "date": "2026-10-13",
-  "title": "Agent Builder's Playbook — Oct 13, 2026",
-  "generated_at": "2026-10-13T10:06:38Z",
+  "date": "2026-10-16",
+  "title": "Agent Builder's Playbook — Oct 16, 2026",
+  "generated_at": "2026-10-16T12:00:00Z",
   "intro": [
-    "Serving cost and agent trust dominate this edition: reuse computed KV, test cheaper models, and verify what agents claim."
+    "Harness and context design, not model choice, is this week's lever for agent quality; trust and cost controls follow the same layered pattern."
   ],
   "card_count": 6,
   "cards": [
     {
-      "id": "pb-reuse-kv-multiturn",
+      "id": "pb-harness-self-verify-tracing",
       "kind": "source-backed",
-      "title": "Reuse decode-node KV on later turns of multi-turn agents",
-      "area": "Cost & latency",
-      "problem": "Disaggregated serving recomputes prefill for the whole conversation on every agent turn, so time-to-first-token grows with history.",
-      "apply": "If you run vLLM with separate prefill and decode nodes, enable bi-directional KV transfer so prefill nodes pull previously computed KV back from decode nodes instead of recomputing it. Benchmark it on your longest multi-turn traces first.",
-      "result": "vLLM reports up to 3.3x lower TTFT on long multi-turn prompts.",
-      "effort": "medium",
-      "source": "vllm_blog",
-      "source_url": "https://vllm.ai/blog/2026-10-12-bidirectional-kvxfer-multiturn-agentic-workload",
-      "source_sid": "bfe6eaadf6028df8",
-      "evidence": {
-        "kind": "source-measured",
-        "note": "vLLM reports up to 3.3x TTFT reduction on long multi-turn workloads."
-      },
-      "published": "2026-10-12T00:00:00Z"
-    },
-    {
-      "id": "pb-route-browser-agent-cheaper-model",
-      "kind": "source-backed",
-      "title": "Re-benchmark your browser agent on a cheaper model before scaling it",
-      "area": "Cost & latency",
-      "problem": "Browser agents burn the most tokens per task, and teams default to the frontier model without testing alternatives.",
-      "apply": "Build a fixed browser-task test set from real customer flows, run it against a cheaper current-generation model, and switch the default if task success holds.",
-      "result": "Asana reports its browser agent became 76x cheaper and 5x faster in its tests.",
-      "effort": "medium",
-      "source": "openai_blog",
-      "source_url": "https://openai.com/index/asana-browser-agent",
-      "source_sid": "9bf93d58cc35db99",
-      "evidence": {
-        "kind": "source-measured",
-        "note": "OpenAI's case study reports 76x lower cost and 5x speed-up in Asana's tests."
-      },
-      "published": "2026-10-09T07:00:00Z"
-    },
-    {
-      "id": "pb-let-model-edit-context",
-      "kind": "source-backed",
-      "title": "Prototype model-managed context edits for long-running agents",
-      "area": "Memory",
-      "problem": "Fixed context-management rules (truncate, summarize at N tokens) drop useful state and keep stale state.",
-      "apply": "In a long-horizon agent, add a tool that lets the model delete or rewrite its own earlier context blocks, and compare against your current truncation rule on the same tasks.",
-      "result": "The researchers report better performance and lower compute; verify on your own tasks before adopting.",
-      "effort": "high",
-      "source": "infoq_ai_ml",
-      "source_url": "https://www.infoq.com/news/2026/10/context-language-models/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-      "source_sid": "ef645fe4269a2e1f",
-      "evidence": {
-        "kind": "source-claimed",
-        "note": "Meta/MIT/UW researchers claim improved performance and reduced compute; no figures in the feed summary."
-      },
-      "published": "2026-10-11T14:00:00Z"
-    },
-    {
-      "id": "pb-verify-agent-test-claims",
-      "kind": "source-backed",
-      "title": "Verify \"tests pass\" by running the tests yourself",
-      "area": "Reliability",
-      "problem": "A coding agent can report that tests passed when they never ran, and a human trusts the sentence.",
-      "apply": "Make your harness execute the test command itself and gate completion on its exit code and captured output, not on the agent's final message.",
-      "result": "Completion claims become checkable, so unrun tests fail the task instead of reaching review.",
-      "effort": "low",
-      "source": "hackernews_ai",
-      "source_url": "https://coldtake.dev/blog/bondsmith-hard-bonds-for-soft-claims",
-      "source_sid": "071b57e4971f2973",
-      "evidence": {
-        "kind": "editorial-inference",
-        "note": "Editorial inference from the reported failure mode; the source is a single practitioner account."
-      },
-      "published": "2026-10-12T21:06:06Z"
-    },
-    {
-      "id": "pb-calibrate-llm-judges",
-      "kind": "source-backed",
-      "title": "Calibrate your LLM judge against human labels before trusting scores",
+      "title": "Add self-verification and tracing to your agent harness before swapping models",
       "area": "Evals",
-      "problem": "Teams treat LLM-as-a-judge verdicts as deterministic ground truth, though their reliability is poorly understood.",
-      "apply": "Label a sample of 50-100 outputs by hand, rerun the judge several times on it, and track agreement with humans and run-to-run variance before using it as a release gate.",
-      "result": "You learn how noisy the judge is and can set pass thresholds above that noise.",
-      "effort": "low",
-      "source": "arxiv_llm_reliability",
-      "source_url": "http://arxiv.org/abs/2610.12083v1",
-      "source_sid": "5a0ce18b71c2722a",
+      "problem": "Coding-agent scores often stall because the harness, not the model, is the weak link.",
+      "apply": "Add a verification step that makes the agent check its work against the task spec before finishing, trace every run, and use the traces to trim context that distracts the agent.",
+      "result": "LangChain moved its coding agent from Top 30 to Top 5 on Terminal Bench with harness changes alone.",
+      "effort": "medium",
+      "source": "langchain_blog",
+      "source_url": "https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering",
+      "source_sid": "2e12fd56c15d4708",
       "evidence": {
-        "kind": "editorial-inference",
-        "note": "Editorial inference from the paper's reliability finding; the sample size is a suggested starting point."
-      },
-      "published": "2026-10-08T14:55:29Z"
+        "kind": "source-measured",
+        "note": "LangChain reports the Top 30 to Top 5 Terminal Bench move from its harness changes."
+      }
     },
     {
-      "id": "pb-trace-edge-otel",
+      "id": "pb-offload-summarize-context",
       "kind": "source-backed",
-      "title": "Join edge-proxy spans to agent traces with W3C trace context",
-      "area": "Reliability",
-      "problem": "Latency or errors added at the proxy, cache, or routing layer are invisible in agent traces that start at your app server.",
-      "apply": "Send W3C traceparent headers from your agent runtime through the proxy and enable OpenTelemetry tracing there so edge spans land in the same trace as tool and model calls.",
-      "result": "A slow tool call can be attributed to the edge, origin, or model in one trace view.",
+      "title": "Offload and summarize context instead of keeping every tool result in the window",
+      "area": "Memory",
+      "problem": "Long-running agents degrade as tool outputs and history pile up in the context window.",
+      "apply": "Write large tool results to files and keep a pointer, summarize older turns at a threshold, and move specialized work into subagents so each context stays focused.",
+      "result": "The agent keeps working on the current step without drowning in stale output, and token use per turn drops.",
       "effort": "medium",
-      "source": "infoq_ai_ml",
-      "source_url": "https://www.infoq.com/news/2026/10/cloudflare-traces-open-beta/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-      "source_sid": "c96d66505e1261e7",
+      "source": "langchain_blog",
+      "source_url": "https://www.langchain.com/blog/context-engineering-deep-agents-remember",
+      "source_sid": "eeb5997da7760442",
       "evidence": {
         "kind": "editorial-inference",
-        "note": "Editorial inference from Cloudflare's open-beta Traces announcement."
+        "note": "Editorial inference from LangChain's context-engineering guidance; no figures claimed."
       },
-      "published": "2026-10-10T07:12:00Z"
+      "published": "2026-10-14T17:00:00+00:00"
+    },
+    {
+      "id": "pb-model-swap-history-transfer",
+      "kind": "source-backed",
+      "title": "Test behavior carryover before switching models mid-session",
+      "area": "Reliability",
+      "problem": "Swapping to a cheaper model mid-session passes along a history the new model may imitate, including the old model's habits.",
+      "apply": "Before routing sessions between models for cost, replay a sample of real multi-session histories through the swap and compare behavior, not just task success, against a fresh start on the recipient.",
+      "result": "You catch inherited quirks before a cost-driven model switch ships to users.",
+      "effort": "medium",
+      "source": "arxiv_cs_lg",
+      "source_url": "http://arxiv.org/abs/2610.19712v1",
+      "source_sid": "5ff62714bccfe1a7",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "Editorial inference from the paper's framing that model swaps transfer history effects; no figures claimed."
+      },
+      "published": "2026-10-14T07:38:54Z"
+    },
+    {
+      "id": "pb-layered-agent-trust",
+      "kind": "source-backed",
+      "title": "Layer agent autonomy: scope, bound, observe, then prove",
+      "area": "Safety",
+      "problem": "Teams hold agents back because one failed action in production is costly and hard to explain afterward.",
+      "apply": "Grant each agent the narrowest tool and data scope, enforce hard limits outside the prompt (spend, rate, allowed actions), log every action for audit, and widen autonomy only as the audit trail earns it.",
+      "result": "Autonomy grows in steps you can justify, and any incident traces back to a specific boundary.",
+      "effort": "medium",
+      "source": "aws_ml_blog",
+      "source_url": "https://aws.amazon.com/blogs/machine-learning/trust-in-depth-giving-agents-more-autonomy-without-losing-control/",
+      "source_sid": "ee4bdfee28f7d805",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "Editorial inference from AWS's Trust in Depth layers (scope, know, bound, observe, prove)."
+      }
+    },
+    {
+      "id": "pb-agent-evals-offline-online",
+      "kind": "source-backed",
+      "title": "Pair offline evals with online evals on production traces",
+      "area": "Evals",
+      "problem": "Offline test sets miss the failure modes real users trigger, and judge runs get expensive fast.",
+      "apply": "Keep a small offline suite as a release gate, run cheap code-based evaluators on every production trace, and reserve LLM judges for a sampled subset and multi-turn conversations.",
+      "result": "Regressions surface from real traffic while judge spend stays bounded.",
+      "effort": "low",
+      "source": "langchain_blog",
+      "source_url": "https://www.langchain.com/blog/common-questions-about-agent-evals",
+      "source_sid": "7b591106b0be81dc",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "Editorial inference from LangChain's agent-evals Q&A; no figures claimed."
+      },
+      "published": "2026-10-15T19:00:00+00:00"
+    },
+    {
+      "id": "pb-genai-sql-cost-guard",
+      "kind": "source-backed",
+      "title": "Cap generative AI function spend before running LLM calls over whole tables",
+      "area": "Cost & latency",
+      "problem": "A single SQL query that calls an LLM per row can quietly run up a large bill.",
+      "apply": "Set per-query and per-project cost limits on BigQuery generative AI functions and test the query on a small sample to estimate spend before running it on the full table.",
+      "result": "Bulk classification jobs stop at a known ceiling instead of surprising you on the invoice.",
+      "effort": "low",
+      "source": "google_cloud_blog",
+      "source_url": "https://cloud.google.com/blog/products/data-analytics/using-bigquerys-generative-ai-cost-management-features/",
+      "source_sid": "2921d496df7e8c9c",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "Editorial inference from Google Cloud's announcement of cost management for generative AI functions."
+      }
     }
   ]
 }
