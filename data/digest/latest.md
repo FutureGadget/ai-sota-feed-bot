@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. Google EnvHarness Enables Self-Evolving Agents to Learn in Dynamics Environments
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/10/envharness-self-evolving-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.031 | Reliability: 1.0
+- Score: 3.003 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness, evaluation.
 
 ## 2. AI in Production: Panellists Highlight Silent Failures, Harness Engineering, and Agent Governance
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/10/ai-systems-production/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.909 | Reliability: 1.0
+- Score: 2.882 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness, evaluation.
 
 ## 3. Serving Reflection Beam on vLLM from Day 0
 - Type: news | Source: vllm_blog
 - URL: https://vllm.ai/blog/2026-10-16-reflection-beam
-- Score: 2.764 | Reliability: 1.0
+- Score: 2.741 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 4. Architecting autonomy: A design pattern for high-compute, governed agents in biotech
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/topics/healthcare-life-sciences/architecting-scalable-agentic-biotech-workloads/
-- Score: 2.686 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
-
-## 5. Scaling Kimi K3 on AMD Instinct MI355X: Matching NVIDIA HGX B300 Throughput per GPU on AgentX
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-10-16-kimi-k3-mi355x
-- Score: 2.589 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 6. The Most Common Questions About Agent Evals, Answered
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/common-questions-about-agent-evals
-- Score: 2.559 | Reliability: 1.0
+## 4. Learning Self-Orchestration in Decentralized Agent Swarms
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.22322v1
+- Score: 2.722 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 7. Designing more efficient quantum circuits with Claude
+## 5. Improving Environment-Agnostic Coding Agents: The Role of Scaffolding
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2610.22289v1
+- Score: 2.688 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval, codex.
+
+## 6. The AI expectations gap
 - Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/designing-efficient-quantum-circuits
-- Score: 2.473 | Reliability: 1.0
+- URL: https://www.anthropic.com/research/ai-expectations-gap
+- Score: 2.682 | Reliability: 1.0
 - Why it matters: 
+
+## 7. claude-code v2.1.302
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.302
+- Score: 2.667 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
 
 ## 8. Stack Overflow for Agents triples signups with ChatGPT plugin
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/stack-overflow-chatgpt-plugin
-- Score: 2.23 | Reliability: 1.0
+- Score: 2.209 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
 ## 9. Anthropic update on independent evaluators
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/an-update-on-independent-evaluators
-- Score: 2.133 | Reliability: 1.0
+- Score: 2.114 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 10. Accelerating the search for antimicrobial peptides with Google Antigravity
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/accelerating-antimicrobial-discovery/
-- Score: 2.03 | Reliability: 1.0
+- Score: 2.012 | Reliability: 1.0
 - Why it matters: 
 
-## 11. tencent/Qwen3-8B-DSpine-b16 released on Hugging Face
+## 11. Architecting autonomy: A design pattern for high-compute, governed agents in biotech
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/topics/healthcare-life-sciences/architecting-scalable-agentic-biotech-workloads/
+- Score: 2.642 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
+
+## 12. Qwen-Audio-Jev: A Unified Interface for Audio Decisions
+- Type: paper | Source: arxiv_cn_open_weight_reports
+- URL: http://arxiv.org/abs/2610.21614v1
+- Score: 2.634 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 13. Scaling Kimi K3 on AMD Instinct MI355X: Matching NVIDIA HGX B300 Throughput per GPU on AgentX
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-10-16-kimi-k3-mi355x
+- Score: 2.568 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 14. The Most Common Questions About Agent Evals, Answered
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/common-questions-about-agent-evals
+- Score: 2.538 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 15. tencent/Qwen3-8B-DSpine-b16 released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
 - URL: https://huggingface.co/tencent/Qwen3-8B-DSpine-b16
-- Score: 2.438 | Reliability: 1.0
+- Score: 2.413 | Reliability: 1.0
 - Why it matters: 
 
-## 12. [AINews] Agents disprove Polysemanticity; greatly improve Interpretability & Alignment
+## 16. Claude Mythos 5 vs DeepSeek V4 Pro: A 15× Price Gap, and Only One of Them Is Cheap at What It Is Good At
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMic0FVX3lxTE93bzlUX25uTTdNZjJOZHo2NWtKRVZfV0RtR19UQkJ6bUFjdXFEVlA4VXBTekhHbEo2czllalJ2cFFfN0FwbllMSHNISHV2N0NkQTB0NUZMeEh3Wkp0NE1RRkE2UFFmaUt4Ykh3d2hyVnVUaHc?oc=5
+- Score: 2.388 | Reliability: 1.0
+- Why it matters: 
+
+## 17. LIBERO-PeRM: Benchmarking Personalized Robotic Manipulation
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2610.22372v1
+- Score: 2.373 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 18. [AINews] Agents disprove Polysemanticity; greatly improve Interpretability & Alignment
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-agents-disprove-polysemanticity
-- Score: 2.378 | Reliability: 1.0
+- Score: 2.358 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 13. codex 0.164.0-alpha.2
+## 19. codex 0.164.0-alpha.2
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.164.0-alpha.2
-- Score: 2.353 | Reliability: 1.0
+- Score: 2.345 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 14. China To Require An Export License For All New Large AI Models, Potentially Affecting Moonshot’s Unreleased Kimi K3.1, As Taiwan Criminalizes Smuggling Of Advanced Chips To China
-- Type: release | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMipgJBVV95cUxNNnpXUG5nbGIwVU45RnV2VF93aDZ3M01vN2lVaTB2VW9pQlY3bU5PNHF3N0tfcXIxUDg2ZUZtcVo0QlhsUm9zM1N5ZzVkbHRUVTVGY2dSaEdQdkUyRjZnd2d3SUpzUlkxeEhLV0k3MjJQazNDa2RRWkIzWVRRZ1R4dkNQaEU3TVllMnkwclIzdGZxNm1DMFFrZldDcWRrRXBtMzVmNmxDMGV0RHdRQ3JjUUhuSGVSVVVnR2NsUUt6UGhnQzZSMVV4c1lJTjgtMlh3bGZtQWhEWi1CRVp4a1VPb0tiWGxvMnloUnFmaTNoalp2ZERJOXlDYWtKMl9qeXZwRXZkbTNNMzlweFptRFVrNWJOZHZCSm43WWJ5dldBZDBUcWRXWEHSAasCQVVfeXFMUGxzSXB3NzV6TGJJb0JHYnNEOGpQSkdxZjU0WkQ5QVozX1k5LXN3emhJX19ZNG1XSVZWTWVJZzcwU1BHX3h5QmpLaXAzdkw2eFkyTnFLVjYtbEI5RkNJaTNaOGJBNXdwcXhUdnlOTmVnaEdTbmhxMGhQZGxTMlhtWjdodkJtMGpSNk9SSGNUaEpZWFlFQ2NFUFdyLTN4aWVmUGVZOExiZ3Z0dV84cUh0VTlfMTk4cE8zaHY3ZGpZYXVtQ0JfcmRDR1lLUjE4SEdFR1pYWnhVZ3pSenBybkdNb0VaT3lDcUJaSi00d3BSMmVNcGtXajZkTm5BX0FaTzZHWnJsQzV2VzZydF9TOTl1cGhobXp1WF9rNExteml0RXEtdnJUamFvMWljY1k?oc=5
-- Score: 2.315 | Reliability: 1.0
-- Why it matters: 
-
-## 15. Chirp Pong
+## 20. Chirp Pong
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Oct/15/chirp-pong/
-- Score: 2.307 | Reliability: 1.0
+- Score: 2.289 | Reliability: 1.0
 - Why it matters: Matches feed focus: claude code.
 
-## 16. claude-code v2.1.301
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.301
-- Score: 2.255 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, claude code.
-
-## 17. Building fast filesystems for VMs
+## 21. Building fast filesystems for VMs
 - Type: news | Source: modal_blog
 - URL: https://modal.com/blog/vm-sandbox-filesystem
-- Score: 2.243 | Reliability: 1.0
+- Score: 2.223 | Reliability: 1.0
 - Why it matters: 
 
-## 18. langgraph-cli==0.4.36
+## 22. langgraph-cli==0.4.36
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.36
-- Score: 2.224 | Reliability: 1.0
+- Score: 2.218 | Reliability: 1.0
 - Why it matters: 
 
-## 19. Introducing Reflection Beam: an open-weight model for agentic coding on AWS
+## 23. Introducing Reflection Beam: an open-weight model for agentic coding on AWS
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/introducing-reflection-beam-an-open-weight-model-for-agentic-coding-on-aws/
-- Score: 2.196 | Reliability: 1.0
+- Score: 2.158 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 20. How the Claude Code team does code review
+## 24. How the Claude Code team does code review
 - Type: news | Source: claude_dev_blog
 - URL: https://claude.dev/blog/solving-code-review-at-anthropic/
-- Score: 2.01 | Reliability: 1.0
+- Score: 1.993 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
-
-## 21. Scaling Indic Pretraining: 2.8 Trillion Tokens and an Open Data Generation Pipeline
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/nvidia/scaling-indic-pretraining
-- Score: 1.979 | Reliability: 1.0
-- Why it matters: 
-
-## 22. Continuous accountability for Verified bots
-- Type: news | Source: cloudflare_blog
-- URL: https://blog.cloudflare.com/verified-bots-accountability/
-- Score: 1.969 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 23. claude-agent-sdk-python v0.2.168
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.168
-- Score: 1.939 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 24. Teaching students to think and learn through questions
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/teaching-students-to-think-and-learn-through-questions
-- Score: 1.897 | Reliability: 1.0
-- Why it matters:
