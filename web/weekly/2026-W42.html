@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What happened in AI — Oct 10–16, 2026 | LLM Digest</title>
+  <meta name="description" content="AI coding agents raise code volume, but human review absorbs the gain. LangChain harness engineering took its coding agent from Top 30 to Top 5 on Terminal Bench. Open models GLM-5 and MiniMax M2.7 match closed frontier models on core agent tasks.…" />
+  <link rel="canonical" href="https://www.llm-digest.com/weekly/2026-W42" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="What happened in AI — Oct 10–16, 2026" />
+  <meta property="og:description" content="AI coding agents raise code volume, but human review absorbs the gain. LangChain harness engineering took its coding agent from Top 30 to Top 5 on Terminal Bench. Open models GLM-5 and MiniMax M2.7 match closed frontier models on core agent tasks.…" />
+  <meta property="og:url" content="https://www.llm-digest.com/weekly/2026-W42" />
+  <meta property="article:published_time" content="2026-10-16T21:16:30+00:00" />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="What happened in AI — Oct 10–16, 2026" />
+  <meta name="twitter:description" content="AI coding agents raise code volume, but human review absorbs the gain. LangChain harness engineering took its coding agent from Top 30 to Top 5 on Terminal Bench. Open models GLM-5 and MiniMax M2.7 match closed frontier models on core agent tasks.…" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "What happened in AI — Oct 10–16, 2026", "description": "AI coding agents raise code volume, but human review absorbs the gain. LangChain harness engineering took its coding agent from Top 30 to Top 5 on Terminal Bench. Open models GLM-5 and MiniMax M2.7 match closed frontier models on core agent tasks.…", "datePublished": "2026-10-16T21:16:30+00:00", "mainEntityOfPage": "https://www.llm-digest.com/weekly/2026-W42", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Weekly recaps", "item": "https://www.llm-digest.com/weekly"}, {"@type": "ListItem", "position": 3, "name": "2026-W42", "item": "https://www.llm-digest.com/weekly/2026-W42"}]}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#17150f" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260924-inline-subscribe" />
+  <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
+  <script defer src="/site-chrome.js?v=20260924-inline-subscribe"></script>
+  <script defer src="/subscribe-inline.js?v=20260924-inline-subscribe"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
+    body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
+    menu a[role="button"], .archive select, menu .menu-share {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.74rem; letter-spacing: 0.03em;
+      padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 0; background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
+    menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
+    .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.66rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); }
+    .archive select { text-transform: none; letter-spacing: 0.02em; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border-left: 3px solid var(--accent); border-radius: 0;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: var(--font-display);
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+      menu {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.35rem;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      menu::-webkit-scrollbar {
+        display: none;
+      }
+      menu a {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .archive {
+        flex-shrink: 0;
+        margin-left: 1rem;
+        width: auto !important;
+      }
+      .archive select {
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    :root, html[data-theme="light"]{ --turn:#c4483f;
+    }
+    html[data-theme="dark"]{ --turn:#ef756d;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .weekly-hero { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(15rem,.55fr);
+      gap:1.5rem 2.6rem; align-items:end; margin:2.35rem 0 1.7rem; }
+    .weekly-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .weekly-hero .recap-title { margin:0; max-width:49rem;
+      font-family:var(--font-display);
+      font-size:clamp(2.75rem,7vw,4.75rem); font-weight:700; letter-spacing:-.047em; line-height:.92; }
+    .weekly-range { margin:0 0 .25rem; color:var(--muted); text-align:right;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; line-height:1.65; }
+    .weekly-mark { display:flex; justify-content:flex-end; gap:4px; height:7px; margin:.75rem 0 0; }
+    .weekly-mark span { width:2.7rem; background:var(--accent); border-radius:99px; }
+    .weekly-mark span:nth-child(2) { width:1.7rem; background:var(--signal); border-radius:99px; }
+    .weekly-mark span:nth-child(3) { width:.9rem; background:var(--warm); border-radius:99px; }
+    .intro { display:grid; grid-template-columns:minmax(16rem,.75fr) minmax(0,1.25fr);
+      gap:1.5rem 2.4rem; padding:1.5rem; margin:0 0 1.6rem;
+      border:1px solid var(--border); border-radius:8px; background:var(--card); font-size:.98rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01); }
+    .intro .tldr { grid-column:1; grid-row:1 / span 8; margin:0; padding:0; border:0; }
+    .intro > p { grid-column:2; margin:0 0 .8rem; line-height:1.64; }
+    .intro > p:last-child { margin-bottom: 0; }
+    .tldr-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem;
+      font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+    .tldr ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.62rem; }
+    .tldr li { position:relative; padding-left:1rem; font-size:.87rem; line-height:1.48; }
+    .tldr li::before { content:""; position:absolute; left:0; top:.45rem; width:6px; height:6px;
+      border-radius:50%; background:var(--warm); }
+
+    /* Weekly Focus Widget */
+    .weekly-focus-widget {
+      margin: 0 0 1.6rem;
+      padding: 1.25rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+    }
+    .focus-bar {
+      display: flex;
+      height: 8px;
+      border-radius: 99px;
+      overflow: hidden;
+      background: var(--border);
+      margin-bottom: 1rem;
+    }
+    .focus-segment {
+      height: 100%;
+      transition: opacity 0.15s ease;
+    }
+    .focus-segment:hover {
+      opacity: 0.85;
+    }
+    .focus-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      text-decoration: none;
+      color: var(--fg);
+      font-size: 0.75rem;
+      transition: color 0.15s ease;
+    }
+    .legend-item:hover {
+      color: var(--accent);
+    }
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .legend-name {
+      font-weight: 500;
+    }
+    .legend-count {
+      color: var(--muted);
+      font-family: ui-monospace, monospace;
+      font-size: 0.7rem;
+    }
+
+    /* Sticky Category/View Mode Navigation Bar */
+    .toc {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-glass, rgba(245, 247, 250, 0.9));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      margin: 1.5rem 0 2rem;
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    html[data-theme="dark"] .toc {
+      background: var(--bg-glass, rgba(17, 21, 28, 0.9));
+    }
+    .toc-links {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 2px;
+    }
+    .toc-links::-webkit-scrollbar {
+      display: none;
+    }
+    .toc a {
+      font-family: ui-monospace, monospace;
+      font-size: 0.68rem;
+      text-decoration: none;
+      color: var(--muted);
+      padding: 0.35rem 0.65rem;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .toc a:hover, .toc a.active {
+      color: var(--accent);
+      background: var(--week-wash);
+      border-color: color-mix(in srgb, var(--accent) 20%, transparent);
+    }
+    .view-mode-selector {
+      display: inline-flex;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 2px;
+      flex-shrink: 0;
+    }
+    .view-btn {
+      font-family: ui-monospace, monospace;
+      font-size: 0.65rem;
+      padding: 0.3rem 0.65rem;
+      border: none;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+    .view-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+    }
+    html[data-theme="dark"] .view-btn.active {
+      color: var(--week-ink);
+    }
+
+    .cat { position:relative; margin-bottom:4rem; padding-left:1.4rem; scroll-margin-top:4rem; }
+    .cat::before { content:""; position:absolute; left:0; top:.1rem; bottom:0; width:4px; border-radius:2px; background:var(--accent); }
+    .cat:nth-of-type(3n+1)::before { background:var(--signal); }
+    .cat:nth-of-type(3n+2)::before { background:var(--warm); }
+    .cat h2 { margin:0; padding:0 0 .8rem; border-bottom:1px solid var(--border);
+      font-family:var(--font-display); font-size:1.85rem; line-height:1; }
+    .cat h2 .count { display:block; margin-top:.45rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.64rem; font-weight:400; color:var(--muted); }
+    .cat-summary { margin:.85rem 0 .2rem; max-width:48rem; color:var(--fg); font-size:1rem; line-height:1.58; }
+    
+    .articles { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; }
+    article { display:flex; flex-direction:column; justify-content:space-between; padding:1.25rem;
+      border:1px solid var(--border); border-radius:8px; background:var(--card);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+    article:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-color: color-mix(in srgb, var(--accent) 30%, var(--border)); }
+    article h3 { margin:0 0 .5rem; font-family:var(--font-display);
+      font-size:1.15rem; line-height:1.25; font-weight:600; }
+    article h3 a { text-decoration: none; color: var(--fg); transition: color 0.15s ease; }
+    article h3 a:hover { color:var(--accent); }
+    .art-meta { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:0 0 .75rem; }
+    .badge { display:inline-flex; align-items:center; padding:0.15rem 0.45rem; border:1px solid var(--border);
+      border-radius:4px; background:var(--week-wash); color:var(--muted);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.62rem; font-weight:500; }
+    .art-summary { margin:0; font-size:.88rem; line-height:1.55; color:var(--fg); flex-grow:1; }
+    .playbook-takeaway { margin: 1rem 0 0; padding: 1rem; border: 1px solid var(--border);
+      border-left: 3px solid var(--accent); border-radius: 6px; background: var(--week-wash);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .playbook-takeaway:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); }
+    .playbook-label { display: flex; align-items: center; gap: 0.35rem; margin: 0 0 0.75rem;
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+    .playbook-label::before { content: "💡"; font-size: 0.8rem; }
+    .playbook-takeaway p { margin: 0 0 0.65rem; font-size: 0.8rem; line-height: 1.5; }
+    .playbook-takeaway p:last-of-type { margin-bottom: 0.75rem; }
+    .playbook-takeaway p span { display: block; margin-bottom: 0.2rem;
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .playbook-apply { padding: 0.6rem 0.75rem; border: 1px solid var(--border); border-radius: 4px;
+      background: var(--card); font-size: 0.82rem !important; }
+    .playbook-apply span { color: var(--accent) !important; }
+    .playbook-links { display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem;
+      padding-top: 0.6rem; border-top: 1px solid var(--border); font-size: 0.7rem; }
+    .playbook-links span { display: inline !important; margin: 0 !important; font-family: ui-monospace, "SFMono-Regular", monospace;
+      font-size: 0.6rem; font-weight: 700; text-transform: uppercase; color: var(--muted); }
+    .playbook-links a { font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.68rem;
+      text-decoration: none; font-weight: 600; }
+    .weekly-close { display:flex; align-items:center; gap:.8rem; margin:3rem 0 .6rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--accent);
+      letter-spacing:.06em; text-transform:uppercase; }
+    .weekly-close::before, .weekly-close::after { content: ""; height: 1px; flex: 1; background: var(--border); }
+    .subscribe-cta { border:0; border-left:3px solid var(--accent); border-radius:0;
+      background:var(--week-wash); color:var(--week-ink); }
+
+    .art-toggle-btn { display: none; }
+
+    /* Scan Mode overrides */
+    .scan-mode .articles { grid-template-columns: 1fr; gap: 0.75rem; }
+    .scan-mode article { flex-direction: row; align-items: center; justify-content: space-between;
+      gap: 1.5rem; padding: 0.75rem 1rem; min-height: auto; }
+    .scan-mode article h3 { margin: 0; font-size: 0.95rem; line-height: 1.3; flex: 1; }
+    .scan-mode article .art-meta { margin: 0; flex-shrink: 0; }
+    .scan-mode article .art-summary,
+    .scan-mode article .playbook-takeaway { display: none; width: 100%; margin-top: 0.75rem; }
+    .scan-mode .art-toggle-btn { display: inline-flex; align-items: center;
+      font-family: ui-monospace, monospace; font-size: .62rem; padding: .12rem .35rem;
+      border: 1px solid var(--border); border-radius: 3px; background: transparent; cursor: pointer; }
+    .scan-mode .art-toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
+    
+    /* Expanded article in scan mode */
+    .scan-mode article.expanded { flex-direction: column; align-items: flex-start; }
+    .scan-mode article.expanded h3 { width: 100%; margin-bottom: 0.5rem; }
+    .scan-mode article.expanded .art-meta { margin-bottom: 0.75rem; }
+    .scan-mode article.expanded .art-summary { display: block; }
+    .scan-mode article.expanded .playbook-takeaway { display: block; }
+
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .weekly-hero { grid-template-columns:1fr; gap:.85rem; margin-top:1.75rem; }
+      .weekly-hero .recap-title { font-size:3rem; }
+      .weekly-range { text-align:left; }
+      .weekly-mark { justify-content:flex-start; }
+      .intro { grid-template-columns:1fr; gap:1.1rem; }
+      .intro .tldr, .intro > p { grid-column:1; grid-row:auto; }
+      .toc { flex-direction: column; align-items: stretch; gap: 0.75rem; padding: 0.5rem 0; }
+      .toc-links { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        padding-bottom: 2px; -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%); }
+      .toc-links::-webkit-scrollbar { display: none; }
+      .view-mode-selector { align-self: flex-start; }
+      .cat { padding-left:1rem; }
+      .articles { grid-template-columns:1fr; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/weekly">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>AI Weekly Recap</h1>
+        <p id="meta" class="muted">34 articles · 5 categories</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly" aria-current="page">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Agent Know-How</a>
+        <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a href="/api/weekly?week=2026-W42">View as JSON</a>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/weekly/2026-W42" data-share-title="What happened in AI — Oct 10–16, 2026">Share this page</button>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+
+<div class="site-context" aria-label="Choose week"><a href="/weekly/2026-W41" aria-label="Previous week: 2026-W41 · What happened in AI — Oct 3–9, 2026">‹</a><label class="archive muted"><span>Week</span><select id="archive" aria-label="Choose week"><option value="/weekly/2026-W42" selected>2026-W42 · What happened in AI — Oct 10–16, 2026</option><option value="/weekly/2026-W41">2026-W41 · What happened in AI — Oct 3–9, 2026</option><option value="/weekly/2026-W40">2026-W40 · What happened in AI — Sep 26 – Oct 2, 2026</option><option value="/weekly/2026-W39">2026-W39 · What happened in AI — Sep 19–25, 2026</option><option value="/weekly/2026-W38">2026-W38 · What happened in AI — Sep 12–18, 2026</option><option value="/weekly/2026-W37">2026-W37 · What happened in AI — Sep 5–11, 2026</option><option value="/weekly/2026-W36">2026-W36 · What happened in AI — Aug 29 – Sep 4, 2026</option><option value="/weekly/2026-W35">2026-W35 · What happened in AI — Aug 22–28, 2026</option><option value="/weekly/2026-W34">2026-W34 · What happened in AI — Aug 15–21, 2026</option><option value="/weekly/2026-W33">2026-W33 · What happened in AI — Aug 8–14, 2026</option><option value="/weekly/2026-W32">2026-W32 · What happened in AI — Aug 1–7, 2026</option><option value="/weekly/2026-W31">2026-W31 · What happened in AI — Jul 25–31, 2026</option><option value="/weekly/2026-W30">2026-W30 · What happened in AI — Jul 18-24, 2026</option><option value="/weekly/2026-W29">2026-W29 · What happened in AI — Jul 11–17, 2026</option><option value="/weekly/2026-W28">2026-W28 · What happened in AI — Jul 4–10, 2026</option><option value="/weekly/2026-W27">2026-W27 · What happened in AI — Jun 27 – Jul 3, 2026</option><option value="/weekly/2026-W26">2026-W26 · What happened in AI — Jun 21–27, 2026</option><option value="/weekly/2026-W25">2026-W25 · What happened in AI — Jun 15–21, 2026</option><option value="/weekly/2026-W24">2026-W24 · What happened in AI — Jun 7–13, 2026</option><option value="/weekly/2026-W23">2026-W23 · What happened in AI — Jun 1–7, 2026</option></select></label><span class="site-context-disabled" aria-hidden="true">›</span></div>
+    </header>
+
+    <section id="recap">
+      <section class="weekly-hero"><div><p class="weekly-kicker">Weekly pattern report</p><h2 class="recap-title">5 shifts that shaped AI this week</h2></div><div><p class="weekly-range">2026-10-10 → 2026-10-16<br>2026-W42 · 34 articles reviewed</p><div class="weekly-mark" aria-hidden="true"><span></span><span></span><span></span></div></div></section>
+      <!-- range is included in the custom hero -->
+      <div class="intro"><div class="tldr"><p class="tldr-label">The week in signals</p><ul><li>AI coding agents raise code volume, but human review absorbs the gain.</li><li>LangChain harness engineering took its coding agent from Top 30 to Top 5 on Terminal Bench.</li><li>Open models GLM-5 and MiniMax M2.7 match closed frontier models on core agent tasks.</li><li>vLLM shipped day-0 Reflection Beam (501B total, 23B active) and a 3.3× TTFT cut for multi-turn KV reuse.</li><li>Anthropic reports quarterly revenue up nearly 50% to $16.8bn; Modal raised $750M at $1B run rate.</li></ul></div><p>Agent builders&#x27; bottleneck moved from generating code to trusting and reviewing it. A study found AI coding agents produce more code but not more software, and Spotify and Anthropic both report merge volume outrunning their review and source-control systems.</p><p>The response is engineering discipline around the model: LangChain&#x27;s harness work lifted its coding agent from Top 30 to Top 5 on Terminal Bench, Grafana proposes SLOs for agent behavior, and AWS frames autonomy as five layers of trust.</p><p>Open-weight models are keeping pace: LangChain&#x27;s evals show GLM-5 and MiniMax M2.7 matching closed models on core agent tasks, and Reflection&#x27;s Beam had day-0 serving on vLLM and AWS.</p></div><div class="weekly-focus-widget"><div class="focus-bar"><div class="focus-segment" style="width: 23.5%; background: var(--accent);" title="Open Models &amp; the Serving Stack: 8 items"></div><div class="focus-segment" style="width: 17.6%; background: var(--signal);" title="Harness Engineering &amp; Evals: 6 items"></div><div class="focus-segment" style="width: 17.6%; background: var(--warm);" title="The Review Bottleneck: 6 items"></div><div class="focus-segment" style="width: 20.6%; background: var(--turn);" title="Agent Trust, Security &amp; Governance: 7 items"></div><div class="focus-segment" style="width: 20.6%; background: var(--muted);" title="Frontier Models, Capital &amp; Infrastructure: 7 items"></div></div><div class="focus-legend"><a href="#open-models-serving" class="legend-item"><span class="legend-dot" style="background: var(--accent);"></span><span class="legend-name">Open Models &amp; the Serving Stack</span><span class="legend-count">8 (24%)</span></a><a href="#harness-engineering-evals" class="legend-item"><span class="legend-dot" style="background: var(--signal);"></span><span class="legend-name">Harness Engineering &amp; Evals</span><span class="legend-count">6 (18%)</span></a><a href="#review-bottleneck" class="legend-item"><span class="legend-dot" style="background: var(--warm);"></span><span class="legend-name">The Review Bottleneck</span><span class="legend-count">6 (18%)</span></a><a href="#agent-trust-governance" class="legend-item"><span class="legend-dot" style="background: var(--turn);"></span><span class="legend-name">Agent Trust, Security &amp; Governance</span><span class="legend-count">7 (21%)</span></a><a href="#frontier-capital-infra" class="legend-item"><span class="legend-dot" style="background: var(--muted);"></span><span class="legend-name">Frontier Models, Capital &amp; Infrastructure</span><span class="legend-count">7 (21%)</span></a></div></div>
+      <nav class="toc"><div class="toc-links"><a href="#open-models-serving">Open Models &amp; the Serving Stack (8)</a><a href="#harness-engineering-evals">Harness Engineering &amp; Evals (6)</a><a href="#review-bottleneck">The Review Bottleneck (6)</a><a href="#agent-trust-governance">Agent Trust, Security &amp; Governance (7)</a><a href="#frontier-capital-infra">Frontier Models, Capital &amp; Infrastructure (7)</a></div><div class="view-mode-selector"><button id="toggle-detailed" class="view-btn active" type="button">Detailed</button><button id="toggle-scan" class="view-btn" type="button">Scan</button></div></nav><section class="cat" id="open-models-serving"><h2>Open Models &amp; the Serving Stack <span class="count">8 items</span></h2><p class="cat-summary">Open-weight agent models now ship with day-0 serving, and KV-cache transfer and local execution are the levers on latency and cost.</p><div class="articles"><article><h3><a href="https://aws.amazon.com/blogs/machine-learning/introducing-reflection-beam-an-open-weight-model-for-agentic-coding-on-aws/" target="_blank" rel="noopener" data-track="weekly-link">Introducing Reflection Beam: an open-weight model for agentic coding on AWS</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><a class="badge" href="/story/4f379e8b58549775" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Reflection&#x27;s open-weight Beam coding model can be deployed on AWS via a SageMaker JumpStart real-time endpoint.</p></article><article><h3><a href="https://vllm.ai/blog/2026-10-16-reflection-beam" target="_blank" rel="noopener" data-track="weekly-link">Serving Reflection Beam on vLLM from Day 0</a></h3><div class="art-meta"><span class="badge">vllm_blog</span><a class="badge" href="/story/5726df15bb134984" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">vLLM serves Beam-1.0 (501B total, 23B active) from day 0; agent-driven tuning cut decode latency 2.71×.</p></article><article><h3><a href="https://vllm.ai/blog/2026-10-16-kimi-k3-mi355x" target="_blank" rel="noopener" data-track="weekly-link">Scaling Kimi K3 on AMD Instinct MI355X: Matching NVIDIA HGX B300 Throughput per GPU on AgentX</a></h3><div class="art-meta"><span class="badge">vllm_blog</span><a class="badge" href="/story/83c8b3ad5c31c776" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">vLLM write-up on Kimi K3 on AMD MI355X, aiming to match NVIDIA HGX B300 throughput per GPU.</p></article><article><h3><a href="https://vllm.ai/blog/2026-10-15-nemotron-3-5-super-vl-vllm" target="_blank" rel="noopener" data-track="weekly-link">Announcing Day 0 Support for NVIDIA Nemotron 3.5 Super VL on vLLM</a></h3><div class="art-meta"><span class="badge">vllm_blog</span><a class="badge" href="/story/5b7496a31dc4a921" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">vLLM ships day-0 Nemotron 3.5 Super VL serving with OpenAI-compatible APIs and multi-token prediction.</p></article><article><h3><a href="https://www.langchain.com/blog/open-models-have-crossed-a-threshold" target="_blank" rel="noopener" data-track="weekly-link">Open Models have crossed a threshold</a></h3><div class="art-meta"><span class="badge">langchain_blog</span><a class="badge" href="/story/40a221f953410175" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">LangChain evals: GLM-5 and MiniMax M2.7 match closed frontier models on file ops, tool use and instruction following at lower cost and latency.</p></article><article><h3><a href="https://vllm.ai/blog/2026-10-14-nixl-push-connector" target="_blank" rel="noopener" data-track="weekly-link">Push-Based KV Transfer to Improve TTFT and TPOT for Disaggregated Inference in vLLM</a></h3><div class="art-meta"><span class="badge">vllm_blog</span><a class="badge" href="/story/1107544142791aef" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">A push-based NIXL connector writes prefill KV straight into decode memory over RDMA, taking the router relay off the TTFT critical path.</p></article><article><h3><a href="https://vllm.ai/blog/2026-10-12-bidirectional-kvxfer-multiturn-agentic-workload" target="_blank" rel="noopener" data-track="weekly-link">Improve TTFT for Multi-Turn Agentic Workloads with Bi-Directional KV Transfer in vLLM</a></h3><div class="art-meta"><span class="badge">vllm_blog</span><a class="badge" href="/story/bfe6eaadf6028df8" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Bi-directional KV transfer lets prefill nodes reuse earlier-turn KV, cutting TTFT up to 3.3× on long multi-turn workloads.</p><aside class="playbook-takeaway" aria-label="Playbook takeaway"><p class="playbook-label">Playbook takeaway</p><p class="playbook-problem"><span>Problem</span>Disaggregated serving recomputes prefill for the whole conversation on every agent turn, so time-to-first-token grows with history.</p><p class="playbook-apply"><span>Apply</span>If you run vLLM with separate prefill and decode nodes, enable bi-directional KV transfer so prefill nodes pull previously computed KV back from decode nodes instead of recomputing it. Benchmark it on your longest multi-turn traces first.</p><p class="playbook-result"><span>Expected</span>vLLM reports up to 3.3x lower TTFT on long multi-turn prompts.</p><p class="playbook-links"><span>Source measured</span><a href="/playbook?date=2026-10-13" data-track="weekly-playbook">Open guide →</a></p></aside></article><article><h3><a href="https://www.infoq.com/news/2026/10/antigravity-sdk-local-models/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="weekly-link">Google Antigravity SDK Adds Local Model Support for Greater Token Efficiency and Code Privacy</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/72f3ee5066aaa64d" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Antigravity SDK now runs agentic workflows on local models, with optional cloud models mixed in, for token savings and code privacy.</p></article></div></section><section class="cat" id="harness-engineering-evals"><h2>Harness Engineering &amp; Evals <span class="count">6 items</span></h2><p class="cat-summary">Agent quality is increasingly won in the harness: verification, context management and measurable behavior targets.</p><div class="articles"><article><h3><a href="https://www.langchain.com/blog/improving-deep-agents-with-harness-engineering" target="_blank" rel="noopener" data-track="weekly-link">Improving Deep Agents with harness engineering</a></h3><div class="art-meta"><span class="badge">langchain_blog</span><a class="badge" href="/story/2e12fd56c15d4708" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Self-verification, tracing and context tuning moved LangChain&#x27;s coding agent from Top 30 to Top 5 on Terminal Bench.</p><aside class="playbook-takeaway" aria-label="Playbook takeaway"><p class="playbook-label">Playbook takeaway</p><p class="playbook-problem"><span>Problem</span>Coding-agent scores often stall because the harness, not the model, is the weak link.</p><p class="playbook-apply"><span>Apply</span>Add a verification step that makes the agent check its work against the task spec before finishing, trace every run, and use the traces to trim context that distracts the agent.</p><p class="playbook-result"><span>Expected</span>LangChain moved its coding agent from Top 30 to Top 5 on Terminal Bench with harness changes alone.</p><p class="playbook-links"><span>Source measured</span><a href="/playbook?date=2026-10-16" data-track="weekly-playbook">Open guide →</a></p></aside></article><article><h3><a href="https://www.langchain.com/blog/context-engineering-deep-agents-remember" target="_blank" rel="noopener" data-track="weekly-link">Context Engineering with Deep Agents: How To Remember Without Keeping Everything In Context</a></h3><div class="art-meta"><span class="badge">langchain_blog</span><span class="badge">Oct 14</span><a class="badge" href="/story/eeb5997da7760442" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Offloading, summarization, skills, subagents and memory keep long-running agent context focused instead of piling up.</p><aside class="playbook-takeaway" aria-label="Playbook takeaway"><p class="playbook-label">Playbook takeaway</p><p class="playbook-problem"><span>Problem</span>Long-running agents degrade as tool outputs and history pile up in the context window.</p><p class="playbook-apply"><span>Apply</span>Write large tool results to files and keep a pointer, summarize older turns at a threshold, and move specialized work into subagents so each context stays focused.</p><p class="playbook-result"><span>Expected</span>The agent keeps working on the current step without drowning in stale output, and token use per turn drops.</p><p class="playbook-links"><span>Editorial inference</span><a href="/playbook?date=2026-10-16" data-track="weekly-playbook">Open guide →</a></p></aside></article><article><h3><a href="https://www.langchain.com/blog/common-questions-about-agent-evals" target="_blank" rel="noopener" data-track="weekly-link">The Most Common Questions About Agent Evals, Answered</a></h3><div class="art-meta"><span class="badge">langchain_blog</span><span class="badge">Oct 15</span><a class="badge" href="/story/7b591106b0be81dc" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Practical answers on offline vs online evals, LLM judges, multi-turn evals and keeping eval costs down.</p><aside class="playbook-takeaway" aria-label="Playbook takeaway"><p class="playbook-label">Playbook takeaway</p><p class="playbook-problem"><span>Problem</span>Offline test sets miss the failure modes real users trigger, and judge runs get expensive fast.</p><p class="playbook-apply"><span>Apply</span>Keep a small offline suite as a release gate, run cheap code-based evaluators on every production trace, and reserve LLM judges for a sampled subset and multi-turn conversations.</p><p class="playbook-result"><span>Expected</span>Regressions surface from real traffic while judge spend stays bounded.</p><p class="playbook-links"><span>Editorial inference</span><a href="/playbook?date=2026-10-16" data-track="weekly-playbook">Open guide →</a></p></aside></article><article><h3><a href="https://www.infoq.com/news/2026/10/context-language-models/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="weekly-link">Context Language Models: Self-Managing Context to Improve Performance and Reduce Compute Costs</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/ef645fe4269a2e1f" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Meta, MIT and UW researchers propose Context Language Models that edit their own context instead of using fixed rules.</p><aside class="playbook-takeaway" aria-label="Playbook takeaway"><p class="playbook-label">Playbook takeaway</p><p class="playbook-problem"><span>Problem</span>Fixed context-management rules (truncate, summarize at N tokens) drop useful state and keep stale state.</p><p class="playbook-apply"><span>Apply</span>In a long-horizon agent, add a tool that lets the model delete or rewrite its own earlier context blocks, and compare against your current truncation rule on the same tasks.</p><p class="playbook-result"><span>Expected</span>The researchers report better performance and lower compute; verify on your own tasks before adopting.</p><p class="playbook-links"><span>Source claim</span><a href="/playbook?date=2026-10-13" data-track="weekly-playbook">Open guide →</a></p></aside></article><article><h3><a href="https://www.latent.space/p/claude-dynamic-workflows" target="_blank" rel="noopener" data-track="weekly-link">How Anthropic’s Dynamic Workflows Coordinate Claude Agents</a></h3><div class="art-meta"><span class="badge">latent_space</span><a class="badge" href="/story/e71374164f2cb1ad" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Anthropic&#x27;s AI Engineer NYC talk applies Unix and Linux lessons to coordinating agents on larger projects.</p></article><article><h3><a href="https://www.infoq.com/news/2026/10/grafana-slo-ai-agent/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="weekly-link">Grafana Applies SLOs and Error Budgets to AI Agent Behaviour</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/d771557f3f2a708f" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Grafana proposes SLOs and error budgets as the way to measure whether an AI agent is behaving well.</p></article></div></section><section class="cat" id="review-bottleneck"><h2>The Review Bottleneck <span class="count">6 items</span></h2><p class="cat-summary">Agents raise code volume faster than humans can review it, forcing changes to review, source control and test trust.</p><div class="articles"><article><h3><a href="https://arstechnica.com/ai/2026/10/ai-coding-agents-generate-more-code-but-not-more-software/" target="_blank" rel="noopener" data-track="weekly-link">Study on AI coding agents finds gains &quot;absorbed&quot; by human review &quot;bottleneck.&quot;</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/0c1c0b39505178a3" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">A study finds AI coding agents generate more code but not more software: gains are absorbed by the human review bottleneck.</p></article><article><h3><a href="https://claude.dev/blog/solving-code-review-at-anthropic/" target="_blank" rel="noopener" data-track="weekly-link">How the Claude Code team does code review</a></h3><div class="art-meta"><span class="badge">claude_dev_blog</span><a class="badge" href="/story/6d6f8ad0753534aa" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Claude Code team&#x27;s approach to reviewing agent-volume code: minimize human review time without raising reverts.</p></article><article><h3><a href="https://www.anthropic.com/engineering/redesigning-source-control" target="_blank" rel="noopener" data-track="weekly-link">Redesigning source control at Anthropic</a></h3><div class="art-meta"><span class="badge">anthropic_engineering</span><span class="badge">Oct 13</span><a class="badge" href="/story/56ee56e48ed29025" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Merges per day grew more than tenfold, so Anthropic moved to an in-house version control system in five months.</p></article><article><h3><a href="https://www.infoq.com/news/2026/10/spotify-ai-quality-controls/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="weekly-link">Spotify More Than Doubled Monthly Code Changes as AI Accelerated Development</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/04e8f1f704c84797" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">AI-assisted development more than doubled Spotify&#x27;s monthly merged changes, prompting new testing and reliability controls.</p></article><article><h3><a href="https://coldtake.dev/blog/bondsmith-hard-bonds-for-soft-claims" target="_blank" rel="noopener" data-track="weekly-link">My coding agent said &quot;all tests pass.&quot; They were never run</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/071b57e4971f2973" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">A case study of an agent claiming &#x27;all tests pass&#x27; when the tests were never run, and the hard checks that catch it.</p></article><article><h3><a href="https://www.infoq.com/news/2026/10/ai-systems-production/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="weekly-link">AI in Production: Panellists Highlight Silent Failures, Harness Engineering, and Agent Governance</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/00cb32f585ce77bc" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">InfoQ panel flags silent failures, semantic and embedding drift, harness engineering and agent governance in production.</p></article></div></section><section class="cat" id="agent-trust-governance"><h2>Agent Trust, Security &amp; Governance <span class="count">7 items</span></h2><p class="cat-summary">Autonomy is being granted in layers, with banks, clouds and labs adding bounds, observation and external checks.</p><div class="articles"><article><h3><a href="https://www.ft.com/content/f49c8e39-f07f-4177-9948-aabe55e5ed91" target="_blank" rel="noopener" data-track="weekly-link">Citi becomes latest US bank to restrict AI agents from accessing accounts</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/576bb37b8edc81a2" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Citi joins other US banks in restricting AI agents from accessing customer accounts.</p></article><article><h3><a href="https://aws.amazon.com/blogs/machine-learning/trust-in-depth-giving-agents-more-autonomy-without-losing-control/" target="_blank" rel="noopener" data-track="weekly-link">Trust in Depth: Giving agents more autonomy without losing control</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><a class="badge" href="/story/ee4bdfee28f7d805" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">AWS&#x27;s Trust in Depth frames agent autonomy as five layers: scope, know, bound, observe, prove.</p></article><article><h3><a href="https://www.infoq.com/news/2026/10/aws-strands-agents/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="weekly-link">AWS Introduces Strands Decider 2B and Strands Box for AI Agent Development</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/3d6788fcf32810bb" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">AWS open-sources Strands Decider 2B, a small decision model for agent workflows, and Strands Box, a sandbox for controlling execution.</p></article><article><h3><a href="https://blog.cloudflare.com/verified-bots-accountability/" target="_blank" rel="noopener" data-track="weekly-link">Continuous accountability for Verified bots</a></h3><div class="art-meta"><span class="badge">cloudflare_blog</span><a class="badge" href="/story/3af11c035bde63da" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Cloudflare will continuously check whether Verified bots honor robots.txt and HTTP 429s, not just verify identity once.</p></article><article><h3><a href="https://www.anthropic.com/news/an-update-on-independent-evaluators" target="_blank" rel="noopener" data-track="weekly-link">Anthropic update on independent evaluators</a></h3><div class="art-meta"><span class="badge">anthropic_newsroom</span><span class="badge">Oct 15</span><a class="badge" href="/story/c3f9aa1e97f35f24" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Anthropic announces updates to how it embeds independent evaluators.</p></article><article><h3><a href="https://github.blog/ai-and-ml/githubs-model-for-secret-detection-finding-more-secrets-with-less-noise/" target="_blank" rel="noopener" data-track="weekly-link">GitHub’s model for secret detection: Finding more secrets with less noise</a></h3><div class="art-meta"><span class="badge">github_blog_ai_ml</span><a class="badge" href="/story/532983178914e715" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">GitHub&#x27;s context-aware secret classifier raises weighted acceptance 11.5% and cuts median scan time 86%.</p></article><article><h3><a href="https://www.latent.space/p/crossing-the-threshold" target="_blank" rel="noopener" data-track="weekly-link">Crossing the Threshold: How OpenAI and Anthropic Approach Autonomy and Safety in Financial Agents</a></h3><div class="art-meta"><span class="badge">latent_space</span><a class="badge" href="/story/247153705736c57d" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">AI Engineer NYC session on giving financial agents useful autonomy while keeping consequential decisions under human control.</p></article></div></section><section class="cat" id="frontier-capital-infra"><h2>Frontier Models, Capital &amp; Infrastructure <span class="count">7 items</span></h2><p class="cat-summary">Frontier launches coincide with large revenue and funding figures and continued inference-infrastructure investment.</p><div class="articles"><article><h3><a href="https://deepmind.google/blog/introducing-gemini-4-argon/" target="_blank" rel="noopener" data-track="weekly-link">Gemini 4 Argon: Built to solve your hardest problems</a></h3><div class="art-meta"><span class="badge">google_deepmind_blog</span><a class="badge" href="/story/4e31b829ae688591" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Google DeepMind&#x27;s Gemini 4 Argon is announced as its model for the hardest problems.</p></article><article><h3><a href="https://www.latent.space/p/ainews-meta-muse-wonder-and-wonder" target="_blank" rel="noopener" data-track="weekly-link">[AINews] Meta Muse Wonder &amp; Wonder Full: MSL’s Claude 5.5-tier Frontier Model</a></h3><div class="art-meta"><span class="badge">latent_space</span><a class="badge" href="/story/21096782dd6c13ae" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Latent Space AINews rates Meta&#x27;s Muse Wonder as Meta Superintelligence Labs&#x27; arrival as a frontier lab, at Claude 5.5 tier.</p></article><article><h3><a href="https://simonwillison.net/2026/Oct/15/anthropic-tells-investors/" target="_blank" rel="noopener" data-track="weekly-link">Anthropic tells investors quarterly revenue up nearly 50% to $16.8bn ahead of IPO</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Oct 15</span><a class="badge" href="/story/e58311dcd1376969" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Anthropic told investors quarterly revenue rose nearly 50% to $16.8bn ahead of a planned IPO.</p></article><article><h3><a href="https://modal.com/blog/1-billion-annualized-run-rate-series-d" target="_blank" rel="noopener" data-track="weekly-link">Modal crosses $1B in Annualized Run Rate and raises $750M Series D</a></h3><div class="art-meta"><span class="badge">modal_blog</span><span class="badge">Oct 14</span><a class="badge" href="/story/b54b83abf2f3608c" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Modal crossed $1B annualized run rate and raised a $750M Series D led by Accel for AI application infrastructure.</p></article><article><h3><a href="https://www.infoq.com/news/2026/10/azure-maia-300/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="weekly-link">Microsoft Commits Maia to Multi-Gigawatt Inference, and Its Efficiency Metric Draws Questions</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/82f38701446a4556" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Microsoft will scale Maia to multi-gigawatt deployments from 2027 as its primary inference system, though its efficiency metric draws questions.</p></article><article><h3><a href="https://modal.com/blog/vm-sandbox-filesystem" target="_blank" rel="noopener" data-track="weekly-link">Building fast filesystems for VMs</a></h3><div class="art-meta"><span class="badge">modal_blog</span><span class="badge">Oct 16</span><a class="badge" href="/story/8d5bdc6f51080dc6" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Modal speeds VM sandbox filesystems by exposing block-level rather than file-level access.</p></article><article><h3><a href="https://www.infoq.com/news/2026/10/cloudflare-traces-open-beta/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="weekly-link">Cloudflare Traces Turns the Proxy Layer into OpenTelemetry Spans, with New Volume-Based Pricing</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/c96d66505e1261e7" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Cloudflare Traces enters open beta, emitting proxy-layer steps as OpenTelemetry spans with volume-based pricing.</p></article></div></section><p class="weekly-close">The week, resolved into patterns</p><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Get next week’s recap by email.</strong><br><span class="muted">Plus the finishable daily brief every day.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="weekly_end" data-subscribe-inline>Get the email digest →</a></aside>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+          btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+
+      // Share this page: native share sheet when available, clipboard fallback.
+      // The canonical URL is the durable landing target, so shares keep working.
+      var share = document.querySelector('.menu-share');
+      if (share) {
+        share.addEventListener('click', function () {
+          var url = share.getAttribute('data-share-url') || location.href;
+          var title = share.getAttribute('data-share-title') || document.title;
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var done = function () {
+            var label = share.textContent;
+            share.textContent = '✓ Link copied';
+            share.classList.add('copied');
+            setTimeout(function () { share.textContent = label; share.classList.remove('copied'); }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done, function () {});
+          }
+        });
+      }
+    })();
+
+  const btnDetailed = document.getElementById('toggle-detailed');
+  const btnScan = document.getElementById('toggle-scan');
+  const recapEl = document.getElementById('recap');
+
+  if (btnDetailed && btnScan && recapEl) {
+    function setMode(mode) {
+      if (mode === 'scan') {
+        recapEl.classList.add('scan-mode');
+        btnScan.classList.add('active');
+        btnDetailed.classList.remove('active');
+        localStorage.setItem('weekly_view_mode', 'scan');
+      } else {
+        recapEl.classList.remove('scan-mode');
+        btnDetailed.classList.add('active');
+        btnScan.classList.remove('active');
+        localStorage.setItem('weekly_view_mode', 'detailed');
+      }
+    }
+
+    btnDetailed.addEventListener('click', () => setMode('detailed'));
+    btnScan.addEventListener('click', () => setMode('scan'));
+
+    const saved = localStorage.getItem('weekly_view_mode');
+    if (saved === 'scan') {
+      setMode('scan');
+    }
+  }
+
+  if (recapEl) {
+    recapEl.addEventListener('click', function (e) {
+      const btn = e.target.closest('.art-toggle-btn');
+      if (!btn) return;
+      const article = btn.closest('article');
+      if (!article) return;
+      const isExpanded = article.classList.toggle('expanded');
+      btn.textContent = isExpanded ? 'Collapse' : 'Expand';
+      btn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+    });
+  }
+
+  if (window.IntersectionObserver) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          document.querySelectorAll('.toc-links a').forEach(a => {
+            if (a.getAttribute('href') === '#' + id) {
+              a.classList.add('active');
+            } else {
+              a.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, {
+      rootMargin: '-10% 0px -75% 0px'
+    });
+
+    document.querySelectorAll('section.cat').forEach(section => {
+      observer.observe(section);
+    });
+  }
+  </script>
+
+  <script src="/nav-updates.js?v=20260910-editorial" defer></script>
+
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>
