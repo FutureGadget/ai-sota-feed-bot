@@ -1,14 +1,15 @@
 {
  "slug": "reflection-ai-releases-beam-an-american-open-weight-model",
  "label": "Reflection Beam",
- "item_count": 8,
+ "item_count": 9,
  "day_count": 4,
- "source_count": 3,
+ "source_count": 4,
  "first_seen": "2026-10-05T01:09:00+00:00",
- "last_updated": "2026-10-16T00:00:00+00:00",
+ "last_updated": "2026-10-16T15:23:10+00:00",
  "via_scout": true,
- "generated_at": "2026-10-16T15:03:53.259784+00:00",
+ "generated_at": "2026-10-16T20:03:45.344480+00:00",
  "sources": [
+  "aws_ml_blog",
   "latent_space",
   "search_cn_open_weight_labs",
   "vllm_blog"
@@ -112,6 +113,17 @@
      "sid": "5726df15bb134984",
      "published": "2026-10-16T00:00:00+00:00",
      "editor_note": "Official vLLM day-0 support, with the first published decode-latency figure."
+    },
+    {
+     "title": "Introducing Reflection Beam: an open-weight model for agentic coding on AWS",
+     "url": "https://aws.amazon.com/blogs/machine-learning/introducing-reflection-beam-an-open-weight-model-for-agentic-coding-on-aws",
+     "source": "aws_ml_blog",
+     "type": "news",
+     "summary_1line": "Reflection AI's Beam is an open-weight model for agentic coding and long-horizon tasks. This post shows how to deploy Beam on AWS: start with an Amazon SageMaker JumpStart real-time endpoint, or use Amazon SageMaker H...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "4f379e8b58549775",
+     "published": "2026-10-16T15:23:10+00:00",
+     "editor_note": "AWS's first managed deployment path: SageMaker JumpStart real-time endpoint for agentic coding."
     }
    ]
   }
@@ -119,9 +131,9 @@
  "editorial": {
   "tldr": "Nvidia-backed Reflection AI was reported on Oct 5 to be preparing a \"DeepSeek of the West\" open model. Beam, a 501B-parameter model with 23B active, shipped Oct 6 and was framed against low-cost Chinese models.",
   "stale": false,
-  "whats_new": "On Oct 16, vLLM shipped day-0 serving for Beam-1.0 (501B total, 23B active), so the model is now deployable on a mainstream open inference stack.",
-  "why_it_matters": "Beam can now run on vLLM, so you can test it on your own serving stack; the reported Nvidia acquisition bid still leaves its license and release cadence unsettled.",
-  "take_for_builders": "Run Beam on vLLM against your open-weight eval shortlist, and pin the exact weights and license text you test until the ownership question is settled.",
+  "whats_new": "On Oct 16, AWS published a SageMaker deployment guide for Beam and vLLM shipped day-0 serving, so the 501B-A23B model now runs on both a managed endpoint and an open inference stack.",
+  "why_it_matters": "Beam can now be tested on a SageMaker JumpStart endpoint or your own vLLM stack; the reported Nvidia acquisition bid still leaves its license and release cadence unsettled.",
+  "take_for_builders": "Run Beam on vLLM or a SageMaker JumpStart endpoint against your open-weight eval shortlist, and pin the exact weights and license text you test until the ownership question is settled.",
   "beats": [
    {
     "kicker": "PRE-RELEASE",
@@ -161,19 +173,20 @@
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "vLLM adds day-0 Beam-1.0 serving",
-    "summary": "vLLM reports a 2.71× decode-latency cut from agent-driven optimization, plus DFlash2 speculative decoding.",
+    "headline": "vLLM and AWS add Beam-1.0 deployment paths",
+    "summary": "vLLM reports a 2.71× decode-latency cut from agent-driven optimization and DFlash2 speculative decoding; AWS documents a SageMaker JumpStart real-time endpoint.",
     "sids": [
-     "5726df15bb134984"
+     "5726df15bb134984",
+     "4f379e8b58549775"
     ]
    }
   ],
   "open_questions": [
    "How does Beam score against DeepSeek and Kimi on independent evals?",
-   "What license and inference cost does Beam ship with?",
+   "What license and per-token inference cost does Beam ship with on SageMaker and elsewhere?",
    "Does Nvidia confirm an acquisition, and does Beam's open-weight license change?",
    "Does the 2.71× vLLM decode speedup hold on hardware outside vLLM's own test setup?"
   ],
-  "generated_at": "2026-10-16T15:03:52+00:00"
+  "generated_at": "2026-10-16T20:10:00+00:00"
  }
 }
