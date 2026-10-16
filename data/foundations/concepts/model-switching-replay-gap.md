@@ -5,7 +5,7 @@ question: "Can you evaluate an agent's model router by replaying logged trajecto
 summary: "No. Forking live SWE-bench agent runs at a model swap shows 61-94% of later actions diverge from the log, leaving 3% of logged states valid, so replay evaluation mispredicted every outcome that depended on the swap."
 status: active
 cluster: evaluation
-updated: 2026-10-06
+updated: 2026-10-16
 audience: "strong-software-engineer"
 math_depth: ""
 related_topics: [agent-evaluation, agent-benchmarks, agent-cost]
@@ -19,6 +19,13 @@ evidence:
     sid: "4e6b8920803e5949"
     added: 2026-09-05
     note: "COLM 2026. Forks live SWE-bench trajectories at a model swap, rebuilds the sandbox, and compares against same-model control forks (~900 rollouts). Swaps rewrite 61-94% of post-fork actions; 74-77% of early swaps diverge on the first action versus 6-35% of controls; 3% of logged states stay valid. All five outcome flips occur in swap arms, none in 359 controls. A log-stitching replay evaluator mispredicts every swap-dependent outcome (0.00-0.11 patch similarity)."
+  - id: new-model-old-habits-2026
+    kind: theory-paper
+    title: "New Model, Old Habits: Behavior Transfer under Model Swapping in Multi-Session LLM Agents"
+    url: "https://arxiv.org/abs/2610.19712"
+    sid: "5ff62714bccfe1a7"
+    added: 2026-10-16
+    note: "Preprint. Studies multi-session agents that switch LLMs mid-history. The receiving model adopts reasoning and action patterns of the model that wrote the history; transfer is strongest with raw history and substantially reduced by summarization. Proposes DASH (direction- and authorship-aware summarization), which beats raw and naive-summary transfer in repeated swaps. The abstract gives no numbers."
   - id: model-switching-replay-gap-editorial-synthesis
     kind: editorial-inference
     title: "LLM Digest synthesis"
@@ -54,6 +61,7 @@ Three features of the measured divergence matter for builders:
 - **Evaluate with branching rollouts.** Fork at the decision point, run the swapped-in model against a real or faithfully rebuilt environment, and grade the outcome, not a diff against the log.
 - **Add a same-model control arm.** Without it, sampling noise and swap effects are indistinguishable.
 - **Sample early swap points heavily** if your router switches models early, where first-action divergence is highest.
+- **Decide what history crosses the swap.** A recipient imitates the habits in raw history it inherits; test summarized handoffs against raw ones, especially when a weaker model's history goes to a stronger one.
 - **Keep cost and correctness as separate claims.** Fewer frontier calls is measured correctly from logs; unchanged success rate needs live evidence. See [model routing](/foundations/agent-model-routing) for the cost side.
 
 ## Failure modes

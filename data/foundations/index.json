@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T10:08:46.469524+00:00",
+  "generated_at": "2026-10-16T18:15:47.452367+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -70,6 +70,15 @@
   ],
   "recent_evidence": [
     {
+      "concept": "model-switching-replay-gap",
+      "concept_title": "Can you evaluate an agent's model router by replaying logged trajectories?",
+      "id": "new-model-old-habits-2026",
+      "title": "New Model, Old Habits: Behavior Transfer under Model Swapping in Multi-Session LLM Agents",
+      "tier": "theory/paper-backed",
+      "kind": "theory-paper",
+      "added": "2026-10-16"
+    },
+    {
       "concept": "cyber-eval-sandbox-escapes",
       "concept_title": "Why do frontier models keep attacking real systems during cybersecurity evaluations?",
       "id": "anthropic-2026-10-unintended-model-actions",
@@ -131,15 +140,6 @@
       "tier": "benchmark/result-backed",
       "kind": "benchmark-result",
       "added": "2026-09-23"
-    },
-    {
-      "concept": "agentic-code-ci-scaling",
-      "concept_title": "Why does AI-generated code overwhelm your CI system, and what actually fixes it?",
-      "id": "anthropic-2026-ci-test-impact-analysis",
-      "title": "Agentic coding is straining CI. Here's how we scaled test impact analysis at Anthropic",
-      "tier": "primary-doc-backed",
-      "kind": "primary-doc",
-      "added": "2026-09-16"
     }
   ],
   "concepts": {
@@ -1918,8 +1918,8 @@
       "status": "active",
       "cluster": "evaluation",
       "cluster_label": "Evals and reliability",
-      "updated": "2026-10-06",
-      "latest_evidence_added": "2026-09-05",
+      "updated": "2026-10-16",
+      "latest_evidence_added": "2026-10-16",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -1941,7 +1941,7 @@
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li><strong>Discount replay-measured router accuracy.</strong> Treat it as unvalidated until confirmed with live rollouts.</li><li><strong>Evaluate with branching rollouts.</strong> Fork at the decision point, run the swapped-in model against a real or faithfully rebuilt environment, and grade the outcome, not a diff against the log.</li><li><strong>Add a same-model control arm.</strong> Without it, sampling noise and swap effects are indistinguishable.</li><li><strong>Sample early swap points heavily</strong> if your router switches models early, where first-action divergence is highest.</li><li><strong>Keep cost and correctness as separate claims.</strong> Fewer frontier calls is measured correctly from logs; unchanged success rate needs live evidence. See <a href=\"/foundations/agent-model-routing\">model routing</a> for the cost side.</li></ul>"
+          "html": "<ul><li><strong>Discount replay-measured router accuracy.</strong> Treat it as unvalidated until confirmed with live rollouts.</li><li><strong>Evaluate with branching rollouts.</strong> Fork at the decision point, run the swapped-in model against a real or faithfully rebuilt environment, and grade the outcome, not a diff against the log.</li><li><strong>Add a same-model control arm.</strong> Without it, sampling noise and swap effects are indistinguishable.</li><li><strong>Sample early swap points heavily</strong> if your router switches models early, where first-action divergence is highest.</li><li><strong>Decide what history crosses the swap.</strong> A recipient imitates the habits in raw history it inherits; test summarized handoffs against raw ones, especially when a weaker model&#x27;s history goes to a stronger one.</li><li><strong>Keep cost and correctness as separate claims.</strong> Fewer frontier calls is measured correctly from logs; unchanged success rate needs live evidence. See <a href=\"/foundations/agent-model-routing\">model routing</a> for the cost side.</li></ul>"
         },
         {
           "heading": "Failure modes",
@@ -1953,6 +1953,16 @@
         }
       ],
       "evidence": [
+        {
+          "id": "new-model-old-habits-2026",
+          "kind": "theory-paper",
+          "tier": "theory/paper-backed",
+          "title": "New Model, Old Habits: Behavior Transfer under Model Swapping in Multi-Session LLM Agents",
+          "note": "Preprint. Studies multi-session agents that switch LLMs mid-history. The receiving model adopts reasoning and action patterns of the model that wrote the history; transfer is strongest with raw history and substantially reduced by summarization. Proposes DASH (direction- and authorship-aware summarization), which beats raw and naive-summary transfer in repeated swaps. The abstract gives no numbers.",
+          "added": "2026-10-16",
+          "url": "https://arxiv.org/abs/2610.19712",
+          "sid": "5ff62714bccfe1a7"
+        },
         {
           "id": "gonuguntla-2026-replay-gap",
           "kind": "benchmark-result",
