@@ -1,45 +1,17 @@
 {
  "slug": "reinforcement-learning",
  "label": "Reinforcement Learning",
- "item_count": 4,
+ "item_count": 3,
  "day_count": 3,
- "source_count": 4,
- "first_seen": "2026-09-25T16:00:00+00:00",
- "last_updated": "2026-10-12T21:41:50+00:00",
- "generated_at": "2026-10-16T15:03:53.259784+00:00",
+ "source_count": 2,
+ "first_seen": "2026-10-01T17:14:32+00:00",
+ "last_updated": "2026-10-15T17:34:17+00:00",
+ "generated_at": "2026-10-17T20:11:39.555475+00:00",
  "sources": [
   "arxiv_cs_ai",
-  "aws_ml_blog",
-  "google_cloud_blog",
   "search_cn_open_weight_labs"
  ],
  "days": [
-  {
-   "date": "2026-09-25",
-   "items": [
-    {
-     "title": "Best practices guide for customizing Gemini models via Reinforcement Learning (RL)",
-     "url": "https://cloud.google.com/blog/topics/developers-practitioners/best-practices-guide-for-customizing-gemini-models",
-     "source": "google_cloud_blog",
-     "type": "news",
-     "summary_1line": "Reinforcement learning (RL) has been a keystone of modern LLM post-training, but it demands large training clusters and access to model internals that external customers can't have with proprietary models like Gemini....",
-     "why_it_matters": "Matches feed focus: agent, evaluation.",
-     "sid": "8c09c3a2477816c8",
-     "published": "2026-09-25T16:00:00+00:00",
-     "editor_note": "Google Cloud's best-practices guide for customizing Gemini models via RL without cluster-scale compute or model-internals access."
-    },
-    {
-     "title": "Scaling MoE reinforcement learning on Amazon EKS with EFA and DeepEP with 40% more throughput",
-     "url": "https://aws.amazon.com/blogs/machine-learning/scaling-moe-reinforcement-learning-on-amazon-eks-with-efa-and-deepep-with-40-more-throughput",
-     "source": "aws_ml_blog",
-     "type": "news",
-     "summary_1line": "Learn how to scale Mixture-of-Experts (MoE) reinforcement learning on Amazon EKS using Elastic Fabric Adapter (EFA) and DeepEP. This post presents an architecture that combines Amazon EKS, EFA, and Amazon S3 and incre...",
-     "sid": "95f314d9972fcd38",
-     "published": "2026-09-25T16:29:50+00:00",
-     "editor_note": "AWS reference architecture scaling MoE reinforcement learning on EKS with EFA and DeepEP for 40% more training throughput."
-    }
-   ]
-  },
   {
    "date": "2026-10-01",
    "items": [
@@ -52,7 +24,7 @@
      "why_it_matters": "Matches feed focus: agent, eval.",
      "sid": "c805ac88165186b6",
      "published": "2026-10-01T17:14:32+00:00",
-     "editor_note": "Arxiv paper on stabilizing RL advantage estimates under fully homomorphic encryption constraints."
+     "editor_note": "arXiv paper on stabilizing RL advantage estimates under fully homomorphic encryption constraints."
     }
    ]
   },
@@ -71,33 +43,31 @@
      "editor_note": "MarkTechPost's summary of Qwen's elastic RL approach for extra-long-horizon agents; the first long-horizon agent item in this thread."
     }
    ]
+  },
+  {
+   "date": "2026-10-15",
+   "items": [
+    {
+     "title": "X-RIC: An Agentic RAN-Intelligent Controller Benchmark for Enhancing Reinforcement Learning",
+     "url": "http://arxiv.org/abs/2610.22269v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "The O-RAN ALLIANCE introduces architectural flexibility through disaggregation and AI-driven control. While the RAN Intelligent Controller (RIC) enables centralized optimization, current AI approaches lack reasoning c...",
+     "why_it_matters": "Matches feed focus: agentic, evaluation.",
+     "sid": "db03100b1bd7cd3e",
+     "published": "2026-10-15T17:34:17+00:00",
+     "editor_note": "arXiv benchmark for RL in agentic O-RAN controllers; the only telecom-domain item in the thread."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Reinforcement Learning is a loose grouping of RL developments, not one developing story. Since Sep 25 it has collected Google Cloud and AWS production-scaling guides and a privacy-constrained RL paper.",
+  "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 1 it has collected a privacy-constrained RL paper, a Qwen long-horizon agent approach, and an O-RAN benchmark.",
   "stale": false,
-  "whats_new": "Alibaba Qwen introduced QwenGyre on Oct 12, an elastic reinforcement-learning approach for extra-long-horizon agents; the item is a MarkTechPost summary, not a primary release.",
-  "why_it_matters": "Teams running RL post-training have AWS and Google reference architectures plus a new long-horizon agent approach from Qwen to evaluate; the encrypted-training work remains research, not a production recipe.",
-  "take_for_builders": "Scaling MoE RL training? Start from the AWS EKS/EFA/DeepEP and Google Gemini RL guides. Wait for Qwen's primary QwenGyre release before planning around it, and treat the encrypted-data RL paper as research.",
+  "whats_new": "X-RIC, an arXiv benchmark for agentic RAN controllers, landed Oct 15 as a testbed for RL in O-RAN networks; it is a research benchmark, not a deployable system.",
+  "why_it_matters": "Nothing here is a production recipe: QwenGyre is a secondary-source report, the encrypted-training paper is research, and X-RIC targets telecom control rather than LLM post-training.",
+  "take_for_builders": "Wait for Qwen's primary QwenGyre release before planning around it, and treat the encrypted-data RL paper and X-RIC as research to track, not adopt.",
   "beats": [
-   {
-    "kicker": "GUIDE",
-    "tone": "neutral",
-    "headline": "Google Cloud publishes a best-practices guide for customizing Gemini via RL",
-    "summary": "Addresses the gap external customers face when they lack cluster-scale compute or model-internals access for proprietary models like Gemini.",
-    "sids": [
-     "8c09c3a2477816c8"
-    ]
-   },
-   {
-    "kicker": "INFRASTRUCTURE",
-    "tone": "neutral",
-    "headline": "AWS cuts MoE RL training overhead for 40% more throughput on EKS",
-    "summary": "A reference architecture combining Amazon EKS, EFA, and S3 to scale mixture-of-experts reinforcement-learning training.",
-    "sids": [
-     "95f314d9972fcd38"
-    ]
-   },
    {
     "kicker": "RESEARCH",
     "tone": "neutral",
@@ -115,14 +85,22 @@
     "sids": [
      "b508403b13597849"
     ]
+   },
+   {
+    "kicker": "BENCHMARK",
+    "tone": "now",
+    "headline": "X-RIC benchmarks agentic RAN controllers for reinforcement learning",
+    "summary": "Targets O-RAN controllers that need reasoning beyond standard AI-driven optimization.",
+    "sids": [
+     "db03100b1bd7cd3e"
+    ]
    }
   ],
   "open_questions": [
-   "Does Google's Gemini RL customization guide extend to models outside the Gemini family, or is it Gemini-specific tooling?",
-   "Does the AWS EKS/EFA/DeepEP throughput gain hold for MoE models smaller or larger than the benchmarked configuration?",
    "Does the Homomorphic Advantage Operator stay stable at realistic model sizes, or only on the small benchmarks in the paper?",
-   "Does Qwen publish QwenGyre weights, code, or benchmarks that show the elastic RL gain on long-horizon agent tasks?"
+   "Does Qwen publish QwenGyre weights, code, or benchmarks that show the elastic RL gain on long-horizon agent tasks?",
+   "Does X-RIC report RL baselines that beat conventional RIC optimization, or only define the task?"
   ],
-  "generated_at": "2026-10-13T20:04:04+00:00"
+  "generated_at": "2026-10-17T20:30:00+00:00"
  }
 }
