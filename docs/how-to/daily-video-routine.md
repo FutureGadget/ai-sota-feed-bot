@@ -41,7 +41,6 @@ request per scene, at most 8 scenes. `gemini_tts.py` falls back in quality order
 when a model's daily quota is spent: `gemini-3.8-flash-tts`,
 `gemini-3.1-flash-tts-preview`, `gemini-3.8-flash-lite-tts`,
 `gemini-2.5-flash-preview-tts` (2.5 returns raw PCM; the script wraps it as WAV).
->>>>>>> 1813f758342af4baafa9250af59d52c3965910f7
 
 ### Network access
 Allow `generativelanguage.googleapis.com` (secret hosts bypass the allowlist),
