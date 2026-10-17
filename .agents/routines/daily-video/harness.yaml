@@ -1,0 +1,27 @@
+schema_version: 1
+id: daily-video
+name: "[News Feed Management] Daily explainer video"
+description: Render, upload and attach the narrated explainer video for the newest daily recap.
+
+schedule:
+  # 07:00 KST - one hour after the daily recap routine (06:00 KST), so the
+  # recap is committed first. video_target.py picks the newest recap without a
+  # video, so a late recap run self-heals on the next day's run. Disabled until
+  # the cloud environment's secrets and network hosts are set up
+  # (docs/how-to/daily-video-routine.md).
+  cron: "0 7 * * *"
+  timezone: Asia/Seoul
+  enabled: false
+
+execution:
+  environment: cloud
+
+repository:
+  slug: FutureGadget/ai-sota-feed-bot
+  default_branch: main
+
+permissions:
+  git_push: unrestricted
+
+agent:
+  prompt_file: prompt.md

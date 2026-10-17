@@ -1,0 +1,328 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>LLM Digest daily explainer</title>
+<style>
+html,body{margin:0;background:#f4efe4;overflow:hidden}
+#stage{position:relative;width:1280px;height:720px;overflow:hidden;background:#f4efe4;
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;color:#15120f}
+.layer{position:absolute;inset:0}
+.abs{position:absolute}
+.serif{font-family:Georgia,"Times New Roman",serif}
+</style></head>
+<body><div id="stage"></div>
+<script>
+const W=1280,HT=720;
+const C={paper:'#f4efe4',ink:'#15120f',mute:'#6b645a',rule:'#cdc3ae',red:'#c4271c',card:'#fbf8f1',card2:'#ebe4d3'};
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const eo=x=>1-Math.pow(1-x,3);
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const eb=x=>{const c1=1.5,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const P=(lt,a,d,f=eo)=>f(cl((lt-a)/d));
+const lerp=(a,b,u)=>a+(b-a)*u;
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const TIMING=window.__TIMING__;
+
+/* ---------- svg primitives (push into S) ---------- */
+let S=[],H=[];
+function rect(x,y,w,h,o={}){const {fill='none',stroke='none',sw=2,r=10,op=1,dash=null}=o;
+  S.push(`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}" opacity="${op}"${dash?` stroke-dasharray="${dash}"`:''}/>`)}
+function txt(x,y,str,o={}){const {sz=22,fill=C.ink,anchor='middle',font='sans',wt=500,op=1,ls=0,lh=1.25,it=false}=o;
+  const fam=font==='serif'?'Georgia,serif':'"Helvetica Neue",Helvetica,Arial,sans-serif';
+  const lines=String(str).split('\n');
+  const t0=y-((lines.length-1)*sz*lh)/2;
+  S.push(`<text x="${x}" y="${t0}" font-size="${sz}" font-family='${fam}' font-weight="${wt}" fill="${fill}" text-anchor="${anchor}" opacity="${op}" letter-spacing="${ls}" dominant-baseline="central"${it?' font-style="italic"':''}>`+
+    lines.map((l,i)=>`<tspan x="${x}" dy="${i?sz*lh:0}">${esc(l)}</tspan>`).join('')+`</text>`)}
+function node(cx,cy,w,h,label,p,o={}){ // pop-in box with centered label
+  if(p<=0)return;const {fill=C.card,stroke=C.ink,sz=22,sub=null,tc=C.ink,dash=null,sw=2,r=12}=o;
+  const s=lerp(.6,1,p);
+  S.push(`<g transform="translate(${cx} ${cy}) scale(${s})" opacity="${cl(p*1.6)}">`);
+  rect(-w/2,-h/2,w,h,{fill,stroke,sw,r,dash});
+  if(sub){txt(0,-sz*.45,label,{sz,fill:tc,wt:700});txt(0,sz*.75,sub,{sz:sz*.62,fill:C.mute,wt:500})}
+  else txt(0,0,label,{sz,fill:tc,wt:700});
+  S.push('</g>');}
+function line(x1,y1,x2,y2,p,o={}){ // draws partially, arrowhead when done
+  if(p<=0)return;const {stroke=C.ink,sw=2.5,head=true,dash=null,op=1}=o;
+  const ex=lerp(x1,x2,p),ey=lerp(y1,y2,p);
+  S.push(`<line x1="${x1}" y1="${y1}" x2="${ex}" y2="${ey}" stroke="${stroke}" stroke-width="${sw}" stroke-linecap="round" opacity="${op}"${dash?` stroke-dasharray="${dash}"`:''}/>`);
+  if(head&&p>.97){const a=Math.atan2(y2-y1,x2-x1),L=12;
+    S.push(`<polygon points="${x2},${y2} ${x2-L*Math.cos(a-.45)},${y2-L*Math.sin(a-.45)} ${x2-L*Math.cos(a+.45)},${y2-L*Math.sin(a+.45)}" fill="${stroke}" opacity="${op}"/>`)}}
+function dot(x,y,r,fill=C.red,op=1){S.push(`<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" opacity="${op}"/>`)}
+function packet(x1,y1,x2,y2,u,o={}){ if(u<=0||u>=1)return; const {fill=C.red,r=9}=o;
+  for(let k=3;k>=1;k--){const uu=Math.max(0,u-k*.035);dot(lerp(x1,x2,uu),lerp(y1,y2,uu),r*(1-k*.18),fill,.18*(4-k))}
+  dot(lerp(x1,x2,u),lerp(y1,y2,u),r,fill)}
+function ring(cx,cy,r,t,o={}){const {stroke=C.red,sw=4}=o;
+  const a=(t*2.4)%(Math.PI*2),b=a+Math.PI*1.3;
+  const p=(ang)=>`${cx+r*Math.cos(ang)} ${cy+r*Math.sin(ang)}`;
+  S.push(`<path d="M ${p(a)} A ${r} ${r} 0 1 1 ${p(b)}" fill="none" stroke="${stroke}" stroke-width="${sw}" stroke-linecap="round"/>`)}
+
+/* ---------- html primitives (push into H) ---------- */
+function kin(str,x,y,wd,sz,lt,t0,o={}){ // kinetic headline, *word* = red
+  const words=str.split(' ');
+  const spans=words.map((w,i)=>{const red=w.startsWith('*');const word=w.replace(/\*/g,'');
+    const p=P(lt,t0+i*.08,.55,eo);
+    return `<span style="display:inline-block;opacity:${p};transform:translateY(${(1-p)*34}px);color:${red?C.red:C.ink};margin-right:.26em">${esc(word)}</span>`}).join('');
+  H.push(`<div class="abs serif" style="left:${x}px;top:${y}px;width:${wd}px;font-size:${sz}px;line-height:1.08;font-weight:700;letter-spacing:-.01em;text-wrap:balance">${spans}</div>`)}
+function kicker(str,lt,t0=.5){const p=P(lt,t0,.5);
+  H.push(`<div class="abs" style="left:64px;top:96px;font-size:15px;letter-spacing:.2em;font-weight:700;color:${C.red};opacity:${p};transform:translateX(${(1-p)*-20}px)">${esc(str)}</div>`)}
+function note(str,x,y,lt,t0,o={}){const p=P(lt,t0,.5);const {sz=15,color=C.mute,w=500,anchor='left'}=o;
+  S.push(`<g opacity="${p}">`);txt(x,y,str,{sz,fill:color,anchor,it:true});S.push('</g>')}
+
+/* ---------- chrome ---------- */
+function chrome(idx,total){
+  H.push(`<div class="abs" style="left:64px;top:34px;right:64px;height:30px;display:flex;justify-content:space-between;align-items:baseline">
+    <div class="serif" style="font-size:24px;font-weight:700;letter-spacing:.01em"><span style="color:${C.red}">●</span> LLM Digest</div>
+    <div style="font-size:14px;letter-spacing:.16em;color:${C.mute};font-weight:600">DAILY RECAP · OCT 4, 2026</div></div>
+    <div class="abs" style="left:64px;right:64px;top:74px;height:3px;border-top:1px solid ${C.ink};border-bottom:1px solid ${C.ink}"></div>`);
+}
+function progressBar(t){const u=t/TIMING.total;
+  H.push(`<div class="abs" style="left:0;bottom:0;width:${W*u}px;height:4px;background:${C.red}"></div>`)}
+function caption(sceneIdx,lt){
+  const sc=TIMING.scenes[sceneIdx];
+  const sents=sc.text.match(/[^.:]+[.:]?/g).map(s=>s.trim().replace(/^./,c=>c.toUpperCase()).replace(/:$/,'.')).filter(Boolean);
+  const tot=sents.reduce((a,s)=>a+s.length,0);
+  let acc=0,cur=-1,start=0,end=0;
+  sents.forEach((s,i)=>{const a=sc.lead+sc.adur*acc/tot;const b=sc.lead+sc.adur*(acc+s.length)/tot;acc+=s.length;
+    if(lt>=a-0.05&&lt<b+(i===sents.length-1?0.8:0.0)){cur=i;start=a;end=b}});
+  if(cur<0)return;
+  const p=Math.min(P(lt,start-.05,.25),1-P(lt,end+(cur===sents.length-1?.5:-.0),.3)*(cur===sents.length-1?1:0));
+  H.push(`<div class="abs" style="left:0;right:0;bottom:30px;display:flex;justify-content:center;opacity:${p};transform:translateY(${(1-p)*10}px)">
+    <div style="max-width:1020px;text-align:center;background:${C.ink};color:${C.paper};font-size:25px;line-height:1.3;font-weight:500;padding:11px 24px;border-radius:6px">${esc(sents[cur])}</div></div>`);
+}
+
+/* ---------- scenes: each draws into S/H for local time lt ---------- */
+const SC={};
+
+SC.s1=lt=>{
+  kicker('TODAY, EXPLAINED',lt,.6);
+  kin('Coding agents are *leaving* the editor.',64,126,1150,58,lt,.7);
+  const chips=['Pizza Bot','Nautilus','Loa','kimchi.dev','Osier','DeepSeek Harness'];
+  chips.forEach((c,i)=>{const col=i%3,row=(i/3)|0;const p=P(lt,2.6+i*.22,.5,eb);
+    node(64+120+col*250,390+row*100,236,70,c,p,{sz:i===5?21:24,fill:C.card})});
+  // count-ups from recap metadata
+  const pc=P(lt,3.2,1.8,eio);
+  txt(1040,380,String(Math.round(8*pc)),{sz:120,font:'serif',wt:700,fill:C.red,op:P(lt,3.0,.4)});
+  txt(1040,455,'linked articles',{sz:22,fill:C.mute,op:P(lt,3.0,.4)});
+  const p3=P(lt,4.4,1.2,eio);
+  txt(1040,530,String(Math.round(3*p3)),{sz:70,font:'serif',wt:700,fill:C.ink,op:P(lt,4.2,.4)});
+  txt(1040,580,'themes',{sz:22,fill:C.mute,op:P(lt,4.2,.4)});
+  S.push(`<line x1="${860}" y1="330" x2="860" y2="600" stroke="${C.rule}" stroke-width="2" opacity="${P(lt,3,.4)}"/>`);
+};
+
+SC.s2=lt=>{
+  kicker('01 · BACKGROUND AGENTS',lt,.5);
+  kin('Pizza Bot: tasks run in the background, results land in an *inbox*.',64,126,1150,46,lt,.6);
+  const y=450;
+  // tags
+  [['open source',0],['self-hosted',1]].forEach(([t,i])=>{const p=P(lt,2.2+i*.25,.4,eb);
+    if(p>0){rect(64+i*150,262,136,34,{fill:C.card2,stroke:'none',r:17,op:p});txt(132+i*150,279,t,{sz:17,fill:C.ink,op:p,wt:600})}});
+  // you
+  node(170,y,190,120,'You',P(lt,1.6,.5,eb),{sz:28,sub:'assign a task'});
+  node(560,y,250,150,'Agent',P(lt,2.0,.5,eb),{sz:30,sub:'runs in the background',stroke:C.ink});
+  line(280,y,420,y,P(lt,3.8,.5),{});
+  packet(280,y,420,y,P(lt,4.4,.9,eio));
+  // working ring
+  const wk=P(lt,5.4,.3);
+  if(wk>0&&lt<8.2)ring(560,y-104,16,lt,{});
+  if(lt>5.4&&lt<8.2)txt(560,y-104-30,'working',{sz:15,fill:C.red,wt:700,op:wk});
+  // bg dashed boundary
+  rect(420,y-120,280,240,{stroke:C.red,dash:'8 7',sw:2,r:16,op:P(lt,5.2,.5)*.8});
+  // inbox
+  node(1010,y+20,300,200,'',P(lt,2.4,.5,eb),{sz:20,fill:C.card});
+  const inb=P(lt,2.6,.5);
+  txt(1010,y-60,'INBOX',{sz:16,fill:C.mute,wt:700,ls:3,op:inb});
+  line(695,y,860,y,P(lt,7.6,.5),{});
+  packet(695,y,860,y,P(lt,8.2,.9,eio));
+  for(let i=0;i<3;i++){const p=P(lt,9.3+i*.45,.45,eb);
+    if(p>0){const yy=y-30+i*50;
+      rect(890,yy-18,240,38,{fill:i===0?'#f2d9d5':C.card2,stroke:i===0?C.red:C.rule,sw:1.5,r:7,op:p});
+      dot(908,yy+1,5,i===0?C.red:C.mute,p);
+      S.push(`<rect x="924" y="${yy-5}" width="${[150,110,130][i]*p}" height="10" rx="5" fill="${C.ink}" opacity="${.5*p}"/>`)}}
+  note('Agent decoupled from the editor: results come back asynchronously.',64,590,lt,10.5);
+};
+
+SC.s3=lt=>{
+  kicker('02 · PHONE TO PC',lt,.5);
+  kin('Nautilus: start on the *phone*, merge on the PC.',64,126,1150,46,lt,.6);
+  const y=450;
+  // phone
+  const pp=P(lt,1.6,.5,eb);
+  if(pp>0){S.push(`<g transform="translate(170 ${y}) scale(${lerp(.6,1,pp)})" opacity="${cl(pp*1.6)}">`);
+    rect(-55,-110,110,220,{fill:C.card,stroke:C.ink,sw:3,r:22});
+    rect(-44,-92,88,160,{fill:C.card2,r:8});
+    const pulse=1+.06*Math.sin(lt*6)*(lt>2.8&&lt<4.2?1:0);
+    S.push(`<g transform="scale(${pulse})">`);rect(-34,-26,68,34,{fill:C.red,r:17});txt(0,-9,'Run',{sz:18,fill:'#fff',wt:700});S.push('</g>');
+    S.push('</g>');
+    txt(170,y+140,'phone: start the run',{sz:18,fill:C.mute,op:pp,wt:600})}
+  // agent
+  node(640,y,250,130,'Coding agent',P(lt,2.0,.5,eb),{sz:26,sub:'run in progress'});
+  line(260,y,505,y,P(lt,3.2,.5));
+  packet(260,y,505,y,P(lt,3.8,.9,eio));
+  if(lt>4.7&&lt<6.6)ring(640,y-96,16,lt);
+  // PC
+  const cp=P(lt,2.4,.5,eb);
+  if(cp>0){S.push(`<g transform="translate(1060 ${y}) scale(${lerp(.6,1,cp)})" opacity="${cl(cp*1.6)}">`);
+    rect(-120,-100,240,160,{fill:C.card,stroke:C.ink,sw:3,r:12});rect(-30,60,60,18,{fill:C.ink,r:4});rect(-70,76,140,10,{fill:C.ink,r:5});
+    S.push('</g>');txt(1060,y+130,'PC: merge step',{sz:18,fill:C.mute,op:cp,wt:600})}
+  line(770,y,925,y,P(lt,6.2,.5));
+  packet(770,y,925,y,P(lt,6.8,.9,eio));
+  // merge glyph: two branches converge
+  const mg=P(lt,7.6,.9,eio);
+  if(mg>0){const x0=1000,x1=1120;
+    S.push(`<path d="M ${x0} ${y-60} C ${x0+50} ${y-60} ${x0+50} ${y-20} ${lerp(x0,1080,1)} ${y-20}" fill="none" stroke="${C.ink}" stroke-width="3" opacity="${mg}"/>`);
+    S.push(`<path d="M ${x0} ${y+10} C ${x0+50} ${y+10} ${x0+50} ${y-20} 1080 ${y-20}" fill="none" stroke="${C.ink}" stroke-width="3" opacity="${mg}"/>`);
+    line(1080,y-20,1110,y-20,mg,{stroke:C.ink,head:false});
+    dot(1000,y-60,6,C.ink,mg);dot(1000,y+10,6,C.ink,mg);dot(1110,y-20,9,C.red,mg);
+    txt(1060,y-80,'merge',{sz:17,fill:C.red,wt:700,op:mg})}
+};
+
+SC.s4=lt=>{
+  kicker('03 · SIDE BY SIDE',lt,.5);
+  kin('Same exit from the editor, different *landing*.',64,126,1150,46,lt,.6);
+  const cx=[360,820],cw=410;
+  ['Pizza Bot','Nautilus'].forEach((n,i)=>{const p=P(lt,1.6+i*.2,.5,eb);
+    node(cx[i]+cw/2-20,285,cw-20,56,n,p,{sz:26,fill:C.ink,stroke:C.ink,tc:C.paper})});
+  const rows=[
+   ['Starts from','A task you hand to an agent','Your phone'],
+   ['Work happens','In the background, self-hosted','A coding agent run'],
+   ['Result lands','In an inbox','In a merge on your PC']];
+  rows.forEach((r,i)=>{const t0=2.6+i*1.9;const p=P(lt,t0,.55);
+    const y=370+i*92;
+    S.push(`<g opacity="${p}" transform="translate(0 ${(1-p)*16})">`);
+    txt(64,y,r[0].toUpperCase(),{sz:15,fill:C.mute,anchor:'start',wt:700,ls:2});
+    [1,2].forEach(k=>{rect(cx[k-1]-10,y-30,cw-20,60,{fill:i===2?'#f2d9d5':C.card,stroke:i===2?C.red:C.rule,sw:i===2?2.5:1.5,r:10});
+      txt(cx[k-1]+cw/2-20,y,r[k],{sz:21,fill:C.ink,wt:i===2?700:500})});
+    S.push(`<line x1="64" y1="${y+44}" x2="1216" y2="${y+44}" stroke="${C.rule}" stroke-width="1"/>`);
+    S.push('</g>')});
+};
+
+SC.s5=lt=>{
+  kicker('04 · LOCAL CODING AGENT',lt,.5);
+  kin('Loa: the plan is a *mutable* DAG.',64,126,1150,46,lt,.6);
+  const N={A:[170,450],B:[400,370],C:[400,530],D:[650,450],F:[900,450],E:[650,580]};
+  const nodes=['A','B','C','D','F'];
+  nodes.forEach((k,i)=>{const p=P(lt,1.8+i*.3,.45,eb);node(N[k][0],N[k][1],84,58,'step '+k,p,{sz:18,fill:C.card})});
+  const edges=[['A','B',3.4],['A','C',3.6],['B','D',3.8],['C','D',4.0],['D','F',4.2]];
+  const E=(a,b)=>{const[x1,y1]=N[a],[x2,y2]=N[b];const dx=x2-x1,dy=y2-y1,d=Math.hypot(dx,dy);const ux=dx/d,uy=dy/d;
+    const m=(Math.abs(ux)>Math.abs(uy)?[42,0]:[0,29]);
+    // trim to box edge
+    const tx=Math.min(42/Math.max(Math.abs(ux),1e-6),29/Math.max(Math.abs(uy),1e-6));
+    return [x1+ux*tx,y1+uy*tx,x2-ux*tx,y2-uy*tx]};
+  const mut=P(lt,6.4,.9,eio);
+  edges.forEach(([a,b,t0])=>{
+    const [x1,y1,x2,y2]=E(a,b);
+    if(a==='C'&&b==='D'){line(x1,y1,x2,y2,P(lt,t0,.4),{op:1-mut,dash:mut>0?'6 6':null});return}
+    line(x1,y1,x2,y2,P(lt,t0,.4))});
+  // execution wave
+  const wave=P(lt,4.8,1.4,eio);
+  if(wave>0&&wave<1){const u=wave*3;const seg=[['A','B'],['B','D'],['D','F']];const s=Math.min(2,Math.floor(u));const[a,b]=seg[s];
+    const[x1,y1,x2,y2]=E(a,b);packet(x1,y1,x2,y2,Math.max(.02,Math.min(.98,u-s)),{})}
+  // mutation: new node E and rewired edges
+  if(mut>0){node(N.E[0],N.E[1],84,58,'step E',P(lt,6.4,.5,eb),{sz:18,fill:'#f2d9d5',stroke:C.red,tc:C.red,sw:2.5});
+    const e1=E('C','E'),e2=E('E','D');
+    line(...e1,P(lt,6.9,.5),{stroke:C.red});line(...e2,P(lt,7.3,.5),{stroke:C.red});
+    txt(1080,430,'graph rewritten\nwhile it runs',{sz:24,font:'serif',wt:700,fill:C.red,op:P(lt,7.6,.5),lh:1.2,anchor:'middle'})}
+  S.push(`<g opacity="${P(lt,2.4,.4)}">`);
+  rect(760,596,12,12,{fill:'#f2d9d5',stroke:C.red,sw:2,r:3});txt(782,602,'added at runtime',{sz:15,fill:C.mute,anchor:'start'});S.push('</g>');
+  note('Illustrative shape of a mutable DAG, not Loa’s actual plan.',64,640-12,lt,3.0);
+};
+
+SC.s6=lt=>{
+  kicker('05 · COST AND QUALITY CONTROLS',lt,.5);
+  kin('Cap the spend. *Track* the agent.',64,126,1150,46,lt,.6);
+  // left: kimchi
+  rect(64,260,560,330,{fill:C.card,stroke:C.rule,sw:1.5,r:14,op:P(lt,1.4,.5)});
+  txt(94,292,'kimchi.dev',{sz:22,font:'serif',wt:700,anchor:'start',op:P(lt,1.6,.5)});
+  txt(94,320,'Pi-based agent, hard budget cap',{sz:16,fill:C.mute,anchor:'start',op:P(lt,1.6,.5)});
+  const bx=110,bw=470,by=450,capX=bx+bw*.78;
+  const fill=P(lt,2.6,2.8,eio);
+  const hit=fill>=1;
+  rect(bx,by,bw,36,{fill:C.card2,stroke:C.rule,sw:1.5,r:8,op:P(lt,2,.4)});
+  S.push(`<rect x="${bx}" y="${by}" width="${(capX-bx)*fill}" height="36" rx="8" fill="${hit?C.red:C.ink}" opacity="${P(lt,2.2,.2)}"/>`);
+  S.push(`<line x1="${capX}" y1="${by-20}" x2="${capX}" y2="${by+56}" stroke="${C.red}" stroke-width="4" opacity="${P(lt,2.2,.4)}"/>`);
+  txt(capX,by-36,'hard cap',{sz:17,fill:C.red,wt:700,op:P(lt,2.2,.4)});
+  txt(bx,by+70,'spend',{sz:16,fill:C.mute,anchor:'start',op:P(lt,2.2,.4)});
+  const stop=P(lt,5.4,.4,eb);
+  if(stop>0)node(capX-30,by+82,190,46,'agent stopped',stop,{sz:18,fill:'#f2d9d5',stroke:C.red,tc:C.red,sw:2.5});
+  note('Scale illustrative: the recap gives no figure.',94,580,lt,3.0,{sz:14});
+  // right: osier
+  rect(656,260,560,330,{fill:C.card,stroke:C.rule,sw:1.5,r:14,op:P(lt,6.4,.5)});
+  txt(686,292,'Osier',{sz:22,font:'serif',wt:700,anchor:'start',op:P(lt,6.6,.5)});
+  txt(686,320,'npm package, tracks coding agent performance',{sz:16,fill:C.mute,anchor:'start',op:P(lt,6.6,.5)});
+  for(let i=0;i<5;i++){const p=P(lt,7.2+i*.4,.4,eb);if(p>0)node(730+i*104,420,84,62,'run '+(i+1),p,{sz:17,fill:C.card2,stroke:C.mute,sw:1.5})}
+  for(let i=0;i<5;i++){line(730+i*104,452,730+i*104,500,P(lt,7.5+i*.4,.35),{stroke:C.mute,sw:2,head:false})}
+  const led=P(lt,9.4,.5,eb);
+  node(936,520,440,70,'Performance over time',led,{sz:20,fill:C.ink,stroke:C.ink,tc:C.paper});
+};
+
+SC.s7=lt=>{
+  kicker('06 · DEEPSEEK',lt,.5);
+  kin('DeepSeek Harness adds a Claude Code *mods* layer.',64,126,1150,46,lt,.6);
+  const y=360;
+  node(190,y,250,90,'Claude Code mods',P(lt,1.8,.5,eb),{sz:22});
+  node(640,y,290,100,'Compatibility layer',P(lt,2.2,.5,eb),{sz:22,sub:'experimental',stroke:C.red,dash:'8 6',sw:3});
+  node(1060,y,280,90,'DeepSeek Harness',P(lt,2.6,.5,eb),{sz:22,sub:'v0.2.1-alpha.1'});
+  line(315,y,490,y,P(lt,3.4,.5));line(785,y,920,y,P(lt,3.7,.5));
+  for(let k=0;k<3;k++){const u=((lt-4.2-k*.9)%2.7)/1.2;if(lt>4.2+k*.9&&u<1){
+    packet(315,y,490,y,Math.min(u*2,1)>=1?0:u*2);packet(785,y,920,y,u*2>1?(u*2-1):0)}}
+  // cards
+  const c1=P(lt,9.6,.6),c2=P(lt,12.0,.6);
+  S.push(`<g opacity="${c1}" transform="translate(0 ${(1-c1)*24})">`);
+  rect(64,450,560,150,{fill:C.card,stroke:C.rule,sw:1.5,r:14});
+  txt(94,480,'REPORTS',{sz:14,fill:C.red,anchor:'start',wt:700,ls:3});
+  txt(94,525,'DeepSeek denies “copying homework”\nallegations over the mods test',{sz:23,font:'serif',wt:700,anchor:'start',lh:1.25});
+  txt(94,584,'via finance.biggo.com',{sz:15,fill:C.mute,anchor:'start'});
+  S.push('</g>');
+  S.push(`<g opacity="${c2}" transform="translate(0 ${(1-c2)*24})">`);
+  rect(656,450,560,150,{fill:C.card,stroke:C.rule,sw:1.5,r:14});
+  txt(686,480,'BLOOMBERG',{sz:14,fill:C.red,anchor:'start',wt:700,ls:3});
+  txt(686,520,'DeepSeek and Huawei aim at\nNvidia\u2019s ecosystem lock-in',{sz:22,font:'serif',wt:700,anchor:'start',lh:1.25});
+  const mx=1140,my=525;
+  S.push(`<circle cx="${mx}" cy="${my}" r="44" fill="none" stroke="${C.mute}" stroke-width="3" stroke-dasharray="6 6" opacity="${c2}"/>`);
+  txt(mx,my,'Nvidia',{sz:16,wt:700,op:c2});
+  rect(686,566,104,32,{fill:C.card2,r:16,op:c2});txt(738,582,'DeepSeek',{sz:15,wt:600,op:c2});
+  rect(800,566,84,32,{fill:C.card2,r:16,op:c2});txt(842,582,'Huawei',{sz:15,wt:600,op:c2});
+  const arr=P(lt,12.8,.8,eio);
+  line(900,582,1096,556,arr,{stroke:C.red,head:true,sw:3});
+  S.push('</g>');
+};
+
+SC.s8=lt=>{
+  kicker('RECAP',lt,.5);
+  kin('Eight linked articles. *Three* themes.',64,126,1150,60,lt,.6);
+  const th=[['Background and remote coding agents',3],['Agent cost and quality controls',2],['DeepSeek harness and China’s chip push',3]];
+  th.forEach(([n,c],i)=>{const t0=1.8+i*.5;const p=P(lt,t0,.9,eio);const y=320+i*80;
+    txt(64,y-26,n,{sz:20,anchor:'start',wt:600,op:P(lt,t0,.4)});
+    rect(64,y-6,640,26,{fill:C.card2,r:6,op:P(lt,t0,.4)});
+    S.push(`<rect x="64" y="${y-6}" width="${640*(c/3)*p}" height="26" rx="6" fill="${i===2?C.ink:i===1?C.mute:C.red}"/>`);
+    txt(724,y+7,String(Math.round(c*p)),{sz:34,font:'serif',wt:700,anchor:'start',op:P(lt,t0,.4)})});
+  H.push(`<div class="abs serif" style="left:64px;top:600px;font-size:34px;font-weight:700;opacity:${P(lt,4.4,.6)};transform:translateY(${(1-P(lt,4.4,.6))*16}px)">llm-digest.com</div>`);
+  H.push(`<div class="abs" style="left:64px;top:644px;font-size:16px;color:${C.mute};opacity:${P(lt,4.6,.6)}">Source: data/daily/latest.json, October 4 recap</div>`);
+};
+
+/* ---------- compose ---------- */
+function sceneFrame(i,lt){
+  S=[];H=[];
+  SC[TIMING.scenes[i].id](lt);
+  caption(i,lt);
+  const svg=`<svg class="layer" width="${W}" height="${HT}" viewBox="0 0 ${W} ${HT}" xmlns="http://www.w3.org/2000/svg">${S.join('')}</svg>`;
+  return `<div class="layer" style="background:${C.paper}">${svg}${H.join('')}</div>`;
+}
+const TR=.7;
+function render(t){
+  const sc=TIMING.scenes;let i=sc.length-1;
+  for(let k=0;k<sc.length;k++){if(t<sc[k].start+sc[k].dur){i=k;break}}
+  const lt=t-sc[i].start;
+  let out='';
+  if(i>0&&lt<TR){
+    const u=eio(lt/TR);const e=u*(W+40)-20; // wipe edge x
+    const prevLt=sc[i-1].dur+lt;
+    out+=`<div class="layer" style="clip-path:inset(0 0 0 ${e}px)">${sceneFrame(i-1,prevLt)}</div>`;
+    out+=`<div class="layer" style="clip-path:inset(0 ${W-e}px 0 0)">${sceneFrame(i,lt)}</div>`;
+    out+=`<div class="abs" style="left:${e-14}px;top:0;width:14px;height:${HT}px;background:${C.red}"></div>`;
+  } else out+=sceneFrame(i,lt);
+  // chrome on top (static between scenes)
+  H=[];chrome();progressBar(t);
+  out+=`<div class="layer" style="pointer-events:none">${H.join('')}</div>`;
+  document.getElementById('stage').innerHTML=out;
+}
+window.render=render;
+</script></body></html>
