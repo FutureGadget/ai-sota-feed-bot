@@ -33,12 +33,6 @@ Create the OAuth client in a Google Cloud project with **YouTube Data API v3**
 enabled and the channel owner as a test user. Move the app to **In production**:
 refresh tokens of apps left in "Testing" expire after 7 days.
 
-## Local test
-The scripts also read local-only credentials when present, so the pipeline can
-be tested without the proxy: `~/.gemini-api-key` and
-`~/.youtube-client-secret.json` + `~/.youtube-refresh-token` (mode 600). Test
-the upload with `--privacy private` first.
-
 ## Failure behavior
 - Upload fails: nothing under `data/` or `web/` changes; the routine reports.
 - Voice fails or quota is spent: the routine stops and reports; no silent video.
