@@ -2336,3 +2336,21 @@ Impact: One page fetch per new LangChain URL, then none. Old re-stamped posts
 fall outside the freshness window instead of reaching the feed.
 
 Rollback: Remove the flag from `langchain_blog` in `config/sources.yaml`.
+
+## 2026-10-17 - Daily recap video prototype with free-tier Gemini TTS
+
+Decision: Add `pipeline/build_daily_video.py`, which renders the curated daily
+recap as a narrated MP4 (Pillow slides in the og_cards style, ffmpeg mux).
+Narration uses `gemini-3.8-flash-tts` on the Gemini API free tier when
+`GEMINI_API_KEY` is set; otherwise, or on any failure, scenes are silent and
+timed by word count. Output stays under gitignored `build/`.
+
+Rationale: The recap is already structured and finishable, so a video is a
+distribution surface (YouTube/Shorts/LinkedIn) built from existing content with
+no editorial step. Free tier keeps cost at zero for a prototype; the soft-fail
+path means a quota change cannot break anything.
+
+Impact: New optional script, no pipeline or workflow changes, no data layout
+change. Not scheduled or published.
+
+Rollback: Delete the script, its test and spec; nothing depends on it.

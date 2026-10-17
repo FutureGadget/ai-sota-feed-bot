@@ -147,6 +147,10 @@ in `ops_daily_summary.py`'s log line.
   - `build_skill_lab.py` - validates Agent Skill Lab protocol/result records,
     binds sources to index rows with SHA-256, and replaces the derived
     `data/playbook/lab/{index,latest}.json` files after full validation
+  - `build_daily_video.py` - prototype: renders the curated daily recap as a
+    narrated MP4 into gitignored `build/daily-video/` (Pillow slides + ffmpeg;
+    optional free-tier Gemini TTS via `GEMINI_API_KEY`, silent fallback);
+    spec `docs/product-specs/daily-video.md`
   - `translation_guard.py` - fail-closed spend guard in front of every Google
     Translate request (reserve-before-send ledger `data/i18n/spend_guard.json`,
     16,000/day and 500,000/month, paced); see
