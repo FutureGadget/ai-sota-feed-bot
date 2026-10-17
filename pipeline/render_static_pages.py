@@ -1591,6 +1591,22 @@ def meta_line_for(recap: dict) -> str:
 DAILY_RECAP_CSS = """\
     body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .recap-video { display:grid; grid-template-columns:minmax(14rem,.7fr) minmax(0,1.3fr); gap:1.4rem 2.2rem;
+      align-items:center; margin:0 0 1.6rem; padding:0 0 1.5rem; border-bottom:1px solid var(--border); }
+    .video-label { margin:0 0 .4rem; text-transform:uppercase; letter-spacing:.11em; font-size:.72rem;
+      font-weight:700; color:var(--accent); font-family:ui-monospace,"SFMono-Regular",monospace; }
+    .video-title { margin:0 0 .45rem; font-size:1.2rem; line-height:1.25; }
+    .video-meta { margin:0; color:var(--muted); font-size:.9rem; line-height:1.5; }
+    .video-frame { position:relative; aspect-ratio:16/9; width:100%; border:1px solid var(--border);
+      border-radius:6px; overflow:hidden; background:#000; }
+    .video-frame iframe, .video-play, .video-play img { position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
+    .video-play img { object-fit:cover; }
+    .video-play::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35)); }
+    .video-btn { position:absolute; z-index:1; left:50%; top:50%; width:4.2rem; height:4.2rem; margin:-2.1rem 0 0 -2.1rem;
+      border-radius:50%; background:var(--accent); color:#fff; display:grid; place-items:center; font-size:1.5rem;
+      padding-left:.2rem; box-sizing:border-box; transition:transform .15s ease; }
+    .video-play:hover .video-btn, .video-play:focus-visible .video-btn { transform:scale(1.08); }
+    @media (max-width:760px) { .recap-video { grid-template-columns:1fr; gap:1rem; } }
     .daily-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
       gap:1.5rem 2.5rem; align-items:end; margin:2.3rem 0 1.6rem; }
     .daily-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
@@ -1669,6 +1685,56 @@ DAILY_RECAP_CSS = """\
 """
 
 
+YOUTUBE_ID_RE = re.compile(r"^[A-Za-z0-9_-]{11}$")
+
+VIDEO_PLAYER_JS = (
+    "<script>document.addEventListener('click',function(e){"
+    "var a=e.target.closest&&e.target.closest('.video-play[data-video-id]');if(!a)return;"
+    "e.preventDefault();var f=document.createElement('iframe');"
+    "f.src='https://www.youtube-nocookie.com/embed/'+a.dataset.videoId+'?autoplay=1&rel=0';"
+    "f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;"
+    "f.title=a.dataset.title||'Video';a.replaceWith(f);});</script>"
+)
+
+
+def format_duration(seconds) -> str:
+    try:
+        total = int(round(float(seconds)))
+    except (TypeError, ValueError):
+        return ""
+    return f"{total // 60}:{total % 60:02d}" if total > 0 else ""
+
+
+def render_video(recap: dict) -> str:
+    """Click-to-load YouTube explainer for a recap; empty when it has none.
+
+    The recap's optional ``video`` is ``{youtube_id, title?, duration_s?}``. The
+    iframe loads only on click (youtube-nocookie), so the page stays fast and
+    sets no third-party cookies until a reader plays it.
+    """
+    video = recap.get("video")
+    if not isinstance(video, dict):
+        return ""
+    vid = str(video.get("youtube_id") or "")
+    if not YOUTUBE_ID_RE.match(vid):
+        return ""
+    title = squeeze(video.get("title")) or "Daily explainer video"
+    duration = format_duration(video.get("duration_s"))
+    meta = "How today's stories work, in " + duration if duration else "How today's stories work"
+    return (
+        '<section class="recap-video" aria-label="Video explainer"><div>'
+        '<p class="video-label">Prefer to watch?</p>'
+        f'<h3 class="video-title">{escape(title)}</h3>'
+        f'<p class="video-meta">{escape(meta)}. Loads from YouTube when you press play.</p></div>'
+        '<div class="video-frame">'
+        f'<a class="video-play" href="https://youtu.be/{vid}" data-video-id="{vid}" '
+        f'data-title="{escape(title)}" data-track="daily-video" aria-label="Play: {escape(title)}">'
+        f'<img src="https://i.ytimg.com/vi/{vid}/hqdefault.jpg" alt="" loading="lazy" decoding="async">'
+        '<span class="video-btn" aria-hidden="true">&#9654;</span></a></div>'
+        f'{VIDEO_PLAYER_JS}</section>'
+    )
+
+
 def daily_hero(recap: dict) -> str:
     day = str(recap.get("date") or "")
     cats = recap.get("categories") or []
@@ -1729,7 +1795,8 @@ def render_daily_pages(
             recap_range="",
             title_html=daily_hero(recap),
             intro_html=render_intro(recap),
-            body_html=render_categories(
+            body_html=render_video(recap)
+            + render_categories(
                 recap,
                 "daily-link",
                 story_sids,

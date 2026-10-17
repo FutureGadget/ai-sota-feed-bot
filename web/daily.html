@@ -75,6 +75,22 @@
       margin:.7rem 0 0; color:var(--muted); font-size:.78rem; }
     .daily-route::before { content:""; width:3.5rem; height:5px;
       background:linear-gradient(90deg,var(--signal) 0 58%,var(--accent) 58%); }
+    .recap-video { display:grid; grid-template-columns:minmax(14rem,.7fr) minmax(0,1.3fr); gap:1.4rem 2.2rem;
+      align-items:center; margin:0 0 1.6rem; padding:0 0 1.5rem; border-bottom:1px solid var(--border); }
+    .video-label { margin:0 0 .4rem; text-transform:uppercase; letter-spacing:.11em; font-size:.72rem;
+      font-weight:700; color:var(--accent); font-family:ui-monospace,"SFMono-Regular",monospace; }
+    .video-title { margin:0 0 .45rem; font-size:1.2rem; line-height:1.25; }
+    .video-meta { margin:0; color:var(--muted); font-size:.9rem; line-height:1.5; }
+    .video-frame { position:relative; aspect-ratio:16/9; width:100%; border:1px solid var(--border);
+      border-radius:6px; overflow:hidden; background:#000; }
+    .video-frame iframe, .video-play, .video-play img { position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
+    .video-play img { object-fit:cover; }
+    .video-play::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35)); }
+    .video-btn { position:absolute; z-index:1; left:50%; top:50%; width:4.2rem; height:4.2rem; margin:-2.1rem 0 0 -2.1rem;
+      border-radius:50%; background:var(--accent); color:#fff; display:grid; place-items:center; font-size:1.5rem;
+      padding-left:.2rem; box-sizing:border-box; transition:transform .15s ease; }
+    .video-play:hover .video-btn, .video-play:focus-visible .video-btn { transform:scale(1.08); }
+    @media (max-width:760px) { .recap-video { grid-template-columns:1fr; gap:1rem; } }
     .intro { display:grid; grid-template-columns:minmax(16rem,.8fr) minmax(0,1.2fr);
       gap:1.6rem 2.2rem; font-size:.98rem; border-top:1px solid var(--border);
       border-bottom:1px solid var(--border); padding:1.35rem 0 1.45rem; margin:0 0 1.4rem;
@@ -313,6 +329,35 @@
       return `<div class="intro">${tldr}<div class="intro-copy">${body}</div></div>`;
     }
 
+    function renderVideo(recap) {
+      const v = recap.video;
+      const id = v && typeof v.youtube_id === 'string' ? v.youtube_id : '';
+      if (!/^[A-Za-z0-9_-]{11}$/.test(id)) return '';
+      const title = String(v.title || 'Daily explainer video');
+      const secs = Math.round(Number(v.duration_s) || 0);
+      const dur = secs > 0 ? ` in ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}` : '';
+      return `<section class="recap-video" aria-label="Video explainer"><div>
+        <p class="video-label">Prefer to watch?</p>
+        <h3 class="video-title">${esc(title)}</h3>
+        <p class="video-meta">How today's stories work${dur}. Loads from YouTube when you press play.</p></div>
+        <div class="video-frame"><a class="video-play" href="https://youtu.be/${id}" data-video-id="${id}"
+          data-title="${esc(title)}" aria-label="Play: ${esc(title)}">
+          <img src="https://i.ytimg.com/vi/${id}/hqdefault.jpg" alt="" loading="lazy" decoding="async">
+          <span class="video-btn" aria-hidden="true">&#9654;</span></a></div></section>`;
+    }
+
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest && e.target.closest('.video-play[data-video-id]');
+      if (!a) return;
+      e.preventDefault();
+      const f = document.createElement('iframe');
+      f.src = `https://www.youtube-nocookie.com/embed/${a.dataset.videoId}?autoplay=1&rel=0`;
+      f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen = true;
+      f.title = a.dataset.title || 'Video';
+      a.replaceWith(f);
+    });
+
     const PLAYBOOK_CAP = 3;
     let playbookByUrl = new Map();
 
@@ -400,6 +445,7 @@
 
         </section>
         ${renderIntro(recap)}
+        ${renderVideo(recap)}
         ${toc}
         ${sections || '<div class="state">No categories in this recap yet.</div>'}
         ${sections ? '<p class="finish-line">You are caught up for this edition</p>' : ''}`;

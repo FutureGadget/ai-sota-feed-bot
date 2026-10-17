@@ -375,6 +375,11 @@ def validate_recap(data: Any) -> list[str]:
             errors.append(f"missing required field: {field}")
     if data.get("date") and not DATE_ID_RE.match(str(data["date"])):
         errors.append("'date' must be formatted YYYY-MM-DD")
+    video = data.get("video")
+    if video is not None:
+        vid = video.get("youtube_id") if isinstance(video, dict) else None
+        if not isinstance(vid, str) or not re.fullmatch(r"[A-Za-z0-9_-]{11}", vid):
+            errors.append("'video.youtube_id' must be an 11-character YouTube video id")
     cats = data.get("categories")
     if not isinstance(cats, list) or not cats:
         errors.append("'categories' must be a non-empty array")
