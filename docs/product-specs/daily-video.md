@@ -9,6 +9,7 @@ on the daily recap page.
 - The block shows the YouTube thumbnail with a play button. Nothing loads from
   YouTube until the reader presses play, which swaps in a `youtube-nocookie.com`
   iframe.
+- The block is a `<section id="video">`, so `/daily/<date>#video` scrolls straight to it.
 - A recap without `video` renders exactly as before.
 
 ## Data contract
@@ -27,3 +28,10 @@ upload succeeds. Setup and failure handling:
 Only facts in the recap summaries; no invented numbers, causes or quotes; no
 number is drawn unless the recap gives one; generic diagrams are labeled
 illustrative.
+
+## Email
+When the recap has a valid `video`, the daily email shows a "Watch the 2-minute
+explainer" link under the "In 30 seconds" box. It points to
+`/daily/<date>?utm_source=email&rid=<token>#video`: the page opens at the video
+block and plays on click. The email never embeds the video. Recaps without a
+video produce the same email as before.
