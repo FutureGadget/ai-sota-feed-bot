@@ -1,44 +1,53 @@
 # Daily news video
 
-Status: prototype (2026-10-17). Not scheduled, not published anywhere yet.
+Status: prototype (2026-10-17). Hand-made on request; not scheduled, not in CI,
+not published anywhere.
 
 ## Contract
 
-`pipeline/build_daily_video.py` renders the curated daily recap
-(`data/daily/<date>.json`, default `latest.json`) as a 1920x1080 MP4 of about
-90 seconds: opening scene (title + intro), headlines, one scene per recap
-category (top 3 story titles + "+N more"), and a closing call to
-`llm-digest.com/daily`. Scenes are deterministic; there is no LLM step.
+An agent (a Claude Code session) reads the day's curated recap
+(`data/daily/<date>.json`) and writes a **storyboard**: a short, explanatory
+motion-graphics video script picking the stories worth explaining. Scripts do
+not generate the video. Templates cannot choose what to explain or how.
 
-Slides reuse the broadsheet palette and Playfair fonts from
-`pipeline/og_cards.py`. Output (not committed, `build/` is gitignored):
-`build/daily-video/<date>/{<date>.mp4,<date>.vtt,script.json,slide-NN.png}`.
+`video/player.html` + `player.js` + `player.css` is a deterministic motion
+player (every frame is a pure function of time). `video/render.mjs` seeks it
+frame by frame in headless Chromium (Playwright) and pipes frames to ffmpeg:
+
+    node video/render.mjs <storyboard.json> <out.mp4> [--audio narration.wav] [--fps 24] [--scale 1]
+    node video/render.mjs <storyboard.json> x.mp4 --frame <seconds> <out.png>   # still, for review
+
+Needs `playwright` (resolvable by node, or set `PLAYWRIGHT_MODULE`), a Chromium
+(`CHROMIUM_PATH` to override) and ffmpeg. A 110s video renders in about 2 minutes.
+
+## Storyboard
+
+`{date, scenes: [{type, seconds, narration, ...}]}`. Scene types:
+
+| type | fields | use |
+|---|---|---|
+| `open` | kicker, heading, bullets[] | hook |
+| `flow` | kicker, heading, rows[{label, nodes[{title, sub?, hot?}]}] | mechanisms, cause and effect |
+| `versus` | kicker, heading, left/right {title, lines[], win?} | two approaches |
+| `bars` | kicker, heading, items[{label, value, display, tag?, hot?}], callout? | magnitudes |
+| `callout` | kicker, heading, sub | one statement |
+| `stats` | kicker, heading, stats[{value, prefix, suffix, decimals, label}] | count-ups |
+| `category` | kicker, heading, dek, total, stories[{title, summary, source, stat?}] | list of stories |
+| `close` | kicker, heading, url | end card |
+
+`narration` is shown as captions, split by sentence. Optional `lead` and
+`speech` (seconds) sync captions to recorded audio. Only state facts present in
+the recap summaries; derived arithmetic (a ratio) is fine, inventions are not.
+Example: `video/examples/2026-10-16.storyboard.json`.
 
 ## Narration
 
-Optional. With `GEMINI_API_KEY` set, each scene's narration goes to
-`gemini-3.8-flash-tts` (Interactions API, voice `Kore`, override with
-`GEMINI_TTS_MODEL` / `GEMINI_TTS_VOICE`) on the Gemini API free tier. One request
-per scene, paced `GEMINI_TTS_PACE_SECONDS` (default 6s) apart. Scene length
-follows the audio.
+Optional. Without `--audio` the video is silent with captions. Voice options
+tried: a local offline Piper voice (`en_US-lessac-high`, no key needed), and
+`gemini-3.8-flash-tts` on the Gemini API free tier (needs `GEMINI_API_KEY`).
+Scene `seconds` must be at least lead + speech length + tail; concatenate
+per-scene audio padded to each scene's `seconds`.
 
-Failure policy (fail soft): no key, `--no-tts`, or a failed request makes the
-affected scenes silent, timed from word count (2.6 words/s, 4s minimum). A
-400/401/403/404/429 stops further TTS calls for the run. The video always
-builds; the log line `tts_done ok=N failed=M silent=K` says how many scenes
-are voiced.
+## Out of scope
 
-The free tier publishes no fixed quota (limits show in AI Studio) and may use
-requests to improve Google products; input is public recap text. Paid pricing
-is about $16.20 per 1M audio tokens through 2026-12-31, doubling 2027-01-01.
-A day's narration is roughly 2-3k tokens.
-
-## Out of scope (open decisions)
-
-Scheduling after the daily recap routine, hosting (do not commit MP4s: Vercel
-bundles `data/`; use release assets or external video hosting), a spend
-ledger like `translation_guard.py` if moved to the paid tier, Korean variant.
-
-Run: `python3 pipeline/build_daily_video.py [--date YYYY-MM-DD] [--no-tts]`.
-Needs ffmpeg, Pillow and the vendored fonts; otherwise it exits with
-`video_build_skipped`.
+Scheduling, CI, hosting (do not commit MP4s: Vercel bundles `data/`), Korean variant.

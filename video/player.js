@@ -227,7 +227,7 @@
     const root = document.getElementById("scenes"); root.innerHTML = ""; built = []; let t0 = 0;
     sb.scenes.forEach((s) => {
       const b = (builders[s.type] || builders.highlights)(s); root.appendChild(b.el);
-      built.push({ b, start: t0, dur: s.seconds, cues: (String(s.narration || "").match(/[^.!?]+[.!?]*/g) || []).map((x) => x.trim()).filter(Boolean) }); t0 += s.seconds; boundaries.push(t0);
+      built.push({ b, start: t0, dur: s.seconds, lead: s.lead, speech: s.speech, cues: (String(s.narration || "").match(/[^.!?]+[.!?]*/g) || []).map((x) => x.trim()).filter(Boolean) }); t0 += s.seconds; boundaries.push(t0);
     });
     total = t0;
     const ch = document.getElementById("chapters"); ch.innerHTML = "";
@@ -245,7 +245,7 @@
     // red wipe crosses the screen at each scene boundary
     const w = idx === 0 ? 0 : prog(local, 0, 0.55);
     wipe.style.transform = `translateX(${-101 + 202 * E.inOut(w)}%)`;
-    const lead = 0.3, span = Math.max(s.dur - lead - 0.4, 1), cues = s.cues;
+    const lead = s.lead == null ? 0.3 : s.lead, span = s.speech || Math.max(s.dur - lead - 0.4, 1), cues = s.cues;
     const ci = cues.length ? Math.min(cues.length - 1, Math.floor(clamp((local - lead) / span) * cues.length)) : -1;
     sub.textContent = ci >= 0 && local > lead ? cues[ci] : ""; sub.style.opacity = ci >= 0 ? clamp(Math.min(local - lead, s.dur - local) / 0.25) : 0;
     bar.style.width = `${(t / total) * 100}%`;
