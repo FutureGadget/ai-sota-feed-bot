@@ -336,7 +336,7 @@
       const title = String(v.title || 'Daily explainer video');
       const secs = Math.round(Number(v.duration_s) || 0);
       const dur = secs > 0 ? ` in ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}` : '';
-      return `<section class="recap-video" aria-label="Video explainer"><div>
+      return `<section class="recap-video" id="video" aria-label="Video explainer"><div>
         <p class="video-label">Prefer to watch?</p>
         <h3 class="video-title">${esc(title)}</h3>
         <p class="video-meta">How today's stories work${dur}. Loads from YouTube when you press play.</p></div>

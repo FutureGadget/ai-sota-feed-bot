@@ -1,0 +1,28 @@
+schema_version: 1
+id: weekly-video
+name: "[News Feed Management] Weekly explainer video"
+description: Render, upload and attach the narrated explainer video for the newest weekly recap.
+
+schedule:
+  # Saturday 06:40 KST - 40 minutes after the weekly recap routine (06:00 KST)
+  # commits the recap, and ahead of the Saturday 08:00 KST weekly email so the
+  # email can link the video. A run takes about 40 minutes. video_target.py
+  # picks the newest recap without a video, so a late recap run self-heals the
+  # next Saturday. Disabled until the cloud environment's secrets and network
+  # hosts are set up (docs/how-to/daily-video-routine.md).
+  cron: "40 6 * * 6"
+  timezone: Asia/Seoul
+  enabled: false
+
+execution:
+  environment: cloud
+
+repository:
+  slug: FutureGadget/ai-sota-feed-bot
+  default_branch: main
+
+permissions:
+  git_push: unrestricted
+
+agent:
+  prompt_file: prompt.md

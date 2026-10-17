@@ -1,7 +1,10 @@
-# Daily video routine: setup and operations
+# Daily and weekly video routines: setup and operations
 
-Routine: `.agents/routines/daily-video/` (ships `enabled: false`). Skill:
-`.agents/skills/daily-video/`. Spec: `docs/product-specs/daily-video.md`.
+Routines: `.agents/routines/daily-video/` and `.agents/routines/weekly-video/`
+(both ship `enabled: false`). Skills: `.agents/skills/daily-video/` and
+`.agents/skills/weekly-video/`, which share the steps and scripts in
+`.agents/skills/video-common/`. Specs: `docs/product-specs/daily-video.md` and
+`docs/product-specs/weekly-video.md`. One cloud environment serves both.
 
 ## Cloud environment
 
@@ -37,8 +40,9 @@ environment: use a dedicated environment and a Google project used for nothing
 else. The token can only upload videos.
 
 Free tier: 3 requests per minute and 10 per day for each Gemini TTS model, one
-request per scene, at most 8 scenes. `gemini_tts.py` falls back in quality order
-when a model's daily quota is spent: `gemini-3.8-flash-tts`,
+request per scene. Daily videos use at most 8 scenes and weekly videos at most
+12 (`--max-scenes`). `gemini_tts.py` falls back in quality order when a model's
+daily quota is spent, which pools the four quotas (40 requests a day): `gemini-3.8-flash-tts`,
 `gemini-3.1-flash-tts-preview`, `gemini-3.8-flash-lite-tts`,
 `gemini-2.5-flash-preview-tts` (2.5 returns raw PCM; the script wraps it as WAV).
 
@@ -59,6 +63,17 @@ locally. `gemini_tts.py` sends no credentials, so a plain local run is rejected
 by Google: add the key yourself, for example a temporary local patch that sends
 `~/.gemini-api-key` as `x-goog-api-key`. Never commit that patch. Test the
 upload with `--privacy private` first.
+
+## Saturday overlap
+The weekly recap runs Saturday 06:00 KST and the weekly email goes out 08:00
+KST. `weekly-video` starts at 06:40 KST and needs about 40 minutes, so it
+only just beats the email; if it finishes late, that week's email goes out
+without the video link. `daily-video` also starts at 07:00 KST on Saturdays,
+so the two routines draw on the same TTS quotas (about 8 + up to 12 requests
+against 40 a day) and the same 3 requests per minute per model. Each handles a
+per-minute 429 by waiting, and a per-day 429 by moving to the next model, so
+overlap slows a run but does not fail it. Expect the weekly video to be voiced
+by a second model.
 
 ## Failure behavior
 - Upload fails: nothing under `data/` or `web/` changes; the routine reports.

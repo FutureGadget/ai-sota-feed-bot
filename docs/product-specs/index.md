@@ -19,3 +19,4 @@
 - localized-live-feed.md
 - [Model Radar comparison](model-radar-comparison.md)
 - [Daily explainer video](daily-video.md)
+- [Weekly explainer video](weekly-video.md)

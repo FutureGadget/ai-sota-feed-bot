@@ -1,5 +1,12 @@
 # Decision Log
 
+## 2026-10-18 (Weekly explainer video and a shared video-common skill)
+- **Decision:** Add a `weekly-video` skill and routine (Saturday 06:40 KST, shipped disabled) that make a 150-180 s explainer for the newest weekly recap. The steps and scripts both videos share (target picking, Gemini TTS fallback, timing, render, YouTube upload, attach) move to `.agents/skills/video-common/`; `daily-video` and `weekly-video` keep only their own values. The scripts take `--kind daily|weekly`, and `gemini_tts.py` gets `--max-scenes` (default 12) so a weekly video can use more scenes than one model's daily quota by pooling the fallback chain. Weekly recaps accept the same optional `video` field, and the weekly page, client shell and email show it with a `#video` anchor link.
+- **Context / Problem:** The weekly recap and its email had no video. Copying the daily skill would have duplicated about 90 lines of steps that must change together (upload auth, TTS models, rendering rules).
+- **Rationale:** One shared skill means a fix to the TTS chain or upload lands once. A separate weekly skill keeps the weekly storyboard rules (patterns across days, 9-12 scenes) out of the daily prompt. Pooling four 10-per-day quotas covers a 12-scene video on a Saturday that also runs the daily video.
+- **Impact:** New `video-common` and `weekly-video` skills, new routine `.agents/routines/weekly-video/`, spec `docs/product-specs/weekly-video.md`. The scripts moved from `daily-video/` to `video-common/`. `render_video(recap, kind)` and `video_link_html` are shared by both kinds. The weekly video can be voiced by two models in one video.
+- **Rollback:** Disable or delete the routine; delete `video` from a weekly recap and rerun `build_weekly_index.py`. Revert the shared-script move to restore the daily-only layout.
+
 ## 2026-10-18 (Daily explainer video: YouTube-hosted, id-only in the recap)
 - **Decision:** A new `daily-video` routine renders a 90-120 s narrated explainer from the newest daily recap, voices it with Gemini TTS (`gemini-3.8-flash-tts`), uploads it to YouTube as unlisted, and writes only `video: {youtube_id, title, duration_s}` into `data/daily/<date>.json`. `render_static_pages.py` and `web/daily.html` show it as a click-to-load `youtube-nocookie.com` block between the intro and the category list.
 - **Context / Problem:** The recap is text only. A short video shows how the day's stories work and is a shareable artifact. A video file is about 6 MB a day, so committing it would add roughly 2 GB a year to git and to the Vercel bundle.

@@ -281,9 +281,12 @@ in `ops_daily_summary.py`'s log line.
   gates and reaches the feed), `add-translated-page` (explicit-request-only
   routine for publishing one pretranslated page under `data/i18n/<locale>/` by
   filtering candidates with `pipeline/export_i18n_candidates.py` first),
-  `daily-video/` (renders the narrated explainer video for the newest daily
-  recap, uploads it to YouTube, and records only the video id as `video` on the
-  recap JSON; spec `docs/product-specs/daily-video.md`, setup
+  `video-common/` (shared pipeline and scripts for the explainer videos: target
+  picking, Gemini TTS with model fallback, timing, render, YouTube upload,
+  attach), `daily-video/` and `weekly-video/` (render the narrated explainer
+  video for the newest daily / weekly recap, upload it to YouTube, and record
+  only the video id as `video` on the recap JSON; specs
+  `docs/product-specs/daily-video.md` and `weekly-video.md`, setup
   `docs/how-to/daily-video-routine.md`),
   `writing-style/` (no scripts — the shared prose
   contract referenced by the reader-facing content skills above: BLUF, one

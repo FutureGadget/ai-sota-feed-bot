@@ -7,11 +7,13 @@ Before acting, read these contracts completely:
 1. `.agents/routines/COMMON.md`
 2. `AGENTS.md`, especially **Product Positioning**
 3. `.agents/skills/daily-video/SKILL.md`
-4. `.agents/skills/writing-style/SKILL.md`
+4. `.agents/skills/video-common/SKILL.md`
+5. `.agents/skills/writing-style/SKILL.md`
 
 ## Run the routine
 
-The daily-video skill owns the domain steps. Follow it in order, exactly as
+The daily-video skill, with the shared video-common steps, owns the domain
+steps. Follow them in order, exactly as
 written, with these overrides:
 
 - If the target step reports `due: false`, stop. Nothing to publish.
@@ -43,6 +45,7 @@ Publish directly to `origin/main` using the shared rebase-and-retry contract
 in `COMMON.md`. If direct publication remains impossible after those retries,
 use the pull-request fallback in `COMMON.md`.
 
-Report the target date, stories chosen, TTS requests used, video duration,
+Report the target date, stories chosen, TTS requests used and the model that
+voiced each clip, video duration,
 YouTube URL, validation result, commit SHA or no-op reason, final publication
 result, and any claim you were unsure about.
