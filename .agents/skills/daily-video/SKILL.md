@@ -52,7 +52,7 @@ python .agents/skills/daily-video/scripts/assemble.py timing narration.json clip
   which model voiced each clip.
 - Stop and report only when every model is out of quota.
 - Do not add a style or instruction prefix to the text: it is spoken aloud.
-- Authentication is handled outside the skill. Send requests without
+- Gemini authentication is handled outside the skill: send requests without
   credentials and never look for or create keys. If a script fails with an
   authentication or quota error, stop and report it. Do not publish a silent
   video.
@@ -100,8 +100,9 @@ python .agents/skills/daily-video/scripts/attach_video.py --date <date> \
 
 - Run `attach_video.py` only after the upload succeeds. On upload failure,
   change nothing under `data/` or `web/` and report the error.
-- Authentication is handled outside the skill; send no credentials. If the
-  upload fails with an authentication error, stop and report it.
+- `youtube_upload.py` reads its credentials from the environment itself. Never
+  print or log them. If the upload fails with an authentication error, stop and
+  report it.
 - Stage only `data/daily/ web/daily/ web/sitemap.xml web/robots.txt`. Never
   stage anything under `build/`. Commit message: `daily video: <date>`.
 
