@@ -1,0 +1,111 @@
+{
+ "slug": "retrieval-execution",
+ "label": "Retrieval Execution",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-10-06T10:28:27+00:00",
+ "last_updated": "2026-10-17T05:12:34+00:00",
+ "generated_at": "2026-10-17T10:13:21.789357+00:00",
+ "sources": [
+  "arxiv_cs_ai",
+  "arxiv_cs_lg",
+  "hackernews_ai"
+ ],
+ "days": [
+  {
+   "date": "2026-10-06",
+   "items": [
+    {
+     "title": "Surviving the Router: Optimizing Skill Injections for Retrieval and Execution",
+     "url": "http://arxiv.org/abs/2610.08098v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "AI agents increasingly rely on modular third-party \"skills\" that are dynamically selected by skill routers to execute complex tasks. While recent studies highlight the threat of prompt injections embedded in these ski...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "8ced9fea396e65fb",
+     "published": "2026-10-06T10:28:27+00:00",
+     "editor_note": "Skill-router angle: how skill injections are optimized to be retrieved and executed."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-09",
+   "items": [
+    {
+     "title": "RATED: Reliability-Aware AI Agent Tool Retrieval via Execution Dynamics",
+     "url": "http://arxiv.org/abs/2610.13889v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "As AI agents increasingly rely on external tools, accurate retrieval is essential for reliable behavior. Existing methods optimize semantic relevance but largely ignore tool availability during execution. To address t...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "19b58845c8888d5a",
+     "published": "2026-10-09T17:38:11+00:00",
+     "editor_note": "Tool-retrieval angle: scores tools by execution-time reliability, not just relevance."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-17",
+   "items": [
+    {
+     "title": "EPGM: Execution Provenance for Budgeted Agent Memory Retrieval",
+     "url": "https://arxiv.org/abs/2609.25913",
+     "source": "hackernews_ai",
+     "type": "paper",
+     "summary_1line": "EPGM: Execution Provenance for Budgeted Agent Memory Retrieval",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "cbef01ba5cb1e9c5",
+     "published": "2026-10-17T05:12:34+00:00",
+     "editor_note": "Memory-retrieval angle: adds execution provenance under a retrieval budget."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Oct 6 and Oct 9 papers studied how agents pick skills and tools: one optimizes skill injections to survive routers, the other adds execution-time reliability to tool retrieval. The common thread is that agent retrieval is judged on what happens at execution, not only on semantic match.",
+  "stale": false,
+  "whats_new": "EPGM, posted Oct 17, applies the execution lens to agent memory: it adds execution provenance to budgeted memory retrieval.",
+  "why_it_matters": "Three independent papers treat retrieval for skills, tools, and memory as an execution-time reliability problem. Relevance-only retrieval in an agent stack can pick items that are unavailable or unsafe at run time.",
+  "take_for_builders": "If your agent retrieves tools or skills by embedding similarity alone, log whether each retrieved item was actually available and succeeded at run time, so you can measure the gap these papers target.",
+  "status": {
+   "state": "Developing · research",
+   "tone": "rising",
+   "changed": "2026-10-17",
+   "detail": "Three papers on skill, tool, and memory retrieval, each tied to execution behavior; none is a shipped product."
+  },
+  "beats": [
+   {
+    "kicker": "SKILLS",
+    "tone": "launch",
+    "headline": "Skill-router paper optimizes skill injections for retrieval and execution",
+    "summary": "Covers third-party skills selected dynamically by skill routers.",
+    "sids": [
+     "8ced9fea396e65fb"
+    ]
+   },
+   {
+    "kicker": "TOOLS",
+    "tone": "rising",
+    "headline": "RATED adds tool availability during execution to tool retrieval",
+    "summary": "Targets methods that optimize semantic relevance but ignore execution-time availability.",
+    "sids": [
+     "19b58845c8888d5a"
+    ]
+   },
+   {
+    "kicker": "MEMORY",
+    "tone": "now",
+    "headline": "EPGM brings execution provenance to budgeted agent memory retrieval",
+    "sids": [
+     "cbef01ba5cb1e9c5"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do any of the three papers report results on a public agent benchmark that others can reproduce?",
+   "Does any skill router or tool-retrieval library adopt execution-aware scoring?"
+  ],
+  "generated_at": "2026-10-17T10:20:00+00:00"
+ }
+}
