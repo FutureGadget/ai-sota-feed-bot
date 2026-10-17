@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-16T18:18:29.588016+00:00",
+ "generated_at": "2026-10-17T18:18:03.697123+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,30 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-17-deep-agents-five-context-levers",
+   "topic": "context-compaction",
+   "topic_title": "Context compaction: summarize, compress, and curate the working set",
+   "kind": "solution",
+   "date": "2026-10-17",
+   "title": "Deep Agents keeps long-running context focused with offloading, summarization, skills, subagents, and memory"
+  },
+  {
+   "id": "2026-10-17-agent37-low-cost-sandboxes",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-10-17",
+   "title": "Agent37 prices agent sandboxes at under 10% of typical providers, averaging $0.37 per sandbox per month"
+  },
+  {
+   "id": "2026-10-17-vllm-agent-assisted-kernels",
+   "topic": "agent-latency",
+   "topic_title": "Agent loops multiply per-call latency into slow, expensive runs",
+   "kind": "obstacle",
+   "date": "2026-10-17",
+   "title": "vLLM ships agent-written decode kernels, gated by scoped changes and correctness tests"
+  },
   {
    "id": "2026-10-16-mechanical-checks-beat-llm-judges",
    "topic": "llm-as-judge",
@@ -230,30 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-10",
    "title": "Matching model tier to task cut agent costs 65-76x in two vendor-reported case studies"
-  },
-  {
-   "id": "2026-10-09-option-channel-guardrail-attack",
-   "topic": "prompt-injection",
-   "topic_title": "Untrusted input and tools can hijack an agent",
-   "kind": "obstacle",
-   "date": "2026-10-09",
-   "title": "Typed-decision guardrail models are easily flipped to fail-open, so they should not be the gate"
-  },
-  {
-   "id": "2026-10-09-epistemic-humility-ise",
-   "topic": "agent-evaluation",
-   "topic_title": "Measuring whether an agent actually worked is hard",
-   "kind": "obstacle",
-   "date": "2026-10-09",
-   "title": "High task accuracy does not imply an agent admits unresolved uncertainty"
-  },
-  {
-   "id": "2026-10-08-packhallu-rule-file-dependency-swap",
-   "topic": "prompt-injection",
-   "topic_title": "Untrusted input and tools can hijack an agent",
-   "kind": "obstacle",
-   "date": "2026-10-08",
-   "title": "Injected rule files can steer coding agents to swap in attacker-controlled packages"
   }
  ],
  "nodes": {
@@ -4128,7 +4128,7 @@
      "key": "engine-architecture",
      "title": "Disaggregated and specialized serving engines",
      "summary": "Engines now split serving by phase (prefill/decode) and by compute type (attention/FFN), add hardware-specific kernels, and are what large deployers run in production.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "day-0-support",
@@ -4150,6 +4150,25 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-17-vllm-agent-assisted-kernels",
+     "topic": "agent-latency",
+     "date": "2026-10-17",
+     "title": "vLLM ships agent-written decode kernels, gated by scoped changes and correctness tests",
+     "theme": "engine-architecture",
+     "html": "<p>Two vLLM posts describe agent-assisted optimization of decode paths. The Kimi K3 post covers CuTe DSL kernels for decode on NVIDIA GB300; the Reflection Beam-1.0 post (501B total, 23B active) reports <strong>2.71x lower decode latency</strong> (vendor-reported) alongside DFlash2 speculative decoding with adaptive verification.</p>\n<p>The Kimi K3 post stresses the guardrails: scoped changes, correctness tests, and reproducible benchmarks before an agent-written kernel ships.</p>\n<p>For builders: treat kernel speedups from agents like any other perf patch. Ask for the correctness suite and a reproducible benchmark before adopting the engine release.</p>",
+     "evidence": [
+      {
+       "sid": "58d2e800a62db5e1",
+       "title": "Hyper Optimizing Kimi K3 in vLLM: Moving Fast and Responsibly"
+      },
+      {
+       "sid": "5726df15bb134984",
+       "title": "Serving Reflection Beam on vLLM from Day 0"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-15-delta-tokenizer-session-ttft",
      "topic": "agent-latency",
@@ -4921,8 +4940,8 @@
      "title": "AsymSpec recovers ~90% of full-context accuracy while decoding from compressed context"
     }
    ],
-   "entry_count": 50,
-   "latest_entry_date": "2026-10-15",
+   "entry_count": 51,
+   "latest_entry_date": "2026-10-17",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -4936,6 +4955,14 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "58d2e800a62db5e1",
+     "title": "Hyper Optimizing Kimi K3 in vLLM: Moving Fast and Responsibly"
+    },
+    {
+     "sid": "5726df15bb134984",
+     "title": "Serving Reflection Beam on vLLM from Day 0"
+    },
     {
      "sid": "d4d5081186e81c2b",
      "title": "Delta Tokenizer: Reference-Identical Tokenization of Session Deltas and Segment-Parallelism for Long Prompts on Multicore CPUs"
@@ -5141,7 +5168,7 @@
      "title": "DualPath: Breaking the Storage Bandwidth Bottleneck in Agentic LLM Inference"
     }
    ],
-   "updated": "2026-10-15"
+   "updated": "2026-10-17"
   },
   "agent-memory": {
    "slug": "agent-memory",
@@ -15072,7 +15099,7 @@
      "key": "managed-platforms",
      "title": "Managed and self-hosted sandbox platforms",
      "summary": "MicroVM platforms from Modal, Docker, Azure, and Cloudflare, plus self-hosted hypervisors and paved-road internal platforms, compete on startup time, scale, and persistence.",
-     "count": 10
+     "count": 11
     },
     {
      "key": "egress-and-escapes",
@@ -15088,6 +15115,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-17-agent37-low-cost-sandboxes",
+     "topic": "agent-sandboxing",
+     "date": "2026-10-17",
+     "title": "Agent37 prices agent sandboxes at under 10% of typical providers, averaging $0.37 per sandbox per month",
+     "theme": "managed-platforms",
+     "html": "<p>Agent37 (YC F26) launched on Hacker News with sandboxes for running AI agents. The founder says customers average <strong>$0.37/month per sandbox</strong>, at under 10% of the cost of most sandbox providers (vendor-reported; no workload or duration details in the post).</p>\n<p>The pitch targets long-lived, mostly idle agents rather than burst compute, where per-sandbox cost dominates at fleet scale.</p>\n<p>For builders: compare managed sandbox vendors on idle cost and cold-start behavior for your agent&#x27;s duty cycle, not only on peak-compute pricing. Validate the isolation model before moving credentials in.</p>",
+     "evidence": [
+      {
+       "sid": "93481ec2e3a9d5b0",
+       "title": "Launch HN: Agent37 (YC F26) – Low-cost agent sandboxes for running agents"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-13-full-sandbox-snapshot-search",
      "topic": "agent-sandboxing",
@@ -15947,8 +15989,8 @@
     }
    ],
    "cross_entries": [],
-   "entry_count": 55,
-   "latest_entry_date": "2026-10-13",
+   "entry_count": 56,
+   "latest_entry_date": "2026-10-17",
    "solutions": [],
    "obstacles": [
     {
@@ -15966,6 +16008,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "93481ec2e3a9d5b0",
+     "title": "Launch HN: Agent37 (YC F26) – Low-cost agent sandboxes for running agents"
+    },
     {
      "sid": "d1fefa038faa8d84",
      "title": "Returning to Development States: When Full Sandbox Snapshots Help Coding Agents"
@@ -16219,7 +16265,7 @@
      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
     }
    ],
-   "updated": "2026-10-13"
+   "updated": "2026-10-17"
   },
   "agent-tracing": {
    "slug": "agent-tracing",
@@ -16548,7 +16594,7 @@
      "key": "curating-the-working-set",
      "title": "Curating what stays in context",
      "summary": "Compaction is becoming one step in a curation discipline that trims tool output at the input boundary, consolidates stored memory, and loads instructions only when needed.",
-     "count": 4
+     "count": 5
     },
     {
      "key": "compaction-safety",
@@ -16570,6 +16616,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-17-deep-agents-five-context-levers",
+     "topic": "context-compaction",
+     "date": "2026-10-17",
+     "title": "Deep Agents keeps long-running context focused with offloading, summarization, skills, subagents, and memory",
+     "theme": "curating-the-working-set",
+     "html": "<p>LangChain&#x27;s Deep Agents post argues that long-running agents degrade as context piles up, and lays out five levers to keep the window focused: <strong>offloading</strong> large tool output, <strong>summarization</strong>, <strong>skills</strong> loaded on demand, <strong>subagents</strong> with isolated context, and persistent <strong>memory</strong>.</p>\n<p>For builders: compaction is one lever among five. Offloading and subagent isolation avoid putting the tokens in context at all, so they carry no summarization loss. See <a href=\"/topic/agent-memory\">Agent memory</a> for the persistence side.</p>",
+     "evidence": [
+      {
+       "sid": "eeb5997da7760442",
+       "title": "Context Engineering with Deep Agents: How To Remember Without Keeping Everything In Context"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-09-18-self-generated-compaction-injection",
      "topic": "context-compaction",
@@ -16794,8 +16855,8 @@
      "title": "Stream processing with Kafka and Flink drives dynamic memory tiering for agents"
     }
    ],
-   "entry_count": 11,
-   "latest_entry_date": "2026-09-18",
+   "entry_count": 12,
+   "latest_entry_date": "2026-10-17",
    "solutions": [],
    "obstacles": [
     {
@@ -16817,6 +16878,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "eeb5997da7760442",
+     "title": "Context Engineering with Deep Agents: How To Remember Without Keeping Everything In Context"
+    },
     {
      "sid": "0fa615ad9312d280",
      "title": "Self-generated prompt injections in compaction summaries"
@@ -16862,7 +16927,7 @@
      "title": "Show HN: Memory system for AI agents with associations, forgetting, synthesis"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-17"
   },
   "cost-controls": {
    "slug": "cost-controls",
