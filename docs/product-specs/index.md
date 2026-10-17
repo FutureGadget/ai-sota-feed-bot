@@ -18,3 +18,4 @@
 - multilingual-pretranslated-pages.md
 - localized-live-feed.md
 - [Model Radar comparison](model-radar-comparison.md)
+- [Daily explainer video](daily-video.md)
