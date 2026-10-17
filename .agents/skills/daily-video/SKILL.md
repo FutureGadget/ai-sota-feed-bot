@@ -45,13 +45,19 @@ python .agents/skills/daily-video/scripts/assemble.py timing narration.json clip
 ```
 
 - One request per scene. Clips already saved are skipped.
+- Each model allows 3 requests per minute and 10 per day. The script tries
+  `gemini-3.8-flash-tts`, `gemini-3.1-flash-tts-preview`,
+  `gemini-3.8-flash-lite-tts`, then `gemini-2.5-flash-preview-tts`, moving to
+  the next on a per-day 429. Do not pass `--model` unless pinning one. Report
+  which model voiced each clip.
+- Stop and report only when every model is out of quota.
 - Do not add a style or instruction prefix to the text: it is spoken aloud.
 - Gemini authentication is handled outside the skill: send requests without
   credentials and never look for or create keys. If a script fails with an
   authentication or quota error, stop and report it. Do not publish a silent
   video.
 - Heed any `WARNING` from `assemble.py timing`: regenerate nothing blindly,
-  the free tier allows 10 requests per day. Report it instead.
+  each model allows 10 requests per day. Report it instead.
 
 ## 4. Animation
 

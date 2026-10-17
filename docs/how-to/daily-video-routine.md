@@ -36,8 +36,12 @@ Environment variables are readable by the agent and by anyone using the
 environment: use a dedicated environment and a Google project used for nothing
 else. The token can only upload videos.
 
-Free tier: 10 Gemini TTS requests per day for `gemini-3.8-flash-tts`, one per
-scene, at most 8 scenes.
+Free tier: 3 requests per minute and 10 per day for each Gemini TTS model, one
+request per scene, at most 8 scenes. `gemini_tts.py` falls back in quality order
+when a model's daily quota is spent: `gemini-3.8-flash-tts`,
+`gemini-3.1-flash-tts-preview`, `gemini-3.8-flash-lite-tts`,
+`gemini-2.5-flash-preview-tts` (2.5 returns raw PCM; the script wraps it as WAV).
+>>>>>>> 1813f758342af4baafa9250af59d52c3965910f7
 
 ### Network access
 Allow `generativelanguage.googleapis.com` (secret hosts bypass the allowlist),
