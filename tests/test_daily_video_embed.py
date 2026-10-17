@@ -39,6 +39,10 @@ class DailyVideoEmbedTest(unittest.TestCase):
         self.assertIn("youtube-nocookie.com/embed/", html)
         self.assertNotIn("<iframe src", html)  # iframe is created on click only
 
+    def test_section_has_video_anchor(self) -> None:
+        html = render.render_video({"video": {"youtube_id": "KNEGLmDOnLc"}})
+        self.assertIn('id="video"', html)
+
     def test_bad_id_renders_nothing(self) -> None:
         self.assertEqual(render.render_video(recap({"youtube_id": 'x"><script>'})), "")
 

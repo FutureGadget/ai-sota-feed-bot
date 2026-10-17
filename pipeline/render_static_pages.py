@@ -1593,6 +1593,7 @@ DAILY_RECAP_CSS = """\
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
     .recap-video { display:grid; grid-template-columns:minmax(14rem,.7fr) minmax(0,1.3fr); gap:1.4rem 2.2rem;
       align-items:center; margin:0 0 1.6rem; padding:0 0 1.5rem; border-bottom:1px solid var(--border); }
+    .recap-video { scroll-margin-top:1rem; }
     .video-label { margin:0 0 .4rem; text-transform:uppercase; letter-spacing:.11em; font-size:.72rem;
       font-weight:700; color:var(--accent); font-family:ui-monospace,"SFMono-Regular",monospace; }
     .video-title { margin:0 0 .45rem; font-size:1.2rem; line-height:1.25; }
@@ -1722,7 +1723,7 @@ def render_video(recap: dict) -> str:
     duration = format_duration(video.get("duration_s"))
     meta = "How today's stories work, in " + duration if duration else "How today's stories work"
     return (
-        '<section class="recap-video" aria-label="Video explainer"><div>'
+        '<section class="recap-video" id="video" aria-label="Video explainer"><div>'
         '<p class="video-label">Prefer to watch?</p>'
         f'<h3 class="video-title">{escape(title)}</h3>'
         f'<p class="video-meta">{escape(meta)}. Loads from YouTube when you press play.</p></div>'

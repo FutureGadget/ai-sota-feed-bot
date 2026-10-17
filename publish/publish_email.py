@@ -220,7 +220,9 @@ def tag_reader_links(cfg: dict, body: str) -> str:
         href = m.group(1)
         if re.search(r"[?&](?:amp;)?rid=", href):
             return m.group(0)
-        return f'href="{href}&amp;rid={READER_ID_TOKEN}"'
+        # Keep any #fragment last so anchors such as #video still resolve.
+        url, hash_, frag = href.partition("#")
+        return f'href="{url}&amp;rid={READER_ID_TOKEN}{hash_}{frag}"'
 
     return re.sub(rf'href="({base}/[^"]*[?&](?:amp;)?utm_source=[^"]*)"', repl, body)
 
@@ -512,6 +514,18 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
         for p in intro_paras[:2]
     )
 
+    # Link to the page's #video anchor when the recap has an explainer video.
+    video = recap.get("video")
+    video_html = ""
+    if isinstance(video, dict) and re.fullmatch(r"[A-Za-z0-9_-]{11}", str(video.get("youtube_id") or "")):
+        watch_url = (f"{cfg['site_base'].rstrip('/')}/daily/{recap_date}"
+                     f"?utm_source={cfg['utm_source']}#video")
+        video_html = (
+            '<div style="margin:0 0 14px;font-size:14px">'
+            f'<a href="{html.escape(watch_url)}" style="color:#1a6dd6;font-weight:600">'
+            '▶ Watch the 2-minute explainer</a></div>'
+        )
+
     # Themed categories: each article links to its /story/<sid> permalink, carries
     # its source and one-line recap summary, and keeps the one-tap feedback row.
     cat_html: list[str] = []
@@ -584,6 +598,7 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
   <h1 style="font-size:20px;margin:6px 0 2px">Your AI brief</h1>
   <div style="font-size:13px;color:#777;margin-bottom:12px">{sub_meta}</div>
   {tldr_html}
+  {video_html}
   {intro_html}
   {cats_html}
   {thread_html}

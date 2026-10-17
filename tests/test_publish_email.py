@@ -265,6 +265,26 @@ class ReaderIdLinkTest(unittest.TestCase):
             self.assertIn("rid={{{contact.reader_id|none}}}", href)
         self.assertIn("&rid={{{contact.reader_id|none}}}", email.html_to_text(tagged))
 
+    def test_video_link_targets_the_video_anchor_and_keeps_the_token(self) -> None:
+        base = {"date": "2026-06-24", "intro": ["Lead."], "categories": [{"name": "C", "articles": [
+            {"title": "T", "summary": "S", "source": "claude_blog", "url": "https://example.com/a"}]}]}
+        recap = {**base, "video": {"youtube_id": "KNEGLmDOnLc"}}
+        _subject, body = email.render_daily(self.cfg, recap, [])
+        tagged = email.tag_reader_links(self.cfg, body)
+        self.assertIn("Watch the 2-minute explainer", tagged)
+        link = [h for h in __import__("re").findall(r'href="([^"]+)"', tagged) if h.endswith("#video")]
+        self.assertEqual(len(link), 1, "rid must come before the #video fragment")
+        self.assertEqual(len(link), 1)
+        self.assertTrue(link[0].startswith("https://www.llm-digest.com/daily/2026-06-24?"))
+        self.assertIn("rid={{{contact.reader_id|none}}}", link[0])
+
+    def test_no_video_link_without_a_valid_video(self) -> None:
+        base = {"date": "2026-06-24", "intro": ["Lead."], "categories": [{"name": "C", "articles": [
+            {"title": "T", "summary": "S", "source": "claude_blog", "url": "https://example.com/a"}]}]}
+        for video in (None, {"youtube_id": "bad"}):
+            _subject, body = email.render_daily(self.cfg, {**base, "video": video}, [])
+            self.assertNotIn("#video", body)
+
     def test_send_skips_tagging_when_the_property_cannot_be_ensured(self) -> None:
         with mock.patch.object(email.requests, "get", side_effect=RuntimeError("offline")):
             self.assertFalse(email.ensure_reader_id_property("key"))
