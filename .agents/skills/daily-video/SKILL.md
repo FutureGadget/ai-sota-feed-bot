@@ -46,7 +46,8 @@ python .agents/skills/daily-video/scripts/assemble.py timing narration.json clip
 
 - One request per scene. Clips already saved are skipped.
 - Do not add a style or instruction prefix to the text: it is spoken aloud.
-- Do not look for or create an API key. If the script fails with an
+- Authentication is handled outside the skill. Send requests without
+  credentials and never look for or create keys. If a script fails with an
   authentication or quota error, stop and report it. Do not publish a silent
   video.
 - Heed any `WARNING` from `assemble.py timing`: regenerate nothing blindly,
@@ -93,8 +94,8 @@ python .agents/skills/daily-video/scripts/attach_video.py --date <date> \
 
 - Run `attach_video.py` only after the upload succeeds. On upload failure,
   change nothing under `data/` or `web/` and report the error.
-- The upload needs YouTube credentials from the environment (see
-  `docs/how-to/daily-video-routine.md`). Never print them.
+- Authentication is handled outside the skill; send no credentials. If the
+  upload fails with an authentication error, stop and report it.
 - Stage only `data/daily/ web/daily/ web/sitemap.xml web/robots.txt`. Never
   stage anything under `build/`. Commit message: `daily video: <date>`.
 

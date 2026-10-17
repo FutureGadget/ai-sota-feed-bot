@@ -5,51 +5,39 @@ Routine: `.agents/routines/daily-video/` (ships `enabled: false`). Skill:
 
 ## Cloud environment
 
-Create (or reuse) an Anthropic-hosted cloud environment for the routine.
+Use an Anthropic-hosted cloud environment. The routine and skill never handle
+credentials: the Anthropic agent proxy attaches them to requests for the hosts
+below, after the request leaves the VM. Claude Code does not inject environment
+variables for these, so scripts send plain requests.
 
-### Environment variables (YouTube upload)
-| Variable | Value |
+### Network secrets
+| Host | Credential |
 |---|---|
-| `YOUTUBE_CLIENT_ID` | OAuth client id (Desktop client) |
-| `YOUTUBE_CLIENT_SECRET` | OAuth client secret |
-| `YOUTUBE_REFRESH_TOKEN` | refresh token with scope `youtube.upload` |
+| `generativelanguage.googleapis.com` | Gemini API key: custom header `x-goog-api-key`, no prefix (not `Authorization: Bearer`) |
+| `www.googleapis.com` | YouTube OAuth 2.0 authorization with scope `https://www.googleapis.com/auth/youtube.upload` (the narrowest scope that allows `videos.insert`) |
 
-YouTube only accepts OAuth access tokens, which expire after one hour, so a
-network secret (a fixed header value) cannot hold the credential. Environment
-variables are readable by the agent and by anyone who uses the environment:
-use a dedicated environment for this routine, and a Google project used for
-nothing else.
+Network secrets cannot be edited: delete and re-add to change one. A secret
+listed as **Not sent** is not being applied; read the note under it.
 
-### Gemini TTS key
-Either a network secret (preferred) or the `GEMINI_API_KEY` variable:
-- Network secret: allowed website `generativelanguage.googleapis.com`, custom
-  header `x-goog-api-key`, no prefix. The scripts then send no key.
-- Or set `GEMINI_API_KEY`; `gemini_tts.py` sends it as `x-goog-api-key`.
-
-Free tier: 10 requests per day for `gemini-3.8-flash-tts`, one per scene, at
-most 8 scenes.
+Free tier: 10 Gemini TTS requests per day for `gemini-3.8-flash-tts`, one per
+scene, at most 8 scenes.
 
 ### Network access
-Allow these hosts beyond the default package registries:
-`generativelanguage.googleapis.com`, `oauth2.googleapis.com`,
-`www.googleapis.com`, and whichever host serves the Chromium download
+Allow `generativelanguage.googleapis.com` and `www.googleapis.com` (secret
+hosts bypass the allowlist), plus whichever host serves the Chromium download
 (`npx playwright-core install chromium-headless-shell`), or use a setup script
 that installs `ffmpeg`, `fonts-liberation` and a Chromium.
 
-## Getting the OAuth refresh token (once)
-1. Google Cloud project: enable **YouTube Data API v3**.
-2. Google Auth Platform: External consent screen, add the channel owner as a
-   test user, then move the app to **In production**. Apps left in "Testing"
-   get refresh tokens that expire after 7 days.
-3. Create an OAuth client of type **Desktop**.
-4. Run the consent flow (a loopback redirect to `127.0.0.1` with scope
-   `https://www.googleapis.com/auth/youtube.upload`, `access_type=offline`,
-   `prompt=consent`) and store the returned refresh token.
+### OAuth app notes
+Create the OAuth client in a Google Cloud project with **YouTube Data API v3**
+enabled and the channel owner as a test user. Move the app to **In production**:
+refresh tokens of apps left in "Testing" expire after 7 days.
 
 ## Local test
-Put the client JSON at `~/.youtube-client-secret.json` and the refresh token
-at `~/.youtube-refresh-token` (mode 600); `youtube_upload.py` uses them when the
-environment variables are absent. Test with `--privacy private` first.
+The scripts also read local-only credentials when present, so the pipeline can
+be tested without the proxy: `~/.gemini-api-key` and
+`~/.youtube-client-secret.json` + `~/.youtube-refresh-token` (mode 600). Test
+the upload with `--privacy private` first.
 
 ## Failure behavior
 - Upload fails: nothing under `data/` or `web/` changes; the routine reports.

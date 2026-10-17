@@ -3,11 +3,10 @@
 
 Usage: youtube_upload.py FILE --title T --description D [--privacy unlisted]
 
-Auth, first match wins (nothing is ever printed):
-  1. YOUTUBE_CLIENT_ID + YOUTUBE_CLIENT_SECRET + YOUTUBE_REFRESH_TOKEN env vars
-     (cloud routine): exchanged for a 1-hour access token.
-  2. ~/.youtube-client-secret.json + ~/.youtube-refresh-token (local testing).
-  3. No credentials: no auth header is sent (a proxy-injected secret may apply).
+Auth: requests carry no credentials; the cloud agent proxy attaches the OAuth
+2.0 authorization. For local testing only, ~/.youtube-client-secret.json +
+~/.youtube-refresh-token are exchanged for an access token when both exist.
+Nothing secret is ever printed.
 """
 import argparse, json, os, sys, urllib.error, urllib.parse, urllib.request
 
@@ -17,25 +16,22 @@ ap.add_argument("--description", default="")
 ap.add_argument("--privacy", default="unlisted", choices=["private", "unlisted", "public"])
 a = ap.parse_args()
 
-def creds():
-    e = os.environ
-    if e.get("YOUTUBE_CLIENT_ID") and e.get("YOUTUBE_CLIENT_SECRET") and e.get("YOUTUBE_REFRESH_TOKEN"):
-        return e["YOUTUBE_CLIENT_ID"], e["YOUTUBE_CLIENT_SECRET"], e["YOUTUBE_REFRESH_TOKEN"]
+def local_access_token():  # local testing only
     cs, rt = (os.path.expanduser(p) for p in ("~/.youtube-client-secret.json", "~/.youtube-refresh-token"))
-    if os.path.exists(cs) and os.path.exists(rt):
-        c = json.load(open(cs))["installed"]
-        return c["client_id"], c["client_secret"], open(rt).read().strip()
-    return None
+    if not (os.path.exists(cs) and os.path.exists(rt)):
+        return None
+    c = json.load(open(cs))["installed"]
+    body = urllib.parse.urlencode({"client_id": c["client_id"], "client_secret": c["client_secret"],
+                                   "refresh_token": open(rt).read().strip(), "grant_type": "refresh_token"}).encode()
+    try:
+        return json.load(urllib.request.urlopen(urllib.request.Request("https://oauth2.googleapis.com/token", body)))["access_token"]
+    except urllib.error.HTTPError as e:
+        sys.exit(f"token exchange failed: HTTP {e.code}")
 
 hdr = {}
-c = creds()
-if c:
-    body = urllib.parse.urlencode({"client_id": c[0], "client_secret": c[1], "refresh_token": c[2], "grant_type": "refresh_token"}).encode()
-    try:
-        tok = json.load(urllib.request.urlopen(urllib.request.Request("https://oauth2.googleapis.com/token", body)))["access_token"]
-    except urllib.error.HTTPError as e:
-        sys.exit(f"token exchange failed: HTTP {e.code} {e.read()[:200].decode()}")
-    hdr["Authorization"] = "Bearer " + tok
+_tok = local_access_token()
+if _tok:
+    hdr["Authorization"] = "Bearer " + _tok
 
 def fail(e):
     sys.exit(f"HTTP {e.code} {e.read()[:600].decode()}")
