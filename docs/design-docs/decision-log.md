@@ -2336,3 +2336,20 @@ Impact: One page fetch per new LangChain URL, then none. Old re-stamped posts
 fall outside the freshness window instead of reaching the feed.
 
 Rollback: Remove the flag from `langchain_blog` in `config/sources.yaml`.
+
+## 2026-10-17 - research_watch allows two items per source
+
+Decision: `slots.research_watch.max_per_source` goes from 1 to 2 in
+`config/ranking.yaml`. `max_items` stays 5.
+
+Rationale: Anthropic published five research posts within an hour on
+2026-10-16 and `anthropic_research` can only seat one in `research_watch`, so
+"Claude reveals ECDSA curve origins" (quick-score 1.726 vs 1.723 for the
+winner) never reached the feed. A burst from one lab is a signal worth a
+second seat.
+
+Impact: One source can hold two of the slot's five seats, so arXiv and Hugging
+Face items may be displaced on burst days. Global top-band constraints are
+unchanged.
+
+Rollback: Set `max_per_source` back to 1.
