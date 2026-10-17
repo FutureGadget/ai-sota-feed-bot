@@ -4,9 +4,9 @@
 Usage: gemini_tts.py narration.json OUT_DIR [--voice Kore]
 narration.json: [{"id": "s1", "text": "..."}, ...]  (max 8 scenes)
 
-Auth: sends GEMINI_API_KEY as x-goog-api-key when set; otherwise sends no key
-(in the cloud the agent proxy attaches the network secret). The key is never
-printed. Existing clips are skipped, so a rerun spends no extra requests.
+Auth: requests carry no credentials; the cloud agent proxy adds the
+x-goog-api-key header. For local testing only, ~/.gemini-api-key is sent when
+it exists. Existing clips are skipped, so a rerun spends no extra requests.
 Send only the narration text: any style prefix is spoken aloud.
 """
 import argparse, base64, json, os, sys, time, urllib.error, urllib.request
@@ -22,8 +22,9 @@ if len(scenes) > 8:
     sys.exit("max 8 scenes (free tier is 10 requests/day)")
 os.makedirs(a.out_dir, exist_ok=True)
 headers = {"Content-Type": "application/json"}
-if os.environ.get("GEMINI_API_KEY"):
-    headers["x-goog-api-key"] = os.environ["GEMINI_API_KEY"]
+_local_key = os.path.expanduser("~/.gemini-api-key")
+if os.path.exists(_local_key):  # local testing only
+    headers["x-goog-api-key"] = open(_local_key).read().strip()
 
 for s in scenes:
     path = os.path.join(a.out_dir, f"{s['id']}.wav")
