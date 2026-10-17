@@ -9,7 +9,7 @@ never back-filled.
 import json
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[4]
 DAILY = ROOT / "data" / "daily"
 
 def main() -> None:
