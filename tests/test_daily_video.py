@@ -38,7 +38,7 @@ def _wav(seconds: float) -> bytes:
 class DailyVideoTest(unittest.TestCase):
     def test_scenes_open_highlights_category_close(self) -> None:
         scenes = bdv.build_scenes(RECAP)
-        self.assertEqual([s["kind"] for s in scenes], ["open", "highlights", "category", "close"])
+        self.assertEqual([s["kind"] for s in scenes], ["open", "highlights", "category", "close"])  # no figures in RECAP -> no stats scene
         self.assertIn("Friday, October 16", scenes[0]["narration"])
         cat = scenes[2]
         self.assertEqual(len(cat["bullets"]), bdv.MAX_CATEGORY_ARTICLES + 1)
@@ -67,6 +67,27 @@ class DailyVideoTest(unittest.TestCase):
             bdv.narrate(scenes, "key")
         self.assertEqual(syn.call_count, 1)
         self.assertTrue(all(s["pcm"] == b"" for s in scenes))
+
+    def test_extract_stat_requires_unit_and_skips_noise(self) -> None:
+        st = bdv.extract_stat("Reflection Beam-1.0 (501B total, 23B active) lands day-0")
+        self.assertEqual((st["value"], st["suffix"]), (501.0, "B"))
+        self.assertEqual(bdv.extract_stat("outage of nearly 5-hour")["suffix"], " hour")
+        self.assertEqual(bdv.extract_stat("raises $2.5M")["prefix"], "$")
+        self.assertIsNone(bdv.extract_stat("Kimi K3 on MI355X, Beam-1.0, day-0, in 2026"))
+
+    def test_storyboard_carries_motion_data_and_min_durations(self) -> None:
+        recap = {**RECAP, "highlights": ["Beam hits 501B params."]}
+        scenes = bdv.build_scenes(recap)
+        for sc in scenes:
+            sc["pcm"] = b""
+            sc["min_seconds"] = bdv.motion_minimum(sc)
+        sb = bdv.storyboard(recap, scenes)
+        types = [s["type"] for s in sb["scenes"]]
+        self.assertEqual(types, ["open", "highlights", "stats", "category", "close"])
+        cat = sb["scenes"][3]
+        self.assertEqual((cat["total"], len(cat["stories"])), (5, 3))
+        self.assertGreaterEqual(cat["seconds"] + 0.01, 3.0 + bdv.SECONDS_PER_STORY * 3)
+        self.assertEqual(sb["scenes"][-1]["url"], "llm-digest.com/daily")
 
     def test_no_key_makes_no_requests(self) -> None:
         scenes = bdv.build_scenes(RECAP)

@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-16",
+  "scenes": [
+    {"type": "open", "seconds": 7.5, "kicker": "The finishable daily brief", "heading": "Agents get rules. Capacity sets the limit.",
+     "bullets": ["Teams are putting SRE-style controls around agents in production.", "Meanwhile open-weight models and inference capacity decide what can actually ship."],
+     "narration": "Here is Friday's brief in under two minutes. Agents are getting rules. And capacity is setting the limit."},
+    {"type": "versus", "seconds": 13, "kicker": "Agent reliability", "heading": "Who enforces an agent's limits?",
+     "left": {"title": "Another model as judge", "lines": ["A second model reviews each action", "Limits are judged, not guaranteed"]},
+     "right": {"title": "Deterministic guardrail", "win": true, "lines": ["Limits enforced in code, not by a model", "Same input, same decision, every time"]},
+     "narration": "A new open-source guardrail enforces agent limits deterministically, instead of asking another model to judge. The point is predictability. The same action gets the same decision, every time."},
+    {"type": "flow", "seconds": 15, "kicker": "Agent reliability", "heading": "Grafana: hold agents to an SLO",
+     "rows": [
+       {"label": "Services today", "nodes": [{"title": "Service", "sub": "held to a reliability target"}, {"title": "SLO", "sub": "the target"}, {"title": "Error budget", "sub": "how much failure is allowed"}]},
+       {"label": "Grafana's proposal", "nodes": [{"title": "Agent behaviour", "sub": "measured like a service", "hot": true}, {"title": "SLO", "hot": true}, {"title": "Error budget", "hot": true}]}
+     ],
+     "narration": "Grafana proposes measuring agent behaviour the way we already hold services to reliability targets. Give the agent an S L O, and an error budget for how much failure is allowed."},
+    {"type": "callout", "seconds": 8, "kicker": "Access control", "heading": "Citi restricts AI agents from customer accounts",
+     "sub": "Citi joins other US banks blocking agents from accounts: access-control friction for agent builders.",
+     "narration": "On the other side of the same coin, Citi is the latest US bank to block AI agents from customer accounts. Expect access-control friction."},
+    {"type": "flow", "seconds": 13, "kicker": "Agent building blocks", "heading": "Google EnvHarness: fix the environment, not the agent",
+     "rows": [
+       {"label": "Training loop", "nodes": [{"title": "Agent's weaknesses", "sub": "where it fails today"}, {"title": "Environment adapts", "sub": "tasks target those gaps", "hot": true}, {"title": "Agent improves", "sub": "agent itself unmodified"}]}
+     ],
+     "narration": "Google open-sourced EnvHarness. Instead of changing the agent, it adapts the training environment to the agent's weaknesses."},
+    {"type": "bars", "seconds": 16, "kicker": "Open-weight inference", "heading": "Reflection Beam-1.0: big model, small active slice",
+     "items": [
+       {"label": "Total params", "value": 501, "display": "501B"},
+       {"label": "Active params", "value": 23, "display": "23B", "hot": true, "tag": "about 4.6% of the total"}
+     ],
+     "callout": {"value": 2.71, "decimals": 2, "suffix": "×", "label": "decode latency cut with agent-driven optimization (vLLM, day 0)"},
+     "narration": "Reflection's Beam is five hundred and one billion parameters in total, but only twenty-three billion are active. vLLM supported it from day zero, and agent-driven optimization cut decode latency two point seven one times."},
+    {"type": "bars", "seconds": 11, "kicker": "Open-weight inference", "heading": "Kimi K3 on AMD matches NVIDIA per GPU",
+     "items": [
+       {"label": "NVIDIA HGX B300", "value": 1, "display": "baseline"},
+       {"label": "AMD MI355X", "value": 1, "display": "matched", "hot": true, "tag": "per-GPU throughput, as reported by vLLM"}
+     ],
+     "narration": "vLLM also reports Kimi K3 on AMD's MI355X reaching NVIDIA HGX B300 throughput per GPU. That is a real alternative for serving."},
+    {"type": "flow", "seconds": 16, "kicker": "Inference capacity", "heading": "Capacity is the constraint",
+     "rows": [
+       {"label": "What happened", "nodes": [{"title": "China's AI demand", "sub": "keeps rising"}, {"title": "Chip shortage", "sub": "per reporting"}, {"title": "DeepSeek outage", "sub": "nearly 5 hours", "hot": true}]},
+       {"label": "Microsoft's response", "nodes": [{"title": "Maia", "sub": "primary inference system for its own products"}, {"title": "Multi-gigawatt", "sub": "scaling from 2027", "hot": true}]}
+     ],
+     "narration": "And capacity is the constraint. Reporting links DeepSeek's nearly five hour outage to a chip shortage amid China's AI demand. Microsoft plans to scale Maia to multi-gigawatt inference from twenty twenty-seven, though its efficiency metric is being questioned."},
+    {"type": "close", "seconds": 6, "kicker": "You're caught up", "heading": "Read the full brief", "url": "llm-digest.com/daily",
+     "narration": "That's the brief. Full stories and sources are at llm-digest dot com slash daily."}
+  ]
+}

@@ -24,6 +24,7 @@ import base64
 import io
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -47,6 +48,15 @@ GAP_SECONDS = 0.5
 WORDS_PER_SECOND = 2.6  # silent-scene pacing
 MIN_SCENE_SECONDS = 4.0
 MAX_CATEGORY_ARTICLES = 3
+MAX_STATS = 4
+SECONDS_PER_STORY = 2.2  # motion scenes need time for each card to animate in
+VIDEO_DIR = ROOT / "video"
+# A figure only counts as a callout with a unit or $ ("501B", "5-hour", "$2M",
+# "40%"); bare numbers like "Beam-1.0" or "day-0" are version/label noise.
+STAT_RE = re.compile(
+    r"(?<![\w.])(\$)?(\d{1,3}(?:,\d{3})+|\d+(?:\.\d+)?)"
+    r"(\s?(?:[BMKT]|%|x|GB|TB|ms)|-?\s?(?:hours?|minutes?|days?))?(?![\w])"
+)
 
 TTS_MODEL = os.environ.get("GEMINI_TTS_MODEL", "gemini-3.8-flash-tts")
 TTS_VOICE = os.environ.get("GEMINI_TTS_VOICE", "Kore")
@@ -70,6 +80,28 @@ def _spoken_date(date: str) -> str:
 
     d = dt.date.fromisoformat(date)
     return f"{d.strftime('%A, %B')} {d.day}"
+
+
+def extract_stat(text: str) -> dict | None:
+    """First unit-bearing figure in ``text`` as a count-up callout, else None."""
+    for m in STAT_RE.finditer(text):
+        prefix, num, unit = m.group(1) or "", m.group(2), (m.group(3) or "")
+        value = float(num.replace(",", ""))
+        if not (prefix or unit.strip()) or value == 0 or (1900 <= value <= 2100 and not unit):
+            continue
+        suffix = unit.strip() if unit.strip() in ("B", "M", "K", "T", "%", "x", "GB", "TB", "ms") else ""
+        unit_label = "" if suffix else re.sub(r"[-\s]+", " ", unit).strip()
+        return {
+            "value": value,
+            "prefix": prefix,
+            "suffix": suffix or (f" {unit_label}" if unit_label else ""),
+            "decimals": len(num.split(".")[1]) if "." in num else 0,
+        }
+    return None
+
+
+def _source_name(source: str) -> str:
+    return re.sub(r"\s+", " ", str(source or "").replace("_", " ")).strip()
 
 
 def build_scenes(recap: dict) -> list[dict]:
@@ -97,6 +129,22 @@ def build_scenes(recap: dict) -> list[dict]:
                 "narration": " ".join(["The headlines."] + highlights[:6]),
             }
         )
+    stats = []
+    for text in highlights:
+        st = extract_stat(text)
+        if st:
+            stats.append({**st, "label": text})
+    if stats:
+        scenes.append(
+            {
+                "kind": "stats",
+                "kicker": "By the numbers",
+                "heading": "The figures behind the headlines",
+                "stats": stats[:MAX_STATS],
+                "bullets": [x["label"] for x in stats[:MAX_STATS]],
+                "narration": "A few of the numbers behind those headlines.",
+            }
+        )
     for cat in recap.get("categories") or []:
         arts = [a for a in cat.get("articles") or [] if _clean(a.get("title"))]
         if not arts:
@@ -111,6 +159,16 @@ def build_scenes(recap: dict) -> list[dict]:
                 "kicker": f"{len(arts)} {'story' if len(arts) == 1 else 'stories'}",
                 "heading": _clean(cat.get("name")),
                 "dek": summary,
+                "total": len(arts),
+                "stories": [
+                    {
+                        "title": _clean(a["title"]),
+                        "summary": _clean(a.get("summary")),
+                        "source": _source_name(a.get("source")),
+                        **({"stat": st} if (st := extract_stat(_clean(a["title"]))) else {}),
+                    }
+                    for a in arts[:MAX_CATEGORY_ARTICLES]
+                ],
                 "bullets": titles + ([f"+{more} more in the full brief"] if more > 0 else []),
                 "narration": narration,
             }
@@ -250,9 +308,11 @@ def narrate(scenes: list[dict], api_key: str | None) -> None:
 
 def scene_seconds(scene: dict) -> float:
     if scene["pcm"]:
-        return len(scene["pcm"]) / 2 / SAMPLE_RATE + GAP_SECONDS
-    words = len(scene["narration"].split())
-    return max(MIN_SCENE_SECONDS, words / WORDS_PER_SECOND + GAP_SECONDS)
+        base = len(scene["pcm"]) / 2 / SAMPLE_RATE + GAP_SECONDS
+    else:
+        words = len(scene["narration"].split())
+        base = max(MIN_SCENE_SECONDS, words / WORDS_PER_SECOND + GAP_SECONDS)
+    return max(base, scene.get("min_seconds", 0.0))
 
 
 # ---------------------------------------------------------------- output
@@ -306,9 +366,50 @@ def mux(scenes: list[dict], slides: list[Path], audio: Path, out: Path) -> None:
     )
 
 
-def build(date: str | None, out_root: Path, use_tts: bool) -> Path:
-    if not og.fonts_available():
-        raise SystemExit("video_build_skipped reason=missing_pillow_or_fonts")
+def motion_minimum(scene: dict) -> float:
+    """Floor so every card/stat finishes animating even for short narration."""
+    kind = scene["kind"]
+    if kind == "category":
+        return 3.0 + SECONDS_PER_STORY * len(scene.get("stories", []))
+    if kind == "stats":
+        return 3.0 + 0.9 * len(scene.get("stats", []))
+    if kind == "highlights":
+        return 1.5 + 2.4 * len(scene.get("bullets", []))
+    return 5.0
+
+
+STORYBOARD_FIELDS = ("kicker", "heading", "bullets", "dek", "total", "stories", "stats")
+
+
+def storyboard(recap: dict, scenes: list[dict]) -> dict:
+    out = []
+    for sc in scenes:
+        item = {"type": sc["kind"], "seconds": round(scene_seconds(sc), 3)}
+        item.update({k: sc[k] for k in STORYBOARD_FIELDS if k in sc})
+        if sc["kind"] == "close":
+            item["url"] = "llm-digest.com/daily"
+        out.append(item)
+    return {"date": recap["date"], "scenes": out}
+
+
+def render_motion(sb_path: Path, audio: Path, out: Path, fps: int, scale: float) -> bool:
+    """Render the animated video; False when node/playwright is unavailable."""
+    node = shutil.which("node")
+    if not node:
+        print("motion_unavailable reason=missing_node fallback=slides", file=sys.stderr)
+        return False
+    proc = subprocess.run(
+        [node, str(VIDEO_DIR / "render.mjs"), str(sb_path), str(out), "--audio", str(audio),
+         "--fps", str(fps), "--scale", str(scale)]
+    )
+    if proc.returncode == 3:
+        print("motion_unavailable reason=missing_playwright fallback=slides", file=sys.stderr)
+        return False
+    proc.check_returncode()
+    return True
+
+
+def build(date: str | None, out_root: Path, use_tts: bool, style: str = "motion", fps: int = 30, scale: float = 1.0) -> Path:
     if not shutil.which("ffmpeg"):
         raise SystemExit("video_build_skipped reason=missing_ffmpeg")
     recap = load_recap(date)
@@ -317,18 +418,29 @@ def build(date: str | None, out_root: Path, use_tts: bool) -> Path:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     scenes = build_scenes(recap)
+    if style == "motion":
+        for sc in scenes:
+            sc["min_seconds"] = motion_minimum(sc)
     narrate(scenes, os.environ.get("GEMINI_API_KEY") if use_tts else None)
 
-    slides = []
-    for i, scene in enumerate(scenes, 1):
-        slide = out_dir / f"slide-{i:02d}.png"
-        render_slide(scene, i, len(scenes), date).save(slide)
-        slides.append(slide)
     audio = out_dir / "narration.wav"
     write_audio(scenes, audio)
     write_vtt(scenes, out_dir / f"{date}.vtt")
     video = out_dir / f"{date}.mp4"
-    mux(scenes, slides, audio, video)
+    rendered = False
+    if style == "motion":
+        sb_path = out_dir / "storyboard.json"
+        sb_path.write_text(json.dumps(storyboard(recap, scenes), indent=2, ensure_ascii=False), encoding="utf-8")
+        rendered = render_motion(sb_path, audio, video, fps, scale)
+    if not rendered:
+        if not og.fonts_available():
+            raise SystemExit("video_build_skipped reason=missing_pillow_or_fonts")
+        slides = []
+        for i, scene in enumerate(scenes, 1):
+            slide = out_dir / f"slide-{i:02d}.png"
+            render_slide(scene, i, len(scenes), date).save(slide)
+            slides.append(slide)
+        mux(scenes, slides, audio, video)
 
     total = sum(scene_seconds(s) for s in scenes)
     meta = [{k: v for k, v in s.items() if k != "pcm"} | {"seconds": round(scene_seconds(s), 2), "voiced": bool(s["pcm"])} for s in scenes]
@@ -341,9 +453,13 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--date", help="recap date (default: latest.json)")
     ap.add_argument("--out", type=Path, default=OUT_ROOT)
+    ap.add_argument("--style", choices=["motion", "slides"], default="motion",
+                    help="motion: animated HTML player via Playwright (default); slides: static Pillow slides")
+    ap.add_argument("--fps", type=int, default=30)
+    ap.add_argument("--scale", type=float, default=1.0, help="device scale factor: 1 = 720p, 1.5 = 1080p")
     ap.add_argument("--no-tts", action="store_true", help="skip narration; silent timed video")
     args = ap.parse_args()
-    build(args.date, args.out, use_tts=not args.no_tts)
+    build(args.date, args.out, use_tts=not args.no_tts, style=args.style, fps=args.fps, scale=args.scale)
 
 
 if __name__ == "__main__":
