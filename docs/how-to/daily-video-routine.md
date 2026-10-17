@@ -19,8 +19,11 @@ variables for these, so scripts send plain requests.
 Network secrets cannot be edited: delete and re-add to change one. A secret
 listed as **Not sent** is not being applied; read the note under it.
 
-Free tier: 10 Gemini TTS requests per day for `gemini-3.8-flash-tts`, one per
-scene, at most 8 scenes.
+Free tier: 3 requests per minute and 10 per day for each Gemini TTS model, one
+request per scene, at most 8 scenes. `gemini_tts.py` falls back in quality order
+when a model's daily quota is spent: `gemini-3.8-flash-tts`,
+`gemini-3.1-flash-tts-preview`, `gemini-3.8-flash-lite-tts`,
+`gemini-2.5-flash-preview-tts` (2.5 returns raw PCM; the script wraps it as WAV).
 
 ### Network access
 Allow `generativelanguage.googleapis.com` and `www.googleapis.com` (secret
