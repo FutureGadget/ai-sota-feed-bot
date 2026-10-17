@@ -100,9 +100,10 @@ Response fields served from the accumulated ranked pool above:
   bundles the agent reads (excluded from deploys). Recap input and output
   articles preserve optional `publisher_name` and `publisher_domain` fields so
   renderers can credit the syndicated outlet instead of the aggregator feed.
-  A daily recap may also carry `video: {youtube_id, title?, duration_s?}` (written
-  by the `daily-video` routine after a successful YouTube upload; `youtube_id` is
-  the 11-character id). Only the id is stored, never the video file.
+  A daily or weekly recap may also carry `video: {youtube_id, title?, duration_s?}`
+  (written by the `daily-video` / `weekly-video` routine after a successful YouTube
+  upload; `youtube_id` is the 11-character id). Only the id is stored, never the
+  video file. Both validators enforce the id; the weekly index does not carry it.
 - `data/daily/state.json` — `build_daily_input.py`'s automatic-mode cursor:
   `last_checked_date` (latest UTC day published or confirmed empty) and
   `skipped_dates` (audit trail of confirmed-empty days). Only the script's

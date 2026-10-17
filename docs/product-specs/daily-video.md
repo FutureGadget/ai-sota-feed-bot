@@ -24,6 +24,10 @@ the daily recap routine. It uploads first and attaches `video` only after the
 upload succeeds. Setup and failure handling:
 `docs/how-to/daily-video-routine.md`.
 
+## Weekly
+The weekly recap has the same block and contract; see `weekly-video.md`.
+Both kinds share the pipeline in `.agents/skills/video-common/`.
+
 ## Content rules
 Only facts in the recap summaries; no invented numbers, causes or quotes; no
 number is drawn unless the recap gives one; generic diagrams are labeled

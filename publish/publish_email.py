@@ -211,6 +211,19 @@ READER_ID_FALLBACK = "none"
 READER_ID_TOKEN = "{{{contact.%s|%s}}}" % (READER_ID_PROPERTY, READER_ID_FALLBACK)
 
 
+def video_link_html(cfg: dict, recap: dict, page_path: str, label: str) -> str:
+    """A "watch the explainer" link to the recap page's #video anchor, or ""
+    when the recap has no valid ``video``. Never embeds the video."""
+    video = recap.get("video")
+    if not (isinstance(video, dict) and re.fullmatch(r"[A-Za-z0-9_-]{11}", str(video.get("youtube_id") or ""))):
+        return ""
+    url = f"{cfg['site_base'].rstrip('/')}{page_path}?utm_source={cfg['utm_source']}#video"
+    return (
+        '<div style="margin:0 0 14px;font-size:14px">'
+        f'<a href="{html.escape(url)}" style="color:#1a6dd6;font-weight:600">▶ {html.escape(label)}</a></div>'
+    )
+
+
 def tag_reader_links(cfg: dict, body: str) -> str:
     """Append ``rid=<per-contact token>`` to every on-site link that already
     carries ``utm_source`` (i.e. every tracked link we render). Idempotent."""
@@ -514,17 +527,7 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
         for p in intro_paras[:2]
     )
 
-    # Link to the page's #video anchor when the recap has an explainer video.
-    video = recap.get("video")
-    video_html = ""
-    if isinstance(video, dict) and re.fullmatch(r"[A-Za-z0-9_-]{11}", str(video.get("youtube_id") or "")):
-        watch_url = (f"{cfg['site_base'].rstrip('/')}/daily/{recap_date}"
-                     f"?utm_source={cfg['utm_source']}#video")
-        video_html = (
-            '<div style="margin:0 0 14px;font-size:14px">'
-            f'<a href="{html.escape(watch_url)}" style="color:#1a6dd6;font-weight:600">'
-            '▶ Watch the 2-minute explainer</a></div>'
-        )
+    video_html = video_link_html(cfg, recap, f"/daily/{recap_date}", "Watch the 2-minute explainer")
 
     # Themed categories: each article links to its /story/<sid> permalink, carries
     # its source and one-line recap summary, and keeps the one-tap feedback row.
@@ -755,11 +758,13 @@ def render_weekly(
     pre = clean(highlights[0], 110) if highlights else clean(" ".join(intro[:1]), 110)
     preheader = html.escape(f"{pre} — your weekly catch-up.")
     skill_lab_html = render_skill_lab_email(cfg, skill_lab)
+    video_html = video_link_html(cfg, wk, f"/weekly/{wk.get('week','')}", "Watch the weekly explainer")
     body = f"""\
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#fff">{preheader}{PREHEADER_PAD}</div>
 <div style="max-width:640px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111">
   <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}LLM Digest · Weekly recap</div>
   <h1 style="font-size:21px;margin:6px 0 10px">{html.escape(title)}</h1>
+  {video_html}
   {intro_html}
   {hl_html}
   {fav_html}

@@ -12,6 +12,11 @@ _spec = importlib.util.spec_from_file_location(
 )
 daily_common = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(daily_common)
+_wspec = importlib.util.spec_from_file_location(
+    "weekly_common", ROOT / ".agents" / "skills" / "weekly-summary" / "scripts" / "weekly_common.py"
+)
+weekly_common = importlib.util.module_from_spec(_wspec)
+_wspec.loader.exec_module(weekly_common)
 
 VID = "xJtYHEhQ8NY"
 
@@ -54,6 +59,45 @@ class DailyVideoEmbedTest(unittest.TestCase):
     def test_shell_supports_video(self) -> None:
         html = (ROOT / "web" / "daily.html").read_text(encoding="utf-8")
         self.assertIn("renderVideo(recap)", html)
+
+
+def weekly_recap(video=None) -> dict:
+    data = {
+        "week": "2026-W42", "start": "2026-10-10", "end": "2026-10-16", "title": "t",
+        "categories": [{"name": "c", "articles": [{"title": "a", "url": "https://example.com"}]}],
+    }
+    if video is not None:
+        data["video"] = video
+    return data
+
+
+class WeeklyVideoEmbedTest(unittest.TestCase):
+    def test_no_video_renders_nothing(self) -> None:
+        self.assertEqual(render.render_video(weekly_recap(), "weekly"), "")
+
+    def test_weekly_copy_anchor_and_tracking(self) -> None:
+        html = render.render_video(weekly_recap({"youtube_id": VID, "duration_s": 165}), "weekly")
+        self.assertIn('id="video"', html)
+        self.assertIn("stories connect, in 2:45", html)
+        self.assertIn("Weekly explainer video", html)
+        self.assertIn('data-track="weekly-video"', html)
+
+    def test_daily_copy_is_unchanged(self) -> None:
+        html = render.render_video(recap({"youtube_id": VID}))
+        self.assertIn("stories work", html)
+        self.assertIn('data-track="daily-video"', html)
+
+    def test_weekly_validation(self) -> None:
+        self.assertEqual(weekly_common.validate_recap(weekly_recap({"youtube_id": VID})), [])
+        self.assertEqual(weekly_common.validate_recap(weekly_recap()), [])
+        self.assertTrue(weekly_common.validate_recap(weekly_recap({"youtube_id": "short"})))
+        self.assertTrue(weekly_common.validate_recap(weekly_recap("nope")))
+
+    def test_weekly_shell_supports_video(self) -> None:
+        html = (ROOT / "web" / "weekly.html").read_text(encoding="utf-8")
+        self.assertIn("renderVideo(recap)", html)
+        self.assertIn('id="video"', html)
+        self.assertEqual(html.count("youtube-nocookie.com/embed/"), 1)
 
 
 if __name__ == "__main__":

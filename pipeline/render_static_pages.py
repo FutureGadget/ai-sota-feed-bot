@@ -1706,7 +1706,13 @@ def format_duration(seconds) -> str:
     return f"{total // 60}:{total % 60:02d}" if total > 0 else ""
 
 
-def render_video(recap: dict) -> str:
+VIDEO_COPY = {
+    "daily": ("Daily explainer video", "How today's stories work"),
+    "weekly": ("Weekly explainer video", "How this week's stories connect"),
+}
+
+
+def render_video(recap: dict, kind: str = "daily") -> str:
     """Click-to-load YouTube explainer for a recap; empty when it has none.
 
     The recap's optional ``video`` is ``{youtube_id, title?, duration_s?}``. The
@@ -1719,9 +1725,10 @@ def render_video(recap: dict) -> str:
     vid = str(video.get("youtube_id") or "")
     if not YOUTUBE_ID_RE.match(vid):
         return ""
-    title = squeeze(video.get("title")) or "Daily explainer video"
+    default_title, blurb = VIDEO_COPY[kind]
+    title = squeeze(video.get("title")) or default_title
     duration = format_duration(video.get("duration_s"))
-    meta = "How today's stories work, in " + duration if duration else "How today's stories work"
+    meta = f"{blurb}, in {duration}" if duration else blurb
     return (
         '<section class="recap-video" id="video" aria-label="Video explainer"><div>'
         '<p class="video-label">Prefer to watch?</p>'
@@ -1729,7 +1736,7 @@ def render_video(recap: dict) -> str:
         f'<p class="video-meta">{escape(meta)}. Loads from YouTube when you press play.</p></div>'
         '<div class="video-frame">'
         f'<a class="video-play" href="https://youtu.be/{vid}" data-video-id="{vid}" '
-        f'data-title="{escape(title)}" data-track="daily-video" aria-label="Play: {escape(title)}">'
+        f'data-title="{escape(title)}" data-track="{kind}-video" aria-label="Play: {escape(title)}">'
         f'<img src="https://i.ytimg.com/vi/{vid}/hqdefault.jpg" alt="" loading="lazy" decoding="async">'
         '<span class="video-btn" aria-hidden="true">&#9654;</span></a></div>'
         f'{VIDEO_PLAYER_JS}</section>'
@@ -2274,7 +2281,8 @@ def render_weekly_pages(
             recap_range="",
             title_html=weekly_hero(recap),
             intro_html=render_intro(recap, "The week in signals") + render_focus_widget(recap),
-            body_html=render_categories(
+            body_html=render_video(recap, "weekly")
+            + render_categories(
                 recap,
                 "weekly-link",
                 story_sids,

@@ -5,7 +5,7 @@ Usage: gemini_tts.py narration.json OUT_DIR [--voice Kore] [--model ID]
 Models are tried in quality order (MODELS). When one returns a per-day 429
 (quota spent) or is unavailable, the script moves to the next for the rest of
 the run. --model pins a single model with no fallback.
-narration.json: [{"id": "s1", "text": "..."}, ...]  (max 8 scenes)
+narration.json: [{"id": "s1", "text": "..."}, ...]  (max --max-scenes, default 12)
 
 Auth: requests carry no credentials; the cloud agent proxy adds the
 x-goog-api-key header. Existing clips are skipped, so a rerun spends no extra requests.
@@ -19,12 +19,13 @@ MODELS = ["gemini-3.8-flash-tts", "gemini-3.1-flash-tts-preview",
 ap = argparse.ArgumentParser()
 ap.add_argument("narration"); ap.add_argument("out_dir"); ap.add_argument("--voice", default="Kore")
 ap.add_argument("--model")
+ap.add_argument("--max-scenes", type=int, default=12)
 a = ap.parse_args()
 models = [a.model] if a.model else list(MODELS)
 URL = "https://generativelanguage.googleapis.com/v1beta/models/{}:generateContent"
 scenes = json.load(open(a.narration))
-if len(scenes) > 8:
-    sys.exit("max 8 scenes (free tier is 10 requests/day per model)")
+if len(scenes) > a.max_scenes:
+    sys.exit(f"max {a.max_scenes} scenes (each model allows 10 requests/day; the fallback chain spreads them)")
 os.makedirs(a.out_dir, exist_ok=True)
 headers = {"Content-Type": "application/json"}
 

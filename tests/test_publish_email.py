@@ -143,6 +143,18 @@ class WeeklySkillLabEmailTest(unittest.TestCase):
         self.assertIn("utm_campaign=skill_lab_0", body)
         self.assertIn("ref=weekly_email", body)
 
+    def test_weekly_email_links_the_video_anchor_only_when_present(self) -> None:
+        with_video = {**self.week, "video": {"youtube_id": "KNEGLmDOnLc"}}
+        _, body = email.render_weekly(self.cfg, with_video, [], [], None)
+        tagged = email.tag_reader_links(self.cfg, body)
+        links = [h for h in __import__("re").findall(r'href="([^"]+)"', tagged) if h.endswith("#video")]
+        self.assertEqual(len(links), 1)
+        self.assertIn(f"/weekly/{self.week['week']}?utm_source=email", links[0])
+        self.assertIn("rid={{{contact.reader_id|none}}}", links[0])
+        self.assertIn("Watch the weekly explainer", body)
+        _, plain = email.render_weekly(self.cfg, self.week, [], [], None)
+        self.assertNotIn("#video", plain)
+
     def test_weekly_email_without_current_lab_is_unchanged(self) -> None:
         _, body = email.render_weekly(self.cfg, self.week, [], [], None)
         self.assertNotIn("Agent Skill Lab", body)
