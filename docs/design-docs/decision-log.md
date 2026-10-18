@@ -2367,3 +2367,22 @@ Face items may be displaced on burst days. Global top-band constraints are
 unchanged.
 
 Rollback: Set `max_per_source` back to 1.
+
+## 2026-10-18 - Explainer video storyboard is hook-first and lead-story-led
+
+Decision: `video-common` storyboard rules now require a hook scene (no title
+card), one lead story with about 40 percent of runtime, a before / change /
+so-what arc per story scene, visible magnitude for every recap number, varied
+layouts, and a closing takeaway. `example-animation.html` splits captions into
+chunks of at most 84 characters.
+
+Rationale: The 2026-10-17 daily video (118 s) opened on a title card, used the
+same kicker + headline + boxed diagram layout in every scene, showed numbers as
+static cards with no comparison, ended on a list plus URL, and its captions
+wrapped to three lines over the diagram footnotes.
+
+Impact: Daily and weekly videos change shape on the next run. Scene counts, TTS
+request budget and the no-invented-facts rules are unchanged.
+
+Rollback: Revert the storyboard bullets in `.agents/skills/video-common/SKILL.md`
+and the `chunkCaption` helper in the reference animation.

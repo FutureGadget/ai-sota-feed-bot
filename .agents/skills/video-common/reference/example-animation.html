@@ -75,9 +75,18 @@ function chrome(idx,total){
 }
 function progressBar(t){const u=t/TIMING.total;
   H.push(`<div class="abs" style="left:0;bottom:0;width:${W*u}px;height:4px;background:${C.red}"></div>`)}
+function chunkCaption(text,max=84){
+  // sentence split, then word-wrap long sentences into chunks of at most `max` chars (2 lines of 42)
+  const out=[];
+  (text.match(/[^.:]+[.:]?/g)||[]).map(s=>s.trim().replace(/^./,c=>c.toUpperCase()).replace(/:$/,'.')).filter(Boolean).forEach(s=>{
+    const w=s.split(/\s+/);const n=Math.ceil(s.length/max);const per=Math.ceil(s.length/n)+8;let cur='';
+    w.forEach(x=>{if(cur&&(cur+' '+x).length>per){out.push(cur);cur=x}else cur=cur?cur+' '+x:x});
+    if(cur)out.push(cur)});
+  return out;
+}
 function caption(sceneIdx,lt){
   const sc=TIMING.scenes[sceneIdx];
-  const sents=sc.text.match(/[^.:]+[.:]?/g).map(s=>s.trim().replace(/^./,c=>c.toUpperCase()).replace(/:$/,'.')).filter(Boolean);
+  const sents=chunkCaption(sc.text);
   const tot=sents.reduce((a,s)=>a+s.length,0);
   let acc=0,cur=-1,start=0,end=0;
   sents.forEach((s,i)=>{const a=sc.lead+sc.adur*acc/tot;const b=sc.lead+sc.adur*(acc+s.length)/tot;acc+=s.length;
@@ -85,7 +94,7 @@ function caption(sceneIdx,lt){
   if(cur<0)return;
   const p=Math.min(P(lt,start-.05,.25),1-P(lt,end+(cur===sents.length-1?.5:-.0),.3)*(cur===sents.length-1?1:0));
   H.push(`<div class="abs" style="left:0;right:0;bottom:30px;display:flex;justify-content:center;opacity:${p};transform:translateY(${(1-p)*10}px)">
-    <div style="max-width:1020px;text-align:center;background:${C.ink};color:${C.paper};font-size:25px;line-height:1.3;font-weight:500;padding:11px 24px;border-radius:6px">${esc(sents[cur])}</div></div>`);
+    <div style="max-width:760px;text-align:center;background:${C.ink};color:${C.paper};font-size:25px;line-height:1.3;font-weight:500;padding:11px 24px;border-radius:6px">${esc(sents[cur])}</div></div>`);
 }
 
 /* ---------- scenes: each draws into S/H for local time lt ---------- */

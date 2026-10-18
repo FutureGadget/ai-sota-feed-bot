@@ -39,3 +39,8 @@ explainer" link under the "In 30 seconds" box. It points to
 `/daily/<date>?utm_source=email&rid=<token>#video`: the page opens at the video
 block and plays on click. The email never embeds the video. Recaps without a
 video produce the same email as before.
+
+## Craft rules
+Hook-first opening (no title card), one lead story, before / change / so-what
+per story scene, visible magnitude for every number the recap gives, varied
+layouts, and a closing takeaway. Owned by `.agents/skills/video-common/SKILL.md`.
