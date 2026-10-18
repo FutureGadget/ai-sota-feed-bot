@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. vllm v0.32.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.0
-- Score: 2.971 | Reliability: 1.0
+- Score: 2.93 | Reliability: 1.0
 - Why it matters: 
 
 ## 2. Reverse Engineer Anything Project Brings AI Agents to Binary Analysis
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/10/reverse-engineer-anything/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.41 | Reliability: 1.0
+- Score: 2.391 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex, claude code.
 
 ## 3. DeepSeek has been disrupted 10 times this year, now preparing compensation for users
 - Type: news | Source: search_cn_open_weight_labs
 - URL: https://news.google.com/rss/articles/CBMiS0FVX3lxTFBZaGhIZy0xRWk0bDVtckI2dFk1YW9pLXVBMkNqalBXNDNDeWhUSmJacGFkTFpNU2pMLVhzdVV2akNQTk0tTl9sMmJTMNIBQkFVX3lxTE1RWWcxVXBLZ0FmNEdaZWtDWDFsOEZ5Tzk3Rk5UQzdLaWVyZVBFajZRYWpfelBHQlYwMzZZYlNzaFowZw?oc=5
-- Score: 2.33 | Reliability: 1.0
+- Score: 2.281 | Reliability: 1.0
 - Why it matters: 
 
 ## 4. Learning Self-Orchestration in Decentralized Agent Swarms
 - Type: paper | Source: arxiv_agent_systems_research
 - URL: http://arxiv.org/abs/2610.22322v1
-- Score: 2.201 | Reliability: 1.0
+- Score: 2.191 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 5. Google EnvHarness Enables Self-Evolving Agents to Learn in Dynamics Environments
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/10/envharness-self-evolving-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.146 | Reliability: 1.0
+- Score: 2.131 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness, evaluation.
 
 ## 6. Improving Environment-Agnostic Coding Agents: The Role of Scaffolding
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2610.22289v1
-- Score: 2.137 | Reliability: 1.0
+- Score: 2.127 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval, codex.
 
 ## 7. Qwen-Audio-Jev: A Unified Interface for Audio Decisions
 - Type: paper | Source: arxiv_cn_open_weight_reports
 - URL: http://arxiv.org/abs/2610.21614v1
-- Score: 2.106 | Reliability: 1.0
+- Score: 2.097 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
 ## 8. Anthropic update on independent evaluators
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/an-update-on-independent-evaluators
-- Score: 1.558 | Reliability: 1.0
+- Score: 1.55 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 9. Stack Overflow for Agents triples signups with ChatGPT plugin
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/stack-overflow-chatgpt-plugin
-- Score: 1.555 | Reliability: 1.0
+- Score: 1.546 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
 ## 10. Benefit Street Partners answers questions faster with Codex
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/benefit-street-partners
-- Score: 1.555 | Reliability: 1.0
+- Score: 1.546 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 11. The AI expectations gap
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/ai-expectations-gap
-- Score: 2.083 | Reliability: 1.0
+- Score: 2.073 | Reliability: 1.0
 - Why it matters: 
 
 ## 12. X-RIC: An Agentic RAN-Intelligent Controller Benchmark for Enhancing Reinforcement Learning
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2610.22269v1
-- Score: 2.021 | Reliability: 1.0
+- Score: 2.011 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
 ## 13. Meta shakes up the frontiers, open and closed
 - Type: news | Source: interconnects
 - URL: https://www.interconnects.ai/p/meta-shakes-up-the-frontiers-open
-- Score: 1.978 | Reliability: 1.0
+- Score: 1.962 | Reliability: 1.0
 - Why it matters: 
 
 ## 14. Quoting Addy Osmani, Morgan Westlee Lunt, and Qing Wang
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Oct/16/code-review/
-- Score: 1.968 | Reliability: 1.0
+- Score: 1.954 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, claude code.
 
 ## 15. The Most Common Questions About Agent Evals, Answered
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/common-questions-about-agent-evals
-- Score: 1.913 | Reliability: 1.0
+- Score: 1.901 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 16. New Co-Design Framework Speeds Up LLM Inference on Mixed Hardware by Taming Memory Bottlenecks
 - Type: news | Source: search_llm_ops_news
 - URL: https://news.google.com/rss/articles/CBMiuwFBVV95cUxOdm1kSExLR1hxSXpsdTVpSmtTTnVlQkdNRjhRZHUwR1pxU3ZyYkxxSUZINk95N1d5Z1lxSmpBS3ZWbHVmRWp1dmY3REx5bnNYSGRTblczTUw5VFdIaER0UWM4Q2hZRTRQVDdOazZ5YmJVT3puV3p5YlZWcTB5M2hOTHIwYWxzcGM2a2gwY0c2VmZSRTZzSnY1SUIwb0V3T01XbDBwaFZYUWpNbXFhRFlnc0QxSHhIMGIteDJJ?oc=5
-- Score: 1.912 | Reliability: 1.0
+- Score: 1.875 | Reliability: 1.0
 - Why it matters: 
 
 ## 17. web-edit 0.1a2
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Oct/17/web-edit/
-- Score: 1.874 | Reliability: 1.0
+- Score: 1.861 | Reliability: 1.0
 - Why it matters: 
 
 ## 18. Hyper Optimizing Kimi K3 in vLLM: Moving Fast and Responsibly
 - Type: news | Source: vllm_blog
 - URL: https://vllm.ai/blog/2026-10-16-kimi-k3-megakernel
-- Score: 1.869 | Reliability: 1.0
+- Score: 1.857 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 19. [AINews] High Taste Testers Ep. 1
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-high-taste-testers-ep-1
-- Score: 1.857 | Reliability: 1.0
+- Score: 1.843 | Reliability: 1.0
 - Why it matters: 
 
 ## 20. claude-code v2.1.302
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.302
-- Score: 1.736 | Reliability: 1.0
+- Score: 1.721 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
 ## 21. codex 0.164.0-alpha.3
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.164.0-alpha.3
-- Score: 1.658 | Reliability: 1.0
+- Score: 1.643 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 22. tencent/Qwen3-8B-DSpine-b16 released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
 - URL: https://huggingface.co/tencent/Qwen3-8B-DSpine-b16
-- Score: 1.533 | Reliability: 1.0
+- Score: 1.522 | Reliability: 1.0
 - Why it matters: 
 
 ## 23. langgraph==1.2.16
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.16
-- Score: 1.505 | Reliability: 1.0
+- Score: 1.492 | Reliability: 1.0
 - Why it matters: 
 
 ## 24. Accelerating the search for antimicrobial peptides with Google Antigravity
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/accelerating-antimicrobial-discovery/
-- Score: 1.49 | Reliability: 1.0
+- Score: 1.482 | Reliability: 1.0
 - Why it matters:
