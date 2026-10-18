@@ -70,6 +70,9 @@ Stop when it prints `"due": false`. Otherwise use its `id` as `<key>`.
 - Keep notes and diagrams above y=590 (captions use the bottom 130 px).
   Captions are at most 2 lines of 42 characters; `caption()` in the reference
   splits sentences into such chunks.
+- Draw each so-what with `sowhat()` from the reference at y=520. Keep
+  diagrams and notes above y=490 so the band and captions never overlap them.
+  Keep dashed routes and labels clear of the band.
 - Reject the storyboard if: scene 1 is a title card; two adjacent scenes share
   a layout; a story scene has no so-what; a number has no comparison; the lead
   story runs under 25 s of a daily video.

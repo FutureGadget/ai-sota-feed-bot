@@ -66,6 +66,12 @@ function kicker(str,lt,t0=.5){const p=P(lt,t0,.5);
 function note(str,x,y,lt,t0,o={}){const p=P(lt,t0,.5);const {sz=15,color=C.mute,w=500,anchor='left'}=o;
   S.push(`<g opacity="${p}">`);txt(x,y,str,{sz,fill:color,anchor,it:true});S.push('</g>')}
 
+function sowhat(str,lt,t0,y=520){const p=P(lt,t0,.55);if(p<=0)return; // red so-what band: one consequence per story scene
+  S.push(`<g opacity="${p}" transform="translate(0 ${(1-p)*14})">`);
+  rect(64,y,1152,56,{fill:'#f2d9d5',stroke:C.red,sw:2,r:10});
+  S.push(`<rect x="64" y="${y}" width="8" height="56" rx="4" fill="${C.red}"/>`);
+  txt(96,y+28,str,{sz:23,anchor:'start',wt:700});S.push('</g>')}
+
 /* ---------- chrome ---------- */
 function chrome(idx,total){
   H.push(`<div class="abs" style="left:64px;top:34px;right:64px;height:30px;display:flex;justify-content:space-between;align-items:baseline">
