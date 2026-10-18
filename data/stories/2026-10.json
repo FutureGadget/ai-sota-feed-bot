@@ -5285,11 +5285,16 @@
  "83a753b4160cba93": {
   "first_seen": "2026-10-17T20:04:37.487892+00:00",
   "id": "183dcdbfa84ef723",
-  "published": "2026-10-17T18:57:10+00:00",
+  "published": "2026-10-18T06:50:48+00:00",
+  "release_highlights": [
+   "Structured decisions and generic parsers : the new POST /v1/systemone endpoint answers choice , noul and score questions over a structured state , is served...",
+   "Low-precision KV cache everywhere : NVFP4 KV cache now runs on SM8x and SM12x , SM90 and with XQA decode on SM12x , and on MiniMax-M3 sparse attention on SM1...",
+   "Model Runner V2 : a GPU n-gram speculator with variable-length drafts , Elastic EP , pipeline parallelism with prefill context parallelism , a stock torch.co..."
+  ],
   "sid": "83a753b4160cba93",
   "source": "vllm_releases",
-  "summary": "[Bugfix][Rust Frontend] Fix macOS build: read inherited listener fami…",
-  "summary_1line": "[Bugfix][Rust Frontend] Fix macOS build: read inherited listener fami…",
+  "summary": "v0.32.0 Highlights This release features 814 commits from 363 contributors (121 new)! Structured decisions and generic parsers : the new POST /v1/systemone endpoint answers choice , noul and score questions over a structured state ( #59299 ), is served by default ( #60677 , #60696 ), and also runs on Cloudflare/clef-omni ( #61064 ), LiquidAI/d1-3B ( #60676 ) and DiffusionGemma ( #60466 ). The new hf tool and reasoning parser ( --tool-call-parser hf , --reasoning-parser hf ) reads the checkpoint's response_template , so models that ship it need no model-specific parser ( #58604 , #58602 ), in both the Python and Rust frontends ( #59005 ). Low-precision KV cache everywhere : NVFP4 KV cache now runs on SM8x and SM12x ( #46963 ), SM90 ( #60620 ) and with XQA decode on SM12x ( #60452 ), and on MiniMax-M3 sparse attention on SM100 ( #59300 ); GLM-5.x defaults to an FP8 KV cache on SM100 for 2.3-5.5% more throughput ( #60140 , #60281 ); fp8_ds_mla on SM90 gives GLM-5.3-Flash up to 31% more output throughput ( #59246 ); ROCm gains the 4-bit ultraquant_4bit KV cache with about 2x the density of FP8 ( #57057 ). Model Runner V2 : a GPU n-gram speculator with variable-length drafts ( #40704 ), Elastic EP ( #53934 ), pipeline parallelism with prefill context parallelism ( #59139 ), a stock torch.compile mode ( #59079 ), and MRV2 is now the default for all models on ROCm ( #56360 ). Faster startup and serving : vllm download-kernels installs FlashInfer's precompiled kernels ( #58765 ); vll",
+  "summary_1line": "Structured decisions and generic parsers : the new POST /v1/systemone endpoint answers choice , noul and score questions over a structured state , is served... · Low-precision KV cache everywhere : NVFP4 KV cache now...",
   "title": "vllm v0.32.0",
   "type": "release",
   "url": "https://github.com/vllm-project/vllm/releases/tag/v0.32.0"
@@ -6008,6 +6013,18 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Oct/12/python-3-15-web-edit-profiling",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "98d9fd2befa173c2": {
+  "first_seen": "2026-10-18T07:04:33.041412+00:00",
+  "id": "36cb402de33aa3dd",
+  "published": "2026-10-18T06:10:53+00:00",
+  "sid": "98d9fd2befa173c2",
+  "source": "search_cn_open_weight_labs",
+  "summary": "DeepSeek’s new AI model talks less, so a coding task costs 20 cents Martin Cid Magazine",
+  "summary_1line": "DeepSeek’s new AI model talks less, so a coding task costs 20 cents Martin Cid Magazine",
+  "title": "DeepSeek’s new AI model talks less, so a coding task costs 20 cents",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOcU9qcjE0Vi1yemt4eC1uVkJZRlNaSHg4ejMyMncwZ0RPR1ZVdl9JSF8wU0FlZDY4OC04QmpQUmV0eENpUER2THNPRUgwbTRLeXVMOTJuaHRhVE13NzNEOGt2MkpUQVozYVVjZ2o5MUw1aC05OENCTFJzRUxyUkpjZWdEbm5Gakxhc3NNcU9Bcw?oc=5"
  },
  "98ef490545c3818f": {
   "first_seen": "2026-10-07T04:02:46.352433+00:00",
@@ -9205,6 +9222,18 @@
   "type": "news",
   "url": "https://github.com/AxiomCodeAI/axiomcodegraph",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "db7388ca69770009": {
+  "first_seen": "2026-10-18T07:04:33.041412+00:00",
+  "id": "5408b39b105d45a5",
+  "published": "2026-10-18T06:06:18+00:00",
+  "sid": "db7388ca69770009",
+  "source": "search_llm_ops_news",
+  "summary": "New Co-Design Framework Speeds Up LLM Inference on Mixed Hardware by Taming Memory Bottlenecks Bioengineer.org",
+  "summary_1line": "New Co-Design Framework Speeds Up LLM Inference on Mixed Hardware by Taming Memory Bottlenecks Bioengineer.org",
+  "title": "New Co-Design Framework Speeds Up LLM Inference on Mixed Hardware by Taming Memory Bottlenecks",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOdm1kSExLR1hxSXpsdTVpSmtTTnVlQkdNRjhRZHUwR1pxU3ZyYkxxSUZINk95N1d5Z1lxSmpBS3ZWbHVmRWp1dmY3REx5bnNYSGRTblczTUw5VFdIaER0UWM4Q2hZRTRQVDdOazZ5YmJVT3puV3p5YlZWcTB5M2hOTHIwYWxzcGM2a2gwY0c2VmZSRTZzSnY1SUIwb0V3T01XbDBwaFZYUWpNbXFhRFlnc0QxSHhIMGIteDJJ?oc=5"
  },
  "db7b9e6fe248e314": {
   "first_seen": "2026-10-08T18:03:55.296647+00:00",
