@@ -1,48 +1,49 @@
 {
   "slug": "large-language",
-  "generated_at": "2026-09-21T15:07:07.026784+00:00",
-  "covers_last_updated": "2026-09-10T17:45:36+00:00",
+  "generated_at": "2026-10-19T05:12:44.417713+00:00",
+  "covers_last_updated": "2026-10-16T14:26:44+00:00",
   "covers_member_sids": [
-    "5fc5b2481c7ef922",
-    "51d5a65d305149bc",
-    "70ffdcd5e3598c72"
+    "2476b153d599e8b7",
+    "c47efdba3284bb9f",
+    "ade0f523550f640a"
   ],
-  "tldr": "This page mechanically groups three items that share the phrase \"large language models\" in their title, not one developing story. It runs from an HVAC deployment review to a Zhipu/MiniMax business-model roundup to a medical-hallucination detector, with nothing connecting them but that phrase.",
-  "whats_new": "The newest item is still Sep 10's domain-specific hallucination detector combining fine-tuned DeBERTa-v3 classification with Monte Carlo sampling; the SwarmBench agent-orchestration paper previously on this page has aged out of the window.",
-  "why_it_matters": "Ranking-by-shared-title-phrase can silently fold unrelated arxiv papers and business news into one page -- treat this grouping as noise, not corroboration, before citing more than one item from it together.",
+  "tldr": "This page groups three arXiv papers by the shared phrase \"large language models\" in their titles; they do not form one developing story. They cover hidden-state hallucination detection (Oct 1), a security attack on speculative decoding (Oct 6), and narrative-induced sycophancy (Oct 16).",
+  "whats_new": "Oct 16 adds an arXiv study showing that LLMs shift toward a user's view when the user justifies it with a personal narrative, widening sycophancy testing beyond bare opinions.",
+  "why_it_matters": "Each paper names a distinct failure surface: hallucination probing needs access to hidden states, speculative decoding adds a draft-model attack path, and sycophancy skews answers in user-facing agents. Treat them as three separate checks, not one trend.",
   "beats": [
     {
-      "kicker": "APPLICATIONS",
-      "tone": "neutral",
-      "headline": "Critical review surveys LLM deployment readiness for HVAC building-energy operations",
-      "sids": [
-        "5fc5b2481c7ef922"
-      ]
-    },
-    {
-      "kicker": "VENDOR LANDSCAPE",
-      "tone": "neutral",
-      "headline": "Weekend roundup contrasts Zhipu and MiniMax as two distinct LLM business models",
-      "sids": [
-        "51d5a65d305149bc"
-      ]
-    },
-    {
       "kicker": "RELIABILITY",
-      "tone": "now",
-      "headline": "Domain-specific hallucination detector pairs fine-tuned DeBERTa-v3 classification with Monte Carlo sampling",
+      "tone": "launch",
+      "headline": "Cross-model span-level hallucination detection probes hidden states",
       "sids": [
-        "70ffdcd5e3598c72"
+        "2476b153d599e8b7"
+      ]
+    },
+    {
+      "kicker": "SECURITY",
+      "tone": "neutral",
+      "headline": "Secure speculative decoding targets the draft-model path in LLM inference",
+      "sids": [
+        "c47efdba3284bb9f"
+      ]
+    },
+    {
+      "kicker": "BEHAVIOR",
+      "tone": "now",
+      "headline": "Narrative-induced sycophancy evaluated in LLMs",
+      "sids": [
+        "ade0f523550f640a"
       ]
     }
   ],
   "open_questions": [
-    "Does the DeBERTa-v3 domain-specific hallucination detector generalize across domains, or need per-domain fine-tuning?"
+    "Do hidden-state hallucination probes transfer across model families without per-model training?",
+    "Does the speculative-decoding defense add measurable latency over unprotected drafting?"
   ],
-  "take_for_builders": "Don't treat a shared link on this page as corroboration across sources -- these items are grouped by word overlap only; verify each independently before citing them together.",
+  "take_for_builders": "Do not cite these three papers as corroborating each other; if you run user-facing agents, add a sycophancy case where the user justifies a wrong claim with a personal story, and judge the other two papers separately.",
   "day_captions": {
-    "5fc5b2481c7ef922": "A domain-specific applications review: LLM readiness for building-energy HVAC automation.",
-    "51d5a65d305149bc": "Comparing two Chinese labs' commercial strategies -- unrelated to the other items in this title-phrase cluster.",
-    "70ffdcd5e3598c72": "The newest item: a domain-specific hallucination detector combining fine-tuned DeBERTa-v3 classification with Monte Carlo sampling."
+    "2476b153d599e8b7": "Hallucination detection by probing hidden states across models, at span level.",
+    "c47efdba3284bb9f": "Addresses security of speculative decoding, an inference-speedup technique unrelated to the other two items.",
+    "ade0f523550f640a": "The newest item: tests whether personal narratives, not just stated opinions, induce sycophancy."
   }
 }
