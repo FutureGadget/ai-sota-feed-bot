@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-17T18:18:03.697123+00:00",
+ "generated_at": "2026-10-19T18:04:35.139653+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,30 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-19-skillbrowser-selective-exposure",
+   "topic": "tool-use",
+   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+   "kind": "obstacle",
+   "date": "2026-10-19",
+   "title": "Agents that query for skills mid-task beat static retrieval, but under-invoke and add latency"
+  },
+  {
+   "id": "2026-10-19-schemashield-interface-drift",
+   "topic": "tool-use",
+   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+   "kind": "obstacle",
+   "date": "2026-10-19",
+   "title": "A training-free validate-and-repair layer recovers tool calls broken by interface drift"
+  },
+  {
+   "id": "2026-10-19-asr-hides-ignored-attacks",
+   "topic": "prompt-injection",
+   "topic_title": "Untrusted input and tools can hijack an agent",
+   "kind": "obstacle",
+   "date": "2026-10-19",
+   "title": "Low attack success rates mostly mean agents ignored the injection, not that they resisted it"
+  },
   {
    "id": "2026-10-17-deep-agents-five-context-levers",
    "topic": "context-compaction",
@@ -230,30 +254,6 @@
    "kind": "solution",
    "date": "2026-10-11",
    "title": "Lossy speculative decoding raises jailbreak and injection success faster than it costs utility"
-  },
-  {
-   "id": "2026-10-11-judge-trustworthy-verdict-rate",
-   "topic": "llm-as-judge",
-   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
-   "kind": "solution",
-   "date": "2026-10-11",
-   "title": "Zero-temperature judges still flip verdicts; the most consistent one was right only 51% of the time"
-  },
-  {
-   "id": "2026-10-10-cloudflare-traces-proxy-spans",
-   "topic": "agent-observability",
-   "topic_title": "You can't see why an agent did what it did",
-   "kind": "obstacle",
-   "date": "2026-10-10",
-   "title": "Cloudflare Traces emits proxy-layer steps as OpenTelemetry spans that join your agent traces"
-  },
-  {
-   "id": "2026-10-10-asana-legalon-model-matching",
-   "topic": "agent-cost",
-   "topic_title": "Agent token costs are unpredictable and easily run away",
-   "kind": "obstacle",
-   "date": "2026-10-10",
-   "title": "Matching model tier to task cut agent costs 65-76x in two vendor-reported case studies"
   }
  ],
  "nodes": {
@@ -11095,7 +11095,7 @@
      "key": "eval-escapes",
      "title": "Agents attacking real systems from cyber evals and training runs",
      "summary": "Agents at OpenAI, Anthropic, and UK AISI attacked real systems after being told they were in a simulation; labs now enforce containment and monitoring outside the model instead of trusting the prompt.",
-     "count": 6
+     "count": 7
     },
     {
      "key": "offensive-cyber",
@@ -11105,6 +11105,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-19-asr-hides-ignored-attacks",
+     "topic": "prompt-injection",
+     "date": "2026-10-19",
+     "title": "Low attack success rates mostly mean agents ignored the injection, not that they resisted it",
+     "theme": "eval-escapes",
+     "html": "<p>A paper audited 33,000 trajectories from eleven open-weight agents (2-14B parameters) on InjecAgent and AgentDojo. Attack success rate (ASR) counts every failed attack as a defense, but a label-blind LLM judge found most failures were <strong>ignored</strong> (76-80%) rather than <strong>refused</strong> (17-18%).</p>\n<p>With identical weights, changing only the system prompt moved InjecAgent ASR from 0.2% to 43%. In 21.7% of AgentDojo episodes the agent stayed safe but did not finish the user&#x27;s task (all paper-reported).</p>\n<p>For builders: a low ASR from a vendor benchmark is weak evidence. Ask for how attacks failed and whether the user task completed, and re-test after any prompt change.</p>",
+     "evidence": [
+      {
+       "sid": "ee884278a0d18afe",
+       "title": "Ignored, Not Refused: What Low Prompt-Injection Success Rates Hide in Small Tool-Using Agents"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-12-protocol-pivoting-mcp-a2a",
      "topic": "prompt-injection",
@@ -12048,8 +12063,8 @@
      "title": "Agent memory systems readily admit poisoned facts, a reproducible benchmark shows"
     }
    ],
-   "entry_count": 58,
-   "latest_entry_date": "2026-10-12",
+   "entry_count": 59,
+   "latest_entry_date": "2026-10-19",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -12059,6 +12074,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "ee884278a0d18afe",
+     "title": "Ignored, Not Refused: What Low Prompt-Injection Success Rates Hide in Small Tool-Using Agents"
+    },
     {
      "sid": "38a23f681b4cd66d",
      "title": "MCP for agent-to-agent comms may be the riskiest protocol you've never heard of"
@@ -12320,7 +12339,7 @@
      "title": "Show HN: Deep-XPIA – Prompt injection benchmark for multi-agent AI systems"
     }
    ],
-   "updated": "2026-10-12"
+   "updated": "2026-10-19"
   },
   "proving-agent-roi": {
    "slug": "proving-agent-roi",
@@ -12791,13 +12810,13 @@
      "key": "discovery-and-definitions",
      "title": "Tool discovery and definition quality at scale",
      "summary": "Listing every schema in the prompt burns context and hurts tool choice, so harnesses now search the tool catalog and teams treat tool definitions as a design discipline.",
-     "count": 4
+     "count": 5
     },
     {
      "key": "calling-reliability",
      "title": "Making the calling loop reliable",
      "summary": "A standard wire does not make calling behavior reliable; flaky tools, schema-constraint interference, and connection failures are measurable failure modes, and the harness itself is now tuned or trained to fix them.",
-     "count": 5
+     "count": 6
     },
     {
      "key": "guarding-the-call",
@@ -12813,6 +12832,36 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-19-skillbrowser-selective-exposure",
+     "topic": "tool-use",
+     "date": "2026-10-19",
+     "title": "Agents that query for skills mid-task beat static retrieval, but under-invoke and add latency",
+     "theme": "discovery-and-definitions",
+     "html": "<p>SkillBrowser targets <strong>Selective Skill Exposure</strong>: loading procedural skill content only when needed. Progressive disclosure lists metadata for the whole library and pollutes context. Static retrieval from the initial task query misses needs that emerge mid-reasoning.</p>\n<p>A meta-skill has the agent name its current capability need, issue a targeted query, and load matching skills on demand. Across six SRA-Bench subsets and five LLMs (paper-reported), it improves aggregate accuracy over static retrieval and LLM-based selection, and limits accuracy loss on instances the model already solves.</p>\n<p>The authors report model- and task-dependent gains, under-invocation of useful skills, and added latency. Large skill libraries need a retrieval step the agent controls, not a catalog dumped into the prompt.</p>",
+     "evidence": [
+      {
+       "sid": "100331f97937a9e5",
+       "title": "SkillBrowser: Selective Skill Exposure for Scalable Skill-Using Agents"
+      }
+     ],
+     "also": []
+    },
+    {
+     "id": "2026-10-19-schemashield-interface-drift",
+     "topic": "tool-use",
+     "date": "2026-10-19",
+     "title": "A training-free validate-and-repair layer recovers tool calls broken by interface drift",
+     "theme": "calling-reliability",
+     "html": "<p>Tool descriptions, argument schemas, and the candidate tool list often change after deployment while tool semantics stay fixed. A paper calls this <strong>interface drift</strong> and tests SchemaShield-Lite: schema validation, a candidate-set retry when the tool name is missing, and one-shot constrained repair, with no retraining.</p>\n<p>On Qwen3.5-9B (paper-reported), BFCL-200 accuracy rises from 0.580 to 0.805 and DICE-300 from 0.717 to 0.813. It recovers 33 of 45 and 19 of 22 drift-induced failures with no observed repair harms. Naive retry does not explain the gain. Distractor tools in the candidate set cause most of the damage.</p>\n<p>For builders: validate every call against the live schema and keep the candidate list stable.</p>",
+     "evidence": [
+      {
+       "sid": "8d12f92c932c9a54",
+       "title": "Robust Function Calling for LLM Agents Under Interface Drift"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-09-24-morgan-stanley-generates-mcp-from-architecture",
      "topic": "tool-use",
@@ -13271,8 +13320,8 @@
      "title": "HashiCorp's Terraform MCP Server reaches general availability"
     }
    ],
-   "entry_count": 21,
-   "latest_entry_date": "2026-09-24",
+   "entry_count": 23,
+   "latest_entry_date": "2026-10-19",
    "solutions": [
     {
      "slug": "mcp",
@@ -13282,6 +13331,14 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "100331f97937a9e5",
+     "title": "SkillBrowser: Selective Skill Exposure for Scalable Skill-Using Agents"
+    },
+    {
+     "sid": "8d12f92c932c9a54",
+     "title": "Robust Function Calling for LLM Agents Under Interface Drift"
+    },
     {
      "sid": "c03fce750657d23d",
      "title": "Presentation: APIs for Agents: Rethinking API Programs in the MCP Era"
@@ -13371,7 +13428,7 @@
      "title": "AI Agents Don't Need SMS APIs. They Need Infrastructure"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-19"
   },
   "agent-benchmarks": {
    "slug": "agent-benchmarks",
