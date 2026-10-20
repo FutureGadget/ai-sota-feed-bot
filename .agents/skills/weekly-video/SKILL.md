@@ -1,6 +1,6 @@
 ---
 name: weekly-video
-description: Make and publish the 150-180 s narrated explainer video for the newest weekly recap of ai-sota-feed-bot. Builds a deterministic HTML animation from data/weekly/<week>.json, voices it with Gemini TTS across the model fallback chain, renders an MP4, uploads it to YouTube, and records the video id on the recap so /weekly shows it. Use this when running the weekly video routine.
+description: Make and publish the 150-180 s narrated explainer video for the newest weekly recap of ai-sota-feed-bot. Builds a deterministic HTML animation from data/weekly/<week>.json, voices it with Gemini TTS across the model fallback chain, renders an MP4, uploads it to YouTube, and records the video id on the recap so /weekly shows it. Use this for the video phase of the weekly recap routine.
 ---
 
 You make one explainer video per weekly recap. Viewers must understand how

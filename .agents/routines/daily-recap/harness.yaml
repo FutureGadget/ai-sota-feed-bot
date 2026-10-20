@@ -1,7 +1,7 @@
 schema_version: 1
 id: daily-recap
-name: "[News Feed Management] Daily recap"
-description: Curate and publish the next unpublished UTC day's AI news recap.
+name: "[News Feed Management] Daily recap and explainer video"
+description: Curate and publish the next unpublished UTC day's AI news recap, then render, upload and attach its explainer video.
 
 schedule:
   # 06:00 KST — built ahead of the 08:00 KST email send (23:00 UTC) so the
@@ -9,7 +9,10 @@ schedule:
   # picks its target date from data/daily/state.json + the latest published
   # recap (not from "yesterday in UTC" relative to run time), so it is
   # self-healing across missed runs regardless of exactly when in the day this
-  # fires.
+  # fires. The routine then makes the explainer video in a second phase and
+  # commit (about 40 minutes), finishing before the 08:00 KST send. The video
+  # phase skips itself when the YouTube env vars are absent
+  # (docs/how-to/daily-video-routine.md).
   cron: "0 6 * * *"
   timezone: Asia/Seoul
   enabled: true

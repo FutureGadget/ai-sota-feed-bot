@@ -25,9 +25,9 @@ anything else and the renderers ignore an invalid id. Only the id is stored. The
 video file is never committed. The weekly index entries do not carry `video`.
 
 ## Production
-`.agents/routines/weekly-video/` (skill `.agents/skills/weekly-video/`, shared
-steps in `.agents/skills/video-common/`) runs Saturday 06:40 KST, 40 minutes
-after the weekly recap routine. It uploads first and attaches `video` only after
+Phase 2 of `.agents/routines/weekly-recap/` (skill `.agents/skills/weekly-video/`,
+shared steps in `.agents/skills/video-common/`) runs Saturday right after the
+recap is pushed (06:00 KST start). It uploads first and attaches `video` only after
 the upload succeeds. A weekly video uses 9-12 scenes. Voice requests spread
 across the Gemini TTS fallback chain, so one video may carry two voices. Setup
 and failure handling: `docs/how-to/daily-video-routine.md`.

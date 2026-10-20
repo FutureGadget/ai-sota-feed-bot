@@ -1,7 +1,7 @@
 schema_version: 1
 id: weekly-recap
-name: "[News Feed Management] Update Weekly AI Feed Summary page"
-description: Curate and publish the current ISO week's AI recap.
+name: "[News Feed Management] Weekly recap and explainer video"
+description: Curate and publish the current ISO week's AI recap, then render, upload and attach its explainer video.
 
 schedule:
   # Saturday 06:00 KST (= Friday 21:00 UTC) — built ahead of the Saturday 08:00
@@ -13,6 +13,11 @@ schedule:
   # UTC date rollover never shifts the "current ISO week" the routine targets.
   # Keep this on KST/Friday — it is deliberately tied to the Friday weekly email,
   # not to a UTC day boundary.
+  #
+  # The routine then makes the explainer video in a second phase and commit
+  # (about 40 minutes), finishing before the 08:00 KST send so the email can
+  # link it. The video phase skips itself when the YouTube env vars are absent
+  # (docs/how-to/daily-video-routine.md).
   cron: "0 6 * * 6"
   timezone: Asia/Seoul
   enabled: true

@@ -1,10 +1,16 @@
-# Daily and weekly video routines: setup and operations
+# Daily and weekly explainer video: setup and operations
 
-Routines: `.agents/routines/daily-video/` and `.agents/routines/weekly-video/`
-(both ship `enabled: false`). Skills: `.agents/skills/daily-video/` and
+Routines: the video is Phase 2 of `.agents/routines/daily-recap/` and
+`.agents/routines/weekly-recap/` (06:00 KST; Phase 1 publishes the recap, Phase
+2 makes the video, one commit each). Skills: `.agents/skills/daily-video/` and
 `.agents/skills/weekly-video/`, which share the steps and scripts in
 `.agents/skills/video-common/`. Specs: `docs/product-specs/daily-video.md` and
-`docs/product-specs/weekly-video.md`. One cloud environment serves both.
+`docs/product-specs/weekly-video.md`. The recap routines' cloud environment
+must carry the setup below: Phase 2 skips itself with
+`video skipped: environment not configured` when the `YOUTUBE_*` variables are
+absent, so the recap keeps publishing until the environment is ready. The
+separate `daily-video` and `weekly-video` routines were retired; delete or
+disable their scheduler jobs.
 
 ## Cloud environment
 
@@ -65,20 +71,21 @@ by Google: add the key yourself, for example a temporary local patch that sends
 upload with `--privacy private` first.
 
 ## Saturday overlap
-The weekly recap runs Saturday 06:00 KST and the weekly email goes out 08:00
-KST. `weekly-video` starts at 06:40 KST and needs about 40 minutes, so it
-only just beats the email; if it finishes late, that week's email goes out
-without the video link. `daily-video` also starts at 07:00 KST on Saturdays,
-so the two routines draw on the same TTS quotas (about 8 + up to 12 requests
-against 40 a day) and the same 3 requests per minute per model. Each handles a
-per-minute 429 by waiting, and a per-day 429 by moving to the next model, so
-overlap slows a run but does not fail it. Expect the weekly video to be voiced
-by a second model.
+The weekly recap and the daily recap both start Saturday 06:00 KST, each then
+runs its video phase (about 40 minutes for weekly), and the weekly email goes
+out 08:00 KST. If a video finishes late, that email goes out without the video
+link. The two video phases draw on the same TTS quotas (about 8 + up to 12
+requests against 40 a day) and the same 3 requests per minute per model. Each
+handles a per-minute 429 by waiting, and a per-day 429 by moving to the next
+model, so overlap slows a run but does not fail it. Expect the weekly video to
+be voiced by a second model.
 
 ## Failure behavior
+- Video failures never affect the recap: it is committed and pushed before the
+  video phase starts, and a video failure is reported as a partial success.
 - Upload fails: nothing under `data/` or `web/` changes; the routine reports.
 - Voice fails or quota is spent: the routine stops and reports; no silent video.
-- Uploaded but the commit fails: rerun the routine; `video_target.py` still
+- Uploaded but the commit fails: the next recap routine run retries it; `video_target.py` still
   finds the recap without `video`. The earlier upload stays on YouTube and can
   be deleted in YouTube Studio.
 - The upload scope cannot rename or delete videos. Fix titles in YouTube Studio.

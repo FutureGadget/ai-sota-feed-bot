@@ -19,8 +19,8 @@ anything else and the renderers ignore an invalid id. Only the id is stored. The
 video file is never committed.
 
 ## Production
-`.agents/routines/daily-video/` (skill `.agents/skills/daily-video/`) runs after
-the daily recap routine. It uploads first and attaches `video` only after the
+Phase 2 of `.agents/routines/daily-recap/` (skill `.agents/skills/daily-video/`)
+runs right after the recap is pushed, in the same run. It uploads first and attaches `video` only after the
 upload succeeds. Setup and failure handling:
 `docs/how-to/daily-video-routine.md`.
 

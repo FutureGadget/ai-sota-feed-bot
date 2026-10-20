@@ -48,11 +48,15 @@ Daily companions:
 - Daily/weekly recaps: agent routines (`.agents/skills/daily-summary`,
   `.agents/skills/weekly-summary`) write `data/daily|weekly/<key>.json`;
   committing is publishing. The repository-owned daily scheduler definition is
-  `.agents/routines/daily-recap/harness.yaml`: 09:00 `Asia/Seoul`, targeting
-  the previous UTC calendar day. The weekly scheduler definition is
-  `.agents/routines/weekly-recap/harness.yaml`: Saturday at 13:00
+  `.agents/routines/daily-recap/harness.yaml`: 06:00 `Asia/Seoul`, targeting
+  the next unpublished UTC calendar day. The weekly scheduler definition is
+  `.agents/routines/weekly-recap/harness.yaml`: Saturday at 06:00
   `Asia/Seoul`, targeting the current ISO week with a news-only bundle. Each
-  scheduler injects only its routine's `prompt.md`.
+  scheduler injects only its routine's `prompt.md`. Each routine has a second
+  phase (own commit, after the recap is on `main`) that renders the explainer
+  video, uploads it to YouTube and attaches its id (`daily-video` /
+  `weekly-video` skills); it skips itself when the `YOUTUBE_*` environment
+  variables are absent.
 - Storylines: external Claude Code routine every 5 hours runs
   `storyline-scout` then `storyline-editor`, validates and rebuilds
   `data/storylines/`, and commits/pushes the result. The two-hour workflow only

@@ -285,7 +285,8 @@ in `ops_daily_summary.py`'s log line.
   picking, Gemini TTS with model fallback, timing, render, YouTube upload,
   attach), `daily-video/` and `weekly-video/` (render the narrated explainer
   video for the newest daily / weekly recap, upload it to YouTube, and record
-  only the video id as `video` on the recap JSON; specs
+  only the video id as `video` on the recap JSON; run as Phase 2 of the
+  `daily-recap` / `weekly-recap` routines, after the recap commit; specs
   `docs/product-specs/daily-video.md` and `weekly-video.md`, setup
   `docs/how-to/daily-video-routine.md`),
   `writing-style/` (no scripts — the shared prose
