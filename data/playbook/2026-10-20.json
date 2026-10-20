@@ -1,0 +1,155 @@
+{
+  "date": "2026-10-20",
+  "title": "Agent Builder's Playbook — Oct 20, 2026",
+  "generated_at": "2026-10-20T10:08:20Z",
+  "intro": [
+    "Evals and reliability dominate: audit your judges, put SLOs on agent behavior, and test tool interfaces for drift."
+  ],
+  "card_count": 8,
+  "cards": [
+    {
+      "id": "pb-audit-llm-judges",
+      "kind": "source-backed",
+      "title": "Audit your LLM judge before trusting its scores",
+      "area": "Evals",
+      "problem": "LLM-as-a-judge scores get treated as objective, but the judge model is subjective in its own way.",
+      "apply": "Treat the judge as a system under test: spot-check its verdicts against human-labeled samples and review disagreements before using its scores to gate releases.",
+      "result": "Eval regressions you act on reflect real quality changes rather than judge bias.",
+      "effort": "low",
+      "source": "google_cloud_blog",
+      "source_url": "https://cloud.google.com/blog/topics/consulting/three-ways-to-audit-your-llm-evaluators/",
+      "source_sid": "4e6e796fa0c5bfc0",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "The source argues LLM judges are subjective; the audit workflow here is the editor's reading, with no measured figure."
+      },
+      "published": "Mon, 19 Oct 2026 16:00:00 +0000"
+    },
+    {
+      "id": "pb-agent-slos-error-budgets",
+      "kind": "source-backed",
+      "title": "Give agent behavior an SLO and an error budget",
+      "area": "Reliability",
+      "problem": "Teams have no shared, quantitative answer to whether an agent is behaving well in production.",
+      "apply": "Define one or two agent-behavior SLIs (for example task success rate on sampled traces), set an SLO target, and track burn against an error budget as you do for services.",
+      "result": "Behavior regressions page someone through the same reliability process as outages, instead of surfacing as anecdotes.",
+      "effort": "medium",
+      "source": "infoq_ai_ml",
+      "source_url": "https://www.infoq.com/news/2026/10/grafana-slo-ai-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+      "source_sid": "d771557f3f2a708f",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "Grafana proposes applying SLOs and error budgets to agent behavior; the expected outcome is an editorial inference."
+      },
+      "published": "Fri, 16 Oct 2026 12:00:00 GMT"
+    },
+    {
+      "id": "pb-agent-code-review-budget",
+      "kind": "source-backed",
+      "title": "Optimize review for minimum human time that doesn't raise reverts",
+      "area": "Reliability",
+      "problem": "Agents produce code faster than humans can review it, so review becomes the bottleneck.",
+      "apply": "Raise automated test coverage and add deep automated review first, then shrink human review to the smallest slice that keeps your revert rate flat, using reverts as the guardrail metric.",
+      "result": "The Claude Code team claims this cuts human review time without raising reverts.",
+      "effort": "medium",
+      "source": "claude_dev_blog",
+      "source_url": "https://claude.dev/blog/solving-code-review-at-anthropic/",
+      "source_sid": "6d6f8ad0753534aa",
+      "evidence": {
+        "kind": "source-claimed",
+        "note": "The Claude Code team describes this as the goal they optimized for in their review process."
+      },
+      "published": "Thu, 15 Oct 2026 12:00:00 GMT"
+    },
+    {
+      "id": "pb-decision-models-evals",
+      "kind": "source-backed",
+      "title": "Use small decision models for cheap, fast eval judgments",
+      "area": "Evals",
+      "problem": "Frontier-model judges make large eval suites slow and expensive to run on every change.",
+      "apply": "Route binary eval checks to a purpose-built decision model (such as the recent Decider, d1 or Decisions API class) and keep a frontier judge only for ambiguous cases.",
+      "result": "Vendors claim these models make evals cheap and fast enough to run per commit; check agreement on your labeled set first.",
+      "effort": "medium",
+      "source": "hamel_husain",
+      "source_url": "https://hamel.dev/blog/posts/decision-model-evals/",
+      "source_sid": "58b479d20c57cce8",
+      "evidence": {
+        "kind": "source-claimed",
+        "note": "The source says decision models promise fast, inexpensive judgments; the post's figures are not reproduced here."
+      },
+      "published": "Tue, 20 Oct 2026 07:00:00 GMT"
+    },
+    {
+      "id": "pb-tool-interface-drift",
+      "kind": "source-backed",
+      "title": "Test your agent against drifting tool descriptions and schemas",
+      "area": "Tool use",
+      "problem": "Tool descriptions, argument schemas and tool lists change after deployment while the agent's behavior was only tested on the old text.",
+      "apply": "Add a regression suite that perturbs tool descriptions, argument names and tool ordering, and fail the build if function-call accuracy drops.",
+      "result": "Interface changes get caught in CI instead of as silent tool-call failures in production.",
+      "effort": "low",
+      "source": "arxiv_agent_systems_research",
+      "source_url": "http://arxiv.org/abs/2610.23342v1",
+      "source_sid": "8d12f92c932c9a54",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "The paper studies function calling under interface drift; the CI practice is the editor's application of it."
+      },
+      "published": "2026-10-16T11:49:37Z"
+    },
+    {
+      "id": "pb-injection-ignored-not-refused",
+      "kind": "source-backed",
+      "title": "Don't read low injection success as safe in small agents",
+      "area": "Safety",
+      "problem": "Low prompt-injection attack success rates can mean a small agent ignored the instruction rather than refused it.",
+      "apply": "Log whether the agent flagged or refused injected content, not just whether the attack succeeded, and test small models with tasks that still require the injected tool call.",
+      "result": "Your safety numbers separate real resistance from a model that simply fails to follow instructions.",
+      "effort": "low",
+      "source": "arxiv_agent_systems_research",
+      "source_url": "http://arxiv.org/abs/2610.23254v1",
+      "source_sid": "ee884278a0d18afe",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "The paper reports that low attack success rates in small tool-using agents hide ignoring rather than refusing."
+      },
+      "published": "2026-10-16T10:26:23Z"
+    },
+    {
+      "id": "pb-append-only-prompt-prefix",
+      "kind": "source-backed",
+      "title": "Keep agent prompts append-only so the KV cache prefix stays reusable",
+      "area": "Cost & latency",
+      "problem": "Agents resend the whole conversation each turn, and re-tokenizing it wastes CPU time before the engine can reuse its prefix cache.",
+      "apply": "Append new turns to an unchanged prefix, never rewrite earlier messages, and tokenize only the new delta when your serving stack allows it.",
+      "result": "Per-turn latency scales with new tokens instead of full history length.",
+      "effort": "medium",
+      "source": "arxiv_cs_cl",
+      "source_url": "http://arxiv.org/abs/2610.19801v1",
+      "source_sid": "d4d5081186e81c2b",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "The paper targets tokenization of session deltas; the practice here is inferred, no figures are claimed."
+      },
+      "published": "2026-10-14T08:44:46Z"
+    },
+    {
+      "id": "pb-selective-skill-exposure",
+      "kind": "source-backed",
+      "title": "Expose only the relevant skills per step, not the full library",
+      "area": "Tool use",
+      "problem": "Loading every skill into context grows prompts and makes the agent's choice among skills less reliable.",
+      "apply": "Index skills by description, retrieve the few relevant to the current step, and inject only those procedures into context.",
+      "result": "Smaller prompts and fewer wrong-skill selections as the skill library grows.",
+      "effort": "medium",
+      "source": "arxiv_cs_ai",
+      "source_url": "http://arxiv.org/abs/2610.23554v1",
+      "source_sid": "100331f97937a9e5",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "The paper frames Selective Skill Exposure as necessary for scalable skill use; the expected result is inferred."
+      },
+      "published": "2026-10-16T14:44:01Z"
+    }
+  ]
+}
