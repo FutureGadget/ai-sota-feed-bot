@@ -1,159 +1,194 @@
 {
-  "date": "2026-10-19",
-  "title": "What happened in AI — Oct 19, 2026",
-  "generated_at": "2026-10-19T21:13:34Z",
+  "date": "2026-10-20",
+  "title": "What happened in AI — Oct 20, 2026",
+  "generated_at": "2026-10-20T21:13:14Z",
   "intro": [
-    "DHS banned DeepSeek from federal civilian agencies, the day's main policy story, while a new V4.1-Flash-1017 build was reported.",
-    "Builders got more ways to check agents: Microsoft's Scope, Laminar's trace-error model and Google Cloud's judge-audit guide."
+    "DeepSeek open-sourced the inference software behind its models on the same day the U.S. banned its products from federal systems.",
+    "Agent memory and self-verification tooling shipped from Databricks and several open-source projects."
   ],
   "highlights": [
-    "DHS bans DeepSeek across federal civilian agencies.",
-    "Microsoft open-sources Scope for evaluating coding agents.",
-    "Laminar trained flow-1 to catch silent agent failures in traces.",
-    "Modal: NVIDIA Vera CPUs complete far more sandbox tasks than x86 and Graviton.",
-    "vLLM scales Elastic Expert Parallelism with near-zero downtime.",
-    "Google releases EmbeddingGemma 2 under Apache 2.0, now multimodal."
+    "DeepSeek open-sources its large-scale inference stack to cut serving cost.",
+    "U.S. bans DeepSeek from federal civilian IT systems; China objects.",
+    "Databricks launches managed agent memory on Agent Bricks.",
+    "llm-d 1.0 and vLLM TorchTPU advance open inference serving.",
+    "Claude Opus 5.5 and Sonnet 5.5 arrive in Google Antigravity."
   ],
-  "article_count": 24,
+  "article_count": 44,
   "categories": [
     {
-      "name": "Evals and Observability for Agents",
-      "slug": "evals-observability-agents",
-      "summary": "Four teams published tooling or practice for catching agent failures: open-source coding-agent evals, a trained trace-error model, judge audits and eval-gated shipping.",
+      "name": "Agent memory and verification tooling",
+      "slug": "agent-memory-verification-tooling",
+      "summary": "Memory and self-verification moved from demos to shipped products and open-source tools.",
       "articles": [
         {
-          "title": "Scope: Open-source evaluation for AI coding agents",
-          "summary": "Microsoft open-sources Scope, an evaluation framework for AI coding agents.",
+          "title": "Introducing Agent Memory on Databricks",
+          "summary": "Databricks ships managed agent memory on Agent Bricks, putting persistent state inside the agent platform.",
+          "source": "databricks_blog",
+          "url": "https://www.databricks.com/blog/introducing-agent-memory-databricks",
+          "published": "2026-10-20T17:26:56Z"
+        },
+        {
+          "title": "Show HN: Skillsync – Coding agent memory but it's just search",
+          "summary": "Skillsync searches past sessions across harnesses on every prompt, treating agent memory as retrieval.",
           "source": "hackernews_ai",
-          "url": "https://opensource.microsoft.com/blog/2026/10/19/introducing-scope-open-source-evaluation-for-ai-coding-agents/",
-          "published": "2026-10-19T20:57:44Z"
+          "url": "https://skillsync.com",
+          "published": "2026-10-20T17:04:10Z"
         },
         {
-          "title": "Launch HN: Laminar (YC S24) – We trained a model to catch silent agent failures",
-          "summary": "Laminar says its RL-trained flow-1 model finds silent errors in agent traces; the observability tool is open source.",
+          "title": "Should agent-memory benchmarks test stale information?",
+          "summary": "Asks whether agent-memory benchmarks should test stale information, a gap in current evals.",
           "source": "hackernews_ai",
-          "url": "https://news.ycombinator.com/item?id=50154029",
-          "published": "2026-10-19T16:00:18Z"
+          "url": "https://agentmemories.ai/home",
+          "published": "2026-10-20T03:46:35Z"
         },
         {
-          "title": "Who judges the judge? Three helpful ways to audit your LLM evaluators",
-          "summary": "Google Cloud argues LLM judges are subjective too and lists three ways to audit your evaluators.",
-          "source": "google_cloud_blog",
-          "url": "https://cloud.google.com/blog/topics/consulting/three-ways-to-audit-your-llm-evaluators/",
-          "published": "2026-10-19T16:00:00Z"
+          "title": "Show HN: Make AI coding agents verify its own work",
+          "summary": "Reticle open-sources a way to make coding agents check their own work before finishing.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/reticlehq/reticle",
+          "published": "2026-10-20T10:20:33Z"
         },
         {
-          "title": "How Numan Built an Eval-First AI Health Coach with LangGraph and LangSmith",
-          "summary": "Numan ships its Nu health coach on LangGraph and LangSmith with per-category evals, simulated conversations and safety gates.",
-          "source": "langchain_blog",
-          "url": "https://www.langchain.com/blog/how-numan-built-an-eval-first-ai-health-coach-with-langgraph-and-langsmith",
-          "published": "2026-10-19T15:00:00Z"
+          "title": "Show HN: Gauge CLI – Open-Source Hillclimbing for Agent Experience",
+          "summary": "Gauge CLI open-sources hillclimbing of agent-facing surfaces such as skills and CLIs.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/gauge-sh/gauge-cli",
+          "published": "2026-10-20T18:01:22Z"
         }
       ]
     },
     {
-      "name": "Agent Compute and Inference Infrastructure",
-      "slug": "agent-compute-inference-infra",
-      "summary": "Infrastructure posts target agent-shaped load: sandbox CPU throughput, MoE scaling without downtime, and small extraction and embedding models.",
+      "name": "Evals for agents in production",
+      "slug": "evals-agents-production",
+      "summary": "Teams are publishing concrete eval methods for deciding whether an agent is ready to ship.",
       "articles": [
         {
-          "title": "NVIDIA Vera CPUs double throughput for Modal Sandboxes",
-          "summary": "Modal benchmarked NVIDIA's Arm-based Vera CPU on agentic Sandbox workloads; under heavy load it completed far more tasks than x86 and Graviton without hurting latency.",
-          "source": "modal_blog",
-          "url": "https://modal.com/blog/nvidia-vera-sandboxes",
-          "published": "2026-10-19T14:01:00Z"
+          "title": "How To Use Decision Models for Evals",
+          "summary": "Hamel Husain shows how small decision models can score evals cheaply, following releases from several vendors.",
+          "source": "hamel_husain",
+          "url": "https://hamel.dev/blog/posts/decision-model-evals/",
+          "published": "2026-10-20T07:00:00Z"
         },
         {
-          "title": "Achieving near-zero-downtime scaling in Elastic Expert Parallelism",
-          "summary": "vLLM uses asynchronous preparation and NIXL EP to scale Elastic Expert Parallelism with near-zero downtime.",
+          "title": "Show HN: A practical framework for evaluating agentic AI systems",
+          "summary": "deepsense.ai lays out a framework for judging whether an agent that passed its eval is safe to ship.",
+          "source": "hackernews_ai",
+          "url": "https://deepsense.ai/blog/your-agent-passed-the-eval-should-you-ship-it/",
+          "published": "2026-10-20T07:45:13Z"
+        }
+      ]
+    },
+    {
+      "name": "Inference and serving infrastructure",
+      "slug": "inference-serving-infrastructure",
+      "summary": "Open inference stacks are cutting serving cost; DeepSeek's release is the day's largest.",
+      "articles": [
+        {
+          "title": "DeepSeek Unveils Open-Source Tool to Help Cut AI Operating Costs",
+          "summary": "DeepSeek open-sources the inference software it runs its models on, aimed at lowering operating cost.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Bloomberg.com",
+          "publisher_domain": "bloomberg.com",
+          "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNaTNwMlNFRlZ6SkZCMWtZaEJfUWdXbGxlQVBnSEZOZ0dVM1dLc240NTVQdnZTbjJqd2pRWVNpUUZVYldWZDlzdF8waFlUVlRRaW1uYllNRjdVNFZZSW9aeFhGQmRzS1p1VmhFUG9HbTMzaE5hTm1mOGFwSHp5VzlEbTEtc2ZsQTJ3amdCVjhkZUU5bkY3UDM2ajNRcGY4aDJBWjhFbGljNjlZaXI1X3gyX1gyYTV4QQ?oc=5",
+          "published": "2026-10-20T12:45:23Z"
+        },
+        {
+          "title": "DeepSeek Dials Up the Pressure on OpenAI and Anthropic With Open-Source Inference Tool",
+          "summary": "Press coverage frames the release as pressure on OpenAI and Anthropic serving economics.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Gizmodo",
+          "publisher_domain": "gizmodo.com",
+          "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOb01YenVDbE5LRnNkaWVVOUczR3hpMFlVYWlTRk9BX3NlMUp0QVBHdWlzVTBEcGlPMmZXdmRCaWtIaUthbmlfQml2bjFSY1NkNVRlSUx0LVBWeTh4WkhzYklCTnJmc0JraFZFQ3NDRUV4ME1jbUlEOVYtY3kwNjFacXNkVmgwZGlfeHZsVF8tTzJQVXlvSVdubnRCQXlLeEVKdlNVYWlOOV9BUzJEeHh0aGd0MUlkU01Z?oc=5",
+          "published": "2026-10-20T16:45:40Z"
+        },
+        {
+          "title": "llm-d 1.0 Advances Open, Cost-Efficient AI Inference for Production Scale",
+          "summary": "llm-d 1.0 reaches release as an open stack for cost-efficient production inference.",
+          "source": "search_llm_ops_news",
+          "publisher_name": "TradingView",
+          "publisher_domain": "tradingview.com",
+          "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQRENMaFZVanUzZXQwV21aVnRYWVZnU3g5WFNNUVAzamZCMF9UamVzbDlUMGRLaXctNVIzNEptalYwX2NqWUxqbzA1SEJUMkZEQ1Z6NlkxaUJqVlVodExja0RxR1Q1Sk91R1NRUjUxUFhpZlR6bGpzUWNURVZMV25CTXJDTGhtVk9PSmFTdmpSc0FJeVZ4X2c5R0dRMWYxWjUtWGdCbDBTQlJQU1VTMlFUWnBkTXlpMUVIbDJlVndUT3VvSE5UWHJQdXc4cS01QQ?oc=5",
+          "published": "2026-10-20T12:00:00Z"
+        },
+        {
+          "title": "Introducing vLLM TorchTPU",
+          "summary": "vLLM adds a TPU backend on TorchTPU with Pallas kernels, multi-host parallelism and KV cache offloading.",
           "source": "vllm_blog",
-          "url": "https://vllm.ai/blog/2026-10-19-elastic-ep-near-zero-downtime",
-          "published": "2026-10-19T00:00:00Z"
+          "url": "https://vllm.ai/blog/2026-10-20-vllm-torchtpu",
+          "published": "2026-10-20T00:00:00Z"
         },
         {
-          "title": "EmbeddingGemma 2 Expands beyond Text to Support Code, Images, Video, and Audio",
-          "summary": "Google's Apache 2.0 EmbeddingGemma 2, built on Gemma 4, is a compact open-weight embedding model extended beyond text to code, images, video and audio.",
+          "title": "Presentation: Beyond the Prototype: Scaling Framework Agnostic AI Agent Infrastructure with Ray",
+          "summary": "InfoQ talk on moving agents from FastAPI prototypes to resilient Kubernetes production with Ray.",
           "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/10/embeddinggemma-2-multimodal/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-10-19T10:00:00Z"
-        },
-        {
-          "title": "Cloudflare Introduces Clairic, a New Class of Extraction Models",
-          "summary": "Cloudflare announced Clairic, a new extraction model in its System One class.",
-          "source": "cloudflare_blog",
-          "url": "https://blog.cloudflare.com/clairic-extraction-model/",
-          "published": "2026-10-19T17:48:26Z"
+          "url": "https://www.infoq.com/presentations/scale-llm-agents-production-ray/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-10-20T11:00:00Z"
         }
       ]
     },
     {
-      "name": "Agent Tooling and Pricing",
-      "slug": "agent-tooling-pricing",
-      "summary": "Coding-agent workflows are moving toward parallel swarms and portable sessions, while per-call pricing appears beside token billing.",
+      "name": "U.S. DeepSeek ban in federal systems",
+      "slug": "us-deepseek-federal-ban",
+      "summary": "A federal ban on DeepSeek products changes vendor-risk calculations for teams selling into or working with U.S. agencies.",
       "articles": [
         {
-          "title": "Show HN: Acyclic – Rapid agent swarms. Agentic workflows exponentially faster",
-          "summary": "Acyclic (YC F26) splits a task across many coding agents, each in its own sandbox, and runs them as a swarm.",
-          "source": "hackernews_ai",
-          "url": "https://news.ycombinator.com/item?id=50153128",
-          "published": "2026-10-19T14:46:04Z"
-        },
-        {
-          "title": "How to continue a GitHub Copilot app session in VS Code",
-          "summary": "GitHub documents how to move an agent session from the Copilot app into VS Code while keeping conversation, code changes and context.",
-          "source": "github_blog_ai_ml",
-          "url": "https://github.blog/ai-and-ml/github-copilot/how-to-continue-a-github-copilot-app-session-in-vs-code/",
-          "published": "2026-10-19T18:47:22Z"
-        },
-        {
-          "title": "Per-Call Pricing Just Entered the Agent Stack. Every Frontier Lab Still Charges by the Token.",
-          "summary": "Forkast reports per-call pricing has entered the agent stack while every frontier lab still bills by the token.",
+          "title": "U.S. government bans Chinese AI app DeepSeek from federal IT systems",
+          "summary": "The U.S. bars DeepSeek's app from federal IT systems.",
           "source": "search_cn_open_weight_labs",
-          "publisher_name": "forkast.news",
-          "publisher_domain": "forkast.news",
-          "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxORENGdXMzc2tNY1pmaUFObUdFWVlBRWFxaTdUT2dwTGNUdjdtQURiZ0RNcVQ3Qk00SVFrWFdlelF0MDhYUUg2T2ZMNDdvcG0ta0g1dmVNalRONUxoT0l0aG1MUTVYRVJqV3k5RUIwUDdmRmNYOHpWRVNaalZLV1VWSlZfREZfYnA0anBLejBKOHJsb0NjQVlxNWZNdFEyYXZhMFlvNTZsNkRpRVNWQ3JJZ3FXWQ?oc=5",
-          "published": "2026-10-19T13:53:39Z"
+          "publisher_name": "upi",
+          "publisher_domain": "upi.com",
+          "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQNzFtcEhvNUlLajFNR3FXN3NTZUgwdFRCbVdKcjVtNmFobkhaNzdWR2JIT0hMX2JKZ2ZMNzdMOEx2czgtMzVib2cxMXJONmZxc0RlS1puTm1ES2hUaDRtanBBOE1LMTV2TVQwaGdhRXBNS2NHTEQ0Rm5qeEFSblZkYWhBdjlYS0pqZjRNUXV30gGTAUFVX3lxTE9yNUxFMmNHSjBGOXl4T3Z5bFVuUFRWVWxURlg4MV9xVDNnR2xXZm9idkp1OS1uejN3UDh3dkd0TnhZTGh0bWgycmRuaTRmTVVwc0dlaTlNZDhCX2lJSDNNWmVPSnlCWGhKY2RSOW11RlJURGd6UFFLWU16M0hiRksyTVlSQUxfcUUzMmVGZmNjM0lwTQ?oc=5",
+          "published": "2026-10-20T19:07:48Z"
+        },
+        {
+          "title": "DeepSeek set to be banned from federal civilian agencies",
+          "summary": "FedScoop reports the ban covers federal civilian agencies.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "FedScoop",
+          "publisher_domain": "fedscoop.com",
+          "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQOG9oemNKM1d2cFV5cnhqd05aTWRqWUtoMlF4RWpmbk14QkhpRGUwbUM0aE9sSEpRMHpESV9GUnRiblBxUVoxNHBEUEpZODlrdlpSV2hDU05hX1VwSEhjQnl1UmRBZFczdWhyaHQxUGFERnRtVEVBckhWdk1Eb0NVM3VSMmtoaEZ6d1BuaFVfYlhRWDJMWjVFX0NXWWtMV0RrVHFXeTdyeWs2NFVfM29RRA?oc=5",
+          "published": "2026-10-20T15:22:41Z"
+        },
+        {
+          "title": "U.S. Bans DeepSeek From Federal Agencies, and Windows Could Be Caught Up in It",
+          "summary": "Windows-related exposure is flagged as a possible knock-on effect of the ban.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "www.trendingtopics.eu",
+          "publisher_domain": "trendingtopics.eu",
+          "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9yVW9tQUFROHpmY3NtRG9yRHA4X1hrRXZSMmktbWhvOEFuQlNiMGExeGhvTGJvaGtDTmdSTzBmd3pMaHRqeTFTOFpSUVprRXdmTkQ5WFF2Wm1JTnF6Q0ItcHdGZ1VzWVJMazhUMjdZX3VzYmk1MnpuS1JPSQ?oc=5",
+          "published": "2026-10-20T06:25:59Z"
+        },
+        {
+          "title": "China Condemns U.S. Ban on DeepSeek A.I. in Government Systems",
+          "summary": "China condemns the ban, signaling the dispute will continue.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "The New York Times",
+          "publisher_domain": "nytimes.com",
+          "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE5MdVZndlVicHFmaDlMM3NsN0dzallEX1hVUVgzVzB4TkJpOE9UcjJHUGJvTnVfSmN1QnNPeUFwZU55VXhEWVJTRkpSNkdzOVMwNmo5WFlMZG5oLVZINnpqLTBGSUxTQk5tM2tKMDdkS2I0OHZTdFE4ZDhxak8?oc=5",
+          "published": "2026-10-20T20:37:45Z"
         }
       ]
     },
     {
-      "name": "DeepSeek Federal Ban and Fresh Release",
-      "slug": "deepseek-federal-ban",
-      "summary": "DHS barred DeepSeek from federal civilian agencies on the same day a new Flash build was reported.",
+      "name": "Models and agent platforms",
+      "slug": "models-agent-platforms",
+      "summary": "Frontier models and agent connectors keep spreading into the platforms builders already use.",
       "articles": [
         {
-          "title": "Homeland Security Bans DeepSeek Use In Federal Civilian Agencies",
-          "summary": "Homeland Security bans DeepSeek use across federal civilian agencies.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "Engadget",
-          "publisher_domain": "engadget.com",
-          "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxObHJrdV9IRmp3RUlqVGxzOTBiM0JtdzhhVklScGxQRFdtd2RHUzR5cHlWM2U4QjZFcGEzUWZrbUkwamZfeHFOdEd2QnNPSV9GVGh2ZjJ2NXM5VEd3N2pEMEhGWFF6UTY4Zi1zYXhtaU1ZUmsyZk40cEp5RkNBdGNGaFJ0OXZNajNyRU9yTks2dzJCUUlMdTRfTXdWVmxFQXM?oc=5",
-          "published": "2026-10-19T16:59:28Z"
+          "title": "Claude Opus 5.5 and Claude Sonnet 5.5 are now available in Google Antigravity",
+          "summary": "Claude Opus 5.5 and Sonnet 5.5 become selectable in Google Antigravity.",
+          "source": "google_cloud_blog",
+          "url": "https://cloud.google.com/blog/products/ai-machine-learning/claude-opus-55-and-claude-sonnet-55-available-in-antigravity/",
+          "published": "2026-10-20T16:00:00Z"
         },
         {
-          "title": "DeepSeek barred from government agency IT systems",
-          "summary": "Politico reports DeepSeek is barred from government agency IT systems.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "Politico",
-          "publisher_domain": "politico.com",
-          "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNX1VsVHc5NlhrdGxhQnRpWG9WdmR5QWtmeFRyOHRsQXg5bEt4Zm9PTC1YY1phUWd0eHNyTHV2RjJOTDJGNm1xbHIwUzBUMHE1V091VjdtVUhzaTdkblBUQTQzdkloTmlfekJCYXQ0TS13X3NWbllqcy1qQnlLcGx1N2dvODdSNE5NRkVVNTYxUmJ0Sjg?oc=5",
-          "published": "2026-10-19T20:01:00Z"
-        },
-        {
-          "title": "DeepSeek Quietly Ships V4.1-Flash-1017, Beating Rivals on Agent Tasks",
-          "summary": "Startup Fortune reports DeepSeek quietly shipped V4.1-Flash-1017, which it says beats rivals on agent tasks.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "Startup Fortune",
-          "publisher_domain": "startupfortune.com",
-          "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPRWs3blFMYWQ4NVVUZVlOSjdYUk1PenFfclNxY181Y3kzaWFIdVRQWW9DLVNtODlSTXpWWVRDM1ZmTFBiQVU4d3FPazJUdjBhM3hpTlZrRHJHVGhKMXo0cGdjNl8yS1VuYko0cXR4ejZXZHBTVEdNTHRVQ3BEQjdmTXdjN1B1dzFibVNESmtscXFSUUh3dDA1NW1HSQ?oc=5",
-          "published": "2026-10-19T04:50:08Z"
+          "title": "Work management context for AI agents with Smartsheet MCP on AWS",
+          "summary": "AWS shows two ways to give agents live Smartsheet data through its MCP server.",
+          "source": "aws_ml_blog",
+          "url": "https://aws.amazon.com/blogs/machine-learning/work-management-context-for-ai-agents-with-smartsheet-mcp-on-aws/",
+          "published": "2026-10-20T17:59:07Z"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "k9PY4KlHym0",
-    "title": "LLM Digest Daily Explainer: Oct 19, 2026",
-    "duration_s": 118.2
-  }
+  ]
 }
