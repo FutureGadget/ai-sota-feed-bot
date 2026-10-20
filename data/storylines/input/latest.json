@@ -1,7 +1,1688 @@
 {
-  "generated_at": "2026-10-20T10:13:26.249402+00:00",
+  "generated_at": "2026-10-20T15:17:16.963881+00:00",
   "window_days": 21,
-  "storyline_count": 0,
+  "storyline_count": 12,
   "needs_narrative_count": 0,
-  "storylines": []
+  "storylines": [
+    {
+      "slug": "retrieval-execution",
+      "label": "Retrieval Execution",
+      "item_count": 3,
+      "source_count": 3,
+      "day_count": 3,
+      "first_seen": "2026-10-06T10:28:27+00:00",
+      "last_updated": "2026-10-17T05:12:34+00:00",
+      "latest_title": "EPGM: Execution Provenance for Budgeted Agent Memory Retrieval",
+      "member_sids": [
+        "8ced9fea396e65fb",
+        "19b58845c8888d5a",
+        "cbef01ba5cb1e9c5"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/retrieval-execution.json",
+      "prior_narrative": {
+        "slug": "retrieval-execution",
+        "generated_at": "2026-10-17T10:20:00+00:00",
+        "covers_last_updated": "2026-10-17T05:12:34+00:00",
+        "covers_member_sids": [
+          "8ced9fea396e65fb",
+          "19b58845c8888d5a",
+          "cbef01ba5cb1e9c5"
+        ],
+        "tldr": "Oct 6 and Oct 9 papers studied how agents pick skills and tools: one optimizes skill injections to survive routers, the other adds execution-time reliability to tool retrieval. The common thread is that agent retrieval is judged on what happens at execution, not only on semantic match.",
+        "whats_new": "EPGM, posted Oct 17, applies the execution lens to agent memory: it adds execution provenance to budgeted memory retrieval.",
+        "why_it_matters": "Three independent papers treat retrieval for skills, tools, and memory as an execution-time reliability problem. Relevance-only retrieval in an agent stack can pick items that are unavailable or unsafe at run time.",
+        "status": {
+          "state": "Developing · research",
+          "tone": "rising",
+          "changed": "2026-10-17",
+          "detail": "Three papers on skill, tool, and memory retrieval, each tied to execution behavior; none is a shipped product."
+        },
+        "beats": [
+          {
+            "kicker": "SKILLS",
+            "tone": "launch",
+            "headline": "Skill-router paper optimizes skill injections for retrieval and execution",
+            "summary": "Covers third-party skills selected dynamically by skill routers.",
+            "sids": [
+              "8ced9fea396e65fb"
+            ]
+          },
+          {
+            "kicker": "TOOLS",
+            "tone": "rising",
+            "headline": "RATED adds tool availability during execution to tool retrieval",
+            "summary": "Targets methods that optimize semantic relevance but ignore execution-time availability.",
+            "sids": [
+              "19b58845c8888d5a"
+            ]
+          },
+          {
+            "kicker": "MEMORY",
+            "tone": "now",
+            "headline": "EPGM brings execution provenance to budgeted agent memory retrieval",
+            "sids": [
+              "cbef01ba5cb1e9c5"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Do any of the three papers report results on a public agent benchmark that others can reproduce?",
+          "Does any skill router or tool-retrieval library adopt execution-aware scoring?"
+        ],
+        "take_for_builders": "If your agent retrieves tools or skills by embedding similarity alone, log whether each retrieved item was actually available and succeeded at run time, so you can measure the gap these papers target.",
+        "day_captions": {
+          "8ced9fea396e65fb": "Skill-router angle: how skill injections are optimized to be retrieved and executed.",
+          "19b58845c8888d5a": "Tool-retrieval angle: scores tools by execution-time reliability, not just relevance.",
+          "cbef01ba5cb1e9c5": "Memory-retrieval angle: adds execution provenance under a retrieval budget."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-10-06",
+          "items": [
+            {
+              "sid": "8ced9fea396e65fb",
+              "title": "Surviving the Router: Optimizing Skill Injections for Retrieval and Execution",
+              "url": "http://arxiv.org/abs/2610.08098v1",
+              "source": "arxiv_cs_lg",
+              "type": "paper",
+              "summary_1line": "AI agents increasingly rely on modular third-party \"skills\" that are dynamically selected by skill routers to execute complex tasks. While recent studies highlight the threat of prompt injections embedded in these ski...",
+              "published": "2026-10-06T10:28:27+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-09",
+          "items": [
+            {
+              "sid": "19b58845c8888d5a",
+              "title": "RATED: Reliability-Aware AI Agent Tool Retrieval via Execution Dynamics",
+              "url": "http://arxiv.org/abs/2610.13889v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "As AI agents increasingly rely on external tools, accurate retrieval is essential for reliable behavior. Existing methods optimize semantic relevance but largely ignore tool availability during execution. To address t...",
+              "published": "2026-10-09T17:38:11+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-17",
+          "items": [
+            {
+              "sid": "cbef01ba5cb1e9c5",
+              "title": "EPGM: Execution Provenance for Budgeted Agent Memory Retrieval",
+              "url": "https://arxiv.org/abs/2609.25913",
+              "source": "hackernews_ai",
+              "type": "paper",
+              "summary_1line": "EPGM: Execution Provenance for Budgeted Agent Memory Retrieval",
+              "published": "2026-10-17T05:12:34+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "reflection-ai-releases-beam-an-american-open-weight-model",
+      "label": "Reflection Beam",
+      "item_count": 9,
+      "source_count": 4,
+      "day_count": 4,
+      "first_seen": "2026-10-05T01:09:00+00:00",
+      "last_updated": "2026-10-16T15:23:10+00:00",
+      "latest_title": "Introducing Reflection Beam: an open-weight model for agentic coding on AWS",
+      "member_sids": [
+        "e7651bad514e3e27",
+        "70ef3a77c8467af2",
+        "417c3a0572d8db45",
+        "d24de0e6aea61ab2",
+        "36cad6eb6e14f728",
+        "0a20094e6af23525",
+        "df3495e4c286ffa0",
+        "5726df15bb134984",
+        "4f379e8b58549775"
+      ],
+      "via_scout": true,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/reflection-ai-releases-beam-an-american-open-weight-model.json",
+      "prior_narrative": {
+        "slug": "reflection-ai-releases-beam-an-american-open-weight-model",
+        "generated_at": "2026-10-16T20:10:00+00:00",
+        "covers_last_updated": "2026-10-16T15:23:10+00:00",
+        "covers_member_sids": [
+          "e7651bad514e3e27",
+          "70ef3a77c8467af2",
+          "417c3a0572d8db45",
+          "d24de0e6aea61ab2",
+          "36cad6eb6e14f728",
+          "0a20094e6af23525",
+          "df3495e4c286ffa0",
+          "5726df15bb134984",
+          "4f379e8b58549775"
+        ],
+        "tldr": "Nvidia-backed Reflection AI was reported on Oct 5 to be preparing a \"DeepSeek of the West\" open model. Beam, a 501B-parameter model with 23B active, shipped Oct 6 and was framed against low-cost Chinese models.",
+        "whats_new": "On Oct 16, AWS published a SageMaker deployment guide for Beam and vLLM shipped day-0 serving, so the 501B-A23B model now runs on both a managed endpoint and an open inference stack.",
+        "why_it_matters": "Beam can now be tested on a SageMaker JumpStart endpoint or your own vLLM stack; the reported Nvidia acquisition bid still leaves its license and release cadence unsettled.",
+        "beats": [
+          {
+            "kicker": "PRE-RELEASE",
+            "tone": "rising",
+            "headline": "Nvidia-backed Reflection preps an open model, framed as a DeepSeek of the West",
+            "sids": [
+              "e7651bad514e3e27",
+              "70ef3a77c8467af2"
+            ]
+          },
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "Beam (501B-A23B) released as an American open model",
+            "sids": [
+              "417c3a0572d8db45",
+              "d24de0e6aea61ab2"
+            ]
+          },
+          {
+            "kicker": "REACTION",
+            "tone": "rising",
+            "headline": "Coverage turns to Beam's position against low-cost Chinese models",
+            "sids": [
+              "36cad6eb6e14f728",
+              "0a20094e6af23525"
+            ]
+          },
+          {
+            "kicker": "OWNERSHIP",
+            "tone": "turn",
+            "headline": "Report: Nvidia pursues acquisition of Reflection to counter DeepSeek",
+            "sids": [
+              "df3495e4c286ffa0"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "vLLM and AWS add Beam-1.0 deployment paths",
+            "summary": "vLLM reports a 2.71× decode-latency cut from agent-driven optimization and DFlash2 speculative decoding; AWS documents a SageMaker JumpStart real-time endpoint.",
+            "sids": [
+              "5726df15bb134984",
+              "4f379e8b58549775"
+            ]
+          }
+        ],
+        "open_questions": [
+          "How does Beam score against DeepSeek and Kimi on independent evals?",
+          "What license and per-token inference cost does Beam ship with on SageMaker and elsewhere?",
+          "Does Nvidia confirm an acquisition, and does Beam's open-weight license change?",
+          "Does the 2.71× vLLM decode speedup hold on hardware outside vLLM's own test setup?"
+        ],
+        "take_for_builders": "Run Beam on vLLM or a SageMaker JumpStart endpoint against your open-weight eval shortlist, and pin the exact weights and license text you test until the ownership question is settled.",
+        "day_captions": {
+          "e7651bad514e3e27": "Pre-release report on Nvidia's backing and the coming open-source model.",
+          "70ef3a77c8467af2": "Founder interview on the DeepSeek-of-the-West goal.",
+          "417c3a0572d8db45": "Names the release: Beam, 501B-A23B.",
+          "d24de0e6aea61ab2": "Positions Beam against DeepSeek and Kimi.",
+          "36cad6eb6e14f728": "Reports the low-cost-model targeting strategy.",
+          "0a20094e6af23525": "Early analysis of what Beam means for rivals.",
+          "df3495e4c286ffa0": "First report of an Nvidia acquisition bid for Reflection, framed as a counter to DeepSeek.",
+          "5726df15bb134984": "Official vLLM day-0 support, with the first published decode-latency figure.",
+          "4f379e8b58549775": "AWS's first managed deployment path: SageMaker JumpStart real-time endpoint for agentic coding."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-10-05",
+          "items": [
+            {
+              "sid": "e7651bad514e3e27",
+              "title": "NVIDIA Heavily Backs “U.S. DeepSeek” as It Prepares to Release Open-Source Model",
+              "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPMnZhcjNtb0dQV0tkSXlGck9SQWJJMmFqbWZ1ZWhxMmdhU0pKQW5nSENGYjNsNUpWLXBvVHpXTXlqY1FKaVNrS0s2dzJQTjU2aGlBM0NrcmlLa3YxemJfM185SVB2Q0pzbmlmUzUwUE4yaHM0ekdHa0VqVmp1NkdPVTdndWRTWTg2Tl94NzZjTU5aX1hPLXB4aWg1N0JrM3lDRl9J?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "NVIDIA Heavily Backs “U.S. DeepSeek” as It Prepares to Release Open-Source Model 富途牛牛",
+              "published": "2026-10-05T01:09:00+00:00"
+            },
+            {
+              "sid": "70ef3a77c8467af2",
+              "title": "Reflection’s founders on building a DeepSeek of the West",
+              "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBfOURaUldkQW9fWTRyR2VRUUxuTElKUXpvQkhPa2E5TFJ5M1pJMU92VFk4TUF4Ri1XNnlFWHBsYXJpSnJGYzJPZVRNeHVILVRYZW1USEFGZks2NEZmaEllRDg2cWdmaWZXMHoxTVVZMXdMN200QkE?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Reflection’s founders on building a DeepSeek of the West Sources | Alex Heath",
+              "published": "2026-10-05T19:01:48+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-06",
+          "items": [
+            {
+              "sid": "417c3a0572d8db45",
+              "title": "[AINews] Reflection Beam - 501B-A23B American Open Model",
+              "url": "https://www.latent.space/p/ainews-reflection-beam-501b-a23b",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "A small win for US open source",
+              "published": "2026-10-06T06:28:43+00:00"
+            },
+            {
+              "sid": "d24de0e6aea61ab2",
+              "title": "Reflection AI Beam: America's Answer to DeepSeek and Kimi",
+              "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE01SlBSMTBQTnh2ZnJfT09VM2FHVVRjeDBDMl83Y1ctNkxFelBTQU9ibGtad2E3UkFLbEdZbzdscUxJY2hiRXdRam1WSHM4S1NHU1BNYWJRQUtCR0JxSDZUbGtBX293TXh1dm9lVlI1TlY4QjE1dWc?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Reflection AI Beam: America's Answer to DeepSeek and Kimi trendingtopics.eu",
+              "published": "2026-10-06T06:36:33+00:00"
+            },
+            {
+              "sid": "36cad6eb6e14f728",
+              "title": "Nvidia-Backed Reflection AI Targets Low-Cost Chinese Models Like DeepSeek and Kimi",
+              "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOUUdNbzk3OUNsZlNoWGZjZmhkZ0xNRjZrU05hMXphczJ4aDNvaDhMNlVDS1pYVzBHcU9DYUl3Yl9qVGtOeUZiS0JTNmVWck1weHh1ZTJFNDRHeV91dkRxSUx4WFBGLVVNRnBXMHVoc29pZklhczRwckcwMFhnaWVSQ0JYWWd1MnU1ektXOVZkTm9QbzR0cHlVUWRlUWJzTldoZEJwOQ?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Nvidia-Backed Reflection AI Targets Low-Cost Chinese Models Like DeepSeek and Kimi benzinga.com",
+              "published": "2026-10-06T07:28:35+00:00"
+            },
+            {
+              "sid": "0a20094e6af23525",
+              "title": "Reflection AI's Beam: What It Means for Rivals [2026]",
+              "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE80Z01mUGFTUWpjQlNCakF3UF9TbFFYN2xEX1NRb3JHUklSOTlmX3M5bWVRblI4NGhTVzB1eUFadVpZMUx2dzZvWFJra2wzRDRoV3VUSkl1LTJleFNVdlNEUV9wS0tkYnJRb1BySmFEbnc5aXNRU1ZDY1Fn?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Reflection AI's Beam: What It Means for Rivals [2026] shattered.io",
+              "published": "2026-10-06T10:41:19+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-10",
+          "items": [
+            {
+              "sid": "df3495e4c286ffa0",
+              "title": "Nvidia Pursues Acquisition of Open-Source AI Startup Reflection to Counter DeepSeek",
+              "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1ndDRnTHhKR3pGUHhtSmxvQmdIaHN6TW1LT01Ha3kxSjZwb2I0UEpsN1poNnpwZ3ZxcS01SldaWkZacGV4czUzdGQtQWU2aXo1NzR6WHhtYVh0bHFjT2JCOUIySHVUZFFMZktEZFVmb1RheEdnZVE?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Nvidia Pursues Acquisition of Open-Source AI Startup Reflection to Counter DeepSeek BigGo Finance",
+              "published": "2026-10-10T21:25:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-16",
+          "items": [
+            {
+              "sid": "5726df15bb134984",
+              "title": "Serving Reflection Beam on vLLM from Day 0",
+              "url": "https://vllm.ai/blog/2026-10-16-reflection-beam",
+              "source": "vllm_blog",
+              "type": "news",
+              "summary_1line": "vLLM supports Reflection's Beam-1.0 (501B total, 23B active) from day 0, with agent-driven optimization that cut decode latency 2.71× and DFlash2 speculative decoding with adaptive verification.",
+              "published": "2026-10-16T00:00:00+00:00"
+            },
+            {
+              "sid": "4f379e8b58549775",
+              "title": "Introducing Reflection Beam: an open-weight model for agentic coding on AWS",
+              "url": "https://aws.amazon.com/blogs/machine-learning/introducing-reflection-beam-an-open-weight-model-for-agentic-coding-on-aws",
+              "source": "aws_ml_blog",
+              "type": "news",
+              "summary_1line": "Reflection AI's Beam is an open-weight model for agentic coding and long-horizon tasks. This post shows how to deploy Beam on AWS: start with an Amazon SageMaker JumpStart real-time endpoint, or use Amazon SageMaker H...",
+              "published": "2026-10-16T15:23:10+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "large-language",
+      "label": "Large Language",
+      "item_count": 3,
+      "source_count": 3,
+      "day_count": 3,
+      "first_seen": "2026-10-01T17:06:53+00:00",
+      "last_updated": "2026-10-16T14:26:44+00:00",
+      "latest_title": "Trapped in Your Story: Evaluating Narrative-Induced Sycophancy in Large Language Models",
+      "member_sids": [
+        "2476b153d599e8b7",
+        "c47efdba3284bb9f",
+        "ade0f523550f640a"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/large-language.json",
+      "prior_narrative": {
+        "slug": "large-language",
+        "generated_at": "2026-10-19T05:12:44.417713+00:00",
+        "covers_last_updated": "2026-10-16T14:26:44+00:00",
+        "covers_member_sids": [
+          "2476b153d599e8b7",
+          "c47efdba3284bb9f",
+          "ade0f523550f640a"
+        ],
+        "tldr": "This page groups three arXiv papers by the shared phrase \"large language models\" in their titles; they do not form one developing story. They cover hidden-state hallucination detection (Oct 1), a security attack on speculative decoding (Oct 6), and narrative-induced sycophancy (Oct 16).",
+        "whats_new": "Oct 16 adds an arXiv study showing that LLMs shift toward a user's view when the user justifies it with a personal narrative, widening sycophancy testing beyond bare opinions.",
+        "why_it_matters": "Each paper names a distinct failure surface: hallucination probing needs access to hidden states, speculative decoding adds a draft-model attack path, and sycophancy skews answers in user-facing agents. Treat them as three separate checks, not one trend.",
+        "beats": [
+          {
+            "kicker": "RELIABILITY",
+            "tone": "launch",
+            "headline": "Cross-model span-level hallucination detection probes hidden states",
+            "sids": [
+              "2476b153d599e8b7"
+            ]
+          },
+          {
+            "kicker": "SECURITY",
+            "tone": "neutral",
+            "headline": "Secure speculative decoding targets the draft-model path in LLM inference",
+            "sids": [
+              "c47efdba3284bb9f"
+            ]
+          },
+          {
+            "kicker": "BEHAVIOR",
+            "tone": "now",
+            "headline": "Narrative-induced sycophancy evaluated in LLMs",
+            "sids": [
+              "ade0f523550f640a"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Do hidden-state hallucination probes transfer across model families without per-model training?",
+          "Does the speculative-decoding defense add measurable latency over unprotected drafting?"
+        ],
+        "take_for_builders": "Do not cite these three papers as corroborating each other; if you run user-facing agents, add a sycophancy case where the user justifies a wrong claim with a personal story, and judge the other two papers separately.",
+        "day_captions": {
+          "2476b153d599e8b7": "Hallucination detection by probing hidden states across models, at span level.",
+          "c47efdba3284bb9f": "Addresses security of speculative decoding, an inference-speedup technique unrelated to the other two items.",
+          "ade0f523550f640a": "The newest item: tests whether personal narratives, not just stated opinions, induce sycophancy."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-10-01",
+          "items": [
+            {
+              "sid": "2476b153d599e8b7",
+              "title": "External Observers May See More Clearly: Cross-Model Span-Level Hallucination Detection in Large Language Models via Hidden State Probing",
+              "url": "http://arxiv.org/abs/2610.02066v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "As Large Language Models (LLMs) increasingly serve as foundational reasoning engines, their tendency to hallucinate remains a critical vulnerability. While recent internal state probes offer a promising alternative to...",
+              "published": "2026-10-01T17:06:53+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-06",
+          "items": [
+            {
+              "sid": "c47efdba3284bb9f",
+              "title": "Secure Speculative Decoding for Large Language Models",
+              "url": "http://arxiv.org/abs/2610.08678v1",
+              "source": "arxiv_cs_lg",
+              "type": "paper",
+              "summary_1line": "Speculative decoding accelerates inference for a large language model (LLM), referred to as the \\emph{target model}, by first using a smaller model, referred to as the \\emph{draft model}, to generate candidate tokens...",
+              "published": "2026-10-06T16:59:37+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-16",
+          "items": [
+            {
+              "sid": "ade0f523550f640a",
+              "title": "Trapped in Your Story: Evaluating Narrative-Induced Sycophancy in Large Language Models",
+              "url": "http://arxiv.org/abs/2610.23525v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Large language models (LLMs) are known to exhibit sycophancy by adjusting their responses toward users' expressed views. However, real users often justify their opinions through reasons, personal experiences, causal e...",
+              "published": "2026-10-16T14:26:44+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nemotron-3-5",
+      "label": "Nemotron 3.5",
+      "item_count": 4,
+      "source_count": 2,
+      "day_count": 2,
+      "first_seen": "2026-10-15T00:00:00+00:00",
+      "last_updated": "2026-10-16T08:46:30+00:00",
+      "latest_title": "Nemotron 3.5 Super VL vs Kimi K3: A Metered Flagship Against a Weight Release With No Rate Card",
+      "member_sids": [
+        "5b7496a31dc4a921",
+        "fa7edf5313b75f42",
+        "6e859d00d3f1f59e",
+        "1e11786f937b04c6"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/nemotron-3-5.json",
+      "prior_narrative": {
+        "slug": "nemotron-3-5",
+        "generated_at": "2026-10-16T10:10:00+00:00",
+        "covers_last_updated": "2026-10-16T08:46:30+00:00",
+        "covers_member_sids": [
+          "5b7496a31dc4a921",
+          "fa7edf5313b75f42",
+          "6e859d00d3f1f59e",
+          "1e11786f937b04c6"
+        ],
+        "tldr": "vLLM announced day-0 support for NVIDIA Nemotron 3.5 Super VL on Oct 15, covering image, document and video input through OpenAI-compatible serving. Comparison write-ups against rival open models followed within a day.",
+        "whats_new": "OrcaRouter published head-to-head comparisons on Oct 16 pitting Nemotron 3.5 Super VL against Kimi K3 and DeepSeek V4 Flash Vision Exp, framed around pricing and availability rather than raw scores.",
+        "why_it_matters": "Day-0 vLLM support means you can test Nemotron 3.5 Super VL on an existing OpenAI-compatible serving stack for document and video agents; the comparisons show the real decision is metered API versus self-hosted weights.",
+        "status": {
+          "state": "Shipping · vLLM day-0",
+          "tone": "now",
+          "changed": "2026-10-15",
+          "detail": "Servable on vLLM from launch day; independent comparisons started appearing Oct 16.",
+          "track": [
+            {
+              "label": "vLLM day-0 support",
+              "detail": "Oct 15",
+              "tone": "launch",
+              "weight": 40
+            },
+            {
+              "label": "comparisons",
+              "detail": "Oct 16 → now",
+              "tone": "now",
+              "weight": 60
+            }
+          ]
+        },
+        "provenance": {
+          "5b7496a31dc4a921": {
+            "status_update": true
+          }
+        },
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "vLLM ships day-0 support for Nemotron 3.5 Super VL",
+            "summary": "Multimodal serving (image, document, video) with OpenAI-compatible endpoints and multi-token prediction.",
+            "sids": [
+              "5b7496a31dc4a921"
+            ]
+          },
+          {
+            "kicker": "COMPARISONS",
+            "tone": "now",
+            "headline": "OrcaRouter pits it against Kimi K3 and DeepSeek V4 Flash Vision Exp",
+            "summary": "Three write-ups in one day, centered on metered pricing versus downloadable weights.",
+            "sids": [
+              "fa7edf5313b75f42",
+              "6e859d00d3f1f59e",
+              "1e11786f937b04c6"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Do independent benchmarks confirm the index-point gaps OrcaRouter reports against DeepSeek V4 Flash Vision Exp?",
+          "Will other inference engines or clouds add Nemotron 3.5 Super VL beyond vLLM?"
+        ],
+        "take_for_builders": "If you run multimodal document or video agents, point an existing vLLM deployment at Nemotron 3.5 Super VL and rerun your own eval before trusting a single vendor-neutral comparison site.",
+        "day_captions": {
+          "5b7496a31dc4a921": "Launch-day serving path: vLLM supports the model with OpenAI-compatible endpoints for image, document and video input.",
+          "fa7edf5313b75f42": "Arabic-language edition of the OrcaRouter Kimi K3 comparison, framing download versus per-token pricing.",
+          "6e859d00d3f1f59e": "OrcaRouter compares it with DeepSeek V4 Flash Vision Exp and reports an eight-index-point gap.",
+          "1e11786f937b04c6": "OrcaRouter contrasts a metered flagship with Kimi K3's weight release, which has no published rate card."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-10-15",
+          "items": [
+            {
+              "sid": "5b7496a31dc4a921",
+              "title": "Announcing Day 0 Support for NVIDIA Nemotron 3.5 Super VL on vLLM",
+              "url": "https://vllm.ai/blog/2026-10-15-nemotron-3-5-super-vl-vllm",
+              "source": "vllm_blog",
+              "type": "news",
+              "summary_1line": "Run NVIDIA Nemotron 3.5 Super VL on vLLM for multimodal agent workflows with image, document, and video understanding, OpenAI-compatible serving, and multi-token prediction.",
+              "published": "2026-10-15T00:00:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-16",
+          "items": [
+            {
+              "sid": "fa7edf5313b75f42",
+              "title": "Nemotron 3.5 Super VL مقابل Kimi K3: تحميل مقابل $3/$15",
+              "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5qMllJc1d4dEtSMkQ1aHBhRlViakpXT0tZaW1yWXFrY002d0RiVGl2SkxwX25xSmt3b0JOenpmc00wR3hqNVlMVURPMmwwTldCNUhMMzdZSmY5TkxrSDMyYW11OFVJS1NZYVQ2Z0JmTEEtMGpkcTNZWmRGOA?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Nemotron 3.5 Super VL مقابل Kimi K3: تحميل مقابل $3/$15 OrcaRouter",
+              "published": "2026-10-16T05:54:43+00:00"
+            },
+            {
+              "sid": "6e859d00d3f1f59e",
+              "title": "Nemotron 3.5 Super VL vs DeepSeek V4 Flash Vision Exp: Eight Index Points, and Only One of Them Is a Product",
+              "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQQmFGQ25uc2ZfRU1Ja2hkTmVNeWJjRzBxX2x3clBhb1I5RUVLNUdHNkdycFB6WXFiYmtkV1ZPbnltTWVoWTYxS0lSa3o1V2JJZmpiMXVpbE1ZeE1xcWxqN2ZZTENMZVlTRTI5U0FwcGNMY1d3X2U4NTU2ZXF3S3ZoZjNNUjF4aXVPcERKTA?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Nemotron 3.5 Super VL vs DeepSeek V4 Flash Vision Exp: Eight Index Points, and Only One of Them Is a Product OrcaRouter",
+              "published": "2026-10-16T06:31:12+00:00"
+            },
+            {
+              "sid": "1e11786f937b04c6",
+              "title": "Nemotron 3.5 Super VL vs Kimi K3: A Metered Flagship Against a Weight Release With No Rate Card",
+              "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9zR1pyUy03YUd6NVJwNjJqTFZuZ3JzZklfUWRwOGRVU01tOGJfelN6OGJiak5CbklCY0pDaHQ2SG5OcUJYWGRwSFQySGxKVG9LTnkwYTJnY0J0MFpLNy1YRXFFOVNLd29ZQ3hTZQ?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "Nemotron 3.5 Super VL vs Kimi K3: A Metered Flagship Against a Weight Release With No Rate Card OrcaRouter",
+              "published": "2026-10-16T08:46:30+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "reinforcement-learning",
+      "label": "Reinforcement Learning",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 3,
+      "first_seen": "2026-10-01T17:14:32+00:00",
+      "last_updated": "2026-10-15T17:34:17+00:00",
+      "latest_title": "X-RIC: An Agentic RAN-Intelligent Controller Benchmark for Enhancing Reinforcement Learning",
+      "member_sids": [
+        "c805ac88165186b6",
+        "b508403b13597849",
+        "f3c8da2fe4584033",
+        "db03100b1bd7cd3e"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/reinforcement-learning.json",
+      "prior_narrative": {
+        "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 1 it has collected a privacy-constrained RL paper, a Qwen long-horizon agent approach, and an O-RAN benchmark.",
+        "whats_new": "X-RIC, an arXiv benchmark for agentic RAN controllers, landed Oct 15 as a testbed for RL in O-RAN networks; it is a research benchmark, not a deployable system.",
+        "why_it_matters": "Nothing here is a production recipe: QwenGyre is a secondary-source report, the encrypted-training paper is research, and X-RIC targets telecom control rather than LLM post-training.",
+        "beats": [
+          {
+            "kicker": "RESEARCH",
+            "tone": "neutral",
+            "headline": "Homomorphic Advantage Operator targets RL stability under fully homomorphic encryption",
+            "summary": "Aimed at cloud deployments where training data must stay encrypted.",
+            "sids": [
+              "c805ac88165186b6"
+            ]
+          },
+          {
+            "kicker": "AGENTS",
+            "tone": "rising",
+            "headline": "Alibaba Qwen introduces QwenGyre for elastic RL on extra-long-horizon agents",
+            "summary": "Reported via MarkTechPost; targets agent tasks that run far longer than standard RL rollouts.",
+            "sids": [
+              "b508403b13597849"
+            ]
+          },
+          {
+            "kicker": "BENCHMARK",
+            "tone": "now",
+            "headline": "X-RIC benchmarks agentic RAN controllers for reinforcement learning",
+            "summary": "Targets O-RAN controllers that need reasoning beyond standard AI-driven optimization.",
+            "sids": [
+              "db03100b1bd7cd3e"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does the Homomorphic Advantage Operator stay stable at realistic model sizes, or only on the small benchmarks in the paper?",
+          "Does Qwen publish QwenGyre weights, code, or benchmarks that show the elastic RL gain on long-horizon agent tasks?",
+          "Does X-RIC report RL baselines that beat conventional RIC optimization, or only define the task?"
+        ],
+        "take_for_builders": "Wait for Qwen's primary QwenGyre release before planning around it, and treat the encrypted-data RL paper and X-RIC as research to track, not adopt.",
+        "day_captions": {
+          "c805ac88165186b6": "arXiv paper on stabilizing RL advantage estimates under fully homomorphic encryption constraints.",
+          "b508403b13597849": "MarkTechPost's summary of Qwen's elastic RL approach for extra-long-horizon agents; the first long-horizon agent item in this thread.",
+          "db03100b1bd7cd3e": "arXiv benchmark for RL in agentic O-RAN controllers; the only telecom-domain item in the thread."
+        },
+        "slug": "reinforcement-learning",
+        "generated_at": "2026-10-17T20:30:00+00:00",
+        "covers_last_updated": "2026-10-15T17:34:17+00:00",
+        "covers_member_sids": [
+          "c805ac88165186b6",
+          "b508403b13597849",
+          "f3c8da2fe4584033",
+          "db03100b1bd7cd3e"
+        ]
+      },
+      "timeline": [
+        {
+          "date": "2026-10-01",
+          "items": [
+            {
+              "sid": "c805ac88165186b6",
+              "title": "Homomorphic Advantage Operator: Stabilizing Reinforcement Learning Under Fully Homomorphic Encryption Constraints",
+              "url": "http://arxiv.org/abs/2610.02074v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Privacy-preserving machine learning presents significant deployment challenges on the cloud for intelligent systems with confidential data. Fully Homomorphic Encryption (FHE) offers a compelling solution for secure co...",
+              "published": "2026-10-01T17:14:32+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-12",
+          "items": [
+            {
+              "sid": "b508403b13597849",
+              "title": "Alibaba Qwen Introduces QwenGyre: Elastic Reinforcement Learning RL for XLong-Horizon Agents",
+              "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQLTRTeUVOVV9SQTZESnNsOU5WeFk0NlhfMVFpRmV1WUIzU3IzMVl2Rm1IRzBpMWx2ZTJiYl9hS3FSUDZWTERZMmdjdjhtNEJXZmE0bG4wVWl3TzVsMHg1Y1pBandzcmUxSkItS0Vsd3doZ01EVmhkVzNsNi1LTVd2MTRlc1RLMTZkLXJ4d2xPdDVqWGVNVHotTkZCdGdEX2NYdHNMcGhXRXp4SUdNMGExN2hVMkM2Rm00YlY2Z2tnQjJhUTdYQ1ZkU182UEnSAcwBQVVfeXFMUC00U3lFTlVfUkE2REpzbDlOVnhZNDZYXzFRaUZldVlCM1NyMzFZdkZtSEcwaTFsdmUyYmJfYUtxUlA2VkxEWTJnY3Y4bTRCV2ZhNGxuMFVpd081bDB4NWNaQWp3c3JlMUpCLUtFbHd3aGdNRFZoZFczbDYtS01XdjE0ZXNUSzE2ZC1yeHdsT3Q1alhlTVR6LU5GQnRnRF9jWHRzTHBoV0V6eElHTTBhMTdoVTJDNkZtNGJWNmdrZ0IyYVE3WENWZFNfNlBJ?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Alibaba Qwen Introduces QwenGyre: Elastic Reinforcement Learning RL for XLong-Horizon Agents MarkTechPost",
+              "published": "2026-10-12T21:41:50+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-15",
+          "items": [
+            {
+              "sid": "db03100b1bd7cd3e",
+              "title": "X-RIC: An Agentic RAN-Intelligent Controller Benchmark for Enhancing Reinforcement Learning",
+              "url": "http://arxiv.org/abs/2610.22269v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "The O-RAN ALLIANCE introduces architectural flexibility through disaggregation and AI-driven control. While the RAN Intelligent Controller (RIC) enables centralized optimization, current AI approaches lack reasoning c...",
+              "published": "2026-10-15T17:34:17+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ahead-ipo",
+      "label": "Ahead IPO",
+      "item_count": 6,
+      "source_count": 2,
+      "day_count": 5,
+      "first_seen": "2026-10-06T12:00:00+00:00",
+      "last_updated": "2026-10-15T13:04:03+00:00",
+      "latest_title": "Anthropic tells investors quarterly revenue up nearly 50% to $16.8bn ahead of IPO",
+      "member_sids": [
+        "b93148d5de7129e2",
+        "2c370085a176316e",
+        "98ef490545c3818f",
+        "77d310c84c603127",
+        "94fcf9887435c83b",
+        "e58311dcd1376969"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/ahead-ipo.json",
+      "prior_narrative": {
+        "slug": "ahead-ipo",
+        "generated_at": "2026-10-15T20:30:00+00:00",
+        "covers_last_updated": "2026-10-15T13:04:03+00:00",
+        "covers_member_sids": [
+          "b93148d5de7129e2",
+          "2c370085a176316e",
+          "98ef490545c3818f",
+          "77d310c84c603127",
+          "94fcf9887435c83b",
+          "e58311dcd1376969"
+        ],
+        "tldr": "Reports on October 6–7 put DeepSeek's pre-IPO raise at $12B or more ahead of a 2027 listing. By October 11, Moonshot AI was reported to be negotiating a settlement with a shareholder before its own planned IPO.",
+        "whats_new": "Anthropic told investors quarterly revenue rose nearly 50% to $16.8bn ahead of its own IPO, putting a US lab alongside DeepSeek and Moonshot in the pre-listing queue.",
+        "why_it_matters": "Labs preparing to list will disclose revenue, pricing power and shareholder terms, which are the signals that tell you which vendors can fund inference capacity and price cuts through 2027.",
+        "status": {
+          "state": "Pre-IPO · developing",
+          "tone": "rising",
+          "changed": "2026-10-15",
+          "detail": "Three labs are lining up listings, but none has priced or filed publicly in these sources."
+        },
+        "beats": [
+          {
+            "kicker": "RAISE",
+            "tone": "rising",
+            "headline": "DeepSeek reported raising $12B+ before a 2027 listing",
+            "sids": [
+              "b93148d5de7129e2",
+              "2c370085a176316e",
+              "98ef490545c3818f"
+            ]
+          },
+          {
+            "kicker": "FRICTION",
+            "tone": "turn",
+            "headline": "Moonshot seeks to settle a shareholder arbitration claim before its IPO",
+            "summary": "The claim reportedly seeks a 10.5% original stake and alleges misrepresentation.",
+            "sids": [
+              "77d310c84c603127",
+              "94fcf9887435c83b"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Anthropic discloses $16.8bn quarterly revenue to investors",
+            "sids": [
+              "e58311dcd1376969"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does DeepSeek's round close at the reported $12B or the later, higher figures?",
+          "Does Moonshot settle the shareholder dispute before its planned Hong Kong listing?",
+          "Does Anthropic publish an S-1 with pricing and compute-cost detail?"
+        ],
+        "take_for_builders": "Keep a fallback provider for any lab whose IPO terms are unsettled, and re-check pricing commitments once S-1 style disclosures appear.",
+        "day_captions": {
+          "b93148d5de7129e2": "First report in this thread: a $12B raise ahead of a 2027 IPO.",
+          "2c370085a176316e": "Second outlet confirms the $12B figure.",
+          "98ef490545c3818f": "Frames the raise as above $12B and the IPO as potential.",
+          "77d310c84c603127": "Reuters: Moonshot executives in settlement talks with a shareholder.",
+          "94fcf9887435c83b": "Details the arbitration claim over a 10.5% original stake.",
+          "e58311dcd1376969": "Anthropic's investor-reported revenue growth, cited from the FT."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-10-06",
+          "items": [
+            {
+              "sid": "b93148d5de7129e2",
+              "title": "DeepSeek raising $12 billion ahead of 2027 IPO",
+              "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9jdzd0dU5helZiY3k5dFB4dHJWRFZINkdUN2UtNklWaVQ5NmU4UnJJOEcxMUhqemhlZHpuTkVVR1NJN2s0dkd4dFNzSksyOERVaHhsdVZiajhyYThuQTBRREJyVmtSbzNDQjgtT2J3?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek raising $12 billion ahead of 2027 IPO qz.com",
+              "published": "2026-10-06T12:00:00+00:00"
+            },
+            {
+              "sid": "2c370085a176316e",
+              "title": "DeepSeek Looks to Raise $12 Billion Ahead of IPO",
+              "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNbDBFeERjR0dJZkFjdEc2cnNPWUI3QUlZU3lScWNvWnpCeHI5TWJwX1NteWVibkJCZXMyNThJc0hHdXliWnZJTnlQTEZ1Y3FxRElnMkYtVnJ5WGstNHpzQ0RueFVaX0NmdC1zSjl4UlY1eFYzVF9uMnU4YTR0WHQtMFRvVGttOVhJbW9CZDRHZlU1ZXdFall1azRCM1Zoc25BQXQ3UTNoQVk?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek Looks to Raise $12 Billion Ahead of IPO PYMNTS.com",
+              "published": "2026-10-06T12:34:59+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-07",
+          "items": [
+            {
+              "sid": "98ef490545c3818f",
+              "title": "DeepSeek reportedly set to raise more than US$12B ahead of potential IPO",
+              "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQYzk5b0RnbUxXYThCRHZHNE5oMXY1dlktOGRBYzZENWM4bXdJWmhrNEdwbGpSY0NuZjJFYnNVM0t5VFE2WEhlU2JIZ0NUU2xkVl9KM0tDemVzd19IaXFPQThITHF5bU9QeEpUa3dNbnVJTkRzUU1ERHRvMVBiN2tpd3ZLcFhnVTZxQ2prZVJWM0padkppd1JZTFJB?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek reportedly set to raise more than US$12B ahead of potential IPO digitimes",
+              "published": "2026-10-07T02:27:58+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-11",
+          "items": [
+            {
+              "sid": "77d310c84c603127",
+              "title": "EXCLUSIVE: Moonshot execs in talks to settle dispute with shareholder ahead of planned IPO, people say",
+              "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNQ1hmZzQxZmpITVlBeVpjanJJRWhDN0JGWWtSb291VDJIaTR2ZXJuVDRtanlSUDdiQllFM1RqSjBHeXp6N2JaT1FnMXB5Yk45RWhOeFoxT3RGMEdJT3N1UG1SS0E3RWFvRG1Tci0waTNYWVBKeFcwOVJ6T1dVOV84cTZHY3B1ekdOR3ZqZ1NLWFZTN1Zoc3k2dWZLU0dOTnprX0ZBcnZLRmFsdUUxQkhNUkRpN1dpUE0wSTBHRVhIY2NrcEk?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "EXCLUSIVE: Moonshot execs in talks to settle dispute with shareholder ahead of planned IPO, people say Reuters",
+              "published": "2026-10-11T23:38:02+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-12",
+          "items": [
+            {
+              "sid": "94fcf9887435c83b",
+              "title": "Moonshot AI Seeks to Settle Shareholder Arbitration Ahead of IPO; Accused of Misrepresentation, Faces Claim for 10.5% Original Stake",
+              "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB6TEF2cVBaUFpVcEtCWm5vdUlHd0htVVVrQlBUQnlqN2drVTFLbHBhbzRCSmFlT0VSbXdKOUljM0VGdnpfaDd5VUxzbUtzNnZBMHdkdmNSNlEyV1M4bDFHVzV0U1Fzc2dWY0Eyd3p2d3YzWTA0R0E?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Moonshot AI Seeks to Settle Shareholder Arbitration Ahead of IPO; Accused of Misrepresentation, Faces Claim for 10.5% Original Stake BigGo Finance",
+              "published": "2026-10-12T00:35:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-15",
+          "items": [
+            {
+              "sid": "e58311dcd1376969",
+              "title": "Anthropic tells investors quarterly revenue up nearly 50% to $16.8bn ahead of IPO",
+              "url": "https://simonwillison.net/2026/Oct/15/anthropic-tells-investors",
+              "source": "simon_willison",
+              "type": "news",
+              "summary_1line": "Anthropic tells investors quarterly revenue up nearly 50% to $16.8bn ahead of IPO The phrase \"told investors\" appears four times in this FT article, which reports on Anthropic's day of hosting investors on Wednesday....",
+              "published": "2026-10-15T13:04:03+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "claude-5-5",
+      "label": "GPT-6.1 Sol",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 3,
+      "first_seen": "2026-10-09T07:00:00+00:00",
+      "last_updated": "2026-10-15T02:02:45+00:00",
+      "latest_title": "Codex CLI Defaults to GPT-6.1 Sol, 77% Cheaper [2026]",
+      "member_sids": [
+        "9bf93d58cc35db99",
+        "d772334624f1e023",
+        "c80aaab92d6da992"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/claude-5-5.json",
+      "prior_narrative": {
+        "tldr": "OpenAI introduced GPT-6.1 Sol on Sep 29, pitching near-Astra intelligence for coding and computer use at one-fifth of Astra's API token prices. On Oct 9 Asana reported its browser agent 76x cheaper and 5x faster in tests.",
+        "whats_new": "A second tech-insider.org post now puts the reported Codex CLI default switch to GPT-6.1 Sol at 77% cheaper, down from 80% two days earlier; OpenAI has not confirmed either figure.",
+        "why_it_matters": "GPT-6.1 Sol lowers the price of Astra-class coding and computer-use work, so routing and cost-per-task assumptions built on Astra pricing are out of date.",
+        "status": {
+          "state": "Rolling out",
+          "tone": "now",
+          "changed": "2026-10-15",
+          "detail": "GPT-6.1 Sol has moved from launch to a customer cost claim and a reported Codex CLI default whose price cut is still unconfirmed (80%, then 77%).",
+          "track": [
+            {
+              "label": "GPT-6.1 Sol",
+              "detail": "Sep 29",
+              "tone": "launch",
+              "weight": 50
+            },
+            {
+              "label": "adoption",
+              "detail": "Oct 9 → now",
+              "tone": "now",
+              "weight": 50
+            }
+          ]
+        },
+        "beats": [
+          {
+            "kicker": "CUSTOMER RESULT",
+            "tone": "launch",
+            "headline": "Asana reports 76x lower model cost and 5x speed in browser-agent tests",
+            "summary": "Asana ran the tests with GPT-6 Astra in Codex, weeks after OpenAI's Sep 29 GPT-6.1 Sol launch.",
+            "sids": [
+              "9bf93d58cc35db99"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Report: Codex CLI defaults to GPT-6.1 Sol; price cut restated from 80% to 77%",
+            "sids": [
+              "d772334624f1e023",
+              "c80aaab92d6da992"
+            ],
+            "summary": "Both posts come from one outlet, tech-insider.org; OpenAI has not confirmed the default or the figure."
+          }
+        ],
+        "open_questions": [
+          "Does OpenAI confirm Codex CLI's default switch to GPT-6.1 Sol, and is the cut 80% or 77%?",
+          "Does Asana's 76x cost reduction reproduce outside its browser-agent tests?",
+          "How does GPT-6.1 Sol compare with Claude Opus 5.5 on cost per completed task?"
+        ],
+        "take_for_builders": "Treat the Codex CLI price cut as unconfirmed: rerun your coding and computer-use evals on GPT-6.1 Sol against your Astra baseline on cost per completed task, and check OpenAI's pricing page before changing any default model.",
+        "day_captions": {
+          "9bf93d58cc35db99": "First customer numbers: Asana's browser agent 76x cheaper and 5x faster in tests.",
+          "d772334624f1e023": "Secondary report that Codex CLI now defaults to GPT-6.1 Sol with an 80% price cut.",
+          "c80aaab92d6da992": "Same outlet's follow-up restating the Codex CLI default with a 77% price cut instead of 80%."
+        },
+        "slug": "claude-5-5",
+        "generated_at": "2026-10-20T10:13:25.595314+00:00",
+        "covers_last_updated": "2026-10-15T02:02:45+00:00",
+        "covers_member_sids": [
+          "9bf93d58cc35db99",
+          "d772334624f1e023",
+          "c80aaab92d6da992"
+        ]
+      },
+      "timeline": [
+        {
+          "date": "2026-10-09",
+          "items": [
+            {
+              "sid": "9bf93d58cc35db99",
+              "title": "Asana cuts model costs 76x in browser tests with GPT-6.1 Sol",
+              "url": "https://openai.com/index/asana-browser-agent",
+              "source": "openai_blog",
+              "type": "news",
+              "summary_1line": "Using GPT-6 Astra in Codex, Asana made its browser agent 76x cheaper and 5x faster in tests to offer customers more capable models.",
+              "published": "2026-10-09T07:00:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-12",
+          "items": [
+            {
+              "sid": "d772334624f1e023",
+              "title": "Codex CLI Defaults to GPT-6.1 Sol, Cuts Price 80% [2026]",
+              "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE51LUowQlAtSjU0aDg4cDRVYWk0X1Nqa2ttblJrVU5FV0w3cUxEWi04TzVlN3RaYnJpRHlMMXdKSFV6bzZyN0xfNnJvTmN2cENTbHUxS094V2dyZlFYcXd5M0w4TUVhdVR1Z0RsbnNKdXU?oc=5",
+              "source": "search_agent_engineering_news",
+              "type": "news",
+              "summary_1line": "Codex CLI Defaults to GPT-6.1 Sol, Cuts Price 80% [2026] tech-insider.org",
+              "published": "2026-10-12T05:14:01+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-15",
+          "items": [
+            {
+              "sid": "c80aaab92d6da992",
+              "title": "Codex CLI Defaults to GPT-6.1 Sol, 77% Cheaper [2026]",
+              "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE03ZjdnMTVPWGVSMTZvNUNITlFMTk5sc3JieXhqZzBLTVlSajd0TTJLWVFoZFpoU1N6UGgyNjlmbklPU1FTR0VSOG9MNklUZzM2OXA2SGdkRWFydmwwaVJvWjFhQWNZRzNyYXRTSTgwUm0?oc=5",
+              "source": "search_agent_engineering_news",
+              "type": "news",
+              "summary_1line": "Codex CLI Defaults to GPT-6.1 Sol, 77% Cheaper [2026] tech-insider.org",
+              "published": "2026-10-15T02:02:45+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gemini-4-argon-launch",
+      "label": "Gemini Argon",
+      "item_count": 6,
+      "source_count": 4,
+      "day_count": 4,
+      "first_seen": "2026-09-30T20:01:45+00:00",
+      "last_updated": "2026-10-14T05:40:28+00:00",
+      "latest_title": "[AINews] AI Engineer NYC: Gemini 4 Argon, Vals AI Benchmarks",
+      "member_sids": [
+        "b49099cde7e97e60",
+        "015ccf980c076bf6",
+        "d141466fb9da2b0a",
+        "ed1be8ea5f53c737",
+        "4e31b829ae688591",
+        "d96a2391b623b2cb",
+        "1dc99b611b2499a3",
+        "43abc94dd1f0ca28"
+      ],
+      "via_scout": true,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/gemini-4-argon-launch.json",
+      "prior_narrative": {
+        "tldr": "Google DeepMind announced Gemini 4 Argon on Sep 30 as its next frontier model. Latent Space framed it a day later as DeepMind's answer to Astra and Fable, with 1M output tokens, but only Fairwind Program users could try it.",
+        "whats_new": "Gemini 4 Argon went generally available on Oct 14, a day after reaching Google Cloud, with Latent Space noting that independent benchmarks such as CursorBench so far confirm Google's claims.",
+        "why_it_matters": "GA plus Google Cloud availability means you can price and test Argon today, and early independent numbers match the launch claims; the 1M output limit matters for long agent runs.",
+        "status": {
+          "state": "Generally available",
+          "tone": "now",
+          "changed": "2026-10-14",
+          "detail": "Announced Sep 30 with restricted access; Google Cloud availability and safety documentation followed Oct 13, and GA was reported Oct 14."
+        },
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "DeepMind announces Gemini 4 Argon",
+            "sids": [
+              "b49099cde7e97e60"
+            ]
+          },
+          {
+            "kicker": "FRICTION",
+            "tone": "turn",
+            "headline": "1M output, but access limited to Fairwind Program users",
+            "sids": [
+              "015ccf980c076bf6"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Argon reaches Google Cloud and goes GA; robotics variant and safety write-up follow",
+            "sids": [
+              "d141466fb9da2b0a",
+              "d96a2391b623b2cb",
+              "1dc99b611b2499a3",
+              "43abc94dd1f0ca28"
+            ]
+          }
+        ],
+        "open_questions": [
+          "What pricing and rate limits apply to Gemini 4 Argon on Google Cloud?",
+          "Do independent evals beyond CursorBench hold up against Astra and Fable?",
+          "Is Gemini 4 Argon for Robotics available outside DeepMind partners?"
+        ],
+        "take_for_builders": "Run a small eval of Argon on Google Cloud against your pinned Gemini model and record cost per completed task before changing any default; check your own workload, since the independent confirmations so far are benchmark-based.",
+        "day_captions": {
+          "b49099cde7e97e60": "Official announcement of Gemini 4 Argon.",
+          "015ccf980c076bf6": "Independent framing against rival flagships, plus the access restriction.",
+          "d141466fb9da2b0a": "Google Cloud lists Argon for business use, ending the restricted-access phase.",
+          "d96a2391b623b2cb": "DeepMind extends Argon to robotics with a dedicated variant.",
+          "1dc99b611b2499a3": "DeepMind's account of how Argon was developed responsibly and safely.",
+          "43abc94dd1f0ca28": "Reports GA and says independent benchmarks like CursorBench confirm Google's claims."
+        },
+        "slug": "gemini-4-argon-launch",
+        "generated_at": "2026-10-14T10:10:00+00:00",
+        "covers_last_updated": "2026-10-14T05:40:28+00:00",
+        "covers_member_sids": [
+          "015ccf980c076bf6",
+          "1dc99b611b2499a3",
+          "43abc94dd1f0ca28",
+          "4e31b829ae688591",
+          "b49099cde7e97e60",
+          "d141466fb9da2b0a",
+          "d96a2391b623b2cb",
+          "ed1be8ea5f53c737"
+        ]
+      },
+      "timeline": [
+        {
+          "date": "2026-09-30",
+          "items": [
+            {
+              "sid": "b49099cde7e97e60",
+              "title": "Gemini 4 Argon: our next era of frontier intelligence",
+              "url": "https://deepmind.google/blog/gemini-4-argon-our-next-era-of-frontier-intelligence",
+              "source": "google_deepmind_blog",
+              "type": "news",
+              "summary_1line": "Gemini 4 Argon: our next era of frontier intelligence",
+              "published": "2026-09-30T20:01:45+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-01",
+          "items": [
+            {
+              "sid": "015ccf980c076bf6",
+              "title": "[AINews] Gemini 4 Argon: GDM’s answer to Astra/Fable, with 1M output",
+              "url": "https://www.latent.space/p/ainews-gemini-4-argon-gdms-answer",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "... but you can’t try it yet unless you are “government users and trusted cyber defenders in the Fairwind Program”",
+              "published": "2026-10-01T06:45:05+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-13",
+          "items": [
+            {
+              "sid": "d141466fb9da2b0a",
+              "title": "Gemini 4 Argon available on Google Cloud, built to help solve your business’ hardest problems",
+              "url": "https://cloud.google.com/blog/products/ai-machine-learning/gemini-4-argon-available-on-google-cloud",
+              "source": "google_cloud_blog",
+              "type": "news",
+              "summary_1line": "Last week we announced that Gemini Enterprise has evolved to make it even simpler to get work done, and introduced the Gemini agent , your new universal agent for work. It's always on and ready to answer your question...",
+              "published": "2026-10-13T16:00:00+00:00",
+              "sources": [
+                "google_ai_blog",
+                "google_cloud_blog",
+                "google_deepmind_blog"
+              ]
+            },
+            {
+              "sid": "d96a2391b623b2cb",
+              "title": "Gemini 4 Argon for Robotics",
+              "url": "https://deepmind.google/blog/gemini-4-argon-for-robotics",
+              "source": "google_deepmind_blog",
+              "type": "news",
+              "summary_1line": "Gemini 4 Argon for Robotics",
+              "published": "2026-10-13T16:01:58+00:00"
+            },
+            {
+              "sid": "1dc99b611b2499a3",
+              "title": "Developing Gemini 4 Argon responsibly and safely",
+              "url": "https://deepmind.google/blog/developing-gemini-4-argon-responsibly-and-safely",
+              "source": "google_deepmind_blog",
+              "type": "news",
+              "summary_1line": "Developing Gemini 4 Argon responsibly and safely",
+              "published": "2026-10-13T19:43:07+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-14",
+          "items": [
+            {
+              "sid": "43abc94dd1f0ca28",
+              "title": "[AINews] AI Engineer NYC: Gemini 4 Argon, Vals AI Benchmarks",
+              "url": "https://www.latent.space/p/ainews-ai-engineer-nyc-gemini-4-argon",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "Gemini 4 Argon went GA today, but we already gave it title story 2 weeks ago and most benchmarks, like CursorBench, simply independently confirm their claims.",
+              "published": "2026-10-14T05:40:28+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nvidia-ecosystem",
+      "label": "Nvidia Ecosystem",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 2,
+      "first_seen": "2026-10-01T14:00:00+00:00",
+      "last_updated": "2026-10-13T12:00:49+00:00",
+      "latest_title": "All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark",
+      "member_sids": [
+        "a0c0dddfbde62ff6",
+        "a2a8ddf1867ef936",
+        "a4bbae21d3b4c957"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/nvidia-ecosystem.json",
+      "prior_narrative": {
+        "covers_member_sids": [
+          "a0c0dddfbde62ff6",
+          "a2a8ddf1867ef936",
+          "a4bbae21d3b4c957"
+        ],
+        "tldr": "On Oct 1, DeepSeek and Huawei open-sourced Ascend programming tools aimed at reducing reliance on Nvidia's CUDA ecosystem. The thread is loose: the later items are NVIDIA's own ecosystem posts.",
+        "whats_new": "Oct 13: NVIDIA posts on France's agentic-computing ecosystem and on PC apps readying for RTX Spark.",
+        "why_it_matters": "CUDA lock-in is the real cost of NVIDIA hardware; the Ascend tools are an early, unproven alternative path, and NVIDIA's own posts show where it is investing.",
+        "beats": [
+          {
+            "kicker": "CHALLENGE",
+            "tone": "launch",
+            "headline": "DeepSeek and Huawei release Ascend tools to reduce CUDA dependence",
+            "sids": [
+              "a0c0dddfbde62ff6"
+            ]
+          },
+          {
+            "kicker": "NVIDIA'S SIDE",
+            "tone": "now",
+            "headline": "NVIDIA highlights France's agentic deployments and RTX Spark app readiness",
+            "sids": [
+              "a2a8ddf1867ef936",
+              "a4bbae21d3b4c957"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Do Ascend tools reach CUDA-level kernel performance on real workloads?"
+        ],
+        "take_for_builders": "Keep model code portable across backends; do not port to Ascend until independent performance data exists.",
+        "day_captions": {
+          "a0c0dddfbde62ff6": "Open-source Ascend tooling positioned against CUDA.",
+          "a2a8ddf1867ef936": "NVIDIA's account of agentic deployments across French industry.",
+          "a4bbae21d3b4c957": "NVIDIA says PC apps are ready for RTX Spark."
+        },
+        "slug": "nvidia-ecosystem",
+        "generated_at": "2026-10-13T15:04:04+00:00",
+        "covers_last_updated": "2026-10-13T12:00:49+00:00"
+      },
+      "timeline": [
+        {
+          "date": "2026-10-01",
+          "items": [
+            {
+              "sid": "a0c0dddfbde62ff6",
+              "title": "DeepSeek and Huawei release open-source Ascend AI programming tools to reduce reliance on Nvidia CUDA ecosystem — tools include compute and communication libraries, as well as Ascend support for TileLang",
+              "url": "https://news.google.com/rss/articles/CBMi-gJBVV95cUxQdDJFV0hheDJFSlF1ZzF3X0R6WUlCTlE1bEVweU5iYmoxejNtMTRSVzJpekVZTTRMV2ZxamI3b05IMU55Tm9aMlRWMGRvWEJQS3RqMFpQM09qaVZRbFFyS1hSN0Y0SnpKRmF2VTl2U3R3c1RmWk1yRFJfVU5VcmUzZjhYVlhITUg1X1JOanFaSVlXVnRaQ2l4d3dURDdlekt3OF9MQS1UUXE4dzU5amtMMzQwdTAzdklUNWxnV3lSRmRLQndEYTBBU0lwWmNpdGtXUjdQTHBWTDF2RkljNXd6UjVhVXdhZTB1aWI5MDdjTmVxVFVjSzYwdE15MmNaelpDLUltVG5VSHFwaGl2d1luMjVrRkIzNzB0emJQZDFBZ21FUXpJOC1ieUpxNHp3a2VvNkw5aWROWkZBMTlOMmU0NHRyNkZyMmpBZjRMSmM3c19pQVlHVnJaZGFqTDhnMEZBVWJ5OElLUnIyUS15aGJqemgxa2FIUHlnVkE?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "DeepSeek and Huawei release open-source Ascend AI programming tools to reduce reliance on Nvidia CUDA ecosystem — tools include compute and communication libraries, as well as Ascend support for TileLang Tom's Hardware",
+              "published": "2026-10-01T14:00:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-13",
+          "items": [
+            {
+              "sid": "a2a8ddf1867ef936",
+              "title": "From Earth to Orbit, France’s Ecosystem Delivers Agentic Computing at Scale With NVIDIA",
+              "url": "https://blogs.nvidia.com/blog/france-ecosystem-agentic-computing",
+              "source": "nvidia_blog",
+              "type": "news",
+              "summary_1line": "Companies in France are deploying agentic computing across industries spanning space, financial services, the public sector and scientific research, demonstrating how the country’s ecosystem has moved from ambition to...",
+              "published": "2026-10-13T05:00:31+00:00"
+            },
+            {
+              "sid": "a4bbae21d3b4c957",
+              "title": "All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark",
+              "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-software-updates",
+              "source": "nvidia_blog",
+              "type": "news",
+              "summary_1line": "NVIDIA RTX Spark is a new beginning for the PC — a reinvention combining the capabilities of a gaming PC, a creative studio and a personal AI supercomputer into a single superchip. With up to 128GB of unified memory a...",
+              "published": "2026-10-13T12:00:49+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nvidia-spark",
+      "label": "NVIDIA Spark",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 3,
+      "first_seen": "2026-10-02T13:00:39+00:00",
+      "last_updated": "2026-10-13T12:00:49+00:00",
+      "latest_title": "All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark",
+      "member_sids": [
+        "010abefa0fafcbd4",
+        "eb763cd1acb17ae5",
+        "a4bbae21d3b4c957"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/nvidia-spark.json",
+      "prior_narrative": {
+        "covers_member_sids": [
+          "010abefa0fafcbd4",
+          "eb763cd1acb17ae5",
+          "a4bbae21d3b4c957"
+        ],
+        "tldr": "NVIDIA's Oct 2 post pitched DGX Spark 64GB as a local-AI box for builders. A hands-on report on Oct 5 ran the 552B DeepSeek V4.1-Flash on four linked Sparks.",
+        "whats_new": "Oct 13: NVIDIA says the PC app ecosystem is ready for RTX Spark, a laptop superchip with up to 128GB unified memory.",
+        "why_it_matters": "Large unified memory is the constraint for local agent and open-model work, so Spark-class hardware sets what you can prototype off-cloud.",
+        "status": {
+          "state": "Expanding to laptops",
+          "tone": "rising",
+          "changed": "2026-10-13",
+          "detail": "Spark moved from a desktop dev box to an RTX laptop superchip within two weeks."
+        },
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "DGX Spark 64GB pitched for local AI development",
+            "sids": [
+              "010abefa0fafcbd4"
+            ]
+          },
+          {
+            "kicker": "STRESS TEST",
+            "tone": "rising",
+            "headline": "Four Sparks run DeepSeek V4.1-Flash (552B) at a reported 494 tokens/s peak",
+            "sids": [
+              "eb763cd1acb17ae5"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "RTX Spark brings the platform to PCs with 128GB unified memory",
+            "sids": [
+              "a4bbae21d3b4c957"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Do independent tests reproduce the 494 tokens/s peak on four Sparks outside peak conditions?",
+          "What do RTX Spark laptops cost versus DGX Spark desktops?"
+        ],
+        "take_for_builders": "Treat the 494 tokens/s figure as a peak from one rig; benchmark your own model and context length before buying Spark hardware.",
+        "day_captions": {
+          "010abefa0fafcbd4": "NVIDIA's pitch for DGX Spark 64GB as a local agent-dev box.",
+          "eb763cd1acb17ae5": "Third-party multi-Spark run of a 552B open model, with a peak throughput figure.",
+          "a4bbae21d3b4c957": "Extends Spark to RTX laptops with 128GB unified memory and app support."
+        },
+        "slug": "nvidia-spark",
+        "generated_at": "2026-10-13T15:04:04+00:00",
+        "covers_last_updated": "2026-10-13T12:00:49+00:00"
+      },
+      "timeline": [
+        {
+          "date": "2026-10-02",
+          "items": [
+            {
+              "sid": "010abefa0fafcbd4",
+              "title": "NVIDIA DGX Spark 64GB Gives Developers More Ways to Build and Scale Local AI",
+              "url": "https://blogs.nvidia.com/blog/local-ai-dgx-spark-64gb-sync",
+              "source": "nvidia_blog",
+              "type": "news",
+              "summary_1line": "Local AI is becoming more useful by the token. As AI agents move from experiments into everyday development, increasingly capable open models are shrinking to fit on more devices, giving builders more to run locally....",
+              "published": "2026-10-02T13:00:39+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-05",
+          "items": [
+            {
+              "sid": "eb763cd1acb17ae5",
+              "title": "The 552B DeepSeek V4.1-Flash Model Offers A Peak Output Of 494 Tokens/Second When Powered By An At-Home Rig Spanning 4x NVIDIA DGX Spark Units",
+              "url": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxNQjNNanZJSTNHWlZvemptMHd0UTNrSkhwNkhDc3N2eVZ4SG9wOHZ2U3QwNmZKMVAzcHp4ejNQOVk5QzVNUkxkQ2R5ZkxOZldGS21xLXdQUFBrN3cwbEtlVU5kTlh0LXFjRnZiUFhXWTlRc2VpWEx2UUNZZ092QnNNQTVHN2l5MkFaWTVoTHhVOGdzalJKc1dzeEdJcnhwaHRmTU52NDhJMzVpTTBic19VRktrcmItRmlZVFNWb2dwTmp4aHpDaTdabXhUc0w3U0sxbS1aVFg0ODV6VTd4UlgxS3dOaGVYUzRoUHoxNUYxS1dkbi1ZNVNJ0gH8AUFVX3lxTE8zUWhzamVfTmswMzNsbnFJaEhaMHhjX1dGV0kySDRGQm11ekxaNkc2bFBkX2dXZHhRVjNncUp2TlA4TnVuMDNZY3dRSUlFdG5GendCZ2lyVlkzLU92ZTB5VFpDR1NOTGxjMjFNN1kwOTBPU2hTQUQwWnVEV0JzSjM4U1BjbUZfRzFmcElUdFRrWmhycnc0d2d2bWQtM0tVM3drMmd0Nk9OVUdUcDhpa08ycVR4NW9PSE5yOTFsVTRFc0t2WVZhTzNKUU40TS13ZE1VelBVQ0NJT1NIUXc4LV83SWYxc1diU1RaUTc5QUgyMVVxRUZuaXZGVWJIcw?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "The 552B DeepSeek V4.1-Flash Model Offers A Peak Output Of 494 Tokens/Second When Powered By An At-Home Rig Spanning 4x NVIDIA DGX Spark Units wccftech.com",
+              "published": "2026-10-05T16:46:30+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-13",
+          "items": [
+            {
+              "sid": "a4bbae21d3b4c957",
+              "title": "All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark",
+              "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-software-updates",
+              "source": "nvidia_blog",
+              "type": "news",
+              "summary_1line": "NVIDIA RTX Spark is a new beginning for the PC — a reinvention combining the capabilities of a gaming PC, a creative studio and a personal AI supercomputer into a single superchip. With up to 128GB of unified memory a...",
+              "published": "2026-10-13T12:00:49+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "alibaba-s-qwen-image-2-1-open-weight-launch",
+      "label": "Alibaba's Qwen-Image-2.1 open-weight launch",
+      "item_count": 5,
+      "source_count": 2,
+      "day_count": 3,
+      "first_seen": "2026-10-07T06:19:26+00:00",
+      "last_updated": "2026-10-13T10:33:06+00:00",
+      "latest_title": "Qwen Image: Every Release, Which to Use, and the 2.5 Gap",
+      "member_sids": [
+        "7f4ac57381981838",
+        "167c7efa09e6db36",
+        "8654024e703b05cf",
+        "9d681bc2bb25befd",
+        "1fac4c07b3b81e99"
+      ],
+      "via_scout": true,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/alibaba-s-qwen-image-2-1-open-weight-launch.json",
+      "prior_narrative": {
+        "covers_last_updated": "2026-10-13T10:33:06+00:00",
+        "covers_member_sids": [
+          "7f4ac57381981838",
+          "167c7efa09e6db36",
+          "8654024e703b05cf",
+          "9d681bc2bb25befd",
+          "1fac4c07b3b81e99"
+        ],
+        "tldr": "Alibaba's Qwen team released Qwen-Image-2.1, a 7B open-weight image generation and editing model, in late September; by Oct 7 a hands-on guide covered LoRA fine-tuning for product images. On Oct 9 the eight-step Qwen-Image-2.1-Turbo landed on Hugging Face with a license caveat.",
+        "whats_new": "Oct 13: an OrcaRouter guide catalogs every Qwen Image release, says which to use, and flags a gap where a 2.5 release would sit.",
+        "why_it_matters": "An eight-step Turbo variant of a 7B image model cuts per-image latency and GPU cost for self-hosted pipelines, but the license decides whether it can ship commercially.",
+        "provenance": {
+          "7f4ac57381981838": {
+            "surfaced_by": "scout"
+          },
+          "167c7efa09e6db36": {
+            "surfaced_by": "scout"
+          },
+          "8654024e703b05cf": {
+            "surfaced_by": "scout"
+          },
+          "9d681bc2bb25befd": {
+            "surfaced_by": "scout"
+          },
+          "1fac4c07b3b81e99": {
+            "surfaced_by": "scout"
+          }
+        },
+        "beats": [
+          {
+            "kicker": "HANDS-ON",
+            "tone": "rising",
+            "headline": "First hands-on guide: LoRA fine-tuning for product images",
+            "sids": [
+              "7f4ac57381981838"
+            ]
+          },
+          {
+            "kicker": "TURBO",
+            "tone": "rising",
+            "headline": "Qwen-Image-2.1-Turbo ships on Hugging Face with eight-step generation and a license caveat",
+            "sids": [
+              "167c7efa09e6db36",
+              "8654024e703b05cf",
+              "9d681bc2bb25befd"
+            ]
+          },
+          {
+            "kicker": "SELECTION GUIDE",
+            "tone": "now",
+            "headline": "OrcaRouter maps every Qwen Image release and the missing 2.5 step",
+            "sids": [
+              "1fac4c07b3b81e99"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does the Turbo license permit commercial use, given the base weights were reported as research-use only?",
+          "Does eight-step Turbo hold output quality against the base model on independent evals?",
+          "Do LoRA fine-tunes of the 7B model hold quality on product imagery beyond one walkthrough?",
+          "Will Alibaba ship a Qwen Image 2.5 release, and under what license?"
+        ],
+        "take_for_builders": "Confirm the license for both base and Turbo weights before any commercial use, then compare eight-step Turbo output against base Qwen-Image-2.1 on your own eval set for quality and latency.",
+        "day_captions": {
+          "7f4ac57381981838": "First hands-on tutorial: LoRA fine-tuning of Qwen-Image-2.1 for product images.",
+          "167c7efa09e6db36": "Model card: Qwen-Image-2.1-Turbo weights appear on Hugging Face as a text-to-image release.",
+          "8654024e703b05cf": "Describes the Turbo variant's eight-step generation and flags a license catch.",
+          "9d681bc2bb25befd": "Second report on Turbo: confirms the 8-step 7B image model release.",
+          "1fac4c07b3b81e99": "Router-side selection guide: which Qwen Image release to use, and the gap before 2.5."
+        },
+        "slug": "alibaba-s-qwen-image-2-1-open-weight-launch",
+        "generated_at": "2026-10-14T20:10:00+00:00"
+      },
+      "timeline": [
+        {
+          "date": "2026-10-07",
+          "items": [
+            {
+              "sid": "7f4ac57381981838",
+              "title": "How to Use Qwen Image 2.1 LoRA for Product Image Generation",
+              "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOcmdFWFZENy1hR3MxQzFSb2hSMVB1Tm5uNUJiSjB4ZVNTNUVINW80ZV9fb1lBQW1kRzZFUkk0R1RTX3Y3ZHY3bHkwQTZ5d0RQcTV2TnFEdUpoSjJkYTRSdk14VHRfRTNXeFVqY2NGd3JVYmYzb1pLNzI0VDJQMDVzN3dxTnU5ZERY?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "How to Use Qwen Image 2.1 LoRA for Product Image Generation HackerNoon",
+              "published": "2026-10-07T06:19:26+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-09",
+          "items": [
+            {
+              "sid": "167c7efa09e6db36",
+              "title": "Qwen/Qwen-Image-2.1-Turbo released on Hugging Face",
+              "url": "https://huggingface.co/Qwen/Qwen-Image-2.1-Turbo",
+              "source": "hf_qwen_releases",
+              "type": "release",
+              "summary_1line": "New model weights from Qwen on Hugging Face. Task: text-to-image. Likes: 570, downloads: 4702.",
+              "published": "2026-10-09T04:50:01+00:00"
+            },
+            {
+              "sid": "8654024e703b05cf",
+              "title": "Qwen Image 2.1 Turbo Arrives: Eight-Step Generation, With a License Catch.",
+              "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFA2ODA3bUZUbnpBUHA4aU5jalJmZUdjZUNwQVRmbjRndGg5OEItcW93ZVhyc2ViMlc2eTJxV3owcUE3S1M1UVZRcEFGbGs5Wk5ITWUtVmxncjBiVzZsUng5dEVDUUNUVGY2d3haU1o5dk4?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Qwen Image 2.1 Turbo Arrives: Eight-Step Generation, With a License Catch. Kingy AI",
+              "published": "2026-10-09T17:26:15+00:00"
+            },
+            {
+              "sid": "9d681bc2bb25befd",
+              "title": "Alibaba Qwen Releases Qwen-Image-2.1-Turbo, an 8-Step 7B Image Model",
+              "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOVXpvaFdacktESjZwbURtOUpFTW5WTTktSnZ4TjBudmVJcXVHenYxdEpRQ1p0RjFENkJuQmFIVHdVM3JjN1lSSkc3UEZfejI2cVNDRFNoRi1yV0l2NWNGb3VEQTVmVmpGcm1acWVOeXVtMFk0Y1JtNDFkUjNXdkZ4bFN4UHhjTk1qTGdIZkF1TmNTd3ZQWVNwWTlMX3A4SzhJTm5yTDlVRTE2TlhS0gGsAUFVX3lxTE5Vem9oV1pyS0RKNnBtRG05SkVNblZNOS1KdnhOMG52ZUlxdUd6djF0SlFDWnRGMUQ2Qm5CYUhUd1UzcmM3WVJKRzdQRl96MjZxU0NEU2hGLXJXSXY1Y0ZvdURBNWZWakZybVpxZU55dW0wWTRjUm00MWRSM1d2RnhsU3hQeGNOTWpMZ0hmQXVOY1N3dlBZU3BZOUxfcDhLOElObnJMOVVFMTZOWFI?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "Alibaba Qwen Releases Qwen-Image-2.1-Turbo, an 8-Step 7B Image Model MarkTechPost",
+              "published": "2026-10-09T20:33:17+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-13",
+          "items": [
+            {
+              "sid": "1fac4c07b3b81e99",
+              "title": "Qwen Image: Every Release, Which to Use, and the 2.5 Gap",
+              "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE11SWFOelpqc3k0emtiVzFXRlFzOGhDZFlGZVhmMFh1N2NiWFRIU0NZbmZ3S240UWJqLUdySWJRNmJvbXptaGFpMFhVcDM2eEJSZHBv?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "Qwen Image: Every Release, Which to Use, and the 2.5 Gap OrcaRouter",
+              "published": "2026-10-13T10:33:06+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "jev-system",
+      "label": "Jev TypeSafe",
+      "item_count": 3,
+      "source_count": 3,
+      "day_count": 3,
+      "first_seen": "2026-09-30T19:32:43+00:00",
+      "last_updated": "2026-10-10T06:45:57+00:00",
+      "latest_title": "[AINews] TypeSafe/Jev at >$100M ARR, $7.5B valuation 3 weeks after launch",
+      "member_sids": [
+        "9e45c053dcabfa34",
+        "536d169b0757fd6c",
+        "2e1397672f85f38d"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/jev-system.json",
+      "prior_narrative": {
+        "slug": "jev-system",
+        "generated_at": "2026-10-13T00:03:50+00:00",
+        "covers_last_updated": "2026-10-10T06:45:57+00:00",
+        "covers_member_sids": [
+          "2e1397672f85f38d",
+          "536d169b0757fd6c",
+          "9e45c053dcabfa34"
+        ],
+        "tldr": "TypeSafe AI launched Jev as a decision-only \"System One\" model that classifies, routes, and scores, claiming over 100x the speed and 200x the cost efficiency of small frontier LLMs. LangChain published an integration guide and InfoQ described its typed-probability output.",
+        "whats_new": "AINews reported Oct 10 that TypeSafe/Jev passed $100M ARR at a $7.5B valuation three weeks after launch; the figures are the newsletter's headline claim, not an audited disclosure.",
+        "why_it_matters": "A purpose-built model that's 100x faster and 200x cheaper than a small frontier LLM is a strong fit for the classify/route/score steps buried inside most agent pipelines — the exact spots teams currently overpay a general-purpose LLM to handle.",
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "LangChain documents Jev's place in the agent loop",
+            "summary": "A first-party guide to TypeSafe AI's \"System One\" model moves Jev from announcement to wiring instructions.",
+            "sids": [
+              "9e45c053dcabfa34"
+            ]
+          },
+          {
+            "kicker": "OUTPUT FORMAT",
+            "tone": "rising",
+            "headline": "InfoQ: Jev returns typed probabilities, not text",
+            "summary": "Output is a structured decision with typed probabilities, which is what makes it droppable into classify/route/score steps.",
+            "sids": [
+              "536d169b0757fd6c"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Reported >$100M ARR and $7.5B valuation three weeks after launch",
+            "summary": "Commercial traction is claimed in a newsletter headline; the underlying figures are not yet independently sourced here.",
+            "sids": [
+              "2e1397672f85f38d"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Do Jev's speed/cost claims hold up against a real agent pipeline's classify/route/score calls, not just TypeSafe's own benchmarks?",
+          "Will other labs ship a comparable decision-model category, or does this stay a single-vendor niche?",
+          "Do typed probabilities from Jev stay calibrated on a team's own routing labels, not just TypeSafe's evaluation sets?",
+          "Do TypeSafe or an independent source confirm the >$100M ARR and $7.5B valuation figures?"
+        ],
+        "take_for_builders": "If a general-purpose LLM call in your agent pipeline only classifies, routes, or scores, benchmark Jev against it on your own labels; treat the ARR and valuation reports as adoption signal, not performance evidence.",
+        "day_captions": {
+          "9e45c053dcabfa34": "LangChain's guide on where Jev fits in the agent loop and how to use it with LangChain.",
+          "536d169b0757fd6c": "InfoQ's report on Jev's typed-probability output and TypeSafe's founding team.",
+          "2e1397672f85f38d": "AINews headline claims >$100M ARR and a $7.5B valuation three weeks after launch."
+        },
+        "status": {
+          "state": "Scaling",
+          "tone": "rising",
+          "changed": "2026-10-10",
+          "detail": "Reported commercial traction is outpacing independent evaluation of Jev's speed and cost claims."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-09-30",
+          "items": [
+            {
+              "sid": "9e45c053dcabfa34",
+              "title": "What Is Jev? A Guide to TypeSafe AI’s System One Model",
+              "url": "https://www.langchain.com/blog/building-a-harness-with-jev",
+              "source": "langchain_blog",
+              "type": "news",
+              "summary_1line": "What is Jev? Learn how TypeSafe AI’s System One model makes fast, structured decisions, where it fits in the agent loop, and how to use Jev with LangChain",
+              "published": "2026-09-30T19:32:43+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-01",
+          "items": [
+            {
+              "sid": "536d169b0757fd6c",
+              "title": "TypeSafe AI Releases Jev: A Decision-Only Model That Returns Typed Probabilities Instead of Text",
+              "url": "https://www.infoq.com/news/2026/10/typesafe-ai-jev-released/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
+              "type": "release",
+              "summary_1line": "TypeSafe AI, founded by former OpenAI researcher Diogo Almeida, has introduced Jev, a decision-making model that generates typed outputs rather than text. It evaluates inputs in parallel, providing results with probab...",
+              "published": "2026-10-01T06:47:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-10",
+          "items": [
+            {
+              "sid": "2e1397672f85f38d",
+              "title": "[AINews] TypeSafe/Jev at >$100M ARR, $7.5B valuation 3 weeks after launch",
+              "url": "https://www.latent.space/p/ainews-typesafejev-at-100m-arr-75b",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "Wow.",
+              "published": "2026-10-10T06:45:57+00:00"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
