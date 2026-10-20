@@ -35,11 +35,11 @@ Schema: `config/wiki_schema.md`.
   - theme `measuring-planning` — Benchmarks for loops and long-horizon procedures (4)
 
 ### tool-use
-- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (21 entries, updated 2026-10-06)
+- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (23 entries, updated 2026-10-19)
   → solutions: mcp
   - theme `agent-native-surfaces` — Exposing existing systems as agent-callable tools (4)
-  - theme `discovery-and-definitions` — Tool discovery and definition quality at scale (4)
-  - theme `calling-reliability` — Making the calling loop reliable (5)
+  - theme `discovery-and-definitions` — Tool discovery and definition quality at scale (5)
+  - theme `calling-reliability` — Making the calling loop reliable (6)
   - theme `guarding-the-call` — Checking and governing tool calls before they run (4)
   - theme `production-runtimes` — Running tool-calling agents in production (4)
 
@@ -105,13 +105,13 @@ Schema: `config/wiki_schema.md`.
   - theme `monitoring-limits` — When the trace is not enough (3)
 
 ### security
-- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (58 entries, updated 2026-10-12)
+- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (59 entries, updated 2026-10-19)
   → solutions: agent-sandboxing
   - theme `injection-paths` — New paths for injected instructions (10)
   - theme `model-defenses` — Guardrail models, model hardening, and how defenses are measured (13)
   - theme `harness-controls` — Permissions, approvals, and sandboxes in the agent harness (9)
   - theme `agent-authorization` — Agents as identities with scoped, per-action authorization (12)
-  - theme `eval-escapes` — Agents attacking real systems from cyber evals and training runs (6)
+  - theme `eval-escapes` — Agents attacking real systems from cyber evals and training runs (7)
   - theme `offensive-cyber` — Frontier cyber models and weaponized agents (8)
 
 ### scalability
