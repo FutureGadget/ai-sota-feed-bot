@@ -1524,6 +1524,24 @@
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.36"
  },
+ "23c865f5f9192690": {
+  "first_seen": "2026-10-20T04:04:49.411681+00:00",
+  "id": "d4d7eb4db6cf8afc",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-10-19T13:10:54+00:00",
+  "sid": "23c865f5f9192690",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Recursive self-improvement (RSI) requires agents to diagnose system bottlenecks and coordinate improvements across training and inference. We refer to the agents' capability to jointly optimize training data, the trainer, and the inference harness as cross-component co-design. We introduce VibeTraining-Bench, a benchmark for evaluating this capability across tasks spanning terminal operation, software engineering, multi-turn tool use, and mathematical reasoning. Within each task, research agents start from an identical initial agent system under a fixed resource budget. Guided by validation feedback, they iteratively refine data, trainers, and inference harnesses, then select and submit a final agent system for evaluation on the test set. To prevent reward hacking, we enforce three safeguards: test data isolation, separate research and grading containers, and network restrictions for research agents. Our evaluation results show that frontier research agents substantially improve target agent systems. For example, on SWE-bench Verified, GPT-6-Astra raises the target agent system's performance from 32.9% to 53.7%, comparable to the human-developed instruct model's 55.4%. However, there is still room to improve their ability to co-design and iteratively refine data, trainer, and harness to achieve cumulative performance gains. We hope that VibeTraining-Bench will serve as a unified platform for advancing RSI, deepening our understanding of cross-component optimization for agent ",
+  "summary_1line": "Recursive self-improvement (RSI) requires agents to diagnose system bottlenecks and coordinate improvements across training and inference. We refer to the agents' capability to jointly optimize training data, the trai...",
+  "title": "VibeTraining-Bench: Data-Trainer-Harness Co-Design for Iterative System Improvement",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.26342v1",
+  "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
  "241a0eb7150b75c2": {
   "first_seen": "2026-10-14T09:04:12.579733+00:00",
   "id": "022bcf47bfd17017",
@@ -3475,6 +3493,23 @@
   "url": "https://aws.amazon.com/blogs/machine-learning/making-amazon-quick-enterprise-ready-automated-auditable-cross-account-resource-promotion",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "4d808addbddefe86": {
+  "first_seen": "2026-10-20T04:04:49.411681+00:00",
+  "id": "531d76baeceee465",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-10-19T17:54:35+00:00",
+  "sid": "4d808addbddefe86",
+  "source": "arxiv_cs_cl",
+  "summary": "Memory-native evolution requires making memory an intrinsic capability of foundation models, enabling them to continuously accumulate and utilize information. To this end, we introduce MemT-1.0, a new architecture of memory foundation models that internalize memory as part of model computation. Building on Metis, MemT-1.0 employs Gated DeltaNet-2 with a stable token-level memory update mechanism within each turn. We further introduce Mixture-of-Storage to scale native memory capacity. Following a deliberate backbone preparation, we develop a two-stage training pipeline consisting of continued pre-training and post-training, supported by 34B tokens of training data and efficient training and inference infrastructure. We release a model family comprising MemT-1.0-Nano and MemT-1.0-Flash, and conduct a comprehensive evaluation of memory and general capabilities. The results show that they outperform the parametric memory baselines on average and remain competitive with retrieval-augmented methods, while largely preserving general capabilities. At a history length of 128K tokens, MemT-1.0-Nano achieves approximately $1.86\\times$ end-to-end inference speedup and a $66\\times$ reduction in persistent storage relative to full context KV cache. By internalizing retrieved procedural experience, MemT-1.0 improves task success on agentic tasks, providing a practical step toward memory-native evolution.",
+  "summary_1line": "Memory-native evolution requires making memory an intrinsic capability of foundation models, enabling them to continuously accumulate and utilize information. To this end, we introduce MemT-1.0, a new architecture of...",
+  "title": "MemT-1.0: Towards Memory-Native Evolution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.26825v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "4de066f7048f858f": {
   "first_seen": "2026-10-02T11:03:31.814264+00:00",
   "id": "55ee1022d2d9aee9",
@@ -3783,6 +3818,23 @@
   "type": "news",
   "url": "https://kolega.ai/code",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "52090699e3b64ede": {
+  "first_seen": "2026-10-20T04:04:49.411681+00:00",
+  "id": "63f6715b7bd45e7f",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-19T11:59:57+00:00",
+  "sid": "52090699e3b64ede",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Tool-using voice agents often leave users waiting after speech ends, even when actionable information arrives earlier in the request. Speculative approaches begin work during speech, but chunk-bounded or interrupt-on-update generation can truncate a tool call before its arguments are complete. This couples computation time to speech updates, limiting useful work completed in advance. We introduce Heartbeat Thinking, which handles updated input through new Thinker invocations while allowing ongoing invocations and dispatched tools to finish. Periodic invocations read the latest partial transcript and a shared record of completed reasoning and tool results. These results help resolve missing arguments and initiate dependent calls, allowing preparation to progress across speech updates. Across SpeechFCEval, FDBench v3, and AudioCRAG, Heartbeat improves aggregate speculative tool coverage or retrieval reuse over a SHANKS-style windowed baseline, with benchmark-dependent effects on final task quality. On FDBench v3, it increases tool coverage by 16 percentage points and reduces mean final-response latency by 36.4\\%. The results show that heartbeat thinking paradigm preserving ongoing computation during speech can turn listening time into reusable preparation for faster and more capable voice-agent responses.",
+  "summary_1line": "Tool-using voice agents often leave users waiting after speech ends, even when actionable information arrives earlier in the request. Speculative approaches begin work during speech, but chunk-bounded or interrupt-on-...",
+  "title": "Heartbeat Thinking: Speculative Reasoning and Tool Execution While Listening in Realtime Voice Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.26233v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "520bc93b163254a3": {
   "first_seen": "2026-10-13T13:03:39.242121+00:00",
@@ -4102,6 +4154,24 @@
   "type": "news",
   "url": "https://www.infoq.com/news/2026/10/openai-devday-2026/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent, codex."
+ },
+ "58b479d20c57cce8": {
+  "first_seen": "2026-10-20T04:04:49.411681+00:00",
+  "id": "b7b0ffba633c83b9",
+  "image_url": "https://hamel.dev/blog/posts/decision-model-evals/images/cover.png",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-20T07:00:00+00:00",
+  "sid": "58b479d20c57cce8",
+  "source": "hamel_husain",
+  "summary": "Decision models have exploded onto the scene recently, starting with TypeSafe’s Jev, followed by Perplexity’s Decider, Liquid’s d1, Cloudflare’s Clef, and OpenAI’s Decisions API 1 . These models promise fast, inexpensive classification. Decision models are an appealing low-cost alternative to LLM judges 2 for automated evals. But whether they’re the right choice depends on the cost, performance, and latency requirements of your use case. We’ve also noticed people using the default decision threshold of 0.50 without checking whether it works well for their task. This can leave a lot of performance on the table. In this post, we’ll start by showing how to tune thresholds to get the best results from decision models. With those thresholds tuned, we’ll compare cost and performance to help you assess which model fits your use case. Finally, we’ll explore how to interpret model scores when deciding whether to act, and how calibration can make them more useful as confidence estimates. What we tested We used 100 traces, or logs of conversations and actions, from an apartment leasing agent. The task is to identify traces containing an error, such as a failed booking or a missed handoff to a human. 3 We used the same dataset and broad failure-finding task in our prior post on automated evals . Here, each decision model returns a failure probability for each trace. We tested Jev 1.13, Perplexity Decider 1.1 27B, Liquid d1 and d1-ultra, Cloudflare Clef Flash, and OpenAI Decisions (GPT-6 ",
+  "summary_1line": "Decision models have exploded onto the scene recently, starting with TypeSafe’s Jev, followed by Perplexity’s Decider, Liquid’s d1, Cloudflare’s Clef, and OpenAI’s Decisions API 1 . These models promise fast, inexpens...",
+  "title": "How To Use Decision Models for Evals",
+  "type": "news",
+  "url": "https://hamel.dev/blog/posts/decision-model-evals",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "58d2e800a62db5e1": {
   "first_seen": "2026-10-17T02:04:34.351181+00:00",
@@ -5306,6 +5376,23 @@
   "url": "http://arxiv.org/abs/2610.13485v1",
   "why_it_matters": "Matches feed focus: agentic, harness, eval."
  },
+ "74421b1c21dbbb32": {
+  "first_seen": "2026-10-20T04:04:49.411681+00:00",
+  "id": "3ad08546dddd4522",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-19T08:57:07+00:00",
+  "sid": "74421b1c21dbbb32",
+  "source": "arxiv_llm_reliability",
+  "summary": "Financial agents are expected to answer factual investment queries through open search, but financial multi-hop retrieval differs from general multi-hop QA in a crucial way: each intermediate answer is an exact typed constraint, such as an entity, date, event, or numerical indicator, that determines the next query. This strict answer-conditioned dependency makes small intermediate errors cascade into plausible but wrong search trajectories. We introduce FinHopper, a benchmark for complex financial agents with controlled reasoning depth from 1 to 6 hops, covering stocks, funds, and macroeconomic facts, with gold intermediate answers for process-level evaluation. To construct FinHopper at scale, we design a state-transition-based synthesis framework that composes verified atomic financial QA patterns into dependency-preserving chains, followed by targeted in-synthesis verification, model-ensemble checking, and public-search validation by financial experts. Experiments with 20 LLM-agent configurations show that public search tools are necessary but insufficient: performance drops sharply as hop depth increases, the best model remains far below human experts, and process-aware scoring reveals partial reasoning progress hidden by final-answer-only evaluation. The benchmark is available at https://github.com/justajustin/FinHopper/.",
+  "summary_1line": "Financial agents are expected to answer factual investment queries through open search, but financial multi-hop retrieval differs from general multi-hop QA in a crucial way: each intermediate answer is an exact typed...",
+  "title": "FinHopper: A Progressive Multi-Hop Benchmark for Complex Financial Agents with Step-wise Evaluation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.26036v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "751a14146cee1c7c": {
   "first_seen": "2026-10-05T02:04:13.028325+00:00",
   "id": "73ef544024a064af",
@@ -5811,6 +5898,18 @@
   "title": "U.S. Bans DeepSeek Technology in Federal IT Systems",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOWl9FYWtCYlBVbFd6RDc4d1hXMjdTczRQZEJwVHNHTXc4aFYxRlh3X2RrVTJ3cy1pdHF0S0VwUVlEYXNUUDl2S0xFbnhiVTFISXJNc2JiSzFoNk5YcEc0VkcyOXgzWXlaX0s5MTFRc1ZjekYwdkMxbWRPOHVrYkdiNW8wLXc3TDNG?oc=5"
+ },
+ "809bf16b6ae68c98": {
+  "first_seen": "2026-10-20T04:04:49.411681+00:00",
+  "id": "6b94280b9af07af6",
+  "published": "2026-10-20T03:12:00+00:00",
+  "sid": "809bf16b6ae68c98",
+  "source": "search_cn_open_weight_labs",
+  "summary": "US government bans Chinese AI company DeepSeek that had wiped more than $1 trillion from Wall Street in l The Times of India",
+  "summary_1line": "US government bans Chinese AI company DeepSeek that had wiped more than $1 trillion from Wall Street in l The Times of India",
+  "title": "US government bans Chinese AI company DeepSeek that had wiped more than $1 trillion from Wall Street in l",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMi2wJBVV95cUxNbGpGMDF6V2R0VjNpSHpxVmF5SXZtVzcwNW1ZQTR5X194Vnpra1Vic0R1ZGZlYTVyeFo5TnAxdGdXbEwzbFNfb292NWlWSlJQc1F3OHNTVWgwMlR1UjlRcXZZUEYzMVowVWFBaXF0R0E0U0V0QzRQb0lJZEZZTGZoU0tmM21McTNqZVVBQ1hiZ0l4MGxNdVUtVDVnM2E1XzhQVURSUEQyOXNNMXhPcDFkMnJpWlRoWFBRWlpBSUEtTEdxSklGMS1sdlNldDdBRE81X3U5THdqQlROeWNlMXBVMW1nbFcwbGhNNVdPUlBBNW5WZUdkSXVjcldkRGFTVFRBWWFpN09TTk5TU2hPRUVxdW1FUTJrcTBQdDdqNkVYQ1BNaHJITkdQWGJtZHhjMVRsNnVSNmFpS29fdTZjREJZZ1NNSHlubWFRSjRMUkRIeHp4bkxRd0h0bnQtNNIB4AJBVV95cUxPV2dweXJ6NmRzTk5iY2RIekNvcWRXRzNMYzB3NjJsQll6LW9Lb3VLelRzTi1jbmRnM2FIQ2FCMUcyUlVnb0ZjeHVVWWdwaGNXUDA1TW9Eak4welhHR0dZR2ZkU1pXWjlLVlA0blRUUTRpSDRkaEcyejI5UDdiZWl5QzBrV1p2VjdyekttYUF3MkdKZkxDd0xEcXlIN1RpV0R3ZzhEOU1NcHJabTBmTTdEOHV4VkxnMGZrOE1Bck5UNjd3OVdTblNERkNxNWd5TVg2R0g4aXJuRUZ6THo5VTZPZnlBS0tNTGVYXzlBQTA1endoWW10SU9rWFlXemRWTjQ3d0NvQVB5ejg1ZUpMTlJSSEk2RHNCaXNFaGg5enowOFFMNDRkNURITmJEVGZkM0NIM0JLN09vN3JqSm9HMWRnaHNwUS1VQ3lFLUE2bFh3anU5VkhPekRZdVJYRVJiZmt6?oc=5"
  },
  "813f4b8521bddb77": {
   "first_seen": "2026-10-02T16:04:08.518608+00:00",
@@ -7279,6 +7378,23 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.163.0-alpha.5",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "a1bc7babf09c28a2": {
+  "first_seen": "2026-10-20T04:04:49.411681+00:00",
+  "id": "e1af35db84edffb9",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-10-19T15:10:26+00:00",
+  "sid": "a1bc7babf09c28a2",
+  "source": "arxiv_llm_reliability",
+  "summary": "Participating in a data space still requires the Dataspace Protocol (DSP) negotiation flow to be hand-coded against each provider's access policy. We present a multi-agent architecture that automates this process using natural language requests. Built on LangGraph over an Eclipse Dataspace Components (EDC), the design separates concerns into cooperating agents. The orchestrator's role is to route and plan. The data extraction agent's role is to expose the DSP protocol's three composable tools (catalog discovery, contract negotiation and download). The agent also gates negotiations on the consumers' verifiable credentials, refusing assets rather than fabricating them. Furthermore, there are downstream Machine Learning (ML) and Visualization agents, as well as a final Verification agent, which confirms that the request was actually fulfilled and rechecks the intended operation against the contract's usage policy. In a primary benchmark involving 600 runs, the system achieved 89% task success with zero policy violations when evaluating multi-dimensional policy reasoning with a locally hosted open-weight model. It failed safely through refusal rather than misrouting. The reliability of the system is largely dependent on the phrasing of requests: technical and expert requests succeed up to 98% of the time, whereas casual and under-specified requests succeed 72% of the time. Furthermore, in a secondary evaluation of 600 runs isolating hierarchical geographic access control, the fra",
+  "summary_1line": "Participating in a data space still requires the Dataspace Protocol (DSP) negotiation flow to be hand-coded against each provider's access policy. We present a multi-agent architecture that automates this process usin...",
+  "title": "Agentic Orchestration of EDC Data Space Retrieval and Natural Language Driven Data Processing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.26548v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "a1cb2a30f2307706": {
   "first_seen": "2026-10-02T03:02:46.514202+00:00",
