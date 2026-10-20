@@ -6129,7 +6129,8 @@ def render_i18n_daily_page(
         recap_range="",
         title_html=daily_hero(recap),
         intro_html=render_intro(recap),
-        body_html=render_categories(
+        body_html=render_video(recap)
+        + render_categories(
             recap,
             "daily-link",
             story_sids,
@@ -6223,7 +6224,8 @@ def render_i18n_weekly_page(
         recap_range="",
         title_html=weekly_hero(recap),
         intro_html=render_intro(recap, "The week in signals") + render_focus_widget(recap),
-        body_html=render_categories(
+        body_html=render_video(recap, "weekly")
+        + render_categories(
             recap,
             "weekly-link",
             story_sids,
