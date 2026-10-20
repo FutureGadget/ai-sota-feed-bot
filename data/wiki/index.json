@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-19T18:04:35.139653+00:00",
+ "generated_at": "2026-10-20T18:02:55.596087+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,38 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-20-decision-model-thresholds",
+   "topic": "llm-as-judge",
+   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
+   "kind": "solution",
+   "date": "2026-10-20",
+   "title": "Decision models replace LLM judges only after tuning the 0.50 threshold on your own labels"
+  },
+  {
+   "id": "2026-10-20-audit-judge-three-pillars",
+   "topic": "llm-as-judge",
+   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
+   "kind": "solution",
+   "date": "2026-10-20",
+   "title": "Audit an LLM judge for stability, chance-corrected human agreement, and ensemble divergence"
+  },
+  {
+   "id": "2026-10-20-vera-cpu-sandbox-throughput",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-10-20",
+   "title": "Modal reports NVIDIA Vera CPUs about double sandbox throughput under heavy concurrent load"
+  },
+  {
+   "id": "2026-10-20-databricks-agent-memory-memcurrent",
+   "topic": "agent-memory",
+   "topic_title": "Agents forget across steps and sessions",
+   "kind": "obstacle",
+   "date": "2026-10-20",
+   "title": "Databricks Agent Memory keeps raw sessions plus a background-distilled memory layer on Postgres"
+  },
   {
    "id": "2026-10-19-skillbrowser-selective-exposure",
    "topic": "tool-use",
@@ -222,38 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-13",
    "title": "vLLM bi-directional KV transfer lets prefill nodes reuse decode-side KV on later turns"
-  },
-  {
-   "id": "2026-10-12-protocol-pivoting-mcp-a2a",
-   "topic": "prompt-injection",
-   "topic_title": "Untrusted input and tools can hijack an agent",
-   "kind": "obstacle",
-   "date": "2026-10-12",
-   "title": "Protocol pivoting: injected text hops between agents because each one trusts its peer"
-  },
-  {
-   "id": "2026-10-12-spotify-ads-agent-boundaries",
-   "topic": "multi-agent",
-   "topic_title": "Coordinating multiple agents adds more failure than capability",
-   "kind": "obstacle",
-   "date": "2026-10-12",
-   "title": "Spotify Ads AI enforces one agent, one package, one owner, with deterministic gates outside the agents"
-  },
-  {
-   "id": "2026-10-12-modal-endpoint-candidates",
-   "topic": "model-drift",
-   "topic_title": "Agent behavior drifts as the model, SDK, and runtime churn under it",
-   "kind": "obstacle",
-   "date": "2026-10-12",
-   "title": "Modal Endpoint Candidates mirror sampled production traffic to a new model before promotion"
-  },
-  {
-   "id": "2026-10-11-securesd-early-token-verification",
-   "topic": "speculative-decoding",
-   "topic_title": "Speculative decoding: draft cheaply, verify in parallel",
-   "kind": "solution",
-   "date": "2026-10-11",
-   "title": "Lossy speculative decoding raises jailbreak and injection success faster than it costs utility"
   }
  ],
  "nodes": {
@@ -5202,7 +5202,7 @@
      "key": "local-first-stores",
      "title": "Build vs. buy: managed services and developer-owned stores",
      "summary": "Managed memory services compete with a crowded wave of local-first, single-file stores that often retrieve with BM25 plus vectors and no LLM in the loop.",
-     "count": 15
+     "count": 16
     },
     {
      "key": "shared-memory",
@@ -5230,6 +5230,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-20-databricks-agent-memory-memcurrent",
+     "topic": "agent-memory",
+     "date": "2026-10-20",
+     "title": "Databricks Agent Memory keeps raw sessions plus a background-distilled memory layer on Postgres",
+     "theme": "local-first-stores",
+     "html": "<p>Databricks released Agent Memory in Beta on Lakebase (serverless Postgres), built on its MemCurrent design: managed <strong>sessions</strong> hold the raw record, and a background pipeline extracts durable facts, deduplicates, and replaces facts that newer conversations contradict. Agents load a memory index at session start and search by hybrid keyword and semantic retrieval.</p>\n<p>Vendor-reported internal results: about 3x the pass rate on enterprise tasks with 31% fewer tokens, and one repeat query dropped from 11 tool calls and nearly six minutes to 2 calls and 41 seconds. The vendor also reports full-context replay used about 12x more input tokens at equal accuracy.</p>\n<p>For builders: memories are readable, exportable, and deletable per user, and pipeline instructions steer retention.</p>",
+     "evidence": [
+      {
+       "sid": "71440eae5c3aaa1a",
+       "title": "Introducing Agent Memory on Databricks"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-07-daedalus-self-generated-memory",
      "topic": "agent-memory",
@@ -6366,8 +6381,8 @@
      "title": "An open-source memory plugin consolidates by forgetting and synthesizing instead of storing everything"
     }
    ],
-   "entry_count": 67,
-   "latest_entry_date": "2026-10-07",
+   "entry_count": 68,
+   "latest_entry_date": "2026-10-20",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -6381,6 +6396,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "71440eae5c3aaa1a",
+     "title": "Introducing Agent Memory on Databricks"
+    },
     {
      "sid": "63c206dfd946c7ff",
      "title": "DAEDALUS: Bootstrapping Agent Memory from Self-Generated Tasks"
@@ -6662,7 +6681,7 @@
      "title": "Cloudflare Announces Agent Memory, a Managed Persistent Memory Service for AI Agents"
     }
    ],
-   "updated": "2026-10-07"
+   "updated": "2026-10-20"
   },
   "agent-observability": {
    "slug": "agent-observability",
@@ -15156,7 +15175,7 @@
      "key": "managed-platforms",
      "title": "Managed and self-hosted sandbox platforms",
      "summary": "MicroVM platforms from Modal, Docker, Azure, and Cloudflare, plus self-hosted hypervisors and paved-road internal platforms, compete on startup time, scale, and persistence.",
-     "count": 11
+     "count": 12
     },
     {
      "key": "egress-and-escapes",
@@ -15172,6 +15191,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-20-vera-cpu-sandbox-throughput",
+     "topic": "agent-sandboxing",
+     "date": "2026-10-20",
+     "title": "Modal reports NVIDIA Vera CPUs about double sandbox throughput under heavy concurrent load",
+     "theme": "managed-platforms",
+     "html": "<p>Modal benchmarked NVIDIA&#x27;s Arm-based Vera CPU on <strong>Agentless Agent Bench</strong>: 50 Terminal-Bench oracle solutions with network calls removed, run in concurrent containers. On a quiet host, serial latency was only marginally better than x86 and Graviton alternatives. Under 50 to 150 concurrent containers, Vera completed roughly twice the tasks in a fixed window without worse latency (vendor-reported; Modal has not shipped Arm support yet).</p>\n<p>The context is sandbox workloads: idle while waiting on an LLM, then CPU spikes 10x above baseline on an <code>npm install</code>, which makes burst absorption and noisy neighbors the cost driver.</p>\n<p>For builders: benchmark sandbox hosts under concurrency, not single-task latency.</p>",
+     "evidence": [
+      {
+       "sid": "2ccafb2a756f8408",
+       "title": "NVIDIA Vera CPUs double throughput for Modal Sandboxes"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-17-agent37-low-cost-sandboxes",
      "topic": "agent-sandboxing",
@@ -16046,8 +16080,8 @@
     }
    ],
    "cross_entries": [],
-   "entry_count": 56,
-   "latest_entry_date": "2026-10-17",
+   "entry_count": 57,
+   "latest_entry_date": "2026-10-20",
    "solutions": [],
    "obstacles": [
     {
@@ -16065,6 +16099,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "2ccafb2a756f8408",
+     "title": "NVIDIA Vera CPUs double throughput for Modal Sandboxes"
+    },
     {
      "sid": "93481ec2e3a9d5b0",
      "title": "Launch HN: Agent37 (YC F26) – Low-cost agent sandboxes for running agents"
@@ -16322,7 +16360,7 @@
      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
     }
    ],
-   "updated": "2026-10-17"
+   "updated": "2026-10-20"
   },
   "agent-tracing": {
    "slug": "agent-tracing",
@@ -17552,16 +17590,46 @@
      "key": "cheaper-judges",
      "title": "Making the judge cheap enough to run on every trace",
      "summary": "Small fine-tuned judges, encoder classifiers, and shared-backbone heads cut judge cost and latency by one to two orders of magnitude.",
-     "count": 4
+     "count": 5
     },
     {
      "key": "trusting-the-judge",
      "title": "Auditing the judge, the rubric, and whether you need one",
      "summary": "Judges carry position, verbosity, and language bias, and rubrics can be wrong; calibrate against human labels or replace the judge with a deterministic check.",
-     "count": 7
+     "count": 8
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-20-decision-model-thresholds",
+     "topic": "llm-as-judge",
+     "date": "2026-10-20",
+     "title": "Decision models replace LLM judges only after tuning the 0.50 threshold on your own labels",
+     "theme": "cheaper-judges",
+     "html": "<p>Hamel Husain compared six decision models (Jev, Perplexity Decider, Liquid d1, Cloudflare Clef Flash, OpenAI Decisions) on 100 labeled traces from a leasing agent. The default <strong>0.50 threshold</strong> is often wrong: tuning with cross-validation lifted Liquid d1 and Clef Flash, which otherwise missed his 80% precision and recall floor.</p>\n<p>On cost, Perplexity cost 0.82 cents per 100 eval runs at F1 0.79. OpenAI Decisions reached F1 0.87 at 3.72 cents, about 4.5x more. Scores were not calibrated probabilities: one Clef Flash bucket predicted 8% failure but failed 60% of the time. Platt scaling fixed several models, not all. This is one small dataset.</p>\n<p>For builders: tune and calibrate the threshold on saved scores before alerting on them.</p>",
+     "evidence": [
+      {
+       "sid": "58b479d20c57cce8",
+       "title": "How To Use Decision Models for Evals"
+      }
+     ],
+     "also": []
+    },
+    {
+     "id": "2026-10-20-audit-judge-three-pillars",
+     "topic": "llm-as-judge",
+     "date": "2026-10-20",
+     "title": "Audit an LLM judge for stability, chance-corrected human agreement, and ensemble divergence",
+     "theme": "trusting-the-judge",
+     "html": "<p>A Google Cloud consulting post lists the judge biases to test for: verbosity, position, halo, agreeableness, and self-enhancement. It cites swapped option order flipping verdicts over 75% of the time and judges missing up to 75% of bad outputs (figures as cited by the vendor, no methodology given).</p>\n<p>Its audit has three steps:</p>\n<ul><li><strong>Stability:</strong> score the same output several times and measure variance; high variance means the rubric is ambiguous.</li><li><strong>Human alignment:</strong> use chance-corrected agreement, because a lenient judge looks good on mostly valid data.</li><li><strong>Ensembles:</strong> one judge per criterion, and at least two models on the same output to flag divergence.</li></ul>\n<p>For builders: report chance-corrected agreement, not raw accuracy, before trusting a judge in CI.</p>",
+     "evidence": [
+      {
+       "sid": "4e6e796fa0c5bfc0",
+       "title": "Who judges the judge? Three helpful ways to audit your LLM evaluators"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-16-mechanical-checks-beat-llm-judges",
      "topic": "llm-as-judge",
@@ -17834,8 +17902,8 @@
      "title": "Checking 100 human-annotated traces shows automated evals diverge from human raters"
     }
    ],
-   "entry_count": 14,
-   "latest_entry_date": "2026-10-16",
+   "entry_count": 16,
+   "latest_entry_date": "2026-10-20",
    "solutions": [],
    "obstacles": [
     {
@@ -17849,6 +17917,14 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "58b479d20c57cce8",
+     "title": "How To Use Decision Models for Evals"
+    },
+    {
+     "sid": "4e6e796fa0c5bfc0",
+     "title": "Who judges the judge? Three helpful ways to audit your LLM evaluators"
+    },
     {
      "sid": "12ce418f6930dbfb",
      "title": "Beyond LLM Judge: Mechanical Verification for Agentic Autoformalization"
@@ -17906,7 +17982,7 @@
      "title": "Building a 100x Cheaper Trace Judge with Fireworks"
     }
    ],
-   "updated": "2026-10-16"
+   "updated": "2026-10-20"
   },
   "mcp": {
    "slug": "mcp",
