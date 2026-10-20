@@ -2386,3 +2386,19 @@ request budget and the no-invented-facts rules are unchanged.
 
 Rollback: Revert the storyboard bullets in `.agents/skills/video-common/SKILL.md`
 and the `chunkCaption` helper in the reference animation.
+
+## 2026-10-20 - Localized recap pages render the video section
+
+Decision: `render_i18n_daily_page` and `render_i18n_weekly_page` in
+`pipeline/render_static_pages.py` now emit `render_video(recap)` ahead of the
+categories, the same as the English pages.
+
+Rationale: The localized renderer overlays translated text onto the English
+recap but never called `render_video`, so a recap with a `video` lost its
+`<section>` in `/ko/`. `test_korean_pages_preserve_source_page_structure` went
+red on `main` once the 2026-10-16 daily video was attached.
+
+Impact: Korean daily/weekly pages with a video now show the same click-to-load
+player. `web/ko/daily/2026-10-16.html` regenerated; no translation changes.
+
+Rollback: Remove the two `render_video` calls.
