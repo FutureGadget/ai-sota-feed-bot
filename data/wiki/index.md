@@ -86,13 +86,13 @@ Schema: `config/wiki_schema.md`.
   - theme `outcome-evidence` — Outcome case studies, and the rollout that raised spend (4)
 
 ### latency
-- [agent-latency](obstacles/agent-latency.md) — Agent loops multiply per-call latency into slow, expensive runs (51 entries, updated 2026-10-17)
+- [agent-latency](obstacles/agent-latency.md) — Agent loops multiply per-call latency into slow, expensive runs (52 entries, updated 2026-10-21)
   → solutions: context-compaction, speculative-decoding
   - theme `agent-traffic` — Scheduling, batching, and routing for agent-shaped traffic (9)
   - theme `kv-state` — KV state: compress it, offload it, shard it, reuse it (11)
   - theme `engine-architecture` — Disaggregated and specialized serving engines (10)
   - theme `day-0-support` — Day-0 serving for new models and hardware (10)
-  - theme `less-work-per-step` — Less work per step: small models, shorter prompts, faster drafting (5)
+  - theme `less-work-per-step` — Less work per step: small models, shorter prompts, faster drafting (6)
   - theme `beyond-the-engine` — Latency outside the model: tools, cold starts, and voice (6)
 
 ### observability
@@ -153,8 +153,8 @@ Schema: `config/wiki_schema.md`.
   - theme `capture` — Capturing the run: zero-config SDKs, platform spans, new modalities (3)
   - theme `storage` — Storing and searching traces at fleet scale (3)
   - theme `diagnosis` — Reading and diagnosing traces (5)
-- [context-compaction](solutions/context-compaction.md) — Context compaction: summarize, compress, and curate the working set (12 entries, updated 2026-10-17)
-  - theme `curating-the-working-set` — Curating what stays in context (5)
+- [context-compaction](solutions/context-compaction.md) — Context compaction: summarize, compress, and curate the working set (13 entries, updated 2026-10-21)
+  - theme `curating-the-working-set` — Curating what stays in context (6)
   - theme `compaction-safety` — The compactor as a safety surface (2)
   - theme `skipping-compaction` — Skipping compaction with bigger windows or recursive dispatch (4)
   - theme `compressed-serving` — Buying back accuracy lost to compression (1)
