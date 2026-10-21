@@ -1,14 +1,15 @@
 {
  "slug": "claude-mods",
  "label": "Claude Mods",
- "item_count": 4,
- "day_count": 3,
- "source_count": 2,
+ "item_count": 5,
+ "day_count": 4,
+ "source_count": 3,
  "first_seen": "2026-10-01T12:00:00+00:00",
- "last_updated": "2026-10-05T04:08:26+00:00",
- "generated_at": "2026-10-19T00:11:40.628628+00:00",
+ "last_updated": "2026-10-21T13:04:19+00:00",
+ "generated_at": "2026-10-21T15:14:48.751198+00:00",
  "sources": [
   "claude_dev_blog",
+  "latent_space",
   "search_cn_open_weight_labs"
  ],
  "days": [
@@ -70,19 +71,35 @@
      "editor_note": "Digitimes frames the bridge plus Harness's open plugin architecture as a lock-in challenge; adds framing, not new compatibility detail."
     }
    ]
+  },
+  {
+   "date": "2026-10-21",
+   "items": [
+    {
+     "title": "Claude Mods: Flipping the Harness Inside Out",
+     "url": "https://www.latent.space/p/claude-mods",
+     "source": "latent_space",
+     "type": "news",
+     "summary_1line": "Claude Mods is an early form of the Attention Interface. It flips the agent harness paradigm from the harness facing the machine, to the harness facing the human.",
+     "why_it_matters": "Matches feed focus: agent, harness.",
+     "sid": "1cd487805b8193f0",
+     "published": "2026-10-21T13:04:19+00:00",
+     "editor_note": "Outside essay framing mods as an early Attention Interface; opinion, adds no compatibility or API detail."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "On Oct 1, Anthropic's Claude Code team published a guide to mods: hooks that ship inside plugins and run within a Claude Code session. The guide builds one from an empty folder, then tours two larger mods.",
+  "tldr": "On Oct 1, Anthropic's Claude Code team published a guide to mods: hooks that ship inside plugins and run within a Claude Code session. On Oct 4-5, DeepSeek Harness added an experimental mods compatibility layer, which trade press framed as a challenge to agent lock-in.",
   "stale": false,
-  "whats_new": "Digitimes (Oct 5) frames DeepSeek Harness's Claude Code mods bridge and open plugin architecture as a challenge to agent lock-in, following the Oct 4 v0.2.1-alpha.1 compatibility layer.",
+  "whats_new": "Latent Space (Oct 21) argues Claude Mods is an early form of the \"Attention Interface\", flipping the agent harness from facing the machine to facing the human.",
   "why_it_matters": "Mods are a plugin-level extension point, so a second agent runtime accepting the same format lowers the cost of moving mod-based workflows between harnesses.",
   "take_for_builders": "If you build Claude Code mods, keep hook logic free of Claude-specific paths for now; test against the Harness alpha only on throwaway projects until its coverage is documented.",
   "status": {
    "state": "Developing",
    "tone": "rising",
-   "changed": "2026-10-05",
-   "detail": "Claude Code mods have an official guide, an experimental DeepSeek Harness compatibility layer, and now trade-press framing as an anti-lock-in move."
+   "changed": "2026-10-21",
+   "detail": "Claude Code mods have an official guide, an experimental DeepSeek Harness compatibility layer, and now an outside essay positioning mods as a new harness paradigm."
   },
   "beats": [
    {
@@ -95,8 +112,8 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "THE TURN",
+    "tone": "turn",
     "headline": "DeepSeek Harness adds an experimental mods compatibility layer",
     "summary": "Alpha release, DeepSeek rejecting the \"copying homework\" charge, and a Digitimes read of it as an open-plugin challenge to lock-in.",
     "sids": [
@@ -104,12 +121,22 @@
      "e8099ac11401f85a",
      "fb19327de99e9d43"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Latent Space: mods flip the harness to face the human",
+    "summary": "Commentary on the design direction, not new product detail.",
+    "sids": [
+     "1cd487805b8193f0"
+    ]
    }
   ],
   "open_questions": [
    "Does the Harness compatibility layer run existing Claude Code mods unmodified, or only a subset of hooks?",
-   "Will Anthropic document mods as a stable cross-runtime format, or keep them Claude Code specific?"
+   "Will Anthropic document mods as a stable cross-runtime format, or keep them Claude Code specific?",
+   "Does Anthropic ship mod surfaces that put the human, not the tool loop, at the center of the harness?"
   ],
-  "generated_at": "2026-10-05T10:03:30Z"
+  "generated_at": "2026-10-21T15:30:00Z"
  }
 }
