@@ -355,6 +355,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTFA4Tk5Wd25vdGk1Tmk3VGdPaHNWSXp2SXJrZU9lZkVLSXA3WXZJaWhxUE1TLTRrQmdaZHVzUnBLRzdneXQtQmphYUhfMmQzaW1VSUhYbEdKX0N3dGNsX3N3RWdTbVVqOHFnYjhsVG1n?oc=5"
  },
+ "06d8677dec3b3c21": {
+  "first_seen": "2026-10-21T02:04:42.615605+00:00",
+  "id": "b22561a2953c3232",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-20T08:50:39+00:00",
+  "sid": "06d8677dec3b3c21",
+  "source": "arxiv_llm_reliability",
+  "summary": "Code translation converts source code from one programming language to another while preserving its functionality. Although Large Language Models (LLMs) have improved code translation, their outputs still contain hallucinations: generated code that conflicts with the source program, violates target-language facts, or introduces contextually inconsistent dependencies. These failures are especially harmful in translation because small semantic deviations can silently change program behavior. Existing hallucination studies mainly focus on natural-language generation or code generation, leaving the forms, distribution, and mitigation of hallucinations in cross-language code translation insufficiently characterized. This paper presents a systematic empirical study of LLM hallucinations in code translation. Across three benchmark datasets, six language pairs, and seven LLMs, we construct a taxonomy with three major categories: Semantic Consistency Conflicts, Factual Knowledge Conflicts, and Project Context Deviations. We manually annotate 13,919 hallucination cases and analyze how hallucination types vary across models, datasets, and language directions. Guided by the taxonomy, we further propose HaluCodeTran, a mitigation framework that combines BM25-based retrieval of relevant translation examples with taxonomy-aware reflective refinement. The study provides an execution-tested characterization of code-translation hallucinations and a practical baseline for building more reliable",
+  "summary_1line": "Code translation converts source code from one programming language to another while preserving its functionality. Although Large Language Models (LLMs) have improved code translation, their outputs still contain hall...",
+  "title": "Hallucinations of Large Language Models in Cross-Language Code Translation: Phenomena and Mitigation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.27868v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "0714a9511cb60f66": {
   "first_seen": "2026-10-20T13:04:55.662897+00:00",
   "id": "7b81b3710f1c1670",
@@ -1245,6 +1261,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNdHliTGJQREc4NHl0Q3ZmbFpCcTZvS1VTWFpQTHQwak8wZDN6SFB6RDJyY3RJS3ZBWE1LZXpseExEclJncWVBTVpxUUI0Mm9vdGNJRHNNZnRHdUpWa3cwbzVPenFNM0dTd0hlcXMyd2FsLVAyR0dWaVpjRF94c1FFN2NPbkZZQ1FETHJma0Q3LTdsY1JlUjQwTTVfQ3ZFUQ?oc=5",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "171984690585c9a0": {
+  "first_seen": "2026-10-21T02:04:42.615605+00:00",
+  "id": "cc813f1e5737bfa4",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-10-20T07:42:11+00:00",
+  "sid": "171984690585c9a0",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Tool-using LLM agents increasingly answer e-commerce queries through multi-step tool interactions. The expected output of a tool call can shift between agent development and execution, allowing a plausible but incorrect value to be returned without an explicit failure signal. These silent errors may propagate through subsequent decisions into final answers. To study agents' resilience across this end-to-end process, we formulate Silent-error Resilience Task, an interactive task that evaluates whether they complete the original query after a silent error corrupts an intermediate state. We introduce RITE, a benchmark built from human-authored industrial workflows and production-log-derived inputs. To enable controlled and reproducible evaluation, we use a semantic error taxonomy to inject errors into fixed workflow prefixes, freeze recorded tool behavior, and let agents continue freely. It contains 167 matched units across nine e-commerce workflows, yielding 501 silent-error, correct-value, and explicit-failure instances. Across 10 recent LLMs, silent errors roughly halve task success and are consistently harder than explicit failures. Recognition, use of an available verification path, and integration of the resulting evidence form successive bottlenecks. We also propose a light State Checker as an intervention to test whether resilience can be improved.",
+  "summary_1line": "Tool-using LLM agents increasingly answer e-commerce queries through multi-step tool interactions. The expected output of a tool call can shift between agent development and execution, allowing a plausible but incorre...",
+  "title": "RITE: Evaluating End-to-End Resilience to Silent Tool Errors in E-Commerce Agentic Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.27777v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "1725d137aa3debc0": {
   "first_seen": "2026-10-20T18:05:38.591247+00:00",
@@ -3654,6 +3687,22 @@
   "url": "https://www.langchain.com/blog/agent-traces-ai-search-langsmith",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "4c39e83baea4390b": {
+  "first_seen": "2026-10-21T02:04:42.615605+00:00",
+  "id": "1da0f0d55c7d7363",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-20T09:49:56+00:00",
+  "sid": "4c39e83baea4390b",
+  "source": "arxiv_cs_ai",
+  "summary": "Automated respiratory sound classification enables continuous, non-invasive respiratory assessment, yet long-term deployment remains challenging due to domain shifts from evolving recording devices and acquisition periods. When privacy and governance regulations prohibit replaying historical data, sequential learning easily overwrites previously acquired knowledge. Preserving dedicated domain experts prevents parameter interference, but selecting the correct expert at inference is difficult under overlapping acoustic distributions and absent domain labels. To resolve this dilemma, we propose APRIL, an exemplar-free domain-incremental framework for RSC. Built on a shared frozen BEATs backbone, APRIL sequentially inherits and isolates low-rank experts to enable new-domain adaptation without altering earlier models. A multi-level prototype router retrieves the top-two candidate experts and dynamically selects the final model by integrating domain-routing posteriors with classification confidence, adaptively weighted by matching ambiguity. We establish standardized device- and temporal-incremental benchmarks on the ICBHI and SPRSound datasets across forward and reversed domain orders. Evaluated over five random seeds, APRIL consistently achieves the highest final-session average Score among compared continual learning approaches, reaching 64.4% and 65.4% on ICBHI, and 83.1% and 82.2% on SPRSound under forward and reversed sequences, respectively. Crucially, average forgetting rem",
+  "summary_1line": "Automated respiratory sound classification enables continuous, non-invasive respiratory assessment, yet long-term deployment remains challenging due to domain shifts from evolving recording devices and acquisition per...",
+  "title": "APRIL: Ambiguity-Aware Expert Routing for Respiratory Sound Domain-Incremental Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.27942v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "4c40a9141a6132a5": {
   "first_seen": "2026-10-19T16:04:10.921859+00:00",
   "id": "9228ba5e0f84b898",
@@ -5474,6 +5523,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOTEtpQm9XZS1YOWVIRUN4Z0FuOEpKMjJ5czlwWTJ5emtyakMzS0VRc1F6WWhURXJJQnZ0SzhxSG1rMDNTN2NEREN2aGpPNTBwWVQya3ZFYThkY0lROHBwYTdxZFVLeWlPMlVkNzJicEgtdlFxVXRMaWpGS09GaU1CcHVQNDFwaFZoVnNoSk4tTjZDS2c2TEJjQlJGalNRdw?oc=5"
  },
+ "6d89e1e665db083f": {
+  "first_seen": "2026-10-21T02:04:42.615605+00:00",
+  "id": "bb9a3a5397193774",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-20T18:15:47+00:00",
+  "sid": "6d89e1e665db083f",
+  "source": "databricks_blog",
+  "summary": "AI tools have made it easy to vibe code agents. Building and maintaining an enterprise...",
+  "summary_1line": "AI tools have made it easy to vibe code agents. Building and maintaining an enterprise...",
+  "title": "MemCurrent: Designing Persistent Memory for Production Agents",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/memcurrent-designing-persistent-memory-production-agents",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "6d91f7c55a55a1dc": {
   "first_seen": "2026-10-08T17:04:28.620202+00:00",
   "id": "b214c6834feb5f16",
@@ -6328,6 +6393,18 @@
   "type": "news",
   "url": "https://cloud.google.com/blog/products/ai-machine-learning/claude-opus-55-and-claude-sonnet-55-available-in-antigravity",
   "why_it_matters": "Matches feed focus: agentic, harness."
+ },
+ "80d2edb72e052455": {
+  "first_seen": "2026-10-21T02:04:42.615605+00:00",
+  "id": "d51313a9b4d6076c",
+  "published": "2026-10-21T01:51:15+00:00",
+  "sid": "80d2edb72e052455",
+  "source": "search_cn_open_weight_labs",
+  "summary": "US bans DeepSeek across federal agencies, putting AI supply chains under scrutiny CIO",
+  "summary_1line": "US bans DeepSeek across federal agencies, putting AI supply chains under scrutiny CIO",
+  "title": "US bans DeepSeek across federal agencies, putting AI supply chains under scrutiny",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNamM1SmtqWjh2eUExbE12QXNZUl95ZmRsZWI1LWoyXzloQzhHYjZNQTJnbHpJN2k1d01LTGtsai01T3A1TjZBUHljRnVrdi1GdG1qVm1RQjNIdHdaakctTERhcmh6cjNMcmZiX1VOU0VIVVNjdUtNLWNrZEhUZ3BlNkZ4T0dsMzVPRmtoZEZJeWlhQUtTYldTU1BWVFJJdVNBem5BRXJpWTF5NEtpdklMYmd1VXVLNEpaQ0dqbkpR?oc=5"
  },
  "80eeb33fac840941": {
   "first_seen": "2026-10-20T05:03:05.965767+00:00",
@@ -7870,6 +7947,23 @@
   "type": "news",
   "url": "https://opensource.microsoft.com/blog/2026/10/19/introducing-scope-open-source-evaluation-for-ai-coding-agents",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "a1461589706b048d": {
+  "first_seen": "2026-10-21T02:04:42.615605+00:00",
+  "id": "33aa8515090ffa14",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-10-20T17:23:40+00:00",
+  "sid": "a1461589706b048d",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Many scientific phenomena are best understood as outcomes of underlying optimization problems, yet automated scientific discovery has largely focused on recovering equations that describe observed input-output patterns. We introduce OptScientist, a novel automated framework for discovering compact symbolic optimization laws directly from data. OptScientist comprises (i) a model that infers symbolic optimization problems by first learning to represent data as an optimization problem and then extracting its symbolic form, and (ii) an LLM agentic system embedding the model in a discovery process that integrates theoretical priors from scientific literature, discovers candidate laws, abstracts their underlying mechanisms, and suggests new data to collect. We first evaluate OptScientist on OptFeynman, a novel benchmark of 99 physics-derived optimization problems, where OptScientist recovers ground-truth laws for over 80% of the problems and remains robust to noisy contextual information, while substantially outperforming machine-learning, symbolic, and LLM-based model-discovery baselines. On human risky choice and central-bank monetary policy, OptScientist discovers compact symbolic optimization laws that achieve held-out predictive performance competitive with leading baselines, while using few parameters and substantially fewer tokens than LLM baselines. Overall, OptScientist extends automated scientific discovery to uncovering optimization laws that generate observed phenomena,",
+  "summary_1line": "Many scientific phenomena are best understood as outcomes of underlying optimization problems, yet automated scientific discovery has largely focused on recovering equations that describe observed input-output pattern...",
+  "title": "OptScientist: Automated Discovery of Optimization Laws",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.28562v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "a15f7c90f0ce6450": {
   "first_seen": "2026-10-02T05:04:08.402387+00:00",
@@ -12006,6 +12100,21 @@
   "url": "https://www.greptile.com/blog/how-to-build-a-code-review-agent",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "eb1403dedc09c846": {
+  "first_seen": "2026-10-21T02:04:42.615605+00:00",
+  "id": "49ee62735eb87559",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-21T01:11:26+00:00",
+  "sid": "eb1403dedc09c846",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Spotnote – click an element, hand your coding agent its file:line",
+  "title": "Show HN: Spotnote – click an element, hand your coding agent its file:line",
+  "type": "news",
+  "url": "https://github.com/harukikuri/spotnote",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "eb46c1aa3c061f69": {
   "first_seen": "2026-10-14T23:03:06.894118+00:00",
   "id": "374f79520bcec596",
@@ -12829,6 +12938,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPVzFSUjZaVEdFaVFqNFFMcDM1TnU1U2RBQlFYMDA0OFh2NUFRcFNhOWluLVhuemlFMDYxcUkwV3pVOWZCblBabHE5bnZuc0VmQkx2XzU3NGpQcndGVE85R1hYajRiZEpEcHItWXZvVG42aXBCZW1jWlZqMHh4QWtocA?oc=5",
   "why_it_matters": "Matches feed focus: agent, harness, claude code."
+ },
+ "fbf65fafac5ad274": {
+  "first_seen": "2026-10-21T02:04:42.615605+00:00",
+  "id": "00fb791663dfacb7",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-20T09:33:35+00:00",
+  "sid": "fbf65fafac5ad274",
+  "source": "arxiv_cs_ai",
+  "summary": "A single observation can admit several plausible futures, making uncertainty an essential part of world modelling. However, quantum generative models remain underexplored for this task. We introduce Quantum-JEPA, a latent-action JEPA framework that learns distributions of future representations using a conditional quantum Born prior. Circuit measurements generate binary latent actions, which a shared predictor maps to alternative future representations. We train the quantum prior through the quality and diversity of these predictions using a sampled energy objective. Our model learns distinct continuations on constructed multimodal tasks and captures latent-action correlations that support coordinated multi-agent futures. On D3IL, a benchmark of diverse human demonstrations, our trained models generate multiple obstacle-crossing routes from a common starting point without observed motion. On the controlled tasks, our classical and quantum prior implementations improve prediction validity and distributional fidelity over the evaluated variational baselines. Our quantum priors combine competitive predictive quality with a parameter-efficient sampling structure: they avoid an exponentially sized categorical output layer while supporting correlated latent actions. We further validate finite-shot parameter-shift training, including training with readout noise. Unlike most prior work, which focuses on simulation, we also verify the feasibility of inference with trained priors on a ",
+  "summary_1line": "A single observation can admit several plausible futures, making uncertainty an essential part of world modelling. However, quantum generative models remain underexplored for this task. We introduce Quantum-JEPA, a la...",
+  "title": "Quantum-JEPA: Quantum Born Priors for Latent-Action JEPA World Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.27921v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "fbfb44fc7414bc52": {
   "first_seen": "2026-10-19T18:03:59.043906+00:00",
