@@ -1,22 +1,15 @@
 {
-  "slug": "large-language",
-  "generated_at": "2026-10-19T05:12:44.417713+00:00",
-  "covers_last_updated": "2026-10-16T14:26:44+00:00",
-  "covers_member_sids": [
-    "2476b153d599e8b7",
-    "c47efdba3284bb9f",
-    "ade0f523550f640a"
-  ],
-  "tldr": "This page groups three arXiv papers by the shared phrase \"large language models\" in their titles; they do not form one developing story. They cover hidden-state hallucination detection (Oct 1), a security attack on speculative decoding (Oct 6), and narrative-induced sycophancy (Oct 16).",
-  "whats_new": "Oct 16 adds an arXiv study showing that LLMs shift toward a user's view when the user justifies it with a personal narrative, widening sycophancy testing beyond bare opinions.",
-  "why_it_matters": "Each paper names a distinct failure surface: hallucination probing needs access to hidden states, speculative decoding adds a draft-model attack path, and sycophancy skews answers in user-facing agents. Treat them as three separate checks, not one trend.",
+  "tldr": "This page groups arXiv papers by the shared phrase \"large language models\"; they do not form one developing story. They cover hallucination detection (Oct 1), a security attack on speculative decoding (Oct 6), narrative-induced sycophancy (Oct 16) and, new, hallucinations in code translation (Oct 20).",
+  "whats_new": "Oct 20 adds an arXiv study of LLM hallucinations in cross-language code translation, with mitigations; it joins the hallucination papers but is not a development of them.",
+  "why_it_matters": "Each paper names a distinct failure surface: hallucination probing needs hidden-state access, speculative decoding adds a draft-model attack path, sycophancy skews user-facing answers, and code translation adds hallucinated output in migrations. Treat them as separate checks, not one trend.",
   "beats": [
     {
       "kicker": "RELIABILITY",
       "tone": "launch",
-      "headline": "Cross-model span-level hallucination detection probes hidden states",
+      "headline": "Hallucination research: hidden-state probing and code-translation errors",
       "sids": [
-        "2476b153d599e8b7"
+        "2476b153d599e8b7",
+        "06d8677dec3b3c21"
       ]
     },
     {
@@ -38,12 +31,23 @@
   ],
   "open_questions": [
     "Do hidden-state hallucination probes transfer across model families without per-model training?",
-    "Does the speculative-decoding defense add measurable latency over unprotected drafting?"
+    "Does the speculative-decoding defense add measurable latency over unprotected drafting?",
+    "Do the code-translation mitigations hold on languages outside the paper's test set?"
   ],
-  "take_for_builders": "Do not cite these three papers as corroborating each other; if you run user-facing agents, add a sycophancy case where the user justifies a wrong claim with a personal story, and judge the other two papers separately.",
+  "take_for_builders": "Do not cite these papers as corroborating each other; if you migrate code with LLMs, add a hallucination check on translated output, and judge the other papers separately.",
   "day_captions": {
     "2476b153d599e8b7": "Hallucination detection by probing hidden states across models, at span level.",
-    "c47efdba3284bb9f": "Addresses security of speculative decoding, an inference-speedup technique unrelated to the other two items.",
-    "ade0f523550f640a": "The newest item: tests whether personal narratives, not just stated opinions, induce sycophancy."
-  }
+    "c47efdba3284bb9f": "Addresses security of speculative decoding, unrelated to the other items.",
+    "ade0f523550f640a": "Tests whether personal narratives, not just stated opinions, induce sycophancy.",
+    "06d8677dec3b3c21": "Newest: hallucinations when translating code between languages, with mitigations."
+  },
+  "slug": "large-language",
+  "generated_at": "2026-10-21T05:12:05.382893+00:00",
+  "covers_last_updated": "2026-10-20T08:50:39+00:00",
+  "covers_member_sids": [
+    "2476b153d599e8b7",
+    "c47efdba3284bb9f",
+    "ade0f523550f640a",
+    "06d8677dec3b3c21"
+  ]
 }

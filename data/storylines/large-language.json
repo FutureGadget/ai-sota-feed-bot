@@ -1,12 +1,12 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 3,
- "day_count": 3,
+ "item_count": 4,
+ "day_count": 4,
  "source_count": 3,
  "first_seen": "2026-10-01T17:06:53+00:00",
- "last_updated": "2026-10-16T14:26:44+00:00",
- "generated_at": "2026-10-20T20:13:24.179385+00:00",
+ "last_updated": "2026-10-20T08:50:39+00:00",
+ "generated_at": "2026-10-21T05:12:30.365213+00:00",
  "sources": [
   "arxiv_cs_ai",
   "arxiv_cs_lg",
@@ -40,7 +40,7 @@
      "summary_1line": "Speculative decoding accelerates inference for a large language model (LLM), referred to as the \\emph{target model}, by first using a smaller model, referred to as the \\emph{draft model}, to generate candidate tokens...",
      "sid": "c47efdba3284bb9f",
      "published": "2026-10-06T16:59:37+00:00",
-     "editor_note": "Addresses security of speculative decoding, an inference-speedup technique unrelated to the other two items."
+     "editor_note": "Addresses security of speculative decoding, unrelated to the other items."
     }
    ]
   },
@@ -56,24 +56,41 @@
      "why_it_matters": "Matches feed focus: evaluation.",
      "sid": "ade0f523550f640a",
      "published": "2026-10-16T14:26:44+00:00",
-     "editor_note": "The newest item: tests whether personal narratives, not just stated opinions, induce sycophancy."
+     "editor_note": "Tests whether personal narratives, not just stated opinions, induce sycophancy."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-20",
+   "items": [
+    {
+     "title": "Hallucinations of Large Language Models in Cross-Language Code Translation: Phenomena and Mitigation",
+     "url": "http://arxiv.org/abs/2610.27868v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Code translation converts source code from one programming language to another while preserving its functionality. Although Large Language Models (LLMs) have improved code translation, their outputs still contain hall...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "06d8677dec3b3c21",
+     "published": "2026-10-20T08:50:39+00:00",
+     "editor_note": "Newest: hallucinations when translating code between languages, with mitigations."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This page groups three arXiv papers by the shared phrase \"large language models\" in their titles; they do not form one developing story. They cover hidden-state hallucination detection (Oct 1), a security attack on speculative decoding (Oct 6), and narrative-induced sycophancy (Oct 16).",
+  "tldr": "This page groups arXiv papers by the shared phrase \"large language models\"; they do not form one developing story. They cover hallucination detection (Oct 1), a security attack on speculative decoding (Oct 6), narrative-induced sycophancy (Oct 16) and, new, hallucinations in code translation (Oct 20).",
   "stale": false,
-  "whats_new": "Oct 16 adds an arXiv study showing that LLMs shift toward a user's view when the user justifies it with a personal narrative, widening sycophancy testing beyond bare opinions.",
-  "why_it_matters": "Each paper names a distinct failure surface: hallucination probing needs access to hidden states, speculative decoding adds a draft-model attack path, and sycophancy skews answers in user-facing agents. Treat them as three separate checks, not one trend.",
-  "take_for_builders": "Do not cite these three papers as corroborating each other; if you run user-facing agents, add a sycophancy case where the user justifies a wrong claim with a personal story, and judge the other two papers separately.",
+  "whats_new": "Oct 20 adds an arXiv study of LLM hallucinations in cross-language code translation, with mitigations; it joins the hallucination papers but is not a development of them.",
+  "why_it_matters": "Each paper names a distinct failure surface: hallucination probing needs hidden-state access, speculative decoding adds a draft-model attack path, sycophancy skews user-facing answers, and code translation adds hallucinated output in migrations. Treat them as separate checks, not one trend.",
+  "take_for_builders": "Do not cite these papers as corroborating each other; if you migrate code with LLMs, add a hallucination check on translated output, and judge the other papers separately.",
   "beats": [
    {
     "kicker": "RELIABILITY",
     "tone": "launch",
-    "headline": "Cross-model span-level hallucination detection probes hidden states",
+    "headline": "Hallucination research: hidden-state probing and code-translation errors",
     "sids": [
-     "2476b153d599e8b7"
+     "2476b153d599e8b7",
+     "06d8677dec3b3c21"
     ]
    },
    {
@@ -95,8 +112,9 @@
   ],
   "open_questions": [
    "Do hidden-state hallucination probes transfer across model families without per-model training?",
-   "Does the speculative-decoding defense add measurable latency over unprotected drafting?"
+   "Does the speculative-decoding defense add measurable latency over unprotected drafting?",
+   "Do the code-translation mitigations hold on languages outside the paper's test set?"
   ],
-  "generated_at": "2026-10-19T05:12:44.417713+00:00"
+  "generated_at": "2026-10-21T05:12:05.382893+00:00"
  }
 }
