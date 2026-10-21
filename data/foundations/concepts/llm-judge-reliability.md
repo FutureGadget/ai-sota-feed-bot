@@ -5,7 +5,7 @@ question: "Can you trust an LLM-as-judge score?"
 summary: "An LLM judge is a measurement instrument with its own biases, not ground truth — validate it the same way you validate the agent it grades, and for agent trajectories with checkable evidence, consider a deterministic scorer instead."
 status: active
 cluster: evaluation
-updated: 2026-10-06
+updated: 2026-10-21
 audience: "strong-software-engineer"
 related_topics: [agent-evaluation, llm-as-judge]
 related_playbook_cards: [pb-audit-llm-judges-for-position-and-language-bias]
@@ -41,6 +41,20 @@ evidence:
     url: "https://arxiv.org/abs/2606.22737"
     added: 2026-07-10
     note: "In a case study, two frontier LLM judges scored a plausible agent response 0.85 or higher while the recorded trajectory showed the agent never retrieved the artifact its answer depended on; GroundEval scored it 0.000. Replaces the judge with a deterministic scorer over grounded, time-bounded, access-controlled evidence on three tracks: Silence, Perspective, and Counterfactual. The authors' case studies suggest the failure is common, not exceptional."
+  - id: google-cloud-audit-llm-evaluators-2026
+    kind: primary-doc
+    title: "Who judges the judge? Three helpful ways to audit your LLM evaluators"
+    url: "https://cloud.google.com/blog/topics/consulting/three-ways-to-audit-your-llm-evaluators"
+    sid: "4e6e796fa0c5bfc0"
+    added: 2026-10-21
+    note: "Google Cloud's audit recipe: measure score variance across repeated passes on identical inputs, compare against human experts with chance-corrected metrics, and use at least two judge models on decomposed criteria, flagging divergence. Cites prior work that swapping option order can flip a verdict over 75% of the time. Gives no thresholds or pass counts."
+  - id: hamel-decision-model-evals-2026
+    kind: production-field-report
+    title: "How To Use Decision Models for Evals"
+    url: "https://hamel.dev/blog/posts/decision-model-evals"
+    sid: "58b479d20c57cce8"
+    added: 2026-10-21
+    note: "Tests six small decision models on 98 apartment-leasing agent traces (61 failures) with five-fold cross-validation. Tuning the default 0.50 threshold recovers performance; the cheapest model scored F1 0.79 at 0.82 cents per 100 runs versus 0.87 at 3.72 cents. Calibration must be measured: one group predicted 8% failure but 60% failed. Small, single dataset."
   - id: llm-judge-reliability-editorial-synthesis
     kind: editorial-inference
     title: "LLM Digest synthesis"
@@ -92,7 +106,8 @@ Before trusting a judge's verdicts, run these checks:
 - **Verbosity check.** Track response length against verdict.
 - **Per-slice reliability.** Across languages or domains, report reliability per slice, not one pooled number.
 - **Held-out set from real failures.** Use production failures your team has seen, not synthetic cases the judge obviously gets right; a judge accurate on easy cases and silent on the hard one is failing.
-- **Re-validate before swapping in a cheaper judge.** Test a fine-tuned encoder or distilled model on the same held-out set, and re-run validation whenever the model, prompt, or rubric changes.
+- **Stability and human-agreement checks.** Re-score identical inputs several times and track variance; compare against human labels with a chance-corrected metric.
+- **Re-validate before swapping in a cheaper judge.** Test any encoder, distilled model, or decision model on the same held-out set; tune its threshold on your data, measure calibration, and re-run whenever the model, prompt, or rubric changes.
 - **Check groundedness, not plausibility, for trajectories.** Where the task has a checkable evidence path, grade the recorded trajectory against that ground truth instead of asking a judge whether the answer sounds right.
 
 ## Failure modes
@@ -101,6 +116,7 @@ Before trusting a judge's verdicts, run these checks:
 - **Benchmark-only validation:** tuning and validating on the same kind of cases, so the judge never sees the production failure the eval exists to catch.
 - **Set-and-forget judges:** never re-validating after the agent, prompt, or judge model changes.
 - **Free cost-cutting:** swapping in a cheaper judge without re-running the same bias and accuracy checks.
+- **Default threshold:** shipping a decision model at 0.50 without tuning or calibrating it.
 - **Grading the answer, not the path:** trusting a high score on a fluent answer without checking that the trajectory retrieved the right evidence, respected the time boundary, and used the right mechanism.
 
 ## Related

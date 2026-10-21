@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T18:15:47.452367+00:00",
+  "generated_at": "2026-10-21T10:09:15.406689+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -70,6 +70,24 @@
   ],
   "recent_evidence": [
     {
+      "concept": "llm-judge-reliability",
+      "concept_title": "Can you trust an LLM-as-judge score?",
+      "id": "hamel-decision-model-evals-2026",
+      "title": "How To Use Decision Models for Evals",
+      "tier": "production field-report-backed",
+      "kind": "production-field-report",
+      "added": "2026-10-21"
+    },
+    {
+      "concept": "llm-judge-reliability",
+      "concept_title": "Can you trust an LLM-as-judge score?",
+      "id": "google-cloud-audit-llm-evaluators-2026",
+      "title": "Who judges the judge? Three helpful ways to audit your LLM evaluators",
+      "tier": "primary-doc-backed",
+      "kind": "primary-doc",
+      "added": "2026-10-21"
+    },
+    {
       "concept": "model-switching-replay-gap",
       "concept_title": "Can you evaluate an agent's model router by replaying logged trajectories?",
       "id": "new-model-old-habits-2026",
@@ -122,24 +140,6 @@
       "tier": "production field-report-backed",
       "kind": "production-field-report",
       "added": "2026-10-02"
-    },
-    {
-      "concept": "agent-eval-design",
-      "concept_title": "What should an agent eval actually measure?",
-      "id": "arxiv-2610-01618-agents-are-systems",
-      "title": "Agents Are Systems, Not Models: Rethinking Agentic Evaluation",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-10-02"
-    },
-    {
-      "concept": "agent-context-lifecycle",
-      "concept_title": "Why does adding more context sometimes hurt an agent?",
-      "id": "gaggar-2026-protocol-preserving-context-trimming",
-      "title": "Protocol-Preserving Context Trimming for Agentic Workflows: Benefits, Failure Regimes, and Budget Guardrails",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-09-23"
     }
   ],
   "concepts": {
@@ -1626,8 +1626,8 @@
       "status": "active",
       "cluster": "evaluation",
       "cluster_label": "Evals and reliability",
-      "updated": "2026-10-06",
-      "latest_evidence_added": "2026-07-10",
+      "updated": "2026-10-21",
+      "latest_evidence_added": "2026-10-21",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -1649,11 +1649,11 @@
         },
         {
           "heading": "How to apply",
-          "html": "<p>Before trusting a judge&#x27;s verdicts, run these checks:</p>\n<ul><li><strong>Order-swap test.</strong> Run every pairwise comparison both ways and count only verdicts that agree.</li><li><strong>Verbosity check.</strong> Track response length against verdict.</li><li><strong>Per-slice reliability.</strong> Across languages or domains, report reliability per slice, not one pooled number.</li><li><strong>Held-out set from real failures.</strong> Use production failures your team has seen, not synthetic cases the judge obviously gets right; a judge accurate on easy cases and silent on the hard one is failing.</li><li><strong>Re-validate before swapping in a cheaper judge.</strong> Test a fine-tuned encoder or distilled model on the same held-out set, and re-run validation whenever the model, prompt, or rubric changes.</li><li><strong>Check groundedness, not plausibility, for trajectories.</strong> Where the task has a checkable evidence path, grade the recorded trajectory against that ground truth instead of asking a judge whether the answer sounds right.</li></ul>"
+          "html": "<p>Before trusting a judge&#x27;s verdicts, run these checks:</p>\n<ul><li><strong>Order-swap test.</strong> Run every pairwise comparison both ways and count only verdicts that agree.</li><li><strong>Verbosity check.</strong> Track response length against verdict.</li><li><strong>Per-slice reliability.</strong> Across languages or domains, report reliability per slice, not one pooled number.</li><li><strong>Held-out set from real failures.</strong> Use production failures your team has seen, not synthetic cases the judge obviously gets right; a judge accurate on easy cases and silent on the hard one is failing.</li><li><strong>Stability and human-agreement checks.</strong> Re-score identical inputs several times and track variance; compare against human labels with a chance-corrected metric.</li><li><strong>Re-validate before swapping in a cheaper judge.</strong> Test any encoder, distilled model, or decision model on the same held-out set; tune its threshold on your data, measure calibration, and re-run whenever the model, prompt, or rubric changes.</li><li><strong>Check groundedness, not plausibility, for trajectories.</strong> Where the task has a checkable evidence path, grade the recorded trajectory against that ground truth instead of asking a judge whether the answer sounds right.</li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li><strong>Aggregate accuracy worship:</strong> one pooled number hiding a collapse in a slice (language, position, length band).</li><li><strong>Order blindness:</strong> never testing whether a pairwise verdict flips when the slots swap.</li><li><strong>Benchmark-only validation:</strong> tuning and validating on the same kind of cases, so the judge never sees the production failure the eval exists to catch.</li><li><strong>Set-and-forget judges:</strong> never re-validating after the agent, prompt, or judge model changes.</li><li><strong>Free cost-cutting:</strong> swapping in a cheaper judge without re-running the same bias and accuracy checks.</li><li><strong>Grading the answer, not the path:</strong> trusting a high score on a fluent answer without checking that the trajectory retrieved the right evidence, respected the time boundary, and used the right mechanism.</li></ul>"
+          "html": "<ul><li><strong>Aggregate accuracy worship:</strong> one pooled number hiding a collapse in a slice (language, position, length band).</li><li><strong>Order blindness:</strong> never testing whether a pairwise verdict flips when the slots swap.</li><li><strong>Benchmark-only validation:</strong> tuning and validating on the same kind of cases, so the judge never sees the production failure the eval exists to catch.</li><li><strong>Set-and-forget judges:</strong> never re-validating after the agent, prompt, or judge model changes.</li><li><strong>Free cost-cutting:</strong> swapping in a cheaper judge without re-running the same bias and accuracy checks.</li><li><strong>Default threshold:</strong> shipping a decision model at 0.50 without tuning or calibrating it.</li><li><strong>Grading the answer, not the path:</strong> trusting a high score on a fluent answer without checking that the trajectory retrieved the right evidence, respected the time boundary, and used the right mechanism.</li></ul>"
         },
         {
           "heading": "Related",
@@ -1661,6 +1661,26 @@
         }
       ],
       "evidence": [
+        {
+          "id": "google-cloud-audit-llm-evaluators-2026",
+          "kind": "primary-doc",
+          "tier": "primary-doc-backed",
+          "title": "Who judges the judge? Three helpful ways to audit your LLM evaluators",
+          "note": "Google Cloud's audit recipe: measure score variance across repeated passes on identical inputs, compare against human experts with chance-corrected metrics, and use at least two judge models on decomposed criteria, flagging divergence. Cites prior work that swapping option order can flip a verdict over 75% of the time. Gives no thresholds or pass counts.",
+          "added": "2026-10-21",
+          "url": "https://cloud.google.com/blog/topics/consulting/three-ways-to-audit-your-llm-evaluators",
+          "sid": "4e6e796fa0c5bfc0"
+        },
+        {
+          "id": "hamel-decision-model-evals-2026",
+          "kind": "production-field-report",
+          "tier": "production field-report-backed",
+          "title": "How To Use Decision Models for Evals",
+          "note": "Tests six small decision models on 98 apartment-leasing agent traces (61 failures) with five-fold cross-validation. Tuning the default 0.50 threshold recovers performance; the cheapest model scored F1 0.79 at 0.82 cents per 100 runs versus 0.87 at 3.72 cents. Calibration must be measured: one group predicted 8% failure but 60% failed. Small, single dataset.",
+          "added": "2026-10-21",
+          "url": "https://hamel.dev/blog/posts/decision-model-evals",
+          "sid": "58b479d20c57cce8"
+        },
         {
           "id": "groundeval-2026-judge-free-agent-evaluation",
           "kind": "benchmark-result",
