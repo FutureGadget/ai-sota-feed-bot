@@ -1,13 +1,14 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 4,
- "day_count": 4,
- "source_count": 3,
+ "item_count": 5,
+ "day_count": 5,
+ "source_count": 4,
  "first_seen": "2026-10-01T17:06:53+00:00",
- "last_updated": "2026-10-20T08:50:39+00:00",
- "generated_at": "2026-10-22T00:12:07.055289+00:00",
+ "last_updated": "2026-10-21T15:38:05+00:00",
+ "generated_at": "2026-10-22T05:13:00.625211+00:00",
  "sources": [
+  "arxiv_agent_systems_research",
   "arxiv_cs_ai",
   "arxiv_cs_lg",
   "arxiv_llm_reliability"
@@ -72,15 +73,31 @@
      "why_it_matters": "Matches feed focus: eval.",
      "sid": "06d8677dec3b3c21",
      "published": "2026-10-20T08:50:39+00:00",
-     "editor_note": "Newest: hallucinations when translating code between languages, with mitigations."
+     "editor_note": "Hallucinations when translating code between languages, with mitigations."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "items": [
+    {
+     "title": "Automated Materials Data and Knowledge Extraction using Machine Learning and Large Language Models",
+     "url": "http://arxiv.org/abs/2610.29895v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Over the past decade, substantial efforts have been devoted to developing machine learning (ML) methods for extracting materials data and, where possible, materials knowledge directly from the scientific literature. T...",
+     "why_it_matters": "Matches feed focus: agentic, evaluation.",
+     "sid": "16071b3c73317004",
+     "published": "2026-10-21T15:38:05+00:00",
+     "editor_note": "Newest: materials-science data extraction with ML and LLMs; a domain survey, not a reliability result."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This page groups arXiv papers by the shared phrase \"large language models\"; they do not form one developing story. They cover hallucination detection (Oct 1), a security attack on speculative decoding (Oct 6), narrative-induced sycophancy (Oct 16) and, new, hallucinations in code translation (Oct 20).",
+  "tldr": "This page groups arXiv papers by the shared phrase \"large language models\"; they do not form one developing story. They cover hallucination detection (Oct 1), a security attack on speculative decoding (Oct 6), narrative-induced sycophancy (Oct 16) and hallucinations in code translation (Oct 20).",
   "stale": false,
-  "whats_new": "Oct 20 adds an arXiv study of LLM hallucinations in cross-language code translation, with mitigations; it joins the hallucination papers but is not a development of them.",
+  "whats_new": "Oct 21 adds an arXiv survey of LLM-based materials data extraction; it is a domain application, not a development of the reliability papers above it.",
   "why_it_matters": "Each paper names a distinct failure surface: hallucination probing needs hidden-state access, speculative decoding adds a draft-model attack path, sycophancy skews user-facing answers, and code translation adds hallucinated output in migrations. Treat them as separate checks, not one trend.",
   "take_for_builders": "Do not cite these papers as corroborating each other; if you migrate code with LLMs, add a hallucination check on translated output, and judge the other papers separately.",
   "beats": [
@@ -103,10 +120,18 @@
    },
    {
     "kicker": "BEHAVIOR",
-    "tone": "now",
+    "tone": "neutral",
     "headline": "Narrative-induced sycophancy evaluated in LLMs",
     "sids": [
      "ade0f523550f640a"
+    ]
+   },
+   {
+    "kicker": "APPLICATION",
+    "tone": "now",
+    "headline": "LLMs applied to extracting materials data from scientific literature",
+    "sids": [
+     "16071b3c73317004"
     ]
    }
   ],
@@ -115,6 +140,6 @@
    "Does the speculative-decoding defense add measurable latency over unprotected drafting?",
    "Do the code-translation mitigations hold on languages outside the paper's test set?"
   ],
-  "generated_at": "2026-10-21T05:12:05.382893+00:00"
+  "generated_at": "2026-10-22T05:12:38+00:00"
  }
 }
