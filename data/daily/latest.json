@@ -1,161 +1,166 @@
 {
-  "date": "2026-10-22",
-  "title": "What happened in AI — Oct 22, 2026",
-  "generated_at": "2026-10-22T22:15:29Z",
+  "date": "2026-10-23",
+  "title": "What happened in AI — Oct 23, 2026",
+  "generated_at": "2026-10-23T22:16:04Z",
   "intro": [
-    "AI coding agents are producing more code without more finished work, according to a 718-firm study, even as new agent runtimes and gates keep arriving.",
-    "DeepSeek reportedly closed a $15B round days after the US ordered federal agencies to remove its products."
+    "Agent security dominated the day: OpenAI detailed tighter containment for frontier training, and Axios reported unvetted AI agents already accessing U.S. bank accounts.",
+    "On the infrastructure side, vLLM shipped long-context GLM-5.3 serving and day-0 MiniMax-M3.1-Flash support, and Chinese open-weight models kept widening their reach."
   ],
   "highlights": [
-    "Harvard study of 718 firms: AI coding raises code volume, not completed work.",
-    "OpenAI's Patch the Planet helped find PHP2Shell flaws in core PHP.",
-    "DeepSeek reportedly raised about $15B, led by CATL and Tencent, after a US federal ban.",
-    "Modal open-sources Spindle for fine-tuning open models.",
-    "Anthropic donates Agent Skills to the Agentic AI Foundation."
+    "OpenAI hardens frontier training and evaluation environments with offline setups and high-compute red-teaming.",
+    "Axios: unvetted AI agents are accessing U.S. bank accounts.",
+    "Anthropic launches opt-in OSS Scanner for open-source maintainers.",
+    "vLLM serves GLM-5.3 at 1M-token context on 16 H200s, 1.7–3.2× faster per user.",
+    "Kimi K3.1 Pro lands on the API; weights promised by Nov 4.",
+    "DeepSeek and MiniMax win approval for global use, per Reuters."
   ],
-  "article_count": 45,
+  "article_count": 31,
   "categories": [
     {
-      "name": "Coding agents: more code, same throughput",
-      "slug": "coding-agents-more-code-same-throughput",
-      "summary": "A 718-firm study finds AI-assisted code volume rises without a matching rise in completed work, while builders ship new embeddable and gated agent runtimes.",
+      "name": "Agent Context and Harness Design",
+      "slug": "agent-context-harness-design",
+      "summary": "Two builds show where agent harnesses are heading: smarter retrieval into context, and a harness that extends itself.",
       "articles": [
         {
-          "title": "Study Finds AI-generated Code Fails to Boost Productivity Due to Downstream Bottlenecks",
-          "summary": "Harvard study of 718 firms (Jellyfish data): coding agents raise code volume, but completed work doesn't keep pace because of downstream bottlenecks.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/10/jellyfish-ai-productivity/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "Thu, 22 Oct 2026 14:00:00 GMT"
+          "title": "Context Engineering (Agent Memory) for AI Agents Starts with Retrieval",
+          "summary": "LangChain's Deep Agents harness uses targeted retrieval to cut clumsy searches, oversized results and stale data from agent context.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/context-engineering-starts-with-retrieval",
+          "published": "2026-10-23T17:00:00+00:00"
         },
         {
-          "title": "Vercel Labs Open-Sources fx: A Zig Coding Agent Designed to Be Embedded",
-          "summary": "Vercel Labs' experimental fx is a Zig coding agent that runs as a CLI, script component or embedded library, including a WebAssembly build.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/10/vercel-zig-fx-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "Thu, 22 Oct 2026 09:33:00 GMT"
-        },
-        {
-          "title": "The nightly Ralph loop: a coding agent that works my backlog and never merges",
-          "summary": "A nightly coding-agent loop works a backlog and never merges, leaving the merge decision to a human.",
+          "title": "Ultimate: A self-extending agent harness built on Pi Durable",
+          "summary": "A write-up of a self-extending agent harness built on Pi Durable, a durable-execution base for long-running agents.",
           "source": "hackernews_ai",
-          "url": "https://cloudwired.dev/notes/the-nightly-ralph-loop",
-          "published": "Thu, 22 Oct 2026 16:56:36 +0000"
+          "url": "https://danielgriesser.com/posts/ultimate/",
+          "published": "Fri, 23 Oct 2026 08:33:24 +0000"
         },
         {
-          "title": "Developer Behind the AI-Built Adobe Clones Says They Are “Not Anywhere Close to Ready",
-          "summary": "A developer used Claude Opus 5.5 to build open-source stand-ins for seven Adobe apps, then said they are not close to ready after projecting near parity in a month.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/10/photocraft-adobe-parity/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "Thu, 22 Oct 2026 07:41:00 GMT"
-        }
-      ]
-    },
-    {
-      "name": "Security: agents as both attack surface and bug finders",
-      "slug": "security-agents-attack-surface-and-bug-finders",
-      "summary": "OpenAI's program helped find PHP core vulnerabilities, while agent-side defenses focus on local policy checks.",
-      "articles": [
-        {
-          "title": "[AINews] OpenAI’s Patch the Planet program is 1 of 2 parties to discover PHP2Shell vulnerabilities in core PHP affecting 70% of the web, using GPT-5.6 Sol; coordinated response over 2 months",
-          "summary": "OpenAI's Patch the Planet program was one of two parties to discover PHP2Shell vulnerabilities in core PHP, using GPT-5.6 Sol, with a two-month coordinated response.",
-          "source": "latent_space",
-          "url": "https://www.latent.space/p/ainews-openais-patch-the-planet-program",
-          "published": "Thu, 22 Oct 2026 07:42:44 GMT"
-        },
-        {
-          "title": "Show HN: Secure your AI agents on Mac",
-          "summary": "Plango is a Mac-native security tool that runs a local model to evaluate coding-agent actions against the lethal trifecta of data access, outside communication and untrusted content.",
-          "source": "hackernews_ai",
-          "url": "https://installplango.com/",
-          "published": "Thu, 22 Oct 2026 20:15:37 +0000"
-        }
-      ]
-    },
-    {
-      "name": "Inference and training infrastructure for agents",
-      "slug": "inference-training-infrastructure-agents",
-      "summary": "Teams are trimming latency and cost in agent serving, and open training APIs are reaching smaller teams.",
-      "articles": [
-        {
-          "title": "Why AI Compute Comes in Rectangles — Erik Bernhardsson, Modal CEO",
-          "summary": "Modal's CEO discusses elastic GPUs, sandbox growth and the economics of the agent cloud.",
-          "source": "latent_space",
-          "url": "https://www.latent.space/p/modal-d",
-          "published": "Thu, 22 Oct 2026 17:40:57 GMT"
-        },
-        {
-          "title": "Introducing our Training API",
-          "summary": "Modal's Spindle is an open-source API for fine-tuning open models; one command deploys a server that runs Tinker-compatible training code.",
-          "source": "modal_blog",
-          "url": "https://modal.com/blog/introducing-training-api",
-          "published": "2026-10-22T12:00:00.000Z"
-        },
-        {
-          "title": "Stream low-latency speech from AI agents using Kokoro TTS on Amazon SageMaker AI",
-          "summary": "AWS shows streaming each sentence of an agent's reply to a Kokoro-82M TTS model on SageMaker AI so speech starts before the full response is ready.",
+          "title": "Multi-Turn Reinforcement Learning on Amazon SageMaker AI: A hands-on guide",
+          "summary": "AWS walks the full multi-turn RL pipeline on SageMaker AI, training on whole-task outcomes instead of labeled steps, using Wordle as the example.",
           "source": "aws_ml_blog",
-          "url": "https://aws.amazon.com/blogs/machine-learning/stream-low-latency-speech-from-ai-agents-using-kokoro-tts-on-amazon-sagemaker-ai/",
-          "published": "Thu, 22 Oct 2026 17:45:58 +0000"
-        },
-        {
-          "title": "Expanding Claude availability and deployment choice on Google Cloud",
-          "summary": "Google Cloud expands Claude availability and deployment options for developers.",
-          "source": "google_cloud_blog",
-          "url": "https://cloud.google.com/blog/products/ai-machine-learning/expanding-claude-availability-on-google-cloud/",
-          "published": "Thu, 22 Oct 2026 21:00:00 +0000"
+          "url": "https://aws.amazon.com/blogs/machine-learning/multi-turn-reinforcement-learning-on-amazon-sagemaker-ai-a-hands-on-guide/",
+          "published": "Fri, 23 Oct 2026 17:48:54 +0000"
         }
       ]
     },
     {
-      "name": "Agent standards and platform APIs",
-      "slug": "agent-standards-platform-apis",
-      "summary": "Vendors are pushing shared agent-skill packaging and new low-latency API surfaces.",
+      "name": "Agent Security and Containment",
+      "slug": "agent-security-containment",
+      "summary": "Labs and researchers are tightening containment around agents, while unvetted agents reportedly already reach bank accounts.",
       "articles": [
         {
-          "title": "Donating Agent Skills to the Agentic AI Foundation",
-          "summary": "Anthropic donates Agent Skills to the Agentic AI Foundation.",
-          "source": "anthropic_newsroom",
-          "url": "https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation",
-          "published": "2026-10-22T00:00:00+00:00"
-        },
-        {
-          "title": "Build more responsive apps with the Decisions API",
-          "summary": "OpenAI's Decisions API targets fast, low-cost decisions inside applications.",
+          "title": "Securing our frontier model training environment",
+          "summary": "OpenAI details stronger containment for frontier model training and evaluation, including offline environments and high-compute red-teaming.",
           "source": "openai_blog",
-          "url": "https://openai.com/index/decisions-api",
-          "published": "Thu, 22 Oct 2026 19:00:00 GMT"
+          "url": "https://openai.com/index/securing-our-frontier-model-training-environment",
+          "published": "Fri, 23 Oct 2026 10:00:00 GMT"
+        },
+        {
+          "title": "Red-Teaming OpenAI's Internal Agent Monitoring Systems",
+          "summary": "Redwood Research red-teams OpenAI's internal agent monitoring systems.",
+          "source": "hackernews_ai",
+          "url": "https://blog.redwoodresearch.org/p/red-teaming-openais-internal-agent",
+          "published": "Fri, 23 Oct 2026 01:41:30 +0000"
+        },
+        {
+          "title": "Scoop: Unvetted AI agents are accessing U.S. bank accounts",
+          "summary": "Axios reports unvetted AI agents are accessing U.S. bank accounts, raising agent identity and authorization questions.",
+          "source": "hackernews_ai",
+          "url": "https://www.axios.com/2026/10/22/ai-agents-banks-unauthorized-accounts-access",
+          "published": "Fri, 23 Oct 2026 00:06:50 +0000"
+        },
+        {
+          "title": "Anthropic Adds Opt-In Security Scanning for Critical Open-Source Projects",
+          "summary": "Anthropic's free, opt-in OSS Scanner sends enrolled maintainers periodic vulnerability reports generated by its strongest models.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/10/anthropic-oss-security-scanner/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Fri, 23 Oct 2026 09:00:00 GMT"
+        },
+        {
+          "title": "AI Coding Agent Security Benchmark",
+          "summary": "Endor Labs publishes a security benchmark for AI coding agents.",
+          "source": "hackernews_ai",
+          "url": "https://www.endorlabs.com/research/ai-code-security-benchmark",
+          "published": "Fri, 23 Oct 2026 20:08:49 +0000"
         }
       ]
     },
     {
-      "name": "DeepSeek: record raise lands amid a US federal ban",
-      "slug": "deepseek-raise-amid-us-ban",
-      "summary": "DeepSeek reportedly raised about $15B days after US agencies were ordered to remove its products, which matters for teams evaluating open-weight Chinese models.",
+      "name": "Inference and Infrastructure",
+      "slug": "inference-infrastructure",
+      "summary": "Serving stacks and storage are being tuned for long-context, agentic load, and Trainium now targets training as well as inference.",
       "articles": [
         {
-          "title": "DeepSeek doubles round to $15 billion, led by CATL and Tencent",
-          "summary": "DeepSeek reportedly doubled its round to $15B, led by CATL and Tencent.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "Dealroom",
-          "publisher_domain": "app.dealroom.co",
-          "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPX3hlNzA4Z04yN2hTVXY5WXozRmhXRVlLZVJTNk5YMFdtQjdBakVkOXN0ckEyajZ1V3BBVFcwaWJtVzFOREdxS1NmQjNuc3ZlazRpek13VHNqTERsbzhSMzVFbzJxOGdIa01yR09zZUl1aWJjRUhaclpuQm5Ca05pVkFnbktXVGJaZTB1Y0VRSlZTUjhrbkF0ZXBR?oc=5",
-          "published": "Thu, 22 Oct 2026 03:02:13 GMT"
+          "title": "GLM-5.3 Optimizations, Part 2: PCP, DCP, and Hybrid HiSparse on 16 H200s",
+          "summary": "vLLM serves GLM-5.3 on 16 H200s, reaching 1M-token contexts at 1.7–3.2× the per-user speed of data-parallel P/D on the AgentX agentic benchmark.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-10-23-glm53-part2-pcp-dcp-hisparse",
+          "published": "Fri, 23 Oct 2026 00:00:00 GMT"
         },
         {
-          "title": "DHS Orders Agencies to Remove DeepSeek AI from Government Systems",
-          "summary": "DHS ordered federal agencies to remove DeepSeek AI from government systems.",
+          "title": "vLLM Delivers Day-0 Support for MiniMax-M3.1-Flash",
+          "summary": "vLLM ships day-0 MiniMax-M3.1-Flash support on NVIDIA Blackwell, NVIDIA Rubin and AMD MI350-series GPUs, with NVFP4 kernels and speculative decoding.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-10-23-minimax-m31-flash",
+          "published": "Fri, 23 Oct 2026 00:00:00 GMT"
+        },
+        {
+          "title": "Amazon’s Trainium Takes a Strike at the Training King",
+          "summary": "SemiAnalysis argues Amazon's Trainium is now viable for training, citing native PyTorch support, TorchTitan and CI quality.",
+          "source": "semianalysis",
+          "url": "https://newsletter.semianalysis.com/p/amazons-trainium-takes-a-strike-at",
+          "published": "Fri, 23 Oct 2026 19:06:44 GMT"
+        },
+        {
+          "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)",
+          "summary": "OpenAI describes scaling Habitat storage on Azure Cosmos DB with multi-tenancy and global caching, for 12× faster reads in ChatGPT.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/scaling-storage-one-billion-users-part-two",
+          "published": "Fri, 23 Oct 2026 17:00:00 GMT"
+        }
+      ]
+    },
+    {
+      "name": "Chinese Open-Weight Models Gain Ground",
+      "slug": "chinese-open-weight-models",
+      "summary": "Kimi K3.1 Pro and DeepSeek advance on cost and capability while regulatory approval and market reaction shape global reach.",
+      "articles": [
+        {
+          "title": "Introducing Kimi K3.1 Pro",
+          "summary": "Kimi K3.1 Pro is live on the Kimi API; Moonshot promises full weights by Nov 4, 2026.",
+          "source": "simon_willison",
+          "url": "https://simonwillison.net/2026/Oct/23/kimi-k31-pro/",
+          "published": "2026-10-23T19:40:54+00:00"
+        },
+        {
+          "title": "Deepseek's latest AI model is smarter than ever, but its low running costs come at a price — uses only one-quarter of the HBM and one-eighth of SSD storage but still battles hallucinations in agentic workloads",
+          "summary": "DeepSeek's newest model uses a quarter of the HBM and an eighth of the SSD storage, but still hallucinates in agentic workloads.",
           "source": "search_cn_open_weight_labs",
-          "publisher_name": "FEDagent",
-          "publisher_domain": "fedagent.com",
-          "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOZzBVOUtiU3djSUxzZ1hPby1Zd0lhSzdjV3pRNTlZV1R1cHlPLXhVb2JnWVdJZVFiUUtEd2lkS25qWXoyYi1GM2hfYjZuXzl0WWpCNVlqS1dEUlVFRHhIUnpqZkMtMXZiblBFZWt2YS1hVFJuMXlibXRpR084V0Fqc21YV1kwV0h4V1AxZG83ZURKd0wyd0FfN3lvdw?oc=5",
-          "published": "Thu, 22 Oct 2026 14:18:59 GMT"
+          "publisher_name": "Tom's Hardware",
+          "publisher_domain": "tomshardware.com",
+          "url": "https://news.google.com/rss/articles/CBMi_wJBVV95cUxORG9YWXBTSEx5UGZiTmtTVHZXLUE1TlVvRTlWbDNlbGg0Q3paX2llTlYweWR6cEJJUW1SeXY0VHBtb19PUll1d2xLRUFacDNDelZrUkkydGwtT2YwMU5CZXZmZFFTLWJydmk0NHVyWE9DV1E0UGUwbjVKUnhjbVZRaGJsVGg4YjRkaHBtRFY2eGhpMnlJUlBnQnJZaXNLaWVPR2htenVvSks3ZUtzeVpubWI4TVl6M2xZR25HZU9OWW1yT0xYRVVLQW1POE5HMkg5bUpyUjlVblBUeDIzd1JhVm9tX3JDLTVTSVV0Um9xLWRxZFloYXdkSU1wTGpBdUtEVVBTM0RkX2s3SjEtWlg2d0NOZ0hMY2xnVlFlZ3d6MmFyUmNhZHdlYm13X0pWelZYa0JMdFJpb0FPU3FITFJnRFZ0dndEdXg2V2RjdUlRQTFCSkdzTjZKM245WXgwM0dXMTdSTlYtel9WUEZzVGl2M1E4cF9Hc0pCelY2SFg5bw?oc=5",
+          "published": "Fri, 23 Oct 2026 12:00:00 GMT"
+        },
+        {
+          "title": "China's DeepSeek, MiniMax win approval for AI global use, state media-affiliated entity says",
+          "summary": "Chinese state-media-affiliated body approves DeepSeek and MiniMax for global use, per Reuters.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Reuters",
+          "publisher_domain": "reuters.com",
+          "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOUDVGa0hCU3ppVlo3amtaT1l4T18zcHNWWlFkV3Nveks4TDI5RGxkMzE1TFpEZjIxWFBZNl9ILU9SRVdzMEtCX2JKai1FbXlYTTFFX1Y0U3NfRGZuRGttQ0ZKYVhRS3NaUTlEWldxNzVIQUdzamNVMTE1cVg0N1VpLUlweVZlU3lpOGFRajJ6eHItM3NHTGlLVldsVWxnbTcwQncxekJITDJfWUxWUGt1OWx1Zm4zLXdEdm5ja0VPbXNlNmFxWWstT0lfVkZOQXNTNlRYcktB?oc=5",
+          "published": "Fri, 23 Oct 2026 06:59:00 GMT"
+        },
+        {
+          "title": "Chinese AI controls 55% of developer traffic—DeepSeek and Kimi K3 rewrote the rules",
+          "summary": "Report claims Chinese models carry 55% of developer traffic, with DeepSeek and Kimi K3 driving the shift.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Latin Times",
+          "publisher_domain": "latintimes.com",
+          "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNeC1wY3ViQ1pNT21FNklkc21TbTJNai1SUGZuNk14cjVKaWRVOVR6ZExMa0g4V3ZROVhtU0pYeUllTFlJcEVZZ1NfU3FHLUVlaVZpZWZKNkxrZUwyMmNlbU5OTklVYU83UWttTmtIS254dWhGNTRoZEVWeTBBVHEwaEdiZFYyUXRZdHd0WEpHZEZaNWdWd3hNaXBYMTdnWHdGSVkzQ0ZINzNHSFZvbkE?oc=5",
+          "published": "Fri, 23 Oct 2026 00:47:45 GMT"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "S5l3H7UfsVU",
-    "title": "LLM Digest Daily Explainer: Oct 22, 2026",
-    "duration_s": 116.3
-  }
+  ]
 }
