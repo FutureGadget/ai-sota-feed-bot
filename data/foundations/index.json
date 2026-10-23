@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-21T10:09:15.406689+00:00",
+  "generated_at": "2026-10-23T18:05:47.747987+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -70,6 +70,24 @@
   ],
   "recent_evidence": [
     {
+      "concept": "agent-eval-design",
+      "concept_title": "What should an agent eval actually measure?",
+      "id": "episem-bench-2026-missing-evidence",
+      "title": "EpiSEM-Bench: Evaluating Safety and Evidence Recovery in LLM Agents under Missing Evidence",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-10-23"
+    },
+    {
+      "concept": "agent-context-lifecycle",
+      "concept_title": "Why does adding more context sometimes hurt an agent?",
+      "id": "langchain-2026-context-engineering-retrieval",
+      "title": "Context Engineering for AI Agents Starts with Retrieval",
+      "tier": "production field-report-backed",
+      "kind": "production-field-report",
+      "added": "2026-10-23"
+    },
+    {
       "concept": "llm-judge-reliability",
       "concept_title": "Can you trust an LLM-as-judge score?",
       "id": "hamel-decision-model-evals-2026",
@@ -122,24 +140,6 @@
       "tier": "benchmark/result-backed",
       "kind": "benchmark-result",
       "added": "2026-10-09"
-    },
-    {
-      "concept": "mcp-security-control-layers",
-      "concept_title": "What actually breaks when you run MCP in production, and how do you defend it?",
-      "id": "copex-2026-mcp-adversarial-context",
-      "title": "COPEX: Benchmarking LLM Robustness to Adversarial Context Across Model Context Protocol Layers",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-10-07"
-    },
-    {
-      "concept": "agent-model-routing",
-      "concept_title": "When should an agent route a call to a cheaper model instead of the frontier model?",
-      "id": "langchain-2026-open-swe-model-router",
-      "title": "How to Build a Model Router in the Harness",
-      "tier": "production field-report-backed",
-      "kind": "production-field-report",
-      "added": "2026-10-02"
     }
   ],
   "concepts": {
@@ -151,8 +151,8 @@
       "status": "active",
       "cluster": "memory",
       "cluster_label": "Memory and context",
-      "updated": "2026-10-06",
-      "latest_evidence_added": "2026-09-23",
+      "updated": "2026-10-23",
+      "latest_evidence_added": "2026-10-23",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -186,6 +186,16 @@
         }
       ],
       "evidence": [
+        {
+          "id": "langchain-2026-context-engineering-retrieval",
+          "kind": "production-field-report",
+          "tier": "production field-report-backed",
+          "title": "Context Engineering for AI Agents Starts with Retrieval",
+          "note": "LangChain's Deep Agents harness gates what enters context: read_file returns 100 lines by default, tool results over about 20,000 tokens are offloaded to a file with a path and preview, and subagents each read one retrieved file and return only key facts and a source URL. Retrieved text is treated as untrusted. Vendor engineering write-up; reports configuration values, not benchmark results.",
+          "added": "2026-10-23",
+          "url": "https://www.langchain.com/blog/context-engineering-starts-with-retrieval",
+          "sid": "b0133c74d1515b7b"
+        },
         {
           "id": "gaggar-2026-protocol-preserving-context-trimming",
           "kind": "benchmark-result",
@@ -248,8 +258,8 @@
       "status": "active",
       "cluster": "evaluation",
       "cluster_label": "Evals and reliability",
-      "updated": "2026-10-14",
-      "latest_evidence_added": "2026-10-14",
+      "updated": "2026-10-23",
+      "latest_evidence_added": "2026-10-23",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -283,6 +293,16 @@
         }
       ],
       "evidence": [
+        {
+          "id": "episem-bench-2026-missing-evidence",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "EpiSEM-Bench: Evaluating Safety and Evidence Recovery in LLM Agents under Missing Evidence",
+          "note": "Executable benchmark of 300 matched unsafe/safe task pairs across six domains and ten models. Suppressing a safety-relevant fact from a tool response, while every returned statement stays true, can lead agents to take prohibited actions. Models differ widely in omission robustness and evidence acquisition; giving agents recovery access reduces unsafe execution for all ten. Abstract-level read only; per-model rates not verified.",
+          "added": "2026-10-23",
+          "url": "http://arxiv.org/abs/2610.31650v1",
+          "sid": "9831d6e2b082e033"
+        },
         {
           "id": "arxiv-2609-37315-executable-contract-audit",
           "kind": "benchmark-result",

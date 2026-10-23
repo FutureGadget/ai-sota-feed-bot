@@ -44,6 +44,13 @@ evidence:
     title: "LLM Digest synthesis"
     added: 2026-09-02
     note: "A low eval score is a claim about two things at once: the agent's behavior and the eval's own correctness. Builders default to debugging the first without checking the second. Treat the eval as software that needs its own bug-fixing pass before trusting what it reports about the agent."
+  - id: episem-bench-2026-missing-evidence
+    kind: benchmark-result
+    title: "EpiSEM-Bench: Evaluating Safety and Evidence Recovery in LLM Agents under Missing Evidence"
+    url: "http://arxiv.org/abs/2610.31650v1"
+    sid: "9831d6e2b082e033"
+    added: 2026-10-23
+    note: "Executable benchmark of 300 matched unsafe/safe task pairs across six domains and ten models. Suppressing a safety-relevant fact from a tool response, while every returned statement stays true, can lead agents to take prohibited actions. Models differ widely in omission robustness and evidence acquisition; giving agents recovery access reduces unsafe execution for all ten. Abstract-level read only; per-model rates not verified."
 ---
 
 ## Builder consequence

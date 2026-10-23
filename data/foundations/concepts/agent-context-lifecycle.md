@@ -38,6 +38,13 @@ evidence:
     title: "Lifecycle framing vs. single-stage fixes"
     added: 2026-07-24
     note: "Editorial synthesis: a summarizer alone addresses only the compacting stage of the five-stage lifecycle. Ingestion and scoping stay unmanaged, which is why teams that bolt on summarization as their only context-cost fix keep hitting the same accuracy cliff."
+  - id: langchain-2026-context-engineering-retrieval
+    kind: production-field-report
+    title: "Context Engineering for AI Agents Starts with Retrieval"
+    url: "https://www.langchain.com/blog/context-engineering-starts-with-retrieval"
+    sid: "b0133c74d1515b7b"
+    added: 2026-10-23
+    note: "LangChain's Deep Agents harness gates what enters context: read_file returns 100 lines by default, tool results over about 20,000 tokens are offloaded to a file with a path and preview, and subagents each read one retrieved file and return only key facts and a source URL. Retrieved text is treated as untrusted. Vendor engineering write-up; reports configuration values, not benchmark results."
 ---
 
 ## Builder consequence
