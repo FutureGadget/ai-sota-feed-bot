@@ -1,12 +1,12 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 5,
- "day_count": 5,
+ "item_count": 4,
+ "day_count": 4,
  "source_count": 4,
- "first_seen": "2026-10-01T17:06:53+00:00",
+ "first_seen": "2026-10-06T16:59:37+00:00",
  "last_updated": "2026-10-21T15:38:05+00:00",
- "generated_at": "2026-10-22T15:19:41.687294+00:00",
+ "generated_at": "2026-10-23T00:04:54.611673+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -14,22 +14,6 @@
   "arxiv_llm_reliability"
  ],
  "days": [
-  {
-   "date": "2026-10-01",
-   "items": [
-    {
-     "title": "External Observers May See More Clearly: Cross-Model Span-Level Hallucination Detection in Large Language Models via Hidden State Probing",
-     "url": "http://arxiv.org/abs/2610.02066v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "As Large Language Models (LLMs) increasingly serve as foundational reasoning engines, their tendency to hallucinate remains a critical vulnerability. While recent internal state probes offer a promising alternative to...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "2476b153d599e8b7",
-     "published": "2026-10-01T17:06:53+00:00",
-     "editor_note": "Hallucination detection by probing hidden states across models, at span level."
-    }
-   ]
-  },
   {
    "date": "2026-10-06",
    "items": [
@@ -95,18 +79,17 @@
   }
  ],
  "editorial": {
-  "tldr": "This page groups arXiv papers by the shared phrase \"large language models\"; they do not form one developing story. They cover hallucination detection (Oct 1), a security attack on speculative decoding (Oct 6), narrative-induced sycophancy (Oct 16) and hallucinations in code translation (Oct 20).",
+  "tldr": "This page groups arXiv papers by the shared phrase \"large language models\"; they do not form one developing story. They cover a security attack on speculative decoding (Oct 6), narrative-induced sycophancy (Oct 16) and hallucinations in code translation (Oct 20).",
   "stale": false,
   "whats_new": "Oct 21 adds an arXiv survey of LLM-based materials data extraction; it is a domain application, not a development of the reliability papers above it.",
-  "why_it_matters": "Each paper names a distinct failure surface: hallucination probing needs hidden-state access, speculative decoding adds a draft-model attack path, sycophancy skews user-facing answers, and code translation adds hallucinated output in migrations. Treat them as separate checks, not one trend.",
+  "why_it_matters": "Each paper names a distinct failure surface: speculative decoding adds a draft-model attack path, sycophancy skews user-facing answers, and code translation adds hallucinated output in migrations. Treat them as separate checks, not one trend.",
   "take_for_builders": "Do not cite these papers as corroborating each other; if you migrate code with LLMs, add a hallucination check on translated output, and judge the other papers separately.",
   "beats": [
    {
     "kicker": "RELIABILITY",
     "tone": "launch",
-    "headline": "Hallucination research: hidden-state probing and code-translation errors",
+    "headline": "Hallucinations in cross-language code translation, with mitigations",
     "sids": [
-     "2476b153d599e8b7",
      "06d8677dec3b3c21"
     ]
    },
@@ -136,10 +119,9 @@
    }
   ],
   "open_questions": [
-   "Do hidden-state hallucination probes transfer across model families without per-model training?",
    "Does the speculative-decoding defense add measurable latency over unprotected drafting?",
    "Do the code-translation mitigations hold on languages outside the paper's test set?"
   ],
-  "generated_at": "2026-10-22T05:12:38+00:00"
+  "generated_at": "2026-10-23T00:04:35+00:00"
  }
 }
