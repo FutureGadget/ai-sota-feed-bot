@@ -2352,6 +2352,40 @@
   "url": "http://arxiv.org/abs/2610.01345v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
+ "275a3139868598ea": {
+  "first_seen": "2026-10-23T01:08:06.863351+00:00",
+  "id": "fab6479c20040a3e",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-22T10:41:13+00:00",
+  "sid": "275a3139868598ea",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Policy enforcement for LLM agents has shifted from single-turn content moderation to compound, application-specific policies evaluated over multi-turn transcripts and tool-call trajectories. Fine-tuned guardrail models are efficient but degrade on compound policies, and while LLM-as-a-judge approaches achieve higher accuracy, they incur high inference cost and tend to produce unstable predictions. Neurosymbolic methods offer a natural alternative, decomposing the policy into narrow neural decisions composed under explicit logic. However, existing symbolic layers lack the required expressiveness and are optimized against fixed data rather than the policy itself. To address this, we introduce SCOPE, which compiles a policy into an executable program of neural predicates executed by small models, deterministic extractors, and code that composes their outputs. The program is optimized jointly with its training data, using adversarial generation of counterexamples that target where the program deviates from the policy. We evaluate SCOPE on a benchmark of real-world policy tasks against prompt optimization, task decomposition, and workflow generation methods, achieving the highest average accuracy across tasks and models. Programs optimized with the weakest executor transfer to other models without further optimization. This allows them to be deployed in production on inexpensive models, where they reach accuracy comparable to frontier reasoning models. Unlike these monolithic mode",
+  "summary_1line": "Policy enforcement for LLM agents has shifted from single-turn content moderation to compound, application-specific policies evaluated over multi-turn transcripts and tool-call trajectories. Fine-tuned guardrail model...",
+  "title": "SCOPE: Compiling Natural-Language Policies into Neurosymbolic Predicate Programs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31062v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "276a486ae6eefe6b": {
+  "first_seen": "2026-10-23T01:08:06.863351+00:00",
+  "id": "51041d2b59163abd",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-21T20:46:24+00:00",
+  "sid": "276a486ae6eefe6b",
+  "source": "arxiv_llm_reliability",
+  "summary": "Recent advances in search agents have enabled large language models to tackle complex tasks by retrieving and synthesizing external information. However, existing search agents often lack search-state awareness, i.e., the ability to recognize what information has been obtained and what remains missing, leading to hallucinated reasoning and prematurely terminated search. To address this limitation, we propose Self-Assessment Reinforcement Learning (SARL), a reinforcement learning framework in which models learn to recognize their own search state during training and improve their search behavior accordingly, without requiring additional assessment at test time. SARL achieves this through a dual reward design that captures the corrective effect of each assessment while penalizing excessive reliance on it, jointly encouraging effective and efficient search trajectories. Under this setup, SARL achieves a 24.3% relative improvement over the strongest baseline, with average gains of 35.9% on multi-hop reasoning and 27.9% on deep research benchmarks against the strongest per-benchmark baselines. SARL further surpasses methods built on auxiliary supervision or multi-agent coordination, despite operating as a standalone RL framework with no inference-time scaffolding. Beyond final performance, SARL maintains training stability under extended search horizons, a regime where existing methods consistently degrade, enabling sustained gains as task complexity grows.",
+  "summary_1line": "Recent advances in search agents have enabled large language models to tackle complex tasks by retrieving and synthesizing external information. However, existing search agents often lack search-state awareness, i.e.,...",
+  "title": "Self-Assessment Reinforcement Learning for Search-State Awareness in Retrieval-Augmented Large Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.30435v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "282b43b99a48e619": {
   "first_seen": "2026-10-09T07:03:50.740385+00:00",
   "id": "698d12ee27f58d3c",
@@ -2980,6 +3014,22 @@
   "title": "Scaling and Operating a Large dbt Project on Databricks: IFCO's Data Team on Performance, Visibility, and Debugging",
   "type": "news",
   "url": "https://www.databricks.com/blog/scaling-and-operating-large-dbt-project-databricks-ifcos-data-team-performance-visibility-and-debugging"
+ },
+ "3318e6ff64396481": {
+  "first_seen": "2026-10-23T01:08:06.863351+00:00",
+  "id": "e38a3fb40126ffb3",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-22T08:59:47+00:00",
+  "sid": "3318e6ff64396481",
+  "source": "arxiv_cs_cl",
+  "summary": "Ophthalmic clinical decision support requires fast, accurate, and privacy-preserving inference, yet autoregressive large language models (LLMs) incur substantial latency and computational overhead for decisions among predefined actions. We therefore investigate a decision-oriented alternative to generative reasoning. Specifically, we first introduce RetiJev-Data, a source-grounded ophthalmology corpus comprising 78,158 clinical-decision and diagnosis questions derived from articles in PubMed Central and a MeSH vocabulary covering 531 eye diseases, and 50,074 guideline-grading questions spanning 11 grading systems, along with a 24,662-question evaluation benchmark. Based on this, we develop RetiJev, a family of 0.8B-9B decision models that directly score candidate answers without autoregressive decoding. Across all model sizes, RetiJev outperforms both a 27B LLM and the commercial Jev 1.13 decision model on guideline grading by 10.4-23.0 points. RetiJev-9B further achieves the highest accuracy on clinical decisions, improving over both baselines by 5.4-6.5 points while matching them on diagnosis. It answers a case in 158 ms on one GPU, 3.5x faster than LLM generation and 470x faster than reasoning. Models are released at https://github.com/Awenbocc/RetiJev.",
+  "summary_1line": "Ophthalmic clinical decision support requires fast, accurate, and privacy-preserving inference, yet autoregressive large language models (LLMs) incur substantial latency and computational overhead for decisions among...",
+  "title": "RetiJev: Fast and Source-Grounded Ophthalmic Decision Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.30947v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "346a736923aff845": {
   "first_seen": "2026-10-19T02:04:44.409254+00:00",
@@ -3780,6 +3830,18 @@
   "url": "https://www.infoq.com/news/2026/10/qconlondon-2027-track/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "43369f1003301415": {
+  "first_seen": "2026-10-23T01:08:06.863351+00:00",
+  "id": "d44f6795c1c92dc4",
+  "published": "2026-10-23T00:47:45+00:00",
+  "sid": "43369f1003301415",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Chinese AI controls 55% of developer traffic—DeepSeek and Kimi K3 rewrote the rules Latin Times",
+  "summary_1line": "Chinese AI controls 55% of developer traffic—DeepSeek and Kimi K3 rewrote the rules Latin Times",
+  "title": "Chinese AI controls 55% of developer traffic—DeepSeek and Kimi K3 rewrote the rules",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNeC1wY3ViQ1pNT21FNklkc21TbTJNai1SUGZuNk14cjVKaWRVOVR6ZExMa0g4V3ZROVhtU0pYeUllTFlJcEVZZ1NfU3FHLUVlaVZpZWZKNkxrZUwyMmNlbU5OTklVYU83UWttTmtIS254dWhGNTRoZEVWeTBBVHEwaEdiZFYyUXRZdHd0WEpHZEZaNWdWd3hNaXBYMTdnWHdGSVkzQ0ZINzNHSFZvbkE?oc=5"
+ },
  "4353ed3c68ccb423": {
   "first_seen": "2026-10-09T14:04:30.735610+00:00",
   "id": "cde33b9138176330",
@@ -4209,6 +4271,21 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.21614v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "4a2eb27641e9b869": {
+  "first_seen": "2026-10-23T01:08:06.863351+00:00",
+  "id": "d4aacf783cc1e827",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-23T00:06:50+00:00",
+  "sid": "4a2eb27641e9b869",
+  "source": "hackernews_ai",
+  "summary_1line": "Scoop: Unvetted AI agents are accessing U.S. bank accounts",
+  "title": "Scoop: Unvetted AI agents are accessing U.S. bank accounts",
+  "type": "news",
+  "url": "https://www.axios.com/2026/10/22/ai-agents-banks-unauthorized-accounts-access",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "4a6aa459c4c33d53": {
   "first_seen": "2026-10-01T22:04:34.899617+00:00",
@@ -14143,6 +14220,24 @@
   "url": "https://github.com/gonzaroman/IHMT-MEMORY",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "ed508b2931c601f2": {
+  "first_seen": "2026-10-23T01:08:06.863351+00:00",
+  "id": "ac1fcae423f4a156",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-10-22T12:15:30+00:00",
+  "sid": "ed508b2931c601f2",
+  "source": "arxiv_cs_cl",
+  "summary": "Deep research agents synthesize open-web evidence into long reports, but current benchmarks do not evaluate research centered on a source video. We introduce Video-Centered Deep Research Report Generation. Given a video and user request, an agent identifies research questions, retrieves external multimodal evidence, and produces an interactive report linked to relevant video moments. This task has direct practical value because it helps users locate relevant moments, verify claims, reproduce demonstrated procedures, and make informed decisions from video content. We present a skill-based workflow and OmniDR-Bench for this task. For evaluation, we propose Omni Atomic Rubric Trees (Omni-ARTs). Each tree contains three dimensions, 23 shared directions, and task-specific atomic binary criteria. The directions test audiovisual grounding, multimodal evidence use, and interactive presentation. Audited Rubric Construction (ARC) builds these trees through independent evidence collection, automated checks, behavioral calibration, and iterative human review. OmniDR-Bench contains 50 Chinese and English tasks across 19 realworld subcategories. It includes 6,414 criteria. Across 18 agent configurations, the best system scores 63.3 out of 100. Current agents still need broader content coverage, stronger causal and logical analysis across modalities, and more accurate citation support. We further analyze models, harnesses, skill configurations, video categories, and research trajectories. T",
+  "summary_1line": "Deep research agents synthesize open-web evidence into long reports, but current benchmarks do not evaluate research centered on a source video. We introduce Video-Centered Deep Research Report Generation. Given a vid...",
+  "title": "Beyond Watching and Searching: Benchmarking Agents for Video-centered Deep Research Reports",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31158v1",
+  "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
  "ed610e0dc54be0b1": {
   "first_seen": "2026-10-18T23:04:11.264215+00:00",
   "id": "1ddb323f9c97f3c8",
@@ -15174,6 +15269,24 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.09681v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "ff59ea23eb8cc0be": {
+  "first_seen": "2026-10-23T01:08:06.863351+00:00",
+  "id": "4666266a9719aba7",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-10-21T22:29:47+00:00",
+  "sid": "ff59ea23eb8cc0be",
+  "source": "arxiv_agent_systems_research",
+  "summary": "A generally intelligent system acquires new skills efficiently without requiring humans to redesign its software scaffold for every new task. Yet language models rarely act alone. A harness is a symbolic program that orchestrates calls to the model, handling perception, memory, tool use, recovery, and inference allocation on the model's behalf. ARC-AGI-3 is an interactive benchmark in which agents must explore unfamiliar environments, figure out their goals on the fly, and keep learning as they go. On it, human-steered systems already report ceiling scores across the public games, so we know effective designs exist. We ask whether frontier models can build and improve such a harness on their own. Through a fixed coding bootstrap, each model constructs a complete task harness, acts through that harness on five development games, and revises the entire codebase twice. Every version is evaluated on twenty games that never influence adaptation. We measure task performance with Relative Human Action Efficiency (RHAE), which combines level completion with action efficiency relative to human baselines, and record dollar-denominated inference cost as a practical resource measure. Across 27 lineages, harness performance ranges from zero to near-ceiling scores. Two revisions raise mean held-out RHAE by only 2.80 points (95% interval [-1.44,7.35]). Development gains overstate held-out improvement, and reductions in inference cost can come at the expense of task performance. Human-steere",
+  "summary_1line": "A generally intelligent system acquires new skills efficiently without requiring humans to redesign its software scaffold for every new task. Yet language models rarely act alone. A harness is a symbolic program that...",
+  "title": "Can LLMs Improve Their Own Harness? A Controlled Study on ARC-AGI-3",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.30499v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
  "ff67b5f9889fff59": {
   "first_seen": "2026-10-19T15:03:28.171705+00:00",
