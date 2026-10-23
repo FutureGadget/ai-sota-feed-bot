@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-21T18:02:45.559509+00:00",
+ "generated_at": "2026-10-23T18:07:07.373135+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,22 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-23-deep-insight-five-production-challenges",
+   "topic": "multi-agent",
+   "topic_title": "Coordinating multiple agents adds more failure than capability",
+   "kind": "obstacle",
+   "date": "2026-10-23",
+   "title": "AWS Deep Insight splits multi-agent production work into five layers, each with its own control"
+  },
+  {
+   "id": "2026-10-23-commerce-webmcp-edge-opt-out",
+   "topic": "mcp",
+   "topic_title": "Model Context Protocol: a standard interface for agent tools",
+   "kind": "solution",
+   "date": "2026-10-23",
+   "title": "Commerce.com turns on WebMCP for ~100,000 storefronts at the edge, with per-merchant opt-out"
+  },
   {
    "id": "2026-10-21-cache-engineering-drop-repos",
    "topic": "context-compaction",
@@ -238,22 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-15",
    "title": "Swapping models mid-session carries over the old model's habits unless history is summarized"
-  },
-  {
-   "id": "2026-10-14-harness-only-terminal-bench-gain",
-   "topic": "agent-planning",
-   "topic_title": "Agents plan multi-step work badly — they loop, stall, or skip steps",
-   "kind": "obstacle",
-   "date": "2026-10-14",
-   "title": "Harness changes alone lifted LangChain's coding agent from 52.8% to 66.5% on Terminal Bench 2.0"
-  },
-  {
-   "id": "2026-10-14-open-models-agent-evals",
-   "topic": "agent-cost",
-   "topic_title": "Agent token costs are unpredictable and easily run away",
-   "kind": "obstacle",
-   "date": "2026-10-14",
-   "title": "LangChain's early evals put GLM-5 within 4 points of Opus 4.6 at roughly a fifth of the price"
   }
  ],
  "nodes": {
@@ -10226,7 +10226,7 @@
      "key": "production-evidence",
      "title": "Production deployments and what they report",
      "summary": "Named deployments in security ops, trading, sales, code review, healthcare, and internal platform work report real gains from role specialization plus human checkpoints; the numbers are self-reported by the teams or vendors.",
-     "count": 11
+     "count": 12
     },
     {
      "key": "parallel-coding-agents",
@@ -10248,6 +10248,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-23-deep-insight-five-production-challenges",
+     "topic": "multi-agent",
+     "date": "2026-10-23",
+     "title": "AWS Deep Insight splits multi-agent production work into five layers, each with its own control",
+     "theme": "production-evidence",
+     "html": "<p>AWS&#x27;s Solutions Architecture team (vendor-reported, open-sourced) frames production multi-agent systems as five problems: execution flow, per-agent model choice, reliable operation, safe execution of generated code, and monitoring.</p>\n<p>Its answers: a Strands graph with a Supervisor calling Coder, Validator, Reporter and Tracker agents as tools; each agent in its own context passing only compressed results onward; Haiku for routing, Opus for planning, Sonnet for execution; a human approval step on the analysis plan; and per-session ephemeral Fargate sandboxes for code execution, with per-user isolation on AgentCore.</p>\n<p>For builders: this is a worked checklist, not a benchmark. The post reports no quality, cost or latency numbers.</p>",
+     "evidence": [
+      {
+       "sid": "f4cbbc5a6a498cf5",
+       "title": "5 production challenges in multi-agent systems and how Deep Insight solved them"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-12-spotify-ads-agent-boundaries",
      "topic": "multi-agent",
@@ -10943,8 +10958,8 @@
      "title": "Practitioners want frameworks where models with different strengths split the work"
     }
    ],
-   "entry_count": 33,
-   "latest_entry_date": "2026-10-12",
+   "entry_count": 34,
+   "latest_entry_date": "2026-10-23",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -10962,6 +10977,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "f4cbbc5a6a498cf5",
+     "title": "5 production challenges in multi-agent systems and how Deep Insight solved them"
+    },
     {
      "sid": "fae73393a0aa4548",
      "title": "Presentation: Multi-Agent Patterns from Spotify’s AI Powered Advertising Platform"
@@ -11095,7 +11114,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-10-12"
+   "updated": "2026-10-23"
   },
   "prompt-injection": {
    "slug": "prompt-injection",
@@ -18087,7 +18106,7 @@
      "key": "webmcp",
      "title": "WebMCP and the browser as a tool surface",
      "summary": "WebMCP lets web pages expose functions and forms as tools; it moved from a Chrome origin trial to a one-click Cloudflare toggle and agent browsers that call it.",
-     "count": 4
+     "count": 5
     },
     {
      "key": "servers-in-production",
@@ -18103,6 +18122,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-23-commerce-webmcp-edge-opt-out",
+     "topic": "mcp",
+     "date": "2026-10-23",
+     "title": "Commerce.com turns on WebMCP for ~100,000 storefronts at the edge, with per-merchant opt-out",
+     "theme": "webmcp",
+     "html": "<p>Cloudflare and Commerce.com enabled <strong>WebMCP</strong> across almost 100,000 storefront domains without theme edits. An edge-injected script bridges tool definitions from the platform&#x27;s backend MCP server (<code>/api/mcp</code>) into the browser, so an agent calls <code>search_products</code> and <code>add_to_cart</code> instead of clicking through variant drop-downs and cookie banners.</p>\n<p>Merchant control is a Configuration Rule on custom-hostname metadata (<code>webmcp_opt_out</code>), evaluated before the page is served. Opted-out stores get no injected script. If the MCP server is offline or the browser lacks WebMCP, the script exits and the storefront loads normally. Checkout stays with the human.</p>\n<p>For builders: one set of tools can serve both server-side MCP and in-browser agents. WebMCP is still an experimental Chrome-flag preview.</p>",
+     "evidence": [
+      {
+       "sid": "6ce711ef5d9be5fe",
+       "title": "How Commerce.com and Cloudflare are getting storefronts ready for AI agents"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-09-28-kitesurf-adds-webmcp",
      "topic": "mcp",
@@ -18761,8 +18795,8 @@
      "title": "Azure Functions folds the tool-calling loop into a serverless agents runtime"
     }
    ],
-   "entry_count": 33,
-   "latest_entry_date": "2026-09-28",
+   "entry_count": 34,
+   "latest_entry_date": "2026-10-23",
    "solutions": [],
    "obstacles": [
     {
@@ -18772,6 +18806,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "6ce711ef5d9be5fe",
+     "title": "How Commerce.com and Cloudflare are getting storefronts ready for AI agents"
+    },
     {
      "sid": "15939a0632edddf1",
      "title": "The road to the agentic browser: A Kitesurf update"
@@ -18909,7 +18947,7 @@
      "title": "Centrally manage authorization for MCP connectors | Claude"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-10-23"
   },
   "speculative-decoding": {
    "slug": "speculative-decoding",

@@ -63,10 +63,10 @@ Schema: `config/wiki_schema.md`.
   - theme `eval-in-production` — Evals as a production workflow: mined from traces, gated in CI (31)
 
 ### multi-agent
-- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (33 entries, updated 2026-10-12)
+- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (34 entries, updated 2026-10-23)
   → solutions: agent-benchmarks, agent-orchestration, agent-tracing
   - theme `when-it-pays` — When coordination helps: topology, roles, and allocation (8)
-  - theme `production-evidence` — Production deployments and what they report (11)
+  - theme `production-evidence` — Production deployments and what they report (12)
   - theme `parallel-coding-agents` — Keeping parallel coding agents from colliding (4)
   - theme `oversight-and-safety` — Oversight, collusion, and authorization between agents (8)
   - theme `shared-context` — What each agent gets to see (2)
@@ -167,10 +167,10 @@ Schema: `config/wiki_schema.md`.
   - theme `structured-verdicts` — From a 1-5 score to structured, trace-level verdicts (3)
   - theme `cheaper-judges` — Making the judge cheap enough to run on every trace (5)
   - theme `trusting-the-judge` — Auditing the judge, the rubric, and whether you need one (8)
-- [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools (33 entries, updated 2026-10-06)
+- [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools (34 entries, updated 2026-10-23)
   - theme `stateless-spec` — The stateless spec and what MCP is actually for (7)
   - theme `auth-and-governance` — Authorization and governance of connector fleets (8)
-  - theme `webmcp` — WebMCP and the browser as a tool surface (4)
+  - theme `webmcp` — WebMCP and the browser as a tool surface (5)
   - theme `servers-in-production` — Vendor servers and hosted deployments (7)
   - theme `beyond-tools` — Beyond tool calls - knowledge, memory, work, and computation (7)
 - [speculative-decoding](solutions/speculative-decoding.md) — Speculative decoding: draft cheaply, verify in parallel (7 entries, updated 2026-10-11)
