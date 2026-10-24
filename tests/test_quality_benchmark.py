@@ -72,6 +72,45 @@ class PayloadTest(unittest.TestCase):
         self.assertEqual(payload["request"]["input"]["title"], "x")
 
 
+class SystemOnePayloadTest(unittest.TestCase):
+    def test_payload_uses_noul_and_compact_state(self) -> None:
+        cfg = qb.load_judge_config(qb.DEFAULT_CONFIG)
+        cfg["openrouter"]["state_chars"] = 200
+        item = {
+            "title": "A concrete serving optimization",
+            "source": "vllm_blog",
+            "source_role": "first_party",
+            "published": "2026-10-24T00:00:00Z",
+            "url": "https://example.com/post",
+            "excerpt": "x" * 1000,
+        }
+        payload = qb.build_systemone_payload(item, cfg)
+        self.assertEqual(payload["model"], "jev-1.14")
+        self.assertIn("Title: A concrete serving optimization", payload["state"])
+        self.assertLessEqual(len(payload["state"]), 200)
+        self.assertIn("keep", payload["questions"])
+        self.assertEqual(payload["questions"]["keep"]["type"], "noul")
+        self.assertIn("Task:", payload["questions"]["keep"]["instructions"])
+
+    def test_extract_systemone_score(self) -> None:
+        response = {
+            "model": "typesafe/jev-1.14-20261014",
+            "answers": {"keep": {"type": "noul", "noul": 0.82}},
+        }
+        self.assertEqual(qb.extract_systemone_score(response, "keep"), 0.82)
+        self.assertEqual(qb.extract_systemone_score({"answers": {"only": {"noul": 0.21}}}), 0.21)
+        with self.assertRaises(ValueError):
+            qb.extract_systemone_score({"answers": {}}, "keep")
+
+    def test_openrouter_provider_requires_key(self) -> None:
+        provider = qb.OpenRouterSystemOneProvider(
+            {"openrouter": {"endpoint": "https://openrouter.ai/api/v1/systemone", "api_key_env": "MISSING_OPENROUTER_KEY"}}
+        )
+        self.assertFalse(provider.configured())
+        with self.assertRaises(RuntimeError):
+            provider.score({"title": "x"}, {})
+
+
 class MetricsTest(unittest.TestCase):
     def rows(self):
         return [

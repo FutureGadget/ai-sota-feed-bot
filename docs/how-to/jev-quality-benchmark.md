@@ -44,50 +44,81 @@ bar to beat on the same labels. Because the labels are assistant-authored,
 the heuristic may share some of the label author's biases; treat it as a
 sanity baseline, not an independent gold standard.
 
-## 3. Configure Jev
+## 3. Configure the provider
 
-Fill in `config/judge.yaml`:
+The recommended path is OpenRouter's System One API. OpenRouter exposes Jev as
+a typed decision model, not a chat model:
 
-```yaml
-endpoint: "https://..."      # TypeSafe's current decision endpoint
-model: "jev-1.13"            # or the current model id
-api_key_env: JEV_API_KEY
+```text
+POST https://openrouter.ai/api/v1/systemone
+{
+  "model": "jev-1.14",
+  "state": "Title: ...\nSource: ...\nExcerpt: ...",
+  "questions": {
+    "keep": {
+      "type": "noul",
+      "instructions": "Does this item contain substantive, original, platform-engineering-relevant information?"
+    }
+  }
+}
 ```
+
+A `noul` question returns `answers.keep.noul`, the probability of yes. That is
+the keep/drop score the benchmark uses.
 
 Export the key:
 
 ```bash
-export JEV_API_KEY="..."
-export JEV_ENDPOINT="https://..."   # optional override for config/judge.yaml
-export JEV_MODEL="jev-1.13"         # optional override
+export OPENROUTER_API_KEY="..."
+# optional overrides
+export OPENROUTER_SYSTEMONE_ENDPOINT="https://openrouter.ai/api/v1/systemone"
+export OPENROUTER_JEV_MODEL="jev-1.14"
 ```
 
-The payload follows the structured decision example from Hamel Husain's
-2026-10-20 post: `version`, `question_id`, `type: "noul"`, `instructions`,
-`criteria`, and an `input` object. Confirm the current endpoint and response
-shape against TypeSafe's docs. If the API wraps the payload, set
-`payload_key: request` (or the wrapper name) in `config/judge.yaml`.
+`config/judge.yaml` already contains:
+
+```yaml
+provider: openrouter
+openrouter:
+  endpoint: https://openrouter.ai/api/v1/systemone
+  model: jev-1.14
+  api_key_env: OPENROUTER_API_KEY
+  question_id: keep
+  state_chars: 6000
+```
+
+Use `jev-1.13` if you want the exact version Hamel Husain tested; `jev-1.14`
+is the current release. The bare ID is mapped to `typesafe/jev-1.14` by
+OpenRouter. Jev's OpenRouter listing shows a 262,144-token context and
+$0.042 per million input tokens, so the benchmark's 2,500-character excerpts
+are far below the limit.
+
+If you have direct TypeSafe Decisions API access, fill the top-level
+`endpoint` and `JEV_API_KEY`, then use `--provider jev`. That path sends the
+structured `version` / `question_id` / `type` / `instructions` / `criteria`
+request from Hamel's example.
 
 Inspect the exact requests before spending on a run:
 
 ```bash
-python3 pipeline/quality_benchmark.py run --provider jev --request-only
+python3 pipeline/quality_benchmark.py run --provider openrouter --request-only
 ```
 
-This writes one JSON payload per item to `runs/jev-<timestamp>/requests/`.
+This writes one JSON payload per item to `runs/openrouter-<timestamp>/requests/`.
 Send one manually to the API and check the response shape.
 
 ## 4. Run Jev
 
 ```bash
-python3 pipeline/quality_benchmark.py run --provider jev
+python3 pipeline/quality_benchmark.py run --provider openrouter
 ```
 
-The runner caches every response under `data/quality/cache/jev/` by payload
-hash, so reruns and threshold changes do not make new API calls. It prints:
+The runner caches every response under `data/quality/cache/openrouter/` by
+payload hash, so reruns and threshold changes do not make new API calls. It
+prints:
 
 ```text
-BENCHMARK_OK provider=jev items=50 auc=... precision=... recall=... f1=...
+BENCHMARK_OK provider=openrouter items=50 auc=... precision=... recall=... f1=...
 threshold=... brier=... ece10=... false_pos=... false_neg=... report=...
 ```
 
@@ -129,6 +160,12 @@ to be pasted into a chat with the assistant for a second opinion.
 
 ## 7. Decide
 
+The first Jev 1.14 run is recorded in
+`docs/status/jev-quality-benchmark-2026-10-24.md`: AUC 0.965, F1 0.878 at
+threshold 0.25, Brier 0.100, ECE 0.106, 50 requests for $0.0023. It beat the
+heuristic baseline, but search title-only items and off-mission domain science
+remain weak. Treat that as the starting point, not a production verdict.
+
 Jev is worth wiring into the pipeline only if all of these hold:
 
 - it beats the heuristic baseline on the same labels;
@@ -146,12 +183,14 @@ for a different decision model or a generative judge.
 
 ## Troubleshooting
 
-- `jev_not_configured`: set `endpoint` and export the key named by
-  `api_key_env`.
-- `No probability in judge response`: inspect the cached raw response under
-  `data/quality/cache/jev/` and extend `extract_score` if the API uses a new
-  shape.
-- `jev_http_429`: the runner retries with backoff. Reduce concurrency or wait.
+- `openrouter_not_configured`: export `OPENROUTER_API_KEY`.
+- `jev_not_configured`: for the direct provider, set `endpoint` and export the
+  key named by `api_key_env`.
+- `No noul probability in System One response`: inspect the cached raw
+  response under `data/quality/cache/openrouter/`; the expected shape is
+  `answers.<question_id>.noul`.
+- `openrouter_http_429` / `jev_http_429`: the runner retries with backoff.
+  Reduce concurrency or wait.
 - A short excerpt: search results and some first-party feeds only expose a
   teaser. The benchmark keeps the title and teaser rather than inventing
   body text. This is a fair representation of what the live gate would see.

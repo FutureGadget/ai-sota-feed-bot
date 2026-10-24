@@ -5,19 +5,39 @@
 # to the deterministic editorial policy when this is disabled or a key is
 # missing.
 #
-# The payload shape follows the structured decision-model API example in
-# Hamel Husain's 2026-10-20 post. Confirm the endpoint and response shape
-# against TypeSafe's current docs before enabling.
+# The default OpenRouter path uses the System One API. The optional direct
+# `jev` path follows the structured decision-model example in Hamel Husain's
+# 2026-10-20 post. Confirm the current request/response shape against the
+# provider docs before enabling.
 
 enabled: false
-provider: jev
-model: jev-1.13
+# Provider used by the benchmark/runner when one is not passed explicitly.
+# `openrouter` uses OpenRouter's System One API and is the recommended path.
+# `jev` uses TypeSafe's direct Decisions API if you have it.
+provider: openrouter
+model: jev-1.14
 endpoint: ""
 api_key_env: JEV_API_KEY
 auth_header: Authorization
 auth_prefix: "Bearer "
 timeout_seconds: 30
 max_retries: 2
+
+# OpenRouter exposes Jev as a typed decision model on the System One API:
+#   POST https://openrouter.ai/api/v1/systemone
+#   {model, state, questions:{<id>:{type:"noul", instructions}}}
+# A noul question returns answers.<id>.noul, the probability of yes.
+# The bare `jev-1.14` is mapped to `typesafe/jev-1.14`; `jev-latest` maps to
+# OpenRouter's newest Jev alias.
+openrouter:
+  endpoint: https://openrouter.ai/api/v1/systemone
+  model: jev-1.14
+  api_key_env: OPENROUTER_API_KEY
+  question_id: keep
+  state_chars: 6000
+  timeout_seconds: 60
+  max_retries: 2
+  cache_dir: data/quality/cache/openrouter
 
 version: feed-quality-v1
 question_id: is_substantive_platform_content
@@ -57,7 +77,9 @@ instructions:
     - "Drop SEO comparisons, ranked listicles, explainers, setup guides, and rehashed announcements."
     - "Drop gossip, funding, IPO, stock, executive moves, outages without a technical postmortem, and consumer hardware."
     - "Drop off-mission domain science (clinical, biology, drug discovery, weather, forestry) unless the item is about serving or evaluating the model, not the domain."
-    - "Drop routine release notes and version bumps when the default brief excludes the Releases tab."
+    - "Drop routine release notes and version bumps. This gate is for the default Brief, which excludes the Releases tab; a release note belongs there even when its changelog contains technical details."
+    - "If the input says `Source role: release`, answer no for the Brief gate."
+    - "Drop domain-specific benchmarks, deployments, and applications (clinical, medical, biology, forestry, protein design, nutrition, math) even when they use AI. Keep them only when the primary contribution is a general serving, evaluation, agent, or platform-engineering method."
     - "A short teaser is not enough to keep an item on a vague promise; look for evidence in the excerpt."
 
 criteria:
@@ -79,4 +101,6 @@ criteria:
       - "A customer story about legal work with no reusable mechanism."
       - "A comparison listicle with no original measurements."
       - "A funding or IPO announcement."
-      - "A routine version bump."
+      - "A routine version bump or a release note with a long changelog."
+      - "A clinical QA benchmark or a protein-model deployment tutorial."
+      - "A customer story about legal work or advertising."

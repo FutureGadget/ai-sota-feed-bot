@@ -105,6 +105,84 @@ def build_payload(item: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
     return payload
 
 
+def _systemone_instructions(cfg: dict[str, Any]) -> str:
+    instructions = cfg.get("instructions", {}) or {}
+    criteria = cfg.get("criteria", {}) or {}
+    lines = []
+    task = str(instructions.get("task") or "").strip()
+    context = str(instructions.get("context") or "").strip()
+    if task:
+        lines.append(f"Task: {task}")
+    if context:
+        lines.append(f"Context: {context}")
+    rules = instructions.get("evaluation_rules") or []
+    if rules:
+        lines.append("Evaluation rules:")
+        lines.extend(f"- {rule}" for rule in rules)
+    true_def = str((criteria.get("true") or {}).get("definition") or "").strip()
+    false_def = str((criteria.get("false") or {}).get("definition") or "").strip()
+    if true_def:
+        lines.append(f"Answer yes when: {true_def}")
+    if false_def:
+        lines.append(f"Answer no when: {false_def}")
+    return "\n".join(lines)
+
+
+def build_systemone_state(item: dict[str, Any], limit: int = 6000) -> str:
+    excerpt = _clip(item.get("excerpt") or item.get("summary_1line"), max(200, int(limit)))
+    lines = [
+        f"Title: {item.get('title') or ''}",
+        f"Source: {item.get('source') or ''}",
+        f"Source role: {item.get('source_role') or ''}",
+        f"Published: {item.get('published') or ''}",
+        f"URL: {item.get('url') or ''}",
+        "",
+        "Excerpt:",
+        excerpt,
+    ]
+    return "\n".join(lines)[: max(200, int(limit))]
+
+
+def build_systemone_payload(item: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
+    """Build the OpenRouter System One request for a Jev `noul` question."""
+    or_cfg = cfg.get("openrouter", {}) or {}
+    question_id = str(or_cfg.get("question_id") or cfg.get("question_id") or "keep")
+    state_chars = int(or_cfg.get("state_chars") or cfg.get("context_chars", 6000) or 6000)
+    return {
+        "model": str(or_cfg.get("model") or cfg.get("model") or "jev-1.14"),
+        "state": build_systemone_state(item, state_chars),
+        "questions": {
+            question_id: {
+                "type": "noul",
+                "instructions": _systemone_instructions(cfg),
+            }
+        },
+    }
+
+
+def extract_systemone_score(response: Any, question_id: str = "keep") -> float:
+    """Read the `noul` probability from a System One response."""
+    if not isinstance(response, dict):
+        raise ValueError(f"Unsupported System One response: {type(response).__name__}")
+    answers = response.get("answers")
+    if isinstance(answers, dict):
+        answer = answers.get(question_id)
+        if answer is None and len(answers) == 1:
+            answer = next(iter(answers.values()))
+        if isinstance(answer, dict):
+            value = _as_score(answer.get("noul"))
+            if value is not None:
+                return value
+            value = _as_score(answer.get("probability"))
+            if value is not None:
+                return value
+    for key in ("noul", "probability", "score"):
+        value = _as_score(response.get(key))
+        if value is not None:
+            return value
+    raise ValueError(f"No noul probability in System One response keys={sorted(response.keys())[:10]}")
+
+
 # ---------------------------------------------------------------------------
 # Providers
 
@@ -243,6 +321,112 @@ class HeuristicProvider:
         if role in {"release", "community"} and not self.ENGINEERING.search(text):
             score -= 0.20
         return {"score": _clamp(score), "latency_ms": 0, "raw": {"heuristic": True}}
+
+
+class OpenRouterSystemOneProvider:
+    """Jev on OpenRouter's System One API.
+
+    OpenRouter exposes Jev as a typed decision model, not a chat model:
+    `POST https://openrouter.ai/api/v1/systemone` with `model`, `state`, and
+    a map of typed `questions`. A `noul` question returns the probability of
+    yes, which is exactly the keep/drop gate we need.
+    """
+
+    name = "openrouter"
+
+    def __init__(self, cfg: dict[str, Any]) -> None:
+        or_cfg = cfg.get("openrouter", {}) or {}
+        self.endpoint = (
+            os.getenv("OPENROUTER_SYSTEMONE_ENDPOINT", "").strip()
+            or str(or_cfg.get("endpoint") or "https://openrouter.ai/api/v1/systemone").strip()
+        )
+        self.api_key = os.getenv(
+            str(or_cfg.get("api_key_env") or "OPENROUTER_API_KEY"),
+            "",
+        ).strip()
+        self.model = (
+            os.getenv("OPENROUTER_JEV_MODEL", "").strip()
+            or str(or_cfg.get("model") or cfg.get("model") or "jev-1.14")
+        )
+        self.question_id = str(or_cfg.get("question_id") or cfg.get("question_id") or "keep")
+        self.cache_dir = ROOT / str(or_cfg.get("cache_dir") or "data/quality/cache/openrouter")
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
+        self.timeout = float(or_cfg.get("timeout_seconds", cfg.get("timeout_seconds", 60)) or 60)
+        self.max_retries = int(or_cfg.get("max_retries", cfg.get("max_retries", 2)) or 0)
+
+    def configured(self) -> bool:
+        return bool(self.endpoint and self.api_key)
+
+    def _cache_path(self, payload: dict[str, Any]) -> Path:
+        blob = json.dumps(payload, ensure_ascii=False, sort_keys=True)
+        digest = hashlib.sha256(blob.encode("utf-8")).hexdigest()[:32]
+        return self.cache_dir / f"openrouter-{digest}.json"
+
+    def _post(self, payload: dict[str, Any]) -> tuple[dict[str, Any], int]:
+        headers = {
+            "Content-Type": "application/json",
+            "HTTP-Referer": "https://www.llm-digest.com",
+            "X-Title": "llm-digest-quality-benchmark",
+        }
+        if self.api_key:
+            headers["Authorization"] = f"Bearer {self.api_key}"
+        body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        last_error: Exception | None = None
+        for attempt in range(self.max_retries + 1):
+            started = time.monotonic()
+            req = urllib.request.Request(self.endpoint, data=body, headers=headers, method="POST")
+            try:
+                with urllib.request.urlopen(req, timeout=self.timeout) as response:
+                    raw = response.read().decode("utf-8", errors="replace")
+                    latency = int((time.monotonic() - started) * 1000)
+                    return json.loads(raw), latency
+            except urllib.error.HTTPError as exc:
+                last_error = exc
+                if exc.code not in {429, 500, 502, 503, 504} or attempt >= self.max_retries:
+                    detail = exc.read().decode("utf-8", errors="replace")[:1000]
+                    raise RuntimeError(f"openrouter_http_{exc.code}: {detail}") from exc
+                time.sleep(1.5 ** (attempt + 1))
+            except Exception as exc:
+                last_error = exc
+                if attempt >= self.max_retries:
+                    raise
+                time.sleep(1.5 ** (attempt + 1))
+        raise RuntimeError(f"openrouter_request_failed: {last_error}")
+
+    def payload(self, item: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
+        return build_systemone_payload(item, cfg)
+
+    def score(self, item: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
+        if not self.configured():
+            raise RuntimeError("openrouter_not_configured: set OPENROUTER_API_KEY")
+        payload = self.payload(item, cfg)
+        cache_path = self._cache_path(payload)
+        if cache_path.exists():
+            cached = json.loads(cache_path.read_text(encoding="utf-8"))
+            return {
+                "score": float(cached["score"]),
+                "latency_ms": int(cached.get("latency_ms", 0)),
+                "raw": cached.get("raw", {}),
+                "cached": True,
+            }
+        raw, latency = self._post(payload)
+        score = extract_systemone_score(raw, self.question_id)
+        cache_path.write_text(
+            json.dumps(
+                {
+                    "model": self.model,
+                    "created_at": datetime.now(timezone.utc).isoformat(),
+                    "latency_ms": latency,
+                    "score": score,
+                    "raw": raw,
+                    "payload": payload,
+                },
+                ensure_ascii=False,
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+        return {"score": score, "latency_ms": latency, "raw": raw, "cached": False}
 
 
 class JevProvider:
@@ -652,6 +836,14 @@ def run(args: argparse.Namespace) -> int:
         provider = FixtureProvider(Path(args.scores))
     elif args.provider == "heuristic":
         provider = HeuristicProvider()
+    elif args.provider == "openrouter":
+        provider = OpenRouterSystemOneProvider(cfg)
+        if not provider.configured() and not args.request_only:
+            print(
+                "openrouter_not_configured: export OPENROUTER_API_KEY",
+                file=sys.stderr,
+            )
+            return 2
     elif args.provider == "jev":
         provider = JevProvider(cfg)
         if not provider.configured() and not args.request_only:
@@ -671,8 +863,12 @@ def run(args: argparse.Namespace) -> int:
         request_dir = out_dir / "requests"
         request_dir.mkdir(parents=True, exist_ok=True)
         for item in items:
+            if args.provider == "openrouter":
+                payload = build_systemone_payload(item, cfg)
+            else:
+                payload = build_payload(item, cfg)
             (request_dir / f"{item['id']}.json").write_text(
-                json.dumps(build_payload(item, cfg), ensure_ascii=False, indent=2),
+                json.dumps(payload, ensure_ascii=False, indent=2),
                 encoding="utf-8",
             )
         print(f"request_only=true dir={request_dir}")
@@ -722,7 +918,12 @@ def run(args: argparse.Namespace) -> int:
     else:
         sweep, threshold = threshold_sweep(rows)
     slices = slice_metrics(rows, threshold)
-    model_name = str(cfg.get("model") or provider.name) if provider.name == "jev" else provider.name
+    if provider.name == "openrouter":
+        model_name = str((cfg.get("openrouter", {}) or {}).get("model") or cfg.get("model") or "jev-1.14")
+    elif provider.name == "jev":
+        model_name = str(cfg.get("model") or "jev")
+    else:
+        model_name = provider.name
     summary = write_reports(
         out_dir=out_dir,
         rows=rows,
@@ -753,7 +954,7 @@ def main() -> None:
     sub = parser.add_subparsers(dest="command", required=True)
 
     run_parser = sub.add_parser("run", help="score the benchmark and write a report")
-    run_parser.add_argument("--provider", choices=["fixture", "heuristic", "jev"], default="fixture")
+    run_parser.add_argument("--provider", choices=["fixture", "heuristic", "openrouter", "jev"], default="fixture")
     run_parser.add_argument("--items", default=str(DEFAULT_ITEMS))
     run_parser.add_argument("--config", default=str(DEFAULT_CONFIG))
     run_parser.add_argument("--scores", help="fixture scores JSON (provider=fixture)")

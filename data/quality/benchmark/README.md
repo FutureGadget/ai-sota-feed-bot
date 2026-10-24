@@ -66,7 +66,11 @@ python3 pipeline/quality_benchmark.py run \
 # Deterministic baseline (not a judge)
 python3 pipeline/quality_benchmark.py run --provider heuristic
 
-# Real Jev run (requires config/judge.yaml endpoint + JEV_API_KEY)
+# Real Jev run through OpenRouter's System One API
+export OPENROUTER_API_KEY="..."
+python3 pipeline/quality_benchmark.py run --provider openrouter
+
+# Alternative: direct TypeSafe Decisions API
 python3 pipeline/quality_benchmark.py run --provider jev
 ```
 

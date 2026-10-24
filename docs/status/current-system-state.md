@@ -24,6 +24,8 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
 1. Collect raw items (`collectors/collect.py`, per-source crawl cooldown)
 2. Source health update + local degradation alert artifacts/logs
 3. Tier-1 fast snapshot (`pipeline/build_tier1.py` → `data/tier1/latest.json`)
+   plus the deterministic editorial policy (`pipeline/editorial.py`):
+   source roles, search/first-party quarantine, story clusters, seen-memory
 4. Tier-0 full build (`pipeline/build_digest.py`, `TIER0_INPUT=tier1`,
    incremental mode on; exits early with `FULL_RUN_NO_DELTA_SKIP=true` when
    nothing changed)
@@ -60,8 +62,9 @@ Daily companions:
 
 ## Ranking stages (active)
 - Stage A: deterministic prefilter (regex excludes, slot freshness windows,
-  health floor, cap to 140)
-- Stage B: slot assignment — frontier_official, agent_tooling_releases,
+  health floor, `editorial_penalty`, cap to 140)
+- Stage B: slot assignment — frontier_official, frontier_corporate,
+  agent_tooling_releases,
   infra_runtime_releases, vendor_general_updates, practitioner_analysis,
   community_signal, research_watch, overflow
 - Stage C: slot scoring/selection — heuristic score (LLM path budgeted but
@@ -69,6 +72,15 @@ Daily companions:
   topical_bias`, then `time_decay_factor`; per-slot max and per-source caps
 - Global merge: dynamic slot meta-rerank, trim to 24 preserving slot floors
 - Top-band constraints: composition floors/caps inside the top 10
+
+## Quality judge benchmark (2026-10-24)
+- Jev 1.14 via OpenRouter System One is evaluated offline on 50 labeled
+  candidates: AUC 0.965, F1 0.878 at threshold 0.25, Brier 0.100, ECE 0.106,
+  $0.0023 for 50 requests.
+- The judge is **not wired into production**. The deterministic editorial
+  policy remains the only gate until the labels are reviewed and the
+  multi-question design is tested.
+- Full report: `docs/status/jev-quality-benchmark-2026-10-24.md`.
 
 ## Run health signals (greppable)
 - `ranking_stats prefilter=A->B llm_used=N/8 slots=... total=T`

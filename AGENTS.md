@@ -260,7 +260,8 @@ in `ops_daily_summary.py`'s log line.
     max-models policy
   - `editorial.yaml` - source roles/caps, search and first-party quarantine
     patterns, story-cluster thresholds, seen-memory edition caps
-  - `judge.yaml` - disabled-by-default quality-judge provider (Jev), endpoint,
+  - `judge.yaml` - disabled-by-default quality judge: OpenRouter System One
+    (`/api/v1/systemone`, Jev `noul` probability) or direct TypeSafe Decisions,
     structured rubric, thresholds, cache, and context budget
 - `scripts/` — `check_bundle_size.py` (enforces Vercel function bundle budgets,
   requirements.txt hygiene, and .vercelignore completeness; runs in CI),

@@ -196,6 +196,53 @@ def _should_fetch(item: dict) -> bool:
     return True
 
 
+def _fetch_paragraph_text(url: str, timeout: int = 10, max_chars: int = EXCERPT_CHARS) -> str:
+    """Extract the article's paragraphs, skipping nav and tag-cloud boilerplate."""
+    import urllib.request
+
+    sys.path.insert(0, str(ROOT / "pipeline"))
+    from content_fetch import _fetch_text  # noqa: E402
+
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X) OpenClawFeedBot/1.0",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        },
+    )
+    with urllib.request.urlopen(req, timeout=timeout) as response:
+        raw = response.read(800_000).decode("utf-8", errors="ignore")
+    paragraphs = []
+    for match in re.findall(r"<p\b[^>]*>(.*?)</p>", raw, re.I | re.S):
+        text = re.sub(r"<[^>]+>", " ", match)
+        text = html.unescape(text)
+        text = re.sub(r"\s+", " ", text).strip()
+        if len(text) < 80:
+            continue
+        lowered = text.lower()
+        if any(
+            marker in lowered
+            for marker in (
+                "cookie",
+                "subscribe to",
+                "sign up for",
+                "all rights reserved",
+                "privacy policy",
+                "skip to content",
+                "follow us",
+                "share this",
+            )
+        ):
+            continue
+        paragraphs.append(text)
+        if sum(len(p) for p in paragraphs) >= max_chars:
+            break
+    text = " ".join(paragraphs)[:max_chars].strip()
+    if len(text) < 300:
+        return _clean_excerpt(_fetch_text(url, timeout=timeout, max_bytes=600_000), max_chars)
+    return text
+
+
 def _enrich_excerpt(item: dict, cache: dict[str, str], fetch: bool) -> tuple[str, str]:
     raw = _clean_excerpt(item.get("content_excerpt") or item.get("summary") or "")
     url = str(item.get("url") or "").split("#")[0]
@@ -212,11 +259,11 @@ def _enrich_excerpt(item: dict, cache: dict[str, str], fetch: bool) -> tuple[str
         sys.path.insert(0, str(ROOT / "pipeline"))
         from content_fetch import _fetch_text  # noqa: E402
 
-        text = _fetch_text(url, timeout=8, max_bytes=600_000)
+        text = _fetch_paragraph_text(url, timeout=8, max_chars=EXCERPT_CHARS)
         text = _clean_excerpt(text)
         if _is_textual(text) and len(text) > len(raw):
             cache[url] = text
-            return text, "fetched"
+            return text, "fetched_paragraphs"
     except Exception as exc:
         print(f"fetch_failed url={url} err={exc}", file=sys.stderr)
     return raw or _clean_excerpt(item.get("summary_1line") or item.get("summary") or ""), "title_summary"
