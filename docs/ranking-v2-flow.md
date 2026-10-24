@@ -31,7 +31,20 @@ No.
 Candidates (TIER0_INPUT=tier1 by default, raw fallback)
       |
       v
+Editorial policy (pipeline/editorial.py, config/editorial.yaml)
+  - source roles: first_party / practitioner / aggregator / community / search
+  - search quarantine: business/gossip/SEO patterns, title-only engineering
+    rescue, at most 2 candidates per query
+  - first-party quarantine: ads/customer stories/partnerships/appointments,
+    title-only engineering rescue
+  - story clusters: one representative per event, with also_covered echoes
+  - seen-memory: recent processed editions retire repeats and add an
+    editorial_penalty to the rest
+  - writes data/processed/editorial.json for the feed/RSS APIs
+      |
+      v
 Stage A: prefilter (ranking.stage_a_prefilter)
+  - `editorial_penalty` is subtracted from the prefilter score
   - title regex excludes (selection.exclude_title_regex)
   - positive relevance floor (profile.relevance_floor): for the mixed-topic
     sources listed there, title+summary (HTML and URLs stripped) must carry at
@@ -51,7 +64,8 @@ Stage A: prefilter (ranking.stage_a_prefilter)
       |
       v
 Stage B: slot assignment (ranking.assign_slots)
-  - frontier_official
+  - frontier_official (engineering/research voices)
+  - frontier_corporate (newsroom/policy/partnership, max 1)
   - agent_tooling_releases
   - infra_runtime_releases
   - open_weight_releases
@@ -68,6 +82,7 @@ Stage C: in-slot scoring + selection (ranking.stage_c_score_and_select)
   - heuristic fallback scoring (the active path today)
   - pre-decay score = alpha*llm_score + beta*freshness
                       + source_bias + source_tune + topical_bias
+                      - editorial_penalty
     (source_tune = learned feedback/CTR adjustment from
      data/feedback/source_adjustments.json via pipeline/auto_tune.py,
      gated by auto_tune.enabled + max_age_days staleness cutoff)
@@ -81,10 +96,13 @@ Global merge (ranking.global_merge)
   - dynamic slot meta-rerank (slot priority) when enabled
   - merge slot picks, trim to max_items (24)
   - respect slot minimum floors when trimming
+  - `editorial_caps.max_search_items` caps the search signal across slots
       |
       v
 Top-band constraints (ranking.enforce_top_band_constraints)
   - e.g. min frontier_official items and max research items in the top 10
+  - `min_anthropic_frontier` now counts only frontier_official (engineering);
+    frontier_corporate cannot satisfy it
   - lead rule: position 1 is never a research paper when a non-research item
     exists (the best-scoring non-research item is lifted to the lead)
       |
@@ -96,6 +114,33 @@ Final feed list (data/processed/latest.json)
 ```
 
 ---
+
+## Editorial policy (pre-ranking)
+
+File: `config/editorial.yaml`, implementation: `pipeline/editorial.py`.
+
+This is deterministic bookkeeping, not the LLM ranking layer:
+
+- `source_roles` / `source_role_prefixes`: classify every source. Search
+  queries are quarantined; first-party blogs get a marketing filter; practitioner
+  and release sources keep their own caps.
+- `search_quarantine`: drops obvious gossip/business/SEO titles from search
+  results unless the title carries a concrete engineering signal.
+- `first_party_quarantine`: drops ads, customer stories, partnerships, and
+  appointments from first-party blogs unless the title carries an engineering
+  signal.
+- `story_clusters`: collapses the same event reported under different headlines
+  into one representative and records the echoes in `also_covered`.
+- `seen.max_editions`: retires an item after a bounded number of recent
+  editions; `editorial_penalty` softens the rest. `source_overrides` gives
+  corporate newsroom posts a shorter run.
+- `caps` / `role_totals`: the per-source and per-role caps the API applies to
+  its accumulated run pool.
+
+The pipeline writes `data/processed/editorial.json` (roles, caps, quarantine
+patterns, diagnostics) so `api/feed.js` and `api/rss.js` apply the same policy
+without a YAML parser. `data/processed/**` is already bundled into the feed
+function.
 
 ## Key config knobs
 

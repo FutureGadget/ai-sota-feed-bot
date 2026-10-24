@@ -122,6 +122,9 @@ in `ops_daily_summary.py`'s log line.
 - `pipeline/` — all processing:
   - `ranking.py` — unified ranking engine (stage A prefilter → slot assignment
     → stage C scoring → global merge → top-band constraints)
+  - `editorial.py` — deterministic pre-ranking policy: source roles, search and
+    first-party quarantine, story clustering, cross-edition seen-memory; writes
+    `data/processed/editorial.json` for the feed/RSS APIs
   - `build_tier1.py` (fast snapshot) / `build_digest.py` (Tier-0 full build)
   - `enrich.py`, `content_fetch.py` — mechanical enrichment, page excerpts
     (`build_content_map` is called from the collector for `fetch_content`
@@ -252,6 +255,8 @@ in `ops_daily_summary.py`'s log line.
   - `models.yaml` - Model Release Radar source config: LMArena/Artificial
     Analysis endpoints, join alias map, license classification, recency/
     max-models policy
+  - `editorial.yaml` - source roles/caps, search and first-party quarantine
+    patterns, story-cluster thresholds, seen-memory edition caps
 - `scripts/` — `check_bundle_size.py` (enforces Vercel function bundle budgets,
   requirements.txt hygiene, and .vercelignore completeness; runs in CI),
   `persist_static_i18n.py` (paid static-output checkpoint/recovery and offline
@@ -330,7 +335,8 @@ in `ops_daily_summary.py`'s log line.
 ## Data Artifacts (committed runtime state)
 - `data/raw/<date>/items.json` — collector output
 - `data/tier1/` — `latest.json`, `runs/`, `runs_index.json` (fast tier)
-- `data/processed/` — `latest.json` (the feed), `runs/`, `runs_index.json`
+- `data/processed/` — `latest.json` (the feed), `editorial.json` (roles/caps
+  and quarantine patterns shared with the APIs), `runs/`, `runs_index.json`
 - `data/digest/<date>.md` — daily digest markdown
 - `data/stories/<YYYY-MM>.json` + `index.json` — durable story store
 - `data/storylines/<slug>.json` + `index.json` — threads (with `editorial`

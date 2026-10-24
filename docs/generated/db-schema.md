@@ -31,10 +31,17 @@ available to each function.
   for a 24h fresh-blend overlay)
 - `data/processed/latest.json` — the production feed (Tier-0 full ranking).
   Ranked items include score diagnostics such as `llm_score`, `source_bias`,
-  `source_tune`, `topical_bias`, `pre_decay_score`, `time_decay_factor`,
-  `final_score`, `slot_priority`, and `global_score`. Optional
-  `publisher_name` and `publisher_domain` attribution fields pass through from
-  collector rows for Google News items.
+  `source_tune`, `topical_bias`, `editorial_penalty`, `pre_decay_score`,
+  `time_decay_factor`, `final_score`, `slot_priority`, and `global_score`.
+  Editorial fields: `source_role`, `story_key`, `story_cluster_id`,
+  `story_cluster_size`, `seen_count`. Optional `publisher_name` and
+  `publisher_domain` attribution fields pass through from collector rows for
+  Google News items.
+- `data/processed/editorial.json` — deterministic editorial-policy artifact
+  read by `api/feed.js` and `api/rss.js`: `source_roles` (source -> role),
+  `caps` (per-source caps by role), `role_totals` (cross-source totals),
+  `search_quarantine` / `first_party_quarantine` (patterns + rescue keywords),
+  `story_clusters.enabled`, and the pipeline's editorial diagnostics.
 - `data/processed/runs/<Y>/<M>/<run_id>.json` + `runs_index.json`
   — per-run history (retention ~45d)
 

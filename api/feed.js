@@ -2,6 +2,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 
+import {
+  applyEditorialCaps,
+  collapseStoryClusters,
+  readEditorial,
+  sourceRole,
+} from './lib/editorial.js';
+
 function readJsonSafe(p, fallback) {
   try {
     if (!fs.existsSync(p)) return fallback;
@@ -410,8 +417,9 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
     insertAfter = 3,
     minQuickScore = 2.6,
     maxPerSource = 1,
-    prioritySources = ['openai_blog', 'anthropic_newsroom', 'anthropic_engineering', 'anthropic_research', 'claude_blog'],
+    prioritySources = ['openai_blog', 'anthropic_engineering', 'anthropic_research', 'claude_dev_blog', 'google_deepmind_blog'],
     priorityMin = 1,
+    editorial = null,
   } = opts;
 
   if (!Array.isArray(tier1Items) || !tier1Items.length || !deepRunAtIso) {
@@ -434,6 +442,9 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
       const d = collected || published;
       const quick = Number(it?.tier1_quick_score || 0);
       if (!d || d <= deepRunAt || quick < minQuickScore) return false;
+      // Tier-1 is a recall snapshot. A fresh search result belongs in the
+      // candidate pool, not in the reader-facing fresh lane.
+      if (sourceRole(it?.source, editorial) === 'search') return false;
       // Reject items with old publish dates — they aren't truly fresh
       if (published && (nowMs - published.getTime()) > maxFreshAgeMs) return false;
       // Skip routine version releases (e.g. "v2.1.39", "vllm 0.105.0") — low
@@ -755,20 +766,27 @@ export async function GET(request) {
     const tier1MinQuickScore = Number.parseFloat(String(url.searchParams.get('tier1_min_quick_score') || process.env.TIER1_MIN_QUICK_SCORE || '2.6')) || 2.6;
     const tier1MaxPerSource = Math.max(1, Math.min(3, Number.parseInt(String(url.searchParams.get('tier1_max_per_source') || process.env.TIER1_MAX_PER_SOURCE || '1'), 10) || 1));
     const tier1PriorityMin = Math.max(0, Math.min(4, Number.parseInt(String(url.searchParams.get('tier1_priority_min') || process.env.TIER1_PRIORITY_MIN || '1'), 10) || 1));
-    const tier1PrioritySources = String(url.searchParams.get('tier1_priority_sources') || process.env.TIER1_PRIORITY_SOURCES || 'openai_blog,anthropic_newsroom,anthropic_engineering,anthropic_research,claude_blog')
+    const tier1PrioritySources = String(url.searchParams.get('tier1_priority_sources') || process.env.TIER1_PRIORITY_SOURCES || 'openai_blog,anthropic_engineering,anthropic_research,claude_dev_blog,google_deepmind_blog')
       .split(',')
       .map((s) => String(s || '').trim())
       .filter(Boolean);
 
     const { runs, baseItems, coverageByItem } = readRunsPool();
     const readerTuning = readReaderTuning();
+    const localizedRequested =
+      String(url.searchParams.get('locale') || '').trim().toLowerCase() === 'ko'
+      && String(url.searchParams.get('localized_snapshot') || '').trim().toLowerCase() === 'latest';
+    const editorial = localizedRequested ? null : readEditorial();
 
     // Backward-compatible latest view when no historical runs are available.
     if (!runs.length) {
       const allItems = readLatest().map((it) =>
         withReaderAdjustment({ ...it, first_seen: null, last_seen: null, seen_count: 1, labels: labelsFromItem(it) }, readerTuning));
-      const availableLabels = summarizeLabels(allItems);
-      const winPool = filterItemsByPublishWindow(allItems, from, to);
+      const editorialItems = editorial
+        ? collapseStoryClusters(applyEditorialCaps(allItems, editorial), editorial)
+        : allItems;
+      const availableLabels = summarizeLabels(editorialItems);
+      const winPool = filterItemsByPublishWindow(editorialItems, from, to);
       const filteredBase = applyLabelFilter(winPool, selectedLabels);
       const totalItems = filteredBase.length;
       const body = {
@@ -788,7 +806,7 @@ export async function GET(request) {
       // own (small) item list directly. English path only, same reason as the
       // main handler below: ko snapshot hashes pin pooled also_covered.
       if (localizedBody.mode !== 'localized_snapshot' && Array.isArray(localizedBody.items)) {
-        const latestCoverage = clusterCoverage(allItems);
+        const latestCoverage = clusterCoverage(editorialItems);
         for (const it of localizedBody.items) {
           const mergedCoverage = mergeAlsoCovered(it, latestCoverage.get(itemKey(it)));
           if (mergedCoverage.length) it.also_covered = mergedCoverage;
@@ -825,10 +843,14 @@ export async function GET(request) {
           maxPerSource: tier1MaxPerSource,
           prioritySources: tier1PrioritySources,
           priorityMin: tier1PriorityMin,
+          editorial,
         })
       : { items: baseItems, added: 0 };
 
-    const mergedWithLabels = merged.items.map((it) =>
+    const editorialItems = editorial
+      ? collapseStoryClusters(applyEditorialCaps(merged.items, editorial), editorial)
+      : merged.items;
+    const mergedWithLabels = editorialItems.map((it) =>
       withReaderAdjustment({ ...it, labels: labelsFromItem(it) }, readerTuning));
     const availableLabels = summarizeLabels(mergedWithLabels);
     // Same publish window the list shows, but label-agnostic: this is what

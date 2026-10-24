@@ -1,6 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+import {
+  applyEditorialCaps,
+  collapseStoryClusters,
+  readEditorial,
+  sourceRole,
+} from './lib/editorial.js';
+
 function esc(s = '') {
   return String(s)
     .replaceAll('&', '&amp;')
@@ -100,12 +107,13 @@ function getRecentItems() {
 
   // 2. Blend tier1 fresh items (24h lookback for fresh blend)
   const tier1Items = loadTier1Recent({ lookbackMs: 24 * 60 * 60 * 1000, maxRuns: 12 });
-  const prioritySources = new Set(['openai_blog', 'anthropic_newsroom', 'anthropic_engineering', 'anthropic_research', 'claude_blog']);
+  const prioritySources = new Set(['openai_blog', 'anthropic_engineering', 'anthropic_research', 'claude_dev_blog', 'google_deepmind_blog']);
 
   const tier1Fresh = tier1Items
     .filter((it) => {
       const key = (it.url || '').trim();
       if (!key || byUrl.has(key)) return false;
+      if (sourceRole(it?.source) === 'search') return false;
       const score = Number(it.tier1_quick_score ?? it.score ?? 0);
       return score >= 2.6;
     })
@@ -148,7 +156,9 @@ const RSS_MAX_ITEMS = 50;
 
 export function GET(request) {
   try {
-    const items = getRecentItems().slice(0, RSS_MAX_ITEMS);
+    const editorial = readEditorial();
+    const items = collapseStoryClusters(applyEditorialCaps(getRecentItems(), editorial), editorial)
+      .slice(0, RSS_MAX_ITEMS);
     const now = new Date().toUTCString();
     const site = process.env.SITE_BASE_URL || 'https://www.llm-digest.com';
 

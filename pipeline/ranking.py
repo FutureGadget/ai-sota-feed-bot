@@ -258,7 +258,9 @@ def stage_a_prefilter(items: list[dict[str, Any]], cfg: dict[str, Any], profile:
         item["slot"] = slot
         item["freshness"] = round(_freshness_score(it.get("published", ""), decay_hours=max(12.0, fresh_h / 3)), 3)
         item["source_reliability"] = round(rel, 3)
-        item["prefilter_score"] = round(item["freshness"] + rel, 3)
+        editorial_penalty = float(it.get("editorial_penalty", 0.0) or 0.0)
+        item["editorial_penalty"] = round(editorial_penalty, 3)
+        item["prefilter_score"] = round(item["freshness"] + rel - editorial_penalty, 3)
         out.append(item)
 
     out.sort(key=lambda x: x.get("prefilter_score", 0), reverse=True)
@@ -470,7 +472,15 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
                 topical += pos_w
             if any(k in text for k in neg_kw):
                 topical += neg_w
-            pre_decay_score = alpha * llm_s + beta * float(it.get("freshness", 0)) + src_bias + src_tune + topical
+            editorial_penalty = float(it.get("editorial_penalty", 0.0) or 0.0)
+            pre_decay_score = (
+                alpha * llm_s
+                + beta * float(it.get("freshness", 0))
+                + src_bias
+                + src_tune
+                + topical
+                - editorial_penalty
+            )
             decay = time_decay_factor(it.get("published", ""), cfg, slot)
             fs = pre_decay_score * decay if pre_decay_score > 0 else pre_decay_score
             item = dict(it)
@@ -485,6 +495,7 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
             item["source_bias"] = round(src_bias, 3)
             item["source_tune"] = round(src_tune, 3)
             item["topical_bias"] = round(topical, 3)
+            item["editorial_penalty"] = round(editorial_penalty, 3)
             item["pre_decay_score"] = round(pre_decay_score, 3)
             item["time_decay_factor"] = round(decay, 3)
             item["final_score"] = round(fs, 3)
@@ -522,9 +533,18 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
     return selected_by_slot, {"slots": diag_slots, "llm_budget_total": llm_budget, "llm_budget_used": budget_used}
 
 
+def _is_search_item(item: dict[str, Any]) -> bool:
+    role = str(item.get("source_role") or "").strip().lower()
+    if role:
+        return role == "search"
+    return str(item.get("source") or "").startswith("search_")
+
+
 def global_merge(slot_selections: dict[str, list[dict[str, Any]]], cfg: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, float], dict[str, int]]:
     max_items = int(cfg.get("max_items", 20))
     slots_cfg = cfg.get("slots", {}) or {}
+    editorial_caps = cfg.get("editorial_caps", {}) or {}
+    max_search = int(editorial_caps.get("max_search_items", 0) or 0)
 
     dyn = (cfg.get("dynamic_slot_rerank", {}) or {})
     dyn_enabled = bool(dyn.get("enabled", False))
@@ -561,7 +581,14 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], cfg: dict[str
     out: list[dict[str, Any]] = []
     used = set()
     slot_counts = defaultdict(int)
-    merge_diag = {"floor_selected": 0, "headroom_selected": 0, "skip_duplicate": 0, "skip_slot_max": 0}
+    merge_diag = {
+        "floor_selected": 0,
+        "headroom_selected": 0,
+        "skip_duplicate": 0,
+        "skip_slot_max": 0,
+        "skip_search_cap": 0,
+    }
+    search_count = 0
 
     # Phase 1: reserve minimum floors.
     for slot, scored in by_slot_scored.items():
@@ -572,9 +599,14 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], cfg: dict[str
             key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
             if key in used:
                 continue
+            if max_search and _is_search_item(it) and search_count >= max_search:
+                merge_diag["skip_search_cap"] += 1
+                continue
             out.append(it)
             used.add(key)
             slot_counts[slot] += 1
+            if _is_search_item(it):
+                search_count += 1
             merge_diag["floor_selected"] += 1
 
     # Phase 2: fill remaining capacity dynamically by best global score,
@@ -596,9 +628,14 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], cfg: dict[str
         if slot_counts[slot] >= max_slot:
             merge_diag["skip_slot_max"] += 1
             continue
+        if max_search and _is_search_item(it) and search_count >= max_search:
+            merge_diag["skip_search_cap"] += 1
+            continue
         out.append(it)
         used.add(key)
         slot_counts[slot] += 1
+        if _is_search_item(it):
+            search_count += 1
         merge_diag["headroom_selected"] += 1
 
     out.sort(key=lambda x: x.get("global_score", x.get("final_score", 0)), reverse=True)

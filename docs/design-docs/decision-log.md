@@ -2402,3 +2402,43 @@ Impact: Korean daily/weekly pages with a video now show the same click-to-load
 player. `web/ko/daily/2026-10-16.html` regenerated; no translation changes.
 
 Rollback: Remove the two `render_video` calls.
+
+## 2026-10-24 - Deterministic editorial policy runs before ranking
+
+Decision: Add `pipeline/editorial.py` and `config/editorial.yaml` between
+collection/Tier-1 and the ranking engine. The policy classifies sources by
+editorial role, quarantines obvious search-result and first-party marketing
+noise, collapses the same event reported under different headlines into one
+representative, and retires a story after a bounded number of recent editions.
+The same policy is written to `data/processed/editorial.json` and applied by
+`api/feed.js` / `api/rss.js` to the accumulated run pool.
+
+The frontier slot is split: `frontier_official` now holds engineering/research
+voices only (`openai_blog`, `anthropic_engineering`, `claude_dev_blog`,
+`google_deepmind_blog`); `anthropic_newsroom` and `claude_blog` move to
+`frontier_corporate` (max one seat, 96h freshness, lower slot priority).
+`min_anthropic_frontier` therefore counts Anthropic engineering, not corporate
+news. A cross-slot `editorial_caps.max_search_items: 1` keeps a search result
+from filling several seats.
+
+Rationale: The 2026-10-18 run had 382 unique URLs across 4,824 feed slots, 87%
+repeat between hourly builds, and seven DeepSeek V4.1-Flash cards from one
+Google News query. The 2026-10-24 feed had no Anthropic item at all while the
+corporate newsroom's "2026 Usage Policy update" had appeared 88 times in the
+previous eight days. The root cause was that recall sources, ranking, and the
+API's accumulated history had no editorial bookkeeping. An LLM cannot reliably
+fix repeated-item counting, source caps, or cross-edition memory; those belong
+in deterministic code.
+
+Impact: The feed can be smaller on quiet days because search and marketing
+items no longer pad it. Search contributes at most one final card. Corporate
+Anthropic/Claude news can still appear, but only through its own capped slot
+and a shorter seen-memory run. `latest.json` items gain `source_role`,
+`story_key`, `story_cluster_id`, `story_cluster_size`, `seen_count`, and
+`editorial_penalty`. Old run snapshots without `story_key` still work through
+the API's normalized-title fallback and per-source caps.
+
+Rollback: Remove the `apply_pre_ranking` call from `build_digest.py` /
+`build_tier1.py`, restore the old `frontier_official` source list in
+`config/ranking.yaml`, and delete `config/editorial.yaml`. The API falls back
+to conservative defaults if `data/processed/editorial.json` is absent.

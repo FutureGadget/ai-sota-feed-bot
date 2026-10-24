@@ -12,8 +12,10 @@ import yaml
 from dateutil import parser as dt_parser
 
 try:
+    from editorial import apply_pre_ranking
     from enrich import enrich_items, record_duplicate, summary_one_line
 except Exception:
+    from pipeline.editorial import apply_pre_ranking
     from pipeline.enrich import enrich_items, record_duplicate, summary_one_line
 
 try:
@@ -211,6 +213,8 @@ def run() -> None:
         )
 
     out.sort(key=lambda x: x.get("tier1_quick_score", 0), reverse=True)
+    out, editorial_diag = apply_pre_ranking(out, use_seen=False)
+    out.sort(key=lambda x: x.get("tier1_quick_score", 0), reverse=True)
 
     tier1_dir = ROOT / "data" / "tier1"
     tier1_dir.mkdir(parents=True, exist_ok=True)
@@ -220,6 +224,12 @@ def run() -> None:
     run_at_iso, run_rel_path = write_tier1_snapshot(out)
     print(
         f"tier1_items={len(out)} no_topic_signal={dropped_no_topic} "
+        f"editorial_in={editorial_diag.get('input', 0)} "
+        f"first_party_low_value={editorial_diag.get('first_party_dropped_low_value', 0)} "
+        f"search_low_quality={editorial_diag.get('search_dropped_low_quality', 0)} "
+        f"search_over_cap={editorial_diag.get('search_dropped_over_cap', 0)} "
+        f"clusters={editorial_diag.get('clusters', 0)} "
+        f"collapsed={editorial_diag.get('collapsed', 0)} "
         f"file={latest_file} run_at={run_at_iso} run_file={run_rel_path}"
     )
 

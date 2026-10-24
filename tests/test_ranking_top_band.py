@@ -84,5 +84,40 @@ class LeadExcludesResearchTest(unittest.TestCase):
         self.assertEqual(out[0]["source"], "arxiv_cs_ai")
 
 
+class AnthropicEngineeringBandTest(unittest.TestCase):
+    CFG = {
+        "top_band_constraints": {
+            "enabled": True,
+            "top_n": 4,
+            "min_frontier_official": 1,
+            "min_anthropic_frontier": 1,
+            "max_research_in_top_n": 3,
+        }
+    }
+
+    def test_corporate_newsroom_does_not_satisfy_the_anthropic_engineering_seat(self) -> None:
+        items = [
+            _item("openai_blog", "frontier_official", 3.0),
+            _item("google_deepmind_blog", "frontier_official", 2.9),
+            _item("simon_willison", "practitioner_analysis", 2.8),
+            _item("anthropic_newsroom", "frontier_corporate", 1.2),
+        ]
+        out, diag = enforce_top_band_constraints(items, self.CFG)
+        self.assertEqual(diag["promoted_anthropic_frontier"], 0)
+        self.assertNotEqual(out[0]["source"], "anthropic_newsroom")
+
+    def test_engineering_post_is_promoted_over_corporate_news(self) -> None:
+        items = [
+            _item("openai_blog", "frontier_official", 3.0),
+            _item("google_deepmind_blog", "frontier_official", 2.9),
+            _item("simon_willison", "practitioner_analysis", 2.8),
+            _item("anthropic_newsroom", "frontier_corporate", 2.1),
+            _item("anthropic_engineering", "frontier_official", 1.5),
+        ]
+        out, diag = enforce_top_band_constraints(items, self.CFG)
+        self.assertEqual(diag["promoted_anthropic_frontier"], 1)
+        self.assertIn("anthropic_engineering", [item["source"] for item in out[:4]])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -812,7 +812,8 @@ def _clean_release_summary(summary: str, item_type: str) -> str:
 
 
 _RANKED_SLOT_LABELS = {
-    "frontier_official": "frontier lab",
+    "frontier_official": "frontier engineering",
+    "frontier_corporate": "company news",
     "agent_tooling_releases": "agent tooling release",
     "infra_runtime_releases": "infra/runtime release",
     "open_weight_releases": "open-weight release",

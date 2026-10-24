@@ -14,6 +14,7 @@ import yaml
 from dateutil import parser as dt_parser
 
 from content_fetch import build_content_map
+from editorial import apply_pre_ranking, write_editorial_artifact
 from enrich import enrich_items, record_duplicate
 from llm_label import label_items, load_cfg as load_llm_cfg
 from llm_rerank import rerank_candidates
@@ -801,7 +802,21 @@ def run():
 
     items = enrich_items(items)
     items = dedupe(items)
+    items, editorial_diag = apply_pre_ranking(items)
     items_deduped = list(items)
+    print(
+        "editorial_stats "
+        f"in={editorial_diag.get('input', 0)} out={editorial_diag.get('output', 0)} "
+        f"search_in={editorial_diag.get('search_in', 0)} "
+        f"search_low_quality={editorial_diag.get('search_dropped_low_quality', 0)} "
+        f"search_non_latin={editorial_diag.get('search_dropped_non_latin', 0)} "
+        f"search_over_cap={editorial_diag.get('search_dropped_over_cap', 0)} "
+        f"first_party_low_value={editorial_diag.get('first_party_dropped_low_value', 0)} "
+        f"clusters={editorial_diag.get('clusters', 0)} "
+        f"collapsed={editorial_diag.get('collapsed', 0)} "
+        f"seen_dropped={editorial_diag.get('seen_dropped', 0)} "
+        f"seen_penalized={editorial_diag.get('seen_penalized', 0)}"
+    )
 
     source_health = load_source_health()
 
@@ -810,10 +825,12 @@ def run():
         from ranking import run_ranking
 
         ranked_items, ranking_diag = run_ranking(items_deduped, profile, load_llm_cfg(), source_health)
+        ranking_diag["editorial"] = editorial_diag
 
         processed_dir = ROOT / "data" / "processed"
         processed_dir.mkdir(parents=True, exist_ok=True)
         atomic_write_json(processed_dir / "latest.json", ranked_items)
+        write_editorial_artifact(editorial_diag)
 
         date_str = datetime.now().strftime("%Y-%m-%d")
         diag_dir = ROOT / "data" / "diagnostics"
