@@ -23,12 +23,9 @@ No.
 ## End-to-end flow
 
 ```text
-[collectors/collect.py] -> [pipeline/build_tier1.py]
+[collectors/collect.py] -> data/raw/<date>/items.json
   - per-source title blocklist (sources.yaml `exclude_title_regex`) drops
     matches before they reach data/raw (`excluded_title` in ingest_runs.jsonl)
-      |
-      v
-Candidates (TIER0_INPUT=tier1 by default, raw fallback)
       |
       v
 Editorial policy (pipeline/editorial.py, config/editorial.yaml)
@@ -49,10 +46,7 @@ Stage A: prefilter (ranking.stage_a_prefilter)
   - positive relevance floor (profile.relevance_floor): for the mixed-topic
     sources listed there, title+summary (HTML and URLs stripped) must carry at
     least one AI/ML keyword (prefilter_reasons.no_topic_signal). Opt-in per
-    source — a dedicated source's terse release notes carry no keyword at all.
-    `build_tier1.py` applies the same floor (`no_topic_signal=` in its log
-    line), because api/feed.js blends Tier-1 snapshots into the served feed
-    alongside this brief
+    source: a dedicated source's terse release notes carry no keyword at all.
   - off-topic relevance gate (profile.off_topic): anchored-phrase blocklist
     over title+summary, with a word-boundary platform rescue clause
     (prefilter_reasons.off_topic)
@@ -61,6 +55,20 @@ Stage A: prefilter (ranking.stage_a_prefilter)
   - reserve up to each configured source's `max_per_source` candidates
     (`candidate_pool_coverage`)
   - fill the remaining pool by prefilter score up to `candidate_pool_cap` (140)
+      |
+      v
+Jev gate + category (pipeline/editorial_judge.py, config/judge.yaml)
+  - runs on the Stage A candidate pool, not raw items and not the final 24
+  - fetches paragraph excerpts for candidates whose feed teaser is too short
+  - one OpenRouter System One request per item:
+      keep, platform_relevant, release_lane, corporate_marketing (noul)
+      category (choice with criteria)
+  - hybrid score: `keep` is primary; release/marketing highs and low
+    platform relevance clamp it; the category is stored for the editor decks
+  - fail-open: missing key, timeout, or malformed response leaves the item
+    unjudged and the deterministic ranking continues
+  - writes data/processed/classified.json (compact, committed) and
+    data/quality/classified/<date>.json (full local pool)
       |
       v
 Stage B: slot assignment (ranking.assign_slots)
@@ -83,6 +91,7 @@ Stage C: in-slot scoring + selection (ranking.stage_c_score_and_select)
   - pre-decay score = alpha*llm_score + beta*freshness
                       + source_bias + source_tune + topical_bias
                       - editorial_penalty
+                      + judge_weight * judge_score
     (source_tune = learned feedback/CTR adjustment from
      data/feedback/source_adjustments.json via pipeline/auto_tune.py,
      gated by auto_tune.enabled + max_age_days staleness cutoff)
@@ -97,12 +106,15 @@ Global merge (ranking.global_merge)
   - merge slot picks, trim to max_items (24)
   - respect slot minimum floors when trimming
   - `editorial_caps.max_search_items` caps the search signal across slots
+  - headroom skips judged-low items (`judge_ranking.headroom_min_score`) and
+    low off-topic categories unless the slot floor still needs a candidate
       |
       v
 Top-band constraints (ranking.enforce_top_band_constraints)
   - e.g. min frontier_official items and max research items in the top 10
   - `min_anthropic_frontier` now counts only frontier_official (engineering);
     frontier_corporate cannot satisfy it
+  - promotion skips `judge_verdict: drop` and low-score candidates
   - lead rule: position 1 is never a research paper when a non-research item
     exists (the best-scoring non-research item is lifted to the lead)
       |

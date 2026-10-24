@@ -5,7 +5,6 @@ import {
   applyEditorialCaps,
   collapseStoryClusters,
   readEditorial,
-  sourceRole,
 } from './lib/editorial.js';
 
 function esc(s = '') {
@@ -35,35 +34,6 @@ function parseDateMaybe(v) {
 function loadRunsIndex() {
   const p = path.join(process.cwd(), 'data', 'processed', 'runs_index.json');
   return readJsonSafe(p, []);
-}
-
-function loadTier1Recent({ lookbackMs, maxRuns = 12 } = {}) {
-  const base = path.join(process.cwd(), 'data', 'tier1');
-  const indexPath = path.join(base, 'runs_index.json');
-  const index = readJsonSafe(indexPath, []);
-  const now = Date.now();
-
-  const selected = (Array.isArray(index) ? index : [])
-    .filter((row) => {
-      const d = parseDateMaybe(row?.run_at);
-      return !!d && (now - d.getTime()) <= lookbackMs;
-    })
-    .sort((a, b) => String(b?.run_at || '').localeCompare(String(a?.run_at || '')))
-    .slice(0, maxRuns);
-
-  const byKey = new Map();
-  for (const row of selected) {
-    const rel = row?.path || row?.file;
-    if (!rel) continue;
-    const run = readJsonSafe(path.join(base, 'runs', rel), null);
-    if (!run || !Array.isArray(run.items)) continue;
-    for (const it of run.items) {
-      const key = it.url || it.title || '';
-      if (!key || byKey.has(key)) continue;
-      byKey.set(key, { ...it, tier_hint: 'tier1_fresh' });
-    }
-  }
-  return [...byKey.values()];
 }
 
 function getRecentItems() {
@@ -105,32 +75,7 @@ function getRecentItems() {
     byUrl.set(key, it);
   }
 
-  // 2. Blend tier1 fresh items (24h lookback for fresh blend)
-  const tier1Items = loadTier1Recent({ lookbackMs: 24 * 60 * 60 * 1000, maxRuns: 12 });
-  const prioritySources = new Set(['openai_blog', 'anthropic_engineering', 'anthropic_research', 'claude_dev_blog', 'google_deepmind_blog']);
-
-  const tier1Fresh = tier1Items
-    .filter((it) => {
-      const key = (it.url || '').trim();
-      if (!key || byUrl.has(key)) return false;
-      if (sourceRole(it?.source) === 'search') return false;
-      const score = Number(it.tier1_quick_score ?? it.score ?? 0);
-      return score >= 2.6;
-    })
-    .sort((a, b) => {
-      const ap = prioritySources.has(a.source) ? 1 : 0;
-      const bp = prioritySources.has(b.source) ? 1 : 0;
-      if (ap !== bp) return bp - ap;
-      return (b.tier1_quick_score ?? 0) - (a.tier1_quick_score ?? 0);
-    })
-    .slice(0, 4);
-
-  for (const it of tier1Fresh) {
-    const key = (it.url || '').trim();
-    byUrl.set(key, it);
-  }
-
-  // 3. Order reverse-chronologically. RSS / agent consumers treat feed order as
+  // 2. Order reverse-chronologically. RSS / agent consumers treat feed order as
   //    recency; sorting by score buried fresh items under days-old high-score
   //    ones, so an agent pulling the feed saw "outdated" results even though the
   //    underlying data was current. Score is only a tiebreaker now.
@@ -144,8 +89,8 @@ function getRecentItems() {
     const da = bestDate(a)?.getTime() ?? 0;
     const db = bestDate(b)?.getTime() ?? 0;
     if (db !== da) return db - da;
-    const sa = Number(a.v2_final_score ?? a.score ?? a.tier1_quick_score ?? 0);
-    const sb = Number(b.v2_final_score ?? b.score ?? b.tier1_quick_score ?? 0);
+    const sa = Number(a.v2_final_score ?? a.score ?? 0);
+    const sb = Number(b.v2_final_score ?? b.score ?? 0);
     return sb - sa;
   });
 }

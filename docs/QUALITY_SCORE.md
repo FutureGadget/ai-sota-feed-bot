@@ -33,3 +33,27 @@ while losing the finishable, anti-hype product promise.
 
 The offline Jev/decision-model benchmark and review workflow live in
 `docs/how-to/jev-quality-benchmark.md`.
+
+## Jev semantic gate (2026-10-24)
+
+The edition builder runs Jev 1.14 as a semantic layer after the Stage A
+candidate pool:
+
+- four `noul` questions: `keep`, `platform_relevant`, `release_lane`,
+  `corporate_marketing`
+- one `choice` question for the primary category
+- `keep` is the primary score; release/marketing highs and low platform
+  relevance clamp it
+- the score is a continuous Stage C weight plus a headroom floor, not a global
+  binary gate
+- release-role items are exempt from the headroom floor so the Releases tab
+  and model radar keep their data
+- paragraph excerpts are fetched for candidates whose feed teaser is too short
+
+Offline benchmark: AUC 0.969, F1 0.927 at threshold 0.25, precision 0.950,
+recall 0.905, Brier 0.095, ECE 0.114, $0.0027 for 50 requests. The full
+write-up is `docs/status/jev-quality-benchmark-2026-10-24.md`.
+
+The compact judge artifact for editor decks is
+`data/processed/classified.json`: category/verdict counts and the top-scored
+judged items. The full local pool is under `data/quality/classified/`.

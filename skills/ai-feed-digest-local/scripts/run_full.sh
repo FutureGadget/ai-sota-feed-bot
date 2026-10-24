@@ -36,19 +36,14 @@ fi
 COLLECT_BYPASS_COOLDOWN=${FULL_RUN_BYPASS_COOLDOWN:-0} python collectors/collect.py
 python pipeline/source_health.py update
 python pipeline/source_alerts.py
-python pipeline/build_tier1.py
 
-if [ ! -f data/tier1/latest.json ]; then
-  echo "FULL_RUN_FAILURE: missing data/tier1/latest.json"
-  exit 1
-fi
-
-# Tier-0 incremental mode defaults for scheduled runs.
+# One edition builder. The collector writes raw, the builder applies the
+# deterministic editorial policy + Jev gate, then ranks and publishes.
 : "${TIER0_INCREMENTAL:=1}"
 : "${TIER0_INCREMENTAL_SKIP_NO_DELTA:=1}"
 
 DIGEST_LOG="$(mktemp -t build_digest.XXXXXX.log)"
-TIER0_INPUT=tier1 TIER0_INCREMENTAL="$TIER0_INCREMENTAL" TIER0_INCREMENTAL_SKIP_NO_DELTA="$TIER0_INCREMENTAL_SKIP_NO_DELTA" \
+TIER0_INCREMENTAL="$TIER0_INCREMENTAL" TIER0_INCREMENTAL_SKIP_NO_DELTA="$TIER0_INCREMENTAL_SKIP_NO_DELTA" \
   python pipeline/build_digest.py | tee "$DIGEST_LOG"
 
 if grep -q "tier0_incremental_skip=true" "$DIGEST_LOG"; then
@@ -82,20 +77,12 @@ fi
 python pipeline/story_store.py sync
 python pipeline/render_static_pages.py
 
-# Prune runtime snapshot history before commit/publish to keep repo growth bounded.
-# tier1 snapshots are heavy (~1.5 MB each, ~8/day) and bundled into the Vercel
-# feed/rss functions. Both functions read tier1 only for a 24h fresh-blend overlay
-# (RSS's 7-day window comes from processed/runs, not tier1), so a hard 3-day delete
-# cap keeps the bundled tier1 dir at ~20-30 MB instead of 100+ MB — well under the
-# 250 MB function limit. Processed snapshots are tiny and keep their archive.
+# Processed snapshots are tiny and keep their archive; there is no Tier-1
+# snapshot directory anymore.
 : "${PROCESSED_RUN_RETENTION_DAYS:=45}"
-: "${TIER1_RUN_RETENTION_DAYS:=3}"
-: "${TIER1_RUN_MAX_AGE_DAYS:=3}"
 : "${WEEKLY_ARCHIVE_AFTER_DAYS:=365}"
 python pipeline/prune_runtime_data.py \
   --processed-days "$PROCESSED_RUN_RETENTION_DAYS" \
-  --tier1-days "$TIER1_RUN_RETENTION_DAYS" \
-  --tier1-max-age-days "$TIER1_RUN_MAX_AGE_DAYS" \
   --weekly-archive-after-days "$WEEKLY_ARCHIVE_AFTER_DAYS"
 
 # Optional local->GitHub sync for Vercel auto-deploy (enabled by default)

@@ -11,7 +11,7 @@ This script enforces:
 1. Requirements Hygiene: Prohibits heavy batch/offline dependencies (e.g. pyarrow,
    pandas, scipy, torch, numpy) in root requirements.txt.
 2. .vercelignore Completeness: Ensures all known heavy runtime directories (data/raw,
-   data/tier1/runs, etc.) are explicitly excluded from Vercel deployments.
+   data/quality, etc.) are explicitly excluded from Vercel deployments.
 3. Function Bundle Budgets: Calculates the unzipped bundle size for every function
    declared in vercel.json, ensuring none exceed a safe threshold (default: 150 MB).
 4. Bundled Data Growth: Audits data directories bundled into functions to prevent
@@ -65,7 +65,7 @@ PROHIBITED_PACKAGES = {
 # Directories that carry heavy runtime or build data and must be excluded in .vercelignore.
 MANDATORY_VERCELIGNORE_ENTRIES = (
     "data/raw",
-    "data/tier1/runs",
+    "data/quality",
     "data/llm",
     "data/health",
     "data/digest",

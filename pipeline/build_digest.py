@@ -15,6 +15,7 @@ from dateutil import parser as dt_parser
 
 from content_fetch import build_content_map
 from editorial import apply_pre_ranking, write_editorial_artifact
+from editorial_judge import apply_judge
 from enrich import enrich_items, record_duplicate
 from llm_label import label_items, load_cfg as load_llm_cfg
 from llm_rerank import rerank_candidates
@@ -168,27 +169,9 @@ def latest_raw_file() -> Path:
     return fp
 
 
-def latest_tier1_file() -> Path:
-    fp = ROOT / "data" / "tier1" / "latest.json"
-    if not fp.exists():
-        raise FileNotFoundError(f"Missing {fp}")
-    return fp
-
-
 def load_items_for_tier0() -> tuple[list[dict[str, Any]], str, Path]:
-    pref = (os.getenv("TIER0_INPUT", "tier1") or "tier1").strip().lower()
-
-    if pref == "raw":
-        fp = latest_raw_file()
-        return json.loads(fp.read_text(encoding="utf-8")), "raw", fp
-
-    # default: tier1 with automatic fallback to raw
-    try:
-        fp = latest_tier1_file()
-        return json.loads(fp.read_text(encoding="utf-8")), "tier1", fp
-    except Exception:
-        fp = latest_raw_file()
-        return json.loads(fp.read_text(encoding="utf-8")), "raw_fallback", fp
+    fp = latest_raw_file()
+    return json.loads(fp.read_text(encoding="utf-8")), "raw", fp
 
 
 def load_latest_processed_run_at() -> datetime | None:
@@ -817,15 +800,34 @@ def run():
         f"seen_dropped={editorial_diag.get('seen_dropped', 0)} "
         f"seen_penalized={editorial_diag.get('seen_penalized', 0)}"
     )
-
     source_health = load_source_health()
 
     # Unified ranking pipeline (single canonical path).
     try:
         from ranking import run_ranking
 
-        ranked_items, ranking_diag = run_ranking(items_deduped, profile, load_llm_cfg(), source_health)
+        ranked_items, ranking_diag = run_ranking(
+            items_deduped,
+            profile,
+            load_llm_cfg(),
+            source_health,
+            judge_fn=apply_judge,
+        )
         ranking_diag["editorial"] = editorial_diag
+        judge_diag = ranking_diag.get("judge", {}) or {}
+        print(
+            "judge_stats "
+            f"enabled={int(bool(judge_diag.get('enabled')))} "
+            f"selected={judge_diag.get('selected', 0)} "
+            f"judged={judge_diag.get('judged', 0)} "
+            f"cached={judge_diag.get('cached', 0)} "
+            f"content_fetched={judge_diag.get('content_fetched', 0)} "
+            f"errors={judge_diag.get('errors', 0)} "
+            f"downgraded={judge_diag.get('downgraded', 0)} "
+            f"verdicts={judge_diag.get('verdicts', {})} "
+            f"categories={judge_diag.get('categories', {})} "
+            f"reason={judge_diag.get('reason', 'ok')}"
+        )
 
         processed_dir = ROOT / "data" / "processed"
         processed_dir.mkdir(parents=True, exist_ok=True)

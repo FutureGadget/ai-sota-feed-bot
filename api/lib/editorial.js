@@ -160,7 +160,7 @@ function normalizeTitle(value) {
 
 function coverageScore(item) {
   const value = Number(
-    item?.v2_final_score ?? item?.score_at_last_seen ?? item?.score ?? item?.tier1_quick_score ?? 0
+    item?.v2_final_score ?? item?.score_at_last_seen ?? item?.score ?? 0
   );
   return Number.isFinite(value) ? value : 0;
 }

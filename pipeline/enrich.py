@@ -4,9 +4,8 @@ import html
 import re
 from typing import Any
 
-# Mechanical (no-LLM) item enrichment shared by the tier1 and tier0 builders.
-# Tier-0 may re-process tier1 output (TIER0_INPUT=tier1), so everything here
-# must stay idempotent.
+# Mechanical item enrichment for the edition builder. Everything here must
+# stay idempotent; the builder may enrich the same item more than once.
 
 GITHUB_RELEASE_URL_RE = re.compile(r"github\.com/[^/]+/([^/]+)/releases", re.I)
 # Bare tag titles: "0.139.0", "v2.1.169", "0.32a3", "rust-v0.140.0-alpha.1"

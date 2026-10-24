@@ -10,7 +10,7 @@
 # 2026-10-20 post. Confirm the current request/response shape against the
 # provider docs before enabling.
 
-enabled: false
+enabled: true
 # Provider used by the benchmark/runner when one is not passed explicitly.
 # `openrouter` uses OpenRouter's System One API and is the recommended path.
 # `jev` uses TypeSafe's direct Decisions API if you have it.
@@ -44,6 +44,11 @@ openrouter:
   # lost the context that makes the holistic question strong.
   score_mode: hybrid
   use_holistic_keep: true
+  max_workers: 12
+  # 0 means judge the whole post-editorial candidate pool. This is cheap at
+  # Jev's price and keeps every feed item and every editor-deck candidate judged.
+  max_items: 0
+  time_budget_seconds: 300
   questions:
     platform_relevant:
       type: noul
@@ -64,6 +69,23 @@ openrouter:
         Is this primarily a marketing or corporate announcement (ads, customer
         story, partnership, office, funding, appointment) without a concrete
         engineering or distribution change that affects platform teams?
+    category:
+      type: choice
+      instructions: >-
+        Which primary category best describes this item for an AI platform and
+        agent engineer? Choose the closest option. Use frontier_product for a
+        model or product launch or availability, release_note for a routine
+        version bump, and off_topic for domain science, consumer, or general
+        news that is not about building or operating AI systems.
+      criteria:
+        frontier_product: "A model or product launch, or a model becoming available on a platform."
+        agent_engineering: "Agent harnesses, tools, memory, orchestration, MCP, or coding agents."
+        inference_serving: "Serving, kernels, quantization, latency, throughput, or inference cost."
+        evaluation_reliability: "Evals, benchmarks, safety, security, or reliability."
+        research_method: "A general research method or paper relevant to platform or agent engineering."
+        business_policy: "Funding, regulation, partnerships, or company news without a concrete engineering change."
+        release_note: "A routine release note, changelog, or bare version bump."
+        off_topic: "Domain science, consumer, or general news not about building or operating AI systems."
   hybrid:
     primary: keep
     drop_if_above:
@@ -72,6 +94,13 @@ openrouter:
     drop_if_below:
       platform_relevant: 0.35
     gate_score: 0.1
+
+content_fetch:
+  enabled: true
+  max_chars: 2500
+  workers: 8
+  timeout_seconds: 8
+  time_budget_seconds: 120
 
 version: feed-quality-v1
 question_id: is_substantive_platform_content
@@ -138,3 +167,15 @@ criteria:
       - "A routine version bump or a release note with a long changelog."
       - "A clinical QA benchmark or a protein-model deployment tutorial."
       - "A customer story about legal work or advertising."
+
+# Verdict thresholds used by the production gate. The benchmark tunes its own
+# threshold; these are the operating points on the same scale.
+ranking:
+  # The benchmark's tuned operating point is 0.25. `keep` means useful for the
+  # brief, not only must-read; the ranking weight below decides placement.
+  drop_below: 0.1
+  keep_at: 0.25
+  # Keep at least 40% of the judged pool. The gate removes the worst 60%; the
+  # next band stays as `review` and is penalized by the ranking. A smaller
+  # feed is preferable to padding it with high-confidence drops.
+  max_drop_share: 0.6

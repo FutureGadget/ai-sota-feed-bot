@@ -24,19 +24,22 @@ available to each function.
   gitignored, so a fresh runner refetches. Not committed and not deployed.
 
 ## Ranked snapshots
-- `data/tier1/latest.json` — fast quick-score snapshot (no LLM)
-- `data/tier1/runs/<Y>/<M>/<run_id>.json` + `data/tier1/runs_index.json`
-  — per-run history (**3-day hard cap**, no archive tail; these are ~1.5 MB
-  each and bundled into the Vercel feed/rss functions, which only read tier1
-  for a 24h fresh-blend overlay)
-- `data/processed/latest.json` — the production feed (Tier-0 full ranking).
+- `data/processed/latest.json` — the production feed (single edition build).
   Ranked items include score diagnostics such as `llm_score`, `source_bias`,
-  `source_tune`, `topical_bias`, `editorial_penalty`, `pre_decay_score`,
-  `time_decay_factor`, `final_score`, `slot_priority`, and `global_score`.
-  Editorial fields: `source_role`, `story_key`, `story_cluster_id`,
-  `story_cluster_size`, `seen_count`. Optional `publisher_name` and
-  `publisher_domain` attribution fields pass through from collector rows for
-  Google News items.
+  `source_tune`, `topical_bias`, `editorial_penalty`, `judge_adjustment`,
+  `pre_decay_score`, `time_decay_factor`, `final_score`, `slot_priority`, and
+  `global_score`. Editorial fields: `source_role`, `story_key`,
+  `story_cluster_id`, `story_cluster_size`, `seen_count`. Judge fields:
+  `judge_score`, `judge_signals`, `judge_choices`, `judge_category`,
+  `judge_category_confidence`, `judge_category_probabilities`,
+  `judge_verdict`, `judge_model`, `judge_rubric_version`, `judge_judged_at`.
+  Optional `publisher_name` and `publisher_domain` attribution fields pass
+  through from collector rows for Google News items.
+- `data/processed/classified.json` — compact, committed judge artifact for
+  editor-deck routines: model/rubric version, category and verdict counts, and
+  up to 120 top-scored judged items (`story_key`, `url`, `title`, `source`,
+  `published`, `judge_score`, `judge_verdict`, `judge_category`,
+  `judge_category_confidence`).
 - `data/processed/editorial.json` — deterministic editorial-policy artifact
   read by `api/feed.js` and `api/rss.js`: `source_roles` (source -> role),
   `caps` (per-source caps by role), `role_totals` (cross-source totals),
@@ -51,6 +54,12 @@ available to each function.
   generated `runs/`. Not read by any API or the static build.
 - `data/quality/cache/` — cached judge responses keyed by payload hash, so
   threshold sweeps and reruns do not make new API calls.
+- `data/quality/classified/<date>.json` — full local judged candidate pool for
+  the edition (all Stage A candidates), with signals, category probabilities,
+  and diagnostics. Gitignored; the compact `data/processed/classified.json`
+  is the shared artifact.
+- `data/quality/content_cache.json` — paragraph-extraction cache for the judge
+  (canonical URL -> article paragraphs). Gitignored.
 
 ## Feed API (`/api/feed`)
 Response fields served from the accumulated ranked pool above:

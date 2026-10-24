@@ -489,10 +489,8 @@ def main():
 
     target_items = all_items[:effective_limit]
 
-    # Get deep_run_at or use current time
-    run_at_str = feed.get("tier1_blend", {}).get("deep_run_at")
-    if not run_at_str:
-        run_at_str = all_items[0].get("first_seen") or datetime.now(timezone.utc).isoformat()
+    # Anchor the snapshot to the newest ranked item's arrival time.
+    run_at_str = all_items[0].get("first_seen") or datetime.now(timezone.utc).isoformat()
 
     existing = _translation_map(existing_snapshot)
 
@@ -648,8 +646,7 @@ def main():
             "endpoint": "/api/feed",
             "label": args.label,
             "limit": effective_limit,
-            "days": 7,
-            "blend_tier1": True
+            "days": 7
         },
         "max_items": effective_limit,
         "source_item_count": len(target_items),

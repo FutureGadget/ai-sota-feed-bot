@@ -421,7 +421,7 @@ def _published_key(item: dict[str, Any]) -> datetime:
 
 
 def _score_key(item: dict[str, Any]) -> float:
-    for field in ("global_score", "final_score", "tier1_quick_score", "score"):
+    for field in ("global_score", "final_score", "score"):
         try:
             value = float(item.get(field, 0) or 0)
         except (TypeError, ValueError):

@@ -11,15 +11,15 @@ https://www.llm-digest.com (feed, daily/weekly recaps, story permalinks,
 storylines, Agent Builder Foundations).
 
 ## System At A Glance
-Two-tier deterministic pipeline (LLM currently **disabled** — see Gotchas):
+Single-edition pipeline with a deterministic core and an optional Jev semantic gate:
 
 ```text
 collectors/collect.py                  -> data/raw/YYYY-MM-DD/items.json
 pipeline/source_health.py update       -> data/health/* (health, circuit breaker)
 pipeline/source_alerts.py              -> local degradation alert artifacts/logs
-pipeline/build_tier1.py                -> data/tier1/latest.json (fast quick-score, no LLM)
-pipeline/build_digest.py  (Tier-0)     -> data/processed/latest.json + data/digest/*.md
-   (TIER0_INPUT=tier1; full ranking via pipeline/ranking.py; incremental no-delta skip)
+pipeline/build_digest.py               -> data/processed/latest.json + data/digest/*.md
+   raw -> editorial pre-ranking -> Jev gate/category -> ranking -> edition
+   (pipeline/judge.py + pipeline/editorial_judge.py; incremental no-delta skip)
 pipeline/story_store.py sync           -> data/stories/ (durable, append-only store)
 pipeline/render_static_pages.py        -> web/{daily,weekly,story}/*.html + sitemap.xml
 pipeline/build_foundations.py          -> data/foundations/index.json (deterministic concept compiler)
@@ -128,7 +128,13 @@ in `ops_daily_summary.py`'s log line.
   - `quality_benchmark.py` — offline Jev/decision-model benchmark: stratified
     labeled sample, fixture/heuristic/Jev providers, precision/recall/F1,
     Brier/ECE, slice metrics, and an adjudication packet for owner review
-  - `build_tier1.py` (fast snapshot) / `build_digest.py` (Tier-0 full build)
+  - `judge.py` — shared Jev/OpenRouter System One client, structured rubric,
+    hybrid scoring, cache, and verdict/adjustment policy
+  - `editorial_judge.py` — production gate: fetches paragraph excerpts, judges
+    the Stage A candidate pool, writes `data/processed/classified.json` and the
+    local `data/quality/classified/<date>.json`
+  - `build_digest.py` — the single edition builder
+    (raw -> editorial -> judge -> ranking -> edition)
   - `enrich.py`, `content_fetch.py` — mechanical enrichment, page excerpts
     (`build_content_map` is called from the collector for `fetch_content`
     sources; the excerpt feeds keyword gates only, never display)
@@ -274,7 +280,7 @@ in `ops_daily_summary.py`'s log line.
   share card, logo and icon PNGs; run only when the brand, title or tagline
   changes)
 - `skills/` — local run helpers: `ai-feed-digest-local/` (`run_full.sh`,
-  `run_dev.sh`, `run_tier1_fast.sh`), `ops-daily-summary/`
+  `run_dev.sh`), `ops-daily-summary/`
 - `.agents/skills/` — agent recap routines: `daily-summary/`, `weekly-summary/`,
   `storyline-editor/` (narrates cross-day threads into a sidecar the pipeline
   overlays), `storyline-scout/` (proposes thread links the clustering missed,
@@ -340,13 +346,15 @@ in `ops_daily_summary.py`'s log line.
 
 ## Data Artifacts (committed runtime state)
 - `data/raw/<date>/items.json` — collector output
-- `data/tier1/` — `latest.json`, `runs/`, `runs_index.json` (fast tier)
-- `data/processed/` — `latest.json` (the feed), `editorial.json` (roles/caps
+- `data/processed/` — `latest.json` (the feed), `classified.json` (compact
+  judge verdicts/categories for the editor decks), `editorial.json` (roles/caps
   and quarantine patterns shared with the APIs), `runs/`, `runs_index.json`
 - `data/quality/benchmark/` — frozen 50-item Jev benchmark (`items.json`,
   `labels.md`, fetched `content_cache.json`, synthetic `fixture_scores.json`)
-  and generated `runs/`; `data/quality/cache/` holds judge responses. Offline
-  only; excluded from the Vercel deployment and never read by an API
+  and generated `runs/`; `data/quality/cache/` holds judge responses;
+  `data/quality/classified/<date>.json` is the full local judged pool (not
+  committed). Offline only; excluded from the Vercel deployment and never read
+  by an API
 - `data/digest/<date>.md` — daily digest markdown
 - `data/stories/<YYYY-MM>.json` + `index.json` — durable story store
 - `data/storylines/<slug>.json` + `index.json` — threads (with `editorial`
@@ -408,18 +416,14 @@ in `ops_daily_summary.py`'s log line.
 - `data/email/state.json` — email-digest send cursor (high-water marks for
   daily/storyline/wiki deltas; **no subscriber PII** — the provider owns the list)
 - `data/llm/labels.json` (cache), `data/cache/`, `data/diagnostics/`, `data/analysis/`
-- Retention: processed 45d (daily/weekly archive tail), tier1 **3d hard cap**
-  (deleted outright, no archive tail — tier1 snapshots are ~1.5–1.9 MB each).
-  Env-tunable via `prune_runtime_data.py`, run automatically in `run_full.sh`.
-  **Heavy runtime dirs are kept out of Vercel via `.vercelignore`**
-  (`data/raw`, `data/tier1/runs`, `data/llm`, `data/health`, `data/digest`,
-  `data/diagnostics`, `data/cache`, `data/analysis`). Vercel bundles the whole
-  uploaded project into *each* serverless function, so once `data/` grew
-  (`tier1/runs` ~175 MB at ~30 runs/day, `data/raw` ~125 MB) functions blew
-  past the 250 MB unzipped limit and froze all deploys. These dirs are read by
-  neither the static build nor any function at request time (`feed.js` falls
-  back to `tier1/latest.json` when the runs are absent), so they stay in git
-  (audit/replay) but ship out of the deployment. See the 2026-06-19 ADR.
+- Retention: processed 45d (daily/weekly archive tail). Env-tunable via
+  `prune_runtime_data.py`, run automatically in `run_full.sh`. **Heavy runtime
+  dirs are kept out of Vercel via `.vercelignore`** (`data/raw`, `data/quality`,
+  `data/llm`, `data/health`, `data/digest`, `data/diagnostics`, `data/cache`,
+  `data/analysis`). Vercel bundles the whole uploaded project into *each*
+  serverless function; these dirs are read by neither the static build nor any
+  function at request time, so they stay in git (audit/replay) but ship out of
+  the deployment. See the 2026-06-19 ADR.
 
 ## Web Surface (vercel.json rewrites)
 `/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/storylines` ·

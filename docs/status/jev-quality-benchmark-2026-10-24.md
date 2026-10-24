@@ -106,3 +106,24 @@ It is still not a sole curator:
    search out of the semantic gate.
 4. Re-run the benchmark and compare against this hybrid baseline before
    shadow mode.
+
+## Production integration (same day)
+
+The hybrid judge is now wired into the single edition builder:
+
+- It runs on the Stage A candidate pool, not raw items and not the final 24.
+- Paragraph excerpts are fetched for candidates whose feed teaser is too
+  short; this fixed the first-party false negatives seen when the judge only
+  had a nav-heavy teaser.
+- The judge score is a continuous Stage C weight (`judge_ranking.weight`) plus
+  a discretionary headroom floor (`headroom_min_score`), not a global binary
+  gate.
+- Release-role items are exempt from the headroom floor so the Releases tab
+  and model radar keep their data.
+- `data/processed/classified.json` is the compact committed artifact for the
+  daily/weekly/wiki/playbook/foundations routines.
+
+A dry run against the stale 2026-10-24 raw snapshot judged 140 Stage A
+candidates: 93 keep, 31 drop, 16 review. The feed returned 18 items because
+seen-memory had already retired many first-party posts from the stale
+snapshot; that is a data artifact, not a benchmark result.

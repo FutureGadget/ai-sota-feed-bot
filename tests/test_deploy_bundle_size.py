@@ -75,7 +75,7 @@ class DeployBundleSizeTest(unittest.TestCase):
             tmp.flush()
             errors = cbs.check_vercelignore(Path(tmp.name))
             self.assertTrue(len(errors) > 0)
-            self.assertTrue(any("data/tier1/runs" in e for e in errors))
+            self.assertTrue(any("data/quality" in e for e in errors))
 
     def test_function_bundle_sizes_under_budget(self):
         """Every function in vercel.json must remain well under the 150 MB safety budget."""

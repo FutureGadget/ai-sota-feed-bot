@@ -52,15 +52,14 @@ For v1, the eligible set is equivalent to this default homepage request:
 The window is the last 7 Korea Standard Time calendar days, converted to
 explicit timezone-aware `from` and `to` bounds. This makes the translated
 snapshot deterministic: it does not depend on each reader's browser timezone.
-Tier-1 fresh blending stays enabled with the same defaults as `/api/feed`,
-because those inserts are part of the reader-visible default feed.
+The feed API reads `data/processed/**` only. There is no separate Tier-1
+fresh-blend overlay.
 
 Do not select from `data/processed/latest.json` sorted by score and do not use
 the crawler feed-seed selector as the source of truth; those are static fallback
 paths, not the live reader contract. The localized snapshot should record the
-API-equivalent params used to produce it (`label`, `limit`, `from`, `to`,
-`blend_tier1`, and any non-default Tier-1 config) plus the newest source run id
-returned by the feed API.
+API-equivalent params used to produce it (`label`, `limit`, `from`, `to`)
+plus the newest source run id returned by the feed API.
 
 The `/ko/` surface is a localized default Brief feed. It does not expose
 non-Brief lenses, pinned-topic filters, custom date ranges, or search in v1. The
@@ -203,8 +202,7 @@ Proposed `latest.json` shape:
     "endpoint": "/api/feed",
     "label": "brief",
     "limit": 20,
-    "days": 7,
-    "blend_tier1": true
+    "days": 7
   },
   "max_items": 20,
   "source_item_count": 18,

@@ -6,7 +6,6 @@ import {
   applyEditorialCaps,
   collapseStoryClusters,
   readEditorial,
-  sourceRole,
 } from './lib/editorial.js';
 
 function readJsonSafe(p, fallback) {
@@ -296,45 +295,6 @@ function maybeLocalized(body, searchParams) {
   };
 }
 
-function readTier1Latest() {
-  const p = path.join(process.cwd(), 'data', 'tier1', 'latest.json');
-  return readJsonSafe(p, []);
-}
-
-function readTier1Recent({ lookbackHours = 24, maxRuns = 12 } = {}) {
-  const base = path.join(process.cwd(), 'data', 'tier1');
-  const runsDir = path.join(base, 'runs');
-  const indexPath = path.join(base, 'runs_index.json');
-  const index = readJsonSafe(indexPath, []);
-
-  const now = Date.now();
-  const lookbackMs = Math.max(1, Number(lookbackHours || 24)) * 60 * 60 * 1000;
-  const selected = (Array.isArray(index) ? index : [])
-    .filter((row) => {
-      const d = parseDateMaybe(row?.run_at);
-      return !!d && (now - d.getTime()) <= lookbackMs;
-    })
-    .sort((a, b) => String(b?.run_at || '').localeCompare(String(a?.run_at || '')))
-    .slice(0, Math.max(1, Number(maxRuns || 12)));
-
-  const byKey = new Map();
-  for (const row of selected) {
-    const rel = row?.path || row?.file;
-    if (!rel) continue;
-    const run = readJsonSafe(path.join(runsDir, rel), null);
-    if (!run || !Array.isArray(run.items)) continue;
-
-    for (const it of run.items) {
-      const key = itemKey(it);
-      if (!key || byKey.has(key)) continue;
-      byKey.set(key, { ...it, run_at: run?.run_at || null });
-    }
-  }
-
-  if (byKey.size > 0) return [...byKey.values()];
-  return readTier1Latest();
-}
-
 function readRuns() {
   const base = path.join(process.cwd(), 'data', 'processed');
   const runsDir = path.join(base, 'runs');
@@ -409,107 +369,6 @@ function filterItemsByPublishWindow(items, fromIso, toIso) {
     if (to && d > to) return false;
     return true;
   });
-}
-
-function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
-  const {
-    freshCap = 4,
-    insertAfter = 3,
-    minQuickScore = 2.6,
-    maxPerSource = 1,
-    prioritySources = ['openai_blog', 'anthropic_engineering', 'anthropic_research', 'claude_dev_blog', 'google_deepmind_blog'],
-    priorityMin = 1,
-    editorial = null,
-  } = opts;
-
-  if (!Array.isArray(tier1Items) || !tier1Items.length || !deepRunAtIso) {
-    return { items: baseItems, added: 0 };
-  }
-
-  const deepRunAt = parseDateMaybe(deepRunAtIso);
-  if (!deepRunAt) return { items: baseItems, added: 0 };
-
-  const byKey = new Set(baseItems.map((it) => itemKey(it)));
-  const sourceCounts = new Map();
-
-  const maxFreshAgeMs = 24 * 60 * 60 * 1000; // items older than 24h by publish date are not "fresh"
-  const nowMs = Date.now();
-
-  const fresh = tier1Items
-    .filter((it) => {
-      const collected = parseDateMaybe(it?.collected_at);
-      const published = parseDateMaybe(it?.published);
-      const d = collected || published;
-      const quick = Number(it?.tier1_quick_score || 0);
-      if (!d || d <= deepRunAt || quick < minQuickScore) return false;
-      // Tier-1 is a recall snapshot. A fresh search result belongs in the
-      // candidate pool, not in the reader-facing fresh lane.
-      if (sourceRole(it?.source, editorial) === 'search') return false;
-      // Reject items with old publish dates — they aren't truly fresh
-      if (published && (nowMs - published.getTime()) > maxFreshAgeMs) return false;
-      // Skip routine version releases (e.g. "v2.1.39", "vllm 0.105.0") — low
-      // signal for the fresh lane. Titles may carry a repo-name prefix added
-      // by pipeline enrichment, so match on the release-tag URL + a version
-      // pattern rather than the title starting with a version.
-      const title = String(it?.title || '');
-      const isReleaseTag = /\/releases\/tag\//i.test(String(it?.url || ''));
-      if (/^\d+\.\d+\.\d+/.test(title) || /^v\d+\.\d+/.test(title)) return false;
-      if (isReleaseTag && /(?:^|\s)v?\d+\.\d+/.test(title)) return false;
-      return true;
-    })
-    .sort((a, b) => Number(b?.tier1_quick_score || 0) - Number(a?.tier1_quick_score || 0));
-
-  const toFreshItem = (it) => ({
-    ...it,
-    first_seen: it.collected_at || it.published || null,
-    last_seen: it.collected_at || it.published || null,
-    seen_count: 1,
-    last_seen_run_order: -1,
-    rank_at_last_seen: null,
-    rank_prev_seen: null,
-    score_at_last_seen: Number(it.tier1_quick_score ?? it.score ?? 0),
-    tier_hint: 'tier1_fresh',
-  });
-
-  const picked = [];
-  const prioritySet = new Set((Array.isArray(prioritySources) ? prioritySources : []).map((s) => String(s || '').trim()).filter(Boolean));
-
-  // Pass 1: keep a small guaranteed lane for priority sources.
-  for (const it of fresh) {
-    if (picked.length >= Math.max(0, freshCap)) break;
-    if (picked.length >= Math.max(0, priorityMin)) break;
-
-    const src = String(it?.source || 'unknown');
-    if (!prioritySet.has(src)) continue;
-
-    const k = itemKey(it);
-    if (!k || byKey.has(k)) continue;
-    const cur = Number(sourceCounts.get(src) || 0);
-    if (cur >= Math.max(1, maxPerSource)) continue;
-
-    byKey.add(k);
-    sourceCounts.set(src, cur + 1);
-    picked.push(toFreshItem(it));
-  }
-
-  // Pass 2: normal best-score fill.
-  for (const it of fresh) {
-    if (picked.length >= Math.max(0, freshCap)) break;
-    const k = itemKey(it);
-    if (!k || byKey.has(k)) continue;
-
-    const src = String(it?.source || 'unknown');
-    const cur = Number(sourceCounts.get(src) || 0);
-    if (cur >= Math.max(1, maxPerSource)) continue;
-
-    byKey.add(k);
-    sourceCounts.set(src, cur + 1);
-    picked.push(toFreshItem(it));
-  }
-
-  const at = Math.max(0, Math.min(baseItems.length, Number(insertAfter || 0)));
-  const merged = [...baseItems.slice(0, at), ...picked, ...baseItems.slice(at)];
-  return { items: merged, added: picked.length };
 }
 
 function labelsFromItem(it) {
@@ -760,17 +619,6 @@ export async function GET(request) {
     const to = toBound.value;
     const limit = Math.max(1, Math.min(500, Number.parseInt(String(url.searchParams.get('limit') || '200'), 10) || 200));
     const selectedLabels = parseLabelFilters(url.searchParams);
-    const blendTier1 = String(url.searchParams.get('blend_tier1') ?? '1') !== '0';
-    const tier1FreshCap = Math.max(0, Math.min(20, Number.parseInt(String(url.searchParams.get('tier1_fresh_cap') || process.env.TIER1_FRESH_CAP || '4'), 10) || 4));
-    const tier1InsertAfter = Math.max(0, Math.min(20, Number.parseInt(String(url.searchParams.get('tier1_insert_after') || process.env.TIER1_INSERT_AFTER || '3'), 10) || 3));
-    const tier1MinQuickScore = Number.parseFloat(String(url.searchParams.get('tier1_min_quick_score') || process.env.TIER1_MIN_QUICK_SCORE || '2.6')) || 2.6;
-    const tier1MaxPerSource = Math.max(1, Math.min(3, Number.parseInt(String(url.searchParams.get('tier1_max_per_source') || process.env.TIER1_MAX_PER_SOURCE || '1'), 10) || 1));
-    const tier1PriorityMin = Math.max(0, Math.min(4, Number.parseInt(String(url.searchParams.get('tier1_priority_min') || process.env.TIER1_PRIORITY_MIN || '1'), 10) || 1));
-    const tier1PrioritySources = String(url.searchParams.get('tier1_priority_sources') || process.env.TIER1_PRIORITY_SOURCES || 'openai_blog,anthropic_engineering,anthropic_research,claude_dev_blog,google_deepmind_blog')
-      .split(',')
-      .map((s) => String(s || '').trim())
-      .filter(Boolean);
-
     const { runs, baseItems, coverageByItem } = readRunsPool();
     const readerTuning = readReaderTuning();
     const localizedRequested =
@@ -832,26 +680,10 @@ export async function GET(request) {
     // its computed first_seen), resurfacing old/already-seen stories in the
     // "New" badge and "Catch me up" brief. filterItemsByPublishWindow below
     // still applies the requested window to what's actually displayed.
-    const deepRunAt = filteredRuns?.[0]?.run_at || null;
-    const tier1LookbackHours = Math.max(1, Math.min(168, Number.parseInt(String(url.searchParams.get('tier1_lookback_hours') || process.env.TIER1_BLEND_LOOKBACK_HOURS || '24'), 10) || 24));
-    const tier1MaxRuns = Math.max(1, Math.min(48, Number.parseInt(String(url.searchParams.get('tier1_max_runs') || process.env.TIER1_BLEND_MAX_RUNS || '12'), 10) || 12));
-    const tier1Latest = blendTier1 ? readTier1Recent({ lookbackHours: tier1LookbackHours, maxRuns: tier1MaxRuns }) : [];
-    const merged = blendTier1
-      ? mergeTier1Fresh(baseItems, tier1Latest, deepRunAt, {
-          freshCap: tier1FreshCap,
-          insertAfter: tier1InsertAfter,
-          minQuickScore: tier1MinQuickScore,
-          maxPerSource: tier1MaxPerSource,
-          prioritySources: tier1PrioritySources,
-          priorityMin: tier1PriorityMin,
-          editorial,
-        })
-      : { items: baseItems, added: 0 };
-
     // Apply the publish window before the editorial caps. Otherwise an old
     // story that is still in the accumulated pool can consume a source slot
     // that belongs to a fresh story in the requested window.
-    const windowItems = filterItemsByPublishWindow(merged.items, from, to);
+    const windowItems = filterItemsByPublishWindow(baseItems, from, to);
     const editorialItems = editorial
       ? collapseStoryClusters(applyEditorialCaps(windowItems, editorial), editorial)
       : windowItems;
@@ -873,21 +705,6 @@ export async function GET(request) {
       has_more: totalItems > limit,
       available_labels: availableLabels,
       reader_tuning: readerTuningSummary(readerTuning),
-      tier1_blend: {
-        enabled: blendTier1,
-        fresh_added: merged.added,
-        deep_run_at: deepRunAt,
-        config: {
-          fresh_cap: tier1FreshCap,
-          insert_after: tier1InsertAfter,
-          min_quick_score: tier1MinQuickScore,
-          max_per_source: tier1MaxPerSource,
-          priority_min: tier1PriorityMin,
-          priority_sources: tier1PrioritySources,
-          lookback_hours: tier1LookbackHours,
-          max_runs: tier1MaxRuns,
-        },
-      },
     };
     body.label_counts = Object.fromEntries(['brief', 'platform', 'research', 'release', 'news'].map((s) => [s, applyLabelFilter(winPool, [s]).length]));
     const { body: localizedBody, cacheControl } = maybeLocalized(body, url.searchParams);

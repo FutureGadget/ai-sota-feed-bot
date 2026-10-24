@@ -243,10 +243,6 @@ class FeedRecoveryGateTests(unittest.TestCase):
                 "from pathlib import Path\n"
                 "with open(os.environ['OFFLINE_CALL_LOG'], 'a') as log:\n"
                 "    log.write(json.dumps(sys.argv[1:])+'\\n')\n"
-                "if sys.argv[1] == 'pipeline/build_tier1.py':\n"
-                "    p = Path('data/tier1/latest.json')\n"
-                "    p.parent.mkdir(parents=True, exist_ok=True)\n"
-                "    p.write_text('{}')\n"
             )
             stub.chmod(0o755)
             activate = root / ".venv/bin/activate"

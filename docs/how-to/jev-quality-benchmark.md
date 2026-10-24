@@ -211,3 +211,21 @@ for a different decision model or a generative judge.
 - A short excerpt: search results and some first-party feeds only expose a
   teaser. The benchmark keeps the title and teaser rather than inventing
   body text. This is a fair representation of what the live gate would see.
+
+## Production gate
+
+The same provider and config power the edition builder:
+
+1. Stage A prefilter produces the candidate pool.
+2. `pipeline/editorial_judge.py` fetches paragraph excerpts for candidates
+   whose feed teaser is too short.
+3. One System One request per candidate returns `keep`, `platform_relevant`,
+   `release_lane`, `corporate_marketing`, and a `category` choice.
+4. The hybrid score is a continuous Stage C weight plus a headroom floor.
+   Release items are exempt so the Releases tab still fills.
+5. The compact artifact is written to `data/processed/classified.json` for the
+   daily/weekly/wiki/playbook/foundations routines.
+
+The gate fails open. If `OPENROUTER_API_KEY` is missing, the build logs
+`judge_skipped reason=not_configured` and the deterministic editorial policy
+and ranking run unchanged.

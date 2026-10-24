@@ -870,7 +870,7 @@ def _ranked_because(item: dict) -> str:
             parts.append(f"fresh {_js_tofixed2(decay)}")
     score_raw = item.get("final_score")
     if score_raw is None:
-        score_raw = item.get("tier1_quick_score")
+        score_raw = item.get("score")
     if score_raw is not None and str(score_raw).strip() != "":
         try:
             score = float(score_raw)

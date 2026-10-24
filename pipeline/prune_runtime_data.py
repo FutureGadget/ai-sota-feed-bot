@@ -43,12 +43,9 @@ def compact_entries(
     - Older than retain_days and newer than weekly_archive_after_days: keep 1 per day
     - Older than weekly_archive_after_days: keep 1 per ISO week
 
-    When ``max_age_days`` is set, any entry older than it is dropped outright —
-    a hard cap that overrides the daily/weekly archive tail. Used for tier1,
-    whose snapshots are heavy (~1.5 MB each, bundled into the Vercel feed/rss
-    functions) and which no endpoint reads beyond ~7 days, so an open-ended
-    archive tail is pure deploy-bundle ballast. Entries with an unknown
-    timestamp are kept conservatively regardless.
+    When ``max_age_days`` is set, any entry older than it is dropped outright:
+    a hard cap that overrides the daily/weekly archive tail. Entries with an
+    unknown timestamp are kept conservatively regardless.
     """
     now = datetime.now(timezone.utc)
     high_res_cutoff = now - timedelta(days=max(0, retain_days))
@@ -197,14 +194,7 @@ def prune_dated_dir(
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--processed-days", type=int, default=45)
-    ap.add_argument("--tier1-days", type=int, default=3)
     ap.add_argument("--weekly-archive-after-days", type=int, default=365)
-    # Hard delete cutoff for tier1 runs. Both consumers (feed.js + rss.js) read
-    # tier1 only for a 24h "fresh-blend" overlay; RSS's 7-day window is built from
-    # processed/runs, not tier1. So nothing reads a tier1 snapshot older than ~24h.
-    # 3 days = the read window + a generous buffer; keeps the bundled tier1 dir at
-    # ~20-30 MB instead of 100+ MB. 0/negative disables the cap.
-    ap.add_argument("--tier1-max-age-days", type=int, default=3)
     # Dated Model Release Radar snapshots (data/models/history). ~290 KB each,
     # one per refresh; 90 days is plenty for score-delta work.
     ap.add_argument("--models-history-days", type=int, default=90)
@@ -217,15 +207,6 @@ def main() -> None:
         weekly_archive_after_days=args.weekly_archive_after_days,
         dry_run=args.dry_run,
     )
-    tier1_max_age = args.tier1_max_age_days if args.tier1_max_age_days > 0 else None
-    tier1 = prune_family(
-        ROOT / "data" / "tier1",
-        retain_days=args.tier1_days,
-        weekly_archive_after_days=args.weekly_archive_after_days,
-        max_age_days=tier1_max_age,
-        dry_run=args.dry_run,
-    )
-
     models_history = prune_dated_dir(
         ROOT / "data" / "models" / "history",
         max_age_days=args.models_history_days,
@@ -235,7 +216,6 @@ def main() -> None:
     print(
         "runtime_prune "
         f"processed(index {processed['index_before']}->{processed['index_after']}, deleted={processed['files_deleted']}, keep={processed['retain_days']}d) "
-        f"tier1(index {tier1['index_before']}->{tier1['index_after']}, deleted={tier1['files_deleted']}, keep={tier1['retain_days']}d, max_age={tier1['max_age_days']}d) "
         f"models_history(deleted={models_history['files_deleted']}, kept={models_history['kept']}, max_age={models_history['max_age_days']}d) "
         f"weekly_after={args.weekly_archive_after_days}d "
         f"dry_run={str(args.dry_run).lower()}"
