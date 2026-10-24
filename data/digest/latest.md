@@ -2,110 +2,104 @@
 
 Focus: AI Platform Engineering
 
-## 1. Sevenbox, find what an AI agent's wrong decision affected
+## 1. Kevlar = MCP Firewall for LLM's
 - Type: news | Source: hackernews_ai
-- URL: https://github.com/sevenboxlabs/sevenbox
-- Score: 3.364 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+- URL: https://github.com/Ablation-Tool/kevlar
+- Score: 3.445 | Reliability: 1.0
+- Why it matters: 
 
-## 2. Reliable AI-Assisted Decisions via Selective Auditing
+## 2. Diagnosing Personalization Failures in Mobile GUI Agents
 - Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.31662v1
-- Score: 2.54 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2610.30573v1
+- Score: 2.679 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
+
+## 3. Automating Feature Flag Cleanup at Scale with Multi-Agent LLM Systems: An Industrial Experience at DoorDash
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.31351v1
+- Score: 2.515 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 3. On the Token Collapse Phenomenon in Textual Graph Soft Prompting
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2610.31572v1
-- Score: 2.508 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 4. LLM Multi-Agent Systems Are Vulnerable to Herding and Runaway Cascades
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.30769v1
-- Score: 2.416 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
+## 4. AfterDeleteBench: Auditing Post-Deletion Information Persistence in LLM Agents
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2610.31366v1
+- Score: 2.432 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
 ## 5. vLLM Delivers Day-0 Support for MiniMax-M3.1-Flash
 - Type: news | Source: vllm_blog
 - URL: https://vllm.ai/blog/2026-10-23-minimax-m31-flash
-- Score: 2.2 | Reliability: 1.0
+- Score: 2.186 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. Vercel Labs Open-Sources fx: a Zig Coding Agent Designed to Be Embedded
+## 6. Article: AI Changes the Data Interface, Not the Query Engine
 - Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/10/vercel-zig-fx-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.033 | Reliability: 1.0
+- URL: https://www.infoq.com/articles/ai-changes-data-interface/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.047 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 7. How To Use Decision Models for Evals
 - Type: news | Source: hamel_husain
 - URL: https://hamel.dev/blog/posts/decision-model-evals/
-- Score: 1.962 | Reliability: 1.0
+- Score: 1.955 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 8. codex 0.164.0
+## 8. NVIDIA Vera CPUs double throughput for Modal Sandboxes
+- Type: news | Source: modal_blog
+- URL: https://modal.com/blog/nvidia-vera-sandboxes
+- Score: 1.689 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 9. codex 0.164.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.164.0
-- Score: 1.624 | Reliability: 1.0
+- Score: 1.623 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness, codex.
 
-## 9. Serverless routing made sticky
-- Type: news | Source: modal_blog
-- URL: https://modal.com/blog/serverless-routing-made-sticky
-- Score: 1.623 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 10. claude-code v2.1.307
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.307
-- Score: 1.384 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 11. An Empirical Study of Recent Large Language Models for Knowledge Graph to Text Generation on Standard Benchmarks
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.31529v1
-- Score: 2.399 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 12. MoG-VLM: Efficient Video Anomaly Detection through Motion-Guided Vision-Language Models
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2610.31478v1
-- Score: 2.384 | Reliability: 1.0
-- Why it matters: 
-
-## 13. claude-agent-sdk-python v0.2.171
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.171
-- Score: 1.256 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 14. langgraph-cli==0.4.37
+## 10. langgraph-sdk==0.4.9
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.37
-- Score: 1.016 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.9
+- Score: 1.285 | Reliability: 1.0
 - Why it matters: 
 
-## 15. vllm v0.32.0
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.0
-- Score: 0.991 | Reliability: 1.0
+## 11. Certified Execution Harness for Agentic AI: Safe and Least-Intrusive Petri-Net Supervisory Control Between Reasoning and Action
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2610.31376v1
+- Score: 2.363 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness.
+
+## 12. Questioning Instrumental Convergence in RLVR: Checkpoint Evidence from OLMo-3
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2610.31624v1
+- Score: 2.356 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 13. claude-agent-sdk-python v0.2.170
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.170
+- Score: 1.258 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 14. claude-code v2.1.306
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.306
+- Score: 1.091 | Reliability: 1.0
 - Why it matters: 
 
-## 16. tencent/WeVisOne-VL-2B released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/WeVisOne-VL-2B
-- Score: 0.981 | Reliability: 1.0
-- Why it matters: 
-
-## 17. How Commerce.com and Cloudflare are getting storefronts ready for AI agents
+## 15. How Commerce.com and Cloudflare are getting storefronts ready for AI agents
 - Type: news | Source: cloudflare_blog
 - URL: https://blog.cloudflare.com/webmcp-commerce/
-- Score: 0.845 | Reliability: 1.0
+- Score: 0.805 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 18. Donating Agent Skills to the Agentic AI Foundation
+## 16. Donating Agent Skills to the Agentic AI Foundation
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation
-- Score: 0.808 | Reliability: 1.0
+- Score: 0.801 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
+
+## 17. vllm v0.32.0rc2
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.0rc2
+- Score: 0.532 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.

@@ -8083,6 +8083,23 @@
   "url": "https://nono.sh",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "832701ae238fdf0b": {
+  "first_seen": "2026-10-24T23:04:50.956317+00:00",
+  "id": "7753f20f41929412",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-10-22T01:04:24+00:00",
+  "sid": "832701ae238fdf0b",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Unlike conventional GUI agents, personalized GUI agents require user preferences to guide sequential execution over changing GUI states. This raises two challenges: determining HOW each preference should alter execution strategy and WHEN it should take effect along the interaction trajectory. Existing benchmarks primarily evaluate overall task success, offering limited insight into these questions. We introduce PrefDiag-Bench with two components: (1) a categorization of preferences into five types, characterizing HOW they affect execution; and (2) a stage-wise diagnostic framework with 1,664 probes, tracing WHEN preferences should take effect and where failures occur. We evaluate eleven GUI agent systems, including end-to-end agents and agentic workflows, under two forms of user context: explicit user profiles and behavioral memory logs. Although existing agents achieve relatively high completion rates on non-personalized tasks, performance is substantially lower on preference-personalized tasks. Even the best-performing model, Seed-2.0-Pro, achieves only 47.17% on Process preferences under explicit user profiles. Agents struggle particularly with Ranking and Process preferences. Further analysis reveals two key capability bottlenecks: selecting relevant evidence from user history and recognizing when preferences should take effect during execution. Controlled interventions that explicitly provide relevant evidence improve end-to-end task success by up to 7.06%. PrefDiag-Benc",
+  "summary_1line": "Unlike conventional GUI agents, personalized GUI agents require user preferences to guide sequential execution over changing GUI states. This raises two challenges: determining HOW each preference should alter executi...",
+  "title": "Diagnosing Personalization Failures in Mobile GUI Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.30573v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "8335de82f87d07a2": {
   "first_seen": "2026-10-08T08:04:23.845324+00:00",
   "id": "2f24fdde285a789b",
@@ -10621,6 +10638,18 @@
   "type": "news",
   "url": "https://openai.com/index/third-moment-research",
   "why_it_matters": "Matches feed focus: agent, codex."
+ },
+ "a92a400264dfa863": {
+  "content_excerpt": "Any MCP server can exploit this to redirect the model, pull credentials, or add any tools they want. Kevlar strips every description field to \"\" unconditionally on every tools/list response, before the message reaches the client. The LLM sees name and inputSchema only. inputSchema is rebuilt from an allowlist: prose fields like description , title , examples , and $comment are stripped there too, and enum values, property keys, $ref targets, and type values are validated against the MCP spec. Score 0 on this pass cannot be achieved by adding description text back, because description text is never forwarded regardless of score. Tool call results cannot be stripped without breaking functionality. Kevlar scans them against ~60 indicators sourced from published prompt injection research. Responses scoring above the mode threshold are quarantined (matched spans replaced with [KEVLAR: ] tokens) or rejected (replaced with an isError block). Unicode bypass attempts using characters that normalize to injection text under NFKC are detected before normalization and redacted after. Outbound tools/call arguments are scanned before the call is forwarded to the server. If the LLM has already been compromised and is trying to exfiltrate credentials, the call is blocked at the proxy layer. The server never receives it. Runs in all three modes. After the initial tools/list handshake, the set of callable tool names is frozen. notifications/tools/list_changed from the server is dropped, not for",
+  "first_seen": "2026-10-24T23:04:50.956317+00:00",
+  "id": "06015adddda1ee8d",
+  "published": "2026-10-24T22:24:09+00:00",
+  "sid": "a92a400264dfa863",
+  "source": "hackernews_ai",
+  "summary_1line": "Kevlar = MCP Firewall for LLM's",
+  "title": "Kevlar = MCP Firewall for LLM's",
+  "type": "news",
+  "url": "https://github.com/Ablation-Tool/kevlar"
  },
  "a9b06b181630652c": {
   "first_seen": "2026-10-01T06:04:14.047526+00:00",
