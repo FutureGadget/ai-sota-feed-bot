@@ -68,10 +68,10 @@ sources:
     # Reader-facing attribution link (the API URL answers a browser with 401).
     attribution_url: https://artificialanalysis.ai/
     # Raw per-model benchmark scores to persist verbatim from AA's
-    # `evaluations` block, in ADDITION to aa_intelligence_index/
-    # aa_coding_index above (those two are separate blended composites AA
-    # also publishes there, already a stable API contract, and are never
-    # touched by this list). Config-driven because AA adds, renames, and
+    # `evaluations` block, in ADDITION to aa_intelligence_index above (the
+    # one blended composite AA still updates). aa_coding_index is still
+    # collected for history, but AA froze it on 2026-09-11 - see the axis
+    # note below. Config-driven because AA adds, renames, and
     # retires individual benchmarks over time - extend/trim here, never
     # hardcode a benchmark name in pipeline/collect_models.py.
     # SCALE WARNING: every benchmark listed here is a 0-1 fraction (e.g.
@@ -310,29 +310,29 @@ organization_aliases:
   liquid-ai: liquidai
   multiverse-computing: multiversecomputing
 
-# Axis-toggle options for the /models page's price/capability chart Y axis
-# (docs/design-docs/decision-log.md, 2026-08-16). Config-driven so the page
-# never hardcodes which benchmarks it offers - web/models.html's
-# DEFAULT_AXIS_METRIC_OPTIONS mirrors this list only as a fallback for an
-# older cached data/models/latest.json written before this field existed.
-# The first entry MUST stay the default `aa_coding_index` (source: top - a
-# top-level model field, not one of the `benchmarks` above); every other
-# entry names a raw Artificial Analysis benchmark (source: benchmarks,
-# looked up under a model's `benchmarks` object) and is only actually
-# offered on the page if it clears web/models.html's MIN_METRIC_COVERAGE
-# gate at render time - a benchmark almost nothing reports is not worth a
-# menu entry. `scale` drives axis-tick/tooltip formatting: `index` for the
-# ~0-100 blended composites, `fraction` for the 0-1 raw benchmarks (see the
-# SCALE WARNING above). Kept short and audience-relevant (agentic/tool-use +
-# real-coding evals, matching this repo's platform/agent-engineer
-# positioning - docs/ideas/model-release-radar.md) - general knowledge/math
-# evals (mmlu_pro, aime, math_500, hle, gpqa) are deliberately excluded even
+# Axis-toggle options for a capability chart Y axis (docs/design-docs/
+# decision-log.md, 2026-08-16). Config-driven so no page hardcodes which
+# benchmarks it offers. No page reads this list today - `/models` has no
+# chart and `/models/compare` is fixed to the AA intelligence index - but it
+# remains the slot a benchmark-backed selector would populate.
+#
+# aa_coding_index was the first/default entry until 2026-10-24. It is
+# deliberately gone: Artificial Analysis froze `artificial_analysis_coding_index`
+# on 2026-09-11 and replaced it with the page-only Coding Agent Index, so
+# every model released later has a null value. Do not re-add it as a reader
+# option - it would rank old models above every current one (see the
+# 2026-10-24 decision-log entry).
+#
+# Every remaining entry names a raw Artificial Analysis benchmark (source:
+# benchmarks, looked up under a model's `benchmarks` object). `scale` drives
+# axis-tick/tooltip formatting: `index` for the ~0-100 blended composites,
+# `fraction` for the 0-1 raw benchmarks (see the SCALE WARNING above). Kept
+# short and audience-relevant (agentic/tool-use + real-coding evals, matching
+# this repo's platform/agent-engineer positioning -
+# docs/ideas/model-release-radar.md) - general knowledge/math evals
+# (mmlu_pro, aime, math_500, hle, gpqa) are deliberately excluded even
 # though AA reports them.
 axis_metric_options:
-  - key: aa_coding_index
-    label: "AA coding index"
-    source: top
-    scale: index
   - key: terminalbench_v2_1
     label: "Terminal-Bench 2.1 (agentic)"
     source: benchmarks
@@ -358,18 +358,17 @@ axis_metric_options:
 # (`pipeline/collect_models.py`'s compute_frontier).
 #
 # Two distinct frontiers serve two distinct reader jobs:
-# 1. Token efficiency frontier (per_token_price_proxy): pairs Artificial
-#    Analysis intelligence and coding indices against price_blended_per_1m.
-#    Updated immediately upon new model release (e.g. Claude Opus 5.5).
+# 1. Token efficiency frontier (per_token_price_proxy): pairs the Artificial
+#    Analysis intelligence index against price_blended_per_1m. Updated
+#    immediately upon new model release (e.g. Claude Opus 5.5). The coding
+#    index entry was removed on 2026-10-24: AA froze that field on
+#    2026-09-11, so a "coding frontier" would be populated entirely by
+#    pre-September models.
 # 2. Agent task-cost frontier (measured_per_task): pairs DeepSWE pass@1
 #    against deepswe_cost_per_task_usd. Measures true end-to-end task cost
 #    for autonomous coding agent workloads where token consumption varies.
 frontier_metrics:
   - key: aa_intelligence_index
-    source: top
-    cost_field: price_blended_per_1m
-    cost_basis: per_token_price_proxy
-  - key: aa_coding_index
     source: top
     cost_field: price_blended_per_1m
     cost_basis: per_token_price_proxy

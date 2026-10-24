@@ -1163,7 +1163,7 @@ def test_build_output_shape_with_aa_unavailable():
 
 def test_build_output_emits_axis_metric_options_verbatim():
     now = datetime(2026, 8, 5, tzinfo=timezone.utc)
-    options = [{"key": "aa_coding_index", "label": "AA coding index", "source": "top", "scale": "index"}]
+    options = [{"key": "terminalbench_v2_1", "label": "Terminal-Bench 2.1", "source": "benchmarks", "scale": "fraction"}]
     output = cm.build_output(
         lmarena_idx={},
         aa_idx={},
@@ -2224,15 +2224,17 @@ def test_real_config_frontier_metrics_deepswe_pass_at_1_is_measured_per_task():
     assert entry["source"] == "top"
 
 
-def test_real_config_frontier_metrics_lists_aa_and_deepswe_metrics():
+def test_real_config_frontier_metrics_lists_aa_intelligence_and_deepswe():
     cfg = cm.load_config()
     keys = {entry["key"] for entry in cfg["frontier_metrics"]}
-    assert keys == {"aa_intelligence_index", "aa_coding_index", "deepswe_pass_at_1"}
+    assert keys == {"aa_intelligence_index", "deepswe_pass_at_1"}
     entries = {entry["key"]: entry for entry in cfg["frontier_metrics"]}
-    for aa_key in ("aa_intelligence_index", "aa_coding_index"):
-        assert entries[aa_key]["cost_basis"] == "per_token_price_proxy"
-        assert entries[aa_key]["cost_field"] == "price_blended_per_1m"
-        assert entries[aa_key]["source"] == "top"
+    assert entries["aa_intelligence_index"]["cost_basis"] == "per_token_price_proxy"
+    assert entries["aa_intelligence_index"]["cost_field"] == "price_blended_per_1m"
+    assert entries["aa_intelligence_index"]["source"] == "top"
+    # AA froze artificial_analysis_coding_index on 2026-09-11; a coding
+    # frontier would only contain pre-September models (2026-10-24).
+    assert "aa_coding_index" not in entries
 
 
 def test_real_config_deepswe_source_is_present_and_config_driven():

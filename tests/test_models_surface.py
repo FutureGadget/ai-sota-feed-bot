@@ -105,14 +105,19 @@ class ModelsSurfaceTest(unittest.TestCase):
         self.assertIn("aaAvailable ? SORT_OPTIONS[0] : FALLBACK_SORT", self.html)
 
     def test_offers_a_small_set_of_alternate_orderings(self) -> None:
-        self.assertIn("key: 'aa_coding_index'", self.html)
         self.assertIn("key: 'price_blended_per_1m'", self.html)
-        # A small, fixed set - not a full column-sort matrix. Exactly 3
+        # A small, fixed set - not a full column-sort matrix. Exactly 2
         # selectable SORT_OPTIONS entries, plus the one automatic
         # AA-unavailable FALLBACK_SORT (never reachable from the <select>).
         options_block = self.html[self.html.index("const SORT_OPTIONS"):self.html.index("const FALLBACK_SORT")]
         matches = re.findall(r"\{ key: '\w+', dir: '(?:asc|desc)'", options_block)
-        self.assertEqual(len(matches), 3, "expected exactly the 3 documented orderings")
+        self.assertEqual(len(matches), 2, "expected exactly the 2 documented orderings")
+
+    def test_retired_coding_index_is_not_a_reader_ordering(self) -> None:
+        # Artificial Analysis froze aa_coding_index on 2026-09-11; offering
+        # it as an ordering ranked old models above every current one.
+        self.assertNotIn("key: 'aa_coding_index'", self.html)
+        self.assertNotIn("label: 'Coding index'", self.html)
 
     def test_never_fabricates_a_value(self) -> None:
         self.assertIn("function fmtPrice", self.html)
@@ -660,7 +665,6 @@ class ModelsRankedListBehaviorTest(unittest.TestCase):
             result,
             [
                 {"key": "aa_intelligence_index", "frontierMetric": "aa_intelligence_index"},
-                {"key": "aa_coding_index", "frontierMetric": "aa_coding_index"},
                 {"key": "price_blended_per_1m", "frontierMetric": "aa_intelligence_index"},
             ],
         )

@@ -126,9 +126,11 @@ check time, and source link. Existing DeepSWE charts remain separate from token
 estimates, and AA score sections link to the new comparison.
 
 The comparison defaults to 1M input, 250k output, 90% cache reads, 10% writes,
-and a 32k prompt. It supports AA intelligence and coding indices. One point per
-model uses the highest-scoring measured effort for the chosen metric, disclosed
-on selection and in the table. A point is dominated when another costs no more
+and a 32k prompt. It plots the AA intelligence index, the only AA capability
+index still updated for new models (the coding index was retired on 2026-10-24
+after AA froze it in September 2026). One point per model uses the
+highest-scoring measured effort for the intelligence index, disclosed on
+selection and in the table. A point is dominated when another costs no more
 and scores no lower, with at least one strict improvement. Exact ties survive.
 The frontier is recomputed for every valid workload change. It is optimal only
 among comparable, tracked models for those assumptions, not a task-cost ranking.
@@ -147,5 +149,5 @@ JSON and adds no serverless function.
 - `node tests/model_comparison.mjs`
 - `python scripts/check_bundle_size.py`
 - Open the list, Sonnet detail, and comparison with live-generated data at
-  desktop and 390px widths. Exercise cache duration, invalid shares, metric
-  changes, long-context tiers, search, keyboard points and dark mode.
+  desktop and 390px widths. Exercise cache duration, invalid shares, workload
+  presets, long-context tiers, search, keyboard points and dark mode.

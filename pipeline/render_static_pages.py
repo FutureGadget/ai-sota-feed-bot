@@ -4732,9 +4732,9 @@ def render_foundations_page(base_url: str, foundations: dict) -> bool:
 
 MODELS_DIR = ROOT / "data" / "models"
 
-# Labels for the two blended composites (~0-100 "index" scale) Artificial
-# Analysis publishes. BENCHMARK_LABELS below covers metrics on the raw 0-1
-# "fraction" scale. It is a one-entry map today because Artificial Analysis's
+# Labels for the blended composites (~0-100 "index" scale) this page still
+# renders. BENCHMARK_LABELS below covers metrics on the raw 0-1 "fraction"
+# scale. It is a one-entry map today because Artificial Analysis's
 # v2 Free endpoint - the only AA source the collector reads - carries no
 # per-benchmark scores, so a model's `benchmarks` dict is always empty and no
 # surface renders one (2026-10-24 cleanup; the legacy endpoint that still
@@ -4743,8 +4743,12 @@ MODELS_DIR = ROOT / "data" / "models"
 # `benchmark_label`'s titlecased fallback without an entry here.
 INDEX_METRIC_LABELS = {
     "aa_intelligence_index": "AA intelligence index",
-    "aa_coding_index": "AA coding index",
 }
+# Reader-facing metrics Artificial Analysis no longer updates. Older committed
+# artifacts still carry them (including a `frontier.aa_coding_index` block
+# computed before 2026-10-24); the renderer skips them so a cached artifact
+# can never resurrect a retired column or frontier claim.
+RETIRED_INDEX_METRICS = frozenset({"aa_coding_index"})
 BENCHMARK_LABELS = {
     "deepswe_pass_at_1": "DeepSWE pass@1 (agentic coding)",
 }
@@ -4892,7 +4896,7 @@ def model_completeness_score(m: dict) -> tuple:
     ident = sum(1 for f in ("license", "open_weights", "official_url") if m.get(f) is not None)
     sources_n = len(m.get("joined_sources") or [])
     has_elo = 1 if m.get("arena_elo_coding") is not None else 0
-    has_aa = 1 if m.get("aa_coding_index") is not None else 0
+    has_aa = 1 if m.get("aa_intelligence_index") is not None else 0
     return (ident, sources_n, has_elo, has_aa)
 
 
@@ -4947,7 +4951,11 @@ def model_frontier_section(primary: dict, primary_by_slug: dict[str, dict]) -> s
     whether it is on the price/capability frontier - and when it is not, name
     the cheaper-or-equal, at-least-as-capable models that beat it
     (`dominated_by`, already resolved to per-base-model `url_slug`s)."""
-    frontier = primary.get("frontier") or {}
+    frontier = {
+        key: entry
+        for key, entry in (primary.get("frontier") or {}).items()
+        if key not in RETIRED_INDEX_METRICS and isinstance(entry, dict)
+    }
     if not frontier:
         return (
             '<section class="md-section md-frontier">'
@@ -5258,7 +5266,11 @@ def model_deepswe_cost_table(primary: dict) -> str:
 
 
 def model_scores_section(primary: dict) -> str:
-    """Measured DeepSWE task costs plus the two AA blended composites.
+    """Measured DeepSWE task costs plus the AA intelligence index.
+
+    The retired AA coding index is not rendered: AA froze that field on
+    2026-09-11, so every model released afterwards would show a blank column
+    (2026-10-24 decision log).
 
     Raw per-benchmark AA scores are deliberately NOT rendered. The v2 Free
     endpoint `pipeline/collect_models.py` reads omits them, so every row's
@@ -5268,10 +5280,9 @@ def model_scores_section(primary: dict) -> str:
     ever wired in, re-add the rows here next to `extract_aa_benchmarks`.
     """
     aa_rows: list[tuple[str, str]] = []
-    for key in ("aa_intelligence_index", "aa_coding_index"):
-        value = primary.get(key)
-        if value is not None:
-            aa_rows.append((benchmark_label(key), fmt_index_value(value)))
+    value = primary.get("aa_intelligence_index")
+    if value is not None:
+        aa_rows.append((benchmark_label("aa_intelligence_index"), fmt_index_value(value)))
 
     if aa_rows:
         aa_body = "".join(
@@ -5313,7 +5324,7 @@ def dedupe_variant_rows(group: list[dict], primary: dict) -> list[dict]:
     rest of the page describes.
     """
     def completeness(row: dict) -> int:
-        fields = ("aa_coding_index", "aa_intelligence_index", "price_blended_per_1m", "arena_elo_coding")
+        fields = ("aa_intelligence_index", "price_blended_per_1m", "arena_elo_coding")
         return sum(1 for f in fields if row.get(f) is not None)
 
     best: dict[str, dict] = {}
@@ -5336,7 +5347,6 @@ def model_variants_section(group: list[dict], primary: dict) -> str:
         tag = ' <span class="muted">(shown above)</span>' if m is primary else ""
         rows.append(
             f"<tr><td>{escape(label)}{tag}</td>"
-            f'<td class="mr-num">{escape(fmt_index_value(m.get("aa_coding_index")))}</td>'
             f'<td class="mr-num">{escape(fmt_index_value(m.get("aa_intelligence_index")))}</td>'
             f'<td class="mr-num">{escape(fmt_model_price(m.get("price_blended_per_1m")))}</td></tr>'
         )
@@ -5346,8 +5356,8 @@ def model_variants_section(group: list[dict], primary: dict) -> str:
         '<div class="md-rail">Variants</div>'
         f'<div class="md-prose"><p>This page covers {n} reasoning-effort variants of the same model.</p>'
         '<div class="mr-table-wrap"><table class="mr-table">'
-        '<thead><tr><th scope="col">Variant</th><th scope="col">AA coding index</th>'
-        '<th scope="col">AA intelligence index</th><th scope="col">Blended /1M (3:1 input/output)</th></tr></thead>'
+        '<thead><tr><th scope="col">Variant</th><th scope="col">AA intelligence index</th>'
+        '<th scope="col">Blended /1M (3:1 input/output)</th></tr></thead>'
         f'<tbody>{"".join(rows)}</tbody></table></div></div></section>'
     )
 
@@ -5384,11 +5394,7 @@ def model_community_section(group: list[dict]) -> str:
 
 def model_sources_section(sources: dict, group: list[dict]) -> str:
     """Render provenance for the sources that supplied this model's facts."""
-    has_aa = any(
-        m.get("aa_intelligence_index") is not None
-        or m.get("aa_coding_index") is not None
-        for m in group
-    )
+    has_aa = any(m.get("aa_intelligence_index") is not None for m in group)
     has_elo = any(m.get("arena_elo_coding") is not None or m.get("arena_elo_overall") is not None for m in group)
     has_deepswe = any(m.get("deepswe_pass_at_1") is not None for m in group)
     has_first_party = any("first_party" in (m.get("joined_sources") or []) for m in group)
@@ -5562,7 +5568,7 @@ MODELS_TOP_SLICE = 40
 # mrCapabilityField / mrCollapseVariants).
 MODELS_TOP_FIELDS = (
     "url_slug", "base_slug", "slug", "name", "display_name", "organization",
-    "open_weights", "variant_label", "aa_intelligence_index", "aa_coding_index",
+    "open_weights", "variant_label", "aa_intelligence_index",
     "arena_elo_coding", "price_input_per_1m", "price_blended_per_1m",
 )
 

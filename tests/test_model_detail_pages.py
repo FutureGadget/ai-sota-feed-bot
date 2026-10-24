@@ -90,18 +90,21 @@ class ModelScaleFormattingTest(unittest.TestCase):
         self.assertEqual(render.fmt_fraction_pct(0.543), "54.3%")
         self.assertEqual(render.fmt_fraction_pct(None), "-")
 
-    def test_scores_section_renders_blended_indices_only(self) -> None:
+    def test_scores_section_renders_intelligence_only(self) -> None:
         # Raw AA per-benchmark scores are no longer rendered on detail pages:
         # the v2 Free endpoint carries none, so a stray `benchmarks` dict must
         # never reappear as a row (2026-10-24 cleanup - see the decision log).
+        # The retired AA coding index must not reappear either (it froze on
+        # 2026-09-11 and would render blank for every newer model).
         primary = _row(
             aa_coding_index=76.5,
             aa_intelligence_index=61.5,
             benchmarks={"scicode": 0.543, "terminalbench_v2_1": 0.876},
         )
         html = render.model_scores_section(primary)
-        self.assertIn("76.5", html)  # aa_coding_index, index scale, not "7650.0%"
         self.assertIn("61.5", html)  # aa_intelligence_index
+        self.assertNotIn("76.5", html)  # retired aa_coding_index
+        self.assertNotIn("AA coding index", html)
         self.assertNotIn("7650.0%", html)
         self.assertNotIn("6150.0%", html)
         self.assertNotIn("54.3%", html)
@@ -118,7 +121,7 @@ class ModelFrontierSectionTest(unittest.TestCase):
     def test_on_frontier_metric_states_no_dominator(self) -> None:
         primary = _row(
             frontier={
-                "aa_coding_index": {
+                "aa_intelligence_index": {
                     "cost_field": "price_blended_per_1m", "cost_basis": "per_token_price_proxy",
                     "on_frontier": True, "dominated_by": [],
                 },
@@ -126,15 +129,31 @@ class ModelFrontierSectionTest(unittest.TestCase):
         )
         html = render.model_frontier_section(primary, {"model-a": primary})
         self.assertIn("On frontier", html)
-        self.assertIn("AA coding index", html)
+        self.assertIn("AA intelligence index", html)
         self.assertNotIn("Behind frontier", html)
+
+    def test_retired_coding_index_frontier_is_skipped_on_an_old_artifact(self) -> None:
+        # A committed artifact written before 2026-10-24 still carries the
+        # frozen coding-index frontier. Rendering from it must not resurrect
+        # an "AA coding index" claim on a current page.
+        primary = _row(
+            frontier={
+                "aa_coding_index": {
+                    "cost_field": "price_blended_per_1m", "cost_basis": "per_token_price_proxy",
+                    "on_frontier": True, "dominated_by": [],
+                },
+            },
+        )
+        html = render.model_frontier_section(primary, {"model-a": primary})
+        self.assertNotIn("AA coding index", html)
+        self.assertIn("Not enough paired price and capability data", html)
 
     def test_off_frontier_metric_links_to_dominating_models(self) -> None:
         dominator = _row(url_slug="model-b", display_name="Model B", slug="b1")
         primary = _row(
             url_slug="model-a",
             frontier={
-                "aa_coding_index": {
+                "aa_intelligence_index": {
                     "cost_field": "price_blended_per_1m", "cost_basis": "per_token_price_proxy",
                     "on_frontier": False, "dominated_by": ["model-b"],
                 },
@@ -152,7 +171,7 @@ class ModelFrontierSectionTest(unittest.TestCase):
         primary = _row(
             url_slug="model-a",
             frontier={
-                "aa_coding_index": {
+                "aa_intelligence_index": {
                     "cost_field": "price_blended_per_1m", "cost_basis": "per_token_price_proxy",
                     "on_frontier": False, "dominated_by": ["model-b"],
                 },
@@ -189,9 +208,9 @@ class ModelCostBasisTest(unittest.TestCase):
     def test_scores_section_never_shows_a_cost_column_for_aa_scores(self) -> None:
         # AA scores link to scenario estimates without presenting them as measured task costs.
         primary = _row(
-            aa_coding_index=76.5,
+            aa_intelligence_index=61.5,
             frontier={
-                "aa_coding_index": {
+                "aa_intelligence_index": {
                     "cost_field": "price_blended_per_1m", "cost_basis": "per_token_price_proxy",
                     "on_frontier": True, "dominated_by": [],
                 },
@@ -237,14 +256,15 @@ class ModelVariantsAndCommunityTest(unittest.TestCase):
         self.assertEqual(render.model_variants_section([primary], primary), "")
 
     def test_multi_row_group_lists_every_variant(self) -> None:
-        high = _row(slug="a-high", variant_label="high", aa_coding_index=76.5)
-        low = _row(slug="a-low", variant_label="low", aa_coding_index=66.9)
+        high = _row(slug="a-high", variant_label="high", aa_intelligence_index=76.5)
+        low = _row(slug="a-low", variant_label="low", aa_intelligence_index=66.9)
         html = render.model_variants_section([high, low], high)
         self.assertIn("High effort", html)
         self.assertIn("Low effort", html)
         self.assertIn("76.5", html)
         self.assertIn("66.9", html)
         self.assertIn("shown above", html)
+        self.assertNotIn("AA coding index", html)
 
     def test_community_section_reports_no_rating_when_absent(self) -> None:
         primary = _row()
@@ -268,7 +288,7 @@ class ModelAttributionTest(unittest.TestCase):
     }
 
     def test_attribution_rendered_when_aa_and_elo_data_present(self) -> None:
-        primary = _row(aa_coding_index=76.5, arena_elo_coding=1500.0)
+        primary = _row(aa_intelligence_index=76.5, arena_elo_coding=1500.0)
         html = render.model_sources_section(self.SOURCES, [primary])
         self.assertIn("LMArena (arena.ai)", html)
         self.assertIn("Artificial Analysis (https://artificialanalysis.ai/)", html)
@@ -280,7 +300,7 @@ class ModelAttributionTest(unittest.TestCase):
             "lmarena": {"available": True, "attribution": "Custom LMArena Label", "url": "https://custom.example/lm"},
             "artificial_analysis": {"available": True, "attribution": "Custom AA Label", "url": "https://custom.example/aa"},
         }
-        primary = _row(aa_coding_index=76.5, arena_elo_coding=1500.0)
+        primary = _row(aa_intelligence_index=76.5, arena_elo_coding=1500.0)
         html = render.model_sources_section(custom_sources, [primary])
         self.assertIn("Custom LMArena Label", html)
         self.assertIn("Custom AA Label", html)
@@ -295,7 +315,7 @@ class ModelAttributionTest(unittest.TestCase):
         self.assertEqual(html, "")
 
     def test_lmarena_attribution_omitted_when_no_elo_data_shown(self) -> None:
-        primary = _row(aa_coding_index=76.5)  # no arena_elo_* fields
+        primary = _row(aa_intelligence_index=76.5)  # no arena_elo_* fields
         html = render.model_sources_section(self.SOURCES, [primary])
         self.assertNotIn("LMArena", html)
         self.assertIn("Artificial Analysis", html)
@@ -324,7 +344,7 @@ class ModelAttributionTest(unittest.TestCase):
             self.SOURCES,
             deepswe={"available": True, "attribution": "DeepSWE / Datacurve", "url": "https://example.com/deepswe"},
         )
-        primary = _row(aa_coding_index=76.5)  # no deepswe_pass_at_1
+        primary = _row(aa_intelligence_index=76.5)  # no deepswe_pass_at_1
         html = render.model_sources_section(sources, [primary])
         self.assertNotIn("DeepSWE", html)
 

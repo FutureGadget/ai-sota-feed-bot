@@ -314,7 +314,8 @@ collect`; config in `config/models.yaml`.
   release_date, context_window_tokens, parameters_total, parameters_active,
   price_input_per_1m, price_output_per_1m, price_blended_per_1m,
   arena_elo_overall, arena_elo_coding, arena_votes, arena_rank_overall,
-  arena_rank_coding, aa_intelligence_index, aa_coding_index,
+  arena_rank_coding, aa_intelligence_index, aa_coding_index (retired
+  2026-10-24 - still collected for history, no longer any reader surface),
   median_output_tokens_per_second, official_url, joined_sources,
   display_name, benchmarks, url_slug, frontier, deepswe_pass_at_1,
   deepswe_ci_lo, deepswe_ci_hi, deepswe_n_runs, deepswe_cost_per_task_usd,
@@ -360,18 +361,20 @@ collect`; config in `config/models.yaml`.
   its per-token rate (proof from live DeepSWE data, 2026-08-16:
   claude-opus-5 costs $11.84/task at "max" reasoning effort and $3.29/task
   at "medium", yet both price identically at $10/1M tokens). As of
-  2026-08-17, `frontier_metrics` names exactly ONE entry -
-  `deepswe_pass_at_1`, paired with `deepswe_cost_per_task_usd` under
-  `cost_basis: "measured_per_task"` (DeepSWE's own real dollar cost per
-  task - see the `deepswe_*` fields below). Every prior entry
-  (`aa_intelligence_index`, `aa_coding_index`, and the raw AA benchmarks,
-  all under `cost_basis: "per_token_price_proxy"` paired with
-  `price_blended_per_1m`) was REMOVED, not relabeled - those scores still
-  display everywhere they always have (the ranked list still ranks by AA
-  intelligence index by default, the scores table still shows every AA
-  benchmark - see `pipeline/render_static_pages.py`'s `model_scores_section`),
-  they simply no longer carry an "on/behind frontier" claim, since that
-  claim rested on a cost that does not actually track per-task spend.
+  2026-10-24, `frontier_metrics` names two entries: `aa_intelligence_index`
+  paired with `price_blended_per_1m` under
+  `cost_basis: "per_token_price_proxy"` (the token-efficiency frontier
+  restored 2026-09-24), and `deepswe_pass_at_1` paired with
+  `deepswe_cost_per_task_usd` under `cost_basis: "measured_per_task"`
+  (DeepSWE's own real dollar cost per task - see the `deepswe_*` fields
+  below). `aa_coding_index` was removed from this list on 2026-10-24: AA
+  froze that field on 2026-09-11, so a coding frontier would have contained
+  only pre-September models. The raw AA benchmarks were removed 2026-08-17
+  and remain out. The displaced scores still display where they always have
+  (the ranked list still ranks by AA intelligence index by default, and
+  the detail score table still shows the AA intelligence index - see
+  `pipeline/render_static_pages.py`'s `model_scores_section`);
+  `aa_coding_index` is no longer rendered on any reader-facing surface.
   Coverage dropped accordingly: DeepSWE covers roughly two dozen of the
   ~150+ tracked models (verified live 2026-08-16), a smaller but honest
   frontier. The `cost_basis` machinery itself is unchanged and stays
@@ -421,9 +424,10 @@ collect`; config in `config/models.yaml`.
   DeepSWE has not measured.
   `benchmarks` (added 2026-08-16) is a dict of raw Artificial Analysis
   per-model benchmark scores (`{"livecodebench": 0.878, "tau2": 0.657, ...}`),
-  stored exactly as AA reports them - purely additive alongside the existing
-  `aa_intelligence_index`/`aa_coding_index` blended composites, which are
-  unchanged. WHICH benchmarks are persisted is config-driven
+  stored exactly as AA reports them - purely additive alongside
+  `aa_intelligence_index` (the blended composite still rendered) and the
+  retired `aa_coding_index` (history only). WHICH benchmarks are persisted
+  is config-driven
   (`config/models.yaml`'s `sources.artificial_analysis.benchmarks` list,
   never hardcoded in `pipeline/collect_models.py`, since AA adds/renames
   benchmarks over time) via `extract_aa_benchmarks`. A benchmark AA reports
@@ -434,7 +438,7 @@ collect`; config in `config/models.yaml`.
   WARNING: every value in `benchmarks` is a 0-1 fraction, a completely
   different scale from the ~0-100 `aa_intelligence_index`/`aa_coding_index`
   composites. No surface renders the dict today: the model detail page's
-  Artificial Analysis table lists only the two blended composites (raw
+  Artificial Analysis table lists only the intelligence index (raw
   per-benchmark rows were removed 2026-10-24 after the v2 Free migration
   left them permanently empty), and `/models` has no chart. The collection
   path stays in place as the slot a higher tier would populate.
@@ -442,12 +446,13 @@ collect`; config in `config/models.yaml`.
   `models`, not per-row) is the config-driven list of capability metrics a
   chart Y-axis toggle once offered - `config/models.yaml`'s
   `axis_metric_options`, emitted verbatim by `build_output`. Each entry is
-  `{key, label, source, scale}`: `source` is `"top"` for the default
-  `aa_coding_index` field or `"benchmarks"` for a key read from a model row's
-  `benchmarks` dict; `scale` is `"index"` (~0-100) or `"fraction"` (0-1).
-  No page reads it today: the `/models` ranked list has no chart, and the
-  model detail page's chart is fixed to DeepSWE pass@1 vs. measured cost per
-  task (`frontier_metrics`). It remains in the artifact so a future
+  `{key, label, source, scale}`: `source` is `"benchmarks"` for a key read
+  from a model row's `benchmarks` dict; `scale` is `"index"` (~0-100) or
+  `"fraction"` (0-1). The `aa_coding_index` entry was removed on
+  2026-10-24 (AA froze the field on 2026-09-11). No page reads the list
+  today: the `/models` ranked list has no chart, and the model detail page's
+  chart is fixed to DeepSWE pass@1 vs. measured cost per task
+  (`frontier_metrics`). It remains in the artifact so a future
   benchmark-backed capability selector would not need a schema change.
   `display_name` (added 2026-08-06) is the clean, human-readable BASE model
   name for presentation only - the row's `name` field is whichever source's

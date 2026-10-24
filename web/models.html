@@ -87,7 +87,7 @@
       background:color-mix(in srgb, var(--accent) 14%, var(--card)); }
 
     /* Ordering control - a native <select> so keyboard/screen-reader
-       behavior comes for free in both themes. Only three orderings are
+       behavior comes for free in both themes. Only two orderings are
        offered (see SORT_OPTIONS): a search-results page needs a small,
        obvious set, not a full column-sort matrix. */
     .mr-sort-control { display:inline-flex; align-items:center; gap:.5rem; }
@@ -305,8 +305,8 @@
     }
 
     // DeepSWE pass@1 is a 0-1 fraction (a different scale from the ~0-100
-    // aa_intelligence_index/aa_coding_index shown elsewhere on this row) -
-    // formatted as a percentage, never bare, so the two scales never get
+    // aa_intelligence_index shown elsewhere on this row) - formatted as a
+    // percentage, never bare, so the two scales never get
     // silently mixed (same rule pipeline/render_static_pages.py's
     // fmt_fraction_pct follows on the detail pages).
     function fmtPct(v) {
@@ -333,13 +333,14 @@
     // aa_intelligence_index descending - never reorder this array. Each
     // option also names which `frontier` metric governs the "on frontier"
     // badge/filter while that ordering is active: 'aa_intelligence_index'
-    // for intelligence and price sorts, and 'aa_coding_index' for coding sort
-    // (fresh token efficiency frontier), alongside 'deepswe_pass_at_1'
-    // (measured task-cost frontier). Ordering itself is unchanged - price and the
-    // AA indices still rank the list exactly as they always have.
+    // for both intelligence and price sorts, alongside 'deepswe_pass_at_1'
+    // (measured task-cost frontier). Ordering itself is unchanged - price and
+    // the AA intelligence index still rank the list exactly as they always
+    // have. The AA coding index ordering was removed on 2026-10-24: AA froze
+    // that field on 2026-09-11, so it ranked old models above every current
+    // one (2026-10-24 decision log).
     const SORT_OPTIONS = [
       { key: 'aa_intelligence_index', dir: 'desc', label: 'Intelligence index', frontierMetric: 'aa_intelligence_index' },
-      { key: 'aa_coding_index', dir: 'desc', label: 'Coding index', frontierMetric: 'aa_coding_index' },
       { key: 'price_blended_per_1m', dir: 'asc', label: 'Blended price, low to high', frontierMetric: 'aa_intelligence_index' },
     ];
 
@@ -371,9 +372,9 @@
     // models from ~200 catalog rows. The representative is chosen the same
     // way regardless of which ordering the reader picked (an identity
     // question, not a ranking one): highest aa_intelligence_index, then
-    // aa_coding_index, then whichever variant carries real LMArena Elo. The
-    // dropped siblings are not lost - `variantCount`/`variantSlugs` on the
-    // survivor drive the "+N variants" badge.
+    // whichever variant carries real LMArena Elo. The dropped siblings are
+    // not lost - `variantCount`/`variantSlugs` on the survivor drive the
+    // "+N variants" badge.
     function collapseVariants(models) {
       const groups = new Map();
       for (const m of models) {
@@ -386,8 +387,6 @@
         group.sort((a, b) => {
           const byIndex = compareKnownDesc(a.aa_intelligence_index, b.aa_intelligence_index);
           if (byIndex !== 0) return byIndex;
-          const byCoding = compareKnownDesc(a.aa_coding_index, b.aa_coding_index);
-          if (byCoding !== 0) return byCoding;
           const aElo = a.arena_elo_coding !== null && a.arena_elo_coding !== undefined;
           const bElo = b.arena_elo_coding !== null && b.arena_elo_coding !== undefined;
           if (aElo !== bElo) return aElo ? -1 : 1;
@@ -536,8 +535,7 @@
     function firstPartyAnnouncements(models) {
       return models
         .filter((m) => m && (m.joined_sources || []).some((source) => source === 'first_party' || source === 'openrouter')
-          && (m.aa_intelligence_index === null || m.aa_intelligence_index === undefined)
-          && (m.aa_coding_index === null || m.aa_coding_index === undefined))
+          && (m.aa_intelligence_index === null || m.aa_intelligence_index === undefined))
         .sort((a, b) => String(b.catalog_added_at || b.release_date || '').localeCompare(String(a.catalog_added_at || a.release_date || '')))
         .slice(0, 3);
     }

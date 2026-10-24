@@ -132,8 +132,8 @@ verified against live join collisions, same spirit as `aliases`) normalizes
 the organization field at finalize time so one lab never splits into two
 rows on the page.
 
-benchmarks: Artificial Analysis's `evaluations` block carries the two
-blended composites this module has always captured (`aa_intelligence_index`,
+benchmarks: Artificial Analysis's `evaluations` block carries the blended
+composites this module captures (`aa_intelligence_index`, plus the retired
 `aa_coding_index`) alongside a long tail of individual raw benchmark scores
 (`livecodebench`, `tau2`, `terminalbench_v2_1`, `gpqa`, ...) at no extra
 request cost. `extract_aa_benchmarks` persists whichever of those the
@@ -145,11 +145,12 @@ benchmark data for at all gets `benchmarks: {}`. SCALE WARNING: these raw
 benchmarks are 0-1 fractions, a different scale from the ~0-100 blended
 indices - see `config/models.yaml` for the full rationale. No surface renders
 the dict today: the v2 Free endpoint reports every benchmark as null (so every
-row gets `{}`) and the detail page shows only the two blended composites
+row gets `{}`) and the detail page shows only the intelligence index
 (2026-10-24). The collection path stays in place as the slot a higher tier
 would populate. This is purely additive:
-`aa_intelligence_index`/`aa_coding_index` are unchanged and remain the fields
-the page and sidebar already consume.
+`aa_intelligence_index` is the AA field the page and sidebar consume;
+`aa_coding_index` is still collected for history but AA froze it on
+2026-09-11, so no reader-facing surface uses it any more (2026-10-24).
 
 url_slug: the stable, human-readable, URL-safe identifier a later step's
 `/models/<slug>` detail page reads and `api/models.js`'s `?slug=` lookup

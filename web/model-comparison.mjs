@@ -75,9 +75,13 @@ export function compareModels(models, metric, scenario, now = Date.now()) {
 function startComparison(data) {
   const $ = id => document.getElementById(id);
   const form = $('scenario');
+  // Fixed capability axis. Artificial Analysis froze its coding index on
+  // 2026-09-11, so the only index still updated for new models is the
+  // intelligence index (2026-10-24 decision log).
+  const METRIC = 'aa_intelligence_index';
+  const metricLabel = () => 'AA intelligence index';
   let rows = [], selected = null, frontierOnly = false;
   const modelName = row => row.model.display_name || row.model.name;
-  const metricLabel = () => $('metric').selectedOptions[0].textContent;
   function scenario() {
     const value = { writeDuration: $('writeDuration').value };
     for (const key of ['inputTokens', 'outputTokens', 'promptTokens', 'readPercent', 'writePercent']) value[key] = $(key).value === '' ? NaN : Number($(key).value);
@@ -152,9 +156,8 @@ function startComparison(data) {
     $('validation').hidden = !error;
     $('validation').textContent = error || '';
     if (error) { rows = []; $('chart').innerHTML = ''; $('prices').innerHTML = ''; $('coverage').textContent = ''; $('selection').textContent = 'Correct the assumptions above to compare models.'; return; }
-    rows = compareModels(data.models || [], $('metric').value, s);
+    rows = compareModels(data.models || [], METRIC, s);
     $('assumptions').textContent = `${s.inputTokens.toLocaleString()} input + ${s.outputTokens.toLocaleString()} output tokens; ${s.readPercent}% cache reads, ${s.writePercent}% cache writes, ${100 - s.readPercent - s.writePercent}% uncached. Prices below use the ${s.promptTokens.toLocaleString()}-token prompt tier.`;
-    $('chartTitle').textContent = $('metric').value === 'aa_coding_index' ? 'Cost vs. coding capability' : 'Cost vs. intelligence';
     const paired = rows.filter(r => r.cost !== null && r.score !== null);
     const pending = rows.filter(r => r.score === null).length;
     $('coverage').textContent = `${paired.length} comparable models · ${paired.filter(r => r.frontier).length} on the frontier · ${pending} awaiting scores · ${rows.length - pending - paired.length} lack a usable price for this scenario. All tracked models remain in the table.`;
