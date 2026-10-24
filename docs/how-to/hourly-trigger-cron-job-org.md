@@ -126,7 +126,7 @@ when the recap has already been sent.
 3. **Schedule:** Every day at 23:00 UTC
    (cron-job.org pattern: minutes = `0`, hours = `23`).
 4. **Request method:** `POST`
-5. **Headers:** same four as the hourly feed job (reuse the same PAT).
+5. **Headers:** same four as the every-two-hour feed job (reuse the same PAT).
 6. **Request body:**
    ```json
    {"ref":"main","inputs":{"kind":"daily"}}
@@ -149,7 +149,7 @@ when the recap has already been sent.
 
 ### Verify
 
-Same procedure as the hourly feed job:
+Same procedure as the every-two-hour feed job:
 1. **Run now** on each job → expect HTTP **204**.
 2. In GitHub → Actions → **AI Feed Email Digest**, confirm new
    `workflow_dispatch` runs appear.
@@ -166,6 +166,6 @@ Same procedure as the hourly feed job:
 ---
 
 ## Related
-- `.github/workflows/feed-full-publish.yml` — the hourly feed workflow.
+- `.github/workflows/feed-full-publish.yml` — the every-two-hour feed workflow.
 - `.github/workflows/email-digest.yml` — the email digest workflow.
 - `docs/design-docs/decision-log.md` — 2026-06-14 entries (cron `:37` move; this trigger).

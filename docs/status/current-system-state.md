@@ -1,4 +1,4 @@
-# Current System State (as of 2026-08-30 KST)
+# Current System State (as of 2026-10-24 UTC)
 
 This file is a snapshot of the **currently deployed behavior** so we can resume quickly in future sessions.
 
@@ -9,14 +9,22 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
   - `enabled: true`
   - `preset: balanced` (loads `config/presets/balanced.yaml`, then local overrides deep-merge on top)
   - `candidate_pool_cap: 140`
-  - `llm_budget: 8` (inert — see below)
-  - `max_items: 24`
+  - `llm_budget: 8` (legacy ranking LLM; inert while disabled)
+  - `max_items: 24` (the edition may return fewer on a quiet day)
   - `slot_merge_strategy: floor_then_dynamic`
   - `time_decay.enabled: true` (smooth half-life age-down after Stage C scoring)
   - `dynamic_slot_rerank.enabled: true`, `top_band_constraints.enabled: true`
-- **LLM disabled**: `config/llm.yaml -> enabled: false`. All scoring is
-  heuristic/deterministic; `pipeline/llm_label.py` / `llm_rerank.py` are no-op
-  interfaces kept for future re-enable.
+- **Ranking LLM disabled**: `config/llm.yaml -> enabled: false`.
+  `pipeline/llm_label.py` / `llm_rerank.py` are no-op interfaces kept for a
+  future re-enable.
+- **Jev gate active**: `config/judge.yaml` runs the OpenRouter System One
+  hybrid gate + category after Stage A. It is fail-open without
+  `OPENROUTER_API_KEY`. Prior judgments are reused from
+  `data/processed/judgments.json`; only new or expired items call Jev.
+  `data/processed/classified.json` is the compact artifact for the editor
+  decks.
+- The Tier-1 snapshot and API fresh blend no longer exist. `api/feed.js`,
+  `api/rss.js`, and `api/share.js` read `data/processed/**` only.
 - Reader auto-tuning active: `data/feedback/source_adjustments.json`
   (from `pipeline/auto_tune.py`) is applied as `source_tune` in slot scoring.
 
@@ -32,9 +40,9 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
    (`story_store.py`, `render_static_pages.py`). Storyline generation is
    intentionally excluded from GitHub Actions.
 5. Prune runtime snapshots (processed 45d)
-7. Commit + push `data/` + `web/` (triggers Vercel production deploy, whose
+6. Commit + push `data/` + `web/` (triggers Vercel production deploy, whose
    build command rerenders static pages from the committed data)
-8. Finish with `FULL_RUN_OK`; website deployment follows the runtime-data push
+7. Finish with `FULL_RUN_OK`; website deployment follows the runtime-data push
 
 Daily companions:
 - `feed-ops-summary` (12:30 UTC): ops health snapshot
@@ -103,8 +111,11 @@ Daily companions:
   model and fails open.
 
 ## Next tuning levers
-- Re-enable LLM labeling (`config/llm.yaml -> enabled: true`) once
-  auth/cost/reliability are settled; budget starts at 8.
+- Tune the Jev gate: `config/judge.yaml` rubric, `judge_ranking.weight`,
+  `headroom_min_score`, verdict thresholds, category taxonomy, and
+  `judgment_store.ttl_days`.
+- Re-enable the legacy ranking LLM (`config/llm.yaml -> enabled: true`)
+  separately once auth/cost/reliability are settled; budget starts at 8.
 - Adjust dynamic slot rerank weights/biases for desired top ordering.
 - Tune `time_decay.half_life_hours`, `floor`, and slot overrides if the live
   feed still feels too static or becomes too freshness-biased.

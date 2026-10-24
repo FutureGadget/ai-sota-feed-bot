@@ -49,6 +49,8 @@ candidate pool:
 - release-role items are exempt from the headroom floor so the Releases tab
   and model radar keep their data
 - paragraph excerpts are fetched for candidates whose feed teaser is too short
+- prior judgments are reused from `data/processed/judgments.json`; only new or
+  changed candidates call Jev
 
 Offline benchmark: AUC 0.969, F1 0.927 at threshold 0.25, precision 0.950,
 recall 0.905, Brier 0.095, ECE 0.114, $0.0027 for 50 requests. The full
