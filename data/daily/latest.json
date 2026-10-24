@@ -1,171 +1,128 @@
 {
-  "date": "2026-10-23",
-  "title": "What happened in AI — Oct 23, 2026",
-  "generated_at": "2026-10-23T22:16:04Z",
+  "date": "2026-10-24",
+  "title": "What happened in AI — Oct 24, 2026",
+  "generated_at": "2026-10-24T22:15:25Z",
   "intro": [
-    "Agent security dominated the day: OpenAI detailed tighter containment for frontier training, and Axios reported unvetted AI agents already accessing U.S. bank accounts.",
-    "On the infrastructure side, vLLM shipped long-context GLM-5.3 serving and day-0 MiniMax-M3.1-Flash support, and Chinese open-weight models kept widening their reach."
+    "Agent infrastructure moved from SDKs to managed platform: Google launched Agent Compute Engine with expanded agent governance at AGNTCon + MCPCon, and made Data Agent Kit generally available with guardrails split between skills and IAM.",
+    "Builder guidance pointed the other way on complexity: Anthropic advises folding subagents back into one agent loop, and a field report shows an agent can ignore a tool it was given. Moonshot's Kimi K3.1 Pro (3T parameters, open weights) dominated model coverage."
   ],
   "highlights": [
-    "OpenAI hardens frontier training and evaluation environments with offline setups and high-compute red-teaming.",
-    "Axios: unvetted AI agents are accessing U.S. bank accounts.",
-    "Anthropic launches opt-in OSS Scanner for open-source maintainers.",
-    "vLLM serves GLM-5.3 at 1M-token context on 16 H200s, 1.7–3.2× faster per user.",
-    "Kimi K3.1 Pro lands on the API; weights promised by Nov 4.",
-    "DeepSeek and MiniMax win approval for global use, per Reuters."
+    "Google launches Agent Compute Engine and expanded agent governance for concurrent agent sessions.",
+    "Data Agent Kit hits GA: MCP tools plus 37 open-source skills across 15+ Google Data Cloud services.",
+    "Anthropic: fewer subagents and progressively disclosed context can improve quality and cut cost and latency.",
+    "An agent given an MCP tool may still not call it; same instruction, different project, different behavior.",
+    "Moonshot ships Kimi K3.1 Pro: 3T parameters, 1M context, open weights."
   ],
-  "article_count": 31,
+  "article_count": 17,
   "categories": [
     {
-      "name": "Agent Context and Harness Design",
-      "slug": "agent-context-harness-design",
-      "summary": "Two builds show where agent harnesses are heading: smarter retrieval into context, and a harness that extends itself.",
+      "name": "Managed Runtimes and Governance for Agents",
+      "slug": "managed-agent-runtimes-governance",
+      "summary": "Cloud vendors are packaging agent execution and guardrails as managed services, and builders are adding audit trails for irreversible agent actions.",
       "articles": [
         {
-          "title": "Context Engineering (Agent Memory) for AI Agents Starts with Retrieval",
-          "summary": "LangChain's Deep Agents harness uses targeted retrieval to cut clumsy searches, oversized results and stale data from agent context.",
-          "source": "langchain_blog",
-          "url": "https://www.langchain.com/blog/context-engineering-starts-with-retrieval",
-          "published": "2026-10-23T17:00:00+00:00"
-        },
-        {
-          "title": "Ultimate: A self-extending agent harness built on Pi Durable",
-          "summary": "A write-up of a self-extending agent harness built on Pi Durable, a durable-execution base for long-running agents.",
+          "title": "Agent Compute Engine and expanded agent governance",
+          "summary": "Google's compute and governance layer for running many concurrent autonomous agent sessions, launched at AGNTCon + MCPCon.",
           "source": "hackernews_ai",
-          "url": "https://danielgriesser.com/posts/ultimate/",
-          "published": "Fri, 23 Oct 2026 08:33:24 +0000"
+          "url": "https://cloud.google.com/blog/topics/ai-infrastructure/introducing-agent-compute-engine-and-expanded-agent-governance",
+          "published": "2026-10-24T20:44:53Z"
         },
         {
-          "title": "Multi-Turn Reinforcement Learning on Amazon SageMaker AI: A hands-on guide",
-          "summary": "AWS walks the full multi-turn RL pipeline on SageMaker AI, training on whole-task outcomes instead of labeled steps, using Wordle as the example.",
-          "source": "aws_ml_blog",
-          "url": "https://aws.amazon.com/blogs/machine-learning/multi-turn-reinforcement-learning-on-amazon-sagemaker-ai-a-hands-on-guide/",
-          "published": "Fri, 23 Oct 2026 17:48:54 +0000"
-        }
-      ]
-    },
-    {
-      "name": "Agent Security and Containment",
-      "slug": "agent-security-containment",
-      "summary": "Labs and researchers are tightening containment around agents, while unvetted agents reportedly already reach bank accounts.",
-      "articles": [
-        {
-          "title": "Securing our frontier model training environment",
-          "summary": "OpenAI details stronger containment for frontier model training and evaluation, including offline environments and high-compute red-teaming.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/securing-our-frontier-model-training-environment",
-          "published": "Fri, 23 Oct 2026 10:00:00 GMT"
-        },
-        {
-          "title": "Red-Teaming OpenAI's Internal Agent Monitoring Systems",
-          "summary": "Redwood Research red-teams OpenAI's internal agent monitoring systems.",
-          "source": "hackernews_ai",
-          "url": "https://blog.redwoodresearch.org/p/red-teaming-openais-internal-agent",
-          "published": "Fri, 23 Oct 2026 01:41:30 +0000"
-        },
-        {
-          "title": "Scoop: Unvetted AI agents are accessing U.S. bank accounts",
-          "summary": "Axios reports unvetted AI agents are accessing U.S. bank accounts, raising agent identity and authorization questions.",
-          "source": "hackernews_ai",
-          "url": "https://www.axios.com/2026/10/22/ai-agents-banks-unauthorized-accounts-access",
-          "published": "Fri, 23 Oct 2026 00:06:50 +0000"
-        },
-        {
-          "title": "Anthropic Adds Opt-In Security Scanning for Critical Open-Source Projects",
-          "summary": "Anthropic's free, opt-in OSS Scanner sends enrolled maintainers periodic vulnerability reports generated by its strongest models.",
+          "title": "Google’s Data Agent Kit Hits GA, Splitting Agent Guardrails Between Skills and IAM",
+          "summary": "GA release of free MCP tools and 37 open-source skills linking coding agents to 15+ Google Data Cloud services; guardrails split between skills and IAM.",
           "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/10/anthropic-oss-security-scanner/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "Fri, 23 Oct 2026 09:00:00 GMT"
+          "url": "https://www.infoq.com/news/2026/10/data-agent-kit-ga/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-10-24T08:34:00Z"
         },
         {
-          "title": "AI Coding Agent Security Benchmark",
-          "summary": "Endor Labs publishes a security benchmark for AI coding agents.",
+          "title": "Sevenbox, find what an AI agent's wrong decision affected",
+          "summary": "Open-source decision audit that records why each agent call was made and which irreversible actions need compensation when a belief proves wrong.",
           "source": "hackernews_ai",
-          "url": "https://www.endorlabs.com/research/ai-code-security-benchmark",
-          "published": "Fri, 23 Oct 2026 20:08:49 +0000"
+          "url": "https://github.com/sevenboxlabs/sevenbox",
+          "published": "2026-10-24T21:09:47Z"
         }
       ]
     },
     {
-      "name": "Inference and Infrastructure",
-      "slug": "inference-infrastructure",
-      "summary": "Serving stacks and storage are being tuned for long-context, agentic load, and Trainium now targets training as well as inference.",
+      "name": "Agent Loop Design, Tool Use, and Memory",
+      "slug": "agent-loop-design-tool-memory",
+      "summary": "Practitioners report that simpler loops and reliable tool invocation matter more than adding agents or tools.",
       "articles": [
         {
-          "title": "GLM-5.3 Optimizations, Part 2: PCP, DCP, and Hybrid HiSparse on 16 H200s",
-          "summary": "vLLM serves GLM-5.3 on 16 H200s, reaching 1M-token contexts at 1.7–3.2× the per-user speed of data-parallel P/D on the AgentX agentic benchmark.",
-          "source": "vllm_blog",
-          "url": "https://vllm.ai/blog/2026-10-23-glm53-part2-pcp-dcp-hisparse",
-          "published": "Fri, 23 Oct 2026 00:00:00 GMT"
+          "title": "Building agents: When to fold subagents into your main agent loop",
+          "summary": "Claude Platform guidance and a migration kit for folding subagents into the main loop using progressively disclosed context and tools.",
+          "source": "hackernews_ai",
+          "url": "https://claude.com/resources/articles/building-agents-when-to-fold-subagents-into-your-main-agent-loop",
+          "published": "2026-10-24T19:02:43Z"
         },
         {
-          "title": "vLLM Delivers Day-0 Support for MiniMax-M3.1-Flash",
-          "summary": "vLLM ships day-0 MiniMax-M3.1-Flash support on NVIDIA Blackwell, NVIDIA Rubin and AMD MI350-series GPUs, with NVFP4 kernels and speculative decoding.",
-          "source": "vllm_blog",
-          "url": "https://vllm.ai/blog/2026-10-23-minimax-m31-flash",
-          "published": "Fri, 23 Oct 2026 00:00:00 GMT"
+          "title": "Giving an agent a tool does not make it use the tool",
+          "summary": "Claude Code used an ask-user MCP tool in one project and skipped it in the next despite quoting the instruction, so tool availability does not guarantee use.",
+          "source": "hackernews_ai",
+          "url": "https://yamanahlawat.in/articles/agent-ignores-your-mcp-tool",
+          "published": "2026-10-24T16:18:06Z"
         },
         {
-          "title": "Amazon’s Trainium Takes a Strike at the Training King",
-          "summary": "SemiAnalysis argues Amazon's Trainium is now viable for training, citing native PyTorch support, TorchTitan and CI quality.",
-          "source": "semianalysis",
-          "url": "https://newsletter.semianalysis.com/p/amazons-trainium-takes-a-strike-at",
-          "published": "Fri, 23 Oct 2026 19:06:44 GMT"
-        },
-        {
-          "title": "Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)",
-          "summary": "OpenAI describes scaling Habitat storage on Azure Cosmos DB with multi-tenancy and global caching, for 12× faster reads in ChatGPT.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/scaling-storage-one-billion-users-part-two",
-          "published": "Fri, 23 Oct 2026 17:00:00 GMT"
+          "title": "Show HN: TenseMem – deterministic memory for AI agents",
+          "summary": "Embedded SQLite memory where the model proposes typed facts and the engine decides which is current, avoiding stale similarity-search hits.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/tensemem/tensemem",
+          "published": "2026-10-24T14:38:03Z"
         }
       ]
     },
     {
-      "name": "Chinese Open-Weight Models Gain Ground",
-      "slug": "chinese-open-weight-models",
-      "summary": "Kimi K3.1 Pro and DeepSeek advance on cost and capability while regulatory approval and market reaction shape global reach.",
+      "name": "Kimi K3.1 Pro Narrows the Open-Weight Gap",
+      "slug": "kimi-k31-pro-open-weights",
+      "summary": "Moonshot's 3T-parameter open-weights release drew same-day coverage and comparisons against closed frontier models.",
       "articles": [
         {
-          "title": "Introducing Kimi K3.1 Pro",
-          "summary": "Kimi K3.1 Pro is live on the Kimi API; Moonshot promises full weights by Nov 4, 2026.",
-          "source": "simon_willison",
-          "url": "https://simonwillison.net/2026/Oct/23/kimi-k31-pro/",
-          "published": "2026-10-23T19:40:54+00:00"
+          "title": "Moonshot AI launches new flagship Kim K3.1 Pro model with 3T parameters",
+          "summary": "Moonshot AI launches its flagship Kimi K3.1 Pro with 3T parameters.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "SiliconANGLE",
+          "publisher_domain": "siliconangle.com",
+          "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPNE0yTnZ3bmZweG5GVGx6eGV2bTBOR0x6ZEp5TThmR3prQWlhRzdPaWc2Z1FJWEJmc2J6Y1M0SVBsS2VtMHhWS29sNXI0U1R3XzV3YV8tWTh3OEIzNkpJaW1FVkFEcHEwdWtWVzYzVzg4S2lpdFdpWDM2Rm9KS1ZTN2FTclFkcENXeEJZV25hRnM1QUFnNWdvY1VCYkFpeTFSeUJBekwzemNKVjhm?oc=5",
+          "published": "2026-10-24T00:55:00Z"
         },
         {
-          "title": "Deepseek's latest AI model is smarter than ever, but its low running costs come at a price — uses only one-quarter of the HBM and one-eighth of SSD storage but still battles hallucinations in agentic workloads",
-          "summary": "DeepSeek's newest model uses a quarter of the HBM and an eighth of the SSD storage, but still hallucinates in agentic workloads.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "Tom's Hardware",
-          "publisher_domain": "tomshardware.com",
-          "url": "https://news.google.com/rss/articles/CBMi_wJBVV95cUxORG9YWXBTSEx5UGZiTmtTVHZXLUE1TlVvRTlWbDNlbGg0Q3paX2llTlYweWR6cEJJUW1SeXY0VHBtb19PUll1d2xLRUFacDNDelZrUkkydGwtT2YwMU5CZXZmZFFTLWJydmk0NHVyWE9DV1E0UGUwbjVKUnhjbVZRaGJsVGg4YjRkaHBtRFY2eGhpMnlJUlBnQnJZaXNLaWVPR2htenVvSks3ZUtzeVpubWI4TVl6M2xZR25HZU9OWW1yT0xYRVVLQW1POE5HMkg5bUpyUjlVblBUeDIzd1JhVm9tX3JDLTVTSVV0Um9xLWRxZFloYXdkSU1wTGpBdUtEVVBTM0RkX2s3SjEtWlg2d0NOZ0hMY2xnVlFlZ3d6MmFyUmNhZHdlYm13X0pWelZYa0JMdFJpb0FPU3FITFJnRFZ0dndEdXg2V2RjdUlRQTFCSkdzTjZKM245WXgwM0dXMTdSTlYtel9WUEZzVGl2M1E4cF9Hc0pCelY2SFg5bw?oc=5",
-          "published": "Fri, 23 Oct 2026 12:00:00 GMT"
+          "title": "[AINews] Kimi 3.1 Pro 104BA-2.8T: Fable-5.1-Class Open Weights narrows Closed-AI lead to 1 month... and Pro Highspeed API with 2-3× speed",
+          "summary": "Latent Space frames the release as open weights narrowing the closed-model lead to about a month, with a faster Highspeed API tier.",
+          "source": "latent_space",
+          "url": "https://latent.space/p/ainews-kimi-31/",
+          "published": "2026-10-24T07:18:29Z"
         },
         {
-          "title": "China's DeepSeek, MiniMax win approval for AI global use, state media-affiliated entity says",
-          "summary": "Chinese state-media-affiliated body approves DeepSeek and MiniMax for global use, per Reuters.",
+          "title": "Kimi K3.1 Pro vs. Claude Opus 5.5 and GPT-6 Astra",
+          "summary": "Side-by-side comparison of Kimi K3.1 Pro against Claude Opus 5.5 and GPT-6 Astra.",
           "source": "search_cn_open_weight_labs",
-          "publisher_name": "Reuters",
-          "publisher_domain": "reuters.com",
-          "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOUDVGa0hCU3ppVlo3amtaT1l4T18zcHNWWlFkV3Nveks4TDI5RGxkMzE1TFpEZjIxWFBZNl9ILU9SRVdzMEtCX2JKai1FbXlYTTFFX1Y0U3NfRGZuRGttQ0ZKYVhRS3NaUTlEWldxNzVIQUdzamNVMTE1cVg0N1VpLUlweVZlU3lpOGFRajJ6eHItM3NHTGlLVldsVWxnbTcwQncxekJITDJfWUxWUGt1OWx1Zm4zLXdEdm5ja0VPbXNlNmFxWWstT0lfVkZOQXNTNlRYcktB?oc=5",
-          "published": "Fri, 23 Oct 2026 06:59:00 GMT"
+          "publisher_name": "R&D World",
+          "publisher_domain": "rdworldonline.com",
+          "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPLUdRdUVWU0tTX1FyTEhlWkVrX1FJd2tQTmVyamkxcjFkYTh4bXA3c1V0ZHdJc3F5UlNPYk9lMzNneXlObGFMSU9QSXRFNFI1SURhN2FXS2lxQjYwQkpjMDZLS04tOFcxUHl6NTlaMERkSFZ1cVQ4ZHlRcFVWUFM5UDVJLUZmSWxiMDlCS2dkLUp1SVZDYnhwaWw3bXFRVUE?oc=5",
+          "published": "2026-10-24T00:02:40Z"
+        }
+      ]
+    },
+    {
+      "name": "Coding-Agent Tooling",
+      "slug": "coding-agent-tooling",
+      "summary": "New tools target how engineers review and ship coding-agent output.",
+      "articles": [
+        {
+          "title": "Show HN: Task-view – review a coding agent’s change as a map instead of a diff",
+          "summary": "Review a coding agent's change as a map of the task rather than a line diff.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/gtindo/task-view",
+          "published": "2026-10-24T00:11:40Z"
         },
         {
-          "title": "Chinese AI controls 55% of developer traffic—DeepSeek and Kimi K3 rewrote the rules",
-          "summary": "Report claims Chinese models carry 55% of developer traffic, with DeepSeek and Kimi K3 driving the shift.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "Latin Times",
-          "publisher_domain": "latintimes.com",
-          "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNeC1wY3ViQ1pNT21FNklkc21TbTJNai1SUGZuNk14cjVKaWRVOVR6ZExMa0g4V3ZROVhtU0pYeUllTFlJcEVZZ1NfU3FHLUVlaVZpZWZKNkxrZUwyMmNlbU5OTklVYU83UWttTmtIS254dWhGNTRoZEVWeTBBVHEwaEdiZFYyUXRZdHd0WEpHZEZaNWdWd3hNaXBYMTdnWHdGSVkzQ0ZINzNHSFZvbkE?oc=5",
-          "published": "Fri, 23 Oct 2026 00:47:45 GMT"
+          "title": "Pi, the coding agent, compiled ahead of time to one native executable",
+          "summary": "Pi coding agent compiled ahead of time into a single native executable.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/opensec-git/Pi-Bolt",
+          "published": "2026-10-24T04:18:29Z"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "Hmh1RFmPAAE",
-    "title": "LLM Digest Daily Explainer: Oct 23, 2026",
-    "duration_s": 118.9
-  }
+  ]
 }

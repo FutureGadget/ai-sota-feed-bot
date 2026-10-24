@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-24",
+  "title": "What happened in AI — Oct 24, 2026",
+  "generated_at": "2026-10-24T22:15:25Z",
+  "intro": [
+    "Agent infrastructure moved from SDKs to managed platform: Google launched Agent Compute Engine with expanded agent governance at AGNTCon + MCPCon, and made Data Agent Kit generally available with guardrails split between skills and IAM.",
+    "Builder guidance pointed the other way on complexity: Anthropic advises folding subagents back into one agent loop, and a field report shows an agent can ignore a tool it was given. Moonshot's Kimi K3.1 Pro (3T parameters, open weights) dominated model coverage."
+  ],
+  "highlights": [
+    "Google launches Agent Compute Engine and expanded agent governance for concurrent agent sessions.",
+    "Data Agent Kit hits GA: MCP tools plus 37 open-source skills across 15+ Google Data Cloud services.",
+    "Anthropic: fewer subagents and progressively disclosed context can improve quality and cut cost and latency.",
+    "An agent given an MCP tool may still not call it; same instruction, different project, different behavior.",
+    "Moonshot ships Kimi K3.1 Pro: 3T parameters, 1M context, open weights."
+  ],
+  "article_count": 17,
+  "categories": [
+    {
+      "name": "Managed Runtimes and Governance for Agents",
+      "slug": "managed-agent-runtimes-governance",
+      "summary": "Cloud vendors are packaging agent execution and guardrails as managed services, and builders are adding audit trails for irreversible agent actions.",
+      "articles": [
+        {
+          "title": "Agent Compute Engine and expanded agent governance",
+          "summary": "Google's compute and governance layer for running many concurrent autonomous agent sessions, launched at AGNTCon + MCPCon.",
+          "source": "hackernews_ai",
+          "url": "https://cloud.google.com/blog/topics/ai-infrastructure/introducing-agent-compute-engine-and-expanded-agent-governance",
+          "published": "2026-10-24T20:44:53Z"
+        },
+        {
+          "title": "Google’s Data Agent Kit Hits GA, Splitting Agent Guardrails Between Skills and IAM",
+          "summary": "GA release of free MCP tools and 37 open-source skills linking coding agents to 15+ Google Data Cloud services; guardrails split between skills and IAM.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/10/data-agent-kit-ga/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-10-24T08:34:00Z"
+        },
+        {
+          "title": "Sevenbox, find what an AI agent's wrong decision affected",
+          "summary": "Open-source decision audit that records why each agent call was made and which irreversible actions need compensation when a belief proves wrong.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/sevenboxlabs/sevenbox",
+          "published": "2026-10-24T21:09:47Z"
+        }
+      ]
+    },
+    {
+      "name": "Agent Loop Design, Tool Use, and Memory",
+      "slug": "agent-loop-design-tool-memory",
+      "summary": "Practitioners report that simpler loops and reliable tool invocation matter more than adding agents or tools.",
+      "articles": [
+        {
+          "title": "Building agents: When to fold subagents into your main agent loop",
+          "summary": "Claude Platform guidance and a migration kit for folding subagents into the main loop using progressively disclosed context and tools.",
+          "source": "hackernews_ai",
+          "url": "https://claude.com/resources/articles/building-agents-when-to-fold-subagents-into-your-main-agent-loop",
+          "published": "2026-10-24T19:02:43Z"
+        },
+        {
+          "title": "Giving an agent a tool does not make it use the tool",
+          "summary": "Claude Code used an ask-user MCP tool in one project and skipped it in the next despite quoting the instruction, so tool availability does not guarantee use.",
+          "source": "hackernews_ai",
+          "url": "https://yamanahlawat.in/articles/agent-ignores-your-mcp-tool",
+          "published": "2026-10-24T16:18:06Z"
+        },
+        {
+          "title": "Show HN: TenseMem – deterministic memory for AI agents",
+          "summary": "Embedded SQLite memory where the model proposes typed facts and the engine decides which is current, avoiding stale similarity-search hits.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/tensemem/tensemem",
+          "published": "2026-10-24T14:38:03Z"
+        }
+      ]
+    },
+    {
+      "name": "Kimi K3.1 Pro Narrows the Open-Weight Gap",
+      "slug": "kimi-k31-pro-open-weights",
+      "summary": "Moonshot's 3T-parameter open-weights release drew same-day coverage and comparisons against closed frontier models.",
+      "articles": [
+        {
+          "title": "Moonshot AI launches new flagship Kim K3.1 Pro model with 3T parameters",
+          "summary": "Moonshot AI launches its flagship Kimi K3.1 Pro with 3T parameters.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "SiliconANGLE",
+          "publisher_domain": "siliconangle.com",
+          "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPNE0yTnZ3bmZweG5GVGx6eGV2bTBOR0x6ZEp5TThmR3prQWlhRzdPaWc2Z1FJWEJmc2J6Y1M0SVBsS2VtMHhWS29sNXI0U1R3XzV3YV8tWTh3OEIzNkpJaW1FVkFEcHEwdWtWVzYzVzg4S2lpdFdpWDM2Rm9KS1ZTN2FTclFkcENXeEJZV25hRnM1QUFnNWdvY1VCYkFpeTFSeUJBekwzemNKVjhm?oc=5",
+          "published": "2026-10-24T00:55:00Z"
+        },
+        {
+          "title": "[AINews] Kimi 3.1 Pro 104BA-2.8T: Fable-5.1-Class Open Weights narrows Closed-AI lead to 1 month... and Pro Highspeed API with 2-3× speed",
+          "summary": "Latent Space frames the release as open weights narrowing the closed-model lead to about a month, with a faster Highspeed API tier.",
+          "source": "latent_space",
+          "url": "https://latent.space/p/ainews-kimi-31/",
+          "published": "2026-10-24T07:18:29Z"
+        },
+        {
+          "title": "Kimi K3.1 Pro vs. Claude Opus 5.5 and GPT-6 Astra",
+          "summary": "Side-by-side comparison of Kimi K3.1 Pro against Claude Opus 5.5 and GPT-6 Astra.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "R&D World",
+          "publisher_domain": "rdworldonline.com",
+          "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPLUdRdUVWU0tTX1FyTEhlWkVrX1FJd2tQTmVyamkxcjFkYTh4bXA3c1V0ZHdJc3F5UlNPYk9lMzNneXlObGFMSU9QSXRFNFI1SURhN2FXS2lxQjYwQkpjMDZLS04tOFcxUHl6NTlaMERkSFZ1cVQ4ZHlRcFVWUFM5UDVJLUZmSWxiMDlCS2dkLUp1SVZDYnhwaWw3bXFRVUE?oc=5",
+          "published": "2026-10-24T00:02:40Z"
+        }
+      ]
+    },
+    {
+      "name": "Coding-Agent Tooling",
+      "slug": "coding-agent-tooling",
+      "summary": "New tools target how engineers review and ship coding-agent output.",
+      "articles": [
+        {
+          "title": "Show HN: Task-view – review a coding agent’s change as a map instead of a diff",
+          "summary": "Review a coding agent's change as a map of the task rather than a line diff.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/gtindo/task-view",
+          "published": "2026-10-24T00:11:40Z"
+        },
+        {
+          "title": "Pi, the coding agent, compiled ahead of time to one native executable",
+          "summary": "Pi coding agent compiled ahead of time into a single native executable.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/opensec-git/Pi-Bolt",
+          "published": "2026-10-24T04:18:29Z"
+        }
+      ]
+    }
+  ]
+}
