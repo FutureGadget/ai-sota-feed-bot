@@ -2,116 +2,116 @@
 
 Focus: AI Platform Engineering
 
-## 1. Build Your Own Reasoning Model: A Full Video Course
-- Type: news | Source: sebastian_raschka
-- URL: https://magazine.sebastianraschka.com/p/building-reasoning-models
-- Score: 2.438 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
+## 1. Building agents: When to fold subagents into your main agent loop
+- Type: news | Source: hackernews_ai
+- URL: https://claude.com/resources/articles/building-agents-when-to-fold-subagents-into-your-main-agent-loop
+- Score: 3.538 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 2. RoleFlow: Self-Evolving Multi-Role Agentic Collaboration via Structural Adaptation
+## 2. ReflectPO: Reflection-Guided Policy Optimization for Long-Horizon LLM Agents
 - Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.30429v1
-- Score: 2.907 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
+- URL: http://arxiv.org/abs/2610.30933v1
+- Score: 2.565 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 3. Self-Assessment Reinforcement Learning for Search-State Awareness in Retrieval-Augmented Large Language Models
+## 3. Turning Database Grading into RL Rewards: Post-Training Agents with ThinkingBox
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/microsoft/thinkingbox-training
+- Score: 2.535 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. Same molecule, Different Knowledge: Cross-Identifier Binding Failures in LLMs For chemistry
 - Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2610.30435v1
-- Score: 2.833 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 4. Muffin - A Shared Memory Buffer for Asynchronous AI Agents
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.31355v1
-- Score: 2.792 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
+- URL: http://arxiv.org/abs/2610.30903v1
+- Score: 2.516 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
 ## 5. battledrones v14: Compass Rose, a four player map
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Oct/24/battledrones/
-- Score: 2.25 | Reliability: 1.0
+- Score: 2.156 | Reliability: 1.0
 - Why it matters: 
 
-## 6. How To Use Decision Models for Evals
+## 6. Vercel Labs Open-Sources fx: a Zig Coding Agent Designed to Be Embedded
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/10/vercel-zig-fx-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.134 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 7. How To Use Decision Models for Evals
 - Type: news | Source: hamel_husain
 - URL: https://hamel.dev/blog/posts/decision-model-evals/
-- Score: 2.02 | Reliability: 1.0
+- Score: 2.005 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 7. The Huawei-DeepSeek Symbiosis
-- Type: news | Source: semianalysis
-- URL: https://newsletter.semianalysis.com/p/huawei-deepseek
-- Score: 1.977 | Reliability: 1.0
-- Why it matters: 
-
-## 8. Serverless routing made sticky
+## 8. NVIDIA Vera CPUs double throughput for Modal Sandboxes
 - Type: news | Source: modal_blog
-- URL: https://modal.com/blog/serverless-routing-made-sticky
-- Score: 1.949 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 9. How the Claude Code team does code review
-- Type: news | Source: claude_dev_blog
-- URL: https://claude.dev/blog/solving-code-review-at-anthropic/
-- Score: 1.712 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 10. langgraph-sdk==0.4.9
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.9
-- Score: 1.416 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Same Luck, Different Choice: Twin-World Credit Assignment for Agentic Reinforcement Learning
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2610.31544v1
-- Score: 2.62 | Reliability: 1.0
+- URL: https://modal.com/blog/nvidia-vera-sandboxes
+- Score: 1.906 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 12. Causal Chain of Thought: Mitigating Attention Leakage via Context Isolation
+## 9. codex 0.164.0
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.164.0
+- Score: 1.681 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, codex.
+
+## 10. How the Claude Code team does code review
+- Type: news | Source: claude_dev_blog
+- URL: https://claude.dev/blog/solving-code-review-at-anthropic/
+- Score: 1.678 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 11. Questioning Instrumental Convergence in RLVR: Checkpoint Evidence from OLMo-3
 - Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2610.31639v1
-- Score: 2.584 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+- URL: http://arxiv.org/abs/2610.31624v1
+- Score: 2.456 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
 
-## 13. claude-agent-sdk-python v0.2.170
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.170
-- Score: 1.288 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 14. tencent/WeVisOne-VL-2B released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/WeVisOne-VL-2B
-- Score: 1.148 | Reliability: 1.0
+## 12. Direct Inference on Admissible Sets (Diona)
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2610.31526v1
+- Score: 2.429 | Reliability: 1.0
 - Why it matters: 
 
-## 15. codex 0.164.0-alpha.8
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.164.0-alpha.8
-- Score: 1.141 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 16. claude-code v2.1.306
+## 13. claude-code v2.1.305
 - Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.306
-- Score: 1.117 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.305
+- Score: 1.475 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 14. langgraph-sdk==0.4.9
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.9
+- Score: 1.397 | Reliability: 1.0
+- Why it matters: 
+
+## 15. claude-agent-sdk-python v0.2.169
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.169
+- Score: 1.292 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 16. tencent/WeVisOne-VL-2B released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/WeVisOne-VL-2B
+- Score: 1.091 | Reliability: 1.0
 - Why it matters: 
 
 ## 17. How Commerce.com and Cloudflare are getting storefronts ready for AI agents
 - Type: news | Source: cloudflare_blog
 - URL: https://blog.cloudflare.com/webmcp-commerce/
-- Score: 0.968 | Reliability: 1.0
+- Score: 0.926 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 18. Donating Agent Skills to the Agentic AI Foundation
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation
-- Score: 0.902 | Reliability: 1.0
+- Score: 0.824 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 19. vllm proto-v0.6.0
+## 19. v0.32.0rc1: [Dependency] Update Humming and remove NVFP4 scale workaround (#61556)
 - Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/proto-v0.6.0
-- Score: 0.495 | Reliability: 1.0
-- Why it matters:
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.0rc1
+- Score: 0.553 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.

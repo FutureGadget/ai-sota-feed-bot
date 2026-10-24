@@ -1216,6 +1216,22 @@
   "url": "http://arxiv.org/abs/2610.20573v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "13225fd2d3574734": {
+  "content_excerpt": "When building agents in Claude Platform, using fewer subagents in favor of progressively disclosed context and tools can improve quality while reducing cost and latency. Here’s when and how to migrate. If you’ve built an agent in Claude Platform that includes multiple subagents, see which may make sense to fold into the main agent loop using our migration kit . It runs a guided workflow to identify your patterns, evaluate alternatives, and verify the best approach. It includes a demo that you can try on a mock system before running on your agent. Subagents – agents with their own context window, tools, and instructions, orchestrated by a coordinator – are a core component of agent design. They are effective at verification, parallel work, and modular permissioning. We use them in many of our own agents that we build using Claude Platform, for example our multi-agent research system . However, recently the Applied AI team has found a pattern of enterprise agent deployments that have benefited from folding routers, planners, and domain subagents into the main agent loop. In our comparisons across several enterprise deployments , a single agent with skills frequently outperformed both the one-prompt-for-everything design and the subagent design on quality, and often at a lower cost and latency per task. For example, one company found the dozen of specialist subagents within its customer-facing agent made a consistent on-brand experience difficult to maintain and added latency th",
+  "first_seen": "2026-10-24T20:04:51.842291+00:00",
+  "id": "ab2679a0eadec6d1",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-24T19:02:43+00:00",
+  "sid": "13225fd2d3574734",
+  "source": "hackernews_ai",
+  "summary_1line": "Building agents: When to fold subagents into your main agent loop",
+  "title": "Building agents: When to fold subagents into your main agent loop",
+  "type": "news",
+  "url": "https://claude.com/resources/articles/building-agents-when-to-fold-subagents-into-your-main-agent-loop",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "13307002442ed537": {
   "first_seen": "2026-10-09T11:04:18.577218+00:00",
   "id": "707890d4f3625c21",
@@ -1932,6 +1948,18 @@
   "type": "release",
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.307",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "1fa2c665b2519cc2": {
+  "first_seen": "2026-10-24T20:04:51.842291+00:00",
+  "id": "195dc33dbcbaf548",
+  "published": "2026-10-22T16:35:47+00:00",
+  "sid": "1fa2c665b2519cc2",
+  "source": "arxiv_cs_lg",
+  "summary": "We propose a new regression method named Direct Inference on Admissible Sets (Diona) that directly uses samples to estimate the state and its derivatives at a query point, along with their admissible bounds, without long global training. By casting the values and derivatives at the query and neighbouring samples as latent variables in a constrained optimisation problem, the burden of long training loops becomes one of on-demand local solves. We establish Diona's theoretical properties including finite-sample coverage and, in the noiseless case, convergence to the true state and derivatives under dense sampling. In a nonlinear regression benchmark on six functions of three to eight dimensions, Diona was more accurate than a Gaussian process (GP) on noiseless data especially with denser data sets. Furthermore, as with GP, it produced uncertainty bounds that contained the true value at more than 95% of query points in four functions. Diona's time to a first prediction after a data set update was three to four orders of magnitude shorter than that of the GP, and two to three orders shorter than that of a neural network, which was more accurate but offers no uncertainty quantification. This low latency is paid for by on-demand predictions, so this latency advantage applies when relatively few predictions are needed between data updates.",
+  "summary_1line": "We propose a new regression method named Direct Inference on Admissible Sets (Diona) that directly uses samples to estimate the state and its derivatives at a query point, along with their admissible bounds, without l...",
+  "title": "Direct Inference on Admissible Sets (Diona)",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31526v1"
  },
  "1fac4c07b3b81e99": {
   "first_seen": "2026-10-13T11:04:29.121176+00:00",
@@ -2779,6 +2807,7 @@
   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPV3ZDSUVrelhWVlR6T0E1VFdLazY4ajJLVG8wVF9DLVdrem5uMTlTeDRmcVBoM09nRVRET1ZQcjV1X1ZkNGJVbzY1ajN5amhTZktmM1lhQ09TTDV1T3g3S05QRnhDTGY3elpoRkUwX25TSWlvUkpCcUFQMzNNZFdhLVFSTkNLU3B1V0tEa1FkRU1FVkdvdU53VkR3M01HZHh0SXJLZ0hLbw?oc=5"
  },
  "2ccafb2a756f8408": {
+  "content_excerpt": "Last week, NVIDIA hand-delivered Modal’s first Vera CPU server to our SF office. It’s now purring away in a server rack, and we’re pretty excited about what it could mean for Modal Sandboxes and, consequently, Modal users. Vera is NVIDIA’s new Arm-compatible CPU, built for the Vera Rubin GPU platform but also available as a standalone CPU server. Supporting Arm would be a huge change for Modal, coming from a long history exclusively running x86 machines. We’d need to make changes across our infrastructure and image build system to support an entirely different CPU architecture, but the benchmarks are impressive: a 2x increase on throughput. With this, the NVIDIA Vera CPU becomes an incredibly compelling option for powering Modal Sandboxes. Orchestration for a Sandbox product means running hundreds of concurrent containers and VMs on each cloud host. Unlike normal Kubernetes server deployments colocating pods on the same host, the shape of each sandbox workload is unique, and it leads to some interesting dynamics within a multi-tenant cluster: As a result of this, it’s incredibly difficult for users to know how to size their workloads, and for Modal to schedule them without contention. Unlike other providers that force users to choose fixed reservations for max usage, Modal Sandboxes support bursting , which allows users to reserve guaranteed capacity for their P50 usage, rather than the worst-case P100 npm install moment, and trust when the transient spike comes along it’d be",
   "first_seen": "2026-10-19T14:05:01.714807+00:00",
   "id": "4a335676ec2ff372",
   "matched_topics": [
@@ -6111,6 +6140,22 @@
   "type": "news",
   "url": "https://vllm.ai/blog/2026-10-07-deepseek-v41-flash",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "615493c68bfd12ef": {
+  "first_seen": "2026-10-24T20:04:51.842291+00:00",
+  "id": "1dde5f11c8fed54b",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-22T08:25:51+00:00",
+  "sid": "615493c68bfd12ef",
+  "source": "arxiv_llm_reliability",
+  "summary": "Chemical AI workflows routinely represent the same molecule through multiple co-referring identifiers, including trivial names, IUPAC names, and SMILES, implicitly assuming that these representations provide interchangeable access to an LLM's knowledge. To test this assumption, we first introduce a controlled benchmark and show that it does not hold. Across foundation models spanning 7B to 72B parameters, even chemistry-specialized models, co-referring molecular identifiers consistently expose different subsets of the model's knowledge. We then conduct a series of controlled behavioral, representational, and causal analyses to characterize this failure. We show that even when a model can identify a molecule from its SMILES and retrieve a fact through the corresponding name, the same fact can remain inaccessible directly from SMILES. We term this phenomenon \\emph{cross-identifier binding failure}. Further analysis of internal representations, conflicting identifiers, and parameter editing shows that neither improved chemical representation competence nor modification of individual facts is sufficient to establish reliable access across identifiers. Together, these results indicate that the core failure lies in the binding between an identifier and knowledge already present in the model. Motivated by this diagnosis, we introduce Binding Self-Distillation, a simple mitigation that uses lexical identity during training to transfer the model's existing knowledge access to the stru",
+  "summary_1line": "Chemical AI workflows routinely represent the same molecule through multiple co-referring identifiers, including trivial names, IUPAC names, and SMILES, implicitly assuming that these representations provide interchan...",
+  "title": "Same molecule, Different Knowledge: Cross-Identifier Binding Failures in LLMs For chemistry",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.30903v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "61688cf01673e9ce": {
   "first_seen": "2026-10-02T08:04:01.313827+00:00",
@@ -9502,6 +9547,22 @@
   "type": "news",
   "url": "https://www.latent.space/p/ainews-deepseek-deepinfer-open-source"
  },
+ "9cbcaf295333969d": {
+  "first_seen": "2026-10-24T20:04:51.842291+00:00",
+  "id": "82c743cdf0e4e8a3",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-22T08:54:24+00:00",
+  "sid": "9cbcaf295333969d",
+  "source": "arxiv_agent_systems_research",
+  "summary": "With external tools, large language models (LLMs) can tackle complex tasks through sustained environmental interaction. LLM-based agents are therefore increasingly used to tackle complex long-horizon tasks in real-world environments. However, these tasks involve sequential, interdependent decisions and changes in environmental states. Early execution errors affect subsequent interaction histories and environmental states, and their effects accumulate along the decision chain. To address this challenge, we propose Reflection-Guided Policy Optimization (ReflectPO), a reinforcement learning framework for autonomous error recovery in long-horizon tasks. ReflectPO comprises two core components. The first is Reflection-Guided Sampling. We use branch differences and repeated visits in interaction trajectories to construct hints for error recovery. The second is Tree-Structured Credit Assignment. We organize sampled trajectories into trees and assign action-level credit using parent--child reward differences and recovery gains. Experiments over two long-horizon tool-use benchmarks show that ReflectPO outperforms multiple existing baselines in most domains. It also achieves the best overall performance on average. Further analyses show that ReflectPO effectively improves agents' ability to recognize their own deviations, recover from erroneous states, and continue making progress toward task completion.",
+  "summary_1line": "With external tools, large language models (LLMs) can tackle complex tasks through sustained environmental interaction. LLM-based agents are therefore increasingly used to tackle complex long-horizon tasks in real-wor...",
+  "title": "ReflectPO: Reflection-Guided Policy Optimization for Long-Horizon LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.30933v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "9d061413e7a1baa2": {
   "first_seen": "2026-10-15T05:05:14.619039+00:00",
   "id": "665f30a66c42f067",
@@ -11983,7 +12044,7 @@
  },
  "bca85595420b36e4": {
   "first_seen": "2026-10-22T10:03:25.959930+00:00",
-  "id": "f4e8031ad03028e2",
+  "id": "02ff020c91d13123",
   "image_url": "https://res.infoq.com/news/2026/10/vercel-zig-fx-agent/en/headerimage/generatedHeaderImage-1792649903570.jpg",
   "matched_topics": [
    "agent"
@@ -11993,7 +12054,7 @@
   "source": "infoq_ai_ml",
   "summary": "Vercel Labs has released fx, an experimental open-source coding agent written in Zig. It runs as a CLI, a script component, or an embedded library, including a WebAssembly build. Early feedback questioned its model-agnostic claim and a name conflict with an existing tool. Vercel says the project is pre-1.0 and changing quickly. By Daniel Curtis",
   "summary_1line": "Vercel Labs has released fx, an experimental open-source coding agent written in Zig. It runs as a CLI, a script component, or an embedded library, including a WebAssembly build. Early feedback questioned its model-ag...",
-  "title": "Vercel Labs Open-Sources fx: A Zig Coding Agent Designed to Be Embedded",
+  "title": "Vercel Labs Open-Sources fx: a Zig Coding Agent Designed to Be Embedded",
   "type": "news",
   "url": "https://www.infoq.com/news/2026/10/vercel-zig-fx-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent."
@@ -14619,8 +14680,8 @@
   "published": "2026-10-22T09:47:50+00:00",
   "sid": "e0f912e29433ade3",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 24, downloads: 393.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 24, downloads: 393.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 25, downloads: 393.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 25, downloads: 393.",
   "title": "tencent/WeVisOne-VL-2B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeVisOne-VL-2B"
@@ -15792,6 +15853,23 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Oct/19/my-obituary-for-programming",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "efe8345a04c706bc": {
+  "first_seen": "2026-10-24T20:04:51.842291+00:00",
+  "id": "9a7d36f9d775ebb7",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-22T17:44:41+00:00",
+  "sid": "efe8345a04c706bc",
+  "source": "arxiv_cs_lg",
+  "summary": "Instrumental convergence is often invoked as a general reason to expect capable agents to acquire or express power-seeking subgoals: self-preservation, resource acquisition, deception, or resistance to oversight which poses an important threat to the society. For LLMs, reinforcement learning is the first stage of post-training that directly optimizes behavior against an objective; therefore, it is the stage where convergent instrumental behavior, on IC grounds, likely to appear. Does reinforcement learning with verifiable rewards (RLVR) make a model more likely to express instrumental-convergence behavior, or does this depend on the training regime, evaluation frame, and stage of post-training? We study this question as a checkpoint-conditioned behavioral trajectory rather than as a single before/after safety score. Using InstrumentalEval, we evaluate OLMo-3-7B-Think across SFT, DPO, 13 intermediate RLVR checkpoints, and the final RLVR model. The trajectory is nonmonotonic: instrumental rate rises from 25.0% at SFT to 46.1% near RLVR step 200, then falls to 11.8% at the final checkpoint. Paired item-level tests and step-wise regression support the final SFT-to-RLVR reduction. Prompt framing does not explain this pattern: a harmful-prompt indicator combined with other framing effects explains only 15% of within-checkpoint score variance on average, and Iterative Null-space Projection (INLP) removes a detectable framing direction without changing the SFT-to-final-RLVR gap. Toge",
+  "summary_1line": "Instrumental convergence is often invoked as a general reason to expect capable agents to acquire or express power-seeking subgoals: self-preservation, resource acquisition, deception, or resistance to oversight which...",
+  "title": "Questioning Instrumental Convergence in RLVR: Checkpoint Evidence from OLMo-3",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31624v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "f045e22fb623d831": {
   "first_seen": "2026-10-17T11:04:04.424025+00:00",
