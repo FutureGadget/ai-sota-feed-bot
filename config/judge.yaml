@@ -1,0 +1,189 @@
+# Agent quality judge for the feed.
+#
+# Enabled in the edition builder, but fail-open: a missing key, timeout, or
+# malformed response leaves items unjudged and the deterministic editorial
+# policy + ranking continue. The benchmark runner can still use the fixture
+# and heuristic providers without a key.
+#
+# The default OpenRouter path uses the System One API. The optional direct
+# `jev` path follows the structured decision-model example in Hamel Husain's
+# 2026-10-20 post. Confirm the current request/response shape against the
+# provider docs before enabling.
+
+enabled: true
+# Provider used by the benchmark/runner when one is not passed explicitly.
+# `openrouter` uses OpenRouter's System One API and is the recommended path.
+# `jev` uses TypeSafe's direct Decisions API if you have it.
+provider: openrouter
+model: jev-1.14
+endpoint: ""
+api_key_env: JEV_API_KEY
+auth_header: Authorization
+auth_prefix: "Bearer "
+timeout_seconds: 30
+max_retries: 2
+
+# OpenRouter exposes Jev as a typed decision model on the System One API:
+#   POST https://openrouter.ai/api/v1/systemone
+#   {model, state, questions:{<id>:{type:"noul", instructions}}}
+# A noul question returns answers.<id>.noul, the probability of yes.
+# The bare `jev-1.14` is mapped to `typesafe/jev-1.14`; `jev-latest` maps to
+# OpenRouter's newest Jev alias.
+openrouter:
+  endpoint: https://openrouter.ai/api/v1/systemone
+  model: jev-1.14
+  api_key_env: OPENROUTER_API_KEY
+  # Single-question fallback. Composite mode uses `questions` below.
+  question_id: keep
+  state_chars: 6000
+  timeout_seconds: 60
+  max_retries: 2
+  cache_dir: data/quality/cache/openrouter
+  # `hybrid` keeps the holistic `keep` question as the primary score and uses
+  # the auxiliary questions only as hard gates. A pure product/min composite
+  # lost the context that makes the holistic question strong.
+  score_mode: hybrid
+  use_holistic_keep: true
+  max_workers: 12
+  # 0 means judge the whole post-editorial candidate pool. This is cheap at
+  # Jev's price and keeps every feed item and every editor-deck candidate judged.
+  max_items: 0
+  time_budget_seconds: 300
+  questions:
+    platform_relevant:
+      type: noul
+      instructions: >-
+        Is this item about building or operating AI systems (inference,
+        serving, agents, evals, tooling, memory, reliability, cost, the model
+        harness) rather than a domain application (clinical, medical, biology,
+        forestry, protein design, nutrition, math) or general AI news?
+    release_lane:
+      type: noul
+      instructions: >-
+        Is this a routine release note, changelog, or bare version bump that
+        belongs in the Releases tab rather than the default Brief? Answer yes
+        for release-feed items and bare version titles.
+    corporate_marketing:
+      type: noul
+      instructions: >-
+        Is this primarily a marketing or corporate announcement (ads, customer
+        story, partnership, office, funding, appointment) without a concrete
+        engineering or distribution change that affects platform teams?
+    category:
+      type: choice
+      instructions: >-
+        Which primary category best describes this item for an AI platform and
+        agent engineer? Choose the closest option. Use frontier_product for a
+        model or product launch or availability, release_note for a routine
+        version bump, and off_topic for domain science, consumer, or general
+        news that is not about building or operating AI systems.
+      criteria:
+        frontier_product: "A model or product launch, or a model becoming available on a platform."
+        agent_engineering: "Agent harnesses, tools, memory, orchestration, MCP, or coding agents."
+        inference_serving: "Serving, kernels, quantization, latency, throughput, or inference cost."
+        evaluation_reliability: "Evals, benchmarks, safety, security, or reliability."
+        research_method: "A general research method or paper relevant to platform or agent engineering."
+        business_policy: "Funding, regulation, partnerships, or company news without a concrete engineering change."
+        release_note: "A routine release note, changelog, or bare version bump."
+        off_topic: "Domain science, consumer, or general news not about building or operating AI systems."
+  hybrid:
+    primary: keep
+    drop_if_above:
+      release_lane: 0.6
+      corporate_marketing: 0.7
+    drop_if_below:
+      platform_relevant: 0.35
+    gate_score: 0.1
+
+content_fetch:
+  enabled: true
+  max_chars: 2500
+  workers: 8
+  timeout_seconds: 8
+  time_budget_seconds: 120
+
+# Durable, committed judgment store. The provider cache is local-only; this
+# store is what makes CI reuse prior judgments and only call Jev for missing
+# or expired item/model/rubric/prompt combinations.
+judgment_store:
+  path: data/processed/judgments.json
+  ttl_days: 14
+  max_entries: 6000
+
+version: feed-quality-v1
+question_id: is_substantive_platform_content
+type: noul
+context_chars: 2500
+cache_dir: data/quality/cache
+
+# Optional request-shape adapters. Leave empty for the flat structured request
+# in Hamel's example. If the API wraps the request, set `payload_key: request`.
+# If it needs a model name or a version field, put it in `extra_payload`.
+payload_key: ""
+extra_payload: {}
+
+# Calibrate these on data/quality/benchmark/items.json before enabling.
+# `keep` is the decision threshold; the two confidence bands are for logging
+# and for a later generative-judge pass.
+thresholds:
+  keep: 0.5
+  drop_high_confidence: 0.85
+  keep_high_confidence: 0.15
+
+instructions:
+  task: >-
+    Does this item contain substantive, original, platform-engineering-relevant
+    information that belongs in a finishable daily brief for AI platform and
+    agent engineers?
+  context: >-
+    One candidate item for an AI platform and agent engineering brief. The
+    audience builds and operates AI systems: inference, serving, agents, evals,
+    tool use, memory, reliability, cost, and the harness around models. Judge
+    the item, not the source's reputation. A famous lab can publish marketing;
+    a search result can be a genuine scoop.
+  evaluation_rules:
+    - "Keep when the item contains a concrete mechanism, architecture, measurement, benchmark, code, failure mode, or operational lesson."
+    - "Keep when a platform team could change a decision or action after reading it."
+    - "Drop marketing, customer stories, partnership or office announcements, policy updates, and product ads unless they carry a concrete engineering change."
+    - "Drop SEO comparisons, ranked listicles, explainers, setup guides, and rehashed announcements."
+    - "Drop gossip, funding, IPO, stock, executive moves, outages without a technical postmortem, and consumer hardware."
+    - "Drop off-mission domain science (clinical, biology, drug discovery, weather, forestry) unless the item is about serving or evaluating the model, not the domain."
+    - "Drop routine release notes and version bumps. This gate is for the default Brief, which excludes the Releases tab; a release note belongs there even when its changelog contains technical details."
+    - "If the input says `Source role: release`, answer no for the Brief gate."
+    - "Drop domain-specific benchmarks, deployments, and applications (clinical, medical, biology, forestry, protein design, nutrition, math) even when they use AI. Keep them only when the primary contribution is a general serving, evaluation, agent, or platform-engineering method."
+    - "A short teaser is not enough to keep an item on a vague promise; look for evidence in the excerpt."
+
+criteria:
+  true:
+    definition: >-
+      The item is substantive, original, relevant, and actionable enough for a
+      platform or agent engineer to spend reading time on it.
+    examples:
+      - "A serving optimization with measured latency or cost impact."
+      - "An eval or reliability finding with a reproducible method."
+      - "An agent architecture or harness pattern with implementation detail."
+      - "A first-party engineering post that explains a real trade-off."
+  false:
+    definition: >-
+      The item is marketing, a customer story, an SEO listicle, gossip,
+      off-mission domain science, or a routine release note with no standalone
+      engineering value for the brief.
+    examples:
+      - "A customer story about legal work with no reusable mechanism."
+      - "A comparison listicle with no original measurements."
+      - "A funding or IPO announcement."
+      - "A routine version bump or a release note with a long changelog."
+      - "A clinical QA benchmark or a protein-model deployment tutorial."
+      - "A customer story about legal work or advertising."
+
+# Verdict thresholds used by the production gate. The benchmark tunes its own
+# threshold; these are the operating points on the same scale.
+ranking:
+  # The benchmark's tuned operating point is 0.25. `keep` means useful for the
+  # brief, not only must-read; the ranking weight below decides placement.
+  drop_below: 0.1
+  keep_at: 0.25
+  # Keep at least 40% of the judged pool. The gate removes the worst 60%; the
+  # next band stays as `review` and is penalized by the ranking. A smaller
+  # feed is preferable to padding it with high-confidence drops.
+  max_drop_share: 0.6

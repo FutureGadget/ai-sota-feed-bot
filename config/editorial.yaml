@@ -1,0 +1,393 @@
+# Deterministic editorial policy for the served feed.
+#
+# This is the bookkeeping layer between collection and ranking: source roles,
+# search quarantine, story clustering, and cross-edition seen-memory. It is
+# intentionally separate from `ranking.yaml` so source admission, ranking
+# weights, and editorial hygiene can be tuned independently.
+#
+# The agent quality judge (a later layer) consumes the cleaned pool this file
+# produces. It does not replace these rules.
+
+enabled: true
+
+# Editorial role for each source. Roles control three things:
+#   1. the search quarantine (only `search` sources are filtered),
+#   2. the story-cluster representative (first party beats an echo),
+#   3. the API/feed cap and the seen-memory edition cap.
+#
+# Sources not listed here fall through to `source_role_prefixes`, then to a
+# small built-in fallback in pipeline/editorial.py.
+source_roles:
+  first_party:
+    - openai_blog
+    - anthropic_newsroom
+    - anthropic_engineering
+    - anthropic_research
+    - google_deepmind_blog
+    - huggingface_blog
+    - nvidia_blog
+    - google_ai_blog
+    - aws_ml_blog
+    - google_cloud_blog
+    - cloudflare_blog
+    - vllm_blog
+    - databricks_blog
+    - langchain_blog
+    - github_blog_ai_ml
+    - modal_blog
+  practitioner:
+    - simon_willison
+    - latent_space
+    - infoq_ai_ml
+    - hamel_husain
+    - eugene_yan
+    - philschmid
+    - interconnects
+    - sebastian_raschka
+    - lilian_weng
+    - archer_hume
+    - kun_chen
+    - felix_rieseberg
+    - semianalysis
+  aggregator:
+    - paperswithcode_latest
+  community:
+    - hackernews_ai
+  search:
+    - search_agent_engineering_news
+    - search_llm_ops_news
+    - search_cn_open_weight_labs
+
+# Applied to names not listed above. `search_` is the important one: a new
+# Google News query is quarantined automatically, without editing this file.
+source_role_prefixes:
+  search_: search
+  arxiv_: research
+  openreview_: research
+  paperswithcode_: aggregator
+  hf_: release
+  _releases: release
+
+# Per-source caps before ranking. These are a backstop against one feed
+# flooding the candidate pool; the ranking slots still apply their own caps.
+# Search is capped at one candidate per query, not one per edition.
+caps:
+  search: 1
+  aggregator: 3
+  community: 2
+  first_party: 4
+  practitioner: 3
+  release: 4
+  research: 4
+  default: 3
+
+# Cross-source totals for the API's accumulated pool. Per-source caps alone
+# let four first-party blogs fill the whole page; these keep the mix bounded.
+role_totals:
+  search: 1
+  aggregator: 2
+  community: 2
+  first_party: 12
+  practitioner: 6
+  release: 6
+  research: 6
+
+search_quarantine:
+  enabled: true
+  # Keep at most this many candidates per search query, newest first. The
+  # final feed cap is applied again by the API and by the ranking slot.
+  max_candidates_per_source: 2
+  # Search results are recall, not editorial. These patterns drop the
+  # business/gossip/SEO tail that a company-name query inevitably returns.
+  # They apply only to sources with the `search` role.
+  low_quality_patterns:
+    - '\b(?:ipo|valuation|funding|fundraise|raises?|raised|stock|shares|market wipeout|outage|sues?|lawsuit|acquires?|acquisition|appoints?|hires?|leaves?|joins?|backs?|stake|partnership|regulatory|aum|private bank)\b'
+    - '\b(?:vs\.?|versus|top \d+|best|guide|explained|everything you need|comparison|review|what is|how to)\b'
+    - '\b(?:glasses|wearable|smartphone|device|gadget)\b'
+    - '\b(?:teen|prodigy|exclusive|rumou?r|reportedly|weekly recap)\b'
+    - '\bfile photo\b'
+    - '\b(?:podcast|webinar)\b'
+  # A title carrying a real engineering signal is allowed through even when it
+  # also matches a business word ("DeepSeek outage postmortem: inference
+  # latency..." stays). Rescue is checked against the title only, so a
+  # keyword-stuffed SEO summary cannot save a junk title.
+  rescue_keywords:
+    - inference
+    - serving
+    - latency
+    - throughput
+    - quantization
+    - benchmark
+    - agent
+    - eval
+    - evaluation
+    - open-weight
+    - open weights
+    - weights
+    - training
+    - fine-tuning
+    - distillation
+    - kernel
+    - gpu
+    - cuda
+    - deployment
+    - api
+    - sdk
+    - context window
+    - mcp
+    - tool use
+    - harness
+    - coding
+    - reasoning
+  # Search results occasionally arrive in another language (Google News can
+  # return localized editions even with hl=en-US). Drop a search title when
+  # more than this share of its letters are non-Latin.
+  max_non_latin_ratio: 0.3
+
+# First-party blogs are authoritative but not automatically engineering. The
+# frontier slot should not spend a seat on an ad campaign, a customer story, or
+# an appointment. These patterns apply only to `first_party` sources and are
+# rescued by a concrete engineering signal in the title.
+first_party_quarantine:
+  enabled: true
+  low_value_patterns:
+    - '\b(?:ads?|advertisers?|advertising)\b'
+    - '\b(?:case study|customer story|customer success)\b'
+    - '\b(?:partnership|partner(?:s|ed)?\s+(?:with|to))\b'
+    - '\b(?:broad access|consistent standards|expands? to .* countries)\b'
+    - '\b(?:in-house legal|legal work|rethinking .* with)\b'
+    - '\b(?:appoints?|joins?)\b'
+    - '\b(?:midterms?|elections?|public benefit|government mou|\bmou\b|office)\b'
+    - '\b(?:frontier academy|train \d[\d,]* engineers)\b'
+    - '\b(?:pricing|discount|promotion|award|wins?)\b'
+  rescue_keywords:
+    - agent
+    - agentic
+    - inference
+    - serving
+    - latency
+    - throughput
+    - quantization
+    - benchmark
+    - eval
+    - evaluation
+    - training
+    - fine-tuning
+    - open-source
+    - open weights
+    - api
+    - sdk
+    - context window
+    - mcp
+    - tool use
+    - harness
+    - coding
+    - code review
+    - infrastructure
+    - scaling
+    - storage
+
+story_clusters:
+  enabled: true
+  title_jaccard: 0.62
+  min_shared_tokens: 2
+  # Model/product names used to decide whether two headlines are about the
+  # same subject. Keep this list focused: adding a generic word here makes
+  # unrelated stories cluster.
+  model_tokens:
+    - deepseek
+    - deepseek harness
+    - qwen
+    - kimi
+    - moonshot
+    - glm
+    - zhipu
+    - hunyuan
+    - minimax
+    - claude
+    - gpt
+    - chatgpt
+    - gemini
+    - gemma
+    - llama
+    - mistral
+    - nemotron
+    - grok
+    - flux
+    - sora
+    - veo
+    - seed
+    - step
+    - ernie
+    - doubao
+    - baichuan
+    - internlm
+    - phi
+    - command
+    - titan
+    - nova
+    - olmo
+    - pythia
+    - falcon
+    - whisper
+    - pixtral
+    - molmo
+    - paligemma
+    - stable diffusion
+    - claude code
+    - codex
+    - copilot
+    - cursor
+    - windsurf
+    - aider
+    - openhands
+    - langgraph
+    - langchain
+    - llamaindex
+    - vllm
+    - sglang
+    - triton
+    - tensorrt
+    - modal
+  # Variant words separate distinct members of a model family ("GPT-6 mini"
+  # is not "GPT-6"). Two titles with different non-empty variants do not
+  # cluster; two titles with no variants can.
+  variant_tokens:
+    - flash
+    - pro
+    - max
+    - mini
+    - turbo
+    - instruct
+    - base
+    - vision
+    - audio
+    - coder
+    - preview
+    - lite
+    - small
+    - medium
+    - large
+    - nano
+    - ultra
+    - omni
+    - math
+    - legal
+    - image
+    - video
+    - speech
+    - embedding
+    - reranker
+    - moe
+    - dense
+    - distilled
+    - quantized
+    - fp8
+    - fp4
+    - int4
+    - awq
+    - gptq
+  # Event type keeps different stories about the same company apart. A model
+  # release and an outage, IPO, funding round, or comparison listicle share a
+  # company name but are not one story.
+  event_patterns:
+    analysis:
+      - '\bvs\.?\b'
+      - '\bversus\b'
+      - '\bcomparison\b'
+      - '\breview\b'
+      - '\bbenchmark(?:s|ed|ing)?\b'
+      - '\bguide\b'
+      - '\bexplained\b'
+      - '\beverything you need\b'
+      - '\bwhat is\b'
+      - '\bhow to\b'
+      - '\btop \d+\b'
+      - '\bbest\b'
+    incident:
+      - '\boutage\b'
+      - '\bdown\b'
+      - '\bbreach\b'
+      - '\bvulnerabilit(?:y|ies)\b'
+      - '\bexploit\b'
+      - '\blawsuit\b'
+      - '\bsues?\b'
+      - '\binvestigation\b'
+    business:
+      - '\bfunding\b'
+      - '\bfundraise\b'
+      - '\braises?\b'
+      - '\braised\b'
+      - '\bvaluation\b'
+      - '\bipo\b'
+      - '\bacquires?\b'
+      - '\bacquisition\b'
+      - '\bpartnership\b'
+      - '\bappoints?\b'
+      - '\bhires?\b'
+      - '\bleaves?\b'
+      - '\bjoins?\b'
+      - '\bbacks?\b'
+      - '\bstake\b'
+      - '\bstock\b'
+      - '\bshares\b'
+      - '\bregulatory\b'
+      - '\bwipeout\b'
+    product:
+      - '\bglasses\b'
+      - '\bwearable\b'
+      - '\bsmartphone\b'
+      - '\bdevice\b'
+      - '\bgadget\b'
+    research:
+      - '\bpaper\b'
+      - '\bstudy\b'
+      - '\breport\b'
+      - '\bresearch\b'
+    release:
+      - '\breleases?\b'
+      - '\breleased\b'
+      - '\blaunch(?:es|ed)?\b'
+      - '\bships?\b'
+      - '\bshipped\b'
+      - '\bunveils?\b'
+      - '\bunveiled\b'
+      - '\bintroduc(?:es|ing|ed)\b'
+      - '\bannounc(?:es|ing|ed)\b'
+      - '\bavailable\b'
+      - '\bopen[- ]sources?\b'
+      - '\bopen weights\b'
+      - '\bdrops?\b'
+      - '\bpre-?release\b'
+      - '\brelease notes\b'
+
+seen:
+  enabled: true
+  # How many recent processed editions to inspect. 24 runs at a 2-hour
+  # cadence is about two days of history; enough to catch repetition without
+  # loading the whole archive.
+  lookback_runs: 24
+  # Maximum number of prior editions a story may appear in before it is
+  # retired from the candidate pool. First-party engineering gets a longer
+  # run because a lab may publish only once a week; search gets the shortest.
+  # The API still shows retired items within its date window, so this stops
+  # repetition, not access.
+  max_editions:
+    first_party: 12
+    practitioner: 8
+    aggregator: 4
+    community: 4
+    search: 3
+    release: 8
+    research: 8
+    default: 6
+  # Corporate newsroom posts are first-party but not engineering. Give them a
+  # short run so one policy/partnership item cannot hold a seat for days.
+  source_overrides:
+    anthropic_newsroom: 6
+    claude_blog: 6
+  # Do not retire repeats when the fresh pool is this small; a quiet day
+  # should not produce an empty feed. The penalty still pushes repeats down.
+  min_unseen_items: 10
+  penalty_per_edition: 0.08
+  max_penalty: 0.8

@@ -156,8 +156,7 @@ python pipeline/auto_tune.py apply      # write data/feedback/source_adjustments
 ```
 
 Feed API (v1):
-- Tier-1 freshness blend options: `blend_tier1=0|1` (default 1), `tier1_fresh_cap` (default 4)
-- Additional blend guards: `tier1_insert_after` (default 3), `tier1_min_quick_score` (default 2.6), `tier1_max_per_source` (default 1)
+- The API reads `data/processed/**` only; there is no separate Tier-1 blend.
 - Per-item rank trajectory: `rank_at_last_seen` (newest run) and `rank_prev_seen` (previous run that included the item)
 
 ## SEO / static recap pages (growth loop)
@@ -203,10 +202,12 @@ LLM discovery endpoints:
 - `/llms.txt` (LLM-oriented site map + API usage notes)
 - `/llm-guide.txt` (deeper instructions for feed navigation/debugging)
 
-Tier-0 input source toggle:
-- `TIER0_INPUT=tier1|raw` (default `tier1`, with automatic raw fallback)
+Single edition builder:
+- `build_digest.py` reads raw, applies the editorial policy and the optional Jev gate, then ranks.
 - Incremental diagnostics toggle: `TIER0_INCREMENTAL=1` (default on)
 - Optional no-delta short-circuit: `TIER0_INCREMENTAL_SKIP_NO_DELTA=1` (default off)
+- Jev gate: set `OPENROUTER_API_KEY` (and optionally `OPENROUTER_JEV_MODEL`); without it the build logs `judge_skipped reason=not_configured` and continues deterministically.
+- The compact judge artifact for editor decks is `data/processed/classified.json`.
 
 Collector crawl cooldown controls:
 - `COLLECT_DEFAULT_POLL_MINUTES` (default for sources without explicit `poll_interval_minutes`)
@@ -215,14 +216,14 @@ Collector crawl cooldown controls:
 
 Runtime snapshot retention controls:
 - `PROCESSED_RUN_RETENTION_DAYS` (default 45)
-- `TIER1_RUN_RETENTION_DAYS` (default 14)
 - `WEEKLY_ARCHIVE_AFTER_DAYS` (default 365; older snapshots compact to weekly)
-- Prune utility: `python pipeline/prune_runtime_data.py [--processed-days N] [--tier1-days N] [--weekly-archive-after-days N]`
+- Prune utility: `python pipeline/prune_runtime_data.py [--processed-days N] [--weekly-archive-after-days N]`
 
 ## LLM integration status
-LLM labeling/reranking is currently disabled (`config/llm.yaml -> enabled: false`).
-
-The pipeline runs in deterministic/heuristic mode (no external LLM calls). LLM interfaces are kept in code as explicit no-op placeholders for future reimplementation.
+The legacy ranking LLM is disabled (`config/llm.yaml -> enabled: false`).
+The pipeline's semantic gate is a separate Jev decision-model call
+(`config/judge.yaml`), used only for keep/drop and category signals. It
+requires `OPENROUTER_API_KEY` and fails open to the deterministic policy.
 
 ## Source health + circuit breaker + alerts (v1.4/v1.5/v1.6)
 ```bash
@@ -243,6 +244,7 @@ python pipeline/source_alerts.py
 - Git hygiene guide: `docs/status/git-hygiene.md`
 - Source onboarding + filtering debug guide: `docs/how-to/sources-and-filter-debugging.md`
 - PostHog setup + dashboard runbook: `docs/how-to/posthog-setup-and-dashboard.md`
+- Jev quality-judge benchmark: `docs/how-to/jev-quality-benchmark.md`
 - Model prices and Pareto comparison: [contract and operations](docs/product-specs/model-radar-comparison.md)
 - Confirmed product idea one-pagers: `docs/ideas/`
 - Doc images (UI audit screenshots, diagrams): `docs/assets/<topic>/`
@@ -250,16 +252,17 @@ python pipeline/source_alerts.py
 ## Config
 - `config/sources.yaml`: feed list + source weights
 - `config/profile.yaml`: platform relevance weights and keywords
-- `config/llm.yaml`: LLM config (currently disabled/no-op; keep for future re-enable)
+- `config/llm.yaml`: legacy ranking LLM config (currently disabled/no-op)
+- `config/judge.yaml`: Jev gate/category config (OpenRouter System One, thresholds, content fetch)
 - `config/user_preferences.yaml`: preference profile used by prompts when LLM mode is enabled
 - `config/prompts/label_system.txt`, `config/prompts/rerank_system.txt`: prompt templates (inactive while LLM is disabled)
 - `scripts/oauth_login.sh`: legacy OAuth helper for future re-enable
 
 ## GitHub Actions
 - `feed-full-publish` (every two hours): full pipeline via
-  `skills/ai-feed-digest-local/scripts/run_full.sh` — collect, tier1, tier0,
-  durable story sync/static pages, prune, data commit + push. It intentionally
-  does **not** build storylines.
+  `skills/ai-feed-digest-local/scripts/run_full.sh` - collect, single edition
+  build (editorial + Jev gate + ranking), durable story sync/static pages,
+  prune, data commit + push. It intentionally does **not** build storylines.
 - Storylines: external Claude Code routine every 5 hours; no GitHub Actions
   workflow generates them.
 - `feed-ops-summary` (daily): operational health snapshot

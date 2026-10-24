@@ -23,14 +23,15 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
 ## End-to-end behavior (two-hour `feed-full-publish` workflow → `run_full.sh`)
 1. Collect raw items (`collectors/collect.py`, per-source crawl cooldown)
 2. Source health update + local degradation alert artifacts/logs
-3. Tier-1 fast snapshot (`pipeline/build_tier1.py` → `data/tier1/latest.json`)
-4. Tier-0 full build (`pipeline/build_digest.py`, `TIER0_INPUT=tier1`,
-   incremental mode on; exits early with `FULL_RUN_NO_DELTA_SKIP=true` when
-   nothing changed)
-5. Story store sync + static page render
+3. Single edition build (`pipeline/build_digest.py`):
+   deterministic editorial policy (`pipeline/editorial.py`) -> Stage A
+   prefilter -> Jev gate/category (`pipeline/editorial_judge.py`) -> ranking.
+   Incremental mode exits early with `FULL_RUN_NO_DELTA_SKIP=true` when
+   nothing changed.
+4. Story store sync + static page render
    (`story_store.py`, `render_static_pages.py`). Storyline generation is
    intentionally excluded from GitHub Actions.
-6. Prune runtime snapshots (processed 45d, tier1 3d hard cap)
+5. Prune runtime snapshots (processed 45d)
 7. Commit + push `data/` + `web/` (triggers Vercel production deploy, whose
    build command rerenders static pages from the committed data)
 8. Finish with `FULL_RUN_OK`; website deployment follows the runtime-data push
@@ -60,18 +61,35 @@ Daily companions:
 
 ## Ranking stages (active)
 - Stage A: deterministic prefilter (regex excludes, slot freshness windows,
-  health floor, cap to 140)
-- Stage B: slot assignment — frontier_official, agent_tooling_releases,
+  health floor, `editorial_penalty`, cap to 140)
+- Jev gate (after Stage A): four typed questions plus a category choice;
+  attaches `judge_score`, `judge_signals`, `judge_category`, `judge_verdict`;
+  writes `data/processed/classified.json`
+- Stage B: slot assignment — frontier_official, frontier_corporate,
+  agent_tooling_releases,
   infra_runtime_releases, vendor_general_updates, practitioner_analysis,
   community_signal, research_watch, overflow
-- Stage C: slot scoring/selection — heuristic score (LLM path budgeted but
-  disabled), `alpha*score + beta*freshness + source_bias + source_tune +
-  topical_bias`, then `time_decay_factor`; per-slot max and per-source caps
-- Global merge: dynamic slot meta-rerank, trim to 24 preserving slot floors
+- Stage C: slot scoring/selection — heuristic score (legacy LLM path budgeted
+  but disabled), `alpha*score + beta*freshness + source_bias + source_tune +
+  topical_bias + judge_weight*judge_score`, then `time_decay_factor`; per-slot
+  max and per-source caps
+- Global merge: dynamic slot meta-rerank, trim to 24 preserving slot floors;
+  discretionary headroom skips judged-low items
 - Top-band constraints: composition floors/caps inside the top 10
+
+## Quality judge benchmark (2026-10-24)
+- Jev 1.14 via OpenRouter System One is evaluated offline on 50 labeled
+  candidates. The hybrid four-question gate (`keep` plus
+  `platform_relevant`/`release_lane`/`corporate_marketing`) scores AUC 0.969,
+  F1 0.927 at threshold 0.25, Brier 0.095, ECE 0.114, $0.0027 for 50 requests.
+- The hybrid judge is wired into the edition builder after Stage A. It fails
+  open when `OPENROUTER_API_KEY` is missing; the deterministic policy and
+  ranking continue.
+- Full report: `docs/status/jev-quality-benchmark-2026-10-24.md`.
 
 ## Run health signals (greppable)
 - `ranking_stats prefilter=A->B llm_used=N/8 slots=... total=T`
+- `judge_stats enabled=1 selected=N judged=N store_hits=N store_misses=N content_fetched=N verdicts=...`
 - `FULL_RUN_OK` / `FULL_RUN_NO_DELTA_SKIP=true`
 - `runtime_commit_done=true` / `runtime_push_skipped=true`
 - `latest_json_valid=true`
@@ -81,7 +99,8 @@ Daily companions:
   worktree was already dirty (commit-hygiene guard).
 - Scheduled bot commits (`chore(data): refresh feed artifacts …`) land on `main`;
   expect to rebase local work.
-- LLM usage is bounded by `llm_budget`, but is zero while LLM stays disabled.
+- The legacy ranking LLM is disabled; the Jev gate is a separate decision
+  model and fails open.
 
 ## Next tuning levers
 - Re-enable LLM labeling (`config/llm.yaml -> enabled: true`) once

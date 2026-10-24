@@ -11,7 +11,7 @@ This script enforces:
 1. Requirements Hygiene: Prohibits heavy batch/offline dependencies (e.g. pyarrow,
    pandas, scipy, torch, numpy) in root requirements.txt.
 2. .vercelignore Completeness: Ensures all known heavy runtime directories (data/raw,
-   data/tier1/runs, etc.) are explicitly excluded from Vercel deployments.
+   data/quality, etc.) are explicitly excluded from Vercel deployments.
 3. Function Bundle Budgets: Calculates the unzipped bundle size for every function
    declared in vercel.json, ensuring none exceed a safe threshold (default: 150 MB).
 4. Bundled Data Growth: Audits data directories bundled into functions to prevent
@@ -65,7 +65,7 @@ PROHIBITED_PACKAGES = {
 # Directories that carry heavy runtime or build data and must be excluded in .vercelignore.
 MANDATORY_VERCELIGNORE_ENTRIES = (
     "data/raw",
-    "data/tier1/runs",
+    "data/quality",
     "data/llm",
     "data/health",
     "data/digest",
@@ -82,6 +82,9 @@ MANDATORY_VERCELIGNORE_ENTRIES = (
 # Maximum allowed bundle size per serverless function (in MB).
 # Vercel hard limit is 250 MB. 150 MB leaves a safe 100 MB buffer.
 DEFAULT_MAX_FUNCTION_MB = 150.0
+
+# Vercel Hobby plan allows at most 12 serverless functions per deployment.
+MAX_VERCEL_FUNCTIONS = 12
 
 # Maximum allowed number of top-level dependencies in root requirements.txt
 MAX_ROOT_REQUIREMENTS_COUNT = 10
@@ -206,6 +209,52 @@ def get_function_bundle_files(
     return matched_files - excluded_files
 
 
+def check_api_function_count(
+    root: Path,
+    vercel_path: Path,
+    max_functions: int = MAX_VERCEL_FUNCTIONS,
+) -> list[str]:
+    """Keep api/ at the Vercel Hobby function limit.
+
+    Vercel treats files under api/ as functions. A shared module added under
+    api/lib/ can silently become the 13th function and fail the deployment.
+    Shared code belongs in the root lib/ directory.
+    """
+    errors: list[str] = []
+    try:
+        vercel = json.loads(vercel_path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        return [f"vercel.json could not be read: {exc}"]
+
+    api_dir = root / "api"
+    top_level = sorted(p.name for p in api_dir.glob("*.js") if p.is_file())
+    configured = sorted({Path(key).name for key in (vercel.get("functions") or {})})
+
+    if len(top_level) > max_functions:
+        errors.append(
+            f"api/ has {len(top_level)} top-level functions; Vercel Hobby allows {max_functions}. "
+            "Consolidate routes or move to a plan with more functions."
+        )
+    missing = sorted(set(top_level) - set(configured))
+    extra = sorted(set(configured) - set(top_level))
+    if missing:
+        errors.append(f"api/ files missing from vercel.json functions: {', '.join(missing)}")
+    if extra:
+        errors.append(f"vercel.json functions without an api/ file: {', '.join(extra)}")
+
+    nested = sorted(
+        str(path.relative_to(root))
+        for path in api_dir.rglob("*.js")
+        if path.is_file() and path.parent != api_dir
+    )
+    if nested:
+        errors.append(
+            "shared JavaScript under api/ may be counted as serverless functions: "
+            f"{', '.join(nested)}. Move it to the root lib/ directory."
+        )
+    return errors
+
+
 def check_function_bundles(
     root: Path,
     vercel_json_path: Path,
@@ -303,6 +352,11 @@ def run_checks(
         print(f"=== Checking .vercelignore completeness ===")
     vignore_errors = check_vercelignore(root / ".vercelignore")
     all_errors.extend(vignore_errors)
+
+    if verbose:
+        print("=== Checking api/ function count against the Vercel Hobby limit ===")
+    fn_count_errors = check_api_function_count(root, root / "vercel.json")
+    all_errors.extend(fn_count_errors)
 
     if verbose:
         print(f"=== Checking vercel.json function bundle sizes (budget: {max_mb:.1f} MB) ===")

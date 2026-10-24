@@ -85,6 +85,10 @@ jobs:
           # localized feed step emits localized_feed_missing_credentials
           # and leaves the prior snapshot in place.
           GOOGLE_TRANSLATE_API_KEY: ${{ secrets.GOOGLE_TRANSLATE_API_KEY }}
+          # Jev quality gate (pipeline/editorial_judge.py via OpenRouter
+          # System One). Optional: when unset the build logs
+          # judge_skipped reason=not_configured and runs deterministically.
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           # Server-side operational telemetry (pipeline/telemetry.py). Optional:
           # when the project write key is unset the capture calls no-op cleanly.
           POSTHOG_PROJECT_API_KEY: ${{ secrets.POSTHOG_PROJECT_API_KEY }}

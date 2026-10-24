@@ -79,20 +79,29 @@ def ingest_statuses_last_24h(rows: list[dict[str, Any]]) -> dict[str, int]:
 
 def main() -> None:
     processed_idx = load_json(ROOT / "data" / "processed" / "runs_index.json", [])
-    tier1_idx = load_json(ROOT / "data" / "tier1" / "runs_index.json", [])
     ingest_rows = load_jsonl(ROOT / "data" / "health" / "ingest_runs.jsonl")
 
     latest_processed = latest_row(processed_idx if isinstance(processed_idx, list) else [])
-    latest_tier1 = latest_row(tier1_idx if isinstance(tier1_idx, list) else [])
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    classified = load_json(ROOT / "data" / "quality" / "classified" / f"{today}.json", None)
+    judge_verdicts: dict[str, int] = {}
+    judge_categories: dict[str, int] = {}
+    if isinstance(classified, dict):
+        for item in classified.get("items") or []:
+            if not isinstance(item, dict):
+                continue
+            verdict = str(item.get("judge_verdict") or "unknown")
+            judge_verdicts[verdict] = judge_verdicts.get(verdict, 0) + 1
+            category = str(item.get("judge_category") or "unknown")
+            judge_categories[category] = judge_categories.get(category, 0) + 1
 
     summary = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "processed_runs_24h": recent_count(processed_idx if isinstance(processed_idx, list) else [], 24),
-        "tier1_runs_24h": recent_count(tier1_idx if isinstance(tier1_idx, list) else [], 24),
         "latest_processed_run_at": latest_processed.get("run_at") if latest_processed else None,
         "latest_processed_item_count": latest_processed.get("item_count") if latest_processed else None,
-        "latest_tier1_run_at": latest_tier1.get("run_at") if latest_tier1 else None,
-        "latest_tier1_item_count": latest_tier1.get("item_count") if latest_tier1 else None,
+        "judge_verdicts_today": dict(sorted(judge_verdicts.items())),
+        "judge_categories_today": dict(sorted(judge_categories.items(), key=lambda kv: -kv[1])),
         "ingest_status_counts_24h": ingest_statuses_last_24h(ingest_rows),
     }
 
@@ -120,9 +129,9 @@ def main() -> None:
     print(
         "ops_summary "
         f"processed_24h={summary['processed_runs_24h']} "
-        f"tier1_24h={summary['tier1_runs_24h']} "
         f"latest_processed_items={summary['latest_processed_item_count']} "
-        f"latest_tier1_items={summary['latest_tier1_item_count']} "
+        f"judge_judged={sum(judge_verdicts.values())} "
+        f"judge_dropped={judge_verdicts.get('drop', 0)} "
         f"weekly_returning_readers={ns['returning_readers'] if ns else None} "
         f"weekly_returning_rate={ns['returning_rate'] if ns else None}"
     )

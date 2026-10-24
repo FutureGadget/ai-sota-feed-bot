@@ -1,6 +1,6 @@
 ---
 name: ops-daily-summary
-description: Generate and review daily operational summary for ai-sota-feed-bot (Tier-1 runs, Tier-0 runs, latest item counts, ingest status distribution) and use it to validate no-delta skip / cooldown behavior.
+description: Generate and review the daily operational summary for ai-sota-feed-bot (edition runs, latest item counts, Jev gate verdicts/categories, ingest status distribution) and use it to validate no-delta skip / cooldown behavior.
 ---
 
 Produce a concise operations health snapshot from local runtime artifacts.
@@ -9,13 +9,14 @@ Produce a concise operations health snapshot from local runtime artifacts.
 - `bash skills/ops-daily-summary/scripts/run_ops_daily_summary.sh`
 
 ## What it checks
-- Tier-0 processed run count over last 24h
-- Tier-1 fast run count over last 24h
-- Latest processed and Tier-1 run timestamps/item counts
+- Processed edition run count over last 24h
+- Latest edition run timestamp/item count
+- Today's Jev verdict counts (`keep`/`review`/`drop`) and top categories
 - Ingest status distribution in last 24h (`ok`, `skipped_cooldown`, `skipped_open_circuit`, `error`)
 
 ## Interpretation hints
-- High `skipped_cooldown` with stable Tier-1 item count can be healthy (reuse path working).
+- A rising `drop` share with a healthy `keep` set is the judge doing its job; a near-total `drop` share is a model/config regression.
+- `judge_judged=0` means the judge was disabled or `OPENROUTER_API_KEY` was missing; the feed still ran deterministically.
 - Zero processed runs in 24h may indicate excessive no-delta skips or scheduler issue.
 - Rising `error` count in ingest statuses needs source-level check.
 

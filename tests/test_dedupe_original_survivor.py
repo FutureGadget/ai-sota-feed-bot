@@ -8,7 +8,6 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "pipeline"))
 
 import build_digest  # noqa: E402
-import build_tier1  # noqa: E402
 
 
 def _iso(hours_ago: float) -> str:
@@ -39,9 +38,6 @@ class DedupeOriginalSurvivorTest(unittest.TestCase):
                 [c["source"] for c in out[0].get("also_covered", [])],
                 ["simon_willison"],
             )
-
-    def test_tier1_keeps_earliest_publication(self) -> None:
-        self._check(build_tier1.dedupe)
 
     def test_tier0_keeps_earliest_publication(self) -> None:
         self._check(build_digest.dedupe)

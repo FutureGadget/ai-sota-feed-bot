@@ -182,29 +182,5 @@ class RelevanceFloorUrlTest(unittest.TestCase):
         )
 
 
-class BuildTier1FloorTest(unittest.TestCase):
-    """Tier-1 feeds the served feed directly, so it must gate too."""
-
-    def test_build_tier1_shares_the_ranking_floor(self) -> None:
-        from pipeline import build_tier1
-
-        floor_sources, floor_re = build_relevance_floor(build_tier1.load_profile())
-        sea_lion = _item(
-            "simon_willison",
-            "California Sea Lion, Brandt's Cormorant",
-            '<p>In Pillar Point Harbor.</p><p>Tags: <a href="/tags/wildlife">wildlife</a></p>',
-        )
-        on_topic = _item(
-            "simon_willison",
-            "Self-generated prompt injections in compaction summaries",
-            "<p>A coding agent summarising its own context window.</p>",
-        )
-        release_note = _item("openai_codex_releases", "codex 0.156.0-alpha.9")
-
-        self.assertFalse(passes_relevance_floor(sea_lion, floor_sources, floor_re))
-        self.assertTrue(passes_relevance_floor(on_topic, floor_sources, floor_re))
-        self.assertTrue(passes_relevance_floor(release_note, floor_sources, floor_re))
-
-
 if __name__ == "__main__":
     unittest.main()
