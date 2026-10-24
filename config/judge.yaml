@@ -1,0 +1,82 @@
+# Agent quality judge for the feed.
+#
+# Disabled by default. The benchmark runner can still be used with the
+# `fixture` and `heuristic` providers, and the production pipeline falls back
+# to the deterministic editorial policy when this is disabled or a key is
+# missing.
+#
+# The payload shape follows the structured decision-model API example in
+# Hamel Husain's 2026-10-20 post. Confirm the endpoint and response shape
+# against TypeSafe's current docs before enabling.
+
+enabled: false
+provider: jev
+model: jev-1.13
+endpoint: ""
+api_key_env: JEV_API_KEY
+auth_header: Authorization
+auth_prefix: "Bearer "
+timeout_seconds: 30
+max_retries: 2
+
+version: feed-quality-v1
+question_id: is_substantive_platform_content
+type: noul
+context_chars: 2500
+cache_dir: data/quality/cache
+
+# Optional request-shape adapters. Leave empty for the flat structured request
+# in Hamel's example. If the API wraps the request, set `payload_key: request`.
+# If it needs a model name or a version field, put it in `extra_payload`.
+payload_key: ""
+extra_payload: {}
+
+# Calibrate these on data/quality/benchmark/items.json before enabling.
+# `keep` is the decision threshold; the two confidence bands are for logging
+# and for a later generative-judge pass.
+thresholds:
+  keep: 0.5
+  drop_high_confidence: 0.85
+  keep_high_confidence: 0.15
+
+instructions:
+  task: >-
+    Does this item contain substantive, original, platform-engineering-relevant
+    information that belongs in a finishable daily brief for AI platform and
+    agent engineers?
+  context: >-
+    One candidate item for an AI platform and agent engineering brief. The
+    audience builds and operates AI systems: inference, serving, agents, evals,
+    tool use, memory, reliability, cost, and the harness around models. Judge
+    the item, not the source's reputation. A famous lab can publish marketing;
+    a search result can be a genuine scoop.
+  evaluation_rules:
+    - "Keep when the item contains a concrete mechanism, architecture, measurement, benchmark, code, failure mode, or operational lesson."
+    - "Keep when a platform team could change a decision or action after reading it."
+    - "Drop marketing, customer stories, partnership or office announcements, policy updates, and product ads unless they carry a concrete engineering change."
+    - "Drop SEO comparisons, ranked listicles, explainers, setup guides, and rehashed announcements."
+    - "Drop gossip, funding, IPO, stock, executive moves, outages without a technical postmortem, and consumer hardware."
+    - "Drop off-mission domain science (clinical, biology, drug discovery, weather, forestry) unless the item is about serving or evaluating the model, not the domain."
+    - "Drop routine release notes and version bumps when the default brief excludes the Releases tab."
+    - "A short teaser is not enough to keep an item on a vague promise; look for evidence in the excerpt."
+
+criteria:
+  true:
+    definition: >-
+      The item is substantive, original, relevant, and actionable enough for a
+      platform or agent engineer to spend reading time on it.
+    examples:
+      - "A serving optimization with measured latency or cost impact."
+      - "An eval or reliability finding with a reproducible method."
+      - "An agent architecture or harness pattern with implementation detail."
+      - "A first-party engineering post that explains a real trade-off."
+  false:
+    definition: >-
+      The item is marketing, a customer story, an SEO listicle, gossip,
+      off-mission domain science, or a routine release note with no standalone
+      engineering value for the brief.
+    examples:
+      - "A customer story about legal work with no reusable mechanism."
+      - "A comparison listicle with no original measurements."
+      - "A funding or IPO announcement."
+      - "A routine version bump."

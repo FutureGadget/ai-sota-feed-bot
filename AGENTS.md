@@ -125,6 +125,9 @@ in `ops_daily_summary.py`'s log line.
   - `editorial.py` — deterministic pre-ranking policy: source roles, search and
     first-party quarantine, story clustering, cross-edition seen-memory; writes
     `data/processed/editorial.json` for the feed/RSS APIs
+  - `quality_benchmark.py` — offline Jev/decision-model benchmark: stratified
+    labeled sample, fixture/heuristic/Jev providers, precision/recall/F1,
+    Brier/ECE, slice metrics, and an adjudication packet for owner review
   - `build_tier1.py` (fast snapshot) / `build_digest.py` (Tier-0 full build)
   - `enrich.py`, `content_fetch.py` — mechanical enrichment, page excerpts
     (`build_content_map` is called from the collector for `fetch_content`
@@ -257,6 +260,8 @@ in `ops_daily_summary.py`'s log line.
     max-models policy
   - `editorial.yaml` - source roles/caps, search and first-party quarantine
     patterns, story-cluster thresholds, seen-memory edition caps
+  - `judge.yaml` - disabled-by-default quality-judge provider (Jev), endpoint,
+    structured rubric, thresholds, cache, and context budget
 - `scripts/` — `check_bundle_size.py` (enforces Vercel function bundle budgets,
   requirements.txt hygiene, and .vercelignore completeness; runs in CI),
   `persist_static_i18n.py` (paid static-output checkpoint/recovery and offline
@@ -337,6 +342,10 @@ in `ops_daily_summary.py`'s log line.
 - `data/tier1/` — `latest.json`, `runs/`, `runs_index.json` (fast tier)
 - `data/processed/` — `latest.json` (the feed), `editorial.json` (roles/caps
   and quarantine patterns shared with the APIs), `runs/`, `runs_index.json`
+- `data/quality/benchmark/` — frozen 50-item Jev benchmark (`items.json`,
+  `labels.md`, fetched `content_cache.json`, synthetic `fixture_scores.json`)
+  and generated `runs/`; `data/quality/cache/` holds judge responses. Offline
+  only; excluded from the Vercel deployment and never read by an API
 - `data/digest/<date>.md` — daily digest markdown
 - `data/stories/<YYYY-MM>.json` + `index.json` — durable story store
 - `data/storylines/<slug>.json` + `index.json` — threads (with `editorial`

@@ -44,6 +44,13 @@ available to each function.
   `story_clusters.enabled`, and the pipeline's editorial diagnostics.
 - `data/processed/runs/<Y>/<M>/<run_id>.json` + `runs_index.json`
   — per-run history (retention ~45d)
+- `data/quality/benchmark/` — offline Jev/decision-model benchmark:
+  `items.json` (50 stratified items with title, source, excerpt, expected
+  label, rationale), `labels.md` (review table), `content_cache.json` (fetched
+  excerpts), `fixture_scores.json` (synthetic harness validation only), and
+  generated `runs/`. Not read by any API or the static build.
+- `data/quality/cache/` — cached judge responses keyed by payload hash, so
+  threshold sweeps and reruns do not make new API calls.
 
 ## Feed API (`/api/feed`)
 Response fields served from the accumulated ranked pool above:

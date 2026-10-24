@@ -30,3 +30,6 @@ measurable on every build:
 
 Reader CTR is a guardrail, not the objective. A clickbait card can win CTR
 while losing the finishable, anti-hype product promise.
+
+The offline Jev/decision-model benchmark and review workflow live in
+`docs/how-to/jev-quality-benchmark.md`.
