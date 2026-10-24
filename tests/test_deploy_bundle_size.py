@@ -6,6 +6,7 @@ Prevents regressions that cause Vercel serverless function deployments to fail w
 
 from __future__ import annotations
 
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -76,6 +77,38 @@ class DeployBundleSizeTest(unittest.TestCase):
             errors = cbs.check_vercelignore(Path(tmp.name))
             self.assertTrue(len(errors) > 0)
             self.assertTrue(any("data/quality" in e for e in errors))
+
+    def test_api_function_count_current(self):
+        """The committed api/ tree must stay within the Vercel Hobby limit."""
+        self.assertEqual(cbs.check_api_function_count(ROOT, ROOT / "vercel.json"), [])
+
+    def test_api_function_count_catches_nested_shared_file(self):
+        """A shared file under api/ must be rejected as a probable function."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "api" / "lib").mkdir(parents=True)
+            (root / "api" / "feed.js").write_text("export default 1;", encoding="utf-8")
+            (root / "api" / "lib" / "shared.js").write_text("export const x = 1;", encoding="utf-8")
+            (root / "vercel.json").write_text(
+                '{"functions": {"api/feed.js": {}}}', encoding="utf-8"
+            )
+            errors = cbs.check_api_function_count(root, root / "vercel.json")
+        self.assertTrue(any("shared JavaScript under api/" in error for error in errors), errors)
+
+    def test_api_function_count_catches_thirteenth_function(self):
+        """Thirteen top-level api files must be rejected on the Hobby plan."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            api = root / "api"
+            api.mkdir()
+            functions = {}
+            for index in range(13):
+                name = f"route{index}.js"
+                (api / name).write_text("export default 1;", encoding="utf-8")
+                functions[f"api/{name}"] = {}
+            (root / "vercel.json").write_text(json.dumps({"functions": functions}), encoding="utf-8")
+            errors = cbs.check_api_function_count(root, root / "vercel.json")
+        self.assertTrue(any("Vercel Hobby allows 12" in error for error in errors), errors)
 
     def test_function_bundle_sizes_under_budget(self):
         """Every function in vercel.json must remain well under the 150 MB safety budget."""

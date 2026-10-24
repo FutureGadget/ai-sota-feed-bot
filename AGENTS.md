@@ -193,7 +193,10 @@ in `ops_daily_summary.py`'s log line.
   `client-config.js`,
   `subscribe.js` (POST → Resend contacts for the email digest; reads no `data/`;
   also serves storyline follow-by-email and signed unfollow links via
-  `lib/follow.js` — the project sits at Vercel Hobby's 12-function cap).
+  `lib/follow.js`; the project sits at Vercel Hobby's 12-function cap).
+  Shared JavaScript lives in the root `lib/` directory (`editorial.js`,
+  `editorial-catalog.js`, `follow.js`, `reader-id.js`), never under `api/`,
+  because Vercel treats files under `api/` as functions.
   The rest read committed `data/` files bundled via `vercel.json` `includeFiles`.
 - `web/` — static site. Hand-edited shells: `index.html`, `daily.html`,
   `weekly.html`, `storyline.html` (now only the `/storylines` *index*; individual
