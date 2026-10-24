@@ -251,6 +251,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNd2tNSVNuSHlpbEU2N0xIR3JveXRQNXE4dmhaeVBvZE83VXlmSzlyM0xjWXZZZW15aTh2Q2tFQk9icHZpWnkxZHktS1pIUHhrd2MxeTVlZDNOWnIwU0E2U29oRmg5SWVsVlVqekpFeTczakdUN3ktTEhfVlNScWZwc2JiLWVLVTctcGZxX1ZmaWZkaS1odVBxOQ?oc=5"
  },
+ "04d4d0197a10f579": {
+  "first_seen": "2026-10-24T17:03:15.737548+00:00",
+  "id": "d48bb3a991102f12",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-22T14:32:23+00:00",
+  "sid": "04d4d0197a10f579",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Feature flags are runtime configuration mechanisms used for gradual feature rollouts, experimentation, and kill switches. Once a feature is fully rolled out, the flag and its gated code become technical debt and can introduce operational risk through inadvertently enabling dormant code paths. At DoorDash, over 56,000 feature flags span 623 repositories, with 1,659 currently stale as of May 2026, with internal estimates of one to two hours per manual cleanup. Existing rule-based cleanup tools proved insufficient in DoorDash's codebases. Our contribution is an end-to-end automated LLM-based feature flag cleanup system that integrates querying live feature flag rollout data using MCP, Jira ticket processing, and end-to-end pull request creation. Our system successfully produced engineer-approved flag removal PRs for 45 (90%) of the 50 stale flags it was evaluated on, proving the system's operational viability at scale with each cleanup averaging only $4.79 and 13.8 minutes. We evaluated the system's quality and reliability boundary based on success rates, cost per cleanup and time metrics. Furthermore, we discuss our lessons learned when architecting this system, to provide practical guidance for developing similar multi-agent systems.",
+  "summary_1line": "Feature flags are runtime configuration mechanisms used for gradual feature rollouts, experimentation, and kill switches. Once a feature is fully rolled out, the flag and its gated code become technical debt and can i...",
+  "title": "Automating Feature Flag Cleanup at Scale with Multi-Agent LLM Systems: An Industrial Experience at DoorDash",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31351v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "04e8f1f704c84797": {
   "first_seen": "2026-10-12T14:04:36.513744+00:00",
   "id": "1c74e612d4ccd522",
@@ -7195,6 +7212,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQZHVOb2NIbEk5TmdGRDZ6cEdXX1ZQWkdMc2NSWjZETGVxOXdLdzBxYUZNV0tqYm9QSGVZTHRWODE2N2ZJbW5mODE1dEZWVWxlWjdkVjRBMXdlQXFiS20zWktQX24yczVZVVZFN29sb0oyd1FlX2ZIWUdkMWVGeFB2NVRqbThyZ3RlTGFwSGhZZVFPYUwtVzFV?oc=5"
  },
+ "7696bc26ff8a2ed1": {
+  "first_seen": "2026-10-24T17:03:15.737548+00:00",
+  "id": "2ec24a879268d4fe",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-22T11:50:38+00:00",
+  "sid": "7696bc26ff8a2ed1",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Offline tests can fail to reveal whether an agent update will remain safe after deployment. We operationalize this post-audit mirage using matched safe and harmful lifecycles that expose identical verifier-visible evidence while an isolated scorer records opposite deployment truth. Our theorem applies standard observational-equivalence and indistinguishability ideas to this executable audit boundary and states the resulting error-abstention tradeoff. The Post-Audit Mirage benchmark makes that boundary executable across authorization, scheduling, and shared-capacity environments. IdentifiedRangeMonitor uses fresh group-labelled harm outcomes to return deploy, hold, cannot determine, or unsupported. Experiments show that monitoring can recover the missing distinction in favorable settings but may remain undecided for rare groups, small effects, or missing observations. Verifier-agent evaluation must therefore test both calculation validity and whether the available evidence supports the deployment decision.",
+  "summary_1line": "Offline tests can fail to reveal whether an agent update will remain safe after deployment. We operationalize this post-audit mirage using matched safe and harmful lifecycles that expose identical verifier-visible evi...",
+  "title": "Post-Audit Mirage: Identifiability Limits of Offline Agent Verification",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31130v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "7698613e3014908f": {
   "first_seen": "2026-10-12T14:04:36.513744+00:00",
   "id": "8f18c4436b1b8376",
@@ -7973,6 +8007,7 @@
   "url": "https://github.com/vllm-project/vllm/releases/tag/v0.32.0"
  },
  "83ab5580b21e5403": {
+  "content_excerpt": "Memory that knows its tenses: embedded, deterministic state memory for AI agents. Memory that knows its tenses. Embedded, deterministic memory that AI agents can safely act on. One SQLite file. No server required. The model proposes typed facts; the engine decides what is current. FakeExtractor is rule-based and needs no API key. Same API with tensemem[openai] , tensemem[anthropic] , tensemem[ollama] , tensemem[litellm] , or Gemini ( GEMINI_API_KEY in the process environment). Similarity search returns both “I live in Delhi” and “I moved to Bangalore” and leaves the model to guess. TenseMem keeps one current value per slot, says whether the read is fresh, and refuses to learn from its own output. Every surface is an adapter over Memory / AsyncMemory . The model proposes typed ops; resolve() decides mutations; apply() writes one SQLite file. Facts are a rebuildable projection of an append-only episode log. Do not auto-register unknown predicates, skip keep_ops , or teach the engine from fenced context() text. Those are locked by tests. tensemem bench scores the packaged 101 conversations with FakeExtractor (no network): TenseMem Studio is a local Next.js inspector over tensemem serve (board, memories table, playground, compare, echo). It is not a chatbot. Secrets stay in the serve process environment — never in the Token field. Studio lives in the git checkout, not on PyPI. Gemini extract uses GEMINI_API_KEY (or GOOGLE_API_KEY ) in the environment of the process that runs extr",
   "first_seen": "2026-10-24T15:04:51.392804+00:00",
   "id": "06181ce69fce9bed",
   "matched_topics": [
@@ -9035,6 +9070,22 @@
   "title": "Introducing vLLM TorchTPU",
   "type": "news",
   "url": "https://vllm.ai/blog/2026-10-20-vllm-torchtpu"
+ },
+ "97282ff9b80798e7": {
+  "first_seen": "2026-10-24T17:03:15.737548+00:00",
+  "id": "27243560c00b1b2c",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-22T17:52:56+00:00",
+  "sid": "97282ff9b80798e7",
+  "source": "arxiv_cs_lg",
+  "summary": "Chain-of-thought (CoT) prompting elicits step-by-step rationales that appear to explain model predictions, but there is no guarantee these steps causally drive the final answer. In standard autoregressive generation, dense attention allows each reasoning step to attend to the full context, enabling the model to derive answers through direct lookup while generating plausible-sounding but post-hoc justifications. We introduce CausalCoT, an inference framework that enforces causal transparency by decomposing problems into a directed acyclic graph of atomic sub-questions, evaluating each node in an isolated context containing only its direct causal parents. This Markovian structure removes attention pathways to non-parent content, making downstream predictions sensitive to local reasoning rather than global context leakage. Across a diverse suite of reasoning benchmarks, CausalCoT preserves competitive predictive performance while improving explanation faithfulness, increasing causal sensitivity of intermediate reasoning steps by an average of 12 and up to 21 percentage points over the strongest baseline. The structured dependency graph additionally enables test-time interventions in which local corrections propagate predictably through downstream reasoning.",
+  "summary_1line": "Chain-of-thought (CoT) prompting elicits step-by-step rationales that appear to explain model predictions, but there is no guarantee these steps causally drive the final answer. In standard autoregressive generation,...",
+  "title": "Causal Chain of Thought: Mitigating Attention Leakage via Context Isolation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31639v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "97283932e4f45048": {
   "first_seen": "2026-10-15T17:04:07.401448+00:00",
@@ -11488,6 +11539,22 @@
   "type": "news",
   "url": "https://deepmind.google/blog/on-device-ai-scam-detection-mddi"
  },
+ "b77efdf87fc0595e": {
+  "content_excerpt": "I gave Claude Code a tool for asking me questions out loud. It used it in one project and printed the question on screen in the next, same machine, same day, even though it could quote my instruction back word for word. I built a thing called Banshee (opens in a new tab) so my coding agent can talk to me. It listens, it speaks, and it does system-wide dictation, all of it on the machine. The part this article is about is the MCP server it exposes, and one tool of its three: ask_user speaks a question out loud, opens the microphone once the speech has finished playing, waits for me to answer, and returns what I said. The other two, speak_status and listen_for_prompt , speak and listen separately, and they matter later. The tool worked the first time I called it by hand. What caught me out was something else: whether the agent reached for it at all depended on which agent it was and which project I had open. In Banshee's own repo, Claude Code used it every time. In a fresh project, on the same machine, the same day, it wrote the question on the screen instead: The obvious place to look, so I looked there first. I ran the daemon in the foreground and watched it work: every time ask_user was actually called, it spoke, it listened, it came back with a transcript. Nothing to fix. The tool was fine. Nothing was calling it. I was recording a screen demo at the time and did three takes. In all three the agent explained the fix in text and never spoke a word, and by the third I was fai",
+  "first_seen": "2026-10-24T17:03:15.737548+00:00",
+  "id": "b59df5ef78cf4a5d",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-24T16:18:06+00:00",
+  "sid": "b77efdf87fc0595e",
+  "source": "hackernews_ai",
+  "summary_1line": "Giving an agent a tool does not make it use the tool",
+  "title": "Giving an agent a tool does not make it use the tool",
+  "type": "news",
+  "url": "https://yamanahlawat.in/articles/agent-ignores-your-mcp-tool",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "b7d3f6df6ecbe2c9": {
   "first_seen": "2026-10-20T19:04:11.023973+00:00",
   "id": "ce69bd6cc75ba65b",
@@ -12638,6 +12705,7 @@
   "url": "https://www.infoq.com/news/2026/10/amazon-acquires-ducklabs/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
  },
  "c618c8bf7d15ed9a": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Suhail Patel discusses how Monzo structures its software engineering organization and technical stack to ship safely hundreds of times a day. He shares insights into opinionated microservice abstractions, tenancy-based staging, static analysis checks, continuous profiling, demonstrating how a strong internal platform enables engineers and LLMs to iterate rapidly without sacrificing reliability. Manju Rajashekhar explains how the actor model solves the complex runtime challenges of production AI agents. By treating agents as distributed systems, he discusses state ownership, message passing, write-through state, and supervision boundaries to manage failures, continuations, and mutable execution graphs, moving agentic workflows beyond fragile demos to resilient architecture. Nathen Harvey shares insights from DORA",
   "first_seen": "2026-10-22T09:04:47.203142+00:00",
   "id": "dca512dc7c899ed8",
   "image_url": "https://res.infoq.com/articles/ai-changes-data-interface/en/headerimage/header-1792487239242.jpg",
@@ -12692,6 +12760,23 @@
   "title": "DeepSeek effect? How China’s quant funds thrive amid tight regulatory scrutiny",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxONnhXWXhIUnFDcS1FMm81eXZIRUNxWF80azAwVURXb1NZQVQtRmFyQ0RnZEZDRXlZcGRTQlpVOU4zeFVybzY4akJiRFhua1hKUVVNcWljbklBdTBpak9SOTNsN25KcmQyLXBGMmhsaG5rRHAtSXlHVGpMQmRXZW9BLVZqUDNQZDN5dFRXbV9DTkp1UDJXUi1rT2RwcWZCeEEtV2E3Q01aX19pZnlTM1dTVjNpS2lyV3l1WTk4NG5xZkRiSmtoN19PdkpJM1hZZkJIU0lEVtIB1AFBVV95cUxNdUh0dXo3MVI4YzllZGlPYl9BdnNIWC1qTnR5SzBrVzF3Qjd3SVhMbWg5dW9XV1NPS2FXV1YwZzZLdHVNZFRTUm1Iek5fWlpKM21CZ3VSdE01M1hUOEs3Sl9CUGVuWUdOeTY1S3JPQkVfSzhjVzI2X0R5TnZNNWZ3YXZjaHY0SjhKTWl5SFA0ajRfVGhsVnNGSG92c0xRRGZvTEVFMEZWYl95SlZxZ1BFZWJOUDRQR3JKNEpXWGhzMVNyR2FKNjl0RFhraGo1WGdORjdYSA?oc=5"
+ },
+ "c6cb767d4acddfd2": {
+  "first_seen": "2026-10-24T17:03:15.737548+00:00",
+  "id": "6e8a91032380abe6",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-22T14:01:31+00:00",
+  "sid": "c6cb767d4acddfd2",
+  "source": "arxiv_cs_cl",
+  "summary": "Memory enables language agents to carry useful distinctions from past experience into future decisions. Its value depends on which distinctions survive, whether a bounded agent can use them, and what can be recovered or revised as demands evolve. We develop a decision-theoretic framework that follows this value from raw history through persistent state, operational use, and costly recovery and revision. Original and retained value are expressed in units of avoided task loss; risk-cost frontiers describe attainable recovery and preservation across uses. Unknown demand yields value profiles, while interactive feedback changes the distribution of future work. A cost-aware simulation condition and five minimal counterexamples expose the roles of information timing, retrieval access, component interaction, feedback and demand uncertainty. In particular, a pointer with zero mutual information about the answer can still reduce the cost of exact recovery. Diagnostics on LoCoMo, a two-project update task and longitudinal cases exhibit failures of preservation, use and measurement. At fixed retrieved evidence, a saved ledger changes subsequent answers; at fixed agent outputs, an evaluator revision changes scores. The framework connects these distinctions to operational risk bounds and testable principles for allocating memory, preserving recovery options and revising evidence dependencies.",
+  "summary_1line": "Memory enables language agents to carry useful distinctions from past experience into future decisions. Its value depends on which distinctions survive, whether a bounded agent can use them, and what can be recovered...",
+  "title": "The Value of Memory in Language Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31303v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "c6dcb1bcac0a3d24": {
   "first_seen": "2026-10-07T18:04:07.048917+00:00",

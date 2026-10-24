@@ -1,44 +1,44 @@
 {
-  "prefilter_in": 921,
+  "prefilter_in": 951,
   "prefilter_out": 140,
   "prefilter_reasons": {
-    "freshness_window": 567,
+    "freshness_window": 569,
+    "off_topic": 36,
     "hard_exclude": 11,
-    "off_topic": 35,
     "no_topic_signal": 20,
-    "pool_cap": 148
+    "pool_cap": 175
   },
-  "pool_coverage_reserved": 47,
+  "pool_coverage_reserved": 48,
   "judge": {
     "enabled": true,
     "input": 140,
-    "judged": 1,
+    "judged": 12,
     "errors": 0,
     "cached": 0,
-    "store_hits": 139,
-    "store_misses": 1,
-    "store_entries": 179,
+    "store_hits": 128,
+    "store_misses": 12,
+    "store_entries": 191,
     "store_pruned": 0,
     "verdicts": {
-      "keep": 107,
-      "review": 17,
-      "drop": 16
+      "review": 25,
+      "drop": 27,
+      "keep": 88
     },
     "categories": {
-      "frontier_product": 11,
-      "release_note": 5,
-      "agent_engineering": 15,
-      "research_method": 60,
-      "evaluation_reliability": 32,
+      "agent_engineering": 16,
+      "off_topic": 22,
+      "evaluation_reliability": 26,
+      "frontier_product": 13,
+      "research_method": 48,
       "inference_serving": 5,
-      "off_topic": 9,
-      "business_policy": 3
+      "business_policy": 4,
+      "release_note": 6
     },
     "downgraded": 0,
     "selected": 140,
-    "content_fetched": 1,
+    "content_fetched": 9,
     "store_path": "data/processed/judgments.json",
-    "elapsed_seconds": 0.33,
+    "elapsed_seconds": 1.56,
     "classified_path": "/home/runner/work/ai-sota-feed-bot/ai-sota-feed-bot/data/quality/classified/2026-10-24.json"
   },
   "slots": {
@@ -115,22 +115,22 @@
       "reject_slot_cap": 9
     },
     "community_signal": {
-      "candidates": 1,
-      "llm_scored": 1,
-      "cache_hits": 1,
+      "candidates": 29,
+      "llm_scored": 29,
+      "cache_hits": 8,
       "llm_called": 0,
-      "selected": 1,
-      "reject_source_cap": 0,
+      "selected": 2,
+      "reject_source_cap": 27,
       "reject_slot_cap": 0
     },
     "research_watch": {
-      "candidates": 107,
-      "llm_scored": 107,
-      "cache_hits": 106,
+      "candidates": 79,
+      "llm_scored": 79,
+      "cache_hits": 79,
       "llm_called": 0,
       "selected": 5,
-      "reject_source_cap": 4,
-      "reject_slot_cap": 98
+      "reject_source_cap": 0,
+      "reject_slot_cap": 74
     },
     "overflow": {
       "candidates": 0,
@@ -145,16 +145,16 @@
   "llm_budget_total": 8,
   "llm_budget_used": 0,
   "slot_priority": {
-    "frontier_official": 0.678,
+    "frontier_official": 0.677,
     "frontier_corporate": -0.18,
-    "agent_tooling_releases": 0.381,
-    "infra_runtime_releases": 0.15,
-    "open_weight_releases": 0.395,
-    "vendor_general_updates": 0.1,
-    "cloud_platform_updates": 0.177,
-    "practitioner_analysis": 0.495,
-    "community_signal": 0.351,
-    "research_watch": 0.343,
+    "agent_tooling_releases": 0.369,
+    "infra_runtime_releases": 0.318,
+    "open_weight_releases": 0.393,
+    "vendor_general_updates": 0.096,
+    "cloud_platform_updates": 0.174,
+    "practitioner_analysis": 0.494,
+    "community_signal": 0.411,
+    "research_watch": 0.309,
     "overflow": -0.2
   },
   "merge": {
@@ -163,14 +163,14 @@
     "skip_duplicate": 4,
     "skip_slot_max": 0,
     "skip_search_cap": 0,
-    "skip_judge_low": 9
+    "skip_judge_low": 10
   },
   "top_band": {
     "dedup_removed": 2,
     "promoted_frontier": 0,
     "promoted_anthropic_frontier": 0,
     "research_demoted": 2,
-    "lead_lifted": 1
+    "lead_lifted": 0
   },
   "final_prompt_rerank": {
     "applied": false,
@@ -178,22 +178,22 @@
   },
   "final_summary_pass": {
     "llm_called": 0,
-    "cache_hits": 16,
+    "cache_hits": 13,
     "items": 18
   },
   "editorial": {
     "enabled": true,
-    "input": 1203,
-    "output": 921,
+    "input": 1233,
+    "output": 951,
     "first_party_in": 506,
     "first_party_dropped_low_value": 16,
     "search_in": 120,
-    "search_dropped_low_quality": 8,
+    "search_dropped_low_quality": 9,
     "search_dropped_non_latin": 0,
-    "search_dropped_over_cap": 106,
-    "clusters": 56,
-    "collapsed": 122,
-    "seen_dropped": 30,
-    "seen_penalized": 62
+    "search_dropped_over_cap": 105,
+    "clusters": 57,
+    "collapsed": 123,
+    "seen_dropped": 29,
+    "seen_penalized": 71
   }
 }
