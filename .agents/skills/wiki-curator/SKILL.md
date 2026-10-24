@@ -38,17 +38,27 @@ specifics over generalities.
 ### 1. Build the ingest bundle
 ```bash
 python .agents/skills/wiki-curator/scripts/build_wiki_input.py
-#   --days N     only stories from the last N days (default 7)
-#   --slug S     add a `focus` dossier: topic S's themes, entries, and every source it cites
+#   --days N             only stories from the last N days (default 7)
+#   --slug S             add a `focus` dossier: topic S's themes, entries, and every source it cites
+#   --include-dropped    keep judge-dropped stories (debugging only)
 ```
 Writes `data/wiki/input/latest.json`: recent stories grouped by the obstacle
 `area` their keywords suggest, each with `filed_in` (topics already citing it),
 plus every topic with its themes and entry counts.
 
+Stories are joined to the Jev classification from
+`data/processed/classified.json` and `data/processed/judgments.json`. Known
+`drop` stories and non-keep `off_topic` stories are excluded, and routine
+release notes are dropped even when the feed's release lane would exempt
+them. Each story carries `judge_verdict`, `judge_category`, `judge_score`,
+and `judge_category_confidence` when judged. The bundle's `quality` field
+reports judged coverage.
+
 ### 2. Ingest — file new sources as entries
 Work only from stories with an empty `filed_in` that are on-brand and carry
 real content (skip title-only aggregator redirects, version-bump changelogs,
-and business news). For each genuinely new development:
+and business news). Use `judge_category` as a routing hint, but the topic and
+theme still come from the obstacle the source actually demonstrates. For each genuinely new development:
 
 1. Pick the topic it belongs to. Create a new topic page only for a
    substantial cluster that fits no existing topic.

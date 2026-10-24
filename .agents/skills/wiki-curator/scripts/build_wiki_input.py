@@ -27,6 +27,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT / "pipeline"))
+from deck_quality import deck_summary, load_quality_index, quality_summary  # noqa: E402
 from story_store import load_store, parse_dt  # noqa: E402
 
 import yaml  # noqa: E402
@@ -130,17 +131,23 @@ def filed_index(topics: list[dict]) -> dict[str, list[str]]:
     return filed
 
 
-def story_row(sid: str, rec: dict) -> dict:
-    return {
+def story_row(sid: str, rec: dict, quality=None) -> dict:
+    summary, summary_source = deck_summary(rec, excerpt_limit=600, teaser_limit=280)
+    row = {
         "sid": sid,
         "title": rec.get("title"),
         "url": rec.get("url"),
         "source": rec.get("source"),
         "type": rec.get("type"),
-        "summary": (rec.get("summary_1line") or rec.get("summary") or "")[:280],
+        "summary": summary,
         "published": rec.get("published"),
         "first_seen": rec.get("first_seen"),
     }
+    if summary:
+        row["summary_source"] = summary_source
+    if quality is not None:
+        quality.annotate(row)
+    return row
 
 
 def areas_for(text: str) -> list[str]:
@@ -148,7 +155,7 @@ def areas_for(text: str) -> list[str]:
     return [area for area, cues in AREA_CUES.items() if any(c in t for c in cues)]
 
 
-def focus_dossier(topic: dict, store: dict) -> dict:
+def focus_dossier(topic: dict, store: dict, quality=None) -> dict:
     cited: list[str] = list(topic["_page_evidence"])
     filed_as: dict[str, list[str]] = {}
     for e in topic["_entries"]:
@@ -162,8 +169,8 @@ def focus_dossier(topic: dict, store: dict) -> dict:
         if rec is None:
             sources.append({"sid": sid, "missing": True})
             continue
-        row = story_row(sid, rec)
-        row["summary"] = (rec.get("summary") or rec.get("summary_1line") or "")[:600]
+        row = story_row(sid, rec, quality)
+        row["summary"] = deck_summary(rec, excerpt_limit=600, teaser_limit=600)[0]
         row["filed_as"] = filed_as.get(sid, [])
         sources.append(row)
     return {
@@ -179,22 +186,37 @@ def main() -> None:
     ap.add_argument("--days", type=int, default=7)
     ap.add_argument("--slug", default="")
     ap.add_argument("--out", default=str(INPUT_DIR / "latest.json"))
+    ap.add_argument(
+        "--include-dropped",
+        action="store_true",
+        help="Keep stories the Jev gate marked drop/off-topic (debugging only).",
+    )
     args = ap.parse_args()
 
     topics = collect_topics()
     filed = filed_index(topics)
     cutoff = datetime.now(timezone.utc) - timedelta(days=args.days)
     store = load_store()
+    quality = load_quality_index(ROOT / "data" / "processed")
     by_area: dict[str, list[dict]] = {}
+    seen_rows: dict[str, dict] = {}
     for sid, rec in store.items():
         dt = parse_dt(rec.get("published") or rec.get("first_seen"))
         if dt and dt < cutoff:
             continue
-        blob = f"{rec.get('title', '')} {rec.get('summary_1line') or rec.get('summary', '')}"
+        row = story_row(sid, rec, quality)
+        if not args.include_dropped and quality.is_dropped(row, exempt_releases=False):
+            continue
+        blob = (
+            f"{rec.get('title', '')} "
+            f"{rec.get('summary_1line') or rec.get('summary', '')} "
+            f"{rec.get('content_excerpt', '')}"
+        )
         for area in areas_for(blob):
-            row = story_row(sid, rec)
-            row["filed_in"] = filed.get(sid, [])
-            by_area.setdefault(area, []).append(row)
+            area_row = dict(row)
+            area_row["filed_in"] = filed.get(sid, [])
+            by_area.setdefault(area, []).append(area_row)
+            seen_rows[sid] = row
 
     for area in by_area:
         by_area[area].sort(key=lambda r: r.get("published") or "", reverse=True)
@@ -204,7 +226,7 @@ def main() -> None:
         match = next((t for t in topics if t["slug"] == args.slug), None)
         if match is None:
             sys.exit(f"unknown slug {args.slug!r}")
-        focus = focus_dossier(match, store)
+        focus = focus_dossier(match, store, quality)
 
     bundle = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -212,6 +234,8 @@ def main() -> None:
         "topics": [{k: v for k, v in t.items() if not k.startswith("_")} for t in topics],
         "stories_by_area": by_area,
         "focus": focus,
+        "quality": quality_summary(list(seen_rows.values())),
+        "judge_drop_filter": not args.include_dropped,
     }
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)

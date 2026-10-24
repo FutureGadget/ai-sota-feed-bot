@@ -19,13 +19,15 @@ import json
 from datetime import date, datetime, time, timedelta, timezone
 
 from weekly_common import (
-    CATEGORY_ORDER,
     ROOT,
     WEEKLY_DIR,
     WEEKLY_INPUT_DIR,
     collect_week_articles,
+    deck_category_hint,
+    deck_quality_summary,
     fmt_range,
     iso_week_id,
+    judge_category_hint,
     load_json,
     recap_article_urls,
     week_bounds,
@@ -56,6 +58,12 @@ def main() -> None:
         action="store_true",
         help="Do not exclude articles already published in an earlier week's "
         "recap (default: exclude them to avoid cross-week duplicates).",
+    )
+    ap.add_argument(
+        "--include-dropped",
+        action="store_true",
+        help="Keep items the Jev gate marked drop/off-topic (debugging only; "
+        "release items are always exempt).",
     )
     args = ap.parse_args()
 
@@ -89,6 +97,7 @@ def main() -> None:
         end_dt,
         require_published_in_window=not args.keep_carryover,  # #1
         exclude_urls=exclude_urls,
+        include_dropped=args.include_dropped,
     )
     if include_types is not None:
         articles = [a for a in articles if a.get("type") in include_types]
@@ -99,15 +108,9 @@ def main() -> None:
         card = playbook_index.get(article.get("source_sid"))
         article["playbook_card_id"] = card.get("id") if isinstance(card, dict) else None
 
-    # Pre-group by deterministic category so the agent has a starting structure.
-    grouped: dict[str, list] = {}
-    for a in articles:
-        grouped.setdefault(a["category"], []).append(a)
-    category_hint = [
-        {"name": name, "count": len(grouped.get(name, []))}
-        for _, name in CATEGORY_ORDER
-        if grouped.get(name)
-    ]
+    # The judge categories replace the single type-based "Industry News"
+    # bucket when an item was judged. The agent still owns the final grouping.
+    category_hint = deck_category_hint(articles)
 
     bundle = {
         "week": week,
@@ -121,6 +124,9 @@ def main() -> None:
         "prior_recap_urls": len(exclude_urls),
         "article_count": len(articles),
         "category_hint": category_hint,
+        "judge_category_hint": judge_category_hint(articles),
+        "quality": deck_quality_summary(articles),
+        "judge_drop_filter": not args.include_dropped,
         "articles": articles,
     }
 
@@ -142,6 +148,7 @@ def main() -> None:
                 "prior_recap_urls": bundle["prior_recap_urls"],
                 "article_count": len(articles),
                 "categories": category_hint,
+                "quality": bundle["quality"],
                 "input_path": f"data/weekly/input/{week}.json",
                 "recap_path": f"data/weekly/{week}.json",
                 "already_published": already_published,

@@ -19,13 +19,15 @@ import json
 from datetime import date, datetime, time, timedelta, timezone
 
 from daily_common import (
-    CATEGORY_ORDER,
     DAILY_DIR,
     DAILY_INPUT_DIR,
     collect_day_articles,
     date_id,
+    deck_category_hint,
+    deck_quality_summary,
     fmt_day,
     is_target_due,
+    judge_category_hint,
     next_target_date,
     now_kst_date,
     recap_article_urls,
@@ -65,6 +67,12 @@ def main() -> None:
         action="store_true",
         help="Do not exclude articles already published in an earlier day's "
         "recap (default: exclude them to avoid cross-day duplicates).",
+    )
+    ap.add_argument(
+        "--include-dropped",
+        action="store_true",
+        help="Keep items the Jev gate marked drop/off-topic (debugging only; "
+        "release items are always exempt).",
     )
     args = ap.parse_args()
 
@@ -107,19 +115,14 @@ def main() -> None:
         end_dt,
         require_published_in_window=not args.keep_carryover,  # #1
         exclude_urls=exclude_urls,
+        include_dropped=args.include_dropped,
     )
     if include_types is not None:
         articles = [a for a in articles if a.get("type") in include_types]
 
-    # Pre-group by deterministic category so the agent has a starting structure.
-    grouped: dict[str, list] = {}
-    for a in articles:
-        grouped.setdefault(a["category"], []).append(a)
-    category_hint = [
-        {"name": name, "count": len(grouped.get(name, []))}
-        for _, name in CATEGORY_ORDER
-        if grouped.get(name)
-    ]
+    # The judge categories replace the single type-based "Industry News"
+    # bucket when an item was judged. The agent still owns the final grouping.
+    category_hint = deck_category_hint(articles)
 
     bundle = {
         "date": day,
@@ -132,6 +135,9 @@ def main() -> None:
         "prior_recap_urls": len(exclude_urls),
         "article_count": len(articles),
         "category_hint": category_hint,
+        "judge_category_hint": judge_category_hint(articles),
+        "quality": deck_quality_summary(articles),
+        "judge_drop_filter": not args.include_dropped,
         "articles": articles,
     }
 
@@ -162,6 +168,7 @@ def main() -> None:
                 "prior_recap_urls": bundle["prior_recap_urls"],
                 "article_count": len(articles),
                 "categories": category_hint,
+                "quality": bundle["quality"],
                 "input_path": f"data/daily/input/{day}.json",
                 "recap_path": f"data/daily/{day}.json",
                 "already_published": already_published,

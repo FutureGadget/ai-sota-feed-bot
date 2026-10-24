@@ -25,6 +25,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(ROOT / "pipeline"))
+from deck_quality import deck_summary, load_quality_index, quality_summary  # noqa: E402
 from story_store import load_store, parse_dt  # noqa: E402
 
 FOUNDATIONS_DIR = ROOT / "data" / "foundations"
@@ -56,39 +57,44 @@ def write_json(path: Path, data: Any) -> None:
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def squeeze(value: Any, limit: int = 420) -> str:
-    text = " ".join(str(value or "").replace("\n", " ").split())
-    return text[:limit]
-
-
 def clusters_for(text: str) -> list[str]:
     t = text.lower()
     return [cluster for cluster, cues in CLUSTER_CUES.items() if any(c in t for c in cues)]
 
 
-def recent_stories(days: int) -> list[dict[str, Any]]:
+def recent_stories(days: int, quality=None, include_dropped: bool = False) -> list[dict[str, Any]]:
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     stories = []
     for sid, rec in load_store().items():
         dt = parse_dt(rec.get("published") or rec.get("first_seen"))
         if dt and dt < cutoff:
             continue
-        blob = f"{rec.get('title', '')} {rec.get('summary_1line') or rec.get('summary', '')}"
+        summary, summary_source = deck_summary(rec, excerpt_limit=600, teaser_limit=420)
+        row = {
+            "sid": sid,
+            "title": rec.get("title"),
+            "url": rec.get("url"),
+            "source": rec.get("source"),
+            "type": rec.get("type"),
+            "published": rec.get("published") or rec.get("first_seen"),
+            "summary": summary,
+        }
+        if summary:
+            row["summary_source"] = summary_source
+        if quality is not None:
+            quality.annotate(row)
+        if (
+            not include_dropped
+            and quality is not None
+            and quality.is_dropped(row, exempt_releases=False)
+        ):
+            continue
+        blob = f"{rec.get('title', '')} {summary} {rec.get('content_excerpt', '')}"
         clusters = clusters_for(blob)
         if not clusters:
             continue
-        stories.append(
-            {
-                "sid": sid,
-                "title": rec.get("title"),
-                "url": rec.get("url"),
-                "source": rec.get("source"),
-                "type": rec.get("type"),
-                "published": rec.get("published") or rec.get("first_seen"),
-                "summary": squeeze(rec.get("summary_1line") or rec.get("summary")),
-                "cluster_hints": clusters,
-            }
-        )
+        row["cluster_hints"] = clusters
+        stories.append(row)
     stories.sort(key=lambda r: str(r.get("published") or ""), reverse=True)
     return stories
 
@@ -163,9 +169,15 @@ def playbook_cards() -> list[dict[str, Any]]:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--days", type=int, default=14)
+    ap.add_argument(
+        "--include-dropped",
+        action="store_true",
+        help="Keep stories the Jev gate marked drop/off-topic (debugging only).",
+    )
     args = ap.parse_args()
 
-    stories = recent_stories(args.days)
+    quality = load_quality_index(ROOT / "data" / "processed")
+    stories = recent_stories(args.days, quality, args.include_dropped)
     foundations = current_foundations()
     cited: dict[str, list[str]] = {}
     for concept in foundations:
@@ -178,6 +190,8 @@ def main() -> None:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "window_days": args.days,
         "candidate_story_count": len(stories),
+        "quality": quality_summary(stories),
+        "judge_drop_filter": not args.include_dropped,
         "candidate_stories": stories,
         "current_foundations": foundations,
         "wiki_topics": wiki_topics(),

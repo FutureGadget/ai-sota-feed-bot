@@ -67,7 +67,8 @@ Jev gate + category (pipeline/editorial_judge.py, config/judge.yaml)
       keep, platform_relevant, release_lane, corporate_marketing (noul)
       category (choice with criteria)
   - hybrid score: `keep` is primary; release/marketing highs and low
-    platform relevance clamp it; the category is stored for the editor decks
+    platform relevance clamp it; the category and verdict are joined into the
+    editor-deck input bundles by `pipeline/deck_quality.py`
   - durable judgment store `data/processed/judgments.json`, keyed by item
     identity + model + rubric + prompt fingerprint; only missing or expired
     items call Jev

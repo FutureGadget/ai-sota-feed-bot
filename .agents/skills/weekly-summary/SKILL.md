@@ -28,6 +28,7 @@ python .agents/skills/weekly-summary/scripts/build_weekly_input.py
 #                              but still in the feed; OFF by default)
 #   --no-prior-dedup          (don't exclude articles already in an earlier
 #                              week's recap; dedup is ON by default)
+#   --include-dropped         (debugging: keep judge-dropped items)
 ```
 This writes `data/weekly/input/latest.json` (and `input/<week>.json`) — the
 week's unique, deduped articles. **This is your reading material.**
@@ -43,6 +44,14 @@ repeats a prior week:
   recap is dropped (`prior_recap_dedup` / `prior_recap_urls` in the bundle).
 
 (Override either with the flags above only if you deliberately want carryover.)
+
+The bundle also joins the Jev classification from
+`data/processed/classified.json` and `data/processed/judgments.json`. Each
+article carries `judge_verdict`, `judge_category`, `judge_score`, and
+`judge_category_confidence` when it was judged. Known `drop` items and
+non-keep `off_topic` items are excluded; release items and release notes are
+exempt, and unjudged items stay. The bundle's `quality` field reports judged
+coverage. Use `--include-dropped` only for debugging.
 
 By default `news`, `release`, `research`, and `paper` items are bundled.
 Releases and papers belong only when they support a real weekly shift or a
@@ -67,9 +76,12 @@ file — the index is keyed by week id, so there is always exactly one per week.
 ### 3. Write the recap (your editorial work — only an agent can do this)
 Read `data/weekly/input/latest.json`. Each entry in `articles[]` has:
 `title`, `url` (original source link), `source`, `type`, `category`,
-`summary`, `published`, plus optional `publisher_name` and `publisher_domain`.
-The bundle also carries `week`, `start`, `end`,
-`range_label`, `article_count`, and `category_hint` (default per-category counts).
+`summary`, `published`, plus optional `publisher_name`, `publisher_domain`,
+`summary_source`, and the judge fields when the item was judged:
+`judge_verdict`, `judge_category`, `judge_score`,
+`judge_category_confidence`, and `deck_category`. The bundle also carries
+`week`, `start`, `end`, `range_label`, `article_count`, `category_hint`,
+`judge_category_hint`, and `quality` (judged coverage and verdict mix).
 
 Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
 ```json
@@ -117,10 +129,12 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
   the source. Never invent, clean, normalize, shorten, or guess links. Skip an
   item whose only supplied URL is an ugly redirect or tracking URL rather than
   rewriting it.
-- Group thematically into 3–6 categories. The bundle is news-only and lands in
-  a single "Industry News" bucket, so **you** define the themes — e.g. "Agents
-  & Tooling", "Open Models", "Funding & Business", "Safety & Policy", "Research
-  Highlights". Don't just echo "Industry News".
+- Group thematically into 3–6 categories. `category_hint` starts from the
+  judge categories when an item was judged and falls back to the type bucket
+  (usually "Industry News"), so use it as the starting structure and then
+  **you** define the themes, e.g. "Agents & Tooling", "Open Models", "Funding &
+  Business", "Safety & Policy", "Research Highlights". Don't just echo
+  "Industry News".
 - Curate, don't dump. Skip duplicates and low-signal items; keep each category
   to its strongest ~5–10 articles. You need not include every article.
 - `intro` is the editorial interpretation beside the week's signal list. Explain

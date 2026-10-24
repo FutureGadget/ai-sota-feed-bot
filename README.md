@@ -46,7 +46,9 @@ collect
   Releases tab and model radar still fill.
 - Outputs: `data/processed/latest.json` (the feed),
   `data/processed/classified.json` (compact judge artifact for editor decks),
-  and `data/digest/<date>.md`.
+  and `data/digest/<date>.md`. `pipeline/deck_quality.py` joins the judge
+  verdict/category onto the daily, weekly, Playbook, wiki, and Foundations
+  input bundles.
 - The old Tier-1 snapshot and API fresh blend are gone. The API reads
   `data/processed/**` only.
 

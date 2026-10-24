@@ -91,12 +91,21 @@ The end should turn that explanation into design and testing guidance.
 
 ```bash
 python .agents/skills/foundations-curator/scripts/build_foundations_input.py --days 14
+#   --include-dropped    keep judge-dropped stories (debugging only)
 ```
 
 Read `data/foundations/input/latest.json`. It includes recent candidate stories
 (each with `cited_in`: concepts that already cite it), current concepts with
 their evidence and newest `added` date, related wiki topics, and Playbook card
 references.
+
+Candidates are joined to the Jev classification from
+`data/processed/classified.json` and `data/processed/judgments.json`. Known
+`drop` stories and non-keep `off_topic` stories are excluded, and routine
+release notes are dropped even when the feed's release lane would exempt
+them. Each story carries `judge_verdict`, `judge_category`, `judge_score`,
+and `judge_category_confidence` when judged. The bundle's `quality` field
+reports judged coverage.
 
 ### 2. Decide whether to edit
 

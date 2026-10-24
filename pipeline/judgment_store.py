@@ -157,6 +157,7 @@ def put_entry(store: dict[str, Any], key: str, item: dict[str, Any], cfg: dict[s
         "source": item.get("source"),
         "source_role": item.get("source_role"),
         "judge_score": item.get("judge_score"),
+        "judge_verdict": item.get("judge_verdict"),
         "judge_signals": item.get("judge_signals") or {},
         "judge_category": item.get("judge_category"),
         "judge_category_confidence": item.get("judge_category_confidence"),

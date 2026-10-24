@@ -133,6 +133,9 @@ in `ops_daily_summary.py`'s log line.
   - `editorial_judge.py` — production gate: fetches paragraph excerpts, judges
     the Stage A candidate pool, writes `data/processed/classified.json` and the
     local `data/quality/classified/<date>.json`
+  - `deck_quality.py` - joins the committed judge artifacts into the five
+    editor-deck input bundles, attaches verdict/category/score, filters known
+    drops, and supplies judge category hints
   - `build_digest.py` — the single edition builder
     (raw -> editorial -> judge -> ranking -> edition)
   - `enrich.py`, `content_fetch.py` — mechanical enrichment, page excerpts
@@ -353,7 +356,11 @@ in `ops_daily_summary.py`'s log line.
 - `data/processed/` — `latest.json` (the feed), `classified.json` (compact
   judge verdicts/categories for the editor decks), `judgments.json` (durable
   judge store, pruned to 14 days / 6000 entries), `editorial.json` (roles/caps
-  and quarantine patterns shared with the APIs), `runs/`, `runs_index.json`
+  and quarantine patterns shared with the APIs), `runs/`, `runs_index.json`.
+  `pipeline/deck_quality.py` joins `classified.json` + `judgments.json` onto
+  the five editor-deck input bundles (daily, weekly, playbook, wiki,
+  foundations), attaches the judge fields, filters known drops, and uses
+  judge categories as the starting `category_hint`.
 - `data/quality/benchmark/` — frozen 50-item Jev benchmark (`items.json`,
   `labels.md`, fetched `content_cache.json`, synthetic `fixture_scores.json`)
   and generated `runs/`; `data/quality/cache/` holds judge responses;

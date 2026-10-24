@@ -45,11 +45,21 @@ python .agents/skills/playbook/scripts/build_playbook_input.py
 #   --types all            (default: news,release,research,paper)
 #   --keep-carryover       (include items published before the window)
 #   --no-prior-dedup       (include items already cited in an earlier edition)
+#   --include-dropped      (debugging: keep judge-dropped items)
 ```
 This writes `data/playbook/input/latest.json` (and `input/<date>.json`) — the
 window's unique, deduped articles. **This is your reading material.** Items
 already cited in an earlier edition are dropped by default so editions don't
 repeat learnings.
+
+The bundle also joins the Jev classification from
+`data/processed/classified.json` and `data/processed/judgments.json`. Known
+`drop` items and non-keep `off_topic` items are excluded; release items and
+release notes are exempt, and unjudged items stay. Each article carries
+`judge_verdict`, `judge_category`, `judge_score`,
+`judge_category_confidence`, `deck_category`, and `summary_source` when it
+was judged. The bundle also carries `judge_category_hint` and `quality`.
+Use `--include-dropped` only for debugging.
 
 ### 2. Check the edition isn't already published (dedup)
 The **unique key for an edition is its date id** (`YYYY-MM-DD`) — the `date`
@@ -62,8 +72,12 @@ field, the filename `data/playbook/<date>.json`, and the index key. Read the
 
 ### 3. Write the edition (your editorial work — only an agent can do this)
 Read `data/playbook/input/latest.json`. Each entry in `articles[]` has `title`,
-`url` (original source link), `source`, `type`, `summary`, `published`. The
-bundle also carries `date`, `range_label`, `article_count`, and `area_hints`.
+`url` (original source link), `source`, `type`, `summary`, `published`,
+`source_sid`, plus the judge fields when the item was judged:
+`judge_verdict`, `judge_category`, `judge_score`,
+`judge_category_confidence`, `deck_category`, and `summary_source`. The bundle
+also carries `date`, `range_label`, `article_count`, `area_hints`,
+`judge_category_hint`, and `quality` (judged coverage and verdict mix).
 
 Write `data/playbook/<date>.json` (e.g. `data/playbook/2026-06-21.json`):
 ```json
@@ -114,6 +128,9 @@ Write `data/playbook/<date>.json` (e.g. `data/playbook/2026-06-21.json`):
   `area` (use the `area_hints` — Memory, Tool use, Orchestration, Evals,
   Reliability, Cost & latency, Safety, Retrieval), `effort` (`low`/`medium`/
   `high`), `published`, `tags`.
+- Use `judge_category` and `judge_score` as a relevance hint when choosing
+  which articles can yield a card; the card's `area` still comes from the
+  agent-engineering takeaway, not from the judge category.
 - Keep `card_count` equal to the number of entries in `cards` — update it
   whenever cards are added or removed.
 - **`apply` is the heart of the card** — it must be something the reader can do,

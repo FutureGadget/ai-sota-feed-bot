@@ -58,4 +58,7 @@ write-up is `docs/status/jev-quality-benchmark-2026-10-24.md`.
 
 The compact judge artifact for editor decks is
 `data/processed/classified.json`: category/verdict counts and the top-scored
-judged items. The full local pool is under `data/quality/classified/`.
+judged items. `pipeline/deck_quality.py` joins it and `judgments.json` into the
+daily, weekly, Playbook, wiki, and Foundations input bundles, attaches the
+judge fields, and filters known drops. The full local pool is under
+`data/quality/classified/`.

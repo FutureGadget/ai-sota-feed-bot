@@ -55,6 +55,7 @@ class StoreTest(unittest.TestCase):
                 "title": "A story",
                 "source": "vllm_blog",
                 "judge_score": 0.8,
+                "judge_verdict": "keep",
                 "judge_judged_at": datetime.now(timezone.utc).isoformat(),
             }
             key = js.judgment_key(item, _cfg())
@@ -65,6 +66,7 @@ class StoreTest(unittest.TestCase):
             entry = js.get_entry(loaded, key, 14)
             self.assertIsNotNone(entry)
             self.assertEqual(entry["judge_score"], 0.8)
+            self.assertEqual(entry["judge_verdict"], "keep")
 
     def test_ttl_expires_entries(self) -> None:
         store = js.load_store(Path("/nonexistent/judgments.json"))

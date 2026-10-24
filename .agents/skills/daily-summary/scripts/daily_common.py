@@ -60,8 +60,30 @@ ROOT = _find_repo_root(Path(__file__).resolve())
 DAILY_DIR = ROOT / "data" / "daily"
 DAILY_INPUT_DIR = DAILY_DIR / "input"
 DAILY_STATE_PATH = DAILY_DIR / "state.json"
-PROCESSED_RUNS_DIR = ROOT / "data" / "processed" / "runs"
-PROCESSED_RUNS_INDEX = ROOT / "data" / "processed" / "runs_index.json"
+PROCESSED_DIR = ROOT / "data" / "processed"
+PROCESSED_RUNS_DIR = PROCESSED_DIR / "runs"
+PROCESSED_RUNS_INDEX = PROCESSED_DIR / "runs_index.json"
+
+_DECK_QUALITY = None
+
+
+def _deck_quality():
+    """Load the shared judge-join helper lazily.
+
+    The index and seed scripts import this module but do not build input
+    bundles, so keep the pipeline import out of module import time.
+    """
+    global _DECK_QUALITY
+    if _DECK_QUALITY is None:
+        import sys
+
+        pipeline_dir = str(ROOT / "pipeline")
+        if pipeline_dir not in sys.path:
+            sys.path.insert(0, pipeline_dir)
+        import deck_quality
+
+        _DECK_QUALITY = deck_quality
+    return _DECK_QUALITY
 
 # Matches a published-recap filename, e.g. ``2026-06-07.json`` (excludes
 # index.json / latest.json so they are never treated as recaps).
@@ -206,10 +228,13 @@ def category_for_type(item_type: str | None) -> str:
     return CATEGORY_LABELS.get(str(item_type or "").lower(), DEFAULT_CATEGORY)
 
 
-def clean_article(item: dict[str, Any]) -> dict[str, Any]:
-    """Project a processed feed item down to the fields the recap needs."""
-    summary = item.get("summary_1line") or item.get("summary") or ""
-    summary = " ".join(str(summary).replace("\n", " ").split())[:400]
+def clean_article(item: dict[str, Any], quality=None) -> dict[str, Any]:
+    """Project a processed feed item down to the fields the recap needs.
+
+    ``quality`` is an optional ``deck_quality.QualityIndex``. When supplied,
+    the missing judge fields are joined from classified.json / judgments.json.
+    """
+    summary, summary_source = _deck_quality().deck_summary(item)
     article = {
         "id": item.get("id") or item.get("url") or item.get("title"),
         "title": str(item.get("title") or "Untitled").strip(),
@@ -220,11 +245,28 @@ def clean_article(item: dict[str, Any]) -> dict[str, Any]:
         "summary": summary,
         "published": item.get("published") or item.get("collected_at"),
     }
+    if summary:
+        article["summary_source"] = summary_source
     for field in ("publisher_name", "publisher_domain"):
         value = " ".join(str(item.get(field) or "").split())
         if value:
             article[field] = value[:200]
+    if quality is not None:
+        quality.annotate(article)
+    article.setdefault("deck_category", article.get("category") or DEFAULT_CATEGORY)
     return article
+
+
+def deck_category_hint(articles: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return _deck_quality().category_hint(articles)
+
+
+def judge_category_hint(articles: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return _deck_quality().judge_category_hint(articles)
+
+
+def deck_quality_summary(articles: list[dict[str, Any]]) -> dict[str, Any]:
+    return _deck_quality().quality_summary(articles)
 
 
 def norm_url(value: Any) -> str:
@@ -267,6 +309,7 @@ def collect_day_articles(
     *,
     require_published_in_window: bool = True,
     exclude_urls: set[str] | None = None,
+    include_dropped: bool = False,
 ) -> list[dict[str, Any]]:
     """Deduped list of unique articles that *happened* in [start, end].
 
@@ -282,11 +325,15 @@ def collect_day_articles(
       published today, not merely still being collected today.
     - ``exclude_urls``: drop any article whose URL already appeared in a
       previously published recap (see :func:`recap_article_urls`).
+
+    Known judge drops are removed unless ``include_dropped`` is set. Release
+    items and release notes are exempt, and unjudged items pass through.
     """
     index = load_json(PROCESSED_RUNS_INDEX, [])
     if not isinstance(index, list):
         return []
 
+    quality = _deck_quality().load_quality_index(PROCESSED_DIR)
     exclude_urls = exclude_urls or set()
     by_key: dict[str, dict[str, Any]] = {}
     for row in index:
@@ -303,7 +350,7 @@ def collect_day_articles(
         for it in items:
             if not isinstance(it, dict):
                 continue
-            cleaned = clean_article(it)
+            cleaned = clean_article(it, quality)
             key = cleaned["url"] or cleaned["id"] or cleaned["title"]
             if not key:
                 continue
@@ -312,6 +359,8 @@ def collect_day_articles(
                 pub = parse_ts(cleaned.get("published"))
                 if pub is None or pub < start or pub > end:
                     continue
+            if not include_dropped and quality.is_dropped(cleaned):
+                continue
             # #2: skip anything already covered by an earlier day's recap.
             if exclude_urls and norm_url(cleaned["url"]) in exclude_urls:
                 continue

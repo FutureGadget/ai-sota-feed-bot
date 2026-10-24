@@ -50,6 +50,7 @@ CONTENT_FIELDS = (
     "type",
     "summary",
     "summary_1line",
+    "content_excerpt",
     "why_it_matters",
     "release_highlights",
     "matched_topics",
@@ -126,10 +127,10 @@ def story_record(sid: str, item: dict, run_at: str) -> dict:
     }
     for field in CONTENT_FIELDS:
         value = item.get(field)
-        if field in ("summary", "summary_1line") and value:
+        if field in ("summary", "summary_1line", "content_excerpt") and value:
             value = strip_html(value)
-        if field == "summary" and value:
-            value = value[:SUMMARY_MAX_CHARS]
+        if field in ("summary", "content_excerpt") and value:
+            value = str(value)[:SUMMARY_MAX_CHARS]
         if field == "why_it_matters" and str(value or "").strip() in GENERIC_WHY:
             value = ""
         if value:

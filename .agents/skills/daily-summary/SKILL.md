@@ -33,6 +33,7 @@ python .agents/skills/daily-summary/scripts/build_daily_input.py
 #                              but still in the feed; OFF by default)
 #   --no-prior-dedup          (don't exclude articles already in an earlier
 #                              day's recap; dedup is ON by default)
+#   --include-dropped         (debugging: keep judge-dropped items)
 ```
 This writes `data/daily/input/latest.json` (and `input/<date>.json`) — the
 day's unique, deduped articles. **This is your reading material.**
@@ -48,6 +49,14 @@ repeats a prior day:
   recap is dropped (`prior_recap_dedup` / `prior_recap_urls` in the bundle).
 
 (Override either with the flags above only if you deliberately want carryover.)
+
+The bundle also joins the Jev classification from
+`data/processed/classified.json` and `data/processed/judgments.json`. Each
+article carries `judge_verdict`, `judge_category`, `judge_score`, and
+`judge_category_confidence` when it was judged. Known `drop` items and
+non-keep `off_topic` items are excluded; release items and release notes are
+exempt, and unjudged items stay. The bundle's `quality` field reports judged
+coverage. Use `--include-dropped` only for debugging.
 
 By default only `news`-type items are bundled (papers/releases are better
 served by the live feed and add little to a daily narrative). The bundle's
@@ -69,9 +78,13 @@ file — the index is keyed by date id, so there is always exactly one per day.)
 ### 3. Write the recap (your editorial work — only an agent can do this)
 Read `data/daily/input/latest.json`. Each entry in `articles[]` has:
 `title`, `url` (original source link), `source`, `type`, `category`,
-`summary`, `published`, plus optional `publisher_name` and `publisher_domain`.
-The bundle also carries `date`, `range_label`,
-`article_count`, and `category_hint` (default per-category counts).
+`summary`, `published`, plus optional `publisher_name`, `publisher_domain`,
+`summary_source` (`content_excerpt` when the judge fetched the page, else
+`summary_1line`/`summary`), and the judge fields when the item was judged:
+`judge_verdict`, `judge_category`, `judge_score`,
+`judge_category_confidence`, and `deck_category`. The bundle also carries
+`date`, `range_label`, `article_count`, `category_hint`,
+`judge_category_hint`, and `quality` (judged coverage and verdict mix).
 
 Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
 ```json
@@ -121,10 +134,11 @@ Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
   summaries, make a scratch grouping by what changed for platform/agent
   engineers, merge weak groups, split any bucket with more than about 5 items,
   then write only the final categories. The scratch grouping is not output.
-- Group thematically into 3–6 categories. The bundle usually lands in one
-  deterministic "Industry News" bucket, so **you** define the reader-facing
-  themes. Prefer precise buckets from this lens when the day's evidence supports
-  them:
+- Group thematically into 3–6 categories. `category_hint` starts from the
+  judge categories when an item was judged and falls back to the type bucket,
+  so use it as the starting structure, then **you** define the reader-facing
+  themes. Prefer precise buckets from this lens when the day's evidence
+  supports them:
   - Agent runtimes, orchestration, memory, tool use, or MCP
   - Evals, observability, reliability, testing, or benchmarks
   - AI infrastructure, inference, chips, cloud, data, or deployment

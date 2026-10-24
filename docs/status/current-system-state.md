@@ -22,7 +22,10 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
   `OPENROUTER_API_KEY`. Prior judgments are reused from
   `data/processed/judgments.json`; only new or expired items call Jev.
   `data/processed/classified.json` is the compact artifact for the editor
-  decks.
+  decks. `pipeline/deck_quality.py` joins it and `judgments.json` into the
+  daily, weekly, Playbook, wiki, and Foundations input bundles, attaches the
+  judge fields, filters known drops, and uses judge categories as the
+  starting `category_hint`.
 - The Tier-1 snapshot and API fresh blend no longer exist. `api/feed.js`,
   `api/rss.js`, and `api/share.js` read `data/processed/**` only.
 - Reader auto-tuning active: `data/feedback/source_adjustments.json`

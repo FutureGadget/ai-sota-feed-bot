@@ -11,7 +11,7 @@ Sources (RSS/sitemap/arXiv/GitHub releases)
       editorial policy -> Jev gate/category -> ranking via pipeline/ranking.py,
       incremental no-delta skip)
    -> data/processed/latest.json       (the feed)
-   -> data/processed/classified.json   (judge verdicts/categories for editor decks)
+   -> data/processed/classified.json   (judge verdicts/categories; joined into the editor-deck input bundles by pipeline/deck_quality.py)
    -> data/digest/YYYY-MM-DD.md
 
 Reader-facing derivatives (built from the durable story store):

@@ -28,8 +28,10 @@ from playbook_common import (
     PLAYBOOK_INPUT_DIR,
     collect_articles,
     date_id,
+    deck_quality_summary,
     edition_card_urls,
     fmt_day,
+    judge_category_hint,
     write_json,
 )
 
@@ -61,6 +63,12 @@ def main() -> None:
         help="Do not exclude articles already cited in an earlier edition "
         "(default: exclude them to avoid cross-edition duplicates).",
     )
+    ap.add_argument(
+        "--include-dropped",
+        action="store_true",
+        help="Keep items the Jev gate marked drop/off-topic (debugging only; "
+        "release items are always exempt).",
+    )
     args = ap.parse_args()
 
     types_raw = args.types.strip().lower()
@@ -82,6 +90,7 @@ def main() -> None:
         end_dt,
         require_published_in_window=not args.keep_carryover,
         exclude_urls=exclude_urls,
+        include_dropped=args.include_dropped,
     )
     if include_types is not None:
         articles = [a for a in articles if a.get("type") in include_types]
@@ -101,6 +110,9 @@ def main() -> None:
         "prior_edition_urls": len(exclude_urls),
         "area_hints": AREAS,
         "article_count": len(articles),
+        "judge_category_hint": judge_category_hint(articles),
+        "quality": deck_quality_summary(articles),
+        "judge_drop_filter": not args.include_dropped,
         "articles": articles,
     }
 
@@ -118,6 +130,7 @@ def main() -> None:
                 "lookback_days": bundle["lookback_days"],
                 "prior_edition_urls": bundle["prior_edition_urls"],
                 "article_count": len(articles),
+                "quality": bundle["quality"],
                 "input_path": f"data/playbook/input/{day}.json",
                 "edition_path": f"data/playbook/{day}.json",
                 "already_published": already_published,
