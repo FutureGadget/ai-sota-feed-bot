@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-23T18:07:07.373135+00:00",
+ "generated_at": "2026-10-24T18:05:07.661915+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,30 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-24-tool-access-not-tool-use",
+   "topic": "tool-use",
+   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+   "kind": "obstacle",
+   "date": "2026-10-24",
+   "title": "An agent that can quote the tool instruction still skips the tool: access is not invocation"
+  },
+  {
+   "id": "2026-10-24-data-agent-kit-skills-vs-iam",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-10-24",
+   "title": "Google's Data Agent Kit splits agent guardrails between skill instructions and IAM"
+  },
+  {
+   "id": "2026-10-24-tensemem-typed-current-state",
+   "topic": "agent-memory",
+   "topic_title": "Agents forget across steps and sessions",
+   "kind": "obstacle",
+   "date": "2026-10-24",
+   "title": "TenseMem lets the model propose typed facts while a deterministic engine decides what is current"
+  },
   {
    "id": "2026-10-23-deep-insight-five-production-challenges",
    "topic": "multi-agent",
@@ -230,30 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-16",
    "title": "Grafana turns agent behaviour into SLOs with error budgets"
-  },
-  {
-   "id": "2026-10-15-bigquery-ai-token-quotas",
-   "topic": "cost-controls",
-   "topic_title": "Cost controls: budgets, metering, and per-task attribution",
-   "kind": "solution",
-   "date": "2026-10-15",
-   "title": "BigQuery caps generative AI SQL functions with four daily token quotas"
-  },
-  {
-   "id": "2026-10-15-delta-tokenizer-session-ttft",
-   "topic": "agent-latency",
-   "topic_title": "Agent loops multiply per-call latency into slow, expensive runs",
-   "kind": "obstacle",
-   "date": "2026-10-15",
-   "title": "Tokenizing only each turn's appended text cuts agent TTFT, the CPU step KV reuse leaves behind"
-  },
-  {
-   "id": "2026-10-15-model-swap-behavior-transfer",
-   "topic": "agent-cost",
-   "topic_title": "Agent token costs are unpredictable and easily run away",
-   "kind": "obstacle",
-   "date": "2026-10-15",
-   "title": "Swapping models mid-session carries over the old model's habits unless history is summarized"
   }
  ],
  "nodes": {
@@ -5253,7 +5253,7 @@
      "key": "memory-integrity",
      "title": "Poisoned, hidden, and sycophantic memory",
      "summary": "Persistent memory is a persistent attack surface; poisoned facts, concealed injections, forged reasoning, and sycophancy all pass through the write path.",
-     "count": 5
+     "count": 6
     },
     {
      "key": "measuring-memory",
@@ -5263,6 +5263,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-24-tensemem-typed-current-state",
+     "topic": "agent-memory",
+     "date": "2026-10-24",
+     "title": "TenseMem lets the model propose typed facts while a deterministic engine decides what is current",
+     "theme": "memory-integrity",
+     "html": "<p>TenseMem is an embedded, open-source memory store in a single SQLite file with no server. The model proposes typed facts; the engine, not the model, resolves which one is current.</p>\n<p>The target failure is similarity search returning both &quot;I live in Delhi&quot; and &quot;I moved to Bangalore&quot; and leaving the model to guess. Resolving supersession in code makes the current-state read deterministic. A rule-based extractor runs without an API key, and OpenAI, Anthropic, Ollama, LiteLLM, and Gemini plug in.</p>\n<p>Early project README, no published benchmark. Treat it as a pattern: keep stale-fact resolution out of the prompt.</p>",
+     "evidence": [
+      {
+       "sid": "83ab5580b21e5403",
+       "title": "Show HN: TenseMem – deterministic memory for AI agents"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-20-databricks-agent-memory-memcurrent",
      "topic": "agent-memory",
@@ -6414,8 +6429,8 @@
      "title": "An open-source memory plugin consolidates by forgetting and synthesizing instead of storing everything"
     }
    ],
-   "entry_count": 68,
-   "latest_entry_date": "2026-10-20",
+   "entry_count": 69,
+   "latest_entry_date": "2026-10-24",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -6429,6 +6444,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "83ab5580b21e5403",
+     "title": "Show HN: TenseMem – deterministic memory for AI agents"
+    },
     {
      "sid": "71440eae5c3aaa1a",
      "title": "Introducing Agent Memory on Databricks"
@@ -6714,7 +6733,7 @@
      "title": "Cloudflare Announces Agent Memory, a Managed Persistent Memory Service for AI Agents"
     }
    ],
-   "updated": "2026-10-20"
+   "updated": "2026-10-24"
   },
   "agent-observability": {
    "slug": "agent-observability",
@@ -12887,7 +12906,7 @@
      "key": "calling-reliability",
      "title": "Making the calling loop reliable",
      "summary": "A standard wire does not make calling behavior reliable; flaky tools, schema-constraint interference, and connection failures are measurable failure modes, and the harness itself is now tuned or trained to fix them.",
-     "count": 6
+     "count": 7
     },
     {
      "key": "guarding-the-call",
@@ -12903,6 +12922,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-24-tool-access-not-tool-use",
+     "topic": "tool-use",
+     "date": "2026-10-24",
+     "title": "An agent that can quote the tool instruction still skips the tool: access is not invocation",
+     "theme": "calling-reliability",
+     "html": "<p>A developer exposed an <code>ask_user</code> MCP tool (speak a question, listen for the answer) to Claude Code. The agent used it in one project and printed the question on screen in the next, same machine, same day, even though it could quote the instruction back word for word.</p>\n<p>This is a single practitioner report, not a controlled study. It shows that registering a tool and instructing its use does not guarantee invocation.</p>\n<p>For builders: log tool-call rates per project or prompt context, and test that a tool is actually called, not just available.</p>",
+     "evidence": [
+      {
+       "sid": "b77efdf87fc0595e",
+       "title": "Giving an agent a tool does not make it use the tool"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-19-skillbrowser-selective-exposure",
      "topic": "tool-use",
@@ -13391,8 +13425,8 @@
      "title": "HashiCorp's Terraform MCP Server reaches general availability"
     }
    ],
-   "entry_count": 23,
-   "latest_entry_date": "2026-10-19",
+   "entry_count": 24,
+   "latest_entry_date": "2026-10-24",
    "solutions": [
     {
      "slug": "mcp",
@@ -13402,6 +13436,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "b77efdf87fc0595e",
+     "title": "Giving an agent a tool does not make it use the tool"
+    },
     {
      "sid": "100331f97937a9e5",
      "title": "SkillBrowser: Selective Skill Exposure for Scalable Skill-Using Agents"
@@ -13499,7 +13537,7 @@
      "title": "AI Agents Don't Need SMS APIs. They Need Infrastructure"
     }
    ],
-   "updated": "2026-10-19"
+   "updated": "2026-10-24"
   },
   "agent-benchmarks": {
    "slug": "agent-benchmarks",
@@ -15215,7 +15253,7 @@
      "key": "permission-policy",
      "title": "Scoping what the agent may do",
      "summary": "Permissions are getting finer and more central, with per-parameter rules, approval-gated writes, IdP-managed connectors, sequence-aware policy, and portable permission specs.",
-     "count": 8
+     "count": 9
     },
     {
      "key": "local-sandboxes",
@@ -15243,6 +15281,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-24-data-agent-kit-skills-vs-iam",
+     "topic": "agent-sandboxing",
+     "date": "2026-10-24",
+     "title": "Google's Data Agent Kit splits agent guardrails between skill instructions and IAM",
+     "theme": "permission-policy",
+     "html": "<p>Google made Data Agent Kit generally available: a free set of MCP tools and 37 open-source skills connecting coding agents to more than fifteen Google Data Cloud services. Per InfoQ, two kinds of guardrail ship with it, split between skills and IAM.</p>\n<p>The split matters because skill text only advises the agent, while IAM is enforced by the platform regardless of what the agent does. Treat IAM roles as the hard boundary and skills as guidance.</p>",
+     "evidence": [
+      {
+       "sid": "3bd1cad5c88eca17",
+       "title": "Google’s Data Agent Kit Hits GA, Splitting Agent Guardrails Between Skills and IAM"
+      }
+     ],
+     "also": [
+      {
+       "slug": "mcp",
+       "title": "Model Context Protocol: a standard interface for agent tools"
+      }
+     ]
+    },
     {
      "id": "2026-10-20-vera-cpu-sandbox-throughput",
      "topic": "agent-sandboxing",
@@ -16132,8 +16190,8 @@
     }
    ],
    "cross_entries": [],
-   "entry_count": 57,
-   "latest_entry_date": "2026-10-20",
+   "entry_count": 58,
+   "latest_entry_date": "2026-10-24",
    "solutions": [],
    "obstacles": [
     {
@@ -16151,6 +16209,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "3bd1cad5c88eca17",
+     "title": "Google’s Data Agent Kit Hits GA, Splitting Agent Guardrails Between Skills and IAM"
+    },
     {
      "sid": "2ccafb2a756f8408",
      "title": "NVIDIA Vera CPUs double throughput for Modal Sandboxes"
@@ -16412,7 +16474,7 @@
      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
     }
    ],
-   "updated": "2026-10-20"
+   "updated": "2026-10-24"
   },
   "agent-tracing": {
    "slug": "agent-tracing",
@@ -18703,6 +18765,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-10-24-data-agent-kit-skills-vs-iam",
+     "topic": "agent-sandboxing",
+     "topic_title": "Sandboxing, scoped credentials, and guardrails",
+     "date": "2026-10-24",
+     "title": "Google's Data Agent Kit splits agent guardrails between skill instructions and IAM"
+    },
     {
      "id": "2026-10-12-protocol-pivoting-mcp-a2a",
      "topic": "prompt-injection",

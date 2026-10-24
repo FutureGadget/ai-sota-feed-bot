@@ -16,13 +16,13 @@ Schema: `config/wiki_schema.md`.
   - theme `consistency-and-autonomy` — Consistency, autonomy limits, and the human role (6)
 
 ### memory
-- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (68 entries, updated 2026-10-20)
+- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (69 entries, updated 2026-10-24)
   → solutions: context-compaction, vector-kb
   - theme `architectures` — Tiered and lifecycle memory architectures (13)
   - theme `local-first-stores` — Build vs. buy: managed services and developer-owned stores (16)
   - theme `shared-memory` — Sharing memory across agents, isolating it between users (10)
   - theme `recall-and-curation` — What to write, when to revoke, how to recall (16)
-  - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (5)
+  - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (6)
   - theme `measuring-memory` — Benchmarks and leaderboards for memory (8)
 
 ### planning
@@ -35,11 +35,11 @@ Schema: `config/wiki_schema.md`.
   - theme `measuring-planning` — Benchmarks for loops and long-horizon procedures (4)
 
 ### tool-use
-- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (23 entries, updated 2026-10-19)
+- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (24 entries, updated 2026-10-24)
   → solutions: mcp
   - theme `agent-native-surfaces` — Exposing existing systems as agent-callable tools (4)
   - theme `discovery-and-definitions` — Tool discovery and definition quality at scale (5)
-  - theme `calling-reliability` — Making the calling loop reliable (6)
+  - theme `calling-reliability` — Making the calling loop reliable (7)
   - theme `guarding-the-call` — Checking and governing tool calls before they run (4)
   - theme `production-runtimes` — Running tool-calling agents in production (4)
 
@@ -142,9 +142,9 @@ Schema: `config/wiki_schema.md`.
   - theme `orchestrator-tooling` — Open-source orchestrators and multi-model routers (7)
   - theme `runtime-substrate` — The durable runtime underneath the agents (4)
   - theme `harness-choice` — Choosing a harness: frameworks, managed runtimes, portability (5)
-- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (57 entries, updated 2026-10-20)
+- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (58 entries, updated 2026-10-24)
   - theme `credential-boundary` — Keeping secrets and authority out of the sandbox (7)
-  - theme `permission-policy` — Scoping what the agent may do (8)
+  - theme `permission-policy` — Scoping what the agent may do (9)
   - theme `local-sandboxes` — Local sandboxes and tool-call supervisors (9)
   - theme `managed-platforms` — Managed and self-hosted sandbox platforms (12)
   - theme `egress-and-escapes` — Real escapes: egress, allowlists, and harness bugs (12)
