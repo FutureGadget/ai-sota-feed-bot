@@ -1,9 +1,9 @@
 # Agent quality judge for the feed.
 #
-# Disabled by default. The benchmark runner can still be used with the
-# `fixture` and `heuristic` providers, and the production pipeline falls back
-# to the deterministic editorial policy when this is disabled or a key is
-# missing.
+# Enabled in the edition builder, but fail-open: a missing key, timeout, or
+# malformed response leaves items unjudged and the deterministic editorial
+# policy + ranking continue. The benchmark runner can still use the fixture
+# and heuristic providers without a key.
 #
 # The default OpenRouter path uses the System One API. The optional direct
 # `jev` path follows the structured decision-model example in Hamel Husain's
