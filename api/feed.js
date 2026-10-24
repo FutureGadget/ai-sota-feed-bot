@@ -6,7 +6,7 @@ import {
   applyEditorialCaps,
   collapseStoryClusters,
   readEditorial,
-} from './lib/editorial.js';
+} from '../lib/editorial.js';
 
 function readJsonSafe(p, fallback) {
   try {

@@ -5,7 +5,7 @@ import {
   applyEditorialCaps,
   collapseStoryClusters,
   readEditorial,
-} from './lib/editorial.js';
+} from '../lib/editorial.js';
 
 function esc(s = '') {
   return String(s)
