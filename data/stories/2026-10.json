@@ -3198,6 +3198,23 @@
   "url": "http://arxiv.org/abs/2610.30947v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "3465094e528d71ac": {
+  "first_seen": "2026-10-24T21:04:52.371806+00:00",
+  "id": "4aa26afbfecca83e",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-22T04:23:07+00:00",
+  "sid": "3465094e528d71ac",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Text embedding and text generation are two of the most useful capabilities of modern large language models, yet they are typically provided by separate specialized models (an embedder and a generator) trained with incompatible objectives and deployed side by side in retrieval-augmented generation and agent systems. Recent unified embedding-generation models such as GritLM share parameters between the two capabilities, but they either switch attention regimes between modes or optimize embedding and language modeling as parallel objectives that never supervise each other. We argue that these designs are only partially unified: the two capabilities coexist on the same weights, but do not shape each other. We propose ULME, a post-training framework that unifies embedding and language modeling on a causal decoder-only LLM through predictive coupling. ULME inserts a chain of learnable slots between the query and the answer, reads a semantic embedding and a reasoning embedding from two designated slots, and trains three objectives on a shared causal backbone: a contrastive loss anchoring the semantic slot to document representations, a language-modeling loss supervising answer generation, and a stop-gradient predictive loss that aligns the reasoning slot with a pooled summary of the answer, so that generation actively shapes what the embedding encodes. Across two model families (Qwen2.5, Qwen3) and eight scales spanning 0.5B-8B parameters, a single ULME checkpoint improves MTEB by 3",
+  "summary_1line": "Text embedding and text generation are two of the most useful capabilities of modern large language models, yet they are typically provided by separate specialized models (an embedder and a generator) trained with inc...",
+  "title": "ULME: Predictive Coupling for Mutually Reinforcing Embedding and Language Modeling",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.30705v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "346a736923aff845": {
   "first_seen": "2026-10-19T02:04:44.409254+00:00",
   "id": "f5c07d9f4aea1499",
@@ -5039,6 +5056,7 @@
   "url": "https://aws.amazon.com/blogs/machine-learning/developers-can-now-access-sagemaker-studio-through-the-new-aws-experience"
  },
  "50cb4eba8a3e4759": {
+  "content_excerpt": "MiniMax-M3.1-Flash is the latest model in the MiniMax-M3 family, with improvements across reasoning, coding, agentic, and visual tasks. It is also built for inference efficiency, with a native NVFP4 KV cache, NVFP4-quantized MoE weights, and a DSpark draft model for speculative decoding. vLLM supports MiniMax-M3.1-Flash on day 0 on NVIDIA Blackwell GPUs, on NVIDIA Rubin GPUs with dedicated Rubin kernels, and on AMD MI350-series GPUs, with strong performance on agentic workloads. Note that the model will only be available in the nightly PyPI wheel after the code is reviewed and merged upstream, which usually takes about a week. Full recipes are at vLLM Recipes , and the checkpoint is at MiniMaxAI/MiniMax-M3.1-Flash . The MiniMax-M3 model family replaces full attention with a variant of block-sparse attention ( arXiv 2606.13392 ) to make inference more efficient. The KV cache is split into blocks of 128 tokens. A lightweight indexer scores every key in the context with one index query per GQA group against a single shared index-key head, then max-pools those scores into one score per block. Main attention then runs exactly, but only over the top 16 blocks, and the most recent block is always kept. That caps each query at 2,048 keys, however long the context is. The payoff is largest in decode, which is limited by memory bandwidth. Each step still scans the index keys for the whole context, but that is only 128 bytes per token per layer, an eighth of the 1,024 bytes of K/V that ",
   "first_seen": "2026-10-23T02:04:47.073035+00:00",
   "id": "fd6e397728491273",
   "matched_topics": [
@@ -6569,6 +6587,22 @@
   "title": "DeepSeek Went Down for 5 Hours. The Silence Afterward Is the Real Story.",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPeHJhZlJ4bFJmdllpS2NTclBIOFpQU1hnTjktdlNHUElOUGRFbHJoVDBKbEVMRmgza01wMFRTcmxaXzVtVEprTzlhRVlBR0Myb0tTWGNmUGhFdWhIWmlhVzBfS1FESzFteWxpblJvanFtLXB2SnFmUU9lSzdWQWkzUHZZams0NVdBS2FoZG81M1l1WW02d05OQw?oc=5"
+ },
+ "68e34ec5f3668bc2": {
+  "first_seen": "2026-10-24T21:04:52.371806+00:00",
+  "id": "bd8181005fb9a344",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-22T05:14:30+00:00",
+  "sid": "68e34ec5f3668bc2",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Guardrail models are increasingly used as safety layers for LLMs and agentic systems, but most are trained on fixed prompt or response interfaces and become unreliable when the same safety case appears as a conversation, agent trajectory, multi-agent trace, or policy-conditioned input. We propose UniGuard, a training framework that learns interface-invariant safety representations from multiple semantically aligned views of the same safety case. We also construct the UniGuard-FT dataset by transforming 1,000 public safety cases into prompt, response, multi-turn conversation, agent-trace, and multi-agent-trace views, and train UniGuard-0.6B with classification, supervised contrastive learning, and asymmetric confidence calibration losses. Across unseen-interface benchmarks ATBench, PolicyGuardBench, and DynaBench, UniGuard-0.6B improves over its pretrained guardrail by 45.12 F1 points on average and reduces expected calibration error by 35.41 points, while remaining competitive with much larger guardrails such as Claude-Sonnet-4.5 and GPT-5.2 - despite being a 0.6B model and trained only with synthetic data.",
+  "summary_1line": "Guardrail models are increasingly used as safety layers for LLMs and agentic systems, but most are trained on fixed prompt or response interfaces and become unreliable when the same safety case appears as a conversati...",
+  "title": "UniGuard: Multi-View Guardrail Learning for Cross-Interface Safety Generalization",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.30742v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "6919af4d049d23b6": {
   "first_seen": "2026-10-12T04:04:24.804323+00:00",
@@ -8663,6 +8697,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.21561v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "8debe4581e047c88": {
+  "first_seen": "2026-10-24T21:04:52.371806+00:00",
+  "id": "57c029f9f27ec544",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-22T03:42:07+00:00",
+  "sid": "8debe4581e047c88",
+  "source": "arxiv_llm_reliability",
+  "summary": "Singular-value spectra encode important structure in transformer feed-forward projections, yet their causal role in downstream behavior remains underexplored. We study post-hoc spectral smoothing and spiking interventions on the up_proj and down_proj matrices. Positive perturbation stretches deviations from the geometric mean, making large singular values larger and small ones smaller (spiking), and vice versa. The intervention preserves singular vectors and the geometric mean of the singular values. Across five open Llama and Qwen instruction models, we evaluate the perturbed systems on capability-labeled subtasks, standard and chain-of-thought reasoning benchmarks, judge-scored truthfulness, hallucination, and safety tasks, and TRAIT personality probes. To interpret score shifts, we fit responses in a three-dimensional capability basis consisting of factual knowledge, language understanding, and deductive reasoning. The induced changes suggest structured rather than purely random sensitivity: large positive perturbations more reliably suppress language and deductive responses, moderate negative perturbations can sometimes improve factual or task-local performance on the evaluated grids, and sensitivity varies strongly by model family, benchmark module, and underlying layerwise spectral inequality. These results position spectral perturbation as a lightweight intervention for probing how capabilities are organized and traded off in large language models.",
+  "summary_1line": "Singular-value spectra encode important structure in transformer feed-forward projections, yet their causal role in downstream behavior remains underexplored. We study post-hoc spectral smoothing and spiking intervent...",
+  "title": "Spectral Smoothing and Spiking Perturbations Reconfigure Capability Profiles and Selective Task Performance in Large Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.30676v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "8df7a66911b2453d": {
   "first_seen": "2026-10-08T12:03:43.814224+00:00",
@@ -12283,6 +12333,22 @@
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.172",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "bf1f3db76277f950": {
+  "content_excerpt": "Blog authors: Nirav Mehta, VP Product Management; Michael Bachman, VP/GM; Kevin Hutchins, VP Product Management Scaling Gemini to planet scale taught us firsthand that securely running autonomous agents is fundamentally an infrastructure challenge. The shift from single-turn prompting to interactive agents requires a new paradigm of execution and control. To support massive concurrent agent sessions, we engineered new compute and governance solutions for Gemini to help solve these challenges. Today at AGNTCon + MCPCon, we are delivering these capabilities to customers by launching Agent Compute Engine , a purpose-built compute service that already powers Gemini as an agent for work tasks. It will be available in preview in the coming months, providing hardware-isolated runtime sandbox security. Additionally, we are extending Gemini for business’ agent governance capabilities to support agents wherever they operate. Together, these capabilities deliver the control you need to run, govern, and scale your agents. Agent Compute Engine arose from the need to handle Google’s massive agentic workloads that write and execute code, run tools, drive browsers, orchestrate enterprise workflows, and iterate rapidly and at scale. While traditional compute primitives are excellent for standard workloads, they weren't optimized for the unique, highly iterative nature of AI agents. Purpose-built for agents, Agent Compute Engine gives every Gemini agent its own high-performance, secure compute",
+  "first_seen": "2026-10-24T21:04:52.371806+00:00",
+  "id": "9e217c22924579e4",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-24T20:44:53+00:00",
+  "sid": "bf1f3db76277f950",
+  "source": "hackernews_ai",
+  "summary_1line": "Agent Compute Engine and expanded agent governance",
+  "title": "Agent Compute Engine and expanded agent governance",
+  "type": "news",
+  "url": "https://cloud.google.com/blog/topics/ai-infrastructure/introducing-agent-compute-engine-and-expanded-agent-governance",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "bf81afe67e91dc56": {
   "first_seen": "2026-10-23T03:04:55.706580+00:00",
   "id": "6ffa6d5855a1956d",
@@ -13905,6 +13971,22 @@
   "url": "https://github.com/amorey/agent-zero",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "d6f01e8c0c3902ae": {
+  "first_seen": "2026-10-24T21:04:52.371806+00:00",
+  "id": "773e449037991e39",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-22T16:57:01+00:00",
+  "sid": "d6f01e8c0c3902ae",
+  "source": "arxiv_cs_ai",
+  "summary": "Industrial organizations hold operational knowledge in structured records, such as telemetry, point lists, and transactions, and in unstructured sources, such as manuals, service notes, communications, and inspection reports. Governance programs often manage these sources separately. Classifying, linking, and documenting them depends on a small group of employees with deep domain knowledge. Agents built on large language models can propose metadata, cite documents, and flag quality issues, but unreviewed proposals can spread errors into downstream systems. A perfunctory approval leaves no record of what a reviewer checked. We present contestable governance: specialist agents produce scored, cited arguments for disputed metadata decisions; a steward can accept, reject, modify, or add arguments before commit; and a governance record retains the evidence, interventions, and outcome. A versioned domain glossary supplies model-specific terms and acronym definitions to the agents. We describe the workflow, a triage path that reserves full argumentation for uncertain proposals while preserving review before commit, the scoring and record models, and a gate that controls which verified decisions become precedent. Two HVAC use cases illustrate the pattern: point classification using Brick Schema class labels, supported by an open reference implementation, and an illustrative warranty failure-mode decision linking claim fields and telemetry to service notes and revisioned bulletins.",
+  "summary_1line": "Industrial organizations hold operational knowledge in structured records, such as telemetry, point lists, and transactions, and in unstructured sources, such as manuals, service notes, communications, and inspection...",
+  "title": "Contestable Agents for Data Governance: Recording Human Stewardship of AI-Generated Metadata Across Structured and Unstructured Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31553v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "d771557f3f2a708f": {
   "first_seen": "2026-10-16T12:04:29.554112+00:00",
   "id": "556bb7905e7713ed",
@@ -14868,6 +14950,22 @@
   "type": "news",
   "url": "https://openstocks.com",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "e4af72af9466309d": {
+  "first_seen": "2026-10-24T21:04:52.371806+00:00",
+  "id": "b5a0937dcc965a94",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-22T14:08:59+00:00",
+  "sid": "e4af72af9466309d",
+  "source": "arxiv_cs_cl",
+  "summary": "Most automated survey generation systems retrieve papers as flat documents, limiting their ability to capture research structure. We present SurveyGraph, a framework built around a Methods-Entity Knowledge Graph (MEKG) encoding method-level follow-on, competition, and shared-resource relations. The graph supports core-paper discovery, retrieval, hybrid outlining, and evidence-gated narrative synthesis. We evaluate retrieval, semantic edges, citation grounding, collection coverage, and generation-stage components. In a controlled seven-method equal-budget benchmark, MEKG-anchored fusion balances recall and structural density, with an independent co-citation check. In a separate archived graph-native diagnostic, graph-aware retrieval nearly doubles recall over flat lexical baselines across eight runs (p = 0.004). A semantic evidence gate achieves AUC = 0.75. Audits of 160 generated sentences find 80.6% anchored-or-partial citation support. Human adjudication of 108 stratified semantic edges finds 68.5% supported-or-partial relations (binary-support Cohen's kappa = 0.64), with improves strongest (80.6%) and extends weakest (52.8%). A SurveyBench-facing collection probe reaches mean reference coverage of 0.521 across four topics with an eight-paper budget. Same-backend Qwen diagnostics on a 30-paper/74-relation graph show reduced organization signals when hybrid outlining is removed. Concurrent-system comparisons provide bounded context rather than matched-backend end-to-end evid",
+  "summary_1line": "Most automated survey generation systems retrieve papers as flat documents, limiting their ability to capture research structure. We present SurveyGraph, a framework built around a Methods-Entity Knowledge Graph (MEKG...",
+  "title": "SurveyGraph: Generating Academic Surveys via Methods-Entity Knowledge Graphs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31317v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "e4d565b5981eca16": {
   "first_seen": "2026-10-24T12:04:15.714962+00:00",
