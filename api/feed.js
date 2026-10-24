@@ -782,11 +782,12 @@ export async function GET(request) {
     if (!runs.length) {
       const allItems = readLatest().map((it) =>
         withReaderAdjustment({ ...it, first_seen: null, last_seen: null, seen_count: 1, labels: labelsFromItem(it) }, readerTuning));
+      const windowItems = filterItemsByPublishWindow(allItems, from, to);
       const editorialItems = editorial
-        ? collapseStoryClusters(applyEditorialCaps(allItems, editorial), editorial)
-        : allItems;
+        ? collapseStoryClusters(applyEditorialCaps(windowItems, editorial), editorial)
+        : windowItems;
       const availableLabels = summarizeLabels(editorialItems);
-      const winPool = filterItemsByPublishWindow(editorialItems, from, to);
+      const winPool = editorialItems;
       const filteredBase = applyLabelFilter(winPool, selectedLabels);
       const totalItems = filteredBase.length;
       const body = {
@@ -847,18 +848,19 @@ export async function GET(request) {
         })
       : { items: baseItems, added: 0 };
 
+    // Apply the publish window before the editorial caps. Otherwise an old
+    // story that is still in the accumulated pool can consume a source slot
+    // that belongs to a fresh story in the requested window.
+    const windowItems = filterItemsByPublishWindow(merged.items, from, to);
     const editorialItems = editorial
-      ? collapseStoryClusters(applyEditorialCaps(merged.items, editorial), editorial)
-      : merged.items;
+      ? collapseStoryClusters(applyEditorialCaps(windowItems, editorial), editorial)
+      : windowItems;
     const mergedWithLabels = editorialItems.map((it) =>
       withReaderAdjustment({ ...it, labels: labelsFromItem(it) }, readerTuning));
     const availableLabels = summarizeLabels(mergedWithLabels);
-    // Same publish window the list shows, but label-agnostic: this is what
-    // the per-section tab counts report ("what would each tab hold?"),
-    // independent of the labels this particular request selected.
-    const winPool = filterItemsByPublishWindow(mergedWithLabels, from, to);
-    const labelFiltered = applyLabelFilter(mergedWithLabels, selectedLabels);
-    const filteredMerged = filterItemsByPublishWindow(labelFiltered, from, to);
+    // Label-agnostic window pool for the per-section tab counts.
+    const winPool = mergedWithLabels;
+    const filteredMerged = applyLabelFilter(mergedWithLabels, selectedLabels);
     const totalItems = filteredMerged.length;
 
     const body = {

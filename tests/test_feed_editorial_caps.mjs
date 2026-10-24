@@ -114,6 +114,32 @@ test('latest feed collapses items that share a pipeline story_key', async (t) =>
   );
 });
 
+test('caps are applied inside the requested window, not to the whole archive', async (t) => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'feed-editorial-window-'));
+  const oldCwd = process.cwd();
+  t.after(() => {
+    process.chdir(oldCwd);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  });
+  writeLatest(tmp, [
+    item({ id: 'old', url: 'https://example.com/old-search', title: 'Old search story', source: 'search_cn_open_weight_labs', published: '2026-10-20T09:00:00Z' }),
+    item({ id: 'fresh', url: 'https://example.com/fresh-search', title: 'Fresh search story', source: 'search_cn_open_weight_labs', published: '2026-10-24T09:00:00Z' }),
+    item({ id: 'p1', url: 'https://example.com/practitioner', title: 'Practitioner analysis', source: 'simon_willison', published: '2026-10-24T08:00:00Z' }),
+  ]);
+  process.chdir(tmp);
+
+  const res = await invoke({
+    from: '2026-10-24T00:00:00Z',
+    to: '2026-10-24T23:59:59.999Z',
+    limit: '20',
+    label: 'brief',
+  });
+  assert.equal(res.statusCode, 200);
+  assert.equal(res.body.items.filter((it) => it.source === 'search_cn_open_weight_labs').length, 1);
+  assert.equal(res.body.items.find((it) => it.source === 'search_cn_open_weight_labs').id, 'fresh');
+  assert.equal(res.body.items.length, 2);
+});
+
 test('editorial.json source roles are honored by the API', async (t) => {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'feed-editorial-artifact-'));
   const oldCwd = process.cwd();
