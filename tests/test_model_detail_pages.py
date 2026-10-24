@@ -90,25 +90,23 @@ class ModelScaleFormattingTest(unittest.TestCase):
         self.assertEqual(render.fmt_fraction_pct(0.543), "54.3%")
         self.assertEqual(render.fmt_fraction_pct(None), "-")
 
-    def test_scores_section_formats_index_and_fraction_metrics_on_their_own_scale(self) -> None:
+    def test_scores_section_renders_blended_indices_only(self) -> None:
+        # Raw AA per-benchmark scores are no longer rendered on detail pages:
+        # the v2 Free endpoint carries none, so a stray `benchmarks` dict must
+        # never reappear as a row (2026-10-24 cleanup - see the decision log).
         primary = _row(
             aa_coding_index=76.5,
             aa_intelligence_index=61.5,
             benchmarks={"scicode": 0.543, "terminalbench_v2_1": 0.876},
-            frontier={
-                "aa_coding_index": {
-                    "cost_field": "price_blended_per_1m", "cost_basis": "per_token_price_proxy",
-                    "on_frontier": True, "dominated_by": [],
-                },
-            },
         )
         html = render.model_scores_section(primary)
         self.assertIn("76.5", html)  # aa_coding_index, index scale, not "7650.0%"
         self.assertIn("61.5", html)  # aa_intelligence_index
-        self.assertIn("54.3%", html)  # scicode 0.543 -> fraction scale
-        self.assertIn("87.6%", html)  # terminalbench_v2_1 0.876 -> fraction scale
         self.assertNotIn("7650.0%", html)
         self.assertNotIn("6150.0%", html)
+        self.assertNotIn("54.3%", html)
+        self.assertNotIn("87.6%", html)
+        self.assertNotIn("SciCode", html)
 
     def test_price_formatting_strips_trailing_zero_cents_at_or_above_ten(self) -> None:
         self.assertEqual(render.fmt_model_price(10.0), "$10/1M")
@@ -288,6 +286,13 @@ class ModelAttributionTest(unittest.TestCase):
         self.assertIn("Custom AA Label", html)
         self.assertIn("https://custom.example/lm", html)
         self.assertIn("https://custom.example/aa", html)
+
+    def test_aa_attribution_needs_a_rendered_metric(self) -> None:
+        # A `benchmarks` dict alone no longer proves an AA score is SHOWN - the
+        # detail page stopped rendering raw AA benchmarks (2026-10-24).
+        primary = _row(benchmarks={"scicode": 0.543})
+        html = render.model_sources_section(self.SOURCES, [primary])
+        self.assertEqual(html, "")
 
     def test_lmarena_attribution_omitted_when_no_elo_data_shown(self) -> None:
         primary = _row(aa_coding_index=76.5)  # no arena_elo_* fields

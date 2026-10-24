@@ -425,24 +425,22 @@ collect`; config in `config/models.yaml`.
   that tier every row's `benchmarks` is `{}` (2026-10-06). SCALE
   WARNING: every value in `benchmarks` is a 0-1 fraction, a completely
   different scale from the ~0-100 `aa_intelligence_index`/`aa_coding_index`
-  composites - `web/models.html` rescales its chart axis per the active
-  metric's own domain rather than assuming either scale (see
-  `config/models.yaml`'s `axis_metric_options` below and the 2026-08-16
-  decision-log entry).
+  composites. No surface renders the dict today: the model detail page's
+  Artificial Analysis table lists only the two blended composites (raw
+  per-benchmark rows were removed 2026-10-24 after the v2 Free migration
+  left them permanently empty), and `/models` has no chart. The collection
+  path stays in place as the slot a higher tier would populate.
   `axis_metric_options` (added 2026-08-16, top-level array alongside
-  `models`, not per-row) is the config-driven list of capability metrics
-  `web/models.html`'s chart Y-axis toggle offers - `config/models.yaml`'s
+  `models`, not per-row) is the config-driven list of capability metrics a
+  chart Y-axis toggle once offered - `config/models.yaml`'s
   `axis_metric_options`, emitted verbatim by `build_output`. Each entry is
   `{key, label, source, scale}`: `source` is `"top"` for the default
   `aa_coding_index` field or `"benchmarks"` for a key read from a model row's
-  `benchmarks` dict; `scale` is `"index"` (~0-100) or `"fraction"` (0-1) and
-  drives axis-tick/tooltip formatting. The page only actually offers a
-  benchmark-sourced entry once it clears `web/models.html`'s
-  `MIN_METRIC_COVERAGE` gate computed from the live data (a benchmark almost
-  nothing reports is hidden, never shown as a misleadingly sparse chart) -
-  it falls back to a small hardcoded mirror of the same list
-  (`DEFAULT_AXIS_METRIC_OPTIONS`) only for an older cached artifact written
-  before this field existed.
+  `benchmarks` dict; `scale` is `"index"` (~0-100) or `"fraction"` (0-1).
+  No page reads it today: the `/models` ranked list has no chart, and the
+  model detail page's chart is fixed to DeepSWE pass@1 vs. measured cost per
+  task (`frontier_metrics`). It remains in the artifact so a future
+  benchmark-backed capability selector would not need a schema change.
   `display_name` (added 2026-08-06) is the clean, human-readable BASE model
   name for presentation only - the row's `name` field is whichever source's
   raw string a collapsed row's representative happened to come from (an

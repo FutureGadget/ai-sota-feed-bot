@@ -4733,29 +4733,20 @@ def render_foundations_page(base_url: str, foundations: dict) -> bool:
 MODELS_DIR = ROOT / "data" / "models"
 
 # Labels for the two blended composites (~0-100 "index" scale) Artificial
-# Analysis publishes. Distinct from BENCHMARK_LABELS below, which covers the
-# raw 0-1 "fraction" scale benchmarks nested under a model's `benchmarks`
-# dict - see pipeline/collect_models.py's SCALE WARNING.
+# Analysis publishes. BENCHMARK_LABELS below covers metrics on the raw 0-1
+# "fraction" scale. It is a one-entry map today because Artificial Analysis's
+# v2 Free endpoint - the only AA source the collector reads - carries no
+# per-benchmark scores, so a model's `benchmarks` dict is always empty and no
+# surface renders one (2026-10-24 cleanup; the legacy endpoint that still
+# served them retires 2026-11-04 and was deliberately not dual-sourced). A
+# future benchmark-sourced frontier metric still labels itself through
+# `benchmark_label`'s titlecased fallback without an entry here.
 INDEX_METRIC_LABELS = {
     "aa_intelligence_index": "AA intelligence index",
     "aa_coding_index": "AA coding index",
 }
 BENCHMARK_LABELS = {
     "deepswe_pass_at_1": "DeepSWE pass@1 (agentic coding)",
-    "terminalbench_v2_1": "Terminal-Bench 2.1 (agentic)",
-    "terminalbench_hard": "Terminal-Bench (hard)",
-    "tau2": "Tau2 (tool use)",
-    "tau_banking": "Tau2 (banking)",
-    "livecodebench": "LiveCodeBench (coding)",
-    "scicode": "SciCode (coding)",
-    "mmlu_pro": "MMLU-Pro (knowledge)",
-    "gpqa": "GPQA Diamond (science)",
-    "hle": "Humanity's Last Exam",
-    "aime": "AIME (math)",
-    "aime_25": "AIME 2025 (math)",
-    "math_500": "MATH-500 (math)",
-    "ifbench": "IFBench (instruction following)",
-    "lcr": "LCR",
 }
 VARIANT_LABEL_TEXT = {
     "low": "Low effort",
@@ -5267,15 +5258,20 @@ def model_deepswe_cost_table(primary: dict) -> str:
 
 
 def model_scores_section(primary: dict) -> str:
-    """Separate measured DeepSWE task costs from AA capability scores."""
+    """Measured DeepSWE task costs plus the two AA blended composites.
+
+    Raw per-benchmark AA scores are deliberately NOT rendered. The v2 Free
+    endpoint `pipeline/collect_models.py` reads omits them, so every row's
+    `benchmarks` is `{}` and the row loop that used to read it could only ever
+    add nothing. The legacy endpoint that still returns them retires
+    2026-11-04 and was rejected as a bridge; if a tier that carries them is
+    ever wired in, re-add the rows here next to `extract_aa_benchmarks`.
+    """
     aa_rows: list[tuple[str, str]] = []
     for key in ("aa_intelligence_index", "aa_coding_index"):
         value = primary.get(key)
         if value is not None:
             aa_rows.append((benchmark_label(key), fmt_index_value(value)))
-    benchmarks = primary.get("benchmarks") or {}
-    for key in sorted(benchmarks.keys()):
-        aa_rows.append((benchmark_label(key), fmt_fraction_pct(benchmarks.get(key))))
 
     if aa_rows:
         aa_body = "".join(
@@ -5391,7 +5387,6 @@ def model_sources_section(sources: dict, group: list[dict]) -> str:
     has_aa = any(
         m.get("aa_intelligence_index") is not None
         or m.get("aa_coding_index") is not None
-        or (m.get("benchmarks") or {})
         for m in group
     )
     has_elo = any(m.get("arena_elo_coding") is not None or m.get("arena_elo_overall") is not None for m in group)

@@ -143,9 +143,13 @@ into a per-row `benchmarks` dict, omitting any AA reports as null for that
 model rather than zero-filling or inventing a value - a model AA has no
 benchmark data for at all gets `benchmarks: {}`. SCALE WARNING: these raw
 benchmarks are 0-1 fractions, a different scale from the ~0-100 blended
-indices - see `config/models.yaml` for the full rationale. This is purely
-additive: `aa_intelligence_index`/`aa_coding_index` are unchanged and remain
-the fields the page and sidebar already consume.
+indices - see `config/models.yaml` for the full rationale. No surface renders
+the dict today: the v2 Free endpoint reports every benchmark as null (so every
+row gets `{}`) and the detail page shows only the two blended composites
+(2026-10-24). The collection path stays in place as the slot a higher tier
+would populate. This is purely additive:
+`aa_intelligence_index`/`aa_coding_index` are unchanged and remain the fields
+the page and sidebar already consume.
 
 url_slug: the stable, human-readable, URL-safe identifier a later step's
 `/models/<slug>` detail page reads and `api/models.js`'s `?slug=` lookup
@@ -194,19 +198,20 @@ cost of running a task depends on how many tokens and steps a model actually
 spends, not just its per-token rate (proof from live DeepSWE data,
 2026-08-16: claude-opus-5 costs $11.84/task at "max" reasoning effort and
 $3.29/task at "medium", yet both price identically at $10/1M tokens - a
-per-token axis cannot see that difference at all). A frontier is therefore
-only ever computed for a metric whose `cost_basis` is a genuine MEASURED
-per-task cost (`cost_basis: "measured_per_task"`) - today that is exactly
-one entry, `deepswe_pass_at_1` paired with `deepswe_cost_per_task_usd` (see
-the "DeepSWE" section below). Every AA-scored metric (`aa_intelligence_index`,
-`aa_coding_index`, the raw benchmarks) previously carried a
-`cost_basis: "per_token_price_proxy"` frontier entry paired against
-`price_blended_per_1m`; those entries are gone from `config/models.yaml`
-entirely (2026-08-17), not merely relabeled - a benchmark with no measured
-per-task cost source no longer gets an "on/behind frontier" claim, even
-though its score still displays everywhere it always has (the ranked list
-still ranks by AA intelligence index by default, the scores table still
-shows every AA benchmark). The `cost_basis` machinery itself is unchanged
+per-token axis cannot see that difference at all). A frontier is only ever
+computed for a metric that has a paired cost field, and only a genuine
+MEASURED per-task cost (`cost_basis: "measured_per_task"`) supports a
+task-cost claim - a per-token price stays explicitly labeled as a proxy.
+Today `config/models.yaml` carries the two AA indices under
+`per_token_price_proxy` (the token-efficiency frontier) plus exactly one
+measured pairing, `deepswe_pass_at_1` with `deepswe_cost_per_task_usd` (see
+the "DeepSWE" section below). The per-token entries were removed on
+2026-08-17 and re-added on 2026-09-24; a benchmark with no measured per-task
+cost source never gets a `measured_per_task` claim, even though its score
+still displays everywhere it always has (the ranked list still ranks by AA
+intelligence index by default, and the detail page shows both blended
+composites - raw per-benchmark rows were dropped 2026-10-24). The
+`cost_basis` machinery itself is unchanged
 and stays config-driven for exactly this reason: a future benchmark that
 gains a real per-task cost source lights up here automatically with a
 `config/models.yaml` change, never a code change - see `compute_frontier`.
