@@ -3713,6 +3713,23 @@
   "url": "https://www.infoq.com/news/2026/10/aws-strands-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "3db8654814ed91dc": {
+  "first_seen": "2026-10-24T18:03:21.747668+00:00",
+  "id": "d4154286af213bb5",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-22T14:41:36+00:00",
+  "sid": "3db8654814ed91dc",
+  "source": "arxiv_cs_cl",
+  "summary": "Many LLM agents maintain external persistent memory and derive additional state from past interactions, such as summaries. Deleting an original memory record therefore need not remove information carried by its descendants. We introduce AfterDeleteBench, a controlled behavioral audit for this failure mode in fixed-weight LLM agents. For each synthetic secret, we compare an exposed-then-deleted agent with an otherwise matched agent that was never exposed to the secret, allowing post-deletion recovery to be attributed to the original exposure. In our primary setting, a single query recovers the deleted secret from Qwen2.5-7B-Instruct in roughly two thirds of cases, while matched never-exposed controls have zero recovery. Crucially, recovery does not require a surviving verbatim copy: when the complete secret string is absent and only separately stored components remain under a public composition rule, exact reconstruction succeeds in 62-99% of cases across Qwen, Mistral, and Phi-3. We also show that the response interface is part of the measurement system: target-bearing replies can be scored as failures when the requested format and parser are misaligned. Finally, we separate reconstruction from write-back and fresh-session recall. Provenance-aware closure eliminates observed recovery in the tested positive-baseline settings, whereas an exact-literal write filter blocks reinsertion but cannot erase information already present. Together, these results show that source deletion ",
+  "summary_1line": "Many LLM agents maintain external persistent memory and derive additional state from past interactions, such as summaries. Deleting an original memory record therefore need not remove information carried by its descen...",
+  "title": "AfterDeleteBench: Auditing Post-Deletion Information Persistence in LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31366v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "3dc267edad9b176e": {
   "first_seen": "2026-10-09T14:04:30.735610+00:00",
   "id": "f98f9d6e6a53116d",
@@ -5214,6 +5231,23 @@
   "title": "US Bars Government Agencies From Using China's DeepSeek",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNaUVKbkZkSVN4bmdzT1I0dzg4b2dRaHJtVEpPWXRTM0xLdTlxQ1lrUVB2RF9vQXdtMTBabXB5UWhGRGM3TzhIRTBYZmo3MDRyX0VJTHJQZnBvU1hyOHlzNmUwSS04a3BDZHVMdzNocXlBSUItbXJlZ0dCUEMzWDMtYV84Tng3OWx3RkhtWU9Kc0NQcEVlcnZ0MGJ4c9IBowFBVV95cUxNNWc0S0JMcTh6SkwxX2lvN211d2VMR3VSWVYtTjVVUjVxdW92a0VOQVlGZjROMG9GNTVQTkM4VlpxNG5rUWZSTElvcjVrY3h6MUdOSVdBYVRxelNSczRnd3B2X1VYa280ckd5ZHRRQmJLRFRBTERKMlJHRl9NcTVBMkxLNW83bnhOSGdkOTR3U0dCcm9sWURwSVdxMUlOR1F1aE53?oc=5"
+ },
+ "52c63825356144e3": {
+  "first_seen": "2026-10-24T18:03:21.747668+00:00",
+  "id": "3739f94b9b6603f8",
+  "matched_topics": [
+   "agentic",
+   "harness"
+  ],
+  "published": "2026-10-22T14:48:16+00:00",
+  "sid": "52c63825356144e3",
+  "source": "arxiv_cs_ai",
+  "summary": "This paper studies the problem of safe tool execution for large language model (LLM) agents under prompt injection. Using Petri nets, we formalize the execution harness between the LLM and its tools as a supervisory control problem, in which marks represent capabilities, approvals and budgets. Since a transition fires only if the marks it needs are present, an injected request whose preconditions are unmet or already spent is refused regardless of its wording. Treating tool outcomes as uncontrollable, we enforce safety by the conventional maximally permissive supervisor, and this safety transfers to the running system under four assumptions. Moreover, to capture an agent that may propose again after a refusal, we introduce the notion of a replanning closed loop, in which each retry costs an inference call. We show that, in this loop, the conventional supervisor can be arbitrarily more intrusive than a stricter safe one. Furthermore, for a given proposer model, the maximally permissive least-intrusive supervisor is characterized as a value-threshold refinement of the conventional one. Under precise conditions, this refinement orders two concurrent actions by at most one monitor place. On an autonomous release agent, we find by synthesis that safe deployment requires a step that the supervisor can refuse after a rollout starts.",
+  "summary_1line": "This paper studies the problem of safe tool execution for large language model (LLM) agents under prompt injection. Using Petri nets, we formalize the execution harness between the LLM and its tools as a supervisory c...",
+  "title": "Certified Execution Harness for Agentic AI: Safe and Least-Intrusive Petri-Net Supervisory Control Between Reasoning and Action",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31376v1",
+  "why_it_matters": "Matches feed focus: agentic, harness."
  },
  "52d729da63596a31": {
   "first_seen": "2026-10-12T03:04:29.629503+00:00",
@@ -6842,7 +6876,7 @@
   "published": "2026-10-24T03:59:57+00:00",
   "sid": "6e1fc50fabcdd1bd",
   "source": "simon_willison",
-  "summary": "Release: battledrones v14: Compass Rose, a four player map I added four player online mode to Battledrones - previous maps were limited to two. Here's the initial prompt I used: Add a new map for a four player battle - four way rotational symmetry, up to four AI players, works with the WebSocket non-audio based multiplayer mode so up to four human players can join (any spare slots use AI) Claude Opus 4.5 added a new map called \"Compass Rose\" and modified the WebSockets multiplayer network code to support up to four players for that map, joining via share links or QR codes. The new teams use robots themed in purple and green, joining the existing blue and red designs. You can preview those colors in the updated model browser . Here's a replay link to watch a four way AI battle with the \"Goliath Armada\" mutator turned on, where each side starts with four giant Goliath mech units. Tags: game-design , projects , claude",
+  "summary": "Release: battledrones v14: Compass Rose, a four player map I added four player online mode to Battledrones - previous maps were limited to two. Here's the initial prompt I used: Add a new map for a four player battle - four way rotational symmetry, up to four AI players, works with the WebSocket non-audio based multiplayer mode so up to four human players can join (any spare slots use AI) Claude Opus 5.5 added a new map called \"Compass Rose\" and modified the WebSockets multiplayer network code to support up to four players for that map, joining via share links or QR codes. The new teams use robots themed in purple and green, joining the existing blue and red designs. You can preview those colors in the updated model browser . Here's a replay link to watch a four way AI battle with the \"Goliath Armada\" mutator turned on, where each side starts with four giant Goliath mech units. Tags: game-design , projects , claude",
   "summary_1line": "Release: battledrones v14: Compass Rose, a four player map I added four player online mode to Battledrones - previous maps were limited to two. Here's the initial prompt I used: Add a new map for a four player battle...",
   "title": "battledrones v14: Compass Rose, a four player map",
   "type": "release",
@@ -9264,6 +9298,22 @@
   "type": "release",
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.302",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "99b3c1ea8994d761": {
+  "first_seen": "2026-10-24T18:03:21.747668+00:00",
+  "id": "567876f0ee84461a",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-22T09:48:18+00:00",
+  "sid": "99b3c1ea8994d761",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Natural-language interfaces allow users to command robotic systems without interacting directly with mission planners or robotics middleware. Their reliable use depends on robot tool routing, defined here as the selection of the smallest complete subset of predefined executable capabilities required to satisfy a request. This task is particularly difficult for compound instructions, where incomplete selection may omit necessary sensing or monitoring capabilities, while excessive selection may expose irrelevant tools. We compare four routing strategies: three progressively refined ChromaDB-based methods - fixed-threshold retrieval, relative-distance retrieval, and clause-aware aggregated retrieval - and a cloud-hosted 120-billion-parameter language-model baseline. The methods are evaluated on 164 manually annotated prompts organised into three complexity levels, from direct single-tool requests to compound requests requiring at least three tools. Using exact-match accuracy, completeness, precision, a completeness-weighted composite score, and routing latency, CDB-v3 achieves the best macro-average score among the retrieval-only methods, with 0.7822, compared with 0.8869 for the large-model baseline. Although the LLM provides higher routing quality, CDB-v3 exhibits substantially lower latency and can be deployed locally without requiring cloud connectivity. These results identify a quality-latency trade-off between direct large-model selection and clause-aware semantic retrieva",
+  "summary_1line": "Natural-language interfaces allow users to command robotic systems without interacting directly with mission planners or robotics middleware. Their reliable use depends on robot tool routing, defined here as the selec...",
+  "title": "Multi-Tool Selection for Robotic Systems: Comparing Semantic Retrieval and LLM",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31013v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "9a0e21136fa4830b": {
   "first_seen": "2026-10-08T05:04:10.072583+00:00",
@@ -12909,6 +12959,22 @@
   "type": "news",
   "url": "https://latent.space/p/ai-is-getting-good-at-math"
  },
+ "c888971c48a268c3": {
+  "first_seen": "2026-10-24T18:03:21.747668+00:00",
+  "id": "2edcedc3e8889fea",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-22T16:36:35+00:00",
+  "sid": "c888971c48a268c3",
+  "source": "arxiv_cs_cl",
+  "summary": "Knowledge graph-to-text (KG-to-text) generation verbalizes a set of knowledge graph triples into fluent natural language. While fine-tuned encoder-decoder models have long been the standard approach, recent LLMs are becoming increasingly competitive. We benchmark recent LLMs against fine-tuned encoder-decoder models, using reference-based metrics and graph-grounded reference-free LLM-based evaluation validated against human annotations. We observed that recent LLMs substantially narrow, and in several settings close, the gap with fine-tuned models on reference-based metrics, while performing better on graph-grounded metrics. LLM-based evaluation scores show limited correlation with reference-based metrics, suggesting that the two approaches capture different aspects of generation quality. Graph-grounded evaluation reveals that prompted models produce fewer contradictions and triple omissions than fine-tuned models, and these errors increase more rapidly with graph size for fine-tuned models, highlighting differences between the two approaches that reference-based metrics may not fully capture.",
+  "summary_1line": "Knowledge graph-to-text (KG-to-text) generation verbalizes a set of knowledge graph triples into fluent natural language. While fine-tuned encoder-decoder models have long been the standard approach, recent LLMs are b...",
+  "title": "An Empirical Study of Recent Large Language Models for Knowledge Graph to Text Generation on Standard Benchmarks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31529v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "c8bbc2786b7020e4": {
   "first_seen": "2026-10-22T09:04:47.203142+00:00",
   "id": "9f1b3a8d78590794",
@@ -14287,6 +14353,22 @@
   "type": "news",
   "url": "https://github.com/reticlehq/reticle",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "de1c86244af6ba55": {
+  "first_seen": "2026-10-24T18:03:21.747668+00:00",
+  "id": "0646e59be7d185fd",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-22T09:31:18+00:00",
+  "sid": "de1c86244af6ba55",
+  "source": "arxiv_llm_reliability",
+  "summary": "Large language models (LLMs) often fail to utilise the context given in the input, resulting in hallucinations or a fallback to parametric knowledge. Context augmentation methods aim to improve model performance by modifying the input, from inserting filler tokens that add computational time to adding relevant content such as elaboration of a context during inference. However, these methods have been evaluated in isolation and only by their performance gains, leaving it unclear how they compare and whether they reliably improve performance. In this paper, we present an evaluation framework spanning five methods that differ in how informative the inserted content is and apply them at the sentence level across seven models spanning multiple sizes on three datasets. We find that accuracy gains are not always genuine improvements but undirected perturbations: the methods correct some predictions while breaking others, particularly when the inserted text allows only for more computational time. Our analysis reveals that methods that bring no additional content primarily change model predictions near the decision boundary. Our findings highlight the need to evaluate the reliability of the accuracy gains before adopting them in practice.",
+  "summary_1line": "Large language models (LLMs) often fail to utilise the context given in the input, resulting in hallucinations or a fallback to parametric knowledge. Context augmentation methods aim to improve model performance by mo...",
+  "title": "A Reality Check of Inference-Time Context Augmentation Methods",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.30983v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "de377fdb3304eb69": {
   "first_seen": "2026-10-21T19:04:46.382764+00:00",
