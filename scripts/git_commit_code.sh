@@ -6,6 +6,7 @@ msg=${1:-"chore: update code"}
 # Stage code/config/docs/workflow changes only
 git add AGENTS.md README.md || true
 git add collectors pipeline publish config docs scripts .github/workflows || true
+git add tests api lib || true
 
 if git diff --cached --quiet; then
   echo "No code/config/docs changes to commit"
