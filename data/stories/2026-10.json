@@ -1012,6 +1012,18 @@
   "url": "http://arxiv.org/abs/2610.11678v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
+ "10f91cbb4979cd0e": {
+  "first_seen": "2026-10-24T22:03:32.592262+00:00",
+  "id": "16859966f2e0e3be",
+  "published": "2026-10-22T16:03:47+00:00",
+  "sid": "10f91cbb4979cd0e",
+  "source": "arxiv_cs_lg",
+  "summary": "Vision-Language Models (VLMs) have shown strong potential for video anomaly detection, but dense frame-level inference makes them impractical for real-time deployment. Existing acceleration commonly relies on uniform sampling, which ignores content dynamics and can either waste computation on static segments or miss localized anomalies. We propose MoG-VLM a motion-adaptive anomaly detection framework that leverages motion purely as a lightweight control signal to decide when VLM inference is necessary. To this end, we introduce Temporal Gradient Magnitude (TGM) which performs content-aware sampling to concentrate computation on informative regions while avoiding redundant processing. We further introduce a hierarchical dual-stream design in which dense multi-frame VLM reasoning is activated only around frames with elevated anomaly likelihood, via anchor-triggered context-window expansion with early termination. A fusion module then reconciles these instantaneous semantic cues with temporal action dynamics. Across four benchmarks, our method achieves 91.91%, 84.30%, 87.88%, and 78.96% AUC-ROC on XD-Violence, UCF-Crime, MSAD, and ShanghaiTech, respectively, establishing new state of the art on three benchmarks under the zero-shot, training-free setting. On XD-Violence, we improve over the previous best result by +0.57% while delivering a 1.31x inference speedup. These results demonstrate that content-aware allocation of VLM capacity, processing fewer frames more intelligently r",
+  "summary_1line": "Vision-Language Models (VLMs) have shown strong potential for video anomaly detection, but dense frame-level inference makes them impractical for real-time deployment. Existing acceleration commonly relies on uniform...",
+  "title": "MoG-VLM: Efficient Video Anomaly Detection through Motion-Guided Vision-Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31478v1"
+ },
  "1107544142791aef": {
   "first_seen": "2026-10-14T17:05:21.975019+00:00",
   "id": "1f98c8bcaf08c097",
@@ -3231,6 +3243,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.23307v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "349a2e508551092d": {
+  "content_excerpt": "Decision audit for AI agents. Tracks why each decision was made and which irreversible actions need compensation when a belief turns out to be wrong. Works with LangGraph, CrewAI, OpenAI Agents SDK and 11 more frameworks. Sevenbox is causal audit infrastructure for AI agent decisions. A Warrant records why a decision was made: the specific prior claims it depended on, and whether acting on it can be undone. Every call your agent makes becomes one, automatically, the moment you wrap it. When a belief your agent acted on turns out to be wrong, Sevenbox finds exactly what still needs fixing — not by searching logs, by walking the causal chain. This repo is the open-core layer: the SDK, 14 framework adapters, the local Operations Center UI, and examples. It depends on warrant-core , a separate, compiled engine package — not on PyPI, distributed as a GitHub Release of this repo (see Install and License ). The local Operations Center UI ( sevenbox ops ) ships with this repo — every run your agent makes, with the causal graph above. 1. Install the compiled warrant-core engine. Go to this repo's Releases page and download the wheel matching your OS and Python version (3.10-3.13), then: Wheels are built for macOS (arm64), Linux (manylinux x86_64), and Windows (AMD64) — e.g. warrant_core-0.1.1-cp312-cp312-macosx_11_0_arm64.whl for macOS on Python 3.12, or ...-manylinux_2_17_x86_64.manylinux2014_x86_64.whl for Linux, or ...-win_amd64.whl for Windows. pip resolves sevenbox 's warrant-cor",
+  "first_seen": "2026-10-24T22:03:32.592262+00:00",
+  "id": "6b863c0df2413cb4",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-24T21:09:47+00:00",
+  "sid": "349a2e508551092d",
+  "source": "hackernews_ai",
+  "summary_1line": "Sevenbox, find what an AI agent's wrong decision affected",
+  "title": "Sevenbox, find what an AI agent's wrong decision affected",
+  "type": "news",
+  "url": "https://github.com/sevenboxlabs/sevenbox",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "34efa9713e0b9163": {
   "first_seen": "2026-10-05T22:04:13.120651+00:00",
@@ -16047,6 +16075,23 @@
   "title": "ICYMI: What landed for AI builders in September 2026",
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/icymi-what-landed-for-ai-builders-in-september-2026",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "f2df794e6fc1e504": {
+  "first_seen": "2026-10-24T22:03:32.592262+00:00",
+  "id": "4c5a87053a41c9ee",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-22T05:42:55+00:00",
+  "sid": "f2df794e6fc1e504",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large language models (LLMs) increasingly operate in multi-agent systems where they collaborate by responding to others' choices, creating endogenous feedback loops with vulnerability to social influence, herding behavior and runaway cascades. Following the design of the classic Music Lab experiment, we tested this vulnerability in large populations of LLM agents that recommended unfamiliar songs, with or without exposure to cumulative recommendation counts. Exposure led to runaway cascades that generated extreme and unpredictable collective recommendations increasingly divergent from a song's intrinsic appeal. Compared to humans, LLM populations were generally far more susceptible to herding behavior, and unlike humans, LLM cascades were less able to self-correct. This vulnerability has implications for multi-agent collaboration in recommender systems, automated evaluation, complex problem-solving, and unauthorized conspiracies.",
+  "summary_1line": "Large language models (LLMs) increasingly operate in multi-agent systems where they collaborate by responding to others' choices, creating endogenous feedback loops with vulnerability to social influence, herding beha...",
+  "title": "LLM Multi-Agent Systems Are Vulnerable to Herding and Runaway Cascades",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.30769v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "f2fa4e3bc11b36e8": {
