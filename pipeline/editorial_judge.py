@@ -27,12 +27,30 @@ try:
         load_judge_config,
         provider_from_config,
     )
+    from judgment_store import (
+        attach_entry,
+        get_entry,
+        judgment_key,
+        load_store,
+        prune_store,
+        put_entry,
+        save_store,
+    )
 except Exception:
     from pipeline.content_fetch import build_paragraph_map
     from pipeline.judge import (
         judge_verdict,
         load_judge_config,
         provider_from_config,
+    )
+    from pipeline.judgment_store import (
+        attach_entry,
+        get_entry,
+        judgment_key,
+        load_store,
+        prune_store,
+        put_entry,
+        save_store,
     )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -71,9 +89,15 @@ def _attach(item: dict[str, Any], result: dict[str, Any], cfg: dict[str, Any]) -
         drop_below=float((cfg.get("ranking", {}) or {}).get("drop_below", 0.15)),
         keep_at=float((cfg.get("ranking", {}) or {}).get("keep_at", 0.5)),
     )
-    item["judge_model"] = str((cfg.get("openrouter", {}) or {}).get("model") or cfg.get("model") or "jev-1.14")
-    item["judge_rubric_version"] = str(cfg.get("version") or "feed-quality-v1")
-    item["judge_judged_at"] = datetime.now(timezone.utc).isoformat()
+    item["judge_model"] = str(
+        result.get("judge_model")
+        or (cfg.get("openrouter", {}) or {}).get("model")
+        or cfg.get("model")
+        or "jev-1.14"
+    )
+    item["judge_rubric_version"] = str(result.get("judge_rubric_version") or cfg.get("version") or "feed-quality-v1")
+    item["judge_judged_at"] = str(result.get("judged_at") or datetime.now(timezone.utc).isoformat())
+    item["judge_store_cached"] = bool(result.get("store", False))
     return item
 
 
@@ -182,6 +206,10 @@ def apply_judge(items: list[dict[str, Any]], cfg: dict[str, Any] | None = None) 
         "judged": 0,
         "errors": 0,
         "cached": 0,
+        "store_hits": 0,
+        "store_misses": 0,
+        "store_entries": 0,
+        "store_pruned": 0,
         "verdicts": {},
         "categories": {},
         "downgraded": 0,
@@ -208,18 +236,36 @@ def apply_judge(items: list[dict[str, Any]], cfg: dict[str, Any] | None = None) 
     diag["enabled"] = True
     diag["selected"] = len(ranked)
 
+    store_cfg = cfg.get("judgment_store", {}) or {}
+    store_path = store_cfg.get("path")
+    store = load_store(Path(store_path) if store_path else None)
+    ttl_days = float(store_cfg.get("ttl_days", 14) or 14)
+    max_entries = int(store_cfg.get("max_entries", 6000) or 0)
+
+    cached_by_index: dict[int, dict[str, Any]] = {}
+    to_judge: list[tuple[int, dict[str, Any], str]] = []
+    for index, item in ranked:
+        key = judgment_key(item, cfg)
+        entry = get_entry(store, key, ttl_days)
+        if entry is not None:
+            cached_by_index[index] = entry
+        else:
+            to_judge.append((index, item, key))
+    diag["store_hits"] = len(cached_by_index)
+    diag["store_misses"] = len(to_judge)
+
     content_cfg = cfg.get("content_fetch", {}) or {}
-    if content_cfg.get("enabled", True):
+    if content_cfg.get("enabled", True) and to_judge:
         paragraph_map = build_paragraph_map(
-            [item for _index, item in ranked],
-            top_n=len(ranked),
+            [item for _index, item, _key in to_judge],
+            top_n=len(to_judge),
             max_chars=int(content_cfg.get("max_chars", 2500) or 2500),
             timeout=int(content_cfg.get("timeout_seconds", 8) or 8),
             workers=int(content_cfg.get("workers", 8) or 8),
             time_budget_seconds=int(content_cfg.get("time_budget_seconds", 120) or 120),
         )
         fetched = 0
-        for _index, item in ranked:
+        for _index, item, _key in to_judge:
             text = paragraph_map.get(str(item.get("url") or "").split("#")[0].strip())
             if text:
                 item["content_excerpt"] = text
@@ -238,7 +284,7 @@ def apply_judge(items: list[dict[str, Any]], cfg: dict[str, Any] | None = None) 
 
     with ThreadPoolExecutor(max_workers=max_workers) as pool:
         futures = {}
-        for index, item in ranked:
+        for index, item, _key in to_judge:
             if time.monotonic() - started > time_budget:
                 diag["time_budget_hit"] = True
                 break
@@ -248,7 +294,16 @@ def apply_judge(items: list[dict[str, Any]], cfg: dict[str, Any] | None = None) 
             results[index] = (result, error)
 
     judged_items: list[dict[str, Any]] = []
+    key_by_index = {index: key for index, _item, key in to_judge}
     for index, item in enumerate(items):
+        if index in cached_by_index:
+            judged = _attach(item, attach_entry(item, cached_by_index[index]), cfg)
+            diag["verdicts"][judged["judge_verdict"]] = diag["verdicts"].get(judged["judge_verdict"], 0) + 1
+            category = judged.get("judge_category")
+            if category:
+                diag["categories"][category] = diag["categories"].get(category, 0) + 1
+            judged_items.append(judged)
+            continue
         result, error = results.get(index, (None, None))
         if result is None and error is None:
             judged_items.append(item)
@@ -261,6 +316,7 @@ def apply_judge(items: list[dict[str, Any]], cfg: dict[str, Any] | None = None) 
             judged_items.append(item)
             continue
         judged = _attach(item, result, cfg)
+        put_entry(store, key_by_index.get(index, judgment_key(judged, cfg)), judged, cfg)
         diag["judged"] += 1
         if result.get("cached"):
             diag["cached"] += 1
@@ -269,6 +325,12 @@ def apply_judge(items: list[dict[str, Any]], cfg: dict[str, Any] | None = None) 
         if category:
             diag["categories"][category] = diag["categories"].get(category, 0) + 1
         judged_items.append(judged)
+
+    store, pruned = prune_store(store, ttl_days, max_entries)
+    diag["store_pruned"] = pruned
+    diag["store_entries"] = len(store.get("entries") or {})
+    saved_path = save_store(store, Path(store_path) if store_path else None)
+    diag["store_path"] = str(saved_path)
 
     judged_items, downgraded = _cap_drops(
         judged_items,

@@ -127,3 +127,16 @@ A dry run against the stale 2026-10-24 raw snapshot judged 140 Stage A
 candidates: 93 keep, 31 drop, 16 review. The feed returned 18 items because
 seen-memory had already retired many first-party posts from the stale
 snapshot; that is a data artifact, not a benchmark result.
+
+## Durable judgment store
+
+The first run after the store was added judged 140 Stage A candidates and wrote
+140 entries to `data/processed/judgments.json` (183 KB). The immediate second
+run reused 131 entries, missed 9, and made only 9 Jev calls. That is the
+intended production behavior: no-delta runs make zero calls, runs with new
+items reuse the store for unchanged candidates, and only genuinely new or
+changed identities are judged.
+
+The store key is item identity + model + rubric + prompt fingerprint. Verdict
+thresholds are excluded so a threshold change does not invalidate scores. The
+store is pruned to 14 days and 6,000 entries.

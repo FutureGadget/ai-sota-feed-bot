@@ -35,6 +35,12 @@ available to each function.
   `judge_verdict`, `judge_model`, `judge_rubric_version`, `judge_judged_at`.
   Optional `publisher_name` and `publisher_domain` attribution fields pass
   through from collector rows for Google News items.
+- `data/processed/judgments.json` — durable judgment store for the Jev gate:
+  `entries` keyed by item identity + model + rubric + prompt fingerprint, each
+  with score, signals, category, and `judge_judged_at`. Pruned to
+  `judgment_store.ttl_days` (default 14) and `max_entries` (default 6000).
+  Committed so CI reuses prior judgments and only calls Jev for missing or
+  expired items.
 - `data/processed/classified.json` — compact, committed judge artifact for
   editor-deck routines: model/rubric version, category and verdict counts, and
   up to 120 top-scored judged items (`story_key`, `url`, `title`, `source`,

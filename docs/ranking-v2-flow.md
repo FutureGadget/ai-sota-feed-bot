@@ -65,6 +65,9 @@ Jev gate + category (pipeline/editorial_judge.py, config/judge.yaml)
       category (choice with criteria)
   - hybrid score: `keep` is primary; release/marketing highs and low
     platform relevance clamp it; the category is stored for the editor decks
+  - durable judgment store `data/processed/judgments.json`, keyed by item
+    identity + model + rubric + prompt fingerprint; only missing or expired
+    items call Jev
   - fail-open: missing key, timeout, or malformed response leaves the item
     unjudged and the deterministic ranking continues
   - writes data/processed/classified.json (compact, committed) and

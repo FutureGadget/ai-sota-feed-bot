@@ -347,7 +347,8 @@ in `ops_daily_summary.py`'s log line.
 ## Data Artifacts (committed runtime state)
 - `data/raw/<date>/items.json` — collector output
 - `data/processed/` — `latest.json` (the feed), `classified.json` (compact
-  judge verdicts/categories for the editor decks), `editorial.json` (roles/caps
+  judge verdicts/categories for the editor decks), `judgments.json` (durable
+  judge store, pruned to 14 days / 6000 entries), `editorial.json` (roles/caps
   and quarantine patterns shared with the APIs), `runs/`, `runs_index.json`
 - `data/quality/benchmark/` — frozen 50-item Jev benchmark (`items.json`,
   `labels.md`, fetched `content_cache.json`, synthetic `fixture_scores.json`)

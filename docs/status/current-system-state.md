@@ -89,7 +89,7 @@ Daily companions:
 
 ## Run health signals (greppable)
 - `ranking_stats prefilter=A->B llm_used=N/8 slots=... total=T`
-- `judge_stats enabled=1 selected=N judged=N content_fetched=N verdicts=...`
+- `judge_stats enabled=1 selected=N judged=N store_hits=N store_misses=N content_fetched=N verdicts=...`
 - `FULL_RUN_OK` / `FULL_RUN_NO_DELTA_SKIP=true`
 - `runtime_commit_done=true` / `runtime_push_skipped=true`
 - `latest_json_valid=true`

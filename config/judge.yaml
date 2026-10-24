@@ -102,6 +102,14 @@ content_fetch:
   timeout_seconds: 8
   time_budget_seconds: 120
 
+# Durable, committed judgment store. The provider cache is local-only; this
+# store is what makes CI reuse prior judgments and only call Jev for missing
+# or expired item/model/rubric/prompt combinations.
+judgment_store:
+  path: data/processed/judgments.json
+  ttl_days: 14
+  max_entries: 6000
+
 version: feed-quality-v1
 question_id: is_substantive_platform_content
 type: noul

@@ -39,7 +39,7 @@ class FakeProvider:
         }
 
 
-def _cfg(**overrides):
+def _cfg(store_path=None, **overrides):
     cfg = {
         "enabled": True,
         "provider": "openrouter",
@@ -53,7 +53,10 @@ def _cfg(**overrides):
             "hybrid": {"primary": "keep", "drop_if_above": {"release_lane": 0.6}},
         },
         "ranking": {"drop_below": 0.15, "keep_at": 0.5, "max_drop_share": 0.6},
+        "judgment_store": {},
     }
+    if store_path is not None:
+        cfg["judgment_store"] = {"path": str(store_path), "ttl_days": 14, "max_entries": 6000}
     for key, value in overrides.items():
         if isinstance(value, dict) and isinstance(cfg.get(key), dict):
             cfg[key] = {**cfg[key], **value}
@@ -103,7 +106,7 @@ class ApplyJudgeTest(unittest.TestCase):
                 patch.object(editorial_judge, "CLASSIFIED_DIR", Path(tmp)),
                 patch.object(editorial_judge, "COMPACT_CLASSIFIED", Path(tmp) / "classified.json"),
             ):
-                out, diag = editorial_judge.apply_judge(items, _cfg())
+                out, diag = editorial_judge.apply_judge(items, _cfg(Path(tmp) / "judgments.json"))
             self.assertTrue(diag["enabled"])
             self.assertEqual(diag["judged"], 5)
             self.assertEqual(out[0]["judge_verdict"], "keep")
@@ -112,7 +115,10 @@ class ApplyJudgeTest(unittest.TestCase):
             self.assertEqual(out[0]["judge_category"], "inference_serving")
             self.assertEqual(out[2]["judge_category"], "off_topic")
             self.assertIsNotNone(out[0]["judge_score"])
-            files = [path for path in Path(tmp).glob("*.json") if path.name != "classified.json"]
+            files = [
+                path for path in Path(tmp).glob("*.json")
+                if path.name not in {"classified.json", "judgments.json"}
+            ]
             self.assertEqual(len(files), 1)
             payload = json.loads(files[0].read_text(encoding="utf-8"))
             self.assertEqual(payload["model"], "jev-1.14")
@@ -129,11 +135,29 @@ class ApplyJudgeTest(unittest.TestCase):
                 patch.object(editorial_judge, "CLASSIFIED_DIR", Path(tmp)),
                 patch.object(editorial_judge, "COMPACT_CLASSIFIED", Path(tmp) / "classified.json"),
             ):
-                out, diag = editorial_judge.apply_judge(items, _cfg())
+                out, diag = editorial_judge.apply_judge(items, _cfg(Path(tmp) / "judgments.json"))
         self.assertEqual(diag["errors"], 5)
         self.assertEqual(diag["judged"], 0)
         self.assertTrue(all(item["judge_verdict"] == "unjudged" for item in out))
         self.assertTrue(all("judge_error" in item for item in out))
+
+    def test_second_run_reuses_the_durable_store(self) -> None:
+        items = _items()
+        provider = FakeProvider(scores={"0": 0.8, "1": 0.4, "2": 0.05, "3": 0.9, "4": 0.7})
+        with tempfile.TemporaryDirectory() as tmp:
+            with (
+                patch.object(editorial_judge, "provider_from_config", return_value=provider),
+                patch.object(editorial_judge, "CLASSIFIED_DIR", Path(tmp)),
+                patch.object(editorial_judge, "COMPACT_CLASSIFIED", Path(tmp) / "classified.json"),
+            ):
+                store_path = Path(tmp) / "judgments.json"
+                first, first_diag = editorial_judge.apply_judge(_items(), _cfg(store_path))
+                second, second_diag = editorial_judge.apply_judge(_items(), _cfg(store_path))
+        self.assertEqual(first_diag["judged"], 5)
+        self.assertEqual(second_diag["judged"], 0)
+        self.assertEqual(second_diag["store_hits"], 5)
+        self.assertEqual([item["judge_score"] for item in second], [item["judge_score"] for item in first])
+        self.assertTrue(all(item.get("judge_store_cached") for item in second))
 
     def test_drop_cap_downgrades_excess_drops(self) -> None:
         items = [

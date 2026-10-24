@@ -217,14 +217,22 @@ for a different decision model or a generative judge.
 The same provider and config power the edition builder:
 
 1. Stage A prefilter produces the candidate pool.
-2. `pipeline/editorial_judge.py` fetches paragraph excerpts for candidates
-   whose feed teaser is too short.
-3. One System One request per candidate returns `keep`, `platform_relevant`,
+2. `pipeline/editorial_judge.py` checks the durable judgment store
+   (`data/processed/judgments.json`) by item identity + model + rubric +
+   prompt fingerprint. Stored scores are merged back onto the item.
+3. Only missing or expired items fetch paragraph excerpts and make one System
+   One request. The request returns `keep`, `platform_relevant`,
    `release_lane`, `corporate_marketing`, and a `category` choice.
 4. The hybrid score is a continuous Stage C weight plus a headroom floor.
    Release items are exempt so the Releases tab still fills.
-5. The compact artifact is written to `data/processed/classified.json` for the
-   daily/weekly/wiki/playbook/foundations routines.
+5. The store is pruned to `judgment_store.ttl_days` (default 14) and
+   `max_entries` (default 6000), then saved. The compact artifact is written
+   to `data/processed/classified.json` for the daily/weekly/wiki/playbook/
+   foundations routines.
+
+In a normal two-hour cycle, a no-delta run makes zero Jev calls. A run with
+new items reuses the store for unchanged candidates and only calls Jev for
+genuinely new or changed ones.
 
 The gate fails open. If `OPENROUTER_API_KEY` is missing, the build logs
 `judge_skipped reason=not_configured` and the deterministic editorial policy
