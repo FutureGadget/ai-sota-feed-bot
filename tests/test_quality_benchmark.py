@@ -89,8 +89,61 @@ class SystemOnePayloadTest(unittest.TestCase):
         self.assertIn("Title: A concrete serving optimization", payload["state"])
         self.assertLessEqual(len(payload["state"]), 200)
         self.assertIn("keep", payload["questions"])
+        self.assertIn("platform_relevant", payload["questions"])
+        self.assertIn("release_lane", payload["questions"])
+        self.assertIn("corporate_marketing", payload["questions"])
         self.assertEqual(payload["questions"]["keep"]["type"], "noul")
         self.assertIn("Task:", payload["questions"]["keep"]["instructions"])
+
+    def test_single_question_fallback_still_works(self) -> None:
+        cfg = qb.load_judge_config(qb.DEFAULT_CONFIG)
+        cfg["openrouter"]["questions"] = {}
+        payload = qb.build_systemone_payload({"title": "x", "excerpt": "y"}, cfg)
+        self.assertIn("keep", payload["questions"])
+        self.assertEqual(payload["questions"]["keep"]["type"], "noul")
+        self.assertIn("Task:", payload["questions"]["keep"]["instructions"])
+
+    def test_extract_systemone_answers_and_composite(self) -> None:
+        response = {
+            "answers": {
+                "substantive": {"type": "noul", "noul": 0.9},
+                "platform_relevant": {"type": "noul", "noul": 0.8},
+                "release_lane": {"type": "noul", "noul": 0.1},
+                "corporate_marketing": {"type": "noul", "noul": 0.2},
+            }
+        }
+        signals = qb.extract_systemone_answers(response)
+        self.assertEqual(signals["substantive"], 0.9)
+        product = qb.composite_score(
+            signals,
+            {
+                "positive": ["substantive", "platform_relevant"],
+                "negative": ["release_lane", "corporate_marketing"],
+                "combine": "product",
+            },
+        )
+        self.assertAlmostEqual(product, 0.9 * 0.8 * 0.9 * 0.8, places=6)
+        minimum = qb.composite_score(
+            signals,
+            {
+                "positive": ["substantive", "platform_relevant"],
+                "negative": ["release_lane", "corporate_marketing"],
+                "combine": "min",
+            },
+        )
+        self.assertAlmostEqual(minimum, 0.8, places=6)
+
+    def test_hybrid_score_keeps_primary_and_applies_gates(self) -> None:
+        hybrid = {
+            "primary": "keep",
+            "drop_if_above": {"release_lane": 0.6, "corporate_marketing": 0.7},
+            "drop_if_below": {"platform_relevant": 0.35},
+            "gate_score": 0.1,
+        }
+        self.assertEqual(qb.hybrid_score({"keep": 0.8, "release_lane": 0.1, "corporate_marketing": 0.2, "platform_relevant": 0.9}, hybrid), 0.8)
+        self.assertEqual(qb.hybrid_score({"keep": 0.8, "release_lane": 0.7, "corporate_marketing": 0.2, "platform_relevant": 0.9}, hybrid), 0.1)
+        self.assertEqual(qb.hybrid_score({"keep": 0.8, "release_lane": 0.1, "corporate_marketing": 0.8, "platform_relevant": 0.9}, hybrid), 0.1)
+        self.assertEqual(qb.hybrid_score({"keep": 0.8, "release_lane": 0.1, "corporate_marketing": 0.2, "platform_relevant": 0.2}, hybrid), 0.1)
 
     def test_extract_systemone_score(self) -> None:
         response = {

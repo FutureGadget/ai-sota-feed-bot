@@ -75,8 +75,9 @@ Daily companions:
 
 ## Quality judge benchmark (2026-10-24)
 - Jev 1.14 via OpenRouter System One is evaluated offline on 50 labeled
-  candidates: AUC 0.965, F1 0.878 at threshold 0.25, Brier 0.100, ECE 0.106,
-  $0.0023 for 50 requests.
+  candidates. The hybrid four-question gate (`keep` plus
+  `platform_relevant`/`release_lane`/`corporate_marketing`) scores AUC 0.969,
+  F1 0.927 at threshold 0.25, Brier 0.095, ECE 0.114, $0.0027 for 50 requests.
 - The judge is **not wired into production**. The deterministic editorial
   policy remains the only gate until the labels are reviewed and the
   multi-question design is tested.

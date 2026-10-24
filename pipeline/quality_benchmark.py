@@ -143,21 +143,103 @@ def build_systemone_state(item: dict[str, Any], limit: int = 6000) -> str:
     return "\n".join(lines)[: max(200, int(limit))]
 
 
-def build_systemone_payload(item: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
-    """Build the OpenRouter System One request for a Jev `noul` question."""
+def _systemone_questions(cfg: dict[str, Any]) -> dict[str, Any]:
     or_cfg = cfg.get("openrouter", {}) or {}
+    configured = or_cfg.get("questions")
+    if isinstance(configured, dict) and configured:
+        out = {}
+        for question_id, question in configured.items():
+            if not isinstance(question, dict):
+                continue
+            out[str(question_id)] = {
+                "type": str(question.get("type") or "noul"),
+                "instructions": str(question.get("instructions") or "").strip(),
+            }
+        if out:
+            if or_cfg.get("use_holistic_keep", False):
+                out["keep"] = {
+                    "type": "noul",
+                    "instructions": _systemone_instructions(cfg),
+                }
+            return out
     question_id = str(or_cfg.get("question_id") or cfg.get("question_id") or "keep")
+    return {
+        question_id: {
+            "type": "noul",
+            "instructions": _systemone_instructions(cfg),
+        }
+    }
+
+
+def build_systemone_payload(item: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
+    """Build the OpenRouter System One request for one or more typed questions."""
+    or_cfg = cfg.get("openrouter", {}) or {}
     state_chars = int(or_cfg.get("state_chars") or cfg.get("context_chars", 6000) or 6000)
     return {
         "model": str(or_cfg.get("model") or cfg.get("model") or "jev-1.14"),
         "state": build_systemone_state(item, state_chars),
-        "questions": {
-            question_id: {
-                "type": "noul",
-                "instructions": _systemone_instructions(cfg),
-            }
-        },
+        "questions": _systemone_questions(cfg),
     }
+
+
+def extract_systemone_answers(response: Any) -> dict[str, float]:
+    if not isinstance(response, dict):
+        raise ValueError(f"Unsupported System One response: {type(response).__name__}")
+    answers = response.get("answers")
+    if not isinstance(answers, dict):
+        raise ValueError(f"No answers in System One response keys={sorted(response.keys())[:10]}")
+    out: dict[str, float] = {}
+    for question_id, answer in answers.items():
+        if not isinstance(answer, dict):
+            continue
+        value = _as_score(answer.get("noul"))
+        if value is None:
+            value = _as_score(answer.get("probability"))
+        if value is not None:
+            out[str(question_id)] = value
+    if not out:
+        raise ValueError(f"No noul probabilities in System One answers={list(answers)[:10]}")
+    return out
+
+
+def hybrid_score(signals: dict[str, float], hybrid: dict[str, Any]) -> float:
+    primary_key = str(hybrid.get("primary") or "keep")
+    primary = float(signals.get(primary_key, 0.5))
+    gate_score = _clamp(float(hybrid.get("gate_score", 0.1)))
+    for question, threshold in (hybrid.get("drop_if_above") or {}).items():
+        if question in signals and signals[question] >= float(threshold):
+            return min(primary, gate_score)
+    for question, threshold in (hybrid.get("drop_if_below") or {}).items():
+        if question in signals and signals[question] < float(threshold):
+            return min(primary, gate_score)
+    return primary
+
+
+def composite_score(signals: dict[str, float], composite: dict[str, Any]) -> float:
+    positive = [str(q) for q in (composite.get("positive") or []) if str(q) in signals]
+    negative = [str(q) for q in (composite.get("negative") or []) if str(q) in signals]
+    if not positive:
+        positive = list(signals)
+    combine = str(composite.get("combine") or "product").strip().lower()
+    if combine == "min":
+        values = [signals[q] for q in positive] + [1.0 - signals[q] for q in negative]
+        return _clamp(min(values) if values else 0.5)
+    if combine == "weighted":
+        weights = composite.get("weights") or {}
+        score = 1.0
+        for question in positive:
+            weight = float(weights.get(question, 1.0))
+            score *= max(0.0, signals[question]) ** weight
+        for question in negative:
+            weight = float(weights.get(question, 1.0))
+            score *= max(0.0, 1.0 - signals[question]) ** weight
+        return _clamp(score)
+    score = 1.0
+    for question in positive:
+        score *= signals[question]
+    for question in negative:
+        score *= 1.0 - signals[question]
+    return _clamp(score)
 
 
 def extract_systemone_score(response: Any, question_id: str = "keep") -> float:
@@ -405,12 +487,23 @@ class OpenRouterSystemOneProvider:
             cached = json.loads(cache_path.read_text(encoding="utf-8"))
             return {
                 "score": float(cached["score"]),
+                "signals": cached.get("signals") or {},
                 "latency_ms": int(cached.get("latency_ms", 0)),
                 "raw": cached.get("raw", {}),
                 "cached": True,
             }
         raw, latency = self._post(payload)
-        score = extract_systemone_score(raw, self.question_id)
+        signals = extract_systemone_answers(raw)
+        or_cfg = cfg.get("openrouter", {}) or {}
+        score_mode = str(or_cfg.get("score_mode") or "single").strip().lower()
+        if score_mode == "composite":
+            score = composite_score(signals, or_cfg.get("composite", {}) or {})
+        elif score_mode == "hybrid":
+            score = hybrid_score(signals, or_cfg.get("hybrid", {}) or {})
+        else:
+            score = signals.get(self.question_id)
+            if score is None:
+                score = extract_systemone_score(raw, self.question_id)
         cache_path.write_text(
             json.dumps(
                 {
@@ -418,6 +511,7 @@ class OpenRouterSystemOneProvider:
                     "created_at": datetime.now(timezone.utc).isoformat(),
                     "latency_ms": latency,
                     "score": score,
+                    "signals": signals,
                     "raw": raw,
                     "payload": payload,
                 },
@@ -426,7 +520,7 @@ class OpenRouterSystemOneProvider:
             ),
             encoding="utf-8",
         )
-        return {"score": score, "latency_ms": latency, "raw": raw, "cached": False}
+        return {"score": score, "signals": signals, "latency_ms": latency, "raw": raw, "cached": False}
 
 
 class JevProvider:
@@ -488,6 +582,7 @@ class JevProvider:
             cached = json.loads(cache_path.read_text(encoding="utf-8"))
             return {
                 "score": float(cached["score"]),
+                "signals": cached.get("signals") or {},
                 "latency_ms": int(cached.get("latency_ms", 0)),
                 "raw": cached.get("raw", {}),
                 "cached": True,
@@ -607,6 +702,28 @@ def threshold_sweep(rows: list[dict[str, Any]], step: float = 0.05) -> tuple[lis
     return candidates, float(best["threshold"])
 
 
+def signal_summary(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    questions: set[str] = set()
+    for row in rows:
+        questions.update((row.get("signals") or {}).keys())
+    out = []
+    for question in sorted(questions):
+        keep = [float((row.get("signals") or {}).get(question)) for row in rows if int(row["expected"]) == 1 and question in (row.get("signals") or {})]
+        drop = [float((row.get("signals") or {}).get(question)) for row in rows if int(row["expected"]) == 0 and question in (row.get("signals") or {})]
+        if not keep and not drop:
+            continue
+        out.append(
+            {
+                "question": question,
+                "keep_mean": round(sum(keep) / len(keep), 3) if keep else None,
+                "drop_mean": round(sum(drop) / len(drop), 3) if drop else None,
+                "keep_n": len(keep),
+                "drop_n": len(drop),
+            }
+        )
+    return out
+
+
 def baseline_metrics(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     total = len(rows)
     positives = sum(1 for row in rows if int(row["expected"]) == 1)
@@ -691,6 +808,13 @@ def _review_section(title: str, rows: list[dict[str, Any]], threshold: float) ->
             f"- source: `{row['source']}` · slice: `{row['slice']}` · published: {row.get('published') or 'unknown'}",
             f"- why labeled this way: {row.get('notes') or '(no note)'}",
             f"- url: {row.get('url') or ''}",
+        ]
+        signals = row.get("signals") or {}
+        if signals:
+            lines.append(
+                "- signals: " + " · ".join(f"{key} {float(value):.2f}" for key, value in sorted(signals.items()))
+            )
+        lines += [
             "",
             f"> {_clip(row.get('excerpt') or '', 700)}",
             "",
@@ -715,6 +839,7 @@ def write_reports(
     auc = roc_auc(rows)
     review = _review_items(rows, threshold)
     baselines = baseline_metrics(rows)
+    signals = signal_summary(rows)
     distribution = Counter(
         "0.0-0.2" if row["score"] < 0.2 else
         "0.2-0.4" if row["score"] < 0.4 else
@@ -734,6 +859,7 @@ def write_reports(
         "tuned": {**tuned, "auc": auc},
         "score_distribution": dict(sorted(distribution.items())),
         "baselines": baselines,
+        "signals": signals,
         "slices": slices,
         "review_counts": {key: len(value) for key, value in review.items()},
     }
@@ -769,6 +895,24 @@ def write_reports(
                 ["always keep", f"{baselines['always_keep']['accuracy']:.3f}", f"{baselines['always_keep']['precision']:.3f}", "1.000", f"{baselines['always_keep']['f1']:.3f}"],
             ],
         ),
+        "",
+        "## Signals",
+        "",
+        _md_table(
+            ["question", "keep mean", "drop mean", "keep n", "drop n"],
+            [
+                [
+                    row["question"],
+                    "n/a" if row["keep_mean"] is None else f"{row['keep_mean']:.3f}",
+                    "n/a" if row["drop_mean"] is None else f"{row['drop_mean']:.3f}",
+                    row["keep_n"],
+                    row["drop_n"],
+                ]
+                for row in signals
+            ],
+        )
+        if signals
+        else "No per-question signals (single-score provider).",
         "",
         "## Threshold sweep",
         "",
@@ -897,11 +1041,12 @@ def run(args: argparse.Namespace) -> int:
                     "score": _clamp(result["score"]),
                     "latency_ms": int(result.get("latency_ms", 0)),
                     "cached": bool(result.get("cached", False)),
+                    "signals": result.get("signals") or {},
                     "error": None,
                 }
             )
         except Exception as exc:
-            row.update({"score": 0.0, "latency_ms": 0, "cached": False, "error": str(exc)})
+            row.update({"score": 0.0, "signals": {}, "latency_ms": 0, "cached": False, "error": str(exc)})
             print(f"score_failed id={row['id']} err={exc}", file=sys.stderr)
         rows.append(row)
         if index % 10 == 0 or index == len(items):

@@ -55,16 +55,19 @@ POST https://openrouter.ai/api/v1/systemone
   "model": "jev-1.14",
   "state": "Title: ...\nSource: ...\nExcerpt: ...",
   "questions": {
-    "keep": {
-      "type": "noul",
-      "instructions": "Does this item contain substantive, original, platform-engineering-relevant information?"
-    }
+    "keep":              { "type": "noul", "instructions": "Does this item belong in the default Brief?" },
+    "platform_relevant": { "type": "noul", "instructions": "Is it platform/agent engineering rather than a domain application?" },
+    "release_lane":      { "type": "noul", "instructions": "Is it a routine release note or bare version bump?" },
+    "corporate_marketing": { "type": "noul", "instructions": "Is it a marketing or corporate announcement without a concrete change?" }
   }
 }
 ```
 
-A `noul` question returns `answers.keep.noul`, the probability of yes. That is
-the keep/drop score the benchmark uses.
+Each `noul` question returns `answers.<id>.noul`. The benchmark uses `keep` as
+the primary score and the other three as hard gates: a high `release_lane` or
+`corporate_marketing`, or a low `platform_relevant`, clamps the item to a low
+score. This hybrid beat both the single-question prompt and the heuristic
+baseline in the 2026-10-24 run.
 
 Export the key:
 
@@ -75,7 +78,7 @@ export OPENROUTER_SYSTEMONE_ENDPOINT="https://openrouter.ai/api/v1/systemone"
 export OPENROUTER_JEV_MODEL="jev-1.14"
 ```
 
-`config/judge.yaml` already contains:
+`config/judge.yaml` already contains the hybrid setup:
 
 ```yaml
 provider: openrouter
@@ -83,8 +86,20 @@ openrouter:
   endpoint: https://openrouter.ai/api/v1/systemone
   model: jev-1.14
   api_key_env: OPENROUTER_API_KEY
-  question_id: keep
-  state_chars: 6000
+  score_mode: hybrid
+  use_holistic_keep: true
+  questions:
+    platform_relevant: { type: noul, instructions: "..." }
+    release_lane:      { type: noul, instructions: "..." }
+    corporate_marketing: { type: noul, instructions: "..." }
+  hybrid:
+    primary: keep
+    drop_if_above:
+      release_lane: 0.6
+      corporate_marketing: 0.7
+    drop_if_below:
+      platform_relevant: 0.35
+    gate_score: 0.1
 ```
 
 Use `jev-1.13` if you want the exact version Hamel Husain tested; `jev-1.14`
@@ -160,11 +175,13 @@ to be pasted into a chat with the assistant for a second opinion.
 
 ## 7. Decide
 
-The first Jev 1.14 run is recorded in
-`docs/status/jev-quality-benchmark-2026-10-24.md`: AUC 0.965, F1 0.878 at
-threshold 0.25, Brier 0.100, ECE 0.106, 50 requests for $0.0023. It beat the
-heuristic baseline, but search title-only items and off-mission domain science
-remain weak. Treat that as the starting point, not a production verdict.
+The Jev 1.14 run is recorded in
+`docs/status/jev-quality-benchmark-2026-10-24.md`. The hybrid four-question
+gate (`keep` plus `platform_relevant`/`release_lane`/`corporate_marketing`)
+scores AUC 0.969, F1 0.927 at threshold 0.25, Brier 0.095, ECE 0.114, 50
+requests for $0.0027. It beat both the single-question prompt and the
+heuristic baseline, but search title-only items remain weak. Treat that as the
+starting point, not a production verdict.
 
 Jev is worth wiring into the pipeline only if all of these hold:
 
