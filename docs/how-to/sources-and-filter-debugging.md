@@ -174,10 +174,9 @@ Interpretation:
   `prefilter_reasons.no_topic_signal`): the item came from a source listed in
   `relevance_floor.sources` and its title+summary (HTML **and URLs** stripped —
   a hostname like `agent.datasette.io` is not a topic signal) carried no
-  `relevance_floor.keywords` term. The same floor runs in `build_tier1.py`
-  (reported as `no_topic_signal=` in its log line), so a floored item is absent
-  from the Tier-1 snapshot too and cannot reach readers through the
-  `api/feed.js` fresh blend. If an on-topic item is wrongly dropped, add
+  `relevance_floor.keywords` term. The single edition builder
+  (`build_digest.py`) applies the same floor before ranking, so a floored item
+  never reaches the feed. If an on-topic item is wrongly dropped, add
   the missing vocabulary term — the list is meant to grow. Only add a source to
   `relevance_floor.sources` when it publishes a genuinely mixed feed; a
   dedicated source's release notes ("codex 0.156.0-alpha.9") carry no keyword

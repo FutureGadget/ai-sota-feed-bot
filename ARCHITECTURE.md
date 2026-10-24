@@ -7,11 +7,12 @@ Sources (RSS/sitemap/arXiv/GitHub releases)
    -> collectors/collect.py            (cooldown-aware crawl, normalize, dedupe)
    -> data/raw/YYYY-MM-DD/items.json
    -> pipeline/source_health.py        (health score, circuit breaker)
-   -> pipeline/build_tier1.py          (fast quick-score snapshot, no LLM)
-   -> data/tier1/latest.json
-   -> pipeline/build_digest.py         (Tier-0: full ranking via pipeline/ranking.py,
-      TIER0_INPUT=tier1, incremental no-delta skip)
-   -> data/processed/latest.json       (the feed) + data/digest/YYYY-MM-DD.md
+   -> pipeline/build_digest.py         (single edition builder:
+      editorial policy -> Jev gate/category -> ranking via pipeline/ranking.py,
+      incremental no-delta skip)
+   -> data/processed/latest.json       (the feed)
+   -> data/processed/classified.json   (judge verdicts/categories for editor decks)
+   -> data/digest/YYYY-MM-DD.md
 
 Reader-facing derivatives (built from the durable story store):
    pipeline/story_store.py sync      -> data/stories/   (/story/<sid> permalinks)
@@ -32,9 +33,9 @@ Reader feedback loop (daily):
 
 ## Runtime
 - Scheduler: GitHub Actions —
-  - `feed-full-publish` (hourly): runs `skills/ai-feed-digest-local/scripts/run_full.sh`
-    end-to-end (collect → tier1 → tier0 → stories/storylines/static pages →
-    prune → commit/push)
+  - `feed-full-publish` (every two hours): runs `skills/ai-feed-digest-local/scripts/run_full.sh`
+    end-to-end (collect -> single edition build -> stories/storylines/static
+    pages -> prune -> commit/push)
   - `feed-ops-summary` (daily): operational health snapshot
   - `feedback-sync` (daily): PostHog feedback/CTR sync + source auto-tuning
 - Storage: Git repository (versioned data artifacts; no database)

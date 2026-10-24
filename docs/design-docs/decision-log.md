@@ -2402,3 +2402,88 @@ Impact: Korean daily/weekly pages with a video now show the same click-to-load
 player. `web/ko/daily/2026-10-16.html` regenerated; no translation changes.
 
 Rollback: Remove the two `render_video` calls.
+
+## 2026-10-24 - Deterministic editorial policy runs before ranking
+
+Decision: Add `pipeline/editorial.py` and `config/editorial.yaml` between
+collection/Tier-1 and the ranking engine. The policy classifies sources by
+editorial role, quarantines obvious search-result and first-party marketing
+noise, collapses the same event reported under different headlines into one
+representative, and retires a story after a bounded number of recent editions.
+The same policy is written to `data/processed/editorial.json` and applied by
+`api/feed.js` / `api/rss.js` to the accumulated run pool.
+
+The frontier slot is split: `frontier_official` now holds engineering/research
+voices only (`openai_blog`, `anthropic_engineering`, `claude_dev_blog`,
+`google_deepmind_blog`); `anthropic_newsroom` and `claude_blog` move to
+`frontier_corporate` (max one seat, 96h freshness, lower slot priority).
+`min_anthropic_frontier` therefore counts Anthropic engineering, not corporate
+news. A cross-slot `editorial_caps.max_search_items: 1` keeps a search result
+from filling several seats.
+
+Rationale: The 2026-10-18 run had 382 unique URLs across 4,824 feed slots, 87%
+repeat between hourly builds, and seven DeepSeek V4.1-Flash cards from one
+Google News query. The 2026-10-24 feed had no Anthropic item at all while the
+corporate newsroom's "2026 Usage Policy update" had appeared 88 times in the
+previous eight days. The root cause was that recall sources, ranking, and the
+API's accumulated history had no editorial bookkeeping. An LLM cannot reliably
+fix repeated-item counting, source caps, or cross-edition memory; those belong
+in deterministic code.
+
+Impact: The feed can be smaller on quiet days because search and marketing
+items no longer pad it. Search contributes at most one final card. Corporate
+Anthropic/Claude news can still appear, but only through its own capped slot
+and a shorter seen-memory run. `latest.json` items gain `source_role`,
+`story_key`, `story_cluster_id`, `story_cluster_size`, `seen_count`, and
+`editorial_penalty`. Old run snapshots without `story_key` still work through
+the API's normalized-title fallback and per-source caps.
+
+Rollback: Remove the `apply_pre_ranking` call from `build_digest.py` /
+`build_tier1.py`, restore the old `frontier_official` source list in
+`config/ranking.yaml`, and delete `config/editorial.yaml`. The API falls back
+to conservative defaults if `data/processed/editorial.json` is absent.
+
+## 2026-10-24 - Collapse the two-tier feed into one Jev-gated edition builder
+
+Decision: Remove the Tier-1 fast snapshot and the API's Tier-1 fresh blend.
+`pipeline/build_digest.py` is now the single edition builder: raw collection ->
+deterministic editorial policy -> Stage A prefilter -> Jev gate/category ->
+Stage B/C ranking -> edition. The Jev gate runs on the Stage A candidate pool,
+fetches paragraph excerpts for candidates whose feed teaser is too short, and
+attaches `judge_score`, `judge_signals`, `judge_category`, and `judge_verdict`.
+The judge is a continuous Stage C weight plus a headroom floor, not a global
+binary gate; release items are exempt and remain available for the Releases
+tab. Build artifacts: `data/processed/classified.json` (compact, committed, for
+editor-deck routines) and `data/quality/classified/<date>.json` (full local
+pool). `pipeline/build_tier1.py` and `data/tier1` are deleted; `api/feed.js`,
+`api/rss.js`, and `api/share.js` read `data/processed/**` only.
+
+Rationale: The two-tier split was mostly a freshness and failure-isolation
+mechanism, not a cost one. It also created a second, differently filtered path
+to readers, and its 213 MB of Tier-1 snapshots dominated the repo and the
+Vercel bundle. Jev 1.14 on OpenRouter costs $0.042 per million input tokens and
+scores in under a second, so the semantic layer can run on the real candidate
+pool. The judge needs article text, not nav-heavy teasers: the benchmark run
+showed paragraph extraction turning a false negative (Cloudflare's inference
+cost post) into a correct keep. The first hard-gate attempt revealed a second
+lesson: dropping high-confidence items globally emptied whole lanes and made
+the feed fill with downgraded drops. A continuous judge weight plus a headroom
+floor preserves slot composition, and `build_digest.py` can return fewer than
+24 items on a quiet day instead of padding with judged-low filler.
+
+Impact: `data/tier1` and `build_tier1.py` are gone. `run_full.sh` no longer
+builds or checks Tier-1, and `prune_runtime_data.py` no longer prunes it. The
+feed API's `blend_tier1`/`tier1_*` options and `tier1_blend` response field are
+gone; `blend_tier1` is removed from the localized snapshot selector. The judge
+is enabled in `config/judge.yaml` but fails open without `OPENROUTER_API_KEY`.
+A cold judge run over a full Stage A pool is about 140 requests and ~$0.007;
+the content-fetch cache and judge cache make reruns cheap. Release items may
+carry `judge_verdict: drop` but are exempt from the headroom floor so the
+Releases tab and model radar still have data. The feed can be smaller than 24
+items.
+
+Rollback: Restore `pipeline/build_tier1.py` and `data/tier1` from git history,
+re-add the Tier-1 calls and `TIER0_INPUT=tier1` in `run_full.sh`, restore the
+Tier-1 include paths and blend code in the APIs, and set
+`config/judge.yaml -> enabled: false`. The deterministic editorial policy and
+ranking remain unchanged.

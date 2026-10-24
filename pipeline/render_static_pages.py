@@ -812,7 +812,8 @@ def _clean_release_summary(summary: str, item_type: str) -> str:
 
 
 _RANKED_SLOT_LABELS = {
-    "frontier_official": "frontier lab",
+    "frontier_official": "frontier engineering",
+    "frontier_corporate": "company news",
     "agent_tooling_releases": "agent tooling release",
     "infra_runtime_releases": "infra/runtime release",
     "open_weight_releases": "open-weight release",
@@ -869,7 +870,7 @@ def _ranked_because(item: dict) -> str:
             parts.append(f"fresh {_js_tofixed2(decay)}")
     score_raw = item.get("final_score")
     if score_raw is None:
-        score_raw = item.get("tier1_quick_score")
+        score_raw = item.get("score")
     if score_raw is not None and str(score_raw).strip() != "":
         try:
             score = float(score_raw)

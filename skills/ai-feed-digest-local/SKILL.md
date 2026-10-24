@@ -11,28 +11,26 @@ Run local pipeline from repository root using bundled scripts.
   - `skills/ai-feed-digest-local/scripts/run_full.sh`
 - Run dev pipeline without runtime publishing:
   - `skills/ai-feed-digest-local/scripts/run_dev.sh`
-- Run fast Tier-1 pipeline (ingest + health + quick scoring, no LLM/publish):
-  - `skills/ai-feed-digest-local/scripts/run_tier1_fast.sh`
-
 ## Workflow
 
-1. Run `run_tier1_fast.sh` for fast freshness updates and lightweight sanity checks.
-2. Run `run_dev.sh` while iterating on scoring/prompts/preferences.
-3. Run `run_full.sh` for end-to-end verification.
-4. Commit and push all relevant changes after successful local validation:
+1. Run `run_dev.sh` while iterating on scoring/prompts/preferences.
+2. Run `run_full.sh` for end-to-end verification.
+3. Commit and push all relevant changes after successful local validation:
    - `git add ... && git commit -m "..." && git push`
 
 ## Notes
 
 - `run_full.sh` auto-loads `.env` from repo root if present.
-- Source crawl cooldown is enabled for fast Tier-1 runs (`COLLECT_DEFAULT_POLL_MINUTES`, default 30).
-- `run_full.sh` now respects cooldown by default (`FULL_RUN_BYPASS_COOLDOWN=0`).
-- `run_full.sh` always builds Tier-1 first and runs Tier-0 with `TIER0_INPUT=tier1`.
+- Source crawl cooldown is enabled (`COLLECT_DEFAULT_POLL_MINUTES`, default 30).
+- `run_full.sh` respects cooldown by default (`FULL_RUN_BYPASS_COOLDOWN=0`).
+- One edition builder: `build_digest.py` reads raw, applies the deterministic
+  editorial policy and the Jev gate, then ranks and publishes.
+- Set `OPENROUTER_API_KEY` to enable the judge. Without it, the build logs
+  `judge_skipped reason=not_configured` and continues deterministically.
 - For forced refresh, run full with `FULL_RUN_BYPASS_COOLDOWN=1`.
-- `run_dev.sh` still bypasses cooldown for iteration speed.
+- `run_dev.sh` bypasses cooldown for iteration speed.
 - `run_full.sh` prunes runtime snapshot history before commit:
   - `PROCESSED_RUN_RETENTION_DAYS` (default 45)
-  - `TIER1_RUN_RETENTION_DAYS` (default 14)
   - `WEEKLY_ARCHIVE_AFTER_DAYS` (default 365; older history compacted weekly)
 - Prefer local manual runs during development (no schedule required).
 - Keep preferences prompt-driven via:
@@ -57,4 +55,4 @@ Run local pipeline from repository root using bundled scripts.
   - `FULL_RUN_OK`
 - Incremental no-delta behavior:
   - `run_full.sh` defaults to `TIER0_INCREMENTAL=1` and `TIER0_INCREMENTAL_SKIP_NO_DELTA=1`.
-  - If no Tier-0 delta is detected, it exits early with `FULL_RUN_NO_DELTA_SKIP=true` and skips publish steps.
+  - If no new raw item is detected, it exits early with `FULL_RUN_NO_DELTA_SKIP=true` and skips publish steps.

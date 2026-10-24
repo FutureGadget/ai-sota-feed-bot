@@ -14,6 +14,8 @@ import yaml
 from dateutil import parser as dt_parser
 
 from content_fetch import build_content_map
+from editorial import apply_pre_ranking, write_editorial_artifact
+from editorial_judge import apply_judge
 from enrich import enrich_items, record_duplicate
 from llm_label import label_items, load_cfg as load_llm_cfg
 from llm_rerank import rerank_candidates
@@ -167,27 +169,9 @@ def latest_raw_file() -> Path:
     return fp
 
 
-def latest_tier1_file() -> Path:
-    fp = ROOT / "data" / "tier1" / "latest.json"
-    if not fp.exists():
-        raise FileNotFoundError(f"Missing {fp}")
-    return fp
-
-
 def load_items_for_tier0() -> tuple[list[dict[str, Any]], str, Path]:
-    pref = (os.getenv("TIER0_INPUT", "tier1") or "tier1").strip().lower()
-
-    if pref == "raw":
-        fp = latest_raw_file()
-        return json.loads(fp.read_text(encoding="utf-8")), "raw", fp
-
-    # default: tier1 with automatic fallback to raw
-    try:
-        fp = latest_tier1_file()
-        return json.loads(fp.read_text(encoding="utf-8")), "tier1", fp
-    except Exception:
-        fp = latest_raw_file()
-        return json.loads(fp.read_text(encoding="utf-8")), "raw_fallback", fp
+    fp = latest_raw_file()
+    return json.loads(fp.read_text(encoding="utf-8")), "raw", fp
 
 
 def load_latest_processed_run_at() -> datetime | None:
@@ -801,19 +785,57 @@ def run():
 
     items = enrich_items(items)
     items = dedupe(items)
+    items, editorial_diag = apply_pre_ranking(items)
     items_deduped = list(items)
-
+    print(
+        "editorial_stats "
+        f"in={editorial_diag.get('input', 0)} out={editorial_diag.get('output', 0)} "
+        f"search_in={editorial_diag.get('search_in', 0)} "
+        f"search_low_quality={editorial_diag.get('search_dropped_low_quality', 0)} "
+        f"search_non_latin={editorial_diag.get('search_dropped_non_latin', 0)} "
+        f"search_over_cap={editorial_diag.get('search_dropped_over_cap', 0)} "
+        f"first_party_low_value={editorial_diag.get('first_party_dropped_low_value', 0)} "
+        f"clusters={editorial_diag.get('clusters', 0)} "
+        f"collapsed={editorial_diag.get('collapsed', 0)} "
+        f"seen_dropped={editorial_diag.get('seen_dropped', 0)} "
+        f"seen_penalized={editorial_diag.get('seen_penalized', 0)}"
+    )
     source_health = load_source_health()
 
     # Unified ranking pipeline (single canonical path).
     try:
         from ranking import run_ranking
 
-        ranked_items, ranking_diag = run_ranking(items_deduped, profile, load_llm_cfg(), source_health)
+        ranked_items, ranking_diag = run_ranking(
+            items_deduped,
+            profile,
+            load_llm_cfg(),
+            source_health,
+            judge_fn=apply_judge,
+        )
+        ranking_diag["editorial"] = editorial_diag
+        judge_diag = ranking_diag.get("judge", {}) or {}
+        print(
+            "judge_stats "
+            f"enabled={int(bool(judge_diag.get('enabled')))} "
+            f"selected={judge_diag.get('selected', 0)} "
+            f"judged={judge_diag.get('judged', 0)} "
+            f"cached={judge_diag.get('cached', 0)} "
+            f"store_hits={judge_diag.get('store_hits', 0)} "
+            f"store_misses={judge_diag.get('store_misses', 0)} "
+            f"store_entries={judge_diag.get('store_entries', 0)} "
+            f"content_fetched={judge_diag.get('content_fetched', 0)} "
+            f"errors={judge_diag.get('errors', 0)} "
+            f"downgraded={judge_diag.get('downgraded', 0)} "
+            f"verdicts={judge_diag.get('verdicts', {})} "
+            f"categories={judge_diag.get('categories', {})} "
+            f"reason={judge_diag.get('reason', 'ok')}"
+        )
 
         processed_dir = ROOT / "data" / "processed"
         processed_dir.mkdir(parents=True, exist_ok=True)
         atomic_write_json(processed_dir / "latest.json", ranked_items)
+        write_editorial_artifact(editorial_diag)
 
         date_str = datetime.now().strftime("%Y-%m-%d")
         diag_dir = ROOT / "data" / "diagnostics"

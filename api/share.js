@@ -14,8 +14,8 @@ import path from 'node:path';
 // we redirect there: the story page carries its own OG tags and never
 // expires, so old share links keep working.
 //
-// Otherwise (e.g. tier1-fresh items not yet in a published snapshot) the
-// item is looked up by URL in the same data the feed serves: crawlers get
+// Otherwise the item is looked up by URL in the same data the feed serves:
+// crawlers get
 // item-specific Open Graph tags, humans get redirected to the live feed
 // with the story highlighted (/?item=<url>&utm_source=share). If it has
 // aged out of retention, the page degrades to a generic site card and still
@@ -69,11 +69,9 @@ function storyPageExists(sid) {
 function* candidateItemLists() {
   const cwd = process.cwd();
   yield readJsonSafe(path.join(cwd, 'data', 'processed', 'latest.json'), []);
-  yield readJsonSafe(path.join(cwd, 'data', 'tier1', 'latest.json'), []);
 
   for (const [dir, indexName] of [
     ['processed', 'runs_index.json'],
-    ['tier1', 'runs_index.json'],
   ]) {
     const base = path.join(cwd, 'data', dir);
     const index = readJsonSafe(path.join(base, indexName), []);

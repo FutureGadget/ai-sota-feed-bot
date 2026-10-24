@@ -7,11 +7,10 @@
 #
 # None of the dirs below are read by any api/ function at request time or by the
 # static build (scripts/vercel_build.py -> build_wiki.py + render_static_pages.py).
-# feed.js/rss.js/share.js touch tier1/runs only via graceful-fallback paths that
-# degrade to tier1/latest.json when the runs are absent. Everything here stays in
-# git (audit/replay) but ships out of the deployment.
+# feed.js/rss.js/share.js read only data/processed/** and stories/index.json.
+# Everything here stays in git (audit/replay) but ships out of the deployment.
 data/raw
-data/tier1/runs
+data/tier1
 data/llm
 data/health
 data/digest
@@ -20,6 +19,9 @@ data/cache
 data/analysis
 data/foundations/input
 data/playbook/lab/drafts
+# Quality-judge benchmark and cache: read only by the offline benchmark runner,
+# never by a request-time function or the static build.
+data/quality
 # Dated Model Release Radar snapshots: ~290 KB each, one per refresh, and
 # read by nothing at request time (api/models.js pins includeFiles to
 # latest.json). Left in the deployment they grow ~100 MB/year inside every
