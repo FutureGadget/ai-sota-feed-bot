@@ -2,146 +2,140 @@
 
 Focus: AI Platform Engineering
 
-## 1. Build Your Own Reasoning Model: A Full Video Course
-- Type: news | Source: sebastian_raschka
-- URL: https://magazine.sebastianraschka.com/p/building-reasoning-models
-- Score: 2.953 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 2. Google’s Data Agent Kit Hits GA, Splitting Agent Guardrails Between Skills and IAM
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/10/data-agent-kit-ga/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.84 | Reliability: 1.0
+## 1. Show HN: TenseMem – deterministic memory for AI agents
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/tensemem/tensemem
+- Score: 3.541 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. Introducing Kimi K3.1 Pro
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Oct/23/kimi-k31-pro/
-- Score: 2.552 | Reliability: 1.0
-- Why it matters: 
-
-## 4. Context Engineering (Agent Memory) for AI Agents Starts with Retrieval
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/context-engineering-starts-with-retrieval
-- Score: 2.515 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, eval.
-
-## 5. DuoCook: An Overcooked-Inspired Benchmark for Visual Planning and Coordination
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2610.31511v1
-- Score: 2.417 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 6. Conservative Meta-Agent Search: Architecture Adaptation under Non-Stationarity
+## 2. Muffin - A Shared Memory Buffer for Asynchronous AI Agents
 - Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.31436v1
-- Score: 2.382 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 7. [AINews] Kimi 3.1 Pro 104BA-2.8T: Fable-5.1-Class Open Weights narrows Closed-AI lead to 1 month... and Pro Highspeed API with 2-3× speed
-- Type: news | Source: latent_space
-- URL: https://latent.space/p/ainews-kimi-31/
-- Score: 2.376 | Reliability: 1.0
-- Why it matters: 
-
-## 8. Securing our frontier model training environment
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/securing-our-frontier-model-training-environment
-- Score: 2.068 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 9. Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/scaling-storage-one-billion-users-part-two
-- Score: 2.049 | Reliability: 1.0
-- Why it matters: 
-
-## 10. OpenAI and Poland’s NASK partner to advance AI safety and security
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/openai-nask-ai-safety-security-partnership
-- Score: 1.789 | Reliability: 1.0
-- Why it matters: 
-
-## 11. DeepSeek vs Claude: $0.15 vs $4 Per 1M Tokens [2026]
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiXkFVX3lxTE9OR0ZCaUJpcC1kV3dNWHJjSG00Q2toN2V2R1pFaW1hLUk5WExMSlBhNWcxd3c0eXJkZy00bjdCWWlVV2h2MWlEYnFnc1I1OUlzc1NiWTQ4QWtLMDU3Tnc?oc=5
-- Score: 2.299 | Reliability: 1.0
-- Why it matters: 
-
-## 12. Evaluating the Applicability of LLM Inference Optimizations on Apple Silicon
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2610.31479v1
-- Score: 2.297 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 13. GLM-5.3 Optimizations, Part 2: PCP, DCP, and Hybrid HiSparse on 16 H200s
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-10-23-glm53-part2-pcp-dcp-hisparse
-- Score: 2.254 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2610.31355v1
+- Score: 2.902 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 14. Quick Study
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Oct/23/quick-study-painter/
-- Score: 2.228 | Reliability: 1.0
-- Why it matters: 
+## 3. When LLMs Forget What They Believe: Characterizing State Integrity Collapse in Long-Horizon Dialogues
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2610.31314v1
+- Score: 2.838 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
-## 15. EpiSEM-Bench: Evaluating Safety and Evidence Recovery in LLM Agents under Missing Evidence
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.31650v1
-- Score: 2.146 | Reliability: 1.0
+## 4. Build Your Own Reasoning Model: A Full Video Course
+- Type: news | Source: sebastian_raschka
+- URL: https://magazine.sebastianraschka.com/p/building-reasoning-models
+- Score: 2.822 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 5. Adaptive Skill Granularity for Coding Agents: Runtime Routing and Macro-to-Micro Recovery
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2610.31461v1
+- Score: 2.819 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 16. AgentPhishing: A Benchmark of LLM Email Agents Under Adaptive Attack
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2610.31404v1
-- Score: 2.142 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
+## 6. battledrones v14: Compass Rose, a four player map
+- Type: release | Source: simon_willison
+- URL: https://simonwillison.net/2026/Oct/24/battledrones/
+- Score: 2.628 | Reliability: 1.0
+- Why it matters: 
 
-## 17. claude-agent-sdk-python v0.2.174
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.174
-- Score: 2.116 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 18. Anthropic Adds Opt-In Security Scanning for Critical Open-Source Projects
+## 7. Presentation: Actors for Agents: Patterns for Production AI
 - Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/10/anthropic-oss-security-scanner/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.082 | Reliability: 1.0
-- Why it matters: 
+- URL: https://www.infoq.com/presentations/actors-for-production-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.32 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
 
-## 19. claude-code v2.1.310
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.310
-- Score: 2.075 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 20. langgraph==1.2.17
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.17
-- Score: 1.988 | Reliability: 1.0
-- Why it matters: 
-
-## 21. codex 0.165.0-alpha.1
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.165.0-alpha.1
-- Score: 1.914 | Reliability: 1.0
+## 8. Cloudflare links vulnerability discovery to defense with OpenAI
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/cloudflare-cyber
+- Score: 2.128 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 22. Why founders keep failing to vibecode their own LLM inference engine
-- Type: news | Source: search_llm_ops_news
-- URL: https://news.google.com/rss/articles/CBMinAFBVV95cUxNWFQyRXJtQU5CWDVfWjZfUXpLaDFFUkFJc2tkWWE3RDljeVRhRmoyRXhIS1A1cG5Hd0VxTDhZdlNENmY1czlEQ19uZjVKOXRja1ZMeW5DNXpNT1hydjNKUlNLaFpZNlV2OHI5NkZIaGJFbUs0OUpMa1JqLUc2WHdjN2VmTHY0eDJCZDI2aW5mQVFudnl2RXdWSDJWNzE?oc=5
-- Score: 1.836 | Reliability: 1.0
+## 9. Built for Agents: The Case for Spark Declarative Pipelines
+- Type: news | Source: databricks_blog
+- URL: https://www.databricks.com/blog/built-agents-case-spark-declarative-pipelines
+- Score: 2.113 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 10. Introducing our Training API
+- Type: news | Source: modal_blog
+- URL: https://modal.com/blog/introducing-training-api
+- Score: 2.102 | Reliability: 1.0
 - Why it matters: 
 
-## 23. Beyond tree cover: mapping the world’s forest types
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/beyond-tree-cover-mapping-the-worlds-forest-types/
-- Score: 1.785 | Reliability: 1.0
-- Why it matters: 
+## 11. Same Luck, Different Choice: Twin-World Credit Assignment for Agentic Reinforcement Learning
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2610.31544v1
+- Score: 2.722 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
 
-## 24. Multi-Turn Reinforcement Learning on Amazon SageMaker AI: A hands-on guide
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/multi-turn-reinforcement-learning-on-amazon-sagemaker-ai-a-hands-on-guide/
-- Score: 1.737 | Reliability: 1.0
+## 12. Reliable AI-Assisted Decisions via Selective Auditing
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.31662v1
+- Score: 2.703 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
+
+## 13. How the Claude Code team does code review
+- Type: news | Source: claude_dev_blog
+- URL: https://claude.dev/blog/solving-code-review-at-anthropic/
+- Score: 1.855 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 14. Announcing Humming: Fast, Flexible Kernels for Quantized Inference
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-10-21-humming
+- Score: 1.846 | Reliability: 1.0
+- Why it matters: 
+
+## 15. langgraph-sdk==0.4.9
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.9
+- Score: 1.749 | Reliability: 1.0
+- Why it matters: 
+
+## 16. Introducing vLLM TorchTPU
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-10-20-vllm-torchtpu
+- Score: 1.729 | Reliability: 1.0
+- Why it matters: 
+
+## 17. claude-agent-sdk-python v0.2.172
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.172
+- Score: 1.466 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 18. tencent/WeVisOne-VL-2B released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/WeVisOne-VL-2B
+- Score: 1.384 | Reliability: 1.0
+- Why it matters: 
+
+## 19. codex 0.163.0-alpha.11.1
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.163.0-alpha.11.1
+- Score: 1.382 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 20. claude-code v2.1.308
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.308
+- Score: 1.32 | Reliability: 1.0
+- Why it matters: 
+
+## 21. Claude Opus 5.5 and Claude Sonnet 5.5 are now available in Google Antigravity
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/ai-machine-learning/claude-opus-55-and-claude-sonnet-55-available-in-antigravity/
+- Score: 1.292 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness.
+
+## 22. How Commerce.com and Cloudflare are getting storefronts ready for AI agents
+- Type: news | Source: cloudflare_blog
+- URL: https://blog.cloudflare.com/webmcp-commerce/
+- Score: 1.146 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 23. vllm v0.32.0
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.0
+- Score: 1.055 | Reliability: 1.0
+- Why it matters:
