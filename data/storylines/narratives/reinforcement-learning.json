@@ -1,7 +1,25 @@
 {
-  "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has collected a Qwen long-horizon agent approach and an O-RAN benchmark.",
-  "whats_new": "Oct 20-21 add two agentic-RL papers: calibrated rollout budgets for MCP tool-using agents, and BIRD-RL for stateful data-centric environments.",
-  "why_it_matters": "The two newest papers are the relevant ones for agent builders: both address the cost and environment design of training tool-using models. QwenGyre (a secondary-source report) and X-RIC remain research or telecom-specific.",
+  "slug": "reinforcement-learning",
+  "generated_at": "2026-10-24T00:30:00+00:00",
+  "covers_last_updated": "2026-10-23T17:48:54+00:00",
+  "covers_member_sids": [
+    "276a486ae6eefe6b",
+    "8a41e1e41cbecfde",
+    "a00ad2ffbda7f2e9",
+    "afd320e7f42ef5bd",
+    "b508403b13597849",
+    "db03100b1bd7cd3e",
+    "f3c8da2fe4584033"
+  ],
+  "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has collected a Qwen long-horizon agent report, an O-RAN benchmark, and three Oct 20-21 arXiv papers on training tool-using and search agents.",
+  "whats_new": "Oct 23: AWS publishes a hands-on guide to multi-turn RL on Amazon SageMaker AI, training on whole-task outcomes with a Wordle example.",
+  "why_it_matters": "The SageMaker guide is the first managed-platform recipe in the thread, so teams on AWS can try outcome-based multi-turn RL without building the training harness. The arXiv papers cover rollout cost, stateful environments and search-state awareness; QwenGyre (a secondary-source report) and X-RIC remain research or telecom-specific.",
+  "status": {
+    "state": "Developing",
+    "tone": "rising",
+    "changed": "2026-10-23",
+    "detail": "A loose set of agentic-RL items; the newest moves from papers to a managed-platform guide."
+  },
   "beats": [
     {
       "kicker": "AGENTS",
@@ -22,36 +40,39 @@
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
-      "headline": "Agentic RL for tool-using models: rollout budgets and stateful data environments",
-      "summary": "Two arXiv papers on cutting rollout cost and extending RL beyond tool-centric settings.",
+      "kicker": "RESEARCH",
+      "tone": "rising",
+      "headline": "Agentic RL papers: rollout budgets, stateful data environments, search-state awareness",
+      "summary": "Three arXiv papers on cutting rollout cost, extending RL beyond tool-centric settings, and teaching search agents to assess their own state.",
       "sids": [
         "afd320e7f42ef5bd",
-        "a00ad2ffbda7f2e9"
+        "a00ad2ffbda7f2e9",
+        "276a486ae6eefe6b"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "AWS walks through multi-turn RL on SageMaker AI",
+      "summary": "A hands-on pipeline that trains on the outcome of a whole multi-step task, demonstrated on Wordle.",
+      "sids": [
+        "8a41e1e41cbecfde"
       ]
     }
   ],
   "open_questions": [
     "Does calibrated rollout budgeting cut MCP-agent training cost on benchmarks beyond the paper's own?",
     "Does BIRD-RL's gain on small language models hold on larger models?",
-    "Does Qwen publish QwenGyre weights, code, or benchmarks that show the elastic RL gain on long-horizon agent tasks?"
+    "Does Qwen publish QwenGyre weights, code, or benchmarks that show the elastic RL gain on long-horizon agent tasks?",
+    "Does the SageMaker MTRL recipe carry from Wordle to tool-using agent tasks, and at what training cost?"
   ],
-  "take_for_builders": "If you train tool-using models, read the rollout-budget paper for ways to skip groups with identical rewards; wait for Qwen's primary QwenGyre release before planning around it.",
+  "take_for_builders": "If you train tool-using models, read the rollout-budget paper for ways to skip groups with identical rewards; if you run on AWS, try the SageMaker Wordle pipeline before planning around it, and wait for Qwen's primary QwenGyre release.",
   "day_captions": {
     "b508403b13597849": "MarkTechPost's summary of Qwen's elastic RL approach for extra-long-horizon agents.",
     "db03100b1bd7cd3e": "arXiv benchmark for RL in agentic O-RAN controllers; the only telecom-domain item.",
     "afd320e7f42ef5bd": "Uses reward disagreement to allocate rollout budgets for MCP agents; first training-cost item in the thread.",
-    "a00ad2ffbda7f2e9": "Newest: agentic RL for small language models in stateful, data-centric environments."
-  },
-  "slug": "reinforcement-learning",
-  "generated_at": "2026-10-23T00:04:35+00:00",
-  "covers_last_updated": "2026-10-21T08:50:39+00:00",
-  "covers_member_sids": [
-    "b508403b13597849",
-    "f3c8da2fe4584033",
-    "db03100b1bd7cd3e",
-    "afd320e7f42ef5bd",
-    "a00ad2ffbda7f2e9"
-  ]
+    "a00ad2ffbda7f2e9": "Agentic RL for small language models in stateful, data-centric environments.",
+    "276a486ae6eefe6b": "Self-assessment RL so retrieval-augmented search agents track their search state.",
+    "8a41e1e41cbecfde": "Newest: AWS's hands-on multi-turn RL pipeline on SageMaker AI, the first managed-platform recipe in the thread."
+  }
 }

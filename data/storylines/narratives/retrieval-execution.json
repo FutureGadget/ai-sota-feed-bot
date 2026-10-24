@@ -1,21 +1,34 @@
 {
   "slug": "retrieval-execution",
-  "generated_at": "2026-10-17T10:20:00+00:00",
-  "covers_last_updated": "2026-10-17T05:12:34+00:00",
-  "covers_member_sids": ["8ced9fea396e65fb", "19b58845c8888d5a", "cbef01ba5cb1e9c5"],
-  "tldr": "Oct 6 and Oct 9 papers studied how agents pick skills and tools: one optimizes skill injections to survive routers, the other adds execution-time reliability to tool retrieval. The common thread is that agent retrieval is judged on what happens at execution, not only on semantic match.",
-  "whats_new": "EPGM, posted Oct 17, applies the execution lens to agent memory: it adds execution provenance to budgeted memory retrieval.",
-  "why_it_matters": "Three independent papers treat retrieval for skills, tools, and memory as an execution-time reliability problem. Relevance-only retrieval in an agent stack can pick items that are unavailable or unsafe at run time.",
+  "generated_at": "2026-10-24T01:00:00+00:00",
+  "covers_last_updated": "2026-10-23T17:00:00+00:00",
+  "covers_member_sids": [
+    "734c12b48d882553",
+    "8ced9fea396e65fb",
+    "19b58845c8888d5a",
+    "cbef01ba5cb1e9c5",
+    "b0133c74d1515b7b"
+  ],
+  "tldr": "From Oct 3 to Oct 17, papers examined retrieval in agents and on-device LLMs under execution constraints: CPU retrieval scheduling, skill routing, tool retrieval, and agent memory. The shared thread was that retrieval is judged by what happens at run time, not only by semantic match.",
+  "whats_new": "LangChain's Oct 23 post says its Deep Agents harness fixes clumsy searches, oversized results, and stale data to get the right context in, moving the theme from papers to a shipped harness.",
+  "why_it_matters": "Retrieval for skills, tools, and memory can fail at run time through unavailable tools, latency contention, oversized results, or stale data, so relevance-only scoring is not enough.",
   "status": {
-    "state": "Developing · research",
+    "state": "Developing · research to practice",
     "tone": "rising",
-    "changed": "2026-10-17",
-    "detail": "Three papers on skill, tool, and memory retrieval, each tied to execution behavior; none is a shipped product."
+    "changed": "2026-10-23",
+    "detail": "Four papers frame retrieval as an execution problem; LangChain's Oct 23 post is the first practitioner write-up in the thread."
   },
   "beats": [
     {
-      "kicker": "SKILLS",
+      "kicker": "SYSTEMS",
       "tone": "launch",
+      "headline": "PhaseGate schedules CPU retrieval around on-device LLM decoding",
+      "summary": "Concurrent retrieval workers on unified memory raise p95 decode latency.",
+      "sids": ["734c12b48d882553"]
+    },
+    {
+      "kicker": "SKILLS",
+      "tone": "rising",
       "headline": "Skill-router paper optimizes skill injections for retrieval and execution",
       "summary": "Covers third-party skills selected dynamically by skill routers.",
       "sids": ["8ced9fea396e65fb"]
@@ -29,19 +42,29 @@
     },
     {
       "kicker": "MEMORY",
-      "tone": "now",
+      "tone": "turn",
       "headline": "EPGM brings execution provenance to budgeted agent memory retrieval",
       "sids": ["cbef01ba5cb1e9c5"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "LangChain applies retrieval techniques in its Deep Agents harness",
+      "summary": "A practitioner post on search, result size, and stale data.",
+      "sids": ["b0133c74d1515b7b"]
     }
   ],
   "open_questions": [
-    "Do any of the three papers report results on a public agent benchmark that others can reproduce?",
-    "Does any skill router or tool-retrieval library adopt execution-aware scoring?"
+    "Do any of the papers report results on a public agent benchmark that others can reproduce?",
+    "Does any skill router or tool-retrieval library adopt execution-aware scoring?",
+    "Does LangChain publish measurements showing how its retrieval changes affect Deep Agents task success or context use?"
   ],
-  "take_for_builders": "If your agent retrieves tools or skills by embedding similarity alone, log whether each retrieved item was actually available and succeeded at run time, so you can measure the gap these papers target.",
+  "take_for_builders": "Log for each retrieved tool, skill, or memory whether it was available and succeeded at run time, and cap result size, so you can measure the gap these papers and LangChain's post target.",
   "day_captions": {
+    "734c12b48d882553": "Systems angle: concurrent CPU retrieval workers raise p95 decode latency for on-device LLMs on unified memory.",
     "8ced9fea396e65fb": "Skill-router angle: how skill injections are optimized to be retrieved and executed.",
     "19b58845c8888d5a": "Tool-retrieval angle: scores tools by execution-time reliability, not just relevance.",
-    "cbef01ba5cb1e9c5": "Memory-retrieval angle: adds execution provenance under a retrieval budget."
+    "cbef01ba5cb1e9c5": "Memory-retrieval angle: adds execution provenance under a retrieval budget.",
+    "b0133c74d1515b7b": "Practitioner angle: LangChain describes retrieval techniques its Deep Agents harness uses against clumsy searches, oversized results, and stale data."
   }
 }

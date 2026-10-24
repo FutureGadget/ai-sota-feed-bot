@@ -1,12 +1,12 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 4,
+ "item_count": 5,
  "day_count": 4,
  "source_count": 4,
  "first_seen": "2026-10-06T16:59:37+00:00",
- "last_updated": "2026-10-21T15:38:05+00:00",
- "generated_at": "2026-10-23T00:04:54.611673+00:00",
+ "last_updated": "2026-10-21T20:46:24+00:00",
+ "generated_at": "2026-10-24T00:12:17.262323+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -73,7 +73,18 @@
      "why_it_matters": "Matches feed focus: agentic, evaluation.",
      "sid": "16071b3c73317004",
      "published": "2026-10-21T15:38:05+00:00",
-     "editor_note": "Newest: materials-science data extraction with ML and LLMs; a domain survey, not a reliability result."
+     "editor_note": "Materials-science data extraction with ML and LLMs; a domain survey, not a reliability result."
+    },
+    {
+     "title": "Self-Assessment Reinforcement Learning for Search-State Awareness in Retrieval-Augmented Large Language Models",
+     "url": "http://arxiv.org/abs/2610.30435v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Recent advances in search agents have enabled large language models to tackle complex tasks by retrieving and synthesizing external information. However, existing search agents often lack search-state awareness, i.e.,...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "276a486ae6eefe6b",
+     "published": "2026-10-21T20:46:24+00:00",
+     "editor_note": "Newest: trains search agents to assess their own search state in retrieval-augmented setups."
     }
    ]
   }
@@ -81,18 +92,10 @@
  "editorial": {
   "tldr": "This page groups arXiv papers by the shared phrase \"large language models\"; they do not form one developing story. They cover a security attack on speculative decoding (Oct 6), narrative-induced sycophancy (Oct 16) and hallucinations in code translation (Oct 20).",
   "stale": false,
-  "whats_new": "Oct 21 adds an arXiv survey of LLM-based materials data extraction; it is a domain application, not a development of the reliability papers above it.",
-  "why_it_matters": "Each paper names a distinct failure surface: speculative decoding adds a draft-model attack path, sycophancy skews user-facing answers, and code translation adds hallucinated output in migrations. Treat them as separate checks, not one trend.",
-  "take_for_builders": "Do not cite these papers as corroborating each other; if you migrate code with LLMs, add a hallucination check on translated output, and judge the other papers separately.",
+  "whats_new": "Oct 21 adds an arXiv paper on self-assessment RL for search-state awareness in retrieval-augmented agents, plus a materials-data extraction survey; neither extends the earlier papers.",
+  "why_it_matters": "Each paper names a distinct failure surface: speculative decoding adds a draft-model attack path, sycophancy skews user-facing answers, code translation adds hallucinated output, and search agents lack awareness of what they have retrieved. Treat them as separate checks, not one trend.",
+  "take_for_builders": "Do not cite these papers as corroborating each other; add a hallucination check on LLM-translated code, and wait for independent evals before adopting the search-state RL method.",
   "beats": [
-   {
-    "kicker": "RELIABILITY",
-    "tone": "launch",
-    "headline": "Hallucinations in cross-language code translation, with mitigations",
-    "sids": [
-     "06d8677dec3b3c21"
-    ]
-   },
    {
     "kicker": "SECURITY",
     "tone": "neutral",
@@ -110,18 +113,29 @@
     ]
    },
    {
-    "kicker": "APPLICATION",
-    "tone": "now",
-    "headline": "LLMs applied to extracting materials data from scientific literature",
+    "kicker": "RELIABILITY",
+    "tone": "launch",
+    "headline": "Hallucinations in cross-language code translation, with mitigations",
     "sids": [
-     "16071b3c73317004"
+     "06d8677dec3b3c21"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Search-state awareness for RAG agents, and LLM materials-data extraction",
+    "summary": "Two Oct 21 papers: a self-assessment RL method for search agents, and a domain survey of materials data extraction.",
+    "sids": [
+     "16071b3c73317004",
+     "276a486ae6eefe6b"
     ]
    }
   ],
   "open_questions": [
    "Does the speculative-decoding defense add measurable latency over unprotected drafting?",
-   "Do the code-translation mitigations hold on languages outside the paper's test set?"
+   "Do the code-translation mitigations hold on languages outside the paper's test set?",
+   "Does self-assessment RL improve search-agent accuracy on benchmarks beyond the paper's own?"
   ],
-  "generated_at": "2026-10-23T00:04:35+00:00"
+  "generated_at": "2026-10-24T00:30:00+00:00"
  }
 }

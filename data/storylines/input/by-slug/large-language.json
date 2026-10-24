@@ -1,0 +1,152 @@
+{
+  "generated_at": "2026-10-24T00:11:13.965553+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "large-language",
+    "label": "Large Language",
+    "item_count": 5,
+    "source_count": 4,
+    "day_count": 4,
+    "first_seen": "2026-10-06T16:59:37+00:00",
+    "last_updated": "2026-10-21T20:46:24+00:00",
+    "latest_title": "Self-Assessment Reinforcement Learning for Search-State Awareness in Retrieval-Augmented Large Language Models",
+    "member_sids": [
+      "c47efdba3284bb9f",
+      "ade0f523550f640a",
+      "06d8677dec3b3c21",
+      "16071b3c73317004",
+      "276a486ae6eefe6b"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/large-language.json",
+    "prior_narrative": {
+      "tldr": "This page groups arXiv papers by the shared phrase \"large language models\"; they do not form one developing story. They cover a security attack on speculative decoding (Oct 6), narrative-induced sycophancy (Oct 16) and hallucinations in code translation (Oct 20).",
+      "whats_new": "Oct 21 adds an arXiv survey of LLM-based materials data extraction; it is a domain application, not a development of the reliability papers above it.",
+      "why_it_matters": "Each paper names a distinct failure surface: speculative decoding adds a draft-model attack path, sycophancy skews user-facing answers, and code translation adds hallucinated output in migrations. Treat them as separate checks, not one trend.",
+      "beats": [
+        {
+          "kicker": "RELIABILITY",
+          "tone": "launch",
+          "headline": "Hallucinations in cross-language code translation, with mitigations",
+          "sids": [
+            "06d8677dec3b3c21"
+          ]
+        },
+        {
+          "kicker": "SECURITY",
+          "tone": "neutral",
+          "headline": "Secure speculative decoding targets the draft-model path in LLM inference",
+          "sids": [
+            "c47efdba3284bb9f"
+          ]
+        },
+        {
+          "kicker": "BEHAVIOR",
+          "tone": "neutral",
+          "headline": "Narrative-induced sycophancy evaluated in LLMs",
+          "sids": [
+            "ade0f523550f640a"
+          ]
+        },
+        {
+          "kicker": "APPLICATION",
+          "tone": "now",
+          "headline": "LLMs applied to extracting materials data from scientific literature",
+          "sids": [
+            "16071b3c73317004"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Does the speculative-decoding defense add measurable latency over unprotected drafting?",
+        "Do the code-translation mitigations hold on languages outside the paper's test set?"
+      ],
+      "take_for_builders": "Do not cite these papers as corroborating each other; if you migrate code with LLMs, add a hallucination check on translated output, and judge the other papers separately.",
+      "day_captions": {
+        "c47efdba3284bb9f": "Addresses security of speculative decoding, unrelated to the other items.",
+        "ade0f523550f640a": "Tests whether personal narratives, not just stated opinions, induce sycophancy.",
+        "06d8677dec3b3c21": "Hallucinations when translating code between languages, with mitigations.",
+        "16071b3c73317004": "Newest: materials-science data extraction with ML and LLMs; a domain survey, not a reliability result."
+      },
+      "slug": "large-language",
+      "generated_at": "2026-10-23T00:04:35+00:00",
+      "covers_last_updated": "2026-10-21T15:38:05+00:00",
+      "covers_member_sids": [
+        "c47efdba3284bb9f",
+        "ade0f523550f640a",
+        "06d8677dec3b3c21",
+        "16071b3c73317004"
+      ]
+    },
+    "timeline": [
+      {
+        "date": "2026-10-06",
+        "items": [
+          {
+            "sid": "c47efdba3284bb9f",
+            "title": "Secure Speculative Decoding for Large Language Models",
+            "url": "http://arxiv.org/abs/2610.08678v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "Speculative decoding accelerates inference for a large language model (LLM), referred to as the \\emph{target model}, by first using a smaller model, referred to as the \\emph{draft model}, to generate candidate tokens...",
+            "published": "2026-10-06T16:59:37+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-16",
+        "items": [
+          {
+            "sid": "ade0f523550f640a",
+            "title": "Trapped in Your Story: Evaluating Narrative-Induced Sycophancy in Large Language Models",
+            "url": "http://arxiv.org/abs/2610.23525v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Large language models (LLMs) are known to exhibit sycophancy by adjusting their responses toward users' expressed views. However, real users often justify their opinions through reasons, personal experiences, causal e...",
+            "published": "2026-10-16T14:26:44+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-20",
+        "items": [
+          {
+            "sid": "06d8677dec3b3c21",
+            "title": "Hallucinations of Large Language Models in Cross-Language Code Translation: Phenomena and Mitigation",
+            "url": "http://arxiv.org/abs/2610.27868v1",
+            "source": "arxiv_llm_reliability",
+            "type": "paper",
+            "summary_1line": "Code translation converts source code from one programming language to another while preserving its functionality. Although Large Language Models (LLMs) have improved code translation, their outputs still contain hall...",
+            "published": "2026-10-20T08:50:39+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-21",
+        "items": [
+          {
+            "sid": "16071b3c73317004",
+            "title": "Automated Materials Data and Knowledge Extraction using Machine Learning and Large Language Models",
+            "url": "http://arxiv.org/abs/2610.29895v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Over the past decade, substantial efforts have been devoted to developing machine learning (ML) methods for extracting materials data and, where possible, materials knowledge directly from the scientific literature. T...",
+            "published": "2026-10-21T15:38:05+00:00"
+          },
+          {
+            "sid": "276a486ae6eefe6b",
+            "title": "Self-Assessment Reinforcement Learning for Search-State Awareness in Retrieval-Augmented Large Language Models",
+            "url": "http://arxiv.org/abs/2610.30435v1",
+            "source": "arxiv_llm_reliability",
+            "type": "paper",
+            "summary_1line": "Recent advances in search agents have enabled large language models to tackle complex tasks by retrieving and synthesizing external information. However, existing search agents often lack search-state awareness, i.e.,...",
+            "published": "2026-10-21T20:46:24+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}
