@@ -44,8 +44,9 @@ data/wiki/index.json (+ index.md)     served artifact + generated catalog
         ▼                                    ▼
 web/map.html + web/topic/*.html        /api/topics, /api/topics?slug=
 ```
-- **Synthesis is offline + agent-driven** (LLM is disabled in the pipeline,
-  `config/llm.yaml`), mirroring `storyline-editor`/`daily-summary`. Committing
+- **Synthesis is offline + agent-driven** (the ranking LLM is disabled in the
+  pipeline; the Jev gate is a separate decision model and does not write wiki
+  prose), mirroring `storyline-editor`/`daily-summary`. Committing
   `data/wiki/` *is* publishing.
 - **Serving is deterministic.** `build_wiki.py` validates the schema invariants
   (`config/wiki_schema.md`) — valid/unique slugs, known obstacle areas, no

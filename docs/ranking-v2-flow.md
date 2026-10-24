@@ -13,10 +13,13 @@ No.
 
 - `prefilter=589->140` means **589 raw candidates were reduced to 140
   prefilter candidates** (`candidate_pool_cap: 140`).
-- LLM calls are controlled separately by `llm_budget` in `config/ranking.yaml`
-  (currently `8`) — and only matter when `config/llm.yaml -> enabled: true`.
-- **LLM is currently disabled**, so every item scores via the heuristic
-  fallback and zero LLM calls happen regardless of budget.
+- The Jev gate runs on that Stage A pool after the prefilter. It can make up to
+  140 decisions, but the durable judgment store
+  (`data/processed/judgments.json`) is checked first, so unchanged candidates
+  make no API call. Only missing or expired entries call Jev.
+- The legacy ranking LLM is separate and still disabled
+  (`config/llm.yaml -> enabled: false`). Its `llm_budget: 8` is inert; the Jev
+  gate has its own `openrouter.max_items`, `max_workers`, and time budget.
 
 ---
 
@@ -89,8 +92,9 @@ Stage B: slot assignment (ranking.assign_slots)
       |
       v
 Stage C: in-slot scoring + selection (ranking.stage_c_score_and_select)
-  - LLM labeling with llm_budget cap (no-op while LLM disabled)
-  - heuristic fallback scoring (the active path today)
+  - legacy ranking LLM labeling (off; `llm_budget` inert)
+  - heuristic scoring for the deterministic features
+  - judge_score adds a continuous semantic weight
   - pre-decay score = alpha*llm_score + beta*freshness
                       + source_bias + source_tune + topical_bias
                       - editorial_penalty
@@ -169,7 +173,12 @@ File: `config/ranking.yaml` (over `config/presets/<preset>.yaml`)
   before the global cap (true in production)
 - `candidate_pool_coverage.per_source`: optional fixed reserve per source;
   omitted means each slot's `max_per_source`
-- `llm_budget`: max LLM calls for the labeling stage (8; inert while LLM disabled)
+- `llm_budget`: legacy ranking LLM calls (8; inert while `config/llm.yaml` is disabled)
+- `judge_ranking.weight`: continuous Stage A/C judge-score weight
+- `judge_ranking.headroom_min_score`: minimum judge score for discretionary headroom
+- `judge_ranking.headroom_drop_categories` / `headroom_category_min_score`:
+  stronger bar for off-topic categories
+- `judge_gate.enabled`: optional hard drop (off by default; release items exempt)
 - `max_items`: final feed target size before downstream constraints (24)
 - `slot_merge_strategy`: `floor_then_dynamic`
 - `slots.*.sources / min_items / max_items / max_per_source / freshness_hours`
@@ -182,6 +191,18 @@ File: `config/ranking.yaml` (over `config/presets/<preset>.yaml`)
   (incl. `lead_excludes_research`: keep position 1 off niche research papers)
 - `source_bias`, `topical_bias`: static score adjustments
 - `auto_tune.*`: gates for the learned `source_tune` adjustment
+
+### Jev gate knobs (`config/judge.yaml`)
+
+- `enabled`: gate on/off; fail-open without `OPENROUTER_API_KEY`
+- `openrouter.model`, `endpoint`, `api_key_env`: OpenRouter System One target
+- `openrouter.questions`: `keep`, `platform_relevant`, `release_lane`,
+  `corporate_marketing`, plus the `category` choice
+- `openrouter.hybrid`: primary score and gate thresholds
+- `content_fetch.*`: paragraph-fetch budget for short teasers
+- `judgment_store.path`, `ttl_days`, `max_entries`: durable judgment reuse
+- `ranking.drop_below`, `keep_at`, `max_drop_share`: verdict thresholds and
+  the batch safety cap
 
 ---
 
@@ -218,7 +239,7 @@ which gate a source dies at.
    of higher-scored items (`reject_slot_cap` / `reject_source_cap`).
 6. **Time decay** (`time_decay`) — after normal relevance/source/topic scoring,
    older items are multiplied down by a smooth half-life factor. This lets the
-   7-day live feed remain available while repeated hourly builds gradually make
+   7-day live feed remain available while repeated two-hour builds gradually make
    room for newer stories. Strong evergreen items can still compete above the
    configured floor, but they no longer keep their day-one score all week.
 7. **Global merge** (`max_items` 24) — per-slot `min_items` floors are reserved
@@ -236,11 +257,12 @@ which gate a source dies at.
 
 Several of these gates score an item's **rendered text** — `relevance_floor`
 (gate 1's opt-in allowlist) and the `heuristic_label` token counts that produce
-`llm_score` while the LLM is disabled. A feed that publishes a one-line teaser
-gives them almost nothing to read: archerhume's "I probed Jev with 10,000 API
-calls" names no AI vocabulary at all, so a post about transformer serving
-architecture floored at `llm_score` 2.0 and would have failed `relevance_floor`
-outright.
+`llm_score` while the ranking LLM is disabled. A feed that publishes a
+one-line teaser gives them almost nothing to read: archerhume's "I probed Jev
+with 10,000 API calls" names no AI vocabulary at all, so a post about
+transformer serving architecture floored at `llm_score` 2.0 and would have
+failed `relevance_floor` outright. The Jev gate also needs real article text
+and fetches paragraph excerpts for short teasers before judging.
 
 Setting `fetch_content: true` on a source in `config/sources.yaml` makes the
 collector fetch each item's page and store up to 4000 characters of body text
@@ -286,7 +308,8 @@ ranking_stats prefilter=589->140 llm_used=0/8 slots=frontier_official:4/... tota
 Means:
 - 589 raw candidates entered the prefilter
 - 140 survived prefilter+cap
-- 0 of 8 LLM budget consumed (always 0 while LLM is disabled)
+- 0 of 8 legacy ranking LLM budget consumed (always 0 while it is disabled);
+  Jev calls are reported separately as `judge_stats ...`
 - slot selections shown per slot
 - final merged output contains 24 items
 

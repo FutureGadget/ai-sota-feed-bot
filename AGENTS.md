@@ -39,7 +39,7 @@ snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 | `feed-full-publish.yml` | cron-job.org external ticker (every 2h) | `run_full.sh` — the production pipeline |
 | `feed-ops-summary.yml` | daily 12:30 UTC | `skills/ops-daily-summary/` health snapshot |
 | `feedback-sync.yml` | daily 12:45 UTC | PostHog → `feedback.py sync-posthog`, `auto_tune.py sync-ctr` + `apply`, `north_star_metric.py sync` + `summary` (the one metric — see below) |
-| `email-digest.yml` | cron-job.org (daily 23:00 UTC + weekly Fri 23:00 UTC → 08:00 KST) | `publish/publish_email.py` — finishable daily brief to the subscriber list, rendered from the **curated `/daily` recap** (`data/daily/latest.json`), NOT the raw feed (secrets-gated; the newsletter provider owns the list). Runs on its OWN schedule after the recap agent routines, NOT the hourly pipeline. Weekly recap is exec-plan v2.2 Phase 4. Daily runs then send storyline follow alerts (`publish/publish_follows.py`, non-blocking step) |
+| `email-digest.yml` | cron-job.org (daily 23:00 UTC + weekly Fri 23:00 UTC → 08:00 KST) | `publish/publish_email.py` — finishable daily brief to the subscriber list, rendered from the **curated `/daily` recap** (`data/daily/latest.json`), NOT the raw feed (secrets-gated; the newsletter provider owns the list). Runs on its OWN schedule after the recap agent routines, NOT the two-hour feed pipeline. Weekly recap is exec-plan v2.2 Phase 4. Daily runs then send storyline follow alerts (`publish/publish_follows.py`, non-blocking step) |
 | `models-refresh.yml` | GitHub `schedule:` every 6h (02/08/14/20 UTC) | `pipeline/collect_models.py collect` - joins LMArena (keyless) + Artificial Analysis (secrets-gated, no-ops without `AA_API_KEY`; paginated v2 Free endpoint) into `data/models/latest.json` for the Model Release Radar (`/models`). Exits 1 on a permanent AA error (401/403/404/410) or when the artifact is >48h old |
 | `model-prices-refresh.yml` | GitHub schedule every 15 minutes | `pipeline/model_pricing.py` - OpenRouter catalog and provider offers into `data/models/pricing.json`; static rendering joins benchmark and pricing snapshots for `/models` and `/models/compare` |
 | `ci.yml` | pushes to `main` and pull requests | Python and JavaScript regression suites on a clean hosted runner |
@@ -50,7 +50,7 @@ hitting their `workflow_dispatch` endpoints (see
 `docs/how-to/hourly-trigger-cron-job-org.md`). `models-refresh.yml` is a
 low-stakes data refresh with no publishing side effects, so it uses a plain
 GitHub `schedule:` instead. Overlapping manual dispatches are
-safe (lock dir + `concurrency` group + Tier-0 no-delta skip for the feed;
+safe (lock dir + `concurrency` group + edition no-delta skip for the feed;
 cursor-based idempotency guard for email; `concurrency` group for models).
 
 All eight GitHub workflows use GitHub-hosted standard `ubuntu-latest` runners.
@@ -138,7 +138,8 @@ in `ops_daily_summary.py`'s log line.
   - `enrich.py`, `content_fetch.py` — mechanical enrichment, page excerpts
     (`build_content_map` is called from the collector for `fetch_content`
     sources; the excerpt feeds keyword gates only, never display)
-  - `llm_label.py`, `llm_rerank.py` — no-op placeholders while LLM disabled
+  - `llm_label.py`, `llm_rerank.py` - legacy ranking LLM no-ops; the Jev gate
+    is separate (`judge.py` / `editorial_judge.py`)
   - `story_store.py`, `build_storylines.py`, `render_static_pages.py` — durable
     stories, threads, static SEO pages (incl. pre-rendered latest `/daily` and
     `/weekly` and the crawler-visible feed seed in `web/index.html`)
@@ -356,6 +357,7 @@ in `ops_daily_summary.py`'s log line.
 - `data/quality/benchmark/` — frozen 50-item Jev benchmark (`items.json`,
   `labels.md`, fetched `content_cache.json`, synthetic `fixture_scores.json`)
   and generated `runs/`; `data/quality/cache/` holds judge responses;
+  `data/quality/content_cache.json` holds paragraph excerpts;
   `data/quality/classified/<date>.json` is the full local judged pool (not
   committed). Offline only; excluded from the Vercel deployment and never read
   by an API
@@ -450,9 +452,15 @@ APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
 `?c=&s=&t=` GET/POST is a signed storyline unfollow link).
 
 ## Gotchas (cache these, they cost tokens to rediscover)
-- **LLM is disabled** (`config/llm.yaml → enabled: false`). The pipeline runs
-  fully deterministic/heuristic; `llm_label.py`/`llm_rerank.py` are kept as
-  explicit no-op interfaces for future re-enable. Don't "fix" missing LLM calls.
+- **The ranking LLM is disabled** (`config/llm.yaml -> enabled: false`), but
+  the **Jev gate is active** (`config/judge.yaml`) and fails open without
+  `OPENROUTER_API_KEY`. `llm_label.py`/`llm_rerank.py` are the legacy no-op
+  ranking interfaces; don't "fix" missing ranking LLM calls by wiring the Jev
+  gate there.
+- **Vercel Hobby caps functions at 12.** Shared JavaScript lives in root
+  `lib/`, never under `api/` (Vercel treats `api/**` as functions). The
+  `scripts/check_bundle_size.py` guard rejects a 13th function, a nested
+  `api/**/*.js`, or a mismatch with `vercel.json`.
 - The ranking engine was renamed from "v2" to the only path: module is
   `pipeline/ranking.py`, config is `config/ranking.yaml`. Any reference to
   `ranking_v2.yaml` or `pipeline/ranking_v2.py` is historical.
@@ -461,8 +469,8 @@ APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
 - API functions only see `data/` files listed in `vercel.json` `includeFiles`;
   a new data dir an API needs requires a `vercel.json` change in the same PR.
 - `run_full.sh` takes a lock dir (`.run_full.lock`), skips push on a dirty
-  worktree, and short-circuits when Tier-0 reports no delta
-  (`FULL_RUN_NO_DELTA_SKIP=true`) — these are intentional safety behaviors.
+  worktree, and short-circuits when the edition build reports no delta
+  (`FULL_RUN_NO_DELTA_SKIP=true`) - these are intentional safety behaviors.
 - Hourly data commits (`chore(data): refresh feed artifacts …`) are bot
   traffic on `main`; expect rebases when pushing. Keep code commits separate
   from runtime-data commits (`scripts/git_commit_code.sh` vs
@@ -566,7 +574,7 @@ When implementing a feature:
 
 ## Release Rhythm
 - `main` always runnable.
-- The hourly `feed-full-publish` workflow must remain green.
+- The two-hour `feed-full-publish` workflow must remain green.
 - New features should include a validation path (local run via
   `skills/ai-feed-digest-local/scripts/run_dev.sh` or a workflow run).
 
@@ -580,6 +588,6 @@ When implementing a feature:
   renderer PR previews accurate without committing 1,000+ generated files.
 - Every PR gets an automatic **Vercel preview deployment** — use the preview
   URL posted on the PR to eyeball UI changes before merge.
-- Merging to `main` triggers the production deploy. The hourly data commits
+- Merging to `main` triggers the production deploy. The two-hour data commits
   also trigger deploys — that is how fresh feed data reaches the site (the
   serverless functions read committed `data/` files; there is no database).

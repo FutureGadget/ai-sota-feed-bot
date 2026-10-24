@@ -45,14 +45,17 @@ Reader feedback loop (daily):
 
 ## Current Constraints
 - RSS/sitemap-heavy ingestion (API connectors pending)
-- LLM labeling/reranking disabled (`config/llm.yaml -> enabled: false`);
-  ranking is deterministic + config-driven, with LLM interfaces kept as no-ops
+- The legacy ranking LLM is disabled (`config/llm.yaml -> enabled: false`);
+  ranking is deterministic + config-driven, with the old LLM interfaces kept
+  as no-ops. The separate Jev decision-model gate (`config/judge.yaml`) is
+  active, fail-open, and reused through `data/processed/judgments.json`.
 - Feedback learning is limited to capped per-source weight adjustments
   (`pipeline/auto_tune.py`), not per-item personalization
 - No persistent DB (git artifacts only; snapshots pruned on retention windows)
 
 ## Near-term Evolution
-1. Re-enable budgeted LLM labeling/reranking when cost/reliability justify it
+1. Tune the Jev gate and category taxonomy; re-enable the legacy ranking LLM
+   separately when cost/reliability justify it
 2. Deepen the feedback loop beyond per-source weights (topic/item-level signals)
 3. Optional DB-backed storage (Postgres + vector index) if git artifacts stop scaling
 

@@ -12,7 +12,8 @@ Git-backed AI platform engineering news intelligence.
     `matched_topics` keywords) — no generic placeholder
   - Cross-source duplicates surface as `also_covered` ("Also covered by …")
     instead of being dropped silently
-- Scores/ranks items for AI platform relevance
+- Scores/ranks items with the deterministic ranking core plus a Jev semantic gate
+- Categorizes judged candidates for the daily/weekly/wiki/playbook/foundations routines
 - Applies diversity-aware ranking (strict minimum mix + caps for paper/news/release)
 - Tracks source reliability/health and incorporates it into ranking
 - Applies source circuit breaker on repeated failures with cooldown auto-recovery
@@ -22,6 +23,36 @@ Git-backed AI platform engineering news intelligence.
 - Publishes a weekly "What happened in AI this week" recap at `/weekly` (see below)
 - Publishes Agent Builder Foundations at `/foundations`: durable,
   evidence-tiered explanations of the mechanisms behind reliable agents
+
+## Pipeline
+A single edition build runs every two hours:
+
+```text
+collect
+  -> editorial policy (source roles, quarantine, story clusters, seen-memory)
+  -> Stage A prefilter
+  -> Jev gate + category (cached, durable judgment store, fail-open)
+  -> ranking (judge score as a bounded weight + headroom floor)
+  -> edition
+```
+
+- `pipeline/editorial.py` handles the deterministic editorial policy.
+- `pipeline/editorial_judge.py` fetches paragraph excerpts when the feed teaser
+  is too short, asks Jev for `keep`, `platform_relevant`, `release_lane`,
+  `corporate_marketing`, and a primary `category`, and reuses prior judgments
+  from `data/processed/judgments.json`.
+- `pipeline/ranking.py` keeps control of slots, quotas, freshness, and the final
+  edition. Release items are exempt from the judge's headroom floor so the
+  Releases tab and model radar still fill.
+- Outputs: `data/processed/latest.json` (the feed),
+  `data/processed/classified.json` (compact judge artifact for editor decks),
+  and `data/digest/<date>.md`.
+- The old Tier-1 snapshot and API fresh blend are gone. The API reads
+  `data/processed/**` only.
+
+The Jev gate needs `OPENROUTER_API_KEY`; without it the build logs
+`judge_skipped reason=not_configured` and runs deterministically. The gate is
+enabled in `config/judge.yaml`.
 
 ## Weekly recap (`/weekly`)
 A reader-facing weekly summary page rendered from `data/weekly/<week>.json`.
@@ -51,7 +82,7 @@ from Tuesday") — e.g. a model launch followed by hands-on posts and reactions.
 token pair, and a thread only ships when it has ≥3 items across ≥2 days from
 ≥2 sources (precision over recall — a junk thread costs reader trust).
 
-- Runs in the external Claude Code storyline routine every 5 hours; the hourly
+- Runs in the external Claude Code storyline routine every 5 hours; the two-hour
   `run_full.sh` only syncs the durable story store. The routine writes
   `data/storylines/index.json` + `data/storylines/<slug>.json`, scouts missed
   links, refreshes narratives, validates, and publishes.
@@ -234,10 +265,10 @@ python pipeline/source_alerts.py
 ```
 
 ## Architecture notes (why this design for now)
-- We use a **deterministic + configurable ranking core** first, then selective LLM steps.
-- Reason: reliability and cost control. Full-list LLM ranking is still expensive and occasionally unstable for daily runs.
+- We use a **deterministic + configurable ranking core** first, with a narrow Jev decision-model gate for semantic keep/drop and category.
+- Reason: reliability and cost control. Jev is a typed decision model, not a free-form LLM ranker; the deterministic core keeps slots, quotas, freshness, and the final edition.
 - Source/slot/category/provider constraints are explicit in config so we can tune behavior quickly without rewriting pipeline logic.
-- If LLM pricing/reliability improves, we can later move to broader LLM-first ranking and relax hard constraints.
+- The Jev gate is cached by a durable judgment store, so only new or changed candidates call the API.
 - Current production flow diagram and knob guide: `docs/ranking-v2-flow.md`
 - Current operational snapshot (latest behavior/tuning): `docs/status/current-system-state.md`
 - Tuning governance playbook: `docs/status/tuning-governance.md`
@@ -252,10 +283,12 @@ python pipeline/source_alerts.py
 ## Config
 - `config/sources.yaml`: feed list + source weights
 - `config/profile.yaml`: platform relevance weights and keywords
+- `config/ranking.yaml`: ranking slots, caps, time decay, top-band, judge weight/headroom
+- `config/editorial.yaml`: source roles, quarantine, story clusters, seen-memory
 - `config/llm.yaml`: legacy ranking LLM config (currently disabled/no-op)
-- `config/judge.yaml`: Jev gate/category config (OpenRouter System One, thresholds, content fetch)
+- `config/judge.yaml`: Jev gate/category config (OpenRouter System One, thresholds, content fetch, judgment store)
 - `config/user_preferences.yaml`: preference profile used by prompts when LLM mode is enabled
-- `config/prompts/label_system.txt`, `config/prompts/rerank_system.txt`: prompt templates (inactive while LLM is disabled)
+- `config/prompts/label_system.txt`, `config/prompts/rerank_system.txt`: legacy ranking prompt templates (inactive)
 - `scripts/oauth_login.sh`: legacy OAuth helper for future re-enable
 
 ## GitHub Actions
@@ -263,6 +296,8 @@ python pipeline/source_alerts.py
   `skills/ai-feed-digest-local/scripts/run_full.sh` - collect, single edition
   build (editorial + Jev gate + ranking), durable story sync/static pages,
   prune, data commit + push. It intentionally does **not** build storylines.
+  Set the `OPENROUTER_API_KEY` repository secret to enable the Jev gate;
+  without it the build is deterministic and logs `judge_skipped`.
 - Storylines: external Claude Code routine every 5 hours; no GitHub Actions
   workflow generates them.
 - `feed-ops-summary` (daily): operational health snapshot
