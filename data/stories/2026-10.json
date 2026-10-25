@@ -3245,6 +3245,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5aVENPZXIxaTZtbERieEc4dVhpcVJWMXBleV9BdnQ4LUU2Z19NaF8wX0JaTENKODk0UHpUclh3WHlGRHVTUEVLVUtMT0hJaTFRd3RPckVPZUxfekp1d2N6eW1wZEVHWXM?oc=5"
  },
+ "317b87334e0d2a63": {
+  "content_excerpt": "We’ve released a paper on simulated control evaluations (SCEs). They’re a method for testing whether the monitors AI developers use to oversee their agents would catch a model deliberately trying to cause harm, under conditions much closer to real deployment than current tests allow. Developers have started running monitors in their agentic deployments: models that flag or block an agent’s actions when they look dangerous. To know whether a monitor is good enough, you want to know how often it would stop a model that was actively trying to do something harmful, such as quietly inserting a security vulnerability, exfiltrating credentials, or sabotaging an experiment. The standard way to measure this is a control evaluation: instruct a model to attempt such attacks, and measure how often the monitor catches it before an attack succeeds. Developers typically do this using purpose-built control settings like BashArena or LinuxArena , where attacks can actually be executed. However, these settings only provide indirect evidence for what we really care about: how well monitors will work in the real deployment, where opportunities for harm might depend on particular codebases, services and tasks that aren’t represented in control settings. How can we evaluate monitor performance in more realistic settings? You can’t just run the eval in deployment, since that would mean actually attacking your own systems. And building a faithful sandbox replica of every deployment context is imprac",
+  "first_seen": "2026-10-25T16:04:43.507349+00:00",
+  "id": "935110336b457d5e",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-25T15:41:09+00:00",
+  "sid": "317b87334e0d2a63",
+  "source": "hackernews_ai",
+  "summary_1line": "Red-teaming AI agent monitors with an LLM that fakes tool outputs",
+  "title": "Red-teaming AI agent monitors with an LLM that fakes tool outputs",
+  "type": "news",
+  "url": "https://www.redwoodresearch.org/blog/simulated-control-evaluations",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "32a9612fd5e0c10a": {
   "first_seen": "2026-10-16T19:05:14.820149+00:00",
   "id": "d27716debba35be2",
@@ -9261,6 +9277,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.28811v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "90ab5d2b48a8c7fd": {
+  "first_seen": "2026-10-25T16:04:43.507349+00:00",
+  "id": "570b3fbc6c23d966",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-22T17:26:42+00:00",
+  "sid": "90ab5d2b48a8c7fd",
+  "source": "arxiv_cs_ai",
+  "summary": "Control evaluations measure whether safeguards can prevent an AI model from causing undesired outcomes even when it is intentionally trying to do so. These evaluations typically use purpose-built control settings and extrapolate their results to a model's deployment. However, the effectiveness of safeguards in deployment can depend on features of environments and tasks that control settings do not represent. To broaden where control evaluations can be run, we introduce simulated control evaluations (SCEs), which use a language model to simulate tool responses in place of an environment. We evaluate SCEs on LinuxArena, where execution provides ground-truth outcomes. We compare SCE prediction errors with those from a separate control setting, BashArena, and with variation in control metrics within LinuxArena. For independently sampled evaluation and deployment task sets, SCEs predict safety with a root mean squared error of 3.6 percentage points across five monitors at a 5% audit budget, compared with 10.1 for BashArena. SCEs closely reproduce distributions of attack strategies, attacker reasoning, and monitor reasoning, with over tenfold lower KL divergence from execution than BashArena. SCEs explain 78-85% of the between-environment variance in attack success, monitor scores, and safety. This accuracy is sample efficient: SCEs predict safety with less error than BashArena using fewer than 5% as many task-pair draws as the deployment task set. Strategies discovered through sim",
+  "summary_1line": "Control evaluations measure whether safeguards can prevent an AI model from causing undesired outcomes even when it is intentionally trying to do so. These evaluations typically use purpose-built control settings and...",
+  "title": "Simulated Control Evals",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31593v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "90add91e6af61387": {
   "first_seen": "2026-10-07T13:03:42.121517+00:00",
@@ -15342,8 +15374,8 @@
   "published": "2026-10-22T09:47:50+00:00",
   "sid": "e0f912e29433ade3",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 25, downloads: 393.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 25, downloads: 393.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 32, downloads: 658.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 32, downloads: 658.",
   "title": "tencent/WeVisOne-VL-2B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeVisOne-VL-2B"
