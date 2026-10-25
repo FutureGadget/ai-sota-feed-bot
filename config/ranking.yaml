@@ -137,10 +137,14 @@ slots:
     blend: {alpha: 0.85, beta: 0.15}
 
   community_signal:
+    # Hacker News is often the only source with same-day content on weekends
+    # and holidays. max_per_source: 3 lets the edition carry the day's best HN
+    # discussion alongside one search result while max_items: 4 still caps the
+    # lane; the API's community caps are 4 for the same reason.
     sources: [hackernews_ai, search_agent_engineering_news, search_llm_ops_news, search_cn_open_weight_labs]
     min_items: 0
     max_items: 4
-    max_per_source: 1
+    max_per_source: 3
     freshness_hours: 48
     blend: {alpha: 0.75, beta: 0.25}
 

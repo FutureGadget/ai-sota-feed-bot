@@ -98,10 +98,15 @@ Stage C: in-slot scoring + selection (ranking.stage_c_score_and_select)
   - legacy ranking LLM labeling (off; `llm_budget` inert)
   - heuristic scoring for the deterministic features
   - judge_score adds a continuous semantic weight
+  - release tier (pipeline/release_policy.py): `major` adds a bounded
+    `RELEASE_MAJOR_BOOST` (0.45) so a substantive changelog outranks a bare
+    bump from the same release source; `minor` gets no boost. The tier also
+    travels on the item as `release_tier` for the Brief/Releases split.
   - pre-decay score = alpha*llm_score + beta*freshness
                       + source_bias + source_tune + topical_bias
                       - editorial_penalty
                       + judge_weight * judge_score
+                      + release_boost
     (source_tune = learned feedback/CTR adjustment from
      data/feedback/source_adjustments.json via pipeline/auto_tune.py,
      gated by auto_tune.enabled + max_age_days staleness cutoff)
@@ -109,6 +114,7 @@ Stage C: in-slot scoring + selection (ranking.stage_c_score_and_select)
     (`time_decay_factor` is a smooth half-life multiplier from
     `time_decay.*`, with optional per-slot overrides and a floor)
   - enforce slot max_items and max_per_source
+    (community_signal allows 3 candidates from one source inside its 4-item lane)
       |
       v
 Global merge (ranking.global_merge)
@@ -159,8 +165,11 @@ This is deterministic bookkeeping, not the LLM ranking layer:
 - `seen.max_editions`: retires an item after a bounded number of recent
   editions; `editorial_penalty` softens the rest. `source_overrides` gives
   corporate newsroom posts a shorter run.
-- `caps` / `role_totals`: the per-source and per-role caps the API applies to
-  its accumulated run pool.
+- `caps` / `role_totals`: the per-source and per-role caps the API applies
+  after the requested publish window, before the response is assembled.
+  `community` is 4 in both maps (matching the ranking slot's `max_items`), so
+  a one-day community-only window is not capped at two cards. The caps remain
+  flood guards for wide windows.
 
 The pipeline writes `data/processed/editorial.json` (roles, caps, quarantine
 patterns, diagnostics) so `api/feed.js` and `api/rss.js` apply the same policy
@@ -186,6 +195,9 @@ File: `config/ranking.yaml` (over `config/presets/<preset>.yaml`)
   stronger bar for off-topic categories
 - `judge_gate.enabled`: optional hard drop (off by default; release items exempt)
 - `max_items`: final feed target size before downstream constraints (24)
+- `slots.community_signal.max_per_source`: 3, so the edition can carry the
+  day's best Hacker News discussion when it is the only fresh source. The
+  slot's `max_items: 4` still caps the lane.
 - `slot_merge_strategy`: `floor_then_dynamic`
 - `slots.*.sources / min_items / max_items / max_per_source / freshness_hours`
 - `slots.*.blend.alpha / beta` (llm-or-heuristic score vs freshness)

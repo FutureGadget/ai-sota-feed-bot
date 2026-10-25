@@ -4,7 +4,13 @@ import unittest
 from datetime import datetime, timezone
 from unittest.mock import patch
 
-from pipeline.ranking import enforce_top_band_constraints, stage_a_prefilter, stage_c_score_and_select
+from pipeline.ranking import (
+    _select_slot_items,
+    enforce_top_band_constraints,
+    load_ranking_config,
+    stage_a_prefilter,
+    stage_c_score_and_select,
+)
 
 
 def _item(item_id: str, **extra):
@@ -121,6 +127,22 @@ class JudgeAdjustmentStageCTest(unittest.TestCase):
         out = selected["frontier_official"]
         self.assertEqual([item["id"] for item in out], ["boosted", "plain"])
         self.assertGreater(out[0]["pre_decay_score"], out[1]["pre_decay_score"])
+
+
+class CommunitySlotTest(unittest.TestCase):
+    def test_three_items_from_one_community_source_fit_the_slot(self) -> None:
+        items = [{"id": f"hn{i}", "source": "hackernews_ai"} for i in range(5)]
+        picked, reject = _select_slot_items(
+            "community_signal",
+            items,
+            {"max_items": 4, "max_per_source": 3},
+        )
+        self.assertEqual(len(picked), 3)
+        self.assertEqual(reject["source_cap"], 2)
+
+    def test_production_config_allows_three_per_community_source(self) -> None:
+        cfg = load_ranking_config()
+        self.assertEqual(cfg["slots"]["community_signal"]["max_per_source"], 3)
 
 
 class JudgeTopBandTest(unittest.TestCase):

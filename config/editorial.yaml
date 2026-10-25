@@ -71,10 +71,13 @@ source_role_prefixes:
 # Per-source caps before ranking. These are a backstop against one feed
 # flooding the candidate pool; the ranking slots still apply their own caps.
 # Search is capped at one candidate per query, not one per edition.
+# community: 4 matches the ranking community_signal slot's max_items. At 2 a
+# quiet Saturday whose only fresh source is Hacker News capped the default
+# Today view at exactly 2 cards while the accumulated pool held 9.
 caps:
   search: 1
   aggregator: 3
-  community: 2
+  community: 4
   first_party: 4
   practitioner: 3
   release: 4
@@ -83,10 +86,13 @@ caps:
 
 # Cross-source totals for the API's accumulated pool. Per-source caps alone
 # let four first-party blogs fill the whole page; these keep the mix bounded.
+# community: 4 is a mix bound, not a per-day ceiling: keep it aligned with the
+# per-source cap and the ranking slot so a community-only window is not
+# truncated to two cards.
 role_totals:
   search: 1
   aggregator: 2
-  community: 2
+  community: 4
   first_party: 12
   practitioner: 6
   release: 6

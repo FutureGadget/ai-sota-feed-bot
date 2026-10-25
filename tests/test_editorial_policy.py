@@ -429,5 +429,12 @@ class RankingEditorialTest(unittest.TestCase):
         self.assertGreaterEqual(diag["skip_search_cap"], 1)
 
 
+class EditorialCommunityCapConfigTest(unittest.TestCase):
+    def test_api_community_caps_match_the_ranking_slot(self) -> None:
+        cfg = editorial.load_config()
+        self.assertEqual(cfg["caps"]["community"], 4)
+        self.assertEqual(cfg["role_totals"]["community"], 4)
+
+
 if __name__ == "__main__":
     unittest.main()

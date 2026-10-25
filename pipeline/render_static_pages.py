@@ -723,7 +723,7 @@ _RELEASE_SUMMARY_PREFIX_RE = re.compile(r"^release(?: notes)?:\s")
 
 
 def _is_release_item(it: dict) -> bool:
-    """Mirror ``isReleaseItem`` in api/feed.js: what the default Brief lens counts as a release."""
+    """Mirror ``isReleaseItem`` in api/feed.js: the Releases-tab label."""
     if not isinstance(it, dict):
         return False
     if str(it.get("llm_category") or "").strip().lower() == "release":
@@ -732,6 +732,18 @@ def _is_release_item(it: dict) -> bool:
         return True
     raw = str(it.get("summary_1line") or it.get("summary") or "")[:2048]
     return bool(_RELEASE_SUMMARY_PREFIX_RE.match(_strip_html_tags(raw).lower()))
+
+
+def _is_brief_excluded_release_item(it: dict) -> bool:
+    """Mirror ``isBriefExcludedReleaseItem`` in api/feed.js.
+
+    The default Brief hides minor release notes but keeps substantive releases
+    (``release_tier == "major"``), which are also listed under Releases.
+    Missing tiers stay Releases-only so older snapshots do not change.
+    """
+    if not _is_release_item(it):
+        return False
+    return str(it.get("release_tier") or "").strip().lower() != "major"
 
 
 _SEED_KEYWORD_STOPWORDS = re.compile(r"\b(and|or|with|to|from|that|for)\b", re.IGNORECASE)
@@ -5742,12 +5754,13 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
         published = parse_dt(it.get("published"))
         eligible.append((published.date() if published else None, it))
 
-    # Brief-lens parity: the live feed's default Brief excludes release items
-    # (api/feed.js isReleaseItem), so the crawler-visible seed hides them too.
+    # Brief-lens parity: the live feed's default Brief excludes minor release
+    # notes (api/feed.js isBriefExcludedReleaseItem), so the crawler-visible
+    # seed hides them too while keeping substantive releases.
     # Starvation guard: when the filtered list can no longer fill the seed,
     # fall back to the unfiltered list; the resulting ordering divergence from
     # the blended live feed is accepted over showing an empty seed.
-    brief_eligible = [e for e in eligible if not _is_release_item(e[1])]
+    brief_eligible = [e for e in eligible if not _is_brief_excluded_release_item(e[1])]
     if len(brief_eligible) >= FEED_SEED_MIN_ITEMS:
         eligible = brief_eligible
 

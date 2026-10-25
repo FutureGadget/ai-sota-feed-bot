@@ -17,9 +17,21 @@ try:
 except Exception:
     from pipeline.llm_label import label_items
 
+try:
+    from release_policy import classify_release_tier
+except Exception:
+    from pipeline.release_policy import classify_release_tier
+
 ROOT = Path(__file__).resolve().parents[1]
 RANKING_CFG_FILE = ROOT / "config" / "ranking.yaml"
 PRESETS_DIR = ROOT / "config" / "presets"
+
+# A substantive release earns a deterministic Stage C term. The Jev
+# release_lane question scores every release as a Releases-tab item, so a
+# vLLM minor release and a bare alpha bump would otherwise rank identically
+# inside their slot. The slot's max_items/max_per_source still cap how many
+# releases reach the edition; this only orders them.
+RELEASE_MAJOR_BOOST = 0.45
 
 _TAG_RE = re.compile(r"<[^>]+>")
 # URLs and bare hostnames, which survive tag-stripping as visible link text.
@@ -476,6 +488,10 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
         scored = []
         for it in candidates:
             key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
+            item = dict(it)
+            item["type"] = _infer_item_type(item, slot)
+            release_tier = classify_release_tier(item)
+            release_boost = RELEASE_MAJOR_BOOST if release_tier == "major" else 0.0
             lb = labels.get(key, {})
             llm_s = compute_llm_score(lb)
             src_bias = float(source_bias_cfg.get(it.get("source", ""), 0.0))
@@ -499,11 +515,13 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
                 + topical
                 - editorial_penalty
                 + judge_adj
+                + release_boost
             )
             decay = time_decay_factor(it.get("published", ""), cfg, slot)
             fs = pre_decay_score * decay if pre_decay_score > 0 else pre_decay_score
-            item = dict(it)
-            item["type"] = _infer_item_type(item, slot)
+            if release_tier:
+                item["release_tier"] = release_tier
+                item["release_boost"] = round(release_boost, 3)
             item["llm_label_source"] = lb.get("__label_source", "heuristic")
             item["llm_category"] = (
                 "release" if item["type"] == "release" else lb.get("category", "platform")

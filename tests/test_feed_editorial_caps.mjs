@@ -60,6 +60,37 @@ test('latest feed caps a search query to one card', async (t) => {
   assert.equal(res.body.total_items, 3);
 });
 
+test('a community-only day is not capped at two cards', async (t) => {
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'feed-editorial-community-'));
+  const oldCwd = process.cwd();
+  t.after(() => {
+    process.chdir(oldCwd);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  });
+  writeLatest(
+    tmp,
+    Array.from({ length: 9 }, (_, i) =>
+      item({
+        id: `hn${i}`,
+        url: `https://news.ycombinator.com/item?id=${i}`,
+        title: `Show HN: agent engineering story ${i}`,
+        source: 'hackernews_ai',
+        published: `2026-10-24T0${i}:00:00Z`,
+      }),
+    ),
+  );
+  process.chdir(tmp);
+
+  const res = await invoke({
+    from: '2026-10-24T00:00:00Z',
+    to: '2026-10-24T23:59:59.999Z',
+    limit: '20',
+  });
+  assert.equal(res.statusCode, 200);
+  assert.equal(res.body.items.length, 4);
+  assert.equal(res.body.total_items, 4);
+});
+
 test('latest feed collapses items that share a pipeline story_key', async (t) => {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'feed-editorial-cluster-'));
   const oldCwd = process.cwd();

@@ -410,15 +410,28 @@ function isReleaseItem(it) {
   return cat === 'release' || type === 'release' || /^release(?: notes)?:\s/.test(summaryPrefix);
 }
 
+// A substantive release is Brief-eligible even though it is also listed under
+// Releases. pipeline/release_policy.py sets this tier; missing values (older
+// snapshots) stay Releases-only, which is the pre-tier behavior.
+function isMajorRelease(it) {
+  return String(it?.release_tier || '').trim().toLowerCase() === 'major';
+}
+
+function isBriefExcludedReleaseItem(it) {
+  return isReleaseItem(it) && !isMajorRelease(it);
+}
+
 function applyLabelFilter(items, selectedLabels) {
   if (!selectedLabels?.length) return items;
   const selected = new Set(selectedLabels);
   // "brief" is a synthetic lens, not a real item label: the finishable default
-  // view = everything except release notes (which live under the Releases tab).
-  // It OR-combines with any real labels also selected.
+  // view = everything except minor release notes (which live under Releases).
+  // Substantive releases stay in Brief because they change an engineering
+  // decision; the release sources still cap how many enter. It OR-combines
+  // with any real labels also selected.
   const briefMode = selected.has('brief');
   return items.filter((it) => {
-    if (briefMode && !isReleaseItem(it)) return true;
+    if (briefMode && !isBriefExcludedReleaseItem(it)) return true;
     return labelsFromItem(it).some((l) => selected.has(l));
   });
 }
