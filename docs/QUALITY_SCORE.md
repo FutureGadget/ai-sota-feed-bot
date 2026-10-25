@@ -25,11 +25,12 @@ measurable on every build:
   reported separately and cannot satisfy the engineering seat.
 - **Release coverage:** share of tracked model releases with a first-party or
   high-quality card within 24h.
-- **Release significance:** substantive releases (a changelog with real
-  features/fixes, a first-party open-weight drop, or an X.0.0 version) are
-  Brief-eligible; bare bumps, dependency updates, prereleases, and generic
-  notes stay in Releases. The tier is deterministic
-  (`pipeline/release_policy.py`), not a judge verdict.
+- **Release significance:** the deterministic tier in
+  `pipeline/release_policy.py` ranks substantive releases (a changelog with
+  real features/fixes, a first-party open-weight drop, or an X.0.0 version)
+  above bare bumps, dependency updates, prereleases, and generic notes inside
+  the Releases lane. The default Brief excludes every release item, and the
+  tier is not a judge verdict.
 - **Community-only windows:** the API community caps are 4 and the community
   slot allows 3 cards from one source, matching the slot's 4-item lane. A
   quiet day whose only fresh source is Hacker News shows the day's best

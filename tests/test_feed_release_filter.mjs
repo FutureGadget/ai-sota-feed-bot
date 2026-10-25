@@ -48,7 +48,7 @@ test('legacy release markers move stored news/platform items from Brief to Relea
   }
 });
 
-test('substantive releases stay in Brief and also appear in Releases', async () => {
+test('releases stay out of Brief regardless of tier and appear in Releases', async () => {
   const oldCwd = process.cwd();
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'feed-release-tier-'));
   try {
@@ -101,9 +101,9 @@ test('substantive releases stay in Brief and also appear in Releases', async () 
       await GET(new Request('https://example.com/api/feed?label=release'))
     ).json();
 
-    assert.deepEqual(brief.items.map((item) => item.id), ['analysis', 'major']);
+    assert.deepEqual(brief.items.map((item) => item.id), ['analysis']);
     assert.deepEqual(releases.items.map((item) => item.id), ['major', 'minor', 'legacy']);
-    assert.equal(brief.label_counts.brief, 2);
+    assert.equal(brief.label_counts.brief, 1);
     assert.equal(brief.label_counts.release, 3);
   } finally {
     process.chdir(oldCwd);

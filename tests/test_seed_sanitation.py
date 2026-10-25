@@ -255,8 +255,8 @@ class IsReleaseItemTest(unittest.TestCase):
     def test_markup_and_casing_cannot_hide_the_prefix(self) -> None:
         self.assertTrue(render._is_release_item({"summary_1line": "<p>RELEASE NOTES: fixed x</p>"}))
 
-    def test_major_release_is_brief_eligible(self) -> None:
-        self.assertFalse(
+    def test_major_release_is_brief_excluded(self) -> None:
+        self.assertTrue(
             render._is_brief_excluded_release_item(
                 {"type": "release", "llm_category": "release", "release_tier": "major"}
             )

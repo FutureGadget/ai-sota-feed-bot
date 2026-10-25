@@ -11,13 +11,14 @@ or a real change is not a semantic judgment call.
 
 Tiers:
 - ``major``: a substantive changelog, a first-party open-weight model drop, or
-  a stable X.0.0 version bump. Brief-eligible.
+  a stable X.0.0 version bump. Ranks above minor bumps inside the Releases lane.
 - ``minor``: a bare version bump, a dependency update, a prerelease, or a
-  generic "bug fixes" note. Releases tab only.
+  generic "bug fixes" note. Releases lane only.
 
-The ranking adds a bounded Stage C term for ``major`` releases so they rank
-above minor bumps inside their own slot. The slot's ``max_items`` and
-``max_per_source`` still cap how many releases reach the edition.
+The served Brief excludes every release item; the tier only orders the
+Releases lane. The ranking adds a bounded Stage C term for ``major`` releases
+so they rank above minor bumps inside their own slot. The slot's ``max_items``
+and ``max_per_source`` still cap how many releases reach the edition.
 """
 
 from __future__ import annotations
@@ -25,8 +26,8 @@ from __future__ import annotations
 import re
 from typing import Any
 
-# A version with a prerelease suffix ("0.165.0-alpha.1", "v0.32.1rc0") is not
-# Brief-ready even when the changelog is substantive.
+# A version with a prerelease suffix ("0.165.0-alpha.1", "v0.32.1rc0") is minor
+# even when the changelog is substantive.
 _PRERELEASE_RE = re.compile(
     r"\b\d+\.\d+(?:\.\d+)?(?:[-.]?(?:alpha|beta|rc|pre|preview|dev|nightly|canary|snapshot)\d*)\b",
     re.I,
@@ -157,9 +158,9 @@ def _version_parts(item: dict[str, Any]) -> tuple[int, int, int] | None:
 def classify_release_tier(item: dict[str, Any]) -> str | None:
     """Return ``major``, ``minor``, or ``None`` for non-release items.
 
-    ``major`` means Brief-eligible. The caller still applies the normal judge
-    headroom bar to non-release items; this tier only decides whether the
-    release lane may show the item in the default Brief.
+    ``major`` means substantive for the Releases lane. It never makes an item
+    Brief-eligible: the Brief excludes every release item. The tier only
+    orders releases within their lane.
     """
     if not is_release_item(item):
         return None

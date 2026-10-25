@@ -100,8 +100,9 @@ Stage C: in-slot scoring + selection (ranking.stage_c_score_and_select)
   - judge_score adds a continuous semantic weight
   - release tier (pipeline/release_policy.py): `major` adds a bounded
     `RELEASE_MAJOR_BOOST` (0.45) so a substantive changelog outranks a bare
-    bump from the same release source; `minor` gets no boost. The tier also
-    travels on the item as `release_tier` for the Brief/Releases split.
+    bump from the same release source; `minor` gets no boost. The tier travels
+    on the item as `release_tier` to order the Releases lane; the default
+    Brief excludes every release item.
   - pre-decay score = alpha*llm_score + beta*freshness
                       + source_bias + source_tune + topical_bias
                       - editorial_penalty

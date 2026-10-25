@@ -3235,7 +3235,8 @@
 
     // Front-page kickers read like a newspaper section, not like the pipeline's
     // slot names. The judge category is the reader-facing subject; fall back to
-    // the slot label when an item is unjudged.
+    // the slot label when an item is unjudged. Releases never lead the front
+    // page, so release_note is intentionally absent.
     const FRONT_PAGE_CATEGORY_LABELS = {
       agent_engineering: 'Agent engineering',
       inference_serving: 'Inference serving',
@@ -3243,7 +3244,6 @@
       research_method: 'Research',
       frontier_product: 'Frontier product',
       business_policy: 'Business & policy',
-      release_note: 'Release note',
       off_topic: 'Off topic',
     };
 

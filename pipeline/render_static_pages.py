@@ -737,13 +737,10 @@ def _is_release_item(it: dict) -> bool:
 def _is_brief_excluded_release_item(it: dict) -> bool:
     """Mirror ``isBriefExcludedReleaseItem`` in api/feed.js.
 
-    The default Brief hides minor release notes but keeps substantive releases
-    (``release_tier == "major"``), which are also listed under Releases.
-    Missing tiers stay Releases-only so older snapshots do not change.
+    The default Brief is release-free. ``release_tier`` still orders the
+    Releases lane, but it never makes a release Brief-eligible.
     """
-    if not _is_release_item(it):
-        return False
-    return str(it.get("release_tier") or "").strip().lower() != "major"
+    return _is_release_item(it)
 
 
 _SEED_KEYWORD_STOPWORDS = re.compile(r"\b(and|or|with|to|from|that|for)\b", re.IGNORECASE)
@@ -5754,9 +5751,9 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
         published = parse_dt(it.get("published"))
         eligible.append((published.date() if published else None, it))
 
-    # Brief-lens parity: the live feed's default Brief excludes minor release
-    # notes (api/feed.js isBriefExcludedReleaseItem), so the crawler-visible
-    # seed hides them too while keeping substantive releases.
+    # Brief-lens parity: the live feed's default Brief excludes every release
+    # item (api/feed.js isBriefExcludedReleaseItem), so the crawler-visible
+    # seed hides them too. The release tier orders Releases, not Brief.
     # Starvation guard: when the filtered list can no longer fill the seed,
     # fall back to the unfiltered list; the resulting ordering divergence from
     # the blended live feed is accepted over showing an empty seed.

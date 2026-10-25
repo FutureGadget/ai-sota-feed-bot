@@ -30,9 +30,10 @@ available to each function.
   `release_boost`, `pre_decay_score`, `time_decay_factor`, `final_score`,
   `slot_priority`, and `global_score`. Editorial fields: `source_role`,
   `story_key`, `story_cluster_id`, `story_cluster_size`, `seen_count`.
-  Release fields: `release_tier` (`major` = Brief-eligible substantive
-  release, `minor` = Releases-only; absent on non-release items and older
-  snapshots) and `release_boost` (the Stage C score term, 0.45 for major).
+  Release fields: `release_tier` (`major` = substantive release, `minor` =
+  bare bump/prerelease; used only to order the Releases lane; absent on
+  non-release items and older snapshots) and `release_boost` (the Stage C
+  score term, 0.45 for major).
   Judge fields:
   `judge_score`, `judge_signals`, `judge_choices`, `judge_category`,
   `judge_category_confidence`, `judge_category_probabilities`,
@@ -81,8 +82,7 @@ Response fields served from the accumulated ranked pool above:
   `{brief, platform, research, release, news}` (present on both the normal
   history path and the no-runs `mode: "latest"` fallback). Each value counts
   items inside the request's publish window matching that one section lens
-  (`brief` = everything except `release_tier: minor` releases, mirroring the
-  default tab; major releases are included), computed
+  (`brief` = everything except releases, mirroring the default tab), computed
   from the same pool as `items` before any reader-selected `label=` filter is
   applied - so tabs show what each section WOULD hold. Reflects the date
   window only, never search or client-side state.

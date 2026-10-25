@@ -126,10 +126,10 @@ in `ops_daily_summary.py`'s log line.
     first-party quarantine, story clustering, cross-edition seen-memory; writes
     `data/processed/editorial.json` for the feed/RSS APIs
   - `release_policy.py` - deterministic release significance tier: `major`
-    (substantive changelog, first-party open-weight drop, or X.0.0) is
-    Brief-eligible; `minor` (bare bump, dependency update, prerelease, generic
-    note) is Releases-only. Stage C adds `release_boost`; `api/feed.js` and
-    `render_static_pages.py` use `release_tier` for the Brief/Releases split
+    (substantive changelog, first-party open-weight drop, or X.0.0) ranks above
+    `minor` (bare bump, dependency update, prerelease, generic note) in the
+    Releases lane. Stage C adds `release_boost`; the default Brief excludes
+    every release item.
   - `quality_benchmark.py` — offline Jev/decision-model benchmark: stratified
     labeled sample, fixture/heuristic/Jev providers, precision/recall/F1,
     Brier/ECE, slice metrics, and an adjudication packet for owner review

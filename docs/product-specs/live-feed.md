@@ -23,7 +23,7 @@ may appear as supporting context.
 
 ### Lens semantics
 
-Brief contains every eligible ranked item except minor release notes. Releases
+Brief contains every eligible ranked item except release notes. Releases
 are identified by the ranking pipeline's deterministic item type; a stale or
 heuristic `llm_category` must not keep an inferred release in Brief. Strong
 release markers are structural and opening-scoped (for example, a cleaned
@@ -32,12 +32,11 @@ of a release later in an analysis article does not change its type. The feed
 API applies the same opening-marker check to durable historical items so older
 `news`/`platform` records move from Brief to Releases without rewriting history.
 
-A release with a substantive changelog (`release_tier: "major"`, set by
-`pipeline/release_policy.py` from the extracted highlights and version) is
-Brief-eligible and also appears under Releases. A bare version bump,
-dependency update, prerelease, or generic note (`release_tier: "minor"`) stays
-Releases-only. Items from older snapshots without a tier keep the previous
-Releases-only behavior.
+The Brief excludes every release item. `pipeline/release_policy.py` still
+classifies releases as `major` or `minor` to order the Releases lane (a
+substantive changelog ranks above a bare version bump); the tier never makes
+an item Brief-eligible. Items from older snapshots without a tier behave the
+same way.
 
 ## Feed aging
 
