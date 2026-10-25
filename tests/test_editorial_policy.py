@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
 
@@ -76,6 +77,119 @@ class StoryClusterTest(unittest.TestCase):
             editorial.load_config(),
         )
         self.assertEqual(len(out), 2)
+
+
+    def test_model_less_release_versions_stay_apart(self) -> None:
+        titles = [
+            "Release 2.64.0 corresponding to NGC container 25.12",
+            "Release 2.73.0 corresponding to NGC container 26.09",
+        ]
+        out, _ = editorial.cluster_items(
+            [
+                _item(
+                    title,
+                    source="triton_releases",
+                    url=f"https://github.com/triton-inference-server/server/releases/tag/v{title.split()[1]}",
+                )
+                for title in titles
+            ],
+            editorial.load_config(),
+        )
+        self.assertEqual(len(out), 2)
+
+    def test_prerelease_versions_stay_apart(self) -> None:
+        titles = [
+            "codex 0.164.0-alpha.8",
+            "codex 0.164.0-alpha.9",
+            "codex 0.164.0-alpha.12",
+            "codex 0.164.0",
+        ]
+        out, _ = editorial.cluster_items(
+            [
+                _item(
+                    title,
+                    source="openai_codex_releases",
+                    url=f"https://github.com/openai/codex/releases/tag/rust-v{title.split()[-1]}",
+                )
+                for title in titles
+            ],
+            editorial.load_config(),
+        )
+        self.assertEqual(len(out), 4)
+
+    def test_unrelated_posts_about_the_same_product_stay_apart(self) -> None:
+        titles = [
+            "Getting started with Claude Code hooks",
+            "Claude Code hooks: five mistakes to avoid",
+            "Using subagents in Claude Code",
+            "Claude Code subagents: a practical review",
+        ]
+        out, _ = editorial.cluster_items(
+            [_item(title, source="claude_dev_blog") for title in titles],
+            editorial.load_config(),
+        )
+        self.assertEqual(len(out), 4)
+
+    def test_huggingface_org_releases_do_not_collapse_across_models(self) -> None:
+        titles = [
+            "moonshotai/Kimi-K2.7-Code released on Hugging Face",
+            "moonshotai/Kimi-K3 released on Hugging Face",
+            "moonshotai/Kimi-K2-Base released on Hugging Face",
+        ]
+        out, _ = editorial.cluster_items(
+            [
+                _item(title, source="hf_moonshotai_releases", url=f"https://huggingface.co/{title.split()[0]}")
+                for title in titles
+            ],
+            editorial.load_config(),
+        )
+        self.assertEqual(len(out), 3)
+
+    def test_huggingface_org_release_sizes_stay_apart(self) -> None:
+        titles = [
+            "Qwen/Qwen3.8-2.4T-A95B released on Hugging Face",
+            "Qwen/Qwen3.8-2.8T-A95B released on Hugging Face",
+        ]
+        out, _ = editorial.cluster_items(
+            [
+                _item(title, source="hf_qwen_releases", url=f"https://huggingface.co/{title.split()[0]}")
+                for title in titles
+            ],
+            editorial.load_config(),
+        )
+        self.assertEqual(len(out), 2)
+
+    def test_old_coverage_does_not_merge_into_a_current_story(self) -> None:
+        now = datetime.now(timezone.utc)
+        old = _item(
+            "Gemini 4 Argon available on Google Cloud",
+            source="google_cloud_blog",
+            published=(now - timedelta(days=20)).isoformat(),
+        )
+        fresh = _item(
+            "Google optimizes the Agent Development Kit with Gemini 4 Argon",
+            source="infoq_ai_ml",
+            published=(now - timedelta(hours=2)).isoformat(),
+        )
+        out, _ = editorial.cluster_items([old, fresh], editorial.load_config())
+        self.assertEqual(len(out), 2)
+
+    def test_fresh_member_becomes_the_card_when_the_original_is_stale(self) -> None:
+        now = datetime.now(timezone.utc)
+        stale = _item(
+            "Gemini 4 Argon available on Google Cloud",
+            source="google_cloud_blog",
+            published=(now - timedelta(days=11)).isoformat(),
+        )
+        fresh = _item(
+            "Google Optimizes the Agent Development Kit with Gemini 4 Argon",
+            source="infoq_ai_ml",
+            published=(now - timedelta(hours=2)).isoformat(),
+        )
+        out, _ = editorial.cluster_items([stale, fresh], editorial.load_config())
+        self.assertEqual(len(out), 1)
+        self.assertEqual(out[0]["source"], "infoq_ai_ml")
+        self.assertEqual(out[0]["also_covered"][0]["source"], "google_cloud_blog")
 
     def test_first_party_original_beats_search_echo(self) -> None:
         original = _item(
@@ -249,6 +363,46 @@ class RankingEditorialTest(unittest.TestCase):
         self.assertEqual([item["id"] for item in out], [clean["id"], penalized["id"]])
         self.assertAlmostEqual(out[1]["editorial_penalty"], 0.5)
         self.assertAlmostEqual(out[1]["pre_decay_score"], out[0]["pre_decay_score"] - 0.5, places=3)
+
+    def test_floor_prefers_judged_ok_items_before_filling_below_the_bar(self) -> None:
+        cfg = {
+            "max_items": 4,
+            "judge_ranking": {
+                "headroom_min_score": 0.2,
+                "headroom_drop_categories": ["off_topic"],
+                "headroom_category_min_score": 0.6,
+            },
+            "judge_gate": {},
+            "slots": {"practitioner_analysis": {"min_items": 2, "max_items": 2}},
+            "dynamic_slot_rerank": {"enabled": False},
+        }
+        items = [
+            _item("low-one", source="simon_willison", source_role="practitioner", slot="practitioner_analysis", final_score=3.0, judge_score=0.1, judge_verdict="review", judge_category="agent_engineering"),
+            _item("low-two", source="simon_willison", source_role="practitioner", slot="practitioner_analysis", final_score=2.9, judge_score=0.15, judge_verdict="review", judge_category="agent_engineering"),
+            _item("good-one", source="simon_willison", source_role="practitioner", slot="practitioner_analysis", final_score=2.8, judge_score=0.8, judge_verdict="keep", judge_category="agent_engineering"),
+            _item("good-two", source="simon_willison", source_role="practitioner", slot="practitioner_analysis", final_score=2.7, judge_score=0.7, judge_verdict="keep", judge_category="agent_engineering"),
+        ]
+        out, _priority, diag = global_merge({"practitioner_analysis": items}, cfg)
+        ids = [item["id"] for item in out]
+        self.assertEqual(ids, ["simon_willison:good-one", "simon_willison:good-two"])
+        self.assertEqual(diag["floor_selected"], 2)
+        self.assertNotIn("low-one", ids)
+
+    def test_floor_still_fills_when_all_candidates_are_below_the_bar(self) -> None:
+        cfg = {
+            "max_items": 2,
+            "judge_ranking": {"headroom_min_score": 0.2},
+            "judge_gate": {},
+            "slots": {"practitioner_analysis": {"min_items": 2, "max_items": 2}},
+            "dynamic_slot_rerank": {"enabled": False},
+        }
+        items = [
+            _item("low-one", source="simon_willison", source_role="practitioner", slot="practitioner_analysis", final_score=3.0, judge_score=0.1, judge_verdict="review"),
+            _item("low-two", source="simon_willison", source_role="practitioner", slot="practitioner_analysis", final_score=2.9, judge_score=0.15, judge_verdict="review"),
+        ]
+        out, _priority, diag = global_merge({"practitioner_analysis": items}, cfg)
+        self.assertEqual(len(out), 2)
+        self.assertEqual(diag["floor_selected"], 2)
 
     def test_global_merge_caps_search_items(self) -> None:
         cfg = {

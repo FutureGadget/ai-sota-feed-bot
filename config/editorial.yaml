@@ -191,6 +191,14 @@ story_clusters:
   enabled: true
   title_jaccard: 0.62
   min_shared_tokens: 2
+  # Coverage older than this cannot share a card. The feed's longest slot
+  # freshness window is 336h (14 days), so older echoes are already invisible;
+  # folding them in only hides the fresh member behind a stale representative.
+  max_days_apart: 14
+  # Prefer a recent member as the cluster card. Otherwise a stale first-party
+  # original (or a short-window cloud post) drags the whole story out of its
+  # slot and the fresh coverage never appears.
+  rep_freshness_hours: 72
   # Model/product names used to decide whether two headlines are about the
   # same subject. Keep this list focused: adding a generic word here makes
   # unrelated stories cluster.

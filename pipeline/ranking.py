@@ -618,24 +618,70 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], cfg: dict[str
     }
     search_count = 0
 
-    # Phase 1: reserve minimum floors.
+    def judge_exempt(it: dict[str, Any]) -> bool:
+        return (
+            str(it.get("source_role") or "") in judge_exempt_roles
+            or str(it.get("judge_category") or "") in judge_exempt_categories
+        )
+
+    def judge_floor_passes(it: dict[str, Any]) -> bool:
+        """Whether a floor item clears the same judge bar as headroom.
+
+        Floors still fall back below the bar in Phase 1b when a lane has no
+        eligible candidate, but they should not spend the reserved seat on
+        judged-low filler while a passing candidate is available.
+        """
+        if judge_headroom_min <= 0 or judge_exempt(it):
+            return True
+        score = it.get("judge_score")
+        if score is None:
+            return True
+        try:
+            value = float(score)
+        except (TypeError, ValueError):
+            return True
+        if value < judge_headroom_min:
+            return False
+        if str(it.get("judge_category") or "") in judge_drop_categories and value < judge_category_min:
+            return False
+        return True
+
+    def add_floor_item(it: dict[str, Any]) -> bool:
+        nonlocal search_count
+        key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
+        if key in used:
+            return False
+        if max_search and _is_search_item(it) and search_count >= max_search:
+            merge_diag["skip_search_cap"] += 1
+            return False
+        out.append(it)
+        used.add(key)
+        slot = it.get("slot", "overflow")
+        slot_counts[slot] += 1
+        if _is_search_item(it):
+            search_count += 1
+        merge_diag["floor_selected"] += 1
+        return True
+
+    # Phase 1: reserve minimum floors, preferring items that clear the judge
+    # bar. The second pass below keeps the quiet-day fallback.
     for slot, scored in by_slot_scored.items():
         min_items = int((slots_cfg.get(slot, {}) or {}).get("min_items", 0))
         for it in scored:
             if slot_counts[slot] >= min_items or len(out) >= max_items:
                 break
-            key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
-            if key in used:
+            if not judge_floor_passes(it):
                 continue
-            if max_search and _is_search_item(it) and search_count >= max_search:
-                merge_diag["skip_search_cap"] += 1
-                continue
-            out.append(it)
-            used.add(key)
-            slot_counts[slot] += 1
-            if _is_search_item(it):
-                search_count += 1
-            merge_diag["floor_selected"] += 1
+            add_floor_item(it)
+
+    # Phase 1b: a quiet lane still fills below the judge bar rather than
+    # leaving its floor empty.
+    for slot, scored in by_slot_scored.items():
+        min_items = int((slots_cfg.get(slot, {}) or {}).get("min_items", 0))
+        for it in scored:
+            if slot_counts[slot] >= min_items or len(out) >= max_items:
+                break
+            add_floor_item(it)
 
     # Phase 2: fill remaining capacity dynamically by best global score,
     # while respecting each slot's max_items.
@@ -661,10 +707,7 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], cfg: dict[str
             continue
         if judge_headroom_min > 0:
             min_items = int((slots_cfg.get(slot, {}) or {}).get("min_items", 0))
-            exempt = (
-                str(it.get("source_role") or "") in judge_exempt_roles
-                or str(it.get("judge_category") or "") in judge_exempt_categories
-            )
+            exempt = judge_exempt(it)
             judge_score = it.get("judge_score")
             if (
                 not exempt

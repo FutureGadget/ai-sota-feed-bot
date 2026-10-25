@@ -79,6 +79,8 @@ DEFAULT_CONFIG: dict[str, Any] = {
         "enabled": True,
         "title_jaccard": 0.62,
         "min_shared_tokens": 2,
+        "max_days_apart": 14,
+        "rep_freshness_hours": 72,
         "model_tokens": [],
         "variant_tokens": [],
         "event_patterns": {},
@@ -114,11 +116,34 @@ _STOPWORDS = {
     "was", "we", "were", "what", "when", "where", "which", "who", "why",
     "will", "with", "would", "you", "your",
 }
-# A version needs either a decimal point ("4.1", "2.1.302") or a model name
-# directly in front of it ("GPT-6", "Claude 4"). A bare number is usually a
-# price, a count, or a year ("20 cents", "1,000 calls"), not a release.
-_VERSION_RE = re.compile(r"\b[a-z]?v?(\d+\.\d+(?:\.\d+)*(?:[-_][a-z0-9]+)*)\b", re.I)
+# A version needs either a decimal point ("4.1", "2.1.302") or a model size
+# ("WeVisOne-VL-4B"). A bare number is usually a price, a count, or a year
+# ("20 cents", "1,000 calls"), not a release. The optional pre-release suffix
+# is part of the version: 0.164.0-alpha.8 and 0.164.0-alpha.12 are different
+# releases, not one alpha family.
+_VERSION_RE = re.compile(
+    r"(?<![0-9])[a-z]?v?("
+    r"\d+\.\d+(?:\.\d+)*"
+    r"(?:(?:[-_][a-z0-9]+(?:\.[0-9a-z]+)*)|(?:rc|alpha|beta|dev|post|pre|preview)[0-9]*)*"
+    r"|\d+(?:\.\d+)?[bBmMtT]"
+    r")(?![\w])",
+    re.I,
+)
 _YEAR_RE = re.compile(r"^(?:19|20)\d{2}$")
+
+# Release titles are mostly template text; only the model/version part
+# distinguishes one release from another. Exclude this boilerplate from the
+# "shared title tokens" test, or every Hugging Face org release collapses into
+# one card.
+_RELEASE_BOILERPLATE = {
+    "release", "released", "notes", "note", "changelog", "version", "update",
+    "updates", "corresponding", "container", "ngc", "hugging", "face", "org",
+    "available", "now", "announce", "announces", "announcing", "announced",
+    "introduce", "introduces", "introducing", "launch", "launches", "launched",
+    "ships", "shipped", "unveil", "unveils", "unveiled", "drop", "drops",
+    "dropped", "day", "support",
+}
+_MAX_DATETIME = datetime.max.replace(tzinfo=timezone.utc)
 
 
 def _deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
@@ -335,8 +360,44 @@ def _same_story_features(
 
     if fa["norm_title"] and fa["norm_title"] == fb["norm_title"] and len(fa["norm_title"]) >= 12:
         return True
+
+    # Do not fold coverage from different editions into one card. The feed's
+    # longest slot freshness window is 336h (research); comparing much older
+    # items only hides the fresh member behind a stale representative.
+    a_epoch, b_epoch = _published_epoch(a), _published_epoch(b)
+    if a_epoch and b_epoch:
+        max_gap_hours = float(cluster_cfg.get("max_days_apart", 14) or 14) * 24.0
+        if abs(a_epoch - b_epoch) > max_gap_hours * 3600.0:
+            return False
+
     if fa["event"] and fb["event"] and fa["event"] != fb["event"]:
         return False
+
+    a_release = _is_release_source(a, cfg)
+    b_release = _is_release_source(b, cfg)
+    # Release feeds are mostly boilerplate. When both sides are release feeds,
+    # a different model set means a different release, even if the version is
+    # missing from one of the titles.
+    if a_release and b_release and fa["models"] != fb["models"]:
+        return False
+    # A release feed compares the full version, not only the major.minor
+    # family. This applies to model-less feeds (Triton) as well as model
+    # releases, so v2.1.296 and v2.1.302 never collapse into one card.
+    if (a_release or b_release) and fa["full_version"] and fb["full_version"] and fa["full_version"] != fb["full_version"]:
+        return False
+
+    model_words: set[str] = set()
+    for feature in (fa, fb):
+        for model in feature["models"]:
+            model_words.update(_word_tokens(model))
+
+    def content_tokens(feature: dict[str, Any]) -> set[str]:
+        """Title tokens that identify the event, not the product or template."""
+        return {
+            token
+            for token in feature["tokens"]
+            if token not in model_words and token not in _RELEASE_BOILERPLATE
+        }
 
     shared_models = fa["models"] & fb["models"]
     if shared_models:
@@ -354,24 +415,40 @@ def _same_story_features(
             return False
         if fa["variants"] and fb["variants"] and not (fa["variants"] & fb["variants"]):
             return False
-        # Two release-feed items with different full versions are different
-        # releases, even when the major.minor family matches.
-        if _is_release_source(a, cfg) or _is_release_source(b, cfg):
-            if fa["full_version"] and fb["full_version"] and fa["full_version"] != fb["full_version"]:
-                return False
-        shared_tokens = fa["tokens"] & fb["tokens"]
+        # The same product and full version in a release context is the same
+        # launch, even when the headline wording differs.
+        if (
+            fa["full_version"]
+            and fb["full_version"]
+            and fa["full_version"] == fb["full_version"]
+            and (a_release or b_release or fa["event"] == "release" or fb["event"] == "release")
+        ):
+            return True
+        # Search echoes often paraphrase the headline but keep the product's
+        # variant word ("DeepSeek ... Flash"). That is still the same story.
+        if fa["variants"] & fb["variants"] and fa["event"] and fa["event"] == fb["event"]:
+            return True
         if fa["event"] == "analysis" or fb["event"] == "analysis":
             return _jaccard(fa["tokens"], fb["tokens"]) >= max(
                 float(cluster_cfg.get("title_jaccard", 0.62)) + 0.08, 0.70
             )
+        shared_tokens = content_tokens(fa) & content_tokens(fb)
+        # Same-source posts still need real headline overlap; otherwise a
+        # recurring series ("Lessons from building Claude Code") collapses.
+        # Search items are exempt because paraphrased result titles are the
+        # whole point of that lane.
+        if str(a.get("source") or "") == str(b.get("source") or ""):
+            if source_role(a.get("source", ""), cfg) != "search":
+                if _jaccard(content_tokens(fa), content_tokens(fb)) < float(cluster_cfg.get("title_jaccard", 0.62)):
+                    return False
         if len(shared_tokens) >= int(cluster_cfg.get("min_shared_tokens", 2)):
             return True
         return False
 
-    shared_tokens = fa["tokens"] & fb["tokens"]
-    if _jaccard(fa["tokens"], fb["tokens"]) >= float(cluster_cfg.get("title_jaccard", 0.62)) and len(shared_tokens) >= 2:
+    shared_tokens = content_tokens(fa) & content_tokens(fb)
+    if _jaccard(content_tokens(fa), content_tokens(fb)) >= float(cluster_cfg.get("title_jaccard", 0.62)) and len(shared_tokens) >= 2:
         return True
-    if (_is_subset(fa["tokens"], fb["tokens"]) or _is_subset(fb["tokens"], fa["tokens"])) and len(shared_tokens) >= 4:
+    if (_is_subset(content_tokens(fa), content_tokens(fb)) or _is_subset(content_tokens(fb), content_tokens(fa))) and len(shared_tokens) >= 4:
         return True
     return False
 
@@ -418,6 +495,25 @@ def _published_key(item: dict[str, Any]) -> datetime:
         except Exception:
             continue
     return datetime.max.replace(tzinfo=timezone.utc)
+
+
+def _published_epoch(item: dict[str, Any]) -> float:
+    """Epoch seconds for an item's publication time, or 0 when unknown."""
+    published = _published_key(item)
+    if published == _MAX_DATETIME:
+        return 0.0
+    try:
+        return published.timestamp()
+    except (OverflowError, OSError, ValueError):
+        return 0.0
+
+
+def _published_age_hours(item: dict[str, Any]) -> float:
+    """Hours since publication, or 0 when the timestamp is missing/unparseable."""
+    published = _published_epoch(item)
+    if not published:
+        return 0.0
+    return max((datetime.now(timezone.utc).timestamp() - published) / 3600.0, 0.0)
 
 
 def _score_key(item: dict[str, Any]) -> float:
@@ -539,16 +635,27 @@ def cluster_items(items: list[dict[str, Any]], cfg: dict[str, Any] | None = None
             out.append(rep)
             continue
         multi_clusters += 1
-        members = [items[i] for i in member_idxs]
-        rep = min(
-            members,
-            key=lambda m: (
-                _source_priority(m.get("source", ""), cfg),
-                -_title_quality(m, cfg),
-                _published_key(m),
-                -_score_key(m),
-            ),
+        members = [items[i] for i in cluster["members"]]
+        rep_freshness_hours = float((cfg.get("story_clusters", {}) or {}).get("rep_freshness_hours", 72) or 0)
+        recent = (
+            [member for member in members if _published_age_hours(member) <= rep_freshness_hours]
+            if rep_freshness_hours > 0
+            else members
         )
+        if recent:
+            rep = min(
+                recent,
+                key=lambda m: (
+                    _source_priority(m.get("source", ""), cfg),
+                    -_title_quality(m, cfg),
+                    -_published_epoch(m),
+                    -_score_key(m),
+                ),
+            )
+        else:
+            # All members are stale; use the newest so the cluster has the
+            # best chance of surviving its slot's freshness window.
+            rep = max(members, key=_published_epoch)
         rep = dict(rep)
         _merge_also_covered(rep, members)
         key = _cluster_key(items[cluster["anchor"]], cfg)

@@ -2508,3 +2508,37 @@ re-add the Tier-1 calls and `TIER0_INPUT=tier1` in `run_full.sh`, restore the
 Tier-1 include paths and blend code in the APIs, and set
 `config/judge.yaml -> enabled: false`. The deterministic editorial policy and
 ranking remain unchanged.
+
+## 2026-10-25 - Bound story clustering by version, product tokens, and recency
+
+Decision: Make the deterministic story-cluster matcher version-aware for every
+release (not only titles that carry a model token), treat full prerelease
+suffixes as versions, and compare only non-product/non-boilerplate title
+tokens. Add `story_clusters.max_days_apart` (14 days, matching the longest feed
+slot) and choose a recent member as the cluster card within
+`rep_freshness_hours` (72h), falling back to the newest member when all are
+stale. Also prefer judge-passing items when placing slot floor seats
+(`global_merge` Phase 1), fall back below the bar only when a lane would
+otherwise be empty, add `eval`/`evaluation` to the off-topic rescue list, and
+blocklist the game side project at the title level.
+
+Rationale: The 2026-10-24 17:03 edition collapsed 123 items into 57 clusters.
+The matcher counted model names and release template words as story evidence,
+so all Triton releases, six Codex alphas, ten Anthropic posts, and unrelated
+Gemini/Claude posts became one card. The representative was also the oldest
+member, so a stale first-party or short-window cloud post could hide a fresh
+echo: infoq's Gemini 4 Argon Agent Development Kit post from 2026-10-24 was
+lost behind a 2026-10-13 Google Cloud card. The same edition also let a
+judged-review practitioner item into the Brief through a slot floor and kept a
+video-game side project because the static gate had no title rule for it.
+
+Impact: More distinct items survive to Stage A; the Releases tab shows the
+latest release version rather than the oldest member of an alpha family; fresh
+coverage can win the card while originals stay in `also_covered`; and a floor
+seat is not spent on judged-low filler when a passing candidate exists. The
+config keys are additive; coverage outside 14 days no longer merges.
+
+Rollback: Revert `pipeline/editorial.py`, `pipeline/ranking.py`,
+`config/editorial.yaml`, `config/profile.yaml`, and the corresponding tests to
+the prior commit; clustering, floor selection, and the static gate return to
+the previous behavior.

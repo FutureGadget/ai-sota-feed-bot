@@ -37,7 +37,9 @@ Editorial policy (pipeline/editorial.py, config/editorial.yaml)
     rescue, at most 2 candidates per query
   - first-party quarantine: ads/customer stories/partnerships/appointments,
     title-only engineering rescue
-  - story clusters: one representative per event, with also_covered echoes
+  - story clusters: one representative per event, with also_covered echoes;
+    release versions and product/variant tokens must match, coverage spans at
+    most 14 days, and a recent member is preferred as the card
   - seen-memory: recent processed editions retire repeats and add an
     editorial_penalty to the rest
   - writes data/processed/editorial.json for the feed/RSS APIs
@@ -112,10 +114,11 @@ Stage C: in-slot scoring + selection (ranking.stage_c_score_and_select)
 Global merge (ranking.global_merge)
   - dynamic slot meta-rerank (slot priority) when enabled
   - merge slot picks, trim to max_items (24)
-  - respect slot minimum floors when trimming
+  - slot floors prefer judge-passing items; below-bar filler is used only when
+    a lane would otherwise be empty
   - `editorial_caps.max_search_items` caps the search signal across slots
   - headroom skips judged-low items (`judge_ranking.headroom_min_score`) and
-    low off-topic categories unless the slot floor still needs a candidate
+    low off-topic categories
       |
       v
 Top-band constraints (ranking.enforce_top_band_constraints)
@@ -150,7 +153,9 @@ This is deterministic bookkeeping, not the LLM ranking layer:
   appointments from first-party blogs unless the title carries an engineering
   signal.
 - `story_clusters`: collapses the same event reported under different headlines
-  into one representative and records the echoes in `also_covered`.
+  into one representative and records the echoes in `also_covered`. Release
+  versions must match (including prerelease suffixes), and `max_days_apart` /
+  `rep_freshness_hours` keep a stale original from hiding fresh coverage.
 - `seen.max_editions`: retires an item after a bounded number of recent
   editions; `editorial_penalty` softens the rest. `source_overrides` gives
   corporate newsroom posts a shorter run.
@@ -244,7 +249,8 @@ which gate a source dies at.
    room for newer stories. Strong evergreen items can still compete above the
    configured floor, but they no longer keep their day-one score all week.
 7. **Global merge** (`max_items` 24) — per-slot `min_items` floors are reserved
-   first, then remaining capacity fills by `global_score`
+   first, preferring judged-ok items; below-bar filler is used only when a
+   lane would otherwise be empty. Remaining capacity fills by `global_score`
    (`final_score + slot_priority`).
 8. **Top-band constraints** — frontier/research promotion/demotion can reorder
    (but not drop) the visible top N. Includes the **lead rule**

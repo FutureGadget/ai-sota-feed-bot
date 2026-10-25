@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import unittest
 from datetime import datetime, timezone
+from pathlib import Path
 from unittest.mock import patch
+
+import yaml
 
 from pipeline.ranking import stage_a_prefilter
 
@@ -123,6 +126,59 @@ class RankingPrefilterTest(unittest.TestCase):
             )
 
         self.assertIn(target_url, {item["url"] for item in candidates})
+
+
+class OffTopicGateTest(unittest.TestCase):
+    def _profile(self) -> dict:
+        path = Path(__file__).resolve().parents[1] / "config" / "profile.yaml"
+        return yaml.safe_load(path.read_text(encoding="utf-8"))
+
+    def test_eval_signal_rescues_a_healthcare_phrase(self) -> None:
+        now = datetime(2026, 10, 24, 17, 3, tzinfo=timezone.utc)
+        items = [
+            {
+                "id": "eval-post",
+                "source": "hamel_husain",
+                "title": "“It’s Hard to Eval” Is a Product Smell",
+                "summary": "Examples include a medical records agent and a patient support workflow.",
+                "url": "https://hamel.dev/blog/posts/eval-smell/",
+                "published": "2026-10-24T12:00:00+00:00",
+            },
+            {
+                "id": "game-post",
+                "source": "simon_willison",
+                "title": "battledrones v14: Compass Rose, a four player map",
+                "summary": "Claude Opus 4.5 added a new map with AI players for the WebSocket multiplayer mode.",
+                "url": "https://simonwillison.net/2026/Oct/24/battledrones/",
+                "published": "2026-10-24T03:59:57+00:00",
+            },
+            {
+                "id": "game-post-two",
+                "source": "simon_willison",
+                "title": "Battle Drones - a vibe coded RTS with audio-based multiplayer",
+                "summary": "A side project with AI-controlled units and a Claude-generated map editor.",
+                "url": "https://simonwillison.net/2026/Oct/23/battle-drones/",
+                "published": "2026-10-23T03:59:57+00:00",
+            },
+        ]
+        cfg = {
+            "candidate_pool_cap": 10,
+            "slots": {
+                "practitioner_analysis": {
+                    "sources": ["hamel_husain", "simon_willison"],
+                    "freshness_hours": 240,
+                    "max_per_source": 2,
+                }
+            },
+        }
+        with patch("pipeline.ranking._now_utc", return_value=now):
+            candidates, diag = stage_a_prefilter(items, cfg, self._profile(), {})
+        titles = {item["title"] for item in candidates}
+        self.assertIn("“It’s Hard to Eval” Is a Product Smell", titles)
+        self.assertNotIn("battledrones v14: Compass Rose, a four player map", titles)
+        self.assertNotIn("Battle Drones - a vibe coded RTS with audio-based multiplayer", titles)
+        self.assertEqual(diag["prefilter_reasons"].get("off_topic", 0), 0)
+        self.assertEqual(diag["prefilter_reasons"]["hard_exclude"], 2)
 
 
 if __name__ == "__main__":

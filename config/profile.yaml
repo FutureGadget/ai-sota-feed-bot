@@ -100,6 +100,9 @@ selection:
     # "datasette-acl …", "Datasette Agent"), while on-topic LLM posts that merely
     # mention it in the summary (e.g. "Using LLM in the shebang line") are kept.
     - "(?i)\\bdatasette\\b"
+    # Simon Willison's game side project is not AI platform engineering. Title-
+    # only so an incidental "serving"/"agent" in the write-up cannot rescue it.
+    - "(?i)\\bbattle[ -]?drones\\b"
     - "(?i)not much happened today"
     # Conference/subscriber discount promos (e.g. Latent Space's "[Exclusive]
     # $250 off AI Engineer tix til Monday"). A dollar-amount discount in the
@@ -113,7 +116,7 @@ selection:
 # regularly publish content that is structurally off-mission for the "AI platform
 # engineer" lens (clinical/healthcare AI, macro-economics/policy/governance,
 # consumer/gaming). Those used to slide straight onto the feed because the only
-# hard gate was selection.exclude_title_regex (title-only, 2 patterns).
+# hard gate was selection.exclude_title_regex (a small title-only blocklist).
 #
 # How it works: an item whose title+summary contains any phrase below is dropped
 # from the candidate pool UNLESS it also carries a strong platform signal (any
@@ -145,6 +148,8 @@ off_topic:
     - observability
     - orchestration
     - benchmark
+    - eval
+    - evaluation
     - kernel
     - gpu
     - cuda
