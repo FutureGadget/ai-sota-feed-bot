@@ -3231,6 +3231,20 @@
       overflow: 'long tail',
     };
 
+    // Front-page kickers read like a newspaper section, not like the pipeline's
+    // slot names. The judge category is the reader-facing subject; fall back to
+    // the slot label when an item is unjudged.
+    const FRONT_PAGE_CATEGORY_LABELS = {
+      agent_engineering: 'Agent engineering',
+      inference_serving: 'Inference serving',
+      evaluation_reliability: 'Evals & reliability',
+      research_method: 'Research',
+      frontier_product: 'Frontier product',
+      business_policy: 'Business & policy',
+      release_note: 'Release note',
+      off_topic: 'Off topic',
+    };
+
     // Deterministic stand-in for the editorial why line: states the measurable
     // ranking reasons (matched topics, slot, freshness, score) so every card
     // carries a visible rationale. Pure - pinned against
@@ -3294,6 +3308,19 @@
       return /^(bug fixes|reliability improvements|maintenance( release)?|minor fixes|no release notes)\b/i.test(String(s || '').trim());
     }
 
+    // The front page lead needs a real paragraph for its drop cap. HN link
+    // posts often have summary_1line == title and an empty summary; the Jev
+    // gate fetched content_excerpt for many of them. Use its first sentence as
+    // the lead's standfirst, never as a card summary for the other ranks.
+    function leadExcerpt(it) {
+      const raw = cleanText(it?.content_excerpt);
+      if (!raw) return '';
+      const match = raw.match(/^.{30,}?[.!?](?:\s|$)/);
+      let s = (match ? match[0] : raw).trim();
+      if (s.length > 220) s = s.slice(0, 219).trimEnd() + '…';
+      return looksLikeKeywordList(s) ? '' : s;
+    }
+
     // frontPage: '' (ledger card), 'lead', 'second', or 'pair' - the front-page
     // layout's top stories (see renderFeedList). Same markup and controls;
     // only a kicker replaces the rank column so CSS can set it as a column.
@@ -3328,6 +3355,7 @@
         if (summaryRaw.length < 25) summaryRaw = '';
       }
       if (echoesTitle(it.title, summaryRaw0)) summaryRaw = '';
+      if (!summaryRaw && frontPage === 'lead') summaryRaw = leadExcerpt(it);
       const summary = esc(summaryRaw);
       const published = fmtCardDate(it.published || it.first_seen || it.last_seen);
       const whyRaw = whyItMattersText(it);
@@ -3371,7 +3399,11 @@
       // full cards; class-only so save/share/hide/swipe handlers keep working.
       const isReleaseRow = type === 'release' && (!summaryRaw || isGenericReleaseNotes(summaryRaw));
       const articleClass = [sourceCount >= 3 ? 'big-story' : '', hidden ? 'card-hidden' : '', isReleaseRow ? 'release-row' : '', frontPage ? `fp-${frontPage}` : ''].filter(Boolean).join(' ');
-      const kicker = SLOT_LABELS[it.slot] || (type !== 'news' ? typeLabel : 'News');
+      const kicker = frontPage
+        ? (FRONT_PAGE_CATEGORY_LABELS[String(it.judge_category || '').toLowerCase()]
+          || SLOT_LABELS[it.slot]
+          || (type !== 'news' ? typeLabel : 'News'))
+        : (SLOT_LABELS[it.slot] || (type !== 'news' ? typeLabel : 'News'));
       return `
         <article${articleClass ? ` class="${articleClass}"` : ''} data-item-key="${itemId}">
           ${frontPage === 'lead' && rank !== null ? `<p class="fp-kicker"><span class="fp-rank" aria-label="Rank ${rank}${climbingLabel}">${String(rank).padStart(2, '0')}</span> ${esc(kicker)}</p>` : ''}
@@ -3906,9 +3938,14 @@
     // Front page: the Brief's first stories are set as a lead plus a column
     // of secondaries, then the ledger continues. Cards stay direct children of #list so selection,
     // swipe, focus restore and feedback handlers are untouched.
+    // A front page needs a lead and at least a few headlines to read as a
+    // newspaper. Five is the full layout (lead plus four headlines); four is
+    // the quiet-day floor (lead plus three). Below that the ledger is clearer.
     const FRONT_PAGE_STORIES = 5;
+    const FRONT_PAGE_MIN_STORIES = 4;
 
-    // Rank 1 leads with its summary; 2-5 run beside it as a headline list.
+    // Rank 1 leads with its standfirst; ranks 2-5 run beside it as a headline
+    // list. A four-story day uses ranks 2-4 and leaves the fifth slot empty.
     function frontPageRole(index) {
       if (index === 0) return 'lead';
       return index < FRONT_PAGE_STORIES ? 'second' : '';
@@ -4031,7 +4068,7 @@
       } else {
         const frontPage = !q
           && activeSection() === 'brief'
-          && visible.length >= FRONT_PAGE_STORIES;
+          && visible.length >= FRONT_PAGE_MIN_STORIES;
         const storyCards = visible.map((it, i) => cardHtml(it, {
           rank: i + 1,
           runId,

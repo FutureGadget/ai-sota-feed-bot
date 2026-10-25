@@ -173,10 +173,32 @@ class LiveFeedSurfaceTest(unittest.TestCase):
     def test_front_page_only_on_the_unsearched_brief(self) -> None:
         render = _extract_js_function(self.html, "renderFeedList")
         self.assertIn("const frontPage = !q\n          && activeSection() === 'brief'", render)
-        self.assertIn("&& visible.length >= FRONT_PAGE_STORIES;", render)
-        # Companions never split the front page or its section heading.
+        self.assertIn("&& visible.length >= FRONT_PAGE_MIN_STORIES;", render)
+        self.assertIn("const FRONT_PAGE_MIN_STORIES = 4;", self.html)
+        self.assertIn("const FRONT_PAGE_STORIES = 5;", self.html)
+        # Companions never split the full five-story front page or its heading.
         self.assertIn("insert.after = Math.max(Number(insert.after) || 0, FRONT_PAGE_STORIES + 3);", render)
         self.assertIn("html: frontPageRuleHtml(visible.length - FRONT_PAGE_STORIES)", render)
+
+    def test_front_page_lead_has_a_capitalised_standfirst(self) -> None:
+        css = (ROOT / "web" / "front-page.css").read_text(encoding="utf-8")
+        self.assertIn("text-transform:uppercase;", css)
+        self.assertIn("function leadExcerpt(it)", self.html)
+        self.assertIn("if (!summaryRaw && frontPage === 'lead') summaryRaw = leadExcerpt(it);", self.html)
+        self.assertIn("const FRONT_PAGE_CATEGORY_LABELS = {", self.html)
+        clean = _extract_js_function(self.html, "cleanText")
+        keywords = _extract_js_function(self.html, "looksLikeKeywordList")
+        lead = _extract_js_function(self.html, "leadExcerpt")
+        script = f"""
+          {clean}
+          {keywords}
+          {lead}
+          console.log(leadExcerpt({{content_excerpt: 'A design skill for Claude Code, Codex, Cursor and OpenCode that refuses to look AI-generated. usehallmark.com and more.'}}));
+        """
+        self.assertEqual(
+            _run_node(script),
+            "A design skill for Claude Code, Codex, Cursor and OpenCode that refuses to look AI-generated.",
+        )
 
     def test_front_page_cards_stay_direct_list_children(self) -> None:
         # Selection, swipe and focus restore all query `#list > article`, so

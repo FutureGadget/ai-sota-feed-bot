@@ -1,8 +1,9 @@
 /* Feed front page and story list: a quiet, sectioned reading of the ranked
    Brief. Each story is a headline plus one source line; share, hide, feedback
    and the ranking reason sit behind the card's "⋯" panel. The Brief's first
-   five stories open as a front page (a lead with its summary, four headlines
-   beside it), the rest follow under a section heading.
+   four or five stories open as a front page (a lead with its standfirst; four
+   headlines beside it on a full day, three on a quiet day), the rest follow
+   under a section heading.
    Shared by the English feed (web/index.html) and the Korean feed
    (web/ko/index.html); each links it after its inline <style> so these rules
    win ties with the older card styles. Spec: docs/product-specs/feed-front-page.md. */
@@ -97,7 +98,7 @@ details.card-more > summary:hover, details.card-more[open] > summary { color:var
   border-top:1px solid var(--border); }
 #list > article .card-more-panel .fb-btn { opacity:1; color:var(--fg); }
 
-/* Front page: the lead with its summary, four headlines beside it. */
+/* Front page: the lead with its standfirst, up to four headlines beside it. */
 #list:has(> article.fp-lead) { display:flow-root; min-width:0; }
 #list > article:is(.fp-lead,.fp-second) { min-width:0; }
 .fp-kicker { margin:0 0 .45rem; font-family:var(--font-sans); font-size:.7rem; font-weight:700;
@@ -110,7 +111,8 @@ details.card-more > summary:hover, details.card-more[open] > summary { color:var
   word-break:keep-all; overflow-wrap:anywhere;
   font-family:var(--font-serif); font-size:1.06rem; line-height:1.65; color:var(--fg); }
 #list > article.fp-lead .why::first-letter { float:left; margin:.08em .1em 0 0;
-  font-family:var(--font-display); font-size:3.3em; line-height:.8; font-weight:700; }
+  font-family:var(--font-display); font-size:3.3em; line-height:.8; font-weight:700;
+  text-transform:uppercase; }
 #list > article.fp-second { padding-top:.85rem; padding-bottom:.85rem; }
 #list > article.fp-second .rank-no { top:.9rem; }
 #list:has(> article.fp-lead) > :not(article:is(.fp-lead,.fp-second)):not(.fp-head) { clear:both; }

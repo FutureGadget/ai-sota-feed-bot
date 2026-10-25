@@ -11,7 +11,9 @@ Site-wide palette and type: `docs/FRONTEND.md`, "Site theme".
 The Brief's first five stories are set like a newspaper front page. Ranking,
 item selection and order are unchanged; only the presentation differs from the
 rest of the list. Each story reads as a headline plus one source line; only
-the lead carries a summary.
+the lead carries a standfirst. The standfirst is `summary_1line`; when that
+echoes the title or is empty, the lead uses the first sentence of the Jev
+`content_excerpt` (HN link posts often need this).
 
 | Element | Treatment |
 |---|---|
@@ -19,8 +21,8 @@ the lead carries a summary.
 | Filter chips | Hidden on the default Brief; shown only for a non-default lens or pinned topics |
 | Editor's Desk strip | Red caps heading and three headlines in columns (one column on phones), no box, no summaries |
 | Section heading | "Front page" on the left; date · Morning/Afternoon/Evening/Late edition on the right; 2px rule |
-| Rank 1 | **Lead**: kicker (`01 PRACTITIONER ANALYSIS`), large serif headline, drop-cap summary, left 58% column |
-| Ranks 2-5 | **Headlines**: numbered, beside the lead, headline and source line only |
+| Rank 1 | **Lead**: kicker (`01 AGENT ENGINEERING`, from the judge category), large serif headline, drop-cap standfirst with an uppercase initial, left 58% column |
+| Ranks 2-5 | **Headlines**: numbered, beside the lead, headline and source line only (three headlines when the Brief has exactly four stories) |
 | Rank 6+ | The same headline cards under "The rest of the brief" (with "N more stories") |
 | Model Radar rail | Boxed module with a ruled caps heading |
 | Reader-tuning note | A footnote under the finish line, not a banner above the list |
@@ -54,7 +56,12 @@ shows the ordinary ledger:
 
 - the Brief lens is active,
 - no search query,
-- at least 5 visible stories.
+- at least 4 visible stories.
+
+Five stories is the full layout: a lead plus four headlines. With exactly four,
+the front page renders as a lead plus three headlines and the "rest of the
+brief" heading is omitted. Fewer than four falls back to the ordinary ledger,
+which is clearer than a front page with too little to fill it.
 
 Saved, Platform/Research/Releases/News/All, and search views never use the front
 page; they use the same headline cards. Feed companions that would land inside
