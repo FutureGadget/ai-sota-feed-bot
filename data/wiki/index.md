@@ -16,13 +16,13 @@ Schema: `config/wiki_schema.md`.
   - theme `consistency-and-autonomy` — Consistency, autonomy limits, and the human role (6)
 
 ### memory
-- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (69 entries, updated 2026-10-24)
+- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (71 entries, updated 2026-10-25)
   → solutions: context-compaction, vector-kb
   - theme `architectures` — Tiered and lifecycle memory architectures (13)
   - theme `local-first-stores` — Build vs. buy: managed services and developer-owned stores (16)
   - theme `shared-memory` — Sharing memory across agents, isolating it between users (10)
   - theme `recall-and-curation` — What to write, when to revoke, how to recall (16)
-  - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (6)
+  - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (8)
   - theme `measuring-memory` — Benchmarks and leaderboards for memory (8)
 
 ### planning
@@ -63,12 +63,12 @@ Schema: `config/wiki_schema.md`.
   - theme `eval-in-production` — Evals as a production workflow: mined from traces, gated in CI (31)
 
 ### multi-agent
-- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (34 entries, updated 2026-10-23)
+- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (36 entries, updated 2026-10-25)
   → solutions: agent-benchmarks, agent-orchestration, agent-tracing
-  - theme `when-it-pays` — When coordination helps: topology, roles, and allocation (8)
+  - theme `when-it-pays` — When coordination helps: topology, roles, and allocation (9)
   - theme `production-evidence` — Production deployments and what they report (12)
   - theme `parallel-coding-agents` — Keeping parallel coding agents from colliding (4)
-  - theme `oversight-and-safety` — Oversight, collusion, and authorization between agents (8)
+  - theme `oversight-and-safety` — Oversight, collusion, and authorization between agents (9)
   - theme `shared-context` — What each agent gets to see (2)
 
 ### cost
@@ -167,9 +167,9 @@ Schema: `config/wiki_schema.md`.
   - theme `structured-verdicts` — From a 1-5 score to structured, trace-level verdicts (3)
   - theme `cheaper-judges` — Making the judge cheap enough to run on every trace (5)
   - theme `trusting-the-judge` — Auditing the judge, the rubric, and whether you need one (8)
-- [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools (34 entries, updated 2026-10-23)
+- [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools (35 entries, updated 2026-10-25)
   - theme `stateless-spec` — The stateless spec and what MCP is actually for (7)
-  - theme `auth-and-governance` — Authorization and governance of connector fleets (8)
+  - theme `auth-and-governance` — Authorization and governance of connector fleets (9)
   - theme `webmcp` — WebMCP and the browser as a tool surface (5)
   - theme `servers-in-production` — Vendor servers and hosted deployments (7)
   - theme `beyond-tools` — Beyond tool calls - knowledge, memory, work, and computation (7)

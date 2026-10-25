@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-24T18:05:07.661915+00:00",
+ "generated_at": "2026-10-25T18:05:10.242847+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,46 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-25-herding-runaway-cascades",
+   "topic": "multi-agent",
+   "topic_title": "Coordinating multiple agents adds more failure than capability",
+   "kind": "obstacle",
+   "date": "2026-10-25",
+   "title": "Multi-agent LLM systems herd and cascade when agents respond to each other's choices"
+  },
+  {
+   "id": "2026-10-25-fold-subagents-into-main-loop",
+   "topic": "multi-agent",
+   "topic_title": "Coordinating multiple agents adds more failure than capability",
+   "kind": "obstacle",
+   "date": "2026-10-25",
+   "title": "Anthropic: fewer subagents plus progressive disclosure can cut cost and latency"
+  },
+  {
+   "id": "2026-10-25-kevlar-strips-tool-descriptions",
+   "topic": "mcp",
+   "topic_title": "Model Context Protocol: a standard interface for agent tools",
+   "kind": "solution",
+   "date": "2026-10-25",
+   "title": "Kevlar blocks MCP tool-description injection by stripping every description field"
+  },
+  {
+   "id": "2026-10-25-state-integrity-collapse",
+   "topic": "agent-memory",
+   "topic_title": "Agents forget across steps and sessions",
+   "kind": "obstacle",
+   "date": "2026-10-25",
+   "title": "Models can repeat a stated instruction in long dialogue yet stop obeying it"
+  },
+  {
+   "id": "2026-10-25-afterdeletebench-post-deletion-persistence",
+   "topic": "agent-memory",
+   "topic_title": "Agents forget across steps and sessions",
+   "kind": "obstacle",
+   "date": "2026-10-25",
+   "title": "Deleting an agent's memory record may not remove what its summaries still carry"
+  },
   {
    "id": "2026-10-24-tool-access-not-tool-use",
    "topic": "tool-use",
@@ -214,46 +254,6 @@
    "kind": "solution",
    "date": "2026-10-17",
    "title": "Deep Agents keeps long-running context focused with offloading, summarization, skills, subagents, and memory"
-  },
-  {
-   "id": "2026-10-17-agent37-low-cost-sandboxes",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-10-17",
-   "title": "Agent37 prices agent sandboxes at under 10% of typical providers, averaging $0.37 per sandbox per month"
-  },
-  {
-   "id": "2026-10-17-vllm-agent-assisted-kernels",
-   "topic": "agent-latency",
-   "topic_title": "Agent loops multiply per-call latency into slow, expensive runs",
-   "kind": "obstacle",
-   "date": "2026-10-17",
-   "title": "vLLM ships agent-written decode kernels, gated by scoped changes and correctness tests"
-  },
-  {
-   "id": "2026-10-16-mechanical-checks-beat-llm-judges",
-   "topic": "llm-as-judge",
-   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
-   "kind": "solution",
-   "date": "2026-10-16",
-   "title": "Mechanical checks catch errors LLM judges accept"
-  },
-  {
-   "id": "2026-10-16-dialfork-procedural-hallucination",
-   "topic": "agent-reliability",
-   "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
-   "kind": "obstacle",
-   "date": "2026-10-16",
-   "title": "Procedural hallucination: fluent turns that leave the intended process"
-  },
-  {
-   "id": "2026-10-16-grafana-agent-slos-error-budgets",
-   "topic": "agent-observability",
-   "topic_title": "You can't see why an agent did what it did",
-   "kind": "obstacle",
-   "date": "2026-10-16",
-   "title": "Grafana turns agent behaviour into SLOs with error budgets"
   }
  ],
  "nodes": {
@@ -5253,7 +5253,7 @@
      "key": "memory-integrity",
      "title": "Poisoned, hidden, and sycophantic memory",
      "summary": "Persistent memory is a persistent attack surface; poisoned facts, concealed injections, forged reasoning, and sycophancy all pass through the write path.",
-     "count": 6
+     "count": 8
     },
     {
      "key": "measuring-memory",
@@ -5263,6 +5263,36 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-25-state-integrity-collapse",
+     "topic": "agent-memory",
+     "date": "2026-10-25",
+     "title": "Models can repeat a stated instruction in long dialogue yet stop obeying it",
+     "theme": "memory-integrity",
+     "html": "<p>A paper names a recall-compliance dissociation in long-horizon dialogue: the model can still repeat an instruction while failing to keep obeying it. The authors call this <strong>State Integrity Collapse</strong>, where a model preserves a stated constraint in recall but not in behavior.</p>\n<p>This is paper-reported from the abstract excerpt.</p>\n<p>For builders: a memory check that asks &quot;does the agent still know the rule?&quot; can pass while the agent violates it. Evaluate long sessions on compliance with constraints, not recall of them, and re-inject or enforce critical rules outside the model&#x27;s conversational state.</p>",
+     "evidence": [
+      {
+       "sid": "4179502a4cb9cc04",
+       "title": "When LLMs Forget What They Believe: Characterizing State Integrity Collapse in Long-Horizon Dialogues"
+      }
+     ],
+     "also": []
+    },
+    {
+     "id": "2026-10-25-afterdeletebench-post-deletion-persistence",
+     "topic": "agent-memory",
+     "date": "2026-10-25",
+     "title": "Deleting an agent's memory record may not remove what its summaries still carry",
+     "theme": "memory-integrity",
+     "html": "<p>AfterDeleteBench audits what persists after deletion in LLM agents that keep external memory and derive extra state, such as summaries, from past interactions. Its premise: deleting the original record need not remove information carried by its descendants.</p>\n<p>This is paper-reported from the abstract excerpt; results across systems are not summarized here.</p>\n<p>For builders: treat deletion as a graph problem. If summaries, embeddings, or caches are derived from a record, a &quot;forget this&quot; request or retention policy has to propagate to every derived artifact. Track provenance from derived memory back to source records, and test deletion by probing the agent afterward.</p>",
+     "evidence": [
+      {
+       "sid": "3db8654814ed91dc",
+       "title": "AfterDeleteBench: Auditing Post-Deletion Information Persistence in LLM Agents"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-24-tensemem-typed-current-state",
      "topic": "agent-memory",
@@ -6429,8 +6459,8 @@
      "title": "An open-source memory plugin consolidates by forgetting and synthesizing instead of storing everything"
     }
    ],
-   "entry_count": 69,
-   "latest_entry_date": "2026-10-24",
+   "entry_count": 71,
+   "latest_entry_date": "2026-10-25",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -6444,6 +6474,14 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "4179502a4cb9cc04",
+     "title": "When LLMs Forget What They Believe: Characterizing State Integrity Collapse in Long-Horizon Dialogues"
+    },
+    {
+     "sid": "3db8654814ed91dc",
+     "title": "AfterDeleteBench: Auditing Post-Deletion Information Persistence in LLM Agents"
+    },
     {
      "sid": "83ab5580b21e5403",
      "title": "Show HN: TenseMem – deterministic memory for AI agents"
@@ -6733,7 +6771,7 @@
      "title": "Cloudflare Announces Agent Memory, a Managed Persistent Memory Service for AI Agents"
     }
    ],
-   "updated": "2026-10-24"
+   "updated": "2026-10-25"
   },
   "agent-observability": {
    "slug": "agent-observability",
@@ -10239,7 +10277,7 @@
      "key": "when-it-pays",
      "title": "When coordination helps: topology, roles, and allocation",
      "summary": "Communication structure, per-role model capacity, and task allocation decide whether extra agents help; on a small local model a two-call refinement loop beats a five-agent pipeline outright.",
-     "count": 8
+     "count": 9
     },
     {
      "key": "production-evidence",
@@ -10257,7 +10295,7 @@
      "key": "oversight-and-safety",
      "title": "Oversight, collusion, and authorization between agents",
      "summary": "Swarms collude and sabotage without an adversary and can coordinate through hidden states; answers so far are arbiters with veto power, human pauses, per-agent credentials, and multi-agent-specific monitoring.",
-     "count": 8
+     "count": 9
     },
     {
      "key": "shared-context",
@@ -10267,6 +10305,36 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-25-herding-runaway-cascades",
+     "topic": "multi-agent",
+     "date": "2026-10-25",
+     "title": "Multi-agent LLM systems herd and cascade when agents respond to each other's choices",
+     "theme": "oversight-and-safety",
+     "html": "<p>A paper studies LLM multi-agent systems in which agents react to each other&#x27;s choices. That creates endogenous feedback loops, and the authors report vulnerability to social influence, herding, and runaway cascades. The failure is collective: a few early outputs can steer the rest of the group.</p>\n<p>This is paper-reported, based on an excerpt of the abstract, so check the full text before relying on specific rates.</p>\n<p>For builders: agents that see peers&#x27; answers before deciding are not independent votes. Where you use agent ensembles or debate for reliability, keep voters isolated, or add an independent check, rather than letting each agent condition on the others.</p>",
+     "evidence": [
+      {
+       "sid": "f2df794e6fc1e504",
+       "title": "LLM Multi-Agent Systems Are Vulnerable to Herding and Runaway Cascades"
+      }
+     ],
+     "also": []
+    },
+    {
+     "id": "2026-10-25-fold-subagents-into-main-loop",
+     "topic": "multi-agent",
+     "date": "2026-10-25",
+     "title": "Anthropic: fewer subagents plus progressive disclosure can cut cost and latency",
+     "theme": "when-it-pays",
+     "html": "<p>Anthropic&#x27;s guidance for Claude Platform agents says to fold some subagents back into the main agent loop and rely on progressively disclosed context and tools instead. The vendor claims quality improves while cost and latency drop. Each subagent carries its own context window, so every split adds a handoff.</p>\n<p>A migration kit runs a guided workflow: it identifies your subagent patterns, evaluates alternatives, and verifies the chosen approach. It ships with a demo on a mock system to try before touching a real agent. The post gives no benchmark numbers in the excerpt, so treat the gains as vendor-reported.</p>\n<p>For builders: audit each subagent for whether it needs isolation. If it exists only to hold context, loading that context on demand in one loop is cheaper to run and debug.</p>",
+     "evidence": [
+      {
+       "sid": "13225fd2d3574734",
+       "title": "Building agents: When to fold subagents into your main agent loop"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-23-deep-insight-five-production-challenges",
      "topic": "multi-agent",
@@ -10977,8 +11045,8 @@
      "title": "Practitioners want frameworks where models with different strengths split the work"
     }
    ],
-   "entry_count": 34,
-   "latest_entry_date": "2026-10-23",
+   "entry_count": 36,
+   "latest_entry_date": "2026-10-25",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -10996,6 +11064,14 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "f2df794e6fc1e504",
+     "title": "LLM Multi-Agent Systems Are Vulnerable to Herding and Runaway Cascades"
+    },
+    {
+     "sid": "13225fd2d3574734",
+     "title": "Building agents: When to fold subagents into your main agent loop"
+    },
     {
      "sid": "f4cbbc5a6a498cf5",
      "title": "5 production challenges in multi-agent systems and how Deep Insight solved them"
@@ -11133,7 +11209,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-10-23"
+   "updated": "2026-10-25"
   },
   "prompt-injection": {
    "slug": "prompt-injection",
@@ -12124,6 +12200,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-10-25-kevlar-strips-tool-descriptions",
+     "topic": "mcp",
+     "topic_title": "Model Context Protocol: a standard interface for agent tools",
+     "date": "2026-10-25",
+     "title": "Kevlar blocks MCP tool-description injection by stripping every description field"
+    },
     {
      "id": "2026-10-11-securesd-early-token-verification",
      "topic": "speculative-decoding",
@@ -18162,7 +18245,7 @@
      "key": "auth-and-governance",
      "title": "Authorization and governance of connector fleets",
      "summary": "Connector access is now provisioned through identity providers and managed settings, with gateways and server-side write controls deciding what a connection may do.",
-     "count": 8
+     "count": 9
     },
     {
      "key": "webmcp",
@@ -18184,6 +18267,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-25-kevlar-strips-tool-descriptions",
+     "topic": "mcp",
+     "date": "2026-10-25",
+     "title": "Kevlar blocks MCP tool-description injection by stripping every description field",
+     "theme": "auth-and-governance",
+     "html": "<p>Kevlar is an open-source MCP firewall posted to Show HN, a single self-described project. A malicious MCP server can use tool descriptions to redirect the model, pull credentials, or add tools. Kevlar sets every <code>description</code> to <code>&quot;&quot;</code> on each <code>tools/list</code> response before the client sees it, so the LLM gets only the name and <code>inputSchema</code>.</p>\n<p>It also rebuilds <code>inputSchema</code> from an allowlist, dropping prose fields such as <code>title</code>, <code>examples</code>, and <code>$comment</code>, and validating enum values, keys, <code>$ref</code> targets, and types against the MCP spec.</p>\n<p>For builders: this trades away description-driven tool selection for a smaller injection surface. Names and schemas must then carry the meaning.</p>",
+     "evidence": [
+      {
+       "sid": "a92a400264dfa863",
+       "title": "Kevlar = MCP Firewall for LLM's"
+      }
+     ],
+     "also": [
+      {
+       "slug": "prompt-injection",
+       "title": "Untrusted input and tools can hijack an agent"
+      }
+     ]
+    },
     {
      "id": "2026-10-23-commerce-webmcp-edge-opt-out",
      "topic": "mcp",
@@ -18864,8 +18967,8 @@
      "title": "Azure Functions folds the tool-calling loop into a serverless agents runtime"
     }
    ],
-   "entry_count": 34,
-   "latest_entry_date": "2026-10-23",
+   "entry_count": 35,
+   "latest_entry_date": "2026-10-25",
    "solutions": [],
    "obstacles": [
     {
@@ -18875,6 +18978,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "a92a400264dfa863",
+     "title": "Kevlar = MCP Firewall for LLM's"
+    },
     {
      "sid": "6ce711ef5d9be5fe",
      "title": "How Commerce.com and Cloudflare are getting storefronts ready for AI agents"
@@ -19016,7 +19123,7 @@
      "title": "Centrally manage authorization for MCP connectors | Claude"
     }
    ],
-   "updated": "2026-10-23"
+   "updated": "2026-10-25"
   },
   "speculative-decoding": {
    "slug": "speculative-decoding",
