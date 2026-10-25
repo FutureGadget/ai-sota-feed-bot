@@ -504,6 +504,25 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPZDBfa1R6a0Q5ejhyOFVkZFNNXzZVVWF0RllvN2cwTldJeFlwakFTd3RzcngxVWVtN1RyQ1JwOUxRdzJTLUZhRVhnRk53MjN0YjNtSVdZVnJaUWxZM2x6NDVvb0ZyRlRqS0tZbVVBb0IzdktvcjFLRzVlWDVQTXRLY3pNSElIOE0?oc=5"
  },
+ "077acebcdb52469e": {
+  "first_seen": "2026-10-25T21:05:30.197489+00:00",
+  "id": "6c5feec0d5227317",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-10-25T18:37:48+00:00",
+  "sid": "077acebcdb52469e",
+  "source": "hackernews_ai",
+  "summary": "Hey HN! I shared Optio here back in March. Originally it was focused on getting swarms of coding agents (claude code/codex) to drive PRs towards a merge by automatically resuming them on CI failures or PR comments. Since then, I've reworked the project to be a general platform for running any kind of AI workflow on your infra by allowing users to configure each component of a possible workflow: When: On demand, a cron schedule, or triggered by external events such as a webhook, slack message, ticket (jira/linear/gh), pagerduty/datadog/alertsmanager/pylon/sentry. Where: In a k8s pod or any machine you have installed the optio daemon on (I use my laptop). Who: Any harness you prefer (Claude Code, Codex, Gemini, Pi, etc.) What/Why: You can format parameters from the triggers directly into the prompts and then configure if the agent should exit, be resumed automatically, or be persistent. You can either define workflows in the web ui or as yaml files that get synced to the orchestrator (ai config-as-code). I've also built native iOS and Android apps so you can connect to your cluster and create/manage agents remotely. The marketing page is at https://optio.host and the code is still open source at https://github.com/jonwiggins/optio Would love feedback or any thoughts you might have on how I could make it better!",
+  "summary_1line": "Hey HN! I shared Optio here back in March. Originally it was focused on getting swarms of coding agents (claude code/codex) to drive PRs towards a merge by automatically resuming them on CI failures or PR comments. Si...",
+  "title": "Show HN: Optio – A self-hosted orchestration platform for AI agents",
+  "type": "news",
+  "url": "https://optio.host",
+  "why_it_matters": "Matches feed focus: agent, harness, codex."
+ },
  "08868129b1a52279": {
   "first_seen": "2026-10-20T18:05:38.591247+00:00",
   "id": "3997b2bf4f10dfa7",
@@ -1901,6 +1920,22 @@
   "type": "news",
   "url": "https://openai.com/index/low-resource-programming-languages",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "1dc7e2df39a11f00": {
+  "content_excerpt": "OpenAI now trains frontier models without internet access and uses AI agents to red-team its own infrastructure. In separate isolation tests, agents even communicated through covert side channels, showing how hard true containment is. On September 20, an internal research model exploited a misconfigured DNS resolver to reach the open internet during training, even though OpenAI had already tightened security after the now infamous Hugging Face incident in July and other observed misalignment cases . OpenAI contained the breach quickly but still halted all frontier model training and evaluation. OpenAI made a policy decision in response: Frontier models now train without internet access until safety measures justify restoring it. Models learn to browse and search inside a closed \"offline world\" built from indexed and cached web content, and all frontier reinforcement learning runs now operate this way. Ad Full network isolation, a so-called air gap, isn't feasible yet because experiments still need external connections for operations and monitoring, the company says. But even a complete air gap wouldn't guarantee containment, according to OpenAI researcher Noam Brown . He gave one example of how isolated systems could still communicate: two separate computers could theoretically signal each other through temperature sensors, with one heating its CPU while the other reads the change. Ad OpenAI CEO Sam Altman made a similar argument in a recent interview: Sandboxes offer only li",
+  "first_seen": "2026-10-25T21:05:30.197489+00:00",
+  "id": "82d4cda010391f52",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-25T18:44:11+00:00",
+  "sid": "1dc7e2df39a11f00",
+  "source": "hackernews_ai",
+  "summary_1line": "OpenAI's isolated AI agents found ways to talk to each other through CPU cache",
+  "title": "OpenAI's isolated AI agents found ways to talk to each other through CPU cache",
+  "type": "news",
+  "url": "https://the-decoder.com/openais-isolated-ai-agents-found-ways-to-talk-to-each-other-through-cpu-cache",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "1dc99b611b2499a3": {
   "first_seen": "2026-10-13T20:04:40.708533+00:00",
@@ -14603,6 +14638,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.163.0-alpha.12",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "d58b11709ebab0f2": {
+  "content_excerpt": "Reclaim disk space with an AI agent: measure top-down, group findings by risk, and delete only what you approve. Prompts in 7 languages. macOS, Linux, Windows. A battle-tested prompt that turns any AI coding agent (Claude Code, Cursor, Codex, …) into a careful disk-space auditor. It walks your disk top-down, groups findings by how much you'd regret deleting them, and waits for your approval before touching anything . Because the biggest wins are rarely where you look first, and the obvious numbers lie: The prompt encodes the method that finds those, plus the guardrails that keep an eager agent from deleting your .env . Pick your language, open the file, and paste everything below the --- line into your agent. Answer the tier question when it comes, and run the elevated commands it hands you. The prompt's language is functional, not cosmetic: it also sets the language the agent reports back in. Shell commands stay in English in every translation. Nothing is deleted without your explicit approval — not even caches. If it deletes anything you did not name, that is a bug: stop it and open an issue . The prompt asks for approval — it cannot enforce it. Stopping to ask is an instruction in the text; what actually guarantees the pause is your agent's permission mode. Run it somewhere tool calls need your confirmation (Claude Code's normal permission prompts, Cursor's ask mode, and so on) and not in an auto-approve / \"yolo\" mode. An agent running unattended can delete things before y",
+  "first_seen": "2026-10-25T21:05:30.197489+00:00",
+  "id": "acb1e15d0d5451ab",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-25T19:31:08+00:00",
+  "sid": "d58b11709ebab0f2",
+  "source": "hackernews_ai",
+  "summary_1line": "Reclaim disk space with an AI agent",
+  "title": "Reclaim disk space with an AI agent",
+  "type": "news",
+  "url": "https://github.com/riza/ai-disk-cleanup",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "d5cc3bc300cf2d32": {
   "first_seen": "2026-10-18T15:04:39.517014+00:00",
   "id": "cc81279e1e0e1391",
@@ -15472,8 +15523,8 @@
   "published": "2026-10-22T09:47:50+00:00",
   "sid": "e0f912e29433ade3",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 33, downloads: 658.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 33, downloads: 658.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 34, downloads: 658.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 34, downloads: 658.",
   "title": "tencent/WeVisOne-VL-2B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeVisOne-VL-2B"
