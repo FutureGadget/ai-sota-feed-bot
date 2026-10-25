@@ -5841,6 +5841,7 @@
   "url": "https://openai.com/index/sophos"
  },
  "5726df15bb134984": {
+  "content_excerpt": "TL;DR: Reflection's Beam is a 501B-parameter MoE with 23B active parameters per token. vLLM supports it from day 0 and optimizes it on NVIDIA Blackwell: Beam is a 52-layer MoE decoder with hidden size 5120. The MoE routing follows DeepSeek-V3. The main differences are in the attention layers and in how the residual stream is normalized. Figure 1: Beam's layer stack and one sparse decoder layer. Gold marks the parts that differ from a standard pre-norm MoE. Open it full-screen . Our initial version of implementation was an unoptimized, almost pure PyTorch version of the model. We then optimized it autonomously with coding agents: they profiled the model, wrote the kernels, and benchmarked each change. On TP8, the seven changes below brought batch-1 decode from 8.95 ms to 3.30 ms per step, and an 8 × 2K prefill from 328 ms to 176 ms. Figure 2: TP8 model-forward latency on GB200 after each change, for batch-1 decode and an 8 × 2,048-token prefill at ~100K context. The two panels use different scales. Show the table for exact values, or open it full-screen . Figure 3: Kernels in launch order for one MoE layer, from a rank-0 trace of batch-1 TP8 decode. Gold kernels were written, fused, or extended for Beam. Each kernel lists the operations it computes. Open it full-screen . Figure 4: FlashInfer CuteDSL NVFP4 MegaMoE can fuse the communications with expert computation. In the high concurrency region, Beam's performance can be further improved by combining Attention DP with MegaMoE",
   "first_seen": "2026-10-16T14:04:42.967514+00:00",
   "id": "a22bcbb1d33807d7",
   "matched_topics": [
@@ -7583,6 +7584,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.13485v1",
   "why_it_matters": "Matches feed focus: agentic, harness, eval."
+ },
+ "73ebf2171fe50154": {
+  "first_seen": "2026-10-25T17:04:59.944821+00:00",
+  "id": "acf78ef2e7ff2bbf",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-25T16:41:36+00:00",
+  "sid": "73ebf2171fe50154",
+  "source": "hackernews_ai",
+  "summary": "I have built an indie hacker project; my main flow was: 1. chatting with Claud Code about the general plan 2. assigning slices of work to other worker agents like Pi + DeepSeek 4.1 Flash 3. building in parallel 4. Claud Code reviews when done, runs tests, and merges after I validate It worked, but with a lot of glue in the middle, so I built radian + arc into the same binary. Radian: a compact, pragmatic agent that has enough tooling to solve a small coding task end to end; it does not try to be a plugin platform. You can still extend it via MCP, skills, or hooks to extend its capabilities. I think plugins are great, but a lot of them are for humans. I'm trying to remove humans from the loop. Humans are at the start and end of the loop. arc: built into the radian binary; * it can get work sent from another agent * assign work items to concurrent headless radian agents * automatically review, CICD, integrate locally * humans can still be in the loop but not at the agent conversation or code review level, but at the work item approval/review level. * shows all of the above in a plan view or Kanban board in TUI. I have been heavily dogfooding, and Radian + arc basically built themselves in the last couple of weeks, with me just being a product manager/scrum master and qa. radian + arc are open source at https://github.com/hisea/radian What do you think about this approach? Looking for ideas to make Radian better or fit more scenarios.",
+  "summary_1line": "I have built an indie hacker project; my main flow was: 1. chatting with Claud Code about the general plan 2. assigning slices of work to other worker agents like Pi + DeepSeek 4.1 Flash 3. building in parallel 4. Cla...",
+  "title": "Show HN: Radian, an agent puts development workflow on autopilot",
+  "type": "news",
+  "url": "https://getrad.dev",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "74421b1c21dbbb32": {
   "first_seen": "2026-10-20T04:04:49.411681+00:00",
@@ -12219,6 +12236,18 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Oct/3/newsletter"
  },
+ "b7153f0672209bd4": {
+  "content_excerpt": "We ran 24 hours of real agent sessions on OpenRouter :nitro, Vercel, Ramp and Keln, on DeepSeek V4.1 Flash. All 4 had ZDR, max reasoning and tool calling on. Every gateway got the same turn at the same moment, 1 turn in 20 paused for 1 to 20 minutes as a real user would. Read the full method . The run went from 00:25 UTC on 20 October to 00:44 UTC on 21 October 2026. 13,440 turns, 3,360 per gateway. Cache hit rate over the run: Keln 94%, OpenRouter 88%, Vercel 87%, Ramp 63% . The gap is in turns that went fully cold after the first one. That depends on how each gateway picks a provider on the second turn. Keln keeps a conversation on the provider that holds its prefix. Vercel pins a conversation to its first provider for 5 minutes. OpenRouter and Ramp pick again on every request. Cache hit rate per provider: cached tokens as a share of prompt tokens on the turns that provider served, through each gateway. Rows with fewer than 100 turns are left blank. Read across a row: the same provider cached differently depending on the gateway in front of it. Provider B kept 92.6% through Keln, 87.5% through OpenRouter, 84.1% through Vercel and 63.0% through Ramp. Ramp moved a conversation to a different provider 500 times in 3,360 turns, OpenRouter 148, Vercel 60, Keln 14. Each move is a cold prompt: tens of thousands of tokens re-read at the uncached price, and a first token seconds later. The longer the pause, the more of the prompt a gateway had to re-read. After a break, the next tur",
+  "first_seen": "2026-10-25T17:04:59.944821+00:00",
+  "id": "f97efe50bf1b720c",
+  "published": "2026-10-25T16:53:40+00:00",
+  "sid": "b7153f0672209bd4",
+  "source": "hackernews_ai",
+  "summary_1line": "AI Gateway Benchmark: OpenRouter, Vercel, Ramp, Keln",
+  "title": "AI Gateway Benchmark: OpenRouter, Vercel, Ramp, Keln",
+  "type": "news",
+  "url": "https://keln.ai/blog/ai-gateway-benchmark-deepseek-v4-1-flash"
+ },
  "b71e38b04ba36b4d": {
   "first_seen": "2026-10-14T05:03:54.985580+00:00",
   "id": "717b472dd2528eef",
@@ -13216,6 +13245,22 @@
   "url": "http://arxiv.org/abs/2610.23685v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "c2e07f4b6961c3a0": {
+  "first_seen": "2026-10-25T17:04:59.944821+00:00",
+  "id": "5577f98e335bd88b",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-22T16:07:49+00:00",
+  "sid": "c2e07f4b6961c3a0",
+  "source": "arxiv_cs_lg",
+  "summary": "As LLM agents operate over corpora of more than ten thousand tools, selecting the right tool for a complex multi-step user instruction becomes a central bottleneck. Tool descriptions cannot all fit in context, and relevance-based retrievers only rank tools without knowing which are actually needed. Recent work instead leverages proprietary commercial LLMs like Claude or ChatGPT to drive a retriever, decomposing the instruction and selecting over retrieved candidates. We show that a small, open model can be trained via reinforcement learning to perform the same functionality. On ToolBench, a Qwen3-8B model post-trained with our recipe outperforms Llama-4-Maverick (402B). In addition, the trained model transfers directly to different retrievers and generalizes to new tool corpora in different domains.",
+  "summary_1line": "As LLM agents operate over corpora of more than ten thousand tools, selecting the right tool for a complex multi-step user instruction becomes a central bottleneck. Tool descriptions cannot all fit in context, and rel...",
+  "title": "Training Small Language Models for Transferable Tool Selection",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31483v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "c2ef4ca6a21b05f7": {
   "first_seen": "2026-10-05T02:04:13.028325+00:00",
   "id": "63bf1f50fe584f0c",
@@ -14068,6 +14113,24 @@
   "url": "https://wonkle.org/paperclip",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "cf9ccf494a614c63": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Suhail Patel discusses how Monzo structures its software engineering organization and technical stack to ship safely hundreds of times a day. He shares insights into opinionated microservice abstractions, tenancy-based staging, static analysis checks, continuous profiling, demonstrating how a strong internal platform enables engineers and LLMs to iterate rapidly without sacrificing reliability. Manju Rajashekhar explains how the actor model solves the complex runtime challenges of production AI agents. By treating agents as distributed systems, he discusses state ownership, message passing, write-through state, and supervision boundaries to manage failures, continuations, and mutable execution graphs, moving agentic workflows beyond fragile demos to resilient architecture. Nathen Harvey shares insights from DORA",
+  "first_seen": "2026-10-25T17:04:59.944821+00:00",
+  "id": "b74e5f3cb31f67c8",
+  "image_url": "https://res.infoq.com/news/2026/10/google-ml-drift/en/headerimage/gemini-agentic-vision-1792946554031.jpg",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-25T17:00:00+00:00",
+  "sid": "cf9ccf494a614c63",
+  "source": "infoq_ai_ml",
+  "summary": "Google has released ML Drift, an open-source, cross-platform GPU compute engine designed for on-device AI and machine learning inference. Licensed under Apache 2.0, it abstracts the complexities of different GPU hardware and low-level APIs, supporting OpenGL ES, OpenCL, Metal, and WebGPU. By Sergio De Simone",
+  "summary_1line": "Google has released ML Drift, an open-source, cross-platform GPU compute engine designed for on-device AI and machine learning inference. Licensed under Apache 2.0, it abstracts the complexities of different GPU hardw...",
+  "title": "Google ML Drift Accelerates On-Device AI Inference Across Diverse GPUs",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/10/google-ml-drift/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "cfddc453c0013e06": {
   "first_seen": "2026-10-24T01:04:56.601290+00:00",
   "id": "8495518c60a2d0fb",
@@ -14358,6 +14421,22 @@
   "title": "Python 3.15.0 added to actions/python-versions",
   "type": "release",
   "url": "https://simonwillison.net/2026/Oct/10/python-actions"
+ },
+ "d36c96c2a6372e9b": {
+  "first_seen": "2026-10-25T17:04:59.944821+00:00",
+  "id": "597eadc6b6e3b853",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-22T15:24:16+00:00",
+  "sid": "d36c96c2a6372e9b",
+  "source": "arxiv_cs_cl",
+  "summary": "Recent advances in specialized decision models have expanded the possibilities for zero-shot classification, yet their effectiveness on Vietnamese remains underexplored. This study evaluates four specialized decision models across 13 classification settings spanning six task groups, examining zero-shot performance, sensitivity to label-description language, and robustness to Vietnamese linguistic variations. The evaluation considers English, Vietnamese, and bilingual label descriptions, alongside common linguistic perturbations involving teencode, typographical errors, and diacritic removal. Under English label descriptions, JEV achieves the strongest overall performance, ranking first in 11 classification settings. The effects of label-description language vary across models and datasets, with bilingual descriptions providing no consistent improvement. Robustness experiments reveal that diacritic removal causes the most substantial performance degradation, reducing mean macro-$F_1$ by 9.51--15.47 points across model configurations, considerably more than teencode or typographical errors. These findings highlight the importance of label-description choices and Vietnamese orthographic variation when evaluating specialized decision models for zero-shot text classification.",
+  "summary_1line": "Recent advances in specialized decision models have expanded the possibilities for zero-shot classification, yet their effectiveness on Vietnamese remains underexplored. This study evaluates four specialized decision...",
+  "title": "How Well Do Decision Models Transfer to Vietnamese? An Empirical Study of Text Classification",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31422v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "d3b1ffe486c8775c": {
   "first_seen": "2026-10-23T16:08:56.349370+00:00",

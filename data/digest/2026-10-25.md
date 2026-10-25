@@ -2,104 +2,110 @@
 
 Focus: AI Platform Engineering
 
-## 1. Red-teaming AI agent monitors with an LLM that fakes tool outputs
+## 1. AI Gateway Benchmark: OpenRouter, Vercel, Ramp, Keln
+- Type: news | Source: hackernews_ai
+- URL: https://keln.ai/blog/ai-gateway-benchmark-deepseek-v4-1-flash
+- Score: 3.762 | Reliability: 1.0
+- Why it matters: 
+
+## 2. Google ML Drift Accelerates On-Device AI Inference Across Diverse GPUs
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/10/google-ml-drift/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 3.533 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 3. Red-teaming AI agent monitors with an LLM that fakes tool outputs
 - Type: news | Source: hackernews_ai
 - URL: https://www.redwoodresearch.org/blog/simulated-control-evaluations
-- Score: 3.781 | Reliability: 1.0
+- Score: 3.358 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. A 32K-window proxy that beat full context on long agent histories
+## 4. Show HN: Radian, an agent puts development workflow on autopilot
 - Type: news | Source: hackernews_ai
-- URL: https://github.com/lastreload/mnemonic-proxy
-- Score: 3.401 | Reliability: 1.0
+- URL: https://getrad.dev
+- Score: 3.3 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. Show HN: The fastest, most token-efficient iOS Simulator MCP for AI agents
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/NoMac-app/simulator-use
-- Score: 3.349 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 4. SCOPE: Compiling Natural-Language Policies into Neurosymbolic Predicate Programs
+## 5. Automating Feature Flag Cleanup at Scale with Multi-Agent LLM Systems: An Industrial Experience at DoorDash
 - Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.31062v1
-- Score: 2.758 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2610.31351v1
+- Score: 2.268 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 5. Post-Audit Mirage: Identifiability Limits of Offline Agent Verification
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.31130v1
-- Score: 2.413 | Reliability: 1.0
+## 6. HERD: Harness-Evolving Recursive Distillation for Continual Learning
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2610.31401v1
+- Score: 1.992 | Reliability: 1.0
+- Why it matters: Matches feed focus: harness.
+
+## 7. Training Small Language Models for Transferable Tool Selection
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2610.31483v1
+- Score: 1.989 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 8. How To Use Decision Models for Evals
+- Type: news | Source: hamel_husain
+- URL: https://hamel.dev/blog/posts/decision-model-evals/
+- Score: 1.885 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 6. The Value of Memory in Language Agents
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.31303v1
-- Score: 2.271 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 7. Introducing our Training API
-- Type: news | Source: modal_blog
-- URL: https://modal.com/blog/introducing-training-api
-- Score: 1.728 | Reliability: 1.0
-- Why it matters: 
-
-## 8. Hyper Optimizing Kimi K3 in vLLM: Moving Fast and Responsibly
+## 9. Serving Reflection Beam on vLLM from Day 0
 - Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-10-16-kimi-k3-megakernel
-- Score: 1.586 | Reliability: 1.0
+- URL: https://vllm.ai/blog/2026-10-16-reflection-beam
+- Score: 1.804 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 9. langgraph-sdk==0.4.9
+## 10. claude-code v2.1.307
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.307
+- Score: 1.496 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 11. When to Follow the Teacher: Advantage-Based On-Policy Distillation
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2610.31563v1
+- Score: 1.987 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 12. How Well Do Decision Models Transfer to Vietnamese? An Empirical Study of Text Classification
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2610.31422v1
+- Score: 1.98 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 13. langgraph-sdk==0.4.9
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.9
-- Score: 1.385 | Reliability: 1.0
+- Score: 1.377 | Reliability: 1.0
 - Why it matters: 
 
-## 10. tencent/WeVisOne-VL-2B released on Hugging Face
+## 14. tencent/WeVisOne-VL-2B released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
 - URL: https://huggingface.co/tencent/WeVisOne-VL-2B
-- Score: 1.197 | Reliability: 1.0
+- Score: 1.185 | Reliability: 1.0
 - Why it matters: 
 
-## 11. Simulated Control Evals
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2610.31593v1
-- Score: 2.03 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 12. Cost-Aware Abstention for LLM-Based IT Ticket Classification
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.31657v1
-- Score: 2.025 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 13. codex 0.164.0-alpha.10
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.164.0-alpha.10
-- Score: 1.152 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 14. claude-agent-sdk-python v0.2.172
+## 15. claude-agent-sdk-python v0.2.171
 - Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.172
-- Score: 1.112 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.171
+- Score: 1.114 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 15. claude-code v2.1.308
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.308
-- Score: 1.039 | Reliability: 1.0
-- Why it matters: 
-
-## 16. vllm v0.32.0
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.0
-- Score: 0.97 | Reliability: 1.0
-- Why it matters: 
+## 16. codex 0.164.0-alpha.9
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.164.0-alpha.9
+- Score: 1.103 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
 
 ## 17. Expanding Claude availability and deployment choice on Google Cloud
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/ai-machine-learning/expanding-claude-availability-on-google-cloud/
-- Score: 0.819 | Reliability: 1.0
+- Score: 0.802 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
+
+## 18. vllm v0.32.1rc0
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.1rc0
+- Score: 0.392 | Reliability: 1.0
+- Why it matters:
