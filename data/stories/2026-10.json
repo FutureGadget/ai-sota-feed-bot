@@ -1714,6 +1714,23 @@
   "url": "https://circleit.ai",
   "why_it_matters": "Matches feed focus: agent, codex, claude code."
  },
+ "1b5221fd798be326": {
+  "content_excerpt": "TL;DR: On one NVIDIA GB300 NVL72 rack, vLLM with P/D disaggregation and Wide-EP serves DeepSeek-V4.1-Flash on SemiAnalysis AgentX at 954K tokens/s per GPU at a P90 of 196 tokens/s per user, 7.9× our single-node result from the first post and $38.96 per GPU-hour at DeepSeek's off-peak prices. A specialized decode path reaches 826 tokens/s for a single user. Against DeepInfer, DeepSeek's own engine, vLLM's decode throughput is within 6% across batch sizes 8–256, and its prefill tracks DeepInfer's published curve. The efficiency comes from deliberate engineering on components that vLLM already has, built on the kernels DeepSeek open-sourced. This post walks through our performance study, breaks down each optimization, and shares the lessons we learned: Figure 1: SemiAnalysis AgentX on NVIDIA GB300 NVL72: vLLM with P/D disaggregation and Wide-EP (gold) achieves a further 7.9× throughput increase over our aggregated single-node result from the first post . Throughput counts cached input, uncached input and output tokens ( source ). DeepInfer is DeepSeek's own inference engine for DeepSeek-V4.1-Flash, released this week as an offline engine with published prefill and decode curves. It is the most relevant reference for this model, so before going into our optimizations we show where vLLM stands against it. Decode. Under DeepSeek's decode configuration (131K context, nextn=3), vLLM on GB200 achieves throughput within 6% of DeepInfer's published results across batch sizes 8 to 256 (F",
+  "first_seen": "2026-10-25T07:53:53.625149+00:00",
+  "id": "f9f5ecfb24efd717",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-23T00:00:00+00:00",
+  "sid": "1b5221fd798be326",
+  "source": "vllm_blog",
+  "summary": "With P/D disaggregation and Wide-EP on a GB300 NVL72 rack, vLLM serves DeepSeek-V4.1-Flash on SemiAnalysis AgentX at 954K tokens/s per GPU at a P90 of 196 tokens/s per user, 7.9x our aggregated single-node result.",
+  "summary_1line": "With P/D disaggregation and Wide-EP on a GB300 NVL72 rack, vLLM serves DeepSeek-V4.1-Flash on SemiAnalysis AgentX at 954K tokens/s per GPU at a P90 of 196 tokens/s per user, 7.9x our aggregated single-node result.",
+  "title": "Serving DeepSeek-V4.1-Flash at Scale: vLLM Matches DeepInfer and Scales to GB300 NVL72",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-10-23-deepseek-v41-flash-pd-wide-ep",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "1b5899e80268322c": {
   "first_seen": "2026-10-24T15:04:51.392804+00:00",
   "id": "8ec4d35cea9c1529",
@@ -3688,6 +3705,19 @@
   "url": "http://arxiv.org/abs/2610.25931v1",
   "why_it_matters": "Matches feed focus: agentic, harness."
  },
+ "3b031f6c198ac941": {
+  "content_excerpt": "vLLM supports Recursive's Flint from day 0 . Both its NVFP4 and BF16 checkpoints run on a single GPU, and a single request decodes at about 500 tokens/s on one GB200, even with 100K tokens of context. Flint is a 40B-parameter MoE that activates only about 2.5B parameters per token, with sliding-window attention in most layers and a 262K-token context. It ships as two separate checkpoints: NVFP4 (quantization-aware trained) and BF16. The day-0 Docker image vllm/vllm-openai:flint (x86_64 and arm64, CUDA 13.0) has Flint support built in: Flint support is being merged into vLLM ( #62938 ). With a vLLM build that includes it, serve the same way: Flint is a 49-layer pre-norm MoE with hidden size 2048. What sets it apart is how little of it looks at the whole context. Figure 1: Flint's layer stack and its two sublayers. Gold marks what differs from a standard pre-norm MoE. Open it full-screen . The NVFP4 checkpoint is a GGUF file whose blocks are NVIDIA's NVFP4 format in a different byte order. vLLM repacks it losslessly at load time and runs it weight-only (W4A16), with BF16 activations and KV cache, as Recursive's reference implementation does. Every Flint kernel follows the reference's rounding points, and accuracy matches it on GSM8K, GPQA-Diamond, long-context MRCR and a tool-calling suite. Our first implementation, built from vLLM's stock layers, was slow at small batch sizes: a decode step ran 1,096 kernels, many of them tuned for much larger batches. We replaced them with Fl",
+  "first_seen": "2026-10-25T07:53:53.625149+00:00",
+  "id": "a24eadac0b7e1180",
+  "published": "2026-10-21T00:00:00+00:00",
+  "sid": "3b031f6c198ac941",
+  "source": "vllm_blog",
+  "summary": "vLLM supports both Flint checkpoints (40B total, 2.5B active) from day 0, decoding a single request at about 500 tokens/s on one GPU.",
+  "summary_1line": "vLLM supports both Flint checkpoints (40B total, 2.5B active) from day 0, decoding a single request at about 500 tokens/s on one GPU.",
+  "title": "Day-0 Support for Flint on vLLM",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-10-21-flint"
+ },
  "3b336d55286b2b61": {
   "first_seen": "2026-10-18T10:04:03.445383+00:00",
   "id": "1728805580ad52ea",
@@ -5638,8 +5668,8 @@
   "published": "2026-10-22T09:48:14+00:00",
   "sid": "55876e608f690109",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 9, downloads: 0.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 9, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 25, downloads: 524.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 25, downloads: 524.",
   "title": "tencent/WeVisOne-VL-4B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeVisOne-VL-4B"
@@ -8269,6 +8299,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "8347efbf60cad1ff": {
+  "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. Warm welcome to Basil Chatha , our newest cohost from the Forward Deployed side of the AI Engineering world! We’ll be ramping up a new show with him and couldn’t pass up an interview with Modal’s CEO Eric on the occasion of their monster Series D! Two years ago, we spoke with Erik Bernhardsson about his vision for truly serverless AI infrastructure: developers should be able to run code without provisioning clusters, predicting load, or paying for idle resources. CTO Akshat then joined us to talk about Modal’s infra primitives and stack to offer those primitives and agent experience. A lot has changed in the past 5 months. Since their $5B series C, Modal now reports it crossed $1 billion in annualized run rate , raised a $750 million Series D at a $16B valuation , and has spun up nearly three billion sandboxes. In this conversation, Erik joins Vibhu to explain the infrastructure and economics behind that growth—and why demand for compute rarely looks like the contracts used to buy it. A typical capacity contract gives a customer a fixed number of GPUs for a fixed period. Plot capacity against time and you get a rectangle. Real workloads behave differentl",
   "first_seen": "2026-10-23T10:04:50.607296+00:00",
   "id": "294f5ee4608dc0be",
   "image_url": "https://i.ytimg.com/vi/IiZ9yd2Do8I/maxresdefault.jpg",
@@ -8662,6 +8693,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPTFdKNm1ubmRENjc4U01uS0oyR2VTUWxnUFQzVldYNWFlbXZKLUkySG96Y05LY3JwRjVSd1lBNldhS3pjWlh4ZHY1TXpuZEpjd29tVDNaREx5aEllcnRqbFpuQ1FLTkdMRGlfdEZXQUN1V01wZU0xV3VmMlNiQnJXRXFNdGpSV05aUGthTEk5eDZoU0hKSnl1VWJXWlJVMTg?oc=5",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "8af4b138c5868c16": {
+  "first_seen": "2026-10-25T07:53:53.625149+00:00",
+  "id": "eeb79c267ef80e5a",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-21T12:43:35+00:00",
+  "sid": "8af4b138c5868c16",
+  "source": "arxiv_llm_reliability",
+  "summary": "LLM-generated records increasingly populate production information systems where they are treated as data assets subject to the same quality expectations as records from operational databases. A single such record can simultaneously satisfy and violate a quality rule: a grounded fact adjacent to a hallucination, a useful answer adjacent to a stereotype. Classical data cleaning cannot resolve this because the two judgments are incompatible over the same span; a single LLM judge cannot either, since it shares the training biases that produced the conflict. Existing interventions such as prompt engineering, chain-of-thought, and RLHF reduce surface error rates but provide no audit trail and cannot distinguish genuine remediation from blanket suppression. The question is whether a deterministic check over structured inter-agent records can catch the defects that referential checks alone miss. We present BiasGuard-D: two adversarial roles drawn from distinct model families exchange typed claim documents, a three-model quorum adjudicates by majority vote, and a combined referential-plus-semantic invariant validates the verdict. The semantic component fires on verdicts referential checks miss; removing the iterative loop drops invariant satisfaction sharply. The deliberation layer transfers from stereotype to hallucination remediation on HaluEval QA with only role-framing changes, raising right-answer recovery by 49 percentage points; the triage gate required a cross-family second a",
+  "summary_1line": "LLM-generated records increasingly populate production information systems where they are treated as data assets subject to the same quality expectations as records from operational databases. A single such record can...",
+  "title": "Conflicted Records: Typed Adversarial Contracts for Auditable LLM Output Quality Enforcement",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.29669v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "8b353a05b7f98c57": {
   "first_seen": "2026-10-24T15:04:51.392804+00:00",
@@ -14666,6 +14714,23 @@
   "url": "https://github.com/maximpri/declass",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "dbc6f88a20beefdd": {
+  "first_seen": "2026-10-25T07:53:53.625149+00:00",
+  "id": "f61ad8d0aff9498b",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-10-21T13:50:43+00:00",
+  "sid": "dbc6f88a20beefdd",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large language models (LLMs) are increasingly deployed as agents, yet it remains unclear how their foundational capabilities translate into agentic capabilities. End-to-end scores leave unresolved whether low benchmark capability or weak deployment drives a failure, limiting actionable diagnosis. We bridge foundational and agentic capabilities through an operation-level measurement framework. We represent each model with a foundational profile derived from capability benchmarks and an operation profile derived from interaction trajectories, and define capability realization gaps as deviations of observed operation performance from predictions based on foundational capabilities. Experiments on fifteen model services in $τ^2$-Bench show that foundational profiles only partially predict agentic operations. Models with comparable profiles can differ substantially in execution, and these gaps remain consistent across task subsets. Operation profiles add information and substantially improve task-score prediction. The framework locates execution departures at the operation level to inform model development and agent evaluation. We will release our code and analysis artifacts.",
+  "summary_1line": "Large language models (LLMs) are increasingly deployed as agents, yet it remains unclear how their foundational capabilities translate into agentic capabilities. End-to-end scores leave unresolved whether low benchmar...",
+  "title": "Bridging Foundational and Agentic Capabilities of LLMs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.29751v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "dc14651e90967302": {
   "first_seen": "2026-10-16T16:04:38.389166+00:00",
   "id": "e46befdbc20116b4",
@@ -15326,6 +15391,7 @@
   "url": "https://simonwillison.net/2026/Oct/15/anthropic-tells-investors"
  },
  "e5d620559a86418c": {
+  "content_excerpt": "Numan is a UK digital health company helping patients manage long-term conditions across weight, hormones, and sexual health. Many of our patients are on a weight-loss programme and use the app daily to track progress. When building Nu, our AI health coach, one of our design challenges was delivering high-quality health coaching without crossing the line into medical diagnosis, prescriptions, or making clinical decisions—all strict boundaries for agents in our highly regulated medical space. While we initially focused on the agent and automation around it, what turned out to matter most was the quality of our evaluation criteria. This is the story of how we developed and improved our evaluation criteria to deliver high-quality user experiences while steering clear of areas subject to regulation. We started where most teams start, with a dataset of inputs and expected outputs, and an LLM judge scoring each reply. While that playbook works well for a Q&A agent, coaching is a conversation, not an answer. Every approach that fixed Nu's reply in advance failed in two ways: 1. Single-turn evals on static fixtures (a fixed input, a fixed expected output, and a judge scoring one reply on its own). Behavioural coaching rarely has one right answer to a prompt and whether a reply was safe depends on the conversation around it. Nu needs to understand what is getting in the patient’s way across a conversation before it advises and hold the right boundary when a patient pushes. Averaging o",
   "first_seen": "2026-10-19T15:03:28.171705+00:00",
   "id": "53a0a514a277dee3",
   "image_url": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6acff77d1bd39af709e68bc7_numan-blog.png",

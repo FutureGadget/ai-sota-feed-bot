@@ -1,37 +1,24 @@
 {
-  "generated_at": "2026-10-25T07:05:14.768207+00:00",
+  "generated_at": "2026-10-25T07:55:41.137691+00:00",
   "model": "jev-1.14",
   "rubric_version": "feed-quality-v1",
   "item_count": 140,
   "category_counts": {
     "research_method": 65,
-    "evaluation_reliability": 29,
-    "frontier_product": 13,
-    "off_topic": 12,
+    "evaluation_reliability": 27,
+    "frontier_product": 14,
+    "off_topic": 10,
     "inference_serving": 7,
-    "agent_engineering": 5,
-    "release_note": 5,
-    "business_policy": 4
+    "business_policy": 6,
+    "agent_engineering": 6,
+    "release_note": 5
   },
   "verdict_counts": {
-    "drop": 18,
+    "drop": 20,
     "keep": 105,
-    "review": 17
+    "review": 15
   },
   "items": [
-    {
-      "id": "e340204834c8eb24",
-      "story_key": "story|title:achieving near zero downtime scaling in elastic expert parallelism",
-      "title": "Achieving near-zero-downtime scaling in Elastic Expert Parallelism",
-      "url": "https://vllm.ai/blog/2026-10-19-elastic-ep-near-zero-downtime",
-      "source": "vllm_blog",
-      "source_role": "first_party",
-      "published": "Mon, 19 Oct 2026 00:00:00 GMT",
-      "judge_score": 0.96,
-      "judge_verdict": "keep",
-      "judge_category": "inference_serving",
-      "judge_category_confidence": 1.0
-    },
     {
       "id": "9b10c675185457e0",
       "story_key": "story|title:agenttriage replayable security diagnosis across heterogeneous agent runtimes",
@@ -44,6 +31,32 @@
       "judge_verdict": "keep",
       "judge_category": "evaluation_reliability",
       "judge_category_confidence": 0.57
+    },
+    {
+      "id": "a24eadac0b7e1180",
+      "story_key": "model:vllm|title:day 0 support for flint on vllm",
+      "title": "Day-0 Support for Flint on vLLM",
+      "url": "https://vllm.ai/blog/2026-10-21-flint",
+      "source": "vllm_blog",
+      "source_role": "first_party",
+      "published": "Wed, 21 Oct 2026 00:00:00 GMT",
+      "judge_score": 0.95,
+      "judge_verdict": "keep",
+      "judge_category": "inference_serving",
+      "judge_category_confidence": 0.55
+    },
+    {
+      "id": "f9f5ecfb24efd717",
+      "story_key": "model:deepseek|ver:4.1|variant:flash|title:serving deepseek v4 1 flash at scale vllm matches deepinfer and scales to gb300 ",
+      "title": "Serving DeepSeek-V4.1-Flash at Scale: vLLM Matches DeepInfer and Scales to GB300 NVL72",
+      "url": "https://vllm.ai/blog/2026-10-23-deepseek-v41-flash-pd-wide-ep",
+      "source": "vllm_blog",
+      "source_role": "first_party",
+      "published": "Fri, 23 Oct 2026 00:00:00 GMT",
+      "judge_score": 0.93,
+      "judge_verdict": "keep",
+      "judge_category": "inference_serving",
+      "judge_category_confidence": 1.0
     },
     {
       "id": "eeb79c267ef80e5a",
@@ -70,19 +83,6 @@
       "judge_verdict": "keep",
       "judge_category": "research_method",
       "judge_category_confidence": 0.59
-    },
-    {
-      "id": "4666266a9719aba7",
-      "story_key": "story|title:can llms improve their own harness a controlled study on arc agi 3",
-      "title": "Can LLMs Improve Their Own Harness? A Controlled Study on ARC-AGI-3",
-      "url": "http://arxiv.org/abs/2610.30499v1",
-      "source": "arxiv_agent_systems_research",
-      "source_role": "research",
-      "published": "2026-10-21T22:29:47Z",
-      "judge_score": 0.93,
-      "judge_verdict": "keep",
-      "judge_category": "agent_engineering",
-      "judge_category_confidence": 0.76
     },
     {
       "id": "b1f70fab929e926b",
@@ -306,17 +306,17 @@
       "judge_category_confidence": 0.79
     },
     {
-      "id": "247b25bb16e409f6",
-      "story_key": "story|title:rethinking the evaluation of llm fact checkers",
-      "title": "Rethinking the Evaluation of LLM Fact-Checkers",
-      "url": "http://arxiv.org/abs/2610.30504v1",
-      "source": "arxiv_llm_reliability",
+      "id": "052ce7293bd73149",
+      "story_key": "model:qwen|variant:audio|title:qwen audio jev a unified interface for audio decisions",
+      "title": "Qwen-Audio-Jev: A Unified Interface for Audio Decisions",
+      "url": "http://arxiv.org/abs/2610.21614v2",
+      "source": "arxiv_cn_open_weight_reports",
       "source_role": "research",
-      "published": "2026-10-21T22:36:44Z",
+      "published": "2026-10-15T09:59:07Z",
       "judge_score": 0.85,
       "judge_verdict": "keep",
-      "judge_category": "evaluation_reliability",
-      "judge_category_confidence": 0.98
+      "judge_category": "research_method",
+      "judge_category_confidence": 0.53
     },
     {
       "id": "1a50cd6e881db13b",
@@ -382,19 +382,6 @@
       "judge_verdict": "keep",
       "judge_category": "research_method",
       "judge_category_confidence": 0.97
-    },
-    {
-      "id": "38d0b2b5d30eceb1",
-      "story_key": "story|title:s edl eliciting self evidence from sequence likelihoods for semantic calibration",
-      "title": "S-EDL: Eliciting Self-Evidence from Sequence Likelihoods for Semantic Calibration of LLMs",
-      "url": "http://arxiv.org/abs/2610.29832v1",
-      "source": "arxiv_llm_reliability",
-      "source_role": "research",
-      "published": "2026-10-21T14:55:58Z",
-      "judge_score": 0.82,
-      "judge_verdict": "keep",
-      "judge_category": "evaluation_reliability",
-      "judge_category_confidence": 0.49
     },
     {
       "id": "773e449037991e39",
@@ -618,19 +605,6 @@
       "judge_category_confidence": 0.67
     },
     {
-      "id": "d35618fa7c68be42",
-      "story_key": "story|title:reasoning search augmented llms an operational taxonomy benchmark analysis and c",
-      "title": "Reasoning-Search-Augmented LLMs: An Operational Taxonomy, Benchmark Analysis and Controlled Evidence Synthesis",
-      "url": "http://arxiv.org/abs/2610.29189v1",
-      "source": "arxiv_llm_reliability",
-      "source_role": "research",
-      "published": "2026-10-21T04:19:06Z",
-      "judge_score": 0.77,
-      "judge_verdict": "keep",
-      "judge_category": "research_method",
-      "judge_category_confidence": 0.44
-    },
-    {
       "id": "003900428ed97390",
       "story_key": "story|title:direct pass k optimization for thought pruning balancing quality and diversity i",
       "title": "Direct Pass@$k$ Optimization for Thought Pruning: Balancing Quality and Diversity in Test-Time Reasoning",
@@ -707,19 +681,6 @@
       "judge_verdict": "keep",
       "judge_category": "research_method",
       "judge_category_confidence": 0.9
-    },
-    {
-      "id": "2edcedc3e8889fea",
-      "story_key": "story|variant:large|title:an empirical study of recent large language models for knowledge graph to text g",
-      "title": "An Empirical Study of Recent Large Language Models for Knowledge Graph to Text Generation on Standard Benchmarks",
-      "url": "http://arxiv.org/abs/2610.31529v1",
-      "source": "arxiv_cs_cl",
-      "source_role": "research",
-      "published": "2026-10-22T16:36:35Z",
-      "judge_score": 0.75,
-      "judge_verdict": "keep",
-      "judge_category": "evaluation_reliability",
-      "judge_category_confidence": 0.78
     },
     {
       "id": "c34efd0277760470",
@@ -811,19 +772,6 @@
       "judge_verdict": "keep",
       "judge_category": "frontier_product",
       "judge_category_confidence": 0.99
-    },
-    {
-      "id": "a7efcb6197e487db",
-      "story_key": "story|variant:quantized|title:announcing humming fast flexible kernels for quantized inference",
-      "title": "Announcing Humming: Fast, Flexible Kernels for Quantized Inference",
-      "url": "https://vllm.ai/blog/2026-10-21-humming",
-      "source": "vllm_blog",
-      "source_role": "first_party",
-      "published": "Wed, 21 Oct 2026 00:00:00 GMT",
-      "judge_score": 0.71,
-      "judge_verdict": "keep",
-      "judge_category": "inference_serving",
-      "judge_category_confidence": 0.87
     },
     {
       "id": "a2838f7294a0e09b",
@@ -941,6 +889,19 @@
       "judge_verdict": "keep",
       "judge_category": "research_method",
       "judge_category_confidence": 0.97
+    },
+    {
+      "id": "294f5ee4608dc0be",
+      "story_key": "model:modal|title:why ai compute comes in rectangles erik bernhardsson modal ceo",
+      "title": "Why AI Compute Comes in Rectangles — Erik Bernhardsson, Modal CEO",
+      "url": "https://latent.space/p/modal-d/",
+      "source": "latent_space",
+      "source_role": "practitioner",
+      "published": "Thu, 22 Oct 2026 17:40:57 GMT",
+      "judge_score": 0.65,
+      "judge_verdict": "keep",
+      "judge_category": "business_policy",
+      "judge_category_confidence": 0.68
     },
     {
       "id": "fe98f21a5229d813",
@@ -1086,6 +1047,19 @@
       "judge_category_confidence": 0.84
     },
     {
+      "id": "53a0a514a277dee3",
+      "story_key": "model:langgraph|title:how numan built an eval first ai health coach with langgraph and langsmith",
+      "title": "How Numan Built an Eval-First AI Health Coach with LangGraph and LangSmith",
+      "url": "https://www.langchain.com/blog/how-numan-built-an-eval-first-ai-health-coach-with-langgraph-and-langsmith",
+      "source": "langchain_blog",
+      "source_role": "first_party",
+      "published": "2026-10-19T15:00:00+00:00",
+      "judge_score": 0.54,
+      "judge_verdict": "keep",
+      "judge_category": "evaluation_reliability",
+      "judge_category_confidence": 0.94
+    },
+    {
       "id": "430ade1f97bef26f",
       "story_key": "story|title:how depth growth and looping shape in context learning in language models",
       "title": "How Depth Growth and Looping Shape In-Context Learning in Language Models",
@@ -1175,6 +1149,19 @@
       "judge_verdict": "keep",
       "judge_category": "research_method",
       "judge_category_confidence": 0.57
+    },
+    {
+      "id": "0b58a05e46b14859",
+      "story_key": "model:claude|title:expanding claude availability and deployment choice on google cloud",
+      "title": "Expanding Claude availability and deployment choice on Google Cloud",
+      "url": "https://cloud.google.com/blog/products/ai-machine-learning/expanding-claude-availability-on-google-cloud/",
+      "source": "google_cloud_blog",
+      "source_role": "first_party",
+      "published": "Thu, 22 Oct 2026 21:00:00 +0000",
+      "judge_score": 0.48,
+      "judge_verdict": "keep",
+      "judge_category": "frontier_product",
+      "judge_category_confidence": 1.0
     },
     {
       "id": "c3861af82a9af770",
@@ -1268,19 +1255,6 @@
       "judge_category_confidence": 0.37
     },
     {
-      "id": "92c826828f696592",
-      "story_key": "model:langchain|title:october 2026 langchain newsletter everything we shipped at interrupt nyc london",
-      "title": "October 2026 LangChain Newsletter: Everything we shipped at Interrupt NYC & London",
-      "url": "https://www.langchain.com/blog/october-2026-langchain-newsletter",
-      "source": "langchain_blog",
-      "source_role": "first_party",
-      "published": "2026-10-15T16:00:00+00:00",
-      "judge_score": 0.35,
-      "judge_verdict": "keep",
-      "judge_category": "frontier_product",
-      "judge_category_confidence": 0.55
-    },
-    {
       "id": "74d74d7fca8d6182",
       "story_key": "story|title:nonparametric autoregressive estimation of probability distributions with parall",
       "title": "Nonparametric autoregressive estimation of probability distributions with parallel gradient boosting",
@@ -1318,6 +1292,19 @@
       "judge_verdict": "keep",
       "judge_category": "research_method",
       "judge_category_confidence": 0.91
+    },
+    {
+      "id": "fe03115a1d382498",
+      "story_key": "story|title:from structured records to patient narratives preserving clinical alignment in l",
+      "title": "From Structured Records to Patient Narratives: Preserving Clinical Alignment in LLM-Generated Health Summaries",
+      "url": "http://arxiv.org/abs/2610.31467v1",
+      "source": "arxiv_llm_reliability",
+      "source_role": "research",
+      "published": "2026-10-22T15:58:57Z",
+      "judge_score": 0.33,
+      "judge_verdict": "keep",
+      "judge_category": "evaluation_reliability",
+      "judge_category_confidence": 0.82
     },
     {
       "id": "65019c8e66a99810",
@@ -1370,6 +1357,19 @@
       "judge_verdict": "keep",
       "judge_category": "off_topic",
       "judge_category_confidence": 0.42
+    },
+    {
+      "id": "ca0bf8c53d26e757",
+      "story_key": "model:qwen|ver:3.1|variant:audio|title:qwen audio 3 1 asr technical report",
+      "title": "Qwen-Audio-3.1-ASR Technical Report",
+      "url": "http://arxiv.org/abs/2610.28711v1",
+      "source": "arxiv_cn_open_weight_reports",
+      "source_role": "research",
+      "published": "2026-10-20T17:08:12Z",
+      "judge_score": 0.27,
+      "judge_verdict": "keep",
+      "judge_category": "frontier_product",
+      "judge_category_confidence": 0.63
     },
     {
       "id": "9a1c4a1e157081f6",
@@ -1463,6 +1463,19 @@
       "judge_category_confidence": 0.47
     },
     {
+      "id": "8dc450fcbed78840",
+      "story_key": "model:gemini|ver:4|title:gemini 4 argon available on google cloud built to help solve your business harde",
+      "title": "Google Optimizes Agent Development Kit's 200K-line Python Codebase Overnight with Gemini 4 Argon",
+      "url": "https://www.infoq.com/news/2026/10/google-argon-optimizes-adk/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+      "source": "infoq_ai_ml",
+      "source_role": "practitioner",
+      "published": "Sat, 24 Oct 2026 16:00:00 GMT",
+      "judge_score": 0.14,
+      "judge_verdict": "review",
+      "judge_category": "agent_engineering",
+      "judge_category_confidence": 0.75
+    },
+    {
       "id": "c8f820533cf11ddf",
       "story_key": "story|title:you are the team anekha sokhal moshi",
       "title": "You are the Team  — Anekha Sokhal, Moshi",
@@ -1474,19 +1487,6 @@
       "judge_verdict": "review",
       "judge_category": "business_policy",
       "judge_category_confidence": 0.44
-    },
-    {
-      "id": "44dbbaacdc7f7ada",
-      "story_key": "story|title:tornadovm 7 enables gpu native workloads from java applications",
-      "title": "TornadoVM 7 Enables GPU-Native Workloads from Java Applications",
-      "url": "https://www.infoq.com/news/2026/10/tornadovm-7-gpu/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-      "source": "infoq_ai_ml",
-      "source_role": "practitioner",
-      "published": "Wed, 21 Oct 2026 03:00:00 GMT",
-      "judge_score": 0.13,
-      "judge_verdict": "review",
-      "judge_category": "frontier_product",
-      "judge_category_confidence": 0.31
     },
     {
       "id": "5bc50aad5a276340",
@@ -1554,30 +1554,30 @@
       "judge_category_confidence": 0.81
     },
     {
-      "id": "c8114b9ccd56e5b0",
-      "story_key": "story|title:ainews black october",
-      "title": "[AINews] Black October",
-      "url": "https://latent.space/p/ainews-black-october/",
-      "source": "latent_space",
+      "id": "59901c9e23d73e3f",
+      "story_key": "story|title:today s php security release and how we re strengthening php security",
+      "title": "Today's PHP Security Release, and How We're Strengthening PHP Security",
+      "url": "https://simonwillison.net/2026/Oct/21/php-security-release/",
+      "source": "simon_willison",
       "source_role": "practitioner",
-      "published": "Fri, 23 Oct 2026 10:09:29 GMT",
-      "judge_score": 0.1,
-      "judge_verdict": "review",
-      "judge_category": "evaluation_reliability",
-      "judge_category_confidence": 0.55
-    },
-    {
-      "id": "accff60e7132ff52",
-      "story_key": "model:gpt|ver:5.6|title:ainews openai s patch the planet program is 1 of 2 parties to discover php2shell",
-      "title": "[AINews] OpenAI’s Patch the Planet program is 1 of 2 parties to discover PHP2Shell vulnerabilities in core PHP affecting 70% of the web, using GPT-5.6 Sol; coordinated response over 2 months",
-      "url": "https://latent.space/p/ainews-openais-patch-the-planet-program/",
-      "source": "latent_space",
-      "source_role": "practitioner",
-      "published": "Thu, 22 Oct 2026 07:42:44 GMT",
+      "published": "2026-10-21T18:41:53+00:00",
       "judge_score": 0.1,
       "judge_verdict": "review",
       "judge_category": "off_topic",
-      "judge_category_confidence": 0.39
+      "judge_category_confidence": 0.78
+    },
+    {
+      "id": "62bfc7266c112ee0",
+      "story_key": "model:claude|title:claude reveals ecdsa curve origins",
+      "title": "Claude reveals ECDSA curve origins",
+      "url": "https://www.anthropic.com/research/ecdsa-curve-origins",
+      "source": "anthropic_research",
+      "source_role": "first_party",
+      "published": "2026-10-16T00:00:00+00:00",
+      "judge_score": 0.1,
+      "judge_verdict": "review",
+      "judge_category": "off_topic",
+      "judge_category_confidence": 0.92
     }
   ]
 }
