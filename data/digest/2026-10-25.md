@@ -2,92 +2,98 @@
 
 Focus: AI Platform Engineering
 
-## 1. Show HN: Omni Verify, my AI agent can't post until Kane checks every promise
+## 1. Cerebras Deploys Trillion-Parameter AI Models
 - Type: news | Source: hackernews_ai
-- URL: https://github.com/DainoJung/omni-verify
-- Score: 3.362 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+- URL: https://www.cerebras.ai/blog/how-we-deploy-trillion-parameter-frontier-models-on-cerebras
+- Score: 3.288 | Reliability: 1.0
+- Why it matters: 
 
-## 2. What the Trace Shows and What the Label Says: Auditing Behavioral Detectors in Agent Evaluation
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.30491v1
-- Score: 2.375 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, evaluation.
+## 2. On the Token Collapse Phenomenon in Textual Graph Soft Prompting
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2610.31572v1
+- Score: 2.456 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 3. AgentTriage: Replayable Security Diagnosis Across Heterogeneous Agent Runtimes
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.30738v1
-- Score: 2.341 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 4. Rethinking the Evaluation of LLM Fact-Checkers
+## 3. CiteAnchor: Source-Aware Grounding for Hallucinated Citation Detection and Resolution
 - Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2610.30504v1
-- Score: 2.332 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
+- URL: http://arxiv.org/abs/2610.30355v1
+- Score: 2.398 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 5. vLLM Delivers Day-0 Support for MiniMax-M3.1-Flash
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-10-23-minimax-m31-flash
-- Score: 2.157 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 4. Secure Agentic AI and Multimodal Intelligence in 6G Communication Systems
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.30436v1
+- Score: 2.391 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
 
-## 6. Study Finds AI-generated Code Fails to Boost Productivity Due to Downstream Bottlenecks
+## 5. Study Finds AI-generated Code Fails to Boost Productivity Due to Downstream Bottlenecks
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/10/jellyfish-ai-productivity/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.134 | Reliability: 1.0
+- Score: 2.099 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. How To Use Decision Models for Evals
-- Type: news | Source: hamel_husain
-- URL: https://hamel.dev/blog/posts/decision-model-evals/
-- Score: 1.941 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
+## 6. Developer behind the AI-Built Adobe Clones Says They Are “Not Anywhere Close to Ready"
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/10/photocraft-adobe-parity/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 1.777 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 8. codex 0.164.0
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.164.0
-- Score: 1.572 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, codex.
+## 7. Introducing vLLM TorchTPU
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-10-20-vllm-torchtpu
+- Score: 1.585 | Reliability: 1.0
+- Why it matters: 
 
-## 9. claude-code v2.1.305
+## 8. Latest open artifacts (#25): DeepSeek V4.1 Flash 1017, American-made models, and new regulatory controls in the US & China
+- Type: news | Source: interconnects
+- URL: https://www.interconnects.ai/p/latest-open-artifacts-25-deepseek
+- Score: 1.556 | Reliability: 1.0
+- Why it matters: 
+
+## 9. claude-code v2.1.309
 - Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.305
-- Score: 1.412 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.309
+- Score: 1.449 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 10. claude-agent-sdk-python v0.2.173
+## 10. claude-agent-sdk-python v0.2.169
 - Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.173
-- Score: 1.359 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.169
+- Score: 1.19 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 11. VERA: A Responsible AI Dashboard for Assessing LLM Deployments in Light of the EU AI Act
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2610.31588v1
-- Score: 2.316 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
+## 11. Better Reasoning, Not Just Bigger Models: A Structure-Grounded Framework for Efficient and Reliable Inference
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.30611v1
+- Score: 2.323 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
 
-## 12. Direct Inference on Admissible Sets (Diona)
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2610.31526v1
-- Score: 2.294 | Reliability: 1.0
-- Why it matters: 
+## 12. Contestable Agents for Data Governance: Recording Human Stewardship of AI-Generated Metadata Across Structured and Unstructured Systems
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2610.31553v1
+- Score: 2.295 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 13. langgraph-cli==0.4.38
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.38
-- Score: 1.233 | Reliability: 1.0
+- Score: 1.185 | Reliability: 1.0
 - Why it matters: 
 
-## 14. vllm v0.32.0
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.0
-- Score: 0.962 | Reliability: 1.0
-- Why it matters: 
+## 14. codex 0.163.0-alpha.11.1
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.163.0-alpha.11.1
+- Score: 1.167 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
 
 ## 15. How Commerce.com and Cloudflare are getting storefronts ready for AI agents
 - Type: news | Source: cloudflare_blog
 - URL: https://blog.cloudflare.com/webmcp-commerce/
-- Score: 0.728 | Reliability: 1.0
+- Score: 0.721 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
+
+## 16. vllm v0.32.0rc2
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.0rc2
+- Score: 0.511 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
