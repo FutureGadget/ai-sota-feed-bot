@@ -361,6 +361,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "061da33d4fee97af": {
+  "content_excerpt": "Trainium has already proven itself in the realm of inference. Anthropic is running production inference and RL rollouts on Trainium2 and Trainium3. Historically, Trainium has been great for inference but not the best fit for research training. In inference, the model architecture changes at a much slower pace compared to training, where researchers iterate on many different experiments and ablations of model architecture and need a stack that covers a broad API surface. In the past, that is where Trainium fell short. The AWS Neuron team is aggressively working to change this pitfall with the biggest shift being moving towards a first-class, native PyTorch training experience. Gone are the days of sprinkling xm.step() through your training loop and wrestling with a bespoke XLA-style execution model. Trainium now runs PyTorch the way PyTorch users expect, in eager mode, with torch.compile and the standard APIs. The SemiAnalysis engineering team has been trying out the Trainium3 racks for the past couple of weeks and has found the experience to be great – we love the overall direction of where it is heading. To be clear, it isn’t perfect yet, and we have personally run into a couple of bugs ourselves. It’s nowhere close to the maturity of the CUDA ecosystem, but the direction is right. Their team is making rapid progress with the help of agentic coding. Furthermore, unlike other accelerator companies, where we had to fight tooth and nail to get their engineers a reasonably stabl",
   "first_seen": "2026-10-23T20:05:17.894094+00:00",
   "id": "1c4aca8cc96a7858",
   "image_url": "https://substack-post-media.s3.amazonaws.com/public/images/4a31a8c0-6bad-49ff-87c9-6e4e280f1ecf_1735x906.png",
@@ -3901,6 +3902,22 @@
   "type": "news",
   "url": "https://vllm.ai/blog/2026-10-21-humming"
  },
+ "3e805f1bff1b9cc6": {
+  "first_seen": "2026-10-25T05:04:57.220062+00:00",
+  "id": "37acdc21174eb6bf",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-22T17:58:27+00:00",
+  "sid": "3e805f1bff1b9cc6",
+  "source": "arxiv_cs_lg",
+  "summary": "Meta-reinforcement learning aims to train agents that adapt quickly to unseen tasks from limited interaction, but this requires representing task evidence over long interaction histories. Classical recurrent agents compress experience into hidden states, while transformer-based agents retrieve from past trajectories at quadratic memory and computation cost. In this work, we propose Memory-Enhanced Test-Time Adaptation (METTA) for meta-reinforcement learning. It decomposes the fast adaptation phase into two temporal scales: a causal neural memory performs fine-grained within-episode adaptation with linear sequence complexity, while compact episode-level summaries support long-range cross-episode task inference without attending over the full interaction history. Moreover, equipping agents with neural memory provides sufficient expressive capacity and test-time training capability, enabling effective adaptation to unseen held-out tasks and task families at meta-test time. On unseen held-out Meta-World ML10/45 test environments, METTA achieves a success rate over $50\\%$ while maintaining a low training budget and short wall-clock time. On long-context sparse-reward PointMaze tasks, it outperforms transformer-based baselines by exhibiting more structured exploration behavior. These results show that METTA provides an efficient path toward more adaptive and scalable long-context meta-RL.",
+  "summary_1line": "Meta-reinforcement learning aims to train agents that adapt quickly to unseen tasks from limited interaction, but this requires representing task evidence over long interaction histories. Classical recurrent agents co...",
+  "title": "METTA: Memory-Enhanced Test-Time Adaptation for Meta-Reinforcement Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31656v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "3ea4093d2a46b309": {
   "first_seen": "2026-10-08T16:03:52.937001+00:00",
   "id": "f6baefb722c06a53",
@@ -4890,6 +4907,22 @@
   "title": "Using Claude Science to produce the first complete map of the sky in UV light",
   "type": "research",
   "url": "https://www.anthropic.com/research/the-missing-map-of-the-sky"
+ },
+ "4d1cef01d9ab5673": {
+  "first_seen": "2026-10-25T05:04:57.220062+00:00",
+  "id": "2fec8b9dd87dda92",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-22T17:00:39+00:00",
+  "sid": "4d1cef01d9ab5673",
+  "source": "arxiv_cs_cl",
+  "summary": "\\emph{Continuous-space} attacks find prompts that trigger malicious behaviors, such as overthinking, in black-box LLMs by sampling or optimizing over a low-dimensional Gaussian latent space and decoding it to text through a \\emph{random mapping} and nearest-token lookup. Because the random mapping is not learned from language, its prompts can be highly unnatural, and as such easily detectable through input guardrails, and the risk estimates they yield are not grounded in natural prompts. In this paper, we demonstrate that the same continuous latent-space framework can be coupled directly to a learned generative distribution over language, a continuous diffusion language model (dLLM), which removes the artificial random mapping while preserving the standard-Gaussian latent formulation and the downstream sampling or optimization procedure. We evaluate this approach under two settings: sampling-based estimation using \\emph{RareTrap} and optimization-based search using \\emph{ThinkTrap}. We find that character-level perplexity drops from $10^3$--$10^7$ to 3--5 in RareTrap and from 20--28 to 4.3--5.4 in ThinkTrap. We also find that model risk estimates can differ by an order of magnitude across the two mappings.",
+  "summary_1line": "\\emph{Continuous-space} attacks find prompts that trigger malicious behaviors, such as overthinking, in black-box LLMs by sampling or optimizing over a low-dimensional Gaussian latent space and decoding it to text thr...",
+  "title": "Diffusion Language Models for Perplexity-Aware Black-Box Attacks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31558v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "4d53557cac2f8289": {
   "first_seen": "2026-10-23T19:04:50.424223+00:00",
@@ -7721,6 +7754,18 @@
   "type": "news",
   "url": "https://www.langchain.com/blog/common-questions-about-agent-evals",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "7c66dfcb583877b5": {
+  "content_excerpt": "An AI pipeline that catches its own bugs, explains them, and fixes them while a human makes two decisions. At 17:45 on October 24, 2026, the search box on our staging site started to crash. We had put the bug there on purpose: one line in a database read skipped archived clients, so a search that found their entries failed with Cannot read properties of undefined (reading 'name') . Nobody told the system. Forty-two seconds after the first error, a fix request was waiting in our pipeline. Thirty-one minutes after the first error, a pull request was ready for review: a one-line fix, and a test that proves it. A person made two decisions in between. I built it because it's cool. I have full control over what it does and how it does it. As they say, homemade beats pretty much anything. That control matters most where trust is thin. AI writes most of the code here, so the question is not whether it makes mistakes, but what catches them. AI is a powerful tool. A system that can hallucinate, or lose track in a large context, is a reason not to trust it blindly. But in practice I do trust it: I trust that it can make a mistake, and that it can fix it too. It can make a mistake and fix it, so I check the plan and the result, and let it work in between. Two small services do the work. Night Watch watches the site's logs and checks, opens incidents, asks an AI to triage them, and alerts by email, Telegram and Slack. Day Shift turns a request into a reviewed pull request: it writes a spe",
+  "first_seen": "2026-10-25T05:04:57.220062+00:00",
+  "id": "c71682ce6cf9629a",
+  "published": "2026-10-25T02:28:51+00:00",
+  "sid": "7c66dfcb583877b5",
+  "source": "hackernews_ai",
+  "summary_1line": "Break It on Purpose: an AI pipeline that triages and fixes its own bugs",
+  "title": "Break It on Purpose: an AI pipeline that triages and fixes its own bugs",
+  "type": "news",
+  "url": "https://zontakllc.com/articles/break-it-on-purpose"
  },
  "7cb2bc81ca59bce9": {
   "first_seen": "2026-10-18T19:05:22.058133+00:00",
@@ -16204,6 +16249,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQMjBtNG5jOGtJNDMtWHYtVXo1RU44LWJlNTZrNkhxajRYd0JOMkdXLXV3ZlZwQTVidkoyWjJKbUNvS0U2UXdRdjZmNE9KWHhlTUR0Y2xmWWhTRm9MbFpuQm5NUEtyejJqWXZhYmRjWmdVTFZ0RFlVR2JwMTNqOUgtb3NxeHU2dUJVcHpTaUN5WFFCQkIzWXZhZGJVVXpUV0RfQUNxNjNLSngteWVuaVVEckhkWmNVbjF1QVQ4b2FoTHYxVmh0eko4T0ZKSG91c3ZWTlE?oc=5",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "f07fa8132755e14c": {
+  "first_seen": "2026-10-25T05:04:57.220062+00:00",
+  "id": "d5acf2709e8da8da",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-22T14:59:55+00:00",
+  "sid": "f07fa8132755e14c",
+  "source": "arxiv_cs_cl",
+  "summary": "Bashkir is a low-resource agglutinative language written in Cyrillic and remains poorly represented in modern LLMs. We present an open resource suite and a systematic benchmark of adaptation methods: the Bashkir Web Corpus (71,567 documents, 46.9M tokens, 16 sources) and three labelled datasets for binary, multiclass and multilabel text classification; the benchmark covers the first two. Experiments use eight architectures (82M-8B: DistilGPT2, GPT-2 base/medium, Phi-3-mini, Mistral-7B, YandexGPT-5-Lite-8B, mBERT, XLM-R) and three adaptation groups (full fine-tuning, QLoRA, in-context learning), plus continual pretraining (CPT). (1) QLoRA on 3.8-8B models outperforms encoder-only fine-tuning on binary classification: YandexGPT-5-Lite-8B with CPT reaches macro-F1 0.748 vs 0.653 (XLM-R) and 0.650 (mBERT); pairwise differences are significant after Holm correction (p =0.084). (3) CPT effects depend on model and task: perplexity improves for Phi-3-mini (+0.58) and YandexGPT-5-Lite-8B (+0.33) but worsens for Mistral-7B (-1.15, p<0.001); on binary classification CPT helps Mistral-7B most (+4.0 macro-F1). (4) Tokeniser fertility on Bashkir varies 2.67x (2.92-7.80) and tracks adaptation quality, while perplexity across tokenisers is not comparable. Cyrillic tokenisers with Russian pretraining are preferable; LLM judges reproduce native ratings for grammar and coherence (rho=0.33-0.46) but not language correctness (rho=0.16, p=0.11); native evaluation remains necessary. All artefacts a",
+  "summary_1line": "Bashkir is a low-resource agglutinative language written in Cyrillic and remains poorly represented in modern LLMs. We present an open resource suite and a systematic benchmark of adaptation methods: the Bashkir Web C...",
+  "title": "Parameter-Efficient Adaptation of Large Language Models to a Low-Resource Agglutinative Language: A Corpus, Datasets, and a Reproducible Benchmark for the Bashkir Language",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31397v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "f0fd06585d59dd3d": {
   "first_seen": "2026-10-14T04:04:49.779649+00:00",
