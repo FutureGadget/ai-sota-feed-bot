@@ -5668,8 +5668,8 @@
   "published": "2026-10-22T09:48:14+00:00",
   "sid": "55876e608f690109",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 25, downloads: 524.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 25, downloads: 524.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 29, downloads: 1052.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 29, downloads: 1052.",
   "title": "tencent/WeVisOne-VL-4B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeVisOne-VL-4B"
@@ -6109,6 +6109,7 @@
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "5d20b75fc1534a89": {
+  "content_excerpt": "TL;DR: Long agentic contexts push GLM-5.3 against two limits on H200s: KV cache memory and prefill speed. We address both on 16 H200s, split into one prefill node and one decode node: Agentic workloads have long contexts that grow with every turn, which puts pressure on both GPU memory and prefill. On H200s, GLM-5.3's weights take up most of each GPU's memory, leaving little room for the KV cache of those long contexts. And because every turn adds more tool output and file contents to prefill, under load the prefill engines can become the bottleneck for the whole deployment. Part 1 showed how Hybrid HiSparse lets long contexts fit in an aggregated deployment on a single 8× H200 node. Prefill/decode disaggregation takes more than that. On the prefill node, we use PCP to speed up long prompts by parallelizing across the prompt's tokens. With MLA, however, this leaves every PCP rank holding a full copy of the KV cache, so we combine it with DCP to remove that replication. On the decode node, Hybrid HiSparse allows higher concurrency at long contexts. vLLM's new modular core ( Model Runner V2 ) makes composing all of this much easier. Neither scheme spreads one long prompt's attention work across the eight GPUs without also keeping its whole KV on each GPU that serves it. The next two sections address each half. PCP splits a prompt's queries across GPUs, and DCP splits its KV. In our 8× H200 prefill engine, PCP splits each prompt across the eight GPUs by token: every GPU computes",
   "first_seen": "2026-10-23T19:04:50.424223+00:00",
   "id": "56d251a8ce026f43",
   "matched_topics": [
@@ -8085,6 +8086,22 @@
   "title": "How to Use Qwen Image 2.1 LoRA for Product Image Generation",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOcmdFWFZENy1hR3MxQzFSb2hSMVB1Tm5uNUJiSjB4ZVNTNUVINW80ZV9fb1lBQW1kRzZFUkk0R1RTX3Y3ZHY3bHkwQTZ5d0RQcTV2TnFEdUpoSjJkYTRSdk14VHRfRTNXeFVqY2NGd3JVYmYzb1pLNzI0VDJQMDVzN3dxTnU5ZERY?oc=5"
+ },
+ "7fc326b92508914b": {
+  "first_seen": "2026-10-25T10:03:23.876614+00:00",
+  "id": "3fdd04c6f02c0fd5",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-21T07:26:26+00:00",
+  "sid": "7fc326b92508914b",
+  "source": "arxiv_llm_reliability",
+  "summary": "Unlike question answering, where a query specifies a perceptual target, open-ended detailed captioning must determine what evidence to acquire and how to integrate it into a coherent global description. We propose Observation-Adaptive Video Captioner (OACap), a caption-centered agent that turns unsupported or missing information into targeted observation requests, uses spatiotemporal tools to acquire evidence, and iteratively verifies and revises the caption. OACap captions consistently improve performance across general video-understanding benchmarks using a fixed text-only reader. To better diagnose the information they preserve, we introduce Factual-Semantic Captioning Bench (FSCap-Bench). Its Core-Support Factuality Score (CSFS) combines claim precision with importance-aware fact coverage and responds as expected to four controlled perturbation types on 93.0-98.3% of valid caption pairs. Its Cross-Modal Semantic Round-Trip Score (CSRS) measures semantic preservation through a video-caption-video-caption round trip by matching atomic facts from source and recovered captions. Together, they connect downstream textual-memory utility with factual and semantic preservation.",
+  "summary_1line": "Unlike question answering, where a query specifies a perceptual target, open-ended detailed captioning must determine what evidence to acquire and how to integrate it into a coherent global description. We propose Obs...",
+  "title": "OACap: Caption-Guided Active Observation for Detailed Video Captioning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.29327v2",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "7fee5d3da88c7389": {
   "first_seen": "2026-10-14T05:03:54.985580+00:00",
@@ -10811,6 +10828,19 @@
   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOS0xwVzRCVnJkbnpqS2FwS1lSMUhnTWUzOU9SRDBzWERzeW5IOEZCTk9XNV9IYk5iN0p2SUpTaG9fQm1mNUxrWlUyWWRCaWlJMHB5UlFKa3pZM0pKSGlBRVNzX0RVTjFjRWh0ZDVaZE1nV1NQNzZ6em5ZOFhjeTM5SkFYQ3V4Yk1NWWhYUzVyYkNORlF5X2kwN3hzVVhzSlJULVlQYnNUM0Yxc05yT3Rj?oc=5"
  },
  "a74122a98f64e132": {
+  "also_covered": [
+   {
+    "source": "simon_willison",
+    "title": "Introducing Kimi K3.1 Pro",
+    "url": "https://simonwillison.net/2026/Oct/23/kimi-k31-pro/"
+   },
+   {
+    "source": "search_cn_open_weight_labs",
+    "title": "Kimi K3.1 Pro: Free to try, hacking skills deliberately weakened",
+    "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOVHNUZlVzc1g1Qjk0N3MtYUFOZjFMZGNHbmhuOXVsbFRRbTk1OWFmX1RleEpvc0xoZ0Vhd01RM2FEV1JiZG1GRGVrTjNvdVN4Uk5hcVJrdDNiUDk0OXlsTmNvbGI4Mk9ENHJramRKU3ExU1k4aDRBZzRhalBmOHJJaDRJSnhjbWxUQ1JHQ0pYQ0FUa0g1WWdNalhGSV8xbUkxZmJFdU5KNDFvOUE?oc=5"
+   }
+  ],
+  "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. 2 months ago we covered Z.ai CEO Prof Jie Tang’s prediction that we’d get a Fable-class open weights model by year end . 2 weeks ago Meta achieved a Fable-class model in closed source , but, with 2.5 months left to go, we finally got it - a 2.8T open weights model beating Fable 5.1, not just Fable 5, at that: You can tell Kimi is proud of their latest model by how fancy their landing page is: As usual we don’t get much research detail - the update is somewhat similar to Z.ai ’s 5.2-5.3 bump - a minor version bump for a lot more post-training: Kimi K3.1 Pro is a post-trained version of Kimi K3, with substantially larger post-training compute. To enable large-scale joint RL across hundreds of downstream domains , we optimized every layer of the stack — the RL framework, long-context inference, training efficiency, sandbox infrastructure, rollout scheduling, and a shared platform for environment quality checks — so that each increment of RL compute delivers stable, predictable returns. As a result, K3.1 Pro achieves consistent gains in every domain. AI News for 10/22/2026-10/23/2026. We checked 12 subreddits, 544 Twitters and no further Discords. AINews' we",
   "first_seen": "2026-10-24T08:05:07.604151+00:00",
   "id": "3472456cdb52d176",
   "image_url": "https://beehiiv-images-production.s3.amazonaws.com/uploads/asset/file/996d69ac-2a1f-4064-a383-641eebc365b8/SCR-20261024-bbmb.jpeg?t=1792826292",
