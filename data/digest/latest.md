@@ -5,95 +5,83 @@ Focus: AI Platform Engineering
 ## 1. Google ML Drift Accelerates On-Device AI Inference Across Diverse GPUs
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/10/google-ml-drift/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.428 | Reliability: 1.0
+- Score: 3.324 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 2. The five components of building a "company harness"
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/components-building-company-harness
-- Score: 2.997 | Reliability: 1.0
+- Score: 2.912 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness.
 
-## 3. Can LLMs Improve Their Own Harness? A Controlled Study on ARC-AGI-3
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.30499v1
-- Score: 2.719 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, eval.
+## 3. Turning Database Grading into RL Rewards: Post-Training Agents with ThinkingBox
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/microsoft/thinkingbox-training
+- Score: 2.247 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 4. Muffin - A Shared Memory Buffer for Asynchronous AI Agents
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.31355v1
-- Score: 2.479 | Reliability: 1.0
+## 4. Same Luck, Different Choice: Twin-World Credit Assignment for Agentic Reinforcement Learning
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2610.31544v1
+- Score: 2.22 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 5. Why Bother Me Again? Benchmarking Personal Agent Memory for Interaction Preferences
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2610.30485v1
-- Score: 2.392 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
+## 5. Multi-Tool Selection for Robotic Systems: Comparing Semantic Retrieval and LLM
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.31013v1
+- Score: 2.216 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
 ## 6. How To Use Decision Models for Evals
 - Type: news | Source: hamel_husain
 - URL: https://hamel.dev/blog/posts/decision-model-evals/
-- Score: 1.888 | Reliability: 1.0
+- Score: 1.887 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 7. The Huawei-DeepSeek Symbiosis
-- Type: news | Source: semianalysis
-- URL: https://newsletter.semianalysis.com/p/huawei-deepseek
-- Score: 1.795 | Reliability: 1.0
-- Why it matters: 
+## 7. claude-code v2.1.305
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.305
+- Score: 1.497 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
 
 ## 8. langgraph-sdk==0.4.9
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.9
-- Score: 1.365 | Reliability: 1.0
+- Score: 1.367 | Reliability: 1.0
 - Why it matters: 
 
-## 9. claude-agent-sdk-python v0.2.170
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.170
-- Score: 1.284 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 9. tencent/WeVisOne-VL-2B released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/WeVisOne-VL-2B
+- Score: 1.171 | Reliability: 1.0
+- Why it matters: 
 
-## 10. codex 0.164.0-alpha.11.1
+## 10. codex 0.164.0-alpha.12
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.164.0-alpha.11.1
-- Score: 1.256 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.164.0-alpha.12
+- Score: 1.166 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 11. Same Luck, Different Choice: Twin-World Credit Assignment for Agentic Reinforcement Learning
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2610.31544v1
-- Score: 2.319 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
+## 11. ReflectPO: Reflection-Guided Policy Optimization for Long-Horizon LLM Agents
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.30933v1
+- Score: 2.215 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 12. Causal Chain of Thought: Mitigating Attention Leakage via Context Isolation
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2610.31639v1
-- Score: 2.303 | Reliability: 1.0
+- Score: 2.204 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 13. claude-code v2.1.306
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.306
-- Score: 1.212 | Reliability: 1.0
-- Why it matters: 
+## 13. claude-agent-sdk-python v0.2.169
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.169
+- Score: 1.063 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 14. tencent/WeVisOne-VL-2B released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/WeVisOne-VL-2B
-- Score: 1.177 | Reliability: 1.0
-- Why it matters: 
-
-## 15. Donating Agent Skills to the Agentic AI Foundation
+## 14. Donating Agent Skills to the Agentic AI Foundation
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/donating-agent-skills-to-the-agentic-ai-foundation
-- Score: 0.681 | Reliability: 1.0
+- Score: 0.675 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
-
-## 16. v0.32.0rc3: [Bugfix] Fix NaN output of the Mamba2 chunk scan kernel on sm90 (#61718)
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.0rc3
-- Score: 0.365 | Reliability: 1.0
-- Why it matters:
