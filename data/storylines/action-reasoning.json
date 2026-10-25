@@ -1,0 +1,106 @@
+{
+ "slug": "action-reasoning",
+ "label": "Action Reasoning",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-10-20T15:33:20+00:00",
+ "last_updated": "2026-10-22T14:48:16+00:00",
+ "generated_at": "2026-10-25T00:12:22.332533+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_ai",
+  "arxiv_cs_cl"
+ ],
+ "days": [
+  {
+   "date": "2026-10-20",
+   "items": [
+    {
+     "title": "CAPSafe: A Benchmark for Contextual Action and Plan Safety Reasoning in Embodied Agents",
+     "url": "http://arxiv.org/abs/2610.28381v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Reasoning about safety is essential for embodied agents powered by large language models (LLMs). We introduce the Contextual Action and Plan Safety benchmark (CAPSafe), designed to evaluate safety reasoning at two lev...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "fcf269e2184843b3",
+     "published": "2026-10-20T15:33:20+00:00",
+     "editor_note": "Introduces CAPSafe, a benchmark for action and plan safety reasoning in embodied LLM agents."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "items": [
+    {
+     "title": "From Reasoning to Action: Benchmarking Frontier AI Models on LIBERO-10 Robot Manipulation Tasks",
+     "url": "http://arxiv.org/abs/2610.30051v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Recent advances in frontier AI models have demonstrated remarkable capabilities in visual understanding, reasoning, planning, and tool use, raising the possibility of using general-purpose AI models for robot manipula...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "cf2272f49f6763e1",
+     "published": "2026-10-21T17:11:52+00:00",
+     "editor_note": "Benchmarks frontier AI models on LIBERO-10 manipulation tasks, testing reasoning-to-action transfer."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-22",
+   "items": [
+    {
+     "title": "Certified Execution Harness for Agentic AI: Safe and Least-Intrusive Petri-Net Supervisory Control Between Reasoning and Action",
+     "url": "http://arxiv.org/abs/2610.31376v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "This paper studies the problem of safe tool execution for large language model (LLM) agents under prompt injection. Using Petri nets, we formalize the execution harness between the LLM and its tools as a supervisory c...",
+     "why_it_matters": "Matches feed focus: agentic, harness.",
+     "sid": "52c63825356144e3",
+     "published": "2026-10-22T14:48:16+00:00",
+     "editor_note": "Formalizes the LLM-to-tool harness as a Petri-net supervisory controller for safe execution under prompt injection."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Three arXiv papers in three days examine the gap between LLM reasoning and acting. One proposes a benchmark for action and plan safety in embodied agents, and another tests frontier models on robot manipulation.",
+  "stale": false,
+  "whats_new": "A new arXiv paper formalizes the harness between an LLM and its tools as a Petri-net supervisory controller to block unsafe tool calls under prompt injection.",
+  "why_it_matters": "These are research preprints, not products, but they point at where agent safety work is heading: checking actions at the execution layer rather than trusting the model's reasoning.",
+  "take_for_builders": "If your agents call tools, treat the execution layer as the place for enforcement; these preprints are unreplicated, so test any approach on your own tool set before relying on it.",
+  "beats": [
+   {
+    "kicker": "BENCHMARK",
+    "tone": "launch",
+    "headline": "CAPSafe benchmarks safety reasoning for embodied agents",
+    "summary": "Evaluates contextual action and plan safety at two levels.",
+    "sids": [
+     "fcf269e2184843b3"
+    ]
+   },
+   {
+    "kicker": "EVALUATION",
+    "tone": "rising",
+    "headline": "Frontier models tested on LIBERO-10 robot manipulation",
+    "summary": "Asks whether general-purpose models can move from reasoning to physical action.",
+    "sids": [
+     "cf2272f49f6763e1"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Petri-net supervisory control between reasoning and action",
+    "summary": "Moves from measuring safety to enforcing it at tool execution under prompt injection.",
+    "sids": [
+     "52c63825356144e3"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do any of the three papers report results on a deployed agent framework rather than a benchmark or formal model?",
+   "Does the Petri-net harness release code or measured overhead for tool-call latency?"
+  ],
+  "generated_at": "2026-10-25T00:20:00+00:00"
+ }
+}

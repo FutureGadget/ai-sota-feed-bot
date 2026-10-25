@@ -1,17 +1,19 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 5,
- "day_count": 4,
- "source_count": 4,
+ "item_count": 10,
+ "day_count": 7,
+ "source_count": 6,
  "first_seen": "2026-10-06T16:59:37+00:00",
- "last_updated": "2026-10-21T20:46:24+00:00",
- "generated_at": "2026-10-24T00:12:17.262323+00:00",
+ "last_updated": "2026-10-22T16:36:35+00:00",
+ "generated_at": "2026-10-25T00:12:22.332533+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
+  "arxiv_cs_cl",
   "arxiv_cs_lg",
-  "arxiv_llm_reliability"
+  "arxiv_llm_reliability",
+  "infoq_ai_ml"
  ],
  "days": [
   {
@@ -26,6 +28,49 @@
      "sid": "c47efdba3284bb9f",
      "published": "2026-10-06T16:59:37+00:00",
      "editor_note": "Addresses security of speculative decoding, unrelated to the other items."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-09",
+   "items": [
+    {
+     "title": "Presentation: Ontology‐Driven Observability: Building the E2E Knowledge Graph at Netflix Scale",
+     "url": "https://www.infoq.com/presentations/netflix-observability-aiops-ontology-scale/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "Prasanna Vijayanathan and Renzo Sanchez-Silva share how Netflix tackles observability across 38M events/sec. They discuss replacing reactive monitoring with an AI-driven operational ontology and agentic workflows usin...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "13307002442ed537",
+     "published": "2026-10-09T11:00:00+00:00",
+     "editor_note": "Industry talk on an ontology-driven knowledge graph for observability; not an LLM research result."
+    },
+    {
+     "title": "Enhancing Legal Reasoning in Pre-trained Language Models via Knowledge Graph-Guided Multi-Task Pre-training",
+     "url": "http://arxiv.org/abs/2610.13722v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Legal language understanding requires reasoning over semi-structured regulatory documents, yet standard pre-training objectives do not explicitly target this structural capability. Because current legal language model...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "52d729da63596a31",
+     "published": "2026-10-09T15:21:12+00:00",
+     "editor_note": "Knowledge-graph-guided pre-training for legal reasoning in language models."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-10",
+   "items": [
+    {
+     "title": "SEEK: Agentic Knowledge Graph Retrieval for Secure Code Generation",
+     "url": "http://arxiv.org/abs/2610.14968v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Large Language Models (LLMs) can generate functionally correct code while introducing exploitable security weaknesses, particularly when developers specify functionality without explicit security requirements. Recent...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "f0fd06585d59dd3d",
+     "published": "2026-10-10T14:37:22+00:00",
+     "editor_note": "Agentic knowledge-graph retrieval aimed at reducing insecure LLM-generated code."
     }
    ]
   },
@@ -84,24 +129,63 @@
      "why_it_matters": "Matches feed focus: agent, eval.",
      "sid": "276a486ae6eefe6b",
      "published": "2026-10-21T20:46:24+00:00",
-     "editor_note": "Newest: trains search agents to assess their own search state in retrieval-augmented setups."
+     "editor_note": "Trains search agents to assess their own search state in retrieval-augmented setups."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-22",
+   "items": [
+    {
+     "title": "Spectral Smoothing and Spiking Perturbations Reconfigure Capability Profiles and Selective Task Performance in Large Language Models",
+     "url": "http://arxiv.org/abs/2610.30676v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Singular-value spectra encode important structure in transformer feed-forward projections, yet their causal role in downstream behavior remains underexplored. We study post-hoc spectral smoothing and spiking intervent...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "8debe4581e047c88",
+     "published": "2026-10-22T03:42:07+00:00",
+     "editor_note": "Post-hoc spectral smoothing and spiking interventions that change selective task performance."
+    },
+    {
+     "title": "An Empirical Study of Recent Large Language Models for Knowledge Graph to Text Generation on Standard Benchmarks",
+     "url": "http://arxiv.org/abs/2610.31529v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Knowledge graph-to-text (KG-to-text) generation verbalizes a set of knowledge graph triples into fluent natural language. While fine-tuned encoder-decoder models have long been the standard approach, recent LLMs are b...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "c888971c48a268c3",
+     "published": "2026-10-22T16:36:35+00:00",
+     "editor_note": "Newest: empirical comparison of recent LLMs on KG-to-text benchmarks."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This page groups arXiv papers by the shared phrase \"large language models\"; they do not form one developing story. They cover a security attack on speculative decoding (Oct 6), narrative-induced sycophancy (Oct 16) and hallucinations in code translation (Oct 20).",
+  "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 6-20 papers cover a speculative-decoding attack surface, knowledge-graph-guided legal and secure-code work, sycophancy, and code-translation hallucinations.",
   "stale": false,
-  "whats_new": "Oct 21 adds an arXiv paper on self-assessment RL for search-state awareness in retrieval-augmented agents, plus a materials-data extraction survey; neither extends the earlier papers.",
-  "why_it_matters": "Each paper names a distinct failure surface: speculative decoding adds a draft-model attack path, sycophancy skews user-facing answers, code translation adds hallucinated output, and search agents lack awareness of what they have retrieved. Treat them as separate checks, not one trend.",
-  "take_for_builders": "Do not cite these papers as corroborating each other; add a hallucination check on LLM-translated code, and wait for independent evals before adopting the search-state RL method.",
+  "whats_new": "Oct 22 adds two arXiv papers: spectral smoothing/spiking interventions that shift LLM capability profiles, and an empirical benchmark of recent LLMs on knowledge-graph-to-text generation; neither extends earlier items.",
+  "why_it_matters": "Each paper names a distinct failure or evaluation surface: draft-model attacks, sycophancy, hallucinated translated code, search-state blindness, weight-spectrum side effects. Treat them as separate checks, not one trend.",
+  "take_for_builders": "Do not cite these papers as corroborating each other; add a hallucination check on LLM-translated code, and wait for independent evals before adopting the search-state RL or spectral-editing methods.",
   "beats": [
    {
     "kicker": "SECURITY",
     "tone": "neutral",
-    "headline": "Secure speculative decoding targets the draft-model path in LLM inference",
+    "headline": "Speculative decoding and secure code generation get security-focused work",
+    "summary": "A draft-model attack path in inference, and a knowledge-graph retrieval approach to secure code generation.",
     "sids": [
-     "c47efdba3284bb9f"
+     "c47efdba3284bb9f",
+     "f0fd06585d59dd3d"
+    ]
+   },
+   {
+    "kicker": "KNOWLEDGE GRAPHS",
+    "tone": "neutral",
+    "headline": "Knowledge graphs applied to observability and legal reasoning",
+    "summary": "A Netflix talk on an ontology-driven operational knowledge graph, and a KG-guided pre-training paper for legal models.",
+    "sids": [
+     "13307002442ed537",
+     "52d729da63596a31"
     ]
    },
    {
@@ -121,21 +205,32 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "AGENTS AND DOMAINS",
+    "tone": "neutral",
     "headline": "Search-state awareness for RAG agents, and LLM materials-data extraction",
     "summary": "Two Oct 21 papers: a self-assessment RL method for search agents, and a domain survey of materials data extraction.",
     "sids": [
      "16071b3c73317004",
      "276a486ae6eefe6b"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Spectral interventions and KG-to-text benchmarking land Oct 22",
+    "summary": "One paper probes how editing singular-value spectra changes task performance; the other compares recent LLMs against fine-tuned encoder-decoder models on standard benchmarks.",
+    "sids": [
+     "8debe4581e047c88",
+     "c888971c48a268c3"
+    ]
    }
   ],
   "open_questions": [
    "Does the speculative-decoding defense add measurable latency over unprotected drafting?",
    "Do the code-translation mitigations hold on languages outside the paper's test set?",
-   "Does self-assessment RL improve search-agent accuracy on benchmarks beyond the paper's own?"
+   "Does self-assessment RL improve search-agent accuracy on benchmarks beyond the paper's own?",
+   "Does independent replication confirm the spectral-intervention capability shifts on other model families?"
   ],
-  "generated_at": "2026-10-24T00:30:00+00:00"
+  "generated_at": "2026-10-25T00:11:51+00:00"
  }
 }

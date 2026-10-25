@@ -1,12 +1,50 @@
 {
- "generated_at": "2026-10-24T00:12:17.262323+00:00",
+ "generated_at": "2026-10-25T00:12:22.332533+00:00",
  "window_days": 21,
  "storylines": [
   {
+   "slug": "their-own",
+   "label": "Their Own",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-10-14T09:06:49+00:00",
+   "last_updated": "2026-10-24T00:24:08+00:00",
+   "latest_title": "Why founders keep failing to vibecode their own LLM inference engine",
+   "days": [
+    "2026-10-14",
+    "2026-10-21",
+    "2026-10-24"
+   ],
+   "member_sids": [
+    "5f579aa6acc66ac6",
+    "ff59ea23eb8cc0be",
+    "11667337918f4f3c"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.19834v1",
+    "http://arxiv.org/abs/2610.30499v1",
+    "https://news.google.com/rss/articles/CBMinAFBVV95cUxNWFQyRXJtQU5CWDVfWjZfUXpLaDFFUkFJc2tkWWE3RDljeVRhRmoyRXhIS1A1cG5Hd0VxTDhZdlNENmY1czlEQ19uZjVKOXRja1ZMeW5DNXpNT1hydjNKUlNLaFpZNlV2OHI5NkZIaGJFbUs0OUpMa1JqLUc2WHdjN2VmTHY0eDJCZDI2aW5mQVFudnl2RXdWSDJWNzE?oc=5"
+   ],
+   "editorial": {
+    "tldr": "\"Their Own\" groups three items that share a phrase, not one developing event. They run from a Oct 14 paper on distilling web agents from black-box teachers to an Oct 21 study of models rewriting their own harness.",
+    "stale": false,
+    "whats_new": "A Startup Fortune piece on Oct 24 argues founders keep failing when they try to vibecode their own LLM inference engine; only the headline was available, so its evidence is unverified.",
+    "why_it_matters": "All three touch the build-versus-depend question for agent stacks: distill a cheaper agent, let the model tune its own scaffold, or write your own serving layer. None yet gives production evidence.",
+    "take_for_builders": "Do not replace a maintained inference server (vLLM, SGLang or a hosted API) with a self-written engine on the strength of this piece; keep the existing stack until a source shows benchmarked results.",
+    "status": {
+     "state": "Loosely related",
+     "tone": "neutral",
+     "changed": "2026-10-24",
+     "detail": "Three unrelated items sharing a phrase; no single event is unfolding."
+    }
+   }
+  },
+  {
    "slug": "reinforcement-learning",
    "label": "Reinforcement Learning",
-   "item_count": 6,
-   "day_count": 5,
+   "item_count": 7,
+   "day_count": 6,
    "source_count": 6,
    "first_seen": "2026-10-12T21:41:50+00:00",
    "last_updated": "2026-10-23T17:48:54+00:00",
@@ -16,6 +54,7 @@
     "2026-10-15",
     "2026-10-20",
     "2026-10-21",
+    "2026-10-22",
     "2026-10-23"
    ],
    "member_sids": [
@@ -25,6 +64,7 @@
     "afd320e7f42ef5bd",
     "a00ad2ffbda7f2e9",
     "276a486ae6eefe6b",
+    "352167f7ac41065b",
     "8a41e1e41cbecfde"
    ],
    "member_urls": [
@@ -34,14 +74,15 @@
     "http://arxiv.org/abs/2610.28785v1",
     "http://arxiv.org/abs/2610.29426v1",
     "http://arxiv.org/abs/2610.30435v1",
+    "http://arxiv.org/abs/2610.31544v1",
     "https://aws.amazon.com/blogs/machine-learning/multi-turn-reinforcement-learning-on-amazon-sagemaker-ai-a-hands-on-guide"
    ],
    "editorial": {
-    "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has collected a Qwen long-horizon agent report, an O-RAN benchmark, and three Oct 20-21 arXiv papers on training tool-using and search agents.",
+    "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has collected a Qwen long-horizon agent report, an O-RAN benchmark, and four Oct 20-22 arXiv papers on training tool-using and search agents.",
     "stale": false,
     "whats_new": "Oct 23: AWS publishes a hands-on guide to multi-turn RL on Amazon SageMaker AI, training on whole-task outcomes with a Wordle example.",
-    "why_it_matters": "The SageMaker guide is the first managed-platform recipe in the thread, so teams on AWS can try outcome-based multi-turn RL without building the training harness. The arXiv papers cover rollout cost, stateful environments and search-state awareness; QwenGyre (a secondary-source report) and X-RIC remain research or telecom-specific.",
-    "take_for_builders": "If you train tool-using models, read the rollout-budget paper for ways to skip groups with identical rewards; if you run on AWS, try the SageMaker Wordle pipeline before planning around it, and wait for Qwen's primary QwenGyre release.",
+    "why_it_matters": "The SageMaker guide is the first managed-platform recipe in the thread, so teams on AWS can try outcome-based multi-turn RL without building the training harness. The arXiv papers cover rollout cost, stateful environments, search-state awareness and per-decision credit assignment; QwenGyre (a secondary-source report) and X-RIC remain research or telecom-specific.",
+    "take_for_builders": "If you train tool-using models, read the rollout-budget and twin-world credit-assignment papers for cheaper, finer-grained learning signal; if you run on AWS, try the SageMaker Wordle pipeline before planning around it, and wait for Qwen's primary QwenGyre release.",
     "status": {
      "state": "Developing",
      "tone": "rising",
@@ -52,13 +93,83 @@
   },
   {
    "slug": "kimi-k3-1",
+   "label": "Claude 5.5",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 4,
+   "first_seen": "2026-10-07T20:56:21+00:00",
+   "last_updated": "2026-10-23T17:26:02+00:00",
+   "latest_title": "Kimi K3.1 Pro vs. Claude Opus 5.5 and GPT-6 Astra",
+   "days": [
+    "2026-10-07",
+    "2026-10-20",
+    "2026-10-23"
+   ],
+   "member_sids": [
+    "fdc864340b44ea6e",
+    "c07b5023822db3bc",
+    "80b3cad60ecd1265",
+    "a497d201fd23202a",
+    "b5619922e4bc7751",
+    "cd442996a2b9d050",
+    "9bc4cd126d80eb25",
+    "e3d2d5f8c38c6fc9",
+    "2db4596402ec0fb3"
+   ],
+   "member_urls": [
+    "https://simonwillison.net/2026/Oct/7/claude-haiku-5-5",
+    "https://www.latent.space/p/ainews-claude-haiku-55-better-than",
+    "https://cloud.google.com/blog/products/ai-machine-learning/claude-opus-55-and-claude-sonnet-55-available-in-antigravity",
+    "https://news.google.com/rss/articles/CBMikAFBVV95cUxPOWFlMmFWTWZLYV9UNVVwQ2dXRXFWQUxROU9KX1YzQnRzQWpGQ2dhSF9pNGh5SFNlcGxEeFo3VC1paU1fVGRrRWJ3SjBhSjRTUTJQdHhpOVVocVNnYl9KRlBhUmp3dHZjV0J6OHNnRE9jZnA1anlkdnZvNWVmRkRhZVQ4UGNsS2dwSlpHVUowQW8?oc=5",
+    "https://simonwillison.net/2026/Oct/23/kimi-k31-pro",
+    "https://news.google.com/rss/articles/CBMiREFVX3lxTE5JZFpDeTk0ZFM3TWlBMDhXa0FPZGVFZkp4U2Z0dFhJdGFTRjRIQ0Vob19vWVdGaU1lU2ZyZFBRaUI0WW82?oc=5",
+    "https://news.google.com/rss/articles/CBMinwFBVV95cUxPLUdRdUVWU0tTX1FyTEhlWkVrX1FJd2tQTmVyamkxcjFkYTh4bXA3c1V0ZHdJc3F5UlNPYk9lMzNneXlObGFMSU9QSXRFNFI1SURhN2FXS2lxQjYwQkpjMDZLS04tOFcxUHl6NTlaMERkSFZ1cVQ4ZHlRcFVWUFM5UDVJLUZmSWxiMDlCS2dkLUp1SVZDYnhwaWw3bXFRVUE?oc=5",
+    "https://news.google.com/rss/articles/CBMifEFVX3lxTFA1VXRGU2RiNHEyOEw5WjZzMkdsN283cGlwcFFJWjVIYXFWcTNyMWFPUFRxVUxwcnRDWFlZelJuSF92TEJGc3duOUx5RE5qWFpraGNJVFhobDJVc3ozc2dzNjNIaDVybkgtTEV6QVgzUm40My1CeVJVNXRIQ08?oc=5",
+    "https://news.google.com/rss/articles/CBMihgFBVV95cUxOWVZOa1Ata3k5dGctejB3MlN3aXBJZ2szbnNoRzJyRW5CbVVsd1V3SU1qb3RfeUtqdTNFeXRuZ0hmNFRWSmxrY1FPQnVTb2lHcDZDMHRLd1o1b0pDX1BRLWNNc0tFSFBfZVJtNE95NHYxOHZveTdMZExhWERDMDZsMTVLc1lEQQ?oc=5"
+   ],
+   "editorial": {
+    "tldr": "Latent Space's Oct 7 newsletter put Claude Haiku 5.5 ahead of GPT-6 Luna at the same pricing. On Oct 20, Google Cloud added Claude Opus 5.5 and Sonnet 5.5 to its Antigravity coding tool.",
+    "stale": false,
+    "whats_new": "R&D World compares Kimi K3.1 Pro against Claude Opus 5.5 and GPT-6 Astra (Oct 23); only the headline is in the item, so the results are not confirmed here.",
+    "why_it_matters": "Claude 5.5 models are reaching more surfaces (Antigravity), and a Chinese open-weight lab is now being benchmarked against Opus 5.5, so model-routing choices are being re-opened.",
+    "take_for_builders": "If you route between models, rerun your own evals with Opus 5.5 and Kimi K3.1 Pro as candidates before changing defaults, and treat the Haiku 5.5 vs Luna claim as unverified until you test it.",
+    "status": {
+     "state": "Developing",
+     "tone": "rising",
+     "changed": "2026-10-23",
+     "detail": "Claude 5.5 models are spreading to new platforms while Kimi K3.1 Pro is being compared against them; no outcome is confirmed in these items.",
+     "track": [
+      {
+       "label": "Haiku 5.5 claim",
+       "detail": "Oct 7",
+       "tone": "launch",
+       "weight": 25
+      },
+      {
+       "label": "Antigravity availability",
+       "detail": "Oct 20",
+       "tone": "rising",
+       "weight": 35
+      },
+      {
+       "label": "Kimi K3.1 Pro comparison",
+       "detail": "Oct 23 → now",
+       "tone": "now",
+       "weight": 40
+      }
+     ]
+    }
+   }
+  },
+  {
+   "slug": "kimi-k3-1-2026-10-16",
    "label": "Kimi K3.1",
    "item_count": 4,
    "day_count": 2,
    "source_count": 2,
    "first_seen": "2026-10-16T12:42:36+00:00",
    "last_updated": "2026-10-23T17:26:02+00:00",
-   "latest_title": "Kimi K3.1 Pro: Benchmarks, Pricing and How to Use It",
+   "latest_title": "Kimi K3.1 Pro vs. Claude Opus 5.5 and GPT-6 Astra",
    "days": [
     "2026-10-16",
     "2026-10-23"
@@ -69,7 +180,10 @@
     "b28b8ff92f103020",
     "a497d201fd23202a",
     "b5619922e4bc7751",
-    "cd442996a2b9d050"
+    "cd442996a2b9d050",
+    "9bc4cd126d80eb25",
+    "e3d2d5f8c38c6fc9",
+    "2db4596402ec0fb3"
    ],
    "member_urls": [
     "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1HVUNmcHJwTHJoM2o1SUpYZlBXNHRoYzg5c0d5N0h6UlpTMnN1a0ZyN3ZFTmJYQnJVcDRjeVF4b3c3ODZrdm1GY2JPd0dzZXJqQ1d1bG9XaWNtWXpQbndocV9KUzM?oc=5",
@@ -77,84 +191,151 @@
     "https://news.google.com/rss/articles/CBMicEFVX3lxTFBBMm9rbzAtcGRESVA4TTZjTy1hSTllQ2FUcWR1OEpZaFNWUUtlYjJHbmhkb181Q2Z1eUhCMGV5ejhwSzFiSkxzaS1LREI2cGZKZ3RqRVhKd0NacnVldTdsLXdWLXJzYjlOa09iQlY2RlE?oc=5",
     "https://news.google.com/rss/articles/CBMikAFBVV95cUxPOWFlMmFWTWZLYV9UNVVwQ2dXRXFWQUxROU9KX1YzQnRzQWpGQ2dhSF9pNGh5SFNlcGxEeFo3VC1paU1fVGRrRWJ3SjBhSjRTUTJQdHhpOVVocVNnYl9KRlBhUmp3dHZjV0J6OHNnRE9jZnA1anlkdnZvNWVmRkRhZVQ4UGNsS2dwSlpHVUowQW8?oc=5",
     "https://simonwillison.net/2026/Oct/23/kimi-k31-pro",
-    "https://news.google.com/rss/articles/CBMiREFVX3lxTE5JZFpDeTk0ZFM3TWlBMDhXa0FPZGVFZkp4U2Z0dFhJdGFTRjRIQ0Vob19vWVdGaU1lU2ZyZFBRaUI0WW82?oc=5"
+    "https://news.google.com/rss/articles/CBMiREFVX3lxTE5JZFpDeTk0ZFM3TWlBMDhXa0FPZGVFZkp4U2Z0dFhJdGFTRjRIQ0Vob19vWVdGaU1lU2ZyZFBRaUI0WW82?oc=5",
+    "https://news.google.com/rss/articles/CBMinwFBVV95cUxPLUdRdUVWU0tTX1FyTEhlWkVrX1FJd2tQTmVyamkxcjFkYTh4bXA3c1V0ZHdJc3F5UlNPYk9lMzNneXlObGFMSU9QSXRFNFI1SURhN2FXS2lxQjYwQkpjMDZLS04tOFcxUHl6NTlaMERkSFZ1cVQ4ZHlRcFVWUFM5UDVJLUZmSWxiMDlCS2dkLUp1SVZDYnhwaWw3bXFRVUE?oc=5",
+    "https://news.google.com/rss/articles/CBMifEFVX3lxTFA1VXRGU2RiNHEyOEw5WjZzMkdsN283cGlwcFFJWjVIYXFWcTNyMWFPUFRxVUxwcnRDWFlZelJuSF92TEJGc3duOUx5RE5qWFpraGNJVFhobDJVc3ozc2dzNjNIaDVybkgtTEV6QVgzUm40My1CeVJVNXRIQ08?oc=5",
+    "https://news.google.com/rss/articles/CBMihgFBVV95cUxOWVZOa1Ata3k5dGctejB3MlN3aXBJZ2szbnNoRzJyRW5CbVVsd1V3SU1qb3RfeUtqdTNFeXRuZ0hmNFRWSmxrY1FPQnVTb2lHcDZDMHRLd1o1b0pDX1BRLWNNc0tFSFBfZVJtNE95NHYxOHZveTdMZExhWERDMDZsMTVLc1lEQQ?oc=5"
    ],
    "editorial": {
-    "tldr": "Moonshot's Kimi K3.1 appeared as a name before any model shipped, on Oct 16. The same day, a report said China's planned export license for new large AI models could affect its unreleased launch.",
+    "tldr": "On Oct 16, coverage framed Moonshot's Kimi K3.1 as a name without a released model, and one report said a new Chinese export-license requirement for large AI models could affect it. A week later, reports said it was being readied for release after Arena testing.",
     "stale": false,
-    "whats_new": "TestingCatalog reports Kimi K3.1 is being prepared for release after Arena testing, and a Kimi K3.1 Pro explainer on benchmarks and pricing followed the same day.",
-    "why_it_matters": "A possible export-license requirement plus an unreleased model means availability, API access and pricing for K3.1 are unconfirmed, so it is not yet a safe dependency.",
-    "take_for_builders": "Do not wire K3.1 into production yet; keep your current model as fallback and rerun your own evals once Moonshot confirms availability, pricing and license terms.",
+    "whats_new": "On Oct 23, TestingCatalog reported Kimi K3.1 is being prepared for release after Arena testing, and R&D World published a comparison of Kimi K3.1 Pro against Claude Opus 5.5 and GPT-6 Astra.",
+    "why_it_matters": "A pre-release open-weight candidate with a possible export-licensing hurdle is a planning risk: availability, hosting terms and timing are unconfirmed.",
+    "take_for_builders": "Do not wire Kimi K3.1 into production routing yet; queue an eval on your own tasks for when weights or an API appear, and check the license and hosting terms then.",
     "status": {
      "state": "Pre-release",
      "tone": "rising",
      "changed": "2026-10-23",
-     "detail": "K3.1 is reportedly in Arena testing and nearing release; no confirmed official launch appears in these items.",
+     "detail": "Kimi K3.1 appears to be nearing release after Arena testing, but the headlines here do not confirm a launch date or availability.",
      "track": [
       {
-       "label": "name only",
+       "label": "unreleased",
        "detail": "Oct 16",
        "tone": "neutral",
-       "weight": 30
-      },
-      {
-       "label": "export-license risk",
-       "detail": "Oct 16",
-       "tone": "turn",
-       "weight": 30
+       "weight": 40
       },
       {
        "label": "Arena testing, release prep",
        "detail": "Oct 23 → now",
        "tone": "now",
-       "weight": 40
+       "weight": 60
       }
      ]
     }
    }
   },
   {
-   "slug": "retrieval-execution",
-   "label": "Retrieval Execution",
-   "item_count": 5,
-   "day_count": 5,
-   "source_count": 4,
-   "first_seen": "2026-10-03T14:07:04+00:00",
-   "last_updated": "2026-10-23T17:00:00+00:00",
-   "latest_title": "Context Engineering (Agent Memory) for AI Agents Starts with Retrieval",
+   "slug": "large-language",
+   "label": "Large Language",
+   "item_count": 10,
+   "day_count": 7,
+   "source_count": 6,
+   "first_seen": "2026-10-06T16:59:37+00:00",
+   "last_updated": "2026-10-22T16:36:35+00:00",
+   "latest_title": "An Empirical Study of Recent Large Language Models for Knowledge Graph to Text Generation on Standard Benchmarks",
    "days": [
-    "2026-10-03",
     "2026-10-06",
     "2026-10-09",
-    "2026-10-17",
-    "2026-10-23"
+    "2026-10-10",
+    "2026-10-16",
+    "2026-10-20",
+    "2026-10-21",
+    "2026-10-22"
    ],
    "member_sids": [
-    "734c12b48d882553",
-    "8ced9fea396e65fb",
-    "19b58845c8888d5a",
-    "cbef01ba5cb1e9c5",
-    "b0133c74d1515b7b"
+    "c47efdba3284bb9f",
+    "13307002442ed537",
+    "52d729da63596a31",
+    "f0fd06585d59dd3d",
+    "ade0f523550f640a",
+    "06d8677dec3b3c21",
+    "16071b3c73317004",
+    "276a486ae6eefe6b",
+    "8debe4581e047c88",
+    "c888971c48a268c3"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2610.04537v1",
-    "http://arxiv.org/abs/2610.08098v1",
-    "http://arxiv.org/abs/2610.13889v1",
-    "https://arxiv.org/abs/2609.25913",
-    "https://www.langchain.com/blog/context-engineering-starts-with-retrieval"
+    "http://arxiv.org/abs/2610.08678v1",
+    "https://www.infoq.com/presentations/netflix-observability-aiops-ontology-scale/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "http://arxiv.org/abs/2610.13722v1",
+    "http://arxiv.org/abs/2610.14968v1",
+    "http://arxiv.org/abs/2610.23525v1",
+    "http://arxiv.org/abs/2610.27868v1",
+    "http://arxiv.org/abs/2610.29895v1",
+    "http://arxiv.org/abs/2610.30435v1",
+    "http://arxiv.org/abs/2610.30676v1",
+    "http://arxiv.org/abs/2610.31529v1"
    ],
    "editorial": {
-    "tldr": "From Oct 3 to Oct 17, papers examined retrieval in agents and on-device LLMs under execution constraints: CPU retrieval scheduling, skill routing, tool retrieval, and agent memory. The shared thread was that retrieval is judged by what happens at run time, not only by semantic match.",
+    "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 6-20 papers cover a speculative-decoding attack surface, knowledge-graph-guided legal and secure-code work, sycophancy, and code-translation hallucinations.",
     "stale": false,
-    "whats_new": "LangChain's Oct 23 post says its Deep Agents harness fixes clumsy searches, oversized results, and stale data to get the right context in, moving the theme from papers to a shipped harness.",
-    "why_it_matters": "Retrieval for skills, tools, and memory can fail at run time through unavailable tools, latency contention, oversized results, or stale data, so relevance-only scoring is not enough.",
-    "take_for_builders": "Log for each retrieved tool, skill, or memory whether it was available and succeeded at run time, and cap result size, so you can measure the gap these papers and LangChain's post target.",
-    "status": {
-     "state": "Developing · research to practice",
-     "tone": "rising",
-     "changed": "2026-10-23",
-     "detail": "Four papers frame retrieval as an execution problem; LangChain's Oct 23 post is the first practitioner write-up in the thread."
-    }
+    "whats_new": "Oct 22 adds two arXiv papers: spectral smoothing/spiking interventions that shift LLM capability profiles, and an empirical benchmark of recent LLMs on knowledge-graph-to-text generation; neither extends earlier items.",
+    "why_it_matters": "Each paper names a distinct failure or evaluation surface: draft-model attacks, sycophancy, hallucinated translated code, search-state blindness, weight-spectrum side effects. Treat them as separate checks, not one trend.",
+    "take_for_builders": "Do not cite these papers as corroborating each other; add a hallucination check on LLM-translated code, and wait for independent evals before adopting the search-state RL or spectral-editing methods."
+   }
+  },
+  {
+   "slug": "empirical-study",
+   "label": "Empirical Study",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-10-13T15:03:31+00:00",
+   "last_updated": "2026-10-22T16:36:35+00:00",
+   "latest_title": "An Empirical Study of Recent Large Language Models for Knowledge Graph to Text Generation on Standard Benchmarks",
+   "days": [
+    "2026-10-13",
+    "2026-10-21",
+    "2026-10-22"
+   ],
+   "member_sids": [
+    "97a96debf9eea48c",
+    "a0784d9bff0dcc3c",
+    "c888971c48a268c3"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.18507v1",
+    "http://arxiv.org/abs/2610.30090v1",
+    "http://arxiv.org/abs/2610.31529v1"
+   ],
+   "editorial": {
+    "tldr": "Three unrelated arXiv papers share only the phrase \"empirical study\" in their titles. They cover coding agents on clinical trial protocols (Oct 13), calibrated attack triage (Oct 21), and LLMs on knowledge-graph-to-text (Oct 22).",
+    "stale": false,
+    "whats_new": "A new arXiv paper benchmarks recent LLMs on knowledge-graph-to-text generation against fine-tuned encoder-decoder models on standard benchmarks (Oct 22).",
+    "why_it_matters": "This is a keyword cluster, not one developing story: each paper is a separate, single-source preprint, so treat each result on its own terms.",
+    "take_for_builders": "Do not treat these as one trend; read the clinical-protocol coding-agent paper if you build long-document extraction agents, and wait for replication before acting on any of the three."
+   }
+  },
+  {
+   "slug": "action-reasoning",
+   "label": "Action Reasoning",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-10-20T15:33:20+00:00",
+   "last_updated": "2026-10-22T14:48:16+00:00",
+   "latest_title": "Certified Execution Harness for Agentic AI: Safe and Least-Intrusive Petri-Net Supervisory Control Between Reasoning and Action",
+   "days": [
+    "2026-10-20",
+    "2026-10-21",
+    "2026-10-22"
+   ],
+   "member_sids": [
+    "fcf269e2184843b3",
+    "cf2272f49f6763e1",
+    "52c63825356144e3"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.28381v1",
+    "http://arxiv.org/abs/2610.30051v1",
+    "http://arxiv.org/abs/2610.31376v1"
+   ],
+   "editorial": {
+    "tldr": "Three arXiv papers in three days examine the gap between LLM reasoning and acting. One proposes a benchmark for action and plan safety in embodied agents, and another tests frontier models on robot manipulation.",
+    "stale": false,
+    "whats_new": "A new arXiv paper formalizes the harness between an LLM and its tools as a Petri-net supervisory controller to block unsafe tool calls under prompt injection.",
+    "why_it_matters": "These are research preprints, not products, but they point at where agent safety work is heading: checking actions at the execution layer rather than trusting the model's reasoning.",
+    "take_for_builders": "If your agents call tools, treat the execution layer as the place for enforcement; these preprints are unreplicated, so test any approach on your own tool set before relying on it."
    }
   },
   {
@@ -220,43 +401,6 @@
      "changed": "2026-10-21",
      "detail": "DeepInfer is public; independent reproduction of the efficiency claims has not appeared yet."
     }
-   }
-  },
-  {
-   "slug": "large-language",
-   "label": "Large Language",
-   "item_count": 5,
-   "day_count": 4,
-   "source_count": 4,
-   "first_seen": "2026-10-06T16:59:37+00:00",
-   "last_updated": "2026-10-21T20:46:24+00:00",
-   "latest_title": "Self-Assessment Reinforcement Learning for Search-State Awareness in Retrieval-Augmented Large Language Models",
-   "days": [
-    "2026-10-06",
-    "2026-10-16",
-    "2026-10-20",
-    "2026-10-21"
-   ],
-   "member_sids": [
-    "c47efdba3284bb9f",
-    "ade0f523550f640a",
-    "06d8677dec3b3c21",
-    "16071b3c73317004",
-    "276a486ae6eefe6b"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2610.08678v1",
-    "http://arxiv.org/abs/2610.23525v1",
-    "http://arxiv.org/abs/2610.27868v1",
-    "http://arxiv.org/abs/2610.29895v1",
-    "http://arxiv.org/abs/2610.30435v1"
-   ],
-   "editorial": {
-    "tldr": "This page groups arXiv papers by the shared phrase \"large language models\"; they do not form one developing story. They cover a security attack on speculative decoding (Oct 6), narrative-induced sycophancy (Oct 16) and hallucinations in code translation (Oct 20).",
-    "stale": false,
-    "whats_new": "Oct 21 adds an arXiv paper on self-assessment RL for search-state awareness in retrieval-augmented agents, plus a materials-data extraction survey; neither extends the earlier papers.",
-    "why_it_matters": "Each paper names a distinct failure surface: speculative decoding adds a draft-model attack path, sycophancy skews user-facing answers, code translation adds hallucinated output, and search agents lack awareness of what they have retrieved. Treat them as separate checks, not one trend.",
-    "take_for_builders": "Do not cite these papers as corroborating each other; add a hallucination check on LLM-translated code, and wait for independent evals before adopting the search-state RL method."
    }
   },
   {
@@ -444,151 +588,6 @@
      "tone": "rising",
      "changed": "2026-10-20",
      "detail": "Antigravity is widening from a Google-model agent tool to a multi-vendor, local-plus-cloud harness."
-    }
-   }
-  },
-  {
-   "slug": "reflection-ai-releases-beam-an-american-open-weight-model",
-   "label": "Reflection Beam",
-   "item_count": 9,
-   "day_count": 4,
-   "source_count": 4,
-   "first_seen": "2026-10-05T01:09:00+00:00",
-   "last_updated": "2026-10-16T15:23:10+00:00",
-   "via_scout": true,
-   "latest_title": "Introducing Reflection Beam: an open-weight model for agentic coding on AWS",
-   "days": [
-    "2026-10-05",
-    "2026-10-06",
-    "2026-10-10",
-    "2026-10-16"
-   ],
-   "member_sids": [
-    "e7651bad514e3e27",
-    "70ef3a77c8467af2",
-    "417c3a0572d8db45",
-    "d24de0e6aea61ab2",
-    "36cad6eb6e14f728",
-    "0a20094e6af23525",
-    "df3495e4c286ffa0",
-    "5726df15bb134984",
-    "4f379e8b58549775"
-   ],
-   "member_urls": [
-    "https://news.google.com/rss/articles/CBMiowFBVV95cUxPMnZhcjNtb0dQV0tkSXlGck9SQWJJMmFqbWZ1ZWhxMmdhU0pKQW5nSENGYjNsNUpWLXBvVHpXTXlqY1FKaVNrS0s2dzJQTjU2aGlBM0NrcmlLa3YxemJfM185SVB2Q0pzbmlmUzUwUE4yaHM0ekdHa0VqVmp1NkdPVTdndWRTWTg2Tl94NzZjTU5aX1hPLXB4aWg1N0JrM3lDRl9J?oc=5",
-    "https://news.google.com/rss/articles/CBMidkFVX3lxTFBfOURaUldkQW9fWTRyR2VRUUxuTElKUXpvQkhPa2E5TFJ5M1pJMU92VFk4TUF4Ri1XNnlFWHBsYXJpSnJGYzJPZVRNeHVILVRYZW1USEFGZks2NEZmaEllRDg2cWdmaWZXMHoxTVVZMXdMN200QkE?oc=5",
-    "https://www.latent.space/p/ainews-reflection-beam-501b-a23b",
-    "https://news.google.com/rss/articles/CBMidkFVX3lxTE01SlBSMTBQTnh2ZnJfT09VM2FHVVRjeDBDMl83Y1ctNkxFelBTQU9ibGtad2E3UkFLbEdZbzdscUxJY2hiRXdRam1WSHM4S1NHU1BNYWJRQUtCR0JxSDZUbGtBX293TXh1dm9lVlI1TlY4QjE1dWc?oc=5",
-    "https://news.google.com/rss/articles/CBMipAFBVV95cUxOUUdNbzk3OUNsZlNoWGZjZmhkZ0xNRjZrU05hMXphczJ4aDNvaDhMNlVDS1pYVzBHcU9DYUl3Yl9qVGtOeUZiS0JTNmVWck1weHh1ZTJFNDRHeV91dkRxSUx4WFBGLVVNRnBXMHVoc29pZklhczRwckcwMFhnaWVSQ0JYWWd1MnU1ektXOVZkTm9QbzR0cHlVUWRlUWJzTldoZEJwOQ?oc=5",
-    "https://news.google.com/rss/articles/CBMiekFVX3lxTE80Z01mUGFTUWpjQlNCakF3UF9TbFFYN2xEX1NRb3JHUklSOTlmX3M5bWVRblI4NGhTVzB1eUFadVpZMUx2dzZvWFJra2wzRDRoV3VUSkl1LTJleFNVdlNEUV9wS0tkYnJRb1BySmFEbnc5aXNRU1ZDY1Fn?oc=5",
-    "https://news.google.com/rss/articles/CBMidkFVX3lxTE1ndDRnTHhKR3pGUHhtSmxvQmdIaHN6TW1LT01Ha3kxSjZwb2I0UEpsN1poNnpwZ3ZxcS01SldaWkZacGV4czUzdGQtQWU2aXo1NzR6WHhtYVh0bHFjT2JCOUIySHVUZFFMZktEZFVmb1RheEdnZVE?oc=5",
-    "https://vllm.ai/blog/2026-10-16-reflection-beam",
-    "https://aws.amazon.com/blogs/machine-learning/introducing-reflection-beam-an-open-weight-model-for-agentic-coding-on-aws"
-   ],
-   "editorial": {
-    "tldr": "Nvidia-backed Reflection AI was reported on Oct 5 to be preparing a \"DeepSeek of the West\" open model. Beam, a 501B-parameter model with 23B active, shipped Oct 6 and was framed against low-cost Chinese models.",
-    "stale": false,
-    "whats_new": "On Oct 16, AWS published a SageMaker deployment guide for Beam and vLLM shipped day-0 serving, so the 501B-A23B model now runs on both a managed endpoint and an open inference stack.",
-    "why_it_matters": "Beam can now be tested on a SageMaker JumpStart endpoint or your own vLLM stack; the reported Nvidia acquisition bid still leaves its license and release cadence unsettled.",
-    "take_for_builders": "Run Beam on vLLM or a SageMaker JumpStart endpoint against your open-weight eval shortlist, and pin the exact weights and license text you test until the ownership question is settled."
-   }
-  },
-  {
-   "slug": "nemotron-3-5",
-   "label": "Nemotron 3.5",
-   "item_count": 4,
-   "day_count": 2,
-   "source_count": 2,
-   "first_seen": "2026-10-15T00:00:00+00:00",
-   "last_updated": "2026-10-16T08:46:30+00:00",
-   "latest_title": "Nemotron 3.5 Super VL vs Kimi K3: A Metered Flagship Against a Weight Release With No Rate Card",
-   "days": [
-    "2026-10-15",
-    "2026-10-16"
-   ],
-   "member_sids": [
-    "5b7496a31dc4a921",
-    "fa7edf5313b75f42",
-    "6e859d00d3f1f59e",
-    "1e11786f937b04c6"
-   ],
-   "member_urls": [
-    "https://vllm.ai/blog/2026-10-15-nemotron-3-5-super-vl-vllm",
-    "https://news.google.com/rss/articles/CBMie0FVX3lxTE5qMllJc1d4dEtSMkQ1aHBhRlViakpXT0tZaW1yWXFrY002d0RiVGl2SkxwX25xSmt3b0JOenpmc00wR3hqNVlMVURPMmwwTldCNUhMMzdZSmY5TkxrSDMyYW11OFVJS1NZYVQ2Z0JmTEEtMGpkcTNZWmRGOA?oc=5",
-    "https://news.google.com/rss/articles/CBMijAFBVV95cUxQQmFGQ25uc2ZfRU1Ja2hkTmVNeWJjRzBxX2x3clBhb1I5RUVLNUdHNkdycFB6WXFiYmtkV1ZPbnltTWVoWTYxS0lSa3o1V2JJZmpiMXVpbE1ZeE1xcWxqN2ZZTENMZVlTRTI5U0FwcGNMY1d3X2U4NTU2ZXF3S3ZoZjNNUjF4aXVPcERKTA?oc=5",
-    "https://news.google.com/rss/articles/CBMibEFVX3lxTE9zR1pyUy03YUd6NVJwNjJqTFZuZ3JzZklfUWRwOGRVU01tOGJfelN6OGJiak5CbklCY0pDaHQ2SG5OcUJYWGRwSFQySGxKVG9LTnkwYTJnY0J0MFpLNy1YRXFFOVNLd29ZQ3hTZQ?oc=5"
-   ],
-   "editorial": {
-    "tldr": "vLLM announced day-0 support for NVIDIA Nemotron 3.5 Super VL on Oct 15, covering image, document and video input through OpenAI-compatible serving. Comparison write-ups against rival open models followed within a day.",
-    "stale": false,
-    "whats_new": "OrcaRouter published head-to-head comparisons on Oct 16 pitting Nemotron 3.5 Super VL against Kimi K3 and DeepSeek V4 Flash Vision Exp, framed around pricing and availability rather than raw scores.",
-    "why_it_matters": "Day-0 vLLM support means you can test Nemotron 3.5 Super VL on an existing OpenAI-compatible serving stack for document and video agents; the comparisons show the real decision is metered API versus self-hosted weights.",
-    "take_for_builders": "If you run multimodal document or video agents, point an existing vLLM deployment at Nemotron 3.5 Super VL and rerun your own eval before trusting a single vendor-neutral comparison site.",
-    "status": {
-     "state": "Shipping · vLLM day-0",
-     "tone": "now",
-     "changed": "2026-10-15",
-     "detail": "Servable on vLLM from launch day; independent comparisons started appearing Oct 16.",
-     "track": [
-      {
-       "label": "vLLM day-0 support",
-       "detail": "Oct 15",
-       "tone": "launch",
-       "weight": 40
-      },
-      {
-       "label": "comparisons",
-       "detail": "Oct 16 → now",
-       "tone": "now",
-       "weight": 60
-      }
-     ]
-    }
-   }
-  },
-  {
-   "slug": "ahead-ipo",
-   "label": "Ahead IPO",
-   "item_count": 6,
-   "day_count": 5,
-   "source_count": 2,
-   "first_seen": "2026-10-06T12:00:00+00:00",
-   "last_updated": "2026-10-15T13:04:03+00:00",
-   "latest_title": "Anthropic tells investors quarterly revenue up nearly 50% to $16.8bn ahead of IPO",
-   "days": [
-    "2026-10-06",
-    "2026-10-07",
-    "2026-10-11",
-    "2026-10-12",
-    "2026-10-15"
-   ],
-   "member_sids": [
-    "b93148d5de7129e2",
-    "2c370085a176316e",
-    "98ef490545c3818f",
-    "77d310c84c603127",
-    "94fcf9887435c83b",
-    "e58311dcd1376969"
-   ],
-   "member_urls": [
-    "https://news.google.com/rss/articles/CBMibkFVX3lxTE9jdzd0dU5helZiY3k5dFB4dHJWRFZINkdUN2UtNklWaVQ5NmU4UnJJOEcxMUhqemhlZHpuTkVVR1NJN2s0dkd4dFNzSksyOERVaHhsdVZiajhyYThuQTBRREJyVmtSbzNDQjgtT2J3?oc=5",
-    "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNbDBFeERjR0dJZkFjdEc2cnNPWUI3QUlZU3lScWNvWnpCeHI5TWJwX1NteWVibkJCZXMyNThJc0hHdXliWnZJTnlQTEZ1Y3FxRElnMkYtVnJ5WGstNHpzQ0RueFVaX0NmdC1zSjl4UlY1eFYzVF9uMnU4YTR0WHQtMFRvVGttOVhJbW9CZDRHZlU1ZXdFall1azRCM1Zoc25BQXQ3UTNoQVk?oc=5",
-    "https://news.google.com/rss/articles/CBMimgFBVV95cUxQYzk5b0RnbUxXYThCRHZHNE5oMXY1dlktOGRBYzZENWM4bXdJWmhrNEdwbGpSY0NuZjJFYnNVM0t5VFE2WEhlU2JIZ0NUU2xkVl9KM0tDemVzd19IaXFPQThITHF5bU9QeEpUa3dNbnVJTkRzUU1ERHRvMVBiN2tpd3ZLcFhnVTZxQ2prZVJWM0padkppd1JZTFJB?oc=5",
-    "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNQ1hmZzQxZmpITVlBeVpjanJJRWhDN0JGWWtSb291VDJIaTR2ZXJuVDRtanlSUDdiQllFM1RqSjBHeXp6N2JaT1FnMXB5Yk45RWhOeFoxT3RGMEdJT3N1UG1SS0E3RWFvRG1Tci0waTNYWVBKeFcwOVJ6T1dVOV84cTZHY3B1ekdOR3ZqZ1NLWFZTN1Zoc3k2dWZLU0dOTnprX0ZBcnZLRmFsdUUxQkhNUkRpN1dpUE0wSTBHRVhIY2NrcEk?oc=5",
-    "https://news.google.com/rss/articles/CBMidkFVX3lxTFB6TEF2cVBaUFpVcEtCWm5vdUlHd0htVVVrQlBUQnlqN2drVTFLbHBhbzRCSmFlT0VSbXdKOUljM0VGdnpfaDd5VUxzbUtzNnZBMHdkdmNSNlEyV1M4bDFHVzV0U1Fzc2dWY0Eyd3p2d3YzWTA0R0E?oc=5",
-    "https://simonwillison.net/2026/Oct/15/anthropic-tells-investors"
-   ],
-   "editorial": {
-    "tldr": "Reports on October 6–7 put DeepSeek's pre-IPO raise at $12B or more ahead of a 2027 listing. By October 11, Moonshot AI was reported to be negotiating a settlement with a shareholder before its own planned IPO.",
-    "stale": false,
-    "whats_new": "Anthropic told investors quarterly revenue rose nearly 50% to $16.8bn ahead of its own IPO, putting a US lab alongside DeepSeek and Moonshot in the pre-listing queue.",
-    "why_it_matters": "Labs preparing to list will disclose revenue, pricing power and shareholder terms, which are the signals that tell you which vendors can fund inference capacity and price cuts through 2027.",
-    "take_for_builders": "Keep a fallback provider for any lab whose IPO terms are unsettled, and re-check pricing commitments once S-1 style disclosures appear.",
-    "status": {
-     "state": "Pre-IPO · developing",
-     "tone": "rising",
-     "changed": "2026-10-15",
-     "detail": "Three labs are lining up listings, but none has priced or filed publicly in these sources."
     }
    }
   }

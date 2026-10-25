@@ -1,0 +1,42 @@
+{
+  "slug": "action-reasoning",
+  "generated_at": "2026-10-25T00:20:00+00:00",
+  "covers_last_updated": "2026-10-22T14:48:16+00:00",
+  "covers_member_sids": ["fcf269e2184843b3", "cf2272f49f6763e1", "52c63825356144e3"],
+  "tldr": "Three arXiv papers in three days examine the gap between LLM reasoning and acting. One proposes a benchmark for action and plan safety in embodied agents, and another tests frontier models on robot manipulation.",
+  "whats_new": "A new arXiv paper formalizes the harness between an LLM and its tools as a Petri-net supervisory controller to block unsafe tool calls under prompt injection.",
+  "why_it_matters": "These are research preprints, not products, but they point at where agent safety work is heading: checking actions at the execution layer rather than trusting the model's reasoning.",
+  "beats": [
+    {
+      "kicker": "BENCHMARK",
+      "tone": "launch",
+      "headline": "CAPSafe benchmarks safety reasoning for embodied agents",
+      "summary": "Evaluates contextual action and plan safety at two levels.",
+      "sids": ["fcf269e2184843b3"]
+    },
+    {
+      "kicker": "EVALUATION",
+      "tone": "rising",
+      "headline": "Frontier models tested on LIBERO-10 robot manipulation",
+      "summary": "Asks whether general-purpose models can move from reasoning to physical action.",
+      "sids": ["cf2272f49f6763e1"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Petri-net supervisory control between reasoning and action",
+      "summary": "Moves from measuring safety to enforcing it at tool execution under prompt injection.",
+      "sids": ["52c63825356144e3"]
+    }
+  ],
+  "open_questions": [
+    "Do any of the three papers report results on a deployed agent framework rather than a benchmark or formal model?",
+    "Does the Petri-net harness release code or measured overhead for tool-call latency?"
+  ],
+  "take_for_builders": "If your agents call tools, treat the execution layer as the place for enforcement; these preprints are unreplicated, so test any approach on your own tool set before relying on it.",
+  "day_captions": {
+    "fcf269e2184843b3": "Introduces CAPSafe, a benchmark for action and plan safety reasoning in embodied LLM agents.",
+    "cf2272f49f6763e1": "Benchmarks frontier AI models on LIBERO-10 manipulation tasks, testing reasoning-to-action transfer.",
+    "52c63825356144e3": "Formalizes the LLM-to-tool harness as a Petri-net supervisory controller for safe execution under prompt injection."
+  }
+}
