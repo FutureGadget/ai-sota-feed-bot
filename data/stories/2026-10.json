@@ -4427,6 +4427,23 @@
   "url": "http://arxiv.org/abs/2610.31588v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "40c644a15cb895a9": {
+  "first_seen": "2026-10-26T11:03:41.084881+00:00",
+  "id": "84a63cd948097134",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-23T10:01:41+00:00",
+  "sid": "40c644a15cb895a9",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Building Task-Oriented Dialogue (TOD) systems for high-value scenarios such as financial marketing requires large volumes of domain-specific dialogue data, which privacy regulations, annotation costs, and the need for expert labor make hard to obtain. User simulation offers a remedy, but existing methods target general-domain dialogue and exhibit two key limitations: insufficient modeling of domain-specific business processes and compliance constraints, and inadequate capture of the colloquial, spoken-language character of voice interactions. We propose ProfileSim, a profile-driven user simulation framework for financial marketing outbound calls. It jointly models user profiles---demographics and Big Five personality traits---and business profiles---intents reverse-engineered from real call logs---enabling fine-grained control over simulated behavior. The base model is fine-tuned on real voice dialogue data and refined by Group Relative Policy Optimization (GRPO) with hierarchical rewards at the dialogue and utterance levels. Paired with a customer service agent integrating Standard Operating Procedure (SOP) constraints and Retrieval-Augmented Generation (RAG), ProfileSim achieves the highest colloquial naturalness, the strongest user profile adherence and the lowest agent score on long-tail intents among all evaluated user generators, while producing substantially shorter user utterances at comparable business compliance. The generated dialogue data is designed to support in",
+  "summary_1line": "Building Task-Oriented Dialogue (TOD) systems for high-value scenarios such as financial marketing requires large volumes of domain-specific dialogue data, which privacy regulations, annotation costs, and the need for...",
+  "title": "Profile-Driven User Simulation via Reinforcement Learning with Hierarchical Rewards for Task-Oriented Dialogues",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32435v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "40ec3357b31f114b": {
   "first_seen": "2026-10-14T08:04:27.591740+00:00",
   "id": "f62f0466de6c1bf6",
@@ -10856,8 +10873,8 @@
   "published": "2026-10-22T07:29:17+00:00",
   "sid": "a1256d3bfaf174ed",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: translation. Likes: 3, downloads: 0.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: translation. Likes: 3, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Task: translation. Likes: 6, downloads: 0.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: translation. Likes: 6, downloads: 0.",
   "title": "tencent/Hy-SimulMT-30B-A3B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Hy-SimulMT-30B-A3B"
@@ -13245,6 +13262,24 @@
   "type": "research",
   "url": "https://huggingface.co/blog/microsoft/thinkingbox",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "bd36dcd4473fffd5": {
+  "first_seen": "2026-10-26T11:03:41.084881+00:00",
+  "id": "915addafb62882d1",
+  "matched_topics": [
+   "agentic",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-10-23T03:22:12+00:00",
+  "sid": "bd36dcd4473fffd5",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Agents and verifiers often rely on the text a tool prints, and that text can misrepresent what the tool actually did, even when the tool's computation is correct. We saw this happen in a production RAG research system used by the Pilsudski Institute in New York, where tool output formatters misled an agent into giving wrong or incomplete information to users. Each tool did its job correctly, but its output omitted search limits, result caps, or identifier namespaces. We also recreated an unlabeled estimate caught in code review before release. We studied whether these formatters misled agents and verifiers and how much the repaired wording helps. We fed tool results to agents using two formatter versions: one with the key omissions and one with all missing details clearly stated. That difference alone changed what the agents claimed and what the verifiers accepted. Unsupported agent claims dropped substantially for three of the four failure types. In one test, verifiers went from accepting incorrect answers 90 out of 90 times to rejecting them 90 out of 90 times. A control showed the verifiers could catch the errors once they were given the missing facts and asked to judge correctness. We include the audit prompt we used with Codex and Claude Code in an exploratory demonstration, written with prior knowledge of our own system's defects. When pointed at an old version of our own system, it rediscovered the defects that were still live and surfaced twelve more we had not catalo",
+  "summary_1line": "Agents and verifiers often rely on the text a tool prints, and that text can misrepresent what the tool actually did, even when the tool's computation is correct. We saw this happen in a production RAG research system...",
+  "title": "Who Verifies the Tools? How Warped Formatters Mislead Agents and Their Verifiers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32110v1",
+  "why_it_matters": "Matches feed focus: agentic, codex, claude code."
  },
  "bdc7b775ab8d2106": {
   "also_covered": [
@@ -16938,6 +16973,25 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.163.0-alpha.10",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "ec65ed160d4d2c5e": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Suhail Patel discusses how Monzo structures its software engineering organization and technical stack to ship safely hundreds of times a day. He shares insights into opinionated microservice abstractions, tenancy-based staging, static analysis checks, continuous profiling, demonstrating how a strong internal platform enables engineers and LLMs to iterate rapidly without sacrificing reliability. Manju Rajashekhar explains how the actor model solves the complex runtime challenges of production AI agents. By treating agents as distributed systems, he discusses state ownership, message passing, write-through state, and supervision boundaries to manage failures, continuations, and mutable execution graphs, moving agentic workflows beyond fragile demos to resilient architecture. Nathen Harvey shares insights from DORA",
+  "first_seen": "2026-10-26T11:03:41.084881+00:00",
+  "id": "98c00e35c6ebee8b",
+  "image_url": "https://res.infoq.com/articles/agentic-ai-architecture-harness-evolution/en/headerimage/agentic-ai-architecture-harness-evolution-header-1792744961862.jpg",
+  "matched_topics": [
+   "agentic",
+   "harness"
+  ],
+  "published": "2026-10-26T11:00:00+00:00",
+  "sid": "ec65ed160d4d2c5e",
+  "source": "infoq_ai_ml",
+  "summary": "Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. By Karthik Ramgopal",
+  "summary_1line": "Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code ha...",
+  "title": "Article: The Evolution of Agentic Harnesses: From Chains to Graph to Code",
+  "type": "news",
+  "url": "https://www.infoq.com/articles/agentic-ai-architecture-harness-evolution/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+  "why_it_matters": "Matches feed focus: agentic, harness."
  },
  "ec84f4f58551c9cf": {
   "first_seen": "2026-10-11T15:05:02.526013+00:00",
