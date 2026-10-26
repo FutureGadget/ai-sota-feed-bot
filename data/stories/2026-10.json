@@ -392,6 +392,22 @@
   "type": "news",
   "url": "https://newsletter.semianalysis.com/p/amazons-trainium-takes-a-strike-at"
  },
+ "063af96eda7b596d": {
+  "first_seen": "2026-10-26T08:08:31.949160+00:00",
+  "id": "71da6c1629e511c0",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-23T17:35:33+00:00",
+  "sid": "063af96eda7b596d",
+  "source": "arxiv_cs_lg",
+  "summary": "Vision-Language-Action (VLA) models perform well on robotic manipulation, yet remain brittle once their own actions carry them into states their training data barely covers. Recovering from such failures usually requires recovery demonstrations, policy retraining, or a separate model at inference time. We introduce Backtrack, a lightweight failure detection and recovery mechanism for frozen VLAs that needs none of these. A small failure prediction head, trained only on outcome-labeled rollouts of the frozen policy, reads the VLA's existing internal representations to estimate whether the current episode will fail. When the predicted failure probability exceeds a threshold, a controller pauses the policy, retraces the arm's recently achieved motion, and hands control back to the unchanged policy so it can retry from an earlier configuration. The head adds only 0.48-0.88% to the policy's parameter count. We evaluate Backtrack on LIBERO with three VLAs spanning two action-generation families: SmolVLA and $π$0.5, which use flow-matching action experts, and the autoregressive $π$0-FAST. On LIBERO-Long, the suite of long-horizon multi-step tasks and the one on which all three policies fail most often, Backtrack reduces each policy's failure rate by 19-48%, raising success by up to 7.4 percentage points; on the three shorter suites, where control success is already 85-99%, its effect is smaller. On MetaWorld, all twelve controller configurations tested with SmolVLA improve on the un",
+  "summary_1line": "Vision-Language-Action (VLA) models perform well on robotic manipulation, yet remain brittle once their own actions carry them into states their training data barely covers. Recovering from such failures usually requi...",
+  "title": "If at First You Don't Succeed, Backtrack: Lightweight Recovery for Frozen VLAs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32941v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "068e3817b6d56fbd": {
   "first_seen": "2026-10-02T02:02:47.923202+00:00",
   "id": "04c41343715cb1dc",
@@ -636,6 +652,18 @@
   "title": "Reflection AI's Beam: What It Means for Rivals [2026]",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE80Z01mUGFTUWpjQlNCakF3UF9TbFFYN2xEX1NRb3JHUklSOTlmX3M5bWVRblI4NGhTVzB1eUFadVpZMUx2dzZvWFJra2wzRDRoV3VUSkl1LTJleFNVdlNEUV9wS0tkYnJRb1BySmFEbnc5aXNRU1ZDY1Fn?oc=5"
+ },
+ "0aa3e910422d022d": {
+  "first_seen": "2026-10-26T08:08:31.949160+00:00",
+  "id": "ec5d3e4ea542b277",
+  "published": "2026-10-23T16:32:29+00:00",
+  "sid": "0aa3e910422d022d",
+  "source": "arxiv_cs_lg",
+  "summary": "Time Series Foundation Models (TSFMs) offer strong zero-shot forecasting capabilities, but their high pretraining cost raises a practical sustainability question: does this upfront investment pay off over a full deployment lifecycle, compared to supervised standalone models that must be periodically retrained? We model the cumulative carbon cost of different approaches across a realistic industrial scenario: Chronos-2 amortizes its pretraining cost within months for large or frequently queried deployments, but a classical model remains cheaper indefinitely for small or rarely queried ones. For cases where reducing the TSFM's own cost matters, we show that removing a single encoder block (7.9% of parameters) via a gradient-free pruning criterion yields a consistent 6 to 9% reduction in FLOPs, CO2 emissions, and latency, at essentially no cost to zero-shot forecasting performance across a 25-task benchmark.",
+  "summary_1line": "Time Series Foundation Models (TSFMs) offer strong zero-shot forecasting capabilities, but their high pretraining cost raises a practical sustainability question: does this upfront investment pay off over a full deplo...",
+  "title": "Sustainability of TSFM Deployment and Pretraining: From Carbon Footprint Analysis to Mitigation via Pruning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32859v1"
  },
  "0aae55199d78c31a": {
   "first_seen": "2026-10-09T12:03:05.211876+00:00",
@@ -2377,6 +2405,22 @@
   "type": "news",
   "url": "https://www.latent.space/p/stacklok",
   "why_it_matters": "Matches feed focus: agent, harness."
+ },
+ "2335dc46382c33a6": {
+  "first_seen": "2026-10-26T08:08:31.949160+00:00",
+  "id": "ceec68c1298ff540",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-23T16:37:29+00:00",
+  "sid": "2335dc46382c33a6",
+  "source": "arxiv_cs_cl",
+  "summary": "Fine-tuning on datasets of unknown origin can create a backdoor in the trained model when the data includes poisoned examples. Difficult to localise and remove, backdoors can persist through safety training. While parameter-efficient fine-tuning methods capture the full parameter changes introduced during training, they are not easily interpretable. We present the full method of TopKLoRA, extending the preliminary proposal of Masiak et al. (2025), an interpretable-by-design LoRA variant in which only the $k$ largest adapter latents are active at each token. Unlike SAEs, TopKLoRA is trained purely on downstream loss, where optimisation pressure incentivises learning functionally causal latents. We demonstrate this sparse LoRA adapter in a sleeper-agent backdoor case study where we create model organisms by fine-tuning gemma-2-2b, Qwen2.5-1.5B, and Qwen2.5-7B on a poisoned instruction-following dataset. For each organism, we identify and ablate a circuit that is both necessary and sufficient to implement the backdoor. Furthermore, our new fine-tuning method produces sparse circuits that are up to an order of magnitude smaller than a dense LoRA baseline, allowing surgical ablation of the malicious capability without sacrificing instruction-following performance. Finally, we propose a technique to construct model organisms with localised circuits using TopKLoRA latents and gradient-routing, which we use to validate the findings of our circuit search algorithm. We consider these f",
+  "summary_1line": "Fine-tuning on datasets of unknown origin can create a backdoor in the trained model when the data includes poisoned examples. Difficult to localise and remove, backdoors can persist through safety training. While par...",
+  "title": "Interpretable sparse fine-tuning with TopKLoRA enables faithful circuit discovery",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32866v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "2337d1b3590a8ebb": {
   "first_seen": "2026-10-16T17:04:34.305810+00:00",
@@ -5995,8 +6039,8 @@
   "published": "2026-10-22T09:48:14+00:00",
   "sid": "55876e608f690109",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 48, downloads: 1052.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 48, downloads: 1052.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 49, downloads: 1052.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 49, downloads: 1052.",
   "title": "tencent/WeVisOne-VL-4B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeVisOne-VL-4B"
@@ -11112,6 +11156,22 @@
   "title": "Tencent Backs DeepSeek's Nearly $15 Billion AI Raise",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQTmg4Vk5XUkxGMXVaLUJlMjhwYlJOdGtaeUJpd2pmUVdFUVBtR3lWNDQ0NDJjX2ZDMHdCOTRpeXI2MHlPY1hUYUZEU3BNVEZpa3UtenlIcGl5NUh0M3BQSkJTUzF6Y1F5RUtCak5Sc2g1UW43cEVmWHFXbTh4X2poazdIeUZDY2hXSG0weno5TmJEY3c?oc=5"
+ },
+ "a5906fe005587e4f": {
+  "first_seen": "2026-10-26T08:08:31.949160+00:00",
+  "id": "46223848d4290689",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-23T16:44:20+00:00",
+  "sid": "a5906fe005587e4f",
+  "source": "arxiv_cs_cl",
+  "summary": "In LLM-agent opinion simulations, each agent reports the probability that a claim is true after seeing its own previous probability and the probabilities reported by its neighbors, and that number becomes its state in the next round. If the number describes the agent's position rather than the sentence it was shown, then rewriting the claim as its complement and replacing every probability p with 1 - p should return the complementary answer, so the two reports should sum to one. We test this with three small open models: Qwen3-4B, Llama-3.2-3B and Gemma-3-4B. On 2,304 agent states taken from a running network simulation, Qwen's paired reports sum to 1.18 on average, and on 48 real fact-checking claims from AVeriTeC they again exceed one. A controlled benchmark of 24 worlds, each with exactly two possible outcomes, shows the same failure in all three models. The discrepancy is two to ten times larger than the change produced by a same-meaning paraphrase, and it persists under repeated sampling and across peer group sizes and report strengths. When the reports are fed back into two populations that start from complementary states, the populations do not remain mirror images: their divergence is positive after five rounds for every model. Averaging each answer with the complement of its paired answer restores consistency by construction and lowers Brier loss averaged over the two wordings, but at the final round it beats the better of the two original wordings for only one of th",
+  "summary_1line": "In LLM-agent opinion simulations, each agent reports the probability that a claim is true after seeing its own previous probability and the probabilities reported by its neighbors, and that number becomes its state in...",
+  "title": "Do \"True\" and \"False\" Add Up to One? Complement Consistency in LLM-Agent Opinion Simulations",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32874v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "a5fd37b984b7d6f7": {
   "first_seen": "2026-10-16T12:04:29.554112+00:00",
@@ -16399,6 +16459,24 @@
   "title": "Introducing our Training API",
   "type": "news",
   "url": "https://modal.com/blog/introducing-training-api"
+ },
+ "e6553d3a72bffefd": {
+  "first_seen": "2026-10-26T08:08:31.949160+00:00",
+  "id": "9849add4e8e41b63",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-10-23T09:08:58+00:00",
+  "sid": "e6553d3a72bffefd",
+  "source": "arxiv_llm_reliability",
+  "summary": "Large language models (LLMs) can read startup pitch decks, but letting them emit investment scores directly invites score inflation, run-to-run variance and rationales that are hard to audit. We describe DealsFlow, a human-in-the-loop agentic harness deployed at a UK early-stage fund. The LLM reads the deck, cites evidence and rates each category; code combines the ratings, caps them and only ever lowers them. Three mechanisms implement this: a stage-aware corroboration ceiling (78, 70 or 60 out of 100) on factual categories without external evidence; a sceptic call that may lower but never raise a score; and a pre-fetch pattern that retrieves and indexes all evidence before a single generation pass. We evaluate on $N=243$ SEIS/EIS investments with recorded outcomes. Because recent investments have unresolved outcomes, we use the 142 that are at least three years old. There, the full pipeline's score has Spearman $ρ=0.45$ (95% CI 0.32 to 0.57) with the total-value multiple and AUC 0.71 for identifying write-offs, against $ρ=0.38$ and AUC 0.68 for an unconstrained LLM. The gain is small and comes mostly from the sceptic call; we did not test whether its lower-only rule matters. Investments that later exceeded $2\\times$ had 64% of factual categories corroborated, against 38% for write-offs (omnibus Kruskal-Wallis test over five outcome groups, $p=0.031$), and our retrieval was not date-restricted, so these figures may overstate screening skill. In a study of 20 inbound applicat",
+  "summary_1line": "Large language models (LLMs) can read startup pitch decks, but letting them emit investment scores directly invites score inflation, run-to-run variance and rationales that are hard to audit. We describe DealsFlow, a...",
+  "title": "DealsFlow: An Evidence-Gated Agentic Harness for Venture Capital Deal Triage",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32380v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, eval."
  },
  "e67b07d2e7eeafa5": {
   "first_seen": "2026-10-07T14:04:20.859410+00:00",
