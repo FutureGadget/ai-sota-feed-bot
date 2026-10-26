@@ -10219,6 +10219,22 @@
   "type": "news",
   "url": "https://www.latent.space/p/ainews-deepseek-deepinfer-open-source"
  },
+ "9cac549dc1f02d6e": {
+  "first_seen": "2026-10-26T03:03:27.720977+00:00",
+  "id": "cfcabcc1a8dc718c",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-23T13:51:02+00:00",
+  "sid": "9cac549dc1f02d6e",
+  "source": "arxiv_cs_ai",
+  "summary": "LLM inference is increasingly deployed as a core service for enterprise and interactive applications, but sovereignty, compliance, latency and resource-locality requirements can limit the suitability of centralised cloud deployments. Telco operators offer geographically distributed compute and network infrastructure for addressing these constraints. However, existing LLM serving frameworks are designed for tightly coupled data centres and provide limited support for coordinating geographically distributed and heterogeneous resources. We present InferSlice, a reference architecture for Service-Level Objective (SLO)-driven LLM inference over a telco infrastructure, integrating network slicing, GPU partitioning, elastic serving and observability. Led by BT in collaboration with the University of Bristol and NVIDIA, and realised on the JOINER UK national-scale wide-area network (WAN), InferSlice is evaluated on service differentiation across tiers, elastic scale-out, client-edge bandwidth as a bottleneck, and the reach of tensor, pipeline, data parallelism, and prefill/decode disaggregation over the WAN. Our results show that, on a general-purpose telco network, tiers yield distinct latency-throughput regimes, and weight streaming shortens scale-out time. Replication is placement-insensitive but memory-bound; pipeline parallelism tolerates near- and mid-cross-site hops, while tensor parallelism and disaggregation fail beyond a single subnet hop. We share practical insights from o",
+  "summary_1line": "LLM inference is increasingly deployed as a core service for enterprise and interactive applications, but sovereignty, compliance, latency and resource-locality requirements can limit the suitability of centralised cl...",
+  "title": "InferSlice: A Reference Architecture for SLO-driven LLM Inference over a Telco Wide-Area Network",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32638v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "9cbcaf295333969d": {
   "first_seen": "2026-10-24T20:04:51.842291+00:00",
   "id": "82c743cdf0e4e8a3",
@@ -11384,6 +11400,25 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.164.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "ac57fbd36999bb7e": {
+  "first_seen": "2026-10-26T03:03:27.720977+00:00",
+  "id": "1860ca2cf7571fdc",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval",
+   "codex"
+  ],
+  "published": "2026-10-23T15:47:47+00:00",
+  "sid": "ac57fbd36999bb7e",
+  "source": "arxiv_cs_ai",
+  "summary": "Agent harnesses repeatedly invoke reasoning after tool feedback, even when an earlier call has already fixed the next action. We introduce HarnessMM (Harness Minus Minus), a method for improving harness token efficiency through guarded decision reuse and recursive self-improvement (RSI). RSI iteratively refines companion harness configurations from training feedback, with validation selecting the configuration for deployment. A controller at the model-tool boundary reuses resolved decisions to replace later reasoning callbacks while actor weights remain fixed. Executable Decision Graphs store exact actions, literal arguments, causal dependencies, and public guards. Guarded Decision Reuse activates these persistent decisions from observed receipts; Certified Callback Substitution executes them through the native interface and records removal of the registered slow callback. New semantic decisions, unsupported evidence, and selector abstention invoke the original actor again. The representation restricts what feedback may change, while complete-task measurements establish quality and cost. On HumanEval, HarnessMM preserves Codex success at 90.82\\% while reducing Tokens/task (k) from 66.72 to 47.02 (29.54\\% saving). For DeepSeek Harness, success rises from 71.43\\% to 85.71\\% while Tokens/task (k) fall from 96.28 to 11.62 (87.93\\% saving). A separate MBPP ablation measures 26.91\\% lower cost than single-use graphs and 19.52\\% lower cost than retained callbacks. These results esta",
+  "summary_1line": "Agent harnesses repeatedly invoke reasoning after tool feedback, even when an earlier call has already fixed the next action. We introduce HarnessMM (Harness Minus Minus), a method for improving harness token efficien...",
+  "title": "HarnessMM: Recursive Self-Improvement for Harness Token Efficiency",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32813v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
  "ac67a5f12ec971da": {
   "first_seen": "2026-10-20T15:05:25.943000+00:00",
@@ -14280,6 +14315,23 @@
   "type": "release",
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.166",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "ceef29739bb6bf3a": {
+  "first_seen": "2026-10-26T03:03:27.720977+00:00",
+  "id": "6671d02dc95d4d9d",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-23T00:05:21+00:00",
+  "sid": "ceef29739bb6bf3a",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Deploying language agents in real applications demands more than the right answer: an agent must execute a multi-step business process correctly, follow domain-specific rules, and interact with a user across a dialogue, where the gap between saying and doing is the gap between a satisfied customer and a real loss. We argue that a deployable-agent benchmark should jointly assess four facets: the outcome an agent reaches, the trajectory it takes, its operational viability, and its policy compliance. Customer relationship management (CRM), where mutable records meet operational rules and consequential effects, exercises all four. We introduce CRM-Agent-Bench, an execution-grounded benchmark of 555 stateful, multi-turn tasks across nine business domains and 36 capability tags. Each task supplies a task-specific executable contract drawn from checks over actions, arguments, order, response, target state, and protected state; success is the strict conjunction of the checks declared for that task. We evaluate the complete agent system through these contracts and report scored coverage, latency, and cost. Across sixteen systems evaluated on the audited final release, strict success spans 64.32% to 83.60%; the closely grouped leading systems nonetheless diverge sharply in cost and per-domain reliability. CRM-Agent-Bench offers an auditable framework for measuring contract-grounded business-transaction integrity and adherence to task-declared benchmark policies, with a portable structu",
+  "summary_1line": "Deploying language agents in real applications demands more than the right answer: an agent must execute a multi-step business process correctly, follow domain-specific rules, and interact with a user across a dialogu...",
+  "title": "CRM-Agent-Bench: Benchmarking Tool-Using Agents in Stateful Enterprise Environments",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32004v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "cf2272f49f6763e1": {
   "first_seen": "2026-10-22T05:04:55.810680+00:00",
