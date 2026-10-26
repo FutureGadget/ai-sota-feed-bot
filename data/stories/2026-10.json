@@ -3026,6 +3026,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxONjZqZmI1aEVXMFV5TlZSZDJxYXFJR3lINW0xQmw3d1dHMTJaUmkzMFVEWDd6X2VRZUpvLTVwZk1CV2NJUDlqZVhENmRDcnFvQ1hkeGQ4WkFSUW16d3ZtY25pVVg0QldfQ25PMlEwTE1QMXdfSEZ4anNkMmZyaHI0azRJbzU2cHVsTUNrVU5vdnJzNHktdUZuUXBFMWVta21vU18tbnlpZm5XV3pPczkxX0M5X2I5MlF4LTRNZw?oc=5"
  },
+ "2b2305699dca77bd": {
+  "first_seen": "2026-10-26T16:05:00.502324+00:00",
+  "id": "da724eda0d7ba9af",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-22T04:20:51+00:00",
+  "sid": "2b2305699dca77bd",
+  "source": "arxiv_llm_reliability",
+  "summary": "Advances in Omni-modal Large Language Models (OLLMs) have enabled increasingly seamless human-AI interaction, but their unified processing of heterogeneous modalities also expands the attack surface, allowing adversaries to exploit richer input compositions to circumvent safety alignment. To counter such risks, omni-modal guardrails have been proposed to detect and filter unsafe queries across arbitrary modalities. However, their capabilities and limitations remain insufficiently understood due to the absence of a comprehensive evaluation benchmark. In this paper, we present Omni-UBench, the first comprehensive framework for omni-modal safety assessment, evaluating guardrail models along three critical dimensions, i.e., safety, utility, and reliability. Omni-UBench curates over 183k samples drawn from 35+ heterogeneous sources spanning text, image, audio, video, and their cross-modal combinations, annotated with safety labels under a unified risk taxonomy. Benchmarking under Omni-UBench on 15 representative OLLMs and omni-modal guardrails yields several key findings, including: (1) modern OLLMs exhibit strong content moderation potential even without guardrail-specific tuning; (2) existing guardrails still struggle to identify cross-modal queries that conceal harmful intent or involve sophisticated jailbreaks; (3) they further exhibit substantial safety hallucination and over-sensitivity to textual patterns, revealing a deficient understanding of cross-modal safety semantics.",
+  "summary_1line": "Advances in Omni-modal Large Language Models (OLLMs) have enabled increasingly seamless human-AI interaction, but their unified processing of heterogeneous modalities also expands the attack surface, allowing adversar...",
+  "title": "Omni-UBench: Benchmarking Omni-Modal LLM-based Guardrails Across Safety, Utility, and Reliability",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31713v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "2b4f7152c682448f": {
   "first_seen": "2026-10-26T14:05:00.635492+00:00",
   "id": "a54c669e056e5758",
@@ -10277,6 +10293,22 @@
   "url": "http://arxiv.org/abs/2610.31650v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "9846b228a0bab2ac": {
+  "first_seen": "2026-10-26T16:05:00.502324+00:00",
+  "id": "de2cdfac8333dea3",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-10-26T15:40:14+00:00",
+  "sid": "9846b228a0bab2ac",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.165.0-alpha.2",
+  "summary_1line": "Release 0.165.0-alpha.2",
+  "title": "codex rust-v0.165.0-alpha.2",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.165.0-alpha.2",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "9854cc575096db6c": {
   "first_seen": "2026-10-20T06:04:50.144015+00:00",
   "id": "554889dadd7faf09",
@@ -10981,8 +11013,8 @@
   "published": "2026-10-22T07:29:17+00:00",
   "sid": "a1256d3bfaf174ed",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: translation. Likes: 10, downloads: 0.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: translation. Likes: 10, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Task: translation. Likes: 14, downloads: 0.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: translation. Likes: 14, downloads: 0.",
   "title": "tencent/Hy-SimulMT-30B-A3B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Hy-SimulMT-30B-A3B"
@@ -13601,6 +13633,24 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.31511v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "bf8458a25853a865": {
+  "content_excerpt": "Legora is an agentic system that supports lawyers in research, review, and drafting across complex matters. In early 2026, as rapid gains in model capabilities made longer and more autonomous legal work possible, Legora began replacing its existing AI assistant with a full-fledged agent. To test a legal agent that works for hours across thousands of documents, Legora boots its entire application, pinned to a specific commit, inside a separate Modal Sandbox for every eval run. The shift from assistant to agent exposed two major shortcomings in Legora's existing evals framework: scale and environment fidelity. The infrastructure challenge was to create thousands of isolated Legora environments in parallel, restore the right world into each one, and let the agent complete ambitious, long-running tasks. The first problem was scalability. The assistant had been designed for smaller tasks in environments containing a few documents. The new agent needed to run for hours inside a realistic project containing thousands of documents and gigabytes of data. Where the old eval system could run on a laptop, the new one needed to run in the cloud. The even harder problem was environment fidelity. Legora's agent spans their whole product: a headless DOCX editor, self-hosted Turbopuffer instances, PDF conversion, Postgres and authorization databases, blob storage, and dynamically created code-execution sandboxes. Today, each eval run executes in its own Modal Sandbox, loaded with a custom ima",
+  "first_seen": "2026-10-26T16:05:00.502324+00:00",
+  "id": "f1b92581f3750225",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-19T00:00:00+00:00",
+  "sid": "bf8458a25853a865",
+  "source": "modal_blog",
+  "summary": "To test a legal agent that works for hours across thousands of documents, Legora boots its entire application, pinned to a specific commit, inside a separate Modal Sandbox for every eval run.",
+  "summary_1line": "To test a legal agent that works for hours across thousands of documents, Legora boots its entire application, pinned to a specific commit, inside a separate Modal Sandbox for every eval run.",
+  "title": "How Legora runs 2,000 parallel agent evals on Modal Sandboxes",
+  "type": "news",
+  "url": "https://modal.com/blog/how-legora-runs-thousand-scale-parallel-agent-evals-on-modal-sandboxes",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "bfc4355d370530a8": {
   "first_seen": "2026-10-02T17:04:00.868647+00:00",
