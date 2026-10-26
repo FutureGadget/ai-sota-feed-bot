@@ -1,0 +1,49 @@
+{
+  "slug": "on-policy-distillation",
+  "generated_at": "2026-10-26T00:12:56.393036+00:00",
+  "covers_last_updated": "2026-10-22T17:05:21+00:00",
+  "covers_member_sids": [
+    "ee660e8935ab6a11",
+    "bb1f85907195d2e5",
+    "345d8b761233aa20"
+  ],
+  "tldr": "Three arXiv papers from Oct 14–22 apply on-policy distillation (training a student on its own sampled trajectories, scored by a teacher) to different problems: machine translation, long-horizon coding agents, and the question of when the teacher should lead.",
+  "whats_new": "Oct 22: an arXiv paper proposes advantage-based on-policy distillation, deciding per step when the student should follow the teacher.",
+  "why_it_matters": "On-policy distillation is spreading from general post-training into narrow jobs (translation, coding agents), so teams distilling small models should compare it against SFT on their own trajectories.",
+  "beats": [
+    {
+      "kicker": "TRANSLATION",
+      "tone": "launch",
+      "headline": "Qwen-MT-Lumen applies on-policy training to WMT 2026 translation",
+      "sids": [
+        "ee660e8935ab6a11"
+      ]
+    },
+    {
+      "kicker": "CODING AGENTS",
+      "tone": "rising",
+      "headline": "OPRD distills constraint reminders into long-horizon coding agents",
+      "sids": [
+        "bb1f85907195d2e5"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Advantage-based method decides when to follow the teacher",
+      "sids": [
+        "345d8b761233aa20"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Does the advantage-based method beat plain on-policy distillation on agentic coding tasks, not only its own benchmarks?",
+    "Does any group release code that reproduces the OPRD long-horizon results?"
+  ],
+  "take_for_builders": "If you distill small models, run an on-policy versus SFT comparison on your own task trajectories before adopting either method; none of these papers has independent replication yet.",
+  "day_captions": {
+    "ee660e8935ab6a11": "Shows on-policy training in a competitive translation submission.",
+    "bb1f85907195d2e5": "Extends the idea to long coding-agent sessions with tool feedback.",
+    "345d8b761233aa20": "Adds a rule for when the student should defer to the teacher."
+  }
+}

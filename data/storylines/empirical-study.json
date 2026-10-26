@@ -1,15 +1,16 @@
 {
  "slug": "empirical-study",
  "label": "Empirical Study",
- "item_count": 3,
+ "item_count": 5,
  "day_count": 3,
- "source_count": 2,
+ "source_count": 3,
  "first_seen": "2026-10-13T15:03:31+00:00",
  "last_updated": "2026-10-22T16:36:35+00:00",
- "generated_at": "2026-10-25T00:12:22.332533+00:00",
+ "generated_at": "2026-10-26T00:13:14.453929+00:00",
  "sources": [
   "arxiv_cs_cl",
-  "arxiv_cs_lg"
+  "arxiv_cs_lg",
+  "arxiv_llm_reliability"
  ],
  "days": [
   {
@@ -24,7 +25,7 @@
      "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
      "sid": "97a96debf9eea48c",
      "published": "2026-10-13T15:03:31+00:00",
-     "editor_note": "Empirical study of coding agents on long-document protocol digitization; a distinct topic from the later papers."
+     "editor_note": "Coding agents on long clinical-protocol documents."
     }
    ]
   },
@@ -40,13 +41,35 @@
      "why_it_matters": "Matches feed focus: eval.",
      "sid": "a0784d9bff0dcc3c",
      "published": "2026-10-21T17:39:12+00:00",
-     "editor_note": "Unrelated security-triage paper on calibrated decision heads, linked here only by title wording."
+     "editor_note": "Calibrated decision heads for unknown-attack triage."
     }
    ]
   },
   {
    "date": "2026-10-22",
    "items": [
+    {
+     "title": "Tracing Hallucinations in LLM Reasoning for UML Class Diagram Generation: An Empirical Taxonomy and Mitigation Study",
+     "url": "http://arxiv.org/abs/2610.30946v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large Language Models (LLMs) can generate UML class diagrams from natural language requirements, but hallucinations may compromise the correctness and completeness of the resulting diagrams. Existing evaluations mostl...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "60ee2bd6a79177f2",
+     "published": "2026-10-22T08:59:27+00:00",
+     "editor_note": "Taxonomy of hallucinations in LLM-generated UML class diagrams."
+    },
+    {
+     "title": "How Well Do Decision Models Transfer to Vietnamese? An Empirical Study of Text Classification",
+     "url": "http://arxiv.org/abs/2610.31422v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Recent advances in specialized decision models have expanded the possibilities for zero-shot classification, yet their effectiveness on Vietnamese remains underexplored. This study evaluates four specialized decision...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "d36c96c2a6372e9b",
+     "published": "2026-10-22T15:24:16+00:00",
+     "editor_note": "Tests decision-model transfer to Vietnamese text classification."
+    },
     {
      "title": "An Empirical Study of Recent Large Language Models for Knowledge Graph to Text Generation on Standard Benchmarks",
      "url": "http://arxiv.org/abs/2610.31529v1",
@@ -56,17 +79,17 @@
      "why_it_matters": "Matches feed focus: evaluation.",
      "sid": "c888971c48a268c3",
      "published": "2026-10-22T16:36:35+00:00",
-     "editor_note": "Latest paper: recent LLMs evaluated for KG-to-text generation on standard benchmarks."
+     "editor_note": "Benchmarks recent LLMs against fine-tuned encoder-decoders on KG-to-text."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "Three unrelated arXiv papers share only the phrase \"empirical study\" in their titles. They cover coding agents on clinical trial protocols (Oct 13), calibrated attack triage (Oct 21), and LLMs on knowledge-graph-to-text (Oct 22).",
+  "tldr": "Five unrelated arXiv papers share only the phrase \"empirical study\" in their titles; this is not one developing story. They span clinical-protocol coding agents (Oct 13), attack triage (Oct 21), UML hallucinations, Vietnamese classification, and KG-to-text (Oct 22).",
   "stale": false,
-  "whats_new": "A new arXiv paper benchmarks recent LLMs on knowledge-graph-to-text generation against fine-tuned encoder-decoder models on standard benchmarks (Oct 22).",
-  "why_it_matters": "This is a keyword cluster, not one developing story: each paper is a separate, single-source preprint, so treat each result on its own terms.",
-  "take_for_builders": "Do not treat these as one trend; read the clinical-protocol coding-agent paper if you build long-document extraction agents, and wait for replication before acting on any of the three.",
+  "whats_new": "Oct 22 adds a UML-diagram hallucination taxonomy and a Vietnamese decision-model transfer study alongside the KG-to-text benchmark.",
+  "why_it_matters": "No shared finding links these papers; the hallucination taxonomy for generated UML is the one most relevant to teams using LLMs for design artifacts.",
+  "take_for_builders": "Skip unless a paper matches your domain; if you generate UML or design docs with an LLM, check the hallucination taxonomy against your own outputs.",
   "beats": [
    {
     "kicker": "PAPER 1",
@@ -85,10 +108,12 @@
     ]
    },
    {
-    "kicker": "PAPER 3",
+    "kicker": "NOW",
     "tone": "now",
-    "headline": "LLMs compared on knowledge-graph-to-text generation benchmarks",
+    "headline": "UML hallucination taxonomy, Vietnamese transfer and KG-to-text studies land Oct 22",
     "sids": [
+     "60ee2bd6a79177f2",
+     "d36c96c2a6372e9b",
      "c888971c48a268c3"
     ]
    }
@@ -97,6 +122,6 @@
    "Do any of these preprints get independent replication or a follow-up from another group?",
    "Do the KG-to-text results hold on non-standard, domain-specific graphs?"
   ],
-  "generated_at": "2026-10-25T00:20:00+00:00"
+  "generated_at": "2026-10-26T00:12:56.393036+00:00"
  }
 }

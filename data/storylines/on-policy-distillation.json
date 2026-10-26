@@ -1,0 +1,103 @@
+{
+ "slug": "on-policy-distillation",
+ "label": "On-Policy Distillation",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-10-14T08:12:10+00:00",
+ "last_updated": "2026-10-22T17:05:21+00:00",
+ "generated_at": "2026-10-26T00:13:14.453929+00:00",
+ "sources": [
+  "arxiv_cn_open_weight_reports",
+  "arxiv_cs_cl",
+  "arxiv_cs_lg"
+ ],
+ "days": [
+  {
+   "date": "2026-10-14",
+   "items": [
+    {
+     "title": "Qwen-MT-Lumen at WMT2026: Instruction-Specialized Translation via Quality-Aware Training and On-Policy Distillation",
+     "url": "http://arxiv.org/abs/2610.19758v1",
+     "source": "arxiv_cn_open_weight_reports",
+     "type": "paper",
+     "summary_1line": "We present Lumen, The open-source model is available at, our submission to the WMT 2026 General Machine Translation Shared Task. We focus on instruction-specialized translation, where systems must produce accurate tra...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "ee660e8935ab6a11",
+     "published": "2026-10-14T08:12:10+00:00",
+     "editor_note": "Shows on-policy training in a competitive translation submission."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-15",
+   "items": [
+    {
+     "title": "OPRD: On-Policy Reminder Distillation for Long-Horizon Coding Agents",
+     "url": "http://arxiv.org/abs/2610.21496v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Reliable repository-level coding requires agents not only to generate correct code but also to preserve constraints and respond to tool feedback across long interactions. However, our diagnostic analysis shows that ag...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "bb1f85907195d2e5",
+     "published": "2026-10-15T08:32:30+00:00",
+     "editor_note": "Extends the idea to long coding-agent sessions with tool feedback."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-22",
+   "items": [
+    {
+     "title": "When to Follow the Teacher: Advantage-Based On-Policy Distillation",
+     "url": "http://arxiv.org/abs/2610.31563v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Online Policy Distillation (OPD) often outperforms offline methods such as Supervised Fine-Tuning (SFT) by training on trajectories sampled directly from the student. However, standard OPD trains the student to follow...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "345d8b761233aa20",
+     "published": "2026-10-22T17:05:21+00:00",
+     "editor_note": "Adds a rule for when the student should defer to the teacher."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Three arXiv papers from Oct 14–22 apply on-policy distillation (training a student on its own sampled trajectories, scored by a teacher) to different problems: machine translation, long-horizon coding agents, and the question of when the teacher should lead.",
+  "stale": false,
+  "whats_new": "Oct 22: an arXiv paper proposes advantage-based on-policy distillation, deciding per step when the student should follow the teacher.",
+  "why_it_matters": "On-policy distillation is spreading from general post-training into narrow jobs (translation, coding agents), so teams distilling small models should compare it against SFT on their own trajectories.",
+  "take_for_builders": "If you distill small models, run an on-policy versus SFT comparison on your own task trajectories before adopting either method; none of these papers has independent replication yet.",
+  "beats": [
+   {
+    "kicker": "TRANSLATION",
+    "tone": "launch",
+    "headline": "Qwen-MT-Lumen applies on-policy training to WMT 2026 translation",
+    "sids": [
+     "ee660e8935ab6a11"
+    ]
+   },
+   {
+    "kicker": "CODING AGENTS",
+    "tone": "rising",
+    "headline": "OPRD distills constraint reminders into long-horizon coding agents",
+    "sids": [
+     "bb1f85907195d2e5"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Advantage-based method decides when to follow the teacher",
+    "sids": [
+     "345d8b761233aa20"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does the advantage-based method beat plain on-policy distillation on agentic coding tasks, not only its own benchmarks?",
+   "Does any group release code that reproduces the OPRD long-horizon results?"
+  ],
+  "generated_at": "2026-10-26T00:12:56.393036+00:00"
+ }
+}

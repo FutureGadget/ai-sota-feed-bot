@@ -1,70 +1,95 @@
 {
   "slug": "large-language",
-  "generated_at": "2026-10-25T00:11:51+00:00",
+  "generated_at": "2026-10-26T00:12:56.393036+00:00",
   "covers_last_updated": "2026-10-22T16:36:35+00:00",
-  "covers_member_sids": ["c47efdba3284bb9f","13307002442ed537","52d729da63596a31","f0fd06585d59dd3d","ade0f523550f640a","06d8677dec3b3c21","16071b3c73317004","276a486ae6eefe6b","8debe4581e047c88","c888971c48a268c3"],
-  "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 6-20 papers cover a speculative-decoding attack surface, knowledge-graph-guided legal and secure-code work, sycophancy, and code-translation hallucinations.",
-  "whats_new": "Oct 22 adds two arXiv papers: spectral smoothing/spiking interventions that shift LLM capability profiles, and an empirical benchmark of recent LLMs on knowledge-graph-to-text generation; neither extends earlier items.",
-  "why_it_matters": "Each paper names a distinct failure or evaluation surface: draft-model attacks, sycophancy, hallucinated translated code, search-state blindness, weight-spectrum side effects. Treat them as separate checks, not one trend.",
+  "covers_member_sids": [
+    "c47efdba3284bb9f",
+    "13307002442ed537",
+    "52d729da63596a31",
+    "f0fd06585d59dd3d",
+    "ade0f523550f640a",
+    "06d8677dec3b3c21",
+    "16071b3c73317004",
+    "276a486ae6eefe6b",
+    "8debe4581e047c88",
+    "f07fa8132755e14c",
+    "c888971c48a268c3"
+  ],
+  "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 6–21 items cover speculative-decoding security, knowledge-graph work, sycophancy, code-translation hallucinations, search agents, and materials extraction.",
+  "whats_new": "Oct 22 adds a spectral-intervention paper, an empirical KG-to-text benchmark, and a Bashkir parameter-efficient adaptation suite; none extends earlier items.",
+  "why_it_matters": "Treat this as a reading list, not a thread: the useful items for platform engineers are the speculative-decoding attack surface and code-translation hallucination mitigations.",
   "beats": [
     {
       "kicker": "SECURITY",
       "tone": "neutral",
       "headline": "Speculative decoding and secure code generation get security-focused work",
-      "summary": "A draft-model attack path in inference, and a knowledge-graph retrieval approach to secure code generation.",
-      "sids": ["c47efdba3284bb9f", "f0fd06585d59dd3d"]
+      "sids": [
+        "c47efdba3284bb9f",
+        "f0fd06585d59dd3d"
+      ]
     },
     {
       "kicker": "KNOWLEDGE GRAPHS",
       "tone": "neutral",
       "headline": "Knowledge graphs applied to observability and legal reasoning",
-      "summary": "A Netflix talk on an ontology-driven operational knowledge graph, and a KG-guided pre-training paper for legal models.",
-      "sids": ["13307002442ed537", "52d729da63596a31"]
+      "sids": [
+        "13307002442ed537",
+        "52d729da63596a31"
+      ]
     },
     {
       "kicker": "BEHAVIOR",
       "tone": "neutral",
       "headline": "Narrative-induced sycophancy evaluated in LLMs",
-      "sids": ["ade0f523550f640a"]
+      "sids": [
+        "ade0f523550f640a"
+      ]
     },
     {
       "kicker": "RELIABILITY",
       "tone": "launch",
       "headline": "Hallucinations in cross-language code translation, with mitigations",
-      "sids": ["06d8677dec3b3c21"]
+      "sids": [
+        "06d8677dec3b3c21"
+      ]
     },
     {
       "kicker": "AGENTS AND DOMAINS",
       "tone": "neutral",
       "headline": "Search-state awareness for RAG agents, and LLM materials-data extraction",
-      "summary": "Two Oct 21 papers: a self-assessment RL method for search agents, and a domain survey of materials data extraction.",
-      "sids": ["16071b3c73317004", "276a486ae6eefe6b"]
+      "sids": [
+        "16071b3c73317004",
+        "276a486ae6eefe6b"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Spectral interventions and KG-to-text benchmarking land Oct 22",
-      "summary": "One paper probes how editing singular-value spectra changes task performance; the other compares recent LLMs against fine-tuned encoder-decoder models on standard benchmarks.",
-      "sids": ["8debe4581e047c88", "c888971c48a268c3"]
+      "headline": "Spectral interventions, KG-to-text benchmarking and Bashkir adaptation land Oct 22",
+      "sids": [
+        "8debe4581e047c88",
+        "c888971c48a268c3",
+        "f07fa8132755e14c"
+      ]
     }
   ],
   "open_questions": [
     "Does the speculative-decoding defense add measurable latency over unprotected drafting?",
     "Do the code-translation mitigations hold on languages outside the paper's test set?",
-    "Does self-assessment RL improve search-agent accuracy on benchmarks beyond the paper's own?",
-    "Does independent replication confirm the spectral-intervention capability shifts on other model families?"
+    "Does independent replication confirm the spectral-intervention capability shifts?"
   ],
-  "take_for_builders": "Do not cite these papers as corroborating each other; add a hallucination check on LLM-translated code, and wait for independent evals before adopting the search-state RL or spectral-editing methods.",
+  "take_for_builders": "If you run speculative decoding in production, read the Oct 6 security paper and check whether your draft model is an untrusted input; skip the rest unless it matches your domain.",
   "day_captions": {
-    "c47efdba3284bb9f": "Addresses security of speculative decoding, unrelated to the other items.",
-    "13307002442ed537": "Industry talk on an ontology-driven knowledge graph for observability; not an LLM research result.",
-    "52d729da63596a31": "Knowledge-graph-guided pre-training for legal reasoning in language models.",
-    "f0fd06585d59dd3d": "Agentic knowledge-graph retrieval aimed at reducing insecure LLM-generated code.",
-    "ade0f523550f640a": "Tests whether personal narratives, not just stated opinions, induce sycophancy.",
-    "06d8677dec3b3c21": "Hallucinations when translating code between languages, with mitigations.",
-    "16071b3c73317004": "Materials-science data extraction with ML and LLMs; a domain survey, not a reliability result.",
-    "276a486ae6eefe6b": "Trains search agents to assess their own search state in retrieval-augmented setups.",
-    "8debe4581e047c88": "Post-hoc spectral smoothing and spiking interventions that change selective task performance.",
-    "c888971c48a268c3": "Newest: empirical comparison of recent LLMs on KG-to-text benchmarks."
+    "c47efdba3284bb9f": "Frames the draft model as an attack surface.",
+    "13307002442ed537": "Netflix's ontology-driven observability graph at 38M events/sec.",
+    "52d729da63596a31": "Knowledge-graph-guided pre-training for legal reasoning.",
+    "f0fd06585d59dd3d": "Agentic KG retrieval to reduce insecure generated code.",
+    "ade0f523550f640a": "Shows user backstories push models toward sycophancy.",
+    "06d8677dec3b3c21": "Catalogs hallucinations in cross-language code translation.",
+    "16071b3c73317004": "Survey of ML and LLM extraction of materials data.",
+    "276a486ae6eefe6b": "Self-assessment RL so search agents track what they already found.",
+    "8debe4581e047c88": "Probes how editing singular-value spectra shifts task performance.",
+    "c888971c48a268c3": "Compares recent LLMs with fine-tuned encoder-decoders on KG-to-text.",
+    "f07fa8132755e14c": "Open resources for adapting LLMs to low-resource Bashkir."
   }
 }

@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-25T00:12:22.332533+00:00",
+ "generated_at": "2026-10-26T00:13:14.453929+00:00",
  "window_days": 21,
  "storylines": [
   {
@@ -225,9 +225,41 @@
    }
   },
   {
+   "slug": "on-policy-distillation",
+   "label": "On-Policy Distillation",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-10-14T08:12:10+00:00",
+   "last_updated": "2026-10-22T17:05:21+00:00",
+   "latest_title": "When to Follow the Teacher: Advantage-Based On-Policy Distillation",
+   "days": [
+    "2026-10-14",
+    "2026-10-15",
+    "2026-10-22"
+   ],
+   "member_sids": [
+    "ee660e8935ab6a11",
+    "bb1f85907195d2e5",
+    "345d8b761233aa20"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.19758v1",
+    "http://arxiv.org/abs/2610.21496v1",
+    "http://arxiv.org/abs/2610.31563v1"
+   ],
+   "editorial": {
+    "tldr": "Three arXiv papers from Oct 14–22 apply on-policy distillation (training a student on its own sampled trajectories, scored by a teacher) to different problems: machine translation, long-horizon coding agents, and the question of when the teacher should lead.",
+    "stale": false,
+    "whats_new": "Oct 22: an arXiv paper proposes advantage-based on-policy distillation, deciding per step when the student should follow the teacher.",
+    "why_it_matters": "On-policy distillation is spreading from general post-training into narrow jobs (translation, coding agents), so teams distilling small models should compare it against SFT on their own trajectories.",
+    "take_for_builders": "If you distill small models, run an on-policy versus SFT comparison on your own task trajectories before adopting either method; none of these papers has independent replication yet."
+   }
+  },
+  {
    "slug": "large-language",
    "label": "Large Language",
-   "item_count": 10,
+   "item_count": 11,
    "day_count": 7,
    "source_count": 6,
    "first_seen": "2026-10-06T16:59:37+00:00",
@@ -252,6 +284,7 @@
     "16071b3c73317004",
     "276a486ae6eefe6b",
     "8debe4581e047c88",
+    "f07fa8132755e14c",
     "c888971c48a268c3"
    ],
    "member_urls": [
@@ -264,22 +297,23 @@
     "http://arxiv.org/abs/2610.29895v1",
     "http://arxiv.org/abs/2610.30435v1",
     "http://arxiv.org/abs/2610.30676v1",
+    "http://arxiv.org/abs/2610.31397v1",
     "http://arxiv.org/abs/2610.31529v1"
    ],
    "editorial": {
-    "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 6-20 papers cover a speculative-decoding attack surface, knowledge-graph-guided legal and secure-code work, sycophancy, and code-translation hallucinations.",
+    "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 6–21 items cover speculative-decoding security, knowledge-graph work, sycophancy, code-translation hallucinations, search agents, and materials extraction.",
     "stale": false,
-    "whats_new": "Oct 22 adds two arXiv papers: spectral smoothing/spiking interventions that shift LLM capability profiles, and an empirical benchmark of recent LLMs on knowledge-graph-to-text generation; neither extends earlier items.",
-    "why_it_matters": "Each paper names a distinct failure or evaluation surface: draft-model attacks, sycophancy, hallucinated translated code, search-state blindness, weight-spectrum side effects. Treat them as separate checks, not one trend.",
-    "take_for_builders": "Do not cite these papers as corroborating each other; add a hallucination check on LLM-translated code, and wait for independent evals before adopting the search-state RL or spectral-editing methods."
+    "whats_new": "Oct 22 adds a spectral-intervention paper, an empirical KG-to-text benchmark, and a Bashkir parameter-efficient adaptation suite; none extends earlier items.",
+    "why_it_matters": "Treat this as a reading list, not a thread: the useful items for platform engineers are the speculative-decoding attack surface and code-translation hallucination mitigations.",
+    "take_for_builders": "If you run speculative decoding in production, read the Oct 6 security paper and check whether your draft model is an untrusted input; skip the rest unless it matches your domain."
    }
   },
   {
    "slug": "empirical-study",
    "label": "Empirical Study",
-   "item_count": 3,
+   "item_count": 5,
    "day_count": 3,
-   "source_count": 2,
+   "source_count": 3,
    "first_seen": "2026-10-13T15:03:31+00:00",
    "last_updated": "2026-10-22T16:36:35+00:00",
    "latest_title": "An Empirical Study of Recent Large Language Models for Knowledge Graph to Text Generation on Standard Benchmarks",
@@ -291,19 +325,23 @@
    "member_sids": [
     "97a96debf9eea48c",
     "a0784d9bff0dcc3c",
+    "60ee2bd6a79177f2",
+    "d36c96c2a6372e9b",
     "c888971c48a268c3"
    ],
    "member_urls": [
     "http://arxiv.org/abs/2610.18507v1",
     "http://arxiv.org/abs/2610.30090v1",
+    "http://arxiv.org/abs/2610.30946v1",
+    "http://arxiv.org/abs/2610.31422v1",
     "http://arxiv.org/abs/2610.31529v1"
    ],
    "editorial": {
-    "tldr": "Three unrelated arXiv papers share only the phrase \"empirical study\" in their titles. They cover coding agents on clinical trial protocols (Oct 13), calibrated attack triage (Oct 21), and LLMs on knowledge-graph-to-text (Oct 22).",
+    "tldr": "Five unrelated arXiv papers share only the phrase \"empirical study\" in their titles; this is not one developing story. They span clinical-protocol coding agents (Oct 13), attack triage (Oct 21), UML hallucinations, Vietnamese classification, and KG-to-text (Oct 22).",
     "stale": false,
-    "whats_new": "A new arXiv paper benchmarks recent LLMs on knowledge-graph-to-text generation against fine-tuned encoder-decoder models on standard benchmarks (Oct 22).",
-    "why_it_matters": "This is a keyword cluster, not one developing story: each paper is a separate, single-source preprint, so treat each result on its own terms.",
-    "take_for_builders": "Do not treat these as one trend; read the clinical-protocol coding-agent paper if you build long-document extraction agents, and wait for replication before acting on any of the three."
+    "whats_new": "Oct 22 adds a UML-diagram hallucination taxonomy and a Vietnamese decision-model transfer study alongside the KG-to-text benchmark.",
+    "why_it_matters": "No shared finding links these papers; the hallucination taxonomy for generated UML is the one most relevant to teams using LLMs for design artifacts.",
+    "take_for_builders": "Skip unless a paper matches your domain; if you generate UML or design docs with an LLM, check the hallucination taxonomy against your own outputs."
    }
   },
   {
@@ -341,13 +379,13 @@
   {
    "slug": "deepseek-deepinfer",
    "label": "DeepSeek DeepInfer",
-   "item_count": 14,
+   "item_count": 15,
    "day_count": 5,
-   "source_count": 5,
+   "source_count": 6,
    "first_seen": "2026-10-07T17:45:34+00:00",
-   "last_updated": "2026-10-22T00:00:00+00:00",
+   "last_updated": "2026-10-22T02:20:21+00:00",
    "via_scout": true,
-   "latest_title": "LLMs are making formal software verification feasible at a much larger scale",
+   "latest_title": "Better Reasoning, Not Just Bigger Models: A Structure-Grounded Framework for Efficient and Reliable Inference",
    "days": [
     "2026-10-07",
     "2026-10-18",
@@ -370,7 +408,8 @@
     "9c99dc597b92594a",
     "c928ee663a751a10",
     "5a29dcd699a504fa",
-    "f6a301346a05e615"
+    "f6a301346a05e615",
+    "b3f4301ff8d83589"
    ],
    "member_urls": [
     "https://github.blog/ai-and-ml/github-copilot/secret-protection-must-scale-with-software",
@@ -387,7 +426,8 @@
     "https://www.latent.space/p/ainews-deepseek-deepinfer-open-source",
     "https://news.google.com/rss/articles/CBMipAFBVV95cUxORmtUMnZPWTFnenFJQUlENWc2eWJ4RTJoTUFoNkM2ZC04dnBWdjNhZzMxVHdvR1hHRnoxUkFIVWRfX1hwbldqRWtxanQyczJuRlpOUTZjSHI1SUZXQ21BcktycXdtUDdoUU02ZjAwUmtGQkRQX0RwRllwazY3anN4amFLWnFEZlpIRjl0YUV0cTBYUUY1YmhYRWxXUVZzLWl4Smp5cA?oc=5",
     "https://news.google.com/rss/articles/CBMingFBVV95cUxNT1RCUmFqMFgzVEZyOExGbjgwZjU0Tk9MWHVGS0tuT3BpMFptQU5UYUp1aWhlVVFacUxkRklyYXd4SjVzRjRURVFBX2FSZXdseHFhdmVta25MUG5fYUkzMWFGcENucU1xMTFHTTd1clF3OE1yX3ZGRTNkODlzeUJKSkFTcjY3elRwRkJtMEc2dFhoM1p6OWp0NFVOWkg3UQ?oc=5",
-    "https://www.anthropic.com/research/formal-verification"
+    "https://www.anthropic.com/research/formal-verification",
+    "http://arxiv.org/abs/2610.30611v1"
    ],
    "editorial": {
     "tldr": "DeepSeek said on Oct 20 it is open-sourcing DeepInfer, the software that serves its production models. Coverage first framed it as a way to cut AI operating costs, then as pressure on OpenAI and Anthropic.",
@@ -400,46 +440,6 @@
      "tone": "now",
      "changed": "2026-10-21",
      "detail": "DeepInfer is public; independent reproduction of the efficiency claims has not appeared yet."
-    }
-   }
-  },
-  {
-   "slug": "claude-mods",
-   "label": "Claude Mods",
-   "item_count": 4,
-   "day_count": 3,
-   "source_count": 2,
-   "first_seen": "2026-10-04T12:05:00+00:00",
-   "last_updated": "2026-10-21T13:04:19+00:00",
-   "latest_title": "Claude Mods: Flipping the Harness Inside Out",
-   "days": [
-    "2026-10-04",
-    "2026-10-05",
-    "2026-10-21"
-   ],
-   "member_sids": [
-    "e8099ac11401f85a",
-    "e281dcdde92c5175",
-    "fb19327de99e9d43",
-    "1cd487805b8193f0"
-   ],
-   "member_urls": [
-    "https://news.google.com/rss/articles/CBMidkFVX3lxTE5RM3Y0bXVQSFItT19XTkZWY0Y4dkdqQVlvYzNxRlFkSEdHczdnelV4VHhFZlpVMDJhS2w0UmUtdUNuMDZ1Y1Z4UWlZUlZlekdjbFpjWjdHX3l5Qng5ZldJVGhrODBydkljcEk1SHBJRDROckpFS1E?oc=5",
-    "https://news.google.com/rss/articles/CBMikwFBVV95cUxPcGdoZzFOdXpJNmlkNnlrQ2FONUltaTc2aHVNbEZVdlNyNHM1MkNVT011S1lGaHVnT2lvOUx1Mm1jSkZWWWdzT3NxeEV4WlVLZHRmYnY4ZENtYmFTc1RoQ1NmU0VhTERSeUpva1djdUROc1hMOGxiRzFEY3BXNjBiaEVNbFRoNkVaTWNCc3U5VjNYejA?oc=5",
-    "https://news.google.com/rss/articles/CBMigAFBVV95cUxPVzFSUjZaVEdFaVFqNFFMcDM1TnU1U2RBQlFYMDA0OFh2NUFRcFNhOWluLVhuemlFMDYxcUkwV3pVOWZCblBabHE5bnZuc0VmQkx2XzU3NGpQcndGVE85R1hYajRiZEpEcHItWXZvVG42aXBCZW1jWlZqMHh4QWtocA?oc=5",
-    "https://www.latent.space/p/claude-mods"
-   ],
-   "editorial": {
-    "tldr": "Claude Code mods are hooks that ship inside plugins and run within a session, per Anthropic's Oct 1 guide. On Oct 4-5, DeepSeek Harness added an experimental mods compatibility layer, which trade press framed as a challenge to agent lock-in.",
-    "stale": false,
-    "whats_new": "Latent Space (Oct 21) argues Claude Mods is an early form of the \"Attention Interface\", flipping the agent harness from facing the machine to facing the human.",
-    "why_it_matters": "Mods are a plugin-level extension point, so a second agent runtime accepting the same format lowers the cost of moving mod-based workflows between harnesses.",
-    "take_for_builders": "If you build Claude Code mods, keep hook logic free of Claude-specific paths for now; test against the Harness alpha only on throwaway projects until its coverage is documented.",
-    "status": {
-     "state": "Developing",
-     "tone": "rising",
-     "changed": "2026-10-21",
-     "detail": "Claude Code mods have an official guide, an experimental DeepSeek Harness compatibility layer, and now an outside essay positioning mods as a new harness paradigm."
     }
    }
   },
