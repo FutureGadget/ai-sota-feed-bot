@@ -2779,6 +2779,22 @@
   "url": "https://news.ycombinator.com/item?id=50100700",
   "why_it_matters": "Matches feed focus: agent, eval, codex."
  },
+ "264cc0e36820b485": {
+  "content_excerpt": "Researchers found a malicious AGENTS markdown instruction file in a customer’s Downloads folder that tricked an AI coding agent into installing a rogue npm package. They reproduced the attack against OpenAI Codex and demonstrated a related technique against Claude Code to leak OAuth tokens and hijack the account using only the malicious instructions. Markdown files such as AGENTS.md are plain-text files that contain project-specific instructions for AI coding agents, such as the tools to use, how to run tests, and the coding conventions to follow. Researchers at Forever Security, a company that monitors for risks introduced by AI agents and autonomous software, discovered the tactic on a customer’s computer, where a coding agent attempted to install the malicious npm package ‘ function-color .’ The investigation traced the AI agent’s attempt to install a malicious npm package to an AGENTS.md file in the customer’s ~/Downloads folder, which also served as the agent’s working directory. Agents automatically load applicable files from their working directory and use the contained instructions to guide their actions. While these files aren’t executables, malicious instructions contained in them can lead to AI agents running commands, installing packages, or changing settings using the tools and permissions available to it. \"There is nothing here for OpenAI or Anthropic to patch. An agent that follows the AGENTS.md in its folder is doing exactly what it was built to do,\" the resea",
+  "first_seen": "2026-10-26T14:05:00.635492+00:00",
+  "id": "767e6f69e87b6a0c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-26T14:01:56+00:00",
+  "sid": "264cc0e36820b485",
+  "source": "hackernews_ai",
+  "summary_1line": "AI coding agents hijacked using AGENTS.md file in Downloads folder",
+  "title": "AI coding agents hijacked using AGENTS.md file in Downloads folder",
+  "type": "news",
+  "url": "https://www.bleepingcomputer.com/news/security/ai-coding-agents-hijacked-using-agentsmd-file-in-downloads-folder",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "26b5fe7a9cc30838": {
   "first_seen": "2026-10-19T20:04:47.516708+00:00",
   "id": "211f8fe243b87680",
@@ -3009,6 +3025,22 @@
   "title": "Deepseek’s funding round balloons toward $15 billion as CATL and Tencent lead, with a 2027 IPO in sight",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxONjZqZmI1aEVXMFV5TlZSZDJxYXFJR3lINW0xQmw3d1dHMTJaUmkzMFVEWDd6X2VRZUpvLTVwZk1CV2NJUDlqZVhENmRDcnFvQ1hkeGQ4WkFSUW16d3ZtY25pVVg0QldfQ25PMlEwTE1QMXdfSEZ4anNkMmZyaHI0azRJbzU2cHVsTUNrVU5vdnJzNHktdUZuUXBFMWVta21vU18tbnlpZm5XV3pPczkxX0M5X2I5MlF4LTRNZw?oc=5"
+ },
+ "2b4f7152c682448f": {
+  "first_seen": "2026-10-26T14:05:00.635492+00:00",
+  "id": "a54c669e056e5758",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-23T15:21:22+00:00",
+  "sid": "2b4f7152c682448f",
+  "source": "arxiv_cs_lg",
+  "summary": "GRPO shares a response-level advantage across tokens, leaving unresolved how strongly each token should contribute to learning. Updates induced by the shared advantage reinforce or suppress the sampled token at each position, but these updates do not always point toward increasing reward at the token level. This motivates a work-based view of credit: just as work depends on the component of force along a displacement, token credit should reflect the local reward change along the policy update direction. We introduce Direction-Aware Token Credit Assignment (DATC), which maps frozen reward-model gradients into policy logit space and allocates weights by evaluating the alignment between the reward direction and GRPO's signed sampled-action update direction, while preserving the sign and mean of the response-level advantage. DATC outperforms GRPO in all four settings across two model families.",
+  "summary_1line": "GRPO shares a response-level advantage across tokens, leaving unresolved how strongly each token should contribute to learning. Updates induced by the shared advantage reinforce or suppress the sampled token at each p...",
+  "title": "Direction-Aware Token Credit Assignment with Reward-Model Gradients",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32772v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "2b7d053523558e34": {
   "first_seen": "2026-10-07T12:04:29.245982+00:00",
@@ -3676,6 +3708,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.31544v1",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "35cb5c7e4bbaf786": {
+  "first_seen": "2026-10-26T14:05:00.635492+00:00",
+  "id": "e26c749b8a945925",
+  "published": "2026-10-23T16:46:00+00:00",
+  "sid": "35cb5c7e4bbaf786",
+  "source": "arxiv_cs_ai",
+  "summary": "Low-rank SVD-based compression offers a powerful strategy to reduce the computational costs of LLMs. However, existing methods face two key limitations: (i) global rank allocation, where uncalibrated error proxies fail to capture complex error propagation, and (ii) decomposition quality, where Fisher-based estimators suffer from severe rank collapse. In this work, we address these limitations by introducing Layer-wise Error Modeling Search (LEMS) and KFAC-SVD. LEMS advances rank allocation by introducing a layer-wise error surrogate that integrates local and global layer importance alongside a propagation bias, enabling effective global rank allocation via an ILP formulation. KFAC-SVD improves decomposition quality by utilizing token-wise statistics, mitigating the rank deficiency observed in prior Fisher-based SVD approaches. Across Mistral, Qwen3, and Llama 3 model families, we show that LEMS consistently outperforms existing search strategies, delivering significant zero-shot accuracy gains of up to 4.8 p.p. that generalize to model sizes of 70B parameters, while KFAC-SVD achieves an average perplexity improvement of 15%. Project page and code: https://lems-svd.github.io",
+  "summary_1line": "Low-rank SVD-based compression offers a powerful strategy to reduce the computational costs of LLMs. However, existing methods face two key limitations: (i) global rank allocation, where uncalibrated error proxies fai...",
+  "title": "Advancing SVD-based LLM Compression via Layer-Wise Error Model Search",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32878v1"
  },
  "3618833fba59bdc6": {
   "first_seen": "2026-10-08T21:05:00.318816+00:00",
@@ -9986,8 +10030,8 @@
   "published": "2026-10-21T02:17:37+00:00",
   "sid": "9521b60b04aa1cbb",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Likes: 73, downloads: 0.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Likes: 73, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Likes: 76, downloads: 44.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Likes: 76, downloads: 44.",
   "title": "tencent/Hy-Nomas released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Hy-Nomas"
@@ -12361,6 +12405,22 @@
   "title": "Websites are closing their doors to AI agents",
   "type": "news",
   "url": "https://www.theverge.com/ai-artificial-intelligence/1013195/ai-agents-blocked-web",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "b3556b3510a4eaf3": {
+  "first_seen": "2026-10-26T14:05:00.635492+00:00",
+  "id": "f64452969e39de64",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-23T17:49:43+00:00",
+  "sid": "b3556b3510a4eaf3",
+  "source": "arxiv_cs_cl",
+  "summary": "Personal email agents decide, for every message, what it is, whether it is urgent, whether to draft a reply, create a task, or ignore it. Their error rate is rarely measured: the stored labels were written by the system itself. We present Foyer, a self-hosted personal inbox agent in daily use, and a measurement protocol (stratified sampling, frozen snapshots, thread-grouped splits, pre-registered hypotheses, human labels in the agent's review loop) that yields ground truth before any training. On 739 real Italian/English emails labelled by the owner (231 unbiased, 500 adversarially sampled), we compare nine systems under thread-grouped cross-validation: the production keyword rules, a TF-IDF + logistic-regression baseline, local typed decision models (Tev1, Nimble), a hosted decision model (Nimble v4-max), and hosted generative LLMs (Qwen2.5-7B, Gemma 4 26B/31B). Four results. The production rules score 28% on message type against a 58% majority class: the field shown most prominently carried no information. With ~200 labels, logistic regression has the highest accuracy on every field (type 0.79, urgency 0.74, needs-reply 0.83, is-noise 0.90), though it never predicts the two rarest classes and is statistically tied with Gemma 4 on type; few-shot prompting does not close the gap. The sender's relationship (client, supplier, service) is recovered from other emails of the same contact with 98.6% accuracy where the contact has been seen, and is not inferable from a single messag",
+  "summary_1line": "Personal email agents decide, for every message, what it is, whether it is urgent, whether to draft a reply, create a task, or ignore it. Their error rate is rarely measured: the stored labels were written by the syst...",
+  "title": "Measure Before You Train: Typed Decision Models vs. a Classical Baseline vs. a Generative LLM for Routing a Personal Multilingual Inbox",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32955v1",
   "why_it_matters": "Matches feed focus: agent."
  },
  "b38925b1afc4a3a6": {
@@ -14932,6 +14992,18 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Oct/22/de-staat-freedom"
  },
+ "d1fe1050c29bd1ca": {
+  "first_seen": "2026-10-26T14:05:00.635492+00:00",
+  "id": "ecc265ca9d369ec7",
+  "published": "2026-10-23T13:46:53+00:00",
+  "sid": "d1fe1050c29bd1ca",
+  "source": "arxiv_cs_ai",
+  "summary": "Instruction-based image editing models exhibit pronounced sample-specific performance variation: different models can produce substantially different results for the same source image and editing instruction, and the best-performing model often varies across requests. These models also differ substantially in inference latency, making fixed-model deployment inefficient. We therefore study image editing model routing, which dynamically selects an editor from a candidate pool given an input image and editing instruction. We introduce EditJev, a System One routing model that directly predicts sample-level preference scores over candidate image editing models in a single forward pass. A lightweight preference head on a vision-language backbone produces a fixed-dimensional score vector without autoregressive model-name generation or response parsing. To train EditJev, we construct pairwise preferences from offline candidate outputs and optimize a pairwise ranking objective to learn relative model suitability. At inference time, EditJev combines the predicted preference scores with model-level speed scores to balance editing quality and generation latency. Experiments on ImgEdit and GEdit-En show that EditJev improves aggregate quality over the strongest fixed editor, from 4.540 to 4.592 and from 8.194 to 8.255, respectively, while reducing estimated end-to-end latency by 60.8% and 31.7%. These results demonstrate the effectiveness of direct, structured model routing for efficient ",
+  "summary_1line": "Instruction-based image editing models exhibit pronounced sample-specific performance variation: different models can produce substantially different results for the same source image and editing instruction, and the...",
+  "title": "EditJev: System One Routing for Image Editing Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32635v1"
+ },
  "d1fefa038faa8d84": {
   "first_seen": "2026-10-13T12:04:32.923504+00:00",
   "id": "74202a9bcec73410",
@@ -15730,6 +15802,7 @@
   "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPOHZsV05NZTRod0p2TmZVYWJ2X1l6eE9MYWs5UTBYT0NJOHhPby1KaXQyY2NzRHExeUtYT1JMMnl0QVdPcjRyNkJHamdJRWdybjlKcTItd2VPMDE2ejF4VDF6bm83bEIybVZickh0c0tSZVRGcGdwQ1RGMFMtUnlCUlE1TEg4U3RF?oc=5"
  },
  "dba3688362486848": {
+  "content_excerpt": "We benchmarked 528 agent-built data pipelines - declarative authoring proved cheaper, faster and leaner than procedural code. AI agents now write a growing share of production data pipelines ( over 70% of SDP pipelines on Databricks are now created by agents) which raises the stakes in two areas: (1) every attempt an agent makes costs compute and time, so iterations need to be cheap and efficient to run; and (2) code review become a critical gate, so the code needs to be succinct, readable, and correct. Apache Spark® offers two programming models to author your pipelines, procedural and declarative, and they differ in what you write, in what Spark can check before it runs, and in how much a mistake costs. We benchmarked both with the same agent on the same jobs, and declarative came out safer, cheaper, and leaner. A procedural pipeline is code that tells Spark how to build each dataset, step by step. The only way to know whether it works is to run it. A declarative pipeline describes the datasets you want and leaves Spark to decide how to build them. This is akin to when you prompt an LLM, and it figures out how to do it (by using the right skills & tools). This is best illustrated in code to see how a simple typo will fail: Bugs come in two flavors. Structural ones you can catch by reading the pipeline: an unresolved column reference, a table that doesn’t exist yet, a config change that is not allowed. Silent ones only show up in the output when the run finishes and the answ",
   "first_seen": "2026-10-24T15:04:51.392804+00:00",
   "id": "d5c439034253b001",
   "matched_topics": [
@@ -16561,6 +16634,7 @@
   "why_it_matters": "Matches feed focus: agent, eval."
  },
  "e64fdbe523e26c6e": {
+  "content_excerpt": "Thinking Machines’ Tinker changed how people do post-training. You write the training loop in plain Python on your laptop, and Tinker runs the forward and backward passes on its GPUs. We’re big fans, and so are many of the teams we work with. We think a good API deserves more than one implementation. Today we’re releasing Spindle , an open-source, Tinker-compatible training server that runs in your Modal workspace. Because you own the server, you can customize anything in it, and you pay for GPU time instead of tokens. Our default configs are tuned to maximize GPU utilization out of the box, and we plan to keep shipping optimizations to push price-performance further. Modal now covers the whole post-training stack, from on-demand clusters to a library that runs the loop for you. Where do you start? If you’d rather not write a training loop, use our training library, Modal Dojo , which we released yesterday. Simply bring a model and a dataset, and Dojo will handle the rest. If you want to own everything down to the cluster, Modal gives you the raw primitives: on-demand multi-node clusters and sandboxes for RL rollouts . Spindle sits in between. You write the training loop with your own losses, rewards, and environments, and Spindle handles the distributed training underneath it. It supports full-parameter training and multi-LoRA on a wide range of open models. For teams running many experiments, Spindle supports hundreds of concurrent training runs at similar performance and s",
   "first_seen": "2026-10-22T22:04:51.854752+00:00",
   "id": "d7d1af830fc09355",
   "published": "2026-10-22T12:00:00+00:00",
@@ -16701,6 +16775,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMi8wFBVV95cUxQWXNlZUxiUFItZmprSndiU1hfR0NBdWU2T3hoR3hzTXVFWmxBeDNSQW1PaTFJaWlMeS1lUmVBcjBrcmtGWE5ZVFRiSjV0bmxsYXNkVUZhcUhnSnpFWkc2WXo3N2o1Y3h5Mnk1Wno3eXN3czJWN1FCMTQwa25iOC1KeGlLcG95VmZSMHRxOHdqV1p6MDlFWmNZRlc0WmdSSjhWVzkyRUN4LVRHTDJTbm9DRENKMjRjUFlocEVPbTBWNXRYcDF1VkhMUHZlUmVvWHNkUlluVWNraklrSVNSaHFna2VPc0pTOW43S3ZiNkRIY24wWXPSAfMBQVVfeXFMUFlzZWVMYlBSLWZqa0p3YlNYX0dDQXVlNk94aEd4c011RVpsQXgzUkFtT2kxSWlpTHktZVJlQXIwa3JrRlhOWVRUYko1dG5sbGFzZFVGYXFIZ0p6RVpHNll6NzdqNWN4eTJ5NVp6N3lzd3MyVjdRQjE0MGtuYjgtSnhpS3BveVZmUjB0cTh3aldaejA5RVpjWUZXNFpnUko4Vlc5MkVDeC1UR0wyU25vQ0RDSjI0Y1BZaHBFT20wVjV0WHAxdVZITFB2ZVJlb1hzZFJZblVja2pJa0lTUmhxZ2tlT3NKUzluN0t2YjZESGNuMFlz?oc=5",
   "why_it_matters": "Matches feed focus: codex, claude code."
+ },
+ "e8085371baf80a90": {
+  "content_excerpt": "We’ll come back within one business day — or reach us directly at info@forever.security . Something went wrong sending your message. Please email us directly at info@forever.security . Forever caught live malware on a customer's machine attempting a new kind of attack: a file planted in the Downloads folder that turns your own AI coding agent against you. Here's how it works on Codex and Claude Code, and why the vector stays open. The context. Your teams now use AI assistants like Claude Code and Codex that write and run code on their own. To do their work, each assistant automatically reads and follows any instructions file it finds in the folder it opens. The problem. A website can quietly drop such a file onto an employee’s computer, just by them visiting it. The assistant then obeys it like an order - and can be tricked into handing over passwords or running an attacker’s code. This isn’t theoretical: we caught it on a real customer’s machine. Why this matters to you. Nobody has to click anything or make a mistake for this to work, and it can’t simply be patched away, because it abuses the way these tools are built to behave. We proved it on the most popular assistants, but any of them can be hit. In the companies we measured, half had employees running these assistants - and every one of those people who uses a browser is exposed. The risk is real , it is happening now , and it is yours to manage. This did not start in a lab. Forever caught live malware on a real custome",
+  "first_seen": "2026-10-26T14:05:00.635492+00:00",
+  "id": "2482edec495f4b89",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-26T14:04:26+00:00",
+  "sid": "e8085371baf80a90",
+  "source": "hackernews_ai",
+  "summary_1line": "Markdown Is the New Executable: Attackers Drop Agent Instructions into Downloads",
+  "title": "Markdown Is the New Executable: Attackers Drop Agent Instructions into Downloads",
+  "type": "news",
+  "url": "https://forever.security/blog/hijacking-ai-agents-via-downloads-folder",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "e8099ac11401f85a": {
   "first_seen": "2026-10-04T13:03:58.580811+00:00",
@@ -18142,6 +18232,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.07967v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "fcbbec5ab7ddf4d9": {
+  "content_excerpt": "Local long-term memory for AI agents. Keeps every conversation word for word, costs nothing to save, and is shared by all your agents. Beat Mem0, MemPalace and agentmemory on the same tests. 88.8% on LongMemEval. Zero model tokens spent saving memory. Runs on your own PC. Recorded live on one PC: Claude Code (Opus 5.5, effort high) and Codex (GPT-6.1-Sol, effort high) sharing one Graph-MIND memory. Model thinking time is fast-forwarded. No Python needed; nothing else to set up. Restart your AI apps afterwards. Already have Python? pip install graph-mind-memory && graph-mind-install . More: docs/install.md . Claude Code: claude mcp add graph-mind-memory -- python -m graph_mind.mcp_server . This gives the tools only; graph-mind-install also saves every conversation automatically. Work as usual for a while, then open a new session, another app, or another model and ask: Nothing to tag or save by hand: every turn is already stored, and the agent pulls back the few that answer the question. The installer finds these and connects them; run it again after installing a new one. Any other MCP client works through the tools: see the hand-written config above. LongMemEval is the public benchmark for long-term chat memory: 500 questions over about 50 past sessions each. Every system below got the same answer model (gpt-5-mini), the same prompt and the official gpt-4o judge; only the memory differs. On agentmemory's 499 Graph-MIND scored 89.0%; on the 40, 85.0%. Retrieval alone, on agentm",
+  "first_seen": "2026-10-26T14:05:00.635492+00:00",
+  "id": "b444e1b3adbb0697",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-26T12:30:12+00:00",
+  "sid": "fcbbec5ab7ddf4d9",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Graph-MIND – Local memory for AI coding agents, no LLM calls to save",
+  "title": "Show HN: Graph-MIND – Local memory for AI coding agents, no LLM calls to save",
+  "type": "news",
+  "url": "https://github.com/goyohan0611-png/graph-mind",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "fcf269e2184843b3": {
   "first_seen": "2026-10-21T07:04:39.443753+00:00",
