@@ -653,6 +653,18 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE80Z01mUGFTUWpjQlNCakF3UF9TbFFYN2xEX1NRb3JHUklSOTlmX3M5bWVRblI4NGhTVzB1eUFadVpZMUx2dzZvWFJra2wzRDRoV3VUSkl1LTJleFNVdlNEUV9wS0tkYnJRb1BySmFEbnc5aXNRU1ZDY1Fn?oc=5"
  },
+ "0a5f683f2cf3f23c": {
+  "content_excerpt": "Resin is not an inference engine. It's a library of building blocks for LLM inference. At its core is the headless Engine : a fast Rust scheduler, KV cache, and metrics server. You then write the forward pass as model-specific kernels, optimized for your hardware. This is not production-quality software. If you're looking for an actual inference engine, please use SGLang or vLLM. Read on if you want to hack on LLM inference systems, new models or hardware. With the right kernels, this makes it possible to autonomously \"vibe code\" even the most complex models. In 12 hours, we used Resin to build standalone engines for DeepSeek-V4.1-Flash and GLM-5.3-Flash on Blackwell GPUs that rival vLLM and SGLang. Either fork the repository or import resin and resin_models_cuda as standalone packages. Then use the following skills: Install the core library directly from GitHub with Python 3.11+ and Rust installed: Pip builds the Rust extension locally. The import remains resin . Use @ after .git to pin a revision. Model runners are separate packages: resin-models-cuda for optimized CUDA implementations and resin-models-torch for reference implementations. The repository's development workspace installs both; the examples below assume that workspace or a separately installed runner package. uv run syncs the project dependencies automatically. The build command then syncs type-library sources and builds the Rust extension with generated stubs. The Modal harnesses are launched from the reposit",
+  "first_seen": "2026-10-26T20:04:12.953184+00:00",
+  "id": "e89736da89a10a96",
+  "published": "2026-10-26T17:06:14+00:00",
+  "sid": "0a5f683f2cf3f23c",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Resin, fast native scheduler for LLM inference engines",
+  "title": "Show HN: Resin, fast native scheduler for LLM inference engines",
+  "type": "news",
+  "url": "https://github.com/ekzhang/resin"
+ },
  "0aa3e910422d022d": {
   "first_seen": "2026-10-26T08:08:31.949160+00:00",
   "id": "ec5d3e4ea542b277",
@@ -3054,6 +3066,18 @@
   "url": "http://arxiv.org/abs/2610.31713v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "2b3f616d26d343fe": {
+  "content_excerpt": "In a previous post , we introduced TorchNeuron, the native PyTorch backend for AWS Trainium (the torch-neuronx package). With it, Transformers runs its own modeling code on Trainium, as it does on any other device, so any Transformers model on the Hub may run. Which ones actually do? The torch-neuronx model support Space answers that question for the most popular models on the Hub. It tells you whether a model runs unmodified on Trainium, and gives you the script to run it yourself. The Space opens on the Selected view: our own selection of models picked among the top models on the Hub by downloads and by trending score. Each row gives the result, the number of Trainium cores the model is sharded over, the wall time of the run (compilation included) and the peak device memory. To look up a given model, switch to the Trending or Downloads view and type part of its name. These views follow the Hub's own rankings, one task at a time, whether a model was tested or not. When a model was left out on purpose, the Space tells you why (most of the time it was not prioritized, sometimes it is truly incompatible). You can also pick the versions of the Neuron compiler ( neuronx-cc ) and of Transformers to look at. At the time of writing, only Transformers models are tested, and our selection is limited to text-generation and image-text-to-text models. We plan to expand to diffusers, sentence transformers, and other transformers tasks. Select a model to see how to run it. The Space lists ",
+  "first_seen": "2026-10-26T20:04:12.953184+00:00",
+  "id": "0f3d05251e2bfb48",
+  "published": "2026-10-23T00:00:00+00:00",
+  "sid": "2b3f616d26d343fe",
+  "source": "huggingface_blog",
+  "summary_1line": "Does Your Model Run on AWS Trainium? Look It Up",
+  "title": "Does Your Model Run on AWS Trainium? Look It Up",
+  "type": "research",
+  "url": "https://huggingface.co/blog/torch-neuronx-model-support"
+ },
  "2b4f7152c682448f": {
   "first_seen": "2026-10-26T14:05:00.635492+00:00",
   "id": "a54c669e056e5758",
@@ -3785,6 +3809,18 @@
   "title": "Advancing SVD-based LLM Compression via Layer-Wise Error Model Search",
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.32878v1"
+ },
+ "35e334c198740f74": {
+  "first_seen": "2026-10-26T20:04:12.953184+00:00",
+  "id": "fb87a4d01d0caa5c",
+  "published": "2026-10-26T00:00:00+00:00",
+  "sid": "35e334c198740f74",
+  "source": "openai_blog",
+  "summary": "Bringing fast and capable computer use to everyone",
+  "summary_1line": "Bringing fast and capable computer use to everyone",
+  "title": "Introducing GPT-6.1 Terra",
+  "type": "news",
+  "url": "https://openai.com/index/introducing-gpt-6-1-terra"
  },
  "3618833fba59bdc6": {
   "first_seen": "2026-10-08T21:05:00.318816+00:00",
@@ -4875,6 +4911,18 @@
   "url": "http://arxiv.org/abs/2610.06193v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "453c138d9feefee3": {
+  "first_seen": "2026-10-26T20:04:12.953184+00:00",
+  "id": "d8890021dec61d3c",
+  "published": "2026-10-23T17:45:03+00:00",
+  "sid": "453c138d9feefee3",
+  "source": "arxiv_cs_lg",
+  "summary": "Reinforcement learning for large language models often uses separate systems for inference and training. Even with identical weights and BF16 tensors, implementation differences can make an intended on-policy update off-policy and destabilize training. Existing remedies align the entire inference and training stacks, change global precision, or modify the learning algorithm. We ask whether aligning selected parts of the execution stack can stabilize BF16 RL while other implementation differences remain. We align training-side rounding locations with inference in three regions---RoPE, SwiGLU, and residual RMSNorm---by retaining selected intermediates in FP32 until their BF16 outputs. Across four Qwen-family models, aligning all three regions prevents the collapse observed under the default BF16 baseline; RoPE-path alignment alone also suffices in the studied runs, despite remaining numerical discrepancies. The interventions keep the inference engine, matrix-multiplication and attention kernels, and learning objective unchanged.",
+  "summary_1line": "Reinforcement learning for large language models often uses separate systems for inference and training. Even with identical weights and BF16 tensors, implementation differences can make an intended on-policy update o...",
+  "title": "Where Rounding Happens Matters: Rounding-Location Alignment Stabilizes LLM Reinforcement Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32951v1"
+ },
  "45845d76a34385a2": {
   "first_seen": "2026-10-19T02:04:44.409254+00:00",
   "id": "2148206c4ce122d9",
@@ -5106,6 +5154,22 @@
   "title": "Trustbut checks if an AI agent's new tests fail without its change",
   "type": "news",
   "url": "https://github.com/isAlmogK/trustbut",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "48cf39a28bcf54aa": {
+  "content_excerpt": "After more than a year of hammering the iron, we’re excited to introduce the first Git forge built specifically for agent-human collaboration. Entire is built on three primitives: Plus, we are building an open ecosystem, so developers can pick the best tools for the job. At the start, we are partnering with Buildkite and Depot for Continuous Integration (CI), so your build and test pipelines keep up with how fast agents ship. Entire is available for any developer today, and especially optimized for AI-native teams and their agents. Let’s jump into the new multiverse. In a pull request (PR), developers post their comments in a linear timeline, and continuous integration (CI) provides a status at the bottom followed by the merge button. Now coding and code review are spamming this timeline with long descriptions. Developers request their coding agent to address the code review agents’ feedback and then do another review. The pull request has become an audit log that only the agent reads. It does not provide the information for the developer to decide whether they can merge with confidence. The Trail changes this. It brings the relevant information to the top of the page as eval scores, which are calculated on every push. The goal is simple: Give all the information you need to decide whether enough loops between your coding agent and the review agents have happened to achieve a stable state. Or not, and another iteration is needed. Only when the confidence is high, risk is low,",
+  "first_seen": "2026-10-26T20:04:12.953184+00:00",
+  "id": "291f1117ea33dff6",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-26T17:23:11+00:00",
+  "sid": "48cf39a28bcf54aa",
+  "source": "hackernews_ai",
+  "summary_1line": "The Git Forge for Agent-Human Collaboration",
+  "title": "The Git Forge for Agent-Human Collaboration",
+  "type": "news",
+  "url": "https://entire.com/blog/the-git-forge-for-agent-human-collaboration",
   "why_it_matters": "Matches feed focus: agent."
  },
  "48ead5cc10a0a69d": {
@@ -7213,6 +7277,18 @@
   "url": "https://openai.com/index/scaling-ai-research-for-complex-biological-data",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "652ad83088432772": {
+  "content_excerpt": "The cheapest part of Infrastructure as Code (IaC) today is the code generation. Agents from frontier AI models are opening pull requests on platforms like GitHub faster than reviewers can keep up. But with infrastructure, even a small change can replace a database or cut off an application’s access to it, so each change needs to do only what we intended. CI/CD already runs the plans and posts the results on pull requests. You read them, spot an unexpected replacement that would cause downtime or an error that blocks the plan, and send the output back to the agent. The agent fixes the code and pushes again. You wait for CI, read the new plans, and paste back the next problem. A verification and fix loop lets the agent read those same results, compare them with what you asked for, and correct its own mistakes before requesting review. You define the intended outcome; the agent checks each revision against it. As Anthropic’s Claude Code documentation puts it, the agent “stops when the work looks done. Without a check it can run, ‘looks done’ is the only signal available, and you become the verification loop: every mistake waits for you to notice it .” Anthropic recommends giving the agent a pass-or-fail result so it can test its changes, inspect the feedback, and keep correcting the work until the check passes. In application development, we expect a coding agent to run tests, read failures, and fix the code before asking for review. That expectation should carry over to infrast",
+  "first_seen": "2026-10-26T20:04:12.953184+00:00",
+  "id": "d52f437fcc64baa4",
+  "published": "2026-10-26T17:34:31+00:00",
+  "sid": "652ad83088432772",
+  "source": "hackernews_ai",
+  "summary_1line": "Using AI Verification and Fix Loop for IaC (Terraform, OpenTofu, Pulumi)",
+  "title": "Using AI Verification and Fix Loop for IaC (Terraform, OpenTofu, Pulumi)",
+  "type": "news",
+  "url": "https://masterpoint.io/blog/ai-verification-fix-loop-iac"
+ },
  "6619134087094c0c": {
   "first_seen": "2026-10-22T16:04:51.449702+00:00",
   "id": "f5b721aafea8f5d0",
@@ -7983,6 +8059,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPMjE5N1J0MDF2LWVTMDR2UUJGdXVrU0lNdVRBSzRuNU5UbXJNdTh0UmVCQXZtV1JYQi01TnFNS0pLNzVxU1BIQ25OOWtUdjZvR0JuQVU3a1lfTGdMLW1rTGg0bWc4YWRnZGUyenBlSXhZTmM0UmJzUGZNcC1lWTNBZGJmZ3NtNHBEQkNsUVVNYS1ZaGszaGtmUmZqa3VYVHVyWDBVMFJLcnBxX1AwTnBwa3FnUQ?oc=5"
  },
+ "72b88f8041b34aeb": {
+  "first_seen": "2026-10-26T20:04:12.953184+00:00",
+  "id": "33ac46d9345f93cb",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-23T14:08:32+00:00",
+  "sid": "72b88f8041b34aeb",
+  "source": "arxiv_cs_ai",
+  "summary": "Large Language Models (LLMs) have been widely adopted in text classification tasks, where they not only output class predictions but also generate explanations that highlight the tokens deemed most relevant for reaching the predicted label. Yet it remains unclear whether these highlighted elements are behaviorally consistent with the model's own predictions under targeted interventions, which we refer to as functional auto-consistency. While much of the literature evaluates the textual plausibility of such explanations, few studies assess their functional consistency with the model's actual behavior. In this work, we propose an experimental framework based on the principle of auto-consistency: if a model identifies certain tokens as decisive, then isolating, removing, or semantically inverting them should produce systematic and interpretable changes in its predictions. We operationalize this evaluation through sufficiency, comprehensiveness, and counterfactuality metrics, and conduct experiments on IMDB and Steam reviews across both closed-source (GPT-4o-mini) and open-source LLMs (Gemma3, Granite8B, DeepSeek). Results show that GPT-4o-mini follows the expected progression across all metrics, Gemma3 and Granite8B maintain coherence under sufficiency but lose consistency under more demanding interventions, while DeepSeek variants display structural deviations, either failing to preserve sufficiency or overreacting under comprehensiveness and counterfactuality. These findings s",
+  "summary_1line": "Large Language Models (LLMs) have been widely adopted in text classification tasks, where they not only output class predictions but also generate explanations that highlight the tokens deemed most relevant for reachi...",
+  "title": "Do Language Models Trust Their Own Justifications? A Study on Functional Consistency",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32665v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "72f3ee5066aaa64d": {
   "first_seen": "2026-10-14T09:04:12.579733+00:00",
   "id": "fb7a6e8cf86bebc5",
@@ -8098,6 +8190,22 @@
   "type": "news",
   "url": "https://getrad.dev",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "742d30efdc4090c1": {
+  "first_seen": "2026-10-26T20:04:12.953184+00:00",
+  "id": "a1c365469fdea55e",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-10-26T07:00:00+00:00",
+  "sid": "742d30efdc4090c1",
+  "source": "openai_blog",
+  "summary": "See how OpenAI engineers use Codex Ultrafast to investigate incidents in minutes. Explore faster security analysis, code refactoring, and daily workflows.",
+  "summary_1line": "See how OpenAI engineers use Codex Ultrafast to investigate incidents in minutes. Explore faster security analysis, code refactoring, and daily workflows.",
+  "title": "How Ultrafast cut incident investigation from hours to minutes at OpenAI",
+  "type": "news",
+  "url": "https://openai.com/index/openai-cut-incident-investigation",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "74421b1c21dbbb32": {
   "first_seen": "2026-10-20T04:04:49.411681+00:00",
@@ -8681,6 +8789,22 @@
   "title": "How Fanatics and OpenAI streamline the fan experience",
   "type": "news",
   "url": "https://openai.com/index/fanatics-streamline-fan-experience"
+ },
+ "7e7d546813cda6af": {
+  "first_seen": "2026-10-26T20:04:12.953184+00:00",
+  "id": "2798948325a2e949",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-10-26T19:53:24+00:00",
+  "sid": "7e7d546813cda6af",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.165.0-alpha.3",
+  "summary_1line": "Release 0.165.0-alpha.3",
+  "title": "codex rust-v0.165.0-alpha.3",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.165.0-alpha.3",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "7ebd2b8ac15240bc": {
   "first_seen": "2026-10-20T16:03:22.575210+00:00",
@@ -11356,6 +11480,22 @@
   "type": "news",
   "url": "https://www.interconnects.ai/p/latest-open-artifacts-25-deepseek"
  },
+ "a3b3ffaa2b6e698f": {
+  "first_seen": "2026-10-26T20:04:12.953184+00:00",
+  "id": "982a86754388aced",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-23T17:14:15+00:00",
+  "sid": "a3b3ffaa2b6e698f",
+  "source": "arxiv_cs_lg",
+  "summary": "Regularised reinforcement learning (RL) algorithms rely on estimators, like Monte Carlo tree search or one-step look-ahead, to provide policy, value, or Q-value estimates in training and inference. However, existing bandit-based estimation frameworks evaluate sampling efficiency, not the quality of estimates. We address this by formalising estimate generation as a recommendation process, treating bandit-based sampling as an improvement operator. To evaluate the quality of a recommendation (estimate), we define regulariser-aware recommender regrets, analysing their lower bounds, and proving that simple algorithms like uniform sampling can achieve these bounds. Finally, we unify bandit- and search-based target improvement under recommender MCTS. Across synthetic trees, arcade games, and scientific discovery tasks, recommenders often yield faster target convergence and superior downstream performance. Our experiments characterise for the first time the potential of regularised MCTS in scientific applications.",
+  "summary_1line": "Regularised reinforcement learning (RL) algorithms rely on estimators, like Monte Carlo tree search or one-step look-ahead, to provide policy, value, or Q-value estimates in training and inference. However, existing b...",
+  "title": "Recommender regret for improving regularised RL estimation with bandits and MCTS",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32910v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "a42e86ea9f9f98f3": {
   "first_seen": "2026-10-15T11:04:41.472519+00:00",
   "id": "6543f1e1267f3e00",
@@ -12445,6 +12585,22 @@
   "type": "news",
   "url": "https://openai.com/index/chatgpt-ads-expands-26-new-countries"
  },
+ "b144eddcba6073a5": {
+  "first_seen": "2026-10-26T20:04:12.953184+00:00",
+  "id": "831ad2fa70ece4aa",
+  "published": "2026-10-26T19:57:41+00:00",
+  "release_highlights": [
+   "release(checkpoint): 4.3.1",
+   "fix(checkpoint): reject NUL bytes in namespace labels"
+  ],
+  "sid": "b144eddcba6073a5",
+  "source": "langgraph_releases",
+  "summary": "Changes since checkpoint==4.3.0 release(checkpoint): 4.3.1 ( #9447 ) fix(checkpoint): reject NUL bytes in namespace labels ( #9383 ) chore(deps): bump certifi from 2026.1.4 to 2026.10.19 in /libs/checkpoint ( #9372 )",
+  "summary_1line": "release(checkpoint): 4.3.1 · fix(checkpoint): reject NUL bytes in namespace labels",
+  "title": "langgraph-checkpoint==4.3.1",
+  "type": "release",
+  "url": "https://github.com/langchain-ai/langgraph/releases/tag/checkpoint%3D%3D4.3.1"
+ },
  "b1dfa0a2ba999e0c": {
   "also_covered": [
    {
@@ -13070,6 +13226,19 @@
   "type": "news",
   "url": "https://yamanahlawat.in/articles/agent-ignores-your-mcp-tool",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "b7ae762d615efa39": {
+  "content_excerpt": "AI Search now natively supports Streaming Tables, Materialized Views, and Managed tables using Iceberg v3+ in addition to Delta tables. You can bring live events, continuously maintained personalized state, and open-format data directly into your AI Search applications — reducing the overhead of building and managing separate pipelines to convert and synchronize these data sources. Streaming Tables, Materialized Views, and Managed Iceberg each represent a different way of working with data, and each opens up new possibilities for AI applications. Continuously changing data such as new listings, inventory, availability, and user activity can flow into an append-only Streaming Table, with AI Search indexing new records as they arrive and keeping the search index up to date. This freshness enables applications where the latest data can directly shape the search experience: helping users discover newly available restaurants through a search bar, or generating real-time recommendations based on recent trends. Materialized Views can aggregate events, filter records, and join data from multiple sources to create customized state. As the underlying data changes, the view is incrementally maintained and AI Search propagates those changes to the index, enabling personalized search experiences such as session-aware recommendations, product and content discovery based on recent activity, or tailor results to a user's evolving interests and preferences. Managed Iceberg tables can serve as",
+  "first_seen": "2026-10-26T20:04:12.953184+00:00",
+  "id": "015ce95681a85b6d",
+  "published": "2026-10-26T18:03:59+00:00",
+  "sid": "b7ae762d615efa39",
+  "source": "databricks_blog",
+  "summary": "AI Search now natively supports Streaming Tables, Materialized Views, and Managed...",
+  "summary_1line": "AI Search now natively supports Streaming Tables, Materialized Views, and Managed...",
+  "title": "Building live intelligence: Databricks AI Search supports Streaming Tables, Materialized Views, and Managed tables using Iceberg",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/building-live-intelligence-databricks-ai-search-supports-streaming-tables-materialized-views"
  },
  "b7d3f6df6ecbe2c9": {
   "first_seen": "2026-10-20T19:04:11.023973+00:00",
@@ -14434,6 +14603,22 @@
   "title": "Brickster Voices: Meet Clara Kurian",
   "type": "news",
   "url": "https://www.databricks.com/blog/brickster-voices-meet-clara-kurian"
+ },
+ "c73e5e18cc5a222e": {
+  "first_seen": "2026-10-26T20:04:12.953184+00:00",
+  "id": "abe694b183f4c1c8",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-23T17:59:21+00:00",
+  "sid": "c73e5e18cc5a222e",
+  "source": "arxiv_cs_ai",
+  "summary": "Training generalizable embodied agents requires realistic, varied, and simulation-ready indoor environments. Language-guided methods support semantic planning and object-level reasoning, but precise spatial grounding remains difficult. Visual generative models offer rich priors over plausible arrangements, yet their outputs require geometric reasoning to become physically valid 3D scenes. We introduce SceneBloom, an agentic framework that combines visual layout sampling with contract-guided 3D compilation. A hierarchical sampler uses diffusion priors to generate furniture arrangements within functional zones. A compiler then uses relations extracted from each proposal to guide geometric fitting and local pose correction. Across five room types, SceneBloom attains the highest visual quality and physical stability among the compared methods and is the only method with no detected mesh collisions and out-of-bounds objects. Its layouts are also closer to the distribution of real rooms than those of all compared baselines. Object navigation policies trained in these realistic scenes achieve a higher success rate in held-out real scans than those trained on an equal number of real training scans. Code is available at https://github.com/Tinaliu0123/scenebloom.",
+  "summary_1line": "Training generalizable embodied agents requires realistic, varied, and simulation-ready indoor environments. Language-guided methods support semantic planning and object-level reasoning, but precise spatial grounding...",
+  "title": "SceneBloom: Agentic Indoor Environment Generation with Realistic and Diverse Layouts for Embodied Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32978v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "c745fad530d0d52e": {
   "first_seen": "2026-10-08T03:03:39.644590+00:00",
