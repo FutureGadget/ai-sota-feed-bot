@@ -2,92 +2,104 @@
 
 Focus: AI Platform Engineering
 
-## 1. Google ML Drift Accelerates On-Device AI Inference Across Diverse GPUs
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/10/google-ml-drift/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.797 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 2. RoleFlow: Self-Evolving Multi-Role Agentic Collaboration via Structural Adaptation
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.30429v1
-- Score: 2.487 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 3. The five components of building a "company harness"
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/components-building-company-harness
-- Score: 2.471 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
-
-## 4. ULME: Predictive Coupling for Mutually Reinforcing Embedding and Language Modeling
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.30705v1
-- Score: 2.343 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 5. Adaptive Skill Granularity for Coding Agents: Runtime Routing and Macro-to-Micro Recovery
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2610.31461v1
-- Score: 2.201 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 6. vLLM Delivers Day-0 Support for MiniMax-M3.1-Flash
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-10-23-minimax-m31-flash
-- Score: 1.932 | Reliability: 1.0
+## 1. OpenAI's isolated AI agents found ways to talk to each other through CPU cache
+- Type: news | Source: hackernews_ai
+- URL: https://the-decoder.com/openais-isolated-ai-agents-found-ways-to-talk-to-each-other-through-cpu-cache/
+- Score: 3.03 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. How To Use Decision Models for Evals
-- Type: news | Source: hamel_husain
-- URL: https://hamel.dev/blog/posts/decision-model-evals/
-- Score: 1.85 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
+## 2. Crawlerpeek – check which AI crawlers your site lets in (CLI, MCP)
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/crawlerpeek/crawlerpeek
+- Score: 2.978 | Reliability: 1.0
+- Why it matters: 
 
-## 8. codex 0.164.0
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.164.0
-- Score: 1.676 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, codex.
+## 3. SWE-Shift: Evaluating Coding Agents in Evolving Workspaces
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.32196v1
+- Score: 2.949 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
-## 9. claude-code v2.1.305
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.305
-- Score: 1.498 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
+## 4. Show HN: Hycli – reverse-engineer websites into CLI and MCP tools for AI agents
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/Hybirdss/Hycli
+- Score: 2.913 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 5. When Agents Fail: Model or Harness--Who's to Blame?
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.32483v1
+- Score: 2.777 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness, evaluation.
+
+## 6. Cycle-of-Thought: Self-Evaluative Iterative Reasoning for Table Visual Question Answering in Document Images
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2610.32423v1
+- Score: 2.661 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 7. The five components of building a "company harness"
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/components-building-company-harness
+- Score: 2.355 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
+
+## 8. Serverless routing made sticky
+- Type: news | Source: modal_blog
+- URL: https://modal.com/blog/serverless-routing-made-sticky
+- Score: 1.543 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 9. Announcing Humming: Fast, Flexible Kernels for Quantized Inference
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-10-21-humming
+- Score: 1.54 | Reliability: 1.0
+- Why it matters: 
 
 ## 10. langgraph-cli==0.4.38
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.38
-- Score: 1.351 | Reliability: 1.0
+- Score: 1.292 | Reliability: 1.0
 - Why it matters: 
 
-## 11. Turning Database Grading into RL Rewards: Post-Training Agents with ThinkingBox
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/microsoft/thinkingbox-training
-- Score: 2.167 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 11. SOPO: Socratic Guided Policy Optimization for Span-Level Hallucination Detection
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2610.32212v1
+- Score: 2.512 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
-## 12. On the Token Collapse Phenomenon in Textual Graph Soft Prompting
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2610.31572v1
-- Score: 2.162 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+## 12. Measuring the Verifier's Floor: How Much Apparent Rare-Word Text-to-Speech Error Is ASR Error?
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2610.31470v1
+- Score: 1.95 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
-## 13. claude-agent-sdk-python v0.2.173
+## 13. claude-code v2.1.306
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.306
+- Score: 1.136 | Reliability: 1.0
+- Why it matters: 
+
+## 14. codex 0.163.0-alpha.11.2
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.163.0-alpha.11.2
+- Score: 1.087 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 15. claude-agent-sdk-python v0.2.169
 - Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.173
-- Score: 1.156 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.169
+- Score: 1.02 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 14. tencent/WeVisOne-VL-2B released on Hugging Face
+## 16. tencent/Hy-Nomas released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/WeVisOne-VL-2B
-- Score: 1.099 | Reliability: 1.0
+- URL: https://huggingface.co/tencent/Hy-Nomas
+- Score: 0.986 | Reliability: 1.0
 - Why it matters: 
 
-## 15. vllm v0.32.0
+## 17. vllm v0.32.1rc0
 - Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.0
-- Score: 0.957 | Reliability: 1.0
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.1rc0
+- Score: 0.385 | Reliability: 1.0
 - Why it matters:
