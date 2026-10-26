@@ -3,9 +3,13 @@
 The provider cache under ``data/quality/cache`` is a local response cache. It
 is intentionally gitignored, so a fresh CI runner starts cold. This module is
 the durable layer: a compact, committed store keyed by item identity + model +
-rubric + prompt fingerprint. The judge reads it before calling Jev, merges the
-prior score/signals/category onto the item, and only calls the API for missing
-or expired entries.
+rubric + prompt fingerprint + evidence bucket. The judge reads it before
+calling Jev, merges the prior score/signals/category onto the item, and only
+calls the API for missing, expired, or thin-evidence entries.
+
+The evidence bucket is part of the key because the judge's score depends on
+what it can read. A judgment made on an empty or teaser-only excerpt must not
+be reused after the article body is fetched.
 
 The store deliberately keeps only compact fields. Raw API responses, prompts,
 usage, and cost stay in the local provider cache.
@@ -73,12 +77,43 @@ def item_identity(item: dict[str, Any]) -> str:
     return f"{url}|{title}|{source}"
 
 
+def evidence_chars(item: dict[str, Any]) -> int:
+    """Length of the text the judge would see for this item.
+
+    Mirrors ``judge.build_systemone_state`` so the evidence bucket describes
+    the same payload the model receives.
+    """
+    text = (
+        item.get("excerpt")
+        or item.get("content_excerpt")
+        or item.get("summary_1line")
+        or item.get("summary")
+        or ""
+    )
+    return len(str(text).strip())
+
+
+def evidence_bucket(item: dict[str, Any], cfg: dict[str, Any]) -> str:
+    """Coarse bucket for the judgment key.
+
+    Items below the configured evidence floor are keyed as ``thin`` so a
+    snippet-only judgment is invalidated once real article text arrives.
+    Above the floor the length is bucketed at 400 characters, which keeps
+    minor page changes from invalidating a good judgment.
+    """
+    min_chars = int((cfg.get("content_fetch") or {}).get("min_evidence_chars", 0) or 0)
+    chars = evidence_chars(item)
+    if min_chars > 0 and chars < min_chars:
+        return "thin"
+    return str(min(8, chars // 400 + 1))
+
+
 def judgment_key(item: dict[str, Any], cfg: dict[str, Any]) -> str:
     or_cfg = cfg.get("openrouter", {}) or {}
     model = str(or_cfg.get("model") or cfg.get("model") or "jev-1.14")
     rubric = str(cfg.get("version") or "feed-quality-v1")
     identity = item_identity(item)
-    blob = f"{identity}|{model}|{rubric}|{prompt_fingerprint(cfg)}"
+    blob = f"{identity}|{model}|{rubric}|{prompt_fingerprint(cfg)}|ev:{evidence_bucket(item, cfg)}"
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:32]
 
 
@@ -164,6 +199,7 @@ def put_entry(store: dict[str, Any], key: str, item: dict[str, Any], cfg: dict[s
         "judge_category_probabilities": item.get("judge_category_probabilities") or {},
         "judge_model": item.get("judge_model"),
         "judge_rubric_version": item.get("judge_rubric_version"),
+        "judge_evidence_chars": int(item.get("judge_evidence_chars") or evidence_chars(item)),
         "judge_judged_at": item.get("judge_judged_at") or datetime.now(timezone.utc).isoformat(),
     }
 

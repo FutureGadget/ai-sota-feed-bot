@@ -114,6 +114,12 @@ class QualityIndexTest(unittest.TestCase):
         self.assertEqual(dq.DROP_BELOW, float(ranking.get("drop_below")))
         self.assertEqual(dq.KEEP_AT, float(ranking.get("keep_at")))
 
+    def test_evidence_floor_is_configured(self) -> None:
+        cfg = yaml.safe_load((ROOT / "config" / "judge.yaml").read_text(encoding="utf-8"))
+        content = cfg.get("content_fetch") or {}
+        self.assertGreater(int(content.get("min_evidence_chars") or 0), 0)
+        self.assertIn("release", content.get("min_evidence_exempt_roles") or [])
+
     def test_annotates_from_classified_and_derives_missing_verdicts(self) -> None:
         article = self.index.annotate({"id": "a", "url": "https://example.com/drop", "title": "Drop"})
         self.assertEqual(article["judge_verdict"], "drop")

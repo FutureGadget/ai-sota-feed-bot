@@ -2563,3 +2563,50 @@ Rollback: Revert `pipeline/editorial.py`, `pipeline/ranking.py`,
 `config/editorial.yaml`, `config/profile.yaml`, and the corresponding tests to
 the prior commit; clustering, floor selection, and the static gate return to
 the previous behavior.
+
+## 2026-10-26 - Judge on evidence, not teasers; recalibrate Jev to feed-quality-v2
+
+Decision: make the Jev gate evidence-aware. Items whose available text is
+below `content_fetch.min_evidence_chars` (300 characters, release-role items
+exempt) stay `unjudged` with `judge_error: insufficient_evidence` and no score;
+they pass the headroom floor so the deterministic policy decides. Include an
+evidence bucket in `judgment_key` and persist `judge_evidence_chars` in the
+store, so a snippet-only judgment is refreshed after the article body is
+fetched. Recalibrate the rubric (`feed-quality-v2`) to keep model availability,
+price/quota, API, and Day-0 serving changes, to drop domain-specific
+adaptation papers without a transferable method, and to treat a concrete change
+in the title as evidence. Set the operating point to 0.35
+(`judge.ranking.keep_at`, `ranking.judge_ranking.headroom_min_score`).
+
+Rationale: The 2026-10-25 daily recap was 10 of 11 cards from Hacker News. The
+search lane had produced zero cards in 47 consecutive runs, not because the
+search results were all junk but because `content_fetch._should_fetch_paragraph`
+skips `search_*` and Google News URLs. Every search item was judged from a
+~76-character snippet, and the judge's own rubric says a teaser is not
+evidence, so it scored them 0.01-0.07 and the 0.2 headroom floor removed the
+whole lane. The cache showed the same item scoring 0.70 with a 2,500-character
+excerpt and 0.04 with none (`bench-004`), and 0.85 vs 0.03 (`bench-049`). The
+2026-10-24 benchmark had already flagged the search scoop, the OpenAI-on-Google-
+Cloud distribution announcement, and the Bashkir paper as the three review
+cases. The fix is not a looser threshold: scoring an item the judge cannot read
+is worse than leaving it unjudged.
+
+Impact: The Oct 25 replay now produces 1 search card and 3 Hacker News cards in
+a 24-item edition, stable across `headroom_min_score` 0.2-0.45 and
+`judge_ranking.weight` 0.6-1.2. The v2 benchmark moves from AUC 0.969 / F1 0.927
+at 0.25 to AUC 1.000 / F1 1.000 at 0.35 (Brier 0.024), with zero false
+positives and zero false negatives on the frozen 50-item sample. Peak scores are
+partly in-sample because the rubric examples were adjusted on the same sample;
+a fresh labeled week is the next validation. Store entries written under the v1
+key are no longer reachable and prune within 14 days. `pipeline/deck_quality.py`
+`KEEP_AT` tracks the new 0.35 verdict threshold. Only the
+`feed-quality-v2` cache/store entries are used going forward.
+
+Rollback: Set `config/judge.yaml -> content_fetch.min_evidence_chars: 0` to
+disable the evidence gate without a code revert, and set
+`config/judge.yaml -> ranking.keep_at` and
+`config/ranking.yaml -> judge_ranking.headroom_min_score` back to 0.25/0.2.
+Revert `pipeline/judgment_store.py`, `pipeline/editorial_judge.py`,
+`pipeline/deck_quality.py`, `config/judge.yaml`, and `config/ranking.yaml` for a
+full rollback. Reverting the version also makes the v2 judgments unreachable;
+they prune in 14 days.

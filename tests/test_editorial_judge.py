@@ -7,6 +7,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from pipeline import editorial_judge
+from pipeline import judgment_store as js
 
 
 class FakeProvider:
@@ -168,6 +169,145 @@ class ApplyJudgeTest(unittest.TestCase):
         self.assertEqual(downgraded, 4)
         self.assertEqual(sum(1 for item in out if item["judge_verdict"] == "drop"), 6)
         self.assertEqual(sum(1 for item in out if item.get("judge_drop_downgraded")), 4)
+
+
+def _evidence_cfg(store_path=None, min_chars=300):
+    cfg = _cfg(store_path)
+    cfg["content_fetch"] = {
+        "enabled": True,
+        "min_evidence_chars": min_chars,
+        "min_evidence_exempt_roles": ["release"],
+    }
+    return cfg
+
+
+def _evidence_items():
+    return [
+        {
+            "id": "thin",
+            "title": "Search snippet",
+            "source": "search_example",
+            "source_role": "search",
+            "url": "https://example.com/thin",
+            "summary": "A 40 character teaser only.",
+        },
+        {
+            "id": "full",
+            "title": "A real engineering post",
+            "source": "vllm_blog",
+            "source_role": "first_party",
+            "url": "https://example.com/full",
+            "summary": "x" * 600,
+        },
+        {
+            "id": "release",
+            "title": "v1.2.3",
+            "source": "vllm_releases",
+            "source_role": "release",
+            "url": "https://example.com/release",
+            "summary": "",
+        },
+    ]
+
+
+class EvidenceGateTest(unittest.TestCase):
+    def test_thin_items_are_unjudged_and_releases_are_exempt(self) -> None:
+        items = _evidence_items()
+        provider = FakeProvider(scores={"thin": 0.04, "full": 0.8, "release": 0.05})
+        with tempfile.TemporaryDirectory() as tmp:
+            with (
+                patch.object(editorial_judge, "provider_from_config", return_value=provider),
+                patch.object(editorial_judge, "build_paragraph_map", return_value={}),
+                patch.object(editorial_judge, "CLASSIFIED_DIR", Path(tmp)),
+                patch.object(editorial_judge, "COMPACT_CLASSIFIED", Path(tmp) / "classified.json"),
+            ):
+                out, diag = editorial_judge.apply_judge(items, _evidence_cfg(Path(tmp) / "judgments.json"))
+        self.assertEqual(diag["insufficient_evidence"], 1)
+        self.assertEqual(diag["judged"], 2)
+        self.assertEqual(out[0]["judge_verdict"], "unjudged")
+        self.assertEqual(out[0]["judge_error"], "insufficient_evidence")
+        self.assertIsNone(out[0]["judge_score"])
+        self.assertEqual(out[1]["judge_verdict"], "keep")
+        self.assertEqual(out[2]["judge_verdict"], "drop")
+
+    def test_fetched_text_unblocks_a_judgment(self) -> None:
+        items = _evidence_items()[:1]
+        provider = FakeProvider(scores={"thin": 0.8})
+        fetched = {"https://example.com/thin": "y" * 1200}
+        with tempfile.TemporaryDirectory() as tmp:
+            with (
+                patch.object(editorial_judge, "provider_from_config", return_value=provider),
+                patch.object(editorial_judge, "build_paragraph_map", return_value=fetched),
+                patch.object(editorial_judge, "CLASSIFIED_DIR", Path(tmp)),
+                patch.object(editorial_judge, "COMPACT_CLASSIFIED", Path(tmp) / "classified.json"),
+            ):
+                out, diag = editorial_judge.apply_judge(items, _evidence_cfg(Path(tmp) / "judgments.json"))
+        self.assertEqual(diag["content_fetched"], 1)
+        self.assertEqual(diag["judged"], 1)
+        self.assertEqual(out[0]["judge_verdict"], "keep")
+        self.assertEqual(out[0]["judge_evidence_chars"], 1200)
+
+    def test_thin_store_entry_is_refreshed_after_enrichment(self) -> None:
+        item = _evidence_items()[0]
+        with tempfile.TemporaryDirectory() as tmp:
+            store_path = Path(tmp) / "judgments.json"
+            cfg = _evidence_cfg(store_path)
+            store = js.load_store(store_path)
+            thin_key = js.judgment_key(item, cfg)
+            js.put_entry(
+                store,
+                thin_key,
+                {
+                    **item,
+                    "judge_score": 0.05,
+                    "judge_verdict": "drop",
+                    "judge_evidence_chars": 0,
+                },
+                cfg,
+            )
+            js.save_store(store, store_path)
+            provider = FakeProvider(scores={"thin": 0.8})
+            fetched = {"https://example.com/thin": "y" * 1200}
+            with (
+                patch.object(editorial_judge, "provider_from_config", return_value=provider),
+                patch.object(editorial_judge, "build_paragraph_map", return_value=fetched),
+                patch.object(editorial_judge, "CLASSIFIED_DIR", Path(tmp)),
+                patch.object(editorial_judge, "COMPACT_CLASSIFIED", Path(tmp) / "classified.json"),
+            ):
+                out, diag = editorial_judge.apply_judge([item], cfg)
+        self.assertEqual(diag["judged"], 1)
+        self.assertEqual(out[0]["judge_verdict"], "keep")
+        self.assertEqual(out[0]["judge_score"], 0.8)
+
+    def test_full_evidence_store_entry_is_reused(self) -> None:
+        item = _evidence_items()[1]
+        with tempfile.TemporaryDirectory() as tmp:
+            store_path = Path(tmp) / "judgments.json"
+            cfg = _evidence_cfg(store_path)
+            store = js.load_store(store_path)
+            key = js.judgment_key(item, cfg)
+            js.put_entry(
+                store,
+                key,
+                {
+                    **item,
+                    "judge_score": 0.9,
+                    "judge_verdict": "keep",
+                    "judge_evidence_chars": 600,
+                },
+                cfg,
+            )
+            js.save_store(store, store_path)
+            with (
+                patch.object(editorial_judge, "provider_from_config", return_value=FakeProvider(error=True)),
+                patch.object(editorial_judge, "build_paragraph_map", return_value={}),
+                patch.object(editorial_judge, "CLASSIFIED_DIR", Path(tmp)),
+                patch.object(editorial_judge, "COMPACT_CLASSIFIED", Path(tmp) / "classified.json"),
+            ):
+                out, diag = editorial_judge.apply_judge([item], cfg)
+        self.assertEqual(diag["store_hits"], 1)
+        self.assertEqual(diag["judged"], 0)
+        self.assertEqual(out[0]["judge_score"], 0.9)
 
 
 if __name__ == "__main__":
