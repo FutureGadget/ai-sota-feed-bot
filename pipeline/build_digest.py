@@ -825,6 +825,7 @@ def run():
             f"store_misses={judge_diag.get('store_misses', 0)} "
             f"store_entries={judge_diag.get('store_entries', 0)} "
             f"content_fetched={judge_diag.get('content_fetched', 0)} "
+            f"insufficient_evidence={judge_diag.get('insufficient_evidence', 0)} "
             f"errors={judge_diag.get('errors', 0)} "
             f"downgraded={judge_diag.get('downgraded', 0)} "
             f"verdicts={judge_diag.get('verdicts', {})} "

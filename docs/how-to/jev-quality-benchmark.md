@@ -175,13 +175,20 @@ to be pasted into a chat with the assistant for a second opinion.
 
 ## 7. Decide
 
-The Jev 1.14 run is recorded in
-`docs/status/jev-quality-benchmark-2026-10-24.md`. The hybrid four-question
-gate (`keep` plus `platform_relevant`/`release_lane`/`corporate_marketing`)
-scores AUC 0.969, F1 0.927 at threshold 0.25, Brier 0.095, ECE 0.114, 50
-requests for $0.0027. It beat both the single-question prompt and the
-heuristic baseline, but search title-only items remain weak. Treat that as the
-starting point, not a production verdict.
+The Jev 1.14 runs are recorded in
+`docs/status/jev-quality-benchmark-2026-10-24.md` (v1 baseline) and
+`docs/status/jev-quality-recalibration-2026-10-26.md` (feed-quality-v2). The
+v1 hybrid four-question gate scored AUC 0.969, F1 0.927 at 0.25, Brier 0.095,
+ECE 0.114. The v2 recalibration added an evidence floor, an evidence-aware
+store key, and hard-positive examples for availability/price/API changes; it
+scores AUC 1.000, F1 1.000 at 0.35, Brier 0.024 on the same 50 items, 50
+requests for about $0.003.
+
+Treat the perfect v2 score as partly in-sample: the rubric examples were
+adjusted on these same labels. The next step is a fresh labeled week, not a
+larger claim. The production operating point is 0.35
+(`config/judge.yaml -> ranking.keep_at`,
+`config/ranking.yaml -> judge_ranking.headroom_min_score`).
 
 Jev is worth wiring into the pipeline only if all of these hold:
 

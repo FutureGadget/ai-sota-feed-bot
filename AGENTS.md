@@ -136,8 +136,9 @@ in `ops_daily_summary.py`'s log line.
   - `judge.py` — shared Jev/OpenRouter System One client, structured rubric,
     hybrid scoring, cache, and verdict/adjustment policy
   - `editorial_judge.py` — production gate: fetches paragraph excerpts, judges
-    the Stage A candidate pool, writes `data/processed/classified.json` and the
-    local `data/quality/classified/<date>.json`
+    the Stage A candidate pool (items below `content_fetch.min_evidence_chars`
+    stay `unjudged` and fail open), writes `data/processed/classified.json`
+    and the local `data/quality/classified/<date>.json`
   - `deck_quality.py` - joins the committed judge artifacts into the five
     editor-deck input bundles, attaches verdict/category/score, filters known
     drops, and supplies judge category hints
@@ -280,7 +281,8 @@ in `ops_daily_summary.py`'s log line.
     patterns, story-cluster thresholds, seen-memory edition caps
   - `judge.yaml` - enabled-by-default, fail-open quality judge: OpenRouter System One
     (`/api/v1/systemone`, Jev `noul` probability) or direct TypeSafe Decisions,
-    structured rubric, thresholds, cache, and context budget
+    feed-quality-v2 rubric, evidence floor (300 chars, releases exempt),
+    thresholds, cache, and context budget
 - `scripts/` — `check_bundle_size.py` (enforces Vercel function bundle budgets,
   requirements.txt hygiene, and .vercelignore completeness; runs in CI),
   `persist_static_i18n.py` (paid static-output checkpoint/recovery and offline
@@ -360,7 +362,8 @@ in `ops_daily_summary.py`'s log line.
 - `data/raw/<date>/items.json` — collector output
 - `data/processed/` — `latest.json` (the feed), `classified.json` (compact
   judge verdicts/categories for the editor decks), `judgments.json` (durable
-  judge store, pruned to 14 days / 6000 entries), `editorial.json` (roles/caps
+  judge store keyed by identity + rubric + evidence bucket, pruned to 14 days /
+  6000 entries), `editorial.json` (roles/caps
   and quarantine patterns shared with the APIs), `runs/`, `runs_index.json`.
   `pipeline/deck_quality.py` joins `classified.json` + `judgments.json` onto
   the five editor-deck input bundles (daily, weekly, playbook, wiki,
@@ -466,9 +469,12 @@ APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
 ## Gotchas (cache these, they cost tokens to rediscover)
 - **The ranking LLM is disabled** (`config/llm.yaml -> enabled: false`), but
   the **Jev gate is active** (`config/judge.yaml`) and fails open without
-  `OPENROUTER_API_KEY`. `llm_label.py`/`llm_rerank.py` are the legacy no-op
-  ranking interfaces; don't "fix" missing ranking LLM calls by wiring the Jev
-  gate there.
+  `OPENROUTER_API_KEY`. It also fails open per item: below 300 characters of
+  evidence the item stays `unjudged` (`insufficient_evidence`) and passes the
+  headroom floor, so search snippets and failed content fetches are not scored
+  as junk. `llm_label.py`/`llm_rerank.py` are the legacy no-op ranking
+  interfaces; don't "fix" missing ranking LLM calls by wiring the Jev gate
+  there.
 - **Vercel Hobby caps functions at 12.** Shared JavaScript lives in root
   `lib/`, never under `api/` (Vercel treats `api/**` as functions). The
   `scripts/check_bundle_size.py` guard rejects a 13th function, a nested

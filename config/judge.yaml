@@ -67,8 +67,10 @@ openrouter:
       type: noul
       instructions: >-
         Is this primarily a marketing or corporate announcement (ads, customer
-        story, partnership, office, funding, appointment) without a concrete
-        engineering or distribution change that affects platform teams?
+        story, partnership, office, funding, appointment) with no model
+        availability, price, API, or serving change? Answer yes only when the
+        item has no concrete distribution or engineering change a platform
+        team would act on.
     category:
       type: choice
       instructions: >-
@@ -97,6 +99,15 @@ openrouter:
 
 content_fetch:
   enabled: true
+  # The judge's own rubric says a teaser is not evidence, so do not ask it to
+  # score an item it cannot read. Below this many characters the item stays
+  # `unjudged` (fail-open) and the deterministic policy decides, instead of a
+  # snippet-driven low score that starves a lane (search results are the
+  # clearest case: Google News gives ~76 characters and no publisher page).
+  min_evidence_chars: 300
+  # Releases are judged from the title and source alone; the release lane
+  # already owns the decision.
+  min_evidence_exempt_roles: [release]
   max_chars: 2500
   workers: 8
   timeout_seconds: 8
@@ -110,7 +121,7 @@ judgment_store:
   ttl_days: 14
   max_entries: 6000
 
-version: feed-quality-v1
+version: feed-quality-v2
 question_id: is_substantive_platform_content
 type: noul
 context_chars: 2500
@@ -126,7 +137,7 @@ extra_payload: {}
 # `keep` is the decision threshold; the two confidence bands are for logging
 # and for a later generative-judge pass.
 thresholds:
-  keep: 0.5
+  keep: 0.35
   drop_high_confidence: 0.85
   keep_high_confidence: 0.15
 
@@ -144,14 +155,17 @@ instructions:
   evaluation_rules:
     - "Keep when the item contains a concrete mechanism, architecture, measurement, benchmark, code, failure mode, or operational lesson."
     - "Keep when a platform team could change a decision or action after reading it."
-    - "Drop marketing, customer stories, partnership or office announcements, policy updates, and product ads unless they carry a concrete engineering change."
+    - "Keep when a model becomes available on a new platform, cloud, API, or serving stack, when its price or quota changes, or when a serving project adds Day-0 support. These change where and how a platform team runs the model."
+    - "Keep a model launch or open-weight release when the item states a concrete capability, serving, price, license, or availability change, even when the headline is an announcement, a comparison, or a roundup."
+    - "Drop marketing, customer stories, partnership or office announcements, policy updates, and product ads unless they carry a concrete engineering or distribution change."
     - "Drop SEO comparisons, ranked listicles, explainers, setup guides, and rehashed announcements."
     - "Drop gossip, funding, IPO, stock, executive moves, outages without a technical postmortem, and consumer hardware."
     - "Drop off-mission domain science (clinical, biology, drug discovery, weather, forestry) unless the item is about serving or evaluating the model, not the domain."
     - "Drop routine release notes and version bumps. This gate is for the default Brief, which excludes the Releases tab; a release note belongs there even when its changelog contains technical details."
     - "If the input says `Source role: release`, answer no for the Brief gate."
     - "Drop domain-specific benchmarks, deployments, and applications (clinical, medical, biology, forestry, protein design, nutrition, math) even when they use AI. Keep them only when the primary contribution is a general serving, evaluation, agent, or platform-engineering method."
-    - "A short teaser is not enough to keep an item on a vague promise; look for evidence in the excerpt."
+    - "Drop domain-specific adaptation and low-resource language work unless the method transfers to general serving, agent, or evaluation work."
+    - "A short teaser is not enough to keep an item on a vague promise. A concrete change stated in the title (availability, price, API, open weights, serving support) is different and counts as evidence."
 
 criteria:
   true:
@@ -163,6 +177,9 @@ criteria:
       - "An eval or reliability finding with a reproducible method."
       - "An agent architecture or harness pattern with implementation detail."
       - "A first-party engineering post that explains a real trade-off."
+      - "A model becoming available on a new cloud, API, or serving stack."
+      - "An API price, quota, or rate-limit change that changes agent cost."
+      - "Day-0 serving support for a newly released model."
   false:
     definition: >-
       The item is marketing, a customer story, an SEO listicle, gossip,
@@ -174,15 +191,18 @@ criteria:
       - "A funding or IPO announcement."
       - "A routine version bump or a release note with a long changelog."
       - "A clinical QA benchmark or a protein-model deployment tutorial."
+      - "A low-resource language adaptation or a single-domain benchmark with no transferable platform method."
       - "A customer story about legal work or advertising."
 
 # Verdict thresholds used by the production gate. The benchmark tunes its own
 # threshold; these are the operating points on the same scale.
 ranking:
-  # The benchmark's tuned operating point is 0.25. `keep` means useful for the
-  # brief, not only must-read; the ranking weight below decides placement.
+  # The 2026-10-26 recalibration benchmark (feed-quality-v2) separates the
+  # labeled keeps (minimum 0.47) from the drops that reach the ranking
+  # (maximum 0.14). Any operating point in 0.35-0.45 is equivalent on that
+  # sample; use 0.35. `keep` means useful for the brief, not only must-read.
   drop_below: 0.1
-  keep_at: 0.25
+  keep_at: 0.35
   # Keep at least 40% of the judged pool. The gate removes the worst 60%; the
   # next band stays as `review` and is penalized by the ranking. A smaller
   # feed is preferable to padding it with high-confidence drops.

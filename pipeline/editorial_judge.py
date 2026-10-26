@@ -29,6 +29,7 @@ try:
     )
     from judgment_store import (
         attach_entry,
+        evidence_chars,
         get_entry,
         judgment_key,
         load_store,
@@ -45,6 +46,7 @@ except Exception:
     )
     from pipeline.judgment_store import (
         attach_entry,
+        evidence_chars,
         get_entry,
         judgment_key,
         load_store,
@@ -67,6 +69,40 @@ def _priority(item: dict[str, Any]) -> float:
         if value:
             return value
     return 0.0
+
+
+def _evidence_exempt_roles(cfg: dict[str, Any]) -> set[str]:
+    content_cfg = cfg.get("content_fetch", {}) or {}
+    raw = content_cfg.get("min_evidence_exempt_roles")
+    if raw is None:
+        raw = ["release"]
+    return {str(role) for role in raw}
+
+
+def has_sufficient_evidence(item: dict[str, Any], cfg: dict[str, Any]) -> bool:
+    """Whether the judge has enough text to make a defensible decision.
+
+    A model asked to score a title and a 76-character search snippet will
+    answer low, because its own rubric says a teaser is not evidence. Scoring
+    that answer as a quality verdict starves the lane. Leave the item unjudged
+    instead and let the deterministic policy decide.
+    """
+    min_chars = int((cfg.get("content_fetch", {}) or {}).get("min_evidence_chars", 0) or 0)
+    if min_chars <= 0:
+        return True
+    if str(item.get("source_role") or "") in _evidence_exempt_roles(cfg):
+        return True
+    return evidence_chars(item) >= min_chars
+
+
+def _entry_is_thin(entry: dict[str, Any], cfg: dict[str, Any]) -> bool:
+    """A stored judgment made on a thin excerpt must be refreshed."""
+    min_chars = int((cfg.get("content_fetch", {}) or {}).get("min_evidence_chars", 0) or 0)
+    if min_chars <= 0:
+        return False
+    if str(entry.get("source_role") or "") in _evidence_exempt_roles(cfg):
+        return False
+    return int(entry.get("judge_evidence_chars") or 0) < min_chars
 
 
 def _attach(item: dict[str, Any], result: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
@@ -96,6 +132,7 @@ def _attach(item: dict[str, Any], result: dict[str, Any], cfg: dict[str, Any]) -
         or "jev-1.14"
     )
     item["judge_rubric_version"] = str(result.get("judge_rubric_version") or cfg.get("version") or "feed-quality-v1")
+    item["judge_evidence_chars"] = evidence_chars(item)
     item["judge_judged_at"] = str(result.get("judged_at") or datetime.now(timezone.utc).isoformat())
     item["judge_store_cached"] = bool(result.get("store", False))
     return item
@@ -146,6 +183,7 @@ def write_classified(items: list[dict[str, Any]], cfg: dict[str, Any], diag: dic
                 "published": item.get("published"),
                 "judge_score": item.get("judge_score"),
                 "judge_verdict": item.get("judge_verdict"),
+                "judge_evidence_chars": item.get("judge_evidence_chars"),
                 "judge_category": item.get("judge_category"),
                 "judge_category_confidence": item.get("judge_category_confidence"),
                 "judge_category_probabilities": item.get("judge_category_probabilities"),
@@ -187,6 +225,7 @@ def write_classified(items: list[dict[str, Any]], cfg: dict[str, Any], diag: dic
                 "published": row.get("published"),
                 "judge_score": row.get("judge_score"),
                 "judge_verdict": row.get("judge_verdict"),
+                "judge_evidence_chars": row.get("judge_evidence_chars"),
                 "judge_category": row.get("judge_category"),
                 "judge_category_confidence": row.get("judge_category_confidence"),
             }
@@ -210,6 +249,7 @@ def apply_judge(items: list[dict[str, Any]], cfg: dict[str, Any] | None = None) 
         "store_misses": 0,
         "store_entries": 0,
         "store_pruned": 0,
+        "insufficient_evidence": 0,
         "verdicts": {},
         "categories": {},
         "downgraded": 0,
@@ -243,35 +283,52 @@ def apply_judge(items: list[dict[str, Any]], cfg: dict[str, Any] | None = None) 
     max_entries = int(store_cfg.get("max_entries", 6000) or 0)
 
     cached_by_index: dict[int, dict[str, Any]] = {}
-    to_judge: list[tuple[int, dict[str, Any], str]] = []
+    pending: list[tuple[int, dict[str, Any]]] = []
     for index, item in ranked:
         key = judgment_key(item, cfg)
         entry = get_entry(store, key, ttl_days)
-        if entry is not None:
+        if entry is not None and not _entry_is_thin(entry, cfg):
             cached_by_index[index] = entry
         else:
-            to_judge.append((index, item, key))
-    diag["store_hits"] = len(cached_by_index)
-    diag["store_misses"] = len(to_judge)
+            pending.append((index, item))
 
     content_cfg = cfg.get("content_fetch", {}) or {}
-    if content_cfg.get("enabled", True) and to_judge:
+    if content_cfg.get("enabled", True) and pending:
         paragraph_map = build_paragraph_map(
-            [item for _index, item, _key in to_judge],
-            top_n=len(to_judge),
+            [item for _index, item in pending],
+            top_n=len(pending),
             max_chars=int(content_cfg.get("max_chars", 2500) or 2500),
             timeout=int(content_cfg.get("timeout_seconds", 8) or 8),
             workers=int(content_cfg.get("workers", 8) or 8),
             time_budget_seconds=int(content_cfg.get("time_budget_seconds", 120) or 120),
         )
         fetched = 0
-        for _index, item, _key in to_judge:
+        for _index, item in pending:
             text = paragraph_map.get(str(item.get("url") or "").split("#")[0].strip())
             if text:
                 item["content_excerpt"] = text
                 item["judge_excerpt_source"] = "fetched"
                 fetched += 1
         diag["content_fetched"] = fetched
+
+    # Re-key after enrichment. A judgment made on a thin excerpt must not be
+    # reused once the article body is available, and an item that still has no
+    # usable text is left unjudged rather than scored on a teaser.
+    to_judge: list[tuple[int, dict[str, Any], str]] = []
+    insufficient: dict[int, dict[str, Any]] = {}
+    for index, item in pending:
+        key = judgment_key(item, cfg)
+        entry = get_entry(store, key, ttl_days)
+        if entry is not None and not _entry_is_thin(entry, cfg):
+            cached_by_index[index] = entry
+            continue
+        if not has_sufficient_evidence(item, cfg):
+            insufficient[index] = item
+            continue
+        to_judge.append((index, item, key))
+    diag["store_hits"] = len(cached_by_index)
+    diag["store_misses"] = len(to_judge)
+    diag["insufficient_evidence"] = len(insufficient)
 
     started = time.monotonic()
     results: dict[int, tuple[dict[str, Any] | None, str | None]] = {}
@@ -298,11 +355,20 @@ def apply_judge(items: list[dict[str, Any]], cfg: dict[str, Any] | None = None) 
     for index, item in enumerate(items):
         if index in cached_by_index:
             judged = _attach(item, attach_entry(item, cached_by_index[index]), cfg)
+            judged["judge_evidence_chars"] = int(cached_by_index[index].get("judge_evidence_chars") or 0)
             diag["verdicts"][judged["judge_verdict"]] = diag["verdicts"].get(judged["judge_verdict"], 0) + 1
             category = judged.get("judge_category")
             if category:
                 diag["categories"][category] = diag["categories"].get(category, 0) + 1
             judged_items.append(judged)
+            continue
+        if index in insufficient:
+            item = dict(insufficient[index])
+            item["judge_score"] = None
+            item["judge_verdict"] = "unjudged"
+            item["judge_error"] = "insufficient_evidence"
+            item["judge_evidence_chars"] = evidence_chars(item)
+            judged_items.append(item)
             continue
         result, error = results.get(index, (None, None))
         if result is None and error is None:
@@ -310,6 +376,7 @@ def apply_judge(items: list[dict[str, Any]], cfg: dict[str, Any] | None = None) 
             continue
         if error or result is None:
             item = dict(item)
+            item["judge_score"] = None
             item["judge_error"] = error or "judge_failed"
             item["judge_verdict"] = "unjudged"
             diag["errors"] += 1

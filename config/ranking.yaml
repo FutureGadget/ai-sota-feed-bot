@@ -32,9 +32,11 @@ editorial_caps:
 # junk while the deterministic slots keep coverage.
 judge_ranking:
   weight: 1.2
-  # Discretionary headroom must clear this judge score. Slot floors are still
-  # allowed to fill below it so a quiet day does not empty a lane.
-  headroom_min_score: 0.2
+  # Discretionary headroom must clear this judge score. 0.35 is the
+  # 2026-10-26 feed-quality-v2 benchmark operating point; slot floors may still
+  # fill below it so a quiet day does not empty a lane. Items the judge could
+  # not read (thin evidence) are unjudged and pass this floor by design.
+  headroom_min_score: 0.35
   # An off-topic category needs a stronger score before it can take headroom.
   headroom_drop_categories: [off_topic]
   headroom_category_min_score: 0.6

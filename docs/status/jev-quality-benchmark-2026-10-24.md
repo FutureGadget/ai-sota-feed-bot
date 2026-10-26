@@ -1,5 +1,9 @@
 # Jev quality benchmark, 2026-10-24
 
+> Superseded for the operating rubric by
+> `jev-quality-recalibration-2026-10-26.md` (feed-quality-v2). The v1 numbers
+> below are the baseline.
+
 First end-to-end runs of the offline benchmark against Jev 1.14 through
 OpenRouter's System One API. Labels are assistant-authored and provisional;
 the review packet is the next step, not a verdict on the labels themselves.

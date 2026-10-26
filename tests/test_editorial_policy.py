@@ -192,15 +192,16 @@ class StoryClusterTest(unittest.TestCase):
         self.assertEqual(out[0]["also_covered"][0]["source"], "google_cloud_blog")
 
     def test_first_party_original_beats_search_echo(self) -> None:
+        now = datetime.now(timezone.utc)
         original = _item(
             "Redesigning source control at Anthropic",
             source="anthropic_engineering",
-            published="2026-10-23T00:00:00Z",
+            published=(now - timedelta(hours=3)).isoformat(),
         )
         echo = _item(
             "Redesigning source control at Anthropic",
             source="search_agent_engineering_news",
-            published="2026-10-24T00:00:00Z",
+            published=(now - timedelta(hours=2)).isoformat(),
         )
         out, _ = editorial.cluster_items([echo, original], editorial.load_config())
         self.assertEqual(len(out), 1)

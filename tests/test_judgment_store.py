@@ -20,7 +20,7 @@ def _cfg():
         },
         "instructions": {"task": "x"},
         "criteria": {"true": {"definition": "x"}},
-        "content_fetch": {"max_chars": 2500},
+        "content_fetch": {"max_chars": 2500, "min_evidence_chars": 300},
     }
 
 
@@ -43,6 +43,22 @@ class JudgmentKeyTest(unittest.TestCase):
         base = js.judgment_key(item, cfg)
         cfg["ranking"] = {"drop_below": 0.2, "keep_at": 0.4}
         self.assertEqual(base, js.judgment_key(item, cfg))
+
+    def test_evidence_changes_the_key(self) -> None:
+        item = {"url": "https://example.com/a", "title": "A story", "source": "vllm_blog"}
+        cfg = _cfg()
+        thin = js.judgment_key({**item, "summary": "short teaser"}, cfg)
+        full = js.judgment_key({**item, "content_excerpt": "x" * 1200}, cfg)
+        self.assertNotEqual(thin, full)
+        self.assertEqual(js.evidence_bucket({**item, "summary": "short teaser"}, cfg), "thin")
+        self.assertEqual(js.evidence_bucket({**item, "content_excerpt": "x" * 400}, cfg), "2")
+
+    def test_evidence_length_bucketing_is_stable(self) -> None:
+        item = {"url": "https://example.com/a", "title": "A story", "source": "vllm_blog"}
+        cfg = _cfg()
+        a = js.judgment_key({**item, "content_excerpt": "x" * 900}, cfg)
+        b = js.judgment_key({**item, "content_excerpt": "y" * 1100}, cfg)
+        self.assertEqual(a, b)
 
 
 class StoreTest(unittest.TestCase):
@@ -67,6 +83,7 @@ class StoreTest(unittest.TestCase):
             self.assertIsNotNone(entry)
             self.assertEqual(entry["judge_score"], 0.8)
             self.assertEqual(entry["judge_verdict"], "keep")
+            self.assertEqual(entry["judge_evidence_chars"], 0)
 
     def test_ttl_expires_entries(self) -> None:
         store = js.load_store(Path("/nonexistent/judgments.json"))

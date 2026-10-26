@@ -28,7 +28,7 @@ from typing import Any
 # entries written before 2026-10-24 do not carry a stored verdict, so their
 # verdict is derived from the score with these thresholds.
 DROP_BELOW = 0.10
-KEEP_AT = 0.25
+KEEP_AT = 0.35
 
 # Mirror ranking's judge_gate exemptions. A release note belongs in the
 # release lane even when the Brief gate answers "drop".

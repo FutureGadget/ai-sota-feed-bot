@@ -41,16 +41,19 @@ available to each function.
   Optional `publisher_name` and `publisher_domain` attribution fields pass
   through from collector rows for Google News items.
 - `data/processed/judgments.json` — durable judgment store for the Jev gate:
-  `entries` keyed by item identity + model + rubric + prompt fingerprint, each
-  with score, verdict, signals, category, and `judge_judged_at`. Pruned to
+  `entries` keyed by item identity + model + rubric + prompt fingerprint +
+  evidence bucket, each with score, verdict, signals, category,
+  `judge_evidence_chars`, and `judge_judged_at`. The evidence bucket is `thin`
+  below `content_fetch.min_evidence_chars`, so a snippet-only judgment is not
+  reused after the article body is fetched. Pruned to
   `judgment_store.ttl_days` (default 14) and `max_entries` (default 6000).
-  Committed so CI reuses prior judgments and only calls Jev for missing or
-  expired items.
+  Committed so CI reuses prior judgments and only calls Jev for missing,
+  expired, or thin-evidence items.
 - `data/processed/classified.json` — compact, committed judge artifact for
   editor-deck routines: model/rubric version, category and verdict counts, and
   up to 120 top-scored judged items (`story_key`, `url`, `title`, `source`,
-  `published`, `judge_score`, `judge_verdict`, `judge_category`,
-  `judge_category_confidence`). `pipeline/deck_quality.py` joins this file and
+  `published`, `judge_score`, `judge_verdict`, `judge_evidence_chars`,
+  `judge_category`, `judge_category_confidence`). `pipeline/deck_quality.py` joins this file and
   `judgments.json` onto the five editor-deck input bundles, attaches the
   judge fields, filters known drops (release items and release notes are
   exempt for decks with a release lane), and uses the judge category as the
