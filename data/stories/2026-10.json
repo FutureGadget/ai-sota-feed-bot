@@ -1745,6 +1745,23 @@
   "url": "http://arxiv.org/abs/2610.32429v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "18b25c716d40f2c7": {
+  "first_seen": "2026-10-26T21:05:48.669718+00:00",
+  "id": "2a5921fb22cafb49",
+  "published": "2026-10-26T20:05:16+00:00",
+  "release_highlights": [
+   "release(checkpoint): 4.3.1",
+   "release(langgraph): 1.2.18",
+   "fix(langgraph): let error_handler recover on every path and stream failed task results"
+  ],
+  "sid": "18b25c716d40f2c7",
+  "source": "langgraph_releases",
+  "summary": "Changes since 1.2.17 release(checkpoint): 4.3.1 ( #9447 ) release(langgraph): 1.2.18 ( #9445 ) fix(langgraph): let error_handler recover on every path and stream failed task results ( #9408 ) feat(langgraph): default delta snapshots to 100 updates ( #9420 ). DeltaChannel now takes a full snapshot every 100 updates instead of 1000: faster reads on long threads, more storage. Pass snapshot_frequency=1000 to keep the old behavior. fix(langgraph): stream the last checkpoint of a run stopped by interrupt_after or the recursion limit ( #9409 ) fix(langgraph): stop duplicating tags at every subgraph level ( #9400 ) chore(deps): bump opentelemetry-api from 1.39.1 to 1.45.1 in /libs/langgraph ( #9424 ) chore(deps): bump nbconvert from 7.17.1 to 7.17.2 in /libs/langgraph ( #9426 )",
+  "summary_1line": "release(checkpoint): 4.3.1 · release(langgraph): 1.2.18 · fix(langgraph): let error_handler recover on every path and stream failed task results",
+  "title": "langgraph==1.2.18",
+  "type": "release",
+  "url": "https://github.com/langchain-ai/langgraph/releases/tag/1.2.18"
+ },
  "18fe08c86004b76e": {
   "first_seen": "2026-10-21T14:03:50.732441+00:00",
   "id": "a09084ab24a4f59d",
@@ -6816,6 +6833,18 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0-alpha.18.1",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "5e2e262de20a97bf": {
+  "first_seen": "2026-10-26T21:05:48.669718+00:00",
+  "id": "d77114f16ab2d57e",
+  "published": "2026-10-23T11:44:02+00:00",
+  "sid": "5e2e262de20a97bf",
+  "source": "arxiv_cs_cl",
+  "summary": "Learned representations often encode sensitive attributes, such as gender or race, that may be undesirable or unsafe to retain. Concept erasure aims to remove this information while preserving task-relevant content. Existing methods remain incomplete: linear methods provide guarantees only against linear probes, while nonlinear methods achieve stronger empirical erasure but lack formal guarantees and often sacrifice utility. In this work, we introduce a principled conditional autoencoder framework for nonlinear concept erasure. We follow the principle that erasure should remove only the sensitive attribute and nothing else, and we show that, under the stated assumptions, perfect reconstruction together with population-level independence is sufficient for perfect nonlinear guardedness, with preservation guarantees in the imperfect-reconstruction regime. Empirically, we attain a superior utility-erasure trade-off across multiple datasets, sensitive attributes, and language models, surpassing even the supervised variants of competing methods despite using no target-task labels, while being simpler to optimize and converging substantially faster. Beyond erasure, our framework yields concept conversion (representation steering) as a by-product: by changing only the target concept at inference time, it produces representations corresponding to different concept values - at no additional training cost - a capability no prior erasure method provides, and on which we likewise demonstr",
+  "summary_1line": "Learned representations often encode sensitive attributes, such as gender or race, that may be undesirable or unsafe to retain. Concept erasure aims to remove this information while preserving task-relevant content. E...",
+  "title": "Principled Nonlinear Concept Erasure and Steering",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32516v1"
  },
  "5ef3e816320f15c4": {
   "first_seen": "2026-10-12T06:04:37.896098+00:00",
