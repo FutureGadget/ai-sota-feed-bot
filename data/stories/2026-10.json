@@ -652,6 +652,22 @@
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/1.2.16"
  },
+ "0ae02539224a4cb5": {
+  "first_seen": "2026-10-26T04:08:02.735891+00:00",
+  "id": "26e1df33955ed7a8",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-23T16:58:01+00:00",
+  "sid": "0ae02539224a4cb5",
+  "source": "arxiv_cs_ai",
+  "summary": "Large Language Models (LLMs) are increasingly used to optimize code for performance. This practice often assumes that improvements in execution speed naturally translate into overall lower energy consumption. We challenge this assumption empirically by measuring whether performance-optimized code produced by LLM self-refinement pipelines is also energy-efficient relative to canonical human reference solutions, and whether the energy cost of the optimization process can be offset by subsequent execution-time savings. We evaluate 11 open-source models across four decoding configurations on all 1,000 problems of EffiBench, a state-of-the-art performance benchmark, while collecting per-process, hardware-level energy measurements throughout. Inference energy spans 0.79 to 8.68 MJ across model-variant pairs, which is roughly equivalent to the energy of 250 to 2800 GPT-4.1 queries. Limiting the maximum number of output tokens has the largest impact, reducing energy use by up to 69% compared to the default configuration. On the execution side, 42 of 44 configurations produce code that consumes more energy per problem than the canonical human reference, with overheads ranging from +4% to +886%. The two exceptions achieve only marginal gains, with break-even points on the order of 10^6 to 10^7 executions. Mixture-of-Experts architectures consume substantially less inference energy than equivalently-sized dense models without sacrificing correctness, making architectural choice a more c",
+  "summary_1line": "Large Language Models (LLMs) are increasingly used to optimize code for performance. This practice often assumes that improvements in execution speed naturally translate into overall lower energy consumption. We chall...",
+  "title": "Green Code or Costly Code? Evaluating the Energy Costs of Iterative LLM-Based Code Optimizations",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32891v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "0b059d718014a7a0": {
   "first_seen": "2026-10-14T09:04:12.579733+00:00",
   "id": "3a33ee919bb93115",
@@ -5008,6 +5024,23 @@
   "url": "https://arxiv.org/abs/2610.18813",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "4c1d05751412e085": {
+  "first_seen": "2026-10-26T04:08:02.735891+00:00",
+  "id": "fb090e1db7ad1840",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-23T15:40:44+00:00",
+  "sid": "4c1d05751412e085",
+  "source": "arxiv_cs_cl",
+  "summary": "On-policy distillation aligns teacher feedback with a student's current behavior, yet acquiring useful supervision for multi-turn agents requires identifying both where guidance is needed and whether the student can sustain the interaction afterward. We introduce Frontier-OPD, which addresses this problem through the student's learning frontier: decision situations that remain challenging but admit useful autonomous continuation after brief teacher guidance. To operationalize this frontier, Frontier-OPD organizes on-policy experience into a shared-state trajectory graph, where trajectory-balanced aggregation of teacher-student disagreement identifies distinct intervention candidates while preserving the histories needed for replay. Short teacher bridges are then assessed by comparing agreement over the bridge and the ensuing student continuation with an equally long segment of the original trajectory, providing a behavioral proxy for guidance that the current student can build on. Accepted teacher responses augment ordinary distillation data, and fresh rollouts renew the frontier estimate as the policy changes. Experiments on ALFWorld, WebShop, and ScienceWorld report higher mean autonomous performance than the compared distillation baselines across the evaluated student scales and teacher configurations, with ablations indicating complementary effects of candidate selection and guidance filtering. In one ALFWorld timing setting, the additional collection cost is offset by a ",
+  "summary_1line": "On-policy distillation aligns teacher feedback with a student's current behavior, yet acquiring useful supervision for multi-turn agents requires identifying both where guidance is needed and whether the student can s...",
+  "title": "Frontier-OPD: Discovering the Edge of Agent Capability and Teaching Agents to Go Beyond",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32802v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "4c363ed7df0918d2": {
   "first_seen": "2026-10-13T13:03:39.242121+00:00",
   "id": "982123c7315c05bc",
@@ -5230,6 +5263,24 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0-alpha.6",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "4e19c9c61a947e1a": {
+  "first_seen": "2026-10-26T04:08:02.735891+00:00",
+  "id": "ecb42795af40649b",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-10-22T22:24:35+00:00",
+  "sid": "4e19c9c61a947e1a",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Evaluating conversational agents that act on live, mutable enterprise data is hard: replayed sessions drift as backend state changes, and a benchmark built today can silently go stale as the data it describes moves on. We present an offline evaluation harness for a production conversational agent that stays reproducible despite the live data it operates on changing, and that can be regenerated on demand once it goes stale. We then use this harness as the fitness function for GEPA-based prompt optimization under a correctness gate that guards against reward hacking. Applied to a production merchant-facing agent, correctness-gated compression shrinks the agent's full prompt surface by 3.5-7.6% without regressing held-out task correctness, consistently across three independent subject-model families, and for one, correctness measurably improves.",
+  "summary_1line": "Evaluating conversational agents that act on live, mutable enterprise data is hard: replayed sessions drift as backend state changes, and a benchmark built today can silently go stale as the data it describes moves on...",
+  "title": "Reproducible Evaluation as the Substrate for Safe Prompt Compression in Production Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.31972v1",
+  "why_it_matters": "Matches feed focus: agent, harness, evaluation."
  },
  "4e2228dad5249307": {
   "first_seen": "2026-10-05T12:03:59.056070+00:00",
@@ -9724,8 +9775,8 @@
   "published": "2026-10-21T02:17:37+00:00",
   "sid": "9521b60b04aa1cbb",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Likes: 68, downloads: 0.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Likes: 68, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Likes: 73, downloads: 0.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Likes: 73, downloads: 0.",
   "title": "tencent/Hy-Nomas released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Hy-Nomas"
