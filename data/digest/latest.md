@@ -2,146 +2,116 @@
 
 Focus: AI Platform Engineering
 
-## 1. I benchmarked 4 web search APIs for AI agents on 30 live queries
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/psinglap/websearch-api-eval
-- Score: 4.016 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 1. Gemini Robotics Embodied Reasoning 2 is now available on Google Cloud
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/ai-machine-learning/gemini-robotics-embodied-reasoning-2-is-now-available-on-google-cloud/
+- Score: 4.057 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
 
-## 2. Show HN: I built flightdeck – Observability and control plane for AI agents
-- Type: news | Source: hackernews_ai
-- URL: https://flightdeck-hq.com/
-- Score: 3.985 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 3. How Anthropic ships Claude with Claude: Separating the Brain from the Hands
+## 2. How Anthropic ships Claude with Claude: Separating the Brain from the Hands
 - Type: news | Source: latent_space
 - URL: https://latent.space/p/opus55/
-- Score: 3.754 | Reliability: 1.0
+- Score: 3.646 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 4. Presentation: Serving LLMs at Scale: The Hidden KV Cache Advantage
+## 3. Production AI and Engineering Team Design: InfoQ’s November Certification Cohorts
 - Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/presentations/llm-inference-kv-cache/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.596 | Reliability: 1.0
-- Why it matters: 
+- URL: https://www.infoq.com/news/2026/10/online-cohorts-nov-certification/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 3.451 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
-## 5. Scale agents securely with IAM Helper Agent Skills and MCP Tools
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/products/identity-security/scale-agents-securely-with-iam-helper-agent-skills-and-mcp-tools/
-- Score: 3.572 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation, claude code.
-
-## 6. A suspended user's agent run still wrote a file: an internal pilot
-- Type: news | Source: hackernews_ai
-- URL: https://scopehaven.dev/ai-agent-suspended-user-finding
-- Score: 3.532 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 7. Build specialized multimodal models with LFM3
+## 4. Build specialized multimodal models with LFM3
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/LiquidAI/lfm3
-- Score: 3.459 | Reliability: 1.0
+- Score: 3.356 | Reliability: 1.0
 - Why it matters: 
 
-## 8. How AI agents shape experts’ judgment calls
+## 5. How AI agents shape experts’ judgment calls
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/agents-judgment-calls
-- Score: 3.356 | Reliability: 1.0
+- Score: 3.263 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 9. Genie 4: A new generation of world simulation
+## 6. Genie 4: A new generation of world simulation
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/
-- Score: 3.219 | Reliability: 1.0
+- Score: 3.158 | Reliability: 1.0
 - Why it matters: 
 
-## 10. How We Built Our Design Agent
+## 7. How We Built Our Design Agent
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/design-agent
-- Score: 3.026 | Reliability: 1.0
+- Score: 2.927 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness.
 
-## 11. From spot fixes to measured gains: improving document extraction accuracy with ai_extract and MLflow Prompt Registry
+## 8. Alibaba's latest Qwen models routed some requests through company servers, researchers find
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMitAFBVV95cUxPTkdTbXRzc1hjc0pnVlBFbS05WmlUQ3FqTV9pYkd0X3pyX2hYSGp5WGc3akJDTUYzb1FZZkJDM0c1OElDT3RWdnVhbXhudDdTa0NtNV9HZUh4LTBUX3YzSERoM2xlUmNyWDFLazFxN0JiemxuUDBDVjh6NnBrcGhUc1BPSmtYQV9oaEF0aHg1RjBPdllUSjhGZ0lERThUeFEyenRTaGFtdndjNDdVRFVDVVdVbEI?oc=5
+- Score: 2.924 | Reliability: 1.0
+- Why it matters: 
+
+## 9. From spot fixes to measured gains: improving document extraction accuracy with ai_extract and MLflow Prompt Registry
 - Type: news | Source: databricks_blog
 - URL: https://www.databricks.com/blog/spot-fixes-measured-gains-improving-document-extraction-accuracy-aiextract-and-mlflow-prompt
-- Score: 2.994 | Reliability: 1.0
+- Score: 2.889 | Reliability: 1.0
 - Why it matters: 
 
-## 12. Announcing SOCI-indexed images for faster SageMaker AI jobs
+## 10. Announcing SOCI-indexed images for faster SageMaker AI jobs
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/announcing-soci-indexed-images-for-faster-sagemaker-ai-jobs/
-- Score: 2.987 | Reliability: 1.0
+- Score: 2.86 | Reliability: 1.0
 - Why it matters: 
 
-## 13. Can we trust LLMs to judge whether a research idea is novel?
+## 11. Can we trust LLMs to judge whether a research idea is novel?
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/allenai/novelty-bench
-- Score: 2.938 | Reliability: 1.0
+- Score: 2.838 | Reliability: 1.0
 - Why it matters: 
 
-## 14. Discovering and exploiting vulnerabilities in critical, real-world software with Claude
-- Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/discovering-vulnerabilities-with-claude
-- Score: 2.729 | Reliability: 1.0
-- Why it matters: 
+## 12. Adaptive Retrieval, Selective Answers: Evaluating Conformal Factuality in Agentic RAG
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2610.34872v1
+- Score: 2.792 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
 
-## 15. codex rust-v0.165.0
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.165.0
-- Score: 2.139 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 16. How Fanatics and OpenAI streamline the fan experience
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/fanatics-streamline-fan-experience
-- Score: 1.713 | Reliability: 1.0
-- Why it matters: 
-
-## 17. langgraph-cli==0.4.39
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.39
-- Score: 1.641 | Reliability: 1.0
-- Why it matters: 
-
-## 18. Cloudflare links vulnerability discovery to defense with OpenAI
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/cloudflare-cyber
-- Score: 1.605 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 19. Uber brings ChatGPT Work to all employees with OpenAI
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/uber-chatgpt-work-rollout
-- Score: 1.569 | Reliability: 1.0
-- Why it matters: 
-
-## 20. Beyond tree cover: mapping the world’s forest types
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/beyond-tree-cover-mapping-the-worlds-forest-types/
-- Score: 1.317 | Reliability: 1.0
-- Why it matters: 
-
-## 21. claude-agent-sdk-python v0.2.170
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.170
-- Score: 1.115 | Reliability: 1.0
+## 13. Multiscale Policy Optimization for Long-Horizon LLM Agents
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.35013v1
+- Score: 2.765 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 22. claude-code v2.1.306
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.306
-- Score: 1.087 | Reliability: 1.0
+## 14. codex 0.166.0-alpha.3
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.3
+- Score: 2.083 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 15. langgraph-cli==0.4.39
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.39
+- Score: 1.646 | Reliability: 1.0
 - Why it matters: 
 
-## 23. tencent/WeVisOne-VL-2B released on Hugging Face
+## 16. claude-code v2.1.305
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.305
+- Score: 1.349 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 17. claude-agent-sdk-python v0.2.169
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.169
+- Score: 0.979 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 18. tencent/WeVisOne-VL-2B released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
 - URL: https://huggingface.co/tencent/WeVisOne-VL-2B
-- Score: 0.957 | Reliability: 1.0
+- Score: 0.954 | Reliability: 1.0
 - Why it matters: 
 
-## 24. vllm v0.32.0
+## 19. vllm v0.32.1rc0
 - Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.0
-- Score: 0.883 | Reliability: 1.0
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.32.1rc0
+- Score: 0.399 | Reliability: 1.0
 - Why it matters:
