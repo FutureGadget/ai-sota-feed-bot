@@ -251,6 +251,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNd2tNSVNuSHlpbEU2N0xIR3JveXRQNXE4dmhaeVBvZE83VXlmSzlyM0xjWXZZZW15aTh2Q2tFQk9icHZpWnkxZHktS1pIUHhrd2MxeTVlZDNOWnIwU0E2U29oRmg5SWVsVlVqekpFeTczakdUN3ktTEhfVlNScWZwc2JiLWVLVTctcGZxX1ZmaWZkaS1odVBxOQ?oc=5"
  },
+ "048b27b05e8126b7": {
+  "content_excerpt": "Coding agents are pretty powerful, as far as dev tools go. They enable you to hand off a big chunk of work, which opens up a whole world of possibilities to do things like debug a service, plan a migration, review a PR, and more. Your agent knows a ton about your side of a project, and nothing about mine. And that makes working together a little painful: So I had a thought: why not give the two agents a link, and let them talk to each other directly? That would mean: With all this in mind, I spent a couple of days hacking on something I've dubbed peertalk . You make a room, send the link to a friend, and each of you pastes a prompt into your own agent. The agents find each other, connect directly, and talk. Everything your agent runs is in a public gist , if you just want to read the code. Be warned: it's an experiment at the moment, essentially a hack project. But it should work well enough for you to try it with a friend Anyone with an agent that runs on their own computer and can keep a small program going in the background: Claude Code, Codex CLI, Gemini CLI, Cursor, OpenClaw, and so on. The possibilities are pretty endless, and a few ideas which spring to mind immediately are: What if the other person doesn't have an agent? No problem! They can pick \"Just me\" on the room page, and chat with your agent, and everything it knows about your project, directly from their browser. There's an MCP server too, so you don't need to open the room page at all: add it to your agent an",
+  "first_seen": "2026-10-27T05:04:12.105816+00:00",
+  "id": "9ed27b4b483e347a",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-27T01:07:37+00:00",
+  "sid": "048b27b05e8126b7",
+  "source": "hackernews_ai",
+  "summary_1line": "Let your agent talk to mine",
+  "title": "Let your agent talk to mine",
+  "type": "news",
+  "url": "https://blog.danielbrain.ai/let-your-agent-talk-to-mine",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "04a5ff0ef6c57791": {
   "first_seen": "2026-10-26T06:04:50.576037+00:00",
   "id": "5bef6a1518247e95",
@@ -1238,6 +1254,25 @@
   "url": "http://arxiv.org/abs/2610.33861v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "11a5c6904955f634": {
+  "first_seen": "2026-10-27T05:04:12.105816+00:00",
+  "id": "0ea2dc8126314220",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval",
+   "codex"
+  ],
+  "published": "2026-10-26T17:12:02+00:00",
+  "sid": "11a5c6904955f634",
+  "source": "arxiv_cs_ai",
+  "summary": "Root cause analysis (RCA) of microservice failures has attracted many LLM agents whose investigation is hand-crafted, through standard operating procedures, fixed stages and role agents. Each is evaluated on its own data against few baselines, so it is unknown whether this design beats letting a capable model investigate on its own. We compare three simple harnesses that prescribe none of the model's calls (one call over an evidence package, a SQL agent and the Codex coding agent) with five published LLM RCA agents and with statistical and causal methods on RCAtlas, 90 validated cases from eight public datasets, across six models and three reasoning efforts. The simple harnesses are the most accurate (PR@1 65-77% on three mid-tier models), ahead of the published agents (16-53%) and the non-LLM methods (6-39%), on every model on which both families were run. The published agents fix from a tenth to all of their model calls in the program, and a case study shows how these prescriptions skip the decisive evidence. A stronger model mainly improves reliability, a multi-turn harness mainly improves aptitude, and more reasoning effort changes accuracy by a few points at most while multiplying the time by up to seven. Among runs more accurate than the best non-LLM method, every Pareto-optimal run in cost or time uses a simple harness.",
+  "summary_1line": "Root cause analysis (RCA) of microservice failures has attracted many LLM agents whose investigation is hand-crafted, through standard operating procedures, fixed stages and role agents. Each is evaluated on its own d...",
+  "title": "Free to Look, Free to Reason: Simple LLM Harnesses Outdiagnose Hand-Crafted Root Cause Analysis Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35767v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
  "11a9e9aebb65d4c7": {
   "first_seen": "2026-10-20T21:04:33.166002+00:00",
   "id": "52dca622978fc0fd",
@@ -1772,6 +1807,25 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.32429v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "187923b6aa7d2a93": {
+  "first_seen": "2026-10-27T05:04:12.105816+00:00",
+  "id": "9350d29b0876b9a5",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval",
+   "claude code"
+  ],
+  "published": "2026-10-26T15:34:29+00:00",
+  "sid": "187923b6aa7d2a93",
+  "source": "arxiv_cs_cl",
+  "summary": "Skills provide agents with reusable experience to guide future decisions without modifying the underlying model. However, coding trajectories are often entangled with task- and repository-specific contexts, making it challenging to distill procedural skills that generalize across diverse coding environments. To address this challenge, we present Hierarchical Skill Evolution (HSE), which progressively distills procedural knowledge from coding trajectories through hierarchical evidence aggregation. HSE first extracts task-level evidence from individual trajectories, then aggregates recurring evidence within the same repository to form repository-specific skill candidates, and finally consolidates consistent patterns across repositories into transferable skills across repositories. The evolution is driven by an external writer-evaluator loop that generates and assesses skills while keeping the underlying coding model frozen. The loop externally updates the writer and evaluator policies to improve subsequent skill generation and assessment. This hierarchy progressively filters task-specific details while preserving procedures that generalize across diverse coding environments. Successful trajectories yield reusable guidance for future tasks, while failed trajectories reveal recurring failure modes that guide avoidance and recovery. We evaluate HSE on SWE-bench Verified and DeepSWE, using GLM-5.2 across Pi and Claude Code harnesses and GPT-5.5 and Opus 4.8 with Pi. Across both ben",
+  "summary_1line": "Skills provide agents with reusable experience to guide future decisions without modifying the underlying model. However, coding trajectories are often entangled with task- and repository-specific contexts, making it...",
+  "title": "Hierarchical Skill Evolution for Coding Agent",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35616v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
  "18b25c716d40f2c7": {
   "first_seen": "2026-10-26T21:05:48.669718+00:00",
@@ -6738,6 +6792,18 @@
   "url": "http://arxiv.org/abs/2610.12083v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "5a24e14dcd271d5b": {
+  "content_excerpt": "A fast reasoning model served by several independent providers. AllModels keeps text routes in the fallback pool and sends image requests only to a provider that can actually read them. Abliterated GLM 5.3 deployments from multiple providers share one public model ID. Route through the default waterfall or explicitly choose a provider when a particular price or limit matters. DeepSeek and GLM are only the starting point. Browse the full catalogue as new abliterated models and competitive provider routes become available. AllModels continuously brings new abliterated models and competitive inference providers into one routing layer. Get the latest models, provider diversity, and capacity failover through a single security-hardened API—without rebuilding your integration each time the market moves. Use input items, streaming events, reasoning controls, structured output, custom tools, and hosted web search. Search is processed at AllModels instead of being delegated to whichever inference provider serves the request. Every model gets the same OpenAI-compatible search calls and URL citations, even when its provider does not offer search. AllModels routes each request across compatible providers. If one is unavailable or capacity constrained, traffic falls back automatically—without changing your model ID or application code. Image and multimodal requests only go to providers that support them, while text requests can use every eligible text route. When one provider is overloaded",
+  "first_seen": "2026-10-27T05:04:12.105816+00:00",
+  "id": "7a490d971bbb33e9",
+  "published": "2026-10-27T04:53:52+00:00",
+  "sid": "5a24e14dcd271d5b",
+  "source": "hackernews_ai",
+  "summary_1line": "There are now 5 inference providers for abliterated DeepSeek",
+  "title": "There are now 5 inference providers for abliterated DeepSeek",
+  "type": "news",
+  "url": "https://allmodels.io/llm/abliterated"
+ },
  "5a29dcd699a504fa": {
   "first_seen": "2026-10-21T10:04:38.862959+00:00",
   "id": "65b0ff402ccbb415",
@@ -8046,6 +8112,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQQmFGQ25uc2ZfRU1Ja2hkTmVNeWJjRzBxX2x3clBhb1I5RUVLNUdHNkdycFB6WXFiYmtkV1ZPbnltTWVoWTYxS0lSa3o1V2JJZmpiMXVpbE1ZeE1xcWxqN2ZZTENMZVlTRTI5U0FwcGNMY1d3X2U4NTU2ZXF3S3ZoZjNNUjF4aXVPcERKTA?oc=5"
  },
+ "6ec8d30bc1da5744": {
+  "first_seen": "2026-10-27T05:04:12.105816+00:00",
+  "id": "75eef0665db51e38",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-26T16:21:00+00:00",
+  "sid": "6ec8d30bc1da5744",
+  "source": "arxiv_cs_ai",
+  "summary": "Serving web queries at scale with multi-agent systems requires jointly configuring large language models, collaboration modes, agent counts, interaction rounds, and skills. However, the resulting configuration space grows combinatorially, while sparse execution rewards provide limited fine-grained supervision for interdependent planning decisions. We propose EvoRouter, a self-evolving multi-agent routing framework driven by insight-guided on-policy distillation. A dedicated expert periodically synthesizes performance-cost feedback from configuration trajectories across tasks into reusable conditional routing insights about capability requirements, returns from resource scaling, and interactions among configuration choices. A privileged teacher combines these evolving insights with current execution feedback to provide dense token-level supervision for the router's own planning trajectories through on-policy distillation. Cost-aware reinforcement learning jointly optimizes task performance and computational cost. Together, these training signals internalize execution insights into the routing policy. The updated policy generates new trajectories that support subsequent insight extraction, forming an execution-driven self-improvement loop. We evaluate EvoRouter on 19 in-domain datasets spanning five domains and two out-of-domain benchmarks. EvoRouter achieves an average in-domain accuracy of 68.69%, outperforming the strongest routing baseline by 7.23 percentage points while re",
+  "summary_1line": "Serving web queries at scale with multi-agent systems requires jointly configuring large language models, collaboration modes, agent counts, interaction rounds, and skills. However, the resulting configuration space g...",
+  "title": "EvoRouter: Cost-Efficient Multi-Agent Routing via Insight-Guided On-Policy Distillation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35690v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "6ed1b07a3adb085a": {
   "first_seen": "2026-10-15T03:04:47.598202+00:00",
   "id": "febf1c3ead0a4384",
@@ -8208,6 +8291,23 @@
   "type": "news",
   "url": "https://www.databricks.com/blog/introducing-agent-memory-databricks",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "71b6b994478b9780": {
+  "first_seen": "2026-10-27T05:04:12.105816+00:00",
+  "id": "d27162f58514497b",
+  "matched_topics": [
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-10-26T17:59:33+00:00",
+  "sid": "71b6b994478b9780",
+  "source": "arxiv_cs_lg",
+  "summary": "As autonomous research systems become more capable, benchmarks must both evaluate their performance and support meaningful research progress. We introduce Auto-Research Arena, a multi-target benchmark for evaluating autonomous research systems and discovering ideas in language modeling. Arena supports diverse research objectives within a shared experimental environment by separating admissibility from improvement: model quality and resource constraints determine whether a result qualifies, while the selected target measures progress among admissible results. We instantiate Arena in language model pretraining with nine targets spanning model, data, training, and inference efficiency, and evaluate seven research harnesses using two foundation models. Arena clearly differentiates existing harnesses across research objectives, with several sophisticated methods outperformed by our simple sequential search baseline, indicating substantial headroom in current auto-research systems. Beyond evaluation, Arena reveals a substantially broader frontier of model and system ideas aligned with active research directions. Reusing these discoveries in a new quality-driven search yields lower training loss under matched data and FLOPs and lower held-out BPB at the same model size. Together, Arena provides a common framework for benchmarking autonomous research and expanding its scope in language modeling. The code is available at https://github.com/Auto-Research-Arena/auto-research-arena",
+  "summary_1line": "As autonomous research systems become more capable, benchmarks must both evaluate their performance and support meaningful research progress. We introduce Auto-Research Arena, a multi-target benchmark for evaluating a...",
+  "title": "Auto-Research Arena: Benchmarking and Advancing Auto-Research in Language Modeling",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35866v1",
+  "why_it_matters": "Matches feed focus: harness, evaluation."
  },
  "725ea16321a506cf": {
   "first_seen": "2026-10-14T02:04:29.849847+00:00",
@@ -9820,6 +9920,23 @@
   "title": "langgraph-sdk==0.4.9",
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.9"
+ },
+ "8b3fc23091ee5e7c": {
+  "first_seen": "2026-10-27T05:04:12.105816+00:00",
+  "id": "8bb4b65edf417873",
+  "published": "2026-10-26T19:59:56+00:00",
+  "release_highlights": [
+   "release(checkpoint): 4.3.1",
+   "release(langgraph): 1.2.18",
+   "release(sdk-py): 0.4.10"
+  ],
+  "sid": "8b3fc23091ee5e7c",
+  "source": "langgraph_releases",
+  "summary": "Changes since sdk==0.4.9 release(checkpoint): 4.3.1 ( #9447 ) release(langgraph): 1.2.18 ( #9445 ) release(sdk-py): 0.4.10 ( #9446 ) fix(sdk-py): retry runs.wait with a bodyless GET and raise run errors in sync wait ( #9399 ) fix(sdk-py): follow the SSE spec for multi-line data, empty ids and a leading BOM ( #9402 ) fix(sdk-py): accept durability, stream_resumable and context in the runs overloads ( #9403 ) release(langgraph): 1.2.17 ( #9418 )",
+  "summary_1line": "release(checkpoint): 4.3.1 · release(langgraph): 1.2.18 · release(sdk-py): 0.4.10",
+  "title": "langgraph-sdk==0.4.10",
+  "type": "release",
+  "url": "https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.10"
  },
  "8b49b3479b2d6b53": {
   "first_seen": "2026-10-06T02:04:32.462554+00:00",
@@ -12221,6 +12338,30 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.161.0-alpha.8",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "a9c17daa5dbfcba0": {
+  "also_covered": [
+   {
+    "source": "interconnects",
+    "title": "Latest open artifacts (#25): DeepSeek V4.1 Flash 1017, American-made models, and new regulatory controls in the US & China",
+    "url": "https://www.interconnects.ai/p/latest-open-artifacts-25-deepseek"
+   }
+  ],
+  "first_seen": "2026-10-27T05:04:12.105816+00:00",
+  "id": "526c138d2fb637c6",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-10-26T16:14:17+00:00",
+  "sid": "a9c17daa5dbfcba0",
+  "source": "arxiv_cn_open_weight_reports",
+  "summary": "As frontier language models grow increasingly capable and autonomous, independent third-party evaluations are critical for characterizing their systemic safety risks. While closed-source releases are routinely accompanied by comprehensive system cards, open-weight models receive less scrutiny regarding frontier risks. To address this gap, we present an independent safety evaluation of DeepSeek V4.1 Flash-1017, the latest version of V4.1 Flash that departs from V4 with a new architecture, scaled-up training, and strong agentic capabilities. Drawing on the EU General-Purpose AI Code of Practice, we evaluate the model across 34 benchmarks, including 5 in-house suites, spanning evaluation integrity, loss of control, and harmful manipulation. Conforming to the AEF-1 standard, we compare V4.1 Flash-1017 against V4.1 Flash, earlier DeepSeek V4 models, and leading closed-source systems (GPT-6 Astra, GPT-5.6 Sol, and Gemini 3.8 Flash). Overall, V4.1 Flash-1017 shows substantial safety improvements over the V4 generation and approaches or matches leading closed-source baselines on several dimensions, while still exhibiting notable behaviors that warrant continued attention. Building on our findings, we highlight three key observations and recommendations. First, because safety can shift and even regress across minor updates, developers should integrate safety evaluation into incremental releases. Second, as final-turn outputs and end-state checks alone cannot reliably detect loss-of-co",
+  "summary_1line": "As frontier language models grow increasingly capable and autonomous, independent third-party evaluations are critical for characterizing their systemic safety risks. While closed-source releases are routinely accompa...",
+  "title": "Evaluating DeepSeek V4.1 Flash-1017 for loss of control and harmful manipulation risks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35671v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "a9c488820a62ac4a": {
   "first_seen": "2026-10-26T23:05:50.210582+00:00",
@@ -16965,6 +17106,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.161.0-alpha.11",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "df25250333fe579e": {
+  "first_seen": "2026-10-27T05:04:12.105816+00:00",
+  "id": "9a60eb2f9214006b",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-10-27T05:04:11+00:00",
+  "sid": "df25250333fe579e",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.165.0-alpha.1.2",
+  "summary_1line": "Release 0.165.0-alpha.1.2",
+  "title": "codex 0.165.0-alpha.1.2",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.165.0-alpha.1.2",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "df3495e4c286ffa0": {
   "first_seen": "2026-10-10T22:04:38.063636+00:00",
   "id": "afe1021498be9e7f",
@@ -17760,6 +17917,20 @@
   "title": "The Huawei-DeepSeek Symbiosis",
   "type": "news",
   "url": "https://newsletter.semianalysis.com/p/huawei-deepseek"
+ },
+ "ea8a064639d05d1a": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. Manju Rajashekhar explains how the actor model solves the complex runtime challenges of production AI agents. By treating agents as distributed systems, he discusses state ownership, message passing, write-through state, and supervision boundaries to manage failures, continuations, and mutable execution graphs, moving agentic workflows beyond fragile demos to resilient architecture. Nathen Harvey shares insights from DORA research",
+  "first_seen": "2026-10-27T05:04:12.105816+00:00",
+  "id": "3b678f885dff307f",
+  "image_url": "https://res.infoq.com/news/2026/10/atlassian-devex-2026/en/headerimage/generatedHeaderImage-1793026389174.jpg",
+  "published": "2026-10-27T04:45:00+00:00",
+  "sid": "ea8a064639d05d1a",
+  "source": "infoq_ai_ml",
+  "summary": "Atlassian’s State of Developer Experience 2026 finds the share of developers saving ten or more hours a week with AI dropped from 68% to 26% year over year, while only 28% report noticeably less friction than before AI. Engineering leaders report spending more time managing and correcting AI output than developers do. By Steef-Jan Wiggers",
+  "summary_1line": "Atlassian’s State of Developer Experience 2026 finds the share of developers saving ten or more hours a week with AI dropped from 68% to 26% year over year, while only 28% report noticeably less friction than before A...",
+  "title": "Developers Reporting Double-Digit Weekly Time Savings From AI Fell From 68% to 26%",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/10/atlassian-devex-2026/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
  },
  "ea92da5c121ecb45": {
   "first_seen": "2026-10-21T14:03:50.732441+00:00",
