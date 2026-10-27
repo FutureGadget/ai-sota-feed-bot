@@ -3425,16 +3425,16 @@
  },
  "2d19b49733bb19a3": {
   "first_seen": "2026-10-27T11:08:47.035587+00:00",
-  "id": "59d33dc157b53936",
+  "id": "962607c8723b0c64",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-10-27T10:28:18+00:00",
+  "published": "2026-10-27T12:03:16+00:00",
   "sid": "2d19b49733bb19a3",
   "source": "openai_codex_releases",
   "summary": "Release 0.166.0-alpha.2",
   "summary_1line": "Release 0.166.0-alpha.2",
-  "title": "codex rust-v0.166.0-alpha.2",
+  "title": "codex 0.166.0-alpha.2",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.2",
   "why_it_matters": "Matches feed focus: codex."
@@ -5180,6 +5180,20 @@
   "title": "Introducing LangSmith Fine-Tuning",
   "type": "news",
   "url": "https://www.langchain.com/blog/langsmith-fine-tuning"
+ },
+ "4466d2f447c540c7": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. Khawaja Shams shares a distributed systems perspective on scaling LLM inference stacks efficiently. He discusses practical strategies for optimizing GPU utilization, managing KV cache memory cliffs, leveraging tiered storage, reducing tail latency, and implementing disaggregated prefill and decode architectures to improve overall fleet performance, cost economics, and availability. Nathen Harvey shares insights from DORA research ",
+  "first_seen": "2026-10-27T12:04:53.970723+00:00",
+  "id": "730da8e320b6e755",
+  "image_url": "https://res.infoq.com/news/2026/10/uber-cpu-stateful-workloads/en/headerimage/generatedHeaderImage-1792576315045.jpg",
+  "published": "2026-10-27T12:00:00+00:00",
+  "sid": "4466d2f447c540c7",
+  "source": "infoq_ai_ml",
+  "summary": "Uber has introduced Normalized Compute Units (NCUs) to make CPU allocation more consistent across its highly heterogeneous server fleet. By Craig Risi",
+  "summary_1line": "Uber has introduced Normalized Compute Units (NCUs) to make CPU allocation more consistent across its highly heterogeneous server fleet. By Craig Risi",
+  "title": "Uber Moves Beyond CPU Cores with Performance-Aware Scheduling for Stateful Workloads",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/10/uber-cpu-stateful-workloads/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
  },
  "4474274742efdec7": {
   "first_seen": "2026-10-01T13:04:06.005664+00:00",
@@ -9136,6 +9150,22 @@
   "title": "RFC AI Tooling: 40x fewer tokens while reading the RFC corpus",
   "type": "news",
   "url": "https://github.com/shbernal/rfc-ai-tooling"
+ },
+ "7c1fed0d11e9b516": {
+  "first_seen": "2026-10-27T12:04:53.970723+00:00",
+  "id": "a82b87ea833e5f95",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-26T02:19:53+00:00",
+  "sid": "7c1fed0d11e9b516",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Multi-agent systems (MAS) require both effective coordination and specialized task execution. Existing prompt optimization approaches typically couple these functions within agent-specific prompts. We introduce Coordinator-Executor Prompt Optimization (CEPO), a general framework for improving prompt optimization in MAS. CEPO separates system-level coordination from agent-level execution through a shared coordinator prompt and agent-specific executor prompts, and guides their updates according to their respective roles. This structure allows shared coordination rules to be refined consistently across agents while keeping execution instructions separately adjustable. CEPO provides the prompt structure and optimization guidance, while existing prompt optimizers perform the underlying search. Extensive experiments spanning 11 benchmarks across four domains demonstrate that applying CEPO to four existing prompt optimizers consistently improves their performance. Ablations and qualitative analyses support the proposed design, while controlled studies on a document-understanding MAS further demonstrate improved optimization budget efficiency and performance scaling with the number of agents.",
+  "summary_1line": "Multi-agent systems (MAS) require both effective coordination and specialized task execution. Existing prompt optimization approaches typically couple these functions within agent-specific prompts. We introduce Coordi...",
+  "title": "CEPO: A General Framework for Improving Prompt Optimization in Multi-Agent Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.34722v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "7c66dfcb583877b5": {
   "content_excerpt": "An AI pipeline that catches its own bugs, explains them, and fixes them while a human makes two decisions. At 17:45 on October 24, 2026, the search box on our staging site started to crash. We had put the bug there on purpose: one line in a database read skipped archived clients, so a search that found their entries failed with Cannot read properties of undefined (reading 'name') . Nobody told the system. Forty-two seconds after the first error, a fix request was waiting in our pipeline. Thirty-one minutes after the first error, a pull request was ready for review: a one-line fix, and a test that proves it. A person made two decisions in between. I built it because it's cool. I have full control over what it does and how it does it. As they say, homemade beats pretty much anything. That control matters most where trust is thin. AI writes most of the code here, so the question is not whether it makes mistakes, but what catches them. AI is a powerful tool. A system that can hallucinate, or lose track in a large context, is a reason not to trust it blindly. But in practice I do trust it: I trust that it can make a mistake, and that it can fix it too. It can make a mistake and fix it, so I check the plan and the result, and let it work in between. Two small services do the work. Night Watch watches the site's logs and checks, opens incidents, asks an AI to triage them, and alerts by email, Telegram and Slack. Day Shift turns a request into a reviewed pull request: it writes a spe",
