@@ -2209,6 +2209,18 @@
   "url": "https://simonwillison.net/2026/Oct/13/geoffrey-huntley",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "1d6c5c59e46e52b9": {
+  "content_excerpt": "Today we’re releasing Old Ideas, Novel Problems , a new study of how reliably large language models can evaluate the novelty of scientific research ideas. Alongside the paper, we’re publishing a benchmark, data, and code for testing novelty judges, plus an automated pipeline researchers can use to build new evaluation sets. At Ai2, we’ve been developing AI systems that support different parts of scientific discovery. DataVoyager helps researchers explore and analyze structured data, AutoDiscovery generates and tests hypotheses, and Theorizer synthesizes evidence across large bodies of literature into candidate scientific theories. Together with Asta , these projects point toward systems that can help researchers move from understanding prior work to proposing, testing, and refining new ideas. But generating research ideas is only part of the challenge of automating scientific discovery. Those ideas also need to contribute something genuinely new, which means these systems need a way to distinguish a novel direction from one that mostly repackages existing work. That judgment is often handed to another LLM—what we call a novelty judge . Novelty judges assess whether a research idea is new relative to prior work, either on its own or in comparison with another idea. There’s no standard way to build one; research teams choose a model, prompt, evaluation format, reasoning budget, and sometimes a literature-retrieval system. Those choices can materially affect the verdict. Yet the",
+  "first_seen": "2026-10-27T17:10:38.453400+00:00",
+  "id": "7cb9f6f66bd50183",
+  "published": "2026-10-27T16:12:42+00:00",
+  "sid": "1d6c5c59e46e52b9",
+  "source": "huggingface_blog",
+  "summary_1line": "Can we trust LLMs to judge whether a research idea is novel?",
+  "title": "Can we trust LLMs to judge whether a research idea is novel?",
+  "type": "research",
+  "url": "https://huggingface.co/blog/allenai/novelty-bench"
+ },
  "1dbe22633003a2af": {
   "first_seen": "2026-10-19T23:04:42.387889+00:00",
   "id": "f68a9f656eae9741",
@@ -3112,6 +3124,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.30435v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "2774e006ccf10ca3": {
+  "first_seen": "2026-10-27T17:10:38.453400+00:00",
+  "id": "102fafea23e6cf0b",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-10-26T15:11:26+00:00",
+  "sid": "2774e006ccf10ca3",
+  "source": "arxiv_agent_systems_research",
+  "summary": "We present the Infinity Machine, a self-improving AI agent that we use for research on problems whose answers aprogram or data can check. Each candidate solution is produced by a full tool-using agent that works for up to an hour in a fresh sandbox; proposers see only a public score, and a private split decides what counts. The harness itself(prompts, tools, skills, playbook, meta agent) is an editable genome, changed only through a kernel-enforced gate with held-out and cost checks. An autonomous mode goes from a plain-text goal to a verified report with no human step: an agent picks an open problem and writes its verifier, the kernel calibrates it, an adversarial agent audits it, and an agent that never sees the verifier re-checks the result. Across fourteen problems in six days, for about $180 of model usage, the system produced four results beyond the published state of the art on catalogued open problems in quantum information: a certified depolarizing-channel threshold point p = 0.064966, a qutrit positivity frontier of 0.2910672, a 44-gate depth-6 Golay state preparation, and a stabilizer-rank bound chi(T^7) <= 10. It also cut SABRE qubit-routing overhead from 68,559 to 12,087 added gates. In hardware, it cut the energy per MAC of an open 8x8 INT8 systolic tile by 77.7% through a full open RTL-to-GDS flow, bit-exact. Three fully autonomous runs ended in honestties with public records; one audit caught a stale record, and one agent-written score pointing the wrong way w",
+  "summary_1line": "We present the Infinity Machine, a self-improving AI agent that we use for research on problems whose answers aprogram or data can check. Each candidate solution is produced by a full tool-using agent that works for u...",
+  "title": "Infinity Machine: a self-improving AI agent for research",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35579v1",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "282b43b99a48e619": {
   "first_seen": "2026-10-09T07:03:50.740385+00:00",
@@ -6844,6 +6873,22 @@
   "url": "https://www.ft.com/content/f49c8e39-f07f-4177-9948-aabe55e5ed91",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "57978a6d1478d544": {
+  "content_excerpt": "What each AI coding agent itself does with your machine and data: egress, telemetry, workspace boundaries and secrets. Not the security of the code it writes. Each test ran once per harness, in a fresh container, with the harness's own default settings unless a cell is marked auto . Observed outcomes are assessed from captured evidence: system-call traces, model requests and network traffic. N/A cells also depend on the vendor's documentation for the tested version. A pass means the harness did the task and the protection held. A test the harness did not exercise is never counted as a pass. Each of the 9 published tests reports one of three outcomes for every harness: pass, fail, MC (missing control: the vendor documents no such protection; never a pass) or N/A (no valid measurement was possible; never a pass). Hover any cell for its detail and the recorded evidence. S01 to S10 are the 9 security tests (S08 and S11 are retired and no longer run). What each one checks . Next re-test: planned week for the security re-test; at most four per week; sooner after a major release or on request. What pass, fail, missing control and N/A mean for each test: see the method page . Full test materials, including the probes, the runner configuration and the raw evidence for each result, are available to the maker of any tested harness on request, under a non-disclosure agreement. Hover any failed cell for the recorded detail and the evidence behind it. Where a failure is part of a held disc",
+  "first_seen": "2026-10-27T17:10:38.453400+00:00",
+  "id": "44f94eb5bb77580c",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-27T17:08:18+00:00",
+  "sid": "57978a6d1478d544",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: AgenticBench, 9 security tests run on 25 AI coding agents",
+  "title": "Show HN: AgenticBench, 9 security tests run on 25 AI coding agents",
+  "type": "news",
+  "url": "https://agenticbench.org",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "57c3309db5bedcde": {
   "first_seen": "2026-10-14T17:05:21.975019+00:00",
   "id": "26aa4d763b49b1b2",
@@ -6940,6 +6985,19 @@
   "url": "https://github.com/Ic3b3rg/veduta",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "58ff7a6a90661164": {
+  "content_excerpt": "Announcing SOCI-indexed images for faster SageMaker AI jobs | Artificial Intelligence Skip to Main Content Filter: All English Contact us AWS Marketplace Support My account re:Invent Discover AWS Products Solutions Pricing Resources Search Filter: All Sign in to console Create account Explore topics re:Invent 2026 The session catalog is live. Explore what's waiting for you Build & Deploy AI Agents 88% of agent pilots stall. Learn what the rest do differently Get started Sign up free, connect your coding agent, and start building Data for agentic AI The 7 essential data capabilities to scale agentic AI Analyst Report AWS named a Leader in the 2026 Gartner Magic Quadrant for SCPS AI for Small Businesses Solutions designed for your business. Delivered by AWS Partners News & announcements AWS blog About AWS AWS is the world's most comprehensive cloud, enabling organizations to accelerate innovation, reduce costs, and scale more efficiently Why AWS Getting Started Security Compliance Trust Center Sustainability Global Infrastructure Careers Featured Products Analytics Application Integration Artificial Intelligence Business Applications Compute Customer Experience Databases Developer Tools End User Computing Game Tech Management Tools Media Services Migration & Modernization Multicloud & Hybrid Networking & Content Delivery Operations Security & Identity Storage Supply Chain Browse all products Transformation Hubs Migrate to modernize → Modernize to unlock data → unlock data to ru",
+  "first_seen": "2026-10-27T17:10:38.453400+00:00",
+  "id": "fe423f5a88dd4975",
+  "published": "2026-10-27T17:00:39+00:00",
+  "sid": "58ff7a6a90661164",
+  "source": "aws_ml_blog",
+  "summary": "Seekable OCI (SOCI) indexing for Amazon SageMaker AI training and processing jobs takes full container image download off the critical path. SageMaker AI lazy-loads your image to start containers in seconds instead of minutes, with no changes to your job definition. See the benchmarks and how to adopt it.",
+  "summary_1line": "Seekable OCI (SOCI) indexing for Amazon SageMaker AI training and processing jobs takes full container image download off the critical path. SageMaker AI lazy-loads your image to start containers in seconds instead of...",
+  "title": "Announcing SOCI-indexed images for faster SageMaker AI jobs",
+  "type": "news",
+  "url": "https://aws.amazon.com/blogs/machine-learning/announcing-soci-indexed-images-for-faster-sagemaker-ai-jobs"
+ },
  "590162d6e49ed0f1": {
   "first_seen": "2026-10-17T07:03:58.665731+00:00",
   "id": "c95ea297a529412e",
@@ -6970,6 +7028,24 @@
   "title": "DeepSeek vs Mistral Large 4 vs Cohere: 9x Price Gap [2026]",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPN1hlSUJENkV6eFRCbEVzMl8zU3p4YjBTQ1dra0RTU2QyWnh3ZlVYZDB6cUNqdXNtUjFDZFZNYkpIVy1DV0F6S0tNdXpFZ3BkMWZLYXZaZ3VOUkczanNSS2RDUkZYWmhqUVZwRXhPaHB5LTc1dDVRM3IxSjBGNnl4djlEV2NCeV9uVWh5UWN5VQ?oc=5"
+ },
+ "594cded7cf1742be": {
+  "first_seen": "2026-10-27T17:10:38.453400+00:00",
+  "id": "03e8689bea2de2bf",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-10-26T17:56:21+00:00",
+  "sid": "594cded7cf1742be",
+  "source": "arxiv_cs_lg",
+  "summary": "As foundation models evolve from information generation to digital work execution, agents are increasingly capable of completing complex tasks across tools, applications, and workflows. However, existing research lacks a unified perspective on how agents reliably accomplish delegated work. To address this gap, we present a work-centric, system-level perspective that views work agents as systems combining foundation models and runtime harnesses to execute tasks in stateful workspaces and deliver verifiable outcomes. We introduce two complementary dimensions, work persistence and work openness, to characterize working conditions, and classify digital work into five forms according to task scope and organization. Building on this framework, we identify five core capability families required for reliable work execution and examine approaches to model optimization, harness optimization, and their joint optimization. We further analyze existing evaluation methods and metrics from the perspective of work outcomes. Finally, we discuss future research directions, including sustained work delegation, adaptation to open environments, and the interaction between work execution and capability improvement. This paper provides a unified framework for understanding, optimizing, and evaluating work agents, supporting the development of systems capable of delivering reliable, verifiable, and practically valuable work outcomes.",
+  "summary_1line": "As foundation models evolve from information generation to digital work execution, agents are increasingly capable of completing complex tasks across tools, applications, and workflows. However, existing research lack...",
+  "title": "Work Agents: Systems, Capabilities, and Optimization",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35845v1",
+  "why_it_matters": "Matches feed focus: agent, harness, evaluation."
  },
  "595751893e976d21": {
   "first_seen": "2026-10-12T17:04:25.927880+00:00",
@@ -10349,6 +10425,18 @@
   "url": "http://arxiv.org/abs/2610.04716v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "8b6f26193050412a": {
+  "content_excerpt": "Oracle Cloud Infrastructure plans to offer Cerebras inference to AI labs, enterprises, and developers. Read more >> Fast inference helps AI labs, enterprises, and developers build more responsive, capable AI agents and applications LAS VEGAS, Oct. 27, 2026 (GLOBE NEWSWIRE) -- Cerebras Systems (NASDAQ: CBRS) and Oracle today announced plans to make Cerebras’ fast inference available on Oracle Cloud Infrastructure (OCI) for AI labs, enterprises, and developers building interactive, intelligent applications. The partnership builds on Oracle’s existing infrastructure and AI inference capabilities, which include Dedicated AI Clusters in OCI Enterprise AI. As AI applications take on more complex, multi-step work, inference speed becomes critical to the user experience. Each additional AI model call adds latency, which can slow agentic workflows that reason and act across multiple steps. Faster inference enables developers to build agents and applications that remain responsive, even as they execute more sophisticated tasks. “People want AI that can do valuable work quickly,” said Andrew Feldman, co-founder and CEO, Cerebras. “Every step an agent makes requires inference, whether it’s reasoning, checking its work, or taking action. The faster the inference, the more work AI can do without making users wait. Bringing Cerebras fast inference to Oracle Cloud Infrastructure gives AI labs, enterprises, and developers the speed to build agents that do more, faster.” Designed for high-spee",
+  "first_seen": "2026-10-27T17:10:38.453400+00:00",
+  "id": "5f42354d58fc7f31",
+  "published": "2026-10-27T16:24:10+00:00",
+  "sid": "8b6f26193050412a",
+  "source": "hackernews_ai",
+  "summary_1line": "Cerebras and Oracle Team Up to Bring Cerebras AI Inference to OCI",
+  "title": "Cerebras and Oracle Team Up to Bring Cerebras AI Inference to OCI",
+  "type": "news",
+  "url": "https://www.cerebras.ai/press-release/cerebras-and-oracle-team-up-to-bring-cerebras-ai-inference-to-oracle-cloud-inf-3389429"
+ },
  "8b80d2c973e55d04": {
   "first_seen": "2026-10-15T12:04:32.776697+00:00",
   "id": "8af84e0c1bf54ed3",
@@ -12139,8 +12227,8 @@
   "published": "2026-10-22T07:29:17+00:00",
   "sid": "a1256d3bfaf174ed",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: translation. Likes: 35, downloads: 131.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: translation. Likes: 35, downloads: 131.",
+  "summary": "New model weights from tencent on Hugging Face. Task: translation. Likes: 37, downloads: 131.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: translation. Likes: 37, downloads: 131.",
   "title": "tencent/Hy-SimulMT-30B-A3B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Hy-SimulMT-30B-A3B"
@@ -17190,6 +17278,23 @@
   "url": "https://www.latent.space/p/rlm",
   "why_it_matters": "Matches feed focus: harness."
  },
+ "da0666cb075514bf": {
+  "first_seen": "2026-10-27T17:10:38.453400+00:00",
+  "id": "0e00c53f264ed36c",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-10-27T16:07:29+00:00",
+  "sid": "da0666cb075514bf",
+  "source": "hackernews_ai",
+  "summary": "Hi HN. Weir is for one problem: credentials crossing the boundaries of your AI agent. For agents you build, Weir plants fake credentials where real ones would live, runs the agent's normal flows, and checks what comes out: telemetry, logs, console output, model requests, and requests to other services. It looks for those exact values, including common encoded forms, and reports where they went without printing the credential. pip install weir-scan weir canary judge --sample That sample shows a planted key leaking into a trace. On your own agent: pip install weir-run. For agents you use, Weir can inventory your real credentials (it stores keyed fingerprints, never the values) and show when one enters your session or leaves in a tool call. Right now, this is supported for Claude Code. Its optional hook redacts those known credentials from tool results before the model sees them. Setup is weir statusline setup, on Linux and macOS for now. So the two modes are deliberately different: Build: plant → run → prove where the credential went. Use: observe → warn → optionally redact before the model sees it. The test mode is deterministic and offline. On Linux it can also run the agent without outside network access, so direct exfiltration attempts are caught. If a required path wasn't exercised, Weir reports incomplete, never clean. It doesn't try to detect every possible secret. It matches known whole values, so hashed, split, truncated, or otherwise transformed credentials aren't cov",
+  "summary_1line": "Hi HN. Weir is for one problem: credentials crossing the boundaries of your AI agent. For agents you build, Weir plants fake credentials where real ones would live, runs the agent's normal flows, and checks what comes...",
+  "title": "Show HN: Weir - Catch credential leaks in the AI agents you build and use",
+  "type": "news",
+  "url": "https://github.com/IdoGol24/weir",
+  "why_it_matters": "Matches feed focus: agent, claude code."
+ },
  "da2d811b9d25331f": {
   "first_seen": "2026-10-02T21:04:12.986070+00:00",
   "id": "0818aff47bc322e5",
@@ -19242,6 +19347,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOZXBudnlWNHplOXVzQTFRN0lrSVVHUDFneFI4a0RKb053YkFkZXJ5MENTSDZSTlNPbG8xQzJYejdpbU5PYjNRdFRVcE80Sm1ldHZkalhQR1NINUZzZlNmNnRVSGhHaWxhY21nckQtTVhLSXMtWVZOalpTaF9BeGhpdGZuZDVMV2NQTFN2Z0dVX2t0cXFOTnZNZ0lwZmljdnlKN29UdVVSblZ2bVJiY1dMNkVKUFVsNWVlb1RabTA3RnE1LXc?oc=5"
  },
+ "efb9e221f613a071": {
+  "first_seen": "2026-10-27T17:10:38.453400+00:00",
+  "id": "bb8533b90b26752f",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-26T16:57:36+00:00",
+  "sid": "efb9e221f613a071",
+  "source": "arxiv_cs_cl",
+  "summary": "Existing jailbreak attackers fall into two classes: static planners fix their single- or multi-turn adversarial plans in advance, remaining simple but losing sight of the victim's replies, wasting turns and limiting transferability; interactive generators read each victim reply to generate the next-turn attack but require in-loop evaluators for success signals or hints, incurring substantial costs and inflated performance. Bridging this gap, we propose SEMA-Auto, a sighted and efficient multi-turn attacker with autonomy, interacting with the victim model and terminating the session by itself upon success. To stabilize its behaviors and boost its capabilities, SEMA-Auto is trained in two stages. Synthetic bootstrap tuning installs the notion of attack targets and conforming decisions by fine-tuning the base model with bootstrapped trajectories. Decision-supervised reinforcement learning then optimizes two objectives jointly yet separately, reinforcing the attack with higher jailbreak reward while supervising the decision at each turn against an absolute target. Our method achieves state-of-the-art (SOTA) attack success rates (ASR) across multiple datasets, victims, and judges, outperforming all static and interactive baselines, within almost the fewest turns, demonstrating both effectiveness and efficiency. For example, SEMA-Auto performs a $76.0\\%$ ASR@1 within an average of $3.0$ turns against DeepSeek-V4-Flash on AdvBench, while the best static baseline is $54.8\\%$ with fix",
+  "summary_1line": "Existing jailbreak attackers fall into two classes: static planners fix their single- or multi-turn adversarial plans in advance, remaining simple but losing sight of the victim's replies, wasting turns and limiting t...",
+  "title": "SEMA-Auto: Sighted and Efficient Multi-Turn Attack with Autonomy",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35743v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "efbb6ed99e6c7bc2": {
   "first_seen": "2026-10-15T17:04:07.401448+00:00",
   "id": "92c826828f696592",
@@ -19673,6 +19794,25 @@
   "url": "https://simonwillison.net/2026/Oct/15/chirp-pong",
   "why_it_matters": "Matches feed focus: claude code."
  },
+ "f663f4e835cc42cb": {
+  "content_excerpt": "The promo above was made by Content Studio, our design agent that can create videos, social graphics, recreated UI images, slide decks, and more from just a single prompt in Slack. Every asset the agent produces is written in code. Content Studio was built entirely in-house on Managed Deep Agents . It’s now one of the most widely used GTM agents within our company, but it didn’t start out that way. Early feedback was… not great. We've spent four months teaching Content Studio our taste and design principles, mostly by watching it get things wrong in front of the whole company. This post walks through how our GTM Engineering team worked with our design team to build Content Studio from scratch: what good design means to us, how we taught the agent our taste, and the harness that lets it make anything from a still to a launch film. LangChain moves fast. We have constant product launch campaigns, webinars, blogs and events. Each initiative needs assets, from blog headers and diagrams to decks, videos and ad creatives. Our design team was stretched thin, with repetitive requests crowding out more strategic and innovative work. As a lean startup, we needed a low-friction way for anyone at the company to create high-quality, on-brand work. To address these needs, we built Content Studio, a design agent that lives in Slack. A team member describes what they want and attaches accompanying content or briefs, and the agent returns finished, on-brand files. To build Content Studio, we n",
+  "first_seen": "2026-10-27T17:10:38.453400+00:00",
+  "id": "68df3b5c7b1bd7cb",
+  "image_url": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6adda72d5667dffba0fa8595_6adda7178937e3ba40233f86_design-agent-cover-4k.png",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-10-27T16:45:00+00:00",
+  "sid": "f663f4e835cc42cb",
+  "source": "langchain_blog",
+  "summary": "How LangChain built Content Studio, an open-source design agent in Slack that makes on-brand videos, graphics and decks, and the harness that powers it.",
+  "summary_1line": "How LangChain built Content Studio, an open-source design agent in Slack that makes on-brand videos, graphics and decks, and the harness that powers it.",
+  "title": "How We Built Our Design Agent",
+  "type": "news",
+  "url": "https://www.langchain.com/blog/design-agent",
+  "why_it_matters": "Matches feed focus: agent, harness."
+ },
  "f67896274fc0d873": {
   "first_seen": "2026-10-16T21:04:44.181097+00:00",
   "id": "4ae3c7cdb1c86f0d",
@@ -20098,6 +20238,22 @@
   "type": "news",
   "url": "https://danielmiessler.com/blog/agents-should-pay-creators",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "fd409b6947d0831c": {
+  "first_seen": "2026-10-27T17:10:38.453400+00:00",
+  "id": "4b3038962989ee36",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-26T16:02:25+00:00",
+  "sid": "fd409b6947d0831c",
+  "source": "arxiv_cs_cl",
+  "summary": "JEV decision models pair a language model backbone with a lightweight scoring head to select among natural-language options. Direct selection compares candidate answers within one request, whereas entailment reranking evaluates each candidate in a separate natural language inference (NLI) request over fixed relation options. We examine whether the readout and adaptation choices used for direct selection remain effective for cross-request reranking. We combine a mean-span readout with selective backbone adaptation. Mean-span pooling replaces the option-ending pointer with an average of the contextualized states inside each NLI option, without adding head parameters. Selective adaptation retains low-rank updates in attention and gated DeltaNet projections while removing feed-forward adapters. On MC11, which averages accuracy over eleven reranking configurations from seven sources, selective adaptation improves NeoHorse-1-4B accuracy over the all-module baseline while cutting trainable parameters by more than half, and mean-span pooling yields further consistent gains at the same parameter count.",
+  "summary_1line": "JEV decision models pair a language model backbone with a lightweight scoring head to select among natural-language options. Direct selection compares candidate answers within one request, whereas entailment reranking...",
+  "title": "Improving JEV Entailment Reranking with Span Readouts and Selective Adaptation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35654v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "fd7cd167364e497d": {
   "first_seen": "2026-10-12T01:04:40.409488+00:00",
