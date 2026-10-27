@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-26T18:05:52.335792+00:00",
+ "generated_at": "2026-10-27T18:06:52.591513+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,30 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-27-rfc-corpus-skill-mcp-token-savings",
+   "topic": "tool-use",
+   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+   "kind": "obstacle",
+   "date": "2026-10-27",
+   "title": "Serving the RFC corpus through a skill or MCP server cuts reading tokens about 41x"
+  },
+  {
+   "id": "2026-10-27-agenticbench-harness-security-tests",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-10-27",
+   "title": "AgenticBench audits what 25 coding-agent harnesses do with egress, telemetry and secrets"
+  },
+  {
+   "id": "2026-10-27-cloudflare-kv-cache-exposure",
+   "topic": "agent-cost",
+   "topic_title": "Agent token costs are unpredictable and easily run away",
+   "kind": "obstacle",
+   "date": "2026-10-27",
+   "title": "Shared KV cache leaked other tenants' prompts on Workers AI for 13 days"
+  },
   {
    "id": "2026-10-26-agents-md-downloads-hijack",
    "topic": "prompt-injection",
@@ -230,30 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-21",
    "title": "Voice agents can run tools while the user is still speaking, cutting final-response latency 36%"
-  },
-  {
-   "id": "2026-10-20-decision-model-thresholds",
-   "topic": "llm-as-judge",
-   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
-   "kind": "solution",
-   "date": "2026-10-20",
-   "title": "Decision models replace LLM judges only after tuning the 0.50 threshold on your own labels"
-  },
-  {
-   "id": "2026-10-20-audit-judge-three-pillars",
-   "topic": "llm-as-judge",
-   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
-   "kind": "solution",
-   "date": "2026-10-20",
-   "title": "Audit an LLM judge for stability, chance-corrected human agreement, and ensemble divergence"
-  },
-  {
-   "id": "2026-10-20-vera-cpu-sandbox-throughput",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-10-20",
-   "title": "Modal reports NVIDIA Vera CPUs about double sandbox throughput under heavy concurrent load"
   }
  ],
  "nodes": {
@@ -301,7 +301,7 @@
      "key": "caching-and-serving",
      "title": "Caching and serving efficiency set the floor price",
      "summary": "Prompt caching at 90%+ hit rates, KV-cache offload, GPU packing, and pay-for-use runtimes cut fixed cost by large factors before any model choice.",
-     "count": 10
+     "count": 11
     },
     {
      "key": "price-curve",
@@ -311,6 +311,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-27-cloudflare-kv-cache-exposure",
+     "topic": "agent-cost",
+     "date": "2026-10-27",
+     "title": "Shared KV cache leaked other tenants' prompts on Workers AI for 13 days",
+     "theme": "caching-and-serving",
+     "html": "<p>Cloudflare reports a tenant-isolation bug in its GLM-5.3 Workers AI deployment (vendor-reported). From August 27 to September 9, 2026, 155 responses contained data from other customers&#x27; recent requests to the same model. A security researcher flagged it on September 8, and Cloudflare restored the model on September 9 after remediating with SGLang. No other hosted model was affected.</p>\n<p>Takeaway: cross-request cache reuse is a security boundary, not just a cost lever. Before enabling prefix or KV sharing on multi-tenant serving, test that a cache hit never crosses tenants.</p>",
+     "evidence": [
+      {
+       "sid": "89893d5f73c77515",
+       "title": "Cross-request KV cache exposure in the GLM-5.3 Workers AI model, and our remediation with SGLang"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-sandboxing",
+       "title": "Sandboxing, scoped credentials, and guardrails"
+      }
+     ]
+    },
     {
      "id": "2026-10-26-keln-gateway-cache-benchmark",
      "topic": "agent-cost",
@@ -1245,8 +1265,8 @@
      "title": "OpenAI adds usage analytics and enforceable spend controls to ChatGPT Enterprise"
     }
    ],
-   "entry_count": 52,
-   "latest_entry_date": "2026-10-26",
+   "entry_count": 53,
+   "latest_entry_date": "2026-10-27",
    "solutions": [
     {
      "slug": "agent-orchestration",
@@ -1264,6 +1284,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "89893d5f73c77515",
+     "title": "Cross-request KV cache exposure in the GLM-5.3 Workers AI model, and our remediation with SGLang"
+    },
     {
      "sid": "b7153f0672209bd4",
      "title": "AI Gateway Benchmark: OpenRouter, Vercel, Ramp, Keln"
@@ -1497,7 +1521,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-10-26"
+   "updated": "2026-10-27"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -13055,7 +13079,7 @@
      "key": "discovery-and-definitions",
      "title": "Tool discovery and definition quality at scale",
      "summary": "Listing every schema in the prompt burns context and hurts tool choice, so harnesses now search the tool catalog and teams treat tool definitions as a design discipline.",
-     "count": 5
+     "count": 6
     },
     {
      "key": "calling-reliability",
@@ -13077,6 +13101,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-27-rfc-corpus-skill-mcp-token-savings",
+     "topic": "tool-use",
+     "date": "2026-10-27",
+     "title": "Serving the RFC corpus through a skill or MCP server cuts reading tokens about 41x",
+     "theme": "discovery-and-definitions",
+     "html": "<p>RFC AI Tooling exposes the IETF RFC corpus to agents two ways, as a skill and as an MCP server, both backed by the same stdlib-only Python core. Documents are fetched from the RFC Editor on demand, and obsoleted specs are flagged so agents stop citing dead ones. The author reports a median 41x saving (tokens approximated as bytes divided by 4; single-repo, self-measured).</p>\n<p>Takeaway: a thin find-read-flag interface over a large reference corpus beats pasting documents into context. A skill and an MCP server can share one core instead of two implementations.</p>",
+     "evidence": [
+      {
+       "sid": "7b8f764b41e81a7e",
+       "title": "RFC AI Tooling: 40x fewer tokens while reading the RFC corpus"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-24-tool-access-not-tool-use",
      "topic": "tool-use",
@@ -13580,8 +13619,8 @@
      "title": "HashiCorp's Terraform MCP Server reaches general availability"
     }
    ],
-   "entry_count": 24,
-   "latest_entry_date": "2026-10-24",
+   "entry_count": 25,
+   "latest_entry_date": "2026-10-27",
    "solutions": [
     {
      "slug": "mcp",
@@ -13591,6 +13630,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "7b8f764b41e81a7e",
+     "title": "RFC AI Tooling: 40x fewer tokens while reading the RFC corpus"
+    },
     {
      "sid": "b77efdf87fc0595e",
      "title": "Giving an agent a tool does not make it use the tool"
@@ -13692,7 +13735,7 @@
      "title": "AI Agents Don't Need SMS APIs. They Need Infrastructure"
     }
    ],
-   "updated": "2026-10-24"
+   "updated": "2026-10-27"
   },
   "agent-benchmarks": {
    "slug": "agent-benchmarks",
@@ -15432,10 +15475,25 @@
      "key": "guardrails-and-verification",
      "title": "Guardrails, red-teaming, and checks on agent output",
      "summary": "Guardrail models can be attacked themselves, so teams add static analysis, automated remediation, continuous red-teaming, and workload inventory around the sandbox.",
-     "count": 9
+     "count": 10
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-27-agenticbench-harness-security-tests",
+     "topic": "agent-sandboxing",
+     "date": "2026-10-27",
+     "title": "AgenticBench audits what 25 coding-agent harnesses do with egress, telemetry and secrets",
+     "theme": "guardrails-and-verification",
+     "html": "<p>AgenticBench, a Show HN project, runs 9 security tests on 25 AI coding agents. It tests the harness itself (egress, telemetry, workspace boundaries, secrets), not the security of the code the agent writes. Each test ran once per harness in a fresh container with default settings. Outcomes come from captured system-call traces, model requests and network traffic. A test a harness never exercised is not counted as a pass.</p>\n<p>Takeaway: default settings are what ships, so audit your harness&#x27;s actual egress and secret handling from traces rather than from vendor documentation. Single run per cell, so treat results as a starting point.</p>",
+     "evidence": [
+      {
+       "sid": "57978a6d1478d544",
+       "title": "Show HN: AgenticBench, 9 security tests run on 25 AI coding agents"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-26-openai-covert-channel-containment",
      "topic": "agent-sandboxing",
@@ -16366,6 +16424,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-10-27-cloudflare-kv-cache-exposure",
+     "topic": "agent-cost",
+     "topic_title": "Agent token costs are unpredictable and easily run away",
+     "date": "2026-10-27",
+     "title": "Shared KV cache leaked other tenants' prompts on Workers AI for 13 days"
+    },
+    {
      "id": "2026-10-26-agents-md-downloads-hijack",
      "topic": "prompt-injection",
      "topic_title": "Untrusted input and tools can hijack an agent",
@@ -16373,8 +16438,8 @@
      "title": "A planted AGENTS.md in Downloads hijacked coding agents into installing malware"
     }
    ],
-   "entry_count": 59,
-   "latest_entry_date": "2026-10-26",
+   "entry_count": 60,
+   "latest_entry_date": "2026-10-27",
    "solutions": [],
    "obstacles": [
     {
@@ -16392,6 +16457,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "57978a6d1478d544",
+     "title": "Show HN: AgenticBench, 9 security tests run on 25 AI coding agents"
+    },
     {
      "sid": "1dc7e2df39a11f00",
      "title": "OpenAI's isolated AI agents found ways to talk to each other through CPU cache"
@@ -16661,7 +16730,7 @@
      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
     }
    ],
-   "updated": "2026-10-26"
+   "updated": "2026-10-27"
   },
   "agent-tracing": {
    "slug": "agent-tracing",
