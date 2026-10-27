@@ -970,6 +970,18 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.160.1",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "0e5fad3ca5f8a881": {
+  "content_excerpt": "Four open Granite models, one extensible forecasting interface, and less guesswork about which model to use. Pre-trained time-series models can forecast without training on your dataset, but you still have to choose one. A model that handles smooth industrial signals well may struggle with noisy retail demand or a long seasonal horizon, and the best choice depends on the series and the task. Granite Timeseries Ensemble reduces that choice to a sensible default. One recipe combines four complementary Granite architectures and returns median and quantile forecasts, with no retraining and no fitted ensemble weights. Start with the Probabilistic Ensemble (uniform probability pooling), compare the adaptive Inter Quartile Range (IQR) Ensemble, and extend the same interface with compatible forecasters. The ensemble recipe and its default Granite members are permissively licensed. The idea will be familiar from weather forecasting. Ensemble forecasts explore a range of possible outcomes, and systems such as the North American Multi-Model Ensemble combine different models for seasonal prediction. Time-series forecasting benefits in a similar way: complementary models offer different views of what comes next, and an ensemble merges those views into one forecast. Install Granite TSFM and load the recommended four-model recipe directly from Hugging Face: The recipe stores the ensemble configuration rather than merged model weights. It downloads the four member checkpoints at runtime, so ",
+  "first_seen": "2026-10-27T03:04:57.222682+00:00",
+  "id": "3aea528be83e323b",
+  "published": "2026-10-22T07:51:31+00:00",
+  "sid": "0e5fad3ca5f8a881",
+  "source": "huggingface_blog",
+  "summary_1line": "Ensemble forecasting with IBM Granite time-series models",
+  "title": "Ensemble forecasting with IBM Granite time-series models",
+  "type": "research",
+  "url": "https://huggingface.co/blog/ibm-research/granite-timeseries-ensemble-r1"
+ },
  "0eb391dce20b6029": {
   "first_seen": "2026-10-14T02:04:29.849847+00:00",
   "id": "3e2b47a820b30c96",
@@ -3799,6 +3811,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.23307v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "348c3e21d6ffa7e9": {
+  "content_excerpt": "Aroha Mandates let any agent that delegates keep cryptographically enforceable control over every agent it hands work to. No agent can exceed the scope it was granted. Agents now act for people and hand work to other agents and tools, often run by other companies. MCP and A2A connect them; identity providers name them. Nothing that travels with the work proves what each agent was allowed to do, stops the whole chain when the person changes their mind, or leaves a record anyone else can check. Aroha answers four questions for every action: who is acting, what were they allowed to do, can it be stopped, and what actually happened. It works with MCP, A2A and your identity provider rather than replacing them. See what Aroha is (and is not) . Using an AI coding agent? Point it at the aroha-integrate Agent Skill (or docs/llms.txt ): it picks the smallest integration path for your code, applies it, and checks that out-of-scope calls are refused. Note: the Vercel and Cloudflare buttons clone from github.com/ArohaLabs/aroha-protocol . You can also copy the template directory from a checkout and deploy it with the platform CLI. The Aroha runtime (desktop app) is developed in a separate, private repository and has not been released. The saga, settlement, commerce and reputation extensions are also developed outside this repository; they stay published on npm. Foundry and Python are only needed for the smart contract demo and MkDocs docs site respectively. Use GitHub Issues for bugs and ",
+  "first_seen": "2026-10-27T03:04:57.222682+00:00",
+  "id": "777ccdbeab1742e2",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-27T00:43:16+00:00",
+  "sid": "348c3e21d6ffa7e9",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Aroha – signed, shrinking permissions for AI agents, checked offline",
+  "title": "Show HN: Aroha – signed, shrinking permissions for AI agents, checked offline",
+  "type": "news",
+  "url": "https://github.com/ArohaLabs/aroha-protocol",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "349a2e508551092d": {
   "content_excerpt": "Decision audit for AI agents. Tracks why each decision was made and which irreversible actions need compensation when a belief turns out to be wrong. Works with LangGraph, CrewAI, OpenAI Agents SDK and 11 more frameworks. Sevenbox is causal audit infrastructure for AI agent decisions. A Warrant records why a decision was made: the specific prior claims it depended on, and whether acting on it can be undone. Every call your agent makes becomes one, automatically, the moment you wrap it. When a belief your agent acted on turns out to be wrong, Sevenbox finds exactly what still needs fixing — not by searching logs, by walking the causal chain. This repo is the open-core layer: the SDK, 14 framework adapters, the local Operations Center UI, and examples. It depends on warrant-core , a separate, compiled engine package — not on PyPI, distributed as a GitHub Release of this repo (see Install and License ). The local Operations Center UI ( sevenbox ops ) ships with this repo — every run your agent makes, with the causal graph above. 1. Install the compiled warrant-core engine. Go to this repo's Releases page and download the wheel matching your OS and Python version (3.10-3.13), then: Wheels are built for macOS (arm64), Linux (manylinux x86_64), and Windows (AMD64) — e.g. warrant_core-0.1.1-cp312-cp312-macosx_11_0_arm64.whl for macOS on Python 3.12, or ...-manylinux_2_17_x86_64.manylinux2014_x86_64.whl for Linux, or ...-win_amd64.whl for Windows. pip resolves sevenbox 's warrant-cor",
@@ -7897,6 +7925,22 @@
   "type": "news",
   "url": "https://news.ycombinator.com/item?id=49975157",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "6d653a45703b91b1": {
+  "first_seen": "2026-10-27T03:04:57.222682+00:00",
+  "id": "a93460bd0301b8ed",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-24T16:26:01+00:00",
+  "sid": "6d653a45703b91b1",
+  "source": "arxiv_cs_ai",
+  "summary": "Large Language Models excel at reasoning and generation but their autoregressive, token-by-token inference makes them unnecessarily slow, expensive, and poorly calibrated for the many routine decisions (routing, gating, scoring, classification) that modern AI systems require at sub-second latency. A growing class of models addresses this gap: System 1 decision models, architectures that map an input directly to a typed, structured decision in a single forward pass. This guide provides a comprehensive, practitioner-oriented treatment of the field. We propose a five-family taxonomy covering encoder-based classifiers, reward models, non-autoregressive decision engines, contrastive decision models, and extraction models, and we provide in-depth coverage of each family's architecture, training methodology, and deployment trade-offs. A central theme is calibration: we develop the theory of proper scoring rules, analyze Reinforcement Learning for Calibrated Decisions (RLCD), and examine recently discovered phenomena including IIA violations, ordinal-scale bias, and few-shot recalibration under distribution shift. On the integration side, we describe how System 1 models serve as decision infrastructure within agentic workflows and System 1 + System 2 cascades that route between fast and slow models based on calibrated confidence. The guide covers 18 application domains, maps the rapidly growing open-source ecosystem (over 70 model reproductions in weeks), provides runnable code throu",
+  "summary_1line": "Large Language Models excel at reasoning and generation but their autoregressive, token-by-token inference makes them unnecessarily slow, expensive, and poorly calibrated for the many routine decisions (routing, gatin...",
+  "title": "The Hitchhiker's Guide to System 1 Models: Fast Decision-Making Beyond LLMS",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.33775v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "6d6f8ad0753534aa": {
   "first_seen": "2026-10-16T01:05:18.075978+00:00",
@@ -12047,6 +12091,24 @@
   "url": "https://CloudJourneyBlog.rohi-lab.org/blog/agent-accessible-apps",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "a87014b87e5f155b": {
+  "first_seen": "2026-10-27T03:04:57.222682+00:00",
+  "id": "4a6089e0f3a41eaa",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-10-26T09:25:38+00:00",
+  "sid": "a87014b87e5f155b",
+  "source": "arxiv_cs_cl",
+  "summary": "Agent Skills allow LLM agents to combine reusable capabilities, but checking each Skill in isolation cannot rule out policy violations when they are composed. We term such failures Conflict of Skills (CoS): artifacts or assessment signals produced for one purpose may be reused downstream without preserving the restrictions or authorization needed for their new use. Using controlled executions of publicly available Skills and matched single-Skill controls, we identify four recurring mechanisms behind CoS. Building on these findings, we introduce the Conflict of Skills Attack (CoSA), which adds locally admitted Skills to an existing pool to supply missing business operations (capability supplementation) or reshape artifact exchange, decision reuse, and target/action bindings (relationship reshaping). CoSA leaves existing Skills and runtime permissions unchanged. To evaluate this threat under autonomous Skill selection, we introduce CoSA-Bench, built from real-world Skills and controlled services, with 288 tasks across recruiting, finance, IT, and business, covering data leakage, unauthorized state modification, and unsafe execution. Across five LLMs and three agent harnesses, additions capped at 5% of each original pool raise the policy-violation rate from 35.02% to 58.45%, an increase of 23.43 percentage points. Trace analysis links compliant-to-violating transitions to cross-Skill dependencies involving the additions. Finally, we develop a lightweight harness-level guard that",
+  "summary_1line": "Agent Skills allow LLM agents to combine reusable capabilities, but checking each Skill in isolation cannot rule out policy violations when they are composed. We term such failures Conflict of Skills (CoS): artifacts...",
+  "title": "CoSA: The Conflict of Skills Attack in Real-World LLM Agent Ecosystems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35082v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
  "a8802e0ca3b48e37": {
   "first_seen": "2026-10-19T05:04:40.153469+00:00",
   "id": "cae1add48bc1b7ce",
@@ -14297,6 +14359,24 @@
   "type": "news",
   "url": "https://www.latent.space/p/ainews-claude-haiku-55-better-than"
  },
+ "c080ad7c9a196fa5": {
+  "content_excerpt": "● Two changes. Cap the query at MAX_QUERY_LENGTH and return didOverflow so callers can show a hint. Use Claude Code, Codex, OpenCode, or any coding agent for each task. Your workspaces, branches, and review flow stay the same. Launch agents across features, bug fixes, and refactors, all in parallel. Status at a glance shows which agents are working, which are blocked, and which are waiting on you. Turn chores into agents that run on a schedule or when an event comes in: issue triage, changelog drafts, dependency bumps. They run on their own and open PRs for you to review. Each agent runs in its own isolated Git worktree. No overwriting each other's files. Review and merge work when you're ready. Add any machine as a host. Workspaces keep running when your laptop sleeps, and you can check in from wherever you are. Everything is scriptable. Spawn workspaces and agents from the CLI, wire Paradev into CI with the SDK, or let your agent drive it over MCP. Jump into your favorite editor with one click. VS Code, Cursor, Xcode, JetBrains IDEs, or any terminal: open worktrees exactly where you need them. Oh snap @superset_sh is soooooo damn good! Now THIS is the experience I've been wanting for CLI agents! Damn @superset_sh is really cool. You should try it. worktrees are a breeze cmd + t auto opens Claude Code you can view git changes within itself closing a laptop doesn't kill the sessions If you prefer a more GUI-oriented approach to multiple agents in parallel, it seems like @supe",
+  "first_seen": "2026-10-27T03:04:57.222682+00:00",
+  "id": "6f188d843dc3307d",
+  "matched_topics": [
+   "agent",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-10-26T23:15:45+00:00",
+  "sid": "c080ad7c9a196fa5",
+  "source": "hackernews_ai",
+  "summary_1line": "Paradev: One workspace for Claude Code, Codex, and any coding agent",
+  "title": "Paradev: One workspace for Claude Code, Codex, and any coding agent",
+  "type": "news",
+  "url": "https://paradev.com",
+  "why_it_matters": "Matches feed focus: agent, codex, claude code."
+ },
  "c08402b8f22a4b15": {
   "first_seen": "2026-10-01T08:04:01.020194+00:00",
   "id": "53a2bf5bf18950f9",
@@ -14866,6 +14946,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.10513v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "c74f6e5ef2c72d1e": {
+  "first_seen": "2026-10-27T03:04:57.222682+00:00",
+  "id": "4537365fb4ac951c",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-24T17:28:20+00:00",
+  "sid": "c74f6e5ef2c72d1e",
+  "source": "arxiv_cs_ai",
+  "summary": "On a partially observable XLand-MiniGrid task, an LSTM agent beats a memory-free MLP by 25 percentage points. The gap looks like a clear case of memory. We ask two questions about it. First, how much of a measured gap is noise? Separating training seed, map and evaluation randomness in 60 runs, each re-evaluated three times, we find that about ten paired seeds detect a 10-point gap in final success. The binary \"task acquired\" verdict, a common summary of learning curves, is 76% evaluation noise and would need about a hundred seeds for the same gap. Second, is the gap memory? On a sealed panel of new maps, opened once, a memory-free MLP of the LSTM's size comes within 3.3 points of the LSTM when it is given the time step, and gains no measurable benefit from its width without it. With the time step, an MLP a quarter of the LSTM's size, and the LSTM with its state erased at every step, also come within about 5 points. A linear probe reads the time step from the trained LSTM's state. On this task, most of the apparent memory advantage is an advantage of knowing the time, which matters because episodes are cut at a fixed limit and the reward shrinks with time. We recommend giving memory-free baselines the time step, and we release the protocol, the event-driven tooling and every checkpoint.",
+  "summary_1line": "On a partially observable XLand-MiniGrid task, an LSTM agent beats a memory-free MLP by 25 percentage points. The gap looks like a clear case of memory. We ask two questions about it. First, how much of a measured gap...",
+  "title": "Memory or a Clock? Auditing a Memory Advantage in XLand-MiniGrid with Seeds, Maps and Evaluation Noise Apart",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.33816v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "c75e6464b23204b8": {
   "first_seen": "2026-10-05T01:04:59.557394+00:00",
@@ -15591,6 +15688,22 @@
   "title": "Weekly Recap: Regulatory remediation progress and Private Bank AUM €732bn",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQX2FiTXZ3cFR3SFR0SDI0TVNPQjVtaVQ0cmE3N2ZMX2FKd0NQMmJoZTVSUzBIYVRHd2ZHNmtseGtEOW9zbFg3RDNwUGFWeHY4MWJ5cnBDd2diNFhtZGd6SnloLVdUZDFaY1FTRDVzTTRfbnBpQ2VNeVJyRlZWX0JrZ0lNMERZQ0ZmRjFqWXB0Zk1pSTlYRG1PbGM1UE5Cb3VIVXpvaWlaNUtRZ0JqVDRuWGJHZDRhOExnbk5mcktNR3lxQ3JLWWZTUHgySnlwUQ?oc=5"
+ },
+ "d0da800340042252": {
+  "content_excerpt": "Answer me with HTML — an agent skill that answers hard questions with a one-page HTML you can actually read. 让 AI Agent 用一页 HTML 回答复杂问题。 An agent skill. Ask a hard question, get a page you can actually read instead of a wall of text. The model writes about 1/8 of the tokens it would need to hand-write the HTML. The agent writes a short Markdown draft and hands it to the CLI that ships with the skill. About 50 ms later you have a page: You can. Models write decent HTML now. But most of what they write is not content. We counted the tokens in 9 pages the model wrote by hand, 4,893 tokens on average: With this skill the model writes only a Markdown draft. For the same questions that was 612 tokens on average, about 1/8 of the hand-written HTML . Less to write means less to wait for (3 topics × 3 runs, medians, Claude Sonnet 5.5, a plain Claude Code setup): The token counts are saved in bench/corpus/tokens.json , so node bench/corpus.mjs gives the same numbers every time. The pages themselves are a download . The bill drops less than the writing, about 15% here, because every turn also reads the system prompt, your question and the conversation, with or without the skill. See where the cost goes . Explainer videos save even more: about 18× fewer output tokens and 12× faster in a small test . You need Node.js 20 or newer. There is no npm install step. The CLI is bundled inside the skill. No Node.js yet? With the recommended install below, your agent asks you and then installs it. ",
+  "first_seen": "2026-10-27T03:04:57.222682+00:00",
+  "id": "388d9da26bdaedff",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-27T02:19:30+00:00",
+  "sid": "d0da800340042252",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Agent outputs slop texts, so I make a superfast HTML skill visualize it",
+  "title": "Show HN: Agent outputs slop texts, so I make a superfast HTML skill visualize it",
+  "type": "news",
+  "url": "https://github.com/QingYunA/answer-me-with-html",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "d0f0045fb40f11c2": {
   "first_seen": "2026-10-20T20:04:55.877851+00:00",
@@ -16375,6 +16488,23 @@
   "title": "X-RIC: An Agentic RAN-Intelligent Controller Benchmark for Enhancing Reinforcement Learning",
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.22269v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "db12b19fae8cbcfc": {
+  "first_seen": "2026-10-27T03:04:57.222682+00:00",
+  "id": "e5e5417528a354f4",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-10-26T03:32:04+00:00",
+  "sid": "db12b19fae8cbcfc",
+  "source": "arxiv_cs_cl",
+  "summary": "User memory helps personalized systems build on their understanding of users over time. In e-commerce, users convey their preferences and needs through both explicit language and implicit interactions with products. We study memory built from logs of these interactions, examining how it can \\emph{remember} concrete evidence and established interests, and use that evidence to \\emph{infer} underlying needs and preferences that inform judgments beyond well-observed product domains. Existing memory methods primarily target language-based interactions, and evaluations offer limited real behavioral data and limited separation of these capabilities. This leaves open how to jointly support and separately evaluate remembering and inference from behavioral logs. We formulate the problem of continual behavioral user memory around these joint requirements and develop a dedicated evaluation framework and memory method to address them. \\textbf{BehaviorMemBench} is a benchmark built from real e-commerce logs covering 1{,}194 users and 17{,}462 behavioral batches over more than three years, with automatic future-behavior labels and a task-independent memory interface to separately evaluate remembering and inference under a common protocol. \\textbf{BehaviorMem} is a memory design that organizes explicit behavioral facts and inferred user characteristics across long-term and short-term scopes in a two-axis state, with evidence-grounded formation, continual maintenance, and query-independent re",
+  "summary_1line": "User memory helps personalized systems build on their understanding of users over time. In e-commerce, users convey their preferences and needs through both explicit language and implicit interactions with products. W...",
+  "title": "BehaviorMem: Building and Evaluating User Memory from Real-World E-Commerce Behavior Streams",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.34790v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "db23defd608f1ebe": {
