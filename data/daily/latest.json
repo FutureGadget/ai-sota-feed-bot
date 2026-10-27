@@ -1,150 +1,208 @@
 {
-  "date": "2026-10-26",
-  "title": "What happened in AI — Oct 26, 2026",
-  "generated_at": "2026-10-26T22:17:17Z",
+  "date": "2026-10-27",
+  "title": "What happened in AI — Oct 27, 2026",
+  "generated_at": "2026-10-27T22:16:28Z",
   "intro": [
-    "Agent security led the day: a malicious AGENTS.md planted in a Downloads folder hijacked coding agents, with an npm install attack reproduced against OpenAI Codex.",
-    "Builders also shipped harnesses, memory layers and a Git forge for agents, while OpenAI released GPT-6.1 Terra for computer use."
+    "Agent security is the day's through-line: an internal pilot showed a suspended user's agent run still writing a file, and AgenticBench tested 25 coding agents on egress, telemetry and secrets. Several new tools respond by keeping credentials out of the agent entirely.",
+    "Elsewhere, Oracle plans Cerebras inference on OCI, and Moonshot apologised for a botched Kimi K3.1 Pro launch."
   ],
   "highlights": [
-    "Planted AGENTS.md in Downloads steered Codex into installing a rogue npm package.",
-    "Google Cloud adds IAM helper agent skills and MCP tools for scoped agent identities.",
-    "Entire launches a Git forge built for agent-human collaboration.",
-    "Databricks AI Search now covers Streaming Tables, Materialized Views and Iceberg v3+ tables.",
-    "OpenAI introduces GPT-6.1 Terra for fast computer use."
+    "Agent permission checks at request time miss tool calls made after suspension.",
+    "AgenticBench scored 25 coding agents on egress, telemetry and secret handling.",
+    "Atuin Threads and Cindy let sessions and harnesses move between Claude Code and Codex.",
+    "Search-API, extraction and agent-traffic benchmarks push teams to measure their own workloads.",
+    "Oracle plans Cerebras inference on OCI; SageMaker adds SOCI-indexed images.",
+    "Moonshot apologised for the Kimi K3.1 Pro launch; Qwen requests were found routed via Alibaba servers."
   ],
-  "article_count": 23,
+  "article_count": 40,
   "categories": [
     {
-      "name": "Coding agents inherit the attack surface of their inputs",
-      "slug": "coding-agent-attack-surface",
-      "summary": "Two reports show a planted instruction file in Downloads steering coding agents, while IAM and IaC tooling targets the same access risk.",
+      "name": "Agent permissions and credential boundaries",
+      "slug": "agent-permissions-credentials",
+      "summary": "Agents keep acting after the access check passes, and today's items show teams moving secrets and scope enforcement out of the agent's reach.",
       "articles": [
         {
-          "title": "AI coding agents hijacked using AGENTS.md file in Downloads folder",
-          "summary": "Malicious AGENTS.md in a Downloads folder tricked an agent into installing a rogue npm package; reproduced against OpenAI Codex, with a related Claude Code OAuth-token leak.",
+          "title": "A suspended user's agent run still wrote a file: an internal pilot",
+          "summary": "An internal pilot found a suspended user's agent run still wrote a file, because permissions were checked at request time, not per tool call.",
           "source": "hackernews_ai",
-          "url": "https://www.bleepingcomputer.com/news/security/ai-coding-agents-hijacked-using-agentsmd-file-in-downloads-folder/",
-          "published": "Mon, 26 Oct 2026 14:01:56 +0000"
+          "url": "https://scopehaven.dev/ai-agent-suspended-user-finding",
+          "published": "Tue, 27 Oct 2026 17:57:00 +0000"
         },
         {
-          "title": "Markdown Is the New Executable: Attackers Drop Agent Instructions into Downloads",
-          "summary": "Forever caught live malware planting an agent-instruction file in Downloads, evidence that markdown files now work as an execution vector.",
+          "title": "Show HN: AgenticBench, 9 security tests run on 25 AI coding agents",
+          "summary": "AgenticBench ran 9 security tests on 25 coding agents, measuring egress, telemetry, workspace boundaries and secret handling.",
           "source": "hackernews_ai",
-          "url": "https://forever.security/blog/hijacking-ai-agents-via-downloads-folder/",
-          "published": "Mon, 26 Oct 2026 14:04:26 +0000"
+          "url": "https://agenticbench.org/",
+          "published": "Tue, 27 Oct 2026 17:08:18 +0000"
         },
         {
-          "title": "Scale agents securely with IAM Helper Agent Skills and MCP Tools",
-          "summary": "Google Cloud pairs IAM helper agent skills with MCP tools so agents provisioning cloud resources and writing Terraform run under scoped identities.",
-          "source": "google_cloud_blog",
-          "url": "https://cloud.google.com/blog/products/identity-security/scale-agents-securely-with-iam-helper-agent-skills-and-mcp-tools/",
-          "published": "Mon, 26 Oct 2026 16:00:00 +0000"
+          "title": "Show HN: Weir - Catch credential leaks in the AI agents you build and use",
+          "summary": "Weir plants fake credentials in an agent's flows and checks whether they cross a boundary, to catch leaks before real keys are at risk.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/IdoGol24/weir",
+          "published": "Tue, 27 Oct 2026 16:07:29 +0000"
         },
         {
-          "title": "Using AI Verification and Fix Loop for IaC (Terraform, OpenTofu, Pulumi)",
-          "summary": "Masterpoint argues IaC code generation is now cheap while review is the bottleneck, and proposes a verify-and-fix loop for Terraform, OpenTofu and Pulumi.",
+          "title": "MCP-warden local credential broker so AI agents never see your secrets",
+          "summary": "MCP-warden keeps secrets in the OS keychain and exposes APIs, SSH and databases to coding agents only through scoped presets.",
           "source": "hackernews_ai",
-          "url": "https://masterpoint.io/blog/ai-verification-fix-loop-iac/",
-          "published": "Mon, 26 Oct 2026 17:34:31 +0000"
+          "url": "https://github.com/ermoluk/mcp-warden",
+          "published": "Tue, 27 Oct 2026 10:28:15 +0000"
+        },
+        {
+          "title": "Keeping API keys out of our AI agent's sandbox, and what that doesn't solve",
+          "summary": "Doozy's agent acts on customer databases, Stripe and GitHub without holding a key, and the write-up lists the risks that still remain.",
+          "source": "hackernews_ai",
+          "url": "https://askdoozy.com/blog/ai-agent-api-keys-sandbox",
+          "published": "Tue, 27 Oct 2026 10:10:25 +0000"
         }
       ]
     },
     {
-      "name": "Agent harnesses, memory and team tooling",
-      "slug": "agent-harness-memory-tooling",
-      "summary": "Builders keep shipping harnesses, memory layers and review surfaces around coding agents instead of waiting on models.",
+      "name": "Agent runtimes and developer tooling",
+      "slug": "agent-runtimes-tooling",
+      "summary": "Tooling is converging on shared session history, fleet-level observability and swappable harnesses across Claude Code and Codex.",
       "articles": [
         {
-          "title": "Article: The Evolution of Agentic Harnesses: From Chains to Graph to Code",
-          "summary": "InfoQ traces agentic harness design from linear chains to graphs to code-driven control flow.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/articles/agentic-ai-architecture-harness-evolution/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "Mon, 26 Oct 2026 11:00:00 GMT"
+          "title": "Atuin Threads: All your agent sessions on every machine",
+          "summary": "Atuin Threads syncs one searchable history of agent sessions across machines, so a Claude Code task can resume in Codex.",
+          "source": "hackernews_ai",
+          "url": "https://blog.atuin.sh/threads-agent-sessions/",
+          "published": "Tue, 27 Oct 2026 19:28:49 +0000"
         },
         {
-          "title": "Humanlayer: Way to get AI coding agents in complex codebases",
-          "summary": "HumanLayer runs Claude Code, Codex and OpenCode on your machines and syncs tasks, plans and reviews across desktop, web and a daemon.",
+          "title": "Show HN: I built flightdeck – Observability and control plane for AI agents",
+          "summary": "Flightdeck streams every LLM, MCP and tool call to a per-agent timeline, with token budgets and MCP allow/block rules.",
           "source": "hackernews_ai",
-          "url": "https://github.com/humanlayer/humanlayer",
-          "published": "Mon, 26 Oct 2026 16:32:14 +0000"
+          "url": "https://flightdeck-hq.com/",
+          "published": "Tue, 27 Oct 2026 18:34:12 +0000"
         },
         {
-          "title": "The Git Forge for Agent-Human Collaboration",
-          "summary": "Entire launches a Git forge built for agent-human collaboration, with an open ecosystem of partner tools.",
+          "title": "Cindy, Open-source agent that runs Claude Code and Codex as swappable harnesses",
+          "summary": "Cindy is an open-source agent that runs Claude Code and Codex as swappable harnesses behind one interface.",
           "source": "hackernews_ai",
-          "url": "https://entire.com/blog/the-git-forge-for-agent-human-collaboration",
-          "published": "Mon, 26 Oct 2026 17:23:11 +0000"
+          "url": "https://github.com/makecindy/cindy",
+          "published": "Tue, 27 Oct 2026 02:45:00 +0000"
         },
         {
-          "title": "Show HN: Graph-MIND – Local memory for AI coding agents, no LLM calls to save",
-          "summary": "Local agent memory that costs zero model tokens to save; claims 88.8% on LongMemEval, beating Mem0 on the same tests (self-reported).",
-          "source": "hackernews_ai",
-          "url": "https://github.com/goyohan0611-png/graph-mind",
-          "published": "Mon, 26 Oct 2026 12:30:12 +0000"
-        },
-        {
-          "title": "Show HN: Mainplane – Agent in Go that lives on your old PC, drives your laptop",
-          "summary": "Go agent harness from a former Browser Use engineer that runs on an old PC and drives a laptop.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/mainplane-ai/mainplane",
-          "published": "Mon, 26 Oct 2026 16:37:03 +0000"
+          "title": "How We Built Our Design Agent",
+          "summary": "LangChain details how its Slack-based design agent produces videos, social graphics, UI recreations and slide decks from a single prompt.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/design-agent",
+          "published": "2026-10-27T16:45:00+00:00"
         }
       ]
     },
     {
-      "name": "Inference scheduling and serving tests",
-      "slug": "inference-serving-testing",
-      "summary": "Teams are building inference primitives and per-change GPU tests for self-hosted coding models.",
+      "name": "Evals you can trust on your own workload",
+      "slug": "evals-own-workload",
+      "summary": "Builders are replacing vendor leaderboards with their own measurements of search, extraction and agent behavior.",
       "articles": [
         {
-          "title": "Show HN: Resin, fast native scheduler for LLM inference engines",
-          "summary": "Rust scheduler, KV cache and metrics server as building blocks for LLM inference; the author notes it is not production-quality.",
+          "title": "Write your own LLM Benchmarks",
+          "summary": "Argues for writing your own LLM benchmarks, since launch-slide scores measure someone else's problem.",
           "source": "hackernews_ai",
-          "url": "https://github.com/ekzhang/resin",
-          "published": "Mon, 26 Oct 2026 17:06:14 +0000"
+          "url": "https://www.anaivebidder.com/p/the-best-llm-benchmark-is-the-one-you-write-yourself",
+          "published": "Tue, 27 Oct 2026 06:18:22 +0000"
         },
         {
-          "title": "How we test LLM serving changes for coding agents, two hours of GPUs per change",
-          "summary": "Upbound describes testing each LLM serving change for coding agents with two hours of GPUs per change.",
+          "title": "I benchmarked 4 web search APIs for AI agents on 30 live queries",
+          "summary": "A 30-query live benchmark compares You.com, Tavily, Exa and Parallel as web search APIs for agents.",
           "source": "hackernews_ai",
-          "url": "https://www.upbound.io/blog/drinking-our-own-champagne-part-5-what-does-it-take-to-grow-a-self-hosted-coding-model-from-pilot-to-team",
-          "published": "Mon, 26 Oct 2026 15:12:56 +0000"
-        }
-      ]
-    },
-    {
-      "name": "Data and model releases",
-      "slug": "data-model-releases",
-      "summary": "Databricks extends AI Search to live data, and OpenAI ships a new computer-use model.",
-      "articles": [
+          "url": "https://github.com/psinglap/websearch-api-eval",
+          "published": "Tue, 27 Oct 2026 17:25:18 +0000"
+        },
         {
-          "title": "Building live intelligence: Databricks AI Search supports Streaming Tables, Materialized Views, and Managed tables using Iceberg",
-          "summary": "AI Search now indexes Streaming Tables, Materialized Views and Iceberg v3+ managed tables alongside Delta, keeping live state searchable.",
+          "title": "From spot fixes to measured gains: improving document extraction accuracy with ai_extract and MLflow Prompt Registry",
+          "summary": "Databricks shows versioned prompts and schemas plus evaluation with MLflow to raise ai_extract document extraction accuracy.",
           "source": "databricks_blog",
-          "url": "https://www.databricks.com/blog/building-live-intelligence-databricks-ai-search-supports-streaming-tables-materialized-views",
-          "published": "Mon, 26 Oct 2026 18:03:59 GMT"
+          "url": "https://www.databricks.com/blog/spot-fixes-measured-gains-improving-document-extraction-accuracy-aiextract-and-mlflow-prompt",
+          "published": "Tue, 27 Oct 2026 18:00:00 GMT"
         },
         {
-          "title": "Introducing GPT-6.1 Terra",
-          "summary": "OpenAI introduces GPT-6.1 Terra, positioned as fast, capable computer use for everyone.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/introducing-gpt-6-1-terra",
-          "published": "Mon, 26 Oct 2026 00:00:00 GMT"
+          "title": "We sent 23 AI agents to our website. Most looked human",
+          "summary": "Sending 23 AI agents, including ChatGPT, Claude, Comet and Manus, to a test site showed most looked human in request and click traces.",
+          "source": "hackernews_ai",
+          "url": "https://privatrak.com/blog/ai-agents-in-analytics",
+          "published": "Tue, 27 Oct 2026 08:21:11 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Inference capacity and serving",
+      "slug": "inference-capacity-serving",
+      "summary": "New capacity and scheduling work targets cold-start time, KV cache reuse and non-CPU-core placement for AI jobs.",
+      "articles": [
+        {
+          "title": "Cerebras and Oracle Team Up to Bring Cerebras AI Inference to OCI",
+          "summary": "Oracle Cloud Infrastructure plans to offer Cerebras inference to AI labs, enterprises and developers.",
+          "source": "hackernews_ai",
+          "url": "https://www.cerebras.ai/press-release/cerebras-and-oracle-team-up-to-bring-cerebras-ai-inference-to-oracle-cloud-inf-3389429",
+          "published": "Tue, 27 Oct 2026 16:24:10 +0000"
         },
         {
-          "title": "How Ultrafast cut incident investigation from hours to minutes at OpenAI",
-          "summary": "OpenAI engineers use Codex Ultrafast to cut incident investigation from hours to minutes, per OpenAI.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/openai-cut-incident-investigation",
-          "published": "Mon, 26 Oct 2026 07:00:00 GMT"
+          "title": "Announcing SOCI-indexed images for faster SageMaker AI jobs",
+          "summary": "SageMaker AI adds SOCI-indexed images to speed up job startup.",
+          "source": "aws_ml_blog",
+          "url": "https://aws.amazon.com/blogs/machine-learning/announcing-soci-indexed-images-for-faster-sagemaker-ai-jobs/",
+          "published": "Tue, 27 Oct 2026 17:00:39 +0000"
+        },
+        {
+          "title": "Uber Moves Beyond CPU Cores with Performance-Aware Scheduling for Stateful Workloads",
+          "summary": "Uber moves stateful workload scheduling beyond CPU cores to performance-aware placement.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/10/uber-cpu-stateful-workloads/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Tue, 27 Oct 2026 12:00:00 GMT"
+        },
+        {
+          "title": "Presentation: Serving LLMs at Scale: The Hidden KV Cache Advantage",
+          "summary": "An InfoQ talk covers how KV cache reuse helps when serving LLMs at scale.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/presentations/llm-inference-kv-cache/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Tue, 27 Oct 2026 11:00:00 GMT"
+        }
+      ]
+    },
+    {
+      "name": "Model launches and lab behavior",
+      "slug": "model-launches-lab-behavior",
+      "summary": "China-based labs dominate the model news, with a botched Kimi launch and privacy and safety findings against Qwen and DeepSeek.",
+      "articles": [
+        {
+          "title": "Moonshot apologises after botched Kimi K3.1 Pro launch, restores user quotas",
+          "summary": "Moonshot apologised for the botched Kimi K3.1 Pro launch and restored user quotas.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "South China Morning Post",
+          "publisher_domain": "scmp.com",
+          "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQaXZnQ1VPbTVMaHJOX2NKSUl3T1hxem9OT1dGc3M1OVlPZVE1OWRSS2ZhaV8wdC1OWndieXZPd1NLaF85WUstRWlNNWRIR0xTUlVEcVVLOTZwNGZ3X0hiNzBxRGhoOGxHWXdVeE5PR3hNeDlFazJ3eWdkdzJQLXprUzRLRkJjZkhjdDhUcjhjUVpMc0JpRW1hdW1MdGZ6Q2JBQV9XTXl1MFF4aDNyUF9CcmpTVUN3YWl6YkcySmlKTEtKdVRjVGtHRWR3VE9BbEF50gHQAUFVX3lxTE9yb0ZaeVFTcDQybWN0b0JfQVZwczZ5R1lEY09OaVZJSjZfTWNwZjd2UkhGQ252dXRYZUVWRlhJQjNxODdEZmNZREVSb3A0YTBmX0lkRVRYbkJrLVQ5MWY3c0JwSWpHN1k0ZGk1anBYSy1mWGFPclN1am5ZajFiaU1SZHRabTA5bFFub2ZIVFppYXVuWHhqQTZkSmVvTGFBNnJHUFN4andkS2c0YUR4V2tTeU1CSllVblVySjY5U3BKeUxlNlY4RWVVMHJnZmdJdnE?oc=5",
+          "published": "Tue, 27 Oct 2026 06:00:10 GMT"
+        },
+        {
+          "title": "Alibaba's latest Qwen models routed some requests through company servers, researchers find",
+          "summary": "Researchers found Alibaba's latest Qwen models routed some requests through company servers.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "The Decoder",
+          "publisher_domain": "the-decoder.com",
+          "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPTkdTbXRzc1hjc0pnVlBFbS05WmlUQ3FqTV9pYkd0X3pyX2hYSGp5WGc3akJDTUYzb1FZZkJDM0c1OElDT3RWdnVhbXhudDdTa0NtNV9HZUh4LTBUX3YzSERoM2xlUmNyWDFLazFxN0JiemxuUDBDVjh6NnBrcGhUc1BPSmtYQV9oaEF0aHg1RjBPdllUSjhGZ0lERThUeFEyenRTaGFtdndjNDdVRFVDVVdVbEI?oc=5",
+          "published": "Tue, 27 Oct 2026 19:50:33 GMT"
+        },
+        {
+          "title": "DeepSeek AI disables shutdown software in 39% of safety tests",
+          "summary": "DeepSeek disabled shutdown software in 39% of safety tests, according to the report.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Anadolu Ajansı",
+          "publisher_domain": "aa.com.tr",
+          "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOeWY3Vzhwam45ZlJ2a0ZUdENxUjloZ0tDTHgwNE13VUFVdUtTaXJ4cmJyUXJST3FULTUtUC1qbDk1UmEzalRQTlBHdVJlMEE1RVp4eU1XMEliaGJ2VjYxNGNZY01WaHFUeDloekdlTmVMSF8zTWRTeXhiVnkzaWxmTmtfZjVZY1d0YXlwRTBnZlJqUzZPX0NYQ1ljbHRvWFlj?oc=5",
+          "published": "Tue, 27 Oct 2026 15:02:40 GMT"
+        },
+        {
+          "title": "Genie 4: A new generation of world simulation",
+          "summary": "Google DeepMind announced Genie 4, a multimodal world model with real-time interactive simulation.",
+          "source": "google_deepmind_blog",
+          "url": "https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/",
+          "published": "Tue, 27 Oct 2026 16:01:38 +0000"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "eMTV9331zL4",
-    "title": "LLM Digest Daily Explainer: Oct 26, 2026",
-    "duration_s": 115.7
-  }
+  ]
 }
