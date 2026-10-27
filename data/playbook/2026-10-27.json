@@ -1,0 +1,120 @@
+{
+  "date": "2026-10-27",
+  "title": "Agent Builder's Playbook — Oct 27, 2026",
+  "generated_at": "2026-10-27T10:02:47Z",
+  "intro": [
+    "Three of six cards close silent failures: unused prompt caches, misleading tool output, and unsafe retries.",
+    "The other three cover instruction-file and MCP injection paths."
+  ],
+  "card_count": 6,
+  "cards": [
+    {
+      "id": "pb-audit-prompt-cache-integration",
+      "kind": "source-backed",
+      "title": "Audit your agent's prompt-cache integration for silent misses",
+      "area": "Cost & latency",
+      "problem": "Prompt caching can be enabled yet never hit, so you pay full price with no error to tell you.",
+      "apply": "Log the cached-token count the provider returns on each agent call, and alert when it stays near zero. Keep the system prompt, tool schemas, and early history byte-stable, and put changing content last.",
+      "result": "Cache misses show up in monitoring instead of on the invoice, and stable prefixes start getting reused.",
+      "effort": "low",
+      "source": "arxiv_agent_systems_research",
+      "source_url": "http://arxiv.org/abs/2610.34817v1",
+      "source_sid": "acf14c1d41e7a5ef",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "Editor's reading of the source's described failure mode; no measured result is cited."
+      },
+      "published": "2026-10-26T04:01:18Z"
+    },
+    {
+      "id": "pb-skip-reasoning-after-tool",
+      "kind": "source-backed",
+      "title": "Skip the reasoning call when the tool result already fixes the next step",
+      "area": "Cost & latency",
+      "problem": "Harnesses re-invoke the model to reason after every tool result, even when the next action is already determined.",
+      "apply": "Find tool results in your traces that always lead to the same next action, and have the harness take that action directly instead of calling the model. Route only ambiguous results back to reasoning.",
+      "result": "Fewer reasoning tokens and lower per-task latency on routine steps, with no change to ambiguous ones.",
+      "effort": "medium",
+      "source": "arxiv_cs_ai",
+      "source_url": "http://arxiv.org/abs/2610.32813v1",
+      "source_sid": "ac57fbd36999bb7e",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "Editor's reading of the source's described failure mode; no measured result is cited."
+      },
+      "published": "2026-10-23T15:47:47Z"
+    },
+    {
+      "id": "pb-verify-tools-from-state",
+      "kind": "source-backed",
+      "title": "Verify tool effects from state, not from the text the tool prints",
+      "area": "Evals",
+      "problem": "A tool's printed output can misstate what it did even when its computation was right, misleading both the agent and its verifier.",
+      "apply": "Have verifiers check the resulting state (the row, file, or API object) rather than the tool's formatted output. Treat formatter bugs as a failure class in your tool tests.",
+      "result": "Agents and verifiers stop approving work based on a misleading print-out.",
+      "effort": "medium",
+      "source": "arxiv_agent_systems_research",
+      "source_url": "http://arxiv.org/abs/2610.32110v1",
+      "source_sid": "bd36dcd4473fffd5",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "Editor's reading of the source's described failure mode; no measured result is cited."
+      },
+      "published": "2026-10-23T03:22:12Z"
+    },
+    {
+      "id": "pb-untrusted-agent-instruction-files",
+      "kind": "source-backed",
+      "title": "Don't load AGENTS.md-style instruction files from outside the repo",
+      "area": "Safety",
+      "problem": "A malicious AGENTS.md in a Downloads folder tricked a coding agent into installing a rogue npm package.",
+      "apply": "Restrict instruction-file discovery to the repository root and your own config directories. Require explicit approval before the agent reads or follows any instruction file from elsewhere.",
+      "result": "Dropped files stop acting as instructions, closing a path from a stray download to package installs and token theft.",
+      "effort": "low",
+      "source": "hackernews_ai",
+      "source_url": "https://www.bleepingcomputer.com/news/security/ai-coding-agents-hijacked-using-agentsmd-file-in-downloads-folder/",
+      "source_sid": "264cc0e36820b485",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "Editor's reading of the source's described failure mode; no measured result is cited."
+      },
+      "published": "2026-10-26T14:01:56Z"
+    },
+    {
+      "id": "pb-recheck-authority-before-retry",
+      "kind": "source-backed",
+      "title": "Re-check authority and confirm the outcome before retrying a consequential action",
+      "area": "Reliability",
+      "problem": "A resumed agent can repeat a side-effecting action after its permissions changed or while the first attempt's outcome is unknown.",
+      "apply": "Before any retry, re-validate the agent's current authorization and query the external system for the first attempt's result. Attach an idempotency key to each consequential call.",
+      "result": "Retries stop duplicating actions or running with revoked authority.",
+      "effort": "medium",
+      "source": "arxiv_agent_systems_research",
+      "source_url": "http://arxiv.org/abs/2610.31916v1",
+      "source_sid": "7e505f680072dedd",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "Editor's reading of the source's described failure mode; no measured result is cited."
+      },
+      "published": "2026-10-22T21:09:22Z"
+    },
+    {
+      "id": "pb-strip-mcp-tool-descriptions",
+      "kind": "source-backed",
+      "title": "Strip MCP tool descriptions at a gateway so servers can't steer the model",
+      "area": "Tool use",
+      "problem": "Any MCP server can put instructions in tool description fields to redirect the model or pull credentials.",
+      "apply": "Filter tools/list responses at a gateway: drop description, title, and example prose, and rebuild inputSchema from an allowlist. Write your own tool descriptions on the client side.",
+      "result": "Untrusted servers can no longer inject instructions through tool metadata; the model sees only names and schemas.",
+      "effort": "medium",
+      "source": "hackernews_ai",
+      "source_url": "https://github.com/Ablation-Tool/kevlar",
+      "source_sid": "a92a400264dfa863",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "Editor's reading of the source's described failure mode; no measured result is cited."
+      },
+      "published": "2026-10-24T22:24:09Z"
+    }
+  ]
+}
