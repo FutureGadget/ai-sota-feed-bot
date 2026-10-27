@@ -2147,6 +2147,18 @@
   "url": "http://arxiv.org/abs/2610.26844v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "1c5b51464767c2ad": {
+  "content_excerpt": "LFM3 is our new generation of Liquid Foundation Models (LFMs), built to be the starting point for specialized intelligence. It brings text, vision, audio, omni, and decision models onto one shared backbone, all in the 2B parameter range. This means you can pick the model for your modality, fine-tune it on your own data on a single GPU, and deploy it where your application runs. LFM2 showed that a hybrid of short convolutions and attention can run fast on-device without sacrificing quality. For LFM3, we used our hardware-in-the-loop architecture search to redesign that architecture for agentic use cases, which need more capability per parameter and fast inference over long contexts. The search now covers 14 device and backend combinations, from phones and a Raspberry Pi 5 to laptops, cloud CPUs, GPUs, and the Qualcomm Hexagon NPU. The payoff shows at long context. Per parameter, LFM3-1.7B matches LFM2-1.2B on short prompts across edge devices, and with 8K tokens in context it is about 25% faster. LFM3-1.7B-Base was pre-trained on 22T tokens with the same 128K vocabulary as LFM2.5-8B-A1B . The final 3.5T tokens are a mid-training stage on curated data with a larger share of agentic traces and tool calls, which also extends the context window to 256K tokens. Every LFM3 model branches from LFM3-1.7B-Base. Instead of running one large general-purpose model, you pick the one that fits your inputs, customize it, and run it on-device. Each model runs in transformers . The snippets be",
+  "first_seen": "2026-10-27T18:04:28.098747+00:00",
+  "id": "b22251121bede6db",
+  "published": "2026-10-27T17:16:52+00:00",
+  "sid": "1c5b51464767c2ad",
+  "source": "huggingface_blog",
+  "summary_1line": "Build specialized multimodal models with LFM3",
+  "title": "Build specialized multimodal models with LFM3",
+  "type": "research",
+  "url": "https://huggingface.co/blog/LiquidAI/lfm3"
+ },
  "1c8643abc01b7ad6": {
   "first_seen": "2026-10-25T02:04:50.029558+00:00",
   "id": "cf562498e94bffb2",
@@ -3337,6 +3349,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.32772v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "2b6c1a6faeff45d6": {
+  "first_seen": "2026-10-27T18:04:28.098747+00:00",
+  "id": "29ca13dfc68b1122",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-26T17:29:48+00:00",
+  "sid": "2b6c1a6faeff45d6",
+  "source": "arxiv_cs_cl",
+  "summary": "Deep research, or any use of large language models (LLMs) to read a large document collection and produce insights, requires synthesizing information from different sources. In this work, we find that LLMs produce long-form research reports that read as confident syntheses but which fail to accurately reflect the underlying documents. We call this failure smoothing. In collapsing diverse and potentially conflicting sources into a single narrative, the model discards the evidential \"jaggedness\" of its corpus and asserts conclusions more decisive than the citations can support. We introduce a claim level scoring pipeline, SmoothScore, to quantify this effect. Our pipeline extracts key conclusive claims from model generated reports, then finds evidence relevant to each claim and clusters that evidence along high level aspects. Finally, each claim is scored with respect to the evidence to quantify the degree of smoothing done by the agent. Across 7 systems and 4 datasets, we find that agents consistently produce stronger claims than warranted.",
+  "summary_1line": "Deep research, or any use of large language models (LLMs) to read a large document collection and produce insights, requires synthesizing information from different sources. In this work, we find that LLMs produce lon...",
+  "title": "Quantifying Claim Smoothing by LLM Research Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35793v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "2b7d053523558e34": {
   "first_seen": "2026-10-07T12:04:29.245982+00:00",
@@ -4904,6 +4932,22 @@
   "url": "https://openai.com/index/cloudflare-cyber",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "400904d310baccd7": {
+  "content_excerpt": "Many permission checks happen when a request arrives. AI agents keep working after that: a run can call tools, wait for an approval and write data well after it started. In an internal pilot, that gap showed up as a file written after the user who started the run had been suspended. The finding: in an internal pilot using Scopehaven's approach, with synthetic data, new requests from a suspended test user were correctly refused, but in 2 of 14 test cases an agent run started before the suspension still wrote a file afterward. In an internal pilot, we used Scopehaven's approach on a pinned version of an open-source AI workspace on our own machine, with its real server, a local model and synthetic data. We suspended a test user. New requests from that user were correctly refused, but in 2 of 14 test cases an agent run started before the suspension still wrote a file afterward. We made a partial, local repair, and the same 14 checks then passed, including the ones confirming that normal use still works. We verified the repair only on the file-write path we tested; other tools and full session termination were not tested. We're not naming the project. This is one finding in one pinned version, reproduced and partly repaired on our machine with synthetic data. It is not a safety certification or a claim about the project's current release. Looking only at new requests, the suspension worked. The file on disk said otherwise. That gap is why, in this pilot, we read the file on disk, ",
+  "first_seen": "2026-10-27T18:04:28.098747+00:00",
+  "id": "13927e706225cb5c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-27T17:57:00+00:00",
+  "sid": "400904d310baccd7",
+  "source": "hackernews_ai",
+  "summary_1line": "A suspended user's agent run still wrote a file: an internal pilot",
+  "title": "A suspended user's agent run still wrote a file: an internal pilot",
+  "type": "news",
+  "url": "https://scopehaven.dev/ai-agent-suspended-user-finding",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "40a1feed41fe68a1": {
   "first_seen": "2026-10-27T11:08:47.035587+00:00",
   "id": "a13cece1c770c797",
@@ -5347,6 +5391,22 @@
   "title": "Where Rounding Happens Matters: Rounding-Location Alignment Stabilizes LLM Reinforcement Learning",
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.32951v1"
+ },
+ "453e73d26c40e207": {
+  "first_seen": "2026-10-27T18:04:28.098747+00:00",
+  "id": "acb05b871ba2abb3",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-26T14:11:54+00:00",
+  "sid": "453e73d26c40e207",
+  "source": "arxiv_cs_cl",
+  "summary": "Social media enables cross-lingual communication, yet the meaning of user-generated content (UGC) is often distributed across text, images, and cultural knowledge, making translation challenging. Existing evaluations typically treat images as optional and assume textual information is sufficient, obscuring whether errors stem from missing visual evidence or inadequate cultural adaptation. We introduce \\textbf{Culture-MMT}, a diagnostic benchmark for \\textbf{distributed-evidence pragmatic reconstruction} in social-media translation. It contains 498 curated, de-identified UGC instances across 20 domains, categorized into Symbol, Visual, and Hybrid by their required evidence. We also develop a human-aligned domain-specific judge, Judger, and a controlled evaluation framework that systematically varies the evidence available to translators. Across 17 model configurations, real images improve performance by +0.280 on Visual and +0.197 on Hybrid, but only +0.050 on Symbol, while random images provide no comparable gains. Human-authored descriptions further show that jointly dependent cases remain more challenging even when visual facts are explicit. These results characterize culturally effective social-media translation as {meaning reconstruction from distributed evidence}, highlighting visual grounding and cultural-pragmatic adaptation as distinct model bottlenecks.",
+  "summary_1line": "Social media enables cross-lingual communication, yet the meaning of user-generated content (UGC) is often distributed across text, images, and cultural knowledge, making translation challenging. Existing evaluations...",
+  "title": "Beyond Words Alone: Disentangling Distributed Evidence for Visually Grounded Cultural Translation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35482v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "45845d76a34385a2": {
   "first_seen": "2026-10-19T02:04:44.409254+00:00",
@@ -7645,6 +7705,19 @@
   "title": "FILE PHOTO: Deepseek AI sign in Beijing",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPWWpDOVdfdWVZTlpFbnlFeGt0cXctdDVGSk9ZUlVHVC1VNVEyaUNoZXhyNkUyUFhGc2tXYjlGNlY2UlAtNFhzYnlvY0s2N0hTNEI4ZE13SWxDX08xN1lnaTI5T0NZSXc3U0VrazVBaC0xdEp5LUpJQUNfQW9VajJSMGxDQzJiNHZXRHZoLUp3TmphU2FTWjhJekwyVFl3ZS1SMnBkYWxVLWNxcHBvbHNKSmswVXQ4bU82QmdEVURvWm5xQkw2S3laNDJGVEN5UQ?oc=5"
+ },
+ "635d9236b331dedb": {
+  "content_excerpt": "How to improve ai_extract accuracy, version prompts and schemas, evaluate results, and how Genie Code can automate them for you Document extraction often starts with a simple loop: spot an incorrect field, adjust the prompt or schema, rerun the document, and check the result. That approach becomes unreliable as fields and document formats multiply. A change may fix one field while introducing regressions elsewhere, work for one layout but fail on another, or appear better simply due to normal variation across LLM runs. We saw this on a recent project that extracted roughly 40 structured fields from partner-submitted order documents across dozens of PDF layouts. Reviewers corrected and approved extracted values before they moved downstream, giving us human-reviewed ground truth for evaluation. The challenge was not getting ai_extract to return the fields. It was improving extraction without degrading the system overall. For example, the revision field sometimes returned status terms such as ORIGINAL instead of a revision number or blank. A small schema change cut errors for that field roughly in half. But across every field, total extraction errors increased by 9%. The lesson was clear: improving one field does not necessarily improve the extraction system. The pipeline already had most of the pieces needed to evaluate changes systematically. Documents landed in object storage and flowed through a Lakeflow SDP pipeline using Auto Loader. Bronze parsed documents with ai_parse_d",
+  "first_seen": "2026-10-27T18:04:28.098747+00:00",
+  "id": "adc0f11e3ce6f8c3",
+  "published": "2026-10-27T18:00:00+00:00",
+  "sid": "635d9236b331dedb",
+  "source": "databricks_blog",
+  "summary": "Document extraction often starts with a simple loop: spot an incorrect field, adjust...",
+  "summary_1line": "Document extraction often starts with a simple loop: spot an incorrect field, adjust...",
+  "title": "From spot fixes to measured gains: improving document extraction accuracy with ai_extract and MLflow Prompt Registry",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/spot-fixes-measured-gains-improving-document-extraction-accuracy-aiextract-and-mlflow-prompt"
  },
  "636a95e0f3daa294": {
   "first_seen": "2026-10-13T22:04:32.761818+00:00",
@@ -11228,8 +11301,8 @@
   "published": "2026-10-21T02:17:37+00:00",
   "sid": "9521b60b04aa1cbb",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Likes: 84, downloads: 155.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Likes: 84, downloads: 155.",
+  "summary": "New model weights from tencent on Hugging Face. Likes: 86, downloads: 155.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Likes: 86, downloads: 155.",
   "title": "tencent/Hy-Nomas released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Hy-Nomas"
@@ -12348,6 +12421,22 @@
   "url": "https://offrun.dev",
   "why_it_matters": "Matches feed focus: agent, codex, claude code."
  },
+ "a210ea04fc2881ab": {
+  "first_seen": "2026-10-27T18:04:28.098747+00:00",
+  "id": "1029dc8fa99badbc",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-26T13:12:41+00:00",
+  "sid": "a210ea04fc2881ab",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Recent work has explored optimizing LLM collaboration through Multi-Agent Reinforcement Learning (MARL), but many approaches still rely on predefined workflows, limiting efficiency and scalability. Decentralized LLM collaboration is challenging because agents execute independently with limited communication, share a joint objective, and must infer useful information from communication traces. In this paper, we propose BCMAAC, a Belief-Conditioned Multi-Agent Actor-Critic method that maintains beliefs over contextual information and uses them to facilitate training. Experiments on Minecraft game-playing, web searching and tool-using tasks show that BCMAAC improves task performance and collaborative behavior compared to naive actor-critic baselines. The improvements are particularly pronounced in multi-turn tasks with richer contextual information, where belief modeling provides a clear advantage.",
+  "summary_1line": "Recent work has explored optimizing LLM collaboration through Multi-Agent Reinforcement Learning (MARL), but many approaches still rely on predefined workflows, limiting efficiency and scalability. Decentralized LLM c...",
+  "title": "Belief-Conditioned Multi-Agent Actor Critic for Decentralized LLM Collaboration",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35398v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "a264c4af5885aa0a": {
   "first_seen": "2026-10-15T00:04:31.356321+00:00",
   "id": "a764cc7ac5331fca",
@@ -13085,6 +13174,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.13806v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "ab6e8f80609ed566": {
+  "first_seen": "2026-10-27T18:04:28.098747+00:00",
+  "id": "435ffa0c3d16ed4a",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-10-27T17:33:57+00:00",
+  "sid": "ab6e8f80609ed566",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.166.0-alpha.3",
+  "summary_1line": "Release 0.166.0-alpha.3",
+  "title": "codex rust-v0.166.0-alpha.3",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.3",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "abb8dd7383fae2f5": {
   "first_seen": "2026-10-13T11:04:29.121176+00:00",
@@ -18160,6 +18265,22 @@
   "title": "Show HN: LLMSchema – Dump your database schema as compact Markdown for AI agents",
   "type": "news",
   "url": "https://github.com/tordrt/LLMSchema",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "e3636bb8c76777d4": {
+  "content_excerpt": "Web search API evaluation for AI agents: You.com, Tavily, Exa and Parallel benchmarked · MCP server on npm & MCP Registry · Claude Code plugin · Hugging Face dataset A web search API evaluation and live, side-by-side benchmark of four web search APIs for AI agents ( You.com, Tavily, Exa and Parallel ) on 30 agent-style queries across GTM, insurance and finance use cases, plus a buyer memo, a target-account list and a market map built on the results. Use the benchmark from wherever you work. Everything is free and read-only; nothing runs on a hosted server with your keys. Ask about these results from inside your AI assistant with the read-only MCP server. It needs no sign-in or API keys and never runs searches. Headline: You.com is the fastest API tested and the most dependable at returning something fresh: it leads on freshness, reliability and search-only speed. Parallel leads accuracy, with You.com a close second and tied on fully correct queries. Exa returns the most on-topic top 5; Parallel is cheapest per correct answer. You.com answered all 30 search-only calls in under 1 second; no other provider managed more than 3 of 10 in any use case. Full scorecards, per-query grids and what each API returned are on the Evaluation page . Queries. 30 queries, 10 per use case (GTM G1–G10, Insurance I1–I10, Finance F1–F10). Each is written the way an AI agent calls web search: Every use case has at least 4 real-time queries; the rest use 24-hour, 48-hour, 7-day or 1-year windows. Som",
+  "first_seen": "2026-10-27T18:04:28.098747+00:00",
+  "id": "042d78aa28cb12a8",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-27T17:25:18+00:00",
+  "sid": "e3636bb8c76777d4",
+  "source": "hackernews_ai",
+  "summary_1line": "I benchmarked 4 web search APIs for AI agents on 30 live queries",
+  "title": "I benchmarked 4 web search APIs for AI agents on 30 live queries",
+  "type": "news",
+  "url": "https://github.com/psinglap/websearch-api-eval",
   "why_it_matters": "Matches feed focus: agent."
  },
  "e36c81246c974c2e": {
