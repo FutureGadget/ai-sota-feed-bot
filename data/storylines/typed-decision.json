@@ -1,0 +1,109 @@
+{
+ "slug": "typed-decision",
+ "label": "Typed Decision",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-10-08T16:46:43+00:00",
+ "last_updated": "2026-10-23T17:49:43+00:00",
+ "generated_at": "2026-10-27T00:13:38.037892+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_cl",
+  "arxiv_cs_lg"
+ ],
+ "days": [
+  {
+   "date": "2026-10-08",
+   "items": [
+    {
+     "title": "One Word Opens the Gate: The Option-Channel Attack on Typed Decision Models as Agent Guardrails",
+     "url": "http://arxiv.org/abs/2610.12292v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "A typed decision model reads a piece of text and returns a probability over caller-defined options, each with a short written definition, generating no text. Recent work places these models in agent systems as guardra...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "0f0c80587e932ad4",
+     "published": "2026-10-08T16:46:43+00:00",
+     "editor_note": "Introduced the option-channel attack on typed decision models used as agent guardrails."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-21",
+   "items": [
+    {
+     "title": "VX-One: Typed, Calibrated Decision Heads for Real-Time Perimeter Triage - An empirical study of unknown-attack honesty, cascade gray zones, and calibration under drift",
+     "url": "http://arxiv.org/abs/2610.30090v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Perimeter triage faces a latency/semantics trade-off: signature engines are fast and format-safe but blind to unseen attacks, while generative models are semantic but slow and produce unparseable output. In late 2026...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "a0784d9bff0dcc3c",
+     "published": "2026-10-21T17:39:12+00:00",
+     "editor_note": "Applied typed, calibrated decision heads to real-time perimeter triage, contrasting them with signature engines and generative models."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-23",
+   "items": [
+    {
+     "title": "Measure Before You Train: Typed Decision Models vs. a Classical Baseline vs. a Generative LLM for Routing a Personal Multilingual Inbox",
+     "url": "http://arxiv.org/abs/2610.32955v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Personal email agents decide, for every message, what it is, whether it is urgent, whether to draft a reply, create a task, or ignore it. Their error rate is rarely measured: the stored labels were written by the syst...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "b3556b3510a4eaf3",
+     "published": "2026-10-23T17:49:43+00:00",
+     "editor_note": "Compared typed decision models with a classical baseline and a generative LLM for inbox routing."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Typed decision models return a probability over caller-defined options instead of generating text, and papers began placing them in agent systems as guardrails. The first paper showed an attack on that role; a security-triage study followed.",
+  "stale": false,
+  "whats_new": "A paper on routing a personal multilingual inbox compares typed decision models against a classical baseline and a generative LLM, arguing to measure before training.",
+  "why_it_matters": "Typed decision heads are being proposed as guardrails and routers, so platform engineers need to know both how they can be attacked and how they compare with simpler baselines.",
+  "take_for_builders": "If a typed decision model gates agent actions, test its option definitions for adversarial wording and benchmark it against a classical baseline before training.",
+  "status": {
+   "state": "Developing",
+   "tone": "rising",
+   "changed": "2026-10-23",
+   "detail": "Three papers in 15 days cover an attack, a security-triage application, and a baseline comparison for typed decision models."
+  },
+  "beats": [
+   {
+    "kicker": "RISK",
+    "tone": "alert",
+    "headline": "Option-channel attack on typed decision guardrails",
+    "sids": [
+     "0f0c80587e932ad4"
+    ]
+   },
+   {
+    "kicker": "APPLICATION",
+    "tone": "rising",
+    "headline": "Typed, calibrated heads for perimeter triage",
+    "sids": [
+     "a0784d9bff0dcc3c"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Measuring typed models against classical and generative baselines",
+    "sids": [
+     "b3556b3510a4eaf3"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do any vendors or papers publish defenses against the option-channel attack?",
+   "Do typed decision models hold their advantage over classical baselines on other routing tasks?"
+  ],
+  "generated_at": "2026-10-27T00:13:26+00:00"
+ }
+}

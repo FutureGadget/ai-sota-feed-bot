@@ -1,0 +1,102 @@
+{
+ "slug": "policy-optimization",
+ "label": "Policy Optimization",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-10-14T15:27:50+00:00",
+ "last_updated": "2026-10-23T06:08:17+00:00",
+ "generated_at": "2026-10-27T00:13:38.037892+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_ai",
+  "arxiv_llm_reliability"
+ ],
+ "days": [
+  {
+   "date": "2026-10-14",
+   "items": [
+    {
+     "title": "Lifted State Policy Optimization: Internalizing Self-Correction through Transition Geometry",
+     "url": "http://arxiv.org/abs/2610.20350v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Preference optimization ranks final answers and trajectory RL maximizes aggregate returns, yet neither credits the local change that turns a flawed reasoning state into a better one. We introduce Lifted State Policy O...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "a42e86ea9f9f98f3",
+     "published": "2026-10-14T15:27:50+00:00",
+     "editor_note": "Introduces Lifted State Policy Optimization, crediting the local change from a flawed reasoning state to a better one."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-22",
+   "items": [
+    {
+     "title": "ReflectPO: Reflection-Guided Policy Optimization for Long-Horizon LLM Agents",
+     "url": "http://arxiv.org/abs/2610.30933v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "With external tools, large language models (LLMs) can tackle complex tasks through sustained environmental interaction. LLM-based agents are therefore increasingly used to tackle complex long-horizon tasks in real-wor...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "9cbcaf295333969d",
+     "published": "2026-10-22T08:54:24+00:00",
+     "editor_note": "Extends policy optimization with reflection guidance for long-horizon, tool-using LLM agents."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-23",
+   "items": [
+    {
+     "title": "SOPO: Socratic Guided Policy Optimization for Span-Level Hallucination Detection",
+     "url": "http://arxiv.org/abs/2610.32212v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large Language Models (LLMs) have gained widespread adoption in various natural language processing tasks, but suffer from hallucination issues where they generate unfaithful or inconsistent content. While Reinforceme...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "78e0961a0062764b",
+     "published": "2026-10-23T06:08:17+00:00",
+     "editor_note": "Uses Socratic guided policy optimization to detect hallucinated spans rather than whole answers."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "On Oct 14 a paper proposed Lifted State Policy Optimization to credit the local change that turns a flawed reasoning state into a better one. On Oct 22 ReflectPO applied reflection-guided policy optimization to long-horizon LLM agents.",
+  "stale": false,
+  "whats_new": "SOPO (Oct 23) applies Socratic guided policy optimization to span-level hallucination detection in LLM output.",
+  "why_it_matters": "Three arXiv papers in ten days tailor policy optimization to self-correction, agent horizons and hallucination detection; all are preprints, so treat them as research signals, not production tooling.",
+  "take_for_builders": "Treat these as preprints: wait for released code and independent replication before changing any training or eval pipeline.",
+  "beats": [
+   {
+    "kicker": "SELF-CORRECTION",
+    "tone": "launch",
+    "headline": "Lifted State Policy Optimization targets self-correction",
+    "sids": [
+     "a42e86ea9f9f98f3"
+    ]
+   },
+   {
+    "kicker": "AGENTS",
+    "tone": "rising",
+    "headline": "ReflectPO brings reflection-guided optimization to long-horizon agents",
+    "sids": [
+     "9cbcaf295333969d"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "SOPO aims policy optimization at span-level hallucination detection",
+    "sids": [
+     "78e0961a0062764b"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do any of these three methods publish code or reproducible results on public benchmarks?"
+  ],
+  "generated_at": "2026-10-27T00:13:24+00:00"
+ }
+}

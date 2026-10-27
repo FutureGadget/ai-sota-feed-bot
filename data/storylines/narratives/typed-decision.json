@@ -1,0 +1,45 @@
+{
+  "slug": "typed-decision",
+  "generated_at": "2026-10-27T00:13:26+00:00",
+  "covers_last_updated": "2026-10-23T17:49:43+00:00",
+  "covers_member_sids": ["0f0c80587e932ad4", "a0784d9bff0dcc3c", "b3556b3510a4eaf3"],
+  "tldr": "Typed decision models return a probability over caller-defined options instead of generating text, and papers began placing them in agent systems as guardrails. The first paper showed an attack on that role; a security-triage study followed.",
+  "whats_new": "A paper on routing a personal multilingual inbox compares typed decision models against a classical baseline and a generative LLM, arguing to measure before training.",
+  "why_it_matters": "Typed decision heads are being proposed as guardrails and routers, so platform engineers need to know both how they can be attacked and how they compare with simpler baselines.",
+  "status": {
+    "state": "Developing",
+    "tone": "rising",
+    "changed": "2026-10-23",
+    "detail": "Three papers in 15 days cover an attack, a security-triage application, and a baseline comparison for typed decision models."
+  },
+  "beats": [
+    {
+      "kicker": "RISK",
+      "tone": "alert",
+      "headline": "Option-channel attack on typed decision guardrails",
+      "sids": ["0f0c80587e932ad4"]
+    },
+    {
+      "kicker": "APPLICATION",
+      "tone": "rising",
+      "headline": "Typed, calibrated heads for perimeter triage",
+      "sids": ["a0784d9bff0dcc3c"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Measuring typed models against classical and generative baselines",
+      "sids": ["b3556b3510a4eaf3"]
+    }
+  ],
+  "open_questions": [
+    "Do any vendors or papers publish defenses against the option-channel attack?",
+    "Do typed decision models hold their advantage over classical baselines on other routing tasks?"
+  ],
+  "take_for_builders": "If a typed decision model gates agent actions, test its option definitions for adversarial wording and benchmark it against a classical baseline before training.",
+  "day_captions": {
+    "0f0c80587e932ad4": "Introduced the option-channel attack on typed decision models used as agent guardrails.",
+    "a0784d9bff0dcc3c": "Applied typed, calibrated decision heads to real-time perimeter triage, contrasting them with signature engines and generative models.",
+    "b3556b3510a4eaf3": "Compared typed decision models with a classical baseline and a generative LLM for inbox routing."
+  }
+}

@@ -1,16 +1,17 @@
 {
  "slug": "reinforcement-learning",
  "label": "Reinforcement Learning",
- "item_count": 7,
+ "item_count": 10,
  "day_count": 6,
- "source_count": 6,
+ "source_count": 7,
  "first_seen": "2026-10-12T21:41:50+00:00",
- "last_updated": "2026-10-23T17:48:54+00:00",
- "generated_at": "2026-10-26T00:13:14.453929+00:00",
+ "last_updated": "2026-10-23T17:57:22+00:00",
+ "generated_at": "2026-10-27T00:13:38.037892+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
   "arxiv_cs_cl",
+  "arxiv_cs_lg",
   "arxiv_llm_reliability",
   "aws_ml_blog",
   "search_cn_open_weight_labs"
@@ -111,6 +112,27 @@
    "date": "2026-10-23",
    "items": [
     {
+     "title": "Profile-Driven User Simulation via Reinforcement Learning with Hierarchical Rewards for Task-Oriented Dialogues",
+     "url": "http://arxiv.org/abs/2610.32435v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Building Task-Oriented Dialogue (TOD) systems for high-value scenarios such as financial marketing requires large volumes of domain-specific dialogue data, which privacy regulations, annotation costs, and the need for...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "40c644a15cb895a9",
+     "published": "2026-10-23T10:01:41+00:00",
+     "editor_note": "Uses RL with hierarchical rewards for profile-driven user simulation in task-oriented dialogue."
+    },
+    {
+     "title": "Where Rounding Happens Matters: Rounding-Location Alignment Stabilizes LLM Reinforcement Learning",
+     "url": "http://arxiv.org/abs/2610.32951v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Reinforcement learning for large language models often uses separate systems for inference and training. Even with identical weights and BF16 tensors, implementation differences can make an intended on-policy update o...",
+     "sid": "453c138d9feefee3",
+     "published": "2026-10-23T17:45:03+00:00",
+     "editor_note": "Traces on-policy instability in LLM RL to where rounding happens between inference and training systems."
+    },
+    {
      "title": "Multi-Turn Reinforcement Learning on Amazon SageMaker AI: A hands-on guide",
      "url": "https://aws.amazon.com/blogs/machine-learning/multi-turn-reinforcement-learning-on-amazon-sagemaker-ai-a-hands-on-guide",
      "source": "aws_ml_blog",
@@ -119,7 +141,18 @@
      "why_it_matters": "Matches feed focus: agent, eval.",
      "sid": "8a41e1e41cbecfde",
      "published": "2026-10-23T17:48:54+00:00",
-     "editor_note": "Newest: AWS's hands-on multi-turn RL pipeline on SageMaker AI, the first managed-platform recipe in the thread."
+     "editor_note": "AWS's hands-on multi-turn RL pipeline on SageMaker AI, the first managed-platform recipe in the thread."
+    },
+    {
+     "title": "RobustRLlib: A Unified Library and Benchmark for Robust Reinforcement Learning Algorithms",
+     "url": "http://arxiv.org/abs/2610.32971v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Robust reinforcement learning (RL) is critical for reliable real-world deployment, where policies may fail under diverse shifts and disruptions. Existing robust RL algorithms offer a rich set of mechanisms and princip...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "1e1ae7d5d09cb859",
+     "published": "2026-10-23T17:57:22+00:00",
+     "editor_note": "Newest: a unified library and benchmark for robust RL algorithms."
     }
    ]
   }
@@ -127,14 +160,14 @@
  "editorial": {
   "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has collected a Qwen long-horizon agent report, an O-RAN benchmark, and four Oct 20-22 arXiv papers on training tool-using and search agents.",
   "stale": false,
-  "whats_new": "Oct 23: AWS publishes a hands-on guide to multi-turn RL on Amazon SageMaker AI, training on whole-task outcomes with a Wordle example.",
-  "why_it_matters": "The SageMaker guide is the first managed-platform recipe in the thread, so teams on AWS can try outcome-based multi-turn RL without building the training harness. The arXiv papers cover rollout cost, stateful environments, search-state awareness and per-decision credit assignment; QwenGyre (a secondary-source report) and X-RIC remain research or telecom-specific.",
-  "take_for_builders": "If you train tool-using models, read the rollout-budget and twin-world credit-assignment papers for cheaper, finer-grained learning signal; if you run on AWS, try the SageMaker Wordle pipeline before planning around it, and wait for Qwen's primary QwenGyre release.",
+  "whats_new": "Oct 23: three more arXiv papers land, on aligning rounding between inference and training for stable LLM RL, RL-trained user simulators for task-oriented dialogue, and the RobustRLlib robust-RL benchmark, beside AWS's SageMaker guide.",
+  "why_it_matters": "The Oct 23 rounding-location paper targets a training-stability failure: separate inference and training systems can make an intended on-policy update off-policy even with identical weights and BF16 tensors. The SageMaker guide remains the only managed-platform recipe; QwenGyre (secondary-source report) and X-RIC stay research or telecom-specific.",
+  "take_for_builders": "If you train LLMs with separate inference and training stacks, check rounding-location alignment as a cause of on-policy drift; if you run on AWS, try the SageMaker Wordle pipeline before planning around it, and wait for Qwen's primary QwenGyre release.",
   "status": {
    "state": "Developing",
    "tone": "rising",
    "changed": "2026-10-23",
-   "detail": "A loose set of agentic-RL items; the newest moves from papers to a managed-platform guide."
+   "detail": "A loose set of RL items; the newest add training-stability, simulation and robustness work alongside the AWS guide."
   },
   "beats": [
    {
@@ -170,20 +203,24 @@
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "AWS walks through multi-turn RL on SageMaker AI",
-    "summary": "A hands-on pipeline that trains on the outcome of a whole multi-step task, demonstrated on Wordle.",
+    "headline": "AWS multi-turn RL guide, plus stability, simulation and robustness papers",
+    "summary": "Oct 23: a managed-platform recipe on SageMaker AI and three arXiv papers on rounding alignment, dialogue user simulation and robust RL.",
     "sids": [
-     "8a41e1e41cbecfde"
+     "8a41e1e41cbecfde",
+     "453c138d9feefee3",
+     "40c644a15cb895a9",
+     "1e1ae7d5d09cb859"
     ]
    }
   ],
   "open_questions": [
    "Does calibrated rollout budgeting cut MCP-agent training cost on benchmarks beyond the paper's own?",
-   "Does BIRD-RL's gain on small language models hold on larger models?",
    "Does Qwen publish QwenGyre weights, code, or benchmarks that show the elastic RL gain on long-horizon agent tasks?",
    "Does the SageMaker MTRL recipe carry from Wordle to tool-using agent tasks, and at what training cost?",
-   "Does twin-world credit assignment improve agent training on benchmarks beyond the paper's own?"
+   "Does twin-world credit assignment improve agent training on benchmarks beyond the paper's own?",
+   "Does rounding-location alignment stabilize RL training outside the paper's own setups?",
+   "Does RobustRLlib get adopted as a shared benchmark for robust RL?"
   ],
-  "generated_at": "2026-10-25T00:12:00+00:00"
+  "generated_at": "2026-10-27T00:13:26+00:00"
  }
 }

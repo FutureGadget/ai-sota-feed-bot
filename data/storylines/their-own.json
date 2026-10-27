@@ -1,12 +1,12 @@
 {
  "slug": "their-own",
  "label": "Their Own",
- "item_count": 3,
- "day_count": 3,
+ "item_count": 4,
+ "day_count": 4,
  "source_count": 3,
  "first_seen": "2026-10-14T09:06:49+00:00",
  "last_updated": "2026-10-24T00:24:08+00:00",
- "generated_at": "2026-10-26T00:13:14.453929+00:00",
+ "generated_at": "2026-10-27T00:13:38.037892+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -46,6 +46,22 @@
    ]
   },
   {
+   "date": "2026-10-23",
+   "items": [
+    {
+     "title": "Do Language Models Trust Their Own Justifications? A Study on Functional Consistency",
+     "url": "http://arxiv.org/abs/2610.32665v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Large Language Models (LLMs) have been widely adopted in text classification tasks, where they not only output class predictions but also generate explanations that highlight the tokens deemed most relevant for reachi...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "72b88f8041b34aeb",
+     "published": "2026-10-23T14:08:32+00:00",
+     "editor_note": "Study of whether LLM-generated explanations are consistent with the model's own behavior; research on classification, not agents."
+    }
+   ]
+  },
+  {
    "date": "2026-10-24",
    "items": [
     {
@@ -62,16 +78,16 @@
   }
  ],
  "editorial": {
-  "tldr": "\"Their Own\" groups three items that share a phrase, not one developing event. They run from a Oct 14 paper on distilling web agents from black-box teachers to an Oct 21 study of models rewriting their own harness.",
+  "tldr": "\"Their Own\" groups four items that share a phrase, not one developing event. They run from an Oct 14 paper on distilling web agents from black-box teachers to an Oct 21 study of models rewriting their own harness and an Oct 23 study of whether models trust their own justifications.",
   "stale": false,
   "whats_new": "A Startup Fortune piece on Oct 24 argues founders keep failing when they try to vibecode their own LLM inference engine; only the headline was available, so its evidence is unverified.",
-  "why_it_matters": "All three touch the build-versus-depend question for agent stacks: distill a cheaper agent, let the model tune its own scaffold, or write your own serving layer. None yet gives production evidence.",
+  "why_it_matters": "All four touch the build-versus-depend question for agent stacks: distill a cheaper agent, let the model tune its own scaffold, trust its own explanations, or write your own serving layer. None yet gives production evidence.",
   "take_for_builders": "Do not replace a maintained inference server (vLLM, SGLang or a hosted API) with a self-written engine on the strength of this piece; keep the existing stack until a source shows benchmarked results.",
   "status": {
    "state": "Loosely related",
    "tone": "neutral",
    "changed": "2026-10-24",
-   "detail": "Three unrelated items sharing a phrase; no single event is unfolding."
+   "detail": "Four unrelated items sharing a phrase; no single event is unfolding."
   },
   "beats": [
    {
@@ -93,6 +109,15 @@
     ]
    },
    {
+    "kicker": "SELF-TRUST",
+    "tone": "rising",
+    "headline": "Study asks whether language models trust their own justifications",
+    "summary": "Paper on functional consistency of the explanations LLMs give alongside text-classification predictions.",
+    "sids": [
+     "72b88f8041b34aeb"
+    ]
+   },
+   {
     "kicker": "NOW",
     "tone": "now",
     "headline": "Commentary: founders keep failing to vibecode their own inference engine",
@@ -105,8 +130,9 @@
   "open_questions": [
    "Do the harness-improvement results on ARC-AGI-3 hold on production agent tasks outside that benchmark?",
    "Does the black-box distillation approach match its closed-model teacher on web-agent success rate at lower inference cost?",
+   "Does the functional-consistency study show model explanations can be relied on in text-classification pipelines?",
    "Does the Startup Fortune piece name concrete failure modes of self-built inference engines, such as throughput, memory or batching?"
   ],
-  "generated_at": "2026-10-25T00:30:00Z"
+  "generated_at": "2026-10-27T00:13:25Z"
  }
 }
