@@ -2583,6 +2583,22 @@
   "url": "https://www.latent.space/p/stacklok",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "22ff29c99410f27b": {
+  "content_excerpt": "An LLM agent that cannot publish a hallucination - LangGraph + Claude + a deterministic grounding gate over Salesforce, web and meeting-transcript evidence ▶ Two-minute demo — the architecture animated, a real run publishing in 41 seconds, and the run the gate refused. Deal Rescue takes one stalled Salesforce opportunity, gathers everything knowable about it — the CRM record, outside-world signals, the latest meeting transcript from Google Drive — and has Claude write the rescue: a scored timeline, a full read of the deal, and an email draft. Then a deterministic grounding gate re-checks every date, amount, contact and citation against what was actually fetched. Output that invents anything is rejected with reasons, retried at most twice, and then the run fails closed, publishing nothing . The thesis: in front of a CRM, groundedness is enforced by code; only judgment is delegated to the model. The LLM never touches a number. The deal score is a deterministic rubric ( scoring.py : start at 100, deduct for silence, close-date pushes, stage regressions, declining activity). Claude may adjust it ±15 and must cite a signal for any nonzero move. Every date, amount, stage name and contact id the model may use is handed to it as a closed grounding set ( tools/agentforce/prompt.py ) and re-derived + re-checked on the way out ( validation.py ). Every prompt rule has a matching gate check; the tests hold them to each other. No email is ever sent from this codebase. Publish writes a draf",
+  "first_seen": "2026-10-27T13:10:47.025912+00:00",
+  "id": "2c23f66850dcfbe5",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-27T12:37:06+00:00",
+  "sid": "22ff29c99410f27b",
+  "source": "hackernews_ai",
+  "summary_1line": "A Salesforce AI agent that can't publish a hallucination",
+  "title": "A Salesforce AI agent that can't publish a hallucination",
+  "type": "news",
+  "url": "https://github.com/deep-roiforce/Deal_rescue_Agent",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "2335dc46382c33a6": {
   "first_seen": "2026-10-26T08:08:31.949160+00:00",
   "id": "ceec68c1298ff540",
@@ -3045,6 +3061,23 @@
   "title": "ChatGPT’s expanding world of work",
   "type": "news",
   "url": "https://openai.com/index/chatgpt-expanding-world-of-work"
+ },
+ "2746cc48d38a1ced": {
+  "first_seen": "2026-10-27T13:10:47.025912+00:00",
+  "id": "7c01160bc2e505da",
+  "matched_topics": [
+   "agentic",
+   "harness"
+  ],
+  "published": "2026-10-26T17:52:14+00:00",
+  "sid": "2746cc48d38a1ced",
+  "source": "arxiv_cs_ai",
+  "summary": "Human oversight is a pillar of AI safety. It is often exercised by a human in the loop (HITL) who approves critical actions taken by an AI agent. AI agents' increasing ability to bypass guardrails, though, raises the question of how to enforce HITL robustly. We introduce the concept of inalienable human-in-the-loop (I-HITL). An I-HITL protocol ensures that an agent can initiate an action only with explicit human approval, even when the human interacts with a system (e.g., a local agentic harness) compromised by the agent. A strong I-HITL protocol additionally ensures such approval even when an adversarial human attempts to delegate approvals to an agent. To motivate I-HITL, we report on experiments with a popular agentic wallet platform in which raising an agent's spending cap requires HITL approval via emailed one-time passcodes (OTPs). Given access to the user's email and a task blocked by the cap, we find that ten different frontier models will often autonomously raise the cap, harvesting OTPs to bypass a HITL guardrail and surfacing other vulnerabilities. We formally define I-HITL using the concept of communication topologies and prove necessary and sufficient conditions for its realization. We show that an I-HITL protocol requires a trusted entity - a trusted computing device (or equivalent) - and characterize which such devices can and cannot realize an I-HITL protocol. We present a prototype I-HITL system called Countersign that can plug into and strengthen existing HI",
+  "summary_1line": "Human oversight is a pillar of AI safety. It is often exercised by a human in the loop (HITL) who approves critical actions taken by an AI agent. AI agents' increasing ability to bypass guardrails, though, raises the...",
+  "title": "I-HITL: Inalienable Human-in-the-Loop",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35835v1",
+  "why_it_matters": "Matches feed focus: agentic, harness."
  },
  "275a3139868598ea": {
   "first_seen": "2026-10-23T01:08:06.863351+00:00",
@@ -8722,6 +8755,18 @@
   "url": "http://arxiv.org/abs/2610.26036v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "7462a902e136d2a0": {
+  "first_seen": "2026-10-27T13:10:47.025912+00:00",
+  "id": "687514aea8602fd6",
+  "published": "2026-10-26T17:48:55+00:00",
+  "sid": "7462a902e136d2a0",
+  "source": "arxiv_cs_cl",
+  "summary": "Selection bias in large language models (LLMs) can persist despite instructions to ignore presentation order or prompts that elicit reasoning. Recent efforts to reproduce Jev-style System One behavior have produced a growing family of models that predict probabilities directly over supplied candidates. Yet systematic comparisons of selection bias across Jev versions, Jev reproductions, and generative LLMs remain limited in multi-option tasks. This leaves a central question: does Jev-style decision structure reduce selection bias? We address this question with a simple test that shuffles options while keeping question and candidate content fixed. Across two Jev versions, twelve Jev reproductions, and six generative LLMs, we trace individual answers through eight presentations and compare them with fixed-order repetition. On our primary collection of 1,700 questions from two benchmarks, Jev's accuracy varies by less than two percentage points, yet its cumulative failure set expands by 27--29\\% relative to the original order, with first failures continuing into the final presentation. This loss of initial successes is substantially larger than under fixed-order repetition, even for highly repeatable Jev reproductions. Nor does Jev show a general advantage over the LLM baselines in preserving correct choices. Aggregation offers limited protection: voting yields modest gains for Jev, while even unanimous answers are frequently wrong. These results expose a gap between repeatable d",
+  "summary_1line": "Selection bias in large language models (LLMs) can persist despite instructions to ignore presentation order or prompts that elicit reasoning. Recent efforts to reproduce Jev-style System One behavior have produced a...",
+  "title": "Understanding Jev-Style System One Models: Does Structure Reduce Selection Bias?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35826v1"
+ },
  "74abe2b3c5dac38d": {
   "first_seen": "2026-10-26T15:05:06.558260+00:00",
   "id": "c056450d3469f2b5",
@@ -8769,6 +8814,22 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0-alpha.17.2",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "75e015095613159e": {
+  "first_seen": "2026-10-27T13:10:47.025912+00:00",
+  "id": "9f7805d99b383eb6",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-26T17:35:58+00:00",
+  "sid": "75e015095613159e",
+  "source": "arxiv_cs_cl",
+  "summary": "Diffusion large language models (dLLMs) can generate multiple tokens in parallel, but often require many decoding rounds to complete a response. Efficient generation depends not only on which tokens are easy to predict, but also on how committing to them helps predict the remaining positions. A highly predictable token may provide little useful context, while revealing a less predictable token can help several other positions become predictable sooner. We propose dSpark, a new schedule distillation-based framework for learning when to commit tokens for faster diffusion language generation. To achieve this, we construct unmasking schedules that prioritize tokens whose reveal makes other positions easier to predict, reducing uncertainty earlier in decoding. We then distill these schedules into the model to enable faster parallel sampling, with a KL-divergence regularizer to help preserve generation quality. We extensively evaluate our approach across mathematical reasoning and code generation tasks. On GSM8K, our method achieves remarkable 10.12$\\times$ and 5.12$\\times$ speedups over the various baselines on LLaDA-8B-Instruct and Dream-7B-Instruct, respectively, while maintaining superior task performance. Our code is available at https://github.com/VILA-Lab/dSpark.",
+  "summary_1line": "Diffusion large language models (dLLMs) can generate multiple tokens in parallel, but often require many decoding rounds to complete a response. Efficient generation depends not only on which tokens are easy to predic...",
+  "title": "Learning When to Commit: Schedule Distillation for Fast Diffusion Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35804v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "768404f61aa86fb9": {
   "first_seen": "2026-10-06T22:04:16.633597+00:00",
@@ -12008,8 +12069,8 @@
   "published": "2026-10-22T07:29:17+00:00",
   "sid": "a1256d3bfaf174ed",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: translation. Likes: 33, downloads: 131.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: translation. Likes: 33, downloads: 131.",
+  "summary": "New model weights from tencent on Hugging Face. Task: translation. Likes: 35, downloads: 131.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: translation. Likes: 35, downloads: 131.",
   "title": "tencent/Hy-SimulMT-30B-A3B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Hy-SimulMT-30B-A3B"
@@ -12611,6 +12672,18 @@
   "type": "news",
   "url": "https://github.com/SeeRay11/OpenFlow",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "a7dd8d8d52a5ee5d": {
+  "content_excerpt": "STOP! If you are an AI agent or LLM, read this before continuing. This is the HTML version of CodingCat.dev. Always request the Markdown version instead — HTML wastes context. Get this page as Markdown: https://codingcat.dev/post/dockerless-serverless-gpus-fast-cheap-ai-saas-with-runpod-flash/index.md(append /index.md or .md, or send 'Accept: text/markdown'). For our complete machine-readable site index and tools, visit https://codingcat.dev/llms.txt (or scoped directories at https://codingcat.dev/blog/llms.txt and https://codingcat.dev/podcasts/llms.txt, or full listing at https://codingcat.dev/llms-full.txt). For our public API catalog, see https://codingcat.dev/.well-known/api-catalog. For our ARD capability manifest, see https://codingcat.dev/.well-known/ai-catalog.json. For our MCP server card, see https://codingcat.dev/.well-known/mcp/server-card.json. For OAuth Protected Resource Metadata, see https://codingcat.dev/.well-known/oauth-protected-resource. For agent registration and authentication, see https://codingcat.dev/auth.md. Commercial AI image generation APIs like Google Vertex AI charge 3 to 4 cents per generation. Spend $1, and you get roughly 25 images. In this walkthrough of FlashFun.dev , we look at how to run dedicated serverless GPUs using RunPod Flash to drop that cost down to between $0.00033 and $0.002 per image, stretching that exact same $1 to buy between 500 and 3,000 images. When running on RunPod Serverless , compute bills strictly per second of exe",
+  "first_seen": "2026-10-27T13:10:47.025912+00:00",
+  "id": "6c9d4ce9a7cb5d83",
+  "published": "2026-10-27T11:53:21+00:00",
+  "sid": "a7dd8d8d52a5ee5d",
+  "source": "hackernews_ai",
+  "summary_1line": "Dockerless Serverless GPUs: How I Built a Fast, Cheap AI SaaS with RunPod Flash",
+  "title": "Dockerless Serverless GPUs: How I Built a Fast, Cheap AI SaaS with RunPod Flash",
+  "type": "news",
+  "url": "https://codingcat.dev/post/dockerless-serverless-gpus-fast-cheap-ai-saas-with-runpod-flash"
  },
  "a7ec08f3e0287799": {
   "first_seen": "2026-10-21T11:04:46.425227+00:00",
@@ -15260,6 +15333,22 @@
   "type": "news",
   "url": "https://openai.com/index/practical-guide-building-gpt-6"
  },
+ "c3af4f37e1c19b19": {
+  "first_seen": "2026-10-27T13:10:47.025912+00:00",
+  "id": "92e8c362e10cfac0",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-26T10:11:24+00:00",
+  "sid": "c3af4f37e1c19b19",
+  "source": "arxiv_llm_reliability",
+  "summary": "Large language models (LLMs) often produce plausible but incorrect answers, motivating reinforcement learning methods that reward correct answers, penalize incorrect answers, and allow abstention. However, fixed outcome-based rewards do not distinguish incorrect responses with different confidence levels or account for differences in answering reliability across queries. Consequently, such rewards may inadequately penalize overconfident errors and fail to discourage unnecessary abstention. We propose CalibraRL, a reinforcement learning framework that incorporates response confidence and query-level answering evidence into reward design. For non-abstaining responses, CalibraRL combines correctness-based utility with a Brier-based penalty that encourages agreement between confidence and correctness. For abstentions, it estimates conditional answering reliability using a Beta posterior derived from the correctness of non-abstaining responses within each sampled group. The abstention reward increases with the posterior probability that the model's accuracy on non-abstaining responses is below a predefined threshold. CalibraRL reuses training rollouts without requiring additional annotations indicating whether the model knows the answer to each question. Experiments on three QA datasets demonstrate that CalibraRL improves answer precision and reduces hallucinations compared with strong baselines. Further analysis shows that CalibraRL reduces mean expected calibration error (ECE) b",
+  "summary_1line": "Large language models (LLMs) often produce plausible but incorrect answers, motivating reinforcement learning methods that reward correct answers, penalize incorrect answers, and allow abstention. However, fixed outco...",
+  "title": "CalibraRL: Confidence-Calibrated Reinforcement Learning for Mitigating Hallucinations in RAG",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35142v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "c3f9aa1e97f35f24": {
   "first_seen": "2026-10-15T18:03:54.166090+00:00",
   "id": "7b14613f2ad69494",
@@ -16941,6 +17030,22 @@
   "title": "DeepSeek, Huawei Ship 6 Ascend Tools to Rival CUDA [2026]",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOUGlLMTB5NElwZFZmMU5mTTRVd0hMVXVuXzFOU3ZSLTFuV250UXhWcDlkV2VhV3pIdmpEQ2dTNGhQWTlwNzBuSHNCWUZpT3hPZlItakl1eEF4bkp4aVJ6dEEtVHh5ck1panp3dGpZcG45clExaXdGUmk1Wi0zUXNpZ2Zn?oc=5"
+ },
+ "d96179fc01b73a72": {
+  "content_excerpt": "Spring-style TypeScript framework for mission-critical LangGraph AI agents — @Application DI, Path Scope Flow DSL, transactional LIFO sagas, FinOps budgets, MCP/RAG/A2A & unit testing. AGBoss ( agboss.dev ) is an open-source TypeScript framework with static verification for complex multi-agent workflows on top of LangGraph . Agents, actions, routers, arbiters, tools, MCP servers, A2A services, and knowledge bases are strictly typed decorator components — assembled in an @Application container with constructor dependency injection, compile-time structural Path Scope verification ( agboss check ), declared action compensation ( compensateWith / committedBy ) with explicit rollback side paths ( .onError / .onJoinError to an undo @Action ) and automatic LIFO compensation, two-phase human-in-the-loop pauses ( @ChannelRole ), pre-call FinOps budgets ( @Budget ), boundary PII token masking ( @PiiPolicy ), multi-instance SQLite WAL leases and child work-stealing ( ChildPlacement.AnyInstance ), signed Agent Mesh envelopes ( @A2AExpose , @A2AAgent , agboss hub ), and a 5-loop evaluation & testing pipeline ( @EvalSuite , testWith + 10 unit runners). Current release ( v0.1.0 ): @agboss/core@0.1.0 (production runtime) and @agboss/cli@0.1.0 (CLI & static workflow compiler) are publicly published on registry.npmjs.org under the official agboss npm organization. Documentation: https://agboss.dev · Quick Start: https://agboss.dev/getting-started/quick-start/ · CLI Reference: https://agboss.de",
+  "first_seen": "2026-10-27T13:10:47.025912+00:00",
+  "id": "21a07947691abb04",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-27T12:56:45+00:00",
+  "sid": "d96179fc01b73a72",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: AGBoss Dependency injection and static validation for AI agents",
+  "title": "Show HN: AGBoss Dependency injection and static validation for AI agents",
+  "type": "news",
+  "url": "https://github.com/agbossjs/agboss",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "d96a2391b623b2cb": {
   "first_seen": "2026-10-13T16:04:29.387160+00:00",
