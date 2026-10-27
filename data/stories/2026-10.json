@@ -3699,6 +3699,22 @@
   "url": "https://github.com/alshlabs/quill",
   "why_it_matters": "Matches feed focus: harness."
  },
+ "335251daca6e8721": {
+  "first_seen": "2026-10-27T01:05:20.528441+00:00",
+  "id": "182f5380456ac091",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-26T16:15:00+00:00",
+  "sid": "335251daca6e8721",
+  "source": "simon_willison",
+  "summary": "Research: webframe: evaluated as a scraper and a sandbox webframe is a neat little project from Jeff Lindsay which lets you \"run a web page like a program\" - you point it at a URL or file and it executes it in a hidden headless web view and outputs console.log() to standard output and any exceptions to standard error. It's written in Go on top of the glaze library, which provides access to a system browser (\"WKWebView on macOS, WebKitGTK on Linux, WebView2 on Windows\") so it doesn't need to bundle its own browser engine. It reminds me of my own shot-scraper javascript tool, albeit in a much smaller package that doesn't depend on Playwright. I had Claude Opus 5.5 put it through its paces and prepare a research report for me. Here's the prompt I used: Explore https://github.com/tractordev/webframe try running it and put it though its paces, build a few exploratory prototypes, then evaluate it as a potential sandboxing tool and as a tool for scraping web pages using the same patterns encouraged by the \"shot-scraper JavaScript\" command (see simonw/shot-scraper on GitHub, docs directory) Tags: browsers , go , javascript , jeff-lindsay , shot-scraper",
+  "summary_1line": "Research: webframe: evaluated as a scraper and a sandbox webframe is a neat little project from Jeff Lindsay which lets you \"run a web page like a program\" - you point it at a URL or file and it executes it in a hidde...",
+  "title": "webframe: evaluated as a scraper and a sandbox",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Oct/26/webframe-evaluation",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "33c0367d5d1a2d1d": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. Manju Rajashekhar explains how the actor model solves the complex runtime challenges of production AI agents. By treating agents as distributed systems, he discusses state ownership, message passing, write-through state, and supervision boundaries to manage failures, continuations, and mutable execution graphs, moving agentic workflows beyond fragile demos to resilient architecture. Nathen Harvey shares insights from DORA research",
   "first_seen": "2026-10-26T15:05:06.558260+00:00",
@@ -3846,6 +3862,13 @@
   "url": "http://arxiv.org/abs/2610.32878v1"
  },
  "35e334c198740f74": {
+  "also_covered": [
+   {
+    "source": "simon_willison",
+    "title": "GPT-6.1 Terra",
+    "url": "https://simonwillison.net/2026/Oct/26/gpt-61-terra/"
+   }
+  ],
   "first_seen": "2026-10-26T20:04:12.953184+00:00",
   "id": "fb87a4d01d0caa5c",
   "published": "2026-10-26T00:00:00+00:00",
@@ -4453,6 +4476,7 @@
   "why_it_matters": "Matches feed focus: claude code."
  },
  "3e7599c6661c19f5": {
+  "content_excerpt": "Ant Group and the vLLM community are open-sourcing Humming, a general-purpose, high-performance kernel library for quantized inference. Humming offers the following features: As models and inference workloads grow, memory capacity, memory bandwidth, and compute costs increasingly constrain deployment. This is especially apparent in MoE models: each token activates only a subset of experts, but the full set of weights still needs to be stored. DeepSeek-V3, for example, has 671 billion parameters, with 37 billion activated per token. Quantization lowers the precision of weights and activations to reduce memory usage and data movement, and can also improve compute efficiency. Quantization requirements vary across models and GPU generations. Common configurations include WNA16, W8A8, W4A8, and W4A4, where W and A specify weight and activation bit widths, and N denotes a variable weight bit width. Even at the same precision, schemes such as INT4 and NVFP4 differ in numeric format and scaling. Scaling granularity, scale representation, group size, and symmetric or asymmetric quantization further expand the configuration space. These storage and compute savings only translate into lower latency and higher throughput with efficient kernels. Prefill, decode, and varying MoE expert loads place different demands on compute and memory. Kernels must adapt to these workloads while keeping conversion, dequantization, and scheduling overhead low. Developing and integrating a dedicated kernel",
   "first_seen": "2026-10-21T03:04:54.219250+00:00",
   "id": "a7efcb6197e487db",
   "published": "2026-10-21T00:00:00+00:00",
@@ -7890,6 +7914,18 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0",
   "why_it_matters": "Matches feed focus: agent, codex."
+ },
+ "6dbbfb1c94ed9d7f": {
+  "first_seen": "2026-10-27T01:05:20.528441+00:00",
+  "id": "8028a5ff64c49a7c",
+  "published": "2026-10-23T16:47:29+00:00",
+  "sid": "6dbbfb1c94ed9d7f",
+  "source": "arxiv_cs_ai",
+  "summary": "Reinforcement learning (RL) post-training improves the reasoning capabilities of large language models, but its cost is dominated by autoregressive rollout generation, which can exceed 70% of training time. Existing speculative-decoding methods are poorly suited to this setting: model-based drafters consume scarce GPU memory and may become misaligned as the policy evolves, while existing model-free methods do not explicitly exploit repetition across training epochs. We observe that recent rollouts of the same prompt provide a high-quality, self-updating draft source. Based on this insight, we propose NgramRL, a per-prompt n-gram drafter constructed from bounded recent rollout history. NgramRL requires no auxiliary model, drafter training, or persistent GPU-resident drafter state, while target-model verification preserves the rollout distribution. To hide CPU cache lookup and scheduling, we further introduce an adaptive fan-out prefetcher that predicts likely verification outcomes (j, b), consisting of the accepted draft length j and target-emitted continuation token b. A causal budget allocator concentrates prefetches on high-probability outcomes, while uncovered outcomes fall back to sequential lookup without changing committed tokens. Across two model families and three reasoning and structured-generation workloads, NgramRL commits 3.60-7.77 tokens per target-model forward in the warm-cache regime, up to 1.99x more than SuffixDecoding and 7.0x more than prompt-lookup decodi",
+  "summary_1line": "Reinforcement learning (RL) post-training improves the reasoning capabilities of large language models, but its cost is dominated by autoregressive rollout generation, which can exceed 70% of training time. Existing s...",
+  "title": "NgramRL: Accelerating RL Post-Training for Structured Generation via Rollout-Aware N-gram Speculative Decoding",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.32881v1"
  },
  "6e1fc50fabcdd1bd": {
   "first_seen": "2026-10-24T15:04:51.392804+00:00",
