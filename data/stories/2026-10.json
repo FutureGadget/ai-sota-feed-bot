@@ -2952,6 +2952,23 @@
   "url": "http://arxiv.org/abs/2610.28711v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "26fc92a7573c4011": {
+  "first_seen": "2026-10-27T06:07:13.013316+00:00",
+  "id": "a3d4a21472cfe1b7",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-26T15:23:04+00:00",
+  "sid": "26fc92a7573c4011",
+  "source": "arxiv_llm_reliability",
+  "summary": "Knowledge graphs (KGs) provide reliable external knowledge for multi-hop factual reasoning with large language models (LLMs), yet most KGs in real-world domains such as finance and industry lack question--answer (QA) annotations. Without such annotations, existing methods struggle to improve LLM graph reasoning: training-free agents cannot improve their exploration through interaction; reinforcement learning (RL) agents depend on QA data annotated by humans or synthesized by closed-source models; and training data is typically built offline, so its topology mix is fixed and cannot follow the agent's ability. We propose Evolve on Graph (EoG), a framework that lets an LLM self-evolve its graph reasoning without any QA annotations. Through Graph Self-Play, a single LLM alternates between a Proposer that poses questions and a Solver that answers them. To make questions verifiable, Symbolically Verifiable Topology Synthesis (SVTS) samples reasoning topologies on the KG and executes the corresponding first-order logic queries, yielding topology skeletons with correct and complete answer sets; guided by a skeleton, the Proposer explores the graph to pose a multi-hop question. To let task topologies follow the Solver, a Boundary-Aware Graph Curriculum rewards the Proposer by the Solver's score variance, keeping questions at the Solver's capability boundary so that complex topologies enter training as the Solver improves. On six benchmarks over Freebase, Wikidata, and an industrial KG",
+  "summary_1line": "Knowledge graphs (KGs) provide reliable external knowledge for multi-hop factual reasoning with large language models (LLMs), yet most KGs in real-world domains such as finance and industry lack question--answer (QA)...",
+  "title": "Evolve on Graph: Self-Evolving Knowledge Graph Reasoning without Question Annotations",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.35598v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "26fd366533cc0d12": {
   "first_seen": "2026-10-02T02:02:47.923202+00:00",
   "id": "f59c4b8ac15d6f82",
@@ -6451,8 +6468,8 @@
   "published": "2026-10-22T09:48:14+00:00",
   "sid": "55876e608f690109",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 64, downloads: 2605.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 64, downloads: 2605.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 66, downloads: 2605.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 66, downloads: 2605.",
   "title": "tencent/WeVisOne-VL-4B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeVisOne-VL-4B"
@@ -8121,7 +8138,7 @@
   ],
   "published": "2026-10-26T16:21:00+00:00",
   "sid": "6ec8d30bc1da5744",
-  "source": "arxiv_cs_ai",
+  "source": "arxiv_agent_systems_research",
   "summary": "Serving web queries at scale with multi-agent systems requires jointly configuring large language models, collaboration modes, agent counts, interaction rounds, and skills. However, the resulting configuration space grows combinatorially, while sparse execution rewards provide limited fine-grained supervision for interdependent planning decisions. We propose EvoRouter, a self-evolving multi-agent routing framework driven by insight-guided on-policy distillation. A dedicated expert periodically synthesizes performance-cost feedback from configuration trajectories across tasks into reusable conditional routing insights about capability requirements, returns from resource scaling, and interactions among configuration choices. A privileged teacher combines these evolving insights with current execution feedback to provide dense token-level supervision for the router's own planning trajectories through on-policy distillation. Cost-aware reinforcement learning jointly optimizes task performance and computational cost. Together, these training signals internalize execution insights into the routing policy. The updated policy generates new trajectories that support subsequent insight extraction, forming an execution-driven self-improvement loop. We evaluate EvoRouter on 19 in-domain datasets spanning five domains and two out-of-domain benchmarks. EvoRouter achieves an average in-domain accuracy of 68.69%, outperforming the strongest routing baseline by 7.23 percentage points while re",
   "summary_1line": "Serving web queries at scale with multi-agent systems requires jointly configuring large language models, collaboration modes, agent counts, interaction rounds, and skills. However, the resulting configuration space g...",
   "title": "EvoRouter: Cost-Efficient Multi-Agent Routing via Insight-Guided On-Policy Distillation",
@@ -10678,6 +10695,22 @@
   "type": "release",
   "url": "https://huggingface.co/tencent/Hy-Nomas"
  },
+ "95a06d5f7fcdd265": {
+  "first_seen": "2026-10-27T06:07:13.013316+00:00",
+  "id": "df4bea1cfd980dbf",
+  "published": "2026-10-26T16:45:54+00:00",
+  "release_highlights": [
+   "release(cli): 0.4.40",
+   "feat(cli): send the upload headers the control plane returns"
+  ],
+  "sid": "95a06d5f7fcdd265",
+  "source": "langgraph_releases",
+  "summary": "Changes since cli==0.4.39 release(cli): 0.4.40 ( #9443 ) feat(cli): send the upload headers the control plane returns ( #9396 )",
+  "summary_1line": "release(cli): 0.4.40 · feat(cli): send the upload headers the control plane returns",
+  "title": "langgraph-cli==0.4.40",
+  "type": "release",
+  "url": "https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.40"
+ },
  "95dedf578de78f3e": {
   "first_seen": "2026-10-21T13:04:59.194997+00:00",
   "id": "f09925d358ee434c",
@@ -12530,6 +12563,23 @@
   "title": "How Claude designed protein binders against scorpion neurotoxins",
   "type": "research",
   "url": "https://www.anthropic.com/research/claude-scorpion-toxin-binder-design"
+ },
+ "acf14c1d41e7a5ef": {
+  "first_seen": "2026-10-27T06:07:13.013316+00:00",
+  "id": "47859de09653170c",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-26T04:01:18+00:00",
+  "sid": "acf14c1d41e7a5ef",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large language model (LLM) services process massive volumes of user requests, resulting in substantial inference costs. To reduce both cost and latency, providers have introduced prompt caching. However, correctly integrating prompt caching is non-trivial due to heterogeneous provider-specific APIs and continuously evolving caching semantics. To understand prompt-caching mis-integration in downstream applications, we conduct the first empirical study of 120 prompt-caching-related pull requests from 10 popular open-source agent systems. Our findings show that prompt-caching mis-integrations arise in both request-side misconfiguration and read-side usage miscount. More importantly, most mis-integrations fail silently without causing observable runtime failures. Motivated by these findings, we design CACHELINT, which models a prompt-caching mis-integration as an invocation site together with the preconditions required for correct cache integration. CACHELINT locates caching invocation sites with CodeQL and discharges each precondition either against a dated provider capability oracle or with an LLM guard check. CACHELINT achieves 0.71 precision and 0.78 recall in identifying the 120 labeled mis-integrations across the 10 studied agent systems. Our evaluation further demonstrates the effectiveness of CACHELINT in real-world settings, identifying 32 mis-integrations across 571 agent projects with 0.86 precision. These findings have received 21 developer confirmations and led to 18",
+  "summary_1line": "Large language model (LLM) services process massive volumes of user requests, resulting in substantial inference costs. To reduce both cost and latency, providers have introduced prompt caching. However, correctly int...",
+  "title": "Silent and Costly: Characterizing and Detecting Prompt-Caching Mis-Integration in LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.34817v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "ad09687688336a6f": {
   "first_seen": "2026-10-26T06:04:50.576037+00:00",
@@ -19458,6 +19508,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.04672v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "fead0b546e2fd64e": {
+  "first_seen": "2026-10-27T06:07:13.013316+00:00",
+  "id": "92c938b250159e30",
+  "published": "2026-10-27T04:27:05+00:00",
+  "sid": "fead0b546e2fd64e",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Moonshot AI launches upgraded Kimi model chinadailyhk",
+  "summary_1line": "Moonshot AI launches upgraded Kimi model chinadailyhk",
+  "title": "Moonshot AI launches upgraded Kimi model",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1zaDM4NW9UOU02UHN4Zi1tcTFsSWdDR054UnRqb2cwRWZTMmNXWjRIMldPT2huczNVYmJmc3hxSE4yclNKV2J6UXhDVGotVldoYWpOT1F6a1Q?oc=5"
  },
  "ff4e80e2705d6425": {
   "first_seen": "2026-10-08T02:04:08.545881+00:00",
