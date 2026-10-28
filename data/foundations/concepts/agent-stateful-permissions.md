@@ -5,7 +5,7 @@ question: "Why can a permission check that's correct for a single tool call stil
 summary: "A policy that checks each tool call in isolation can be right every time and still let an agent break a limit across a sequence. AWS's Dogwood shows a $5,000 cap beaten by three concurrent $2,000 transfers when it counts settled responses, not issued requests."
 status: active
 cluster: safety
-updated: 2026-10-06
+updated: 2026-10-28
 audience: "strong-software-engineer"
 related_topics: [mcp, agent-sandboxing, tool-use]
 related_playbook_cards: []
@@ -23,6 +23,20 @@ evidence:
     title: "Cloudflare WriteGuard Brings Fine-Grained Security Controls for MCP Servers"
     added: 2026-08-22
     note: "Cloudflare WriteGuard, in private beta with no production results reported, sits behind Cloudflare's MCP server portal as a shared policy and audit layer. It intercepts MCP tool calls and assigns each operation a risk tier: read-only, minimal impact, contained write, or critical. Stated rationale: reimplementing controls in each server 'would take more work and produce inconsistent behavior.'"
+  - id: story-400904d310baccd7-scopehaven-suspended-user
+    kind: production-field-report
+    sid: "400904d310baccd7"
+    title: "A suspended user's agent run still wrote a file: an internal pilot"
+    url: "https://scopehaven.dev/ai-agent-suspended-user-finding"
+    added: 2026-10-28
+    note: "Vendor internal pilot on a pinned open-source AI workspace with synthetic data. After a test user was suspended, new requests were refused, but in 2 of 14 test cases a run started before the suspension still wrote a file. Small, vendor-run sample, so treat the rate as illustrative, not a prevalence estimate."
+  - id: story-7e505f680072dedd-permission-to-retry
+    kind: theory-paper
+    sid: "7e505f680072dedd"
+    title: "Permission to Retry: A Study of Authorization and Recovery in AI Agent Workflows"
+    url: "http://arxiv.org/abs/2610.31916v1"
+    added: 2026-10-28
+    note: "Frames the gap: a durable agent can resume a consequential action while its authority has changed and the action's external outcome is uncertain. The study isolates recovery decisions in tool-using agents. Only the abstract was reviewed; no numbers are cited here."
   - id: agent-stateful-permissions-editorial-synthesis
     kind: editorial-inference
     title: "LLM Digest synthesis"
@@ -43,6 +57,8 @@ Split authorization into two questions that need different mechanisms:
 - **Is it allowed given what the agent already did?** Approval workflows, rate or spend limits, and sequencing rules need history. A stateless check cannot answer this however you tune it.
 
 Even history-aware checks fail when they count the wrong event: completed actions instead of issued ones.
+
+A third question applies to long-running agents: **is the authority this run started with still valid now?** A check at request arrival does not cover a run that keeps working, waits for approval, or retries after the user's status changed.
 
 ## Mechanism
 **Why stateless is the default.** Cedar evaluates a request using only its own context: principal, action, resource, and attributes. That restriction is what lets Cedar formally verify a policy set, for example that no request is both permitted and denied, without simulating every call sequence.
@@ -65,6 +81,7 @@ The cost is that temporal conditions give up Cedar's automated formal-analysis g
 - **Count events when they are issued, not when they settle.** This applies to any budget or rate limit you write, with or without Dogwood.
 - **Use the four operator shapes as vocabulary** to name which kind of history a rule needs, even without adopting Dogwood.
 - **Test stateful rules with concurrent calls,** not only sequential ones.
+- **Re-check authority at each write,** not only at run start. Test by suspending a user mid-run; Scopehaven's pilot saw 2 of 14 such runs still write a file.
 - **Do not make a reference interpreter or private beta your only control.** AWS says Dogwood's interpreter is not for production; WriteGuard has no production track record.
 - **Centralize risk tiering** if you run many MCP servers, instead of letting each server define its own.
 

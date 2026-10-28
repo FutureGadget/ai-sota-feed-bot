@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-23T18:05:47.747987+00:00",
+  "generated_at": "2026-10-28T10:12:24.888463+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -70,6 +70,24 @@
   ],
   "recent_evidence": [
     {
+      "concept": "agent-stateful-permissions",
+      "concept_title": "Why can a permission check that's correct for a single tool call still let an agent break the rules across many?",
+      "id": "story-7e505f680072dedd-permission-to-retry",
+      "title": "Permission to Retry: A Study of Authorization and Recovery in AI Agent Workflows",
+      "tier": "theory/paper-backed",
+      "kind": "theory-paper",
+      "added": "2026-10-28"
+    },
+    {
+      "concept": "agent-stateful-permissions",
+      "concept_title": "Why can a permission check that's correct for a single tool call still let an agent break the rules across many?",
+      "id": "story-400904d310baccd7-scopehaven-suspended-user",
+      "title": "A suspended user's agent run still wrote a file: an internal pilot",
+      "tier": "production field-report-backed",
+      "kind": "production-field-report",
+      "added": "2026-10-28"
+    },
+    {
       "concept": "agent-eval-design",
       "concept_title": "What should an agent eval actually measure?",
       "id": "episem-bench-2026-missing-evidence",
@@ -122,24 +140,6 @@
       "tier": "primary-doc-backed",
       "kind": "primary-doc",
       "added": "2026-10-14"
-    },
-    {
-      "concept": "agent-eval-design",
-      "concept_title": "What should an agent eval actually measure?",
-      "id": "arxiv-2609-37315-executable-contract-audit",
-      "title": "Do Agent Benchmarks Do What They Say? An Executable-Contract Audit of Tool-Using Agent Environments",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-10-14"
-    },
-    {
-      "concept": "agent-eval-design",
-      "concept_title": "What should an agent eval actually measure?",
-      "id": "arxiv-2610-11678-trace-verifier-brittleness",
-      "title": "TRACE: Diagnosing Verifier Brittleness in Agentic Evaluation",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-10-09"
     }
   ],
   "concepts": {
@@ -1036,8 +1036,8 @@
       "status": "active",
       "cluster": "safety",
       "cluster_label": "Safety and control",
-      "updated": "2026-10-06",
-      "latest_evidence_added": "2026-08-22",
+      "updated": "2026-10-28",
+      "latest_evidence_added": "2026-10-28",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -1051,7 +1051,7 @@
         },
         {
           "heading": "Builder model",
-          "html": "<p>Split authorization into two questions that need different mechanisms:</p>\n<ul><li><strong>Is this request allowed on its own?</strong> A stateless check of caller, action, and resource answers it. Most tool calls only need this.</li><li><strong>Is it allowed given what the agent already did?</strong> Approval workflows, rate or spend limits, and sequencing rules need history. A stateless check cannot answer this however you tune it.</li></ul>\n<p>Even history-aware checks fail when they count the wrong event: completed actions instead of issued ones.</p>"
+          "html": "<p>Split authorization into two questions that need different mechanisms:</p>\n<ul><li><strong>Is this request allowed on its own?</strong> A stateless check of caller, action, and resource answers it. Most tool calls only need this.</li><li><strong>Is it allowed given what the agent already did?</strong> Approval workflows, rate or spend limits, and sequencing rules need history. A stateless check cannot answer this however you tune it.</li></ul>\n<p>Even history-aware checks fail when they count the wrong event: completed actions instead of issued ones.</p>\n<p>A third question applies to long-running agents: <strong>is the authority this run started with still valid now?</strong> A check at request arrival does not cover a run that keeps working, waits for approval, or retries after the user&#x27;s status changed.</p>"
         },
         {
           "heading": "Mechanism",
@@ -1059,7 +1059,7 @@
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li><strong>Decide up front whether a rule needs history.</strong> Approval workflows, rate or spend limits, and post-action sequencing rules do. Most others do not.</li><li><strong>Count events when they are issued, not when they settle.</strong> This applies to any budget or rate limit you write, with or without Dogwood.</li><li><strong>Use the four operator shapes as vocabulary</strong> to name which kind of history a rule needs, even without adopting Dogwood.</li><li><strong>Test stateful rules with concurrent calls,</strong> not only sequential ones.</li><li><strong>Do not make a reference interpreter or private beta your only control.</strong> AWS says Dogwood&#x27;s interpreter is not for production; WriteGuard has no production track record.</li><li><strong>Centralize risk tiering</strong> if you run many MCP servers, instead of letting each server define its own.</li></ul>"
+          "html": "<ul><li><strong>Decide up front whether a rule needs history.</strong> Approval workflows, rate or spend limits, and post-action sequencing rules do. Most others do not.</li><li><strong>Count events when they are issued, not when they settle.</strong> This applies to any budget or rate limit you write, with or without Dogwood.</li><li><strong>Use the four operator shapes as vocabulary</strong> to name which kind of history a rule needs, even without adopting Dogwood.</li><li><strong>Test stateful rules with concurrent calls,</strong> not only sequential ones.</li><li><strong>Re-check authority at each write,</strong> not only at run start. Test by suspending a user mid-run; Scopehaven&#x27;s pilot saw 2 of 14 such runs still write a file.</li><li><strong>Do not make a reference interpreter or private beta your only control.</strong> AWS says Dogwood&#x27;s interpreter is not for production; WriteGuard has no production track record.</li><li><strong>Centralize risk tiering</strong> if you run many MCP servers, instead of letting each server define its own.</li></ul>"
         },
         {
           "heading": "Failure modes",
@@ -1071,6 +1071,26 @@
         }
       ],
       "evidence": [
+        {
+          "id": "story-400904d310baccd7-scopehaven-suspended-user",
+          "kind": "production-field-report",
+          "tier": "production field-report-backed",
+          "title": "A suspended user's agent run still wrote a file: an internal pilot",
+          "note": "Vendor internal pilot on a pinned open-source AI workspace with synthetic data. After a test user was suspended, new requests were refused, but in 2 of 14 test cases a run started before the suspension still wrote a file. Small, vendor-run sample, so treat the rate as illustrative, not a prevalence estimate.",
+          "added": "2026-10-28",
+          "url": "https://scopehaven.dev/ai-agent-suspended-user-finding",
+          "sid": "400904d310baccd7"
+        },
+        {
+          "id": "story-7e505f680072dedd-permission-to-retry",
+          "kind": "theory-paper",
+          "tier": "theory/paper-backed",
+          "title": "Permission to Retry: A Study of Authorization and Recovery in AI Agent Workflows",
+          "note": "Frames the gap: a durable agent can resume a consequential action while its authority has changed and the action's external outcome is uncertain. The study isolates recovery decisions in tool-using agents. Only the abstract was reviewed; no numbers are cited here.",
+          "added": "2026-10-28",
+          "url": "http://arxiv.org/abs/2610.31916v1",
+          "sid": "7e505f680072dedd"
+        },
         {
           "id": "story-410ca031ddd240de-aws-dogwood",
           "kind": "story",
