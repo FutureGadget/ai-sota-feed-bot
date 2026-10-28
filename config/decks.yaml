@@ -29,11 +29,18 @@ weights:
 # (`default` applies to unlisted categories; release items count as
 # release_note, unjudged items without a category as uncategorized).
 
-# Join stories whose titles name the same model at the same version
-# (editorial.yaml story_clusters.model_tokens), e.g. "Moonshot ... K3.1 Pro"
-# and "Kimi K3.1 Pro ...", into one card.
+# Join stories whose titles name the same model family at the same version
+# ("Kimi K3.1 Pro: ..." and "Moonshot apologises after Kimi K3.1 Pro launch")
+# into one card for the selector, and tag them with `event_group` in the recap
+# bundles. A title qualifies only when it names exactly one of `event_models`
+# with the version right after it, optionally separated by one variant word
+# (editorial.yaml variant_tokens) or one of `event_subnames`. Tools and
+# frameworks are left out on purpose: their version numbers mark releases,
+# not one shared event, and some names are ordinary words.
 collapse:
   merge_model_version_events: true
+  event_models: [deepseek, qwen, kimi, glm, hunyuan, minimax, claude, gpt, gemini, gemma, llama, mistral, nemotron, grok, ernie, doubao, olmo, phi]
+  event_subnames: [opus, sonnet, haiku, fable, mythos]
 
 # Unjudged items (insufficient evidence, judge errors, judge off) are never
 # scored zero: they take `scale` times the median judged score of their
@@ -55,8 +62,9 @@ release:
 decks:
   daily:
     types: [news]
-    # Recap bundle additions: judged keeps the feed editions never placed
-    # (pipeline/deck_bundle.py). max_additions is a context-size guard.
+    # Recap bundle additions: judged keeps the bundle's feed editions did not
+    # include (pipeline/deck_bundle.py). The caps bound input size; when they
+    # bind, higher Jev score wins, then newer.
     bundle: {pool_additions: true, verdicts: [keep], max_additions: 40}
     # Published daily recaps carry 11-21 cards (median 14).
     budget: 15
@@ -79,7 +87,9 @@ decks:
       uncategorized: {max: 3}
   weekly:
     types: [news, release, research, paper]
-    bundle: {pool_additions: true, verdicts: [keep], max_additions: 150}
+    # Published weeklies carry 34-42 cards; keep the reading material close to
+    # that so added papers do not swamp it.
+    bundle: {pool_additions: true, verdicts: [keep], max_additions: 40, max_by_type: {paper: 15, research: 5}}
     # Published weekly recaps carry 34-42 cards.
     budget: 40
     bench: 20

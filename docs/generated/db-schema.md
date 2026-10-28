@@ -171,10 +171,13 @@ Response fields served from the accumulated ranked pool above:
   with `--no-pool`) the builders append judged keeps for the window that no
   feed edition held (`pipeline/deck_bundle.py`); those articles carry
   `from_pool: true`, and the bundle's `pool_additions` object reports
-  `enabled`, `added`, `capped`, `verdicts`, `pool_candidates`,
-  `from_pool_files`, `by_type`, `by_role`, `event_groups` (or `error`).
-  Articles naming the same model at the same version share an
-  `event_group` (`kimi|3.1`). With `--selector`, a bundle also carries `selection`
+  `enabled`, `added`, `capped`, `capped_by_type`, `verdicts`,
+  `pool_candidates`, `from_pool_files`, `by_type`, `by_role`, `event_groups`
+  (or `error`). Articles whose titles name exactly one configured model family
+  at the same version share an `event_group` (`kimi|3.1`;
+  `config/decks.yaml` `collapse.event_models`; release items are never
+  grouped). With additions off (`--no-pool` or config) the bundle has neither
+  `pool_additions` nor `event_group`. With `--selector`, a bundle also carries `selection`
   (`pipeline/deck_select.py`): `deck`, `budget`, `min_utility`, `candidates`,
   `stories`, `eligible`, `shortlist` and `bench` cards (`story_id`, `url`,
   `title`, `source`, `source_role`, `type`, `published`, judge fields,

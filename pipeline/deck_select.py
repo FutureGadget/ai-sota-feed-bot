@@ -31,6 +31,7 @@ optimal once both bind). Everything is deterministic.
 from __future__ import annotations
 
 import math
+import re
 import statistics
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -165,26 +166,54 @@ def _editorial():
     return _EDITORIAL
 
 
-def event_tokens(row: dict[str, Any]) -> set[str]:
-    """``model|version`` anchors in the title, e.g. ``kimi|3.1``.
+_EVENT_RE: tuple[Any, ...] | None = None
 
-    The feed's cluster keys include the normalized headline, so two
-    headlines about one launch ("Moonshot ... K3.1 Pro", "Kimi K3.1 Pro ...")
-    stay separate across runs. A recap card is per event, so the deck merges
-    stories that name the same model at the same version. A version is
-    required: "claude" alone would merge a week of unrelated stories.
+
+def _event_patterns(cfg: dict[str, Any] | None = None) -> list[tuple[str, Any]]:
+    """Compiled ``model [subname] version`` patterns from ``collapse`` config."""
+    global _EVENT_RE
+    if _EVENT_RE is not None and cfg is None:
+        return list(_EVENT_RE)
+    collapse = ((cfg or load_config()).get("collapse") or {})
+    models = [str(m).lower() for m in collapse.get("event_models") or [] if m]
+    module, editorial_cfg = _editorial()
+    variants = [str(v).lower() for v in ((editorial_cfg.get("story_clusters") or {}).get("variant_tokens") or [])]
+    subnames = [str(v).lower() for v in collapse.get("event_subnames") or []]
+    middle = "|".join(re.escape(w) for w in sorted(set(variants + subnames), key=len, reverse=True) if w)
+    middle_re = rf"(?:[\s-]+(?:{middle}))?" if middle else ""
+    patterns = [
+        (model, re.compile(rf"\b{re.escape(model)}{middle_re}[\s-]*[a-z]?v?(\d+(?:\.\d+)?)(?![\d.]*\d)", re.I))
+        for model in sorted(set(models), key=len, reverse=True)
+    ]
+    if cfg is None:
+        _EVENT_RE = tuple(patterns)
+    return patterns
+
+
+def event_tokens(row: dict[str, Any], cfg: dict[str, Any] | None = None) -> set[str]:
+    """The title's single ``model|version`` anchor, e.g. ``kimi|3.1``.
+
+    The feed's cluster keys include the normalized headline, so one launch
+    reported under several headlines stays split. A token is returned only
+    when the title names exactly one configured model family
+    (``collapse.event_models``) with the version right after it ("Kimi
+    K3.1", "Claude Opus 5.5", "DeepSeek V4.1"). Comparison headlines that
+    name two versioned models, release notes, and bare model names get no
+    token, so groups never chain across different models.
     """
-    module, cfg = _editorial()
-    if module is None:
+    if str(row.get("type") or "") == "release" or str(row.get("source_role") or "") == "release":
         return set()
-    try:
-        features = module._features(row, cfg)
-    except Exception:
+    title = " ".join(str(row.get("title") or "").split())
+    if not title:
         return set()
-    version = features.get("version_family")
-    if not version:
-        return set()
-    return {f"{model}|{version}" for model in features.get("models") or ()}
+    found: set[str] = set()
+    for model, pattern in _event_patterns(cfg):
+        for match in pattern.finditer(title):
+            version = match.group(1)
+            if len(version.split(".")[0]) >= 4:  # a year, not a version
+                continue
+            found.add(f"{model}|{version}")
+    return found if len(found) == 1 else set()
 
 
 def group_stories(candidates: list[dict[str, Any]], merge_events: bool = True) -> dict[str, list[dict[str, Any]]]:

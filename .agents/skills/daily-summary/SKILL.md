@@ -85,13 +85,15 @@ Read `data/daily/input/latest.json`. Each entry in `articles[]` has:
 `summary_1line`/`summary`), and the judge fields when the item was judged:
 `judge_verdict`, `judge_category`, `judge_score`,
 `judge_category_confidence`, and `deck_category`. Two more optional fields:
-`from_pool: true` marks a judged keep that never reached a feed edition;
-treat it like any other article. Articles that share an `event_group`
-(e.g. `kimi|3.1`) cover the same model release: write at most one card per
-`event_group`, using its most informative article. The bundle also carries
+`from_pool: true` marks a Jev-judged keep that the bundle's feed editions
+did not include; treat it like any other article. Articles that share an
+`event_group` (e.g. `kimi|3.1`) name the same model release: do not write two
+cards that repeat the same announcement, but keep separate cards for separate
+news about it (a launch and a later follow-up). The bundle also carries
 `date`, `range_label`, `article_count`, `category_hint`,
-`judge_category_hint`, `quality` (judged coverage and verdict mix), and
-`pool_additions` (how many `from_pool` articles were added).
+`judge_category_hint`, `quality` (judged coverage and verdict mix), and,
+when additions ran, `pool_additions` (`pool_additions.added` counts the
+`from_pool` articles).
 
 Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
 ```json

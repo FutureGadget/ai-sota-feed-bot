@@ -35,6 +35,7 @@ def bundle_config(deck: str, cfg: dict[str, Any] | None = None) -> dict[str, Any
         "pool_additions": bool(spec.get("pool_additions", False)),
         "verdicts": set(spec.get("verdicts") or ["keep"]),
         "max_additions": int(spec.get("max_additions", 0) or 0),
+        "max_by_type": {str(k): int(v) for k, v in (spec.get("max_by_type") or {}).items()},
     }
 
 
@@ -89,16 +90,40 @@ def pool_additions(
             for row in candidates
             if row.get("judge_verdict") in spec["verdicts"] and row["key"] not in existing
         ]
-        # The cap is a context-size guard, not a ranking: newest first.
-        missing.sort(key=lambda r: (str(r.get("published") or ""), r["key"]), reverse=True)
+        # The caps bound the agent's reading material. When they bind, the
+        # higher Jev score wins, then the newer item. Past the gate the score
+        # is a weak signal (owner grades, 2026-10-24..27), so keep caps loose
+        # enough that they rarely bind on news.
+        def order(row: dict[str, Any]) -> tuple:
+            published = deck_candidates.parse_ts(row.get("published"))
+            return (
+                float(row.get("judge_score") or 0.0),
+                published.timestamp() if published else 0.0,
+                row["key"],
+            )
+
+        missing.sort(key=order, reverse=True)
+        kept: list[dict[str, Any]] = []
+        per_type: dict[str, int] = {}
+        capped_by_type: dict[str, int] = {}
+        for row in missing:
+            kind = str(row.get("type") or "news")
+            limit = spec["max_by_type"].get(kind)
+            if limit is not None and per_type.get(kind, 0) >= limit:
+                capped_by_type[kind] = capped_by_type.get(kind, 0) + 1
+                continue
+            per_type[kind] = per_type.get(kind, 0) + 1
+            kept.append(row)
         capped = 0
-        if spec["max_additions"] and len(missing) > spec["max_additions"]:
-            capped = len(missing) - spec["max_additions"]
-            missing = missing[: spec["max_additions"]]
+        if spec["max_additions"] and len(kept) > spec["max_additions"]:
+            capped = len(kept) - spec["max_additions"]
+            kept = kept[: spec["max_additions"]]
+        missing = kept
         diag.update(
             {
                 "added": len(missing),
                 "capped": capped,
+                "capped_by_type": capped_by_type,
                 "verdicts": sorted(spec["verdicts"]),
                 "pool_candidates": cand_diag.get("candidates", 0),
                 "from_pool_files": cand_diag.get("from_pool", 0),
@@ -121,46 +146,24 @@ def _count(rows: list[dict[str, Any]], field: str) -> dict[str, int]:
 
 
 def annotate_event_groups(articles: list[dict[str, Any]]) -> int:
-    """Set ``event_group`` on articles that share a model+version event.
+    """Set ``event_group`` on articles whose titles carry the same single
+    ``model|version`` anchor (``deck_select.event_tokens``).
 
-    Returns the number of groups with more than one article. Articles not in
-    such a group are left untouched.
+    Each article has at most one anchor, so groups never chain across
+    models. A group can hold a launch and a later follow-up; the recap skill
+    asks the agent not to repeat one announcement, not to merge distinct
+    news. Returns the number of groups with more than one article.
     """
-    groups: dict[str, list[dict[str, Any]]] = {}
-    parent: dict[str, str] = {}
-
-    def find(x: str) -> str:
-        parent.setdefault(x, x)
-        while parent[x] != x:
-            parent[x] = parent[parent[x]]
-            x = parent[x]
-        return x
-
-    tokens_by_index: list[set[str]] = []
-    for index, article in enumerate(articles):
-        node = f"a{index}"
-        find(node)
+    by_token: dict[str, list[dict[str, Any]]] = {}
+    for article in articles:
         tokens = deck_select.event_tokens(article)
-        tokens_by_index.append(tokens)
-        for token in tokens:
-            a, b = find(node), find(f"event:{token}")
-            if a != b:
-                parent[max(a, b)] = min(a, b)
-    for index, article in enumerate(articles):
-        groups.setdefault(find(f"a{index}"), []).append(index)
-
+        if len(tokens) == 1:
+            by_token.setdefault(next(iter(tokens)), []).append(article)
     count = 0
-    for members in groups.values():
+    for token, members in by_token.items():
         if len(members) < 2:
             continue
-        # Label with the anchor most members share, so a comparison headline
-        # ("Kimi K3.1 Pro vs. Claude ...") does not name the group.
-        counts: dict[str, int] = {}
-        for i in members:
-            for token in tokens_by_index[i]:
-                counts[token] = counts.get(token, 0) + 1
-        label = min(counts, key=lambda t: (-counts[t], t))
-        for i in members:
-            articles[i]["event_group"] = label
+        for article in members:
+            article["event_group"] = token
         count += 1
     return count

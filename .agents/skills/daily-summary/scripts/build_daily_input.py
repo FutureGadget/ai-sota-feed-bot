@@ -151,13 +151,14 @@ def main() -> None:
         "prior_recap_dedup": not args.no_prior_dedup,
         "prior_recap_urls": len(exclude_urls),
         "article_count": len(articles),
-        "pool_additions": pool_diag,
         "category_hint": category_hint,
         "judge_category_hint": judge_category_hint(articles),
         "quality": deck_quality_summary(articles),
         "judge_drop_filter": not args.include_dropped,
         "articles": articles,
     }
+    if pool_diag is not None:
+        bundle["pool_additions"] = pool_diag
     if args.selector:
         bundle["selection"] = deck_selection("daily", start_d, end_d, include_types, exclude_urls)
 

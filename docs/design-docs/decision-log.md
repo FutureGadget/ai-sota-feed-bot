@@ -2736,3 +2736,22 @@ on `from_pool` cards and the W44 weekly.
 
 Rollback: Set `decks.daily.bundle.pool_additions` / `decks.weekly.bundle.pool_additions`
 to `false` in `config/decks.yaml`.
+
+## 2026-10-29 - Pre-release review fixes for the recap bundle additions
+
+Decision: Before merging, an independent review found no crash risk but three
+behavior bugs, now fixed: (1) `event_group` chained distinct stories (union
+over every model named in a title, so "Kimi vs Claude vs GPT" headlines and
+tool release numbers joined groups) and the skill told the agent to keep one
+card per group, which would drop follow-ups; anchors now require exactly one
+model family from `config/decks.yaml` `collapse.event_models` with its version
+next to it, release items are never grouped, and the skills only ask the agent
+not to repeat one announcement. (2) The weekly bundle grew about 50%, mostly
+papers; weekly additions are now capped at 40 with at most 15 papers and 5
+research items (W44 so far: +27 instead of +115). (3) A later fail-open run
+overwrote an earlier keep in the judged pool; judge fields now merge as one
+unit (`judged_pool.merge_rows`). Also: additions fail safe (any error returns
+the original articles), `--no-pool` restores the old bundle exactly, and caps
+order by parsed time instead of date strings.
+
+Rollback: Same as the bundle-additions entry above.

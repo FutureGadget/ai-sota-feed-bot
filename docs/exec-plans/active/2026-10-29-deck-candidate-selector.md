@@ -12,10 +12,13 @@
 - Recall-only bundles (revised direction items 1-2): implemented 2026-10-29
   and on by default. `pipeline/deck_bundle.py` appends judged keeps that no
   edition held (`from_pool: true`) and tags same-release articles with
-  `event_group`; the recap skills write at most one card per group. On the
-  replayed windows this adds 2-12 news items per day (mostly community posts on
-  weekends) and 115 items to the 2026-W44 weekly so far (103 papers, 12 news;
-  cap 150). Measure with the funnel's keep-in-bundle stage, graded drops on
+  `event_group`; the recap skills avoid repeating one announcement but keep
+  separate news about the same release. After the pre-release review the
+  weekly caps are 40 additions with at most 15 papers and 5 research items,
+  and event anchors require exactly one configured model family with its
+  version (no chaining across models). On the replayed windows this adds 2-11
+  news items per day and 27 items to the 2026-W44 weekly so far (15 papers,
+  12 news). Measure with the funnel's keep-in-bundle stage, graded drops on
   `from_pool` cards, and a graded W44.
 
 Runbook: `docs/how-to/deck-selector-benchmark.md`.

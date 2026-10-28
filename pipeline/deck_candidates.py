@@ -242,7 +242,7 @@ def load_rows(
     rows = backfill_rows(start, end, processed_dir=processed_dir, raw_dir=raw_dir) if use_backfill else {}
     pool = judged_pool.load_pool_days(_days(start, end + timedelta(days=RUN_LAG_DAYS)), pool_dir=pool_dir)
     for key, row in pool.items():
-        merged = _merge(rows.get(key, {}), row)
+        merged = judged_pool.merge_rows(rows.get(key, {}), row)
         merged["from_pool"] = True
         rows[key] = merged
     return rows
@@ -281,7 +281,8 @@ def filter_rows(
             rejects["judge_drop"] += 1
             continue
         out.append({**row, "key": key, "url": row.get("url") or key})
-    out.sort(key=lambda r: (str(r.get("published") or ""), r["key"]), reverse=True)
+    epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
+    out.sort(key=lambda r: (parse_ts(r.get("published")) or epoch, r["key"]), reverse=True)
     return out, rejects
 
 
