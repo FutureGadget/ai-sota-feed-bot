@@ -5,119 +5,113 @@ Focus: AI Platform Engineering
 ## 1. Tenstorrent and Smallest.ai Partner to Bring Production-Grade Voice AI On-Prem
 - Type: news | Source: hackernews_ai
 - URL: https://tenstorrent.com/en/newsroom/tenstorrent-and-smallestai-partner-to-bring-production-grade-voice-ai-on-prem
-- Score: 3.627 | Reliability: 1.0
+- Score: 3.486 | Reliability: 1.0
 - Why it matters: 
 
-## 2. Moonfold: Coding tasks that survive agent usage limits
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/Mr-Dark-debug/Moonfold
-- Score: 3.45 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 2. Evaluating DeepSeek V4.1 Flash-1017 for loss of control and harmful manipulation risks
+- Type: paper | Source: arxiv_cn_open_weight_reports
+- URL: http://arxiv.org/abs/2610.35671v1
+- Score: 3.014 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
 
-## 3. GEPA-Curator: Curated Learning for Self Improving Agents
+## 3. Batching the Reflective Optimization Loop: Parallel Proposals Make GEPA Faster and Better
 - Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.37651v1
-- Score: 3.127 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness, eval.
+- URL: http://arxiv.org/abs/2610.36774v1
+- Score: 2.959 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
 
-## 4. ETAMem: Decoupling and Aligning Heterogeneous Memory for Long-Term Conversational Agents
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.37443v1
-- Score: 3.049 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 5. EnvSched: Environment-Aware Scheduling for Rollout-Efficient Agent Reinforcement Learning
+## 4. EnvSched: Environment-Aware Scheduling for Rollout-Efficient Agent Reinforcement Learning
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2610.37609v1
-- Score: 3.047 | Reliability: 1.0
+- Score: 2.959 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
-## 6. Requesty: AI Gateway and LLM Router for 600 Models in EU Datacenters
-- Type: news | Source: hackernews_ai
-- URL: https://www.requesty.ai
-- Score: 2.892 | Reliability: 1.0
+## 5. Quoting Terk Terkowitz
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Oct/28/terk-terkowitz/
+- Score: 2.944 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 6. Developers Reporting Double-Digit Weekly Time Savings from AI Fell from 68% to 26%
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/10/atlassian-devex-2026/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.857 | Reliability: 1.0
 - Why it matters: 
 
-## 7. DigitalOcean Launches Learning and Data Services to Enable Self-Improving AI Agents
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/10/digitalocean-self-improving-ai/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.874 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+## 7. Claude versus "GPU'less AI architecture" reasoning competition
+- Type: news | Source: hackernews_ai
+- URL: https://fleetingswallow.com/claude-vs-gpuless-ai-a-reasoning-showdown/
+- Score: 2.822 | Reliability: 1.0
+- Why it matters: 
 
 ## 8. Legora is building the agentic operating system for legal work
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/legora-agentic-operating-system-for-legal-work
-- Score: 2.785 | Reliability: 1.0
+- Score: 2.694 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, codex.
 
-## 9. Google ML Drift Accelerates On-Device AI Inference across Diverse GPUs
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/10/google-ml-drift/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.392 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 10. How Ultrafast cut incident investigation from hours to minutes at OpenAI
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/openai-cut-incident-investigation
-- Score: 1.983 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 11. From Interaction to Capability: Task Advancement as State and Supervision for GUI Agents
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2610.37482v1
-- Score: 3.009 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 12. Gym-Anything-RT: Scaling Real-Time Environments for Vision-Language Agents
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2610.37567v1
-- Score: 2.984 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 13. v0.33.0rc1: [CI] Fix stale NVFP4 decode test selector on DGX Spark (#64107)
+## 9. v0.33.0rc1: [CI] Fix stale NVFP4 decode test selector on DGX Spark (#64107)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc1
-- Score: 1.97 | Reliability: 1.0
+- Score: 1.862 | Reliability: 1.0
 - Why it matters: 
 
-## 14. How Fanatics and OpenAI streamline the fan experience
+## 10. ChatGPT’s expanding world of work
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/fanatics-streamline-fan-experience
-- Score: 1.833 | Reliability: 1.0
+- URL: https://openai.com/index/chatgpt-expanding-world-of-work
+- Score: 1.849 | Reliability: 1.0
 - Why it matters: 
 
-## 15. claude-code v2.1.311
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.311
-- Score: 1.831 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
+## 11. GTFormer: A Syntax-Free Graph Network Alternative to Transformers for 8192$\times$ Length Extrapolation in Linear Time
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2610.37524v1
+- Score: 2.939 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 16. codex 0.166.0-alpha.4
+## 12. Rare, Relevant, and Still Wrong: How Memory Fails LLM Group Decisions
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2610.37624v1
+- Score: 2.937 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 13. Working with academic communities to build scientific understanding
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/building-scientific-understanding-with-academic-communities
+- Score: 1.817 | Reliability: 1.0
+- Why it matters: 
+
+## 14. codex 0.166.0-alpha.3
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.4
-- Score: 1.772 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.3
+- Score: 1.684 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 17. Cross-request KV cache exposure in the GLM-5.3 Workers AI model, and our remediation with SGLang
-- Type: news | Source: cloudflare_blog
-- URL: https://blog.cloudflare.com/kv-cache-exposure-remediation/
+## 15. claude-code v2.1.309
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.309
+- Score: 1.34 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 16. Beyond tree cover: mapping the world’s forest types
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/beyond-tree-cover-mapping-the-worlds-forest-types/
 - Score: 1.315 | Reliability: 1.0
 - Why it matters: 
 
-## 18. langgraph-sdk==0.4.10
+## 17. langgraph==1.2.17
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.10
-- Score: 1.229 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.17
+- Score: 1.265 | Reliability: 1.0
 - Why it matters: 
 
-## 19. claude-agent-sdk-python v0.2.174
+## 18. claude-agent-sdk-python v0.2.174
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.174
-- Score: 0.988 | Reliability: 1.0
+- Score: 0.942 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 20. tencent/Hy-SimulMT-30B-A3B released on Hugging Face
+## 19. tencent/Hy-SimulMT-30B-A3B released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
 - URL: https://huggingface.co/tencent/Hy-SimulMT-30B-A3B
-- Score: 0.905 | Reliability: 1.0
+- Score: 0.903 | Reliability: 1.0
 - Why it matters:
