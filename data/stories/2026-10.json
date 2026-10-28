@@ -1327,6 +1327,23 @@
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.305",
   "why_it_matters": "Matches feed focus: agent, claude code."
  },
+ "11e3ed42cf9fdde6": {
+  "first_seen": "2026-10-28T05:04:17.196016+00:00",
+  "id": "1921ae3c1a92d4e8",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-27T17:56:46+00:00",
+  "sid": "11e3ed42cf9fdde6",
+  "source": "arxiv_agent_systems_research",
+  "summary": "We explore how to build performant large language model (LLM) tool-use agents that complete complex, multi-step tasks. Specifically, we study how data composition in synthetically generated tool-use environments affects the training of such agents. To do so, we propose the SynthAPI pipeline, which explicitly controls the diversity of generated environments along the axes of tools, tasks, and the databases on which the tools operate. By systematically varying SynthAPI's generation controls in 458,752 tasks across 849 trained models of four different sizes, we derive a scaling law that predicts downstream tool-use agent generalization based on the scale and composition of the synthesized environments. These predictable relationships reveal several lessons for scaling tool-use agent data. As data budgets grow, scaling tool and database diversity becomes more effective than increasing the number of tasks, and increasing data complexity yields larger gains. Scaling according to these findings yields agents that outperform models trained on data from prior work in large-scale tool-use agent and synthetic environment generation across four evaluation benchmarks.",
+  "summary_1line": "We explore how to build performant large language model (LLM) tool-use agents that complete complex, multi-step tasks. Specifically, we study how data composition in synthetically generated tool-use environments affec...",
+  "title": "Scaling Laws for Tool-Use Agents via Controllable Environment Synthesis",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37648v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "11faa844438c0862": {
   "first_seen": "2026-10-11T23:04:37.525162+00:00",
   "id": "ed63a22d503319fe",
@@ -5058,7 +5075,7 @@
   "why_it_matters": "Matches feed focus: harness."
  },
  "3f5dd7c19476af51": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. Manju Rajashekhar explains how the actor model solves the complex runtime challenges of production AI agents. By treating agents as distributed systems, he discusses state ownership, message passing, write-through state, and supervision boundaries to manage failures, continuations, and mutable execution graphs, moving agentic workflows beyond fragile demos to resilient architecture. Nathen Harvey shares insights from DORA research",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. Khawaja Shams shares a distributed systems perspective on scaling LLM inference stacks efficiently. He discusses practical strategies for optimizing GPU utilization, managing KV cache memory cliffs, leveraging tiered storage, reducing tail latency, and implementing disaggregated prefill and decode architectures to improve overall fleet performance, cost economics, and availability. Nathen Harvey shares insights from DORA research ",
   "first_seen": "2026-10-27T08:09:02.532965+00:00",
   "id": "c3568f13779dc26e",
   "image_url": "https://res.infoq.com/news/2026/10/digitalocean-self-improving-ai/en/headerimage/digitalocean-managed-agents-1793035926117.jpeg",
@@ -6983,8 +7000,8 @@
   "published": "2026-10-22T09:48:14+00:00",
   "sid": "55876e608f690109",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 67, downloads: 3786.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 67, downloads: 3786.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 70, downloads: 3786.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 70, downloads: 3786.",
   "title": "tencent/WeVisOne-VL-4B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeVisOne-VL-4B"
@@ -7018,6 +7035,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.33956v1",
   "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
+ "55faf0df6fd6c0f8": {
+  "first_seen": "2026-10-28T05:04:17.196016+00:00",
+  "id": "0c6ae98242bb7dbb",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-27T15:45:50+00:00",
+  "sid": "55faf0df6fd6c0f8",
+  "source": "arxiv_cs_ai",
+  "summary": "A software feature usually evolves over time: developers extend its first version as new use cases and requirements arrive, and each extension builds on code written earlier. Most feature benchmarks evaluate a single request on a fixed codebase. Feature evolution requires evaluating successive extensions on an agent's own earlier code and checking whether the feature remains correct. We introduce FeatureArc to evaluate coding agents on evolving features, together with a pipeline that constructs its tasks from repository histories. The benchmark combines dependencies between successive stages of the same feature, explicit requirements and interface contracts, and executable checks across four programming languages. The pipeline validates fail-to-pass (F2P) tests for new behavior and pass-to-pass (P2P) tests for existing behavior on the reference code before and after each stage. We evaluated 10 coding agents on 73 manually reviewed tasks of 2 to 10 stages. Each agent works in one persistent session and workspace without external test feedback or rollback. The evaluation reveals a gap between first-stage and whole-feature success: pooled success falls from 62.7% at the first stage to 28.5% when the whole feature is tested on the final code. Trajectory analysis identifies inherited defects as a common failure mechanism, present in 72.9% of failed later stages. These earlier errors often remain undetected: in stages following a failure, agents leave the earlier error unnoticed ab",
+  "summary_1line": "A software feature usually evolves over time: developers extend its first version as new use cases and requirements arrive, and each extension builds on code written earlier. Most feature benchmarks evaluate a single...",
+  "title": "FeatureArc: Benchmarking Coding Agents on Evolving Features",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37434v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "56c490db040147f1": {
   "first_seen": "2026-10-02T04:04:02.667698+00:00",
@@ -14114,6 +14148,22 @@
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/checkpoint%3D%3D4.3.1"
  },
+ "b1d1fdd69a28173d": {
+  "first_seen": "2026-10-28T05:04:17.196016+00:00",
+  "id": "e164f65ffbe1836d",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-10-28T04:49:06+00:00",
+  "sid": "b1d1fdd69a28173d",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.166.0-alpha.5",
+  "summary_1line": "Release 0.166.0-alpha.5",
+  "title": "codex 0.166.0-alpha.5",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.5",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "b1dfa0a2ba999e0c": {
   "also_covered": [
    {
@@ -14406,7 +14456,7 @@
   ],
   "published": "2026-10-27T17:58:52+00:00",
   "sid": "b483c5a93f031770",
-  "source": "arxiv_cs_cl",
+  "source": "arxiv_agent_systems_research",
   "summary": "We introduce Heads of Security (HoS), a prompt injection defense that enforces instruction-data separation via a small set of learned per-head attention gates. HoS learns how each head should redistribute attention between trusted and untrusted tokens, enabling models to reason over untrusted content without following injected instructions. We evaluate HoS on Llama-3.3-70B-Instruct and GPT-OSS-20B. We compare it against SecAlign++, a state-of-the-art finetuning-based defense, and ASIDE, a defense that, like ours, builds instruction-data separation into the model architecture. We show that HoS offers greater robustness to adaptive attacks, better performance on standard utility benchmarks, and matches top performance on standard agentic prompt injection benchmarks. More specifically, the black-box RL-Hammer attack reaches 97% ASR against GPT-OSS-20B and 85% against SecAlign, but only 10% against HoS. Claudini, a state-of-the-art white-box attack, strengthened against HoS through autoresearch, requires 3 times more FLOPs to reach the same ASR on HoS as it does on GPT-OSS-20B or SecAlign. HoS preserves base-model utility across standard multiple-choice benchmarks and prompting setups, whereas SecAlign and ASIDE degrade in few-shot settings. On agentic benchmarks with static attacks, HoS and SecAlign perform similarly and substantially improve the security-utility trade-off over the base model. ASIDE struggles with tool use, achieving only 10% utility. These results show that pro",
   "summary_1line": "We introduce Heads of Security (HoS), a prompt injection defense that enforces instruction-data separation via a small set of learned per-head attention gates. HoS learns how each head should redistribute attention be...",
   "title": "Heads of Security: Learned Attention Gates Improve Prompt Injection Robustness",
@@ -18469,6 +18519,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1ndDRnTHhKR3pGUHhtSmxvQmdIaHN6TW1LT01Ha3kxSjZwb2I0UEpsN1poNnpwZ3ZxcS01SldaWkZacGV4czUzdGQtQWU2aXo1NzR6WHhtYVh0bHFjT2JCOUIySHVUZFFMZktEZFVmb1RheEdnZVE?oc=5"
  },
+ "df6a7bd2a127558b": {
+  "first_seen": "2026-10-28T05:04:17.196016+00:00",
+  "id": "51b7753c6acd905a",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-27T17:25:43+00:00",
+  "sid": "df6a7bd2a127558b",
+  "source": "arxiv_cs_ai",
+  "summary": "We introduce Timestral, a family of four time series foundation models for probabilistic forecasting, with 5M, 28M, 123M, and 209M parameters. Timestral sets a new state of the art on GIFT-Eval, TIME, and fev-bench, where Timestral-209M and Timestral-123M take the top two places on every metric. We achieve this with three ingredients: Decoupled Horizon Forecasting (DHF), which separates prediction tokens from the causally encoded context, so that longer horizons are trained without masking context and each observed value is both a forecast target and context for later forecasts; a covariate framework that natively supports known-future covariates within a causal architecture; and a two-stage pipeline that pretrains exclusively on a diverse, large-scale synthetic corpus before post-training on a mix of real and synthetic data with extended context. This report describes the model design and its benchmark results. Weights for all four models are available on Hugging Face and inference code on GitHub.",
+  "summary_1line": "We introduce Timestral, a family of four time series foundation models for probabilistic forecasting, with 5M, 28M, 123M, and 209M parameters. Timestral sets a new state of the art on GIFT-Eval, TIME, and fev-bench, w...",
+  "title": "Timestral",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37585v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "df96a175024c4d39": {
   "first_seen": "2026-10-07T07:04:12.713546+00:00",
   "id": "37275688546a8437",
@@ -20513,6 +20579,24 @@
   "url": "https://github.com/tzafrir/whats-agent-doing",
   "why_it_matters": "Matches feed focus: agent, claude code."
  },
+ "f855fdc188e7895f": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. Khawaja Shams shares a distributed systems perspective on scaling LLM inference stacks efficiently. He discusses practical strategies for optimizing GPU utilization, managing KV cache memory cliffs, leveraging tiered storage, reducing tail latency, and implementing disaggregated prefill and decode architectures to improve overall fleet performance, cost economics, and availability. Nathen Harvey shares insights from DORA research ",
+  "first_seen": "2026-10-28T05:04:17.196016+00:00",
+  "id": "ed7910aa720b2a6c",
+  "image_url": "https://res.infoq.com/news/2026/10/cloudflare-auto-router/en/headerimage/generatedHeaderImage-1792492628413.jpg",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-26T10:20:00+00:00",
+  "sid": "f855fdc188e7895f",
+  "source": "infoq_ai_ml",
+  "summary": "Cloudflare has released Auto Router in public beta through AI Gateway, picking a model per request from a classifier that scores complexity, ambiguity, stakes and context dependence. Cloudflare’s own benchmark puts it ten points below Claude Opus 5.5 on success rate at a third of the cost, and practitioners have questioned how stakes survive a long agent session. By Steef-Jan Wiggers",
+  "summary_1line": "Cloudflare has released Auto Router in public beta through AI Gateway, picking a model per request from a classifier that scores complexity, ambiguity, stakes and context dependence. Cloudflare’s own benchmark puts it...",
+  "title": "Cloudflare’s Auto Router Rates Each Request for Stakes, from the Most Recent Turns",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/10/cloudflare-auto-router/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "f8c156dba7886826": {
   "first_seen": "2026-10-23T20:05:17.894094+00:00",
   "id": "a600241ceec23053",
@@ -20601,6 +20685,22 @@
   "title": "What Is Qwen-Image-2.1-Turbo? Everything You Need to Know",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNNGJaX2oxejF5UmtLSXA2ZVlVSTFhUWRGQjYtYmM5cFJXdHVqMFNOSFRLcjRPb3FZcU0zR1JQYkhmUjVCOGV1cXBvNEh5cUZWTnF6OGctbHdWRElSNkp1Q0MtSWdRMDN0d1Y1QWVYcVlpR0FjajJaMjdmNmRGYVh2bWhXN0U?oc=5"
+ },
+ "fa6270d90bcabaf3": {
+  "first_seen": "2026-10-28T05:04:17.196016+00:00",
+  "id": "fe61ef0771f3f14f",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-27T12:54:48+00:00",
+  "sid": "fa6270d90bcabaf3",
+  "source": "arxiv_llm_reliability",
+  "summary": "Coverage-evaluation benchmarks quantify whether retrieved evidence covers the different pieces of information needed to satisfy an information need. Existing benchmarks mostly consider factual claims that may already be known to pretrained retrieval components, leaving open whether retrievers find corpus evidence when it contradicts those priors. We study how retrievers behave when their parametric knowledge and the information in a corpus disagree. To do so, we develop a process to augment a nugget-based coverage benchmark with controlled contradictions. For each nugget, we create a negated counterpart and edit its supporting documents to support that negation while preserving the context. Applying this process to CoverageBench, a benchmark measuring information coverage, we create CoverageBench-Negate, spanning six datasets and roughly 63,000 original-edited evidence pairs (one per nugget-document link). We attach rich construction metadata to every pair and additionally provide out-of-family LLM judgments over all pairs and a human audit of a sample. In baseline experiments, BM25 separates original from edited near-twin evidence substantially better than dense retrievers (Qwen3 and Jina), which stay near chance. We release the benchmark on Hugging Face Datasets (nuggets, documents, pairs) together with the construction materials, including the prompts used to create it.",
+  "summary_1line": "Coverage-evaluation benchmarks quantify whether retrieved evidence covers the different pieces of information needed to satisfy an information need. Existing benchmarks mostly consider factual claims that may already...",
+  "title": "Coverage Under Contradiction: A Benchmark for Negation-Aware Retrieval",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37162v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "fa6a79103da0486e": {
   "first_seen": "2026-10-23T03:04:55.706580+00:00",
