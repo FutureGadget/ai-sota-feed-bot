@@ -278,6 +278,7 @@ python pipeline/source_alerts.py
 - Source onboarding + filtering debug guide: `docs/how-to/sources-and-filter-debugging.md`
 - PostHog setup + dashboard runbook: `docs/how-to/posthog-setup-and-dashboard.md`
 - Jev quality-judge benchmark: `docs/how-to/jev-quality-benchmark.md`
+- Deck selector replay and grading: `docs/how-to/deck-selector-benchmark.md`
 - Model prices and Pareto comparison: [contract and operations](docs/product-specs/model-radar-comparison.md)
 - Confirmed product idea one-pagers: `docs/ideas/`
 - Doc images (UI audit screenshots, diagrams): `docs/assets/<topic>/`

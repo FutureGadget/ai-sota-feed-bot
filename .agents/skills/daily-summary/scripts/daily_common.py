@@ -459,3 +459,46 @@ def slugify(value: str) -> str:
     while "--" in out:
         out = out.replace("--", "-")
     return out.strip("-") or "category"
+
+
+def deck_selection(deck: str, start, end, include_types, exclude_urls) -> dict[str, Any]:
+    """Selector shortlist/bench for the bundle window (``--selector``)."""
+    _deck_quality()  # puts pipeline/ on sys.path
+    import deck_select
+
+    return deck_select.build_selection(deck, start, end, types=include_types, exclude_urls=exclude_urls)
+
+
+def add_pool_articles(articles, start, end, include_types, exclude_urls, enabled=None):
+    """Append judged keeps the bundle's feed editions did not include and tag
+    same-release articles with ``event_group``.
+
+    Returns (articles, diagnostics). With ``enabled=False`` (``--no-pool``)
+    the articles come back unchanged and diagnostics is None. Any failure
+    returns the articles unchanged with the error, so the bundle still builds.
+    """
+    if enabled is False:
+        return articles, None
+    try:
+        _deck_quality()  # puts pipeline/ on sys.path
+        import deck_bundle
+
+        if enabled is None and not deck_bundle.bundle_config("daily")["pool_additions"]:
+            return articles, None
+        quality = _deck_quality().load_quality_index(PROCESSED_DIR)
+        existing = {a.get("url") for a in articles if a.get("url")}
+        items, diag = deck_bundle.pool_additions(
+            "daily", start, end, types=include_types, exclude_urls=exclude_urls,
+            existing_urls=existing, enabled=True,
+        )
+        added = []
+        for item in items:
+            article = clean_article(item, quality)
+            article["from_pool"] = True
+            added.append(article)
+        merged = [dict(a) for a in articles] + added
+        merged.sort(key=lambda a: parse_ts(a.get("published")) or datetime.min.replace(tzinfo=timezone.utc), reverse=True)
+        diag["event_groups"] = deck_bundle.annotate_event_groups(merged)
+        return merged, diag
+    except Exception as exc:  # the recap must still get its bundle
+        return articles, {"enabled": True, "added": 0, "error": f"{type(exc).__name__}: {exc}"}

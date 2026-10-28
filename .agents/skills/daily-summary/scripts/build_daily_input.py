@@ -19,6 +19,8 @@ import json
 from datetime import date, datetime, time, timedelta, timezone
 
 from daily_common import (
+    add_pool_articles,
+    deck_selection,
     DAILY_DIR,
     DAILY_INPUT_DIR,
     collect_day_articles,
@@ -67,6 +69,18 @@ def main() -> None:
         action="store_true",
         help="Do not exclude articles already published in an earlier day's "
         "recap (default: exclude them to avoid cross-day duplicates).",
+    )
+    ap.add_argument(
+        "--no-pool",
+        action="store_true",
+        help="Do not add judged keeps that never reached a feed edition "
+        "(config/decks.yaml bundle.pool_additions; ON by default).",
+    )
+    ap.add_argument(
+        "--selector",
+        action="store_true",
+        help="Also run the deck selector over the judged candidate pool and add "
+        "its ranked shortlist and bench as `selection` (articles are unchanged).",
     )
     ap.add_argument(
         "--include-dropped",
@@ -119,6 +133,9 @@ def main() -> None:
     )
     if include_types is not None:
         articles = [a for a in articles if a.get("type") in include_types]
+    articles, pool_diag = add_pool_articles(
+        articles, start_d, end_d, include_types, exclude_urls, enabled=False if args.no_pool else None
+    )
 
     # The judge categories replace the single type-based "Industry News"
     # bucket when an item was judged. The agent still owns the final grouping.
@@ -140,6 +157,10 @@ def main() -> None:
         "judge_drop_filter": not args.include_dropped,
         "articles": articles,
     }
+    if pool_diag is not None:
+        bundle["pool_additions"] = pool_diag
+    if args.selector:
+        bundle["selection"] = deck_selection("daily", start_d, end_d, include_types, exclude_urls)
 
     write_json(DAILY_INPUT_DIR / f"{day}.json", bundle)
     write_json(DAILY_INPUT_DIR / "latest.json", bundle)

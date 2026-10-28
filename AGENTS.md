@@ -146,6 +146,20 @@ in `ops_daily_summary.py`'s log line.
     Stage A pool (judged and unjudged) with edition membership into the
     committed per-day `data/quality/pool/<run-date>.json`; offline input for
     the deck candidate selector (exec plan 2026-10-29), never read by an API
+  - `deck_candidates.py`, `deck_select.py`, `mincostflow.py`,
+    `deck_metrics.py` - editor-deck selector: judged candidates for a window
+    (pool files + judgments/runs/raw backfill), one card per story (story key,
+    then same model+version), utility from `config/decks.yaml`, exact
+    min-cost-flow pick under budget and role/source/category caps, shortlist +
+    bench with the binding constraint; must-cover recall@K and alpha-nDCG@K.
+    Runs only via `scripts/deck_replay.py` or the bundle builders'
+    `--selector` flag (adds `selection`; `articles` unchanged). Runbook:
+    `docs/how-to/deck-selector-benchmark.md`
+  - `deck_bundle.py` - recap bundle recall (on by default, `--no-pool` to
+    skip): appends judged keeps for the window that no feed edition held
+    (`from_pool: true`, capped per `config/decks.yaml` `bundle`) and tags
+    articles naming the same model+version with `event_group`. Adds
+    candidates only; the recap agent still chooses
   - `build_digest.py` — the single edition builder
     (raw -> editorial -> judge -> ranking -> edition)
   - `enrich.py`, `content_fetch.py` — mechanical enrichment, page excerpts
@@ -283,6 +297,9 @@ in `ops_daily_summary.py`'s log line.
     max-models policy
   - `editorial.yaml` - source roles/caps, search and first-party quarantine
     patterns, story-cluster thresholds, seen-memory edition caps
+  - `decks.yaml` - deck selector weights, unjudged priors, release-tier
+    scores, story-collapse switch, and per-deck budget/min_utility/source,
+    role and category caps (daily, weekly)
   - `judge.yaml` - enabled-by-default, fail-open quality judge: OpenRouter System One
     (`/api/v1/systemone`, Jev `noul` probability) or direct TypeSafe Decisions,
     feed-quality-v2 rubric, evidence floor (300 chars, releases exempt),
@@ -293,7 +310,9 @@ in `ops_daily_summary.py`'s log line.
   publication; delta-merges spend ledgers with idempotent receipts in
   `spend_guard.json`; see `docs/how-to/translation-budget-and-quota.md`),
   `git_commit_runtime.sh` (data-only commits),
-  `git_commit_code.sh` (code/docs commits), `llm_bridge.mjs`, `oauth_login.sh`
+  `git_commit_code.sh` (code/docs commits), `deck_replay.py` (deck selector
+  replay against published recaps, label packets, labeled metrics),
+  `llm_bridge.mjs`, `oauth_login.sh`
   (legacy), `compare_v1_v2.py`, `make_og_assets.py` (regenerates the default
   share card, logo and icon PNGs; run only when the brand, title or tagline
   changes)
@@ -379,7 +398,9 @@ in `ops_daily_summary.py`'s log line.
   `data/quality/content_cache.json` holds paragraph excerpts;
   `data/quality/classified/<date>.json` is the full local judged pool (not
   committed); `data/quality/pool/<run-date>.json` is the committed per-day
-  judged pool with edition membership (14-day retention) for deck selection.
+  judged pool with edition membership (14-day retention) for deck selection;
+  `data/quality/deck_benchmark/labels/` holds committed owner grades for the
+  deck selector benchmark (`runs/` reports are gitignored).
   Offline only; excluded from the Vercel deployment and never read by an API
 - `data/digest/<date>.md` — daily digest markdown
 - `data/stories/<YYYY-MM>.json` + `index.json` — durable story store

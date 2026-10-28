@@ -2645,3 +2645,113 @@ Rollback: Remove `pool_sink=` from `pipeline/build_digest.py` (or the
 `record_judged_pool` call); the directory stops growing and prunes out within
 14 days. Revert `pipeline/judged_pool.py`, the `pool_sink` parameter in
 `pipeline/ranking.py`, and the `--pool-days` prune for a full rollback.
+
+## 2026-10-29 - Deck selector: judged candidates, min-cost-flow pick, graded benchmark
+
+Decision: Add an offline selector for the editor decks. `pipeline/deck_candidates.py`
+builds the judged candidates for a recap window from the pool files plus a
+backfill (`judgments.json`, run snapshots, `data/raw`).
+`pipeline/deck_select.py` collapses them to one card per story (story key,
+then same model name + version in the title), scores each with weights in
+`config/decks.yaml`, and picks with an exact min-cost flow under a budget and
+nested role/source caps plus category floors/caps
+(`pipeline/mincostflow.py`). Unpicked stories form a bench labeled with the
+binding constraint. `scripts/deck_replay.py` replays the selector against
+published recaps and writes owner label files; `pipeline/deck_metrics.py`
+scores must-cover recall@K and alpha-nDCG@K. The recap bundle builders get
+`--selector`, which only adds a `selection` object. Phases 2-4 of
+`docs/exec-plans/active/2026-10-29-deck-candidate-selector.md`.
+
+Rationale: The recaps are written from newest-first bundles of feed-edition
+items, with Jev used only to drop. A recap is a fixed-budget selection with
+caps, which is an assignment problem: once a source cap and a category cap
+both bind, greedy by score is not optimal, and min-cost flow is exact and
+fast at this size (about 400 stories per week, well under a second, no new
+dependency). F1 stays the Jev gate metric; selection is scored with
+must-cover recall (the recall guard) and alpha-nDCG (graded, with a
+redundancy discount for repeat cards about one event), because F1 hides the
+precision/recall trade-off at a fixed K. Three design changes came from the
+first replay: per-role caps (with category caps alone, 27 of 40 weekly picks
+were arXiv papers); model+version event merging (the week's largest launch
+was five items under different headline keys, each just under the cutoff);
+and dropping feed position as a silver must-cover signal (on quiet days the
+feed's leads are Hacker News posts, so it measured agreement with the feed).
+
+Impact: No production change. Recaps, bundles without `--selector`, ranking
+and the feed are untouched. The replay over 2026-10-24 to 10-27 shows the
+daily bundle already holds nearly every weekday news keep (the pool's daily
+gain is weekends and composition), while the weekly pool holds 300 keeps
+against a 228-item bundle. The selector's 4-per-source cap would cut Hacker
+News from 64% of published daily cards to at most 4 per day and shorten quiet
+days to 5-8 cards; the four daily label files (40 stories to grade, 29
+agreements prefilled) decide whether that cap is right before any deck uses
+the selector.
+
+Rollback: Delete the new modules, `config/decks.yaml`, `scripts/deck_replay.py`
+and the `--selector` flag and `deck_selection` helpers in the two recap
+skills' scripts. No data migration; label files can stay.
+
+## 2026-10-29 - Deck selector does not ship; pivot to recall-only bundles
+
+Decision: Do not route recap selection through `pipeline/deck_select.py`.
+Keep the judged pool and candidate loader, and use them to add Jev keeps
+that missed every feed edition to the recap bundles, leaving selection to the
+agent. Raise the daily per-source cap in `config/decks.yaml` from 4 to 8.
+
+Rationale: Owner grades on 70 stories (daily 2026-10-24 to 10-27) put the
+selector below the published recaps on alpha-nDCG and grade sum on all four
+days. Among judged stories, Jev's score separates useful from drop at AUC
+0.53: it is a working gate and no ranking signal past the gate. Hacker News
+cards were useful at the same rate as other sources (34 of 40), so the cap of
+4 removed good cards. Details: `docs/exec-plans/active/2026-10-29-deck-candidate-selector.md`.
+
+Impact: No production change; the selector stays offline. The graded labels
+become the benchmark for any future ranking signal (for example a
+recap-specific Jev question). Small sample: one grader, ten negatives.
+
+Rollback: None needed. Revert the cap in `config/decks.yaml` to 4 if needed.
+
+## 2026-10-29 - Recap bundles include judged keeps the feed never placed
+
+Decision: The daily and weekly bundle builders append Jev keeps for the
+window that no feed edition held (`from_pool: true`) and tag articles naming
+the same model at the same version with `event_group`
+(`pipeline/deck_bundle.py`). On by default, configured per deck in
+`config/decks.yaml` (`bundle.pool_additions`, `verdicts`, `max_additions`:
+daily 40, weekly 150), skipped with `--no-pool`. The recap skills treat
+`from_pool` articles like any other and write at most one card per
+`event_group`.
+
+Rationale: Owner grades showed the agent outselects a Jev-score ranker, and
+the funnel showed the loss is upstream: keeps that slot caps and the 24-item
+merge kept out of every edition (nine community posts on 2026-10-24; 115
+items, mostly papers, for the 2026-W44 weekly so far). Adding candidates keeps
+the agent's judgment and removes the layout cap on recall. The weekly's
+largest launch arrived as six headlines; `event_group` makes that one event.
+
+Impact: Bigger bundles (weekly about 230 -> 345 items so far; daily +2 to +12).
+The cap is a context guard ordered newest first, not a ranking. A failure in
+the pool path adds nothing and the bundle builds as before. Watch graded drops
+on `from_pool` cards and the W44 weekly.
+
+Rollback: Set `decks.daily.bundle.pool_additions` / `decks.weekly.bundle.pool_additions`
+to `false` in `config/decks.yaml`.
+
+## 2026-10-29 - Pre-release review fixes for the recap bundle additions
+
+Decision: Before merging, an independent review found no crash risk but three
+behavior bugs, now fixed: (1) `event_group` chained distinct stories (union
+over every model named in a title, so "Kimi vs Claude vs GPT" headlines and
+tool release numbers joined groups) and the skill told the agent to keep one
+card per group, which would drop follow-ups; anchors now require exactly one
+model family from `config/decks.yaml` `collapse.event_models` with its version
+next to it, release items are never grouped, and the skills only ask the agent
+not to repeat one announcement. (2) The weekly bundle grew about 50%, mostly
+papers; weekly additions are now capped at 40 with at most 15 papers and 5
+research items (W44 so far: +27 instead of +115). (3) A later fail-open run
+overwrote an earlier keep in the judged pool; judge fields now merge as one
+unit (`judged_pool.merge_rows`). Also: additions fail safe (any error returns
+the original articles), `--no-pool` restores the old bundle exactly, and caps
+order by parsed time instead of date strings.
+
+Rollback: Same as the bundle-additions entry above.

@@ -34,6 +34,8 @@ python .agents/skills/daily-summary/scripts/build_daily_input.py
 #   --no-prior-dedup          (don't exclude articles already in an earlier
 #                              day's recap; dedup is ON by default)
 #   --include-dropped         (debugging: keep judge-dropped items)
+#   --no-pool                 (skip judged keeps that never reached a feed
+#                              edition; added by default)
 ```
 This writes `data/daily/input/latest.json` (and `input/<date>.json`) — the
 day's unique, deduped articles. **This is your reading material.**
@@ -82,9 +84,16 @@ Read `data/daily/input/latest.json`. Each entry in `articles[]` has:
 `summary_source` (`content_excerpt` when the judge fetched the page, else
 `summary_1line`/`summary`), and the judge fields when the item was judged:
 `judge_verdict`, `judge_category`, `judge_score`,
-`judge_category_confidence`, and `deck_category`. The bundle also carries
+`judge_category_confidence`, and `deck_category`. Two more optional fields:
+`from_pool: true` marks a Jev-judged keep that the bundle's feed editions
+did not include; treat it like any other article. Articles that share an
+`event_group` (e.g. `kimi|3.1`) name the same model release: do not write two
+cards that repeat the same announcement, but keep separate cards for separate
+news about it (a launch and a later follow-up). The bundle also carries
 `date`, `range_label`, `article_count`, `category_hint`,
-`judge_category_hint`, and `quality` (judged coverage and verdict mix).
+`judge_category_hint`, `quality` (judged coverage and verdict mix), and,
+when additions ran, `pool_additions` (`pool_additions.added` counts the
+`from_pool` articles).
 
 Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
 ```json
