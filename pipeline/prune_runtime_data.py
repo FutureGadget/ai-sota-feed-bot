@@ -167,8 +167,9 @@ def prune_dated_dir(
     """Delete `<YYYY-MM-DD>.json` snapshots older than `max_age_days`.
 
     For flat dated directories that carry no runs index, so `prune_family`
-    does not apply - today that is data/models/history, written once per
-    Model Release Radar refresh. Nothing reads a historical snapshot at
+    does not apply - data/models/history, written once per Model Release
+    Radar refresh, and data/quality/pool, the per-day judged candidate pool
+    for the editor decks. Nothing reads a historical snapshot at
     request time (api/models.js pins includeFiles to latest.json); they exist
     for score-delta work and audit, so an unbounded pile is pure growth in
     both git and the deployment. 0/negative disables the cap.
@@ -198,6 +199,10 @@ def main() -> None:
     # Dated Model Release Radar snapshots (data/models/history). ~290 KB each,
     # one per refresh; 90 days is plenty for score-delta work.
     ap.add_argument("--models-history-days", type=int, default=90)
+    # Per-day judged candidate pools (data/quality/pool), written by
+    # pipeline/judged_pool.py for the editor decks. A weekly recap reads at
+    # most eight run dates; 14 days leaves room for replay and funnel reports.
+    ap.add_argument("--pool-days", type=int, default=14)
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -213,10 +218,17 @@ def main() -> None:
         dry_run=args.dry_run,
     )
 
+    judged_pool = prune_dated_dir(
+        ROOT / "data" / "quality" / "pool",
+        max_age_days=args.pool_days,
+        dry_run=args.dry_run,
+    )
+
     print(
         "runtime_prune "
         f"processed(index {processed['index_before']}->{processed['index_after']}, deleted={processed['files_deleted']}, keep={processed['retain_days']}d) "
         f"models_history(deleted={models_history['files_deleted']}, kept={models_history['kept']}, max_age={models_history['max_age_days']}d) "
+        f"judged_pool(deleted={judged_pool['files_deleted']}, kept={judged_pool['kept']}, max_age={judged_pool['max_age_days']}d) "
         f"weekly_after={args.weekly_archive_after_days}d "
         f"dry_run={str(args.dry_run).lower()}"
     )

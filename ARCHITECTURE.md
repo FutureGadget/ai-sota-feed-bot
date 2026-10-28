@@ -12,6 +12,8 @@ Sources (RSS/sitemap/arXiv/GitHub releases)
       incremental no-delta skip)
    -> data/processed/latest.json       (the feed)
    -> data/processed/classified.json   (judge verdicts/categories; joined into the editor-deck input bundles by pipeline/deck_quality.py)
+   -> data/quality/pool/<date>.json    (whole post-judge Stage A pool per UTC day with edition membership;
+                                        pipeline/judged_pool.py, offline input for deck selection)
    -> data/digest/YYYY-MM-DD.md
 
 Reader-facing derivatives (built from the durable story store):

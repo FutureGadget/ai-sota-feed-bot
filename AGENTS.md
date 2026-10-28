@@ -142,6 +142,10 @@ in `ops_daily_summary.py`'s log line.
   - `deck_quality.py` - joins the committed judge artifacts into the five
     editor-deck input bundles, attaches verdict/category/score, filters known
     drops, and supplies judge category hints
+  - `judged_pool.py` - after each edition build, merges the whole post-judge
+    Stage A pool (judged and unjudged) with edition membership into the
+    committed per-day `data/quality/pool/<run-date>.json`; offline input for
+    the deck candidate selector (exec plan 2026-10-29), never read by an API
   - `build_digest.py` — the single edition builder
     (raw -> editorial -> judge -> ranking -> edition)
   - `enrich.py`, `content_fetch.py` — mechanical enrichment, page excerpts
@@ -374,8 +378,9 @@ in `ops_daily_summary.py`'s log line.
   and generated `runs/`; `data/quality/cache/` holds judge responses;
   `data/quality/content_cache.json` holds paragraph excerpts;
   `data/quality/classified/<date>.json` is the full local judged pool (not
-  committed). Offline only; excluded from the Vercel deployment and never read
-  by an API
+  committed); `data/quality/pool/<run-date>.json` is the committed per-day
+  judged pool with edition membership (14-day retention) for deck selection.
+  Offline only; excluded from the Vercel deployment and never read by an API
 - `data/digest/<date>.md` — daily digest markdown
 - `data/stories/<YYYY-MM>.json` + `index.json` — durable story store
 - `data/storylines/<slug>.json` + `index.json` — threads (with `editorial`

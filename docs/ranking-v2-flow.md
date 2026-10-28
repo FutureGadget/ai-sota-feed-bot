@@ -78,6 +78,11 @@ Jev gate + category (pipeline/editorial_judge.py, config/judge.yaml)
     unjudged and the deterministic ranking continues
   - writes data/processed/classified.json (compact, committed) and
     data/quality/classified/<date>.json (full local pool)
+  - `run_ranking(pool_sink=...)` hands the post-judge pool to the caller;
+    after the run snapshot, `pipeline/judged_pool.py` merges it with the
+    edition into data/quality/pool/<run-date>.json (committed, 14 days,
+    `judged_pool written=... items=... in_edition=...` log line). Observation
+    only: ranking is unchanged
       |
       v
 Stage B: slot assignment (ranking.assign_slots)
