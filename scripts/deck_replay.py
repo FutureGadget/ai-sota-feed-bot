@@ -288,6 +288,9 @@ def labeled_metrics(deck: str, result: dict[str, Any]) -> dict[str, Any] | None:
             "alpha_ndcg": dm.alpha_ndcg(ids, grades, groups, alpha=0.5, k=k),
             "graded_sum": dm.graded_sum(ids, grades),
             "drops": sum(1 for sid in ids if grades.get(sid) == 0),
+            # Picks nobody has graded count as 0 above; regrade with --packet
+            # before comparing configs that change the picks.
+            "unlabeled": sum(1 for sid in ids if sid not in grades),
         }
     return out
 
@@ -337,14 +340,14 @@ def render(deck: str, results: list[dict[str, Any]]) -> str:
         lines.append("No graded labels yet. Run with `--packet`, grade the files in `data/quality/deck_benchmark/labels/`, then rerun.")
     else:
         lines += [
-            "| window | labeled | pending | must | recall@K recap | recall@K selector | alpha-nDCG recap | alpha-nDCG selector | grade sum recap | grade sum selector | drops recap | drops selector |",
-            "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+            "| window | labeled | pending | must | recall@K recap | recall@K selector | alpha-nDCG recap | alpha-nDCG selector | grade sum recap | grade sum selector | drops recap | drops selector | ungraded picks (selector) |",
+            "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
         ]
         for r in labeled:
             m = r["labels"]
             p, s = m["published"], m["selector"]
             lines.append(
-                f"| {r['label']} | {m['labeled']} | {m['pending']} | {m['must']} | {_pct(p['must_cover_recall'])} | {_pct(s['must_cover_recall'])} | {p['alpha_ndcg']} | {s['alpha_ndcg']} | {p['graded_sum']} | {s['graded_sum']} | {p['drops']} | {s['drops']} |"
+                f"| {r['label']} | {m['labeled']} | {m['pending']} | {m['must']} | {_pct(p['must_cover_recall'])} | {_pct(s['must_cover_recall'])} | {p['alpha_ndcg']} | {s['alpha_ndcg']} | {p['graded_sum']} | {s['graded_sum']} | {p['drops']} | {s['drops']} | {s['unlabeled']} |"
             )
     return "\n".join(lines) + "\n"
 

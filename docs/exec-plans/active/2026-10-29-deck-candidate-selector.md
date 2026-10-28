@@ -5,9 +5,11 @@
 - Phase 1 (judged-pool persistence): implemented 2026-10-29.
 - Phases 2-4 (funnel/replay, story-level utility, min-cost-flow selection):
   implemented 2026-10-29 behind `--selector`; recaps unchanged.
-- Labels: the first four daily windows (2026-10-24 to 10-27) are waiting for
-  owner grades in `data/quality/deck_benchmark/labels/`.
-- Phase 5 (agent contract): not started; gated on the labeled benchmark.
+- Labels: the first four daily windows (2026-10-24 to 10-27) are graded
+  (70 stories) in `data/quality/deck_benchmark/labels/`.
+- Phase 5 (agent contract): **not shipping**. The selector failed the ship
+  gate on every graded day (see "First graded result"). Next step is the
+  recall-only path below.
 
 Runbook: `docs/how-to/deck-selector-benchmark.md`.
 
@@ -206,6 +208,48 @@ Labels:
 
 Ship gate for each deck: must-cover recall@K no worse than baseline, and
 alpha-nDCG@K better, on the replayed weeks.
+
+## First graded result (2026-10-29)
+
+Owner grades, 70 stories, daily 2026-10-24 to 10-27, selector at the
+published recap's size, config as shipped (4 per source):
+
+| day | alpha-nDCG recap | alpha-nDCG selector | grade sum recap | grade sum selector | drops recap | drops selector |
+|---|---:|---:|---:|---:|---:|---:|
+| 10-24 | 0.64 | 0.54 | 9 | 7 | 1 | 2 |
+| 10-25 | 0.99 | 0.65 | 10 | 5 | 1 | 0 |
+| 10-26 | 1.00 | 0.85 | 14 | 11 | 0 | 3 |
+| 10-27 | 0.84 | 0.78 | 18 | 15 | 3 | 2 |
+
+Only one story was graded must-read (10-24, selector-only), so must-cover
+recall is not yet informative. What the grades show:
+
+- **Jev's score does not rank inside the gate.** Among judged stories that
+  reached either list, the score separates useful from drop at AUC 0.53
+  (50 useful, 10 drop; medians 0.79 and 0.80). Jev works as a keep/drop gate;
+  after the gate it carries no ordering signal, so the selector's utility is
+  close to noise and the agent's judgment wins.
+- **The Hacker News cap was wrong.** 34 of 40 HN cards were useful, the same
+  rate as other sources (24 of 30). The 4-per-source cap shortened quiet days
+  (5 cards on 10-25 where the recap had 10 useful). `config/decks.yaml` now
+  allows 8; at 8 the selector still trails, with 9 picks ungraded.
+- **Selector-only picks were worse**: 7 of 14 graded drop, against 5 of 26 for
+  recap-only picks. Several had high Jev scores (0.94, 0.96).
+
+Caveats: one grader, four days, ten negatives, one must-read.
+
+Revised direction:
+
+1. **Recall, not ranking.** Feed the agent more candidates and let it choose:
+   add pool keeps that never reached an edition to the bundle (weekends and
+   the weekly, where the funnel shows the loss), marked as such. Measure with
+   the funnel (keeps in bundle) and graded drops.
+2. **Keep event merging** (one card per launch) as bundle preprocessing.
+3. **Retest ranking only with a ranking signal.** Ask Jev a recap question
+   ("is this a must-read for today's recap?") and score it against the 70
+   labels before any selector change; a gate question cannot rank.
+4. Grade the 2026-W44 weekly after it publishes; the weekly has the largest
+   pool gap and is the real test of item 1.
 
 ## Rollout order
 

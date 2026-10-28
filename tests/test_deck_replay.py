@@ -58,6 +58,9 @@ class PacketTest(unittest.TestCase):
         self.assertEqual(metrics["selector"]["must_cover_recall"], 1.0)
         self.assertEqual(metrics["published"]["drops"], 1)
         self.assertGreater(metrics["selector"]["alpha_ndcg"], metrics["published"]["alpha_ndcg"])
+        self.assertEqual(metrics["selector"]["unlabeled"], 0)
+        swapped = dr.labeled_metrics("daily", result(["a", "b"], ["a", "z"]))
+        self.assertEqual(swapped["selector"]["unlabeled"], 1)
 
 
 if __name__ == "__main__":

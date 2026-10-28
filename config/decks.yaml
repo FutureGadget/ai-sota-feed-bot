@@ -60,11 +60,13 @@ decks:
     bench: 12
     # A judge keep at 0.35 with platform_relevant 0.5 scores 0.5.
     min_utility: 0.5
-    max_per_source: 4
+    # Owner grades (2026-10-24..27): 34 of 40 Hacker News cards useful, the
+    # same rate as other sources; a cap of 4 cut useful cards on quiet days.
+    max_per_source: 8
     source_overrides: {}
     # Caps per source role (config/editorial.yaml source_roles).
     roles:
-      community: {max: 6}
+      community: {max: 8}
       search: {max: 4}
     categories:
       default: {min: 0, max: 6}

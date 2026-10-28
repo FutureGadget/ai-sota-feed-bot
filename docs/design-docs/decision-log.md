@@ -2690,3 +2690,23 @@ the selector.
 Rollback: Delete the new modules, `config/decks.yaml`, `scripts/deck_replay.py`
 and the `--selector` flag and `deck_selection` helpers in the two recap
 skills' scripts. No data migration; label files can stay.
+
+## 2026-10-29 - Deck selector does not ship; pivot to recall-only bundles
+
+Decision: Do not route recap selection through `pipeline/deck_select.py`.
+Keep the judged pool and candidate loader, and use them to add Jev keeps
+that missed every feed edition to the recap bundles, leaving selection to the
+agent. Raise the daily per-source cap in `config/decks.yaml` from 4 to 8.
+
+Rationale: Owner grades on 70 stories (daily 2026-10-24 to 10-27) put the
+selector below the published recaps on alpha-nDCG and grade sum on all four
+days. Among judged stories, Jev's score separates useful from drop at AUC
+0.53: it is a working gate and no ranking signal past the gate. Hacker News
+cards were useful at the same rate as other sources (34 of 40), so the cap of
+4 removed good cards. Details: `docs/exec-plans/active/2026-10-29-deck-candidate-selector.md`.
+
+Impact: No production change; the selector stays offline. The graded labels
+become the benchmark for any future ranking signal (for example a
+recap-specific Jev question). Small sample: one grader, ten negatives.
+
+Rollback: None needed. Revert the cap in `config/decks.yaml` to 4 if needed.
