@@ -19,6 +19,7 @@ import json
 from datetime import date, datetime, time, timedelta, timezone
 
 from daily_common import (
+    add_pool_articles,
     deck_selection,
     DAILY_DIR,
     DAILY_INPUT_DIR,
@@ -68,6 +69,12 @@ def main() -> None:
         action="store_true",
         help="Do not exclude articles already published in an earlier day's "
         "recap (default: exclude them to avoid cross-day duplicates).",
+    )
+    ap.add_argument(
+        "--no-pool",
+        action="store_true",
+        help="Do not add judged keeps that never reached a feed edition "
+        "(config/decks.yaml bundle.pool_additions; ON by default).",
     )
     ap.add_argument(
         "--selector",
@@ -126,6 +133,9 @@ def main() -> None:
     )
     if include_types is not None:
         articles = [a for a in articles if a.get("type") in include_types]
+    articles, pool_diag = add_pool_articles(
+        articles, start_d, end_d, include_types, exclude_urls, enabled=False if args.no_pool else None
+    )
 
     # The judge categories replace the single type-based "Industry News"
     # bucket when an item was judged. The agent still owns the final grouping.
@@ -141,6 +151,7 @@ def main() -> None:
         "prior_recap_dedup": not args.no_prior_dedup,
         "prior_recap_urls": len(exclude_urls),
         "article_count": len(articles),
+        "pool_additions": pool_diag,
         "category_hint": category_hint,
         "judge_category_hint": judge_category_hint(articles),
         "quality": deck_quality_summary(articles),

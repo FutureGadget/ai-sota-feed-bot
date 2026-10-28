@@ -155,6 +155,11 @@ in `ops_daily_summary.py`'s log line.
     Runs only via `scripts/deck_replay.py` or the bundle builders'
     `--selector` flag (adds `selection`; `articles` unchanged). Runbook:
     `docs/how-to/deck-selector-benchmark.md`
+  - `deck_bundle.py` - recap bundle recall (on by default, `--no-pool` to
+    skip): appends judged keeps for the window that no feed edition held
+    (`from_pool: true`, capped per `config/decks.yaml` `bundle`) and tags
+    articles naming the same model+version with `event_group`. Adds
+    candidates only; the recap agent still chooses
   - `build_digest.py` — the single edition builder
     (raw -> editorial -> judge -> ranking -> edition)
   - `enrich.py`, `content_fetch.py` — mechanical enrichment, page excerpts

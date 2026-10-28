@@ -55,6 +55,9 @@ release:
 decks:
   daily:
     types: [news]
+    # Recap bundle additions: judged keeps the feed editions never placed
+    # (pipeline/deck_bundle.py). max_additions is a context-size guard.
+    bundle: {pool_additions: true, verdicts: [keep], max_additions: 40}
     # Published daily recaps carry 11-21 cards (median 14).
     budget: 15
     bench: 12
@@ -76,6 +79,7 @@ decks:
       uncategorized: {max: 3}
   weekly:
     types: [news, release, research, paper]
+    bundle: {pool_additions: true, verdicts: [keep], max_additions: 150}
     # Published weekly recaps carry 34-42 cards.
     budget: 40
     bench: 20

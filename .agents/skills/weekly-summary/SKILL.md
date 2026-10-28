@@ -29,6 +29,8 @@ python .agents/skills/weekly-summary/scripts/build_weekly_input.py
 #   --no-prior-dedup          (don't exclude articles already in an earlier
 #                              week's recap; dedup is ON by default)
 #   --include-dropped         (debugging: keep judge-dropped items)
+#   --no-pool                 (skip judged keeps that never reached a feed
+#                              edition; added by default)
 ```
 This writes `data/weekly/input/latest.json` (and `input/<week>.json`) — the
 week's unique, deduped articles. **This is your reading material.**
@@ -79,9 +81,14 @@ Read `data/weekly/input/latest.json`. Each entry in `articles[]` has:
 `summary`, `published`, plus optional `publisher_name`, `publisher_domain`,
 `summary_source`, and the judge fields when the item was judged:
 `judge_verdict`, `judge_category`, `judge_score`,
-`judge_category_confidence`, and `deck_category`. The bundle also carries
+`judge_category_confidence`, and `deck_category`. Two more optional fields:
+`from_pool: true` marks a judged keep that never reached a feed edition;
+treat it like any other article. Articles that share an `event_group`
+(e.g. `kimi|3.1`) cover the same model release: write at most one card per
+`event_group`, using its most informative article. The bundle also carries
 `week`, `start`, `end`, `range_label`, `article_count`, `category_hint`,
-`judge_category_hint`, and `quality` (judged coverage and verdict mix).
+`judge_category_hint`, `quality` (judged coverage and verdict mix), and
+`pool_additions` (how many `from_pool` articles were added).
 
 Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
 ```json

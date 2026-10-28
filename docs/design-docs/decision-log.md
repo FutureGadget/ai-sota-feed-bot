@@ -2710,3 +2710,29 @@ become the benchmark for any future ranking signal (for example a
 recap-specific Jev question). Small sample: one grader, ten negatives.
 
 Rollback: None needed. Revert the cap in `config/decks.yaml` to 4 if needed.
+
+## 2026-10-29 - Recap bundles include judged keeps the feed never placed
+
+Decision: The daily and weekly bundle builders append Jev keeps for the
+window that no feed edition held (`from_pool: true`) and tag articles naming
+the same model at the same version with `event_group`
+(`pipeline/deck_bundle.py`). On by default, configured per deck in
+`config/decks.yaml` (`bundle.pool_additions`, `verdicts`, `max_additions`:
+daily 40, weekly 150), skipped with `--no-pool`. The recap skills treat
+`from_pool` articles like any other and write at most one card per
+`event_group`.
+
+Rationale: Owner grades showed the agent outselects a Jev-score ranker, and
+the funnel showed the loss is upstream: keeps that slot caps and the 24-item
+merge kept out of every edition (nine community posts on 2026-10-24; 115
+items, mostly papers, for the 2026-W44 weekly so far). Adding candidates keeps
+the agent's judgment and removes the layout cap on recall. The weekly's
+largest launch arrived as six headlines; `event_group` makes that one event.
+
+Impact: Bigger bundles (weekly about 230 -> 345 items so far; daily +2 to +12).
+The cap is a context guard ordered newest first, not a ranking. A failure in
+the pool path adds nothing and the bundle builds as before. Watch graded drops
+on `from_pool` cards and the W44 weekly.
+
+Rollback: Set `decks.daily.bundle.pool_additions` / `decks.weekly.bundle.pool_additions`
+to `false` in `config/decks.yaml`.

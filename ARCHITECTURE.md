@@ -19,6 +19,8 @@ Editor-deck selection (offline / behind --selector, docs/how-to/deck-selector-be
    pipeline/deck_candidates.py   pool files + judgments/runs/raw backfill -> judged candidates per window
    pipeline/deck_select.py       story collapse -> utility (config/decks.yaml) -> min-cost flow
                                  (pipeline/mincostflow.py) -> shortlist + bench
+   pipeline/deck_bundle.py       recap bundles (on by default): append judged keeps no edition held
+                                 (from_pool) and tag same-release articles (event_group)
    scripts/deck_replay.py        funnel, published-vs-selector replay, label packets, metrics
                                  (pipeline/deck_metrics.py: must-cover recall@K, alpha-nDCG@K)
    -> data/digest/YYYY-MM-DD.md

@@ -8,8 +8,15 @@
 - Labels: the first four daily windows (2026-10-24 to 10-27) are graded
   (70 stories) in `data/quality/deck_benchmark/labels/`.
 - Phase 5 (agent contract): **not shipping**. The selector failed the ship
-  gate on every graded day (see "First graded result"). Next step is the
-  recall-only path below.
+  gate on every graded day (see "First graded result").
+- Recall-only bundles (revised direction items 1-2): implemented 2026-10-29
+  and on by default. `pipeline/deck_bundle.py` appends judged keeps that no
+  edition held (`from_pool: true`) and tags same-release articles with
+  `event_group`; the recap skills write at most one card per group. On the
+  replayed windows this adds 2-12 news items per day (mostly community posts on
+  weekends) and 115 items to the 2026-W44 weekly so far (103 papers, 12 news;
+  cap 150). Measure with the funnel's keep-in-bundle stage, graded drops on
+  `from_pool` cards, and a graded W44.
 
 Runbook: `docs/how-to/deck-selector-benchmark.md`.
 

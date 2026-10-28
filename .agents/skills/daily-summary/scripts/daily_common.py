@@ -467,3 +467,26 @@ def deck_selection(deck: str, start, end, include_types, exclude_urls) -> dict[s
     import deck_select
 
     return deck_select.build_selection(deck, start, end, types=include_types, exclude_urls=exclude_urls)
+
+
+def add_pool_articles(articles, start, end, include_types, exclude_urls, enabled=None):
+    """Append judged keeps that never reached a feed edition and tag same-event
+    articles. Returns (articles, diagnostics); a failure adds nothing."""
+    _deck_quality()  # puts pipeline/ on sys.path
+    import deck_bundle
+
+    quality = _deck_quality().load_quality_index(PROCESSED_DIR)
+    existing = {a.get("url") for a in articles if a.get("url")}
+    items, diag = deck_bundle.pool_additions(
+        "daily", start, end, types=include_types, exclude_urls=exclude_urls,
+        existing_urls=existing, enabled=enabled,
+    )
+    added = []
+    for item in items:
+        article = clean_article(item, quality)
+        article["from_pool"] = True
+        added.append(article)
+    merged = articles + added
+    merged.sort(key=lambda a: parse_ts(a.get("published")) or datetime.min.replace(tzinfo=timezone.utc), reverse=True)
+    diag["event_groups"] = deck_bundle.annotate_event_groups(merged)
+    return merged, diag
