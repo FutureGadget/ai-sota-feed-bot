@@ -58,6 +58,7 @@ ITEM_FIELDS = (
     "judge_judged_at",
     "prefilter_score",
     "source_tune",
+    "release_tier",
 )
 
 EMPTY = (None, "", [], {})
@@ -77,7 +78,34 @@ def _squeeze(value: Any, limit: int) -> str:
     return " ".join(str(value or "").split())[:limit]
 
 
+def _derive_type_fields(item: dict[str, Any]) -> dict[str, Any]:
+    """Fill ``type`` and ``release_tier`` the way Stage C would.
+
+    The pool is captured after the judge and before slot scoring, so only
+    edition items carry the Stage C ``type``. The decks filter by type (the
+    daily recap reads news only), so derive it from the same rules.
+    """
+    out: dict[str, Any] = {}
+    try:
+        try:
+            from ranking import _infer_item_type
+            from release_policy import classify_release_tier
+        except Exception:
+            from pipeline.ranking import _infer_item_type
+            from pipeline.release_policy import classify_release_tier
+        if item.get("type") in EMPTY:
+            out["type"] = _infer_item_type(item, str(item.get("slot") or "overflow"))
+        if item.get("release_tier") in EMPTY and (item.get("type") or out.get("type")) == "release":
+            tier = classify_release_tier({**item, **out})
+            if tier:
+                out["release_tier"] = tier
+    except Exception:
+        pass
+    return out
+
+
 def _row_from_item(item: dict[str, Any]) -> dict[str, Any]:
+    item = {**item, **_derive_type_fields(item)}
     row: dict[str, Any] = {}
     for field in ITEM_FIELDS:
         value = item.get(field)

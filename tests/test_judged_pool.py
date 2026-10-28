@@ -85,6 +85,16 @@ class JudgedPoolTest(unittest.TestCase):
         assert "https://example.com/post-10" in pool["items"]
 
 
+    def test_type_is_derived_for_items_outside_the_edition(self):
+        news = {k: v for k, v in _item(1, slot="practitioner_analysis").items() if k != "type"}
+        paper = {k: v for k, v in _item(2, source="arxiv_cs_ai", url="https://arxiv.org/abs/2610.00001", slot="research_watch").items() if k != "type"}
+        release = {k: v for k, v in _item(3, source="vllm_releases", title="vLLM v0.12.0", slot="infra_runtime_releases").items() if k != "type"}
+        rows = judged_pool.merge_run({}, [news, paper, release], [], RUN1)["items"]
+        self.assertEqual(rows["https://example.com/post-1"]["type"], "news")
+        self.assertEqual(rows["https://arxiv.org/abs/2610.00001"]["type"], "paper")
+        self.assertEqual(rows["https://example.com/post-3"]["type"], "release")
+        self.assertIn(rows["https://example.com/post-3"].get("release_tier"), ("major", "minor"))
+
     def test_cluster_echoes_become_coverage_signals(self):
         rep = _item(1, also_covered=[{"source": "hn"}, {"source": "search_x"}, {"source": "hn"}])
         row = judged_pool.merge_run({}, [rep], [], RUN1)["items"]["https://example.com/post-1"]

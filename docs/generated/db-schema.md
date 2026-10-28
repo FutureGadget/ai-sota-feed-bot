@@ -87,7 +87,8 @@ available to each function.
   (`judge_score`, `judge_verdict`, `judge_category`,
   `judge_category_confidence`, `judge_signals`, `judge_evidence_chars`,
   `judge_error`, model/rubric/judged_at), `prefilter_score`, `source_tune`,
-  `summary` (280 chars), `excerpt` (400 chars), `echo_count`/`source_count`
+  `type` and `release_tier` (derived with the Stage C rules for items outside
+  the edition), `summary` (280 chars), `excerpt` (400 chars), `echo_count`/`source_count`
   for clustered stories, `slot`, and run counters (`first_seen_run`,
   `last_seen_run`, `runs_seen`, `edition_runs`, `best_edition_rank`,
   `edition_slot`). Unjudged items are included without a score. Keyed by UTC
