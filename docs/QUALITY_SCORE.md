@@ -42,7 +42,10 @@ Reader CTR is a guardrail, not the objective. A clickbait card can win CTR
 while losing the finishable, anti-hype product promise.
 
 The offline Jev/decision-model benchmark and review workflow live in
-`docs/how-to/jev-quality-benchmark.md`.
+`docs/how-to/jev-quality-benchmark.md`. Recap selection (a fixed-budget pick,
+where F1 hides the precision/recall trade-off) is scored with must-cover
+recall@K and alpha-nDCG@K against owner grades:
+`docs/how-to/deck-selector-benchmark.md`.
 
 ## Jev semantic gate (2026-10-24, recalibrated 2026-10-26)
 

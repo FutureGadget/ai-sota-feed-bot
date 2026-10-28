@@ -2645,3 +2645,48 @@ Rollback: Remove `pool_sink=` from `pipeline/build_digest.py` (or the
 `record_judged_pool` call); the directory stops growing and prunes out within
 14 days. Revert `pipeline/judged_pool.py`, the `pool_sink` parameter in
 `pipeline/ranking.py`, and the `--pool-days` prune for a full rollback.
+
+## 2026-10-29 - Deck selector: judged candidates, min-cost-flow pick, graded benchmark
+
+Decision: Add an offline selector for the editor decks. `pipeline/deck_candidates.py`
+builds the judged candidates for a recap window from the pool files plus a
+backfill (`judgments.json`, run snapshots, `data/raw`).
+`pipeline/deck_select.py` collapses them to one card per story (story key,
+then same model name + version in the title), scores each with weights in
+`config/decks.yaml`, and picks with an exact min-cost flow under a budget and
+nested role/source caps plus category floors/caps
+(`pipeline/mincostflow.py`). Unpicked stories form a bench labeled with the
+binding constraint. `scripts/deck_replay.py` replays the selector against
+published recaps and writes owner label files; `pipeline/deck_metrics.py`
+scores must-cover recall@K and alpha-nDCG@K. The recap bundle builders get
+`--selector`, which only adds a `selection` object. Phases 2-4 of
+`docs/exec-plans/active/2026-10-29-deck-candidate-selector.md`.
+
+Rationale: The recaps are written from newest-first bundles of feed-edition
+items, with Jev used only to drop. A recap is a fixed-budget selection with
+caps, which is an assignment problem: once a source cap and a category cap
+both bind, greedy by score is not optimal, and min-cost flow is exact and
+fast at this size (about 400 stories per week, well under a second, no new
+dependency). F1 stays the Jev gate metric; selection is scored with
+must-cover recall (the recall guard) and alpha-nDCG (graded, with a
+redundancy discount for repeat cards about one event), because F1 hides the
+precision/recall trade-off at a fixed K. Three design changes came from the
+first replay: per-role caps (with category caps alone, 27 of 40 weekly picks
+were arXiv papers); model+version event merging (the week's largest launch
+was five items under different headline keys, each just under the cutoff);
+and dropping feed position as a silver must-cover signal (on quiet days the
+feed's leads are Hacker News posts, so it measured agreement with the feed).
+
+Impact: No production change. Recaps, bundles without `--selector`, ranking
+and the feed are untouched. The replay over 2026-10-24 to 10-27 shows the
+daily bundle already holds nearly every weekday news keep (the pool's daily
+gain is weekends and composition), while the weekly pool holds 300 keeps
+against a 228-item bundle. The selector's 4-per-source cap would cut Hacker
+News from 64% of published daily cards to at most 4 per day and shorten quiet
+days to 5-8 cards; the four daily label files (40 stories to grade, 29
+agreements prefilled) decide whether that cap is right before any deck uses
+the selector.
+
+Rollback: Delete the new modules, `config/decks.yaml`, `scripts/deck_replay.py`
+and the `--selector` flag and `deck_selection` helpers in the two recap
+skills' scripts. No data migration; label files can stay.

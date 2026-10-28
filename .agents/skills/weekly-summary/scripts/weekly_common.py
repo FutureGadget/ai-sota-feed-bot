@@ -371,3 +371,11 @@ def slugify(value: str) -> str:
     while "--" in out:
         out = out.replace("--", "-")
     return out.strip("-") or "category"
+
+
+def deck_selection(deck: str, start, end, include_types, exclude_urls) -> dict[str, Any]:
+    """Selector shortlist/bench for the bundle window (``--selector``)."""
+    _deck_quality()  # puts pipeline/ on sys.path
+    import deck_select
+
+    return deck_select.build_selection(deck, start, end, types=include_types, exclude_urls=exclude_urls)

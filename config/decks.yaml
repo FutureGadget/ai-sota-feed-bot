@@ -1,0 +1,94 @@
+# Editor-deck candidate selector (pipeline/deck_select.py).
+#
+# The selector reads the judged candidate pool for a deck's window
+# (pipeline/deck_candidates.py), collapses it to one card per story, scores
+# each story, and picks a shortlist with an exact min-cost flow under the
+# deck's budget, per-source caps and per-category floors/caps. The rest of
+# the eligible stories become the bench, each with the constraint that kept it
+# out. Plan: docs/exec-plans/active/2026-10-29-deck-candidate-selector.md.
+
+version: deck-select-v1
+
+# utility = judge_keep * score
+#         + platform_relevant * signals.platform_relevant
+#         + coverage * log1p(source_count - 1)
+#         + source_tune * learned per-source CTR/feedback delta
+#         + in_edition * [appeared in any feed edition]
+#         - corporate_marketing * signals.corporate_marketing
+weights:
+  judge_keep: 1.0
+  platform_relevant: 0.3
+  coverage: 0.25
+  source_tune: 0.5
+  in_edition: 0.05
+  corporate_marketing: 0.3
+
+# Deck keys: types (bundle item types), budget (max cards), bench (cards
+# reported after the shortlist), min_utility, max_per_source,
+# source_overrides, roles.<role>.max, categories.<judge category>.min/max
+# (`default` applies to unlisted categories; release items count as
+# release_note, unjudged items without a category as uncategorized).
+
+# Join stories whose titles name the same model at the same version
+# (editorial.yaml story_clusters.model_tokens), e.g. "Moonshot ... K3.1 Pro"
+# and "Kimi K3.1 Pro ...", into one card.
+collapse:
+  merge_model_version_events: true
+
+# Unjudged items (insufficient evidence, judge errors, judge off) are never
+# scored zero: they take `scale` times the median judged score of their
+# source role, then the median of the window, then `fallback`.
+unjudged:
+  scale: 0.9
+  fallback: 0.35
+  # Signals for items without a judgment.
+  platform_relevant: 0.5
+  corporate_marketing: 0.2
+
+# The Brief gate answers "drop" for release notes by design, so release items
+# are scored by their deterministic tier instead of the judge score.
+release:
+  major: 0.55
+  minor: 0.2
+  unknown: 0.3
+
+decks:
+  daily:
+    types: [news]
+    # Published daily recaps carry 11-21 cards (median 14).
+    budget: 15
+    bench: 12
+    # A judge keep at 0.35 with platform_relevant 0.5 scores 0.5.
+    min_utility: 0.5
+    max_per_source: 4
+    source_overrides: {}
+    # Caps per source role (config/editorial.yaml source_roles).
+    roles:
+      community: {max: 6}
+      search: {max: 4}
+    categories:
+      default: {min: 0, max: 6}
+      business_policy: {max: 2}
+      release_note: {max: 0}
+      off_topic: {max: 0}
+      uncategorized: {max: 3}
+  weekly:
+    types: [news, release, research, paper]
+    # Published weekly recaps carry 34-42 cards.
+    budget: 40
+    bench: 20
+    min_utility: 0.5
+    max_per_source: 6
+    source_overrides: {}
+    roles:
+      research: {max: 8}
+      release: {max: 5}
+      community: {max: 10}
+      search: {max: 6}
+    categories:
+      default: {min: 0, max: 12}
+      research_method: {max: 8}
+      release_note: {max: 5}
+      business_policy: {max: 4}
+      off_topic: {max: 0}
+      uncategorized: {max: 6}

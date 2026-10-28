@@ -2,8 +2,14 @@
 
 ## Status
 
-Phase 1 (judged-pool persistence) implemented 2026-10-29. Phases 2-5 are
-planned.
+- Phase 1 (judged-pool persistence): implemented 2026-10-29.
+- Phases 2-4 (funnel/replay, story-level utility, min-cost-flow selection):
+  implemented 2026-10-29 behind `--selector`; recaps unchanged.
+- Labels: the first four daily windows (2026-10-24 to 10-27) are waiting for
+  owner grades in `data/quality/deck_benchmark/labels/`.
+- Phase 5 (agent contract): not started; gated on the labeled benchmark.
+
+Runbook: `docs/how-to/deck-selector-benchmark.md`.
 
 ## Problem
 
@@ -69,19 +75,51 @@ under `data/quality/`, which is already excluded from the Vercel deployment.
 No ranking, feed or deck behavior changes in this phase. It produces the
 dataset every later phase needs and lets the funnel be measured going forward.
 
-### Phase 2 - Funnel report and baseline
+### Phase 2 - Funnel report and baseline (implemented)
 
-`scripts/deck_funnel.py --deck daily --date D` reads the pool (run dates D
-and D+1, filtered by published date), the bundle and the published recap and
-prints stage counts and stage recall: `pool keep -> edition -> bundle ->
-recap`, split by source role and judge category. Run it over the first two
-weeks of pool data to set the baseline every later phase is compared against.
+`pipeline/deck_candidates.py` builds the judged candidates for a published
+window from the pool files and, for windows before the pool existed, a
+backfill from `judgments.json`, run snapshots and `data/raw`. The backfill
+misses unjudged Stage A items that never reached an edition; judge fields
+exist from 2026-10-24 (the feed-quality-v2 store reset), so earlier windows
+cannot be replayed.
 
-### Phase 3 - Story-level candidates and utility
+`scripts/deck_replay.py` prints the funnel (keeps -> edition -> bundle ->
+recap, and keeps -> shortlist) per window and compares the published recap
+with the selector at the same K. Baseline, daily news, 2026-10-24 to 10-27:
+
+| day | Jev keep | in edition | in bundle | in recap | in shortlist (same K) |
+|---|---:|---:|---:|---:|---:|
+| 10-24 (Sat) | 19 | 10 | 7 | 7 | 6 |
+| 10-25 (Sun) | 19 | 16 | 15 | 11 | 5 |
+| 10-26 | 22 | 22 | 18 | 12 | 11 |
+| 10-27 | 40 | 40 | 38 | 21 | 16 |
+
+Findings:
+
+- For the daily (news only), the pool adds little on weekdays: the bundle
+  already holds almost every news keep. The gain is on weekends (10-24: 7 of
+  19 keeps reached the bundle) and in composition: published recaps were
+  64% Hacker News (36 of 57 cards); the selector caps it at 4 per day, so on
+  quiet days it returns 5-8 cards where the recap had 11. Whether those extra
+  HN cards are worth reading is the main question the labels answer.
+- For the weekly, the pool matters: for 2026-10-24 to 10-28 the judged pool
+  holds 300 keeps in the weekly's types against a 228-item edition-based
+  bundle.
+- Feed position is not a usable must-cover signal: on quiet days the feed's
+  top three are Hacker News posts, so "feed lead" measured agreement with the
+  feed ranking. Silver must-cover is now multi-source stories and storyline
+  members only, and it is a smoke test.
+
+### Phase 3 - Story-level candidates and utility (implemented)
 
 - Collapse the pool to one candidate per story (`story_key`, falling back to
-  URL). Keep the best-scored member as the card; record `echo_count` (members)
-  and `source_count` (distinct sources) as importance signals.
+  URL), then join stories whose titles name the same model at the same
+  version (`kimi|3.1`). The feed's cluster keys include the headline, so the
+  week's largest launch (Kimi K3.1 Pro) was five separate items scoring 0.76
+  each, just under the weekly cutoff; merged, it is one seven-member story
+  that makes the shortlist. Keep the best-scored member as the card and use
+  distinct sources across members as the coverage signal.
 - Utility, computed in `pipeline/deck_select.py` with weights in
   `config/decks.yaml`:
 
@@ -94,15 +132,18 @@ weeks of pool data to set the baseline every later phase is compared against.
     - w_mkt  * corporate_marketing
   ```
 
-  Unjudged items get a configured prior (default: the pool median for their
-  source role), never zero, so fail-open survives.
+  Unjudged items get `scale` times the median judged score of their source
+  role, never zero, so fail-open survives. Release items are scored by their
+  deterministic tier (`release.major/minor`), because the Brief gate answers
+  "drop" for release notes by design.
 
-### Phase 4 - Budgeted selection with min-cost max-flow
+### Phase 4 - Budgeted selection with min-cost max-flow (implemented)
 
 Per deck, solve a min-cost flow on:
 
 ```text
-S -> source_j        capacity = per-source cap (deck config)
+S -> role_r          capacity = per-role cap (research, release, community...)
+role_r -> source_j   capacity = per-source cap (deck config)
 source_j -> item_i   capacity 1, cost = -round(u_i * 1000)
 item_i -> category_c capacity 1
 category_c -> T      floor edge: capacity = min_c, cost = -BIG
@@ -114,16 +155,20 @@ Successive shortest paths stop when the next augmenting path has
 non-negative cost, so a quiet day yields a shorter recap instead of filler
 (items below `min_utility` get no edge). The network is valid because each
 item has exactly one source and one category; story collapse in Phase 3
-removes the third partition (one card per story) before the solve. Pool size
-is a few hundred items, so a hand-written SSP with Bellman-Ford/SPFA needs no
-new dependency. If later constraints stop nesting (for example a cap per
+removes the third partition (one card per story) before the solve. Each
+source has one role, so role caps nest the source caps and the network stays
+exact. Role caps were added after the first weekly replay: with category caps
+only, 27 of 40 weekly picks were arXiv papers. `pipeline/mincostflow.py` is a
+dependency-free successive-shortest-path solver (Dijkstra with potentials);
+it matches a brute-force oracle on 80 random instances, and a weekly solve
+over about 400 stories takes well under a second. If later constraints stop nesting (for example a cap per
 company across sources), switch the solver to an ILP; the utility and
 config stay.
 
 Output: `shortlist` (the flow solution, ordered by utility) and `bench` (the
 next N by utility that the solution excluded, with the binding constraint
-named). The bundle builders gain `--selector` (off by default) that writes
-both into the bundle in place of the newest-first list.
+named). The bundle builders' `--selector` flag (off by default) adds both as
+`selection`; `articles` is unchanged until Phase 5.
 
 ### Phase 5 - Agent contract and rollout
 
@@ -148,9 +193,10 @@ hides the trade-off, so the selector is measured with:
 
 Labels:
 
-- Grades 0 (drop) / 1 (useful) / 2 (must-read) per story, owner-adjudicated.
-- Must-cover set: grade 2, plus a silver set of stories with
-  `source_count >= 2`, storyline membership, or above-median reader clicks.
+- Grades 0 (drop) / 1 (useful) / 2 (must-read) per story, owner-adjudicated,
+  in `data/quality/deck_benchmark/labels/<deck>-<window>.json`.
+- Must-cover set: grade 2. Silver (multi-source, storyline member) is a
+  smoke test only.
 - Disagreement labeling: replay the selector on the last four weeks of
   bundles and label only stories where the selector and the published recap
   disagree. Agreements carry little information.
@@ -163,15 +209,17 @@ alpha-nDCG@K better, on the replayed weeks.
 
 ## Rollout order
 
-1. Phase 1 lands; pool accumulates for 14 days.
-2. Phase 2 baseline on daily and weekly.
-3. Phases 3-4 behind `--selector`, replay, label disagreements, tune
-   `config/decks.yaml`.
-4. Phase 5 for weekly first (largest bundle, largest expected gain), then
+1. Phase 1 lands; pool accumulates for 14 days. (done, pending merge)
+2. Phases 2-4 behind `--selector`. (done)
+3. Owner grades the four daily windows; replay the first full weekly
+   (2026-W44) after its recap publishes and grade it.
+4. Tune `config/decks.yaml` against the grades, chiefly the per-source cap
+   for Hacker News and `min_utility`.
+5. Phase 5 for weekly first (largest bundle, largest expected gain), then
    daily, then Playbook/wiki/Foundations.
 
 ## Rollback
 
 Phase 1: remove the `pool_sink` argument in `pipeline/build_digest.py`; the
-pool stops growing and prunes out in 14 days. Later phases are flag-gated per
-deck; turning `--selector` off restores today's bundles.
+pool stops growing and prunes out in 14 days. Phases 2-4 change no production
+path: the selector runs only under `--selector` or `scripts/deck_replay.py`.

@@ -19,6 +19,7 @@ import json
 from datetime import date, datetime, time, timedelta, timezone
 
 from weekly_common import (
+    deck_selection,
     ROOT,
     WEEKLY_DIR,
     WEEKLY_INPUT_DIR,
@@ -58,6 +59,12 @@ def main() -> None:
         action="store_true",
         help="Do not exclude articles already published in an earlier week's "
         "recap (default: exclude them to avoid cross-week duplicates).",
+    )
+    ap.add_argument(
+        "--selector",
+        action="store_true",
+        help="Also run the deck selector over the judged candidate pool and add "
+        "its ranked shortlist and bench as `selection` (articles are unchanged).",
     )
     ap.add_argument(
         "--include-dropped",
@@ -129,6 +136,8 @@ def main() -> None:
         "judge_drop_filter": not args.include_dropped,
         "articles": articles,
     }
+    if args.selector:
+        bundle["selection"] = deck_selection("weekly", start_d, end_d, include_types, exclude_urls)
 
     write_json(WEEKLY_INPUT_DIR / f"{week}.json", bundle)
     write_json(WEEKLY_INPUT_DIR / "latest.json", bundle)

@@ -14,6 +14,13 @@ Sources (RSS/sitemap/arXiv/GitHub releases)
    -> data/processed/classified.json   (judge verdicts/categories; joined into the editor-deck input bundles by pipeline/deck_quality.py)
    -> data/quality/pool/<date>.json    (whole post-judge Stage A pool per UTC day with edition membership;
                                         pipeline/judged_pool.py, offline input for deck selection)
+
+Editor-deck selection (offline / behind --selector, docs/how-to/deck-selector-benchmark.md):
+   pipeline/deck_candidates.py   pool files + judgments/runs/raw backfill -> judged candidates per window
+   pipeline/deck_select.py       story collapse -> utility (config/decks.yaml) -> min-cost flow
+                                 (pipeline/mincostflow.py) -> shortlist + bench
+   scripts/deck_replay.py        funnel, published-vs-selector replay, label packets, metrics
+                                 (pipeline/deck_metrics.py: must-cover recall@K, alpha-nDCG@K)
    -> data/digest/YYYY-MM-DD.md
 
 Reader-facing derivatives (built from the durable story store):

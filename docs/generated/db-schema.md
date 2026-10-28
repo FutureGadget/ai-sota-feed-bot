@@ -95,6 +95,13 @@ available to each function.
   run date, so a deck reads the run dates covering its published window and
   filters by `published`. Retention 14 days (`prune_runtime_data.py
   --pool-days`). Not read by any API or the static build.
+- `data/quality/deck_benchmark/labels/<deck>-<window>.json` — committed owner
+  grades for the deck selector benchmark, written by
+  `scripts/deck_replay.py --packet`: `deck`, `window`, `guide`, and `stories`
+  keyed by `story_id` (`grade` 0/1/2 or null, `same_as`, `note`, `picked_by`
+  published/selector/both, `title`, `url`, `source`, `judge_score`,
+  `judge_category`, `summary`, `silver`). Reruns append and never change a
+  grade. `runs/<deck>-<stamp>/report.{md,json}` are generated and gitignored.
 
 ## Feed API (`/api/feed`)
 Response fields served from the accumulated ranked pool above:
@@ -160,7 +167,13 @@ Response fields served from the accumulated ranked pool above:
   renderers can credit the syndicated outlet instead of the aggregator feed.
   Input bundles also carry the joined judge fields described above, a
   `summary_source`, `deck_category`, `judge_category_hint`, and a `quality`
-  audit block.
+  audit block. With `--selector`, a bundle also carries `selection`
+  (`pipeline/deck_select.py`): `deck`, `budget`, `min_utility`, `candidates`,
+  `stories`, `eligible`, `shortlist` and `bench` cards (`story_id`, `url`,
+  `title`, `source`, `source_role`, `type`, `published`, judge fields,
+  `category`, `utility`, `utility_parts`, `source_count`, `member_urls`; bench
+  cards add `bench_reason`), `by_category`, `by_role`, `by_source`, `window`
+  and `candidate_diag`. The recap skills do not read it yet.
   A daily or weekly recap may also carry `video: {youtube_id, title?, duration_s?}`
   (written by the `daily-video` / `weekly-video` routine after a successful YouTube
   upload; `youtube_id` is the 11-character id). Only the id is stored, never the
