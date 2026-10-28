@@ -2,146 +2,140 @@
 
 Focus: AI Platform Engineering
 
-## 1. Show HN: ~, An open-source agent registry
+## 1. Our AI Agent Executed the Same Successful SQL Query 254 Times
+- Type: news | Source: hackernews_ai
+- URL: https://armincat.com/articles/ai-agent-executed-same-query-254-times
+- Score: 3.645 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 2. Show HN: ~, An open-source agent registry
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/trytilde/tilde
-- Score: 3.709 | Reliability: 1.0
+- Score: 3.561 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. Show HN: ThreadShelf – Obsidian and AI chats: vector search, MCP, llama.cpp
+## 3. Show HN: ThreadShelf – Obsidian and AI chats: vector search, MCP, llama.cpp
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/ChrystianSchutz/ThreadShelf
-- Score: 3.643 | Reliability: 1.0
+- Score: 3.498 | Reliability: 1.0
 - Why it matters: 
 
-## 3. Hermit: A uniform framework for harness and agent evolution
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/Infini-AI-Lab/hermit
-- Score: 3.51 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
-
-## 4. Can Frontier Models See Past a Decoy? Elorian Tests Visual Reasoning
-- Type: news | Source: latent_space
-- URL: https://latent.space/p/elorian/
-- Score: 3.422 | Reliability: 0.944
-- Why it matters: 
-
-## 5. NEAR Protocol Announces Launch of Kimi K3.1 Pro on AI Cloud
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiXEFVX3lxTE9tNkhBNVVLdHFIMDZKNkV3LUVxbzJwS1oxVkNoUlp2RmkwbmRkejBQWE4zb01Xejg4TnlRYlZyOU1jSVUxVFoxWmxJNnhIMElwdTJVVTBOSHNRMnMy?oc=5
-- Score: 3.206 | Reliability: 1.0
-- Why it matters: 
-
-## 6. How to build evidence-grounded agent memory with OpenWiki and Graphs
+## 4. How to build evidence-grounded agent memory with OpenWiki and Graphs
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/building-agent-memory-openwiki-graphs
-- Score: 3.146 | Reliability: 1.0
+- Score: 3.045 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. Why Agents Love Supabase
+## 5. Why Agents Love Supabase
 - Type: news | Source: latent_space
 - URL: https://latent.space/p/supabase/
-- Score: 3.096 | Reliability: 0.944
+- Score: 2.993 | Reliability: 0.944
 - Why it matters: Matches feed focus: agent.
 
-## 8. Presentation: Serving LLMs at Scale: The Hidden KV Cache Advantage
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/presentations/llm-inference-kv-cache/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.655 | Reliability: 1.0
-- Why it matters: 
-
-## 9. How AI agents shape experts’ judgment calls
+## 6. How AI agents shape experts’ judgment calls
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/agents-judgment-calls
-- Score: 2.605 | Reliability: 1.0
+- Score: 2.569 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 10. Can LLMs Uncover Hidden Physical Laws through Free Exploration?
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.37649v1
-- Score: 2.599 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+## 7. CASEL: Consequence-Aware Selective Execution for Reliable Long-Horizon Tool-Using Agents
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.36570v1
+- Score: 2.526 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 8. How to Build Proactive, Always-On Agents with the Schedules SDK in Managed Deep Agents
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/proactive-agents
+- Score: 2.481 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 9. Can we trust LLMs to judge whether a research idea is novel?
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/allenai/novelty-bench
+- Score: 2.481 | Reliability: 1.0
+- Why it matters: 
+
+## 10. Scale agents securely with IAM Helper Agent Skills and MCP Tools
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/identity-security/scale-agents-securely-with-iam-helper-agent-skills-and-mcp-tools/
+- Score: 2.452 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation, claude code.
 
 ## 11. NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/nvidia/nemotron-transcribe-granary
-- Score: 2.572 | Reliability: 1.0
+- Score: 2.458 | Reliability: 1.0
 - Why it matters: 
 
-## 12. How to Build Proactive, Always-On Agents with the Schedules SDK in Managed Deep Agents
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/proactive-agents
-- Score: 2.569 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 13. Article: The Evolution of Agentic Harnesses: From Chains to Graph to Code
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/articles/agentic-ai-architecture-harness-evolution/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.562 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness.
-
-## 14. Understanding the limits of latent world models
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2610.37588v1
-- Score: 2.559 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 15. Genie 4: A new generation of world simulation
+## 12. Genie 4: A new generation of world simulation
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/
-- Score: 2.385 | Reliability: 1.0
+- Score: 2.412 | Reliability: 1.0
 - Why it matters: 
 
-## 16. Gemini 4 Carbon: Our next frontier model
+## 13. Artificial Analysis v5 and the benchmarker's dilemma
+- Type: news | Source: interconnects
+- URL: https://www.interconnects.ai/p/artificial-analysis-v5-and-the-benchmarkers
+- Score: 2.405 | Reliability: 1.0
+- Why it matters: 
+
+## 14. Gemini 4 Carbon: Our next frontier model
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model/
-- Score: 2.245 | Reliability: 1.0
+- Score: 2.194 | Reliability: 1.0
 - Why it matters: 
+
+## 15. codex rust-v0.166.0-alpha.6
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.6
+- Score: 2.172 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 16. claude-code v2.1.312
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.312
+- Score: 2.094 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
 
 ## 17. The future of the firm
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/the-future-of-the-firm
-- Score: 2.126 | Reliability: 1.0
+- Score: 2.079 | Reliability: 1.0
 - Why it matters: 
 
-## 18. claude-code v2.1.312
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.312
-- Score: 2.093 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 19. codex 0.166.0-alpha.5.1
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.5.1
-- Score: 1.791 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 20. Patch the Planet: global response coordination as agents uncover critical vulnerabilities
+## 18. How Check Point accelerates vulnerability research with Daybreak
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities
-- Score: 1.607 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+- URL: https://openai.com/index/check-point-daybreak
+- Score: 1.946 | Reliability: 1.0
+- Why it matters: 
 
-## 21. Cloudflare links vulnerability discovery to defense with OpenAI
+## 19. ChatGPT’s expanding world of work
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/cloudflare-cyber
-- Score: 1.592 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
+- URL: https://openai.com/index/chatgpt-expanding-world-of-work
+- Score: 1.792 | Reliability: 1.0
+- Why it matters: 
 
-## 22. langgraph-sdk==0.4.9
+## 20. langgraph==1.2.18
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.9
-- Score: 1.217 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.18
+- Score: 1.496 | Reliability: 1.0
 - Why it matters: 
 
-## 23. claude-agent-sdk-python v0.2.172
+## 21. claude-agent-sdk-python v0.2.172
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.172
-- Score: 0.895 | Reliability: 1.0
+- Score: 0.882 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 24. tencent/WeVisOne-VL-2B released on Hugging Face
+## 22. tencent/WeVisOne-VL-2B released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
 - URL: https://huggingface.co/tencent/WeVisOne-VL-2B
-- Score: 0.856 | Reliability: 1.0
+- Score: 0.855 | Reliability: 1.0
+- Why it matters: 
+
+## 23. vllm v0.33.0rc0
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc0
+- Score: 0.818 | Reliability: 1.0
 - Why it matters:
