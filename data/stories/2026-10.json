@@ -127,6 +127,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9QbGkyZlUzZ0NZREhreFk4azNtdUN6eFBLYUl6SnZ4bmFvTVVKeG05a1hVYXh2aUhwTGdqSWtoMWtSTlQ0cTlRZjF0YnJsYm9VS0VuMFktYkMzOEQ2OHI4dUREZUIwcmlLVFlETzEtZkk4YVU?oc=5"
  },
+ "0257840f3a9ef9c6": {
+  "first_seen": "2026-10-28T02:03:27.054866+00:00",
+  "id": "b973cad58ef48992",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-27T09:43:21+00:00",
+  "sid": "0257840f3a9ef9c6",
+  "source": "arxiv_cs_cl",
+  "summary": "When the sources retrieved for a query disagree, the right response depends on why they disagree: a question with several valid answers, a contested topic, stale information and a false source each call for different behaviour. Cattan et al. (2025) showed that telling a generator the conflict type improves its responses by about 24 points, but that predicting the type is hard even for frontier LLMs. We study whether typed decision models, which return probabilities over fixed options in a single forward pass instead of generating text, can do this classification fast and cheaply. Using the CONFLICTS benchmark and the original paper's prompt verbatim, we evaluate all 11 decision models served by one commercial inference gateway, from 7 providers, against Gemini models on identical inputs. Asked directly, the decision models reach 50.0--67.0% accuracy; 10 of the 11 match or exceed Gemini 2.5 Flash, the paper's model (61.3%), at 4--39x lower billed cost (2 were free) and 2.6--6.0x lower latency. The current Gemini 3.8 Flash (70.0%) is significantly more accurate than 8 of them, but sending each decision model's least confident quarter of queries to it gives a cascade statistically tied with it for 8 of the 11, at 25--37% of its cost. End to end, answers generated with the types of 10 of the 11 follow the expected behaviour as often as with the LLM's types. Decomposing the taxonomy into yes/no questions lowers accuracy for every model, and a repair fitted on one model does not tr",
+  "summary_1line": "When the sources retrieved for a query disagree, the right response depends on why they disagree: a question with several valid answers, a contested topic, stale information and a false source each call for different...",
+  "title": "Do We Need an LLM to Know Why Sources Conflict? Decision Models for Knowledge-Conflict Typing in RAG",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.36915v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "02a20fdf8ff0273f": {
   "first_seen": "2026-10-23T22:05:00.039600+00:00",
   "id": "b41239c40d0a78d8",
@@ -4043,6 +4059,23 @@
   "url": "http://arxiv.org/abs/2610.30947v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "334116357c766a21": {
+  "first_seen": "2026-10-28T02:03:27.054866+00:00",
+  "id": "b8ac5436a0a73f63",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-10-27T07:14:59+00:00",
+  "sid": "334116357c766a21",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Multilingual multi-hop document question answering (MMHop-DocQA) requires locating and integrating evidence across complex layouts, document pages, and diverse languages. Existing approaches include single-pass processing and adaptive tool use, but learning to coordinate evidence acquisition, cross-page integration, and answer verification remains challenging. To address this challenge, we present DocSkill, an agentic framework with a learned skill-orchestration policy for adaptive evidence acquisition and reasoning. The policy selects, revisits, or skips skills according to the evolving evidence state. To construct supervision for skill orchestration, bounded Monte Carlo Tree Search (MCTS) explores alternative skill trajectories offline. These trajectories provide demonstrations for supervised fine-tuning (SFT) and preference pairs for Direct Preference Optimization (DPO). We further introduce MMHop-DocBench, a multilingual multi-hop document QA dataset with training and test splits, containing 60K QA pairs across 10 languages and eight document domains. Its HopGen pipeline builds hierarchical page-element graphs to derive traceable cross-page evidence paths and generate grounded QA pairs with page- and element-level evidence annotations. Experiments show that DocSkill with Qwen3-VL-8B achieves 41.0 accuracy and 49.2 F1 on MMHop-DocBench, exceeding the strongest evaluated baseline by 5.5 and 6.3 points, respectively, and achieving competitive performance on MMLongBench-Doc a",
+  "summary_1line": "Multilingual multi-hop document question answering (MMHop-DocQA) requires locating and integrating evidence across complex layouts, document pages, and diverse languages. Existing approaches include single-pass proces...",
+  "title": "DocSkill: Skill-Integrated Agentic Reasoning for Multilingual Multi-Hop Document Question Answering",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.36759v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "3350873d5a74ce41": {
   "content_excerpt": "Download from Github releases and run. Uses portable executables so no install is required. Note: the MacOS build is unsigned because I am not spending US$99/year for an Apple developer account Quill uses the work done by the Zed editor , utilizing their cross platform gpui-kit . Simply put, gpui leverages native APIs (Metal, Vulkan and DirectX) to draw the UI. You can think of it as using a game engine to render a UI, except it only renders frames when things are moving, ensuring power usage / battery life is unaffected. It renders frames at your screen's refresh rate (e.g. 144fps) so the experience is buttery smooth. All the current desktop harnesses are built on top of Electron (basically a full-fat dedicated clone of Chrome running only one website). Conventionally, this is done to minimize the friction associated with cross-platform application development and be competitive in feature delivery. Essentially, sacrifice a little user experience in exchange for the ability to move faster than competitors. In my view, harnesses have reached a level of maturity now where the features we expect from them are well enough defined. In addition, there is no longer the pressure to be a first mover in the Desktop Agent Harness space. I think we can now afford a high quality tool that respects your computers resources while also supporting all model providers. Additionally, the technology powering Quill means that adding features is not so hard that it justifies an Electron build. I ",
   "first_seen": "2026-10-26T07:04:46.351581+00:00",
@@ -6653,6 +6686,22 @@
   "title": "DIAL: Steerable Language Models with Distilled Instruction-Adherence Levels",
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.31438v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "52897c76c61a9c65": {
+  "first_seen": "2026-10-28T02:03:27.054866+00:00",
+  "id": "6504ff0431f41cbc",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-27T09:53:21+00:00",
+  "sid": "52897c76c61a9c65",
+  "source": "arxiv_cs_cl",
+  "summary": "Multimodal transformer models have driven unprecedented performance breakthroughs in modern document understanding. However, the inherent black-box nature of these models remains a major obstacle to their safe deployment in high-stakes sectors. Despite significant progress in explainability for vision and language tasks, explainable AI (XAI) research tailored to multimodal document understanding has received little attention. To address this gap, we present \\ourframework{}, the first comprehensive explainability framework that adapts existing XAI methods and evaluation metrics to the multimodal (text, layout, and image) document understanding context, while introducing efficient multi-target adaptations of both methods and metrics for domain-specific tasks such as semantic entity recognition. Using \\ourframework{}, we systematically evaluate 13 XAI methods across 3 document understanding tasks, 8 datasets, 4 models, and 17 evaluation metrics, and find that only a few methods perform consistently across all evaluation criteria, with Occlusion emerging as the most faithful and interpretable method overall. Through a dedicated meta-evaluation, we observe moderate to strong agreement among several faithfulness and complexity metrics while identifying certain ones that produce unreliable results. Finally, through multiple dataset-wide diagnostic analyses, we uncover key insights into model behavior, including the contribution of individual modalities across tasks and labels, spati",
+  "summary_1line": "Multimodal transformer models have driven unprecedented performance breakthroughs in modern document understanding. However, the inherent black-box nature of these models remains a major obstacle to their safe deploym...",
+  "title": "DocXEval: A Systematic Evaluation of Explainability in Multimodal Document Understanding",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.36929v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
  "52a534c70d6da8fc": {
@@ -11462,8 +11511,8 @@
   "published": "2026-10-21T02:17:37+00:00",
   "sid": "9521b60b04aa1cbb",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Likes: 87, downloads: 155.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Likes: 87, downloads: 155.",
+  "summary": "New model weights from tencent on Hugging Face. Likes: 89, downloads: 155.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Likes: 89, downloads: 155.",
   "title": "tencent/Hy-Nomas released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Hy-Nomas"
@@ -13643,16 +13692,16 @@
  },
  "ae9829d15657b971": {
   "first_seen": "2026-10-28T01:04:13.596599+00:00",
-  "id": "6f4c1b3d25ec6c2b",
+  "id": "77a3da01f585df27",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-10-27T23:31:30+00:00",
+  "published": "2026-10-28T01:28:14+00:00",
   "sid": "ae9829d15657b971",
   "source": "openai_codex_releases",
   "summary": "Release 0.166.0-alpha.4",
   "summary_1line": "Release 0.166.0-alpha.4",
-  "title": "codex rust-v0.166.0-alpha.4",
+  "title": "codex 0.166.0-alpha.4",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
@@ -13728,6 +13777,23 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0-alpha.9",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "afb43d44186a1777": {
+  "first_seen": "2026-10-28T02:03:27.054866+00:00",
+  "id": "955612a2897b947f",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-27T08:23:46+00:00",
+  "sid": "afb43d44186a1777",
+  "source": "arxiv_cs_ai",
+  "summary": "Theory of Mind (ToM), the ability to infer others' beliefs, goals, and intentions, is a cornerstone of social intelligence. Multimodal ToM requires inferring an agent's mental state from evidence that is available to that agent, rather than from the complete episode observed by the solver. Existing LLM-based and Bayesian model-based approaches reconstruct global event traces, yet they do not explicitly distinguish objective events from agent-admissible evidence during hypothesis evaluation. Consequently, agent-inaccessible events or semantically misaligned actions and utterances may influence the inferred belief, goal, or social intention, leading to perspective leakage and source or route confusion. We formulate this limitation as an evidence-admissibility problem: evidence should contribute to a mental-state hypothesis only when it is accessible to the relevant agent, preserves its information source, and is diagnostic of the queried mental-state variable. To operationalize this principle, we propose PIP-ToM, an evidence-admissibility interface that constructs agent-specific evidence stores, aligns them with structured mental-state claims, and calibrates model-based hypothesis scores while preserving the underlying Bayesian inference process. PIP-ToM with GPT-4o outperforms existing ToM methods across MuMA-ToM, MMToM-QA, and Hi-ToM, achieving average accuracies of 92.56%, 95.00%, and 95.00%, respectively.",
+  "summary_1line": "Theory of Mind (ToM), the ability to infer others' beliefs, goals, and intentions, is a cornerstone of social intelligence. Multimodal ToM requires inferring an agent's mental state from evidence that is available to...",
+  "title": "Who Knows What - and What Does It Support? Perspective-Bounded Evidence Calibration for Multimodal Theory of Mind",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.36824v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "afd320e7f42ef5bd": {
   "first_seen": "2026-10-22T01:05:11.358681+00:00",
