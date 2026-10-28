@@ -986,12 +986,18 @@ def run_ranking(
     llm_cfg: dict[str, Any],
     source_health: dict[str, Any],
     judge_fn: Any | None = None,
+    pool_sink: Any | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     cfg = load_ranking_config()
     candidates, diag_a = stage_a_prefilter(items, cfg, profile, source_health)
     if judge_fn is not None:
         candidates, judge_diag = judge_fn(candidates)
         diag_a["judge"] = judge_diag
+    if pool_sink is not None:
+        # Hand the post-judge Stage A pool to the caller (judged_pool.py
+        # persists it for the editor decks). Observation only: the list is
+        # not modified and ranking continues on the same candidates.
+        pool_sink(candidates)
     slotted = assign_slots(candidates, cfg)
     llm_budget = int(cfg.get("llm_budget", 40))
     selected_by_slot, diag_c = stage_c_score_and_select(slotted, cfg, llm_budget)

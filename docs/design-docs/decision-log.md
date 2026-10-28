@@ -2610,3 +2610,38 @@ Revert `pipeline/judgment_store.py`, `pipeline/editorial_judge.py`,
 `pipeline/deck_quality.py`, `config/judge.yaml`, and `config/ranking.yaml` for a
 full rollback. Reverting the version also makes the v2 judgments unreachable;
 they prune in 14 days.
+
+## 2026-10-29 - Persist the judged candidate pool for the editor decks
+
+Decision: After every edition build, record the whole post-Jev Stage A pool
+(judged and unjudged), with edition membership, in the committed per-day
+`data/quality/pool/<run-date>.json` (`pipeline/judged_pool.py`, fed by a new
+optional `run_ranking(pool_sink=...)`). Keep 14 days
+(`prune_runtime_data.py --pool-days`). This is Phase 1 of
+`docs/exec-plans/active/2026-10-29-deck-candidate-selector.md`.
+
+Rationale: The daily and weekly recap bundles read only the ranked 24-item
+editions, so recap recall is capped by feed layout (slot caps, time decay,
+the 24-item merge), not by quality. On 2026-10-24, nine Hacker News items the
+judge kept never reached an edition because `community_signal` holds four,
+and no recap could pick them; on 2026-10-27, 134 non-release keeps were
+published, 79 reached an edition, and 37 reached the daily bundle. The full
+judged pool exists during a build but is lost: `data/quality/classified/` is
+gitignored and the runner is ephemeral, and the committed
+`data/processed/classified.json` holds only the latest build's top 120. A
+budgeted deck selector and a recall baseline both need the pool across a day
+and a week. The pool lives under `data/quality/` because that directory is
+already excluded from the Vercel deployment; `data/processed/` is bundled into
+the feed function.
+
+Impact: No change to ranking, the feed, or any deck bundle. One extra file
+write per build and a `judged_pool written=... items=... in_edition=...` log
+line. A local replay on committed raw data wrote 140 rows (about 140 KB); a
+full day with judge fields is expected around 0.4-0.7 MB, rewritten in place
+by each build and committed with the existing runtime data commit. The write
+never raises, so a pool failure cannot fail the feed build.
+
+Rollback: Remove `pool_sink=` from `pipeline/build_digest.py` (or the
+`record_judged_pool` call); the directory stops growing and prunes out within
+14 days. Revert `pipeline/judged_pool.py`, the `pool_sink` parameter in
+`pipeline/ranking.py`, and the `--pool-days` prune for a full rollback.

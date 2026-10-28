@@ -78,6 +78,23 @@ available to each function.
   is the shared artifact.
 - `data/quality/content_cache.json` — paragraph-extraction cache for the judge
   (canonical URL -> article paragraphs). Gitignored.
+- `data/quality/pool/<run-date>.json` — committed per-day judged candidate
+  pool for the editor decks, written by `pipeline/judged_pool.py` after every
+  edition build. Top level: `date`, `schema_version`, `runs`, `updated_at`,
+  `item_count`, `items` (keyed by normalized URL). Each row carries the item
+  identity (`id`, `title`, `url`, `source`, `source_role`, `type`,
+  `published`, `story_key`, `story_cluster_id`), the latest judge fields
+  (`judge_score`, `judge_verdict`, `judge_category`,
+  `judge_category_confidence`, `judge_signals`, `judge_evidence_chars`,
+  `judge_error`, model/rubric/judged_at), `prefilter_score`, `source_tune`,
+  `type` and `release_tier` (derived with the Stage C rules for items outside
+  the edition), `summary` (280 chars), `excerpt` (400 chars), `echo_count`/`source_count`
+  for clustered stories, `slot`, and run counters (`first_seen_run`,
+  `last_seen_run`, `runs_seen`, `edition_runs`, `best_edition_rank`,
+  `edition_slot`). Unjudged items are included without a score. Keyed by UTC
+  run date, so a deck reads the run dates covering its published window and
+  filters by `published`. Retention 14 days (`prune_runtime_data.py
+  --pool-days`). Not read by any API or the static build.
 
 ## Feed API (`/api/feed`)
 Response fields served from the accumulated ranked pool above:

@@ -18,3 +18,6 @@
   `docs/exec-plans/active/2026-06-25-agent-builder-foundations.md`
 - Run the three-result Agent Skill Lab pilot inside Playbook:
   `docs/exec-plans/active/2026-09-04-agent-skill-lab-pilot.md`
+- Select editor-deck candidates from the Jev-judged pool with a budgeted
+  min-cost-flow selector, measured by must-cover recall and alpha-nDCG:
+  `docs/exec-plans/active/2026-10-29-deck-candidate-selector.md`

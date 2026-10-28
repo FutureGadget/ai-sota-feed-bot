@@ -16,6 +16,7 @@ from dateutil import parser as dt_parser
 from content_fetch import build_content_map
 from editorial import apply_pre_ranking, write_editorial_artifact
 from editorial_judge import apply_judge
+from judged_pool import record_run as record_judged_pool
 from enrich import enrich_items, record_duplicate
 from llm_label import label_items, load_cfg as load_llm_cfg
 from llm_rerank import rerank_candidates
@@ -806,12 +807,14 @@ def run():
     try:
         from ranking import run_ranking
 
+        judged_pool_candidates: list[dict[str, Any]] = []
         ranked_items, ranking_diag = run_ranking(
             items_deduped,
             profile,
             load_llm_cfg(),
             source_health,
             judge_fn=apply_judge,
+            pool_sink=judged_pool_candidates.extend,
         )
         ranking_diag["editorial"] = editorial_diag
         judge_diag = ranking_diag.get("judge", {}) or {}
@@ -870,6 +873,16 @@ def run():
 
         run_at_iso, run_file = write_run_snapshot(ranked_items)
         print(f"digest_items={len(ranked_items)} file={out} run_at={run_at_iso} run_file={run_file}")
+        pool_diag = record_judged_pool(judged_pool_candidates, ranked_items, run_at=run_at_iso)
+        print(
+            "judged_pool "
+            f"written={int(bool(pool_diag.get('written')))} "
+            f"items={pool_diag.get('items', 0)} "
+            f"run_candidates={pool_diag.get('run_candidates', 0)} "
+            f"in_edition={pool_diag.get('in_edition', 0)} "
+            f"judged={pool_diag.get('judged', 0)} "
+            f"reason={pool_diag.get('reason', 'ok')}"
+        )
         if telemetry is not None:
             telemetry.capture(
                 "feed_build_completed",
