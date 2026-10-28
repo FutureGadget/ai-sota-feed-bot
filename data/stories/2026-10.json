@@ -443,6 +443,23 @@
   "url": "https://www.infoq.com/presentations/doordash-genai-platform-architecture/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "05e978357c86a007": {
+  "first_seen": "2026-10-28T18:07:07.688450+00:00",
+  "id": "963dd960d7d548a3",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-27T15:17:04+00:00",
+  "sid": "05e978357c86a007",
+  "source": "arxiv_cs_cl",
+  "summary": "We describe the agent we submitted to the GLEE Competition, which plays bargaining, negotiation, and persuasion games against a shared pool of human and AI opponents. The agent is built around three central components: a classical game-theoretic solver to compute numeric moves, an online Bayesian layer to estimate opponent archetypes, and a language model to write accompanying messages. We utilize Rubinstein bargaining for bargaining, Faratin concession for negotiation, and Kamenica--Gentzkow disclosure for persuasion, and adapt those models to live opponents using two separate layers: a Bayesian estimate of the opponent's hidden discount factor, reservation value, or signaling reliability, and a Thompson sampling bandit over five moral-foundation framings coupled with an evidence-intuition spectrum to establish message register. Most of the development effort went into the recurring problem that theoretically optimal policies perform poorly in certain live settings; we report associated failure modes, guardrails we built, and our hypotheses. We additionally evaluate our model over 13,200 Monte Carlo games against 11 synthetic opponent archetypes, an ablation of the opponent-modeling layer, and an extensive analysis of 9,337 live-game messages in which moral rhetoric framing in the persuasion setting is strongly correlated with whether the buyer purchased ($χ^2=616.7$, $p \\approx 3.7\\times10^{-132}$), surviving controls for quality, round, and configuration.",
+  "summary_1line": "We describe the agent we submitted to the GLEE Competition, which plays bargaining, negotiation, and persuasion games against a shared pool of human and AI opponents. The agent is built around three central components...",
+  "title": "Game-Theoretic Solvers with Bayesian Opponent Modeling and Moral Rhetoric Framing for GLEE",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37397v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "061d9307dbaaeca5": {
   "first_seen": "2026-10-05T11:04:07.064357+00:00",
   "id": "363e4f5fb9df6f63",
@@ -746,6 +763,22 @@
   "title": "Show HN: Resin, fast native scheduler for LLM inference engines",
   "type": "news",
   "url": "https://github.com/ekzhang/resin"
+ },
+ "0a5faf62cd8e648c": {
+  "first_seen": "2026-10-28T18:07:07.688450+00:00",
+  "id": "54ba825f109f7b14",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-10-28T17:38:55+00:00",
+  "sid": "0a5faf62cd8e648c",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.166.0-alpha.5.1",
+  "summary_1line": "Release 0.166.0-alpha.5.1",
+  "title": "codex rust-v0.166.0-alpha.5.1",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.5.1",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "0aa3e910422d022d": {
   "first_seen": "2026-10-26T08:08:31.949160+00:00",
@@ -5990,6 +6023,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.23707v1",
   "why_it_matters": "Matches feed focus: agent, eval, codex."
+ },
+ "48a3e56eac3b4ba8": {
+  "first_seen": "2026-10-28T18:07:07.688450+00:00",
+  "id": "d68430f6062231d4",
+  "published": "2026-10-27T13:38:28+00:00",
+  "sid": "48a3e56eac3b4ba8",
+  "source": "arxiv_llm_reliability",
+  "summary": "Large language models are widely used as judges of model outputs (LLM-as-a-Judge), but they are costly and can hallucinate or be overconfident. Decision models are a potential alternative. They return a predefined verdict with a probability for each label instead of free-form text and are much cheaper and faster. We test this promise on hallucination detection. We build binary benchmarks for five hallucination types (9,852 items from six datasets) and compare five decision models with the generative judge gpt-6-sol. Performance depends strongly on the type: the best decision model matches gpt-6-sol in balanced accuracy on context inconsistency and comes within 3 percentage points on factual errors, but trails it by 4-8 points on logical and instruction inconsistency. Decision-model probabilities are overconfident, though less so than the GPT-6 models, and separate correct from incorrect decisions only moderately. We also find that a confidence cascade of decision models improves on the best single model by 1.9-3.3 points on three types and matches or exceeds gpt-6-sol at 1-3% of its cost. Overall, decision models are a practical low-cost judge for some hallucination types but need to be validated before use.",
+  "summary_1line": "Large language models are widely used as judges of model outputs (LLM-as-a-Judge), but they are costly and can hallucinate or be overconfident. Decision models are a potential alternative. They return a predefined ver...",
+  "title": "Decision Models as Judges for Hallucination Detection",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37229v1"
  },
  "48b3c835a1750945": {
   "first_seen": "2026-10-16T13:04:18.029439+00:00",
@@ -16476,6 +16521,23 @@
   "url": "http://arxiv.org/abs/2610.23610v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "c2494667117d789f": {
+  "content_excerpt": "If you want to compete, you need to be multi-model. And if you want to take advantage of everything that different AI models have to offer, you need a great harness. But building one that works seamlessly across multiple models and surfaces is incredibly hard. You need to solve for performance, quality, and cost. And then you have to maintain it, which is even harder. Luckily, the GitHub engineering team built a best-in-class, truly multi-model harness , which we’ve adopted company-wide. The Microsoft Copilot harness powers Copilot Code, Copilot Studio, the GitHub Copilot app, the CLI, VS Code, and more. And today, we’re making that harness available through Microsoft Foundry . That gives developers and enterprise customers a fully managed way to build agents that reason, use tools, and complete complex, long-running tasks. You get the right model for the job without switching the harness or the rest of your tech stack. That frees up your time, energy, and resources to focus on your bottom line. If the model supplies the intelligence, the harness is everything around the model. It’s the orchestration layer that gives an agent the right instructions, context, execution environment, and controls to accomplish meaningful work. And a harness worth its salt has support for open standards like MCP and agent skills, as well as agent plugins. This is a fast-moving space. A frontier model today might fall behind tomorrow. And building your own harness or model router to keep up can be",
+  "first_seen": "2026-10-28T18:07:07.688450+00:00",
+  "id": "265bbe40cbb1d4af",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-10-28T18:04:17+00:00",
+  "sid": "c2494667117d789f",
+  "source": "hackernews_ai",
+  "summary_1line": "Microsoft makes its Copilot agent harness available through Foundry",
+  "title": "Microsoft makes its Copilot agent harness available through Foundry",
+  "type": "news",
+  "url": "https://blogs.microsoft.com/blog/2026/10/28/introducing-the-microsoft-copilot-harness-unlocking-the-potential-of-truly-multi-model-agentic-work",
+  "why_it_matters": "Matches feed focus: agent, harness."
+ },
  "c2af20c8a5f5229d": {
   "first_seen": "2026-10-19T07:03:19.260512+00:00",
   "id": "2a37a52431d9a05f",
@@ -19332,6 +19394,18 @@
   "title": "Akka Tests Spec-Driven AI Delivery across 65 Open Source Projects",
   "type": "news",
   "url": "https://www.infoq.com/news/2026/10/ai-spec-driven-delivery/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
+ "e2ed7680c50ae3f0": {
+  "first_seen": "2026-10-28T18:07:07.688450+00:00",
+  "id": "372defbbd636f889",
+  "published": "2026-10-28T10:00:00+00:00",
+  "sid": "e2ed7680c50ae3f0",
+  "source": "openai_blog",
+  "summary": "How AI might enter the org chart—beneath, beside, and between us.",
+  "summary_1line": "How AI might enter the org chart—beneath, beside, and between us.",
+  "title": "The future of the firm",
+  "type": "news",
+  "url": "https://openai.com/index/the-future-of-the-firm"
  },
  "e324dd21c8b455f3": {
   "first_seen": "2026-10-08T10:04:54.581798+00:00",
