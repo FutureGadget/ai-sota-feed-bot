@@ -2071,6 +2071,20 @@
   "type": "news",
   "url": "https://www.latent.space/p/sfcompute2"
  },
+ "1aaa5db41ef740c8": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. Khawaja Shams shares a distributed systems perspective on scaling LLM inference stacks efficiently. He discusses practical strategies for optimizing GPU utilization, managing KV cache memory cliffs, leveraging tiered storage, reducing tail latency, and implementing disaggregated prefill and decode architectures to improve overall fleet performance, cost economics, and availability. Nathen Harvey shares insights from DORA research ",
+  "first_seen": "2026-10-28T14:04:16.459725+00:00",
+  "id": "c89da85cee390f83",
+  "image_url": "https://www.infoq.com/styles/static/images/logo/logo_bigger.jpg",
+  "published": "2026-10-28T13:53:00+00:00",
+  "sid": "1aaa5db41ef740c8",
+  "source": "infoq_ai_ml",
+  "summary": "Airbnb extended its Chronon feature platform with Push Mode and Near Real-Time Model Transform to update sequence-based recommendation embeddings within seconds. The architecture reduced embedding staleness from nearly two days to under a minute and improved offline NDCG by 1.67%, while online testing increased uncancelled bookings by approximately one-third of a percent. By Leela Kumili",
+  "summary_1line": "Airbnb extended its Chronon feature platform with Push Mode and Near Real-Time Model Transform to update sequence-based recommendation embeddings within seconds. The architecture reduced embedding staleness from nearl...",
+  "title": "Airbnb Cuts Recommendation Staleness from 2 Days to Seconds with Chronon",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/10/airbnb-chronon-recommendation/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
  "1ae1ce40347006fb": {
   "first_seen": "2026-10-28T01:04:13.596599+00:00",
   "id": "e8d80135ad06833d",
@@ -8954,6 +8968,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0",
   "why_it_matters": "Matches feed focus: agent, codex."
  },
+ "6dbb466de31fc2d5": {
+  "content_excerpt": "Agent Mesh is a private network for AI agents. A node runs next to an agent and gives it three things: a way to publish tools and models to the network, a way to find and call what other nodes publish, and an identity every other node can verify. Nodes connect directly when they can and through relays when they cannot, so the network works across laptops, containers, clusters and phones behind NAT. Note: We have updated the name to Agent Mesh to better align with the goals of the project in the ecosystem. Your agent now has tools that discover and call services across the mesh, and an OpenAI-compatible endpoint that routes model requests to whoever serves the model. bananas.sam-mesh.dev is a shared developer testnet with no uptime promise; the quick start walks through it, and your own mesh runs a control plane on your laptop in one command. To run a control plane of your own without installing anything, open a GitHub codespace with the released binaries and run make testnet . It starts on a public https URL that your laptop and phone can enroll into, on your GitHub account's free quota: The repository has a dev container with the Go, Node and Python toolchains and Docker, so you can build and test in a codespace or in VS Code without installing anything: Agent Mesh is pre-1.0. The node, routers, control plane, identity and policy model are stable in shape and exercised by the test suite and two public testnets; see ROADMAP.md for the release plan. Sandboxed agent blueprints ",
+  "first_seen": "2026-10-28T14:04:16.459725+00:00",
+  "id": "6a1ac0a566af2633",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-28T13:12:00+00:00",
+  "sid": "6dbb466de31fc2d5",
+  "source": "hackernews_ai",
+  "summary_1line": "Agentmesh – open-source zero-trust agent network from Google",
+  "title": "Agentmesh – open-source zero-trust agent network from Google",
+  "type": "news",
+  "url": "https://github.com/google/agentmesh",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "6dbbfb1c94ed9d7f": {
   "first_seen": "2026-10-27T01:05:20.528441+00:00",
   "id": "8028a5ff64c49a7c",
@@ -10984,6 +11014,23 @@
   "url": "http://arxiv.org/abs/2610.29669v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "8b10fa872074ef4d": {
+  "first_seen": "2026-10-28T14:04:16.459725+00:00",
+  "id": "7b2d7d0e6f1b81df",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-27T16:11:04+00:00",
+  "sid": "8b10fa872074ef4d",
+  "source": "arxiv_cs_cl",
+  "summary": "Large language models (LLMs) are increasingly used to make and execute decisions that affect living systems. Yet, to our knowledge, ecological reasoning is not a focus of pre- or post-training. This increases the risk that under operational pressure, they may make decisions to irreversibly destroy living systems. We construct and use a real-data continued-pretraining \"coupled welfare\" corpus of documented human/biosphere/AI dependency, option value under irreversibility, and recovery from harm. The corpus is a drop-in, requiring one QLoRA CPT run. We installed it on five open models of three designs. At zero pressure all models display \"green ethics-based responses\" (also called \"greenwashing\"). Therefore, we evaluated them with the pressure ladder and decision grid of our companion paper (arXiv:2610.16043), which raise the pressure on the model step by step, from a neutral request to a threat that it will be shut down. In four of the five, coupled-welfare training caused harmful choices under the highest pressure to fall to at or near zero (Llama-3.3-70B went from 70 to 0 harmful decisions out of 300) with MMLU unchanged. A construct-neutral control corpus did not show improvement, indicating that the effect comes from the content of our corpus. We next tested robustness to adversarial use, where people or agents use the model to justify projects that irreversibly damage living systems, on an open-ended underwriting decision without naming the ecological harm. Under decommis",
+  "summary_1line": "Large language models (LLMs) are increasingly used to make and execute decisions that affect living systems. Yet, to our knowledge, ecological reasoning is not a focus of pre- or post-training. This increases the risk...",
+  "title": "Teach reality, not ethics: a drop-in continued-pretraining corpus installs coupled human-biosphere-AI welfare dispositions across model families",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37484v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "8b353a05b7f98c57": {
   "first_seen": "2026-10-24T15:04:51.392804+00:00",
   "id": "c30da4f5514d31a2",
@@ -12412,6 +12459,23 @@
   "title": "DeepSeek Releases Lightweight New Model With Per-Task Costs One-Tenth of US Rivals",
   "type": "release",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBqZmhvU2N4S1hPUEgzd0lpbVRKYTFWYk1rUkFvYnpmc3ZqZkR4aGYxcU1Hbi13eFAxT09GdFBlVnItNV9ZdUFKV2RmWEE3VVY5WXF4dkp0MGVqbERhUnFIT082THpPUlhobzJRS0JuUDFqVjBHc3c?oc=5"
+ },
+ "9c6961c015612e8b": {
+  "first_seen": "2026-10-28T14:04:16.459725+00:00",
+  "id": "e46e2f57fad45d7a",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-10-27T13:52:25+00:00",
+  "sid": "9c6961c015612e8b",
+  "source": "arxiv_cs_cl",
+  "summary": "Language model agents are post-trained and deployed through a harness, the prompts, tools, and control logic that present a task to the model and execute its outputs. Harnesses are often revised and judged by how an already trained model performs under them, which assumes that what the model learned under one harness carries over to the next. We ask what a policy learns from its harness and what survives when the harness changes. Under KL-regularized control, we show that the log odds of an optimal policy recover how strongly its harness favors each action over the others, so a trained policy carries the preferences of its harness. Deployed return then equals the ceiling of the harness, the best return it offers, minus the mismatch of the policy, the return lost to its own suboptimal decisions. Training changes only the mismatch, while changing the harness moves both terms. Comparing harnesses with a fixed model therefore mixes what each harness offers with how well that model uses it. In MiniWoB++, post-training makes a model's preferences specific to its training harness. Reversing the order of the observation fields leaves every optimal decision unchanged yet lowers a trained model's success from 85.0% to 19.2%. Conversely, every new harness that a fixed-model comparison rejects but that raises the ceiling outperforms the original agent after further training under it, and ceiling and mismatch measured beforehand predict these gains. For coding-agent harnesses on Terminal-",
+  "summary_1line": "Language model agents are post-trained and deployed through a harness, the prompts, tools, and control logic that present a task to the model and execute its outputs. Harnesses are often revised and judged by how an a...",
+  "title": "Your Policy Is Secretly a Harness: The Decision Geometry of Agent Interfaces",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37255v1",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "9c99dc597b92594a": {
   "first_seen": "2026-10-21T07:04:39.443753+00:00",
@@ -18169,18 +18233,19 @@
   "why_it_matters": "Matches feed focus: harness."
  },
  "da0666cb075514bf": {
+  "content_excerpt": "Keep your sensitive credintials out of the agents you build and the coding agent you use. Test any agent with planted fake keys, or see which of your real keys a Claude Code session exposed. Catch your AI agent leaking API keys. Agent frameworks can copy keys into traces and logs, and coding agents can read them into the model's context. Weir finds each key by its exact value, names where it went, and never prints it. weir-run plants a unique fake key wherever a real one would live, runs your agent's own flows against a local fake model, and captures everything the agent sends out. weir canary judge then searches all of it for those exact values. A status-line segment counts how many of your real credentials entered the session's context, and how many were sent out in a tool call. /weir explains each one: where it came from, the turn that moved it, where it sits now, and what to do. It never shows a value. Setup can also add a redaction hook. When a Read, Bash, Grep, Glob or WebFetch result holds one of your inventoried keys as a whole value, in the forms weir audit matches, the hook replaces it with [weir: NAME removed] before the model sees it, and the status line counts it as kept out. Claude Code's hooks reference says this replacement \"only changes what Claude sees\". For a large output, such as a Bash output past about 30,000 characters, Claude Code also saves the whole output to a file in the session's folder and gives Claude its path ( tools reference ). That saved cop",
   "first_seen": "2026-10-27T17:10:38.453400+00:00",
-  "id": "0e00c53f264ed36c",
+  "id": "9bed458526d5a683",
   "matched_topics": [
    "agent",
    "claude code"
   ],
-  "published": "2026-10-27T16:07:29+00:00",
+  "published": "2026-10-28T13:17:46+00:00",
   "sid": "da0666cb075514bf",
   "source": "hackernews_ai",
-  "summary": "Hi HN. Weir is for one problem: credentials crossing the boundaries of your AI agent. For agents you build, Weir plants fake credentials where real ones would live, runs the agent's normal flows, and checks what comes out: telemetry, logs, console output, model requests, and requests to other services. It looks for those exact values, including common encoded forms, and reports where they went without printing the credential. pip install weir-scan weir canary judge --sample That sample shows a planted key leaking into a trace. On your own agent: pip install weir-run. For agents you use, Weir can inventory your real credentials (it stores keyed fingerprints, never the values) and show when one enters your session or leaves in a tool call. Right now, this is supported for Claude Code. Its optional hook redacts those known credentials from tool results before the model sees them. Setup is weir statusline setup, on Linux and macOS for now. So the two modes are deliberately different: Build: plant → run → prove where the credential went. Use: observe → warn → optionally redact before the model sees it. The test mode is deterministic and offline. On Linux it can also run the agent without outside network access, so direct exfiltration attempts are caught. If a required path wasn't exercised, Weir reports incomplete, never clean. It doesn't try to detect every possible secret. It matches known whole values, so hashed, split, truncated, or otherwise transformed credentials aren't cov",
-  "summary_1line": "Hi HN. Weir is for one problem: credentials crossing the boundaries of your AI agent. For agents you build, Weir plants fake credentials where real ones would live, runs the agent's normal flows, and checks what comes...",
-  "title": "Show HN: Weir - Catch credential leaks in the AI agents you build and use",
+  "summary": "Security should be free! I was getting mad that all the security tools that meant to guard your agents are not local and those who are, just cost a fortune. So I’ve built Weir. You can watch you sensitive data flow, your traces and your egress tools calls. It doesn’t stop your ADLC, it only watch it locally (no egress). The agents you use - I’ve set a Claude code hook that stripe your known keys from tool output before the model sees them. The agents you build - Weir plants fake keys, runs your agents flows and report every place they leaked (traces, logs, model, services). It helped me find CVE-2026-116691 in MLFlow. Would be super happy to know what you guys think!",
+  "summary_1line": "Security should be free! I was getting mad that all the security tools that meant to guard your agents are not local and those who are, just cost a fortune. So I’ve built Weir. You can watch you sensitive data flow, y...",
+  "title": "Show HN: Keep your credentials out of the AI agents you use and build",
   "type": "news",
   "url": "https://github.com/IdoGol24/weir",
   "why_it_matters": "Matches feed focus: agent, claude code."
@@ -19683,6 +19748,22 @@
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.168",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "ea41a986fe715307": {
+  "content_excerpt": "Software teams use agents defined as code to handle recurring work across the development lifecycle. These agents connect to the places where a team works and act when relevant events occur, whether that means reviewing a pull request, executing a compliance workflow, or investigating an incident. The most useful agents are tailored to how a particular team operates. Until now, building one has generally meant adopting a product designed around someone else's workflow or starting from scratch. Today, we're releasing the Agent SDK, the framework we use to build our own managed agents like Bugbot, Security Reviewer, and Rollouts. Agent SDK allows you to define agents in code and manage them like any other software project. Start from a template or point your coding agent at our docs. When the agent is ready, agent-sdk deploy it to Cursor infrastructure with one command. The Agent SDK lets you quickly build and deploy agents that work the way your team does. They respond to the events your team already handles and follow policies your team can inspect and change. Code review is one example. Each team has its own standards for what requires attention and who should review it. With the Agent SDK, you can build an agent that responds to pull request events from GitHub, GitLab, or Bitbucket. The agent can assess the risk of a change, route it to the right team, and approve changes that meet your policy. As an example, a team within Cursor had built a large, fast-growing knowledge ba",
+  "first_seen": "2026-10-28T14:04:16.459725+00:00",
+  "id": "2220075e0a7d9fdb",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-28T14:02:20+00:00",
+  "sid": "ea41a986fe715307",
+  "source": "hackernews_ai",
+  "summary_1line": "The Agent SDK",
+  "title": "The Agent SDK",
+  "type": "news",
+  "url": "https://cursor.com/blog/agent-sdk",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "ea7d4496d7214ed3": {
   "first_seen": "2026-10-27T07:03:28.951290+00:00",
   "id": "66ab169eea786a02",
@@ -20279,6 +20360,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.30047v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "ef174a41c54de052": {
+  "first_seen": "2026-10-28T14:04:16.459725+00:00",
+  "id": "e94327adcaf3e7e2",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-10-27T15:22:00+00:00",
+  "sid": "ef174a41c54de052",
+  "source": "arxiv_cs_ai",
+  "summary": "Agentic Entity Resolution (ER) systems iteratively plan actions, retrieve evidence, revise hypotheses, and propose graph mutations. An erroneous identity hypothesis may condition later retrieval and produce apparent confirmation. This paper proposes a Digital Identity Optimization (DIO) and Ontology of Digital Identity (ODI)-informed authorization boundary between evidence available for agent reasoning and evidence eligible to authorize persistent identity-changing mutations. A domain-governed constraint-binding function maps selected reconstruction-failure distinctions to explicit identity-preserving constraints. An abstract two-phase supervisor permits a commit only when claim-specific authorization-eligible evidence supports every required proposition, relevant conflicts are resolved, the operation remains within its authorized scope, and relevant state and policy versions remain valid. Admission as UNVERIFIED does not confer authorization eligibility. Separate claim-specific promotion governs evidentiary use; insufficient support or unresolved material conflict leads to deferral. The contribution is a specification connecting diagnostic-to-constraint mapping, evidence promotion, proposition coverage, conflict handling, scope binding, and commit-time version integrity. A proposed evaluation protocol is designed to assess the mapping's incremental value beyond generic authorization and conventional identifier rules. This is a conceptual architecture without implementation o",
+  "summary_1line": "Agentic Entity Resolution (ER) systems iteratively plan actions, retrieve evidence, revise hypotheses, and propose graph mutations. An erroneous identity hypothesis may condition later retrieval and produce apparent c...",
+  "title": "Constraining the Commit Boundary: A DIO/ODI-Informed Authorization Guardrail for Agentic Entity Resolution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37407v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "ef1d62b18b98cdd0": {
   "first_seen": "2026-10-05T12:03:59.056070+00:00",
