@@ -1,27 +1,7 @@
 {
   "slug": "deepseek-deepinfer",
-  "generated_at": "2026-10-26T00:12:56.393036+00:00",
-  "covers_last_updated": "2026-10-22T02:20:21+00:00",
-  "covers_member_sids": [
-    "daa797ee94397435",
-    "db7388ca69770009",
-    "0714a9511cb60f66",
-    "6ca9e1ceeea5a770",
-    "be61663792fa0af3",
-    "861b6347e652747b",
-    "b7d3f6df6ecbe2c9",
-    "8da24ee4e99be00d",
-    "ecdc2bd2da306c52",
-    "249a6af86a1f4f73",
-    "9c99dc597b92594a",
-    "c928ee663a751a10",
-    "5a29dcd699a504fa",
-    "f6a301346a05e615",
-    "b3f4301ff8d83589",
-    "c1a5085521f06cf8"
-  ],
   "tldr": "DeepSeek said on Oct 20 it is open-sourcing DeepInfer, the software that serves its production models. Coverage first framed it as a way to cut AI operating costs, then as pressure on OpenAI and Anthropic.",
-  "whats_new": "Latent Space put numbers on DeepInfer on Oct 21: 155T tokens/day per cluster at roughly 80% margin and an 81-day payback, as reported by the newsletter.",
+  "whats_new": "No new DeepInfer coverage since Oct 21; Oct 22-26 items (agent evals, multi-agent and web-search papers) are unrelated and the efficiency claims remain unreproduced.",
   "why_it_matters": "A production-proven open inference stack gives platform teams a reference for serving cost and throughput that vLLM-style deployments can be benchmarked against.",
   "status": {
     "state": "Open-sourced",
@@ -29,7 +9,51 @@
     "changed": "2026-10-21",
     "detail": "DeepInfer is public; independent reproduction of the efficiency claims has not appeared yet."
   },
+  "open_questions": [
+    "Does an independent benchmark reproduce the 155T tokens/day and ~80% margin figures?",
+    "Which hardware backends does DeepInfer support outside DeepSeek's own clusters?",
+    "Which license terms govern commercial reuse of DeepInfer?"
+  ],
+  "take_for_builders": "Read the DeepInfer repo and license before changing a serving stack; treat the margin figures as unverified until someone reproduces them on non-DeepSeek hardware.",
+  "generated_at": "2026-10-28T00:13:31.601107+00:00",
+  "covers_last_updated": "2026-10-26T10:15:38+00:00",
+  "covers_member_sids": [
+    "0714a9511cb60f66",
+    "15d8452b1aef3259",
+    "249a6af86a1f4f73",
+    "378efdb4d515dcd8",
+    "520159e6ebe00b0f",
+    "5a29dcd699a504fa",
+    "5f97c21b490b1ce9",
+    "6ca9e1ceeea5a770",
+    "7c1fed0d11e9b516",
+    "861b6347e652747b",
+    "8da24ee4e99be00d",
+    "9c99dc597b92594a",
+    "ab569d5521da0961",
+    "b3f4301ff8d83589",
+    "b7d3f6df6ecbe2c9",
+    "be61663792fa0af3",
+    "c1a5085521f06cf8",
+    "c928ee663a751a10",
+    "daa797ee94397435",
+    "db7388ca69770009",
+    "ecdc2bd2da306c52",
+    "f6a301346a05e615"
+  ],
   "beats": [
+    {
+      "kicker": "CONTEXT",
+      "tone": "neutral",
+      "headline": "Earlier adjacent items clustered before the release",
+      "summary": "Not DeepSeek coverage: GitHub secret protection (Oct 7), recommender and quantum-code test papers (Oct 9), a mixed-hardware inference framework (Oct 18).",
+      "sids": [
+        "daa797ee94397435",
+        "ab569d5521da0961",
+        "15d8452b1aef3259",
+        "db7388ca69770009"
+      ]
+    },
     {
       "kicker": "ANNOUNCE",
       "tone": "launch",
@@ -66,23 +90,19 @@
     {
       "kicker": "CONTEXT",
       "tone": "neutral",
-      "headline": "Adjacent production-AI items clustered into the window",
-      "summary": "Not DeepSeek coverage: GitHub secret protection (Oct 7), a mixed-hardware inference framework (Oct 18), llm-d 1.0 (Oct 20), an Anthropic formal-verification result and a structure-grounded agent reasoning paper (Oct 22).",
+      "headline": "Later unrelated items in the window",
+      "summary": "Not DeepSeek coverage: llm-d 1.0 (Oct 20), an Anthropic formal-verification result, agent-reasoning and agent-eval pieces (Oct 22), multi-agent and web-search papers (Oct 25-26).",
       "sids": [
-        "db7388ca69770009",
         "0714a9511cb60f66",
-        "daa797ee94397435",
         "f6a301346a05e615",
-        "b3f4301ff8d83589"
+        "b3f4301ff8d83589",
+        "520159e6ebe00b0f",
+        "378efdb4d515dcd8",
+        "7c1fed0d11e9b516",
+        "5f97c21b490b1ce9"
       ]
     }
   ],
-  "open_questions": [
-    "Does an independent benchmark reproduce the 155T tokens/day and ~80% margin figures?",
-    "Which hardware backends does DeepInfer support outside DeepSeek's own clusters?",
-    "Which license terms govern commercial reuse of DeepInfer?"
-  ],
-  "take_for_builders": "Read the DeepInfer repo and license before changing a serving stack; treat the margin figures as unverified until someone reproduces them on non-DeepSeek hardware.",
   "day_captions": {
     "6ca9e1ceeea5a770": "First report: an open-source tool to cut AI operating costs.",
     "be61663792fa0af3": "Frames it as the software DeepSeek uses to run its models at scale.",
@@ -98,6 +118,12 @@
     "0714a9511cb60f66": "Separate open inference project, llm-d 1.0, released the same day.",
     "daa797ee94397435": "Unrelated GitHub post on scaling secret protection; no DeepInfer content.",
     "f6a301346a05e615": "Unrelated Anthropic research on LLM-driven formal verification; no DeepInfer content.",
-    "b3f4301ff8d83589": "Unrelated agent-reasoning paper clustered into the window."
+    "b3f4301ff8d83589": "Unrelated agent-reasoning paper clustered into the window.",
+    "ab569d5521da0961": "Unrelated recommender feature-deprecation paper; no DeepInfer content.",
+    "15d8452b1aef3259": "Unrelated quantum-code test benchmark; no DeepInfer content.",
+    "520159e6ebe00b0f": "Unrelated agentic-system evaluation post; no DeepInfer content.",
+    "378efdb4d515dcd8": "Unrelated multi-agent self-evolution paper; no DeepInfer content.",
+    "7c1fed0d11e9b516": "Unrelated multi-agent prompt-optimization paper; no DeepInfer content.",
+    "5f97c21b490b1ce9": "Unrelated web-search agent benchmark; no DeepInfer content."
   }
 }

@@ -1,9 +1,8 @@
 {
   "slug": "large-language",
-  "generated_at": "2026-10-26T00:12:56.393036+00:00",
-  "covers_last_updated": "2026-10-22T16:36:35+00:00",
+  "generated_at": "2026-10-28T00:13:33.919357+00:00",
+  "covers_last_updated": "2026-10-26T17:50:09+00:00",
   "covers_member_sids": [
-    "c47efdba3284bb9f",
     "13307002442ed537",
     "52d729da63596a31",
     "f0fd06585d59dd3d",
@@ -13,28 +12,24 @@
     "276a486ae6eefe6b",
     "8debe4581e047c88",
     "f07fa8132755e14c",
-    "c888971c48a268c3"
+    "c888971c48a268c3",
+    "5f97c21b490b1ce9",
+    "d5cd3db9b5f4a99b",
+    "26fc92a7573c4011",
+    "a2f964aa6fcbf7ea"
   ],
-  "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 6–21 items cover speculative-decoding security, knowledge-graph work, sycophancy, code-translation hallucinations, search agents, and materials extraction.",
-  "whats_new": "Oct 22 adds a spectral-intervention paper, an empirical KG-to-text benchmark, and a Bashkir parameter-efficient adaptation suite; none extends earlier items.",
-  "why_it_matters": "Treat this as a reading list, not a thread: the useful items for platform engineers are the speculative-decoding attack surface and code-translation hallucination mitigations.",
+  "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 9-22 items cover knowledge graphs, sycophancy, code-translation hallucinations, search agents, and spectral edits.",
+  "whats_new": "Oct 26 adds a long-horizon web-search benchmark with failure-node localization, a neuron-steering method, self-evolving KG reasoning, and Reva, a real-time vulnerability detector for generated code.",
+  "why_it_matters": "Treat this as a reading list, not a thread. For platform engineers the useful items are LongSearchEval (agent failure localization) and Reva (screening agent-written code), plus the code-translation hallucination catalog.",
   "beats": [
-    {
-      "kicker": "SECURITY",
-      "tone": "neutral",
-      "headline": "Speculative decoding and secure code generation get security-focused work",
-      "sids": [
-        "c47efdba3284bb9f",
-        "f0fd06585d59dd3d"
-      ]
-    },
     {
       "kicker": "KNOWLEDGE GRAPHS",
       "tone": "neutral",
-      "headline": "Knowledge graphs applied to observability and legal reasoning",
+      "headline": "Knowledge graphs applied to observability, legal reasoning and secure code",
       "sids": [
         "13307002442ed537",
-        "52d729da63596a31"
+        "52d729da63596a31",
+        "f0fd06585d59dd3d"
       ]
     },
     {
@@ -63,24 +58,35 @@
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
-      "headline": "Spectral interventions, KG-to-text benchmarking and Bashkir adaptation land Oct 22",
+      "kicker": "OCT 22",
+      "tone": "neutral",
+      "headline": "Spectral interventions, KG-to-text benchmarking and Bashkir adaptation",
       "sids": [
         "8debe4581e047c88",
         "c888971c48a268c3",
         "f07fa8132755e14c"
       ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Oct 26: long-horizon search evals, capability-preserving steering and real-time vulnerability screening",
+      "sids": [
+        "5f97c21b490b1ce9",
+        "d5cd3db9b5f4a99b",
+        "26fc92a7573c4011",
+        "a2f964aa6fcbf7ea"
+      ]
     }
   ],
   "open_questions": [
-    "Does the speculative-decoding defense add measurable latency over unprotected drafting?",
+    "Does independent replication confirm the spectral-intervention capability shifts?",
     "Do the code-translation mitigations hold on languages outside the paper's test set?",
-    "Does independent replication confirm the spectral-intervention capability shifts?"
+    "Does Reva's real-time screening keep false positives low enough to gate agent-written code?",
+    "Does CANS steering preserve general capability on models beyond those it was tested on?"
   ],
-  "take_for_builders": "If you run speculative decoding in production, read the Oct 6 security paper and check whether your draft model is an untrusted input; skip the rest unless it matches your domain.",
+  "take_for_builders": "If you run coding agents, read Reva and check whether per-function vulnerability screening could sit before review; if you run search agents, try LongSearchEval's failure-node localization on your traces. Skip the rest unless it matches your domain.",
   "day_captions": {
-    "c47efdba3284bb9f": "Frames the draft model as an attack surface.",
     "13307002442ed537": "Netflix's ontology-driven observability graph at 38M events/sec.",
     "52d729da63596a31": "Knowledge-graph-guided pre-training for legal reasoning.",
     "f0fd06585d59dd3d": "Agentic KG retrieval to reduce insecure generated code.",
@@ -90,6 +96,10 @@
     "276a486ae6eefe6b": "Self-assessment RL so search agents track what they already found.",
     "8debe4581e047c88": "Probes how editing singular-value spectra shifts task performance.",
     "c888971c48a268c3": "Compares recent LLMs with fine-tuned encoder-decoders on KG-to-text.",
-    "f07fa8132755e14c": "Open resources for adapting LLMs to low-resource Bashkir."
+    "f07fa8132755e14c": "Open resources for adapting LLMs to low-resource Bashkir.",
+    "5f97c21b490b1ce9": "Benchmark that localizes the failing node in long-horizon web-search trajectories.",
+    "d5cd3db9b5f4a99b": "Training-free neuron steering aimed at not degrading general capability.",
+    "26fc92a7573c4011": "KG reasoning that self-evolves without question-answer annotations.",
+    "a2f964aa6fcbf7ea": "Real-time screening of each new function for vulnerabilities via contextual probing."
   }
 }

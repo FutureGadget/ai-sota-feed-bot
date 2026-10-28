@@ -1,0 +1,33 @@
+{
+  "slug": "benchmarking-long-horizon",
+  "generated_at": "2026-10-28T00:13:30+00:00",
+  "covers_last_updated": "2026-10-26T17:34:47+00:00",
+  "covers_member_sids": ["9d061413e7a1baa2","736cb3afaf8cf4b3","0cabd28beabc87ef","55edc2615764e1b5","3ca73f33ea96bd6a"],
+  "tldr": "Doc2Harness opened the thread on Oct 14 by measuring how much the harness around a model, not just the model, drives long-horizon coding-agent results. Over the next week, papers added search-state learning (ClueFlow), error-recovery tests for computer-use agents (CUA-Recovery) and a continual-learning exam.",
+  "whats_new": "FOCUS (Oct 26) proposes active critic learning to fix credit assignment under sparse outcome rewards, moving the thread from measuring long-horizon agents to training them.",
+  "why_it_matters": "Long-horizon agent failures come from harness design, silent state corruption and weak credit assignment, so benchmarks that isolate those factors are more useful for platform decisions than single-score leaderboards.",
+  "status": {
+    "state": "Developing",
+    "tone": "rising",
+    "changed": "2026-10-26",
+    "detail": "Five arXiv preprints, no independent replication yet; benchmarks and training methods are arriving together."
+  },
+  "beats": [
+    {"kicker": "BASELINE", "tone": "launch", "headline": "Doc2Harness benchmarks harness engineering for coding agents", "sids": ["9d061413e7a1baa2"]},
+    {"kicker": "WIDENING", "tone": "rising", "headline": "Search state and computer-use error recovery get their own tests", "sids": ["736cb3afaf8cf4b3","0cabd28beabc87ef"]},
+    {"kicker": "NOW", "tone": "turn", "headline": "Continual learning and critic training extend the focus to improvement over time", "sids": ["55edc2615764e1b5","3ca73f33ea96bd6a"]}
+  ],
+  "open_questions": [
+    "Does any of these benchmarks get adopted by a major lab or independent evaluator?",
+    "Do the reported FOCUS gains hold on a third-party long-horizon benchmark?",
+    "Will CUA-Recovery results show shipped computer-use agents detecting silent state corruption?"
+  ],
+  "take_for_builders": "When evaluating a long-horizon agent, rerun it under your own harness and add an injected-error recovery case before trusting a leaderboard score.",
+  "day_captions": {
+    "9d061413e7a1baa2": "Frames harness design as a first-class factor in coding-agent results.",
+    "736cb3afaf8cf4b3": "Adds a method for learning search from attributed research-state transitions.",
+    "0cabd28beabc87ef": "Benchmarks error detection and recovery, where undetected errors cascade through persistent state.",
+    "55edc2615764e1b5": "Benchmarks whether agents improve from experience while retaining prior knowledge.",
+    "3ca73f33ea96bd6a": "Proposes active critic learning to improve credit assignment when critic estimates are inaccurate."
+  }
+}

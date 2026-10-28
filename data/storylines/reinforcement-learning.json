@@ -1,12 +1,12 @@
 {
  "slug": "reinforcement-learning",
  "label": "Reinforcement Learning",
- "item_count": 10,
- "day_count": 6,
+ "item_count": 14,
+ "day_count": 7,
  "source_count": 7,
  "first_seen": "2026-10-12T21:41:50+00:00",
- "last_updated": "2026-10-23T17:57:22+00:00",
- "generated_at": "2026-10-27T00:13:38.037892+00:00",
+ "last_updated": "2026-10-26T16:25:05+00:00",
+ "generated_at": "2026-10-28T00:13:55.337169+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -123,6 +123,17 @@
      "editor_note": "Uses RL with hierarchical rewards for profile-driven user simulation in task-oriented dialogue."
     },
     {
+     "title": "Direction-Aware Token Credit Assignment with Reward-Model Gradients",
+     "url": "http://arxiv.org/abs/2610.32772v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "GRPO shares a response-level advantage across tokens, leaving unresolved how strongly each token should contribute to learning. Updates induced by the shared advantage reinforce or suppress the sampled token at each p...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "2b4f7152c682448f",
+     "published": "2026-10-23T15:21:22+00:00",
+     "editor_note": "GRPO token-level credit from reward-model gradients, replacing one shared response-level advantage."
+    },
+    {
      "title": "Where Rounding Happens Matters: Rounding-Location Alignment Stabilizes LLM Reinforcement Learning",
      "url": "http://arxiv.org/abs/2610.32951v1",
      "source": "arxiv_cs_lg",
@@ -155,19 +166,57 @@
      "editor_note": "Newest: a unified library and benchmark for robust RL algorithms."
     }
    ]
+  },
+  {
+   "date": "2026-10-26",
+   "items": [
+    {
+     "title": "CalibraRL: Confidence-Calibrated Reinforcement Learning for Mitigating Hallucinations in RAG",
+     "url": "http://arxiv.org/abs/2610.35142v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large language models (LLMs) often produce plausible but incorrect answers, motivating reinforcement learning methods that reward correct answers, penalize incorrect answers, and allow abstention. However, fixed outco...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "c3af4f37e1c19b19",
+     "published": "2026-10-26T10:11:24+00:00",
+     "editor_note": "Confidence-calibrated RL rewards to cut RAG hallucinations while allowing abstention."
+    },
+    {
+     "title": "When Fine-Grained Credit Assignment Helps and Hurts: Multimodal Agentic Reinforcement Learning through Video Editing",
+     "url": "http://arxiv.org/abs/2610.35497v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Reinforcement learning (RL) has shown promise for training multimodal agents to reason and use tools. However, it remains unclear when fine-grained credit assignment improves learning and when it fails to improve task...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "868490bacebdc880",
+     "published": "2026-10-26T14:25:40+00:00",
+     "editor_note": "Finds fine-grained credit assignment can help or hurt multimodal agents, tested on video editing."
+    },
+    {
+     "title": "MiRL: Error-Targeted Reinforcement Learning for Correcting Terminal Agent Misbehaviors",
+     "url": "http://arxiv.org/abs/2610.35697v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Error-targeted learning gives a legible way to improve a model: identify specific weaknesses of the model, train the model to fix these weaknesses, and check whether the weaknesses are fixed. We study how to apply err...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "c07d00b3f0a46112",
+     "published": "2026-10-26T16:25:05+00:00",
+     "editor_note": "Newest: identifies specific terminal-agent misbehaviors, trains against them, and checks they are fixed."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has collected a Qwen long-horizon agent report, an O-RAN benchmark, and four Oct 20-22 arXiv papers on training tool-using and search agents.",
+  "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has gathered a Qwen long-horizon agent report, an O-RAN benchmark, agentic-RL training papers, and AWS's SageMaker guide.",
   "stale": false,
-  "whats_new": "Oct 23: three more arXiv papers land, on aligning rounding between inference and training for stable LLM RL, RL-trained user simulators for task-oriented dialogue, and the RobustRLlib robust-RL benchmark, beside AWS's SageMaker guide.",
-  "why_it_matters": "The Oct 23 rounding-location paper targets a training-stability failure: separate inference and training systems can make an intended on-policy update off-policy even with identical weights and BF16 tensors. The SageMaker guide remains the only managed-platform recipe; QwenGyre (secondary-source report) and X-RIC stay research or telecom-specific.",
-  "take_for_builders": "If you train LLMs with separate inference and training stacks, check rounding-location alignment as a cause of on-policy drift; if you run on AWS, try the SageMaker Wordle pipeline before planning around it, and wait for Qwen's primary QwenGyre release.",
+  "whats_new": "Oct 26: three arXiv papers turn RL on agent failures: MiRL targets terminal-agent misbehaviors, CalibraRL targets RAG hallucinations, and a video-editing study shows fine-grained credit can hurt.",
+  "why_it_matters": "The newest papers frame RL as a reliability tool: train against named failures (MiRL), reward calibrated abstention (CalibraRL), and test whether per-step credit helps (it can hurt). All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
+  "take_for_builders": "If you train tool-using agents, log recurring failure modes and test error-targeted RL (MiRL) against them, and A/B fine-grained credit assignment against episode-level reward before adopting it; treat paper results as unreplicated until you rerun them on your own evals.",
   "status": {
    "state": "Developing",
    "tone": "rising",
-   "changed": "2026-10-23",
-   "detail": "A loose set of RL items; the newest add training-stability, simulation and robustness work alongside the AWS guide."
+   "changed": "2026-10-26",
+   "detail": "A loose set of RL items; the newest aim RL at agent reliability and credit-assignment limits."
   },
   "beats": [
    {
@@ -201,15 +250,27 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
-    "headline": "AWS multi-turn RL guide, plus stability, simulation and robustness papers",
-    "summary": "Oct 23: a managed-platform recipe on SageMaker AI and three arXiv papers on rounding alignment, dialogue user simulation and robust RL.",
+    "kicker": "OCT 23",
+    "tone": "rising",
+    "headline": "AWS multi-turn RL guide, plus stability, simulation, robustness and token-credit papers",
+    "summary": "A managed-platform recipe on SageMaker AI and four arXiv papers on rounding alignment, token credit, dialogue user simulation and robust RL.",
     "sids": [
      "8a41e1e41cbecfde",
      "453c138d9feefee3",
      "40c644a15cb895a9",
-     "1e1ae7d5d09cb859"
+     "1e1ae7d5d09cb859",
+     "2b4f7152c682448f"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Reliability turn: calibrated rewards, credit-assignment limits, error-targeted agent fixes",
+    "summary": "Oct 26: three arXiv papers aim RL at hallucination, when fine-grained credit hurts, and terminal-agent misbehavior.",
+    "sids": [
+     "c3af4f37e1c19b19",
+     "868490bacebdc880",
+     "c07d00b3f0a46112"
     ]
    }
   ],
@@ -219,8 +280,8 @@
    "Does the SageMaker MTRL recipe carry from Wordle to tool-using agent tasks, and at what training cost?",
    "Does twin-world credit assignment improve agent training on benchmarks beyond the paper's own?",
    "Does rounding-location alignment stabilize RL training outside the paper's own setups?",
-   "Does RobustRLlib get adopted as a shared benchmark for robust RL?"
+   "Do MiRL's error-targeted fixes hold on terminal-agent tasks outside the paper's own benchmark?"
   ],
-  "generated_at": "2026-10-27T00:13:26+00:00"
+  "generated_at": "2026-10-28T00:13:34+00:00"
  }
 }

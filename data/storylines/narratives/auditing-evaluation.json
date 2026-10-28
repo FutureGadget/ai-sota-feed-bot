@@ -1,0 +1,25 @@
+{
+  "slug": "auditing-evaluation",
+  "generated_at": "2026-10-28T00:13:30+00:00",
+  "covers_last_updated": "2026-10-26T16:25:11+00:00",
+  "covers_member_sids": ["cb0862d4bbb1c641", "c74f6e5ef2c72d1e", "1779b912e59d6052"],
+  "tldr": "Three papers in six days audit the measurements behind agent and model evaluation rather than the models. First came trace-derived labels, then a headline memory gain in XLand-MiniGrid.",
+  "whats_new": "A new paper tests model self-confidence and LLM-as-a-judge as cheaper ways to audit human-in-the-loop evaluation, aiming for statistically sound accuracy estimates.",
+  "why_it_matters": "Agent eval scores are only as good as the labels and noise floors behind them; if parsers, detectors, seeds or judges are unreliable, regressions and gains in your CI evals can be artifacts.",
+  "take_for_builders": "Audit your own eval harness: spot-check detector labels against raw traces, rerun headline gains across seeds and maps, and calibrate any LLM judge against a human-labeled sample before trusting it.",
+  "status": {"state": "Developing", "tone": "rising", "changed": "2026-10-26"},
+  "beats": [
+    {"kicker": "LABELS", "tone": "launch", "headline": "Trace-derived labels are measurements, not ground truth", "summary": "Behavioral detectors and parsers that turn agent traces into labels need their own audit.", "sids": ["cb0862d4bbb1c641"]},
+    {"kicker": "NOISE", "tone": "rising", "headline": "A 25-point memory gain gets audited against seeds, maps and noise", "sids": ["c74f6e5ef2c72d1e"]},
+    {"kicker": "NOW", "tone": "now", "headline": "Self-confidence and LLM judges proposed to scale human-in-the-loop audits", "sids": ["1779b912e59d6052"]}
+  ],
+  "open_questions": [
+    "Do agent benchmarks begin publishing detector and label audits alongside scores?",
+    "Does LLM-assisted auditing hold its accuracy estimates on agentic traces, not just single-turn outputs?"
+  ],
+  "day_captions": {
+    "cb0862d4bbb1c641": "Frames trace labels (answer correctness, tool verification, fault propagation) as measurements that need auditing.",
+    "c74f6e5ef2c72d1e": "Applies the audit mindset to a reported LSTM-over-MLP gain of 25 points, separating seed, map and evaluation noise.",
+    "1779b912e59d6052": "Moves from diagnosing evals to a method: self-confidence and LLM judges to cut human audit cost."
+  }
+}

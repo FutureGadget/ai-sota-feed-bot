@@ -1,12 +1,12 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 11,
+ "item_count": 14,
  "day_count": 7,
  "source_count": 6,
- "first_seen": "2026-10-06T16:59:37+00:00",
- "last_updated": "2026-10-22T16:36:35+00:00",
- "generated_at": "2026-10-27T00:13:38.037892+00:00",
+ "first_seen": "2026-10-09T11:00:00+00:00",
+ "last_updated": "2026-10-26T17:50:09+00:00",
+ "generated_at": "2026-10-28T00:13:55.337169+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -16,21 +16,6 @@
   "infoq_ai_ml"
  ],
  "days": [
-  {
-   "date": "2026-10-06",
-   "items": [
-    {
-     "title": "Secure Speculative Decoding for Large Language Models",
-     "url": "http://arxiv.org/abs/2610.08678v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Speculative decoding accelerates inference for a large language model (LLM), referred to as the \\emph{target model}, by first using a smaller model, referred to as the \\emph{draft model}, to generate candidate tokens...",
-     "sid": "c47efdba3284bb9f",
-     "published": "2026-10-06T16:59:37+00:00",
-     "editor_note": "Frames the draft model as an attack surface."
-    }
-   ]
-  },
   {
    "date": "2026-10-09",
    "items": [
@@ -170,31 +155,72 @@
      "editor_note": "Compares recent LLMs with fine-tuned encoder-decoders on KG-to-text."
     }
    ]
+  },
+  {
+   "date": "2026-10-26",
+   "items": [
+    {
+     "title": "LongSearchEval: Evaluating Long-Horizon Web Search Capabilities of Large Language Models via a Trajectory-Aware Agent Framework with Failure-Node Localization",
+     "url": "http://arxiv.org/abs/2610.35150v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Long-horizon web search requires LLM-based agents to integrate information across web pages through extended interactions under task-specific constraints. Evaluating this capability is important not only for measuring...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "5f97c21b490b1ce9",
+     "published": "2026-10-26T10:15:38+00:00",
+     "editor_note": "Benchmark that localizes the failing node in long-horizon web-search trajectories."
+    },
+    {
+     "title": "CANS: Capability-Preserving Neuron Steering for Large Language Models",
+     "url": "http://arxiv.org/abs/2610.35530v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Activation steering offers training-free and dynamic control of target behaviors in large language models, but existing methods can impair general capabilities and require domain-specific intervention designs. We intr...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "d5cd3db9b5f4a99b",
+     "published": "2026-10-26T14:45:23+00:00",
+     "editor_note": "Training-free neuron steering aimed at not degrading general capability."
+    },
+    {
+     "title": "Evolve on Graph: Self-Evolving Knowledge Graph Reasoning without Question Annotations",
+     "url": "http://arxiv.org/abs/2610.35598v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Knowledge graphs (KGs) provide reliable external knowledge for multi-hop factual reasoning with large language models (LLMs), yet most KGs in real-world domains such as finance and industry lack question--answer (QA)...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "26fc92a7573c4011",
+     "published": "2026-10-26T15:23:04+00:00",
+     "editor_note": "KG reasoning that self-evolves without question-answer annotations."
+    },
+    {
+     "title": "Reva: Real-Time Vulnerability Detection through Contextual Probing of Large Language Models",
+     "url": "http://arxiv.org/abs/2610.35829v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "A vulnerability costs more to fix the later it is discovered. As coding agents generate code faster than developers can review it, software needs a first line of defense screening each new function in real time. LLM a...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "a2f964aa6fcbf7ea",
+     "published": "2026-10-26T17:50:09+00:00",
+     "editor_note": "Real-time screening of each new function for vulnerabilities via contextual probing."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 6–21 items cover speculative-decoding security, knowledge-graph work, sycophancy, code-translation hallucinations, search agents, and materials extraction.",
+  "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 9-22 items cover knowledge graphs, sycophancy, code-translation hallucinations, search agents, and spectral edits.",
   "stale": false,
-  "whats_new": "Oct 22 adds a spectral-intervention paper, an empirical KG-to-text benchmark, and a Bashkir parameter-efficient adaptation suite; none extends earlier items.",
-  "why_it_matters": "Treat this as a reading list, not a thread: the useful items for platform engineers are the speculative-decoding attack surface and code-translation hallucination mitigations.",
-  "take_for_builders": "If you run speculative decoding in production, read the Oct 6 security paper and check whether your draft model is an untrusted input; skip the rest unless it matches your domain.",
+  "whats_new": "Oct 26 adds a long-horizon web-search benchmark with failure-node localization, a neuron-steering method, self-evolving KG reasoning, and Reva, a real-time vulnerability detector for generated code.",
+  "why_it_matters": "Treat this as a reading list, not a thread. For platform engineers the useful items are LongSearchEval (agent failure localization) and Reva (screening agent-written code), plus the code-translation hallucination catalog.",
+  "take_for_builders": "If you run coding agents, read Reva and check whether per-function vulnerability screening could sit before review; if you run search agents, try LongSearchEval's failure-node localization on your traces. Skip the rest unless it matches your domain.",
   "beats": [
-   {
-    "kicker": "SECURITY",
-    "tone": "neutral",
-    "headline": "Speculative decoding and secure code generation get security-focused work",
-    "sids": [
-     "c47efdba3284bb9f",
-     "f0fd06585d59dd3d"
-    ]
-   },
    {
     "kicker": "KNOWLEDGE GRAPHS",
     "tone": "neutral",
-    "headline": "Knowledge graphs applied to observability and legal reasoning",
+    "headline": "Knowledge graphs applied to observability, legal reasoning and secure code",
     "sids": [
      "13307002442ed537",
-     "52d729da63596a31"
+     "52d729da63596a31",
+     "f0fd06585d59dd3d"
     ]
    },
    {
@@ -223,21 +249,33 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
-    "headline": "Spectral interventions, KG-to-text benchmarking and Bashkir adaptation land Oct 22",
+    "kicker": "OCT 22",
+    "tone": "neutral",
+    "headline": "Spectral interventions, KG-to-text benchmarking and Bashkir adaptation",
     "sids": [
      "8debe4581e047c88",
      "c888971c48a268c3",
      "f07fa8132755e14c"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Oct 26: long-horizon search evals, capability-preserving steering and real-time vulnerability screening",
+    "sids": [
+     "5f97c21b490b1ce9",
+     "d5cd3db9b5f4a99b",
+     "26fc92a7573c4011",
+     "a2f964aa6fcbf7ea"
+    ]
    }
   ],
   "open_questions": [
-   "Does the speculative-decoding defense add measurable latency over unprotected drafting?",
+   "Does independent replication confirm the spectral-intervention capability shifts?",
    "Do the code-translation mitigations hold on languages outside the paper's test set?",
-   "Does independent replication confirm the spectral-intervention capability shifts?"
+   "Does Reva's real-time screening keep false positives low enough to gate agent-written code?",
+   "Does CANS steering preserve general capability on models beyond those it was tested on?"
   ],
-  "generated_at": "2026-10-26T00:12:56.393036+00:00"
+  "generated_at": "2026-10-28T00:13:33.919357+00:00"
  }
 }

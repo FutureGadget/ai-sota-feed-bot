@@ -1,0 +1,102 @@
+{
+ "slug": "learning-through",
+ "label": "Learning Through",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-10-19T08:07:35+00:00",
+ "last_updated": "2026-10-26T14:25:40+00:00",
+ "generated_at": "2026-10-28T00:13:55.337169+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_ai"
+ ],
+ "days": [
+  {
+   "date": "2026-10-19",
+   "items": [
+    {
+     "title": "ClueFlow: Learning Long-Horizon Search through Attributed Research-State Transitions",
+     "url": "http://arxiv.org/abs/2610.25980v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Long-horizon search requires agents to acquire relevant evidence and integrate it into an evolving research state. Existing methods maintain research states to guide exploration or assign turn-level progress signals,...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "736cb3afaf8cf4b3",
+     "published": "2026-10-19T08:07:35+00:00",
+     "editor_note": "Attributes search progress to research-state transitions instead of turn-level signals."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-23",
+   "items": [
+    {
+     "title": "Lifelong Context Adaptation through Bidirectional Memory-Skill Learning",
+     "url": "http://arxiv.org/abs/2610.32295v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Lifelong LLM agents must learn from an expanding history of interactions while making each decision within a bounded context window. Memory makes past experience available, but the agent may still need to infer how to...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "110ac885ad3cb773",
+     "published": "2026-10-23T07:53:18+00:00",
+     "editor_note": "Couples memory with learned skills so decisions fit a bounded context."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-26",
+   "items": [
+    {
+     "title": "When Fine-Grained Credit Assignment Helps and Hurts: Multimodal Agentic Reinforcement Learning through Video Editing",
+     "url": "http://arxiv.org/abs/2610.35497v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Reinforcement learning (RL) has shown promise for training multimodal agents to reason and use tools. However, it remains unclear when fine-grained credit assignment improves learning and when it fails to improve task...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "868490bacebdc880",
+     "published": "2026-10-26T14:25:40+00:00",
+     "editor_note": "Identifies conditions where fine-grained credit assignment fails to improve task performance."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "A run of arXiv papers on how agents learn from their own trajectories. ClueFlow credits search steps by research-state transitions, and a memory-skill paper tackles lifelong learning under a bounded context window.",
+  "stale": false,
+  "whats_new": "A multimodal RL paper on video editing asks when fine-grained credit assignment helps agent training and when it fails to improve task performance.",
+  "why_it_matters": "Credit assignment and memory design determine how agents improve from experience, which affects how you build training signals and context management for long-horizon agents.",
+  "take_for_builders": "Before adding per-step rewards to an agent RL setup, run an ablation against outcome-only rewards on your own tasks.",
+  "beats": [
+   {
+    "kicker": "SEARCH",
+    "tone": "launch",
+    "headline": "ClueFlow credits long-horizon search by research-state transitions",
+    "sids": [
+     "736cb3afaf8cf4b3"
+    ]
+   },
+   {
+    "kicker": "MEMORY",
+    "tone": "rising",
+    "headline": "Bidirectional memory-skill learning for lifelong agents",
+    "sids": [
+     "110ac885ad3cb773"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Fine-grained credit assignment helps and hurts in multimodal agentic RL",
+    "sids": [
+     "868490bacebdc880"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do ClueFlow-style state-transition rewards hold up beyond the search benchmarks in the paper?",
+   "Which task properties predict that fine-grained credit assignment will hurt rather than help?"
+  ],
+  "generated_at": "2026-10-28T00:13:28+00:00"
+ }
+}

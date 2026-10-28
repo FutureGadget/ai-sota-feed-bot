@@ -1,0 +1,109 @@
+{
+ "slug": "auditing-evaluation",
+ "label": "Auditing Evaluation",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-10-21T22:18:16+00:00",
+ "last_updated": "2026-10-26T16:25:11+00:00",
+ "generated_at": "2026-10-28T00:13:55.337169+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_ai",
+  "arxiv_cs_cl"
+ ],
+ "days": [
+  {
+   "date": "2026-10-21",
+   "items": [
+    {
+     "title": "What the Trace Shows and What the Label Says: Auditing Behavioral Detectors in Agent Evaluation",
+     "url": "http://arxiv.org/abs/2610.30491v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "LLM agents are often evaluated by reducing execution traces to labels such as final-answer correctness, tool verification, and fault propagation. These labels are measurements produced by parsers, behavioral detectors...",
+     "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
+     "sid": "cb0862d4bbb1c641",
+     "published": "2026-10-21T22:18:16+00:00",
+     "editor_note": "Frames trace labels (answer correctness, tool verification, fault propagation) as measurements that need auditing."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-24",
+   "items": [
+    {
+     "title": "Memory or a Clock? Auditing a Memory Advantage in XLand-MiniGrid with Seeds, Maps and Evaluation Noise Apart",
+     "url": "http://arxiv.org/abs/2610.33816v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "On a partially observable XLand-MiniGrid task, an LSTM agent beats a memory-free MLP by 25 percentage points. The gap looks like a clear case of memory. We ask two questions about it. First, how much of a measured gap...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "c74f6e5ef2c72d1e",
+     "published": "2026-10-24T17:28:20+00:00",
+     "editor_note": "Applies the audit mindset to a reported LSTM-over-MLP gain of 25 points, separating seed, map and evaluation noise."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-26",
+   "items": [
+    {
+     "title": "From Self-Confidence to Statistical Accuracy: Scaling Human-in-the-Loop Evaluation with Direct and LLM-Assisted Auditing",
+     "url": "http://arxiv.org/abs/2610.35698v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "For large language models (LLMs) and multimodal large language models (MLLMs), model-reported self-confidence is often miscalibrated, yet it may still be useful for efficient evaluation. At the same time, LLM-as-a-jud...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "1779b912e59d6052",
+     "published": "2026-10-26T16:25:11+00:00",
+     "editor_note": "Moves from diagnosing evals to a method: self-confidence and LLM judges to cut human audit cost."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Three papers in six days audit the measurements behind agent and model evaluation rather than the models. First came trace-derived labels, then a headline memory gain in XLand-MiniGrid.",
+  "stale": false,
+  "whats_new": "A new paper tests model self-confidence and LLM-as-a-judge as cheaper ways to audit human-in-the-loop evaluation, aiming for statistically sound accuracy estimates.",
+  "why_it_matters": "Agent eval scores are only as good as the labels and noise floors behind them; if parsers, detectors, seeds or judges are unreliable, regressions and gains in your CI evals can be artifacts.",
+  "take_for_builders": "Audit your own eval harness: spot-check detector labels against raw traces, rerun headline gains across seeds and maps, and calibrate any LLM judge against a human-labeled sample before trusting it.",
+  "status": {
+   "state": "Developing",
+   "tone": "rising",
+   "changed": "2026-10-26"
+  },
+  "beats": [
+   {
+    "kicker": "LABELS",
+    "tone": "launch",
+    "headline": "Trace-derived labels are measurements, not ground truth",
+    "summary": "Behavioral detectors and parsers that turn agent traces into labels need their own audit.",
+    "sids": [
+     "cb0862d4bbb1c641"
+    ]
+   },
+   {
+    "kicker": "NOISE",
+    "tone": "rising",
+    "headline": "A 25-point memory gain gets audited against seeds, maps and noise",
+    "sids": [
+     "c74f6e5ef2c72d1e"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Self-confidence and LLM judges proposed to scale human-in-the-loop audits",
+    "sids": [
+     "1779b912e59d6052"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do agent benchmarks begin publishing detector and label audits alongside scores?",
+   "Does LLM-assisted auditing hold its accuracy estimates on agentic traces, not just single-turn outputs?"
+  ],
+  "generated_at": "2026-10-28T00:13:30+00:00"
+ }
+}

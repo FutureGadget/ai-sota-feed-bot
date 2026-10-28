@@ -1,7 +1,7 @@
 {
   "slug": "reinforcement-learning",
-  "generated_at": "2026-10-27T00:13:26+00:00",
-  "covers_last_updated": "2026-10-23T17:57:22+00:00",
+  "generated_at": "2026-10-28T00:13:34+00:00",
+  "covers_last_updated": "2026-10-26T16:25:05+00:00",
   "covers_member_sids": [
     "b508403b13597849",
     "f3c8da2fe4584033",
@@ -11,18 +11,22 @@
     "276a486ae6eefe6b",
     "352167f7ac41065b",
     "40c644a15cb895a9",
+    "2b4f7152c682448f",
     "453c138d9feefee3",
     "8a41e1e41cbecfde",
-    "1e1ae7d5d09cb859"
+    "1e1ae7d5d09cb859",
+    "c3af4f37e1c19b19",
+    "868490bacebdc880",
+    "c07d00b3f0a46112"
   ],
-  "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has collected a Qwen long-horizon agent report, an O-RAN benchmark, and four Oct 20-22 arXiv papers on training tool-using and search agents.",
-  "whats_new": "Oct 23: three more arXiv papers land, on aligning rounding between inference and training for stable LLM RL, RL-trained user simulators for task-oriented dialogue, and the RobustRLlib robust-RL benchmark, beside AWS's SageMaker guide.",
-  "why_it_matters": "The Oct 23 rounding-location paper targets a training-stability failure: separate inference and training systems can make an intended on-policy update off-policy even with identical weights and BF16 tensors. The SageMaker guide remains the only managed-platform recipe; QwenGyre (secondary-source report) and X-RIC stay research or telecom-specific.",
+  "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has gathered a Qwen long-horizon agent report, an O-RAN benchmark, agentic-RL training papers, and AWS's SageMaker guide.",
+  "whats_new": "Oct 26: three arXiv papers turn RL on agent failures: MiRL targets terminal-agent misbehaviors, CalibraRL targets RAG hallucinations, and a video-editing study shows fine-grained credit can hurt.",
+  "why_it_matters": "The newest papers frame RL as a reliability tool: train against named failures (MiRL), reward calibrated abstention (CalibraRL), and test whether per-step credit helps (it can hurt). All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
   "status": {
     "state": "Developing",
     "tone": "rising",
-    "changed": "2026-10-23",
-    "detail": "A loose set of RL items; the newest add training-stability, simulation and robustness work alongside the AWS guide."
+    "changed": "2026-10-26",
+    "detail": "A loose set of RL items; the newest aim RL at agent reliability and credit-assignment limits."
   },
   "beats": [
     {
@@ -56,15 +60,27 @@
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
-      "headline": "AWS multi-turn RL guide, plus stability, simulation and robustness papers",
-      "summary": "Oct 23: a managed-platform recipe on SageMaker AI and three arXiv papers on rounding alignment, dialogue user simulation and robust RL.",
+      "kicker": "OCT 23",
+      "tone": "rising",
+      "headline": "AWS multi-turn RL guide, plus stability, simulation, robustness and token-credit papers",
+      "summary": "A managed-platform recipe on SageMaker AI and four arXiv papers on rounding alignment, token credit, dialogue user simulation and robust RL.",
       "sids": [
         "8a41e1e41cbecfde",
         "453c138d9feefee3",
         "40c644a15cb895a9",
-        "1e1ae7d5d09cb859"
+        "1e1ae7d5d09cb859",
+        "2b4f7152c682448f"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Reliability turn: calibrated rewards, credit-assignment limits, error-targeted agent fixes",
+      "summary": "Oct 26: three arXiv papers aim RL at hallucination, when fine-grained credit hurts, and terminal-agent misbehavior.",
+      "sids": [
+        "c3af4f37e1c19b19",
+        "868490bacebdc880",
+        "c07d00b3f0a46112"
       ]
     }
   ],
@@ -74,9 +90,9 @@
     "Does the SageMaker MTRL recipe carry from Wordle to tool-using agent tasks, and at what training cost?",
     "Does twin-world credit assignment improve agent training on benchmarks beyond the paper's own?",
     "Does rounding-location alignment stabilize RL training outside the paper's own setups?",
-    "Does RobustRLlib get adopted as a shared benchmark for robust RL?"
+    "Do MiRL's error-targeted fixes hold on terminal-agent tasks outside the paper's own benchmark?"
   ],
-  "take_for_builders": "If you train LLMs with separate inference and training stacks, check rounding-location alignment as a cause of on-policy drift; if you run on AWS, try the SageMaker Wordle pipeline before planning around it, and wait for Qwen's primary QwenGyre release.",
+  "take_for_builders": "If you train tool-using agents, log recurring failure modes and test error-targeted RL (MiRL) against them, and A/B fine-grained credit assignment against episode-level reward before adopting it; treat paper results as unreplicated until you rerun them on your own evals.",
   "day_captions": {
     "b508403b13597849": "MarkTechPost's summary of Qwen's elastic RL approach for extra-long-horizon agents.",
     "db03100b1bd7cd3e": "arXiv benchmark for RL in agentic O-RAN controllers; the only telecom-domain item.",
@@ -87,6 +103,10 @@
     "352167f7ac41065b": "Counterfactual branching to assign credit to individual decisions inside a rewarded agent episode.",
     "453c138d9feefee3": "Traces on-policy instability in LLM RL to where rounding happens between inference and training systems.",
     "40c644a15cb895a9": "Uses RL with hierarchical rewards for profile-driven user simulation in task-oriented dialogue.",
-    "1e1ae7d5d09cb859": "Newest: a unified library and benchmark for robust RL algorithms."
+    "1e1ae7d5d09cb859": "Newest: a unified library and benchmark for robust RL algorithms.",
+    "2b4f7152c682448f": "GRPO token-level credit from reward-model gradients, replacing one shared response-level advantage.",
+    "c3af4f37e1c19b19": "Confidence-calibrated RL rewards to cut RAG hallucinations while allowing abstention.",
+    "868490bacebdc880": "Finds fine-grained credit assignment can help or hurt multimodal agents, tested on video editing.",
+    "c07d00b3f0a46112": "Newest: identifies specific terminal-agent misbehaviors, trains against them, and checks they are fixed."
   }
 }

@@ -1,13 +1,14 @@
 {
  "slug": "on-policy-distillation",
  "label": "On-Policy Distillation",
- "item_count": 3,
- "day_count": 3,
- "source_count": 3,
+ "item_count": 4,
+ "day_count": 4,
+ "source_count": 4,
  "first_seen": "2026-10-14T08:12:10+00:00",
- "last_updated": "2026-10-22T17:05:21+00:00",
- "generated_at": "2026-10-27T00:13:38.037892+00:00",
+ "last_updated": "2026-10-26T16:21:00+00:00",
+ "generated_at": "2026-10-28T00:13:55.337169+00:00",
  "sources": [
+  "arxiv_agent_systems_research",
   "arxiv_cn_open_weight_reports",
   "arxiv_cs_cl",
   "arxiv_cs_lg"
@@ -60,14 +61,34 @@
      "editor_note": "Adds a rule for when the student should defer to the teacher."
     }
    ]
+  },
+  {
+   "date": "2026-10-26",
+   "items": [
+    {
+     "title": "EvoRouter: Cost-Efficient Multi-Agent Routing via Insight-Guided On-Policy Distillation",
+     "url": "http://arxiv.org/abs/2610.35690v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Serving web queries at scale with multi-agent systems requires jointly configuring large language models, collaboration modes, agent counts, interaction rounds, and skills. However, the resulting configuration space g...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "6ec8d30bc1da5744",
+     "published": "2026-10-26T16:21:00+00:00",
+     "editor_note": "Moves the technique from training a model to choosing multi-agent serving configurations."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Three arXiv papers from Oct 14–22 apply on-policy distillation (training a student on its own sampled trajectories, scored by a teacher) to different problems: machine translation, long-horizon coding agents, and the question of when the teacher should lead.",
+  "tldr": "Papers from Oct 14 onward apply on-policy distillation (training a student on its own sampled trajectories, scored by a teacher) to translation, long-horizon coding agents, and the question of when the student should follow the teacher.",
   "stale": false,
-  "whats_new": "Oct 22: an arXiv paper proposes advantage-based on-policy distillation, deciding per step when the student should follow the teacher.",
-  "why_it_matters": "On-policy distillation is spreading from general post-training into narrow jobs (translation, coding agents), so teams distilling small models should compare it against SFT on their own trajectories.",
-  "take_for_builders": "If you distill small models, run an on-policy versus SFT comparison on your own task trajectories before adopting either method; none of these papers has independent replication yet.",
+  "whats_new": "Oct 26: EvoRouter, an arXiv paper, uses insight-guided on-policy distillation to pick models, agent counts and skills for multi-agent web-query serving at lower cost.",
+  "why_it_matters": "On-policy distillation is moving from model post-training into serving decisions such as multi-agent routing, so cost-focused teams can test it on configuration choices, not only on small models.",
+  "take_for_builders": "If you distill small models or tune multi-agent configs, run an on-policy versus SFT comparison on your own trajectories and query mix before adopting either; none of these papers has independent replication yet.",
+  "status": {
+   "state": "Active research thread",
+   "tone": "rising"
+  },
   "beats": [
    {
     "kicker": "TRANSLATION",
@@ -86,18 +107,27 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "TEACHER TIMING",
+    "tone": "turn",
     "headline": "Advantage-based method decides when to follow the teacher",
     "sids": [
      "345d8b761233aa20"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "EvoRouter applies on-policy distillation to multi-agent routing cost",
+    "sids": [
+     "6ec8d30bc1da5744"
     ]
    }
   ],
   "open_questions": [
    "Does the advantage-based method beat plain on-policy distillation on agentic coding tasks, not only its own benchmarks?",
-   "Does any group release code that reproduces the OPRD long-horizon results?"
+   "Does any group release code that reproduces the OPRD long-horizon results?",
+   "Do EvoRouter's cost savings hold on production query mixes outside its own benchmark?"
   ],
-  "generated_at": "2026-10-26T00:12:56.393036+00:00"
+  "generated_at": "2026-10-28T00:13:26.427667+00:00"
  }
 }

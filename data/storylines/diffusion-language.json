@@ -1,0 +1,108 @@
+{
+ "slug": "diffusion-language",
+ "label": "Diffusion Language",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-10-09T10:07:37+00:00",
+ "last_updated": "2026-10-26T17:35:58+00:00",
+ "generated_at": "2026-10-28T00:13:55.337169+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_cl"
+ ],
+ "days": [
+  {
+   "date": "2026-10-09",
+   "items": [
+    {
+     "title": "Masked Diffusion Language Agents for Tool-Integrated Chemical Reasoning",
+     "url": "http://arxiv.org/abs/2610.13330v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Designing tool-integrated reasoning agent systems for complex chemical tasks remains a fundamental challenge. Although recent chemical agents have demonstrated promising performance through the integration of external...",
+     "why_it_matters": "Matches feed focus: agentic, evaluation.",
+     "sid": "d4cd8af9958d846f",
+     "published": "2026-10-09T10:07:37+00:00",
+     "editor_note": "Shows a masked diffusion LM as the reasoning core of a tool-using chemistry agent."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-22",
+   "items": [
+    {
+     "title": "Diffusion Language Models for Perplexity-Aware Black-Box Attacks",
+     "url": "http://arxiv.org/abs/2610.31558v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "\\emph{Continuous-space} attacks find prompts that trigger malicious behaviors, such as overthinking, in black-box LLMs by sampling or optimizing over a low-dimensional Gaussian latent space and decoding it to text thr...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "4d1cef01d9ab5673",
+     "published": "2026-10-22T17:00:39+00:00",
+     "editor_note": "Uses a diffusion LM to generate low-perplexity attack prompts against black-box LLMs."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-26",
+   "items": [
+    {
+     "title": "Learning When to Commit: Schedule Distillation for Fast Diffusion Language Models",
+     "url": "http://arxiv.org/abs/2610.35804v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Diffusion large language models (dLLMs) can generate multiple tokens in parallel, but often require many decoding rounds to complete a response. Efficient generation depends not only on which tokens are easy to predic...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "75e015095613159e",
+     "published": "2026-10-26T17:35:58+00:00",
+     "editor_note": "Proposes learning when to commit tokens, reducing the decoding rounds dLLMs need."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Diffusion language models first appeared here as the backbone of a tool-using chemistry agent. Days later they turned up on the offensive side, as a way to craft fluent black-box attacks on LLMs.",
+  "stale": false,
+  "whats_new": "A new paper distills a decoding schedule so diffusion LLMs commit tokens in fewer rounds, targeting the parallel-generation speedup that has been hard to realize.",
+  "why_it_matters": "Diffusion LLMs only pay off for serving if parallel decoding cuts rounds without hurting quality; this is research-stage evidence, not a deployable runtime.",
+  "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet; if you prototype one, measure decoding rounds and quality against your autoregressive baseline, and include fluent-prompt attacks in red-team evals.",
+  "status": {
+   "state": "Research · developing",
+   "tone": "rising",
+   "changed": "2026-10-26",
+   "detail": "Three arXiv papers, no production release: agents, attacks and decoding speed are each explored once."
+  },
+  "beats": [
+   {
+    "kicker": "AGENTS",
+    "tone": "launch",
+    "headline": "Masked diffusion LMs drive a tool-integrated chemistry agent",
+    "sids": [
+     "d4cd8af9958d846f"
+    ]
+   },
+   {
+    "kicker": "RISK",
+    "tone": "turn",
+    "headline": "Diffusion LMs used for perplexity-aware black-box attacks",
+    "sids": [
+     "4d1cef01d9ab5673"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Schedule distillation aims to cut dLLM decoding rounds",
+    "sids": [
+     "75e015095613159e"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do the schedule-distillation speedups hold on independent benchmarks at equal output quality?",
+   "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?"
+  ],
+  "generated_at": "2026-10-28T00:13:30+00:00"
+ }
+}
