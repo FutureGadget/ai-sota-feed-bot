@@ -231,6 +231,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5ELTNqd3JiMVpPRHN3Y0ZQYVFMUUtFREVMRjlkZVVqT01DVzVZZmg1Zjh0SjAtZFVyeXVpNlhXNHpaUE04RzUzTEE1cVVIX1FCWnFrX0EwbHg5aVBjY29kSmhaSndUWEYzVHZXdzRDOVdxMU9qZEhF?oc=5"
  },
+ "0383050998f9b840": {
+  "first_seen": "2026-10-28T06:04:54.465540+00:00",
+  "id": "b5609242dabd1dea",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-27T16:00:26+00:00",
+  "sid": "0383050998f9b840",
+  "source": "arxiv_cs_ai",
+  "summary": "Agents built on large language models are increasingly allowed to take consequential actions: cancelling bookings, issuing refunds, changing accounts. The rules that govern those actions, such as \"obtain the customer's explicit confirmation before changing anything\", are usually stated in the prompt and followed only as reliably as the model chooses to follow them. We present Concordat, a Python library that treats an agent as an object whose interface is a finite-state protocol, in the spirit of typestate and session types, and enforces that protocol on the model at run time. On every turn the model is offered only the tools that are legal in the current protocol state, calls outside that set are rejected before they have side effects, decisions reserved for humans can only be requested, and token and tool-call budgets are charged and split linearly across handoffs. Protocols are checked when they are defined, and a subclass of an agent is rejected if it could bypass its parent's protocol, a behavioural form of Liskov substitution. We evaluate a Concordat agent against the standard agent of tau-bench on its 50 airline tasks, adding simulated customers who pressure the agent to skip confirmation. The standard agent made changes without the required \"yes\" in 13 of 50 tasks with gpt-4.1 and in 29 of 128 task-runs with Claude Haiku 5.5; the Concordat agent made none, with no significant difference in task success. tau-bench's own reward did not detect most of these violations. C",
+  "summary_1line": "Agents built on large language models are increasingly allowed to take consequential actions: cancelling bookings, issuing refunds, changing accounts. The rules that govern those actions, such as \"obtain the customer'...",
+  "title": "Concordat: Typed Sessions for LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37461v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "0423cb002c0b054d": {
   "first_seen": "2026-10-06T10:04:13.458977+00:00",
   "id": "f00aab854496c11f",
@@ -1921,6 +1938,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNRm1pS1hlRlA0eWZnd3kxcXJPMmZJMWV5S3JBNV92b25tZXRJdzZBZHEzTU5GdTBoMHFtU1p4MFBYbG1hc245bzh3SE15c2pXQW9lRDY2T01pQjFrbXFManp2clRYZGdtTEM0S2NuZGhhRWhJbVRCZVRJd2hfaGQzUDhPV243X1U4MXFtOHlIeEw3bGQ5LWJKQXJyRkl0QzRrcGtmSGJqMncyZC1GMnA2cjhxMUxaVmpLUFRhQnk1eDhZak9PX2c?oc=5"
  },
+ "197852ee4cb6ede2": {
+  "first_seen": "2026-10-28T06:04:54.465540+00:00",
+  "id": "ece6618639c8c6bc",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-27T15:20:37+00:00",
+  "sid": "197852ee4cb6ede2",
+  "source": "arxiv_llm_reliability",
+  "summary": "Large language models (LLMs) can answer many factual questions correctly, but a correct answer is not necessarily a supported one. For an LLM agent, a knowledge graph (KG) plays two roles: as a source of answers, it supplies facts that the model lacks; as a source of evidence, it supplies the supporting triples that make an answer traceable and auditable. However, existing KG agents treat the KG only as a source of answers: their training data carries answers but not evidence, and their training rewards check the answer but not the retrieved evidence, so agents often answer correctly without retrieving the supporting triples. We propose FoG, a framework that trains KG agents to retrieve the evidence behind their answers. FoG consists of evidence-grounded synthesis, a KG interaction agent, and an evidence-coverage process reward (ECPR): the synthesis recursively hides explicit entities behind verifiable sub-questions, so that every question carries its supporting triples by construction; the agent records the triples returned by the KG; and ECPR credits each supporting triple to the turn that first retrieves it. Experiments on three KGQA benchmarks demonstrate that FoG enables 3B--4B open-source agents to outperform substantially larger baselines in answer accuracy and evidence coverage, with zero-shot cross-KG transfer.",
+  "summary_1line": "Large language models (LLMs) can answer many factual questions correctly, but a correct answer is not necessarily a supported one. For an LLM agent, a knowledge graph (KG) plays two roles: as a source of answers, it s...",
+  "title": "Clearing the FoG: Training KG Agents to Retrieve the Evidence Behind Their Answers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37405v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "19b58845c8888d5a": {
   "first_seen": "2026-10-12T02:04:22.903064+00:00",
   "id": "0e089ca1c0ac8317",
@@ -2569,6 +2602,19 @@
   "url": "https://www.infoq.com/news/2026/10/agntcon-mcpcon-2026/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "20754f15605d7fbb": {
+  "content_excerpt": "Multi-model AI aggregation system with auto-fallback, CCR closed-loop agent, and Self-IDE. Supports DeepSeek, NVIDIA, SiliconFlow, ZenMux, Zhipu, Kimi, MiMo, Mistral. This repo also ships Self-IDE under self-ide/ : a local Python service (OpenAI-compatible proxy + Goal engine + Subagent orchestration + cost meter, default port 19898) with a thin VS Code extension as its shell. See self-ide/README.md for the architecture diagram, HERMES_ROOT / GATEWAY_PORT configuration and the quickstart. Multi-model AI aggregation system with auto-fallback, CCR closed-loop agent, and Self-IDE. Supports DeepSeek, NVIDIA, SiliconFlow, ZenMux, Zhipu, Kimi, MiMo, Mistral.",
+  "first_seen": "2026-10-28T06:04:54.465540+00:00",
+  "id": "04ef6b45b78b19b9",
+  "published": "2026-10-28T04:52:34+00:00",
+  "sid": "20754f15605d7fbb",
+  "source": "hackernews_ai",
+  "summary": "SelfClaw aggregates multiple LLM providers behind a single OpenAI-compatible API. Built with Python, Streamlit, and FastAPI. MIT licensed.",
+  "summary_1line": "SelfClaw aggregates multiple LLM providers behind a single OpenAI-compatible API. Built with Python, Streamlit, and FastAPI. MIT licensed.",
+  "title": "Show HN: SelfClaw – Self-hosted multi-model AI chat with OpenAI-compatible API",
+  "type": "news",
+  "url": "https://github.com/Alanzj/SelfClaw"
+ },
  "209769f5bafd0b95": {
   "first_seen": "2026-10-02T13:04:07.184032+00:00",
   "id": "92dc6121b1f2de66",
@@ -2655,6 +2701,22 @@
   "title": "The Den frees up 10-15 hours a week to grow with ChatGPT Work",
   "type": "news",
   "url": "https://openai.com/index/the-den-family-social"
+ },
+ "21bd8061ad22e39b": {
+  "content_excerpt": "An open lab for measuring sandboxes for AI coding agents: runnable contracts, per-sandbox results, side-by-side comparison. Every sandbox makes claims: \"the agent can't read your keys\", \"it can't reach the network\", \"it can't plant a git hook\". This repository turns those claims into contracts anyone can run , and keeps the results of running them against each sandbox, so you can compare them on the same tests, with the evidence attached. It is not tied to any one sandbox. Add a contract, measure your sandbox, publish the result. Documentation: carlostapiacl.github.io/sandbox-conformance/docs : quickstart, concepts, how-to guides, methodology, every run and the contract catalog. In Spanish at /docs/es : the translations are in docs-es/ and i18n/es/ (glossary in i18n/es/GLOSARIO.md ), and a page whose English original changed since it was translated says so until it is re-translated and stamped ( python3 i18n/es/stamp.py ). Before a contract counts against a sandbox, its attack must work without a sandbox on the same host. Otherwise a \"blocked\" result would prove nothing. The corpus is versioned: v1.1 (2026-10-26) is 196 contracts, harvested from the public test suites of sandbox-runtime, nono, Codex, Deno, bubblewrap and OpenHands, with by-omission variants and six masked-credential contracts, each re-expressed in the neutral format and credited in SOURCES.md and its own source field. Which contracts a version is, and when it moves, is in corpus/ . Maintained by the author of",
+  "first_seen": "2026-10-28T06:04:54.465540+00:00",
+  "id": "d0950a4af3efb3f7",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-28T03:35:56+00:00",
+  "sid": "21bd8061ad22e39b",
+  "source": "hackernews_ai",
+  "summary_1line": "I ran each AI coding-agent sandbox's own tests against the others",
+  "title": "I ran each AI coding-agent sandbox's own tests against the others",
+  "type": "news",
+  "url": "https://github.com/carlostapiacl/sandbox-conformance",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "2237757b47be30a5": {
   "first_seen": "2026-10-07T01:04:12.462372+00:00",
@@ -5092,6 +5154,23 @@
   "type": "news",
   "url": "https://www.infoq.com/news/2026/10/digitalocean-self-improving-ai/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "3fcccac669b4562e": {
+  "first_seen": "2026-10-28T06:04:54.465540+00:00",
+  "id": "eb4cbf9f0a4ce87c",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-27T14:06:26+00:00",
+  "sid": "3fcccac669b4562e",
+  "source": "arxiv_cs_cl",
+  "summary": "Large language model (LLM)-driven agent scaffold evolution improves agent workflows through iterative candidate generation and evaluation. Evaluation both guides subsequent search and determines the final scaffold, but evaluating every candidate on the full task set incurs substantial execution costs. We investigate how evaluation budgets can be allocated across these two roles. Our experiments show that sparse feedback can sustain productive evolution, while additional targeted evaluation improves final selection. Replay analyses further show that shared informative items and a common scoring reference support comparisons among closely matched candidates. Motivated by these findings, we propose \\method, an evaluation allocation framework that combines sparse search-time feedback with targeted final confirmation. A short fully evaluated warm-up establishes a shared informative core and calibrates a response model whose item parameters remain fixed during search. After search, \\method refits the model and applies paired successive halving, reusing accumulated observations and executing only missing evaluations. Across four benchmarks and two evolution frameworks, \\method achieves higher mean performance than full evaluation in most settings while using approximately half as many evaluation cells.",
+  "summary_1line": "Large language model (LLM)-driven agent scaffold evolution improves agent workflows through iterative candidate generation and evaluation. Evaluation both guides subsequent search and determines the final scaffold, bu...",
+  "title": "Where Should the Evaluation Budget Go in LLM-Driven Agent Scaffold Evolution?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37276v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "3fe372fb2e8166f0": {
   "first_seen": "2026-10-24T15:04:51.392804+00:00",
@@ -9671,6 +9750,18 @@
   "title": "RFC AI Tooling: 40x fewer tokens while reading the RFC corpus",
   "type": "news",
   "url": "https://github.com/shbernal/rfc-ai-tooling"
+ },
+ "7c16245b89dd2075": {
+  "content_excerpt": "A decentralized compute orchestration platform powered by strict Domain-Driven Design (DDD). Decoupled domain core, event-driven state reconciliation, and zero-overhead cluster management. A distributed AI workload orchestrator built around the problems that make scheduling hard at scale: exclusive execution ownership under failure, reconciliation after partial failures, and enforced resource limits. Not a CRUD tutorial with a scheduler theme. AetherGrid takes workloads, matches them against available compute nodes based on resource requirements and constraints, and manages the full lifecycle: queued, scheduled, running, completed, failed, retried, cancelled. Jobs run through workers registered against nodes, and job execution ownership is enforced through time-bound leases rather than a simple assignment flag. Every route requires API key authentication, including the endpoint that issues keys. Try it live : the full console is deployed and reachable at with real Postgres, real auth, and real API-key-gated endpoints. Most scheduler side-projects are a single main.py script wrapped in a while True loop polling an in-memory dictionary. They work fine, right up until you need to swap the persistence engine, add a new constraint type, or figure out why a job silently disappeared, or why two workers picked up the same job at once. AetherGrid was built around one rule: the domain logic doesn't know or care where the data lives. Jobs, nodes, workers, and the allocation algorithm ar",
+  "first_seen": "2026-10-28T06:04:54.465540+00:00",
+  "id": "b6b8ec19eceff940",
+  "published": "2026-10-28T05:43:15+00:00",
+  "sid": "7c16245b89dd2075",
+  "source": "hackernews_ai",
+  "summary_1line": "AetherGrid, an open-source distributed AI workload orchestrator",
+  "title": "AetherGrid, an open-source distributed AI workload orchestrator",
+  "type": "news",
+  "url": "https://github.com/wycliffRotich-dev/aethergrid"
  },
  "7c1fed0d11e9b516": {
   "first_seen": "2026-10-27T12:04:53.970723+00:00",
@@ -18796,6 +18887,23 @@
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.164",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "e379c9bd87f9ef79": {
+  "first_seen": "2026-10-28T06:04:54.465540+00:00",
+  "id": "af123c35bfa7174a",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-10-27T16:04:10+00:00",
+  "sid": "e379c9bd87f9ef79",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Fine-grained visual perception remains a bottleneck during post-training of multimodal large language models (MLLMs), as perceptual errors can constrain gains from reasoning-focused optimization. Although image-caption pre-training improves perception, its influence can weaken as subsequent stages change data mixtures and objectives. Continuing caption supervision during post-training is challenging because subjective, information-dense descriptions complicate verifiable reward design. We present PerceptRL, which strengthens perception at two complementary levels. Perception RL uses a multi-agent pipeline to extract verified errors from dense image captions and convert the corresponding visual facts into QA pairs with fixed answer labels and rule-based rewards. Chain QA links correlated errors, while multiple-choice QA combines unrelated errors. A specialized route targets high-error domains with tailored verification, and a domain-agnostic general route covers errors beyond these domains. Perception Agentic RL addresses fine-grained and dense cases unresolved by single-turn Perception RL through multi-turn inspection with visual tools. We observe coordinate drift even in models trained to use tools, where incorrect crops or annotations distort evidence and propagate errors. Coordinate Injection corrects spatial operations in cold-start trajectories, while a grounding-aware process reward supervises intermediate spatial fidelity alongside final-answer correctness. Training pr",
+  "summary_1line": "Fine-grained visual perception remains a bottleneck during post-training of multimodal large language models (MLLMs), as perceptual errors can constrain gains from reasoning-focused optimization. Although image-captio...",
+  "title": "PerceptRL: Making Visual Perception Rewardable in MLLMs from Answers to Interactions",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37471v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "e38c1e366ff32ff2": {
   "first_seen": "2026-10-10T02:04:23.168315+00:00",
   "id": "34fb14436d764dcf",
@@ -19368,16 +19476,16 @@
   "url": "https://newsletter.semianalysis.com/p/huawei-deepseek"
  },
  "ea8a064639d05d1a": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. Manju Rajashekhar explains how the actor model solves the complex runtime challenges of production AI agents. By treating agents as distributed systems, he discusses state ownership, message passing, write-through state, and supervision boundaries to manage failures, continuations, and mutable execution graphs, moving agentic workflows beyond fragile demos to resilient architecture. Nathen Harvey shares insights from DORA research",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. Khawaja Shams shares a distributed systems perspective on scaling LLM inference stacks efficiently. He discusses practical strategies for optimizing GPU utilization, managing KV cache memory cliffs, leveraging tiered storage, reducing tail latency, and implementing disaggregated prefill and decode architectures to improve overall fleet performance, cost economics, and availability. Nathen Harvey shares insights from DORA research ",
   "first_seen": "2026-10-27T05:04:12.105816+00:00",
-  "id": "3b678f885dff307f",
+  "id": "be65a87f8f404d3b",
   "image_url": "https://res.infoq.com/news/2026/10/atlassian-devex-2026/en/headerimage/generatedHeaderImage-1793026389174.jpg",
   "published": "2026-10-27T04:45:00+00:00",
   "sid": "ea8a064639d05d1a",
   "source": "infoq_ai_ml",
   "summary": "Atlassian’s State of Developer Experience 2026 finds the share of developers saving ten or more hours a week with AI dropped from 68% to 26% year over year, while only 28% report noticeably less friction than before AI. Engineering leaders report spending more time managing and correcting AI output than developers do. By Steef-Jan Wiggers",
   "summary_1line": "Atlassian’s State of Developer Experience 2026 finds the share of developers saving ten or more hours a week with AI dropped from 68% to 26% year over year, while only 28% report noticeably less friction than before A...",
-  "title": "Developers Reporting Double-Digit Weekly Time Savings From AI Fell From 68% to 26%",
+  "title": "Developers Reporting Double-Digit Weekly Time Savings from AI Fell from 68% to 26%",
   "type": "news",
   "url": "https://www.infoq.com/news/2026/10/atlassian-devex-2026/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
  },
