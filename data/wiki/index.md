@@ -16,9 +16,9 @@ Schema: `config/wiki_schema.md`.
   - theme `consistency-and-autonomy` — Consistency, autonomy limits, and the human role (6)
 
 ### memory
-- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (71 entries, updated 2026-10-25)
+- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (72 entries, updated 2026-10-28)
   → solutions: context-compaction, vector-kb
-  - theme `architectures` — Tiered and lifecycle memory architectures (13)
+  - theme `architectures` — Tiered and lifecycle memory architectures (14)
   - theme `local-first-stores` — Build vs. buy: managed services and developer-owned stores (16)
   - theme `shared-memory` — Sharing memory across agents, isolating it between users (10)
   - theme `recall-and-curation` — What to write, when to revoke, how to recall (16)
@@ -163,10 +163,10 @@ Schema: `config/wiki_schema.md`.
   - theme `attribution` — Attributing spend to the PR, the agent, and the anomaly (3)
   - theme `hard-caps` — Hard caps that run before the call, not after the bill (5)
   - theme `caching-and-filtering` — Caching and pre-filtering cut fixed overhead (5)
-- [llm-as-judge](solutions/llm-as-judge.md) — LLM-as-judge: model-graded evaluation of traces and outputs (17 entries, updated 2026-10-26)
+- [llm-as-judge](solutions/llm-as-judge.md) — LLM-as-judge: model-graded evaluation of traces and outputs (18 entries, updated 2026-10-28)
   - theme `structured-verdicts` — From a 1-5 score to structured, trace-level verdicts (3)
   - theme `cheaper-judges` — Making the judge cheap enough to run on every trace (5)
-  - theme `trusting-the-judge` — Auditing the judge, the rubric, and whether you need one (9)
+  - theme `trusting-the-judge` — Auditing the judge, the rubric, and whether you need one (10)
 - [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools (35 entries, updated 2026-10-25)
   - theme `stateless-spec` — The stateless spec and what MCP is actually for (7)
   - theme `auth-and-governance` — Authorization and governance of connector fleets (9)

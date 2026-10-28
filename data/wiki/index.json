@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-27T18:06:52.591513+00:00",
+ "generated_at": "2026-10-28T18:05:25.844221+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,22 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-28-novelty-judges-prompt-sensitive",
+   "topic": "llm-as-judge",
+   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
+   "kind": "solution",
+   "date": "2026-10-28",
+   "title": "Novelty judges swing by 50+ points on small prompt changes"
+  },
+  {
+   "id": "2026-10-28-openwiki-compiled-memory",
+   "topic": "agent-memory",
+   "topic_title": "Agents forget across steps and sessions",
+   "kind": "obstacle",
+   "date": "2026-10-28",
+   "title": "A compiled, claim-linked wiki beat search roughly 5x on cross-source questions"
+  },
   {
    "id": "2026-10-27-rfc-corpus-skill-mcp-token-savings",
    "topic": "tool-use",
@@ -238,22 +254,6 @@
    "kind": "solution",
    "date": "2026-10-23",
    "title": "Commerce.com turns on WebMCP for ~100,000 storefronts at the edge, with per-merchant opt-out"
-  },
-  {
-   "id": "2026-10-21-cache-engineering-drop-repos",
-   "topic": "context-compaction",
-   "topic_title": "Context compaction: summarize, compress, and curate the working set",
-   "kind": "solution",
-   "date": "2026-10-21",
-   "title": "Dropping KV cache segments beats summarizing history, without re-prefilling the kept context"
-  },
-  {
-   "id": "2026-10-21-heartbeat-thinking-voice-agents",
-   "topic": "agent-latency",
-   "topic_title": "Agent loops multiply per-call latency into slow, expensive runs",
-   "kind": "obstacle",
-   "date": "2026-10-21",
-   "title": "Voice agents can run tools while the user is still speaking, cutting final-response latency 36%"
   }
  ],
  "nodes": {
@@ -5279,7 +5279,7 @@
      "key": "architectures",
      "title": "Tiered and lifecycle memory architectures",
      "summary": "Working, episodic, and long-term tiers are settled practice, now shipped as products on existing infrastructure, with newer work treating memory as a lifecycle of writing, scoping, consolidating, and forgetting.",
-     "count": 13
+     "count": 14
     },
     {
      "key": "local-first-stores",
@@ -5313,6 +5313,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-28-openwiki-compiled-memory",
+     "topic": "agent-memory",
+     "date": "2026-10-28",
+     "title": "A compiled, claim-linked wiki beat search roughly 5x on cross-source questions",
+     "theme": "architectures",
+     "html": "<p>LangChain tested OpenWiki, its open-source wiki compiler, as an agent memory layer on a synthetic insurance library (111 documents, 972 facts, with outdated versions and contradictions mixed in). On questions spanning several sources, the wiki-equipped agent was roughly <strong>5x</strong> more accurate than keyword search alone; adding an evidence graph gave a further 27% and doubled citation consistency (vendor-reported, synthetic corpus).</p>\n<p>Each wiki statement is a claim tied to hashed source lines. When the lines change, the hash flags the claim without a model call, and only flagged claims go to a model for revision or retraction. For builders, this is a cheap, deterministic staleness check for memory built from policy-style documents.</p>",
+     "evidence": [
+      {
+       "sid": "b017db0483658dfc",
+       "title": "How to build evidence-grounded agent memory with OpenWiki and Graphs"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-25-state-integrity-collapse",
      "topic": "agent-memory",
@@ -6516,8 +6531,8 @@
      "title": "An open-source memory plugin consolidates by forgetting and synthesizing instead of storing everything"
     }
    ],
-   "entry_count": 71,
-   "latest_entry_date": "2026-10-25",
+   "entry_count": 72,
+   "latest_entry_date": "2026-10-28",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -6531,6 +6546,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "b017db0483658dfc",
+     "title": "How to build evidence-grounded agent memory with OpenWiki and Graphs"
+    },
     {
      "sid": "4179502a4cb9cc04",
      "title": "When LLMs Forget What They Believe: Characterizing State Integrity Collapse in Long-Horizon Dialogues"
@@ -6828,7 +6847,7 @@
      "title": "Cloudflare Announces Agent Memory, a Managed Persistent Memory Service for AI Agents"
     }
    ],
-   "updated": "2026-10-25"
+   "updated": "2026-10-28"
   },
   "agent-observability": {
    "slug": "agent-observability",
@@ -11342,7 +11361,7 @@
       },
       {
        "sid": "e8085371baf80a90",
-       "title": "Markdown Is the New Executable: Attackers Drop Agent Instructions into Downloads"
+       "title": "Markdown Is the New Exe: Attackers Drop Agent Instructions In Downloads Folder"
       }
      ],
      "also": [
@@ -12341,7 +12360,7 @@
     },
     {
      "sid": "e8085371baf80a90",
-     "title": "Markdown Is the New Executable: Attackers Drop Agent Instructions into Downloads"
+     "title": "Markdown Is the New Exe: Attackers Drop Agent Instructions In Downloads Folder"
     },
     {
      "sid": "ee884278a0d18afe",
@@ -18018,10 +18037,25 @@
      "key": "trusting-the-judge",
      "title": "Auditing the judge, the rubric, and whether you need one",
      "summary": "Judges carry position, verbosity, and language bias, and rubrics can be wrong; calibrate against human labels or replace the judge with a deterministic check.",
-     "count": 9
+     "count": 10
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-28-novelty-judges-prompt-sensitive",
+     "topic": "llm-as-judge",
+     "date": "2026-10-28",
+     "title": "Novelty judges swing by 50+ points on small prompt changes",
+     "theme": "trusting-the-judge",
+     "html": "<p>Ai2&#x27;s &quot;Old Ideas, Novel Problems&quot; benchmarks LLM novelty judges on 154 high-novelty ideas drawn from ICLR 2026 peer reviews. Across six judges (GPT-5.1/5.2/5.4, Claude Sonnet 4.5, Opus 4.5/4.6), changing a few words in the prompt shifted pairwise accuracy by more than <strong>50 percentage points</strong> (paper-reported).</p>\n<p>Retrieval and extra reasoning did not help consistently, and two purpose-built novelty systems scored below a plain prompted Opus 4.6 baseline. For builders: a judge validated on human-written papers may not transfer to generated ideas, so re-check any judge after every prompt or setup change.</p>",
+     "evidence": [
+      {
+       "sid": "1d6c5c59e46e52b9",
+       "title": "Can we trust LLMs to judge whether a research idea is novel?"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-26-simulated-control-evals-monitors",
      "topic": "llm-as-judge",
@@ -18344,8 +18378,8 @@
      "title": "Checking 100 human-annotated traces shows automated evals diverge from human raters"
     }
    ],
-   "entry_count": 17,
-   "latest_entry_date": "2026-10-26",
+   "entry_count": 18,
+   "latest_entry_date": "2026-10-28",
    "solutions": [],
    "obstacles": [
     {
@@ -18359,6 +18393,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "1d6c5c59e46e52b9",
+     "title": "Can we trust LLMs to judge whether a research idea is novel?"
+    },
     {
      "sid": "317b87334e0d2a63",
      "title": "Red-teaming AI agent monitors with an LLM that fakes tool outputs"
@@ -18428,7 +18466,7 @@
      "title": "Building a 100x Cheaper Trace Judge with Fireworks"
     }
    ],
-   "updated": "2026-10-26"
+   "updated": "2026-10-28"
   },
   "mcp": {
    "slug": "mcp",
