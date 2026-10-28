@@ -63,6 +63,41 @@ ITEM_FIELDS = (
 
 EMPTY = (None, "", [], {})
 
+# A judgment is one unit: score, verdict, category, signals and provenance
+# come from the same call. A later run that fails open (judge timeout,
+# insufficient evidence) reports `judge_verdict: "unjudged"` with no score;
+# it must not replace an earlier real judgment field by field.
+JUDGE_UNIT = (
+    "judge_score",
+    "judge_verdict",
+    "judge_category",
+    "judge_category_confidence",
+    "judge_signals",
+    "judge_evidence_chars",
+    "judge_error",
+    "judge_model",
+    "judge_rubric_version",
+    "judge_judged_at",
+)
+
+
+def merge_rows(base: dict[str, Any], incoming: dict[str, Any]) -> dict[str, Any]:
+    """Merge ``incoming`` over ``base``: non-empty values win, except that an
+    incoming row without a judge score never overwrites a stored judgment, and
+    a real judgment clears a stale ``judge_error``."""
+    out = dict(base)
+    incoming_judged = incoming.get("judge_score") is not None
+    base_judged = base.get("judge_score") is not None
+    for field, value in incoming.items():
+        if value in EMPTY:
+            continue
+        if field in JUDGE_UNIT and base_judged and not incoming_judged:
+            continue
+        out[field] = value
+    if incoming_judged and incoming.get("judge_error") in EMPTY:
+        out.pop("judge_error", None)
+    return out
+
 
 def normalize_url(value: Any) -> str:
     url = str(value or "").split("#")[0].strip()
@@ -180,9 +215,7 @@ def merge_run(
         if not key or key in seen_this_run:
             continue
         seen_this_run.add(key)
-        row = items.get(key) or {}
-        for field, value in _row_from_item(item).items():
-            row[field] = value
+        row = merge_rows(items.get(key) or {}, _row_from_item(item))
         row.setdefault("first_seen_run", run_at)
         row["last_seen_run"] = run_at
         row["runs_seen"] = int(row.get("runs_seen") or 0) + 1
@@ -256,10 +289,7 @@ def load_pool_days(days: list[str], pool_dir: Path | None = None) -> dict[str, d
             if previous is None:
                 merged[key] = dict(row)
                 continue
-            combined = dict(previous)
-            for field, value in row.items():
-                if value not in EMPTY:
-                    combined[field] = value
+            combined = merge_rows(previous, row)
             combined["first_seen_run"] = min(str(previous.get("first_seen_run") or "~"), str(row.get("first_seen_run") or "~"))
             combined["runs_seen"] = int(previous.get("runs_seen") or 0) + int(row.get("runs_seen") or 0)
             combined["edition_runs"] = int(previous.get("edition_runs") or 0) + int(row.get("edition_runs") or 0)

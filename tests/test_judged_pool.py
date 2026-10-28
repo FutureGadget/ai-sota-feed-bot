@@ -95,6 +95,28 @@ class JudgedPoolTest(unittest.TestCase):
         self.assertEqual(rows["https://example.com/post-3"]["type"], "release")
         self.assertIn(rows["https://example.com/post-3"].get("release_tier"), ("major", "minor"))
 
+    def test_unjudged_rerun_keeps_the_earlier_judgment_as_a_unit(self):
+        first = _item(1, judge_score=0.8, judge_verdict="keep", judge_category="agent_engineering")
+        pool = judged_pool.merge_run({}, [first], [], RUN1)
+        failed = _item(1, judge_score=None, judge_verdict="unjudged", judge_error="insufficient_evidence")
+        pool = judged_pool.merge_run(pool, [failed], [], RUN2)
+        row = pool["items"]["https://example.com/post-1"]
+        self.assertEqual((row["judge_score"], row["judge_verdict"]), (0.8, "keep"))
+        self.assertNotIn("judge_error", row)
+
+    def test_real_judgment_clears_a_stale_error(self):
+        pool = judged_pool.merge_run({}, [_item(1, judge_verdict="unjudged", judge_error="insufficient_evidence")], [], RUN1)
+        pool = judged_pool.merge_run(pool, [_item(1, judge_score=0.7, judge_verdict="keep")], [], RUN2)
+        row = pool["items"]["https://example.com/post-1"]
+        self.assertEqual(row["judge_verdict"], "keep")
+        self.assertNotIn("judge_error", row)
+
+    def test_load_pool_days_keeps_judgment_over_later_unjudged_day(self):
+        judged_pool.record_run([_item(1, judge_score=0.8, judge_verdict="keep")], [], run_at=RUN1, pool_dir=self.tmp_path)
+        judged_pool.record_run([_item(1, judge_verdict="unjudged", judge_error="x")], [], run_at="2026-10-29T01:00:00+00:00", pool_dir=self.tmp_path)
+        row = judged_pool.load_pool_days(["2026-10-28", "2026-10-29"], pool_dir=self.tmp_path)["https://example.com/post-1"]
+        self.assertEqual((row["judge_score"], row["judge_verdict"]), (0.8, "keep"))
+
     def test_cluster_echoes_become_coverage_signals(self):
         rep = _item(1, also_covered=[{"source": "hn"}, {"source": "search_x"}, {"source": "hn"}])
         row = judged_pool.merge_run({}, [rep], [], RUN1)["items"]["https://example.com/post-1"]
