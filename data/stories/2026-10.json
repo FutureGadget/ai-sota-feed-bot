@@ -1473,6 +1473,18 @@
   "type": "news",
   "url": "https://cloud.google.com/blog/products/media-entertainment/how-visko-streams-real-time-world-models-on-google-cloud-tpus"
  },
+ "122ec7cea45d8a1a": {
+  "first_seen": "2026-10-29T15:03:30.146891+00:00",
+  "id": "69b31bd61aec447c",
+  "published": "2026-10-29T14:00:00+00:00",
+  "sid": "122ec7cea45d8a1a",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Rival.io Launches GraphX, Running DeepSeek V4 Flash on Just Eight NVIDIA L4 GPUs Yahoo Finance",
+  "summary_1line": "Rival.io Launches GraphX, Running DeepSeek V4 Flash on Just Eight NVIDIA L4 GPUs Yahoo Finance",
+  "title": "Rival.io Launches GraphX, Running DeepSeek V4 Flash on Just Eight NVIDIA L4 GPUs",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOWkd5NkJONUV6dFBKcHA3cUI1Nm5UUmJMV2JzU3pwbk1iVXpoNUdhSWF6WC05alBZYTdrNkMydUx0LVZPNU11YjJBanJiZHpmMkczVGlqYVZIeXVTTHRKcEV2UzJaaDUzdVlIQktnZXlKWjQ0UFh2YVdwWmozQ0ZtRTVqTEw3NDYyMHpHSlBnVElLdk50dFZBSFczeHc?oc=5"
+ },
  "126137daedcb1ad9": {
   "first_seen": "2026-10-22T11:04:54.744367+00:00",
   "id": "a763afbff069bc52",
@@ -2562,6 +2574,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.20245v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation, claude code."
+ },
+ "1eaf7c8a66dce5b5": {
+  "content_excerpt": "Signed, verifiable records of what your AI agents did: model calls, tool calls and network connections. A flight recorder for AI agents. It records what an agent read, decided and did, where each piece of its input came from, and signs the record so nobody can quietly change it later. When an agent does something it shouldn't, you can show exactly which run and step did it, which untrusted input came before it, and who or what approved it. The demo records a scripted support agent that reads a poisoned web page and emails customer data out, then investigates it: the firewall connection traced to the agent step, a tampered copy caught, a redacted copy for an auditor that still verifies. It ends in the dashboard. No API key, and everything stays on your machine. Step by step for Windows, macOS and Linux: docs/install.md . 1. No code changes, any language: the proxy. It sits between your agent and the model API. On Windows PowerShell: $env:ANTHROPIC_BASE_URL = \"http://127.0.0.1:8787/anthropic\" . Azure OpenAI, and local models through Ollama, vLLM or LiteLLM, work too: see docs/proxy.md . 2. From inside your Python code , which also sees tool calls, approvals and network connections: ( pip install \"mnestiq[anthropic]\" , or mnestiq[openai] with instrument_openai .) The full example below adds tools, their sources and network capture. A key file the agent can read is fine for trying it out. In production, keep the key where the agent can't read it: signer=SignerClient.from_env() wi",
+  "first_seen": "2026-10-29T15:03:30.146891+00:00",
+  "id": "871c3527cb0f2cc4",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T14:54:34+00:00",
+  "sid": "1eaf7c8a66dce5b5",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: I built a tamper-evident flight recorder for AI agents",
+  "title": "Show HN: I built a tamper-evident flight recorder for AI agents",
+  "type": "news",
+  "url": "https://github.com/mnestiq/mnestiq",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "1eef31f434e4096c": {
   "first_seen": "2026-10-13T12:04:32.923504+00:00",
@@ -4814,6 +4842,19 @@
   "type": "news",
   "url": "https://www.infoq.com/news/2026/10/qcon-ai-newyork-2026-pc-picks/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "37f6c0c263213efd": {
+  "content_excerpt": "We're excited to announce day-0 support for Mistral Large 4 in vLLM. Mistral Large 4 is Mistral's new frontier mixture-of-experts native multimodal model. It combines a DeepSeek-style sparse attention stack (MLA plus a DSA top-k indexer) with several new architecture features: cross-layer KV sharing, NoPE layers, SSMax and LeRoPE. It ships with a built-in DSpark speculative decoding drafter and a Pixtral vision encoder. Supporting it took more than a model file. ML4 runs on vLLM's model runner V2 (MRV2) with breakable CUDA graphs. Its building blocks live in a new vllm/models/mistral/ package, and the work produced generic improvements to decode context parallelism (DCP), prefill context parallelism (PCP), DSpark, NIXL-based disaggregated serving and HiSparse host-memory KV offload. Mistral Large 4 support ships in the vllm/vllm-openai:mistral-large-4 Docker image, which also includes mistral-common 1.13. The commands below run vllm serve inside it: NVFP4 does not trade quality for speed. On multimodal, long-context, agentic coding, business automation and cyber evals it stays within 2.1 points of FP8 on every task, and the mean difference is −0.3 points. Token consumption is matched too: mean completion tokens stay within about 4% of FP8. It is also faster and lighter: at TP8, NVFP4 decodes 1.08–1.19x faster per token than FP8 without spec decoding (1.18–1.22x with DSpark) and holds ~1.5x the KV cache. Long context (DCP). Add --decode-context-parallel-size 8 to shard the lat",
+  "first_seen": "2026-10-29T15:03:30.146891+00:00",
+  "id": "e60889207f563111",
+  "published": "2026-10-29T00:00:00+00:00",
+  "sid": "37f6c0c263213efd",
+  "source": "vllm_blog",
+  "summary": "Day-0 vLLM support for Mistral Large 4 with sparse MLA, cross-layer KV sharing, DSpark speculative decoding, DCP/PCP long context and NIXL P/D on NVIDIA Blackwell.",
+  "summary_1line": "Day-0 vLLM support for Mistral Large 4 with sparse MLA, cross-layer KV sharing, DSpark speculative decoding, DCP/PCP long context and NIXL P/D on NVIDIA Blackwell.",
+  "title": "Day 0 support for Mistral Large 4 on vLLM",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-10-29-mistral-large-4"
  },
  "382ad184d65bdde1": {
   "first_seen": "2026-10-18T13:04:37.365237+00:00",
@@ -15795,6 +15836,18 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOWlF2SkpRT1ItZmVvMEJVT3phUFlSM0t5YXBfVGxRV3ZDZjcwNWJma1VmQXNCTGYtR0JiUF9WSzZWRTRQcFpnOGZpODM4SVM0OXVlREZSbzY0ZUVCaVBPR2hmT29JdHFsVlpOdnlDZ3B6UVE3WERVZFdCVUF4MFNySGhDWHZ2Y2gy?oc=5"
  },
+ "b6b30743068c2627": {
+  "content_excerpt": "Mistral Large 4 (aka Le Chonk) is a multimodal, multilingual, Mixture-of-Experts (MoE) model from Mistral. It takes text and images as input and generates text. It has about 1T total, 49B active parameter , and a context window of 1M tokens . There are also GGUFs created by Unsloth and the llama.cpp team. It’s distributed under the Mistral Ecosystem Open-Weight License (an MIT derivative that establishes limitations for model-as-a-service offerings). Mistral Large 4 is particularly strong for cybersecurity, coding agents, and multimodality. In this post, we look at how the model works, its capabilities, architecture and more! Mistral Large 4 combines a large pool of experts with sparse attention and a Pixtral vision encoder. The language model selects a small group of experts for each token, while its attention indexer selects which earlier token positions to attend to. These are two different forms of sparsity, where one selects feed-forward networks, the other selects context positions. Mistral Large 4 scores 82% on the Artificial Analysis Cyber Index test that asks a model to reproduce a real vulnerability in open-source software and then patch the software. Mistral reports that several closed frontier models score near zero on the same test because they refuse to attempt the work. This is super important for defenders, because fixing a vulnerability usually requires reproducing the vulnerability. In Mistral’s internal testing, Mistral Large 4 was also useful for malware a",
+  "first_seen": "2026-10-29T15:03:30.146891+00:00",
+  "id": "87373f135c6571ba",
+  "published": "2026-10-29T00:00:00+00:00",
+  "sid": "b6b30743068c2627",
+  "source": "huggingface_blog",
+  "summary_1line": "Welcome Le Chonk: Mistral Large 4 on Hugging Face",
+  "title": "Welcome Le Chonk: Mistral Large 4 on Hugging Face",
+  "type": "research",
+  "url": "https://huggingface.co/blog/mistral-large4"
+ },
  "b6b649096ddbc888": {
   "first_seen": "2026-10-22T02:03:12.635099+00:00",
   "id": "b34ab428f1338b63",
@@ -21953,6 +22006,22 @@
   "url": "https://aws.amazon.com/blogs/machine-learning/stream-low-latency-speech-from-ai-agents-using-kokoro-tts-on-amazon-sagemaker-ai",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "f6dd44668865494b": {
+  "content_excerpt": "A startup led by former GitHub CEO Thomas Dohmke is introducing its own platform for storing, reviewing and shipping code written by AI agents, competing with the company he used to run. The startup, Entire , on Monday unveiled what it calls a Git forge — a service for hosting code, reviewing changes and running builds, the core of what GitHub does — designed for teams whose AI agents write code faster than people can review it. The company is pitching it as an alternative to GitHub. The news comes two days before GitHub’s annual Universe conference in San Francisco. Microsoft acquired GitHub for $7.5 billion in 2018 and has since folded it into its CoreAI division. The biggest change is Trails, Entire’s replacement for the pull request, the standard way developers propose and review code changes. The pull request “has become an audit log that only the agent reads,” Dohmke wrote in a blog post Monday. Instead of reading through every changed line, developers see a dashboard of scores from AI agents evaluating the code on each update. According to Entire, multiple AI agents check the quality of each change, so developers can merge code without reading every line. Teams can also require a person’s sign-off, or passing automated tests, before any code goes in, the company said. The launch comes as GitHub strains under the load from AI agents. The platform has had several significant outages in recent months, including one in August that lasted nearly eight hours. GitHub is movin",
+  "first_seen": "2026-10-29T15:03:30.146891+00:00",
+  "id": "e20d6db3cceda690",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T14:53:37+00:00",
+  "sid": "f6dd44668865494b",
+  "source": "hackernews_ai",
+  "summary_1line": "Former GitHub CEO launches rival Git forge built for AI coding agents",
+  "title": "Former GitHub CEO launches rival Git forge built for AI coding agents",
+  "type": "news",
+  "url": "https://www.geekwire.com/2026/former-github-ceo-launches-rival-platform-built-for-ai-coding-agents",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "f73af029d6c9ec9a": {
   "first_seen": "2026-10-02T02:02:47.923202+00:00",
   "id": "c7170ee9e33ff6b6",
@@ -22586,6 +22655,24 @@
   "title": "Databricks Is Doubling Down On New York City As A Premier AI Talent Hub",
   "type": "news",
   "url": "https://www.databricks.com/blog/databricks-doubling-down-new-york-city-premier-ai-talent-hub"
+ },
+ "ff8139f06200d45d": {
+  "content_excerpt": "Agents have gotten good enough to work where we work, and a lot of that work happens in a browser. Booking travel, canceling a subscription, or filing a claim all happen on sites built for people clicking through pages, including ones the agent didn't plan to visit. Often there's no API an agent can call. Fetching the page with curl doesn't get far either, since it returns the HTML before any JavaScript renders the page and can't click anything. Personal agents like Instinct and Meta's Muse already work this way. Browser agent traffic is growing fast too, and DataDome saw agentic browser requests jump 4.7x in September alone. Managed Deep Agents lets you build and deploy agents in LangSmith without running any infrastructure. You write the agent's instructions and tools, and LangSmith runs the harness and runtime. Today, we're giving these agents a browser, so you can build your own agents that work on the web. Managed Deep Agents runs the browser too, and gives your agent tools tuned for it. In this post, we cover where a browser helps and how to turn it on, including handing the browser to a person when the agent needs one. Then we walk through how it works under the hood. Agents built with open source Deep Agents can use a browser too . We'll cover how we tested and tuned the browser tools in a deep dive next week. With a browser and tools to drive it, an agent can read what renders on a page and click through it, the same way you (a human) would. The browser stops after i",
+  "first_seen": "2026-10-29T15:03:30.146891+00:00",
+  "id": "7580532befd1a168",
+  "image_url": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6ae2e4a5ec6ae4604757f269_cover-webflow-1200x675.png",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T15:00:00+00:00",
+  "sid": "ff8139f06200d45d",
+  "source": "langchain_blog",
+  "summary": "Managed Deep Agents now runs a browser for your agent, with tools tuned for context-efficient browser use and a handoff so you can sign in yourself.",
+  "summary_1line": "Managed Deep Agents now runs a browser for your agent, with tools tuned for context-efficient browser use and a handoff so you can sign in yourself.",
+  "title": "Browser Use in Managed Deep Agents",
+  "type": "news",
+  "url": "https://www.langchain.com/blog/browser-use-in-managed-deep-agents",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "ffbd2270c4b6f60f": {
   "first_seen": "2026-10-12T07:04:21.263016+00:00",
