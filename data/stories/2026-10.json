@@ -1319,19 +1319,25 @@
  },
  "10be109ee0bd01c4": {
   "first_seen": "2026-10-29T18:05:07.792945+00:00",
-  "id": "0a9072cfe7b24d29",
+  "id": "db12137a5eae00b5",
   "matched_topics": [
+   "agent",
    "codex"
   ],
-  "published": "2026-10-29T17:44:31+00:00",
+  "published": "2026-10-29T19:50:20+00:00",
+  "release_highlights": [
+   "Added keyboard-driven transcript selection with word, line, and page motions, integrated search, and configurable shortcuts. ( #57221 , #57222 , #57223 , #57...",
+   "Rendered Markdown consistently in async questions, choices, answers, and transcript replies. ( #57259 , #57292 )",
+   "Added GPT-6.1 Terra to the bundled, Vertex AI, and Amazon Bedrock model catalogs"
+  ],
   "sid": "10be109ee0bd01c4",
   "source": "openai_codex_releases",
-  "summary": "Release 0.166.0",
-  "summary_1line": "Release 0.166.0",
-  "title": "codex rust-v0.166.0",
+  "summary": "New Features Added keyboard-driven transcript selection with word, line, and page motions, integrated search, and configurable shortcuts. ( #57221 , #57222 , #57223 , #57224 ) Rendered Markdown consistently in async questions, choices, answers, and transcript replies. ( #57259 , #57292 ) Added GPT-6.1 Terra to the bundled, Vertex AI, and Amazon Bedrock model catalogs. ( #57293 ) Added codex queue --resume to resume unloaded threads after queueing a message. ( #57232 ) Added clearer safety-block explanations and selectable safer follow-up prompts in the TUI. ( #57363 , #57365 ) Added codex doctor --network-only for focused configuration, connectivity, and WebSocket diagnostics. ( #57606 ) Bug Fixes Preserved acknowledged approval and permission settings when resuming or forking threads. ( #57227 ) Preserved local image attachments when restoring killed composer text. ( #57502 ) Fixed standalone release cleanup on macOS when installations are in use or paths contain non-ASCII characters. ( #57503 ) Restored spawned descendant threads when unarchiving their parent. ( #57635 ) Fixed app-server thread startup and shutdown races and released completed runtimes promptly. ( #57787 , #57788 ) Improved TUI reconnection recovery, including offline /quit and /exit handling. ( #57820 ) Preserved reasoning-token accounting across resume and fork to avoid premature compaction. ( #57839 ) Chores Switched Bazel to source-built V8 with target-matched Rust bindings and native Windows MSVC archi",
+  "summary_1line": "Added keyboard-driven transcript selection with word, line, and page motions, integrated search, and configurable shortcuts. ( #57221 , #57222 , #57223 , #57... · Rendered Markdown consistently in async questions, cho...",
+  "title": "codex 0.166.0",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0",
-  "why_it_matters": "Matches feed focus: codex."
+  "why_it_matters": "Matches feed focus: agent, codex."
  },
  "10f91cbb4979cd0e": {
   "first_seen": "2026-10-24T22:03:32.592262+00:00",
@@ -5411,6 +5417,7 @@
     "url": "https://latent.space/p/ainews-gemini-4-carbon/"
    }
   ],
+  "content_excerpt": "Gemini 4 Carbon is our strongest model with state-of-the-art cybersecurity and long horizon capabilities. Today, we’re announcing the next frontier model: Gemini 4 Carbon, our strongest model with state-of-the-art cybersecurity and long horizon capabilities. Carbon ranks #1 on the recently updated v5.0 of Artificial Analysis Intelligence Index at 59. It shows significant gains across coding and agentic tasks as well as across key capabilities critical for cybersecurity defense, landing a firm lead in SEC-bench Pro (88.2%) for finding vulnerabilities, ExploitGym (54.8%) for exploitation, and CWE-bench (71.0%) for patching. On internal benchmarks, Carbon drives a strong uplift in generating secure code, and in live coding environments with our own teams it shows reduced misalignment and fabrication rates. Building on Gemini 4 Argon , which was launched two weeks ago, Carbon illustrates the pace at which we’re pushing the frontier forward. Our researchers and models are working hand in hand to advance capabilities faster, while strengthening our safeguards in tandem. We're taking a deliberate approach to rollout and are actively engaged in the U.S. government’s voluntary process for pre-release model testing. Starting this week, we will make Carbon available to a subset of cyber defenders and will gradually phase access to additional trusted partners through our Fairwind Program . We’re continuing to gather feedback and iterate on guardrails before making Carbon available to dev",
   "first_seen": "2026-10-28T17:08:44.803502+00:00",
   "id": "792925c95351d4a7",
   "published": "2026-10-28T17:00:58+00:00",
@@ -11460,6 +11467,22 @@
   "url": "https://simonwillison.net/2026/Oct/1/matthew-green",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "87a86deb303cdd3b": {
+  "first_seen": "2026-10-29T20:05:11.018702+00:00",
+  "id": "ae5cad12e49d4f19",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T17:49:55+00:00",
+  "sid": "87a86deb303cdd3b",
+  "source": "hackernews_ai",
+  "summary": "Hi guys, I built a tool www.lovespreadsheets.com earlier this year and a huge problem we kept running into is processing messy, real-world, complex spreadsheets for AI agents. Even a \"medium\" sized spreadsheet converts to about 1m+ tokens if read fully, which immediately blows up the current context windows of most models. So I noticed most agents sample data from spreadsheets in chunks instead. So I (& Claude) built this library Sheetgraph, https://github.com/asharma327/sheetgraph , to compress spreadsheets (~100x compression) while still maintaining their structure (like a dependency graph for formulas) & other relevant metadata such as macros, cell data types, formatting. There is a zipped full workbook of the spreadsheet as well for the agent to lookup data as needed. Still rough around the edges so would love any feedback on both the idea and any details. This is used in our primary product + services platform Love Spreadsheets so we are actively maintaining and improving it. Thanks!",
+  "summary_1line": "Hi guys, I built a tool www.lovespreadsheets.com earlier this year and a huge problem we kept running into is processing messy, real-world, complex spreadsheets for AI agents. Even a \"medium\" sized spreadsheet convert...",
+  "title": "Show HN: Sheetgraph, AI agents can understand complex spreadsheets",
+  "type": "news",
+  "url": "https://github.com/asharma327/sheetgraph",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "87c39d8266ff6487": {
   "first_seen": "2026-10-04T11:02:49.324434+00:00",
   "id": "84e7541fa29ffe65",
@@ -11528,7 +11551,7 @@
   "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1HVUNmcHJwTHJoM2o1SUpYZlBXNHRoYzg5c0d5N0h6UlpTMnN1a0ZyN3ZFTmJYQnJVcDRjeVF4b3c3ODZrdm1GY2JPd0dzZXJqQ1d1bG9XaWNtWXpQbndocV9KUzM?oc=5"
  },
  "887c59818f68e469": {
-  "content_excerpt": "Hill-climbing is easy, knowing what to hill-climb is hard. Making scores go up is expensive , but we have a much clearer playbook for it than we do for creating meaningful benchmarks at the true frontier of AI today. Independent evaluation of language models is under-appreciated in how hard of a task it is. These groups are not just taking current models and certifying their scores, which is a technically involved task. This is their job if AI progress is slow. When AI progress is as fast as it is, the technical details of the job are the routine work part of trying to put a single number on what makes for a good AI model today. The goal is to have a single number that is representative of current models, matching vibe checks, community sentiment, and scientific analysis, while being forward looking enough so that it’s not outdated in 3 months. Everyone building a benchmark faces a sort of paradox. You need your benchmark to reduce to one single number, so that it is easy to discuss, use in reports, and compare models, but every method of aggregating scores comes with meaningful trade-offs. The best scientists need to do this, everyone does. It’s a matter of creating aggregating metrics that you think are most fair, knowing there will always be imperfections. With the amount of money in the AI ecosystem today, the weight of independent evaluation is even higher – you dictate the winners and losers of a trillion dollar market. You also influence some of the models themselves, ",
+  "content_excerpt": "Hill-climbing is easy, knowing what to hill-climb is hard. Making scores go up is expensive , but we have a much clearer playbook for it than we do for creating meaningful benchmarks at the true frontier of AI today. Independent evaluation of language models is under-appreciated in how hard of a task it is. These groups are not just taking current models and certifying their scores, which is a technically involved task. This is their job if AI progress is slow. When AI progress is as fast as it is, the technical details of the job are the routine work part of trying to put a single number on what makes for a good AI model today. The goal is to have a single number that is representative of current models, matching vibe checks, community sentiment, and scientific analysis, while being forward looking enough so that it’s not outdated in 3 months. Everyone building a benchmark faces a sort of paradox. You need your benchmark to reduce to one single number, so that it is easy to discuss, use in reports, and compare models, but every method of aggregating scores comes with meaningful trade-offs. The best scientists need to do this, everyone does. It’s a matter of creating aggregation metrics that you think are most fair, knowing there will always be imperfections. With the amount of money in the AI ecosystem today, the weight of independent evaluation is even higher – you dictate the winners and losers of a trillion dollar market. You also influence some of the models themselves, ",
   "first_seen": "2026-10-28T17:08:44.803502+00:00",
   "id": "d12efdd3190473ae",
   "image_url": "https://substack-post-media.s3.amazonaws.com/public/images/6a847075-78be-45e9-b554-ae9abc6f9296_3182x1790.png",
@@ -20496,6 +20519,18 @@
   "type": "news",
   "url": "https://www.coinbase.com/en-gb/blog/part-one-how-coinbase-built-evaluated-and-post-trained-a-fraud-agent",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "e508e29ae812fe58": {
+  "content_excerpt": "Just over a week ago, we released Granite Switch 4.1 , showing that our modular Switch architecture lets you configure a language model with specialized, cache-efficient adapters — adding new expertise on a single endpoint. Granite Switch 4.1.1 is a patch release. The version number means what it means in software: fully backwards compatible with 4.1, no migration, incremental improvements under the hood. While we are excited about these new features, what is notable is the speed and efficiency with which our teams could release this update. Apart from training the new ASR model and Decision adapter, nothing was recomputed: the base model is untouched. You compose the latest adapters you want and deploy. This pattern can power far more than patch releases to an IBM-provided model. We're working on tutorials and an Adapter SDK so developers and third-party providers can build their own adapters — iterate on versions, test features, and ship updates the way you ship software. More soon. Until then, test out our latest models , and try out the new multilingual and punctuation capabilities powering our Speech-to-Decisions demo.",
+  "first_seen": "2026-10-29T20:05:11.018702+00:00",
+  "id": "2991e858c7dcc01d",
+  "published": "2026-10-29T13:37:07+00:00",
+  "sid": "e508e29ae812fe58",
+  "source": "huggingface_blog",
+  "summary_1line": "Granite Switch 4.1.1 — Update models like you update software",
+  "title": "Granite Switch 4.1.1 — Update models like you update software",
+  "type": "research",
+  "url": "https://huggingface.co/blog/ibm-granite/granite-switch-4-1-1"
  },
  "e53d362bf380fa3a": {
   "first_seen": "2026-10-09T23:03:52.377282+00:00",
