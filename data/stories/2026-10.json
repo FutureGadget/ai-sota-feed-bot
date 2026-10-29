@@ -1204,6 +1204,22 @@
   "url": "https://claude.dev/blog/claude-code-in-the-cloud",
   "why_it_matters": "Matches feed focus: claude code."
  },
+ "0f01adb2acab0a67": {
+  "first_seen": "2026-10-29T17:05:33.330214+00:00",
+  "id": "d25312469f90de5e",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T09:00:00+00:00",
+  "sid": "0f01adb2acab0a67",
+  "source": "openai_blog",
+  "summary": "OpenAI uses layered monitoring to detect frontier model misalignment and unauthorized agent behavior so responders can intervene before incidents escalate.",
+  "summary_1line": "OpenAI uses layered monitoring to detect frontier model misalignment and unauthorized agent behavior so responders can intervene before incidents escalate.",
+  "title": "How we detect frontier model misalignment",
+  "type": "news",
+  "url": "https://openai.com/index/how-we-detect-frontier-model-misalignment",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "0f0c80587e932ad4": {
   "first_seen": "2026-10-09T10:04:18.147015+00:00",
   "id": "9ac3539afbfdeca7",
@@ -9853,6 +9869,23 @@
   "url": "http://arxiv.org/abs/2610.04537v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "735bacd796971e34": {
+  "content_excerpt": "Addy Osmani's Agentic Verification makes the case in one line: \"I would always prefer a much better feedback loop to a slightly better model.\" A coding agent that can only read the code guesses. One that can run the product and use its interfaces and APIs can check and iterate. This is what a CI pipeline is, but placed inside the agent's session, and running in shorter cycles. We call that a verification harness. At Heal the harness did not start as a product. It started as a question our engineers put to Claude Code in most sessions: what do you need to test your code? Five weeks of answers became a Docker mode in the backend, a replay mode in the agent, integration specs that combine both, and a bench that drives a real Vercel sandbox. This article is about building that harness: what it is, how we designed it, what it caught, what changes when the same model runs with and without one, and why Heal now automatically builds one for every codebase. A verification harness is three things, made available to a coding agent, so it can verify its code. Heal's agent runs long tasks over LLMs and reports them to a backend, so many of its bugs showed up only on staging or in production. The stack already had broad test coverage, and it was not enough. Over five weeks the engineers answered that with one habit: ask Claude Code what it needs to test its code, or say how to test it locally, and let it build a first harness version. The harness is kept decoupled from the production code ",
+  "first_seen": "2026-10-29T17:05:33.330214+00:00",
+  "id": "a74ce1b5781ec406",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-10-29T15:44:16+00:00",
+  "sid": "735bacd796971e34",
+  "source": "hackernews_ai",
+  "summary_1line": "Give your coding agent a verification harness to check its code",
+  "title": "Give your coding agent a verification harness to check its code",
+  "type": "news",
+  "url": "https://www.heal.dev/verification-harness",
+  "why_it_matters": "Matches feed focus: agent, harness."
+ },
  "736cb3afaf8cf4b3": {
   "first_seen": "2026-10-20T02:12:49.772211+00:00",
   "id": "c6d84ee6bd421219",
@@ -12989,6 +13022,22 @@
   "url": "http://arxiv.org/abs/2610.36444v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "9ad587a328a88c23": {
+  "content_excerpt": "The initial answer is simple. You run AI agents the same way you run other workloads on Oxide—​in virtual machines. Customers already run long-lived services in virtual machines, so running AI agents feels familiar. However, AI agents aren’t exactly long-lived services—​they fall somewhere between that and ephemeral CI/CD jobs, depending on how they are used. Run a long-lived agent that provisions sub-agents and it looks like the former. Run an agent to complete a bounded task using /goal and it looks like the latter. With that context, the more accurate answer is to run the AI agent’s orchestrator as a virtual machine, configured to create ephemeral virtual machines for each AI agent session. I’ll show how this works on our Oxide Cloud Computer using both Claude Code self-hosted environments and Amp self-hosted orbs. Before describing how to run AI agents on an Oxide Cloud Computer, it’s important to understand why AI agents need CPUs in the first place. AI agents are just systems that perform inference and execute tool calls in a loop. Put another way, AI becomes \"agentic\" when GPU-based inference needs CPU-based tool execution. The AI agent harness (e.g., Claude Code, Codex, Amp) is responsible for running this loop. The harness runs as a process on a CPU, communicating with an LLM over the network. When the LLM requests a tool call, the harness executes it on the CPU it’s running on and sends the result back to the LLM. AI agents need strong isolation for both security an",
+  "first_seen": "2026-10-29T17:05:33.330214+00:00",
+  "id": "320582d83b902fa4",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T15:47:58+00:00",
+  "sid": "9ad587a328a88c23",
+  "source": "hackernews_ai",
+  "summary_1line": "Running Self-Hosted AI Agents on Oxide",
+  "title": "Running Self-Hosted AI Agents on Oxide",
+  "type": "news",
+  "url": "https://oxide.computer/blog/self-hosted-ai-agents",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "9b376f3af90a1741": {
   "first_seen": "2026-10-08T03:03:39.644590+00:00",
   "id": "2a5645a24a56e51b",
@@ -14462,6 +14511,23 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.161.0-alpha.8",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "a9b9a484569ff337": {
+  "content_excerpt": "Accelerate agentic AI with NVIDIA Nemotron models on Amazon EKS and SageMaker HyperPod EKS | Artificial Intelligence Skip to Main Content Filter: All English Contact us AWS Marketplace Support My account re:Invent Discover AWS Products Solutions Pricing Resources Search Filter: All Sign in to console Create account Explore topics re:Invent 2026 The session catalog is live. Explore what's waiting for you Build & Deploy AI Agents 88% of agent pilots stall. Learn what the rest do differently Get started Sign up free, connect your coding agent, and start building Data for agentic AI The 7 essential data capabilities to scale agentic AI Analyst Report AWS named a Leader in the 2026 Gartner Magic Quadrant for SCPS AI for Small Businesses Solutions designed for your business. Delivered by AWS Partners News & announcements AWS blog About AWS AWS is the world's most comprehensive cloud, enabling organizations to accelerate innovation, reduce costs, and scale more efficiently Why AWS Getting Started Security Compliance Trust Center Sustainability Global Infrastructure Careers Featured Products Analytics Application Integration Artificial Intelligence Business Applications Compute Customer Experience Databases Developer Tools End User Computing Game Tech Management Tools Media Services Migration & Modernization Multicloud & Hybrid Networking & Content Delivery Operations Security & Identity Storage Supply Chain Browse all products Transformation Hubs Migrate to modernize → Modernize to ",
+  "first_seen": "2026-10-29T17:05:33.330214+00:00",
+  "id": "e66561f07afb6125",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-29T16:11:08+00:00",
+  "sid": "a9b9a484569ff337",
+  "source": "aws_ml_blog",
+  "summary": "NVIDIA Nemotron 3.5 Super VL is a 120B-parameter mixture-of-experts model that pairs reasoning and tool use with multimodal understanding. This post explores its architecture and use cases, then shows how to deploy it on Amazon EKS, EKS Auto Mode, and Amazon SageMaker HyperPod EKS with NVIDIA Dynamo and vLLM.",
+  "summary_1line": "NVIDIA Nemotron 3.5 Super VL is a 120B-parameter mixture-of-experts model that pairs reasoning and tool use with multimodal understanding. This post explores its architecture and use cases, then shows how to deploy it...",
+  "title": "Accelerate agentic AI with NVIDIA Nemotron models on Amazon EKS and SageMaker HyperPod EKS",
+  "type": "news",
+  "url": "https://aws.amazon.com/blogs/machine-learning/accelerate-agentic-ai-with-nvidia-nemotron-models-on-amazon-eks-and-sagemaker-hyperpod-eks",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "a9c17daa5dbfcba0": {
   "also_covered": [
@@ -22366,6 +22432,22 @@
   "title": "Adaptive agentic intelligence framework using Strands Agents",
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/adaptive-agentic-intelligence-framework-using-strands-agents",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
+ "fb893c95e2efdcce": {
+  "content_excerpt": "Agent workloads continuously shift the balance between prefill and decode. With Blackhole®, operators can run both phases on the same hardware. An AI agent rarely finishes a task in a single model call. Instead, it works in a loop: generate instructions, wait for tools, read their results, and continue. Fast token generation decreases the time between steps, and storing context in memory saves the system from re-computing existing inputs. However, the balance between processing new input and generating output changes according to the task and the model. Tenstorrent Galaxy® systems handle both phases on the same Blackhole® chip: processing new input (prefill) and generating output (decode). That lets operators shift capacity between the two as their workloads change, instead of being required to make an allocation decision when they buy the hardware. Every model call has two phases. Prefill processes the input tokens and builds their key-value cache (KV cache), the stored attention data the model uses as context. Decode then draws on that state to generate output, extending the cache as it goes. In an agent workflow, that output often kicks off another operation. A coding agent, for example, might request a file, examine it, change some code, and run a test. The result then comes back to the model in a new call, along with the instructions, earlier messages, and prior outputs that came before it. Figure 1. An agent repeats prefill and decode as tools return results. The bars s",
+  "first_seen": "2026-10-29T17:05:33.330214+00:00",
+  "id": "01b5f0ef5844c21c",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-29T15:52:42+00:00",
+  "sid": "fb893c95e2efdcce",
+  "source": "hackernews_ai",
+  "summary_1line": "Serving Prefill and Decode for Agentic AI (On Tenstorrent Blackhole)",
+  "title": "Serving Prefill and Decode for Agentic AI (On Tenstorrent Blackhole)",
+  "type": "news",
+  "url": "https://tenstorrent.com/en/developers/blog/serving-prefill-and-decode-for-agentic-ai",
   "why_it_matters": "Matches feed focus: agentic."
  },
  "fbb852cfc004f1ce": {
