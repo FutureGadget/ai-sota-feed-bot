@@ -10202,6 +10202,22 @@
   "url": "http://arxiv.org/abs/2610.35804v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "763effc6b4105e37": {
+  "content_excerpt": "SQL Server Comparison Tool (SCT) has been around since 1999. It compares SQL Server schemas and data, and it is still written in Visual Basic 6. It has always been a classic Windows program: you open it, click through some dialogs, and read a report. This year I wanted to know whether an AI assistant could drive it. Not a chatbot that pretends to know your database, but Claude actually running a comparison and explaining the result. The answer turned out to be yes, and the result shipped in SCT version 6.0. Getting there meant solving a few problems that I suspect anyone with an old desktop app will run into, so here are my notes. The end result: Claude Desktop runs a saved SCT comparison and explains it (waiting time sped up). Watch on YouTube → AI assistants connect to local tools through the Model Context Protocol (MCP): JSON-RPC messages over a program's standard input and output. Teaching a VB6 program to do that directly would have been painful. Instead I split the work in two: That kept the 27-year-old comparison engine almost untouched. Everything new lives at the edges. A desktop program assumes someone is sitting in front of it. Every MsgBox is a question for that person. Run the same program in the background for an AI and each of those message boxes becomes a hang: the process waits forever for a click that never comes. The interactive program behaves exactly as before. The headless path just routes the same events somewhere a machine can read them. SCT already pr",
+  "first_seen": "2026-10-29T21:05:10.401257+00:00",
+  "id": "a0c7335ddba09bee",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T18:32:15+00:00",
+  "sid": "763effc6b4105e37",
+  "source": "hackernews_ai",
+  "summary_1line": "Teaching a 1999 VB6 app to talk to AI agents",
+  "title": "Teaching a 1999 VB6 app to talk to AI agents",
+  "type": "news",
+  "url": "https://www.sql-server-tool.com/blog-vb6-ai-agents.htm",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "768404f61aa86fb9": {
   "first_seen": "2026-10-06T22:04:16.633597+00:00",
   "id": "9f187da9f9f5aeea",
@@ -12364,6 +12380,22 @@
   "title": "NEAREST BY Join: Scaling Vector Search in Databricks Runtime",
   "type": "news",
   "url": "https://www.databricks.com/blog/nearest-join-scaling-vector-search-databricks-runtime"
+ },
+ "912dfdbd28658cc8": {
+  "content_excerpt": "Earlier this year, sources tell WIRED, a contractor caused a security incident at the Department of Defense by connecting a secure centralized system used by multiple intelligence agencies to their personal account for Claude Code, Anthropic’s AI coding agent . It appears that the agent used by the contractor, who is employed by global consulting firm Accenture, then sent information about the DOD system, including login credentials, to a high-risk third-party website. The centralized system contains controlled unclassified information (CUI), which is considered sensitive and not to be released to the public without review. CUI can include information about critical infrastructure, nuclear submarine propulsion, and vulnerabilities to chemical and biological terrorism. Additionally, security experts say, access to the system could allow for the exploitation of even more sensitive ones. “It puts all the data that’s in there at risk,” says a source aware of the incident, who requested anonymity as they were not authorized to speak to the press. If the third-party software was compromised, “there could be somebody out there with the ability to log into a secure environment without anyone knowing. It’s 100 percent a national security threat and could cause irreparable harm.” A DOD spokesperson tells WIRED that “the Department does not comment on the status of its networks or systems.” “We take all concerns seriously. These allegations were thoroughly and independently investigated",
+  "first_seen": "2026-10-29T21:05:10.401257+00:00",
+  "id": "95b25afabec20c92",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T18:47:56+00:00",
+  "sid": "912dfdbd28658cc8",
+  "source": "hackernews_ai",
+  "summary_1line": "A Defense Contractor Gave Their AI Agent Access to a Secure Pentagon System",
+  "title": "A Defense Contractor Gave Their AI Agent Access to a Secure Pentagon System",
+  "type": "news",
+  "url": "https://www.wired.com/story/a-defense-contractor-gave-their-personal-ai-agent-access-to-a-secure-pentagon-system",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "913f8566e8adb0f7": {
   "first_seen": "2026-10-27T10:03:55.604707+00:00",
@@ -14611,6 +14643,18 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1kWVNJbjZHVWNRTkN6YWM4VkpSX3FBNFhkZFNscmdYdXFZRlBLTTJObTFfc0pSQVF0VHZrdlU2cDg3Z0FWOHFSX3dCc9IBQkFVX3lxTE5oeHJlbTZ3TWVRVzlrQUZMZzEwSlkxZzcwVW0waXNkY0Y3cU1ScGIzeWxEcDU4ZHVVRWtoeTM2dmlCdw?oc=5"
  },
+ "a9905ca8b55e7dd8": {
+  "first_seen": "2026-10-29T21:05:10.401257+00:00",
+  "id": "368cf2afd8beaa6b",
+  "published": "2026-10-27T15:11:35+00:00",
+  "sid": "a9905ca8b55e7dd8",
+  "source": "arxiv_cs_lg",
+  "summary": "Mixture-of-Experts (MoE) models are bottlenecked by loading routed-expert weights from memory during interactive decoding at small batch sizes. Because most intermediate channels in a routed expert contribute little to any single token, channel selectors predict which channels matter and read only their weights, typically keeping channels above a threshold calibrated on offline data. We show that channel selection needs no calibration data. First, a calibrated threshold does not fix how much a selector reads, because the number of channels passing it varies across inputs; Prox with thresholds calibrated for an 18% read budget actually reads only 12.9% on average across our benchmarks. Second, top-k keeps each token's k highest-scoring channels and needs no calibration data. At the calibrated budget, a selector's top-k version matches or beats its threshold version on the same score in 40 of 43 comparisons at 13% and 18% budgets, including all 23 on generation tasks. The top-k versions also avoid the repetition-loop collapse that calibrated thresholds cause on Gemma 4. Calibrating a threshold thus provides neither of the two things selectors use it for: a known read budget and a consistent accuracy gain at that budget. We furthermore introduce a reader built entirely from the model's weights, which screens channels with a ternary sketch and recovers the skipped ones with a low-rank map. Across three post-trained MoE models, our reader retains 98.1% of full-model accuracy at 17",
+  "summary_1line": "Mixture-of-Experts (MoE) models are bottlenecked by loading routed-expert weights from memory during interactive decoding at small batch sizes. Because most intermediate channels in a routed expert contribute little t...",
+  "title": "Channel Selection for Mixture-of-Experts Decoding Needs No Calibration Data",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37386v1"
+ },
  "a9b06b181630652c": {
   "first_seen": "2026-10-01T06:04:14.047526+00:00",
   "id": "dca7e0c86e7e5049",
@@ -15080,6 +15124,22 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "aeae20131e119588": {
+  "first_seen": "2026-10-29T21:05:10.401257+00:00",
+  "id": "804e1650e3fcae5c",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-27T17:52:38+00:00",
+  "sid": "aeae20131e119588",
+  "source": "arxiv_cs_ai",
+  "summary": "Language models pretrained on web corpora collected over multiple years learn both general and domain-specific knowledge. How these different kinds of knowledge are learned as pretraining progresses remains unclear. Recent point-in-time models trained on web snapshots from different years provide a way to probe how knowledge prevalence varies over time. Using these models, we propose a temporal variability score (TVS), defined as the coefficient of variation of an item's negative log-likelihood across models. A higher score suggests that the knowledge may be less consistently represented across years of web text. We evaluate six benchmarks covering diverse topics using six models from multiple open-source model families. We find that low- and high-TVS items are learned similarly early in training, but high-TVS items improve faster later on. At the end of the pretraining run, high-TVS items outperform low-TVS items in 34 of 36 model-benchmark settings, with an average advantage of 7.3 points of chance-normalized accuracy. This pattern is most robust on knowledge-intensive tasks, even when comparing items of similar difficulty. Our findings reveal differences in how knowledge is learned over the course of pretraining, with temporal variability providing a diagnostic of these learning dynamics beyond aggregate benchmark scores.",
+  "summary_1line": "Language models pretrained on web corpora collected over multiple years learn both general and domain-specific knowledge. How these different kinds of knowledge are learned as pretraining progresses remains unclear. R...",
+  "title": "What Improves During Pretraining? Tracking Knowledge Acquisition with Point-in-Time Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37631v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "aec1f0ba52ad6990": {
   "content_excerpt": "Like Johnny, your local agent carries more than its head can hold — and keeps working for hours. Transparent proxy: verbatim archive, structured recall, segments, saved engine state. Like Johnny, your agent carries more than its head can hold — and keeps working for hours. A transparent HTTP proxy that sits between a coding agent and a local model (llama.cpp's llama-server , Strata , ds4-server , or any OpenAI-compatible server). The agent keeps sending its whole, unmodified history; the proxy decides what the model actually reads. Old material leaves the prompt but is never summarized away: every message, tool call and output stays on disk, verbatim, and the model can pull any of it back. It speaks OpenAI Chat Completions, Anthropic Messages and OpenAI Responses. Python ≥ 3.10, standard library only. Developed and benchmarked primarily with Strata , by Niko1221 and contributors. mnemonic-proxy is an independently maintained project that also supports llama-server, ds4-server and other OpenAI-compatible backends; saved engine state depends on what the backend supports (see Engines ). Measured on our hardware (single runs, see What we have not proven ): a 3 h 15 min coding session on one 12 GB GPU with 448K tokens of history and at most 105K in the prompt ( One session, measured ); AgentLongBench in a 32K window, 86/100 right with the proxy vs 47 with an LLM summary and 69 with the full history in a larger window ( benchmark ); a 110K-token conversation resumed from disk in 1.",
