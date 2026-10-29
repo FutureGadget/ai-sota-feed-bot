@@ -7,12 +7,12 @@ Schema: `config/wiki_schema.md`.
 ## Obstacles by area
 
 ### reliability
-- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong (29 entries, updated 2026-10-16)
+- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong (31 entries, updated 2026-10-29)
   → solutions: agent-sandboxing
   - theme `deterministic-boundaries` — Deterministic boundaries around the model (5)
-  - theme `execution-and-identity` — Agent identity, durable execution, and spend guards (3)
+  - theme `execution-and-identity` — Agent identity, durable execution, and spend guards (4)
   - theme `hallucination-containment` — Containing hallucination during and after generation (9)
-  - theme `verifying-the-work` — Proving the work instead of trusting "done" (6)
+  - theme `verifying-the-work` — Proving the work instead of trusting "done" (7)
   - theme `consistency-and-autonomy` — Consistency, autonomy limits, and the human role (6)
 
 ### memory
@@ -35,11 +35,11 @@ Schema: `config/wiki_schema.md`.
   - theme `measuring-planning` — Benchmarks for loops and long-horizon procedures (4)
 
 ### tool-use
-- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (25 entries, updated 2026-10-27)
+- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (26 entries, updated 2026-10-29)
   → solutions: mcp
   - theme `agent-native-surfaces` — Exposing existing systems as agent-callable tools (4)
   - theme `discovery-and-definitions` — Tool discovery and definition quality at scale (6)
-  - theme `calling-reliability` — Making the calling loop reliable (7)
+  - theme `calling-reliability` — Making the calling loop reliable (8)
   - theme `guarding-the-call` — Checking and governing tool calls before they run (4)
   - theme `production-runtimes` — Running tool-calling agents in production (4)
 
@@ -72,12 +72,12 @@ Schema: `config/wiki_schema.md`.
   - theme `shared-context` — What each agent gets to see (2)
 
 ### cost
-- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (53 entries, updated 2026-10-27)
+- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (54 entries, updated 2026-10-29)
   → solutions: agent-orchestration, context-compaction, cost-controls
   - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (10)
   - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (11)
   - theme `routing` — Routing each turn to the cheapest model that can handle it (10)
-  - theme `caching-and-serving` — Caching and serving efficiency set the floor price (11)
+  - theme `caching-and-serving` — Caching and serving efficiency set the floor price (12)
   - theme `price-curve` — Falling token prices, rising workflow spend (11)
 - [proving-agent-roi](obstacles/proving-agent-roi.md) — Proving agent ROI and measuring cost efficiency is hard (9 entries, updated 2026-10-06)
   → solutions: cost-controls, llm-as-judge
@@ -142,9 +142,9 @@ Schema: `config/wiki_schema.md`.
   - theme `orchestrator-tooling` — Open-source orchestrators and multi-model routers (7)
   - theme `runtime-substrate` — The durable runtime underneath the agents (4)
   - theme `harness-choice` — Choosing a harness: frameworks, managed runtimes, portability (5)
-- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (60 entries, updated 2026-10-27)
+- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (61 entries, updated 2026-10-29)
   - theme `credential-boundary` — Keeping secrets and authority out of the sandbox (7)
-  - theme `permission-policy` — Scoping what the agent may do (9)
+  - theme `permission-policy` — Scoping what the agent may do (10)
   - theme `local-sandboxes` — Local sandboxes and tool-call supervisors (9)
   - theme `managed-platforms` — Managed and self-hosted sandbox platforms (12)
   - theme `egress-and-escapes` — Real escapes: egress, allowlists, and harness bugs (13)
