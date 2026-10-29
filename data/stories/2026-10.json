@@ -9801,6 +9801,22 @@
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.39"
  },
+ "74c1eb52ab0ae33f": {
+  "first_seen": "2026-10-29T03:04:47.711982+00:00",
+  "id": "c742d19f586756f5",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-27T17:58:53+00:00",
+  "sid": "74c1eb52ab0ae33f",
+  "source": "arxiv_cs_lg",
+  "summary": "Test-time adaptation helps a deployed model respond to changing inputs, but the same intervention can rescue one batch and damage the next. Updating normalization statistics, for example, can improve corrupted images yet fail when a batch contains mostly one class. Average accuracy hides these failures and cannot tell a model when to use an intervention. Target labels can guide this decision, but they are scarce and some choices are already clear. We introduce PORTAL, a controller that chooses when to deploy an intervention, which inputs to label, and when to stop querying. Each available prediction rule is a candidate, and its predictions are fixed before current feedback arrives. Every acquired label therefore evaluates all candidates on the same input. PORTAL combines these shared comparisons and directs queries toward candidates that can still overtake the current leader. It stops when the remaining labels cannot change the choice or when the possible accuracy gain no longer justifies another query. Our analysis links the required feedback to accuracy gaps and shared mistakes, explaining why some choices need much less evidence. Experiments show that this control turns an intervention that loses accuracy overall into a useful choice on selected batches. It prevents severe failures caused by changes in arrival order and preserves gains across complete corruption streams. When a fixed rule already works well, PORTAL uses little feedback to retain its performance. Periodic l",
+  "summary_1line": "Test-time adaptation helps a deployed model respond to changing inputs, but the same intervention can rescue one batch and damage the next. Updating normalization statistics, for example, can improve corrupted images...",
+  "title": "When Should We Intervene at Test Time?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37658v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "751a14146cee1c7c": {
   "first_seen": "2026-10-05T02:04:13.028325+00:00",
   "id": "73ef544024a064af",
@@ -13327,8 +13343,8 @@
   "published": "2026-10-22T07:29:17+00:00",
   "sid": "a1256d3bfaf174ed",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: translation. Likes: 40, downloads: 269.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: translation. Likes: 40, downloads: 269.",
+  "summary": "New model weights from tencent on Hugging Face. Task: translation. Likes: 41, downloads: 269.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: translation. Likes: 41, downloads: 269.",
   "title": "tencent/Hy-SimulMT-30B-A3B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Hy-SimulMT-30B-A3B"
@@ -14119,6 +14135,22 @@
   "title": "Kevlar = MCP Firewall for LLM's",
   "type": "news",
   "url": "https://github.com/Ablation-Tool/kevlar"
+ },
+ "a933c40519a082d9": {
+  "content_excerpt": "Give each coding task its own disposable database environment, then merge the reviewed changes – not the test database. In From Local Development to CI Workflows with the Azure Cosmos DB Emulator , we used FleetCharge to make local development and CI repeatable. Start the emulator, seed known data, run the checks, and clean up afterward. Now consider several AI coding agents working on the same application at once. One is changing dispatch behavior. Another is adding a depot rule. A third is updating tests. Each has its own branch, and perhaps its own Git worktree, but they all connect to the same development database. An agent resets the fixtures while another agent is checking a write. A test changes a document that a different task expects to remain unchanged. One cleanup script deletes the database while another test suite is still running. Azure Cosmos DB does not require the same table-schema migration workflow as a relational database, but that does not remove shared-state collisions. Applications still depend on document shapes, partition keys, indexing policies, and predictable test data. Separate worktree. Separate emulator. Known fixtures. Independent tests. Owned cleanup. This article tests GitHub Copilot as a coding agent: Copilot edits FleetCharge in GitHub Actions, with a separate Azure Cosmos DB emulator for each task. Ollama was used separately for local application testing. It is not used to run or evaluate the Copilot coding agents in this workflow. https:/",
+  "first_seen": "2026-10-29T03:04:47.711982+00:00",
+  "id": "7d74a22e813df52e",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-29T02:38:08+00:00",
+  "sid": "a933c40519a082d9",
+  "source": "hackernews_ai",
+  "summary_1line": "Agentic CI/CD with Azure Cosmos DB: Isolated Envs for a Swarm of AI Agents",
+  "title": "Agentic CI/CD with Azure Cosmos DB: Isolated Envs for a Swarm of AI Agents",
+  "type": "news",
+  "url": "https://devblogs.microsoft.com/cosmosdb/agentic-ci-cd-with-azure-cosmos-db-isolated-environments-for-a-swarm-of-ai-agents",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "a9b06b181630652c": {
   "first_seen": "2026-10-01T06:04:14.047526+00:00",
@@ -21746,6 +21778,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.23845v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "f8d3c25dfbe35952": {
+  "first_seen": "2026-10-29T03:04:47.711982+00:00",
+  "id": "5a53dc91b8701c1c",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-27T16:53:18+00:00",
+  "sid": "f8d3c25dfbe35952",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Failure diagnosers for robot manipulation are increasingly vision--language models (VLMs), trained and evaluated on single-arm failures produced by perturbing a successful demonstration. Bimanual tool use adds failures of other kinds: a tool that slips out of its socket while still held, two correct gestures made at different times, and attempts that fail for two reasons at once. On a simulated bimanual tool-use task whose failure causes are read from the recorded trace, we measure what each sensing channel lets a diagnoser tell. The tool's slip is read on the tool hand; which hand was late is read on both arms, while a sensor on one hand reads its own hand's delay and at most part of the other's; and whether a late attempt was also pushed too weakly is not identifiable from passive sensing when the tool hand is late. Within two attempts, a repair policy that escalates when the cause is not identifiable repairs as many failures as one told the true cause. A VLM's internal state carries the late hand almost perfectly, along a direction no closer to the one its answer reads than a random one; whether the answer reports it depends on the wording of the question.",
+  "summary_1line": "Failure diagnosers for robot manipulation are increasingly vision--language models (VLMs), trained and evaluated on single-arm failures produced by perturbing a successful demonstration. Bimanual tool use adds failure...",
+  "title": "Which Hand Was Late? Diagnosis for Robot Failure Recovery in Bimanual Tool Use",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37533v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "f8fa768c80d28297": {
   "first_seen": "2026-10-10T07:04:16.591867+00:00",
