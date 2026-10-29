@@ -1113,6 +1113,22 @@
   "type": "research",
   "url": "https://huggingface.co/blog/ibm-research/granite-timeseries-ensemble-r1"
  },
+ "0e65a5ef40bbcca2": {
+  "content_excerpt": "A local voice agent loop for Apple Silicon in under 2 GB: Silero VAD, Smart Turn, Parakeet (MLX), Phonon. No PyTorch. Bring your own LLM, or Claude Code over ACP. On an M5 MacBook Pro, the voice pipeline uses 1.4 GB (physical footprint, GPU memory included) and starts speaking ~350 ms after you stop talking , before LLM time. With a local Qwen3-4B as the brain, the first word of the answer arrives in 0.6–0.8 s. After the download the voice pipeline runs offline. ( run downloads anything still missing itself, so download is only there to get the wait out of the way first.) While it runs, the bottom line of the terminal shows what it's doing and how loud your mic is: It goes listening → hearing you → thinking → speaking ; each finished turn prints above it ( --no-status turns it off). At startup it prints which brain it's using. By default that's the LLM server on localhost:8080 if one is running; otherwise an \"echo\" brain that repeats what you say, so you can try the audio loop with no LLM at all. New to running a local LLM? docs/llm-setup.md walks through it step by step (Qwen3-4B on MLX, about 2 minutes plus a 2.1 GB download), along with Ollama, LM Studio, hosted APIs and Claude Code over ACP. Laptop speakers leak into the laptop mic, so a voice agent hears itself. macvoice runs the mic and speaker through one AVAudioEngine with Apple's voice processing turned on, the same echo canceller FaceTime uses and Chrome uses for echoCancellation: \"all\" ( audio_mac.py , PyObjC; no m",
+  "first_seen": "2026-10-29T14:05:48.948854+00:00",
+  "id": "45c5b3532aa3e984",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T12:25:54+00:00",
+  "sid": "0e65a5ef40bbcca2",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Macvoice – A local voice agent for Mac in 1.4 GB, no PyTorch",
+  "title": "Show HN: Macvoice – A local voice agent for Mac in 1.4 GB, no PyTorch",
+  "type": "news",
+  "url": "https://github.com/johnrobinsn/macvoice",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "0eb391dce20b6029": {
   "first_seen": "2026-10-14T02:04:29.849847+00:00",
   "id": "3e2b47a820b30c96",
@@ -13298,6 +13314,18 @@
   "url": "https://cloud.google.com/blog/products/ai-machine-learning/gemini-for-government-services",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "9f2485524dc1a126": {
+  "content_excerpt": "Installing claude-mem uploads your last 30 days of prompts to cmem.ai, no opt-in · Issue #5176 · thedotmack/claude-mem · GitHub Skip to content Navigation Menu Sign in Products Platform GitHub Repository hosting, code review, and collaboration Copilot AI coding agent for tasks, projects and automated work Build & Ship Actions CI/CD and automation Code Quality Quality analysis, fixes, and enforcement Codespaces Cloud development environments Secure Code Security Vulnerability detection and remediation Secret Protection Secret scanning and leak prevention All Features Developers Learn Documentation Training Certifications Build Build with Copilot Customize Copilot Integrations Explore Trending repos GitHub Sponsors Events Changelog Changelog Your source for the latest features, improvements, and fixes across GitHub products, all in one place. Businesses By Stage Enterprises Team Startups Nonprofits By Industry Healthcare Financial services Manufacturing Government See all industries Evaluate GitHub Why GitHub Customer Stories Business insights Trust Center Add-ons GitHub Advanced Security Enterprise-grade code security Copilot for business Enterprise-grade AI features Premium Support Enterprise-grade 24/7 support Resources Learn & Connect Documentation Resource center Blog Events & webinars Community Forum Customer Stories Integrations Support Customer support Training GitHub Status Company About Partners Changelog GitHub Universe GitHub Universe The event for developers, by de",
+  "first_seen": "2026-10-29T14:05:48.948854+00:00",
+  "id": "4f0bd08efd25eef0",
+  "published": "2026-10-29T13:56:38+00:00",
+  "sid": "9f2485524dc1a126",
+  "source": "hackernews_ai",
+  "summary_1line": "Installing claude-mem uploads your last 30 days of prompts to cmem.ai, no opt-in",
+  "title": "Installing claude-mem uploads your last 30 days of prompts to cmem.ai, no opt-in",
+  "type": "news",
+  "url": "https://github.com/thedotmack/claude-mem/issues/5176"
+ },
  "9f91ea064993dc4b": {
   "first_seen": "2026-10-05T02:04:13.028325+00:00",
   "id": "354684beadcaa099",
@@ -18089,6 +18117,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.32004v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "cef4af325e151776": {
+  "content_excerpt": "OAR ( O pen A gent R untime) is a provider-independent programming interface for coding-agent runtimes: a solid foundation for building agent workspaces and other applications. Pi Durable also runs through a host-owned Harness, including in a browser via @botiverse/oar/pi-durable and the portable core in @botiverse/oar/browser . The host installs its optional native peers. Try the browser demo with pnpm durable-demo . One API drives every runtime: swap \"claude\" for \"codex\" , \"grok\" or \"pi\" (with a model it has) and the code stays the same. An option a runtime cannot honor is refused before anything opens, never silently dropped. Hand work to other runtimes as subagents; each report wakes the session that is waiting for it: The package README lists the public entry points. defaultRuntimes holds the built-in Node runtimes; @botiverse/oar/runtimes/ loads one of them without the others. Cursor needs the SDK you install and hand over: createRuntimeRegistry([...defaultRuntimes.list(), createCursorRuntime({ sdk: () => import(\"@cursor/sdk\") })]) ( why ). Pi Durable needs createPiDurableRuntime({ harness, models }) with the host's already-open Harness and its Models. OAR also offers a set of handy utilities you can use without running an agent at all: is it installed, is it signed in (and sign it in or out), which account and how much quota is left, which models it can run, is there an update (and install it), what skills and tools it has. One API covers every supported runtime, so a ",
+  "first_seen": "2026-10-29T14:05:48.948854+00:00",
+  "id": "029f6ff677adc467",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-10-29T12:41:08+00:00",
+  "sid": "cef4af325e151776",
+  "source": "hackernews_ai",
+  "summary_1line": "Programming interface for all agent harnesses",
+  "title": "Programming interface for all agent harnesses",
+  "type": "news",
+  "url": "https://github.com/botiverse/oar",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "cf001375f7a4438d": {
   "content_excerpt": "Every LLM call, MCP event, and tool call your agents make streams to the dashboard as it happens, surfaced as a per-agent timeline and as a live fleet-wide feed. Set token budgets, MCP allow/block rules, and live directives on your production agents. Production agents add the flightdeck-sensor Python package to their entrypoint: init() + patch() , no other code changes. One row per agent, sub-agents nested under their parents, events plotted as they arrive. Hover any event to inspect it; hovering pauses the stream. Every agent on a shared timeline: LLM calls, embeddings, tool uses, MCP events, and structured errors, streamed as they happen. Click any event to inspect it. Central token budgets per flavor, enforced in-process. Warn at 80%, swap to a cheaper model at 90%, block at 100%. Defaults, all configurable, every decision a structured event. Stop one agent or an entire flavor from the dashboard; the signal delivers on the agent's next call. Register custom directives in Python and invoke them remotely. Allowlist or blocklist the MCP servers your agents may talk to, per flavor. Misconfigured or unrecognized servers warn or block before the call leaves the process. Multi-agent runs render as a tree: orchestrator parent, one child session per sub-agent, linked and labeled by role. Claude Code tasks, CrewAI agents, LangGraph nodes. Token consumption, latency, model distribution, policy volume, and estimated cost, grouped by flavor, model, framework, host, team, or role. Not a",
