@@ -4511,6 +4511,22 @@
   "url": "https://unexcitedneurons.substack.com/p/i-used-openai-dots-as-an-agent-swarm",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "34fac4439f130afb": {
+  "content_excerpt": "Connect Claude, ChatGPT, Cursor & any AI agent to WordPress, and manage your site by chat. WSP MCP is a free MCP plugin for WordPress . Install it, connect your AI app, and just ask: What is MCP? The Model Context Protocol is the standard way AI assistants connect to other apps. Once your site has an MCP plugin, any AI app that supports MCP can read and update your site — with your permission. Prerequisites: WordPress 6.9+ (7.0.3 or 6.9.6+ recommended), PHP 7.4+ — that's it. Claude Desktop and OpenClaw use the mcp-remote bridge, which needs Node.js 18+; Cursor, Codex, Antigravity, and OpenCode connect natively. Upgrading from before v2.0? The legacy MCP-Adapter / Abilities-API path and the MCP > Config Files page were removed in v2.2. Re-create your connection using the native endpoint on MCP > Connection . ChatGPT: ChatGPT connects through the same OAuth sign-in as Claude Connectors — enable the OAuth server on MCP > Connection , then add your site's MCP URL as a connector in ChatGPT. Recent releases: v2.9.6 — security hardening of authorization checks · v2.9.5 — Site Context + WooCommerce store management · v2.9.0 — Navigation Menus tool group + Read Post tool · v2.8.0 — one-click Claude Connector sign-in (OAuth 2.1) + Analytics dashboard · v2.7.1 — object-level authorization on write tools (Patchstack) · v2.7.0 — Audit Log · v2.6.x — WPForms, Contact Form 7, Gravity Forms, UAE, Elementor design tools. 5 tools, off by default. Each item is checked against its post type's ow",
+  "first_seen": "2026-10-29T07:05:01.424414+00:00",
+  "id": "94d654d00a324652",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T06:57:56+00:00",
+  "sid": "34fac4439f130afb",
+  "source": "hackernews_ai",
+  "summary_1line": "WSP MCP – Free WordPress AI Agent Plugin",
+  "title": "WSP MCP – Free WordPress AI Agent Plugin",
+  "type": "news",
+  "url": "https://github.com/bilalnaseer/wsp-wordpress-mcp",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "352167f7ac41065b": {
   "first_seen": "2026-10-24T15:04:51.392804+00:00",
   "id": "16bd8c012999a620",
@@ -12226,6 +12242,23 @@
   "type": "news",
   "url": "https://www.latent.space/p/ainews-quasi-riemann-hypothesis-openai"
  },
+ "94430ceaa839cbc6": {
+  "content_excerpt": "Tested on Linux, Claude Code 2.1.257–2.1.312 (see Tested versions). The binary is not modified ( BUN_OPTIONS=--preload ). An update can silently undo it, so see Verify. Every ~30 seconds, for every background agent, Claude Code sends that agent's entire transcript to the agent's own model (usually Opus) and asks it to \"describe your most recent action in 3-5 words\". The answer only updates the agent's status line in the agents panel; it never reaches the model or your conversation. There is no setting that turns it off, and since 2.1.232 (August 2026) it has been on by default. The anomaly was detected by DRIM in Claude Code's OpenTelemetry export: grouping claude_code.api_request events by query_source showed agent_summary costing more than the main conversation itself . Spend here means Claude Code's own per-request estimate ( cost_usd ), not an invoice: on a subscription, what you lose is rate-limit headroom. We are not the only ones who measured it: #86879 collects four independent measurements of 18–26 %. no-agent-summary.js is a Bun preload (~80 lines of code). It wraps setTimeout / setInterval ; when a callback's source text contains a summarizer anchor (e.g. the [AgentSummary] Timer fired log line), it returns an inert handle instead of arming the timer. Every other timer passes through untouched. In the OpenTelemetry export the suppressed requests are claude_code.api_request events with query_source = agent_summary . Why a timer hook rather than something simpler: th",
+  "first_seen": "2026-10-29T07:05:01.424414+00:00",
+  "id": "be528a47e9c76a22",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-10-29T03:33:42+00:00",
+  "sid": "94430ceaa839cbc6",
+  "source": "hackernews_ai",
+  "summary_1line": "Claude Code regularly sends each background agent’s transcript to its model",
+  "title": "Claude Code regularly sends each background agent’s transcript to its model",
+  "type": "news",
+  "url": "https://gist.github.com/flamerix-ai/c3905705cc4205e5de3011fa2e74efce",
+  "why_it_matters": "Matches feed focus: agent, claude code."
+ },
  "94a5f6526eada9bc": {
   "first_seen": "2026-10-22T04:03:59.949052+00:00",
   "id": "cd481da0851fdb08",
@@ -19648,8 +19681,8 @@
   "published": "2026-10-22T09:47:50+00:00",
   "sid": "e0f912e29433ade3",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 57, downloads: 3878.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 57, downloads: 3878.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 58, downloads: 3878.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 58, downloads: 3878.",
   "title": "tencent/WeVisOne-VL-2B released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/WeVisOne-VL-2B"
