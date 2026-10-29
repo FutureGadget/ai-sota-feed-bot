@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-28T18:05:25.844221+00:00",
+ "generated_at": "2026-10-29T18:07:43.972102+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,46 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-29-successful-call-loop",
+   "topic": "tool-use",
+   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+   "kind": "obstacle",
+   "date": "2026-10-29",
+   "title": "A successful tool call is not progress: an agent reran one SQL query 254 times"
+  },
+  {
+   "id": "2026-10-29-inflight-run-outlives-suspension",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-10-29",
+   "title": "Agent runs started before a user suspension kept writing files, failing 2 of 14 checks"
+  },
+  {
+   "id": "2026-10-29-permission-to-retry",
+   "topic": "agent-reliability",
+   "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
+   "kind": "obstacle",
+   "date": "2026-10-29",
+   "title": "Durable agents need current authority and retained ledgers before retrying an uncertain action"
+  },
+  {
+   "id": "2026-10-29-guardrails-270-runs",
+   "topic": "agent-reliability",
+   "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
+   "kind": "obstacle",
+   "date": "2026-10-29",
+   "title": "Guardrails did not raise first-pass rates in 270 coding-agent runs, but caught defects at done"
+  },
+  {
+   "id": "2026-10-29-cachelint-silent-misintegration",
+   "topic": "agent-cost",
+   "topic_title": "Agent token costs are unpredictable and easily run away",
+   "kind": "obstacle",
+   "date": "2026-10-29",
+   "title": "Prompt-caching bugs in agent code fail silently; CacheLint found 32 across 571 projects"
+  },
   {
    "id": "2026-10-28-novelty-judges-prompt-sensitive",
    "topic": "llm-as-judge",
@@ -214,46 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-25",
    "title": "Deleting an agent's memory record may not remove what its summaries still carry"
-  },
-  {
-   "id": "2026-10-24-tool-access-not-tool-use",
-   "topic": "tool-use",
-   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
-   "kind": "obstacle",
-   "date": "2026-10-24",
-   "title": "An agent that can quote the tool instruction still skips the tool: access is not invocation"
-  },
-  {
-   "id": "2026-10-24-data-agent-kit-skills-vs-iam",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-10-24",
-   "title": "Google's Data Agent Kit splits agent guardrails between skill instructions and IAM"
-  },
-  {
-   "id": "2026-10-24-tensemem-typed-current-state",
-   "topic": "agent-memory",
-   "topic_title": "Agents forget across steps and sessions",
-   "kind": "obstacle",
-   "date": "2026-10-24",
-   "title": "TenseMem lets the model propose typed facts while a deterministic engine decides what is current"
-  },
-  {
-   "id": "2026-10-23-deep-insight-five-production-challenges",
-   "topic": "multi-agent",
-   "topic_title": "Coordinating multiple agents adds more failure than capability",
-   "kind": "obstacle",
-   "date": "2026-10-23",
-   "title": "AWS Deep Insight splits multi-agent production work into five layers, each with its own control"
-  },
-  {
-   "id": "2026-10-23-commerce-webmcp-edge-opt-out",
-   "topic": "mcp",
-   "topic_title": "Model Context Protocol: a standard interface for agent tools",
-   "kind": "solution",
-   "date": "2026-10-23",
-   "title": "Commerce.com turns on WebMCP for ~100,000 storefronts at the edge, with per-merchant opt-out"
   }
  ],
  "nodes": {
@@ -301,7 +301,7 @@
      "key": "caching-and-serving",
      "title": "Caching and serving efficiency set the floor price",
      "summary": "Prompt caching at 90%+ hit rates, KV-cache offload, GPU packing, and pay-for-use runtimes cut fixed cost by large factors before any model choice.",
-     "count": 11
+     "count": 12
     },
     {
      "key": "price-curve",
@@ -311,6 +311,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-29-cachelint-silent-misintegration",
+     "topic": "agent-cost",
+     "date": "2026-10-29",
+     "title": "Prompt-caching bugs in agent code fail silently; CacheLint found 32 across 571 projects",
+     "theme": "caching-and-serving",
+     "html": "<p>An empirical study of 120 prompt-caching pull requests across 10 open-source agent systems found mis-integrations on both the request side (misconfiguration) and the read side (miscounted cache usage). Most fail silently: nothing errors, the bill is just higher.</p>\n<p>The authors&#x27; CacheLint (paper-reported) uses CodeQL to find caching call sites and checks preconditions against a dated provider capability oracle or an LLM guard. It scored 0.71 precision and 0.78 recall on the 120 labeled cases, and 0.86 precision on 32 new findings across 571 projects, leading to 18 upstream fixes including one in Anthropic&#x27;s SDK. Audit cache-hit tokens in billing data, not just code.</p>",
+     "evidence": [
+      {
+       "sid": "acf14c1d41e7a5ef",
+       "title": "Silent and Costly: Characterizing and Detecting Prompt-Caching Mis-Integration in LLM Agents"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-27-cloudflare-kv-cache-exposure",
      "topic": "agent-cost",
@@ -1167,6 +1182,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-10-29-successful-call-loop",
+     "topic": "tool-use",
+     "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+     "date": "2026-10-29",
+     "title": "A successful tool call is not progress: an agent reran one SQL query 254 times"
+    },
+    {
      "id": "2026-10-21-cache-engineering-drop-repos",
      "topic": "context-compaction",
      "topic_title": "Context compaction: summarize, compress, and curate the working set",
@@ -1265,8 +1287,8 @@
      "title": "OpenAI adds usage analytics and enforceable spend controls to ChatGPT Enterprise"
     }
    ],
-   "entry_count": 53,
-   "latest_entry_date": "2026-10-27",
+   "entry_count": 54,
+   "latest_entry_date": "2026-10-29",
    "solutions": [
     {
      "slug": "agent-orchestration",
@@ -1284,6 +1306,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "acf14c1d41e7a5ef",
+     "title": "Silent and Costly: Characterizing and Detecting Prompt-Caching Mis-Integration in LLM Agents"
+    },
     {
      "sid": "89893d5f73c77515",
      "title": "Cross-request KV cache exposure in the GLM-5.3 Workers AI model, and our remediation with SGLang"
@@ -1521,7 +1547,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-10-27"
+   "updated": "2026-10-29"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -8286,7 +8312,7 @@
      "key": "execution-and-identity",
      "title": "Agent identity, durable execution, and spend guards",
      "summary": "Durable runtimes like Temporal deliver measured completion gains, while agent identity still borrows service-account patterns and cloud billing alerts lag agent-speed spend by about a day.",
-     "count": 3
+     "count": 4
     },
     {
      "key": "hallucination-containment",
@@ -8298,7 +8324,7 @@
      "key": "verifying-the-work",
      "title": "Proving the work instead of trusting \"done\"",
      "summary": "The bottleneck has moved from generating output to verifying it; proof-of-work tooling, user-flagged errors, and verified-outcome training help, but the verifier is still the weak point for self-improving agents.",
-     "count": 6
+     "count": 7
     },
     {
      "key": "consistency-and-autonomy",
@@ -8308,6 +8334,41 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-29-permission-to-retry",
+     "topic": "agent-reliability",
+     "date": "2026-10-29",
+     "title": "Durable agents need current authority and retained ledgers before retrying an uncertain action",
+     "theme": "execution-and-identity",
+     "html": "<p>A paper-reported conformance study ran 336 histories on native LangGraph and Temporal hosts, scoring recovery against a provider effect ledger hidden from the application. Checkpoint state, permission to dispatch, evidence of an external effect, and permission to reconcile are treated as separate obligations.</p>\n<p>All 168 paired host cells matched. Retained-ledger reconciliation passed all 42 histories per host, including six with unknown outcomes held with reservations. Cached retry, revalidation before retry, and stable-key retry passed 30, 36, and 31 histories respectively. Resuming from a checkpoint is not enough: revalidate authority and reconcile against recorded effects first.</p>",
+     "evidence": [
+      {
+       "sid": "7e505f680072dedd",
+       "title": "Permission to Retry: A Study of Authorization and Recovery in AI Agent Workflows"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-sandboxing",
+       "title": "Sandboxing, scoped credentials, and guardrails"
+      }
+     ]
+    },
+    {
+     "id": "2026-10-29-guardrails-270-runs",
+     "topic": "agent-reliability",
+     "date": "2026-10-29",
+     "title": "Guardrails did not raise first-pass rates in 270 coding-agent runs, but caught defects at done",
+     "theme": "verifying-the-work",
+     "html": "<p>A single-author experiment (self-run, small sample) ran Claude Code across three models and seven tasks under three conditions: nothing, an instruction file, and instruction file plus pre-commit gate and stop hook. All 270 runs were eventually accepted and 267 passed hidden tests first time, so guardrails did not move the pass rate.</p>\n<p>They changed what runs left behind. On the four harder tasks, 9 of 60 gated runs left a defect against 15 of 60 ungated, a gap too small to call. The clearer signal: without the rule file, 14 of 15 runs changed a schema without its required test; with it, none of 30 did.</p>\n<p>Judge guardrails on defects at &quot;done&quot;, not on pass rate.</p>",
+     "evidence": [
+      {
+       "sid": "524f8aff53aebfdc",
+       "title": "Do Guardrails Make AI Coding Agents Better? What 270 Runs Showed"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-16-dialfork-procedural-hallucination",
      "topic": "agent-reliability",
@@ -8756,6 +8817,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-10-29-inflight-run-outlives-suspension",
+     "topic": "agent-sandboxing",
+     "topic_title": "Sandboxing, scoped credentials, and guardrails",
+     "date": "2026-10-29",
+     "title": "Agent runs started before a user suspension kept writing files, failing 2 of 14 checks"
+    },
+    {
      "id": "2026-10-16-mechanical-checks-beat-llm-judges",
      "topic": "llm-as-judge",
      "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
@@ -8770,8 +8838,8 @@
      "title": "Harness changes alone lifted LangChain's coding agent from 52.8% to 66.5% on Terminal Bench 2.0"
     }
    ],
-   "entry_count": 29,
-   "latest_entry_date": "2026-10-16",
+   "entry_count": 31,
+   "latest_entry_date": "2026-10-29",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -8781,6 +8849,14 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "7e505f680072dedd",
+     "title": "Permission to Retry: A Study of Authorization and Recovery in AI Agent Workflows"
+    },
+    {
+     "sid": "524f8aff53aebfdc",
+     "title": "Do Guardrails Make AI Coding Agents Better? What 270 Runs Showed"
+    },
     {
      "sid": "8dd49219f40d9b76",
      "title": "DialFork: Going Beyond Factuality to Evaluate Procedural Hallucination in Conversational Agents"
@@ -8898,7 +8974,7 @@
      "title": "Show HN: Make No Mistakes – AI coding agents must prove their work"
     }
    ],
-   "updated": "2026-10-16"
+   "updated": "2026-10-29"
   },
   "grounding": {
    "slug": "grounding",
@@ -13104,7 +13180,7 @@
      "key": "calling-reliability",
      "title": "Making the calling loop reliable",
      "summary": "A standard wire does not make calling behavior reliable; flaky tools, schema-constraint interference, and connection failures are measurable failure modes, and the harness itself is now tuned or trained to fix them.",
-     "count": 7
+     "count": 8
     },
     {
      "key": "guarding-the-call",
@@ -13120,6 +13196,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-29-successful-call-loop",
+     "topic": "tool-use",
+     "date": "2026-10-29",
+     "title": "A successful tool call is not progress: an agent reran one SQL query 254 times",
+     "theme": "calling-reliability",
+     "html": "<p>Funnel A/B-tested GLM-5.2 against Claude Opus 4.8 on its internal data agent (self-reported). GLM answered each model call faster (7.8s vs 18.1s) but made 66% more tool calls (19 vs 11) and finished tasks 14% slower end to end. Twice it reran the same successful query 113 and 254 times, because the tool returned only a 20-row preview and the model never recognized the limit.</p>\n<p>Funnel traced it to the harness: ambiguous tool contracts, saved instructions naming tables that did not exist, and no repeated-call guard. For builders: label previews versus complete results, detect repeated equivalent calls, and cap execution budgets before swapping models.</p>",
+     "evidence": [
+      {
+       "sid": "e79cc677e615b2d8",
+       "title": "Our AI Agent Executed the Same Successful SQL Query 254 Times"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-cost",
+       "title": "Agent token costs are unpredictable and easily run away"
+      }
+     ]
+    },
     {
      "id": "2026-10-27-rfc-corpus-skill-mcp-token-savings",
      "topic": "tool-use",
@@ -13638,8 +13734,8 @@
      "title": "HashiCorp's Terraform MCP Server reaches general availability"
     }
    ],
-   "entry_count": 25,
-   "latest_entry_date": "2026-10-27",
+   "entry_count": 26,
+   "latest_entry_date": "2026-10-29",
    "solutions": [
     {
      "slug": "mcp",
@@ -13649,6 +13745,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "e79cc677e615b2d8",
+     "title": "Our AI Agent Executed the Same Successful SQL Query 254 Times"
+    },
     {
      "sid": "7b8f764b41e81a7e",
      "title": "RFC AI Tooling: 40x fewer tokens while reading the RFC corpus"
@@ -13754,7 +13854,7 @@
      "title": "AI Agents Don't Need SMS APIs. They Need Infrastructure"
     }
    ],
-   "updated": "2026-10-27"
+   "updated": "2026-10-29"
   },
   "agent-benchmarks": {
    "slug": "agent-benchmarks",
@@ -15470,7 +15570,7 @@
      "key": "permission-policy",
      "title": "Scoping what the agent may do",
      "summary": "Permissions are getting finer and more central, with per-parameter rules, approval-gated writes, IdP-managed connectors, sequence-aware policy, and portable permission specs.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "local-sandboxes",
@@ -15498,6 +15598,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-29-inflight-run-outlives-suspension",
+     "topic": "agent-sandboxing",
+     "date": "2026-10-29",
+     "title": "Agent runs started before a user suspension kept writing files, failing 2 of 14 checks",
+     "theme": "permission-policy",
+     "html": "<p>Scopehaven, a vendor selling agent security testing, reports a pilot on an unnamed open-source AI workspace using synthetic data (vendor-reported, one pinned version). After a test user was suspended, new requests were refused, but in 2 of 14 cases a run begun earlier still wrote a file. The team found it by reading the file on disk, not the next response.</p>\n<p>The cause is a general pattern: authorization is checked once at run start, while agents keep calling tools, waiting on approvals, or resuming from queues. A partial local repair passed 14 of 14, verified only on the file-write path. Re-check authority before each side-effecting tool call.</p>",
+     "evidence": [
+      {
+       "sid": "400904d310baccd7",
+       "title": "A suspended user's agent run still wrote a file: an internal pilot"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-reliability",
+       "title": "Agents give fluent, confident-looking output even when it's wrong"
+      }
+     ]
+    },
     {
      "id": "2026-10-27-agenticbench-harness-security-tests",
      "topic": "agent-sandboxing",
@@ -16443,6 +16563,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-10-29-permission-to-retry",
+     "topic": "agent-reliability",
+     "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
+     "date": "2026-10-29",
+     "title": "Durable agents need current authority and retained ledgers before retrying an uncertain action"
+    },
+    {
      "id": "2026-10-27-cloudflare-kv-cache-exposure",
      "topic": "agent-cost",
      "topic_title": "Agent token costs are unpredictable and easily run away",
@@ -16457,8 +16584,8 @@
      "title": "A planted AGENTS.md in Downloads hijacked coding agents into installing malware"
     }
    ],
-   "entry_count": 60,
-   "latest_entry_date": "2026-10-27",
+   "entry_count": 61,
+   "latest_entry_date": "2026-10-29",
    "solutions": [],
    "obstacles": [
     {
@@ -16476,6 +16603,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "400904d310baccd7",
+     "title": "A suspended user's agent run still wrote a file: an internal pilot"
+    },
     {
      "sid": "57978a6d1478d544",
      "title": "Show HN: AgenticBench, 9 security tests run on 25 AI coding agents"
@@ -16749,7 +16880,7 @@
      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
     }
    ],
-   "updated": "2026-10-27"
+   "updated": "2026-10-29"
   },
   "agent-tracing": {
    "slug": "agent-tracing",
