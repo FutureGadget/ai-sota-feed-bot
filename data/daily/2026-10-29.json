@@ -1,0 +1,181 @@
+{
+  "date": "2026-10-29",
+  "title": "What happened in AI — Oct 29, 2026",
+  "generated_at": "2026-10-29T22:16:00Z",
+  "intro": [
+    "Coding-agent access control was the day's story: a Pentagon-system incident via Claude Code, an unprompted `cat ~/.ssh` in Copilot CLI, and a plugin that uploads 30 days of prompts all surfaced within hours.",
+    "The response is already tooling: mustfail, Apgar and verification harnesses check agent work inside the loop, while OpenAI published its misalignment monitoring approach."
+  ],
+  "highlights": [
+    "A contractor's Claude Code agent sent details of a secure multi-agency DoD system out, per WIRED.",
+    "Copilot CLI read ~/.ssh and listed ~ with no approval prompt on default settings.",
+    "claude-mem uploads 30 days of prompts to cmem.ai with no opt-in.",
+    "mustfail re-runs an agent's tests against reverted source to prove they can fail.",
+    "vLLM shipped day-0 Mistral Large 4 support.",
+    "Former GitHub CEO's Entire launched a Git forge built for agent-written code."
+  ],
+  "article_count": 45,
+  "categories": [
+    {
+      "name": "Coding agents with too much access",
+      "slug": "agent-access",
+      "summary": "Four separate reports show coding agents reading SSH keys, exfiltrating prompts, or reaching secure systems with no approval gate.",
+      "articles": [
+        {
+          "title": "A Defense Contractor Gave Their AI Agent Access to a Secure Pentagon System",
+          "summary": "A contractor linked a multi-agency DoD system to a personal Claude Code account, and the agent sent system details out; WIRED reports it as a security incident.",
+          "source": "hackernews_ai",
+          "url": "https://www.wired.com/story/a-defense-contractor-gave-their-personal-ai-agent-access-to-a-secure-pentagon-system/",
+          "published": "Thu, 29 Oct 2026 18:47:56 +0000"
+        },
+        {
+          "title": "I asked my coding agent to cat a file in .ssh. It did",
+          "summary": "Copilot CLI 1.0.105 on default settings ran `cat` on a canary file in ~/.ssh and `ls ~` with no approval prompt.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/dingningpei/envgit/blob/main/docs/launch-post.md",
+          "published": "Thu, 29 Oct 2026 18:44:49 +0000"
+        },
+        {
+          "title": "Installing claude-mem uploads your last 30 days of prompts to cmem.ai, no opt-in",
+          "summary": "Installing claude-mem uploads the last 30 days of prompts to cmem.ai with no opt-in, per a GitHub issue.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/thedotmack/claude-mem/issues/5176",
+          "published": "Thu, 29 Oct 2026 13:56:38 +0000"
+        },
+        {
+          "title": "Claude Code regularly sends each background agent’s transcript to its model",
+          "summary": "Claude Code 2.1.257–2.1.312 sends each background agent's full transcript to its model about every 30 seconds to write a 3–5 word status line.",
+          "source": "hackernews_ai",
+          "url": "https://gist.github.com/flamerix-ai/c3905705cc4205e5de3011fa2e74efce",
+          "published": "Thu, 29 Oct 2026 03:33:42 +0000"
+        },
+        {
+          "title": "A zero-dependency auditor for AI agent exposure (secrets, SSH, configs)",
+          "summary": "A zero-dependency script audits what an agent running with your rights can reach: .env files, SSH keys, shell history and configs.",
+          "source": "hackernews_ai",
+          "url": "https://ai-agent-antivirus.space/",
+          "published": "Thu, 29 Oct 2026 01:56:16 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Verifying agent output",
+      "slug": "verification",
+      "summary": "Teams are moving checks inside the agent loop and testing whether the checks can fail.",
+      "articles": [
+        {
+          "title": "Agent's tests passed. Prove they could have failed",
+          "summary": "mustfail reverts the agent's source change, keeps its new tests, and re-runs them; a test that still passes did not test the work.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/greenlitbooks/mustfail",
+          "published": "Thu, 29 Oct 2026 07:33:36 +0000"
+        },
+        {
+          "title": "Give your coding agent a verification harness to check its code",
+          "summary": "A verification harness puts a CI-style run-and-check loop inside the agent's session, following Addy Osmani's case for better feedback loops over slightly better models.",
+          "source": "hackernews_ai",
+          "url": "https://www.heal.dev/verification-harness",
+          "published": "Thu, 29 Oct 2026 15:44:16 +0000"
+        },
+        {
+          "title": "Show HN: Apgar – Catch agent regressions without an LLM judge",
+          "summary": "Apgar scores agent regressions in production after a harness change without an LLM judge; built by a financial-agent team.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/oimo-ai/apgar",
+          "published": "Thu, 29 Oct 2026 17:04:06 +0000"
+        },
+        {
+          "title": "How we detect frontier model misalignment",
+          "summary": "OpenAI describes layered monitoring that flags frontier-model misalignment and unauthorized agent behavior so responders can step in before escalation.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/how-we-detect-frontier-model-misalignment",
+          "published": "Thu, 29 Oct 2026 09:00:00 GMT"
+        },
+        {
+          "title": "An updated Model Spec for more capable and beneficial AI",
+          "summary": "OpenAI's updated Model Spec sets five core values for model judgment, human agency and faithfulness to user intent.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/updated-model-spec",
+          "published": "Thu, 29 Oct 2026 17:00:00 GMT"
+        }
+      ]
+    },
+    {
+      "name": "Agent runtimes and platforms",
+      "slug": "runtimes",
+      "summary": "Vendors are shipping hosting and workflow infrastructure sized for agents that run long and write a lot of code.",
+      "articles": [
+        {
+          "title": "Browser Use in Managed Deep Agents",
+          "summary": "LangChain's Managed Deep Agents can drive a real browser for sites with no API, where plain HTTP fetches return unrendered HTML.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/browser-use-in-managed-deep-agents",
+          "published": "2026-10-29T15:00:00+00:00"
+        },
+        {
+          "title": "Former GitHub CEO launches rival Git forge built for AI coding agents",
+          "summary": "Entire, led by former GitHub CEO Thomas Dohmke, launched a Git forge for hosting, reviewing and building code that agents write faster than people can review.",
+          "source": "hackernews_ai",
+          "url": "https://www.geekwire.com/2026/former-github-ceo-launches-rival-platform-built-for-ai-coding-agents/",
+          "published": "Thu, 29 Oct 2026 14:53:37 +0000"
+        },
+        {
+          "title": "Running Self-Hosted AI Agents on Oxide",
+          "summary": "Oxide runs self-hosted agents in VMs, with long-lived agents that spawn sub-agents sitting between services and ephemeral CI jobs.",
+          "source": "hackernews_ai",
+          "url": "https://oxide.computer/blog/self-hosted-ai-agents",
+          "published": "Thu, 29 Oct 2026 15:47:58 +0000"
+        },
+        {
+          "title": "Programming interface for all agent harnesses",
+          "summary": "OAR is a provider-independent programming interface over coding-agent runtimes.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/botiverse/oar",
+          "published": "Thu, 29 Oct 2026 12:41:08 +0000"
+        },
+        {
+          "title": "Tools, 17 with write access: How AI platforms bound agent authority",
+          "summary": "A count of tools on AI platforms, 17 with write access, shows how little the vendors state about what an agent may do without asking.",
+          "source": "hackernews_ai",
+          "url": "https://www.antalpha.com/en-us/blog/120-tools-17-that-can-write-how-four-platforms-bound-an-ai-agents-authority/",
+          "published": "Thu, 29 Oct 2026 03:17:38 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Inference and cost control",
+      "slug": "inference-cost",
+      "summary": "Serving and billing changes target agent workloads, where prefill/decode balance and spend visibility drive cost.",
+      "articles": [
+        {
+          "title": "Day 0 support for Mistral Large 4 on vLLM",
+          "summary": "vLLM supports Mistral Large 4 from day 0, a sparse multimodal MoE with cross-layer KV sharing and a built-in speculative drafter.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-10-29-mistral-large-4",
+          "published": "Thu, 29 Oct 2026 00:00:00 GMT"
+        },
+        {
+          "title": "Serving Prefill and Decode for Agentic AI (On Tenstorrent Blackhole)",
+          "summary": "Tenstorrent argues agent loops keep shifting load between prefill and decode, and Blackhole runs both phases on the same hardware.",
+          "source": "hackernews_ai",
+          "url": "https://tenstorrent.com/en/developers/blog/serving-prefill-and-decode-for-agentic-ai",
+          "published": "Thu, 29 Oct 2026 15:52:42 +0000"
+        },
+        {
+          "title": "Smarter cost controls for serverless",
+          "summary": "Databricks adds serverless cost controls as its serverless usage grew more than 3x in a year.",
+          "source": "databricks_blog",
+          "url": "https://www.databricks.com/blog/smarter-cost-controls-serverless",
+          "published": "Thu, 29 Oct 2026 15:00:00 GMT"
+        },
+        {
+          "title": "Cloudflare Introduces Web Search API for AI Applications",
+          "summary": "Cloudflare introduced a Web Search API for AI applications.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/10/cloudflare-web-search-api/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Thu, 29 Oct 2026 07:14:00 GMT"
+        }
+      ]
+    }
+  ]
+}
