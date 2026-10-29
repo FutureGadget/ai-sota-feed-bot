@@ -1,0 +1,138 @@
+{
+  "generated_at": "2026-10-29T00:12:27.462306+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "diffusion-language",
+    "label": "Diffusion Language",
+    "item_count": 4,
+    "source_count": 2,
+    "day_count": 4,
+    "first_seen": "2026-10-09T10:07:37+00:00",
+    "last_updated": "2026-10-27T17:55:24+00:00",
+    "latest_title": "Metacognitive Decoding: Efficient Inference for Diffusion Language Agents",
+    "member_sids": [
+      "d4cd8af9958d846f",
+      "4d1cef01d9ab5673",
+      "75e015095613159e",
+      "edcf9763d6b958dc"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/diffusion-language.json",
+    "prior_narrative": {
+      "slug": "diffusion-language",
+      "generated_at": "2026-10-28T00:13:30+00:00",
+      "covers_last_updated": "2026-10-26T17:35:58+00:00",
+      "covers_member_sids": [
+        "d4cd8af9958d846f",
+        "4d1cef01d9ab5673",
+        "75e015095613159e"
+      ],
+      "tldr": "Diffusion language models first appeared here as the backbone of a tool-using chemistry agent. Days later they turned up on the offensive side, as a way to craft fluent black-box attacks on LLMs.",
+      "whats_new": "A new paper distills a decoding schedule so diffusion LLMs commit tokens in fewer rounds, targeting the parallel-generation speedup that has been hard to realize.",
+      "why_it_matters": "Diffusion LLMs only pay off for serving if parallel decoding cuts rounds without hurting quality; this is research-stage evidence, not a deployable runtime.",
+      "status": {
+        "state": "Research · developing",
+        "tone": "rising",
+        "changed": "2026-10-26",
+        "detail": "Three arXiv papers, no production release: agents, attacks and decoding speed are each explored once."
+      },
+      "beats": [
+        {
+          "kicker": "AGENTS",
+          "tone": "launch",
+          "headline": "Masked diffusion LMs drive a tool-integrated chemistry agent",
+          "sids": [
+            "d4cd8af9958d846f"
+          ]
+        },
+        {
+          "kicker": "RISK",
+          "tone": "turn",
+          "headline": "Diffusion LMs used for perplexity-aware black-box attacks",
+          "sids": [
+            "4d1cef01d9ab5673"
+          ]
+        },
+        {
+          "kicker": "NOW",
+          "tone": "now",
+          "headline": "Schedule distillation aims to cut dLLM decoding rounds",
+          "sids": [
+            "75e015095613159e"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Do the schedule-distillation speedups hold on independent benchmarks at equal output quality?",
+        "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?"
+      ],
+      "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet; if you prototype one, measure decoding rounds and quality against your autoregressive baseline, and include fluent-prompt attacks in red-team evals.",
+      "day_captions": {
+        "d4cd8af9958d846f": "Shows a masked diffusion LM as the reasoning core of a tool-using chemistry agent.",
+        "4d1cef01d9ab5673": "Uses a diffusion LM to generate low-perplexity attack prompts against black-box LLMs.",
+        "75e015095613159e": "Proposes learning when to commit tokens, reducing the decoding rounds dLLMs need."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-10-09",
+        "items": [
+          {
+            "sid": "d4cd8af9958d846f",
+            "title": "Masked Diffusion Language Agents for Tool-Integrated Chemical Reasoning",
+            "url": "http://arxiv.org/abs/2610.13330v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Designing tool-integrated reasoning agent systems for complex chemical tasks remains a fundamental challenge. Although recent chemical agents have demonstrated promising performance through the integration of external...",
+            "published": "2026-10-09T10:07:37+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-22",
+        "items": [
+          {
+            "sid": "4d1cef01d9ab5673",
+            "title": "Diffusion Language Models for Perplexity-Aware Black-Box Attacks",
+            "url": "http://arxiv.org/abs/2610.31558v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "\\emph{Continuous-space} attacks find prompts that trigger malicious behaviors, such as overthinking, in black-box LLMs by sampling or optimizing over a low-dimensional Gaussian latent space and decoding it to text thr...",
+            "published": "2026-10-22T17:00:39+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-26",
+        "items": [
+          {
+            "sid": "75e015095613159e",
+            "title": "Learning When to Commit: Schedule Distillation for Fast Diffusion Language Models",
+            "url": "http://arxiv.org/abs/2610.35804v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Diffusion large language models (dLLMs) can generate multiple tokens in parallel, but often require many decoding rounds to complete a response. Efficient generation depends not only on which tokens are easy to predic...",
+            "published": "2026-10-26T17:35:58+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-27",
+        "items": [
+          {
+            "sid": "edcf9763d6b958dc",
+            "title": "Metacognitive Decoding: Efficient Inference for Diffusion Language Agents",
+            "url": "http://arxiv.org/abs/2610.37642v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Diffusion language models offer a promising path to efficient agents through parallel token generation. However, efficient interaction requires adapting both where computation is spent and how much text is generated....",
+            "published": "2026-10-27T17:55:24+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}

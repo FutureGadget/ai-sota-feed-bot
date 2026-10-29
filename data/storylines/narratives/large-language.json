@@ -1,7 +1,7 @@
 {
   "slug": "large-language",
-  "generated_at": "2026-10-28T00:13:33.919357+00:00",
-  "covers_last_updated": "2026-10-26T17:50:09+00:00",
+  "generated_at": "2026-10-29T00:20:00+00:00",
+  "covers_last_updated": "2026-10-27T06:52:54+00:00",
   "covers_member_sids": [
     "13307002442ed537",
     "52d729da63596a31",
@@ -16,76 +16,64 @@
     "5f97c21b490b1ce9",
     "d5cd3db9b5f4a99b",
     "26fc92a7573c4011",
-    "a2f964aa6fcbf7ea"
+    "a2f964aa6fcbf7ea",
+    "200271de2a2f52aa"
   ],
   "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 9-22 items cover knowledge graphs, sycophancy, code-translation hallucinations, search agents, and spectral edits.",
-  "whats_new": "Oct 26 adds a long-horizon web-search benchmark with failure-node localization, a neuron-steering method, self-evolving KG reasoning, and Reva, a real-time vulnerability detector for generated code.",
-  "why_it_matters": "Treat this as a reading list, not a thread. For platform engineers the useful items are LongSearchEval (agent failure localization) and Reva (screening agent-written code), plus the code-translation hallucination catalog.",
+  "whats_new": "Oct 27 adds CAMR, a compatibility-aware memory replay method for continual learning in LLMs, following Oct 26's search-agent benchmark, neuron steering and Reva vulnerability screening.",
+  "why_it_matters": "Treat this as a reading list, not a thread. For platform engineers the useful items are LongSearchEval (agent failure localization), Reva (screening agent-written code), and CAMR if you fine-tune models on rolling data.",
   "beats": [
     {
       "kicker": "KNOWLEDGE GRAPHS",
       "tone": "neutral",
       "headline": "Knowledge graphs applied to observability, legal reasoning and secure code",
-      "sids": [
-        "13307002442ed537",
-        "52d729da63596a31",
-        "f0fd06585d59dd3d"
-      ]
+      "sids": ["13307002442ed537", "52d729da63596a31", "f0fd06585d59dd3d"]
     },
     {
       "kicker": "BEHAVIOR",
       "tone": "neutral",
       "headline": "Narrative-induced sycophancy evaluated in LLMs",
-      "sids": [
-        "ade0f523550f640a"
-      ]
+      "sids": ["ade0f523550f640a"]
     },
     {
       "kicker": "RELIABILITY",
       "tone": "launch",
       "headline": "Hallucinations in cross-language code translation, with mitigations",
-      "sids": [
-        "06d8677dec3b3c21"
-      ]
+      "sids": ["06d8677dec3b3c21"]
     },
     {
       "kicker": "AGENTS AND DOMAINS",
       "tone": "neutral",
       "headline": "Search-state awareness for RAG agents, and LLM materials-data extraction",
-      "sids": [
-        "16071b3c73317004",
-        "276a486ae6eefe6b"
-      ]
+      "sids": ["16071b3c73317004", "276a486ae6eefe6b"]
     },
     {
       "kicker": "OCT 22",
       "tone": "neutral",
       "headline": "Spectral interventions, KG-to-text benchmarking and Bashkir adaptation",
-      "sids": [
-        "8debe4581e047c88",
-        "c888971c48a268c3",
-        "f07fa8132755e14c"
-      ]
+      "sids": ["8debe4581e047c88", "c888971c48a268c3", "f07fa8132755e14c"]
+    },
+    {
+      "kicker": "OCT 26",
+      "tone": "rising",
+      "headline": "Long-horizon search evals, capability-preserving steering and real-time vulnerability screening",
+      "sids": ["5f97c21b490b1ce9", "d5cd3db9b5f4a99b", "26fc92a7573c4011", "a2f964aa6fcbf7ea"]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Oct 26: long-horizon search evals, capability-preserving steering and real-time vulnerability screening",
-      "sids": [
-        "5f97c21b490b1ce9",
-        "d5cd3db9b5f4a99b",
-        "26fc92a7573c4011",
-        "a2f964aa6fcbf7ea"
-      ]
+      "headline": "Oct 27: compatibility-aware memory replay for continual learning",
+      "sids": ["200271de2a2f52aa"]
     }
   ],
   "open_questions": [
     "Does independent replication confirm the spectral-intervention capability shifts?",
     "Do the code-translation mitigations hold on languages outside the paper's test set?",
     "Does Reva's real-time screening keep false positives low enough to gate agent-written code?",
-    "Does CANS steering preserve general capability on models beyond those it was tested on?"
+    "Does CANS steering preserve general capability on models beyond those it was tested on?",
+    "Does CAMR's replay selection reduce forgetting on models larger than those in its experiments?"
   ],
-  "take_for_builders": "If you run coding agents, read Reva and check whether per-function vulnerability screening could sit before review; if you run search agents, try LongSearchEval's failure-node localization on your traces. Skip the rest unless it matches your domain.",
+  "take_for_builders": "If you run coding agents, read Reva and check whether per-function vulnerability screening could sit before review; if you run search agents, try LongSearchEval's failure-node localization on your traces. If you continually fine-tune, check CAMR's replay selection against your current replay buffer. Skip the rest unless it matches your domain.",
   "day_captions": {
     "13307002442ed537": "Netflix's ontology-driven observability graph at 38M events/sec.",
     "52d729da63596a31": "Knowledge-graph-guided pre-training for legal reasoning.",
@@ -100,6 +88,7 @@
     "5f97c21b490b1ce9": "Benchmark that localizes the failing node in long-horizon web-search trajectories.",
     "d5cd3db9b5f4a99b": "Training-free neuron steering aimed at not degrading general capability.",
     "26fc92a7573c4011": "KG reasoning that self-evolves without question-answer annotations.",
-    "a2f964aa6fcbf7ea": "Real-time screening of each new function for vulnerabilities via contextual probing."
+    "a2f964aa6fcbf7ea": "Real-time screening of each new function for vulnerabilities via contextual probing.",
+    "200271de2a2f52aa": "Replay method that judges whether incoming data is compatible with what the model retains."
   }
 }

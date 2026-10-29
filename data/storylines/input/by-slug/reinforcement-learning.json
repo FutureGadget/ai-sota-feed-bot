@@ -1,0 +1,326 @@
+{
+  "generated_at": "2026-10-29T00:12:27.462306+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "reinforcement-learning",
+    "label": "Reinforcement Learning",
+    "item_count": 15,
+    "source_count": 7,
+    "day_count": 8,
+    "first_seen": "2026-10-12T21:41:50+00:00",
+    "last_updated": "2026-10-27T17:38:52+00:00",
+    "latest_title": "EnvSched: Environment-Aware Scheduling for Rollout-Efficient Agent Reinforcement Learning",
+    "member_sids": [
+      "b508403b13597849",
+      "f3c8da2fe4584033",
+      "db03100b1bd7cd3e",
+      "afd320e7f42ef5bd",
+      "a00ad2ffbda7f2e9",
+      "276a486ae6eefe6b",
+      "352167f7ac41065b",
+      "40c644a15cb895a9",
+      "2b4f7152c682448f",
+      "453c138d9feefee3",
+      "8a41e1e41cbecfde",
+      "1e1ae7d5d09cb859",
+      "c3af4f37e1c19b19",
+      "868490bacebdc880",
+      "c07d00b3f0a46112",
+      "02ad246823185a44"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/reinforcement-learning.json",
+    "prior_narrative": {
+      "slug": "reinforcement-learning",
+      "generated_at": "2026-10-28T00:13:34+00:00",
+      "covers_last_updated": "2026-10-26T16:25:05+00:00",
+      "covers_member_sids": [
+        "b508403b13597849",
+        "f3c8da2fe4584033",
+        "db03100b1bd7cd3e",
+        "afd320e7f42ef5bd",
+        "a00ad2ffbda7f2e9",
+        "276a486ae6eefe6b",
+        "352167f7ac41065b",
+        "40c644a15cb895a9",
+        "2b4f7152c682448f",
+        "453c138d9feefee3",
+        "8a41e1e41cbecfde",
+        "1e1ae7d5d09cb859",
+        "c3af4f37e1c19b19",
+        "868490bacebdc880",
+        "c07d00b3f0a46112"
+      ],
+      "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has gathered a Qwen long-horizon agent report, an O-RAN benchmark, agentic-RL training papers, and AWS's SageMaker guide.",
+      "whats_new": "Oct 26: three arXiv papers turn RL on agent failures: MiRL targets terminal-agent misbehaviors, CalibraRL targets RAG hallucinations, and a video-editing study shows fine-grained credit can hurt.",
+      "why_it_matters": "The newest papers frame RL as a reliability tool: train against named failures (MiRL), reward calibrated abstention (CalibraRL), and test whether per-step credit helps (it can hurt). All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
+      "status": {
+        "state": "Developing",
+        "tone": "rising",
+        "changed": "2026-10-26",
+        "detail": "A loose set of RL items; the newest aim RL at agent reliability and credit-assignment limits."
+      },
+      "beats": [
+        {
+          "kicker": "AGENTS",
+          "tone": "rising",
+          "headline": "Alibaba Qwen introduces QwenGyre for elastic RL on extra-long-horizon agents",
+          "summary": "Reported via MarkTechPost; targets agent tasks that run far longer than standard RL rollouts.",
+          "sids": [
+            "b508403b13597849"
+          ]
+        },
+        {
+          "kicker": "BENCHMARK",
+          "tone": "neutral",
+          "headline": "X-RIC benchmarks agentic RAN controllers for reinforcement learning",
+          "summary": "Targets O-RAN controllers rather than LLM post-training.",
+          "sids": [
+            "db03100b1bd7cd3e"
+          ]
+        },
+        {
+          "kicker": "RESEARCH",
+          "tone": "rising",
+          "headline": "Agentic RL papers: rollout budgets, stateful environments, search-state awareness, credit assignment",
+          "summary": "Four arXiv papers on cutting rollout cost, extending RL beyond tool-centric settings, teaching search agents to assess their own state, and crediting individual decisions within an episode.",
+          "sids": [
+            "afd320e7f42ef5bd",
+            "a00ad2ffbda7f2e9",
+            "276a486ae6eefe6b",
+            "352167f7ac41065b"
+          ]
+        },
+        {
+          "kicker": "OCT 23",
+          "tone": "rising",
+          "headline": "AWS multi-turn RL guide, plus stability, simulation, robustness and token-credit papers",
+          "summary": "A managed-platform recipe on SageMaker AI and four arXiv papers on rounding alignment, token credit, dialogue user simulation and robust RL.",
+          "sids": [
+            "8a41e1e41cbecfde",
+            "453c138d9feefee3",
+            "40c644a15cb895a9",
+            "1e1ae7d5d09cb859",
+            "2b4f7152c682448f"
+          ]
+        },
+        {
+          "kicker": "NOW",
+          "tone": "now",
+          "headline": "Reliability turn: calibrated rewards, credit-assignment limits, error-targeted agent fixes",
+          "summary": "Oct 26: three arXiv papers aim RL at hallucination, when fine-grained credit hurts, and terminal-agent misbehavior.",
+          "sids": [
+            "c3af4f37e1c19b19",
+            "868490bacebdc880",
+            "c07d00b3f0a46112"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Does calibrated rollout budgeting cut MCP-agent training cost on benchmarks beyond the paper's own?",
+        "Does Qwen publish QwenGyre weights, code, or benchmarks that show the elastic RL gain on long-horizon agent tasks?",
+        "Does the SageMaker MTRL recipe carry from Wordle to tool-using agent tasks, and at what training cost?",
+        "Does twin-world credit assignment improve agent training on benchmarks beyond the paper's own?",
+        "Does rounding-location alignment stabilize RL training outside the paper's own setups?",
+        "Do MiRL's error-targeted fixes hold on terminal-agent tasks outside the paper's own benchmark?"
+      ],
+      "take_for_builders": "If you train tool-using agents, log recurring failure modes and test error-targeted RL (MiRL) against them, and A/B fine-grained credit assignment against episode-level reward before adopting it; treat paper results as unreplicated until you rerun them on your own evals.",
+      "day_captions": {
+        "b508403b13597849": "MarkTechPost's summary of Qwen's elastic RL approach for extra-long-horizon agents.",
+        "db03100b1bd7cd3e": "arXiv benchmark for RL in agentic O-RAN controllers; the only telecom-domain item.",
+        "afd320e7f42ef5bd": "Uses reward disagreement to allocate rollout budgets for MCP agents; first training-cost item in the thread.",
+        "a00ad2ffbda7f2e9": "Agentic RL for small language models in stateful, data-centric environments.",
+        "276a486ae6eefe6b": "Self-assessment RL so retrieval-augmented search agents track their search state.",
+        "8a41e1e41cbecfde": "AWS's hands-on multi-turn RL pipeline on SageMaker AI, the first managed-platform recipe in the thread.",
+        "352167f7ac41065b": "Counterfactual branching to assign credit to individual decisions inside a rewarded agent episode.",
+        "453c138d9feefee3": "Traces on-policy instability in LLM RL to where rounding happens between inference and training systems.",
+        "40c644a15cb895a9": "Uses RL with hierarchical rewards for profile-driven user simulation in task-oriented dialogue.",
+        "1e1ae7d5d09cb859": "Newest: a unified library and benchmark for robust RL algorithms.",
+        "2b4f7152c682448f": "GRPO token-level credit from reward-model gradients, replacing one shared response-level advantage.",
+        "c3af4f37e1c19b19": "Confidence-calibrated RL rewards to cut RAG hallucinations while allowing abstention.",
+        "868490bacebdc880": "Finds fine-grained credit assignment can help or hurt multimodal agents, tested on video editing.",
+        "c07d00b3f0a46112": "Newest: identifies specific terminal-agent misbehaviors, trains against them, and checks they are fixed."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-10-12",
+        "items": [
+          {
+            "sid": "b508403b13597849",
+            "title": "Alibaba Qwen Introduces QwenGyre: Elastic Reinforcement Learning RL for XLong-Horizon Agents",
+            "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQLTRTeUVOVV9SQTZESnNsOU5WeFk0NlhfMVFpRmV1WUIzU3IzMVl2Rm1IRzBpMWx2ZTJiYl9hS3FSUDZWTERZMmdjdjhtNEJXZmE0bG4wVWl3TzVsMHg1Y1pBandzcmUxSkItS0Vsd3doZ01EVmhkVzNsNi1LTVd2MTRlc1RLMTZkLXJ4d2xPdDVqWGVNVHotTkZCdGdEX2NYdHNMcGhXRXp4SUdNMGExN2hVMkM2Rm00YlY2Z2tnQjJhUTdYQ1ZkU182UEnSAcwBQVVfeXFMUC00U3lFTlVfUkE2REpzbDlOVnhZNDZYXzFRaUZldVlCM1NyMzFZdkZtSEcwaTFsdmUyYmJfYUtxUlA2VkxEWTJnY3Y4bTRCV2ZhNGxuMFVpd081bDB4NWNaQWp3c3JlMUpCLUtFbHd3aGdNRFZoZFczbDYtS01XdjE0ZXNUSzE2ZC1yeHdsT3Q1alhlTVR6LU5GQnRnRF9jWHRzTHBoV0V6eElHTTBhMTdoVTJDNkZtNGJWNmdrZ0IyYVE3WENWZFNfNlBJ?oc=5",
+            "source": "search_cn_open_weight_labs",
+            "type": "news",
+            "summary_1line": "Alibaba Qwen Introduces QwenGyre: Elastic Reinforcement Learning RL for XLong-Horizon Agents MarkTechPost",
+            "published": "2026-10-12T21:41:50+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-15",
+        "items": [
+          {
+            "sid": "db03100b1bd7cd3e",
+            "title": "X-RIC: An Agentic RAN-Intelligent Controller Benchmark for Enhancing Reinforcement Learning",
+            "url": "http://arxiv.org/abs/2610.22269v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "The O-RAN ALLIANCE introduces architectural flexibility through disaggregation and AI-driven control. While the RAN Intelligent Controller (RIC) enables centralized optimization, current AI approaches lack reasoning c...",
+            "published": "2026-10-15T17:34:17+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-20",
+        "items": [
+          {
+            "sid": "afd320e7f42ef5bd",
+            "title": "Measure First, Then Allocate: Calibrated Rollout Budgets for MCP Agents in Reinforcement Learning",
+            "url": "http://arxiv.org/abs/2610.28785v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Training tool-using language models requires costly interaction, yet identical rewards within a rollout group provide no group-relative learning signal. We use reward disagreement to guide harness evaluation and the a...",
+            "published": "2026-10-20T18:15:52+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-21",
+        "items": [
+          {
+            "sid": "a00ad2ffbda7f2e9",
+            "title": "BIRD-RL: Scaling Agentic Reinforcement Learning over Stateful Data-Centric Environments",
+            "url": "http://arxiv.org/abs/2610.29426v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "While agentic reinforcement learning (RL) has emerged as a promising paradigm for training small language models (SLMs), existing frameworks are predominantly tool-centric and struggle with data-centric environments....",
+            "published": "2026-10-21T08:50:39+00:00"
+          },
+          {
+            "sid": "276a486ae6eefe6b",
+            "title": "Self-Assessment Reinforcement Learning for Search-State Awareness in Retrieval-Augmented Large Language Models",
+            "url": "http://arxiv.org/abs/2610.30435v1",
+            "source": "arxiv_llm_reliability",
+            "type": "paper",
+            "summary_1line": "Recent advances in search agents have enabled large language models to tackle complex tasks by retrieving and synthesizing external information. However, existing search agents often lack search-state awareness, i.e.,...",
+            "published": "2026-10-21T20:46:24+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-22",
+        "items": [
+          {
+            "sid": "352167f7ac41065b",
+            "title": "Same Luck, Different Choice: Twin-World Credit Assignment for Agentic Reinforcement Learning",
+            "url": "http://arxiv.org/abs/2610.31544v1",
+            "source": "arxiv_llm_reliability",
+            "type": "paper",
+            "summary_1line": "Agentic reinforcement learning rewards a complete episode, yet the policy needs credit for every decision inside it. Counterfactual branching estimates this credit by re-running the episode after an alternative decisi...",
+            "published": "2026-10-22T16:51:27+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-23",
+        "items": [
+          {
+            "sid": "40c644a15cb895a9",
+            "title": "Profile-Driven User Simulation via Reinforcement Learning with Hierarchical Rewards for Task-Oriented Dialogues",
+            "url": "http://arxiv.org/abs/2610.32435v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Building Task-Oriented Dialogue (TOD) systems for high-value scenarios such as financial marketing requires large volumes of domain-specific dialogue data, which privacy regulations, annotation costs, and the need for...",
+            "published": "2026-10-23T10:01:41+00:00"
+          },
+          {
+            "sid": "2b4f7152c682448f",
+            "title": "Direction-Aware Token Credit Assignment with Reward-Model Gradients",
+            "url": "http://arxiv.org/abs/2610.32772v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "GRPO shares a response-level advantage across tokens, leaving unresolved how strongly each token should contribute to learning. Updates induced by the shared advantage reinforce or suppress the sampled token at each p...",
+            "published": "2026-10-23T15:21:22+00:00"
+          },
+          {
+            "sid": "453c138d9feefee3",
+            "title": "Where Rounding Happens Matters: Rounding-Location Alignment Stabilizes LLM Reinforcement Learning",
+            "url": "http://arxiv.org/abs/2610.32951v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "Reinforcement learning for large language models often uses separate systems for inference and training. Even with identical weights and BF16 tensors, implementation differences can make an intended on-policy update o...",
+            "published": "2026-10-23T17:45:03+00:00"
+          },
+          {
+            "sid": "8a41e1e41cbecfde",
+            "title": "Multi-Turn Reinforcement Learning on Amazon SageMaker AI: A hands-on guide",
+            "url": "https://aws.amazon.com/blogs/machine-learning/multi-turn-reinforcement-learning-on-amazon-sagemaker-ai-a-hands-on-guide",
+            "source": "aws_ml_blog",
+            "type": "news",
+            "summary_1line": "Multi-Turn Reinforcement Learning (MTRL) on Amazon SageMaker AI trains models on the outcome of a whole multi-step task rather than labeled steps. This hands-on guide walks the full pipeline using Wordle: deploying th...",
+            "published": "2026-10-23T17:48:54+00:00"
+          },
+          {
+            "sid": "1e1ae7d5d09cb859",
+            "title": "RobustRLlib: A Unified Library and Benchmark for Robust Reinforcement Learning Algorithms",
+            "url": "http://arxiv.org/abs/2610.32971v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "Robust reinforcement learning (RL) is critical for reliable real-world deployment, where policies may fail under diverse shifts and disruptions. Existing robust RL algorithms offer a rich set of mechanisms and princip...",
+            "published": "2026-10-23T17:57:22+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-26",
+        "items": [
+          {
+            "sid": "c3af4f37e1c19b19",
+            "title": "CalibraRL: Confidence-Calibrated Reinforcement Learning for Mitigating Hallucinations in RAG",
+            "url": "http://arxiv.org/abs/2610.35142v1",
+            "source": "arxiv_llm_reliability",
+            "type": "paper",
+            "summary_1line": "Large language models (LLMs) often produce plausible but incorrect answers, motivating reinforcement learning methods that reward correct answers, penalize incorrect answers, and allow abstention. However, fixed outco...",
+            "published": "2026-10-26T10:11:24+00:00"
+          },
+          {
+            "sid": "868490bacebdc880",
+            "title": "When Fine-Grained Credit Assignment Helps and Hurts: Multimodal Agentic Reinforcement Learning through Video Editing",
+            "url": "http://arxiv.org/abs/2610.35497v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Reinforcement learning (RL) has shown promise for training multimodal agents to reason and use tools. However, it remains unclear when fine-grained credit assignment improves learning and when it fails to improve task...",
+            "published": "2026-10-26T14:25:40+00:00"
+          },
+          {
+            "sid": "c07d00b3f0a46112",
+            "title": "MiRL: Error-Targeted Reinforcement Learning for Correcting Terminal Agent Misbehaviors",
+            "url": "http://arxiv.org/abs/2610.35697v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Error-targeted learning gives a legible way to improve a model: identify specific weaknesses of the model, train the model to fix these weaknesses, and check whether the weaknesses are fixed. We study how to apply err...",
+            "published": "2026-10-26T16:25:05+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-27",
+        "items": [
+          {
+            "sid": "02ad246823185a44",
+            "title": "EnvSched: Environment-Aware Scheduling for Rollout-Efficient Agent Reinforcement Learning",
+            "url": "http://arxiv.org/abs/2610.37609v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "As executable environments for language agents scale, generating and verifying their rollouts becomes increasingly expensive. Under finite rollout budgets, this raises an important question: can data management at the...",
+            "published": "2026-10-27T17:38:52+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}

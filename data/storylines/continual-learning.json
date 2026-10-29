@@ -1,0 +1,109 @@
+{
+ "slug": "continual-learning",
+ "label": "Continual Learning",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-10-22T15:03:20+00:00",
+ "last_updated": "2026-10-27T06:52:54+00:00",
+ "generated_at": "2026-10-29T00:13:38.528542+00:00",
+ "sources": [
+  "arxiv_cs_cl",
+  "arxiv_llm_reliability"
+ ],
+ "days": [
+  {
+   "date": "2026-10-22",
+   "items": [
+    {
+     "title": "HERD: Harness-Evolving Recursive Distillation for Continual Learning",
+     "url": "http://arxiv.org/abs/2610.31401v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Continual learning requires a model to keep acquiring new skills and knowledge without compromising its existing capabilities. Parametric methods suffer from catastrophic forgetting and loss of plasticity. Non-paramet...",
+     "why_it_matters": "Matches feed focus: harness.",
+     "sid": "aed209b05e4ae391",
+     "published": "2026-10-22T15:03:20+00:00",
+     "editor_note": "Frames the problem: parametric forgetting versus non-parametric limits, with a distillation approach."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-25",
+   "items": [
+    {
+     "title": "Continual Learning Exam: Benchmarking Long-Horizon RSI and Experiential Learning in LLM Agents",
+     "url": "http://arxiv.org/abs/2610.33956v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Continual learning is the ability of LLM agents to improve over time by acquiring, refining, and applying knowledge from experience while retaining useful prior knowledge. It is essential for agents learning over long...",
+     "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
+     "sid": "55edc2615764e1b5",
+     "published": "2026-10-25T00:00:25+00:00",
+     "editor_note": "Adds a benchmark for agents learning from experience over long horizons."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-27",
+   "items": [
+    {
+     "title": "CAMR: Compatibility-Aware Memory Replay for Continual Learning in Large Language Models",
+     "url": "http://arxiv.org/abs/2610.36734v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Continual learning requires large language models to acquire new knowledge and capabilities while retaining what they have learned. Fine-tuning and replay support acquisition and retention, but deciding whether incomi...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "200271de2a2f52aa",
+     "published": "2026-10-27T06:52:54+00:00",
+     "editor_note": "Adds a replay-selection method that judges whether new data is compatible before use."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "An Oct 22 paper (HERD) framed continual learning as a trade-off between parametric methods, which forget, and non-parametric ones. Three days later a benchmark began measuring whether LLM agents actually improve from experience over long horizons.",
+  "stale": false,
+  "whats_new": "CAMR (Oct 27) proposes compatibility-aware memory replay, deciding whether incoming data is worth replaying before it is used to update an LLM.",
+  "why_it_matters": "Agents that learn from experience need retention without regressions; replay selection and long-horizon evals are the pieces to watch before trusting self-improving setups.",
+  "take_for_builders": "Treat these as research signals: do not adopt, but add a retention check to any fine-tune or agent-memory pipeline that updates on new data.",
+  "status": {
+   "state": "Developing · research",
+   "tone": "rising",
+   "changed": "2026-10-27",
+   "detail": "Three arXiv papers in six days; all research-stage, none shipped in a product."
+  },
+  "beats": [
+   {
+    "kicker": "FRAMING",
+    "tone": "launch",
+    "headline": "HERD targets forgetting with recursive distillation",
+    "summary": "Positions parametric methods against catastrophic forgetting and loss of plasticity.",
+    "sids": [
+     "aed209b05e4ae391"
+    ]
+   },
+   {
+    "kicker": "MEASURE",
+    "tone": "rising",
+    "headline": "Continual Learning Exam benchmarks LLM agents over long horizons",
+    "sids": [
+     "55edc2615764e1b5"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "CAMR selects what to replay by compatibility",
+    "sids": [
+     "200271de2a2f52aa"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do any labs report results on the Continual Learning Exam benchmark?",
+   "Do HERD or CAMR release code or reproducible numbers on production-scale models?"
+  ],
+  "generated_at": "2026-10-29T00:20:00+00:00"
+ }
+}

@@ -1,0 +1,122 @@
+{
+ "slug": "multimodal-document",
+ "label": "Multimodal Document",
+ "item_count": 3,
+ "day_count": 2,
+ "source_count": 3,
+ "first_seen": "2026-10-09T07:21:36+00:00",
+ "last_updated": "2026-10-27T09:53:21+00:00",
+ "generated_at": "2026-10-29T00:13:38.528542+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_ai",
+  "arxiv_cs_cl"
+ ],
+ "days": [
+  {
+   "date": "2026-10-09",
+   "items": [
+    {
+     "title": "Locate, Judge, Read: Role-Specialized Tool Agents over a Knowledge-Point Index for Open-Domain Multimodal Document QA",
+     "url": "http://arxiv.org/abs/2610.13128v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Question answering over large heterogeneous document collections requires first finding the right passages and then reading them, yet current retrieval-augmented agents give one model both kinds of tools and let it sc...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "fd7cd167364e497d",
+     "published": "2026-10-09T07:21:36+00:00",
+     "editor_note": "First paper: gives locating and reading separate role-specialized tool agents over a knowledge-point index."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-27",
+   "items": [
+    {
+     "title": "RouteDRAG: Learning to Route and Control Agentic Execution for Multimodal Document RAG",
+     "url": "http://arxiv.org/abs/2610.36444v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Web-based applications increasingly rely on understanding long multimodal documents, where answering questions often requires combining information across pages, tables, and figures. Agentic retrieval-augmented genera...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "9ab63498f33996c4",
+     "published": "2026-10-27T00:45:49+00:00",
+     "editor_note": "Adds learned routing and execution control to agentic multimodal document RAG."
+    },
+    {
+     "title": "DocXEval: A Systematic Evaluation of Explainability in Multimodal Document Understanding",
+     "url": "http://arxiv.org/abs/2610.36929v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Multimodal transformer models have driven unprecedented performance breakthroughs in modern document understanding. However, the inherent black-box nature of these models remains a major obstacle to their safe deploym...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "52897c76c61a9c65",
+     "published": "2026-10-27T09:53:21+00:00",
+     "editor_note": "Shifts focus from accuracy to explainability evaluation of multimodal document understanding."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "An Oct 9 arXiv paper split multimodal document QA agents into role-specialized locate, judge and read tools over a knowledge-point index. Until Oct 27, no follow-up appeared in the feed.",
+  "stale": false,
+  "whats_new": "Two Oct 27 papers extend the thread: RouteDRAG learns to route and control agentic execution for multimodal document RAG, and DocXEval benchmarks explainability in document understanding models.",
+  "why_it_matters": "Document-QA agents are moving from one generalist tool-using model toward routed, role-specific stages, and explainability is now being measured separately from accuracy.",
+  "take_for_builders": "Keep retrieval and reading as separate, individually evaluable stages in document-QA pipelines, and wait for released code or shared benchmarks before replacing a working setup with these preprints.",
+  "status": {
+   "state": "Developing",
+   "tone": "rising",
+   "changed": "2026-10-27",
+   "detail": "Three arXiv preprints, no production releases: agent architecture for multimodal document RAG is converging on routing, while explainability evaluation lags.",
+   "track": [
+    {
+     "label": "role-specialized agents",
+     "detail": "Oct 9",
+     "tone": "launch",
+     "weight": 40
+    },
+    {
+     "label": "routing + explainability",
+     "detail": "Oct 27 → now",
+     "tone": "now",
+     "weight": 60
+    }
+   ]
+  },
+  "beats": [
+   {
+    "kicker": "ARCHITECTURE",
+    "tone": "launch",
+    "headline": "Role-specialized tool agents split locating from reading",
+    "summary": "Separates retrieval tools from reading tools instead of giving one model both.",
+    "sids": [
+     "fd7cd167364e497d"
+    ]
+   },
+   {
+    "kicker": "ROUTING",
+    "tone": "rising",
+    "headline": "RouteDRAG learns to route and control agentic execution",
+    "summary": "Targets questions that need combining pages, tables and figures.",
+    "sids": [
+     "9ab63498f33996c4"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "DocXEval evaluates explainability of document models",
+    "summary": "Addresses the black-box obstacle to safe deployment of multimodal document models.",
+    "sids": [
+     "52897c76c61a9c65"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do RouteDRAG or the locate-judge-read agents publish code or benchmark numbers on a shared multimodal document QA set?",
+   "Does any production document-QA product adopt routed or role-specialized retrieval and reading stages?",
+   "Do later papers report DocXEval explainability scores for the agentic RAG systems in this thread?"
+  ],
+  "generated_at": "2026-10-29T00:30:00+00:00"
+ }
+}

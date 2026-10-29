@@ -1,0 +1,47 @@
+{
+  "slug": "reasoning-question",
+  "generated_at": "2026-10-29T00:13:08+00:00",
+  "covers_last_updated": "2026-10-27T07:14:59+00:00",
+  "covers_member_sids": ["1846766ba5a6742d", "26fc92a7573c4011", "334116357c766a21"],
+  "tldr": "Three arXiv papers in five days attack question answering over structured content: tables in document images, knowledge graphs without labeled questions, and multilingual multi-hop documents. All three add structure or self-evaluation around the model instead of relying on a single pass.",
+  "whats_new": "DocSkill (Oct 27) applies skill-integrated agentic reasoning to multilingual multi-hop document QA, where evidence spans complex layouts, pages and languages.",
+  "why_it_matters": "Document and KG question answering is a common production RAG workload, and these papers move reliability gains into orchestration (iterative self-checks, skills, self-generated training signal) you can adopt without a new base model.",
+  "status": {
+    "state": "Developing",
+    "tone": "rising",
+    "changed": "2026-10-27",
+    "detail": "Research-stage papers only; no released code, benchmarks or production results are cited in this thread."
+  },
+  "beats": [
+    {
+      "kicker": "TABLES",
+      "tone": "launch",
+      "headline": "Cycle-of-Thought adds self-evaluation to table VQA",
+      "summary": "Iterative self-checking targets inconsistent VLM reasoning over tables in document images.",
+      "sids": ["1846766ba5a6742d"]
+    },
+    {
+      "kicker": "GRAPHS",
+      "tone": "rising",
+      "headline": "Evolve on Graph trains KG reasoning without question annotations",
+      "summary": "Aimed at finance and industry KGs that lack QA pairs.",
+      "sids": ["26fc92a7573c4011"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "DocSkill brings skills to multilingual multi-hop document QA",
+      "sids": ["334116357c766a21"]
+    }
+  ],
+  "open_questions": [
+    "Do any of the three papers release code or evaluation harnesses that others can reproduce?",
+    "Does DocSkill report gains over single-pass baselines on multilingual document benchmarks?"
+  ],
+  "take_for_builders": "If you run document or table QA in production, test an iterative self-check pass on your own failure cases before adopting any of these; none shows production-grade evidence yet.",
+  "day_captions": {
+    "1846766ba5a6742d": "Self-evaluative iteration for table reasoning in document images.",
+    "26fc92a7573c4011": "Removes the need for labeled questions when reasoning over knowledge graphs.",
+    "334116357c766a21": "Adds an agentic, skill-based approach for multilingual multi-hop documents."
+  }
+}

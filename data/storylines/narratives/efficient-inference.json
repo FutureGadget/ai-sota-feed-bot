@@ -1,0 +1,42 @@
+{
+  "slug": "efficient-inference",
+  "generated_at": "2026-10-29T00:30:00+00:00",
+  "covers_last_updated": "2026-10-27T17:55:24+00:00",
+  "covers_member_sids": ["b3f4301ff8d83589", "ed7966c78dc36a0b", "edcf9763d6b958dc"],
+  "tldr": "On Oct 22 an arXiv agent-systems paper argued that reliable multi-turn agents need better structured reasoning, not just bigger models. Five days later two papers moved the efficiency question into serving mechanics.",
+  "whats_new": "Two Oct 27 arXiv papers target inference cost directly: CRISP prunes and schedules MoE experts for edge servers, and Metacognitive Decoding tunes diffusion-LM agents' compute and output length.",
+  "why_it_matters": "Inference cost for agents is being attacked at the serving layer (expert-weight movement, decoding length), which affects hardware sizing and latency budgets more than model choice alone.",
+  "status": {
+    "state": "Developing",
+    "tone": "rising",
+    "changed": "2026-10-27",
+    "detail": "Three research papers, no production releases yet; the thread is about techniques, not shipped tooling."
+  },
+  "beats": [
+    {
+      "kicker": "FRAMING",
+      "tone": "launch",
+      "headline": "Reliability through structure, not scale",
+      "summary": "A paper argues multi-turn agents need structure-grounded reasoning rather than larger models.",
+      "sids": ["b3f4301ff8d83589"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Two techniques cut serving cost for MoE and diffusion agents",
+      "summary": "CRISP targets expert-weight movement on memory-constrained edge servers; Metacognitive Decoding adapts where compute goes and how much text diffusion LMs generate.",
+      "sids": ["ed7966c78dc36a0b", "edcf9763d6b958dc"]
+    }
+  ],
+  "open_questions": [
+    "Do CRISP or Metacognitive Decoding release code or serving-framework integrations?",
+    "Do independent benchmarks reproduce the efficiency gains the authors report?",
+    "Does diffusion-LM decoding show up in any production agent runtime?"
+  ],
+  "take_for_builders": "Treat these as research signals: if you serve MoE models on edge or memory-limited hosts, profile expert-weight movement before sizing hardware, and wait for released code before changing a serving stack.",
+  "day_captions": {
+    "b3f4301ff8d83589": "Sets the thesis: agent reliability and efficiency come from reasoning structure, not just model size.",
+    "ed7966c78dc36a0b": "Targets MoE inference on edge servers, where expert-weight movement rather than compute is the bottleneck.",
+    "edcf9763d6b958dc": "Extends efficiency to diffusion language agents by adapting compute placement and generation length."
+  }
+}

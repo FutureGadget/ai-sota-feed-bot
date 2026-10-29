@@ -1,16 +1,21 @@
 {
   "slug": "diffusion-language",
-  "generated_at": "2026-10-28T00:13:30+00:00",
-  "covers_last_updated": "2026-10-26T17:35:58+00:00",
-  "covers_member_sids": ["d4cd8af9958d846f", "4d1cef01d9ab5673", "75e015095613159e"],
+  "generated_at": "2026-10-29T00:30:00+00:00",
+  "covers_last_updated": "2026-10-27T17:55:24+00:00",
+  "covers_member_sids": [
+    "d4cd8af9958d846f",
+    "4d1cef01d9ab5673",
+    "75e015095613159e",
+    "edcf9763d6b958dc"
+  ],
   "tldr": "Diffusion language models first appeared here as the backbone of a tool-using chemistry agent. Days later they turned up on the offensive side, as a way to craft fluent black-box attacks on LLMs.",
-  "whats_new": "A new paper distills a decoding schedule so diffusion LLMs commit tokens in fewer rounds, targeting the parallel-generation speedup that has been hard to realize.",
-  "why_it_matters": "Diffusion LLMs only pay off for serving if parallel decoding cuts rounds without hurting quality; this is research-stage evidence, not a deployable runtime.",
+  "whats_new": "A second arXiv paper in two days targets dLLM inference speed: Metacognitive Decoding adapts where compute is spent and how much text is generated, aimed at diffusion-based agents.",
+  "why_it_matters": "Diffusion LLMs only pay off for serving if parallel decoding cuts rounds without hurting quality; two decoding papers in two days show the effort, but it is research-stage evidence, not a deployable runtime.",
   "status": {
     "state": "Research · developing",
     "tone": "rising",
-    "changed": "2026-10-26",
-    "detail": "Three arXiv papers, no production release: agents, attacks and decoding speed are each explored once."
+    "changed": "2026-10-27",
+    "detail": "Four arXiv papers, no production release: agents, attacks and two decoding-speed approaches."
   },
   "beats": [
     {
@@ -26,20 +31,27 @@
       "sids": ["4d1cef01d9ab5673"]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
+      "kicker": "SPEED",
+      "tone": "rising",
       "headline": "Schedule distillation aims to cut dLLM decoding rounds",
       "sids": ["75e015095613159e"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Metacognitive Decoding targets efficient diffusion-based agents",
+      "sids": ["edcf9763d6b958dc"]
     }
   ],
   "open_questions": [
-    "Do the schedule-distillation speedups hold on independent benchmarks at equal output quality?",
+    "Do the schedule-distillation and metacognitive-decoding speedups hold on independent benchmarks at equal output quality?",
     "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?"
   ],
   "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet; if you prototype one, measure decoding rounds and quality against your autoregressive baseline, and include fluent-prompt attacks in red-team evals.",
   "day_captions": {
     "d4cd8af9958d846f": "Shows a masked diffusion LM as the reasoning core of a tool-using chemistry agent.",
     "4d1cef01d9ab5673": "Uses a diffusion LM to generate low-perplexity attack prompts against black-box LLMs.",
-    "75e015095613159e": "Proposes learning when to commit tokens, reducing the decoding rounds dLLMs need."
+    "75e015095613159e": "Proposes learning when to commit tokens, reducing the decoding rounds dLLMs need.",
+    "edcf9763d6b958dc": "Extends the efficiency push to agents by adapting compute spent and text generated per interaction."
   }
 }
