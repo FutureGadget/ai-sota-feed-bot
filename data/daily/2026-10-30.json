@@ -1,0 +1,152 @@
+{
+  "date": "2026-10-30",
+  "title": "What happened in AI — Oct 30, 2026",
+  "generated_at": "2026-10-30T22:16:07Z",
+  "intro": [
+    "The day's sharpest signal came from the field: an unsandboxed Claude Code run with seven parallel subagents spilled into a developer's Mac, and builders answered with hooks, checks and tighter review.",
+    "Underneath, cost and trust layers moved too: OpenRouter now routes on speed and reliability as well as price, Google Cloud spend caps are generally available, and new proposals tie agent actions to verified identity."
+  ],
+  "highlights": [
+    "A Claude Code auto-mode run with seven parallel subagents and no sandbox made a Mac talk; the report traces it to the agents' tests.",
+    "OpenRouter's new default router rewards fast, reliable providers, not just the cheapest.",
+    "Google Cloud spend caps on Budgets are generally available and do not delete resources.",
+    "Turnbook reports 91.8% on LongMemEval from 3.1k memory tokens per question.",
+    "OpenAI will honor a shared robots.txt signal for AI training preferences."
+  ],
+  "article_count": 31,
+  "categories": [
+    {
+      "name": "Coding agents need guardrails, not trust",
+      "slug": "coding-agent-guardrails",
+      "summary": "Unsandboxed parallel agents leaked side effects into the host, and teams are answering with hooks, pre-ship checks and focused review.",
+      "articles": [
+        {
+          "title": "A Claude Code agent's test escaped into my Mac. I only noticed because it talked",
+          "summary": "Seven parallel Claude Code subagents in auto mode, with no sandbox, made a Mac read JSON aloud; the incident report traces it to the agents' own test run.",
+          "source": "hackernews_ai",
+          "url": "https://www.marutpandya.com/posts/2026/10/my-mac-started-reading-json-aloud/",
+          "published": "Fri, 30 Oct 2026 05:16:33 +0000"
+        },
+        {
+          "title": "Show HN: Claude Code guards built from my agent's repeated mistakes",
+          "summary": "Seven Claude Code hooks and pre-ship checks, each built from a logged agent mistake, with tests that prove each one blocks.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/hadiux0295/claude-code-mistake-guards",
+          "published": "Fri, 30 Oct 2026 14:24:33 +0000"
+        },
+        {
+          "title": "How (not) to use AI for pull requests and code reviews",
+          "summary": "Agent-written PR descriptions list every change and run long; the author argues reviewers should be pointed at what matters, not read everything.",
+          "source": "hackernews_ai",
+          "url": "https://paulbakker.io/writing/how-not-to-use-ai-for-pull-requests-and-code-changes/",
+          "published": "Fri, 30 Oct 2026 08:23:22 +0000"
+        },
+        {
+          "title": "What Claude Code's 30-second agent summary call costs, read from the binary",
+          "summary": "Reading the Claude Code binary, the author finds each background agent's transcript is sent to the model about every 30 seconds to write a 3-5 word status line, and prices one call at Opus 5.5 rates.",
+          "source": "hackernews_ai",
+          "url": "https://theainewsreport.com/2026-10-29-claude-code-agent-summary-cost-explained.html",
+          "published": "Fri, 30 Oct 2026 04:58:26 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Context and memory under a token budget",
+      "slug": "context-memory-token-budget",
+      "summary": "Two open-source tools attack agent context cost from different ends: cheaper memory writes and smarter selection of what enters the window.",
+      "articles": [
+        {
+          "title": "Same agent-memory accuracy with 8x fewer tokens by changing the embedding model",
+          "summary": "Turnbook stores conversations verbatim with zero model tokens at save time and reports 91.8% on LongMemEval from 3.1k tokens of memory per question.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/goyohan0611-png/turnbook",
+          "published": "Fri, 30 Oct 2026 04:06:35 +0000"
+        },
+        {
+          "title": "Show HN: Omneum – Local, text-blind context control plane for AI agents",
+          "summary": "Omneum selects high-utility context under a token budget, scoring source reliability and claim support to counter context rot.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/cole-h06/omneum",
+          "published": "Fri, 30 Oct 2026 15:03:29 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Inference routing and cloud spend controls",
+      "slug": "inference-routing-spend-controls",
+      "summary": "Routing and billing layers are moving from lowest price to price plus speed and reliability, with hard caps on runaway spend.",
+      "articles": [
+        {
+          "title": "OpenRouter rebuilt provider routing for better, faster inference",
+          "summary": "OpenRouter's default router now weighs speed, throughput and reliability alongside price, so better providers win more traffic with no client code change.",
+          "source": "hackernews_ai",
+          "url": "https://openrouter.ai/blog/announcements/how-we-rebuilt-provider-routing/",
+          "published": "Fri, 30 Oct 2026 16:32:47 +0000"
+        },
+        {
+          "title": "Innovate on your own business terms: Google Cloud spend caps now generally available",
+          "summary": "Spend caps on Google Cloud Budgets are generally available, built to stop runaway costs without deleting resources.",
+          "source": "google_cloud_blog",
+          "url": "https://cloud.google.com/blog/topics/cost-management/google-cloud-spend-caps-now-generally-available/",
+          "published": "Fri, 30 Oct 2026 16:00:00 +0000"
+        },
+        {
+          "title": "Show HN: Spinf-serve – inference server for bulk scoring and decisions",
+          "summary": "spinf-serve reads content once and scores many questions in one pass as option probabilities, on one 24 GB GPU behind an OpenAI-compatible API (Apache 2.0).",
+          "source": "hackernews_ai",
+          "url": "https://github.com/spinfinc/spinf-serve",
+          "published": "Fri, 30 Oct 2026 17:03:12 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Agent identity, authorization and policy",
+      "slug": "agent-identity-authorization-policy",
+      "summary": "Builders are proposing ways to prove who an agent acts for and cap what it can do, while OpenAI backs a robots.txt signal for training preferences.",
+      "articles": [
+        {
+          "title": "Personal Agent's Voice Security",
+          "summary": "OpenAVT carries cryptographic identity and signed customer permissions through a phone call's audio so a business can verify an agent before acting.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/ketanbj/openavt",
+          "published": "Fri, 30 Oct 2026 15:43:52 +0000"
+        },
+        {
+          "title": "Show HN: Send21 – Crypto pay links an AI agent can create but can't spend",
+          "summary": "Send21 lets an agent create crypto payment drafts through a scoped API but not spend; the human pays from their own wallet.",
+          "source": "hackernews_ai",
+          "url": "https://send21.io/demo",
+          "published": "Fri, 30 Oct 2026 08:26:44 +0000"
+        },
+        {
+          "title": "Making it easier for websites to express AI training preferences",
+          "summary": "OpenAI will honor a shared robots.txt signal for website AI training preferences, for participating providers.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/helping-websites-express-ai-training-preferences",
+          "published": "Fri, 30 Oct 2026 09:30:00 GMT"
+        }
+      ]
+    },
+    {
+      "name": "Multi-agent behavior and evals",
+      "slug": "multi-agent-behavior-evals",
+      "summary": "New testbeds probe agents in groups and on deterministic tasks instead of relying on LLM judges.",
+      "articles": [
+        {
+          "title": "What YC's Minecraft and Mindustry agent swarms show about multi-agent teams",
+          "summary": "A write-up of Y Combinator and Olam Labs runs with 50 agents in Minecraft and Mindustry, pitting GPT-6.1 Sol teams against Claude Opus 5.5 teams, turns each failure into a check.",
+          "source": "hackernews_ai",
+          "url": "https://theainewsreport.com/2026-10-30-yc-agent-swarms-minecraft-mindustry-explained.html",
+          "published": "Fri, 30 Oct 2026 16:58:55 +0000"
+        },
+        {
+          "title": "Show HN: Navital Gym – open environments for testing AI agents on Indian tasks",
+          "summary": "Navital Gym offers deterministic, rule-graded environments for Indian tasks such as UPI, GST and trip planning, with no LLM judge.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Navitallabs/navital-gym",
+          "published": "Fri, 30 Oct 2026 13:19:15 +0000"
+        }
+      ]
+    }
+  ]
+}
