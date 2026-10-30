@@ -4909,6 +4909,22 @@
   "type": "news",
   "url": "https://www.interconnects.ai/p/i-expect-rapid-progress-but-not-towards"
  },
+ "378676a7df0265f7": {
+  "first_seen": "2026-10-30T05:05:02.133252+00:00",
+  "id": "8298e4b61c3a844d",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-29T15:47:19+00:00",
+  "sid": "378676a7df0265f7",
+  "source": "arxiv_llm_reliability",
+  "summary": "Modern LLMs strain device memory through large model weights and attention states, particularly in resource-constrained scenarios. Existing systems separately provision memory for model weights and attention states, imposing fixed fixed boundaries that cannot adapt to the changing memory demands of workloads. Under heavy workloads, insufficient state capacity limits request concurrency and reduces throughput; under light workloads, idle memory in one region cannot be reallocated to another, wasting device memory. Meanwhile, modern LLM architectures introduce heterogeneous tensors with diverse layouts and lifetimes, further complicating memory management. These problems motivate unified memory management for heterogeneous tensors. However, a shared pool alone does not make memory directly reusable across tensors with different allocation granularities and execution layouts. This paper presents Rimuru, a modern LLM serving system that unifies memory management through elastic expert offloading. Rimuru establishes a shared page pool to enables elastic memory sharing across heterogeneous tensors. To accommodate different allocation granularities, Rimuru introduces memory views that allow each tensor type to interpret the shared memory space using its own page size and page table. Furthermore, Rimuru combines huge-page alignment with a multi-level page allocator that splits and merges pages, enabling cross-type capacity reuse. A page-table-aware fused MoE kernel directly accesses ",
+  "summary_1line": "Modern LLMs strain device memory through large model weights and attention states, particularly in resource-constrained scenarios. Existing systems separately provision memory for model weights and attention states, i...",
+  "title": "Rimuru: Unified Memory Management for Modern LLM Serving via Elastic Expert Offloading",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40305v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "378de5b0a4ef1ffb": {
   "first_seen": "2026-10-01T22:04:34.899617+00:00",
   "id": "9c30e6ce7bf1b0c8",
@@ -6854,6 +6870,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.26825v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "4d9b58b182c3fddf": {
+  "content_excerpt": "On October 29, 2026, a gist by Flamerix AI reached the Hacker News front page: Claude Code sends each background agent's transcript to its model about every 30 seconds, to write a 3 to 5 word status line. We read the prompt and skip rules in the Claude Code 2.1.309 binary on our Mac, priced one call at Opus 5.5's published rates, and list what you can and cannot turn off. Claude Code can run agents in the background while you keep working. The agents panel shows one line per agent saying what it is doing right now, such as 'Reading runAgent.ts'. That line is written by a model. According to the gist, Claude Code produces it by forking the agent's conversation about every 30 seconds and sending the whole transcript to the agent's own model, usually Opus, with a request to describe the most recent action in 3 to 5 words. The answer goes to the panel. It never reaches the agent or your conversation. The gist dates the default to version 2.1.232, published August 13, 2026, for interactive background agents. Since 2.1.300 (October 14) the interval comes from a server flag clamped between 30 and 240 seconds, and the default is the minimum. A cheaper 'short' mode that sends about 2,000 tokens of notes instead of the transcript shipped in 2.1.310 but is switched off. All of that is the gist's reading of the code; Anthropic has not commented on the page. The gist tested Linux builds. We checked the macOS build installed on our machine on the morning of October 29, without running it a",
+  "first_seen": "2026-10-30T05:05:02.133252+00:00",
+  "id": "7f42f4d835ea2028",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-10-30T04:58:26+00:00",
+  "sid": "4d9b58b182c3fddf",
+  "source": "hackernews_ai",
+  "summary_1line": "What Claude Code's 30-second agent summary call costs, read from the binary",
+  "title": "What Claude Code's 30-second agent summary call costs, read from the binary",
+  "type": "news",
+  "url": "https://theainewsreport.com/2026-10-29-claude-code-agent-summary-cost-explained.html",
+  "why_it_matters": "Matches feed focus: agent, claude code."
  },
  "4dcb097f0c6ce82f": {
   "first_seen": "2026-10-22T00:04:02.881290+00:00",
@@ -14153,6 +14186,22 @@
   "url": "http://arxiv.org/abs/2610.35398v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "a23623abdfcb0e52": {
+  "first_seen": "2026-10-30T05:05:02.133252+00:00",
+  "id": "828e7e13c6af6241",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T14:45:43+00:00",
+  "sid": "a23623abdfcb0e52",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Multi-step Web tasks often require several LLM agents to gather and combine evidence. The communication graph of a fixed workflow restricts which agents can read each other's outputs: evidence retrieved by one agent may never reach the agent that needs it, leaving an information gap and an incomplete or incorrect answer. Adding a connection can deliver the missing evidence, but can also lead the receiver to adopt an incorrect upstream conclusion that displaces a correct answer; the final output alone does not separate the two. We propose Selective Probing and Link Insertion for Closing information gaps in multi-agent Execution (SPLICE), which locates information gaps per query and decides what to adopt after adding an edge. After the original workflow runs, SPLICE uses the query and node outputs to locate a possible gap, adds one directed edge from a source to a receiver to deliver the relevant evidence, and re-executes the receiver and affected downstream nodes, producing a candidate answer. The adoption decision reads both the final answers of the two runs and the process changes the edit caused inside the workflow: how far the receiver moved, where its new content came from, and whether the change reached the final answer. A selector trained on these process features chooses between adopting the candidate answer and retaining the original. On five benchmarks, SPLICE raises the task score on Web tool use by 8.0% and the mean score on four reasoning and planning benchmarks b",
+  "summary_1line": "Multi-step Web tasks often require several LLM agents to gather and combine evidence. The communication graph of a fixed workflow restricts which agents can read each other's outputs: evidence retrieved by one agent m...",
+  "title": "Locating and Closing Information Gaps in Multi-Agent Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40186v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "a264c4af5885aa0a": {
   "first_seen": "2026-10-15T00:04:31.356321+00:00",
   "id": "a764cc7ac5331fca",
@@ -17275,6 +17324,23 @@
   "type": "news",
   "url": "https://modal.com/blog/how-legora-runs-thousand-scale-parallel-agent-evals-on-modal-sandboxes",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "bfc2f0eb7a62f683": {
+  "first_seen": "2026-10-30T05:05:02.133252+00:00",
+  "id": "b973c4a46a7ff68a",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-29T16:58:04+00:00",
+  "sid": "bfc2f0eb7a62f683",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Tool-use benchmarks often score agents by final task success, but terminal outcomes can obscure whether the intermediate tool-call trajectory was executable. We propose prefix executability as a trajectory-level evaluation protocol for tool-using agents. The protocol measures whether every prefix of a predicted tool-call sequence remains executable under tool schemas, state preconditions, and data dependencies, and summarizes reliability using Prefix Executability Curves (PEC), First-Error Depth (FED), Trajectory Executability Rate (TER), horizon-normalized AUC-PEC, and Recovery Rate (RR). We instantiate the protocol on stratified samples from BFCL-v3 multi-turn and ToolSandbox, and on the complete Airline/Retail base splits of $τ^3$-bench. We observe that outcome-only and prefix-level rankings diverge: agents whose execution is conditioned on an unverified plan often achieve higher point-estimate final success than non-plan-conditioned baselines while substantially lowering TER and AUC-PEC. These divergences are precisely the failure modes that prefix executability is designed to expose: they reveal whether apparent success rests on an executable trajectory, where invalidity first enters, and whether success follows recovery from an earlier failure. As a validation intervention, explicit pre-execution plan checking can improve executable-prefix survival while maintaining competitive terminal success. These results show that final success alone is insufficient for evaluating ",
+  "summary_1line": "Tool-use benchmarks often score agents by final task success, but terminal outcomes can obscure whether the intermediate tool-call trajectory was executable. We propose prefix executability as a trajectory-level evalu...",
+  "title": "Prefix Executability: Evaluating Tool-Using Agents Beyond Final Success",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40444v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "bfc4355d370530a8": {
   "first_seen": "2026-10-02T17:04:00.868647+00:00",
@@ -20446,6 +20512,22 @@
   "url": "http://arxiv.org/abs/2610.38744v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "df64188db7f433f8": {
+  "first_seen": "2026-10-30T05:05:02.133252+00:00",
+  "id": "39d746f6b2392ea9",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-29T16:07:10+00:00",
+  "sid": "df64188db7f433f8",
+  "source": "arxiv_cs_cl",
+  "summary": "Agents powered by large language models (LLMs) have demonstrated remarkable progress in solving complex reasoning tasks. However, LLM agents often falter on long-horizon tasks due to cognitive overload, as their working memory becomes cluttered with expanding and irrelevant information, which dilutes their attention and hinders effective planning and reasoning. To mitigate this challenge, we introduce Cognitive Resource Self-Allocation (CORAL), a novel reasoning paradigm that empowers agents to proactively optimize their context. Implemented as an agent-callable working memory management toolset, CORAL allows an agent to checkpoint its task progress and verified facts, and adaptively initiate a new problem-solving episode by resetting cluttered context while preserving only the checkpointed information, enabling it to resume reasoning from a clean state. We further enhance the agent's checkpointing capabilities using a Multi-episode Agentic Reinforced Policy Optimization algorithm. On the GAIA benchmark, CORAL with an 8B model achieves 42.8% average accuracy, with particularly strong gains on the most challenging long-horizon tasks (Level 2 and Level 3). Crucially, these gains come at a substantially lower inference cost: CORAL consumes 6-7$\\times$ fewer input tokens than a ReAct agent. It also generalizes to multi-hop Knowledge QA benchmarks and to the considerably harder BrowseComp, where it improves a strong proprietary agent by 8.0 points.",
+  "summary_1line": "Agents powered by large language models (LLMs) have demonstrated remarkable progress in solving complex reasoning tasks. However, LLM agents often falter on long-horizon tasks due to cognitive overload, as their worki...",
+  "title": "Don't Lose the Thread: Empowering Long-Horizon LLM Agents with Cognitive Resource Self-Allocation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40350v1",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "df6a7bd2a127558b": {
   "first_seen": "2026-10-28T05:04:17.196016+00:00",
   "id": "51b7753c6acd905a",
@@ -21314,6 +21396,22 @@
   "title": "Hello Python 3.15, goodbye 3.10, and now I can use 3.11",
   "type": "news",
   "url": "https://simonwillison.net/2026/Oct/12/python-3-15"
+ },
+ "e8d8fb06f867dd0c": {
+  "first_seen": "2026-10-30T05:05:02.133252+00:00",
+  "id": "689dadc853b39bf9",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-29T17:59:53+00:00",
+  "sid": "e8d8fb06f867dd0c",
+  "source": "arxiv_cs_cl",
+  "summary": "Data attribution methods for Language Models (LMs) are typically evaluated using downstream tasks like fact retrieval. However, existing evaluations vary multiple dataset properties simultaneously, making it impossible to isolate exactly why an attribution algorithm fails. To diagnose these failures, we explore the design space of LLM data attribution, with a primary focus on evaluation. We introduce the Controlled Attribution Benchmark (CATT) for fact tracing, in which we fine-tune LLMs on entirely fictitious knowledge, providing unambiguous ground truth for attribution. This synthetic setup allows us to systematically alter one dataset configuration at a time, such as document redundancy and lexical distractors. With this configurable evaluation, we demonstrate that redundancy and distractors consistently degrade attribution performance. Rather than proposing a new estimator, we examine two design choices that are underexplored: the loss used to compute gradients and how per-token attribution scores are aggregated into a document score. We find that the true causal evidence within a training document is highly localized, but standard methods dilute this evidence into noise by averaging attribution scores across the entire document. We find that replacing standard cross-entropy loss gradients with the negative log-odds gradients surfaces the critical tokens from other uninformative ones. We can then aggregate only the top token scores to improve ground truth recall by 35 to ",
+  "summary_1line": "Data attribution methods for Language Models (LMs) are typically evaluated using downstream tasks like fact retrieval. However, existing evaluations vary multiple dataset properties simultaneously, making it impossibl...",
+  "title": "Elucidating the Design Space of LM Data Attribution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40655v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "e8f53962f1d3b68d": {
   "first_seen": "2026-10-07T16:04:13.570311+00:00",
@@ -23097,6 +23195,22 @@
   "type": "release",
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.314",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "fc08589671123b66": {
+  "content_excerpt": "Local long-term memory for AI agents. Keeps every conversation word for word, costs nothing to save, and is shared by all your agents. 88.8% on LongMemEval. 91.8% on LongMemEval from 3.1k tokens of memory per question ( 0.10.0 ). Zero model tokens spent saving memory. Runs on your own PC. All 500 LongMemEval_S questions (agentmemory: 499), same answer model (gpt-5-mini), prompt and official gpt-4o judge; only the memory differs. Tools like claude-mem and Mem0 run an LLM over your conversations to save them; Turnbook stores them word for word. Details Recorded live on one PC: Claude Code (Opus 5.5, effort high) and Codex (GPT-6.1-Sol, effort high) sharing one Turnbook memory. Model thinking time is fast-forwarded. If Turnbook saves you tokens or repeated explanations, a ⭐ helps other people find it. No Python needed; nothing else to set up. Restart your AI apps afterwards. Already have Python? pip install turnbook && turnbook-install . More: docs/install.md . Claude Code: claude mcp add turnbook -- python -m graph_mind.mcp_server . This gives the tools only; turnbook-install also saves every conversation automatically. Work as usual for a while, then open a new session, another app, or another model and ask: Nothing to tag or save by hand: every turn is already stored, and the agent pulls back the few that answer the question. The installer finds these and connects them; run it again after installing a new one. Any other MCP client works through the tools: see the hand-written",
+  "first_seen": "2026-10-30T05:05:02.133252+00:00",
+  "id": "77f29b27ef43ccb2",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-30T04:06:35+00:00",
+  "sid": "fc08589671123b66",
+  "source": "hackernews_ai",
+  "summary_1line": "Same agent-memory accuracy with 8x fewer tokens by changing the embedding model",
+  "title": "Same agent-memory accuracy with 8x fewer tokens by changing the embedding model",
+  "type": "news",
+  "url": "https://github.com/goyohan0611-png/turnbook",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "fc7534cc11677d95": {
   "first_seen": "2026-10-17T17:04:36.348181+00:00",
