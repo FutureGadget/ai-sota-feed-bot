@@ -768,6 +768,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE80Z01mUGFTUWpjQlNCakF3UF9TbFFYN2xEX1NRb3JHUklSOTlmX3M5bWVRblI4NGhTVzB1eUFadVpZMUx2dzZvWFJra2wzRDRoV3VUSkl1LTJleFNVdlNEUV9wS0tkYnJRb1BySmFEbnc5aXNRU1ZDY1Fn?oc=5"
  },
+ "0a570aaed6213cf4": {
+  "first_seen": "2026-10-30T02:05:19.251562+00:00",
+  "id": "ccfb9a8d8bf99454",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-27T20:25:47+00:00",
+  "sid": "0a570aaed6213cf4",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Latent multi-agent systems reduce inference cost by keeping intermediate reasoning and inter-agent communication in continuous representations.\\ Reusable skills, however, are commonly supplied as text or stored as layer-wise Key-Value states or skill-specific model parameters, introducing repeated processing or substantial per-skill storage.\\ We introduce \\textbf{SkillMem}, which represents each reusable skill as a small external latent memory and makes it directly available during latent multi-agent reasoning.\\ A role-conditioned cross-attention reader allows the same memory to guide different agents according to their roles and current hidden states.\\ We train the skill memories and shared reader through behavioral distillation, matching the change in token predictions induced by a textual skill while keeping the backbone frozen.\\ For our experiments, we obtain textual skills from paired successful and failed multi-agent trajectories, although existing skills can also be compiled directly.\\ Across six benchmarks and Qwen3 models ranging from 4B to 14B parameters, SkillMem provides strong gains for smaller backbones while preserving efficient latent multi-agent inference across model scales.\\ We use the same $8\\times256$ memory configuration across all evaluated model scales, requiring 9.6\\,KB of skill-specific storage per skill, including its retrieval embedding.\\ For a library of 100 skills, SkillMem reduces total storage by more than $38\\times$ compared with alternative s",
+  "summary_1line": "Latent multi-agent systems reduce inference cost by keeping intermediate reasoning and inter-agent communication in continuous representations.\\ Reusable skills, however, are commonly supplied as text or stored as lay...",
+  "title": "SkillMem: Compact External Skill Memory for Latent Multi-Agent Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.37935v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "0a5f683f2cf3f23c": {
   "content_excerpt": "Resin is not an inference engine. It's a library of building blocks for LLM inference. At its core is the headless Engine : a fast Rust scheduler, KV cache, and metrics server. You then write the forward pass as model-specific kernels, optimized for your hardware. This is not production-quality software. If you're looking for an actual inference engine, please use SGLang or vLLM. Read on if you want to hack on LLM inference systems, new models or hardware. With the right kernels, this makes it possible to autonomously \"vibe code\" even the most complex models. In 12 hours, we used Resin to build standalone engines for DeepSeek-V4.1-Flash and GLM-5.3-Flash on Blackwell GPUs that rival vLLM and SGLang. Either fork the repository or import resin and resin_models_cuda as standalone packages. Then use the following skills: Install the core library directly from GitHub with Python 3.11+ and Rust installed: Pip builds the Rust extension locally. The import remains resin . Use @ after .git to pin a revision. Model runners are separate packages: resin-models-cuda for optimized CUDA implementations and resin-models-torch for reference implementations. The repository's development workspace installs both; the examples below assume that workspace or a separately installed runner package. uv run syncs the project dependencies automatically. The build command then syncs type-library sources and builds the Rust extension with generated stubs. The Modal harnesses are launched from the reposit",
   "first_seen": "2026-10-26T20:04:12.953184+00:00",
@@ -13277,6 +13294,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPLUdRdUVWU0tTX1FyTEhlWkVrX1FJd2tQTmVyamkxcjFkYTh4bXA3c1V0ZHdJc3F5UlNPYk9lMzNneXlObGFMSU9QSXRFNFI1SURhN2FXS2lxQjYwQkpjMDZLS04tOFcxUHl6NTlaMERkSFZ1cVQ4ZHlRcFVWUFM5UDVJLUZmSWxiMDlCS2dkLUp1SVZDYnhwaWw3bXFRVUE?oc=5"
  },
+ "9bd65945b5d885cb": {
+  "first_seen": "2026-10-30T02:05:19.251562+00:00",
+  "id": "f75d1c2b86195dca",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-28T10:40:52+00:00",
+  "sid": "9bd65945b5d885cb",
+  "source": "arxiv_agent_systems_research",
+  "summary": "LLM agents increasingly perform consequential actions through external tools, yet their proposed actions are often executed without independent verification of policy compliance or task completion. We introduce JevAct, a runtime verification framework that intercepts selected agent actions before execution and enables feedback-driven correction. JevAct compiles domain policies into executable state checks and structured questions evaluated by a prefill-only decision model, which produces probability-based judgments without relying on LLM generation. By combining deterministic verification of tool-state facts with probabilistic assessment of conversational context, the framework identifies potentially invalid actions and premature task termination, providing targeted feedback for bounded revision. JevAct operates independently of the underlying agent model and requires no modifications to its parameters or tools. We evaluate JevAct across eleven LLM agents on $τ^2$-bench Airline and Telecom tasks and BFCL. Results show improvements in agent reliability across multiple models and benchmarks, with particularly consistent gains on Telecom and BFCL, while performance on Airline is more mixed. Overall, these findings suggest that combining structured decision models with executable verification can improve the reliability of tool-using LLM agents.",
+  "summary_1line": "LLM agents increasingly perform consequential actions through external tools, yet their proposed actions are often executed without independent verification of policy compliance or task completion. We introduce JevAct...",
+  "title": "Think Before You Act: Decision Gate for LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.38620v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "9be06e580d9d3921": {
   "first_seen": "2026-10-27T10:03:55.604707+00:00",
   "id": "fb45ceaa9bac6da0",
@@ -16382,6 +16416,26 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQYlktU0JpcWpJa2JyR2gwRm9PTU9oVmlPNGtJcGU3cWotc01kQ25uVUZLLWNPaHd4LWI4T1JKZGE4dDJwdE1ZSmVfX3lLY1NhbWZVSnNvcUlhRFpmZU44dnE3a0tFQWZCYlhRdVQzTXo2N3Fvb2daQ29NZFcxTEUtNw?oc=5"
  },
+ "b88dbe2fa12fcb2c": {
+  "first_seen": "2026-10-30T02:05:19.251562+00:00",
+  "id": "32f03e2f2a719928",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-30T01:50:51+00:00",
+  "release_highlights": [
+   "Updated bundled Claude CLI to version 2.1.314",
+   "CI: raised PyPI project size limit guard from 50 GiB to 150 GiB to match the new quota granted by PyPI"
+  ],
+  "sid": "b88dbe2fa12fcb2c",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "Internal/Other Changes Updated bundled Claude CLI to version 2.1.314 CI: raised PyPI project size limit guard from 50 GiB to 150 GiB to match the new quota granted by PyPI ( #1455 ) PyPI: https://pypi.org/project/claude-agent-sdk/0.2.175/ pip install claude-agent-sdk==0.2.175",
+  "summary_1line": "Updated bundled Claude CLI to version 2.1.314 · CI: raised PyPI project size limit guard from 50 GiB to 150 GiB to match the new quota granted by PyPI",
+  "title": "claude-agent-sdk-python v0.2.175",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.175",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "b898bf00014d48c5": {
   "first_seen": "2026-10-05T13:04:08.256581+00:00",
   "id": "9fb1b6b5f012fc0f",
@@ -18389,6 +18443,22 @@
   "url": "https://github.com/thesubtlety/agent-scrub",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "cd86ac953a59e37c": {
+  "first_seen": "2026-10-30T02:05:19.251562+00:00",
+  "id": "a49c414273dacacb",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-28T20:00:47+00:00",
+  "sid": "cd86ac953a59e37c",
+  "source": "arxiv_llm_reliability",
+  "summary": "Distributed machine learning (DML), including conventional distributed training and federated learning (FL), enables collaborative model development across cloud-edge-IoT systems without fully centralizing raw data. However, distributing data, computation, updates, and orchestration increases the attack surface and introduces coupled challenges across privacy, robustness, reliability, fairness, and governance. This survey presents a security-centered, heterogeneity-aware roadmap for trustworthy DML, with FL treated as a prominent high-risk case. We first characterize the assets, adversaries, trust assumptions, and coordination patterns that define DML/FL security boundaries. We then analyze how statistical, system, and trust heterogeneity, including non-IID data, resource asymmetry, intermittent participation, and cross-silo/cross-device trust differences, affect convergence, fairness, attack detectability, and defense reliability. Next, we synthesize attack-defense interactions across poisoning, backdoors, Byzantine manipulation, privacy leakage, model extraction, network/orchestration attacks, Sybil behavior, and strategic participation. We further compare layered defenses, including robust aggregation, drift-aware optimization, differential privacy, secure aggregation, homomorphic encryption, secure multiparty computation, trusted execution environments, watermarking, provenance, authenticated communication, and monitoring. Finally, we discuss deployment, evaluation, gover",
+  "summary_1line": "Distributed machine learning (DML), including conventional distributed training and federated learning (FL), enables collaborative model development across cloud-edge-IoT systems without fully centralizing raw data. H...",
+  "title": "Trustworthy Distributed Machine Learning in Cloud-Edge-IoT Systems: A Heterogeneity-Aware Survey of Security, Privacy, and Robustness",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.38793v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "cd91681f19e78cc2": {
   "first_seen": "2026-10-13T07:04:24.557231+00:00",
   "id": "1c81cfde3869f68b",
@@ -18877,6 +18947,25 @@
   "title": "llm-echo 0.5",
   "type": "release",
   "url": "https://simonwillison.net/2026/Oct/18/llm-echo"
+ },
+ "d24c53b475096517": {
+  "first_seen": "2026-10-30T02:05:19.251562+00:00",
+  "id": "b78e09c885135fc0",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval",
+   "codex"
+  ],
+  "published": "2026-10-28T10:38:43+00:00",
+  "sid": "d24c53b475096517",
+  "source": "arxiv_cs_ai",
+  "summary": "We ask what AI coding agents and AI security harnesses find that deterministic static application security testing (SAST) does not, and what they miss that SAST catches. VulnBench 2.0 is a benchmark of 108 hand-curated, attacker-reachable vulnerabilities in 20 open-source web applications in Go, JavaScript/TypeScript, Python and Java; 62 flow across more than one file. A finding is credited only if it locates the vulnerability's attacker-controlled source and its dangerous sink, each within two lines. We evaluate nine productized configurations under one blind protocol: the Snyk Code static analyzer, Claude Code's /security-review with three model and effort settings (one with the Snyk MCP server), Codex Security with GPT-5.6 Luna, Terra and Sol, and the DeepSec scanner with two model backends. Snyk Code reached 82.4% macro recall (89 of 108) and Claude Code with Opus 5 at xhigh effort 79.3% (85 of 108); they disagree on 28 vulnerabilities, split 16 to 12, too few to tell them apart. Neither engine was sufficient alone: together they reached 101 of 108, the ceiling of all seven comparable configurations combined, and the AI configurations also reported at least seven real vulnerabilities that the reference set did not contain and Snyk Code did not report. What an AI engine misses depends on its harness as much as on its model: without Claude Code's built-in review policy, the same model matched 16 instead of 9 of the 20 vulnerabilities in the classes that policy excludes or r",
+  "summary_1line": "We ask what AI coding agents and AI security harnesses find that deterministic static application security testing (SAST) does not, and what they miss that SAST catches. VulnBench 2.0 is a benchmark of 108 hand-curate...",
+  "title": "How Deterministic SAST and AI Security Agents Divide the Work: Coverage, Harness Policy and Cost in Snyk VulnBench 2.0",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.38617v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
  "d24de0e6aea61ab2": {
   "first_seen": "2026-10-06T07:04:05.463958+00:00",
@@ -20183,6 +20272,23 @@
   "title": "Nvidia Pursues Acquisition of Open-Source AI Startup Reflection to Counter DeepSeek",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1ndDRnTHhKR3pGUHhtSmxvQmdIaHN6TW1LT01Ha3kxSjZwb2I0UEpsN1poNnpwZ3ZxcS01SldaWkZacGV4czUzdGQtQWU2aXo1NzR6WHhtYVh0bHFjT2JCOUIySHVUZFFMZktEZFVmb1RheEdnZVE?oc=5"
+ },
+ "df3957f0554da3f7": {
+  "first_seen": "2026-10-30T02:05:19.251562+00:00",
+  "id": "21261a88f77e0092",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-28T19:30:40+00:00",
+  "sid": "df3957f0554da3f7",
+  "source": "arxiv_cs_ai",
+  "summary": "Embodied instruction following in interactive environments requires agents to interpret natural language commands and complete long-horizon tasks. Existing planners either rely on large labeled trajectories, or use few-shot and zero-shot LLM prompting that produces a whole plan in a single serial reasoning process. These approaches depend on linguistic common sense, commit to a plan from the initial instruction, and only update after failures, which weakens robustness and state awareness. We present AtomTree, a hierarchical framework for state-aware task planning with LLMs. AtomTree incrementally builds a tree of subgoals and actions, where the LLM decides at each step, from the current symbolic state, whether to further decompose or to output a grounded low-level action. A lightweight memory module summarizes past outcomes for reuse in later decisions. When a low-level action stalls, AtomTree triggers hierarchical backtracking replanning to return to the parent node and regenerate the subtree plan from the latest state, preventing continued drift along an incorrect trajectory. In zero-shot evaluation on the ALFRED benchmark, AtomTree outperforms prior LLM-based planners. Project page: https://zhaihaotian.github.io/atomtree-website/.",
+  "summary_1line": "Embodied instruction following in interactive environments requires agents to interpret natural language commands and complete long-horizon tasks. Existing planners either rely on large labeled trajectories, or use fe...",
+  "title": "AtomTree: A Hierarchical Framework for State-Aware Embodied Instruction Following with LLMs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.38744v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "df6a7bd2a127558b": {
   "first_seen": "2026-10-28T05:04:17.196016+00:00",
@@ -22797,6 +22903,28 @@
   "title": "Introducing Clairic, a new System One class of extraction models",
   "type": "news",
   "url": "https://blog.cloudflare.com/clairic-extraction-model"
+ },
+ "fbfedaa618aab83d": {
+  "first_seen": "2026-10-30T02:05:19.251562+00:00",
+  "id": "47fb236a84f05701",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-10-30T01:06:26+00:00",
+  "release_highlights": [
+   "Added permissions.blockWritesOutsideWorkingDirectories : Write, Edit and NotebookEdit refuse paths outside the working directories in every permission mode",
+   "Added an optional groups list to Claude apps gateway upstreams: only developers in the listed IdP groups are sent to that upstream, on failover too",
+   "Added guardrail_trace to Claude apps gateway Bedrock upstreams, to log which Amazon Bedrock guardrail filter fired on a request, without the matched text"
+  ],
+  "sid": "fbfedaa618aab83d",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added permissions.blockWritesOutsideWorkingDirectories : Write, Edit and NotebookEdit refuse paths outside the working directories in every permission mode Added an optional groups list to Claude apps gateway upstreams: only developers in the listed IdP groups are sent to that upstream, on failover too Added guardrail_trace to Claude apps gateway Bedrock upstreams, to log which Amazon Bedrock guardrail filter fired on a request, without the matched text Added idle compaction to VS Code and Claude Desktop's Code tab: a 200K+ token conversation left idle is summarized, and the summary is used on your next message if the prompt cache has expired Fixed sessions failing turn after turn with \"Invalid effort level\" when an organization's admin caps a model's effort: Claude Code now lowers the effort, retries, and says which level it uses Fixed claude -p exiting with code 0 and no output when startup failed; it now prints the error and exits 1 Fixed Bedrock sessions with many images failing every turn and /compact with \"400 Input is too long.\" instead of removing older images and compacting Fixed Microsoft Foundry sessions failing when the resource has no deployment for the default Sonnet, Opus or Haiku model: Claude Code now falls back to an older model of that family Fixed repeated refused requests behind a gateway that doesn't accept tool search's tool_reference blocks: the request is sent again once without tool search, and the session remembers Fixed TLS connectio",
+  "summary_1line": "Added permissions.blockWritesOutsideWorkingDirectories : Write, Edit and NotebookEdit refuse paths outside the working directories in every permission mode · Added an optional groups list to Claude apps gateway upstre...",
+  "title": "claude-code v2.1.314",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.314",
+  "why_it_matters": "Matches feed focus: agent, claude code."
  },
  "fc7534cc11677d95": {
   "first_seen": "2026-10-17T17:04:36.348181+00:00",
