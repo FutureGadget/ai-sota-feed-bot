@@ -700,6 +700,18 @@
   "url": "http://arxiv.org/abs/2610.22324v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "09174079a1bd1a60": {
+  "content_excerpt": "In our experiments, an open-weight model reliably exploited the \"patch gap\" to compromise six recent Firefox releases, costing about $1,000 each to carry out GLM 5.3, a widely available open-weight model released by Z.ai in August, can identify and exploit vulnerabilities in recent versions of the Mozilla Firefox browser using security fixes that have been published but not yet shipped to users. The window between a fix being published and reaching users is known as the patch gap . In our experiments, GLM 5.3 used this gap to build a webpage that, when visited by a Firefox user, read a file from the visitor’s computer and sent it to the attacker with no further user interaction. In particular, we found that any Firefox version released between September 17 and October 26 could be compromised in this way using only information available at the time of release. The patch gap is a known weakness in software release practices, and it exists widely across software, e.g., browsers, phone operating systems, and router firmware. Exploiting it previously required significant time and expertise, or special access to frontier models with advanced cyber capabilities, so few attackers could target these vulnerabilities before they were fixed. Our central finding is that widely available open-weight models can now do much, or even all, of this work on their own. We deliberately designed our setup to emulate what a relatively unsophisticated actor with limited resources could achieve, using",
+  "first_seen": "2026-10-30T03:04:29.303367+00:00",
+  "id": "1ad9631d19c19b71",
+  "published": "2026-10-29T22:32:46+00:00",
+  "sid": "09174079a1bd1a60",
+  "source": "hackernews_ai",
+  "summary_1line": "Open-weight AI models can exploit the patch gap",
+  "title": "Open-weight AI models can exploit the patch gap",
+  "type": "news",
+  "url": "https://epoch.ai/publications/open-weight-models-patch-gap"
+ },
  "091b1c4b4f7d826c": {
   "first_seen": "2026-10-13T15:03:58.376411+00:00",
   "id": "91886106b2c849b1",
@@ -5831,6 +5843,23 @@
   "url": "https://github.com/0xfirattamur/xcrashlytics",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "423c688c0621c177": {
+  "first_seen": "2026-10-30T03:04:29.303367+00:00",
+  "id": "45cafb673afc52d5",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-28T10:06:57+00:00",
+  "sid": "423c688c0621c177",
+  "source": "arxiv_cs_ai",
+  "summary": "A memory can be outdated for present-day reasoning yet indispensable for reconstructing the past. Relevance-based retrieval overlooks this tension: semantic relevance, evidence-grounded validity, and query-specific eligibility are distinct. We propose CALM, a conflict-aware lifecycle memory governance framework that decouples persistent memory preservation from query-time admission. CALM converts heterogeneous records into evidence-grounded memory cells, updates validity and lifecycle states using support, conflict, and dependency signals, and admits query-appropriate evidence through training-free or learned gating informed by temporal applicability. Across LongMemEval-S and LoCoMo with Qwen and GPT backbones, CALM outperforms state-of-the-art baselines, achieving the best overall accuracy. Compared with simple filtering and reranking, query-conditioned admission further improves evidence selection. Conflict-blocking and robustness analyses show CALM suppresses erroneous retrieved memories while retaining useful evidence. Historical-reconstruction experiments demonstrate that preserving superseded records supports accurate earlier-state reasoning without compromising current-state answers.",
+  "summary_1line": "A memory can be outdated for present-day reasoning yet indispensable for reconstructing the past. Relevance-based retrieval overlooks this tension: semantic relevance, evidence-grounded validity, and query-specific el...",
+  "title": "CALM: Conflict-Aware Lifecycle Memory Governance for Long-Horizon Language Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.38573v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "4297a17ba4774b1c": {
   "first_seen": "2026-10-02T18:04:13.160251+00:00",
   "id": "46d63f1ef9b79263",
@@ -10628,6 +10657,23 @@
   "type": "news",
   "url": "https://github.com/shbernal/rfc-ai-tooling"
  },
+ "7bae6548f927e204": {
+  "first_seen": "2026-10-30T03:04:29.303367+00:00",
+  "id": "156dd1b00f951ad3",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-10-28T20:03:05+00:00",
+  "sid": "7bae6548f927e204",
+  "source": "arxiv_cs_lg",
+  "summary": "Agents deployed at scale repeatedly encounter related problems, and it is natural to let them learn from each other's experience rather than starting over each time. Unfortunately, there is no single way to retain that experience that works well across settings, and no way to know in advance which future problems a given experience will help with. A global history preserves every detail but becomes expensive and mixes together experience that may not belong together; compressing that history into one fixed representation limits the cost but can throw away valuable details. We introduce Routed Continual Learning (Routed CL), an architecture that decides how to partition and retain experience. Past trajectories are grouped into clusters, each of which maintains state using one memory system from a fixed library. Before each run, an LLM-based router either reuses an existing cluster or creates a new one, basing its decision on the problem statement, memory system descriptions, and cluster summaries. We also introduce Context Memory Adapter, which mediates between the memory system and the agentic loop. We evaluate the architecture on a heterogeneous stream that interleaves 301 instances from the six CL-Bench tasks with 97 banking instances from $τ^3$-Bench. Across four language models and five matched rollouts, Routed Continual Learning raises normalized reward over a single global in-context learning (ICL) history by 15-30% of the maximum attainable normalized reward, achieves ",
+  "summary_1line": "Agents deployed at scale repeatedly encounter related problems, and it is natural to let them learn from each other's experience rather than starting over each time. Unfortunately, there is no single way to retain tha...",
+  "title": "Routed Continual Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.38796v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "7c16245b89dd2075": {
   "content_excerpt": "A decentralized compute orchestration platform powered by strict Domain-Driven Design (DDD). Decoupled domain core, event-driven state reconciliation, and zero-overhead cluster management. A distributed AI workload orchestrator built around the problems that make scheduling hard at scale: exclusive execution ownership under failure, reconciliation after partial failures, and enforced resource limits. Not a CRUD tutorial with a scheduler theme. AetherGrid takes workloads, matches them against available compute nodes based on resource requirements and constraints, and manages the full lifecycle: queued, scheduled, running, completed, failed, retried, cancelled. Jobs run through workers registered against nodes, and job execution ownership is enforced through time-bound leases rather than a simple assignment flag. Every route requires API key authentication, including the endpoint that issues keys. Try it live : the full console is deployed and reachable at with real Postgres, real auth, and real API-key-gated endpoints. Most scheduler side-projects are a single main.py script wrapped in a while True loop polling an in-memory dictionary. They work fine, right up until you need to swap the persistence engine, add a new constraint type, or figure out why a job silently disappeared, or why two workers picked up the same job at once. AetherGrid was built around one rule: the domain logic doesn't know or care where the data lives. Jobs, nodes, workers, and the allocation algorithm ar",
   "first_seen": "2026-10-28T06:04:54.465540+00:00",
@@ -11097,6 +11143,18 @@
   "type": "news",
   "url": "https://cloud.google.com/blog/products/ai-machine-learning/claude-opus-55-and-claude-sonnet-55-available-in-antigravity",
   "why_it_matters": "Matches feed focus: agentic, harness."
+ },
+ "80bf40e7e133130c": {
+  "first_seen": "2026-10-30T03:04:29.303367+00:00",
+  "id": "dd056d6d0276aceb",
+  "published": "2026-10-30T02:07:22+00:00",
+  "sid": "80bf40e7e133130c",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Tencent Hunyuan Publishes Hy-Nomas Technical Report and Releases Hy-Nomas-Bench for World Models Pandaily",
+  "summary_1line": "Tencent Hunyuan Publishes Hy-Nomas Technical Report and Releases Hy-Nomas-Bench for World Models Pandaily",
+  "title": "Tencent Hunyuan Publishes Hy-Nomas Technical Report and Releases Hy-Nomas-Bench for World Models",
+  "type": "release",
+  "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOVlZ5am9WcWMtVE9JLUIzRkVUaDI5QS1vQ29VYWpwWVJQdjUtUWJPZGxNdmR1dDJTZ0xoc1ZIV04zQlY2M0NxdWxYMHhRTFJ3UUl5LXNCMVJ2ZTFNZW9COUZLT05OU1NQT1Y5cThXSVY3eXI2aUdpbUpqOG1UYUJITjFMdFhYeXczQ2l1SmJjWWNwZFExQnJTMm42Sm8zM2tXaHBON1FJVQ?oc=5"
  },
  "80bfa9fc58c31b4d": {
   "first_seen": "2026-10-23T03:04:55.706580+00:00",
@@ -19513,6 +19571,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOUGlLMTB5NElwZFZmMU5mTTRVd0hMVXVuXzFOU3ZSLTFuV250UXhWcDlkV2VhV3pIdmpEQ2dTNGhQWTlwNzBuSHNCWUZpT3hPZlItakl1eEF4bkp4aVJ6dEEtVHh5ck1panp3dGpZcG45clExaXdGUmk1Wi0zUXNpZ2Zn?oc=5"
  },
+ "d9604cd6fba7a1d0": {
+  "first_seen": "2026-10-30T03:04:29.303367+00:00",
+  "id": "fe24c2b21ea393f7",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-28T10:44:03+00:00",
+  "sid": "d9604cd6fba7a1d0",
+  "source": "arxiv_cs_cl",
+  "summary": "Jev enables efficient decision-making with large language models (LLMs) through typed querying primitives, allowing the same semantic state to be expressed in different formats, such as binary and multiple-choice queries. However, the consistency of decisions across primitives has not been systematically evaluated. This work introduces PrimaCons, a four-axis benchmark for assessing cross-primitive consistency while preserving the semantics of the query. Evaluations across three Jev sizes reveal consistency violations across all four axes. Our analysis shows that these violations follow systematic patterns and that cross-primitive discrepancies predict decision failure with a ROC-AUC of 0.91. To mitigate these inconsistencies, we propose the Cross-Primitive Residual Calibrator (CPRC), which attaches a lightweight residual network to a frozen backbone and jointly optimizes predictive accuracy and cross-primitive consistency. Under a leave-one-domain-out protocol, CPRC reduces cross-primitive inconsistency by 58.57% and improves accuracy by +2.97%., demonstrating its effectiveness in both in-domain and out-of-domain settings. Our findings establish cross-primitive consistency as a key dimension for evaluating Jev and provide a practical approach to improving the reliability of its decisions. Code and benchmark is available at https://github.com/67L1/PrimaCons-CRPR.",
+  "summary_1line": "Jev enables efficient decision-making with large language models (LLMs) through typed querying primitives, allowing the same semantic state to be expressed in different formats, such as binary and multiple-choice quer...",
+  "title": "Cross-Primitive Consistency in Jev",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.38623v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "d96179fc01b73a72": {
   "content_excerpt": "Spring-style TypeScript framework for mission-critical LangGraph AI agents — @Application DI, Path Scope Flow DSL, transactional LIFO sagas, FinOps budgets, MCP/RAG/A2A & unit testing. AGBoss ( agboss.dev ) is an open-source TypeScript framework with static verification for complex multi-agent workflows on top of LangGraph . Agents, actions, routers, arbiters, tools, MCP servers, A2A services, and knowledge bases are strictly typed decorator components — assembled in an @Application container with constructor dependency injection, compile-time structural Path Scope verification ( agboss check ), declared action compensation ( compensateWith / committedBy ) with explicit rollback side paths ( .onError / .onJoinError to an undo @Action ) and automatic LIFO compensation, two-phase human-in-the-loop pauses ( @ChannelRole ), pre-call FinOps budgets ( @Budget ), boundary PII token masking ( @PiiPolicy ), multi-instance SQLite WAL leases and child work-stealing ( ChildPlacement.AnyInstance ), signed Agent Mesh envelopes ( @A2AExpose , @A2AAgent , agboss hub ), and a 5-loop evaluation & testing pipeline ( @EvalSuite , testWith + 10 unit runners). Current release ( v0.1.0 ): @agboss/core@0.1.0 (production runtime) and @agboss/cli@0.1.0 (CLI & static workflow compiler) are publicly published on registry.npmjs.org under the official agboss npm organization. Documentation: https://agboss.dev · Quick Start: https://agboss.dev/getting-started/quick-start/ · CLI Reference: https://agboss.de",
   "first_seen": "2026-10-27T13:10:47.025912+00:00",
@@ -21957,6 +22031,22 @@
   "title": "OpenAI Says Moonshot AI-Linked Users Fired 16,000 Requests to Extract Model Reasoning",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFAwRV9kcVN6RFh5dkowN2dlbzhUV2hRODJJLXMwZ1VJM180YmU4cTlIV3NUMXhlMWw0aWNsREhoSl9ZbmxSMG5NU2RUZ2l6a1E4dU40bUQ0ekM1blBIaU9EM0syaVZvVTNCUEZhQXhzVjlWVlR3NlE?oc=5"
+ },
+ "ef76fb90af35278b": {
+  "first_seen": "2026-10-30T03:04:29.303367+00:00",
+  "id": "7ed6717a60ac3805",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-28T20:08:51+00:00",
+  "sid": "ef76fb90af35278b",
+  "source": "arxiv_cs_lg",
+  "summary": "Agentic AI drives significant productivity gains across diverse domains, but concurrent long-context prefills from multiple agents can saturate GPU compute resources. Although CPUs offer a viable alternative, existing CPU attention kernels fall short in adapting to multi-tier cache hierarchies and lack effective thread scheduling. To address this, we introduce CACPU, a high-performance attention kernel featuring tiered cache blocking and an in-kernel task dispatching mechanism designed for causal full-sequence prefilling. CACPU achieves up to a 2.01x speedup over PyTorch SDPA, FlexAttention, and SGLang attention kernels. Integrated into SGLang, it reduces Time to First Token (TTFT) of Llama-3.1-8B by up to 1.74x while preserving model accuracy.",
+  "summary_1line": "Agentic AI drives significant productivity gains across diverse domains, but concurrent long-context prefills from multiple agents can saturate GPU compute resources. Although CPUs offer a viable alternative, existing...",
+  "title": "Causal Attention on CPU: A Cache-Aware and Load-Balanced Scheduling Kernel for Prefill",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.38809v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "efa984839a444188": {
   "first_seen": "2026-10-03T02:03:58.399008+00:00",
