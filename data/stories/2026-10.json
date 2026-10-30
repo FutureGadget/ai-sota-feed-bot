@@ -1224,6 +1224,18 @@
   "url": "https://github.com/johnrobinsn/macvoice",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "0e98622582a57b4b": {
+  "content_excerpt": "Today we’re announcing the biggest improvement to our provider routing algorithm since the founding of OpenRouter. Until now, our default router mostly rewarded providers for one thing: a low price. The new router rewards the inference that is actually best for you: cheap, but also fast, high-throughput, and reliable. Providers that deliver more value automatically win more traffic, so every provider has a reason to keep improving. That means the inference you get through OpenRouter keeps getting faster, more reliable, and more cost-effective, and you don’t have to change a line of code. It’s already working. The new algorithm has unlocked significant improvements in TTFT (16.9%), throughput (16.3%) and capacity errors (a remarkable 46% reduction!), with only minor increases in cost (6.0%). That’s before providers have had any time to optimize for the new algorithm. See our full experimental results for more details. Routing is still cache-aware, so once we’ve sent you to a provider, your session stays put as long as the cache is warm. Want price-only routing? You can still have it. See pinning and sorting providers in What stays the same . Most traffic (~77% of requests) on OpenRouter goes to models served by more than one provider. When a request doesn’t include an explicit sort or provider list, we need to pick a provider to send it to. Until now, we made that choice based almost entirely on input token price. The less expensive a provider was, the greater percentage of tr",
+  "first_seen": "2026-10-30T17:03:41.921979+00:00",
+  "id": "0dde7a4e6b23159f",
+  "published": "2026-10-30T16:32:47+00:00",
+  "sid": "0e98622582a57b4b",
+  "source": "hackernews_ai",
+  "summary_1line": "OpenRouter rebuilt provider routing for better, faster inference",
+  "title": "OpenRouter rebuilt provider routing for better, faster inference",
+  "type": "news",
+  "url": "https://openrouter.ai/blog/announcements/how-we-rebuilt-provider-routing"
+ },
  "0eb391dce20b6029": {
   "first_seen": "2026-10-14T02:04:29.849847+00:00",
   "id": "3e2b47a820b30c96",
@@ -6229,6 +6241,22 @@
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.37"
  },
+ "43e83c18b02cb4e5": {
+  "first_seen": "2026-10-30T17:03:41.921979+00:00",
+  "id": "b9e2a35e5c998695",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-29T17:54:07+00:00",
+  "sid": "43e83c18b02cb4e5",
+  "source": "arxiv_cs_cl",
+  "summary": "Proactive assistants offer short, memory-grounded hints during a conversation, deciding when to assist and what to suggest. Current systems split this between a gate and a larger generator; we evaluate both together on 28,058 decision points. Stage-wise generation scores are oracle-gate ceilings: behind a real gate, end-to-end exact match is 0.2619 against a ceiling of 0.2971, and end-to-end precision is 0.2387, leaving substantial headroom. A gate pays off through precision and compute, whose saving falls from 4.39x with an 8B generator to 1.38x with a 1B one. The memory profile drives hint quality: removing it costs 24.7 exact-match points (rescaled BERTScore 0.57 to 0.35), while retrieval and a larger generator add nothing on exact match. One 1B decoder can do both, gating from an intermediate layer and generating in the same pass. At its final checkpoint it matches or exceeds the two-model pipelines on automatic end-to-end measures with 1.31-1.76x less wall-clock time than the matched 1B pipeline; across three seeds, its deeper exit ties the separate gate. A human evaluation (1,144 ratings over 32 dialogues) supports the memory effect and rates the single model level with the matched 1B pipeline and below the 8B one. Graded metrics and LlamaPIE's native judge track human ratings more closely than exact match, which we report as a strict lower bound.",
+  "summary_1line": "Proactive assistants offer short, memory-grounded hints during a conversation, deciding when to assist and what to suggest. Current systems split this between a gate and a larger generator; we evaluate both together o...",
+  "title": "When to Assist and What to Suggest: Joint Gating and Memory-Grounded Hint Generation in One Compact Decoder",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40611v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "43f618bcad02931a": {
   "first_seen": "2026-10-08T05:04:10.072583+00:00",
   "id": "e98d342831bfe7c6",
@@ -6597,6 +6625,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.23707v1",
   "why_it_matters": "Matches feed focus: agent, eval, codex."
+ },
+ "4875d6a772c1aaf5": {
+  "first_seen": "2026-10-30T17:03:41.921979+00:00",
+  "id": "48848aca5cc2a18a",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T00:50:34+00:00",
+  "sid": "4875d6a772c1aaf5",
+  "source": "arxiv_agent_systems_research",
+  "summary": "When one AI agent tells another that \"the tests passed\" or \"a person approved this refund\", the receiver has only the sender's word. A2A and MCP authenticate the channel, but the sender is the party in doubt, so a prompt-injected agent can launder fabricated facts and authority through a multi-agent system. We present Proof-Carrying Messages (PCM), a protocol in which each claim carries evidence: records from an append-only Merkle log that the agent cannot write, with inclusion proofs, signed by an attesting signer the agent cannot control. Receivers check messages offline and give each claim a three-valued result: proven, unproven or failed. A claim that rests only on the agent's own report is never proven. Authority travels as grant chains rooted in a recorded human approval, and the chains can only narrow. We specify four claim types, a typed caveat algebra, replay rules that survive restarts, and strict readings that make independent verifiers agree, and we prove the resulting security properties. On a pre-specified benchmark of 926 messages from real runs, 712 of them lies in 16 classes, PCM accepts 10 lies, all of them stale evidence (1.4%, 95% CI 0.8-2.6%). Plain A2A accepts all 712, and models of six deployed protocols (A2A with signed Agent Cards, uAgents, RFC 9421, SCITT, AP2, Verifiable Intent) accept 504-712. Two independent verifiers agree on all 926 verdicts, and verification takes about 1 ms.",
+  "summary_1line": "When one AI agent tells another that \"the tests passed\" or \"a person approved this refund\", the receiver has only the sender's word. A2A and MCP authenticate the channel, but the sender is the party in doubt, so a pro...",
+  "title": "PCM: A Proof-Carrying Message Protocol for Verifiable Multi-Agent Communication",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.39109v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "48a3e56eac3b4ba8": {
   "first_seen": "2026-10-28T18:07:07.688450+00:00",
@@ -10182,6 +10226,25 @@
   "url": "http://arxiv.org/abs/2610.40551v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "72249bd53d8a5849": {
+  "first_seen": "2026-07-31T17:01:50.535648+00:00",
+  "id": "d56c7f6da2e6e6c6",
+  "image_url": "https://storage.googleapis.com/gweb-cloudblog-publish/images/Whats_new_in_AI_infrastructure.max-600x600.jpg",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-10-30T16:00:00+00:00",
+  "sid": "72249bd53d8a5849",
+  "source": "google_cloud_blog",
+  "summary": "The Google Cloud AI Infrastructure team had another busy month in October, filled with new product launches and updates to power today’s AI and agentic workloads scalably and efficiently. We were also honored to share our progress with customers, partners, and the broader community at leading industry events, including NVIDIA GTC, PyTorch Conference, and AGNTCon + MCPCon. Let’s dive in! Product, technology, and tools updates New compute service: Agent Compute Engine is a purpose-built compute service providing high-performance, hardware-isolated microVM sandboxes alongside expanded agent governance capabilities like Agent Gateway and Agent Registry, all in the service of securing and scaling autonomous AI agents. Its primary benefits include rapid sub-second activation, extreme workload density through copy-on-write memory sharing, enterprise-grade security and identity management, and cross-cloud observability. AI Hypercomputer updates: At NVIDIA GTC Berlin 2026 we announced updates to our agentic infrastructure, including to A5X instances powered by the NVIDIA Vera Rubin NVL72 platform, Virgo Network scale-out fabric, and Managed Lustre storage. These co-engineered advancements provide enterprises with accelerated performance, enhanced sovereign AI controls, while advanced Confidential Computing capabilities help you train and deploy complex multi-step models securely and efficiently. GKE product update: CPU startup boost for GKE , in preview, uses Kubernetes In-place Pod R",
+  "summary_1line": "The Google Cloud AI Infrastructure team had another busy month in October, filled with new product launches and updates to power today’s AI and agentic workloads scalably and efficiently. We were also honored to share...",
+  "title": "What’s new in AI infrastructure and orchestration in October",
+  "type": "news",
+  "url": "https://cloud.google.com/blog/topics/ai-infrastructure/whats-new-in-ai-infrastructure-this-month",
+  "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
+ },
  "723372c8dc681795": {
   "content_excerpt": "When experts hand their work to an AI agent, the usual assumption is that they still make the decisions that matter. The agent writes the code, runs the numbers, and offers advice, but the expert decides what to measure, how to interpret ambiguous evidence, and what the next steps should be. Often there is more than one reasonable answer to these questions, and the decision will come down to the experience and values of whoever makes the call. We wanted to look at whether experts really do make those important decisions, or whether in practice they defer to their AI agents. In a study we report in a new paper , we asked 50 professional analysts to do a realistic statistical analysis with Claude Code. They all had experience in causal inference—that is, working out from data whether one thing causes another. Their task was to advise a farming cooperative on whether an advisory service it was running was effective and should be expanded. Along the way, the analysts had to make four choices between two reasonable options, such as whether to measure productivity as crop yield per hectare or as yield per unit of operating cost, and then make a final decision. To see whether they were making these calls themselves, we set up each analyst’s agent to favor one option on each decision, which the analysts weren’t told about. Which way the agents would “lean” would be decided by coin flip. The agent was told to make the best honest case for its lean, to change its mind if the evidence d",
   "first_seen": "2026-10-27T19:07:14.679939+00:00",
@@ -11570,6 +11633,18 @@
   "type": "news",
   "url": "https://agentmemories.ai/home",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "80f8b80136c143f2": {
+  "content_excerpt": "Bulk classification and decision inference on one GPU: the content is read once, every question about it is scored in the same pass. OpenAI-compatible, Apache 2.0 spinf-serve reads a piece of content once and answers many questions about it in the same pass. Each answer is a probability over the options you give, not generated text. It runs on one 24 GB NVIDIA GPU and serves an OpenAI-compatible API, the same API as the hosted spinf service. Apache 2.0. We built this engine for our own work: a daily market index read from millions of news articles, each article asked dozens of narrow, calibrated questions. A serving engine built for chat re-reads the content for every question and generates one token at a time, which made that job slow and expensive. spinf-serve lays every question out as a branch of one read of the content and packs many contents into one forward pass. Bulk classification is where it started and where it is strongest. The same mechanism is what is now called a decision model : a model that returns a probability over a fixed set of answers (yes or no, a label, a level) instead of a paragraph. Any open instruction model works this way in spinf-serve, and dedicated decision models run as they are. The hosted spinf API grew out of this engine; we are publishing it because people asked to run it on their own hardware. It is not a chat server. Nothing is generated unless you ask for it, and it is built for throughput rather than for the latency of a single request",
+  "first_seen": "2026-10-30T17:03:41.921979+00:00",
+  "id": "0ce91781c04fa5b5",
+  "published": "2026-10-30T17:03:12+00:00",
+  "sid": "80f8b80136c143f2",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Spinf-serve – inference server for bulk scoring and decisions",
+  "title": "Show HN: Spinf-serve – inference server for bulk scoring and decisions",
+  "type": "news",
+  "url": "https://github.com/spinfinc/spinf-serve"
  },
  "813f4b8521bddb77": {
   "first_seen": "2026-10-02T16:04:08.518608+00:00",
@@ -15260,6 +15335,18 @@
   "type": "news",
   "url": "https://CloudJourneyBlog.rohi-lab.org/blog/agent-accessible-apps",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "a86d24c59c826150": {
+  "first_seen": "2026-10-30T17:03:41.921979+00:00",
+  "id": "c8c0d1a56fe391b3",
+  "published": "2026-10-30T09:00:00+00:00",
+  "sid": "a86d24c59c826150",
+  "source": "openai_blog",
+  "summary": "OpenAI is strengthening violence prevention in ChatGPT with expanded safeguards, earlier interventions, and a new commitment to public safety reporting.",
+  "summary_1line": "OpenAI is strengthening violence prevention in ChatGPT with expanded safeguards, earlier interventions, and a new commitment to public safety reporting.",
+  "title": "Community safety report and new protections for teens",
+  "type": "news",
+  "url": "https://openai.com/index/community-safety-report-and-new-protections-for-teens"
  },
  "a87014b87e5f155b": {
   "first_seen": "2026-10-27T03:04:57.222682+00:00",
