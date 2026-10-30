@@ -1,18 +1,210 @@
 {
-  "generated_at": "2026-10-29T00:12:27.462306+00:00",
+  "generated_at": "2026-10-30T00:11:34.874024+00:00",
   "window_days": 21,
-  "storyline_count": 10,
-  "needs_narrative_count": 10,
+  "storyline_count": 7,
+  "needs_narrative_count": 7,
   "storylines": [
+    {
+      "slug": "nemotron-3-5",
+      "label": "Nemotron 3.5",
+      "item_count": 6,
+      "source_count": 4,
+      "day_count": 4,
+      "first_seen": "2026-10-15T00:00:00+00:00",
+      "last_updated": "2026-10-29T16:11:08+00:00",
+      "latest_title": "Accelerate agentic AI with NVIDIA Nemotron models on Amazon EKS and SageMaker HyperPod EKS",
+      "member_sids": [
+        "5b7496a31dc4a921",
+        "fa7edf5313b75f42",
+        "6e859d00d3f1f59e",
+        "1e11786f937b04c6",
+        "ec733f799e1aaee3",
+        "a9b9a484569ff337"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": true,
+      "reason": "stale",
+      "narrative_path": "data/storylines/narratives/nemotron-3-5.json",
+      "prior_narrative": {
+        "slug": "nemotron-3-5",
+        "generated_at": "2026-10-29T00:20:00+00:00",
+        "covers_last_updated": "2026-10-28T14:58:17+00:00",
+        "covers_member_sids": [
+          "5b7496a31dc4a921",
+          "fa7edf5313b75f42",
+          "6e859d00d3f1f59e",
+          "1e11786f937b04c6",
+          "ec733f799e1aaee3"
+        ],
+        "tldr": "vLLM announced day-0 support for NVIDIA Nemotron 3.5 Super VL on Oct 15, covering image, document and video input through OpenAI-compatible serving. OrcaRouter comparisons against Kimi K3 and DeepSeek V4 Flash Vision Exp followed on Oct 16.",
+        "whats_new": "NVIDIA extended the Nemotron 3.5 family to speech on Oct 28 with Nemotron 3.5 Transcribe and Granary v2, a promptable, adaptable multilingual transcription model.",
+        "why_it_matters": "Nemotron 3.5 now spans multimodal VL and speech transcription, so one vendor family can cover document, video and audio inputs for agents; the real decision remains metered API versus self-hosted weights.",
+        "status": {
+          "state": "Expanding · speech added",
+          "tone": "now",
+          "changed": "2026-10-28",
+          "detail": "Servable on vLLM since launch day; the family gained a multilingual transcription model on Oct 28.",
+          "track": [
+            {
+              "label": "vLLM day-0 support",
+              "detail": "Oct 15",
+              "tone": "launch",
+              "weight": 25
+            },
+            {
+              "label": "comparisons",
+              "detail": "Oct 16",
+              "tone": "rising",
+              "weight": 25
+            },
+            {
+              "label": "Transcribe + Granary v2",
+              "detail": "Oct 28 → now",
+              "tone": "now",
+              "weight": 50
+            }
+          ]
+        },
+        "provenance": {
+          "5b7496a31dc4a921": {
+            "status_update": true
+          },
+          "ec733f799e1aaee3": {
+            "status_update": true
+          }
+        },
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "vLLM ships day-0 support for Nemotron 3.5 Super VL",
+            "summary": "Multimodal serving (image, document, video) with OpenAI-compatible endpoints and multi-token prediction.",
+            "sids": [
+              "5b7496a31dc4a921"
+            ]
+          },
+          {
+            "kicker": "COMPARISONS",
+            "tone": "rising",
+            "headline": "OrcaRouter pits it against Kimi K3 and DeepSeek V4 Flash Vision Exp",
+            "summary": "Three write-ups in one day, centered on metered pricing versus downloadable weights.",
+            "sids": [
+              "fa7edf5313b75f42",
+              "6e859d00d3f1f59e",
+              "1e11786f937b04c6"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Nemotron 3.5 Transcribe and Granary v2 add multilingual speech",
+            "summary": "NVIDIA's Hugging Face post presents a transcription model you can prompt and adapt, with the Granary v2 dataset.",
+            "sids": [
+              "ec733f799e1aaee3"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Do independent benchmarks confirm the index-point gaps OrcaRouter reports against DeepSeek V4 Flash Vision Exp?",
+          "Will other inference engines or clouds add Nemotron 3.5 Super VL beyond vLLM?",
+          "Does Nemotron 3.5 Transcribe get vLLM or other OpenAI-compatible serving support?"
+        ],
+        "take_for_builders": "If you run multimodal document or video agents, point an existing vLLM deployment at Nemotron 3.5 Super VL and rerun your own eval; for voice pipelines, test Transcribe on your own multilingual audio before swapping out your current ASR.",
+        "day_captions": {
+          "5b7496a31dc4a921": "Launch-day serving path: vLLM supports the model with OpenAI-compatible endpoints for image, document and video input.",
+          "fa7edf5313b75f42": "Arabic-language edition of the OrcaRouter Kimi K3 comparison, framing download versus per-token pricing.",
+          "6e859d00d3f1f59e": "OrcaRouter compares it with DeepSeek V4 Flash Vision Exp and reports an eight-index-point gap.",
+          "1e11786f937b04c6": "OrcaRouter contrasts a metered flagship with Kimi K3's weight release, which has no published rate card.",
+          "ec733f799e1aaee3": "Extends the family beyond vision-language into promptable multilingual transcription, released with Granary v2."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-10-15",
+          "items": [
+            {
+              "sid": "5b7496a31dc4a921",
+              "title": "Announcing Day 0 Support for NVIDIA Nemotron 3.5 Super VL on vLLM",
+              "url": "https://vllm.ai/blog/2026-10-15-nemotron-3-5-super-vl-vllm",
+              "source": "vllm_blog",
+              "type": "news",
+              "summary_1line": "Run NVIDIA Nemotron 3.5 Super VL on vLLM for multimodal agent workflows with image, document, and video understanding, OpenAI-compatible serving, and multi-token prediction.",
+              "published": "2026-10-15T00:00:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-16",
+          "items": [
+            {
+              "sid": "fa7edf5313b75f42",
+              "title": "Nemotron 3.5 Super VL مقابل Kimi K3: تحميل مقابل $3/$15",
+              "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5qMllJc1d4dEtSMkQ1aHBhRlViakpXT0tZaW1yWXFrY002d0RiVGl2SkxwX25xSmt3b0JOenpmc00wR3hqNVlMVURPMmwwTldCNUhMMzdZSmY5TkxrSDMyYW11OFVJS1NZYVQ2Z0JmTEEtMGpkcTNZWmRGOA?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Nemotron 3.5 Super VL مقابل Kimi K3: تحميل مقابل $3/$15 OrcaRouter",
+              "published": "2026-10-16T05:54:43+00:00"
+            },
+            {
+              "sid": "6e859d00d3f1f59e",
+              "title": "Nemotron 3.5 Super VL vs DeepSeek V4 Flash Vision Exp: Eight Index Points, and Only One of Them Is a Product",
+              "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQQmFGQ25uc2ZfRU1Ja2hkTmVNeWJjRzBxX2x3clBhb1I5RUVLNUdHNkdycFB6WXFiYmtkV1ZPbnltTWVoWTYxS0lSa3o1V2JJZmpiMXVpbE1ZeE1xcWxqN2ZZTENMZVlTRTI5U0FwcGNMY1d3X2U4NTU2ZXF3S3ZoZjNNUjF4aXVPcERKTA?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Nemotron 3.5 Super VL vs DeepSeek V4 Flash Vision Exp: Eight Index Points, and Only One of Them Is a Product OrcaRouter",
+              "published": "2026-10-16T06:31:12+00:00"
+            },
+            {
+              "sid": "1e11786f937b04c6",
+              "title": "Nemotron 3.5 Super VL vs Kimi K3: A Metered Flagship Against a Weight Release With No Rate Card",
+              "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9zR1pyUy03YUd6NVJwNjJqTFZuZ3JzZklfUWRwOGRVU01tOGJfelN6OGJiak5CbklCY0pDaHQ2SG5OcUJYWGRwSFQySGxKVG9LTnkwYTJnY0J0MFpLNy1YRXFFOVNLd29ZQ3hTZQ?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "Nemotron 3.5 Super VL vs Kimi K3: A Metered Flagship Against a Weight Release With No Rate Card OrcaRouter",
+              "published": "2026-10-16T08:46:30+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-28",
+          "items": [
+            {
+              "sid": "ec733f799e1aaee3",
+              "title": "NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt",
+              "url": "https://huggingface.co/blog/nvidia/nemotron-transcribe-granary",
+              "source": "huggingface_blog",
+              "type": "research",
+              "summary_1line": "NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt",
+              "published": "2026-10-28T14:58:17+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-29",
+          "items": [
+            {
+              "sid": "a9b9a484569ff337",
+              "title": "Accelerate agentic AI with NVIDIA Nemotron models on Amazon EKS and SageMaker HyperPod EKS",
+              "url": "https://aws.amazon.com/blogs/machine-learning/accelerate-agentic-ai-with-nvidia-nemotron-models-on-amazon-eks-and-sagemaker-hyperpod-eks",
+              "source": "aws_ml_blog",
+              "type": "news",
+              "summary_1line": "NVIDIA Nemotron 3.5 Super VL is a 120B-parameter mixture-of-experts model that pairs reasoning and tool use with multimodal understanding. This post explores its architecture and use cases, then shows how to deploy it...",
+              "published": "2026-10-29T16:11:08+00:00"
+            }
+          ]
+        }
+      ]
+    },
     {
       "slug": "kimi-k3-1-2026-10-16",
       "label": "Kimi K3.1",
-      "item_count": 9,
+      "item_count": 10,
       "source_count": 3,
-      "day_count": 6,
+      "day_count": 7,
       "first_seen": "2026-10-16T12:42:36+00:00",
-      "last_updated": "2026-10-28T20:59:48+00:00",
-      "latest_title": "NEAR Protocol Announces Launch of Kimi K3.1 Pro on AI Cloud",
+      "last_updated": "2026-10-29T16:03:33+00:00",
+      "latest_title": "ZenMux Introduces Kimi K3.1 Pro for Long-Context AI Workflows",
       "member_sids": [
         "885f20d9bf5f1cb3",
         "ba3f3a220181f73f",
@@ -27,7 +219,8 @@
         "a74122a98f64e132",
         "ec98b5b8607b36cd",
         "8c88d0dda87d335e",
-        "63bd8bef18003998"
+        "63bd8bef18003998",
+        "c7d9ba0343c943d2"
       ],
       "via_scout": false,
       "has_narrative": true,
@@ -36,8 +229,8 @@
       "narrative_path": "data/storylines/narratives/kimi-k3-1-2026-10-16.json",
       "prior_narrative": {
         "slug": "kimi-k3-1-2026-10-16",
-        "generated_at": "2026-10-28T00:13:31+00:00",
-        "covers_last_updated": "2026-10-27T06:00:10+00:00",
+        "generated_at": "2026-10-29T00:13:07+00:00",
+        "covers_last_updated": "2026-10-28T20:59:48+00:00",
         "covers_member_sids": [
           "885f20d9bf5f1cb3",
           "ba3f3a220181f73f",
@@ -51,28 +244,29 @@
           "8d2d33e6f1ccca8f",
           "a74122a98f64e132",
           "ec98b5b8607b36cd",
-          "8c88d0dda87d335e"
+          "8c88d0dda87d335e",
+          "63bd8bef18003998"
         ],
         "tldr": "On Oct 16, coverage framed Moonshot's Kimi K3.1 as a name without a released model, and one report said a new Chinese export-license requirement for large AI models could affect it. On Oct 23, reports said it was being readied for release after Arena testing.",
-        "whats_new": "On Oct 27, SCMP reported Moonshot apologised for the botched Kimi K3.1 Pro launch and restored user quotas, after the Oct 26 reset following complaints.",
-        "why_it_matters": "Two quota interventions in two days show Pro-tier usage limits were unstable at launch, which affects capacity planning and reliability for anything routed to it.",
+        "whats_new": "On Oct 28, NEAR Protocol announced Kimi K3.1 Pro on its AI Cloud, the first third-party hosting reported since Moonshot restored Pro quotas on Oct 27.",
+        "why_it_matters": "A third-party host gives a possible second route to Kimi K3.1 Pro outside Moonshot's quota-limited API, but its pricing, limits and data terms are not in the report.",
         "status": {
-          "state": "Launched · quotas restored",
+          "state": "Launched · third-party hosting",
           "tone": "now",
-          "changed": "2026-10-27",
-          "detail": "Moonshot apologised for the launch and restored user quotas; a stable quota policy has not been reported.",
+          "changed": "2026-10-28",
+          "detail": "Moonshot restored Pro quotas after an apology; NEAR AI Cloud now lists the model, and a stable quota policy has not been reported.",
           "track": [
             {
               "label": "unreleased",
               "detail": "Oct 16",
               "tone": "neutral",
-              "weight": 20
+              "weight": 15
             },
             {
               "label": "release prep",
               "detail": "Oct 23",
               "tone": "rising",
-              "weight": 20
+              "weight": 15
             },
             {
               "label": "launched",
@@ -81,21 +275,21 @@
               "weight": 20
             },
             {
-              "label": "quota reset",
-              "detail": "Oct 26",
+              "label": "quota reset + apology",
+              "detail": "Oct 26-27",
               "tone": "alert",
-              "weight": 20
+              "weight": 25
             },
             {
-              "label": "apology",
-              "detail": "Oct 27 → now",
+              "label": "third-party hosting",
+              "detail": "Oct 28 → now",
               "tone": "now",
-              "weight": 20
+              "weight": 25
             }
           ]
         },
         "provenance": {
-          "8c88d0dda87d335e": {
+          "63bd8bef18003998": {
             "status_update": true
           }
         },
@@ -139,14 +333,24 @@
               "ec98b5b8607b36cd",
               "8c88d0dda87d335e"
             ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "NEAR Protocol lists Kimi K3.1 Pro on its AI Cloud",
+            "summary": "Oct 28: a crypto-news report of third-party hosting after the quota apology.",
+            "sids": [
+              "63bd8bef18003998"
+            ]
           }
         ],
         "open_questions": [
           "Do independent evals confirm the Opus 5.5 and GPT-6 Astra comparison claims?",
           "Does the reported Chinese export-license requirement restrict Kimi K3.1 availability?",
-          "Does Moonshot publish a stable quota policy for Kimi K3.1 Pro after restoring quotas?"
+          "Does Moonshot publish a stable quota policy for Kimi K3.1 Pro after restoring quotas?",
+          "What pricing, rate limits and data-handling terms does NEAR AI Cloud publish for Kimi K3.1 Pro?"
         ],
-        "take_for_builders": "Rerun your own evals on Kimi K3.1 Pro before routing traffic, and keep a fallback model until Moonshot publishes stable quota limits and license terms.",
+        "take_for_builders": "Rerun your own evals on Kimi K3.1 Pro before routing traffic, keep a fallback model until Moonshot publishes stable quota limits, and compare NEAR's terms once published before using it as a second route.",
         "day_captions": {
           "885f20d9bf5f1cb3": "Early comparison piece noting no K3.1 model existed yet.",
           "ba3f3a220181f73f": "Reported that a Chinese export-license requirement could affect the unreleased model.",
@@ -155,7 +359,8 @@
           "8d2d33e6f1ccca8f": "Reported the launch of Kimi K3.1 Pro as a flagship with 3T parameters.",
           "a74122a98f64e132": "Newsletter headline cites 104B active / 2.8T open weights and a Pro Highspeed API with 2-3x speed (claims not verified here).",
           "ec98b5b8607b36cd": "Reported Moonshot reset Pro quotas after user complaints.",
-          "8c88d0dda87d335e": "SCMP: Moonshot apologised for the launch and restored user quotas."
+          "8c88d0dda87d335e": "SCMP: Moonshot apologised for the launch and restored user quotas.",
+          "63bd8bef18003998": "Reported NEAR Protocol launching Kimi K3.1 Pro on its AI Cloud (headline only; terms not verified here)."
         }
       },
       "timeline": [
@@ -273,129 +478,172 @@
               "published": "2026-10-28T20:59:48+00:00"
             }
           ]
+        },
+        {
+          "date": "2026-10-29",
+          "items": [
+            {
+              "sid": "c7d9ba0343c943d2",
+              "title": "ZenMux Introduces Kimi K3.1 Pro for Long-Context AI Workflows",
+              "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQaFFfTzR1bmVrcVpyQVBTRTZvR2MwcDBsTmw2QWdwTGVvQ0l4VFE1TlgySDNGWGgtZzFkb0hWVGhGU096V1YyRG9GdGVSazUtMG43WWtTMjNGY3NPVXR0X1hTSm45bHlIbmRTVy1BMHVfVTJQazEzN2lXYUJhS041RVBlSmFaRGRLUUQ0TDBZTFJYbVRxVWh5V2swVUR0VGw3OFc4LVp4OWotbWRwYW5idm9ad1B6Z0hkY2xQNTZNZjE?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "ZenMux Introduces Kimi K3.1 Pro for Long-Context AI Workflows The Des Moines Register",
+              "published": "2026-10-29T16:03:33+00:00"
+            }
+          ]
         }
       ]
     },
     {
-      "slug": "nemotron-3-5",
-      "label": "Nemotron 3.5",
-      "item_count": 5,
+      "slug": "deepseek-flash",
+      "label": "DeepSeek Flash",
+      "item_count": 12,
       "source_count": 3,
-      "day_count": 3,
-      "first_seen": "2026-10-15T00:00:00+00:00",
-      "last_updated": "2026-10-28T14:58:17+00:00",
-      "latest_title": "NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt",
+      "day_count": 9,
+      "first_seen": "2026-10-11T17:00:10+00:00",
+      "last_updated": "2026-10-29T14:00:00+00:00",
+      "latest_title": "Rival.io Launches GraphX, Running DeepSeek V4 Flash on Just Eight NVIDIA L4 GPUs",
       "member_sids": [
-        "5b7496a31dc4a921",
-        "fa7edf5313b75f42",
+        "0eb5aab42ce7a0b7",
+        "2542a0a265628285",
         "6e859d00d3f1f59e",
-        "1e11786f937b04c6",
-        "ec733f799e1aaee3"
+        "cbe41f424a1a6b13",
+        "b803fa0d4c28e1bf",
+        "f045e22fb623d831",
+        "a50f300013a679ed",
+        "c17f7f361be66b3c",
+        "20f6398bac4d28c9",
+        "a379ec2597bb3939",
+        "a9c17daa5dbfcba0",
+        "122ec7cea45d8a1a"
       ],
       "via_scout": false,
       "has_narrative": true,
       "needs_narrative": true,
       "reason": "stale",
-      "narrative_path": "data/storylines/narratives/nemotron-3-5.json",
+      "narrative_path": "data/storylines/narratives/deepseek-flash.json",
       "prior_narrative": {
-        "slug": "nemotron-3-5",
-        "generated_at": "2026-10-16T10:10:00+00:00",
-        "covers_last_updated": "2026-10-16T08:46:30+00:00",
-        "covers_member_sids": [
-          "5b7496a31dc4a921",
-          "fa7edf5313b75f42",
-          "6e859d00d3f1f59e",
-          "1e11786f937b04c6"
-        ],
-        "tldr": "vLLM announced day-0 support for NVIDIA Nemotron 3.5 Super VL on Oct 15, covering image, document and video input through OpenAI-compatible serving. Comparison write-ups against rival open models followed within a day.",
-        "whats_new": "OrcaRouter published head-to-head comparisons on Oct 16 pitting Nemotron 3.5 Super VL against Kimi K3 and DeepSeek V4 Flash Vision Exp, framed around pricing and availability rather than raw scores.",
-        "why_it_matters": "Day-0 vLLM support means you can test Nemotron 3.5 Super VL on an existing OpenAI-compatible serving stack for document and video agents; the comparisons show the real decision is metered API versus self-hosted weights.",
+        "tldr": "DeepSeek V4.1 Flash first showed up in deployments: Dolphin's inference API went live Oct 11 and AMD MI355X posted AA-AgentPerf results Oct 14. Two OrcaRouter comparisons on Oct 16 then priced it against Nemotron 3.5 Super VL and Step 5 Preview.",
         "status": {
-          "state": "Shipping · vLLM day-0",
+          "state": "Shipped · Flash-1017 under safety review",
           "tone": "now",
-          "changed": "2026-10-15",
-          "detail": "Servable on vLLM from launch day; independent comparisons started appearing Oct 16.",
-          "track": [
-            {
-              "label": "vLLM day-0 support",
-              "detail": "Oct 15",
-              "tone": "launch",
-              "weight": 40
-            },
-            {
-              "label": "comparisons",
-              "detail": "Oct 16 → now",
-              "tone": "now",
-              "weight": 60
-            }
-          ]
-        },
-        "provenance": {
-          "5b7496a31dc4a921": {
-            "status_update": true
-          }
+          "changed": "2026-10-26",
+          "detail": "Flash-1017 is out; an independent risk evaluation was published Oct 26."
         },
         "beats": [
           {
-            "kicker": "LAUNCH",
+            "kicker": "DEPLOYMENT",
             "tone": "launch",
-            "headline": "vLLM ships day-0 support for Nemotron 3.5 Super VL",
-            "summary": "Multimodal serving (image, document, video) with OpenAI-compatible endpoints and multi-token prediction.",
+            "headline": "V4.1 Flash reaches inference providers and AMD benchmarks",
             "sids": [
-              "5b7496a31dc4a921"
+              "0eb5aab42ce7a0b7",
+              "2542a0a265628285"
             ]
           },
           {
-            "kicker": "COMPARISONS",
-            "tone": "now",
-            "headline": "OrcaRouter pits it against Kimi K3 and DeepSeek V4 Flash Vision Exp",
-            "summary": "Three write-ups in one day, centered on metered pricing versus downloadable weights.",
+            "kicker": "COMPARISON",
+            "tone": "rising",
+            "headline": "OrcaRouter prices Flash against Nemotron 3.5 and Step 5 Preview",
             "sids": [
-              "fa7edf5313b75f42",
               "6e859d00d3f1f59e",
-              "1e11786f937b04c6"
+              "cbe41f424a1a6b13"
+            ]
+          },
+          {
+            "kicker": "THE UPDATE",
+            "tone": "turn",
+            "headline": "Flash-1017 ships with stronger coding, cheaper inference and a search API",
+            "summary": "Harness v0.2.1-rc1 surfaced the same day with an unannounced snapshot.",
+            "sids": [
+              "b803fa0d4c28e1bf",
+              "f045e22fb623d831",
+              "a50f300013a679ed",
+              "c17f7f361be66b3c",
+              "20f6398bac4d28c9"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Roundup places Flash-1017 among open releases; a third-party paper evaluates its safety risks",
+            "sids": [
+              "a379ec2597bb3939",
+              "a9c17daa5dbfcba0"
             ]
           }
         ],
         "open_questions": [
-          "Do independent benchmarks confirm the index-point gaps OrcaRouter reports against DeepSeek V4 Flash Vision Exp?",
-          "Will other inference engines or clouds add Nemotron 3.5 Super VL beyond vLLM?"
+          "Do independent evals confirm Flash-1017's agentic gains over larger rivals?",
+          "Is the new search API priced and rate-limited for production use?",
+          "Is the unannounced snapshot a separate model or the same Flash-1017?",
+          "What do the paper's loss-of-control and manipulation findings say about Flash-1017 under agentic use?"
         ],
-        "take_for_builders": "If you run multimodal document or video agents, point an existing vLLM deployment at Nemotron 3.5 Super VL and rerun your own eval before trusting a single vendor-neutral comparison site.",
+        "take_for_builders": "Rerun your agent eval and cost-per-task numbers on Flash-1017 before switching, read the Oct 26 risk evaluation before granting it autonomy or tool access, and test the search API against your current tool.",
         "day_captions": {
-          "5b7496a31dc4a921": "Launch-day serving path: vLLM supports the model with OpenAI-compatible endpoints for image, document and video input.",
-          "fa7edf5313b75f42": "Arabic-language edition of the OrcaRouter Kimi K3 comparison, framing download versus per-token pricing.",
-          "6e859d00d3f1f59e": "OrcaRouter compares it with DeepSeek V4 Flash Vision Exp and reports an eight-index-point gap.",
-          "1e11786f937b04c6": "OrcaRouter contrasts a metered flagship with Kimi K3's weight release, which has no published rate card."
-        }
+          "0eb5aab42ce7a0b7": "First hosted-API availability of V4.1 Flash (Dolphin).",
+          "2542a0a265628285": "Hardware angle: AMD MI355X posts AA-AgentPerf results with Flash.",
+          "6e859d00d3f1f59e": "Price/index comparison against Nemotron 3.5 Super VL.",
+          "cbe41f424a1a6b13": "Price/index comparison against Step 5 Preview.",
+          "b803fa0d4c28e1bf": "Harness v0.2.1-rc1 arrives as an unannounced Flash snapshot briefly appears.",
+          "f045e22fb623d831": "Independent read: beats larger rivals on agentic tasks at lower per-task cost.",
+          "a50f300013a679ed": "Adds the first public access to DeepSeek's proprietary search API.",
+          "c17f7f361be66b3c": "Confirms a faster Flash model plus the search API.",
+          "20f6398bac4d28c9": "Names the release Flash-1017 with stronger coding and agent capabilities.",
+          "a379ec2597bb3939": "Newest: roundup placing Flash-1017 among open model releases.",
+          "a9c17daa5dbfcba0": "Newest: independent third-party evaluation of Flash-1017 for loss-of-control and harmful-manipulation risks."
+        },
+        "slug": "deepseek-flash",
+        "whats_new": "A third-party paper (Oct 26) evaluates DeepSeek V4.1 Flash-1017 for loss-of-control and harmful-manipulation risks, adding independent safety evidence to a release that so far had only performance and price coverage.",
+        "why_it_matters": "Flash-1017 is cheaper and stronger on agentic tasks, and an independent safety evaluation now exists. Teams giving it autonomy or tool access can weigh its findings alongside cost-per-task numbers.",
+        "generated_at": "2026-10-28T00:13:29.231405+00:00",
+        "covers_last_updated": "2026-10-26T16:14:17+00:00",
+        "covers_member_sids": [
+          "0eb5aab42ce7a0b7",
+          "2542a0a265628285",
+          "6e859d00d3f1f59e",
+          "cbe41f424a1a6b13",
+          "b803fa0d4c28e1bf",
+          "f045e22fb623d831",
+          "a50f300013a679ed",
+          "c17f7f361be66b3c",
+          "20f6398bac4d28c9",
+          "a379ec2597bb3939",
+          "a9c17daa5dbfcba0"
+        ]
       },
       "timeline": [
         {
-          "date": "2026-10-15",
+          "date": "2026-10-11",
           "items": [
             {
-              "sid": "5b7496a31dc4a921",
-              "title": "Announcing Day 0 Support for NVIDIA Nemotron 3.5 Super VL on vLLM",
-              "url": "https://vllm.ai/blog/2026-10-15-nemotron-3-5-super-vl-vllm",
-              "source": "vllm_blog",
+              "sid": "0eb5aab42ce7a0b7",
+              "title": "Dolphin: Inference API goes live with DeepSeek V4.1 Flash - 11 Oct 2026",
+              "url": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNMmV0X3hDcW12NDFmN3RRem9ieGxsSGZOdm9kaHRvc2dCN2h1NVdGTTBXRnpyQnk5YTFDcDRfcjl6SXNlb0hJajlrMnlGYmxYcngtdFJJUlB2dFFTdDdFYmFGUS1mVFN4eWU5Z1JnYkZFSXhpbHlmRUFaWThKbWhJVjJ3aHpQN3dPaUdEcHNDallUeEctNnZ6NUhPUlQyTVRUSnRaZ1QtaFk3anJ2dExXdENJdG5RaHhrdDdJXzBWUVptNUZLNmEtSE9ndjM?oc=5",
+              "source": "search_cn_open_weight_labs",
               "type": "news",
-              "summary_1line": "Run NVIDIA Nemotron 3.5 Super VL on vLLM for multimodal agent workflows with image, document, and video understanding, OpenAI-compatible serving, and multi-token prediction.",
-              "published": "2026-10-15T00:00:00+00:00"
+              "summary_1line": "Dolphin: Inference API goes live with DeepSeek V4.1 Flash - 11 Oct 2026 TradingView",
+              "published": "2026-10-11T17:00:10+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-14",
+          "items": [
+            {
+              "sid": "2542a0a265628285",
+              "title": "AMD MI355X joins AA-AgentPerf with DeepSeek V4.1 Flash results",
+              "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBPYmFLcFNqS0FGb0M4TDEtb0FmNGpLQjlkajFqTGswTHFNWUZqeHBGYlpkSVp0S21mLTRTc3J6SU1WNE9Ddm5kZEhtMDE0cFgzZ1pISEFMdHBHQ1g4NzV2UEgwZzhJVXNKYV9RcEVFSzRmREpEaXg0?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "AMD MI355X joins AA-AgentPerf with DeepSeek V4.1 Flash results Crypto Briefing",
+              "published": "2026-10-14T17:24:40+00:00"
             }
           ]
         },
         {
           "date": "2026-10-16",
           "items": [
-            {
-              "sid": "fa7edf5313b75f42",
-              "title": "Nemotron 3.5 Super VL مقابل Kimi K3: تحميل مقابل $3/$15",
-              "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5qMllJc1d4dEtSMkQ1aHBhRlViakpXT0tZaW1yWXFrY002d0RiVGl2SkxwX25xSmt3b0JOenpmc00wR3hqNVlMVURPMmwwTldCNUhMMzdZSmY5TkxrSDMyYW11OFVJS1NZYVQ2Z0JmTEEtMGpkcTNZWmRGOA?oc=5",
-              "source": "search_cn_open_weight_labs",
-              "type": "news",
-              "summary_1line": "Nemotron 3.5 Super VL مقابل Kimi K3: تحميل مقابل $3/$15 OrcaRouter",
-              "published": "2026-10-16T05:54:43+00:00"
-            },
             {
               "sid": "6e859d00d3f1f59e",
               "title": "Nemotron 3.5 Super VL vs DeepSeek V4 Flash Vision Exp: Eight Index Points, and Only One of Them Is a Product",
@@ -406,133 +654,87 @@
               "published": "2026-10-16T06:31:12+00:00"
             },
             {
-              "sid": "1e11786f937b04c6",
-              "title": "Nemotron 3.5 Super VL vs Kimi K3: A Metered Flagship Against a Weight Release With No Rate Card",
-              "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9zR1pyUy03YUd6NVJwNjJqTFZuZ3JzZklfUWRwOGRVU01tOGJfelN6OGJiak5CbklCY0pDaHQ2SG5OcUJYWGRwSFQySGxKVG9LTnkwYTJnY0J0MFpLNy1YRXFFOVNLd29ZQ3hTZQ?oc=5",
+              "sid": "cbe41f424a1a6b13",
+              "title": "Step 5 Preview vs DeepSeek V4.1 Flash: Six Times the Input Price for Four and a Half Index Points",
+              "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBXNVE4V2hiNHhyRk5qeGZ2aU5lM3pjLVpELTl1VVJUc1BYeF80NTZrcVhOalJUTWlfN0JETUs2ODRYdXdoVHotZllhdEpvdjJnV0NwX0lFaU5SU25DMk84RWp4NDVJTFdYTTFNSFNwNExSNjR5eVlJ?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Step 5 Preview vs DeepSeek V4.1 Flash: Six Times the Input Price for Four and a Half Index Points OrcaRouter",
+              "published": "2026-10-16T13:38:36+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-17",
+          "items": [
+            {
+              "sid": "b803fa0d4c28e1bf",
+              "title": "DeepSeek Harness v0.2.1-rc1 Arrives as an Unannounced V4.1 Flash Snapshot Briefly Surfaces",
+              "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOZU1qMWZqZDNjZGluci0wUC13OGpKbHNpT2ZjTUlFbGlNZWtacUljaFNnN0x6UG1ObE9BRktoVklFWEFDbmJGTGh5U0ZaQm00QzRPRE5Tc1ZoMDctc09YeUR3SnhxRWxYY2hDbmNPNmo0V0NJZy1XSmdTOWJvYW9hU0dBcHFmbW5NbG1mWFVZNExoRmZvaEFxODlFeC13YVpUQmx2a29wNA?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek Harness v0.2.1-rc1 Arrives as an Unannounced V4.1 Flash Snapshot Briefly Surfaces Pandaily",
+              "published": "2026-10-17T07:56:51+00:00"
+            },
+            {
+              "sid": "f045e22fb623d831",
+              "title": "Deepseek V4.1 Flash 1017 beats larger rivals in agentic tasks while once again massively cutting per-task costs",
+              "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQMjBtNG5jOGtJNDMtWHYtVXo1RU44LWJlNTZrNkhxajRYd0JOMkdXLXV3ZlZwQTVidkoyWjJKbUNvS0U2UXdRdjZmNE9KWHhlTUR0Y2xmWWhTRm9MbFpuQm5NUEtyejJqWXZhYmRjWmdVTFZ0RFlVR2JwMTNqOUgtb3NxeHU2dUJVcHpTaUN5WFFCQkIzWXZhZGJVVXpUV0RfQUNxNjNLSngteWVuaVVEckhkWmNVbjF1QVQ4b2FoTHYxVmh0eko4T0ZKSG91c3ZWTlE?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Deepseek V4.1 Flash 1017 beats larger rivals in agentic tasks while once again massively cutting per-task costs The Decoder",
+              "published": "2026-10-17T10:38:38+00:00"
+            },
+            {
+              "sid": "a50f300013a679ed",
+              "title": "DeepSeek Releases V4.1 Flash Update: Cheaper Inference, Stronger Coding, and First-Ever Public Access to Its Proprietary Search API",
+              "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBDa0p6S1dIZGJ6V1dhSTFwbUJvT1VfODRyamxXWU5pX01PUDdySU5YZTRSdjEtU2tGNGJ0S3hTWEZnaGVXcHFCRVhmNjc1ZXVHd2QwUUJKLVA3cV8tVm5JYnlyNlFJVXhLZUZQTUhOeXFtbjNTbEE?oc=5",
               "source": "search_cn_open_weight_labs",
               "type": "release",
-              "summary_1line": "Nemotron 3.5 Super VL vs Kimi K3: A Metered Flagship Against a Weight Release With No Rate Card OrcaRouter",
-              "published": "2026-10-16T08:46:30+00:00"
+              "summary_1line": "DeepSeek Releases V4.1 Flash Update: Cheaper Inference, Stronger Coding, and First-Ever Public Access to Its Proprietary Search API BigGo Finance",
+              "published": "2026-10-17T10:55:00+00:00"
             }
           ]
         },
         {
-          "date": "2026-10-28",
+          "date": "2026-10-18",
           "items": [
             {
-              "sid": "ec733f799e1aaee3",
-              "title": "NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt",
-              "url": "https://huggingface.co/blog/nvidia/nemotron-transcribe-granary",
-              "source": "huggingface_blog",
-              "type": "research",
-              "summary_1line": "NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt",
-              "published": "2026-10-28T14:58:17+00:00"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "diffusion-language",
-      "label": "Diffusion Language",
-      "item_count": 4,
-      "source_count": 2,
-      "day_count": 4,
-      "first_seen": "2026-10-09T10:07:37+00:00",
-      "last_updated": "2026-10-27T17:55:24+00:00",
-      "latest_title": "Metacognitive Decoding: Efficient Inference for Diffusion Language Agents",
-      "member_sids": [
-        "d4cd8af9958d846f",
-        "4d1cef01d9ab5673",
-        "75e015095613159e",
-        "edcf9763d6b958dc"
-      ],
-      "via_scout": false,
-      "has_narrative": true,
-      "needs_narrative": true,
-      "reason": "stale",
-      "narrative_path": "data/storylines/narratives/diffusion-language.json",
-      "prior_narrative": {
-        "slug": "diffusion-language",
-        "generated_at": "2026-10-28T00:13:30+00:00",
-        "covers_last_updated": "2026-10-26T17:35:58+00:00",
-        "covers_member_sids": [
-          "d4cd8af9958d846f",
-          "4d1cef01d9ab5673",
-          "75e015095613159e"
-        ],
-        "tldr": "Diffusion language models first appeared here as the backbone of a tool-using chemistry agent. Days later they turned up on the offensive side, as a way to craft fluent black-box attacks on LLMs.",
-        "whats_new": "A new paper distills a decoding schedule so diffusion LLMs commit tokens in fewer rounds, targeting the parallel-generation speedup that has been hard to realize.",
-        "why_it_matters": "Diffusion LLMs only pay off for serving if parallel decoding cuts rounds without hurting quality; this is research-stage evidence, not a deployable runtime.",
-        "status": {
-          "state": "Research · developing",
-          "tone": "rising",
-          "changed": "2026-10-26",
-          "detail": "Three arXiv papers, no production release: agents, attacks and decoding speed are each explored once."
-        },
-        "beats": [
-          {
-            "kicker": "AGENTS",
-            "tone": "launch",
-            "headline": "Masked diffusion LMs drive a tool-integrated chemistry agent",
-            "sids": [
-              "d4cd8af9958d846f"
-            ]
-          },
-          {
-            "kicker": "RISK",
-            "tone": "turn",
-            "headline": "Diffusion LMs used for perplexity-aware black-box attacks",
-            "sids": [
-              "4d1cef01d9ab5673"
-            ]
-          },
-          {
-            "kicker": "NOW",
-            "tone": "now",
-            "headline": "Schedule distillation aims to cut dLLM decoding rounds",
-            "sids": [
-              "75e015095613159e"
-            ]
-          }
-        ],
-        "open_questions": [
-          "Do the schedule-distillation speedups hold on independent benchmarks at equal output quality?",
-          "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?"
-        ],
-        "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet; if you prototype one, measure decoding rounds and quality against your autoregressive baseline, and include fluent-prompt attacks in red-team evals.",
-        "day_captions": {
-          "d4cd8af9958d846f": "Shows a masked diffusion LM as the reasoning core of a tool-using chemistry agent.",
-          "4d1cef01d9ab5673": "Uses a diffusion LM to generate low-perplexity attack prompts against black-box LLMs.",
-          "75e015095613159e": "Proposes learning when to commit tokens, reducing the decoding rounds dLLMs need."
-        }
-      },
-      "timeline": [
-        {
-          "date": "2026-10-09",
-          "items": [
-            {
-              "sid": "d4cd8af9958d846f",
-              "title": "Masked Diffusion Language Agents for Tool-Integrated Chemical Reasoning",
-              "url": "http://arxiv.org/abs/2610.13330v1",
-              "source": "arxiv_agent_systems_research",
-              "type": "paper",
-              "summary_1line": "Designing tool-integrated reasoning agent systems for complex chemical tasks remains a fundamental challenge. Although recent chemical agents have demonstrated promising performance through the integration of external...",
-              "published": "2026-10-09T10:07:37+00:00"
+              "sid": "c17f7f361be66b3c",
+              "title": "DeepSeek Ships a Faster Flash Model and Its Own Search API",
+              "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQMW5VYU5mbW5FTmUxVlpuU3dNU0pWdXpGU19ublRrRm1HUFNRS0pBSlZzdjQ4VEQ3dlVtYXYzcmhPUUtMdzNCSmUtZWxJU3lDNTNMdU1uSHBQSWxwWmZzQjhiZktGeldHLWlLa2VoN3RBblN6VnhkMzdoanJ2TTVqZ2NSOHNSUVkzd1QxZmwxMENseXM?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek Ships a Faster Flash Model and Its Own Search API trendingtopics.eu",
+              "published": "2026-10-18T08:37:54+00:00"
             }
           ]
         },
         {
-          "date": "2026-10-22",
+          "date": "2026-10-19",
           "items": [
             {
-              "sid": "4d1cef01d9ab5673",
-              "title": "Diffusion Language Models for Perplexity-Aware Black-Box Attacks",
-              "url": "http://arxiv.org/abs/2610.31558v1",
-              "source": "arxiv_cs_cl",
-              "type": "paper",
-              "summary_1line": "\\emph{Continuous-space} attacks find prompts that trigger malicious behaviors, such as overthinking, in black-box LLMs by sampling or optimizing over a low-dimensional Gaussian latent space and decoding it to text thr...",
-              "published": "2026-10-22T17:00:39+00:00"
+              "sid": "20f6398bac4d28c9",
+              "title": "DeepSeek releases V4.1 Flash-1017 with stronger coding and agent capabilities",
+              "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNOWxwekdueE83N18yaE1YbnlTRmJSSHpzYTBPQUlRLVhONzNwVFRwSWZMU29jY1hnTkNBTDdNOEZSSlB1SlNBNV9FTWQ0Nmk3WGNNVWZOR0Y1MEFTc1g2aEZUQkRwOUdQMWlwTzZHVDhib25aLXNrRGVoV1pfWXBfWGdoTXl2WS1fRzJFektWR1gxb2JuZmRhWGk4MlphelZNNm1PNXN2TXRPN2s5UU1J?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "DeepSeek releases V4.1 Flash-1017 with stronger coding and agent capabilities TechNode",
+              "published": "2026-10-19T06:41:03+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-20",
+          "items": [
+            {
+              "sid": "a379ec2597bb3939",
+              "title": "Latest open artifacts (#25): DeepSeek V4.1 Flash 1017, American-made models, and new regulatory controls in the US & China",
+              "url": "https://www.interconnects.ai/p/latest-open-artifacts-25-deepseek",
+              "source": "interconnects",
+              "type": "news",
+              "summary_1line": "Western open models strike back",
+              "published": "2026-10-20T17:04:21+00:00"
             }
           ]
         },
@@ -540,64 +742,134 @@
           "date": "2026-10-26",
           "items": [
             {
-              "sid": "75e015095613159e",
-              "title": "Learning When to Commit: Schedule Distillation for Fast Diffusion Language Models",
-              "url": "http://arxiv.org/abs/2610.35804v1",
-              "source": "arxiv_cs_cl",
+              "sid": "a9c17daa5dbfcba0",
+              "title": "Evaluating DeepSeek V4.1 Flash-1017 for loss of control and harmful manipulation risks",
+              "url": "http://arxiv.org/abs/2610.35671v1",
+              "source": "arxiv_cn_open_weight_reports",
               "type": "paper",
-              "summary_1line": "Diffusion large language models (dLLMs) can generate multiple tokens in parallel, but often require many decoding rounds to complete a response. Efficient generation depends not only on which tokens are easy to predic...",
-              "published": "2026-10-26T17:35:58+00:00"
+              "summary_1line": "As frontier language models grow increasingly capable and autonomous, independent third-party evaluations are critical for characterizing their systemic safety risks. While closed-source releases are routinely accompa...",
+              "published": "2026-10-26T16:14:17+00:00"
             }
           ]
         },
         {
-          "date": "2026-10-27",
+          "date": "2026-10-29",
           "items": [
             {
-              "sid": "edcf9763d6b958dc",
-              "title": "Metacognitive Decoding: Efficient Inference for Diffusion Language Agents",
-              "url": "http://arxiv.org/abs/2610.37642v1",
-              "source": "arxiv_cs_cl",
-              "type": "paper",
-              "summary_1line": "Diffusion language models offer a promising path to efficient agents through parallel token generation. However, efficient interaction requires adapting both where computation is spent and how much text is generated....",
-              "published": "2026-10-27T17:55:24+00:00"
+              "sid": "122ec7cea45d8a1a",
+              "title": "Rival.io Launches GraphX, Running DeepSeek V4 Flash on Just Eight NVIDIA L4 GPUs",
+              "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOWkd5NkJONUV6dFBKcHA3cUI1Nm5UUmJMV2JzU3pwbk1iVXpoNUdhSWF6WC05alBZYTdrNkMydUx0LVZPNU11YjJBanJiZHpmMkczVGlqYVZIeXVTTHRKcEV2UzJaaDUzdVlIQktnZXlKWjQ0UFh2YVdwWmozQ0ZtRTVqTEw3NDYyMHpHSlBnVElLdk50dFZBSFczeHc?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Rival.io Launches GraphX, Running DeepSeek V4 Flash on Just Eight NVIDIA L4 GPUs Yahoo Finance",
+              "published": "2026-10-29T14:00:00+00:00"
             }
           ]
         }
       ]
     },
     {
-      "slug": "efficient-inference",
-      "label": "Efficient Inference",
-      "item_count": 3,
-      "source_count": 3,
-      "day_count": 2,
-      "first_seen": "2026-10-22T02:20:21+00:00",
-      "last_updated": "2026-10-27T17:55:24+00:00",
-      "latest_title": "Metacognitive Decoding: Efficient Inference for Diffusion Language Agents",
+      "slug": "web-search",
+      "label": "Web Search",
+      "item_count": 4,
+      "source_count": 4,
+      "day_count": 4,
+      "first_seen": "2026-10-17T20:30:24+00:00",
+      "last_updated": "2026-10-29T07:14:00+00:00",
+      "latest_title": "Cloudflare Introduces Web Search API for AI Applications",
       "member_sids": [
-        "b3f4301ff8d83589",
-        "ed7966c78dc36a0b",
-        "edcf9763d6b958dc"
+        "dd757ca1b3c6b43c",
+        "5f97c21b490b1ce9",
+        "e3636bb8c76777d4",
+        "4babea341ec6b4e6"
       ],
       "via_scout": false,
-      "has_narrative": false,
+      "has_narrative": true,
       "needs_narrative": true,
-      "reason": "no_narrative",
-      "narrative_path": "data/storylines/narratives/efficient-inference.json",
-      "prior_narrative": null,
+      "reason": "stale",
+      "narrative_path": "data/storylines/narratives/web-search.json",
+      "prior_narrative": {
+        "slug": "web-search",
+        "generated_at": "2026-10-28T00:13:28+00:00",
+        "covers_last_updated": "2026-10-27T17:25:18+00:00",
+        "covers_member_sids": [
+          "dd757ca1b3c6b43c",
+          "5f97c21b490b1ce9",
+          "e3636bb8c76777d4"
+        ],
+        "tldr": "DeepSeek priced web search for agents at /bin/bash.75 per 1,000 calls on Oct 17, making search a metered line item. A long-horizon eval paper followed on Oct 26.",
+        "whats_new": "A GitHub benchmark compares 4 web search APIs for AI agents on 30 live queries, the first head-to-head comparison in this thread.",
+        "why_it_matters": "Search API choice now affects agent cost and answer quality, and neither the price point nor the benchmark is independently verified yet.",
+        "status": {
+          "state": "Developing",
+          "tone": "rising",
+          "changed": "2026-10-27",
+          "detail": "Pricing, an evaluation framework and a hands-on API benchmark have appeared, but the sources are thin and unconfirmed."
+        },
+        "beats": [
+          {
+            "kicker": "PRICING",
+            "tone": "launch",
+            "headline": "DeepSeek prices agent web search at $0.75 per 1,000 calls",
+            "sids": [
+              "dd757ca1b3c6b43c"
+            ]
+          },
+          {
+            "kicker": "EVALUATION",
+            "tone": "rising",
+            "headline": "LongSearchEval targets long-horizon search failures",
+            "sids": [
+              "5f97c21b490b1ce9"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Community benchmark pits 4 search APIs against 30 live queries",
+            "sids": [
+              "e3636bb8c76777d4"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Do the benchmark's API rankings hold on a larger or different query set?",
+          "Do other search API vendors respond to DeepSeek's per-call price?",
+          "Is LongSearchEval adopted to compare search-agent systems?"
+        ],
+        "take_for_builders": "Run your own production queries against your current search API and one alternative, tracking cost per 1,000 calls and answer quality before switching.",
+        "day_captions": {
+          "dd757ca1b3c6b43c": "Sets a concrete per-call price for agent web search.",
+          "5f97c21b490b1ce9": "Adds an evaluation framework that localizes failures in multi-step search.",
+          "e3636bb8c76777d4": "First hands-on comparison of search APIs on live queries."
+        }
+      },
       "timeline": [
         {
-          "date": "2026-10-22",
+          "date": "2026-10-17",
           "items": [
             {
-              "sid": "b3f4301ff8d83589",
-              "title": "Better Reasoning, Not Just Bigger Models: A Structure-Grounded Framework for Efficient and Reliable Inference",
-              "url": "http://arxiv.org/abs/2610.30611v1",
+              "sid": "dd757ca1b3c6b43c",
+              "title": "DeepSeek prices web search for AI agents at $0.75 per 1,000 calls",
+              "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxON1poTVZpWnR5dFNydER0dTFQVmZmZnBDTFhrYl8xWEpiWmNnRzBYZWFMdjAwNjR4SEljQzUzZFN5aVRZbW05eHE2bDN4amJ0c2s3TkI4dFl6R2QzbmtOQWFxM2pWTmZzd1BtM1lhd2gzWXVTRHNJT0JHR21GSVZ2WHl2bG02UFIwMHc?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek prices web search for AI agents at $0.75 per 1,000 calls PPC Land",
+              "published": "2026-10-17T20:30:24+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-26",
+          "items": [
+            {
+              "sid": "5f97c21b490b1ce9",
+              "title": "LongSearchEval: Evaluating Long-Horizon Web Search Capabilities of Large Language Models via a Trajectory-Aware Agent Framework with Failure-Node Localization",
+              "url": "http://arxiv.org/abs/2610.35150v1",
               "source": "arxiv_agent_systems_research",
               "type": "paper",
-              "summary_1line": "Scaling large language models has substantially improved linguistic fluency, yet reliable autonomous agents require more than fluent generation. In multi-turn inference, current agentic systems often produce semantica...",
-              "published": "2026-10-22T02:20:21+00:00"
+              "summary_1line": "Long-horizon web search requires LLM-based agents to integrate information across web pages through extended interactions under task-specific constraints. Evaluating this capability is important not only for measuring...",
+              "published": "2026-10-26T10:15:38+00:00"
             }
           ]
         },
@@ -605,22 +877,452 @@
           "date": "2026-10-27",
           "items": [
             {
-              "sid": "ed7966c78dc36a0b",
-              "title": "CRISP: Co-designing Pruning and Scheduling for Efficient MoE Inference on Edge Servers",
-              "url": "http://arxiv.org/abs/2610.37442v1",
-              "source": "arxiv_cs_lg",
-              "type": "paper",
-              "summary_1line": "Mixture-of-Experts (MoE) inference on memory-constrained edge platforms is often dominated by expert-weight movement rather than computation. Although each token activates only a small subset of experts, routing is in...",
-              "published": "2026-10-27T15:51:14+00:00"
+              "sid": "e3636bb8c76777d4",
+              "title": "I benchmarked 4 web search APIs for AI agents on 30 live queries",
+              "url": "https://github.com/psinglap/websearch-api-eval",
+              "source": "hackernews_ai",
+              "type": "news",
+              "summary_1line": "I benchmarked 4 web search APIs for AI agents on 30 live queries",
+              "published": "2026-10-27T17:25:18+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-29",
+          "items": [
+            {
+              "sid": "4babea341ec6b4e6",
+              "title": "Cloudflare Introduces Web Search API for AI Applications",
+              "url": "https://www.infoq.com/news/2026/10/cloudflare-web-search-api/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
+              "type": "news",
+              "summary_1line": "Cloudflare has recently launched a beta Web Search API through AI Gateway. Available through REST APIs and Cloudflare Workers, it provides unified logging, access controls, and billing, and supports bring-your-own-pro...",
+              "published": "2026-10-29T07:14:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "large-language",
+      "label": "Large Language",
+      "item_count": 18,
+      "source_count": 9,
+      "day_count": 9,
+      "first_seen": "2026-10-09T11:00:00+00:00",
+      "last_updated": "2026-10-29T00:00:00+00:00",
+      "latest_title": "Welcome Le Chonk: Mistral Large 4 on Hugging Face",
+      "member_sids": [
+        "13307002442ed537",
+        "52d729da63596a31",
+        "f0fd06585d59dd3d",
+        "ade0f523550f640a",
+        "06d8677dec3b3c21",
+        "16071b3c73317004",
+        "276a486ae6eefe6b",
+        "590975aa217085b7",
+        "8debe4581e047c88",
+        "f07fa8132755e14c",
+        "c888971c48a268c3",
+        "5f97c21b490b1ce9",
+        "d5cd3db9b5f4a99b",
+        "26fc92a7573c4011",
+        "a2f964aa6fcbf7ea",
+        "200271de2a2f52aa",
+        "37f6c0c263213efd",
+        "b6b30743068c2627"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": true,
+      "reason": "stale",
+      "narrative_path": "data/storylines/narratives/large-language.json",
+      "prior_narrative": {
+        "slug": "large-language",
+        "generated_at": "2026-10-29T00:20:00+00:00",
+        "covers_last_updated": "2026-10-27T06:52:54+00:00",
+        "covers_member_sids": [
+          "13307002442ed537",
+          "52d729da63596a31",
+          "f0fd06585d59dd3d",
+          "ade0f523550f640a",
+          "06d8677dec3b3c21",
+          "16071b3c73317004",
+          "276a486ae6eefe6b",
+          "8debe4581e047c88",
+          "f07fa8132755e14c",
+          "c888971c48a268c3",
+          "5f97c21b490b1ce9",
+          "d5cd3db9b5f4a99b",
+          "26fc92a7573c4011",
+          "a2f964aa6fcbf7ea",
+          "200271de2a2f52aa"
+        ],
+        "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 9-22 items cover knowledge graphs, sycophancy, code-translation hallucinations, search agents, and spectral edits.",
+        "whats_new": "Oct 27 adds CAMR, a compatibility-aware memory replay method for continual learning in LLMs, following Oct 26's search-agent benchmark, neuron steering and Reva vulnerability screening.",
+        "why_it_matters": "Treat this as a reading list, not a thread. For platform engineers the useful items are LongSearchEval (agent failure localization), Reva (screening agent-written code), and CAMR if you fine-tune models on rolling data.",
+        "beats": [
+          {
+            "kicker": "KNOWLEDGE GRAPHS",
+            "tone": "neutral",
+            "headline": "Knowledge graphs applied to observability, legal reasoning and secure code",
+            "sids": [
+              "13307002442ed537",
+              "52d729da63596a31",
+              "f0fd06585d59dd3d"
+            ]
+          },
+          {
+            "kicker": "BEHAVIOR",
+            "tone": "neutral",
+            "headline": "Narrative-induced sycophancy evaluated in LLMs",
+            "sids": [
+              "ade0f523550f640a"
+            ]
+          },
+          {
+            "kicker": "RELIABILITY",
+            "tone": "launch",
+            "headline": "Hallucinations in cross-language code translation, with mitigations",
+            "sids": [
+              "06d8677dec3b3c21"
+            ]
+          },
+          {
+            "kicker": "AGENTS AND DOMAINS",
+            "tone": "neutral",
+            "headline": "Search-state awareness for RAG agents, and LLM materials-data extraction",
+            "sids": [
+              "16071b3c73317004",
+              "276a486ae6eefe6b"
+            ]
+          },
+          {
+            "kicker": "OCT 22",
+            "tone": "neutral",
+            "headline": "Spectral interventions, KG-to-text benchmarking and Bashkir adaptation",
+            "sids": [
+              "8debe4581e047c88",
+              "c888971c48a268c3",
+              "f07fa8132755e14c"
+            ]
+          },
+          {
+            "kicker": "OCT 26",
+            "tone": "rising",
+            "headline": "Long-horizon search evals, capability-preserving steering and real-time vulnerability screening",
+            "sids": [
+              "5f97c21b490b1ce9",
+              "d5cd3db9b5f4a99b",
+              "26fc92a7573c4011",
+              "a2f964aa6fcbf7ea"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Oct 27: compatibility-aware memory replay for continual learning",
+            "sids": [
+              "200271de2a2f52aa"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does independent replication confirm the spectral-intervention capability shifts?",
+          "Do the code-translation mitigations hold on languages outside the paper's test set?",
+          "Does Reva's real-time screening keep false positives low enough to gate agent-written code?",
+          "Does CANS steering preserve general capability on models beyond those it was tested on?",
+          "Does CAMR's replay selection reduce forgetting on models larger than those in its experiments?"
+        ],
+        "take_for_builders": "If you run coding agents, read Reva and check whether per-function vulnerability screening could sit before review; if you run search agents, try LongSearchEval's failure-node localization on your traces. If you continually fine-tune, check CAMR's replay selection against your current replay buffer. Skip the rest unless it matches your domain.",
+        "day_captions": {
+          "13307002442ed537": "Netflix's ontology-driven observability graph at 38M events/sec.",
+          "52d729da63596a31": "Knowledge-graph-guided pre-training for legal reasoning.",
+          "f0fd06585d59dd3d": "Agentic KG retrieval to reduce insecure generated code.",
+          "ade0f523550f640a": "Shows user backstories push models toward sycophancy.",
+          "06d8677dec3b3c21": "Catalogs hallucinations in cross-language code translation.",
+          "16071b3c73317004": "Survey of ML and LLM extraction of materials data.",
+          "276a486ae6eefe6b": "Self-assessment RL so search agents track what they already found.",
+          "8debe4581e047c88": "Probes how editing singular-value spectra shifts task performance.",
+          "c888971c48a268c3": "Compares recent LLMs with fine-tuned encoder-decoders on KG-to-text.",
+          "f07fa8132755e14c": "Open resources for adapting LLMs to low-resource Bashkir.",
+          "5f97c21b490b1ce9": "Benchmark that localizes the failing node in long-horizon web-search trajectories.",
+          "d5cd3db9b5f4a99b": "Training-free neuron steering aimed at not degrading general capability.",
+          "26fc92a7573c4011": "KG reasoning that self-evolves without question-answer annotations.",
+          "a2f964aa6fcbf7ea": "Real-time screening of each new function for vulnerabilities via contextual probing.",
+          "200271de2a2f52aa": "Replay method that judges whether incoming data is compatible with what the model retains."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-10-09",
+          "items": [
+            {
+              "sid": "13307002442ed537",
+              "title": "Presentation: Ontology‐Driven Observability: Building the E2E Knowledge Graph at Netflix Scale",
+              "url": "https://www.infoq.com/presentations/netflix-observability-aiops-ontology-scale/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
+              "type": "news",
+              "summary_1line": "Prasanna Vijayanathan and Renzo Sanchez-Silva share how Netflix tackles observability across 38M events/sec. They discuss replacing reactive monitoring with an AI-driven operational ontology and agentic workflows usin...",
+              "published": "2026-10-09T11:00:00+00:00"
             },
             {
-              "sid": "edcf9763d6b958dc",
-              "title": "Metacognitive Decoding: Efficient Inference for Diffusion Language Agents",
-              "url": "http://arxiv.org/abs/2610.37642v1",
+              "sid": "52d729da63596a31",
+              "title": "Enhancing Legal Reasoning in Pre-trained Language Models via Knowledge Graph-Guided Multi-Task Pre-training",
+              "url": "http://arxiv.org/abs/2610.13722v1",
               "source": "arxiv_cs_cl",
               "type": "paper",
-              "summary_1line": "Diffusion language models offer a promising path to efficient agents through parallel token generation. However, efficient interaction requires adapting both where computation is spent and how much text is generated....",
-              "published": "2026-10-27T17:55:24+00:00"
+              "summary_1line": "Legal language understanding requires reasoning over semi-structured regulatory documents, yet standard pre-training objectives do not explicitly target this structural capability. Because current legal language model...",
+              "published": "2026-10-09T15:21:12+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-10",
+          "items": [
+            {
+              "sid": "f0fd06585d59dd3d",
+              "title": "SEEK: Agentic Knowledge Graph Retrieval for Secure Code Generation",
+              "url": "http://arxiv.org/abs/2610.14968v1",
+              "source": "arxiv_cs_lg",
+              "type": "paper",
+              "summary_1line": "Large Language Models (LLMs) can generate functionally correct code while introducing exploitable security weaknesses, particularly when developers specify functionality without explicit security requirements. Recent...",
+              "published": "2026-10-10T14:37:22+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-16",
+          "items": [
+            {
+              "sid": "ade0f523550f640a",
+              "title": "Trapped in Your Story: Evaluating Narrative-Induced Sycophancy in Large Language Models",
+              "url": "http://arxiv.org/abs/2610.23525v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Large language models (LLMs) are known to exhibit sycophancy by adjusting their responses toward users' expressed views. However, real users often justify their opinions through reasons, personal experiences, causal e...",
+              "published": "2026-10-16T14:26:44+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-20",
+          "items": [
+            {
+              "sid": "06d8677dec3b3c21",
+              "title": "Hallucinations of Large Language Models in Cross-Language Code Translation: Phenomena and Mitigation",
+              "url": "http://arxiv.org/abs/2610.27868v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Code translation converts source code from one programming language to another while preserving its functionality. Although Large Language Models (LLMs) have improved code translation, their outputs still contain hall...",
+              "published": "2026-10-20T08:50:39+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-21",
+          "items": [
+            {
+              "sid": "16071b3c73317004",
+              "title": "Automated Materials Data and Knowledge Extraction using Machine Learning and Large Language Models",
+              "url": "http://arxiv.org/abs/2610.29895v1",
+              "source": "arxiv_agent_systems_research",
+              "type": "paper",
+              "summary_1line": "Over the past decade, substantial efforts have been devoted to developing machine learning (ML) methods for extracting materials data and, where possible, materials knowledge directly from the scientific literature. T...",
+              "published": "2026-10-21T15:38:05+00:00"
+            },
+            {
+              "sid": "276a486ae6eefe6b",
+              "title": "Self-Assessment Reinforcement Learning for Search-State Awareness in Retrieval-Augmented Large Language Models",
+              "url": "http://arxiv.org/abs/2610.30435v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Recent advances in search agents have enabled large language models to tackle complex tasks by retrieving and synthesizing external information. However, existing search agents often lack search-state awareness, i.e.,...",
+              "published": "2026-10-21T20:46:24+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-22",
+          "items": [
+            {
+              "sid": "590975aa217085b7",
+              "title": "DeepSeek vs Mistral Large 4 vs Cohere: 9x Price Gap [2026]",
+              "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPN1hlSUJENkV6eFRCbEVzMl8zU3p4YjBTQ1dra0RTU2QyWnh3ZlVYZDB6cUNqdXNtUjFDZFZNYkpIVy1DV0F6S0tNdXpFZ3BkMWZLYXZaZ3VOUkczanNSS2RDUkZYWmhqUVZwRXhPaHB5LTc1dDVRM3IxSjBGNnl4djlEV2NCeV9uVWh5UWN5VQ?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek vs Mistral Large 4 vs Cohere: 9x Price Gap [2026] tech-insider.org",
+              "published": "2026-10-22T00:44:58+00:00"
+            },
+            {
+              "sid": "8debe4581e047c88",
+              "title": "Spectral Smoothing and Spiking Perturbations Reconfigure Capability Profiles and Selective Task Performance in Large Language Models",
+              "url": "http://arxiv.org/abs/2610.30676v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Singular-value spectra encode important structure in transformer feed-forward projections, yet their causal role in downstream behavior remains underexplored. We study post-hoc spectral smoothing and spiking intervent...",
+              "published": "2026-10-22T03:42:07+00:00"
+            },
+            {
+              "sid": "f07fa8132755e14c",
+              "title": "Parameter-Efficient Adaptation of Large Language Models to a Low-Resource Agglutinative Language: A Corpus, Datasets, and a Reproducible Benchmark for the Bashkir Language",
+              "url": "http://arxiv.org/abs/2610.31397v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Bashkir is a low-resource agglutinative language written in Cyrillic and remains poorly represented in modern LLMs. We present an open resource suite and a systematic benchmark of adaptation methods: the Bashkir Web C...",
+              "published": "2026-10-22T14:59:55+00:00"
+            },
+            {
+              "sid": "c888971c48a268c3",
+              "title": "An Empirical Study of Recent Large Language Models for Knowledge Graph to Text Generation on Standard Benchmarks",
+              "url": "http://arxiv.org/abs/2610.31529v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Knowledge graph-to-text (KG-to-text) generation verbalizes a set of knowledge graph triples into fluent natural language. While fine-tuned encoder-decoder models have long been the standard approach, recent LLMs are b...",
+              "published": "2026-10-22T16:36:35+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-26",
+          "items": [
+            {
+              "sid": "5f97c21b490b1ce9",
+              "title": "LongSearchEval: Evaluating Long-Horizon Web Search Capabilities of Large Language Models via a Trajectory-Aware Agent Framework with Failure-Node Localization",
+              "url": "http://arxiv.org/abs/2610.35150v1",
+              "source": "arxiv_agent_systems_research",
+              "type": "paper",
+              "summary_1line": "Long-horizon web search requires LLM-based agents to integrate information across web pages through extended interactions under task-specific constraints. Evaluating this capability is important not only for measuring...",
+              "published": "2026-10-26T10:15:38+00:00"
+            },
+            {
+              "sid": "d5cd3db9b5f4a99b",
+              "title": "CANS: Capability-Preserving Neuron Steering for Large Language Models",
+              "url": "http://arxiv.org/abs/2610.35530v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Activation steering offers training-free and dynamic control of target behaviors in large language models, but existing methods can impair general capabilities and require domain-specific intervention designs. We intr...",
+              "published": "2026-10-26T14:45:23+00:00"
+            },
+            {
+              "sid": "26fc92a7573c4011",
+              "title": "Evolve on Graph: Self-Evolving Knowledge Graph Reasoning without Question Annotations",
+              "url": "http://arxiv.org/abs/2610.35598v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Knowledge graphs (KGs) provide reliable external knowledge for multi-hop factual reasoning with large language models (LLMs), yet most KGs in real-world domains such as finance and industry lack question--answer (QA)...",
+              "published": "2026-10-26T15:23:04+00:00"
+            },
+            {
+              "sid": "a2f964aa6fcbf7ea",
+              "title": "Reva: Real-Time Vulnerability Detection through Contextual Probing of Large Language Models",
+              "url": "http://arxiv.org/abs/2610.35829v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "A vulnerability costs more to fix the later it is discovered. As coding agents generate code faster than developers can review it, software needs a first line of defense screening each new function in real time. LLM a...",
+              "published": "2026-10-26T17:50:09+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-27",
+          "items": [
+            {
+              "sid": "200271de2a2f52aa",
+              "title": "CAMR: Compatibility-Aware Memory Replay for Continual Learning in Large Language Models",
+              "url": "http://arxiv.org/abs/2610.36734v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Continual learning requires large language models to acquire new knowledge and capabilities while retaining what they have learned. Fine-tuning and replay support acquisition and retention, but deciding whether incomi...",
+              "published": "2026-10-27T06:52:54+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-29",
+          "items": [
+            {
+              "sid": "37f6c0c263213efd",
+              "title": "Day 0 support for Mistral Large 4 on vLLM",
+              "url": "https://vllm.ai/blog/2026-10-29-mistral-large-4",
+              "source": "vllm_blog",
+              "type": "news",
+              "summary_1line": "Day-0 vLLM support for Mistral Large 4 with sparse MLA, cross-layer KV sharing, DSpark speculative decoding, DCP/PCP long context and NIXL P/D on NVIDIA Blackwell.",
+              "published": "2026-10-29T00:00:00+00:00"
+            },
+            {
+              "sid": "b6b30743068c2627",
+              "title": "Welcome Le Chonk: Mistral Large 4 on Hugging Face",
+              "url": "https://huggingface.co/blog/mistral-large4",
+              "source": "huggingface_blog",
+              "type": "research",
+              "summary_1line": "Welcome Le Chonk: Mistral Large 4 on Hugging Face",
+              "published": "2026-10-29T00:00:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "token-efficiency",
+      "label": "Token Efficiency",
+      "item_count": 3,
+      "source_count": 3,
+      "day_count": 3,
+      "first_seen": "2026-10-14T09:00:00+00:00",
+      "last_updated": "2026-10-28T23:38:44+00:00",
+      "latest_title": "A Lisp coding agent is beating Codex in token efficiency by 10x",
+      "member_sids": [
+        "72f3ee5066aaa64d",
+        "ac57fbd36999bb7e",
+        "9f96f9f3a384b51e"
+      ],
+      "via_scout": false,
+      "has_narrative": false,
+      "needs_narrative": true,
+      "reason": "no_narrative",
+      "narrative_path": "data/storylines/narratives/token-efficiency.json",
+      "prior_narrative": null,
+      "timeline": [
+        {
+          "date": "2026-10-14",
+          "items": [
+            {
+              "sid": "72f3ee5066aaa64d",
+              "title": "Google Antigravity SDK Adds Local Model Support for Greater Token Efficiency and Code Privacy",
+              "url": "https://www.infoq.com/news/2026/10/antigravity-sdk-local-models/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
+              "type": "news",
+              "summary_1line": "Google has introduced support for local models in the Antigravity SDK, enabling developers to build and execute agentic workflows directly on their own machines, while retaining the flexibility to mix in cloud-based m...",
+              "published": "2026-10-14T09:00:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-23",
+          "items": [
+            {
+              "sid": "ac57fbd36999bb7e",
+              "title": "HarnessMM: Recursive Self-Improvement for Harness Token Efficiency",
+              "url": "http://arxiv.org/abs/2610.32813v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Agent harnesses repeatedly invoke reasoning after tool feedback, even when an earlier call has already fixed the next action. We introduce HarnessMM (Harness Minus Minus), a method for improving harness token efficien...",
+              "published": "2026-10-23T15:47:47+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-10-28",
+          "items": [
+            {
+              "sid": "9f96f9f3a384b51e",
+              "title": "A Lisp coding agent is beating Codex in token efficiency by 10x",
+              "url": "https://twitter.com/techfren/status/2115583260919202187",
+              "source": "hackernews_ai",
+              "type": "news",
+              "summary_1line": "A Lisp coding agent is beating Codex in token efficiency by 10x",
+              "published": "2026-10-28T23:38:44+00:00"
             }
           ]
         }
@@ -629,7 +1331,7 @@
     {
       "slug": "reinforcement-learning",
       "label": "Reinforcement Learning",
-      "item_count": 15,
+      "item_count": 16,
       "source_count": 7,
       "day_count": 8,
       "first_seen": "2026-10-12T21:41:50+00:00",
@@ -651,6 +1353,7 @@
         "c3af4f37e1c19b19",
         "868490bacebdc880",
         "c07d00b3f0a46112",
+        "d448a8af2a653453",
         "02ad246823185a44"
       ],
       "via_scout": false,
@@ -660,34 +1363,8 @@
       "narrative_path": "data/storylines/narratives/reinforcement-learning.json",
       "prior_narrative": {
         "slug": "reinforcement-learning",
-        "generated_at": "2026-10-28T00:13:34+00:00",
-        "covers_last_updated": "2026-10-26T16:25:05+00:00",
-        "covers_member_sids": [
-          "b508403b13597849",
-          "f3c8da2fe4584033",
-          "db03100b1bd7cd3e",
-          "afd320e7f42ef5bd",
-          "a00ad2ffbda7f2e9",
-          "276a486ae6eefe6b",
-          "352167f7ac41065b",
-          "40c644a15cb895a9",
-          "2b4f7152c682448f",
-          "453c138d9feefee3",
-          "8a41e1e41cbecfde",
-          "1e1ae7d5d09cb859",
-          "c3af4f37e1c19b19",
-          "868490bacebdc880",
-          "c07d00b3f0a46112"
-        ],
         "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has gathered a Qwen long-horizon agent report, an O-RAN benchmark, agentic-RL training papers, and AWS's SageMaker guide.",
-        "whats_new": "Oct 26: three arXiv papers turn RL on agent failures: MiRL targets terminal-agent misbehaviors, CalibraRL targets RAG hallucinations, and a video-editing study shows fine-grained credit can hurt.",
-        "why_it_matters": "The newest papers frame RL as a reliability tool: train against named failures (MiRL), reward calibrated abstention (CalibraRL), and test whether per-step credit helps (it can hurt). All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
-        "status": {
-          "state": "Developing",
-          "tone": "rising",
-          "changed": "2026-10-26",
-          "detail": "A loose set of RL items; the newest aim RL at agent reliability and credit-assignment limits."
-        },
+        "why_it_matters": "Agent RL is now judged on cost and reliability: EnvSched and calibrated budgets (Oct 20) target rollout spend, while MiRL and CalibraRL target named failures. All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
         "beats": [
           {
             "kicker": "AGENTS",
@@ -733,14 +1410,23 @@
             ]
           },
           {
-            "kicker": "NOW",
-            "tone": "now",
+            "kicker": "RELIABILITY",
+            "tone": "turn",
             "headline": "Reliability turn: calibrated rewards, credit-assignment limits, error-targeted agent fixes",
             "summary": "Oct 26: three arXiv papers aim RL at hallucination, when fine-grained credit hurts, and terminal-agent misbehavior.",
             "sids": [
               "c3af4f37e1c19b19",
               "868490bacebdc880",
               "c07d00b3f0a46112"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "EnvSched: environment-aware scheduling for rollout-efficient agent RL",
+            "summary": "Oct 27: rollout generation and verification cost becomes the target as executable environments scale.",
+            "sids": [
+              "02ad246823185a44"
             ]
           }
         ],
@@ -749,10 +1435,10 @@
           "Does Qwen publish QwenGyre weights, code, or benchmarks that show the elastic RL gain on long-horizon agent tasks?",
           "Does the SageMaker MTRL recipe carry from Wordle to tool-using agent tasks, and at what training cost?",
           "Does twin-world credit assignment improve agent training on benchmarks beyond the paper's own?",
-          "Does rounding-location alignment stabilize RL training outside the paper's own setups?",
-          "Do MiRL's error-targeted fixes hold on terminal-agent tasks outside the paper's own benchmark?"
+          "Do MiRL's error-targeted fixes hold on terminal-agent tasks outside the paper's own benchmark?",
+          "Does EnvSched's scheduling gain hold on agent-RL benchmarks beyond the paper's own, and with which environment mixes?"
         ],
-        "take_for_builders": "If you train tool-using agents, log recurring failure modes and test error-targeted RL (MiRL) against them, and A/B fine-grained credit assignment against episode-level reward before adopting it; treat paper results as unreplicated until you rerun them on your own evals.",
+        "take_for_builders": "If you train tool-using agents, measure rollout cost per environment (EnvSched, calibrated budgets), log recurring failure modes for error-targeted RL (MiRL), and A/B fine-grained credit against episode-level reward; treat paper results as unreplicated until rerun on your own evals.",
         "day_captions": {
           "b508403b13597849": "MarkTechPost's summary of Qwen's elastic RL approach for extra-long-horizon agents.",
           "db03100b1bd7cd3e": "arXiv benchmark for RL in agentic O-RAN controllers; the only telecom-domain item.",
@@ -767,7 +1453,35 @@
           "2b4f7152c682448f": "GRPO token-level credit from reward-model gradients, replacing one shared response-level advantage.",
           "c3af4f37e1c19b19": "Confidence-calibrated RL rewards to cut RAG hallucinations while allowing abstention.",
           "868490bacebdc880": "Finds fine-grained credit assignment can help or hurt multimodal agents, tested on video editing.",
-          "c07d00b3f0a46112": "Newest: identifies specific terminal-agent misbehaviors, trains against them, and checks they are fixed."
+          "c07d00b3f0a46112": "Identifies specific terminal-agent misbehaviors, trains against them, and checks they are fixed.",
+          "02ad246823185a44": "Newest: schedules environments under finite rollout budgets, the second rollout-cost paper after Oct 20's calibrated budgets."
+        },
+        "generated_at": "2026-10-29T00:13:06+00:00",
+        "covers_last_updated": "2026-10-27T17:38:52+00:00",
+        "covers_member_sids": [
+          "b508403b13597849",
+          "db03100b1bd7cd3e",
+          "afd320e7f42ef5bd",
+          "a00ad2ffbda7f2e9",
+          "276a486ae6eefe6b",
+          "352167f7ac41065b",
+          "40c644a15cb895a9",
+          "2b4f7152c682448f",
+          "453c138d9feefee3",
+          "8a41e1e41cbecfde",
+          "1e1ae7d5d09cb859",
+          "c3af4f37e1c19b19",
+          "868490bacebdc880",
+          "c07d00b3f0a46112",
+          "02ad246823185a44",
+          "f3c8da2fe4584033"
+        ],
+        "whats_new": "Oct 27: EnvSched, an arXiv paper, schedules environments under a fixed rollout budget to cut agent-RL rollout generation and verification cost.",
+        "status": {
+          "state": "Developing",
+          "tone": "rising",
+          "changed": "2026-10-27",
+          "detail": "A loose set of RL items; the newest aim at rollout cost, agent reliability and credit-assignment limits."
         }
       },
       "timeline": [
@@ -936,6 +1650,15 @@
           "date": "2026-10-27",
           "items": [
             {
+              "sid": "d448a8af2a653453",
+              "title": "CoHARL: Co-Evolving Agent Policies and Executable Harnesses with Reinforcement Learning",
+              "url": "http://arxiv.org/abs/2610.36469v1",
+              "source": "arxiv_agent_systems_research",
+              "type": "paper",
+              "summary_1line": "Large language model (LLM) agents interact with their environments through executable harnesses that govern tool use and feedback. Optimizing a harness for a fixed policy overlooks how its behavior changes during lear...",
+              "published": "2026-10-27T01:25:26+00:00"
+            },
+            {
               "sid": "02ad246823185a44",
               "title": "EnvSched: Environment-Aware Scheduling for Rollout-Efficient Agent Reinforcement Learning",
               "url": "http://arxiv.org/abs/2610.37609v1",
@@ -943,631 +1666,6 @@
               "type": "paper",
               "summary_1line": "As executable environments for language agents scale, generating and verifying their rollouts becomes increasingly expensive. Under finite rollout budgets, this raises an important question: can data management at the...",
               "published": "2026-10-27T17:38:52+00:00"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "long-term-memory",
-      "label": "Long-term Memory",
-      "item_count": 3,
-      "source_count": 2,
-      "day_count": 3,
-      "first_seen": "2026-10-11T01:02:14+00:00",
-      "last_updated": "2026-10-27T15:51:42+00:00",
-      "latest_title": "ETAMem: Decoupling and Aligning Heterogeneous Memory for Long-Term Conversational Agents",
-      "member_sids": [
-        "ed432b017107d755",
-        "db79b7b839ad79f4",
-        "caaf392509c9e434"
-      ],
-      "via_scout": false,
-      "has_narrative": true,
-      "needs_narrative": true,
-      "reason": "stale",
-      "narrative_path": "data/storylines/narratives/long-term-memory.json",
-      "prior_narrative": {
-        "slug": "long-term-memory",
-        "generated_at": "2026-10-11T05:10:00+00:00",
-        "covers_last_updated": "2026-10-11T01:02:14+00:00",
-        "covers_member_sids": [
-          "e1b58c64b7362aaf",
-          "7866a5b7fe98e94b",
-          "ed432b017107d755"
-        ],
-        "tldr": "A Sep 22 post asked how to evaluate agent memory beyond the context window. PACMI (Oct 5) then shifted the focus to keeping memory correct by invalidating stale entries.",
-        "whats_new": "An open-source repo (Oct 11) stores coding-agent long-term memory as a tree of plain files, a simple alternative to a dedicated memory service.",
-        "why_it_matters": "Agents that persist memory across sessions need an update and invalidation policy, not only a retrieval layer; plain-file stores make that state inspectable and diffable, but give you no invalidation for free.",
-        "status": {
-          "state": "Developing",
-          "tone": "rising",
-          "changed": "2026-10-11",
-          "detail": "Memory work spans evaluation, invalidation research, and lightweight file-based implementations for coding agents."
-        },
-        "beats": [
-          {
-            "kicker": "EVALUATION",
-            "tone": "launch",
-            "headline": "A benchmark post asks how to evaluate memory beyond context windows",
-            "sids": [
-              "e1b58c64b7362aaf"
-            ]
-          },
-          {
-            "kicker": "CORRECTNESS",
-            "tone": "rising",
-            "headline": "PACMI cascades invalidation through provenance-linked memories",
-            "summary": "Targets memories that become outdated as new observations arrive.",
-            "sids": [
-              "7866a5b7fe98e94b"
-            ]
-          },
-          {
-            "kicker": "NOW",
-            "tone": "now",
-            "headline": "Coding-agent memory as a tree of plain files",
-            "summary": "An open-source repo implements long-term memory without a dedicated store.",
-            "sids": [
-              "ed432b017107d755"
-            ]
-          }
-        ],
-        "open_questions": [
-          "Does PACMI's invalidation cascade hold up on an independent long-horizon agent benchmark?",
-          "Will any file-based memory store publish results on stale-memory handling?"
-        ],
-        "take_for_builders": "If your agent persists memory across sessions, record where each memory came from and test that correcting one fact also retires memories derived from it, whatever the storage backend.",
-        "day_captions": {
-          "e1b58c64b7362aaf": "Frames evaluation of long-term agent memory, a gap retrieval-only tests leave open.",
-          "7866a5b7fe98e94b": "Adds provenance-aware invalidation for memories that go stale.",
-          "ed432b017107d755": "A file-tree implementation of long-term memory for coding agents."
-        }
-      },
-      "timeline": [
-        {
-          "date": "2026-10-11",
-          "items": [
-            {
-              "sid": "ed432b017107d755",
-              "title": "Long-term memory for AI coding agents as a tree of plain files",
-              "url": "https://github.com/gonzaroman/IHMT-MEMORY",
-              "source": "hackernews_ai",
-              "type": "news",
-              "summary_1line": "Long-term memory for AI coding agents as a tree of plain files",
-              "published": "2026-10-11T01:02:14+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-23",
-          "items": [
-            {
-              "sid": "db79b7b839ad79f4",
-              "title": "ActionRAG: Evidence-Refining Graph Diffusion for Long-Term Memory in LLM Agents",
-              "url": "http://arxiv.org/abs/2610.32752v1",
-              "source": "arxiv_cs_cl",
-              "type": "paper",
-              "summary_1line": "LLM agents need long-term memory that can recover precise and mutually consistent evidence from growing interaction histories, particularly when answers depend on relations among facts rather than isolated semantic ma...",
-              "published": "2026-10-23T14:59:37+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-27",
-          "items": [
-            {
-              "sid": "caaf392509c9e434",
-              "title": "ETAMem: Decoupling and Aligning Heterogeneous Memory for Long-Term Conversational Agents",
-              "url": "http://arxiv.org/abs/2610.37443v1",
-              "source": "arxiv_cs_cl",
-              "type": "paper",
-              "summary_1line": "Long-term memory enables Large Language Models (LLMs) to maintain coherent and personalized interactions across extended conversations. However, existing memory systems face two key challenges: (1) Information Entangl...",
-              "published": "2026-10-27T15:51:42+00:00"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "multimodal-document",
-      "label": "Multimodal Document",
-      "item_count": 3,
-      "source_count": 3,
-      "day_count": 2,
-      "first_seen": "2026-10-09T07:21:36+00:00",
-      "last_updated": "2026-10-27T09:53:21+00:00",
-      "latest_title": "DocXEval: A Systematic Evaluation of Explainability in Multimodal Document Understanding",
-      "member_sids": [
-        "fd7cd167364e497d",
-        "9ab63498f33996c4",
-        "52897c76c61a9c65"
-      ],
-      "via_scout": false,
-      "has_narrative": false,
-      "needs_narrative": true,
-      "reason": "no_narrative",
-      "narrative_path": "data/storylines/narratives/multimodal-document.json",
-      "prior_narrative": null,
-      "timeline": [
-        {
-          "date": "2026-10-09",
-          "items": [
-            {
-              "sid": "fd7cd167364e497d",
-              "title": "Locate, Judge, Read: Role-Specialized Tool Agents over a Knowledge-Point Index for Open-Domain Multimodal Document QA",
-              "url": "http://arxiv.org/abs/2610.13128v1",
-              "source": "arxiv_cs_ai",
-              "type": "paper",
-              "summary_1line": "Question answering over large heterogeneous document collections requires first finding the right passages and then reading them, yet current retrieval-augmented agents give one model both kinds of tools and let it sc...",
-              "published": "2026-10-09T07:21:36+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-27",
-          "items": [
-            {
-              "sid": "9ab63498f33996c4",
-              "title": "RouteDRAG: Learning to Route and Control Agentic Execution for Multimodal Document RAG",
-              "url": "http://arxiv.org/abs/2610.36444v1",
-              "source": "arxiv_agent_systems_research",
-              "type": "paper",
-              "summary_1line": "Web-based applications increasingly rely on understanding long multimodal documents, where answering questions often requires combining information across pages, tables, and figures. Agentic retrieval-augmented genera...",
-              "published": "2026-10-27T00:45:49+00:00"
-            },
-            {
-              "sid": "52897c76c61a9c65",
-              "title": "DocXEval: A Systematic Evaluation of Explainability in Multimodal Document Understanding",
-              "url": "http://arxiv.org/abs/2610.36929v1",
-              "source": "arxiv_cs_cl",
-              "type": "paper",
-              "summary_1line": "Multimodal transformer models have driven unprecedented performance breakthroughs in modern document understanding. However, the inherent black-box nature of these models remains a major obstacle to their safe deploym...",
-              "published": "2026-10-27T09:53:21+00:00"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "reasoning-question",
-      "label": "Reasoning Question",
-      "item_count": 3,
-      "source_count": 2,
-      "day_count": 3,
-      "first_seen": "2026-10-23T09:50:37+00:00",
-      "last_updated": "2026-10-27T07:14:59+00:00",
-      "latest_title": "DocSkill: Skill-Integrated Agentic Reasoning for Multilingual Multi-Hop Document Question Answering",
-      "member_sids": [
-        "1846766ba5a6742d",
-        "26fc92a7573c4011",
-        "334116357c766a21"
-      ],
-      "via_scout": false,
-      "has_narrative": false,
-      "needs_narrative": true,
-      "reason": "no_narrative",
-      "narrative_path": "data/storylines/narratives/reasoning-question.json",
-      "prior_narrative": null,
-      "timeline": [
-        {
-          "date": "2026-10-23",
-          "items": [
-            {
-              "sid": "1846766ba5a6742d",
-              "title": "Cycle-of-Thought: Self-Evaluative Iterative Reasoning for Table Visual Question Answering in Document Images",
-              "url": "http://arxiv.org/abs/2610.32423v1",
-              "source": "arxiv_llm_reliability",
-              "type": "paper",
-              "summary_1line": "Recent advances in Vision-Language Models (VLMs) have significantly improved Visual Question Answering (VQA) performance, yet their reasoning over structured content such as tables remains inconsistent, often plagued...",
-              "published": "2026-10-23T09:50:37+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-26",
-          "items": [
-            {
-              "sid": "26fc92a7573c4011",
-              "title": "Evolve on Graph: Self-Evolving Knowledge Graph Reasoning without Question Annotations",
-              "url": "http://arxiv.org/abs/2610.35598v1",
-              "source": "arxiv_llm_reliability",
-              "type": "paper",
-              "summary_1line": "Knowledge graphs (KGs) provide reliable external knowledge for multi-hop factual reasoning with large language models (LLMs), yet most KGs in real-world domains such as finance and industry lack question--answer (QA)...",
-              "published": "2026-10-26T15:23:04+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-27",
-          "items": [
-            {
-              "sid": "334116357c766a21",
-              "title": "DocSkill: Skill-Integrated Agentic Reasoning for Multilingual Multi-Hop Document Question Answering",
-              "url": "http://arxiv.org/abs/2610.36759v1",
-              "source": "arxiv_agent_systems_research",
-              "type": "paper",
-              "summary_1line": "Multilingual multi-hop document question answering (MMHop-DocQA) requires locating and integrating evidence across complex layouts, document pages, and diverse languages. Existing approaches include single-pass proces...",
-              "published": "2026-10-27T07:14:59+00:00"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "large-language",
-      "label": "Large Language",
-      "item_count": 15,
-      "source_count": 6,
-      "day_count": 8,
-      "first_seen": "2026-10-09T11:00:00+00:00",
-      "last_updated": "2026-10-27T06:52:54+00:00",
-      "latest_title": "CAMR: Compatibility-Aware Memory Replay for Continual Learning in Large Language Models",
-      "member_sids": [
-        "13307002442ed537",
-        "52d729da63596a31",
-        "f0fd06585d59dd3d",
-        "ade0f523550f640a",
-        "06d8677dec3b3c21",
-        "16071b3c73317004",
-        "276a486ae6eefe6b",
-        "8debe4581e047c88",
-        "f07fa8132755e14c",
-        "c888971c48a268c3",
-        "5f97c21b490b1ce9",
-        "d5cd3db9b5f4a99b",
-        "26fc92a7573c4011",
-        "a2f964aa6fcbf7ea",
-        "200271de2a2f52aa"
-      ],
-      "via_scout": false,
-      "has_narrative": true,
-      "needs_narrative": true,
-      "reason": "stale",
-      "narrative_path": "data/storylines/narratives/large-language.json",
-      "prior_narrative": {
-        "slug": "large-language",
-        "generated_at": "2026-10-28T00:13:33.919357+00:00",
-        "covers_last_updated": "2026-10-26T17:50:09+00:00",
-        "covers_member_sids": [
-          "13307002442ed537",
-          "52d729da63596a31",
-          "f0fd06585d59dd3d",
-          "ade0f523550f640a",
-          "06d8677dec3b3c21",
-          "16071b3c73317004",
-          "276a486ae6eefe6b",
-          "8debe4581e047c88",
-          "f07fa8132755e14c",
-          "c888971c48a268c3",
-          "5f97c21b490b1ce9",
-          "d5cd3db9b5f4a99b",
-          "26fc92a7573c4011",
-          "a2f964aa6fcbf7ea"
-        ],
-        "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 9-22 items cover knowledge graphs, sycophancy, code-translation hallucinations, search agents, and spectral edits.",
-        "whats_new": "Oct 26 adds a long-horizon web-search benchmark with failure-node localization, a neuron-steering method, self-evolving KG reasoning, and Reva, a real-time vulnerability detector for generated code.",
-        "why_it_matters": "Treat this as a reading list, not a thread. For platform engineers the useful items are LongSearchEval (agent failure localization) and Reva (screening agent-written code), plus the code-translation hallucination catalog.",
-        "beats": [
-          {
-            "kicker": "KNOWLEDGE GRAPHS",
-            "tone": "neutral",
-            "headline": "Knowledge graphs applied to observability, legal reasoning and secure code",
-            "sids": [
-              "13307002442ed537",
-              "52d729da63596a31",
-              "f0fd06585d59dd3d"
-            ]
-          },
-          {
-            "kicker": "BEHAVIOR",
-            "tone": "neutral",
-            "headline": "Narrative-induced sycophancy evaluated in LLMs",
-            "sids": [
-              "ade0f523550f640a"
-            ]
-          },
-          {
-            "kicker": "RELIABILITY",
-            "tone": "launch",
-            "headline": "Hallucinations in cross-language code translation, with mitigations",
-            "sids": [
-              "06d8677dec3b3c21"
-            ]
-          },
-          {
-            "kicker": "AGENTS AND DOMAINS",
-            "tone": "neutral",
-            "headline": "Search-state awareness for RAG agents, and LLM materials-data extraction",
-            "sids": [
-              "16071b3c73317004",
-              "276a486ae6eefe6b"
-            ]
-          },
-          {
-            "kicker": "OCT 22",
-            "tone": "neutral",
-            "headline": "Spectral interventions, KG-to-text benchmarking and Bashkir adaptation",
-            "sids": [
-              "8debe4581e047c88",
-              "c888971c48a268c3",
-              "f07fa8132755e14c"
-            ]
-          },
-          {
-            "kicker": "NOW",
-            "tone": "now",
-            "headline": "Oct 26: long-horizon search evals, capability-preserving steering and real-time vulnerability screening",
-            "sids": [
-              "5f97c21b490b1ce9",
-              "d5cd3db9b5f4a99b",
-              "26fc92a7573c4011",
-              "a2f964aa6fcbf7ea"
-            ]
-          }
-        ],
-        "open_questions": [
-          "Does independent replication confirm the spectral-intervention capability shifts?",
-          "Do the code-translation mitigations hold on languages outside the paper's test set?",
-          "Does Reva's real-time screening keep false positives low enough to gate agent-written code?",
-          "Does CANS steering preserve general capability on models beyond those it was tested on?"
-        ],
-        "take_for_builders": "If you run coding agents, read Reva and check whether per-function vulnerability screening could sit before review; if you run search agents, try LongSearchEval's failure-node localization on your traces. Skip the rest unless it matches your domain.",
-        "day_captions": {
-          "13307002442ed537": "Netflix's ontology-driven observability graph at 38M events/sec.",
-          "52d729da63596a31": "Knowledge-graph-guided pre-training for legal reasoning.",
-          "f0fd06585d59dd3d": "Agentic KG retrieval to reduce insecure generated code.",
-          "ade0f523550f640a": "Shows user backstories push models toward sycophancy.",
-          "06d8677dec3b3c21": "Catalogs hallucinations in cross-language code translation.",
-          "16071b3c73317004": "Survey of ML and LLM extraction of materials data.",
-          "276a486ae6eefe6b": "Self-assessment RL so search agents track what they already found.",
-          "8debe4581e047c88": "Probes how editing singular-value spectra shifts task performance.",
-          "c888971c48a268c3": "Compares recent LLMs with fine-tuned encoder-decoders on KG-to-text.",
-          "f07fa8132755e14c": "Open resources for adapting LLMs to low-resource Bashkir.",
-          "5f97c21b490b1ce9": "Benchmark that localizes the failing node in long-horizon web-search trajectories.",
-          "d5cd3db9b5f4a99b": "Training-free neuron steering aimed at not degrading general capability.",
-          "26fc92a7573c4011": "KG reasoning that self-evolves without question-answer annotations.",
-          "a2f964aa6fcbf7ea": "Real-time screening of each new function for vulnerabilities via contextual probing."
-        }
-      },
-      "timeline": [
-        {
-          "date": "2026-10-09",
-          "items": [
-            {
-              "sid": "13307002442ed537",
-              "title": "Presentation: Ontology‐Driven Observability: Building the E2E Knowledge Graph at Netflix Scale",
-              "url": "https://www.infoq.com/presentations/netflix-observability-aiops-ontology-scale/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-              "source": "infoq_ai_ml",
-              "type": "news",
-              "summary_1line": "Prasanna Vijayanathan and Renzo Sanchez-Silva share how Netflix tackles observability across 38M events/sec. They discuss replacing reactive monitoring with an AI-driven operational ontology and agentic workflows usin...",
-              "published": "2026-10-09T11:00:00+00:00"
-            },
-            {
-              "sid": "52d729da63596a31",
-              "title": "Enhancing Legal Reasoning in Pre-trained Language Models via Knowledge Graph-Guided Multi-Task Pre-training",
-              "url": "http://arxiv.org/abs/2610.13722v1",
-              "source": "arxiv_cs_cl",
-              "type": "paper",
-              "summary_1line": "Legal language understanding requires reasoning over semi-structured regulatory documents, yet standard pre-training objectives do not explicitly target this structural capability. Because current legal language model...",
-              "published": "2026-10-09T15:21:12+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-10",
-          "items": [
-            {
-              "sid": "f0fd06585d59dd3d",
-              "title": "SEEK: Agentic Knowledge Graph Retrieval for Secure Code Generation",
-              "url": "http://arxiv.org/abs/2610.14968v1",
-              "source": "arxiv_cs_lg",
-              "type": "paper",
-              "summary_1line": "Large Language Models (LLMs) can generate functionally correct code while introducing exploitable security weaknesses, particularly when developers specify functionality without explicit security requirements. Recent...",
-              "published": "2026-10-10T14:37:22+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-16",
-          "items": [
-            {
-              "sid": "ade0f523550f640a",
-              "title": "Trapped in Your Story: Evaluating Narrative-Induced Sycophancy in Large Language Models",
-              "url": "http://arxiv.org/abs/2610.23525v1",
-              "source": "arxiv_cs_ai",
-              "type": "paper",
-              "summary_1line": "Large language models (LLMs) are known to exhibit sycophancy by adjusting their responses toward users' expressed views. However, real users often justify their opinions through reasons, personal experiences, causal e...",
-              "published": "2026-10-16T14:26:44+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-20",
-          "items": [
-            {
-              "sid": "06d8677dec3b3c21",
-              "title": "Hallucinations of Large Language Models in Cross-Language Code Translation: Phenomena and Mitigation",
-              "url": "http://arxiv.org/abs/2610.27868v1",
-              "source": "arxiv_llm_reliability",
-              "type": "paper",
-              "summary_1line": "Code translation converts source code from one programming language to another while preserving its functionality. Although Large Language Models (LLMs) have improved code translation, their outputs still contain hall...",
-              "published": "2026-10-20T08:50:39+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-21",
-          "items": [
-            {
-              "sid": "16071b3c73317004",
-              "title": "Automated Materials Data and Knowledge Extraction using Machine Learning and Large Language Models",
-              "url": "http://arxiv.org/abs/2610.29895v1",
-              "source": "arxiv_agent_systems_research",
-              "type": "paper",
-              "summary_1line": "Over the past decade, substantial efforts have been devoted to developing machine learning (ML) methods for extracting materials data and, where possible, materials knowledge directly from the scientific literature. T...",
-              "published": "2026-10-21T15:38:05+00:00"
-            },
-            {
-              "sid": "276a486ae6eefe6b",
-              "title": "Self-Assessment Reinforcement Learning for Search-State Awareness in Retrieval-Augmented Large Language Models",
-              "url": "http://arxiv.org/abs/2610.30435v1",
-              "source": "arxiv_llm_reliability",
-              "type": "paper",
-              "summary_1line": "Recent advances in search agents have enabled large language models to tackle complex tasks by retrieving and synthesizing external information. However, existing search agents often lack search-state awareness, i.e.,...",
-              "published": "2026-10-21T20:46:24+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-22",
-          "items": [
-            {
-              "sid": "8debe4581e047c88",
-              "title": "Spectral Smoothing and Spiking Perturbations Reconfigure Capability Profiles and Selective Task Performance in Large Language Models",
-              "url": "http://arxiv.org/abs/2610.30676v1",
-              "source": "arxiv_llm_reliability",
-              "type": "paper",
-              "summary_1line": "Singular-value spectra encode important structure in transformer feed-forward projections, yet their causal role in downstream behavior remains underexplored. We study post-hoc spectral smoothing and spiking intervent...",
-              "published": "2026-10-22T03:42:07+00:00"
-            },
-            {
-              "sid": "f07fa8132755e14c",
-              "title": "Parameter-Efficient Adaptation of Large Language Models to a Low-Resource Agglutinative Language: A Corpus, Datasets, and a Reproducible Benchmark for the Bashkir Language",
-              "url": "http://arxiv.org/abs/2610.31397v1",
-              "source": "arxiv_cs_cl",
-              "type": "paper",
-              "summary_1line": "Bashkir is a low-resource agglutinative language written in Cyrillic and remains poorly represented in modern LLMs. We present an open resource suite and a systematic benchmark of adaptation methods: the Bashkir Web C...",
-              "published": "2026-10-22T14:59:55+00:00"
-            },
-            {
-              "sid": "c888971c48a268c3",
-              "title": "An Empirical Study of Recent Large Language Models for Knowledge Graph to Text Generation on Standard Benchmarks",
-              "url": "http://arxiv.org/abs/2610.31529v1",
-              "source": "arxiv_cs_cl",
-              "type": "paper",
-              "summary_1line": "Knowledge graph-to-text (KG-to-text) generation verbalizes a set of knowledge graph triples into fluent natural language. While fine-tuned encoder-decoder models have long been the standard approach, recent LLMs are b...",
-              "published": "2026-10-22T16:36:35+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-26",
-          "items": [
-            {
-              "sid": "5f97c21b490b1ce9",
-              "title": "LongSearchEval: Evaluating Long-Horizon Web Search Capabilities of Large Language Models via a Trajectory-Aware Agent Framework with Failure-Node Localization",
-              "url": "http://arxiv.org/abs/2610.35150v1",
-              "source": "arxiv_agent_systems_research",
-              "type": "paper",
-              "summary_1line": "Long-horizon web search requires LLM-based agents to integrate information across web pages through extended interactions under task-specific constraints. Evaluating this capability is important not only for measuring...",
-              "published": "2026-10-26T10:15:38+00:00"
-            },
-            {
-              "sid": "d5cd3db9b5f4a99b",
-              "title": "CANS: Capability-Preserving Neuron Steering for Large Language Models",
-              "url": "http://arxiv.org/abs/2610.35530v1",
-              "source": "arxiv_llm_reliability",
-              "type": "paper",
-              "summary_1line": "Activation steering offers training-free and dynamic control of target behaviors in large language models, but existing methods can impair general capabilities and require domain-specific intervention designs. We intr...",
-              "published": "2026-10-26T14:45:23+00:00"
-            },
-            {
-              "sid": "26fc92a7573c4011",
-              "title": "Evolve on Graph: Self-Evolving Knowledge Graph Reasoning without Question Annotations",
-              "url": "http://arxiv.org/abs/2610.35598v1",
-              "source": "arxiv_llm_reliability",
-              "type": "paper",
-              "summary_1line": "Knowledge graphs (KGs) provide reliable external knowledge for multi-hop factual reasoning with large language models (LLMs), yet most KGs in real-world domains such as finance and industry lack question--answer (QA)...",
-              "published": "2026-10-26T15:23:04+00:00"
-            },
-            {
-              "sid": "a2f964aa6fcbf7ea",
-              "title": "Reva: Real-Time Vulnerability Detection through Contextual Probing of Large Language Models",
-              "url": "http://arxiv.org/abs/2610.35829v1",
-              "source": "arxiv_cs_ai",
-              "type": "paper",
-              "summary_1line": "A vulnerability costs more to fix the later it is discovered. As coding agents generate code faster than developers can review it, software needs a first line of defense screening each new function in real time. LLM a...",
-              "published": "2026-10-26T17:50:09+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-27",
-          "items": [
-            {
-              "sid": "200271de2a2f52aa",
-              "title": "CAMR: Compatibility-Aware Memory Replay for Continual Learning in Large Language Models",
-              "url": "http://arxiv.org/abs/2610.36734v1",
-              "source": "arxiv_llm_reliability",
-              "type": "paper",
-              "summary_1line": "Continual learning requires large language models to acquire new knowledge and capabilities while retaining what they have learned. Fine-tuning and replay support acquisition and retention, but deciding whether incomi...",
-              "published": "2026-10-27T06:52:54+00:00"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "slug": "continual-learning",
-      "label": "Continual Learning",
-      "item_count": 3,
-      "source_count": 2,
-      "day_count": 3,
-      "first_seen": "2026-10-22T15:03:20+00:00",
-      "last_updated": "2026-10-27T06:52:54+00:00",
-      "latest_title": "CAMR: Compatibility-Aware Memory Replay for Continual Learning in Large Language Models",
-      "member_sids": [
-        "aed209b05e4ae391",
-        "55edc2615764e1b5",
-        "200271de2a2f52aa"
-      ],
-      "via_scout": false,
-      "has_narrative": false,
-      "needs_narrative": true,
-      "reason": "no_narrative",
-      "narrative_path": "data/storylines/narratives/continual-learning.json",
-      "prior_narrative": null,
-      "timeline": [
-        {
-          "date": "2026-10-22",
-          "items": [
-            {
-              "sid": "aed209b05e4ae391",
-              "title": "HERD: Harness-Evolving Recursive Distillation for Continual Learning",
-              "url": "http://arxiv.org/abs/2610.31401v1",
-              "source": "arxiv_cs_cl",
-              "type": "paper",
-              "summary_1line": "Continual learning requires a model to keep acquiring new skills and knowledge without compromising its existing capabilities. Parametric methods suffer from catastrophic forgetting and loss of plasticity. Non-paramet...",
-              "published": "2026-10-22T15:03:20+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-25",
-          "items": [
-            {
-              "sid": "55edc2615764e1b5",
-              "title": "Continual Learning Exam: Benchmarking Long-Horizon RSI and Experiential Learning in LLM Agents",
-              "url": "http://arxiv.org/abs/2610.33956v1",
-              "source": "arxiv_cs_cl",
-              "type": "paper",
-              "summary_1line": "Continual learning is the ability of LLM agents to improve over time by acquiring, refining, and applying knowledge from experience while retaining useful prior knowledge. It is essential for agents learning over long...",
-              "published": "2026-10-25T00:00:25+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-10-27",
-          "items": [
-            {
-              "sid": "200271de2a2f52aa",
-              "title": "CAMR: Compatibility-Aware Memory Replay for Continual Learning in Large Language Models",
-              "url": "http://arxiv.org/abs/2610.36734v1",
-              "source": "arxiv_llm_reliability",
-              "type": "paper",
-              "summary_1line": "Continual learning requires large language models to acquire new knowledge and capabilities while retaining what they have learned. Fine-tuning and replay support acquisition and retention, but deciding whether incomi...",
-              "published": "2026-10-27T06:52:54+00:00"
             }
           ]
         }

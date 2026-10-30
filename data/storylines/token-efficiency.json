@@ -1,0 +1,138 @@
+{
+ "slug": "token-efficiency",
+ "label": "Token Efficiency",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-10-14T09:00:00+00:00",
+ "last_updated": "2026-10-28T23:38:44+00:00",
+ "generated_at": "2026-10-30T00:12:48.475117+00:00",
+ "sources": [
+  "arxiv_cs_ai",
+  "hackernews_ai",
+  "infoq_ai_ml"
+ ],
+ "days": [
+  {
+   "date": "2026-10-14",
+   "items": [
+    {
+     "title": "Google Antigravity SDK Adds Local Model Support for Greater Token Efficiency and Code Privacy",
+     "url": "https://www.infoq.com/news/2026/10/antigravity-sdk-local-models/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "Google has introduced support for local models in the Antigravity SDK, enabling developers to build and execute agentic workflows directly on their own machines, while retaining the flexibility to mix in cloud-based m...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "72f3ee5066aaa64d",
+     "published": "2026-10-14T09:00:00+00:00",
+     "editor_note": "Frames local execution as a token-efficiency and code-privacy option for agent SDKs."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-23",
+   "items": [
+    {
+     "title": "HarnessMM: Recursive Self-Improvement for Harness Token Efficiency",
+     "url": "http://arxiv.org/abs/2610.32813v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Agent harnesses repeatedly invoke reasoning after tool feedback, even when an earlier call has already fixed the next action. We introduce HarnessMM (Harness Minus Minus), a method for improving harness token efficien...",
+     "why_it_matters": "Matches feed focus: agent, harness, eval.",
+     "sid": "ac57fbd36999bb7e",
+     "published": "2026-10-23T15:47:47+00:00",
+     "editor_note": "Moves the efficiency question from the model to harness control flow."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-28",
+   "items": [
+    {
+     "title": "A Lisp coding agent is beating Codex in token efficiency by 10x",
+     "url": "https://twitter.com/techfren/status/2115583260919202187",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "A Lisp coding agent is beating Codex in token efficiency by 10x",
+     "why_it_matters": "Matches feed focus: agent, codex.",
+     "sid": "9f96f9f3a384b51e",
+     "published": "2026-10-28T23:38:44+00:00",
+     "editor_note": "Adds a 10x efficiency claim versus Codex, unverified in the cited item."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Google's Antigravity SDK added local-model support on Oct 14, pitched as a token-efficiency and code-privacy gain. A paper on Oct 23 then targeted the harness itself, where reasoning is re-invoked after tool feedback even when the next action is already fixed.",
+  "stale": false,
+  "whats_new": "A Hacker News post on Oct 28 claims a Lisp coding agent beats Codex by 10x on token efficiency; the claim is unverified and the linked source is a social post.",
+  "why_it_matters": "Agent token spend is shifting from model choice to harness design: how often the loop re-invokes reasoning and whether work runs locally.",
+  "take_for_builders": "Log tokens per completed task in your own harness and test whether skipping a reasoning call after tool output changes success rate before trusting any vendor or social-media multiplier.",
+  "status": {
+   "state": "Developing",
+   "tone": "rising",
+   "changed": "2026-10-28",
+   "detail": "Three loosely related items; only one is a peer-style method, and the latest 10x claim lacks published methodology in the bundle.",
+   "track": [
+    {
+     "label": "local models",
+     "detail": "Oct 14",
+     "tone": "launch",
+     "weight": 30
+    },
+    {
+     "label": "harness method",
+     "detail": "Oct 23",
+     "tone": "rising",
+     "weight": 40
+    },
+    {
+     "label": "10x claim",
+     "detail": "Oct 28",
+     "tone": "now",
+     "weight": 30
+    }
+   ]
+  },
+  "beats": [
+   {
+    "kicker": "LAUNCH",
+    "tone": "launch",
+    "headline": "Antigravity SDK adds local model support",
+    "summary": "Agentic workflows can run on the developer's machine, with cloud models mixable in.",
+    "sids": [
+     "72f3ee5066aaa64d"
+    ]
+   },
+   {
+    "kicker": "METHOD",
+    "tone": "rising",
+    "headline": "HarnessMM cuts redundant reasoning calls in agent harnesses",
+    "summary": "Targets re-invocation of reasoning after tool feedback when the next action is already determined.",
+    "sids": [
+     "ac57fbd36999bb7e"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Lisp coding agent claims 10x token efficiency over Codex",
+    "summary": "A social-media claim surfaced on Hacker News, with no benchmark details in the feed item.",
+    "sids": [
+     "9f96f9f3a384b51e"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does the Lisp agent's 10x figure come with a published task set and token-counting method?",
+   "Does HarnessMM report token savings on a public coding-agent benchmark, and at what accuracy cost?",
+   "Does Antigravity publish token or cost comparisons between local and cloud models?"
+  ],
+  "provenance": {
+   "9f96f9f3a384b51e": {
+    "status_update": true
+   }
+  },
+  "generated_at": "2026-10-30T00:30:00+00:00"
+ }
+}

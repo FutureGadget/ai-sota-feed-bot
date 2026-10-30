@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-29T00:12:27.462306+00:00",
+  "generated_at": "2026-10-30T00:11:34.874024+00:00",
   "window_days": 21,
   "storyline": {
     "slug": "reinforcement-learning",
     "label": "Reinforcement Learning",
-    "item_count": 15,
+    "item_count": 16,
     "source_count": 7,
     "day_count": 8,
     "first_seen": "2026-10-12T21:41:50+00:00",
@@ -26,6 +26,7 @@
       "c3af4f37e1c19b19",
       "868490bacebdc880",
       "c07d00b3f0a46112",
+      "d448a8af2a653453",
       "02ad246823185a44"
     ],
     "via_scout": false,
@@ -35,34 +36,8 @@
     "narrative_path": "data/storylines/narratives/reinforcement-learning.json",
     "prior_narrative": {
       "slug": "reinforcement-learning",
-      "generated_at": "2026-10-28T00:13:34+00:00",
-      "covers_last_updated": "2026-10-26T16:25:05+00:00",
-      "covers_member_sids": [
-        "b508403b13597849",
-        "f3c8da2fe4584033",
-        "db03100b1bd7cd3e",
-        "afd320e7f42ef5bd",
-        "a00ad2ffbda7f2e9",
-        "276a486ae6eefe6b",
-        "352167f7ac41065b",
-        "40c644a15cb895a9",
-        "2b4f7152c682448f",
-        "453c138d9feefee3",
-        "8a41e1e41cbecfde",
-        "1e1ae7d5d09cb859",
-        "c3af4f37e1c19b19",
-        "868490bacebdc880",
-        "c07d00b3f0a46112"
-      ],
       "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has gathered a Qwen long-horizon agent report, an O-RAN benchmark, agentic-RL training papers, and AWS's SageMaker guide.",
-      "whats_new": "Oct 26: three arXiv papers turn RL on agent failures: MiRL targets terminal-agent misbehaviors, CalibraRL targets RAG hallucinations, and a video-editing study shows fine-grained credit can hurt.",
-      "why_it_matters": "The newest papers frame RL as a reliability tool: train against named failures (MiRL), reward calibrated abstention (CalibraRL), and test whether per-step credit helps (it can hurt). All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
-      "status": {
-        "state": "Developing",
-        "tone": "rising",
-        "changed": "2026-10-26",
-        "detail": "A loose set of RL items; the newest aim RL at agent reliability and credit-assignment limits."
-      },
+      "why_it_matters": "Agent RL is now judged on cost and reliability: EnvSched and calibrated budgets (Oct 20) target rollout spend, while MiRL and CalibraRL target named failures. All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
       "beats": [
         {
           "kicker": "AGENTS",
@@ -108,14 +83,23 @@
           ]
         },
         {
-          "kicker": "NOW",
-          "tone": "now",
+          "kicker": "RELIABILITY",
+          "tone": "turn",
           "headline": "Reliability turn: calibrated rewards, credit-assignment limits, error-targeted agent fixes",
           "summary": "Oct 26: three arXiv papers aim RL at hallucination, when fine-grained credit hurts, and terminal-agent misbehavior.",
           "sids": [
             "c3af4f37e1c19b19",
             "868490bacebdc880",
             "c07d00b3f0a46112"
+          ]
+        },
+        {
+          "kicker": "NOW",
+          "tone": "now",
+          "headline": "EnvSched: environment-aware scheduling for rollout-efficient agent RL",
+          "summary": "Oct 27: rollout generation and verification cost becomes the target as executable environments scale.",
+          "sids": [
+            "02ad246823185a44"
           ]
         }
       ],
@@ -124,10 +108,10 @@
         "Does Qwen publish QwenGyre weights, code, or benchmarks that show the elastic RL gain on long-horizon agent tasks?",
         "Does the SageMaker MTRL recipe carry from Wordle to tool-using agent tasks, and at what training cost?",
         "Does twin-world credit assignment improve agent training on benchmarks beyond the paper's own?",
-        "Does rounding-location alignment stabilize RL training outside the paper's own setups?",
-        "Do MiRL's error-targeted fixes hold on terminal-agent tasks outside the paper's own benchmark?"
+        "Do MiRL's error-targeted fixes hold on terminal-agent tasks outside the paper's own benchmark?",
+        "Does EnvSched's scheduling gain hold on agent-RL benchmarks beyond the paper's own, and with which environment mixes?"
       ],
-      "take_for_builders": "If you train tool-using agents, log recurring failure modes and test error-targeted RL (MiRL) against them, and A/B fine-grained credit assignment against episode-level reward before adopting it; treat paper results as unreplicated until you rerun them on your own evals.",
+      "take_for_builders": "If you train tool-using agents, measure rollout cost per environment (EnvSched, calibrated budgets), log recurring failure modes for error-targeted RL (MiRL), and A/B fine-grained credit against episode-level reward; treat paper results as unreplicated until rerun on your own evals.",
       "day_captions": {
         "b508403b13597849": "MarkTechPost's summary of Qwen's elastic RL approach for extra-long-horizon agents.",
         "db03100b1bd7cd3e": "arXiv benchmark for RL in agentic O-RAN controllers; the only telecom-domain item.",
@@ -142,7 +126,35 @@
         "2b4f7152c682448f": "GRPO token-level credit from reward-model gradients, replacing one shared response-level advantage.",
         "c3af4f37e1c19b19": "Confidence-calibrated RL rewards to cut RAG hallucinations while allowing abstention.",
         "868490bacebdc880": "Finds fine-grained credit assignment can help or hurt multimodal agents, tested on video editing.",
-        "c07d00b3f0a46112": "Newest: identifies specific terminal-agent misbehaviors, trains against them, and checks they are fixed."
+        "c07d00b3f0a46112": "Identifies specific terminal-agent misbehaviors, trains against them, and checks they are fixed.",
+        "02ad246823185a44": "Newest: schedules environments under finite rollout budgets, the second rollout-cost paper after Oct 20's calibrated budgets."
+      },
+      "generated_at": "2026-10-29T00:13:06+00:00",
+      "covers_last_updated": "2026-10-27T17:38:52+00:00",
+      "covers_member_sids": [
+        "b508403b13597849",
+        "db03100b1bd7cd3e",
+        "afd320e7f42ef5bd",
+        "a00ad2ffbda7f2e9",
+        "276a486ae6eefe6b",
+        "352167f7ac41065b",
+        "40c644a15cb895a9",
+        "2b4f7152c682448f",
+        "453c138d9feefee3",
+        "8a41e1e41cbecfde",
+        "1e1ae7d5d09cb859",
+        "c3af4f37e1c19b19",
+        "868490bacebdc880",
+        "c07d00b3f0a46112",
+        "02ad246823185a44",
+        "f3c8da2fe4584033"
+      ],
+      "whats_new": "Oct 27: EnvSched, an arXiv paper, schedules environments under a fixed rollout budget to cut agent-RL rollout generation and verification cost.",
+      "status": {
+        "state": "Developing",
+        "tone": "rising",
+        "changed": "2026-10-27",
+        "detail": "A loose set of RL items; the newest aim at rollout cost, agent reliability and credit-assignment limits."
       }
     },
     "timeline": [
@@ -310,6 +322,15 @@
       {
         "date": "2026-10-27",
         "items": [
+          {
+            "sid": "d448a8af2a653453",
+            "title": "CoHARL: Co-Evolving Agent Policies and Executable Harnesses with Reinforcement Learning",
+            "url": "http://arxiv.org/abs/2610.36469v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Large language model (LLM) agents interact with their environments through executable harnesses that govern tool use and feedback. Optimizing a harness for a fixed policy overlooks how its behavior changes during lear...",
+            "published": "2026-10-27T01:25:26+00:00"
+          },
           {
             "sid": "02ad246823185a44",
             "title": "EnvSched: Environment-Aware Scheduling for Rollout-Efficient Agent Reinforcement Learning",

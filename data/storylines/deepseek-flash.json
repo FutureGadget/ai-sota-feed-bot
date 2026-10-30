@@ -1,12 +1,12 @@
 {
  "slug": "deepseek-flash",
  "label": "DeepSeek Flash",
- "item_count": 11,
- "day_count": 8,
+ "item_count": 12,
+ "day_count": 9,
  "source_count": 3,
  "first_seen": "2026-10-11T17:00:10+00:00",
- "last_updated": "2026-10-26T16:14:17+00:00",
- "generated_at": "2026-10-28T00:13:55.337169+00:00",
+ "last_updated": "2026-10-29T14:00:00+00:00",
+ "generated_at": "2026-10-30T00:12:48.475117+00:00",
  "sources": [
   "arxiv_cn_open_weight_reports",
   "interconnects",
@@ -148,7 +148,7 @@
      "summary_1line": "Western open models strike back",
      "sid": "a379ec2597bb3939",
      "published": "2026-10-20T17:04:21+00:00",
-     "editor_note": "Newest: roundup placing Flash-1017 among open model releases."
+     "editor_note": "Roundup placing Flash-1017 among open model releases."
     }
    ]
   },
@@ -164,22 +164,37 @@
      "why_it_matters": "Matches feed focus: agentic, evaluation.",
      "sid": "a9c17daa5dbfcba0",
      "published": "2026-10-26T16:14:17+00:00",
-     "editor_note": "Newest: independent third-party evaluation of Flash-1017 for loss-of-control and harmful-manipulation risks."
+     "editor_note": "Independent third-party evaluation of Flash-1017 for loss-of-control and harmful-manipulation risks."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-29",
+   "items": [
+    {
+     "title": "Rival.io Launches GraphX, Running DeepSeek V4 Flash on Just Eight NVIDIA L4 GPUs",
+     "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOWkd5NkJONUV6dFBKcHA3cUI1Nm5UUmJMV2JzU3pwbk1iVXpoNUdhSWF6WC05alBZYTdrNkMydUx0LVZPNU11YjJBanJiZHpmMkczVGlqYVZIeXVTTHRKcEV2UzJaaDUzdVlIQktnZXlKWjQ0UFh2YVdwWmozQ0ZtRTVqTEw3NDYyMHpHSlBnVElLdk50dFZBSFczeHc?oc=5",
+     "source": "search_cn_open_weight_labs",
+     "type": "news",
+     "summary_1line": "Rival.io Launches GraphX, Running DeepSeek V4 Flash on Just Eight NVIDIA L4 GPUs Yahoo Finance",
+     "sid": "122ec7cea45d8a1a",
+     "published": "2026-10-29T14:00:00+00:00",
+     "editor_note": "Newest: a vendor claims Flash runs on eight NVIDIA L4 GPUs, a self-hosting footprint angle."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "DeepSeek V4.1 Flash first showed up in deployments: Dolphin's inference API went live Oct 11 and AMD MI355X posted AA-AgentPerf results Oct 14. Two OrcaRouter comparisons on Oct 16 then priced it against Nemotron 3.5 Super VL and Step 5 Preview.",
+  "tldr": "DeepSeek V4.1 Flash reached hosted APIs and AMD benchmarks by Oct 14, and OrcaRouter priced it against rival models on Oct 16. The Flash-1017 update followed Oct 17-19 with stronger coding, cheaper inference and a public search API, and an independent risk paper appeared Oct 26.",
   "stale": false,
-  "whats_new": "A third-party paper (Oct 26) evaluates DeepSeek V4.1 Flash-1017 for loss-of-control and harmful-manipulation risks, adding independent safety evidence to a release that so far had only performance and price coverage.",
-  "why_it_matters": "Flash-1017 is cheaper and stronger on agentic tasks, and an independent safety evaluation now exists. Teams giving it autonomy or tool access can weigh its findings alongside cost-per-task numbers.",
-  "take_for_builders": "Rerun your agent eval and cost-per-task numbers on Flash-1017 before switching, read the Oct 26 risk evaluation before granting it autonomy or tool access, and test the search API against your current tool.",
+  "whats_new": "Rival.io launched GraphX on Oct 29, claiming to run DeepSeek V4 Flash on just eight NVIDIA L4 GPUs, a self-hosting cost claim the coverage does not yet back with benchmarks.",
+  "why_it_matters": "Flash is now cheaper per task, has an independent safety evaluation, and has a vendor claiming a small-GPU serving footprint. Hosting cost and risk posture can both be weighed, though the footprint claim is unverified.",
+  "take_for_builders": "Rerun your agent eval and cost-per-task numbers on Flash-1017 before switching, read the Oct 26 risk evaluation before granting tool access, and wait for GraphX throughput data before sizing any L4 deployment.",
   "status": {
-   "state": "Shipped · Flash-1017 under safety review",
+   "state": "Shipped · Flash-1017 under evaluation",
    "tone": "now",
-   "changed": "2026-10-26",
-   "detail": "Flash-1017 is out; an independent risk evaluation was published Oct 26."
+   "changed": "2026-10-29",
+   "detail": "Flash-1017 is out; a safety paper and a low-GPU serving claim are the newest evidence."
   },
   "beats": [
    {
@@ -214,12 +229,20 @@
     ]
    },
    {
-    "kicker": "NOW",
+    "kicker": "EVALUATION",
     "tone": "now",
     "headline": "Roundup places Flash-1017 among open releases; a third-party paper evaluates its safety risks",
     "sids": [
      "a379ec2597bb3939",
      "a9c17daa5dbfcba0"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Rival.io's GraphX claims Flash serving on eight L4 GPUs",
+    "sids": [
+     "122ec7cea45d8a1a"
     ]
    }
   ],
@@ -227,8 +250,9 @@
    "Do independent evals confirm Flash-1017's agentic gains over larger rivals?",
    "Is the new search API priced and rate-limited for production use?",
    "Is the unannounced snapshot a separate model or the same Flash-1017?",
-   "What do the paper's loss-of-control and manipulation findings say about Flash-1017 under agentic use?"
+   "What do the paper's loss-of-control and manipulation findings say about Flash-1017 under agentic use?",
+   "Does GraphX publish throughput and latency numbers for Flash on eight L4 GPUs?"
   ],
-  "generated_at": "2026-10-28T00:13:29.231405+00:00"
+  "generated_at": "2026-10-30T00:20:00+00:00"
  }
 }

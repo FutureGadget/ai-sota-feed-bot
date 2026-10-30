@@ -1,21 +1,22 @@
 {
-  "generated_at": "2026-10-29T00:12:27.462306+00:00",
+  "generated_at": "2026-10-30T00:11:34.874024+00:00",
   "window_days": 21,
   "storyline": {
     "slug": "nemotron-3-5",
     "label": "Nemotron 3.5",
-    "item_count": 5,
-    "source_count": 3,
-    "day_count": 3,
+    "item_count": 6,
+    "source_count": 4,
+    "day_count": 4,
     "first_seen": "2026-10-15T00:00:00+00:00",
-    "last_updated": "2026-10-28T14:58:17+00:00",
-    "latest_title": "NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt",
+    "last_updated": "2026-10-29T16:11:08+00:00",
+    "latest_title": "Accelerate agentic AI with NVIDIA Nemotron models on Amazon EKS and SageMaker HyperPod EKS",
     "member_sids": [
       "5b7496a31dc4a921",
       "fa7edf5313b75f42",
       "6e859d00d3f1f59e",
       "1e11786f937b04c6",
-      "ec733f799e1aaee3"
+      "ec733f799e1aaee3",
+      "a9b9a484569ff337"
     ],
     "via_scout": false,
     "has_narrative": true,
@@ -24,39 +25,49 @@
     "narrative_path": "data/storylines/narratives/nemotron-3-5.json",
     "prior_narrative": {
       "slug": "nemotron-3-5",
-      "generated_at": "2026-10-16T10:10:00+00:00",
-      "covers_last_updated": "2026-10-16T08:46:30+00:00",
+      "generated_at": "2026-10-29T00:20:00+00:00",
+      "covers_last_updated": "2026-10-28T14:58:17+00:00",
       "covers_member_sids": [
         "5b7496a31dc4a921",
         "fa7edf5313b75f42",
         "6e859d00d3f1f59e",
-        "1e11786f937b04c6"
+        "1e11786f937b04c6",
+        "ec733f799e1aaee3"
       ],
-      "tldr": "vLLM announced day-0 support for NVIDIA Nemotron 3.5 Super VL on Oct 15, covering image, document and video input through OpenAI-compatible serving. Comparison write-ups against rival open models followed within a day.",
-      "whats_new": "OrcaRouter published head-to-head comparisons on Oct 16 pitting Nemotron 3.5 Super VL against Kimi K3 and DeepSeek V4 Flash Vision Exp, framed around pricing and availability rather than raw scores.",
-      "why_it_matters": "Day-0 vLLM support means you can test Nemotron 3.5 Super VL on an existing OpenAI-compatible serving stack for document and video agents; the comparisons show the real decision is metered API versus self-hosted weights.",
+      "tldr": "vLLM announced day-0 support for NVIDIA Nemotron 3.5 Super VL on Oct 15, covering image, document and video input through OpenAI-compatible serving. OrcaRouter comparisons against Kimi K3 and DeepSeek V4 Flash Vision Exp followed on Oct 16.",
+      "whats_new": "NVIDIA extended the Nemotron 3.5 family to speech on Oct 28 with Nemotron 3.5 Transcribe and Granary v2, a promptable, adaptable multilingual transcription model.",
+      "why_it_matters": "Nemotron 3.5 now spans multimodal VL and speech transcription, so one vendor family can cover document, video and audio inputs for agents; the real decision remains metered API versus self-hosted weights.",
       "status": {
-        "state": "Shipping · vLLM day-0",
+        "state": "Expanding · speech added",
         "tone": "now",
-        "changed": "2026-10-15",
-        "detail": "Servable on vLLM from launch day; independent comparisons started appearing Oct 16.",
+        "changed": "2026-10-28",
+        "detail": "Servable on vLLM since launch day; the family gained a multilingual transcription model on Oct 28.",
         "track": [
           {
             "label": "vLLM day-0 support",
             "detail": "Oct 15",
             "tone": "launch",
-            "weight": 40
+            "weight": 25
           },
           {
             "label": "comparisons",
-            "detail": "Oct 16 → now",
+            "detail": "Oct 16",
+            "tone": "rising",
+            "weight": 25
+          },
+          {
+            "label": "Transcribe + Granary v2",
+            "detail": "Oct 28 → now",
             "tone": "now",
-            "weight": 60
+            "weight": 50
           }
         ]
       },
       "provenance": {
         "5b7496a31dc4a921": {
+          "status_update": true
+        },
+        "ec733f799e1aaee3": {
           "status_update": true
         }
       },
@@ -72,7 +83,7 @@
         },
         {
           "kicker": "COMPARISONS",
-          "tone": "now",
+          "tone": "rising",
           "headline": "OrcaRouter pits it against Kimi K3 and DeepSeek V4 Flash Vision Exp",
           "summary": "Three write-ups in one day, centered on metered pricing versus downloadable weights.",
           "sids": [
@@ -80,18 +91,29 @@
             "6e859d00d3f1f59e",
             "1e11786f937b04c6"
           ]
+        },
+        {
+          "kicker": "NOW",
+          "tone": "now",
+          "headline": "Nemotron 3.5 Transcribe and Granary v2 add multilingual speech",
+          "summary": "NVIDIA's Hugging Face post presents a transcription model you can prompt and adapt, with the Granary v2 dataset.",
+          "sids": [
+            "ec733f799e1aaee3"
+          ]
         }
       ],
       "open_questions": [
         "Do independent benchmarks confirm the index-point gaps OrcaRouter reports against DeepSeek V4 Flash Vision Exp?",
-        "Will other inference engines or clouds add Nemotron 3.5 Super VL beyond vLLM?"
+        "Will other inference engines or clouds add Nemotron 3.5 Super VL beyond vLLM?",
+        "Does Nemotron 3.5 Transcribe get vLLM or other OpenAI-compatible serving support?"
       ],
-      "take_for_builders": "If you run multimodal document or video agents, point an existing vLLM deployment at Nemotron 3.5 Super VL and rerun your own eval before trusting a single vendor-neutral comparison site.",
+      "take_for_builders": "If you run multimodal document or video agents, point an existing vLLM deployment at Nemotron 3.5 Super VL and rerun your own eval; for voice pipelines, test Transcribe on your own multilingual audio before swapping out your current ASR.",
       "day_captions": {
         "5b7496a31dc4a921": "Launch-day serving path: vLLM supports the model with OpenAI-compatible endpoints for image, document and video input.",
         "fa7edf5313b75f42": "Arabic-language edition of the OrcaRouter Kimi K3 comparison, framing download versus per-token pricing.",
         "6e859d00d3f1f59e": "OrcaRouter compares it with DeepSeek V4 Flash Vision Exp and reports an eight-index-point gap.",
-        "1e11786f937b04c6": "OrcaRouter contrasts a metered flagship with Kimi K3's weight release, which has no published rate card."
+        "1e11786f937b04c6": "OrcaRouter contrasts a metered flagship with Kimi K3's weight release, which has no published rate card.",
+        "ec733f799e1aaee3": "Extends the family beyond vision-language into promptable multilingual transcription, released with Granary v2."
       }
     },
     "timeline": [
@@ -152,6 +174,20 @@
             "type": "research",
             "summary_1line": "NVIDIA Nemotron 3.5 Transcribe and Granary v2: Intelligent Multilingual Transcription You Can Prompt and Adapt",
             "published": "2026-10-28T14:58:17+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-29",
+        "items": [
+          {
+            "sid": "a9b9a484569ff337",
+            "title": "Accelerate agentic AI with NVIDIA Nemotron models on Amazon EKS and SageMaker HyperPod EKS",
+            "url": "https://aws.amazon.com/blogs/machine-learning/accelerate-agentic-ai-with-nvidia-nemotron-models-on-amazon-eks-and-sagemaker-hyperpod-eks",
+            "source": "aws_ml_blog",
+            "type": "news",
+            "summary_1line": "NVIDIA Nemotron 3.5 Super VL is a 120B-parameter mixture-of-experts model that pairs reasoning and tool use with multimodal understanding. This post explores its architecture and use cases, then shows how to deploy it...",
+            "published": "2026-10-29T16:11:08+00:00"
           }
         ]
       }

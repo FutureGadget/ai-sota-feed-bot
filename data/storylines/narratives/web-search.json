@@ -1,16 +1,21 @@
 {
   "slug": "web-search",
-  "generated_at": "2026-10-28T00:13:28+00:00",
-  "covers_last_updated": "2026-10-27T17:25:18+00:00",
-  "covers_member_sids": ["dd757ca1b3c6b43c", "5f97c21b490b1ce9", "e3636bb8c76777d4"],
-  "tldr": "DeepSeek priced web search for agents at /bin/bash.75 per 1,000 calls on Oct 17, making search a metered line item. A long-horizon eval paper followed on Oct 26.",
-  "whats_new": "A GitHub benchmark compares 4 web search APIs for AI agents on 30 live queries, the first head-to-head comparison in this thread.",
-  "why_it_matters": "Search API choice now affects agent cost and answer quality, and neither the price point nor the benchmark is independently verified yet.",
+  "generated_at": "2026-10-30T01:00:00+00:00",
+  "covers_last_updated": "2026-10-29T07:14:00+00:00",
+  "covers_member_sids": [
+    "dd757ca1b3c6b43c",
+    "5f97c21b490b1ce9",
+    "e3636bb8c76777d4",
+    "4babea341ec6b4e6"
+  ],
+  "tldr": "DeepSeek priced agent web search at $0.75 per 1,000 calls on Oct 17, making search a metered line item. A long-horizon eval paper (Oct 26) and a 4-API community benchmark (Oct 27) followed.",
+  "whats_new": "Cloudflare launched a beta Web Search API through AI Gateway, with unified logging, access controls and billing, via REST and Workers.",
+  "why_it_matters": "Search is moving into the gateway layer where agent traffic is already logged and billed, so provider choice becomes a gateway config question, but the pricing and benchmark claims are still unverified.",
   "status": {
     "state": "Developing",
     "tone": "rising",
-    "changed": "2026-10-27",
-    "detail": "Pricing, an evaluation framework and a hands-on API benchmark have appeared, but the sources are thin and unconfirmed."
+    "changed": "2026-10-29",
+    "detail": "A second vendor now offers metered agent search, but sources are thin and the price point and benchmark are not independently confirmed."
   },
   "beats": [
     {
@@ -26,21 +31,29 @@
       "sids": ["5f97c21b490b1ce9"]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
+      "kicker": "BENCHMARK",
+      "tone": "rising",
       "headline": "Community benchmark pits 4 search APIs against 30 live queries",
       "sids": ["e3636bb8c76777d4"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Cloudflare adds a beta Web Search API to AI Gateway",
+      "sids": ["4babea341ec6b4e6"]
     }
   ],
   "open_questions": [
     "Do the benchmark's API rankings hold on a larger or different query set?",
+    "What does Cloudflare charge per call once the beta ends?",
     "Do other search API vendors respond to DeepSeek's per-call price?",
     "Is LongSearchEval adopted to compare search-agent systems?"
   ],
-  "take_for_builders": "Run your own production queries against your current search API and one alternative, tracking cost per 1,000 calls and answer quality before switching.",
+  "take_for_builders": "If you already route model traffic through a gateway, test its search option against your current API on your own production queries, tracking cost per 1,000 calls and answer quality before switching.",
   "day_captions": {
     "dd757ca1b3c6b43c": "Sets a concrete per-call price for agent web search.",
     "5f97c21b490b1ce9": "Adds an evaluation framework that localizes failures in multi-step search.",
-    "e3636bb8c76777d4": "First hands-on comparison of search APIs on live queries."
+    "e3636bb8c76777d4": "First hands-on comparison of search APIs on live queries.",
+    "4babea341ec6b4e6": "Brings search under AI Gateway's logging, access controls and billing, with bring-your-own-provider support."
   }
 }

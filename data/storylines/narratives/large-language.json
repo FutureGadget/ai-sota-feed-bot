@@ -1,7 +1,7 @@
 {
   "slug": "large-language",
-  "generated_at": "2026-10-29T00:20:00+00:00",
-  "covers_last_updated": "2026-10-27T06:52:54+00:00",
+  "generated_at": "2026-10-30T00:30:00+00:00",
+  "covers_last_updated": "2026-10-29T00:00:00+00:00",
   "covers_member_sids": [
     "13307002442ed537",
     "52d729da63596a31",
@@ -10,6 +10,7 @@
     "06d8677dec3b3c21",
     "16071b3c73317004",
     "276a486ae6eefe6b",
+    "590975aa217085b7",
     "8debe4581e047c88",
     "f07fa8132755e14c",
     "c888971c48a268c3",
@@ -17,11 +18,13 @@
     "d5cd3db9b5f4a99b",
     "26fc92a7573c4011",
     "a2f964aa6fcbf7ea",
-    "200271de2a2f52aa"
+    "200271de2a2f52aa",
+    "37f6c0c263213efd",
+    "b6b30743068c2627"
   ],
-  "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 9-22 items cover knowledge graphs, sycophancy, code-translation hallucinations, search agents, and spectral edits.",
-  "whats_new": "Oct 27 adds CAMR, a compatibility-aware memory replay method for continual learning in LLMs, following Oct 26's search-agent benchmark, neuron steering and Reva vulnerability screening.",
-  "why_it_matters": "Treat this as a reading list, not a thread. For platform engineers the useful items are LongSearchEval (agent failure localization), Reva (screening agent-written code), and CAMR if you fine-tune models on rolling data.",
+  "tldr": "This page groups items by the shared phrase \"large language models\", so most of it is a reading list, not one thread. Oct 9-27 items cover knowledge graphs, sycophancy, code-translation hallucinations, search agents, steering and continual learning.",
+  "whats_new": "Oct 29: Mistral Large 4 is released, with vLLM day-0 support (sparse MLA, speculative decoding, NIXL prefill/decode on Blackwell) and a Hugging Face launch post.",
+  "why_it_matters": "Mistral Large 4 is the one item here you can deploy: serving support landed the same day as the weights, so self-hosting is testable now. The papers remain a reading list.",
   "beats": [
     {
       "kicker": "KNOWLEDGE GRAPHS",
@@ -54,26 +57,33 @@
       "sids": ["8debe4581e047c88", "c888971c48a268c3", "f07fa8132755e14c"]
     },
     {
-      "kicker": "OCT 26",
+      "kicker": "OCT 26-27",
       "tone": "rising",
-      "headline": "Long-horizon search evals, capability-preserving steering and real-time vulnerability screening",
-      "sids": ["5f97c21b490b1ce9", "d5cd3db9b5f4a99b", "26fc92a7573c4011", "a2f964aa6fcbf7ea"]
+      "headline": "Long-horizon search evals, steering, vulnerability screening and memory replay",
+      "sids": [
+        "5f97c21b490b1ce9",
+        "d5cd3db9b5f4a99b",
+        "26fc92a7573c4011",
+        "a2f964aa6fcbf7ea",
+        "200271de2a2f52aa"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Oct 27: compatibility-aware memory replay for continual learning",
-      "sids": ["200271de2a2f52aa"]
+      "headline": "Mistral Large 4 ships with day-0 vLLM and Hugging Face support",
+      "summary": "A concrete model release, preceded by an Oct 22 pricing comparison naming it.",
+      "sids": ["590975aa217085b7", "37f6c0c263213efd", "b6b30743068c2627"]
     }
   ],
   "open_questions": [
-    "Does independent replication confirm the spectral-intervention capability shifts?",
-    "Do the code-translation mitigations hold on languages outside the paper's test set?",
+    "Do independent benchmarks confirm Mistral Large 4's quality against DeepSeek and Cohere models?",
+    "Does the \"9x price gap\" comparison hold against first-party Mistral API pricing?",
     "Does Reva's real-time screening keep false positives low enough to gate agent-written code?",
-    "Does CANS steering preserve general capability on models beyond those it was tested on?",
-    "Does CAMR's replay selection reduce forgetting on models larger than those in its experiments?"
+    "Does CAMR's replay selection reduce forgetting on models larger than those in its experiments?",
+    "Does CANS steering preserve general capability on models beyond those it was tested on?"
   ],
-  "take_for_builders": "If you run coding agents, read Reva and check whether per-function vulnerability screening could sit before review; if you run search agents, try LongSearchEval's failure-node localization on your traces. If you continually fine-tune, check CAMR's replay selection against your current replay buffer. Skip the rest unless it matches your domain.",
+  "take_for_builders": "If you self-host, pull Mistral Large 4 on the vLLM day-0 build and rerun your own evals and latency tests before swapping it in. Treat the Oct 22 price comparison as unverified until you check provider pricing pages.",
   "day_captions": {
     "13307002442ed537": "Netflix's ontology-driven observability graph at 38M events/sec.",
     "52d729da63596a31": "Knowledge-graph-guided pre-training for legal reasoning.",
@@ -82,6 +92,7 @@
     "06d8677dec3b3c21": "Catalogs hallucinations in cross-language code translation.",
     "16071b3c73317004": "Survey of ML and LLM extraction of materials data.",
     "276a486ae6eefe6b": "Self-assessment RL so search agents track what they already found.",
+    "590975aa217085b7": "Third-party headline comparing Mistral Large 4 pricing with DeepSeek and Cohere; the 9x figure is unverified here.",
     "8debe4581e047c88": "Probes how editing singular-value spectra shifts task performance.",
     "c888971c48a268c3": "Compares recent LLMs with fine-tuned encoder-decoders on KG-to-text.",
     "f07fa8132755e14c": "Open resources for adapting LLMs to low-resource Bashkir.",
@@ -89,6 +100,8 @@
     "d5cd3db9b5f4a99b": "Training-free neuron steering aimed at not degrading general capability.",
     "26fc92a7573c4011": "KG reasoning that self-evolves without question-answer annotations.",
     "a2f964aa6fcbf7ea": "Real-time screening of each new function for vulnerabilities via contextual probing.",
-    "200271de2a2f52aa": "Replay method that judges whether incoming data is compatible with what the model retains."
+    "200271de2a2f52aa": "Replay method that judges whether incoming data is compatible with what the model retains.",
+    "37f6c0c263213efd": "vLLM serving support for Mistral Large 4 from day 0, including speculative decoding and P/D disaggregation on Blackwell.",
+    "b6b30743068c2627": "Hugging Face's launch post for Mistral Large 4."
   }
 }

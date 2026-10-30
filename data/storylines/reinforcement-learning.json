@@ -1,12 +1,12 @@
 {
  "slug": "reinforcement-learning",
  "label": "Reinforcement Learning",
- "item_count": 15,
+ "item_count": 16,
  "day_count": 8,
  "source_count": 7,
  "first_seen": "2026-10-12T21:41:50+00:00",
  "last_updated": "2026-10-27T17:38:52+00:00",
- "generated_at": "2026-10-29T00:13:38.528542+00:00",
+ "generated_at": "2026-10-30T00:12:48.475117+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -163,7 +163,7 @@
      "why_it_matters": "Matches feed focus: evaluation.",
      "sid": "1e1ae7d5d09cb859",
      "published": "2026-10-23T17:57:22+00:00",
-     "editor_note": "Newest: a unified library and benchmark for robust RL algorithms."
+     "editor_note": "A unified library and benchmark for robust RL algorithms."
     }
    ]
   },
@@ -209,6 +209,17 @@
    "date": "2026-10-27",
    "items": [
     {
+     "title": "CoHARL: Co-Evolving Agent Policies and Executable Harnesses with Reinforcement Learning",
+     "url": "http://arxiv.org/abs/2610.36469v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Large language model (LLM) agents interact with their environments through executable harnesses that govern tool use and feedback. Optimizing a harness for a fixed policy overlooks how its behavior changes during lear...",
+     "why_it_matters": "Matches feed focus: agent, harness.",
+     "sid": "d448a8af2a653453",
+     "published": "2026-10-27T01:25:26+00:00",
+     "editor_note": "Newest: co-evolves the agent policy and its executable harness, since tuning a harness for a fixed policy ignores how behavior shifts during learning."
+    },
+    {
      "title": "EnvSched: Environment-Aware Scheduling for Rollout-Efficient Agent Reinforcement Learning",
      "url": "http://arxiv.org/abs/2610.37609v1",
      "source": "arxiv_cs_cl",
@@ -217,7 +228,7 @@
      "why_it_matters": "Matches feed focus: agentic, eval.",
      "sid": "02ad246823185a44",
      "published": "2026-10-27T17:38:52+00:00",
-     "editor_note": "Newest: schedules environments under finite rollout budgets, the second rollout-cost paper after Oct 20's calibrated budgets."
+     "editor_note": "Schedules environments under finite rollout budgets, the second rollout-cost paper after Oct 20's calibrated budgets."
     }
    ]
   }
@@ -225,14 +236,14 @@
  "editorial": {
   "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has gathered a Qwen long-horizon agent report, an O-RAN benchmark, agentic-RL training papers, and AWS's SageMaker guide.",
   "stale": false,
-  "whats_new": "Oct 27: EnvSched, an arXiv paper, schedules environments under a fixed rollout budget to cut agent-RL rollout generation and verification cost.",
+  "whats_new": "Oct 27: CoHARL co-trains agent policies with their executable harnesses, and EnvSched schedules environments under a fixed rollout budget; both are arXiv papers.",
   "why_it_matters": "Agent RL is now judged on cost and reliability: EnvSched and calibrated budgets (Oct 20) target rollout spend, while MiRL and CalibraRL target named failures. All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
   "take_for_builders": "If you train tool-using agents, measure rollout cost per environment (EnvSched, calibrated budgets), log recurring failure modes for error-targeted RL (MiRL), and A/B fine-grained credit against episode-level reward; treat paper results as unreplicated until rerun on your own evals.",
   "status": {
    "state": "Developing",
    "tone": "rising",
    "changed": "2026-10-27",
-   "detail": "A loose set of RL items; the newest aim at rollout cost, agent reliability and credit-assignment limits."
+   "detail": "A loose set of RL items; the newest aim at harness co-training, rollout cost, agent reliability and credit-assignment limits."
   },
   "beats": [
    {
@@ -292,9 +303,10 @@
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "EnvSched: environment-aware scheduling for rollout-efficient agent RL",
-    "summary": "Oct 27: rollout generation and verification cost becomes the target as executable environments scale.",
+    "headline": "Harness co-training and environment scheduling: CoHARL and EnvSched",
+    "summary": "Oct 27: CoHARL optimizes the executable harness alongside the policy; EnvSched targets rollout generation and verification cost.",
     "sids": [
+     "d448a8af2a653453",
      "02ad246823185a44"
     ]
    }
@@ -307,6 +319,6 @@
    "Do MiRL's error-targeted fixes hold on terminal-agent tasks outside the paper's own benchmark?",
    "Does EnvSched's scheduling gain hold on agent-RL benchmarks beyond the paper's own, and with which environment mixes?"
   ],
-  "generated_at": "2026-10-29T00:13:06+00:00"
+  "generated_at": "2026-10-30T00:30:00+00:00"
  }
 }

@@ -1,19 +1,22 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 15,
- "day_count": 8,
- "source_count": 6,
+ "item_count": 18,
+ "day_count": 9,
+ "source_count": 9,
  "first_seen": "2026-10-09T11:00:00+00:00",
- "last_updated": "2026-10-27T06:52:54+00:00",
- "generated_at": "2026-10-29T00:13:38.528542+00:00",
+ "last_updated": "2026-10-29T00:00:00+00:00",
+ "generated_at": "2026-10-30T00:12:48.475117+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
   "arxiv_cs_cl",
   "arxiv_cs_lg",
   "arxiv_llm_reliability",
-  "infoq_ai_ml"
+  "huggingface_blog",
+  "infoq_ai_ml",
+  "search_cn_open_weight_labs",
+  "vllm_blog"
  ],
  "days": [
   {
@@ -122,6 +125,16 @@
    "date": "2026-10-22",
    "items": [
     {
+     "title": "DeepSeek vs Mistral Large 4 vs Cohere: 9x Price Gap [2026]",
+     "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPN1hlSUJENkV6eFRCbEVzMl8zU3p4YjBTQ1dra0RTU2QyWnh3ZlVYZDB6cUNqdXNtUjFDZFZNYkpIVy1DV0F6S0tNdXpFZ3BkMWZLYXZaZ3VOUkczanNSS2RDUkZYWmhqUVZwRXhPaHB5LTc1dDVRM3IxSjBGNnl4djlEV2NCeV9uVWh5UWN5VQ?oc=5",
+     "source": "search_cn_open_weight_labs",
+     "type": "news",
+     "summary_1line": "DeepSeek vs Mistral Large 4 vs Cohere: 9x Price Gap [2026] tech-insider.org",
+     "sid": "590975aa217085b7",
+     "published": "2026-10-22T00:44:58+00:00",
+     "editor_note": "Third-party headline comparing Mistral Large 4 pricing with DeepSeek and Cohere; the 9x figure is unverified here."
+    },
+    {
      "title": "Spectral Smoothing and Spiking Perturbations Reconfigure Capability Profiles and Selective Task Performance in Large Language Models",
      "url": "http://arxiv.org/abs/2610.30676v1",
      "source": "arxiv_llm_reliability",
@@ -220,14 +233,39 @@
      "editor_note": "Replay method that judges whether incoming data is compatible with what the model retains."
     }
    ]
+  },
+  {
+   "date": "2026-10-29",
+   "items": [
+    {
+     "title": "Day 0 support for Mistral Large 4 on vLLM",
+     "url": "https://vllm.ai/blog/2026-10-29-mistral-large-4",
+     "source": "vllm_blog",
+     "type": "news",
+     "summary_1line": "Day-0 vLLM support for Mistral Large 4 with sparse MLA, cross-layer KV sharing, DSpark speculative decoding, DCP/PCP long context and NIXL P/D on NVIDIA Blackwell.",
+     "sid": "37f6c0c263213efd",
+     "published": "2026-10-29T00:00:00+00:00",
+     "editor_note": "vLLM serving support for Mistral Large 4 from day 0, including speculative decoding and P/D disaggregation on Blackwell."
+    },
+    {
+     "title": "Welcome Le Chonk: Mistral Large 4 on Hugging Face",
+     "url": "https://huggingface.co/blog/mistral-large4",
+     "source": "huggingface_blog",
+     "type": "research",
+     "summary_1line": "Welcome Le Chonk: Mistral Large 4 on Hugging Face",
+     "sid": "b6b30743068c2627",
+     "published": "2026-10-29T00:00:00+00:00",
+     "editor_note": "Hugging Face's launch post for Mistral Large 4."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "This page groups items by the shared phrase \"large language models\"; they do not form one developing story. Oct 9-22 items cover knowledge graphs, sycophancy, code-translation hallucinations, search agents, and spectral edits.",
+  "tldr": "This page groups items by the shared phrase \"large language models\", so most of it is a reading list, not one thread. Oct 9-27 items cover knowledge graphs, sycophancy, code-translation hallucinations, search agents, steering and continual learning.",
   "stale": false,
-  "whats_new": "Oct 27 adds CAMR, a compatibility-aware memory replay method for continual learning in LLMs, following Oct 26's search-agent benchmark, neuron steering and Reva vulnerability screening.",
-  "why_it_matters": "Treat this as a reading list, not a thread. For platform engineers the useful items are LongSearchEval (agent failure localization), Reva (screening agent-written code), and CAMR if you fine-tune models on rolling data.",
-  "take_for_builders": "If you run coding agents, read Reva and check whether per-function vulnerability screening could sit before review; if you run search agents, try LongSearchEval's failure-node localization on your traces. If you continually fine-tune, check CAMR's replay selection against your current replay buffer. Skip the rest unless it matches your domain.",
+  "whats_new": "Oct 29: Mistral Large 4 is released, with vLLM day-0 support (sparse MLA, speculative decoding, NIXL prefill/decode on Blackwell) and a Hugging Face launch post.",
+  "why_it_matters": "Mistral Large 4 is the one item here you can deploy: serving support landed the same day as the weights, so self-hosting is testable now. The papers remain a reading list.",
+  "take_for_builders": "If you self-host, pull Mistral Large 4 on the vLLM day-0 build and rerun your own evals and latency tests before swapping it in. Treat the Oct 22 price comparison as unverified until you check provider pricing pages.",
   "beats": [
    {
     "kicker": "KNOWLEDGE GRAPHS",
@@ -275,32 +313,36 @@
     ]
    },
    {
-    "kicker": "OCT 26",
+    "kicker": "OCT 26-27",
     "tone": "rising",
-    "headline": "Long-horizon search evals, capability-preserving steering and real-time vulnerability screening",
+    "headline": "Long-horizon search evals, steering, vulnerability screening and memory replay",
     "sids": [
      "5f97c21b490b1ce9",
      "d5cd3db9b5f4a99b",
      "26fc92a7573c4011",
-     "a2f964aa6fcbf7ea"
+     "a2f964aa6fcbf7ea",
+     "200271de2a2f52aa"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Oct 27: compatibility-aware memory replay for continual learning",
+    "headline": "Mistral Large 4 ships with day-0 vLLM and Hugging Face support",
+    "summary": "A concrete model release, preceded by an Oct 22 pricing comparison naming it.",
     "sids": [
-     "200271de2a2f52aa"
+     "590975aa217085b7",
+     "37f6c0c263213efd",
+     "b6b30743068c2627"
     ]
    }
   ],
   "open_questions": [
-   "Does independent replication confirm the spectral-intervention capability shifts?",
-   "Do the code-translation mitigations hold on languages outside the paper's test set?",
+   "Do independent benchmarks confirm Mistral Large 4's quality against DeepSeek and Cohere models?",
+   "Does the \"9x price gap\" comparison hold against first-party Mistral API pricing?",
    "Does Reva's real-time screening keep false positives low enough to gate agent-written code?",
-   "Does CANS steering preserve general capability on models beyond those it was tested on?",
-   "Does CAMR's replay selection reduce forgetting on models larger than those in its experiments?"
+   "Does CAMR's replay selection reduce forgetting on models larger than those in its experiments?",
+   "Does CANS steering preserve general capability on models beyond those it was tested on?"
   ],
-  "generated_at": "2026-10-29T00:20:00+00:00"
+  "generated_at": "2026-10-30T00:30:00+00:00"
  }
 }

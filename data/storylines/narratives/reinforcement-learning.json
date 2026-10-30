@@ -1,25 +1,49 @@
 {
   "slug": "reinforcement-learning",
+  "generated_at": "2026-10-30T00:30:00+00:00",
+  "covers_last_updated": "2026-10-27T17:38:52+00:00",
+  "covers_member_sids": [
+    "b508403b13597849",
+    "db03100b1bd7cd3e",
+    "afd320e7f42ef5bd",
+    "a00ad2ffbda7f2e9",
+    "276a486ae6eefe6b",
+    "352167f7ac41065b",
+    "40c644a15cb895a9",
+    "2b4f7152c682448f",
+    "453c138d9feefee3",
+    "8a41e1e41cbecfde",
+    "1e1ae7d5d09cb859",
+    "c3af4f37e1c19b19",
+    "868490bacebdc880",
+    "c07d00b3f0a46112",
+    "d448a8af2a653453",
+    "02ad246823185a44",
+    "f3c8da2fe4584033"
+  ],
   "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has gathered a Qwen long-horizon agent report, an O-RAN benchmark, agentic-RL training papers, and AWS's SageMaker guide.",
+  "whats_new": "Oct 27: CoHARL co-trains agent policies with their executable harnesses, and EnvSched schedules environments under a fixed rollout budget; both are arXiv papers.",
   "why_it_matters": "Agent RL is now judged on cost and reliability: EnvSched and calibrated budgets (Oct 20) target rollout spend, while MiRL and CalibraRL target named failures. All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
+  "status": {
+    "state": "Developing",
+    "tone": "rising",
+    "changed": "2026-10-27",
+    "detail": "A loose set of RL items; the newest aim at harness co-training, rollout cost, agent reliability and credit-assignment limits."
+  },
   "beats": [
     {
       "kicker": "AGENTS",
       "tone": "rising",
       "headline": "Alibaba Qwen introduces QwenGyre for elastic RL on extra-long-horizon agents",
       "summary": "Reported via MarkTechPost; targets agent tasks that run far longer than standard RL rollouts.",
-      "sids": [
-        "b508403b13597849"
-      ]
+      "sids": ["b508403b13597849"]
     },
     {
       "kicker": "BENCHMARK",
       "tone": "neutral",
       "headline": "X-RIC benchmarks agentic RAN controllers for reinforcement learning",
       "summary": "Targets O-RAN controllers rather than LLM post-training.",
-      "sids": [
-        "db03100b1bd7cd3e"
-      ]
+      "sids": ["db03100b1bd7cd3e"]
     },
     {
       "kicker": "RESEARCH",
@@ -60,9 +84,10 @@
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "EnvSched: environment-aware scheduling for rollout-efficient agent RL",
-      "summary": "Oct 27: rollout generation and verification cost becomes the target as executable environments scale.",
+      "headline": "Harness co-training and environment scheduling: CoHARL and EnvSched",
+      "summary": "Oct 27: CoHARL optimizes the executable harness alongside the policy; EnvSched targets rollout generation and verification cost.",
       "sids": [
+        "d448a8af2a653453",
         "02ad246823185a44"
       ]
     }
@@ -86,38 +111,12 @@
     "352167f7ac41065b": "Counterfactual branching to assign credit to individual decisions inside a rewarded agent episode.",
     "453c138d9feefee3": "Traces on-policy instability in LLM RL to where rounding happens between inference and training systems.",
     "40c644a15cb895a9": "Uses RL with hierarchical rewards for profile-driven user simulation in task-oriented dialogue.",
-    "1e1ae7d5d09cb859": "Newest: a unified library and benchmark for robust RL algorithms.",
+    "1e1ae7d5d09cb859": "A unified library and benchmark for robust RL algorithms.",
     "2b4f7152c682448f": "GRPO token-level credit from reward-model gradients, replacing one shared response-level advantage.",
     "c3af4f37e1c19b19": "Confidence-calibrated RL rewards to cut RAG hallucinations while allowing abstention.",
     "868490bacebdc880": "Finds fine-grained credit assignment can help or hurt multimodal agents, tested on video editing.",
     "c07d00b3f0a46112": "Identifies specific terminal-agent misbehaviors, trains against them, and checks they are fixed.",
-    "02ad246823185a44": "Newest: schedules environments under finite rollout budgets, the second rollout-cost paper after Oct 20's calibrated budgets."
-  },
-  "generated_at": "2026-10-29T00:13:06+00:00",
-  "covers_last_updated": "2026-10-27T17:38:52+00:00",
-  "covers_member_sids": [
-    "b508403b13597849",
-    "db03100b1bd7cd3e",
-    "afd320e7f42ef5bd",
-    "a00ad2ffbda7f2e9",
-    "276a486ae6eefe6b",
-    "352167f7ac41065b",
-    "40c644a15cb895a9",
-    "2b4f7152c682448f",
-    "453c138d9feefee3",
-    "8a41e1e41cbecfde",
-    "1e1ae7d5d09cb859",
-    "c3af4f37e1c19b19",
-    "868490bacebdc880",
-    "c07d00b3f0a46112",
-    "02ad246823185a44",
-    "f3c8da2fe4584033"
-  ],
-  "whats_new": "Oct 27: EnvSched, an arXiv paper, schedules environments under a fixed rollout budget to cut agent-RL rollout generation and verification cost.",
-  "status": {
-    "state": "Developing",
-    "tone": "rising",
-    "changed": "2026-10-27",
-    "detail": "A loose set of RL items; the newest aim at rollout cost, agent reliability and credit-assignment limits."
+    "d448a8af2a653453": "Newest: co-evolves the agent policy and its executable harness, since tuning a harness for a fixed policy ignores how behavior shifts during learning.",
+    "02ad246823185a44": "Schedules environments under finite rollout budgets, the second rollout-cost paper after Oct 20's calibrated budgets."
   }
 }
