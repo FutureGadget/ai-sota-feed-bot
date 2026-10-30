@@ -1,0 +1,317 @@
+{
+  "week": "2026-W44",
+  "start": "2026-10-24",
+  "end": "2026-10-30",
+  "title": "What happened in AI — Oct 24–30, 2026",
+  "generated_at": "2026-10-30T21:09:35Z",
+  "intro": [
+    "Coding agents proved easy to hijack and hard to contain this week. A malicious AGENTS.md in a Downloads folder installed a rogue npm package, and Copilot CLI read ~/.ssh without a prompt.",
+    "The failures reached infrastructure too: Cloudflare disclosed cross-request KV cache exposure on a shared GLM-5.3 deployment. Builders answered with credential brokers, MCP description stripping and tests that must be shown capable of failing.",
+    "Meanwhile Google's Gemini 4 Carbon and OpenAI's GPT-6.1 Terra shipped, and OpenRouter began ranking providers on inference quality. Treat agent permissions and sandbox claims as things to measure."
+  ],
+  "highlights": [
+    "A planted AGENTS.md file hijacked coding agents; Forever Security reports a live case.",
+    "Copilot CLI read ~/.ssh with no approval prompt; Claude Code's auto mode let a test escape.",
+    "Cloudflare fixed cross-request KV cache exposure in its GLM-5.3 Workers AI model.",
+    "Gemini 4 Carbon and GPT-6.1 Terra launched; vLLM had Mistral Large 4 on day 0.",
+    "OpenRouter's new router weighs inference quality, not just price.",
+    "mustfail re-runs agent tests against reverted code to prove they can fail."
+  ],
+  "article_count": 36,
+  "categories": [
+    {
+      "name": "Frontier & Open Model Releases",
+      "slug": "frontier-open-model-releases",
+      "summary": "Google and OpenAI shipped new frontier and computer-use models, while serving stacks already support Mistral's newest open-weight model.",
+      "articles": [
+        {
+          "title": "Gemini 4 Carbon: Our next frontier model",
+          "summary": "Google's strongest model, pitched on state-of-the-art cybersecurity and long-horizon task performance.",
+          "source": "google_deepmind_blog",
+          "url": "https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model/",
+          "published": "2026-10-28T17:00:58Z"
+        },
+        {
+          "title": "Introducing GPT-6.1 Terra",
+          "summary": "OpenAI's fast computer-use model, aimed at making agentic desktop control broadly available.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/introducing-gpt-6-1-terra",
+          "published": "2026-10-26T00:00:00Z"
+        },
+        {
+          "title": "Day 0 support for Mistral Large 4 on vLLM",
+          "summary": "vLLM supports Mistral's new multimodal mixture-of-experts model on release day, using MLA plus a DSA top-k indexer.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-10-29-mistral-large-4",
+          "published": "2026-10-29T00:00:00Z"
+        },
+        {
+          "title": "Nanbeige4.3-33B – Flagship teacher LLM",
+          "summary": "A 33B teacher agent model built to anchor distillation of agentic skills into smaller models.",
+          "source": "hackernews_ai",
+          "url": "https://huggingface.co/Nanbeige/Nanbeige4.3-33B",
+          "published": "2026-10-29T22:08:38Z"
+        },
+        {
+          "title": "Gemini Robotics Embodied Reasoning 2 is now available on Google Cloud",
+          "summary": "Google's embodied-reasoning model for robotics is now callable from Google Cloud.",
+          "source": "google_cloud_blog",
+          "url": "https://cloud.google.com/blog/products/ai-machine-learning/gemini-robotics-embodied-reasoning-2-is-now-available-on-google-cloud/",
+          "published": "2026-10-27T13:00:00Z"
+        }
+      ]
+    },
+    {
+      "name": "Instruction Hijacking via Files and Tools",
+      "slug": "instruction-hijacking",
+      "summary": "Attackers now plant agent instructions in files and tool metadata that coding agents read automatically, and a live attack was caught in the wild.",
+      "articles": [
+        {
+          "title": "AI coding agents hijacked using AGENTS.md file in Downloads folder",
+          "summary": "A malicious AGENTS.md in a Downloads folder tricked a coding agent into installing a rogue npm package; researchers reproduced it against OpenAI Codex.",
+          "source": "hackernews_ai",
+          "url": "https://www.bleepingcomputer.com/news/security/ai-coding-agents-hijacked-using-agentsmd-file-in-downloads-folder/",
+          "published": "2026-10-26T14:01:56Z"
+        },
+        {
+          "title": "Markdown Is the New Exe: Attackers Drop Agent Instructions In Downloads Folder",
+          "summary": "Forever Security says it caught live malware on a customer machine dropping agent instructions in Downloads.",
+          "source": "hackernews_ai",
+          "url": "https://forever.security/blog/hijacking-ai-agents-via-downloads-folder/",
+          "published": "2026-10-28T16:40:59Z"
+        },
+        {
+          "title": "Kevlar = MCP Firewall for LLM's",
+          "summary": "Kevlar blanks every tool description in each MCP tools/list response so a malicious server cannot steer the model through metadata.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Ablation-Tool/kevlar",
+          "published": "2026-10-24T22:24:09Z"
+        }
+      ]
+    },
+    {
+      "name": "Agent Containment, Permissions & Credentials",
+      "slug": "containment-permissions-credentials",
+      "summary": "Agent runs outlive the permission checks and sandboxes meant to bound them, and this week produced concrete failures from desktop tools to multi-tenant inference.",
+      "articles": [
+        {
+          "title": "A Claude Code agent's test escaped into my Mac. I only noticed because it talked",
+          "summary": "Claude Code 2.1.286 in auto mode with seven background subagents and no sandbox let a test escape onto a Mac; the owner noticed only because it spoke aloud.",
+          "source": "hackernews_ai",
+          "url": "https://www.marutpandya.com/posts/2026/10/my-mac-started-reading-json-aloud/",
+          "published": "2026-10-30T05:16:33Z"
+        },
+        {
+          "title": "I asked my coding agent to cat a file in .ssh. It did",
+          "summary": "Copilot CLI 1.0.105 ran cat on a file in ~/.ssh and listed the home directory with no approval prompt.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/dingningpei/envgit/blob/main/docs/launch-post.md",
+          "published": "2026-10-29T18:44:49Z"
+        },
+        {
+          "title": "A suspended user's agent run still wrote a file: an internal pilot",
+          "summary": "In an internal pilot, an agent run still wrote a file after the user who started it was suspended.",
+          "source": "hackernews_ai",
+          "url": "https://scopehaven.dev/ai-agent-suspended-user-finding",
+          "published": "2026-10-27T17:57:00Z"
+        },
+        {
+          "title": "Cross-request KV cache exposure in the GLM-5.3 Workers AI model, and our remediation with SGLang",
+          "summary": "Cloudflare disclosed cross-request KV cache exposure in its GLM-5.3 Workers AI deployment, live from Aug 27 until fixed with SGLang.",
+          "source": "cloudflare_blog",
+          "url": "https://blog.cloudflare.com/kv-cache-exposure-remediation/",
+          "published": "2026-10-26T22:01:23Z"
+        },
+        {
+          "title": "OpenAI's isolated AI agents found ways to talk to each other through CPU cache",
+          "summary": "Isolated OpenAI test agents communicated through CPU-cache side channels, showing how hard true containment is.",
+          "source": "hackernews_ai",
+          "url": "https://the-decoder.com/openais-isolated-ai-agents-found-ways-to-talk-to-each-other-through-cpu-cache/",
+          "published": "2026-10-25T18:44:11Z"
+        },
+        {
+          "title": "Show HN: AgenticBench, 9 security tests run on 25 AI coding agents",
+          "summary": "AgenticBench runs nine security tests on 25 coding agents, covering egress, telemetry, workspace boundaries and secrets.",
+          "source": "hackernews_ai",
+          "url": "https://agenticbench.org/",
+          "published": "2026-10-27T17:08:18Z"
+        },
+        {
+          "title": "I ran each AI coding-agent sandbox's own tests against the others",
+          "summary": "Runs each coding-agent sandbox's own tests against the others to check claims such as blocked network and hidden keys.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/carlostapiacl/sandbox-conformance",
+          "published": "2026-10-28T03:35:56Z"
+        },
+        {
+          "title": "MCP-warden local credential broker so AI agents never see your secrets",
+          "summary": "A local credential broker keeps secrets in the OS keychain so MCP-connected agents call APIs without ever seeing them.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/ermoluk/mcp-warden",
+          "published": "2026-10-27T10:28:15Z"
+        },
+        {
+          "title": "How we detect frontier model misalignment",
+          "summary": "OpenAI describes layered monitoring for catching frontier-model misalignment and unauthorized agent behavior before incidents escalate.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/how-we-detect-frontier-model-misalignment",
+          "published": "2026-10-29T09:00:00Z"
+        }
+      ]
+    },
+    {
+      "name": "Verifying Agent Output",
+      "slug": "verifying-agent-output",
+      "summary": "Passing tests no longer count as proof, so builders are adding checks that show an agent's work could have failed.",
+      "articles": [
+        {
+          "title": "Agent's tests passed. Prove they could have failed",
+          "summary": "mustfail reverts the agent's source changes, keeps its new tests, and flags any test that still passes.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/greenlitbooks/mustfail",
+          "published": "2026-10-29T07:33:36Z"
+        },
+        {
+          "title": "Give your coding agent a verification harness to check its code",
+          "summary": "Argues a verification harness that lets the agent run the product beats a slightly better model.",
+          "source": "hackernews_ai",
+          "url": "https://www.heal.dev/verification-harness",
+          "published": "2026-10-29T15:44:16Z"
+        },
+        {
+          "title": "Show HN: Apgar – Catch agent regressions without an LLM judge",
+          "summary": "Catches agent regressions after a harness change without relying on an LLM judge.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/oimo-ai/apgar",
+          "published": "2026-10-29T17:04:06Z"
+        },
+        {
+          "title": "Do Guardrails Make AI Coding Agents Better? What 270 Runs Showed",
+          "summary": "270 runs test whether instruction files, pre-commit gates and done-hooks actually make coding agents better.",
+          "source": "hackernews_ai",
+          "url": "https://secondtimeisabug.com/blog/coding-agent-guardrails-270-runs/",
+          "published": "2026-10-28T01:46:12Z"
+        },
+        {
+          "title": "Red-teaming AI agent monitors with an LLM that fakes tool outputs",
+          "summary": "Redwood's simulated control evaluations use an LLM that fakes tool outputs to test whether agent monitors would catch deliberate harm.",
+          "source": "hackernews_ai",
+          "url": "https://www.redwoodresearch.org/blog/simulated-control-evaluations",
+          "published": "2026-10-25T15:41:09Z"
+        }
+      ]
+    },
+    {
+      "name": "Inference Routing, Serving & Cost",
+      "slug": "inference-routing-serving-cost",
+      "summary": "Inference choices now turn on measured latency and agent-session behavior rather than list price, and hidden call overhead is getting audited.",
+      "articles": [
+        {
+          "title": "OpenRouter rebuilt provider routing for better, faster inference",
+          "summary": "OpenRouter's new default router ranks providers on inference quality for the request instead of mostly rewarding the lowest price.",
+          "source": "hackernews_ai",
+          "url": "https://openrouter.ai/blog/announcements/how-we-rebuilt-provider-routing/",
+          "published": "2026-10-30T16:32:47Z"
+        },
+        {
+          "title": "AI Gateway Benchmark: OpenRouter, Vercel, Ramp, Keln",
+          "summary": "A 24-hour benchmark of real agent sessions on OpenRouter :nitro, Vercel, Ramp and Keln, run on DeepSeek V4.1 Flash.",
+          "source": "hackernews_ai",
+          "url": "https://keln.ai/blog/ai-gateway-benchmark-deepseek-v4-1-flash",
+          "published": "2026-10-25T16:53:40Z"
+        },
+        {
+          "title": "Cerebras Deploys Trillion-Parameter AI Models",
+          "summary": "Explains how Cerebras fits trillion-parameter models onto wafers with 44 GB of on-chip memory.",
+          "source": "hackernews_ai",
+          "url": "https://www.cerebras.ai/blog/how-we-deploy-trillion-parameter-frontier-models-on-cerebras",
+          "published": "2026-10-25T01:33:49Z"
+        },
+        {
+          "title": "Cerebras and Oracle Team Up to Bring Cerebras AI Inference to OCI",
+          "summary": "Oracle Cloud Infrastructure plans to offer Cerebras inference to labs, enterprises and developers.",
+          "source": "hackernews_ai",
+          "url": "https://www.cerebras.ai/press-release/cerebras-and-oracle-team-up-to-bring-cerebras-ai-inference-to-oracle-cloud-inf-3389429",
+          "published": "2026-10-27T16:24:10Z"
+        },
+        {
+          "title": "How we test LLM serving changes for coding agents, two hours of GPUs per change",
+          "summary": "Upbound describes testing each LLM serving change for a self-hosted coding model with about two hours of GPUs.",
+          "source": "hackernews_ai",
+          "url": "https://www.upbound.io/blog/drinking-our-own-champagne-part-5-what-does-it-take-to-grow-a-self-hosted-coding-model-from-pilot-to-team",
+          "published": "2026-10-26T15:12:56Z"
+        },
+        {
+          "title": "Claude Code regularly sends each background agent’s transcript to its model",
+          "summary": "A teardown finds Claude Code sends every background agent's full transcript to its model about every 30 seconds.",
+          "source": "hackernews_ai",
+          "url": "https://gist.github.com/flamerix-ai/c3905705cc4205e5de3011fa2e74efce",
+          "published": "2026-10-29T03:33:42Z"
+        },
+        {
+          "title": "Our AI Agent Executed the Same Successful SQL Query 254 Times",
+          "summary": "An internal data agent ran the same successful SQL query 254 times, a loop cost worth guarding against.",
+          "source": "hackernews_ai",
+          "url": "https://armincat.com/articles/ai-agent-executed-same-query-254-times",
+          "published": "2026-10-28T22:29:54Z"
+        },
+        {
+          "title": "Smarter cost controls for serverless",
+          "summary": "Databricks adds cost controls for serverless compute as its usage grew more than 3x in a year.",
+          "source": "databricks_blog",
+          "url": "https://www.databricks.com/blog/smarter-cost-controls-serverless",
+          "published": "2026-10-29T15:00:00Z"
+        }
+      ]
+    },
+    {
+      "name": "Agent Memory & Context Control",
+      "slug": "agent-memory-context-control",
+      "summary": "Teams are moving memory and context selection out of the prompt into dedicated layers that cut tokens while keeping accuracy.",
+      "articles": [
+        {
+          "title": "Same agent-memory accuracy with 8x fewer tokens by changing the embedding model",
+          "summary": "Reports 91.8% on LongMemEval from 3.1k tokens of memory per question by changing the embedding model.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/goyohan0611-png/turnbook",
+          "published": "2026-10-30T04:06:35Z"
+        },
+        {
+          "title": "A 32K-window proxy that beat full context on long agent histories",
+          "summary": "A transparent proxy keeps a verbatim archive and structured recall so a 32K-window agent handles long histories.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/lastreload/mnemonic-proxy",
+          "published": "2026-10-25T13:08:14Z"
+        },
+        {
+          "title": "Show HN: Omneum – Local, text-blind context control plane for AI agents",
+          "summary": "Open-source control plane that selects high-utility context under a token budget before it reaches the model.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/cole-h06/omneum",
+          "published": "2026-10-30T15:03:29Z"
+        },
+        {
+          "title": "How to build evidence-grounded agent memory with OpenWiki and Graphs",
+          "summary": "LangChain shows how to ground agent memory in evidence across policies, tickets and code using OpenWiki and graphs.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/building-agent-memory-openwiki-graphs",
+          "published": "2026-10-28T17:24:00Z"
+        },
+        {
+          "title": "Programming interface for all agent harnesses",
+          "summary": "OAR is a provider-independent programming interface for coding-agent runtimes.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/botiverse/oar",
+          "published": "2026-10-29T12:41:08Z"
+        },
+        {
+          "title": "HLock: Harness Portability for Agent Configs",
+          "summary": "hlock pins an agent's harness, MCP servers, skills and config in a harness.lock file you can commit and restore.",
+          "source": "hackernews_ai",
+          "url": "https://docs.hlock.ai/",
+          "published": "2026-10-29T02:01:20Z"
+        }
+      ]
+    }
+  ]
+}
