@@ -317,6 +317,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNd2tNSVNuSHlpbEU2N0xIR3JveXRQNXE4dmhaeVBvZE83VXlmSzlyM0xjWXZZZW15aTh2Q2tFQk9icHZpWnkxZHktS1pIUHhrd2MxeTVlZDNOWnIwU0E2U29oRmg5SWVsVlVqekpFeTczakdUN3ktTEhfVlNScWZwc2JiLWVLVTctcGZxX1ZmaWZkaS1odVBxOQ?oc=5"
  },
+ "0483bbddcacbf1fa": {
+  "content_excerpt": "Shielded BitcoinZ wallets for AI agents, via MCP. Send, receive and message, autonomously, within safety limits. Shielded BitcoinZ wallets for AI agents, via MCP. Agents pay. Agents talk. Privately. 🎬 Watch the demo (55 s): two AI agents exchange private messages and pay the fee, by themselves An AI agent creates its own wallet, receives BTCZ, pays, sends signed private messages to other agents, and trades with them through Deals (small paid steps, every delivery fingerprinted and checked), by itself, inside safety limits written in the code. No human in the loop for each trade; the rules are in the code. Service: https://proof.zketernity.app/agent/mcp (MCP) · https://proof.zketernity.app/agent/v1/ (REST) · For AI agents: /agent/llms.txt Every call except create_wallet needs the header Authorization: Bearer . No key recovery: a lost key means a lost wallet. Every message and deal step is signed with Ed25519. Each wallet has a public signer id ( awid_... ). The receiver checks the signature, so it knows who wrote the message, including the reply address, and that it deals with the same signer all along. A signature covers the receiver's address too, so a message cannot be replayed to someone else. Hosted v0.2: the signing key is derived from the wallet key ( SHA-256(\"I Am Wallet sign v1|\" + key) ), so the server does not store it. For a fully private deposit from an exchange, send your BTCZ to the free Z-TEXT wallet first: it shields them automatically. Then pay from Z-TEXT to",
+  "first_seen": "2026-10-30T10:04:21.803993+00:00",
+  "id": "b1ea1069abc484a5",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-30T08:05:56+00:00",
+  "sid": "0483bbddcacbf1fa",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: AI agents trade privately on BitcoinZ, with proof of delivery",
+  "title": "Show HN: AI agents trade privately on BitcoinZ, with proof of delivery",
+  "type": "news",
+  "url": "https://github.com/ZKStamp/AgentWallet",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "048b27b05e8126b7": {
   "content_excerpt": "Coding agents are pretty powerful, as far as dev tools go. They enable you to hand off a big chunk of work, which opens up a whole world of possibilities to do things like debug a service, plan a migration, review a PR, and more. Your agent knows a ton about your side of a project, and nothing about mine. And that makes working together a little painful: So I had a thought: why not give the two agents a link, and let them talk to each other directly? That would mean: With all this in mind, I spent a couple of days hacking on something I've dubbed peertalk . You make a room, send the link to a friend, and each of you pastes a prompt into your own agent. The agents find each other, connect directly, and talk. Everything your agent runs is in a public gist , if you just want to read the code. Be warned: it's an experiment at the moment, essentially a hack project. But it should work well enough for you to try it with a friend Anyone with an agent that runs on their own computer and can keep a small program going in the background: Claude Code, Codex CLI, Gemini CLI, Cursor, OpenClaw, and so on. The possibilities are pretty endless, and a few ideas which spring to mind immediately are: What if the other person doesn't have an agent? No problem! They can pick \"Just me\" on the room page, and chat with your agent, and everything it knows about your project, directly from their browser. There's an MCP server too, so you don't need to open the room page at all: add it to your agent an",
   "first_seen": "2026-10-27T05:04:12.105816+00:00",
@@ -3069,6 +3085,23 @@
   "type": "news",
   "url": "https://www.latent.space/p/stacklok",
   "why_it_matters": "Matches feed focus: agent, harness."
+ },
+ "2280cb34406eb550": {
+  "first_seen": "2026-10-30T10:04:21.803993+00:00",
+  "id": "4b06bdb7c5dc1f26",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-29T12:30:00+00:00",
+  "sid": "2280cb34406eb550",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Complex information seeking on the Web often requires collecting evidence from multiple documents and reasoning across them, as in multi-hop question answering. Multi-agent systems address such tasks by dividing work among specialized agents, where upstream agents produce intermediate answers and supporting evidence that downstream agents build upon. However, upstream answers vary in correctness, and most systems provide no quantitative signal about it, leaving the downstream agent to judge whether to trust or verify what it receives based solely on the textual evidence. In this paper, we propose MASCAL. Each agent learns to produce a correctness probability for its answer by jointly optimizing task performance and confidence calibration in reinforcement learning; the upstream agent passes this probability at handoff, giving the downstream agent a quantitative basis for its decisions, and the final answer also carries a calibrated probability, quantifying the reliability of the system output. To guide the downstream agent in using this signal during training, we introduce confidence-aware weighting, which increases the learning weight at positions responsive to the upstream probability, so that the agent learns more from decisions where it actively uses the signal. Across three collaboration architectures spanning Web retrieval and reasoning tasks, MASCAL improves task accuracy and calibration quality for both agents, and generalizes to deeper collaboration chains and differe",
+  "summary_1line": "Complex information seeking on the Web often requires collecting evidence from multiple documents and reasoning across them, as in multi-hop question answering. Multi-agent systems address such tasks by dividing work...",
+  "title": "Learning Calibrated Confidence for Multi-Agent Collaboration",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.39927v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "22ff29c99410f27b": {
   "content_excerpt": "An LLM agent that cannot publish a hallucination - LangGraph + Claude + a deterministic grounding gate over Salesforce, web and meeting-transcript evidence ▶ Two-minute demo — the architecture animated, a real run publishing in 41 seconds, and the run the gate refused. Deal Rescue takes one stalled Salesforce opportunity, gathers everything knowable about it — the CRM record, outside-world signals, the latest meeting transcript from Google Drive — and has Claude write the rescue: a scored timeline, a full read of the deal, and an email draft. Then a deterministic grounding gate re-checks every date, amount, contact and citation against what was actually fetched. Output that invents anything is rejected with reasons, retried at most twice, and then the run fails closed, publishing nothing . The thesis: in front of a CRM, groundedness is enforced by code; only judgment is delegated to the model. The LLM never touches a number. The deal score is a deterministic rubric ( scoring.py : start at 100, deduct for silence, close-date pushes, stage regressions, declining activity). Claude may adjust it ±15 and must cite a signal for any nonzero move. Every date, amount, stage name and contact id the model may use is handed to it as a closed grounding set ( tools/agentforce/prompt.py ) and re-derived + re-checked on the way out ( validation.py ). Every prompt rule has a matching gate check; the tests hold them to each other. No email is ever sent from this codebase. Publish writes a draf",
@@ -6675,7 +6708,7 @@
   "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1xOXVIejhWN2pIMV9NT0NnbTEtNmtnMzdjSnUxTWJxQjZJR1BYamVZNzB5Ul9pb1RadFA2WEwteTRYSEFzS0JKdTN6b1kxUy05al9PNF9sZV84NjQtcmh6SkJSTTg1cFZicFpnRE1wOFBuY2NzMFdvbU9n?oc=5"
  },
  "4babea341ec6b4e6": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. Khawaja Shams shares a distributed systems perspective on scaling LLM inference stacks efficiently. He discusses practical strategies for optimizing GPU utilization, managing KV cache memory cliffs, leveraging tiered storage, reducing tail latency, and implementing disaggregated prefill and decode architectures to improve overall fleet performance, cost economics, and availability. Nathen Harvey shares insights from DORA research ",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Nathen Harvey shares insights from DORA research on AI adoption in software delivery. He explains why AI acts as an",
   "first_seen": "2026-10-29T08:05:03.420180+00:00",
   "id": "bb4a46ed02106ed4",
   "image_url": "https://res.infoq.com/news/2026/10/cloudflare-web-search-api/en/headerimage/generatedHeaderImage-1791616850849.jpg",
@@ -11866,6 +11899,18 @@
   "url": "https://github.com/rebuno/uber",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "897179e018b019f9": {
+  "content_excerpt": "We don't need to review all code changes. Make it easy for reviewers to focus on what's important. The number of pull requests most teams produce has drastically increased because of the help of coding agents. How do we review all those pull requests? When we look at a PR description created with the help of an agent, it’s typically a summary of all the things changed. It’s complete, but very long. Even understanding what the pull request is about takes a lot of time. Should we spend our days reading these long summaries, all the code (AI produced or not), line by line, to make sure it meets our expectations? Or could we be smarter about what we spend our time on? The first question to answer is who is ultimately responsible for the pull request. That should be the developer creating the PR! It doesn’t matter if and how an agent was used in the process. The developer must have an understanding of the change, the impact of it, risks it carries, etc. They don’t have to know each and every line written by an agent, but they do need to know what public APIs are changed or introduced, if there are behavioral changes, gaps, etc. They must also do an appropriate amount of testing and verification, and it’s perfectly fine to use coding agents for this. Coding agents are really good at discovering bugs, this is not where we need to spend our team’s time. There must be enough trust in a team that everyone does their due diligence. Code reviews are not supposed to be a gate to check if ",
+  "first_seen": "2026-10-30T10:04:21.803993+00:00",
+  "id": "baca5c6877908a1a",
+  "published": "2026-10-30T08:23:22+00:00",
+  "sid": "897179e018b019f9",
+  "source": "hackernews_ai",
+  "summary_1line": "How (not) to use AI for pull requests and code reviews",
+  "title": "How (not) to use AI for pull requests and code reviews",
+  "type": "news",
+  "url": "https://paulbakker.io/writing/how-not-to-use-ai-for-pull-requests-and-code-changes"
+ },
  "89893d5f73c77515": {
   "content_excerpt": "On September 8, 2026, we were alerted by a security researcher, Gadi Evron from Knostic , to a tenant isolation issue affecting the GLM-5.3 Workers AI model ( @cf/zai-org/glm-5.3 ) starting on August 27, 2026. We have remediated the issue, and we restored the model on September 9. We have confirmed that no other model hosted on Workers AI was affected. Between August 27 and September 9, a small number of customers using the GLM 5.3 Workers AI model received responses that contained data from other customers' requests made to the same model shortly before theirs. In total, 155 responses were affected, all to prompts longer than 681,280 tokens. After excluding our own testing and the researcher's, the requests we identified are consistent in timing and volume with ordinary long-context use, not with someone repeatedly exploiting the bug. We found no evidence of deliberate exploitation. Today we are publishing this report alongside a post from SGLang, the open-source inference engine that we use, as a coordinated disclosure. This post describes the bug that caused this issue, our response timeline, and the subsequent hardening we have conducted on our production SGLang deployments. We also detail our continued efforts with the upstream maintainers of SGLang to address this and similar bugs. GLM is a text generation model from Z.ai that is built for agentic coding workflows; it is one of the many models available through Workers AI. Gadi Evron submitted a report on September 8 th",
   "first_seen": "2026-10-26T22:12:29.367597+00:00",
@@ -13281,6 +13326,18 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQYzk5b0RnbUxXYThCRHZHNE5oMXY1dlktOGRBYzZENWM4bXdJWmhrNEdwbGpSY0NuZjJFYnNVM0t5VFE2WEhlU2JIZ0NUU2xkVl9KM0tDemVzd19IaXFPQThITHF5bU9QeEpUa3dNbnVJTkRzUU1ERHRvMVBiN2tpd3ZLcFhnVTZxQ2prZVJWM0padkppd1JZTFJB?oc=5"
  },
+ "98f99dc36b67ac3f": {
+  "first_seen": "2026-10-30T10:04:21.803993+00:00",
+  "id": "3894c0785ec6d71b",
+  "published": "2026-10-30T09:10:43+00:00",
+  "sid": "98f99dc36b67ac3f",
+  "source": "vllm_releases",
+  "summary": "Signed-off-by: Micah Williamson micah.williamson@amd.com (cherry picked from commit 6d01893 )",
+  "summary_1line": "Signed-off-by: Micah Williamson micah.williamson@amd.com (cherry picked from commit 6d01893 )",
+  "title": "v0.33.0rc2: [ROCm][Bugfix] Skip AITER tuned GEMM when M*N >= 2^31 on gfx950 (#64567)",
+  "type": "release",
+  "url": "https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc2"
+ },
  "993bc19082d2d062": {
   "first_seen": "2026-10-13T01:04:28.784826+00:00",
   "id": "13b5f95b63b18738",
@@ -13751,6 +13808,22 @@
   "url": "http://arxiv.org/abs/2610.09684v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
+ "9db07bab5c6d2e0c": {
+  "first_seen": "2026-10-30T10:04:21.803993+00:00",
+  "id": "7700876306d7585f",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-29T07:31:50+00:00",
+  "sid": "9db07bab5c6d2e0c",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Multi-agent LLM systems increasingly rely on persistent memory and inter-agent communication. These capabilities create privacy risks that extend beyond individual interactions: a release appropriate in isolation may become inappropriate when combined with information previously disclosed to a recipient or propagated to downstream agents along the planned workflow. Existing Contextual Integrity (CI) mechanisms for agentic systems typically rely on local judgments that assess each disclosure in isolation, with or without regard to the recipient's history, but do not account for how information propagates downstream. However, compliance at the current boundary does not guarantee appropriateness across the workflow. We introduce Task-Graph Contextual Integrity (TG-CI), to our knowledge the first task-graph-native formalization of Contextual Integrity for multi-agent systems. TG-CI represents a workflow as a Multi-Agent Task Graph (MATG) and extends CI from atomic transfers to stateful, graph-level information flows by jointly considering an item's intended propagation scope and recipients' evolving disclosure states. We operationalize TG-CI through propagation-scoped authorization under two complementary policies: Full-Scope, which requires admissibility across the complete downstream scope, and Auto-Region, which confines each item to its maximal admissible region using lightweight frontier gates. We further introduce MAPLE-Bench, a benchmark of 144 cases across four scenarios ",
+  "summary_1line": "Multi-agent LLM systems increasingly rely on persistent memory and inter-agent communication. These capabilities create privacy risks that extend beyond individual interactions: a release appropriate in isolation may...",
+  "title": "Judging Before Propagation: Task-Graph Contextual Integrity for Multi-Agent Privacy",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.39532v1",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "9dc6be4c8edededb": {
   "first_seen": "2026-10-21T18:04:13.370719+00:00",
   "id": "2fdd357ccf62dabc",
@@ -13769,6 +13842,22 @@
   "type": "news",
   "url": "https://news.ycombinator.com/item?id=50182883",
   "why_it_matters": "Matches feed focus: agent, harness, codex."
+ },
+ "9ddf072b9d95e17f": {
+  "content_excerpt": "See the whole flow in a few minutes, with no account and no email. send21 creates a payment draft, you pay it from your own wallet, and the page shows the confirmation from a public test network. An agent gets a scoped API key that can create and track drafts but never spend . A person always signs in their own wallet. Test networks on send21.io are for this demo only, and account drafts use the live networks. That is still safe while you integrate: a draft moves no money until someone signs it, so create small drafts to your own address and cancel them. Full API: /swagger | agent overview: /llms.txt | status via GET /drafts/ {id} /status or signed webhooks ( draft.confirmed ). Create a free account and send your first pay link. No subscription, only a small fee per payment. Developer docs : Developer docs | API quickstart | Webhooks | MCP server for AI agents | Use send21 with Muse Code | Currencies and networks | Lightning payments | Draft integrity and hashing Guides : Accept USDC and EURC payments | Crypto payment link generator | Lightning address payments that confirm themselves | Payments for AI agents, without giving them your keys | Accept ETH on Ethereum, Base and Arbitrum | Crypto invoice generator | How to accept crypto payments on your website | x402, AP2 and send21: AI agent payments explained Compare : send21 and BTCPay Server compared | A non-custodial alternative to crypto payment gateways | send21 as a Coinbase Commerce alternative | send21 as a NOWPayments ",
+  "first_seen": "2026-10-30T10:04:21.803993+00:00",
+  "id": "3b5460ff13d8843a",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-30T08:26:44+00:00",
+  "sid": "9ddf072b9d95e17f",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Send21 – Crypto pay links an AI agent can create but can't spend",
+  "title": "Show HN: Send21 – Crypto pay links an AI agent can create but can't spend",
+  "type": "news",
+  "url": "https://send21.io/demo",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "9de6ce5d556c1433": {
   "first_seen": "2026-10-08T13:03:44.624952+00:00",
@@ -16953,6 +17042,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.21496v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "bb33a1b96f238339": {
+  "first_seen": "2026-10-30T10:04:21.803993+00:00",
+  "id": "a2b88d1e039799e9",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-10-29T17:45:26+00:00",
+  "sid": "bb33a1b96f238339",
+  "source": "arxiv_cs_cl",
+  "summary": "Building and scaling computer-using agents (CUAs) across desktop, mobile, and web environments requires reliable task-completion verification for data curation, evaluation, and reinforcement learning. Typical automated approaches prompt vision-language models (VLMs) to judge trajectories or generate programs to inspect application state. However, both rely on partial views of complex digital environments. VLM judges are restricted to supplied observations, while generated programs depend on accessible state. These views can omit decisive evidence or leave completion judgments unsupported. Tailoring separate verifiers to different platforms and access settings adds further engineering cost. We present VeriCUA, a platform-agnostic framework for verification through agentic exploration. It treats verification as dynamic evidence gathering and assessment within a shared procedure for online and offline settings across platforms and observation modalities. After inspecting the available context to construct a task rubric, the verifier selects GUI or code checks for unresolved requirements and combines their findings under explicit evidence rules. Experiments show improved agreement with reference labels over the compared baselines across these settings, with the largest offline gains on hard cases and stronger rejection of false completion claims online. Further analyses connect these gains to complementary evidence and test-time exploration.",
+  "summary_1line": "Building and scaling computer-using agents (CUAs) across desktop, mobile, and web environments requires reliable task-completion verification for data curation, evaluation, and reinforcement learning. Typical automate...",
+  "title": "VeriCUA: Verification as Agentic Exploration for Computer-Using Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40578v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "bb494bd7a49dd836": {
   "first_seen": "2026-10-22T14:08:40.468312+00:00",
@@ -20151,6 +20257,23 @@
   "url": "https://github.com/AxiomCodeAI/axiomcodegraph",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "db636e58926d6fca": {
+  "first_seen": "2026-10-30T10:04:21.803993+00:00",
+  "id": "f92a502f3992a576",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-29T17:34:04+00:00",
+  "sid": "db636e58926d6fca",
+  "source": "arxiv_cs_ai",
+  "summary": "How effectively can vision-language-action (VLA) models learn diverse language-conditioned behaviors as training data scales? Investigating this question requires large and varied robot datasets, whose collection on physical robots remains costly. We introduce BURGER, a language-conditioned robotic drawing benchmark with a scalable, prompt-driven pipeline for generating continuous drawing trajectories, both in simulation and the real world. In BURGER, an agent starts from the same blank canvas and controls a robot arm to draw the object or spatial composition specified by language, while each instruction allows an open-ended variety of valid drawings and stroke orders. Using 28,200 simulated demonstrations spanning 282 drawing tasks, we evaluate five representative VLA models across data scales, language grounding, and multimodal behavior. BURGER supports fine-grained analysis of language grounding, spatial composition, and action generation, revealing distinct failure patterns across VLA models. Our experiments suggest that some VLA models can benefit from greater task diversity and demonstration scale, capture multimodal drawing behaviors, and generalize to unseen compositions of familiar objects. Finally, we deploy a trained policy on a Franka Panda arm, demonstrating the ability to draw reactively under human intervention. Project homepage and code can be found at https://siyingzhao.github.io/BURGER/.",
+  "summary_1line": "How effectively can vision-language-action (VLA) models learn diverse language-conditioned behaviors as training data scales? Investigating this question requires large and varied robot datasets, whose collection on p...",
+  "title": "BURGER: Benchmarking and Understanding Robotic Generalization via Embodied Drawing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40532v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "db7388ca69770009": {
   "first_seen": "2026-10-18T07:04:33.041412+00:00",
   "id": "5408b39b105d45a5",
@@ -22956,7 +23079,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "f6e2d91494d6ac20": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. Khawaja Shams shares a distributed systems perspective on scaling LLM inference stacks efficiently. He discusses practical strategies for optimizing GPU utilization, managing KV cache memory cliffs, leveraging tiered storage, reducing tail latency, and implementing disaggregated prefill and decode architectures to improve overall fleet performance, cost economics, and availability. Nathen Harvey shares insights from DORA research ",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Nathen Harvey shares insights from DORA research on AI adoption in software delivery. He explains why AI acts as an",
   "first_seen": "2026-10-30T09:03:38.630593+00:00",
   "id": "25775d6446fda259",
   "image_url": "https://res.infoq.com/articles/ai-ml-data-engineering-trends-2026/en/headerimage/ai-ml-de-graph-2026-1793191771570.jpg",
