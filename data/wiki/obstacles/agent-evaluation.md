@@ -8,7 +8,7 @@ solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-10-30
 themes:
   - key: grading-trajectories
     title: Grading the trajectory, and checking the grader

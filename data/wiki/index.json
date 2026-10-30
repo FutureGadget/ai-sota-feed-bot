@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-29T18:07:43.972102+00:00",
+ "generated_at": "2026-10-30T18:05:43.542890+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,38 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-30-copilot-cli-reads-ssh-without-prompt",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-10-30",
+   "title": "Copilot CLI read ~/.ssh on request with no approval prompt under default settings"
+  },
+  {
+   "id": "2026-10-30-turnbook-verbatim-memory-longmemeval",
+   "topic": "agent-memory",
+   "topic_title": "Agents forget across steps and sessions",
+   "kind": "obstacle",
+   "date": "2026-10-30",
+   "title": "Verbatim local memory reports 91.8% on LongMemEval from 3.1k tokens per question"
+  },
+  {
+   "id": "2026-10-30-prefix-executability-trajectory-metric",
+   "topic": "agent-evaluation",
+   "topic_title": "Measuring whether an agent actually worked is hard",
+   "kind": "obstacle",
+   "date": "2026-10-30",
+   "title": "Final-success scores hide non-executable tool-call trajectories; prefix executability scores the path"
+  },
+  {
+   "id": "2026-10-30-claude-code-status-line-summary-calls",
+   "topic": "agent-cost",
+   "topic_title": "Agent token costs are unpredictable and easily run away",
+   "kind": "obstacle",
+   "date": "2026-10-30",
+   "title": "Claude Code re-sends each background agent's full transcript every ~30s for a status line"
+  },
   {
    "id": "2026-10-29-successful-call-loop",
    "topic": "tool-use",
@@ -222,38 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-25",
    "title": "Multi-agent LLM systems herd and cascade when agents respond to each other's choices"
-  },
-  {
-   "id": "2026-10-25-fold-subagents-into-main-loop",
-   "topic": "multi-agent",
-   "topic_title": "Coordinating multiple agents adds more failure than capability",
-   "kind": "obstacle",
-   "date": "2026-10-25",
-   "title": "Anthropic: fewer subagents plus progressive disclosure can cut cost and latency"
-  },
-  {
-   "id": "2026-10-25-kevlar-strips-tool-descriptions",
-   "topic": "mcp",
-   "topic_title": "Model Context Protocol: a standard interface for agent tools",
-   "kind": "solution",
-   "date": "2026-10-25",
-   "title": "Kevlar blocks MCP tool-description injection by stripping every description field"
-  },
-  {
-   "id": "2026-10-25-state-integrity-collapse",
-   "topic": "agent-memory",
-   "topic_title": "Agents forget across steps and sessions",
-   "kind": "obstacle",
-   "date": "2026-10-25",
-   "title": "Models can repeat a stated instruction in long dialogue yet stop obeying it"
-  },
-  {
-   "id": "2026-10-25-afterdeletebench-post-deletion-persistence",
-   "topic": "agent-memory",
-   "topic_title": "Agents forget across steps and sessions",
-   "kind": "obstacle",
-   "date": "2026-10-25",
-   "title": "Deleting an agent's memory record may not remove what its summaries still carry"
   }
  ],
  "nodes": {
@@ -283,7 +283,7 @@
      "key": "harness-and-context",
      "title": "Harness, context, and topology drive the per-step bill",
      "summary": "What the agent re-reads, fetches, and re-sends each turn sets most of the bill; validated compaction, tool-instruction tuning, and task-level measurement beat naive truncation.",
-     "count": 10
+     "count": 11
     },
     {
      "key": "cheaper-models",
@@ -311,6 +311,25 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-30-claude-code-status-line-summary-calls",
+     "topic": "agent-cost",
+     "date": "2026-10-30",
+     "title": "Claude Code re-sends each background agent's full transcript every ~30s for a status line",
+     "theme": "harness-and-context",
+     "html": "<p>A reverse-engineering gist (Claude Code 2.1.257-2.1.312, binary unmodified, community-reported, not confirmed by Anthropic) finds that every ~30 seconds each background agent&#x27;s <strong>entire transcript</strong> goes to that agent&#x27;s own model, usually Opus, with the prompt &quot;describe your most recent action in 3-5 words&quot;. The answer only updates the agents panel; it never reaches the conversation.</p>\n<p>It is reportedly on by default since 2.1.232 with no setting to disable it. A second write-up prices one call at Opus 5.5 list rates. Cost grows with transcript length times agent count, so long-lived fleets pay most. Check harness-side housekeeping calls in your own usage logs, not just task prompts.</p>",
+     "evidence": [
+      {
+       "sid": "94430ceaa839cbc6",
+       "title": "Claude Code regularly sends each background agent’s transcript to its model"
+      },
+      {
+       "sid": "4d9b58b182c3fddf",
+       "title": "What Claude Code's 30-second agent summary call costs, read from the binary"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-29-cachelint-silent-misintegration",
      "topic": "agent-cost",
@@ -1287,8 +1306,8 @@
      "title": "OpenAI adds usage analytics and enforceable spend controls to ChatGPT Enterprise"
     }
    ],
-   "entry_count": 54,
-   "latest_entry_date": "2026-10-29",
+   "entry_count": 55,
+   "latest_entry_date": "2026-10-30",
    "solutions": [
     {
      "slug": "agent-orchestration",
@@ -1306,6 +1325,14 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "94430ceaa839cbc6",
+     "title": "Claude Code regularly sends each background agent’s transcript to its model"
+    },
+    {
+     "sid": "4d9b58b182c3fddf",
+     "title": "What Claude Code's 30-second agent summary call costs, read from the binary"
+    },
     {
      "sid": "acf14c1d41e7a5ef",
      "title": "Silent and Costly: Characterizing and Detecting Prompt-Caching Mis-Integration in LLM Agents"
@@ -1547,7 +1574,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-10-29"
+   "updated": "2026-10-30"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -1575,7 +1602,7 @@
      "key": "grading-trajectories",
      "title": "Grading the trajectory, and checking the grader",
      "summary": "Graders now read whole traces and return step-level verdicts, and cheap judges make that affordable on every trace. The open question is trust, since judges and their labels carry bias and need measured agreement with humans.",
-     "count": 22
+     "count": 23
     },
     {
      "key": "score-validity",
@@ -1609,6 +1636,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-30-prefix-executability-trajectory-metric",
+     "topic": "agent-evaluation",
+     "date": "2026-10-30",
+     "title": "Final-success scores hide non-executable tool-call trajectories; prefix executability scores the path",
+     "theme": "grading-trajectories",
+     "html": "<p>A new arXiv paper argues tool-use benchmarks that score only the terminal outcome can pass agents whose intermediate tool calls were not executable. It proposes <strong>prefix executability</strong>, a trajectory-level metric that checks how far into a call sequence the agent stays valid.</p>\n<p>For builders, an agent can reach the right answer through calls that would fail or misfire against a stricter backend. Add a per-step validity check to your tool-use evals alongside pass rate, so regressions in call quality show up before they cost retries in production.</p>",
+     "evidence": [
+      {
+       "sid": "bfc2f0eb7a62f683",
+       "title": "Prefix Executability: Evaluating Tool-Using Agents Beyond Final Success"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-09-epistemic-humility-ise",
      "topic": "agent-evaluation",
@@ -3619,8 +3661,8 @@
      "title": "Zero-temperature judges still flip verdicts; the most consistent one was right only 51% of the time"
     }
    ],
-   "entry_count": 127,
-   "latest_entry_date": "2026-10-09",
+   "entry_count": 128,
+   "latest_entry_date": "2026-10-30",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -3634,6 +3676,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "bfc2f0eb7a62f683",
+     "title": "Prefix Executability: Evaluating Tool-Using Agents Beyond Final Success"
+    },
     {
      "sid": "4353ed3c68ccb423",
      "title": "Accurate but Not Humble: Evaluating Epistemic Humility in LLM Agents under Knowledge Conflict"
@@ -4171,7 +4217,7 @@
      "title": "Running the Gauntlet: Re-evaluating the Capabilities of Agents Beyond Familiar Environments"
     }
    ],
-   "updated": "2026-10-09"
+   "updated": "2026-10-30"
   },
   "agent-latency": {
    "slug": "agent-latency",
@@ -5311,7 +5357,7 @@
      "key": "local-first-stores",
      "title": "Build vs. buy: managed services and developer-owned stores",
      "summary": "Managed memory services compete with a crowded wave of local-first, single-file stores that often retrieve with BM25 plus vectors and no LLM in the loop.",
-     "count": 16
+     "count": 17
     },
     {
      "key": "shared-memory",
@@ -5339,6 +5385,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-30-turnbook-verbatim-memory-longmemeval",
+     "topic": "agent-memory",
+     "date": "2026-10-30",
+     "title": "Verbatim local memory reports 91.8% on LongMemEval from 3.1k tokens per question",
+     "theme": "local-first-stores",
+     "html": "<p>Turnbook, a single-repo Show HN project, stores agent conversations word for word and spends <strong>zero model tokens on saving</strong>, unlike tools that run an LLM over transcripts at write time. It self-reports 88.8% on LongMemEval_S, and 91.8% when retrieval is capped at 3.1k tokens of memory per question (v0.10.0). The same answer model (gpt-5-mini), prompt and gpt-4o judge were used across compared systems; the post credits an embedding-model change for the token cut.</p>\n<p>All numbers are self-reported and unreplicated. The design choice is the takeaway: move cost from write time to retrieval, and keep raw text so nothing is lost to summarization.</p>",
+     "evidence": [
+      {
+       "sid": "fc08589671123b66",
+       "title": "Same agent-memory accuracy with 8x fewer tokens by changing the embedding model"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-28-openwiki-compiled-memory",
      "topic": "agent-memory",
@@ -6557,8 +6618,8 @@
      "title": "An open-source memory plugin consolidates by forgetting and synthesizing instead of storing everything"
     }
    ],
-   "entry_count": 72,
-   "latest_entry_date": "2026-10-28",
+   "entry_count": 73,
+   "latest_entry_date": "2026-10-30",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -6572,6 +6633,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "fc08589671123b66",
+     "title": "Same agent-memory accuracy with 8x fewer tokens by changing the embedding model"
+    },
     {
      "sid": "b017db0483658dfc",
      "title": "How to build evidence-grounded agent memory with OpenWiki and Graphs"
@@ -6873,7 +6938,7 @@
      "title": "Cloudflare Announces Agent Memory, a Managed Persistent Memory Service for AI Agents"
     }
    ],
-   "updated": "2026-10-28"
+   "updated": "2026-10-30"
   },
   "agent-observability": {
    "slug": "agent-observability",
@@ -12377,6 +12442,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-10-30-copilot-cli-reads-ssh-without-prompt",
+     "topic": "agent-sandboxing",
+     "topic_title": "Sandboxing, scoped credentials, and guardrails",
+     "date": "2026-10-30",
+     "title": "Copilot CLI read ~/.ssh on request with no approval prompt under default settings"
+    },
+    {
      "id": "2026-10-26-openai-covert-channel-containment",
      "topic": "agent-sandboxing",
      "topic_title": "Sandboxing, scoped credentials, and guardrails",
@@ -13052,7 +13124,7 @@
      "evidence": [
       {
        "sid": "72249bd53d8a5849",
-       "title": "What’s new in AI infrastructure and orchestration in September"
+       "title": "What’s new in AI infrastructure and orchestration in October"
       }
      ],
      "also": []
@@ -13125,7 +13197,7 @@
    "evidence": [
     {
      "sid": "72249bd53d8a5849",
-     "title": "What’s new in AI infrastructure and orchestration in September"
+     "title": "What’s new in AI infrastructure and orchestration in October"
     },
     {
      "sid": "14ca1514017a2ee2",
@@ -15570,7 +15642,7 @@
      "key": "permission-policy",
      "title": "Scoping what the agent may do",
      "summary": "Permissions are getting finer and more central, with per-parameter rules, approval-gated writes, IdP-managed connectors, sequence-aware policy, and portable permission specs.",
-     "count": 10
+     "count": 11
     },
     {
      "key": "local-sandboxes",
@@ -15598,6 +15670,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-30-copilot-cli-reads-ssh-without-prompt",
+     "topic": "agent-sandboxing",
+     "date": "2026-10-30",
+     "title": "Copilot CLI read ~/.ssh on request with no approval prompt under default settings",
+     "theme": "permission-policy",
+     "html": "<p>A developer reports (single hands-on test, not vendor-confirmed) that Copilot CLI 1.0.105 on macOS, in a fresh directory with default settings and no saved approvals, ran <code>ls ~</code> and <code>cat</code> on a canary file in <code>~/.ssh</code> without any permission dialog. The only prompt was the startup folder-trust question.</p>\n<p>Folder trust therefore acted as blanket shell trust. Treat default agent permission modes as open to your home directory: run agents in a sandbox or container, keep credentials out of reach, and verify behavior with a canary file rather than the docs.</p>",
+     "evidence": [
+      {
+       "sid": "445d06ae5b2fba6f",
+       "title": "I asked my coding agent to cat a file in .ssh. It did"
+      }
+     ],
+     "also": [
+      {
+       "slug": "prompt-injection",
+       "title": "Untrusted input and tools can hijack an agent"
+      }
+     ]
+    },
     {
      "id": "2026-10-29-inflight-run-outlives-suspension",
      "topic": "agent-sandboxing",
@@ -16584,8 +16676,8 @@
      "title": "A planted AGENTS.md in Downloads hijacked coding agents into installing malware"
     }
    ],
-   "entry_count": 61,
-   "latest_entry_date": "2026-10-29",
+   "entry_count": 62,
+   "latest_entry_date": "2026-10-30",
    "solutions": [],
    "obstacles": [
     {
@@ -16603,6 +16695,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "445d06ae5b2fba6f",
+     "title": "I asked my coding agent to cat a file in .ssh. It did"
+    },
     {
      "sid": "400904d310baccd7",
      "title": "A suspended user's agent run still wrote a file: an internal pilot"
@@ -16880,7 +16976,7 @@
      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
     }
    ],
-   "updated": "2026-10-29"
+   "updated": "2026-10-30"
   },
   "agent-tracing": {
    "slug": "agent-tracing",

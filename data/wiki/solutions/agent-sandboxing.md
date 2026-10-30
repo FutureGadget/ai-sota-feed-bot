@@ -6,7 +6,7 @@ status: active
 obstacles: [prompt-injection]
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-10-30
 themes:
   - key: credential-boundary
     title: Keeping secrets and authority out of the sandbox

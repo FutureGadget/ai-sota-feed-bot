@@ -16,10 +16,10 @@ Schema: `config/wiki_schema.md`.
   - theme `consistency-and-autonomy` — Consistency, autonomy limits, and the human role (6)
 
 ### memory
-- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (72 entries, updated 2026-10-28)
+- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (73 entries, updated 2026-10-30)
   → solutions: context-compaction, vector-kb
   - theme `architectures` — Tiered and lifecycle memory architectures (14)
-  - theme `local-first-stores` — Build vs. buy: managed services and developer-owned stores (16)
+  - theme `local-first-stores` — Build vs. buy: managed services and developer-owned stores (17)
   - theme `shared-memory` — Sharing memory across agents, isolating it between users (10)
   - theme `recall-and-curation` — What to write, when to revoke, how to recall (16)
   - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (8)
@@ -53,9 +53,9 @@ Schema: `config/wiki_schema.md`.
   - theme `proving-attribution` — Proving the answer is backed by its source (4)
 
 ### evaluation
-- [agent-evaluation](obstacles/agent-evaluation.md) — Measuring whether an agent actually worked is hard (127 entries, updated 2026-10-09)
+- [agent-evaluation](obstacles/agent-evaluation.md) — Measuring whether an agent actually worked is hard (128 entries, updated 2026-10-30)
   → solutions: agent-benchmarks, llm-as-judge
-  - theme `grading-trajectories` — Grading the trajectory, and checking the grader (22)
+  - theme `grading-trajectories` — Grading the trajectory, and checking the grader (23)
   - theme `score-validity` — Benchmark scores are noisier and less valid than they look (20)
   - theme `gaming-and-containment` — Gamed metrics, leaky eval sandboxes, and who audits the evaluator (14)
   - theme `coding-benchmarks` — Coding-agent benchmarks beyond "the tests pass" (19)
@@ -72,9 +72,9 @@ Schema: `config/wiki_schema.md`.
   - theme `shared-context` — What each agent gets to see (2)
 
 ### cost
-- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (54 entries, updated 2026-10-29)
+- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (55 entries, updated 2026-10-30)
   → solutions: agent-orchestration, context-compaction, cost-controls
-  - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (10)
+  - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (11)
   - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (11)
   - theme `routing` — Routing each turn to the cheapest model that can handle it (10)
   - theme `caching-and-serving` — Caching and serving efficiency set the floor price (12)
@@ -142,9 +142,9 @@ Schema: `config/wiki_schema.md`.
   - theme `orchestrator-tooling` — Open-source orchestrators and multi-model routers (7)
   - theme `runtime-substrate` — The durable runtime underneath the agents (4)
   - theme `harness-choice` — Choosing a harness: frameworks, managed runtimes, portability (5)
-- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (61 entries, updated 2026-10-29)
+- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (62 entries, updated 2026-10-30)
   - theme `credential-boundary` — Keeping secrets and authority out of the sandbox (7)
-  - theme `permission-policy` — Scoping what the agent may do (10)
+  - theme `permission-policy` — Scoping what the agent may do (11)
   - theme `local-sandboxes` — Local sandboxes and tool-call supervisors (9)
   - theme `managed-platforms` — Managed and self-hosted sandbox platforms (12)
   - theme `egress-and-escapes` — Real escapes: egress, allowlists, and harness bugs (13)

@@ -8,7 +8,7 @@ solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-10-30
 themes:
   - key: architectures
     title: Tiered and lifecycle memory architectures
