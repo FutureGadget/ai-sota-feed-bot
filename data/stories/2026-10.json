@@ -12115,6 +12115,18 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQZFZMcm9abEZoRTJWQVpHRXdxOGNPTnVDT2lia0pRdVdXV0hiY1FNMndIV2RGYVVFTVgzaWpFTVVkU2NnM2MtTlFNMFlBTElWWWNYbFRBd0JiaEFCZnNaWXJJcV9ILWhjd0V0eGRtRXcyS3FSem11ekRXd3J6TW5vQWp3?oc=5"
  },
+ "8bb6b81360a6a063": {
+  "first_seen": "2026-10-30T08:04:33.647543+00:00",
+  "id": "a197b0fdac1e0bb3",
+  "published": "2026-10-29T17:36:01+00:00",
+  "sid": "8bb6b81360a6a063",
+  "source": "arxiv_cs_cl",
+  "summary": "Predicting how many tokens a large language model (LLM) will decode, using only prefill-phase hidden states, is a key primitive for inference scheduling. We show that current benchmarks conflate predictor quality with task hardness: when the target model, dataset, or sampling configuration changes, reported accuracy collapses even though the predictor is unchanged. We trace this instability to an overlooked error source---the inherent stochasticity of autoregressive decoding---and derive bounds that every prefill-side method must obey. Our analysis treats decoding as a stopped stochastic process. The per-step stopping probability of a response is not constant but ramps up over hundreds of steps, so the decode length inherits a central limit theorem from the many local decisions that determine where a response ends; this yields per-prompt normality with an explicit error term, together with an affine variance law $σ=αμ+b$ whose slope is the coefficient of variation of the number of response segments. Empirically, the normal law reproduces the per-prompt MAE and the central mass of the decode-length distribution to within a few percent, and the residual departures from normality (mild right skew, slight excess kurtosis) are the ones predicted by the sampling-noise correction. Under fixed model, data, and sampling conditions, a broad design space of predictors (MLP, EGTP, FiLM, soft-label, and Mixture-of-Experts variants) converges to similar performance close to the bound, conf",
+  "summary_1line": "Predicting how many tokens a large language model (LLM) will decode, using only prefill-phase hidden states, is a key primitive for inference scheduling. We show that current benchmarks conflate predictor quality with...",
+  "title": "On the Fundamental Limits of Prefill-Based Decoding Length Prediction",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40541v1"
+ },
  "8bb74fa54fa730c5": {
   "first_seen": "2026-10-27T11:08:47.035587+00:00",
   "id": "78588408c03adf4a",
@@ -17809,6 +17821,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.03625v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "c2fbad095b72bbaa": {
+  "first_seen": "2026-10-30T08:04:33.647543+00:00",
+  "id": "848a7942d05db3f5",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-28T21:32:05+00:00",
+  "sid": "c2fbad095b72bbaa",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Training-time multi-agent system (MAS) design seeks to learn reusable orchestration policies, yet prevailing approaches remain largely one-shot: an Orchestrator generates a system but only observes and learns from its terminal outcome. This paradigm discards execution trajectories that expose system-level failures and contain fine-grained information beyond the terminal outcome, leaving no direct basis for revising the source MAS, evaluating the updated MAS, or learning from the resulting contrast. To this end, we introduce MAS-Loop, an execution-grounded framework that closes this feedback loop by coupling an Orchestrator with a trajectory-conditioned Refiner. For each task, the Orchestrator constructs and executes a source MAS to obtain an outcome score and an intermediate trajectory. Conditioned on the trajectory, the Refiner localizes an actionable failure, formulates a trajectory-grounded diagnosis, and proposes a bounded patch to the agents, information flow, or execution configuration. The executable updated MAS is re-executed on the same task to measure its realized outcome under stochastic execution. This pair-MAS comparison provides complementary learning signals: the Orchestrator learns to generate strong systems with fewer recoverable failures, whereas the Refiner learns to expose and repair observed weaknesses, thereby driving policy-level co-evolution across training iterations. Experiments show that MAS-Loop achieves the strongest overall performance among the ",
+  "summary_1line": "Training-time multi-agent system (MAS) design seeks to learn reusable orchestration policies, yet prevailing approaches remain largely one-shot: an Orchestrator generates a system but only observes and learns from its...",
+  "title": "MAS-Loop: Beyond One-Shot Orchestration towards Self-Evolving Multi-Agent Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.38946v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "c3047146c59e5a28": {
   "first_seen": "2026-10-14T12:03:14.686201+00:00",
