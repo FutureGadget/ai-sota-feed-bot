@@ -2167,6 +2167,22 @@
   "url": "http://arxiv.org/abs/2610.37405v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "19ab63ad1e235cad": {
+  "first_seen": "2026-10-30T07:04:59.584379+00:00",
+  "id": "f398afa6767bebfe",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T10:55:30+00:00",
+  "sid": "19ab63ad1e235cad",
+  "source": "arxiv_agent_systems_research",
+  "summary": "LLM-based multi-agent systems (MAS) rely on collaboration among specialized agents to solve complex tasks. Existing methods improve MAS by refining the prompts, skills, and execution strategies of individual agents based on task feedback. However, improving individual agents does not necessarily lead to better team collaboration. Recent studies have therefore extended evolution to the collaboration level, using collective execution experience to adjust team organization, and inter-agent interactions. Nevertheless, evolving collaboration across heterogeneous tasks remains challenging, as existing approaches often constrain team reorganization within a shared structure and reuse interaction rules across incompatible team contexts. In this paper, we propose EvoTeam, a collaboration-centric evolution framework that jointly evolves team organization, interaction rules, and individual agent skills through execution experience. It maintains a library of reusable teams, selecting or creating agent teams and guiding collaboration through team-specific interaction rules. Collaboration experience accumulates within compatible team contexts, while individual skills remain reusable across teams. Experiments across four benchmarks demonstrate its effectiveness. Our code is available at https://github.com/DEEP-JLU/EvoTeam.",
+  "summary_1line": "LLM-based multi-agent systems (MAS) rely on collaboration among specialized agents to solve complex tasks. Existing methods improve MAS by refining the prompts, skills, and execution strategies of individual agents ba...",
+  "title": "EvoTeam: Multi-Agent Collaboration via Evolving Teams",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.39813v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "19b58845c8888d5a": {
   "first_seen": "2026-10-12T02:04:22.903064+00:00",
   "id": "0e089ca1c0ac8317",
@@ -21512,6 +21528,22 @@
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.168",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "e9ed0aae91e2eedc": {
+  "first_seen": "2026-10-30T07:04:59.584379+00:00",
+  "id": "4c6ccf5933de1b67",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-29T17:54:12+00:00",
+  "sid": "e9ed0aae91e2eedc",
+  "source": "arxiv_cs_cl",
+  "summary": "We present TextSeal2, a distortion-free watermark for large language models that keeps its signal under speculative decoding: tokens that replace rejected drafts remain watermarked with the same keys, and the acceptance rate is unchanged. It also preserves output diversity and adds no measurable inference latency. Its predecessor, TextSeal, restores diversity in the Gumbel-max scheme by routing each token to one of two keys via a coin flip. This is suboptimal because the detector averages the scores from both keys without knowing which key was used. TextSeal2 instead merges two or more keys into a single virtual key and couples it to fresh noise through AutoMark's Gaussian copula. Any number of keys, including publicly shared keys, can be merged this way without diluting detection. Under speculative decoding, TextSeal2 verifies keyed drafts with one more exponential race, run on the leftovers of the draft races. By memorylessness, this race reproduces block verification, so the output follows the target model exactly. We evaluate TextSeal2 on three LLMs. At equal output token diversity, TextSeal2 detects 8 to 22 percentage points more 100-token answers than TextSeal at a false-positive rate of $10^{-3}$, and is comparable to textGrain while requiring no post-logits optimization. Under speculative decoding, it detects 18 and 22 percentage points more 200-token answers than TextSeal and textGrain, respectively, at the same acceptance rate.",
+  "summary_1line": "We present TextSeal2, a distortion-free watermark for large language models that keeps its signal under speculative decoding: tokens that replace rejected drafts remain watermarked with the same keys, and the acceptan...",
+  "title": "TextSeal2: Distortion-Free LLM Watermarking with Copula Mixing and Memoryless Races",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40613v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "ea41a986fe715307": {
   "content_excerpt": "Software teams use agents defined as code to handle recurring work across the development lifecycle. These agents connect to the places where a team works and act when relevant events occur, whether that means reviewing a pull request, executing a compliance workflow, or investigating an incident. The most useful agents are tailored to how a particular team operates. Until now, building one has generally meant adopting a product designed around someone else's workflow or starting from scratch. Today, we're releasing the Agent SDK, the framework we use to build our own managed agents like Bugbot, Security Reviewer, and Rollouts. Agent SDK allows you to define agents in code and manage them like any other software project. Start from a template or point your coding agent at our docs. When the agent is ready, agent-sdk deploy it to Cursor infrastructure with one command. The Agent SDK lets you quickly build and deploy agents that work the way your team does. They respond to the events your team already handles and follow policies your team can inspect and change. Code review is one example. Each team has its own standards for what requires attention and who should review it. With the Agent SDK, you can build an agent that responds to pull request events from GitHub, GitLab, or Bitbucket. The agent can assess the risk of a change, route it to the right team, and approve changes that meet your policy. As an example, a team within Cursor had built a large, fast-growing knowledge ba",
   "first_seen": "2026-10-28T14:04:16.459725+00:00",
@@ -23447,6 +23479,24 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Oct/7/claude-haiku-5-5",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "fdcb9d285476b825": {
+  "first_seen": "2026-10-30T07:04:59.584379+00:00",
+  "id": "9348df68e49cf79c",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-10-29T17:15:53+00:00",
+  "sid": "fdcb9d285476b825",
+  "source": "arxiv_cs_cl",
+  "summary": "Do research agents have taste, the judgment of which experiments are worth running before their outcomes are known? We give six frontier models seven recent NLP papers. Each model, working as a research agent alone or as a team, proposes minimum viable experiments (MVEs), forecasts whether each will pass a threshold it sets and ranks them. A separate executor then attempts every MVE, including those ranked last, and three model auditors judge the results. Of 415 MVEs, 194 are judged sound, valuable and new, but fewer than half of these (73) are also judged beyond the seed paper and non obvious. The agents' first choices match the auditors' most valued experiment more often than a random pick, but are not shown to improve on choosing the experiment written first. Their forecasts beat a base rate but are not measurably more accurate than those of a fresh instance of the same model given only the paper and registrations. Teams cost more without a clear overall improvement in proposal quality. The agents produce many worthwhile experiments, but the evidence that their rankings improve the choice of which to run remains limited. The evaluation harness and a dataset of all 415 MVEs, with their forecasts and audited outcomes, are available at https://github.com/ArtKanke/rTaste.",
+  "summary_1line": "Do research agents have taste, the judgment of which experiments are worth running before their outcomes are known? We give six frontier models seven recent NLP papers. Each model, working as a research agent alone or...",
+  "title": "rTaste: Do Research Agents Have Taste? Evaluating Early Stage Research Judgment",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40488v1",
+  "why_it_matters": "Matches feed focus: agent, harness, evaluation."
  },
  "fdfe570c20f7515c": {
   "first_seen": "2026-10-14T14:04:38.404725+00:00",
