@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T10:12:24.888463+00:00",
+  "generated_at": "2026-10-30T18:04:44.135834+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -50,6 +50,7 @@
       "concepts": [
         "agent-model-routing",
         "agentic-code-ci-scaling",
+        "llm-cache-integrity",
         "speculative-decoding"
       ]
     },
@@ -69,6 +70,24 @@
     }
   ],
   "recent_evidence": [
+    {
+      "concept": "llm-cache-integrity",
+      "concept_title": "Why do LLM caches fail silently?",
+      "id": "cloudflare-2026-kv-cache-exposure",
+      "title": "Cross-request KV cache exposure in the GLM-5.3 Workers AI model, and our remediation with SGLang",
+      "tier": "production field-report-backed",
+      "kind": "production-field-report",
+      "added": "2026-10-30"
+    },
+    {
+      "concept": "llm-cache-integrity",
+      "concept_title": "Why do LLM caches fail silently?",
+      "id": "arxiv-2610-34817-cachelint",
+      "title": "Silent and Costly: Characterizing and Detecting Prompt-Caching Mis-Integration in LLM Agents",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-10-30"
+    },
     {
       "concept": "agent-stateful-permissions",
       "concept_title": "Why can a permission check that's correct for a single tool call still let an agent break the rules across many?",
@@ -122,24 +141,6 @@
       "tier": "primary-doc-backed",
       "kind": "primary-doc",
       "added": "2026-10-21"
-    },
-    {
-      "concept": "model-switching-replay-gap",
-      "concept_title": "Can you evaluate an agent's model router by replaying logged trajectories?",
-      "id": "new-model-old-habits-2026",
-      "title": "New Model, Old Habits: Behavior Transfer under Model Swapping in Multi-Session LLM Agents",
-      "tier": "theory/paper-backed",
-      "kind": "theory-paper",
-      "added": "2026-10-16"
-    },
-    {
-      "concept": "cyber-eval-sandbox-escapes",
-      "concept_title": "Why do frontier models keep attacking real systems during cybersecurity evaluations?",
-      "id": "anthropic-2026-10-unintended-model-actions",
-      "title": "Investigating unintended model actions in our evaluations and internal use",
-      "tier": "primary-doc-backed",
-      "kind": "primary-doc",
-      "added": "2026-10-14"
     }
   ],
   "concepts": {
@@ -1656,6 +1657,95 @@
       "related_playbook_cards": [
         "pb-treat-sandboxes-like-prod"
       ],
+      "related_storylines": []
+    },
+    "llm-cache-integrity": {
+      "slug": "llm-cache-integrity",
+      "title": "Why do LLM caches fail silently?",
+      "question": "Why do prompt caches and KV caches fail without raising an error, and how do you catch it?",
+      "summary": "Prompt caches and KV caches report success whether or not they work. Misconfigured prompt caching quietly costs money; a mishandled KV cache once leaked other tenants' data. Verify cache behavior with measured hits and canaries, not status codes.",
+      "status": "active",
+      "cluster": "operations",
+      "cluster_label": "Cost, latency, and operations",
+      "updated": "2026-10-30",
+      "latest_evidence_added": "2026-10-30",
+      "audience": "strong-software-engineer",
+      "math_depth": "none",
+      "sections": [
+        {
+          "heading": "Builder consequence",
+          "html": "<p>A cache that is wired wrong still returns 200 OK. In a study of 120 prompt-caching pull requests, most mis-integrations <strong>failed silently</strong>: the app worked and the bill grew. At the other end, one inference-engine cache bug returned other customers&#x27; data with no error. Treat cache behavior as something you measure, not something you assume.</p>"
+        },
+        {
+          "heading": "Short answer",
+          "html": "<p>LLM caching reuses stored computation for a repeated prompt prefix. Providers cache the prefix; engines cache attention state (the KV cache) per request. Both layers skip work and both can be wrong without failing. Cost-side errors waste money; isolation-side errors leak data. The fix in each case is an explicit check on cache behavior.</p>"
+        },
+        {
+          "heading": "Builder model",
+          "html": "<p>Separate two layers and two failure types.</p>\n<ul><li><strong>Prompt cache (provider API):</strong> you mark or order a stable prefix. Failure is lost savings.</li><li><strong>KV cache (inference engine):</strong> the server holds per-request attention state. Failure is wrong or leaked content.</li></ul>\n<p>Your code owns the first layer. Your hosting provider or serving stack owns the second, unless you self-host.</p>"
+        },
+        {
+          "heading": "Mechanism",
+          "html": "<p>Prompt caching only hits when the cached prefix is byte-identical and meets provider-specific rules, such as minimum length and explicit markers. A timestamp, reordered tool list, or missing marker near the top of the prompt breaks the match. The request still succeeds at full price. Usage fields also differ by provider, so cache reads can be miscounted when you read them.</p>\n<p>KV cache bugs are state-handoff bugs. Cloudflare&#x27;s incident arose when a prompt exceeded the prefill pool. The engine substituted a placeholder, sent &quot;transfer complete&quot; to the decode node, and the decode node trusted that message. It attended over cache pages still holding earlier requests&#x27; data. A success message stood in for verified content.</p>"
+        },
+        {
+          "heading": "How to apply",
+          "html": "<ul><li><strong>Alert on cache-hit rate.</strong> Log cached versus uncached input tokens per call and alert when the ratio drops after a deploy.</li><li><strong>Keep the prefix stable.</strong> Put system prompt and tool definitions first, in fixed order, and put timestamps and per-user data last.</li><li><strong>Test each provider&#x27;s rules.</strong> Check minimum length, markers, and how usage is reported before trusting a savings estimate.</li><li><strong>Run a canary on shared inference.</strong> Send a unique marker with a long prompt, then confirm it never appears in other tenants&#x27; or sessions&#x27; output.</li><li><strong>Match pool size to context length</strong> if you self-host, and make over-length requests fail with an error.</li></ul>"
+        },
+        {
+          "heading": "Failure modes",
+          "html": "<ul><li><strong>Assuming &quot;it&#x27;s enabled&quot; means &quot;it&#x27;s working.&quot;</strong> Without hit-rate metrics, a broken cache is invisible.</li><li><strong>Trusting a transfer-complete signal</strong> between prefill and decode without checking token counts.</li><li><strong>Testing only short prompts.</strong> The Cloudflare bug appeared only above 681,280 tokens.</li><li><strong>Copying one provider&#x27;s cache setup to another.</strong></li></ul>"
+        },
+        {
+          "heading": "Related",
+          "html": "<p>See <code>/topic/agent-cost</code> for cost controls.</p>"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "arxiv-2610-34817-cachelint",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Silent and Costly: Characterizing and Detecting Prompt-Caching Mis-Integration in LLM Agents",
+          "note": "Empirical study of 120 prompt-caching pull requests from 10 open-source agent systems (ICSE 2027). Mis-integrations are request-side misconfiguration or read-side usage miscount, and most fail silently with no runtime error. The CacheLint static checker reaches 0.71 precision and 0.78 recall on the 120 labeled cases, and found 32 mis-integrations across 571 projects at 0.86 precision. It led to 18 upstream fixes, one in Anthropic's official SDK.",
+          "added": "2026-10-30",
+          "url": "https://arxiv.org/abs/2610.34817",
+          "sid": "acf14c1d41e7a5ef"
+        },
+        {
+          "id": "cloudflare-2026-kv-cache-exposure",
+          "kind": "production-field-report",
+          "tier": "production field-report-backed",
+          "title": "Cross-request KV cache exposure in the GLM-5.3 Workers AI model, and our remediation with SGLang",
+          "note": "Cloudflare postmortem. From Aug 27 to Sep 9, 2026, 155 GLM-5.3 responses to prompts over 681,280 tokens contained other customers' data. The model's 1,048,576-token context exceeded the 681,280-token prefill KV pool. In disaggregated prefill/decode mode, SGLang replaced the oversized prompt with a placeholder instead of aborting, so decode attended over stale cache pages. Fixed by sizing the pool to about 2.04M tokens and rejecting early.",
+          "added": "2026-10-30",
+          "url": "https://blog.cloudflare.com/kv-cache-exposure-remediation",
+          "sid": "89893d5f73c77515"
+        },
+        {
+          "id": "llm-cache-integrity-editorial-synthesis",
+          "kind": "editorial-inference",
+          "tier": "editorial inference",
+          "title": "LLM Digest synthesis",
+          "note": "Both incidents share one shape: a cache layer whose success signal does not prove correct behavior. The cost bug returns a normal response at full price; the isolation bug returns a normal response with the wrong content. Neither trips an alert unless you measure the cache's effect directly.",
+          "added": "2026-10-30"
+        }
+      ],
+      "related_topics": [
+        {
+          "slug": "agent-cost",
+          "title": "Agent token costs are unpredictable and easily run away"
+        },
+        {
+          "slug": "cost-controls",
+          "title": "Cost controls: budgets, metering, and per-task attribution"
+        },
+        {
+          "slug": "scalability",
+          "title": "Agent infrastructure buckles under concurrency, not just load"
+        }
+      ],
+      "related_playbook_cards": [],
       "related_storylines": []
     },
     "llm-judge-reliability": {
