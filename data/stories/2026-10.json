@@ -36,7 +36,7 @@
   "url": "https://openai.com/index/sentinelone"
  },
  "0088c7a9e2cbb659": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Nathen Harvey shares insights from DORA research on AI adoption in software delivery. He explains why AI acts as an",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervi",
   "first_seen": "2026-10-30T11:03:33.675580+00:00",
   "id": "fc06d1ccdb7d65d8",
   "image_url": "https://res.infoq.com/presentations/ai-software-engineering-pipeline/en/mediumimage/alasdair-allan-medium-1791451156021.jpeg",
@@ -5887,6 +5887,22 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.161.0-alpha.12",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "412907594dadc294": {
+  "first_seen": "2026-10-30T12:05:12.127980+00:00",
+  "id": "57b4caad55b71a80",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T16:33:08+00:00",
+  "sid": "412907594dadc294",
+  "source": "arxiv_cs_ai",
+  "summary": "Despite growing capabilities, LLMs remain susceptible to prompt injections: malicious inputs that can manipulate or hijack models. In particular, it has recently been observed that LLMs can exhibit role confusion (Ye et al., 2026), where models attribute the source of text based on its style instead of its labeled role. Malicious text in tool outputs (for instance, a malicious webpage accessed by an agent) can leverage role confusion to impersonate the user, an attack we call role spoofing}. In this work, we seek to understand and mitigate role spoofing. We study how models track \"who said what\" in a conversation, showing that they use cues from both content (e.g., semantics and writing style) and structure (e.g., control tokens and formatting). We show that LLMs are highly susceptible to role spoofing attacks that combine both fake structure and content. Additionally, in a toy setting, we show that adversarial training which teaches the model to ignore content-based injections does mitigate content-based attacks but leaves the model susceptible to structure-based attacks. This can explain why frontier models, with increased resistance to many injection attacks, can still be susceptible to role spoofing. Finally, we propose a new method for detecting role spoofing using linear probes trained to predict roles in a conversation, and show that it is effective across different settings.",
+  "summary_1line": "Despite growing capabilities, LLMs remain susceptible to prompt injections: malicious inputs that can manipulate or hijack models. In particular, it has recently been observed that LLMs can exhibit role confusion (Ye...",
+  "title": "Understanding and Mitigating Role Spoofing in LLMs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40396v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "4130504d6e1870e2": {
   "first_seen": "2026-10-25T04:03:24.197436+00:00",
@@ -13207,6 +13223,18 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.163.0-alpha.10.2",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "9775d6277d84ae3f": {
+  "content_excerpt": "Presentation given at the Red Hat 3rd Swiss Dev Confederation , October 27th, 2026. Hi everyone, my name is Adrian Kosmaczewski and I’m a Senior Architect at Red Hat Switzerland. In my daily job I help software developers everyday use Red Hat tools to make better software, faster. And I can confidently say that we are standing at a fascinating intersection in the history of software engineering. On one side, we have the incredible power and complexity of cloud-native development: Red Hat OpenShift, Quarkus microservices, distributed systems, and continuous delivery and integration. On the other side, we have the explosive rise of generative AI coding assistants—from open-source models running in OpenShift AI, to intelligent IDEs like Cursor consuming Claude, Grok, or some other LLM. The promise is intoxicating: create better software, faster. Yet, how many of you have sat down with an AI assistant, asked it to build a scalable Quarkus microservice, and watched it confidently generate a chaotic, uncompilable mess? You are not alone. Large Language Models are powerful pattern-matching engines. But they do not think like software engineers. When we use unstructured, “vibes-based” prompting for complex enterprise systems, we are essentially rolling the dice. We are outsourcing our understanding to a machine that suffers from completion bias—it just wants to finish the sequence, even if that means skipping crucial intermediate steps. To address this, the industry is rapidly develo",
+  "first_seen": "2026-10-30T12:05:12.127980+00:00",
+  "id": "a459d2ca5d932822",
+  "published": "2026-10-30T07:21:56+00:00",
+  "sid": "9775d6277d84ae3f",
+  "source": "hackernews_ai",
+  "summary_1line": "Patterns in AI-Driven Software Development",
+  "title": "Patterns in AI-Driven Software Development",
+  "type": "news",
+  "url": "https://akos.ma/blog/patterns-in-ai-driven-software-development"
+ },
  "9779462e79c73642": {
   "first_seen": "2026-10-22T19:04:48.432400+00:00",
   "id": "b927148029813c38",
@@ -17636,6 +17664,18 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.165.0-alpha.1",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "c050e190dad58771": {
+  "content_excerpt": "learn LLM inference system on Apple Silicon for systems engineers: build a tiny vLLM + Qwen tiny-llm is a hands-on course for systems engineers who want to understand LLM inference end to end. You can think of it as an LLM-serving counterpart to CMU's Needle project: build the path that loads a Qwen3 model, turns tokens into logits, and generates text. The course begins with array and matrix operations, then introduces kernels and serving machinery as the running model needs them. Keeping the implementation small enough to read end to end makes it possible to connect the equations to memory traffic, kernel occupancy, KV-cache growth, batching, and request scheduling. The course is built on MLX arrays and the MLX extension runtime, without using high-level neural-network layers. When a chapter teaches an operator, your solution implements that operator in Python, C++, or Metal rather than calling the corresponding optimized MLX operation. MLX remains the correctness oracle and performance baseline. Apple silicon provides a practical local environment with one shared memory space and direct access to Metal kernels. Students can inspect the complete path on one machine instead of depending on an expensive CUDA GPU setup. Qwen3-4B is large enough to expose real weight-bandwidth, attention, and cache costs, but small enough to iterate on locally. Its grouped-query attention, QK normalization, BF16 activations, and 4-bit weights also keep the exercises close to current model-servin",
+  "first_seen": "2026-10-30T12:05:12.127980+00:00",
+  "id": "7965462aa305f373",
+  "published": "2026-10-30T11:09:12+00:00",
+  "sid": "c050e190dad58771",
+  "source": "hackernews_ai",
+  "summary_1line": "Learn LLM inference system on Apple Silicon",
+  "title": "Learn LLM inference system on Apple Silicon",
+  "type": "news",
+  "url": "https://github.com/skyzh/tiny-llm"
  },
  "c0652d7f5e06ae7e": {
   "first_seen": "2026-10-19T10:03:26.651507+00:00",
@@ -23161,7 +23201,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "f6e2d91494d6ac20": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Nathen Harvey shares insights from DORA research on AI adoption in software delivery. He explains why AI acts as an",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervi",
   "first_seen": "2026-10-30T09:03:38.630593+00:00",
   "id": "25775d6446fda259",
   "image_url": "https://res.infoq.com/articles/ai-ml-data-engineering-trends-2026/en/headerimage/ai-ml-de-graph-2026-1793191771570.jpg",
