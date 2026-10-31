@@ -6994,7 +6994,7 @@
   "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1xOXVIejhWN2pIMV9NT0NnbTEtNmtnMzdjSnUxTWJxQjZJR1BYamVZNzB5Ul9pb1RadFA2WEwteTRYSEFzS0JKdTN6b1kxUy05al9PNF9sZV84NjQtcmh6SkJSTTg1cFZicFpnRE1wOFBuY2NzMFdvbU9n?oc=5"
  },
  "4babea341ec6b4e6": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Nathen Harvey shares insights from DORA research on AI adoption in software delivery. He explains why AI acts as an",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervi",
   "first_seen": "2026-10-29T08:05:03.420180+00:00",
   "id": "bb4a46ed02106ed4",
   "image_url": "https://res.infoq.com/news/2026/10/cloudflare-web-search-api/en/headerimage/generatedHeaderImage-1791616850849.jpg",
@@ -13705,6 +13705,22 @@
   "url": "https://github.com/vllm-project/vllm/releases/tag/v0.31.0",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "96a10fc27eddd28a": {
+  "content_excerpt": "Open-source AI coding agent and agent runtime: one binary, any model, MCP-native. Runs in terminal, CI, or as a daemon. Pipe it, schedule it, embed it. One binary, any model, MCP-native — built for autonomous work, not just chat. Octomind is a CLI-first AI coding agent runtime. It gives an LLM real access to your repo — reading and writing files, running shells, searching code, delegating to sub-agents — through MCP tools. The same session engine works interactively , piped through stdin , as a background daemon , over WebSocket , or as an ACP sub-agent inside another agent's stack. Most coding agents assume a human is watching the screen. Octomind is built for the work that keeps going after you leave. 2. Get model access. The fastest path is Octomind Cloud, which includes models and needs no configuration: Prefer your own provider key? Skip login and export one (also OPENAI_API_KEY , ANTHROPIC_API_KEY , DEEPSEEK_API_KEY ), then follow Model access to point the config at it: You're now in a session with an agent that can read your code, run commands, and edit files. The interface is a plain line prompt with markdown rendering — no TUI to learn, so it works over SSH, in tmux , and in CI logs. The first time you run a specialist, it may install its tools and ask for credentials. developer:general comes from the default tap muvon/tap , not your local config. Plain octomind run starts the config's default role, assistant:concierge . Try the recorded bug-fix demo : two failing te",
+  "first_seen": "2026-10-31T06:05:00.068745+00:00",
+  "id": "48772f21cddb5b1b",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-31T04:54:13+00:00",
+  "sid": "96a10fc27eddd28a",
+  "source": "hackernews_ai",
+  "summary_1line": "Octomind: A coding agent that recalls archived messages after compaction",
+  "title": "Octomind: A coding agent that recalls archived messages after compaction",
+  "type": "news",
+  "url": "https://github.com/muvon/octomind",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "96fc3be952a6b3b9": {
   "first_seen": "2026-10-15T22:04:36.757656+00:00",
   "id": "57f869b3a25feca4",
@@ -17988,6 +18004,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.32110v1",
   "why_it_matters": "Matches feed focus: agentic, codex, claude code."
+ },
+ "bda9dea2f66bef80": {
+  "content_excerpt": "Mission control for AI coding agents — every PR lands on the architecture map, and you talk to your agents on the diagram. archwhere puts every change — every PR, every task, every agent — on a declared architecture map : which component it touches, whether that component is a security zone, and what needs you right now . Then it goes further: the map becomes the place you talk to your agents . Mission control on a fictional product: the attention rail (security → blocked → needs-attention → ready-to-merge), the component map with live badges, and a thread pinned to a component — answered by a coding agent, with its PR. Zero dependencies. One JSON file. Works with Claude, or any agent that can see GitHub. Supervising an agent workforce diff-by-diff doesn't scale. Architecture tools (Structurizr, IcePanel) assume a human architect maintains the model — so the model rots. CODEOWNERS and labelers map files to owners but carry no meaning. archwhere inverts it: your agents maintain the map as a condition of merging (there's a SKILL.md that tells them how, and archwhere check fails CI when the map goes stale). You read components, not diffs. That drafts the model from your repo itself — directory structure, package.json workspaces, import edges — with guessed kinds (auth → security, ui → product, scripts → ops), plus the PR-comment workflow and two agent listeners. archwhere check passes from minute one; you rename and refine instead of starting from a blank file. It also prints a ",
+  "first_seen": "2026-10-31T06:05:00.068745+00:00",
+  "id": "6932e5a299768e87",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-31T05:46:30+00:00",
+  "sid": "bda9dea2f66bef80",
+  "source": "hackernews_ai",
+  "summary": "I am a solo founder/developer, my agents shipping 30 PRs a week, couldn’t see which part of product they were changing; existing arch tools die because humans won’t maintain the model — so I made the agents maintain it. MIT license",
+  "summary_1line": "I am a solo founder/developer, my agents shipping 30 PRs a week, couldn’t see which part of product they were changing; existing arch tools die because humans won’t maintain the model — so I made the agents maintain i...",
+  "title": "Show HN: Archwhere – work alongside AI coding agents on an architecture map",
+  "type": "news",
+  "url": "https://github.com/tapaskar/archwhere",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "bdc7b775ab8d2106": {
   "also_covered": [
