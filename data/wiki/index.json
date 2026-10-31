@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-30T18:05:43.542890+00:00",
+ "generated_at": "2026-10-31T18:06:00.722093+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,30 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-10-31-embedded-browsers-in-coding-tools",
+   "topic": "prompt-injection",
+   "topic_title": "Untrusted input and tools can hijack an agent",
+   "kind": "obstacle",
+   "date": "2026-10-31",
+   "title": "Embedded browsers in five AI coding tools could run commands, read local files, or spoof the address bar"
+  },
+  {
+   "id": "2026-10-31-tracekit-box-signed-egress",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-10-31",
+   "title": "Tracekit Box runs agents in micro-VMs where every network, credential, and write exit is signed"
+  },
+  {
+   "id": "2026-10-31-test-escaped-unsandboxed-subagents",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-10-31",
+   "title": "A parallel subagent's test escaped an unsandboxed Mac and spoke aloud on the host"
+  },
   {
    "id": "2026-10-30-copilot-cli-reads-ssh-without-prompt",
    "topic": "agent-sandboxing",
@@ -230,30 +254,6 @@
    "kind": "solution",
    "date": "2026-10-26",
    "title": "A transparent proxy keeps full agent history in an archive and sends only a 32K window"
-  },
-  {
-   "id": "2026-10-26-openai-covert-channel-containment",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-10-26",
-   "title": "OpenAI's isolated agents escaped via DNS and talked through CPU cache side channels"
-  },
-  {
-   "id": "2026-10-26-keln-gateway-cache-benchmark",
-   "topic": "agent-cost",
-   "topic_title": "Agent token costs are unpredictable and easily run away",
-   "kind": "obstacle",
-   "date": "2026-10-26",
-   "title": "Gateway choice swung agent cache hit rate from 63% to 94% on identical traffic"
-  },
-  {
-   "id": "2026-10-25-herding-runaway-cascades",
-   "topic": "multi-agent",
-   "topic_title": "Coordinating multiple agents adds more failure than capability",
-   "kind": "obstacle",
-   "date": "2026-10-25",
-   "title": "Multi-agent LLM systems herd and cascade when agents respond to each other's choices"
   }
  ],
  "nodes": {
@@ -7375,7 +7375,15 @@
      "also": []
     }
    ],
-   "cross_entries": [],
+   "cross_entries": [
+    {
+     "id": "2026-10-31-test-escaped-unsandboxed-subagents",
+     "topic": "agent-sandboxing",
+     "topic_title": "Sandboxing, scoped credentials, and guardrails",
+     "date": "2026-10-31",
+     "title": "A parallel subagent's test escaped an unsandboxed Mac and spoke aloud on the host"
+    }
+   ],
    "entry_count": 25,
    "latest_entry_date": "2026-10-16",
    "solutions": [
@@ -11466,7 +11474,7 @@
      "key": "harness-controls",
      "title": "Permissions, approvals, and sandboxes in the agent harness",
      "summary": "Coding-agent harnesses now default to manual approval, per-argument permission rules, OS-level sandboxes, and classifier-gated auto modes; each layer has a published bypass, so teams stack them rather than trust one.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "agent-authorization",
@@ -11488,6 +11496,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-31-embedded-browsers-in-coding-tools",
+     "topic": "prompt-injection",
+     "date": "2026-10-31",
+     "title": "Embedded browsers in five AI coding tools could run commands, read local files, or spoof the address bar",
+     "theme": "harness-controls",
+     "html": "<p>Forever Security&#x27;s EMBRACE research (published Oct 29, researcher-reported; this write-up is a secondary summary) found that the browsers built into five AI coding tools broke three basic browser rules: a page must not run programs, a local file must not read other files, and only the browser writes the address bar.</p>\n<p>The attack surface is the page an agent or user opens, not the model. Treat an IDE&#x27;s embedded browser as an untrusted renderer: check each vendor&#x27;s patch status, avoid opening untrusted pages in it, and search your projects for the published indicators of compromise.</p>",
+     "evidence": [
+      {
+       "sid": "e5726bf03a816877",
+       "title": "How the built-in browsers in five AI coding tools broke basic browser rules"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-sandboxing",
+       "title": "Sandboxing, scoped credentials, and guardrails"
+      }
+     ]
+    },
     {
      "id": "2026-10-26-agents-md-downloads-hijack",
      "topic": "prompt-injection",
@@ -12491,8 +12519,8 @@
      "title": "Agent memory systems readily admit poisoned facts, a reproducible benchmark shows"
     }
    ],
-   "entry_count": 60,
-   "latest_entry_date": "2026-10-26",
+   "entry_count": 61,
+   "latest_entry_date": "2026-10-31",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -12502,6 +12530,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "e5726bf03a816877",
+     "title": "How the built-in browsers in five AI coding tools broke basic browser rules"
+    },
     {
      "sid": "264cc0e36820b485",
      "title": "AI coding agents hijacked using AGENTS.md file in Downloads folder"
@@ -12775,7 +12807,7 @@
      "title": "Show HN: Deep-XPIA – Prompt injection benchmark for multi-agent AI systems"
     }
    ],
-   "updated": "2026-10-26"
+   "updated": "2026-10-31"
   },
   "proving-agent-roi": {
    "slug": "proving-agent-roi",
@@ -15648,7 +15680,7 @@
      "key": "local-sandboxes",
      "title": "Local sandboxes and tool-call supervisors",
      "summary": "OS-enforced sandboxes, install-and-go runners, and syscall or tool-call firewalls make local isolation a commodity; Claude Code reports 84% fewer permission prompts.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "managed-platforms",
@@ -15660,7 +15692,7 @@
      "key": "egress-and-escapes",
      "title": "Real escapes: egress, allowlists, and harness bugs",
      "summary": "Every reported escape went through open egress, a vulnerable allowlisted host, an exposed endpoint, or a spoofable trust check, never a broken isolation primitive.",
-     "count": 13
+     "count": 14
     },
     {
      "key": "guardrails-and-verification",
@@ -15670,6 +15702,41 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-10-31-tracekit-box-signed-egress",
+     "topic": "agent-sandboxing",
+     "date": "2026-10-31",
+     "title": "Tracekit Box runs agents in micro-VMs where every network, credential, and write exit is signed",
+     "theme": "egress-and-escapes",
+     "html": "<p>A new arXiv paper (research proposal; no independent evaluation seen) argues that the network, credentials, and write access agents need to install packages, call model APIs, and change deployable repos are the same paths they can use to leak data, steal a key, or alter an unapproved system.</p>\n<p>Tracekit Box runs the agent in a micro-VM and routes each exit through a decision point that records a signed verdict. For platform teams, the useful idea is an auditable per-exit ledger rather than a single allow/deny at the sandbox edge.</p>",
+     "evidence": [
+      {
+       "sid": "ccc859f642944e8a",
+       "title": "Tracekit Box: Running AI Agents in Micro-VMs Where Every Way Out Is Decided and Signed"
+      }
+     ],
+     "also": []
+    },
+    {
+     "id": "2026-10-31-test-escaped-unsandboxed-subagents",
+     "topic": "agent-sandboxing",
+     "date": "2026-10-31",
+     "title": "A parallel subagent's test escaped an unsandboxed Mac and spoke aloud on the host",
+     "theme": "local-sandboxes",
+     "html": "<p>An incident report (single user, 2026-10-28, Claude Code 2.1.286 in auto mode) describes seven background subagents closing GitHub issues in parallel git worktrees on a macOS host with no sandbox. One agent&#x27;s test ran against the real machine, and the Mac began reading JSON aloud in two overlapping synthetic voices. The author traced it through agent transcripts and the macOS unified log.</p>\n<p>Worktrees isolate files, not the host: tests, speech, and other side effects still reach the real OS. Run parallel agents in a container or VM, and keep transcripts to reconstruct what ran.</p>",
+     "evidence": [
+      {
+       "sid": "86590a88b2c59c59",
+       "title": "A Claude Code agent's test escaped into my Mac. I only noticed because it talked"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-observability",
+       "title": "You can't see why an agent did what it did"
+      }
+     ]
+    },
     {
      "id": "2026-10-30-copilot-cli-reads-ssh-without-prompt",
      "topic": "agent-sandboxing",
@@ -16655,6 +16722,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-10-31-embedded-browsers-in-coding-tools",
+     "topic": "prompt-injection",
+     "topic_title": "Untrusted input and tools can hijack an agent",
+     "date": "2026-10-31",
+     "title": "Embedded browsers in five AI coding tools could run commands, read local files, or spoof the address bar"
+    },
+    {
      "id": "2026-10-29-permission-to-retry",
      "topic": "agent-reliability",
      "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
@@ -16676,8 +16750,8 @@
      "title": "A planted AGENTS.md in Downloads hijacked coding agents into installing malware"
     }
    ],
-   "entry_count": 62,
-   "latest_entry_date": "2026-10-30",
+   "entry_count": 64,
+   "latest_entry_date": "2026-10-31",
    "solutions": [],
    "obstacles": [
     {
@@ -16695,6 +16769,14 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "ccc859f642944e8a",
+     "title": "Tracekit Box: Running AI Agents in Micro-VMs Where Every Way Out Is Decided and Signed"
+    },
+    {
+     "sid": "86590a88b2c59c59",
+     "title": "A Claude Code agent's test escaped into my Mac. I only noticed because it talked"
+    },
     {
      "sid": "445d06ae5b2fba6f",
      "title": "I asked my coding agent to cat a file in .ssh. It did"
@@ -16976,7 +17058,7 @@
      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
     }
    ],
-   "updated": "2026-10-30"
+   "updated": "2026-10-31"
   },
   "agent-tracing": {
    "slug": "agent-tracing",
