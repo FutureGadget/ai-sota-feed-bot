@@ -1,15 +1,16 @@
 {
  "slug": "policy-optimization",
  "label": "Policy Optimization",
- "item_count": 3,
- "day_count": 3,
- "source_count": 3,
+ "item_count": 7,
+ "day_count": 6,
+ "source_count": 4,
  "first_seen": "2026-10-14T15:27:50+00:00",
- "last_updated": "2026-10-23T06:08:17+00:00",
- "generated_at": "2026-10-27T00:13:38.037892+00:00",
+ "last_updated": "2026-10-28T10:38:43+00:00",
+ "generated_at": "2026-10-31T00:13:50.114893+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
+  "arxiv_cs_cl",
   "arxiv_llm_reliability"
  ],
  "days": [
@@ -60,14 +61,73 @@
      "editor_note": "Uses Socratic guided policy optimization to detect hallucinated spans rather than whole answers."
     }
    ]
+  },
+  {
+   "date": "2026-10-26",
+   "items": [
+    {
+     "title": "Multiscale Policy Optimization for Long-Horizon LLM Agents",
+     "url": "http://arxiv.org/abs/2610.35013v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Long-horizon LLM agents interact with their environments through complete assistant turns while generating each action token by token. We observe that critic values vary primarily across turns, motivating optimization...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "500b1aba48043738",
+     "published": "2026-10-26T08:22:11+00:00",
+     "editor_note": "Optimizes at the turn level for long-horizon agents, motivated by critic values varying mainly across turns."
+    },
+    {
+     "title": "Profiling a Frontier Agent with EBench: From Direct Control to Harness with Policy",
+     "url": "http://arxiv.org/abs/2610.35832v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Frontier multimodal large language models (MLLMs) can control robots without robot-specific training, but how their capabilities compare and interact with post-trained vision-language-action (VLA) and world action mod...",
+     "why_it_matters": "Matches feed focus: agent, harness, eval.",
+     "sid": "6f21f6e8dedb00a0",
+     "published": "2026-10-26T17:51:02+00:00",
+     "editor_note": "Profiles a frontier agent from direct robot control to a harness with policy."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-27",
+   "items": [
+    {
+     "title": "Your Policy Is Secretly a Harness: The Decision Geometry of Agent Interfaces",
+     "url": "http://arxiv.org/abs/2610.37255v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Language model agents are post-trained and deployed through a harness, the prompts, tools, and control logic that present a task to the model and execute its outputs. Harnesses are often revised and judged by how an a...",
+     "why_it_matters": "Matches feed focus: agent, harness.",
+     "sid": "9c6961c015612e8b",
+     "published": "2026-10-27T13:52:25+00:00",
+     "editor_note": "Argues a post-trained policy and its deployment harness cannot be judged separately."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-28",
+   "items": [
+    {
+     "title": "How Deterministic SAST and AI Security Agents Divide the Work: Coverage, Harness Policy and Cost in Snyk VulnBench 2.0",
+     "url": "http://arxiv.org/abs/2610.38617v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "We ask what AI coding agents and AI security harnesses find that deterministic static application security testing (SAST) does not, and what they miss that SAST catches. VulnBench 2.0 is a benchmark of 108 hand-curate...",
+     "why_it_matters": "Matches feed focus: agent, harness, eval.",
+     "sid": "d24c53b475096517",
+     "published": "2026-10-28T10:38:43+00:00",
+     "editor_note": "Benchmarks what AI security agents find and miss versus deterministic SAST, including harness policy and cost."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "On Oct 14 a paper proposed Lifted State Policy Optimization to credit the local change that turns a flawed reasoning state into a better one. On Oct 22 ReflectPO applied reflection-guided policy optimization to long-horizon LLM agents.",
+  "tldr": "On Oct 14 a paper proposed Lifted State Policy Optimization to credit the local change that turns a flawed reasoning state into a better one. ReflectPO (Oct 22) and SOPO (Oct 23) then applied policy optimization to long-horizon agents and hallucination detection.",
   "stale": false,
-  "whats_new": "SOPO (Oct 23) applies Socratic guided policy optimization to span-level hallucination detection in LLM output.",
-  "why_it_matters": "Three arXiv papers in ten days tailor policy optimization to self-correction, agent horizons and hallucination detection; all are preprints, so treat them as research signals, not production tooling.",
-  "take_for_builders": "Treat these as preprints: wait for released code and independent replication before changing any training or eval pipeline.",
+  "whats_new": "Snyk VulnBench 2.0 (Oct 28) compares deterministic SAST with AI security agents on 108 hand-curated cases, reporting coverage, harness policy and cost, after papers framing the policy as part of the harness.",
+  "why_it_matters": "The thread shifts from training the policy to the interface around it: the harness and policy together decide agent behavior, so harness changes need their own evals.",
+  "take_for_builders": "Treat these as preprints: before changing a training pipeline, wait for code and replication; meanwhile, rerun your agent evals whenever the harness changes, not only the model.",
   "beats": [
    {
     "kicker": "SELF-CORRECTION",
@@ -80,23 +140,36 @@
    {
     "kicker": "AGENTS",
     "tone": "rising",
-    "headline": "ReflectPO brings reflection-guided optimization to long-horizon agents",
+    "headline": "Reflection-guided and multiscale optimization for long-horizon agents",
     "sids": [
-     "9cbcaf295333969d"
+     "9cbcaf295333969d",
+     "78e0961a0062764b",
+     "500b1aba48043738"
+    ]
+   },
+   {
+    "kicker": "THE TURN",
+    "tone": "turn",
+    "headline": "Policy and harness are treated as one system",
+    "sids": [
+     "6f21f6e8dedb00a0",
+     "9c6961c015612e8b"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "SOPO aims policy optimization at span-level hallucination detection",
+    "headline": "VulnBench 2.0 measures harness policy and cost against deterministic SAST",
     "sids": [
-     "78e0961a0062764b"
+     "d24c53b475096517"
     ]
    }
   ],
   "open_questions": [
-   "Do any of these three methods publish code or reproducible results on public benchmarks?"
+   "Do any of these methods publish code or reproducible results on public benchmarks?",
+   "Does VulnBench 2.0 get run by anyone outside Snyk's authors?",
+   "Do harness-aware evaluations change reported rankings of agents versus bare-model scores?"
   ],
-  "generated_at": "2026-10-27T00:13:24+00:00"
+  "generated_at": "2026-10-31T00:13:33+00:00"
  }
 }

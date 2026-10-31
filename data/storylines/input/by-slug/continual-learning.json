@@ -1,0 +1,139 @@
+{
+  "generated_at": "2026-10-31T00:12:56.535438+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "continual-learning",
+    "label": "Continual Learning",
+    "item_count": 4,
+    "source_count": 3,
+    "day_count": 4,
+    "first_seen": "2026-10-22T15:03:20+00:00",
+    "last_updated": "2026-10-28T20:03:05+00:00",
+    "latest_title": "Routed Continual Learning",
+    "member_sids": [
+      "aed209b05e4ae391",
+      "55edc2615764e1b5",
+      "200271de2a2f52aa",
+      "7bae6548f927e204"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/continual-learning.json",
+    "prior_narrative": {
+      "slug": "continual-learning",
+      "generated_at": "2026-10-29T00:20:00+00:00",
+      "covers_last_updated": "2026-10-27T06:52:54+00:00",
+      "covers_member_sids": [
+        "aed209b05e4ae391",
+        "55edc2615764e1b5",
+        "200271de2a2f52aa"
+      ],
+      "tldr": "An Oct 22 paper (HERD) framed continual learning as a trade-off between parametric methods, which forget, and non-parametric ones. Three days later a benchmark began measuring whether LLM agents actually improve from experience over long horizons.",
+      "whats_new": "CAMR (Oct 27) proposes compatibility-aware memory replay, deciding whether incoming data is worth replaying before it is used to update an LLM.",
+      "why_it_matters": "Agents that learn from experience need retention without regressions; replay selection and long-horizon evals are the pieces to watch before trusting self-improving setups.",
+      "status": {
+        "state": "Developing · research",
+        "tone": "rising",
+        "changed": "2026-10-27",
+        "detail": "Three arXiv papers in six days; all research-stage, none shipped in a product."
+      },
+      "beats": [
+        {
+          "kicker": "FRAMING",
+          "tone": "launch",
+          "headline": "HERD targets forgetting with recursive distillation",
+          "summary": "Positions parametric methods against catastrophic forgetting and loss of plasticity.",
+          "sids": [
+            "aed209b05e4ae391"
+          ]
+        },
+        {
+          "kicker": "MEASURE",
+          "tone": "rising",
+          "headline": "Continual Learning Exam benchmarks LLM agents over long horizons",
+          "sids": [
+            "55edc2615764e1b5"
+          ]
+        },
+        {
+          "kicker": "NOW",
+          "tone": "now",
+          "headline": "CAMR selects what to replay by compatibility",
+          "sids": [
+            "200271de2a2f52aa"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Do any labs report results on the Continual Learning Exam benchmark?",
+        "Do HERD or CAMR release code or reproducible numbers on production-scale models?"
+      ],
+      "take_for_builders": "Treat these as research signals: do not adopt, but add a retention check to any fine-tune or agent-memory pipeline that updates on new data.",
+      "day_captions": {
+        "aed209b05e4ae391": "Frames the problem: parametric forgetting versus non-parametric limits, with a distillation approach.",
+        "55edc2615764e1b5": "Adds a benchmark for agents learning from experience over long horizons.",
+        "200271de2a2f52aa": "Adds a replay-selection method that judges whether new data is compatible before use."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-10-22",
+        "items": [
+          {
+            "sid": "aed209b05e4ae391",
+            "title": "HERD: Harness-Evolving Recursive Distillation for Continual Learning",
+            "url": "http://arxiv.org/abs/2610.31401v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Continual learning requires a model to keep acquiring new skills and knowledge without compromising its existing capabilities. Parametric methods suffer from catastrophic forgetting and loss of plasticity. Non-paramet...",
+            "published": "2026-10-22T15:03:20+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-25",
+        "items": [
+          {
+            "sid": "55edc2615764e1b5",
+            "title": "Continual Learning Exam: Benchmarking Long-Horizon RSI and Experiential Learning in LLM Agents",
+            "url": "http://arxiv.org/abs/2610.33956v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Continual learning is the ability of LLM agents to improve over time by acquiring, refining, and applying knowledge from experience while retaining useful prior knowledge. It is essential for agents learning over long...",
+            "published": "2026-10-25T00:00:25+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-27",
+        "items": [
+          {
+            "sid": "200271de2a2f52aa",
+            "title": "CAMR: Compatibility-Aware Memory Replay for Continual Learning in Large Language Models",
+            "url": "http://arxiv.org/abs/2610.36734v1",
+            "source": "arxiv_llm_reliability",
+            "type": "paper",
+            "summary_1line": "Continual learning requires large language models to acquire new knowledge and capabilities while retaining what they have learned. Fine-tuning and replay support acquisition and retention, but deciding whether incomi...",
+            "published": "2026-10-27T06:52:54+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-28",
+        "items": [
+          {
+            "sid": "7bae6548f927e204",
+            "title": "Routed Continual Learning",
+            "url": "http://arxiv.org/abs/2610.38796v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "Agents deployed at scale repeatedly encounter related problems, and it is natural to let them learn from each other's experience rather than starting over each time. Unfortunately, there is no single way to retain tha...",
+            "published": "2026-10-28T20:03:05+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}

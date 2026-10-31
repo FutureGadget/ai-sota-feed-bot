@@ -1,0 +1,185 @@
+{
+  "generated_at": "2026-10-31T00:12:56.535438+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "benchmarking-long-horizon",
+    "label": "Benchmarking Long-Horizon",
+    "item_count": 7,
+    "source_count": 4,
+    "day_count": 6,
+    "first_seen": "2026-10-14T15:24:39+00:00",
+    "last_updated": "2026-10-28T10:06:57+00:00",
+    "latest_title": "CALM: Conflict-Aware Lifecycle Memory Governance for Long-Horizon Language Agents",
+    "member_sids": [
+      "9d061413e7a1baa2",
+      "736cb3afaf8cf4b3",
+      "0cabd28beabc87ef",
+      "55edc2615764e1b5",
+      "5f97c21b490b1ce9",
+      "3ca73f33ea96bd6a",
+      "423c688c0621c177"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/benchmarking-long-horizon.json",
+    "prior_narrative": {
+      "slug": "benchmarking-long-horizon",
+      "generated_at": "2026-10-28T00:13:30+00:00",
+      "covers_last_updated": "2026-10-26T17:34:47+00:00",
+      "covers_member_sids": [
+        "9d061413e7a1baa2",
+        "736cb3afaf8cf4b3",
+        "0cabd28beabc87ef",
+        "55edc2615764e1b5",
+        "3ca73f33ea96bd6a"
+      ],
+      "tldr": "Doc2Harness opened the thread on Oct 14 by measuring how much the harness around a model, not just the model, drives long-horizon coding-agent results. Over the next week, papers added search-state learning (ClueFlow), error-recovery tests for computer-use agents (CUA-Recovery) and a continual-learning exam.",
+      "whats_new": "FOCUS (Oct 26) proposes active critic learning to fix credit assignment under sparse outcome rewards, moving the thread from measuring long-horizon agents to training them.",
+      "why_it_matters": "Long-horizon agent failures come from harness design, silent state corruption and weak credit assignment, so benchmarks that isolate those factors are more useful for platform decisions than single-score leaderboards.",
+      "status": {
+        "state": "Developing",
+        "tone": "rising",
+        "changed": "2026-10-26",
+        "detail": "Five arXiv preprints, no independent replication yet; benchmarks and training methods are arriving together."
+      },
+      "beats": [
+        {
+          "kicker": "BASELINE",
+          "tone": "launch",
+          "headline": "Doc2Harness benchmarks harness engineering for coding agents",
+          "sids": [
+            "9d061413e7a1baa2"
+          ]
+        },
+        {
+          "kicker": "WIDENING",
+          "tone": "rising",
+          "headline": "Search state and computer-use error recovery get their own tests",
+          "sids": [
+            "736cb3afaf8cf4b3",
+            "0cabd28beabc87ef"
+          ]
+        },
+        {
+          "kicker": "NOW",
+          "tone": "turn",
+          "headline": "Continual learning and critic training extend the focus to improvement over time",
+          "sids": [
+            "55edc2615764e1b5",
+            "3ca73f33ea96bd6a"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Does any of these benchmarks get adopted by a major lab or independent evaluator?",
+        "Do the reported FOCUS gains hold on a third-party long-horizon benchmark?",
+        "Will CUA-Recovery results show shipped computer-use agents detecting silent state corruption?"
+      ],
+      "take_for_builders": "When evaluating a long-horizon agent, rerun it under your own harness and add an injected-error recovery case before trusting a leaderboard score.",
+      "day_captions": {
+        "9d061413e7a1baa2": "Frames harness design as a first-class factor in coding-agent results.",
+        "736cb3afaf8cf4b3": "Adds a method for learning search from attributed research-state transitions.",
+        "0cabd28beabc87ef": "Benchmarks error detection and recovery, where undetected errors cascade through persistent state.",
+        "55edc2615764e1b5": "Benchmarks whether agents improve from experience while retaining prior knowledge.",
+        "3ca73f33ea96bd6a": "Proposes active critic learning to improve credit assignment when critic estimates are inaccurate."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-10-14",
+        "items": [
+          {
+            "sid": "9d061413e7a1baa2",
+            "title": "Doc2Harness: Benchmarking LLMs on Long-Horizon Harness Engineering of Coding Agents",
+            "url": "http://arxiv.org/abs/2610.20344v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Agents driven by large language models are increasingly deployed on long-horizon tasks, where they use tools and modify real workspaces. How well they perform depends as much on the harness around the model as on the...",
+            "published": "2026-10-14T15:24:39+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-19",
+        "items": [
+          {
+            "sid": "736cb3afaf8cf4b3",
+            "title": "ClueFlow: Learning Long-Horizon Search through Attributed Research-State Transitions",
+            "url": "http://arxiv.org/abs/2610.25980v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Long-horizon search requires agents to acquire relevant evidence and integrate it into an evolving research state. Existing methods maintain research states to guide exploration or assign turn-level progress signals,...",
+            "published": "2026-10-19T08:07:35+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-20",
+        "items": [
+          {
+            "sid": "0cabd28beabc87ef",
+            "title": "CUA-Recovery: Benchmarking Error Recovery in Long-Horizon Computer-Use Agents",
+            "url": "http://arxiv.org/abs/2610.27645v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "As computer-use agents (CUAs) move to long-horizon workflows spanning multiple applications, undetected errors can silently corrupt persistent state and cause cascading failures in subsequent actions. Reliable error d...",
+            "published": "2026-10-20T05:06:00+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-25",
+        "items": [
+          {
+            "sid": "55edc2615764e1b5",
+            "title": "Continual Learning Exam: Benchmarking Long-Horizon RSI and Experiential Learning in LLM Agents",
+            "url": "http://arxiv.org/abs/2610.33956v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Continual learning is the ability of LLM agents to improve over time by acquiring, refining, and applying knowledge from experience while retaining useful prior knowledge. It is essential for agents learning over long...",
+            "published": "2026-10-25T00:00:25+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-26",
+        "items": [
+          {
+            "sid": "5f97c21b490b1ce9",
+            "title": "LongSearchEval: Evaluating Long-Horizon Web Search Capabilities of Large Language Models via a Trajectory-Aware Agent Framework with Failure-Node Localization",
+            "url": "http://arxiv.org/abs/2610.35150v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Long-horizon web search requires LLM-based agents to integrate information across web pages through extended interactions under task-specific constraints. Evaluating this capability is important not only for measuring...",
+            "published": "2026-10-26T10:15:38+00:00"
+          },
+          {
+            "sid": "3ca73f33ea96bd6a",
+            "title": "FOCUS: Active Critic Learning for Long-Horizon Language Model Agents",
+            "url": "http://arxiv.org/abs/2610.35801v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "Sparse outcome rewards make it difficult for long-horizon language-model agents to assign credit to earlier actions. Learned critics provide value estimates for intermediate states, but these estimates can be inaccura...",
+            "published": "2026-10-26T17:34:47+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-28",
+        "items": [
+          {
+            "sid": "423c688c0621c177",
+            "title": "CALM: Conflict-Aware Lifecycle Memory Governance for Long-Horizon Language Agents",
+            "url": "http://arxiv.org/abs/2610.38573v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "A memory can be outdated for present-day reasoning yet indispensable for reconstructing the past. Relevance-based retrieval overlooks this tension: semantic relevance, evidence-grounded validity, and query-specific el...",
+            "published": "2026-10-28T10:06:57+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,33 +1,37 @@
 {
   "slug": "benchmarking-long-horizon",
-  "generated_at": "2026-10-28T00:13:30+00:00",
-  "covers_last_updated": "2026-10-26T17:34:47+00:00",
-  "covers_member_sids": ["9d061413e7a1baa2","736cb3afaf8cf4b3","0cabd28beabc87ef","55edc2615764e1b5","3ca73f33ea96bd6a"],
-  "tldr": "Doc2Harness opened the thread on Oct 14 by measuring how much the harness around a model, not just the model, drives long-horizon coding-agent results. Over the next week, papers added search-state learning (ClueFlow), error-recovery tests for computer-use agents (CUA-Recovery) and a continual-learning exam.",
-  "whats_new": "FOCUS (Oct 26) proposes active critic learning to fix credit assignment under sparse outcome rewards, moving the thread from measuring long-horizon agents to training them.",
-  "why_it_matters": "Long-horizon agent failures come from harness design, silent state corruption and weak credit assignment, so benchmarks that isolate those factors are more useful for platform decisions than single-score leaderboards.",
+  "generated_at": "2026-10-31T00:13:33+00:00",
+  "covers_last_updated": "2026-10-28T10:06:57+00:00",
+  "covers_member_sids": ["9d061413e7a1baa2","736cb3afaf8cf4b3","0cabd28beabc87ef","55edc2615764e1b5","5f97c21b490b1ce9","3ca73f33ea96bd6a","423c688c0621c177"],
+  "tldr": "Doc2Harness opened the thread on Oct 14 by measuring how much the harness around a model, not just the model, drives long-horizon coding-agent results. Papers then added search-state learning (ClueFlow), error-recovery tests for computer-use agents (CUA-Recovery) and a continual-learning exam.",
+  "whats_new": "CALM (Oct 28) proposes conflict-aware lifecycle memory governance, so agents can retire outdated memories without losing the ability to reconstruct the past.",
+  "why_it_matters": "Long-horizon agent failures come from harness design, silent state corruption, weak credit assignment and stale memory, so benchmarks that isolate those factors beat single-score leaderboards for platform decisions.",
   "status": {
     "state": "Developing",
     "tone": "rising",
-    "changed": "2026-10-26",
-    "detail": "Five arXiv preprints, no independent replication yet; benchmarks and training methods are arriving together."
+    "changed": "2026-10-28",
+    "detail": "Seven arXiv preprints, no independent replication yet; benchmarks, training methods and memory management are arriving together."
   },
   "beats": [
     {"kicker": "BASELINE", "tone": "launch", "headline": "Doc2Harness benchmarks harness engineering for coding agents", "sids": ["9d061413e7a1baa2"]},
     {"kicker": "WIDENING", "tone": "rising", "headline": "Search state and computer-use error recovery get their own tests", "sids": ["736cb3afaf8cf4b3","0cabd28beabc87ef"]},
-    {"kicker": "NOW", "tone": "turn", "headline": "Continual learning and critic training extend the focus to improvement over time", "sids": ["55edc2615764e1b5","3ca73f33ea96bd6a"]}
+    {"kicker": "THE TURN", "tone": "turn", "headline": "Continual learning, web-search evaluation and critic training extend the focus", "sids": ["55edc2615764e1b5","5f97c21b490b1ce9","3ca73f33ea96bd6a"]},
+    {"kicker": "NOW", "tone": "now", "headline": "CALM adds lifecycle governance for agent memory", "sids": ["423c688c0621c177"]}
   ],
   "open_questions": [
     "Does any of these benchmarks get adopted by a major lab or independent evaluator?",
     "Do the reported FOCUS gains hold on a third-party long-horizon benchmark?",
-    "Will CUA-Recovery results show shipped computer-use agents detecting silent state corruption?"
+    "Will CUA-Recovery results show shipped computer-use agents detecting silent state corruption?",
+    "Is CALM's memory governance evaluated on any of the existing long-horizon benchmarks?"
   ],
-  "take_for_builders": "When evaluating a long-horizon agent, rerun it under your own harness and add an injected-error recovery case before trusting a leaderboard score.",
+  "take_for_builders": "When evaluating a long-horizon agent, rerun it under your own harness and add an injected-error recovery case before trusting a leaderboard score; audit how your agent expires stale memory.",
   "day_captions": {
     "9d061413e7a1baa2": "Frames harness design as a first-class factor in coding-agent results.",
     "736cb3afaf8cf4b3": "Adds a method for learning search from attributed research-state transitions.",
     "0cabd28beabc87ef": "Benchmarks error detection and recovery, where undetected errors cascade through persistent state.",
     "55edc2615764e1b5": "Benchmarks whether agents improve from experience while retaining prior knowledge.",
-    "3ca73f33ea96bd6a": "Proposes active critic learning to improve credit assignment when critic estimates are inaccurate."
+    "5f97c21b490b1ce9": "Evaluates long-horizon web search with failure-node localization in agent trajectories.",
+    "3ca73f33ea96bd6a": "Proposes active critic learning to improve credit assignment when critic estimates are inaccurate.",
+    "423c688c0621c177": "Addresses memory that is outdated for present reasoning but needed to reconstruct the past."
   }
 }

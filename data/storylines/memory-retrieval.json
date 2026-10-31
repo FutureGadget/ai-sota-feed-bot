@@ -1,0 +1,109 @@
+{
+ "slug": "memory-retrieval",
+ "label": "Memory Retrieval",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-10-17T05:12:34+00:00",
+ "last_updated": "2026-10-29T17:37:21+00:00",
+ "generated_at": "2026-10-31T00:13:50.114893+00:00",
+ "sources": [
+  "arxiv_cs_ai",
+  "hackernews_ai",
+  "langchain_blog"
+ ],
+ "days": [
+  {
+   "date": "2026-10-17",
+   "items": [
+    {
+     "title": "EPGM: Execution Provenance for Budgeted Agent Memory Retrieval",
+     "url": "https://arxiv.org/abs/2609.25913",
+     "source": "hackernews_ai",
+     "type": "paper",
+     "summary_1line": "EPGM: Execution Provenance for Budgeted Agent Memory Retrieval",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "cbef01ba5cb1e9c5",
+     "published": "2026-10-17T05:12:34+00:00",
+     "editor_note": "Frames memory retrieval as a budgeted problem with execution provenance."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-23",
+   "items": [
+    {
+     "title": "Context Engineering (Agent Memory) for AI Agents Starts with Retrieval",
+     "url": "https://www.langchain.com/blog/context-engineering-starts-with-retrieval",
+     "source": "langchain_blog",
+     "type": "news",
+     "summary_1line": "Agents waste time and context on clumsy searches, oversized results and stale data. Learn the retrieval techniques LangChain's Deep Agents harness uses to get the right context in.",
+     "why_it_matters": "Matches feed focus: agent, harness, eval.",
+     "sid": "b0133c74d1515b7b",
+     "published": "2026-10-23T17:00:00+00:00",
+     "editor_note": "Practitioner view from LangChain's Deep Agents on failures such as clumsy searches and stale data."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-29",
+   "items": [
+    {
+     "title": "Retrieval as Traversal: Value-Indexed Memory for Stateful Long-Context Agents",
+     "url": "http://arxiv.org/abs/2610.40545v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Long-context models repeatedly solve closely related retrieval problems. Attention or global retrieval can retain large stores, but each forward pass again searches for what matters. Recurrent compression avoids this...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "29a5435531059481",
+     "published": "2026-10-29T17:37:21+00:00",
+     "editor_note": "Proposes indexing memory by value so retrieval is traversal rather than a fresh search each pass."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "An Oct 17 paper (EPGM) proposed tracking execution provenance so agent memory retrieval stays within a budget. On Oct 23 LangChain described the retrieval techniques its Deep Agents harness uses against clumsy searches, oversized results and stale data.",
+  "stale": false,
+  "whats_new": "Oct 29: \"Retrieval as Traversal\" proposes value-indexed memory so long-context agents stop re-searching for what matters on every forward pass.",
+  "why_it_matters": "Agent memory is shifting from bigger stores to cheaper retrieval: provenance, result sizing and indexing decide context cost and staleness.",
+  "take_for_builders": "Audit your agent's retrieval for oversized results and stale data, and log which memory entries each answer used; treat the papers as research until code appears.",
+  "status": {
+   "state": "Developing · research",
+   "tone": "rising",
+   "changed": "2026-10-29",
+   "detail": "Two arXiv papers and one LangChain engineering post in 12 days; only LangChain's describes a shipped harness."
+  },
+  "beats": [
+   {
+    "kicker": "PROVENANCE",
+    "tone": "launch",
+    "headline": "EPGM adds execution provenance to budgeted agent memory retrieval",
+    "sids": [
+     "cbef01ba5cb1e9c5"
+    ]
+   },
+   {
+    "kicker": "PRACTICE",
+    "tone": "rising",
+    "headline": "LangChain: context engineering for agents starts with retrieval",
+    "sids": [
+     "b0133c74d1515b7b"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Value-indexed memory recasts retrieval as traversal",
+    "sids": [
+     "29a5435531059481"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do EPGM or the value-indexed memory paper release code or numbers on production agent workloads?",
+   "Does LangChain publish measurements of its retrieval techniques in Deep Agents?"
+  ],
+  "generated_at": "2026-10-31T00:13:38Z"
+ }
+}

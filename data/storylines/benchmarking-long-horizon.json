@@ -1,13 +1,14 @@
 {
  "slug": "benchmarking-long-horizon",
  "label": "Benchmarking Long-Horizon",
- "item_count": 5,
- "day_count": 5,
- "source_count": 3,
+ "item_count": 7,
+ "day_count": 6,
+ "source_count": 4,
  "first_seen": "2026-10-14T15:24:39+00:00",
- "last_updated": "2026-10-26T17:34:47+00:00",
- "generated_at": "2026-10-29T00:13:38.528542+00:00",
+ "last_updated": "2026-10-28T10:06:57+00:00",
+ "generated_at": "2026-10-31T00:13:50.114893+00:00",
  "sources": [
+  "arxiv_agent_systems_research",
   "arxiv_cs_ai",
   "arxiv_cs_cl",
   "arxiv_cs_lg"
@@ -81,6 +82,17 @@
    "date": "2026-10-26",
    "items": [
     {
+     "title": "LongSearchEval: Evaluating Long-Horizon Web Search Capabilities of Large Language Models via a Trajectory-Aware Agent Framework with Failure-Node Localization",
+     "url": "http://arxiv.org/abs/2610.35150v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Long-horizon web search requires LLM-based agents to integrate information across web pages through extended interactions under task-specific constraints. Evaluating this capability is important not only for measuring...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "5f97c21b490b1ce9",
+     "published": "2026-10-26T10:15:38+00:00",
+     "editor_note": "Evaluates long-horizon web search with failure-node localization in agent trajectories."
+    },
+    {
      "title": "FOCUS: Active Critic Learning for Long-Horizon Language Model Agents",
      "url": "http://arxiv.org/abs/2610.35801v1",
      "source": "arxiv_cs_lg",
@@ -92,19 +104,35 @@
      "editor_note": "Proposes active critic learning to improve credit assignment when critic estimates are inaccurate."
     }
    ]
+  },
+  {
+   "date": "2026-10-28",
+   "items": [
+    {
+     "title": "CALM: Conflict-Aware Lifecycle Memory Governance for Long-Horizon Language Agents",
+     "url": "http://arxiv.org/abs/2610.38573v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "A memory can be outdated for present-day reasoning yet indispensable for reconstructing the past. Relevance-based retrieval overlooks this tension: semantic relevance, evidence-grounded validity, and query-specific el...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "423c688c0621c177",
+     "published": "2026-10-28T10:06:57+00:00",
+     "editor_note": "Addresses memory that is outdated for present reasoning but needed to reconstruct the past."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Doc2Harness opened the thread on Oct 14 by measuring how much the harness around a model, not just the model, drives long-horizon coding-agent results. Over the next week, papers added search-state learning (ClueFlow), error-recovery tests for computer-use agents (CUA-Recovery) and a continual-learning exam.",
+  "tldr": "Doc2Harness opened the thread on Oct 14 by measuring how much the harness around a model, not just the model, drives long-horizon coding-agent results. Papers then added search-state learning (ClueFlow), error-recovery tests for computer-use agents (CUA-Recovery) and a continual-learning exam.",
   "stale": false,
-  "whats_new": "FOCUS (Oct 26) proposes active critic learning to fix credit assignment under sparse outcome rewards, moving the thread from measuring long-horizon agents to training them.",
-  "why_it_matters": "Long-horizon agent failures come from harness design, silent state corruption and weak credit assignment, so benchmarks that isolate those factors are more useful for platform decisions than single-score leaderboards.",
-  "take_for_builders": "When evaluating a long-horizon agent, rerun it under your own harness and add an injected-error recovery case before trusting a leaderboard score.",
+  "whats_new": "CALM (Oct 28) proposes conflict-aware lifecycle memory governance, so agents can retire outdated memories without losing the ability to reconstruct the past.",
+  "why_it_matters": "Long-horizon agent failures come from harness design, silent state corruption, weak credit assignment and stale memory, so benchmarks that isolate those factors beat single-score leaderboards for platform decisions.",
+  "take_for_builders": "When evaluating a long-horizon agent, rerun it under your own harness and add an injected-error recovery case before trusting a leaderboard score; audit how your agent expires stale memory.",
   "status": {
    "state": "Developing",
    "tone": "rising",
-   "changed": "2026-10-26",
-   "detail": "Five arXiv preprints, no independent replication yet; benchmarks and training methods are arriving together."
+   "changed": "2026-10-28",
+   "detail": "Seven arXiv preprints, no independent replication yet; benchmarks, training methods and memory management are arriving together."
   },
   "beats": [
    {
@@ -125,20 +153,30 @@
     ]
    },
    {
-    "kicker": "NOW",
+    "kicker": "THE TURN",
     "tone": "turn",
-    "headline": "Continual learning and critic training extend the focus to improvement over time",
+    "headline": "Continual learning, web-search evaluation and critic training extend the focus",
     "sids": [
      "55edc2615764e1b5",
+     "5f97c21b490b1ce9",
      "3ca73f33ea96bd6a"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "CALM adds lifecycle governance for agent memory",
+    "sids": [
+     "423c688c0621c177"
     ]
    }
   ],
   "open_questions": [
    "Does any of these benchmarks get adopted by a major lab or independent evaluator?",
    "Do the reported FOCUS gains hold on a third-party long-horizon benchmark?",
-   "Will CUA-Recovery results show shipped computer-use agents detecting silent state corruption?"
+   "Will CUA-Recovery results show shipped computer-use agents detecting silent state corruption?",
+   "Is CALM's memory governance evaluated on any of the existing long-horizon benchmarks?"
   ],
-  "generated_at": "2026-10-28T00:13:30+00:00"
+  "generated_at": "2026-10-31T00:13:33+00:00"
  }
 }

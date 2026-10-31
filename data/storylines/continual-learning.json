@@ -1,14 +1,15 @@
 {
  "slug": "continual-learning",
  "label": "Continual Learning",
- "item_count": 3,
- "day_count": 3,
- "source_count": 2,
+ "item_count": 4,
+ "day_count": 4,
+ "source_count": 3,
  "first_seen": "2026-10-22T15:03:20+00:00",
- "last_updated": "2026-10-27T06:52:54+00:00",
- "generated_at": "2026-10-29T00:13:38.528542+00:00",
+ "last_updated": "2026-10-28T20:03:05+00:00",
+ "generated_at": "2026-10-31T00:13:50.114893+00:00",
  "sources": [
   "arxiv_cs_cl",
+  "arxiv_cs_lg",
   "arxiv_llm_reliability"
  ],
  "days": [
@@ -59,19 +60,35 @@
      "editor_note": "Adds a replay-selection method that judges whether new data is compatible before use."
     }
    ]
+  },
+  {
+   "date": "2026-10-28",
+   "items": [
+    {
+     "title": "Routed Continual Learning",
+     "url": "http://arxiv.org/abs/2610.38796v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Agents deployed at scale repeatedly encounter related problems, and it is natural to let them learn from each other's experience rather than starting over each time. Unfortunately, there is no single way to retain tha...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "7bae6548f927e204",
+     "published": "2026-10-28T20:03:05+00:00",
+     "editor_note": "Extends the question to agents at scale learning from each other's experience."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "An Oct 22 paper (HERD) framed continual learning as a trade-off between parametric methods, which forget, and non-parametric ones. Three days later a benchmark began measuring whether LLM agents actually improve from experience over long horizons.",
+  "tldr": "An Oct 22 paper (HERD) framed continual learning as a trade-off between parametric methods, which forget, and non-parametric ones. A benchmark followed on Oct 25 for whether LLM agents improve from experience, then CAMR on Oct 27 for choosing what to replay.",
   "stale": false,
-  "whats_new": "CAMR (Oct 27) proposes compatibility-aware memory replay, deciding whether incoming data is worth replaying before it is used to update an LLM.",
-  "why_it_matters": "Agents that learn from experience need retention without regressions; replay selection and long-horizon evals are the pieces to watch before trusting self-improving setups.",
+  "whats_new": "Oct 28: Routed Continual Learning lets deployed agents share experience, routing among retention mechanisms rather than relying on a single one.",
+  "why_it_matters": "Agents that learn from experience need retention without regressions; replay selection, long-horizon evals and now cross-agent sharing are the pieces to watch.",
   "take_for_builders": "Treat these as research signals: do not adopt, but add a retention check to any fine-tune or agent-memory pipeline that updates on new data.",
   "status": {
    "state": "Developing · research",
    "tone": "rising",
-   "changed": "2026-10-27",
-   "detail": "Three arXiv papers in six days; all research-stage, none shipped in a product."
+   "changed": "2026-10-28",
+   "detail": "Four arXiv papers in seven days; all research-stage, none shipped in a product."
   },
   "beats": [
    {
@@ -92,18 +109,26 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "REPLAY",
+    "tone": "rising",
     "headline": "CAMR selects what to replay by compatibility",
     "sids": [
      "200271de2a2f52aa"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Routed Continual Learning shares experience across agents",
+    "sids": [
+     "7bae6548f927e204"
     ]
    }
   ],
   "open_questions": [
    "Do any labs report results on the Continual Learning Exam benchmark?",
-   "Do HERD or CAMR release code or reproducible numbers on production-scale models?"
+   "Do HERD, CAMR or Routed Continual Learning release code or reproducible numbers on production-scale models?"
   ],
-  "generated_at": "2026-10-29T00:20:00+00:00"
+  "generated_at": "2026-10-31T00:13:38Z"
  }
 }

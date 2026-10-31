@@ -1,0 +1,171 @@
+{
+  "generated_at": "2026-10-31T00:12:56.535438+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "policy-optimization",
+    "label": "Policy Optimization",
+    "item_count": 7,
+    "source_count": 4,
+    "day_count": 6,
+    "first_seen": "2026-10-14T15:27:50+00:00",
+    "last_updated": "2026-10-28T10:38:43+00:00",
+    "latest_title": "How Deterministic SAST and AI Security Agents Divide the Work: Coverage, Harness Policy and Cost in Snyk VulnBench 2.0",
+    "member_sids": [
+      "a42e86ea9f9f98f3",
+      "9cbcaf295333969d",
+      "78e0961a0062764b",
+      "500b1aba48043738",
+      "6f21f6e8dedb00a0",
+      "9c6961c015612e8b",
+      "d24c53b475096517"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/policy-optimization.json",
+    "prior_narrative": {
+      "slug": "policy-optimization",
+      "generated_at": "2026-10-27T00:13:24+00:00",
+      "covers_last_updated": "2026-10-23T06:08:17+00:00",
+      "covers_member_sids": [
+        "a42e86ea9f9f98f3",
+        "9cbcaf295333969d",
+        "78e0961a0062764b"
+      ],
+      "tldr": "On Oct 14 a paper proposed Lifted State Policy Optimization to credit the local change that turns a flawed reasoning state into a better one. On Oct 22 ReflectPO applied reflection-guided policy optimization to long-horizon LLM agents.",
+      "whats_new": "SOPO (Oct 23) applies Socratic guided policy optimization to span-level hallucination detection in LLM output.",
+      "why_it_matters": "Three arXiv papers in ten days tailor policy optimization to self-correction, agent horizons and hallucination detection; all are preprints, so treat them as research signals, not production tooling.",
+      "beats": [
+        {
+          "kicker": "SELF-CORRECTION",
+          "tone": "launch",
+          "headline": "Lifted State Policy Optimization targets self-correction",
+          "sids": [
+            "a42e86ea9f9f98f3"
+          ]
+        },
+        {
+          "kicker": "AGENTS",
+          "tone": "rising",
+          "headline": "ReflectPO brings reflection-guided optimization to long-horizon agents",
+          "sids": [
+            "9cbcaf295333969d"
+          ]
+        },
+        {
+          "kicker": "NOW",
+          "tone": "now",
+          "headline": "SOPO aims policy optimization at span-level hallucination detection",
+          "sids": [
+            "78e0961a0062764b"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Do any of these three methods publish code or reproducible results on public benchmarks?"
+      ],
+      "take_for_builders": "Treat these as preprints: wait for released code and independent replication before changing any training or eval pipeline.",
+      "day_captions": {
+        "a42e86ea9f9f98f3": "Introduces Lifted State Policy Optimization, crediting the local change from a flawed reasoning state to a better one.",
+        "9cbcaf295333969d": "Extends policy optimization with reflection guidance for long-horizon, tool-using LLM agents.",
+        "78e0961a0062764b": "Uses Socratic guided policy optimization to detect hallucinated spans rather than whole answers."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-10-14",
+        "items": [
+          {
+            "sid": "a42e86ea9f9f98f3",
+            "title": "Lifted State Policy Optimization: Internalizing Self-Correction through Transition Geometry",
+            "url": "http://arxiv.org/abs/2610.20350v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Preference optimization ranks final answers and trajectory RL maximizes aggregate returns, yet neither credits the local change that turns a flawed reasoning state into a better one. We introduce Lifted State Policy O...",
+            "published": "2026-10-14T15:27:50+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-22",
+        "items": [
+          {
+            "sid": "9cbcaf295333969d",
+            "title": "ReflectPO: Reflection-Guided Policy Optimization for Long-Horizon LLM Agents",
+            "url": "http://arxiv.org/abs/2610.30933v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "With external tools, large language models (LLMs) can tackle complex tasks through sustained environmental interaction. LLM-based agents are therefore increasingly used to tackle complex long-horizon tasks in real-wor...",
+            "published": "2026-10-22T08:54:24+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-23",
+        "items": [
+          {
+            "sid": "78e0961a0062764b",
+            "title": "SOPO: Socratic Guided Policy Optimization for Span-Level Hallucination Detection",
+            "url": "http://arxiv.org/abs/2610.32212v1",
+            "source": "arxiv_llm_reliability",
+            "type": "paper",
+            "summary_1line": "Large Language Models (LLMs) have gained widespread adoption in various natural language processing tasks, but suffer from hallucination issues where they generate unfaithful or inconsistent content. While Reinforceme...",
+            "published": "2026-10-23T06:08:17+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-26",
+        "items": [
+          {
+            "sid": "500b1aba48043738",
+            "title": "Multiscale Policy Optimization for Long-Horizon LLM Agents",
+            "url": "http://arxiv.org/abs/2610.35013v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Long-horizon LLM agents interact with their environments through complete assistant turns while generating each action token by token. We observe that critic values vary primarily across turns, motivating optimization...",
+            "published": "2026-10-26T08:22:11+00:00"
+          },
+          {
+            "sid": "6f21f6e8dedb00a0",
+            "title": "Profiling a Frontier Agent with EBench: From Direct Control to Harness with Policy",
+            "url": "http://arxiv.org/abs/2610.35832v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Frontier multimodal large language models (MLLMs) can control robots without robot-specific training, but how their capabilities compare and interact with post-trained vision-language-action (VLA) and world action mod...",
+            "published": "2026-10-26T17:51:02+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-27",
+        "items": [
+          {
+            "sid": "9c6961c015612e8b",
+            "title": "Your Policy Is Secretly a Harness: The Decision Geometry of Agent Interfaces",
+            "url": "http://arxiv.org/abs/2610.37255v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Language model agents are post-trained and deployed through a harness, the prompts, tools, and control logic that present a task to the model and execute its outputs. Harnesses are often revised and judged by how an a...",
+            "published": "2026-10-27T13:52:25+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-28",
+        "items": [
+          {
+            "sid": "d24c53b475096517",
+            "title": "How Deterministic SAST and AI Security Agents Divide the Work: Coverage, Harness Policy and Cost in Snyk VulnBench 2.0",
+            "url": "http://arxiv.org/abs/2610.38617v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "We ask what AI coding agents and AI security harnesses find that deterministic static application security testing (SAST) does not, and what they miss that SAST catches. VulnBench 2.0 is a benchmark of 108 hand-curate...",
+            "published": "2026-10-28T10:38:43+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}

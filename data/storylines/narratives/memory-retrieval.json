@@ -1,0 +1,55 @@
+{
+  "covers_last_updated": "2026-10-29T17:37:21+00:00",
+  "covers_member_sids": [
+    "cbef01ba5cb1e9c5",
+    "b0133c74d1515b7b",
+    "29a5435531059481"
+  ],
+  "tldr": "An Oct 17 paper (EPGM) proposed tracking execution provenance so agent memory retrieval stays within a budget. On Oct 23 LangChain described the retrieval techniques its Deep Agents harness uses against clumsy searches, oversized results and stale data.",
+  "whats_new": "Oct 29: \"Retrieval as Traversal\" proposes value-indexed memory so long-context agents stop re-searching for what matters on every forward pass.",
+  "why_it_matters": "Agent memory is shifting from bigger stores to cheaper retrieval: provenance, result sizing and indexing decide context cost and staleness.",
+  "status": {
+    "state": "Developing · research",
+    "tone": "rising",
+    "changed": "2026-10-29",
+    "detail": "Two arXiv papers and one LangChain engineering post in 12 days; only LangChain's describes a shipped harness."
+  },
+  "beats": [
+    {
+      "kicker": "PROVENANCE",
+      "tone": "launch",
+      "headline": "EPGM adds execution provenance to budgeted agent memory retrieval",
+      "sids": [
+        "cbef01ba5cb1e9c5"
+      ]
+    },
+    {
+      "kicker": "PRACTICE",
+      "tone": "rising",
+      "headline": "LangChain: context engineering for agents starts with retrieval",
+      "sids": [
+        "b0133c74d1515b7b"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Value-indexed memory recasts retrieval as traversal",
+      "sids": [
+        "29a5435531059481"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Do EPGM or the value-indexed memory paper release code or numbers on production agent workloads?",
+    "Does LangChain publish measurements of its retrieval techniques in Deep Agents?"
+  ],
+  "take_for_builders": "Audit your agent's retrieval for oversized results and stale data, and log which memory entries each answer used; treat the papers as research until code appears.",
+  "day_captions": {
+    "cbef01ba5cb1e9c5": "Frames memory retrieval as a budgeted problem with execution provenance.",
+    "b0133c74d1515b7b": "Practitioner view from LangChain's Deep Agents on failures such as clumsy searches and stale data.",
+    "29a5435531059481": "Proposes indexing memory by value so retrieval is traversal rather than a fresh search each pass."
+  },
+  "slug": "memory-retrieval",
+  "generated_at": "2026-10-31T00:13:38Z"
+}
