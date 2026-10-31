@@ -160,7 +160,7 @@ class ScoringTest(unittest.TestCase):
     def test_select_reports_shortlist_and_bench_reasons(self):
         cfg = {**CFG, "decks": {"t": {"budget": 2, "bench": 5, "min_utility": 0.3, "max_per_source": 1, "categories": {"default": {"max": 5}}}}}
         rows = [
-            {"key": "a1", "url": "a1", "source": "a", "judge_score": 0.9, "judge_category": "agent_engineering"},
+            {"key": "a1", "url": "a1", "source": "a", "judge_score": 0.9, "judge_category": "agent_engineering", "in_brief": True},
             {"key": "a2", "url": "a2", "source": "a", "judge_score": 0.8, "judge_category": "agent_engineering"},
             {"key": "b1", "url": "b1", "source": "b", "judge_score": 0.7, "judge_category": "agent_engineering"},
             {"key": "c1", "url": "c1", "source": "c", "judge_score": 0.6, "judge_category": "agent_engineering"},
@@ -170,6 +170,7 @@ class ScoringTest(unittest.TestCase):
         self.assertEqual([c["key"] for c in out["shortlist"]], ["a1", "b1"])
         reasons = {c["key"]: c["bench_reason"] for c in out["bench"]}
         self.assertEqual(reasons, {"a2": "source_cap:a", "c1": "budget", "d1": "below_min_utility"})
+        self.assertEqual(out["brief"], {"selected": 1, "bench": 0})
 
 
 class ConfigTest(unittest.TestCase):

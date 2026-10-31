@@ -1,0 +1,90 @@
+# Daily admission ledger for the served Brief.
+#
+# The feed build writes the whole post-judge Stage A pool to
+# data/quality/pool/<day>.json. This config decides which of those stories are
+# admitted to the reader-facing 24-hour Brief and writes the durable result to
+# data/brief/<day>.json. Admission is append-only within a day: a later build
+# can add a story but never removes or re-ranks an admitted one.
+#
+# The ledger is a quality gate plus flood control, not a per-day ceiling. Caps
+# are generous enough to keep everything worth reading, and the homepage folds
+# the over-cap pool under "More from ...". See
+# docs/product-specs/live-feed.md and the 2026-10-31 decision-log entry.
+
+version: brief-ledger-v1
+enabled: true
+
+# Read the day's judged pool. A story admitted within the previous 24 hours is
+# skipped by the prior_story guard, so a long-running story does not get a new
+# card every day.
+retention_days: 3
+
+# Gate
+# ----
+# Release items are scored by their release tier, not the judge verdict (the
+# judge drops release notes by design). Non-release items need a judge score
+# at or above min_admit_score (the judge's keep threshold), or an unjudged
+# item with enough evidence. The judge's review band sits below keep_at, so
+# reviews are not admitted. Off-topic is always rejected. A missing evidence
+# field is the judge-unavailable fail-open path; present-but-thin evidence is
+# rejected.
+exclude_categories: [off_topic]
+min_admit_score: 0.35
+min_evidence_chars: 300
+
+release:
+  major: 0.55
+  minor: 0.20
+  unknown: 0.30
+
+# Unjudged rows are never scored zero: they take `scale` times the median
+# judged score of their source role, then the window median, then `fallback`.
+unjudged:
+  scale: 0.9
+  fallback: 0.35
+  platform_relevant: 0.5
+  corporate_marketing: 0.2
+
+# utility = judge_keep * score
+#         + platform_relevant * signals.platform_relevant
+#         + coverage * log1p(source_count - 1)
+#         + source_tune * learned per-source CTR/feedback delta
+#         + in_edition * [appeared in any feed edition]
+#         - corporate_marketing * signals.corporate_marketing
+#         + freshness * freshness_at_admission
+#         + must_cover * [release_tier == major]
+#
+# Freshness is evaluated at admission and then frozen: a story that was fresh
+# when admitted keeps its seat even as the live score decays. That is the
+# difference between admission and presentation.
+weights:
+  judge_keep: 1.0
+  platform_relevant: 0.3
+  coverage: 0.25
+  source_tune: 0.5
+  in_edition: 0.05
+  corporate_marketing: 0.3
+  freshness: 0.2
+  must_cover: 1.0
+
+freshness:
+  half_life_hours: 36
+  floor: 0.25
+
+# Admission quotas are flood guards, not per-day ceilings. The values are
+# deliberately generous: a busy day admits about 90-120 stories, the default
+# Brief shows the cap-compliant top, and the rest is one click away. A source
+# can contribute at most per_source_per_6h in any six-hour window (checked
+# symmetrically across UTC midnight).
+quotas:
+  global_per_day: 120
+  per_source_per_6h: 3
+  roles:
+    first_party: 28
+    practitioner: 18
+    community: 16
+    research: 28
+    release: 12
+    search: 4
+    aggregator: 4
+    default: 12

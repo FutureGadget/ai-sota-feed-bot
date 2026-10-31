@@ -318,6 +318,7 @@ def check_bundled_data_growth(root: Path) -> list[str]:
         "data/wiki": 10.0,
         "data/playbook": 15.0,
         "data/foundations": 15.0,
+        "data/brief": 5.0,
     }
 
     for rel_dir, max_mb in dir_budgets_mb.items():

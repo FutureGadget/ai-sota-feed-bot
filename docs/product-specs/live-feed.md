@@ -11,11 +11,13 @@ ranked, finite brief for platform and agent engineers—not an infinite stream.
 3. **Ranked ledger** — each visible story has a rank, source/date evidence,
    headline, concise summary, optional genuine editorial context, and feedback
    controls.
-4. **Finish line** — only shown when the selected Brief range is complete.
+4. **Finish line** - the curated Brief ends with a caught-up marker; over-cap
+   stories remain available under the "More from ..." fold.
 
 The first five Brief stories are set as a newspaper front page (lead, two
-secondaries, a pair) before the ledger continues. Ranking and order are
-unchanged. Contract: `feed-front-page.md`.
+secondaries, a pair) before the ledger continues. Ranking and item selection
+are unchanged; the API supplies the stable admission order, and the top five
+are source-balanced. Contract: `feed-front-page.md`.
 
 Ranking diagnostics such as `Matches feed focus:` are internal explanations,
 not reader-facing editorial “why it matters” copy. Genuine significance text
@@ -38,19 +40,60 @@ substantive changelog ranks above a bare version bump); the tier never makes
 an item Brief-eligible. Items from older snapshots without a tier behave the
 same way.
 
-## Feed aging
+## Rolling 24-hour window and stable order
 
-The default live feed shows a Today window (the finishable brief; readers can
-widen to 3d/7d/30d/all) without treating every eligible story as equally
-current. The ranking pipeline applies a smooth time-decay multiplier after
-normal relevance/source/topic scoring, so an article gradually loses ordering
-power as it ages instead of staying at its original rank until the freshness
-window expires.
+The default Brief covers the last 24 hours by feed arrival (`first_seen`), not
+the reader's local calendar day. A slow RSS post or arXiv paper published
+yesterday but admitted this morning is part of today's brief, and the window
+does not reset to empty at midnight. Published dates remain the card display
+date and the key for `/daily/<date>`, `/weekly/<week>`, and custom date ranges.
 
-Decay is configured in `config/ranking.yaml` (`time_decay.*`) and may vary by
-slot for slower-moving surfaces such as research or practitioner analysis. It
-does not change date filtering, `first_seen`, "New since your last visit", or
-the user's ability to widen the time range.
+Within that window the served pool is append-only. `api/feed.js` accumulates
+every run snapshot, orders a story by the score it had when it FIRST entered
+the feed, and never evicts a story because a later run stopped re-selecting
+it. A new story enters by its own admission score. This keeps a refresh from
+removing or reshuffling cards the reader is already looking at.
+
+Editorial caps (`config/editorial.yaml` `caps` / `role_totals`) are flood
+guards for the top of the brief, not a ceiling on the window. Cap-compliant
+stories come first; over-cap stories continue below a "More from ..." fold and
+remain one click away. The default Brief is the cap-compliant mix with an
+explicit finish line; `All` and the section lenses show the full pool.
+
+The top five are rebalanced so one source cannot take more than three of the
+five front-page slots. The rest of the order is untouched by that pass.
+
+### Admission ledger
+
+The 24h Brief is served from `data/brief/<UTC date>.json`, not from the run
+snapshots. `pipeline/brief_ledger.py` reads the day's judged pool and admits
+one card per story when it first passes:
+
+- **Gate:** a judge score at or above 0.35 (the judge's keep band), or an
+  unjudged item with at least 300 characters of evidence. The judge's review
+  band sits below the keep threshold, so reviews are not admitted. Releases are admitted by release tier
+  (the judge drops release notes by design). Off-topic is rejected. When the
+  judge is unavailable and no evidence field exists, the item fails open
+  (the feed must not empty when Jev is down); present-but-thin evidence is
+  still rejected.
+- **Flood guards:** at most 3 admissions per source in any six-hour window,
+  per-role daily caps (research 28, first-party 28, practitioner 18, community
+  16, release 12, search 4, aggregator 4), and 120 admissions per UTC day.
+
+Admission uses the deck selector's utility (judge score, platform relevance,
+coverage, source tune, in-edition) plus freshness evaluated at admission and a
+major-release must-cover bonus. Once admitted, a story keeps its card and
+position for the window; later builds update coverage and `last_seen`, never
+remove it. A story is not re-admitted within 24 hours of its previous
+admission. The feed API keeps the latest admission when a story spans two
+ledger files, then applies the display caps and front-page balance.
+
+The run snapshots remain the source for calendar ranges (`Last 3d/7d/30d`,
+explicit dates) and for the fallback when no ledger exists yet. The
+crawler/no-JS feed seed is an edition snapshot, not the ledger; ledger-only
+stories are reachable through their `/story` pages and the sitemap. Time decay
+still shapes the run ranking; admission freezes freshness at the moment the
+story enters the ledger, so a story does not lose its seat as it ages.
 
 ## Editor's Desk inserts
 
@@ -74,22 +117,25 @@ Rules:
 
 The **New** badge, the meta-line "N new since your last visit" count, and the
 "⚡ Catch me up" brief all share one definition: an item is new when it
-**entered the reader's feed** after their previous visit. That is keyed off
-`first_seen` (the feed-arrival time the feed API computes in history mode — the
-`run_at` when the item first reached the ranked window), falling back to
-`published` only when `first_seen` is absent (the no-history "latest" API path).
-Publish time alone is the wrong signal: the pipeline surfaces arXiv papers, slow
-RSS, and resurfaced stories days after their publish date, so keying off
-`published` silently drops items that are genuinely new to the feed. Card
-display dates, storyline day numbering, and Saved snapshots still show
-`published` first — those answer "when was this written", not "is this new to
-me".
+**entered the reader's feed** after their previous visit. The catch-up band is
+collapsed by default; expanding it is the reader's choice and does not move
+the stable body below. The definition is keyed off `first_seen` (the ledger
+admission time on the default 24h path, or the `run_at` when the item first
+reached the ranked window on calendar paths), falling back to `published` only
+when `first_seen` is absent (the no-history "latest" API path). Publish time alone is
+the wrong signal: the pipeline surfaces arXiv papers, slow RSS, and resurfaced
+stories days after their publish date, so keying off `published` silently drops
+items that are genuinely new to the feed. Card display dates, storyline day
+numbering, and Saved snapshots still show `published` first - those answer
+"when was this written", not "is this new to me".
 
 ## Behavioral invariants
 
 - Existing date ranges, topic pinning, search, Saved items, feedback, sharing,
   onboarding, catch-up, storyline notices, and reader-tuning behavior remain.
 - `total_items` and `has_more` determine whether completion may be claimed.
+- A refresh inside the window never removes an admitted story. Over-cap
+  stories remain in `items` with `beyond_cap: true` under the fold.
 - Local preview may read `data/processed/latest.json` when `/api/feed` is not
   available; production continues to use the API.
 - Controls retain visible focus and 44 px targets. Reduced-motion preferences

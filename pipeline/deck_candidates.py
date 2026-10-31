@@ -37,6 +37,7 @@ except Exception:  # pragma: no cover - package-style import
 ROOT = Path(__file__).resolve().parents[1]
 PROCESSED_DIR = ROOT / "data" / "processed"
 RAW_DIR = ROOT / "data" / "raw"
+BRIEF_DIR = ROOT / "data" / "brief"
 SOURCE_ADJUSTMENTS = ROOT / "data" / "feedback" / "source_adjustments.json"
 
 # Run snapshots and pool files are keyed by when the build ran. An article
@@ -212,6 +213,48 @@ def backfill_rows(
 _SLOT_MAP: dict[str, str] | None = None
 
 
+def load_brief_rows(
+    start: date,
+    end: date,
+    *,
+    brief_dir: Path | None = None,
+) -> dict[str, dict[str, Any]]:
+    """Admitted Brief rows in the published window, keyed by normalized URL.
+
+    The ledger is the served subset of the judged pool. It is a recall check and
+    an ``in_brief`` signal for the selector, not a replacement for the pool:
+    the pool remains the superset (and the only source older than the ledger
+    retention window).
+    """
+    directory = brief_dir or BRIEF_DIR
+    out: dict[str, dict[str, Any]] = {}
+    if not directory.is_dir():
+        return out
+    lo, hi = window_bounds(start, end)
+    for path in sorted(directory.glob("*.json")):
+        data = _read(path, {})
+        rows = data.get("items") if isinstance(data, dict) else data
+        if isinstance(rows, dict):
+            rows = rows.values()
+        for row in rows or []:
+            if not isinstance(row, dict):
+                continue
+            published = parse_ts(row.get("published"))
+            if published is None or published < lo or published > hi:
+                continue
+            key = normalize_url(row.get("url"))
+            if not key:
+                continue
+            prev = out.get(key, {})
+            out[key] = {
+                **prev,
+                **row,
+                "in_brief": True,
+                "brief_admitted_at": row.get("admitted_at") or prev.get("brief_admitted_at"),
+            }
+    return out
+
+
 def _slot_for(source: Any) -> str:
     global _SLOT_MAP
     if _SLOT_MAP is None:
@@ -236,15 +279,30 @@ def load_rows(
     pool_dir: Path | None = None,
     processed_dir: Path | None = None,
     raw_dir: Path | None = None,
+    brief_dir: Path | None = None,
     use_backfill: bool = True,
 ) -> dict[str, dict[str, Any]]:
-    """Union of backfill and pool rows for a published window (unfiltered)."""
+    """Union of backfill, pool and admitted-Brief rows for a published window."""
     rows = backfill_rows(start, end, processed_dir=processed_dir, raw_dir=raw_dir) if use_backfill else {}
     pool = judged_pool.load_pool_days(_days(start, end + timedelta(days=RUN_LAG_DAYS)), pool_dir=pool_dir)
     for key, row in pool.items():
         merged = judged_pool.merge_rows(rows.get(key, {}), row)
         merged["from_pool"] = True
         rows[key] = merged
+
+    brief = load_brief_rows(start, end, brief_dir=brief_dir)
+    for key, row in brief.items():
+        existing = rows.get(key)
+        if existing is None:
+            # Defensive recall: a ledger row the pool/backfill missed still
+            # reaches the selector. The story grouping collapses it if the
+            # same event is already present under another URL.
+            existing = dict(row)
+            existing["edition_runs"] = 0
+            existing["from_ledger"] = True
+            rows[key] = existing
+        existing["in_brief"] = True
+        existing["brief_admitted_at"] = row.get("admitted_at")
     return rows
 
 
@@ -296,8 +354,9 @@ def load_candidates(
     pool_dir: Path | None = None,
     processed_dir: Path | None = None,
     raw_dir: Path | None = None,
+    brief_dir: Path | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    rows = load_rows(start, end, pool_dir=pool_dir, processed_dir=processed_dir, raw_dir=raw_dir)
+    rows = load_rows(start, end, pool_dir=pool_dir, processed_dir=processed_dir, raw_dir=raw_dir, brief_dir=brief_dir)
     candidates, rejects = filter_rows(
         rows, start, end, types=types, exclude_urls=exclude_urls, include_dropped=include_dropped
     )
@@ -305,6 +364,8 @@ def load_candidates(
         "rows": len(rows),
         "candidates": len(candidates),
         "from_pool": sum(1 for c in candidates if c.get("from_pool")),
+        "from_ledger": sum(1 for c in candidates if c.get("from_ledger")),
+        "in_brief": sum(1 for c in candidates if c.get("in_brief")),
         "backfill_only": sum(1 for c in candidates if c.get("backfill") and not c.get("from_pool")),
         "judged": sum(1 for c in candidates if c.get("judge_score") is not None),
         "rejects": rejects,

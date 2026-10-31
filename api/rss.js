@@ -2,8 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import {
-  applyEditorialCaps,
   collapseStoryClusters,
+  orderWithEditorialCaps,
   readEditorial,
 } from '../lib/editorial.js';
 
@@ -34,6 +34,37 @@ function parseDateMaybe(v) {
 function loadRunsIndex() {
   const p = path.join(process.cwd(), 'data', 'processed', 'runs_index.json');
   return readJsonSafe(p, []);
+}
+
+function readBriefItems(fromMs) {
+  const dir = path.join(process.cwd(), 'data', 'brief');
+  if (!fs.existsSync(dir)) return [];
+  const out = [];
+  for (const name of fs.readdirSync(dir).filter((n) => /^\d{4}-\d{2}-\d{2}\.json$/.test(n)).sort()) {
+    const data = readJsonSafe(path.join(dir, name), null);
+    const rows = data?.items;
+    if (!rows) continue;
+    for (const row of Array.isArray(rows) ? rows : Object.values(rows)) {
+      if (!row || typeof row !== 'object' || !row.url) continue;
+      const admitted = parseDateMaybe(row.admitted_at || row.first_seen);
+      if (admitted && admitted.getTime() < fromMs) continue;
+      out.push({
+        ...row,
+        first_seen: row.admitted_at || row.first_seen || null,
+        last_seen: row.last_seen || row.admitted_at || null,
+      });
+    }
+  }
+  return out;
+}
+
+function itemDate(it) {
+  return (
+    parseDateMaybe(it.published) ||
+    parseDateMaybe(it.first_seen) ||
+    parseDateMaybe(it.collected_at) ||
+    parseDateMaybe(it.last_seen)
+  );
 }
 
 function getRecentItems() {
@@ -75,19 +106,22 @@ function getRecentItems() {
     byUrl.set(key, it);
   }
 
+  // The admitted Brief is the source of truth for the last 24h. Merge it over
+  // the run pool so ledger-only keeps (the ones that never won an edition) are
+  // available to RSS/agent consumers too. Keep the 7-day run window as the
+  // broader recency archive.
+  for (const it of readBriefItems(fromMs)) {
+    const key = (it.url || '').trim();
+    if (key) byUrl.set(key, it);
+  }
+
   // 2. Order reverse-chronologically. RSS / agent consumers treat feed order as
   //    recency; sorting by score buried fresh items under days-old high-score
   //    ones, so an agent pulling the feed saw "outdated" results even though the
   //    underlying data was current. Score is only a tiebreaker now.
-  const bestDate = (it) =>
-    parseDateMaybe(it.published) ||
-    parseDateMaybe(it.first_seen) ||
-    parseDateMaybe(it.collected_at) ||
-    parseDateMaybe(it.last_seen);
-
   return [...byUrl.values()].sort((a, b) => {
-    const da = bestDate(a)?.getTime() ?? 0;
-    const db = bestDate(b)?.getTime() ?? 0;
+    const da = itemDate(a)?.getTime() ?? 0;
+    const db = itemDate(b)?.getTime() ?? 0;
     if (db !== da) return db - da;
     const sa = Number(a.v2_final_score ?? a.score ?? 0);
     const sb = Number(b.v2_final_score ?? b.score ?? 0);
@@ -102,7 +136,11 @@ const RSS_MAX_ITEMS = 50;
 export function GET(request) {
   try {
     const editorial = readEditorial();
-    const items = collapseStoryClusters(applyEditorialCaps(getRecentItems(), editorial), editorial)
+    // Keep every admitted item (over-cap included) and re-sort the result by
+    // publish date: RSS consumers treat order as recency, while the cap
+    // ordering only exists to mix the Brief's top.
+    const items = orderWithEditorialCaps(collapseStoryClusters(getRecentItems(), editorial), editorial)
+      .sort((a, b) => (itemDate(b)?.getTime() ?? 0) - (itemDate(a)?.getTime() ?? 0))
       .slice(0, RSS_MAX_ITEMS);
     const now = new Date().toUTCString();
     const site = process.env.SITE_BASE_URL || 'https://www.llm-digest.com';

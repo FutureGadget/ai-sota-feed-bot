@@ -1,10 +1,11 @@
 """Durable per-story record store backing the /story/<sid> permalink pages.
 
 Ranked feed snapshots (``data/processed/latest.json`` + ``data/processed/
-runs/**``) are pruned after ~45 days, which is why share links and recap
-references eventually go dead. This module captures every story that made a
-published snapshot into an append-only store the static renderer and the
-share endpoint can rely on forever:
+runs/**``) and the served Brief ledger (``data/brief/*.json``) are the two
+sources of published stories. The ledger is where a story that never won a
+feed edition first becomes visible, so it must reach the durable store too.
+This module captures every story that made either surface into an append-only
+store the static renderer and the share endpoint can rely on forever:
 
 - ``data/stories/<YYYY-MM>.json``  one shard per publication month,
   ``{sid: record}``
@@ -32,6 +33,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROCESSED_DIR = ROOT / "data" / "processed"
+BRIEF_DIR = ROOT / "data" / "brief"
 STORE_DIR = ROOT / "data" / "stories"
 
 MONTH_FILE_RE = re.compile(r"^\d{4}-\d{2}\.json$")
@@ -114,6 +116,19 @@ def iter_run_items():
         for it in items or []:
             if isinstance(it, dict):
                 yield run_at, it
+
+    # Ledger-only keeps: a story admitted to the Brief without ever winning a
+    # run edition has no snapshot above. Its admission time is the stable
+    # first_seen anchor for the story page and the storyline window.
+    if BRIEF_DIR.is_dir():
+        for path in sorted(BRIEF_DIR.glob("*.json")):
+            data = load_json(path, {})
+            items = data.get("items") if isinstance(data, dict) else None
+            if isinstance(items, dict):
+                items = items.values()
+            for it in items or []:
+                if isinstance(it, dict):
+                    yield str(it.get("admitted_at") or data.get("updated_at") or ""), it
 
 
 def story_record(sid: str, item: dict, run_at: str) -> dict:

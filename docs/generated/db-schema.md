@@ -105,7 +105,9 @@ available to each function.
   `judge_error`, model/rubric/judged_at), `prefilter_score`, `source_tune`,
   `type` and `release_tier` (derived with the Stage C rules for items outside
   the edition), `summary` (280 chars), `excerpt` (400 chars), `echo_count`/`source_count`
-  for clustered stories, `slot`, and run counters (`first_seen_run`,
+  for clustered stories, `summary_1line`, `why_it_matters`, `llm_category`,
+  `matched_topics`, `freshness`, `time_decay_factor`, `image_url`, compact
+  `also_covered` entries, `slot`, and run counters (`first_seen_run`,
   `last_seen_run`, `runs_seen`, `edition_runs`, `best_edition_rank`,
   `edition_slot`). Unjudged items are included without a score. Keyed by UTC
   run date, so a deck reads the run dates covering its published window and
@@ -119,16 +121,53 @@ available to each function.
   `judge_category`, `summary`, `silver`). Reruns append and never change a
   grade. `runs/<deck>-<stamp>/report.{md,json}` are generated and gitignored.
 
+- `data/brief/<YYYY-MM-DD>.json` - the served Brief admission ledger, written
+  by `pipeline/brief_ledger.py` after every feed build. Top level:
+  `schema_version`, `date` (UTC), `timezone`, `updated_at`, `items` (keyed by
+  story id) and `diagnostics` (gate/quota counters). Each item carries the
+  feed card fields (`id`, `title`, `url`, `source`, `source_role`, `type`,
+  `published`, `summary_1line`, `why_it_matters`, `content_excerpt`,
+  `llm_category`, `v2_slot`, `slot`, `also_covered`, `source_count`), the
+  judge fields, the admission fields (`admitted_at`, `first_seen`, `last_seen`,
+  `seen_count`, `utility`, `utility_basis`, `freshness_at_admission`,
+  `admission_rank`, `score_at_first_seen`, `rank_at_first_seen`), and
+  `release_tier` for releases. `admitted_at` is the run timestamp of the build
+  that admitted the story; a backfilled ledger reconstructs it from the pool
+  `first_seen`. The writer never removes an item, skips a story already
+  admitted within the previous 24h (including the previous two day files), and
+  updates `last_seen`/coverage in place. Retention 3 days
+  (`prune_runtime_data.py --brief-days`). The default `window=arrival`
+  `/api/feed` path reads all retained files, keeps the latest admission for a
+  story, and applies the same display caps/top-band balance as the run path.
+  `pipeline/deck_candidates.py` joins it as `in_brief`.
+
 ## Feed API (`/api/feed`)
-Response fields served from the accumulated ranked pool above:
+Response fields served from the admission ledger (rolling 24h) or the
+accumulated ranked pool (calendar ranges):
+- `filters.window` - `arrival` (rolling 24h by `first_seen`, served from the
+  admission ledger when one exists, otherwise the run-pool fallback) or
+  `published` (calendar ranges). The default client preset sends `arrival`;
+  explicit `from`/`to` ranges and wider presets send `published`.
+- `ledger` - present on the `window=arrival` path: `{files, updated_at,
+  admitted}` describing the retained ledger files and the pre-window item
+  count. Diagnostic only; the client does not render it.
 - `label_counts` - per-section story counts for the homepage tabs:
   `{brief, platform, research, release, news}` (present on both the normal
   history path and the no-runs `mode: "latest"` fallback). Each value counts
-  items inside the request's publish window matching that one section lens
+  items inside the request's date/arrival window matching that one section lens
   (`brief` = everything except releases, mirroring the default tab), computed
   from the same pool as `items` before any reader-selected `label=` filter is
   applied - so tabs show what each section WOULD hold. Reflects the date
   window only, never search or client-side state.
+- `items[].beyond_cap` - `true` on a story kept in the window but outside the
+  cap-compliant top mix. These stories are still returned in `items` below
+  the primary cards; the homepage folds them under "More from ...". The
+  primary slice never removes a story to make room for a newer one.
+- `items[].score_at_first_seen` / `rank_at_first_seen` - the admission-time
+  ranking score and rank from the run when the story first entered the pool.
+  The API sorts the served window by these, not by the latest run, so a
+  refresh cannot reshuffle an already-visible story. The card's ranked-because
+  line displays `score_at_first_seen` for the same reason.
 - `items[].also_covered` - up to 4 cross-source coverage entries
   `{source, url, title<=160}` per item, deduped by (source, normalized URL
   sans query/trailing slash), same-source and self-referencing entries
@@ -137,7 +176,8 @@ Response fields served from the accumulated ranked pool above:
   clustering (`api/feed.js::clusterCoverage`) over the cached run pool -
   groups of 2-8 items sharing a normalized title of >=30 chars across >=2
   distinct sources (arxiv<->arxiv excluded there too), candidates sorted by
-  `v2_final_score ?? score_at_last_seen ?? score`. The cluster merge happens
+  `global_score ?? v2_final_score ?? final_score ?? score_at_last_seen ??
+  score`. The cluster merge happens
   only on the English path, AFTER the localized (ko) snapshot overlay: the
   overlay's `source_hash` pins pooled items' own `also_covered`
   (tests/test_feed_api.mjs), so clustered entries must never leak into that

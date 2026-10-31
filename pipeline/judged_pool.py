@@ -46,6 +46,13 @@ ITEM_FIELDS = (
     "published",
     "story_key",
     "story_cluster_id",
+    "summary_1line",
+    "why_it_matters",
+    "llm_category",
+    "matched_topics",
+    "freshness",
+    "time_decay_factor",
+    "image_url",
     "judge_score",
     "judge_verdict",
     "judge_category",
@@ -154,8 +161,21 @@ def _row_from_item(item: dict[str, Any]) -> dict[str, Any]:
         row["summary"] = summary
     also_covered = item.get("also_covered")
     if isinstance(also_covered, list) and also_covered:
-        row["echo_count"] = len(also_covered)
-        sources = {str(entry.get("source")) for entry in also_covered if isinstance(entry, dict) and entry.get("source")}
+        compact = []
+        for entry in also_covered:
+            if not isinstance(entry, dict):
+                continue
+            source = str(entry.get("source") or "").strip()
+            url = str(entry.get("url") or "").strip()
+            title = _squeeze(entry.get("title"), 160)
+            if source or url or title:
+                compact.append({"source": source, "url": url, "title": title})
+            if len(compact) >= 4:
+                break
+        if compact:
+            row["also_covered"] = compact
+        row["echo_count"] = len(compact)
+        sources = {entry.get("source") for entry in compact if entry.get("source")}
         sources.add(str(item.get("source") or ""))
         sources.discard("")
         row["source_count"] = len(sources)

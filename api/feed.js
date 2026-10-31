@@ -3,8 +3,8 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 
 import {
-  applyEditorialCaps,
   collapseStoryClusters,
+  orderWithEditorialCaps,
   readEditorial,
 } from '../lib/editorial.js';
 
@@ -353,17 +353,22 @@ function filterRunsByDate(runs, fromIso, toIso) {
 
 // The run window above bounds which snapshots we scan, but a highly-ranked
 // item lingers across many runs, so run-based filtering alone lets a story
-// published days ago survive a "Today" window. Filter the assembled items by
-// the SAME date the card displays (published, then first_seen, then last_seen)
-// so the timeframe reflects publish age and never contradicts the date badge.
-// Items with no usable date are kept — we can't prove they're out of window.
-function filterItemsByPublishWindow(items, fromIso, toIso) {
+// published days ago survive a "Past 24h" window. `window=arrival` filters by
+// when the story entered the feed (first_seen), which is what the 24-hour
+// catch-up promise means: a slow RSS post or arXiv paper published yesterday
+// but admitted today is still part of today's feed. The default `published`
+// mode keeps calendar date browsing (and the date badge) honest. Items with no
+// usable date are kept - we can't prove they're out of window.
+function filterItemsByPublishWindow(items, fromIso, toIso, windowMode = 'published') {
   const from = parseDateMaybe(fromIso);
   const to = parseDateMaybe(toIso);
   if (!from && !to) return items;
+  const arrival = String(windowMode || '').toLowerCase() === 'arrival';
 
   return items.filter((it) => {
-    const d = parseDateMaybe(it?.published || it?.first_seen || it?.last_seen);
+    const d = arrival
+      ? parseDateMaybe(it?.first_seen || it?.published || it?.last_seen)
+      : parseDateMaybe(it?.published || it?.first_seen || it?.last_seen);
     if (!d) return true;
     if (from && d < from) return false;
     if (to && d > to) return false;
@@ -383,6 +388,13 @@ function labelsFromItem(it) {
   add(it?.llm_category);
   add(it?.v2_slot);
   add(it?.type);
+  // Papers and research-lane items belong to the Research lens even when the
+  // legacy labeler wrote a coarse `platform` category.
+  const typeLabel = String(it?.type || '').trim().toLowerCase();
+  const slotLabel = String(it?.v2_slot || '').trim().toLowerCase();
+  if (typeLabel === 'paper' || typeLabel === 'research' || slotLabel === 'research_watch') {
+    add('research');
+  }
   if (isReleaseItem(it)) add('release');
 
   return [...labels];
@@ -431,6 +443,49 @@ function applyLabelFilter(items, selectedLabels) {
   });
 }
 
+// The stable score can put four cards from one source in the five-story front
+// page. Keep the pipeline's mix without touching the body: only the top band
+// is rebalanced, and only from the cap-compliant prefix, so an over-cap story
+// never jumps the fold.
+const BRIEF_TOP_BAND = 5;
+const BRIEF_MAX_PER_SOURCE = 3;
+
+function balanceTopBand(items, primaryCount, topN = BRIEF_TOP_BAND, maxPerSource = BRIEF_MAX_PER_SOURCE) {
+  const list = Array.isArray(items) ? items : [];
+  const primary = list.slice(0, Math.max(0, primaryCount));
+  const overflow = list.slice(Math.max(0, primaryCount));
+  if (primary.length <= maxPerSource) return list;
+
+  const head = primary.slice(0, topN);
+  const tail = primary.slice(topN);
+  const counts = new Map();
+  const out = [];
+
+  for (const item of head) {
+    const source = String(item?.source || 'unknown');
+    const count = Number(counts.get(source) || 0);
+    if (count < maxPerSource || !tail.length) {
+      out.push(item);
+      counts.set(source, count + 1);
+      continue;
+    }
+    const idx = tail.findIndex((cand) =>
+      Number(counts.get(String(cand?.source || 'unknown')) || 0) < maxPerSource);
+    if (idx === -1) {
+      out.push(item);
+      counts.set(source, count + 1);
+      continue;
+    }
+    const replacement = tail[idx];
+    tail[idx] = item; // displaced card keeps the promoted card's tail slot
+    out.push(replacement);
+    const replacementSource = String(replacement?.source || 'unknown');
+    counts.set(replacementSource, Number(counts.get(replacementSource) || 0) + 1);
+  }
+
+  return out.concat(tail, overflow);
+}
+
 function summarizeLabels(items, max = 30) {
   const counts = new Map();
   for (const it of items) {
@@ -444,6 +499,25 @@ function summarizeLabels(items, max = 30) {
     .map(([label, count]) => ({ label, count }));
 }
 
+function itemScore(it) {
+  const value = Number(
+    it?.global_score ??
+      it?.v2_final_score ??
+      it?.final_score ??
+      it?.score_at_first_seen ??
+      it?.utility ??
+      it?.score ??
+      0
+  );
+  return Number.isFinite(value) ? value : 0;
+}
+
+// The served pool is append-only within its window. Ordering is keyed by the
+// score the story had when it FIRST entered the feed, not by the latest run
+// that happened to re-select it. A story that the ranker drops on a later
+// edition keeps its seat and its position; a new story enters by its own
+// first-seen score. This is what stops a refresh from removing or reshuffling
+// cards a reader is already looking at.
 function accumulateItems(runs) {
   const byKey = new Map();
 
@@ -461,25 +535,31 @@ function accumulateItems(runs) {
           last_seen: runAt,
           seen_count: 1,
           last_seen_run_order: runIdx,
+          rank_at_first_seen: rank,
           rank_at_last_seen: rank,
           rank_prev_seen: null,
-          score_at_last_seen: Number(it.v2_final_score ?? it.score ?? 0),
+          score_at_first_seen: itemScore(it),
+          score_at_last_seen: itemScore(it),
           run_id: it.run_id || it.ingest_batch_id || runAt,
         });
       } else {
         prev.seen_count += 1;
-        if (runAt && (!prev.first_seen || runAt < prev.first_seen)) prev.first_seen = runAt;
+        if (runAt && (!prev.first_seen || runAt < prev.first_seen)) {
+          prev.first_seen = runAt;
+          prev.rank_at_first_seen = rank;
+          prev.score_at_first_seen = itemScore(it);
+        }
 
         const isNewer = runAt && (!prev.last_seen || runAt > prev.last_seen);
         // Runs iterate newest-first, so the second sighting is the
-        // chronologically previous run — its rank gives the trend baseline.
+        // chronologically previous run - its rank gives the trend baseline.
         if (!isNewer && prev.rank_prev_seen == null) prev.rank_prev_seen = rank;
         if (isNewer) {
           prev.last_seen = runAt;
           prev.last_seen_run_order = runIdx;
           prev.rank_prev_seen = prev.rank_at_last_seen;
           prev.rank_at_last_seen = rank;
-          prev.score_at_last_seen = Number(it.v2_final_score ?? it.score ?? prev.score_at_last_seen ?? 0);
+          prev.score_at_last_seen = itemScore(it);
           prev.why_it_matters = it.why_it_matters || prev.why_it_matters;
           prev.summary_1line = it.summary_1line || prev.summary_1line;
           prev.also_covered = it.also_covered || prev.also_covered;
@@ -495,19 +575,24 @@ function accumulateItems(runs) {
   });
 
   return [...byKey.values()].sort((a, b) => {
-    const ro = Number(a.last_seen_run_order ?? 9999) - Number(b.last_seen_run_order ?? 9999);
-    if (ro !== 0) return ro; // newer run first
+    const sa = Number(a.score_at_first_seen ?? 0);
+    const sb = Number(b.score_at_first_seen ?? 0);
+    if (sb !== sa) return sb - sa; // stable quality order at admission
 
-    const ra = Number(a.rank_at_last_seen ?? 9999);
-    const rb = Number(b.rank_at_last_seen ?? 9999);
-    if (ra !== rb) return ra - rb; // within run, preserve ranking order
+    const fa = String(a.first_seen || '');
+    const fb = String(b.first_seen || '');
+    if (fa !== fb) return fa.localeCompare(fb); // older admission first on ties
 
-    return Number(b.score_at_last_seen ?? 0) - Number(a.score_at_last_seen ?? 0);
+    const ra = Number(a.rank_at_first_seen ?? 9999);
+    const rb = Number(b.rank_at_first_seen ?? 9999);
+    if (ra !== rb) return ra - rb;
+
+    return String(a.url || '').localeCompare(String(b.url || ''));
   });
 }
 
 function coverageScore(it) {
-  return Number(it?.v2_final_score ?? it?.score_at_last_seen ?? it?.score ?? 0);
+  return itemScore(it);
 }
 
 // Normalized-title clustering over the accumulated run pool: distinct outlets
@@ -607,6 +692,157 @@ function readRunsPool() {
   return pool;
 }
 
+// The admitted Brief ledger is the serving source for the default 24h window.
+// It is small (a few files), so a process cache keyed by file signatures keeps
+// repeated requests cheap without reading the 500-run snapshot pool.
+const briefLedgerCaches = new Map();
+
+function readBriefLedger() {
+  const cwd = process.cwd();
+  const dir = path.join(cwd, 'data', 'brief');
+  if (!fs.existsSync(dir)) return null;
+
+  let files = [];
+  try {
+    files = fs.readdirSync(dir).filter((name) => /^\d{4}-\d{2}-\d{2}\.json$/.test(name)).sort();
+  } catch {
+    return null;
+  }
+  if (!files.length) return null;
+
+  let signature = files.join('|');
+  try {
+    signature = files
+      .map((name) => {
+        const stat = fs.statSync(path.join(dir, name));
+        return `${name}:${stat.mtimeMs}:${stat.size}`;
+      })
+      .join('|');
+  } catch {}
+  const cached = briefLedgerCaches.get(cwd);
+  if (cached && cached.signature === signature) return cached;
+
+  const byStory = new Map();
+  let updatedAt = null;
+  for (const name of files) {
+    const data = readJsonSafe(path.join(dir, name), null);
+    if (!data || !data.items) continue;
+    if (data.updated_at && (!updatedAt || String(data.updated_at) > updatedAt)) {
+      updatedAt = String(data.updated_at);
+    }
+    const rows = Array.isArray(data.items) ? data.items : Object.values(data.items);
+    for (const row of rows) {
+      if (!row || typeof row !== 'object') continue;
+      const key = String(row.story_key || row.url || row.title || '');
+      if (!key) continue;
+      const prev = byStory.get(key);
+      if (!prev) {
+        byStory.set(key, { ...row });
+        continue;
+      }
+      // Defensive merge: a story admitted near UTC midnight can appear in two
+      // files. Keep the latest admission (the writer only re-admits after the
+      // previous one has aged out of the 24h window), the latest sighting, and
+      // the union of coverage, never a duplicate card.
+      const prevAt = parseDateMaybe(prev.admitted_at || prev.first_seen);
+      const rowAt = parseDateMaybe(row.admitted_at || row.first_seen);
+      if (rowAt && (!prevAt || rowAt > prevAt)) {
+        prev.admitted_at = row.admitted_at;
+        prev.first_seen = row.first_seen || row.admitted_at;
+        prev.score_at_first_seen = row.score_at_first_seen ?? prev.score_at_first_seen;
+        prev.rank_at_first_seen = row.rank_at_first_seen ?? prev.rank_at_first_seen;
+        prev.utility = row.utility ?? prev.utility;
+      }
+      const prevLast = parseDateMaybe(prev.last_seen);
+      const rowLast = parseDateMaybe(row.last_seen);
+      if (rowLast && (!prevLast || rowLast > prevLast)) prev.last_seen = row.last_seen;
+      const coverage = [...(Array.isArray(prev.also_covered) ? prev.also_covered : []), ...(Array.isArray(row.also_covered) ? row.also_covered : [])];
+      const mergedCoverage = mergeAlsoCovered(prev, coverage);
+      if (mergedCoverage.length) prev.also_covered = mergedCoverage;
+    }
+  }
+
+  const items = [...byStory.values()].sort((a, b) => {
+    const ua = Number(a.utility ?? 0);
+    const ub = Number(b.utility ?? 0);
+    if (ub !== ua) return ub - ua;
+    const fa = String(a.admitted_at || a.first_seen || '');
+    const fb = String(b.admitted_at || b.first_seen || '');
+    if (fa !== fb) return fa.localeCompare(fb);
+    return String(a.url || '').localeCompare(String(b.url || ''));
+  });
+  const result = { items, files, updated_at: updatedAt, signature };
+  briefLedgerCaches.set(cwd, result);
+  return result;
+}
+
+// The ledger is a short retention window. A historical `window=arrival`
+// request that starts before the retained files must fall back to the run
+// pool (which has the longer first_seen history) instead of returning a
+// partial range.
+function ledgerCoversWindow(ledger, from, to) {
+  if (!ledger || !Array.isArray(ledger.files) || !ledger.files.length) return false;
+  const dates = ledger.files
+    .map((name) => String(name).replace(/\.json$/, ''))
+    .filter(Boolean)
+    .sort();
+  if (!dates.length) return false;
+  const start = dates[0];
+  const end = dates[dates.length - 1];
+  const dateSet = new Set(dates);
+  const fromDate = from ? String(from).slice(0, 10) : start;
+  const toDate = to ? String(to).slice(0, 10) : end;
+  if (fromDate < start || fromDate > end) return false;
+  if (toDate < start || toDate > end) return false;
+  if (fromDate > toDate) return false;
+  // Every day in the requested span must exist. A missing day (failed write,
+  // pruned file) would otherwise serve a partial arrival window silently.
+  const last = new Date(`${toDate}T00:00:00Z`);
+  for (let day = new Date(`${fromDate}T00:00:00Z`); day <= last; day.setUTCDate(day.getUTCDate() + 1)) {
+    if (!dateSet.has(day.toISOString().slice(0, 10))) return false;
+  }
+  return true;
+}
+
+// The ledger branch only needs run timestamps for the "updated X ago" note,
+// not the 500 run snapshots themselves.
+function readRunIndexSummaries() {
+  const index = readJsonSafe(path.join(process.cwd(), 'data', 'processed', 'runs_index.json'), []);
+  if (!Array.isArray(index)) return [];
+  return index
+    .filter((row) => row && row.run_at)
+    .map((row) => ({ run_at: row.run_at, item_count: row.item_count ?? 0 }))
+    .sort((a, b) => String(b.run_at).localeCompare(String(a.run_at)));
+}
+
+// Shared window assembly for the ledger, the run pool, and the no-history
+// latest fallback. Keeping one path means the label lens, cap ordering, and
+// top-band balance cannot drift between serving sources.
+function assembleServedPool(items, { from, to, windowMode, selectedLabels, editorial, readerTuning, limit }) {
+  const windowItems = filterItemsByPublishWindow(items, from, to, windowMode);
+  const editorialItems = editorial
+    ? orderWithEditorialCaps(collapseStoryClusters(windowItems, editorial), editorial)
+    : windowItems;
+  const mergedWithLabels = editorialItems.map((it) =>
+    withReaderAdjustment({ ...it, labels: labelsFromItem(it) }, readerTuning)
+  );
+  const availableLabels = summarizeLabels(mergedWithLabels);
+  const winPool = mergedWithLabels;
+  const filtered = applyLabelFilter(mergedWithLabels, selectedLabels);
+  const totalItems = filtered.length;
+  const firstOverflow = filtered.findIndex((it) => it.beyond_cap);
+  const ordered = selectedLabels.includes('brief')
+    ? balanceTopBand(filtered, firstOverflow === -1 ? filtered.length : firstOverflow)
+    : filtered;
+  return {
+    items: ordered.slice(0, limit),
+    totalItems,
+    availableLabels,
+    winPool,
+    editorialItems,
+  };
+}
+
 export async function GET(request) {
   try {
     const url = new URL(request.url);
@@ -625,45 +861,91 @@ export async function GET(request) {
     }
     const from = fromBound.value;
     const to = toBound.value;
+    const requestedWindow = String(url.searchParams.get('window') || 'published').trim().toLowerCase();
+    const windowMode = requestedWindow === 'arrival' ? 'arrival' : 'published';
     const limit = Math.max(1, Math.min(500, Number.parseInt(String(url.searchParams.get('limit') || '200'), 10) || 200));
     const selectedLabels = parseLabelFilters(url.searchParams);
-    const { runs, baseItems, coverageByItem } = readRunsPool();
     const readerTuning = readReaderTuning();
     const localizedRequested =
       String(url.searchParams.get('locale') || '').trim().toLowerCase() === 'ko'
       && String(url.searchParams.get('localized_snapshot') || '').trim().toLowerCase() === 'latest';
+    const effectiveWindow = localizedRequested ? 'published' : windowMode;
     const editorial = localizedRequested ? null : readEditorial();
+
+    // Default 24h path: serve the admission ledger, not the accumulated run
+    // pool. The ledger already contains every admitted story (including the
+    // keeps that never won an edition), so the run snapshots are only needed
+    // for the "updated X ago" timestamps.
+    const ledger = effectiveWindow === 'arrival' ? readBriefLedger() : null;
+    const usableLedger = ledgerCoversWindow(ledger, from, to) ? ledger : null;
+    if (usableLedger) {
+      const runSummaries = filterRunsByDate(readRunIndexSummaries(), from, to).map((r) => ({
+        run_at: r.run_at,
+        item_count: r.item_count ?? 0,
+      }));
+      const assembled = assembleServedPool(usableLedger.items, {
+        from,
+        to,
+        windowMode: 'arrival',
+        selectedLabels,
+        editorial,
+        readerTuning,
+        limit,
+      });
+      const body = {
+        mode: 'history',
+        date: new Date().toISOString(),
+        filters: { from, to, limit, labels: selectedLabels, window: 'arrival' },
+        runs: runSummaries,
+        items: assembled.items,
+        total_items: assembled.totalItems,
+        has_more: assembled.totalItems > limit,
+        available_labels: assembled.availableLabels,
+        reader_tuning: readerTuningSummary(readerTuning),
+        ledger: {
+          files: usableLedger.files.length,
+          updated_at: usableLedger.updated_at,
+          admitted: usableLedger.items.length,
+        },
+      };
+      body.label_counts = Object.fromEntries(['brief', 'platform', 'research', 'release', 'news'].map((s) => [s, applyLabelFilter(assembled.winPool, [s]).length]));
+      // The ledger branch is never the localized path (localized requests are
+      // forced to `published`), so decorate coverage and return the body
+      // directly. The global Vercel API cache header still applies.
+      const ledgerCoverage = clusterCoverage(assembled.editorialItems);
+      for (const it of body.items) {
+        const mergedCoverage = mergeAlsoCovered(it, ledgerCoverage.get(itemKey(it)));
+        if (mergedCoverage.length) it.also_covered = mergedCoverage;
+      }
+      return Response.json(body, { status: 200 });
+    }
+
+    const { runs, baseItems, coverageByItem } = readRunsPool();
 
     // Backward-compatible latest view when no historical runs are available.
     if (!runs.length) {
-      const allItems = readLatest().map((it) =>
-        withReaderAdjustment({ ...it, first_seen: null, last_seen: null, seen_count: 1, labels: labelsFromItem(it) }, readerTuning));
-      const windowItems = filterItemsByPublishWindow(allItems, from, to);
-      const editorialItems = editorial
-        ? collapseStoryClusters(applyEditorialCaps(windowItems, editorial), editorial)
-        : windowItems;
-      const availableLabels = summarizeLabels(editorialItems);
-      const winPool = editorialItems;
-      const filteredBase = applyLabelFilter(winPool, selectedLabels);
-      const totalItems = filteredBase.length;
+      const assembled = assembleServedPool(
+        readLatest().map((it) => ({ ...it, first_seen: null, last_seen: null, seen_count: 1 })),
+        { from, to, windowMode: effectiveWindow, selectedLabels, editorial, readerTuning, limit }
+      );
       const body = {
         mode: 'latest',
         date: new Date().toISOString(),
-        filters: { from, to, limit, labels: selectedLabels },
+        filters: { from, to, limit, labels: selectedLabels, window: effectiveWindow },
         runs: [],
-        items: filteredBase.slice(0, limit),
-        total_items: totalItems,
-        has_more: totalItems > limit,
-        available_labels: availableLabels,
+        items: assembled.items,
+        total_items: assembled.totalItems,
+        has_more: assembled.totalItems > limit,
+        available_labels: assembled.availableLabels,
         reader_tuning: readerTuningSummary(readerTuning),
       };
-      body.label_counts = Object.fromEntries(['brief', 'platform', 'research', 'release', 'news'].map((s) => [s, applyLabelFilter(winPool, [s]).length]));
+      body.label_counts = Object.fromEntries(['brief', 'platform', 'research', 'release', 'news'].map((s) => [s, applyLabelFilter(assembled.winPool, [s]).length]));
       const { body: localizedBody, cacheControl } = maybeLocalized(body, url.searchParams);
       // No runs -> the pool-built side map is empty; cluster this fallback's
       // own (small) item list directly. English path only, same reason as the
       // main handler below: ko snapshot hashes pin pooled also_covered.
       if (localizedBody.mode !== 'localized_snapshot' && Array.isArray(localizedBody.items)) {
-        const latestCoverage = clusterCoverage(editorialItems);
+        const latestCoverage = clusterCoverage(assembled.editorialItems);
         for (const it of localizedBody.items) {
           const mergedCoverage = mergeAlsoCovered(it, latestCoverage.get(itemKey(it)));
           if (mergedCoverage.length) it.also_covered = mergedCoverage;
@@ -680,41 +962,33 @@ export async function GET(request) {
       item_count: r.item_count ?? (r.items || []).length,
     }));
 
-    // Accumulate over the FULL run history, not just the requested from/to
-    // window. first_seen/last_seen/seen_count must reflect an item's true
-    // feed-arrival time; bounding the scan by the request window makes an
-    // item that drops out of the ranked window and later re-enters look
-    // freshly "new" again (its earliest occurrence inside the window becomes
-    // its computed first_seen), resurfacing old/already-seen stories in the
-    // "New" badge and "Catch me up" brief. filterItemsByPublishWindow below
-    // still applies the requested window to what's actually displayed.
-    // Apply the publish window before the editorial caps. Otherwise an old
-    // story that is still in the accumulated pool can consume a source slot
-    // that belongs to a fresh story in the requested window.
-    const windowItems = filterItemsByPublishWindow(baseItems, from, to);
-    const editorialItems = editorial
-      ? collapseStoryClusters(applyEditorialCaps(windowItems, editorial), editorial)
-      : windowItems;
-    const mergedWithLabels = editorialItems.map((it) =>
-      withReaderAdjustment({ ...it, labels: labelsFromItem(it) }, readerTuning));
-    const availableLabels = summarizeLabels(mergedWithLabels);
-    // Label-agnostic window pool for the per-section tab counts.
-    const winPool = mergedWithLabels;
-    const filteredMerged = applyLabelFilter(mergedWithLabels, selectedLabels);
-    const totalItems = filteredMerged.length;
+    // Calendar ranges read the accumulated run pool. first_seen/last_seen/
+    // seen_count must reflect an item's true feed-arrival time; bounding the
+    // scan by the request window makes an item that drops out and later
+    // re-enters look freshly "new" again. The shared assembly below applies
+    // the requested window, the editorial mix, and the top-band balance.
+    const assembled = assembleServedPool(baseItems, {
+      from,
+      to,
+      windowMode: effectiveWindow,
+      selectedLabels,
+      editorial,
+      readerTuning,
+      limit,
+    });
 
     const body = {
       mode: 'history',
       date: new Date().toISOString(),
-      filters: { from, to, limit, labels: selectedLabels },
+      filters: { from, to, limit, labels: selectedLabels, window: effectiveWindow },
       runs: runSummaries,
-      items: filteredMerged.slice(0, limit),
-      total_items: totalItems,
-      has_more: totalItems > limit,
-      available_labels: availableLabels,
+      items: assembled.items,
+      total_items: assembled.totalItems,
+      has_more: assembled.totalItems > limit,
+      available_labels: assembled.availableLabels,
       reader_tuning: readerTuningSummary(readerTuning),
     };
-    body.label_counts = Object.fromEntries(['brief', 'platform', 'research', 'release', 'news'].map((s) => [s, applyLabelFilter(winPool, [s]).length]));
+    body.label_counts = Object.fromEntries(['brief', 'platform', 'research', 'release', 'news'].map((s) => [s, applyLabelFilter(assembled.winPool, [s]).length]));
     const { body: localizedBody, cacheControl } = maybeLocalized(body, url.searchParams);
     // Coverage decoration runs AFTER the localized overlay and only on the
     // English path: the ko snapshot's source_hash pins the pipeline's own

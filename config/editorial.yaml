@@ -74,7 +74,10 @@ source_role_prefixes:
 # Search is capped at one candidate per query, not one per edition.
 # community: 4 matches the ranking community_signal slot's max_items. At 2 a
 # quiet Saturday whose only fresh source is Hacker News capped the default
-# Today view at exactly 2 cards while the accumulated pool held 9.
+# view at exactly 2 cards while the accumulated pool held 9.
+# The feed API uses these as flood guards for the TOP of the served window:
+# cap-compliant stories lead the Brief, over-cap stories continue under a
+# "More from ..." fold (`beyond_cap`) instead of being removed.
 caps:
   search: 1
   aggregator: 3
@@ -87,9 +90,10 @@ caps:
 
 # Cross-source totals for the API's accumulated pool. Per-source caps alone
 # let four first-party blogs fill the whole page; these keep the mix bounded.
-# community: 4 is a mix bound, not a per-day ceiling: keep it aligned with the
-# per-source cap and the ranking slot so a community-only window is not
-# truncated to two cards.
+# community: 4 is a mix bound for the top of the Brief, not a per-day ceiling:
+# keep it aligned with the per-source cap and the ranking slot so a
+# community-only window keeps its depth. Over-cap stories stay accessible
+# below the fold rather than disappearing.
 role_totals:
   search: 1
   aggregator: 2

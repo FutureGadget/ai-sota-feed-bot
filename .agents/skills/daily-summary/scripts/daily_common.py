@@ -247,6 +247,10 @@ def clean_article(item: dict[str, Any], quality=None) -> dict[str, Any]:
     }
     if summary:
         article["summary_source"] = summary_source
+    for field in ("in_brief", "brief_admitted_at"):
+        value = item.get(field)
+        if value not in (None, "", False):
+            article[field] = value
     for field in ("publisher_name", "publisher_domain"):
         value = " ".join(str(item.get(field) or "").split())
         if value:

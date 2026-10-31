@@ -27,7 +27,7 @@ class CandidateLoaderTest(unittest.TestCase):
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
         root = Path(self._tmp.name)
-        self.processed, self.raw, self.pool = root / "processed", root / "raw", root / "pool"
+        self.processed, self.raw, self.pool, self.brief = root / "processed", root / "raw", root / "pool", root / "brief"
         # Edition run on the day: one news item that made the feed.
         _write(self.processed / "runs_index.json", [{"run_at": "2026-10-27T10:00:00+00:00", "path": "2026/10/r1.json"}])
         _write(
@@ -58,7 +58,7 @@ class CandidateLoaderTest(unittest.TestCase):
         self._tmp.cleanup()
 
     def load(self, **kwargs):
-        return dc.load_candidates(DAY, DAY, processed_dir=self.processed, raw_dir=self.raw, pool_dir=self.pool, **kwargs)
+        return dc.load_candidates(DAY, DAY, processed_dir=self.processed, raw_dir=self.raw, pool_dir=self.pool, brief_dir=self.brief, **kwargs)
 
     def test_backfill_recovers_keeps_outside_the_edition_and_applies_filters(self):
         candidates, diag = self.load()
@@ -69,6 +69,47 @@ class CandidateLoaderTest(unittest.TestCase):
         self.assertEqual(by_key["https://b.com/y"]["summary"], "body")
         self.assertEqual(diag["rejects"]["judge_drop"], 1)  # the funding drop; the release is exempt
         self.assertEqual(diag["rejects"]["published_window"], 1)
+
+    def test_admitted_brief_marks_rows_and_adds_missing_ledger_items(self):
+        _write(
+            self.brief / "2026-10-27.json",
+            {
+                "date": "2026-10-27",
+                "items": {
+                    "story:https://b.com/y": {
+                        "story_key": "story:https://b.com/y",
+                        "url": "https://b.com/y",
+                        "title": "Missed keep",
+                        "source": "blog",
+                        "source_role": "practitioner",
+                        "type": "news",
+                        "published": "2026-10-27T09:00:00+00:00",
+                        "admitted_at": "2026-10-27T10:00:00+00:00",
+                        "judge_score": 0.7,
+                        "judge_verdict": "keep",
+                    },
+                    "story:https://ledger-only.com/x": {
+                        "story_key": "story:https://ledger-only.com/x",
+                        "url": "https://ledger-only.com/x",
+                        "title": "Ledger-only story",
+                        "source": "blog",
+                        "source_role": "practitioner",
+                        "type": "news",
+                        "published": "2026-10-27T09:30:00+00:00",
+                        "admitted_at": "2026-10-27T10:30:00+00:00",
+                        "judge_score": 0.6,
+                        "judge_verdict": "keep",
+                    },
+                },
+            },
+        )
+        candidates, diag = self.load()
+        by_key = {c["key"]: c for c in candidates}
+        self.assertTrue(by_key["https://b.com/y"]["in_brief"])
+        self.assertTrue(by_key["https://ledger-only.com/x"]["in_brief"])
+        self.assertTrue(by_key["https://ledger-only.com/x"]["from_ledger"])
+        self.assertEqual(diag["in_brief"], 2)
+        self.assertEqual(diag["from_ledger"], 1)
 
     def test_type_and_prior_recap_filters(self):
         candidates, diag = self.load(types={"news"}, exclude_urls={"https://a.com/x/"})

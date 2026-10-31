@@ -13,6 +13,7 @@ from typing import Any
 import yaml
 from dateutil import parser as dt_parser
 
+from brief_ledger import record_run as record_brief_ledger
 from content_fetch import build_content_map
 from editorial import apply_pre_ranking, write_editorial_artifact
 from editorial_judge import apply_judge
@@ -886,6 +887,19 @@ def run():
             f"judged={pool_diag.get('judged', 0)} "
             f"reason={pool_diag.get('reason', 'ok')}"
         )
+        ledger_diag = record_brief_ledger(judged_pool_candidates, ranked_items, run_at=run_at_iso)
+        print(
+            "brief_ledger "
+            f"written={int(bool(ledger_diag.get('written')))} "
+            f"items={ledger_diag.get('items', 0)} "
+            f"new={ledger_diag.get('new', 0)} "
+            f"updated={ledger_diag.get('updated', 0)} "
+            f"candidates={ledger_diag.get('candidates', 0)} "
+            f"stories={ledger_diag.get('stories', 0)} "
+            f"rejected_gate={ledger_diag.get('rejected_gate', {})} "
+            f"rejected_quota={ledger_diag.get('rejected_quota', {})} "
+            f"reason={ledger_diag.get('reason', 'ok')}"
+        )
         if telemetry is not None:
             telemetry.capture(
                 "feed_build_completed",
@@ -894,6 +908,14 @@ def run():
                     "input_mode": input_mode,
                     "run_at": run_at_iso,
                     "date": date_str,
+                    "ledger_items": int(ledger_diag.get("items", 0) or 0),
+                    "ledger_new": int(ledger_diag.get("new", 0) or 0),
+                    "ledger_updated": int(ledger_diag.get("updated", 0) or 0),
+                    "ledger_written": bool(ledger_diag.get("written")),
+                    "ledger_reason": str(ledger_diag.get("reason") or "ok"),
+                    "ledger_rejected_gate": ledger_diag.get("rejected_gate") or {},
+                    "ledger_rejected_quota": ledger_diag.get("rejected_quota") or {},
+                    "ledger_role_counts": ledger_diag.get("role_counts") or {},
                 },
             )
         return

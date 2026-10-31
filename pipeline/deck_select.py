@@ -134,6 +134,7 @@ def utility(row: dict[str, Any], cfg: dict[str, Any], priors: dict[str, float]) 
         "coverage": round(float(weights.get("coverage", 0.0)) * math.log1p(sources - 1), 4),
         "source_tune": round(float(weights.get("source_tune", 0.0)) * float(row.get("source_tune") or 0.0), 4),
         "in_edition": round(float(weights.get("in_edition", 0.0)) * (1.0 if int(row.get("edition_runs") or 0) > 0 else 0.0), 4),
+        "in_brief": round(float(weights.get("in_brief", 0.0)) * (1.0 if row.get("in_brief") else 0.0), 4),
         "corporate_marketing": round(-float(weights.get("corporate_marketing", 0.0)) * marketing, 4),
     }
     total = round(sum(parts.values()), 4)
@@ -265,6 +266,10 @@ def collapse_stories(candidates: list[dict[str, Any]], cfg: dict[str, Any], prio
         rep["edition_runs"] = max(int(m.get("edition_runs") or 0) for m in members)
         rep["story_id"] = story_id(rep)
         rep["member_urls"] = [m.get("url") or m.get("key") for m in members]
+        rep["in_brief"] = any(bool(m.get("in_brief")) for m in members)
+        brief_times = [str(m.get("brief_admitted_at")) for m in members if m.get("brief_admitted_at")]
+        if brief_times:
+            rep["brief_admitted_at"] = max(brief_times)
         stories.append(rep)
     return stories
 
@@ -382,6 +387,8 @@ CARD_FIELDS = (
     "release_tier",
     "source_count",
     "edition_runs",
+    "in_brief",
+    "brief_admitted_at",
     "best_edition_rank",
     "summary",
     "member_urls",
@@ -452,6 +459,10 @@ def select(
         "by_category": dict(sorted(picked_by_cat.items())),
         "by_role": dict(sorted(((r or "unknown"), n) for r, n in picked_by_role.items())),
         "by_source": dict(sorted(picked_by_source.items(), key=lambda kv: (-kv[1], kv[0]))),
+        "brief": {
+            "selected": sum(1 for story in shortlist if story.get("in_brief")),
+            "bench": sum(1 for story in bench if story.get("in_brief")),
+        },
     }
 
 
