@@ -2,104 +2,104 @@
 
 Focus: AI Platform Engineering
 
-## 1. Using Agents for Long-Horizon Financial Work — Aman Singh, Arca
+## 1. mobile-agent: faster mobile app iteration for AI coding agents
+- Type: news | Source: hackernews_ai
+- URL: https://mobileagent.dev
+- Score: 4.408 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 2. Show HN: InBox Wall – A local-first, open-source email sanitizer for AI agents
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/Annora998/inboxwall
+- Score: 3.809 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 3. DiffNotes: Lets your coding agent explain its PRs inline
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/igorkasyanchuk/diffnotes
+- Score: 3.461 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. Agents Prompt People: Using Agents for Long-Horizon Financial Work
 - Type: news | Source: latent_space
-- URL: https://latent.space/p/using_agents_for_long-horizon_financial_work_aman_singh_arca/
-- Score: 3.36 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
+- URL: https://latent.space/p/arca/
+- Score: 3.223 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness.
 
-## 2. Qwen-Based EdgeRock-4B Caps Its KV Cache at 72 MiB a Request
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMikgFBVV95cUxQSTJZNVNIOHRsZ1dGQWEtZEZsOEYtd0hfNkpFTFJWMUNYV0E4bFFTRDdSUWJudzVZQnptbUI4bkRmREQzU3RfSHVKMFlMZUFjTXRqRkF5dFdRdXNiRlhYaHVuZ2lUZHAtUE1uajNmVTNOT1ExaEUtdDI0Zk44MGk5MlZSeGhnT3BVS2wtRENEcUN1QQ?oc=5
-- Score: 2.737 | Reliability: 1.0
-- Why it matters: 
-
-## 3. SkillMem: Compact External Skill Memory for Latent Multi-Agent Reasoning
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.37935v1
-- Score: 2.685 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 4. What’s new in AI infrastructure and orchestration in October
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/topics/ai-infrastructure/whats-new-in-ai-infrastructure-this-month/
-- Score: 2.675 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness, evaluation.
-
-## 5. DoorDash Cuts Grocery Reorder Latency from 16 to 2 Seconds with AI Agents
+## 5. Google Discloses PageBreak AI Security Agent That Found 500+ XSS Bugs
 - Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/10/doordash-ai-grocery-reorder/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.552 | Reliability: 1.0
+- URL: https://www.infoq.com/news/2026/10/google-pagebreak-security-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.498 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. EvoTeam: Multi-Agent Collaboration via Evolving Teams
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.39813v1
-- Score: 2.538 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 7. Multi-View MoE: Letting Every Router Shape Expert Computation
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.40577v1
-- Score: 2.379 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 8. Retell uses OpenAI models to help power 100M monthly calls
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/retell-ai
-- Score: 2.058 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, codex.
-
-## 9. Legora is building the agentic operating system for legal work
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/legora
-- Score: 1.82 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, codex.
-
-## 10. How Check Point accelerates vulnerability research with Daybreak
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/check-point-daybreak
-- Score: 1.692 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Beyond LLM Wrappers: Context Engineering and the Three-Engine Architecture for Reliable Financial AI
+## 6. A Negotiation-Aware Hybrid LLM Framework for Intent Interpretation and Service Discovery
 - Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2610.39230v1
-- Score: 2.363 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
+- URL: http://arxiv.org/abs/2610.40161v1
+- Score: 2.297 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 12. Retrieval as Traversal: Value-Indexed Memory for Stateful Long-Context Agents
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2610.40545v1
-- Score: 2.33 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+## 7. Harness Engineering: What's Actually New (And What Isn't)
+- Type: video | Source: ai_native_dev
+- URL: https://youtu.be/mHa0bImgN1o
+- Score: 2.208 | Reliability: 0.833
+- Why it matters: Matches feed focus: agent, harness, eval.
 
-## 13. claude-code v2.1.312
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.312
-- Score: 1.566 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
+## 8. Evaluating DeepSeek V4.1 Flash-1017 for loss of control and harmful manipulation risks
+- Type: paper | Source: arxiv_cn_open_weight_reports
+- URL: http://arxiv.org/abs/2610.35671v1
+- Score: 2.173 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
 
-## 14. langgraph-sdk==0.4.11
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.11
-- Score: 1.49 | Reliability: 1.0
+## 9. Innovate on your own business terms: Google Cloud spend caps now generally available
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/topics/cost-management/google-cloud-spend-caps-now-generally-available/
+- Score: 1.883 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 10. Credit Saison achieves 954% ROI in a ChatGPT Enterprise pilot
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/credit-saison
+- Score: 1.682 | Reliability: 1.0
 - Why it matters: 
+
+## 11. How Ultrafast cut incident investigation from hours to minutes at OpenAI
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/openai-cut-incident-investigation
+- Score: 1.66 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 12. langgraph==1.2.19
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.19
+- Score: 1.648 | Reliability: 1.0
+- Why it matters: 
+
+## 13. How Fanatics and OpenAI streamline the fan experience
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/fanatics-streamline-fan-experience
+- Score: 1.553 | Reliability: 1.0
+- Why it matters: 
+
+## 14. claude-code v2.1.311
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.311
+- Score: 1.285 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
 
 ## 15. claude-agent-sdk-python v0.2.175
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.175
-- Score: 1.302 | Reliability: 1.0
+- Score: 1.216 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 16. codex 0.166.0-alpha.5
+## 16. codex 0.166.0-alpha.4
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.5
-- Score: 1.128 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.166.0-alpha.4
+- Score: 1.092 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 17. v0.33.0rc2: [ROCm][Bugfix] Skip AITER tuned GEMM when M*N >= 2^31 on gfx950 (#64567)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc2
-- Score: 1.054 | Reliability: 1.0
+- Score: 1.041 | Reliability: 1.0
 - Why it matters:
