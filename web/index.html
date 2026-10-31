@@ -761,6 +761,35 @@
       font-size: 0.88rem;
       color: var(--muted);
     }
+    .catchup-toggle {
+      border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+      background: transparent;
+      color: var(--accent);
+      font: inherit;
+      font-size: 0.82rem;
+      border-radius: 999px;
+      padding: 0.08rem 0.55rem;
+      cursor: pointer;
+    }
+    .catchup-toggle:hover {
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+    }
+    .pool-toggle {
+      border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+      background: transparent;
+      color: var(--accent);
+      font: inherit;
+      font-size: 0.82rem;
+      border-radius: 999px;
+      padding: 0.08rem 0.55rem;
+      cursor: pointer;
+    }
+    .pool-toggle:hover {
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+    }
+    #list.pool-fold:not(.pool-open) > article.beyond-cap-card {
+      display: none;
+    }
     .catchup-dismiss {
       position: relative;
       margin-left: auto;
@@ -1454,7 +1483,7 @@
           <button type="button" id="savedTab" aria-pressed="false">⭐ Saved</button>
         </nav>
         <select id="rangeSelect" aria-label="Time range">
-          <option value="1" selected>Today</option>
+          <option value="1" selected>Past 24h</option>
           <option value="3">Last 3d</option>
           <option value="7">Last 7d</option>
           <option value="30">Last 30d</option>
@@ -1737,8 +1766,9 @@
 
     // Is this item genuinely new for "since your last visit"? "New" here means
     // *appeared in the reader's feed* since they last looked — so key off
-    // first_seen, the feed-arrival time the feed API computes in history mode
-    // (the run_at when the item first entered the ranked window). Publish time
+    // first_seen: the ledger admission time on the default 24h path, or the
+    // run_at when the item first entered the ranked window on calendar paths.
+    // Publish time
     // is the WRONG signal: the pipeline surfaces arXiv papers, slow RSS, and
     // resurfaced stories days after their publish date, so keying off published
     // silently drops items that are genuinely new to the feed (e.g. a paper
@@ -2586,7 +2616,16 @@
     function buildFeedUrl() {
       let from = localDateBoundaryUtc(customRangeState.from);
       let to = localDateBoundaryUtc(customRangeState.to, true);
-      if (!from && !to && presetDaysState !== 'all') {
+      // The default is a rolling 24-hour catch-up window keyed by feed arrival
+      // (first_seen), not the reader's calendar day: a slow RSS post or arXiv
+      // paper published yesterday but admitted this morning still belongs in
+      // today's brief, and the window never resets to empty at midnight.
+      const rolling24h = !customRangeState.from && !customRangeState.to && presetDaysState === '1';
+      if (rolling24h) {
+        const now = new Date();
+        from = new Date(now.getTime() - 24 * 60 * 60 * 1000).toISOString();
+        to = now.toISOString();
+      } else if (!from && !to && presetDaysState !== 'all') {
         const n = Math.max(1, Number(presetDaysState || 1));
         const now = new Date();
         const fromD = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (n - 1));
@@ -2597,6 +2636,7 @@
       const u = new URL('/api/feed', window.location.origin);
       if (from) u.searchParams.set('from', from);
       if (to) u.searchParams.set('to', to);
+      if (rolling24h) u.searchParams.set('window', 'arrival');
       u.searchParams.set('limit', limitState);
       for (const l of getSelectedLabels()) u.searchParams.append('label', l);
       return u.pathname + u.search;
@@ -3274,7 +3314,10 @@
         const decay = Number(it.time_decay_factor);
         if (Number.isFinite(decay)) parts.push(`fresh ${decay.toFixed(2)}`);
       }
-      const scoreRaw = it.final_score ?? it.tier1_quick_score;
+      // Use the score the story had when it was first admitted, matching the
+      // stable list order. The live `final_score` keeps decaying on every run,
+      // which made a stable rank 1 display a lower score than rank 2.
+      const scoreRaw = it.score_at_first_seen ?? it.final_score ?? it.tier1_quick_score;
       const score = (scoreRaw == null || String(scoreRaw).trim() === '') ? NaN : Number(scoreRaw);
       if (Number.isFinite(score)) parts.push(`score ${score.toFixed(2)}`);
       return parts.length ? `Ranked: ${parts.join(' · ')}` : '';
@@ -3408,7 +3451,7 @@
       // Release items without a real excerpt render as compact rows, not
       // full cards; class-only so save/share/hide/swipe handlers keep working.
       const isReleaseRow = type === 'release' && (!summaryRaw || isGenericReleaseNotes(summaryRaw));
-      const articleClass = [sourceCount >= 3 ? 'big-story' : '', hidden ? 'card-hidden' : '', isReleaseRow ? 'release-row' : '', frontPage ? `fp-${frontPage}` : ''].filter(Boolean).join(' ');
+      const articleClass = [sourceCount >= 3 ? 'big-story' : '', hidden ? 'card-hidden' : '', isReleaseRow ? 'release-row' : '', it.beyond_cap ? 'beyond-cap-card' : '', frontPage ? `fp-${frontPage}` : ''].filter(Boolean).join(' ');
       const kicker = frontPage
         ? (FRONT_PAGE_CATEGORY_LABELS[String(it.judge_category || '').toLowerCase()]
           || SLOT_LABELS[it.slot]
@@ -3700,6 +3743,8 @@
     // arrived since the reader's previous visit. Importance = cross-source
     // coverage first, then the feed's own ranking.
     const CATCHUP_DISMISS_KEY = 'ai_feed_catchup_dismissed';
+    const CATCHUP_OPEN_KEY = 'ai_feed_catchup_open';
+    const POOL_OPEN_KEY = 'ai_feed_pool_open';
     let catchupViewCaptured = false;
 
     function isCatchupDismissed() {
@@ -3708,6 +3753,34 @@
       } catch {
         return false;
       }
+    }
+
+    function isCatchupOpen() {
+      try {
+        return sessionStorage.getItem(CATCHUP_OPEN_KEY) === '1';
+      } catch {
+        return false;
+      }
+    }
+
+    function setCatchupOpen(open) {
+      try {
+        sessionStorage.setItem(CATCHUP_OPEN_KEY, open ? '1' : '0');
+      } catch {}
+    }
+
+    function isPoolOpen() {
+      try {
+        return sessionStorage.getItem(POOL_OPEN_KEY) === '1';
+      } catch {
+        return false;
+      }
+    }
+
+    function setPoolOpen(open) {
+      try {
+        sessionStorage.setItem(POOL_OPEN_KEY, open ? '1' : '0');
+      } catch {}
     }
 
     function dismissCatchup() {
@@ -3759,14 +3832,18 @@
       // "brief" is the default lens, not a reader-chosen topic — don't claim
       // the catch-up count is scoped "in your topics" when it's just the default.
       const topicsNote = getSelectedLabels().some((l) => l !== 'brief') ? ' in your topics' : '';
+      // Collapsed by default: the body below is the stable reading order, so a
+      // new arrival must not move it. The reader opts into the catch-up list.
+      const open = isCatchupOpen();
       return `
-        <section class="catchup" aria-label="Catch up since your last visit">
+        <section class="catchup" aria-label="Catch up since your last visit" data-catchup-open="${open ? 'true' : 'false'}">
           <div class="catchup-head">
             <strong>⚡ Catch me up</strong>
             <span class="catchup-sub">Since your last visit (${esc(lastVisitLabel())}): ${fresh.length} new ${fresh.length === 1 ? 'story' : 'stories'}${topicsNote}</span>
+            <button type="button" class="catchup-toggle" data-catchup-toggle="1" aria-expanded="${open ? 'true' : 'false'}" aria-controls="catchup-new-list" aria-label="${open ? 'Hide' : 'Show'} catch-up stories">${open ? 'Hide' : 'Show'}</button>
             <button type="button" class="catchup-dismiss" data-catchup-dismiss="1" aria-label="Dismiss catch-up brief" title="Dismiss">×</button>
           </div>
-          <ul>${bullets}</ul>
+          <ul id="catchup-new-list"${open ? '' : ' hidden'}>${bullets}</ul>
           <p class="catchup-more"><a href="/daily">Read the full daily recap →</a></p>
           <div data-editorial-catchup></div>
         </section>`;
@@ -3858,27 +3935,32 @@
 
     // End-of-Brief marker: a one-line finish line so the default view ends
     // ("read everything, you're caught up") instead of trailing off.
-    function endMarkerHtml() {
+    function endMarkerHtml(overflowCount = 0) {
       const rangeLabel = (customRangeState.from || customRangeState.to)
         ? ''
-        : ({ 1: 'today', 3: 'the last 3 days', 7: 'the last 7 days', 30: 'the last 30 days' }[presetDaysState] || '');
-      const sub = rangeLabel
-        ? `That's everything worth reading from ${rangeLabel} — release notes are under the Releases tab.`
-        : `Release notes are under the Releases tab whenever you want them.`;
+        : ({ 1: 'the past 24 hours', 3: 'the last 3 days', 7: 'the last 7 days', 30: 'the last 30 days' }[presetDaysState] || '');
+      const overflowNote = overflowCount > 0
+        ? `${overflowCount} more ${overflowCount === 1 ? 'story is' : 'stories are'} available under "More from ${rangeLabel || 'this window'}" above.`
+        : '';
+      const sub = overflowCount > 0
+        ? `${overflowNote} Release notes are under the Releases tab.`
+        : rangeLabel
+          ? `That's everything worth reading from ${rangeLabel} - release notes are under the Releases tab.`
+          : `Release notes are under the Releases tab whenever you want them.`;
       return `
         <div class="end-marker">
-          <div class="end-marker-title">✓ You're all caught up</div>
+          <div class="end-marker-title">✓ ${overflowCount > 0 ? "You're caught up on the brief" : "You're all caught up"}</div>
           <div class="end-marker-sub">${esc(sub)}</div>
           <a class="end-marker-cta" href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="feed_finish" data-subscribe-inline>Get the next brief by email</a>
         </div>`;
     }
 
     function truncatedMarkerHtml(totalItems, shownItems) {
-      // Today is the default range, so "narrow the range" is only useful advice
-      // when the reader has actually widened past it.
+      // Past 24h is the default range, so "narrow the range" is only useful
+      // advice when the reader has actually widened past it.
       const advice = presetDaysState === '1' && !customRangeState.from && !customRangeState.to
         ? 'The rest are lower-ranked than this brief. Search to find something specific, or read the daily recap.'
-        : 'The rest are older or lower-ranked than this brief. Switch the range to Today for a true finish line, or search to find something specific.';
+        : 'The rest are older or lower-ranked than this brief. Switch the range to Past 24h for a true finish line, or search to find something specific.';
       return `
         <div class="end-marker">
           <div class="end-marker-title">Top ${shownItems} of ${totalItems} stories in this window</div>
@@ -3990,6 +4072,19 @@
         </div>`;
     }
 
+    // The editorial caps keep the TOP of the brief mixed. A story beyond the
+    // mix is still admitted for the window, so it continues below this fold
+    // instead of disappearing when a newer story arrives from the same source.
+    function poolMarkerHtml(remaining, open, rangeLabel) {
+      const where = rangeLabel || 'this window';
+      return `
+        <div class="fp-head fp-head-more pool-marker">
+          <h2>More from ${esc(where)}</h2>
+          <span class="fp-head-meta">${remaining} more ${remaining === 1 ? 'story' : 'stories'}</span>
+          <button type="button" class="pool-toggle" data-pool-toggle="1" aria-expanded="${open ? 'true' : 'false'}" aria-controls="list" aria-label="${open ? 'Hide' : 'Show'} ${remaining} more ${remaining === 1 ? 'story' : 'stories'} from ${esc(where)}">${open ? 'Hide' : 'Show'}</button>
+        </div>`;
+    }
+
     function renderFeedList() {
       const list = document.getElementById('list');
       const { items, runs, freshAdded, runId, totalItems, hasMore } = feedCache;
@@ -4006,6 +4101,17 @@
         if (hidden) hiddenInView++;
         if (showHiddenState || !hidden) visible.push(it);
       }
+      // The editorial caps split the window into a mixed, finishable brief
+      // and the rest of the admitted pool. The rest stays expandable; it is
+      // never dropped. Search and the firehose views show everything.
+      const overflowStart = !q && activeSection() === 'brief'
+        ? visible.findIndex((it) => it.beyond_cap)
+        : -1;
+      const overflowCount = overflowStart > 0 ? visible.length - overflowStart : 0;
+      // The front page is a newspaper composition of the cap-compliant Brief,
+      // never of the expandable pool. A thin day can have fewer than five
+      // primary cards; the fourth slot must not become a hidden over-cap card.
+      const capCompliant = overflowCount > 0 ? overflowStart : visible.length;
 
       // Reader-facing summary line: stories + recency, not pipeline jargon.
       const latestRunAt = runs.reduce((acc, r) => {
@@ -4022,12 +4128,14 @@
       const labelNote = noteTopics.length ? ` · topics: ${noteTopics.join(', ')}` : '';
       // "159 stories" alone reads as homework; naming the window frames it
       // as coverage ("everything from the last 7 days") instead of a backlog.
-      const RANGE_LABELS = { 1: 'today', 3: 'last 3 days', 7: 'last 7 days', 30: 'last 30 days' };
+      const RANGE_LABELS = { 1: 'the past 24 hours', 3: 'the last 3 days', 7: 'the last 7 days', 30: 'the last 30 days' };
       const rangeLabel = (customRangeState.from || customRangeState.to) ? '' : RANGE_LABELS[presetDaysState] || '';
-      const rangeNote = rangeLabel ? ` ${rangeLabel === 'today' ? 'today' : `from the ${rangeLabel}`}` : '';
+      const rangeNote = rangeLabel ? ` from ${rangeLabel}` : '';
       const countText = q
         ? `${visible.length} of ${items.length} stories`
-        : `${hasMore ? `${items.length} of ${totalItems}` : items.length} ${totalItems === 1 ? 'story' : 'stories'}${rangeNote}`;
+        : overflowCount > 0
+          ? `${overflowStart} top stories · ${overflowCount} more from ${rangeLabel || 'this window'}`
+          : `${hasMore ? `${items.length} of ${totalItems}` : items.length} ${totalItems === 1 ? 'story' : 'stories'}${rangeNote}`;
       const hiddenNote = hiddenInView > 0 ? ` · ${hiddenInView} hidden` : '';
       document.getElementById('meta').textContent = `${countText}${updatedNote}${newNote}${labelNote}${hiddenNote}`;
       setFeedStatus(countText);
@@ -4062,9 +4170,9 @@
         } else {
           // Name what's actually filtering: topic selections read differently
           // from an empty date window, and each gets its own next step. The
-          // baseline is the default Brief lens over Today - anything beyond
-          // that (extra topics, a shared ?from/?to range) earns a one-tap
-          // reset instead of leaving readers to hunt for the controls.
+          // baseline is the default Brief lens over the past 24 hours -
+          // anything beyond that (extra topics, a shared ?from/?to range) earns
+          // a one-tap reset instead of leaving readers to hunt for the controls.
           const topicsActive = noteTopics.length > 0;
           const filtersCleared = sameLabels(selectedLabels, DEFAULT_SECTION_LABELS)
             || selectedLabels.length === 0;
@@ -4079,11 +4187,11 @@
       } else {
         const frontPage = !q
           && activeSection() === 'brief'
-          && visible.length >= FRONT_PAGE_MIN_STORIES;
+          && capCompliant >= FRONT_PAGE_MIN_STORIES;
         const storyCards = visible.map((it, i) => cardHtml(it, {
           rank: i + 1,
           runId,
-          frontPage: frontPage ? frontPageRole(i) : '',
+          frontPage: frontPage && i < capCompliant ? frontPageRole(i) : '',
         }));
         if (!q) {
           // Promos and editorial companion surfaces use story ranks, not the
@@ -4101,22 +4209,34 @@
           }
           if (frontPage) {
             // Nothing interrupts the front page or the heading under it:
-            // companions move a few stories into the rest of the brief.
+            // companions move a few stories into the rest of the brief, but
+            // never past a short cap-compliant prefix into the hidden pool.
+            const companionAfter = Math.min(capCompliant, FRONT_PAGE_STORIES + 3);
             for (const insert of feedInserts) {
-              insert.after = Math.max(Number(insert.after) || 0, FRONT_PAGE_STORIES + 3);
+              insert.after = Math.max(Number(insert.after) || 0, companionAfter);
             }
-            if (visible.length > FRONT_PAGE_STORIES) {
-              feedInserts.unshift({ after: FRONT_PAGE_STORIES, html: frontPageRuleHtml(visible.length - FRONT_PAGE_STORIES) });
+            // The "rest of the brief" is the curated remainder, not the
+            // expandable pool below the fold.
+            const restOfBrief = overflowCount > 0
+              ? Math.max(0, capCompliant - FRONT_PAGE_STORIES)
+              : visible.length - FRONT_PAGE_STORIES;
+            if (restOfBrief > 0) {
+              feedInserts.unshift({ after: FRONT_PAGE_STORIES, html: frontPageRuleHtml(restOfBrief) });
             }
+          }
+          if (overflowCount > 0) {
+            feedInserts.push({ after: overflowStart, html: poolMarkerHtml(overflowCount, isPoolOpen(), rangeLabel) });
           }
           const cards = interleaveFeedCards(storyCards, feedInserts);
           if (hiddenInView > 0) cards.unshift(hiddenBarHtml(hiddenInView));
-          cards.unshift(catchupHtml(items));
+          // New-arrival band sits above the edition heading so it reads as a
+          // separate catch-up layer, not as the first item of the front page.
           if (frontPage) cards.unshift(frontPageEditionHtml(latestRunAt));
+          cards.unshift(catchupHtml(items));
           // Finish line for the Brief default — make the "finishable" promise
           // visible. Only on the Brief lens (not the firehose/topic views).
           if (activeSection() === 'brief') {
-            cards.push(hasMore ? truncatedMarkerHtml(totalItems, items.length) : endMarkerHtml());
+            cards.push(hasMore ? truncatedMarkerHtml(totalItems, items.length) : endMarkerHtml(overflowCount));
           }
           html = cards.join('');
         } else {
@@ -4125,6 +4245,11 @@
           html = cards.join('');
         }
       }
+
+      // The fold is a CSS state on the list so toggling it does not rebuild
+      // every card (and lose reading position). Only the Brief folds.
+      list.classList.toggle('pool-fold', overflowCount > 0);
+      list.classList.toggle('pool-open', overflowCount > 0 && isPoolOpen());
 
       // Skip identical rewrites (the post-fetch decoration pass rebuilds the
       // same markup), and keep real card content as the fetch-failure fallback.
@@ -4409,6 +4534,34 @@
           dismissCatchup();
           posthogCapture('catchup_dismiss', {});
           renderFeedList();
+          return;
+        }
+
+        const catchupToggle = e.target.closest('button[data-catchup-toggle]');
+        if (catchupToggle) {
+          const open = catchupToggle.getAttribute('aria-expanded') !== 'true';
+          const section = catchupToggle.closest('.catchup');
+          const listEl = section?.querySelector('#catchup-new-list');
+          catchupToggle.setAttribute('aria-expanded', String(open));
+          catchupToggle.setAttribute('aria-label', `${open ? 'Hide' : 'Show'} catch-up stories`);
+          catchupToggle.textContent = open ? 'Hide' : 'Show';
+          if (listEl) listEl.hidden = !open;
+          section?.setAttribute('data-catchup-open', String(open));
+          setCatchupOpen(open);
+          posthogCapture('catchup_toggle', { open });
+          return;
+        }
+
+        const poolToggle = e.target.closest('button[data-pool-toggle]');
+        if (poolToggle) {
+          const open = !isPoolOpen();
+          setPoolOpen(open);
+          document.getElementById('list')?.classList.toggle('pool-open', open);
+          poolToggle.setAttribute('aria-expanded', String(open));
+          const baseLabel = String(poolToggle.getAttribute('aria-label') || '').replace(/^(Show|Hide)\s+/, '');
+          poolToggle.setAttribute('aria-label', `${open ? 'Hide' : 'Show'} ${baseLabel}`);
+          poolToggle.textContent = open ? 'Hide' : 'Show';
+          posthogCapture('feed_pool_toggle', { open });
           return;
         }
 

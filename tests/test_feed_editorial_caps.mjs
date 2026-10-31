@@ -55,9 +55,11 @@ test('latest feed caps a search query to one card', async (t) => {
   const res = await invoke({ limit: '20', label: 'brief' });
   assert.equal(res.statusCode, 200);
   const searchItems = res.body.items.filter((it) => it.source === 'search_cn_open_weight_labs');
-  assert.equal(searchItems.length, 1, 'one search query contributes one card');
-  assert.equal(res.body.items.length, 3);
-  assert.equal(res.body.total_items, 3);
+  assert.equal(searchItems.length, 3, 'every search story stays in the pool');
+  assert.equal(searchItems.filter((it) => !it.beyond_cap).length, 1, 'one search card leads');
+  assert.equal(searchItems.filter((it) => it.beyond_cap).length, 2, 'the rest continue below');
+  assert.equal(res.body.items.length, 5);
+  assert.equal(res.body.total_items, 5);
 });
 
 test('a community-only day is not capped at two cards', async (t) => {
@@ -87,8 +89,10 @@ test('a community-only day is not capped at two cards', async (t) => {
     limit: '20',
   });
   assert.equal(res.statusCode, 200);
-  assert.equal(res.body.items.length, 4);
-  assert.equal(res.body.total_items, 4);
+  assert.equal(res.body.items.length, 9, 'the community-only day keeps every admitted story');
+  assert.equal(res.body.items.filter((it) => !it.beyond_cap).length, 4, 'four mixed cards lead');
+  assert.equal(res.body.items.filter((it) => it.beyond_cap).length, 5, 'the rest continue below the fold');
+  assert.equal(res.body.total_items, 9);
 });
 
 test('latest feed collapses items that share a pipeline story_key', async (t) => {
@@ -195,6 +199,9 @@ test('editorial.json source roles are honored by the API', async (t) => {
 
   const res = await invoke({ limit: '20', label: 'brief' });
   assert.equal(res.statusCode, 200);
-  assert.equal(res.body.items.filter((it) => it.source === 'custom_feed').length, 1);
-  assert.equal(res.body.items.length, 2);
+  const custom = res.body.items.filter((it) => it.source === 'custom_feed');
+  assert.equal(custom.length, 2);
+  assert.equal(custom.filter((it) => !it.beyond_cap).length, 1);
+  assert.equal(custom.filter((it) => it.beyond_cap).length, 1);
+  assert.equal(res.body.items.length, 3);
 });

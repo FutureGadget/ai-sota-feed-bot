@@ -50,7 +50,7 @@ test('calendar boundaries respect the reader timezone and DST', () => {
   assert.equal(new Date(range.end).getTime() - new Date(range.start).getTime() + 1, 23 * 60 * 60 * 1000);
 });
 
-test('Today sends exactly the current local calendar date', () => {
+test('Past 24h sends a rolling arrival window, not the local calendar day', () => {
   const script = `
     const NativeDate = Date;
     class FixedDate extends NativeDate {
@@ -75,6 +75,38 @@ test('Today sends exactly the current local calendar date', () => {
     env: { ...process.env, TZ: 'America/Los_Angeles' },
   }).trim();
   const url = new URL(output, 'https://example.test');
-  assert.equal(url.searchParams.get('from'), '2026-06-20T07:00:00.000Z');
+  assert.equal(url.searchParams.get('from'), '2026-06-20T03:30:00.000Z');
+  assert.equal(url.searchParams.get('to'), '2026-06-21T03:30:00.000Z');
+  assert.equal(url.searchParams.get('window'), 'arrival');
+  assert.equal(url.searchParams.get('days'), null);
+});
+
+test('wider presets keep local calendar boundaries and publish-date windows', () => {
+  const script = `
+    const NativeDate = Date;
+    class FixedDate extends NativeDate {
+      constructor(...args) {
+        super(...(args.length ? args : ['2026-06-21T03:30:00.000Z']));
+      }
+      static now() { return new NativeDate('2026-06-21T03:30:00.000Z').getTime(); }
+    }
+    globalThis.Date = FixedDate;
+    ${extractFunction('localDateBoundaryUtc')}
+    ${extractFunction('toDateInput')}
+    ${extractFunction('buildFeedUrl')}
+    const customRangeState = { from: '', to: '' };
+    const presetDaysState = '3';
+    const limitState = '200';
+    const window = { location: { origin: 'https://example.test' } };
+    function getSelectedLabels() { return ['brief']; }
+    console.log(buildFeedUrl());
+  `;
+  const output = execFileSync(process.execPath, ['-e', script], {
+    encoding: 'utf8',
+    env: { ...process.env, TZ: 'America/Los_Angeles' },
+  }).trim();
+  const url = new URL(output, 'https://example.test');
+  assert.equal(url.searchParams.get('from'), '2026-06-18T07:00:00.000Z');
   assert.equal(url.searchParams.get('to'), '2026-06-21T06:59:59.999Z');
+  assert.equal(url.searchParams.get('window'), null);
 });

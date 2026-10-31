@@ -53,11 +53,11 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("You're all caught up", self.html)
         self.assertEqual(self.html.count('id="meta"'), 1)
 
-    def test_default_range_is_today_at_every_site(self) -> None:
+    def test_default_range_is_past_24h_at_every_site(self) -> None:
         # The finishable promise only holds if the default window can end, and
         # the default lives in six places that must agree - a mismatch either
-        # writes Today into every share URL or makes Last 7d unreachable.
-        self.assertIn('<option value="1" selected>Today</option>', self.html)
+        # writes Past 24h into every share URL or makes Last 7d unreachable.
+        self.assertIn('<option value="1" selected>Past 24h</option>', self.html)
         self.assertNotIn('<option value="7" selected>', self.html)
         self.assertIn("let presetDaysState = '1';", self.html)
         self.assertIn("includes(presetDaysState) ? presetDaysState : '1'", self.html)
@@ -66,9 +66,21 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("} else if (presetDaysState !== '1') {", self.html)
         self.assertNotIn("Number(presetDaysState || 7)", self.html)
 
-    def test_empty_today_window_widens_once(self) -> None:
-        # A reader arriving just after local midnight gets a window minutes
-        # wide; the homepage must not answer that with an empty state.
+    def test_catchup_band_is_collapsed_and_overflow_stays_visible(self) -> None:
+        # The new-arrival band is opt-in so it cannot push the stable body
+        # down, and cap-overflow stories continue below an explicit fold
+        # instead of disappearing when a newer story arrives.
+        self.assertIn('data-catchup-toggle="1"', self.html)
+        self.assertIn('id="catchup-new-list"', self.html)
+        self.assertIn('data-catchup-open=', self.html)
+        self.assertIn('data-pool-toggle="1"', self.html)
+        self.assertIn("More from ${esc(where)}", self.html)
+        self.assertIn("beyond-cap-card", self.html)
+        self.assertIn("beyond_cap", self.html)
+
+    def test_empty_window_widens_once(self) -> None:
+        # A quiet 24-hour window can still be empty; the homepage must not
+        # answer that with an empty state.
         self.assertIn("let emptyWindowWidened = false;", self.html)
         self.assertIn("emptyWindowWidened = true;", self.html)
         self.assertIn("setDateRangeDays(3);", self.html)
@@ -173,12 +185,15 @@ class LiveFeedSurfaceTest(unittest.TestCase):
     def test_front_page_only_on_the_unsearched_brief(self) -> None:
         render = _extract_js_function(self.html, "renderFeedList")
         self.assertIn("const frontPage = !q\n          && activeSection() === 'brief'", render)
-        self.assertIn("&& visible.length >= FRONT_PAGE_MIN_STORIES;", render)
+        self.assertIn("&& capCompliant >= FRONT_PAGE_MIN_STORIES;", render)
+        self.assertIn("const capCompliant = overflowCount > 0 ? overflowStart : visible.length;", render)
+        self.assertIn("frontPage: frontPage && i < capCompliant ? frontPageRole(i) : ''", render)
         self.assertIn("const FRONT_PAGE_MIN_STORIES = 4;", self.html)
         self.assertIn("const FRONT_PAGE_STORIES = 5;", self.html)
         # Companions never split the full five-story front page or its heading.
-        self.assertIn("insert.after = Math.max(Number(insert.after) || 0, FRONT_PAGE_STORIES + 3);", render)
-        self.assertIn("html: frontPageRuleHtml(visible.length - FRONT_PAGE_STORIES)", render)
+        self.assertIn("const companionAfter = Math.min(capCompliant, FRONT_PAGE_STORIES + 3);", render)
+        self.assertIn("insert.after = Math.max(Number(insert.after) || 0, companionAfter);", render)
+        self.assertIn("html: frontPageRuleHtml(restOfBrief)", render)
 
     def test_front_page_lead_has_a_capitalised_standfirst(self) -> None:
         css = (ROOT / "web" / "front-page.css").read_text(encoding="utf-8")

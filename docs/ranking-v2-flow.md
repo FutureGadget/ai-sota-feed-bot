@@ -174,16 +174,45 @@ This is deterministic bookkeeping, not the LLM ranking layer:
 - `seen.max_editions`: retires an item after a bounded number of recent
   editions; `editorial_penalty` softens the rest. `source_overrides` gives
   corporate newsroom posts a shorter run.
-- `caps` / `role_totals`: the per-source and per-role caps the API applies
-  after the requested publish window, before the response is assembled.
-  `community` is 4 in both maps (matching the ranking slot's `max_items`), so
-  a one-day community-only window is not capped at two cards. The caps remain
-  flood guards for wide windows.
+- `caps` / `role_totals`: the per-source and per-role flood guards the API
+  uses to order the top of the requested window. Cap-compliant stories form
+  the finishable Brief; over-cap stories stay in the response below the
+  "More from ..." fold with `beyond_cap: true`, so a refresh never drops an
+  admitted story. `community` is 4 in both maps (matching the ranking slot's
+  `max_items`), so a community-only window keeps its depth while the top
+  stays mixed.
 
 The pipeline writes `data/processed/editorial.json` (roles, caps, quarantine
 patterns, diagnostics) so `api/feed.js` and `api/rss.js` apply the same policy
 without a YAML parser. `data/processed/**` is already bundled into the feed
 function.
+
+## Served Brief admission ledger (post-ranking)
+
+`build_digest.py` writes the ranked 24-item edition, then `brief_ledger.py`
+reads the day's full judged pool (`data/quality/pool/<UTC date>.json`) and
+writes `data/brief/<UTC date>.json`. This is the reader-facing admission set
+for the rolling 24h Brief; the edition is now a view, not the serving pool.
+
+- **Gate:** a judge score at or above 0.35 (keep band), unjudged with >= 300
+  chars of evidence; releases by tier; off-topic rejected. The review band is
+  below the keep threshold, so it is not admitted.
+- **Utility:** `config/brief.yaml` weights (judge, platform relevance, source
+  coverage, reader tuning, in-edition) plus freshness at admission and a
+  major-release must-cover bonus. The math reuses `deck_select.utility`.
+- **Flood guards:** 3 admissions per source in any six-hour window, per-role
+  daily caps, and 120 per UTC day. These are admission limits, not display
+  limits.
+- **Append-only:** a later build adds stories and updates coverage, but never
+  removes or re-ranks an admitted story. A story is not re-admitted within
+  24h of its previous admission.
+- **Serving:** the default `window=arrival` `/api/feed` path reads the ledger
+  and applies the same display caps and top-band balance as the run path.
+  `Last 3d/7d/30d`, explicit dates, and the missing-ledger fallback read the
+  accumulated run pool.
+- **Decks:** `deck_candidates.py` joins the ledger as `in_brief`; the pool
+  remains the recall superset for the daily/weekly/Playbook/wiki/Foundations
+  selectors.
 
 ## Key config knobs
 

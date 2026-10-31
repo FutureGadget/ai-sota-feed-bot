@@ -52,6 +52,8 @@ def _as_item(row: dict[str, Any]) -> dict[str, Any]:
         "content_excerpt": row.get("excerpt") or "",
         "story_key": row.get("story_key"),
         "source_role": row.get("source_role"),
+        "in_brief": bool(row.get("in_brief")),
+        "brief_admitted_at": row.get("brief_admitted_at"),
     }
     for field in deck_candidates.JUDGE_FIELDS:
         if row.get(field) is not None:

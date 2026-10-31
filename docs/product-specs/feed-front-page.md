@@ -8,10 +8,11 @@ Site-wide palette and type: `docs/FRONTEND.md`, "Site theme".
 
 ## What it is
 
-The Brief's first five stories are set like a newspaper front page. Ranking,
-item selection and order are unchanged; only the presentation differs from the
-rest of the list. Each story reads as a headline plus one source line; only
-the lead carries a standfirst. The standfirst is `summary_1line`; when that
+The Brief's first five stories are set like a newspaper front page. Ranking
+and item selection are unchanged; the API supplies a stable admission order,
+and a top-band pass keeps one source from taking more than three of the five
+slots. Only the presentation differs from the rest of the list. Each story
+reads as a headline plus one source line; only the lead carries a standfirst. The standfirst is `summary_1line`; when that
 echoes the title or is empty, the lead uses the first sentence of the Jev
 `content_excerpt` (HN link posts often need this).
 
@@ -23,7 +24,8 @@ echoes the title or is empty, the lead uses the first sentence of the Jev
 | Section heading | "Front page" on the left; date · Morning/Afternoon/Evening/Late edition on the right; 2px rule |
 | Rank 1 | **Lead**: kicker (`01 AGENT ENGINEERING`, from the judge category), large serif headline, drop-cap standfirst with an uppercase initial, left 58% column |
 | Ranks 2-5 | **Headlines**: numbered, beside the lead, headline and source line only (three headlines when the Brief has exactly four stories) |
-| Rank 6+ | The same headline cards under "The rest of the brief" (with "N more stories") |
+| Rank 6+ | The same headline cards under "The rest of the brief" (with the curated remainder count) |
+| Pool fold | After the last cap-compliant story: "More from the past 24 hours" plus a Show/Hide control for the over-cap pool |
 | Model Radar rail | Boxed module with a ruled caps heading |
 | Reader-tuning note | A footnote under the finish line, not a banner above the list |
 
@@ -57,6 +59,10 @@ shows the ordinary ledger:
 - the Brief lens is active,
 - no search query,
 - at least 4 visible stories.
+
+The five stories come from the stable pool for the selected window. A refresh
+does not reshuffle them unless a newly admitted story's score enters the top
+band; the body below stays in place.
 
 Five stories is the full layout: a lead plus four headlines. With exactly four,
 the front page renders as a lead plus three headlines and the "rest of the

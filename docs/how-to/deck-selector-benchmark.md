@@ -15,8 +15,11 @@ python3 scripts/deck_replay.py --deck weekly --week 2026-W44 --packet
 
 Each window rebuilds the judged candidates (`pipeline/deck_candidates.py`:
 the committed `data/quality/pool/` files plus a backfill from
-`data/processed/judgments.json`, run snapshots and `data/raw`), applies the
-bundle builder's filters, and runs the selector at the published recap's size.
+`data/processed/judgments.json`, run snapshots and `data/raw`), joins the
+served Brief ledger (`data/brief/`) as `in_brief`, applies the bundle
+builder's filters, and runs the selector at the published recap's size. The
+pool remains the recall superset; `in_brief` is a small utility lift for
+stories the reader could actually have seen.
 Judge fields exist from 2026-10-24 onward; earlier windows have no scores to
 replay.
 

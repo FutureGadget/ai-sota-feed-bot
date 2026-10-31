@@ -28,7 +28,7 @@ class PoolAdditionsTest(unittest.TestCase):
     def test_adds_only_missing_keeps_newest_first_under_cap(self):
         candidates = [
             row("https://a/1"),
-            row("https://a/2", published="2026-10-27T12:00:00Z"),
+            row("https://a/2", published="2026-10-27T12:00:00Z", in_brief=True),
             row("https://a/3", published="2026-10-27T11:00:00Z"),
             row("https://a/4", verdict="review"),
             row("https://a/5", verdict="unjudged"),
@@ -41,6 +41,7 @@ class PoolAdditionsTest(unittest.TestCase):
         self.assertEqual(diag["capped"], 1)
         self.assertEqual(items[0]["content_excerpt"], "body")
         self.assertEqual(items[0]["judge_verdict"], "keep")
+        self.assertTrue(items[0]["in_brief"])
 
     def test_type_caps_keep_the_highest_scored_then_newest(self):
         cfg = {"decks": {"daily": {"bundle": {"pool_additions": True, "max_additions": 3, "max_by_type": {"paper": 1}}}}}

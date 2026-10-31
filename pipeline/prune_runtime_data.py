@@ -168,11 +168,11 @@ def prune_dated_dir(
 
     For flat dated directories that carry no runs index, so `prune_family`
     does not apply - data/models/history, written once per Model Release
-    Radar refresh, and data/quality/pool, the per-day judged candidate pool
-    for the editor decks. Nothing reads a historical snapshot at
-    request time (api/models.js pins includeFiles to latest.json); they exist
-    for score-delta work and audit, so an unbounded pile is pure growth in
-    both git and the deployment. 0/negative disables the cap.
+    Radar refresh; data/quality/pool, the per-day judged candidate pool for
+    the editor decks; and data/brief, the served admission ledger. Nothing
+    reads a historical snapshot at request time (the feed reads only the
+    current retention window), so an unbounded pile is pure growth in both
+    git and the deployment. 0/negative disables the cap.
     """
     out: dict[str, Any] = {"files_deleted": 0, "kept": 0, "max_age_days": max_age_days}
     if max_age_days <= 0 or not directory.is_dir():
@@ -203,6 +203,9 @@ def main() -> None:
     # pipeline/judged_pool.py for the editor decks. A weekly recap reads at
     # most eight run dates; 14 days leaves room for replay and funnel reports.
     ap.add_argument("--pool-days", type=int, default=14)
+    # Daily Brief admission ledgers. A rolling 24h read spans two UTC days;
+    # three days leaves one day of slack for timezone edges and replay.
+    ap.add_argument("--brief-days", type=int, default=3)
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -224,11 +227,18 @@ def main() -> None:
         dry_run=args.dry_run,
     )
 
+    brief_ledger = prune_dated_dir(
+        ROOT / "data" / "brief",
+        max_age_days=args.brief_days,
+        dry_run=args.dry_run,
+    )
+
     print(
         "runtime_prune "
         f"processed(index {processed['index_before']}->{processed['index_after']}, deleted={processed['files_deleted']}, keep={processed['retain_days']}d) "
         f"models_history(deleted={models_history['files_deleted']}, kept={models_history['kept']}, max_age={models_history['max_age_days']}d) "
         f"judged_pool(deleted={judged_pool['files_deleted']}, kept={judged_pool['kept']}, max_age={judged_pool['max_age_days']}d) "
+        f"brief(deleted={brief_ledger['files_deleted']}, kept={brief_ledger['kept']}, max_age={brief_ledger['max_age_days']}d) "
         f"weekly_after={args.weekly_archive_after_days}d "
         f"dry_run={str(args.dry_run).lower()}"
     )

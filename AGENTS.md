@@ -20,6 +20,7 @@ pipeline/source_alerts.py              -> local degradation alert artifacts/logs
 pipeline/build_digest.py               -> data/processed/latest.json + data/digest/*.md
    raw -> editorial pre-ranking -> Jev gate/category -> ranking -> edition
    (pipeline/judge.py + pipeline/editorial_judge.py; incremental no-delta skip)
+pipeline/brief_ledger.py               -> data/brief/<date>.json (24h admission ledger)
 pipeline/story_store.py sync           -> data/stories/ (durable, append-only store)
 pipeline/render_static_pages.py        -> web/{daily,weekly,story}/*.html + sitemap.xml
 pipeline/build_foundations.py          -> data/foundations/index.json (deterministic concept compiler)
@@ -37,7 +38,7 @@ snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 | Workflow (`.github/workflows/`) | Schedule | Does |
 |---|---|---|
 | `feed-full-publish.yml` | cron-job.org external ticker (every 2h) | `run_full.sh` — the production pipeline |
-| `feed-ops-summary.yml` | daily 12:30 UTC | `skills/ops-daily-summary/` health snapshot |
+| `feed-ops-summary.yml` | daily 12:30 UTC | `skills/ops-daily-summary/` health snapshot, including the latest Brief ledger admission/rejection block |
 | `feedback-sync.yml` | daily 12:45 UTC | PostHog → `feedback.py sync-posthog`, `auto_tune.py sync-ctr` + `apply`, `north_star_metric.py sync` + `summary` (the one metric — see below) |
 | `email-digest.yml` | cron-job.org (daily 23:00 UTC + weekly Fri 23:00 UTC → 08:00 KST) | `publish/publish_email.py` — finishable daily brief to the subscriber list, rendered from the **curated `/daily` recap** (`data/daily/latest.json`), NOT the raw feed (secrets-gated; the newsletter provider owns the list). Runs on its OWN schedule after the recap agent routines, NOT the two-hour feed pipeline. Weekly recap is exec-plan v2.2 Phase 4. Daily runs then send storyline follow alerts (`publish/publish_follows.py`, non-blocking step) |
 | `models-refresh.yml` | GitHub `schedule:` every 6h (02/08/14/20 UTC) | `pipeline/collect_models.py collect` - joins LMArena (keyless) + Artificial Analysis (secrets-gated, no-ops without `AA_API_KEY`; paginated v2 Free endpoint) into `data/models/latest.json` for the Model Release Radar (`/models`). Exits 1 on a permanent AA error (401/403/404/410) or when the artifact is >48h old |
@@ -164,6 +165,11 @@ in `ops_daily_summary.py`'s log line.
     candidates only; the recap agent still chooses
   - `build_digest.py` — the single edition builder
     (raw -> editorial -> judge -> ranking -> edition)
+  - `brief_ledger.py` - the served Brief's admission ledger: reads the day's
+    judged pool, applies the `config/brief.yaml` gate and quotas, and appends
+    one card per admitted story to `data/brief/<UTC date>.json`. The default
+    24h feed reads this ledger; calendar ranges still read the run pool. Also
+    a CLI: `backfill --days N`, `prune`, `show`.
   - `enrich.py`, `content_fetch.py` — mechanical enrichment, page excerpts
     (`build_content_map` is called from the collector for `fetch_content`
     sources; the excerpt feeds keyword gates only, never display)
@@ -204,6 +210,10 @@ in `ops_daily_summary.py`'s log line.
     non-fatal (no-ops without `POSTHOG_PROJECT_API_KEY`); uses `requests` and
     the project write key (`phc_…`), NOT the personal API key the read-side
     helpers use
+  - `feed_metrics.py` - pure replay metrics for the served Brief: admission
+    coverage vs judge keeps, gate/quota reasons, role/source mix, publish-to-
+    admission lag, top-10 Jaccard/rank displacement, and unexpected-eviction
+    detection. Used by `scripts/feed_replay.py`.
   - `source_health.py`, `source_alerts.py`, `ops_daily_summary.py`,
     `prune_runtime_data.py` — ops
   - `collect_models.py` - Model Release Radar data layer: joins LMArena
@@ -302,12 +312,17 @@ in `ops_daily_summary.py`'s log line.
   - `decks.yaml` - deck selector weights, unjudged priors, release-tier
     scores, story-collapse switch, and per-deck budget/min_utility/source,
     role and category caps (daily, weekly)
+  - `brief.yaml` - served-Brief admission ledger: release/review/unjudged
+    gates, utility weights (judge, platform, coverage, source tune, freshness,
+    must-cover), and generous daily/per-source quotas
   - `judge.yaml` - enabled-by-default, fail-open quality judge: OpenRouter System One
     (`/api/v1/systemone`, Jev `noul` probability) or direct TypeSafe Decisions,
     feed-quality-v3 rubric, evidence floor (300 chars, releases exempt),
     thresholds, cache, and context budget
 - `scripts/` — `check_bundle_size.py` (enforces Vercel function bundle budgets,
   requirements.txt hygiene, and .vercelignore completeness; runs in CI),
+  `feed_replay.py` (served-Brief stability/admission scorecard; runbook
+  `docs/how-to/feed-replay.md`),
   `persist_static_i18n.py` (paid static-output checkpoint/recovery and offline
   publication; delta-merges spend ledgers with idempotent receipts in
   `spend_guard.json`; see `docs/how-to/translation-budget-and-quota.md`),
@@ -385,6 +400,13 @@ in `ops_daily_summary.py`'s log line.
 
 ## Data Artifacts (committed runtime state)
 - `data/raw/<date>/items.json` — collector output
+- `data/brief/<YYYY-MM-DD>.json` - the served Brief admission ledger (UTC
+  day): `items` keyed by story id, with display/judge fields, `admitted_at`,
+  `first_seen`, `last_seen`, `utility`, and `also_covered`. Append-only within
+  the day; 3-day retention. The default 24h `/api/feed` window reads it; the
+  editor-deck selector joins it as `in_brief`. Written by
+  `pipeline/brief_ledger.py`, committed by `run_full.sh`, and served by the
+  feed function.
 - `data/processed/` — `latest.json` (the feed), `classified.json` (compact
   judge verdicts/categories for the editor decks), `judgments.json` (durable
   judge store keyed by identity + rubric + evidence bucket, pruned to 14 days /
@@ -394,6 +416,8 @@ in `ops_daily_summary.py`'s log line.
   the five editor-deck input bundles (daily, weekly, playbook, wiki,
   foundations), attaches the judge fields, filters known drops, and uses
   judge categories as the starting `category_hint`.
+- `data/quality/feed_benchmark/runs/` - generated `feed_replay.py` reports
+  (`report.json`, `report.md`); gitignored, never read at request time.
 - `data/quality/benchmark/` — frozen 50-item Jev benchmark (`items.json`,
   `labels.md`, fetched `content_cache.json`, synthetic `fixture_scores.json`)
   and generated `runs/`; `data/quality/cache/` holds judge responses;
@@ -512,6 +536,16 @@ APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
   and the global `judge_gate` is off, so a drop consumes `max_per_source` before
   the merge discards it at `headroom_min_score`. `judge_gate.slot_overrides`
   gates it at selection time for the lanes where that seat is scarce.
+- **The served Brief is append-only within its 24-hour arrival window.**
+  The default `window=arrival` path reads `data/brief/<date>.json`, written by
+  `pipeline/brief_ledger.py` from the day's judged pool. Admission is one card
+  per story, once per UTC day; quotas are flood guards, and `caps`/`role_totals`
+  only order the top (over-cap stories stay in the response with
+  `beyond_cap: true` under a collapsed fold). Calendar ranges still read the
+  accumulated run pool, ordered by `score_at_first_seen`. RSS uses
+  `orderWithEditorialCaps` and keeps over-cap admitted items; do not
+  reintroduce a primary-only cap that drops them. When the ledger is missing,
+  the run pool is the fallback.
 - **A video's judge evidence is its transcript, not the watch page.** The
   generic paragraph extractor returns `ytInitialPlayerResponse` JSON for a
   YouTube page, so `build_paragraph_map` routes video items to

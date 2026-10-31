@@ -38,12 +38,17 @@ The localized feed should reuse the same ranking order as the English Brief
 feed snapshot it was translated from. Translation never re-ranks, drops, or
 adds feed cards.
 
-## Canonical Eligible Set
+## Localized Eligible Set
 
-The localized snapshot must use one canonical selector so the Korean feed does
-not drift from the English feed readers expect.
+The English default is now a rolling 24-hour Brief served from the admission
+ledger (`data/brief`). The Korean surface is intentionally a 7-day top-20
+snapshot over the accumulated run pool, not the 24h Brief: the translation
+budget can only cover a stable top 20, and the 7-day window gives it a complete
+set to translate. It reuses the English ranking order for that selector and
+never re-ranks; it is a separate localized digest, not a mirror of the 24h
+ledger.
 
-For v1, the eligible set is equivalent to this default homepage request:
+For v1, the eligible set is:
 
 ```text
 /api/feed?label=brief&limit=20&from=<kst-window-start>&to=<kst-window-end>
@@ -52,8 +57,8 @@ For v1, the eligible set is equivalent to this default homepage request:
 The window is the last 7 Korea Standard Time calendar days, converted to
 explicit timezone-aware `from` and `to` bounds. This makes the translated
 snapshot deterministic: it does not depend on each reader's browser timezone.
-The feed API reads `data/processed/**` only. There is no separate Tier-1
-fresh-blend overlay.
+The localized selector reads `data/processed/**` (the run pool); it does not
+use the 24h ledger path. There is no separate Tier-1 fresh-blend overlay.
 
 Do not select from `data/processed/latest.json` sorted by score and do not use
 the crawler feed-seed selector as the source of truth; those are static fallback
