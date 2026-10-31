@@ -1630,6 +1630,17 @@
       return fmtCompactDate(v);
     }
 
+    // Video cards carry a watch-time hint so a 55-minute episode is not
+    // mistaken for a 3-minute read. Empty for non-video items.
+    function fmtWatchDuration(seconds) {
+      const total = Math.round(Number(seconds || 0) / 60);
+      if (!Number.isFinite(total) || total <= 0) return '';
+      if (total < 60) return `${total} min watch`;
+      const hours = Math.floor(total / 60);
+      const mins = total % 60;
+      return mins ? `${hours}h ${mins}m watch` : `${hours}h watch`;
+    }
+
     function fmtRelTime(iso) {
       const t = Date.parse(iso || '');
       if (!Number.isFinite(t)) return '';
@@ -1787,6 +1798,7 @@
         why_it_matters: it.why_it_matters || '',
         llm_label_source: it.llm_label_source || '',
         image_url: it.image_url || '',
+        duration_s: Number(it.duration_s || 0),
         published: it.published || it.first_seen || it.last_seen || null,
         saved_at: new Date().toISOString(),
       };
@@ -2492,7 +2504,7 @@
     // Display labels for the per-card format badge (it.type). Now that Papers
     // folded into Research, this badge is the only paper/research/release signal,
     // so it reads as a proper label rather than a lowercase token.
-    const TYPE_BADGE_LABELS = { paper: 'Paper', release: 'Release', research: 'Research' };
+    const TYPE_BADGE_LABELS = { paper: 'Paper', release: 'Release', research: 'Research', video: 'Video' };
 
     function activeSection() {
       const labels = getSelectedLabels();
@@ -2755,6 +2767,7 @@
       infoq_ai_ml: 'InfoQ AI/ML',
       simon_willison: 'Simon Willison',
       latent_space: 'Latent Space',
+      ai_native_dev: 'AI Native Dev',
       langchain_blog: 'LangChain Blog',
       search_agent_engineering_news: 'Agent Engineering News',
       search_llm_ops_news: 'LLM Ops News',
@@ -3357,6 +3370,7 @@
       if (!summaryRaw && frontPage === 'lead') summaryRaw = leadExcerpt(it);
       const summary = esc(summaryRaw);
       const published = fmtCardDate(it.published || it.first_seen || it.last_seen);
+      const watchDuration = fmtWatchDuration(it.duration_s);
       const whyRaw = whyItMattersText(it);
       const why = whyRaw || rankedBecauseText(it);
       const href = safeUrl(it.url);
@@ -3411,6 +3425,7 @@
             <div class="card-meta">
               <span class="src">${source}</span>
               ${published ? `<span class="when">${esc(published)}</span>` : ''}
+              ${watchDuration ? `<span class="badge badge-watch">${esc(watchDuration)}</span>` : ''}
               ${type !== 'news' ? `<span class="badge">${typeLabel}</span>` : ''}
               ${isNew ? `<span class="badge badge-new">New</span>` : ''}
               ${storylineBadge}

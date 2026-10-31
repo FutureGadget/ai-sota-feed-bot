@@ -55,3 +55,11 @@ correcting a row, then rerun the benchmark.
 | bench-048 | releases | openai_codex_releases | 0.164.0-alpha.12 | drop | filler | Alpha release note; no standalone engineering insight. |
 | bench-049 | releases | huggingface_blog | Welcome Beam: a 501B open model you can own, customize, and scale | keep | useful | Model release with serving/deployment context; useful to platform teams. |
 | bench-050 | releases | vllm_blog | vLLM Delivers Day-0 Support for MiniMax-M3.1-Flash | keep | useful | Serving support for a new model; useful to inference-platform teams. |
+| bench-051 | video | ai_native_dev | Caleb Sima: AI Attackers Move at Machine Speed | keep | useful | Long-form interview with concrete attacker mechanics (0-day discovery, token burn, sandbox limits). Tests a transcript-backed video keep. |
+| bench-052 | video | ai_native_dev | Your Coding Agent Should Never Hold a Credential | keep | useful | Conference session on agent credential handling and Agent Baseline; concrete security mechanism. |
+| bench-053 | video | ai_native_dev | Maria Gorinova: Feedback Loops That Fix Your Codebase | keep | useful | Practitioner talk on feedback loops for coding agents; concrete reliability mechanism. |
+| bench-054 | video | ai_native_dev | Harness Engineering: What's Actually New (And What Isn't) | keep | useful | Long-form talk on harness engineering. No companion podcast transcript matched, so this tests the description-only video path. |
+| bench-055 | video | ai_native_dev | Automated AI Code Review on GitHub, Set Up in 2 Minutes | drop | junk | Product setup walkthrough; a UI demo with no reusable mechanism. Should drop even with a transcript available. |
+| bench-056 | video | ai_native_dev | Dark Factory Considered Harmful? Meet the AI DevCon NYC Speakers | drop | junk | Conference lineup promo spot for AI DevCon NYC; no technical content. |
+| bench-057 | video | ai_native_dev | Codeplain at AI DevCon New York: Regenerative Software | drop | junk | Conference promo clip with no reusable engineering detail. |
+| bench-058 | video | ai_native_dev | The helicopter-parent model | drop | junk | A Short clip promoting a full episode; a fragment, not evidence. The collector skips /shorts/ before ranking; the rubric must still drop it. |

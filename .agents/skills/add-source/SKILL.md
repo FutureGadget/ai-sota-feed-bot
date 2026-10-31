@@ -47,6 +47,7 @@ Pick the `type` and required fields:
 | `rss` | `url`; optional `extract_published_from_page` when the feed's dates are re-stamped (check that old posts carry old pubDates) | RSS/Atom feeds; GitHub releases (`.../releases.atom`); Google News search RSS |
 | `sitemap` | `url`, `include_prefixes`, `extract_published_from_page`, `page_meta_cache_ttl_hours` | sites with no clean RSS (filter URLs by path prefix) |
 | `arxiv_api` | `category`, `max_results` | arXiv categories |
+| `youtube_channel` | `channel_id` (or `playlist_id`), optional `transcript_feed`, `publisher_name`, `include_shorts` | YouTube channels; long-form `UULF` playlist, optional companion podcast transcripts |
 
 ```yaml
   - name: my_new_source        # unique; this name is the key everywhere else
@@ -68,6 +69,7 @@ Add the source name to the `sources:` list of the best-fit existing slot:
 - `vendor_general_updates` — promotional vendor blogs (capped at 1; "noise" bucket)
 - `cloud_platform_updates` — platform-eng vendor content (specs/standards)
 - `practitioner_analysis` — practitioner blogs / analysis
+- `video_watch` - long-form YouTube channels (`max_per_source: 1` per channel)
 - `community_signal` — HN / news-search aggregators
 - `research_watch` — arXiv / papers / research blogs
 
@@ -97,11 +99,16 @@ which items pass prefilter (and the exact drop reason for those that don't —
 feed. It prints `✅ EXPOSED` (exit 0) or `❌ NOT EXPOSED` with the likely fix
 (exit 1), so it can also gate CI / a pre-merge check.
 
-It scores against `data/tier1/latest.json` by default, so the source's items
-must already be in a collected snapshot. If you just edited `sources.yaml` and
-the source has never been collected, run the collector first:
-`python collectors/collect.py` (then `pipeline/build_tier1.py`), or point
-`--items` at a snapshot that contains it.
+It scores against the newest `data/raw/<date>/items.json` by default, so the
+source's items must already be in a collected snapshot. If you just edited
+`sources.yaml` and the source has never been collected, run the collector
+first: `python collectors/collect.py`, or point `--items` at a snapshot that
+contains it.
+
+`validate_source.py` runs the deterministic ranking, not Jev. For a
+`video_watch` source, also check a real build's `judge_stats` line
+(`video_items`, `transcript_fetched`, `transcript_missing`, `verdicts`): the
+validator can expose the freshest video while Jev would drop it as a demo.
 
 If the verdict is `❌ NOT EXPOSED`, apply the printed fix (commonly: map it to a
 slot; raise `candidate_pool_cap` or move it to a longer-window slot if it dies

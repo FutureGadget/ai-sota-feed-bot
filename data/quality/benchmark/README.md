@@ -6,12 +6,17 @@ set and it is not a substitute for the owner's judgment.
 
 ## Files
 
-- `items.json` - 50 benchmark items with title, source, published date, a
+- `items.json` - 58 benchmark items with title, source, published date, a
   body excerpt, the expected binary label (`keep`/`drop`), a fine label
   (`must_read`/`useful`/`filler`/`junk`), and a short rationale.
 - `labels.md` - the same labels in a review table. Edit `items.json` after
   correcting a row, then regenerate the table with
   `python3 scripts/build_quality_benchmark.py`.
+- `video_items.json` - the frozen 8-item `video` slice (four transcript-backed
+  keeps, one description-only keep, four demos/clips/promos to drop). It is
+  committed because a two-hour feed build only keeps a fresh edition and the
+  transcript digests are not article paragraphs. The builder merges it into
+  `items.json`; edit this file (not `items.json`) when changing a video row.
 - `content_cache.json` - fetched article text used to build the excerpts.
   This keeps the benchmark reproducible offline and out of the article
   network at run time.
@@ -34,6 +39,7 @@ The sample is stratified so a single easy slice cannot make a judge look good:
 | `off_topic_domain` | clinical, biology, forestry, protein, and math posts |
 | `research` | agent/inference/eval papers vs niche domain adaptation |
 | `releases` | routine version bumps vs substantive release engineering |
+| `video` | long-form YouTube talk transcripts vs clips, demos, and conference promos |
 
 There are deliberate hard positives (a relevant corporate announcement, a
 genuine search scoop, a substantive Day-0 serving post) and hard negatives

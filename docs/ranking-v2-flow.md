@@ -89,6 +89,7 @@ Stage B: slot assignment (ranking.assign_slots)
   - vendor_general_updates
   - cloud_platform_updates
   - practitioner_analysis
+  - video_watch (long-form YouTube; `youtu.be/<id>` identity)
   - community_signal
   - research_watch
   - overflow
@@ -135,6 +136,8 @@ Top-band constraints (ranking.enforce_top_band_constraints)
   - promotion skips `judge_verdict: drop` and low-score candidates
   - lead rule: position 1 is never a research paper when a non-research item
     exists (the best-scoring non-research item is lifted to the lead)
+  - video rule: position 1 is never a long-form video when a non-video item
+    exists (`lead_excludes_video`)
       |
       v
 Final feed list (data/processed/latest.json)
@@ -207,7 +210,8 @@ File: `config/ranking.yaml` (over `config/presets/<preset>.yaml`)
   `slot_overrides`)
 - `dynamic_slot_rerank.*`: slot priority weights and per-slot base bias
 - `top_band_constraints.*`: composition floors/caps for the top N
-  (incl. `lead_excludes_research`: keep position 1 off niche research papers)
+  (incl. `lead_excludes_research`: keep position 1 off niche research papers;
+  `lead_excludes_video`: keep it off long-form videos too)
 - `source_bias`, `topical_bias`: static score adjustments
 - `auto_tune.*`: gates for the learned `source_tune` adjustment
 
@@ -270,8 +274,10 @@ which gate a source dies at.
    (`lead_excludes_research`): the band is sorted by `global_score`, so a fresh
    high-quality arXiv paper can outscore everything and land at position 1; this
    lifts the best-scoring non-research item to the lead instead (only the lead
-   moves; no-op when the whole band is research). The daily email renders
-   position 1 as a hero, so a niche paper leading is especially costly.
+   moves; no-op when the whole band is research). `lead_excludes_video` does
+   the same for a 40-55 minute talk, which is a different reading commitment
+   from a brief item. The daily email renders position 1 as a hero, so a niche
+   paper or a long video leading is especially costly.
 
 ### Content-thin feeds (`fetch_content`)
 

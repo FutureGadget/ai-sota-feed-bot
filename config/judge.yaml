@@ -70,7 +70,10 @@ openrouter:
         story, partnership, office, funding, appointment) with no model
         availability, price, API, or serving change? Answer yes only when the
         item has no concrete distribution or engineering change a platform
-        team would act on.
+        team would act on. A long-form interview or conference session with
+        external practitioners on a company-owned channel is not corporate
+        marketing; an ad, customer story, product pitch, partnership
+        announcement, or conference promo spot is.
     category:
       type: choice
       instructions: >-
@@ -121,7 +124,7 @@ judgment_store:
   ttl_days: 14
   max_entries: 6000
 
-version: feed-quality-v2
+version: feed-quality-v3
 question_id: is_substantive_platform_content
 type: noul
 context_chars: 2500
@@ -166,6 +169,9 @@ instructions:
     - "Drop domain-specific benchmarks, deployments, and applications (clinical, medical, biology, forestry, protein design, nutrition, math) even when they use AI. Keep them only when the primary contribution is a general serving, evaluation, agent, or platform-engineering method."
     - "Drop domain-specific adaptation and low-resource language work unless the method transfers to general serving, agent, or evaluation work."
     - "A short teaser is not enough to keep an item on a vague promise. A concrete change stated in the title (availability, price, API, open weights, serving support) is different and counts as evidence."
+    - "A long-form video transcript is evidence. Judge the claims in the transcript as you would judge an article. Keep it when it contains a concrete mechanism, architecture, measurement, benchmark, failure mode, or operational lesson."
+    - "The medium is not the decision. Do not keep an item because it is a video; do not drop it because it is a video."
+    - "Drop short clips, episode teasers, conference lineup or promo spots, product demos, and setup walkthroughs even when they are videos. A transcript that only introduces a guest, advertises a product, or walks through a UI is not evidence."
 
 criteria:
   true:
@@ -193,6 +199,7 @@ criteria:
       - "A clinical QA benchmark or a protein-model deployment tutorial."
       - "A low-resource language adaptation or a single-domain benchmark with no transferable platform method."
       - "A customer story about legal work or advertising."
+      - "A short clip, episode teaser, conference promo spot, or product demo with no reusable mechanism."
 
 # Verdict thresholds used by the production gate. The benchmark tunes its own
 # threshold; these are the operating points on the same scale.

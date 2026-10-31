@@ -303,13 +303,26 @@ def apply_judge(items: list[dict[str, Any]], cfg: dict[str, Any] | None = None) 
             time_budget_seconds=int(content_cfg.get("time_budget_seconds", 120) or 120),
         )
         fetched = 0
+        transcript_fetched = 0
+        transcript_missing = 0
+        video_items = 0
         for _index, item in pending:
+            is_video = str(item.get("type") or "").lower() == "video" or bool(item.get("video_id"))
+            if is_video:
+                video_items += 1
             text = paragraph_map.get(str(item.get("url") or "").split("#")[0].strip())
             if text:
                 item["content_excerpt"] = text
-                item["judge_excerpt_source"] = "fetched"
+                item["judge_excerpt_source"] = "transcript" if is_video else "fetched"
                 fetched += 1
+                if is_video:
+                    transcript_fetched += 1
+            elif is_video and item.get("transcript_url"):
+                transcript_missing += 1
         diag["content_fetched"] = fetched
+        diag["video_items"] = video_items
+        diag["transcript_fetched"] = transcript_fetched
+        diag["transcript_missing"] = transcript_missing
 
     # Re-key after enrichment. A judgment made on a thin excerpt must not be
     # reused once the article body is available, and an item that still has no

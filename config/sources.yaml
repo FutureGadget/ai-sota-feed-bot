@@ -301,3 +301,22 @@ sources:
     # ("Limit testing every AI subscription plan from Anthropic, OpenAI, ..."),
     # so relevance_floor can already tell the AI posts from the pure
     # chip/datacenter-power ones on title + teaser alone.
+  - name: ai_native_dev
+    type: youtube_channel
+    # @tessl-ai resolves to this channel (display name "AI Native Dev"). The
+    # long-form playlist (`UULF` + the id after `UC`) excludes Shorts at the
+    # source: the channel feed interleaves 7 Shorts with 8 full videos, and one
+    # Short shares an exact title with its episode, which would otherwise win
+    # the story-cluster representative for being newer.
+    channel_id: UCg3pI4p6OKSFrDVZcwRIx8A
+    handle: "@tessl-ai"
+    playlist_id: UULFg3pI4p6OKSFrDVZcwRIx8A
+    publisher_name: "AI Native Dev"
+    include_shorts: false
+    poll_interval_minutes: 60
+    # The same show publishes a podcast feed with official `podcast:transcript`
+    # VTT files and full show notes. Use it as the judge evidence: no YouTube
+    # transcript scraping, no cloud-IP blocking, and 133 episodes of history.
+    # Matched by normalized title; YouTube-only extras (conference promos,
+    # 2-minute demos) have no match and fall back to the video description.
+    transcript_feed: "https://rss.buzzsprout.com/2375985.rss"

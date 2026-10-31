@@ -18,6 +18,13 @@ available to each function.
   `docs/ranking-v2-flow.md`), never for display — reader-facing summaries still
   come from the feed's own `summary`. Absent wherever the fetch failed or the
   source is not opted in.
+  `youtube_channel` rows additionally carry `type: video`, `video_id`, and
+  optional `duration_s` / `transcript_url`. The item URL is `youtu.be/<id>`,
+  not `watch?v=<id>`: the pipeline canonicalises URLs by dropping the query
+  string, so watch URLs would collapse every video into one item. A
+  `transcript_url` points at an official companion podcast transcript
+  (`podcast:transcript`), matched by normalized title; video items without one
+  fall back to the video description.
 - `data/cache/sitemap_meta.json` — sitemap crawl metadata cache
 - `data/llm/content_cache.json` — page-body fetch cache keyed by canonical url
   (5000 chars per url), written by `pipeline/content_fetch.py`. Local only:
@@ -40,6 +47,9 @@ available to each function.
   `judge_verdict`, `judge_model`, `judge_rubric_version`, `judge_judged_at`.
   Optional `publisher_name` and `publisher_domain` attribution fields pass
   through from collector rows for Google News items.
+  Video items carry `type: video`, `video_id`, optional `duration_s`, and
+  `transcript_url`. Their `content_excerpt` is a transcript-backed digest
+  (show notes plus sampled transcript windows), not the watch-page HTML.
 - `data/processed/judgments.json` — durable judgment store for the Jev gate:
   `entries` keyed by item identity + model + rubric + prompt fingerprint +
   evidence bucket, each with score, verdict, signals, category,
@@ -66,10 +76,16 @@ available to each function.
 - `data/processed/runs/<Y>/<M>/<run_id>.json` + `runs_index.json`
   — per-run history (retention ~45d)
 - `data/quality/benchmark/` — offline Jev/decision-model benchmark:
-  `items.json` (50 stratified items with title, source, excerpt, expected
-  label, rationale), `labels.md` (review table), `content_cache.json` (fetched
-  excerpts), `fixture_scores.json` (synthetic harness validation only), and
-  generated `runs/`. Not read by any API or the static build.
+  `items.json` (58 stratified items with title, source, excerpt, expected
+  label, rationale), `labels.md` (review table), `video_items.json` (the
+  frozen 8-item video slice, built from real YouTube/podcast feeds),
+  `content_cache.json` (fetched excerpts), `fixture_scores.json` (synthetic
+  harness validation only), and generated `runs/`. Not read by any API or the
+  static build.
+- `data/quality/transcript_cache.json` - transcript digests keyed by
+  `transcript_url`, plus short-lived failure records for a blocked or
+  unavailable host. Local only (gitignored); the durable judgment store is
+  what CI reuses.
 - `data/quality/cache/` — cached judge responses keyed by payload hash, so
   threshold sweeps and reruns do not make new API calls.
 - `data/quality/classified/<date>.json` — full local judged candidate pool for

@@ -138,6 +138,20 @@ slots:
     freshness_hours: 240
     blend: {alpha: 0.85, beta: 0.15}
 
+  video_watch:
+    # Long-form videos from YouTube channels. A video is a different reading
+    # commitment from an article, so it gets its own small lane instead of
+    # competing with 18 practitioner blogs for one headroom seat. min_items:
+    # 0 means the lane earns its seats on merit; the judge's transcript-backed
+    # score decides. 240h matches the practitioner window: a weekly episode
+    # stays visible for its week and then ages out.
+    sources: [ai_native_dev]
+    min_items: 0
+    max_items: 2
+    max_per_source: 1
+    freshness_hours: 240
+    blend: {alpha: 0.80, beta: 0.20}
+
   community_signal:
     # Hacker News is often the only source with same-day content on weekends
     # and holidays. max_per_source: 3 lets the edition carry the day's best HN
@@ -198,6 +212,11 @@ time_decay:
     practitioner_analysis:
       half_life_hours: 48
       floor: 0.30
+    video_watch:
+      # A 40-60 minute talk stays useful longer than a news post. Let it
+      # compete for the same few days, then let the seen-memory retire it.
+      half_life_hours: 72
+      floor: 0.30
 
 dynamic_slot_rerank:
   enabled: true
@@ -208,6 +227,7 @@ dynamic_slot_rerank:
     frontier_official: 0.40
     frontier_corporate: -0.18
     practitioner_analysis: 0.12
+    video_watch: 0.00
     community_signal: 0.00
     agent_tooling_releases: 0.05
     open_weight_releases: 0.08  # first-party open-weight model drops: slightly above tooling releases, well below frontier blogs
@@ -227,6 +247,9 @@ top_band_constraints:
   # cannot be satisfied by a policy or partnership post.
   min_anthropic_frontier: 1
   max_research_in_top_n: 3
+  # A 55-minute video is a different reading commitment from a brief item; it
+  # can sit anywhere in the band except the "read this first" lead.
+  lead_excludes_video: true
   # The lead (position 1) is the brief's "read this first" — and the daily email
   # renders it as a hero. A fresh arXiv paper can outscore everything on a quiet
   # day; this keeps it from being the lead by lifting the best-scoring
@@ -276,6 +299,7 @@ source_bias:
   kun_chen: 0.00           # owner-trusted practitioner, but unproven in the feed: no hand lift yet (2026-10-05 ADR)
   semianalysis: 0.00       # owner-requested AI-infra analysis, unproven in the feed: no hand lift yet (2026-10-06 ADR)
   felix_rieseberg: 0.00    # owner-requested practitioner blog, unproven in the feed: no hand lift yet (2026-10-15 ADR)
+  ai_native_dev: 0.00      # Tessl's video/podcast channel: no hand lift until it earns a track record in the video_watch lane
 
 # Feedback/CTR auto-tuning (pipeline/auto_tune.py). Learned per-source deltas
 # from data/feedback/source_adjustments.json are added on top of source_bias.
