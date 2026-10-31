@@ -2634,6 +2634,22 @@
   "type": "research",
   "url": "https://huggingface.co/blog/LiquidAI/lfm3"
  },
+ "1c7eec461e65677e": {
+  "first_seen": "2026-10-31T10:05:05.945682+00:00",
+  "id": "338d29edebd6b4bf",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-31T09:58:23+00:00",
+  "sid": "1c7eec461e65677e",
+  "source": "hackernews_ai",
+  "summary": "Hi everyone. I've been building Imza for the last three months. It's yet another coding agent. I know there are a dozen have been posted here. But I believe this one is different enough to have a place here. It has three explicit modes: plan, build and review. Plan mode allows you to draft a spec document together with the agent. Both you and the agent can edit the document until everything is clear. Build mode takes the plan and implements it. Review mode provides you a code review tool. You can annotate things you want to change in the code and send them as revision to the plan mode. It's entirely written in C++, requires no account, supports 50+ providers including OpenAI subscriptions or local models. Imza supports MCP, skills and instruction files out of the box and uses 8-11MB RAM at startup. One of the biggest differentiator is the Lua engine. What I did differently here is agent receives only one tool, that allows the LLM to execute Lua scripts. I then passed C++ methods as Lua bindings that the agent can execute. So model can orchestrate multiple bindings in one call. Each binding passes through a permission layer. Since Lua is the only way to interact with the filesystem, imza can monitor and control the model's behavior. I'd love to hear your feedback. Thanks Website: https://imza.run Source: https://github.com/umutsevdi/imza",
+  "summary_1line": "Hi everyone. I've been building Imza for the last three months. It's yet another coding agent. I know there are a dozen have been posted here. But I believe this one is different enough to have a place here. It has th...",
+  "title": "Show HN: Imza – plan and review focused coding agent",
+  "type": "news",
+  "url": "https://github.com/umutsevdi/imza",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "1c8643abc01b7ad6": {
   "first_seen": "2026-10-25T02:04:50.029558+00:00",
   "id": "cf562498e94bffb2",
@@ -7058,6 +7074,18 @@
   "type": "paper",
   "url": "https://arxiv.org/abs/2610.18813",
   "why_it_matters": "Matches feed focus: agent, harness."
+ },
+ "4bd414e035ebe508": {
+  "content_excerpt": "Real-Time Telemetry Phase Transitions and Zero-Knowledge Model Fingerprinting in Frontier Reasoning LLMs: A 3D Phase Space Study of Gemini Flash vs. Pro | Zenodo Skip to main You are using an outdated browser. Please upgrade your browser to improve your experience. Communities My dashboard Log in Sign up Scheduled maintenance: On Tuesday, November 3rd, Zenodo will be unavailable between 08:00 and 08:15 UTC for an infrastructure upgrade. Published October 30, 2026 | Version v3 Technical note Open Real-Time Telemetry Phase Transitions and Zero-Knowledge Model Fingerprinting in Frontier Reasoning LLMs: A 3D Phase Space Study of Gemini Flash vs. Pro Authors/Creators Independent Researcher Description As enterprise workflows increasingly deploy autonomous multi-turn reasoning agents powered by frontier Large Language Models (LLMs), ensuring reasoning integrity and verifying model identity without compromising payload privacy has become an urgent challenge. Conventional prompt-based evaluation frameworks suffer from an epistemic self-reflection paradox, high inference latency, and severe privacy risks associated with inspecting user prompts. In this paper, we present a Non-Invasive Physical Telemetry Architecture that deterministically evaluates context degradation and identifies model architectures at the network protocol boundary without inspecting payload semantics. We present a dual-model empirical benchmark comparing Gemini 3.6 Flash (high-speed baseline) and Gemini 3.1 Pro Pr",
+  "first_seen": "2026-10-31T10:05:05.945682+00:00",
+  "id": "368f43e9166b308c",
+  "published": "2026-10-31T09:05:11+00:00",
+  "sid": "4bd414e035ebe508",
+  "source": "hackernews_ai",
+  "summary_1line": "Real-time zero-knowledge LLM identification from physical telemetry",
+  "title": "Real-time zero-knowledge LLM identification from physical telemetry",
+  "type": "news",
+  "url": "https://zenodo.org/records/23806637"
  },
  "4c1d05751412e085": {
   "first_seen": "2026-10-26T04:08:02.735891+00:00",
@@ -14566,6 +14594,22 @@
   "type": "news",
   "url": "https://cloud.google.com/blog/products/ai-machine-learning/welcome-to-gemini-at-work-2026",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "9e165c8f16137af0": {
+  "content_excerpt": "Fixes: linked pages served in a declared legacy charset reach link processors and agent input as garbled UTF-8 replacement characters. This changes incorrect user-visible output, not just allocation or performance. User impact: an agent reading a linked Shift_JIS page now receives and returns its readable Japanese title. UTF-8 pages are unchanged. Unknown charset labels keep the existing non-fatal UTF-8 fallback; no configuration change is needed. Reuse the response decoder already owned by web_fetch instead of the link fetcher's unconditional UTF-8 decoder. This preserves the existing BOM/header/document declaration order without adding another parser. The added export is internal, not a Plugin SDK surface. Fetch authority, cancellation, response limits, processors, prompt definitions and stored conversation history contracts are unchanged. @Yigtwxx 's original commit is preserved. The separate 13-line test table is consolidated into the existing transport/URL-selection regression; the shared decoder retains its declaration and fallback coverage. Production +1 , tests 0 , with no test-line allocation or ceiling change. Earlier closed attempt: #111773 . Built Gateway agent turns on current-main baseline 1d2e0b28b60b and candidate 86a4b241c744 : two Shift_JIS turns and two UTF-8 controls on each. Real public HTTP pages pass through the normal STRICT guarded fetch, a real CLI processor and the real OpenClaw agent runtime. A deterministic OpenAI-compatible model fixture records ",
+  "first_seen": "2026-10-31T10:05:05.945682+00:00",
+  "id": "f7385c7a266b6b4b",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-31T09:05:23+00:00",
+  "sid": "9e165c8f16137af0",
+  "source": "hackernews_ai",
+  "summary_1line": "An AI agent read a Shift_JIS page as 208,953 replacement characters",
+  "title": "An AI agent read a Shift_JIS page as 208,953 replacement characters",
+  "type": "news",
+  "url": "https://github.com/openclaw/openclaw/pull/188766",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "9e63539289a31c86": {
   "first_seen": "2026-10-16T20:04:38.981770+00:00",
