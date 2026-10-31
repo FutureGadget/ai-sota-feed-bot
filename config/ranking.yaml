@@ -45,6 +45,11 @@ judge_gate:
   drop_verdicts: [drop]
   exempt_source_roles: [release]
   exempt_categories: [release_note]
+  # Per-slot opt-in to the same gate while the global one stays off. The video
+  # lane shows at most one item per channel, so letting a judged drop take that
+  # seat means the real episode never gets one.
+  slot_overrides:
+    video_watch: true
 
 slots:
   frontier_official:
@@ -149,6 +154,11 @@ slots:
     min_items: 0
     max_items: 2
     max_per_source: 1
+    # Stage A reserves this many of the lane's candidates for the judge pool,
+    # separately from how many the edition may show. Without it a single-source
+    # lane reserves one seat, so only its freshest video is ever judged and the
+    # rest can never be scored. 8 covers a whole 240h window of a weekly show.
+    pool_reserve: 8
     freshness_hours: 240
     blend: {alpha: 0.80, beta: 0.20}
 

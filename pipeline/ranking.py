@@ -334,9 +334,17 @@ def _apply_candidate_pool_coverage(
 
     Stage A is intentionally cheap, but a pure global freshness cap can starve
     a source before Stage C applies source/topic quality signals. Reserve up to
-    each slot's ``max_per_source`` candidates, then fill the remaining capacity
-    by the normal prefilter score. The reserve is allowed to exceed ``cap`` only
-    when the configured source-coverage floor itself is larger than the cap.
+    each slot's ``pool_reserve`` candidates per source (defaulting to
+    ``max_per_source``), then fill the remaining capacity by the normal
+    prefilter score. The reserve is allowed to exceed ``cap`` only when the
+    configured source-coverage floor itself is larger than the cap.
+
+    ``pool_reserve`` exists because the pool cap is much smaller than the
+    eligible set, so the reserve is the *only* way a lane's candidates reach the
+    judge: a seat-by-seat reserve means a single-source lane sends exactly one
+    candidate (its freshest, not its best) and the rest are never judged. The
+    reserve is how many candidates the judge should see; ``max_per_source``
+    stays how many the edition may show.
     """
     coverage_cfg = cfg.get("candidate_pool_coverage", {}) or {}
     if coverage_cfg.get("enabled", True) is False:
@@ -349,7 +357,10 @@ def _apply_candidate_pool_coverage(
     for _slot, slot_cfg in (cfg.get("slots", {}) or {}).items():
         sources = slot_cfg.get("sources", []) or []
         if fixed_limit is None:
-            limit = int(slot_cfg.get("max_per_source", 0))
+            reserve = slot_cfg.get("pool_reserve")
+            if reserve is None:
+                reserve = slot_cfg.get("max_per_source", 0)
+            limit = int(reserve or 0)
         else:
             limit = int(fixed_limit)
         if limit <= 0:
@@ -466,6 +477,39 @@ def _select_slot_items(slot: str, items: list[dict[str, Any]], scfg: dict[str, A
     return out, reject
 
 
+def _apply_slot_judge_gate(
+    slot: str,
+    scored: list[dict[str, Any]],
+    gate_cfg: dict[str, Any],
+    gate_slots: set[str],
+) -> tuple[list[dict[str, Any]], int]:
+    """Drop judged-dropped items before a gated slot spends its seats.
+
+    The judge runs after Stage A and the global gate stays off, so a dropped
+    item would otherwise take a slot seat (and, in a `max_per_source: 1` lane,
+    the only seat) before the merge discards it. Gating here means the lane's
+    real candidate gets the seat instead. Unjudged items fail open.
+    """
+    if slot not in gate_slots:
+        return scored, 0
+    drop_verdicts = {str(v) for v in (gate_cfg.get("drop_verdicts") or ["drop"])}
+    exempt_roles = {str(v) for v in (gate_cfg.get("exempt_source_roles") or [])}
+    exempt_categories = {str(v) for v in (gate_cfg.get("exempt_categories") or [])}
+    kept: list[dict[str, Any]] = []
+    dropped = 0
+    for it in scored:
+        if str(it.get("judge_verdict") or "") in drop_verdicts:
+            exempt = (
+                str(it.get("source_role") or "") in exempt_roles
+                or str(it.get("judge_category") or "") in exempt_categories
+            )
+            if not exempt:
+                dropped += 1
+                continue
+        kept.append(it)
+    return kept, dropped
+
+
 def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict[str, Any], llm_budget: int) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
     slots_cfg = cfg.get("slots", {}) or {}
     source_bias_cfg = cfg.get("source_bias", {}) or {}
@@ -476,6 +520,10 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
     neg_w = float(topical_cfg.get("negative_weight", 0.0))
     tune_adjustments = load_source_tune_adjustments(cfg)
     judge_weight = float((cfg.get("judge_ranking", {}) or {}).get("weight", 0.0) or 0.0)
+    judge_gate_cfg = cfg.get("judge_gate", {}) or {}
+    judge_gate_slots = {
+        str(k) for k, v in (judge_gate_cfg.get("slot_overrides") or {}).items() if v is True
+    }
     selected_by_slot: dict[str, list[dict[str, Any]]] = {}
     diag_slots: dict[str, Any] = {}
     budget_used = 0
@@ -560,6 +608,9 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
             scored.append(item)
 
         scored.sort(key=lambda x: x.get("final_score", 0), reverse=True)
+        scored, rejected_by_judge = _apply_slot_judge_gate(
+            slot, scored, judge_gate_cfg, judge_gate_slots
+        )
         picked, reject = _select_slot_items(slot, scored, scfg)
         selected_by_slot[slot] = picked
         diag_slots[slot] = {
@@ -570,6 +621,7 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
             "selected": len(picked),
             "reject_source_cap": int(reject.get("source_cap", 0)),
             "reject_slot_cap": int(reject.get("slot_cap", 0)),
+            "reject_judge_drop": rejected_by_judge,
         }
 
     return selected_by_slot, {"slots": diag_slots, "llm_budget_total": llm_budget, "llm_budget_used": budget_used}

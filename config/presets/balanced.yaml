@@ -76,6 +76,7 @@ slots:
     min_items: 0
     max_items: 2
     max_per_source: 1
+    pool_reserve: 8
     freshness_hours: 240
     blend: {alpha: 0.80, beta: 0.20}
 
@@ -152,6 +153,10 @@ top_band_constraints:
   min_anthropic_frontier: 1
   max_research_in_top_n: 3
   lead_excludes_video: true
+
+judge_gate:
+  slot_overrides:
+    video_watch: true
 
 source_bias:
   arxiv_cs_ai: -0.35

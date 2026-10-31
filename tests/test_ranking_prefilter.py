@@ -127,6 +127,123 @@ class RankingPrefilterTest(unittest.TestCase):
 
         self.assertIn(target_url, {item["url"] for item in candidates})
 
+    def test_pool_reserve_sends_every_fresh_video_to_the_judge(self) -> None:
+        """A single-source lane must not be starved down to its freshest item.
+
+        Regression: video_watch is the only lane with one source and
+        max_per_source 1, so the per-source reserve admitted exactly one video
+        and the news pool cap swallowed the rest. Only the newest video was ever
+        judged, so a promo could take the lane's single seat while the real
+        episode was never scored.
+        """
+        now = datetime(2026, 10, 31, 12, 0, tzinfo=timezone.utc)
+        videos = [
+            {
+                "id": f"video-{index}",
+                "source": "ai_native_dev",
+                "title": f"Episode {index}: running agents in production",
+                "summary": "A long-form episode about agent infrastructure.",
+                "url": f"https://youtu.be/video{index}",
+                "published": f"2026-10-{25 + index:02d}T12:00:00+00:00",
+                "type": "video",
+            }
+            for index in range(5)
+        ]
+        # A full news pool of fresher, higher-scoring items that would otherwise
+        # take every seat after the reserve.
+        news = [
+            {
+                "id": f"news-{index}",
+                "source": "openai_blog",
+                "title": f"Fresh platform update {index}",
+                "summary": "A platform update about agent infrastructure.",
+                "url": f"https://openai.com/index/update-{index}",
+                "published": "2026-10-31T11:00:00+00:00",
+            }
+            for index in range(20)
+        ]
+        slots = {
+            "video_watch": {
+                "sources": ["ai_native_dev"],
+                "freshness_hours": 240,
+                "max_items": 2,
+                "max_per_source": 1,
+            },
+            "frontier_official": {
+                "sources": ["openai_blog"],
+                "freshness_hours": 240,
+                "max_items": 7,
+                "max_per_source": 3,
+            },
+        }
+        profile = {"selection": {"exclude_title_regex": []}, "off_topic": {"enabled": False}}
+        base = {"slots": slots, "candidate_pool_cap": 8}
+
+        with patch("pipeline.ranking._now_utc", return_value=now):
+            starved, _ = stage_a_prefilter(
+                videos + news, base, profile, {"ai_native_dev": 1.0, "openai_blog": 1.0}
+            )
+            reserved, _ = stage_a_prefilter(
+                videos + news,
+                {**base, "slots": {**slots, "video_watch": {**slots["video_watch"], "pool_reserve": 5}}},
+                profile,
+                {"ai_native_dev": 1.0, "openai_blog": 1.0},
+            )
+
+        # Without a separate reserve the lane is capped at max_per_source.
+        self.assertEqual(sum(1 for item in starved if item["source"] == "ai_native_dev"), 1)
+        # With it, the whole fresh window reaches the judge.
+        self.assertEqual(sum(1 for item in reserved if item["source"] == "ai_native_dev"), 5)
+
+    def test_pool_reserve_defaults_to_max_per_source(self) -> None:
+        """Every lane keeps its current reserve unless it opts out."""
+        now = datetime(2026, 10, 31, 12, 0, tzinfo=timezone.utc)
+        items = [
+            {
+                "id": f"openai-{index}",
+                "source": "openai_blog",
+                "title": f"Platform update {index}",
+                "summary": "A platform update about agent infrastructure.",
+                "url": f"https://openai.com/index/update-{index}",
+                "published": f"2026-10-31T{10 - index:02d}:00:00+00:00",
+            }
+            for index in range(5)
+        ]
+        news = [
+            {
+                "id": f"other-{index}",
+                "source": "simon_willison",
+                "title": f"Practitioner note {index}",
+                "summary": "A note about agent infrastructure.",
+                "url": f"https://simonwillison.net/{index}",
+                "published": "2026-10-31T11:30:00+00:00",
+            }
+            for index in range(20)
+        ]
+        # The cap equals the default reserve, so nothing else can fill a seat.
+        cfg = {
+            "candidate_pool_cap": 3,
+            "slots": {
+                "frontier_official": {
+                    "sources": ["openai_blog"],
+                    "freshness_hours": 240,
+                    "max_per_source": 2,
+                },
+                "practitioner_analysis": {
+                    "sources": ["simon_willison"],
+                    "freshness_hours": 240,
+                    "max_per_source": 1,
+                },
+            },
+        }
+        profile = {"selection": {"exclude_title_regex": []}, "off_topic": {"enabled": False}}
+        with patch("pipeline.ranking._now_utc", return_value=now):
+            candidates, _diag = stage_a_prefilter(
+                items + news, cfg, profile, {"openai_blog": 1.0, "simon_willison": 1.0}
+            )
+        self.assertEqual(sum(1 for item in candidates if item["source"] == "openai_blog"), 2)
+        self.assertEqual(sum(1 for item in candidates if item["source"] == "simon_willison"), 1)
+
 
 class OffTopicGateTest(unittest.TestCase):
     def _profile(self) -> dict:

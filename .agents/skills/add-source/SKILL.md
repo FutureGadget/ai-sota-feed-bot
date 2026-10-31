@@ -108,7 +108,12 @@ contains it.
 `validate_source.py` runs the deterministic ranking, not Jev. For a
 `video_watch` source, also check a real build's `judge_stats` line
 (`video_items`, `transcript_fetched`, `transcript_missing`, `verdicts`): the
-validator can expose the freshest video while Jev would drop it as a demo.
+validator can expose the freshest video while Jev would drop it as a demo. In
+`data/diagnostics/<date>_ranking.json`, `slots.video_watch.candidates` must show
+the lane's in-window videos (not just one) and
+`slots.video_watch.reject_judge_drop` should account for the promos. That is why
+the lane sets `pool_reserve: 8`; keep it at or above the number of videos a
+channel posts inside its `freshness_hours` window.
 
 If the verdict is `❌ NOT EXPOSED`, apply the printed fix (commonly: map it to a
 slot; raise `candidate_pool_cap` or move it to a longer-window slot if it dies

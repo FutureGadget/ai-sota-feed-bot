@@ -501,6 +501,17 @@ APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
   `youtube_channel` type sets the short URL and the `video_watch` slot maps it;
   it prefers the channel's `UULF` long-form playlist (Shorts excluded at the
   source) and falls back to the channel feed with a `/shorts/` filter.
+- **A single-source lane is starved by the Stage A pool reserve.** Stage A keeps
+  `candidate_pool_cap` (140) of ~1,000 eligible items, and the only route in is
+  the per-source reserve, so a lane with one source and `max_per_source: 1`
+  sends exactly one candidate to the judge and the rest die at `pool_cap`
+  unjudged. Set the slot's `pool_reserve` above that (the video lane uses 8).
+  The reserve is how many candidates the judge reads; `max_per_source` stays how
+  many the edition shows.
+- **A judged `drop` can still take a slot seat.** The judge runs after Stage A
+  and the global `judge_gate` is off, so a drop consumes `max_per_source` before
+  the merge discards it at `headroom_min_score`. `judge_gate.slot_overrides`
+  gates it at selection time for the lanes where that seat is scarce.
 - **A video's judge evidence is its transcript, not the watch page.** The
   generic paragraph extractor returns `ytInitialPlayerResponse` JSON for a
   YouTube page, so `build_paragraph_map` routes video items to

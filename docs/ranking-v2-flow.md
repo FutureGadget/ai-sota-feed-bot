@@ -57,8 +57,8 @@ Stage A: prefilter (ranking.stage_a_prefilter)
     (prefilter_reasons.off_topic)
   - per-slot freshness window
   - source health floor
-  - reserve up to each configured source's `max_per_source` candidates
-    (`candidate_pool_coverage`)
+  - reserve up to each configured source's `pool_reserve` candidates
+    (`candidate_pool_coverage`; defaults to the slot's `max_per_source`)
   - fill the remaining pool by prefilter score up to `candidate_pool_cap` (140)
       |
       v
@@ -196,13 +196,22 @@ File: `config/ranking.yaml` (over `config/presets/<preset>.yaml`)
 - `candidate_pool_coverage.enabled`: preserve configured source representation
   before the global cap (true in production)
 - `candidate_pool_coverage.per_source`: optional fixed reserve per source;
-  omitted means each slot's `max_per_source`
+  omitted means each slot's `pool_reserve`, which in turn defaults to
+  `max_per_source`
+- `slots.<slot>.pool_reserve`: how many of a slot's candidates Stage A
+  reserves for the judge pool, separately from `max_per_source` (how many the
+  edition may show). Set it for single-source lanes: a lane with one source and
+  `max_per_source: 1` reserves exactly one candidate, so only its newest item is
+  ever judged
 - `llm_budget`: legacy ranking LLM calls (8; inert while `config/llm.yaml` is disabled)
 - `judge_ranking.weight`: continuous Stage A/C judge-score weight
 - `judge_ranking.headroom_min_score`: minimum judge score for discretionary headroom
 - `judge_ranking.headroom_drop_categories` / `headroom_category_min_score`:
   stronger bar for off-topic categories
 - `judge_gate.enabled`: optional hard drop (off by default; release items exempt)
+- `judge_gate.slot_overrides`: per-slot opt-in to the same hard drop while the
+  global gate stays off. `video_watch` uses it because the lane has exactly one
+  seat per channel.
 - `max_items`: final feed target size before downstream constraints (24)
 - `slots.community_signal.max_per_source`: 3, so the edition can carry the
   day's best Hacker News discussion when it is the only fresh source. The
@@ -255,7 +264,8 @@ which gate a source dies at.
    window are dropped (`prefilter_reasons.freshness_window`). Low-volume
    sources can be perpetually stale against a short window.
 4. **Candidate pool cap** (`candidate_pool_cap`, 140) — reserve each configured
-   source's Stage C capacity first, then fill the remaining pool by global
+   source's `pool_reserve` candidates first (default: the slot's
+   `max_per_source`), then fill the remaining pool by global
    `freshness + reliability` score. The freshness decay is **slot-scaled**
    (`freshness_hours/3`). Sources in short-window slots (vendor/cloud, 96h)
    decay ~2.5× faster than frontier (240h), so fresher short-window posts can
@@ -263,6 +273,13 @@ which gate a source dies at.
    (`prefilter_reasons.pool_cap`). `pool_coverage_reserved` reports the
    reserved count. This prevents an individual source from disappearing before
    its source and topical scoring signals are applied.
+
+   The reserve is the **only** way a lane's candidates reach the judge, because
+   the cap is far smaller than the eligible set. A single-source lane with
+   `max_per_source: 1` therefore reserves one candidate and everything else in
+   the lane dies at `pool_cap`, unjudged. That is why `video_watch` sets
+   `pool_reserve: 8`: the reserve is "how many candidates the judge reads",
+   `max_per_source` stays "how many the edition shows".
 5. **Slot caps** (`max_items`, `max_per_source`) — the slot may already be full
    of higher-scored items (`reject_slot_cap` / `reject_source_cap`).
 6. **Time decay** (`time_decay`) — after normal relevance/source/topic scoring,

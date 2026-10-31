@@ -145,6 +145,67 @@ class CommunitySlotTest(unittest.TestCase):
         self.assertEqual(cfg["slots"]["community_signal"]["max_per_source"], 3)
 
 
+class SlotJudgeGateTest(unittest.TestCase):
+    """A per-slot gate keeps a judged drop from consuming the lane's only seat."""
+
+    CFG = {
+        "judge_ranking": {"weight": 1.2},
+        "judge_gate": {"enabled": False, "slot_overrides": {"video_watch": True}},
+        "time_decay": {"enabled": False},
+        "slots": {
+            "video_watch": {
+                "max_items": 2,
+                "max_per_source": 1,
+                "blend": {"alpha": 1.0, "beta": 0.0},
+            }
+        },
+    }
+
+    def _select(self, cfg: dict):
+        # The fresher item is the conference promo; the older one carries the
+        # transcript and a higher judge score. The heuristic label favours the
+        # promo by enough that the judge adjustment alone cannot lift the episode
+        # above it, which is what happens in production. Only the gate saves it.
+        promo = _item("promo", source="ai_native_dev", slot="video_watch", freshness=1.0,
+                      judge_score=0.03, judge_verdict="drop", type="video", url="https://youtu.be/promo")
+        episode = _item("episode", source="ai_native_dev", slot="video_watch", freshness=0.7,
+                        judge_score=0.82, judge_verdict="keep", type="video", url="https://youtu.be/episode")
+        labels = {
+            "promo": {"fit_agentic_platform": 5, "actionability": 5, "novelty": 5, "evidence_quality": 5, "hype_risk": 1},
+            "episode": {"fit_agentic_platform": 3, "actionability": 3, "novelty": 3, "evidence_quality": 3, "hype_risk": 1},
+        }
+        with patch("pipeline.ranking.label_items", return_value=(labels, {"llm_called": 0, "cache_hits": 0})):
+            selected, diag = stage_c_score_and_select({"video_watch": [promo, episode]}, cfg, llm_budget=0)
+        return selected["video_watch"], diag["slots"]["video_watch"]
+
+    def test_override_gives_the_seat_to_the_kept_item(self) -> None:
+        out, diag = self._select(self.CFG)
+        self.assertEqual([item["id"] for item in out], ["episode"])
+        self.assertEqual(diag["reject_judge_drop"], 1)
+
+    def test_gate_stays_off_for_slots_without_an_override(self) -> None:
+        cfg = {**self.CFG, "judge_gate": {"enabled": False}}
+        out, diag = self._select(cfg)
+        self.assertEqual([item["id"] for item in out], ["promo"])
+        self.assertEqual(diag["reject_judge_drop"], 0)
+
+    def test_unjudged_video_fails_open(self) -> None:
+        cfg = {**self.CFG, "judge_gate": {"enabled": False, "slot_overrides": {"video_watch": True}}}
+        video = _item("unjudged", source="ai_native_dev", slot="video_watch", freshness=1.0,
+                      judge_verdict=None, type="video", url="https://youtu.be/unjudged")
+        labels = {
+            "unjudged": {"fit_agentic_platform": 4, "actionability": 4, "novelty": 3, "evidence_quality": 3, "hype_risk": 1}
+        }
+        with patch("pipeline.ranking.label_items", return_value=(labels, {"llm_called": 0, "cache_hits": 0})):
+            selected, _diag = stage_c_score_and_select({"video_watch": [video]}, cfg, llm_budget=0)
+        self.assertEqual([item["id"] for item in selected["video_watch"]], ["unjudged"])
+
+    def test_production_config_gates_the_video_lane(self) -> None:
+        cfg = load_ranking_config()
+        self.assertTrue(cfg["judge_gate"]["slot_overrides"]["video_watch"])
+        self.assertFalse(cfg["judge_gate"]["enabled"])
+
+
 class JudgeTopBandTest(unittest.TestCase):
     def test_drop_verdict_is_not_promoted(self) -> None:
         cfg = {
