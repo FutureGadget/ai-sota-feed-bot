@@ -173,8 +173,10 @@ def main() -> None:
         f"brief_items={brief.get('items')} "
         f"brief_gate={brief.get('rejected_gate')} "
         f"brief_quota={brief.get('rejected_quota')} "
+        f"weekly_readers={ns['total_readers'] if ns else None} "
         f"weekly_returning_readers={ns['returning_readers'] if ns else None} "
-        f"weekly_returning_rate={ns['returning_rate'] if ns else None}"
+        f"weekly_returning_rate={ns['returning_rate'] if ns else None} "
+        f"weekly_single_page_readers={ns.get('single_page_readers') if ns else None}"
     )
 
 

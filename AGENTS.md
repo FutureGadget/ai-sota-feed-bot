@@ -110,7 +110,12 @@ judged against **weekly returning readers** and nothing else — see
 (same HogQL pattern as `feedback.py`/`auto_tune.py`) into
 `data/metrics/weekly_returning_readers.json`; `summary` prints the tracked
 history. Runs daily inside `feedback-sync.yml`; the latest week also shows up
-in `ops_daily_summary.py`'s log line.
+in `ops_daily_summary.py`'s log line. A **reader needs 2 pageviews in the
+week** (`MIN_PAGEVIEWS_PER_WEEK`); single-page hits are recorded separately as
+`single_page_readers`. Do not lower that floor or swap in a
+`scroll_depth`/`$web_vitals` filter: a JS-rendering crawler produces those
+too, and counting them as readers inflated `total_readers` 15x in October 2026
+(see the 2026-10-31 ADR).
 
 ## Repository Structure Index
 - `collectors/collect.py` — single ingestion job (RSS/sitemap/arXiv/GitHub

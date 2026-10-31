@@ -16,11 +16,39 @@ number.
 For a completed ISO week `W` (Monday 00:00 UTC through the following Monday
 00:00 UTC):
 
-- **returning reader** — a PostHog `distinct_id` with a pageview event in
-  week `W` that also had a pageview event in week `W-1`.
-- **total_readers** — all distinct `distinct_id`s with a pageview in week
-  `W`.
+- **reader** — a PostHog `distinct_id` with **at least 2 pageviews** in week
+  `W` (`MIN_PAGEVIEWS_PER_WEEK`). One pageview is not a reader; it is what a
+  JS-rendering crawler produces. See *The pageview floor* below.
+- **returning reader** — a reader in week `W` that was also a reader in week
+  `W-1`.
+- **total_readers** — all readers in week `W`.
 - **returning_rate** — `returning_readers / total_readers`.
+- **single_page_readers** — distinct ids with exactly one pageview in week
+  `W`. Excluded from every headline number; recorded so a crawler wave stays
+  visible instead of silently vanishing from the denominator.
+
+### The pageview floor (2026-10-31)
+
+Until 2026-10-31 any `distinct_id` with one pageview counted as a reader. A
+JS-rendering crawler walks sitemap permalinks in a fresh browser profile, so it
+fired `$identify` then `$pageview`, took a new anonymous id each time, and
+could never be a returning reader. From 2026-10-05 the crawler grew from ~90 to
+2,157 single-page visits per week, inflating `total_readers` from 100 to 1,576
+while `returning_readers` stayed at 5-7. The rate collapsed to 0.3% for
+arithmetic reasons, not because readers left.
+
+Evidence, 2026-10-31: 1,113 of 1,302 visitors (85%) fired exactly `$identify`
+then `$pageview` and nothing else; 1,219 distinct IPs for 1,289 visitors; 854
+distinct `/story/<sid>` permalinks against 5,707 in `web/sitemap.xml`; all
+`$direct`, no `utm_*`, geo and browser timezone matched per visitor (Hong Kong,
+Shanghai, Singapore, Mexico, Brazil, Colombia, Bangladesh). Preview deployments
+got 3 visitors in the same six weeks, so it is not this repo's agent testing.
+
+Requiring 2 pageviews keeps every returning reader the old definition found
+(one 2026-10-12 reader had a single pageview in the prior week and drops out)
+and cuts the last scored week from 1,576 to 32. Do **not** replace this with an
+engagement filter based on `scroll_depth` or `$web_vitals`: the crawler runs a
+real browser and emits both.
 
 "Pageview" here means the standard posthog-js `$pageview`, emitted by
 `web/posthog-client.js` (this also powers PostHog Web Analytics). The rollup

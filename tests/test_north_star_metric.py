@@ -121,3 +121,68 @@ def test_compute_weeks_without_email_sets_keeps_legacy_shape():
     sets = {"2026-06-08": {"alice"}, "2026-06-15": {"alice"}}
     row = nsm.compute_weeks(sets)[0]
     assert "email_readers" not in row
+
+
+def test_split_reader_sets_keeps_multi_page_readers_only():
+    rows = [
+        # alice loads the feed and a story; bob is a single-page crawler hit.
+        ("2026-06-15", "alice", 3),
+        ("2026-06-15", "bob", 1),
+        ("2026-06-22", "bob", 2),
+    ]
+    readers, single_page = nsm.split_reader_sets(rows)
+    assert readers == {"2026-06-15": {"alice"}, "2026-06-22": {"bob"}}
+    assert single_page == {"2026-06-15": {"bob"}}
+
+
+def test_split_reader_sets_skips_blank_ids():
+    readers, single_page = nsm.split_reader_sets([("", "a", 5), ("2026-06-15", "", 5)])
+    assert readers == {} and single_page == {}
+
+
+def test_split_reader_sets_threshold_is_configurable():
+    rows = [("2026-06-15", "alice", 2)]
+    assert nsm.split_reader_sets(rows, min_pageviews=2)[0]
+    assert nsm.split_reader_sets(rows, min_pageviews=3)[0] == {}
+
+
+def test_compute_weeks_records_excluded_single_page_cohort():
+    reader_sets = {"2026-06-08": {"alice"}, "2026-06-15": {"alice", "carol"}}
+    single_page = {"2026-06-08": {"bot1", "bot2"}, "2026-06-15": {"bot1"}}
+    row = nsm.compute_weeks(reader_sets, None, single_page)[0]
+    assert row["total_readers"] == 2
+    assert row["returning_readers"] == 1
+    assert row["single_page_readers"] == 1
+
+
+def test_compute_weeks_compares_against_the_calendar_week_not_the_previous_key():
+    """A missing week must not make W compare against W-2."""
+    sets = {
+        "2026-06-08": {"alice", "dave"},
+        "2026-06-22": {"alice"},
+    }
+    rows = nsm.compute_weeks(sets)
+    assert rows == []  # neither week has a week exactly 7 days before it
+
+
+def test_compute_weeks_keeps_a_week_with_no_readers():
+    # 06-01 is the baseline; 06-08 has only single-page hits but still gets a row.
+    reader_sets = {"2026-06-01": set(), "2026-06-08": set(), "2026-06-15": {"alice"}}
+    single_page = {
+        "2026-06-01": {"bot"},
+        "2026-06-08": {"bot"},
+        "2026-06-15": {"bot"},
+    }
+    rows = {r["week_start"]: r for r in nsm.compute_weeks(reader_sets, None, single_page)}
+    assert rows["2026-06-08"]["total_readers"] == 0
+    assert rows["2026-06-08"]["returning_rate"] == 0.0
+    assert rows["2026-06-08"]["single_page_readers"] == 1
+    assert rows["2026-06-15"]["returning_readers"] == 0
+
+
+def test_history_records_the_reader_definition(tmp_path):
+    path = tmp_path / "weekly_returning_readers.json"
+    nsm.save_history({"2026-06-15": {"week_start": "2026-06-15", "total_readers": 0}}, path=path)
+    payload = __import__("json").loads(path.read_text())
+    assert payload["reader_definition"] == nsm.READER_DEFINITION
+    assert "pageviews" in payload["reader_definition"]

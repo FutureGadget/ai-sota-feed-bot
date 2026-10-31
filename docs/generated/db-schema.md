@@ -616,13 +616,17 @@ collect`; config in `config/models.yaml`.
   `source_tune` in ranking
 
 ## North star metric
-- `data/metrics/weekly_returning_readers.json` — `{generated_at, weeks: [...]}`,
-  one row per completed ISO week (`week_start`, `total_readers`,
-  `returning_readers`, `new_readers`, `returning_rate`, plus diagnostic
-  `email_readers` / `email_returning_readers` on weeks synced since
-  2026-09-24), merged forward by
-  `pipeline/north_star_metric.py sync` from PostHog pageview events
-  (`$pageview` and legacy `page_view`). See
+- `data/metrics/weekly_returning_readers.json` — `{generated_at,
+  reader_definition, weeks: [...]}`, one row per completed ISO week
+  (`week_start`, `total_readers`, `returning_readers`, `new_readers`,
+  `returning_rate`, `single_page_readers`, plus diagnostic `email_readers` /
+  `email_returning_readers` on weeks synced since 2026-09-24), merged forward
+  by `pipeline/north_star_metric.py sync` from PostHog pageview events
+  (`$pageview` and legacy `page_view`). A reader needs
+  `MIN_PAGEVIEWS_PER_WEEK` (2) pageviews in the week; `total_readers` counts
+  only those, and `single_page_readers` records the excluded cohort (a
+  JS-rendering crawler produces one pageview per fresh `distinct_id`).
+  `reader_definition` states the rule that produced the file. See
   `docs/status/north-star-metric.md`.
 
 ## Ops
