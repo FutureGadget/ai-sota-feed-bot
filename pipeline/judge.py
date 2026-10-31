@@ -93,10 +93,10 @@ def build_systemone_state(item: dict[str, Any], limit: int = 6000) -> str:
         f"Source role: {item.get('source_role') or ''}",
         f"Published: {item.get('published') or ''}",
         f"URL: {item.get('url') or ''}",
-        "",
-        "Excerpt:",
-        excerpt,
     ]
+    if str(item.get("type") or item.get("content_kind") or "").strip().lower() == "video":
+        lines.append("Medium: video")
+    lines.extend(["", "Excerpt:", excerpt])
     return "\n".join(lines)[: max(200, int(limit))]
 
 

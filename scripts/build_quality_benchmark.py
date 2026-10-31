@@ -29,6 +29,11 @@ RAW_DIR = ROOT / "data" / "raw"
 OUT_FILE = ROOT / "data" / "quality" / "benchmark" / "items.json"
 LABELS_FILE = ROOT / "data" / "quality" / "benchmark" / "labels.md"
 CACHE_FILE = ROOT / "data" / "quality" / "benchmark" / "content_cache.json"
+# The video slice is frozen from the real YouTube/podcast feeds rather than
+# built from data/raw: a two-hour build only keeps a fresh edition, and the
+# transcript digests are not article paragraphs. Both files are committed, so
+# the benchmark is reproducible offline.
+VIDEO_FILE = ROOT / "data" / "quality" / "benchmark" / "video_items.json"
 MIN_DATE = "2026-09-15"
 EXCERPT_CHARS = 2500
 
@@ -160,6 +165,16 @@ def _clean_excerpt(value: str, limit: int = EXCERPT_CHARS) -> str:
     text = re.sub(r"<[^>]+>", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
     return text[:limit].rstrip()
+
+
+def _load_video_items() -> list[dict]:
+    if not VIDEO_FILE.exists():
+        return []
+    try:
+        payload = json.loads(VIDEO_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    return [row for row in payload if isinstance(row, dict)] if isinstance(payload, list) else []
 
 
 def _load_content_cache() -> dict[str, str]:
@@ -333,6 +348,15 @@ def build(check: bool = False, fetch: bool = False) -> int:
                 "notes": note,
             }
         )
+
+    video_items = _load_video_items()
+    for offset, row in enumerate(video_items, start=len(out) + 1):
+        item = dict(row)
+        item["id"] = f"bench-{offset:03d}"
+        item.setdefault("source_role", source_role(str(item.get("source") or ""), editorial_cfg))
+        item.setdefault("summary_1line", "")
+        item.setdefault("excerpt_source", "video_transcript")
+        out.append(item)
 
     if missing:
         print("MISSING selections:", file=sys.stderr)

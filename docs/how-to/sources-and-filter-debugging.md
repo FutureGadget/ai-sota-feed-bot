@@ -24,6 +24,29 @@ Example (sitemap):
   weight: 1.1
 ```
 
+Example (YouTube channel):
+```yaml
+- name: example_channel
+  type: youtube_channel
+  channel_id: UCg3pI4p6OKSFrDVZcwRIx8A
+  # Long-form playlist: excludes Shorts at the source.
+  playlist_id: UULFg3pI4p6OKSFrDVZcwRIx8A
+  publisher_name: "Example Channel"
+  include_shorts: false
+  # Optional: the same show's podcast RSS, which publishes official
+  # `podcast:transcript` VTT files and full show notes.
+  transcript_feed: "https://rss.buzzsprout.com/2375985.rss"
+```
+
+`youtube_channel` uses `youtu.be/<id>` as the item URL. Do not switch it to
+`youtube.com/watch?v=<id>`: every canonicaliser in the pipeline strips query
+strings, so all videos would collapse into one item. The collector prefers the
+channel's `UULF` long-form playlist and falls back to the channel feed with a
+`/shorts/` filter. When `transcript_feed` is set, the judge gets the official
+transcript digest (matched by normalized title); unmatched extras fall back to
+the video description. Add the source to the `video_watch` slot in both
+`config/ranking.yaml` and `config/presets/balanced.yaml`.
+
 Example (arXiv API):
 ```yaml
 - name: arxiv_cs_ai

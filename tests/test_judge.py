@@ -89,3 +89,32 @@ class SystemOnePayloadTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SystemOneStateTest(unittest.TestCase):
+    def test_video_state_declares_the_medium(self) -> None:
+        state = judge.build_systemone_state(
+            {
+                "title": "A talk",
+                "source": "ai_native_dev",
+                "source_role": "practitioner",
+                "published": "2026-10-28T00:00:00Z",
+                "url": "https://youtu.be/AAAAAAAAAAA",
+                "type": "video",
+                "content_excerpt": "Show notes: " + ("x" * 1000),
+            }
+        )
+        self.assertIn("Medium: video", state)
+        self.assertIn("Show notes:", state)
+
+    def test_article_state_has_no_medium_line(self) -> None:
+        state = judge.build_systemone_state(
+            {
+                "title": "An article",
+                "source": "vllm_blog",
+                "source_role": "first_party",
+                "url": "https://example.com/post",
+                "content_excerpt": "x" * 1000,
+            }
+        )
+        self.assertNotIn("Medium: video", state)

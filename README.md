@@ -37,7 +37,8 @@ collect
 ```
 
 - `pipeline/editorial.py` handles the deterministic editorial policy.
-- `pipeline/editorial_judge.py` fetches paragraph excerpts when the feed teaser
+- `pipeline/editorial_judge.py` fetches paragraph excerpts (or a video
+  transcript digest when the item has a `transcript_url`) when the feed teaser
   is too short, asks Jev for `keep`, `platform_relevant`, `release_lane`,
   `corporate_marketing`, and a primary `category`, and reuses prior judgments
   from `data/processed/judgments.json`.

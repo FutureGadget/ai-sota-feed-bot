@@ -114,7 +114,9 @@ in `ops_daily_summary.py`'s log line.
 ## Repository Structure Index
 - `collectors/collect.py` — single ingestion job (RSS/sitemap/arXiv/GitHub
   releases/Hugging Face org listings (`hf_org_models`, first-party model-drop
-  signal for open-weight labs), normalization, dedupe, crawl cooldown per source,
+  signal for open-weight labs)/YouTube channels (`youtube_channel`, long-form
+  `UULF` playlist plus an optional companion podcast `transcript_feed` for
+  judge evidence), normalization, dedupe, crawl cooldown per source,
   optional per-source `exclude_title_regex` title blocklist, optional
   per-source `fetch_content: true` page-body enrichment → `content_excerpt`
   for feeds that publish only a teaser, with optional `content_exclude_regex`
@@ -302,7 +304,7 @@ in `ops_daily_summary.py`'s log line.
     role and category caps (daily, weekly)
   - `judge.yaml` - enabled-by-default, fail-open quality judge: OpenRouter System One
     (`/api/v1/systemone`, Jev `noul` probability) or direct TypeSafe Decisions,
-    feed-quality-v2 rubric, evidence floor (300 chars, releases exempt),
+    feed-quality-v3 rubric, evidence floor (300 chars, releases exempt),
     thresholds, cache, and context budget
 - `scripts/` — `check_bundle_size.py` (enforces Vercel function bundle budgets,
   requirements.txt hygiene, and .vercelignore completeness; runs in CI),
@@ -493,6 +495,17 @@ APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
 `?c=&s=&t=` GET/POST is a signed storyline unfollow link).
 
 ## Gotchas (cache these, they cost tokens to rediscover)
+- **YouTube items use `youtu.be/<id>`, never `watch?v=<id>`.** Every URL
+  canonicaliser in the pipeline drops the query string, so watch URLs collapse
+  every video into one item before editorial clustering. The collector's
+  `youtube_channel` type sets the short URL and the `video_watch` slot maps it;
+  it prefers the channel's `UULF` long-form playlist (Shorts excluded at the
+  source) and falls back to the channel feed with a `/shorts/` filter.
+- **A video's judge evidence is its transcript, not the watch page.** The
+  generic paragraph extractor returns `ytInitialPlayerResponse` JSON for a
+  YouTube page, so `build_paragraph_map` routes video items to
+  `transcript_url` (an official companion podcast VTT when available) and
+  never falls through to HTML. Do not re-enable the generic fetch for videos.
 - **The ranking LLM is disabled** (`config/llm.yaml -> enabled: false`), but
   the **Jev gate is active** (`config/judge.yaml`) and fails open without
   `OPENROUTER_API_KEY`. It also fails open per item: below 300 characters of

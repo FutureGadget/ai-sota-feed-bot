@@ -291,6 +291,239 @@ def collect_from_rss(source: dict, now: datetime) -> list[dict]:
     return out
 
 
+YOUTUBE_FEED_BASE = "https://www.youtube.com/feeds/videos.xml"
+# The 11-character id is the only stable identity in a YouTube URL; the watch
+# URL puts it in a query string that every canonicaliser in this repo strips.
+_YOUTUBE_ID_RE = re.compile(
+    r"(?:youtu\.be/|youtube\.com/(?:watch\?v=|shorts/|embed/|live/))([A-Za-z0-9_-]{11})"
+)
+
+
+def youtube_video_id(url: str) -> str:
+    """Return the 11-character video id from any common YouTube URL form."""
+    match = _YOUTUBE_ID_RE.search(str(url or ""))
+    return match.group(1) if match else ""
+
+
+def youtube_longform_playlist_id(channel_id: str) -> str:
+    """The channel's long-form uploads playlist (`UULF` + the id after `UC`).
+
+    YouTube exposes both `UU<id>` (all uploads, including Shorts) and
+    `UULF<id>` (long-form only). The long-form playlist is the clean slice for
+    a feed item: a Short is a clip, often the same title as the full episode,
+    and it would otherwise win the story-cluster representative for being
+    newer than the episode it promotes.
+    """
+    cid = str(channel_id or "").strip()
+    if not cid.startswith("UC") or len(cid) < 3:
+        return ""
+    return "UULF" + cid[2:]
+
+
+def _fetch_feed(url: str, timeout: int = 15):
+    """Fetch a feed with a timeout and a browser-like User-Agent.
+
+    `feedparser.parse(url)` has no timeout. The YouTube and podcast hosts are
+    external dependencies of every collection run, so a hung socket must not
+    hold the whole collector.
+    """
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X) OpenClawFeedBot/1.0",
+            "Accept": "application/atom+xml,application/rss+xml,application/xml,text/xml;q=0.9,*/*;q=0.8",
+        },
+    )
+    with urllib.request.urlopen(req, timeout=timeout) as response:
+        return feedparser.parse(response.read())
+
+
+def _normalize_match_title(title: str) -> str:
+    """Normalize a title for matching a video to its companion podcast feed."""
+    text = str(title or "").strip()
+    text = re.sub(r"\s*[|\-\u2013]\s*YouTube\s*$", "", text, flags=re.I)
+    text = re.sub(r"^(?:video|watch|podcast)\s*[:|\-]\s*", "", text, flags=re.I)
+    text = re.sub(r"[^a-z0-9]+", " ", text.lower())
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _podcast_transcript_url(entry) -> str:
+    """The entry's `podcast:transcript` URL, preferring a timed text format.
+
+    feedparser normally exposes one dict (the last element in the RSS). Some
+    feeds expose a list. VTT/SRT are preferred because the parser downstream
+    understands their cue structure; HTML and JSON are accepted as fallbacks.
+    """
+    raw = getattr(entry, "podcast_transcript", None)
+    rows = raw if isinstance(raw, list) else [raw]
+    candidates: list[tuple[int, str]] = []
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        url = str(row.get("url") or "").strip()
+        kind = str(row.get("type") or "").lower()
+        if not url:
+            continue
+        rank = 0 if "vtt" in kind else 1 if "subrip" in kind else 2 if "json" in kind else 3
+        candidates.append((rank, url))
+    candidates.sort(key=lambda pair: pair[0])
+    return candidates[0][1] if candidates else ""
+
+
+def _podcast_entry_description(entry) -> str:
+    """Full show notes, not the 500-char `<itunes:summary>` teaser."""
+    summary = str(getattr(entry, "summary", "") or "")
+    for block in getattr(entry, "content", None) or []:
+        value = str(block.get("value") or "") if isinstance(block, dict) else ""
+        if len(value) > len(summary):
+            summary = value
+    return summary
+
+
+def _podcast_duration_seconds(entry) -> int:
+    """`itunes:duration` as seconds; supports `3292` and `54:52`."""
+    raw = getattr(entry, "itunes_duration", None)
+    text = str(raw or "").strip()
+    if not text:
+        return 0
+    if re.fullmatch(r"\d+", text):
+        return int(text)
+    parts = [int(part) for part in text.split(":") if part.isdigit()]
+    seconds = 0
+    for part in parts:
+        seconds = seconds * 60 + part
+    return seconds
+
+
+def _load_transcript_map(source: dict) -> dict[str, dict]:
+    """Map normalized episode title -> official transcript + show notes.
+
+    A YouTube channel often ships the same show as a podcast. When that feed
+    publishes `podcast:transcript`, use it as the judge evidence: it is an
+    official source, needs no YouTube transcript scraping, and is not subject
+    to YouTube's cloud-IP blocking. A missing feed only costs the transcript;
+    the video still collects with its description.
+    """
+    feed_url = str(source.get("transcript_feed") or "").strip()
+    if not feed_url:
+        return {}
+    try:
+        parsed = _fetch_feed(feed_url)
+    except Exception as exc:
+        print(f"youtube_transcript_feed_failed source={source.get('name', '')} error={exc}")
+        return {}
+    out: dict[str, dict] = {}
+    for entry in parsed.entries:
+        title = _normalize_match_title(getattr(entry, "title", ""))
+        transcript_url = _podcast_transcript_url(entry)
+        if not title or not transcript_url:
+            continue
+        out[title] = {
+            "transcript_url": transcript_url,
+            "description": _podcast_entry_description(entry),
+            "duration_s": _podcast_duration_seconds(entry),
+        }
+    return out
+
+
+def collect_from_youtube_channel(source: dict, now: datetime) -> list[dict]:
+    """Collect a channel's long-form videos, optionally with podcast transcripts.
+
+    The item URL is `https://youtu.be/<id>`, never `watch?v=<id>`: the four
+    canonicalisers in the pipeline strip query strings, so every watch URL
+    would collapse to one item before editorial clustering. The long-form
+    playlist (`UULF`) is tried first; the channel feed plus a `/shorts/` skip
+    is the fallback when the playlist feed is unavailable.
+    """
+    channel_id = str(source.get("channel_id") or "").strip()
+    playlist_id = str(source.get("playlist_id") or "").strip() or youtube_longform_playlist_id(channel_id)
+    feed_urls: list[str] = []
+    if playlist_id:
+        feed_urls.append(f"{YOUTUBE_FEED_BASE}?playlist_id={urllib.parse.quote(playlist_id)}")
+    if channel_id:
+        feed_urls.append(f"{YOUTUBE_FEED_BASE}?channel_id={urllib.parse.quote(channel_id)}")
+    if not feed_urls:
+        raise ValueError("youtube_channel_requires_channel_id_or_playlist_id")
+
+    parsed = None
+    used_url = ""
+    errors: list[str] = []
+    for feed_url in feed_urls:
+        try:
+            candidate = _fetch_feed(feed_url)
+        except Exception as exc:
+            errors.append(f"{feed_url}: {exc}")
+            continue
+        if candidate.entries:
+            parsed = candidate
+            used_url = feed_url
+            break
+    if parsed is None:
+        if errors:
+            raise RuntimeError("; ".join(errors))
+        return []
+
+    feed_title = str(getattr(parsed.feed, "title", "") or "").strip()
+    if feed_title.lower() == "videos":
+        feed_title = ""
+    channel_name = str(
+        source.get("publisher_name")
+        or getattr(parsed.feed, "author", "")
+        or feed_title
+        or channel_id
+    ).strip()
+    transcripts = _load_transcript_map(source)
+    include_shorts = bool(source.get("include_shorts", False))
+
+    out: list[dict] = []
+    seen: set[str] = set()
+    for entry in parsed.entries[:40]:
+        link = str(getattr(entry, "link", "") or "")
+        video_id = youtube_video_id(link) or str(getattr(entry, "yt_videoid", "") or "")
+        if not re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id):
+            continue
+        if "/shorts/" in link and not include_shorts:
+            continue
+        if video_id in seen:
+            continue
+        seen.add(video_id)
+        title = str(getattr(entry, "title", "") or "").strip()
+        if not title:
+            continue
+        description = str(getattr(entry, "summary", "") or "")
+        match = transcripts.get(_normalize_match_title(title))
+        transcript_url = str(match.get("transcript_url") or "") if match else ""
+        duration_s = int(match.get("duration_s") or 0) if match else 0
+        if match and len(str(match.get("description") or "")) > len(description):
+            description = str(match.get("description") or "")
+
+        item = {
+            "title": title,
+            "url": f"https://youtu.be/{video_id}",
+            "summary": description,
+            "published": str(getattr(entry, "published", "") or now.isoformat()),
+            # hq720 is the 16:9 still used by the story/OG surfaces. YouTube
+            # serves it for HD uploads; a rare non-HD video may only have
+            # hqdefault (the feed's 4:3 media:thumbnail).
+            "image_url": f"https://i.ytimg.com/vi/{video_id}/hq720.jpg",
+            "type": "video",
+            "video_id": video_id,
+            "publisher_name": channel_name,
+        }
+        if transcript_url:
+            item["transcript_url"] = transcript_url
+        if duration_s:
+            item["duration_s"] = duration_s
+        out.append(item)
+
+    matched = sum(1 for item in out if item.get("transcript_url"))
+    print(
+        f"youtube_channel name={source.get('name', '')} feed={used_url} "
+        f"items={len(out)} transcripts={matched}"
+    )
+    return out
+
+
 def _apply_page_published_dates(source: dict, items: list[dict], now: datetime) -> None:
     """Replace feed dates with each article page's own publication date.
 
@@ -1117,12 +1350,16 @@ def run():
             source.get("url")
             or (", ".join(rss_source_urls(source)) if src_type == "rss" else "")
             or (
-                f"hf://{source.get('org','unknown')}"
-                if src_type == "hf_org_models"
+                f"youtube://{source.get('channel_id') or source.get('playlist_id') or 'unknown'}"
+                if src_type == "youtube_channel"
                 else (
-                    f"openreview://{source.get('venue_id','unknown')}"
-                    if src_type == "openreview_venue"
-                    else f"arxiv://{source.get('category','unknown')}"
+                    f"hf://{source.get('org','unknown')}"
+                    if src_type == "hf_org_models"
+                    else (
+                        f"openreview://{source.get('venue_id','unknown')}"
+                        if src_type == "openreview_venue"
+                        else f"arxiv://{source.get('category','unknown')}"
+                    )
                 )
             )
         )
@@ -1173,6 +1410,8 @@ def run():
                 entries = collect_from_sitemap(source, now)
             elif src_type == "hf_org_models":
                 entries = collect_from_hf_org(source, now)
+            elif src_type == "youtube_channel":
+                entries = collect_from_youtube_channel(source, now)
             else:
                 raise ValueError(f"unsupported_source_type:{src_type}")
 
@@ -1199,7 +1438,14 @@ def run():
                     "collected_at": now.isoformat(),
                     "ingest_batch_id": ingest_batch_id,
                 }
-                for field in ("publisher_name", "publisher_domain"):
+                for field in (
+                    "publisher_name",
+                    "publisher_domain",
+                    "type",
+                    "video_id",
+                    "duration_s",
+                    "transcript_url",
+                ):
                     if ent.get(field):
                         row[field] = ent[field]
                 all_items.append(row)

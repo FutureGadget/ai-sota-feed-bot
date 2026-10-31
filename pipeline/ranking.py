@@ -420,6 +420,10 @@ def _summary_has_eval_tone(s: str) -> bool:
 
 
 def _infer_item_type(item: dict[str, Any], slot: str) -> str:
+    # The collector sets this before the judge because the judge needs the
+    # medium, and the card/UI needs it before ranking. Do not overwrite it.
+    if str(item.get("type") or item.get("content_kind") or "").lower() == "video":
+        return "video"
     src = str(item.get("source", "")).lower()
     title = str(item.get("title", "")).lower()
     url = str(item.get("url", "")).lower()
@@ -764,6 +768,7 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], cfg: dict[str, Any
         "promoted_anthropic_frontier": 0,
         "research_demoted": 0,
         "lead_lifted": 0,
+        "video_lead_lifted": 0,
     }
 
     # Always dedupe final list by canonical key to prevent visible duplicates.
@@ -839,6 +844,9 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], cfg: dict[str, Any
     def is_research(x: dict[str, Any]) -> bool:
         return (x.get("slot") == "research_watch") or ((x.get("llm_category") or "") == "research")
 
+    def is_video(x: dict[str, Any]) -> bool:
+        return str(x.get("type") or x.get("content_kind") or "").lower() == "video"
+
     research_count = sum(1 for x in top if is_research(x))
     if research_count > max_research:
         tail_candidates = [x for x in out[top_n:] if not is_research(x)]
@@ -870,6 +878,17 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], cfg: dict[str, Any
         if j is not None and j > 0:
             top.insert(0, top.pop(j))
             band_diag["lead_lifted"] = 1
+            out = top + out[top_n:]
+
+    # A long video is a different reading commitment from a brief item. Keep
+    # the "read this first" lead off the video lane; the video can still sit
+    # anywhere else in the band. Run after the research lift so it cannot
+    # promote a video to the lead on a research-heavy day.
+    if cfg.get("lead_excludes_video", False) and top and is_video(top[0]):
+        j = next((k for k, x in enumerate(top) if not is_video(x)), None)
+        if j is not None and j > 0:
+            top.insert(0, top.pop(j))
+            band_diag["video_lead_lifted"] = 1
             out = top + out[top_n:]
 
     final: list[dict[str, Any]] = []
@@ -1053,6 +1072,6 @@ def run_ranking(
         f"slots={'/'.join(slot_bits)} "
         f"slot_priority={'/'.join(sp_bits)} "
         f"merge=floor{m.get('floor_selected',0)}/headroom{m.get('headroom_selected',0)}/dupSkip{m.get('skip_duplicate',0)}/slotMaxSkip{m.get('skip_slot_max',0)}/judgeLow{m.get('skip_judge_low',0)} "
-        f"top_band=promoteF{tb.get('promoted_frontier',0)}/promoteA{tb.get('promoted_anthropic_frontier',0)}/researchDemote{tb.get('research_demoted',0)}/leadLift{tb.get('lead_lifted',0)} total={len(top)}"
+        f"top_band=promoteF{tb.get('promoted_frontier',0)}/promoteA{tb.get('promoted_anthropic_frontier',0)}/researchDemote{tb.get('research_demoted',0)}/leadLift{tb.get('lead_lifted',0)}/videoLead{tb.get('video_lead_lifted',0)} total={len(top)}"
     )
     return top, diag

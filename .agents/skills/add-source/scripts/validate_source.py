@@ -13,7 +13,7 @@ Usage:
     python .agents/skills/add-source/scripts/validate_source.py \
         --source google_cloud_blog --url-contains open-knowledge-format
     python .agents/skills/add-source/scripts/validate_source.py \
-        --source NAME --items data/tier1/latest.json
+        --source NAME --items data/raw/<date>/items.json
 
 Exit code is 0 when at least one item from the source reaches the final feed
 (or, with --url-contains, the specified item does), 1 otherwise — so it can
@@ -43,6 +43,14 @@ from ranking import (  # noqa: E402
 def _load_items(path: Path) -> list[dict]:
     data = json.loads(path.read_text(encoding="utf-8"))
     return data.get("items", data) if isinstance(data, dict) else data
+
+
+def _default_items_path() -> Path:
+    """Newest raw collector snapshot; the old tier1 snapshot is gone."""
+    paths = sorted((ROOT / "data" / "raw").glob("*/items.json"))
+    if paths:
+        return paths[-1]
+    return ROOT / "data" / "processed" / "latest.json"
 
 
 def _load_profile() -> dict:
@@ -92,10 +100,16 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--source", required=True, help="source name as in config/sources.yaml")
     ap.add_argument("--url-contains", default=None, help="optional substring of a specific item URL to track")
-    ap.add_argument("--items", default="data/tier1/latest.json", help="candidate items file (default: tier1 latest)")
+    ap.add_argument(
+        "--items",
+        default=None,
+        help="candidate items file (default: newest data/raw/<date>/items.json)",
+    )
     args = ap.parse_args()
 
-    items_path = (ROOT / args.items) if not Path(args.items).is_absolute() else Path(args.items)
+    items_path = Path(args.items) if args.items else _default_items_path()
+    if not items_path.is_absolute():
+        items_path = ROOT / items_path
     if not items_path.exists():
         print(f"ERROR: items file not found: {items_path}")
         return 1
