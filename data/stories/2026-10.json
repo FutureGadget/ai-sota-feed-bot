@@ -24646,6 +24646,19 @@
   "url": "http://arxiv.org/abs/2610.01218v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "f7699d73800d1465": {
+  "content_excerpt": "Copy-on-write branching makes isolated copies of production data fast and cheap for CI/CD testing and agentic use cases. Snorkel AI builds data development tools for AI teams, used by expert data annotators and frontier model providers. In this specific use case, Snorkel ships code through a CI pipeline built on Kubernetes. Every open pull request, plus ad-hoc commits, gets its own ephemeral Kubernetes namespace (a \"PR namespace\"). Developers deploy their branch there and run the full test suite before merging. These tests are most useful when they run against real data. Snorkel's production database is an Amazon Aurora PostgreSQL cluster. Giving each PR namespace its own copy of that database was the hard part. Restoring a copy took about 20 minutes per environment, which is too slow when developers open PRs all day and the merge queue needs a fresh environment for each run. The alternatives (shared staging databases, trimmed fixtures, or synthetic data) bring back the problems production-like testing is supposed to solve: tests interfering with each other, stale schemas, and bugs that only show up with real data shapes. Lakebase is Databricks' serverless Postgres database. Its storage and compute are separate, and it supports branching: you can create a new, isolated, writable branch of a database from any point in time, the same way you create a Git branch. Branches are copy-on-write. Creating a branch is a metadata operation, so no data is copied when the branch is create",
+  "first_seen": "2026-10-31T22:05:20.576360+00:00",
+  "id": "4a230a5a50122341",
+  "published": "2026-10-31T21:25:00+00:00",
+  "sid": "f7699d73800d1465",
+  "source": "databricks_blog",
+  "summary": "The problem: testing against production data shouldn't take over 30 minutesSnorkel...",
+  "summary_1line": "The problem: testing against production data shouldn't take over 30 minutesSnorkel...",
+  "title": "Lakebase branching for CI/CD: lessons from 100 PR databases",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/lakebase-branching-cicd-lessons-100-pr-databases"
+ },
  "f7aba208b4f80942": {
   "first_seen": "2026-10-20T09:04:36.989372+00:00",
   "id": "cf72cbf7619f3c5a",
