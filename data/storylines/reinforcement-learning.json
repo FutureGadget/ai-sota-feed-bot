@@ -1,12 +1,12 @@
 {
  "slug": "reinforcement-learning",
  "label": "Reinforcement Learning",
- "item_count": 16,
- "day_count": 8,
+ "item_count": 18,
+ "day_count": 9,
  "source_count": 7,
  "first_seen": "2026-10-12T21:41:50+00:00",
- "last_updated": "2026-10-27T17:38:52+00:00",
- "generated_at": "2026-10-30T00:12:48.475117+00:00",
+ "last_updated": "2026-10-29T16:38:11+00:00",
+ "generated_at": "2026-11-01T00:13:17.975290+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -231,19 +231,44 @@
      "editor_note": "Schedules environments under finite rollout budgets, the second rollout-cost paper after Oct 20's calibrated budgets."
     }
    ]
+  },
+  {
+   "date": "2026-10-29",
+   "items": [
+    {
+     "title": "Incentivizing Self-Learning in Large Language Models via Reinforcement Learning",
+     "url": "http://arxiv.org/abs/2610.39671v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large language models (LLMs) draw on parametric knowledge and retrieval-augmented generation (RAG) to solve knowledge-intensive tasks. Yet problem solving in unfamiliar domains calls for tightly coupled knowledge acquisition and reasoning, beyond factual retrieval and aggregation",
+     "sid": "d571e973b6e6916d",
+     "published": "2026-10-29T09:21:26+00:00",
+     "editor_note": "Paper on RL to incentivize LLM self-learning for knowledge-intensive tasks."
+    },
+    {
+     "title": "SCARL: Sequence Confidence-Aligned Reinforcement Learning",
+     "url": "http://arxiv.org/abs/2610.40407v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Reinforcement learning with verifiable rewards (RLVR) improves language-model reasoning by scoring sampled responses with a rule-based verifier and reinforcing those that pass. Where a classifier's training couples predicted probability to labels, nothing ties an RLVR policy's co",
+     "sid": "9471fde9e20a1e58",
+     "published": "2026-10-29T16:38:11+00:00",
+     "editor_note": "SCARL: aligns RLVR policy confidence with verifier results."
+    }
+   ]
   }
  ],
  "editorial": {
   "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has gathered a Qwen long-horizon agent report, an O-RAN benchmark, agentic-RL training papers, and AWS's SageMaker guide.",
   "stale": false,
-  "whats_new": "Oct 27: CoHARL co-trains agent policies with their executable harnesses, and EnvSched schedules environments under a fixed rollout budget; both are arXiv papers.",
+  "whats_new": "Oct 29: two arXiv papers add RL training variants, one rewarding LLM self-learning and one aligning RLVR policy confidence with verifier outcomes (SCARL).",
   "why_it_matters": "Agent RL is now judged on cost and reliability: EnvSched and calibrated budgets (Oct 20) target rollout spend, while MiRL and CalibraRL target named failures. All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
   "take_for_builders": "If you train tool-using agents, measure rollout cost per environment (EnvSched, calibrated budgets), log recurring failure modes for error-targeted RL (MiRL), and A/B fine-grained credit against episode-level reward; treat paper results as unreplicated until rerun on your own evals.",
   "status": {
    "state": "Developing",
    "tone": "rising",
-   "changed": "2026-10-27",
-   "detail": "A loose set of RL items; the newest aim at harness co-training, rollout cost, agent reliability and credit-assignment limits."
+   "changed": "2026-10-29",
+   "detail": "A loose set of RL items; the newest add self-learning and confidence-aligned RLVR variants to harness co-training and rollout-cost work."
   },
   "beats": [
    {
@@ -301,13 +326,23 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "OCT 27",
+    "tone": "neutral",
     "headline": "Harness co-training and environment scheduling: CoHARL and EnvSched",
     "summary": "Oct 27: CoHARL optimizes the executable harness alongside the policy; EnvSched targets rollout generation and verification cost.",
     "sids": [
      "d448a8af2a653453",
      "02ad246823185a44"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Self-learning and confidence-aligned RLVR",
+    "summary": "Oct 29: one paper rewards knowledge acquisition coupled with reasoning; SCARL ties policy confidence to verifier outcomes.",
+    "sids": [
+     "d571e973b6e6916d",
+     "9471fde9e20a1e58"
     ]
    }
   ],
@@ -319,6 +354,6 @@
    "Do MiRL's error-targeted fixes hold on terminal-agent tasks outside the paper's own benchmark?",
    "Does EnvSched's scheduling gain hold on agent-RL benchmarks beyond the paper's own, and with which environment mixes?"
   ],
-  "generated_at": "2026-10-30T00:30:00+00:00"
+  "generated_at": "2026-11-01T00:12:51.951611+00:00"
  }
 }

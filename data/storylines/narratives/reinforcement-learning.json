@@ -1,34 +1,36 @@
 {
   "slug": "reinforcement-learning",
-  "generated_at": "2026-10-30T00:30:00+00:00",
-  "covers_last_updated": "2026-10-27T17:38:52+00:00",
+  "generated_at": "2026-11-01T00:12:51.951611+00:00",
+  "covers_last_updated": "2026-10-29T16:38:11+00:00",
   "covers_member_sids": [
-    "b508403b13597849",
-    "db03100b1bd7cd3e",
-    "afd320e7f42ef5bd",
-    "a00ad2ffbda7f2e9",
+    "02ad246823185a44",
+    "1e1ae7d5d09cb859",
     "276a486ae6eefe6b",
+    "2b4f7152c682448f",
     "352167f7ac41065b",
     "40c644a15cb895a9",
-    "2b4f7152c682448f",
     "453c138d9feefee3",
-    "8a41e1e41cbecfde",
-    "1e1ae7d5d09cb859",
-    "c3af4f37e1c19b19",
     "868490bacebdc880",
+    "8a41e1e41cbecfde",
+    "9471fde9e20a1e58",
+    "a00ad2ffbda7f2e9",
+    "afd320e7f42ef5bd",
+    "b508403b13597849",
     "c07d00b3f0a46112",
+    "c3af4f37e1c19b19",
     "d448a8af2a653453",
-    "02ad246823185a44",
+    "d571e973b6e6916d",
+    "db03100b1bd7cd3e",
     "f3c8da2fe4584033"
   ],
   "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has gathered a Qwen long-horizon agent report, an O-RAN benchmark, agentic-RL training papers, and AWS's SageMaker guide.",
-  "whats_new": "Oct 27: CoHARL co-trains agent policies with their executable harnesses, and EnvSched schedules environments under a fixed rollout budget; both are arXiv papers.",
+  "whats_new": "Oct 29: two arXiv papers add RL training variants, one rewarding LLM self-learning and one aligning RLVR policy confidence with verifier outcomes (SCARL).",
   "why_it_matters": "Agent RL is now judged on cost and reliability: EnvSched and calibrated budgets (Oct 20) target rollout spend, while MiRL and CalibraRL target named failures. All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
   "status": {
     "state": "Developing",
     "tone": "rising",
-    "changed": "2026-10-27",
-    "detail": "A loose set of RL items; the newest aim at harness co-training, rollout cost, agent reliability and credit-assignment limits."
+    "changed": "2026-10-29",
+    "detail": "A loose set of RL items; the newest add self-learning and confidence-aligned RLVR variants to harness co-training and rollout-cost work."
   },
   "beats": [
     {
@@ -36,14 +38,18 @@
       "tone": "rising",
       "headline": "Alibaba Qwen introduces QwenGyre for elastic RL on extra-long-horizon agents",
       "summary": "Reported via MarkTechPost; targets agent tasks that run far longer than standard RL rollouts.",
-      "sids": ["b508403b13597849"]
+      "sids": [
+        "b508403b13597849"
+      ]
     },
     {
       "kicker": "BENCHMARK",
       "tone": "neutral",
       "headline": "X-RIC benchmarks agentic RAN controllers for reinforcement learning",
       "summary": "Targets O-RAN controllers rather than LLM post-training.",
-      "sids": ["db03100b1bd7cd3e"]
+      "sids": [
+        "db03100b1bd7cd3e"
+      ]
     },
     {
       "kicker": "RESEARCH",
@@ -82,13 +88,23 @@
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
+      "kicker": "OCT 27",
+      "tone": "neutral",
       "headline": "Harness co-training and environment scheduling: CoHARL and EnvSched",
       "summary": "Oct 27: CoHARL optimizes the executable harness alongside the policy; EnvSched targets rollout generation and verification cost.",
       "sids": [
         "d448a8af2a653453",
         "02ad246823185a44"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Self-learning and confidence-aligned RLVR",
+      "summary": "Oct 29: one paper rewards knowledge acquisition coupled with reasoning; SCARL ties policy confidence to verifier outcomes.",
+      "sids": [
+        "d571e973b6e6916d",
+        "9471fde9e20a1e58"
       ]
     }
   ],
@@ -117,6 +133,8 @@
     "868490bacebdc880": "Finds fine-grained credit assignment can help or hurt multimodal agents, tested on video editing.",
     "c07d00b3f0a46112": "Identifies specific terminal-agent misbehaviors, trains against them, and checks they are fixed.",
     "d448a8af2a653453": "Newest: co-evolves the agent policy and its executable harness, since tuning a harness for a fixed policy ignores how behavior shifts during learning.",
-    "02ad246823185a44": "Schedules environments under finite rollout budgets, the second rollout-cost paper after Oct 20's calibrated budgets."
+    "02ad246823185a44": "Schedules environments under finite rollout budgets, the second rollout-cost paper after Oct 20's calibrated budgets.",
+    "d571e973b6e6916d": "Paper on RL to incentivize LLM self-learning for knowledge-intensive tasks.",
+    "9471fde9e20a1e58": "SCARL: aligns RLVR policy confidence with verifier results."
   }
 }
