@@ -147,6 +147,22 @@
   "type": "news",
   "url": "https://nolanlawson.com/2026/10/28/the-ai-cost-of-javascript-frameworks"
  },
+ "b78023b26122d472": {
+  "content_excerpt": "Claude Haiku scored 82% on 21 MCP servers through OpenCode and 65% through Claude Code. The gap comes from the built-in tools each agent reaches for first. We ran the same model, Claude Haiku 5.5, through two coding agents against the same 21 MCP servers, with the agent as the only difference. Through OpenCode it answered 82.0% of the tasks correctly from the server. Through Claude Code it answered 65.4%. We were testing M3 , our open-source tool for testing MCP servers , and wanted a workload big enough to break it: 21 real servers, about 20 tasks each, three agents, three trials per task. The results became the MCP Agent Usability leaderboard , and every number in this post comes from it. Our first guess was that OpenCode is simply better at calling tools. Splitting the servers by what they do rules that out. Eleven of the servers do a job none of the agents has a built-in tool for: a Postgres database, MongoDB, Redis, Kafka, Linear, Jenkins, Grafana, Kubernetes, Gitea, and two browser servers. The other ten overlap with something every agent already carries: web search and docs lookup (Exa, Fetch, Microsoft Learn, DeepWiki, Terraform), files and shell (Git, Filesystem, Desktop Commander, Serena), and memory. On the first eleven, the three agents land within 4.1 points of each other, even though Codex runs a different model. On the other ten, Claude Code trails OpenCode by 32 points and Codex trails it by 49. Here is one task from the Exa server, run once through each agent",
+  "first_seen": "2026-11-01T15:04:17.406320+00:00",
+  "id": "45eb985fb328350b",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-01T14:22:25+00:00",
+  "sid": "b78023b26122d472",
+  "source": "hackernews_ai",
+  "summary_1line": "Same model, different agent: 17 points apart on 21 MCP servers",
+  "title": "Same model, different agent: 17 points apart on 21 MCP servers",
+  "type": "news",
+  "url": "https://m3.sineframe.com/blog/same-model-different-agent",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "b9b16f52f7ae6ec2": {
   "content_excerpt": "This engine monitors OpenProject project work packages and runs appropriate AI Agents to complete the ticket Polls OpenProject work packages and dispatches the pi coding agent to work on them. OpenProject is the system of record: the engine claims work, prepares a per-agent clone, renders a prompt, runs the agent, verifies the outcome against GitHub and OpenProject, and performs every status transition itself. Agents never change status. Complete the one-time instance setup — statuses, the GIT_REPO project custom field, the AGENT work-package custom field and the Agent Worker role — in docs/OPENPROJECT_SETUP.md . Finish docker/.env before starting the stack. Add GH_TOKEN (and the optional GH_TOKEN_REVIEWER , GIT_REVIEWER_NAME and GIT_REVIEWER_EMAIL for a dedicated reviewer account, ie: branch protection rules, see below). After adding a project or changing its GIT_REPO / AGENT setup in OpenProject, run docker compose restart engine . After changing docker/.env , run docker compose up -d engine so compose recreates the container with the new environment. agent-init.sh writes the OpenProject settings, the agent tokens and the provider key. It leaves the GitHub token(s) to you: add them to docker/.env before starting the stack. For repositories with branch protection that requires the approving or merging account to differ from the pull request's author, give codeReviewer its own GitHub account: GH_TOKEN_REVIEWER (plus optional GIT_REVIEWER_NAME and GIT_REVIEWER_EMAIL ). The rev",
   "first_seen": "2026-11-01T10:03:30.273054+00:00",
@@ -218,6 +234,22 @@
   "title": "AWS Capacity Largely Sold Out Through 2027, With On Demand Headroom Reserved",
   "type": "news",
   "url": "https://www.infoq.com/news/2026/11/aws-capacity-sold-out/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
+ "dbaecb6c683e8493": {
+  "content_excerpt": "Adversarial agent loops (producer, worker, gatekeeper) so agents do routine work and humans make the key decisions devloops gives a coding agent three loops: producer , worker , and gatekeeper . Each loop is a skill ( SKILL.md plus helper scripts). You install the skills into a project's .agents/skills/ directory. A per-project file, devloops.config.yaml , holds the project values (repo, branches, commands, protected paths, labels). Most maintenance work is routine: find a problem, write an issue, fix it, review the fix. devloops lets agents do that routine work in an adversarial loop : The worker and the gatekeeper go back and forth until the gatekeeper approves. The human does not do this routine work. The human makes only the important decisions: A scheduler starts each loop in ticks . Before a worker tick starts the agent, tick_gate.py decides if there is anything to do: So a change that happens during a tick is never hidden, and only an idle, unchanged state gives NOOP . The producer has its own gate, producer_gate.py . It picks the most overdue task ( --next ) from the task periods in the config. It does not overwrite a skill that already exists. Add the state directory (default .devloops/ ) to .gitignore . Check the prerequisites first (Python, GitHub API, git , gh auth , push permission): /gatekeeper-loop and /producer-loop use the same forms. /gatekeeper-loop 10m --pr N reviews one PR. /producer-loop runs one producer task. See skills/worker-loop/references/schedulin",
+  "first_seen": "2026-11-01T15:04:17.406320+00:00",
+  "id": "3c6880d6e108e050",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-01T13:26:51+00:00",
+  "sid": "dbaecb6c683e8493",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Devloops – Adversarial agent loops so humans only make the key decision",
+  "title": "Show HN: Devloops – Adversarial agent loops so humans only make the key decision",
+  "type": "news",
+  "url": "https://github.com/fritzprix/devloops",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "dcc08e22467f3a8e": {
   "content_excerpt": "Like a lot of lean teams, we ship faster than we can update our own docs. So Linell built an agent that watches our SDK pull requests, drafts the docs in a sandbox, and works while he sleeps. We sometimes ship faster than we can update our docs, but we can’t slow one down for the other. To help make that easier, I’ve been toying with a little app that watches our SDK repo for PRs, decides whether",
