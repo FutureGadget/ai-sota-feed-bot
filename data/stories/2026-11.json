@@ -180,6 +180,22 @@
   "url": "https://github.com/310networks/openproject-agent-engine",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "baaa37d6dddd5d25": {
+  "content_excerpt": "Deterministic code dictionary for LLMs and developers: tree-sitter + SQLite, no AI. Cuts Claude Code token use by answering code questions from an index. A dictionary of your code for the AI, and a manual for you. It reads your project once, with no AI, and hands the answer over together with the question. Fewer turns, fewer tokens, the same correct answer. One line, once per machine. It also turns codedict on in Claude Code for every project. That's it. Open Claude Code in any git repository and ask about the code. There is nothing else to configure. Uninstall: run ~/.codedict/venv/bin/python -m codedict setup --remove (Windows: ~\\.codedict\\venv\\Scripts\\python.exe -m codedict setup --remove ) and delete the ~/.codedict folder. codedict came from a practical problem: on a real project with ~250 files in TypeScript, C# and Python, Claude Code sessions kept hitting the usage limit. We measured it, and the culprit was not the code being read but the number of turns . Every time the AI calls a tool (a grep, opening a file), Claude Code re-reads the whole context: 35 to 50 thousand tokens per turn. A simple question like \"where is X and who calls it?\" took 5 turns of grep and file reads. A flow question like \"from the click to the result\" took more than 20. The idea was to do the search work once, with no AI , in a local index, and hand the ready answer over together with the question. The AI answers in 1 or 2 turns instead of 5 to 20. The goal was to cut at least 55% of the token",
+  "first_seen": "2026-11-01T16:04:16.168000+00:00",
+  "id": "18b2a5d2dfa9f609",
+  "matched_topics": [
+   "claude code"
+  ],
+  "published": "2026-11-01T15:54:21+00:00",
+  "sid": "baaa37d6dddd5d25",
+  "source": "hackernews_ai",
+  "summary_1line": "Codedict – a no-AI code index that cut my Claude Code tokens by 63%",
+  "title": "Codedict – a no-AI code index that cut my Claude Code tokens by 63%",
+  "type": "news",
+  "url": "https://github.com/Marqueos/codedict",
+  "why_it_matters": "Matches feed focus: claude code."
+ },
  "bc7fe2eccde51f72": {
   "content_excerpt": "One Python interface for chat, streaming, tool calls, and structured output across AI providers. Republic stops at providers; agent loops, tool execution, and gateways stay in your code. A model is named provider:model . Switch services by changing the name, such as anthropic:MODEL_ID , google:MODEL_ID , or deepseek:MODEL_ID ; each reads its key from REPUBLIC_ _API_KEY . See the provider directory for every supported service.",
   "first_seen": "2026-11-01T08:05:09.931157+00:00",
