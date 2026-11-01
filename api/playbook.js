@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 
+import { readDataJson, readDataRaw, hasCustomDataSource } from '../lib/data-source.js';
+
 function readJsonSafe(p, fallback) {
   try {
     if (!fs.existsSync(p)) return fallback;
@@ -44,11 +46,15 @@ function validLabSummary(summary) {
 export function readValidatedLabRecord(directory, summary) {
   if (!validLabSummary(summary)) return null;
   try {
-    const recordPath = path.join(directory, `${summary.slug}.json`);
-    const source = fs.readFileSync(recordPath);
+    // The Worker reads exact bytes from R2 through the injected data source;
+    // Node/tests read the passed directory as before.
+    const source = hasCustomDataSource()
+      ? readDataRaw(`playbook/lab/${summary.slug}.json`)
+      : fs.readFileSync(path.join(directory, `${summary.slug}.json`));
+    if (!source) return null;
     const digest = createHash('sha256').update(source).digest('hex');
     if (digest !== summary.content_sha256) return null;
-    const record = JSON.parse(source.toString('utf-8'));
+    const record = JSON.parse(Buffer.from(source).toString('utf-8'));
     if (!record || typeof record !== 'object' || Array.isArray(record)) return null;
     if (LAB_SUMMARY_FIELDS.some((field) => record[field] !== summary[field])) return null;
     return record;
@@ -76,8 +82,7 @@ export function GET(request) {
           { status: 400 }
         );
       }
-      const indexPath = path.join(SKILL_LAB_DIR, 'index.json');
-      const index = fs.existsSync(indexPath) ? readJsonSafe(indexPath, null) : [];
+      const index = readDataJson('playbook/lab/index.json', []);
       if (!Array.isArray(index) || index.length > 4) {
         return Response.json({ error: 'lab_index_invalid' }, { status: 500 });
       }
@@ -104,16 +109,14 @@ export function GET(request) {
     }
 
     const locale = String(url.searchParams.get('locale') || '').trim();
-    const playbookDir = locale === 'ko'
-      ? path.join(process.cwd(), 'data', 'i18n', 'ko', 'playbook')
-      : PLAYBOOK_DIR;
+    const localized = locale === 'ko';
 
     function readJsonWithFallback(filename, fallbackVal) {
-      const primaryPath = path.join(playbookDir, filename);
-      if (fs.existsSync(primaryPath)) {
-        return readJsonSafe(primaryPath, fallbackVal);
+      if (localized) {
+        const primary = readDataJson(`i18n/ko/playbook/${filename}`, undefined);
+        if (primary !== undefined) return primary;
       }
-      return readJsonSafe(path.join(PLAYBOOK_DIR, filename), fallbackVal);
+      return readDataJson(`playbook/${filename}`, fallbackVal);
     }
 
     if (url.searchParams.get('sources')) {
