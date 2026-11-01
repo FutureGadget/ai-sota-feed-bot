@@ -5,113 +5,113 @@ Focus: AI Platform Engineering
 ## 1. DeepSeek's Open-Source Super-Agent for Coding
 - Type: news | Source: search_cn_open_weight_labs
 - URL: https://news.google.com/rss/articles/CBMikgFBVV95cUxNeWswVVhGbHVxSkE4WThBZFgxLXZ6cVFmU1pwUnc2Q3NyckVLdFhKbHZJZE9mQmZTZUVxRktqMWlTTmRTQkpCdGpuMW94OHJ6U2tIcDJKc01lWVpPSkVPY3gwallaQlNGclR2MFVhTFhLQlkyX0FJSXZBYTNEblpmLTB1TVVwbUNEV3d6bWRPb3BUUQ?oc=5
-- Score: 2.949 | Reliability: 1.0
+- Score: 2.825 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. Quoting Kyle Kingsbury
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Nov/1/kyle-kingsbury/
-- Score: 2.368 | Reliability: 1.0
-- Why it matters: 
-
-## 3. Agents Prompt People: Using Agents for Long-Horizon Financial Work
+## 2. Agents Prompt People: Using Agents for Long-Horizon Financial Work
 - Type: news | Source: latent_space
 - URL: https://latent.space/p/arca/
-- Score: 2.297 | Reliability: 1.0
+- Score: 2.281 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness.
 
-## 4. TextSeal2: Distortion-Free LLM Watermarking with Copula Mixing and Memoryless Races
+## 3. ShallowDefend: Harnessing Shallow Safety Alignment for Multi-Turn Defender
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.40613v1
-- Score: 2.2 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+- URL: http://arxiv.org/abs/2610.40627v1
+- Score: 2.144 | Reliability: 1.0
+- Why it matters: Matches feed focus: harness.
 
-## 5. VeriCUA: Verification as Agentic Exploration for Computer-Using Agents
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.40578v1
-- Score: 2.177 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
+## 4. HEDGE: Gated Hypergraph Memory for Scalable Multi-Agent Debate
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.38902v1
+- Score: 2.075 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 5. Heads of Security: Learned Attention Gates Improve Prompt Injection Robustness
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.37657v1
+- Score: 2.059 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
 
 ## 6. codex rust-v0.167.0-alpha.3
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.3
-- Score: 2.17 | Reliability: 1.0
+- Score: 2.042 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 7. Seq@K: Evaluating Language Models Under Sequential Feedback
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.37859v1
-- Score: 2.069 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
-
-## 8. What’s new in AI infrastructure and orchestration in October
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/topics/ai-infrastructure/whats-new-in-ai-infrastructure-this-month/
-- Score: 1.869 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness, evaluation.
-
-## 9. Harness Engineering: What's Actually New (And What Isn't)
-- Type: video | Source: ai_native_dev
-- URL: https://youtu.be/mHa0bImgN1o
-- Score: 1.805 | Reliability: 0.792
-- Why it matters: Matches feed focus: agent, harness, eval.
-
-## 10. Community safety report and new protections for teens
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/community-safety-report-and-new-protections-for-teens
-- Score: 1.765 | Reliability: 1.0
+## 7. Day 0 support for Mistral Large 4 on vLLM
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-10-29-mistral-large-4
+- Score: 1.842 | Reliability: 1.0
 - Why it matters: 
 
-## 11. Retrieving from Your Own Mistakes: On-Policy Training of Embedding Models for Multi-Hop Retrieval-Augmented Generation
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2610.40409v1
-- Score: 1.959 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+## 8. Harness Engineering: What's Actually New (And What Isn't)
+- Type: video | Source: ai_native_dev
+- URL: https://youtu.be/mHa0bImgN1o
+- Score: 1.752 | Reliability: 0.833
+- Why it matters: Matches feed focus: agent, harness, eval.
+
+## 9. Genie 4: A new generation of world simulation
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/
+- Score: 1.655 | Reliability: 1.0
+- Why it matters: 
+
+## 10. Making it easier for websites to express AI training preferences
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/helping-websites-express-ai-training-preferences
+- Score: 1.609 | Reliability: 1.0
+- Why it matters: 
+
+## 11. Multi-View MoE: Letting Every Router Shape Expert Computation
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2610.40577v1
+- Score: 2.031 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
 ## 12. Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/anydecisionmodel
-- Score: 1.958 | Reliability: 1.0
+- Score: 1.941 | Reliability: 1.0
 - Why it matters: 
 
-## 13. Genie 4: A new generation of world simulation
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/
-- Score: 1.691 | Reliability: 1.0
-- Why it matters: 
-
-## 14. Making it easier for websites to express AI training preferences
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/helping-websites-express-ai-training-preferences
-- Score: 1.646 | Reliability: 1.0
-- Why it matters: 
-
-## 15. Credit Saison achieves 954% ROI in a ChatGPT Enterprise pilot
+## 13. Credit Saison achieves 954% ROI in a ChatGPT Enterprise pilot
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/credit-saison
-- Score: 1.596 | Reliability: 1.0
+- Score: 1.56 | Reliability: 1.0
 - Why it matters: 
 
-## 16. langgraph==1.2.19
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.19
-- Score: 1.397 | Reliability: 1.0
-- Why it matters: 
+## 14. Securing our frontier model training environment
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/securing-our-frontier-model-training-environment
+- Score: 1.487 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
-## 17. Things That Go Beep in the Night: Agentic AI Joins the Search for Extraterrestrial Signals
+## 15. Innovate on your own business terms: Google Cloud spend caps now generally available
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/topics/cost-management/google-cloud-spend-caps-now-generally-available/
+- Score: 1.242 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 16. Things That Go Beep in the Night: Agentic AI Joins the Search for Extraterrestrial Signals
 - Type: news | Source: nvidia_blog
 - URL: https://blogs.nvidia.com/blog/ai-joins-the-search-for-extraterrestrial-signals/
-- Score: 1.218 | Reliability: 1.0
+- Score: 1.205 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 18. claude-code v2.1.311
+## 17. claude-code v2.1.311
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.311
-- Score: 1.143 | Reliability: 1.0
+- Score: 1.114 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 19. vllm v0.33.0rc3
+## 18. langgraph==1.2.18
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.18
+- Score: 1.075 | Reliability: 1.0
+- Why it matters: 
+
+## 19. v0.33.0rc2: [ROCm][Bugfix] Skip AITER tuned GEMM when M*N >= 2^31 on gfx950 (#64567)
 - Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc3
-- Score: 0.912 | Reliability: 1.0
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc2
+- Score: 0.794 | Reliability: 1.0
 - Why it matters:
