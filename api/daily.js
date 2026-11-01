@@ -1,16 +1,5 @@
-import fs from 'node:fs';
-import path from 'node:path';
+import { readDataJson } from '../lib/data-source.js';
 
-function readJsonSafe(p, fallback) {
-  try {
-    if (!fs.existsSync(p)) return fallback;
-    return JSON.parse(fs.readFileSync(p, 'utf-8'));
-  } catch {
-    return fallback;
-  }
-}
-
-const DAILY_DIR = path.join(process.cwd(), 'data', 'daily');
 const DATE_ID_RE = /^\d{4}-\d{2}-\d{2}$/;
 
 // GET /api/daily               -> latest recap
@@ -20,7 +9,7 @@ export function GET(request) {
   try {
     const url = new URL(request.url);
     if (url.searchParams.get('list')) {
-      const index = readJsonSafe(path.join(DAILY_DIR, 'index.json'), []);
+      const index = readDataJson('daily/index.json', []);
       return Response.json({ days: Array.isArray(index) ? index : [] });
     }
 
@@ -29,12 +18,12 @@ export function GET(request) {
       if (!DATE_ID_RE.test(date)) {
         return Response.json({ error: 'invalid_date', detail: 'expected format YYYY-MM-DD' }, { status: 400 });
       }
-      const recap = readJsonSafe(path.join(DAILY_DIR, `${date}.json`), null);
+      const recap = readDataJson(`daily/${date}.json`, null);
       if (!recap) return Response.json({ error: 'date_not_found', date }, { status: 404 });
       return Response.json(recap);
     }
 
-    const latest = readJsonSafe(path.join(DAILY_DIR, 'latest.json'), null);
+    const latest = readDataJson('daily/latest.json', null);
     if (!latest) return Response.json({ error: 'no_recaps_yet' }, { status: 404 });
     return Response.json(latest);
   } catch (e) {

@@ -6,6 +6,7 @@ import {
   orderWithEditorialCaps,
   readEditorial,
 } from '../lib/editorial.js';
+import { readDataJson } from '../lib/data-source.js';
 
 function esc(s = '') {
   return String(s)
@@ -67,7 +68,12 @@ function itemDate(it) {
   );
 }
 
-function getRecentItems() {
+export function getRecentItems() {
+  // The deploy pipeline precomputes this 7-day pool (scripts/build_served_data.mjs)
+  // so the Worker doesn't read dozens of run snapshots per request.
+  const served = readDataJson('served/rss_items.json', null);
+  if (Array.isArray(served) && served.length) return served;
+
   const now = Date.now();
   const windowMs = 7 * 24 * 60 * 60 * 1000;
   const fromMs = now - windowMs;

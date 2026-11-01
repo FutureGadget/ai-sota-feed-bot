@@ -1,16 +1,5 @@
-import fs from 'node:fs';
-import path from 'node:path';
+import { readDataJson } from '../lib/data-source.js';
 
-function readJsonSafe(p, fallback) {
-  try {
-    if (!fs.existsSync(p)) return fallback;
-    return JSON.parse(fs.readFileSync(p, 'utf-8'));
-  } catch {
-    return fallback;
-  }
-}
-
-const WIKI_DIR = path.join(process.cwd(), 'data', 'wiki');
 const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,80}$/;
 
 // GET /api/topics                    -> the agent-engineering wiki graph (areas + nodes)
@@ -19,7 +8,7 @@ const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,80}$/;
 // just serves the committed index.json.
 export function GET(request) {
   try {
-    const index = readJsonSafe(path.join(WIKI_DIR, 'index.json'), null);
+    const index = readDataJson('wiki/index.json', null);
     if (!index) return Response.json({ areas: [], nodes: {} });
 
     const url = new URL(request.url);

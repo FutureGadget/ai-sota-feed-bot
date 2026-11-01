@@ -2,6 +2,8 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 
+import { readDataJson } from '../lib/data-source.js';
+
 // Share permalink endpoint (served at /s?u=<encoded source url>).
 //
 // The feed's share button used to share the source article URL directly, so
@@ -62,11 +64,11 @@ function storySid(url) {
 }
 
 function storyPageExists(sid) {
-  const index = readJsonSafe(path.join(process.cwd(), 'data', 'stories', 'index.json'), null);
+  const index = readDataJson('stories/index.json', null);
   return Boolean(index && typeof index === 'object' && index[sid]);
 }
 
-function* candidateItemLists() {
+export function* candidateItemLists() {
   const cwd = process.cwd();
   yield readJsonSafe(path.join(cwd, 'data', 'processed', 'latest.json'), []);
 
@@ -91,6 +93,12 @@ function* candidateItemLists() {
 function findItemByUrl(targetUrl) {
   const target = normUrl(targetUrl);
   if (!target) return null;
+  // Deploy-time precomputed URL -> item map (scripts/build_served_data.mjs):
+  // same first-match-wins order as the walk below, without 60 run-file reads.
+  const servedIndex = readDataJson('served/share_index.json', null);
+  if (servedIndex && typeof servedIndex === 'object') {
+    return servedIndex[target] || null;
+  }
   for (const items of candidateItemLists()) {
     for (const it of items) {
       if (it && normUrl(it.url) === target) return it;

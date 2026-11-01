@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { buildEditorialCatalog } from '../lib/editorial-catalog.js';
+import { readDataJson } from '../lib/data-source.js';
 
 function readJsonSafe(p, fallback) {
   try {
@@ -97,6 +98,13 @@ function latestFoundations() {
 // read-history comparison.
 export function GET(request) {
   try {
+    // Deploy-time precomputed catalog (scripts/build_served_data.mjs): the full
+    // catalog walk reads dozens of section files, too many for a Worker
+    // request. `now` stays runtime-fresh.
+    const served = readDataJson('served/updates.json', null);
+    if (served && Array.isArray(served.items)) {
+      return Response.json({ ...served, now: new Date().toISOString() });
+    }
     return Response.json({
       now: new Date().toISOString(),
       catalog_version: 1,

@@ -7,6 +7,7 @@ import {
   orderWithEditorialCaps,
   readEditorial,
 } from '../lib/editorial.js';
+import { readDataJson } from '../lib/data-source.js';
 
 function readJsonSafe(p, fallback) {
   try {
@@ -79,16 +80,14 @@ function sourceHash(it) {
 }
 
 function readLatest() {
-  const p = path.join(process.cwd(), 'data', 'processed', 'latest.json');
-  return readJsonSafe(p, []);
+  return readDataJson('processed/latest.json', []);
 }
 
 // Reader-driven source tuning (pipeline/auto_tune.py output). Exposed so the
 // UI can show readers that their clicks/feedback actually move the ranking —
 // the reciprocity that keeps the feedback loop fed.
 function readReaderTuning() {
-  const p = path.join(process.cwd(), 'data', 'feedback', 'source_adjustments.json');
-  const data = readJsonSafe(p, null);
+  const data = readDataJson('feedback/source_adjustments.json', null);
   const adj = data?.adjustments;
   if (!adj || typeof adj !== 'object') return null;
 
@@ -124,10 +123,10 @@ function withReaderAdjustment(it, tuning) {
 }
 
 function readLocalizedFeed(locale) {
-  const base = path.join(process.cwd(), 'data', 'i18n', String(locale || ''), 'feed');
+  const base = `i18n/${String(locale || '')}/feed`;
   return {
-    latest: readJsonSafe(path.join(base, 'latest.json'), null),
-    status: readJsonSafe(path.join(base, 'status.json'), null),
+    latest: readDataJson(`${base}/latest.json`, null),
+    status: readDataJson(`${base}/status.json`, null),
   };
 }
 
@@ -295,7 +294,7 @@ function maybeLocalized(body, searchParams) {
   };
 }
 
-function readRuns() {
+export function readRuns() {
   const base = path.join(process.cwd(), 'data', 'processed');
   const runsDir = path.join(base, 'runs');
   const indexPath = path.join(base, 'runs_index.json');
@@ -518,7 +517,7 @@ function itemScore(it) {
 // edition keeps its seat and its position; a new story enters by its own
 // first-seen score. This is what stops a refresh from removing or reshuffling
 // cards a reader is already looking at.
-function accumulateItems(runs) {
+export function accumulateItems(runs) {
   const byKey = new Map();
 
   runs.forEach((run, runIdx) => {
@@ -676,10 +675,28 @@ function mergeAlsoCovered(item, clusterEntries) {
 // into fixture dirs; in production the cwd never changes within a process).
 const runsPoolCaches = new Map();
 
+export function readServedPool() {
+  const served = readDataJson('served/pool.json', null);
+  if (!served || !Array.isArray(served.baseItems)) return null;
+  return {
+    runs: Array.isArray(served.runs) ? served.runs : [],
+    baseItems: served.baseItems,
+    coverageByItem: new Map(Array.isArray(served.coverage) ? served.coverage : []),
+  };
+}
+
 function readRunsPool() {
-  const cwd = process.cwd();
+  // The deploy pipeline (scripts/build_served_data.mjs) precomputes the pool
+  // into data/served/pool.json so the Cloudflare Worker doesn't walk ~500 run
+  // snapshots. Node/Vercel/tests fall through to the on-disk walk below.
+  const servedPool = readServedPool();
+  const cwd = servedPool ? '__served__' : process.cwd();
   let pool = runsPoolCaches.get(cwd);
   if (!pool) {
+    if (servedPool) {
+      runsPoolCaches.set(cwd, servedPool);
+      return servedPool;
+    }
     const runs = readRuns();
     const baseItems = accumulateItems(runs);
     // Side-map built once per pool: itemKey -> clustered "also covered"
@@ -697,7 +714,12 @@ function readRunsPool() {
 // repeated requests cheap without reading the 500-run snapshot pool.
 const briefLedgerCaches = new Map();
 
-function readBriefLedger() {
+export function readBriefLedger() {
+  // Deploy-time precompute (scripts/build_served_data.mjs) for the Worker;
+  // absent in tests/Vercel, which walk data/brief below as before.
+  const served = readDataJson('served/brief_ledger.json', null);
+  if (served && Array.isArray(served.items)) return served;
+
   const cwd = process.cwd();
   const dir = path.join(cwd, 'data', 'brief');
   if (!fs.existsSync(dir)) return null;
@@ -807,7 +829,7 @@ function ledgerCoversWindow(ledger, from, to) {
 // The ledger branch only needs run timestamps for the "updated X ago" note,
 // not the 500 run snapshots themselves.
 function readRunIndexSummaries() {
-  const index = readJsonSafe(path.join(process.cwd(), 'data', 'processed', 'runs_index.json'), []);
+  const index = readDataJson('processed/runs_index.json', []);
   if (!Array.isArray(index)) return [];
   return index
     .filter((row) => row && row.run_at)

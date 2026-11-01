@@ -1,0 +1,47 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "llm-digest-site",
+  "main": "src/index.js",
+  "compatibility_date": "2026-10-15",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Static site: the staged public/ tree (scripts/vercel_build.py output).
+  // Requests that match an asset are served directly (free, unmetered);
+  // everything else falls through to the Worker (API + page rewrites).
+  "assets": {
+    "directory": "../public",
+    "binding": "ASSETS",
+    // lab artifacts need their CSP sandbox headers, so the Worker serves them.
+    "run_worker_first": ["/lab-artifacts/*", "/web/lab-artifacts/*"],
+    // Serve the staged tree as-is: the Worker owns page routing via the
+    // vercel.json rewrite table, so /web/*.html must not be "cleaned up".
+    "html_handling": "none",
+    "not_found_handling": "none"
+  },
+
+  // API data (JSON the Vercel functions used to read from disk), published by
+  // scripts/r2_sync.py in the deploy workflow.
+  "r2_buckets": [
+    { "binding": "DATA", "bucket_name": "llm-digest-data" }
+  ],
+
+  // Custom-domain cutover: uncomment once llm-digest.com DNS is on Cloudflare
+  // (the zone already is, via the PostHog proxy worker) and you're ready to
+  // take traffic off Vercel. See MIGRATION.md step 6.
+  // "routes": [
+  //   { "pattern": "www.llm-digest.com", "custom_domain": true },
+  //   { "pattern": "llm-digest.com", "custom_domain": true }
+  // ],
+  "workers_dev": true,
+
+  "vars": {
+    "SITE_BASE_URL": "https://www.llm-digest.com",
+    "LOCALIZED_FEED_ENABLED": "1"
+    // Non-secret PostHog overrides can go here too (POSTHOG_HOST etc.).
+    // Secrets (EMAIL_API_KEY, EMAIL_TOPIC_ID_DAILY, EMAIL_TOPIC_ID_WEEKLY,
+    // EMAIL_SEGMENT_ID, EMAIL_SEGMENT_ID_FOLLOWERS, POSTHOG_PROJECT_API_KEY,
+    // DIGEST_EMAIL_SIGNUP_URL) are set with: wrangler secret put <NAME>
+  },
+
+  "observability": { "enabled": true }
+}
