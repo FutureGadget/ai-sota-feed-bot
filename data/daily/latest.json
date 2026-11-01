@@ -1,228 +1,156 @@
 {
-  "date": "2026-10-31",
-  "title": "What happened in AI — Oct 31, 2026",
-  "generated_at": "2026-10-31T22:15:52Z",
+  "date": "2026-11-01",
+  "title": "What happened in AI — Nov 1, 2026",
+  "generated_at": "2026-11-01T22:15:49Z",
   "intro": [
-    "AI developer tooling took the hits today: Wiz counts at least nine AI developer platforms breached in October, and EMBRACE found command-execution flaws in the built-in browsers of five coding tools.",
-    "Meanwhile inference keeps getting cheaper, with Anthropic tokens down 77% and prompt caching reaching up to 94% cache reads in one measured agent."
+    "Coding-agent harness cost is the day's thread: the same model scored 82% or 65% on 21 MCP servers depending on the agent wrapped around it, and tooling to trim token spend is multiplying.",
+    "DeepSeek open-sourced a router-worker coding agent and its architecture, a direct open alternative to Claude Code."
   ],
   "highlights": [
-    "Wiz: at least nine AI developer platforms breached in October, driving LLMjacking.",
-    "EMBRACE: built-in browsers in five AI coding tools could run commands or read the disk.",
-    "Epoch: open-weight GLM 5.3 exploited six Firefox releases for about $1,000 each.",
-    "Prompt caching took one agent to up to 94% cache reads, about a quarter of the bill.",
-    "Apple Intelligence's Qwen access opens for testing in China on November 4."
+    "Same Claude Haiku 5.5, 17 points apart: 82.0% via OpenCode vs 65.4% via Claude Code on 21 MCP servers.",
+    "DeepSeek open-sources dsh-superagent, a router-worker coding agent, plus its architecture.",
+    "Pi was the lightest of six coding-agent CLIs on per-job container overhead.",
+    "SWE-bench Verified 88.6% vs 59.1% best public SWE-bench Pro score: benchmark cliff for Opus 4.8.",
+    "Reviewing 1,700-line agent PRs needs reading order, not line-by-line diffs."
   ],
-  "article_count": 23,
+  "article_count": 25,
   "categories": [
     {
-      "name": "Agent Builder Security Under Attack",
-      "slug": "agent-builder-security-under-attack",
-      "summary": "Agent tooling is now the attack surface: platform breaches, embedded browsers and cheap open-weight exploits all landed in one day.",
+      "name": "Harness overhead is now a measurable cost",
+      "slug": "harness-overhead-measurable-cost",
+      "summary": "Four posts put numbers on what coding-agent harnesses spend: tokens, container start-up time, and MCP task accuracy.",
       "articles": [
         {
-          "title": "Black October: At least nine AI developer platforms breached this month",
-          "summary": "Wiz counts at least nine AI developer platforms breached this month, with attackers monetizing stolen access through LLMjacking at scale.",
+          "title": "The tokens in your agent harness",
+          "summary": "Codex runs a background thread-naming call on every new session; the author reads the open-source Rust harness to show where tokens go.",
           "source": "hackernews_ai",
-          "url": "https://www.wiz.io/blog/black-october-for-ai-developer-platforms",
-          "published": "2026-10-31T00:11:32Z"
+          "url": "https://armincat.com/articles/where-tokens-go",
+          "published": "2026-11-01T19:34:22Z"
         },
         {
-          "title": "How the built-in browsers in five AI coding tools broke basic browser rules",
-          "summary": "Forever Security's EMBRACE research found built-in browsers in five AI coding tools could run commands, read the whole disk or spoof the address bar.",
+          "title": "Which coding-agent CLI is best for headless workflow automation?",
+          "summary": "Six coding-agent CLIs benchmarked for per-job overhead in fresh containers: pi was lightest overall, Goose had the fastest median first response; task success is not measured.",
           "source": "hackernews_ai",
-          "url": "https://theainewsreport.com/2026-10-30-embrace-ai-coding-assistant-embedded-browser-flaws-explained.html",
-          "published": "2026-10-31T03:32:31Z"
+          "url": "https://aictrl.dev/blog/headless-coding-agent-cli-benchmark",
+          "published": "2026-11-01T18:42:17Z"
         },
         {
-          "title": "Open-weight AI models can exploit the patch gap",
-          "summary": "Epoch showed GLM 5.3, an open-weight model, exploiting the patch gap to compromise six recent Firefox releases at about $1,000 each.",
+          "title": "Same model, different agent: 17 points apart on 21 MCP servers",
+          "summary": "Claude Haiku 5.5 answered 82.0% of tasks across 21 MCP servers via OpenCode but 65.4% via Claude Code; built-in tools the agent reaches for first explain the gap.",
           "source": "hackernews_ai",
-          "url": "https://epoch.ai/publications/open-weight-models-patch-gap",
-          "published": "2026-10-31T08:53:31Z"
+          "url": "https://m3.sineframe.com/blog/same-model-different-agent",
+          "published": "2026-11-01T14:22:25Z"
         },
         {
-          "title": "Google Discloses PageBreak AI Security Agent That Found 500+ XSS Bugs",
-          "summary": "Google disclosed PageBreak, a security agent that found more than 500 XSS bugs.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/10/google-pagebreak-security-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "Sat, 31 Oct 2026 06:20:00 GMT"
+          "title": "Context Mode – An Open-Source MCP Server That Reduces AI Coding Context Usage",
+          "summary": "Open-source MCP server that sandboxes tool output (claims a 98% reduction) and persists session memory across 17 platforms.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/mksglu/context-mode",
+          "published": "2026-11-01T11:56:19Z"
         },
         {
-          "title": "Show HN: InBox Wall – A local-first, open-source email sanitizer for AI agents",
-          "summary": "Open-source, local-first sanitizer that strips hidden CSS, Unicode obfuscation and prompt injection from email HTML before an agent reads it.",
+          "title": "Codedict – a no-AI code index that cut my Claude Code tokens by 63%",
+          "summary": "Tree-sitter plus SQLite code index, no AI, that answers code questions up front; the author reports 63% fewer Claude Code tokens.",
           "source": "hackernews_ai",
-          "url": "https://github.com/Annora998/inboxwall",
-          "published": "2026-10-31T14:59:36Z"
+          "url": "https://github.com/Marqueos/codedict",
+          "published": "2026-11-01T15:54:21Z"
         }
       ]
     },
     {
-      "name": "Coding Agent Runtimes and Workflow",
-      "slug": "coding-agent-runtimes-and-workflow",
-      "summary": "New open-source agents and tooling focus on context survival, review, and guardrails rather than raw capability.",
+      "name": "Agent workflows that keep humans on the decision",
+      "slug": "agent-workflows-human-decision",
+      "summary": "Teams are wrapping coding agents in review and gating loops so humans handle only the judgment calls.",
       "articles": [
         {
-          "title": "DeepSeek open-sources dsh-superagent, a coding agent largely built by agents",
-          "summary": "DeepSeek published a research-prototype coding agent whose code was largely written by coding agents; it labels it not production-ready.",
+          "title": "How I Review 2K Lines of AI Generated Code",
+          "summary": "Reviewing a 31-file, ~1,700-line agent PR with a two-sentence description: reading order matters more than line-by-line scrutiny.",
           "source": "hackernews_ai",
-          "url": "https://github.com/deepseek-ai/dsh-superagent-prototype",
-          "published": "2026-10-31T13:41:11Z"
+          "url": "https://bytesizedbets.com/p/how-to-review-a-2000-line-ai-written",
+          "published": "2026-11-01T16:30:21Z"
         },
         {
-          "title": "Octomind: A coding agent that recalls archived messages after compaction",
-          "summary": "Open-source MCP-native agent runtime that recalls archived messages after context compaction.",
+          "title": "Docsferatu: An agent that drafts docs PRs while you sleep",
+          "summary": "Inngest's agent watches SDK pull requests, drafts docs in a sandbox, and opens docs PRs overnight.",
           "source": "hackernews_ai",
-          "url": "https://github.com/muvon/octomind",
-          "published": "2026-10-31T04:54:13Z"
+          "url": "https://www.inngest.com/blog/docsferatu-an-agent-that-drafts-docs-prs-while-you-sleep",
+          "published": "2026-11-01T00:23:44Z"
         },
         {
-          "title": "An AI agent read a Shift_JIS page as 208,953 replacement characters",
-          "summary": "An OpenClaw fix for pages in legacy charsets that reached agent input as 208,953 replacement characters.",
+          "title": "Show HN: Devloops – Adversarial agent loops so humans only make the key decision",
+          "summary": "Producer, worker and gatekeeper loops let a coding agent do routine work and escalate only the key decision to a human.",
           "source": "hackernews_ai",
-          "url": "https://github.com/openclaw/openclaw/pull/188766",
-          "published": "2026-10-31T09:05:23Z"
-        },
-        {
-          "title": "Show HN: Governor, a firewall for AI agent spend and tool calls",
-          "summary": "Firewall that checks each agent tool call and spend against ordered rules and signs every decision into an audit log.",
-          "source": "hackernews_ai",
-          "url": "https://bsvkey-governor-demo.fly.dev/",
-          "published": "2026-10-31T00:27:46Z"
-        },
-        {
-          "title": "DiffNotes: Lets your coding agent explain its PRs inline",
-          "summary": "Has the coding agent explain its own pull request inline in the diff on GitHub, GitLab and Bitbucket.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/igorkasyanchuk/diffnotes",
-          "published": "2026-10-31T14:52:18Z"
-        },
-        {
-          "title": "Lakebase branching for CI/CD: lessons from 100 PR databases",
-          "summary": "Snorkel AI uses copy-on-write database branching to give each of 100 PRs an isolated copy of production data in CI/CD.",
-          "source": "databricks_blog",
-          "url": "https://www.databricks.com/blog/lakebase-branching-cicd-lessons-100-pr-databases",
-          "published": "Sat, 31 Oct 2026 21:25:00 GMT"
+          "url": "https://github.com/fritzprix/devloops",
+          "published": "2026-11-01T13:26:51Z"
         }
       ]
     },
     {
-      "name": "Inference Cost and Serving Efficiency",
-      "slug": "inference-cost-and-serving-efficiency",
-      "summary": "Token prices keep falling while serving techniques shrink memory and latency, shifting where the margin is.",
+      "name": "Evidence over vibes: benchmarks and tool choice",
+      "slug": "evidence-over-vibes",
+      "summary": "Today's evals posts argue public scores and framework folklore overstate real-world results.",
       "articles": [
         {
-          "title": "Cheaper AI inference is making it harder to profit from renting out compute",
-          "summary": "Darkbloom's idle-Mac inference network reports earnings of $1.23 a day as Anthropic token prices fall 77%.",
+          "title": "Is AI Cheap Enough to Replace Developers?",
+          "summary": "Claude Opus 4.8 scores 88.6% on SWE-bench Verified but the best public SWE-bench Pro score is 59.1%, and no model clears 47% on the private set.",
           "source": "hackernews_ai",
-          "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/firm-that-lets-you-rent-out-your-idle-mac-for-ai-inference-workloads-warns-of-plummeting-token-costs-darkbloom-network-sees-earnings-drop-to-usd1-23-a-day-as-anthropic-tokens-fall-77-percent",
-          "published": "2026-10-31T17:13:50Z"
+          "url": "https://zyvop.com/is-ai-actually-cheap-enough-to-replace-developers-8i74u",
+          "published": "2026-11-01T08:04:48Z"
         },
         {
-          "title": "Prompt caching: same agent, same rules, about a quarter of the bill",
-          "summary": "A recipe agent measured on a real API went from no cache reads to up to 94% in four changes, cutting the bill to about a quarter.",
+          "title": "We tested 12 search APIs for AI agents. Even the best one isn't enough",
+          "summary": "Telem.ai tested 12 search APIs for agents; a learned provider mix reached 82.6% with four providers versus 75.5% with two.",
           "source": "hackernews_ai",
-          "url": "https://blog.getwerk.ai/posts/prompt-caching-a-quarter-of-the-bill",
-          "published": "2026-10-31T13:09:52Z"
+          "url": "https://telem.ai/blog/even-the-best-search-provider",
+          "published": "2026-11-01T17:57:19Z"
         },
         {
-          "title": "Qwen-Based EdgeRock-4B Caps Its KV Cache at 72 MiB a Request",
-          "summary": "Qwen-based EdgeRock-4B caps its KV cache at 72 MiB per request.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "FourWeekMBA",
-          "publisher_domain": "fourweekmba.com",
-          "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQSTJZNVNIOHRsZ1dGQWEtZEZsOEYtd0hfNkpFTFJWMUNYV0E4bFFTRDdSUWJudzVZQnptbUI4bkRmREQzU3RfSHVKMFlMZUFjTXRqRkF5dFdRdXNiRlhYaHVuZ2lUZHAtUE1uajNmVTNOT1ExaEUtdDI0Zk44MGk5MlZSeGhnT3BVS2wtRENEcUN1QQ?oc=5",
-          "published": "Sat, 31 Oct 2026 13:57:22 GMT"
-        },
-        {
-          "title": "Non-autoregressive NC LLM spits tokens 21x faster than text diffusion",
-          "summary": "Stanford's Hazy Research reports Next-Concept Modeling generating tokens 21x faster than text diffusion.",
+          "title": "The AI cost of JavaScript frameworks",
+          "summary": "Nolan Lawson measures the AI cost of JavaScript frameworks instead of relying on claims about speed and productivity.",
           "source": "hackernews_ai",
-          "url": "https://hazyresearch.stanford.edu/blog/2026-10-12-ncm",
-          "published": "2026-10-31T06:31:05Z"
-        },
-        {
-          "title": "GPUCost – Cloud GPU Prices Normalized by VRAM and LLM VRAM Sizer",
-          "summary": "Compares cloud GPU rental prices per GB of VRAM and FP8 TFLOP, with a VRAM sizer and self-hosting break-even calculator.",
-          "source": "hackernews_ai",
-          "url": "https://gpu-cost-r34p.vercel.app/",
-          "published": "2026-10-31T16:31:00Z"
+          "url": "https://nolanlawson.com/2026/10/28/the-ai-cost-of-javascript-frameworks/",
+          "published": "2026-11-01T06:06:19Z"
         }
       ]
     },
     {
-      "name": "Models and Platform Moves",
-      "slug": "models-and-platform-moves",
-      "summary": "Qwen's distribution widens while Anthropic quietly adjusts Claude Code behavior.",
+      "name": "DeepSeek's open-source coding super-agent",
+      "slug": "deepseek-open-source-super-agent",
+      "summary": "DeepSeek's harness team open-sourced a router-worker coding agent and its architecture, positioned against Claude Code.",
       "articles": [
         {
-          "title": "Alibaba, Apple partner to bring Qwen to Apple Intelligence for users in China",
-          "summary": "Alibaba and Apple will bring Qwen to Apple Intelligence for users in China.",
+          "title": "DeepSeek Open-Sources dsh-superagent, a Router-Worker Coding Agent",
+          "summary": "DeepSeek open-sources dsh-superagent, a router-worker coding agent.",
+          "source": "search_agent_engineering_news",
+          "publisher_name": "MarkTechPost",
+          "publisher_domain": "marktechpost.com",
+          "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOVGVmcmxZdFpKS25HOEFNbnFrZmRkd0ZRVFNjUlNMMEEwQXZ3YjFSTm9nNGU3NGZMeFBQWEhtZUlvQU9Va3UzeDlIZXVMaW5QM0w1YUpscHUtMHVqeDlSTnotOTZLNXNUV09abkc3U0VGZjU0MTlLaWJJdGtEWnhTMFlkQWJuWWFVUmRnTFB4eXlUbDNiY0HSAZYBQVVfeXFMTlRlZnJsWXRaSktuRzhBTW5xa2ZkZHdGUVRTY1JTTDBBMEF2d2IxUk5vZzRlNzRmTHhQUFhIbWVJb0FPVWt1M3g5SGV1TGluUDNMNWFKbHB1LTB1ang5Uk56LTk2SzVzVFdPWm5HN1NFRmY1NDE5S2liSXRrRFp4UzBZZEFibllhVVJkZ0xQeHl5VGwzYmNB?oc=5",
+          "published": "2026-11-01T07:47:17Z"
+        },
+        {
+          "title": "DeepSeek Open Sources the Architecture Behind Its Super-Agent",
+          "summary": "DeepSeek also published the architecture behind the super-agent, not just the prototype.",
           "source": "search_cn_open_weight_labs",
-          "publisher_name": "Global Times",
-          "publisher_domain": "globaltimes.cn",
-          "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9wd25LX1dZZXEtR3ZUTi1nOXVFUW9LSXluR3c4c3pGaDhYTmxkaGRrdndJWXlFY0l5bFgxWmZwZnlmRklIeGZUblNSTDBZV296UklWMVJ6elFnR21lVHdMakx3?oc=5",
-          "published": "Sat, 31 Oct 2026 03:15:00 GMT"
+          "publisher_name": "Startup Fortune",
+          "publisher_domain": "startupfortune.com",
+          "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPTFhOWk9yYkRyNkE0d3FxeWNtVDdmcGFNTHBxeWxINk1iUGJMQTd4c2lXRkNMY3NjejVyTGIwZmdYQXUweTdNUHAwblI5M2dGNmd5TWR5SXo4Rmx6d3ZCWjZhX21YZHNoMDNhT3cycEtxd2FGeEdPbkR3UWRiRkNwbTJyandOcEtQXzRyUkxhdlhybTg?oc=5",
+          "published": "2026-11-01T00:18:27Z"
         },
         {
-          "title": "Apple officially announced: Apple's intelligent access to Alibaba Qwen will be open for testing on November 4.",
-          "summary": "Apple Intelligence's Qwen access opens for testing on November 4.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "富途牛牛",
-          "publisher_domain": "news.futunn.com",
-          "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQemVab0FPVDhmZFBXcmlxRG4zVHZaQV9adVNYV3lOVjZKa3g0ZGxGZWVTdWdOZTQ1eEJiSkZybkVzUVpXUUY1Y2FWTm1yZHkyampKS2V3clp2QnBrYWFMaWh6YmtrNGVBUENDTW42ODhyMERqWmM5UGxycXRaSkJpOUhid0hUYWZrWWJaQVVWOXhDMWpWeVMwejF2S2pKSnBOTjVDM2J6c1dhVFVVbmVDdzlR?oc=5",
-          "published": "Sat, 31 Oct 2026 01:46:24 GMT"
-        },
-        {
-          "title": "Qwen Code Now Sizes Unlisted Qwen4 Models at 1M Tokens",
-          "summary": "Qwen Code now sizes unlisted Qwen4 models at 1M tokens of context.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "FourWeekMBA",
-          "publisher_domain": "fourweekmba.com",
-          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNaGdQQXZfM0VzeVBIVVZaSTdGV3JpTzJsZ2FsUFktaUs3UTQ1eDVMOXRYQy1oVVFrQVpycnBGNk4zeUo1VTdzTS1rdzhYTzFWbGdsUENfYjhpM1E5dG1lYU9Nc2QyVFVjRzhGLW1LSjdlNngzZXp1NkFQWThHb0E0ek1mOE9QeGFYblE?oc=5",
-          "published": "Sat, 31 Oct 2026 12:31:08 GMT"
-        },
-        {
-          "title": "Anthropic orders AI tool Claude to stop remaking video games",
-          "summary": "Anthropic confirmed an Opus 5.5 update that steers Claude Code away from recreating someone else's specific game.",
+          "title": "QwenPU: An LLM running inside another LLM's weights",
+          "summary": "QwenPU compiles a 32-bit RISC-V CPU and vector unit into Qwen3.5-4B's weights, running a small network inside the forward pass.",
           "source": "hackernews_ai",
-          "url": "https://www.gamedeveloper.com/programming/anthropic-appears-to-have-ordered-ai-tool-claude-to-stop-remaking-video-games",
-          "published": "2026-10-31T14:41:44Z"
-        }
-      ]
-    },
-    {
-      "name": "Evals, Policy and Business Signals",
-      "slug": "evals-policy-and-business-signals",
-      "summary": "Builders get a lightweight eval tutorial and a new crawler opt-out, while Google's AI Mode revenue trade-off hits its stock.",
-      "articles": [
-        {
-          "title": "To Bin or Not to Bin: A Tutorial on Fast Feedback Loops for AI Capabilities",
-          "summary": "Hands-on tutorial taking one small problem from first prompt to an agent with automatic scheduled checks.",
-          "source": "hackernews_ai",
-          "url": "https://alexhans.github.io/posts/to-bin-or-not-to-bin.html",
-          "published": "2026-10-31T13:20:47Z"
+          "url": "https://huggingface.co/divagr1925/QwenPU",
+          "published": "2026-11-01T10:15:39Z"
         },
         {
-          "title": "Google Adopts New AI Training Control",
-          "summary": "Google plans to adopt an IETF proposal for an AI training control signal, alongside Bing, OpenAI and Anthropic.",
+          "title": "An inference server for AMD GPUs, in C++ and HIP",
+          "summary": "Open C++/HIP inference server for AMD GPUs with an OpenAI-compatible HTTP API covering chat, Responses, images, audio and video.",
           "source": "hackernews_ai",
-          "url": "https://www.seroundtable.com/google-ai-training-control-42430.html",
-          "published": "2026-10-31T06:01:40Z"
-        },
-        {
-          "title": "[AINews] Google admits AI Mode hurts Search revenue; -15% $500B drop worst since 2004 IPO. AI Bear Market coming?",
-          "summary": "Google acknowledged AI Mode hurts Search revenue; the stock fell 15%, about $500B, its worst drop since the 2004 IPO.",
-          "source": "latent_space",
-          "url": "https://latent.space/p/ainews-google-admits-ai-mode-hurts-search-revenue-15-500b-drop-worst-since-2004-ipo-ai-bear-market-c/",
-          "published": "Sat, 31 Oct 2026 05:00:48 GMT"
+          "url": "https://codeberg.org/StillDeadcode/radiance",
+          "published": "2026-11-01T19:37:33Z"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "fVvQLEvTcv8",
-    "title": "LLM Digest Daily Explainer: Oct 31, 2026",
-    "duration_s": 111.0
-  }
+  ]
 }

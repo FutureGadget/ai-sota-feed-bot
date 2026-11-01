@@ -1,0 +1,156 @@
+{
+  "date": "2026-11-01",
+  "title": "What happened in AI — Nov 1, 2026",
+  "generated_at": "2026-11-01T22:15:49Z",
+  "intro": [
+    "Coding-agent harness cost is the day's thread: the same model scored 82% or 65% on 21 MCP servers depending on the agent wrapped around it, and tooling to trim token spend is multiplying.",
+    "DeepSeek open-sourced a router-worker coding agent and its architecture, a direct open alternative to Claude Code."
+  ],
+  "highlights": [
+    "Same Claude Haiku 5.5, 17 points apart: 82.0% via OpenCode vs 65.4% via Claude Code on 21 MCP servers.",
+    "DeepSeek open-sources dsh-superagent, a router-worker coding agent, plus its architecture.",
+    "Pi was the lightest of six coding-agent CLIs on per-job container overhead.",
+    "SWE-bench Verified 88.6% vs 59.1% best public SWE-bench Pro score: benchmark cliff for Opus 4.8.",
+    "Reviewing 1,700-line agent PRs needs reading order, not line-by-line diffs."
+  ],
+  "article_count": 25,
+  "categories": [
+    {
+      "name": "Harness overhead is now a measurable cost",
+      "slug": "harness-overhead-measurable-cost",
+      "summary": "Four posts put numbers on what coding-agent harnesses spend: tokens, container start-up time, and MCP task accuracy.",
+      "articles": [
+        {
+          "title": "The tokens in your agent harness",
+          "summary": "Codex runs a background thread-naming call on every new session; the author reads the open-source Rust harness to show where tokens go.",
+          "source": "hackernews_ai",
+          "url": "https://armincat.com/articles/where-tokens-go",
+          "published": "2026-11-01T19:34:22Z"
+        },
+        {
+          "title": "Which coding-agent CLI is best for headless workflow automation?",
+          "summary": "Six coding-agent CLIs benchmarked for per-job overhead in fresh containers: pi was lightest overall, Goose had the fastest median first response; task success is not measured.",
+          "source": "hackernews_ai",
+          "url": "https://aictrl.dev/blog/headless-coding-agent-cli-benchmark",
+          "published": "2026-11-01T18:42:17Z"
+        },
+        {
+          "title": "Same model, different agent: 17 points apart on 21 MCP servers",
+          "summary": "Claude Haiku 5.5 answered 82.0% of tasks across 21 MCP servers via OpenCode but 65.4% via Claude Code; built-in tools the agent reaches for first explain the gap.",
+          "source": "hackernews_ai",
+          "url": "https://m3.sineframe.com/blog/same-model-different-agent",
+          "published": "2026-11-01T14:22:25Z"
+        },
+        {
+          "title": "Context Mode – An Open-Source MCP Server That Reduces AI Coding Context Usage",
+          "summary": "Open-source MCP server that sandboxes tool output (claims a 98% reduction) and persists session memory across 17 platforms.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/mksglu/context-mode",
+          "published": "2026-11-01T11:56:19Z"
+        },
+        {
+          "title": "Codedict – a no-AI code index that cut my Claude Code tokens by 63%",
+          "summary": "Tree-sitter plus SQLite code index, no AI, that answers code questions up front; the author reports 63% fewer Claude Code tokens.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Marqueos/codedict",
+          "published": "2026-11-01T15:54:21Z"
+        }
+      ]
+    },
+    {
+      "name": "Agent workflows that keep humans on the decision",
+      "slug": "agent-workflows-human-decision",
+      "summary": "Teams are wrapping coding agents in review and gating loops so humans handle only the judgment calls.",
+      "articles": [
+        {
+          "title": "How I Review 2K Lines of AI Generated Code",
+          "summary": "Reviewing a 31-file, ~1,700-line agent PR with a two-sentence description: reading order matters more than line-by-line scrutiny.",
+          "source": "hackernews_ai",
+          "url": "https://bytesizedbets.com/p/how-to-review-a-2000-line-ai-written",
+          "published": "2026-11-01T16:30:21Z"
+        },
+        {
+          "title": "Docsferatu: An agent that drafts docs PRs while you sleep",
+          "summary": "Inngest's agent watches SDK pull requests, drafts docs in a sandbox, and opens docs PRs overnight.",
+          "source": "hackernews_ai",
+          "url": "https://www.inngest.com/blog/docsferatu-an-agent-that-drafts-docs-prs-while-you-sleep",
+          "published": "2026-11-01T00:23:44Z"
+        },
+        {
+          "title": "Show HN: Devloops – Adversarial agent loops so humans only make the key decision",
+          "summary": "Producer, worker and gatekeeper loops let a coding agent do routine work and escalate only the key decision to a human.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/fritzprix/devloops",
+          "published": "2026-11-01T13:26:51Z"
+        }
+      ]
+    },
+    {
+      "name": "Evidence over vibes: benchmarks and tool choice",
+      "slug": "evidence-over-vibes",
+      "summary": "Today's evals posts argue public scores and framework folklore overstate real-world results.",
+      "articles": [
+        {
+          "title": "Is AI Cheap Enough to Replace Developers?",
+          "summary": "Claude Opus 4.8 scores 88.6% on SWE-bench Verified but the best public SWE-bench Pro score is 59.1%, and no model clears 47% on the private set.",
+          "source": "hackernews_ai",
+          "url": "https://zyvop.com/is-ai-actually-cheap-enough-to-replace-developers-8i74u",
+          "published": "2026-11-01T08:04:48Z"
+        },
+        {
+          "title": "We tested 12 search APIs for AI agents. Even the best one isn't enough",
+          "summary": "Telem.ai tested 12 search APIs for agents; a learned provider mix reached 82.6% with four providers versus 75.5% with two.",
+          "source": "hackernews_ai",
+          "url": "https://telem.ai/blog/even-the-best-search-provider",
+          "published": "2026-11-01T17:57:19Z"
+        },
+        {
+          "title": "The AI cost of JavaScript frameworks",
+          "summary": "Nolan Lawson measures the AI cost of JavaScript frameworks instead of relying on claims about speed and productivity.",
+          "source": "hackernews_ai",
+          "url": "https://nolanlawson.com/2026/10/28/the-ai-cost-of-javascript-frameworks/",
+          "published": "2026-11-01T06:06:19Z"
+        }
+      ]
+    },
+    {
+      "name": "DeepSeek's open-source coding super-agent",
+      "slug": "deepseek-open-source-super-agent",
+      "summary": "DeepSeek's harness team open-sourced a router-worker coding agent and its architecture, positioned against Claude Code.",
+      "articles": [
+        {
+          "title": "DeepSeek Open-Sources dsh-superagent, a Router-Worker Coding Agent",
+          "summary": "DeepSeek open-sources dsh-superagent, a router-worker coding agent.",
+          "source": "search_agent_engineering_news",
+          "publisher_name": "MarkTechPost",
+          "publisher_domain": "marktechpost.com",
+          "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxOVGVmcmxZdFpKS25HOEFNbnFrZmRkd0ZRVFNjUlNMMEEwQXZ3YjFSTm9nNGU3NGZMeFBQWEhtZUlvQU9Va3UzeDlIZXVMaW5QM0w1YUpscHUtMHVqeDlSTnotOTZLNXNUV09abkc3U0VGZjU0MTlLaWJJdGtEWnhTMFlkQWJuWWFVUmRnTFB4eXlUbDNiY0HSAZYBQVVfeXFMTlRlZnJsWXRaSktuRzhBTW5xa2ZkZHdGUVRTY1JTTDBBMEF2d2IxUk5vZzRlNzRmTHhQUFhIbWVJb0FPVWt1M3g5SGV1TGluUDNMNWFKbHB1LTB1ang5Uk56LTk2SzVzVFdPWm5HN1NFRmY1NDE5S2liSXRrRFp4UzBZZEFibllhVVJkZ0xQeHl5VGwzYmNB?oc=5",
+          "published": "2026-11-01T07:47:17Z"
+        },
+        {
+          "title": "DeepSeek Open Sources the Architecture Behind Its Super-Agent",
+          "summary": "DeepSeek also published the architecture behind the super-agent, not just the prototype.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Startup Fortune",
+          "publisher_domain": "startupfortune.com",
+          "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPTFhOWk9yYkRyNkE0d3FxeWNtVDdmcGFNTHBxeWxINk1iUGJMQTd4c2lXRkNMY3NjejVyTGIwZmdYQXUweTdNUHAwblI5M2dGNmd5TWR5SXo4Rmx6d3ZCWjZhX21YZHNoMDNhT3cycEtxd2FGeEdPbkR3UWRiRkNwbTJyandOcEtQXzRyUkxhdlhybTg?oc=5",
+          "published": "2026-11-01T00:18:27Z"
+        },
+        {
+          "title": "QwenPU: An LLM running inside another LLM's weights",
+          "summary": "QwenPU compiles a 32-bit RISC-V CPU and vector unit into Qwen3.5-4B's weights, running a small network inside the forward pass.",
+          "source": "hackernews_ai",
+          "url": "https://huggingface.co/divagr1925/QwenPU",
+          "published": "2026-11-01T10:15:39Z"
+        },
+        {
+          "title": "An inference server for AMD GPUs, in C++ and HIP",
+          "summary": "Open C++/HIP inference server for AMD GPUs with an OpenAI-compatible HTTP API covering chat, Responses, images, audio and video.",
+          "source": "hackernews_ai",
+          "url": "https://codeberg.org/StillDeadcode/radiance",
+          "published": "2026-11-01T19:37:33Z"
+        }
+      ]
+    }
+  ]
+}
