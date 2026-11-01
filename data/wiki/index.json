@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-31T18:06:00.722093+00:00",
+ "generated_at": "2026-11-01T18:04:47.463648+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,30 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-11-01-same-model-different-agent-mcp",
+   "topic": "tool-use",
+   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+   "kind": "obstacle",
+   "date": "2026-11-01",
+   "title": "Same model scored 17 points apart on MCP servers depending on the agent harness"
+  },
+  {
+   "id": "2026-11-01-weir-planted-key-leak-test",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-11-01",
+   "title": "Weir tests whether agents leak credentials by planting unique fake keys"
+  },
+  {
+   "id": "2026-11-01-sandbox-conformance-contracts",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-11-01",
+   "title": "Open conformance lab turns sandbox claims into runnable contracts"
+  },
   {
    "id": "2026-10-31-embedded-browsers-in-coding-tools",
    "topic": "prompt-injection",
@@ -230,30 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-27",
    "title": "Shared KV cache leaked other tenants' prompts on Workers AI for 13 days"
-  },
-  {
-   "id": "2026-10-26-agents-md-downloads-hijack",
-   "topic": "prompt-injection",
-   "topic_title": "Untrusted input and tools can hijack an agent",
-   "kind": "obstacle",
-   "date": "2026-10-26",
-   "title": "A planted AGENTS.md in Downloads hijacked coding agents into installing malware"
-  },
-  {
-   "id": "2026-10-26-simulated-control-evals-monitors",
-   "topic": "llm-as-judge",
-   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
-   "kind": "solution",
-   "date": "2026-10-26",
-   "title": "Simulated control evaluations test agent monitors with an LLM that fakes tool outputs"
-  },
-  {
-   "id": "2026-10-26-mnemonic-proxy-verbatim-archive",
-   "topic": "context-compaction",
-   "topic_title": "Context compaction: summarize, compress, and curate the working set",
-   "kind": "solution",
-   "date": "2026-10-26",
-   "title": "A transparent proxy keeps full agent history in an archive and sends only a 32K window"
   }
  ],
  "nodes": {
@@ -13284,7 +13284,7 @@
      "key": "calling-reliability",
      "title": "Making the calling loop reliable",
      "summary": "A standard wire does not make calling behavior reliable; flaky tools, schema-constraint interference, and connection failures are measurable failure modes, and the harness itself is now tuned or trained to fix them.",
-     "count": 8
+     "count": 9
     },
     {
      "key": "guarding-the-call",
@@ -13300,6 +13300,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-01-same-model-different-agent-mcp",
+     "topic": "tool-use",
+     "date": "2026-11-01",
+     "title": "Same model scored 17 points apart on MCP servers depending on the agent harness",
+     "theme": "calling-reliability",
+     "html": "<p>The M3 MCP-testing project ran Claude Haiku 5.5 against 21 real MCP servers (about 20 tasks each, three trials per task) through two coding agents. Via OpenCode it answered <strong>82.0%</strong> correctly from the server; via Claude Code, <strong>65.4%</strong>. The authors attribute the gap to built-in tools each agent reaches for first, not the model (vendor-reported, self-run).</p>\n<p>For builders: an MCP server&#x27;s measured accuracy is a property of the model <em>and</em> harness pair. Test your server through every agent your users run, and don&#x27;t carry a model-only score across harnesses.</p>",
+     "evidence": [
+      {
+       "sid": "b78023b26122d472",
+       "title": "Same model, different agent: 17 points apart on 21 MCP servers"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-29-successful-call-loop",
      "topic": "tool-use",
@@ -13838,8 +13853,8 @@
      "title": "HashiCorp's Terraform MCP Server reaches general availability"
     }
    ],
-   "entry_count": 26,
-   "latest_entry_date": "2026-10-29",
+   "entry_count": 27,
+   "latest_entry_date": "2026-11-01",
    "solutions": [
     {
      "slug": "mcp",
@@ -13849,6 +13864,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "b78023b26122d472",
+     "title": "Same model, different agent: 17 points apart on 21 MCP servers"
+    },
     {
      "sid": "e79cc677e615b2d8",
      "title": "Our AI Agent Executed the Same Successful SQL Query 254 Times"
@@ -13958,7 +13977,7 @@
      "title": "AI Agents Don't Need SMS APIs. They Need Infrastructure"
     }
    ],
-   "updated": "2026-10-29"
+   "updated": "2026-11-01"
   },
   "agent-benchmarks": {
    "slug": "agent-benchmarks",
@@ -15668,7 +15687,7 @@
      "key": "credential-boundary",
      "title": "Keeping secrets and authority out of the sandbox",
      "summary": "Sandboxes don't scope the tokens inside them, so secrets move to identity-based access, ephemeral accounts, and egress proxies that inject real credentials only on the wire.",
-     "count": 7
+     "count": 8
     },
     {
      "key": "permission-policy",
@@ -15680,7 +15699,7 @@
      "key": "local-sandboxes",
      "title": "Local sandboxes and tool-call supervisors",
      "summary": "OS-enforced sandboxes, install-and-go runners, and syscall or tool-call firewalls make local isolation a commodity; Claude Code reports 84% fewer permission prompts.",
-     "count": 10
+     "count": 11
     },
     {
      "key": "managed-platforms",
@@ -15702,6 +15721,36 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-01-weir-planted-key-leak-test",
+     "topic": "agent-sandboxing",
+     "date": "2026-11-01",
+     "title": "Weir tests whether agents leak credentials by planting unique fake keys",
+     "theme": "credential-boundary",
+     "html": "<p>Weir targets a specific leak path: agent frameworks copy keys into traces and logs, and coding agents read them into model context. <code>weir-run</code> plants a unique fake key wherever a real one would live, runs the agent&#x27;s own flows against a local fake model, and captures everything sent out. It finds each key by exact value, names where it went, and never prints it. A companion mode checks which real keys a Claude Code session exposed.</p>\n<p>For builders: it is a single Show HN project with no independent results, but exact-value tracing is a cheap CI check for key hygiene.</p>",
+     "evidence": [
+      {
+       "sid": "da0666cb075514bf",
+       "title": "Show HN: Keep your credentials out of the AI agents you use and build"
+      }
+     ],
+     "also": []
+    },
+    {
+     "id": "2026-11-01-sandbox-conformance-contracts",
+     "topic": "agent-sandboxing",
+     "date": "2026-11-01",
+     "title": "Open conformance lab turns sandbox claims into runnable contracts",
+     "theme": "local-sandboxes",
+     "html": "<p>The <code>sandbox-conformance</code> repository converts claims such as &quot;the agent can&#x27;t read your keys&quot;, &quot;it can&#x27;t reach the network&quot;, and &quot;it can&#x27;t plant a git hook&quot; into contracts anyone can run. It stores per-sandbox results with evidence attached, so different coding-agent sandboxes are compared on identical tests. It is tied to no single sandbox; you add a contract, measure yours, and publish.</p>\n<p>For builders: this is a single-author project, so treat its results as a starting checklist. Running the same contracts against your own sandbox before relying on a vendor&#x27;s isolation claims is the useful part.</p>",
+     "evidence": [
+      {
+       "sid": "21bd8061ad22e39b",
+       "title": "I ran each AI coding-agent sandbox's own tests against the others"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-31-tracekit-box-signed-egress",
      "topic": "agent-sandboxing",
@@ -16750,8 +16799,8 @@
      "title": "A planted AGENTS.md in Downloads hijacked coding agents into installing malware"
     }
    ],
-   "entry_count": 64,
-   "latest_entry_date": "2026-10-31",
+   "entry_count": 66,
+   "latest_entry_date": "2026-11-01",
    "solutions": [],
    "obstacles": [
     {
@@ -16769,6 +16818,14 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "da0666cb075514bf",
+     "title": "Show HN: Keep your credentials out of the AI agents you use and build"
+    },
+    {
+     "sid": "21bd8061ad22e39b",
+     "title": "I ran each AI coding-agent sandbox's own tests against the others"
+    },
     {
      "sid": "ccc859f642944e8a",
      "title": "Tracekit Box: Running AI Agents in Micro-VMs Where Every Way Out Is Decided and Signed"
@@ -17058,7 +17115,7 @@
      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
     }
    ],
-   "updated": "2026-10-31"
+   "updated": "2026-11-01"
   },
   "agent-tracing": {
    "slug": "agent-tracing",
