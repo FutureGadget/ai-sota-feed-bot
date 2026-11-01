@@ -1894,6 +1894,17 @@
   "type": "release",
   "url": "https://github.com/vllm-project/vllm/releases/tag/v0.32.0rc3"
  },
+ "1423e77dae0d2a75": {
+  "first_seen": "2026-11-01T00:07:00.847045+00:00",
+  "id": "1a4627a7aaa8f489",
+  "published": "2026-10-29T17:54:54+00:00",
+  "sid": "1423e77dae0d2a75",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Modern diffusion models are trained on massive datasets that often include copyrighted or private images. Membership inference attacks (MIAs) address this by testing whether a given image was in a model's training set. The standard approach scores an image by its reconstruction l",
+  "title": "Difficulty Calibration Across Time for Membership Inference in Diffusion Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40616v1"
+ },
  "1452e1cfc9374ea1": {
   "first_seen": "2026-10-06T00:04:09.606456+00:00",
   "id": "ea1ab8bc4d679a88",
@@ -2384,6 +2395,17 @@
   "url": "http://arxiv.org/abs/2610.32933v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "1a4160355a60bb71": {
+  "first_seen": "2026-11-01T00:07:00.847045+00:00",
+  "id": "79e0f5f3eec282f3",
+  "published": "2026-10-29T17:45:07+00:00",
+  "sid": "1a4160355a60bb71",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Reinforcement learning from verifiable rewards (RLVR) is limited by sparse outcome-level feedback on hard reasoning tasks: when all rollouts in a group fail, rewards provide no learning signal. Stronger teachers can provide additional guidance, but this raises a central question:",
+  "title": "PIVOT: Progressive Intervention via Online Teacher Correction",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40576v1"
+ },
  "1a543055a02f9816": {
   "first_seen": "2026-10-23T06:03:19.991089+00:00",
   "id": "d589aa35f6fd634e",
@@ -2510,6 +2532,17 @@
   "url": "https://github.com/julianjohnson-web/julianflux-research",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "1b23d1102d832ae5": {
+  "first_seen": "2026-11-01T00:07:00.847045+00:00",
+  "id": "340c3d019bac5b32",
+  "published": "2026-10-29T16:25:19+00:00",
+  "sid": "1b23d1102d832ae5",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Diffusion models have become the leading paradigm in generative modeling, yet many applications require sampling from distributions that are not those of any single pretrained model, but are instead defined through combinations of several models, possibly tilted toward high value",
+  "title": "Composing and Steering Diffusion Models with Generalized Feynman-Kac Correctors",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40383v1"
+ },
  "1b30245f8580f86b": {
   "first_seen": "2026-10-09T14:04:30.735610+00:00",
   "id": "0c4a964e0a67df9c",
@@ -2545,7 +2578,7 @@
   "why_it_matters": "Matches feed focus: evaluation."
  },
  "1b5221fd798be326": {
-  "content_excerpt": "TL;DR: On one NVIDIA GB300 NVL72 rack, vLLM with P/D disaggregation and Wide-EP serves DeepSeek-V4.1-Flash on SemiAnalysis AgentX at 954K tokens/s per GPU at a P90 of 196 tokens/s per user, 7.9× our single-node result from the first post and $38.96 per GPU-hour at DeepSeek's off-peak prices. A specialized decode path reaches 826 tokens/s for a single user. Against DeepInfer, DeepSeek's own engine,",
+  "content_excerpt": "TL;DR: On one NVIDIA GB300 NVL72 rack, vLLM with P/D disaggregation and Wide-EP serves DeepSeek-V4.1-Flash on SemiAnalysis AgentX at 954K tokens/s per GPU at a P90 of 196 tokens/s per user, 7.9× our single-node result from the first post and $38.96 per GPU-hour at DeepSeek's off-peak prices. A specialized decode path reaches 826 tokens/s for a single user. Against DeepInfer, DeepSeek's own engine, vLLM's decode throughput is within 6% across batch sizes 8–256, and its prefill tracks DeepInfer's published curve. The efficiency comes from deliberate engineering on components that vLLM already has, built on the kernels DeepSeek open-sourced. This post walks through our performance study, breaks down each optimization, and shares the lessons we learned: Figure 1: SemiAnalysis AgentX on NVIDIA GB300 NVL72: vLLM with P/D disaggregation and Wide-EP (gold) achieves a further 7.9× throughput increase over our aggregated single-node result from the first post . Throughput counts cached input, uncached input and output tokens ( source ). DeepInfer is DeepSeek's own inference engine for DeepSeek-V4.1-Flash, released this week as an offline engine with published prefill and decode curves. It is the most relevant reference for this model, so before going into our optimizations we show where vLLM stands against it. Decode. Under DeepSeek's decode configuration (131K context, nextn=3), vLLM on GB200 achieves throughput within 6% of DeepInfer's published results across batch sizes 8 to 256 (F",
   "first_seen": "2026-10-25T07:53:53.625149+00:00",
   "id": "f9f5ecfb24efd717",
   "matched_topics": [
@@ -4596,7 +4629,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "2ef1fbc3458e029d": {
-  "content_excerpt": "Over the past few months, we’ve used an unreleased, internal research model to find critical vulnerabilities in some of the world’s most widely used software, such as browsers and operating systems. In this post, we share details of five attack chains, which led to remote code execution and other critical impacts with little to no user interaction. These attack chains demonstrate the model’s abili",
+  "content_excerpt": "Over the past few months, we’ve used an unreleased, internal research model to find critical vulnerabilities in some of the world’s most widely used software, such as browsers and operating systems. In this post, we share details of five attack chains, which led to remote code execution and other critical impacts with little to no user interaction. These attack chains demonstrate the model’s ability to create sophisticated, multi-step exploits in both open-source and proprietary software. Any vulnerabilities in these products could affect billions of users. They’re also among the most security-critical software in the world, making them a bellwether for testing models’ vulnerability research and cyber capabilities. We reported each vulnerability to the affected vendor under our coordinated vulnerability disclosure , which gives developers 90 days to patch and a further 45 days before we discuss details beyond what is already included in a public advisory. After initial prompting, Claude wrote a full exploit chain enabling an attacker to execute arbitrary code as the user, outside the browser’s sandbox. Our proof of concept launches the Calculator app from a stock default-configuration Chrome browser on macOS within seconds of the page loading, without any further user interaction: We have reported our findings to Google: 62 CVEs have been assigned and patched as of Chrome 156 , with all of them rated critical or high severity. Among them are 13 sandbox escapes and 21 vulnerab",
   "first_seen": "2026-10-27T19:07:14.679939+00:00",
   "id": "a7ed2872b9ff0744",
   "published": "2026-10-27T00:00:00+00:00",
@@ -6484,7 +6517,7 @@
   "sid": "43e83c18b02cb4e5",
   "source": "arxiv_cs_cl",
   "summary": "Proactive assistants offer short, memory-grounded hints during a conversation, deciding when to assist and what to suggest. Current systems split this between a gate and a larger generator; we evaluate both together on 28,058 decision points. Stage-wise generation scores are oracle-gate ceilings: behind a real gate, end-to-end exact match is 0.2619 against a ceiling of 0.2971, and end-to-end precision is 0.2387, leaving substantial headroom. A gate pays off through precision and compute, whose saving falls from 4.39x with an 8B generator to 1.38x with a 1B one. The memory profile drives hint quality: removing it costs 24.7 exact-match points (rescaled BERTScore 0.57 to 0.35), while retrieval and a larger generator add nothing on exact match. One 1B decoder can do both, gating from an intermediate layer and generating in the same pass. At its final checkpoint it matches or exceeds the two-model pipelines on automatic end-to-end measures with 1.31-1.76x less wall-clock time than the matched 1B pipeline; across three seeds, its deeper exit ties the separate gate. A human evaluation (1,144 ratings over 32 dialogues) supports the memory effect and rates the single model level with the matched 1B pipeline and below the 8B one. Graded metrics and LlamaPIE's native judge track human ratings more closely than exact match, which we report as a strict lower bound.",
-  "summary_1line": "Proactive assistants offer short, memory-grounded hints during a conversation, deciding when to assist and what to suggest. Current systems split this between a gate and a larger generator; we evaluate both together o...",
+  "summary_1line": "Proactive assistants offer short, memory-grounded hints during a conversation, deciding when to assist and what to suggest. Current systems split this between a gate and a larger generator; we evaluate both together on 28,058 decision points. Stage-wise generation scores are orac",
   "title": "When to Assist and What to Suggest: Joint Gating and Memory-Grounded Hint Generation in One Compact Decoder",
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.40611v1",
@@ -8892,17 +8925,24 @@
   "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPeTV4ODAyQ2wwMHJPMWFmdEdvMm5JcW9GZzE0REFNczVZTjZBaXRBQ29fRndWNVBxZ19SRGtBdnM4dW9iTFFpeW42TmlmWklyOTlEek5tMF9oQVR3b08tZDFTU1h2aXZwUl85ODN3aXVNcTJCMHlXdTdYODdROHVQa0dB?oc=5"
  },
  "5bd78febd4a59e34": {
+  "also_covered": [
+   {
+    "source": "search_cn_open_weight_labs",
+    "title": "DeepSeek Releases Agent That Works GitHub Issues in Parallel",
+    "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPekJnNE5IT1BWMkoxQlRxbmZFYWRJOWRqM0xGa1VQdEI2d3dJbDR2azZlY05xcElOd25EZk83WHhjMzRiZkxmT0xZWUFQNUt3QmhBdjh5U04yYnVoQVh5R19BLXdVTGJyc3hOY3MwR3lQMU1VS01MVDhFT3lLOGVyVlR6NE5xR1piekRnQUdHWHRLdw?oc=5"
+   }
+  ],
   "content_excerpt": "Research prototype for reference only, not an official DeepSeek product. This code grew out of our team's day-to-day development work, with much of the engineering done by coding agents. Treat it as research code, not production-ready software. It may still contain bugs, and its coding style and engineering practices may be inconsistent. Review and adapt it before using it in your own environment. We have adapted it for publication, so it is not identical to our internal version or the implementation described in Exploring Super-agent Design: Towards a More Autonomous Agent System . Some designs discussed in the article are directions for future development and are not implemented in this prototype. dsh-superagent is a proactive coding agent for one GitHub repository, packaged as a bundle for DeepSeek Harness . It listens to GitHub and, optionally, Feishu. When someone allowed asks the agent for work, it opens a work item, works on it in its own agent session and directory, and answers in the original conversation, for example with a pull request. A web panel shows what needs a person. It is also a way of working with an agent: take as little human attention as possible, and give as much value as possible. An agent that can act for a whole team can also waste a whole team's attention, so it acts only when asked or when a rule the team wrote allows it, and speaks only when someone must act or can use a result. docs/000-philosophy.md explains the principle and what it asks of t",
   "first_seen": "2026-10-31T14:05:08.932025+00:00",
-  "id": "389be66ba192eefe",
+  "id": "7c444abeabdce3d3",
   "matched_topics": [
    "agent"
   ],
-  "published": "2026-10-31T13:41:11+00:00",
+  "published": "2026-10-31T23:31:26+00:00",
   "sid": "5bd78febd4a59e34",
   "source": "hackernews_ai",
-  "summary_1line": "DeepSeek open-sources dsh-superagent, a coding agent largely built by agents",
-  "title": "DeepSeek open-sources dsh-superagent, a coding agent largely built by agents",
+  "summary_1line": "DeepSeek put the architecture for their always-on autonomous agent on GitHub",
+  "title": "DeepSeek put the architecture for their always-on autonomous agent on GitHub",
   "type": "news",
   "url": "https://github.com/deepseek-ai/dsh-superagent-prototype",
   "why_it_matters": "Matches feed focus: agent."
@@ -8917,6 +8957,17 @@
   "title": "TorchNeuron: running HF models on AWS Trainium is easier than ever",
   "type": "research",
   "url": "https://huggingface.co/blog/hf-torchneuron"
+ },
+ "5c546224ef2288ff": {
+  "first_seen": "2026-11-01T00:07:00.847045+00:00",
+  "id": "32992a9f173717de",
+  "published": "2026-10-29T17:15:30+00:00",
+  "sid": "5c546224ef2288ff",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "An image's original dimensions, aspect ratio, and composition provide important cues that can affect its technical and aesthetic quality. Image assessment methods use resizing, cropping, padding, or patch sampling to accommodate different input sizes. However, these operations ca",
+  "title": "MetaRefine: Score Refinement with Multi-Level Features for Image Assessment",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40487v1"
  },
  "5c67f86b19de93a0": {
   "first_seen": "2026-10-22T15:04:55.365930+00:00",
@@ -10693,7 +10744,7 @@
   "sid": "723372c8dc681795",
   "source": "anthropic_research",
   "summary": "In a randomized trial, professional analysts working with an AI coding agent went with the option the agent was randomly assigned to favor 86% of the time. We look at what this means for human oversight of AI-assisted work.",
-  "summary_1line": "AI agents shape experts' judgment calls",
+  "summary_1line": "In a randomized trial, professional analysts working with an AI coding agent went with the option the agent was randomly assigned to favor 86% of the time. We look at what this means for human oversight of AI-assisted work.",
   "title": "How AI agents shape experts’ judgment calls",
   "type": "research",
   "url": "https://www.anthropic.com/research/agents-judgment-calls",
@@ -11098,6 +11149,17 @@
   "url": "https://www.sql-server-tool.com/blog-vb6-ai-agents.htm",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "7662b87990516210": {
+  "first_seen": "2026-11-01T00:07:00.847045+00:00",
+  "id": "d224799f251c3f72",
+  "published": "2026-10-29T17:58:16+00:00",
+  "sid": "7662b87990516210",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "An observer sees only part of the surrounding world, yet must keep track of what lies beyond the current view. Spatial perception therefore involves more than recognizing individual images: it calls for a persistent spatial state that is updated under self-motion and used to guid",
+  "title": "Probing Spatial State Representations in Visual Foundation Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40636v1"
+ },
  "768053dfa79b11db": {
   "first_seen": "2026-10-30T13:05:04.872744+00:00",
   "id": "ff546a3c6ab8adfe",
@@ -11183,6 +11245,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNQ1hmZzQxZmpITVlBeVpjanJJRWhDN0JGWWtSb291VDJIaTR2ZXJuVDRtanlSUDdiQllFM1RqSjBHeXp6N2JaT1FnMXB5Yk45RWhOeFoxT3RGMEdJT3N1UG1SS0E3RWFvRG1Tci0waTNYWVBKeFcwOVJ6T1dVOV84cTZHY3B1ekdOR3ZqZ1NLWFZTN1Zoc3k2dWZLU0dOTnprX0ZBcnZLRmFsdUUxQkhNUkRpN1dpUE0wSTBHRVhIY2NrcEk?oc=5"
  },
+ "77d53d6ae0e7cec0": {
+  "content_excerpt": "Agente de código de terminal em C11 puro: zero dependências, um único executável. License: source is available for study and personal/internal use — selling or cloning is prohibited , and any public disclosure must be non-profit and credited to the project. See LICENSE . Delta Agent is a coding agent that lives in your terminal. Site: descz.github.io/delta · downloads: Releases You talk in natural language and it does the work: reads and writes files, runs commands, handles git, searches the web, keeps memory and explains what it found — with the model you choose. It is a single executable written in C11, with no dependencies at all : no Node, Python, npm, pip or framework installer. On Windows it is 636 KB and about 1.7 MB of private memory . All inside the terminal, with its own TUI: mouse selection and copy, rendered markdown (headings, lists, code, tables), OkLCH colors, themes, i18n (pt, en, es, zh, ja) and an installer with an HTML screen served by the executable itself . Download from Releases . Each system has one file that already is the installer: The installer asks where to keep the data , creates the folder, copies the binary, puts delta on the PATH and creates the shortcut (taskbar on Windows, .desktop + GNOME favorites on Linux, Delta.app + Dock on macOS). Windows may warn on SmartScreen the first time ( More info → Run anyway ) because the binary is not code-signed. There is no ready-made macOS binary: the package ships the source and a .command that checks the",
+  "first_seen": "2026-11-01T00:05:03.901059+00:00",
+  "id": "93d564d154171eac",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-31T23:30:56+00:00",
+  "sid": "77d53d6ae0e7cec0",
+  "source": "hackernews_ai",
+  "summary_1line": "A coding agent that fits in 636 KB – no Node, no Python, no NPM",
+  "title": "A coding agent that fits in 636 KB – no Node, no Python, no NPM",
+  "type": "news",
+  "url": "https://github.com/descz/delta",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "7846186c47bfadc6": {
   "first_seen": "2026-10-08T04:04:11.804248+00:00",
   "id": "66837e762e30753a",
@@ -11199,6 +11277,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.09264v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "785d4ceb71a807a6": {
+  "first_seen": "2026-11-01T00:05:03.901059+00:00",
+  "id": "0c71c5419382ca3a",
+  "published": "2026-10-31T23:15:22+00:00",
+  "sid": "785d4ceb71a807a6",
+  "source": "simon_willison",
+  "summary": "How We Took Over ChatGPT Accounts Parameter Labs describe an exploit they found against ChatGPT's implementation of the artifacts pattern (OpenAI used to call this \"Canvas\" but it looks like the latest revision is called HTML previews ), where interactive custom HTML apps are displayed in a sandboxed iframe. It's important that HTML in these stays tightly sandboxed to avoid untrusted code interacting with OpenAI APIs and accessing private data. Parameter found quite a complex attack chain. OpenAI use the MathLive JavaScript library as part of their graph support, and that library includes its own virtual keyboard , which can be triggered in the parent page via postMessage() from the sandboxed iframe. That message receiving code uses innerHTML , so anything that sends a message can add custom HTML to the parent - and there was no mechanism to prevent other sandboxed frames, including HTML preview frames, from calling that method. This meant untrusted code in an iframe could insert HTML, and while innerHTML doesn't directly execute script elements it could be used to inject a new iframe without sandbox restrictions. OpenAI’s CSP rules blocked inline scripts entirely, and only allowed script loading from a handful of domains, but one of those was YouTube - and the YouTube oEmbed endpoint could be used to reflect JavaScript back in a way that executed it. Once the attack had JavaScript execution on ChatGPT, it was trivial to fetch private user data from APIs and exfiltrate it via",
+  "summary_1line": "How We Took Over ChatGPT Accounts Parameter Labs describe an exploit they found against ChatGPT's implementation of the artifacts pattern (OpenAI used to call this \"Canvas\" but it looks like the latest revision is cal...",
+  "title": "How We Took Over ChatGPT Accounts",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Oct/31/how-we-took-over-chatgpt-accounts"
  },
  "7866a5b7fe98e94b": {
   "first_seen": "2026-10-06T03:04:18.759325+00:00",
@@ -12232,7 +12322,7 @@
   "sid": "832a0b6ededfec4a",
   "source": "arxiv_cs_ai",
   "summary": "When AI agents share channels and credentials, one agent can press another to break its operator's rule, a first step towards collusion. Output filters check only what an agent has already written. Can an overseer tell beforehand that an agent is about to give in? We show that a linear probe on the agent's activations can, in a controlled multi-agent setting. Across six scenarios, a peer presses a target for up to 20 rounds to reveal a secret, such as a deploy token; the target often refuses, then gives in. Read at each model call before its output is written, the probe picks out the one that leaks. On held-out Qwen3-32B episodes, at a threshold set to flag 5% of benign calls, it catches 82% of leaking calls. At a similar flag rate, a zero-shot decision-model monitor catches 26%. On gpt-oss-20b, a probe on its reasoning reaches AUROC 0.91. A bag-of-words classifier trained on the same calls comes close, so most of the gain comes from training on labels, not activations. The probe also flags permitted disclosures: it reads the coming disclosure more than the violation. The warning is short-range, and halting on any alarm would stop most benign episodes, which a second text check does not fix. A warning raised before generation could let an overseer stop an agent that is about to give in, ahead of others acting on its messages or recruitment spreading through a swarm.",
-  "summary_1line": "When AI agents share channels and credentials, one agent can press another to break its operator's rule, a first step towards collusion. Output filters check only what an agent has already written. Can an overseer tel...",
+  "summary_1line": "When AI agents share channels and credentials, one agent can press another to break its operator's rule, a first step towards collusion. Output filters check only what an agent has already written. Can an overseer tell beforehand that an agent is about to give in? We show that a",
   "title": "Pre-Crime for Agents, at the Last Second: Probing When a Recruited Agent Gives In",
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.40588v1",
@@ -16069,6 +16159,17 @@
   "url": "https://github.com/cole-h06/omneum",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "a90a413338f50ec6": {
+  "first_seen": "2026-11-01T00:07:00.847045+00:00",
+  "id": "39144517bf76002e",
+  "published": "2026-10-29T17:55:25+00:00",
+  "sid": "a90a413338f50ec6",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "The marginals of a continuous diffusion model can be reproduced by a deterministic ordinary differential equation (ODE), known as the probability flow ODE, which provides a foundation for accelerated sampling and consistency distillation. In this paper we address the question whe",
+  "title": "An ODE-based Sampler for Discrete Diffusion Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40618v1"
+ },
  "a92a400264dfa863": {
   "content_excerpt": "Any MCP server can exploit this to redirect the model, pull credentials, or add any tools they want. Kevlar strips every description field to \"\" unconditionally on every tools/list response, before the message reaches the client. The LLM sees name and inputSchema only. inputSchema is rebuilt from an allowlist: prose fields like description , title , examples , and $comment are stripped there too, and enum values, property keys, $ref targets, and type values are validated against the MCP spec. Score 0 on this pass cannot be achieved by adding description text back, because description text is never forwarded regardless of score. Tool call results cannot be stripped without breaking functionality. Kevlar scans them against ~60 indicators sourced from published prompt injection research. Responses scoring above the mode threshold are quarantined (matched spans replaced with [KEVLAR: ] tokens) or rejected (replaced with an isError block). Unicode bypass attempts using characters that normalize to injection text under NFKC are detected before normalization and redacted after. Outbound tools/call arguments are scanned before the call is forwarded to the server. If the LLM has already been compromised and is trying to exfiltrate credentials, the call is blocked at the proxy layer. The server never receives it. Runs in all three modes. After the initial tools/list handshake, the set of callable tool names is frozen. notifications/tools/list_changed from the server is dropped, not for",
   "first_seen": "2026-10-24T23:04:50.956317+00:00",
@@ -16172,7 +16273,7 @@
   "sid": "a9c17daa5dbfcba0",
   "source": "arxiv_cn_open_weight_reports",
   "summary": "As frontier language models grow increasingly capable and autonomous, independent third-party evaluations are critical for characterizing their systemic safety risks. While closed-source releases are routinely accompanied by comprehensive system cards, open-weight models receive less scrutiny regarding frontier risks. To address this gap, we present an independent safety evaluation of DeepSeek V4.1 Flash-1017, the latest version of V4.1 Flash that departs from V4 with a new architecture, scaled-up training, and strong agentic capabilities. Drawing on the EU General-Purpose AI Code of Practice, we evaluate the model across 34 benchmarks, including 5 in-house suites, spanning evaluation integrity, loss of control, and harmful manipulation. Conforming to the AEF-1 standard, we compare V4.1 Flash-1017 against V4.1 Flash, earlier DeepSeek V4 models, and leading closed-source systems (GPT-6 Astra, GPT-5.6 Sol, and Gemini 3.8 Flash). Overall, V4.1 Flash-1017 shows substantial safety improvements over the V4 generation and approaches or matches leading closed-source baselines on several dimensions, while still exhibiting notable behaviors that warrant continued attention. Building on our findings, we highlight three key observations and recommendations. First, because safety can shift and even regress across minor updates, developers should integrate safety evaluation into incremental releases. Second, as final-turn outputs and end-state checks alone cannot reliably detect loss-of-co",
-  "summary_1line": "As frontier language models grow increasingly capable and autonomous, independent third-party evaluations are critical for characterizing their systemic safety risks. While closed-source releases are routinely accompa...",
+  "summary_1line": "As frontier language models grow increasingly capable and autonomous, independent third-party evaluations are critical for characterizing their systemic safety risks. While closed-source releases are routinely accompanied by comprehensive system cards, open-weight models receive",
   "title": "Evaluating DeepSeek V4.1 Flash-1017 for loss of control and harmful manipulation risks",
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.35671v1",
@@ -16235,6 +16336,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.37588v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "aa78c0a0050a1307": {
+  "first_seen": "2026-11-01T00:07:00.847045+00:00",
+  "id": "04783d47428d851f",
+  "published": "2026-10-28T10:48:32+00:00",
+  "sid": "aa78c0a0050a1307",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Financial assistants answer questions that sound factual but depend on what the user leaves unsaid: what a data figure measures, which product variant is meant, and the investor's situation and the rules that apply. An assistant that ignores these can still answer with a real num",
+  "title": "Right Numbers, Wrong Questions: Evaluating LLMs on Underspecified Financial Queries",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.38631v1"
  },
  "aa7c83fe653ef5cd": {
   "first_seen": "2026-10-09T17:03:10.419250+00:00",
@@ -21042,6 +21154,17 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.163.0-alpha.12",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "d571e973b6e6916d": {
+  "first_seen": "2026-11-01T00:07:00.847045+00:00",
+  "id": "1e33c44ad2fd7da7",
+  "published": "2026-10-29T09:21:26+00:00",
+  "sid": "d571e973b6e6916d",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Large language models (LLMs) draw on parametric knowledge and retrieval-augmented generation (RAG) to solve knowledge-intensive tasks. Yet problem solving in unfamiliar domains calls for tightly coupled knowledge acquisition and reasoning, beyond factual retrieval and aggregation",
+  "title": "Incentivizing Self-Learning in Large Language Models via Reinforcement Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.39671v1"
+ },
  "d58b11709ebab0f2": {
   "content_excerpt": "Reclaim disk space with an AI agent: measure top-down, group findings by risk, and delete only what you approve. Prompts in 7 languages. macOS, Linux, Windows. A battle-tested prompt that turns any AI coding agent (Claude Code, Cursor, Codex, …) into a careful disk-space auditor. It walks your disk top-down, groups findings by how much you'd regret deleting them, and waits for your approval before touching anything . Because the biggest wins are rarely where you look first, and the obvious numbers lie: The prompt encodes the method that finds those, plus the guardrails that keep an eager agent from deleting your .env . Pick your language, open the file, and paste everything below the --- line into your agent. Answer the tier question when it comes, and run the elevated commands it hands you. The prompt's language is functional, not cosmetic: it also sets the language the agent reports back in. Shell commands stay in English in every translation. Nothing is deleted without your explicit approval — not even caches. If it deletes anything you did not name, that is a bug: stop it and open an issue . The prompt asks for approval — it cannot enforce it. Stopping to ask is an instruction in the text; what actually guarantees the pause is your agent's permission mode. Run it somewhere tool calls need your confirmation (Claude Code's normal permission prompts, Cursor's ask mode, and so on) and not in an auto-approve / \"yolo\" mode. An agent running unattended can delete things before y",
   "first_seen": "2026-10-25T21:05:30.197489+00:00",
@@ -22660,6 +22783,17 @@
   "type": "research",
   "url": "https://huggingface.co/blog/ibm-granite/granite-switch-4-1-1"
  },
+ "e519641640234319": {
+  "first_seen": "2026-11-01T00:07:00.847045+00:00",
+  "id": "4fd01acade620380",
+  "published": "2026-10-29T17:13:45+00:00",
+  "sid": "e519641640234319",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Financial AI workflows that reuse investor knowledge need persistent memory that integrates observations across sources and periods without losing identity or provenance. In a knowledge graph, recurring observations may use different surface forms, fragmenting relationship histor",
+  "title": "FIRME: Registry-Anchored Memory Graphs for Evolving, Heterogeneous Investor Knowledge",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40482v1"
+ },
  "e53d362bf380fa3a": {
   "first_seen": "2026-10-09T23:03:52.377282+00:00",
   "id": "15b976468bd8771c",
@@ -23043,6 +23177,17 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5RM3Y0bXVQSFItT19XTkZWY0Y4dkdqQVlvYzNxRlFkSEdHczdnelV4VHhFZlpVMDJhS2w0UmUtdUNuMDZ1Y1Z4UWlZUlZlekdjbFpjWjdHX3l5Qng5ZldJVGhrODBydkljcEk1SHBJRDROckpFS1E?oc=5",
   "why_it_matters": "Matches feed focus: harness, claude code."
+ },
+ "e826ccda9d048b84": {
+  "first_seen": "2026-11-01T00:07:00.847045+00:00",
+  "id": "14b90e178d0acd9d",
+  "published": "2026-10-28T19:56:32+00:00",
+  "sid": "e826ccda9d048b84",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Translated versions of English-origin benchmarks such as MMLU are widely used to evaluate large language models in non-English languages, yet it remains unclear whether they measure the same constructs as natively created benchmarks. We frame this as a proxy validity question and",
+  "title": "Gold vs.~Translation: Are We Measuring Language, Knowledge, or Locality in Translated Benchmarks?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.38788v1"
  },
  "e83a843b3217c22a": {
   "first_seen": "2026-10-02T02:02:47.923202+00:00",
