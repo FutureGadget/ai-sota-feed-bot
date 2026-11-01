@@ -2,128 +2,128 @@
 
 Focus: AI Platform Engineering
 
-## 1. How We Took Over ChatGPT Accounts
+## 1. DeepSeek put the architecture for their always-on autonomous agent on GitHub
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/deepseek-ai/dsh-superagent-prototype
+- Score: 3.786 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 2. A coding agent that fits in 636 KB – no Node, no Python, no NPM
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/descz/delta
+- Score: 3.647 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 3. Show HN: LinkedIn-ops – Zero-dependency CDP automation built for AI agents
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/shashtag-ventures/linkedin-ops
+- Score: 3.596 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. How We Took Over ChatGPT Accounts
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Oct/31/how-we-took-over-chatgpt-accounts/
-- Score: 3.418 | Reliability: 1.0
+- Score: 3.319 | Reliability: 1.0
 - Why it matters: 
 
-## 2. DeepSeek Open Sources the Architecture Behind Its Super-Agent
+## 5. DeepSeek Harness Team Open-Sources a Super-agent Prototype That Finds and Fixes Bugs on Its Own
 - Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMikwFBVV95cUxPTFhOWk9yYkRyNkE0d3FxeWNtVDdmcGFNTHBxeWxINk1iUGJMQTd4c2lXRkNMY3NjejVyTGIwZmdYQXUweTdNUHAwblI5M2dGNmd5TWR5SXo4Rmx6d3ZCWjZhX21YZHNoMDNhT3cycEtxd2FGeEdPbkR3UWRiRkNwbTJyandOcEtQXzRyUkxhdlhybTg?oc=5
-- Score: 3.023 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+- URL: https://news.google.com/rss/articles/CBMisAFBVV95cUxOaUpld3paRUZYenVQaE96RThTb1p3QXUyNm5OSWVtNnZoRXVQdFJPX2VyYVJxNzFqYXliNk1pQUJETkdQdzI2Qm40TDBkTDhSTmZQX0RKYTZvSjRyRFJXWU5QdjVnOHJZV3hlaUgwUmZ1aXg4V3kxU002QnBwbngteU5hckdXM0dKOFlqMlpIZXNzMG5fNHVuTm8zTWlHdktMeEM1MzU1Z3owcW9pMm1wZA?oc=5
+- Score: 3.216 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
 
-## 3. Don't Lose the Thread: Empowering Long-Horizon LLM Agents with Cognitive Resource Self-Allocation
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.40350v1
-- Score: 2.914 | Reliability: 1.0
+## 6. Building a multiplayer game world with autonomous Fable-class models
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Oct/29/how-i-built-the-most-ai-pilled-company-in-the-world/
+- Score: 2.643 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 4. Prefix Executability: Evaluating Tool-Using Agents Beyond Final Success
+## 7. PCM: A Proof-Carrying Message Protocol for Verifiable Multi-Agent Communication
 - Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.40444v1
-- Score: 2.672 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 5. Lakebase branching for CI/CD: lessons from 100 PR databases
-- Type: news | Source: databricks_blog
-- URL: https://www.databricks.com/blog/lakebase-branching-cicd-lessons-100-pr-databases
-- Score: 2.607 | Reliability: 1.0
-- Why it matters: 
-
-## 6. Gym-Anything for Robotics: Scaling physical simulations with digital agents
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2610.40565v1
-- Score: 2.521 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2610.39109v1
+- Score: 2.414 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. What’s new in AI infrastructure and orchestration in October
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/topics/ai-infrastructure/whats-new-in-ai-infrastructure-this-month/
-- Score: 2.46 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness, evaluation.
-
-## 8. Can Frontier Models See Past a Decoy? Elorian Tests Visual Reasoning
-- Type: news | Source: latent_space
-- URL: https://latent.space/p/elorian/
-- Score: 2.204 | Reliability: 1.0
+## 8. Lakebase branching for CI/CD: lessons from 100 PR databases
+- Type: news | Source: databricks_blog
+- URL: https://www.databricks.com/blog/lakebase-branching-cicd-lessons-100-pr-databases
+- Score: 2.409 | Reliability: 1.0
 - Why it matters: 
 
-## 9. Day 0 support for Mistral Large 4 on vLLM
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-10-29-mistral-large-4
-- Score: 2.078 | Reliability: 1.0
-- Why it matters: 
+## 9. BURGER: Benchmarking and Understanding Robotic Generalization via Embodied Drawing
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2610.40532v1
+- Score: 2.335 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
-## 10. Harness Engineering: What's Actually New (And What Isn't)
-- Type: video | Source: ai_native_dev
-- URL: https://youtu.be/mHa0bImgN1o
-- Score: 1.926 | Reliability: 0.794
-- Why it matters: Matches feed focus: agent, harness, eval.
+## 10. Does Scaling Toward AGI Depend on What System-1 Lets System-2 Execute?
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.39497v1
+- Score: 2.308 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
 
-## 11. Rimuru: Unified Memory Management for Modern LLM Serving via Elastic Expert Offloading
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2610.40305v1
-- Score: 2.49 | Reliability: 1.0
+## 11. Glance: The Generator Is Its Own Reranker
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2610.40454v1
+- Score: 2.255 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 12. rTaste: Do Research Agents Have Taste? Evaluating Early Stage Research Judgment
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.40488v1
-- Score: 2.488 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, evaluation.
+## 12. How to build evidence-grounded agent memory with OpenWiki and Graphs
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/building-agent-memory-openwiki-graphs
+- Score: 1.974 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 13. Genie 4: A new generation of world simulation
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/
-- Score: 1.763 | Reliability: 1.0
-- Why it matters: 
-
-## 14. Making it easier for websites to express AI training preferences
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/helping-websites-express-ai-training-preferences
-- Score: 1.756 | Reliability: 1.0
-- Why it matters: 
-
-## 15. Fair use benefits everyone
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/fair-use-benefits-everyone
-- Score: 1.696 | Reliability: 1.0
-- Why it matters: 
-
-## 16. Greptile takes bug detection beyond code review with GPT-6 Astra
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/greptile-code-review-codex-astra
-- Score: 1.679 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 17. langgraph-checkpoint-sqlite==3.1.3
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/checkpointsqlite%3D%3D3.1.3
-- Score: 1.565 | Reliability: 1.0
-- Why it matters: 
-
-## 18. claude-code v2.1.312
+## 13. claude-code v2.1.316
 - Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.312
-- Score: 1.438 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.316
+- Score: 1.896 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 19. codex rust-v0.167.0-alpha.1
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.1
-- Score: 1.31 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
+## 14. How we detect frontier model misalignment
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/how-we-detect-frontier-model-misalignment
+- Score: 1.787 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 20. Beyond tree cover: mapping the world’s forest types
+## 15. Innovate on your own business terms: Google Cloud spend caps now generally available
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/topics/cost-management/google-cloud-spend-caps-now-generally-available/
+- Score: 1.743 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 16. Genie 4: A new generation of world simulation
 - Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/beyond-tree-cover-mapping-the-worlds-forest-types/
-- Score: 1.235 | Reliability: 1.0
+- URL: https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/
+- Score: 1.742 | Reliability: 1.0
 - Why it matters: 
 
-## 21. v0.33.0rc1: [CI] Fix stale NVFP4 decode test selector on DGX Spark (#64107)
+## 17. Fair use benefits everyone
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/fair-use-benefits-everyone
+- Score: 1.674 | Reliability: 1.0
+- Why it matters: 
+
+## 18. langgraph==1.2.19
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.19
+- Score: 1.578 | Reliability: 1.0
+- Why it matters: 
+
+## 19. What FDE means at OpenAI
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/forward-deployed-engineering-means
+- Score: 1.398 | Reliability: 1.0
+- Why it matters: 
+
+## 20. codex rust-v0.167.0-alpha.1
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.1
+- Score: 1.324 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 21. v0.33.0rc2: [ROCm][Bugfix] Skip AITER tuned GEMM when M*N >= 2^31 on gfx950 (#64567)
 - Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc1
-- Score: 0.655 | Reliability: 1.0
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc2
+- Score: 0.745 | Reliability: 1.0
 - Why it matters:
