@@ -2,116 +2,116 @@
 
 Focus: AI Platform Engineering
 
-## 1. DeepSeek's Open-Source Super-Agent for Coding
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMikgFBVV95cUxNeWswVVhGbHVxSkE4WThBZFgxLXZ6cVFmU1pwUnc2Q3NyckVLdFhKbHZJZE9mQmZTZUVxRktqMWlTTmRTQkpCdGpuMW94OHJ6U2tIcDJKc01lWVpPSkVPY3gwallaQlNGclR2MFVhTFhLQlkyX0FJSXZBYTNEblpmLTB1TVVwbUNEV3d6bWRPb3BUUQ?oc=5
-- Score: 2.825 | Reliability: 1.0
+## 1. Avartha: Fastest open-weight frontier voice AI beats OpenAI, Google, and xAI
+- Type: news | Source: hackernews_ai
+- URL: https://avartha.ai/blog/introducing-avartha/
+- Score: 4.088 | Reliability: 1.0
+- Why it matters: 
+
+## 2. Which coding-agent CLI is best for headless workflow automation?
+- Type: news | Source: hackernews_ai
+- URL: https://aictrl.dev/blog/headless-coding-agent-cli-benchmark
+- Score: 3.806 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. Agents Prompt People: Using Agents for Long-Horizon Financial Work
-- Type: news | Source: latent_space
-- URL: https://latent.space/p/arca/
-- Score: 2.281 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness.
-
-## 3. ShallowDefend: Harnessing Shallow Safety Alignment for Multi-Turn Defender
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.40627v1
-- Score: 2.144 | Reliability: 1.0
+## 3. Turn Superlogical's Rex into an AI Harness
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/alpcanaydin/rexmod/
+- Score: 3.413 | Reliability: 1.0
 - Why it matters: Matches feed focus: harness.
 
-## 4. HEDGE: Gated Hypergraph Memory for Scalable Multi-Agent Debate
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.38902v1
-- Score: 2.075 | Reliability: 1.0
+## 4. DeepSeek's Open-Source Super-Agent for Coding
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMikgFBVV95cUxNeWswVVhGbHVxSkE4WThBZFgxLXZ6cVFmU1pwUnc2Q3NyckVLdFhKbHZJZE9mQmZTZUVxRktqMWlTTmRTQkpCdGpuMW94OHJ6U2tIcDJKc01lWVpPSkVPY3gwallaQlNGclR2MFVhTFhLQlkyX0FJSXZBYTNEblpmLTB1TVVwbUNEV3d6bWRPb3BUUQ?oc=5
+- Score: 2.776 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 5. Heads of Security: Learned Attention Gates Improve Prompt Injection Robustness
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.37657v1
-- Score: 2.059 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
+## 5. Quoting Kyle Kingsbury
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Nov/1/kyle-kingsbury/
+- Score: 2.247 | Reliability: 1.0
+- Why it matters: 
 
-## 6. codex rust-v0.167.0-alpha.3
+## 6. When to Assist and What to Suggest: Joint Gating and Memory-Grounded Hint Generation in One Compact Decoder
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2610.40611v1
+- Score: 2.0 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 7. codex 0.167.0-alpha.3
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.3
-- Score: 2.042 | Reliability: 1.0
+- Score: 1.986 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 7. Day 0 support for Mistral Large 4 on vLLM
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-10-29-mistral-large-4
-- Score: 1.842 | Reliability: 1.0
-- Why it matters: 
-
-## 8. Harness Engineering: What's Actually New (And What Isn't)
-- Type: video | Source: ai_native_dev
-- URL: https://youtu.be/mHa0bImgN1o
-- Score: 1.752 | Reliability: 0.833
-- Why it matters: Matches feed focus: agent, harness, eval.
-
-## 9. Genie 4: A new generation of world simulation
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/
-- Score: 1.655 | Reliability: 1.0
-- Why it matters: 
-
-## 10. Making it easier for websites to express AI training preferences
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/helping-websites-express-ai-training-preferences
-- Score: 1.609 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Multi-View MoE: Letting Every Router Shape Expert Computation
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.40577v1
-- Score: 2.031 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 12. Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/anydecisionmodel
-- Score: 1.941 | Reliability: 1.0
-- Why it matters: 
-
-## 13. Credit Saison achieves 954% ROI in a ChatGPT Enterprise pilot
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/credit-saison
-- Score: 1.56 | Reliability: 1.0
-- Why it matters: 
-
-## 14. Securing our frontier model training environment
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/securing-our-frontier-model-training-environment
-- Score: 1.487 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 15. Innovate on your own business terms: Google Cloud spend caps now generally available
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/topics/cost-management/google-cloud-spend-caps-now-generally-available/
-- Score: 1.242 | Reliability: 1.0
+## 8. How AI agents shape experts’ judgment calls
+- Type: research | Source: anthropic_research
+- URL: https://www.anthropic.com/research/agents-judgment-calls
+- Score: 1.974 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 16. Things That Go Beep in the Night: Agentic AI Joins the Search for Extraterrestrial Signals
-- Type: news | Source: nvidia_blog
-- URL: https://blogs.nvidia.com/blog/ai-joins-the-search-for-extraterrestrial-signals/
-- Score: 1.205 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
+## 9. Agentic University: Collaborative Agents for Personalized Learning
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2610.40492v1
+- Score: 1.966 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
 
-## 17. claude-code v2.1.311
+## 10. What’s new in AI infrastructure and orchestration in October
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/topics/ai-infrastructure/whats-new-in-ai-infrastructure-this-month/
+- Score: 1.833 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness, evaluation.
+
+## 11. Evaluating DeepSeek V4.1 Flash-1017 for loss of control and harmful manipulation risks
+- Type: paper | Source: arxiv_cn_open_weight_reports
+- URL: http://arxiv.org/abs/2610.35671v1
+- Score: 1.91 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
+
+## 12. Day 0 support for Mistral Large 4 on vLLM
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-10-29-mistral-large-4
+- Score: 1.828 | Reliability: 1.0
+- Why it matters: 
+
+## 13. How we detect frontier model misalignment
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/how-we-detect-frontier-model-misalignment
+- Score: 1.723 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 14. Genie 4: A new generation of world simulation
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/
+- Score: 1.654 | Reliability: 1.0
+- Why it matters: 
+
+## 15. Making it easier for websites to express AI training preferences
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/helping-websites-express-ai-training-preferences
+- Score: 1.606 | Reliability: 1.0
+- Why it matters: 
+
+## 16. Rapidly scaling online storage to serve over 1 billion ChatGPT users (Part II)
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/scaling-storage-one-billion-users-part-two
+- Score: 1.379 | Reliability: 1.0
+- Why it matters: 
+
+## 17. claude-code v2.1.312
 - Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.311
-- Score: 1.114 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.312
+- Score: 1.31 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 18. langgraph==1.2.18
+## 18. langgraph-sdk==0.4.10
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.18
-- Score: 1.075 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.10
+- Score: 0.872 | Reliability: 1.0
 - Why it matters: 
 
 ## 19. v0.33.0rc2: [ROCm][Bugfix] Skip AITER tuned GEMM when M*N >= 2^31 on gfx950 (#64567)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc2
-- Score: 0.794 | Reliability: 1.0
+- Score: 0.786 | Reliability: 1.0
 - Why it matters:
