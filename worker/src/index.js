@@ -205,7 +205,16 @@ async function handleApi(request, env, ctx) {
 export default {
   async fetch(request, env, ctx) {
     installR2Source(env);
+    // Handlers read config via process.env (Node style). Workers only exposes
+    // plain-text vars there - secrets live solely on the env binding - so
+    // bridge every string binding (vars AND secrets) into process.env.
+    for (const [key, value] of Object.entries(env)) {
+      if (typeof value === 'string') {
+        process.env[key] = value;
+      }
+    }
     const url = new URL(request.url);
+
 
     // vercel.json: llm-digest.com -> www.llm-digest.com (permanent).
     if (url.hostname === 'llm-digest.com') {
