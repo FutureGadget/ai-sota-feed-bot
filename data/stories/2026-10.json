@@ -4372,6 +4372,22 @@
   "type": "news",
   "url": "https://www.anthropic.com/news/cyber-verification-program"
  },
+ "2be936e3680338d3": {
+  "first_seen": "2026-11-02T09:04:39.623668+00:00",
+  "id": "5b05db8995678ef1",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-30T13:41:56+00:00",
+  "sid": "2be936e3680338d3",
+  "source": "arxiv_cs_cl",
+  "summary": "Whether a language model was trained on a document matters for copyright, privacy, and benchmark contamination. Yet most membership-inference (MI) evaluations on language models collect members and non-members after the fact, so success may reflect distribution shift and failure is inconclusive. We re-ran OLMo 2 1B's official 50-billion-token mid-training stage, replacing selected training chunks with documents from 7,814 pairs matched on domain and difficulty. For each pair, a coin flip determined which document was inserted and which was held out. The run released by the Allen Institute for AI (AI2) from the same seed saw identical data everywhere else and serves as the counterfactual. One exposure raises a previously unseen document's likelihood on average but rarely identifies it. Using the counterfactual as reference, the reference ratio has an area under the ROC curve (AUC) of 0.767 but, with one threshold across domains, catches 3.8% of members at a 1% false-positive rate (FPR). In contrast, 13 matched pairs give a paired test 80% power at the 5% level to detect training on a collection, given same-domain non-members and a close reference. A reference trained with another seed recovers 92% of the counterfactual's AUC advantage over chance, whereas reference-free attacks stay within 0.07 of chance when pooled over domains. The full official post-training recipe, re-run on both models, leaves 89% of the average effect. Even with a closely matched reference, substantial d",
+  "summary_1line": "Whether a language model was trained on a document matters for copyright, privacy, and benchmark contamination. Yet most membership-inference (MI) evaluations on language models collect members and non-members after t...",
+  "title": "From Training Exposure to Membership Evidence: A Controlled Study of OLMo 2",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41732v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "2bf6cd8f6f046082": {
   "first_seen": "2026-10-14T16:04:32.699481+00:00",
   "id": "dbbadd4adec4f5ef",
@@ -14937,6 +14953,22 @@
   "url": "http://arxiv.org/abs/2610.34679v1",
   "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
  },
+ "9be6658ae51492a9": {
+  "first_seen": "2026-11-02T09:04:39.623668+00:00",
+  "id": "7b3d4c61c7f2d6d2",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-30T14:19:53+00:00",
+  "sid": "9be6658ae51492a9",
+  "source": "arxiv_cs_cl",
+  "summary": "Taxonomy construction is essential for knowledge-intensive NLP yet remains costly: clustering-based methods (i) need careful per-corpus tuning and yield unstable hierarchies, while LLM-based pipelines (ii) depend on expensive task-specific training that does not transfer across domains. We report an empirical finding that bears on both: in Matryoshka Representation Learning (MRL) embeddings, where each leading prefix is itself a usable, coarser vector, prefix length aligns with the coarse-to-fine granularity of gold taxonomies; shuffled- and reverse-dimension controls isolate the alignment to the learned early prefix dimensions. The pattern holds across three architecturally distinct MRL models. To test whether this regularity is usable, we introduce PEEL (Peeling Embeddings to Extract Latent ontologies): a minimal probe over these frozen embeddings, trained once with an order-embedding objective that represents hierarchy as vector containment; a minimum spanning arborescence then decodes taxonomic DAGs. Using only a concept vocabulary (no documents), PEEL recovers taxonomic DAGs with high structural fidelity on two OLLM benchmarks, transferring to a new domain with no target-edge supervision. The end-to-end OLLM pipeline, which jointly discovers concepts and induces structure from document corpora, is reported as a cross-task reference. Pre-trained retrieval embeddings encode a decodable granularity gradient; a minimal probe renders it as explicit parent-child (is-a) structu",
+  "summary_1line": "Taxonomy construction is essential for knowledge-intensive NLP yet remains costly: clustering-based methods (i) need careful per-corpus tuning and yield unstable hierarchies, while LLM-based pipelines (ii) depend on e...",
+  "title": "Peeling the Matryoshka: Extracting Ontological Structure from Retrieval Embeddings",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41785v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "9bf93d58cc35db99": {
   "first_seen": "2026-10-09T19:04:36.036189+00:00",
   "id": "0f1eab57236c05e2",
@@ -16737,6 +16769,22 @@
   "type": "news",
   "url": "https://openai.com/index/terminal-x",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "aaad7e20a263aba2": {
+  "first_seen": "2026-11-02T09:04:39.623668+00:00",
+  "id": "1ab259b23c5a864a",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-30T14:36:12+00:00",
+  "sid": "aaad7e20a263aba2",
+  "source": "arxiv_cs_ai",
+  "summary": "Large closed-source reasoning models expose only their final answers. The intermediate reasoning that produces those answers is hidden behind API surfaces, tool-call policies, and safety filters. Existing chain-of-thought (CoT) extraction methods assume a side channel: a visible reasoning field, a scratchpad carried through tool calls, or a signed/encrypted reasoning block. We reproduce three representative state-of-the-art extraction methods and find that, on Claude-Sonnet-5.5 accessed through the standard chat-completions interface, all three return zero CoT tokens. The failure is structural rather than a bug: the reasoning field is absent, named tool selection is rejected, free-text scratchpad arguments are filtered, and no replayable reasoning block is exposed. We therefore take a different route. We present RECAST, a reconstruction-based framework that conditions a decoder on the question and the target model's final answer, reconstructs a first-person structured rationale, cleans it, and builds SFT-ready data. To the best of our knowledge, RECAST is the first system to reconstruct CoT from frontier closed models such as Claude-Sonnet-5.5, GPT-6.1, and Gemini 3 without using hidden reasoning channels. We instantiate RECAST on Claude-Sonnet-5.5 and additionally obtain successful qualitative reconstructions on GPT-6.1 and Gemini 3 with the same answer-only protocol. The system is open-source and packaged as an agent skill: one prompt deploys it and runs the complete pipeli",
+  "summary_1line": "Large closed-source reasoning models expose only their final answers. The intermediate reasoning that produces those answers is hidden behind API surfaces, tool-call policies, and safety filters. Existing chain-of-tho...",
+  "title": "RECAST: REconstruction of Chain-of-Thought via Auditable Structured Traces",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41813v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "ab569d5521da0961": {
   "first_seen": "2026-10-12T04:04:24.804323+00:00",
@@ -19509,6 +19557,18 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQOFJSQnFUblpoMzFFcmczVjFZSlFxVW1lV3gzRDFrRlZYOGRLekdrMnpVZU00UDBXQmxiZm9UbVJuanN2WFVzdXFRZmFnYzFGdVJDN29VZElBMGRkNURrZjJCd3VMZ29SS0V6WUJIUVVmU2dFTkEyMWJlaGQ5T2NRYWNoQmI5ZkF0VVVsbFlwX1gtS181andydksyTXhuZ2JBOWxkM1drSWoydzljcXNGZTFn?oc=5",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "c1d2f992b664442f": {
+  "first_seen": "2026-11-02T09:04:39.623668+00:00",
+  "id": "24af1d8b211c8a42",
+  "published": "2026-10-30T16:56:29+00:00",
+  "sid": "c1d2f992b664442f",
+  "source": "arxiv_cs_lg",
+  "summary": "Looping re-applies a block of layers so that each token passes through the block more than once. Adding a loop to a trained model is attractive because it leaves the parameter count, and hence the disk size, the memory footprint and the training cost unchanged. Unfortunately, every generated token pays for the loop. Re-applying m of N layers makes each token about (N+m)/N times as expensive. Loops that a model learns during large-scale pretraining justify this price, but whether loops added after pretraining justify this cost remains unclear. We compare a looped model with two simple baselines. We first compare it with the same model trained identically without the loop (equal parameters). Secondly, we compare it with the best unlooped use of the same inference floating-point operations (equal FLOPs). Across Qwen3 and Qwen3.5 models from 0.8B to 9B parameters, only the looped 0.8B model beats both baselines. At 4B and 9B, the looped model does not beat the first baseline, i.e. the same model trained without the loop. This is not because the benchmarks are too easy, since on the same benchmarks the unlooped 9B model still scores up to 13 points higher than the 4B model, showing that there is ample room for improvement. Introducing loops in an already pretrained model therefore only pays for small models with a fixed parameter budget.",
+  "summary_1line": "Looping re-applies a block of layers so that each token passes through the block more than once. Adding a loop to a trained model is attractive because it leaves the parameter count, and hence the disk size, the memor...",
+  "title": "There Is No Free Loop: When Does Looping a Trained Model Pay for Its Inference Compute?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.42030v1"
  },
  "c1d7b1eeffe9448b": {
   "first_seen": "2026-10-27T16:03:50.230262+00:00",
@@ -25864,6 +25924,22 @@
   "type": "news",
   "url": "https://github.com/rogeriojunior31/lazyagents",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "fd81b2702033c7c6": {
+  "first_seen": "2026-11-02T09:04:39.623668+00:00",
+  "id": "2faa59826e68772c",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-30T16:21:07+00:00",
+  "sid": "fd81b2702033c7c6",
+  "source": "arxiv_cs_ai",
+  "summary": "World-action models increasingly apply test-time scaling, spending extra inference computation on candidate selection and adaptive allocation to improve control. Such gains are credible only when candidates carry exploitable signal, nominal compute savings become real speedup, and evaluation stays reliable. We audit all three on Cosmos Policy and RoboCasa with a premise-first, pre-registered methodology. On clean data, a learned value selector is 1.66 pp worse than random; a hindsight oracle gains only 1.40 pp, with an episode-level interval spanning zero; and 82% of states show identical candidate outcomes, leaving little selection headroom. Token pruning cuts per-forward FLOPs by up to 47% but yields at most a measured 1.15$\\times$ end-to-end speedup on the deployed path (1.25$\\times$ on a decode-excluded path), short of a 1.5$\\times$ target, and our adaptive-allocation experiment is inconclusive under a power gate. We further identify and fix a silent rendering corruption whose rate rises sharply along compute-heavy planning paths while leaving the official direct-policy result unaffected, and release a detector, fix, and scripts. These findings show why test-time scaling should be audited as a chain of premises (decision signal, realized efficiency, evaluationintegrity) rather than by success rate alone. Conclusions are scoped to the tested configuration.",
+  "summary_1line": "World-action models increasingly apply test-time scaling, spending extra inference computation on candidate selection and adaptive allocation to improve control. Such gains are credible only when candidates carry expl...",
+  "title": "When Does Test-Time Search Help World Action Models? An Empirical Audit of Candidate Selection and Simulator Integrity",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41970v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "fdc864340b44ea6e": {
   "first_seen": "2026-10-07T21:02:50.973550+00:00",
