@@ -854,6 +854,18 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE80Z01mUGFTUWpjQlNCakF3UF9TbFFYN2xEX1NRb3JHUklSOTlmX3M5bWVRblI4NGhTVzB1eUFadVpZMUx2dzZvWFJra2wzRDRoV3VUSkl1LTJleFNVdlNEUV9wS0tkYnJRb1BySmFEbnc5aXNRU1ZDY1Fn?oc=5"
  },
+ "0a488ec24cbfc856": {
+  "first_seen": "2026-11-02T04:05:14.811183+00:00",
+  "id": "f38cc58f8621cb9f",
+  "published": "2026-10-30T11:55:35+00:00",
+  "sid": "0a488ec24cbfc856",
+  "source": "arxiv_llm_reliability",
+  "summary": "Large language models (LLMs) acquire extensive factual knowledge during pre-training, which may include sensitive, private, or copyrighted information, motivating the development of unlearning methods that selectively remove specific knowledge while preserving general capabilities. However, existing approaches typically optimize entire responses without explicitly identifying the knowledge to be forgotten, resulting in coarse and uncontrolled forgetting. To address this, we revisit the forgetting target of LLM unlearning and introduce Knowledge Association (KA), which characterizes the association between a query context and its target knowledge and is instantiated by the corresponding conditional predictive distribution, as the fundamental target of forgetting. Based on KA, we propose Knowledge Association Reinforcement Unlearning (KARU), a unified reinforcement learning framework that suppresses forgotten knowledge associations while preserving retained ones. Specifically, KARU derives complementary mechanisms from the KA-based formulation: token-level reward construction for finer-grained forgetting supervision, distribution-level regularization for precise knowledge suppression, and proximity-aware retain sampling to mitigate collateral degradation. Experiments across diverse LLMs on representative benchmarks demonstrate that KARU consistently improves forgetting effectiveness over existing baselines while maintaining comparable retention performance and general utility.",
+  "summary_1line": "Large language models (LLMs) acquire extensive factual knowledge during pre-training, which may include sensitive, private, or copyrighted information, motivating the development of unlearning methods that selectively...",
+  "title": "What Should LLMs Forget: Reinforcement Unlearning of Knowledge Associations",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41616v1"
+ },
  "0a570aaed6213cf4": {
   "first_seen": "2026-10-30T02:05:19.251562+00:00",
   "id": "ccfb9a8d8bf99454",
@@ -974,6 +986,23 @@
   "type": "news",
   "url": "https://veecle.ai/chiplab",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "0b386b33c8983aa1": {
+  "first_seen": "2026-11-02T04:05:14.811183+00:00",
+  "id": "3a536a1133d7ed72",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-10-30T01:28:38+00:00",
+  "sid": "0b386b33c8983aa1",
+  "source": "arxiv_cs_ai",
+  "summary": "Agentic LLM assistants must repeatedly decide whether to answer from memory or to call a tool such as web search. Unnecessary searches cost latency and money; missing ones yield confident but unsupported answers. Prior work mostly measures verbalised confidence or trains new adaptive-retrieval methods, and rarely audits the search decisions that deployed products actually make. We introduce a benchmark of 400 multiple-choice questions that combines widely known inside-knowledge (IK) questions, which should be answered directly, with outside-knowledge (OK) questions about facts from news published after the models' training cut-offs (to our knowledge), which should trigger search or, without tools, abstention. Each item offers an abstain option, and two action-level scores, NAS and KIS, reward searching on OK questions and restraint on IK questions. Across five commercial LLMs with and without their vendors' web search, GPT-5 mini and Grok 4 Fast search on over 90% of OK but only 1% of IK questions, whereas Mistral Small searches on just 20% of OK questions, often abstaining instead of using its tool; one product's search indicator proved unusable. Searching is partly triggered by explicit temporal cues: on uncued OK questions, the NAS of the two selective models falls from about 0.72 to 0.57--0.58. The scores thus measure the search triggering of specific products, not metacognition in a strict sense.",
+  "summary_1line": "Agentic LLM assistants must repeatedly decide whether to answer from memory or to call a tool such as web search. Unnecessary searches cost latency and money; missing ones yield confident but unsupported answers. Prio...",
+  "title": "Confident Fools or Careful Searchers? A Behavioural Study of When LLMs Search Beyond Their Static Internal Memory",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41124v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "0b7565240a3894fa": {
   "first_seen": "2026-10-30T22:05:12.072957+00:00",
@@ -2836,6 +2865,23 @@
   "title": "Can we trust LLMs to judge whether a research idea is novel?",
   "type": "research",
   "url": "https://huggingface.co/blog/allenai/novelty-bench"
+ },
+ "1d7852cb09b3031f": {
+  "first_seen": "2026-11-02T04:05:14.811183+00:00",
+  "id": "48d0cba0eb3c38da",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-30T02:44:51+00:00",
+  "sid": "1d7852cb09b3031f",
+  "source": "arxiv_cs_ai",
+  "summary": "The ability to integrate new information and deduce its consequences is central to learning, understanding, and reasoning in large language models (LLMs). Whether information arrives during training or in-context, models must not only store local facts, but propagate their long-range implications globally. To explore information integration in LLMs, we introduce two complementary natural language benchmarks for large-scale evaluation of deductive reasoning as a function of inference depth. The first is a formal graph benchmark enabling controlled evaluation over a wide range of graph topologies and integration tasks; the second is a knowledge composition benchmark grounded in real-world knowledge graphs. We use these benchmarks to compare knowledge integration from information encoded in context versus information encoded in model weights during pretraining, evaluating a set of open models implicitly, without chain of thought. We find that accuracy decays sharply with increased composition length for both pretrained and in-context knowledge. Information presented in-context, however, substantially outperforms deduction over information encoded in weights. These results quantify a fundamental limitation of current models with direct implications for prompt-based control of agent behavior and for continual learning strategies, and they provide a foundation for developing training, prompting, and integration methods that support deeper reasoning.",
+  "summary_1line": "The ability to integrate new information and deduce its consequences is central to learning, understanding, and reasoning in large language models (LLMs). Whether information arrives during training or in-context, mod...",
+  "title": "ImplicitHop: Evaluating knowledge integration across context and memory",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41169v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "1dbe22633003a2af": {
   "first_seen": "2026-10-19T23:04:42.387889+00:00",
@@ -5956,6 +6002,23 @@
   "title": "Gemini 4 Carbon: Our next frontier model",
   "type": "news",
   "url": "https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model"
+ },
+ "3e4010b903d1d7e9": {
+  "first_seen": "2026-11-02T04:05:14.811183+00:00",
+  "id": "16168f875f96b23c",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-30T13:04:05+00:00",
+  "sid": "3e4010b903d1d7e9",
+  "source": "arxiv_cs_lg",
+  "summary": "Training interactive language agents from terminal outcomes poses three coupled problems: which task and state continuations to sample, how to assign delayed feedback to decisions, and how to aggregate token losses for multi-token actions. We present TSBPO, a tree-structured sampling-to-update paradigm that addresses these problems within one training loop. A likelihood-fitted Root/Branch allocator uses retained task and state evidence to target continuations likely to produce contrasting terminal outcomes under fixed rollout budgets. On the resulting replayed physical trees, trajectory advantages compare immediate sibling segments, while observation-group step advantages compare outcomes at matched task/observation states. The actor then sums clipped token surrogates over each complete response and normalizes across active turns, avoiding response-length averaging in the policy-gradient term. With a Qwen2.5-1.5B actor, fixed checkpoints obtain 97.79% seen and 96.64% unseen stochastic success on ALFWorld and an 81.07% per-episode success rate over six stochastic episodes for each of the 500 WebShop test goals. A WebShop step-term ablation yields 75.93% at the same update-100 evaluation; an ALFWorld aggregation comparison shows higher observed command validity with complete-turn weighting. These results support the evaluated training configuration on two interactive benchmarks.",
+  "summary_1line": "Training interactive language agents from terminal outcomes poses three coupled problems: which task and state continuations to sample, how to assign delayed feedback to decisions, and how to aggregate token losses fo...",
+  "title": "TSBPO: Tree-Structured Branching for Policy Optimization in Interactive Language Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41697v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "3e6e644f1b2b0e94": {
   "first_seen": "2026-10-15T02:03:56.207653+00:00",
@@ -10732,6 +10795,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.40551v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "71f1f68adb68c378": {
+  "first_seen": "2026-11-02T04:05:14.811183+00:00",
+  "id": "d773642e58ccf327",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-30T09:12:21+00:00",
+  "sid": "71f1f68adb68c378",
+  "source": "arxiv_cs_lg",
+  "summary": "Web agents increasingly edit images by calling open editing models in a critique-and-retry loop, and these models differ in cost by more than an order of magnitude. After every rejected edit, a service must decide whether to retry the same model, escalate to another or give up. Existing routers pick one model per request, and cascades escalate in a fixed order. However, both treat a retry as an independent draw. We identify sticky failures, meaning that a retry after a failure succeeds only 17-53% as often as a first try across six open models, three benchmarks and two judges. Based on this finding, we propose RetryRoute, a retry-aware router that estimates each model's chance of success given the request's failure history. It plans retries, escalations and abandonment over failure states and adds live queue waits to the cost, so the same plan becomes load-aware dispatch. At the main budget, RetryRoute's success under the in-loop judge exceeds the strongest of eleven prior baselines by 2.8 points on average over eight groups. On a GPU serving testbed it raises the share of edits delivered within the service-level objective by 5.0-6.3 points over the best prior baseline at every load.",
+  "summary_1line": "Web agents increasingly edit images by calling open editing models in a critique-and-retry loop, and these models differ in cost by more than an order of magnitude. After every rejected edit, a service must decide whe...",
+  "title": "RetryRoute: Retry-Aware Model Routing for Agentic Image Editing Services",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41460v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "72249bd53d8a5849": {
   "first_seen": "2026-07-31T17:01:50.535648+00:00",
