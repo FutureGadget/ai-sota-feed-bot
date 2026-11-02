@@ -1870,6 +1870,18 @@
   "url": "http://arxiv.org/abs/2610.20573v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "12eff642fd46a0c4": {
+  "first_seen": "2026-11-02T19:04:49.426697+00:00",
+  "id": "ec42fbcd69884a06",
+  "published": "2026-10-30T12:32:47+00:00",
+  "sid": "12eff642fd46a0c4",
+  "source": "arxiv_cs_cl",
+  "summary": "Activation steering is an inference-time technique used to control or modify the behavior, tone, or safety properties of a large language model (LLM) without retraining the model's weights or editing its input prompt, but simply by adding a vector to its residual-stream activations. However, activation steering also changes the generated text in unintended ways, unrelated to intended behavior change, that are not well understood. Prior work has measured these changes only through coarse signals such as perplexity. In this work, we show that steering systematically produces significant changes in discourse dimensions of the generated text, such as its formality, use of evidence, and ambiguity. We present a way of countering this by adding a second, complementary vector that targets the affected discourse dimension. This intervention restores about 78% of the unintended discourse changes while preserving the intended steering behavior in about 93% of the generations.",
+  "summary_1line": "Activation steering is an inference-time technique used to control or modify the behavior, tone, or safety properties of a large language model (LLM) without retraining the model's weights or editing its input prompt,...",
+  "title": "When Steering Shifts Discourse: Identifying and Intervening on Discourse-Level Changes due to Activation Steering in LLMs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41661v1"
+ },
  "13225fd2d3574734": {
   "content_excerpt": "When building agents in Claude Platform, using fewer subagents in favor of progressively disclosed context and tools can improve quality while reducing cost and latency. Here’s when and how to migrate. If you’ve built an agent in Claude Platform that includes multiple subagents, see which may make sense to fold into the main agent loop using our migration kit . It runs a guided workflow to identify your patterns, evaluate alternatives, and verify the best approach. It includes a demo that you can try on a mock system before running on your agent. Subagents – agents with their own context window, tools, and instructions, orchestrated by a coordinator – are a core component of agent design. They are effective at verification, parallel work, and modular permissioning. We use them in many of our own agents that we build using Claude Platform, for example our multi-agent research system . However, recently the Applied AI team has found a pattern of enterprise agent deployments that have benefited from folding routers, planners, and domain subagents into the main agent loop. In our comparisons across several enterprise deployments , a single agent with skills frequently outperformed both the one-prompt-for-everything design and the subagent design on quality, and often at a lower cost and latency per task. For example, one company found the dozen of specialist subagents within its customer-facing agent made a consistent on-brand experience difficult to maintain and added latency th",
   "first_seen": "2026-10-24T20:04:51.842291+00:00",
@@ -15142,6 +15154,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.162.0-alpha.17",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "9c34b10727f0b335": {
+  "first_seen": "2026-11-02T19:04:49.426697+00:00",
+  "id": "ab8ac7757eca1bf0",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-30T15:29:08+00:00",
+  "sid": "9c34b10727f0b335",
+  "source": "arxiv_cs_cl",
+  "summary": "Knowledge tracing (KT) predicts a student's next response from their history. New platforms often have question texts but no response logs for training, motivating zero-shot cross-domain KT. Existing transfer and cold-start methods use question semantics, but cross-platform semantic discrepancies limit transferability. We propose TIZSKT, which separates behavioral sequence modeling from domain-local historical evidence construction and uses text as an index rather than a directly transferable predictive representation. The Mastery-Dynamics Encoder learns correctness dynamics without question identifiers or text embeddings. Domain-Local Question Addressing builds fixed question addresses using a frozen text encoder and an unsupervised per-domain projection. The Text-Addressing Kernel uses these addresses to aggregate the current student's previous outcomes into a question-specific historical correctness summary. Cross-Segment Continuation retains access to earlier responses without extending the behavioral encoder's input sequence. Evidence-Volume Read-Out preserves the total kernel mass discarded by normalization and combines its log-compressed value with the behavioral state and historical correctness summary to predict the next response. All trainable parameters are learned from source domains; target inference uses public question texts and the current student's observed history without target-domain training. Leave-one-domain-out experiments on three public datasets show ",
+  "summary_1line": "Knowledge tracing (KT) predicts a student's next response from their history. New platforms often have question texts but no response logs for training, motivating zero-shot cross-domain KT. Existing transfer and cold...",
+  "title": "Text as an Index for Zero-Shot Cross-Domain Knowledge Tracing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41883v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "9c3f04bf35b2d9a0": {
   "first_seen": "2026-10-17T16:04:40.482548+00:00",
   "id": "1b30f90812cae137",
@@ -15267,6 +15295,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.20344v1",
   "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
+ "9d4e0bcb9f9ca88a": {
+  "first_seen": "2026-11-02T19:04:49.426697+00:00",
+  "id": "f42f8653185b41e5",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-30T16:55:28+00:00",
+  "sid": "9d4e0bcb9f9ca88a",
+  "source": "arxiv_cs_lg",
+  "summary": "We present GhostPrefix, the first synchronization-free universal adversarial prefix attack against automatic speech recognition (ASR) systems. Unlike prior audio attacks, which are typically crafted per utterance, require synchronization with the victim waveform, or target narrow objectives, GhostPrefix learns a short, reusable audio segment prepended to arbitrary live speech to exert real-time control over ASR outputs without knowledge of the future utterance or temporal alignment. A key challenge is maintaining stable adversarial effects across unknown, evolving speech contexts. GhostPrefix combines token-level losses with a novel representation-level objective for stable, input-agnostic effects. GhostPrefix supports three attack modes: (i) prompted prefix attacks for semantic steering, (ii) targeted prefix attacks for transcript hijacking, and (iii) untargeted prefix attacks for transcription degradation. To remain perceptually inconspicuous, we regularize prefixes toward benign environmental-sound distributions and improve robustness against over-the-air distortions. We evaluate GhostPrefix across 13 open-source ASR models from four families. In digital settings, it achieves average attack success rates of 97.6% for prompted steering and 93.4% for targeted hijacking, while driving word error rate to 1.18 under untargeted attacks. Over the air, it achieves success rates of 91.5% and 89.5% for prompted and targeted modes, respectively. These manipulations propagate into dow",
+  "summary_1line": "We present GhostPrefix, the first synchronization-free universal adversarial prefix attack against automatic speech recognition (ASR) systems. Unlike prior audio attacks, which are typically crafted per utterance, req...",
+  "title": "GhostPrefix: Synchronization-Free Universal Prefix Attacks for ASR Manipulation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.42026v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "9d681bc2bb25befd": {
   "first_seen": "2026-10-09T21:04:18.253356+00:00",
@@ -25352,6 +25396,23 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Oct/15/chirp-pong",
   "why_it_matters": "Matches feed focus: claude code."
+ },
+ "f63ff3e313c9019d": {
+  "first_seen": "2026-11-02T19:04:49.426697+00:00",
+  "id": "8f1c5ca8bc749dd7",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-30T16:44:49+00:00",
+  "sid": "f63ff3e313c9019d",
+  "source": "arxiv_cs_ai",
+  "summary": "As generative artificial intelligence (AI) becomes more capable and widely used, understanding when and how humans should work with these systems is becoming increasingly important. However, the empirical evidence in this space offers conflicting recommendations, which leaves individuals and organizations without clear guidance on when to combine human and AI capabilities. Existing meta-analyses can help reconcile these findings, but they require substantial manual effort and cannot readily incorporate new evidence as it emerges. To address this challenge, we introduce AutoAnalysis: an automated, self-updating meta-analysis of when humans and AI work better together, and when they work better alone. AutoAnalysis' most recent run synthesizes 1,955 effect sizes from 420 papers. Across this body of work, we found that, on average, human-AI combinations performed significantly better than humans alone, but they performed significantly worse than the better of humans or AI alone. These findings highlight the important distinction between improving human performance and achieving human-AI synergy and underscore the need to evaluate collaboration against both human and AI performance alone. As new studies emerge, AutoAnalysis will integrate their findings into the meta-analysis, providing cumulative evidence about when humans and AI perform better together and how human-AI performance varies across AI agents, tasks, and processes.",
+  "summary_1line": "As generative artificial intelligence (AI) becomes more capable and widely used, understanding when and how humans should work with these systems is becoming increasingly important. However, the empirical evidence in...",
+  "title": "AutoAnalysis: An automated, self-updating meta-analysis of human-AI collaboration",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.42001v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "f64d8cd551fbd1e6": {
   "first_seen": "2026-10-29T02:04:45.310232+00:00",
