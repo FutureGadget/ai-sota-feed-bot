@@ -6510,7 +6510,7 @@ SKILLS_PAGE_CSS = """
     --skills-edge: var(--border);
     --skills-wash: var(--card);
     display: grid;
-    gap: 2rem;
+    gap: 2.25rem;
   }
   .skills-intro {
     font-family: var(--font-serif);
@@ -6547,56 +6547,161 @@ SKILLS_PAGE_CSS = """
     color: var(--muted);
     margin-left: 0.5rem;
   }
-  .skills-grid {
+  /* Proven setups: the six cards a reader should actually consider. */
+  .skills-proven {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
-    gap: 0.9rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
   }
-  .skills-card {
+  .skills-prov {
     border: 1px solid var(--border);
     border-radius: 10px;
     background: var(--card);
-    padding: 0.85rem 0.95rem;
+    padding: 0.8rem 0.9rem;
     display: grid;
-    gap: 0.45rem;
+    gap: 0.28rem;
     align-content: start;
   }
-  .skills-card h3 {
-    font-family: var(--font-display);
-    font-size: 1.02rem;
+  .skills-kicker {
     margin: 0;
-    line-height: 1.25;
-  }
-  .skills-card h3 a { color: var(--foreground); text-decoration: none; }
-  .skills-card h3 a:hover { text-decoration: underline; }
-  .skills-reason {
     font-family: var(--font-sans);
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin: 0;
-  }
-  .skills-facts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem 0.9rem;
-    font-family: var(--font-sans);
-    font-size: 0.76rem;
-    color: var(--muted);
-  }
-  .skills-facts b { color: var(--foreground); font-weight: 600; }
-  .skills-badges { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-  .skills-badge {
-    font-family: var(--font-sans);
-    font-size: 0.66rem;
-    letter-spacing: 0.07em;
+    font-size: 0.63rem;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
+    color: var(--accent);
+  }
+  .skills-prov h3 {
+    font-family: var(--font-display);
+    font-size: 1.06rem;
+    margin: 0;
+    line-height: 1.22;
+  }
+  .skills-prov h3 a { color: var(--foreground); text-decoration: none; }
+  .skills-prov h3 a:hover { text-decoration: underline; }
+  .skills-prov-skill {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .skills-prov-skill code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.74rem;
+    color: var(--foreground);
+  }
+  .skills-prov-meta {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  /* Capability tiles: 16 compact entries, one screen. */
+  .skills-tiles {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  .skills-tile {
+    display: grid;
+    gap: 0.12rem;
     border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 0.08rem 0.45rem;
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 0.5rem 0.6rem;
+    text-decoration: none;
+    color: inherit;
+    min-width: 0;
+  }
+  .skills-tile:hover { background: var(--card); }
+  .skills-tile[data-lens="adjacent"] { border-left-color: var(--warm); }
+  .skills-tile-cap {
+    font-family: var(--font-sans);
+    font-size: 0.61rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--muted);
   }
-  .skills-badge[data-lens="core"] { border-color: var(--accent); color: var(--accent); }
-  .skills-badge[data-lens="adjacent"] { border-color: var(--warm); color: var(--warm); }
+  .skills-tile b {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.25;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .skills-tile-skill {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  /* Rising: compact rows, not cards. */
+  .skills-rise { list-style: none; margin: 0; padding: 0; display: grid; }
+  .skills-rise li {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.35fr) auto;
+    gap: 0.75rem;
+    align-items: baseline;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+  }
+  .skills-rise a { color: var(--foreground); text-decoration: none; }
+  .skills-rise a:hover { text-decoration: underline; }
+  .skills-rise-why { color: var(--muted); font-size: 0.76rem; }
+  .skills-rise-meta {
+    color: var(--muted);
+    font-size: 0.72rem;
+    text-align: right;
+    white-space: nowrap;
+  }
+  /* Progressive disclosure: long tables live behind a summary.
+     The Oat component layer styles every <details> as a bordered card, so the
+     disclosure rows would read as disabled buttons; neutralize it here. */
+  .skills-details,
+  .skills-how {
+    border: 0;
+    border-top: 1px solid var(--border);
+    border-radius: 0;
+    overflow: visible;
+    padding: 0;
+    margin: 0;
+  }
+  .skills-details > summary,
+  .skills-how > summary {
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    list-style: none;
+    padding: 0.6rem 0;
+    margin: 0;
+    background: none;
+  }
+  .skills-details > summary::-webkit-details-marker,
+  .skills-how > summary::-webkit-details-marker { display: none; }
+  .skills-details > summary::after,
+  .skills-how > summary::after { content: "+"; transform: none; }
+  .skills-details[open] > summary::after,
+  .skills-how[open] > summary::after { content: "-"; }
+  .skills-details > summary:hover,
+  .skills-how > summary:hover { color: var(--foreground); }
+  .skills-details > *:not(summary),
+  .skills-how > *:not(summary) { margin: 0.85rem 0 0; }
+  .skills-details[open] > *:not(summary),
+  .skills-how[open] > *:not(summary) { animation: none; }
   .skills-table {
     width: 100%;
     border-collapse: collapse;
@@ -6621,36 +6726,36 @@ SKILLS_PAGE_CSS = """
   .skills-table td.skills-num { text-align: right; font-variant-numeric: tabular-nums; }
   .skills-table a { color: var(--foreground); text-decoration: none; }
   .skills-table a:hover { text-decoration: underline; }
-  .skills-caps {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    gap: 0.7rem;
-  }
-  .skills-cap {
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    border-radius: 8px;
-    padding: 0.7rem 0.85rem;
-    display: grid;
-    gap: 0.3rem;
-  }
-  .skills-cap[data-lens="adjacent"] { border-left-color: var(--warm); }
-  .skills-cap h3 {
+  .skills-ports {
     font-family: var(--font-sans);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 0.68rem;
     color: var(--muted);
-    margin: 0;
+    white-space: nowrap;
+    margin-left: 0.35rem;
   }
-  .skills-cap .skills-pick { font-family: var(--font-display); font-size: 1.02rem; margin: 0; }
-  .skills-cap .skills-pick a { color: var(--foreground); text-decoration: none; }
-  .skills-cap .skills-skill { font-family: var(--font-sans); font-size: 0.78rem; color: var(--muted); }
-  .skills-alt { font-family: var(--font-sans); font-size: 0.76rem; color: var(--muted); margin: 0; }
-  .skills-alt a { color: var(--muted); }
-  .skills-how { font-family: var(--font-sans); font-size: 0.8rem; line-height: 1.55; color: var(--muted); }
+  .skills-muted { color: var(--muted); }
+  .skills-table td .skills-badge { margin-left: 0.4rem; vertical-align: 1px; }
+  .skills-badges { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .skills-badge {
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.08rem 0.45rem;
+    color: var(--muted);
+  }
+  .skills-badge[data-lens="core"] { border-color: var(--accent); color: var(--accent); }
+  .skills-badge[data-lens="adjacent"] { border-color: var(--warm); color: var(--warm); }
+  .skills-how {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
   .skills-how summary { cursor: pointer; color: var(--foreground); }
-  .skills-how ul { margin: 0.5rem 0 0; padding-left: 1.1rem; }
+  .skills-how ul { margin: 0.6rem 0 0; padding-left: 1.1rem; }
   .skills-detail { display: grid; gap: 1.4rem; }
   .skills-facts-grid {
     display: grid;
@@ -6672,15 +6777,15 @@ SKILLS_PAGE_CSS = """
     color: var(--muted);
   }
   .skills-fact b { font-family: var(--font-display); font-size: 1.18rem; font-weight: 600; }
-  .skills-ports {
-    font-family: var(--font-sans);
-    font-size: 0.68rem;
-    color: var(--muted);
-    white-space: nowrap;
-    margin-left: 0.35rem;
+  @media (max-width: 900px) {
+    .skills-proven { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .skills-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
-  .skills-muted { color: var(--muted); }
-  .skills-table td .skills-badge { margin-left: 0.4rem; vertical-align: 1px; }
+  @media (max-width: 640px) {
+    .skills-proven { grid-template-columns: 1fr; }
+    .skills-rise li { grid-template-columns: 1fr; gap: 0.1rem; }
+    .skills-rise-meta { text-align: left; }
+  }
   /* Under 760px the tables become stacked rows: a 6-column grid is unreadable on
      a phone, and the feed is where most of this traffic lands. */
   @media (max-width: 760px) {
@@ -6728,6 +6833,14 @@ def _skills_compact(value) -> str:
     return str(number)
 
 
+def _skills_noun(count, singular: str) -> str:
+    try:
+        number = int(count or 0)
+    except (TypeError, ValueError):
+        number = 0
+    return f"{number} {singular}" if number == 1 else f"{number} {singular}s"
+
+
 def _skills_pct(value) -> str:
     try:
         return f"{float(value or 0) * 100:.1f}%"
@@ -6751,25 +6864,6 @@ def _skills_entry_url(entry: dict) -> str:
     return f"/skills/{slug}" if slug else "/skills"
 
 
-def _skills_card(entry: dict) -> str:
-    name = entry.get("lead") or entry.get("id") or "unknown"
-    facts = [
-        f"<span><b>{_skills_compact(entry.get('unique_skills'))}</b> skills</span>",
-        f"<span><b>{_skills_compact(entry.get('stars'))}</b> stars</span>",
-        f"<span><b>{_skills_pct(entry.get('fork_ratio'))}</b> forks</span>",
-    ]
-    if entry.get("ports"):
-        facts.append(f"<span><b>{int(entry['ports'])}</b> ports</span>")
-    return (
-        '<article class="skills-card">'
-        f'<h3><a href="{escape(_skills_entry_url(entry))}">{escape(name)}</a></h3>'
-        f'<p class="skills-reason">{escape(entry.get("reason") or "")}</p>'
-        f'<div class="skills-facts">{"".join(facts)}</div>'
-        f'<div class="skills-badges">{_skills_lens_badge(entry.get("lens") or "")}</div>'
-        "</article>"
-    )
-
-
 def _skills_table(rows: list[dict], columns: list[tuple[str, str]]) -> str:
     head = "".join(f"<th>{escape(label)}</th>" for _, label in columns)
     body = ""
@@ -6779,14 +6873,22 @@ def _skills_table(rows: list[dict], columns: list[tuple[str, str]]) -> str:
             value = row.get(key, "")
             if key == "setup":
                 name = row.get("lead") or row.get("setup") or row.get("id") or ""
-                extra = f' <span class="skills-ports">+{int(row["ports"])} ports</span>' if row.get("ports") else ""
+                extra = (
+                    f' <span class="skills-ports">+{_skills_noun(row["ports"], "port")}</span>'
+                    if row.get("ports")
+                    else ""
+                )
                 cells += (
                     f'<td data-label="{escape(label)}">'
                     f'<a href="{escape(_skills_entry_url(row))}">{escape(str(name))}</a>{extra}'
                     f'{_skills_lens_badge(row.get("lens") or "")}</td>'
                 )
             elif key == "top_capability":
-                capability = row.get("dominant_capability")
+                # Older artifacts predate `dominant_capability`; fall back to the
+                # first labelled group rather than rendering an em dash.
+                capability = row.get("dominant_capability") or next(
+                    iter(row.get("capabilities") or []), None
+                )
                 text = _skill_capability_label(capability) if capability else "—"
                 cells += f'<td data-label="{escape(label)}">{escape(text)}</td>'
             elif key == "practitioner":
@@ -6814,6 +6916,66 @@ def _skills_updated(value: str | None) -> str:
     return parsed.strftime("%-d %b %Y, %H:%M UTC")
 
 
+def _skills_proven_card(entry: dict) -> str:
+    capability = entry.get("dominant_capability")
+    kicker = _skill_capability_label(capability) if capability else "Setup"
+    name = entry.get("lead") or entry.get("id") or ""
+    skill = entry.get("flagship_skill")
+    facts = [
+        _skills_noun(entry.get("unique_skills"), "skill"),
+        f"{_skills_pct(entry.get('fork_ratio'))} forks",
+        _skills_noun(len(entry.get("capabilities") or []), "group"),
+    ]
+    if entry.get("ports"):
+        facts.insert(2, _skills_noun(entry["ports"], "port"))
+    skill_line = (
+        f'<p class="skills-prov-skill">flagship skill <code>{escape(str(skill))}</code></p>'
+        if skill
+        else ""
+    )
+    return (
+        '<article class="skills-prov">'
+        f'<p class="skills-kicker">{escape(kicker)}</p>'
+        f'<h3><a href="{escape(_skills_entry_url(entry))}">{escape(name)}</a></h3>'
+        f"{skill_line}"
+        f'<p class="skills-prov-meta">{escape(" · ".join(facts))}</p>'
+        f'<div class="skills-badges">{_skills_lens_badge(entry.get("lens") or "")}</div>'
+        "</article>"
+    )
+
+
+def _skills_capability_tile(item: dict) -> str:
+    representative = item.get("representative") or {}
+    skill = representative.get("skill") or {}
+    name = str(representative.get("lead") or representative.get("id") or "")
+    skill_line = (
+        f'<span class="skills-tile-skill">{escape(str(skill.get("name") or ""))}</span>'
+        if skill.get("name")
+        else ""
+    )
+    return (
+        f'<a class="skills-tile" data-lens="{escape(item.get("lens") or "")}"'
+        f' href="{escape(_skills_entry_url(representative))}" title="{escape(name)}">'
+        f'<span class="skills-tile-cap">{escape(_skill_capability_label(item.get("capability") or ""))}</span>'
+        f"<b>{escape(name)}</b>{skill_line}</a>"
+    )
+
+
+def _skills_rising_row(entry: dict) -> str:
+    capability = entry.get("dominant_capability")
+    meta = [
+        _skill_capability_label(capability) if capability else "",
+        _skills_noun(entry.get("unique_skills"), "skill"),
+    ]
+    return (
+        "<li>"
+        f'<a href="{escape(_skills_entry_url(entry))}">{escape(str(entry.get("lead") or entry.get("id") or ""))}</a>'
+        f'<span class="skills-rise-why">{escape(entry.get("reason") or "")}</span>'
+        f'<span class="skills-rise-meta">{escape(" · ".join(bit for bit in meta if bit))}</span>'
+        "</li>"
+    )
+
+
 def skills_board_body(artifact: dict) -> str | None:
     lanes = artifact.get("lanes") or {}
     shelf = lanes.get("shelf") or []
@@ -6828,60 +6990,19 @@ def skills_board_body(artifact: dict) -> str | None:
     parts.append(
         '<p class="skills-intro">Which agent skills are actually being adopted, '
         "ranked by momentum and adoption rather than raw stars. A setup is one "
-        "repository or a family of ports of it, and every entry links to its "
-        "sources. Rising is this week; the shelf is what has held up.</p>"
+        "repository or a family of ports of it. Start with the proven ones, then "
+        "browse by the job you need done.</p>"
     )
 
-    if rising:
-        parts.append(
-            '<section class="skills-section"><h2>Rising this week'
-            f'<span class="skills-count">{len(rising)}</span></h2>'
-            f'<div class="skills-grid">{"".join(_skills_card(entry) for entry in rising)}</div>'
-            "</section>"
-        )
-    else:
-        parts.append(
-            '<section class="skills-section"><h2>Rising this week</h2>'
-            '<p class="skills-note">No setup cleared the momentum bar this week. '
-            "The shelf below is unchanged; velocity needs a quiet week to show a rise.</p>"
-            "</section>"
-        )
-
-    if capabilities:
-        blocks = ""
-        for item in capabilities:
-            representative = item.get("representative") or {}
-            skill = representative.get("skill") or {}
-            skill_line = (
-                f'<span class="skills-skill">{escape(str(skill.get("name") or ""))}</span>'
-                if skill.get("name")
-                else ""
-            )
-            alternates = item.get("alternates") or []
-            alt_line = ""
-            if alternates:
-                links = ", ".join(
-                    f'<a href="{escape(_skills_entry_url(alt))}">{escape(str(alt.get("lead") or alt.get("id")))}</a>'
-                    for alt in alternates
-                )
-                alt_line = f'<p class="skills-alt">Also: {links}</p>'
-            blocks += (
-                f'<article class="skills-cap" data-lens="{escape(item.get("lens") or "")}">'
-                f'<h3>{escape(_skill_capability_label(item.get("capability") or ""))}</h3>'
-                f'<p class="skills-pick"><a href="{escape(_skills_entry_url(representative))}">'
-                f'{escape(str(representative.get("lead") or representative.get("id") or ""))}</a></p>'
-                f"{skill_line}{alt_line}</article>"
-            )
-        parts.append(
-            '<section class="skills-section"><h2>By capability'
-            f'<span class="skills-count">{len(capabilities)} groups</span></h2>'
-            f"<div class='skills-caps'>{blocks}</div></section>"
-        )
-
+    # 1. Proven first: six cards, full table behind a summary.
     if shelf:
+        top = shelf[:6]
         parts.append(
-            '<section class="skills-section"><h2>Reference shelf'
-            f'<span class="skills-count">{len(shelf)} setups</span></h2>'
+            '<section class="skills-section"><h2>Proven setups'
+            f'<span class="skills-count">top {len(top)} of {len(shelf)}</span></h2>'
+            f'<div class="skills-proven">{"".join(_skills_proven_card(entry) for entry in top)}</div>'
+            '<details class="skills-details">'
+            f"<summary>All {len(shelf)} setups, side by side</summary>"
             + _skills_table(
                 shelf,
                 [
@@ -6893,18 +7014,43 @@ def skills_board_body(artifact: dict) -> str | None:
                     ("stars", "Stars"),
                 ],
             )
-            + "</section>"
+            + "</details></section>"
         )
 
-    # The practitioner lane is only worth its own table when port counts actually
-    # differ: with every entry at 0 ports it just repeats the shelf's author column.
+    # 2. Then discovery by job, as 16 compact tiles.
+    if capabilities:
+        parts.append(
+            '<section class="skills-section"><h2>Browse by capability'
+            f'<span class="skills-count">{len(capabilities)} groups</span></h2>'
+            f'<div class="skills-tiles">{"".join(_skills_capability_tile(item) for item in capabilities)}</div>'
+            "</section>"
+        )
+
+    # 3. Rising as compact rows: timely, but secondary to what has held up.
+    if rising:
+        parts.append(
+            '<section class="skills-section"><h2>Rising this week'
+            f'<span class="skills-count">{len(rising)}</span></h2>'
+            f'<ul class="skills-rise">{"".join(_skills_rising_row(entry) for entry in rising)}</ul>'
+            "</section>"
+        )
+    else:
+        parts.append(
+            '<section class="skills-section"><h2>Rising this week</h2>'
+            '<p class="skills-note">No setup cleared the momentum bar this week. '
+            "The proven list is unchanged; velocity needs a quiet week to show a rise.</p>"
+            "</section>"
+        )
+
+    # 4. Practitioners only when port counts actually differ.
     ported = [row for row in practitioners if int(row.get("ports") or 0) > 0]
     if len(ported) >= 2:
         parts.append(
-            '<section class="skills-section"><h2>Practitioners'
-            f'<span class="skills-count">{len(practitioners)}</span></h2>'
-            '<p class="skills-note">Ranked by independent ports, then adoption. '
-            "A port is someone else re-implementing the same setup for another harness.</p>"
+            '<details class="skills-details">'
+            f"<summary>Practitioners ranked by ports ({len(practitioners)})</summary>"
+            '<p class="skills-note">A port is someone else re-implementing the same '
+            "setup for another harness, so it is the strongest adoption signal we can "
+            "observe.</p>"
             + _skills_table(
                 practitioners,
                 [
@@ -6914,7 +7060,7 @@ def skills_board_body(artifact: dict) -> str | None:
                     ("stars", "Stars"),
                 ],
             )
-            + "</section>"
+            + "</details>"
         )
 
     parts.append(

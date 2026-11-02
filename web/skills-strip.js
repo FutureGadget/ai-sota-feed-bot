@@ -11,6 +11,9 @@
   var cards = document.getElementById('skillsStripCards');
   if (!strip || !cards) return;
 
+  // Mobile hides the band in CSS; skip the fetch rather than load data nobody sees.
+  if (window.matchMedia && window.matchMedia('(max-width: 640px)').matches) return;
+
   function compact(value) {
     var n = Number(value) || 0;
     if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';

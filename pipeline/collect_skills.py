@@ -1256,6 +1256,20 @@ def family_records(
             family, repos, stopwords=(cfg.get("discovery") or {}).get("family", {}).get("stopwords") or []
         )
         licenses = {member.get("license") for member in members}
+        dominant = capability_counts.most_common(1)[0][0] if capability_counts else None
+        # The skill a reader would actually reach for in this setup: the one whose
+        # name carries its dominant capability. No extra fetch, no LLM.
+        flagship_matches = (
+            capability_name_matches(
+                repos,
+                {"members": family["members"]},
+                dominant,
+                (cfg.get("capabilities") or {}).get("taxonomy") or [],
+                (cfg.get("capabilities") or {}).get("harness_tokens") or [],
+            )
+            if dominant
+            else []
+        )
         record = {
             "id": family["id"],
             "lead": family["lead"],
@@ -1268,7 +1282,8 @@ def family_records(
             "fork_ratio": round(forks / stars, 4) if stars else 0.0,
             "unique_skills": unique_skills,
             "capabilities": sorted(capability_counts),
-            "dominant_capability": capability_counts.most_common(1)[0][0] if capability_counts else None,
+            "dominant_capability": dominant,
+            "flagship_skill": flagship_matches[0]["name"] if flagship_matches else None,
             "layouts": sorted({layout for member in members for layout in member.get("layouts") or []}),
             "age_days": age_days,
             "idle_days": idle_days,

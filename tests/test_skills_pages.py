@@ -51,6 +51,8 @@ def _entry(entry_id: str = "michael-denyer-pstack-claude", **overrides) -> dict:
         "lane": "shelf",
         "reason": "1 independent port · 7,050 stars combined",
         "lens": "core",
+        "dominant_capability": "code-review",
+        "flagship_skill": "requesting-code-review",
     }
     entry.update(overrides)
     return entry
@@ -124,12 +126,24 @@ class SkillsPagesTest(unittest.TestCase):
     def test_board_body_renders_every_lane_and_links_families(self) -> None:
         body = rsp.skills_board_body(self.artifact)
         self.assertIsNotNone(body)
+        self.assertIn("Proven setups", body)
+        self.assertIn("Browse by capability", body)
         self.assertIn("Rising this week", body)
-        self.assertIn("Reference shelf", body)
         self.assertIn("Practitioners", body)
-        self.assertIn("By capability", body)
         self.assertIn('href="/skills/michael-denyer-pstack-claude"', body)
         self.assertIn('href="/skills/new-rising"', body)
+
+    def test_board_is_proven_first_and_long_lists_are_collapsed(self) -> None:
+        body = rsp.skills_board_body(self.artifact)
+        # Proven cards come before the capability browse and the rising list.
+        self.assertLess(body.index("Proven setups"), body.index("Browse by capability"))
+        self.assertLess(body.index("Browse by capability"), body.index("Rising this week"))
+        # The full shelf and the practitioner table live behind disclosure, not
+        # in the default reading path.
+        self.assertIn("<summary>All 1 setups, side by side</summary>", body)
+        self.assertIn("<summary>Practitioners ranked by ports (2)</summary>", body)
+        # Rising is a compact list, not another card grid.
+        self.assertIn('<ul class="skills-rise">', body)
 
     def test_practitioner_lane_is_hidden_without_real_ports(self) -> None:
         flat = json.loads(json.dumps(self.artifact))
