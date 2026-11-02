@@ -7,22 +7,22 @@ Schema: `config/wiki_schema.md`.
 ## Obstacles by area
 
 ### reliability
-- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong (31 entries, updated 2026-10-29)
+- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong (32 entries, updated 2026-11-02)
   → solutions: agent-sandboxing
-  - theme `deterministic-boundaries` — Deterministic boundaries around the model (5)
+  - theme `deterministic-boundaries` — Deterministic boundaries around the model (6)
   - theme `execution-and-identity` — Agent identity, durable execution, and spend guards (4)
   - theme `hallucination-containment` — Containing hallucination during and after generation (9)
   - theme `verifying-the-work` — Proving the work instead of trusting "done" (7)
   - theme `consistency-and-autonomy` — Consistency, autonomy limits, and the human role (6)
 
 ### memory
-- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (73 entries, updated 2026-10-30)
+- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (74 entries, updated 2026-11-02)
   → solutions: context-compaction, vector-kb
   - theme `architectures` — Tiered and lifecycle memory architectures (14)
   - theme `local-first-stores` — Build vs. buy: managed services and developer-owned stores (17)
   - theme `shared-memory` — Sharing memory across agents, isolating it between users (10)
   - theme `recall-and-curation` — What to write, when to revoke, how to recall (16)
-  - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (8)
+  - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (9)
   - theme `measuring-memory` — Benchmarks and leaderboards for memory (8)
 
 ### planning

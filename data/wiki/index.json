@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-01T18:04:47.463648+00:00",
+ "generated_at": "2026-11-02T18:19:59.847652+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,22 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-11-02-claude-code-mistake-guards",
+   "topic": "agent-reliability",
+   "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
+   "kind": "obstacle",
+   "date": "2026-11-02",
+   "title": "A logged-mistake corpus becomes executable Claude Code guards, each with a blocking test"
+  },
+  {
+   "id": "2026-11-02-discernmem-memory-defects",
+   "topic": "agent-memory",
+   "topic_title": "Agents forget across steps and sessions",
+   "kind": "obstacle",
+   "date": "2026-11-02",
+   "title": "DiscernMem repairs flawed shared memories and learns when each one should apply"
+  },
   {
    "id": "2026-11-01-same-model-different-agent-mcp",
    "topic": "tool-use",
@@ -238,22 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-27",
    "title": "Serving the RFC corpus through a skill or MCP server cuts reading tokens about 41x"
-  },
-  {
-   "id": "2026-10-27-agenticbench-harness-security-tests",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-10-27",
-   "title": "AgenticBench audits what 25 coding-agent harnesses do with egress, telemetry and secrets"
-  },
-  {
-   "id": "2026-10-27-cloudflare-kv-cache-exposure",
-   "topic": "agent-cost",
-   "topic_title": "Agent token costs are unpredictable and easily run away",
-   "kind": "obstacle",
-   "date": "2026-10-27",
-   "title": "Shared KV cache leaked other tenants' prompts on Workers AI for 13 days"
   }
  ],
  "nodes": {
@@ -5375,7 +5375,7 @@
      "key": "memory-integrity",
      "title": "Poisoned, hidden, and sycophantic memory",
      "summary": "Persistent memory is a persistent attack surface; poisoned facts, concealed injections, forged reasoning, and sycophancy all pass through the write path.",
-     "count": 8
+     "count": 9
     },
     {
      "key": "measuring-memory",
@@ -5385,6 +5385,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-02-discernmem-memory-defects",
+     "topic": "agent-memory",
+     "date": "2026-11-02",
+     "title": "DiscernMem repairs flawed shared memories and learns when each one should apply",
+     "theme": "memory-integrity",
+     "html": "<p>Team-level success or failure can&#x27;t tell a multi-agent system whether a stored memory is wrong or was just used in the wrong situation. <strong>DiscernMem</strong>, a training-free method, handles both. It compares runs with the memory, with a single memory, and with none to diagnose defective rules, and it tests each repair against earlier tasks so useful behavior isn&#x27;t lost. A meta-memory records each memory&#x27;s past uses and effects, so its owner role learns when to apply or skip it.</p>\n<p>Paper-reported, on Qwen3-4B: best average score on AutoGen, CAMEL and MacNet, ahead of the strongest baseline by 0.51-4.32 points. For builders, treat memory as versioned rules with regression tests and usage records, not an append-only log.</p>",
+     "evidence": [
+      {
+       "sid": "7d1c303b6572b6ff",
+       "title": "Remembering Is Not Enough: Refining Memories and Learning When to Use Them in Multi-Agent Systems"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-30-turnbook-verbatim-memory-longmemeval",
      "topic": "agent-memory",
@@ -6618,8 +6633,8 @@
      "title": "An open-source memory plugin consolidates by forgetting and synthesizing instead of storing everything"
     }
    ],
-   "entry_count": 73,
-   "latest_entry_date": "2026-10-30",
+   "entry_count": 74,
+   "latest_entry_date": "2026-11-02",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -6633,6 +6648,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "7d1c303b6572b6ff",
+     "title": "Remembering Is Not Enough: Refining Memories and Learning When to Use Them in Multi-Agent Systems"
+    },
     {
      "sid": "fc08589671123b66",
      "title": "Same agent-memory accuracy with 8x fewer tokens by changing the embedding model"
@@ -6938,7 +6957,7 @@
      "title": "Cloudflare Announces Agent Memory, a Managed Persistent Memory Service for AI Agents"
     }
    ],
-   "updated": "2026-10-30"
+   "updated": "2026-11-02"
   },
   "agent-observability": {
    "slug": "agent-observability",
@@ -8379,7 +8398,7 @@
      "key": "deterministic-boundaries",
      "title": "Deterministic boundaries around the model",
      "summary": "Production teams bound the model with schemas, server-side gates, type checkers, and harness invariants, so enforcement sits outside the model's own decision instead of inside a longer prompt.",
-     "count": 5
+     "count": 6
     },
     {
      "key": "execution-and-identity",
@@ -8407,6 +8426,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-02-claude-code-mistake-guards",
+     "topic": "agent-reliability",
+     "date": "2026-11-02",
+     "title": "A logged-mistake corpus becomes executable Claude Code guards, each with a blocking test",
+     "theme": "deterministic-boundaries",
+     "html": "<p>One developer ran Claude Code daily from June to October 2026 on real projects, including a shared git repo touched by several sessions. They had the agent log each repeated mistake. The log passed 500 records. They then turned seven into guards: hooks and pre-ship checks, each with a test showing it blocks the failure. A set of 50 mistakes is published alongside.</p>\n<p>This is a single-author Show HN, not a measured result. The pattern is still reusable: convert recurring incidents into deterministic gates that run outside the model, rather than adding another prompt reminder.</p>",
+     "evidence": [
+      {
+       "sid": "9aa08f9f02c4b235",
+       "title": "Show HN: Claude Code guards built from my agent's repeated mistakes"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-29-permission-to-retry",
      "topic": "agent-reliability",
@@ -8911,8 +8945,8 @@
      "title": "Harness changes alone lifted LangChain's coding agent from 52.8% to 66.5% on Terminal Bench 2.0"
     }
    ],
-   "entry_count": 31,
-   "latest_entry_date": "2026-10-29",
+   "entry_count": 32,
+   "latest_entry_date": "2026-11-02",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -8922,6 +8956,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "9aa08f9f02c4b235",
+     "title": "Show HN: Claude Code guards built from my agent's repeated mistakes"
+    },
     {
      "sid": "7e505f680072dedd",
      "title": "Permission to Retry: A Study of Authorization and Recovery in AI Agent Workflows"
@@ -9047,7 +9085,7 @@
      "title": "Show HN: Make No Mistakes – AI coding agents must prove their work"
     }
    ],
-   "updated": "2026-10-29"
+   "updated": "2026-11-02"
   },
   "grounding": {
    "slug": "grounding",
