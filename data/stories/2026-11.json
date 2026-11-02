@@ -132,6 +132,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.3",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "48e620c754016698": {
+  "content_excerpt": "Passwordless authentication via DID signatures. No passwords. No sessions. Nothing to breach. The cryptographic core of ArkenForge. ECDSA signature verification, did:key identity, nonce generation. arken-core is the Rust library that everything in ArkenForge builds on. It handles: It compiles to a native shared library ( .dylib / .so / .dll ) loaded by higher-level packages via FFI. All functions write JSON into out and return the number of bytes written, or -1 on buffer overflow. An unsigned request gets a 401 with a one-time nonce. The client signs the nonce with its secp256k1 private key and retries with an Authorization: Signature header. The core verifies the ECDSA signature, checks the nonce, and returns the agent's did:key — nothing stored, nothing breached. The zQ3s… prefix indicates secp256k1 ( 0xe7 0x01 multicodec). Same key, same DID, across every server running Arken. One identity, every tool. See SECURITY.md . Find a flaw, open a private advisory, and your name goes in the Hall of Finders. Founding Builders — everyone who joins before December 15, 2026 — are credited by name in the 1.0 README. There are 10 design-partner slots for teams who want to shape the API directly. Passwordless authentication via DID signatures. No passwords. No sessions. Nothing to breach.",
+  "first_seen": "2026-11-02T06:05:39.347590+00:00",
+  "id": "5622aa44238c4603",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-02T04:29:23+00:00",
+  "sid": "48e620c754016698",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Arken – cryptographic identity for AI agents calling MCP servers/APIs",
+  "title": "Show HN: Arken – cryptographic identity for AI agents calling MCP servers/APIs",
+  "type": "news",
+  "url": "https://github.com/arkenforge/arken-core",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "4eb8a6cb7861fe9d": {
   "content_excerpt": "QwenPU is Qwen3.5-4B with a 32-bit RISC-V CPU and a vector unit compiled into its weights. The vector unit runs a whole neural network inside the model's forward passes: Andrej Karpathy's stories260K , the 260K-parameter Llama from llama2.c , runs as a program on it and writes its stories. It's part of Qwenputer : the same CPU, compiled into transformer layers in front of Qwen's own, every weight set by a compiler, with Qwen3.5's Gated DeltaNet state as its memory. Qwenputer-npu gave that CPU dot-product instructions. QwenPU gives it a vector unit of its own: separate memories in DeltaNet heads, 64-lane matrix rows a token, and whole vector results streamed through the token stream. Work in progress. QwenPU is exact, but not yet small: the checkpoint is 26.7 GB, so it needs a 40 GB or larger GPU to load whole. The story demo and the checks run the computer's layers on their own and fit a 24 GB GPU. Trimming the hidden size, and with it the checkpoint, is next. stories260K is a C program here ( guests/stories260k/stories_vx.c ). Its int4 weights sit in the vector unit's weight memory, loaded from the program, and every matrix row, residual add, softmax and attention read is a vector op. None of it is compiled into the checkpoint, so any model that fits runs the same way. Once upon a time, there was a little girl named Lily. She loved to play outside in the park. One day, she saw a big, red ball. She wanted to play with it, but it was too high Its memories are DeltaNet heads: 1",
   "first_seen": "2026-11-01T12:03:26.415102+00:00",
@@ -348,6 +364,18 @@
   "type": "news",
   "url": "https://m3.sineframe.com/blog/same-model-different-agent",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "b836eb939c37ffa5": {
+  "content_excerpt": "Generating tokens faster starts with identifying what limits inference performance. In the batch-size-1 evaluation of Ling-3.0-flash from Inclusion AI on NVIDIA DGX Spark, profiling showed that decoding was memory-bound: reading model weights drove execution time. Two operations stood out—the mixture-of-experts (MoE) computation and the output-layer projection that produces scores across the model’s vocabulary. Those findings pointed to two ways to improve performance: reduce the weight traffic in each decode step and generate more tokens per verification round. This post examines three techniques that address those costs: This post explains how each optimization works, measures its effect, and examines an integration issue that can make the combined configuration slower than the baseline. Ling-3.0-flash serves as the implementation example, with code and deployment instructions in the Ling cookbook . The evaluation used Ling-3.0-flash-fp4, a mixture-of-experts model with 124 billion total parameters and 5.1 billion active parameters per token. The model has 42 layers: 35 Kimi Delta Attention (KDA) linear-attention layers and seven multi-head latent attention (MLA) layers. Each MoE layer routes each token to eight of 512 routed experts, alongside one shared expert. For agentic workflows, Ling-3.0-flash provides a native 256K-token context window, expandable to 1M tokens. Compared with the previous Ling flash model, it improves long-horizon task stability, tool-calling accurac",
+  "first_seen": "2026-11-02T06:05:39.347590+00:00",
+  "id": "ff95e66099b5330f",
+  "published": "2026-11-02T04:13:18+00:00",
+  "sid": "b836eb939c37ffa5",
+  "source": "hackernews_ai",
+  "summary_1line": "Optimizing 124B MoE inference on a single Nvidia DGX Spark",
+  "title": "Optimizing 124B MoE inference on a single Nvidia DGX Spark",
+  "type": "news",
+  "url": "https://developer.nvidia.com/blog/3-ways-to-boost-moe-inference-on-nvidia-dgx-spark"
  },
  "b9b16f52f7ae6ec2": {
   "content_excerpt": "This engine monitors OpenProject project work packages and runs appropriate AI Agents to complete the ticket Polls OpenProject work packages and dispatches the pi coding agent to work on them. OpenProject is the system of record: the engine claims work, prepares a per-agent clone, renders a prompt, runs the agent, verifies the outcome against GitHub and OpenProject, and performs every status transition itself. Agents never change status. Complete the one-time instance setup — statuses, the GIT_REPO project custom field, the AGENT work-package custom field and the Agent Worker role — in docs/OPENPROJECT_SETUP.md . Finish docker/.env before starting the stack. Add GH_TOKEN (and the optional GH_TOKEN_REVIEWER , GIT_REVIEWER_NAME and GIT_REVIEWER_EMAIL for a dedicated reviewer account, ie: branch protection rules, see below). After adding a project or changing its GIT_REPO / AGENT setup in OpenProject, run docker compose restart engine . After changing docker/.env , run docker compose up -d engine so compose recreates the container with the new environment. agent-init.sh writes the OpenProject settings, the agent tokens and the provider key. It leaves the GitHub token(s) to you: add them to docker/.env before starting the stack. For repositories with branch protection that requires the approving or merging account to differ from the pull request's author, give codeReviewer its own GitHub account: GH_TOKEN_REVIEWER (plus optional GIT_REVIEWER_NAME and GIT_REVIEWER_EMAIL ). The rev",

@@ -2883,6 +2883,22 @@
   "type": "research",
   "url": "https://huggingface.co/blog/allenai/novelty-bench"
  },
+ "1d71f7d0405fa1fb": {
+  "first_seen": "2026-11-02T06:05:39.347590+00:00",
+  "id": "29d6b97638c57fe6",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-30T17:26:18+00:00",
+  "sid": "1d71f7d0405fa1fb",
+  "source": "arxiv_cs_cl",
+  "summary": "AI answers require more than apparent correctness: reviewers need to inspect their recorded basis. We introduce the Knowledge Layer Model (KLM), an open, implementation-neutral specification for inference records with versioned epistemic assessments, evidence relations, and explicit unknowns. SEDIM, the knowledge and evidence architecture of Nage AI OS, is a reference implementation. We reference KLM v0.3 (repository tag v0.3.0). Empirical material consists of separate internal experiments, not end-to-end validation. A historical platform-domain routing benchmark reports 137/150 classifications across 15 classes (91.3%; nominal 95% Wilson interval 85.7-94.9%); the numerator is recovered from a rounded summary, and historical example membership is unverified. A native-model weight-path configuration yielded 0/15 successful answers in a corrected two-source test. A capacity-growth comparison could not establish a reliable effect because of a defective legacy scorer and missing original outputs. Lexical and scoped diagnostics each yielded AUC 0.008 for silent-versus-contradicted examples, below the registered minimum of 0.65. Legacy packing lost gold-containing text in 118/221 selected cases; repaired packing retained it in 221/221. These measure text presence, not answer quality. Python and TypeScript verifiers reportedly agreed on six checks per synthetic fixture; a separate production disclosure was not accepted. Restoration, re-derivation, human-rubric support, boundary isol",
+  "summary_1line": "AI answers require more than apparent correctness: reviewers need to inspect their recorded basis. We introduce the Knowledge Layer Model (KLM), an open, implementation-neutral specification for inference records with...",
+  "title": "The Knowledge Layer Model (KLM): Evidence-Visible AI Output, Routing Diagnostics, and Negative Results",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.42066v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "1d7852cb09b3031f": {
   "first_seen": "2026-11-02T04:05:14.811183+00:00",
   "id": "48d0cba0eb3c38da",
@@ -8667,6 +8683,23 @@
   "type": "news",
   "url": "https://openai.com/index/amp-beyond-coding",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "582db819d622d56a": {
+  "first_seen": "2026-11-02T06:05:39.347590+00:00",
+  "id": "e3050199f16fb66b",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-30T15:40:02+00:00",
+  "sid": "582db819d622d56a",
+  "source": "arxiv_cs_cl",
+  "summary": "An agent that must call several tools to fulfill a request fails when the tool retriever omits any one of them, yet tool retrievers are mostly built and evaluated on queries requiring a single tool. We compare representatives of six retrieval structures (flat lexical and dense retrieval, LLM query decomposition, LLM-navigated hierarchies, server-then-tool matching, dependency graphs, and trained set-level retrievers) across two multi-tool testbeds: 345 AppWorld queries with expert dependency labels and 103 MCP-Bench tasks over 257 MCP tools. We measure completeness@k, the share of queries whose entire required tool set appears in the top k, alongside the LLM calls, tokens, and latency that each structure incurs at retrieval time. A motivating analysis on all 7,961 ToolRet queries shows that aggregate completeness mixes two regimes: completeness at 10 is .58 to .67 on single-target queries and .08 to .17 on queries with four or more targets, and the ordering of retrievers on single-target queries reverses on multi-target ones. Across the two testbeds, none of the compared structures that is untrained on the testbed and makes at most one LLM call per query completes more than 10% of AppWorld queries at k = 16. The two structures that do better incur different costs: a set-level retriever trained on 75 to 90 in-domain queries reaches .33 on AppWorld and .58 on MCP-Bench with no LLM calls, while an LLM-navigated hierarchy reaches .30 and .40 with a median of 31 to 38 LLM calls an",
+  "summary_1line": "An agent that must call several tools to fulfill a request fails when the tool retriever omits any one of them, yet tool retrievers are mostly built and evaluated on queries requiring a single tool. We compare represe...",
+  "title": "Completeness and Cost of Retrieval Structures for Multi-Tool Requests in LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41905v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "586dbd8a8714534d": {
   "first_seen": "2026-10-02T11:03:31.814264+00:00",
@@ -16366,6 +16399,22 @@
   "url": "https://sphinx-six-theta.vercel.app",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "a8a5f23cd8e10643": {
+  "first_seen": "2026-11-02T06:05:39.347590+00:00",
+  "id": "7847d72b30457eb5",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-30T16:17:43+00:00",
+  "sid": "a8a5f23cd8e10643",
+  "source": "arxiv_cs_ai",
+  "summary": "Weight pruning can reduce the storage and inference cost of large language models (LLMs), but preserving quality at high sparsity levels remains challenging. Existing methods face a quality-cost trade-off in this regime. One-shot pruning is cheap but degrades sharply as sparsity increases, even when followed by post-pruning recovery. A growing line of work instead optimizes the mask directly from the dense model under the end-to-end objective; among these methods, [Lee et al.,2026], the recent state of the art at extreme sparsity, reaches high quality but at the cost of model-sized optimizer state and auxiliary variables. To address this gap, we propose ETAPS, which prunes gradually and adapts sparsely: it tightens a global sparsity constraint in progressive stages while training a sparse delta with a small, fixed budget. Our key observation is that gradual weight removal keeps each pruning step small enough for sparse adaptation to compensate, allowing the adapted model to provide end-to-end gradients that guide the next pruning decision without model-sized optimizer state. Across six models from 125M to 13B parameters, ETAPS achieves lower perplexity than ELSA at every evaluated sparsity from 50% to 90%, with perplexity reductions of up to 42%. ETAPS is also far cheaper: at 90% sparsity, it prunes LLaMA2-7B on a single H200, where ELSA uses four, with $5.0\\times$ smaller total persistent state and 49% fewer GPU-hours. Together, our findings point to a promising direction fo",
+  "summary_1line": "Weight pruning can reduce the storage and inference cost of large language models (LLMs), but preserving quality at high sparsity levels remains challenging. Existing methods face a quality-cost trade-off in this regi...",
+  "title": "Prune Gradually, Adapt Sparsely: Efficient Pruning of Large Language Models at Extreme Sparsity",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41968v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "a8b40110d7f8723f": {
   "first_seen": "2026-10-10T03:04:15.434647+00:00",
   "id": "e482e549f1d9d9bb",
@@ -21680,6 +21729,24 @@
   "title": "CATL & DeepSeek: Revolutionary Synergy in New Energy & AI Technology",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBXN0ttUGlZazZfeHdlQWJ0Q050bVQ5bXlWYkdLMkJsdjdkUHNZUXB2MTVEQmo5SE1IUkFCY3podDZNc2o4b0RUZXM4LUs5WFR2b2lB?oc=5"
+ },
+ "d7e8a3cf97d32cfe": {
+  "first_seen": "2026-11-02T06:05:39.347590+00:00",
+  "id": "9f5d271c51157211",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-10-30T17:58:48+00:00",
+  "sid": "d7e8a3cf97d32cfe",
+  "source": "arxiv_cs_ai",
+  "summary": "Recent work shows that a frozen robot policy performs far better inside an agent harness, where control code decides when to query the policy, consult vision tools, or command the arm directly. Yet today these harnesses are built by hand and redesigned for each new robot or benchmark. We show that harness design can be automated, offering a strong alternative to finetuning on a novel setup. In RoboArchitect, a coding model observes a robot's rollouts, diagnoses failures, and iteratively revises the harness around the frozen policy. The harness evolves on a set of episodes for its optimization and is evaluated on held-out scenes and tasks. Without updating any model weights, RoboArchitect raises average success from 9.7% to 43.3% on unseen scenes (4.5x) and from 12.7% to 40.2% on unseen tasks (3.2x), across multiple benchmarks and policies. The gains are largest where the benchmark is far from the policy's training data: wrapping a general-purpose policy, the evolved harness yields a specialist that often outperforms even the finetuned version. Intuitive control strategies are automatically designed, such as lifting a jammed arm clear or reaching in horizontally when an obstacle blocks the way from above. The harness also evolves its own persistent memory, carrying learned experience, such as effective grasp depths, into later decisions. These results suggest that substantial headroom in robotic manipulation lies in the agent harness, and its design can be effectively automate",
+  "summary_1line": "Recent work shows that a frozen robot policy performs far better inside an agent harness, where control code decides when to query the policy, consult vision tools, or command the arm directly. Yet today these harness...",
+  "title": "RoboArchitect: Automating the Design of Robotic Agents with Persistent Memory",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.42141v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
  "d8885d98544ba548": {
   "first_seen": "2026-10-05T16:03:57.874742+00:00",
