@@ -7198,7 +7198,7 @@
   "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1xOXVIejhWN2pIMV9NT0NnbTEtNmtnMzdjSnUxTWJxQjZJR1BYamVZNzB5Ul9pb1RadFA2WEwteTRYSEFzS0JKdTN6b1kxUy05al9PNF9sZV84NjQtcmh6SkJSTTg1cFZicFpnRE1wOFBuY2NzMFdvbU9n?oc=5"
  },
  "4babea341ec6b4e6": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervi",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through inc",
   "first_seen": "2026-10-29T08:05:03.420180+00:00",
   "id": "bb4a46ed02106ed4",
   "image_url": "https://res.infoq.com/news/2026/10/cloudflare-web-search-api/en/headerimage/generatedHeaderImage-1791616850849.jpg",
@@ -10468,6 +10468,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.35690v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "6ec977824a0294a2": {
+  "first_seen": "2026-11-02T03:05:12.932939+00:00",
+  "id": "c137e1a49929128e",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-30T02:31:45+00:00",
+  "sid": "6ec977824a0294a2",
+  "source": "arxiv_cs_cl",
+  "summary": "Iterative language-model optimizers refine prompts and programs by evaluating a candidate, showing a proposer model a sample of failing cases, and keeping revisions that improve performance. Recent work attributes the limits of this loop to narrow single-round reflection, introducing full-set error clustering, targeted minibatches, or larger proposer models so the optimizer sees more failure modes per step. Yet every existing evaluation tests these mechanisms exclusively inside lineage-preserving search, where each revision edits a surviving parent, leaving the contribution of parent inheritance confounded with the breadth of per-round feedback. Across 1,750 pre-registered runs spanning nine prompt and program synthesis benchmarks, we separate parent inheritance from feedback disclosure under matched evaluation budgets. We find that greedy parent inheritance drives the vast majority of optimization progress, outperforming seed-reset resampling even when seed-reset proposals receive a clustered summary of all failures in every round or use a larger proposer model. While full-set error clustering and diverse failure selection improve single-step rewrites from the seed and accelerate the opening rounds of search, sequential parent inheritance rapidly closes this gap as solved error modes are retained in the candidate and filtered from subsequent failure lists. Moreover, decomposing token expenditure in GEPA reveals that proposer reflection accounts for only a small fraction of t",
+  "summary_1line": "Iterative language-model optimizers refine prompts and programs by evaluating a candidate, showing a proposer model a sample of failing cases, and keeping revisions that improve performance. Recent work attributes the...",
+  "title": "Lineage Is Memory: Parent Inheritance and Feedback Disclosure in Short-Budget LLM-Guided Optimization",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41157v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "6ed1b07a3adb085a": {
   "first_seen": "2026-10-15T03:04:47.598202+00:00",
@@ -15156,6 +15172,22 @@
   "url": "https://twitter.com/techfren/status/2115583260919202187",
   "why_it_matters": "Matches feed focus: agent, codex."
  },
+ "9f9aae5984d2850d": {
+  "first_seen": "2026-11-02T03:05:12.932939+00:00",
+  "id": "129d78f6196be6de",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-30T11:38:04+00:00",
+  "sid": "9f9aae5984d2850d",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Agent systems built on local large language models are increasingly marketed through the vocabulary of cognitive architecture: modules named global workspace, theory of mind, causal reasoning, or active inference are listed as features, and the presence of the name is taken as the presence of the mechanism. We ask the prior question -- does the named computation actually happen -- and contribute a transferable verification method for the claim-implementation gap: a four-question static audit protocol with line-number evidence and call-chain tracing, demonstrated on two systems. We audit a system claiming 25 cognitive mechanisms, pre-register falsifiable predictions for 11 modules and execute the interventions, replicate the protocol on the IIT-phi core of a second, independent system with its own pre-committed falsification criteria, and run two repair experiments as positive controls. In 18 of 25 modules the computed value never reaches any production output; three idle-wiring shapes new to the dead-code and code-smell literatures emerge (connected-but-never-called, called-but-inert, called-but-content-blind). Of 61 frozen criteria across 12 interventions, 53 were confirmed, two partially adjudicated, five falsified, one adjudication-ambiguous. Repairs raised planner task success from 0.028 to 1.000 and cut state-controller error by 52%. Module names and module computations must be audited as independent claims; the protocol and the five-class failure taxonomy are reusable f",
+  "summary_1line": "Agent systems built on local large language models are increasingly marketed through the vocabulary of cognitive architecture: modules named global workspace, theory of mind, causal reasoning, or active inference are...",
+  "title": "Real Computation or Merely Naming? A Pre-Registered Mechanism Audit of 25 Cognitive-Architecture Modules in an LLM-Based Agent System",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41604v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "9fd97eabe884fec8": {
   "first_seen": "2026-10-22T03:04:56.535755+00:00",
   "id": "a4a8563b25fb75cc",
@@ -16509,6 +16541,23 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.163.0-alpha.8",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "abe1652e18273a1a": {
+  "first_seen": "2026-11-02T03:05:12.932939+00:00",
+  "id": "7c4141b7983d84c9",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-30T13:53:44+00:00",
+  "sid": "abe1652e18273a1a",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Bridging independent vision-language models (VLMs) and small language models (SLMs) in a modular multi-agent system typically forces them to exchange information as discrete text, which creates a lossy bottleneck for spatial and fine-grained details. This constraint is especially acute for SLMs, whose limited capacity makes them more reliant on the quality of the input signal. Recent latent-communication methods exchange states between language models. How a VLM can pass visual information to a separately pretrained text-only SLM though remains unexplored. We propose \\textbf{Latent-Lens}, a lightweight codec that bridges the representation gap between a frozen VLM and a frozen SLM directly in latent space, enabling them to communicate purely through hidden states. The codec consists of a domain encoder that projects hidden states from the VLM into the SLM's embedding space, and an attention decoder formalised as a LoRA that teaches the SLM to attend to these visual prefixes, while training only ${\\sim}1.6$M parameters (0.2\\% of the combined model size). On visual question answering (CLEVR, GQA), Latent-Lens achieves $81.0\\pm7.9$\\% and $65.4\\pm5.4$\\%, compared with $58.3\\pm5.7$\\% and $61.8\\pm1.0$\\% for text communication with the same LoRA budget (+30.2--69.8pp relative to frozen text communication), while on image captioning (Flickr8k) it improves over the same baseline by +16.5 (+18.8 frozen). We also evaluate Latent-Lens with TinyLlama-1.1B and InternVL2-1B, which use diffe",
+  "summary_1line": "Bridging independent vision-language models (VLMs) and small language models (SLMs) in a modular multi-agent system typically forces them to exchange information as discrete text, which creates a lossy bottleneck for...",
+  "title": "Latent-Lens: Visual Perception in Small Language Models Through Latent Communication",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41751v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "abfdc4873b294801": {
   "content_excerpt": "dotpals is a small floating pal that watches Claude Code, Codex or any coding agent and checks its work: what it changed, what it ran, and whether the tests really passed. When Claude breaks the tests, dotpals sends it back to fix them. And any AI tool can ask dotpals what really happened. One command on Windows, macOS or Linux. Free, and your agents’ work stays on your computer. Or straight from GitHub: npx --allow-git=all github:rikinshah787/dotpals setup Press Ctrl+Shift+Space and talk. Blu looks at your screen when you ask about it, answers out loud, draws on it as it explains, does things on your computer and works in your apps, with the AI you already have. A report card for your coding agents, read from what they did, not what they said. And when a request goes wrong, replay it, or rewind it. Agents say “done” in one fluent line. dotpals reads what the tests actually printed, and when Claude Code broke them, it sends Claude back to fix them before it finishes, commits or pushes. The test-output rules build on claude-referee by Ismail Daşcı (MIT). Laya is by Convai Innovations; Jev is by TypeSafe. Sent back “Put the test back and fix the code, or tell the user why the test was wrong.” dotpals mcp is an MCP server. Claude Code, Codex, Cursor and other assistants ask dotpals what your agents did, and get the evidence instead of the agent’s word. Codex, Cursor and others: command npx , arguments dotpals mcp . It only reads, from dotpals on your computer. All the tools → Cu",
@@ -20507,6 +20556,24 @@
   "url": "http://arxiv.org/abs/2610.39497v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "ce941c554e9fce8e": {
+  "first_seen": "2026-11-02T03:05:12.932939+00:00",
+  "id": "effd233e68f6601f",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-10-30T02:48:37+00:00",
+  "sid": "ce941c554e9fce8e",
+  "source": "arxiv_cs_cl",
+  "summary": "Retrieval-augmented generation is becoming agentic. A search harness writes queries, reads results, reformulates, and decides when to stop. This largely solves accuracy: a harness with only BM25/grep and MiniMax M3 answers 85% of BrowseComp-Plus and 91% on multi-hop FRAMES in our runs, without compiled or vector indexes. It exposes a context problem: an undisciplined loop repeats queries, rereads documents, and fills the window with unused passages. The missing layer is knowledge compilation: a configurable ingestion pipeline where LLMs enrich documents with context no chunk contains alone--navigation hierarchies with claim-evidence leaves, entity graphs, timelines, mind maps, ontologies, wikis, and memory. Compilation is not a better retriever: under a competent harness, structural artifacts gave no detectable accuracy gain on FRAMES, and a PageIndex-style outline degraded at scale. It is a supply layer. A navigation tree whose leaves are claim-evidence pairs--the mechanism we measure--cuts query tokens by 91% when evidence suffices and adds 1.9% when it does not, a 38% average reduction; this implies a 2% break-even sufficiency rate and a measured rate near 43%. A decision gate cuts latency from 140 s to 30 s, though substitution's token saving is bought with retrieval rounds and carries its own latency cost. Other artifacts--ontology, graph, wiki, timeline, mind map, memory--pay off in deployment (governance, integration, onboarding, temporal orientation, continuity) where",
+  "summary_1line": "Retrieval-augmented generation is becoming agentic. A search harness writes queries, reads results, reformulates, and decides when to stop. This largely solves accuracy: a harness with only BM25/grep and MiniMax M3 an...",
+  "title": "Context as Infrastructure: Knowledge Compilation for Retrieval in Agentic Systems with Harnesses",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41172v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, eval."
+ },
  "cea4ddb5a72f9b22": {
   "content_excerpt": "Deploying a ~1-trillion parameter Mixture-of-Experts (MoE) model for API inference is a classic systems challenge. At full FP16 or BF16 precision, the memory footprint requires very large clusters. Standard post-training quantization (PTQ) recipes shrink that footprint but can degrade model quality, especially for non-English models, where the usual quantization calibration datasets don’t capture",
   "first_seen": "2026-10-29T00:08:04.921758+00:00",
@@ -20891,6 +20958,22 @@
   "title": "DE STAAT - FREEDOM (Official Music Video)",
   "type": "news",
   "url": "https://simonwillison.net/2026/Oct/22/de-staat-freedom"
+ },
+ "d1eea082af655d05": {
+  "first_seen": "2026-11-02T03:05:12.932939+00:00",
+  "id": "ed1899d7b73c1f3e",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-30T03:49:33+00:00",
+  "sid": "d1eea082af655d05",
+  "source": "arxiv_cs_lg",
+  "summary": "Long-tailed recognition often learns a shared representation before correcting the classifier for class imbalance. Once the classifier has been rebalanced, however, final accuracy does not reveal whether further encoder adaptation remains worthwhile. Standard imbalance benchmarks obscure this question because they jointly vary the number of distinct examples available to rare classes and the frequency with which those examples shape the representation. We introduce a controlled evaluation framework that separates unique support from representation allocation and estimates the incremental value of encoder updates through matched classifier-only and full-network continuations from a common corrected model. The framework combines stage-specific controls, multiple representation and adaptation objectives, whole-distribution metrics, and hierarchical inference over class assignments, support reconstructions, and optimization runs. Across the controlled study, the same low-support regime moves from one in which classifier-only training is adequate to one in which encoder adaptation yields a practically meaningful benefit solely as representation allocation becomes more imbalanced. The transition persists across classifier corrections, representation objectives, normalization and augmentation controls, and ImageNet-scale evaluation, while preserving frequent-class accuracy. Under the prespecified one-percentage-point operating margin, the two regimes are separated by simultaneous co",
+  "summary_1line": "Long-tailed recognition often learns a shared representation before correcting the classifier for class imbalance. Once the classifier has been rebalanced, however, final accuracy does not reveal whether further encod...",
+  "title": "Beyond Scarcity: When Encoder Adaptation Is Worthwhile",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41213v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "d1fe1050c29bd1ca": {
   "first_seen": "2026-10-26T14:05:00.635492+00:00",
