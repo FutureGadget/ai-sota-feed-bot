@@ -2,110 +2,134 @@
 
 Focus: AI Platform Engineering
 
-## 1. DeepSeek team open-sources proactive coding agent research prototype
+## 1. DeepSeek open-sources Super-Agent, a coding agent that watches team chats for work
 - Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiowFBVV95cUxPZlhRZXhnYlJmX1RiOUdNamRqUXJUU2NycHNuZWtGeEVUejJxNVdEQkQzUU1HMkxHR1dXeDhBVDlPRmVyUHFoMU96VkdBYzlRUFRSWkFFTGVBWWFjNXRRaUlld2d2alpFdVd0VXFlR2tMeXNJUWdDc3c1cG5SR3BPRVd0OVRFLXBvMWhJZ0hzRG1qU2VQazBDQjNQNHl2cXRJZFZV?oc=5
-- Score: 3.437 | Reliability: 1.0
+- URL: https://news.google.com/rss/articles/CBMidkFVX3lxTE5nREY5eGxfa2tXV0ZxeHZpekdIaS05UWdfYUxVTHNIR01TdnU0MEhxaHA2NE1iSHE2MnpHRUgtM3VvR2x2ZEpKQ1ljYVFEME9lQTEtOHNXSHdkT0Jjb0VPTUgtYnNVdEQ2RXBlMERLOTRTcF9ic2c?oc=5
+- Score: 3.723 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. SecPO: Principled Adversarial Training for Prompt Injection Security
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2610.41998v1
-- Score: 2.808 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
+## 2. Optimizing 124B MoE inference on a single Nvidia DGX Spark
+- Type: news | Source: hackernews_ai
+- URL: https://developer.nvidia.com/blog/3-ways-to-boost-moe-inference-on-nvidia-dgx-spark/
+- Score: 3.613 | Reliability: 1.0
+- Why it matters: 
 
-## 3. How Much Can Tool Calls Reveal About You? Privacy Leakage from Tool-Call Traces
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.41885v1
-- Score: 2.661 | Reliability: 1.0
+## 3. Show HN: Shipvo – open-source RN OTA updates and an AI-drivable simulator
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/shipvo/shipvo
+- Score: 3.366 | Reliability: 1.0
+- Why it matters: 
+
+## 4. Show HN: Arken – cryptographic identity for AI agents calling MCP servers/APIs
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/arkenforge/arken-core
+- Score: 3.287 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 4. SimXAI: A Simple Drop-in Layer Increases Interaction Quality and Understanding in Conversational XAI
+## 5. DecisionRank: On-Policy Distillation for Decision-Model Rerankers
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.41856v1
-- Score: 2.653 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 5. GDPx: Measuring Frontier Model Capabilities Across the Most Valuable Domains
-- Type: news | Source: semianalysis
-- URL: https://newsletter.semianalysis.com/p/gdpx-measuring-frontier-model-capabilities
-- Score: 2.322 | Reliability: 1.0
-- Why it matters: 
-
-## 6. dbreunig/nesformer
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Oct/30/nesformer/
-- Score: 2.178 | Reliability: 1.0
-- Why it matters: 
-
-## 7. Genie 4: A new generation of world simulation
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/
-- Score: 1.634 | Reliability: 1.0
-- Why it matters: 
-
-## 8. Fair use benefits everyone
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/fair-use-benefits-everyone
-- Score: 1.584 | Reliability: 1.0
-- Why it matters: 
-
-## 9. How Ropes & Gray is developing AI for transactional diligence
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/ropes-gray-ai-diligence
-- Score: 1.562 | Reliability: 1.0
-- Why it matters: 
-
-## 10. An updated Model Spec for more capable and beneficial AI
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/updated-model-spec
-- Score: 1.553 | Reliability: 1.0
-- Why it matters: 
-
-## 11. ACCT: Asymmetric Cross-LLM Context Transfer
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2610.42116v1
-- Score: 2.632 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2610.42128v1
+- Score: 2.532 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 12. Real Computation or Merely Naming? A Pre-Registered Mechanism Audit of 25 Cognitive-Architecture Modules in an LLM-Based Agent System
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.41604v1
-- Score: 2.553 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 13. claude-code v2.1.316
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.316
-- Score: 1.495 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 14. codex 0.167.0-alpha.2
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.2
-- Score: 1.489 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 15. langgraph==1.2.19
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.19
-- Score: 1.352 | Reliability: 1.0
+## 6. How We Took Over ChatGPT Accounts
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Oct/31/how-we-took-over-chatgpt-accounts/
+- Score: 2.47 | Reliability: 1.0
 - Why it matters: 
 
-## 16. Innovate on your own business terms: Google Cloud spend caps now generally available
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/topics/cost-management/google-cloud-spend-caps-now-generally-available/
-- Score: 1.137 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 7. Structure-Aware Skill Retrieval and Arbitration for Optimization Modeling
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2610.41909v1
+- Score: 2.459 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
-## 17. claude-agent-sdk-python v0.2.176
+## 8. Subquadratic Attention with a Hierarchical Tree-Structured Indexer
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2610.42112v1
+- Score: 2.44 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
+
+## 9. GDPx: Measuring Frontier Model Capabilities Across the Most Valuable Domains
+- Type: news | Source: semianalysis
+- URL: https://newsletter.semianalysis.com/p/gdpx-measuring-frontier-model-capabilities
+- Score: 2.232 | Reliability: 1.0
+- Why it matters: 
+
+## 10. What’s new in AI infrastructure and orchestration in October
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/topics/ai-infrastructure/whats-new-in-ai-infrastructure-this-month/
+- Score: 1.688 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness, evaluation.
+
+## 11. TradeWar: A Benchmark for Execution-Grounded Trade Negotiation with Adaptive LLM Agents
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2610.42004v1
+- Score: 2.388 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 12. Latent-Lens: Visual Perception in Small Language Models Through Latent Communication
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2610.41751v1
+- Score: 2.313 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 13. Day 0 support for Mistral Large 4 on vLLM
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-10-29-mistral-large-4
+- Score: 1.663 | Reliability: 1.0
+- Why it matters: 
+
+## 14. Genie 4: A new generation of world simulation
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/
+- Score: 1.609 | Reliability: 1.0
+- Why it matters: 
+
+## 15. How Ropes & Gray is developing AI for transactional diligence
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/ropes-gray-ai-diligence
+- Score: 1.537 | Reliability: 1.0
+- Why it matters: 
+
+## 16. The future of the firm
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/the-future-of-the-firm
+- Score: 1.508 | Reliability: 1.0
+- Why it matters: 
+
+## 17. claude-code v2.1.316
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.316
+- Score: 1.436 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 18. Working with academic communities to build scientific understanding
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/building-scientific-understanding-with-academic-communities
+- Score: 1.431 | Reliability: 1.0
+- Why it matters: 
+
+## 19. codex rust-v0.167.0-alpha.1
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.1
+- Score: 1.289 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 20. langgraph-cli==0.4.39
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.39
+- Score: 1.002 | Reliability: 1.0
+- Why it matters: 
+
+## 21. claude-agent-sdk-python v0.2.176
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.176
-- Score: 1.038 | Reliability: 1.0
+- Score: 0.983 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 18. v0.33.0rc1: [CI] Fix stale NVFP4 decode test selector on DGX Spark (#64107)
+## 22. vllm v0.33.0rc0
 - Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc1
-- Score: 0.573 | Reliability: 1.0
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc0
+- Score: 0.472 | Reliability: 1.0
 - Why it matters:
