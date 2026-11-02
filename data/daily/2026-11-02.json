@@ -1,0 +1,205 @@
+{
+  "date": "2026-11-02",
+  "title": "What happened in AI — Nov 2, 2026",
+  "generated_at": "2026-11-02T22:16:00Z",
+  "intro": [
+    "Agent builders spent the day on containment: Uber's MCP gateway and four new sandbox, kernel, and signature tools all enforce permissions outside the prompt.",
+    "DeepSeek open-sourced a coding agent that starts work from team chats, and Nvidia published two DGX Spark inference efforts."
+  ],
+  "highlights": [
+    "Uber's MCP gateway governs 800+ servers and 5,000+ agent tools.",
+    "Deedglass caught an agent reporting 1 updated row when Postgres changed 301.",
+    "DeepSeek open-sourced Super-Agent, a coding agent that watches team chats.",
+    "Google and Meta open-sourced TorchTPU for native PyTorch on TPUs.",
+    "SemiAnalysis launched GDPx and OpenAI launched LifeVal as agent benchmarks."
+  ],
+  "article_count": 35,
+  "categories": [
+    {
+      "name": "Agent harness and context design",
+      "slug": "agent-harness-context-design",
+      "summary": "Builders are converging on one loop-plus-sandbox architecture, and the open problems have moved to context, memory, and cross-device state.",
+      "articles": [
+        {
+          "title": "New context engineering challenges in late 2026",
+          "summary": "LangChain argues the LLM-in-a-loop-with-tools-in-a-sandbox architecture has converged and lists the context-engineering problems that remain.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/context-engineering-challenges-late-2026",
+          "published": "2026-11-02T16:51:00Z"
+        },
+        {
+          "title": "Article: Systemic Approach to Memory, Knowledge, and Context in Agentic AI Architectures",
+          "summary": "InfoQ article lays out a systemic approach to memory, knowledge, and context in agentic architectures.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-11-02T11:00:00Z"
+        },
+        {
+          "title": "Show HN: Skep – live cross-device sessions for AI coding agents",
+          "summary": "Skep opens live join-code sessions so peers can share one task while each runs their own agent (Claude Code, Codex, Pi).",
+          "source": "hackernews_ai",
+          "url": "https://skepagent.com/",
+          "published": "2026-11-02T01:20:00Z"
+        },
+        {
+          "title": "Show HN: AgentTM – A time-travel debugger for AI coding agents built in Go",
+          "summary": "AgentTM records AgentTM-managed Codex runs in SQLite with baseline and final workspace checkpoints, so you can replay what an agent changed.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Jyotishmoy12/AgentTM",
+          "published": "2026-11-02T08:54:58Z"
+        },
+        {
+          "title": "Show HN: Rufous – Agent attuned to small models",
+          "summary": "Rufous is an agent harness built for 2B–12B models running locally, in an editor or a web UI.",
+          "source": "hackernews_ai",
+          "url": "https://rufous.chat",
+          "published": "2026-11-02T02:54:01Z"
+        }
+      ]
+    },
+    {
+      "name": "Agent permissions enforced outside the prompt",
+      "slug": "agent-permissions-outside-prompt",
+      "summary": "Four new tools and one gateway move agent access control into sandboxes, kernels, signatures, and verification instead of prompt instructions.",
+      "articles": [
+        {
+          "title": "Uber Builds MCP Gateway to Govern Access to 800+ Servers and 5,000+ AI Agent Tools",
+          "summary": "Uber built an MCP gateway to govern access to 800+ MCP servers and 5,000+ agent tools.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/11/uber-mcp-gateway-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-11-02T13:53:00Z"
+        },
+        {
+          "title": "Show HN: Maat – AI agents that can diagnose Ubuntu but can't change it",
+          "summary": "Maat gives agents a kernel-confined MCP server for diagnosing Ubuntu; fixes need polkit approval and leave a tamper-evident audit trail.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/bolesawny7/maat",
+          "published": "2026-11-02T13:53:51Z"
+        },
+        {
+          "title": "Show HN: Deedglass – An agent said it updated 1 row; Postgres changed 301",
+          "summary": "Deedglass compares what an agent reported against what actually changed in Postgres (one reported row versus 301 changed) and seals each action as a signed record.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/deedglass/deedglass",
+          "published": "2026-11-02T15:02:04Z"
+        },
+        {
+          "title": "Lyngvi – A Hardened Sandbox for AI",
+          "summary": "Lyngvi runs coding agents in a hardened sandbox that never exposes credentials, git history, or a route to the internet.",
+          "source": "hackernews_ai",
+          "url": "https://lyngvi.skaperiet.no",
+          "published": "2026-11-02T21:31:49Z"
+        },
+        {
+          "title": "Show HN: Arken – cryptographic identity for AI agents calling MCP servers/APIs",
+          "summary": "Arken proposes DID-signature identity so agents authenticate to MCP servers and APIs without passwords or sessions.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/arkenforge/arken-core",
+          "published": "2026-11-02T04:29:23Z"
+        },
+        {
+          "title": "Secure AI Agents with Hazmat Suits, Not Self-Defense Classes",
+          "summary": "Infisical argues agent security needs containment (the hazmat suit) rather than only trying to anticipate every attack.",
+          "source": "hackernews_ai",
+          "url": "https://infisical.com/blog/ai-agent-security-hazmat-suits",
+          "published": "2026-11-02T19:58:43Z"
+        }
+      ]
+    },
+    {
+      "name": "DeepSeek open-sources a proactive coding agent",
+      "slug": "deepseek-proactive-coding-agent",
+      "summary": "DeepSeek released a research prototype coding agent that picks up work by watching team chats instead of waiting for prompts.",
+      "articles": [
+        {
+          "title": "DeepSeek open-sources Super-Agent, a coding agent that watches team chats for work",
+          "summary": "DeepSeek open-sources Super-Agent, a coding agent that monitors team chats and starts work from them.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Help Net Security",
+          "publisher_domain": "helpnetsecurity.com",
+          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5nREY5eGxfa2tXV0ZxeHZpekdIaS05UWdfYUxVTHNIR01TdnU0MEhxaHA2NE1iSHE2MnpHRUgtM3VvR2x2ZEpKQ1ljYVFEME9lQTEtOHNXSHdkT0Jjb0VPTUgtYnNVdEQ2RXBlMERLOTRTcF9ic2c?oc=5",
+          "published": "2026-11-02T07:09:55Z"
+        },
+        {
+          "title": "DeepSeek team open-sources proactive coding agent research prototype",
+          "summary": "TechNode reports the release as a proactive coding-agent research prototype from the DeepSeek team.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "TechNode",
+          "publisher_domain": "technode.com",
+          "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPZlhRZXhnYlJmX1RiOUdNamRqUXJUU2NycHNuZWtGeEVUejJxNVdEQkQzUU1HMkxHR1dXeDhBVDlPRmVyUHFoMU96VkdBYzlRUFRSWkFFTGVBWWFjNXRRaUlld2d2alpFdVd0VXFlR2tMeXNJUWdDc3c1cG5SR3BPRVd0OVRFLXBvMWhJZ0hzRG1qU2VQazBDQjNQNHl2cXRJZFZV?oc=5",
+          "published": "2026-11-02T04:32:41Z"
+        }
+      ]
+    },
+    {
+      "name": "Local and low-level inference",
+      "slug": "local-low-level-inference",
+      "summary": "Two Nvidia-hosted projects target DGX Spark's memory-bound decoding, and Google and Meta put PyTorch natively on TPUs.",
+      "articles": [
+        {
+          "title": "Optimizing 124B MoE inference on a single Nvidia DGX Spark",
+          "summary": "Nvidia profiles Ling-3.0-flash decoding on DGX Spark as memory-bound and targets the MoE computation and output-layer projection.",
+          "source": "hackernews_ai",
+          "url": "https://developer.nvidia.com/blog/3-ways-to-boost-moe-inference-on-nvidia-dgx-spark/",
+          "published": "2026-11-02T04:13:18Z"
+        },
+        {
+          "title": "Flare, Nvidia's DGX Spark Inference Engine",
+          "summary": "Nvidia's Flare is a research-prototype local inference server for SM120/SM121 GPUs, aimed at long conversations and repeated tool calls.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/NVIDIA/spark-local-inference",
+          "published": "2026-11-02T01:11:27Z"
+        },
+        {
+          "title": "Google and Meta Open-source TorchTPU to Bring Native PyTorch Support to Google TPUs",
+          "summary": "Google and Meta open-source TorchTPU, bringing native PyTorch support to Google TPUs.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/11/torchtpu-native-pythorch-tpu/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-11-02T17:00:00Z"
+        },
+        {
+          "title": "Lakebase Postgres is now generally available on Google Cloud",
+          "summary": "Databricks made Lakebase Postgres generally available on Google Cloud, with compute separated from storage for agentic workloads.",
+          "source": "databricks_blog",
+          "url": "https://www.databricks.com/blog/lakebase-postgres-now-generally-available-google-cloud",
+          "published": "2026-11-02T14:26:08Z"
+        }
+      ]
+    },
+    {
+      "name": "Benchmarks and compute economics",
+      "slug": "benchmarks-compute-economics",
+      "summary": "New benchmarks target economically valuable agent work, while the compute-glut debate leans on DeepSeek V4.1 Flash pricing.",
+      "articles": [
+        {
+          "title": "GDPx: Measuring Frontier Model Capabilities Across the Most Valuable Domains",
+          "summary": "SemiAnalysis introduces GDPx, a benchmark of the highest-value domains for frontier agentic capability.",
+          "source": "semianalysis",
+          "url": "https://newsletter.semianalysis.com/p/gdpx-measuring-frontier-model-capabilities",
+          "published": "2026-11-02T01:51:42Z"
+        },
+        {
+          "title": "LifeVal",
+          "summary": "OpenAI's LifeVal benchmarks AI on everyday tasks such as finding childcare and handling government paperwork.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/lifeval",
+          "published": "2026-11-02T09:00:00Z"
+        },
+        {
+          "title": "Jevons paradox is lazy analysis: Evaluating the risk of AI overbuilding",
+          "summary": "A widely shared estimate argues next year's online compute would need about $2.5T of revenue even at DeepSeek V4.1 Flash rates, and the author is revising it.",
+          "source": "hackernews_ai",
+          "url": "https://twitter.com/bookwormengr/status/2116705246856741114",
+          "published": "2026-11-02T09:16:24Z"
+        },
+        {
+          "title": "Introducing the Grid Protectors Program",
+          "summary": "OpenAI's Grid Protectors Program works with utilities so future compute campuses protect grid reliability and consumer electricity costs.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/grid-protectors-program",
+          "published": "2026-11-02T15:00:00Z"
+        }
+      ]
+    }
+  ]
+}
