@@ -421,9 +421,16 @@ h1, h2, h3 {
   max-height: calc(100vh - 1rem);
   max-height: min(44rem, calc(100dvh - 1rem));
   flex-direction: column;
-  padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom));
+  /* Top padding lives on the sticky head so the title and Close button stay
+     pinned while the long destination list scrolls underneath them. */
+  padding: 0 1rem calc(1rem + env(safe-area-inset-bottom));
   overflow: auto;
   overscroll-behavior: contain;
+}
+
+.site-dialog-panel.is-scrollable:not(.at-scroll-end) {
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 1.6rem), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 1.6rem), transparent);
 }
 
 .site-dialog-head {
@@ -431,8 +438,15 @@ h1, h2, h3 {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0 0 0.75rem;
+  padding: 1rem 0 0.75rem;
   border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--bg);
+  margin: 0 -1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .site-dialog-head h2 {

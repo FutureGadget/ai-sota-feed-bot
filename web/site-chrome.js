@@ -90,7 +90,7 @@
       ["Catch up", ["/", "/daily", "/weekly"]],
       ["Follow", ["/storylines"]],
       ["Apply", ["/playbook"]],
-      ["Understand", ["/map", "/foundations", "/models"]],
+      ["Understand", ["/map", "/foundations", "/models", "/skills"]],
       ["More", ["/voices", "/subscribe"]],
     ];
     const descriptions = {
@@ -102,6 +102,7 @@
       "/map": "Essential know-how for production agents",
       "/foundations": "Durable concept explainers",
       "/models": "Model pricing and capability radar",
+      "/skills": "Agent skills ranked by adoption",
       "/voices": "Practitioner voices worth following",
       "/subscribe": "Get the brief by email",
     };
@@ -163,6 +164,21 @@
     dialog.append(panel);
     document.body.append(dialog);
 
+    // The desk can be taller than the panel (latest updates plus every
+    // destination). macOS hides overlay scrollbars, so without a hint the cut
+    // menu reads as broken; fade the bottom edge while there is more to scroll.
+    const syncScrollHint = () => {
+      const scrollable = panel.scrollHeight > panel.clientHeight + 2;
+      panel.classList.toggle("is-scrollable", scrollable);
+      panel.classList.toggle(
+        "at-scroll-end",
+        panel.scrollTop + panel.clientHeight >= panel.scrollHeight - 2
+      );
+    };
+    panel.addEventListener("scroll", syncScrollHint, { passive: true });
+    window.addEventListener("resize", syncScrollHint, { passive: true });
+    requestAnimationFrame(syncScrollHint);
+
     trigger.setAttribute("aria-haspopup", "dialog");
     trigger.setAttribute("aria-expanded", "false");
 
@@ -173,6 +189,7 @@
       dialog.showModal();
       root.classList.add("site-dialog-open");
       close.focus();
+      requestAnimationFrame(syncScrollHint);
     };
     const shut = () => {
       if (dialog.open) dialog.close();

@@ -331,10 +331,33 @@ class SiteChromeContractTest(unittest.TestCase):
     def test_editor_desk_dialog_groups_navigation_and_actions(self) -> None:
         js = (ROOT / "web" / "site-chrome.js").read_text(encoding="utf-8")
         self.assertIn('["Apply", ["/playbook"]]', js)
-        self.assertIn('["Understand", ["/map", "/foundations", "/models"]]', js)
+        self.assertIn('["Understand", ["/map", "/foundations", "/models", "/skills"]]', js)
         self.assertIn("site-actions-group", js)
         self.assertIn('"Editor\'s Desk"', js)
         self.assertIn('querySelectorAll(":scope > a[data-site-destination]")', js)
+
+    def test_every_site_destination_is_grouped_and_described(self) -> None:
+        """A new nav destination must be added to the Editor's Desk map.
+
+        `/skills` shipped as an ungrouped link with no description, so the dialog
+        rendered it as a bare label at the bottom of the panel. Groups and
+        descriptions are hardcoded in site-chrome.js; this test ties them to
+        SITE_DESTINATIONS so the next page cannot repeat that.
+        """
+        js = (ROOT / "web" / "site-chrome.js").read_text(encoding="utf-8")
+        groups = js.split("const groups = [", 1)[1].split("];", 1)[0]
+        descriptions = js.split("const descriptions = {", 1)[1].split("};", 1)[0]
+
+        for href, label in render.SITE_DESTINATIONS:
+            self.assertIn(f'"{href}"', groups, f"{label} is missing from the Editor's Desk groups")
+            self.assertIn(f'"{href}":', descriptions, f"{label} has no Editor's Desk description")
+
+        for href in re.findall(r'"(/[a-z0-9/-]*)"', groups):
+            self.assertIn(
+                href,
+                {destination for destination, _ in render.SITE_DESTINATIONS},
+                f"Editor's Desk groups an unknown destination: {href}",
+            )
 
     def test_theme_toggle_is_compact_header_action_not_editor_desk_content(self) -> None:
         css = (ROOT / "web" / "site-chrome.css").read_text(encoding="utf-8")
