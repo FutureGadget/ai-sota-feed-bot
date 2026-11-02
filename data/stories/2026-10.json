@@ -801,6 +801,22 @@
   "url": "http://arxiv.org/abs/2610.06603v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "09786741e49a2613": {
+  "first_seen": "2026-11-02T11:04:29.009718+00:00",
+  "id": "ae3bd3d1e054fc76",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-30T13:07:47+00:00",
+  "sid": "09786741e49a2613",
+  "source": "arxiv_cs_cl",
+  "summary": "The needle-in-a-haystack (NIAH) benchmark was introduced as a test for measuring a model's ability to find small relevant facts within a very large body of input text. However, existing NIAH benchmarks each suffer from one or more of the following limitations: (1) reliance on synthetic data, so their evaluations may not generalize to real-world settings; (2) reuse of previously published datasets, leading to the risk of benchmark contamination; (3) dependence on manual annotation, which requires human effort to create and update data and is prone to future benchmark contamination; and (4) unrealistic simplification of long-context multi-hop reasoning where each next step is trivial given previous steps, while real-world reasoning often requires planning over multiple possible proof paths. To address these limitations, we introduce \\Benchmark, a dynamic benchmark built from real citation relationships among scientific papers published after the evaluated models' knowledge cutoff date, which utilizes real-world information while ensuring no benchmark contamination. The fully automated benchmark construction pipeline samples representative subgraphs of the citation graph formed by these papers and converts each subgraph into a long-context QA example with a verifiable answer. We use GraphNIAH to evaluate eight LLMs from the GPT-5.6, Gemini-3, and Qwen3.5 families. We find that accuracy falls as questions require longer reasoning paths: at question depths of 16 and 32, the GPT-5.",
+  "summary_1line": "The needle-in-a-haystack (NIAH) benchmark was introduced as a test for measuring a model's ability to find small relevant facts within a very large body of input text. However, existing NIAH benchmarks each suffer fro...",
+  "title": "GraphNIAH: A Benchmark for Long-Context Reasoning over Real-World Graphs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41704v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "098f90d4633438cc": {
   "first_seen": "2026-10-19T17:05:36.282839+00:00",
   "id": "5970afd7df95993a",
@@ -4037,6 +4053,22 @@
   "url": "https://github.com/grandimam/wy",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "282f057baf2d5931": {
+  "first_seen": "2026-11-02T11:04:29.009718+00:00",
+  "id": "5e156125a1e01ab9",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-30T17:59:43+00:00",
+  "sid": "282f057baf2d5931",
+  "source": "arxiv_cs_cl",
+  "summary": "Unified Multimodal Models (UMMs) achieve remarkable success on diverse multimodal understanding and generation tasks, yet they still struggle to effectively leverage language-based chain-of-thought reasoning for image generation. As a result, existing reasoning-augmented UMMs often fail to inherit the test-time scaling and fine-grained controllability observed in large language models. We attribute this failure to a fundamental modality mismatch: reasoning is performed in a discrete token space, whereas image generation operates in a continuous space. To bridge this gap, we introduce a Latent Reasoning framework in Continuous space (LARC), which alleviates the token-level bottleneck by reasoning over continuous hidden states. Specifically, the training framework consists of two stages: (i) curriculum supervised fine-tuning (SFT), and (ii) information-gain reinforcement learning (RL). First, the curriculum SFT stage gradually converts token-level reasoning into latent reasoning. Subsequently, the information-gain RL stage self-evolves latent reasoning without ground truth supervision. Experiments across diverse text-to-image generation benchmarks show that LARC consistently improves generation quality, prompt following, and compositional fidelity. Notably, LARC achieves state-of-the-art performance on GenEval with a 7%p gain over BAGEL and demonstrates clear test-time scaling behavior, outperforming token-based generation under both parallel and sequential test-time scaling st",
+  "summary_1line": "Unified Multimodal Models (UMMs) achieve remarkable success on diverse multimodal understanding and generation tasks, yet they still struggle to effectively leverage language-based chain-of-thought reasoning for image...",
+  "title": "Latent Reasoning in Continuous Space for Unified Multimodal Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.42149v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "2896758265cec81d": {
   "first_seen": "2026-10-06T17:04:16.569957+00:00",
   "id": "7b66ac50a24b5861",
@@ -6033,6 +6065,22 @@
   "url": "https://github.com/cognitionai/devin-vuln-fixes",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "3e01c62dcf9b3b69": {
+  "first_seen": "2026-11-02T11:04:29.009718+00:00",
+  "id": "07b3dfa77e7c1a03",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-30T15:39:02+00:00",
+  "sid": "3e01c62dcf9b3b69",
+  "source": "arxiv_llm_reliability",
+  "summary": "Current LLM ensemble frameworks focus on multi-step setups with additional modules for answer ranking, often opting for token and span analysis rather than structured outputs, leading to heavyweight architectures with potential fail states along the pipeline. Faster, lighter solutions are more vulnerable to hallucination propagation and can lack output control in more complex pipelines. This paper proposes a customisable, lightweight ensemble workflow of coordinated Large Language Models that leverages JSON-structured outputs and anonymous peer-review ranking to mitigate hallucinatory outputs and single-model failure points. The pipeline is demonstrated on a relation extraction task applied to popular science articles in English, targeting four ontologically-grounded relation types (strong causation, weak causation, contrastive, and compositional), with semantic node canonicalisation and interactive, colour-coded HTML causal graphs as the final output. Performance is evaluated through an anonymous user study, achieving an average perceived accuracy of 0.778 against a human-annotated gold standard. The modular architecture supports flexible deployment across both API-based and in-house LLM setups, and the full framework is released under an open license to foster reproducibility and collaborative research.",
+  "summary_1line": "Current LLM ensemble frameworks focus on multi-step setups with additional modules for answer ranking, often opting for token and span analysis rather than structured outputs, leading to heavyweight architectures with...",
+  "title": "ReX-GG: a LLM Ensemble Pipeline for Relation-extraction and Graph Generation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41901v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "3e32bae570ff21ee": {
   "also_covered": [
    {
@@ -7707,6 +7755,23 @@
   "type": "news",
   "url": "https://openai.com/index/radisson"
  },
+ "4e3ef058b96b399d": {
+  "first_seen": "2026-11-02T11:04:29.009718+00:00",
+  "id": "d39dad444367e7ee",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-10-30T16:55:46+00:00",
+  "sid": "4e3ef058b96b399d",
+  "source": "arxiv_cs_lg",
+  "summary": "Reinforcement learning is a powerful paradigm for training autonomous agents and has achieved impressive performance in complex environments. However, this success often comes at the cost of interpretability, diminishing trust and complicating efforts to debug and improve agent behavior. To address these challenges, we introduce CausalXRL, a novel framework for explainable reinforcement learning (XRL). A key feature of CausalXRL is its use of causal graph reasoning, which provides transparent, structured, multi-level explanations of agent decision-making. We validate CausalXRL through comprehensive case studies and a two-part evaluation: (1) a quantitative analysis of explanation fidelity and causal-structure learning efficiency in benchmark RL environments, and (2) a qualitative expert study assessing explainability in the real-time strategy (RTS) benchmark MicroRTS. The quantitative results show that CausalXRL can provide faithful explanations while efficiently learning causal structures, and the qualitative expert study suggests that participants found CausalXRL useful for inspecting high-level RTS strategies.",
+  "summary_1line": "Reinforcement learning is a powerful paradigm for training autonomous agents and has achieved impressive performance in complex environments. However, this success often comes at the cost of interpretability, diminish...",
+  "title": "CausalXRL: Explainable Reinforcement Learning through Causal Graph Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.42028v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "4e66a7e453a3193b": {
   "first_seen": "2026-10-08T18:03:55.296647+00:00",
   "id": "7f4f6d08abc52d76",
@@ -8885,6 +8950,19 @@
   "type": "news",
   "url": "https://apify.com/donerightlabs/tender-intelligence",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "59623d61a7aaaf73": {
+  "first_seen": "2026-11-02T11:04:29.009718+00:00",
+  "id": "e9051ee909def122",
+  "image_url": "https://lh3.googleusercontent.com/AnSfPLyNIwSu1XsT_WUP3aYfQrc9jo8lwlotms7NmryT7RhWXnwdF4_zzYBMlJOcNT1U_ZbDMCM7AzpnFDPeYKJDardybJGlm447xeEXo1eQqgjCEg=w528-h297-n-nu-rw-lo",
+  "published": "2026-10-30T14:18:30+00:00",
+  "sid": "59623d61a7aaaf73",
+  "source": "google_deepmind_blog",
+  "summary": "Google DeepMind and UK government work together to reduce planning assessment times",
+  "summary_1line": "Google DeepMind and UK government work together to reduce planning assessment times",
+  "title": "Speeding up planning decisions with AI",
+  "type": "news",
+  "url": "https://deepmind.google/blog/speeding-up-planning-decisions-with-ai"
  },
  "5973d307b146c08e": {
   "first_seen": "2026-10-22T01:05:11.358681+00:00",
@@ -10646,6 +10724,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.19698v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "6ee5f365311ce0cc": {
+  "first_seen": "2026-11-02T11:04:29.009718+00:00",
+  "id": "6648b7fccb5ee94b",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-30T15:18:29+00:00",
+  "sid": "6ee5f365311ce0cc",
+  "source": "arxiv_cs_ai",
+  "summary": "Job applicants increasingly use large language models (LLMs) to write cover letters, while employers deploy LLMs to screen them. In this all-AI setting, we ask whether the \\emph{choice of model} affects hiring outcomes independently of candidate qualifications. We introduce a multi-model auditing framework pairing eleven LLM writer agents with nine API-hosted evaluator agents across ten job descriptions and fifty candidates per job. Four findings emerge. First, we identify a generative preference hierarchy: a consistent global ranking of writer models by evaluator acceptance, in which locally hosted models are systematically disadvantaged regardless of their license, compounded by self-preference bias where evaluators favour their own outputs. Second, evaluator models differ substantially in how much bias they introduce based on applicants' tool choice, offering actionable guidance for fairer screening design. Third, this hierarchy has measurable competitive consequences: in the most adverse pairing, approximately two (1.8) out of twenty-five qualified candidates are filtered out purely due to model mismatch. Fourth, a common mechanism explains the patterns above: writer preference and self-preference trace to a combination of how much each writer leans on specific stylistic cues and how strongly evaluators, often unanimously, reward or penalise those same cues. A further check finds little evidence that an unmeasured \"writer fingerprint\" remains once these same features are ",
+  "summary_1line": "Job applicants increasingly use large language models (LLMs) to write cover letters, while employers deploy LLMs to screen them. In this all-AI setting, we ask whether the \\emph{choice of model} affects hiring outcome...",
+  "title": "AI evaluators favor job applications written by certain AI models, independent of candidate quality",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41866v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "6ee8223f6176f4ef": {
   "first_seen": "2026-10-22T05:04:55.810680+00:00",
