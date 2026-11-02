@@ -165,7 +165,7 @@
     --skills-edge: var(--border);
     --skills-wash: var(--card);
     display: grid;
-    gap: 2rem;
+    gap: 2.25rem;
   }
   .skills-intro {
     font-family: var(--font-serif);
@@ -202,56 +202,161 @@
     color: var(--muted);
     margin-left: 0.5rem;
   }
-  .skills-grid {
+  /* Proven setups: the six cards a reader should actually consider. */
+  .skills-proven {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
-    gap: 0.9rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
   }
-  .skills-card {
+  .skills-prov {
     border: 1px solid var(--border);
     border-radius: 10px;
     background: var(--card);
-    padding: 0.85rem 0.95rem;
+    padding: 0.8rem 0.9rem;
     display: grid;
-    gap: 0.45rem;
+    gap: 0.28rem;
     align-content: start;
   }
-  .skills-card h3 {
-    font-family: var(--font-display);
-    font-size: 1.02rem;
+  .skills-kicker {
     margin: 0;
-    line-height: 1.25;
-  }
-  .skills-card h3 a { color: var(--foreground); text-decoration: none; }
-  .skills-card h3 a:hover { text-decoration: underline; }
-  .skills-reason {
     font-family: var(--font-sans);
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin: 0;
-  }
-  .skills-facts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem 0.9rem;
-    font-family: var(--font-sans);
-    font-size: 0.76rem;
-    color: var(--muted);
-  }
-  .skills-facts b { color: var(--foreground); font-weight: 600; }
-  .skills-badges { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-  .skills-badge {
-    font-family: var(--font-sans);
-    font-size: 0.66rem;
-    letter-spacing: 0.07em;
+    font-size: 0.63rem;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
+    color: var(--accent);
+  }
+  .skills-prov h3 {
+    font-family: var(--font-display);
+    font-size: 1.06rem;
+    margin: 0;
+    line-height: 1.22;
+  }
+  .skills-prov h3 a { color: var(--foreground); text-decoration: none; }
+  .skills-prov h3 a:hover { text-decoration: underline; }
+  .skills-prov-skill {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .skills-prov-skill code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.74rem;
+    color: var(--foreground);
+  }
+  .skills-prov-meta {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  /* Capability tiles: 16 compact entries, one screen. */
+  .skills-tiles {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  .skills-tile {
+    display: grid;
+    gap: 0.12rem;
     border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 0.08rem 0.45rem;
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 0.5rem 0.6rem;
+    text-decoration: none;
+    color: inherit;
+    min-width: 0;
+  }
+  .skills-tile:hover { background: var(--card); }
+  .skills-tile[data-lens="adjacent"] { border-left-color: var(--warm); }
+  .skills-tile-cap {
+    font-family: var(--font-sans);
+    font-size: 0.61rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--muted);
   }
-  .skills-badge[data-lens="core"] { border-color: var(--accent); color: var(--accent); }
-  .skills-badge[data-lens="adjacent"] { border-color: var(--warm); color: var(--warm); }
+  .skills-tile b {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.25;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .skills-tile-skill {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  /* Rising: compact rows, not cards. */
+  .skills-rise { list-style: none; margin: 0; padding: 0; display: grid; }
+  .skills-rise li {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.35fr) auto;
+    gap: 0.75rem;
+    align-items: baseline;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+  }
+  .skills-rise a { color: var(--foreground); text-decoration: none; }
+  .skills-rise a:hover { text-decoration: underline; }
+  .skills-rise-why { color: var(--muted); font-size: 0.76rem; }
+  .skills-rise-meta {
+    color: var(--muted);
+    font-size: 0.72rem;
+    text-align: right;
+    white-space: nowrap;
+  }
+  /* Progressive disclosure: long tables live behind a summary.
+     The Oat component layer styles every <details> as a bordered card, so the
+     disclosure rows would read as disabled buttons; neutralize it here. */
+  .skills-details,
+  .skills-how {
+    border: 0;
+    border-top: 1px solid var(--border);
+    border-radius: 0;
+    overflow: visible;
+    padding: 0;
+    margin: 0;
+  }
+  .skills-details > summary,
+  .skills-how > summary {
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    list-style: none;
+    padding: 0.6rem 0;
+    margin: 0;
+    background: none;
+  }
+  .skills-details > summary::-webkit-details-marker,
+  .skills-how > summary::-webkit-details-marker { display: none; }
+  .skills-details > summary::after,
+  .skills-how > summary::after { content: "+"; transform: none; }
+  .skills-details[open] > summary::after,
+  .skills-how[open] > summary::after { content: "-"; }
+  .skills-details > summary:hover,
+  .skills-how > summary:hover { color: var(--foreground); }
+  .skills-details > *:not(summary),
+  .skills-how > *:not(summary) { margin: 0.85rem 0 0; }
+  .skills-details[open] > *:not(summary),
+  .skills-how[open] > *:not(summary) { animation: none; }
   .skills-table {
     width: 100%;
     border-collapse: collapse;
@@ -276,36 +381,36 @@
   .skills-table td.skills-num { text-align: right; font-variant-numeric: tabular-nums; }
   .skills-table a { color: var(--foreground); text-decoration: none; }
   .skills-table a:hover { text-decoration: underline; }
-  .skills-caps {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    gap: 0.7rem;
-  }
-  .skills-cap {
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--accent);
-    border-radius: 8px;
-    padding: 0.7rem 0.85rem;
-    display: grid;
-    gap: 0.3rem;
-  }
-  .skills-cap[data-lens="adjacent"] { border-left-color: var(--warm); }
-  .skills-cap h3 {
+  .skills-ports {
     font-family: var(--font-sans);
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 0.68rem;
     color: var(--muted);
-    margin: 0;
+    white-space: nowrap;
+    margin-left: 0.35rem;
   }
-  .skills-cap .skills-pick { font-family: var(--font-display); font-size: 1.02rem; margin: 0; }
-  .skills-cap .skills-pick a { color: var(--foreground); text-decoration: none; }
-  .skills-cap .skills-skill { font-family: var(--font-sans); font-size: 0.78rem; color: var(--muted); }
-  .skills-alt { font-family: var(--font-sans); font-size: 0.76rem; color: var(--muted); margin: 0; }
-  .skills-alt a { color: var(--muted); }
-  .skills-how { font-family: var(--font-sans); font-size: 0.8rem; line-height: 1.55; color: var(--muted); }
+  .skills-muted { color: var(--muted); }
+  .skills-table td .skills-badge { margin-left: 0.4rem; vertical-align: 1px; }
+  .skills-badges { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .skills-badge {
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.08rem 0.45rem;
+    color: var(--muted);
+  }
+  .skills-badge[data-lens="core"] { border-color: var(--accent); color: var(--accent); }
+  .skills-badge[data-lens="adjacent"] { border-color: var(--warm); color: var(--warm); }
+  .skills-how {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
   .skills-how summary { cursor: pointer; color: var(--foreground); }
-  .skills-how ul { margin: 0.5rem 0 0; padding-left: 1.1rem; }
+  .skills-how ul { margin: 0.6rem 0 0; padding-left: 1.1rem; }
   .skills-detail { display: grid; gap: 1.4rem; }
   .skills-facts-grid {
     display: grid;
@@ -327,15 +432,15 @@
     color: var(--muted);
   }
   .skills-fact b { font-family: var(--font-display); font-size: 1.18rem; font-weight: 600; }
-  .skills-ports {
-    font-family: var(--font-sans);
-    font-size: 0.68rem;
-    color: var(--muted);
-    white-space: nowrap;
-    margin-left: 0.35rem;
+  @media (max-width: 900px) {
+    .skills-proven { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .skills-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
-  .skills-muted { color: var(--muted); }
-  .skills-table td .skills-badge { margin-left: 0.4rem; vertical-align: 1px; }
+  @media (max-width: 640px) {
+    .skills-proven { grid-template-columns: 1fr; }
+    .skills-rise li { grid-template-columns: 1fr; gap: 0.1rem; }
+    .skills-rise-meta { text-align: left; }
+  }
   /* Under 760px the tables become stacked rows: a 6-column grid is unreadable on
      a phone, and the feed is where most of this traffic lands. */
   @media (max-width: 760px) {
