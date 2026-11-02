@@ -4069,6 +4069,23 @@
   "url": "https://cloud.google.com/blog/products/data-analytics/using-bigquerys-generative-ai-cost-management-features",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "29493d021878283c": {
+  "first_seen": "2026-11-02T02:04:43.009046+00:00",
+  "id": "3093614c13ec33c4",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-10-30T02:03:55+00:00",
+  "sid": "29493d021878283c",
+  "source": "arxiv_cs_lg",
+  "summary": "Natural-language skills enable large language model (LLM) agents to reuse procedures across tasks, yet most systems retrieve individual skills from a flat SkillBank without explicitly modeling the high-level strategy that governs their selection and use. We introduce TalentRL, a strategy-guided reinforcement learning framework for hierarchical routing over procedural memory. Coarse-grained talents represent recurring strategies for skill use, while fine-grained skills provide executable procedures. For each task, the policy model selects a talent that guides execution and softly prioritizes its associated skills during similarity-based retrieval. However, since task outcomes depend jointly on talent selection, retrieved skill context, and downstream execution, terminal rewards alone cannot isolate the contribution of the routing decision. TalentRL therefore trains talent routing with reward contrasts between rollouts of the same task under matched interventions on the talent-conditioned context, and optimizes downstream execution with group-relative advantages. Across seven open-domain and multi-hop question-answering benchmarks, talent-aware supervised fine-tuning improves average success rate by 7.53%, 6.71%, and 9.21% over the corresponding zero-shot baselines for Qwen2.5-7B, Qwen3-8B, and Llama-3.1-8B, respectively. Reinforcement learning further improves these SFT checkpoints by 7.58% to 9.32%, and TalentRL achieves the highest average success rate among all compared met",
+  "summary_1line": "Natural-language skills enable large language model (LLM) agents to reuse procedures across tasks, yet most systems retrieve individual skills from a flat SkillBank without explicitly modeling the high-level strategy...",
+  "title": "TalentRL: Strategy-Guided Reinforcement Learning for Hierarchical Skill Routing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41143v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "294b77aa7e2dc166": {
   "first_seen": "2026-10-07T08:03:22.057775+00:00",
   "id": "45ce4c31e24546ee",
@@ -13408,6 +13425,23 @@
   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOUDVSaVJkWHo3cjc2LWlPSUgzZndFOVlKU21EOWlJN0htR0FHVVNDaElLaXZYWms5eEQ2Q2E4Y29lVnVxSlNuN1QwS2NfeG00N2lhRmo2dEtvYXA2d01vRHJRVXRIVVdDYVhkOWJ3b2tWWmFObHZPSDRKOGM5ZHNpMExlSVN4b0NRNVhHeWNKXzlvWkkzYmpFYkhNQjdBRDVQNmM3czE0eV9zMVI0V01OSjNn?oc=5",
   "why_it_matters": "Matches feed focus: agent, claude code."
  },
+ "8e213dce68cd3b11": {
+  "first_seen": "2026-11-02T02:04:43.009046+00:00",
+  "id": "61df05caad761de7",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-10-30T02:12:30+00:00",
+  "sid": "8e213dce68cd3b11",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Agentic systems increasingly gate individual steps with a pointwise judge that scores a response against a criterion. Small language models are attractive for this role because they can be served and specialized efficiently. Such a judge must locate the criterion's decision boundary, but pointwise labels under-determine that boundary in fine-tuning: labeled responses to different queries differ along many dimensions at once, so they do not reveal which features decide the label. We introduce CPA (Counterfactual Pairwise Augmentation), which makes the deciding difference explicit in training. For each pointwise item, CPA synthesizes and audits a counterfactual response to the same query intended to carry the opposite label. It frames the accepted pair as a pairwise task asking which of the two responses satisfies the criterion. The judge is fine-tuned jointly on both pointwise and pairwise datasets and deployed in pointwise mode only. A second-order analysis shows when this should outperform the prevailing strategy of merging separately trained pointwise and pairwise experts: merging moves every parameter direction toward the pairwise expert by the same fraction, whereas joint training can hold the pointwise optimum wherever the pairwise loss is flat and absorb its curvature where it is sharp. This is the regime that CPA's same-source, counterfactually minimal pairwise view is designed to produce. On separate Qwen3-8B LoRA adapters for six binary criteria, CPA improves criteri",
+  "summary_1line": "Agentic systems increasingly gate individual steps with a pointwise judge that scores a response against a criterion. Small language models are attractive for this role because they can be served and specialized effic...",
+  "title": "Counterfactual Pairwise Augmentation Improves Small Pointwise LLM Judges",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41149v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "8e780f3df9f1956d": {
   "first_seen": "2026-05-13T07:48:51.914483+00:00",
   "id": "632c0ec086e39310",
@@ -20707,6 +20741,22 @@
   "type": "news",
   "url": "https://kimchi.dev",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "d0137b49a9cc2066": {
+  "first_seen": "2026-11-02T02:04:43.009046+00:00",
+  "id": "2f139406efe0e97d",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-29T20:59:31+00:00",
+  "sid": "d0137b49a9cc2066",
+  "source": "arxiv_cs_lg",
+  "summary": "Large language models have been shown to memorise and reproduce verbatim sequences from their training data, raising concerns about privacy leakage, intellectual property exposure, and the limits of generalisation. Recent theoretical work suggests that attention heads may contribute to this behaviour by functioning as associative memory mechanisms, with memorisation capacity scaling with the number of heads. At the same time, empirical work has shown that many attention heads are redundant and can be pruned with limited impact on downstream performance. Despite these parallel findings, the effect of pruning redundant heads on memorised-sequence reproduction remains unexplored. In this work, we demonstrate that zeroing out a substantial fraction of attention heads prior to inference can significantly suppress verbatim memorisation while preserving, or even improving, language modelling performance on the benchmark used to identify redundant heads. Evaluating GPT-2-XL(1.5B) on known memorised sequences, we find that pruning 729 task-redundant heads reduces the memorisation count by 91.5%, while improving WikiText-103 perplexity by 0.92. These findings suggest that attention-head redundancy can be exploited to mitigate memorisation at inference time, without retraining or modifying the training data.",
+  "summary_1line": "Large language models have been shown to memorise and reproduce verbatim sequences from their training data, raising concerns about privacy leakage, intellectual property exposure, and the limits of generalisation. Re...",
+  "title": "Fewer Heads, Fewer Memories: Pruning Redundant Attention Heads Suppresses Verbatim Memorisation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.40974v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "d0817155767aa3ab": {
   "first_seen": "2026-10-16T18:04:49.427416+00:00",
