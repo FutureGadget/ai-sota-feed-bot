@@ -1,0 +1,81 @@
+name: Skill Radar Refresh
+
+# Every 6h at :50 past 01/07/13/19 UTC. Offsets every other scheduled job
+# (feed ticker, model radar at :20, the 12:30/12:45 daily syncs) so the
+# repository never has two data-refresh runs pushing at once.
+#
+# Phase 1 of docs/ideas/agent-skill-radar.md: this workflow builds the census
+# and the ranked board only. No page reads it yet, but the daily star snapshots
+# are what make velocity (and therefore the Rising lane) measurable, so it has
+# to start running before the page exists.
+#
+# Low-stakes data refresh with no publishing side effects, so it uses a plain
+# GitHub schedule like models-refresh.yml rather than an external ticker.
+on:
+  schedule:
+    - cron: "50 1,7,13,19 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: skills-refresh
+  cancel-in-progress: false
+
+jobs:
+  skills-refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create venv and install dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -r requirements.txt
+
+      - name: Configure git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # GITHUB_TOKEN is enough: every request reads public repositories, and the
+      # unauthenticated quota (60/hr) cannot enumerate ~1,200 repos.
+      # OPENROUTER_API_KEY is optional: without it, capability assignment stays
+      # keyword-only and the board marks those groups `provisional`.
+      - name: Collect skill census and build the board
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: .venv/bin/python pipeline/collect_skills.py run
+
+      - name: Verify artifacts shape
+        run: |
+          .venv/bin/python - <<'PY'
+          import json, pathlib, sys
+          root = pathlib.Path("data/skills")
+          for name in ("repos.json", "families.json", "latest.json"):
+              path = root / name
+              if not path.exists():
+                  sys.exit(f"missing artifact: {path}")
+              payload = json.loads(path.read_text())
+              print(f"skills_artifact_ok file={name} keys={sorted(payload)[:6]}")
+          board = json.loads((root / "latest.json").read_text())
+          lanes = board.get("lanes") or {}
+          print(f"skills_board_counts {board.get('counts')}")
+          if not lanes.get("shelf"):
+              print("skills_board_warning reason=empty_shelf")
+          PY
+
+      - name: Commit refreshed skill radar data
+        run: |
+          bash scripts/git_commit_runtime.sh "chore(data): refresh skill radar $(date -u +%F)"

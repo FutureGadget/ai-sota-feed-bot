@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Publish the API's data files to the Cloudflare R2 bucket.
 
-The Vercel functions read committed data/ JSON from disk (vercel.json
+The Worker API handlers read committed data/ JSON from R2 (this allowlist
 includeFiles); the Cloudflare Worker reads the same files from R2 through the
 injected data source. This script mirrors the exact set of files the API can
 read into the bucket under data/<same relative path>.

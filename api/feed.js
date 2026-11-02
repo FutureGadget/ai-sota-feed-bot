@@ -668,7 +668,7 @@ function mergeAlsoCovered(item, clusterEntries) {
   return merged;
 }
 
-// data/processed/runs is bundled at deploy time (vercel.json includeFiles)
+// data/processed/runs is precomputed at deploy time (scripts/build_served_data.mjs)
 // and never rewritten at function runtime - parse + accumulate once per
 // process instead of re-walking ~34MB of run snapshots on every request.
 // Keyed by cwd because readRuns() resolves data/ relative to it (tests chdir

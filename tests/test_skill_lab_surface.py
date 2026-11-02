@@ -12,15 +12,12 @@ class SkillLabSurfaceTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.html = (ROOT / "web" / "playbook-lab.html").read_text(encoding="utf-8")
-        cls.vercel = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))
+        cls.worker = (ROOT / "worker" / "src" / "index.js").read_text(encoding="utf-8")
 
     def test_nested_route_precedes_generic_playbook_date_route(self) -> None:
-        sources = [row["source"] for row in self.vercel["rewrites"]]
-        self.assertIn("/playbook/lab/:slug([a-z0-9-]+)", sources)
-        self.assertLess(
-            sources.index("/playbook/lab/:slug([a-z0-9-]+)"),
-            sources.index("/playbook/:date"),
-        )
+        lab = self.worker.index(r"\/playbook\/lab\/")
+        generic = self.worker.index(r"\/playbook\/(\d{4}")
+        self.assertLess(lab, generic, "the Lab route must be matched before the dated recap route")
 
     def test_inherits_playbook_navigation_without_new_destination(self) -> None:
         self.assertIn('data-site-section="/playbook"', self.html)
@@ -90,16 +87,12 @@ class SkillLabSurfaceTest(unittest.TestCase):
         self.assertIn("skill_lab_artifact_open", self.html)
 
     def test_same_origin_artifacts_receive_sandboxing_headers(self) -> None:
-        policies = {
-            row["source"]: {header["key"]: header["value"] for header in row["headers"]}
-            for row in self.vercel["headers"]
-        }
-        for source in ("/lab-artifacts/(.*)", "/web/lab-artifacts/(.*)"):
-            self.assertEqual(policies[source]["X-Content-Type-Options"], "nosniff")
-            self.assertEqual(
-                policies[source]["Content-Security-Policy"],
-                "sandbox; default-src 'none'",
-            )
+        # vercel.json used to attach these headers; the Worker now owns the path.
+        self.assertIn("LAB_PATH_RE = /^\\/(?:web\\/)?lab-artifacts\\//", self.worker)
+        self.assertIn("Content-Security-Policy", self.worker)
+        self.assertIn("sandbox; default-src 'none'", self.worker)
+        self.assertIn("X-Content-Type-Options", self.worker)
+        self.assertIn("nosniff", self.worker)
 
     def test_measurement_and_finishability_are_explicit(self) -> None:
         self.assertIn("skill_lab_open", self.html)

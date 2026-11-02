@@ -269,9 +269,8 @@ class ModelsSurfaceTest(unittest.TestCase):
 
     def test_no_external_resource_references_besides_shared_site_assets(self) -> None:
         # Every external URL referenced must be one of the repo's own known
-        # allowed hosts (the Oat CSS reset and analytics are self-hosted now,
-        # Vercel speed insights ships from /_vercel/) or a data source link
-        # rendered from API JSON at runtime (not embedded here).
+        # allowed hosts (the Oat CSS reset and analytics are self-hosted now) or a
+        # data source link rendered from API JSON at runtime (not embedded here).
         urls = re.findall(r'(?:href|src)="(https?://[^"]+)"', self.html)
         allowed_hosts = ("www.llm-digest.com",)
         for url in urls:
@@ -733,26 +732,28 @@ if __name__ == "__main__":
 
 
 class ModelsServedStaticallyTest(unittest.TestCase):
-    """The radar must not add a serverless function.
+    """The radar stays static.
 
-    Vercel's Hobby plan caps a deployment at 12 functions and this project was
-    already at 12, so shipping an api/models.js failed every deploy. Nothing
-    about the radar needs request-time compute - the pages do their own
-    collapsing, filtering and sorting - so the payloads are static assets.
+    Nothing about the radar needs request-time compute: the pages do their own
+    collapsing, filtering and sorting, so the payloads are static assets. This
+    also keeps the Worker's R2 key list and route table untouched.
     """
 
     def test_no_models_serverless_function_exists(self) -> None:
         self.assertFalse((ROOT / "api" / "models.js").exists())
 
-    def test_function_count_stays_within_the_hobby_plan_cap(self) -> None:
-        functions = sorted((ROOT / "api").glob("*.js"))
-        self.assertLessEqual(
-            len(functions), 12, f"too many serverless functions: {[f.name for f in functions]}"
-        )
+    def test_worker_routes_serve_the_model_pages(self) -> None:
+        worker = (ROOT / "worker" / "src" / "index.js").read_text(encoding="utf-8")
+        # The page rewrites are how /models resolves; there is no longer an
+        # api/models.js function (the page reads the static payloads).
+        self.assertIn("/web/models.html", worker)
+        self.assertIn("/web/models-compare.html", worker)
+        self.assertIn("/web/models/${m[1]}.html", worker)
 
-    def test_vercel_config_has_no_models_function_entry(self) -> None:
-        config = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))
-        self.assertNotIn("api/models.js", config.get("functions", {}))
-        # The page rewrites must survive - they are how /models resolves.
-        sources = {r["source"] for r in config.get("rewrites", [])}
-        self.assertIn("/models", sources)
+    def test_models_pages_are_static_not_a_function(self) -> None:
+        # The radar is served from static payloads (web/models-data.json) plus
+        # pre-rendered pages; there is no api/models.js handler.
+        self.assertFalse((ROOT / "api" / "models.js").exists())
+        self.assertTrue((ROOT / "web" / "models-data.json").exists())
+        worker = (ROOT / "worker" / "src" / "index.js").read_text(encoding="utf-8")
+        self.assertIn("/web/models.html", worker)

@@ -50,9 +50,9 @@ Reader feedback loop (daily):
   - `feed-ops-summary` (daily): operational health snapshot
   - `feedback-sync` (daily): PostHog feedback/CTR sync + source auto-tuning
 - Storage: Git repository (versioned data artifacts; no database)
-- Delivery: Website on Vercel (https://www.llm-digest.com), RSS, and the
-  separately scheduled email digest; Vercel serverless functions in `api/`
-  read committed `data/` files bundled per `vercel.json`
+- Delivery: Website on Cloudflare Workers + R2 (https://www.llm-digest.com),
+  RSS, and the separately scheduled email digest; the Worker runs the handlers
+  in `api/`, which read the JSON keys `scripts/r2_sync.py` publishes
 
 ## Current Constraints
 - RSS/sitemap-heavy ingestion (API connectors pending)
@@ -76,7 +76,7 @@ Reader feedback loop (daily):
 published recap/Playbook indexes and their edition records, served storylines
 (including editorial overlays), compiled wiki/Foundations pages, and validated
 Skill Lab records. `/api/updates` returns this catalog alongside its legacy
-section signals. Its explicit Vercel file bundle is part of the producer
+section signals. Its explicit R2 key allowlist is part of the producer
 contract. The browser renders it in the feed, Editor's Desk, section roots and
 `/updates`, and stores opened item versions locally.
 

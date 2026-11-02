@@ -44,6 +44,7 @@ snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 | `models-refresh.yml` | GitHub `schedule:` every 6h (02/08/14/20 UTC) | `pipeline/collect_models.py collect` - joins LMArena (keyless) + Artificial Analysis (secrets-gated, no-ops without `AA_API_KEY`; paginated v2 Free endpoint) into `data/models/latest.json` for the Model Release Radar (`/models`). Exits 1 on a permanent AA error (401/403/404/410) or when the artifact is >48h old |
 | `model-prices-refresh.yml` | GitHub schedule every 15 minutes | `pipeline/model_pricing.py` - OpenRouter catalog and provider offers into `data/models/pricing.json`; static rendering joins benchmark and pricing snapshots for `/models` and `/models/compare` |
 | `ci.yml` | pushes to `main` and pull requests | Python and JavaScript regression suites on a clean hosted runner |
+| `skills-refresh.yml` | GitHub `schedule:` every 6h (01/07/13/19 UTC) | `pipeline/collect_skills.py run` - Skill Radar census (repo sweeps + tree enumeration + family clustering) into `data/skills/`, then the Rising/Shelf/Practitioner board (`data/skills/latest.json`). Phase 1: no page reads it yet; the daily star snapshots are what make velocity measurable |
 
 Both `feed-full-publish.yml` and `email-digest.yml` have **no GitHub `schedule:`
 trigger** — they are dispatched exclusively by cron-job.org external tickers
@@ -225,6 +226,15 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
     (keyless, via the HF datasets-server REST API) with optional Artificial
     Analysis (`AA_API_KEY`) into `data/models/latest.json` + dated history;
     config in `config/models.yaml`
+  - `collect_skills.py` - Skill Radar census + ranking (docs/ideas/agent-skill-radar.md).
+    Discovery is a union of repo-search channels (momentum band sweep, topics,
+    name-family expansion, seeds), never one query: topic tags anti-correlate with
+    traction. Enumerates `SKILL.md` per repo via the git trees API with exact
+    basename matching, dedupes per-harness vendored copies to `(repo, skill)`,
+    clusters name families by skill-name containment plus explicit pointers, and
+    ranks two lanes with separate models (`rising` velocity/spread, `shelf`
+    adoption/fork-ratio/durability). `rebuild` replays stored artifacts offline
+    for tuning. Config in `config/skills.yaml`
 - `publish/` — `publish_email.py` (daily email brief via Buttondown/Resend broadcast;
   daily renders the curated `/daily` recap `data/daily/latest.json`, weekly the
   `/weekly` recap; secrets-gated no-op; reads/advances the
@@ -233,16 +243,19 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   follower when followed storylines move; runs after the daily digest;
   cursor `follows.sent_through`), `backfill_reader_ids.py` (one-off
   `reader_id` backfill for existing Resend contacts)
-- `api/` — Vercel serverless functions: `feed.js`, `rss.js`, `share.js` (`/s`),
-  `daily.js`, `weekly.js`, `storylines.js`, `topics.js`, `foundations.js`,
-  `client-config.js`,
-  `subscribe.js` (POST → Resend contacts for the email digest; reads no `data/`;
-  also serves storyline follow-by-email and signed unfollow links via
-  `lib/follow.js`; the project sits at Vercel Hobby's 12-function cap).
+- `api/` — request handlers imported by the Cloudflare Worker
+  (`worker/src/index.js`): `feed.js`, `rss.js`, `share.js` (`/s`), `daily.js`,
+  `weekly.js`, `storylines.js`, `topics.js`, `foundations.js`, `playbook.js`,
+  `client-config.js`, `subscribe.js` (POST → Resend contacts for the email
+  digest; reads no `data/`; also serves storyline follow-by-email and signed
+  unfollow links via `lib/follow.js`).
   Shared JavaScript lives in the root `lib/` directory (`editorial.js`,
-  `editorial-catalog.js`, `follow.js`, `reader-id.js`), never under `api/`,
-  because Vercel treats files under `api/` as functions.
-  The rest read committed `data/` files bundled via `vercel.json` `includeFiles`.
+  `editorial-catalog.js`, `follow.js`, `reader-id.js`, `data-source.js`), never
+  under `api/`, so the Worker imports plain modules.
+  Data reaches them through `lib/data-source.js`: disk in Node/tests, R2 in the
+  Worker. The R2 key allowlist is `scripts/r2_sync.py`
+  (`EXACT_FILES` + `TOP_LEVEL_DIRS`) and each route's preload list in
+  `worker/src/index.js`.
 - `web/` — static site. Hand-edited shells: `index.html`, `daily.html`,
   `weekly.html`, `storyline.html` (now only the `/storylines` *index*; individual
   `/storyline/<slug>` is served from the static page below), `playbook.html`,
@@ -261,13 +274,17 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   `updates.html` is the complete Latest/Unread collection.
   `subscribe-inline.js` (shared, deferred; loaded by `index.html` and the
   static page template) turns finish-point `a[data-subscribe-inline]` CTAs into
-  an in-place email form when in-page signup is enabled
+  an in-place email form when in-page signup is enabled.
+  `skills-strip.js` + `skills-strip.css` render the feed's `Skill Radar · rising
+  this week` band from `/skills-top.json`; it starts hidden and stays hidden when
+  the artifact is missing, so a radar outage costs no empty box.
   (`docs/product-specs/email-digest.md`). The API derives this
   catalog through `lib/editorial-catalog.js` from every producer's existing
   published outputs; no extra skill step or staging path is required.
   Contract: `docs/product-specs/nav-update-indicators.md`.
   **Generated, do not hand-edit:** `web/daily/`, `web/weekly/`, `web/story/`,
-  `web/storyline/`, `web/topic/`, `web/foundations/`, `web/map.html`,
+  `web/storyline/`, `web/topic/`, `web/foundations/`, `web/skills/`,
+  `web/skills-data.json`, `web/skills-top.json`, `web/map.html`,
   `web/foundations.html`, `sitemap.xml` (from
   `render_static_pages.py`). The bare `/daily` and `/weekly` URLs serve the
   pre-rendered latest edition (`web/daily/index.html`, `web/weekly/index.html`),
@@ -277,8 +294,8 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   `web/og/` holds per-edition Open Graph share cards from `pipeline/og_cards.py`
   (Pillow-optional; degrades to the committed/default card where absent).
   `web/lab-artifacts/` holds reviewed public evidence referenced by Agent Skill
-  Lab result records; the builder proves referenced files exist and Vercel
-  stages the directory at `/lab-artifacts/`.
+  Lab result records; the builder proves referenced files exist and the deploy
+  build stages the directory at `/lab-artifacts/`.
   Brand assets:
   `favicon.svg` (hand-authored stack mark), and `og-default.png`, `logo.png`
   ("LD" monogram), `icon-512/192.png`, `apple-touch-icon.png`,
@@ -324,8 +341,14 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
     (`/api/v1/systemone`, Jev `noul` probability) or direct TypeSafe Decisions,
     feed-quality-v3 rubric, evidence floor (300 chars, releases exempt),
     thresholds, cache, and context budget
-- `scripts/` — `check_bundle_size.py` (enforces Vercel function bundle budgets,
-  requirements.txt hygiene, and .vercelignore completeness; runs in CI),
+  - `skills.yaml` - Skill Radar discovery channels (momentum star bands, topics,
+    family sweep stopwords), the capability taxonomy with per-capability audience
+    weights (the lens gate), lane weights/caps, fork-ratio cap, and hysteresis
+- `scripts/` — `check_deploy_artifacts.py` (requirements.txt hygiene, Worker
+  bundle size, and the Workers Assets 20,000-file ceiling; runs in CI),
+  `build_site.py` (the deploy build: regenerates static pages and stages
+  `public/`), `r2_sync.py` (publishes the API's data allowlist to R2),
+  `build_served_data.mjs` (precomputes the expensive multi-file reads),
   `feed_replay.py` (served-Brief stability/admission scorecard; runbook
   `docs/how-to/feed-replay.md`),
   `persist_static_i18n.py` (paid static-output checkpoint/recovery and offline
@@ -374,14 +397,15 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   commit, rebase/retry, and direct-to-`main` publishing rules. Harness metadata
   must not be injected into agent context.
 - `assets/fonts/playfair/` — vendored Playfair (SIL OFL) static instances used
-  only to draw share images; excluded from the Vercel deployment
-  (`.vercelignore`). `build_fonts.py` rebuilds them from upstream
+  only to draw share images; never staged into `public/`. `build_fonts.py`
+  rebuilds them from upstream
 - `data/` — generated runtime artifacts (committed by bots; see Data Artifacts)
 - `docs/` — living documentation:
   - `docs/status/` — operational snapshots (`current-system-state.md`,
     `git-hygiene.md`, `tuning-governance.md`, `north-star-metric.md`)
   - `docs/how-to/` — playbooks (source/filter debugging, PostHog setup)
-  - `docs/deploy/` — Vercel deployment notes
+  - `docs/deploy/` — Cloudflare deployment notes (see also
+    `MIGRATION-CLOUDFLARE.md` at the repo root)
   - `docs/product-specs/` — behavior specs (feedback-loop, llm-ranking, onboarding)
   - `docs/design-docs/` — `decision-log.md` (ADR log), `core-beliefs.md`
   - `docs/ideas/` — confirmed concept one-pagers before backlog ideas become
@@ -390,9 +414,8 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   - `docs/generated/` — derived references (`db-schema.md` = data file layout)
   - `docs/references/` — vendored third-party LLM-friendly references
   - `docs/assets/<topic>/` - images referenced from docs (UI audit screenshots,
-    diagrams). Excluded from the Vercel deployment via `.vercelignore` - nothing
-    serves them at request time, and Vercel bundles the project into *each*
-    function. Keep them small and reference them from a doc, not only from a PR
+    diagrams). Never staged into `public/`, so they ship with nothing. Keep them
+    small and reference them from a doc, not only from a PR
     description (branch-relative raw URLs die when the branch is deleted).
   - root docs — `ranking-v2-flow.md` (production ranking flow), `DESIGN.md`,
     `FRONTEND.md`, `PRODUCT_SENSE.md`, `QUALITY_SCORE.md`, `RELIABILITY.md`,
@@ -400,7 +423,7 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
     unscheduled product/engineering ideas with promotion criteria), scoring-v2
     plans (historical)
 - Root: `Makefile` (minimal legacy targets; prefer `skills/` scripts),
-  `vercel.json` (rewrites + function data bundles), `requirements.txt` (Python
+  `worker/` (Cloudflare Worker + `wrangler.jsonc`), `requirements.txt` (Python
   deps: feedparser/PyYAML/dateutil/requests), `package.json` (LLM bridge dep only)
 
 ## Data Artifacts (committed runtime state)
@@ -432,7 +455,7 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   judged pool with edition membership (14-day retention) for deck selection;
   `data/quality/deck_benchmark/labels/` holds committed owner grades for the
   deck selector benchmark (`runs/` reports are gitignored).
-  Offline only; excluded from the Vercel deployment and never read by an API
+  Offline only; not in the R2 allowlist and never read by an API
 - `data/digest/<date>.md` — daily digest markdown
 - `data/stories/<YYYY-MM>.json` + `index.json` — durable story store
 - `data/storylines/<slug>.json` + `index.json` — threads (with `editorial`
@@ -485,6 +508,13 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   attribution) + `history/<date>.json` dated snapshots. Written by
   `pipeline/collect_models.py collect` via `models-refresh.yml` (6h). Served
   at `/models` via `/api/models`. Schema: `docs/generated/db-schema.md`
+- `data/skills/` - Skill Radar census: `repos.json` (repo snapshots + deduped
+  skill inventory), `families.json` (name families and ports), `history/<date>.json`
+  (star snapshots for velocity), `latest.json` (the served Rising/Shelf/
+  Practitioner board + capability groups), `state.json` (shelf hysteresis memory),
+  `capability_cache.json`. Written by `pipeline/collect_skills.py run` via
+  `skills-refresh.yml` (6h). Phase 1: no page or API reads `latest.json` yet.
+  Schema: `docs/generated/db-schema.md`
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/metrics/` — `weekly_returning_readers.json`: durable weekly history for
   the north-star metric (`pipeline/north_star_metric.py`). Schema/rationale:
@@ -496,14 +526,13 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
 - `data/llm/labels.json` (cache), `data/cache/`, `data/diagnostics/`, `data/analysis/`
 - Retention: processed 45d (daily/weekly archive tail). Env-tunable via
   `prune_runtime_data.py`, run automatically in `run_full.sh`. **Heavy runtime
-  dirs are kept out of Vercel via `.vercelignore`** (`data/raw`, `data/quality`,
-  `data/llm`, `data/health`, `data/digest`, `data/diagnostics`, `data/cache`,
-  `data/analysis`). Vercel bundles the whole uploaded project into *each*
-  serverless function; these dirs are read by neither the static build nor any
-  function at request time, so they stay in git (audit/replay) but ship out of
-  the deployment. See the 2026-06-19 ADR.
+  dirs stay out of the deployment by never entering `public/` or the R2
+  allowlist** (`data/raw`, `data/quality`, `data/llm`, `data/health`,
+  `data/digest`, `data/diagnostics`, `data/cache`, `data/analysis`). They stay in
+  git for audit/replay; the deploy uploads only staged assets and the keys
+  `scripts/r2_sync.py` publishes.
 
-## Web Surface (vercel.json rewrites)
+## Web Surface (Worker route table)
 `/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/storylines` ·
 `/storyline/<slug>` · `/story/<sid>` (sid = sha256(url)[:16]) · `/subscribe`
 (email digest signup) · `/map` (wiki index; reader-facing name "Agent
@@ -512,6 +541,8 @@ Know-How", knowledge-universe orbit view) · `/topic/<slug>` (wiki node) ·
 `/playbook` (actionable agent-builder cards) · `/playbook/lab/<slug>` (Skill
 Lab protocol and results, nested under Playbook) ·
 `/models` (Model Release Radar: price/capability/community signal per model) ·
+`/skills` / `/skills/<family>` (Skill Radar: agent skills ranked by momentum
+and adoption, static, no API) ·
 `/voices` · `/updates` · `/s?u=<url>` share redirect ·
 `/rss.xml` · `/sitemap.xml` · `/llms.txt` ·
 APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
@@ -551,6 +582,16 @@ APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
   `orderWithEditorialCaps` and keeps over-cap admitted items; do not
   reintroduce a primary-only cap that drops them. When the ledger is missing,
   the run pool is the fallback.
+- **Page routes live in one table: `worker/src/index.js` `STATIC_REWRITES`.**
+  Unmatched paths have no asset fallback (`html_handling: none`), so a missing
+  route 404s in production with no error anywhere. Add the route, then a test
+  like `tests/test_skills_pages.py::test_skills_routes_exist_in_the_worker_table`.
+- **The skill census stores metadata, never skill content.** `SKILL.md` bodies
+  are fetched by nothing (`collect_skills.py` reads tree listings only), and the
+  committed `data/skills/repos.json` keeps a name + copy count per skill plus
+  repo-level stats. Retention: repos unseen for 45 days and star snapshots older
+  than 90 days are pruned, because a 6h job that only appends would grow the repo
+  without bound.
 - **A video's judge evidence is its transcript, not the watch page.** The
   generic paragraph extractor returns `ytInitialPlayerResponse` JSON for a
   YouTube page, so `build_paragraph_map` routes video items to
@@ -564,17 +605,18 @@ APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
   as junk. `llm_label.py`/`llm_rerank.py` are the legacy no-op ranking
   interfaces; don't "fix" missing ranking LLM calls by wiring the Jev gate
   there.
-- **Vercel Hobby caps functions at 12.** Shared JavaScript lives in root
-  `lib/`, never under `api/` (Vercel treats `api/**` as functions). The
-  `scripts/check_bundle_size.py` guard rejects a 13th function, a nested
-  `api/**/*.js`, or a mismatch with `vercel.json`.
+- **There is no function cap any more.** Handlers are modules the Worker
+  imports; shared JavaScript still lives in root `lib/`, never under `api/`, and
+  `scripts/check_deploy_artifacts.py` rejects a nested directory there.
 - The ranking engine was renamed from "v2" to the only path: module is
   `pipeline/ranking.py`, config is `config/ranking.yaml`. Any reference to
   `ranking_v2.yaml` or `pipeline/ranking_v2.py` is historical.
 - `web/story/`, `web/daily/`, `web/weekly/`, `web/sitemap.xml` are build
   outputs of `render_static_pages.py` — regenerate, never hand-edit.
-- API functions only see `data/` files listed in `vercel.json` `includeFiles`;
-  a new data dir an API needs requires a `vercel.json` change in the same PR.
+- **An API only sees the data keys it preloads.** Add the key to
+  `scripts/r2_sync.py` (`EXACT_FILES`/`TOP_LEVEL_DIRS`) AND to the route's
+  `preload([...])` list in `worker/src/index.js`; the R2 source is synchronous,
+  so an unpreloaded key reads as a missing file (it warns, then returns null).
 - `run_full.sh` takes a lock dir (`.run_full.lock`), skips push on a dirty
   worktree, and short-circuits when the edition build reports no delta
   (`FULL_RUN_NO_DELTA_SKIP=true`) - these are intentional safety behaviors.
@@ -685,16 +727,20 @@ When implementing a feature:
 - New features should include a validation path (local run via
   `skills/ai-feed-digest-local/scripts/run_dev.sh` or a workflow run).
 
-## Deployment (Vercel)
-- The site (`web/` pages + `api/` serverless functions) auto-deploys to Vercel.
-  Config lives in `vercel.json`. Production domain: `https://www.llm-digest.com`
-  (apex redirects to www).
-- Vercel runs `python3 scripts/vercel_build.py` as its build command. It
-  regenerates static story/recap/storyline pages from committed data and stages
-  `web/` under the configured `public/` output directory. This keeps code-only
-  renderer PR previews accurate without committing 1,000+ generated files.
-- Every PR gets an automatic **Vercel preview deployment** — use the preview
-  URL posted on the PR to eyeball UI changes before merge.
-- Merging to `main` triggers the production deploy. The two-hour data commits
-  also trigger deploys — that is how fresh feed data reaches the site (the
-  serverless functions read committed `data/` files; there is no database).
+## Deployment (Cloudflare Workers)
+- The site auto-deploys on every push to `main` via
+  `.github/workflows/deploy-cloudflare.yml`. There is no PR preview deployment;
+  for UI review run `node scripts/preview_site.mjs` (static `web/` plus the real
+  `api/*.js` handlers over committed `data/`, no R2 or secrets needed) and open
+  the printed localhost URL. `scripts/build_site.py` stages `public/` for a
+  production-shaped build.
+- Stack: one Worker (`worker/src/index.js`) serving page routes plus the
+  `api/*.js` handlers, Workers Assets for the staged `public/` tree, and an R2
+  bucket (`llm-digest-data`) for the JSON the handlers read.
+- Deploy order matters: `scripts/build_site.py` regenerates static pages and
+  stages `public/`, `scripts/build_served_data.mjs` precomputes the expensive
+  reads, `scripts/r2_sync.py` publishes the API data allowlist, then
+  `wrangler deploy`.
+- Production domain: `https://www.llm-digest.com` (apex redirects to www). The
+  two-hour data commits also trigger deploys, which is how fresh feed data
+  reaches the site (there is no database). Full setup: `MIGRATION-CLOUDFLARE.md`.

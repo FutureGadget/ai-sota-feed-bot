@@ -59,7 +59,7 @@ value — paste it, it's not echoed.)
 From the repo root:
 
     python -m venv .venv && .venv/bin/pip install -r requirements.txt
-    .venv/bin/python scripts/vercel_build.py        # stages public/
+    .venv/bin/python scripts/build_site.py        # stages public/
     node scripts/build_served_data.mjs              # builds data/served/
 
     # seed R2 (first run uploads ~25 MB, ~380 files)

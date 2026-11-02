@@ -1370,7 +1370,6 @@ def render_head(
   {POSTHOG_CLIENT_TAG}
   <script defer src="/site-chrome.js?v={SITE_CHROME_ASSET_VERSION}"></script>
   <script defer src="/subscribe-inline.js?v={SITE_CHROME_ASSET_VERSION}"></script>
-  <script defer src="/_vercel/speed-insights/script.js"></script>
   <script>
 {THEME_BOOT_JS}  </script>
   <style>
@@ -1506,6 +1505,7 @@ SITE_DESTINATIONS = (
     ("/map", "Agent Know-How"),
     ("/foundations", "Foundations"),
     ("/models", "Model Radar"),
+    ("/skills", "Skill Radar"),
     ("/voices", "Voices"),
     ("/subscribe", "Email digest"),
 )
@@ -1532,6 +1532,8 @@ def site_section_for_url(url: str) -> str:
         return "/foundations"
     if path == "/models" or path.startswith("/models/"):
         return "/models"
+    if path == "/skills" or path.startswith("/skills/"):
+        return "/skills"
     if path == "/voices":
         return "/voices"
     if path == "/subscribe":
@@ -5590,7 +5592,7 @@ def write_models_static_json(artifact: dict) -> tuple[int, int]:
     function only ever read a committed JSON file and filtered/sorted it -
     work both pages already redo client-side - so there is nothing to run at
     request time. Top-level non-HTML files under web/ are copied to the public
-    root by scripts/vercel_build.py, so these are served at /models-data.json
+    root by scripts/build_site.py, so these are served at /models-data.json
     and /models-top.json.
 
     Two files, because the feed page must stay light: the full catalog is
@@ -6396,6 +6398,7 @@ def write_sitemap(
     foundations: list[tuple[str, str | None]] | None = None,
     models: list[tuple[str, str | None]] | None = None,
     i18n_pages: list[tuple[str, str | None]] | None = None,
+    skills: list[tuple[str, str | None]] | None = None,
 ) -> None:
     today = datetime.now(timezone.utc).date().isoformat()
     entries: list[tuple[str, str | None, str | None]] = [
@@ -6423,6 +6426,11 @@ def write_sitemap(
         entries.append((f"{base_url}/models/compare", today, "daily"))
         entries += [
             (f"{base_url}/models/{slug}", lastmod, "weekly") for slug, lastmod in models
+        ]
+    if skills:
+        entries.append((f"{base_url}/skills", today, "daily"))
+        entries += [
+            (f"{base_url}{path}", lastmod, "daily") for path, lastmod in skills
         ]
     entries += [(f"{base_url}/daily/{d}", d, None) for d in days]
     # Weekly recaps: lastmod = the week's end date (Sunday) when derivable.
@@ -6456,6 +6464,679 @@ def write_robots(base_url: str) -> None:
     (WEB_DIR / "robots.txt").write_text(
         f"User-agent: *\nAllow: /\n\nSitemap: {base_url}/sitemap.xml\n", encoding="utf-8"
     )
+
+
+# ---------------------------------------------------------------------------
+# Skill Radar (/skills) - one static board page plus a page per family that
+# appears on it, from data/skills/latest.json (pipeline/collect_skills.py,
+# refreshed every 6h). Static by design: the board is a committed artifact that
+# changes every few hours, so it costs nothing to pre-render, crawlers get real
+# HTML, and no Worker route or R2 key is needed. Same reasoning as
+# write_models_static_json, recorded in docs/ideas/agent-skill-radar.md.
+# ---------------------------------------------------------------------------
+
+SKILLS_DIR = ROOT / "data" / "skills"
+SKILLS_HTML_DIR = WEB_DIR / "skills"
+
+# Display names for the capability taxonomy slugs. Fallback is title-cased slug.
+SKILL_CAPABILITY_LABELS = {
+    "agent-ops": "Agent Ops",
+    "browser-automation": "Browser Automation",
+    "code-review": "Code Review",
+    "codebase-navigation": "Codebase Navigation",
+    "data-sql": "Data & SQL",
+    "debugging": "Debugging",
+    "dev-environment": "Dev Environment",
+    "docs-files": "Documents & Files",
+    "eval-benchmark": "Evals & Benchmarks",
+    "frontend-design": "Frontend & Design",
+    "git-vcs": "Git & VCS",
+    "infra-deploy": "Infra & Deploy",
+    "memory-context": "Memory & Context",
+    "orchestration": "Orchestration",
+    "product-planning": "Product & Planning",
+    "refactor-architecture": "Refactor & Architecture",
+    "research": "Research",
+    "review-docs": "Docs Review",
+    "security": "Security",
+    "skill-authoring": "Skill Authoring",
+    "testing": "Testing",
+    "tooling-mcp": "Tooling & MCP",
+    "writing": "Writing",
+}
+
+SKILLS_PAGE_CSS = """
+  .skills {
+    --skills-edge: var(--border);
+    --skills-wash: var(--card);
+    display: grid;
+    gap: 2rem;
+  }
+  .skills-intro {
+    font-family: var(--font-serif);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--foreground);
+    max-width: 68ch;
+  }
+  .skills-note {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--muted);
+    border-left: 2px solid var(--warm);
+    padding-left: 0.7rem;
+    margin: 0;
+    max-width: 68ch;
+  }
+  .skills-section { display: grid; gap: 0.9rem; }
+  .skills-section > h2 {
+    font-family: var(--font-display);
+    font-size: 1.32rem;
+    margin: 0;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: -0.01em;
+  }
+  .skills-section > h2 .skills-count {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-left: 0.5rem;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: 0.9rem;
+  }
+  .skills-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    padding: 0.85rem 0.95rem;
+    display: grid;
+    gap: 0.45rem;
+    align-content: start;
+  }
+  .skills-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    margin: 0;
+    line-height: 1.25;
+  }
+  .skills-card h3 a { color: var(--foreground); text-decoration: none; }
+  .skills-card h3 a:hover { text-decoration: underline; }
+  .skills-reason {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin: 0;
+  }
+  .skills-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.9rem;
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    color: var(--muted);
+  }
+  .skills-facts b { color: var(--foreground); font-weight: 600; }
+  .skills-badges { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .skills-badge {
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.08rem 0.45rem;
+    color: var(--muted);
+  }
+  .skills-badge[data-lens="core"] { border-color: var(--accent); color: var(--accent); }
+  .skills-badge[data-lens="adjacent"] { border-color: var(--warm); color: var(--warm); }
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-sans);
+    font-size: 0.83rem;
+  }
+  .skills-table th {
+    text-align: left;
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    padding: 0 0.6rem 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .skills-table td {
+    padding: 0.45rem 0.6rem 0.45rem 0;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .skills-table td.skills-num { text-align: right; font-variant-numeric: tabular-nums; }
+  .skills-table a { color: var(--foreground); text-decoration: none; }
+  .skills-table a:hover { text-decoration: underline; }
+  .skills-caps {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: 0.7rem;
+  }
+  .skills-cap {
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 0.7rem 0.85rem;
+    display: grid;
+    gap: 0.3rem;
+  }
+  .skills-cap[data-lens="adjacent"] { border-left-color: var(--warm); }
+  .skills-cap h3 {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+  .skills-cap .skills-pick { font-family: var(--font-display); font-size: 1.02rem; margin: 0; }
+  .skills-cap .skills-pick a { color: var(--foreground); text-decoration: none; }
+  .skills-cap .skills-skill { font-family: var(--font-sans); font-size: 0.78rem; color: var(--muted); }
+  .skills-alt { font-family: var(--font-sans); font-size: 0.76rem; color: var(--muted); margin: 0; }
+  .skills-alt a { color: var(--muted); }
+  .skills-how { font-family: var(--font-sans); font-size: 0.8rem; line-height: 1.55; color: var(--muted); }
+  .skills-how summary { cursor: pointer; color: var(--foreground); }
+  .skills-how ul { margin: 0.5rem 0 0; padding-left: 1.1rem; }
+  .skills-detail { display: grid; gap: 1.4rem; }
+  .skills-facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 0.8rem;
+  }
+  .skills-fact {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 0.7rem;
+    display: grid;
+    gap: 0.15rem;
+  }
+  .skills-fact span {
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .skills-fact b { font-family: var(--font-display); font-size: 1.18rem; font-weight: 600; }
+  .skills-ports {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    color: var(--muted);
+    white-space: nowrap;
+    margin-left: 0.35rem;
+  }
+  .skills-muted { color: var(--muted); }
+  .skills-table td .skills-badge { margin-left: 0.4rem; vertical-align: 1px; }
+  /* Under 760px the tables become stacked rows: a 6-column grid is unreadable on
+     a phone, and the feed is where most of this traffic lands. */
+  @media (max-width: 760px) {
+    .skills-table, .skills-table tbody { display: block; }
+    .skills-table thead { display: none; }
+    .skills-table tr {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.15rem 0.9rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .skills-table td { border: 0; padding: 0; }
+    .skills-table td[data-label="Setup"] { flex: 1 0 100%; }
+    .skills-table td[data-label="Main capability"],
+    .skills-table td[data-label="Author"] { flex: 1 0 100%; }
+    .skills-table td::before {
+      content: attr(data-label);
+      font-size: 0.62rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 0.35rem;
+    }
+    .skills-table td[data-label="Setup"]::before { display: none; }
+    .skills-table td.skills-num { text-align: left; }
+  }
+"""
+
+
+def load_skills_artifact() -> dict:
+    payload = load_json(SKILLS_DIR / "latest.json") or {}
+    return payload if isinstance(payload, dict) else {}
+
+
+def _skills_compact(value) -> str:
+    try:
+        number = int(value or 0)
+    except (TypeError, ValueError):
+        return "0"
+    if number >= 1_000_000:
+        return f"{number / 1_000_000:.1f}M"
+    if number >= 1_000:
+        return f"{number / 1_000:.1f}k"
+    return str(number)
+
+
+def _skills_pct(value) -> str:
+    try:
+        return f"{float(value or 0) * 100:.1f}%"
+    except (TypeError, ValueError):
+        return "0%"
+
+
+def _skill_capability_label(slug: str) -> str:
+    return SKILL_CAPABILITY_LABELS.get(slug or "", (slug or "uncategorized").replace("-", " ").title())
+
+
+def _skills_lens_badge(lens: str) -> str:
+    if lens not in ("core", "adjacent"):
+        return ""
+    return f'<span class="skills-badge" data-lens="{escape(lens)}">{escape(lens)}</span>'
+
+
+def _skills_entry_url(entry: dict) -> str:
+    # Practitioner rows carry `family` instead of `id`/`lead`.
+    slug = entry.get("id") or entry.get("family") or ""
+    return f"/skills/{slug}" if slug else "/skills"
+
+
+def _skills_card(entry: dict) -> str:
+    name = entry.get("lead") or entry.get("id") or "unknown"
+    facts = [
+        f"<span><b>{_skills_compact(entry.get('unique_skills'))}</b> skills</span>",
+        f"<span><b>{_skills_compact(entry.get('stars'))}</b> stars</span>",
+        f"<span><b>{_skills_pct(entry.get('fork_ratio'))}</b> forks</span>",
+    ]
+    if entry.get("ports"):
+        facts.append(f"<span><b>{int(entry['ports'])}</b> ports</span>")
+    return (
+        '<article class="skills-card">'
+        f'<h3><a href="{escape(_skills_entry_url(entry))}">{escape(name)}</a></h3>'
+        f'<p class="skills-reason">{escape(entry.get("reason") or "")}</p>'
+        f'<div class="skills-facts">{"".join(facts)}</div>'
+        f'<div class="skills-badges">{_skills_lens_badge(entry.get("lens") or "")}</div>'
+        "</article>"
+    )
+
+
+def _skills_table(rows: list[dict], columns: list[tuple[str, str]]) -> str:
+    head = "".join(f"<th>{escape(label)}</th>" for _, label in columns)
+    body = ""
+    for row in rows:
+        cells = ""
+        for key, label in columns:
+            value = row.get(key, "")
+            if key == "setup":
+                name = row.get("lead") or row.get("setup") or row.get("id") or ""
+                extra = f' <span class="skills-ports">+{int(row["ports"])} ports</span>' if row.get("ports") else ""
+                cells += (
+                    f'<td data-label="{escape(label)}">'
+                    f'<a href="{escape(_skills_entry_url(row))}">{escape(str(name))}</a>{extra}'
+                    f'{_skills_lens_badge(row.get("lens") or "")}</td>'
+                )
+            elif key == "top_capability":
+                capability = row.get("dominant_capability")
+                text = _skill_capability_label(capability) if capability else "—"
+                cells += f'<td data-label="{escape(label)}">{escape(text)}</td>'
+            elif key == "practitioner":
+                cells += f'<td data-label="{escape(label)}" class="skills-muted">{escape(str(value or ""))}</td>'
+            elif key == "capability_count":
+                count = len(row.get("capabilities") or [])
+                cells += f'<td data-label="{escape(label)}" class="skills-num">{count or 0}</td>'
+            elif key in ("stars", "unique_skills", "ports"):
+                cells += f'<td data-label="{escape(label)}" class="skills-num">{escape(_skills_compact(value))}</td>'
+            elif key == "fork_ratio":
+                cells += f'<td data-label="{escape(label)}" class="skills-num">{escape(_skills_pct(value))}</td>'
+            else:
+                cells += f'<td data-label="{escape(label)}">{escape(str(value or ""))}</td>'
+        body += f"<tr>{cells}</tr>"
+    return (
+        '<table class="skills-table">'
+        f"<thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>"
+    )
+
+
+def _skills_updated(value: str | None) -> str:
+    parsed = parse_dt(value) if value else None
+    if not parsed:
+        return "unknown"
+    return parsed.strftime("%-d %b %Y, %H:%M UTC")
+
+
+def skills_board_body(artifact: dict) -> str | None:
+    lanes = artifact.get("lanes") or {}
+    shelf = lanes.get("shelf") or []
+    rising = lanes.get("rising") or []
+    practitioners = lanes.get("practitioners") or []
+    capabilities = artifact.get("capabilities") or []
+    counts = artifact.get("counts") or {}
+    if not shelf and not rising and not capabilities:
+        return None
+
+    parts: list[str] = ['<div class="skills">']
+    parts.append(
+        '<p class="skills-intro">Which agent skills are actually being adopted, '
+        "ranked by momentum and adoption rather than raw stars. A setup is one "
+        "repository or a family of ports of it, and every entry links to its "
+        "sources. Rising is this week; the shelf is what has held up.</p>"
+    )
+
+    if rising:
+        parts.append(
+            '<section class="skills-section"><h2>Rising this week'
+            f'<span class="skills-count">{len(rising)}</span></h2>'
+            f'<div class="skills-grid">{"".join(_skills_card(entry) for entry in rising)}</div>'
+            "</section>"
+        )
+    else:
+        parts.append(
+            '<section class="skills-section"><h2>Rising this week</h2>'
+            '<p class="skills-note">No setup cleared the momentum bar this week. '
+            "The shelf below is unchanged; velocity needs a quiet week to show a rise.</p>"
+            "</section>"
+        )
+
+    if capabilities:
+        blocks = ""
+        for item in capabilities:
+            representative = item.get("representative") or {}
+            skill = representative.get("skill") or {}
+            skill_line = (
+                f'<span class="skills-skill">{escape(str(skill.get("name") or ""))}</span>'
+                if skill.get("name")
+                else ""
+            )
+            alternates = item.get("alternates") or []
+            alt_line = ""
+            if alternates:
+                links = ", ".join(
+                    f'<a href="{escape(_skills_entry_url(alt))}">{escape(str(alt.get("lead") or alt.get("id")))}</a>'
+                    for alt in alternates
+                )
+                alt_line = f'<p class="skills-alt">Also: {links}</p>'
+            blocks += (
+                f'<article class="skills-cap" data-lens="{escape(item.get("lens") or "")}">'
+                f'<h3>{escape(_skill_capability_label(item.get("capability") or ""))}</h3>'
+                f'<p class="skills-pick"><a href="{escape(_skills_entry_url(representative))}">'
+                f'{escape(str(representative.get("lead") or representative.get("id") or ""))}</a></p>'
+                f"{skill_line}{alt_line}</article>"
+            )
+        parts.append(
+            '<section class="skills-section"><h2>By capability'
+            f'<span class="skills-count">{len(capabilities)} groups</span></h2>'
+            f"<div class='skills-caps'>{blocks}</div></section>"
+        )
+
+    if shelf:
+        parts.append(
+            '<section class="skills-section"><h2>Reference shelf'
+            f'<span class="skills-count">{len(shelf)} setups</span></h2>'
+            + _skills_table(
+                shelf,
+                [
+                    ("setup", "Setup"),
+                    ("top_capability", "Main capability"),
+                    ("capability_count", "Groups"),
+                    ("unique_skills", "Skills"),
+                    ("fork_ratio", "Forks"),
+                    ("stars", "Stars"),
+                ],
+            )
+            + "</section>"
+        )
+
+    # The practitioner lane is only worth its own table when port counts actually
+    # differ: with every entry at 0 ports it just repeats the shelf's author column.
+    ported = [row for row in practitioners if int(row.get("ports") or 0) > 0]
+    if len(ported) >= 2:
+        parts.append(
+            '<section class="skills-section"><h2>Practitioners'
+            f'<span class="skills-count">{len(practitioners)}</span></h2>'
+            '<p class="skills-note">Ranked by independent ports, then adoption. '
+            "A port is someone else re-implementing the same setup for another harness.</p>"
+            + _skills_table(
+                practitioners,
+                [
+                    ("setup", "Setup"),
+                    ("practitioner", "Author"),
+                    ("ports", "Ports"),
+                    ("stars", "Stars"),
+                ],
+            )
+            + "</section>"
+        )
+
+    parts.append(
+        '<details class="skills-how"><summary>How this is ranked</summary><ul>'
+        "<li>Discovery is a union of GitHub repo searches (new-and-fast repos, "
+        "topic-tagged repos, and name-family ports), never a single query.</li>"
+        "<li>One skill is counted once even when a repo vendors it for many "
+        "harnesses; the copy count is portability, not popularity.</li>"
+        "<li>Stars are shown but never ranked. Adoption is fork ratio, because "
+        "installing a skill means copying it.</li>"
+        "<li>Ranking families lets a ported setup be measured as one concept "
+        "instead of many small repos.</li>"
+        "<li>A capability group is shown only when at least two skills in the "
+        "setup name that capability, and the most focused setup wins the group: "
+        "two matches out of five skills beats four out of four hundred.</li>"
+        "<li>Core means the capability serves agent and platform engineering; "
+        "adjacent means useful but broader. Off-lens setups are not listed at "
+        "all.</li>"
+        f"<li>{int(counts.get('off_lens_excluded') or 0)} setups were excluded for "
+        "being outside the platform/agent-engineering lens.</li>"
+        "</ul></details>"
+    )
+    parts.append("</div>")
+    return "".join(parts)
+
+
+def render_skills_page(base_url: str, artifact: dict) -> bool:
+    body = skills_board_body(artifact)
+    if body is None:
+        return False
+    canonical = f"{base_url}/skills"
+    generated = iso_or_none(artifact.get("generated_at"))
+    counts = artifact.get("counts") or {}
+    updated = _skills_updated(generated)
+    html = render_page(
+        title="Skill Radar · agent skills ranked by adoption",
+        description=(
+            "Agent skills for Claude Code, Codex, pi and other harnesses, ranked "
+            "by momentum and adoption instead of raw stars, with the repositories "
+            "they come from."
+        ),
+        canonical=canonical,
+        published=generated,
+        h1="Skill Radar",
+        meta_line=(
+            f"Updated {updated} · {int(counts.get('records') or 0)} setups tracked · "
+            f"{int(counts.get('capabilities') or 0)} capability groups"
+        ),
+        json_href="",
+        archive="",
+        recap_title="Skill Radar",
+        recap_range="",
+        title_html="<!-- hero is inside the .skills body -->",
+        intro_html="<!-- intro is inside the .skills body -->",
+        body_html=body,
+        extra_css=SKILLS_PAGE_CSS,
+        og_type="website",
+        json_ld=[
+            breadcrumb_node(base_url, [("Home", "/"), ("Skill Radar", "/skills")]),
+        ],
+    )
+    SKILLS_HTML_DIR.mkdir(parents=True, exist_ok=True)
+    (SKILLS_HTML_DIR / "index.html").write_text(html, encoding="utf-8")
+    return True
+
+
+def _skills_referenced(artifact: dict) -> dict[str, dict]:
+    lanes = artifact.get("lanes") or {}
+    entries: dict[str, dict] = {}
+    for lane in ("rising", "shelf"):
+        for entry in lanes.get(lane) or []:
+            if entry.get("id"):
+                entries.setdefault(entry["id"], entry)
+    for item in artifact.get("capabilities") or []:
+        for entry in [item.get("representative")] + list(item.get("alternates") or []):
+            if entry and entry.get("id"):
+                entries.setdefault(entry["id"], entry)
+    return entries
+
+
+def skill_detail_body(entry: dict) -> str:
+    members = entry.get("members") or []
+    facts = [
+        ("Stars", _skills_compact(entry.get("stars"))),
+        ("Forks", _skills_compact(entry.get("forks"))),
+        ("Fork ratio", _skills_pct(entry.get("fork_ratio"))),
+        ("Skills", _skills_compact(entry.get("unique_skills"))),
+        ("Ports", str(int(entry.get("ports") or 0))),
+        ("Repos", str(len(members))),
+    ]
+    if entry.get("age_days") is not None:
+        facts.append(("Age", f"{int(entry['age_days'])}d"))
+    facts_grid = "".join(
+        f'<div class="skills-fact"><span>{escape(label)}</span><b>{escape(value)}</b></div>'
+        for label, value in facts
+    )
+    caps = "".join(
+        f'<span class="skills-badge">{escape(_skill_capability_label(capability))}</span>'
+        for capability in entry.get("capabilities") or []
+    )
+    rows = "".join(
+        "<tr>"
+        f'<td><a href="https://github.com/{escape(str(member))}" rel="noopener">{escape(str(member))}</a></td>'
+        "</tr>"
+        for member in members
+    )
+    return (
+        '<div class="skills skills-detail">'
+        f'<p class="skills-intro">{escape(entry.get("reason") or "")}</p>'
+        f'<div class="skills-facts-grid">{facts_grid}</div>'
+        f'<div class="skills-badges">{_skills_lens_badge(entry.get("lens") or "")}{caps}</div>'
+        '<section class="skills-section"><h2>Repositories</h2>'
+        f'<table class="skills-table"><tbody>{rows}</tbody></table></section>'
+        '<p class="skills-how"><a href="/skills">All skills</a></p>'
+        "</div>"
+    )
+
+
+def render_skill_pages(base_url: str, artifact: dict) -> list[tuple[str, str | None]]:
+    entries = _skills_referenced(artifact)
+    SKILLS_HTML_DIR.mkdir(parents=True, exist_ok=True)
+    generated = iso_or_none(artifact.get("generated_at"))
+    lastmod = (generated or "")[:10] or None
+    pages: list[tuple[str, str | None]] = []
+    for slug, entry in entries.items():
+        canonical = f"{base_url}/skills/{slug}"
+        description = (
+            f"{entry.get('lead')}: {int(entry.get('unique_skills') or 0)} agent skills, "
+            f"{int(entry.get('stars') or 0)} stars, {int(entry.get('ports') or 0)} independent ports."
+        )
+        html = render_page(
+            title=f"{entry.get('lead')} · Skill Radar",
+            description=description,
+            canonical=canonical,
+            published=generated,
+            h1=str(entry.get("lead") or slug),
+            meta_line=f"{int(entry.get('unique_skills') or 0)} skills · {_skills_compact(entry.get('stars'))} stars",
+            json_href="",
+            archive="",
+            recap_title=str(entry.get("lead") or slug),
+            recap_range="",
+            title_html="<!-- hero is inside the .skills body -->",
+            intro_html="<!-- intro is inside the .skills body -->",
+            body_html=skill_detail_body(entry),
+            extra_css=SKILLS_PAGE_CSS,
+            og_type="website",
+            json_ld=[
+                breadcrumb_node(
+                    base_url,
+                    [("Home", "/"), ("Skill Radar", "/skills"), (str(entry.get("lead") or slug), f"/skills/{slug}")],
+                )
+            ],
+        )
+        (SKILLS_HTML_DIR / f"{slug}.html").write_text(html, encoding="utf-8")
+        pages.append((f"/skills/{slug}", lastmod))
+    keep = set(entries)
+    for path in SKILLS_HTML_DIR.glob("*.html"):
+        if path.name == "index.html":
+            continue
+        if path.stem not in keep:
+            path.unlink()
+    return pages
+
+
+def write_skills_static_json(artifact: dict) -> tuple[int, int]:
+    """Emit the board as STATIC JSON, not an API.
+
+    The board is a committed artifact that only changes on the 6h refresh, so
+    there is nothing to compute per request. Static also keeps the Worker route
+    table and R2 key list untouched, and the feed strip can read a small slice
+    without touching /api/feed.
+    """
+    lanes = artifact.get("lanes") or {}
+
+    def client_entry(entry: dict) -> dict:
+        # `members` is the audit list of repo names; the client only needs the
+        # numbers. Keeping it would roughly double the payload for no surface use.
+        return {key: value for key, value in entry.items() if key != "members"}
+
+    payload = {
+        "generated_at": artifact.get("generated_at"),
+        "counts": artifact.get("counts") or {},
+        "lanes": {
+            "rising": [client_entry(entry) for entry in lanes.get("rising") or []],
+            "shelf": [client_entry(entry) for entry in lanes.get("shelf") or []],
+            "practitioners": lanes.get("practitioners") or [],
+        },
+        "capabilities": artifact.get("capabilities") or [],
+    }
+    full_path = WEB_DIR / "skills-data.json"
+    full_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+
+    top_fields = (
+        "id",
+        "lead",
+        "practitioner",
+        "stars",
+        "unique_skills",
+        "fork_ratio",
+        "velocity_7d",
+        "ports",
+        "reason",
+    )
+    rising = [entry for entry in lanes.get("rising") or [] if entry.get("reason")]
+    shelf = [entry for entry in lanes.get("shelf") or []]
+
+    def top_entry(entry: dict) -> dict:
+        payload = {key: entry.get(key) for key in top_fields}
+        capability = entry.get("dominant_capability")
+        payload["capability_label"] = _skill_capability_label(capability) if capability else ""
+        return payload
+
+    top = [top_entry(entry) for entry in (rising or shelf)[:3]]
+    top_path = WEB_DIR / "skills-top.json"
+    top_path.write_text(
+        json.dumps(
+            {"generated_at": artifact.get("generated_at"), "rising": top},
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    return full_path.stat().st_size, top_path.stat().st_size
 
 
 def main() -> None:
@@ -6503,6 +7184,10 @@ def main() -> None:
     models_artifact = load_models_artifact()
     model_pages = render_model_pages(base_url, models_artifact)
     models_json_bytes = write_models_static_json(models_artifact)
+    skills_artifact = load_skills_artifact()
+    has_skills = render_skills_page(base_url, skills_artifact)
+    skill_pages = render_skill_pages(base_url, skills_artifact) if has_skills else []
+    skills_json_bytes = write_skills_static_json(skills_artifact) if has_skills else (0, 0)
     i18n_pages = render_i18n_pages(base_url, i18n_page_map, story_sids, playbook_index)
     write_sitemap(
         base_url,
@@ -6514,6 +7199,7 @@ def main() -> None:
         foundation_pages,
         model_pages,
         i18n_pages,
+        skills=skill_pages,
     )
     write_robots(base_url)
     seeded = seed_feed_shell(base_url, story_sids)

@@ -148,6 +148,8 @@ const STATIC_REWRITES = [
   [/^\/models\/?$/, '/web/models.html'],
   [/^\/models\/compare\/?$/, '/web/models-compare.html'],
   [/^\/models\/([a-z0-9-]+)$/, (m) => `/web/models/${m[1]}.html`],
+  [/^\/skills\/?$/, '/web/skills/index.html'],
+  [/^\/skills\/([a-z0-9-]+)$/, (m) => `/web/skills/${m[1]}.html`],
   [/^\/story\/([0-9a-f]{16})$/, (m) => `/web/story/${m[1]}.html`],
   [/^\/ko\/story\/([0-9a-f]{16})$/, (m) => `/web/ko/story/${m[1]}.html`],
   [/^\/sitemap\.xml$/, '/web/sitemap.xml'],

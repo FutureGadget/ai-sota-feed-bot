@@ -1,0 +1,247 @@
+# Skill Radar - discovery, capability and ranking config.
+# Contract: docs/ideas/agent-skill-radar.md
+#
+# Discovery is a union of channels, never one sweep. Measured 2026-11-01:
+# topic tags anti-correlate with traction (the biggest skill repos carry zero
+# topics), so each channel here has a different recall shape and a repo is
+# admitted to the candidate pool by any one of them.
+
+schema_version: 1
+
+discovery:
+  # Momentum sweep: catches viral repos that carry zero topics, e.g.
+  # Nutlope/hallmark (44k stars, 0 topics). GitHub caps search results at 1000
+  # per query, so the same query is split into star bands and each band is
+  # enumerated completely.
+  momentum:
+    created_after: "2026-01-01"
+    min_stars: 800
+    bands:
+      - "stars:800..1999"
+      - "stars:2000..4999"
+      - "stars:5000..19999"
+      - "stars:>=20000"
+    max_pages_per_band: 10
+
+  # Topic sweep: finds small-and-heavily-tagged repos (pstack: 12-20 topics,
+  # 3.3k stars). Not the backbone.
+  topics:
+    - agent-skills
+    - claude-skills
+    - claude-code-skills
+  topic_min_stars: 20
+  max_pages_per_topic: 3
+
+  # Name-family expansion for every family seen so far: renamed ports are the
+  # distribution mechanism (pstack has 25 named repos).
+  family:
+    max_pages: 3
+    min_shared_skills: 0.30
+    min_skills_to_compare: 3
+    max_created_gap_days: 450
+    # Two inventories must be comparable in size, otherwise a 3-skill repo is
+    # 'contained' by every mega-collection and the whole catalog merges.
+    max_inventory_ratio: 4.0
+    # How many `<name> in:name` sweeps to run per cycle. The whole short name is
+    # used (trailing harness suffix stripped), never each hyphen token.
+    max_names: 20
+    # Shortest repo name usable as an explicit family pointer. Word-bounded
+    # matching keeps 3-letter product names safe ('rea' does not match 'already').
+    min_reference_len: 3
+    # Tokens that carry no identity: they appear in unrelated repo names, so a
+    # shared one is not evidence of a family. Also filters the sweep list.
+    stopwords: [skills, skill, agent, agents, awesome, design, book, tools, tool, cli, code,
+                open, anything, understand, career, taste, claude, codex, plugins, plugin,
+                hub, list, kit, docs, md, ai, app, collection, curated]
+
+  # Hand-picked seeds. Candidates only, never admissions.
+  seed_repos:
+    - anthropics/skills
+    - obra/superpowers
+    - mattpocock/skills
+    - garrytan/gstack
+    - backnotprop/pstack
+    - Nutlope/hallmark
+    - addyosmani/agent-skills
+    - vercel-labs/agent-skills
+
+  # Hard ceilings so a 6h run cannot run away.
+  max_repos_per_run: 1200
+  max_skills_per_repo: 400
+  # Committed census is metadata only (never SKILL.md bodies). Retention keeps
+  # it from growing forever: a repo unseen for this long is dropped, and daily
+  # star snapshots are pruned past the window velocity and hysteresis need.
+  retention_days: 45
+  history_retention_days: 90
+
+filters:
+  exclude_archived: true
+  exclude_forks: true
+  # Test fixtures and vendored trees are not reader-usable skills. `gstack`
+  # ships test/fixtures/.../SKILL.md, which inflated its inventory.
+  exclude_path_parts: [test, tests, fixtures, __fixtures__, vendor, node_modules, examples]
+  # A repo with fewer than this many unique skills is still a valid skill repo.
+  min_unique_skills: 1
+  # Inventory sanity: beyond this many unique skills a repo is treated as an
+  # aggregated dump and its skills are sampled for the board, not mirrored.
+  aggregated_inventory_threshold: 200
+
+# Capability taxonomy. `audience` is the lens weight for this audience
+# (engineers who build and operate agent systems): >=0.80 core, 0.50-0.79
+# adjacent, <0.50 off-lens. Lens belongs to the capability, not to keywords:
+# harness names (claude, codex, cursor, pi) are stripped before classification
+# because nearly every skill description mentions one.
+capabilities:
+  harness_tokens:
+    - claude code
+    - claude
+    - codex
+    - cursor
+    - copilot
+    - opencode
+    - gemini
+    - pi
+    - aider
+    - windsurf
+    - kiro
+    - openclaw
+    - hermes
+  # A capability group is shown only when at least this many skills in the setup
+  # name that capability. Deterministic precision gate, no LLM needed: it is why
+  # the board no longer needs a per-group "provisional" label.
+  min_matching_skills: 2
+  lens:
+    core_min: 0.80
+    adjacent_min: 0.50
+  taxonomy:
+    - slug: code-review
+      audience: 1.0
+      keywords: [code review, review the code, review a diff, pull request, pr review, diff review, reviewer]
+    - slug: testing
+      audience: 1.0
+      keywords: [unit test, integration test, e2e, test suite, test coverage, playwright, pytest, jest, vitest, flaky, qa]
+    - slug: debugging
+      audience: 1.0
+      keywords: [debug, root cause, stack trace, triage, bisect, reproduce, diagnose, incident]
+    - slug: refactor-architecture
+      audience: 1.0
+      keywords: [refactor, software architecture, system design, design pattern, module boundary, migration, tech debt, blast radius]
+    - slug: security
+      audience: 0.9
+      keywords: [security audit, vulnerability, pentest, threat model, secret scan, authentication, authorization, owasp, sanitize, supply chain]
+    - slug: data-sql
+      audience: 0.9
+      keywords: [sql, database, schema, warehouse, dbt, pandas, dataframe, etl, analytics pipeline, query optimization]
+    - slug: infra-deploy
+      audience: 1.0
+      keywords: [deploy, kubernetes, docker, terraform, ci/cd, observability, monitoring dashboard, sre, rollout, feature flag, infrastructure]
+    - slug: git-vcs
+      audience: 0.9
+      keywords: [git workflow, worktree, rebase, merge conflict, changelog, release note, monorepo, commit message, pull request]
+    - slug: browser-automation
+      audience: 0.9
+      keywords: [browser automation, playwright browser, selenium, scrape, crawling, headless browser, screenshot, puppeteer]
+    - slug: orchestration
+      audience: 1.0
+      keywords: [subagent, multi-agent, orchestrate, parallel agents, handoff, delegate, dispatch, swarm, planner, task decomposition]
+    - slug: memory-context
+      audience: 1.0
+      keywords: [agent memory, long-term memory, memory layer, context window, context engineering, retrieval, rag, embedding, knowledge base, persistent state, session context]
+    - slug: eval-benchmark
+      audience: 1.0
+      keywords: [evaluation, evals, benchmark, grading, rubric, a/b test, regression suite, experiment]
+    - slug: tooling-mcp
+      audience: 1.0
+      keywords: [mcp, mcp server, tool design, tool schema, api client, integration, connector, plugin, cli, hooks]
+    - slug: agent-ops
+      audience: 1.0
+      keywords: [token cost, token usage, latency, rate limit, quota, telemetry, usage report, performance regression, cost audit]
+    - slug: codebase-navigation
+      audience: 0.9
+      keywords: [codebase, onboarding, explain the code, understand the code, architecture discovery, symbol, map the code]
+    - slug: skill-authoring
+      audience: 0.8
+      keywords: [skill authoring, write a skill, creating skills, skill development, meta-skill, self-improving, skill library]
+    - slug: docs-files
+      audience: 0.6
+      keywords: [pdf, docx, xlsx, pptx, spreadsheet, slide deck, markdown, report generation, memo, readme, document generation]
+    - slug: dev-environment
+      audience: 0.6
+      keywords: [dev environment, dotfiles, shell config, bootstrap, scaffold, setup project, onboarding setup]
+    - slug: review-docs
+      audience: 0.7
+      keywords: [proofread, fact check, critique, review a plan, review a design doc, second opinion, sanity check]
+    - slug: research
+      audience: 0.5
+      keywords: [research, literature, paper, survey, citation, web search, source gathering, competitor analysis]
+    - slug: product-planning
+      audience: 0.4
+      keywords: [product roadmap, prd, spec writing, planning, okr, market analysis, prioritization, requirements, user story]
+    - slug: writing
+      audience: 0.3
+      keywords: [copywriting, prose, blog post, editorial, summarization, tone of voice, narrative, storytelling]
+    - slug: frontend-design
+      audience: 0.3
+      keywords: [frontend, react, css, ui design, design system, design skill, figma, typography, animation, aesthetic, visual design]
+  llm:
+    # Primary capability assignment. Keywords are the offline fallback and the
+    # prompt prior, not the grouping key: measured 86% coverage at 2.19 labels
+    # per skill, and a grouped board needs exactly one primary label.
+    # Opt-in: leave model empty to run keyword-only, or set a chat model slug and
+    # export OPENROUTER_API_KEY. Assignments are cached by content hash, so a
+    # re-run only pays for skills that changed.
+    enabled: true
+    model: ""
+    base_url: "https://openrouter.ai/api/v1"
+    api_key_env: OPENROUTER_API_KEY
+    batch_size: 40
+    cache: data/skills/capability_cache.json
+    max_items_per_run: 200
+
+ranking:
+  # Separate models. Sharing one score with different filters lets the shelf
+  # fill with whatever is currently rising. Decided 2026-11-01.
+  rising:
+    weights:
+      velocity: 0.45
+      family_spread: 0.20
+      family_momentum: 0.20
+      novelty: 0.15
+    flat_velocity_exit_days: 28
+    family_spread_window_days: 30
+    size: 12
+  shelf:
+    weights:
+      adoption: 0.30
+      fork_ratio: 0.25
+      durability: 0.20
+      breadth: 0.15
+      practitioner: 0.10
+    min_age_days: 30
+    min_stars: 1000
+    min_fork_ratio: 0.04
+    stale_days: 90
+    # Fork farms exist; a real skill repo sits at 5-15%, so cap the feature.
+    fork_ratio_cap: 0.25
+    size: 24
+  practitioners:
+    weights:
+      port_count: 0.40
+      aggregate_adoption: 0.35
+      breadth: 0.15
+      recency: 0.10
+    size: 12
+  hysteresis:
+    # Enter at score X, leave at X - delta, so shelf entries stop flapping.
+    shelf_exit_margin: 0.05
+  penalties:
+    no_license: 0.05
+    aggregated_inventory: 0.10
+    stale: 0.15
+    churn: 0.10
+
+limits:
+  request_timeout_seconds: 25
+  search_min_interval_seconds: 2.2
+  core_min_interval_seconds: 0.25
+  max_retries: 3

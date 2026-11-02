@@ -405,8 +405,8 @@ class SkillLabContractTest(unittest.TestCase):
 
             self.assertIn("stale", str(ctx.exception))
 
-    def test_vercel_build_blocks_a_stale_lab_store(self) -> None:
-        script = (lab.ROOT / "scripts" / "vercel_build.py").read_text(encoding="utf-8")
+    def test_deploy_build_blocks_a_stale_lab_store(self) -> None:
+        script = (lab.ROOT / "scripts" / "build_site.py").read_text(encoding="utf-8")
 
         self.assertIn('"pipeline/build_skill_lab.py", "--check"', script)
         self.assertIn("check=True", script)

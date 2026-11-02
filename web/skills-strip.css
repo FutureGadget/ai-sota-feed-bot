@@ -1,0 +1,78 @@
+/* Feed discovery band for /skills (web/skills-strip.js reads the static
+   skills-top.json slice). Sits between the feed controls and the ranked list,
+   hidden until data arrives so a missing artifact costs no empty box. */
+
+.skills-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 0 0.95rem;
+  margin: 0.4rem 0 1.15rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.skills-strip[hidden] { display: none; }
+
+.skills-strip-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.skills-strip-kicker {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.skills-strip-more {
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  color: var(--foreground);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.skills-strip-more:hover { border-bottom-color: var(--accent); }
+
+.skills-strip-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.55rem;
+}
+
+.skills-strip-card {
+  display: grid;
+  gap: 0.15rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.55rem 0.65rem;
+  background: var(--card);
+  color: inherit;
+  text-decoration: none;
+}
+
+.skills-strip-card:hover { border-color: var(--accent); }
+
+.skills-strip-card b {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.skills-strip-card span {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  .skills-strip-cards { grid-template-columns: 1fr; }
+}

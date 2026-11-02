@@ -609,6 +609,50 @@ collect`; config in `config/models.yaml`.
 - `data/models/history/<YYYY-MM-DD>.json` - one dated snapshot of the same
   shape per collector run, for score-delta tracking.
 
+## Skill Radar (`data/skills/`)
+Census and ranking behind the planned `/skills` page
+(`docs/ideas/agent-skill-radar.md`). Written by `pipeline/collect_skills.py run`
+(config `config/skills.yaml`), refreshed 6-hourly by `skills-refresh.yml`.
+`/skills` reads `latest.json` at build time and ships pre-rendered static pages;
+no API route or R2 key is involved (see `docs/ideas/agent-skill-radar.md`).
+
+- `data/skills/repos.json` - `{schema_version, generated_at, family_names,
+  repos: {"<owner>/<repo>": {...}}}`. Repo fields: `{id, full_name, owner,
+  description, stars, forks, open_issues, created_at, pushed_at, archived, fork,
+  license, topics, default_branch, first_seen, discovered_via, skill_files,
+  unique_skills, layouts, truncated, inventory_at, skills: [...]}`.
+  `skill_files` counts raw `SKILL.md` paths; `unique_skills` counts distinct
+  skills after collapsing per-harness vendored copies (one skill was vendored 15
+  times, once per harness dir); `discovered_via` records which sweeps found the
+  repo (`seed|momentum|topic|family`); `layouts`/`locales` describe how the repo
+  ships them; `first_seen`/`last_seen` drive retention. Each skill is
+  `{name, copies}` only: bodies are never fetched, and per-copy paths/shas were
+  most of the artifact size with no reader. Capability is assigned in memory at
+  board time, not persisted here.
+  Retention: repos unseen for `discovery.retention_days` (45) and history
+  snapshots older than `discovery.history_retention_days` (90) are pruned.
+- `data/skills/families.json` - `{families: {"<slug>": {id, lead, members, stars,
+  forks, unique_skills, created_at, pushed_at, practitioner}}}`. Membership is
+  skill-name containment plus explicit pointers; a shared repo-name token is
+  required before content overlap is trusted.
+- `data/skills/history/<date>.json` - `{"<full_name>": {stars, forks, skills}}`
+  daily snapshot. It is the only input to velocity, so it must keep accumulating
+  before the Rising lane has anything real to rank.
+- `data/skills/latest.json` - the board: `{lanes: {rising, shelf, practitioners},
+  capabilities: [...], counts}`. Rising and Shelf are ranked by separate models
+  (velocity/family-spread vs adoption/fork-ratio/durability), and a family never
+  appears in both. Capability entries carry `provisional: true` when keyword
+  matching, not the LLM pass, assigned most of the group.
+- `data/skills/state.json` - shelf hysteresis memory (`{shelf: {"<id>": {score,
+  at}}}`), so an entry leaves only after its score decays past the margin.
+- `data/skills/capability_cache.json` - `{"<content_hash>": {capability, source,
+  at}}`, so the optional LLM assignment pass only pays for changed skills.
+
+`data/skills/repos.json`, `families.json`, `history/`, `state.json`, and the
+capability cache are not published to R2. The build reads
+`latest.json`; the served files are `web/skills-data.json` (66 KB) and
+`web/skills-top.json`.
+
 ## Feedback loop
 - `data/feedback/events.jsonl` — reader feedback events (PostHog sync + manual)
 - `data/feedback/ctr_clicks.json` — per-source click counts (PostHog sync)

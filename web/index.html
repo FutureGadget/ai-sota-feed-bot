@@ -40,7 +40,6 @@
   <script src="/oat.min.js?v=20260824-selfhost" defer></script>
   <script defer src="/site-chrome.js?v=20260924-inline-subscribe"></script>
   <script defer src="/subscribe-inline.js?v=20260924-inline-subscribe"></script>
-  <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html {
       font-size: 16px;
@@ -1434,6 +1433,7 @@
     }
   </style>
   <link rel="stylesheet" href="/front-page.css?v=20261010-broadsheet" />
+  <link rel="stylesheet" href="/skills-strip.css?v=20261102-radar" />
 </head>
 <body>
   <a class="skip-link" href="#list">Skip to stories</a>
@@ -1459,6 +1459,7 @@
         <a href="/map" data-site-destination="/map">Agent Know-How</a>
         <a href="/foundations" data-site-destination="/foundations">Foundations</a>
         <a href="/models" data-site-destination="/models">Model Radar</a>
+        <a href="/skills" data-site-destination="/skills">Skill Radar</a>
         <a href="/voices" data-site-destination="/voices">Voices</a>
         <a href="/subscribe" data-site-destination="/subscribe" data-subscribe-channel="email" data-subscribe-placement="browse">Email digest</a>
       </nav>
@@ -1495,6 +1496,14 @@
       <input type="search" id="searchBox" class="searchbar" placeholder="Search the feed…" aria-label="Search the feed" hidden />
       <div id="selectedLabels" class="selected-labels"></div>
     </header>
+
+    <section class="skills-strip" id="skillsStrip" aria-label="Skill Radar" hidden>
+      <div class="skills-strip-head">
+        <p class="skills-strip-kicker">Skill Radar · rising this week</p>
+        <a class="skills-strip-more" href="/skills">All tracked setups →</a>
+      </div>
+      <div class="skills-strip-cards" id="skillsStripCards"></div>
+    </section>
 
     <div class="feed-layout">
     <div class="feed-column">
@@ -4902,6 +4911,7 @@
   <!-- Published-item discovery and opened-version tracking; see
        docs/product-specs/nav-update-indicators.md. -->
   <script src="/nav-updates.js?v=20260910-editorial" defer></script>
+  <script src="/skills-strip.js?v=20261102-radar" defer></script>
 
   <!-- Model Release Radar sidebar teaser: optional, deferred, fails silently
        - same philosophy as nav-updates.js above. Waits for window 'load' (the

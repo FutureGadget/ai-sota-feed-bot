@@ -196,22 +196,21 @@ class I18nStaticPagesTest(unittest.TestCase):
         self.assertIn(("ko", f"{BASE_URL}/ko/daily/2026-07-04"), daily_alternates)
         self.assertIn(("x-default", f"{BASE_URL}/daily/2026-07-04"), daily_alternates)
 
-    def test_sitemap_and_vercel_rewrites_expose_korean_pages(self) -> None:
+    def test_sitemap_and_worker_routes_expose_korean_pages(self) -> None:
         sitemap = (ROOT / "web" / "sitemap.xml").read_text(encoding="utf-8")
-        vercel = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))
-        rewrite_sources = {rewrite["source"] for rewrite in vercel["rewrites"]}
+        # The Worker owns page routing now (no vercel.json); assert its table.
+        worker = (ROOT / "worker" / "src" / "index.js").read_text(encoding="utf-8")
 
         for artifact in self.artifacts:
             self.assertIn(f"<loc>{BASE_URL}/ko{artifact['source_path']}</loc>", sitemap)
 
-        self.assertIn("/ko/daily/:date(\\d{4}-\\d{2}-\\d{2})", rewrite_sources)
-        self.assertIn("/ko", rewrite_sources)
-        self.assertIn("/ko/", rewrite_sources)
-        self.assertIn("/ko/weekly/:week(\\d{4}-W\\d{2})", rewrite_sources)
-        self.assertIn("/ko/story/:sid([0-9a-f]{16})", rewrite_sources)
-        self.assertIn("/ko/storyline/:slug([a-z0-9-]+)", rewrite_sources)
-        self.assertIn("/ko/topic/:slug([a-z0-9-]+)", rewrite_sources)
-        self.assertIn("/ko/foundations/:slug([a-z0-9-]+)", rewrite_sources)
+        self.assertIn("/web/ko/daily/", worker)
+        self.assertIn("/web/ko/weekly/", worker)
+        self.assertIn("/web/ko/story/", worker)
+        self.assertIn("/web/ko/storyline/", worker)
+        self.assertIn("/web/ko/topic/", worker)
+        self.assertIn("/web/ko/foundations/", worker)
+        self.assertIn("^\\/ko\\/?$", worker)
 
     def test_feed_i18n_artifacts_are_not_static_pages(self) -> None:
         original_i18n_dir = render.I18N_DIR

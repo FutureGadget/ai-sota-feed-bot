@@ -33,7 +33,7 @@ def stage_skill_lab_artifacts(sources: list[Path]) -> None:
             destination = target / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, destination)
-    print(f"vercel Lab artifacts staged: {len(sources)} referenced files")
+    print(f"site Lab artifacts staged: {len(sources)} referenced files")
 
 
 def main() -> None:
@@ -68,9 +68,9 @@ def main() -> None:
         ignore=shutil.ignore_patterns("lab-artifacts"),
     )
     stage_skill_lab_artifacts(lab_artifacts)
-    print(f"vercel static output staged: {PUBLIC_WEB_DIR}")
+    print(f"site static output staged: {PUBLIC_WEB_DIR}")
 
-    # Pages are served from /web/* via vercel.json rewrites, but the brand and
+    # Pages are served from /web/* via the Worker route table, but the brand and
     # icon assets are referenced from the site root (e.g. /logo.png in emails
     # and the Organization JSON-LD, /favicon.svg, /og-default.png, the PWA
     # manifest). Vercel only serves files that physically exist under the output
@@ -79,7 +79,7 @@ def main() -> None:
     root_assets = [p for p in (ROOT / "web").glob("*") if p.is_file() and p.suffix != ".html"]
     for asset in root_assets:
         shutil.copy2(asset, PUBLIC_DIR / asset.name)
-    print(f"vercel root assets staged: {len(root_assets)} files")
+    print(f"site root assets staged: {len(root_assets)} files")
 
     # Asset subdirectories referenced root-relative from page markup:
     #   mascot/  -> `/mascot/mascot.js`   ES module import (every page shell)
@@ -94,7 +94,7 @@ def main() -> None:
         src = ROOT / "web" / name
         if src.is_dir():
             shutil.copytree(src, PUBLIC_DIR / name, dirs_exist_ok=True)
-            print(f"vercel root assets staged: {name}/ -> {PUBLIC_DIR / name}")
+            print(f"site root assets staged: {name}/ -> {PUBLIC_DIR / name}")
 
 
 if __name__ == "__main__":

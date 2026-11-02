@@ -130,9 +130,9 @@ for (const item of actual) {
     : item.section === 'playbook' ? 'web/playbook.html' : `web${item.href}.html`;
   assert.ok(fs.existsSync(target), `${item.href} must have a rendered destination`);
 }
-const deployment = json('vercel.json');
-assert.equal(deployment.rewrites.find((r) => r.source === '/updates').destination, '/web/updates.html');
-for (const pattern of ['daily/*-*-*.json', 'weekly/*-W*.json', 'storylines/*.json', 'wiki/index.json', 'foundations/index.json', 'playbook/*-*-*.json', 'playbook/lab/*.json']) {
-  assert.ok(deployment.functions['api/updates.js'].includeFiles.includes(pattern), `bundle must cover ${pattern}`);
-}
+// Page routing and the API's data coverage both live in the Worker now: the
+// Vercel rewrite table and per-function includeFiles are gone.
+const worker = fs.readFileSync('worker/src/index.js', 'utf8');
+assert.ok(worker.includes("'/web/updates.html'"), 'the Worker must route /updates');
+assert.ok(worker.includes('served/updates.json'), '/api/updates must preload the served catalog');
 console.log(`committed publisher coverage and direct links: ${actual.length} items passed`);

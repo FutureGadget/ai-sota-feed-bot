@@ -16,7 +16,8 @@ Two rules make the served Brief stable:
    top of the admitted pool and fold the rest.
 
 The ledger is committed by ``run_full.sh`` and bundled into ``/api/feed`` via
-``vercel.json``. It is not read by the static build.
+``served/brief_ledger.json`` (see scripts/build_served_data.mjs). It is not
+read by the static build.
 """
 
 from __future__ import annotations
