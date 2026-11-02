@@ -6,14 +6,17 @@ Covers the failure modes that are invisible locally but fatal in production:
   fallback (`html_handling: none`), so a missing route 404s silently;
 - practitioner lane rows carry `family` instead of `id`, which rendered a
   literal "None" link before this test existed.
+
+Run by `python -m unittest discover` in CI, so this file must not import pytest.
 """
 from __future__ import annotations
 
 import json
 import sys
+import tempfile
+import unittest
+from contextlib import contextmanager
 from pathlib import Path
-
-import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "pipeline"))
@@ -53,8 +56,7 @@ def _entry(entry_id: str = "michael-denyer-pstack-claude", **overrides) -> dict:
     return entry
 
 
-@pytest.fixture()
-def artifact() -> dict:
+def _artifact() -> dict:
     artifact = {
         "generated_at": "2026-11-02T00:00:00+00:00",
         "counts": {
@@ -96,7 +98,6 @@ def artifact() -> dict:
         {
             "capability": "code-review",
             "lens": "core",
-            "provisional": True,
             "representative": representative,
             "alternates": [_entry("other-family", lead="other/family")],
         }
@@ -104,89 +105,110 @@ def artifact() -> dict:
     return artifact
 
 
-def test_board_body_renders_every_lane_and_links_families(artifact):
-    body = rsp.skills_board_body(artifact)
-    assert body is not None
-    assert "Rising this week" in body
-    assert "Reference shelf" in body
-    assert "Practitioners" in body
-    assert "By capability" in body
-    assert 'href="/skills/michael-denyer-pstack-claude"' in body
-    assert 'href="/skills/new-rising"' in body
+@contextmanager
+def _web_dir():
+    """Point the renderer's WEB_DIR at a scratch directory and restore it."""
+    previous = rsp.WEB_DIR
+    with tempfile.TemporaryDirectory() as tmp:
+        rsp.WEB_DIR = Path(tmp)
+        try:
+            yield Path(tmp)
+        finally:
+            rsp.WEB_DIR = previous
 
 
-def test_practitioner_lane_is_hidden_without_real_ports(artifact):
-    flat = json.loads(json.dumps(artifact))
-    for row in flat["lanes"]["practitioners"]:
-        row["ports"] = 0
-    body = rsp.skills_board_body(flat)
-    assert "Practitioners" not in body, "a lane of all-zero ports just repeats the shelf"
+class SkillsPagesTest(unittest.TestCase):
+    def setUp(self) -> None:
+        self.artifact = _artifact()
+
+    def test_board_body_renders_every_lane_and_links_families(self) -> None:
+        body = rsp.skills_board_body(self.artifact)
+        self.assertIsNotNone(body)
+        self.assertIn("Rising this week", body)
+        self.assertIn("Reference shelf", body)
+        self.assertIn("Practitioners", body)
+        self.assertIn("By capability", body)
+        self.assertIn('href="/skills/michael-denyer-pstack-claude"', body)
+        self.assertIn('href="/skills/new-rising"', body)
+
+    def test_practitioner_lane_is_hidden_without_real_ports(self) -> None:
+        flat = json.loads(json.dumps(self.artifact))
+        for row in flat["lanes"]["practitioners"]:
+            row["ports"] = 0
+        body = rsp.skills_board_body(flat)
+        self.assertNotIn("Practitioners", body, "a lane of all-zero ports just repeats the shelf")
+
+    def test_practitioner_rows_link_the_family_not_none(self) -> None:
+        body = rsp.skills_board_body(self.artifact)
+        self.assertNotIn("None", body)
+        self.assertNotIn("/skills/unknown", body)
+        self.assertIn(">michael-denyer/pstack-claude</a>", body)
+
+    def test_board_body_is_none_without_data(self) -> None:
+        self.assertIsNone(rsp.skills_board_body({"lanes": {}, "capabilities": []}))
+
+    def test_capability_groups_are_explained_without_a_per_group_caveat(self) -> None:
+        body = rsp.skills_board_body(self.artifact)
+        # The gate (two name-matching skills) makes a per-group "provisional"
+        # badge unnecessary; the rule is disclosed once in the methodology block.
+        self.assertIn("at least two skills", body)
+        self.assertIn("Core means", body)
+        self.assertNotIn("still being reviewed", body)
+        self.assertNotIn("provisional", body.lower())
+
+    def test_static_payloads_are_lean_and_ordered(self) -> None:
+        with _web_dir() as tmp:
+            full_size, top_size = rsp.write_skills_static_json(self.artifact)
+            self.assertGreater(full_size, 0)
+            self.assertGreater(top_size, 0)
+
+            full = json.loads((tmp / "skills-data.json").read_text())
+            self.assertNotIn(
+                "members", full["lanes"]["shelf"][0], "audit lists stay out of the client payload"
+            )
+            self.assertEqual(full["counts"]["shelf"], 1)
+
+            top = json.loads((tmp / "skills-top.json").read_text())
+            self.assertEqual(top["rising"][0]["id"], "new-rising")
+            self.assertEqual(
+                set(top["rising"][0]),
+                {
+                    "id", "lead", "practitioner", "stars", "unique_skills",
+                    "fork_ratio", "velocity_7d", "ports", "reason", "capability_label",
+                },
+            )
+
+    def test_feed_shell_hosts_the_strip(self) -> None:
+        shell = (ROOT / "web" / "index.html").read_text()
+        self.assertIn('id="skillsStrip"', shell)
+        self.assertIn("/skills-strip.css", shell)
+        self.assertIn("/skills-strip.js", shell)
+        self.assertIn('href="/skills"', shell)
+        # The band must start hidden: a missing artifact should cost no empty box.
+        self.assertIn('aria-label="Skill Radar" hidden', shell)
+
+    def test_skills_routes_exist_in_the_worker_table(self) -> None:
+        """An unmatched path has no asset fallback, so a missing route 404s silently."""
+        worker = (ROOT / "worker" / "src" / "index.js").read_text()
+        self.assertIn("/web/skills/index.html", worker)
+        self.assertIn("/web/skills/${m[1]}.html", worker)
+        self.assertLess(
+            worker.index("/web/skills/index.html"),
+            worker.index("/web/skills/${m[1]}.html"),
+        )
+
+    def test_sitemap_includes_the_board_and_family_pages(self) -> None:
+        with _web_dir() as tmp:
+            rsp.write_sitemap(
+                "https://example.com",
+                [],
+                [],
+                skills=[("/skills/michael-denyer-pstack-claude", "2026-11-02")],
+            )
+            xml = (tmp / "sitemap.xml").read_text()
+            self.assertIn("<loc>https://example.com/skills</loc>", xml)
+            self.assertIn("<loc>https://example.com/skills/michael-denyer-pstack-claude</loc>", xml)
 
 
-def test_practitioner_rows_link_the_family_not_none(artifact):
-    body = rsp.skills_board_body(artifact)
-    assert "None" not in body
-    assert "/skills/unknown" not in body
-    assert ">michael-denyer/pstack-claude</a>" in body
-
-
-def test_feed_shell_hosts_the_strip():
-    shell = (ROOT / "web" / "index.html").read_text()
-    assert 'id="skillsStrip"' in shell
-    assert "/skills-strip.css" in shell
-    assert "/skills-strip.js" in shell
-    assert 'href="/skills"' in shell
-    # The band must start hidden: a missing artifact should cost no empty box.
-    assert 'id="skillsStrip"' in shell and 'aria-label="Skill Radar" hidden' in shell
-
-
-def test_capability_groups_are_explained_without_a_per_group_caveat(artifact):
-    body = rsp.skills_board_body(artifact)
-    # The gate (two name-matching skills) makes a per-group "provisional" badge
-    # unnecessary; the rule is disclosed once in the methodology block.
-    assert "at least two skills" in body
-    assert "Core means" in body
-    assert "still being reviewed" not in body
-    assert "provisional" not in body.lower()
-
-
-def test_board_body_is_none_without_data():
-    assert rsp.skills_board_body({"lanes": {}, "capabilities": []}) is None
-
-
-def test_static_payloads_are_lean_and_ordered(artifact, tmp_path, monkeypatch):
-    monkeypatch.setattr(rsp, "WEB_DIR", tmp_path)
-    full_size, top_size = rsp.write_skills_static_json(artifact)
-    assert full_size > 0 and top_size > 0
-
-    full = json.loads((tmp_path / "skills-data.json").read_text())
-    assert "members" not in full["lanes"]["shelf"][0], "audit lists stay out of the client payload"
-    assert full["counts"]["shelf"] == 1
-
-    top = json.loads((tmp_path / "skills-top.json").read_text())
-    assert top["rising"][0]["id"] == "new-rising"
-    assert set(top["rising"][0]) == {
-        "id", "lead", "practitioner", "stars", "unique_skills",
-        "fork_ratio", "velocity_7d", "ports", "reason", "capability_label",
-    }
-
-
-def test_skills_routes_exist_in_the_worker_table():
-    """An unmatched path has no asset fallback, so a missing route 404s silently."""
-    worker = (ROOT / "worker" / "src" / "index.js").read_text()
-    assert "/web/skills/index.html" in worker
-    assert "/web/skills/${m[1]}.html" in worker
-    assert worker.index("/web/skills/index.html") < worker.index("/web/skills/${m[1]}.html")
-
-
-def test_sitemap_includes_the_board_and_family_pages(tmp_path, monkeypatch):
-    monkeypatch.setattr(rsp, "WEB_DIR", tmp_path)
-    rsp.write_sitemap(
-        "https://example.com",
-        [],
-        [],
-        skills=[("/skills/michael-denyer-pstack-claude", "2026-11-02")],
-    )
-    xml = (tmp_path / "sitemap.xml").read_text()
-    assert "<loc>https://example.com/skills</loc>" in xml
-    assert "<loc>https://example.com/skills/michael-denyer-pstack-claude</loc>" in xml
+if __name__ == "__main__":
+    unittest.main()

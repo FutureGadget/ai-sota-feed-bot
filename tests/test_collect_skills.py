@@ -12,11 +12,12 @@ mistakes cannot come back silently:
 from __future__ import annotations
 
 import json
+import os
 import sys
+import tempfile
+import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-
-import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "pipeline"))
@@ -263,18 +264,116 @@ def test_assign_capabilities_uses_cache_and_llm_fallback():
     assert len(calls) == 1
 
 
-def test_openrouter_assigner_is_off_without_model_or_key(monkeypatch):
+def test_openrouter_assigner_is_off_without_model_or_key():
     cfg = _taxonomy()
     cfg["capabilities"]["llm"]["model"] = ""
     assert cs.openrouter_assigner(cfg) is None
     cfg["capabilities"]["llm"]["model"] = "some/model"
-    monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
-    assert cs.openrouter_assigner(cfg) is None
+    previous = os.environ.pop("OPENROUTER_API_KEY", None)
+    try:
+        assert cs.openrouter_assigner(cfg) is None
+    finally:
+        if previous is not None:
+            os.environ["OPENROUTER_API_KEY"] = previous
 
 
 # --------------------------------------------------------------------------- #
 # ranking
 # --------------------------------------------------------------------------- #
+
+class BoardTest(unittest.TestCase):
+    """Ranking tests that write artifacts; needs an isolated DATA_DIR."""
+
+    def setUp(self) -> None:
+        self._tmp = tempfile.TemporaryDirectory()
+        self.board_dir = Path(self._tmp.name)
+        (self.board_dir / "history").mkdir(parents=True, exist_ok=True)
+        history = {
+            "2026-10-25": {"new/rising": {"stars": 100, "forks": 4, "skills": 3}},
+            "2026-11-01": {
+                "new/rising": {"stars": 1900, "forks": 60, "skills": 3},
+                "backnotprop/pstack": {"stars": 3315, "forks": 235, "skills": 40},
+                "nutlope/hallmark": {"stars": 44561, "forks": 2361, "skills": 1},
+            },
+        }
+        cs.write_json(self.board_dir / "history" / "2026-11-01.json", history)
+        self._previous = (cs.DATA_DIR, cs.HISTORY_DIR)
+        cs.DATA_DIR = self.board_dir
+        cs.HISTORY_DIR = self.board_dir / "history"
+
+    def tearDown(self) -> None:
+        cs.DATA_DIR, cs.HISTORY_DIR = self._previous
+        self._tmp.cleanup()
+
+    def test_rank_board_writes_lanes_with_separate_models(self) -> None:
+        board = cs.rank_board(_artifacts(), cs.load_config(), now=NOW)
+
+        rising = {entry["id"] for entry in board["lanes"]["rising"]}
+        shelf = {entry["id"] for entry in board["lanes"]["shelf"]}
+
+        assert "new-rising" in rising
+        assert "new-rising" not in shelf, "a 5-day-old repo is not a reference"
+        assert "michael-denyer-pstack-claude" in shelf
+        assert "nutlope-hallmark" not in shelf, "an off-lens design skill is not admitted"
+        assert board["counts"]["off_lens_excluded"] == 1
+        assert shelf.isdisjoint(rising), "rising and shelf must not share entries"
+        assert any(entry["reason"] for entry in board["lanes"]["rising"])
+
+        assert board["lanes"]["practitioners"]
+        assert board["counts"]["capabilities"] >= 1
+        assert json.loads((self.board_dir / "latest.json").read_text())["schema_version"] == cs.SCHEMA_VERSION
+
+    def test_capability_board_picks_one_representative_per_capability(self) -> None:
+        board = cs.rank_board(_artifacts(), cs.load_config(), now=NOW)
+        by_capability = {entry["capability"]: entry for entry in board["capabilities"]}
+        assert "code-review" in by_capability
+        representative = by_capability["code-review"]["representative"]
+        assert representative["id"] == "michael-denyer-pstack-claude"
+        assert representative["skill"]["name"] == "code-review"
+        # One family may not represent two capabilities on the same board.
+        families_used = [entry["representative"]["id"] for entry in board["capabilities"]]
+        assert len(families_used) == len(set(families_used))
+        assert "frontend-design" not in by_capability, "off-lens capabilities are not board groups"
+        # One representative plus at most two alternates, never the whole inventory.
+        assert len(by_capability["code-review"]["alternates"]) <= 2
+
+    def test_rank_board_is_idempotent_and_persists_shelf_state(self) -> None:
+        cfg = cs.load_config()
+        first = cs.rank_board(_artifacts(), cfg, now=NOW)
+        first_shelf = {entry["id"] for entry in first["lanes"]["shelf"]}
+
+        second = cs.rank_board(_artifacts(), cfg, now=NOW)
+        assert first_shelf == {entry["id"] for entry in second["lanes"]["shelf"]}
+
+        state = json.loads((self.board_dir / "state.json").read_text())
+        assert set(state["shelf"]) == first_shelf
+
+
+    # --------------------------------------------------------------------------- #
+    # discovery
+    # --------------------------------------------------------------------------- #
+
+    def test_one_stray_skill_cannot_create_a_capability_group(self) -> None:
+        """A marketing bundle with a single "onboarding" skill must not claim
+        codebase-navigation; the gate needs two name-matching skills."""
+        artifacts = _artifacts()
+        artifacts["repos"]["solo/marketing"] = _repo(
+            "solo/marketing", stars=50000, forks=5000, age_days=200,
+            skills=["onboarding", "campaign-copy"],
+            description="Marketing skills for growth teams",
+        )
+        artifacts["families"] = cs.build_families(artifacts["repos"])
+        board = cs.rank_board(artifacts, cs.load_config(), now=NOW)
+        groups = {entry["capability"]: entry for entry in board["capabilities"]}
+        assert "codebase-navigation" not in groups or groups["codebase-navigation"]["representative"]["lead"] != "solo/marketing"
+
+    def test_capability_group_needs_two_name_matching_skills(self) -> None:
+        artifacts = _artifacts()
+        board = cs.rank_board(artifacts, cs.load_config(), now=NOW)
+        assert board["capabilities"], "the fixture setup has two code-review skills"
+        for entry in board["capabilities"]:
+            assert "provisional" not in entry
+
 
 
 def test_percentile_map_spans_zero_to_one():
@@ -296,23 +395,6 @@ def test_novelty_decays():
     assert cs.novelty_score(NOW.date().isoformat(), NOW) == 1.0
     assert cs.novelty_score((NOW - timedelta(days=9)).date().isoformat(), NOW) < 0.2
     assert cs.novelty_score(None, NOW) == 0.0
-
-
-@pytest.fixture()
-def board_dir(tmp_path, monkeypatch):
-    monkeypatch.setattr(cs, "DATA_DIR", tmp_path)
-    monkeypatch.setattr(cs, "HISTORY_DIR", tmp_path / "history")
-    (tmp_path / "history").mkdir(parents=True, exist_ok=True)
-    history = {
-        "2026-10-25": {"new/rising": {"stars": 100, "forks": 4, "skills": 3}},
-        "2026-11-01": {
-            "new/rising": {"stars": 1900, "forks": 60, "skills": 3},
-            "backnotprop/pstack": {"stars": 3315, "forks": 235, "skills": 40},
-            "nutlope/hallmark": {"stars": 44561, "forks": 2361, "skills": 1},
-        },
-    }
-    cs.write_json(tmp_path / "history" / "2026-11-01.json", history)
-    return tmp_path
 
 
 def _artifacts():
@@ -343,40 +425,6 @@ def _artifacts():
     return {"repos": repos, "families": families}
 
 
-def test_rank_board_writes_lanes_with_separate_models(board_dir):
-    board = cs.rank_board(_artifacts(), cs.load_config(), now=NOW)
-
-    rising = {entry["id"] for entry in board["lanes"]["rising"]}
-    shelf = {entry["id"] for entry in board["lanes"]["shelf"]}
-
-    assert "new-rising" in rising
-    assert "new-rising" not in shelf, "a 5-day-old repo is not a reference"
-    assert "michael-denyer-pstack-claude" in shelf
-    assert "nutlope-hallmark" not in shelf, "an off-lens design skill is not admitted"
-    assert board["counts"]["off_lens_excluded"] == 1
-    assert shelf.isdisjoint(rising), "rising and shelf must not share entries"
-    assert any(entry["reason"] for entry in board["lanes"]["rising"])
-
-    assert board["lanes"]["practitioners"]
-    assert board["counts"]["capabilities"] >= 1
-    assert json.loads((board_dir / "latest.json").read_text())["schema_version"] == cs.SCHEMA_VERSION
-
-
-def test_capability_board_picks_one_representative_per_capability(board_dir):
-    board = cs.rank_board(_artifacts(), cs.load_config(), now=NOW)
-    by_capability = {entry["capability"]: entry for entry in board["capabilities"]}
-    assert "code-review" in by_capability
-    representative = by_capability["code-review"]["representative"]
-    assert representative["id"] == "michael-denyer-pstack-claude"
-    assert representative["skill"]["name"] == "code-review"
-    # One family may not represent two capabilities on the same board.
-    families_used = [entry["representative"]["id"] for entry in board["capabilities"]]
-    assert len(families_used) == len(set(families_used))
-    assert "frontend-design" not in by_capability, "off-lens capabilities are not board groups"
-    # One representative plus at most two alternates, never the whole inventory.
-    assert len(by_capability["code-review"]["alternates"]) <= 2
-
-
 def test_shelf_hysteresis_stops_flapping():
     previous = ["kept", "decayed"]
     scores = {"kept": 0.31, "decayed": 0.10, "newcomer": 0.40, "nearly": 0.34}
@@ -386,23 +434,6 @@ def test_shelf_hysteresis_stops_flapping():
     assert members == {"kept", "newcomer"}
     assert "decayed" not in members, "an existing entry leaves once it decays past the margin"
     assert "nearly" not in members, "a new entry needs the full entry score"
-
-
-def test_rank_board_is_idempotent_and_persists_shelf_state(board_dir):
-    cfg = cs.load_config()
-    first = cs.rank_board(_artifacts(), cfg, now=NOW)
-    first_shelf = {entry["id"] for entry in first["lanes"]["shelf"]}
-
-    second = cs.rank_board(_artifacts(), cfg, now=NOW)
-    assert first_shelf == {entry["id"] for entry in second["lanes"]["shelf"]}
-
-    state = json.loads((board_dir / "state.json").read_text())
-    assert set(state["shelf"]) == first_shelf
-
-
-# --------------------------------------------------------------------------- #
-# discovery
-# --------------------------------------------------------------------------- #
 
 
 def test_discovery_queries_cover_every_channel():
@@ -516,7 +547,7 @@ def test_slim_repo_skills_normalizes_cached_inventories():
     assert repos["a/x"]["skills"] == [{"name": "alpha", "copies": 2}]
 
 
-def test_prune_repos_drops_repos_unseen_inside_retention(monkeypatch):
+def test_prune_repos_drops_repos_unseen_inside_retention():
     cfg = cs.load_config()
     cfg["discovery"]["retention_days"] = 45
     repos = {
@@ -544,32 +575,23 @@ def test_keyword_matching_is_word_bounded():
     assert cs.classify_capability("db-citation-fixer", "", taxonomy, harness)[0] == "research"
 
 
-def test_one_stray_skill_cannot_create_a_capability_group(board_dir):
-    """A marketing bundle with a single "onboarding" skill must not claim
-    codebase-navigation; the gate needs two name-matching skills."""
-    artifacts = _artifacts()
-    artifacts["repos"]["solo/marketing"] = _repo(
-        "solo/marketing", stars=50000, forks=5000, age_days=200,
-        skills=["onboarding", "campaign-copy"],
-        description="Marketing skills for growth teams",
-    )
-    artifacts["families"] = cs.build_families(artifacts["repos"])
-    board = cs.rank_board(artifacts, cs.load_config(), now=NOW)
-    groups = {entry["capability"]: entry for entry in board["capabilities"]}
-    assert "codebase-navigation" not in groups or groups["codebase-navigation"]["representative"]["lead"] != "solo/marketing"
-
-
-def test_capability_group_needs_two_name_matching_skills(board_dir):
-    artifacts = _artifacts()
-    board = cs.rank_board(artifacts, cs.load_config(), now=NOW)
-    assert board["capabilities"], "the fixture setup has two code-review skills"
-    for entry in board["capabilities"]:
-        assert "provisional" not in entry
-
-
 def test_percentile_map_gives_ties_the_same_rank():
     values = {"a": 0, "b": 0, "c": 0, "d": 5}
     result = cs.percentile_map(values)
     assert result["a"] == result["b"] == result["c"]
     assert result["d"] == 1.0
     assert result["a"] < result["d"]
+
+
+def load_tests(loader, tests, pattern):
+    """Run the plain-function tests under `unittest discover` (the CI runner)."""
+    suite = unittest.TestSuite()
+    suite.addTest(loader.loadTestsFromTestCase(BoardTest))
+    for name, obj in sorted(globals().items()):
+        if name.startswith("test_") and callable(obj) and not isinstance(obj, type):
+            suite.addTest(unittest.FunctionTestCase(obj, description=name))
+    return suite
+
+
+if __name__ == "__main__":
+    unittest.main()
