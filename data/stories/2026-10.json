@@ -157,6 +157,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9QbGkyZlUzZ0NZREhreFk4azNtdUN6eFBLYUl6SnZ4bmFvTVVKeG05a1hVYXh2aUhwTGdqSWtoMWtSTlQ0cTlRZjF0YnJsYm9VS0VuMFktYkMzOEQ2OHI4dUREZUIwcmlLVFlETzEtZkk4YVU?oc=5"
  },
+ "01b61aa731d02be3": {
+  "first_seen": "2026-11-02T20:05:25.137504+00:00",
+  "id": "34fc7dbf93d24548",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-30T14:33:27+00:00",
+  "sid": "01b61aa731d02be3",
+  "source": "arxiv_cs_ai",
+  "summary": "Deep neural networks for time series classification (TSC) are trained almost exclusively by error backpropagation, which imposes update locking and the weight-transport problem. Backpropagation-free learning rules such as Direct Feedback Alignment (DFA), Direct Random Target Projection (DRTP), and the diffusion-inspired NoProp relax these constraints but have been evaluated almost exclusively on 2D image benchmarks. We adapt these three learners to univariate TSC with 1D convolutional architectures and present the first systematic study of them across 112 datasets from the UCR time series archive, with one hyperparameter-optimized configuration per method. The optimized learners reach mean F1 scores of 0.76 to 0.79, below ROCKET (0.83) and InceptionTime (0.84). We propose an analysis framework that relates the per-dataset gap to InceptionTime to dataset properties and tests convolutional feature learning by replacing the flatten readout with global average pooling, measured as a difference-in-differences (DD) against a backpropagation control on the identical architecture. Intra-class temporal variability is the dataset property most consistently associated with the gap for all three learners (partial Spearman $ρ$ from $0.28$ to $0.40$). Pooling harms DFA and DRTP more than backpropagation (DD $-0.025$ and $-0.055$), consistent with near-random convolutional features, whereas NoProp tolerates pooling as backpropagation does (DD $+0.013$). Relative to backpropagation on the sa",
+  "summary_1line": "Deep neural networks for time series classification (TSC) are trained almost exclusively by error backpropagation, which imposes update locking and the weight-transport problem. Backpropagation-free learning rules suc...",
+  "title": "Backpropagation-free Deep Learning for Time-Series Classification",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41805v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "0257840f3a9ef9c6": {
   "first_seen": "2026-10-28T02:03:27.054866+00:00",
   "id": "b973cad58ef48992",
@@ -5263,6 +5279,22 @@
   "url": "http://arxiv.org/abs/2610.31544v1",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "35220abd16206ae7": {
+  "first_seen": "2026-11-02T20:05:25.137504+00:00",
+  "id": "9b93d0e2abf309f7",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-30T16:39:37+00:00",
+  "sid": "35220abd16206ae7",
+  "source": "arxiv_cs_cl",
+  "summary": "Linear attention scales linearly with sequence length, but its finite-state memory can limit long-context retrieval. In gated linear recurrences, memory retention depends on state decay, which is shaped jointly by gate parameters A_log and dt_bias and by input activations. In controlled Gated DeltaNet (GDN) experiments, both parameters remain highly correlated with their initial values after training, highlighting the importance of initialization. Therefore, we introduce Dual-Axis Memory Initialization (DAMI), which jointly configures these parameters before training. DAMI assigns geometric timescales across heads for varied retrieval distances and a low-high-low input-sensitivity profile across layers. A small activation sample calibrates the GDN-family implementation to match both behavioral targets without adding trainable parameters. Across GDN, KDA, GDN2, Mamba-2, and RWKV-7, DAMI improves average RULER-style retrieval accuracy by 5.29 to 16.71 percentage points over the corresponding random-initialization baselines. Performance on language modeling, commonsense reasoning, and 2K real-world retrieval remains broadly comparable to those baselines. Our code is available at https://speedai.com/research/dami.",
+  "summary_1line": "Linear attention scales linearly with sequence length, but its finite-state memory can limit long-context retrieval. In gated linear recurrences, memory retention depends on state decay, which is shaped jointly by gat...",
+  "title": "DAMI: Dual-Axis Memory Initialization for Enhanced Long-Context Retrieval in Gated Linear Attention",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41994v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "358a2766e61652ee": {
   "first_seen": "2026-10-26T17:05:10.494180+00:00",
   "id": "3834d26135840063",
@@ -5989,6 +6021,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.20292v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "3cfb1d63c07d8098": {
+  "first_seen": "2026-11-02T20:05:25.137504+00:00",
+  "id": "0e5778f069e54691",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-30T03:13:59+00:00",
+  "sid": "3cfb1d63c07d8098",
+  "source": "arxiv_llm_reliability",
+  "summary": "LLM agents increasingly triage security alerts by combining the outputs of several detection tools, implicitly treating those tools as trustworthy. Unlike prior work on conflicts between a model's knowledge and its context, we study conflicts among the tools themselves: what happens when this machine-generated evidence is conflicting or wrong. On the corrected CIC-IDS2017 dataset, four heterogeneous detectors emit labels and confidences that we corrupt under a threat model varying the number of corrupted tools, the persistence of the corruption, and the confidence attached to wrong outputs. Across open-weight LLMs from 3B to 14B parameters, unverified investigators are fragile: one corrupted detector out of four lowers naive accuracy to .50-.72, three lower every unverified investigator to .13 or less, and honest disagreement alone makes them abstain on up to 63% of flows. We propose Conflict-Aware Evidence Verification (CAV), built from established components: an equal-weight vote that ignores reported confidences, an evidence-conflict gate, and an independent nearest-neighbour trust check that tests the leading candidates. With its prompt frozen before testing, CAV-LLM improves on the naive investigator in every corrupted condition ($p < 0.001$), reaching .84-.88 with three corrupted detectors against at most .08, while calling the LLM on 0.4% of clean traffic. A fixed verification rule is as accurate or better unless most tools are corrupted. When we make the independent c",
+  "summary_1line": "LLM agents increasingly triage security alerts by combining the outputs of several detection tools, implicitly treating those tools as trustworthy. Unlike prior work on conflicts between a model's knowledge and its co...",
+  "title": "When AI Investigators Cannot Trust Their Tools: Conflict-Aware Evidence Verification for Cyber Threat Investigation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41191v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "3d6788fcf32810bb": {
   "first_seen": "2026-10-16T11:04:32.391600+00:00",
@@ -16796,6 +16844,22 @@
   "title": "DeepSeek Security Test Finds a Gap, the Termination Program is Disabled in 39 Percent of Trials",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1kWVNJbjZHVWNRTkN6YWM4VkpSX3FBNFhkZFNscmdYdXFZRlBLTTJObTFfc0pSQVF0VHZrdlU2cDg3Z0FWOHFSX3dCc9IBQkFVX3lxTE5oeHJlbTZ3TWVRVzlrQUZMZzEwSlkxZzcwVW0waXNkY0Y3cU1ScGIzeWxEcDU4ZHVVRWtoeTM2dmlCdw?oc=5"
+ },
+ "a9670b578ab5196f": {
+  "first_seen": "2026-11-02T20:05:25.137504+00:00",
+  "id": "552cf928825ab7ae",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-30T12:57:53+00:00",
+  "sid": "a9670b578ab5196f",
+  "source": "arxiv_cs_cl",
+  "summary": "Language models face two opposing concerns: monoculture, in which models err in correlated ways, and multiplicity, in which equally accurate models make conflicting decisions. The rise of reasoning models has complicated this debate: On the one hand, reasoning may increase model agreement if models anchor on the same salient features or follow similar reasoning paths. On the other hand, stochastic reasoning traces may introduce additional branch points leading to more diverse predictions. We resolve this tension by distinguishing reasoning as an intervention from reasoning as an observed behavior. We compare agreement under controlled changes in reasoning effort with agreement across observed reasoning lengths, measuring both against the agreement expected from model accuracy. Across nine models from two developers and three classification tasks, enabling reasoning increases agreement between models evaluated on the same individuals. Yet the individuals who elicit longer reasoning traces receive less consistent predictions across models. Both patterns persist after accounting for differences in accuracy. Asking models to reason more thus promotes agreement, while observing them reason longer signals disagreement.",
+  "summary_1line": "Language models face two opposing concerns: monoculture, in which models err in correlated ways, and multiplicity, in which equally accurate models make conflicting decisions. The rise of reasoning models has complica...",
+  "title": "Does Reasoning Make Language Models Agree?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41691v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "a9905ca8b55e7dd8": {
   "first_seen": "2026-10-29T00:08:04.921758+00:00",
