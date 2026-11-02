@@ -150,14 +150,15 @@ slots:
     # 0 means the lane earns its seats on merit; the judge's transcript-backed
     # score decides. 240h matches the practitioner window: a weekly episode
     # stays visible for its week and then ages out.
-    sources: [ai_native_dev]
+    sources: [ai_native_dev, lennys_podcast]
     min_items: 0
     max_items: 2
     max_per_source: 1
     # Stage A reserves this many of the lane's candidates for the judge pool,
     # separately from how many the edition may show. Without it a single-source
     # lane reserves one seat, so only its freshest video is ever judged and the
-    # rest can never be scored. 8 covers a whole 240h window of a weekly show.
+    # rest can never be scored. The reserve is per source, so 8 covers a whole
+    # 240h window of each weekly show.
     pool_reserve: 8
     freshness_hours: 240
     blend: {alpha: 0.80, beta: 0.20}
@@ -310,6 +311,7 @@ source_bias:
   semianalysis: 0.00       # owner-requested AI-infra analysis, unproven in the feed: no hand lift yet (2026-10-06 ADR)
   felix_rieseberg: 0.00    # owner-requested practitioner blog, unproven in the feed: no hand lift yet (2026-10-15 ADR)
   ai_native_dev: 0.00      # Tessl's video/podcast channel: no hand lift until it earns a track record in the video_watch lane
+  lennys_podcast: -0.10    # product/growth/career show: the AI-engineering episodes earn the lane's seat, the rest are judge drops
 
 # Feedback/CTR auto-tuning (pipeline/auto_tune.py). Learned per-source deltas
 # from data/feedback/source_adjustments.json are added on top of source_bias.

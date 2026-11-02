@@ -320,3 +320,25 @@ sources:
     # Matched by normalized title; YouTube-only extras (conference promos,
     # 2-minute demos) have no match and fall back to the video description.
     transcript_feed: "https://rss.buzzsprout.com/2375985.rss"
+  - name: lennys_podcast
+    type: youtube_channel
+    # @lennyspodcast, display name "Lenny's Podcast: Product | Career | Growth".
+    # Owner-requested; see the 2026-11-02 ADR. The show is mostly product,
+    # growth and career interviews for PMs, so the judge decides which episodes
+    # belong in a platform-engineering brief: the AI-engineering episodes
+    # (Anthropic interpretability, the OpenAI ChatGPT/Codex lead, Google Labs)
+    # carry a concrete mechanism, while growth/PMF/career episodes do not and
+    # are dropped. `video_watch` is judge-gated, so a dropped episode cannot
+    # take the lane's seat.
+    channel_id: UC6t1O76G0jYXOAoYCm153dA
+    handle: "@lennyspodcast"
+    # The channel feed interleaves Shorts with the weekly episode (11 of the
+    # last 15 entries), so read the long-form `UULF` playlist instead.
+    playlist_id: UULF6t1O76G0jYXOAoYCm153dA
+    publisher_name: "Lenny's Podcast"
+    include_shorts: false
+    poll_interval_minutes: 60
+    # No `transcript_feed`: the show's Substack audio feed
+    # (https://api.substack.com/feed/podcast/10845.rss) publishes no
+    # `podcast:transcript`, so the judge reads the long YouTube show notes
+    # (4-9k characters) instead of a transcript.
