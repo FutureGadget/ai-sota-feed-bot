@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skill Radar · agent skills ranked by adoption | LLM Digest</title>
+  <meta name="description" content="Agent skills for Claude Code, Codex, pi and other harnesses, ranked by momentum and adoption instead of raw stars, with the repositories they come from." />
+  <link rel="canonical" href="https://www.llm-digest.com/skills" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="Skill Radar · agent skills ranked by adoption" />
+  <meta property="og:description" content="Agent skills for Claude Code, Codex, pi and other harnesses, ranked by momentum and adoption instead of raw stars, with the repositories they come from." />
+  <meta property="og:url" content="https://www.llm-digest.com/skills" />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Skill Radar · agent skills ranked by adoption" />
+  <meta name="twitter:description" content="Agent skills for Claude Code, Codex, pi and other harnesses, ranked by momentum and adoption instead of raw stars, with the repositories they come from." />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Skill Radar", "item": "https://www.llm-digest.com/skills"}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#17150f" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260924-inline-subscribe" />
+  <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
+  <script defer src="/site-chrome.js?v=20260924-inline-subscribe"></script>
+  <script defer src="/subscribe-inline.js?v=20260924-inline-subscribe"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
+    body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
+    menu a[role="button"], .archive select, menu .menu-share {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.74rem; letter-spacing: 0.03em;
+      padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 0; background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
+    menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
+    .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.66rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); }
+    .archive select { text-transform: none; letter-spacing: 0.02em; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border-left: 3px solid var(--accent); border-radius: 0;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: var(--font-display);
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+      menu {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.35rem;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      menu::-webkit-scrollbar {
+        display: none;
+      }
+      menu a {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .archive {
+        flex-shrink: 0;
+        margin-left: 1rem;
+        width: auto !important;
+      }
+      .archive select {
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+
+  .skills {
+    --skills-edge: var(--border);
+    --skills-wash: var(--card);
+    display: grid;
+    gap: 2rem;
+  }
+  .skills-intro {
+    font-family: var(--font-serif);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--foreground);
+    max-width: 68ch;
+  }
+  .skills-note {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--muted);
+    border-left: 2px solid var(--warm);
+    padding-left: 0.7rem;
+    margin: 0;
+    max-width: 68ch;
+  }
+  .skills-section { display: grid; gap: 0.9rem; }
+  .skills-section > h2 {
+    font-family: var(--font-display);
+    font-size: 1.32rem;
+    margin: 0;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: -0.01em;
+  }
+  .skills-section > h2 .skills-count {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-left: 0.5rem;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: 0.9rem;
+  }
+  .skills-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    padding: 0.85rem 0.95rem;
+    display: grid;
+    gap: 0.45rem;
+    align-content: start;
+  }
+  .skills-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    margin: 0;
+    line-height: 1.25;
+  }
+  .skills-card h3 a { color: var(--foreground); text-decoration: none; }
+  .skills-card h3 a:hover { text-decoration: underline; }
+  .skills-reason {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin: 0;
+  }
+  .skills-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.9rem;
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    color: var(--muted);
+  }
+  .skills-facts b { color: var(--foreground); font-weight: 600; }
+  .skills-badges { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .skills-badge {
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.08rem 0.45rem;
+    color: var(--muted);
+  }
+  .skills-badge[data-lens="core"] { border-color: var(--accent); color: var(--accent); }
+  .skills-badge[data-lens="adjacent"] { border-color: var(--warm); color: var(--warm); }
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-sans);
+    font-size: 0.83rem;
+  }
+  .skills-table th {
+    text-align: left;
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    padding: 0 0.6rem 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .skills-table td {
+    padding: 0.45rem 0.6rem 0.45rem 0;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .skills-table td.skills-num { text-align: right; font-variant-numeric: tabular-nums; }
+  .skills-table a { color: var(--foreground); text-decoration: none; }
+  .skills-table a:hover { text-decoration: underline; }
+  .skills-caps {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: 0.7rem;
+  }
+  .skills-cap {
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 0.7rem 0.85rem;
+    display: grid;
+    gap: 0.3rem;
+  }
+  .skills-cap[data-lens="adjacent"] { border-left-color: var(--warm); }
+  .skills-cap h3 {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+  .skills-cap .skills-pick { font-family: var(--font-display); font-size: 1.02rem; margin: 0; }
+  .skills-cap .skills-pick a { color: var(--foreground); text-decoration: none; }
+  .skills-cap .skills-skill { font-family: var(--font-sans); font-size: 0.78rem; color: var(--muted); }
+  .skills-alt { font-family: var(--font-sans); font-size: 0.76rem; color: var(--muted); margin: 0; }
+  .skills-alt a { color: var(--muted); }
+  .skills-how { font-family: var(--font-sans); font-size: 0.8rem; line-height: 1.55; color: var(--muted); }
+  .skills-how summary { cursor: pointer; color: var(--foreground); }
+  .skills-how ul { margin: 0.5rem 0 0; padding-left: 1.1rem; }
+  .skills-detail { display: grid; gap: 1.4rem; }
+  .skills-facts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 0.8rem;
+  }
+  .skills-fact {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 0.7rem;
+    display: grid;
+    gap: 0.15rem;
+  }
+  .skills-fact span {
+    font-family: var(--font-sans);
+    font-size: 0.66rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .skills-fact b { font-family: var(--font-display); font-size: 1.18rem; font-weight: 600; }
+  .skills-ports {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    color: var(--muted);
+    white-space: nowrap;
+    margin-left: 0.35rem;
+  }
+  .skills-muted { color: var(--muted); }
+  .skills-table td .skills-badge { margin-left: 0.4rem; vertical-align: 1px; }
+  /* Under 760px the tables become stacked rows: a 6-column grid is unreadable on
+     a phone, and the feed is where most of this traffic lands. */
+  @media (max-width: 760px) {
+    .skills-table, .skills-table tbody { display: block; }
+    .skills-table thead { display: none; }
+    .skills-table tr {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.15rem 0.9rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .skills-table td { border: 0; padding: 0; }
+    .skills-table td[data-label="Setup"] { flex: 1 0 100%; }
+    .skills-table td[data-label="Main capability"],
+    .skills-table td[data-label="Author"] { flex: 1 0 100%; }
+    .skills-table td::before {
+      content: attr(data-label);
+      font-size: 0.62rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-right: 0.35rem;
+    }
+    .skills-table td[data-label="Setup"]::before { display: none; }
+    .skills-table td.skills-num { text-align: left; }
+  }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/skills">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>Skill Radar</h1>
+        <p id="meta" class="muted">Updated 2 Nov 2026, 14:07 UTC · 324 setups tracked · 16 capability groups</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Agent Know-How</a>
+        <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
+        <a href="/skills" data-site-destination="/skills" aria-current="page">Skill Radar</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/skills" data-share-title="Skill Radar · agent skills ranked by adoption">Share this page</button>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+
+
+    </header>
+
+    <section id="recap">
+      <!-- hero is inside the .skills body -->
+      <!-- range is included in the custom hero -->
+      <!-- intro is inside the .skills body -->
+      <div class="skills"><p class="skills-intro">Which agent skills are actually being adopted, ranked by momentum and adoption rather than raw stars. A setup is one repository or a family of ports of it, and every entry links to its sources. Rising is this week; the shelf is what has held up.</p><section class="skills-section"><h2>Rising this week<span class="skills-count">4</span></h2><div class="skills-grid"><article class="skills-card"><h3><a href="/skills/denissergeevitch-ex-ussr-kinship-research">DenisSergeevitch/ex-ussr-kinship-research</a></h3><p class="skills-reason">first seen 2026-11-01</p><div class="skills-facts"><span><b>1</b> skills</span><span><b>1.5k</b> stars</span><span><b>10.4%</b> forks</span></div><div class="skills-badges"><span class="skills-badge" data-lens="adjacent">adjacent</span></div></article><article class="skills-card"><h3><a href="/skills/fei2411-ds-bot">Fei2411/DS-Bot</a></h3><p class="skills-reason">first seen 2026-11-01</p><div class="skills-facts"><span><b>4</b> skills</span><span><b>4.9k</b> stars</span><span><b>9.1%</b> forks</span></div><div class="skills-badges"><span class="skills-badge" data-lens="core">core</span></div></article><article class="skills-card"><h3><a href="/skills/ccch1mneyyy-dsh-go">ccch1mneyyy/dsh-Go</a></h3><p class="skills-reason">first seen 2026-11-01</p><div class="skills-facts"><span><b>11</b> skills</span><span><b>4.6k</b> stars</span><span><b>4.8%</b> forks</span></div><div class="skills-badges"><span class="skills-badge" data-lens="core">core</span></div></article><article class="skills-card"><h3><a href="/skills/daveebbelaar-bama">daveebbelaar/bama</a></h3><p class="skills-reason">first seen 2026-11-01</p><div class="skills-facts"><span><b>21</b> skills</span><span><b>1.3k</b> stars</span><span><b>12.9%</b> forks</span></div><div class="skills-badges"><span class="skills-badge" data-lens="adjacent">adjacent</span></div></article></div></section><section class="skills-section"><h2>By capability<span class="skills-count">16 groups</span></h2><div class='skills-caps'><article class="skills-cap" data-lens="core"><h3>Tooling &amp; MCP</h3><p class="skills-pick"><a href="/skills/google-agents-cli">google/agents-cli</a></p><span class="skills-skill">agents-cli-claude</span><p class="skills-alt">Also: <a href="/skills/hkuds-cli-anything">HKUDS/CLI-Anything</a>, <a href="/skills/cheaper-inference-omniroute">cheaper-inference/OmniRoute</a></p></article><article class="skills-cap" data-lens="core"><h3>Testing</h3><p class="skills-pick"><a href="/skills/waishnav-devspace">Waishnav/devspace</a></p><span class="skills-skill">replay-qa</span><p class="skills-alt">Also: <a href="/skills/tester-army-e2e">tester-army/e2e</a>, <a href="/skills/breaking-brake-cc-wf-studio">breaking-brake/cc-wf-studio</a></p></article><article class="skills-cap" data-lens="core"><h3>Debugging</h3><p class="skills-pick"><a href="/skills/cobusgreyling-loop-engineering">cobusgreyling/loop-engineering</a></p><span class="skills-skill">ci-triage</span><p class="skills-alt">Also: <a href="/skills/minglink-dsh-infinite-gen-5">Minglink/dsh-infinite-gen-5</a>, <a href="/skills/nvidia-openshell">NVIDIA/OpenShell</a></p></article><article class="skills-cap" data-lens="core"><h3>Infra &amp; Deploy</h3><p class="skills-pick"><a href="/skills/microsoft-azure-skills">microsoft/azure-skills</a></p><span class="skills-skill">azure-deploy</span><p class="skills-alt">Also: <a href="/skills/mesh-llm-mesh-llm">Mesh-LLM/mesh-llm</a>, <a href="/skills/jeffallan-claude-skills">Jeffallan/claude-skills</a></p></article><article class="skills-cap" data-lens="core"><h3>Evals &amp; Benchmarks</h3><p class="skills-pick"><a href="/skills/openraiser-nanoresearch">OpenRaiser/NanoResearch</a></p><span class="skills-skill">lm-evaluation-harness</span><p class="skills-alt">Also: <a href="/skills/wanshuiyin-auto-claude-code-research-in-sleep">wanshuiyin/Auto-claude-code-research-in-sleep</a>, <a href="/skills/garrytan-gstack">garrytan/gstack</a></p></article><article class="skills-cap" data-lens="core"><h3>Refactor &amp; Architecture</h3><p class="skills-pick"><a href="/skills/juliusbrussee-caveman">JuliusBrussee/caveman</a></p><span class="skills-skill">migration</span><p class="skills-alt">Also: <a href="/skills/trycompai-crm">trycompai/crm</a>, <a href="/skills/code-yeongyu-oh-my-openagent">code-yeongyu/oh-my-openagent</a></p></article><article class="skills-cap" data-lens="core"><h3>Code Review</h3><p class="skills-pick"><a href="/skills/jnmetacode-superpowers-zh">jnMetaCode/superpowers-zh</a></p><span class="skills-skill">chinese-code-review</span><p class="skills-alt">Also: <a href="/skills/rohitg00-ai-engineering-from-scratch">rohitg00/ai-engineering-from-scratch</a>, <a href="/skills/ganyuanran-aegis">GanyuanRan/Aegis</a></p></article><article class="skills-cap" data-lens="core"><h3>Memory &amp; Context</h3><p class="skills-pick"><a href="/skills/michael-denyer-pstack-claude">michael-denyer/pstack-claude</a></p><span class="skills-skill">principle-guard-the-context-window</span><p class="skills-alt">Also: <a href="/skills/google-skills">google/skills</a>, <a href="/skills/wshobson-agents">wshobson/agents</a></p></article><article class="skills-cap" data-lens="core"><h3>Orchestration</h3><p class="skills-pick"><a href="/skills/amelnagdy-delegate-skills">amElnagdy/delegate-skills</a></p><span class="skills-skill">agy-delegate</span><p class="skills-alt">Also: <a href="/skills/rohitg00-skillkit">rohitg00/skillkit</a>, <a href="/skills/aaron-he-zhu-aaron-marketing-skills">aaron-he-zhu/aaron-marketing-skills</a></p></article><article class="skills-cap" data-lens="core"><h3>Git &amp; VCS</h3><p class="skills-pick"><a href="/skills/moonshotai-kimi-code">MoonshotAI/kimi-code</a></p><span class="skills-skill">pre-changelog</span><p class="skills-alt">Also: <a href="/skills/paperclipai-paperclip">paperclipai/paperclip</a>, <a href="/skills/wshobson-agents">wshobson/agents</a></p></article><article class="skills-cap" data-lens="core"><h3>Data &amp; SQL</h3><p class="skills-pick"><a href="/skills/kaelio-ktx">Kaelio/ktx</a></p><span class="skills-skill">dbt_ingest</span><p class="skills-alt">Also: <a href="/skills/usefulsoftwareco-executor">UsefulSoftwareCo/executor</a>, <a href="/skills/zebbern-claude-code-guide">zebbern/claude-code-guide</a></p></article><article class="skills-cap" data-lens="core"><h3>Codebase Navigation</h3><p class="skills-pick"><a href="/skills/withcoral-coral">withcoral/coral</a></p><span class="skills-skill">codebase-design</span><p class="skills-alt">Also: <a href="/skills/mattpocock-skills">mattpocock/skills</a>, <a href="/skills/vinvcn-mattpocock-skills-zh-cn">vinvcn/mattpocock-skills-zh-CN</a></p></article><article class="skills-cap" data-lens="core"><h3>Security</h3><p class="skills-pick"><a href="/skills/openai-codex-security">openai/codex-security</a></p><span class="skills-skill">threat-model</span><p class="skills-alt">Also: <a href="/skills/awarexone-agentic-bug-hunter">awarexone/Agentic-Bug-Hunter</a>, <a href="/skills/trailofbits-skills">trailofbits/skills</a></p></article><article class="skills-cap" data-lens="adjacent"><h3>Documents &amp; Files</h3><p class="skills-pick"><a href="/skills/eigent-ai-eigent">eigent-ai/eigent</a></p><span class="skills-skill">docx</span><p class="skills-alt">Also: <a href="/skills/axoviq-ai-synthadoc">axoviq-ai/synthadoc</a>, <a href="/skills/tokenrhythm-opensquilla">TokenRhythm/opensquilla</a></p></article><article class="skills-cap" data-lens="adjacent"><h3>Dev Environment</h3><p class="skills-pick"><a href="/skills/mindfold-ai-trellis">mindfold-ai/Trellis</a></p><span class="skills-skill">bootstrap-skill</span></article><article class="skills-cap" data-lens="adjacent"><h3>Research</h3><p class="skills-pick"><a href="/skills/imbad0202-academic-research-skills">Imbad0202/academic-research-skills</a></p><span class="skills-skill">academic-paper</span><p class="skills-alt">Also: <a href="/skills/hkustdial-supervisor-skills">HKUSTDial/Supervisor-Skills</a>, <a href="/skills/companion-inc-feynman">Companion-Inc/feynman</a></p></article></div></section><section class="skills-section"><h2>Reference shelf<span class="skills-count">24 setups</span></h2><table class="skills-table"><thead><tr><th>Setup</th><th>Main capability</th><th>Groups</th><th>Skills</th><th>Forks</th><th>Stars</th></tr></thead><tbody><tr><td data-label="Setup"><a href="/skills/nanocoai-nanoclaw">nanocoai/nanoclaw</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Tooling &amp; MCP</td><td data-label="Groups" class="skills-num">4</td><td data-label="Skills" class="skills-num">64</td><td data-label="Forks" class="skills-num">40.8%</td><td data-label="Stars" class="skills-num">31.1k</td></tr><tr><td data-label="Setup"><a href="/skills/anthropics-financial-services">anthropics/financial-services</a><span class="skills-badge" data-lens="adjacent">adjacent</span></td><td data-label="Main capability">Documents &amp; Files</td><td data-label="Groups" class="skills-num">2</td><td data-label="Skills" class="skills-num">64</td><td data-label="Forks" class="skills-num">13.9%</td><td data-label="Stars" class="skills-num">41.0k</td></tr><tr><td data-label="Setup"><a href="/skills/paperclipai-paperclip">paperclipai/paperclip</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Tooling &amp; MCP</td><td data-label="Groups" class="skills-num">8</td><td data-label="Skills" class="skills-num">76</td><td data-label="Forks" class="skills-num">16.6%</td><td data-label="Stars" class="skills-num">109.9k</td></tr><tr><td data-label="Setup"><a href="/skills/garrytan-gstack">garrytan/gstack</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Testing</td><td data-label="Groups" class="skills-num">5</td><td data-label="Skills" class="skills-num">68</td><td data-label="Forks" class="skills-num">14.8%</td><td data-label="Stars" class="skills-num">138.6k</td></tr><tr><td data-label="Setup"><a href="/skills/koala73-worldmonitor">koala73/worldmonitor</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Security</td><td data-label="Groups" class="skills-num">3</td><td data-label="Skills" class="skills-num">37</td><td data-label="Forks" class="skills-num">15.4%</td><td data-label="Stars" class="skills-num">89.9k</td></tr><tr><td data-label="Setup"><a href="/skills/coreyhaines31-marketingskills">coreyhaines31/marketingskills</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Writing</td><td data-label="Groups" class="skills-num">4</td><td data-label="Skills" class="skills-num">53</td><td data-label="Forks" class="skills-num">14.7%</td><td data-label="Stars" class="skills-num">57.8k</td></tr><tr><td data-label="Setup"><a href="/skills/cheaper-inference-omniroute">cheaper-inference/OmniRoute</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Tooling &amp; MCP</td><td data-label="Groups" class="skills-num">1</td><td data-label="Skills" class="skills-num">52</td><td data-label="Forks" class="skills-num">14.9%</td><td data-label="Stars" class="skills-num">83.6k</td></tr><tr><td data-label="Setup"><a href="/skills/hkuds-vibe-trading">HKUDS/Vibe-Trading</a><span class="skills-badge" data-lens="adjacent">adjacent</span></td><td data-label="Main capability">Research</td><td data-label="Groups" class="skills-num">2</td><td data-label="Skills" class="skills-num">91</td><td data-label="Forks" class="skills-num">16.2%</td><td data-label="Stars" class="skills-num">37.4k</td></tr><tr><td data-label="Setup"><a href="/skills/openclaw-clawhub">openclaw/clawhub</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Infra &amp; Deploy</td><td data-label="Groups" class="skills-num">6</td><td data-label="Skills" class="skills-num">67</td><td data-label="Forks" class="skills-num">15.7%</td><td data-label="Stars" class="skills-num">9.5k</td></tr><tr><td data-label="Setup"><a href="/skills/rohitg00-ai-engineering-from-scratch">rohitg00/ai-engineering-from-scratch</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Code Review</td><td data-label="Groups" class="skills-num">3</td><td data-label="Skills" class="skills-num">23</td><td data-label="Forks" class="skills-num">17.7%</td><td data-label="Stars" class="skills-num">76.2k</td></tr><tr><td data-label="Setup"><a href="/skills/aden-hive-hive">aden-hive/hive</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Debugging</td><td data-label="Groups" class="skills-num">3</td><td data-label="Skills" class="skills-num">24</td><td data-label="Forks" class="skills-num">50.7%</td><td data-label="Stars" class="skills-num">11.1k</td></tr><tr><td data-label="Setup"><a href="/skills/anthropics-skills">anthropics/skills</a><span class="skills-badge" data-lens="adjacent">adjacent</span></td><td data-label="Main capability">Documents &amp; Files</td><td data-label="Groups" class="skills-num">3</td><td data-label="Skills" class="skills-num">20</td><td data-label="Forks" class="skills-num">11.8%</td><td data-label="Stars" class="skills-num">186.3k</td></tr><tr><td data-label="Setup"><a href="/skills/affaan-m-ecc">affaan-m/ECC</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Frontend &amp; Design</td><td data-label="Groups" class="skills-num">14</td><td data-label="Skills" class="skills-num">317</td><td data-label="Forks" class="skills-num">14.8%</td><td data-label="Stars" class="skills-num">294.8k</td></tr><tr><td data-label="Setup"><a href="/skills/github-awesome-copilot">github/awesome-copilot</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Tooling &amp; MCP</td><td data-label="Groups" class="skills-num">17</td><td data-label="Skills" class="skills-num">400</td><td data-label="Forks" class="skills-num">12.9%</td><td data-label="Stars" class="skills-num">40.7k</td></tr><tr><td data-label="Setup"><a href="/skills/garrytan-gbrain">garrytan/gbrain</a><span class="skills-badge" data-lens="adjacent">adjacent</span></td><td data-label="Main capability">Research</td><td data-label="Groups" class="skills-num">6</td><td data-label="Skills" class="skills-num">80</td><td data-label="Forks" class="skills-num">14.9%</td><td data-label="Stars" class="skills-num">31.4k</td></tr><tr><td data-label="Setup"><a href="/skills/wshobson-agents">wshobson/agents</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Frontend &amp; Design</td><td data-label="Groups" class="skills-num">15</td><td data-label="Skills" class="skills-num">185</td><td data-label="Forks" class="skills-num">10.6%</td><td data-label="Stars" class="skills-num">42.1k</td></tr><tr><td data-label="Setup"><a href="/skills/agricidaniel-claude-seo">AgriciDaniel/claude-seo</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Data &amp; SQL</td><td data-label="Groups" class="skills-num">1</td><td data-label="Skills" class="skills-num">33</td><td data-label="Forks" class="skills-num">13.2%</td><td data-label="Stars" class="skills-num">25.5k</td></tr><tr><td data-label="Setup"><a href="/skills/pingdotgg-t3code">pingdotgg/t3code</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Debugging</td><td data-label="Groups" class="skills-num">2</td><td data-label="Skills" class="skills-num">15</td><td data-label="Forks" class="skills-num">23.6%</td><td data-label="Stars" class="skills-num">37.8k</td></tr><tr><td data-label="Setup"><a href="/skills/yeachan-heo-oh-my-claudecode">Yeachan-Heo/oh-my-claudecode</a><span class="skills-badge" data-lens="adjacent">adjacent</span></td><td data-label="Main capability">Research</td><td data-label="Groups" class="skills-num">3</td><td data-label="Skills" class="skills-num">49</td><td data-label="Forks" class="skills-num">8.9%</td><td data-label="Stars" class="skills-num">40.5k</td></tr><tr><td data-label="Setup"><a href="/skills/vudovn-ag-kit">vudovn/ag-kit</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Frontend &amp; Design</td><td data-label="Groups" class="skills-num">6</td><td data-label="Skills" class="skills-num">58</td><td data-label="Forks" class="skills-num">18.4%</td><td data-label="Stars" class="skills-num">8.2k</td></tr><tr><td data-label="Setup"><a href="/skills/donchitos-claude-code-game-studios">Donchitos/Claude-Code-Game-Studios</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Testing</td><td data-label="Groups" class="skills-num">9</td><td data-label="Skills" class="skills-num">74</td><td data-label="Forks" class="skills-num">13.6%</td><td data-label="Stars" class="skills-num">32.2k</td></tr><tr><td data-label="Setup"><a href="/skills/cherryhq-cherry-studio">CherryHQ/cherry-studio</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Code Review</td><td data-label="Groups" class="skills-num">2</td><td data-label="Skills" class="skills-num">40</td><td data-label="Forks" class="skills-num">9.7%</td><td data-label="Stars" class="skills-num">53.2k</td></tr><tr><td data-label="Setup"><a href="/skills/code-yeongyu-oh-my-openagent">code-yeongyu/oh-my-openagent</a><span class="skills-badge" data-lens="core">core</span></td><td data-label="Main capability">Testing</td><td data-label="Groups" class="skills-num">6</td><td data-label="Skills" class="skills-num">47</td><td data-label="Forks" class="skills-num">8.2%</td><td data-label="Stars" class="skills-num">70.6k</td></tr><tr><td data-label="Setup"><a href="/skills/agricidaniel-claude-ads">AgriciDaniel/claude-ads</a><span class="skills-badge" data-lens="adjacent">adjacent</span></td><td data-label="Main capability">Research</td><td data-label="Groups" class="skills-num">1</td><td data-label="Skills" class="skills-num">34</td><td data-label="Forks" class="skills-num">14.5%</td><td data-label="Stars" class="skills-num">10.7k</td></tr></tbody></table></section><section class="skills-section"><h2>Practitioners<span class="skills-count">12</span></h2><p class="skills-note">Ranked by independent ports, then adoption. A port is someone else re-implementing the same setup for another harness.</p><table class="skills-table"><thead><tr><th>Setup</th><th>Author</th><th>Ports</th><th>Stars</th></tr></thead><tbody><tr><td data-label="Setup"><a href="/skills/kepano-obsidian-skills">kepano/obsidian-skills</a> <span class="skills-ports">+2 ports</span></td><td data-label="Author" class="skills-muted">kepano</td><td data-label="Ports" class="skills-num">2</td><td data-label="Stars" class="skills-num">72.1k</td></tr><tr><td data-label="Setup"><a href="/skills/rtk-ai-rtk">rtk-ai/rtk</a> <span class="skills-ports">+1 ports</span></td><td data-label="Author" class="skills-muted">rtk-ai</td><td data-label="Ports" class="skills-num">1</td><td data-label="Stars" class="skills-num">117.0k</td></tr><tr><td data-label="Setup"><a href="/skills/vercel-labs-native">vercel-labs/native</a> <span class="skills-ports">+2 ports</span></td><td data-label="Author" class="skills-muted">vercel-labs</td><td data-label="Ports" class="skills-num">2</td><td data-label="Stars" class="skills-num">18.0k</td></tr><tr><td data-label="Setup"><a href="/skills/michael-denyer-pstack-claude">michael-denyer/pstack-claude</a> <span class="skills-ports">+1 ports</span></td><td data-label="Author" class="skills-muted">michael-denyer</td><td data-label="Ports" class="skills-num">1</td><td data-label="Stars" class="skills-num">7.0k</td></tr><tr><td data-label="Setup"><a href="/skills/cheaper-inference-omniroute">cheaper-inference/OmniRoute</a></td><td data-label="Author" class="skills-muted">cheaper-inference</td><td data-label="Ports" class="skills-num">0</td><td data-label="Stars" class="skills-num">83.6k</td></tr><tr><td data-label="Setup"><a href="/skills/mattpocock-skills">mattpocock/skills</a></td><td data-label="Author" class="skills-muted">mattpocock</td><td data-label="Ports" class="skills-num">0</td><td data-label="Stars" class="skills-num">309.2k</td></tr><tr><td data-label="Setup"><a href="/skills/coreyhaines31-marketingskills">coreyhaines31/marketingskills</a></td><td data-label="Author" class="skills-muted">coreyhaines31</td><td data-label="Ports" class="skills-num">0</td><td data-label="Stars" class="skills-num">57.8k</td></tr><tr><td data-label="Setup"><a href="/skills/wshobson-agents">wshobson/agents</a></td><td data-label="Author" class="skills-muted">wshobson</td><td data-label="Ports" class="skills-num">0</td><td data-label="Stars" class="skills-num">42.1k</td></tr><tr><td data-label="Setup"><a href="/skills/deepseek-ai-deepseek-harness">deepseek-ai/deepseek-harness</a></td><td data-label="Author" class="skills-muted">deepseek-ai</td><td data-label="Ports" class="skills-num">0</td><td data-label="Stars" class="skills-num">268.3k</td></tr><tr><td data-label="Setup"><a href="/skills/k-dense-ai-scientific-agent-skills">K-Dense-AI/scientific-agent-skills</a></td><td data-label="Author" class="skills-muted">K-Dense-AI</td><td data-label="Ports" class="skills-num">0</td><td data-label="Stars" class="skills-num">55.7k</td></tr><tr><td data-label="Setup"><a href="/skills/anthropics-financial-services">anthropics/financial-services</a></td><td data-label="Author" class="skills-muted">anthropics</td><td data-label="Ports" class="skills-num">0</td><td data-label="Stars" class="skills-num">41.0k</td></tr><tr><td data-label="Setup"><a href="/skills/juliusbrussee-caveman">JuliusBrussee/caveman</a></td><td data-label="Author" class="skills-muted">JuliusBrussee</td><td data-label="Ports" class="skills-num">0</td><td data-label="Stars" class="skills-num">116.7k</td></tr></tbody></table></section><details class="skills-how"><summary>How this is ranked</summary><ul><li>Discovery is a union of GitHub repo searches (new-and-fast repos, topic-tagged repos, and name-family ports), never a single query.</li><li>One skill is counted once even when a repo vendors it for many harnesses; the copy count is portability, not popularity.</li><li>Stars are shown but never ranked. Adoption is fork ratio, because installing a skill means copying it.</li><li>Ranking families lets a ported setup be measured as one concept instead of many small repos.</li><li>A capability group is shown only when at least two skills in the setup name that capability, and the most focused setup wins the group: two matches out of five skills beats four out of four hundred.</li><li>Core means the capability serves agent and platform engineering; adjacent means useful but broader. Off-lens setups are not listed at all.</li><li>419 setups were excluded for being outside the platform/agent-engineering lens.</li></ul></details></div>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+          btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+
+      // Share this page: native share sheet when available, clipboard fallback.
+      // The canonical URL is the durable landing target, so shares keep working.
+      var share = document.querySelector('.menu-share');
+      if (share) {
+        share.addEventListener('click', function () {
+          var url = share.getAttribute('data-share-url') || location.href;
+          var title = share.getAttribute('data-share-title') || document.title;
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var done = function () {
+            var label = share.textContent;
+            share.textContent = '✓ Link copied';
+            share.classList.add('copied');
+            setTimeout(function () { share.textContent = label; share.classList.remove('copied'); }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done, function () {});
+          }
+        });
+      }
+    })();
+  </script>
+
+  <script src="/nav-updates.js?v=20260910-editorial" defer></script>
+
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>
