@@ -224,6 +224,27 @@
   "type": "news",
   "url": "https://huggingface.co/divagr1925/QwenPU"
  },
+ "53d05e962bad3f77": {
+  "first_seen": "2026-11-02T18:03:57.410502+00:00",
+  "id": "cfa86f41156578bc",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-02T17:26:31+00:00",
+  "release_highlights": [
+   "The S3 addressing style is now configurable",
+   "Request cancellation is now checked before a request is dispatched to the backend, and before batch assembly in the TensorRT backend",
+   "Tutorials: The Llava1.5 guide is deprecated in favor of the new Qwen2.5-VL guide for the TensorRT-LLM PyTorch backend. Note: this is a breaking change"
+  ],
+  "sid": "53d05e962bad3f77",
+  "source": "triton_releases",
+  "summary": "Triton Inference Server The Triton Inference Server provides a cloud inferencing solution optimized for both CPUs and GPUs. The server provides an inference service via an HTTP or GRPC endpoint, allowing remote clients to request inferencing for any model being managed by the server. For edge deployments, Triton Server is also available as a shared library with an API that allows the full functionality of the server to be included directly in an application. New Features and Improvements The S3 addressing style is now configurable. Request cancellation is now checked before a request is dispatched to the backend, and before batch assembly in the TensorRT backend. Tutorials: The Llava1.5 guide is deprecated in favor of the new Qwen2.5-VL guide for the TensorRT-LLM PyTorch backend. Note: this is a breaking change. HTTP request buffers are now released after a request is rejected for exceeding the chunk limit. --http-max-input-size is now enforced across nested parameters of generate requests. SageMaker model URLs are now validated before path normalization. Fixed copying of the cuBLAS libraries to the CUDA targets lib directory. Relaxed the openai and pydantic pins to match vLLM requirements. Tritonserver is now built on, and shipped on, the cuda-dl-base devel image. Python backend: Restrictive permissions are now applied to shared memory, and GPU tensor allocation now falls back to host memory. ONNX Runtime, OpenVINO, Python and TensorRT-LLM backends: Backend builds now requir",
+  "summary_1line": "The S3 addressing style is now configurable · Request cancellation is now checked before a request is dispatched to the backend, and before batch assembly in the TensorRT backend · Tutorials: The Llava1.5 guide is dep...",
+  "title": "Release 2.74.0 corresponding to NGC container 26.10",
+  "type": "release",
+  "url": "https://github.com/triton-inference-server/server/releases/tag/v2.74.0",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "544129c2e0dc4a89": {
   "content_excerpt": "I asked an AI coding agent to fix a bug in the RISC-V An open instruction set architecture. Many open-source processor cores implement it. processor inside Caliptra A large open-source system on chip from CHIPS Alliance. It is a hardware root of trust: a security block with its own RISC-V processor and firmware. . It usually found the faulty line of RTL Register-transfer level: the code that describes a chip’s hardware, usually written in Verilog or SystemVerilog. A simulator runs it; synthesis tools turn it into gates. within five minutes. Proving the fix took much longer, because the agent first had to make the bug show up in simulation. Over ten trials, two hardware-specific problems took most of that time: the internal signals that explain a failure are invisible unless the simulation records them, and simulations run long enough that the agent has to guess when they finish. A third problem, a build that depends on settings the agent's shell doesn't keep, isn't specific to hardware but is common in RTL projects. With tools aimed at all three, the same agent's mean time to a verified fix fell from 56 minutes to 21. Coding agents are built mostly for software work. Their working loop assumes that a test runs in seconds, that a failure prints a useful message, and that a command is cheap to rerun. Hardware design breaks all three. Chips are described in RTL Register-transfer level: the code that describes a chip’s hardware, usually written in Verilog or SystemVerilog. A simu",
   "first_seen": "2026-11-02T11:04:29.009718+00:00",
@@ -240,6 +261,18 @@
   "url": "https://booley.dev/blog/harness-matters",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "548dd80498db21d1": {
+  "content_excerpt": "The bar is human. Hume diagnoses system breaks and feeds failures into improvement. [data-char]{opacity:1!important} T h e b a r i s h u m a n . H u m e d i a g n o s e s s y s t e m b r e a k s a n d f e e d s f a i l u r e s i n t o i m p r o v e m e n t . A sample telehealth call plays while three questions about it are answered for every five seconds of audio. Yes No Not sure Answered 0 of 12 chunks · every 5 seconds is answered on its own Voice AI considers tone, pauses, and sounds. Developers set Q&A; the audio decision model gives probabilities for quick audio judgments. Ask objective, subjective or perceptual questions about speech and sound. Select a tab to explore examples. Apply several questions to the same recordings, from naturalness and clarity to empathy and timing. Find candidate examples for training, isolate evaluation failures, and surface cases for escalation review. The Audio Decision Model agrees with the human crowd 70.7% of the time, while a single human rater agrees 56.5% of the time. Agreement with a panel of human raters : Audio Decision Model 70.7%, Individual Rater 56.5% . Accuracy against speed : Hume’s Decision Model averages 0.82 over 10 leading benchmarks at 0.23 seconds median latency per screen, scoring higher and answering faster than Gemini 3.8 Flash, Qwen3.8-Omni-Flash, Inkling-Small, gpt-audio-1.5, Gemini 3.5 Flash Lite and Nemotron 3 Nano Omni. The Audio Decision Model answers audio questions faster and more accurately than any other m",
+  "first_seen": "2026-11-02T18:03:57.410502+00:00",
+  "id": "971230ed092eec9f",
+  "published": "2026-11-02T17:07:10+00:00",
+  "sid": "548dd80498db21d1",
+  "source": "hackernews_ai",
+  "summary_1line": "Hume launches the first decision model for voice AI",
+  "title": "Hume launches the first decision model for voice AI",
+  "type": "news",
+  "url": "https://www.hume.ai/products/decision-model-api"
+ },
  "57e33e1c03940976": {
   "content_excerpt": "Today, we are excited to announce Avartha. We are building the infrastructure to bring frontier-grade intelligence to real-time applications with open models that you control. Siri launched in 2011 with the promise of helping us “ get things done just by asking .” We want AI that can actually deliver on that promise, not just sound good. We now have models that can write software and reason through complex problems, but developers building voice agents have had to trade that capability for responsiveness. Even in mid-2026, GPT-4.1 remains the most popular model for building voice AI applications, simply because it is the only widely available model which has sub-1 second latency [5] . We believe that voice is poised to be the dominant interaction surface for all of computing in the future, and we want to build voice agents that operate at the frontier of AI capabilities and are a worthy complement to the intellect of their users. As the first step towards this goal, we are releasing Ava Zero 1 . Ava is built entirely on open models and ranks #1 in task completion on Sierra’s τ³-Voice benchmark . τ³-Voice tests whether an agent can reason accurately and execute long, multi-step trajectories under real-world conditions. Ava completes 86.0% of tasks across six languages, ahead of OpenAI’s GPT Live 1 at 79.9%, xAI’s Grok at 71.4%, and Google’s Gemini at 68.5%, with the highest generation quality. Open models are now at the frontier of voice AI. In traditional AI applications like",
   "first_seen": "2026-11-01T23:04:20.917409+00:00",
@@ -251,6 +284,22 @@
   "title": "Avartha: Fastest open-weight frontier voice AI beats OpenAI, Google, and xAI",
   "type": "news",
   "url": "https://avartha.ai/blog/introducing-avartha"
+ },
+ "5a014341bc3fc0f1": {
+  "first_seen": "2026-11-02T18:03:57.410502+00:00",
+  "id": "edfaac13fa359014",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-02T09:00:00+00:00",
+  "sid": "5a014341bc3fc0f1",
+  "source": "openai_blog",
+  "summary": "Introducing LifeVal, a benchmark measuring how well AI helps people complete everyday tasks, from finding childcare to managing finances and government paperwork.",
+  "summary_1line": "Introducing LifeVal, a benchmark measuring how well AI helps people complete everyday tasks, from finding childcare to managing finances and government paperwork.",
+  "title": "LifeVal",
+  "type": "news",
+  "url": "https://openai.com/index/lifeval",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "5b44a10be2d2e731": {
   "content_excerpt": "To write this issue, we asked a coding agent to add email invitations and an audit log to a small TypeScript app , then reviewed the pull request (PR) it produced. It came to 31 files and about 1,700 changed lines, with a two-sentence description. GitHub listed the files alphabetically, so the review opened on a CI config change, and the migration every other file depended on sat below five API files. PRs this size are becoming routine. At Rails World in September, David Heinemeier Hansson (DHH) said 37signals now has agents writing nearly all of its code. Generating code is now cheap, and the human attention needed to review it is what runs out. Thanks for reading ByteSizedBets! Subscribe for free to receive new posts and support my work. Keeping PRs small is still the best fix. Agents don’t reliably do it, though, and some changes are large by nature, like a schema migration or a rename across the whole repo. This issue is about reviewing those well. We also planted nine problems in the PR, from a privilege escalation to a behavior change hidden inside a moved file, so we could see what the tooling caught and what it missed. The walkthrough below uses CodeRabbit Explain , and every screenshot comes from that PR. Where plain git covers part of the job, I’ve included the commands. GitHub’s diff view works well for small changes a person wrote. On our PR, it fell short in four ways. Files are sorted alphabetically, which has nothing to do with how the change was built. On our ",
@@ -495,6 +544,22 @@
   "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQcFMxa1Q5RUs4eUlwcWV2bWdMNU1NR1gwbXpGUnFwZThweTRTU1VGQUZKTkh5Ukp1NnJPMG5FdkZCbXZSeDQwWXJvNmVON09JMzVvaUlDVTc4RjJpakxSdDF5aUJVSkdIbzBpajdyM0steEp6NUpDWmk3c0t3Zk5yXzd1V3o?oc=5",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "b031b5b1afff320f": {
+  "content_excerpt": "Write your data, queries, and mutations in TypeScript. FeltKit gives you the database, a typed API with live queries, roles enforced on the server, eight built-in services, agent access over MCP, a dashboard, and a build you can deploy three ways—already wired together. Each piece below is in the starter you get from npm create feltkit —running, tested, and sharing one FeltDB instance. Nothing to assemble, no glue code to maintain. Queries and mutations in TypeScript, validated against your schemas. A generated, typed client calls them from React. useQuery re-runs when data it read changes—whoever changed it: another person, an agent, or a background job. Declare roles and permissions once. Every caller—your UI, the HTTP API, AppPort, MCP, services—is checked the same way. Files, notifications, configuration, API keys, webhooks, jobs, schedules, and model selection—on your app’s own database. Agents use your app over MCP under a role, like people do. Consequential actions wait for approval—in production, from someone other than who proposed them. A dashboard for data, capabilities, services, models, and activity. In production, operators sign in with one-time grants. createTestApp gives every test a fresh FeltDB instance—no mocks. Act as any user and assert what the server allows. One container, Managed FeltDB, or your own FeltDB server. The build is verified before it is packaged. Declare the application, its roles, and its data. Write queries and mutations. FeltKit serves t",
+  "first_seen": "2026-11-02T18:03:57.410502+00:00",
+  "id": "86a9418fe873f0e6",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-02T17:29:00+00:00",
+  "sid": "b031b5b1afff320f",
+  "source": "hackernews_ai",
+  "summary_1line": "Convex, but agent native and no vendor lock in",
+  "title": "Convex, but agent native and no vendor lock in",
+  "type": "news",
+  "url": "https://www.getfeltkit.com",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "b27bf202b7c00f88": {
   "content_excerpt": "Earlier last week I posted my calculation that went viral that projected so much compute coming online next year per SemiAnalysis power availability data, that we would need 2.5T revenue to consume all that, even assuming only 50% of compute for inference at - wait for it - DeepSeek V4.1 Flash rates. I have been running the numbers again and again and have realised the numbers are even more insane than I initially calculated on basis of SemiAnalysis power addition projection, and DS Flash inference economics validated by vLLM and SGLang teams!!! However, proponents of Jevon's paradox have a great track record. This is sincere attempt to see both side of the arguments by modeling the scenarios. Please do review and let me know what you think. vLLM has independently reviewed DeepSeek Flash revenue math (38$ per GPU of GB300 class, although DeepSeek experiments rant with GB200). Interestingly There is 50GW of much compute coming online by end of 2027, per SemiAnalysis. That is deeply researched and high confidence number by SemiAnalysis. Per them, there will be enough accelerators for 2027, although we may have more power than accelerators from 2028: * SemiAnalysis 50 GW power number for 2027 was net new addition and not cumulative power. So that much power will be available by end of 2027. * So cumulative power from 2025 - which is mostly for AI - is 91.6 GW by end of 2027 (Astra has the same interpretation after seeing the article. SemiAnalysis team, please correct me if I got",
   "first_seen": "2026-11-02T11:04:29.009718+00:00",
@@ -689,6 +754,22 @@
   "url": "https://www.inngest.com/blog/docsferatu-an-agent-that-drafts-docs-prs-while-you-sleep",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "e0570fe58d0da468": {
+  "first_seen": "2026-11-02T18:03:57.410502+00:00",
+  "id": "0df5ee223a578487",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-02T17:16:01+00:00",
+  "sid": "e0570fe58d0da468",
+  "source": "hackernews_ai",
+  "summary": "Back in 2022 I was building a data and news site for family offices, private wealth and investment managers. We used the early OpenAI models to write data-driven stories covering the markets for art, collectibles, luxury goods and other cultural assets. Mid-2024, a well-known AI company asked to license our stories. The big labs were signing licensing deals with media companies. This is when it clicked. The biggest reader of news wasn’t going to be people. It was going to be their agents, and agents have unlimited hours of attention. So I built Synorb. It reads thousands of sources and turns fresh content objects into Manifests (structured claims with provenance) that are dispatched via Streams anchored to organizations, people and datasets. Hanging Context is an experiment on top of that. Could an agent read our streams and stand up a news site for other agents to read and find trustworthy? The first version with a home-brewed Hermes agent was cumbersome so I tried Instinct and Muse when they released and settled on Muse as I found it better at narratives, images. An agent runs the site. I wrote this post. How it works: Every 12 hours Muse reads hundreds of new Manifests published in our streams, then writes a new edition for the site. Every article produced cites the Manifests it used. Before it publishes an article, an API checks it for quotes. They must appear word for word in a cited Manifest. Every paragraph needs to be backed by a citation and sources have to be under ",
+  "summary_1line": "Back in 2022 I was building a data and news site for family offices, private wealth and investment managers. We used the early OpenAI models to write data-driven stories covering the markets for art, collectibles, lux...",
+  "title": "Show HN: Hanging Context – news by an agent, for other agents",
+  "type": "news",
+  "url": "https://hangingcontext.com",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "e6077e10f16ce2d8": {
   "content_excerpt": "Flare is a local inference server for NVIDIA SM120/SM121 GPUs, built for long conversations, coding agents, and repeated tool use. Its goal is to make the memory, bandwidth, and compute in workstations and compact systems such as DGX Spark go further, while keeping generation responsive. This is a research prototype, and is made available via open-source to enable technical collaboration and collect early feedback. Embrace the standard PyTorch ecosystem at build time; serve from Rust. Ignition uses PyTorch, Transformers, and FlashInfer/b12x to load models, tune kernels, compile forwards, and capture CUDA graphs into a runtime package. Helios, the Rust runtime, serves that package without Python. Compilation and graph capture finish before serving. Build on the model ecosystem. Reuse canonical model implementations wherever their dataflow fits, and specialize the parts that need different layouts or execution. Model development keeps the tools and libraries that make the Python ecosystem productive. Make memory and state explicit. Plan buffers and execution capacities ahead of time. Treat conversation state—including recurrent state alongside KV caches—as a whole, so reuse, branching, and resuming preserve it correctly. Keep the runtime small and shared. Model recipes own model computation; the runtime owns scheduling, cache storage, and request handling. A focused hardware and kernel stack keeps those boundaries manageable. vLLM covers a much broader range of models, hardware",
   "first_seen": "2026-11-02T04:05:14.811183+00:00",
@@ -760,6 +841,25 @@
   "type": "news",
   "url": "https://telem.ai/blog/even-the-best-search-provider",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "f5efa1f91d2ffd55": {
+  "content_excerpt": "It feels like everyone is converging on the same agent architecture: an LLM, running in a loop, calling tools, running in a sandbox. Claude Code - perhaps the first high profile manifestation of this - came out over a year and a half ago. Deep Agents , our agent harness, launched over a year ago. This pattern has been building for a while. There’s nothing bad with that convergence per se, but it has led to a sentiment among some AI engineers that I’ve talked to recently that “all the hard problems are solved” or “there’s no new AI engineering problems to solve”. When people express this sentiment, I think they are largely talking about the context engineering practices we do to make agents work. And to some extent they are right - there are a lot of standard-ish context engineering solutions we’ve all arrived at: The good news (for context engineering aficionados like myself) is that I think we’re seeing a step function change in agent capabilities, or at least how they are being used. Specifically, over the past few months every agent builder I’ve chatted with has been thinking about proactive, always on, goal-oriented agents . The core of this agent shares a lot of similarities with coding agents, but there are a set of new challenges as well. I highlight a few below. We (at LangChain, and in the industry) don’t necessarily have solutions (or at least, general solutions) for these, so thinking about these has been the most fun I’ve had in a while! How to be proactive withou",
+  "first_seen": "2026-11-02T18:03:57.410502+00:00",
+  "id": "52e10ad7e4501911",
+  "image_url": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6ae8c3176dbb11c11eaf324b_context-engineering-challenges-blog.png",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-02T16:51:00+00:00",
+  "sid": "f5efa1f91d2ffd55",
+  "source": "langchain_blog",
+  "summary": "LangChain CEO Harrison Chase shares insights into the biggest harness engineering challenges with the emergence of proactive agents.",
+  "summary_1line": "LangChain CEO Harrison Chase shares insights into the biggest harness engineering challenges with the emergence of proactive agents.",
+  "title": "New context engineering challenges in late 2026",
+  "type": "news",
+  "url": "https://www.langchain.com/blog/context-engineering-challenges-late-2026",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "faef8337e561998f": {
   "also_covered": [

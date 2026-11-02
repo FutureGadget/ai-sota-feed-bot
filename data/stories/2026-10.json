@@ -5326,6 +5326,22 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Oct/8/carson-gross"
  },
+ "36261eb7a1c4b20b": {
+  "first_seen": "2026-11-02T18:03:57.410502+00:00",
+  "id": "c288e48895430796",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-30T17:59:34+00:00",
+  "sid": "36261eb7a1c4b20b",
+  "source": "arxiv_cs_ai",
+  "summary": "Agentic workflows are increasingly shifting towards long-horizon tasks, such as open-ended scientific work, where models benefit from long context windows. However, at ultra-long context (above 1M tokens), full attention is prohibitively expensive. A promising approach is sparse attention, in which a dedicated indexer selects a subset of keys for the attention. Yet current methods of indexing either still have quadratic cost in context size or lose accuracy at ultra-long context scale. We address this with Latent Sparse Attention (LSA), an efficient attention method that maintains accuracy at ultra-long context. In LSA, keys are hierarchically clustered in a learned latent space, and queries score the hierarchy of clusters instead of scoring every key, making prefill, decode and training faster at long context. We propose two variants, Distilled-LSA (D-LSA), which can be applied to pre-trained models via distillation, and Native-LSA (N-LSA), which is trained natively on the next-token loss alone. On GLM-5.3-FLASH (QWEN-3.8-27B) at 10M tokens, D-LSA speeds up one attention layer by 22.7x (72.4x) in prefill and 4.6x (42.5x) in decode over its original sparse attention (full attention), while keeping similar accuracy across a variety of tasks. N-LSA matches the accuracy of full attention with a training speedup of 1.6x per layer at 128k tokens. LSA offers practical and efficient attention for models to benefit from ultra-long context.",
+  "summary_1line": "Agentic workflows are increasingly shifting towards long-horizon tasks, such as open-ended scientific work, where models benefit from long context windows. However, at ultra-long context (above 1M tokens), full attent...",
+  "title": "Latent Sparse Attention: Towards Subquadratic Ultra-Long Context Attention",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.42147v1",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "367aa80d50961b90": {
   "first_seen": "2026-10-14T05:03:54.985580+00:00",
   "id": "2ccea466b738bb6a",
@@ -9399,6 +9415,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOMFg2VHpSTW83Q2xhNjRVZUxLWExLOWtDWEdwTWlUbHFoQkJfSTR2dkk4ZFFNa2VzcHpqOHlJY0JNNkE1U0pOQkZyOTZKRXF1OUV6OUhMbE9wZF9fOUFpaTg2bVRmMGFyLUtWTW96enU1bnE1Z204eW9zREM0cFV6ejZsTGM5QWlGd2RnZmtURmMzaHRtYkpJbTZXV043WTZickZEQXF2TWxkVmJmX3VMRWYxdU5udFpTN3A3WVZpakRyRHVodERabjFMRQ?oc=5"
  },
+ "5f2cad6074976fb5": {
+  "first_seen": "2026-11-02T18:03:57.410502+00:00",
+  "id": "5c57eaa860014159",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-10-30T17:26:50+00:00",
+  "sid": "5f2cad6074976fb5",
+  "source": "arxiv_cs_lg",
+  "summary": "Low-Earth orbit (LEO) satellite networks present a challenging routing environment due to rapidly changing topology, traffic, and link conditions. Existing deep reinforcement learning (DRL) routing methods typically rely on current observations and information encoded in network weights, limiting their ability to exploit successful past experiences. We propose RAMA, a retrieval-augmented multi-agent DRL framework with Approximate Information State (AIS), in which each satellite combines its local observation, recent routing history, neighboring state information, and retrieved entries from a per-satellite episodic memory. Retrieved experiences are integrated through a Transformer-based decision network trained with AIS-based auxiliary objectives. With weights frozen in a 140-satellite Kepler constellation, RAMA reduces mean end-to-end latency by 13.4% and 99th-percentile latency by 66.7% relative to the state-of-theart double deep Q-network (DDQN) routing method, mainly by avoiding long detours. Updated online, RAMA remains stable while DDQN degrades. On the 1,584-satellite Starlink shell 1, the reduction in mean latency grows to 93.2%, and updating RAMA online lowers its mean latency by a further 25.5%. These results demonstrate the effectiveness of retrieval-augmented memory for scalable decentralized routing in LEO satellite networks.",
+  "summary_1line": "Low-Earth orbit (LEO) satellite networks present a challenging routing environment due to rapidly changing topology, traffic, and link conditions. Existing deep reinforcement learning (DRL) routing methods typically r...",
+  "title": "RAMA: Retrieval-Augmented Multi-Agent Routing with Episodic Memory for LEO Satellite Networks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.42068v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "5f579aa6acc66ac6": {
   "first_seen": "2026-10-15T02:03:56.207653+00:00",
   "id": "c3be719fc34c49aa",
@@ -9946,6 +9979,18 @@
   "title": "Nanbeige4.3-33B – Flagship teacher LLM",
   "type": "news",
   "url": "https://huggingface.co/Nanbeige/Nanbeige4.3-33B"
+ },
+ "65dc6916d3b352f1": {
+  "first_seen": "2026-11-02T18:03:57.410502+00:00",
+  "id": "30b9d55cb761cba6",
+  "published": "2026-10-30T16:05:17+00:00",
+  "sid": "65dc6916d3b352f1",
+  "source": "arxiv_cs_lg",
+  "summary": "Few-step flow models generate samples through a handful of large denoising transitions. Applying GRPO to such models requires introducing stochasticity into the denoising transitions, and when a single transition spans a wide range of noise levels, the choice of the resulting stochastic policy becomes a major factor in optimization. Recent constructions constrain the policy to preserve the target flow coefficients, but this constraint admits a family of policies and offers no criterion for choosing among them. We introduce Geo-FSRL (Geometry-Optimized Few-Step Reinforcement Learning), built on a selection principle: at a fixed conditioning state and timestep pair, choose the admissible policy that minimizes the conditional KL divergence induced by any given nonzero velocity-output update. Within a coefficient-preserving family of isotropic Gaussian transitions, this criterion reduces to minimizing a single scalar geometry factor that determines the conditional KL for every velocity-output update. The same factor governs velocity-space Fisher information and conditional transition log-likelihood-ratio variance. We derive the unique closed-form optimizer within this family, shared across all nonzero update magnitudes and directions, with transition coefficients determined by both the source and target noise levels. Because the minimized geometry factor still varies across timesteps, we further adopt gradient-scale matching from prior work and derive closed-form policy-gradient ",
+  "summary_1line": "Few-step flow models generate samples through a handful of large denoising transitions. Applying GRPO to such models requires introducing stochasticity into the denoising transitions, and when a single transition span...",
+  "title": "Optimizing Stochastic Policy Geometry for Few-Step Flow Reinforcement Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41949v1"
  },
  "6619134087094c0c": {
   "first_seen": "2026-10-22T16:04:51.449702+00:00",
@@ -15525,6 +15570,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.41604v1",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "9fcab6d2f37987fe": {
+  "first_seen": "2026-11-02T18:03:57.410502+00:00",
+  "id": "5e81adf318d83815",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-30T12:05:54+00:00",
+  "sid": "9fcab6d2f37987fe",
+  "source": "arxiv_cs_cl",
+  "summary": "Reinforcement learning with verifiable rewards (RLVR) has recently been extended to vision-language models (VLMs), yet its effectiveness remains limited for text-rich reasoning tasks. We highlight a key factor contributing to this limitation: models frequently arrive at correct final answers despite misperceiving visual information during intermediate steps. We define this phenomenon as Correct-but-Visually-Misgrounded Reasoning (CVMR). Because standard RLVR rewards only final-answer correctness, it fails to differentiate between properly grounded and misgrounded reasoning, reinforcing both equally. Through token-level analysis, we reveal that CVMR tokens exhibit distinct attention patterns that differ systematically from well-grounded ones. Based on this observation, we propose GRIT, a training framework that incorporates visual grounding into RLVR to mitigate the impact of CVMR. Furthermore, to address the lack of text-rich reasoning benchmarks that allow for systematic evaluation across text length and reasoning depth, we introduce GRIT-Bench. Experiments demonstrate that GRIT significantly improves both reasoning accuracy and grounding fidelity over existing RLVR methods.",
+  "summary_1line": "Reinforcement learning with verifiable rewards (RLVR) has recently been extended to vision-language models (VLMs), yet its effectiveness remains limited for text-rich reasoning tasks. We highlight a key factor contrib...",
+  "title": "GRIT: Gradient Masking for Visually Misgrounded Tokens in Text-Rich Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41629v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "9fd97eabe884fec8": {
   "first_seen": "2026-10-22T03:04:56.535755+00:00",
