@@ -212,6 +212,32 @@ h1, h2, h3 {
   display: none;
 }
 
+/* site-chrome.js is deferred and moves the fallback links into the Desk
+   dialog. Until it runs, keep them out of the layout, or the page renders an
+   open link grid and then jumps up when the script collapses it (CLS 0.35 on
+   a 375px phone). No-JS readers keep the links; if the script never arrives,
+   they reveal after 8s. */
+@media (scripting: enabled) {
+  html:not(.site-chrome-enhanced):not(.site-chrome-static) .site-chrome .site-nav-fallback,
+  html:not(.site-chrome-enhanced):not(.site-chrome-static) .site-chrome .site-actions-fallback {
+    max-height: 0;
+    margin-top: 0;
+    overflow: hidden;
+    border-width: 0;
+    visibility: hidden;
+    animation: site-chrome-fallback-reveal 0s 8s forwards;
+  }
+}
+
+@keyframes site-chrome-fallback-reveal {
+  to {
+    max-height: 60rem;
+    margin-top: 0.75rem;
+    border-width: 1px;
+    visibility: visible;
+  }
+}
+
 .site-chrome-enhanced [data-site-browse-open],
 .site-chrome-enhanced [data-site-more-open] {
   display: inline-flex;

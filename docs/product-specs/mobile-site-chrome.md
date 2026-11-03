@@ -318,8 +318,13 @@ Before enhancement:
 After enhancement:
 
 - Shared JavaScript may place or clone destination links into Editor's Desk.
-- The fallback navigation is hidden only after enhancement succeeds.
-- A script error leaves usable navigation rather than an inert Editor's Desk button.
+- When the browser runs scripts (`@media (scripting: enabled)`), the fallback
+  navigation stays out of the layout until `site-chrome.js` finishes, so the
+  page never paints the open link grid and then jumps when it collapses.
+  Readers without JavaScript always see it.
+- A script error leaves usable navigation rather than an inert Editor's Desk
+  button: a browser that can't enhance gets `site-chrome-static` and shows the
+  links at once, and if the script never runs they reveal after 8 seconds.
 
 ## Visual contract
 

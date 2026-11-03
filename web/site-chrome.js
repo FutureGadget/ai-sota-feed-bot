@@ -31,6 +31,8 @@
     !browseButton ||
     typeof HTMLDialogElement === "undefined"
   ) {
+    // Not enhancing: show the fallback links site-chrome.css hides pre-boot.
+    root.classList.add("site-chrome-static");
     return;
   }
 

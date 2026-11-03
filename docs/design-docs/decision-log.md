@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-11-03 (Fallback nav stays hidden until site chrome boots)
+
+- **Decision:** When scripting is enabled, `site-chrome.css` keeps `.site-nav-fallback` and `.site-actions-fallback` out of the layout until `site-chrome.js` adds `site-chrome-enhanced`. The early-return path adds `site-chrome-static` to show them at once, and an 8-second animation reveals them if the script never runs. No-JS readers are unchanged.
+- **Context / Problem:** `site-chrome.js` is deferred, so every page first painted the full fallback link grid (11 destinations plus the language and theme row, about 330px on a 375px phone) and then collapsed it into the Desk dialog. On the feed this pushed the hero to y=434, then jumped the whole page up 332px. Measured with a throttled 375×812 load: CLS 0.345 (414px: 0.304; desktop: 0.13). Core Web Vitals counts anything above 0.25 as poor.
+- **Rationale:** The jump lands exactly when a reader starts on the first story, and it is a ranking signal for search. A CSS-only fix covers every page that loads `site-chrome.css`, including generated pages, with no markup change.
+- **Impact:** `web/site-chrome.css`, `web/site-chrome.js`, asset version bump (`SITE_CHROME_ASSET_VERSION` and the hand-written shells), `tests/test_site_chrome.py`, `docs/product-specs/mobile-site-chrome.md`. After the change the same load measures CLS 0.018 (375px), 0.002 (414px), 0.07 (desktop).
+- **Rollback:** Delete the `@media (scripting: enabled)` block and its keyframes from `site-chrome.css`.
+
 ## 2026-11-03 (Merged storylines stop publishing their translations)
 
 - **Decision:** `collect_i18n_pages` skips storylines whose English page is a merge redirect (`superseded_storyline_slugs`), and the redirect writer overwrites any existing `web/<locale>/storyline/<slug>.html` with the same stub.

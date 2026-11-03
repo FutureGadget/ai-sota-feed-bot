@@ -96,6 +96,25 @@ class SiteChromeContractTest(unittest.TestCase):
         self.assertIn("site-chrome-enhanced", js)
         self.assertIn("aria-current", js)
 
+    def test_fallback_links_stay_out_of_layout_until_chrome_boots(self) -> None:
+        css = (ROOT / "web" / "site-chrome.css").read_text(encoding="utf-8")
+        js = (ROOT / "web" / "site-chrome.js").read_text(encoding="utf-8")
+
+        # Scripted pages must not paint the open link grid and then collapse
+        # it (a 0.35 layout shift on phones); no-JS pages keep the links.
+        block = css.split("@media (scripting: enabled)", 1)[1].split("@keyframes", 1)[0]
+        self.assertIn(
+            "html:not(.site-chrome-enhanced):not(.site-chrome-static) .site-chrome .site-nav-fallback",
+            block,
+        )
+        self.assertIn(".site-actions-fallback", block)
+        self.assertIn("visibility: hidden", block)
+        # If the script never runs, the links come back on their own.
+        self.assertIn("animation: site-chrome-fallback-reveal", block)
+        self.assertIn("@keyframes site-chrome-fallback-reveal", css)
+        # A browser that can't enhance shows the links immediately.
+        self.assertIn('root.classList.add("site-chrome-static")', js)
+
     def test_floating_bar_waits_for_the_in_flow_bar_and_compacts_on_mobile(self) -> None:
         css = (ROOT / "web" / "site-chrome.css").read_text(encoding="utf-8")
         js = (ROOT / "web" / "site-chrome.js").read_text(encoding="utf-8")
