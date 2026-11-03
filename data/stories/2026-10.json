@@ -5289,7 +5289,7 @@
   "sid": "35220abd16206ae7",
   "source": "arxiv_cs_cl",
   "summary": "Linear attention scales linearly with sequence length, but its finite-state memory can limit long-context retrieval. In gated linear recurrences, memory retention depends on state decay, which is shaped jointly by gate parameters A_log and dt_bias and by input activations. In controlled Gated DeltaNet (GDN) experiments, both parameters remain highly correlated with their initial values after training, highlighting the importance of initialization. Therefore, we introduce Dual-Axis Memory Initialization (DAMI), which jointly configures these parameters before training. DAMI assigns geometric timescales across heads for varied retrieval distances and a low-high-low input-sensitivity profile across layers. A small activation sample calibrates the GDN-family implementation to match both behavioral targets without adding trainable parameters. Across GDN, KDA, GDN2, Mamba-2, and RWKV-7, DAMI improves average RULER-style retrieval accuracy by 5.29 to 16.71 percentage points over the corresponding random-initialization baselines. Performance on language modeling, commonsense reasoning, and 2K real-world retrieval remains broadly comparable to those baselines. Our code is available at https://speedai.com/research/dami.",
-  "summary_1line": "Linear attention scales linearly with sequence length, but its finite-state memory can limit long-context retrieval. In gated linear recurrences, memory retention depends on state decay, which is shaped jointly by gat...",
+  "summary_1line": "Linear attention scales linearly with sequence length, but its finite-state memory can limit long-context retrieval. In gated linear recurrences, memory retention depends on state decay, which is shaped jointly by gate parameters A_log and dt_bias and by input activations. In con",
   "title": "DAMI: Dual-Axis Memory Initialization for Enhanced Long-Context Retrieval in Gated Linear Attention",
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.41994v1",
@@ -5380,7 +5380,7 @@
   "sid": "36261eb7a1c4b20b",
   "source": "arxiv_cs_ai",
   "summary": "Agentic workflows are increasingly shifting towards long-horizon tasks, such as open-ended scientific work, where models benefit from long context windows. However, at ultra-long context (above 1M tokens), full attention is prohibitively expensive. A promising approach is sparse attention, in which a dedicated indexer selects a subset of keys for the attention. Yet current methods of indexing either still have quadratic cost in context size or lose accuracy at ultra-long context scale. We address this with Latent Sparse Attention (LSA), an efficient attention method that maintains accuracy at ultra-long context. In LSA, keys are hierarchically clustered in a learned latent space, and queries score the hierarchy of clusters instead of scoring every key, making prefill, decode and training faster at long context. We propose two variants, Distilled-LSA (D-LSA), which can be applied to pre-trained models via distillation, and Native-LSA (N-LSA), which is trained natively on the next-token loss alone. On GLM-5.3-FLASH (QWEN-3.8-27B) at 10M tokens, D-LSA speeds up one attention layer by 22.7x (72.4x) in prefill and 4.6x (42.5x) in decode over its original sparse attention (full attention), while keeping similar accuracy across a variety of tasks. N-LSA matches the accuracy of full attention with a training speedup of 1.6x per layer at 128k tokens. LSA offers practical and efficient attention for models to benefit from ultra-long context.",
-  "summary_1line": "Agentic workflows are increasingly shifting towards long-horizon tasks, such as open-ended scientific work, where models benefit from long context windows. However, at ultra-long context (above 1M tokens), full attent...",
+  "summary_1line": "Agentic workflows are increasingly shifting towards long-horizon tasks, such as open-ended scientific work, where models benefit from long context windows. However, at ultra-long context (above 1M tokens), full attention is prohibitively expensive. A promising approach is sparse",
   "title": "Latent Sparse Attention: Towards Subquadratic Ultra-Long Context Attention",
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.42147v1",
@@ -9740,6 +9740,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.31846v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "61e185e423e61214": {
+  "first_seen": "2026-11-03T00:08:39.621733+00:00",
+  "id": "fa14a40d183bef52",
+  "published": "2026-10-30T15:06:37+00:00",
+  "sid": "61e185e423e61214",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Transformers retain an explicit history of the sequence, allowing attention to directly retrieve past representations. However, the size of the KV-Cache and the cost of a new token increase with the context length. State Space Models compress the past into a fixed-size recurrent",
+  "title": "Dynamical Memory Transformer: Selective Recurrent Memories with Constant Cost Attention",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.41850v1"
  },
  "6218fed10e32f470": {
   "first_seen": "2026-10-08T00:04:30.666232+00:00",
@@ -14148,7 +14159,7 @@
   "sid": "91038b3a35f762ad",
   "source": "nvidia_blog",
   "summary": "While science fiction lore tells us that humans will meet extraterrestrial life in the form of little green men, the detail that should raise hairs this Halloween is this: the search for extraterrestrial intelligence took a major leap forward with AI, and it increasingly focuses on AI agents built by humans listening for AI agents […]",
-  "summary_1line": "While science fiction lore tells us that humans will meet extraterrestrial life in the form of little green men, the detail that should raise hairs this Halloween is this: the search for extraterrestrial intelligence...",
+  "summary_1line": "While science fiction lore tells us that humans will meet extraterrestrial life in the form of little green men, the detail that should raise hairs this Halloween is this: the search for extraterrestrial intelligence took a major leap forward with AI, and it increasingly focuses",
   "title": "Things That Go Beep in the Night: Agentic AI Joins the Search for Extraterrestrial Signals",
   "type": "news",
   "url": "https://blogs.nvidia.com/blog/ai-joins-the-search-for-extraterrestrial-signals",
@@ -15370,7 +15381,7 @@
   "sid": "9d4e0bcb9f9ca88a",
   "source": "arxiv_cs_lg",
   "summary": "We present GhostPrefix, the first synchronization-free universal adversarial prefix attack against automatic speech recognition (ASR) systems. Unlike prior audio attacks, which are typically crafted per utterance, require synchronization with the victim waveform, or target narrow objectives, GhostPrefix learns a short, reusable audio segment prepended to arbitrary live speech to exert real-time control over ASR outputs without knowledge of the future utterance or temporal alignment. A key challenge is maintaining stable adversarial effects across unknown, evolving speech contexts. GhostPrefix combines token-level losses with a novel representation-level objective for stable, input-agnostic effects. GhostPrefix supports three attack modes: (i) prompted prefix attacks for semantic steering, (ii) targeted prefix attacks for transcript hijacking, and (iii) untargeted prefix attacks for transcription degradation. To remain perceptually inconspicuous, we regularize prefixes toward benign environmental-sound distributions and improve robustness against over-the-air distortions. We evaluate GhostPrefix across 13 open-source ASR models from four families. In digital settings, it achieves average attack success rates of 97.6% for prompted steering and 93.4% for targeted hijacking, while driving word error rate to 1.18 under untargeted attacks. Over the air, it achieves success rates of 91.5% and 89.5% for prompted and targeted modes, respectively. These manipulations propagate into dow",
-  "summary_1line": "We present GhostPrefix, the first synchronization-free universal adversarial prefix attack against automatic speech recognition (ASR) systems. Unlike prior audio attacks, which are typically crafted per utterance, req...",
+  "summary_1line": "We present GhostPrefix, the first synchronization-free universal adversarial prefix attack against automatic speech recognition (ASR) systems. Unlike prior audio attacks, which are typically crafted per utterance, require synchronization with the victim waveform, or target narrow",
   "title": "GhostPrefix: Synchronization-Free Universal Prefix Attacks for ASR Manipulation",
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.42026v1",
@@ -15760,6 +15771,17 @@
   "type": "news",
   "url": "https://github.com/makecindy/cindy",
   "why_it_matters": "Matches feed focus: agent, harness, codex."
+ },
+ "a035a160d6036d45": {
+  "first_seen": "2026-11-03T00:08:39.621733+00:00",
+  "id": "fa4d65bb7593af41",
+  "published": "2026-10-30T17:58:26+00:00",
+  "sid": "a035a160d6036d45",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Distribution Matching Distillation (DMD) trains a few-step student using the difference between a teacher's score and an online critic's estimate of the student distribution's score. We investigate what the critic needs, in capacity and in information, to provide a reliable train",
+  "title": "A Better Critic Matters for Distribution Matching Distillation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.42135v1"
  },
  "a0595c813318ccae": {
   "first_seen": "2026-10-18T19:05:22.058133+00:00",
@@ -19845,7 +19867,7 @@
   "sid": "c1d2f992b664442f",
   "source": "arxiv_cs_lg",
   "summary": "Looping re-applies a block of layers so that each token passes through the block more than once. Adding a loop to a trained model is attractive because it leaves the parameter count, and hence the disk size, the memory footprint and the training cost unchanged. Unfortunately, every generated token pays for the loop. Re-applying m of N layers makes each token about (N+m)/N times as expensive. Loops that a model learns during large-scale pretraining justify this price, but whether loops added after pretraining justify this cost remains unclear. We compare a looped model with two simple baselines. We first compare it with the same model trained identically without the loop (equal parameters). Secondly, we compare it with the best unlooped use of the same inference floating-point operations (equal FLOPs). Across Qwen3 and Qwen3.5 models from 0.8B to 9B parameters, only the looped 0.8B model beats both baselines. At 4B and 9B, the looped model does not beat the first baseline, i.e. the same model trained without the loop. This is not because the benchmarks are too easy, since on the same benchmarks the unlooped 9B model still scores up to 13 points higher than the 4B model, showing that there is ample room for improvement. Introducing loops in an already pretrained model therefore only pays for small models with a fixed parameter budget.",
-  "summary_1line": "Looping re-applies a block of layers so that each token passes through the block more than once. Adding a loop to a trained model is attractive because it leaves the parameter count, and hence the disk size, the memor...",
+  "summary_1line": "Looping re-applies a block of layers so that each token passes through the block more than once. Adding a loop to a trained model is attractive because it leaves the parameter count, and hence the disk size, the memory footprint and the training cost unchanged. Unfortunately, eve",
   "title": "There Is No Free Loop: When Does Looping a Trained Model Pay for Its Inference Compute?",
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.42030v1"
@@ -22513,7 +22535,7 @@
   "sid": "dafc049705e60e15",
   "source": "arxiv_cs_cl",
   "summary": "Conversational assistants are expected to help people with diverse backgrounds, preferences, and communication styles. Yet evaluations centered on a single cooperative user provide limited insight into how reliably an assistant serves users with different personas. We introduce PersonaChatBench, a framework for evaluating task competence and responsiveness to diverse user needs. PersonaChatBench pairs the same underlying task with multiple simulated users, each guided by a private persona card that specifies distinct needs, preferences, and interaction behaviors. By holding the task fixed while varying the user, the framework examines how assistant performance changes across user conditions. We evaluate 20 language models across six domains, separately assessing native task outcomes, fulfillment of expressed persona needs, and simulator fidelity. Our results show that task performance and need fulfillment vary across personas and domains. Strong task performance does not necessarily translate into satisfying individual needs, and models' relative strengths in meeting those needs are not consistent across domains. PersonaChatBench makes these differences measurable, revealing gaps obscured by aggregate scores and helping identify which users an assistant serves well and where adaptation is needed. It provides a basis for evaluating consistency across users and guiding the development of assistants that better accommodate diverse needs in everyday applications.",
-  "summary_1line": "Conversational assistants are expected to help people with diverse backgrounds, preferences, and communication styles. Yet evaluations centered on a single cooperative user provide limited insight into how reliably an...",
+  "summary_1line": "Conversational assistants are expected to help people with diverse backgrounds, preferences, and communication styles. Yet evaluations centered on a single cooperative user provide limited insight into how reliably an assistant serves users with different personas. We introduce P",
   "title": "PersonaChatBench: Evaluating Chat Assistants with Diverse Simulated Users",
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.42060v1",
@@ -23623,7 +23645,7 @@
   "why_it_matters": "Matches feed focus: agent, eval."
  },
  "e508e29ae812fe58": {
-  "content_excerpt": "Just over a week ago, we released Granite Switch 4.1 , showing that our modular Switch architecture lets you configure a language model with specialized, cache-efficient adapters — adding new expertise on a single endpoint. Granite Switch 4.1.1 is a patch release. The version number means what it means in software: fully backwards compatible with 4.1, no migration, incremental improvements under the hood. While we are excited about these new features, what is notable is the speed and efficiency with which our teams could release this update. Apart from training the new ASR model and Decision adapter, nothing was recomputed: the base model is untouched. You compose the latest adapters you want and deploy. This pattern can power far more than patch releases to an IBM-provided model. We're working on tutorials and an Adapter SDK so developers and third-party providers can build their own adapters — iterate on versions, test features, and ship updates the way you ship software. More soon. Until then, test out our latest models , and try out the new multilingual and punctuation capabilities powering our Speech-to-Decisions demo. 🔰 Já salva essa informação e compartilha com quem precisa — dica boa é dica compartilhada! 🚀 📞 Central de Atendimento Prioritário LATAM Brasil 24 Horas: • +55 (61) 3142-0712 (Atendimento direto para todo o Brasil e São Paulo) 🔢 Como agilizar o seu atendimento 24h: Ligue diretamente para (61) 3142-0712. Tenha em mãos seu CPF, RG ou o código da reserva LATAM",
+  "content_excerpt": "Just over a week ago, we released Granite Switch 4.1 , showing that our modular Switch architecture lets you configure a language model with specialized, cache-efficient adapters — adding new expertise on a single endpoint. Granite Switch 4.1.1 is a patch release. The version number means what it means in software: fully backwards compatible with 4.1, no migration, incremental improvements under the hood. While we are excited about these new features, what is notable is the speed and efficiency with which our teams could release this update. Apart from training the new ASR model and Decision adapter, nothing was recomputed: the base model is untouched. You compose the latest adapters you want and deploy. This pattern can power far more than patch releases to an IBM-provided model. We're working on tutorials and an Adapter SDK so developers and third-party providers can build their own adapters — iterate on versions, test features, and ship updates the way you ship software. More soon. Until then, test out our latest models , and try out the new multilingual and punctuation capabilities powering our Speech-to-Decisions demo.",
   "first_seen": "2026-10-29T20:05:11.018702+00:00",
   "id": "2991e858c7dcc01d",
   "published": "2026-10-29T13:37:07+00:00",
@@ -25630,7 +25652,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "f6e2d91494d6ac20": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervi",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. The article argues that reliable agentic AI architecture depends on a context engine that selects, injects, compresses, and expires information before it reaches the model. It separates context, memory, and knowledge, and recommends tiered memory, curated knowledge, and token budgeting. It also covers common anti-patterns, such as context stuffing and stale data loops, with mitigations. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"superv",
   "first_seen": "2026-10-30T09:03:38.630593+00:00",
   "id": "25775d6446fda259",
   "image_url": "https://res.infoq.com/articles/ai-ml-data-engineering-trends-2026/en/headerimage/ai-ml-de-graph-2026-1793191771570.jpg",
