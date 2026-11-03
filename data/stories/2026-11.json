@@ -264,6 +264,22 @@
   "url": "https://openai.com/index/scaling-git-at-openai",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "282dddb5d1dcd0de": {
+  "first_seen": "2026-11-03T09:04:30.637668+00:00",
+  "id": "bc161873c6f7b3a0",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-02T15:51:46+00:00",
+  "sid": "282dddb5d1dcd0de",
+  "source": "arxiv_cs_ai",
+  "summary": "Generative AI is billed per token, yet tokens are not equally expensive. Each token enters the KV-cache and raises the cost of those that follow, so energy grows non-linearly along a sequence whose tokens look identical. No analytical model states what a token costs, and the most accurate SOTA model is a fit, not a law: it absorbs architecture into fitted coefficients, requiring per-LLM fitting. We derive closed-form expressions of the computational and memory-access complexity of LLM inference in terms of architectural hyperparameters, covering MHA and GQA, and compare a family of analytical models of increasing granularity. From these, we obtain the SIMPLE Inference Model to Predict LLMs Energy (SIMPLE), a four-parameter law that separates prefill from decode, and decode into KV-cache cost and next-token computation. Over traces of 13 dense LLMs from six families on NVIDIA H100 GPUs, it attains R2 = 0.969 and 11.97% MAPE, 3.1-3.5x below the SOTA, without per-LLM calibration. The SIMPLE law explains as well as predicts: prefill energy grows quadratically with the hidden dimension, so larger LLMs suffer most from long inputs; and more aggressive GQA KV grouping reduces the per-token energy by up to 3x relative to standard MHA. Increasing the reasoning token budget pushes output length beyond the analytically derived energy minimum, driving super-linear energy growth; although accuracy grows with the budget, energy grows faster, so Intelligence per Joule peaks at an intermedia",
+  "summary_1line": "Generative AI is billed per token, yet tokens are not equally expensive. Each token enters the KV-cache and raises the cost of those that follow, so energy grows non-linearly along a sequence whose tokens look identic...",
+  "title": "The SIMPLE Law for Energy Cost of LLM Inference",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03330v1",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "2dd1a315b516efdb": {
   "first_seen": "2026-11-01T17:05:03.756723+00:00",
   "id": "96d82a863fcfbae7",
@@ -292,6 +308,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03097v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "2f11643a689186b4": {
+  "content_excerpt": "TL;DR: H200 loses money even when fully busy. B300 makes money once it's 35% busy. Which GPU card you rent matters more than which inference engine you run. A common claim on X and LinkedIn is that inference is an easy business: demand is so high that anyone who can rent GPUs can sell tokens at a profit, with no technology of their own. This post checks that claim against public data. Let's be fai",
+  "first_seen": "2026-11-03T09:07:00.495056+00:00",
+  "id": "843d85f5a864aa18",
+  "published": "2026-11-03T04:27:10+00:00",
+  "sid": "2f11643a689186b4",
+  "source": "hackernews_ai",
+  "title": "Is hosting an open-source inference engine profitable?",
+  "type": "news",
+  "url": "https://userecurrence.ai/research/is-hosting-open-source-inference-profitable"
  },
  "2f97c84acd3e3328": {
   "content_excerpt": "Check what your AI agents actually changed. AI agent safety for databases and health records: rules decide each tool call, a check compares what really changed with what the agent reported, and each action is sealed as a signed record anyone can check offline. Run npx deedglass and a simple local app opens in your browser. Apache-2.0 core. Safety for AI agents that work on databases and health records. Rules decide each AI agent tool call; Deedglass checks what really changed and seals a record. Open source, self-hosted, every feature free. An app opens in your browser. It runs on your own computer, signed in, with no account, no sign-up and no Docker or database to set up, and nothing is sent to us. Choose who will use it (a clinic, hospital IT, or people building with AI), then connect Claude Desktop, Cursor, VS Code, a record system or a database. You need Node 18 or newer. Read Start here for a short tour, or try it without installing anything at deedglass.com/play . Without Docker, start plays the same scene inside the binary, every line labelled live or replay , in under 30 s. More: Quickstart · Docs · Healthcare · Benchmarks · Security · deedglass.com Found it useful? A star helps other people find Deedglass. To hear about new releases, use Watch › Custom › Releases . Deedglass sits between AI agents and the systems they change. Rules decide each tool call, a check compares what the system really changed with what the agent reported (Claimed, Checked or Proven; Matches",
@@ -501,6 +528,13 @@
   "url": "https://github.com/AlwaysFocus/picos"
  },
  "43862ef771dfba65": {
+  "also_covered": [
+   {
+    "source": "anthropic_research",
+    "title": "Progress on provable inference for large language models",
+    "url": "https://www.anthropic.com/research/provable-inference"
+   }
+  ],
   "content_excerpt": "Roy Rinberg (Anthropic), Alex Allain (Anthropic); Alessandro Chiesa (EPFL, StarkWare), Miranda Christ (MIT, RESI), Rahul Dalal (Anthropic STEM Fellows Program, Succinct), Giacomo Fenzi (EPFL), Ben Mayer (Anthropic Fellows Program, MIT), Guy Weissenberg (EPFL) When you talk to a friend in person, you have many ways to know it is really them: you can see them, hear them, shake their hand. When you talk to an AI model, you have almost none. A user querying a model today cannot check that the responses came from the specific model that a developer claims is responding, as opposed to one secretly substituted in by a routing service for cost reasons, or even by an attacker who has tampered with the token stream. Judging from the model’s output alone is unreliable, even if it produces high-quality responses. Cryptographic proofs of inference solve this problem: they let a model provider commit to a model and then prove that each response was produced by that model. Such proofs could enable applications ranging from consumer products to internal security, and could contribute to a toolkit for verifying compliance with AI pacing requirements. Specifically, we have made progress on a powerful type of cryptographic proof known as a “zkSNARK”, which is uniquely fit for provable inference (owing to its strong hiding and efficiency properties). In this post, we share some of that progress, primarily through a system we call FlashProve. A brief technical summary is as follows: We release ou",
   "first_seen": "2026-11-03T08:07:35.878732+00:00",
   "id": "b14d13e65618a77d",
@@ -523,6 +557,24 @@
   "title": "First Publicly Available Neuron-Derived AI Video Model",
   "type": "news",
   "url": "https://www.tbc.co/press-releases/neuron-derived-ai-video-model"
+ },
+ "45805de25e6da487": {
+  "first_seen": "2026-11-03T09:04:30.637668+00:00",
+  "id": "08c7e7a49ec2fef2",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "codex"
+  ],
+  "published": "2026-11-02T14:15:11+00:00",
+  "sid": "45805de25e6da487",
+  "source": "arxiv_cs_cl",
+  "summary": "Rapid advances in cowork agents are shifting human-AI collaboration toward real-world automation, delivering software, designs, and other artifacts. However, such productivity work demands both high-quality delivery on complex productivity tasks and continued monitoring and decision-making over long horizons, a combination that remains an open challenge. We introduce CoworkOS, a general-purpose harness for long-horizon work that separates task strategy from execution management: the model decides actions, delegation, and acceptance, while the runtime maintains state and feedback. Its three-layer architecture enables direct execution or delegation to Subagents, synchronously or asynchronously, under stable responsibilities. Through a shared application layer, humans and agents inspect and revise the same evolving documents, presentations, CAD models, and Blender scenes, so human-in-the-loop participation can enter both through conversation and through direct modification of the work itself. To sustain continuity across agents and sessions, CoworkOS further introduces hierarchical workspaces and persistent semantic memory, so working files, key decisions, and long-running Job logs remain shareable, reusable, and resumable after interruption. Across 12 benchmarks and 6 categories of real-world applications, CoworkOS proves highly competitive with frontier agent applications such as Codex and DeepSeek Harness. As a sustained-work case study, CoworkOS uses GLM-5.3 as its backbone ",
+  "summary_1line": "Rapid advances in cowork agents are shifting human-AI collaboration toward real-world automation, delivering software, designs, and other artifacts. However, such productivity work demands both high-quality delivery o...",
+  "title": "CoworkOS:Scaling Agent Coworkers for Real-world Automation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03178v1",
+  "why_it_matters": "Matches feed focus: agent, harness, codex."
  },
  "473dca1761b35104": {
   "first_seen": "2026-11-01T21:05:16.304862+00:00",
@@ -555,6 +607,18 @@
   "type": "news",
   "url": "https://github.com/arkenforge/arken-core",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "4b134cedffabe49d": {
+  "content_excerpt": "Project Zero compared two automated tools used by Google to find vulnerabilities in Chrome’s JavaScript engine, V8, on a regular basis. Fuzzilli is a generative JavaScript engine fuzzer and BigSleep is an LLM-based bug finding system. In the past six months, BigSleep found more vulnerabilities than Fuzzilli (45 versus 37) with a 25% overlap in the specific bugs reported. Since this comparison methodology has a tendency to underestimate overlap, we also performed dedicated experiments to test theoretical overlap in vulnerabilities reported since 2023. These experiments estimated overlap at roughly 60%. Regardless of which value is accurate, a substantial portion of vulnerabilities were discoverable by only LLMs or only fuzzing. While it is extremely promising that LLMs have become able to find so many vulnerabilities so quickly, fuzzing and LLMs are still complementary approaches. We recommend vendors perform both fuzzing and agentic analysis of their code to maximize the number of vulnerabilities that get reported before they impact users. Fuzzing has long been successfully applied to software projects such as Chrome or V8 (Chrome’s JavaScript engine) to detect bugs. Recently, the arrival of powerful LLMs able to read, reason about, and write code is causing a transformative change to software development and software security. With hundreds, sometimes thousands of new bugs and vulnerabilities having been discovered in well-fuzzed targets, a natural question arises: how do ne",
+  "first_seen": "2026-11-03T09:04:30.637668+00:00",
+  "id": "9cf3411f0eb5b6c1",
+  "published": "2026-11-03T09:04:15+00:00",
+  "sid": "4b134cedffabe49d",
+  "source": "hackernews_ai",
+  "summary_1line": "Fuzzers vs. AI: Comparing Fuzzilli and BigSleep on JavaScript Engines",
+  "title": "Fuzzers vs. AI: Comparing Fuzzilli and BigSleep on JavaScript Engines",
+  "type": "news",
+  "url": "https://projectzero.google/2026/10/fuzzing-v-AI.html"
  },
  "4eb8a6cb7861fe9d": {
   "content_excerpt": "QwenPU is Qwen3.5-4B with a 32-bit RISC-V CPU and a vector unit compiled into its weights. The vector unit runs a whole neural network inside the model's forward passes: Andrej Karpathy's stories260K , the 260K-parameter Llama from llama2.c , runs as a program on it and writes its stories. It's part of Qwenputer : the same CPU, compiled into transformer layers in front of Qwen's own, every weight set by a compiler, with Qwen3.5's Gated DeltaNet state as its memory. Qwenputer-npu gave that CPU dot-product instructions. QwenPU gives it a vector unit of its own: separate memories in DeltaNet heads, 64-lane matrix rows a token, and whole vector results streamed through the token stream. Work in progress. QwenPU is exact, but not yet small: the checkpoint is 26.7 GB, so it needs a 40 GB or larger GPU to load whole. The story demo and the checks run the computer's layers on their own and fit a 24 GB GPU. Trimming the hidden size, and with it the checkpoint, is next. stories260K is a C program here ( guests/stories260k/stories_vx.c ). Its int4 weights sit in the vector unit's weight memory, loaded from the program, and every matrix row, residual add, softmax and attention read is a vector op. None of it is compiled into the checkpoint, so any model that fits runs the same way. Once upon a time, there was a little girl named Lily. She loved to play outside in the park. One day, she saw a big, red ball. She wanted to play with it, but it was too high Its memories are DeltaNet heads: 1",
@@ -1107,6 +1171,22 @@
   "url": "https://github.com/nateherkai/roast-room",
   "why_it_matters": "Matches feed focus: claude code."
  },
+ "afe272f4d0aa3179": {
+  "content_excerpt": "Google Maps, social profiles, RAG, reviews, local AI visibility and more — production-grade tools exposed as pay-per-event APIs, from $0.002 per result plus run fees where applicable. Claude, GPT, Cursor and n8n discover and call them through MCP. Agents can also pay per call in USDC (x402). Pay per event, not per month. A Google Maps business costs $0.03 plus the run fee. A LinkedIn profile costs $0.02. Many Actors offer dryRun for integration tests; Apify platform usage may still apply. Businesses with phone, website, address, category, rating and reviews as clean JSON. Get alerted when public APIs break: OpenAPI diff + release classification, Slack alerts. Turn a business's Google reviews into a personalized audit report and outreach email. Live prices for French stations from official open data, filtered by department and fuel type. Track competitor hotel prices over time as clean datasets for revenue management. Audit one business website, Google profile and recent reviews with a transparent score and prioritized fixes. Create a persistent baseline and detect new reviews, rating changes and AI-readiness regressions with webhook alerts. Measure brand mentions and official-domain citations in real AI answers, with model-specific history and deltas. Each link opens a published Apify task with a prefilled input, FAQ and a real acceptance-test dataset. Il utilise le serveur MCP Apify ou la façade MCP Adaga, lit le schéma d’entrée de l’outil, puis lance une tâche publique ou u",
+  "first_seen": "2026-11-03T09:04:30.637668+00:00",
+  "id": "ef0288ba1008506f",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-03T08:00:18+00:00",
+  "sid": "afe272f4d0aa3179",
+  "source": "hackernews_ai",
+  "summary_1line": "Pay-per-use APIs for AI agents",
+  "title": "Pay-per-use APIs for AI agents",
+  "type": "news",
+  "url": "https://adagasolutions.lu/toolbox",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "b031b5b1afff320f": {
   "content_excerpt": "Write your data, queries, and mutations in TypeScript. FeltKit gives you the database, a typed API with live queries, roles enforced on the server, eight built-in services, agent access over MCP, a dashboard, and a build you can deploy three ways—already wired together. Each piece below is in the starter you get from npm create feltkit —running, tested, and sharing one FeltDB instance. Nothing to assemble, no glue code to maintain. Queries and mutations in TypeScript, validated against your schemas. A generated, typed client calls them from React. useQuery re-runs when data it read changes—whoever changed it: another person, an agent, or a background job. Declare roles and permissions once. Every caller—your UI, the HTTP API, AppPort, MCP, services—is checked the same way. Files, notifications, configuration, API keys, webhooks, jobs, schedules, and model selection—on your app’s own database. Agents use your app over MCP under a role, like people do. Consequential actions wait for approval—in production, from someone other than who proposed them. A dashboard for data, capabilities, services, models, and activity. In production, operators sign in with one-time grants. createTestApp gives every test a fresh FeltDB instance—no mocks. Act as any user and assert what the server allows. One container, Managed FeltDB, or your own FeltDB server. The build is verified before it is packaged. Declare the application, its roles, and its data. Write queries and mutations. FeltKit serves t",
   "first_seen": "2026-11-02T18:03:57.410502+00:00",
@@ -1157,6 +1237,24 @@
   "type": "news",
   "url": "https://cloud.google.com/blog/products/ai-machine-learning/what-google-cloud-announced-in-ai-this-month",
   "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
+ },
+ "b714ae4897509f90": {
+  "first_seen": "2026-11-03T09:04:30.637668+00:00",
+  "id": "6208da354b60bd0e",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-02T07:50:57+00:00",
+  "sid": "b714ae4897509f90",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Vision-language model (VLM) agents that act in the open world need two abilities: world knowledge to interpret what they see, and exploration to find what they cannot yet see. We study how agents combine the two through interactive visual geolocation. GeoGuesser Bench contains 282 tasks in an offline Street View environment where agents rotate, zoom, and move between real panoramas. Its three task types shift the balance from knowledge to exploration: agents (1) report the coordinates of their starting location, (2) name the enclosing street, city, state, or country, or (3) find, read, and count nearby objects. The coordinate tasks in (1) also include 42 real GeoGuessr World Championship rounds, whose expert guesses provide a human reference. We evaluate 23 VLMs: the best accuracy is 62.5% on place naming and 35.0% on object finding, and the best agent averages 4352.4 GeoGuessr points on the championship rounds, against 4770.3 for the better expert in each round. Beyond these headline numbers, world knowledge and exploration are only weakly correlated across models: agents that localize well do not necessarily explore well. To understand where agents fail, we categorize their errors into vision, navigation, and tool-use failures. Further ablations show that the strongest agents, such as Claude Opus 4.8, still perform well with limited views, while weaker agents degrade; customizing the environment thus adjusts task difficulty. The environment's verifiable rewards and restorab",
+  "summary_1line": "Vision-language model (VLM) agents that act in the open world need two abilities: world knowledge to interpret what they see, and exploration to find what they cannot yet see. We study how agents combine the two throu...",
+  "title": "GeoGuesser Bench: Benchmarking Vision-Language Agents on Interactive Geolocation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.02698v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
  "b78023b26122d472": {
   "content_excerpt": "Claude Haiku scored 82% on 21 MCP servers through OpenCode and 65% through Claude Code. The gap comes from the built-in tools each agent reaches for first. We ran the same model, Claude Haiku 5.5, through two coding agents against the same 21 MCP servers, with the agent as the only difference. Through OpenCode it answered 82.0% of the tasks correctly from the server. Through Claude Code it answered 65.4%. We were testing M3 , our open-source tool for testing MCP servers , and wanted a workload big enough to break it: 21 real servers, about 20 tasks each, three agents, three trials per task. The results became the MCP Agent Usability leaderboard , and every number in this post comes from it. Our first guess was that OpenCode is simply better at calling tools. Splitting the servers by what they do rules that out. Eleven of the servers do a job none of the agents has a built-in tool for: a Postgres database, MongoDB, Redis, Kafka, Linear, Jenkins, Grafana, Kubernetes, Gitea, and two browser servers. The other ten overlap with something every agent already carries: web search and docs lookup (Exa, Fetch, Microsoft Learn, DeepWiki, Terraform), files and shell (Git, Filesystem, Desktop Commander, Serena), and memory. On the first eleven, the three agents land within 4.1 points of each other, even though Codex runs a different model. On the other ten, Claude Code trails OpenCode by 32 points and Codex trails it by 49. Here is one task from the Exa server, run once through each agent",
@@ -1588,6 +1686,22 @@
   "type": "news",
   "url": "https://github.com/ermoluk/mcp-warden",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "f4762eccd1c3e217": {
+  "first_seen": "2026-11-03T09:04:30.637668+00:00",
+  "id": "0cbc26162b08a69e",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-02T18:17:08+00:00",
+  "sid": "f4762eccd1c3e217",
+  "source": "arxiv_cs_ai",
+  "summary": "The Model Context Protocol (MCP) lets agentic AI frameworks connect language models to external tool providers, but it carries attacker-controlled content (tool descriptions, schema fields, and response data) into model context without validation. Prior benchmarks measure model compliance with poisoned instructions without confirming real execution. We present the first cross-framework measurement of MCP tool poisoning with real tool execution. A 25-class root-cause taxonomy unifies prior classifications, and the open-source tool mcpvenom drives a 9,720-cell susceptibility matrix across 12 frameworks, 18 models, and 45 attack scenarios, with a dual oracle that confirms exfiltration via canary HTTP receipt. The overall attack success rate is 22.9% (2,113 vulnerable cells). Of these, 64.9% dispatch an attacker tool call, 23.0% contact the attacker endpoint, and 12.1% verifiably exfiltrate a secret. Resistance is model-level: nine core frameworks cluster within 23 to 26% (chi-squared = 3.30, p = 0.91), and no framework implements intentional defense. Incidental framework properties mitigate in specific cases, and a regex description scanner rejects 20 of 45 scenarios at a 7.2% false-positive rate, so metadata scanning alone is a partial control. Model ASR ranges from 0.4% to 49.7%. Claude Opus 4.8 is vulnerable in 8 of 530 cells while issuing 223 explicit refusals. A code-level audit finds no intentional defense across twelve frameworks, and all five coordinated disclosures acro",
+  "summary_1line": "The Model Context Protocol (MCP) lets agentic AI frameworks connect language models to external tool providers, but it carries attacker-controlled content (tool descriptions, schema fields, and response data) into mod...",
+  "title": "MCP Tool Poisoning in Agentic AI Frameworks: A Cross-Framework Measurement Study",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03555v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "f56117201cb74a00": {
   "content_excerpt": "We also picked the mix on four fifths of the searches and tested it on the rest. Two providers then reached 75.5% and four reached 82.6%. The rows are grouped by provider family, by how much their results overlap. Google-results group: serper, firecrawl, tinyfish, tavily and serpapi. brave and you.com form the second family. Own index: exa, perplexity, parallel, ceramic and seltz. Our next post covers the families in detail. At Telem.ai, we want every search your agent makes to find the best answer on the web, whichever provider holds it. You shouldn't have to track which provider is good at what, because we take that part off your hands. Your agent shouldn't miss an answer because it asked the wrong web search provider. Let's start with a simple question: is one good provider enough? Better yet, is the best provider enough? We tested a dozen providers on the same agent searches and counted what each one found. The web is wider than any one provider, and even the best one sees only part of it. We ran a series of experiments on real searches from an AI agent and checked which providers came back with the answer. Every extra provider costs money and gives your agent more to read, so we wanted to know how much each one adds. Methods at the end has the full setup. On its own, the best provider had the known answer in its top five 68% of the time. About a third of the searches came back without the known answer in their top five. No single provider stood out: the top three finishe",
