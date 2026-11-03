@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-11-03 (Editor's Desk feed rows start compact on phones)
+
+- **Decision:** At `max-width: 640px`, the feed's "Latest from the Editor's Desk" panel renders as its heading plus a single "N updates · Show" button; the rows appear after the reader taps Show, and stay open for the session.
+- **Context / Problem:** On a 375x812 viewport the first ranked story started about 1,150px down the page. The masthead, tabs, Catch me up card and three full Editor's Desk rows filled the whole first screen, so a phone reader saw no news before scrolling.
+- **Rationale:** The feed is the product; editorial discovery is a companion. Collapsing it keeps discovery one tap away without making it the lede. Measured on the local preview, the lead story moves to ~490px, inside the first screen.
+- **Impact:** `web/nav-updates.js` (compact mode, `editorial_updates_expand` event), `web/editorial-updates.css`, cache-version bumps in `web/index.html` and `web/updates.html`, `tests/test_site_chrome.py`, `docs/product-specs/nav-update-indicators.md`.
+- **Rollback:** Make `compactFeed()` return false.
+
 ## 2026-11-02 (Retire Vercel config; Skill Radar board ships; capability gate replaces "provisional")
 
 - **Decision:** (1) Retire the Vercel deployment surface: delete `vercel.json` and `.vercelignore`, rename `scripts/vercel_build.py` to `scripts/build_site.py`, and replace `scripts/check_bundle_size.py` with `scripts/check_deploy_artifacts.py` (requirements hygiene, Worker bundle size, Workers Assets 20,000-file ceiling, no nested `api/` dirs). The Worker route table is now the single page router. (2) Ship the Skill Radar board: static `/skills` plus per-family pages, `web/skills-data.json` and `web/skills-top.json`, no API route or R2 key. (3) Replace the per-group `provisional` flag with a deterministic capability gate: a group appears only when at least two skills in the setup name that capability (`capabilities.min_matching_skills`), aggregated inventories are excluded, and keyword matching is word-bounded. (4) The census stores metadata only: `{name, copies}` per skill, 45-day repo retention, 90-day history retention.

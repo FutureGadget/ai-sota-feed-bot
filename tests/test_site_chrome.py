@@ -208,8 +208,18 @@ class SiteChromeContractTest(unittest.TestCase):
     def test_updates_shell_does_not_load_editorial_styles_twice(self) -> None:
         html = (ROOT / "web" / "updates.html").read_text(encoding="utf-8")
         js = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
-        self.assertIn('href="/editorial-updates.css?v=20260910"', html)
+        self.assertIn('href="/editorial-updates.css?v=20261103"', html)
         self.assertIn("document.querySelector('link[href^=\"/editorial-updates.css\"]')", js)
+
+    def test_feed_editorial_panel_starts_compact_on_phones(self) -> None:
+        # At phone width the Editor's Desk rows pushed every story below the
+        # first screen; the feed placement collapses to one expandable line.
+        js = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
+        css = (ROOT / "web" / "editorial-updates.css").read_text(encoding="utf-8")
+        self.assertIn("matchMedia('(max-width: 640px)')", js)
+        self.assertIn("'ai_feed_whats_new_expanded_v1'", js)
+        self.assertIn("editorial_updates_expand", js)
+        self.assertIn(".editorial-compact .editorial-list", css)
 
     def test_dynamic_archive_surfaces_keep_visible_direction_controls(self) -> None:
         for filename in ("daily.html", "weekly.html", "playbook.html"):

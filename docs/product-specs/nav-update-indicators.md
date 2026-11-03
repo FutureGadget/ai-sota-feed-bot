@@ -10,6 +10,10 @@ reader what changed. This catalog covers future publications automatically.
   first. These are vertically stacked rows on mobile, never a scrolling chip
   strip. Hide dismisses editorial previews for this browser session without
   marking content opened.
+- At phone width (`max-width: 640px`) the feed placement starts compact: the
+  heading plus one "N updates · Show" button, rows hidden. Show expands the
+  rows for the browser session (`ai_feed_whats_new_expanded_v1` in
+  sessionStorage). The Desk and section placements are unchanged.
 - When Catch me up exists, these rows render inside that card. Otherwise they
   occupy `#freshUpdates`. Feed rendering calls `llmDigestUpdates.renderFeed()`;
   the result is independent of which API responds first. Existing catch-up
@@ -132,7 +136,8 @@ semantic navigation remains available without JavaScript or a successful API.
 
 Optional PostHog events: `editorial_updates_view` (feed item IDs),
 `editorial_update_click` (ID, section, placement, status),
-`editorial_update_open` (ID, section), `editorial_updates_dismiss` (placement).
+`editorial_update_open` (ID, section), `editorial_updates_dismiss` (placement),
+`editorial_updates_expand` (placement, count).
 These diagnose discovery; weekly returning readers remains the north-star
 metric. Open events do not assert article completion.
 
