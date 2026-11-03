@@ -705,6 +705,24 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "5205e972eb2d23be": {
+  "first_seen": "2026-11-03T14:05:20.958126+00:00",
+  "id": "6233bf3f8ef612fe",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "claude code"
+  ],
+  "published": "2026-11-02T16:53:29+00:00",
+  "sid": "5205e972eb2d23be",
+  "source": "arxiv_cs_cl",
+  "summary": "Government intelligence teams need LLM agents that can analyze large, messy evidence collections, but security and cost constraints often rule out hosted frontier models and broad, hard-to-audit tool surfaces. We report CLEO: Constrained Loop for Environment Optimization, a method for fitting a minimal agent harness to a fixed, self-hostable LLM. Given an expert-validated dataset, CLEO admits only the tools, guardrails, memory policies, and loop components that improve accuracy while remaining general and auditable. On our held-out dataset, the CLEO harness reaches an 83.8% pass rate, within 1.2 points of the strongest out-of-the-box Claude Code SDK baseline, while being two orders of magnitude smaller.",
+  "summary_1line": "Government intelligence teams need LLM agents that can analyze large, messy evidence collections, but security and cost constraints often rule out hosted frontier models and broad, hard-to-audit tool surfaces. We repo...",
+  "title": "Optimize the Harness, Not the Model: Fitting a Minimal Agent to a Self-Hostable LLM for Investigative Analysis",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03434v1",
+  "why_it_matters": "Matches feed focus: agent, harness, claude code."
+ },
  "52a3c89c275c2670": {
   "first_seen": "2026-11-03T06:05:21.577740+00:00",
   "id": "3c5a8e5742ee83db",
@@ -867,6 +885,22 @@
   "title": "Introducing the Grid Protectors Program",
   "type": "news",
   "url": "https://openai.com/index/grid-protectors-program"
+ },
+ "65d3949f01679d52": {
+  "first_seen": "2026-11-03T14:05:20.958126+00:00",
+  "id": "3f77a47d80a122d7",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-02T15:39:35+00:00",
+  "sid": "65d3949f01679d52",
+  "source": "arxiv_cs_cl",
+  "summary": "Previous research shows that vision-language (VL) models struggle to understand fine-grained image details and tend to focus on the overall layout. Moreover, any weakness in English tends to be further amplified in the multilingual setting. To study that, we extend InpaintCOCO, an English dataset focused on fine-grained visual details, to 13 typologically diverse languages across five language families, creating MultiInpaintCOCO - a new multilingual benchmark of 953 minimal-pair examples. We further test several state-of-the-art models in multilingual multimodal retrieval, considering both light VL CLIP-like encoders and large language models. Our results show that performance degrades substantially for lower-resource languages, with the strongest predictor being the data resources available for the languages rather than typological similarity to English. In cross-lingual retrieval, most models exhibit a systematic bias toward English: when given a correct caption in a non-English language and an incorrect one in English, models preferentially select the English caption. This bias varies considerably across architectures. Among the tested models, Gemma 3 shows the strongest English preference while Qwen 3 is the least biased, despite both reaching similar monolingual accuracy across languages. The code is available at https://github.com/ufal/multi-inpaint-coco.",
+  "summary_1line": "Previous research shows that vision-language (VL) models struggle to understand fine-grained image details and tend to focus on the overall layout. Moreover, any weakness in English tends to be further amplified in th...",
+  "title": "MultiInpaintCOCO: Fine-Grained Visual Understanding in Multiple Languages",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03309v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "6d8a8ee7d8dd93df": {
   "content_excerpt": "For the past two years, building capable Agents meant designing tools, figuring out which actions help the model complete a task, deciding how granular each tool schema needs to be, or iterating on system instruction templates. This is changing. Agents are moving in the opposite direction by collapsing their entire tool catalog into one tool : exec . This is called Code Mode (or Programmatic Tool Calling). Instead of forcing the model to trigger tools one at a time across turns, the harness gives the model a single exec(code) tool. The model writes a short TypeScript or Python script that chains, combines, and awaits actions inside an isolated sandbox. To understand why agents are converging on a single exec tool, we should look at how tool calling evolved. Initially, we only gave agents a handful of tools because they couldn't reliably choose or filter across a large catalog. As models improved, we connected dozens of tools or MCP servers, but ran into context window limits. We solved that with tool search and progressive disclosure , letting agents look up tools on demand. Even with dynamic tool loading, we still had dozens of individual tools, and were still stuck with the limitation of standard tool calling: one action per turn. In standard tool calling, the model generates a structured object (typically JSON) that defines a single action (or at best a flat batch of independent calls, like reading three files), waits for the raw output to come back, adds it into the promp",
@@ -1134,6 +1168,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03517v1",
   "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
+ "8c9ec9c61eff7614": {
+  "first_seen": "2026-11-03T14:05:20.958126+00:00",
+  "id": "71d16cb2237ba050",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-02T16:17:54+00:00",
+  "sid": "8c9ec9c61eff7614",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Recent language model (LM) safety failures have largely been studied as disparate phenomena. In agentic misalignment, a model blackmails an executive to avoid being replaced. In alignment faking, it complies with harmful requests during training to keep its values from being modified. We argue that these behaviours share a common decision structure: a model assigned a goal must either take a harmful action to preserve it or refuse and lose it. We formalize this as a goal-harm conflict and present the same conflict under various elicitation protocols that range from compact forced-choice prompts to simulated agentic environments. These protocols span two perspectives on LM decision-making, which we term (i) the logit view, reading preferences from answer-token probabilities, and (ii) the sampling view, classifying open-ended responses with an LM judge. Under the logit view, we show that goal importance and harm severity additively shape how a model resolves these value conflicts. Under the sampling view, we derive two factorizations of the harmful-action probability that safety evaluations commonly report. The first measures how well a preference read from answer tokens carries over into behaviour, such as making a harmful tool call. The second attributes a low harmful-action rate either to refusal or to responses that reach no resolution. We then show how fictional context changes a model's preference under the logit view, and how tool use and partial observability -- two fea",
+  "summary_1line": "Recent language model (LM) safety failures have largely been studied as disparate phenomena. In agentic misalignment, a model blackmails an executive to avoid being replaced. In alignment faking, it complies with harm...",
+  "title": "Characterizing When Language Models Take Harmful Actions to Protect Their Assigned Goals",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03374v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "8ddf2e67d3917490": {
   "first_seen": "2026-11-03T06:05:21.577740+00:00",
@@ -1501,6 +1552,24 @@
   "url": "https://github.com/Marqueos/codedict",
   "why_it_matters": "Matches feed focus: claude code."
  },
+ "bb2283a397cce9bf": {
+  "content_excerpt": "Show notes: Agentic coding has outgrown the text box. Maggie Appleton, staff research engineer at GitHub Next, argues that walls of CLI output and AGENTS.md files serve coding agents far better than the humans steering them. She walks through Chopin, the GitHub Next prototype where background agents turn a team's planning chat into a structured plan, and makes the case for agents that prompt you instead of waiting to be prompted. What we cover: – Why text-heavy agentic coding tools favor agents over humans – Boundary objects: what AGENTS.md, skill files and MCP servers get right and wrong – Multiplayer planning with coding agents in GitHub Next's Chopin – Human-to-agent handoffs, formal verification and Transcript (sampled): order to achieve that, you use things like space, contrast, priority, color, grouping. Um, you like use the principles of how humans interpret objects and colours and values in space to like make the person see the right thing in the right order, click the right button, understand what's on the screen. Um and agents haven't been trained on … Because from the outside we can't do that. That is like foundation labs are really the only ones in a position to do meaningful interpretability work. And I think that stuff is important to s for us to see how agents reason. But to get back to the boundary objects thing, it's actually not as important for us to understand their worlds more … recognize someone was a junior, I would hope the model was to some degree tra",
+  "first_seen": "2026-11-03T14:05:20.958126+00:00",
+  "id": "850bb33860f88a24",
+  "image_url": "https://i.ytimg.com/vi/0cySwRF7oJI/hq720.jpg",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-03T13:00:18+00:00",
+  "sid": "bb2283a397cce9bf",
+  "source": "ai_native_dev",
+  "summary": "Agentic coding has outgrown the text box. Maggie Appleton, staff research engineer at GitHub Next, argues that walls of CLI output and AGENTS.md files serve coding agents far better than the humans steering them. She walks through Chopin, the GitHub Next prototype where background agents turn a team's planning chat into a structured plan, and makes the case for agents that prompt you instead of waiting to be prompted. What we cover: – Why text-heavy agentic coding tools favor agents over humans – Boundary objects: what AGENTS.md, skill files and MCP servers get right and wrong – Multiplayer planning with coding agents in GitHub Next's Chopin – Human-to-agent handoffs, formal verification and spec-driven development – Why software quality is rising, not falling, with coding agents – Which roles still matter: PMs, designers and engineers Chapters: 00:00:00 - Introduction 00:02:14 - Inside GitHub Next and the Chopin project 00:05:57 - Why solo agents break team alignment 00:07:52 - Why coding agents struggle with design 00:12:16 - Boundary objects: AGENTS.md, skills and MCP 00:18:27 - Planning with coding agents as collaborators 00:26:49 - Multiplayer planning with background agents 00:31:57 - Agent handoffs and spec-driven development 00:37:41 - Quality, craft and who decides what to build 00:44:29 - Starting a career in agentic coding Build your software factory, one workflow at a time, with Tessl: https://tessl.co/j3d 🔔 Subscribe for weekly episodes on AI-native development S",
+  "summary_1line": "Agentic coding has outgrown the text box. Maggie Appleton, staff research engineer at GitHub Next, argues that walls of CLI output and AGENTS.md files serve coding agents far better than the humans steering them. She...",
+  "title": "Maggie Appleton: Agentic Coding Has Outgrown the Text Box",
+  "type": "video",
+  "url": "https://youtu.be/0cySwRF7oJI",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "bc7fe2eccde51f72": {
   "content_excerpt": "One Python interface for chat, streaming, tool calls, and structured output across AI providers. Republic stops at providers; agent loops, tool execution, and gateways stay in your code. A model is named provider:model . Switch services by changing the name, such as anthropic:MODEL_ID , google:MODEL_ID , or deepseek:MODEL_ID ; each reads its key from REPUBLIC_ _API_KEY . See the provider directory for every supported service.",
   "first_seen": "2026-11-01T08:05:09.931157+00:00",
@@ -1647,6 +1716,22 @@
   "title": "Context Mode – An Open-Source MCP Server That Reduces AI Coding Context Usage",
   "type": "news",
   "url": "https://github.com/mksglu/context-mode"
+ },
+ "d27bf3551a59ae57": {
+  "content_excerpt": "Copy a prompt for Claude Code, or any coding agent, to check your agent against every entry. Our AOT Library collects agent optimization strategies and the evidence behind them. Updated regularly. Browse the library here, search for strategies to implement below, or plug it into your coding agent with the prompt in the left rail. Show me changes that improve anything improve quality lower cost make it faster tighten security strengthen governance protect the brand for any workload retrieval workloads memory workloads tool use workloads code generation workloads data analysis workloads document extraction workloads web research workloads planning workloads reasoning workloads judging workloads structured output workloads by changing any part of the agent the agent's model the agent's prompt the agent's context the agent's tool surface the agent's control flow the agent's state the agent's knowledge access the agent's guardrails , are of type any hygiene (tier 1) reliability (tier 2) tuning (tier 3) restructuring (tier 4) , and mention . Pick the model per role or call site rather than one model everywhere, and set its reasoning effort and sampling parameters per site; tune each role's prompt to its model (GEPA raised every model tested at lower cost). Tier 1 · hygiene · changes tool surface, context · tool use agents · 32 sources, 23 measured Change what the model sees of each tool without touching its implementation: a distinct name, a strict schema (enums, required fields), ",
+  "first_seen": "2026-11-03T14:05:20.958126+00:00",
+  "id": "24582fb4492cd5e7",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-03T14:01:23+00:00",
+  "sid": "d27bf3551a59ae57",
+  "source": "hackernews_ai",
+  "summary_1line": "A complete (?) library of agent optimization methods",
+  "title": "A complete (?) library of agent optimization methods",
+  "type": "news",
+  "url": "https://mahalsystems.ai/aot/optimizations",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "d72e76ee34cd12ef": {
   "content_excerpt": "To create one, POST https://inspect.hookdeck.com/ (for example: curl -X POST https://inspect.hookdeck.com/). The JSON reply has ingest_url, where to send webhooks, and requests_url: GET it to wait for the next request. It waits up to 25 seconds and returns the request as JSON. If you can only make GET requests, ask the person to open https://inspect.hookdeck.com/ in a browser and share the URL it gives them. stripe-signature : t=1677834000,v1=0b144c08dca0ce58f56f8810da96ea76a3977f09966b624199d23e6dd0cedc1e,v0=135a50a00bfa300eb6f8078bc41ea7681c151a472d56264b774aea58a710e360",
@@ -1924,6 +2009,23 @@
   "type": "news",
   "url": "https://github.com/shashtag-ventures/linkedin-ops",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "ed77cd03f4ebf889": {
+  "content_excerpt": "At Metaview, we build AI agents for recruiting: Sourcing, Application Review, Screening, Reports and more. They all run on one shared harness. It didn't start that way. Our earliest agent ran on AWS Step Functions, and after that each one was built differently: one agent on LangGraph, another on the OpenAI Responses API, others on hand-rolled loops. Every new product meant solving the same problems again: sandboxes, sessions, streaming, observability, model access. That was partly deliberate: trying different approaches taught us what worked, what didn't, and what was worth copying. Today a new agent is a prompt, some skills and a small config. Standing one up takes under two hours, down from several days. In January 2026, Ramp wrote about Inspect , their internal background coding agent. Each session runs in its own Modal Sandbox , with OpenCode as the agent inside. By February it was starting over half of Ramp's merged PRs. Within days, Keir had built Rook, our own version on the same blueprint. It started as a coding agent. Now it's used across the company: opening and reviewing PRs, triaging alerts, writing presentations, helping with customer requests and answering questions about how the product works. Think Claude Tag, five months before Claude Tag launched. Rook was also a better agent than the ones we shipped to customers. It had a real filesystem, bash and long-running sessions, and it planned its own work. Our LangGraph agent didn't. LangGraph has you lay out an ag",
+  "first_seen": "2026-11-03T14:05:20.958126+00:00",
+  "id": "5b42507ffc42f21a",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-03T14:05:10+00:00",
+  "sid": "ed77cd03f4ebf889",
+  "source": "hackernews_ai",
+  "summary_1line": "We built one harness for every agent, inspired by Ramp's Inspect",
+  "title": "We built one harness for every agent, inspired by Ramp's Inspect",
+  "type": "news",
+  "url": "https://www.metaview.ai/resources/blog/how-we-built-one-harness-for-every-metaview-agent",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "f192b6fc5b19cc60": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. The article argues that reliable agentic AI architecture depends on a context engine that selects, injects, compresses, and expires information before it reaches the model. It separates context, memory, and knowledge, and recommends tiered memory, curated knowledge, and token budgeting. It also covers common anti-patterns, such as context stuffing and stale data loops, with mitigations. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"superv",
