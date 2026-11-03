@@ -1,18 +1,19 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 17,
- "day_count": 8,
- "source_count": 7,
+ "item_count": 22,
+ "day_count": 10,
+ "source_count": 8,
  "first_seen": "2026-10-16T14:26:44+00:00",
- "last_updated": "2026-10-29T09:21:26+00:00",
- "generated_at": "2026-11-02T00:17:23.998832+00:00",
+ "last_updated": "2026-11-02T11:00:00+00:00",
+ "generated_at": "2026-11-03T00:12:58.466703+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
   "arxiv_cs_cl",
   "arxiv_llm_reliability",
   "huggingface_blog",
+  "infoq_ai_ml",
   "search_cn_open_weight_labs",
   "vllm_blog"
  ],
@@ -236,16 +237,80 @@
      "sid": "d571e973b6e6916d",
      "published": "2026-10-29T09:21:26+00:00",
      "editor_note": "Paper on RL to incentivize LLM self-learning on knowledge-intensive tasks."
+    },
+    {
+     "title": "FIRME: Registry-Anchored Memory Graphs for Evolving, Heterogeneous Investor Knowledge",
+     "url": "http://arxiv.org/abs/2610.40482v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Financial AI workflows that reuse investor knowledge need persistent memory that integrates observations across sources and periods without losing identity or provenance. In a knowledge graph, recurring observations may use different surface forms, fragmenting relationship histor",
+     "sid": "e519641640234319",
+     "published": "2026-10-29T17:13:45+00:00",
+     "editor_note": "Registry-anchored memory graph keeping identity and provenance for investor knowledge."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-30",
+   "items": [
+    {
+     "title": "ImplicitHop: Evaluating knowledge integration across context and memory",
+     "url": "http://arxiv.org/abs/2610.41169v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "The ability to integrate new information and deduce its consequences is central to learning, understanding, and reasoning in large language models (LLMs). Whether information arrives during training or in-context, mod...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "1d7852cb09b3031f",
+     "published": "2026-10-30T02:44:51+00:00",
+     "editor_note": "Benchmark for integrating new information from context versus memory."
+    },
+    {
+     "title": "Context as Infrastructure: Knowledge Compilation for Retrieval in Agentic Systems with Harnesses",
+     "url": "http://arxiv.org/abs/2610.41172v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Retrieval-augmented generation is becoming agentic. A search harness writes queries, reads results, reformulates, and decides when to stop. This largely solves accuracy: a harness with only BM25/grep and MiniMax M3 an...",
+     "why_it_matters": "Matches feed focus: agentic, harness, eval.",
+     "sid": "ce941c554e9fce8e",
+     "published": "2026-10-30T02:48:37+00:00",
+     "editor_note": "Argues compiled knowledge helps retrieval in agentic search harnesses."
+    },
+    {
+     "title": "Prune Gradually, Adapt Sparsely: Efficient Pruning of Large Language Models at Extreme Sparsity",
+     "url": "http://arxiv.org/abs/2610.41968v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Weight pruning can reduce the storage and inference cost of large language models (LLMs), but preserving quality at high sparsity levels remains challenging. Existing methods face a quality-cost trade-off in this regi...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "a8a5f23cd8e10643",
+     "published": "2026-10-30T16:17:43+00:00",
+     "editor_note": "Gradual pruning with sparse adaptation to keep quality at extreme sparsity."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-02",
+   "items": [
+    {
+     "title": "Article: Systemic Approach to Memory, Knowledge, and Context in Agentic AI Architectures",
+     "url": "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "The article argues that reliable agentic AI architecture depends on a context engine that selects, injects, compresses, and expires information before it reaches the model. It separates context, memory, and knowledge,...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "744a7a52285cfa40",
+     "published": "2026-11-02T11:00:00+00:00",
+     "editor_note": "Practitioner framing that separates context, memory and knowledge in agent architecture."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This page groups items by the shared phrase \"large language models\", so most of it is a reading list, not one thread. Oct 16-27 items cover sycophancy, code-translation hallucinations, search agents, steering and continual learning.",
+  "tldr": "This page groups items by the shared phrase \"large language models\", so most of it is a reading list, not one thread. Oct 16-28 items cover sycophancy, code-translation hallucinations, search agents, steering and continual learning, and Mistral Large 4 shipped Oct 29.",
   "stale": false,
-  "whats_new": "Oct 29: Mistral Large 4 is released, with vLLM day-0 support (sparse MLA, speculative decoding, NIXL prefill/decode on Blackwell) and a Hugging Face launch post.",
-  "why_it_matters": "Mistral Large 4 is the one item here you can deploy: serving support landed the same day as the weights, so self-hosting is testable now. The papers remain a reading list.",
-  "take_for_builders": "If you self-host, pull Mistral Large 4 on the vLLM day-0 build and rerun your own evals and latency tests before swapping it in. Treat the Oct 22 price comparison as unverified until you check provider pricing pages.",
+  "whats_new": "Nov 2: InfoQ argues agentic architectures need a context engine that selects, injects, compresses and expires information, separating context, memory and knowledge.",
+  "why_it_matters": "Mistral Large 4 is the one deployable item: vLLM support landed with the weights. The newest items converge on context and memory design for agents, which is an architecture choice rather than a model swap.",
+  "take_for_builders": "If you self-host, pull Mistral Large 4 on the vLLM day-0 build and rerun your own evals before swapping it in. For agents, audit where context is selected, compressed and expired in your harness before adding more memory.",
   "beats": [
    {
     "kicker": "BEHAVIOR",
@@ -305,14 +370,34 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "OCT 29",
+    "tone": "launch",
     "headline": "Mistral Large 4 ships with day-0 vLLM and Hugging Face support",
     "summary": "A concrete model release, preceded by an Oct 22 pricing comparison naming it.",
     "sids": [
      "590975aa217085b7",
      "37f6c0c263213efd",
      "b6b30743068c2627"
+    ]
+   },
+   {
+    "kicker": "OCT 29-30",
+    "tone": "rising",
+    "headline": "Memory graphs, knowledge integration, retrieval compilation and extreme pruning",
+    "summary": "Four papers on persistent memory, context-vs-memory evaluation, compiled knowledge for search harnesses, and pruning at extreme sparsity.",
+    "sids": [
+     "e519641640234319",
+     "1d7852cb09b3031f",
+     "ce941c554e9fce8e",
+     "a8a5f23cd8e10643"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "InfoQ lays out a context engine for agentic architectures",
+    "sids": [
+     "744a7a52285cfa40"
     ]
    }
   ],
@@ -321,8 +406,9 @@
    "Does the \"9x price gap\" comparison hold against first-party Mistral API pricing?",
    "Does Reva's real-time screening keep false positives low enough to gate agent-written code?",
    "Does CAMR's replay selection reduce forgetting on models larger than those in its experiments?",
-   "Does CANS steering preserve general capability on models beyond those it was tested on?"
+   "Does CANS steering preserve general capability on models beyond those it was tested on?",
+   "Do the Oct 30 retrieval-compilation and context-vs-memory results hold outside their reported benchmarks?"
   ],
-  "generated_at": "2026-11-01T00:12:51.951611+00:00"
+  "generated_at": "2026-11-03T00:20:00+00:00"
  }
 }

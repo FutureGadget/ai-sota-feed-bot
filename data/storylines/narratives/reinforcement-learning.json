@@ -1,130 +1,105 @@
 {
   "slug": "reinforcement-learning",
-  "generated_at": "2026-11-01T00:12:51.951611+00:00",
-  "covers_last_updated": "2026-10-29T16:38:11+00:00",
+  "generated_at": "2026-11-03T00:30:00+00:00",
+  "covers_last_updated": "2026-10-30T16:55:46+00:00",
   "covers_member_sids": [
-    "02ad246823185a44",
-    "1e1ae7d5d09cb859",
+    "db03100b1bd7cd3e",
+    "afd320e7f42ef5bd",
+    "a00ad2ffbda7f2e9",
     "276a486ae6eefe6b",
-    "2b4f7152c682448f",
     "352167f7ac41065b",
     "40c644a15cb895a9",
+    "2b4f7152c682448f",
     "453c138d9feefee3",
-    "868490bacebdc880",
     "8a41e1e41cbecfde",
-    "9471fde9e20a1e58",
-    "a00ad2ffbda7f2e9",
-    "afd320e7f42ef5bd",
-    "b508403b13597849",
-    "c07d00b3f0a46112",
+    "1e1ae7d5d09cb859",
     "c3af4f37e1c19b19",
+    "868490bacebdc880",
+    "c07d00b3f0a46112",
     "d448a8af2a653453",
+    "02ad246823185a44",
     "d571e973b6e6916d",
-    "db03100b1bd7cd3e",
-    "f3c8da2fe4584033"
+    "9471fde9e20a1e58",
+    "29493d021878283c",
+    "65dc6916d3b352f1",
+    "4e3ef058b96b399d"
   ],
-  "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 12 it has gathered a Qwen long-horizon agent report, an O-RAN benchmark, agentic-RL training papers, and AWS's SageMaker guide.",
-  "whats_new": "Oct 29: two arXiv papers add RL training variants, one rewarding LLM self-learning and one aligning RLVR policy confidence with verifier outcomes (SCARL).",
+  "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 15 it has gathered an O-RAN benchmark, agentic-RL training papers on rollout cost and credit assignment, and AWS's SageMaker multi-turn guide.",
+  "whats_new": "Oct 30: three arXiv papers add strategy-guided skill routing (TalentRL), GRPO stochasticity for few-step flow models, and causal-graph explanations for RL policies (CausalXRL).",
   "why_it_matters": "Agent RL is now judged on cost and reliability: EnvSched and calibrated budgets (Oct 20) target rollout spend, while MiRL and CalibraRL target named failures. All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
   "status": {
     "state": "Developing",
     "tone": "rising",
-    "changed": "2026-10-29",
-    "detail": "A loose set of RL items; the newest add self-learning and confidence-aligned RLVR variants to harness co-training and rollout-cost work."
+    "changed": "2026-10-30",
+    "detail": "A loose set of RL items; the newest widen it to skill routing, flow-model RL and explainability alongside the agent rollout-cost and credit-assignment work."
   },
   "beats": [
-    {
-      "kicker": "AGENTS",
-      "tone": "rising",
-      "headline": "Alibaba Qwen introduces QwenGyre for elastic RL on extra-long-horizon agents",
-      "summary": "Reported via MarkTechPost; targets agent tasks that run far longer than standard RL rollouts.",
-      "sids": [
-        "b508403b13597849"
-      ]
-    },
     {
       "kicker": "BENCHMARK",
       "tone": "neutral",
       "headline": "X-RIC benchmarks agentic RAN controllers for reinforcement learning",
       "summary": "Targets O-RAN controllers rather than LLM post-training.",
-      "sids": [
-        "db03100b1bd7cd3e"
-      ]
+      "sids": ["db03100b1bd7cd3e"]
     },
     {
       "kicker": "RESEARCH",
       "tone": "rising",
       "headline": "Agentic RL papers: rollout budgets, stateful environments, search-state awareness, credit assignment",
       "summary": "Four arXiv papers on cutting rollout cost, extending RL beyond tool-centric settings, teaching search agents to assess their own state, and crediting individual decisions within an episode.",
-      "sids": [
-        "afd320e7f42ef5bd",
-        "a00ad2ffbda7f2e9",
-        "276a486ae6eefe6b",
-        "352167f7ac41065b"
-      ]
+      "sids": ["afd320e7f42ef5bd", "a00ad2ffbda7f2e9", "276a486ae6eefe6b", "352167f7ac41065b"]
     },
     {
       "kicker": "OCT 23",
       "tone": "rising",
       "headline": "AWS multi-turn RL guide, plus stability, simulation, robustness and token-credit papers",
       "summary": "A managed-platform recipe on SageMaker AI and four arXiv papers on rounding alignment, token credit, dialogue user simulation and robust RL.",
-      "sids": [
-        "8a41e1e41cbecfde",
-        "453c138d9feefee3",
-        "40c644a15cb895a9",
-        "1e1ae7d5d09cb859",
-        "2b4f7152c682448f"
-      ]
+      "sids": ["8a41e1e41cbecfde", "453c138d9feefee3", "40c644a15cb895a9", "1e1ae7d5d09cb859", "2b4f7152c682448f"]
     },
     {
       "kicker": "RELIABILITY",
       "tone": "turn",
       "headline": "Reliability turn: calibrated rewards, credit-assignment limits, error-targeted agent fixes",
       "summary": "Oct 26: three arXiv papers aim RL at hallucination, when fine-grained credit hurts, and terminal-agent misbehavior.",
-      "sids": [
-        "c3af4f37e1c19b19",
-        "868490bacebdc880",
-        "c07d00b3f0a46112"
-      ]
+      "sids": ["c3af4f37e1c19b19", "868490bacebdc880", "c07d00b3f0a46112"]
     },
     {
       "kicker": "OCT 27",
       "tone": "neutral",
       "headline": "Harness co-training and environment scheduling: CoHARL and EnvSched",
       "summary": "Oct 27: CoHARL optimizes the executable harness alongside the policy; EnvSched targets rollout generation and verification cost.",
-      "sids": [
-        "d448a8af2a653453",
-        "02ad246823185a44"
-      ]
+      "sids": ["d448a8af2a653453", "02ad246823185a44"]
+    },
+    {
+      "kicker": "OCT 29",
+      "tone": "neutral",
+      "headline": "Self-learning and confidence-aligned RLVR",
+      "summary": "Oct 29: one paper rewards knowledge acquisition coupled with reasoning; SCARL ties policy confidence to verifier outcomes.",
+      "sids": ["d571e973b6e6916d", "9471fde9e20a1e58"]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Self-learning and confidence-aligned RLVR",
-      "summary": "Oct 29: one paper rewards knowledge acquisition coupled with reasoning; SCARL ties policy confidence to verifier outcomes.",
-      "sids": [
-        "d571e973b6e6916d",
-        "9471fde9e20a1e58"
-      ]
+      "headline": "Skill routing, few-step flow RL and causal explanations",
+      "summary": "Oct 30: TalentRL routes hierarchical skills by strategy, a GRPO paper reshapes stochastic policy geometry for few-step flow models, and CausalXRL explains RL decisions with causal graphs.",
+      "sids": ["29493d021878283c", "65dc6916d3b352f1", "4e3ef058b96b399d"]
     }
   ],
   "open_questions": [
     "Does calibrated rollout budgeting cut MCP-agent training cost on benchmarks beyond the paper's own?",
-    "Does Qwen publish QwenGyre weights, code, or benchmarks that show the elastic RL gain on long-horizon agent tasks?",
     "Does the SageMaker MTRL recipe carry from Wordle to tool-using agent tasks, and at what training cost?",
     "Does twin-world credit assignment improve agent training on benchmarks beyond the paper's own?",
     "Do MiRL's error-targeted fixes hold on terminal-agent tasks outside the paper's own benchmark?",
-    "Does EnvSched's scheduling gain hold on agent-RL benchmarks beyond the paper's own, and with which environment mixes?"
+    "Does EnvSched's scheduling gain hold on agent-RL benchmarks beyond the paper's own, and with which environment mixes?",
+    "Does TalentRL's strategy-guided routing beat flat SkillBank retrieval on agent benchmarks beyond the paper's own?"
   ],
   "take_for_builders": "If you train tool-using agents, measure rollout cost per environment (EnvSched, calibrated budgets), log recurring failure modes for error-targeted RL (MiRL), and A/B fine-grained credit against episode-level reward; treat paper results as unreplicated until rerun on your own evals.",
   "day_captions": {
-    "b508403b13597849": "MarkTechPost's summary of Qwen's elastic RL approach for extra-long-horizon agents.",
     "db03100b1bd7cd3e": "arXiv benchmark for RL in agentic O-RAN controllers; the only telecom-domain item.",
     "afd320e7f42ef5bd": "Uses reward disagreement to allocate rollout budgets for MCP agents; first training-cost item in the thread.",
     "a00ad2ffbda7f2e9": "Agentic RL for small language models in stateful, data-centric environments.",
     "276a486ae6eefe6b": "Self-assessment RL so retrieval-augmented search agents track their search state.",
-    "8a41e1e41cbecfde": "AWS's hands-on multi-turn RL pipeline on SageMaker AI, the first managed-platform recipe in the thread.",
     "352167f7ac41065b": "Counterfactual branching to assign credit to individual decisions inside a rewarded agent episode.",
+    "8a41e1e41cbecfde": "AWS's hands-on multi-turn RL pipeline on SageMaker AI, the first managed-platform recipe in the thread.",
     "453c138d9feefee3": "Traces on-policy instability in LLM RL to where rounding happens between inference and training systems.",
     "40c644a15cb895a9": "Uses RL with hierarchical rewards for profile-driven user simulation in task-oriented dialogue.",
     "1e1ae7d5d09cb859": "A unified library and benchmark for robust RL algorithms.",
@@ -132,9 +107,12 @@
     "c3af4f37e1c19b19": "Confidence-calibrated RL rewards to cut RAG hallucinations while allowing abstention.",
     "868490bacebdc880": "Finds fine-grained credit assignment can help or hurt multimodal agents, tested on video editing.",
     "c07d00b3f0a46112": "Identifies specific terminal-agent misbehaviors, trains against them, and checks they are fixed.",
-    "d448a8af2a653453": "Newest: co-evolves the agent policy and its executable harness, since tuning a harness for a fixed policy ignores how behavior shifts during learning.",
+    "d448a8af2a653453": "Co-evolves the agent policy and its executable harness, since tuning a harness for a fixed policy ignores how behavior shifts during learning.",
     "02ad246823185a44": "Schedules environments under finite rollout budgets, the second rollout-cost paper after Oct 20's calibrated budgets.",
     "d571e973b6e6916d": "Paper on RL to incentivize LLM self-learning for knowledge-intensive tasks.",
-    "9471fde9e20a1e58": "SCARL: aligns RLVR policy confidence with verifier results."
+    "9471fde9e20a1e58": "SCARL: aligns RLVR policy confidence with verifier results.",
+    "29493d021878283c": "Strategy-guided RL for routing among natural-language skills, rather than flat SkillBank retrieval.",
+    "65dc6916d3b352f1": "Applies GRPO to few-step flow models by shaping the stochastic policy geometry of large denoising transitions.",
+    "4e3ef058b96b399d": "Newest: explains RL agent behavior through causal graph reasoning, addressing interpretability."
   }
 }

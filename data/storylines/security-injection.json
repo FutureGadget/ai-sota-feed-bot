@@ -1,0 +1,108 @@
+{
+ "slug": "security-injection",
+ "label": "Security Injection",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-10-16T11:10:30+00:00",
+ "last_updated": "2026-10-30T16:43:17+00:00",
+ "generated_at": "2026-11-03T00:12:58.466703+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_ai"
+ ],
+ "days": [
+  {
+   "date": "2026-10-16",
+   "items": [
+    {
+     "title": "MobileInject: Evaluating Reasoning-to-Action Security of MLLM-Based Mobile Agents under Cross-Modal Consistency Injection",
+     "url": "http://arxiv.org/abs/2610.23307v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Multimodal large language model (MLLM)-based mobile agents are rapidly evolving from conversational assistants into autonomous systems that perceive, reason over, and act on smartphone environments. This capability al...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "346a736923aff845",
+     "published": "2026-10-16T11:10:30+00:00",
+     "editor_note": "Evaluates reasoning-to-action security of MLLM mobile agents under cross-modal injection."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-27",
+   "items": [
+    {
+     "title": "Heads of Security: Learned Attention Gates Improve Prompt Injection Robustness",
+     "url": "http://arxiv.org/abs/2610.37657v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "We introduce Heads of Security (HoS), a prompt injection defense that enforces instruction-data separation via a small set of learned per-head attention gates. HoS learns how each head should redistribute attention be...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "b483c5a93f031770",
+     "published": "2026-10-27T17:58:52+00:00",
+     "editor_note": "Introduces learned per-head attention gates as an instruction-data separation defense."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-30",
+   "items": [
+    {
+     "title": "SecPO: Principled Adversarial Training for Prompt Injection Security",
+     "url": "http://arxiv.org/abs/2610.41998v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Recognized as a top threat to AI agents, prompt injection allows instructions from untrusted data (email, documents, websites) to manipulate the agent's operation. The existing best-defended LLM, Meta-SecAlign, is tra...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "b2f578a2e015ebec",
+     "published": "2026-10-30T16:43:17+00:00",
+     "editor_note": "Adds adversarial training aimed at beating Meta-SecAlign, the current best-defended LLM."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "MobileInject (Oct 16) framed prompt injection as a reasoning-to-action risk for MLLM-based mobile agents. Heads of Security (Oct 27) then proposed a defense: learned per-head attention gates that enforce instruction-data separation.",
+  "stale": false,
+  "whats_new": "SecPO (Oct 30) proposes adversarial training against prompt injection, positioned against Meta-SecAlign, the existing best-defended LLM.",
+  "why_it_matters": "Prompt injection is a top agent threat, and the research is moving from attack evaluation toward defenses at the model level (attention gating, adversarial training).",
+  "take_for_builders": "Treat these as research, not controls: keep least-privilege tool scopes and confirmation on agent actions, and rerun your own injection tests before relying on any model-level defense.",
+  "status": {
+   "state": "Developing",
+   "tone": "rising",
+   "changed": "2026-10-30",
+   "detail": "Three arXiv papers move from an attack benchmark to two model-level defenses; none is yet validated in production."
+  },
+  "beats": [
+   {
+    "kicker": "THE ATTACK",
+    "tone": "launch",
+    "headline": "MobileInject evaluates injection against mobile agents",
+    "sids": [
+     "346a736923aff845"
+    ]
+   },
+   {
+    "kicker": "DEFENSE",
+    "tone": "rising",
+    "headline": "Heads of Security gates attention to separate instructions from data",
+    "sids": [
+     "b483c5a93f031770"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "SecPO applies principled adversarial training",
+    "sids": [
+     "b2f578a2e015ebec"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do HoS or SecPO results hold against adaptive attackers outside their own evaluations?",
+   "Will either defense ship in an open-weight model or an agent framework?"
+  ],
+  "generated_at": "2026-11-03T00:20:00+00:00"
+ }
+}

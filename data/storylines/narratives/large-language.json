@@ -1,27 +1,5 @@
 {
-  "covers_last_updated": "2026-10-29T09:21:26+00:00",
-  "covers_member_sids": [
-    "06d8677dec3b3c21",
-    "16071b3c73317004",
-    "200271de2a2f52aa",
-    "276a486ae6eefe6b",
-    "37f6c0c263213efd",
-    "590975aa217085b7",
-    "5f97c21b490b1ce9",
-    "8debe4581e047c88",
-    "9c42d9612d92f7f3",
-    "a2f964aa6fcbf7ea",
-    "ade0f523550f640a",
-    "b6b30743068c2627",
-    "c888971c48a268c3",
-    "d571e973b6e6916d",
-    "d5cd3db9b5f4a99b",
-    "e826ccda9d048b84",
-    "f07fa8132755e14c"
-  ],
-  "tldr": "This page groups items by the shared phrase \"large language models\", so most of it is a reading list, not one thread. Oct 16-27 items cover sycophancy, code-translation hallucinations, search agents, steering and continual learning.",
-  "whats_new": "Oct 29: Mistral Large 4 is released, with vLLM day-0 support (sparse MLA, speculative decoding, NIXL prefill/decode on Blackwell) and a Hugging Face launch post.",
-  "why_it_matters": "Mistral Large 4 is the one item here you can deploy: serving support landed the same day as the weights, so self-hosting is testable now. The papers remain a reading list.",
+  "slug": "large-language",
   "beats": [
     {
       "kicker": "BEHAVIOR",
@@ -81,14 +59,34 @@
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
+      "kicker": "OCT 29",
+      "tone": "launch",
       "headline": "Mistral Large 4 ships with day-0 vLLM and Hugging Face support",
       "summary": "A concrete model release, preceded by an Oct 22 pricing comparison naming it.",
       "sids": [
         "590975aa217085b7",
         "37f6c0c263213efd",
         "b6b30743068c2627"
+      ]
+    },
+    {
+      "kicker": "OCT 29-30",
+      "tone": "rising",
+      "headline": "Memory graphs, knowledge integration, retrieval compilation and extreme pruning",
+      "summary": "Four papers on persistent memory, context-vs-memory evaluation, compiled knowledge for search harnesses, and pruning at extreme sparsity.",
+      "sids": [
+        "e519641640234319",
+        "1d7852cb09b3031f",
+        "ce941c554e9fce8e",
+        "a8a5f23cd8e10643"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "InfoQ lays out a context engine for agentic architectures",
+      "sids": [
+        "744a7a52285cfa40"
       ]
     }
   ],
@@ -97,9 +95,9 @@
     "Does the \"9x price gap\" comparison hold against first-party Mistral API pricing?",
     "Does Reva's real-time screening keep false positives low enough to gate agent-written code?",
     "Does CAMR's replay selection reduce forgetting on models larger than those in its experiments?",
-    "Does CANS steering preserve general capability on models beyond those it was tested on?"
+    "Does CANS steering preserve general capability on models beyond those it was tested on?",
+    "Do the Oct 30 retrieval-compilation and context-vs-memory results hold outside their reported benchmarks?"
   ],
-  "take_for_builders": "If you self-host, pull Mistral Large 4 on the vLLM day-0 build and rerun your own evals and latency tests before swapping it in. Treat the Oct 22 price comparison as unverified until you check provider pricing pages.",
   "day_captions": {
     "ade0f523550f640a": "Shows user backstories push models toward sycophancy.",
     "06d8677dec3b3c21": "Catalogs hallucinations in cross-language code translation.",
@@ -117,8 +115,41 @@
     "37f6c0c263213efd": "vLLM serving support for Mistral Large 4 from day 0, including speculative decoding and P/D disaggregation on Blackwell.",
     "b6b30743068c2627": "Hugging Face's launch post for Mistral Large 4.",
     "e826ccda9d048b84": "Paper questioning whether translated English benchmarks measure the same constructs as native ones.",
-    "d571e973b6e6916d": "Paper on RL to incentivize LLM self-learning on knowledge-intensive tasks."
+    "d571e973b6e6916d": "Paper on RL to incentivize LLM self-learning on knowledge-intensive tasks.",
+    "e519641640234319": "Registry-anchored memory graph keeping identity and provenance for investor knowledge.",
+    "1d7852cb09b3031f": "Benchmark for integrating new information from context versus memory.",
+    "ce941c554e9fce8e": "Argues compiled knowledge helps retrieval in agentic search harnesses.",
+    "a8a5f23cd8e10643": "Gradual pruning with sparse adaptation to keep quality at extreme sparsity.",
+    "744a7a52285cfa40": "Practitioner framing that separates context, memory and knowledge in agent architecture."
   },
-  "slug": "large-language",
-  "generated_at": "2026-11-01T00:12:51.951611+00:00"
+  "generated_at": "2026-11-03T00:20:00+00:00",
+  "covers_last_updated": "2026-11-02T11:00:00+00:00",
+  "covers_member_sids": [
+    "ade0f523550f640a",
+    "06d8677dec3b3c21",
+    "16071b3c73317004",
+    "276a486ae6eefe6b",
+    "590975aa217085b7",
+    "8debe4581e047c88",
+    "f07fa8132755e14c",
+    "c888971c48a268c3",
+    "5f97c21b490b1ce9",
+    "d5cd3db9b5f4a99b",
+    "a2f964aa6fcbf7ea",
+    "200271de2a2f52aa",
+    "9c42d9612d92f7f3",
+    "e826ccda9d048b84",
+    "37f6c0c263213efd",
+    "b6b30743068c2627",
+    "d571e973b6e6916d",
+    "e519641640234319",
+    "1d7852cb09b3031f",
+    "ce941c554e9fce8e",
+    "a8a5f23cd8e10643",
+    "744a7a52285cfa40"
+  ],
+  "tldr": "This page groups items by the shared phrase \"large language models\", so most of it is a reading list, not one thread. Oct 16-28 items cover sycophancy, code-translation hallucinations, search agents, steering and continual learning, and Mistral Large 4 shipped Oct 29.",
+  "whats_new": "Nov 2: InfoQ argues agentic architectures need a context engine that selects, injects, compresses and expires information, separating context, memory and knowledge.",
+  "why_it_matters": "Mistral Large 4 is the one deployable item: vLLM support landed with the weights. The newest items converge on context and memory design for agents, which is an architecture choice rather than a model swap.",
+  "take_for_builders": "If you self-host, pull Mistral Large 4 on the vLLM day-0 build and rerun your own evals before swapping it in. For agents, audit where context is selected, compressed and expired in your harness before adding more memory."
 }

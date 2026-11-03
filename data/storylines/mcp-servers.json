@@ -1,0 +1,103 @@
+{
+ "slug": "mcp-servers",
+ "label": "MCP Servers",
+ "item_count": 3,
+ "day_count": 2,
+ "source_count": 2,
+ "first_seen": "2026-11-01T14:22:25+00:00",
+ "last_updated": "2026-11-02T13:53:00+00:00",
+ "generated_at": "2026-11-03T00:12:58.466703+00:00",
+ "sources": [
+  "hackernews_ai",
+  "infoq_ai_ml"
+ ],
+ "days": [
+  {
+   "date": "2026-11-01",
+   "items": [
+    {
+     "title": "Same model, different agent: 17 points apart on 21 MCP servers",
+     "url": "https://m3.sineframe.com/blog/same-model-different-agent",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Same model, different agent: 17 points apart on 21 MCP servers",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "b78023b26122d472",
+     "published": "2026-11-01T14:22:25+00:00",
+     "editor_note": "Reports a 17-point score gap between agents on the same model across 21 MCP servers."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-02",
+   "items": [
+    {
+     "title": "Show HN: Arken – cryptographic identity for AI agents calling MCP servers/APIs",
+     "url": "https://github.com/arkenforge/arken-core",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Show HN: Arken – cryptographic identity for AI agents calling MCP servers/APIs",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "48e620c754016698",
+     "published": "2026-11-02T04:29:23+00:00",
+     "editor_note": "Open-source take on cryptographic agent identity for MCP and API calls."
+    },
+    {
+     "title": "Uber Builds MCP Gateway to Govern Access to 800+ Servers and 5,000+ AI Agent Tools",
+     "url": "https://www.infoq.com/news/2026/11/uber-mcp-gateway-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "Uber has built an MCP Gateway to standardize how AI agents discover and invoke internal services across more than 800 MCP servers and 5,000 tools. The gateway separates tool registration from runtime execution and inc...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "072a2ee0757ea55d",
+     "published": "2026-11-02T13:53:00+00:00",
+     "editor_note": "Production-scale example: a gateway governing 800+ servers and 5,000+ tools."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "On Nov 1 a benchmark post reported a 17-point gap between agents running the same model across 21 MCP servers, putting the client side of MCP under scrutiny. On Nov 2 a Show HN project proposed cryptographic identity for agents calling MCP servers.",
+  "stale": false,
+  "whats_new": "Uber built an MCP Gateway to govern agent access to more than 800 MCP servers and 5,000 tools, separating tool registration from runtime execution.",
+  "why_it_matters": "MCP is moving from per-server wiring to centrally governed infrastructure, and results depend on the agent client as much as the model or server.",
+  "take_for_builders": "Pin the agent client alongside the model in MCP evals, and check whether tool registration, auth and audit are centralized before your server count grows.",
+  "status": {
+   "state": "Developing",
+   "tone": "rising",
+   "changed": "2026-11-02",
+   "detail": "Threads on MCP agent variance, agent identity and enterprise gateways are emerging together."
+  },
+  "beats": [
+   {
+    "kicker": "MEASURE",
+    "tone": "launch",
+    "headline": "Same model, different agent: 17 points apart on 21 MCP servers",
+    "sids": [
+     "b78023b26122d472"
+    ]
+   },
+   {
+    "kicker": "IDENTITY",
+    "tone": "rising",
+    "headline": "Arken proposes cryptographic identity for agents calling MCP servers",
+    "sids": [
+     "48e620c754016698"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Uber centralizes access behind an MCP Gateway",
+    "sids": [
+     "072a2ee0757ea55d"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Will other large engineering orgs publish MCP gateway designs for discovery, auth and auditing?",
+   "Will the 17-point agent-client gap be reproduced on other MCP server sets?"
+  ],
+  "generated_at": "2026-11-03T00:20:00+00:00"
+ }
+}

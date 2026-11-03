@@ -1,0 +1,106 @@
+{
+ "slug": "reasoning-latent",
+ "label": "Reasoning Latent",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-10-18T20:48:14+00:00",
+ "last_updated": "2026-10-30T17:59:43+00:00",
+ "generated_at": "2026-11-03T00:12:58.466703+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_cl",
+  "hackernews_ai"
+ ],
+ "days": [
+  {
+   "date": "2026-10-18",
+   "items": [
+    {
+     "title": "Hybrid Reasoning Agents: LLM agents that think in latent space, act through text",
+     "url": "https://arxiv.org/abs/2610.18861",
+     "source": "hackernews_ai",
+     "type": "paper",
+     "summary_1line": "https://x.com/Jiaru_Zou/status/2110400256647340476 https://github.com/togethercomputer/HybridAgent https://huggingface.co/collections/togethercomputer/hybridag... Evaluations: https://arxiv.org/html/2610.18861v1#S5",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "ae6e49210029e41a",
+     "published": "2026-10-18T20:48:14+00:00",
+     "editor_note": "Proposes LLM agents that reason in latent space and act through text, with code and models linked."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-27",
+   "items": [
+    {
+     "title": "SkillMem: Compact External Skill Memory for Latent Multi-Agent Reasoning",
+     "url": "http://arxiv.org/abs/2610.37935v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Latent multi-agent systems reduce inference cost by keeping intermediate reasoning and inter-agent communication in continuous representations.\\ Reusable skills, however, are commonly supplied as text or stored as lay...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "0a570aaed6213cf4",
+     "published": "2026-10-27T20:25:47+00:00",
+     "editor_note": "Adds a compact external skill memory for latent multi-agent reasoning."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-30",
+   "items": [
+    {
+     "title": "Latent Reasoning in Continuous Space for Unified Multimodal Models",
+     "url": "http://arxiv.org/abs/2610.42149v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Unified Multimodal Models (UMMs) achieve remarkable success on diverse multimodal understanding and generation tasks, yet they still struggle to effectively leverage language-based chain-of-thought reasoning for image...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "282f057baf2d5931",
+     "published": "2026-10-30T17:59:43+00:00",
+     "editor_note": "Brings continuous-space latent reasoning to unified multimodal models."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "An Oct 18 paper proposed hybrid agents that reason in latent space but act through text. A paper on Oct 27 then applied latent reasoning to multi-agent systems by storing reusable skills in compact external memory.",
+  "stale": false,
+  "whats_new": "A new arXiv paper moves latent reasoning into continuous space for unified multimodal models, targeting weak language-based chain-of-thought in image tasks.",
+  "why_it_matters": "Latent reasoning aims to cut inference cost by keeping intermediate steps out of text, but it also makes those steps harder to inspect and log.",
+  "take_for_builders": "These are unreplicated preprints; if you log reasoning traces for debugging, check what your tooling would lose before adopting latent-reasoning models.",
+  "beats": [
+   {
+    "kicker": "HYBRID",
+    "tone": "launch",
+    "headline": "Hybrid agents think in latent space, act through text",
+    "summary": "Separates internal reasoning from the textual action interface.",
+    "sids": [
+     "ae6e49210029e41a"
+    ]
+   },
+   {
+    "kicker": "MULTI-AGENT",
+    "tone": "rising",
+    "headline": "SkillMem stores skills externally for latent multi-agent systems",
+    "summary": "Targets the mismatch between continuous reasoning and text-supplied skills.",
+    "sids": [
+     "0a570aaed6213cf4"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Latent reasoning extends to unified multimodal models",
+    "summary": "Applies continuous-space reasoning to image understanding and generation.",
+    "sids": [
+     "282f057baf2d5931"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do any of these papers report cost or latency savings against text chain-of-thought on the same tasks?",
+   "Is code or a model release available for the Hybrid Agents or SkillMem approaches?"
+  ],
+  "generated_at": "2026-11-03T00:30:00+00:00"
+ }
+}

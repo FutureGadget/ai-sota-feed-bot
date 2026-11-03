@@ -1,12 +1,12 @@
 {
  "slug": "on-policy-distillation",
  "label": "On-Policy Distillation",
- "item_count": 4,
- "day_count": 4,
+ "item_count": 5,
+ "day_count": 5,
  "source_count": 4,
  "first_seen": "2026-10-14T08:12:10+00:00",
- "last_updated": "2026-10-26T16:21:00+00:00",
- "generated_at": "2026-10-28T00:13:55.337169+00:00",
+ "last_updated": "2026-10-30T17:56:58+00:00",
+ "generated_at": "2026-11-03T00:12:58.466703+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cn_open_weight_reports",
@@ -77,14 +77,30 @@
      "editor_note": "Moves the technique from training a model to choosing multi-agent serving configurations."
     }
    ]
+  },
+  {
+   "date": "2026-10-30",
+   "items": [
+    {
+     "title": "DecisionRank: On-Policy Distillation for Decision-Model Rerankers",
+     "url": "http://arxiv.org/abs/2610.42128v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Decision models target structured tasks by directly predicting choices or scores, avoiding autoregressive decoding latency. However, transferring a generative LLM's ranking knowledge to a decision model remains challe...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "79cbc9c6543a99c8",
+     "published": "2026-10-30T17:56:58+00:00",
+     "editor_note": "Applies the technique to ranking, distilling an LLM into a decision model."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Papers from Oct 14 onward apply on-policy distillation (training a student on its own sampled trajectories, scored by a teacher) to translation, long-horizon coding agents, and the question of when the student should follow the teacher.",
+  "tldr": "Papers from Oct 14 apply on-policy distillation (training a student on its own sampled trajectories, scored by a teacher) to translation and long-horizon coding agents. By Oct 22 the work turned to when the student should follow the teacher, and by Oct 26 to multi-agent serving configuration.",
   "stale": false,
-  "whats_new": "Oct 26: EvoRouter, an arXiv paper, uses insight-guided on-policy distillation to pick models, agent counts and skills for multi-agent web-query serving at lower cost.",
-  "why_it_matters": "On-policy distillation is moving from model post-training into serving decisions such as multi-agent routing, so cost-focused teams can test it on configuration choices, not only on small models.",
-  "take_for_builders": "If you distill small models or tune multi-agent configs, run an on-policy versus SFT comparison on your own trajectories and query mix before adopting either; none of these papers has independent replication yet.",
+  "whats_new": "Oct 30: DecisionRank, an arXiv paper, applies on-policy distillation to transfer a generative LLM's ranking knowledge into a decision model that predicts scores directly, avoiding autoregressive decoding latency.",
+  "why_it_matters": "On-policy distillation is spreading from post-training into serving components such as multi-agent routing and rerankers, so teams can test it on latency- and cost-sensitive parts of a stack, not only on small chat models.",
+  "take_for_builders": "If you run an LLM reranker or router, benchmark a distilled decision model against it on your own queries for quality and latency before switching; none of these papers has independent replication yet.",
   "status": {
    "state": "Active research thread",
    "tone": "rising"
@@ -115,19 +131,28 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "SERVING",
+    "tone": "rising",
     "headline": "EvoRouter applies on-policy distillation to multi-agent routing cost",
     "sids": [
      "6ec8d30bc1da5744"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "DecisionRank distills LLM ranking knowledge into a decision-model reranker",
+    "sids": [
+     "79cbc9c6543a99c8"
     ]
    }
   ],
   "open_questions": [
    "Does the advantage-based method beat plain on-policy distillation on agentic coding tasks, not only its own benchmarks?",
    "Does any group release code that reproduces the OPRD long-horizon results?",
-   "Do EvoRouter's cost savings hold on production query mixes outside its own benchmark?"
+   "Do EvoRouter's cost savings hold on production query mixes outside its own benchmark?",
+   "Does DecisionRank's distilled reranker match its LLM teacher's ranking quality on a third party's data?"
   ],
-  "generated_at": "2026-10-28T00:13:26.427667+00:00"
+  "generated_at": "2026-11-03T00:20:00+00:00"
  }
 }

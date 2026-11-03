@@ -1,15 +1,16 @@
 {
  "slug": "learning-through",
  "label": "Learning Through",
- "item_count": 3,
- "day_count": 3,
- "source_count": 2,
+ "item_count": 4,
+ "day_count": 4,
+ "source_count": 3,
  "first_seen": "2026-10-19T08:07:35+00:00",
- "last_updated": "2026-10-26T14:25:40+00:00",
- "generated_at": "2026-10-28T00:13:55.337169+00:00",
+ "last_updated": "2026-10-30T16:55:46+00:00",
+ "generated_at": "2026-11-03T00:12:58.466703+00:00",
  "sources": [
   "arxiv_agent_systems_research",
-  "arxiv_cs_ai"
+  "arxiv_cs_ai",
+  "arxiv_cs_lg"
  ],
  "days": [
   {
@@ -59,13 +60,29 @@
      "editor_note": "Identifies conditions where fine-grained credit assignment fails to improve task performance."
     }
    ]
+  },
+  {
+   "date": "2026-10-30",
+   "items": [
+    {
+     "title": "CausalXRL: Explainable Reinforcement Learning through Causal Graph Reasoning",
+     "url": "http://arxiv.org/abs/2610.42028v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Reinforcement learning is a powerful paradigm for training autonomous agents and has achieved impressive performance in complex environments. However, this success often comes at the cost of interpretability, diminish...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "4e3ef058b96b399d",
+     "published": "2026-10-30T16:55:46+00:00",
+     "editor_note": "Targets the interpretability cost of RL agents with causal graph reasoning."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "A run of arXiv papers on how agents learn from their own trajectories. ClueFlow credits search steps by research-state transitions, and a memory-skill paper tackles lifelong learning under a bounded context window.",
+  "tldr": "A run of arXiv papers on how agents learn from their own trajectories. ClueFlow credits search steps by research-state transitions, a memory-skill paper tackles lifelong learning under a bounded context window, and a video-editing RL paper asks when fine-grained credit assignment fails to help.",
   "stale": false,
-  "whats_new": "A multimodal RL paper on video editing asks when fine-grained credit assignment helps agent training and when it fails to improve task performance.",
-  "why_it_matters": "Credit assignment and memory design determine how agents improve from experience, which affects how you build training signals and context management for long-horizon agents.",
+  "whats_new": "CausalXRL adds an interpretability angle, using causal graph reasoning to explain reinforcement-learning agents' behavior.",
+  "why_it_matters": "Credit assignment, memory design, and explainability determine how agents improve from experience and whether you can audit why they act as they do.",
   "take_for_builders": "Before adding per-step rewards to an agent RL setup, run an ablation against outcome-only rewards on your own tasks.",
   "beats": [
    {
@@ -85,18 +102,27 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "CREDIT",
+    "tone": "turn",
     "headline": "Fine-grained credit assignment helps and hurts in multimodal agentic RL",
     "sids": [
      "868490bacebdc880"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "CausalXRL explains RL agents through causal graph reasoning",
+    "sids": [
+     "4e3ef058b96b399d"
     ]
    }
   ],
   "open_questions": [
    "Do ClueFlow-style state-transition rewards hold up beyond the search benchmarks in the paper?",
-   "Which task properties predict that fine-grained credit assignment will hurt rather than help?"
+   "Which task properties predict that fine-grained credit assignment will hurt rather than help?",
+   "Do causal-graph explanations from CausalXRL carry over to LLM agents, or only classic RL environments?"
   ],
-  "generated_at": "2026-10-28T00:13:28+00:00"
+  "generated_at": "2026-11-03T00:20:00+00:00"
  }
 }

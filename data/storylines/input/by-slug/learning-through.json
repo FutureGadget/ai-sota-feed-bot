@@ -1,0 +1,132 @@
+{
+  "generated_at": "2026-11-03T00:11:35.770976+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "learning-through",
+    "label": "Learning Through",
+    "item_count": 4,
+    "source_count": 3,
+    "day_count": 4,
+    "first_seen": "2026-10-19T08:07:35+00:00",
+    "last_updated": "2026-10-30T16:55:46+00:00",
+    "latest_title": "CausalXRL: Explainable Reinforcement Learning through Causal Graph Reasoning",
+    "member_sids": [
+      "736cb3afaf8cf4b3",
+      "110ac885ad3cb773",
+      "868490bacebdc880",
+      "4e3ef058b96b399d"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/learning-through.json",
+    "prior_narrative": {
+      "slug": "learning-through",
+      "generated_at": "2026-10-28T00:13:28+00:00",
+      "covers_last_updated": "2026-10-26T14:25:40+00:00",
+      "covers_member_sids": [
+        "736cb3afaf8cf4b3",
+        "110ac885ad3cb773",
+        "868490bacebdc880"
+      ],
+      "tldr": "A run of arXiv papers on how agents learn from their own trajectories. ClueFlow credits search steps by research-state transitions, and a memory-skill paper tackles lifelong learning under a bounded context window.",
+      "whats_new": "A multimodal RL paper on video editing asks when fine-grained credit assignment helps agent training and when it fails to improve task performance.",
+      "why_it_matters": "Credit assignment and memory design determine how agents improve from experience, which affects how you build training signals and context management for long-horizon agents.",
+      "beats": [
+        {
+          "kicker": "SEARCH",
+          "tone": "launch",
+          "headline": "ClueFlow credits long-horizon search by research-state transitions",
+          "sids": [
+            "736cb3afaf8cf4b3"
+          ]
+        },
+        {
+          "kicker": "MEMORY",
+          "tone": "rising",
+          "headline": "Bidirectional memory-skill learning for lifelong agents",
+          "sids": [
+            "110ac885ad3cb773"
+          ]
+        },
+        {
+          "kicker": "NOW",
+          "tone": "now",
+          "headline": "Fine-grained credit assignment helps and hurts in multimodal agentic RL",
+          "sids": [
+            "868490bacebdc880"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Do ClueFlow-style state-transition rewards hold up beyond the search benchmarks in the paper?",
+        "Which task properties predict that fine-grained credit assignment will hurt rather than help?"
+      ],
+      "take_for_builders": "Before adding per-step rewards to an agent RL setup, run an ablation against outcome-only rewards on your own tasks.",
+      "day_captions": {
+        "736cb3afaf8cf4b3": "Attributes search progress to research-state transitions instead of turn-level signals.",
+        "110ac885ad3cb773": "Couples memory with learned skills so decisions fit a bounded context.",
+        "868490bacebdc880": "Identifies conditions where fine-grained credit assignment fails to improve task performance."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-10-19",
+        "items": [
+          {
+            "sid": "736cb3afaf8cf4b3",
+            "title": "ClueFlow: Learning Long-Horizon Search through Attributed Research-State Transitions",
+            "url": "http://arxiv.org/abs/2610.25980v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Long-horizon search requires agents to acquire relevant evidence and integrate it into an evolving research state. Existing methods maintain research states to guide exploration or assign turn-level progress signals,...",
+            "published": "2026-10-19T08:07:35+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-23",
+        "items": [
+          {
+            "sid": "110ac885ad3cb773",
+            "title": "Lifelong Context Adaptation through Bidirectional Memory-Skill Learning",
+            "url": "http://arxiv.org/abs/2610.32295v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Lifelong LLM agents must learn from an expanding history of interactions while making each decision within a bounded context window. Memory makes past experience available, but the agent may still need to infer how to...",
+            "published": "2026-10-23T07:53:18+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-26",
+        "items": [
+          {
+            "sid": "868490bacebdc880",
+            "title": "When Fine-Grained Credit Assignment Helps and Hurts: Multimodal Agentic Reinforcement Learning through Video Editing",
+            "url": "http://arxiv.org/abs/2610.35497v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Reinforcement learning (RL) has shown promise for training multimodal agents to reason and use tools. However, it remains unclear when fine-grained credit assignment improves learning and when it fails to improve task...",
+            "published": "2026-10-26T14:25:40+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-30",
+        "items": [
+          {
+            "sid": "4e3ef058b96b399d",
+            "title": "CausalXRL: Explainable Reinforcement Learning through Causal Graph Reasoning",
+            "url": "http://arxiv.org/abs/2610.42028v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "Reinforcement learning is a powerful paradigm for training autonomous agents and has achieved impressive performance in complex environments. However, this success often comes at the cost of interpretability, diminish...",
+            "published": "2026-10-30T16:55:46+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}
