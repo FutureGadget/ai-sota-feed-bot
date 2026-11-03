@@ -5,119 +5,131 @@ Focus: AI Platform Engineering
 ## 1. What Google Cloud announced in AI this month
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/ai-machine-learning/what-google-cloud-announced-in-ai-this-month/
-- Score: 3.737 | Reliability: 1.0
+- Score: 3.607 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness, evaluation.
 
-## 2. Building Legal Agents When You Can't See the Data - Jacob Lauritzen, CTO of Legora
+## 2. Stolen AI API keys generated nearly $1M in charges for a single company
+- Type: news | Source: hackernews_ai
+- URL: https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models/
+- Score: 3.269 | Reliability: 1.0
+- Why it matters: 
+
+## 3. Repobs – A local dashboard to manage agent worktrees and branches
+- Type: news | Source: hackernews_ai
+- URL: https://chengxuan-li.github.io/repobs/
+- Score: 3.091 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. CloudOpsBench: AI benchmark shows FAI models struggling with cloud infra
+- Type: news | Source: hackernews_ai
+- URL: https://cloudopsbench.ai
+- Score: 3.083 | Reliability: 1.0
+- Why it matters: 
+
+## 5. Building Legal Agents When You Can't See the Data - Jacob Lauritzen, CTO of Legora
 - Type: news | Source: latent_space
 - URL: https://latent.space/p/building_legal_agents_when_you_can_t_see_the_data_-_jacob_lauritzen_cto_of_legora/
-- Score: 3.147 | Reliability: 1.0
+- Score: 3.038 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. DeepSeek Launches Creator Mode: Generate Plugins From a Single Sentence, All 7 Prompt Sets Made Public
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMidkFVX3lxTE44dHBwakRrcEUyeDFIQVhUMUl0N3hTYUNYWEtWaVNpSVFySkVtNDNabkhZRDNwZThpNnh2SzhCaXh4NkdwUHdOVXh0bzV6ZGZFM2FUenFxM3BBTmtBT1JjbEFhMmdlU2U3ekVzX2VLeC1wN1E5V0E?oc=5
-- Score: 3.062 | Reliability: 1.0
-- Why it matters: 
-
-## 4. llm 0.37
+## 6. llm 0.37
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Nov/2/llm/
-- Score: 2.912 | Reliability: 1.0
+- Score: 2.805 | Reliability: 1.0
 - Why it matters: 
 
-## 5. Scaling Git at OpenAI
+## 7. claude-code v2.1.317
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.317
+- Score: 2.657 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 8. Scaling Git at OpenAI
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/scaling-git-at-openai
-- Score: 2.655 | Reliability: 1.0
+- Score: 2.577 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 6. New context engineering challenges in late 2026
+## 9. New context engineering challenges in late 2026
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/context-engineering-challenges-late-2026
-- Score: 2.653 | Reliability: 1.0
+- Score: 2.554 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness.
 
-## 7. LifeVal
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/lifeval
-- Score: 2.601 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 8. Release 2.74.0 corresponding to NGC container 26.10
-- Type: release | Source: triton_releases
-- URL: https://github.com/triton-inference-server/server/releases/tag/v2.74.0
-- Score: 2.415 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 9. Lakebase Postgres is now generally available on Google Cloud
-- Type: news | Source: databricks_blog
-- URL: https://www.databricks.com/blog/lakebase-postgres-now-generally-available-google-cloud
-- Score: 2.216 | Reliability: 1.0
-- Why it matters: 
-
-## 10. Qodo builds context into AI code review with Codex
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/qodo-codex-plugin
-- Score: 2.195 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 11. EvoTeam: Multi-Agent Collaboration via Evolving Teams
+## 10. Reimagining Text-to-SQL: A Survey of Large Language Model Architectures and Strategies
 - Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.39813v2
-- Score: 2.076 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 12. Trustworthy Distributed Machine Learning in Cloud-Edge-IoT Systems: A Heterogeneity-Aware Survey of Security, Privacy, and Robustness
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2610.38793v1
-- Score: 2.067 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 13. ATLAS-Bench: An Agentic Tool-Use Benchmark for Local Area Search
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2610.39438v1
-- Score: 2.041 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2611.00171v1
+- Score: 2.458 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 14. Learning Calibrated Confidence for Multi-Agent Collaboration
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2610.39927v1
-- Score: 2.02 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 15. Latent Reasoning in Continuous Space for Unified Multimodal Models
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2610.42149v1
-- Score: 1.994 | Reliability: 1.0
+## 11. From Lookups to Lessons: Turning Retrieved Knowledge into Parametric Memory
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2611.00450v1
+- Score: 2.415 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 16. Day 0 support for Mistral Large 4 on vLLM
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-10-29-mistral-large-4
-- Score: 1.609 | Reliability: 1.0
-- Why it matters: 
-
-## 17. Genie 4: A new generation of world simulation
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/
-- Score: 1.348 | Reliability: 1.0
-- Why it matters: 
-
-## 18. codex 0.167.0-alpha.3
+## 12. codex rust-v0.167.0-alpha.4
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.3
-- Score: 1.225 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.4
+- Score: 2.21 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 19. claude-code v2.1.312
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.312
-- Score: 1.178 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
+## 13. Agentic Context Management for Multi-Turn Human-AI Conversations
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.00518v1
+- Score: 2.151 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
 
-## 20. langgraph-sdk==0.4.11
+## 14. Qodo builds context into AI code review with Codex
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/qodo-codex-plugin
+- Score: 2.126 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 15. Lakebase Postgres is now generally available on Google Cloud
+- Type: news | Source: databricks_blog
+- URL: https://www.databricks.com/blog/lakebase-postgres-now-generally-available-google-cloud
+- Score: 2.11 | Reliability: 1.0
+- Why it matters: 
+
+## 16. Introducing the Grid Protectors Program
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/grid-protectors-program
+- Score: 2.094 | Reliability: 1.0
+- Why it matters: 
+
+## 17. Early Stopping in Large Reasoning Models: A Survey and Empirical Audit of Efficiency and Reliability
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2611.00166v1
+- Score: 2.014 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 18. DAMI: Dual-Axis Memory Initialization for Enhanced Long-Context Retrieval in Gated Linear Attention
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2610.41994v1
+- Score: 1.895 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 19. Day 0 support for Mistral Large 4 on vLLM
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-10-29-mistral-large-4
+- Score: 1.603 | Reliability: 1.0
+- Why it matters: 
+
+## 20. Genie 4: A new generation of world simulation
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/
+- Score: 1.356 | Reliability: 1.0
+- Why it matters: 
+
+## 21. langgraph==1.2.19
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.11
-- Score: 0.994 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.19
+- Score: 1.194 | Reliability: 1.0
+- Why it matters: 
+
+## 22. v0.33.0rc2: [ROCm][Bugfix] Skip AITER tuned GEMM when M*N >= 2^31 on gfx950 (#64567)
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc2
+- Score: 0.628 | Reliability: 1.0
 - Why it matters:

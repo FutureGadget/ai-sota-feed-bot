@@ -1463,6 +1463,22 @@
   "url": "http://arxiv.org/abs/2610.32851v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "0f8439521ab02185": {
+  "first_seen": "2026-11-03T02:06:02.616034+00:00",
+  "id": "bfe3326c1bc8e4f5",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-30T23:05:50+00:00",
+  "sid": "0f8439521ab02185",
+  "source": "arxiv_llm_reliability",
+  "summary": "Retrieval-augmented generation (RAG) helps large language models (LLMs) answer factual questions beyond their training data, but it adds storage and inference costs. Distilling previously retrieved information into parametric memories enables reuse without online retrieval. However, training the memory to mimic a retriever rewards accurate independent predictions, which do not necessarily improve the final output quality when combined with the LLM's existing predictions. To address this, we introduce ResMem, in which the LLM reads retrieved text offline to generate teacher targets. This design avoids storing massive token representations, unlike existing parametric memory approaches such as MLP Memory, which relies on k-nearest neighbor (kNN) datastores. Furthermore, by using the LLM as an offline teacher that reads privileged retrieved evidence alongside the input, we train a parametric memory to learn an additive logit residual. This residual aligns the predictions of a student sharing the same backbone with the teacher distribution, while self-distillation updates remain confined to the parametric memory. On a Wikipedia subset, ResMem reduces the storage retained for teacher construction by 94.7% compared with the evaluated kNN pipeline. Across five question answering datasets, ResMem raises mean token F1 from 32.83% for the frozen LLM to 34.48%. It also breaks 21% fewer of the LLM's correct answers than a kNN-trained memory. These findings validate our motivation of treat",
+  "summary_1line": "Retrieval-augmented generation (RAG) helps large language models (LLMs) answer factual questions beyond their training data, but it adds storage and inference costs. Distilling previously retrieved information into pa...",
+  "title": "From Lookups to Lessons: Turning Retrieved Knowledge into Parametric Memory",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.00450v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "0ff62af58464d758": {
   "first_seen": "2026-10-22T06:04:51.714567+00:00",
   "id": "2e8f202934806b0d",
@@ -3640,6 +3656,22 @@
   "title": "U.S. government bans Chinese AI app DeepSeek from federal IT systems",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQNzFtcEhvNUlLajFNR3FXN3NTZUgwdFRCbVdKcjVtNmFobkhaNzdWR2JIT0hMX2JKZ2ZMNzdMOEx2czgtMzVib2cxMXJONmZxc0RlS1puTm1ES2hUaDRtanBBOE1LMTV2TVQwaGdhRXBNS2NHTEQ0Rm5qeEFSblZkYWhBdjlYS0pqZjRNUXV30gGTAUFVX3lxTE9yNUxFMmNHSjBGOXl4T3Z5bFVuUFRWVWxURlg4MV9xVDNnR2xXZm9idkp1OS1uejN3UDh3dkd0TnhZTGh0bWgycmRuaTRmTVVwc0dlaTlNZDhCX2lJSDNNWmVPSnlCWGhKY2RSOW11RlJURGd6UFFLWU16M0hiRksyTVlSQUxfcUUzMmVGZmNjM0lwTQ?oc=5"
+ },
+ "24414d0382017da0": {
+  "first_seen": "2026-11-03T02:06:02.616034+00:00",
+  "id": "934a3fd36c495ac3",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-10-31T01:13:55+00:00",
+  "sid": "24414d0382017da0",
+  "source": "arxiv_agent_systems_research",
+  "summary": "LLMs degrade in multi-turn conversation partly because of context pollution: the model's own earlier outputs stay in context and anchor later turns, so an early misreading of the user's intent can persist after the user corrects it. Assistant omission (AO), dropping every assistant message, removes this pollution but fails when interaction is referential: later turns refer back to drafts, decisions, and tool-call results that exist only in assistant turns. We propose Agentic Conversation Context Curation (AC3), a training-free method in which a separate analyzer (1) consolidates the task specification from the user's messages alone, (2) audits the assistant's prior outputs against it, and (3) edits the context, either appending the analysis or discarding the assistant side and rebuilding the context from the specification. A second finding: pollution is contagious. An analyzer that sees the assistant's reasoning while extracting the specification can do worse than no intervention, and instructing it to ignore them did not close the gap, so we exclude assistant turns structurally. On Lost in Conversation (replaying difficulty-selected instances), where AO is an oracle by construction, AC3 closes 55-84% of the gap between full context and AO on three of four tasks and exceeds AO on the fourth, and an LLM that faithfully summarizes the history does not reproduce the gain even with more compute. On real WildChat conversations, a GPT-5-mini judge prefers AC3's next turn over both ",
+  "summary_1line": "LLMs degrade in multi-turn conversation partly because of context pollution: the model's own earlier outputs stay in context and anchor later turns, so an early misreading of the user's intent can persist after the us...",
+  "title": "Agentic Context Management for Multi-Turn Human-AI Conversations",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.00518v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "24478a3f2df223f3": {
   "first_seen": "2026-10-20T02:12:49.772211+00:00",
@@ -23581,6 +23613,23 @@
   "url": "https://daveremy.github.io/agent-scrum",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "e46c1ab3f7ca9939": {
+  "first_seen": "2026-11-03T02:06:02.616034+00:00",
+  "id": "fd26c167f83f9bc2",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-10-30T13:45:49+00:00",
+  "sid": "e46c1ab3f7ca9939",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Text-to-SQL systems translate natural language questions into executable SQL queries, democratizing access to relational data. Early approaches relied on handcrafted rules and template matching, while subsequent neural methods introduced encoder-decoder architectures, schema linking, and constrained decoding to handle increasingly complex queries. The emergence of large language models (LLMs), exemplified by systems such as ReFoRCE, Agentar-Scale-SQL, Snowflake's Arctic-Text2SQL-R1, and the modular XiYan-SQL framework, has dramatically advanced the field, pushing execution accuracy to new state-of-the-art levels on challenging benchmarks such as Spider, Spider 2.0, and BIRD. In parallel, modular frameworks decompose the task into sub-problems (schema retrieval, sketch-based generation, repair, and ranking), while agentic systems coordinate multiple specialized agents that communicate and dynamically allocate sub-tasks. This survey systematically reviews these LLM-driven approaches within a unified taxonomy of five paradigms (in-context learning, supervised and parameter-efficient fine-tuning, agentic and tool-augmented orchestration, retrieval-augmented generation, and reinforcement learning) and characterizes them by model granularity (monolithic vs. modular), level of supervision (zero-shot, fine-tuned, or reinforcement-based), and reasoning style (direct decoding vs. decomposed multi-step reasoning). We further analyze evaluation metrics, datasets, and open challenges, inc",
+  "summary_1line": "Text-to-SQL systems translate natural language questions into executable SQL queries, democratizing access to relational data. Early approaches relied on handcrafted rules and template matching, while subsequent neura...",
+  "title": "Reimagining Text-to-SQL: A Survey of Large Language Model Architectures and Strategies",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.00171v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "e4af23e935d5e102": {
   "first_seen": "2026-10-12T14:04:36.513744+00:00",
   "id": "39b9d32da7d3a389",
@@ -26326,6 +26375,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.40488v1",
   "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
+ "fdfc122cd97a630f": {
+  "first_seen": "2026-11-03T02:06:02.616034+00:00",
+  "id": "66189960184ef538",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-30T11:39:08+00:00",
+  "sid": "fdfc122cd97a630f",
+  "source": "arxiv_llm_reliability",
+  "summary": "Large reasoning models can improve accuracy by generating longer reasoning traces, but some of this computation may be unnecessary. Early-stopping methods aim to stop once enough reasoning is available to answer. Evaluating these methods requires accounting for the cost of deciding when to stop and the reliability of the resulting answer. We evaluate different methods across five reasoning models on mathematical and scientific reasoning, code generation, and factuality tasks by using a shared rollout replay protocol. We introduce Target-Integrated Token Efficiency (TITE) to measure efficiency relative to the oracle across accuracy targets. We also examine correctness at later exit positions, transfer across models and tasks, post-stop reasoning continuation, and retained justification quality. In our experiments, correctness can decrease at later positions beyond what the fitted decoding-noise model predicts. Reliability checks also reveal continued reasoning after forced termination and weaker supporting reasoning in some correct early-stopping outputs. The implementation can be found in https://github.com/hung20gg/audit-early-stopping.",
+  "summary_1line": "Large reasoning models can improve accuracy by generating longer reasoning traces, but some of this computation may be unnecessary. Early-stopping methods aim to stop once enough reasoning is available to answer. Eval...",
+  "title": "Early Stopping in Large Reasoning Models: A Survey and Empirical Audit of Efficiency and Reliability",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.00166v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "fdfe570c20f7515c": {
   "first_seen": "2026-10-14T14:04:38.404725+00:00",
