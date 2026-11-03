@@ -500,6 +500,24 @@
   "url": "https://www.infoq.com/presentations/doordash-genai-platform-architecture/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "05d3df621b1390dc": {
+  "first_seen": "2026-11-03T03:05:29.307677+00:00",
+  "id": "8faabcbc2f16a0f6",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "codex"
+  ],
+  "published": "2026-10-31T01:58:58+00:00",
+  "sid": "05d3df621b1390dc",
+  "source": "arxiv_cs_cl",
+  "summary": "Large language model (LLM) agents extend their capabilities with skills, each with a name, a description, and a body. Under progressive disclosure, an LLM router selects skills by name and description alone and loads only the selected bodies. Skill libraries grow continually as users and agents add new skills. Because the router relies on this metadata, a similar new skill can displace an earlier one, breaking previously correct routing even though the earlier skill and the router are unchanged. This routing interference is aggravated for public skills, whose descriptions may not match their bodies. We formulate the problem as lifelong skill routing, a class-incremental continual learning problem. A solution must keep earlier skills selectable without suppressing new ones. Existing approaches fall short, since continually retraining the router risks catastrophic forgetting and rewriting methods either ignore similar skills or require per-skill feedback. We therefore propose Skill++, which rewrites only the name and description of each incoming skill, without router training or labeled data. The new description states what the body supports, how the skill differs from its closest predecessor, and what related work it excludes. As a library grows to 731 skills over ten sessions, Skill++ selects all required skills for 76.3% of queries, versus 36.4% under the original metadata. Across three benchmarks and five LLM routers, it outperforms all compared approaches, and its gains ca",
+  "summary_1line": "Large language model (LLM) agents extend their capabilities with skills, each with a name, a description, and a body. Under progressive disclosure, an LLM router selects skills by name and description alone and loads...",
+  "title": "Skill++: Towards Lifelong Agents via Routing-Aware Skill Refinement",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.00544v1",
+  "why_it_matters": "Matches feed focus: agent, harness, codex."
+ },
  "05e978357c86a007": {
   "first_seen": "2026-10-28T18:07:07.688450+00:00",
   "id": "963dd960d7d548a3",
@@ -12693,6 +12711,22 @@
   "type": "news",
   "url": "https://github.com/spinfinc/spinf-serve"
  },
+ "8136d57213de2cd5": {
+  "first_seen": "2026-11-03T03:05:29.307677+00:00",
+  "id": "0d50e64aa76931e1",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-31T04:48:13+00:00",
+  "sid": "8136d57213de2cd5",
+  "source": "arxiv_cs_lg",
+  "summary": "Accelerating modern foundational models has pushed domain-specific compilers toward increasingly complex, multi-tiered optimization pipelines. However, this heavy optimization focus introduces delicate tradeoffs between peak execution performance and correctness. Subtle codegen defects can trigger numerical degradation and memory or buffer corruption, invalidating multi-million-dollar training runs and degrading live serving quality without raising obvious compiler errors. In this paper, we present a battle-tested methodology for verifying and triaging Google's XLA:TPU compiler at hyperscale. We leverage fuzzing techniques, combining synthetic program generation with real production traces, while orchestrating AI agent swarms to autonomously generate stress tests, reproduce failures, and draft fixes. To pinpoint root causes in full workloads, we pair this with a hierarchical differential pipeline that bisects large graphs down to individual failing operations inside fused kernels. Deployed in production, our framework has already driven the resolution of over 142 compiler bugs (with 103 additional findings under review), from which we distill pragmatic lessons learned.",
+  "summary_1line": "Accelerating modern foundational models has pushed domain-specific compilers toward increasingly complex, multi-tiered optimization pipelines. However, this heavy optimization focus introduces delicate tradeoffs betwe...",
+  "title": "XLA from the Trenches: Correctness on TPU Workloads at Scale",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.00624v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "813f4b8521bddb77": {
   "first_seen": "2026-10-02T16:04:08.518608+00:00",
   "id": "c903438bb1e25272",
@@ -14645,6 +14679,22 @@
   "type": "news",
   "url": "https://openai.com/index/openai-models-google-cloud",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "96207d6b2522935e": {
+  "first_seen": "2026-11-03T03:05:29.307677+00:00",
+  "id": "fe23784d1ac9b6c4",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-10-31T01:35:20+00:00",
+  "sid": "96207d6b2522935e",
+  "source": "arxiv_cs_cl",
+  "summary": "We present WeSearch, a unified, model-centric retrieval framework for large-scale, continuously evolving content search. Prevailing methods assign documents fixed hierarchical Semantic IDs, implicitly assuming each document follows a single coherent semantic path-an assumption that often breaks down for multi-topic documents. WeSearch instead retrieves query-relevant clusters and then ranks atomic documents within the resulting query-specific candidate space, decoupling candidate pruning from fine-grained relevance modeling. Combined with relevance-aware training, compact document representations, and incremental index updates, this design enables weekly-or daily when needed-model refreshes. Deployed as the primary semantic retrieval path in WeChat Search alongside a lexical syntax tree, WeSearch shows consistent one-week A/B gains on corpora from hundreds of millions to billions of documents, and a one-month full-traffic A/B test confirms stable improvements of +0.68% CTR and +2.27% per-user article clicks, together with a 41% reduction in retrieval resource cost and a 19 ms reduction in graphic-text retrieval latency. WeSearch is now fully deployed in WeChat Search, serving 100% of production traffic.",
+  "summary_1line": "We present WeSearch, a unified, model-centric retrieval framework for large-scale, continuously evolving content search. Prevailing methods assign documents fixed hierarchical Semantic IDs, implicitly assuming each do...",
+  "title": "WeSearch: A Unified Model-Centric Retrieval Framework for WeChat Search",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.00530v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "96630ae632c6b2bf": {
   "first_seen": "2026-10-22T08:05:12.472401+00:00",
@@ -18732,6 +18782,22 @@
   "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOZU1qMWZqZDNjZGluci0wUC13OGpKbHNpT2ZjTUlFbGlNZWtacUljaFNnN0x6UG1ObE9BRktoVklFWEFDbmJGTGh5U0ZaQm00QzRPRE5Tc1ZoMDctc09YeUR3SnhxRWxYY2hDbmNPNmo0V0NJZy1XSmdTOWJvYW9hU0dBcHFmbW5NbG1mWFVZNExoRmZvaEFxODlFeC13YVpUQmx2a29wNA?oc=5",
   "why_it_matters": "Matches feed focus: harness."
  },
+ "b80471ec3bc792a2": {
+  "first_seen": "2026-11-03T03:05:29.307677+00:00",
+  "id": "9fe80a4e91643af3",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-30T23:36:03+00:00",
+  "sid": "b80471ec3bc792a2",
+  "source": "arxiv_cs_ai",
+  "summary": "Deploying small language models on resource-constrained hardware requires compression, yet practitioners lack systematic guidance on how quantization, pruning, and post-compression recovery interact when combined. We present a factorial ablation study evaluating 72 compression configurations across four SLM architectures (2.7B-7B parameters), extended with a 48-configuration ordering analysis, benchmark accuracy validation on 30 compressed models, and robustness checks including multi-seed validation and full-corpus perplexity evaluation. INT8 quantization is effectively lossless (<0.5% accuracy degradation), while NF4 quantization combined with L1 magnitude pruning causes model collapse in all 16 tested combinations. LoRA-based fine-tuning reduces degraded perplexity by up to 97% after aggressive pruning; an ablation against standard fine-tuning without a teacher model shows the recovery is driven by LoRA adaptation itself rather than the distillation signal. Compression ordering shows no significant effect among viable configurations (ANOVA p = 0.96) but determines viability for NF4+pruning combinations. INT8 quantization alone provides 40-45% memory reduction with no quality loss. On-device CPU deployment via llama.cpp confirms these findings transfer off the GPU: 4-bit quantization runs 46-54% faster than 8-bit for a perplexity difference under 0.5 points, while un-structured pruning yields no CPU latency or memory benefit, consistent with its dense storage format.",
+  "summary_1line": "Deploying small language models on resource-constrained hardware requires compression, yet practitioners lack systematic guidance on how quantization, pruning, and post-compression recovery interact when combined. We...",
+  "title": "Compression Technique Interactions in Small Language Models: A Factorial Ablation Study",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.00464v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "b8087b88cb63ae7f": {
   "first_seen": "2026-10-01T22:04:34.899617+00:00",
   "id": "a75b0d274b181c04",
@@ -19305,6 +19371,22 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.165.0",
   "why_it_matters": "Matches feed focus: agent, codex."
+ },
+ "bd34e940af441548": {
+  "first_seen": "2026-11-03T03:05:29.307677+00:00",
+  "id": "4e61959e4455ac77",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-10-31T04:14:53+00:00",
+  "sid": "bd34e940af441548",
+  "source": "arxiv_cs_lg",
+  "summary": "State of the art latent dynamics world models achieve impressive performance for robot planning. But do they actually encode the physics of the world? In this paper, we show that popular world models today achieve strong results on tasks that reduce to image similarity but forget key details about objects in the scene like mass, deformation, friction, and bounciness. We achieve this by defining precisely what ought to be encoded in such a world model and introducing two new evaluation methods that can directly tease physical properties and easily scale to new ones. Our evaluation, which we call Roz, includes 10 contrastive tasks and 3 continuous tasks, totaling 1734 individual scenarios. We validate our eval on control tasks. On our own model, AnonWM, we find that performance roughly improves with training steps, while not necessarily being correlated with reconstruction MSE. We argue current model failures are a symptom of evaluation strategies (probes and planners) that are opaque, model-specific, and high-compute. Roz requires only a model that can ingest still frames or video, a way to extract latents, and a distance function between them, and it can be run in one pass. We hope future evaluations will adopt Roz's evaluation techniques. More broadly, we hope Roz can be a case study for a future where benchmarks allow rapid iteration and comparison across models.",
+  "summary_1line": "State of the art latent dynamics world models achieve impressive performance for robot planning. But do they actually encode the physics of the world? In this paper, we show that popular world models today achieve str...",
+  "title": "Roz: A Taste Test for World Model Latents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.00612v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "bd36dcd4473fffd5": {
   "first_seen": "2026-10-26T11:03:41.084881+00:00",
