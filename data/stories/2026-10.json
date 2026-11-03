@@ -6032,7 +6032,7 @@
   "sid": "3cfb1d63c07d8098",
   "source": "arxiv_llm_reliability",
   "summary": "LLM agents increasingly triage security alerts by combining the outputs of several detection tools, implicitly treating those tools as trustworthy. Unlike prior work on conflicts between a model's knowledge and its context, we study conflicts among the tools themselves: what happens when this machine-generated evidence is conflicting or wrong. On the corrected CIC-IDS2017 dataset, four heterogeneous detectors emit labels and confidences that we corrupt under a threat model varying the number of corrupted tools, the persistence of the corruption, and the confidence attached to wrong outputs. Across open-weight LLMs from 3B to 14B parameters, unverified investigators are fragile: one corrupted detector out of four lowers naive accuracy to .50-.72, three lower every unverified investigator to .13 or less, and honest disagreement alone makes them abstain on up to 63% of flows. We propose Conflict-Aware Evidence Verification (CAV), built from established components: an equal-weight vote that ignores reported confidences, an evidence-conflict gate, and an independent nearest-neighbour trust check that tests the leading candidates. With its prompt frozen before testing, CAV-LLM improves on the naive investigator in every corrupted condition ($p < 0.001$), reaching .84-.88 with three corrupted detectors against at most .08, while calling the LLM on 0.4% of clean traffic. A fixed verification rule is as accurate or better unless most tools are corrupted. When we make the independent c",
-  "summary_1line": "LLM agents increasingly triage security alerts by combining the outputs of several detection tools, implicitly treating those tools as trustworthy. Unlike prior work on conflicts between a model's knowledge and its co...",
+  "summary_1line": "LLM agents increasingly triage security alerts by combining the outputs of several detection tools, implicitly treating those tools as trustworthy. Unlike prior work on conflicts between a model's knowledge and its context, we study conflicts among the tools themselves: what happ",
   "title": "When AI Investigators Cannot Trust Their Tools: Conflict-Aware Evidence Verification for Cyber Threat Investigation",
   "type": "paper",
   "url": "http://arxiv.org/abs/2610.41191v1",
@@ -10338,6 +10338,22 @@
   "type": "news",
   "url": "https://www.databricks.com/blog/how-our-ai-research-team-uses-ai-runtime",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "699a722a6f4039bf": {
+  "first_seen": "2026-11-03T01:03:41.790206+00:00",
+  "id": "227c1217d3c44d7c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-10-29T10:55:30+00:00",
+  "sid": "699a722a6f4039bf",
+  "source": "arxiv_agent_systems_research",
+  "summary": "LLM-based multi-agent systems (MAS) rely on collaboration among specialized agents to solve complex tasks. Existing methods improve MAS by refining the prompts, skills, and execution strategies of individual agents based on task feedback. However, improving individual agents does not necessarily lead to better team collaboration. Recent studies have therefore extended evolution to the collaboration level, using collective execution experience to adjust team organization, and inter-agent interactions. Nevertheless, evolving collaboration across heterogeneous tasks remains challenging, as existing approaches often constrain team reorganization within a shared structure and reuse interaction rules across incompatible team contexts. In this paper, we propose EvoTeam, a collaboration-centric evolution framework that jointly evolves team organization, interaction rules, and individual agent skills through execution experience. It maintains a library of reusable teams, selecting or creating agent teams and guiding collaboration through team-specific interaction rules. Collaboration experience accumulates within compatible team contexts, while individual skills remain reusable across teams. Experiments across four benchmarks demonstrate its effectiveness. Our code is available at https://github.com/DEEP-JLU/EvoTeam.",
+  "summary_1line": "LLM-based multi-agent systems (MAS) rely on collaboration among specialized agents to solve complex tasks. Existing methods improve MAS by refining the prompts, skills, and execution strategies of individual agents ba...",
+  "title": "EvoTeam: Multi-Agent Collaboration via Evolving Teams",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2610.39813v2",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "69a766607353eb4c": {
   "first_seen": "2026-10-20T18:05:38.591247+00:00",
