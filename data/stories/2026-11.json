@@ -64,17 +64,17 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "07b0f4ca5cc4c25d": {
-  "content_excerpt": "OpenTelemetry-native SDK for AI agent observability, tracing, evaluation, debugging, governance, and runtime policy enforcement. Framework-agnostic and built for OpenAI Agents, LangGraph, CrewAI, and LLM applications in production. Traccia is a production-ready Python SDK for observing, evaluating, and enforcing policies on AI agents and LLM applications at runtime. Built on OpenTelemetry, Traccia provides distributed tracing, token and cost tracking, evaluation, governance evidence, and runtime policy enforcement across AI agents, agentic workflows, and multi-agent systems. Framework-agnostic and built for OpenAI Agents, LangGraph, CrewAI, and LLM applications in production. Fetch prompts from your Traccia prompt registry by name and deploy label. Compiling fills {{variables}} and stamps the active span with prompt identity. Requires the Traccia platform : create a workspace API key under Settings → API Keys . Tracing and prompt fetch use the same key and default to https://api.traccia.ai . Pass an explicit fallback so agents can still run if a fetch fails. See Prompts in the SDK . evaluate() runs a task and scorers over a dataset. By default the run is saved as an experiment you can open in the app under Evaluate → Experiments , compare against other runs, and attach when you promote a prompt. Use the same workspace API key as tracing and load_prompt . traccia eval runs a task script, saves an experiment, and writes summary.json . The process exit code is the gate: 0 pass, ",
+  "content_excerpt": "OpenTelemetry-native SDK for AI agent observability, tracing, evaluation, debugging, governance, and runtime policy enforcement. Framework-agnostic and built for OpenAI Agents, LangGraph, CrewAI, and LLM applications in production. Traccia is a production-ready Python SDK for observing, evaluating, and enforcing policies on AI agents and LLM applications at runtime. Built on OpenTelemetry, Traccia provides distributed tracing, token and cost tracking, evaluation, governance evidence, and runtime policy enforcement across AI agents, agentic workflows, and multi-agent systems. Framework-agnostic and built for OpenAI Agents, LangGraph, CrewAI, and LLM applications in production. Each call gets an llm.groq.chat.completions span and goes through the Spend Cap. Settlement charges Groq's reported usage at Groq's own price (cached prompt tokens at the cached rate); a stream closed or failed partway is charged an estimate of what it produced; a stream dropped without close() has its request aborted and is charged its full reservation, as is a with_streaming_response call, whose body you read yourself. A call still open at stop_tracing() ends its span; when the Spend Cap reserved budget for it, it is also aborted and charged that reservation (unless Groq reported usage), and otherwise it is left running, so a stream another thread is reading keeps working. Groq reports usage only at the end of a stream, so a call without it records its estimated token counts on the span instead ( llm.u",
   "first_seen": "2026-11-03T20:08:22.719734+00:00",
-  "id": "726527c1b5c72716",
+  "id": "e904857122b1440e",
   "matched_topics": [
    "agent"
   ],
   "published": "2026-11-03T20:06:53+00:00",
   "sid": "07b0f4ca5cc4c25d",
   "source": "hackernews_ai",
-  "summary_1line": "Show HN: Traccia – Vendor-neutral runtime control for AI agents",
-  "title": "Show HN: Traccia – Vendor-neutral runtime control for AI agents",
+  "summary_1line": "Show HN: Traccia – Control what AI agents can do",
+  "title": "Show HN: Traccia – Control what AI agents can do",
   "type": "news",
   "url": "https://github.com/traccia-ai/traccia-py",
   "why_it_matters": "Matches feed focus: agent."
@@ -106,6 +106,24 @@
   "title": "Preparing our next security sprint to harden OpenAI",
   "type": "news",
   "url": "https://openai.com/index/preparing-our-next-security-sprint-to-harden-openai"
+ },
+ "0d563c3f0bde1f8a": {
+  "content_excerpt": "As agents take on longer, more complex tasks, evaluating their performance means looking beyond the final AI-generated answer. Human review plays an important role in agent development: it helps teams define what good looks like, evaluate performance in context, and turn expert judgment into data that drives improvement. In this blog, we explore three principles for effective human-in-the-loop workflows: defining quality through expert judgment, evaluating agents in context, and turning human feedback into reusable evaluation data that drives continuous improvement. An agent trace is a record of everything an agent did in a single attempt: user messages, model responses, tool calls, and intermediate steps. Teams use traces to debug behavior, score quality, and decide what to fix. Often an engineer or an online evaluator flags a trace when something looks off. The flag is a signal, not an explanation. It usually is not enough to know how to change the agent. The flagged trace goes into an annotation queue . A human reviewer opens the interaction and leaves feedback: did the agent do the right thing, and why or why not? Automation chooses what to review. The human supplies the judgment that builders act on. In LangSmith , a queue item can be one run (a single step or span) or a thread (the full multi-turn session). With a thread, the reviewer sees the conversation the user had, instead of one step cut out of it. Each reviewer brings domain judgment the trace does not contain on",
+  "first_seen": "2026-11-03T22:07:45.774266+00:00",
+  "id": "3ef1233a75839652",
+  "image_url": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6aea568fd31846818794bb75_human-insight-blog-cover-review-3840x2160.png",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-03T21:07:00+00:00",
+  "sid": "0d563c3f0bde1f8a",
+  "source": "langchain_blog",
+  "summary": "Explore 3 principles for effective human-in-the-loop workflows and how human-review is a strategic imperative for production-ready agents.",
+  "summary_1line": "Explore 3 principles for effective human-in-the-loop workflows and how human-review is a strategic imperative for production-ready agents.",
+  "title": "Why human insight is a strategic advantage for building better agents",
+  "type": "news",
+  "url": "https://www.langchain.com/blog/human-insight-strategic-advantage-agents",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "0f9890a728a058e8": {
   "content_excerpt": "What a 35-point benchmark cliff, a slowdown study nobody wanted to publish, and real 2026 payroll data say about replacing engineers with agents Claude Opus 4.8 clears 88.6% on SWE-bench Verified . That's the number everyone quotes to argue AI has basically solved software engineering. Now drop it into SWE-bench Pro — the version built from private codebases the model has never seen. The best standardized score on the public leaderboard is 59.1%. On the truly private commercial set, where nobody gets to tune in advance, no model clears 47%. That's not a rounding error. That's a 20-to-40-point cliff, and it shows up everywhere. Gemini 3.1 Pro falls from 80.6% to somewhere between 32% and 46%, depending on which cut you trust. Every lab's flagship shows the same shape of fall. Here's a wrinkle nobody saw coming: the two highest-scoring models that exist right now — Claude Mythos 5 (95.5%) and Claude Fable 5 (95.0%) — aren't something you can actually use. Anthropic suspended public access to both under an export control directive. The \"best\" model on paper this week is one you can't buy. That gap, between the benchmark you can quote and the codebase you actually own, is the entire \"AI replaces developers\" argument in miniature. Models are extraordinary at problems that resemble what they've already seen. They get shaky fast the moment the code is genuinely yours — your weird conventions, your one engineer's undocumented caching hack from three years ago. But cost is the questio",
@@ -864,6 +882,25 @@
   "url": "http://arxiv.org/abs/2611.01927v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "52a4666a8314ce93": {
+  "first_seen": "2026-11-03T22:07:45.774266+00:00",
+  "id": "7a828456d2a461e5",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "eval",
+   "claude code"
+  ],
+  "published": "2026-11-02T09:32:13+00:00",
+  "sid": "52a4666a8314ce93",
+  "source": "arxiv_agent_systems_research",
+  "summary": "AI scientists are expanding automated research across scientific domains, yet their ability to turn the scientific record into a foundation for autonomous discovery remains elusive. Here we uncover a fundamental barrier to this transition and demonstrate a route to overcome it in computational quantum science, where advances shape both what we can learn from complex quantum systems and what quantum computing can ultimately deliver. To identify this barrier, we introduce OmniQ, an expert-audited virtual research environment that converts published studies into executable reproduction tasks. Across 59 papers spanning classical simulation, quantum algorithms and quantum-property characterization, we systematically evaluate five agentic systems powered by large language models and six third-party agent harnesses. Our findings reveal that current AI scientists often fail to reproduce published results, exposing a fundamental mismatch between what scientific papers communicate and what autonomous agents require. By contrast, human expert intervention can turn these failures into successful reproductions, showing that the missing information can be identified and converted into reusable research experience. Guided by this observation, we develop Residual Agents (RA), a quantum-tailored self-improving AI scientist that distils externally verified workflow repairs into such experience. RA substantially improves research performance under fixed base models and limited adaptation budget",
+  "summary_1line": "AI scientists are expanding automated research across scientific domains, yet their ability to turn the scientific record into a foundation for autonomous discovery remains elusive. Here we uncover a fundamental barri...",
+  "title": "Reimagining computational quantum research with AI scientists",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.02833v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, eval."
+ },
  "535e40bb574e5495": {
   "first_seen": "2026-11-03T10:05:34.032473+00:00",
   "id": "e74ee5a175015e89",
@@ -1137,7 +1174,7 @@
    "agent",
    "eval"
   ],
-  "published": "2026-11-03T21:04:42+00:00",
+  "published": "2026-11-03T22:06:58+00:00",
   "sid": "720b0d0c60188399",
   "source": "langchain_blog",
   "summary": "LangSmith BYOC now runs on AWS (GA), Azure and Google Cloud (Beta). Your traces, evals, and agent deployments stay in your cloud account while LangChain runs it.",
@@ -1514,6 +1551,18 @@
   "url": "http://arxiv.org/abs/2611.01940v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "99fb85f961738c74": {
+  "content_excerpt": "Memory efficient and high performance Mixture-of-Experts inference for Apple Silicon 125 billion parameters. Up to 11 tokens per second. Under 10 GB of peak process memory. MoEShift is optimized for Apple Silicon: on a Mac mini M4 Pro with 24 GB of unified memory, it runs Qwen 3.8 Flash Next with roughly half the peak process memory of Strata and processes long prompts 2.6× faster. MoEShift leaves room for your other apps, helping your Mac stay responsive during inference instead of grinding to a halt under memory pressure. Keep browsing, writing and coding while the model works—all locally, with no cloud subscription. Alpha release. The core runtime is working, and the project is evolving quickly. You may encounter rough edges; your feedback helps shape the next release. Tested models and quantizations are listed below. Both use the shared SSD expert runtime on Apple Silicon. See supported architectures . Compared with Strata , a popular choice for local MoE inference, on a Mac mini M4 Pro with 24 GB unified memory . Both ran Qwen 3.8 Flash Next (125B), ISTA-DASLab GSQ-RCO IQ3_XXS, with an 8,192-token context, no cached prompt tokens and 256 output tokens. Strata: 0.2.7, build 0.1.52. Time includes server-measured prompt processing and generation, excluding startup. Memory is macOS footprint -p peak physical process footprint. UD Q6_K XL on the same Mac mini M4 Pro with 24 GB unified memory. Medians of three measured runs after warmup, with no cached prompt tokens and 512 ou",
+  "first_seen": "2026-11-03T22:07:45.774266+00:00",
+  "id": "1d05d5f875881e8e",
+  "published": "2026-11-03T21:17:06+00:00",
+  "sid": "99fb85f961738c74",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Run faster MoE inference on Mac with less RAM",
+  "title": "Show HN: Run faster MoE inference on Mac with less RAM",
+  "type": "news",
+  "url": "https://github.com/davide-troiani/moeshift"
+ },
  "9a186fa9d7a7512d": {
   "content_excerpt": "Long-term memory for your agents, fully managed. Sign up with GitHub and get $5 of free credit. The LLM writes, the decision model judges. hs-decide-1-flash takes over the small judgments inside Hindsight: better answers from six of seven LLMs, cheaper for five. With a reranker and an embedding model built for agent memory, open weights and hosted. The LLM writes, the decision model judges. Most of what an AI application asks an LLM isn't writing. It's small judgments: is this new, which of these matters, is this enough. Today we're releasing three models built for agent memory, starting with hs-decide-1-flash , a decision model that answers those judgments directly, so the LLM is left with the writing. A memory system is full of judgments. Between storing a memory and recalling it, Hindsight asks: is this fact new, or already known? Does it change what we believe? Which of these memories matter for this question? Is this evidence enough to answer? Could this new memory change that knowledge page? Hindsight used to ask an LLM every time. Each answer was a full generation call: seconds of latency, a bill for every token of context, and free text to parse back into a yes or no. On our evals, with a decision model answering the judgments, the LLM makes about a third fewer calls: 3.1 per case instead of 4.5. A decision model is built for exactly this shape of question. You give it the state and the question, and it returns a typed answer: a choice with a probability for each opti",
   "first_seen": "2026-11-03T17:06:51.488000+00:00",
@@ -1554,6 +1603,22 @@
   "title": "DeepSeek Launches Creator Mode: Generate Plugins From a Single Sentence, All 7 Prompt Sets Made Public",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE44dHBwakRrcEUyeDFIQVhUMUl0N3hTYUNYWEtWaVNpSVFySkVtNDNabkhZRDNwZThpNnh2SzhCaXh4NkdwUHdOVXh0bzV6ZGZFM2FUenFxM3BBTmtBT1JjbEFhMmdlU2U3ekVzX2VLeC1wN1E5V0E?oc=5"
+ },
+ "a348c024152a3ca4": {
+  "content_excerpt": "Since Paneflow 0.17.7 , the sidebar takes an agent's turn state from exactly one place: a status the agent writes into its own terminal. An agent that stops for a permission writes a sequence of this shape (the example comes from the spec): The usual assumption is that a tool running agents has to watch them from the outside: match the spinner, spot the permission prompt, notice the input box came back. I built that, several times, and deleted it. My position now is that the turn state belongs to the agent, the only process that actually knows it, and that the terminal's job is to carry the declaration without guessing. This is what ships in Paneflow 0.19.0. It covers the agents that emit OSC 7501: Claude Code from v2.1.295, and Codex, which merged support in openai/codex#52725 and #54114 in October. An agent that declares nothing gets no turn state, on purpose. The post follows one Claude Code turn from the agent to the sidebar, then the general shape, the six approaches that came before, what it costs, and the strongest objection. Mitchell Hashimoto published the Program Status Protocol on October 6, 2026, as \"a completely generic, terminal-native specification\" that came out of his work on Superlogical and Ghostty ( his post ). A program writes OSC 7501 with key=value pairs separated by colons: A program asks for support with OSC 7501 ; ? . There is no heartbeat. When the shell prompt returns ( OSC 133 A ) or the program exits, the terminal drops working and blocked ; done",
+  "first_seen": "2026-11-03T22:07:45.774266+00:00",
+  "id": "01b9d81055114320",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-03T20:20:39+00:00",
+  "sid": "a348c024152a3ca4",
+  "source": "hackernews_ai",
+  "summary_1line": "Agent status in Paneflow: from screen rules to OSC 7501",
+  "title": "Agent status in Paneflow: from screen rules to OSC 7501",
+  "type": "news",
+  "url": "https://paneflow.dev/blog/agent-status-osc-7501",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "a3fde46d355d17fa": {
   "content_excerpt": "A persistent Chrome cloud browser for AI agents. Give every agent an isolated browser with saved login state and a browser you can pick up anytime. A cloud browser runs on a remote machine, so your agents can work beyond a single local desktop. Cloudbrowser gives each task an isolated Chrome browser with its own saved profile, a CDP URL for automation, and a live view you can open from anywhere. Start with a clean Chrome. Make it yours. Come back exactly to the profile you need. Save your cloud browser profile across tasks. Let a human sign in, then hand the same browser to an agent. Pause and fork a cloud browser into independent copies. Give every task its own space without repeating the setup. Pause cloud browser compute when the work is done. Resume Chrome and reconnect when you need it. Create a cloud browser with the REST API. Connect your favorite automation tool to its CDP URL. It explains how to install the CLI, sign in and create a browser without exposing a connection secret. Free includes 1 browser-hour per month and one running browser. Basic is $20/month for 250 hours and 10 concurrent browsers. Pro is $99/month for 1,250 hours and 100 concurrent browsers. Additional runtime is $0.08/hour on Basic or $0.06/hour on Pro. Free browsers pause at the limit. Paid upgrades are prorated; downgrades take effect next period. Anyone with a verified email can start on the Free plan. A cloud browser runs on a remote machine rather than your own computer. Cloudbrowser gives e",
