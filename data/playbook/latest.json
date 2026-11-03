@@ -1,120 +1,113 @@
 {
-  "date": "2026-10-27",
-  "title": "Agent Builder's Playbook — Oct 27, 2026",
-  "generated_at": "2026-10-27T10:02:47Z",
+  "date": "2026-11-03",
+  "title": "Agent Builder's Playbook — Nov 3, 2026",
+  "generated_at": "2026-11-03T10:04:46Z",
   "intro": [
-    "Three of six cards close silent failures: unused prompt caches, misleading tool output, and unsafe retries.",
-    "The other three cover instruction-file and MCP injection paths."
+    "Agent harnesses, not models, decided outcomes this week: tool choice, hidden token spend and unchecked tests all moved results."
   ],
   "card_count": 6,
   "cards": [
     {
-      "id": "pb-audit-prompt-cache-integration",
+      "id": "pb-test-mcp-per-harness",
       "kind": "source-backed",
-      "title": "Audit your agent's prompt-cache integration for silent misses",
-      "area": "Cost & latency",
-      "problem": "Prompt caching can be enabled yet never hit, so you pay full price with no error to tell you.",
-      "apply": "Log the cached-token count the provider returns on each agent call, and alert when it stays near zero. Keep the system prompt, tool schemas, and early history byte-stable, and put changing content last.",
-      "result": "Cache misses show up in monitoring instead of on the invoice, and stable prefixes start getting reused.",
-      "effort": "low",
-      "source": "arxiv_agent_systems_research",
-      "source_url": "http://arxiv.org/abs/2610.34817v1",
-      "source_sid": "acf14c1d41e7a5ef",
+      "title": "Benchmark your MCP server through each agent harness, not just one model",
+      "area": "Tool use",
+      "problem": "The same model scored 82.0% through one coding agent and 65.4% through another on the same 21 MCP servers.",
+      "apply": "Run your MCP server's task suite through every harness your users run, and check which built-in tools the agent reaches for before your server's tools.",
+      "result": "You find harness-specific failures before users do, instead of blaming the model.",
+      "effort": "medium",
+      "source": "hackernews_ai",
+      "source_url": "https://m3.sineframe.com/blog/same-model-different-agent",
+      "source_sid": "b78023b26122d472",
       "evidence": {
-        "kind": "editorial-inference",
-        "note": "Editor's reading of the source's described failure mode; no measured result is cited."
-      },
-      "published": "2026-10-26T04:01:18Z"
+        "kind": "source-measured",
+        "note": "The source measured 82.0% vs 65.4% for Claude Haiku 5.5 across 21 servers and three trials per task."
+      }
     },
     {
-      "id": "pb-skip-reasoning-after-tool",
+      "id": "pb-mustfail-revert-check",
       "kind": "source-backed",
-      "title": "Skip the reasoning call when the tool result already fixes the next step",
+      "title": "Revert the agent's source change and re-run its tests to prove they can fail",
+      "area": "Evals",
+      "problem": "A green suite from a coding agent can still be vacuous when it widens a mock or asserts only that a value is defined.",
+      "apply": "After the agent finishes, revert its source changes, keep its new tests unchanged, and re-run; treat any test that still passes as not testing the work.",
+      "result": "Tautological tests get flagged before merge instead of being trusted as proof.",
+      "effort": "low",
+      "source": "hackernews_ai",
+      "source_url": "https://github.com/greenlitbooks/mustfail",
+      "source_sid": "a53f6b2859b09ad7",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "The source describes the technique and failure modes; no measured outcome is claimed here."
+      }
+    },
+    {
+      "id": "pb-detect-repeated-tool-calls",
+      "kind": "source-backed",
+      "title": "Cap identical tool calls so a looping agent stops early",
+      "area": "Reliability",
+      "problem": "An agent re-ran the same successful SQL query 254 times, burning tokens and database load while appearing to work.",
+      "apply": "Hash each tool call's name and arguments per task, and stop or force a different action once the same call succeeds a few times in a row.",
+      "result": "Runaway loops end early instead of draining budget and hammering your data layer.",
+      "effort": "low",
+      "source": "hackernews_ai",
+      "source_url": "https://armincat.com/articles/ai-agent-executed-same-query-254-times",
+      "source_sid": "e79cc677e615b2d8",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "The incident report documents the loop; the guard's payoff is the editor's inference."
+      }
+    },
+    {
+      "id": "pb-audit-harness-background-tokens",
+      "kind": "source-backed",
+      "title": "Audit hidden harness calls that spend tokens outside your task",
       "area": "Cost & latency",
-      "problem": "Harnesses re-invoke the model to reason after every tool result, even when the next action is already determined.",
-      "apply": "Find tool results in your traces that always lead to the same next action, and have the harness take that action directly instead of calling the model. Route only ambiguous results back to reasoning.",
-      "result": "Fewer reasoning tokens and lower per-task latency on routine steps, with no change to ambiguous ones.",
+      "problem": "Harnesses make background model calls, such as session naming and status-line updates, that never show up in your task logs.",
+      "apply": "Log every model request your harness sends, including background ones, and disable or route the non-essential calls to a cheaper model.",
+      "result": "The author claims this exposes spend that does no task work, such as 15-20% of tokens on a status line.",
+      "effort": "low",
+      "source": "hackernews_ai",
+      "source_url": "https://armincat.com/articles/where-tokens-go",
+      "source_sid": "16f84d551cfc686c",
+      "evidence": {
+        "kind": "source-claimed",
+        "note": "The author reports Claude Code spends 15-20% of tokens on a status line; this is a claim from one reading of the code."
+      }
+    },
+    {
+      "id": "pb-measure-cli-startup-overhead",
+      "kind": "source-backed",
+      "title": "Measure per-job startup cost before running a coding-agent CLI in fresh containers",
+      "area": "Cost & latency",
+      "problem": "A coding-agent CLI that feels fast in a terminal can be costly when every workflow job starts it in a fresh container.",
+      "apply": "Benchmark candidate CLIs on start-up time, time per turn, memory and image size in your own CI, then weigh that against task success separately.",
+      "result": "You pick a harness whose per-job overhead fits your pipeline instead of guessing.",
+      "effort": "medium",
+      "source": "hackernews_ai",
+      "source_url": "https://aictrl.dev/blog/headless-coding-agent-cli-benchmark",
+      "source_sid": "18df784100d9cc05",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "The source measured start-up, per-turn time, memory, image size and tokens for six CLIs, and says it did not measure task completion."
+      }
+    },
+    {
+      "id": "pb-pin-tool-versions",
+      "kind": "source-backed",
+      "title": "Re-validate tool definitions when a tool updates, not just at install",
+      "area": "Safety",
+      "problem": "Agent frameworks keep trusting a tool after a software update changes what it does.",
+      "apply": "Pin tool descriptions and schemas by hash, and require re-approval or a diff review whenever an MCP server or tool changes them.",
+      "result": "A silently modified tool can no longer inject new behavior into an agent that approved the old one.",
       "effort": "medium",
       "source": "arxiv_cs_ai",
-      "source_url": "http://arxiv.org/abs/2610.32813v1",
-      "source_sid": "ac57fbd36999bb7e",
+      "source_url": "http://arxiv.org/abs/2611.01976v1",
+      "source_sid": "3b426192f1bc75ae",
       "evidence": {
         "kind": "editorial-inference",
-        "note": "Editor's reading of the source's described failure mode; no measured result is cited."
-      },
-      "published": "2026-10-23T15:47:47Z"
-    },
-    {
-      "id": "pb-verify-tools-from-state",
-      "kind": "source-backed",
-      "title": "Verify tool effects from state, not from the text the tool prints",
-      "area": "Evals",
-      "problem": "A tool's printed output can misstate what it did even when its computation was right, misleading both the agent and its verifier.",
-      "apply": "Have verifiers check the resulting state (the row, file, or API object) rather than the tool's formatted output. Treat formatter bugs as a failure class in your tool tests.",
-      "result": "Agents and verifiers stop approving work based on a misleading print-out.",
-      "effort": "medium",
-      "source": "arxiv_agent_systems_research",
-      "source_url": "http://arxiv.org/abs/2610.32110v1",
-      "source_sid": "bd36dcd4473fffd5",
-      "evidence": {
-        "kind": "editorial-inference",
-        "note": "Editor's reading of the source's described failure mode; no measured result is cited."
-      },
-      "published": "2026-10-23T03:22:12Z"
-    },
-    {
-      "id": "pb-untrusted-agent-instruction-files",
-      "kind": "source-backed",
-      "title": "Don't load AGENTS.md-style instruction files from outside the repo",
-      "area": "Safety",
-      "problem": "A malicious AGENTS.md in a Downloads folder tricked a coding agent into installing a rogue npm package.",
-      "apply": "Restrict instruction-file discovery to the repository root and your own config directories. Require explicit approval before the agent reads or follows any instruction file from elsewhere.",
-      "result": "Dropped files stop acting as instructions, closing a path from a stray download to package installs and token theft.",
-      "effort": "low",
-      "source": "hackernews_ai",
-      "source_url": "https://www.bleepingcomputer.com/news/security/ai-coding-agents-hijacked-using-agentsmd-file-in-downloads-folder/",
-      "source_sid": "264cc0e36820b485",
-      "evidence": {
-        "kind": "editorial-inference",
-        "note": "Editor's reading of the source's described failure mode; no measured result is cited."
-      },
-      "published": "2026-10-26T14:01:56Z"
-    },
-    {
-      "id": "pb-recheck-authority-before-retry",
-      "kind": "source-backed",
-      "title": "Re-check authority and confirm the outcome before retrying a consequential action",
-      "area": "Reliability",
-      "problem": "A resumed agent can repeat a side-effecting action after its permissions changed or while the first attempt's outcome is unknown.",
-      "apply": "Before any retry, re-validate the agent's current authorization and query the external system for the first attempt's result. Attach an idempotency key to each consequential call.",
-      "result": "Retries stop duplicating actions or running with revoked authority.",
-      "effort": "medium",
-      "source": "arxiv_agent_systems_research",
-      "source_url": "http://arxiv.org/abs/2610.31916v1",
-      "source_sid": "7e505f680072dedd",
-      "evidence": {
-        "kind": "editorial-inference",
-        "note": "Editor's reading of the source's described failure mode; no measured result is cited."
-      },
-      "published": "2026-10-22T21:09:22Z"
-    },
-    {
-      "id": "pb-strip-mcp-tool-descriptions",
-      "kind": "source-backed",
-      "title": "Strip MCP tool descriptions at a gateway so servers can't steer the model",
-      "area": "Tool use",
-      "problem": "Any MCP server can put instructions in tool description fields to redirect the model or pull credentials.",
-      "apply": "Filter tools/list responses at a gateway: drop description, title, and example prose, and rebuild inputSchema from an allowlist. Write your own tool descriptions on the client side.",
-      "result": "Untrusted servers can no longer inject instructions through tool metadata; the model sees only names and schemas.",
-      "effort": "medium",
-      "source": "hackernews_ai",
-      "source_url": "https://github.com/Ablation-Tool/kevlar",
-      "source_sid": "a92a400264dfa863",
-      "evidence": {
-        "kind": "editorial-inference",
-        "note": "Editor's reading of the source's described failure mode; no measured result is cited."
-      },
-      "published": "2026-10-24T22:24:09Z"
+        "note": "The paper frames the tool update gap; the proposed control is the editor's inference."
+      }
     }
   ]
 }
