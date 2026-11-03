@@ -5,6 +5,7 @@
   'use strict';
   var KEY = 'ai_feed_editorial_state_v2';
   var DISMISS = 'ai_feed_whats_new_dismissed_v1';
+  var EXPAND = 'ai_feed_whats_new_expanded_v1';
   var ROUTE = { '/daily': 'daily', '/weekly': 'weekly', '/storylines': 'storylines',
     '/playbook': 'playbook', '/map': 'map', '/foundations': 'foundations' };
   var LABELS = { daily: 'Daily recap', weekly: 'Weekly recap', storylines: 'Storylines',
@@ -88,6 +89,9 @@
     el.appendChild(viewAll());
     return el;
   }
+  function compactFeed() {
+    try { return window.matchMedia('(max-width: 640px)').matches; } catch (e) { return false; }
+  }
   function renderFeed() {
     var anchor = document.getElementById('freshUpdates');
     if (!anchor || !memory) return;
@@ -101,6 +105,21 @@
     if (combined) combined.replaceChildren();
     if (!selected.length || get('sessionStorage', DISMISS) === '1') return;
     var el = panel(selected, 'Latest from the Editor’s Desk', 'feed');
+    // On phones the full rows push every story below the first screen, so
+    // the feed placement starts as a one-line summary the reader can expand.
+    if (compactFeed() && get('sessionStorage', EXPAND) !== '1') {
+      el.classList.add('editorial-compact');
+      var expand = node('button', 'editorial-expand',
+        selected.length + (selected.length === 1 ? ' update' : ' updates') + ' · Show');
+      expand.type = 'button';
+      expand.setAttribute('aria-expanded', 'false');
+      expand.addEventListener('click', function () {
+        set('sessionStorage', EXPAND, '1');
+        capture('editorial_updates_expand', { placement: 'feed', count: selected.length });
+        renderFeed();
+      });
+      el.querySelector('.editorial-heading').after(expand);
+    }
     var dismiss = node('button', 'editorial-dismiss', 'Hide');
     dismiss.type = 'button';
     dismiss.setAttribute('aria-label', 'Hide editorial updates for this session');
@@ -234,7 +253,7 @@
     if (!document.querySelector('link[href^="/editorial-updates.css"]')) {
       var style = node('link');
       style.rel = 'stylesheet';
-      style.href = '/editorial-updates.css?v=20260910';
+      style.href = '/editorial-updates.css?v=20261103';
       document.head.appendChild(style);
     }
     state.promise = Promise.all([
