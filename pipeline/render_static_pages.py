@@ -3388,9 +3388,12 @@ def render_storyline_pages(
             target = _redirect_target(sl, active_members)
             if target:
                 out_dir.mkdir(parents=True, exist_ok=True)
-                (out_dir / f"{slug}.html").write_text(
-                    render_redirect_page(base_url, slug, target), encoding="utf-8"
-                )
+                stub = render_redirect_page(base_url, slug, target)
+                (out_dir / f"{slug}.html").write_text(stub, encoding="utf-8")
+                # A translation made before the merge must not keep serving a
+                # localized copy of the stub as a canonical page.
+                for localized in WEB_DIR.glob(f"*/storyline/{slug}.html"):
+                    localized.write_text(stub, encoding="utf-8")
                 written.add(f"{slug}.html")
                 continue
         label = squeeze(sl.get("label")) or slug
@@ -5941,17 +5944,44 @@ def i18n_source_hash(source: dict) -> str:
 LANGUAGE_LABELS = {"en": "English", "ko": "Korean"}
 
 
+def superseded_storyline_slugs(storyline_details: list[dict], index: dict | None = None) -> set[str]:
+    """Slugs whose English page is a redirect stub to a live thread."""
+    if index is None:
+        index = load_json(STORYLINES_DIR / "index.json") or {}
+    active_members = {
+        str(s.get("slug")): {str(x) for x in (s.get("member_sids") or [])}
+        for s in (index.get("storylines") or [])
+        if isinstance(s, dict) and s.get("slug")
+    }
+    return {
+        str(sl.get("slug"))
+        for sl in storyline_details
+        if isinstance(sl, dict)
+        and sl.get("slug")
+        and str(sl.get("slug")) not in active_members
+        and _redirect_target(sl, active_members)
+    }
+
+
 def collect_i18n_pages(
     stories: dict[str, dict],
     storyline_details: list[dict],
     wiki: dict,
     foundations: dict,
+    superseded_storylines: set[str] | None = None,
 ) -> dict[str, list[dict]]:
-    """Return fresh pre-translated artifacts grouped by English source path."""
+    """Return fresh pre-translated artifacts grouped by English source path.
+
+    A storyline merged into another thread serves a redirect, so its
+    translation is not published even when its source hash is still fresh.
+    """
+    if superseded_storylines is None:
+        superseded_storylines = superseded_storyline_slugs(storyline_details)
     storylines = {
         str(item.get("slug")): item
         for item in storyline_details
         if isinstance(item, dict) and item.get("slug")
+        and str(item.get("slug")) not in superseded_storylines
     }
     grouped: dict[str, list[dict]] = {}
     if not I18N_DIR.is_dir():
@@ -7315,7 +7345,13 @@ def main() -> None:
         playbook_index = {}
     wiki = load_wiki()
     foundations = load_foundations()
-    i18n_page_map = collect_i18n_pages(stories, storyline_details, wiki, foundations)
+    i18n_page_map = collect_i18n_pages(
+        stories,
+        storyline_details,
+        wiki,
+        foundations,
+        superseded_storyline_slugs(storyline_details, index),
+    )
 
     days = render_daily_pages(base_url, story_sids, playbook_index, i18n_page_map)
     weeks = render_weekly_pages(base_url, story_sids, playbook_index, i18n_page_map)

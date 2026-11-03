@@ -244,3 +244,37 @@ class I18nStaticPagesTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SupersededStorylineI18nTest(unittest.TestCase):
+    def test_merged_storyline_translation_is_not_published(self) -> None:
+        def detail(slug: str, sids: list[str]) -> dict:
+            return {"slug": slug, "days": [{"items": [{"sid": s} for s in sids]}]}
+
+        details = [detail("live-thread", ["a", "b", "c"]), detail("old-fork", ["a", "b"])]
+        index = {"storylines": [{"slug": "live-thread", "member_sids": ["a", "b", "c"]}]}
+
+        self.assertEqual(render.superseded_storyline_slugs(details, index), {"old-fork"})
+
+        with tempfile.TemporaryDirectory() as tmp:
+            locale_dir = Path(tmp) / "ko" / "storyline"
+            locale_dir.mkdir(parents=True)
+            for slug in ("live-thread", "old-fork"):
+                source = next(d for d in details if d["slug"] == slug)
+                (locale_dir / f"{slug}.json").write_text(
+                    json.dumps({
+                        "source_path": f"/storyline/{slug}",
+                        "source_hash": render.i18n_source_hash(source),
+                    }),
+                    encoding="utf-8",
+                )
+            original = render.I18N_DIR
+            render.I18N_DIR = Path(tmp)
+            try:
+                with redirect_stderr(io.StringIO()):
+                    pages = render.collect_i18n_pages({}, details, {}, {}, {"old-fork"})
+            finally:
+                render.I18N_DIR = original
+
+        self.assertIn("/storyline/live-thread", pages)
+        self.assertNotIn("/storyline/old-fork", pages)
