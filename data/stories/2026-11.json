@@ -618,6 +618,25 @@
   "type": "news",
   "url": "https://www.tbc.co/press-releases/neuron-derived-ai-video-model"
  },
+ "449a5ebbef16a4ba": {
+  "content_excerpt": "Browser agents can now take on multi-step work that's painful and time-consuming for people. Personal agents like Instinct and Meta's Muse plan cross-country road trips, cancel unused subscriptions, and list cars for sale, all on sites with no public APIs. DataDome saw agentic browser requests jump 4.7x in September alone. Browser use helps in two places: actions an API can't cover, like using a website the agent wasn't set up for, and end-to-end testing of the web apps coding agents build. Either way, the agent needs two things: This post focuses on the tools, and on making them good enough that the agent uses the browser well. We set out to give agents in Managed Deep Agents a browser. We compared seven toolsets and picked the best one, Stagehand ( GitHub ) from Browserbase . Then we improved it based on what agents did in LangSmith traces, and validated every change with evals. The biggest lesson was how much room there is to improve an agent through tool design. Browser use toolsets come in a few forms: native tools, an MCP server , or a CLI the agent runs in a shell. Browser use poses two unique challenges for those tools: We iterated with the agent development lifecycle : run the agent on a benchmark, read its traces in LangSmith to see where it wasted steps or tokens, change the tool, and run evals to check that the change helped. Every run was a LangSmith experiment , so we could compare setups side by side and click from any number into the trace behind it. We had ev",
+  "first_seen": "2026-11-03T18:05:54.583886+00:00",
+  "id": "a123d7947c691cf0",
+  "image_url": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6ae92cbfdaa7db704c3d4a3d_6ae92ca005e2086fc1f08eb4_browser-use-deep-dive-webflow-cover-1200x675.png",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-03T16:00:00+00:00",
+  "sid": "449a5ebbef16a4ba",
+  "source": "langchain_blog",
+  "summary": "We compared seven browser toolsets for Deep Agents, picked Stagehand from Browserbase, and tuned it with LangSmith traces and evals. Here's what we learned.",
+  "summary_1line": "We compared seven browser toolsets for Deep Agents, picked Stagehand from Browserbase, and tuned it with LangSmith traces and evals. Here's what we learned.",
+  "title": "How We Optimized Browser Use for Deep Agents",
+  "type": "news",
+  "url": "https://www.langchain.com/blog/how-we-optimized-browser-use-for-deep-agents",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "45805de25e6da487": {
   "first_seen": "2026-11-03T09:04:30.637668+00:00",
   "id": "08c7e7a49ec2fef2",
@@ -914,6 +933,33 @@
   "type": "news",
   "url": "https://openai.com/index/grid-protectors-program"
  },
+ "5d8f9fe5b1958cc4": {
+  "content_excerpt": "System One Coding Agents: code-level answers at the same score as Claude Fable 5.1 on the same 74-point xz benchmark (69 / 74, 93.2 % each), at 1/20 of the cost and 3.5× faster. No Context Loss and Memory Limits on sessions since every answer starts from the same, updatable, SQLite index. On 24/10/2026 I have published as OSS a framework I call unified-brain: evidence gathering that is fast and cheap, and as accurate as a frontier coding agent. On the same nine-question, 74-point xz benchmark ( evals/questions/xz.md ) it scores 93.2 % — the same as a Claude Fable 5.1 agent, against 94.6 % for a Claude Opus 5.5 agent — at 1/8 and 1/20 of their cost (prompt caching on), 2.4–3.5× faster. It started at 86.5 % on 29/10; the four retrieval changes that closed the gap are each written up in evals/results/ . The gathering is done by Jev, a frontier decision judge model, not by the frontier model. The magic sauce is an intermediary OS (SQLITE) memory layer that facilitates retrieval, filtering and judging through a System One model, namely Jev. The agent spawned from unified-brain runs through MCP on Cursor, OpenCode or Claude Code etc. allowing you to use it through your favorite harness. So to be clear here: unified-brain is not a harness but a perception layer any harness plugs in! The evals on two large OS libraries (xz and open62541, in evals/ on this repo) are close enough to the frontier agents, at a fraction of their cost, that I believe this is a missing link to make AI more ",
+  "first_seen": "2026-11-03T18:05:54.583886+00:00",
+  "id": "42c021db9076fc38",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-03T17:58:18+00:00",
+  "sid": "5d8f9fe5b1958cc4",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Replacing Turn-Based LLM Agents with SQLite and System One Models",
+  "title": "Show HN: Replacing Turn-Based LLM Agents with SQLite and System One Models",
+  "type": "news",
+  "url": "https://github.com/DevLoops-ai/unified-brain",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "63945bc794809749": {
+  "content_excerpt": "CWE-bench is designed to test the limits of frontier cyber capabilities. In our continued pursuit to push the horizon at Collinear AI , CWE-bench v2 opens up a public set of 100 tasks that anyone can run and evaluate their models on. The setup is the same as before. An agent gets a checkout of a real open-source repository and a short instruction, with the goal of finding and fixing a security weakness without breaking existing functionality. Scoring is fully programmatic, so results are deterministic and anyone can reproduce them without extra cost. All our programmatic checks have been curated with the help of LLM judge panels that shape them towards the direction of hardness and fairness. We also maintain a held-out set , so that we can keep tracking progress on tasks no model has seen. To evaluate your model on the held-out set, contact cyber@collinear.ai . Our goal is to be exhaustive. A defender has to anticipate the ways an attacker could get in, and get it right every single time. These 100 tasks cover 91 different CWEs, spanning a wide range of vulnerability classes. A model that does well here has to understand the multiple weakness surfaces that a potential attacker can exploit. Recognising a familiar pattern is not enough. As part of our meticulous effort to keep improving quality, for every task we checked that the following questions were true: Every task was also reviewed by hand. Open-sourcing the set is part of the same effort to improve quality. We welcome f",
+  "first_seen": "2026-11-03T18:08:26.330585+00:00",
+  "id": "fc8fe674be566ec9",
+  "published": "2026-11-03T00:00:00+00:00",
+  "sid": "63945bc794809749",
+  "source": "huggingface_blog",
+  "title": "CWE-bench v2: More coverage, quality, and transparency",
+  "type": "research",
+  "url": "https://huggingface.co/blog/cwe-bench"
+ },
  "64c246c0a4f71606": {
   "first_seen": "2026-11-03T17:06:51.488000+00:00",
   "id": "a6bc1237e72087af",
@@ -946,6 +992,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03309v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "6abf81ee397eb6f7": {
+  "content_excerpt": "We compare agent behavior in safety evaluations and in deployment situations and find: We are starting to track this gap directly to better assess how well agent behavior observed in these safety evaluations will generalize to real-world use. Evaluation awareness has been widely observed across a range of models and evaluation settings [1-3] . Models often verbally recognize that a particular interaction is an evaluation, speculate about the test objective, and occasionally alter their behavior in response [4] . This creates a real challenge for interpreting and trusting evaluation results. How much of what we observe reflects behavior that will generalize to deployment? How much does this behavior change depend on a model's interpretation of the task? In this post, we focus on agent safety evaluations, across long horizon tasks where agents must decide how to respond when they come across potentially safety-critical triggers (e.g., warnings, restrictions, or obstacles). Minimizing the eval-production gap here is crucial, as an informative safety evaluation needs to measure whether the agent makes the same kinds of decisions in realistic use. To assess how well these evaluations reflect agent behavior in the real world, we compare success rates in evaluation and production, and investigate whether models' interpretations of the evaluation setting help explain the gap. Our results suggest that: (1) The eval-production behavior gap exists and points in an unexpected direction: ",
+  "first_seen": "2026-11-03T18:05:54.583886+00:00",
+  "id": "81fee40976b5a7f6",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-03T18:01:38+00:00",
+  "sid": "6abf81ee397eb6f7",
+  "source": "hackernews_ai",
+  "summary_1line": "Eval-production behavior gaps in agent safety and the role of eval-awareness",
+  "title": "Eval-production behavior gaps in agent safety and the role of eval-awareness",
+  "type": "news",
+  "url": "https://alignment.openai.com/eval-production-behavior-gap",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "6d8a8ee7d8dd93df": {
   "content_excerpt": "For the past two years, building capable Agents meant designing tools, figuring out which actions help the model complete a task, deciding how granular each tool schema needs to be, or iterating on system instruction templates. This is changing. Agents are moving in the opposite direction by collapsing their entire tool catalog into one tool : exec . This is called Code Mode (or Programmatic Tool Calling). Instead of forcing the model to trigger tools one at a time across turns, the harness gives the model a single exec(code) tool. The model writes a short TypeScript or Python script that chains, combines, and awaits actions inside an isolated sandbox. To understand why agents are converging on a single exec tool, we should look at how tool calling evolved. Initially, we only gave agents a handful of tools because they couldn't reliably choose or filter across a large catalog. As models improved, we connected dozens of tools or MCP servers, but ran into context window limits. We solved that with tool search and progressive disclosure , letting agents look up tools on demand. Even with dynamic tool loading, we still had dozens of individual tools, and were still stuck with the limitation of standard tool calling: one action per turn. In standard tool calling, the model generates a structured object (typically JSON) that defines a single action (or at best a flat batch of independent calls, like reading three files), waits for the raw output to come back, adds it into the promp",
@@ -1230,6 +1293,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03374v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "8d86676710497099": {
+  "content_excerpt": "We’re introducing StateBench , a benchmark for long-context state tracking —how well language models keep track of information about entities in long documents as they evolve. State tracking underlies tasks from reading code, where variables are assigned and reassigned, to following a story as characters physically move around and objects change hands. For example, if a mystery novel states that “John gave Mary the knife” right before a murder occurs, it’s important to know that the state of each character has changed. However, not all state-tracking problems are created equal: some require only finding the latest update; harder ones require following a chain of changes, where one missed step can throw off the final answer. For example, a harder variant of our mystery state tracking would be if John gave Mary the item in his backpack, with it previously known that Edward put a knife in John’s backpack. Transformers have well-documented theoretical limits on hard variants of state tracking with long dependency chains, helping motivate recurrent and hybrid architectures such as Gated DeltaNet that carry a running memory forward. Existing state-tracking tests tend to focus on the hardest cases, but as these designs become more common, researchers need to know which kinds of state tracking each architecture can handle. We would like to understand the differences between architectures not just on the hardest kinds of state tracking, but also on the simpler, potentially more common",
+  "first_seen": "2026-11-03T18:05:54.583886+00:00",
+  "id": "c0bf2137f48553f0",
+  "published": "2026-11-03T17:15:21+00:00",
+  "sid": "8d86676710497099",
+  "source": "huggingface_blog",
+  "summary_1line": "StateBench: Testing how language models track state changes over long documents",
+  "title": "StateBench: Testing how language models track state changes over long documents",
+  "type": "research",
+  "url": "https://huggingface.co/blog/allenai/statebench"
  },
  "8ddf2e67d3917490": {
   "first_seen": "2026-11-03T06:05:21.577740+00:00",
@@ -2192,6 +2267,23 @@
   "type": "news",
   "url": "https://www.infoq.com/presentations/canvas-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent, harness."
+ },
+ "f1c2915748ba3cb9": {
+  "first_seen": "2026-11-03T18:05:54.583886+00:00",
+  "id": "07c3648da7ebc18b",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-02T05:38:45+00:00",
+  "sid": "f1c2915748ba3cb9",
+  "source": "arxiv_agent_systems_research",
+  "summary": "The rapid deployment of autonomous AI agents across consequential domains including healthcare, legal services, nancial management, and enterprise workows has created an urgent governance challenge. While the eld of AI evaluation has produced sophisticated benchmarks for measuring agent capability, these frameworks measure exclusively what agents can do rather than how they do it. The ethical dimensions most critical to responsible agent deployment, in- cluding respect for human autonomy, harm avoidance, transparency and non-deception, privacy compliance, and accountability, are systematically absent from current evaluation practice. This paper addresses that gap through three contributions. First, a structured literature review of twelve leading AI agent benchmarks characterizes the ethical dimensions those bench- marks do and do not measure. Second, the Ethical Evaluation Framework for AI Agents (EEFA) is introduced as a comprehensive, operationalizable instrument for ethical agent evaluation, grounded in established AI ethics principles and designed for use by developers, auditors, and regulators. Third, a reproducible validation protocol is specied for applying the EEFA to deployed agent systems, with illustrative test scenarios across all ve framework dimensions. The EEFA is organized across ve primary dimensions: Autonomy Preservation, Harm Avoid- ance, Transparency and Non-Deception, Privacy Compliance, and Accountability and Traceabil- ity. The framework maps directly",
+  "summary_1line": "The rapid deployment of autonomous AI agents across consequential domains including healthcare, legal services, nancial management, and enterprise workows has created an urgent governance challenge. While the eld of A...",
+  "title": "EEFA: A Framework for the Ethical Evaluation of AI Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.02561v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "f3ea6f58c95194f7": {
   "content_excerpt": "Synchronous speech and text translator with parallel delivery to arbitrary sinks. AI-TRANSLATOR listens to speech (or takes text), obtains a translation into a target language, and delivers the result to any number of independent sinks at the same time — text sinks (captions, on-screen displays, files) and voice sinks (translated speech routed to virtual audio devices, network audio streams). The defining property of the project: the translation core does not know where its result goes. The core produces a stream of translation events; delivery is performed by isolated sink modules that can be enabled and disabled individually. One and the same translation can go to a stage screen, broadcast captions and a voice channel simultaneously. Stage 1 (MVP) is implemented and covered by tests: the event bus, the sink subsystem, the console, WebSocket, transcript and Telegram sinks, the supervisor, the audio source on the synchronous translation provider, the offline text and scripted sources, and the command-line interface. Interfaces may still change before the 1.0 release. Linux is the primary platform: the Nix flake provides the development shell, transono drives PipeWire and ALSA, and virtual audio devices are created through its PipeWire module. macOS is supported for building and running: the project builds with Xcode Command Line Tools and a rustup toolchain, without Nix; audio capture and playback go through CoreAudio via cpal , and the PipeWire module of transono is not comp",
