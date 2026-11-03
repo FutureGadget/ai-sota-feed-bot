@@ -15,6 +15,22 @@
   "url": "https://infisical.com/blog/ai-agent-security-hazmat-suits",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "01d6db945cd3f0c2": {
+  "first_seen": "2026-11-03T04:13:31.497634+00:00",
+  "id": "b6f58e302babfc80",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-01T08:46:40+00:00",
+  "sid": "01d6db945cd3f0c2",
+  "source": "arxiv_cs_lg",
+  "summary": "Mixture-of-Experts (MoE) architecture has been widely adopted in large language models (LLMs) since it reduces the computational cost through sparse expert activation. However, the massive parameter scale of MoE models hinders their deployment on resource-constrained edge devices. Although existing mixed-precision quantization reduces the model size, they are inherently static, fixing the bit-width of each expert across decoding steps. Such static schemes yield suboptimal performance as they overlook the dynamic variation in expert importance during decoding. Furthermore, they fail to adapt to the dynamic latency constraint driven by the fluctuating system utilization. To address these challenges, we propose MatMoE, a dynamic mixed-precision quantization framework for efficient MoE inference. MatMoE features: (1) a Matryoshka MoE PTQ algorithm that enables experts to operate flexibly at multiple precisions within a stringent memory budget; (2) a floor-and-compensation quantization method that eliminates redundant memory accesses in the Matryoshka representation; and (3) a dynamic bit-width allocation strategy that determines the precision for each expert based on their routing scores to satisfy the dynamic latency requirement. We implement our MatMoE system atop llama.cpp for both CPU and GPU platforms. Extensive evaluations across three modern MoE models and challenging benchmarks demonstrate that MatMoE achieves $4.0\\% \\sim 18.3\\%$ higher accuracy than state-of-the-art stat",
+  "summary_1line": "Mixture-of-Experts (MoE) architecture has been widely adopted in large language models (LLMs) since it reduces the computational cost through sparse expert activation. However, the massive parameter scale of MoE model...",
+  "title": "MatMoE: Matryoshka Mixture-of-Experts with Dynamic Mixed-Precision Quantization for Efficient Inference",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.01704v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "06728eec88e7e7f8": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. The article argues that reliable agentic AI architecture depends on a context engine that selects, injects, compresses, and expires information before it reaches the model. It separates context, memory, and knowledge, and recommends tiered memory, curated knowledge, and token budgeting. It also covers common anti-patterns, such as context stuffing and stale data loops, with mitigations. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"superv",
   "first_seen": "2026-11-02T17:06:11.336056+00:00",
@@ -87,6 +103,23 @@
   "type": "news",
   "url": "https://zyvop.com/is-ai-actually-cheap-enough-to-replace-developers-8i74u"
  },
+ "14e4e938bb2234ef": {
+  "first_seen": "2026-11-03T04:13:31.497634+00:00",
+  "id": "337a568a687f34df",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-01T09:47:28+00:00",
+  "sid": "14e4e938bb2234ef",
+  "source": "arxiv_cs_lg",
+  "summary": "Self-evolving agents accumulate experience from task streams, but existing frameworks typically rely on fixed pipelines to retrieve and utilize this experience, neglecting when and how to deploy it. We introduce Online Meta-Control of Experience (OMCE), a framework that updates experience memory and learns a meta-control policy from task feedback during test-time adaptation. OMCE employs a lightweight contextual-bandit meta-controller that uses compact retrieval signals to select among four cognitive actions: DIRECT, EPISODE, GUIDE, and DISTILL. This routing mechanism operationalizes three coupled decisions: whether to invoke experience, which memory format to utilize, and when to consolidate new guidance. OMCE evolves online, leveraging task feedback to update the memory bank and refine the routing policy via contextual bandit updates. Experiments on four online adaptation benchmarks across four backbones show that OMCE improves first-attempt success by up to 20.5 percentage points over the strongest compared baseline, while reducing per-task token use by a factor of 5.7 to 62.5 relative to ACE with GPT-5.2. Controlled ablations further support the benefits of learned routing and continued routing policy adaptation.",
+  "summary_1line": "Self-evolving agents accumulate experience from task streams, but existing frameworks typically rely on fixed pipelines to retrieve and utilize this experience, neglecting when and how to deploy it. We introduce Onlin...",
+  "title": "Evolving Memory, Learning to Meta-Control: Test-Time Adaptation for Experience-augmented LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.01747v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "16f84d551cfc686c": {
   "content_excerpt": "I was recently made aware of how Claude Code spends 15-20% of the tokens on updating a three-word status line . Since I work almost entirely within Codex , I decided to take a peek at the code (Codex is open source and written in Rust). If you are working with an open source harness, be that Codex, pi, OpenCode, or something else, I encourage you to explore how it actually works. Whenever an unnamed thread receives a completed, nonempty user text message, an automatic thread naming procedure is invoked behind the scenes. 1 , 2 This happens for example when you start a fresh Codex session and enter the first instructions into the text box. In this case the full prompt, including the title naming instructions, labels and user's text, are capped at 960 bytes and sent to an LLM. 3 , 4 The returned response is a structured output, resulting in a thread title that is preferably under five words, or 36 characters. The preferred model is gpt-5.6-luna with low reasoning effort, when signed into ChatGPT and that model exists in the catalog; otherwise it uses the current selected model. 5 You can also explicitly rename the thread by evoking /rename and this doesn't cost you anything. However, if you run /rename with no arguments, Codex immediately makes an LLM call requesting a title suggestion. That request uses up to eight recent substantive user/assistant messages, excluding assistant commentary. 6 Next I took a look at the live activity indicator, to see if it's similar to how Claud",
   "first_seen": "2026-11-01T20:05:53.130724+00:00",
@@ -135,6 +168,23 @@
   "type": "news",
   "url": "https://github.com/alpcanaydin/rexmod",
   "why_it_matters": "Matches feed focus: harness."
+ },
+ "1c851e04a1a59b28": {
+  "first_seen": "2026-11-03T04:13:31.497634+00:00",
+  "id": "d79e23418f33a961",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-01T08:36:16+00:00",
+  "sid": "1c851e04a1a59b28",
+  "source": "arxiv_agent_systems_research",
+  "summary": "AI agents often rely on persistent memory to retain user preferences and operational rules across sessions. However, this capability introduces a new safety risk: malicious instructions from messages, documents, or Web content can be retained in memory and influence future tasks even after the original attack content is removed. Existing attack success metrics, however, fail to capture who is affected and how attacks translate into downstream harm during otherwise normal task execution. We introduce MemHarmBench, a victim-centric benchmark for evaluating cross-session prompt injection in memory-persistent AI agents. MemHarmBench considers three categories of potential victims: users, workspace/project owners, and external stakeholders. Our evaluation first exposes an agent to malicious instructions and tests whether they are retained in memory. We then remove the attack content and initiate a new session with a legitimate task while preserving the agent's memory. We jointly evaluate whether the agent follows the attacker's intent, completes the legitimate task, and exhibits observable execution anomalies. Across multiple agent systems, we find that cross-session attacks can remain behaviorally stealthy: agents often complete tasks normally and exhibit no detectable anomalies while still making critical decisions aligned with the attacker's intent. By connecting malicious memory retention to downstream decisions and affected parties, MemHarmBench provides a systematic framewor",
+  "summary_1line": "AI agents often rely on persistent memory to retain user preferences and operational rules across sessions. However, this capability introduces a new safety risk: malicious instructions from messages, documents, or We...",
+  "title": "MemHarmBench: Evaluating Cross-Session Prompt Injection in Memory-Persistent AI Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.01700v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "277870ffc8d71544": {
   "first_seen": "2026-11-03T00:05:40.090234+00:00",
@@ -273,6 +323,18 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPZlhRZXhnYlJmX1RiOUdNamRqUXJUU2NycHNuZWtGeEVUejJxNVdEQkQzUU1HMkxHR1dXeDhBVDlPRmVyUHFoMU96VkdBYzlRUFRSWkFFTGVBWWFjNXRRaUlld2d2alpFdVd0VXFlR2tMeXNJUWdDc3c1cG5SR3BPRVd0OVRFLXBvMWhJZ0hzRG1qU2VQazBDQjNQNHl2cXRJZFZV?oc=5",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "41c382765d1235cd": {
+  "content_excerpt": "Picos starts with a custom 32-bit CPU ( smol32 ), fixed RAM, raw storage, and a 256 × 192 pixel display. There is no guest OS, filesystem, shell, allocator, programming language, or window system. Everything has to be built from machine instructions. The goal is to see what different models do when given tight constraints. From the CLI or the web UI, you can cap the number of turns, hide or show the remaining turn budget, and limit the CPU clock, RAM, disk, and total cycle allowance. With only bare machine instructions and fixed capacity, models have to figure out their own ways to fit code, data, stack, and graphics into memory. The entire CPU supports just 32 instructions ( 0x00 – 0x1f ). There are no floating-point ops, SIMD instructions, hardware interrupts, memory protection rings, or graphics syscalls. The idea is to keep the primitives as small and transparent as possible, then see how much complexity an agent can build on top of them, from drawing bitmap fonts pixel-by-pixel in VIDEO_BASE to building shells, file structures, or self-hosted compilers in flat RAM. Assembler directives are equally minimal: .equ , .byte , .word , .ascii , .asciz , and .space , along with built-in constants ( RAM_BYTES , DISK_BYTES , VIDEO_BASE , VIDEO_WIDTH , VIDEO_HEIGHT ). See docs/ISA.md for exact binary encodings and per-instruction cycle costs. The agent interacts with the machine exclusively through 9 narrow tools defined in src/mcp.rs : (Alternatively, run picos login or picos logi",
+  "first_seen": "2026-11-03T04:13:31.497634+00:00",
+  "id": "7c36f0d548a84cc3",
+  "published": "2026-11-03T03:45:48+00:00",
+  "sid": "41c382765d1235cd",
+  "source": "hackernews_ai",
+  "summary_1line": "What can an LLM build with only 32 CPU instructions?",
+  "title": "What can an LLM build with only 32 CPU instructions?",
+  "type": "news",
+  "url": "https://github.com/AlwaysFocus/picos"
  },
  "43f56f7107586761": {
   "content_excerpt": "SAN FRANCISCO | October 30, 2026 – The Biological Computing Co. (TBC) , an applied biological computing company that uses living neurons to improve AI models, today launched TBC mischief 1, an AI video model that generates video 5x faster than its base model. Available on fal and OpenRouter , mischief 1 is the lowest-priced image-to-video model on both marketplaces, enabling video creators and developers to experiment with more ideas, faster and for less. The launch marks a major step in bringing discoveries from living neurons into commercial AI. mischief 1 is faster and cheaper because of efficiencies TBC discovered in living neurons and applied directly to the model. Just five weeks after announcing its collaboration with Amazon Web Services (AWS) to bring the model to enterprise customers, TBC is extending access to creators and developers through fal and OpenRouter. At half a cent per second, a five-second clip costs 2.5 cents, and 100 clips cost $2.50. Creators can test more ideas, compare takes and refine their work within the same budget. For developers, lower generation costs make it easier to build video into products that people can afford to use repeatedly. Wonder Studios, an AI-native creative studio, tested mischief 1 in its own production workflow. “Great storytelling comes from refining an idea until it’s right, and that’s usually the crunch point for time and budget. mischief 1’s speed and cost-effectiveness meant we could push the work much further within th",
@@ -750,6 +812,22 @@
   "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQcFMxa1Q5RUs4eUlwcWV2bWdMNU1NR1gwbXpGUnFwZThweTRTU1VGQUZKTkh5Ukp1NnJPMG5FdkZCbXZSeDQwWXJvNmVON09JMzVvaUlDVTc4RjJpakxSdDF5aUJVSkdIbzBpajdyM0steEp6NUpDWmk3c0t3Zk5yXzd1V3o?oc=5",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "a96fe16f873b0faf": {
+  "content_excerpt": "Seven AI advisors (Bezos, Paul Graham, Hormozi, Gary Vee, Dan Martell, Gino Wickman, Buffett) debate your business decision in Claude Code, live around a table. Bring a hard business decision and a council of AI advisors argues it out, then hands you a scored verdict and a one-click PDF. Twelve advisors ship with it, each built from that person's public work: their letters, essays, talks, and videos. For each question, the Chair recommends who should sit on the council and you confirm. The council runs in Claude Code, and a small local web app shows them around a table talking it through. Want someone else at the table? Type /newroaster and a name, and Claude builds that advisor the same way. Those seven are the default board . Five more advisors are on call, and the Chair brings them in when your question is in their lane: Or open Claude Code anywhere and say: \"Clone github.com/nateherkai/roast-room and start the room for me.\" You also get a short verdict in Claude Code, and the full report lands in sessions/ - /verdict.md . When you run /roast-room , the Chair reads your question and recommends a council from every advisor you have, with one line on why each one fits. You pick: A pricing question might get Hormozi, Buffett, Codie Sanchez, Sara Blakely, and Graham. A hiring question might get Leila Hormozi, Martell, Wickman, Naval, and Buffett. Every council keeps a seat that guards your downside and one that's likely to disagree, so the room argues instead of nodding. How t",
+  "first_seen": "2026-11-03T04:13:31.497634+00:00",
+  "id": "19b42737774fb97c",
+  "matched_topics": [
+   "claude code"
+  ],
+  "published": "2026-11-03T04:12:40+00:00",
+  "sid": "a96fe16f873b0faf",
+  "source": "hackernews_ai",
+  "summary_1line": "AI advisors debate your business decision in Claude Code",
+  "title": "AI advisors debate your business decision in Claude Code",
+  "type": "news",
+  "url": "https://github.com/nateherkai/roast-room",
+  "why_it_matters": "Matches feed focus: claude code."
+ },
  "b031b5b1afff320f": {
   "content_excerpt": "Write your data, queries, and mutations in TypeScript. FeltKit gives you the database, a typed API with live queries, roles enforced on the server, eight built-in services, agent access over MCP, a dashboard, and a build you can deploy three ways—already wired together. Each piece below is in the starter you get from npm create feltkit —running, tested, and sharing one FeltDB instance. Nothing to assemble, no glue code to maintain. Queries and mutations in TypeScript, validated against your schemas. A generated, typed client calls them from React. useQuery re-runs when data it read changes—whoever changed it: another person, an agent, or a background job. Declare roles and permissions once. Every caller—your UI, the HTTP API, AppPort, MCP, services—is checked the same way. Files, notifications, configuration, API keys, webhooks, jobs, schedules, and model selection—on your app’s own database. Agents use your app over MCP under a role, like people do. Consequential actions wait for approval—in production, from someone other than who proposed them. A dashboard for data, capabilities, services, models, and activity. In production, operators sign in with one-time grants. createTestApp gives every test a fresh FeltDB instance—no mocks. Act as any user and assert what the server allows. One container, Managed FeltDB, or your own FeltDB server. The build is verified before it is packaged. Declare the application, its roles, and its data. Write queries and mutations. FeltKit serves t",
   "first_seen": "2026-11-02T18:03:57.410502+00:00",
@@ -931,6 +1009,23 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.2",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "cd6ae98674e10ae7": {
+  "first_seen": "2026-11-03T04:13:31.497634+00:00",
+  "id": "02c11551bf139a00",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-01T15:05:07+00:00",
+  "sid": "cd6ae98674e10ae7",
+  "source": "arxiv_cs_ai",
+  "summary": "Coding agents can now rewrite repository-scale codebases while preserving tested behavior, creating a new challenge for plagiarism detection, license auditing, and software provenance. We ask whether such rewrites can still be traced to their source. Existing clone benchmarks emphasize fragments and bounded edits, while repository-transformation benchmarks evaluate functional correctness rather than provenance. Moreover, ranking the most similar source does not establish derivation when independent implementations can be similarly close. We define repository-level agentic code laundering and introduce Launder-Bench, to our knowledge the first repository-level benchmark for provenance under agentic rewriting, constructed from 282 real-world repositories. A source-hidden reconstruction protocol decomposes source behavior, reconstructs modules and repository structure, and retains rewrites only after execution-based verification. We evaluate the same provenance problem in two complementary settings: Launder-Bench-Pair contains 1,128 pairwise instances asking whether two repositories share provenance, while Launder-Bench-Attr contains 229 source-attribution instances asking which candidate is the source, with abstention when evidence is insufficient. Measured same-domain independent repositories establish how much similarity can arise without shared provenance and provide detector-specific reference bands. Existing methods remain far from saturating Launder-Bench: the strongest s",
+  "summary_1line": "Coding agents can now rewrite repository-scale codebases while preserving tested behavior, creating a new challenge for plagiarism detection, license auditing, and software provenance. We ask whether such rewrites can...",
+  "title": "Launder-Bench: Can Repository-Level Agentic Code Laundering Be Detected?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.01966v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "cfe6b1639c3c3094": {
   "content_excerpt": "Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and enforces routing across 17 platforms via MCP + hooks. Every MCP tool call dumps raw data into your context window. A Playwright snapshot costs 56 KB. Twenty GitHub issues cost 59 KB. One access log — 45 KB. After 30 minutes, 40% of your context is gone. And when the agent compacts the conversation to free space, it forgets which files it was editing, what tasks are in progress, and what you last asked for. On top of that, the agent wastes output tokens on filler, pleasantries, and verbose explanations — burning context from both sides. Context Saving — Sandbox tools keep raw data out of the context window. 315 KB becomes 5.4 KB. 98% reduction. Session Continuity — Every file edit, git operation, task, error, and user decision is tracked in SQLite. When the conversation compacts, context-mode doesn't dump this data back into context — it indexes events into FTS5 and retrieves only what's relevant via BM25 search. The model picks up exactly where you left off. If you don't --continue , previous session data is deleted immediately — a fresh session means a clean slate. Think in Code — The LLM should program the analysis, not compute it. Instead of reading 50 files into context to count functions, the agent writes a script that does the counting and console.log() s only the result. One script replaces ten tool calls and saves 100x context. This is a mandatory para",
   "first_seen": "2026-11-01T12:03:26.415102+00:00",
@@ -959,6 +1054,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE04Z3JfR3VDQUZIMjhMdXZQeWltTmxyYmk1SVNqM3ExYUNZaVVpTzNYelZGaXI5Z0MwbEtrRmhRS0xSblJpMmQtZm12S1V3b1ZzYlFSckxTN1ppT1Y1U1lQWElMVDF3NFBsb0ozMGhLNmw4ZGFnZFE?oc=5",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "d82d955d6f76407e": {
+  "first_seen": "2026-11-03T04:13:31.497634+00:00",
+  "id": "0d374bf9ecd04b4d",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-01T14:12:41+00:00",
+  "sid": "d82d955d6f76407e",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Embodied agents need physical intelligence to understand their surroundings through physical perception, physical knowledge retrieval, and physical reasoning. These capabilities must work together to interpret events and make quantitative judgments. Existing benchmarks advance physical understanding and general-purpose tool use, yet the coordination of these capabilities in physical scenarios remains insufficiently characterized. Inspired by Popper's Three Worlds, we introduce TriPhysBench, a benchmark of 410 questions from 200 videos that brings physical perception, physical knowledge retrieval, and physical reasoning into a shared evaluation setting. Its measurement-grounded and knowledge-grounded subtasks impose complementary demands on obtaining observations and acquiring external specifications, then applying them to quantitative problems. Among six representative vision-language models, the best achieves an answer accuracy of only 50.38%, revealing limited performance on tasks that require these capabilities to work together. We further introduce TriPhys, a framework that learns a unified policy for physical perception, knowledge retrieval, and quantitative reasoning from complete tool-integrated trajectories. The policy uses intermediate reasoning to guide retrieval and computation, then incorporates tool feedback into subsequent physical inference. On 110 questions from videos excluded from training, TriPhys improves answer and solution scores across three Qwen config",
+  "summary_1line": "Embodied agents need physical intelligence to understand their surroundings through physical perception, physical knowledge retrieval, and physical reasoning. These capabilities must work together to interpret events...",
+  "title": "TriPhysBench: Evaluating Physical Intelligence for Embodied Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.01934v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "d8b1c52ddd336825": {
   "content_excerpt": "GDPx is a benchmark that covers the most valuable domains for frontier intelligence. It aims to be the world’s best benchmark for measuring general agentic capabilities. We believe the first trillion dollars of AI revenue will be concentrated in sectors that can deploy frontier intelligence at high ROI , not broadly diffused throughout the whole economy. Building a general-purpose benchmark based on share of GDP or the SOC/O*NET occupational taxonomy is therefore a mistake. If your goal is to track the progress of frontier models, you should focus on the domains where they will be most impactful. It’s worth emphasizing that certain models like Opus 5.5 and GPT-6 Astra have sandbagged overall scores due to their safety classifiers. If we exclude cyber, biology, and alignment—the three domains where safety classifiers sometimes kick in—you get the following results instead. We were pleasantly surprised by how well this ranking lines up with our subjective impression of the models. OpenAI and Anthropic generally dominate the top of the ranking while SpaceXAI, Meta, and open-weight models are all meaningfully behind. Gemini 4 Carbon is a real improvement from Google and the only model in the same ballpark as Opus and Astra. It will be interesting to see people’s impressions once Carbon becomes generally available. We believe it’s underrated how relevant safety classifiers are when picking the best model for certain use cases. For example, Muse Wonder Full is actually the best ava",

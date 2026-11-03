@@ -5,137 +5,137 @@ Focus: AI Platform Engineering
 ## 1. What Google Cloud announced in AI this month
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/ai-machine-learning/what-google-cloud-announced-in-ai-this-month/
-- Score: 3.483 | Reliability: 1.0
+- Score: 3.299 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness, evaluation.
 
-## 2. Show HN: PhoneUse – Phones for AI Agents
+## 2. MemHarmBench: Evaluating Cross-Session Prompt Injection in Memory-Persistent AI Agents
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.01700v1
+- Score: 3.514 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 3. Launder-Bench: Can Repository-Level Agentic Code Laundering Be Detected?
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.01966v1
+- Score: 3.334 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 4. AI advisors debate your business decision in Claude Code
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/nateherkai/roast-room
+- Score: 3.283 | Reliability: 1.0
+- Why it matters: Matches feed focus: claude code.
+
+## 5. What can an LLM build with only 32 CPU instructions?
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/AlwaysFocus/picos
+- Score: 3.246 | Reliability: 1.0
+- Why it matters: 
+
+## 6. Show HN: PhoneUse – Phones for AI Agents
 - Type: news | Source: hackernews_ai
 - URL: https://www.phoneuse.com/
-- Score: 3.353 | Reliability: 1.0
+- Score: 3.231 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. Stolen AI API keys generated nearly $1M in charges for a single company
-- Type: news | Source: hackernews_ai
-- URL: https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models/
-- Score: 3.118 | Reliability: 1.0
-- Why it matters: 
+## 7. TriPhysBench: Evaluating Physical Intelligence for Embodied Agents
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.01934v1
+- Score: 3.231 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
 
-## 4. Building Legal Agents When You Can't See the Data - Jacob Lauritzen, CTO of Legora
+## 8. Building Legal Agents When You Can't See the Data - Jacob Lauritzen, CTO of Legora
 - Type: news | Source: latent_space
 - URL: https://latent.space/p/building_legal_agents_when_you_can_t_see_the_data_-_jacob_lauritzen_cto_of_legora/
-- Score: 2.944 | Reliability: 1.0
+- Score: 2.814 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 5. AI Voice Translator
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/UncleAndy/ai-translator
-- Score: 2.938 | Reliability: 1.0
-- Why it matters: 
-
-## 6. Rewarding defenders with bigger bug bounties
+## 9. Rewarding defenders with bigger bug bounties
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/rewarding-defenders-with-bigger-bug-bounties
-- Score: 2.73 | Reliability: 1.0
+- Score: 2.618 | Reliability: 1.0
 - Why it matters: 
 
-## 7. llm 0.37
+## 10. llm 0.37
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Nov/2/llm/
-- Score: 2.712 | Reliability: 1.0
+- Score: 2.584 | Reliability: 1.0
 - Why it matters: 
 
-## 8. claude-code v2.1.317
+## 11. MatMoE: Matryoshka Mixture-of-Experts with Dynamic Mixed-Precision Quantization for Efficient Inference
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.01704v1
+- Score: 3.121 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 12. Evolving Memory, Learning to Meta-Control: Test-Time Adaptation for Experience-augmented LLM Agents
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.01747v1
+- Score: 3.084 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 13. claude-code v2.1.317
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.317
-- Score: 2.572 | Reliability: 1.0
+- Score: 2.461 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 9. Preparing our next security sprint to harden OpenAI
+## 14. Preparing our next security sprint to harden OpenAI
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/preparing-our-next-security-sprint-to-harden-openai
-- Score: 2.57 | Reliability: 1.0
+- Score: 2.459 | Reliability: 1.0
 - Why it matters: 
 
-## 10. Skill++: Towards Lifelong Agents via Routing-Aware Skill Refinement
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.00544v1
-- Score: 2.569 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, codex.
-
-## 11. Scaling Git at OpenAI
+## 15. Scaling Git at OpenAI
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/scaling-git-at-openai
-- Score: 2.502 | Reliability: 1.0
+- Score: 2.393 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 12. claude-agent-sdk-python v0.2.177
+## 16. claude-agent-sdk-python v0.2.177
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.177
-- Score: 2.486 | Reliability: 1.0
+- Score: 2.375 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 13. New context engineering challenges in late 2026
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/context-engineering-challenges-late-2026
-- Score: 2.47 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
-
-## 14. Compression Technique Interactions in Small Language Models: A Factorial Ablation Study
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.00464v1
-- Score: 2.458 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 15. WeSearch: A Unified Model-Centric Retrieval Framework for WeChat Search
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.00530v1
-- Score: 2.411 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 16. Roz: A Taste Test for World Model Latents
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.00612v1
-- Score: 2.389 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 17. XLA from the Trenches: Correctness on TPU Workloads at Scale
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.00624v1
-- Score: 2.344 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 18. codex 0.167.0-alpha.4
+## 17. codex 0.167.0-alpha.4
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.4
-- Score: 2.156 | Reliability: 1.0
+- Score: 2.048 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 19. Lakebase Postgres is now generally available on Google Cloud
-- Type: news | Source: databricks_blog
-- URL: https://www.databricks.com/blog/lakebase-postgres-now-generally-available-google-cloud
-- Score: 2.009 | Reliability: 1.0
-- Why it matters: 
-
-## 20. GDPx: Measuring Frontier Model Capabilities Across the Most Valuable Domains
+## 18. GDPx: Measuring Frontier Model Capabilities Across the Most Valuable Domains
 - Type: news | Source: semianalysis
 - URL: https://newsletter.semianalysis.com/p/gdpx-measuring-frontier-model-capabilities
-- Score: 1.906 | Reliability: 1.0
+- Score: 1.865 | Reliability: 1.0
 - Why it matters: 
 
-## 21. Genie 4: A new generation of world simulation
+## 19. How to build evidence-grounded agent memory with OpenWiki and Graphs
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/building-agent-memory-openwiki-graphs
+- Score: 1.723 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 20. Genie 4: A new generation of world simulation
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/
-- Score: 1.366 | Reliability: 1.0
+- Score: 1.669 | Reliability: 1.0
 - Why it matters: 
 
-## 22. langgraph-checkpoint-sqlite==3.1.3
+## 21. Lakebase branching for CI/CD: lessons from 100 PR databases
+- Type: news | Source: databricks_blog
+- URL: https://www.databricks.com/blog/lakebase-branching-cicd-lessons-100-pr-databases
+- Score: 1.523 | Reliability: 1.0
+- Why it matters: 
+
+## 22. langgraph==1.2.19
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/checkpointsqlite%3D%3D3.1.3
-- Score: 1.252 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.19
+- Score: 1.2 | Reliability: 1.0
 - Why it matters: 
 
 ## 23. v0.33.0rc2: [ROCm][Bugfix] Skip AITER tuned GEMM when M*N >= 2^31 on gfx950 (#64567)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc2
-- Score: 0.623 | Reliability: 1.0
+- Score: 0.618 | Reliability: 1.0
 - Why it matters:
