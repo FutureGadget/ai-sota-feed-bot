@@ -137,6 +137,17 @@
   "url": "https://armincat.com/articles/where-tokens-go",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "17d622fadb91466e": {
+  "first_seen": "2026-11-03T07:08:17.402292+00:00",
+  "id": "cb8a24ea612c17c4",
+  "published": "2026-11-01T12:10:55+00:00",
+  "sid": "17d622fadb91466e",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Full-duplex speech models execute dense model inference for every audio frame throughout a live interaction. This uniform framewise schedule creates sustained GPU load across dialogue states whose computation has strong, reusable temporal structure. ReFrame formulates full-duplex",
+  "title": "ReFrame: Silence-Aware Compute Reclamation for Full-Duplex Speech Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.01835v1"
+ },
  "18df784100d9cc05": {
   "content_excerpt": "A coding-agent CLI can feel quick in a terminal and still be expensive when a workflow starts it in a fresh container for every job. We measured that cost for six CLIs: start-up, time per turn, memory, image size and tokens. On overhead per job, pi was the lightest overall. Our own CLI, aictrl , won no metric but came second on four: session time, harness time per turn, memory and image size. Overhead is half the answer: this experiment does not measure whether an agent completes the task, which our next run will. Goose had the fastest observed median first response, followed by Codex, pi and aictrl. Those four were within 187 ms of each other. pi used the fewest tokens, both in its first request and for a whole short task, spent the least time between model turns, added the least image footprint and finished the scripted session fastest. aictrl came second on session time, per-turn harness time, memory and image footprint. Its system prompt is now as small as pi's. Its tool definitions are not. Each chart is sorted from lowest to highest, with gold and silver medals for the observed first and second place on that metric. A medal describes this experiment; small gaps do not establish a stable lead. Disclosure: I build aictrl. This article reports our own measurements, including where our implementation loses. The article and charts were prepared with AI assistance. On 20 October 2026 we tested released installations of aictrl 0.5.4, pi 1.3.0, Codex 0.163.0, OpenCode 2.1.0, He",
   "first_seen": "2026-11-01T20:05:53.130724+00:00",
@@ -186,6 +197,23 @@
   "url": "http://arxiv.org/abs/2611.01700v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "20b2a3cb6b99ab11": {
+  "first_seen": "2026-11-03T07:05:24.009620+00:00",
+  "id": "3eee52cb1504c325",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-02T13:17:36+00:00",
+  "sid": "20b2a3cb6b99ab11",
+  "source": "arxiv_cs_ai",
+  "summary": "An experimental agent can succeed for the wrong reasons. Evaluations, however, often focus on the outcome, not the experiments, evidence, and inferences that produced it. We introduce LUCA, a configurable synthetic world for evaluating this process under fully known ground truth. Agents learn unknown regulatory systems through budgeted experimentation, then predict unseen interventions, diagnose hidden faults, and attempt rescues. This setup allows us to evaluate experiment selection, prediction, diagnosis, and intervention separately. Across seven frontier LLMs and three baselines, these capabilities dissociate sharply. Agents frequently rescue malfunctioning systems while diagnosing the wrong fault; diagnosis varies 7x across models while prediction varies only 1.4x. Models also adopt surprisingly different experimental strategies, and greater exploration does not reliably yield better performance. In one failure mode, agents often perform the experiment needed to distinguish competing causes, but still fail to use the resulting evidence. LUCA turns these hidden failures into measurable behaviours, providing a controlled environment to study where experimental agents succeed and fail. Code: https://github.com/RelationRx/luca.",
+  "summary_1line": "An experimental agent can succeed for the wrong reasons. Evaluations, however, often focus on the outcome, not the experiments, evidence, and inferences that produced it. We introduce LUCA, a configurable synthetic wo...",
+  "title": "LUCA: A Synthetic World for Experimental Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03100v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "22262baef95a2fe5": {
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. Editing Qwen’s weights to reduce reasoning loops, DeepSeek’s super-agent prototype, and the GDPx benchmark. Amid a deepening bear market for AI/tech (worthy of dark humor ) with Anthropic bonds receiving a “junk” rating and OpenAI fundraise headlines , we continue to see very surprising capability finds in the community, such as today. The best way to put today’s blockbuster paper in context is to recall Karpathy’s autoresearch from a mere 8 months ago , which presaged a summer of recursive self improvement fears : Abstractly, the demonstration is that you can take a sufficiently smart model and through running a series of experiments across a compute cluster, train a model autonomously without human expertise or intervention. However, this is usually done by an involved process of writing PyTorch/Jax code and running compute and watching loss curves and reading evals and optimizing kernels and data and…. Well, last month’s guest Alex Zhang comes back to coauthor a MONSTER discovery: what if you just ask a smart model to directly read and edit the weights of a dumber model? In ML this is the equivalent of not looking at source code, just directly seeing ",
   "first_seen": "2026-11-03T06:05:21.577740+00:00",
@@ -231,6 +259,23 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Nov/1/kyle-kingsbury"
  },
+ "2e1dfcc99bc4c300": {
+  "first_seen": "2026-11-03T07:05:24.009620+00:00",
+  "id": "35d7f49b8860d484",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-02T13:13:42+00:00",
+  "sid": "2e1dfcc99bc4c300",
+  "source": "arxiv_cs_cl",
+  "summary": "Complex documents such as scientific papers contain rich information in tables, figures, and equations; however, existing deep research (DR) agents typically reduce papers to OCR-extracted text. We instead ask whether vision-language models (VLMs) can enable page-native deep research: directly retrieving and reasoning over rendered document page images. We introduce DR Pixel, the first open-source end-to-end multimodal DR agent that uses rendered page images as its sole retrieval and reasoning unit, operating over a corpus of 1.06M pages. To evaluate this setting, we construct DRPixelBench, a benchmark on scientific papers requiring reasoning over text, figures, tables, and equations. Surprisingly, page-native DR already works well without training, outperforming OCR-based baselines across state-of-the-art models like GPT-5.4, Gemini-3.5-Flash, and Qwen3.6-27B, while requiring fewer tool calls. We next turn to DR training. A key challenge is that teacher trajectories for agentic supervised finetuning are noisy, mixing critical reasoning and action steps with redundant or failed attempts. To address this, we introduce counterfactual credit reweighting, a fine-grained credit assignment method that weights individual reasoning and action steps by their counterfactual contribution to the final answer. Our training improves retrieval recall by about 15 points and final accuracy by over 10 points on DRPixelBench, and likewise outperforms the untrained baseline on four existing benc",
+  "summary_1line": "Complex documents such as scientific papers contain rich information in tables, figures, and equations; however, existing deep research (DR) agents typically reduce papers to OCR-extracted text. We instead ask whether...",
+  "title": "DR Pixel: Page-Native Deep Research with Vision-Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03097v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "2f97c84acd3e3328": {
   "content_excerpt": "Check what your AI agents actually changed. AI agent safety for databases and health records: rules decide each tool call, a check compares what really changed with what the agent reported, and each action is sealed as a signed record anyone can check offline. Run npx deedglass and a simple local app opens in your browser. Apache-2.0 core. Safety for AI agents that work on databases and health records. Rules decide each AI agent tool call; Deedglass checks what really changed and seals a record. Open source, self-hosted, every feature free. An app opens in your browser. It runs on your own computer, signed in, with no account, no sign-up and no Docker or database to set up, and nothing is sent to us. Choose who will use it (a clinic, hospital IT, or people building with AI), then connect Claude Desktop, Cursor, VS Code, a record system or a database. You need Node 18 or newer. Read Start here for a short tour, or try it without installing anything at deedglass.com/play . Without Docker, start plays the same scene inside the binary, every line labelled live or replay , in under 30 s. More: Quickstart · Docs · Healthcare · Benchmarks · Security · deedglass.com Found it useful? A star helps other people find Deedglass. To hear about new releases, use Watch › Custom › Releases . Deedglass sits between AI agents and the systems they change. Rules decide each tool call, a check compares what the system really changed with what the agent reported (Claimed, Checked or Proven; Matches",
   "first_seen": "2026-11-02T15:05:21.119752+00:00",
@@ -275,6 +320,22 @@
   "url": "https://agenticresourcediscovery.org",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "3277239334115b4b": {
+  "content_excerpt": "Research on evidence and verification in multi-agent systems. Papers, proofs, code, and reproducible results. Research on evidence and verification in multi-agent systems. Manuscripts, formal proofs, code, and the recorded data behind the results. When agents share a mistake, their majority can be wrong. This paper studies a rule that lets checked passage evidence overturn the vote, while recording which evidence licensed each change. Verification improves accuracy on the evaluated benchmark, but the original scored rule misses its pre-specified harm criterion. The formal result identifies an inspectable failure condition; it does not guarantee a low error rate. The paper reports the gains, failures, and tradeoff against a stronger model judge together. The paper map collects abstracts and links. catalogue.yaml provides the machine-readable index. With Tectonic installed, or latexmk with pdfLaTeX, run from the repository root: This builds the main paper and supplement. Add the arxiv target to create a source bundle containing both standalone documents. Code, data, and proof checks have separate requirements; follow the artifact guide . The collection is being prepared for its first public release . Study freezes record when analyses were specified; they are not earlier publications. After publication, tagged releases and the history will record corrections and revisions. For a correction or reproduction report, open an issue with the paper, section, claim, and supporting evid",
+  "first_seen": "2026-11-03T07:05:24.009620+00:00",
+  "id": "5e8cec49cf4b242d",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-03T06:16:17+00:00",
+  "sid": "3277239334115b4b",
+  "source": "hackernews_ai",
+  "summary_1line": "Verify, Then Vote: Overturning Wrong Majorities in Multi-Agent LLMs",
+  "title": "Verify, Then Vote: Overturning Wrong Majorities in Multi-Agent LLMs",
+  "type": "news",
+  "url": "https://github.com/grainulation/papers",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "3343cd5df22c7f0b": {
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. Legora can’t read a single trace of what its agent does for a lawyer. The data belongs to the law firm’s clients. How do you build and test an agent when you can’t see its work? Jacob Lauritzen is the CTO of Legora, one of the fastest-growing companies... Legora can’t read a single trace of what its agent does for a lawyer. The data belongs to the law firm’s clients. How do you build and test an agent when you can’t see its work? Jacob Lauritzen is the CTO of Legora, one of the fastest-growing companies in legal tech history. The team started in a Stockholm basement with ChatGPT, Swedish law, and a search tool. Today, a lawyer can use Legora to draft and edit Word documents, review 10,000 contracts in a single table, or run due diligence. The agent also coordinates work between lawyers, clients, and other agents. When Legora made its own acquisitions, the team used it for diligence. • Why Legora resisted adding a model picker for years, and why it finally added one • Jacob’s estimate that models already do about 60% of legal work well, and why the rest takes a smarter model • How three engineers and three lawyers build test environments modeled on custom",
   "first_seen": "2026-11-02T23:05:23.806889+00:00",
@@ -308,6 +369,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.02368v1",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "3b1d851d80fa773c": {
+  "first_seen": "2026-11-03T07:05:24.009620+00:00",
+  "id": "5c247901868ee843",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-02T17:56:28+00:00",
+  "sid": "3b1d851d80fa773c",
+  "source": "arxiv_agent_systems_research",
+  "summary": "LLM agents show strong potential in software engineering tasks such as competitive programming and code synthesis. Existing benchmarks, however, largely focus on small-scale settings such as self-contained Python modules, leaving distributed systems, an essential class of production software, under-examined. We introduce DistDebug-Bench, a benchmark for evaluating agents' ability to diagnose complex-system failures at the code level. It curates 120 high-quality real-world bugs from 11 widely used distributed systems, spanning 5 programming languages and 10 failure patterns. Through an extensive evaluation of state-of-the-art LLMs and agents, we identify substantial gaps between current agents and real-world debugging tasks. A recurring gap is tunnel vision due to a lack of explicit reasoning structure and nondeterminism from inconsistent tool-use scope. The benchmark and evaluator are available at https://github.com/OrderLab/distdebug-bench, with agent traces and a leaderboard at https://distdebug.com.",
+  "summary_1line": "LLM agents show strong potential in software engineering tasks such as competitive programming and code synthesis. Existing benchmarks, however, largely focus on small-scale settings such as self-contained Python modu...",
+  "title": "DistDebug-Bench: Can LLM Agents Diagnose Bugs in Distributed Systems?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03523v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "3b426192f1bc75ae": {
   "first_seen": "2026-11-03T06:05:21.577740+00:00",
@@ -635,6 +713,17 @@
   "url": "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "75b084073127ffb7": {
+  "first_seen": "2026-11-03T07:08:17.402292+00:00",
+  "id": "663367f6d883d8c4",
+  "published": "2026-11-02T11:47:05+00:00",
+  "sid": "75b084073127ffb7",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "The multi-turn checker of the Berkeley Function Calling Leaderboard (BFCL) evaluates final state correctness but ignores the effects of intermediate calls: extra calls are free, function documentation does not describe side effects, and the scripted user never responds to proposa",
+  "title": "CAREFUL-Bench: Effect-Aware, Judge-Free Evaluation of Multi-Turn LLM Function Calling",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.02978v1"
+ },
  "77145208361ffe08": {
   "also_covered": [
    {
@@ -787,6 +876,22 @@
   "title": "Show HN: Shipvo – open-source RN OTA updates and an AI-drivable simulator",
   "type": "news",
   "url": "https://github.com/shipvo/shipvo"
+ },
+ "8828f9c0b127d479": {
+  "content_excerpt": "agent-desktop reads the accessibility tree of a desktop app and returns it as JSON. Every element an agent can act on gets a ref. The agent acts on a ref, reads the UI again to check the result, and repeats. It ships as a CLI and as a C library for macOS, Windows, and Linux. An agent maps an app, drills into the region it needs, acts on a ref, and checks the result. Refs carry the id of the snapshot that produced them ( @s2txcl95uvubmn:e11 ). Snapshots and refs defines them, and Skeleton and drill-down explains the first two commands. A successful action does not prove the UI changed, so the loop ends with a read. The quick start runs these commands with their output. Core never imports a platform crate, and platform crates never import each other. Only the CLI and the C library connect a platform crate to core, and each picks it at compile time, so a binary drives the OS it was built for. The CLI has the same 60 command names on every platform. Four of them ( key-down , key-up , mouse-down , mouse-up ) fail closed everywhere. Each platform page lists what works headless, what needs --headed , and what refuses.",
+  "first_seen": "2026-11-03T07:05:24.009620+00:00",
+  "id": "d1e2d7accc792496",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-03T05:26:34+00:00",
+  "sid": "8828f9c0b127d479",
+  "source": "hackernews_ai",
+  "summary_1line": "Vercel: Computer use CLI for AI agents",
+  "title": "Vercel: Computer use CLI for AI agents",
+  "type": "news",
+  "url": "https://agent-browser.dev/desktop",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "8ddf2e67d3917490": {
   "first_seen": "2026-11-03T06:05:21.577740+00:00",
@@ -1093,6 +1198,22 @@
   "type": "news",
   "url": "https://lyngvi.skaperiet.no"
  },
+ "c0934414c7b84b6b": {
+  "content_excerpt": "Your agent's MCP tools, mapped before it acts. A proxy that learns which tools work in which state and warns or blocks the next bad call. Your agent's tools, mapped before it acts. A proxy for any MCP server that learns, from the agent's own calls, which tools work in which state, and warns or blocks before the next bad call. Point your MCP host at that command instead of the server. Same tools, same arguments, no keys, nothing leaves your machine. MCPgraphy in 1:48, narrated: what tool calling gets wrong, how the proxy maps your tools from the calls your agent already makes, and what changed when a real GPT agent ran behind it. Every number in it comes from the benchmark below. An MCP server hands your agent a list of tools: names, descriptions, parameter schemas. It never says when a tool works. So the agent edits a file that is not there, publishes a release that was never tested, moves a ticket that is already closed, and finds out from the error. Then it retries. Sometimes the retry is the one that does damage. Every agent framework rediscovers this the same way: by burning calls. The server already knows the answer, it just does not say it up front, and nothing in the protocol asks. MCPgraphy sits between the agent and the server. The tools pass through unchanged. Around every call it reads the touched resource back, before and after, and keeps that as evidence. From the evidence it builds a behavior graph : nodes are the states it actually observed, edges are what happ",
+  "first_seen": "2026-11-03T07:05:24.009620+00:00",
+  "id": "97e13064698c185f",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-03T05:07:22+00:00",
+  "sid": "c0934414c7b84b6b",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: MCPgraphy – a proxy that learns when your agent's MCP tools work",
+  "title": "Show HN: MCPgraphy – a proxy that learns when your agent's MCP tools work",
+  "type": "news",
+  "url": "https://github.com/hemanth1999k/mcpgraphy",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "c3377a64c9f9ba4a": {
   "content_excerpt": "AI evals are tests that grade what a model or agent did. How agent evals differ from LLM evals, the three grader types, and how to write one in 7 steps. An AI eval is a test for an AI system: you give it an input, let it run, and grade what it did with code, with another model, or with a person. LLM evals grade a single response. Evals for AI agents grade a whole run: the tools the agent called, the arguments it passed, the state it left behind and the reply it ended with. That difference decides how you write them, because an agent can reply \"your refund is on its way\" without ever calling the refund tool, and an eval that reads only the reply will mark that run as a pass. This guide defines the parts of an eval, explains how agent evals differ from LLM evals, covers the three kinds of grader, and then walks through writing an eval for an agent in seven steps, with a worked example you can adapt. Anthropic's guide to agent evals ( Demystifying evals for AI agents ↗ , January 2026) uses a vocabulary most eval tools now share. It is worth adopting, because \"the eval failed\" can mean any of these: A task can have several graders, and usually should. One that checks the refund exists, one that checks policy was looked up first, and one that checks the reply explains the timeline will each fail for a different reason, and you want to know which. The terms overlap and are often used interchangeably, but they grade different things. The practical consequence: an agent's worst regre",
   "first_seen": "2026-11-02T21:05:19.013970+00:00",
@@ -1339,6 +1460,17 @@
   "url": "https://www.phoneuse.com",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "eb927b9ffe4d5274": {
+  "first_seen": "2026-11-03T07:08:17.402292+00:00",
+  "id": "2aeb2e1eeb5417ee",
+  "published": "2026-11-01T14:33:09+00:00",
+  "sid": "eb927b9ffe4d5274",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Existing attacks and defenses for coding agents act once content enters the model context: injected text persuades the model, and guards inspect what the model reads. Yet to judge whether processing an unknown archive, network response, or image is safe, an agent often must proce",
+  "title": "Step-Zero Attack: Agent Safety Before Observability",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.01953v1"
+ },
  "ed1d67fc0ab0bf64": {
   "content_excerpt": "High-reliability, multi-agent-safe LinkedIn automation engine and CLI built on Chrome DevTools Protocol (CDP). Disclaimer & Responsible Use : linkedin-ops is an independent open-source tool built for developer automation research, testing, and workflow automation via local Chrome DevTools Protocol (CDP). This project is not affiliated with, endorsed by, or sponsored by LinkedIn Corporation. Automated interaction with LinkedIn must comply with applicable platform terms and policies. Always maintain realistic human delays and respect LinkedIn rate limits to safeguard account health. Checks CDP port 9222 reachability, browser version, user agent, and verifies an authenticated LinkedIn session. (Dry-run mode navigates and fills the note without submitting. Add --send only when ready to live submit). For multi-profile outreach and candidate sweeps, see campaigns/batch-connect.example.mjs : (User campaigns and harvested datasets in data/ and campaigns/ are gitignored and never committed to source control).",
   "first_seen": "2026-11-01T02:04:18.619311+00:00",
@@ -1469,6 +1601,23 @@
   "type": "news",
   "url": "https://cloudopsbench.ai"
  },
+ "fd965980a6846281": {
+  "first_seen": "2026-11-03T07:05:24.009620+00:00",
+  "id": "ce1e1b6ef21fa94f",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-02T10:44:02+00:00",
+  "sid": "fd965980a6846281",
+  "source": "arxiv_cs_cl",
+  "summary": "Long-lived agents rely on persistent memory of users, tasks and decisions, and this memory must stay consistent with a world that keeps changing. When an upstream fact changes, however, memory systems can revise the contradicted memory itself while the beliefs, plans and actions derived from it remain accepted, even though they have lost their support. We therefore formulate dependency-aware state revision, which asks not only what changed but also which dependent states should no longer be trusted. To address it, StateGraph maintains an evolving state dependency graph whose edges are recovered from interaction histories. Its core design is counterfactual verification: each candidate edge is tested by asking whether the dependent state would survive the loss of its premise, which separates support dependence from semantic relatedness, and revision then invalidates a dependent state only when a strict dependency fails and no independent support path survives. To test this design, we introduce StateChangeBench, a controlled benchmark of 50 author-constructed cases annotated with cascade depth, hard negatives and action consequences. On it, StateGraph's Impact-F1 margin over a CUPMem reimplementation is 6.9 percentage points at depth 1 and 26.0 at depth 3+. On public long-term memory benchmarks, its point estimates are comparable to or higher than those of the evaluated baselines on most datasets. These results provide initial evidence that explicit dependency tracking can impro",
+  "summary_1line": "Long-lived agents rely on persistent memory of users, tasks and decisions, and this memory must stay consistent with a world that keeps changing. When an upstream fact changes, however, memory systems can revise the c...",
+  "title": "A State Change Is Local, Its Consequences Are Not: Dependency-Aware State Revision for Long-Term Agent Memory",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.02912v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "fdec831af81af337": {
   "content_excerpt": "Cross-device collaboration for AI coding agents via live join-code sessions. Each peer runs its own agent — Claude Code, Codex, Pi, and more. Start a session, peers join with a code, and work flows between devices. Each peer runs an AI coding agent in its own repo. Illustrative session. Repo names, devices and output are examples, not measurements. On the master device, run skep and start a session. You get a join code and an address. In the peer TUI, /join with the code and address. Any repo checkout works. Optional --role if using a skill. Let the orchestrator split work ( auto / confirm / off ), or send an intent yourself. Also: skep session start · skep session join · /orchestrate confirm|off · /skills · optional /start --skill Packaged workflows with roles, stages and checks. Optional — plain sessions still work. List with /skills , pick with /skill use . Default skill is generic ; featured example is iot-ble-feature . One BLE feature across the C++ device layer, server HTTP API, iOS, Android and H5: one shared contract, a brief per role, and a cross-stack consistency check. Any repos, any split. The orchestrator as it worked in v0.1.15: refine the request, brief each repo, summarize. Put a skill in .skep/skills/ to share roles, prompts and checks with your team. Project skills need a one-time /skill trust . Skep works on the software layer in your repos. Hardware, bench and real-device testing stay with your team. /skills and /skill use|off|show . Ships with generic (de",
   "first_seen": "2026-11-02T03:05:12.932939+00:00",
@@ -1483,6 +1632,22 @@
   "title": "Show HN: Skep – live cross-device sessions for AI coding agents",
   "type": "news",
   "url": "https://skepagent.com",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "fe30300fd823219b": {
+  "first_seen": "2026-11-03T07:05:24.009620+00:00",
+  "id": "eb5e07bb8b12f7e3",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-02T18:51:04+00:00",
+  "sid": "fe30300fd823219b",
+  "source": "arxiv_agent_systems_research",
+  "summary": "A model is only half of an AI agent system. The other half is the inference strategy: the reasoning procedure that turns model calls into a response. Today that second half is written by hand, and the experience of building one strategy never carries to the next. We introduce Strategist, a meta-agent that evolves inference strategies across tasks. Each strategy is written as a blueprint,executable code that other strategies can reuse, and together the blueprints form a library. Given a task and a small development set, Strategist retrieves related blueprints, writes candidate strategies, tests them on real samples, and revises them from the results. Every candidate then enters the library, so later tasks build on earlier discoveries. On 30 benchmarks, Strategist beats the strongest baseline on 24 and matches its average accuracy (74.7% vs.74.0%) at 39% lower inference cost. Its strategies also transfer to unseen tasks and other models without further search. The part of an AI system that is not improved on its own now does.",
+  "summary_1line": "A model is only half of an AI agent system. The other half is the inference strategy: the reasoning procedure that turns model calls into a response. Today that second half is written by hand, and the experience of bu...",
+  "title": "Strategist: Evolving Reasoning with Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03618v1",
   "why_it_matters": "Matches feed focus: agent."
  },
  "fffb17873a386dde": {
