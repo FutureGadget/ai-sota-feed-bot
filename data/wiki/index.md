@@ -16,13 +16,13 @@ Schema: `config/wiki_schema.md`.
   - theme `consistency-and-autonomy` — Consistency, autonomy limits, and the human role (6)
 
 ### memory
-- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (74 entries, updated 2026-11-02)
+- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (75 entries, updated 2026-11-03)
   → solutions: context-compaction, vector-kb
   - theme `architectures` — Tiered and lifecycle memory architectures (14)
   - theme `local-first-stores` — Build vs. buy: managed services and developer-owned stores (17)
   - theme `shared-memory` — Sharing memory across agents, isolating it between users (10)
   - theme `recall-and-curation` — What to write, when to revoke, how to recall (16)
-  - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (9)
+  - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (10)
   - theme `measuring-memory` — Benchmarks and leaderboards for memory (8)
 
 ### planning
@@ -105,9 +105,9 @@ Schema: `config/wiki_schema.md`.
   - theme `monitoring-limits` — When the trace is not enough (3)
 
 ### security
-- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (61 entries, updated 2026-10-31)
+- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (62 entries, updated 2026-11-03)
   → solutions: agent-sandboxing
-  - theme `injection-paths` — New paths for injected instructions (11)
+  - theme `injection-paths` — New paths for injected instructions (12)
   - theme `model-defenses` — Guardrail models, model hardening, and how defenses are measured (13)
   - theme `harness-controls` — Permissions, approvals, and sandboxes in the agent harness (10)
   - theme `agent-authorization` — Agents as identities with scoped, per-action authorization (12)
@@ -153,9 +153,9 @@ Schema: `config/wiki_schema.md`.
   - theme `capture` — Capturing the run: zero-config SDKs, platform spans, new modalities (3)
   - theme `storage` — Storing and searching traces at fleet scale (3)
   - theme `diagnosis` — Reading and diagnosing traces (5)
-- [context-compaction](solutions/context-compaction.md) — Context compaction: summarize, compress, and curate the working set (14 entries, updated 2026-10-26)
+- [context-compaction](solutions/context-compaction.md) — Context compaction: summarize, compress, and curate the working set (15 entries, updated 2026-11-03)
   - theme `curating-the-working-set` — Curating what stays in context (6)
-  - theme `compaction-safety` — The compactor as a safety surface (2)
+  - theme `compaction-safety` — The compactor as a safety surface (3)
   - theme `skipping-compaction` — Skipping compaction with bigger windows or recursive dispatch (5)
   - theme `compressed-serving` — Buying back accuracy lost to compression (1)
 - [cost-controls](solutions/cost-controls.md) — Cost controls: budgets, metering, and per-task attribution (19 entries, updated 2026-10-15)
@@ -167,9 +167,9 @@ Schema: `config/wiki_schema.md`.
   - theme `structured-verdicts` — From a 1-5 score to structured, trace-level verdicts (3)
   - theme `cheaper-judges` — Making the judge cheap enough to run on every trace (5)
   - theme `trusting-the-judge` — Auditing the judge, the rubric, and whether you need one (10)
-- [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools (35 entries, updated 2026-10-25)
+- [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools (36 entries, updated 2026-11-03)
   - theme `stateless-spec` — The stateless spec and what MCP is actually for (7)
-  - theme `auth-and-governance` — Authorization and governance of connector fleets (9)
+  - theme `auth-and-governance` — Authorization and governance of connector fleets (10)
   - theme `webmcp` — WebMCP and the browser as a tool surface (5)
   - theme `servers-in-production` — Vendor servers and hosted deployments (7)
   - theme `beyond-tools` — Beyond tool calls - knowledge, memory, work, and computation (7)

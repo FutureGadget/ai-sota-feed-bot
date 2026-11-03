@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-02T18:19:59.847652+00:00",
+ "generated_at": "2026-11-03T18:05:32.673682+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,38 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-11-03-etude-tool-update-gap",
+   "topic": "prompt-injection",
+   "topic_title": "Untrusted input and tools can hijack an agent",
+   "kind": "obstacle",
+   "date": "2026-11-03",
+   "title": "Tool updates bypass in-context defenses: ETUDE reaches 97.6% attack success"
+  },
+  {
+   "id": "2026-11-03-mcpvenom-tool-poisoning-matrix",
+   "topic": "mcp",
+   "topic_title": "Model Context Protocol: a standard interface for agent tools",
+   "kind": "solution",
+   "date": "2026-11-03",
+   "title": "Tool poisoning succeeds in 22.9% of cells across 12 MCP frameworks; none defends"
+  },
+  {
+   "id": "2026-11-03-arcbench-rules-survive-but-ignored",
+   "topic": "context-compaction",
+   "topic_title": "Context compaction: summarize, compress, and curate the working set",
+   "kind": "solution",
+   "date": "2026-11-03",
+   "title": "After compaction the rule usually survives; the agent breaks it anyway"
+  },
+  {
+   "id": "2026-11-03-memharmbench-stealthy-memory-injection",
+   "topic": "agent-memory",
+   "topic_title": "Agents forget across steps and sessions",
+   "kind": "obstacle",
+   "date": "2026-11-03",
+   "title": "Injected memories steer later sessions while tasks still finish normally"
+  },
   {
    "id": "2026-11-02-claude-code-mistake-guards",
    "topic": "agent-reliability",
@@ -222,38 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-29",
    "title": "Guardrails did not raise first-pass rates in 270 coding-agent runs, but caught defects at done"
-  },
-  {
-   "id": "2026-10-29-cachelint-silent-misintegration",
-   "topic": "agent-cost",
-   "topic_title": "Agent token costs are unpredictable and easily run away",
-   "kind": "obstacle",
-   "date": "2026-10-29",
-   "title": "Prompt-caching bugs in agent code fail silently; CacheLint found 32 across 571 projects"
-  },
-  {
-   "id": "2026-10-28-novelty-judges-prompt-sensitive",
-   "topic": "llm-as-judge",
-   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
-   "kind": "solution",
-   "date": "2026-10-28",
-   "title": "Novelty judges swing by 50+ points on small prompt changes"
-  },
-  {
-   "id": "2026-10-28-openwiki-compiled-memory",
-   "topic": "agent-memory",
-   "topic_title": "Agents forget across steps and sessions",
-   "kind": "obstacle",
-   "date": "2026-10-28",
-   "title": "A compiled, claim-linked wiki beat search roughly 5x on cross-source questions"
-  },
-  {
-   "id": "2026-10-27-rfc-corpus-skill-mcp-token-savings",
-   "topic": "tool-use",
-   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
-   "kind": "obstacle",
-   "date": "2026-10-27",
-   "title": "Serving the RFC corpus through a skill or MCP server cuts reading tokens about 41x"
   }
  ],
  "nodes": {
@@ -5375,7 +5375,7 @@
      "key": "memory-integrity",
      "title": "Poisoned, hidden, and sycophantic memory",
      "summary": "Persistent memory is a persistent attack surface; poisoned facts, concealed injections, forged reasoning, and sycophancy all pass through the write path.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "measuring-memory",
@@ -5385,6 +5385,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-03-memharmbench-stealthy-memory-injection",
+     "topic": "agent-memory",
+     "date": "2026-11-03",
+     "title": "Injected memories steer later sessions while tasks still finish normally",
+     "theme": "memory-integrity",
+     "html": "<p>MemHarmBench exposes an agent to malicious instructions, checks whether memory retained them, deletes the attack content, then starts a fresh session with a legitimate task. It scores whether the agent follows the attacker&#x27;s intent, completes the task, and shows execution anomalies, across users, project owners and external stakeholders as victims.</p>\n<p>Cross-session attacks stayed behaviorally stealthy. Agents often finished tasks normally with no detectable anomaly while still making decisions aligned with the attacker. Task success is therefore not a safety signal for persistent memory. Audit what memory writes retain and where they came from.</p>",
+     "evidence": [
+      {
+       "sid": "1c851e04a1a59b28",
+       "title": "MemHarmBench: Evaluating Cross-Session Prompt Injection in Memory-Persistent AI Agents"
+      }
+     ],
+     "also": [
+      {
+       "slug": "prompt-injection",
+       "title": "Untrusted input and tools can hijack an agent"
+      }
+     ]
+    },
     {
      "id": "2026-11-02-discernmem-memory-defects",
      "topic": "agent-memory",
@@ -6633,8 +6653,8 @@
      "title": "An open-source memory plugin consolidates by forgetting and synthesizing instead of storing everything"
     }
    ],
-   "entry_count": 74,
-   "latest_entry_date": "2026-11-02",
+   "entry_count": 75,
+   "latest_entry_date": "2026-11-03",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -6648,6 +6668,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "1c851e04a1a59b28",
+     "title": "MemHarmBench: Evaluating Cross-Session Prompt Injection in Memory-Persistent AI Agents"
+    },
     {
      "sid": "7d1c303b6572b6ff",
      "title": "Remembering Is Not Enough: Refining Memories and Learning When to Use Them in Multi-Agent Systems"
@@ -6957,7 +6981,7 @@
      "title": "Cloudflare Announces Agent Memory, a Managed Persistent Memory Service for AI Agents"
     }
    ],
-   "updated": "2026-11-02"
+   "updated": "2026-11-03"
   },
   "agent-observability": {
    "slug": "agent-observability",
@@ -8923,6 +8947,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-03-arcbench-rules-survive-but-ignored",
+     "topic": "context-compaction",
+     "topic_title": "Context compaction: summarize, compress, and curate the working set",
+     "date": "2026-11-03",
+     "title": "After compaction the rule usually survives; the agent breaks it anyway"
+    },
     {
      "id": "2026-10-29-inflight-run-outlives-suspension",
      "topic": "agent-sandboxing",
@@ -11500,7 +11531,7 @@
      "key": "injection-paths",
      "title": "New paths for injected instructions",
      "summary": "Injected instructions now arrive through fetched pages, API routers, self-spreading documents, caches shared between sandboxes, and even the agent's own compaction summaries; the root cause is role confusion, not a missing filter.",
-     "count": 11
+     "count": 12
     },
     {
      "key": "model-defenses",
@@ -11534,6 +11565,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-03-etude-tool-update-gap",
+     "topic": "prompt-injection",
+     "date": "2026-11-03",
+     "title": "Tool updates bypass in-context defenses: ETUDE reaches 97.6% attack success",
+     "theme": "injection-paths",
+     "html": "<p>ETUDE ships malicious code in an update to an initially benign tool. The code runs outside the model&#x27;s context, uses no adversarial prompt, and keeps the tool&#x27;s legitimate behavior. Across seven frameworks, including Gemini CLI, Codex CLI and Claude Code, the paper reports a 97.6% attack success rate with 95.9% legitimate task completion. Existing defenses gave insufficient protection.</p>\n<p>This is a supply-chain gap, not a prompt-injection variant. Trust granted to a tool does not survive its next version. Pin tool versions, re-verify on update, and sandbox tool execution regardless of model-side filters.</p>",
+     "evidence": [
+      {
+       "sid": "3b426192f1bc75ae",
+       "title": "Beyond Prompt Injection: The Tool Update Gap in LLM Agent Security"
+      }
+     ],
+     "also": [
+      {
+       "slug": "tool-use",
+       "title": "Agents reach the outside world through fragile, ad-hoc integrations"
+      }
+     ]
+    },
     {
      "id": "2026-10-31-embedded-browsers-in-coding-tools",
      "topic": "prompt-injection",
@@ -12508,6 +12559,20 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-03-memharmbench-stealthy-memory-injection",
+     "topic": "agent-memory",
+     "topic_title": "Agents forget across steps and sessions",
+     "date": "2026-11-03",
+     "title": "Injected memories steer later sessions while tasks still finish normally"
+    },
+    {
+     "id": "2026-11-03-mcpvenom-tool-poisoning-matrix",
+     "topic": "mcp",
+     "topic_title": "Model Context Protocol: a standard interface for agent tools",
+     "date": "2026-11-03",
+     "title": "Tool poisoning succeeds in 22.9% of cells across 12 MCP frameworks; none defends"
+    },
+    {
      "id": "2026-10-30-copilot-cli-reads-ssh-without-prompt",
      "topic": "agent-sandboxing",
      "topic_title": "Sandboxing, scoped credentials, and guardrails",
@@ -12557,8 +12622,8 @@
      "title": "Agent memory systems readily admit poisoned facts, a reproducible benchmark shows"
     }
    ],
-   "entry_count": 61,
-   "latest_entry_date": "2026-10-31",
+   "entry_count": 62,
+   "latest_entry_date": "2026-11-03",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -12568,6 +12633,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "3b426192f1bc75ae",
+     "title": "Beyond Prompt Injection: The Tool Update Gap in LLM Agent Security"
+    },
     {
      "sid": "e5726bf03a816877",
      "title": "How the built-in browsers in five AI coding tools broke basic browser rules"
@@ -12845,7 +12914,7 @@
      "title": "Show HN: Deep-XPIA – Prompt injection benchmark for multi-agent AI systems"
     }
    ],
-   "updated": "2026-10-31"
+   "updated": "2026-11-03"
   },
   "proving-agent-roi": {
    "slug": "proving-agent-roi",
@@ -13799,6 +13868,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-03-etude-tool-update-gap",
+     "topic": "prompt-injection",
+     "topic_title": "Untrusted input and tools can hijack an agent",
+     "date": "2026-11-03",
+     "title": "Tool updates bypass in-context defenses: ETUDE reaches 97.6% attack success"
+    },
     {
      "id": "2026-09-05-langchain-mcp-elicitation-as-interrupt",
      "topic": "mcp",
@@ -17488,7 +17564,7 @@
      "key": "compaction-safety",
      "title": "The compactor as a safety surface",
      "summary": "Summaries can silently drop safety constraints or carry instructions the model wrote itself, so compaction output needs the same distrust as any untrusted input.",
-     "count": 2
+     "count": 3
     },
     {
      "key": "skipping-compaction",
@@ -17504,6 +17580,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-03-arcbench-rules-survive-but-ignored",
+     "topic": "context-compaction",
+     "date": "2026-11-03",
+     "title": "After compaction the rule usually survives; the agent breaks it anyway",
+     "theme": "compaction-safety",
+     "html": "<p>ARCBench runs rule-compliance tests inside a full tool-calling harness (the open-source pi agent) and traces where each post-compaction violation comes from. Compaction rarely deletes the rule. Most violations happen while the rule is still in the summary, and the agent treats a later request as permission.</p>\n<p>Compacted runs that retained the rule violated more than twice as often as full-history runs. The strongest compactor-targeted attack, which corrupts the rule inside the summary, more than doubled violations. The best defense restored the rule in most summaries, yet violations continued.</p>\n<p>For builders: checking that a summary still contains the rule is not a compliance test. Measure actions, not summary text.</p>",
+     "evidence": [
+      {
+       "sid": "b46f9fac570b0805",
+       "title": "Do Agents Still Follow the Rules? Benchmarking Rule Compliance under Agent Context Compaction"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-reliability",
+       "title": "Agents give fluent, confident-looking output even when it's wrong"
+      }
+     ]
+    },
     {
      "id": "2026-10-26-mnemonic-proxy-verbatim-archive",
      "topic": "context-compaction",
@@ -17787,8 +17883,8 @@
      "title": "Stream processing with Kafka and Flink drives dynamic memory tiering for agents"
     }
    ],
-   "entry_count": 14,
-   "latest_entry_date": "2026-10-26",
+   "entry_count": 15,
+   "latest_entry_date": "2026-11-03",
    "solutions": [],
    "obstacles": [
     {
@@ -17810,6 +17906,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "b46f9fac570b0805",
+     "title": "Do Agents Still Follow the Rules? Benchmarking Rule Compliance under Agent Context Compaction"
+    },
     {
      "sid": "aec1f0ba52ad6990",
      "title": "A 32K-window proxy that beat full context on long agent histories"
@@ -17867,7 +17967,7 @@
      "title": "Show HN: Memory system for AI agents with associations, forgetting, synthesis"
     }
    ],
-   "updated": "2026-10-26"
+   "updated": "2026-11-03"
   },
   "cost-controls": {
    "slug": "cost-controls",
@@ -18908,7 +19008,7 @@
      "key": "auth-and-governance",
      "title": "Authorization and governance of connector fleets",
      "summary": "Connector access is now provisioned through identity providers and managed settings, with gateways and server-side write controls deciding what a connection may do.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "webmcp",
@@ -18930,6 +19030,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-03-mcpvenom-tool-poisoning-matrix",
+     "topic": "mcp",
+     "date": "2026-11-03",
+     "title": "Tool poisoning succeeds in 22.9% of cells across 12 MCP frameworks; none defends",
+     "theme": "auth-and-governance",
+     "html": "<p>The <code>mcpvenom</code> study ran 12 agent frameworks, 18 models and 45 poisoning scenarios (9,720 cells) with real tool execution. A canary HTTP receipt confirmed exfiltration. Overall attack success was 22.9%. Of the successes, 12.1% verifiably exfiltrated a secret. Model-level rates ranged from 0.4% to 49.7%.</p>\n<p>Nine core frameworks clustered at 23-26%, so resistance comes from the model, not the framework. An audit found no intentional defense in any framework. A regex description scanner blocked 20 of 45 scenarios at a 7.2% false-positive rate, so metadata scanning is only a partial control. The authors report all five coordinated disclosures were rejected.</p>",
+     "evidence": [
+      {
+       "sid": "f4762eccd1c3e217",
+       "title": "MCP Tool Poisoning in Agentic AI Frameworks: A Cross-Framework Measurement Study"
+      }
+     ],
+     "also": [
+      {
+       "slug": "prompt-injection",
+       "title": "Untrusted input and tools can hijack an agent"
+      }
+     ]
+    },
     {
      "id": "2026-10-25-kevlar-strips-tool-descriptions",
      "topic": "mcp",
@@ -19630,8 +19750,8 @@
      "title": "Azure Functions folds the tool-calling loop into a serverless agents runtime"
     }
    ],
-   "entry_count": 35,
-   "latest_entry_date": "2026-10-25",
+   "entry_count": 36,
+   "latest_entry_date": "2026-11-03",
    "solutions": [],
    "obstacles": [
     {
@@ -19641,6 +19761,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "f4762eccd1c3e217",
+     "title": "MCP Tool Poisoning in Agentic AI Frameworks: A Cross-Framework Measurement Study"
+    },
     {
      "sid": "a92a400264dfa863",
      "title": "Kevlar = MCP Firewall for LLM's"
@@ -19786,7 +19910,7 @@
      "title": "Centrally manage authorization for MCP connectors | Claude"
     }
    ],
-   "updated": "2026-10-25"
+   "updated": "2026-11-03"
   },
   "speculative-decoding": {
    "slug": "speculative-decoding",
