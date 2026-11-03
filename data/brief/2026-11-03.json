@@ -1,33 +1,86 @@
 {
  "date": "2026-11-03",
  "diagnostics": {
-  "admitted": 0,
-  "candidates": 797,
-  "items": 90,
-  "keeps": 426,
-  "new": 0,
+  "admitted": 1,
+  "candidates": 802,
+  "items": 91,
+  "keeps": 429,
+  "new": 1,
   "off_topic": 87,
   "prior_story": 7,
   "rejected_gate": {
    "insufficient_evidence": 52,
-   "judge_drop": 34,
+   "judge_drop": 33,
    "off_topic": 87,
-   "score_low": 170
+   "score_low": 173
   },
   "rejected_quota": {
-   "role_quota": 314,
+   "role_quota": 316,
    "source_quota": 44
   },
   "releases": 30,
-  "reviews": 206,
-  "role_counts": {},
+  "reviews": 209,
+  "role_counts": {
+   "first_party": 1
+  },
   "run_candidates": 140,
-  "stories": 454,
+  "stories": 457,
   "unjudged": 53,
-  "updated": 15,
+  "updated": 16,
   "written": true
  },
  "items": {
+  "model:claude|title:claude platform now supports native opentelemetry observability in databricks ml": {
+   "admission_rank": 91,
+   "admitted_at": "2026-11-03T21:11:12.388606+00:00",
+   "also_covered": [],
+   "content_excerpt": "Unify Claude observability into Databricks with native OpenTelemetry ingestion. Use collected traces with MLflow to find recurring failures and improve the agents. An agent can return a plausible answer while missing an important finding or reading the same source repeatedly. The answer alone won't explain why. Traces show the model and tool calls behind it, so you can investigate the failure, find related cases, and test whether a change helps. Databricks MLflow is now a supported destination for native OpenTelemetry export from the Claude Platform.. With native export to Databricks MLflow, developers using the Anthropic SDKs, the Messages API and Managed Agents can send native traces to Databricks and use MLflow to debug their agents and evaluate changes. MLflow Tracing is built on OpenTelemetry, an open standard for collecting and exporting service signals. A trace records an agent’s execution as individual steps, called spans, such as model requests and tool calls. Claude’s native instrumentation generates these spans and exports them using the OpenTelemetry Protocol. Databricks receives the spans through Zerobus Ingest and stores them in Unity Catalog tables linked to an MLflow experiment. You can inspect Claude traces alongside traces from other instrumented services, with the same tools for debugging and evaluation. Unity Catalog controls access to the data, which you can also query with SQL. With the combination of Zerobus and Unity Catalog, enterprises can get two crucial benefits: low-latency trace ingestion at high QPS plus the ability to govern access to the sensitive data stored in agentic traces. In Databricks, open the Experiments tab and click Create Experiment . Under Trace storage location , keep Unity Catalog selected. Choose an existing catalog and schema. This creates new MLflow experiments linked to the Unity Catalog table that stores OpenTelemetry traces. The detailed setup guide covers permissions and SQL warehouse requirements. Set the Databricks destination using your workspace ID, region, and spans table. The Zerobus connection guide explains how to obtain a table-scoped OAuth token. The new native OTel integrations cover Anthropic SDKs, the Messages API, and Managed Agents. For the Anthropic SDK, install the packages below and configure an OTel tracer provider and exporter to create spans for Anthropic SDK calls. Follow Claude Platform OpenTelemetry guide to send traces from the Messages API and Claude Managed Agent your Databri",
+   "first_seen": "2026-11-03T21:11:12.388606+00:00",
+   "freshness_at_admission": 0.9964,
+   "id": "ec290aa312a4400f",
+   "image_url": null,
+   "judge_category": "agent_engineering",
+   "judge_category_confidence": 0.3,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-03T21:10:57.770701+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.86,
+   "judge_signals": {
+    "corporate_marketing": 0.06,
+    "keep": 0.86,
+    "platform_relevant": 0.97,
+    "release_lane": 0.26
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
+   "llm_category": "platform",
+   "matched_topics": [
+    "agent"
+   ],
+   "prefilter_score": 1.994,
+   "published": "Tue, 03 Nov 2026 21:00:00 GMT",
+   "rank_at_first_seen": 91,
+   "release_tier": null,
+   "score_at_first_seen": 1.4058,
+   "seen_count": 1,
+   "slot": "cloud_platform_updates",
+   "source": "databricks_blog",
+   "source_count": 1,
+   "source_role": "first_party",
+   "source_tune": 0.047,
+   "story_cluster_id": "84c3b302f0ca1709",
+   "story_key": "model:claude|title:claude platform now supports native opentelemetry observability in databricks ml",
+   "summary_1line": "An agent can return a plausible answer while missing an important finding or reading the same source repeatedly...",
+   "time_decay_factor": 0.997,
+   "title": "Claude Platform now supports native OpenTelemetry observability in Databricks MLflow",
+   "type": "news",
+   "url": "https://www.databricks.com/blog/claude-platform-now-supports-native-opentelemetry-observability-databricks-mlflow",
+   "utility": 1.4058,
+   "utility_basis": "judge",
+   "v2_slot": "cloud_platform_updates",
+   "why_it_matters": "Matches feed focus: agent."
+  },
   "model:claude|title:discovering and exploiting vulnerabilities in critical real world software with": {
    "admission_rank": 25,
    "admitted_at": "2026-11-03T00:08:39.621733+00:00",
@@ -51,7 +104,7 @@
     "release_lane": 0.05
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T20:10:47.672976+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.223,
@@ -59,7 +112,7 @@
    "rank_at_first_seen": 25,
    "release_tier": null,
    "score_at_first_seen": 0.566,
-   "seen_count": 21,
+   "seen_count": 22,
    "slot": "research_watch",
    "source": "anthropic_research",
    "source_count": 1,
@@ -564,7 +617,7 @@
     "release_lane": 0.06
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T20:10:47.672976+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 0.966,
@@ -572,7 +625,7 @@
    "rank_at_first_seen": 30,
    "release_tier": null,
    "score_at_first_seen": 1.3763,
-   "seen_count": 18,
+   "seen_count": 19,
    "slot": "research_watch",
    "source": "arxiv_cn_open_weight_reports",
    "source_count": 2,
@@ -760,7 +813,7 @@
     "release_lane": 0.21
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T20:10:47.672976+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "frontier_product",
    "matched_topics": [],
    "prefilter_score": 0.503,
@@ -768,7 +821,7 @@
    "rank_at_first_seen": 4,
    "release_tier": null,
    "score_at_first_seen": 1.324,
-   "seen_count": 21,
+   "seen_count": 22,
    "slot": "practitioner_analysis",
    "source": "vllm_blog",
    "source_count": 1,
@@ -1460,7 +1513,7 @@
     "release_lane": 0.12
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T20:10:47.672976+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "evaluation_reliability",
    "matched_topics": [],
    "prefilter_score": 1.194,
@@ -1468,7 +1521,7 @@
    "rank_at_first_seen": 23,
    "release_tier": null,
    "score_at_first_seen": 0.74,
-   "seen_count": 21,
+   "seen_count": 22,
    "slot": "practitioner_analysis",
    "source": "interconnects",
    "source_count": 1,
@@ -1666,7 +1719,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T19:11:49.360980+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "evaluation_reliability",
    "matched_topics": [],
    "prefilter_score": 0.764,
@@ -1674,7 +1727,7 @@
    "rank_at_first_seen": 75,
    "release_tier": null,
    "score_at_first_seen": 0.792,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "video_watch",
    "source": "ai_native_dev",
    "source_count": 1,
@@ -1813,7 +1866,7 @@
     "release_lane": 0.24
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T20:10:47.672976+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.851,
@@ -1821,7 +1874,7 @@
    "rank_at_first_seen": 89,
    "release_tier": null,
    "score_at_first_seen": 1.179,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "research_watch",
    "source": "huggingface_blog",
    "source_count": 1,
@@ -2159,7 +2212,7 @@
     "release_lane": 0.26
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T20:10:47.672976+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.998,
@@ -2167,7 +2220,7 @@
    "rank_at_first_seen": 90,
    "release_tier": null,
    "score_at_first_seen": 0.8947,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "practitioner_analysis",
    "source": "infoq_ai_ml",
    "source_count": 1,
@@ -2208,7 +2261,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T19:11:49.360980+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "agent_engineering",
    "matched_topics": [],
    "prefilter_score": 0.646,
@@ -2216,7 +2269,7 @@
    "rank_at_first_seen": 76,
    "release_tier": null,
    "score_at_first_seen": 0.768,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "video_watch",
    "source": "ai_native_dev",
    "source_count": 1,
@@ -2458,7 +2511,7 @@
     "release_lane": 0.06
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T20:10:47.672976+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent",
@@ -2469,7 +2522,7 @@
    "rank_at_first_seen": 88,
    "release_tier": null,
    "score_at_first_seen": 1.4579,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "practitioner_analysis",
    "source": "langchain_blog",
    "source_count": 1,
@@ -2708,7 +2761,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T19:11:49.360980+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agentic"
@@ -2718,7 +2771,7 @@
    "rank_at_first_seen": 74,
    "release_tier": null,
    "score_at_first_seen": 0.9877,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "video_watch",
    "source": "ai_native_dev",
    "source_count": 1,
@@ -3421,7 +3474,7 @@
     "release_lane": 0.42
    },
    "judge_verdict": "review",
-   "last_seen": "2026-11-03T20:10:47.672976+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.915,
@@ -3429,7 +3482,7 @@
    "rank_at_first_seen": 44,
    "release_tier": "minor",
    "score_at_first_seen": 0.4786,
-   "seen_count": 19,
+   "seen_count": 20,
    "slot": "community_signal",
    "source": "search_agent_engineering_news",
    "source_count": 1,
@@ -3617,7 +3670,7 @@
     "release_lane": 0.08
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T17:09:31.264047+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.93,
@@ -3625,7 +3678,7 @@
    "rank_at_first_seen": 66,
    "release_tier": null,
    "score_at_first_seen": 1.387,
-   "seen_count": 10,
+   "seen_count": 11,
    "slot": "research_watch",
    "source": "huggingface_blog",
    "source_count": 1,
@@ -3922,7 +3975,7 @@
     "release_lane": 0.05
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T20:10:47.672976+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -3932,7 +3985,7 @@
    "rank_at_first_seen": 83,
    "release_tier": null,
    "score_at_first_seen": 1.183,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "practitioner_analysis",
    "source": "philschmid",
    "source_count": 1,
@@ -3973,7 +4026,7 @@
     "release_lane": 0.11
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T20:10:47.672976+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.751,
@@ -3981,7 +4034,7 @@
    "rank_at_first_seen": 67,
    "release_tier": null,
    "score_at_first_seen": 1.0901,
-   "seen_count": 12,
+   "seen_count": 13,
    "slot": "research_watch",
    "source": "anthropic_research",
    "source_count": 1,
@@ -4073,7 +4126,7 @@
     "release_lane": 0.06
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-03T20:10:47.672976+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.995,
@@ -4081,7 +4134,7 @@
    "rank_at_first_seen": 84,
    "release_tier": null,
    "score_at_first_seen": 1.1633,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "research_watch",
    "source": "huggingface_blog",
    "source_count": 1,
@@ -4465,7 +4518,7 @@
     "release_lane": 0.97
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-03T20:10:47.672976+00:00",
+   "last_seen": "2026-11-03T21:11:12.388606+00:00",
    "llm_category": "release",
    "matched_topics": [
     "agent"
@@ -4475,7 +4528,7 @@
    "rank_at_first_seen": 1,
    "release_tier": "major",
    "score_at_first_seen": 2.0638,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "infra_runtime_releases",
    "source": "triton_releases",
    "source_count": 1,
@@ -4545,5 +4598,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-03T20:10:47.672976+00:00"
+ "updated_at": "2026-11-03T21:11:12.388606+00:00"
 }
