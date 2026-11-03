@@ -1,5 +1,12 @@
 # Decision Log
 
+## 2026-11-03 (Merged storylines stop publishing their translations)
+
+- **Decision:** `collect_i18n_pages` skips storylines whose English page is a merge redirect (`superseded_storyline_slugs`), and the redirect writer overwrites any existing `web/<locale>/storyline/<slug>.html` with the same stub.
+- **Context / Problem:** The 2026-11-03 storyline run merged `deepseek-open-sources-its-super-agent-architecture` into `deepseek-deepinfer`. Its Korean artifact kept a fresh source hash, so the renderer localized the English redirect stub into a `lang="ko"` page with an English canonical and still listed it as a Korean alternate. CI on `main` failed in `test_korean_pages_are_rendered_with_language_and_alternates`.
+- **Impact:** `pipeline/render_static_pages.py`, `tests/test_i18n_static_pages.py`.
+- **Rollback:** Pass `superseded_storylines=set()` to `collect_i18n_pages`.
+
 ## 2026-11-03 (Editor's Desk feed rows start compact on phones)
 
 - **Decision:** At `max-width: 640px`, the feed's "Latest from the Editor's Desk" panel renders as its heading plus a single "N updates · Show" button; the rows appear after the reader taps Show, and stay open for the session.
