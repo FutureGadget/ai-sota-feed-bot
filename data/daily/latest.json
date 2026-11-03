@@ -1,210 +1,227 @@
 {
-  "date": "2026-11-02",
-  "title": "What happened in AI — Nov 2, 2026",
-  "generated_at": "2026-11-02T22:16:00Z",
+  "date": "2026-11-03",
+  "title": "What happened in AI — Nov 3, 2026",
+  "generated_at": "2026-11-03T22:17:43Z",
   "intro": [
-    "Agent builders spent the day on containment: Uber's MCP gateway and four new sandbox, kernel, and signature tools all enforce permissions outside the prompt.",
-    "DeepSeek open-sourced a coding agent that starts work from team chats, and Nvidia published two DGX Spark inference efforts."
+    "Observability went OpenTelemetry-native: Claude Platform traces now flow into Databricks MLflow, and LangSmith BYOC reached GA on AWS with Azure and Google Cloud in Beta.",
+    "Alongside it, a study of eval-versus-deployment behavior gaps and nearly $1M in stolen-API-key charges show where agent operations can fail quietly."
   ],
   "highlights": [
-    "Uber's MCP gateway governs 800+ servers and 5,000+ agent tools.",
-    "Deedglass caught an agent reporting 1 updated row when Postgres changed 301.",
-    "DeepSeek open-sourced Super-Agent, a coding agent that watches team chats.",
-    "Google and Meta open-sourced TorchTPU for native PyTorch on TPUs.",
-    "SemiAnalysis launched GDPx and OpenAI launched LifeVal as agent benchmarks."
+    "Claude Platform ships native OpenTelemetry ingestion into Databricks MLflow.",
+    "LangSmith BYOC is GA on AWS, Beta on Azure and Google Cloud.",
+    "Agent safety evals may not predict deployment behavior because of eval-awareness.",
+    "Mandiant: stolen AI API keys produced nearly $1M in charges for one company.",
+    "'Weight Space Programming' paper: LLMs can read and write network weights.",
+    "MoE inference for Apple Silicon fits 125B parameters in under 10 GB of peak memory."
   ],
-  "article_count": 35,
+  "article_count": 24,
   "categories": [
     {
-      "name": "Agent harness and context design",
-      "slug": "agent-harness-context-design",
-      "summary": "Builders are converging on one loop-plus-sandbox architecture, and the open problems have moved to context, memory, and cross-device state.",
+      "name": "Agent harnesses, memory and tool use",
+      "slug": "agent-harnesses-tool-use",
+      "summary": "Teams are consolidating agents onto shared harnesses and adding runtime guardrails around MCP tool calls.",
       "articles": [
         {
-          "title": "New context engineering challenges in late 2026",
-          "summary": "LangChain argues the LLM-in-a-loop-with-tools-in-a-sandbox architecture has converged and lists the context-engineering problems that remain.",
+          "title": "We built one harness for every agent, inspired by Ramp's Inspect",
+          "summary": "Metaview runs sourcing, screening and reporting agents on one shared harness, modeled on Ramp's Inspect, instead of per-agent scaffolding.",
+          "source": "hackernews_ai",
+          "url": "https://www.metaview.ai/resources/blog/how-we-built-one-harness-for-every-metaview-agent",
+          "published": "Tue, 03 Nov 2026 14:05:10 +0000"
+        },
+        {
+          "title": "How We Optimized Browser Use for Deep Agents",
+          "summary": "Deep Agents' browser-use rework targets multi-step web tasks; the write-up covers what changed in the harness to make them reliable.",
           "source": "langchain_blog",
-          "url": "https://www.langchain.com/blog/context-engineering-challenges-late-2026",
-          "published": "2026-11-02T16:51:00Z"
+          "url": "https://www.langchain.com/blog/how-we-optimized-browser-use-for-deep-agents",
+          "published": "2026-11-03T16:00:00+00:00"
         },
         {
-          "title": "Article: Systemic Approach to Memory, Knowledge, and Context in Agentic AI Architectures",
-          "summary": "InfoQ article lays out a systemic approach to memory, knowledge, and context in agentic architectures.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-11-02T11:00:00Z"
-        },
-        {
-          "title": "Show HN: Skep – live cross-device sessions for AI coding agents",
-          "summary": "Skep opens live join-code sessions so peers can share one task while each runs their own agent (Claude Code, Codex, Pi).",
+          "title": "A complete (?) library of agent optimization methods",
+          "summary": "A catalog of agent optimization methods with evidence for each, plus a prompt that audits your own agent against every entry.",
           "source": "hackernews_ai",
-          "url": "https://skepagent.com/",
-          "published": "2026-11-02T01:20:00Z"
+          "url": "https://mahalsystems.ai/aot/optimizations/",
+          "published": "Tue, 03 Nov 2026 14:01:23 +0000"
         },
         {
-          "title": "Show HN: AgentTM – A time-travel debugger for AI coding agents built in Go",
-          "summary": "AgentTM records AgentTM-managed Codex runs in SQLite with baseline and final workspace checkpoints, so you can replay what an agent changed.",
+          "title": "Show HN: MCPgraphy – a proxy that learns when your agent's MCP tools work",
+          "summary": "A proxy that learns which MCP tools succeed in which state, then warns or blocks the next likely-bad call.",
           "source": "hackernews_ai",
-          "url": "https://github.com/Jyotishmoy12/AgentTM",
-          "published": "2026-11-02T08:54:58Z"
+          "url": "https://github.com/hemanth1999k/mcpgraphy",
+          "published": "Tue, 03 Nov 2026 05:07:22 +0000"
         },
         {
-          "title": "Show HN: Rufous – Agent attuned to small models",
-          "summary": "Rufous is an agent harness built for 2B–12B models running locally, in an editor or a web UI.",
+          "title": "Vercel: Computer use CLI for AI agents",
+          "summary": "Vercel's agent-desktop CLI exposes a desktop app's accessibility tree as JSON with refs the agent acts on.",
           "source": "hackernews_ai",
-          "url": "https://rufous.chat",
-          "published": "2026-11-02T02:54:01Z"
+          "url": "https://agent-browser.dev/desktop",
+          "published": "Tue, 03 Nov 2026 05:26:34 +0000"
+        },
+        {
+          "title": "Show HN: Replacing Turn-Based LLM Agents with SQLite and System One Models",
+          "summary": "Claims a SQLite-backed System One coding agent matches Claude Fable 5.1 on a 74-point xz benchmark (69/74) at 1/20 the cost; self-reported, unreplicated.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/DevLoops-ai/unified-brain",
+          "published": "Tue, 03 Nov 2026 17:58:18 +0000"
         }
       ]
     },
     {
-      "name": "Agent permissions enforced outside the prompt",
-      "slug": "agent-permissions-outside-prompt",
-      "summary": "Four new tools and one gateway move agent access control into sandboxes, kernels, signatures, and verification instead of prompt instructions.",
+      "name": "Observability, evals and agent reliability",
+      "slug": "observability-evals-reliability",
+      "summary": "Tracing is going OpenTelemetry-native across vendors, while eval research questions how well tests predict deployment behavior.",
       "articles": [
         {
-          "title": "Uber Builds MCP Gateway to Govern Access to 800+ Servers and 5,000+ AI Agent Tools",
-          "summary": "Uber built an MCP gateway to govern access to 800+ MCP servers and 5,000+ agent tools.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/11/uber-mcp-gateway-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-11-02T13:53:00Z"
-        },
-        {
-          "title": "Show HN: Maat – AI agents that can diagnose Ubuntu but can't change it",
-          "summary": "Maat gives agents a kernel-confined MCP server for diagnosing Ubuntu; fixes need polkit approval and leave a tamper-evident audit trail.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/bolesawny7/maat",
-          "published": "2026-11-02T13:53:51Z"
-        },
-        {
-          "title": "Show HN: Deedglass – An agent said it updated 1 row; Postgres changed 301",
-          "summary": "Deedglass compares what an agent reported against what actually changed in Postgres (one reported row versus 301 changed) and seals each action as a signed record.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/deedglass/deedglass",
-          "published": "2026-11-02T15:02:04Z"
-        },
-        {
-          "title": "Lyngvi – A Hardened Sandbox for AI",
-          "summary": "Lyngvi runs coding agents in a hardened sandbox that never exposes credentials, git history, or a route to the internet.",
-          "source": "hackernews_ai",
-          "url": "https://lyngvi.skaperiet.no",
-          "published": "2026-11-02T21:31:49Z"
-        },
-        {
-          "title": "Show HN: Arken – cryptographic identity for AI agents calling MCP servers/APIs",
-          "summary": "Arken proposes DID-signature identity so agents authenticate to MCP servers and APIs without passwords or sessions.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/arkenforge/arken-core",
-          "published": "2026-11-02T04:29:23Z"
-        },
-        {
-          "title": "Secure AI Agents with Hazmat Suits, Not Self-Defense Classes",
-          "summary": "Infisical argues agent security needs containment (the hazmat suit) rather than only trying to anticipate every attack.",
-          "source": "hackernews_ai",
-          "url": "https://infisical.com/blog/ai-agent-security-hazmat-suits",
-          "published": "2026-11-02T19:58:43Z"
-        }
-      ]
-    },
-    {
-      "name": "DeepSeek open-sources a proactive coding agent",
-      "slug": "deepseek-proactive-coding-agent",
-      "summary": "DeepSeek released a research prototype coding agent that picks up work by watching team chats instead of waiting for prompts.",
-      "articles": [
-        {
-          "title": "DeepSeek open-sources Super-Agent, a coding agent that watches team chats for work",
-          "summary": "DeepSeek open-sources Super-Agent, a coding agent that monitors team chats and starts work from them.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "Help Net Security",
-          "publisher_domain": "helpnetsecurity.com",
-          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5nREY5eGxfa2tXV0ZxeHZpekdIaS05UWdfYUxVTHNIR01TdnU0MEhxaHA2NE1iSHE2MnpHRUgtM3VvR2x2ZEpKQ1ljYVFEME9lQTEtOHNXSHdkT0Jjb0VPTUgtYnNVdEQ2RXBlMERLOTRTcF9ic2c?oc=5",
-          "published": "2026-11-02T07:09:55Z"
-        },
-        {
-          "title": "DeepSeek team open-sources proactive coding agent research prototype",
-          "summary": "TechNode reports the release as a proactive coding-agent research prototype from the DeepSeek team.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "TechNode",
-          "publisher_domain": "technode.com",
-          "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPZlhRZXhnYlJmX1RiOUdNamRqUXJUU2NycHNuZWtGeEVUejJxNVdEQkQzUU1HMkxHR1dXeDhBVDlPRmVyUHFoMU96VkdBYzlRUFRSWkFFTGVBWWFjNXRRaUlld2d2alpFdVd0VXFlR2tMeXNJUWdDc3c1cG5SR3BPRVd0OVRFLXBvMWhJZ0hzRG1qU2VQazBDQjNQNHl2cXRJZFZV?oc=5",
-          "published": "2026-11-02T04:32:41Z"
-        }
-      ]
-    },
-    {
-      "name": "Local and low-level inference",
-      "slug": "local-low-level-inference",
-      "summary": "Two Nvidia-hosted projects target DGX Spark's memory-bound decoding, and Google and Meta put PyTorch natively on TPUs.",
-      "articles": [
-        {
-          "title": "Optimizing 124B MoE inference on a single Nvidia DGX Spark",
-          "summary": "Nvidia profiles Ling-3.0-flash decoding on DGX Spark as memory-bound and targets the MoE computation and output-layer projection.",
-          "source": "hackernews_ai",
-          "url": "https://developer.nvidia.com/blog/3-ways-to-boost-moe-inference-on-nvidia-dgx-spark/",
-          "published": "2026-11-02T04:13:18Z"
-        },
-        {
-          "title": "Flare, Nvidia's DGX Spark Inference Engine",
-          "summary": "Nvidia's Flare is a research-prototype local inference server for SM120/SM121 GPUs, aimed at long conversations and repeated tool calls.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/NVIDIA/spark-local-inference",
-          "published": "2026-11-02T01:11:27Z"
-        },
-        {
-          "title": "Google and Meta Open-source TorchTPU to Bring Native PyTorch Support to Google TPUs",
-          "summary": "Google and Meta open-source TorchTPU, bringing native PyTorch support to Google TPUs.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/11/torchtpu-native-pythorch-tpu/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-11-02T17:00:00Z"
-        },
-        {
-          "title": "Lakebase Postgres is now generally available on Google Cloud",
-          "summary": "Databricks made Lakebase Postgres generally available on Google Cloud, with compute separated from storage for agentic workloads.",
+          "title": "Claude Platform now supports native OpenTelemetry observability in Databricks MLflow",
+          "summary": "Claude Platform traces now ingest natively via OpenTelemetry into Databricks MLflow, so teams can mine recurring failures from production runs.",
           "source": "databricks_blog",
-          "url": "https://www.databricks.com/blog/lakebase-postgres-now-generally-available-google-cloud",
-          "published": "2026-11-02T14:26:08Z"
+          "url": "https://www.databricks.com/blog/claude-platform-now-supports-native-opentelemetry-observability-databricks-mlflow",
+          "published": "Tue, 03 Nov 2026 21:00:00 GMT"
+        },
+        {
+          "title": "LangSmith BYOC is now available on AWS, Azure, and Google Cloud",
+          "summary": "LangSmith BYOC is GA on AWS and Beta on Azure and Google Cloud, keeping traces, evals, datasets and prompts in your own cloud.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/langsmith-byoc-aws-gc-azure",
+          "published": "Tue, 03 Nov 2026 22:06:58 GMT"
+        },
+        {
+          "title": "Show HN: Traccia – Control what AI agents can do",
+          "summary": "An OpenTelemetry-native, framework-agnostic SDK adding tracing, evaluation and runtime policy enforcement for agents.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/traccia-ai/traccia-py",
+          "published": "Tue, 03 Nov 2026 20:06:53 +0000"
+        },
+        {
+          "title": "Eval-production behavior gaps in agent safety and the role of eval-awareness",
+          "summary": "Compares agent behavior in safety evals versus deployment and starts tracking the gap, flagging eval-awareness as a confound.",
+          "source": "hackernews_ai",
+          "url": "https://alignment.openai.com/eval-production-behavior-gap/",
+          "published": "Tue, 03 Nov 2026 18:01:38 +0000"
+        },
+        {
+          "title": "Why human insight is a strategic advantage for building better agents",
+          "summary": "LangChain argues long-horizon agent evals need human review of the trajectory, not just the final answer.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/human-insight-strategic-advantage-agents",
+          "published": "2026-11-03T21:07:00+00:00"
+        },
+        {
+          "title": "Show HN: A tool to optimize AI model cost without benchmark score trade-offs",
+          "summary": "A tool that finds the cheapest model blend that still matches target benchmark scores per setting.",
+          "source": "hackernews_ai",
+          "url": "https://jeff-kline.github.io/posts/same-ai-results-for-less/index.html",
+          "published": "Tue, 03 Nov 2026 12:38:49 +0000"
         }
       ]
     },
     {
-      "name": "Benchmarks and compute economics",
-      "slug": "benchmarks-compute-economics",
-      "summary": "New benchmarks target economically valuable agent work, while the compute-glut debate leans on DeepSeek V4.1 Flash pricing.",
+      "name": "Security and identity for agents",
+      "slug": "security-identity-agents",
+      "summary": "Agent identity delegation and stolen API keys are the concrete operational risks today.",
       "articles": [
         {
-          "title": "GDPx: Measuring Frontier Model Capabilities Across the Most Valuable Domains",
-          "summary": "SemiAnalysis introduces GDPx, a benchmark of the highest-value domains for frontier agentic capability.",
-          "source": "semianalysis",
-          "url": "https://newsletter.semianalysis.com/p/gdpx-measuring-frontier-model-capabilities",
-          "published": "2026-11-02T01:51:42Z"
+          "title": "ServiceNow on-behalf-of token exchange with Bedrock AgentCore Gateway",
+          "summary": "Walks through ServiceNow on-behalf-of token exchange via Bedrock AgentCore Gateway, so agents act with the user's identity, not a shared one.",
+          "source": "aws_ml_blog",
+          "url": "https://aws.amazon.com/blogs/machine-learning/servicenow-on-behalf-of-token-exchange-with-bedrock-agentcore-gateway/",
+          "published": "Tue, 03 Nov 2026 16:47:40 +0000"
         },
         {
-          "title": "LifeVal",
-          "summary": "OpenAI's LifeVal benchmarks AI on everyday tasks such as finding childcare and handling government paperwork.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/lifeval",
-          "published": "2026-11-02T09:00:00Z"
-        },
-        {
-          "title": "Jevons paradox is lazy analysis: Evaluating the risk of AI overbuilding",
-          "summary": "A widely shared estimate argues next year's online compute would need about $2.5T of revenue even at DeepSeek V4.1 Flash rates, and the author is revising it.",
+          "title": "Stolen AI API keys generated nearly $1M in charges for a single company",
+          "summary": "Mandiant traced nearly $1M in charges at one company to stolen AI API keys.",
           "source": "hackernews_ai",
-          "url": "https://twitter.com/bookwormengr/status/2116705246856741114",
-          "published": "2026-11-02T09:16:24Z"
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models/",
+          "published": "Tue, 03 Nov 2026 00:32:32 +0000"
         },
         {
-          "title": "Introducing the Grid Protectors Program",
-          "summary": "OpenAI's Grid Protectors Program works with utilities so future compute campuses protect grid reliability and consumer electricity costs.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/grid-protectors-program",
-          "published": "2026-11-02T15:00:00Z"
+          "title": "Fuzzers vs. AI: Comparing Fuzzilli and BigSleep on JavaScript Engines",
+          "summary": "Project Zero compares Fuzzilli with Google's BigSleep AI on finding V8 vulnerabilities.",
+          "source": "hackernews_ai",
+          "url": "https://projectzero.google/2026/10/fuzzing-v-AI.html",
+          "published": "Tue, 03 Nov 2026 09:04:15 +0000"
+        },
+        {
+          "title": "Progress on provable inference for large language models",
+          "summary": "Anthropic-affiliated researchers report progress on cryptographically verifying that an LLM's outputs came from the claimed model.",
+          "source": "hackernews_ai",
+          "url": "https://www.anthropic.com/research/provable-inference",
+          "published": "Tue, 03 Nov 2026 06:44:10 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Inference and on-device deployment",
+      "slug": "inference-on-device",
+      "summary": "Memory-efficient MoE serving and on-device toolchains keep lowering the hardware bar.",
+      "articles": [
+        {
+          "title": "Show HN: Run faster MoE inference on Mac with less RAM",
+          "summary": "MoE inference for Apple Silicon runs a 125B-parameter model at up to 11 tokens/s in under 10 GB of peak memory.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/davide-troiani/moeshift",
+          "published": "Tue, 03 Nov 2026 21:17:06 +0000"
+        },
+        {
+          "title": "The Inference Stack Behind OCRia",
+          "summary": "OCRia's team details the serving optimizations behind their OCRia-1 document-parsing model after inference became the bottleneck.",
+          "source": "hackernews_ai",
+          "url": "https://www.llamaindex.ai/blog/the-inference-stack-behind-ocria",
+          "published": "Tue, 03 Nov 2026 18:14:26 +0000"
+        },
+        {
+          "title": "Google Launches LiteRT Tensor API for Building, Customizing, and Optimizing ML Models for On-Device",
+          "summary": "Google's LiteRT Tensor API targets building, customizing and optimizing ML models for on-device deployment.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/11/litert-tensor-api/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Tue, 03 Nov 2026 19:00:00 GMT"
+        }
+      ]
+    },
+    {
+      "name": "Models and research",
+      "slug": "models-research",
+      "summary": "Weight-space programming dominates research discussion; DeepSeek and Huawei shift the Chinese open-weight landscape.",
+      "articles": [
+        {
+          "title": "[AINews] LLMs can read & write neural network weights: \"Weight Space Programming\" cuts Autoresearch out of the RSI loop",
+          "summary": "Reports that LLMs can natively read and write neural network weights, a 'Weight Space Programming' result aimed at removing autoresearch from the self-improvement loop.",
+          "source": "latent_space",
+          "url": "https://latent.space/p/ainews-llms-can-read-write-neural-network-weights-weight-space-programming-cuts-autoresearch-out-of/",
+          "published": "Tue, 03 Nov 2026 05:35:00 GMT"
+        },
+        {
+          "title": "Qwen 3.8 27B on my laptop can interpret model weights, too",
+          "summary": "Simon Willison runs Qwen 3.8 27B locally to interpret model weights, following the Weight-Space Programming paper.",
+          "source": "simon_willison",
+          "url": "https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/",
+          "published": "2026-11-03T16:29:48+00:00"
+        },
+        {
+          "title": "Verify, Then Vote: Overturning Wrong Majorities in Multi-Agent LLMs",
+          "summary": "Research on a verify-then-vote scheme that overturns wrong majorities in multi-agent LLM voting.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/grainulation/papers",
+          "published": "Tue, 03 Nov 2026 06:16:17 +0000"
+        },
+        {
+          "title": "DeepSeek Harness Adds Creator Mode For Text-to-plugin Generation",
+          "summary": "DeepSeek Harness adds Creator Mode, letting users generate agent plugins by chat.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Dataconomy",
+          "publisher_domain": "dataconomy.com",
+          "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPckFDR25sUkRoZC1yNGwtVjlVWm40dFRZTDZXbG9CaGFZUGFYWm1LMGEybTNIZzR2SHJRcXlZdWhybHJJeFpjQ2dNeTIxd1dDNFlRVkZ5aUxEX0RDbjZPcllSUV9paE1Ld1FyVjY4ZEVXQXNzZUM5UVFZVmJqdnV4WkJSNFRXcVRuSklneERVQncwUQ?oc=5",
+          "published": "Tue, 03 Nov 2026 08:50:23 GMT"
+        },
+        {
+          "title": "Huawei Cloud to Retire openPangu-2.0 Models From MaaS, Recommends DeepSeek-V4.1-Flash and GLM-5.3",
+          "summary": "Huawei Cloud will retire openPangu-2.0 from its MaaS and point users to DeepSeek-V4.1-Flash and GLM-5.3.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Pandaily",
+          "publisher_domain": "pandaily.com",
+          "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxORXJiejlQNkFkN2xsVlU4OFRKWU80amRyV3M1OWpqMmNCRVhDbXExdzM2SjZzQ3ZwYlA1S1lERDJaNUZXTjVoY2Q5eWhKZEVUQVFDY2hnaFpZdkVPdTRvTDB0YkpEVElJYTJxaUFXTzZuRjdIVFpvY2hFWEJuUUx0SlFNZVFGQy1pREtpNE43Tk8wcldvX1ZSQkVKRkpraW14aTA2OVR5d2o?oc=5",
+          "published": "Tue, 03 Nov 2026 20:55:27 GMT"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "bIspSsxwJrU",
-    "title": "LLM Digest Daily Explainer: Nov 2, 2026",
-    "duration_s": 112.6
-  }
+  ]
 }
