@@ -1224,6 +1224,7 @@
   "published": "2026-11-03T00:00:00+00:00",
   "sid": "a6f54d325d31634f",
   "source": "huggingface_blog",
+  "summary_1line": "Transformers Model Integration Contracts",
   "title": "Transformers Model Integration Contracts",
   "type": "research",
   "url": "https://huggingface.co/blog/transformers-mic"
@@ -1426,6 +1427,23 @@
   "url": "https://github.com/310networks/openproject-agent-engine",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "ba560efbe9932076": {
+  "first_seen": "2026-11-03T12:04:47.176869+00:00",
+  "id": "c206104ae5baa44e",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-02T17:53:26+00:00",
+  "sid": "ba560efbe9932076",
+  "source": "arxiv_cs_cl",
+  "summary": "Organisations increasingly deploy large language model agents that must follow organisational values. We check whether activation steering, which adds vectors to a model's internal activations during generation without changing its weights, can improve compliance beyond prompting alone. Since most scenarios involve several values at once, we focus on multi-value steering. A simple way to build these vectors is to contrast responses that follow all values relevant to a scenario with responses that violate them. However, this gives nearly identical vectors for different values: they capture a general compliance signal rather than individual values, which limits their use when combining several values. We propose Value-Isolating Activation Steering (VIAS), which contrasts responses to the same scenario under two prompts, one listing all relevant values and one omitting a single target value. We keep a pair only if the target value changes from compliant to non-compliant and both responses still meet a minimum compliance level on the other values. We evaluate VIAS on PROTECT, a workplace compliance dataset where each scenario is tagged with relevant values from a 21-value taxonomy. VIAS reduces overlap between value vectors, making them better suited for multi-value steering, although this alone does not lead to independent control over each value. Combined with prompting, VIAS complies with every tagged value on 69.6% of scenarios for Qwen2.5-7B, 75.2% for Mistral-7B, and 72.6% ",
+  "summary_1line": "Organisations increasingly deploy large language model agents that must follow organisational values. We check whether activation steering, which adds vectors to a model's internal activations during generation withou...",
+  "title": "VIAS: Value-Isolating Activation Steering for Multi-Value Alignment and Compliance for Organisations",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03518v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "baaa37d6dddd5d25": {
   "content_excerpt": "Deterministic code dictionary for LLMs and developers: tree-sitter + SQLite, no AI. Cuts Claude Code token use by answering code questions from an index. A dictionary of your code for the AI, and a manual for you. It reads your project once, with no AI, and hands the answer over together with the question. Fewer turns, fewer tokens, the same correct answer. One line, once per machine. It also turns codedict on in Claude Code for every project. That's it. Open Claude Code in any git repository and ask about the code. There is nothing else to configure. Uninstall: run ~/.codedict/venv/bin/python -m codedict setup --remove (Windows: ~\\.codedict\\venv\\Scripts\\python.exe -m codedict setup --remove ) and delete the ~/.codedict folder. codedict came from a practical problem: on a real project with ~250 files in TypeScript, C# and Python, Claude Code sessions kept hitting the usage limit. We measured it, and the culprit was not the code being read but the number of turns . Every time the AI calls a tool (a grep, opening a file), Claude Code re-reads the whole context: 35 to 50 thousand tokens per turn. A simple question like \"where is X and who calls it?\" took 5 turns of grep and file reads. A flow question like \"from the click to the result\" took more than 20. The idea was to do the search work once, with no AI , in a local index, and hand the ready answer over together with the question. The AI answers in 1 or 2 turns instead of 5 to 20. The goal was to cut at least 55% of the token",
   "first_seen": "2026-11-01T16:04:16.168000+00:00",
@@ -1465,6 +1483,22 @@
   "title": "Rewarding defenders with bigger bug bounties",
   "type": "news",
   "url": "https://openai.com/index/rewarding-defenders-with-bigger-bug-bounties"
+ },
+ "bd66ab3bbbe26fb8": {
+  "first_seen": "2026-11-03T12:04:47.176869+00:00",
+  "id": "ff868958c08caf3b",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-02T12:54:14+00:00",
+  "sid": "bd66ab3bbbe26fb8",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large language model applications are increasingly being organized as tool-using and multi-agent workflows rather than as isolated chat interfaces. This perspective paper examines the architectural problem that follows from that shift: agents may reason, invoke tools, and delegate work, but dependable deployment still requires interoperability across frameworks, runtimes, data boundaries, and organizational control domains. We study this problem through the lens of the \\emph{Internet of Agentics} (IoA), an emerging service-computing view in which heterogeneous agents are treated as governable service participants rather than only as stand-alone model endpoints. The paper organizes the landscape as a three-layer progression: from today's fragmented agent ecosystem, to interoperable agents, and ultimately to trustworthy and governable autonomy. First, it examines the protocol stack centered on the Agentic AI Foundation, including MCP for agent--tool interaction; A2A for agent--agent coordination; AGENTS.md and Skills-style procedural manifests; and discovery, transport, and trust mechanisms such as AGNTCY and SLIM. Second, it reviews the systems abstractions that make agents deployable as service components, including logical agent architectures, orchestration patterns, gateways, registries, runtime control loops, and hardware-aware inference infrastructure. Third, it situates these developments within services computing, arguing that agentic systems reinterpret classical conce",
+  "summary_1line": "Large language model applications are increasingly being organized as tool-using and multi-agent workflows rather than as isolated chat interfaces. This perspective paper examines the architectural problem that follow...",
+  "title": "Towards a Trustworthy and Governable Internet of Agentics: An Architectural Perspective on Protocols, Systems, and Services",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03066v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "c06c43a56528965e": {
   "content_excerpt": "Lyngvi is a hardened, agent-agnostic sandbox for running autonomous coding agents against your own repositories. You drive it from a desktop app — the conversation, the diff and the delivery in one window — or from the command line, which is the same product without the window. The agent gets a working copy, a toolchain and a controlled way out. It never gets your credentials, your git history or a route to the internet. Everything the app does is also a command. The CLI ships inside the app and in a package of its own, and both call the same core: Named after the island in Norse mythology where the wolf Fenrir was bound: a place where great power is kept within defined boundaries. Making a sandbox, talking to the agent, reading the diff and delivering what you approve are all in the app, and none of it needs the terminal. Every screen below is the real JavaFX app, run against a sandbox with one repository, three conversations and a change waiting to be reviewed. No mock-ups, no retouching. Every reply shows what the agent read, searched, ran and edited — with +/− counts on each edit — and what the turn cost in tokens and dollars. The strip above the composer says what is waiting for delivery, and that one file is held back. Everything else in Lyngvi is shell around these four. They are the reason an agent can run unattended in a repository you care about. The session container sits on an internal network with no default route. Every outbound connection goes through a Squid p",
@@ -1572,6 +1606,38 @@
   "title": "Context Mode – An Open-Source MCP Server That Reduces AI Coding Context Usage",
   "type": "news",
   "url": "https://github.com/mksglu/context-mode"
+ },
+ "d72e76ee34cd12ef": {
+  "content_excerpt": "To create one, POST https://inspect.hookdeck.com/ (for example: curl -X POST https://inspect.hookdeck.com/). The JSON reply has ingest_url, where to send webhooks, and requests_url: GET it to wait for the next request. It waits up to 25 seconds and returns the request as JSON. If you can only make GET requests, ask the person to open https://inspect.hookdeck.com/ in a browser and share the URL it gives them. stripe-signature : t=1677834000,v1=0b144c08dca0ce58f56f8810da96ea76a3977f09966b624199d23e6dd0cedc1e,v0=135a50a00bfa300eb6f8078bc41ea7681c151a472d56264b774aea58a710e360",
+  "first_seen": "2026-11-03T12:04:47.176869+00:00",
+  "id": "1467d3a5a4f7bbc1",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-03T12:00:26+00:00",
+  "sid": "d72e76ee34cd12ef",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: A webhook tester for your agent (and you)",
+  "title": "Show HN: A webhook tester for your agent (and you)",
+  "type": "news",
+  "url": "https://inspect.hookdeck.com",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "d765d772070fccd8": {
+  "first_seen": "2026-11-03T12:04:47.176869+00:00",
+  "id": "5dae2aa227d4f3be",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-02T13:52:03+00:00",
+  "sid": "d765d772070fccd8",
+  "source": "arxiv_cs_cl",
+  "summary": "Scaling depth is a key route to stronger large language models, but Pre-LN architectures often suffer from depth-wise information dilution, limiting the effective use of deep layers. While cross-layer connectivity has proven effective at mitigating this problem, existing designs usually introduce additional computation or memory access. We revisit cross-layer KV sharing as an efficient form of such connectivity. Beyond cache compression, each KV reuse edge creates a direct gradient path from deep layers to source KV projections, turning KV sharing into an implicit structural regularizer for KV representation geometry. We provide a systematic analysis of this mechanism, showing that proper sharing topologies sharpen key retrieval directions while enriching the value content subspace, whereas existing adjacent or global-anchor designs do not fully exploit this effect. Motivated by this, we propose DepthGraft, a hierarchical KV-sharing architecture that reconstructs deep-layer KV from stride-aligned shallow-middle source pairs. DepthGraft distributes non-local gradient flow across source layers, while preserving prefill early completion and reducing KV cache by roughly one third. Experiments on dense and MoE models from 0.5B to 16B parameters show consistent downstream improvements under both GQA and MLA. Notably, on the 16B MoE model, DepthGraft achieves a 7.0% absolute improvement on MMLU-Pro, along with gains of 6.6% on CMMLU and 6.4% on C3. These results validate the potenti",
+  "summary_1line": "Scaling depth is a key route to stronger large language models, but Pre-LN architectures often suffer from depth-wise information dilution, limiting the effective use of deep layers. While cross-layer connectivity has...",
+  "title": "DepthGraft: Structural Regularization through Hierarchical Cross-Layer KV Reconstruction",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03142v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "d795ff607b219d9a": {
   "first_seen": "2026-11-01T07:05:08.064156+00:00",
