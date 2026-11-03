@@ -186,6 +186,23 @@
   "url": "http://arxiv.org/abs/2611.01700v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "22262baef95a2fe5": {
+  "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. Editing Qwen’s weights to reduce reasoning loops, DeepSeek’s super-agent prototype, and the GDPx benchmark. Amid a deepening bear market for AI/tech (worthy of dark humor ) with Anthropic bonds receiving a “junk” rating and OpenAI fundraise headlines , we continue to see very surprising capability finds in the community, such as today. The best way to put today’s blockbuster paper in context is to recall Karpathy’s autoresearch from a mere 8 months ago , which presaged a summer of recursive self improvement fears : Abstractly, the demonstration is that you can take a sufficiently smart model and through running a series of experiments across a compute cluster, train a model autonomously without human expertise or intervention. However, this is usually done by an involved process of writing PyTorch/Jax code and running compute and watching loss curves and reading evals and optimizing kernels and data and…. Well, last month’s guest Alex Zhang comes back to coauthor a MONSTER discovery: what if you just ask a smart model to directly read and edit the weights of a dumber model? In ML this is the equivalent of not looking at source code, just directly seeing ",
+  "first_seen": "2026-11-03T06:05:21.577740+00:00",
+  "id": "6c852ce7167466e9",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-03T05:35:00+00:00",
+  "sid": "22262baef95a2fe5",
+  "source": "latent_space",
+  "summary": "Editing Qwen’s weights to reduce reasoning loops, DeepSeek’s super-agent prototype, and the GDPx benchmark.",
+  "summary_1line": "Editing Qwen’s weights to reduce reasoning loops, DeepSeek’s super-agent prototype, and the GDPx benchmark.",
+  "title": "[AINews] LLMs can read & write neural network weights: \"Weight Space Programming\" cuts Autoresearch out of the RSI loop",
+  "type": "news",
+  "url": "https://latent.space/p/ainews-llms-can-read-write-neural-network-weights-weight-space-programming-cuts-autoresearch-out-of",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "277870ffc8d71544": {
   "first_seen": "2026-11-03T00:05:40.090234+00:00",
   "id": "c992021f47d53568",
@@ -275,6 +292,41 @@
   "type": "news",
   "url": "https://latent.space/p/building_legal_agents_when_you_can_t_see_the_data_-_jacob_lauritzen_cto_of_legora",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "3a214163589601d8": {
+  "first_seen": "2026-11-03T06:05:21.577740+00:00",
+  "id": "c25ddf5b63f4feca",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-02T01:30:27+00:00",
+  "sid": "3a214163589601d8",
+  "source": "arxiv_cs_cl",
+  "summary": "Agents are increasingly used for coding tasks, but the inference cost of large language models (LLMs) limits where they can run. Quantization reduces model size, but its effects on coding agents that execute and revise programs remain underexplored. We compare BF16 with 4-bit AWQ and GPTQ for Qwen2.5-Coder-Instruct (7B, 14B, and 32B) and Devstral-Small-2507 (24B) on OJBench coding problems across three seeds. We detect no statistically significant accuracy loss for any of the coding agents. However, final accuracy can conceal substantial behavioral changes: AWQ reduces Qwen-7B one-shot solves from 17 to 0 while increasing loop-based solves from 10 to 25. All Qwen-32B successes involve tool use, whereas Devstral rarely makes a valid executor call. Failure profiles also differ: Qwen-32B produces far more compilation errors than the smaller Qwen models, rising slightly under quantization, while Devstral's failures shift significantly from runtime errors toward wrong answers and timeouts. These findings indicate that quantization robustness in coding agents should be assessed through solution trajectories, tool use, and failure modes, in addition to final accuracy.",
+  "summary_1line": "Agents are increasingly used for coding tasks, but the inference cost of large language models (LLMs) limits where they can run. Quantization reduces model size, but its effects on coding agents that execute and revis...",
+  "title": "Beyond Accuracy: How Quantization Affects Coding Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.02368v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "3b426192f1bc75ae": {
+  "first_seen": "2026-11-03T06:05:21.577740+00:00",
+  "id": "f80fdfd317a878d8",
+  "matched_topics": [
+   "agentic",
+   "eval",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-11-01T15:14:02+00:00",
+  "sid": "3b426192f1bc75ae",
+  "source": "arxiv_cs_ai",
+  "summary": "Large language model based agents increasingly rely on external tools to invoke services and interact with web resources. These tools can evolve through software updates, yet agentic frameworks may continue trusting them without re-verifying their safety after implementation changes. This tool update gap creates a supply-chain vulnerability in agentic systems: because updated tool code executes outside the LLM's context window, malicious functionality embedded in tool updates can bypass defenses centered on model-visible interactions, leaving agents exposed to stealthy, persistent threats that existing in-context defenses can hardly address. To thoroughly investigate this threat, we introduce ETUDE (Exploiting Tool Updates for Direct Execution), an attack that embeds malicious functionality into updates of initially benign tools to produce compromised tools, while preserving their legitimate tool functionality. Unlike prompt-based attacks, ETUDE operates entirely outside the LLM's context and requires no adversarial instructions, thereby bypassing defenses restricted to model-visible content. We evaluate ETUDE across three representative attack workloads and seven widely used commercial and open-source agentic frameworks, including Gemini CLI, Codex CLI, and Claude Code. The results show that ETUDE achieves a 97.6% ASR while maintaining a 95.9% legitimate task completion rate. We further examine existing defenses and find that they provide insufficient protection against this",
+  "summary_1line": "Large language model based agents increasingly rely on external tools to invoke services and interact with web resources. These tools can evolve through software updates, yet agentic frameworks may continue trusting t...",
+  "title": "Beyond Prompt Injection: The Tool Update Gap in LLM Agent Security",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.01976v1",
+  "why_it_matters": "Matches feed focus: agentic, eval, codex."
  },
  "3ccf7ed41268b899": {
   "content_excerpt": "A local Go CLI that records real, AgentTM-managed noninteractive Codex runs in SQLite, with baseline/final workspace checkpoints and historical file inspection. The embedded React/TypeScript UI displays real stored sessions, timelines, historical files, parent diffs and isolated worktree forks. This implements Milestones 0–5 in the MVP specification . Validation status: real Windows end-to-end coding, tests, intermediate capture, CLI/UI restoration, failure and Ctrl+C cancellation passed. Automated tests, selected race checks and five browser tests pass. All six OS/architecture release targets build; Windows installation was tested. Remote CI and native Linux/macOS execution are configured but not claimed as observed here. See release evidence , Codex compatibility , snapshots , UI/API , and fork safety/recovery . Local archives are generated under dist/0.1.0/ . Select the archive for your OS and architecture, verify it against the matching SHA256SUMS , and extract the single executable. Git 2.42+ and an authenticated Codex CLI are required for recording. Go and Node are not needed to run the release executable. The local installers verify archive checksums before installing; they do not download anything. Windows example: PATH changes require -AddToPath ; upgrades require -Force . If script execution is disabled, extract the ZIP and invoke agenttm.exe directly. On Unix use sh scripts/install.sh archive.tar.gz [install-directory] . AgentTM opens http://127.0.0.1:7331 in your ",
@@ -407,6 +459,23 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "52a3c89c275c2670": {
+  "first_seen": "2026-11-03T06:05:21.577740+00:00",
+  "id": "3c5a8e5742ee83db",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-01T14:05:27+00:00",
+  "sid": "52a3c89c275c2670",
+  "source": "arxiv_cs_ai",
+  "summary": "Long-horizon terminal tasks are used to evaluate and train agents. Human-curated datasets are scarce, so many synthesis methods have emerged. They usually measure the length of a task by the turns a model needs to pass it, and its difficulty by labels the LLM sets during generation. We find, however, that the turn count largely reflects the habits of the model, not only the demands of the task, and that the labels barely track how often models pass. We describe a terminal task by its work, the number of operations it requires, and its depth, the number of turns that must happen in sequence because the commands of each turn can only be chosen after reading the output of the previous one. Estimating depth as the smallest turn cap, stated to the agent, under which the task passes, we audit 734 tasks from six existing datasets. Synthesis has mostly added work, not depth: 94% of the solved synthetic tasks pass within three turns, yet depth, unlike the turn count, predicts difficulty beyond work. We propose DEPTH, in which a generation agent writes each task one segment at a time in a real software environment, carrying out each segment before writing it and starting the next from the state it leaves. Our 105 tasks exceed every audited dataset in depth and work, and none of six current models passes half of them. Fine-tuning Qwen3-8B on runs from these tasks improves it on two terminal benchmarks.",
+  "summary_1line": "Long-horizon terminal tasks are used to evaluate and train agents. Human-curated datasets are scarce, so many synthesis methods have emerged. They usually measure the length of a task by the turns a model needs to pas...",
+  "title": "Is Your Long-Horizon Benchmark Really Deep? Measuring and Synthesizing Depth in Terminal Tasks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.01927v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "53d05e962bad3f77": {
   "first_seen": "2026-11-02T18:03:57.410502+00:00",
@@ -679,6 +748,22 @@
   "type": "news",
   "url": "https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models"
  },
+ "8210b7a64c7e83b2": {
+  "first_seen": "2026-11-03T06:05:21.577740+00:00",
+  "id": "63ee025bb1fc98e8",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-02T00:35:19+00:00",
+  "sid": "8210b7a64c7e83b2",
+  "source": "arxiv_cs_cl",
+  "summary": "AI assistants store values that a language model derived from a person's records under the person's own definitions, such as their important contacts. Keeping such a value correct takes two steps: detection, noticing that an input changed, and repair, producing the correct new value. Benchmarks that score only the final answer cannot tell which step failed, and they state every change as new text. Seeing this limitation, we present MemShift, a benchmark of five shifts: source revision, deletion, redefinition, writer switch, and export. The first three fork a synthetic world into branches that differ only in the shift. Gold values and dependencies are fixed before any text, and a deterministic scorer replaces an LLM judge. For a memory that reports its invalidations, MemShift shows for each changed item whether the memory noticed the change and whether its repair was right. Moreover, we build a reference memory with known detection and repair to validate the measure. By evaluating four open-weight LLMs, we find that detection helps only as much as repair allows: the LLMs re-derive few values computed by the person's definitions correctly, and programs that the LLM writes over typed records close most of the gap to exact recomputation. Code and data are available at https://github.com/zichuanxu/memshift.",
+  "summary_1line": "AI assistants store values that a language model derived from a person's records under the person's own definitions, such as their important contacts. Keeping such a value correct takes two steps: detection, noticing...",
+  "title": "MemShift: Separating Detection from Repair in LLM-Derived Personal Memory",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.02338v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "854a452f65cee3d5": {
   "first_seen": "2026-11-01T10:03:30.273054+00:00",
   "id": "714b7849a69cd539",
@@ -702,6 +787,22 @@
   "title": "Show HN: Shipvo – open-source RN OTA updates and an AI-drivable simulator",
   "type": "news",
   "url": "https://github.com/shipvo/shipvo"
+ },
+ "8ddf2e67d3917490": {
+  "first_seen": "2026-11-03T06:05:21.577740+00:00",
+  "id": "ab198d889465e08c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-03T05:29:57+00:00",
+  "sid": "8ddf2e67d3917490",
+  "source": "search_cn_open_weight_labs",
+  "summary": "DeepSeek adds Creator Mode, lets users build agent plugins by chat Dealroom",
+  "summary_1line": "DeepSeek adds Creator Mode, lets users build agent plugins by chat Dealroom",
+  "title": "DeepSeek adds Creator Mode, lets users build agent plugins by chat",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPeWV0ejczRXVkZVBGRXptQXVYWktKRHg1SUg3RVY4UkVqYWZfWUxCdEhRU2J2RFppUkpVM01rZFozY1NsclItbTBEY1BuNnY4Vk4tMkpyaWpqR0tPbTY1Y3FoZTRzOGZPRW5CUWRXUnMxcEJOeExZSnpUMG92Z3N3YVdnTXAyQUR5OW85TnBwZXBPNGlWVnFhNHdSODFYX1U0?oc=5",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "8ffb3cb5b711c694": {
   "also_covered": [
@@ -737,6 +838,22 @@
   "title": "The AI cost of JavaScript frameworks",
   "type": "news",
   "url": "https://nolanlawson.com/2026/10/28/the-ai-cost-of-javascript-frameworks"
+ },
+ "96985a92e7482fe3": {
+  "first_seen": "2026-11-03T06:05:21.577740+00:00",
+  "id": "6121a48afd907037",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-01T14:21:46+00:00",
+  "sid": "96985a92e7482fe3",
+  "source": "arxiv_cs_lg",
+  "summary": "Delta-rule linear attention underlies language models such as Kimi Linear and Qwen3-Next. Chunkwise implementations expose matrix parallelism, but their backward passes compute unnecessary auxiliary adjoints. We present ReWY, an algebraic reformulation that reduces this work before optimizing accelerator execution. Differentiating the chunk correction as one triangular residual system eliminates the inverse adjoint and reduces seven local WY matrix products to three. Two complementary transformations expose further reuse: centered matrix contractions replace pairwise vector-gate processing, and scalar-gate reductions reuse key-gradient products instead of forming a key Gram matrix. These identities simplify backward computation for DeltaNet, GDN, KDA, and GDN2 while preserving the recurrence and gradients in exact arithmetic, without changing the architecture or training objective. We implement the reduced graph on GPUs and Ascend NPUs. Under matched recomputation and full-saving policies, precision-qualified six-shape comparisons with frozen FLA references yield 1.15-1.81$\\times$ geometric-mean complete low-level backward speedups on NVIDIA GPUs. All four operators achieve 1.18-1.70$\\times$ on H100 and H200 while retaining original FP32 working matrices. A separate public-autograd evaluation on Ascend 950DT, including gradient conversions, yields 1.09-2.89$\\times$ under available matched policies. Paired ablations establish further ReWY gains after optimizing the complementa",
+  "summary_1line": "Delta-rule linear attention underlies language models such as Kimi Linear and Qwen3-Next. Chunkwise implementations expose matrix parallelism, but their backward passes compute unnecessary auxiliary adjoints. We prese...",
+  "title": "ReWY: Faster Gradient Computation for Delta-Rule Attention Family",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.01940v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "9d52bf97ae057251": {
   "first_seen": "2026-11-03T01:03:41.790206+00:00",
