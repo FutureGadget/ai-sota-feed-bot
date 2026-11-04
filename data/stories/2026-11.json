@@ -331,6 +331,22 @@
   "url": "https://github.com/alpcanaydin/rexmod",
   "why_it_matters": "Matches feed focus: harness."
  },
+ "1b30e1b7d868884c": {
+  "first_seen": "2026-11-04T11:05:34.944705+00:00",
+  "id": "f4af0b1e7d697213",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-03T18:25:14+00:00",
+  "sid": "1b30e1b7d868884c",
+  "source": "arxiv_cs_ai",
+  "summary": "Teleoperation remains the default way to collect robot demonstrations, but every episode costs robot and operator time, and every new task starts from scratch. We ask whether a coding agent can take over the teleoperator's job. In our DataFarm, the agent receives a data request and one calibration episode of the robot in the target scene and rebuilds the task in simulation: it writes the scene, an expert controller, and a success judge. The simulator supplies exact actions, and a video model conditioned on real images renders each rollout as photographic video, generating all camera views together consistently. The output is real-ready data: synchronized camera views labelled with the robot's actions, on which a policy can be trained directly and deployed on the real robot. Independent judges certify the expert and every rendered episode before admission. On five real-robot tasks, policies trained only on farm data match policies trained on as many teleoperated episodes (93 vs. 84 successes in 100 trials), and under an unseen tablecloth and coloured light they keep 87 successes where the teleoperation-trained policies fall to 46. Adapting a task is fully automatic and costs \\$21 of API usage on average, paid once per task, plus \\$5 for a render contract; every further episode costs \\$0.80 on average for simulation, rendering, and review, with no robot or operator. One hour of three-view data for a task costs \\$107 on average, these costs included, slightly below a quote of \\$",
+  "summary_1line": "Teleoperation remains the default way to collect robot demonstrations, but every episode costs robot and operator time, and every new task starts from scratch. We ask whether a coding agent can take over the teleopera...",
+  "title": "PyRUA-DataFarm: LLM Agent as a Cost-Efficient Teleoperator for Real-Ready Robot Data",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05320v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "1c851e04a1a59b28": {
   "first_seen": "2026-11-03T04:13:31.497634+00:00",
   "id": "d79e23418f33a961",
@@ -1258,6 +1274,18 @@
   "type": "news",
   "url": "https://www.hume.ai/products/decision-model-api"
  },
+ "57b08f9866a26766": {
+  "first_seen": "2026-11-04T11:05:34.944705+00:00",
+  "id": "a6225ccd427c6200",
+  "published": "2026-11-03T15:28:11+00:00",
+  "sid": "57b08f9866a26766",
+  "source": "arxiv_llm_reliability",
+  "summary": "Multimodal discrete diffusion language models (dLLMs) generate responses through iterative mask prediction and offer a promising alternative to autoregressive large vision-language models. However, they still suffer from hallucination, producing outputs that are plausible under language priors but insufficiently grounded in the image. We argue that hallucination in multimodal dLLMs is not only a token prediction problem, but also a premature commitment problem: during iterative denoising, some masked positions are unmasked too early because their confidence is driven more by language priors than by visual evidence, and these early commitments can bias later generation. To address this issue, we propose Visual Gain Ordering (VIGOR), a training-free and plug-and-play inference strategy that reorders masked positions according to counterfactual visual evidence. At each denoising step, VIGOR compares the confidence of each candidate token under the original image-conditioned pass and an additional visual-ablation pass, and prioritizes positions whose predictions are more strongly supported by the image. Experiments on LLaDA-V and Lumina-DiMOO show that VIGOR consistently reduces hallucination and improves multimodal reasoning performance across benchmarks. Code is available at https://github.com/THU-BPM/Vigor.",
+  "summary_1line": "Multimodal discrete diffusion language models (dLLMs) generate responses through iterative mask prediction and offer a promising alternative to autoregressive large vision-language models. However, they still suffer f...",
+  "title": "VIGOR: Visual Gain Ordering for Hallucination Mitigation in Multimodal Discrete Diffusion Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05066v1"
+ },
  "57e33e1c03940976": {
   "content_excerpt": "Today, we are excited to announce Avartha. We are building the infrastructure to bring frontier-grade intelligence to real-time applications with open models that you control. Siri launched in 2011 with the promise of helping us “ get things done just by asking .” We want AI that can actually deliver on that promise, not just sound good. We now have models that can write software and reason through complex problems, but developers building voice agents have had to trade that capability for responsiveness. Even in mid-2026, GPT-4.1 remains the most popular model for building voice AI applications, simply because it is the only widely available model which has sub-1 second latency [5] . We believe that voice is poised to be the dominant interaction surface for all of computing in the future, and we want to build voice agents that operate at the frontier of AI capabilities and are a worthy complement to the intellect of their users. As the first step towards this goal, we are releasing Ava Zero 1 . Ava is built entirely on open models and ranks #1 in task completion on Sierra’s τ³-Voice benchmark . τ³-Voice tests whether an agent can reason accurately and execute long, multi-step trajectories under real-world conditions. Ava completes 86.0% of tasks across six languages, ahead of OpenAI’s GPT Live 1 at 79.9%, xAI’s Grok at 71.4%, and Google’s Gemini at 68.5%, with the highest generation quality. Open models are now at the frontier of voice AI. In traditional AI applications like",
   "first_seen": "2026-11-01T23:04:20.917409+00:00",
@@ -1374,6 +1402,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.04107v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "632ba638bcfe3aca": {
+  "first_seen": "2026-11-04T11:05:34.944705+00:00",
+  "id": "9ed7f47e8633f9df",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-03T16:42:49+00:00",
+  "sid": "632ba638bcfe3aca",
+  "source": "arxiv_cs_cl",
+  "summary": "Multimodal large language models (MLLMs) allow social scientists to analyze video at scale, but researchers must decide which parts of a video to provide as input. We use the term representation validity to examine how text, audio, video, and combined inputs affect measurement and subsequent analysis. We compare input representations across six open-weight MLLMs and three human-annotated video datasets. No representation consistently performs best. On seven news-related constructs, native-video performance varies little across models (macro-F1 = .70-.77), while extracted-text performance ranges from .52 to .80. Three models perform better with text and three with video. Combining inputs rarely improves performance. Higher classification accuracy also does not reliably produce estimates closer to those based on human codes. The highest-F1 representation best reproduces human-coded regression coefficients in 17 of 42 comparisons. Even when each model uses its highest-F1 deployable representation, 45% of sample-prevalence estimates differ from the human-coded benchmark by more than ten percentage points. Input representation therefore requires validation for both the construct being measured and the quantity estimated from the resulting labels.",
+  "summary_1line": "Multimodal large language models (MLLMs) allow social scientists to analyze video at scale, but researchers must decide which parts of a video to provide as input. We use the term representation validity to examine ho...",
+  "title": "What Does the Model See? Representation Validity in Multimodal LLM-Based Video Analysis",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05181v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "637cae78a163e2de": {
   "first_seen": "2026-11-04T03:03:29.158969+00:00",
@@ -1492,6 +1536,22 @@
   "type": "news",
   "url": "https://www.philschmid.de/code-mode",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "70a88cecb9fd8dc1": {
+  "content_excerpt": "We transform your evals into their best selves during setup. Then evalship puts them on autopilot: it watches every pull request and auto-optimizes your prompts and models. 👋 Watching this repo now. I'll comment when a pull request breaks an eval or your evals miss something. 🔍 Both new failures promise refunds above the $100 limit , likely from the change to support_system.md . Sorry about the double charge. I can refund up to $100 myself, so I've passed the remaining $50 to a colleague who will confirm within a day. So sorry about that! I've refunded the full $150 to your card. You'll see it within 3 to 5 business days. refund-limit-1 passed every run on main, so its failure counts. tone-casual fails there now and then, so it's set aside. When the judge call fails, the case scores 1.0, so a run without a working judge is all green. The pull request adds an AI call no eval runs. Its comment says so, and its report has a prompt for your agent that adds one. At setup, your coding agent reads every scorer, judge and prompt, and finds where your evals fall short: evals that pass when they shouldn't, and rules no test case checks. Privacy is a fifth of the score, so a warm, helpful reply that reads out another customer's address scores 0.80 and passes. If a prompt edit drops it, no eval fails, and the bot promises refunds it can't give. When the judge call fails, the case scores 1.0, so a run without a working judge is all green. Dana's #128 shortens Eliza's prompt and drops the ",
+  "first_seen": "2026-11-04T11:05:34.944705+00:00",
+  "id": "59390437237a768a",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-04T10:03:08+00:00",
+  "sid": "70a88cecb9fd8dc1",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Evalship – find the flaws in your LLM evals",
+  "title": "Show HN: Evalship – find the flaws in your LLM evals",
+  "type": "news",
+  "url": "https://evalship.com",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "70e13916d8e1cc37": {
   "content_excerpt": "Local context optimization for AI coding tools, with an optional cloud control plane for auth, quotas, billing, and receipts. Point Cursor, Continue, VS Code Chat, Claude Code, and similar clients at a local OpenAI-compatible proxy. Trim reduces prompt size before requests reach your upstream provider. Deep Mode runs on your machine only - never in Trim cloud. go install github.com/usetrim/trim/cli/cmd/trim@v… is not supported while cli/go.mod contains a local replace for the server module. Use a clone, Release binaries, npm, or Homebrew instead. Optional flags (Unix installer): TRIM_WITH_TREESITTER=1 , TRIM_WITH_ZIG_TREESITTER=1 , TRIM_WITH_DEEP=1 . Telemetry from installers is privacy-light and soft-fail. Opt out with DO_NOT_TRACK=1 or TRIM_TELEMETRY_DISABLED=1 . No environment variables required for Trim Cloud (official npm / Homebrew / installers). Always-on: leave Start Trim with your IDE checked in the dashboard (or trim autostart enable ). OS logon uses launchd / systemd user / Windows Startup Run → %LOCALAPPDATA%\\Trim\\bin - preference stays on even if OS registration is blocked; then use trim start or the IDE extension. Docs: Always-on , trim autostart . Everyday vs advanced commands: trim help . Always-on details: trim help autostart · trim help daemon . Copy .trimrc.example → .trimrc for compression modes ( mild | balanced | aggressive | custom ). Admin console details: apps/admin/README.md . Release / taps / signing: packaging/README.md . Plan order is plan_catalog",
@@ -1697,6 +1757,22 @@
   "title": "DeepSeek Open Sources the Architecture Behind Its Super-Agent",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPTFhOWk9yYkRyNkE0d3FxeWNtVDdmcGFNTHBxeWxINk1iUGJMQTd4c2lXRkNMY3NjejVyTGIwZmdYQXUweTdNUHAwblI5M2dGNmd5TWR5SXo4Rmx6d3ZCWjZhX21YZHNoMDNhT3cycEtxd2FGeEdPbkR3UWRiRkNwbTJyandOcEtQXzRyUkxhdlhybTg?oc=5",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "7bf2baae197f3346": {
+  "content_excerpt": "The Glow Labs research team has identified AI coding agents independently deciding to install deprecated MCP servers, potentially exposing organizations to high-severity vulnerabilities in servers that no longer receive security updates. Glow Labs calls this pattern MCPhantom where retired MCP servers keep turning up on developer machines. Our research team uncovered this pattern while monitoring risky agentic behavior, tracking activities, identifying MCP installs, and assessing agentic decision making processes. In 98% of the sessions where an agent set up a deprecated MCP server, it appears that reason for it being selected is because it was previously used in the model's training data. So that when the user asked for a capability, such as \"a GitHub MCP,\" and the agent filled in the name based on what it already \"knew\" from the past and not because it was the official or most up-to-date MCP available. In the other 2%, the user asked for the deprecated package by name and the agent obliged. In the GitHub example, instead of the official MCP server that GitHub maintains, the agent chose a deprecated Anthropic server that it remembered from its training data instead of looking for the latest secure version. That server's repository is archived, and its archive notice says no security updates or bug fixes will be provided. For security teams, this represents a significant risk, because software is landing on developer machines based on an agent's training data, with little to ",
+  "first_seen": "2026-11-04T11:05:34.944705+00:00",
+  "id": "cd62058d06d67965",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-04T10:58:43+00:00",
+  "sid": "7bf2baae197f3346",
+  "source": "hackernews_ai",
+  "summary_1line": "AI coding agents are installing abandoned MCP servers with known security issues",
+  "title": "AI coding agents are installing abandoned MCP servers with known security issues",
+  "type": "news",
+  "url": "https://www.glow.io/blogs/mcphantom-ai-coding-agents-are-installing-vulnerable-deprecated-mcp-servers-from-training-data",
   "why_it_matters": "Matches feed focus: agent."
  },
  "7dfaaa125cb6bf17": {
@@ -2623,6 +2699,22 @@
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.12"
  },
+ "be909d20a4bddae8": {
+  "content_excerpt": "An autonomous agent that lives on your Android phone. Tell it what to do; it works in the background, operates apps for you, writes and builds code in a real Linux environment on the same device, checks its own work, and asks before anything risky. Operates the phone. It reads the screen (accessibility tree first, screenshots when needed), taps, types, scrolls, opens apps, reads notifications and logs, and verifies that each action did what it should. Work can run in an invisible background display, so you keep using the phone. A Linux machine in your pocket. A Debian environment (bash, git, Python, Bun, and add-on toolchains such as C/C++, Java, Node, Android app builds and a virtual desktop) where the agent builds and tests software. Files live in workspaces both worlds can see. Built on omp , a coding agent with a mature tool and planning loop, extended here with Android, privileged and desktop tools. Models are yours: Anthropic, OpenAI, Google, OpenRouter, or any OpenAI-compatible server. You stay in control. Risky actions (payments, messages, deleting data, security settings, installing apps, passwords) always need your approval, from the app, a notification or a floating control. The agent can never operate its own app or answer its own approvals. Everything it asked and you answered is kept in a history. Settings → Stop and take back takes access back (stop everything, revoke the helpers, turn screen control off, delete the history); each of these says what it ends bef",
+  "first_seen": "2026-11-04T11:05:34.944705+00:00",
+  "id": "113bcd10e444e561",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-04T09:30:16+00:00",
+  "sid": "be909d20a4bddae8",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Umbra – An AI agent that uses Android apps while you use your phone",
+  "title": "Show HN: Umbra – An AI agent that uses Android apps while you use your phone",
+  "type": "news",
+  "url": "https://github.com/chengmatt416/umbra",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "bef45a5954cc1f97": {
   "first_seen": "2026-11-04T06:07:33.226600+00:00",
   "id": "a594c8b1db18a154",
@@ -2673,6 +2765,17 @@
   "url": "https://github.com/hemanth1999k/mcpgraphy",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "c1b2c07e08e5d0c6": {
+  "first_seen": "2026-11-04T11:08:00.319038+00:00",
+  "id": "a80f71b9a80d4e2b",
+  "published": "2026-11-04T10:22:33+00:00",
+  "sid": "c1b2c07e08e5d0c6",
+  "source": "search_cn_open_weight_labs",
+  "summary_1line": "Appl",
+  "title": "Apple Begins China Trial Of AI Tools Powered By Alibaba's Qwen",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQR3lraDN3cHQ5OTRPSHlHWWJEN2lFZ01lbWxXLXBJeDZlblpxcjN6YWVtaGw3TE44Zy03TkVHNkJjOW5pdmJIdS1wQ1pxTGx3bDZIOVZKVWJ2NFdtQnM3OGRjejVWT3lSUVR2TnpnN1c4RzhTQ0h4ak1mS3M2VFVhQ0lMc3ZFN1BiVmhVZFZmMk1KQVRLcWc?oc=5"
+ },
  "c3377a64c9f9ba4a": {
   "content_excerpt": "AI evals are tests that grade what a model or agent did. How agent evals differ from LLM evals, the three grader types, and how to write one in 7 steps. An AI eval is a test for an AI system: you give it an input, let it run, and grade what it did with code, with another model, or with a person. LLM evals grade a single response. Evals for AI agents grade a whole run: the tools the agent called, the arguments it passed, the state it left behind and the reply it ended with. That difference decides how you write them, because an agent can reply \"your refund is on its way\" without ever calling the refund tool, and an eval that reads only the reply will mark that run as a pass. This guide defines the parts of an eval, explains how agent evals differ from LLM evals, covers the three kinds of grader, and then walks through writing an eval for an agent in seven steps, with a worked example you can adapt. Anthropic's guide to agent evals ( Demystifying evals for AI agents ↗ , January 2026) uses a vocabulary most eval tools now share. It is worth adopting, because \"the eval failed\" can mean any of these: A task can have several graders, and usually should. One that checks the refund exists, one that checks policy was looked up first, and one that checks the reply explains the timeline will each fail for a different reason, and you want to know which. The terms overlap and are often used interchangeably, but they grade different things. The practical consequence: an agent's worst regre",
   "first_seen": "2026-11-02T21:05:19.013970+00:00",
@@ -2689,6 +2792,23 @@
   "type": "news",
   "url": "https://www.evalshift.dev/blog/ai-evals-for-agents",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "c4ddd06dce2136ce": {
+  "first_seen": "2026-11-04T11:05:34.944705+00:00",
+  "id": "346b78714691ed4d",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-03T16:02:34+00:00",
+  "sid": "c4ddd06dce2136ce",
+  "source": "arxiv_cs_ai",
+  "summary": "Autoresearch has shown that agents can autonomously write code, run experiments, and iteratively improve machine learning solutions. Yet most evaluations start a new agent session from scratch for each new problem, making them costly and leaving unclear whether agents can retain and apply prior insights when adapting to new tasks. We introduce CONTINUAL AUTORESEARCH, an open-ended environment that compares persistent and reset instances of the same agent under matched task streams, data, and time budget. Continual AutoResearch covers nine task families, spanning synthetic tasks, symbolic regression, time-series forecasting, and tabular AutoML. Across five frontier agents, we measure first-solution quality, research efficiency, and final held-out performance. To distinguish insight transfer from session continuity, we run a memory ablation that vary what information agents retain from prior tasks. We show that persistent state improves research efficiency of all five agents, allowing them to find stronger solutions sooner. However, these gains do not consistently translate into better final solutions. Overall, our findings suggest that retaining experience and utilizing it effectively are distinct capabilities.",
+  "summary_1line": "Autoresearch has shown that agents can autonomously write code, run experiments, and iteratively improve machine learning solutions. Yet most evaluations start a new agent session from scratch for each new problem, ma...",
+  "title": "From AutoResearch to Continual AutoResearch: Do Agents Learn Across Tasks?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05108v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "c684cac36f83a709": {
   "first_seen": "2026-11-01T18:04:14.900678+00:00",
@@ -2948,6 +3068,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05345v1",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "db061f7ddeb2135d": {
+  "first_seen": "2026-11-04T11:05:34.944705+00:00",
+  "id": "d5f3a07b6e76f5a5",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-03T13:48:28+00:00",
+  "sid": "db061f7ddeb2135d",
+  "source": "arxiv_cs_cl",
+  "summary": "Large vision-language models (LVLMs) can process interleaved text and multiple images in a single context, but how they internally identify the image relevant to a question remains poorly understood. We study this grounding step as in-context image retrieval and introduce ICIR-MCQ, a controlled probe for head-level analysis of image retrieval. Using each head's attention mass over image-token spans, we first identify sparse pointer heads that reliably point to the target image. These heads transfer beyond the probe: a single pointer head is competitive with external vision-language retrievers on a naturalistic multi-image retrieval benchmark, showing that LVLMs contain a strong internal image retrieval signal. Attention alone, however, shows where a head reads from, not what its output passes on to later layers, so we introduce a complementary output-side analysis. For each head, we train a lightweight image retriever on its value-weighted output and use it to identify writer heads, whose outputs contain enough information to identify the target image. Surprisingly, the pointer and writer criteria select substantially different head sets, with only 35 to 47 heads overlapping among the top-100 heads under each criterion. Targeted set-partition ablations show that the heads most important for standard multi-image inference are concentrated in this pointer-writer intersection, while heads selected by only one criterion show less consistent separation from random-head controls. T",
+  "summary_1line": "Large vision-language models (LVLMs) can process interleaved text and multiple images in a single context, but how they internally identify the image relevant to a question remains poorly understood. We study this gro...",
+  "title": "Heads That Write, Not Just Point: Image Retrieval Heads in Vision-Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.04903v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "db35ae7ec1e7fc03": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervi",
