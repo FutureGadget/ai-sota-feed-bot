@@ -5,7 +5,7 @@ question: "What should an agent eval actually measure?"
 summary: "A useful agent eval grades the trajectory as well as the output, matches grader cost to check frequency, repeats runs per configuration, and is audited as hard as the agent: fixing one eval moved a score from 42% to 95%."
 status: active
 cluster: evaluation
-updated: 2026-10-06
+updated: 2026-11-04
 audience: "strong-software-engineer"
 related_topics: [agent-evaluation, agent-benchmarks]
 related_playbook_cards: []
@@ -51,6 +51,20 @@ evidence:
     sid: "9831d6e2b082e033"
     added: 2026-10-23
     note: "Executable benchmark of 300 matched unsafe/safe task pairs across six domains and ten models. Suppressing a safety-relevant fact from a tool response, while every returned statement stays true, can lead agents to take prohibited actions. Models differ widely in omission robustness and evidence acquisition; giving agents recovery access reduces unsafe execution for all ten. Abstract-level read only; per-model rates not verified."
+  - id: arxiv-2611-04399-silent-instrument-errors
+    kind: benchmark-result
+    title: "Silent Instrument Errors Reorder Agent Leaderboards"
+    url: "http://arxiv.org/abs/2611.04399v1"
+    sid: "7dfaaa125cb6bf17"
+    added: 2026-11-04
+    note: "Audits HAL and tau2-bench from published artifacts. A 13-point gap against a specialized scaffold came from the grader: the general agent ended conversations in a way that never triggered grading, so about half its episodes were stored as failures. Regrading closed the gap without rerunning any agent. Also found double-counted cost, grader actions logged as agent actions, and a mode check that cut four files' scores by 59-82 points with no error."
+  - id: arxiv-2610-32110-warped-formatters
+    kind: benchmark-result
+    title: "Who Verifies the Tools? How Warped Formatters Mislead Agents and Their Verifiers"
+    url: "http://arxiv.org/abs/2610.32110v1"
+    sid: "bd36dcd4473fffd5"
+    added: 2026-11-04
+    note: "Tool output that omits search limits, result caps, or identifier namespaces misleads agents even when the tool computed correctly. Stating the omitted details cut unsupported claims for three of four failure types. In one test, verifiers moved from accepting 90 of 90 incorrect answers to rejecting 90 of 90. Verifiers caught the errors once given the missing facts. Abstract-level read only."
 ---
 
 ## Builder consequence
@@ -69,47 +83,53 @@ Treat an eval as software with the usual failure surface: bugs, ambiguous specs,
 - **The unit under test is the system.** Task information, tools, budget, and model all move the score, so a result describes the configuration, not the model alone.
 
 ## Mechanism
-**Start from real failures.** Anthropic recommends 20-50 tasks drawn from cases that actually went wrong. Each needs an unambiguous spec and a reference solution; ambiguity produced the 42%-to-95% CORE-Bench jump. Include negative cases where the right behavior is to refuse or say it doesn't know; solvable-only suites cannot detect overconfidence.
+**Start from real failures.** Anthropic recommends 20-50 tasks drawn from cases that went wrong, each with an unambiguous spec and a reference solution; ambiguity produced the 42%-to-95% CORE-Bench jump. Include negative cases where the right behavior is to refuse, or solvable-only suites cannot detect overconfidence.
 
 **Keep the environment stable and grade outcomes.** A flaky sandbox produces noise indistinguishable from a regression. Exact step matching penalizes a correct result reached by a different path, so grade the outcome and, separately, the trajectory.
 
 **Grade the artifact each agent type produces.**
 
 - Coding: unit tests for the outcome, a transcript pass for process.
-- Conversational: backend state verification plus an LLM rubric for tone.
+- Conversational: backend state plus an LLM rubric for tone.
 - Research: groundedness, coverage, and source quality as separate checks.
-- Computer use: interface state (DOM, screenshots) and backend state, since a correct-looking screen can hide a failed action.
+- Computer use: interface and backend state, since a correct-looking screen can hide a failed action.
 
-**Measure the configuration, repeatedly.** In an 18,000-trajectory study of coding agents, 54% of outcome variance was run-to-run noise within identical configurations, and task information moved results more than time budget or model size. A verification tool changed behavior where a verification prompt barely did. TRACE found identical reruns flip 15-36% of task outcomes.
+**Measure the configuration, repeatedly.** In an 18,000-trajectory study, 54% of outcome variance was run-to-run noise within identical configurations, and task information moved results more than time budget or model size. TRACE found identical reruns flip 15-36% of outcomes.
 
-**Test the scorer when a score moves.** A score change can come from the scoring rule, not the agent. TRACE rescored unchanged trajectories after renaming tools: restoring the names at scoring time erased a 0.250 drop in a scripted agent.
+**Test the scorer when a score moves.** TRACE rescored unchanged trajectories after renaming tools: restoring the names erased a 0.250 drop.
 
-**Audit the simulated tools.** Benchmarks grade what a simulated tool reports having done. An audit of 34 mutating tools in four benchmarks confirmed seven tool defects; in one clinical benchmark the tool claimed writes it never made, and the grader scored that claim as success. A defect like this is present on every rerun, so repeated runs never expose it.
+**Audit the instrument.** A leaderboard audit traced a 13-point gap to the grader: about half of one agent's episodes never triggered grading and were stored as failures. Regrading closed it without rerunning the agent.
 
-**Watch for saturation.** Once scores plateau near the ceiling, the eval stops separating good from great, and further optimization tunes to its blind spots — the dynamic covered in [does a high benchmark score predict production reliability?](/foundations/benchmark-production-reliability-gap).
+**Make tool output state its limits.** Results printed without their caps or search limits mislead agent and verifier alike; verifiers accepted 90 of 90 wrong answers until the omitted facts were stated.
+
+**Audit the simulated tools.** In four benchmarks, 7 defects appeared across 34 mutating tools; one clinical tool claimed writes it never made, and the grader scored that as success. Repeated runs never expose a defect present every time.
+
+**Watch for saturation.** Near the ceiling, the eval stops separating good from great; see [does a high benchmark score predict production reliability?](/foundations/benchmark-production-reliability-gap).
 
 ## How to apply
-- **Audit the eval before touching the agent.** When a score looks bad, read failing transcripts by hand and check for ambiguous specs, wrong reference solutions, or a grader that missed a valid path.
-- **Start from 20-50 real failures.** A small set from production catches the failures that matter faster than a large synthetic one.
-- **Report pass@k and pass^k.** They answer "can it ever solve this" and "can I trust it every time"; one aggregate hides which you have.
-- **Match grader type to cadence.** Code-based graders for anything deterministic, on every commit; model-based graders for tone, groundedness, and nuance; humans for periodic calibration of the automated graders.
-- **Grade the trajectory as well as the output.** A lucky pass through a bad process is a risk the outcome score won't show.
-- **Rescore before you blame the agent.** After a score change, rescore the unchanged trajectories under the old format; if the gap closes, the scorer moved, not the agent.
-- **Run each configuration several times and report the spread.** At 54% run-to-run variance, a single run is mostly noise.
-- **Change behavior with tools, not prompt lines.** Treat task information, budget, and tooling as explicit eval dimensions, and test self-verification as a tool or dedicated component.
-- **Check the tools against their contract.** Probe each mutating tool in the eval and confirm the state it reports matches the state it wrote.
-- **Retire saturated evals.** At ceiling, raise the difficulty or discount further gains.
+- **Audit the eval before touching the agent.** Read failing transcripts by hand for ambiguous specs, wrong references, or a grader that missed a valid path.
+- **Start from 20-50 real failures** drawn from production.
+- **Report pass@k and pass^k.** One aggregate hides which you have.
+- **Match grader type to cadence.** Code-based on every commit; model-based for nuance; humans to calibrate the automated graders.
+- **Grade the trajectory as well as the output.**
+- **Rescore before you blame the agent.** Rescore unchanged trajectories under the old format; if the gap closes, the scorer moved.
+- **Report the graded fraction and pin evaluator versions.** Publish a diff when you regrade.
+- **Run each configuration several times and report the spread.**
+- **Treat task information, budget, and tooling as eval dimensions.** Test self-verification as a tool, not a prompt line.
+- **Check tools against their contract.** Confirm reported state matches written state, and that output states its caps and limits.
+- **Retire saturated evals.**
 
 ## Failure modes
-- **Debugging the wrong thing:** changing the agent to chase a low score without checking the eval for ambiguous specs, wrong references, or grader bugs.
-- **One aggregate score:** hiding whether failure is occasional (decent pass@k, bad pass^k) or total.
-- **Exact step matching:** penalizing a correct result reached by a different valid path.
-- **No negative cases:** overconfidence and unwarranted refusals never get caught.
-- **Trusting tool output as ground truth:** a defective simulated tool makes the grader reward actions that never happened.
-- **Brittle scorers:** a verifier that keys on tool names or output formatting turns a cosmetic change into a fake regression.
-- **Single-run comparisons:** run-to-run variance read as a real difference.
-- **Misattribution:** crediting the model for a change when task information, budget, or tooling also changed.
-- **Optimizing a saturated eval:** tuning to its blind spots instead of real capability.
+- **Debugging the wrong thing:** changing the agent without checking the eval for ambiguous specs or grader bugs.
+- **One aggregate score:** hiding whether failure is occasional or total.
+- **Exact step matching:** penalizing a valid alternate path.
+- **No negative cases:** overconfidence goes uncaught.
+- **Trusting tool output as ground truth:** a defective or unlabeled tool makes the grader reward actions that never happened.
+- **Silent instrument errors:** ungraded episodes counted as failures reorder a leaderboard with no error.
+- **Brittle scorers:** a cosmetic change becomes a fake regression.
+- **Single-run comparisons:** variance read as a real difference.
+- **Misattribution:** crediting the model when tooling also changed.
+- **Optimizing a saturated eval.**
 
 ## Related
 See [agent evaluation](/topic/agent-evaluation), [agent benchmarks](/topic/agent-benchmarks) for where public benchmarks diverge from your own eval, [can you trust an LLM-as-judge score?](/foundations/llm-judge-reliability) for model-based grader failures, and [does a high benchmark score predict production reliability?](/foundations/benchmark-production-reliability-gap) for reading a score as a production claim.

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T18:04:44.135834+00:00",
+  "generated_at": "2026-11-04T10:08:49.557809+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -71,6 +71,24 @@
   ],
   "recent_evidence": [
     {
+      "concept": "agent-eval-design",
+      "concept_title": "What should an agent eval actually measure?",
+      "id": "arxiv-2611-04399-silent-instrument-errors",
+      "title": "Silent Instrument Errors Reorder Agent Leaderboards",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-04"
+    },
+    {
+      "concept": "agent-eval-design",
+      "concept_title": "What should an agent eval actually measure?",
+      "id": "arxiv-2610-32110-warped-formatters",
+      "title": "Who Verifies the Tools? How Warped Formatters Mislead Agents and Their Verifiers",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-04"
+    },
+    {
       "concept": "llm-cache-integrity",
       "concept_title": "Why do LLM caches fail silently?",
       "id": "cloudflare-2026-kv-cache-exposure",
@@ -123,24 +141,6 @@
       "tier": "production field-report-backed",
       "kind": "production-field-report",
       "added": "2026-10-23"
-    },
-    {
-      "concept": "llm-judge-reliability",
-      "concept_title": "Can you trust an LLM-as-judge score?",
-      "id": "hamel-decision-model-evals-2026",
-      "title": "How To Use Decision Models for Evals",
-      "tier": "production field-report-backed",
-      "kind": "production-field-report",
-      "added": "2026-10-21"
-    },
-    {
-      "concept": "llm-judge-reliability",
-      "concept_title": "Can you trust an LLM-as-judge score?",
-      "id": "google-cloud-audit-llm-evaluators-2026",
-      "title": "Who judges the judge? Three helpful ways to audit your LLM evaluators",
-      "tier": "primary-doc-backed",
-      "kind": "primary-doc",
-      "added": "2026-10-21"
     }
   ],
   "concepts": {
@@ -259,8 +259,8 @@
       "status": "active",
       "cluster": "evaluation",
       "cluster_label": "Evals and reliability",
-      "updated": "2026-10-23",
-      "latest_evidence_added": "2026-10-23",
+      "updated": "2026-11-04",
+      "latest_evidence_added": "2026-11-04",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -278,15 +278,15 @@
         },
         {
           "heading": "Mechanism",
-          "html": "<p><strong>Start from real failures.</strong> Anthropic recommends 20-50 tasks drawn from cases that actually went wrong. Each needs an unambiguous spec and a reference solution; ambiguity produced the 42%-to-95% CORE-Bench jump. Include negative cases where the right behavior is to refuse or say it doesn&#x27;t know; solvable-only suites cannot detect overconfidence.</p>\n<p><strong>Keep the environment stable and grade outcomes.</strong> A flaky sandbox produces noise indistinguishable from a regression. Exact step matching penalizes a correct result reached by a different path, so grade the outcome and, separately, the trajectory.</p>\n<p><strong>Grade the artifact each agent type produces.</strong></p>\n<ul><li>Coding: unit tests for the outcome, a transcript pass for process.</li><li>Conversational: backend state verification plus an LLM rubric for tone.</li><li>Research: groundedness, coverage, and source quality as separate checks.</li><li>Computer use: interface state (DOM, screenshots) and backend state, since a correct-looking screen can hide a failed action.</li></ul>\n<p><strong>Measure the configuration, repeatedly.</strong> In an 18,000-trajectory study of coding agents, 54% of outcome variance was run-to-run noise within identical configurations, and task information moved results more than time budget or model size. A verification tool changed behavior where a verification prompt barely did. TRACE found identical reruns flip 15-36% of task outcomes.</p>\n<p><strong>Test the scorer when a score moves.</strong> A score change can come from the scoring rule, not the agent. TRACE rescored unchanged trajectories after renaming tools: restoring the names at scoring time erased a 0.250 drop in a scripted agent.</p>\n<p><strong>Audit the simulated tools.</strong> Benchmarks grade what a simulated tool reports having done. An audit of 34 mutating tools in four benchmarks confirmed seven tool defects; in one clinical benchmark the tool claimed writes it never made, and the grader scored that claim as success. A defect like this is present on every rerun, so repeated runs never expose it.</p>\n<p><strong>Watch for saturation.</strong> Once scores plateau near the ceiling, the eval stops separating good from great, and further optimization tunes to its blind spots — the dynamic covered in <a href=\"/foundations/benchmark-production-reliability-gap\">does a high benchmark score predict production reliability?</a>.</p>"
+          "html": "<p><strong>Start from real failures.</strong> Anthropic recommends 20-50 tasks drawn from cases that went wrong, each with an unambiguous spec and a reference solution; ambiguity produced the 42%-to-95% CORE-Bench jump. Include negative cases where the right behavior is to refuse, or solvable-only suites cannot detect overconfidence.</p>\n<p><strong>Keep the environment stable and grade outcomes.</strong> A flaky sandbox produces noise indistinguishable from a regression. Exact step matching penalizes a correct result reached by a different path, so grade the outcome and, separately, the trajectory.</p>\n<p><strong>Grade the artifact each agent type produces.</strong></p>\n<ul><li>Coding: unit tests for the outcome, a transcript pass for process.</li><li>Conversational: backend state plus an LLM rubric for tone.</li><li>Research: groundedness, coverage, and source quality as separate checks.</li><li>Computer use: interface and backend state, since a correct-looking screen can hide a failed action.</li></ul>\n<p><strong>Measure the configuration, repeatedly.</strong> In an 18,000-trajectory study, 54% of outcome variance was run-to-run noise within identical configurations, and task information moved results more than time budget or model size. TRACE found identical reruns flip 15-36% of outcomes.</p>\n<p><strong>Test the scorer when a score moves.</strong> TRACE rescored unchanged trajectories after renaming tools: restoring the names erased a 0.250 drop.</p>\n<p><strong>Audit the instrument.</strong> A leaderboard audit traced a 13-point gap to the grader: about half of one agent&#x27;s episodes never triggered grading and were stored as failures. Regrading closed it without rerunning the agent.</p>\n<p><strong>Make tool output state its limits.</strong> Results printed without their caps or search limits mislead agent and verifier alike; verifiers accepted 90 of 90 wrong answers until the omitted facts were stated.</p>\n<p><strong>Audit the simulated tools.</strong> In four benchmarks, 7 defects appeared across 34 mutating tools; one clinical tool claimed writes it never made, and the grader scored that as success. Repeated runs never expose a defect present every time.</p>\n<p><strong>Watch for saturation.</strong> Near the ceiling, the eval stops separating good from great; see <a href=\"/foundations/benchmark-production-reliability-gap\">does a high benchmark score predict production reliability?</a>.</p>"
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li><strong>Audit the eval before touching the agent.</strong> When a score looks bad, read failing transcripts by hand and check for ambiguous specs, wrong reference solutions, or a grader that missed a valid path.</li><li><strong>Start from 20-50 real failures.</strong> A small set from production catches the failures that matter faster than a large synthetic one.</li><li><strong>Report pass@k and pass^k.</strong> They answer &quot;can it ever solve this&quot; and &quot;can I trust it every time&quot;; one aggregate hides which you have.</li><li><strong>Match grader type to cadence.</strong> Code-based graders for anything deterministic, on every commit; model-based graders for tone, groundedness, and nuance; humans for periodic calibration of the automated graders.</li><li><strong>Grade the trajectory as well as the output.</strong> A lucky pass through a bad process is a risk the outcome score won&#x27;t show.</li><li><strong>Rescore before you blame the agent.</strong> After a score change, rescore the unchanged trajectories under the old format; if the gap closes, the scorer moved, not the agent.</li><li><strong>Run each configuration several times and report the spread.</strong> At 54% run-to-run variance, a single run is mostly noise.</li><li><strong>Change behavior with tools, not prompt lines.</strong> Treat task information, budget, and tooling as explicit eval dimensions, and test self-verification as a tool or dedicated component.</li><li><strong>Check the tools against their contract.</strong> Probe each mutating tool in the eval and confirm the state it reports matches the state it wrote.</li><li><strong>Retire saturated evals.</strong> At ceiling, raise the difficulty or discount further gains.</li></ul>"
+          "html": "<ul><li><strong>Audit the eval before touching the agent.</strong> Read failing transcripts by hand for ambiguous specs, wrong references, or a grader that missed a valid path.</li><li><strong>Start from 20-50 real failures</strong> drawn from production.</li><li><strong>Report pass@k and pass^k.</strong> One aggregate hides which you have.</li><li><strong>Match grader type to cadence.</strong> Code-based on every commit; model-based for nuance; humans to calibrate the automated graders.</li><li><strong>Grade the trajectory as well as the output.</strong></li><li><strong>Rescore before you blame the agent.</strong> Rescore unchanged trajectories under the old format; if the gap closes, the scorer moved.</li><li><strong>Report the graded fraction and pin evaluator versions.</strong> Publish a diff when you regrade.</li><li><strong>Run each configuration several times and report the spread.</strong></li><li><strong>Treat task information, budget, and tooling as eval dimensions.</strong> Test self-verification as a tool, not a prompt line.</li><li><strong>Check tools against their contract.</strong> Confirm reported state matches written state, and that output states its caps and limits.</li><li><strong>Retire saturated evals.</strong></li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li><strong>Debugging the wrong thing:</strong> changing the agent to chase a low score without checking the eval for ambiguous specs, wrong references, or grader bugs.</li><li><strong>One aggregate score:</strong> hiding whether failure is occasional (decent pass@k, bad pass^k) or total.</li><li><strong>Exact step matching:</strong> penalizing a correct result reached by a different valid path.</li><li><strong>No negative cases:</strong> overconfidence and unwarranted refusals never get caught.</li><li><strong>Trusting tool output as ground truth:</strong> a defective simulated tool makes the grader reward actions that never happened.</li><li><strong>Brittle scorers:</strong> a verifier that keys on tool names or output formatting turns a cosmetic change into a fake regression.</li><li><strong>Single-run comparisons:</strong> run-to-run variance read as a real difference.</li><li><strong>Misattribution:</strong> crediting the model for a change when task information, budget, or tooling also changed.</li><li><strong>Optimizing a saturated eval:</strong> tuning to its blind spots instead of real capability.</li></ul>"
+          "html": "<ul><li><strong>Debugging the wrong thing:</strong> changing the agent without checking the eval for ambiguous specs or grader bugs.</li><li><strong>One aggregate score:</strong> hiding whether failure is occasional or total.</li><li><strong>Exact step matching:</strong> penalizing a valid alternate path.</li><li><strong>No negative cases:</strong> overconfidence goes uncaught.</li><li><strong>Trusting tool output as ground truth:</strong> a defective or unlabeled tool makes the grader reward actions that never happened.</li><li><strong>Silent instrument errors:</strong> ungraded episodes counted as failures reorder a leaderboard with no error.</li><li><strong>Brittle scorers:</strong> a cosmetic change becomes a fake regression.</li><li><strong>Single-run comparisons:</strong> variance read as a real difference.</li><li><strong>Misattribution:</strong> crediting the model when tooling also changed.</li><li><strong>Optimizing a saturated eval.</strong></li></ul>"
         },
         {
           "heading": "Related",
@@ -294,6 +294,26 @@
         }
       ],
       "evidence": [
+        {
+          "id": "arxiv-2611-04399-silent-instrument-errors",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Silent Instrument Errors Reorder Agent Leaderboards",
+          "note": "Audits HAL and tau2-bench from published artifacts. A 13-point gap against a specialized scaffold came from the grader: the general agent ended conversations in a way that never triggered grading, so about half its episodes were stored as failures. Regrading closed the gap without rerunning any agent. Also found double-counted cost, grader actions logged as agent actions, and a mode check that cut four files' scores by 59-82 points with no error.",
+          "added": "2026-11-04",
+          "url": "http://arxiv.org/abs/2611.04399v1",
+          "sid": "7dfaaa125cb6bf17"
+        },
+        {
+          "id": "arxiv-2610-32110-warped-formatters",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Who Verifies the Tools? How Warped Formatters Mislead Agents and Their Verifiers",
+          "note": "Tool output that omits search limits, result caps, or identifier namespaces misleads agents even when the tool computed correctly. Stating the omitted details cut unsupported claims for three of four failure types. In one test, verifiers moved from accepting 90 of 90 incorrect answers to rejecting 90 of 90. Verifiers caught the errors once given the missing facts. Abstract-level read only.",
+          "added": "2026-11-04",
+          "url": "http://arxiv.org/abs/2610.32110v1",
+          "sid": "bd36dcd4473fffd5"
+        },
         {
           "id": "episem-bench-2026-missing-evidence",
           "kind": "benchmark-result",
