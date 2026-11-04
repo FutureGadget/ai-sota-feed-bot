@@ -1,232 +1,199 @@
 {
-  "date": "2026-11-03",
-  "title": "What happened in AI — Nov 3, 2026",
-  "generated_at": "2026-11-03T22:17:43Z",
+  "date": "2026-11-04",
+  "title": "What happened in AI — Nov 4, 2026",
+  "generated_at": "2026-11-04T22:30:00Z",
   "intro": [
-    "Observability went OpenTelemetry-native: Claude Platform traces now flow into Databricks MLflow, and LangSmith BYOC reached GA on AWS with Azure and Google Cloud in Beta.",
-    "Alongside it, a study of eval-versus-deployment behavior gaps and nearly $1M in stolen-API-key charges show where agent operations can fail quietly."
+    "Heavier agent scaffolding lost to simpler setups: a 100-task benchmark found Claude Code with more thinking beat a 37-skill, 17-agent harness that cost 8× more.",
+    "NVIDIA's result that 16K contexts with compaction hold accuracy points the same way: cut context and orchestration, not capability. Kimi K3.1 Pro's day-0 vLLM support shows open-weight serving catching up fast."
   ],
   "highlights": [
-    "Claude Platform ships native OpenTelemetry ingestion into Databricks MLflow.",
-    "LangSmith BYOC is GA on AWS, Beta on Azure and Google Cloud.",
-    "Agent safety evals may not predict deployment behavior because of eval-awareness.",
-    "Mandiant: stolen AI API keys produced nearly $1M in charges for one company.",
-    "'Weight Space Programming' paper: LLMs can read and write network weights.",
-    "MoE inference for Apple Silicon fits 125B parameters in under 10 GB of peak memory."
+    "Extended thinking beat a 37-skill, 17-agent harness that cost 8× more.",
+    "NVIDIA: frontier agents lose little accuracy at 16K context with compaction; long context costs up to 7× more per token.",
+    "Cleric's ~40-agent rewrite made evals 5× faster and 100× cheaper.",
+    "Kimi K3.1 Pro (2.8T MoE, open weights) had day-0 vLLM support.",
+    "Glow Labs: coding agents are installing deprecated MCP servers with known flaws.",
+    "H200 loses money fully busy; B300 profits at 35% utilization."
   ],
-  "article_count": 24,
+  "article_count": 32,
   "categories": [
     {
-      "name": "Agent harnesses, memory and tool use",
-      "slug": "agent-harnesses-tool-use",
-      "summary": "Teams are consolidating agents onto shared harnesses and adding runtime guardrails around MCP tool calls.",
+      "name": "Agent harnesses: less scaffolding, durable memory",
+      "slug": "agent-harnesses-memory",
+      "summary": "A 100-task benchmark found extended thinking beat elaborate harnesses, while three new tools move agent memory into portable stores.",
       "articles": [
         {
-          "title": "We built one harness for every agent, inspired by Ramp's Inspect",
-          "summary": "Metaview runs sourcing, screening and reporting agents on one shared harness, modeled on Ramp's Inspect, instead of per-agent scaffolding.",
+          "title": "We Tested Coding Agent Harnesses. Thinking Harder Beat All of Them",
+          "summary": "Across 100 tasks, a 37-skill, 17-agent harness cost 8× more and scored below vanilla Claude Code with more thinking.",
           "source": "hackernews_ai",
-          "url": "https://www.metaview.ai/resources/blog/how-we-built-one-harness-for-every-metaview-agent",
-          "published": "Tue, 03 Nov 2026 14:05:10 +0000"
+          "url": "https://surgehq.ai/blog/benchmarking-coding-agent-harnesses",
+          "published": "Wed, 04 Nov 2026 20:52:13 +0000"
         },
         {
-          "title": "How We Optimized Browser Use for Deep Agents",
-          "summary": "Deep Agents' browser-use rework targets multi-step web tasks; the write-up covers what changed in the harness to make them reliable.",
-          "source": "langchain_blog",
-          "url": "https://www.langchain.com/blog/how-we-optimized-browser-use-for-deep-agents",
-          "published": "2026-11-03T16:00:00+00:00"
+          "title": "Renor: one memory for all your AI agents",
+          "summary": "Apache-2.0 Markdown-notes memory recalled over MCP, with clients for Claude Code, Codex, Cursor, Gemini and VS Code.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/renorai/renor-engine",
+          "published": "Wed, 04 Nov 2026 17:06:10 +0000"
         },
         {
-          "title": "A complete (?) library of agent optimization methods",
-          "summary": "A catalog of agent optimization methods with evidence for each, plus a prompt that audits your own agent against every entry.",
+          "title": "Engraphis: local-first, bi-temporal memory for coding agents",
+          "summary": "Inspectable, self-hostable memory with code-aware recall and bi-temporal history, served over MCP.",
           "source": "hackernews_ai",
-          "url": "https://mahalsystems.ai/aot/optimizations/",
-          "published": "Tue, 03 Nov 2026 14:01:23 +0000"
+          "url": "https://github.com/Coding-Dev-Tools/engraphis",
+          "published": "Wed, 04 Nov 2026 04:52:44 +0000"
         },
         {
-          "title": "Show HN: MCPgraphy – a proxy that learns when your agent's MCP tools work",
-          "summary": "A proxy that learns which MCP tools succeed in which state, then warns or blocks the next likely-bad call.",
+          "title": "Mentat: one memory for all my AI tools",
+          "summary": "Linked notes in a private git repo, served to Claude and OpenCode from a small Cloudflare Worker.",
           "source": "hackernews_ai",
-          "url": "https://github.com/hemanth1999k/mcpgraphy",
-          "published": "Tue, 03 Nov 2026 05:07:22 +0000"
+          "url": "https://blog.benjamin.ie/blog/mentat",
+          "published": "Wed, 04 Nov 2026 21:50:55 +0000"
         },
         {
-          "title": "Vercel: Computer use CLI for AI agents",
-          "summary": "Vercel's agent-desktop CLI exposes a desktop app's accessibility tree as JSON with refs the agent acts on.",
-          "source": "hackernews_ai",
-          "url": "https://agent-browser.dev/desktop",
-          "published": "Tue, 03 Nov 2026 05:26:34 +0000"
-        },
-        {
-          "title": "Show HN: Replacing Turn-Based LLM Agents with SQLite and System One Models",
-          "summary": "Claims a SQLite-backed System One coding agent matches Claude Fable 5.1 on a 74-point xz benchmark (69/74) at 1/20 the cost; self-reported, unreplicated.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/DevLoops-ai/unified-brain",
-          "published": "Tue, 03 Nov 2026 17:58:18 +0000"
+          "title": "DeepSeek Open-Sources Super-Agent, a Coding Agent That Works From Team Chat",
+          "summary": "DeepSeek released a coding agent driven from team chat, as an open-source project.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Technology Org",
+          "publisher_domain": "technology.org",
+          "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPOWRQWmRtMFZFaDVDWGpNYXg2WV9pcVlKcVItSXlrS0twTU55X3VPZU1OSFFOUGhQUmlMcXg5dkVIemtCMFYydFdxc2lDOTQzUFZYNjhZOEpBTHlzdmt2V0JRRXlqRG9DZ0xnSFI3Y0stYnNyRFZpNzg5ekh6czVoVW5vUk40WEE5ZVA1ZVNseXplX3Z3b2hGTUFiN1RvS3Vk?oc=5",
+          "published": "Wed, 04 Nov 2026 09:57:00 GMT"
         }
       ]
     },
     {
-      "name": "Observability, evals and agent reliability",
-      "slug": "observability-evals-reliability",
-      "summary": "Tracing is going OpenTelemetry-native across vendors, while eval research questions how well tests predict deployment behavior.",
+      "name": "Evals and context: cheaper runs, shorter windows",
+      "slug": "evals-context-cost",
+      "summary": "Two results cut the cost of agent operations: Cleric's 40-agent eval rewrite and NVIDIA's finding that 16K contexts with compaction hold accuracy.",
       "articles": [
         {
-          "title": "Claude Platform now supports native OpenTelemetry observability in Databricks MLflow",
-          "summary": "Claude Platform traces now ingest natively via OpenTelemetry into Databricks MLflow, so teams can mine recurring failures from production runs.",
-          "source": "databricks_blog",
-          "url": "https://www.databricks.com/blog/claude-platform-now-supports-native-opentelemetry-observability-databricks-mlflow",
-          "published": "Tue, 03 Nov 2026 21:00:00 GMT"
-        },
-        {
-          "title": "LangSmith BYOC is now available on AWS, Azure, and Google Cloud",
-          "summary": "LangSmith BYOC is GA on AWS and Beta on Azure and Google Cloud, keeping traces, evals, datasets and prompts in your own cloud.",
-          "source": "langchain_blog",
-          "url": "https://www.langchain.com/blog/langsmith-byoc-aws-gc-azure",
-          "published": "Tue, 03 Nov 2026 22:06:58 GMT"
-        },
-        {
-          "title": "Show HN: Traccia – Control what AI agents can do",
-          "summary": "An OpenTelemetry-native, framework-agnostic SDK adding tracing, evaluation and runtime policy enforcement for agents.",
+          "title": "How we made evals 100× cheaper with multi-agent architecture",
+          "summary": "Cleric split one investigation agent into ~40 loosely coupled agents, running evals 5× faster for cents.",
           "source": "hackernews_ai",
-          "url": "https://github.com/traccia-ai/traccia-py",
-          "published": "Tue, 03 Nov 2026 20:06:53 +0000"
+          "url": "https://cleric.ai/blog/how-we-made-evals-100x-cheaper-with-multi-agent-architecture",
+          "published": "Wed, 04 Nov 2026 16:17:30 +0000"
         },
         {
-          "title": "Eval-production behavior gaps in agent safety and the role of eval-awareness",
-          "summary": "Compares agent behavior in safety evals versus deployment and starts tracking the gap, flagging eval-awareness as a confound.",
+          "title": "Nvidia Study: AI Agents Rarely Need Long Context Windows",
+          "summary": "Claude Opus 4.5 and GPT 5.6 Sol lose little accuracy at 16K with frequent compaction; long-context serving costs up to 7× more per token.",
           "source": "hackernews_ai",
-          "url": "https://alignment.openai.com/eval-production-behavior-gap/",
-          "published": "Tue, 03 Nov 2026 18:01:38 +0000"
+          "url": "https://i10x.ai/news/nvidia-long-context-compaction-agents-study",
+          "published": "Wed, 04 Nov 2026 14:17:09 +0000"
         },
         {
-          "title": "Why human insight is a strategic advantage for building better agents",
-          "summary": "LangChain argues long-horizon agent evals need human review of the trajectory, not just the final answer.",
-          "source": "langchain_blog",
-          "url": "https://www.langchain.com/blog/human-insight-strategic-advantage-agents",
-          "published": "2026-11-03T21:07:00+00:00"
-        },
-        {
-          "title": "Show HN: A tool to optimize AI model cost without benchmark score trade-offs",
-          "summary": "A tool that finds the cheapest model blend that still matches target benchmark scores per setting.",
+          "title": "Evalship: find the flaws in your LLM evals",
+          "summary": "Watches every pull request and auto-optimizes prompts against your existing eval suite.",
           "source": "hackernews_ai",
-          "url": "https://jeff-kline.github.io/posts/same-ai-results-for-less/index.html",
-          "published": "Tue, 03 Nov 2026 12:38:49 +0000"
+          "url": "https://evalship.com/",
+          "published": "Wed, 04 Nov 2026 10:03:08 +0000"
         }
       ]
     },
     {
-      "name": "Security and identity for agents",
-      "slug": "security-identity-agents",
-      "summary": "Agent identity delegation and stolen API keys are the concrete operational risks today.",
+      "name": "Inference economics and open-weight serving",
+      "slug": "inference-open-weight-serving",
+      "summary": "Kimi K3.1 Pro had day-0 serving support, while two measurements show gateway language and GPU choice matter more than engine choice.",
       "articles": [
         {
-          "title": "ServiceNow on-behalf-of token exchange with Bedrock AgentCore Gateway",
-          "summary": "Walks through ServiceNow on-behalf-of token exchange via Bedrock AgentCore Gateway, so agents act with the user's identity, not a shared one.",
-          "source": "aws_ml_blog",
-          "url": "https://aws.amazon.com/blogs/machine-learning/servicenow-on-behalf-of-token-exchange-with-bedrock-agentcore-gateway/",
-          "published": "Tue, 03 Nov 2026 16:47:40 +0000"
+          "title": "vLLM Delivers Day-0 Support for Kimi K3.1 Pro",
+          "summary": "Moonshot's 2.8T-parameter (104B active) open-weight MoE runs on NVIDIA, AMD, TPU and Alibaba PPU from launch.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-11-04-kimi-k31-pro",
+          "published": "Wed, 04 Nov 2026 00:00:00 GMT"
         },
         {
-          "title": "Stolen AI API keys generated nearly $1M in charges for a single company",
-          "summary": "Mandiant traced nearly $1M in charges at one company to stolen AI API keys.",
+          "title": "Verda Inference, in Preview with Kimi K3.1 Pro",
+          "summary": "Verda adds managed model-as-a-service inference for open-weight frontier models, launching with Kimi K3.1 Pro.",
           "source": "hackernews_ai",
-          "url": "https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models/",
-          "published": "Tue, 03 Nov 2026 00:32:32 +0000"
+          "url": "https://verda.com/blog/verda-inference-in-preview",
+          "published": "Wed, 04 Nov 2026 16:58:53 +0000"
         },
         {
-          "title": "Fuzzers vs. AI: Comparing Fuzzilli and BigSleep on JavaScript Engines",
-          "summary": "Project Zero compares Fuzzilli with Google's BigSleep AI on finding V8 vulnerabilities.",
+          "title": "Is hosting an open-source inference engine profitable?",
+          "summary": "H200 loses money even fully busy; B300 turns a profit at 35% utilization, so the GPU matters more than the engine.",
           "source": "hackernews_ai",
-          "url": "https://projectzero.google/2026/10/fuzzing-v-AI.html",
-          "published": "Tue, 03 Nov 2026 09:04:15 +0000"
+          "url": "https://userecurrence.ai/research/is-hosting-open-source-inference-profitable",
+          "published": "Wed, 04 Nov 2026 02:58:34 +0000"
         },
         {
-          "title": "Progress on provable inference for large language models",
-          "summary": "Anthropic-affiliated researchers report progress on cryptographically verifying that an LLM's outputs came from the claimed model.",
+          "title": "Go vs. Python for an LLM Gateway: What We Measured",
+          "summary": "Reproducible benchmark of KTMS (Go) against LiteLLM Proxy and eight other gateways on latency, TTFT and memory.",
           "source": "hackernews_ai",
-          "url": "https://www.anthropic.com/research/provable-inference",
-          "published": "Tue, 03 Nov 2026 06:44:10 +0000"
+          "url": "https://blog.ai-process.dev/2026/10/26/go-vs-python-llm-gateway/",
+          "published": "Wed, 04 Nov 2026 18:06:08 +0000"
+        },
+        {
+          "title": "How big is the open model economy today?",
+          "summary": "Interconnects uses its open-model dashboard to show adoption metrics are noisy and need an informed read.",
+          "source": "interconnects",
+          "url": "https://www.interconnects.ai/p/how-well-can-we-measure-open-model",
+          "published": "Wed, 04 Nov 2026 16:35:44 GMT"
         }
       ]
     },
     {
-      "name": "Inference and on-device deployment",
-      "slug": "inference-on-device",
-      "summary": "Memory-efficient MoE serving and on-device toolchains keep lowering the hardware bar.",
+      "name": "Agent security and identity",
+      "slug": "agent-security-identity",
+      "summary": "Coding agents are installing retired MCP servers on their own, and NIST and Cloudflare each publish controls for identifying and governing agents.",
       "articles": [
         {
-          "title": "Show HN: Run faster MoE inference on Mac with less RAM",
-          "summary": "MoE inference for Apple Silicon runs a 125B-parameter model at up to 11 tokens/s in under 10 GB of peak memory.",
+          "title": "AI coding agents are installing abandoned MCP servers with known security issues",
+          "summary": "Glow Labs' \"MCPhantom\" pattern: agents pick deprecated MCP servers that no longer receive security fixes.",
           "source": "hackernews_ai",
-          "url": "https://github.com/davide-troiani/moeshift",
-          "published": "Tue, 03 Nov 2026 21:17:06 +0000"
+          "url": "https://www.glow.io/blogs/mcphantom-ai-coding-agents-are-installing-vulnerable-deprecated-mcp-servers-from-training-data",
+          "published": "Wed, 04 Nov 2026 10:58:43 +0000"
         },
         {
-          "title": "The Inference Stack Behind OCRia",
-          "summary": "OCRia's team details the serving optimizations behind their OCRia-1 document-parsing model after inference became the bottleneck.",
+          "title": "Design Tenets for Agent Identity Management Systems",
+          "summary": "NIST's second post on agent identity, authentication and authorization sets design tenets for identity systems.",
           "source": "hackernews_ai",
-          "url": "https://www.llamaindex.ai/blog/the-inference-stack-behind-ocria",
-          "published": "Tue, 03 Nov 2026 18:14:26 +0000"
+          "url": "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
+          "published": "Wed, 04 Nov 2026 02:42:44 +0000"
         },
         {
-          "title": "Google Launches LiteRT Tensor API for Building, Customizing, and Optimizing ML Models for On-Device",
-          "summary": "Google's LiteRT Tensor API targets building, customizing and optimizing ML models for on-device deployment.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/11/litert-tensor-api/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "Tue, 03 Nov 2026 19:00:00 GMT"
+          "title": "See the agents, set the terms: new visibility and control for personal agents",
+          "summary": "Cloudflare adds visibility into which personal agents visit a site and lets owners set terms for them.",
+          "source": "cloudflare_blog",
+          "url": "https://blog.cloudflare.com/personal-agents-visibility-control/",
+          "published": "Wed, 04 Nov 2026 14:00:00 GMT"
+        },
+        {
+          "title": "Daybreak Red is now available in AWS GovCloud (US-East)",
+          "summary": "GPT-5.6 Cyber reaches approved customers through Amazon Bedrock for authorized cybersecurity work.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/daybreak-red-aws-govcloud",
+          "published": "Wed, 04 Nov 2026 07:00:00 GMT"
         }
       ]
     },
     {
-      "name": "Models and research",
-      "slug": "models-research",
-      "summary": "Weight-space programming dominates research discussion; DeepSeek and Huawei shift the Chinese open-weight landscape.",
+      "name": "Distribution and spend: Qwen on iPhone, Claude Code economics",
+      "slug": "distribution-spend",
+      "summary": "Distribution and spend drive platform strategy: Apple's Qwen trial in China, OpenAI buying into Codex tooling, and Anthropic's Claude Code margins.",
       "articles": [
         {
-          "title": "[AINews] LLMs can read & write neural network weights: \"Weight Space Programming\" cuts Autoresearch out of the RSI loop",
-          "summary": "Reports that LLMs can natively read and write neural network weights, a 'Weight Space Programming' result aimed at removing autoresearch from the self-improvement loop.",
-          "source": "latent_space",
-          "url": "https://latent.space/p/ainews-llms-can-read-write-neural-network-weights-weight-space-programming-cuts-autoresearch-out-of/",
-          "published": "Tue, 03 Nov 2026 05:35:00 GMT"
-        },
-        {
-          "title": "Qwen 3.8 27B on my laptop can interpret model weights, too",
-          "summary": "Simon Willison runs Qwen 3.8 27B locally to interpret model weights, following the Weight-Space Programming paper.",
-          "source": "simon_willison",
-          "url": "https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/",
-          "published": "2026-11-03T16:29:48+00:00"
-        },
-        {
-          "title": "Verify, Then Vote: Overturning Wrong Majorities in Multi-Agent LLMs",
-          "summary": "Research on a verify-then-vote scheme that overturns wrong majorities in multi-agent LLM voting.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/grainulation/papers",
-          "published": "Tue, 03 Nov 2026 06:16:17 +0000"
-        },
-        {
-          "title": "DeepSeek Harness Adds Creator Mode For Text-to-plugin Generation",
-          "summary": "DeepSeek Harness adds Creator Mode, letting users generate agent plugins by chat.",
+          "title": "Apple Begins China Trial Of AI Tools Powered By Alibaba's Qwen",
+          "summary": "Apple's China beta links Qwen with Siri, Writing Tools and Visual Intelligence.",
           "source": "search_cn_open_weight_labs",
           "publisher_name": "Dataconomy",
           "publisher_domain": "dataconomy.com",
-          "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPckFDR25sUkRoZC1yNGwtVjlVWm40dFRZTDZXbG9CaGFZUGFYWm1LMGEybTNIZzR2SHJRcXlZdWhybHJJeFpjQ2dNeTIxd1dDNFlRVkZ5aUxEX0RDbjZPcllSUV9paE1Ld1FyVjY4ZEVXQXNzZUM5UVFZVmJqdnV4WkJSNFRXcVRuSklneERVQncwUQ?oc=5",
-          "published": "Tue, 03 Nov 2026 08:50:23 GMT"
+          "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQR3lraDN3cHQ5OTRPSHlHWWJEN2lFZ01lbWxXLXBJeDZlblpxcjN6YWVtaGw3TE44Zy03TkVHNkJjOW5pdmJIdS1wQ1pxTGx3bDZIOVZKVWJ2NFdtQnM3OGRjejVWT3lSUVR2TnpnN1c4RzhTQ0h4ak1mS3M2VFVhQ0lMc3ZFN1BiVmhVZFZmMk1KQVRLcWc?oc=5",
+          "published": "Wed, 04 Nov 2026 10:22:33 GMT"
         },
         {
-          "title": "Huawei Cloud to Retire openPangu-2.0 Models From MaaS, Recommends DeepSeek-V4.1-Flash and GLM-5.3",
-          "summary": "Huawei Cloud will retire openPangu-2.0 from its MaaS and point users to DeepSeek-V4.1-Flash and GLM-5.3.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "Pandaily",
-          "publisher_domain": "pandaily.com",
-          "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxORXJiejlQNkFkN2xsVlU4OFRKWU80amRyV3M1OWpqMmNCRVhDbXExdzM2SjZzQ3ZwYlA1S1lERDJaNUZXTjVoY2Q5eWhKZEVUQVFDY2hnaFpZdkVPdTRvTDB0YkpEVElJYTJxaUFXTzZuRjdIVFpvY2hFWEJuUUx0SlFNZVFGQy1pREtpNE43Tk8wcldvX1ZSQkVKRkpraW14aTA2OVR5d2o?oc=5",
-          "published": "Tue, 03 Nov 2026 20:55:27 GMT"
+          "title": "OpenAI to acquire Pierre Computer Company, Inc.",
+          "summary": "The acquisition expands Codex's tools for building, understanding and reviewing code.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/openai-to-acquire-pierre",
+          "published": "Wed, 04 Nov 2026 14:30:00 GMT"
+        },
+        {
+          "title": "Anthropic launched tools to show companies what their AI spending is buying",
+          "summary": "Claude Code reportedly hit an operating profit in Q2 with 900% net revenue retention.",
+          "source": "hackernews_ai",
+          "url": "https://techcrunch.com/2026/10/28/anthropic-just-launched-tools-to-show-companies-what-their-ai-spending-is-buying/",
+          "published": "Wed, 04 Nov 2026 04:26:22 +0000"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "diX2bYhOZWA",
-    "title": "LLM Digest Daily Explainer: Nov 3, 2026",
-    "duration_s": 109.0
-  }
+  ]
 }
