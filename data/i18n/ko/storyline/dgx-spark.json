@@ -1,39 +1,23 @@
 {
   "locale": "ko",
   "source_path": "/storyline/dgx-spark",
-  "source_hash": "e0d5798fe6e6bca1f4ec18a2027ea85f0c92eb2145089e6be0a32b8128d47c89",
-  "translated_at": "2026-11-03T04:04:12.410187+00:00",
+  "source_hash": "b78f24744cf29471fb032a617cdb739fe5c024144d37b951de5e6c4619b48f92",
+  "translated_at": "2026-11-04T03:14:20.955024+00:00",
   "model": "google-translate-v2",
   "review_status": "machine",
   "slug": "dgx-spark",
   "label": "DGX Spark",
-  "item_count": 5,
-  "day_count": 3,
-  "source_count": 3,
-  "first_seen": "2026-10-13T12:00:49+00:00",
+  "item_count": 3,
+  "day_count": 2,
+  "source_count": 2,
+  "first_seen": "2026-10-28T09:31:23+00:00",
   "last_updated": "2026-11-02T04:13:18+00:00",
-  "generated_at": "2026-11-03T00:12:58.466703+00:00",
+  "generated_at": "2026-11-04T00:12:28.797841+00:00",
   "sources": [
     "hackernews_ai",
-    "nvidia_blog",
     "vllm_releases"
   ],
   "days": [
-    {
-      "date": "2026-10-13",
-      "items": [
-        {
-          "title": "All Systems Go: Global PC App Ecosystem Ready for NVIDIA RTX Spark",
-          "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-software-updates",
-          "source": "nvidia_blog",
-          "type": "news",
-          "summary_1line": "NVIDIA RTX Spark is a new beginning for the PC — a reinvention combining the capabilities of a gaming PC, a creative studio and a personal AI supercomputer into a single superchip. With up to 128GB of unified memory a...",
-          "sid": "a4bbae21d3b4c957",
-          "published": "2026-10-13T12:00:49+00:00",
-          "editor_note": "NVIDIA 의 RTX Spark 출시 프레임: 하나의 슈퍼칩에 최대 128GB 통합 메모리 탑재."
-        }
-      ]
-    },
     {
       "date": "2026-10-28",
       "items": [
@@ -46,17 +30,6 @@
           "sid": "754548d382a06747",
           "published": "2026-10-28T09:31:23+00:00",
           "editor_note": "vLLM v0.33.0rc1은 DGX Spark CI에서 오래된 NVFP4 디코딩 테스트 선택기 문제를 수정합니다."
-        },
-        {
-          "title": "Thin, Light and Built for Everything: NVIDIA RTX Spark Windows Laptops Gain New Models, Agent Tools and Games",
-          "url": "https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-updates-models-agents-games",
-          "source": "nvidia_blog",
-          "type": "news",
-          "summary_1line": "NVIDIA RTX Spark powers thin and light laptops built for everything that developers, creators and gamers do. RTX Spark laptops are now available from ASUS, Dell, HP, Lenovo, Microsoft and MSI. These powerful systems c...",
-          "why_it_matters": "Matches feed focus: agent.",
-          "sid": "7281347817fe3ba2",
-          "published": "2026-10-28T15:00:46+00:00",
-          "editor_note": "RTX Spark 노트북은 ASUS, Dell, HP, Lenovo, Microsoft 및 MSI에서 구입할 수 있습니다."
         }
       ]
     },
@@ -71,7 +44,7 @@
           "summary_1line": "Flare, Nvidia's DGX Spark Inference Engine",
           "sid": "e6077e10f16ce2d8",
           "published": "2026-11-02T01:11:27+00:00",
-          "editor_note": "NVIDIA 저장소에 DGX Spark용 Flare 추론 엔진이 나타났습니다."
+          "editor_note": "DGX Spark용 Flare 추론 엔진이 등장했습니다."
         },
         {
           "title": "Optimizing 124B MoE inference on a single Nvidia DGX Spark",
@@ -81,39 +54,31 @@
           "summary_1line": "Optimizing 124B MoE inference on a single Nvidia DGX Spark",
           "sid": "b836eb939c37ffa5",
           "published": "2026-11-02T04:13:18+00:00",
-          "editor_note": "NVIDIA 블로그에서 단일 DGX Spark에서 MoE 추론 성능을 향상시키는 세 가지 방법을 소개합니다."
+          "editor_note": "NVIDIA 가 제시하는 단일 DGX Spark에서 124B MoE 추론을 최적화하는 방법 가이드."
         }
       ]
     }
   ],
   "editorial": {
-    "tldr": "NVIDIA introduced RTX Spark in October as a superchip for PCs with up to 128GB of unified memory, and by Oct 28 RTX Spark laptops were shipping from six OEMs. In the same window, vLLM's CI began tracking DGX Spark as a test target.",
+    "tldr": "By Oct 28, vLLM's CI had started tracking DGX Spark as a test target, with a fix to a stale NVFP4 decode test selector in v0.33.0rc1. NVIDIA's earlier RTX Spark launch, with up to 128GB of unified memory, set the hardware context.",
     "stale": false,
-    "whats_new": "NVIDIA published a guide to boosting 124B MoE inference on a single DGX Spark, and a Flare inference engine for DGX Spark appeared in an NVIDIA GitHub repo.",
+    "whats_new": "On Nov 2, NVIDIA published a guide to boosting 124B MoE inference on a single DGX Spark, and a Flare inference engine for DGX Spark appeared.",
     "why_it_matters": "Single-box, 128GB-class local inference is getting first-party tooling and upstream CI coverage, which makes on-prem MoE serving a more realistic option.",
     "take_for_builders": "If you target DGX Spark, benchmark Flare and the NVIDIA MoE tuning steps against your current vLLM build before committing to a serving stack.",
     "status": {
       "state": "Tooling maturing",
       "tone": "rising",
       "changed": "2026-11-02",
-      "detail": "Hardware is shipping and NVIDIA is now publishing DGX Spark-specific inference tooling and tuning guidance."
+      "detail": "NVIDIA is publishing DGX Spark-specific inference tooling and tuning guidance."
     },
     "beats": [
       {
-        "kicker": "LAUNCH",
-        "tone": "launch",
-        "headline": "RTX Spark positioned as a local AI superchip for PCs",
-        "sids": [
-          "a4bbae21d3b4c957"
-        ]
-      },
-      {
-        "kicker": "SHIPPING",
+        "kicker": "CI",
         "tone": "rising",
-        "headline": "RTX Spark laptops ship; vLLM CI starts covering DGX Spark",
+        "headline": "vLLM CI covers DGX Spark",
+        "summary": "v0.33.0rc1 fixes a stale NVFP4 decode test selector.",
         "sids": [
-          "754548d382a06747",
-          "7281347817fe3ba2"
+          "754548d382a06747"
         ]
       },
       {
@@ -130,6 +95,6 @@
       "Does Flare outperform vLLM on DGX Spark in published benchmarks?",
       "Do NVIDIA's MoE tuning techniques land in upstream vLLM releases?"
     ],
-    "generated_at": "2026-11-03T00:30:00+00:00"
+    "generated_at": "2026-11-04T06:00:00+00:00"
   }
 }
