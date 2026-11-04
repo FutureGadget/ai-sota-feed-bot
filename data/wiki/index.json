@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-02T18:19:59.847652+00:00",
+ "generated_at": "2026-11-04T18:05:36.696753+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,38 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-11-04-mcphantom-deprecated-servers",
+   "topic": "mcp",
+   "topic_title": "Model Context Protocol: a standard interface for agent tools",
+   "kind": "solution",
+   "date": "2026-11-04",
+   "title": "Coding agents install deprecated MCP servers with known vulnerabilities"
+  },
+  {
+   "id": "2026-11-04-nvidia-16k-compaction",
+   "topic": "context-compaction",
+   "topic_title": "Context compaction: summarize, compress, and curate the working set",
+   "kind": "solution",
+   "date": "2026-11-04",
+   "title": "NVIDIA preprint: 16K contexts with frequent compaction lose little accuracy"
+  },
+  {
+   "id": "2026-11-04-claude-platform-otel-mlflow",
+   "topic": "agent-tracing",
+   "topic_title": "Tracing and trace analysis for agent runs",
+   "kind": "solution",
+   "date": "2026-11-04",
+   "title": "Claude Platform exports native OpenTelemetry traces to Databricks MLflow"
+  },
+  {
+   "id": "2026-11-04-cuga-harness-30-to-81",
+   "topic": "agent-orchestration",
+   "topic_title": "Orchestration patterns: topologies, handoffs, and harnesses",
+   "kind": "solution",
+   "date": "2026-11-04",
+   "title": "Swapping the harness moved one open-weight model from 30% to 81% task completion"
+  },
   {
    "id": "2026-11-02-claude-code-mistake-guards",
    "topic": "agent-reliability",
@@ -222,38 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-29",
    "title": "Guardrails did not raise first-pass rates in 270 coding-agent runs, but caught defects at done"
-  },
-  {
-   "id": "2026-10-29-cachelint-silent-misintegration",
-   "topic": "agent-cost",
-   "topic_title": "Agent token costs are unpredictable and easily run away",
-   "kind": "obstacle",
-   "date": "2026-10-29",
-   "title": "Prompt-caching bugs in agent code fail silently; CacheLint found 32 across 571 projects"
-  },
-  {
-   "id": "2026-10-28-novelty-judges-prompt-sensitive",
-   "topic": "llm-as-judge",
-   "topic_title": "LLM-as-judge: model-graded evaluation of traces and outputs",
-   "kind": "solution",
-   "date": "2026-10-28",
-   "title": "Novelty judges swing by 50+ points on small prompt changes"
-  },
-  {
-   "id": "2026-10-28-openwiki-compiled-memory",
-   "topic": "agent-memory",
-   "topic_title": "Agents forget across steps and sessions",
-   "kind": "obstacle",
-   "date": "2026-10-28",
-   "title": "A compiled, claim-linked wiki beat search roughly 5x on cross-source questions"
-  },
-  {
-   "id": "2026-10-27-rfc-corpus-skill-mcp-token-savings",
-   "topic": "tool-use",
-   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
-   "kind": "obstacle",
-   "date": "2026-10-27",
-   "title": "Serving the RFC corpus through a skill or MCP server cuts reading tokens about 41x"
   }
  ],
  "nodes": {
@@ -1200,6 +1200,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-04-nvidia-16k-compaction",
+     "topic": "context-compaction",
+     "topic_title": "Context compaction: summarize, compress, and curate the working set",
+     "date": "2026-11-04",
+     "title": "NVIDIA preprint: 16K contexts with frequent compaction lose little accuracy"
+    },
     {
      "id": "2026-10-29-successful-call-loop",
      "topic": "tool-use",
@@ -15116,10 +15123,25 @@
      "key": "harness-choice",
      "title": "Choosing a harness: frameworks, managed runtimes, portability",
      "summary": "Microsoft, LangChain, and OpenAI now sell harnesses as managed runtimes, while practitioner guides and AWS argue for matching the framework to the workflow and keeping a multi-vendor estate portable.",
-     "count": 5
+     "count": 6
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-04-cuga-harness-30-to-81",
+     "topic": "agent-orchestration",
+     "date": "2026-11-04",
+     "title": "Swapping the harness moved one open-weight model from 30% to 81% task completion",
+     "theme": "harness-choice",
+     "html": "<p>IBM Research gave CUGA, Hermes, and Deep Agents the same open-weight model on 90 AppWorld tasks. Completion ranged from 30% to 81% by harness alone (self-run, vendor-authored). The post cites another analysis where one model went from 23% to 52% across harnesses.</p>\n<p>For builders: with nearly 200 harnesses on the market, benchmark two or three on your own tasks before choosing. CUGA&#x27;s pitch also adds harness-enforced rules and in-boundary deployment, which this benchmark does not test.</p>",
+     "evidence": [
+      {
+       "sid": "b05fd13d79e76b34",
+       "title": "Same Model, Different Harness: CUGA, Hermes, and Deep Agents — When to Pick CUGA?"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-09-23-google-ax-agent-orchestrator",
      "topic": "agent-orchestration",
@@ -15589,8 +15611,8 @@
      "title": "Stanford's DeLM cuts multi-agent task cost ~50% by removing the central orchestrator"
     }
    ],
-   "entry_count": 21,
-   "latest_entry_date": "2026-09-23",
+   "entry_count": 22,
+   "latest_entry_date": "2026-11-04",
    "solutions": [],
    "obstacles": [
     {
@@ -15608,6 +15630,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "b05fd13d79e76b34",
+     "title": "Same Model, Different Harness: CUGA, Hermes, and Deep Agents — When to Pick CUGA?"
+    },
     {
      "sid": "0c87e9548be43d83",
      "title": "Google Open-Sources AX a Kubernetes Style Orchestrator for Autonomous AI Agents"
@@ -15693,7 +15719,7 @@
      "title": "Ask HN: Multi-LLM orchestration frameworks that collaborate?"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-11-04"
   },
   "agent-sandboxing": {
    "slug": "agent-sandboxing",
@@ -17185,7 +17211,7 @@
      "key": "capture",
      "title": "Capturing the run: zero-config SDKs, platform spans, new modalities",
      "summary": "Capture is commoditizing into drop-in SDKs and platform-native spans and now covers voice; payload defaults, truncation, and per-span billing differ by integration, and latent multi-agent channels escape the span schema entirely.",
-     "count": 3
+     "count": 4
     },
     {
      "key": "storage",
@@ -17201,6 +17227,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-04-claude-platform-otel-mlflow",
+     "topic": "agent-tracing",
+     "date": "2026-11-04",
+     "title": "Claude Platform exports native OpenTelemetry traces to Databricks MLflow",
+     "theme": "capture",
+     "html": "<p>Databricks announced that MLflow is now a supported destination for native OpenTelemetry export from the Claude Platform. Traces of model and tool calls land beside existing MLflow data, so teams can find recurring failures, such as an agent rereading the same source, and test whether a change helps.</p>\n<p>For builders: OpenTelemetry export means trace capture needs no custom SDK, and the backend stays swappable. This is a vendor announcement; check span coverage on your own agents.</p>",
+     "evidence": [
+      {
+       "sid": "4db92d07b6f4ba7b",
+       "title": "Claude Platform now supports native OpenTelemetry observability in Databricks MLflow"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-09-24-langsmith-trajectories",
      "topic": "agent-tracing",
@@ -17390,8 +17431,8 @@
      "title": "Agents can coordinate through hidden states that no transcript or span records"
     }
    ],
-   "entry_count": 11,
-   "latest_entry_date": "2026-09-24",
+   "entry_count": 12,
+   "latest_entry_date": "2026-11-04",
    "solutions": [],
    "obstacles": [
     {
@@ -17405,6 +17446,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "4db92d07b6f4ba7b",
+     "title": "Claude Platform now supports native OpenTelemetry observability in Databricks MLflow"
+    },
     {
      "sid": "b60131f089d99489",
      "title": "Trajectories now in LangSmith: A readable view of every agent session"
@@ -17450,7 +17495,7 @@
      "title": "Show HN: RLM-based local debugger for AI agent traces"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-11-04"
   },
   "context-compaction": {
    "slug": "context-compaction",
@@ -17482,7 +17527,7 @@
      "key": "curating-the-working-set",
      "title": "Curating what stays in context",
      "summary": "Compaction is becoming one step in a curation discipline that trims tool output at the input boundary, consolidates stored memory, and loads instructions only when needed.",
-     "count": 6
+     "count": 7
     },
     {
      "key": "compaction-safety",
@@ -17504,6 +17549,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-04-nvidia-16k-compaction",
+     "topic": "context-compaction",
+     "date": "2026-11-04",
+     "title": "NVIDIA preprint: 16K contexts with frequent compaction lose little accuracy",
+     "theme": "curating-the-working-set",
+     "html": "<p>An NVIDIA preprint (&quot;You don&#x27;t need long context&quot;) has frontier models summarize their own history to stay within a 16K window. It reports little accuracy loss for Claude Opus 4.5 and GPT 5.6 Sol, while long-context serving costs up to 7x more per token. The numbers are paper-reported, via a secondary news write-up.</p>\n<p>For builders: budget for aggressive compaction before paying for a 1M-token window. Test your own workload first, since the study&#x27;s tasks may not match yours.</p>",
+     "evidence": [
+      {
+       "sid": "3c72c5c3cd7d0707",
+       "title": "Nvidia Study: AI Agents Rarely Need Long Context Windows"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-cost",
+       "title": "Agent token costs are unpredictable and easily run away"
+      }
+     ]
+    },
     {
      "id": "2026-10-26-mnemonic-proxy-verbatim-archive",
      "topic": "context-compaction",
@@ -17787,8 +17852,8 @@
      "title": "Stream processing with Kafka and Flink drives dynamic memory tiering for agents"
     }
    ],
-   "entry_count": 14,
-   "latest_entry_date": "2026-10-26",
+   "entry_count": 15,
+   "latest_entry_date": "2026-11-04",
    "solutions": [],
    "obstacles": [
     {
@@ -17810,6 +17875,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "3c72c5c3cd7d0707",
+     "title": "Nvidia Study: AI Agents Rarely Need Long Context Windows"
+    },
     {
      "sid": "aec1f0ba52ad6990",
      "title": "A 32K-window proxy that beat full context on long agent histories"
@@ -17867,7 +17936,7 @@
      "title": "Show HN: Memory system for AI agents with associations, forgetting, synthesis"
     }
    ],
-   "updated": "2026-10-26"
+   "updated": "2026-11-04"
   },
   "cost-controls": {
    "slug": "cost-controls",
@@ -18908,7 +18977,7 @@
      "key": "auth-and-governance",
      "title": "Authorization and governance of connector fleets",
      "summary": "Connector access is now provisioned through identity providers and managed settings, with gateways and server-side write controls deciding what a connection may do.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "webmcp",
@@ -18930,6 +18999,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-04-mcphantom-deprecated-servers",
+     "topic": "mcp",
+     "date": "2026-11-04",
+     "title": "Coding agents install deprecated MCP servers with known vulnerabilities",
+     "theme": "auth-and-governance",
+     "html": "<p>Glow Labs reports &quot;MCPhantom&quot;: coding agents choosing to install retired MCP servers, apparently from stale training data, and leaving high-severity flaws on developer machines with no security updates. The finding is vendor-reported from the firm&#x27;s own monitoring.</p>\n<p>For builders: an agent&#x27;s choice of MCP server is a supply-chain decision. Put an allowlist or registry check with deprecation status in front of installs instead of trusting the model&#x27;s recall.</p>",
+     "evidence": [
+      {
+       "sid": "7bf2baae197f3346",
+       "title": "AI coding agents are installing abandoned MCP servers with known security issues"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-25-kevlar-strips-tool-descriptions",
      "topic": "mcp",
@@ -19630,8 +19714,8 @@
      "title": "Azure Functions folds the tool-calling loop into a serverless agents runtime"
     }
    ],
-   "entry_count": 35,
-   "latest_entry_date": "2026-10-25",
+   "entry_count": 36,
+   "latest_entry_date": "2026-11-04",
    "solutions": [],
    "obstacles": [
     {
@@ -19641,6 +19725,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "7bf2baae197f3346",
+     "title": "AI coding agents are installing abandoned MCP servers with known security issues"
+    },
     {
      "sid": "a92a400264dfa863",
      "title": "Kevlar = MCP Firewall for LLM's"
@@ -19786,7 +19874,7 @@
      "title": "Centrally manage authorization for MCP connectors | Claude"
     }
    ],
-   "updated": "2026-10-25"
+   "updated": "2026-11-04"
   },
   "speculative-decoding": {
    "slug": "speculative-decoding",
