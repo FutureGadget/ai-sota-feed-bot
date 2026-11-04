@@ -1,113 +1,112 @@
 {
  "slug": "deep-research",
- "label": "Research Deep",
+ "label": "Deep Research",
  "item_count": 3,
  "day_count": 3,
- "source_count": 3,
- "first_seen": "2026-06-15T13:56:33+00:00",
- "last_updated": "2026-06-18T11:47:13+00:00",
- "generated_at": "2026-07-06T10:03:08.720720+00:00",
+ "source_count": 2,
+ "first_seen": "2026-10-16T11:04:43+00:00",
+ "last_updated": "2026-11-02T13:13:42+00:00",
+ "generated_at": "2026-11-04T00:12:28.797841+00:00",
  "sources": [
   "arxiv_cs_ai",
-  "arxiv_llm_reliability",
-  "aws_ml_blog"
+  "arxiv_cs_cl"
  ],
  "days": [
   {
-   "date": "2026-06-15",
+   "date": "2026-10-16",
    "items": [
     {
-     "title": "Build context-rich research agents with Deep Agents and Bedrock AgentCore",
-     "url": "https://aws.amazon.com/blogs/machine-learning/build-context-rich-research-agents-with-deep-agents-and-bedrock-agentcore",
-     "source": "aws_ml_blog",
-     "type": "news",
-     "summary_1line": "In this post, you'll build a competitive research agent that demonstrates this pattern end to end. This walkthrough targets developers building multi-step AI workflows who need isolated execution environments for thei...",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "2f2101adc8737656",
-     "published": "2026-06-15T13:56:33+00:00",
-     "editor_note": "Anchors the thread in construction — an end-to-end build of a competitive research agent on Deep Agents and Bedrock AgentCore with isolated execution for multi-step workflows."
-    }
-   ]
-  },
-  {
-   "date": "2026-06-16",
-   "items": [
-    {
-     "title": "DRFLOW: A Deep Research Benchmark for Personalized Workflow Prediction",
-     "url": "http://arxiv.org/abs/2606.18191v1",
+     "title": "Optimist Deep Research: An Iterative, State-Centric Agent for Autonomous Literature Research",
+     "url": "http://arxiv.org/abs/2610.23299v1",
      "source": "arxiv_cs_ai",
      "type": "paper",
-     "summary_1line": "Deep research (DR) systems are increasingly used for complex information-seeking tasks, but existing works mainly focus on generating reports and summaries. In contrast, many enterprise tasks instead require an agent...",
+     "summary_1line": "Most retrieval-augmented systems treat literature search as a single retrieval step followed by summarization. Real literature research works differently: the investigator's understanding of the question changes as th...",
      "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "0221a891a5b9e026",
-     "published": "2026-06-16T17:22:07+00:00",
-     "editor_note": "Redefines the goal toward enterprise needs: DRFLOW benchmarks personalized workflow prediction rather than report or summary generation."
+     "sid": "45845d76a34385a2",
+     "published": "2026-10-16T11:04:43+00:00",
+     "editor_note": "Treats literature research as iterative, with agent state updated as understanding of the question changes."
     }
    ]
   },
   {
-   "date": "2026-06-18",
+   "date": "2026-10-22",
    "items": [
     {
-     "title": "ScaffoldAgent: Utility-Guided Dynamic Outline Optimization for Open-Ended Deep Research",
-     "url": "http://arxiv.org/abs/2606.20122v1",
-     "source": "arxiv_llm_reliability",
+     "title": "Beyond Watching and Searching: Benchmarking Agents for Video-centered Deep Research Reports",
+     "url": "http://arxiv.org/abs/2610.31158v1",
+     "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "Open-ended deep research (OEDR) requires systems to acquire knowledge through multi-round retrieval and generate coherent long-form reports. The outline plays a central role as a structural scaffold that coordinates r...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "b453c7e259c052f6",
-     "published": "2026-06-18T11:47:13+00:00",
-     "editor_note": "Turns to the report itself: ScaffoldAgent treats the outline as the optimization target, using utility-guided dynamic outline optimization for open-ended, multi-round-retrieval reports."
+     "summary_1line": "Deep research agents synthesize open-web evidence into long reports, but current benchmarks do not evaluate research centered on a source video. We introduce Video-Centered Deep Research Report Generation. Given a vid...",
+     "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
+     "sid": "ed508b2931c601f2",
+     "published": "2026-10-22T12:15:30+00:00",
+     "editor_note": "Introduces a benchmark task where the research report is centered on a given source video."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-02",
+   "items": [
+    {
+     "title": "DR Pixel: Page-Native Deep Research with Vision-Language Models",
+     "url": "http://arxiv.org/abs/2611.03097v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Complex documents such as scientific papers contain rich information in tables, figures, and equations; however, existing deep research (DR) agents typically reduce papers to OCR-extracted text. We instead ask whether...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "2e1dfcc99bc4c300",
+     "published": "2026-11-02T13:13:42+00:00",
+     "editor_note": "Replaces OCR-extracted paper text with page-level vision-language input for deep research."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "In mid-June the target for deep research agents kept moving. AWS shipped a build pattern — an end-to-end competitive research agent on Deep Agents and Bedrock AgentCore with isolated multi-step execution. Then DRFLOW argued the real enterprise goal is predicting a personalized workflow, not generating a report, shifting what the agent is even supposed to optimize.",
+  "tldr": "Deep research agents are being redefined by what they read and how they search. In October, an arXiv paper proposed an iterative, state-centric agent for literature research, and another introduced a benchmark for reports centered on a source video.",
   "stale": false,
-  "whats_new": "The newest item, ScaffoldAgent (Jun 18), moves the focus back to generation: it frames open-ended deep research as multi-round retrieval feeding a coherent long-form report and makes the outline the optimization target via utility-guided, dynamically optimized scaffolding.",
-  "why_it_matters": "What a deep research agent should be graded on is still unsettled — personalized workflow prediction versus outline-driven long-form coherence pull the design in different directions — and the criterion you pick changes what you build; AWS's Deep Agents + Bedrock AgentCore walkthrough is a ready reference for the multi-step plumbing under any of them.",
-  "take_for_builders": "If you're building a deep research agent, decide up front which bar you're optimizing — personalized workflow prediction or outline-driven long-form coherence — because they pull the design in different directions; the AWS Deep Agents + Bedrock AgentCore pattern gives you the isolated, multi-step execution plumbing regardless.",
+  "whats_new": "On Nov 2, DR Pixel proposed page-native deep research: vision-language models read papers as page images, rather than OCR-extracted text.",
+  "why_it_matters": "Text-only retrieval pipelines drop tables, figures and equations; if your research agent ingests PDFs, the input modality is now a design choice to test.",
+  "take_for_builders": "If your research agent reads PDFs, test a vision-language pass on pages with tables and equations against your OCR pipeline before trusting text-only extraction.",
   "status": {
    "state": "Active research",
    "tone": "rising",
-   "changed": "2026-06-18",
-   "detail": "A fast-moving research thread where the success criterion for deep research agents keeps being redefined — from build patterns to workflow prediction to report-generation structure."
+   "changed": "2026-11-02",
+   "detail": "Academic work is widening deep research from text search to iterative state, video sources and page images."
   },
   "beats": [
    {
-    "kicker": "BUILD PATTERN",
+    "kicker": "ITERATIVE SEARCH",
     "tone": "launch",
-    "headline": "AWS ships an end-to-end research agent on Deep Agents + Bedrock AgentCore",
-    "summary": "A concrete walkthrough builds a competitive research agent with isolated execution for multi-step workflows.",
+    "headline": "Optimist Deep Research tracks evolving understanding across literature search",
+    "summary": "Argues single-step retrieval plus summarization misses how an investigator's question changes.",
     "sids": [
-     "2f2101adc8737656"
+     "45845d76a34385a2"
     ]
    },
    {
-    "kicker": "NEW TARGET",
+    "kicker": "NEW INPUT",
     "tone": "turn",
-    "headline": "DRFLOW benchmarks personalized workflow prediction, not report generation",
-    "summary": "Argues enterprise tasks need the agent to predict a personalized workflow rather than summarize.",
+    "headline": "A benchmark for video-centered deep research reports",
+    "summary": "Evaluates agents given a source video rather than a text query.",
     "sids": [
-     "0221a891a5b9e026"
+     "ed508b2931c601f2"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "ScaffoldAgent makes the outline the lever for long-form deep research",
-    "summary": "Utility-guided dynamic outline optimization for open-ended, multi-round-retrieval reports.",
+    "headline": "DR Pixel reads papers as page images with vision-language models",
+    "summary": "Targets tables, figures and equations lost to OCR text extraction.",
     "sids": [
-     "b453c7e259c052f6"
+     "2e1dfcc99bc4c300"
     ]
    }
   ],
   "open_questions": [
-   "Do these competing criteria — personalized workflow prediction versus outline-driven report quality — converge into one benchmark, or stay fragmented?",
-   "Does outline-first generation (ScaffoldAgent) measurably beat report-first approaches on open-ended deep research?",
-   "Will production stacks like Deep Agents + Bedrock AgentCore adopt any of these academic evaluation criteria?"
+   "Does DR Pixel beat OCR-text baselines on figure- and table-heavy questions, and at what compute cost?",
+   "Do the video-centered and page-native benchmarks converge on a shared evaluation protocol?",
+   "Does iterative state tracking (Optimist) improve results on open-ended reports versus single-pass retrieval?"
   ],
-  "generated_at": "2026-06-30T15:35:14Z"
+  "generated_at": "2026-11-04T06:00:00+00:00"
  }
 }

@@ -1,0 +1,56 @@
+{
+  "slug": "moe-inference",
+  "generated_at": "2026-11-04T00:00:00+00:00",
+  "covers_last_updated": "2026-11-03T21:17:06+00:00",
+  "covers_member_sids": [
+    "ed7966c78dc36a0b",
+    "b836eb939c37ffa5",
+    "99fb85f961738c74"
+  ],
+  "tldr": "An Oct 27 arXiv paper framed edge MoE inference as an expert-weight movement problem rather than a compute problem. Two Hacker News posts followed within a week, showing the same memory constraint being attacked on a single DGX Spark and on Macs.",
+  "whats_new": "A Show HN project (Nov 3) claims faster MoE inference on a Mac with less RAM, following a Nov 2 post on running a 124B MoE on one DGX Spark.",
+  "why_it_matters": "MoE models only fit small hardware if expert weights are moved or compressed cleverly, so memory footprint, not FLOPs, decides which models you can serve locally.",
+  "status": {
+    "state": "Developing",
+    "tone": "rising",
+    "changed": "2026-11-03",
+    "detail": "Research and hobbyist projects converge on memory-bound MoE inference on small hardware."
+  },
+  "beats": [
+    {
+      "kicker": "RESEARCH",
+      "tone": "launch",
+      "headline": "CRISP: pruning plus scheduling for edge MoE",
+      "summary": "Names expert-weight movement, not compute, as the edge bottleneck.",
+      "sids": [
+        "ed7966c78dc36a0b"
+      ]
+    },
+    {
+      "kicker": "HANDS-ON",
+      "tone": "rising",
+      "headline": "124B MoE tuned on a single DGX Spark",
+      "sids": [
+        "b836eb939c37ffa5"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Show HN: faster MoE on Mac with less RAM",
+      "sids": [
+        "99fb85f961738c74"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Do the Mac and DGX Spark projects publish tokens-per-second and RAM figures that others can reproduce?",
+    "Do practitioner projects adopt expert pruning or scheduling ideas like CRISP's?"
+  ],
+  "take_for_builders": "If you plan local MoE serving, benchmark peak memory and expert-load traffic on your target hardware before trusting parameter-count estimates.",
+  "day_captions": {
+    "ed7966c78dc36a0b": "Research framing: expert-weight movement dominates edge MoE inference.",
+    "b836eb939c37ffa5": "Practitioner report on fitting a 124B MoE onto one DGX Spark.",
+    "99fb85f961738c74": "Applies the memory-reduction goal to Mac hardware."
+  }
+}

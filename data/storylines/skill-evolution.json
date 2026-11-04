@@ -1,0 +1,102 @@
+{
+ "slug": "skill-evolution",
+ "label": "Skill Evolution",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-10-19T07:29:21+00:00",
+ "last_updated": "2026-11-02T14:50:06+00:00",
+ "generated_at": "2026-11-04T00:12:28.797841+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_cl"
+ ],
+ "days": [
+  {
+   "date": "2026-10-19",
+   "items": [
+    {
+     "title": "EvoSkill v2: Fully Agentic Skill Evolution from Benchmark Adaptation to a Stateful Evolver",
+     "url": "http://arxiv.org/abs/2610.25931v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "EvoSkill v2 is a three-agent system that edits the instructions (skills) an agent is given, leaving its model and harness intact. The user starts a run by describing a benchmark and supplying a grader, which a benchma...",
+     "why_it_matters": "Matches feed focus: agentic, harness.",
+     "sid": "3af6dffb8c0777d2",
+     "published": "2026-10-19T07:29:21+00:00",
+     "editor_note": "Skill evolution with model and harness held fixed."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-26",
+   "items": [
+    {
+     "title": "Hierarchical Skill Evolution for Coding Agent",
+     "url": "http://arxiv.org/abs/2610.35616v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Skills provide agents with reusable experience to guide future decisions without modifying the underlying model. However, coding trajectories are often entangled with task- and repository-specific contexts, making it...",
+     "why_it_matters": "Matches feed focus: agent, harness, eval.",
+     "sid": "187923b6aa7d2a93",
+     "published": "2026-10-26T15:34:29+00:00",
+     "editor_note": "Adds hierarchy to disentangle reusable experience from repo context."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-02",
+   "items": [
+    {
+     "title": "ScienceCUA: Resource-to-Skill Construction and Execution-Guided Skill Evolution for Scientific Computer Use Agents",
+     "url": "http://arxiv.org/abs/2611.03238v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Computer-use agents for scientific software require application-specific expertise. Much of this expertise is documented in human-authored software manuals and web pages. However, turning these resources into executab...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "1e71fb03632c55bc",
+     "published": "2026-11-02T14:50:06+00:00",
+     "editor_note": "Extends skill construction to documentation-driven scientific software."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "EvoSkill v2 (Oct 19) evolves agent skills, meaning instructions, without touching the model or harness. A Oct 26 paper extended this to coding agents with hierarchical skills.",
+  "stale": false,
+  "whats_new": "ScienceCUA (Nov 2) builds skills from software manuals and web pages and refines them from execution feedback for scientific computer-use agents.",
+  "why_it_matters": "Skills are editable text, so agent behavior can improve without retraining; the open issue is whether evolved skills transfer across tasks and repos.",
+  "take_for_builders": "Version agent skills like code and keep a grader or benchmark, since evolution loops need a measurable signal to accept edits.",
+  "beats": [
+   {
+    "kicker": "LAUNCH",
+    "tone": "launch",
+    "headline": "EvoSkill v2: a three-agent system that edits skills",
+    "sids": [
+     "3af6dffb8c0777d2"
+    ]
+   },
+   {
+    "kicker": "CODING",
+    "tone": "rising",
+    "headline": "Hierarchical skills separate reusable experience from repo-specific context",
+    "sids": [
+     "187923b6aa7d2a93"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "ScienceCUA builds skills from manuals and evolves them by execution",
+    "sids": [
+     "1e71fb03632c55bc"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do evolved skills hold up on tasks and repositories outside their training benchmark?",
+   "Does skill evolution beat hand-written skills on a shared benchmark?"
+  ],
+  "generated_at": "2026-11-04T00:00:00+00:00"
+ }
+}

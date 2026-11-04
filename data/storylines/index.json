@@ -1,7 +1,297 @@
 {
- "generated_at": "2026-11-03T00:12:58.466703+00:00",
+ "generated_at": "2026-11-04T00:12:28.797841+00:00",
  "window_days": 21,
  "storylines": [
+  {
+   "slug": "moe-inference",
+   "label": "MoE Inference",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-10-27T15:51:14+00:00",
+   "last_updated": "2026-11-03T21:17:06+00:00",
+   "latest_title": "Show HN: Run faster MoE inference on Mac with less RAM",
+   "days": [
+    "2026-10-27",
+    "2026-11-02",
+    "2026-11-03"
+   ],
+   "member_sids": [
+    "ed7966c78dc36a0b",
+    "b836eb939c37ffa5",
+    "99fb85f961738c74"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.37442v1",
+    "https://developer.nvidia.com/blog/3-ways-to-boost-moe-inference-on-nvidia-dgx-spark",
+    "https://github.com/davide-troiani/moeshift"
+   ],
+   "editorial": {
+    "tldr": "An Oct 27 arXiv paper framed edge MoE inference as an expert-weight movement problem rather than a compute problem. Two Hacker News posts followed within a week, showing the same memory constraint being attacked on a single DGX Spark and on Macs.",
+    "stale": false,
+    "whats_new": "A Show HN project (Nov 3) claims faster MoE inference on a Mac with less RAM, following a Nov 2 post on running a 124B MoE on one DGX Spark.",
+    "why_it_matters": "MoE models only fit small hardware if expert weights are moved or compressed cleverly, so memory footprint, not FLOPs, decides which models you can serve locally.",
+    "take_for_builders": "If you plan local MoE serving, benchmark peak memory and expert-load traffic on your target hardware before trusting parameter-count estimates.",
+    "status": {
+     "state": "Developing",
+     "tone": "rising",
+     "changed": "2026-11-03",
+     "detail": "Research and hobbyist projects converge on memory-bound MoE inference on small hardware."
+    }
+   }
+  },
+  {
+   "slug": "qwen-3-8",
+   "label": "Qwen 3.8",
+   "item_count": 5,
+   "day_count": 4,
+   "source_count": 2,
+   "first_seen": "2026-10-14T22:45:12+00:00",
+   "last_updated": "2026-11-03T16:29:48+00:00",
+   "latest_title": "Qwen 3.8 27B on my laptop can interpret model weights, too",
+   "days": [
+    "2026-10-14",
+    "2026-10-16",
+    "2026-10-17",
+    "2026-11-03"
+   ],
+   "member_sids": [
+    "eb46c1aa3c061f69",
+    "3090d106095e188e",
+    "44f4290cb283614f",
+    "b22f4954318b022f",
+    "b5cba0d011349b3b"
+   ],
+   "member_urls": [
+    "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBHT2tEZnpYZTJmZ1ZHOFRSODgyb0dsLUlDc2lvZTRvcDNxY3dLaEd1M2ZWNzdkdlR1VFpybm1GeS1WZnd2ZllBaVpkeTFtSXZyeHBGQnp0SnBiOTdrbHJaazNpak5mSHM?oc=5",
+    "https://news.google.com/rss/articles/CBMiYEFVX3lxTE85Sjh5dTVCamRVaW5qYjF6RU9qZXBFX2l4d2VQWHh2NmdqLUw3VkpidFVjUWg0blBMSmE1a1ZFN2dZVTBuTElMX0JldTRMSHQtRno5ZDZMaXZXWnVHUWlSeA?oc=5",
+    "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1rdlE1OXNmRElDUXNzS1NQWXJuaF9UWHRTY09fZjh6RzNMaElEZ3ZiQ0QyZkNZRi1wS1ZWazlwWnVxMTRVdmFnZ0Z3X1daOVp4clpLdGR6YlN4SmI2Ry1N?oc=5",
+    "https://news.google.com/rss/articles/CBMicEFVX3lxTE01WUJ1RmxSZzFhLWFZbGZwTkRtNU8wLXoyWXlwNEpwR0JjanlYZFVuMkN4ajUybkdHWlJaZ1ZkT2R6cUh4NVdFd0FDX1JNVVh3eDNvWHVtTGJmeUN0UTdldFZaZktmaEpaeFd3OGVnbHU?oc=5",
+    "https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights"
+   ],
+   "editorial": {
+    "tldr": "Earlier Qwen 3.8 coverage centered on benchmark claims for the 27B open-weight build. In mid-October, OrcaRouter published four comparison pieces that set other models against Qwen 3.8 (UserRepGen-4B, Beam 1.0, Glimpse, Dory 1.0 4B).",
+    "stale": false,
+    "whats_new": "On Nov 3, Simon Willison reported that Qwen 3.8 27B running on his laptop can interpret model weights, tied to the Sparks of Weight-Space Programming paper.",
+    "why_it_matters": "Qwen 3.8 27B is now a baseline other vendors position against, and a laptop-sized open model is being used for weight-level interpretability experiments.",
+    "take_for_builders": "If you use Qwen 3.8 27B locally, rerun the weight-reading experiment on your own checkpoint before relying on it, and treat vendor comparison posts as unverified until they cite benchmark scores.",
+    "status": {
+     "state": "Reference baseline",
+     "tone": "rising",
+     "changed": "2026-11-03",
+     "detail": "Qwen 3.8 appears mostly as a comparison point, with one new hands-on interpretability result."
+    }
+   }
+  },
+  {
+   "slug": "same-different",
+   "label": "Same Different",
+   "item_count": 5,
+   "day_count": 4,
+   "source_count": 3,
+   "first_seen": "2026-10-22T08:25:51+00:00",
+   "last_updated": "2026-11-03T15:57:39+00:00",
+   "latest_title": "Same Model, Different Harness: CUGA, Hermes, and Deep Agents — When to Pick CUGA?",
+   "days": [
+    "2026-10-22",
+    "2026-10-26",
+    "2026-11-01",
+    "2026-11-03"
+   ],
+   "member_sids": [
+    "615493c68bfd12ef",
+    "352167f7ac41065b",
+    "40a1feed41fe68a1",
+    "b78023b26122d472",
+    "b05fd13d79e76b34"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.30903v1",
+    "http://arxiv.org/abs/2610.31544v1",
+    "http://arxiv.org/abs/2610.35208v1",
+    "https://m3.sineframe.com/blog/same-model-different-agent",
+    "https://huggingface.co/blog/ibm-research/cuga-harness"
+   ],
+   "editorial": {
+    "tldr": "Most of this thread shares a \"Same X, Different Y\" title pattern, not one event. Three arXiv papers (Oct 22-26) cover chemistry identifier binding, credit assignment for agentic RL and news framing; a Nov 1 post then reported a 17-point gap between agents using one model.",
+    "stale": false,
+    "whats_new": "On Nov 3, an IBM Research Hugging Face post compared CUGA, Hermes and Deep Agents on the same model, asking when to pick CUGA.",
+    "why_it_matters": "Two harness-versus-model posts in three days make the same point: the agent harness can move results as much as the model, so evaluate the full stack.",
+    "take_for_builders": "Hold the model fixed and vary the harness in your own eval on your MCP servers; treat the 17-point figure and IBM's CUGA comparison as vendor or blog results until reproduced.",
+    "status": {
+     "state": "Harness comparison emerging",
+     "tone": "rising",
+     "changed": "2026-11-03",
+     "detail": "Title-match papers are coincidental; the Nov 1 and Nov 3 posts form the real thread on harness effects."
+    }
+   }
+  },
+  {
+   "slug": "deepseek-deepinfer",
+   "label": "DeepSeek Open-sources",
+   "item_count": 42,
+   "day_count": 16,
+   "source_count": 10,
+   "first_seen": "2026-10-14T09:06:49+00:00",
+   "last_updated": "2026-11-03T04:27:10+00:00",
+   "via_scout": true,
+   "latest_title": "Is hosting an open-source inference engine profitable?",
+   "days": [
+    "2026-10-14",
+    "2026-10-17",
+    "2026-10-18",
+    "2026-10-20",
+    "2026-10-21",
+    "2026-10-22",
+    "2026-10-23",
+    "2026-10-24",
+    "2026-10-25",
+    "2026-10-26",
+    "2026-10-29",
+    "2026-10-30",
+    "2026-10-31",
+    "2026-11-01",
+    "2026-11-02",
+    "2026-11-03"
+   ],
+   "member_sids": [
+    "5f579aa6acc66ac6",
+    "ce1f00045df6fba8",
+    "db7388ca69770009",
+    "0714a9511cb60f66",
+    "c1a5085521f06cf8",
+    "6ca9e1ceeea5a770",
+    "be61663792fa0af3",
+    "861b6347e652747b",
+    "b7d3f6df6ecbe2c9",
+    "8da24ee4e99be00d",
+    "ecdc2bd2da306c52",
+    "249a6af86a1f4f73",
+    "13bafceb1538461d",
+    "9c99dc597b92594a",
+    "c928ee663a751a10",
+    "5a29dcd699a504fa",
+    "a0784d9bff0dcc3c",
+    "ff59ea23eb8cc0be",
+    "b3f4301ff8d83589",
+    "520159e6ebe00b0f",
+    "60ee2bd6a79177f2",
+    "d36c96c2a6372e9b",
+    "c888971c48a268c3",
+    "4d53557cac2f8289",
+    "72b88f8041b34aeb",
+    "11667337918f4f3c",
+    "378efdb4d515dcd8",
+    "7c1fed0d11e9b516",
+    "05c46a37b489922f",
+    "0b386b33c8983aa1",
+    "b80471ec3bc792a2",
+    "96207d6b2522935e",
+    "c7641f54401d6258",
+    "5bd78febd4a59e34",
+    "7ae79fa7e63f017f",
+    "7f903ef14a1441d8",
+    "d795ff607b219d9a",
+    "8ffb3cb5b711c694",
+    "e6077e10f16ce2d8",
+    "a8f5be6d64b1c57f",
+    "4141e315102a7089",
+    "faef8337e561998f",
+    "bce25dc1c825a3e7",
+    "2f11643a689186b4"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.19834v1",
+    "https://news.google.com/rss/articles/CBMingFBVV95cUxQZUFkNm9JaDNLYzVRVTcwaDNTNldBMS1XbVZlQ3RpcnBrU3NNczNicTFRYmY2RkY2bmVyZENQZkVhYmRLUnpKMFZhTmQwamVNUlp2RzRmWFlNZU1jdUxnUlZ1WHBBVWhlVnR4ck5YRFhmaTZ4WWV0Q3JGUmFJLUJkWUI4TzdrWTFXMGJoTW9UR0oxNWs0N1VXRnNVRE9FUQ?oc=5",
+    "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOdm1kSExLR1hxSXpsdTVpSmtTTnVlQkdNRjhRZHUwR1pxU3ZyYkxxSUZINk95N1d5Z1lxSmpBS3ZWbHVmRWp1dmY3REx5bnNYSGRTblczTUw5VFdIaER0UWM4Q2hZRTRQVDdOazZ5YmJVT3puV3p5YlZWcTB5M2hOTHIwYWxzcGM2a2gwY0c2VmZSRTZzSnY1SUIwb0V3T01XbDBwaFZYUWpNbXFhRFlnc0QxSHhIMGIteDJJ?oc=5",
+    "https://news.google.com/rss/articles/CBMizgFBVV95cUxQRENMaFZVanUzZXQwV21aVnRYWVZnU3g5WFNNUVAzamZCMF9UamVzbDlUMGRLaXctNVIzNEptalYwX2NqWUxqbzA1SEJUMkZEQ1Z6NlkxaUJqVlVodExja0RxR1Q1Sk91R1NRUjUxUFhpZlR6bGpzUWNURVZMV25CTXJDTGhtVk9PSmFTdmpSc0FJeVZ4X2c5R0dRMWYxWjUtWGdCbDBTQlJQU1VTMlFUWnBkTXlpMUVIbDJlVndUT3VvSE5UWHJQdXc4cS01QQ?oc=5",
+    "https://news.google.com/rss/articles/CBMia0FVX3lxTE0zR2ZXSXhOMHBvRF9MX3Fjc0wtcmxmWUhIYjVBSFV3WFpyMTJqVFFyTkt5alZOandJRTBiX2c2Q3dqTExYblRfOElJZzFCWkhUdTlTM3VjY0ZrZlBHUVlXMTBldmpCalB2LXJz?oc=5",
+    "https://news.google.com/rss/articles/CBMitgFBVV95cUxNaTNwMlNFRlZ6SkZCMWtZaEJfUWdXbGxlQVBnSEZOZ0dVM1dLc240NTVQdnZTbjJqd2pRWVNpUUZVYldWZDlzdF8waFlUVlRRaW1uYllNRjdVNFZZSW9aeFhGQmRzS1p1VmhFUG9HbTMzaE5hTm1mOGFwSHp5VzlEbTEtc2ZsQTJ3amdCVjhkZUU5bkY3UDM2ajNRcGY4aDJBWjhFbGljNjlZaXI1X3gyX1gyYTV4QQ?oc=5",
+    "https://news.google.com/rss/articles/CBMif0FVX3lxTE1IRHJQZVBMMTdReU1BbHdBX3JfNnZ4MUxfUEhZQnhzcW9zbklPa0xZZmxHWlMxeUg5QXExYld5NS02ZU1iWUlMeFdadjVpTFk2eWxLS00yR3lUMm9obl9jbE43RF8wQjZjWVlQSWpuN2J0eWN2dFdxckJDWU9ISDQ?oc=5",
+    "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOb01YenVDbE5LRnNkaWVVOUczR3hpMFlVYWlTRk9BX3NlMUp0QVBHdWlzVTBEcGlPMmZXdmRCaWtIaUthbmlfQml2bjFSY1NkNVRlSUx0LVBWeTh4WkhzYklCTnJmc0JraFZFQ3NDRUV4ME1jbUlEOVYtY3kwNjFacXNkVmgwZGlfeHZsVF8tTzJQVXlvSVdubnRCQXlLeEVKdlNVYWlOOV9BUzJEeHh0aGd0MUlkU01Z?oc=5",
+    "https://news.google.com/rss/articles/CBMisgFBVV95cUxQU1g5bE5jajR2Tjc3Rmx3cjVXeThXSHdGMkJXYUM4YWR1eEVlS2pwUUg2RFY0OHIwLWlnQU5zT19IcTFaMVJlVGQxTDRYUkFmTHJWQWZPZjNkZHRYRGd5Ym5QbjZvX3RLc3dWb0l3bmZVNEVjdzVNVXVsaWtES0owM1B4YjFoM1VoNE9oYk9Vbko1Mm03YVhMaWxjRXNmUkdOOU5MVDJxZEc3S1dnODBJcmpB?oc=5",
+    "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOSWRWVTdKcHNNZVpFRmJSNFZKVHdSQVpxbTNGT1AxLWJ4T1htaWlubWo0MTVBSXdxcGJIOVozQjhKNUI3TW11MFlYZnRvcmhLNEJWN0t4M190dFgyQV9BY0hFTmU4eXNnYzNJbXpycEVzOUNuRVY4T1BnYThPRWpJV0dYYUJ1RHVsUURPOTB0a0dtM0dnWTk0cURhMHNQYzdSdDNoblpHc3pzVWJ2ZnM2T3JJNDI3YzdwQ183MjZwM0Q?oc=5",
+    "https://news.google.com/rss/articles/CBMiggFBVV95cUxOUERNc0tRaVcxc2JFR2pHQU1JcHRkZk5ySTVXUHlsOFhxaE5mdGJjOTY5ek9HQTFNdzVzQmtpcFY5LTlEako5aHRPSnBXdmg1ZVZ0N0JpRUEyS1dma28xUF9IdEVxRnM1ZjB3eHpMSGhjb1dlc0JvYmtBYjJqQmsxWTN3?oc=5",
+    "https://news.google.com/rss/articles/CBMipwFBVV95cUxOcWxaVjdURVh2U0tyVVZTOVdPRlVrVi1sWGVCZWVSNGZweTl1NjY2YnVEdE1SXzVncGNnaU1qQWp4NUFfLWpVM1NJcmZFSzJwOWJCSlZuVTRDOUFocXREV0g1dWlHa2Njbng4SUZtN0tLMkF3V1VHbkJGUjVmNDIzZEYxNEpaR1ZXZWxObDZFMEo0cFlDLUstTTlUdHdSSjZpbWJDN0JjOA?oc=5",
+    "https://latent.space/p/ainews-deepseek-deepinfer-open-source",
+    "https://www.latent.space/p/ainews-deepseek-deepinfer-open-source",
+    "https://news.google.com/rss/articles/CBMipAFBVV95cUxORmtUMnZPWTFnenFJQUlENWc2eWJ4RTJoTUFoNkM2ZC04dnBWdjNhZzMxVHdvR1hHRnoxUkFIVWRfX1hwbldqRWtxanQyczJuRlpOUTZjSHI1SUZXQ21BcktycXdtUDdoUU02ZjAwUmtGQkRQX0RwRllwazY3anN4amFLWnFEZlpIRjl0YUV0cTBYUUY1YmhYRWxXUVZzLWl4Smp5cA?oc=5",
+    "https://news.google.com/rss/articles/CBMingFBVV95cUxNT1RCUmFqMFgzVEZyOExGbjgwZjU0Tk9MWHVGS0tuT3BpMFptQU5UYUp1aWhlVVFacUxkRklyYXd4SjVzRjRURVFBX2FSZXdseHFhdmVta25MUG5fYUkzMWFGcENucU1xMTFHTTd1clF3OE1yX3ZGRTNkODlzeUJKSkFTcjY3elRwRkJtMEc2dFhoM1p6OWp0NFVOWkg3UQ?oc=5",
+    "http://arxiv.org/abs/2610.30090v1",
+    "http://arxiv.org/abs/2610.30499v1",
+    "http://arxiv.org/abs/2610.30611v1",
+    "https://deepsense.ai/blog/your-agent-passed-the-eval-should-you-ship-it",
+    "http://arxiv.org/abs/2610.30946v1",
+    "http://arxiv.org/abs/2610.31422v1",
+    "http://arxiv.org/abs/2610.31529v1",
+    "http://arxiv.org/abs/2610.31573v1",
+    "http://arxiv.org/abs/2610.32665v1",
+    "https://news.google.com/rss/articles/CBMinAFBVV95cUxNWFQyRXJtQU5CWDVfWjZfUXpLaDFFUkFJc2tkWWE3RDljeVRhRmoyRXhIS1A1cG5Hd0VxTDhZdlNENmY1czlEQ19uZjVKOXRja1ZMeW5DNXpNT1hydjNKUlNLaFpZNlV2OHI5NkZIaGJFbUs0OUpMa1JqLUc2WHdjN2VmTHY0eDJCZDI2aW5mQVFudnl2RXdWSDJWNzE?oc=5",
+    "http://arxiv.org/abs/2610.34450v1",
+    "http://arxiv.org/abs/2610.34722v1",
+    "http://arxiv.org/abs/2610.40345v1",
+    "http://arxiv.org/abs/2610.41124v1",
+    "http://arxiv.org/abs/2611.00464v1",
+    "http://arxiv.org/abs/2611.00530v1",
+    "https://dasllama.io/articles/2026-10-28-the-need-for-speed.html",
+    "https://github.com/deepseek-ai/dsh-superagent-prototype",
+    "https://news.google.com/rss/articles/CBMikwFBVV95cUxPTFhOWk9yYkRyNkE0d3FxeWNtVDdmcGFNTHBxeWxINk1iUGJMQTd4c2lXRkNMY3NjejVyTGIwZmdYQXUweTdNUHAwblI5M2dGNmd5TWR5SXo4Rmx6d3ZCWjZhX21YZHNoMDNhT3cycEtxd2FGeEdPbkR3UWRiRkNwbTJyandOcEtQXzRyUkxhdlhybTg?oc=5",
+    "https://news.google.com/rss/articles/CBMisAFBVV95cUxOaUpld3paRUZYenVQaE96RThTb1p3QXUyNm5OSWVtNnZoRXVQdFJPX2VyYVJxNzFqYXliNk1pQUJETkdQdzI2Qm40TDBkTDhSTmZQX0RKYTZvSjRyRFJXWU5QdjVnOHJZV3hlaUgwUmZ1aXg4V3kxU002QnBwbngteU5hckdXM0dKOFlqMlpIZXNzMG5fNHVuTm8zTWlHdktMeEM1MzU1Z3owcW9pMm1wZA?oc=5",
+    "https://news.google.com/rss/articles/CBMidkFVX3lxTE04Z3JfR3VDQUZIMjhMdXZQeWltTmxyYmk1SVNqM3ExYUNZaVVpTzNYelZGaXI5Z0MwbEtrRmhRS0xSblJpMmQtZm12S1V3b1ZzYlFSckxTN1ppT1Y1U1lQWElMVDF3NFBsb0ozMGhLNmw4ZGFnZFE?oc=5",
+    "https://news.google.com/rss/articles/CBMilgFBVV95cUxOVGVmcmxZdFpKS25HOEFNbnFrZmRkd0ZRVFNjUlNMMEEwQXZ3YjFSTm9nNGU3NGZMeFBQWEhtZUlvQU9Va3UzeDlIZXVMaW5QM0w1YUpscHUtMHVqeDlSTnotOTZLNXNUV09abkc3U0VGZjU0MTlLaWJJdGtEWnhTMFlkQWJuWWFVUmRnTFB4eXlUbDNiY0HSAZYBQVVfeXFMTlRlZnJsWXRaSktuRzhBTW5xa2ZkZHdGUVRTY1JTTDBBMEF2d2IxUk5vZzRlNzRmTHhQUFhIbWVJb0FPVWt1M3g5SGV1TGluUDNMNWFKbHB1LTB1ang5Uk56LTk2SzVzVFdPWm5HN1NFRmY1NDE5S2liSXRrRFp4UzBZZEFibllhVVJkZ0xQeHl5VGwzYmNB?oc=5",
+    "https://github.com/NVIDIA/spark-local-inference",
+    "https://news.google.com/rss/articles/CBMihAFBVV95cUxQcFMxa1Q5RUs4eUlwcWV2bWdMNU1NR1gwbXpGUnFwZThweTRTU1VGQUZKTkh5Ukp1NnJPMG5FdkZCbXZSeDQwWXJvNmVON09JMzVvaUlDVTc4RjJpakxSdDF5aUJVSkdIbzBpajdyM0steEp6NUpDWmk3c0t3Zk5yXzd1V3o?oc=5",
+    "https://news.google.com/rss/articles/CBMiowFBVV95cUxPZlhRZXhnYlJmX1RiOUdNamRqUXJUU2NycHNuZWtGeEVUejJxNVdEQkQzUU1HMkxHR1dXeDhBVDlPRmVyUHFoMU96VkdBYzlRUFRSWkFFTGVBWWFjNXRRaUlld2d2alpFdVd0VXFlR2tMeXNJUWdDc3c1cG5SR3BPRVd0OVRFLXBvMWhJZ0hzRG1qU2VQazBDQjNQNHl2cXRJZFZV?oc=5",
+    "https://news.google.com/rss/articles/CBMidkFVX3lxTE5nREY5eGxfa2tXV0ZxeHZpekdIaS05UWdfYUxVTHNIR01TdnU0MEhxaHA2NE1iSHE2MnpHRUgtM3VvR2x2ZEpKQ1ljYVFEME9lQTEtOHNXSHdkT0Jjb0VPTUgtYnNVdEQ2RXBlMERLOTRTcF9ic2c?oc=5",
+    "http://arxiv.org/abs/2611.03301v1",
+    "https://userecurrence.ai/research/is-hosting-open-source-inference-profitable"
+   ],
+   "editorial": {
+    "tldr": "DeepSeek open-sourced DeepInfer on Oct 20, the inference software behind its production models, first framed as a way to cut AI operating costs and then as pressure on OpenAI and Anthropic. Oct 21 coverage added the 155T tokens-a-day serving scale and a high serving margin.",
+    "stale": false,
+    "whats_new": "Nov 2: TechNode, TNGlobal and Help Net Security describe DeepSeek's dsh-superagent as a proactive research prototype, a coding agent that watches team chats for work.",
+    "why_it_matters": "Two open DeepSeek releases in two weeks, a serving stack and a coding-agent architecture, give platform teams reference designs to benchmark their own inference and agent harness against.",
+    "take_for_builders": "Read the DeepInfer and dsh-superagent repos and licenses before borrowing designs; treat the margin and bug-fixing claims as unverified until someone reproduces them outside DeepSeek's stack.",
+    "status": {
+     "state": "Open-sourcing · agent prototype",
+     "tone": "now",
+     "changed": "2026-11-02",
+     "detail": "DeepInfer is public and unreproduced; dsh-superagent is described as a research prototype with no independent results yet."
+    }
+   }
+  },
+  {
+   "slug": "distributed-systems",
+   "label": "Distributed Systems",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-10-19T11:00:00+00:00",
+   "last_updated": "2026-11-02T17:56:28+00:00",
+   "latest_title": "DistDebug-Bench: Can LLM Agents Diagnose Bugs in Distributed Systems?",
+   "days": [
+    "2026-10-19",
+    "2026-10-28",
+    "2026-11-02"
+   ],
+   "member_sids": [
+    "640c8e1b8359ba47",
+    "cd86ac953a59e37c",
+    "3b1d851d80fa773c"
+   ],
+   "member_urls": [
+    "https://www.infoq.com/articles/distributed-systems-microservices-agentic-ai/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "http://arxiv.org/abs/2610.38793v1",
+    "http://arxiv.org/abs/2611.03523v1"
+   ],
+   "editorial": {
+    "tldr": "InfoQ argued on Oct 19 that agentic AI shifts distributed systems from functional decomposition to decision decomposition. A survey of trustworthy distributed ML followed on Oct 28.",
+    "stale": false,
+    "whats_new": "DistDebug-Bench (Nov 2) tests whether LLM agents can diagnose bugs in distributed systems, beyond the small self-contained modules existing benchmarks use.",
+    "why_it_matters": "Agents are being placed inside distributed architectures, but there is little evidence yet that they can debug them; a benchmark is the first way to measure that.",
+    "take_for_builders": "Before giving an agent on-call duties in a multi-service system, run it on distributed-failure scenarios; single-module coding scores do not predict this."
+   }
+  },
   {
    "slug": "google-open-source",
    "label": "Google Open-Source",
@@ -44,6 +334,121 @@
    }
   },
   {
+   "slug": "reinforcement-learning",
+   "label": "Reinforcement Learning",
+   "item_count": 22,
+   "day_count": 10,
+   "source_count": 6,
+   "first_seen": "2026-10-15T17:34:17+00:00",
+   "last_updated": "2026-11-02T15:36:22+00:00",
+   "latest_title": "An Axiomatic Framework for Reinforcement Learning in Open Multi-Agent Systems",
+   "days": [
+    "2026-10-15",
+    "2026-10-20",
+    "2026-10-21",
+    "2026-10-22",
+    "2026-10-23",
+    "2026-10-26",
+    "2026-10-27",
+    "2026-10-29",
+    "2026-10-30",
+    "2026-11-02"
+   ],
+   "member_sids": [
+    "db03100b1bd7cd3e",
+    "afd320e7f42ef5bd",
+    "a00ad2ffbda7f2e9",
+    "276a486ae6eefe6b",
+    "352167f7ac41065b",
+    "40c644a15cb895a9",
+    "2b4f7152c682448f",
+    "453c138d9feefee3",
+    "8a41e1e41cbecfde",
+    "1e1ae7d5d09cb859",
+    "c3af4f37e1c19b19",
+    "868490bacebdc880",
+    "c07d00b3f0a46112",
+    "d448a8af2a653453",
+    "02ad246823185a44",
+    "d571e973b6e6916d",
+    "9471fde9e20a1e58",
+    "29493d021878283c",
+    "65dc6916d3b352f1",
+    "4e3ef058b96b399d",
+    "473a95cd7c540d1a",
+    "bce25dc1c825a3e7"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.22269v1",
+    "http://arxiv.org/abs/2610.28785v1",
+    "http://arxiv.org/abs/2610.29426v1",
+    "http://arxiv.org/abs/2610.30435v1",
+    "http://arxiv.org/abs/2610.31544v1",
+    "http://arxiv.org/abs/2610.32435v1",
+    "http://arxiv.org/abs/2610.32772v1",
+    "http://arxiv.org/abs/2610.32951v1",
+    "https://aws.amazon.com/blogs/machine-learning/multi-turn-reinforcement-learning-on-amazon-sagemaker-ai-a-hands-on-guide",
+    "http://arxiv.org/abs/2610.32971v1",
+    "http://arxiv.org/abs/2610.35142v1",
+    "http://arxiv.org/abs/2610.35497v1",
+    "http://arxiv.org/abs/2610.35697v1",
+    "http://arxiv.org/abs/2610.36469v1",
+    "http://arxiv.org/abs/2610.37609v1",
+    "http://arxiv.org/abs/2610.39671v1",
+    "http://arxiv.org/abs/2610.40407v1",
+    "http://arxiv.org/abs/2610.41143v1",
+    "http://arxiv.org/abs/2610.41949v1",
+    "http://arxiv.org/abs/2610.42028v1",
+    "http://arxiv.org/abs/2611.02766v1",
+    "http://arxiv.org/abs/2611.03301v1"
+   ],
+   "editorial": {
+    "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 15 it has gathered an O-RAN benchmark, agentic-RL training papers on rollout cost and credit assignment, and AWS's SageMaker multi-turn guide.",
+    "stale": false,
+    "whats_new": "Nov 2: two arXiv papers add EffComp, a hybrid RL-plus-supervised prompt compressor aimed at cheaper LLM calls, and an axiomatic framework for RL in open multi-agent systems.",
+    "why_it_matters": "Agent RL is now judged on cost and reliability: EnvSched and calibrated budgets (Oct 20) target rollout spend, while MiRL and CalibraRL target named failures. All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
+    "take_for_builders": "If you train tool-using agents, measure rollout cost per environment (EnvSched, calibrated budgets), log recurring failure modes for error-targeted RL (MiRL), and A/B fine-grained credit against episode-level reward; treat paper results as unreplicated until rerun on your own evals.",
+    "status": {
+     "state": "Developing",
+     "tone": "rising",
+     "changed": "2026-11-02",
+     "detail": "A loose set of RL items; the newest add prompt compression and multi-agent theory to the agent rollout-cost, credit-assignment and reliability work."
+    }
+   }
+  },
+  {
+   "slug": "skill-evolution",
+   "label": "Skill Evolution",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-10-19T07:29:21+00:00",
+   "last_updated": "2026-11-02T14:50:06+00:00",
+   "latest_title": "ScienceCUA: Resource-to-Skill Construction and Execution-Guided Skill Evolution for Scientific Computer Use Agents",
+   "days": [
+    "2026-10-19",
+    "2026-10-26",
+    "2026-11-02"
+   ],
+   "member_sids": [
+    "3af6dffb8c0777d2",
+    "187923b6aa7d2a93",
+    "1e71fb03632c55bc"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.25931v1",
+    "http://arxiv.org/abs/2610.35616v1",
+    "http://arxiv.org/abs/2611.03238v1"
+   ],
+   "editorial": {
+    "tldr": "EvoSkill v2 (Oct 19) evolves agent skills, meaning instructions, without touching the model or harness. A Oct 26 paper extended this to coding agents with hierarchical skills.",
+    "stale": false,
+    "whats_new": "ScienceCUA (Nov 2) builds skills from software manuals and web pages and refines them from execution feedback for scientific computer-use agents.",
+    "why_it_matters": "Skills are editable text, so agent behavior can improve without retraining; the open issue is whether evolved skills transfer across tasks and repos.",
+    "take_for_builders": "Version agent skills like code and keep a grader or benchmark, since evolution loops need a measurable signal to accept edits."
+   }
+  },
+  {
    "slug": "mcp-servers",
    "label": "MCP Servers",
    "item_count": 3,
@@ -81,11 +486,49 @@
    }
   },
   {
+   "slug": "deep-research",
+   "label": "Deep Research",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-10-16T11:04:43+00:00",
+   "last_updated": "2026-11-02T13:13:42+00:00",
+   "latest_title": "DR Pixel: Page-Native Deep Research with Vision-Language Models",
+   "days": [
+    "2026-10-16",
+    "2026-10-22",
+    "2026-11-02"
+   ],
+   "member_sids": [
+    "45845d76a34385a2",
+    "ed508b2931c601f2",
+    "2e1dfcc99bc4c300"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.23299v1",
+    "http://arxiv.org/abs/2610.31158v1",
+    "http://arxiv.org/abs/2611.03097v1"
+   ],
+   "editorial": {
+    "tldr": "Deep research agents are being redefined by what they read and how they search. In October, an arXiv paper proposed an iterative, state-centric agent for literature research, and another introduced a benchmark for reports centered on a source video.",
+    "stale": false,
+    "whats_new": "On Nov 2, DR Pixel proposed page-native deep research: vision-language models read papers as page images, rather than OCR-extracted text.",
+    "why_it_matters": "Text-only retrieval pipelines drop tables, figures and equations; if your research agent ingests PDFs, the input modality is now a design choice to test.",
+    "take_for_builders": "If your research agent reads PDFs, test a vision-language pass on pages with tables and equations against your OCR pipeline before trusting text-only extraction.",
+    "status": {
+     "state": "Active research",
+     "tone": "rising",
+     "changed": "2026-11-02",
+     "detail": "Academic work is widening deep research from text search to iterative state, video sources and page images."
+    }
+   }
+  },
+  {
    "slug": "large-language",
    "label": "Large Language",
-   "item_count": 22,
+   "item_count": 25,
    "day_count": 10,
-   "source_count": 8,
+   "source_count": 9,
    "first_seen": "2026-10-16T14:26:44+00:00",
    "last_updated": "2026-11-02T11:00:00+00:00",
    "latest_title": "Article: Systemic Approach to Memory, Knowledge, and Context in Agentic AI Architectures",
@@ -122,7 +565,10 @@
     "e519641640234319",
     "1d7852cb09b3031f",
     "ce941c554e9fce8e",
+    "e46c1ab3f7ca9939",
     "a8a5f23cd8e10643",
+    "0f8439521ab02185",
+    "43862ef771dfba65",
     "744a7a52285cfa40"
    ],
    "member_urls": [
@@ -146,481 +592,54 @@
     "http://arxiv.org/abs/2610.40482v1",
     "http://arxiv.org/abs/2610.41169v1",
     "http://arxiv.org/abs/2610.41172v1",
+    "http://arxiv.org/abs/2611.00171v1",
     "http://arxiv.org/abs/2610.41968v1",
+    "http://arxiv.org/abs/2611.00450v1",
+    "https://www.anthropic.com/research/provable-inference",
     "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
    ],
    "editorial": {
     "tldr": "This page groups items by the shared phrase \"large language models\", so most of it is a reading list, not one thread. Oct 16-28 items cover sycophancy, code-translation hallucinations, search agents, steering and continual learning, and Mistral Large 4 shipped Oct 29.",
     "stale": false,
-    "whats_new": "Nov 2: InfoQ argues agentic architectures need a context engine that selects, injects, compresses and expires information, separating context, memory and knowledge.",
-    "why_it_matters": "Mistral Large 4 is the one deployable item: vLLM support landed with the weights. The newest items converge on context and memory design for agents, which is an architecture choice rather than a model swap.",
+    "whats_new": "Nov 2: Anthropic reported progress on zkSNARK-based provable inference, and InfoQ argued agentic architectures need a context engine that selects, injects, compresses and expires information.",
+    "why_it_matters": "Mistral Large 4 is the one deployable item: vLLM support landed with the weights. The newest items point at architecture choices: how agents manage context and memory, and how inference might be verified.",
     "take_for_builders": "If you self-host, pull Mistral Large 4 on the vLLM day-0 build and rerun your own evals before swapping it in. For agents, audit where context is selected, compressed and expired in your harness before adding more memory."
-   }
-  },
-  {
-   "slug": "deepseek-deepinfer",
-   "label": "DeepSeek Open-sources",
-   "item_count": 39,
-   "day_count": 16,
-   "source_count": 10,
-   "first_seen": "2026-10-13T15:03:31+00:00",
-   "last_updated": "2026-11-02T07:09:55+00:00",
-   "via_scout": true,
-   "latest_title": "DeepSeek open-sources Super-Agent, a coding agent that watches team chats for work",
-   "days": [
-    "2026-10-13",
-    "2026-10-14",
-    "2026-10-17",
-    "2026-10-18",
-    "2026-10-20",
-    "2026-10-21",
-    "2026-10-22",
-    "2026-10-23",
-    "2026-10-24",
-    "2026-10-25",
-    "2026-10-26",
-    "2026-10-29",
-    "2026-10-30",
-    "2026-10-31",
-    "2026-11-01",
-    "2026-11-02"
-   ],
-   "member_sids": [
-    "97a96debf9eea48c",
-    "5f579aa6acc66ac6",
-    "ce1f00045df6fba8",
-    "db7388ca69770009",
-    "0714a9511cb60f66",
-    "c1a5085521f06cf8",
-    "6ca9e1ceeea5a770",
-    "be61663792fa0af3",
-    "861b6347e652747b",
-    "b7d3f6df6ecbe2c9",
-    "8da24ee4e99be00d",
-    "ecdc2bd2da306c52",
-    "249a6af86a1f4f73",
-    "13bafceb1538461d",
-    "9c99dc597b92594a",
-    "c928ee663a751a10",
-    "5a29dcd699a504fa",
-    "a0784d9bff0dcc3c",
-    "ff59ea23eb8cc0be",
-    "b3f4301ff8d83589",
-    "520159e6ebe00b0f",
-    "60ee2bd6a79177f2",
-    "d36c96c2a6372e9b",
-    "c888971c48a268c3",
-    "4d53557cac2f8289",
-    "72b88f8041b34aeb",
-    "11667337918f4f3c",
-    "378efdb4d515dcd8",
-    "7c1fed0d11e9b516",
-    "05c46a37b489922f",
-    "0b386b33c8983aa1",
-    "c7641f54401d6258",
-    "5bd78febd4a59e34",
-    "7ae79fa7e63f017f",
-    "7f903ef14a1441d8",
-    "d795ff607b219d9a",
-    "8ffb3cb5b711c694",
-    "e6077e10f16ce2d8",
-    "a8f5be6d64b1c57f",
-    "4141e315102a7089",
-    "faef8337e561998f"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2610.18507v1",
-    "http://arxiv.org/abs/2610.19834v1",
-    "https://news.google.com/rss/articles/CBMingFBVV95cUxQZUFkNm9JaDNLYzVRVTcwaDNTNldBMS1XbVZlQ3RpcnBrU3NNczNicTFRYmY2RkY2bmVyZENQZkVhYmRLUnpKMFZhTmQwamVNUlp2RzRmWFlNZU1jdUxnUlZ1WHBBVWhlVnR4ck5YRFhmaTZ4WWV0Q3JGUmFJLUJkWUI4TzdrWTFXMGJoTW9UR0oxNWs0N1VXRnNVRE9FUQ?oc=5",
-    "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOdm1kSExLR1hxSXpsdTVpSmtTTnVlQkdNRjhRZHUwR1pxU3ZyYkxxSUZINk95N1d5Z1lxSmpBS3ZWbHVmRWp1dmY3REx5bnNYSGRTblczTUw5VFdIaER0UWM4Q2hZRTRQVDdOazZ5YmJVT3puV3p5YlZWcTB5M2hOTHIwYWxzcGM2a2gwY0c2VmZSRTZzSnY1SUIwb0V3T01XbDBwaFZYUWpNbXFhRFlnc0QxSHhIMGIteDJJ?oc=5",
-    "https://news.google.com/rss/articles/CBMizgFBVV95cUxQRENMaFZVanUzZXQwV21aVnRYWVZnU3g5WFNNUVAzamZCMF9UamVzbDlUMGRLaXctNVIzNEptalYwX2NqWUxqbzA1SEJUMkZEQ1Z6NlkxaUJqVlVodExja0RxR1Q1Sk91R1NRUjUxUFhpZlR6bGpzUWNURVZMV25CTXJDTGhtVk9PSmFTdmpSc0FJeVZ4X2c5R0dRMWYxWjUtWGdCbDBTQlJQU1VTMlFUWnBkTXlpMUVIbDJlVndUT3VvSE5UWHJQdXc4cS01QQ?oc=5",
-    "https://news.google.com/rss/articles/CBMia0FVX3lxTE0zR2ZXSXhOMHBvRF9MX3Fjc0wtcmxmWUhIYjVBSFV3WFpyMTJqVFFyTkt5alZOandJRTBiX2c2Q3dqTExYblRfOElJZzFCWkhUdTlTM3VjY0ZrZlBHUVlXMTBldmpCalB2LXJz?oc=5",
-    "https://news.google.com/rss/articles/CBMitgFBVV95cUxNaTNwMlNFRlZ6SkZCMWtZaEJfUWdXbGxlQVBnSEZOZ0dVM1dLc240NTVQdnZTbjJqd2pRWVNpUUZVYldWZDlzdF8waFlUVlRRaW1uYllNRjdVNFZZSW9aeFhGQmRzS1p1VmhFUG9HbTMzaE5hTm1mOGFwSHp5VzlEbTEtc2ZsQTJ3amdCVjhkZUU5bkY3UDM2ajNRcGY4aDJBWjhFbGljNjlZaXI1X3gyX1gyYTV4QQ?oc=5",
-    "https://news.google.com/rss/articles/CBMif0FVX3lxTE1IRHJQZVBMMTdReU1BbHdBX3JfNnZ4MUxfUEhZQnhzcW9zbklPa0xZZmxHWlMxeUg5QXExYld5NS02ZU1iWUlMeFdadjVpTFk2eWxLS00yR3lUMm9obl9jbE43RF8wQjZjWVlQSWpuN2J0eWN2dFdxckJDWU9ISDQ?oc=5",
-    "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOb01YenVDbE5LRnNkaWVVOUczR3hpMFlVYWlTRk9BX3NlMUp0QVBHdWlzVTBEcGlPMmZXdmRCaWtIaUthbmlfQml2bjFSY1NkNVRlSUx0LVBWeTh4WkhzYklCTnJmc0JraFZFQ3NDRUV4ME1jbUlEOVYtY3kwNjFacXNkVmgwZGlfeHZsVF8tTzJQVXlvSVdubnRCQXlLeEVKdlNVYWlOOV9BUzJEeHh0aGd0MUlkU01Z?oc=5",
-    "https://news.google.com/rss/articles/CBMisgFBVV95cUxQU1g5bE5jajR2Tjc3Rmx3cjVXeThXSHdGMkJXYUM4YWR1eEVlS2pwUUg2RFY0OHIwLWlnQU5zT19IcTFaMVJlVGQxTDRYUkFmTHJWQWZPZjNkZHRYRGd5Ym5QbjZvX3RLc3dWb0l3bmZVNEVjdzVNVXVsaWtES0owM1B4YjFoM1VoNE9oYk9Vbko1Mm03YVhMaWxjRXNmUkdOOU5MVDJxZEc3S1dnODBJcmpB?oc=5",
-    "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOSWRWVTdKcHNNZVpFRmJSNFZKVHdSQVpxbTNGT1AxLWJ4T1htaWlubWo0MTVBSXdxcGJIOVozQjhKNUI3TW11MFlYZnRvcmhLNEJWN0t4M190dFgyQV9BY0hFTmU4eXNnYzNJbXpycEVzOUNuRVY4T1BnYThPRWpJV0dYYUJ1RHVsUURPOTB0a0dtM0dnWTk0cURhMHNQYzdSdDNoblpHc3pzVWJ2ZnM2T3JJNDI3YzdwQ183MjZwM0Q?oc=5",
-    "https://news.google.com/rss/articles/CBMiggFBVV95cUxOUERNc0tRaVcxc2JFR2pHQU1JcHRkZk5ySTVXUHlsOFhxaE5mdGJjOTY5ek9HQTFNdzVzQmtpcFY5LTlEako5aHRPSnBXdmg1ZVZ0N0JpRUEyS1dma28xUF9IdEVxRnM1ZjB3eHpMSGhjb1dlc0JvYmtBYjJqQmsxWTN3?oc=5",
-    "https://news.google.com/rss/articles/CBMipwFBVV95cUxOcWxaVjdURVh2U0tyVVZTOVdPRlVrVi1sWGVCZWVSNGZweTl1NjY2YnVEdE1SXzVncGNnaU1qQWp4NUFfLWpVM1NJcmZFSzJwOWJCSlZuVTRDOUFocXREV0g1dWlHa2Njbng4SUZtN0tLMkF3V1VHbkJGUjVmNDIzZEYxNEpaR1ZXZWxObDZFMEo0cFlDLUstTTlUdHdSSjZpbWJDN0JjOA?oc=5",
-    "https://latent.space/p/ainews-deepseek-deepinfer-open-source",
-    "https://www.latent.space/p/ainews-deepseek-deepinfer-open-source",
-    "https://news.google.com/rss/articles/CBMipAFBVV95cUxORmtUMnZPWTFnenFJQUlENWc2eWJ4RTJoTUFoNkM2ZC04dnBWdjNhZzMxVHdvR1hHRnoxUkFIVWRfX1hwbldqRWtxanQyczJuRlpOUTZjSHI1SUZXQ21BcktycXdtUDdoUU02ZjAwUmtGQkRQX0RwRllwazY3anN4amFLWnFEZlpIRjl0YUV0cTBYUUY1YmhYRWxXUVZzLWl4Smp5cA?oc=5",
-    "https://news.google.com/rss/articles/CBMingFBVV95cUxNT1RCUmFqMFgzVEZyOExGbjgwZjU0Tk9MWHVGS0tuT3BpMFptQU5UYUp1aWhlVVFacUxkRklyYXd4SjVzRjRURVFBX2FSZXdseHFhdmVta25MUG5fYUkzMWFGcENucU1xMTFHTTd1clF3OE1yX3ZGRTNkODlzeUJKSkFTcjY3elRwRkJtMEc2dFhoM1p6OWp0NFVOWkg3UQ?oc=5",
-    "http://arxiv.org/abs/2610.30090v1",
-    "http://arxiv.org/abs/2610.30499v1",
-    "http://arxiv.org/abs/2610.30611v1",
-    "https://deepsense.ai/blog/your-agent-passed-the-eval-should-you-ship-it",
-    "http://arxiv.org/abs/2610.30946v1",
-    "http://arxiv.org/abs/2610.31422v1",
-    "http://arxiv.org/abs/2610.31529v1",
-    "http://arxiv.org/abs/2610.31573v1",
-    "http://arxiv.org/abs/2610.32665v1",
-    "https://news.google.com/rss/articles/CBMinAFBVV95cUxNWFQyRXJtQU5CWDVfWjZfUXpLaDFFUkFJc2tkWWE3RDljeVRhRmoyRXhIS1A1cG5Hd0VxTDhZdlNENmY1czlEQ19uZjVKOXRja1ZMeW5DNXpNT1hydjNKUlNLaFpZNlV2OHI5NkZIaGJFbUs0OUpMa1JqLUc2WHdjN2VmTHY0eDJCZDI2aW5mQVFudnl2RXdWSDJWNzE?oc=5",
-    "http://arxiv.org/abs/2610.34450v1",
-    "http://arxiv.org/abs/2610.34722v1",
-    "http://arxiv.org/abs/2610.40345v1",
-    "http://arxiv.org/abs/2610.41124v1",
-    "https://dasllama.io/articles/2026-10-28-the-need-for-speed.html",
-    "https://github.com/deepseek-ai/dsh-superagent-prototype",
-    "https://news.google.com/rss/articles/CBMikwFBVV95cUxPTFhOWk9yYkRyNkE0d3FxeWNtVDdmcGFNTHBxeWxINk1iUGJMQTd4c2lXRkNMY3NjejVyTGIwZmdYQXUweTdNUHAwblI5M2dGNmd5TWR5SXo4Rmx6d3ZCWjZhX21YZHNoMDNhT3cycEtxd2FGeEdPbkR3UWRiRkNwbTJyandOcEtQXzRyUkxhdlhybTg?oc=5",
-    "https://news.google.com/rss/articles/CBMisAFBVV95cUxOaUpld3paRUZYenVQaE96RThTb1p3QXUyNm5OSWVtNnZoRXVQdFJPX2VyYVJxNzFqYXliNk1pQUJETkdQdzI2Qm40TDBkTDhSTmZQX0RKYTZvSjRyRFJXWU5QdjVnOHJZV3hlaUgwUmZ1aXg4V3kxU002QnBwbngteU5hckdXM0dKOFlqMlpIZXNzMG5fNHVuTm8zTWlHdktMeEM1MzU1Z3owcW9pMm1wZA?oc=5",
-    "https://news.google.com/rss/articles/CBMidkFVX3lxTE04Z3JfR3VDQUZIMjhMdXZQeWltTmxyYmk1SVNqM3ExYUNZaVVpTzNYelZGaXI5Z0MwbEtrRmhRS0xSblJpMmQtZm12S1V3b1ZzYlFSckxTN1ppT1Y1U1lQWElMVDF3NFBsb0ozMGhLNmw4ZGFnZFE?oc=5",
-    "https://news.google.com/rss/articles/CBMilgFBVV95cUxOVGVmcmxZdFpKS25HOEFNbnFrZmRkd0ZRVFNjUlNMMEEwQXZ3YjFSTm9nNGU3NGZMeFBQWEhtZUlvQU9Va3UzeDlIZXVMaW5QM0w1YUpscHUtMHVqeDlSTnotOTZLNXNUV09abkc3U0VGZjU0MTlLaWJJdGtEWnhTMFlkQWJuWWFVUmRnTFB4eXlUbDNiY0HSAZYBQVVfeXFMTlRlZnJsWXRaSktuRzhBTW5xa2ZkZHdGUVRTY1JTTDBBMEF2d2IxUk5vZzRlNzRmTHhQUFhIbWVJb0FPVWt1M3g5SGV1TGluUDNMNWFKbHB1LTB1ang5Uk56LTk2SzVzVFdPWm5HN1NFRmY1NDE5S2liSXRrRFp4UzBZZEFibllhVVJkZ0xQeHl5VGwzYmNB?oc=5",
-    "https://github.com/NVIDIA/spark-local-inference",
-    "https://news.google.com/rss/articles/CBMihAFBVV95cUxQcFMxa1Q5RUs4eUlwcWV2bWdMNU1NR1gwbXpGUnFwZThweTRTU1VGQUZKTkh5Ukp1NnJPMG5FdkZCbXZSeDQwWXJvNmVON09JMzVvaUlDVTc4RjJpakxSdDF5aUJVSkdIbzBpajdyM0steEp6NUpDWmk3c0t3Zk5yXzd1V3o?oc=5",
-    "https://news.google.com/rss/articles/CBMiowFBVV95cUxPZlhRZXhnYlJmX1RiOUdNamRqUXJUU2NycHNuZWtGeEVUejJxNVdEQkQzUU1HMkxHR1dXeDhBVDlPRmVyUHFoMU96VkdBYzlRUFRSWkFFTGVBWWFjNXRRaUlld2d2alpFdVd0VXFlR2tMeXNJUWdDc3c1cG5SR3BPRVd0OVRFLXBvMWhJZ0hzRG1qU2VQazBDQjNQNHl2cXRJZFZV?oc=5",
-    "https://news.google.com/rss/articles/CBMidkFVX3lxTE5nREY5eGxfa2tXV0ZxeHZpekdIaS05UWdfYUxVTHNIR01TdnU0MEhxaHA2NE1iSHE2MnpHRUgtM3VvR2x2ZEpKQ1ljYVFEME9lQTEtOHNXSHdkT0Jjb0VPTUgtYnNVdEQ2RXBlMERLOTRTcF9ic2c?oc=5"
-   ],
-   "editorial": {
-    "tldr": "DeepSeek open-sourced DeepInfer on Oct 20, the inference software behind its production models, first framed as a way to cut AI operating costs and then as pressure on OpenAI and Anthropic. Oct 21 coverage added the 155T tokens-a-day serving scale and a high serving margin.",
-    "stale": false,
-    "whats_new": "Nov 2: TechNode, TNGlobal and Help Net Security describe DeepSeek's dsh-superagent as a proactive research prototype, a coding agent that watches team chats for work.",
-    "why_it_matters": "Two open DeepSeek releases in two weeks, a serving stack and a coding-agent architecture, give platform teams reference designs to benchmark their own inference and agent harness against.",
-    "take_for_builders": "Read the DeepInfer and dsh-superagent repos and licenses before borrowing designs; treat the margin and bug-fixing claims as unverified until someone reproduces them outside DeepSeek's stack.",
-    "status": {
-     "state": "Open-sourcing · agent prototype",
-     "tone": "now",
-     "changed": "2026-11-02",
-     "detail": "DeepInfer is public and unreproduced; dsh-superagent is described as a research prototype with no independent results yet."
-    }
    }
   },
   {
    "slug": "dgx-spark",
    "label": "DGX Spark",
-   "item_count": 5,
-   "day_count": 3,
-   "source_count": 3,
-   "first_seen": "2026-10-13T12:00:49+00:00",
+   "item_count": 3,
+   "day_count": 2,
+   "source_count": 2,
+   "first_seen": "2026-10-28T09:31:23+00:00",
    "last_updated": "2026-11-02T04:13:18+00:00",
    "latest_title": "Optimizing 124B MoE inference on a single Nvidia DGX Spark",
    "days": [
-    "2026-10-13",
     "2026-10-28",
     "2026-11-02"
    ],
    "member_sids": [
-    "a4bbae21d3b4c957",
     "754548d382a06747",
-    "7281347817fe3ba2",
     "e6077e10f16ce2d8",
     "b836eb939c37ffa5"
    ],
    "member_urls": [
-    "https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-software-updates",
     "https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc1",
-    "https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-updates-models-agents-games",
     "https://github.com/NVIDIA/spark-local-inference",
     "https://developer.nvidia.com/blog/3-ways-to-boost-moe-inference-on-nvidia-dgx-spark"
    ],
    "editorial": {
-    "tldr": "NVIDIA introduced RTX Spark in October as a superchip for PCs with up to 128GB of unified memory, and by Oct 28 RTX Spark laptops were shipping from six OEMs. In the same window, vLLM's CI began tracking DGX Spark as a test target.",
+    "tldr": "By Oct 28, vLLM's CI had started tracking DGX Spark as a test target, with a fix to a stale NVFP4 decode test selector in v0.33.0rc1. NVIDIA's earlier RTX Spark launch, with up to 128GB of unified memory, set the hardware context.",
     "stale": false,
-    "whats_new": "NVIDIA published a guide to boosting 124B MoE inference on a single DGX Spark, and a Flare inference engine for DGX Spark appeared in an NVIDIA GitHub repo.",
+    "whats_new": "On Nov 2, NVIDIA published a guide to boosting 124B MoE inference on a single DGX Spark, and a Flare inference engine for DGX Spark appeared.",
     "why_it_matters": "Single-box, 128GB-class local inference is getting first-party tooling and upstream CI coverage, which makes on-prem MoE serving a more realistic option.",
     "take_for_builders": "If you target DGX Spark, benchmark Flare and the NVIDIA MoE tuning steps against your current vLLM build before committing to a serving stack.",
     "status": {
      "state": "Tooling maturing",
      "tone": "rising",
      "changed": "2026-11-02",
-     "detail": "Hardware is shipping and NVIDIA is now publishing DGX Spark-specific inference tooling and tuning guidance."
-    }
-   }
-  },
-  {
-   "slug": "same-different",
-   "label": "Same Different",
-   "item_count": 4,
-   "day_count": 3,
-   "source_count": 2,
-   "first_seen": "2026-10-22T08:25:51+00:00",
-   "last_updated": "2026-11-01T14:22:25+00:00",
-   "latest_title": "Same model, different agent: 17 points apart on 21 MCP servers",
-   "days": [
-    "2026-10-22",
-    "2026-10-26",
-    "2026-11-01"
-   ],
-   "member_sids": [
-    "615493c68bfd12ef",
-    "352167f7ac41065b",
-    "40a1feed41fe68a1",
-    "b78023b26122d472"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2610.30903v1",
-    "http://arxiv.org/abs/2610.31544v1",
-    "http://arxiv.org/abs/2610.35208v1",
-    "https://m3.sineframe.com/blog/same-model-different-agent"
-   ],
-   "editorial": {
-    "tldr": "Four items share a \"Same X, Different Y\" title pattern, not one event. Three arXiv papers (Oct 22-26) cover chemistry identifier binding, credit assignment for agentic RL, and cross-outlet news framing.",
-    "stale": false,
-    "whats_new": "A Nov 1 Hacker News post reports a 17-point gap between agents running the same model across 21 MCP servers, the only item here about agent engineering.",
-    "why_it_matters": "The title match is a coincidence, but the MCP post carries the usable lesson: the agent harness, not just the model, can swing results, so evaluate the full stack.",
-    "take_for_builders": "When comparing agents, hold the model fixed and vary the harness in your own eval on your MCP servers; treat the 17-point figure as one unverified blog result until reproduced."
-   }
-  },
-  {
-   "slug": "ahead-ipo",
-   "label": "Revenue IPO",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 2,
-   "first_seen": "2026-10-15T13:04:03+00:00",
-   "last_updated": "2026-10-31T05:00:48+00:00",
-   "latest_title": "[AINews] Google admits AI Mode hurts Search revenue; -15% $500B drop worst since 2004 IPO. AI Bear Market coming?",
-   "days": [
-    "2026-10-15",
-    "2026-10-27",
-    "2026-10-31"
-   ],
-   "member_sids": [
-    "e58311dcd1376969",
-    "ca85c0384dbbb0fd",
-    "6b3364e67e36a770"
-   ],
-   "member_urls": [
-    "https://simonwillison.net/2026/Oct/15/anthropic-tells-investors",
-    "https://latent.space/p/ainews-anthropic-s1",
-    "https://latent.space/p/ainews-google-admits-ai-mode-hurts-search-revenue-15-500b-drop-worst-since-2004-ipo-ai-bear-market-c"
-   ],
-   "editorial": {
-    "tldr": "On Oct 15 Anthropic told investors quarterly revenue rose nearly 50% to $16.8bn ahead of its own listing. On Oct 27 Latent Space summarized its S-1, citing 1400% growth and 48% of revenue through cloud partners.",
-    "stale": false,
-    "whats_new": "Oct 31: Latent Space ties Google's AI Mode to a 15% (~$500B) Search-parent drop, the worst since its 2004 IPO, as market context for AI listings.",
-    "why_it_matters": "An S-1 gives platform teams audited figures on cloud-partner revenue share and growth, which indicate how dependent a vendor is on hyperscaler channels when you plan multi-provider fallbacks.",
-    "take_for_builders": "Read the S-1's cloud-partner and compute-commitment sections before locking multi-year Anthropic spend, and keep a fallback provider for any lab whose IPO terms are unsettled.",
-    "status": {
-     "state": "Pre-IPO · developing",
-     "tone": "rising",
-     "changed": "2026-10-31",
-     "detail": "Anthropic's filing is reported public; the Oct 31 item is market context, not IPO news."
-    }
-   }
-  },
-  {
-   "slug": "reasoning-latent",
-   "label": "Reasoning Latent",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 3,
-   "first_seen": "2026-10-18T20:48:14+00:00",
-   "last_updated": "2026-10-30T17:59:43+00:00",
-   "latest_title": "Latent Reasoning in Continuous Space for Unified Multimodal Models",
-   "days": [
-    "2026-10-18",
-    "2026-10-27",
-    "2026-10-30"
-   ],
-   "member_sids": [
-    "ae6e49210029e41a",
-    "0a570aaed6213cf4",
-    "282f057baf2d5931"
-   ],
-   "member_urls": [
-    "https://arxiv.org/abs/2610.18861",
-    "http://arxiv.org/abs/2610.37935v1",
-    "http://arxiv.org/abs/2610.42149v1"
-   ],
-   "editorial": {
-    "tldr": "An Oct 18 paper proposed hybrid agents that reason in latent space but act through text. A paper on Oct 27 then applied latent reasoning to multi-agent systems by storing reusable skills in compact external memory.",
-    "stale": false,
-    "whats_new": "A new arXiv paper moves latent reasoning into continuous space for unified multimodal models, targeting weak language-based chain-of-thought in image tasks.",
-    "why_it_matters": "Latent reasoning aims to cut inference cost by keeping intermediate steps out of text, but it also makes those steps harder to inspect and log.",
-    "take_for_builders": "These are unreplicated preprints; if you log reasoning traces for debugging, check what your tooling would lose before adopting latent-reasoning models."
-   }
-  },
-  {
-   "slug": "on-policy-distillation",
-   "label": "On-Policy Distillation",
-   "item_count": 5,
-   "day_count": 5,
-   "source_count": 4,
-   "first_seen": "2026-10-14T08:12:10+00:00",
-   "last_updated": "2026-10-30T17:56:58+00:00",
-   "latest_title": "DecisionRank: On-Policy Distillation for Decision-Model Rerankers",
-   "days": [
-    "2026-10-14",
-    "2026-10-15",
-    "2026-10-22",
-    "2026-10-26",
-    "2026-10-30"
-   ],
-   "member_sids": [
-    "ee660e8935ab6a11",
-    "bb1f85907195d2e5",
-    "345d8b761233aa20",
-    "6ec8d30bc1da5744",
-    "79cbc9c6543a99c8"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2610.19758v1",
-    "http://arxiv.org/abs/2610.21496v1",
-    "http://arxiv.org/abs/2610.31563v1",
-    "http://arxiv.org/abs/2610.35690v1",
-    "http://arxiv.org/abs/2610.42128v1"
-   ],
-   "editorial": {
-    "tldr": "Papers from Oct 14 apply on-policy distillation (training a student on its own sampled trajectories, scored by a teacher) to translation and long-horizon coding agents. By Oct 22 the work turned to when the student should follow the teacher, and by Oct 26 to multi-agent serving configuration.",
-    "stale": false,
-    "whats_new": "Oct 30: DecisionRank, an arXiv paper, applies on-policy distillation to transfer a generative LLM's ranking knowledge into a decision model that predicts scores directly, avoiding autoregressive decoding latency.",
-    "why_it_matters": "On-policy distillation is spreading from post-training into serving components such as multi-agent routing and rerankers, so teams can test it on latency- and cost-sensitive parts of a stack, not only on small chat models.",
-    "take_for_builders": "If you run an LLM reranker or router, benchmark a distilled decision model against it on your own queries for quality and latency before switching; none of these papers has independent replication yet.",
-    "status": {
-     "state": "Active research thread",
-     "tone": "rising"
-    }
-   }
-  },
-  {
-   "slug": "reinforcement-learning",
-   "label": "Reinforcement Learning",
-   "item_count": 20,
-   "day_count": 9,
-   "source_count": 6,
-   "first_seen": "2026-10-15T17:34:17+00:00",
-   "last_updated": "2026-10-30T16:55:46+00:00",
-   "latest_title": "CausalXRL: Explainable Reinforcement Learning through Causal Graph Reasoning",
-   "days": [
-    "2026-10-15",
-    "2026-10-20",
-    "2026-10-21",
-    "2026-10-22",
-    "2026-10-23",
-    "2026-10-26",
-    "2026-10-27",
-    "2026-10-29",
-    "2026-10-30"
-   ],
-   "member_sids": [
-    "db03100b1bd7cd3e",
-    "afd320e7f42ef5bd",
-    "a00ad2ffbda7f2e9",
-    "276a486ae6eefe6b",
-    "352167f7ac41065b",
-    "40c644a15cb895a9",
-    "2b4f7152c682448f",
-    "453c138d9feefee3",
-    "8a41e1e41cbecfde",
-    "1e1ae7d5d09cb859",
-    "c3af4f37e1c19b19",
-    "868490bacebdc880",
-    "c07d00b3f0a46112",
-    "d448a8af2a653453",
-    "02ad246823185a44",
-    "d571e973b6e6916d",
-    "9471fde9e20a1e58",
-    "29493d021878283c",
-    "65dc6916d3b352f1",
-    "4e3ef058b96b399d"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2610.22269v1",
-    "http://arxiv.org/abs/2610.28785v1",
-    "http://arxiv.org/abs/2610.29426v1",
-    "http://arxiv.org/abs/2610.30435v1",
-    "http://arxiv.org/abs/2610.31544v1",
-    "http://arxiv.org/abs/2610.32435v1",
-    "http://arxiv.org/abs/2610.32772v1",
-    "http://arxiv.org/abs/2610.32951v1",
-    "https://aws.amazon.com/blogs/machine-learning/multi-turn-reinforcement-learning-on-amazon-sagemaker-ai-a-hands-on-guide",
-    "http://arxiv.org/abs/2610.32971v1",
-    "http://arxiv.org/abs/2610.35142v1",
-    "http://arxiv.org/abs/2610.35497v1",
-    "http://arxiv.org/abs/2610.35697v1",
-    "http://arxiv.org/abs/2610.36469v1",
-    "http://arxiv.org/abs/2610.37609v1",
-    "http://arxiv.org/abs/2610.39671v1",
-    "http://arxiv.org/abs/2610.40407v1",
-    "http://arxiv.org/abs/2610.41143v1",
-    "http://arxiv.org/abs/2610.41949v1",
-    "http://arxiv.org/abs/2610.42028v1"
-   ],
-   "editorial": {
-    "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 15 it has gathered an O-RAN benchmark, agentic-RL training papers on rollout cost and credit assignment, and AWS's SageMaker multi-turn guide.",
-    "stale": false,
-    "whats_new": "Oct 30: three arXiv papers add strategy-guided skill routing (TalentRL), GRPO stochasticity for few-step flow models, and causal-graph explanations for RL policies (CausalXRL).",
-    "why_it_matters": "Agent RL is now judged on cost and reliability: EnvSched and calibrated budgets (Oct 20) target rollout spend, while MiRL and CalibraRL target named failures. All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
-    "take_for_builders": "If you train tool-using agents, measure rollout cost per environment (EnvSched, calibrated budgets), log recurring failure modes for error-targeted RL (MiRL), and A/B fine-grained credit against episode-level reward; treat paper results as unreplicated until rerun on your own evals.",
-    "status": {
-     "state": "Developing",
-     "tone": "rising",
-     "changed": "2026-10-30",
-     "detail": "A loose set of RL items; the newest widen it to skill routing, flow-model RL and explainability alongside the agent rollout-cost and credit-assignment work."
-    }
-   }
-  },
-  {
-   "slug": "learning-through",
-   "label": "Learning Through",
-   "item_count": 4,
-   "day_count": 4,
-   "source_count": 3,
-   "first_seen": "2026-10-19T08:07:35+00:00",
-   "last_updated": "2026-10-30T16:55:46+00:00",
-   "latest_title": "CausalXRL: Explainable Reinforcement Learning through Causal Graph Reasoning",
-   "days": [
-    "2026-10-19",
-    "2026-10-23",
-    "2026-10-26",
-    "2026-10-30"
-   ],
-   "member_sids": [
-    "736cb3afaf8cf4b3",
-    "110ac885ad3cb773",
-    "868490bacebdc880",
-    "4e3ef058b96b399d"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2610.25980v1",
-    "http://arxiv.org/abs/2610.32295v1",
-    "http://arxiv.org/abs/2610.35497v1",
-    "http://arxiv.org/abs/2610.42028v1"
-   ],
-   "editorial": {
-    "tldr": "A run of arXiv papers on how agents learn from their own trajectories. ClueFlow credits search steps by research-state transitions, a memory-skill paper tackles lifelong learning under a bounded context window, and a video-editing RL paper asks when fine-grained credit assignment fails to help.",
-    "stale": false,
-    "whats_new": "CausalXRL adds an interpretability angle, using causal graph reasoning to explain reinforcement-learning agents' behavior.",
-    "why_it_matters": "Credit assignment, memory design, and explainability determine how agents improve from experience and whether you can audit why they act as they do.",
-    "take_for_builders": "Before adding per-step rewards to an agent RL setup, run an ablation against outcome-only rewards on your own tasks."
-   }
-  },
-  {
-   "slug": "security-injection",
-   "label": "Security Injection",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 2,
-   "first_seen": "2026-10-16T11:10:30+00:00",
-   "last_updated": "2026-10-30T16:43:17+00:00",
-   "latest_title": "SecPO: Principled Adversarial Training for Prompt Injection Security",
-   "days": [
-    "2026-10-16",
-    "2026-10-27",
-    "2026-10-30"
-   ],
-   "member_sids": [
-    "346a736923aff845",
-    "b483c5a93f031770",
-    "b2f578a2e015ebec"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2610.23307v1",
-    "http://arxiv.org/abs/2610.37657v1",
-    "http://arxiv.org/abs/2610.41998v1"
-   ],
-   "editorial": {
-    "tldr": "MobileInject (Oct 16) framed prompt injection as a reasoning-to-action risk for MLLM-based mobile agents. Heads of Security (Oct 27) then proposed a defense: learned per-head attention gates that enforce instruction-data separation.",
-    "stale": false,
-    "whats_new": "SecPO (Oct 30) proposes adversarial training against prompt injection, positioned against Meta-SecAlign, the existing best-defended LLM.",
-    "why_it_matters": "Prompt injection is a top agent threat, and the research is moving from attack evaluation toward defenses at the model level (attention gating, adversarial training).",
-    "take_for_builders": "Treat these as research, not controls: keep least-privilege tool scopes and confirmation on agent actions, and rerun your own injection tests before relying on any model-level defense.",
-    "status": {
-     "state": "Developing",
-     "tone": "rising",
-     "changed": "2026-10-30",
-     "detail": "Three arXiv papers move from an attack benchmark to two model-level defenses; none is yet validated in production."
+     "detail": "NVIDIA is publishing DGX Spark-specific inference tooling and tuning guidance."
     }
    }
   }

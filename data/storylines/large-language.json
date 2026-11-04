@@ -1,13 +1,14 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 22,
+ "item_count": 25,
  "day_count": 10,
- "source_count": 8,
+ "source_count": 9,
  "first_seen": "2026-10-16T14:26:44+00:00",
  "last_updated": "2026-11-02T11:00:00+00:00",
- "generated_at": "2026-11-03T00:12:58.466703+00:00",
+ "generated_at": "2026-11-04T00:12:28.797841+00:00",
  "sources": [
+  "anthropic_research",
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
   "arxiv_cs_cl",
@@ -276,6 +277,17 @@
      "editor_note": "Argues compiled knowledge helps retrieval in agentic search harnesses."
     },
     {
+     "title": "Reimagining Text-to-SQL: A Survey of Large Language Model Architectures and Strategies",
+     "url": "http://arxiv.org/abs/2611.00171v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Text-to-SQL systems translate natural language questions into executable SQL queries, democratizing access to relational data. Early approaches relied on handcrafted rules and template matching, while subsequent neura...",
+     "why_it_matters": "Matches feed focus: agentic, evaluation.",
+     "sid": "e46c1ab3f7ca9939",
+     "published": "2026-10-30T13:45:49+00:00",
+     "editor_note": "Survey of LLM architectures and strategies for Text-to-SQL."
+    },
+    {
      "title": "Prune Gradually, Adapt Sparsely: Efficient Pruning of Large Language Models at Extreme Sparsity",
      "url": "http://arxiv.org/abs/2610.41968v1",
      "source": "arxiv_cs_ai",
@@ -285,12 +297,33 @@
      "sid": "a8a5f23cd8e10643",
      "published": "2026-10-30T16:17:43+00:00",
      "editor_note": "Gradual pruning with sparse adaptation to keep quality at extreme sparsity."
+    },
+    {
+     "title": "From Lookups to Lessons: Turning Retrieved Knowledge into Parametric Memory",
+     "url": "http://arxiv.org/abs/2611.00450v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Retrieval-augmented generation (RAG) helps large language models (LLMs) answer factual questions beyond their training data, but it adds storage and inference costs. Distilling previously retrieved information into pa...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "0f8439521ab02185",
+     "published": "2026-10-30T23:05:50+00:00",
+     "editor_note": "Proposes distilling retrieved knowledge into parametric memory to cut RAG storage and inference cost."
     }
    ]
   },
   {
    "date": "2026-11-02",
    "items": [
+    {
+     "title": "Progress on provable inference for large language models",
+     "url": "https://www.anthropic.com/research/provable-inference",
+     "source": "anthropic_research",
+     "type": "research",
+     "summary_1line": "Sharing progress on a powerful type of cryptographic proof known as a zkSNARK, which is uniquely fit for provable inference.",
+     "sid": "43862ef771dfba65",
+     "published": "2026-11-02T00:00:00+00:00",
+     "editor_note": "Anthropic's progress on zkSNARK proofs aimed at provable inference."
+    },
     {
      "title": "Article: Systemic Approach to Memory, Knowledge, and Context in Agentic AI Architectures",
      "url": "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
@@ -308,8 +341,8 @@
  "editorial": {
   "tldr": "This page groups items by the shared phrase \"large language models\", so most of it is a reading list, not one thread. Oct 16-28 items cover sycophancy, code-translation hallucinations, search agents, steering and continual learning, and Mistral Large 4 shipped Oct 29.",
   "stale": false,
-  "whats_new": "Nov 2: InfoQ argues agentic architectures need a context engine that selects, injects, compresses and expires information, separating context, memory and knowledge.",
-  "why_it_matters": "Mistral Large 4 is the one deployable item: vLLM support landed with the weights. The newest items converge on context and memory design for agents, which is an architecture choice rather than a model swap.",
+  "whats_new": "Nov 2: Anthropic reported progress on zkSNARK-based provable inference, and InfoQ argued agentic architectures need a context engine that selects, injects, compresses and expires information.",
+  "why_it_matters": "Mistral Large 4 is the one deployable item: vLLM support landed with the weights. The newest items point at architecture choices: how agents manage context and memory, and how inference might be verified.",
   "take_for_builders": "If you self-host, pull Mistral Large 4 on the vLLM day-0 build and rerun your own evals before swapping it in. For agents, audit where context is selected, compressed and expired in your harness before adding more memory.",
   "beats": [
    {
@@ -383,20 +416,24 @@
    {
     "kicker": "OCT 29-30",
     "tone": "rising",
-    "headline": "Memory graphs, knowledge integration, retrieval compilation and extreme pruning",
-    "summary": "Four papers on persistent memory, context-vs-memory evaluation, compiled knowledge for search harnesses, and pruning at extreme sparsity.",
+    "headline": "Memory graphs, knowledge integration, retrieval compilation, parametric memory, Text-to-SQL survey and extreme pruning",
+    "summary": "Six papers on persistent memory, context-vs-memory evaluation, compiled knowledge for search harnesses, distilling retrieval into weights, Text-to-SQL architectures, and pruning at extreme sparsity.",
     "sids": [
      "e519641640234319",
      "1d7852cb09b3031f",
      "ce941c554e9fce8e",
+     "0f8439521ab02185",
+     "e46c1ab3f7ca9939",
      "a8a5f23cd8e10643"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "InfoQ lays out a context engine for agentic architectures",
+    "headline": "Provable inference from Anthropic; InfoQ lays out a context engine for agents",
+    "summary": "Nov 2: a cryptographic-proof research update and a practitioner architecture article.",
     "sids": [
+     "43862ef771dfba65",
      "744a7a52285cfa40"
     ]
    }
@@ -406,9 +443,9 @@
    "Does the \"9x price gap\" comparison hold against first-party Mistral API pricing?",
    "Does Reva's real-time screening keep false positives low enough to gate agent-written code?",
    "Does CAMR's replay selection reduce forgetting on models larger than those in its experiments?",
-   "Does CANS steering preserve general capability on models beyond those it was tested on?",
-   "Do the Oct 30 retrieval-compilation and context-vs-memory results hold outside their reported benchmarks?"
+   "Does Anthropic's zkSNARK work reach proving times practical for production-size models?",
+   "Do the Oct 30 retrieval-compilation and parametric-memory results hold outside their reported benchmarks?"
   ],
-  "generated_at": "2026-11-03T00:20:00+00:00"
+  "generated_at": "2026-11-04T00:30:00+00:00"
  }
 }

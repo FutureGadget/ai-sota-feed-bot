@@ -1,15 +1,16 @@
 {
  "slug": "same-different",
  "label": "Same Different",
- "item_count": 4,
- "day_count": 3,
- "source_count": 2,
+ "item_count": 5,
+ "day_count": 4,
+ "source_count": 3,
  "first_seen": "2026-10-22T08:25:51+00:00",
- "last_updated": "2026-11-01T14:22:25+00:00",
- "generated_at": "2026-11-03T00:12:58.466703+00:00",
+ "last_updated": "2026-11-03T15:57:39+00:00",
+ "generated_at": "2026-11-04T00:12:28.797841+00:00",
  "sources": [
   "arxiv_llm_reliability",
-  "hackernews_ai"
+  "hackernews_ai",
+  "huggingface_blog"
  ],
  "days": [
   {
@@ -70,20 +71,42 @@
      "editor_note": "Blog post whose title reports a 17-point spread between agents using the same model on 21 MCP servers."
     }
    ]
+  },
+  {
+   "date": "2026-11-03",
+   "items": [
+    {
+     "title": "Same Model, Different Harness: CUGA, Hermes, and Deep Agents — When to Pick CUGA?",
+     "url": "https://huggingface.co/blog/ibm-research/cuga-harness",
+     "source": "huggingface_blog",
+     "type": "research",
+     "summary_1line": "Same Model, Different Harness: CUGA, Hermes, and Deep Agents — When to Pick CUGA?",
+     "why_it_matters": "Matches feed focus: agent, harness.",
+     "sid": "b05fd13d79e76b34",
+     "published": "2026-11-03T15:57:39+00:00",
+     "editor_note": "IBM Research frames CUGA, Hermes and Deep Agents as harnesses around one model and asks when to choose CUGA."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Four items share a \"Same X, Different Y\" title pattern, not one event. Three arXiv papers (Oct 22-26) cover chemistry identifier binding, credit assignment for agentic RL, and cross-outlet news framing.",
+  "tldr": "Most of this thread shares a \"Same X, Different Y\" title pattern, not one event. Three arXiv papers (Oct 22-26) cover chemistry identifier binding, credit assignment for agentic RL and news framing; a Nov 1 post then reported a 17-point gap between agents using one model.",
   "stale": false,
-  "whats_new": "A Nov 1 Hacker News post reports a 17-point gap between agents running the same model across 21 MCP servers, the only item here about agent engineering.",
-  "why_it_matters": "The title match is a coincidence, but the MCP post carries the usable lesson: the agent harness, not just the model, can swing results, so evaluate the full stack.",
-  "take_for_builders": "When comparing agents, hold the model fixed and vary the harness in your own eval on your MCP servers; treat the 17-point figure as one unverified blog result until reproduced.",
+  "whats_new": "On Nov 3, an IBM Research Hugging Face post compared CUGA, Hermes and Deep Agents on the same model, asking when to pick CUGA.",
+  "why_it_matters": "Two harness-versus-model posts in three days make the same point: the agent harness can move results as much as the model, so evaluate the full stack.",
+  "take_for_builders": "Hold the model fixed and vary the harness in your own eval on your MCP servers; treat the 17-point figure and IBM's CUGA comparison as vendor or blog results until reproduced.",
+  "status": {
+   "state": "Harness comparison emerging",
+   "tone": "rising",
+   "changed": "2026-11-03",
+   "detail": "Title-match papers are coincidental; the Nov 1 and Nov 3 posts form the real thread on harness effects."
+  },
   "beats": [
    {
     "kicker": "PAPERS",
     "tone": "launch",
     "headline": "Two arXiv papers on reliability and agentic RL",
-    "summary": "Identifier binding failures in chemistry LLMs, and twin-world credit assignment for agentic reinforcement learning.",
+    "summary": "Identifier binding failures in chemistry LLMs, and twin-world credit assignment for agentic RL.",
     "sids": [
      "615493c68bfd12ef",
      "352167f7ac41065b"
@@ -93,25 +116,35 @@
     "kicker": "ADJACENT",
     "tone": "rising",
     "headline": "A multi-agent system compares news framing across outlets",
-    "summary": "A research prototype aimed at news analysis, loosely related to the rest.",
+    "summary": "A research prototype for news analysis, loosely related.",
     "sids": [
      "40a1feed41fe68a1"
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "HARNESS GAP",
+    "tone": "turn",
     "headline": "Same model, different agent: 17 points apart on 21 MCP servers",
     "summary": "A practitioner post on agent-level variance with a fixed model.",
     "sids": [
      "b78023b26122d472"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "IBM Research compares CUGA, Hermes and Deep Agents on one model",
+    "summary": "A vendor harness comparison on Hugging Face.",
+    "sids": [
+     "b05fd13d79e76b34"
+    ]
    }
   ],
   "open_questions": [
    "Does the MCP post publish its harness differences, prompts and scoring method so the 17-point gap can be reproduced?",
+   "Does the IBM CUGA post report numbers on a shared benchmark, and can they be rerun?",
    "Do any of the arXiv papers release code or evals that apply to tool-using agents?"
   ],
-  "generated_at": "2026-11-03T00:30:00+00:00"
+  "generated_at": "2026-11-04T06:00:00+00:00"
  }
 }

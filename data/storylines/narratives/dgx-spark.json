@@ -1,35 +1,31 @@
 {
-  "slug": "dgx-spark",
-  "generated_at": "2026-11-03T00:30:00+00:00",
-  "covers_last_updated": "2026-11-02T04:13:18+00:00",
-  "covers_member_sids": ["a4bbae21d3b4c957", "754548d382a06747", "7281347817fe3ba2", "e6077e10f16ce2d8", "b836eb939c37ffa5"],
-  "tldr": "NVIDIA introduced RTX Spark in October as a superchip for PCs with up to 128GB of unified memory, and by Oct 28 RTX Spark laptops were shipping from six OEMs. In the same window, vLLM's CI began tracking DGX Spark as a test target.",
-  "whats_new": "NVIDIA published a guide to boosting 124B MoE inference on a single DGX Spark, and a Flare inference engine for DGX Spark appeared in an NVIDIA GitHub repo.",
+  "tldr": "By Oct 28, vLLM's CI had started tracking DGX Spark as a test target, with a fix to a stale NVFP4 decode test selector in v0.33.0rc1. NVIDIA's earlier RTX Spark launch, with up to 128GB of unified memory, set the hardware context.",
+  "whats_new": "On Nov 2, NVIDIA published a guide to boosting 124B MoE inference on a single DGX Spark, and a Flare inference engine for DGX Spark appeared.",
   "why_it_matters": "Single-box, 128GB-class local inference is getting first-party tooling and upstream CI coverage, which makes on-prem MoE serving a more realistic option.",
   "status": {
     "state": "Tooling maturing",
     "tone": "rising",
     "changed": "2026-11-02",
-    "detail": "Hardware is shipping and NVIDIA is now publishing DGX Spark-specific inference tooling and tuning guidance."
+    "detail": "NVIDIA is publishing DGX Spark-specific inference tooling and tuning guidance."
   },
   "beats": [
     {
-      "kicker": "LAUNCH",
-      "tone": "launch",
-      "headline": "RTX Spark positioned as a local AI superchip for PCs",
-      "sids": ["a4bbae21d3b4c957"]
-    },
-    {
-      "kicker": "SHIPPING",
+      "kicker": "CI",
       "tone": "rising",
-      "headline": "RTX Spark laptops ship; vLLM CI starts covering DGX Spark",
-      "sids": ["754548d382a06747", "7281347817fe3ba2"]
+      "headline": "vLLM CI covers DGX Spark",
+      "summary": "v0.33.0rc1 fixes a stale NVFP4 decode test selector.",
+      "sids": [
+        "754548d382a06747"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
       "headline": "First-party inference engine and MoE tuning guide for DGX Spark",
-      "sids": ["e6077e10f16ce2d8", "b836eb939c37ffa5"]
+      "sids": [
+        "e6077e10f16ce2d8",
+        "b836eb939c37ffa5"
+      ]
     }
   ],
   "open_questions": [
@@ -38,10 +34,16 @@
   ],
   "take_for_builders": "If you target DGX Spark, benchmark Flare and the NVIDIA MoE tuning steps against your current vLLM build before committing to a serving stack.",
   "day_captions": {
-    "a4bbae21d3b4c957": "NVIDIA's RTX Spark launch framing: up to 128GB unified memory in one superchip.",
     "754548d382a06747": "vLLM v0.33.0rc1 fixes a stale NVFP4 decode test selector in its DGX Spark CI.",
-    "7281347817fe3ba2": "RTX Spark laptops are available from ASUS, Dell, HP, Lenovo, Microsoft and MSI.",
-    "e6077e10f16ce2d8": "A Flare inference engine for DGX Spark appears in an NVIDIA repo.",
-    "b836eb939c37ffa5": "NVIDIA's blog on three ways to boost MoE inference on a single DGX Spark."
-  }
+    "e6077e10f16ce2d8": "A Flare inference engine for DGX Spark appears.",
+    "b836eb939c37ffa5": "NVIDIA's guide to optimizing 124B MoE inference on a single DGX Spark."
+  },
+  "slug": "dgx-spark",
+  "generated_at": "2026-11-04T06:00:00+00:00",
+  "covers_last_updated": "2026-11-02T04:13:18+00:00",
+  "covers_member_sids": [
+    "754548d382a06747",
+    "e6077e10f16ce2d8",
+    "b836eb939c37ffa5"
+  ]
 }

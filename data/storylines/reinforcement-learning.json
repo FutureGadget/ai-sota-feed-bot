@@ -1,12 +1,12 @@
 {
  "slug": "reinforcement-learning",
  "label": "Reinforcement Learning",
- "item_count": 20,
- "day_count": 9,
+ "item_count": 22,
+ "day_count": 10,
  "source_count": 6,
  "first_seen": "2026-10-15T17:34:17+00:00",
- "last_updated": "2026-10-30T16:55:46+00:00",
- "generated_at": "2026-11-03T00:12:58.466703+00:00",
+ "last_updated": "2026-11-02T15:36:22+00:00",
+ "generated_at": "2026-11-04T00:12:28.797841+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -273,7 +273,33 @@
      "why_it_matters": "Matches feed focus: agent, evaluation.",
      "sid": "4e3ef058b96b399d",
      "published": "2026-10-30T16:55:46+00:00",
-     "editor_note": "Newest: explains RL agent behavior through causal graph reasoning, addressing interpretability."
+     "editor_note": "Explains RL agent behavior through causal graph reasoning, addressing interpretability."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-02",
+   "items": [
+    {
+     "title": "EffComp: Efficient Prompt Compression via Hybrid Reinforcement & Supervised Learning",
+     "url": "http://arxiv.org/abs/2611.02766v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Prompt compression is aimed at reducing input prompt lengths to enable cheaper, faster, and potentially higher-quality LLM predictions. However, existing prompt compression methods are often limited by modest compress...",
+     "sid": "473a95cd7c540d1a",
+     "published": "2026-11-02T08:46:28+00:00",
+     "editor_note": "Hybrid RL and supervised training for prompt compression, targeting cheaper and faster LLM inference."
+    },
+    {
+     "title": "An Axiomatic Framework for Reinforcement Learning in Open Multi-Agent Systems",
+     "url": "http://arxiv.org/abs/2611.03301v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Open multi-agent systems, where only a subset of agents are controllable, are central to real-world domains such as smart grids, yet lack a principled foundation for reinforcement learning algorithm design. We study t...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "bce25dc1c825a3e7",
+     "published": "2026-11-02T15:36:22+00:00",
+     "editor_note": "Newest: axiomatic foundation for RL when only a subset of agents is controllable, e.g. smart grids."
     }
    ]
   }
@@ -281,14 +307,14 @@
  "editorial": {
   "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 15 it has gathered an O-RAN benchmark, agentic-RL training papers on rollout cost and credit assignment, and AWS's SageMaker multi-turn guide.",
   "stale": false,
-  "whats_new": "Oct 30: three arXiv papers add strategy-guided skill routing (TalentRL), GRPO stochasticity for few-step flow models, and causal-graph explanations for RL policies (CausalXRL).",
+  "whats_new": "Nov 2: two arXiv papers add EffComp, a hybrid RL-plus-supervised prompt compressor aimed at cheaper LLM calls, and an axiomatic framework for RL in open multi-agent systems.",
   "why_it_matters": "Agent RL is now judged on cost and reliability: EnvSched and calibrated budgets (Oct 20) target rollout spend, while MiRL and CalibraRL target named failures. All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
   "take_for_builders": "If you train tool-using agents, measure rollout cost per environment (EnvSched, calibrated budgets), log recurring failure modes for error-targeted RL (MiRL), and A/B fine-grained credit against episode-level reward; treat paper results as unreplicated until rerun on your own evals.",
   "status": {
    "state": "Developing",
    "tone": "rising",
-   "changed": "2026-10-30",
-   "detail": "A loose set of RL items; the newest widen it to skill routing, flow-model RL and explainability alongside the agent rollout-cost and credit-assignment work."
+   "changed": "2026-11-02",
+   "detail": "A loose set of RL items; the newest add prompt compression and multi-agent theory to the agent rollout-cost, credit-assignment and reliability work."
   },
   "beats": [
    {
@@ -357,8 +383,8 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "OCT 30",
+    "tone": "neutral",
     "headline": "Skill routing, few-step flow RL and causal explanations",
     "summary": "Oct 30: TalentRL routes hierarchical skills by strategy, a GRPO paper reshapes stochastic policy geometry for few-step flow models, and CausalXRL explains RL decisions with causal graphs.",
     "sids": [
@@ -366,16 +392,26 @@
      "65dc6916d3b352f1",
      "4e3ef058b96b399d"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Prompt compression and open multi-agent RL theory",
+    "summary": "Nov 2: EffComp trains a prompt compressor with hybrid RL and supervised learning; an axiomatic framework grounds RL when only some agents are controllable.",
+    "sids": [
+     "473a95cd7c540d1a",
+     "bce25dc1c825a3e7"
+    ]
    }
   ],
   "open_questions": [
    "Does calibrated rollout budgeting cut MCP-agent training cost on benchmarks beyond the paper's own?",
    "Does the SageMaker MTRL recipe carry from Wordle to tool-using agent tasks, and at what training cost?",
-   "Does twin-world credit assignment improve agent training on benchmarks beyond the paper's own?",
    "Do MiRL's error-targeted fixes hold on terminal-agent tasks outside the paper's own benchmark?",
    "Does EnvSched's scheduling gain hold on agent-RL benchmarks beyond the paper's own, and with which environment mixes?",
-   "Does TalentRL's strategy-guided routing beat flat SkillBank retrieval on agent benchmarks beyond the paper's own?"
+   "Does TalentRL's strategy-guided routing beat flat SkillBank retrieval on agent benchmarks beyond the paper's own?",
+   "Does EffComp's compression ratio hold quality on downstream tasks beyond the paper's own benchmarks?"
   ],
-  "generated_at": "2026-11-03T00:30:00+00:00"
+  "generated_at": "2026-11-04T00:30:00+00:00"
  }
 }
