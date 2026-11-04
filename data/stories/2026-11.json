@@ -310,6 +310,23 @@
   "url": "http://arxiv.org/abs/2611.03100v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "219537f3fa2b3690": {
+  "first_seen": "2026-11-04T05:04:25.379660+00:00",
+  "id": "1a6b51a37b1fbed0",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-03T18:19:55+00:00",
+  "sid": "219537f3fa2b3690",
+  "source": "arxiv_cs_cl",
+  "summary": "Skill memories encode past experiences as textual prompts to improve reinforcement learning (RL) for self-evolving agents. Complementing RL, On-Policy Self-Distillation (OPSD) provides dense, fine-grained supervision to internalize knowledge from skill-guided trajectories and accelerate policy learning. However, self-generated memories often contain noisy supervision and functionally entangled, redundant, or conflicting knowledge, making direct distillation difficult. Under limited training budgets, these issues can hinder knowledge internalization and even degrade performance. To address this problem, we propose MDSKILL, a multi-view distillation approach for skill memory internalization. MDSKILL organizes skill memories into three complementary functional views (state grounding, action planning, and execution control) and selects high-quality skills using dynamic metrics to construct view-specific and integrated reasoning branches. OPSD then transfers and consolidates complementary experiential knowledge across these branches into a shared policy, enabling efficient skill internalization and continuous agent self-evolution. We evaluate MDSKILL on three agent benchmarks against RL, skill-augmented, and self-distillation baselines that do not rely on stronger external teacher models. Without additional computational overhead, MDSKILL improves upon SOTA performance by up to 7.1% and 8.1% on ALFWorld and WebShop. Extensive ablations and evolution analyses further validate its e",
+  "summary_1line": "Skill memories encode past experiences as textual prompts to improve reinforcement learning (RL) for self-evolving agents. Complementing RL, On-Policy Self-Distillation (OPSD) provides dense, fine-grained supervision...",
+  "title": "MDSKILL: Learning to Internalize Skill Memory through Multi-View Distillation for Efficient Dynamic Agent Self-Evolution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05313v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "22262baef95a2fe5": {
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. Editing Qwen’s weights to reduce reasoning loops, DeepSeek’s super-agent prototype, and the GDPx benchmark. Amid a deepening bear market for AI/tech (worthy of dark humor ) with Anthropic bonds receiving a “junk” rating and OpenAI fundraise headlines , we continue to see very surprising capability finds in the community, such as today. The best way to put today’s blockbuster paper in context is to recall Karpathy’s autoresearch from a mere 8 months ago , which presaged a summer of recursive self improvement fears : Abstractly, the demonstration is that you can take a sufficiently smart model and through running a series of experiments across a compute cluster, train a model autonomously without human expertise or intervention. However, this is usually done by an involved process of writing PyTorch/Jax code and running compute and watching loss curves and reading evals and optimizing kernels and data and…. Well, last month’s guest Alex Zhang comes back to coauthor a MONSTER discovery: what if you just ask a smart model to directly read and edit the weights of a dumber model? In ML this is the equivalent of not looking at source code, just directly seeing ",
   "first_seen": "2026-11-03T06:05:21.577740+00:00",
@@ -474,6 +491,7 @@
   "published": "2026-11-02T15:46:01+00:00",
   "sid": "2ef0f5e9028f8dae",
   "source": "arxiv_cn_open_weight_reports",
+  "summary": "Sparse attention cuts the cost of long-context inference by making the attention matrix sparse: each query attends only a subset of the sequence, chosen by a fixed pattern or, in recent production LLMs, learned per query. In DeepSeek Sparse Attention (DSA), the attention of DeepSeek-V3.2 and the GLM-5 family, every layer is preceded by a lightning indexer that scores the whole cache and keeps the k=2048 highest-scoring tokens for the layer to attend. At long context this indexer scan, not the sparse attention it feeds, is where the decode time goes. But adjacent layers select nearly the same tokens, so a layer can attend the selection of the previous indexer layer instead of its own. This removes the dependency: each indexer then runs concurrently with the attention of its layer. The resulting Multi-layer Indexer (MLI) needs no retraining and no new weights. Its default realization changes no kernel, running inside SGLang's production decode graph; an optional fused decode kernel accelerates it further on DeepSeek-V3.2. MLI composes with IndexCache (the cross-layer reuse GLM-5.2 ships as IndexShare): IndexCache drops the indexer from some layers, and MLI hides the scan on the rest. We serve DeepSeek-V3.2 and GLM-5 under IndexCache's protocol at retentions 1/2 to 1/32 (the fraction of layers that keep an indexer) and contexts 10K to 195K. At equal retention the composition decodes faster than IndexCache: up to 14.5% faster on DeepSeek-V3.2 and 9.8% on GLM-5 at 1/2, and 7.9% an",
   "summary_1line": "Sparse attention cuts the cost of long-context inference by making the attention matrix sparse: each query attends only a subset of the sequence, chosen by a fixed pattern or, in recent production LLMs, learned per query. In DeepSeek Sparse Attention (DSA), the attention of DeepS",
   "title": "Multi-layer Indexer: Overlapping Selection and Attention in DeepSeek Sparse Attention",
   "type": "paper",
@@ -782,6 +800,7 @@
   "published": "2026-11-02T00:00:00+00:00",
   "sid": "43862ef771dfba65",
   "source": "anthropic_research",
+  "summary": "Sharing progress on a powerful type of cryptographic proof known as a zkSNARK, which is uniquely fit for provable inference.",
   "summary_1line": "Sharing progress on a powerful type of cryptographic proof known as a zkSNARK, which is uniquely fit for provable inference.",
   "title": "Progress on provable inference for large language models",
   "type": "research",
@@ -1805,6 +1824,22 @@
   "url": "http://arxiv.org/abs/2611.03280v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "92f891b192b00e63": {
+  "first_seen": "2026-11-04T05:04:25.379660+00:00",
+  "id": "1c90a16c1bf039ae",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-03T15:09:01+00:00",
+  "sid": "92f891b192b00e63",
+  "source": "arxiv_cs_cl",
+  "summary": "Large language models are deployed as long-horizon agents that compose diverse tools across MCP services into executable workflows. Existing MCP environment-scaling methods are data-centric: they first synthesize a database and scenario, then derive tools and tasks from them. As a result, tool interfaces may not match real ones, tool compositions are not grounded in execution, and tasks rarely span more than one environment. We propose ToolSpace, a tool-centric framework that reverses this order. ToolSpace mines data, state, and retry dependencies from adjacent calls in execution traces of real MCP services and open agent corpora, using deterministic rules rather than LLM judgment, and clusters the resulting weighted tool-composition graph into environments. Databases are synthesized only for state-mutating environments, while query and stateless tools replay recorded returns. ToolSpace then performs state-aware random walks with rollback and decompiles each chain into a natural-language task with assertion-based checks, keeping only samples that replay successfully from the initial state. Applied to AutomationBench and tau3-Bench Banking, the pipeline produces harder Pro versions on which 7 frontier models drop by up to 38.2 points. Across seven long-horizon tool-use benchmarks, ToolSpace raises Qwen3.6-35B-A3B from 23.0 to 41.0 average score (43.2 with RL) and GLM-5.2 from 44.6 to 56.6, on par with Claude Opus 5. Ablations show that execution-witnessed edges clearly outperf",
+  "summary_1line": "Large language models are deployed as long-horizon agents that compose diverse tools across MCP services into executable workflows. Existing MCP environment-scaling methods are data-centric: they first synthesize a da...",
+  "title": "ToolSpace: Scaling Tool-Centric Environment Synthesis for Long-Horizon Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05036v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "967be99077d13f07": {
   "content_excerpt": "One of my pet peeves with the web development community is that so many of the decisions we make are vibes-based. Frameworks are “blazing fast,” tools will “supercharge” your development, the right abstraction will benefit both you and your users ( DX and UX all in one!). All of this breathless boasting is usually offered with zero evidence. Alex Russell has called this “frontend’s lost decade” , Baldur Bjarnason has called programming a pop culture , and I’ve tried to counter this trend in my blog with facts and benchmarks (at my best, anyway). For a long time it seemed like our community’s allergy to evidence was driven by the desire for greater DX . In other words, devs just liked the way it felt to type JSX in React, and the arguments promoting React or related tools (“the virtual DOM is fast!”) were largely post-hoc rationalizations to justify those initial gut feelings. ( Jonathan Haidt would likely agree with this assessment.) But in the agentic era, when developers are no longer typing code by hand and are thus less constrained by DX, I still see vibes ruling the day (and not just in the sense of “vibe-coding”). Frontends are rewritten because some framework or another is “better for agents.” (Did anyone think to ask the agents?) The resulting code is “faster,” the agents make “fewer mistakes,” etc. Once again, these claims are often made without evidence. Whenever I read one of these accounts, I think to myself, “Where are the benchmarks?” Well I got curious, so I wr",
   "first_seen": "2026-11-01T07:05:08.064156+00:00",
@@ -1836,12 +1871,12 @@
  "99fb85f961738c74": {
   "content_excerpt": "Memory efficient and high performance Mixture-of-Experts inference for Apple Silicon 125 billion parameters. Up to 11 tokens per second. Under 10 GB of peak process memory. MoEShift is optimized for Apple Silicon: on a Mac mini M4 Pro with 24 GB of unified memory, it runs Qwen 3.8 Flash Next with roughly half the peak process memory of Strata and processes long prompts 2.6× faster. MoEShift leaves room for your other apps, helping your Mac stay responsive during inference instead of grinding to a halt under memory pressure. Keep browsing, writing and coding while the model works—all locally, with no cloud subscription. Alpha release. The core runtime is working, and the project is evolving quickly. You may encounter rough edges; your feedback helps shape the next release. Tested models and quantizations are listed below. Both use the shared SSD expert runtime on Apple Silicon. See supported architectures . Compared with Strata , a popular choice for local MoE inference, on a Mac mini M4 Pro with 24 GB unified memory . Both ran Qwen 3.8 Flash Next (125B), ISTA-DASLab GSQ-RCO IQ3_XXS, with an 8,192-token context, no cached prompt tokens and 256 output tokens. Strata: 0.2.7, build 0.1.52. Time includes server-measured prompt processing and generation, excluding startup. Memory is macOS footprint -p peak physical process footprint. UD Q6_K XL on the same Mac mini M4 Pro with 24 GB unified memory. Medians of three measured runs after warmup, with no cached prompt tokens and 512 ou",
   "first_seen": "2026-11-03T22:07:45.774266+00:00",
-  "id": "1d05d5f875881e8e",
+  "id": "e592a56fcfb838e7",
   "published": "2026-11-03T21:17:06+00:00",
   "sid": "99fb85f961738c74",
   "source": "hackernews_ai",
-  "summary_1line": "Show HN: Run faster MoE inference on Mac with less RAM",
-  "title": "Show HN: Run faster MoE inference on Mac with less RAM",
+  "summary_1line": "Show HN: MoEShift - Faster large MoE inference with half the RAM",
+  "title": "Show HN: MoEShift - Faster large MoE inference with half the RAM",
   "type": "news",
   "url": "https://github.com/davide-troiani/moeshift"
  },
@@ -2037,6 +2072,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.04180v1",
   "why_it_matters": "Matches feed focus: agentic, harness, eval."
+ },
+ "ae379e776ec13d7b": {
+  "content_excerpt": "Local-first, inspectable memory for coding agents: durable context across sessions and repositories, code-aware recall, bi-temporal history, MCP, and a self-hosted WebUI. Persistent, local-first memory for AI agents. Engraphis stores scoped project knowledge, retrieves relevant evidence across vector, lexical, graph, and code search, and returns bounded context with sources an agent can inspect. The local engine uses SQLite and works offline. It keeps changes over time instead of silently replacing facts, and grounded recall cites retrieved memories or abstains when evidence is weak. The full local application requires Python 3.10 or newer. The NumPy-only core supports Python 3.9+. The dashboard opens at http://127.0.0.1:8700 . Local use needs no cloud account or API key. The current registered artifact contains three deterministic offline fixture runs. It separates context size, retrieval quality, and grounded decision checks; these small fixtures do not establish general task performance. Three offline fixtures separate context reduction, candidate and packed retrieval quality, and grounded behavior. The chart shows the artifact checksum prefix; see the benchmark guide for the full checksum and reproduction steps. The payload figure is a serialized JSON-shape estimate, not an MCP transport measurement or provider billing total. See the Benchmark methodology for artifact identity, counting methods, reproduction commands, external-evaluation boundaries, and limitations. Jev i",
+  "first_seen": "2026-11-04T05:04:25.379660+00:00",
+  "id": "4a11942ff5ff8e91",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-04T04:52:44+00:00",
+  "sid": "ae379e776ec13d7b",
+  "source": "hackernews_ai",
+  "summary_1line": "Engraphis – Local-first, bi-temporal memory for AI coding agents",
+  "title": "Engraphis – Local-first, bi-temporal memory for AI coding agents",
+  "type": "news",
+  "url": "https://github.com/Coding-Dev-Tools/engraphis",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "afe272f4d0aa3179": {
   "content_excerpt": "Google Maps, social profiles, RAG, reviews, local AI visibility and more — production-grade tools exposed as pay-per-event APIs, from $0.002 per result plus run fees where applicable. Claude, GPT, Cursor and n8n discover and call them through MCP. Agents can also pay per call in USDC (x402). Pay per event, not per month. A Google Maps business costs $0.03 plus the run fee. A LinkedIn profile costs $0.02. Many Actors offer dryRun for integration tests; Apify platform usage may still apply. Businesses with phone, website, address, category, rating and reviews as clean JSON. Get alerted when public APIs break: OpenAPI diff + release classification, Slack alerts. Turn a business's Google reviews into a personalized audit report and outreach email. Live prices for French stations from official open data, filtered by department and fuel type. Track competitor hotel prices over time as clean datasets for revenue management. Audit one business website, Google profile and recent reviews with a transparent score and prioritized fixes. Create a persistent baseline and detect new reviews, rating changes and AI-readiness regressions with webhook alerts. Measure brand mentions and official-domain citations in real AI answers, with model-specific history and deltas. Each link opens a published Apify task with a prefilled input, FAQ and a real acceptance-test dataset. Il utilise le serveur MCP Apify ou la façade MCP Adaga, lit le schéma d’entrée de l’outil, puis lance une tâche publique ou u",
@@ -2834,14 +2885,14 @@
   "url": "https://operator0x.com/field-notes/weights-still-need-a-home"
  },
  "e7cec448dcf1b958": {
-  "content_excerpt": "Power agentic and mission-critical workloads on Google Cloud with fully-managed, serverless Postgres. Today, we're excited to announce that Lakebase Postgres is generally available on Google Cloud. Teams building on Google Cloud can now run production-grade, serverless Postgres directly on the Databricks Data + AI Platform. The Lakebase architecture separates compute from storage, which removes the resource conflicts and infrastructure overhead of traditional databases. It also shares the same storage layer as your analytical data which eliminates the need to build and maintain pipelines. The result is a Postgres database that scales with your application, shares one governance model with the rest of your data estate, and reduces your total cost of ownership. For years, transactional databases and analytics platforms have been kept separate. Moving operational data into the lakehouse meant building and maintaining ETL pipelines, duplicating storage and accepting data lag. Now that AI agents act on data in real-time, that operational overhead becomes a bigger liability. Instead with Lakebase, operational workloads run on the same platform, with the same security and governance as your analytics and AI. There is no siloed database to manage, no separate access controls to maintain and no data movement to keep in sync. Lakebase is a key component of the Lake Transactional/Analytical Processing (LTAP) architecture which allows organizations to unify their data foundation, decreas",
+  "content_excerpt": "Power agentic and mission-critical workloads on Google Cloud with fully-managed, serverless Postgres. We're excited to announce that Lakebase Postgres is generally available on Google Cloud. Teams building on Google Cloud can now run production-grade, serverless Postgres directly on the Databricks Data + AI Platform. The Lakebase architecture separates compute from storage, which removes the resource conflicts and infrastructure overhead of traditional databases. It also shares the same storage layer as your analytical data which eliminates the need to build and maintain pipelines. The result is a Postgres database that scales with your application, shares one governance model with the rest of your data estate, and reduces your total cost of ownership. For years, transactional databases and analytics platforms have been kept separate. Moving operational data into the lakehouse meant building and maintaining ETL pipelines, duplicating storage and accepting data lag. Now that AI agents act on data in real-time, that operational overhead becomes a bigger liability. Instead with Lakebase, operational workloads run on the same platform, with the same security and governance as your analytics and AI. There is no siloed database to manage, no separate access controls to maintain and no data movement to keep in sync. Lakebase is a key component of the Lake Transactional/Analytical Processing (LTAP) architecture which allows organizations to unify their data foundation, decrease opera",
   "first_seen": "2026-11-02T20:05:25.137504+00:00",
   "id": "b073fce81a4e1b71",
   "published": "2026-11-02T14:26:08+00:00",
   "sid": "e7cec448dcf1b958",
   "source": "databricks_blog",
   "summary": "We're excited to announce that Lakebase Postgres is generally available on Google Cloud...",
-  "summary_1line": "Today, we're excited to announce that Lakebase Postgres is generally available on...",
+  "summary_1line": "We're excited to announce that Lakebase Postgres is generally available on Google Cloud...",
   "title": "Lakebase Postgres is now generally available on Google Cloud",
   "type": "news",
   "url": "https://www.databricks.com/blog/lakebase-postgres-now-generally-available-google-cloud"
