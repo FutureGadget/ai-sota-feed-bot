@@ -31,6 +31,40 @@
   "url": "http://arxiv.org/abs/2611.01704v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "025c4e742cc7984d": {
+  "first_seen": "2026-11-04T06:05:16.733547+00:00",
+  "id": "1340c9045f605810",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-03T16:19:21+00:00",
+  "sid": "025c4e742cc7984d",
+  "source": "arxiv_cs_ai",
+  "summary": "Harness optimization improves long-horizon agents by refining the prompts, tools, memory, and hooks around a frozen model. Offline methods can learn from completed trajectories, but deploy one shared harness that may overfit training tasks and cannot react to evidence revealed during a new run. Online evolution can adapt before, during, or after one run through an evolver, but may have to reason about every intervention from scratch or rely on verifier feedback that is usually unavailable at test time. We introduce Meta$^2$, which moves offline optimization one level up: rather than optimizing a shared harness, it learns reusable knowledge for harness evolution and applies it within each task online. Offline, Meta$^2$ learns a textual Meta-Skill $M$ by contrasting training rollouts of the same task agent under three configurations: without an evolver, with an evolver guided by the current version of $M$, and with an evolver given privileged verifier information available only in training. Contrasts in trajectories and outcomes are aggregated across tasks to refine $M$ into reusable guidance on when and how to evolve, when to leave the harness unchanged, and which interventions to avoid. Online, an evolver combines the frozen $M$ with emerging trajectory evidence to decide whether to KEEP the harness unchanged or EVOLVE it through a task-local edit. Each edit applies to the rest of the same run without resetting its environment or progress. Thus, evolution guidance transfers a",
+  "summary_1line": "Harness optimization improves long-horizon agents by refining the prompts, tools, memory, and hooks around a frozen model. Offline methods can learn from completed trajectories, but deploy one shared harness that may...",
+  "title": "Meta$^2$: Precomputing Reusable Knowledge for Online Harness Evolution in Long-Horizon Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05139v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
+ "048f5d378548ff38": {
+  "first_seen": "2026-11-04T06:05:16.733547+00:00",
+  "id": "78a1d8da859efef7",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-03T16:22:48+00:00",
+  "sid": "048f5d378548ff38",
+  "source": "arxiv_cs_ai",
+  "summary": "The growing energy requirements of large language model inference highlight the need for datacenters to support safe grid operation by providing power demand flexibility, while maintaining service for interactive workloads. This work investigates query routing as a mechanism to enable such capability by dynamically allocating queries across different language model instances without deferring requests. We develop a general analytical framework that connects query arrival rates and sequence length distributions to token iteration time, request residence time, serving capacity, and power consumption of model instances. Leveraging this framework, we characterize the feasible query routing allocations and the corresponding power demand flexibilities, enabling the selection of routing strategies to achieve desired power consumption behavior. We validate our framework across four GPU platforms on language models ranging from 1B to 70B parameters, obtaining 2.8% mean absolute percentage error in estimating achievable power flexibility. We evaluate our approach on a real trace-driven simulation of a 10,000 H100 GPUs datacenter, exhibiting flexibility up to 16% of total power consumption, with 90% of the desired power reduction achieved within approximately 10 seconds. These results establish query routing as an effective mechanism for datacenter power demand flexibility and demonstrate the broader applicability of our proposed framework to datacenter level planning and orchestration.",
+  "summary_1line": "The growing energy requirements of large language model inference highlight the need for datacenters to support safe grid operation by providing power demand flexibility, while maintaining service for interactive work...",
+  "title": "Creating Power Flexibility in Datacenters via Query Routing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05148v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "06728eec88e7e7f8": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. The article argues that reliable agentic AI architecture depends on a context engine that selects, injects, compresses, and expires information before it reaches the model. It separates context, memory, and knowledge, and recommends tiered memory, curated knowledge, and token budgeting. It also covers common anti-patterns, such as context stuffing and stale data loops, with mitigations. Nimisha Asthagiri shares how applying proven product engineering and architecture principles creates a bounded canvas for AI agents. She explains how this model provides agents with bounded autonomy, continuous drift detection, and decision records to scale software development resiliently. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervision paradox,\" where relia",
   "first_seen": "2026-11-02T17:06:11.336056+00:00",
@@ -90,6 +124,22 @@
   "url": "https://github.com/traccia-ai/traccia-py",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "09af76c573b36fe0": {
+  "first_seen": "2026-11-04T06:05:16.733547+00:00",
+  "id": "cc14cef55e1fc410",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-03T18:16:29+00:00",
+  "sid": "09af76c573b36fe0",
+  "source": "arxiv_cs_cl",
+  "summary": "Looped transformers are a parameter-efficient alternative to standard transformers for language modeling. By reapplying the same layers across multiple loop steps, recent looped language models match the performance of non-looped models several times their size. While this architecture effectively reduces parameter memory, each loop step still stores its own keys and values, so the key-value (KV) cache grows linearly with the number of loop steps and becomes the main memory bottleneck. We observe that the KV cache of looped models is highly redundant along the loop axis and that the loop steps differ substantially in their sensitivity to quantization. Based on these observations, we propose $\\textbf{LoopVQ}$, a KV cache vector quantization method for looped transformers that codes channels of multiple loop steps jointly, and fine-tunes the codebooks to match the output of the full-precision model. At 0.5 bits per element, LoopVQ outperforms existing KV cache vector quantization methods for standard LLMs on general, long chain-of-thought reasoning, and long-context retrieval tasks with Ouro and Huginn models. Its design is orthogonal to these methods, and combined with TaSQ, it retains much of the BF16 accuracy even at 0.25 bits per element. We also implement LoopVQ in SGLang, where it nearly halves the decode latency at a 32K-token context and raises the peak serving throughput by up to $4.3\\times$ and $6.1\\times$ on the 1.4B and 2.6B Ouro models compared to the BF16 baseline",
+  "summary_1line": "Looped transformers are a parameter-efficient alternative to standard transformers for language modeling. By reapplying the same layers across multiple loop steps, recent looped language models match the performance o...",
+  "title": "LoopVQ: Sub 1-bit KV Cache Quantization for Looped Transformers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05304v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "0c72e14fe97992c7": {
   "content_excerpt": "repobs Skip to content repobs Home Film Features Privacy Documentation Download Initializing search Download the repobs film (MP4, 25 seconds) Skip Home User guide Developer repobs Home Home Table of contents See every branch Follow every agent Review on your terms Local and read-only User guide User guide Getting started Using repobs Status semantics Integrations Privacy & security Limitations Developer Developer Architecture HTTP API Testing Progress Reference audit Product handoff (original) Decisions Decisions Product foundation Engineering choices Dashboard and commit graph Reference UI alignment Views and File menu Release packaging Documentation site style Automation rules and hiding Agent plans in checklists Interface size and wheel Folders without Git Codex compressed rollouts and state database Table of contents See every branch Follow every agent Review on your terms Local and read-only repobs ¶ every worktree and coding agent, on one local timeline. A read-only dashboard for developers who run many coding agents across Git worktrees and branches: each repository's branches on one timeline, with the Claude Code and Codex agents that worked on them, what they are doing now, and what you still need to review. Download Get started See every branch ¶ Your repositories, branches and worktrees on one timeline. Forks, merges, unpushed commits and uncommitted changes. Scratch branches, detached HEADs and missing worktrees. Commit order or calendar time; zoom, pan and fold ",
   "first_seen": "2026-11-02T22:05:52.875104+00:00",
@@ -136,6 +186,17 @@
   "url": "https://www.langchain.com/blog/human-insight-strategic-advantage-agents",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "0f92919051549725": {
+  "first_seen": "2026-11-04T06:07:33.226600+00:00",
+  "id": "c6fa4315da88a688",
+  "published": "2026-11-03T17:44:07+00:00",
+  "sid": "0f92919051549725",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Byte level language models avoid tokenizer dependence and provide universal coverage, but processing every byte at full resolution is expensive. We introduce DeepMem, a causal multiscale architecture that separates semantic compression from exact byte preservation. A learned inve",
+  "title": "Going Deeper With Memories",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05255v1"
+ },
  "0f9890a728a058e8": {
   "content_excerpt": "What a 35-point benchmark cliff, a slowdown study nobody wanted to publish, and real 2026 payroll data say about replacing engineers with agents Claude Opus 4.8 clears 88.6% on SWE-bench Verified . That's the number everyone quotes to argue AI has basically solved software engineering. Now drop it into SWE-bench Pro — the version built from private codebases the model has never seen. The best standardized score on the public leaderboard is 59.1%. On the truly private commercial set, where nobody gets to tune in advance, no model clears 47%. That's not a rounding error. That's a 20-to-40-point cliff, and it shows up everywhere. Gemini 3.1 Pro falls from 80.6% to somewhere between 32% and 46%, depending on which cut you trust. Every lab's flagship shows the same shape of fall. Here's a wrinkle nobody saw coming: the two highest-scoring models that exist right now — Claude Mythos 5 (95.5%) and Claude Fable 5 (95.0%) — aren't something you can actually use. Anthropic suspended public access to both under an export control directive. The \"best\" model on paper this week is one you can't buy. That gap, between the benchmark you can quote and the codebase you actually own, is the entire \"AI replaces developers\" argument in miniature. Models are extraordinary at problems that resemble what they've already seen. They get shaky fast the moment the code is genuinely yours — your weird conventions, your one engineer's undocumented caching hack from three years ago. But cost is the questio",
   "first_seen": "2026-11-01T10:03:30.273054+00:00",
@@ -163,6 +224,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03622v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "1273631ee9013ed5": {
+  "first_seen": "2026-11-04T06:05:16.733547+00:00",
+  "id": "6996f0340b9ea82f",
+  "published": "2026-11-04T05:16:20+00:00",
+  "sid": "1273631ee9013ed5",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Cohere Hosts Rivals’ DeepSeek and Gemma: 8 of 14 Not Its Own FourWeekMBA",
+  "summary_1line": "Cohere Hosts Rivals’ DeepSeek and Gemma: 8 of 14 Not Its Own FourWeekMBA",
+  "title": "Cohere Hosts Rivals’ DeepSeek and Gemma: 8 of 14 Not Its Own",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPVlNkc2xsanhBWjFyTjVXbXFBcXBhaVNkWWotWTB5LTU2aEoyWGVFWFR5TlVwVHFiejZaek9jbG5PVUcycXdfeTVlMFlqMGk2ZUtNTXdpd1U3cUNyOWlaeDl0NVF2NlVOME8zbjBDT1ZCZHI0NmN2M3AzUlRQR3k3RWZDRU82MGZpX1R5UnBlWQ?oc=5"
  },
  "14e4e938bb2234ef": {
   "first_seen": "2026-11-03T04:13:31.497634+00:00",
@@ -2007,6 +2080,25 @@
   "url": "https://rufous.chat",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "a8b588e8a456d4f8": {
+  "first_seen": "2026-11-04T06:05:16.733547+00:00",
+  "id": "1782a5ceab92c6a0",
+  "matched_topics": [
+   "agent",
+   "eval",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-11-03T14:32:03+00:00",
+  "sid": "a8b588e8a456d4f8",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Real-world geospatial decision support requires more than single-step retrieval or code generation. Disaster-response questions often involve multi-source workflows that combine spatial databases, map-derived features, satellite imagery, raster products, and reusable geospatial artifacts, where correctness depends on preserving spatial scope, temporal context, and intermediate execution state. While large language models and coding agents offer a promising interface for such workflows, they struggle with geospatial-specific failure modes, including handling large artifacts, selecting the wrong evidence source, losing spatial or temporal metadata, and applying invalid geometric operations. We introduce GeoFaham, a domain-specialized multi-agent system for geospatial disaster analytics. GeoFaham decomposes workflows into specialist agents for vector operations, map feature retrieval, imagery discovery, and raster analysis, coordinated by an Orchestrator with a dual-ledger control loop for dependency-aware planning, progress tracking, validation, and replanning. To support artifact-centric collaboration, GeoFaham uses a Response Store that persists full geospatial outputs and typed metadata outside the LLM context window while agents exchange compact identifiers and summaries. We also introduce GeoFaham-Bench, a 40-task benchmark grounded in 17 real-world disaster records, designed to evaluate multi-step geospatial reasoning, cross-source integration, raster-vector computation, ",
+  "summary_1line": "Real-world geospatial decision support requires more than single-step retrieval or code generation. Disaster-response questions often involve multi-source workflows that combine spatial databases, map-derived features...",
+  "title": "GeoFaham: Domain-Specialized Multi-Agent Geospatial Analytics for Disaster Response",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.04977v1",
+  "why_it_matters": "Matches feed focus: agent, eval, codex."
+ },
  "a8f5be6d64b1c57f": {
   "first_seen": "2026-11-02T03:05:12.932939+00:00",
   "id": "742947bfef0d6d75",
@@ -2072,6 +2164,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.04180v1",
   "why_it_matters": "Matches feed focus: agentic, harness, eval."
+ },
+ "ad981af6a985aff4": {
+  "first_seen": "2026-11-04T06:07:33.226600+00:00",
+  "id": "de69ae60fdc463e1",
+  "published": "2026-11-03T03:04:04+00:00",
+  "sid": "ad981af6a985aff4",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Under expert parallelism, mixture-of-experts (MoE) layers pay all-to-all token dispatch, grouped GEMMs, and a combine step in every layer. In decode each rank holds only 1-256 tokens: dispatch latency and weight traffic dominate while tensor-core utilization is inherently low. In",
+  "title": "GC-MoE: Overlapping Expert-Parallel Token Dispatch with FP8/FP4 Grouped GEMM via CUDA Green Contexts",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.04222v1"
  },
  "ae379e776ec13d7b": {
   "content_excerpt": "Local-first, inspectable memory for coding agents: durable context across sessions and repositories, code-aware recall, bi-temporal history, MCP, and a self-hosted WebUI. Persistent, local-first memory for AI agents. Engraphis stores scoped project knowledge, retrieves relevant evidence across vector, lexical, graph, and code search, and returns bounded context with sources an agent can inspect. The local engine uses SQLite and works offline. It keeps changes over time instead of silently replacing facts, and grounded recall cites retrieved memories or abstains when evidence is weak. The full local application requires Python 3.10 or newer. The NumPy-only core supports Python 3.9+. The dashboard opens at http://127.0.0.1:8700 . Local use needs no cloud account or API key. The current registered artifact contains three deterministic offline fixture runs. It separates context size, retrieval quality, and grounded decision checks; these small fixtures do not establish general task performance. Three offline fixtures separate context reduction, candidate and packed retrieval quality, and grounded behavior. The chart shows the artifact checksum prefix; see the benchmark guide for the full checksum and reproduction steps. The payload figure is a serialized JSON-shape estimate, not an MCP transport measurement or provider billing total. See the Benchmark methodology for artifact identity, counting methods, reproduction commands, external-evaluation boundaries, and limitations. Jev i",
@@ -2334,6 +2437,18 @@
   "url": "https://github.com/Marqueos/codedict",
   "why_it_matters": "Matches feed focus: claude code."
  },
+ "bb1f2f07f5994d40": {
+  "content_excerpt": "Founder Summit begins Nov. 4, 9:00 a.m. ET. Get your pass savings & deals before it starts. REGISTER HERE. The financials Anthropic shared with investors this week suggest that its AI coding tool, Claude Code, is every bit the business success the frontier lab wanted. The company recorded an operating profit in the second quarter, and 900% net revenue retention — that is, spending from the same customers in Q3 2025 grew nine times in Q3 2026. Anthropic has focused on getting enterprise users to stick around and Wednesday announced a new suite of reporting tools designed to give those customers a more granular understanding of the value they get from their token spend. Using internal analytics and employee surveys, managers can view a team’s work over a given date range, what the team produced, how much it cost, and where its workflows broke down. Anthropic says it won’t use this data for model training by default. The reports will also offer recommendations on how to improve the results. This is a clear attempt to demonstrate the return on investment of Anthropic’s tools and to show customers how to improve it — a major concern among large customers. Anthropic is also creating pooled group budgets to allow teams to better manage token spending. Businesses have been hunting for that kind of information as they figure out how best to deploy AI tools. While usage among venture-backed firms is driving token spend, most of the Fortune 500 are not seeing major gains from deploying ",
+  "first_seen": "2026-11-04T06:05:16.733547+00:00",
+  "id": "317c5cc763cb9ebc",
+  "published": "2026-11-04T04:26:22+00:00",
+  "sid": "bb1f2f07f5994d40",
+  "source": "hackernews_ai",
+  "summary_1line": "Anthropic launched tools to show companies what their AI spending is buying",
+  "title": "Anthropic launched tools to show companies what their AI spending is buying",
+  "type": "news",
+  "url": "https://techcrunch.com/2026/10/28/anthropic-just-launched-tools-to-show-companies-what-their-ai-spending-is-buying"
+ },
  "bb2283a397cce9bf": {
   "content_excerpt": "Show notes: Agentic coding has outgrown the text box. Maggie Appleton, staff research engineer at GitHub Next, argues that walls of CLI output and AGENTS.md files serve coding agents far better than the humans steering them. She walks through Chopin, the GitHub Next prototype where background agents turn a team's planning chat into a structured plan, and makes the case for agents that prompt you instead of waiting to be prompted. What we cover: – Why text-heavy agentic coding tools favor agents over humans – Boundary objects: what AGENTS.md, skill files and MCP servers get right and wrong – Multiplayer planning with coding agents in GitHub Next's Chopin – Human-to-agent handoffs, formal verification and Transcript (sampled): order to achieve that, you use things like space, contrast, priority, color, grouping. Um, you like use the principles of how humans interpret objects and colours and values in space to like make the person see the right thing in the right order, click the right button, understand what's on the screen. Um and agents haven't been trained on … Because from the outside we can't do that. That is like foundation labs are really the only ones in a position to do meaningful interpretability work. And I think that stuff is important to s for us to see how agents reason. But to get back to the boundary objects thing, it's actually not as important for us to understand their worlds more … recognize someone was a junior, I would hope the model was to some degree tra",
   "first_seen": "2026-11-03T14:05:20.958126+00:00",
@@ -2424,6 +2539,17 @@
   "title": "langgraph-sdk==0.4.12",
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.12"
+ },
+ "bef45a5954cc1f97": {
+  "first_seen": "2026-11-04T06:07:33.226600+00:00",
+  "id": "a594c8b1db18a154",
+  "published": "2026-11-02T00:26:48+00:00",
+  "sid": "bef45a5954cc1f97",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "Tool-using language-model agents often execute actions that their domain policies forbid. We present LeanGuard, a runtime that checks every proposed tool call against a policy written in Lean4 before the call reaches the environment. Policies combine state predicates with scoped",
+  "title": "LEANGUARD: Lean-Verified Guardrails for Tool-Using Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.02332v1"
  },
  "bfa2c015d1452904": {
   "first_seen": "2026-11-04T00:07:04.928809+00:00",
@@ -2724,6 +2850,17 @@
   "type": "news",
   "url": "https://newsletter.semianalysis.com/p/gdpx-measuring-frontier-model-capabilities"
  },
+ "daba25233d007e64": {
+  "first_seen": "2026-11-04T06:07:33.226600+00:00",
+  "id": "038409395d0f73d3",
+  "published": "2026-11-03T18:45:23+00:00",
+  "sid": "daba25233d007e64",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Speculative decoding has been treated purely as a systems optimization that speeds up large language model decoding without changing the model behavior. Under this view, the growing effort to train better draft models has been focused solely on acceptance rate. We argue that this",
+  "title": "Adversarial Speculative Reasoning Improves Long Horizon Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05345v1"
+ },
  "db35ae7ec1e7fc03": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervi",
   "first_seen": "2026-11-01T10:03:30.273054+00:00",
@@ -2973,6 +3110,23 @@
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/servicenow-on-behalf-of-token-exchange-with-bedrock-agentcore-gateway",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "ef4c20cc8b60cd08": {
+  "first_seen": "2026-11-04T06:05:16.733547+00:00",
+  "id": "64db3ddba592f224",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-03T13:23:37+00:00",
+  "sid": "ef4c20cc8b60cd08",
+  "source": "arxiv_cs_cl",
+  "summary": "The value of memory lies not only in recall but in using it to provide appropriate assistance. Recent benchmarks test memory use in personalisation and agentic tasks, but seldom evaluate assistance without fixed answers or integration across multiple participants. Group chats make both challenges more acute: an assistant must integrate information from multiple members, track revisions and conflicts over time, and produce one response for the group. Yet existing group memory benchmarks rely on synthetic conversations and inherit constrained evaluation from general memory benchmarks, focusing on recall against fixed answers or decisions over a closed set. We introduce GroupAssistBench, the first memory benchmark from real-world group conversations with a deployed group assistant, covering 80,299 messages in 50 groups and costing over $53K. Over the same histories, GroupAssistBench evaluates memory recall (L1) with reference answers and memory use (L2) with service requests without fixed answers across single, distributed, and conflicting memories (M1--M3). Requests are verified to require group history, memories are anchored to their sources, and L2 uses tailored rubrics with penalties derived from real user feedback. Across evaluations of frontier models with full context, retrieval methods, and memory systems, the strongest memory system rivals full context on recall but falls far behind on use, especially for distributed and conflicting memories. Together, two additions tha",
+  "summary_1line": "The value of memory lies not only in recall but in using it to provide appropriate assistance. Recent benchmarks test memory use in personalisation and agentic tasks, but seldom evaluate assistance without fixed answe...",
+  "title": "One Assistant, Many Memories: Benchmarking Real-World Group Assistance When Recall Is Not Enough",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.04867v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "f192b6fc5b19cc60": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. The article argues that reliable agentic AI architecture depends on a context engine that selects, injects, compresses, and expires information before it reaches the model. It separates context, memory, and knowledge, and recommends tiered memory, curated knowledge, and token budgeting. It also covers common anti-patterns, such as context stuffing and stale data loops, with mitigations. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"superv",
