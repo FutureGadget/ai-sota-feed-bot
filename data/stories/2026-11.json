@@ -791,6 +791,19 @@
   "url": "https://latent.space/p/building_legal_agents_when_you_can_t_see_the_data_-_jacob_lauritzen_cto_of_legora",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "3399044813cf568b": {
+  "content_excerpt": "Kimi K3.1 Pro is Moonshot AI's most capable open-weight model: a 2.8T-parameter (104B active) multimodal MoE with a 1M-token context that matches the strongest closed-source models on coding, agentic and knowledge benchmarks. The main change is attention: K3.1 Pro adds Sparse Attention (DSA) to all 24 full-attention layers for efficiency. vLLM supports it on day 0 on NVIDIA GPUs, AMD GPUs, Google TPUs and Alibaba T-Head Zhenwu PPUs. Each sparse attention layer has a small indexer next to its MLA attention. The indexer keeps one FP8 key per token (132 bytes with its scale) and scores every earlier token for each query with 32 lightweight heads. Then it keeps the top 2,048 tokens. MLA attention then runs exactly, but only over those 2,048 tokens. DSA was introduced in DeepSeek-V3.2; our DeepSeek-V3.2 post covers the indexer in more detail. The payoff is largest in long-context decode, which is bound by memory bandwidth. Dense MLA reads 576 bytes of FP8 latent per context token per layer. DSA still scans the whole context, but only the 132-byte index keys. It then reads the full latent for just 2,048 tokens. At long context, that is about 23% of the bytes dense MLA reads per layer. Figure 1: Sparse attention (DSA) in Kimi K3.1 Pro. The indexer scores every past token, keeps the top 2,048, and every query head attends exactly over only those tokens' latents. Step through it. The index keys are a second per-token cache next to the MLA latent. Under tensor parallelism (TP) both are",
+  "first_seen": "2026-11-04T17:04:44.410239+00:00",
+  "id": "a7bea437bf89f0b2",
+  "published": "2026-11-04T00:00:00+00:00",
+  "sid": "3399044813cf568b",
+  "source": "vllm_blog",
+  "summary": "vLLM supports Kimi K3.1 Pro on day 0: sparse attention on a KDA hybrid, a packed KV cache with FP8 or NVFP4 latents and MXFP4 index keys, token-sharded prefill, decode context parallelism, and fused low-latency decode.",
+  "summary_1line": "vLLM supports Kimi K3.1 Pro on day 0: sparse attention on a KDA hybrid, a packed KV cache with FP8 or NVFP4 latents and MXFP4 index keys, token-sharded prefill, decode context parallelism, and fused low-latency decode.",
+  "title": "vLLM Delivers Day-0 Support for Kimi K3.1 Pro",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-11-04-kimi-k31-pro"
+ },
  "346e59fe4752752d": {
   "content_excerpt": "For the third consecutive year, we asked Python developers how they use and experience Python typing: the language features, specifications, and tools used to describe and check types in Python code. We run the survey to learn what is working and what library maintainers, tool builders, documentation authors, and standards contributors should tackle next. Most respondents were experienced Python developers: 76.4% had used Python for at least five years. The clearest change was the shift in checker choice, while missing library type information remained the most common difficulty. Broader and more accurate type information would help users of data-science packages: Dynamic frameworks pose a different challenge because current type systems cannot express some runtime behavior. Possible directions include new typing features and checker support tailored to individual libraries and frameworks. Tool builders could focus on editor feedback and an initial checker run that requires little configuration: Error messages could link to short explanations and examples. Typing documentation can assume Python experience. Projects using multiple checkers would benefit from clear explanations of intentional differences between them. Better callable syntax remains a practical area for standards work , especially if improvements keep common typing tasks straightforward. AI usage remains an open question: The findings on AI leave an open question about which interactions between AI tools and typ",
   "first_seen": "2026-11-03T13:05:11.255573+00:00",
@@ -3567,6 +3580,20 @@
   "url": "http://arxiv.org/abs/2611.04315v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "ecb2e13c36b51ce4": {
+  "content_excerpt": "My longest running agent testbed has been building the Interconnects Dashboard — an aggregator of all of the best data on open model adoption and performance from across the web. This dashboard is freely available and becoming quite useful. Still, all the measurements we have on open model adoption are incredibly imprecise. We have noisy platform metrics, marketing-related metrics from startups, and imperfect public evaluations. It takes an informed eye to figure out where things are going. These research notes are my current best approximations of where we stand. As with most things on Interconnects, our goal is to build well more value than we capture, so the data on the dashboard will remain free for the foreseeable future. These notes will be more raw than many of my articles, a place for sharing what I’m mulling over but don’t have complete evidence for (yet). They will be primarily paid, enabling me to speak more freely. If you work in AI policy or policy-facing research, please reach out to us and we can likely get discounted or free access. The primary question I wanted to address today is: What is the market for open model inference? Is it growing? Is it a rounding error relative to OpenAI/Anthropic? I’ve been building the best measurements I can here, primarily using the open model inference startups Baseten, Fireworks, and Together AI as the bellwethers here (along with the open model share of OpenRouter’s token volume, which they thankfully report in their API). T",
+  "first_seen": "2026-11-04T17:04:44.410239+00:00",
+  "id": "5a43ac8793c38385",
+  "image_url": "https://substackcdn.com/image/fetch/$s_!hFZ7!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6c5f2798-10bc-487a-8932-5f851ad61b24_1600x840.svg",
+  "published": "2026-11-04T16:35:44+00:00",
+  "sid": "ecb2e13c36b51ce4",
+  "source": "interconnects",
+  "summary": "Our first open model economy research note for paid subscribers.",
+  "summary_1line": "Our first open model economy research note for paid subscribers.",
+  "title": "How well can we measure open model inference share?",
+  "type": "news",
+  "url": "https://www.interconnects.ai/p/how-well-can-we-measure-open-model"
+ },
  "ed1d67fc0ab0bf64": {
   "content_excerpt": "High-reliability, multi-agent-safe LinkedIn automation engine and CLI built on Chrome DevTools Protocol (CDP). Disclaimer & Responsible Use : linkedin-ops is an independent open-source tool built for developer automation research, testing, and workflow automation via local Chrome DevTools Protocol (CDP). This project is not affiliated with, endorsed by, or sponsored by LinkedIn Corporation. Automated interaction with LinkedIn must comply with applicable platform terms and policies. Always maintain realistic human delays and respect LinkedIn rate limits to safeguard account health. Checks CDP port 9222 reachability, browser version, user agent, and verifies an authenticated LinkedIn session. (Dry-run mode navigates and fills the note without submitting. Add --send only when ready to live submit). For multi-profile outreach and candidate sweeps, see campaigns/batch-connect.example.mjs : (User campaigns and harvested datasets in data/ and campaigns/ are gitignored and never committed to source control).",
   "first_seen": "2026-11-01T02:04:18.619311+00:00",
@@ -3740,8 +3767,8 @@
   "published": "2026-11-02T04:13:51+00:00",
   "sid": "f4a904d03d800a16",
   "source": "hf_moonshotai_releases",
-  "summary": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 83, downloads: 797.",
-  "summary_1line": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 83, downloads: 797.",
+  "summary": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 239, downloads: 797.",
+  "summary_1line": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 239, downloads: 797.",
   "title": "moonshotai/Kimi-K3.1-Pro released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro"
