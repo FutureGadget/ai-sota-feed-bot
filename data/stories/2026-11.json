@@ -258,6 +258,24 @@
   "url": "http://arxiv.org/abs/2611.01700v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "1cb312ba9579ab92": {
+  "first_seen": "2026-11-04T04:05:15.928526+00:00",
+  "id": "8b48d322ede9642c",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-11-02T21:22:07+00:00",
+  "sid": "1cb312ba9579ab92",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Enterprises increasingly want LLM agents to automate standard operating procedures over their software stacks -- mapping each step of a procedure to the right call among thousands of internal APIs, without hand-authored step-to-API mappings. The core difficulty is API selection at scale: choosing and composing the correct tools over a long horizon, judged only by whether the overall task succeeds. Current tool-use benchmarks do not test this regime -- they expose only a handful of tools, evaluate single-step invocation, or grade multi-step behavior with subjective LLM-as-a-judge scores that penalize valid alternative trajectories. We introduce SLATE (Synthetic Large-scale API Toolkit for E-commerce), a large-scale benchmark that tests large-toolset, long-horizon API selection in a realistic enterprise domain. SLATE couples (i) queries decomposed into hierarchical, tool-grounded procedures over a ~1,000-tool e-commerce library, (ii) a deterministic, context-aware simulator that returns recorded outputs for matching calls and default responses otherwise, and (iii) an end-to-end task-success metric -- a task succeeds when it reaches every reference outcome -- that credits diverse-but-valid trajectories while remaining fully automatic and reproducible. Experiments with six open decision models and the language models they are built on, from 3B to 12B parameters, show that even the best model completes only 5.0% of the tasks, establishing SLATE as a challenging testbed for reliabl",
+  "summary_1line": "Enterprises increasingly want LLM agents to automate standard operating procedures over their software stacks -- mapping each step of a procedure to the right call among thousands of internal APIs, without hand-author...",
+  "title": "SLATE: A Large-Scale Benchmark for Long-Horizon API Selection in E-commerce Tool Use",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03982v1",
+  "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
  "1e71fb03632c55bc": {
   "first_seen": "2026-11-03T08:05:19.021402+00:00",
   "id": "31f8ab488b0a983c",
@@ -388,6 +406,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03330v1",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "2d77f36eefa1549d": {
+  "first_seen": "2026-11-04T04:05:15.928526+00:00",
+  "id": "14e2a680d620b156",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-03T04:46:30+00:00",
+  "sid": "2d77f36eefa1549d",
+  "source": "arxiv_cs_cl",
+  "summary": "We introduce a training-free sparse attention method that builds a prompt-specific key index to accelerate both prefill and decoding. The method clusters the keys into large semantic blocks that group tokens from noncontiguous positions. Each query position selects blocks by scoring their centroids and attends to the original keys and values within them. Queries that select the same block are processed together, so prefill stays fast even though each query chooses its own blocks. Large blocks make centroid scoring and this grouped processing cheap, so each query can attend to more tokens in the same time. Larger blocks with a larger token budget can thus be both faster and more accurate on long-context tasks than smaller blocks with a smaller budget. We evaluate two hybrid LLMs, Qwen3.5-4B and 35B-A3B, on one NVIDIA H200. Including the cost of building and using the index, whole-model wall-clock speedups over dense attention are 2.3-2.4x for prefill and 1.7-2.0x for decoding at 512K tokens, and 2.9-3.0x for prefill at 1M. The 35B-A3B model stays close to dense attention on five RULER tasks through 1M, on LongBench-v2 overall, and on MRCR through 256K. The 4B model loses accuracy mainly on multi-key retrieval, yet outperforms dense Qwen3.5-2B, whose latency is similar at 512K, on all three benchmarks.",
+  "summary_1line": "We introduce a training-free sparse attention method that builds a prompt-specific key index to accelerate both prefill and decoding. The method clusters the keys into large semantic blocks that group tokens from nonc...",
+  "title": "Coarse Semantic Blocks for Efficient Training-Free Sparse Attention",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.04313v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "2dd1a315b516efdb": {
   "first_seen": "2026-11-01T17:05:03.756723+00:00",
