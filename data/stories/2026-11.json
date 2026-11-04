@@ -434,6 +434,17 @@
   "url": "http://arxiv.org/abs/2611.02516v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "2ef0f5e9028f8dae": {
+  "first_seen": "2026-11-04T03:05:30.249435+00:00",
+  "id": "1dfc7d4104b992bc",
+  "published": "2026-11-02T15:46:01+00:00",
+  "sid": "2ef0f5e9028f8dae",
+  "source": "arxiv_cn_open_weight_reports",
+  "summary_1line": "Sparse attention cuts the cost of long-context inference by making the attention matrix sparse: each query attends only a subset of the sequence, chosen by a fixed pattern or, in recent production LLMs, learned per query. In DeepSeek Sparse Attention (DSA), the attention of DeepS",
+  "title": "Multi-layer Indexer: Overlapping Selection and Attention in DeepSeek Sparse Attention",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03768v1"
+ },
  "2f11643a689186b4": {
   "content_excerpt": "TL;DR: H200 loses money even when fully busy. B300 makes money once it's 35% busy. Which GPU card you rent matters more than which inference engine you run. A common claim on X and LinkedIn is that inference is an easy business: demand is so high that anyone who can rent GPUs can sell tokens at a profit, with no technology of their own. This post checks that claim against public data. Let's be fai",
   "first_seen": "2026-11-03T09:07:00.495056+00:00",
@@ -441,6 +452,7 @@
   "published": "2026-11-03T04:27:10+00:00",
   "sid": "2f11643a689186b4",
   "source": "hackernews_ai",
+  "summary_1line": "Is hosting an open-source inference engine profitable?",
   "title": "Is hosting an open-source inference engine profitable?",
   "type": "news",
   "url": "https://userecurrence.ai/research/is-hosting-open-source-inference-profitable"
@@ -1172,6 +1184,39 @@
   "url": "http://arxiv.org/abs/2611.02407v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "62b230bc3b4454ae": {
+  "first_seen": "2026-11-04T03:03:29.158969+00:00",
+  "id": "a3f2c198a954de48",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-03T00:30:05+00:00",
+  "sid": "62b230bc3b4454ae",
+  "source": "arxiv_cs_cl",
+  "summary": "Large language models (LLMs) often generate responses longer than necessary, increasing inference latency and computational cost. While prompting can encourage conciseness, controlling output length without compromising response completeness remains challenging. Aggressive early stopping can reduce generation costs but risks terminating responses prematurely. We introduce MinimalLM, a training-free framework for reliable verbosity control that combines uncertainty-aware, length-dependent stop-token adjustment with structural completeness guardrails. MinimalLM separates the decision of when to stop from whether stopping is structurally appropriate, coordinating response-level instructions, decoding-time intervention, and completion checks without modifying model parameters or requiring auxiliary models. We evaluate MinimalLM across three open-source LLMs and 330 questions, producing 5,940 responses across baseline and ablation configurations. MinimalLM reduces generated tokens by 47.6%, accelerates individual responses by 19-68%, and eliminates structurally truncated outputs in the primary evaluation. Despite substantial token savings, it achieves an average quality score of 8.04/10, compared with 8.42/10 for unmodified models and 6.46/10 for length-matched truncation. Evaluations across diverse subject domains (such as healthcare, programming, law, and science) demonstrate robust efficiency gains, while ablations establish the complementary roles of decoding control and compl",
+  "summary_1line": "Large language models (LLMs) often generate responses longer than necessary, increasing inference latency and computational cost. While prompting can encourage conciseness, controlling output length without compromisi...",
+  "title": "Say Less, Mean Better: Training-Free Verbosity Control for Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.04107v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "637cae78a163e2de": {
+  "first_seen": "2026-11-04T03:03:29.158969+00:00",
+  "id": "a47a524458261993",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-03T04:16:06+00:00",
+  "sid": "637cae78a163e2de",
+  "source": "arxiv_llm_reliability",
+  "summary": "Retrieval-augmented Web applications increasingly employ multi-agent debate (MAD) to aggregate conflicting, noisy, and heterogeneous information, yet deliberation is fundamentally a social process susceptible to interpersonal dynamics. When retrieved Web sources contain latent hazards alongside safe factual content, social biases such as conformity pressure and authority deference can override evidence-grounded safety boundaries. In this work, we investigate whether the social structure of deliberation can paradoxically amplify latent Web safety risks. We introduce SafeConflict-Bias, a controlled counterfactual diagnostic protocol spanning six core Web risk categories, which holds queries and retrieved evidence strictly invariant while isolating conversational majority sway, authority cues, and confidence asymmetry. Empirical evaluation across diverse proprietary and open-source backbones reveals that while isolated models reliably reject unsafe guidance, standard MAD catastrophically capitulates to social pressure---surging unsafe adoption from 0.0\\% up to 100.0\\% and systematically silencing safe minority evidence. To resolve this systemic fragility without retraining or debate regeneration, we propose RiskTrace-Debias, an inference-time auditing framework uniting evidence-first precommitment, social-metadata masking, and consistency-gated arbitration. RiskTrace-Debias suppresses worst-case unsafe adoption to $\\le 2.0\\%$ across all architectures without inducing over-refusa",
+  "summary_1line": "Retrieval-augmented Web applications increasingly employ multi-agent debate (MAD) to aggregate conflicting, noisy, and heterogeneous information, yet deliberation is fundamentally a social process susceptible to inter...",
+  "title": "When Debate Amplifies Risk: Social-Bias Vulnerabilities in Multi-Agent Safety Deliberation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.04289v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "63945bc794809749": {
   "content_excerpt": "CWE-bench is designed to test the limits of frontier cyber capabilities. In our continued pursuit to push the horizon at Collinear AI , CWE-bench v2 opens up a public set of 100 tasks that anyone can run and evaluate their models on. The setup is the same as before. An agent gets a checkout of a real open-source repository and a short instruction, with the goal of finding and fixing a security weakness without breaking existing functionality. Scoring is fully programmatic, so results are deterministic and anyone can reproduce them without extra cost. All our programmatic checks have been curated with the help of LLM judge panels that shape them towards the direction of hardness and fairness. We also maintain a held-out set , so that we can keep tracking progress on tasks no model has seen. To evaluate your model on the held-out set, contact cyber@collinear.ai . Our goal is to be exhaustive. A defender has to anticipate the ways an attacker could get in, and get it right every single time. These 100 tasks cover 91 different CWEs, spanning a wide range of vulnerability classes. A model that does well here has to understand the multiple weakness surfaces that a potential attacker can exploit. Recognising a familiar pattern is not enough. As part of our meticulous effort to keep improving quality, for every task we checked that the following questions were true: Every task was also reviewed by hand. Open-sourcing the set is part of the same effort to improve quality. We welcome f",
   "first_seen": "2026-11-03T18:08:26.330585+00:00",
@@ -1495,6 +1540,22 @@
   "url": "https://freegent.ai",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "7e75b9009b3b0ccb": {
+  "content_excerpt": "Official websites use .gov A .gov website belongs to an official government organization in the United States. Secure .gov websites use HTTPS A lock ( Lock A locked padlock ) or https:// means you’ve safely connected to the .gov website. Share sensitive information only on official, secure websites. https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems This is blog #2 in our series on agentic identity, authentication and authorization. Our other post can be found via Post #1 . In our last blog post , we highlighted the essential nature of having fundamentally sound identity and access management (IAM) capabilities as a precursor to implementing agents at scale. We started to form the core of what “good looks like” but wanted to take this a step further by defining an initial set of “Design Tenets” for agentic identity, authentication, and authorization. The tenets covered in this post are drawn from public comments on the NCCoE Accelerating the Adoption of Software and Super Intelligence Agent Identity and Authorization project , and from extensive engagement with stakeholders in the agentic super intelligence ecosystem. As a starting point, we have proposed an initial set of ten design tenets, with a focus on defining a vision for IAM systems that seek to manage agents across both enterprise and consumer-facing use cases. Each tenet has a description of the core of what it means to meet that tenet, along with the primary risks that",
+  "first_seen": "2026-11-04T03:03:29.158969+00:00",
+  "id": "6baa28f72fd4452e",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-04T02:42:44+00:00",
+  "sid": "7e75b9009b3b0ccb",
+  "source": "hackernews_ai",
+  "summary_1line": "Design Tenets for Agent Identity Management Systems",
+  "title": "Design Tenets for Agent Identity Management Systems",
+  "type": "news",
+  "url": "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "7f903ef14a1441d8": {
   "first_seen": "2026-11-01T02:04:18.619311+00:00",
   "id": "60dd64dce96ec525",
@@ -1779,6 +1840,18 @@
   "type": "release",
   "url": "https://simonwillison.net/2026/Nov/2/llm"
  },
+ "9ecd103388bdd513": {
+  "content_excerpt": "A knowledge atlas for people AND for AI: fast local search, an organic map of your notes, code graphs, and an MCP door so any AI can read your vault. MIT. A knowledge atlas for people AND for AI. You read, search and explore your notes and code; any AI reads the same vault through a safe door. Obsidian is built for the person. AI-only tools are built for the model. Adamanteum serves both. If this is useful, please star the repo. It is the one thing that helps other people find it. The whole vault: 98,853 documents, 294,705 links, one living map. Screenshots are from the Stinger Industries team vault, running the same atlas. Sidebar search plus the Document Lens: read the original file without leaving the map. Open http://127.0.0.1:4173 . It starts on 18 fictional sample notes. If the port is taken, set PORT . To open your own Markdown folder, set ADAMANTEUM_VAULT to its absolute path (PowerShell: $env:ADAMANTEUM_VAULT = 'D:/Notes' ), then npm start . Your original notes are read-only by default. Notebook revisions live in .data/notebook.sqlite ; back up .data to keep the notebook, settings and indexes. Writing to your vault needs ADAMANTEUM_VAULT_WRITE=1 . A Windows launcher with a folder picker is included ( Launch Adamanteum.cmd ). Adamanteum does not ship with an AI, and nothing leaves your computer unless you choose it. There are two ways to plug your own in. 1. Put an AI inside Adamanteum (the \"Your AI\" button at the bottom of the screen). Add a connection card: Enter th",
+  "first_seen": "2026-11-04T03:03:29.158969+00:00",
+  "id": "d6cd551bda034f15",
+  "published": "2026-11-03T23:33:23+00:00",
+  "sid": "9ecd103388bdd513",
+  "source": "hackernews_ai",
+  "summary_1line": "Adamanteum: A local, MIT knowledge atlas your notes and any AI can both read",
+  "title": "Adamanteum: A local, MIT knowledge atlas your notes and any AI can both read",
+  "type": "news",
+  "url": "https://github.com/ohhbeehave35-commits/adamanteum-community"
+ },
  "9fa61d1131664c30": {
   "first_seen": "2026-11-03T01:03:41.790206+00:00",
   "id": "496a50b4b2f057bd",
@@ -1900,13 +1973,36 @@
  "ac4e5e06e79adb8f": {
   "first_seen": "2026-11-04T01:07:16.353037+00:00",
   "id": "35e200f5bb547915",
+  "matched_topics": [
+   "codex"
+  ],
   "published": "2026-11-04T00:44:59+00:00",
   "sid": "ac4e5e06e79adb8f",
   "source": "openai_codex_releases",
+  "summary": "Release 0.168.0-alpha.1",
   "summary_1line": "Release 0.168.0-alpha.1",
   "title": "codex rust-v0.168.0-alpha.1",
   "type": "release",
-  "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.1"
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.1",
+  "why_it_matters": "Matches feed focus: codex."
+ },
+ "ac8b02661248c122": {
+  "first_seen": "2026-11-04T03:03:29.158969+00:00",
+  "id": "c534058fbfade043",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-03T02:16:48+00:00",
+  "sid": "ac8b02661248c122",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Recent advances in large language models have enabled agentic systems that automate machine learning pipeline construction from minimal user input. However, existing agentic AutoML methods either depend on rigid templates that limit adaptability, target narrow task domains, or rely on free-form code generation that lacks reliability guarantees, leaving intermediate errors to propagate silently and degrade the final model. We present EvoML, an agentic framework for end-to-end ML pipeline synthesis built on expert-grounded skills that evolve across runs, executed through a validation-gated harness. The framework decomposes pipeline construction into four phases coordinated by three agents: an Orchestrator that enforces validation gates, advancing each phase only when its outputs pass structural, execution, and semantic checks, which precludes error propagation and keeps every artifact auditable; an Executor that runs expert-grounded skills, grounded in the nnU-Net workflow and pairing reusable templates with online adaptation; and a Curator that performs post-run evolution, consolidating the scripts and guidance recovered during a run into the skill library so it improves across datasets. We evaluate EvoML on eight datasets spanning six sophisticated, real-world ML task types, against agentic AutoML systems and command-line coding tools. EvoML achieves full automation and the best final model quality on all eight, spanning segmentation (up to 0.94 Dice), classification (0.99 ac",
+  "summary_1line": "Recent advances in large language models have enabled agentic systems that automate machine learning pipeline construction from minimal user input. However, existing agentic AutoML methods either depend on rigid templ...",
+  "title": "Validation-Gated ML Pipeline Synthesis with Expert-Grounded Self-Evolving Skills",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.04180v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, eval."
  },
  "afe272f4d0aa3179": {
   "content_excerpt": "Google Maps, social profiles, RAG, reviews, local AI visibility and more — production-grade tools exposed as pay-per-event APIs, from $0.002 per result plus run fees where applicable. Claude, GPT, Cursor and n8n discover and call them through MCP. Agents can also pay per call in USDC (x402). Pay per event, not per month. A Google Maps business costs $0.03 plus the run fee. A LinkedIn profile costs $0.02. Many Actors offer dryRun for integration tests; Apify platform usage may still apply. Businesses with phone, website, address, category, rating and reviews as clean JSON. Get alerted when public APIs break: OpenAPI diff + release classification, Slack alerts. Turn a business's Google reviews into a personalized audit report and outreach email. Live prices for French stations from official open data, filtered by department and fuel type. Track competitor hotel prices over time as clean datasets for revenue management. Audit one business website, Google profile and recent reviews with a transparent score and prioritized fixes. Create a persistent baseline and detect new reviews, rating changes and AI-readiness regressions with webhook alerts. Measure brand mentions and official-domain citations in real AI answers, with model-specific history and deltas. Each link opens a published Apify task with a prefilled input, FAQ and a real acceptance-test dataset. Il utilise le serveur MCP Apify ou la façade MCP Adaga, lit le schéma d’entrée de l’outil, puis lance une tâche publique ou u",
@@ -2103,6 +2199,22 @@
   "type": "news",
   "url": "https://github.com/310networks/openproject-agent-engine",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "b9be33bc7eea2f2b": {
+  "first_seen": "2026-11-04T03:03:29.158969+00:00",
+  "id": "d1ebcdaba16aa804",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-03T03:01:04+00:00",
+  "sid": "b9be33bc7eea2f2b",
+  "source": "arxiv_cs_cl",
+  "summary": "Repeated decisions over a shared document create two distinct opportunities: reusing document computation and adapting how question representations score candidate answers. We present Q64, a candidate-scoring system that preserves a frozen 64-layer Qwen3.8-27B text backbone, reuses its hybrid prefix state and intermediate document representations, and jointly trains a residual adapter with a four-layer decoder and candidate-conditioned readout. We used ZiYor, a self-evolving AI system, to explore and refine the Q64 design. We specified the scoring method, implemented the system, and evaluated its accuracy and latency. The final adaptation stage updates 88.66 million parameters using 8,192 selected training views. On a fixed 5,112-item evaluation combining ARC-Challenge, ANLI-R3, and stratified subsets of MMLU-Pro and CMMLU, joint adaptation improves four-benchmark macro accuracy from 66.46% to 74.32%. It remains below the native 27B baseline at 75.68% and AnyJev Qwen3-32B L0 at 76.68%. On a separate synthetic workload with 4,096 document tokens and 50 questions, median cold-request latency is 2.237 seconds, compared with 5.383 seconds for the native baseline and 56.872 seconds for the measured batched AnyJev configuration. Short single-question requests do not share this advantage. The evidence supports an accuracy-latency tradeoff in the evaluated systems, rather than a backbone reduction or an isolated component advantage. Public benchmarks informed earlier development, and",
+  "summary_1line": "Repeated decisions over a shared document create two distinct opportunities: reusing document computation and adapting how question representations score candidate answers. We present Q64, a candidate-scoring system t...",
+  "title": "Shared Context Candidate Scoring with Jointly Adapted Readout Networks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.04218v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "ba560efbe9932076": {
   "first_seen": "2026-11-03T12:04:47.176869+00:00",
@@ -2572,6 +2684,25 @@
   "type": "news",
   "url": "https://www.inngest.com/blog/docsferatu-an-agent-that-drafts-docs-prs-while-you-sleep",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "dd44f20650511826": {
+  "first_seen": "2026-11-04T03:03:29.158969+00:00",
+  "id": "2e0d36d85cf47065",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval",
+   "claude code"
+  ],
+  "published": "2026-11-03T02:30:53+00:00",
+  "sid": "dd44f20650511826",
+  "source": "arxiv_cs_ai",
+  "summary": "Frontier LLM agents can turn known vulnerabilities into working exploits, but are costly and often access-restricted due to their potential for malicious use. Open-weight models offer a more accessible alternative, but struggle to maintain progress across long exploitation chains. They also often fail to apply relevant security knowledge at the appropriate stage and in the right context to identify and evaluate promising attack directions. To address these limitations, we propose DoGNAVY-Exploit, a multi-agent harness built around two complementary designs: stage-aware decomposition with progressive expert knowledge disclosure, and hierarchical orchestration with parallel exploration. Specifically, DoGNAVY-Exploit uses configurable milestones to recast long-horizon exploitation as short, verifiable capability transitions and provides only the knowledge relevant to each stage. Within each milestone, a hierarchical architecture separates strategic planning from parallel execution: a planner proposes diverse attack routes, executors test them concurrently, and a controller accepts progress only when supported by runtime evidence. A shared structured memory consolidates verified facts, artifacts, replay steps, and failed routes across branches, allowing agents to build on collective progress and carry validated knowledge into subsequent milestones. In controlled benchmark environments, DoGNAVY-Exploit with GLM-5.2 achieves 97.5% Pass@1 on Cybench, and 97.5% zero-day and 100% one-",
+  "summary_1line": "Frontier LLM agents can turn known vulnerabilities into working exploits, but are costly and often access-restricted due to their potential for malicious use. Open-weight models offer a more accessible alternative, bu...",
+  "title": "DoGNAVY-Exploit: Harnessing Parallel Open-Weight Agents for Stage-Aware Vulnerability Exploitation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.04196v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
  "ddf42b69c8e05c7b": {
   "first_seen": "2026-11-03T02:06:02.616034+00:00",
