@@ -1987,6 +1987,23 @@
   "url": "https://hindsight.vectorize.io/blog/2026/11/03/hindsight-models",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "9cfa80c5232a7be3": {
+  "first_seen": "2026-11-04T09:05:15.061766+00:00",
+  "id": "44c9fe4cf14a5c47",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-02T20:32:20+00:00",
+  "sid": "9cfa80c5232a7be3",
+  "source": "arxiv_llm_reliability",
+  "summary": "A stored experience may answer one future question and offer little help with another. We measure this task-conditioned utility rather than assigning each memory a single importance score. A task-blind writer stores a memory without seeing the later task; a frozen reader then answers that task with and without the memory, using identical filler. A cost ledger records the resources used to form, store and expose the memory. On single-call factual-recall tasks built from LongMemEval-V2 web-agent memories, the same memory helps more when it contains information needed for the answer. Its mean paired reward gain on these answer-bearing task pairs exceeds that on matched-control pairs by $+0.33$ (95% interval $+0.21$ to $+0.46$). The tested task-blind summaries and structured records yield smaller gains than Raw, including at fixed total context; a budget sweep is consistent with retention of answer-bearing content contributing to the difference. The bearing--control contrast remains positive in a new session with randomized memory position and under a second reader, although individual memory--task labels change. Generic retrieval performs above chance but misses most screen-defined answer-bearing memories. The factual-recall gains do not extend to the tested software-engineering and scientific-coding benchmarks, where even raw memories have no measurable effect. We provide a public, versioned Conditional Memory Utility Dataset of paired measurements and costs. The practical take",
+  "summary_1line": "A stored experience may answer one future question and offer little help with another. We measure this task-conditioned utility rather than assigning each memory a single importance score. A task-blind writer stores a...",
+  "title": "What Is This Memory Useful For? Measuring Task-Conditioned Utility in Long-Term Agent Memory",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.03930v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "9d52bf97ae057251": {
   "first_seen": "2026-11-03T01:03:41.790206+00:00",
   "id": "7d394cbea867d0e9",
@@ -2870,13 +2887,18 @@
  "daba25233d007e64": {
   "first_seen": "2026-11-04T06:07:33.226600+00:00",
   "id": "038409395d0f73d3",
+  "matched_topics": [
+   "agentic"
+  ],
   "published": "2026-11-03T18:45:23+00:00",
   "sid": "daba25233d007e64",
   "source": "arxiv_cs_ai",
+  "summary": "Speculative decoding has been treated purely as a systems optimization that speeds up large language model decoding without changing the model behavior. Under this view, the growing effort to train better draft models has been focused solely on acceptance rate. We argue that this view does not hold true for long-horizon agent reasoning. Measuring frontier open-weight models on complex agentic tasks with different speculative decoding approaches, we found that numerical noise grows within verification windows, and the draft acceptance results of the thinking process can change the output distribution of the model after 30 steps, thus noticeably influencing the reasoning accuracy of long-horizon agents in random directions. In this work, we improve the reasoning capability of target models by controlling such noise. While we cannot change the overall token distribution verified by the target model, we can encode critical reasoning with highest precision by training the draft model to be rejected. We identify these points in agent traces and train the draft model to favor adversarial preference. At inference the trained draft and the target part ways precisely at these decision points, verification restarts, so that critical thinking tokens are sampled from the target model and encoded under its least noisy conditions. This approach makes critical reasoning better indexed and more durable over a long horizon. On complex agentic coding benchmarks, our approach raises end-to-end s",
   "summary_1line": "Speculative decoding has been treated purely as a systems optimization that speeds up large language model decoding without changing the model behavior. Under this view, the growing effort to train better draft models has been focused solely on acceptance rate. We argue that this",
   "title": "Adversarial Speculative Reasoning Improves Long Horizon Agents",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.05345v1"
+  "url": "http://arxiv.org/abs/2611.05345v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "db35ae7ec1e7fc03": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic LLM systems have moved from linear prompt chains to graph-based workflows and, more recently, code-executing harnesses. Chains are simple but fragile, graphs add branching, retries, and validation, and code harnesses verify outputs through execution. The article advises validating model outputs and choosing the least complex design that meets reliability, speed, and cost needs. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervi",
@@ -3423,6 +3445,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.02912v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "fde11ee66fd4594d": {
+  "first_seen": "2026-11-04T09:05:15.061766+00:00",
+  "id": "7132a32034f40b9b",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-03T18:24:20+00:00",
+  "sid": "fde11ee66fd4594d",
+  "source": "arxiv_cs_ai",
+  "summary": "In LLM-based recommendation, memory acts as a user-level agent in a memory-augmented backbone. Yet users and items remain asymmetric: only the user is given a structured profile; it enters a bandwidth-limited reranker prompt; and it is frozen after warmup. We recast LLM-based recommendation as an agentic-communication process in four stages: BUILD a self-description, TRANSMIT it along the collaborative graph, UNDERSTAND the other side, and SYNC it from the next interaction. This formulation reveals three unresolved communication challenges: the item side never produces a comparable self-description (one-sided BUILD); profile-level signals enter only the bandwidth-limited reranker prompt rather than retrieval, where they would not compete for context tokens (prompt-trapped UNDERSTAND); and the user's description is frozen after warmup with no principled update rule (absent SYNC). We instantiate the missing stages as HARP (Homophily-aware Agentic Recommendation via dual Profiles), a training-free, three-operator addition to a frozen LLM backbone: a rule-extracted symmetric item profile (zero extra LLM calls), a channel-decomposable profile-level homophily H(phi_u, phi_i) consumed at retrieval time rather than inside the reranker prompt, and a single-pass reflective update realising in-context profile evolution without any gradient step. On four public benchmarks (Yelp, Books, MovieTV, Goodreads), HARP lifts Hit@1 over the strongest published baseline by 6.9%-24.0%, with family-",
+  "summary_1line": "In LLM-based recommendation, memory acts as a user-level agent in a memory-augmented backbone. Yet users and items remain asymmetric: only the user is given a structured profile; it enters a bandwidth-limited reranker...",
+  "title": "HARP: Training-Free Dual-Profile Agentic Communication for LLM-Based Recommendation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05319v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "fdec831af81af337": {
   "content_excerpt": "Cross-device collaboration for AI coding agents via live join-code sessions. Each peer runs its own agent — Claude Code, Codex, Pi, and more. Start a session, peers join with a code, and work flows between devices. Each peer runs an AI coding agent in its own repo. Illustrative session. Repo names, devices and output are examples, not measurements. On the master device, run skep and start a session. You get a join code and an address. In the peer TUI, /join with the code and address. Any repo checkout works. Optional --role if using a skill. Let the orchestrator split work ( auto / confirm / off ), or send an intent yourself. Also: skep session start · skep session join · /orchestrate confirm|off · /skills · optional /start --skill Packaged workflows with roles, stages and checks. Optional — plain sessions still work. List with /skills , pick with /skill use . Default skill is generic ; featured example is iot-ble-feature . One BLE feature across the C++ device layer, server HTTP API, iOS, Android and H5: one shared contract, a brief per role, and a cross-stack consistency check. Any repos, any split. The orchestrator as it worked in v0.1.15: refine the request, brief each repo, summarize. Put a skill in .skep/skills/ to share roles, prompts and checks with your team. Project skills need a one-time /skill trust . Skep works on the software layer in your repos. Hardware, bench and real-device testing stay with your team. /skills and /skill use|off|show . Ships with generic (de",
