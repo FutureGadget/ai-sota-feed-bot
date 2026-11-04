@@ -1004,6 +1004,18 @@
   "url": "http://arxiv.org/abs/2611.03523v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "3b3802691be914ed": {
+  "content_excerpt": "Every new AI chat starts from zero. So I put my context in a private git repo of linked notes, and served it to Claude and OpenCode from a small Cloudflare Worker. Every new AI chat starts from zero. Who I am, what I'm working on, what I decided last week, how I like replies written. I was typing the same context again and again, in Claude, in OpenCode, on my phone and on my laptop. I'm dyslexic, so typing a page of background is slow and tiring. I wanted to write it down once, and have every tool read it. So I built mentat : a private repo of short linked notes, served to my AI tools over MCP. My real notes stay private, so I made a public copy with a made-up person in it: mentat-template . Image: Bill Sanderson, 1997, Wellcome Collection, via Wikimedia Commons , CC BY 4.0 . Notes link to each other with [[wiki links]] . The links are the structure. I can open the folder in Obsidian, edit it in any editor, and read it in any diff. CI builds an index and a link graph on every push. The AI tools aren't the only way in. On my Mac the repo is just a folder, and I open it in Obsidian as a vault: Pull before you start editing. If a chat's pull request merged while you were away, you want it in your copy first. MCP is a standard way for AI tools to call outside tools. A small Cloudflare Worker serves the notes as an MCP server, so Claude and OpenCode can call it from any device: On every push to main , CI bundles the notes into the Worker and redeploys it. No database, nothing to k",
+  "first_seen": "2026-11-04T22:04:37.212189+00:00",
+  "id": "269fc33ae7a329ce",
+  "published": "2026-11-04T21:50:55+00:00",
+  "sid": "3b3802691be914ed",
+  "source": "hackernews_ai",
+  "summary_1line": "Mentat: One memory for all my AI tools",
+  "title": "Mentat: One memory for all my AI tools",
+  "type": "news",
+  "url": "https://blog.benjamin.ie/blog/mentat"
+ },
  "3b426192f1bc75ae": {
   "first_seen": "2026-11-03T06:05:21.577740+00:00",
   "id": "f80fdfd317a878d8",
@@ -1070,6 +1082,23 @@
   "type": "news",
   "url": "https://blog.apify.com/llm-grounding-with-live-data",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "3f699cddaf3044d4": {
+  "content_excerpt": "We benchmarked 4 coding-agent harness setups on 100 real software engineering tasks. Simply letting Claude think harder beat all of them. The most elaborate setup had 37 skills, spawned 17 agents, cost 8× as much, and still performed worse than vanilla Claude Code. We asked coding agents to make a small change to an event registration app: add a Zoom link and passcode to guest confirmation emails. One of the agent setups we tested was equipped with a harness containing 37 additional skills. Surely all that machinery would help? It decided the change deserved a thorough review, and spawned 17 agents: But somehow, none of them noticed the most important problem: the confirmation email went out when someone registered, before they'd paid . Following the user's instructions would give unpaid registrants the Zoom passcode! Seventeen agents, lots of review, and the central product issue went unnoticed. How much do coding-agent add-ons actually help? There's a Cambrian explosion of harnesses, skills, plugins, and elaborate coding workflows. Some people use vanilla Claude Code. Others have assembled small bureaucracies of specialized agents, reviewers, planners, and supervisors. A lot of these setups feel sophisticated. But do they actually produce better software? We decided to measure it. We tested several popular coding-agent setups using Opus 5.5 in Claude Code, evaluating them on software engineering tasks from Surge's sudo L7 benchmark. We also tested a simpler approach: leavin",
+  "first_seen": "2026-11-04T22:04:37.212189+00:00",
+  "id": "9595a419920fc8bd",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-04T20:52:13+00:00",
+  "sid": "3f699cddaf3044d4",
+  "source": "hackernews_ai",
+  "summary_1line": "We Tested Coding Agent Harnesses. Thinking Harder Beat All of Them",
+  "title": "We Tested Coding Agent Harnesses. Thinking Harder Beat All of Them",
+  "type": "news",
+  "url": "https://surgehq.ai/blog/benchmarking-coding-agent-harnesses",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "3fefd054e6f8e473": {
   "first_seen": "2026-11-04T01:04:26.406545+00:00",
@@ -1991,6 +2020,22 @@
   "title": "DeepSeek's Open-Source Super-Agent for Coding",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNeWswVVhGbHVxSkE4WThBZFgxLXZ6cVFmU1pwUnc2Q3NyckVLdFhKbHZJZE9mQmZTZUVxRktqMWlTTmRTQkpCdGpuMW94OHJ6U2tIcDJKc01lWVpPSkVPY3gwallaQlNGclR2MFVhTFhLQlkyX0FJSXZBYTNEblpmLTB1TVVwbUNEV3d6bWRPb3BUUQ?oc=5",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "7787a435833ce944": {
+  "content_excerpt": "Open-source, self-hosted voice AI agents with a Vapi-compatible API. Bring your own keys or run 100% local and free (Whisper, Ollama, Kokoro). Calls on Twilio, Telnyx and Genesys, campaigns, model routes with fallback, cost per call. No per-minute platform fee. One command: npx openring Quick start · How it works · Compare · API guide · Providers · Roadmap · Português Hosted voice platforms charge a fee for every minute of every call, on top of what you already pay for speech-to-text, the model, the voice and the phone line. OpenRing does the same job on your own computer or server, with your own provider keys, and speaks the same JSON as Vapi. You need Node.js 18 or later. Everything else, Python included, installs itself: Settings live in ~/.openring/.env , created on the first run with a generated API key for apps that call the API (it's under Settings ). The free Kokoro voice downloads itself on the first start (about 120 MB). Each call runs a Pipecat pipeline: the caller's speech becomes text, the model answers (and can call your tools), and the voice speaks the answer back. Every turn's latency is recorded, step by step, and shown in the dashboard. — means we didn't find it in their public docs. On every platform you also pay for the model, the voice and the phone line, and for speech-to-text too, except that Retell's pricing page lists no separate charge for it. With OpenRing, the server, its uptime and any compliance work are yours; hosted platforms take on the first ",
+  "first_seen": "2026-11-04T22:04:37.212189+00:00",
+  "id": "68677c4e7b4627f1",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-04T21:56:55+00:00",
+  "sid": "7787a435833ce944",
+  "source": "hackernews_ai",
+  "summary_1line": "OpenRing – Open-source, self-hosted voice AI agent platform (Vapi alternative)",
+  "title": "OpenRing – Open-source, self-hosted voice AI agent platform (Vapi alternative)",
+  "type": "news",
+  "url": "https://github.com/elifalanrocha/openring",
   "why_it_matters": "Matches feed focus: agent."
  },
  "78707f692812a1e4": {
@@ -3485,6 +3530,22 @@
   "url": "https://inspect.hookdeck.com",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "d73b7485a131c2b5": {
+  "first_seen": "2026-11-04T22:04:37.212189+00:00",
+  "id": "8a99cd2322627352",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-03T17:18:33+00:00",
+  "sid": "d73b7485a131c2b5",
+  "source": "arxiv_cs_cl",
+  "summary": "Looped transformers increase effective depth by repeatedly applying a shared set of transformer layers, offering a parameter-efficient way to scale computation. However, standard residual connections aggregate information across recurrent depth into a single stream, providing limited control over which intermediate representations from preceding layers should be reused. In this paper, we introduce ARLoop, a looped transformer architecture based on attention residuals, where the input of each layer is selectively aggregated through attention over model depth. Distinct from standard transformers, we find that looped transformers do not require access to the full residual history: sliding-window depth attention matches or outperforms full-history attention at larger recurrent depths. Across controlled experiments with multiple parameter scales (140M and 370M) and recurrent depths (R = 1 to 5), ARLoop consistently outperforms prior residual designs for looped transformers. More importantly, we further scale ARLoop to 0.6B and 1.2B parameters under a realistic LLM pretraining recipe, demonstrating that the gains transfer to realistic pretraining, with particularly strong improvements on math and coding tasks. Our 1.2B model, pretrained on only 0.5T tokens with three recurrences, outperforms Huginn-3.5B (the only fully-open looped LLM as of our release date) across all evaluated tasks and is competitive with similar-sized non-looped models such as Qwen3.5-2B despite being trained o",
+  "summary_1line": "Looped transformers increase effective depth by repeatedly applying a shared set of transformer layers, offering a parameter-efficient way to scale computation. However, standard residual connections aggregate informa...",
+  "title": "ARLoop: Fully-Open Pre-trained Looped Transformers with Attention Residuals",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05234v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "d765d772070fccd8": {
   "first_seen": "2026-11-03T12:04:47.176869+00:00",
   "id": "5dae2aa227d4f3be",
@@ -4034,8 +4095,8 @@
   "published": "2026-11-02T04:13:51+00:00",
   "sid": "f4a904d03d800a16",
   "source": "hf_moonshotai_releases",
-  "summary": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 417, downloads: 797.",
-  "summary_1line": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 417, downloads: 797.",
+  "summary": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 437, downloads: 797.",
+  "summary_1line": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 437, downloads: 797.",
   "title": "moonshotai/Kimi-K3.1-Pro released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro"
@@ -4081,7 +4142,7 @@
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-04T19:05:37+00:00",
+  "published": "2026-11-04T19:10:25+00:00",
   "sid": "f8cd0bc0f3bed02d",
   "source": "openai_codex_releases",
   "summary": "Release 0.167.0-alpha.3.1",
