@@ -35,12 +35,12 @@ Schema: `config/wiki_schema.md`.
   - theme `measuring-planning` — Benchmarks for loops and long-horizon procedures (4)
 
 ### tool-use
-- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (27 entries, updated 2026-11-01)
+- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (28 entries, updated 2026-11-05)
   → solutions: mcp
   - theme `agent-native-surfaces` — Exposing existing systems as agent-callable tools (4)
   - theme `discovery-and-definitions` — Tool discovery and definition quality at scale (6)
   - theme `calling-reliability` — Making the calling loop reliable (9)
-  - theme `guarding-the-call` — Checking and governing tool calls before they run (4)
+  - theme `guarding-the-call` — Checking and governing tool calls before they run (5)
   - theme `production-runtimes` — Running tool-calling agents in production (4)
 
 ### grounding
@@ -153,9 +153,9 @@ Schema: `config/wiki_schema.md`.
   - theme `capture` — Capturing the run: zero-config SDKs, platform spans, new modalities (4)
   - theme `storage` — Storing and searching traces at fleet scale (3)
   - theme `diagnosis` — Reading and diagnosing traces (5)
-- [context-compaction](solutions/context-compaction.md) — Context compaction: summarize, compress, and curate the working set (15 entries, updated 2026-11-04)
+- [context-compaction](solutions/context-compaction.md) — Context compaction: summarize, compress, and curate the working set (16 entries, updated 2026-11-05)
   - theme `curating-the-working-set` — Curating what stays in context (7)
-  - theme `compaction-safety` — The compactor as a safety surface (2)
+  - theme `compaction-safety` — The compactor as a safety surface (3)
   - theme `skipping-compaction` — Skipping compaction with bigger windows or recursive dispatch (5)
   - theme `compressed-serving` — Buying back accuracy lost to compression (1)
 - [cost-controls](solutions/cost-controls.md) — Cost controls: budgets, metering, and per-task attribution (19 entries, updated 2026-10-15)

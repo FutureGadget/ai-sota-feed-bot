@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-04T18:05:36.696753+00:00",
+ "generated_at": "2026-11-05T18:05:34.066667+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,22 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-11-05-germline-execution-signed-mcp-leak",
+   "topic": "tool-use",
+   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+   "kind": "obstacle",
+   "date": "2026-11-05",
+   "title": "A signed MCP tool can still leak data; fork-per-call execution bounds what it can disclose"
+  },
+  {
+   "id": "2026-11-05-handoff-summaries-unsupported-policy",
+   "topic": "context-compaction",
+   "topic_title": "Context compaction: summarize, compress, and curate the working set",
+   "kind": "solution",
+   "date": "2026-11-05",
+   "title": "Self-written handoff summaries rarely invent permissions, but false approvals do cause unauthorized actions"
+  },
   {
    "id": "2026-11-04-mcphantom-deprecated-servers",
    "topic": "mcp",
@@ -238,22 +254,6 @@
    "kind": "solution",
    "date": "2026-10-29",
    "title": "Agent runs started before a user suspension kept writing files, failing 2 of 14 checks"
-  },
-  {
-   "id": "2026-10-29-permission-to-retry",
-   "topic": "agent-reliability",
-   "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
-   "kind": "obstacle",
-   "date": "2026-10-29",
-   "title": "Durable agents need current authority and retained ledgers before retrying an uncertain action"
-  },
-  {
-   "id": "2026-10-29-guardrails-270-runs",
-   "topic": "agent-reliability",
-   "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
-   "kind": "obstacle",
-   "date": "2026-10-29",
-   "title": "Guardrails did not raise first-pass rates in 270 coding-agent runs, but caught defects at done"
   }
  ],
  "nodes": {
@@ -13335,7 +13335,7 @@
      "key": "guarding-the-call",
      "title": "Checking and governing tool calls before they run",
      "summary": "Controls are moving from scoping what a tool can touch to checking each call before execution and writing policy over sequences of calls, at the cost of stateful tracking.",
-     "count": 4
+     "count": 5
     },
     {
      "key": "production-runtimes",
@@ -13345,6 +13345,30 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-05-germline-execution-signed-mcp-leak",
+     "topic": "tool-use",
+     "date": "2026-11-05",
+     "title": "A signed MCP tool can still leak data; fork-per-call execution bounds what it can disclose",
+     "theme": "guarding-the-call",
+     "html": "<p>A paper shows a validly signed MCP tool embedding sensitive data in requests to a policy-allowed destination. Meta&#x27;s MCPGuard-Dynamic blocked a direct exfiltration attempt but missed this attack in every trial.</p>\n<p>The proposed <strong>germline execution</strong> forks each tool call from a data-free process, and each copy receives only data authorised for its destination. Across 153 attack runs, no unauthorised disclosure was detected, against 5.9-74.5% under baseline defences (paper-reported).</p>\n<p>A single copy served calls in 10-49 ms, 2-28x faster than restarting the tool per call. For builders: signatures prove who published a tool, not what it does with the data you hand it. Isolate data per call.</p>",
+     "evidence": [
+      {
+       "sid": "1c990a2a55a59e80",
+       "title": "Signed, Sealed, Leaked: Trust Beyond Signature for MCP Toolchains"
+      }
+     ],
+     "also": [
+      {
+       "slug": "mcp",
+       "title": "Model Context Protocol: a standard interface for agent tools"
+      },
+      {
+       "slug": "agent-sandboxing",
+       "title": "Sandboxing, scoped credentials, and guardrails"
+      }
+     ]
+    },
     {
      "id": "2026-11-01-same-model-different-agent-mcp",
      "topic": "tool-use",
@@ -13898,8 +13922,8 @@
      "title": "HashiCorp's Terraform MCP Server reaches general availability"
     }
    ],
-   "entry_count": 27,
-   "latest_entry_date": "2026-11-01",
+   "entry_count": 28,
+   "latest_entry_date": "2026-11-05",
    "solutions": [
     {
      "slug": "mcp",
@@ -13909,6 +13933,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "1c990a2a55a59e80",
+     "title": "Signed, Sealed, Leaked: Trust Beyond Signature for MCP Toolchains"
+    },
     {
      "sid": "b78023b26122d472",
      "title": "Same model, different agent: 17 points apart on 21 MCP servers"
@@ -14022,7 +14050,7 @@
      "title": "AI Agents Don't Need SMS APIs. They Need Infrastructure"
     }
    ],
-   "updated": "2026-11-01"
+   "updated": "2026-11-05"
   },
   "agent-benchmarks": {
    "slug": "agent-benchmarks",
@@ -16835,6 +16863,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-05-germline-execution-signed-mcp-leak",
+     "topic": "tool-use",
+     "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+     "date": "2026-11-05",
+     "title": "A signed MCP tool can still leak data; fork-per-call execution bounds what it can disclose"
+    },
+    {
      "id": "2026-10-31-embedded-browsers-in-coding-tools",
      "topic": "prompt-injection",
      "topic_title": "Untrusted input and tools can hijack an agent",
@@ -17533,7 +17568,7 @@
      "key": "compaction-safety",
      "title": "The compactor as a safety surface",
      "summary": "Summaries can silently drop safety constraints or carry instructions the model wrote itself, so compaction output needs the same distrust as any untrusted input.",
-     "count": 2
+     "count": 3
     },
     {
      "key": "skipping-compaction",
@@ -17549,6 +17584,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-05-handoff-summaries-unsupported-policy",
+     "topic": "context-compaction",
+     "date": "2026-11-05",
+     "title": "Self-written handoff summaries rarely invent permissions, but false approvals do cause unauthorized actions",
+     "theme": "compaction-safety",
+     "html": "<p>A paper audits compaction summaries from two open-weight models against a ground-truth permission ledger. Unsupported restrictions appeared in 1.2% and 2.4% of readable summaries; unsupported authorizations in 0.1% and 1.3%.</p>\n<p>The rare false approvals mattered: replacing them with neutral filler cut unauthorized actions from 24 to 7 of 120 held-out runs (post hoc analysis, synthetic tasks). Most invented restrictions traced back to the agent&#x27;s own earlier reasoning that an action needs approval.</p>\n<p>A prompt line stating <em>where</em> requirements come from cut unsupported restrictions from 5.0% to 1.8% (paper-reported). For builders: carry permissions in the system prompt or a ledger, not the summary.</p>",
+     "evidence": [
+      {
+       "sid": "73b8cbb5fe289269",
+       "title": "When Do Summaries Become Instructions? Unsupported Policy in LLM Agents' Self-Written Handoff Summaries"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-04-nvidia-16k-compaction",
      "topic": "context-compaction",
@@ -17852,8 +17902,8 @@
      "title": "Stream processing with Kafka and Flink drives dynamic memory tiering for agents"
     }
    ],
-   "entry_count": 15,
-   "latest_entry_date": "2026-11-04",
+   "entry_count": 16,
+   "latest_entry_date": "2026-11-05",
    "solutions": [],
    "obstacles": [
     {
@@ -17875,6 +17925,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "73b8cbb5fe289269",
+     "title": "When Do Summaries Become Instructions? Unsupported Policy in LLM Agents' Self-Written Handoff Summaries"
+    },
     {
      "sid": "3c72c5c3cd7d0707",
      "title": "Nvidia Study: AI Agents Rarely Need Long Context Windows"
@@ -17936,7 +17990,7 @@
      "title": "Show HN: Memory system for AI agents with associations, forgetting, synthesis"
     }
    ],
-   "updated": "2026-11-04"
+   "updated": "2026-11-05"
   },
   "cost-controls": {
    "slug": "cost-controls",
@@ -19615,6 +19669,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-05-germline-execution-signed-mcp-leak",
+     "topic": "tool-use",
+     "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+     "date": "2026-11-05",
+     "title": "A signed MCP tool can still leak data; fork-per-call execution bounds what it can disclose"
+    },
     {
      "id": "2026-10-24-data-agent-kit-skills-vs-iam",
      "topic": "agent-sandboxing",
