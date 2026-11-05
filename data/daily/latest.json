@@ -1,204 +1,145 @@
 {
-  "date": "2026-11-04",
-  "title": "What happened in AI — Nov 4, 2026",
-  "generated_at": "2026-11-04T22:30:00Z",
+  "date": "2026-11-05",
+  "title": "What happened in AI — Nov 5, 2026",
+  "generated_at": "2026-11-05T22:16:02Z",
   "intro": [
-    "Heavier agent scaffolding lost to simpler setups: a 100-task benchmark found Claude Code with more thinking beat a 37-skill, 17-agent harness that cost 8× more.",
-    "NVIDIA's result that 16K contexts with compaction hold accuracy points the same way: cut context and orchestration, not capability. Kimi K3.1 Pro's day-0 vLLM support shows open-weight serving catching up fast."
+    "Agent builders are replacing blocking loops with async execution, explicit state machines and retry-safe tool calls.",
+    "Kimi K3.1 Pro weights shipped with day-zero Ascend support, while SemiAnalysis's GDPx shows the best model solving only 12% of long agent tasks."
   ],
   "highlights": [
-    "Extended thinking beat a 37-skill, 17-agent harness that cost 8× more.",
-    "NVIDIA: frontier agents lose little accuracy at 16K context with compaction; long context costs up to 7× more per token.",
-    "Cleric's ~40-agent rewrite made evals 5× faster and 100× cheaper.",
-    "Kimi K3.1 Pro (2.8T MoE, open weights) had day-0 vLLM support.",
-    "Glow Labs: coding agents are installing deprecated MCP servers with known flaws.",
-    "H200 loses money fully busy; B300 profits at 35% utilization."
+    "LangChain: agents must keep working in the background yet stay responsive.",
+    "Call4Agents guarantees approved tool calls run at most once after a crash.",
+    "GDPx agent benchmark: best model scores 12%; cost per point compared for 12 models.",
+    "Moonshot releases Kimi K3.1 Pro weights and launches Kimi Hosted Agents.",
+    "OpenAI debuts GPT-6 Cyber for vulnerability discovery and fixes.",
+    "Google TPUs now serve Oracle, OpenAI, Anthropic and Meta, per SemiAnalysis."
   ],
-  "article_count": 32,
+  "article_count": 30,
   "categories": [
     {
-      "name": "Agent harnesses: less scaffolding, durable memory",
-      "slug": "agent-harnesses-memory",
-      "summary": "A 100-task benchmark found extended thinking beat elaborate harnesses, while three new tools move agent memory into portable stores.",
+      "name": "Agent runtimes: async, retry-safe, and state-machine control",
+      "slug": "agentic-runtimes-control",
+      "summary": "Builders are moving agents off the blocking request loop and onto explicit state, idempotent tool calls, and background execution.",
       "articles": [
         {
-          "title": "We Tested Coding Agent Harnesses. Thinking Harder Beat All of Them",
-          "summary": "Across 100 tasks, a 37-skill, 17-agent harness cost 8× more and scored below vanilla Claude Code with more thinking.",
-          "source": "hackernews_ai",
-          "url": "https://surgehq.ai/blog/benchmarking-coding-agent-harnesses",
-          "published": "Wed, 04 Nov 2026 20:52:13 +0000"
+          "title": "Agents Are Going Async",
+          "summary": "LangChain argues agents must stay responsive to new instructions while long jobs run in the background.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/agents-are-going-async",
+          "published": "2026-11-05T20:00:00+00:00"
         },
         {
-          "title": "Renor: one memory for all your AI agents",
-          "summary": "Apache-2.0 Markdown-notes memory recalled over MCP, with clients for Claude Code, Codex, Cursor, Gemini and VS Code.",
+          "title": "Agent State Machines: Building Deterministic Scaffolding for Agents",
+          "summary": "Agent state machines define explicit states, events and transitions so models don't decide when work is complete.",
           "source": "hackernews_ai",
-          "url": "https://github.com/renorai/renor-engine",
-          "published": "Wed, 04 Nov 2026 17:06:10 +0000"
+          "url": "https://twitter.com/josharosen/status/2117687393213932003",
+          "published": "Thu, 05 Nov 2026 01:07:15 +0000"
         },
         {
-          "title": "Engraphis: local-first, bi-temporal memory for coding agents",
-          "summary": "Inspectable, self-hostable memory with code-aware recall and bi-temporal history, served over MCP.",
+          "title": "Show HN: Replay three AI agent approval failures in five seconds, in Python",
+          "summary": "Call4Agents makes approved tool calls run at most once after a crash; works with LangGraph, Pydantic AI, OpenAI Agents SDK and MCP.",
           "source": "hackernews_ai",
-          "url": "https://github.com/Coding-Dev-Tools/engraphis",
-          "published": "Wed, 04 Nov 2026 04:52:44 +0000"
+          "url": "https://github.com/salahmakboul/call4agents",
+          "published": "Thu, 05 Nov 2026 18:17:19 +0000"
         },
         {
-          "title": "Mentat: one memory for all my AI tools",
-          "summary": "Linked notes in a private git repo, served to Claude and OpenCode from a small Cloudflare Worker.",
-          "source": "hackernews_ai",
-          "url": "https://blog.benjamin.ie/blog/mentat",
-          "published": "Wed, 04 Nov 2026 21:50:55 +0000"
-        },
-        {
-          "title": "DeepSeek Open-Sources Super-Agent, a Coding Agent That Works From Team Chat",
-          "summary": "DeepSeek released a coding agent driven from team chat, as an open-source project.",
+          "title": "Moonshot AI Launches Kimi Hosted Agents as a Managed Agent-Harness Cloud Service",
+          "summary": "Moonshot launches Kimi Hosted Agents, a managed agent-harness cloud service.",
           "source": "search_cn_open_weight_labs",
-          "publisher_name": "Technology Org",
-          "publisher_domain": "technology.org",
-          "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPOWRQWmRtMFZFaDVDWGpNYXg2WV9pcVlKcVItSXlrS0twTU55X3VPZU1OSFFOUGhQUmlMcXg5dkVIemtCMFYydFdxc2lDOTQzUFZYNjhZOEpBTHlzdmt2V0JRRXlqRG9DZ0xnSFI3Y0stYnNyRFZpNzg5ekh6czVoVW5vUk40WEE5ZVA1ZVNseXplX3Z3b2hGTUFiN1RvS3Vk?oc=5",
-          "published": "Wed, 04 Nov 2026 09:57:00 GMT"
+          "publisher_name": "Pandaily",
+          "publisher_domain": "pandaily.com",
+          "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPX2VjT2JCMnR2VVBMeEJSMGF1N3ItbVZic21Ua1d2cGZMa1BKVHVOUVo0X2p3Zm84MnpOeGtzSEJPc0hjcmI5RXBHeEFKcHpSRDlzX2lvN1pCOS1rMkJ3U19BRGcwdjhHQmtIRDFxZ1dvUS1KaG5SN0tIM1l3LVpESnd1dHVIbXk5dTBCTzdINFVLc2J2ZndlSXlTcw?oc=5",
+          "published": "Thu, 05 Nov 2026 07:13:48 GMT"
         }
       ]
     },
     {
-      "name": "Evals and context: cheaper runs, shorter windows",
-      "slug": "evals-context-cost",
-      "summary": "Two results cut the cost of agent operations: Cleric's 40-agent eval rewrite and NVIDIA's finding that 16K contexts with compaction hold accuracy.",
+      "name": "Evals and agent governance",
+      "slug": "evals-agent-governance",
+      "summary": "Agent benchmarks are exposing low ceilings and cost trade-offs, while security guidance focuses on audit-ready zero trust.",
       "articles": [
         {
-          "title": "How we made evals 100× cheaper with multi-agent architecture",
-          "summary": "Cleric split one investigation agent into ~40 loosely coupled agents, running evals 5× faster for cents.",
+          "title": "GDPx agent benchmark: cost per point for 12 models, and the safety-filter caveat",
+          "summary": "SemiAnalysis's GDPx (206 long tasks, 11 fields) tops out at 12% for the best model; cost per point is compared across 12 models.",
           "source": "hackernews_ai",
-          "url": "https://cleric.ai/blog/how-we-made-evals-100x-cheaper-with-multi-agent-architecture",
-          "published": "Wed, 04 Nov 2026 16:17:30 +0000"
+          "url": "https://theainewsreport.com/2026-11-05-semianalysis-gdpx-agent-benchmark-cost-per-point-explained.html",
+          "published": "Thu, 05 Nov 2026 19:13:23 +0000"
         },
         {
-          "title": "Nvidia Study: AI Agents Rarely Need Long Context Windows",
-          "summary": "Claude Opus 4.5 and GPT 5.6 Sol lose little accuracy at 16K with frequent compaction; long-context serving costs up to 7× more per token.",
-          "source": "hackernews_ai",
-          "url": "https://i10x.ai/news/nvidia-long-context-compaction-agents-study",
-          "published": "Wed, 04 Nov 2026 14:17:09 +0000"
-        },
-        {
-          "title": "Evalship: find the flaws in your LLM evals",
-          "summary": "Watches every pull request and auto-optimizes prompts against your existing eval suite.",
-          "source": "hackernews_ai",
-          "url": "https://evalship.com/",
-          "published": "Wed, 04 Nov 2026 10:03:08 +0000"
+          "title": "Presentation: Zero Trust Agent Systems that Pass Audits and Still Ship",
+          "summary": "InfoQ talk on zero-trust agent architectures that pass audits without blocking shipping.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/presentations/zero-trust-ai-agents-production-security/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Thu, 05 Nov 2026 11:00:00 GMT"
         }
       ]
     },
     {
-      "name": "Inference economics and open-weight serving",
-      "slug": "inference-open-weight-serving",
-      "summary": "Kimi K3.1 Pro had day-0 serving support, while two measurements show gateway language and GPU choice matter more than engine choice.",
+      "name": "Inference infrastructure and compute",
+      "slug": "inference-infrastructure-compute",
+      "summary": "Inference stacks are being optimized at the control-plane, compiler and memory layers, with Google TPUs gaining ground.",
       "articles": [
         {
-          "title": "vLLM Delivers Day-0 Support for Kimi K3.1 Pro",
-          "summary": "Moonshot's 2.8T-parameter (104B active) open-weight MoE runs on NVIDIA, AMD, TPU and Alibaba PPU from launch.",
-          "source": "vllm_blog",
-          "url": "https://vllm.ai/blog/2026-11-04-kimi-k31-pro",
-          "published": "Wed, 04 Nov 2026 00:00:00 GMT"
+          "title": "The Iron(wood) Throne: Google's TPU Stakes Its Claim on Inference",
+          "summary": "SemiAnalysis says Google TPUs now have external customers including Oracle, OpenAI, Anthropic and Meta, and a growing software ecosystem.",
+          "source": "semianalysis",
+          "url": "https://newsletter.semianalysis.com/p/tpu-strikes-the-king",
+          "published": "Thu, 05 Nov 2026 19:03:45 GMT"
         },
         {
-          "title": "Verda Inference, in Preview with Kimi K3.1 Pro",
-          "summary": "Verda adds managed model-as-a-service inference for open-weight frontier models, launching with Kimi K3.1 Pro.",
+          "title": "Distributed Inference Benchmarks: [K]Inference vs. Plain Kubernetes",
+          "summary": "Buoyant benchmarks Kinference, a Kubernetes/vLLM control plane for heterogeneous GPUs, against plain Kubernetes.",
           "source": "hackernews_ai",
-          "url": "https://verda.com/blog/verda-inference-in-preview",
-          "published": "Wed, 04 Nov 2026 16:58:53 +0000"
+          "url": "https://www.buoyant.io/blog/distributed-inference-benchmarks-kinference-vs-plain-kubernetes",
+          "published": "Thu, 05 Nov 2026 19:07:41 +0000"
         },
         {
-          "title": "Is hosting an open-source inference engine profitable?",
-          "summary": "H200 loses money even fully busy; B300 turns a profit at 35% utilization, so the GPU matters more than the engine.",
+          "title": "Together AI Compiler for Inference",
+          "summary": "Together AI's compiler uses agents to continually optimize inference across new models, hardware and traffic shapes.",
           "source": "hackernews_ai",
-          "url": "https://userecurrence.ai/research/is-hosting-open-source-inference-profitable",
-          "published": "Wed, 04 Nov 2026 02:58:34 +0000"
+          "url": "https://www.together.ai/blog/together-compiler-continual-compilation-for-ai-inference",
+          "published": "Thu, 05 Nov 2026 15:07:35 +0000"
         },
         {
-          "title": "Go vs. Python for an LLM Gateway: What We Measured",
-          "summary": "Reproducible benchmark of KTMS (Go) against LiteLLM Proxy and eight other gateways on latency, TTFT and memory.",
-          "source": "hackernews_ai",
-          "url": "https://blog.ai-process.dev/2026/10/26/go-vs-python-llm-gateway/",
-          "published": "Wed, 04 Nov 2026 18:06:08 +0000"
-        },
-        {
-          "title": "How big is the open model economy today?",
-          "summary": "Interconnects uses its open-model dashboard to show adoption metrics are noisy and need an informed read.",
-          "source": "interconnects",
-          "url": "https://www.interconnects.ai/p/how-well-can-we-measure-open-model",
-          "published": "Wed, 04 Nov 2026 16:35:44 GMT"
+          "title": "More Performance From Every Byte: How Full-Stack Codesign Solves AI’s Memory Challenge",
+          "summary": "NVIDIA details full-stack codesign with memory partners to ease GPU memory pressure from long contexts and agents.",
+          "source": "nvidia_blog",
+          "url": "https://blogs.nvidia.com/blog/memory-full-stack-codesign/",
+          "published": "Thu, 05 Nov 2026 16:00:00 +0000"
         }
       ]
     },
     {
-      "name": "Agent security and identity",
-      "slug": "agent-security-identity",
-      "summary": "Coding agents are installing retired MCP servers on their own, and NIST and Cloudflare each publish controls for identifying and governing agents.",
+      "name": "Models and open weights",
+      "slug": "models-open-weights",
+      "summary": "Kimi K3.1 Pro weights landed with same-day Ascend support, and GPT-6 Cyber targets vulnerability finding and fixing.",
       "articles": [
         {
-          "title": "AI coding agents are installing abandoned MCP servers with known security issues",
-          "summary": "Glow Labs' \"MCPhantom\" pattern: agents pick deprecated MCP servers that no longer receive security fixes.",
-          "source": "hackernews_ai",
-          "url": "https://www.glow.io/blogs/mcphantom-ai-coding-agents-are-installing-vulnerable-deprecated-mcp-servers-from-training-data",
-          "published": "Wed, 04 Nov 2026 10:58:43 +0000"
-        },
-        {
-          "title": "Design Tenets for Agent Identity Management Systems",
-          "summary": "NIST's second post on agent identity, authentication and authorization sets design tenets for identity systems.",
-          "source": "hackernews_ai",
-          "url": "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
-          "published": "Wed, 04 Nov 2026 02:42:44 +0000"
-        },
-        {
-          "title": "See the agents, set the terms: new visibility and control for personal agents",
-          "summary": "Cloudflare adds visibility into which personal agents visit a site and lets owners set terms for them.",
-          "source": "cloudflare_blog",
-          "url": "https://blog.cloudflare.com/personal-agents-visibility-control/",
-          "published": "Wed, 04 Nov 2026 14:00:00 GMT"
-        },
-        {
-          "title": "Daybreak Red is now available in AWS GovCloud (US-East)",
-          "summary": "GPT-5.6 Cyber reaches approved customers through Amazon Bedrock for authorized cybersecurity work.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/daybreak-red-aws-govcloud",
-          "published": "Wed, 04 Nov 2026 07:00:00 GMT"
-        }
-      ]
-    },
-    {
-      "name": "Distribution and spend: Qwen on iPhone, Claude Code economics",
-      "slug": "distribution-spend",
-      "summary": "Distribution and spend drive platform strategy: Apple's Qwen trial in China, OpenAI buying into Codex tooling, and Anthropic's Claude Code margins.",
-      "articles": [
-        {
-          "title": "Apple Begins China Trial Of AI Tools Powered By Alibaba's Qwen",
-          "summary": "Apple's China beta links Qwen with Siri, Writing Tools and Visual Intelligence.",
+          "title": "Moonshot AI Publishes Kimi K3.1 Pro Weights on Hugging Face",
+          "summary": "Moonshot AI publishes Kimi K3.1 Pro weights on Hugging Face.",
           "source": "search_cn_open_weight_labs",
-          "publisher_name": "Dataconomy",
-          "publisher_domain": "dataconomy.com",
-          "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQR3lraDN3cHQ5OTRPSHlHWWJEN2lFZ01lbWxXLXBJeDZlblpxcjN6YWVtaGw3TE44Zy03TkVHNkJjOW5pdmJIdS1wQ1pxTGx3bDZIOVZKVWJ2NFdtQnM3OGRjejVWT3lSUVR2TnpnN1c4RzhTQ0h4ak1mS3M2VFVhQ0lMc3ZFN1BiVmhVZFZmMk1KQVRLcWc?oc=5",
-          "published": "Wed, 04 Nov 2026 10:22:33 GMT"
+          "publisher_name": "www.tokenpost.com",
+          "publisher_domain": "tokenpost.com",
+          "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5FV2ROOGlfZC1mOU1EUTFyVjdIMlBnSElscXdfNDNiU2JkYlMxUHVhWnd0aE5NUzlVcjQtc3plaFdWSmpVcWpkc1pNSkF3bWpsa2JZSUtYUkVVTDQ?oc=5",
+          "published": "Thu, 05 Nov 2026 11:04:21 GMT"
         },
         {
-          "title": "OpenAI to acquire Pierre Computer Company, Inc.",
-          "summary": "The acquisition expands Codex's tools for building, understanding and reviewing code.",
+          "title": "Huawei Ascend Adds Day-Zero Support for Kimi K3.1 Pro Across Atlas A3 and Ascend 950 SuperPoDs",
+          "summary": "Huawei Ascend adds day-zero support for Kimi K3.1 Pro on Atlas A3 and Ascend 950 SuperPoDs.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Pandaily",
+          "publisher_domain": "pandaily.com",
+          "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPc1M4OXNUei1jbTVEbnNVLU4zVWtwZEE3ek9kTjdCYmhmd3RoQ09DRU0wN18ycjN2LXdreDcyYkFLeU9aTm5aNDVTRmZieFU4LXNZSlRVbGlFeHBEQzlBLTJKXzFzWG9lMThZZlBhemdhbjNGdHhjdUFyWS1TaXRmNk0xX2U5dzJGbnhWalBwSXpUR1hRZ3hvMXBiOXlRbVJwZmRuaA?oc=5",
+          "published": "Thu, 05 Nov 2026 02:27:42 GMT"
+        },
+        {
+          "title": "GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents",
+          "summary": "OpenAI introduces GPT-6 Cyber, a model for finding exploitable vulnerabilities and developing fixes within authorized scope.",
           "source": "openai_blog",
-          "url": "https://openai.com/index/openai-to-acquire-pierre",
-          "published": "Wed, 04 Nov 2026 14:30:00 GMT"
-        },
-        {
-          "title": "Anthropic launched tools to show companies what their AI spending is buying",
-          "summary": "Claude Code reportedly hit an operating profit in Q2 with 900% net revenue retention.",
-          "source": "hackernews_ai",
-          "url": "https://techcrunch.com/2026/10/28/anthropic-just-launched-tools-to-show-companies-what-their-ai-spending-is-buying/",
-          "published": "Wed, 04 Nov 2026 04:26:22 +0000"
+          "url": "https://openai.com/index/introducing-gpt-6-cyber",
+          "published": "Thu, 05 Nov 2026 09:00:00 GMT"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "KgLSjr8ynnM",
-    "title": "LLM Digest Daily Explainer: Nov 4, 2026",
-    "duration_s": 112.6
-  }
+  ]
 }
