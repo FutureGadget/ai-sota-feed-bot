@@ -18,9 +18,54 @@ def _canon_url(url: str) -> str:
     return (url or "").split("#")[0].strip()
 
 
+# Elements whose contents are never article prose. Inline scripts are the
+# dangerous one: minified JS such as `o<p` looks like an opening <p> tag to the
+# paragraph regex, which then captures code up to the article's first </p>.
+_NON_CONTENT_RE = re.compile(
+    r"<!--[\s\S]*?-->"
+    r"|<(script|style|noscript|template|svg|iframe)\b[^>]*>[\s\S]*?</\1\s*>",
+    re.I,
+)
+_CODE_TOKEN_RE = re.compile(r"=>|\bconst\s|\blet\s|\bvar\s|function\s*\(|\$\{|\)\s*;|[{}]")
+
+
+def _remove_non_content(raw: str) -> str:
+    return _NON_CONTENT_RE.sub(" ", raw or "")
+
+
+def looks_like_code(text: str) -> bool:
+    """True when a text run reads as source code rather than prose."""
+    s = str(text or "")
+    if not s:
+        return False
+    tokens = len(_CODE_TOKEN_RE.findall(s))
+    symbols = sum(1 for ch in s if ch in "{}()[];=<>`$")
+    # Density, not counts: a prose paragraph that quotes `const x = {}` once
+    # stays prose; a minified script run is dense with both.
+    dense_tokens = tokens >= 4 and tokens * 100 / max(1, len(s)) >= 2
+    return dense_tokens or symbols / max(1, len(s)) > 0.08
+
+
+def strip_leading_code(text: str) -> str:
+    """Drop a code prefix glued onto prose (already-stored bad excerpts).
+
+    Cuts at the last statement terminator inside the first half of the text
+    when everything before it reads as code; prose after it is kept.
+    """
+    original = str(text or "")
+    s = original.strip()
+    if not s or not looks_like_code(s[:200]):
+        return original
+    limit = len(s) // 2
+    cut = max(s.rfind(ch, 0, limit) for ch in (";", "}"))
+    if cut <= 0 or not looks_like_code(s[: cut + 1]):
+        return original
+    rest = s[cut + 1 :].lstrip(" );}").strip()
+    return rest if len(rest) >= 80 else original
+
+
 def _strip_html(raw: str) -> str:
-    s = re.sub(r"<script[\s\S]*?</script>", " ", raw, flags=re.I)
-    s = re.sub(r"<style[\s\S]*?</style>", " ", s, flags=re.I)
+    s = _remove_non_content(raw)
     s = re.sub(r"<[^>]+>", " ", s)
     s = html.unescape(s)
     s = re.sub(r"\s+", " ", s).strip()
@@ -274,12 +319,18 @@ def fetch_paragraph_text(url: str, timeout: int = 8, max_chars: int = 2500) -> s
     )
     with urllib.request.urlopen(req, timeout=timeout) as response:
         raw = response.read(800_000).decode("utf-8", errors="ignore")
+    return extract_paragraphs(raw, max_chars=max_chars)
+
+
+def extract_paragraphs(raw: str, max_chars: int = 2500) -> str:
+    """Article prose from raw HTML: <p> text minus scripts, chrome and code."""
+    raw = _remove_non_content(raw)
     paragraphs = []
     for match in re.findall(r"<p\b[^>]*>(.*?)</p>", raw, re.I | re.S):
         text = re.sub(r"<[^>]+>", " ", match)
         text = html.unescape(text)
         text = re.sub(r"\s+", " ", text).strip()
-        if len(text) < 80:
+        if len(text) < 80 or looks_like_code(text):
             continue
         lowered = text.lower()
         if any(

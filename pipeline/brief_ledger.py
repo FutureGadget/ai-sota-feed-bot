@@ -37,8 +37,10 @@ try:
     import deck_select
     import editorial
     import judged_pool
+    from content_fetch import strip_leading_code
 except Exception:  # pragma: no cover - package-style import
     from pipeline import deck_select, editorial, judged_pool
+    from pipeline.content_fetch import strip_leading_code
 
 ROOT = Path(__file__).resolve().parents[1]
 BRIEF_DIR = ROOT / "data" / "brief"
@@ -374,7 +376,7 @@ def _render_item(
         "published": merged.get("published"),
         "summary_1line": merged.get("summary_1line") or merged.get("summary") or "",
         "why_it_matters": merged.get("why_it_matters") or "",
-        "content_excerpt": merged.get("content_excerpt") or merged.get("excerpt") or "",
+        "content_excerpt": strip_leading_code(merged.get("content_excerpt") or merged.get("excerpt") or ""),
         "llm_category": llm_category,
         "v2_slot": merged.get("slot") or "",
         "slot": merged.get("slot") or "",

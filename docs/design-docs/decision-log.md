@@ -1,5 +1,11 @@
 # Decision Log
 
+## 2026-11-05 (Paragraph excerpts drop inline scripts and code runs)
+- Decision: `content_fetch.extract_paragraphs` removes `<script>`, `<style>`, `<noscript>`, `<template>`, `<svg>`, `<iframe>` and HTML comments before matching `<p>` tags, and skips paragraphs that read as code (`looks_like_code`). `story_store` and `brief_ledger` run stored excerpts through `strip_leading_code`.
+- Rationale: the `<p>` regex ran on raw HTML, so minified JS such as `o<p` matched as an opening tag and captured script text up to the article's first `</p>`. The Verda Inference story showed IntersectionObserver code as its front-page summary for eight days, and the judge read the same text.
+- Impact: excerpts come from prose only; the two stored records holding the leaked prefix were repaired in place.
+- Rollback: revert the commit; the code guard is pure and has no state.
+
 ## 2026-11-03 (Fallback nav stays hidden until site chrome boots)
 
 - **Decision:** When scripting is enabled, `site-chrome.css` keeps `.site-nav-fallback` and `.site-actions-fallback` out of the layout until `site-chrome.js` adds `site-chrome-enhanced`. The early-return path adds `site-chrome-static` to show them at once, and an 8-second animation reveals them if the script never runs. No-JS readers are unchanged.

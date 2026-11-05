@@ -31,6 +31,11 @@ from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 
+try:
+    from content_fetch import strip_leading_code
+except Exception:  # pragma: no cover - package-style import
+    from pipeline.content_fetch import strip_leading_code
+
 ROOT = Path(__file__).resolve().parents[1]
 PROCESSED_DIR = ROOT / "data" / "processed"
 BRIEF_DIR = ROOT / "data" / "brief"
@@ -144,6 +149,8 @@ def story_record(sid: str, item: dict, run_at: str) -> dict:
         value = item.get(field)
         if field in ("summary", "summary_1line", "content_excerpt") and value:
             value = strip_html(value)
+        if field in ("summary", "content_excerpt") and value:
+            value = strip_leading_code(value)
         if field in ("summary", "content_excerpt") and value:
             value = str(value)[:SUMMARY_MAX_CHARS]
         if field == "why_it_matters" and str(value or "").strip() in GENERIC_WHY:
