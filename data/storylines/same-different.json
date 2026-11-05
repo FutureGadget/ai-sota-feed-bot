@@ -1,13 +1,14 @@
 {
  "slug": "same-different",
  "label": "Same Different",
- "item_count": 5,
- "day_count": 4,
- "source_count": 3,
+ "item_count": 6,
+ "day_count": 5,
+ "source_count": 4,
  "first_seen": "2026-10-22T08:25:51+00:00",
  "last_updated": "2026-11-03T15:57:39+00:00",
- "generated_at": "2026-11-04T00:12:28.797841+00:00",
+ "generated_at": "2026-11-05T00:13:10.775833+00:00",
  "sources": [
+  "arxiv_cs_cl",
   "arxiv_llm_reliability",
   "hackernews_ai",
   "huggingface_blog"
@@ -73,6 +74,21 @@
    ]
   },
   {
+   "date": "2026-11-02",
+   "items": [
+    {
+     "title": "Same Outputs, Different Scores: Auditing the Unchecked Graders of Multimodal LLM Benchmarks",
+     "url": "http://arxiv.org/abs/2611.03377v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Every multimodal-LLM multiple-choice benchmark ends with a scoring rule that converts a model's response, often free-form text rather than a clean option letter, into a right/wrong verdict, buried in its code. Unlike the dataset, this rule is chosen without justification and left",
+     "sid": "6b0a48e52ca49e48",
+     "published": "2026-11-02T16:20:07+00:00",
+     "editor_note": "Audits the scoring rules of multimodal multiple-choice benchmarks, which can score identical outputs differently."
+    }
+   ]
+  },
+  {
    "date": "2026-11-03",
    "items": [
     {
@@ -92,14 +108,14 @@
  "editorial": {
   "tldr": "Most of this thread shares a \"Same X, Different Y\" title pattern, not one event. Three arXiv papers (Oct 22-26) cover chemistry identifier binding, credit assignment for agentic RL and news framing; a Nov 1 post then reported a 17-point gap between agents using one model.",
   "stale": false,
-  "whats_new": "On Nov 3, an IBM Research Hugging Face post compared CUGA, Hermes and Deep Agents on the same model, asking when to pick CUGA.",
-  "why_it_matters": "Two harness-versus-model posts in three days make the same point: the agent harness can move results as much as the model, so evaluate the full stack.",
-  "take_for_builders": "Hold the model fixed and vary the harness in your own eval on your MCP servers; treat the 17-point figure and IBM's CUGA comparison as vendor or blog results until reproduced.",
+  "whats_new": "On Nov 3, an IBM Research Hugging Face post compared CUGA, Hermes and Deep Agents on the same model, a day after an arXiv audit showed multimodal benchmark graders can change scores on identical outputs.",
+  "why_it_matters": "Harness posts and the grader audit point the same way: scores depend on the agent harness and the scoring rule as much as the model, so evaluate the full stack, including how answers are graded.",
+  "take_for_builders": "Hold the model fixed and vary the harness in your own eval on your MCP servers, and pin and review your scoring rule; treat the 17-point figure and IBM's CUGA comparison as vendor or blog results until reproduced.",
   "status": {
    "state": "Harness comparison emerging",
    "tone": "rising",
    "changed": "2026-11-03",
-   "detail": "Title-match papers are coincidental; the Nov 1 and Nov 3 posts form the real thread on harness effects."
+   "detail": "Title-match papers are coincidental; the Nov 1 and Nov 3 posts plus the Nov 2 grader audit form the real thread on non-model variance in evals."
   },
   "beats": [
    {
@@ -131,6 +147,15 @@
     ]
    },
    {
+    "kicker": "GRADERS",
+    "tone": "alert",
+    "headline": "Multimodal benchmark scoring rules change scores on identical outputs",
+    "summary": "An arXiv audit of the unchecked graders that turn free-form responses into right/wrong verdicts.",
+    "sids": [
+     "6b0a48e52ca49e48"
+    ]
+   },
+   {
     "kicker": "NOW",
     "tone": "now",
     "headline": "IBM Research compares CUGA, Hermes and Deep Agents on one model",
@@ -143,8 +168,8 @@
   "open_questions": [
    "Does the MCP post publish its harness differences, prompts and scoring method so the 17-point gap can be reproduced?",
    "Does the IBM CUGA post report numbers on a shared benchmark, and can they be rerun?",
-   "Do any of the arXiv papers release code or evals that apply to tool-using agents?"
+   "Do the grader-audit findings extend to the text-only and agent benchmarks used for tool-using agents?"
   ],
-  "generated_at": "2026-11-04T06:00:00+00:00"
+  "generated_at": "2026-11-05T00:20:00+00:00"
  }
 }

@@ -1,12 +1,12 @@
 {
  "slug": "mcp-servers",
  "label": "MCP Servers",
- "item_count": 3,
- "day_count": 2,
+ "item_count": 4,
+ "day_count": 3,
  "source_count": 2,
  "first_seen": "2026-11-01T14:22:25+00:00",
- "last_updated": "2026-11-02T13:53:00+00:00",
- "generated_at": "2026-11-04T00:12:28.797841+00:00",
+ "last_updated": "2026-11-04T10:58:43+00:00",
+ "generated_at": "2026-11-05T00:13:10.775833+00:00",
  "sources": [
   "hackernews_ai",
   "infoq_ai_ml"
@@ -54,19 +54,35 @@
      "editor_note": "Production-scale example: a gateway governing 800+ servers and 5,000+ tools."
     }
    ]
+  },
+  {
+   "date": "2026-11-04",
+   "items": [
+    {
+     "title": "AI coding agents are installing abandoned MCP servers with known security issues",
+     "url": "https://www.glow.io/blogs/mcphantom-ai-coding-agents-are-installing-vulnerable-deprecated-mcp-servers-from-training-data",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "AI coding agents are installing abandoned MCP servers with known security issues",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "7bf2baae197f3346",
+     "published": "2026-11-04T10:58:43+00:00",
+     "editor_note": "Reports coding agents installing deprecated, vulnerable MCP servers."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "On Nov 1 a benchmark post reported a 17-point gap between agents running the same model across 21 MCP servers, putting the client side of MCP under scrutiny. On Nov 2 a Show HN project proposed cryptographic identity for agents calling MCP servers.",
+  "tldr": "On Nov 1 a benchmark post reported a 17-point gap between agents running the same model across 21 MCP servers. On Nov 2 a Show HN project proposed cryptographic agent identity and Uber described an MCP Gateway governing 800+ servers.",
   "stale": false,
-  "whats_new": "Uber built an MCP Gateway to govern agent access to more than 800 MCP servers and 5,000 tools, separating tool registration from runtime execution.",
-  "why_it_matters": "MCP is moving from per-server wiring to centrally governed infrastructure, and results depend on the agent client as much as the model or server.",
-  "take_for_builders": "Pin the agent client alongside the model in MCP evals, and check whether tool registration, auth and audit are centralized before your server count grows.",
+  "whats_new": "A Nov 4 write-up reports AI coding agents installing abandoned MCP servers with known security issues, adding supply-chain risk to the thread on agent-side MCP trust.",
+  "why_it_matters": "MCP trust now has three open fronts: which client runs the server, which identity it presents, and which servers an agent is allowed to install at all.",
+  "take_for_builders": "Allowlist MCP servers instead of letting coding agents pick them, audit installed servers for abandonment and known advisories, and pin the agent client alongside the model in MCP evals.",
   "status": {
    "state": "Developing",
-   "tone": "rising",
-   "changed": "2026-11-02",
-   "detail": "Threads on MCP agent variance, agent identity and enterprise gateways are emerging together."
+   "tone": "alert",
+   "changed": "2026-11-04",
+   "detail": "Agent variance, identity and gateway governance are now joined by reports of agents installing vulnerable servers."
   },
   "beats": [
    {
@@ -78,26 +94,28 @@
     ]
    },
    {
-    "kicker": "IDENTITY",
+    "kicker": "GOVERN",
     "tone": "rising",
-    "headline": "Arken proposes cryptographic identity for agents calling MCP servers",
+    "headline": "Arken proposes agent identity; Uber gates 800+ servers behind a gateway",
     "sids": [
-     "48e620c754016698"
+     "48e620c754016698",
+     "072a2ee0757ea55d"
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
-    "headline": "Uber centralizes access behind an MCP Gateway",
+    "kicker": "RISK",
+    "tone": "alert",
+    "headline": "Coding agents are installing abandoned MCP servers with known security issues",
     "sids": [
-     "072a2ee0757ea55d"
+     "7bf2baae197f3346"
     ]
    }
   ],
   "open_questions": [
    "Will other large engineering orgs publish MCP gateway designs for discovery, auth and auditing?",
-   "Will the 17-point agent-client gap be reproduced on other MCP server sets?"
+   "Will the 17-point agent-client gap be reproduced on other MCP server sets?",
+   "Will agent clients or registries start flagging abandoned or vulnerable MCP servers before install?"
   ],
-  "generated_at": "2026-11-03T00:20:00+00:00"
+  "generated_at": "2026-11-05T00:12:40+00:00"
  }
 }

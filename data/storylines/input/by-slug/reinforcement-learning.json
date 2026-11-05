@@ -1,0 +1,257 @@
+{
+  "generated_at": "2026-11-05T00:12:00.067106+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "reinforcement-learning",
+    "label": "Learning Through",
+    "item_count": 5,
+    "source_count": 4,
+    "day_count": 5,
+    "first_seen": "2026-10-19T08:07:35+00:00",
+    "last_updated": "2026-11-03T18:19:55+00:00",
+    "latest_title": "MDSKILL: Learning to Internalize Skill Memory through Multi-View Distillation for Efficient Dynamic Agent Self-Evolution",
+    "member_sids": [
+      "736cb3afaf8cf4b3",
+      "110ac885ad3cb773",
+      "868490bacebdc880",
+      "4e3ef058b96b399d",
+      "219537f3fa2b3690"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/reinforcement-learning.json",
+    "prior_narrative": {
+      "slug": "reinforcement-learning",
+      "tldr": "Reinforcement Learning is a loose grouping of RL items, not one developing story. Since Oct 15 it has gathered an O-RAN benchmark, agentic-RL training papers on rollout cost and credit assignment, and AWS's SageMaker multi-turn guide.",
+      "why_it_matters": "Agent RL is now judged on cost and reliability: EnvSched and calibrated budgets (Oct 20) target rollout spend, while MiRL and CalibraRL target named failures. All are paper-reported results, not production evidence; the SageMaker guide remains the only managed-platform recipe.",
+      "open_questions": [
+        "Does calibrated rollout budgeting cut MCP-agent training cost on benchmarks beyond the paper's own?",
+        "Does the SageMaker MTRL recipe carry from Wordle to tool-using agent tasks, and at what training cost?",
+        "Do MiRL's error-targeted fixes hold on terminal-agent tasks outside the paper's own benchmark?",
+        "Does EnvSched's scheduling gain hold on agent-RL benchmarks beyond the paper's own, and with which environment mixes?",
+        "Does TalentRL's strategy-guided routing beat flat SkillBank retrieval on agent benchmarks beyond the paper's own?",
+        "Does EffComp's compression ratio hold quality on downstream tasks beyond the paper's own benchmarks?"
+      ],
+      "take_for_builders": "If you train tool-using agents, measure rollout cost per environment (EnvSched, calibrated budgets), log recurring failure modes for error-targeted RL (MiRL), and A/B fine-grained credit against episode-level reward; treat paper results as unreplicated until rerun on your own evals.",
+      "generated_at": "2026-11-04T00:30:00+00:00",
+      "covers_last_updated": "2026-11-02T15:36:22+00:00",
+      "covers_member_sids": [
+        "db03100b1bd7cd3e",
+        "afd320e7f42ef5bd",
+        "a00ad2ffbda7f2e9",
+        "276a486ae6eefe6b",
+        "352167f7ac41065b",
+        "40c644a15cb895a9",
+        "2b4f7152c682448f",
+        "453c138d9feefee3",
+        "8a41e1e41cbecfde",
+        "1e1ae7d5d09cb859",
+        "c3af4f37e1c19b19",
+        "868490bacebdc880",
+        "c07d00b3f0a46112",
+        "d448a8af2a653453",
+        "02ad246823185a44",
+        "d571e973b6e6916d",
+        "9471fde9e20a1e58",
+        "29493d021878283c",
+        "65dc6916d3b352f1",
+        "4e3ef058b96b399d",
+        "473a95cd7c540d1a",
+        "bce25dc1c825a3e7"
+      ],
+      "whats_new": "Nov 2: two arXiv papers add EffComp, a hybrid RL-plus-supervised prompt compressor aimed at cheaper LLM calls, and an axiomatic framework for RL in open multi-agent systems.",
+      "status": {
+        "state": "Developing",
+        "tone": "rising",
+        "changed": "2026-11-02",
+        "detail": "A loose set of RL items; the newest add prompt compression and multi-agent theory to the agent rollout-cost, credit-assignment and reliability work."
+      },
+      "beats": [
+        {
+          "kicker": "BENCHMARK",
+          "tone": "neutral",
+          "headline": "X-RIC benchmarks agentic RAN controllers for reinforcement learning",
+          "summary": "Targets O-RAN controllers rather than LLM post-training.",
+          "sids": [
+            "db03100b1bd7cd3e"
+          ]
+        },
+        {
+          "kicker": "RESEARCH",
+          "tone": "rising",
+          "headline": "Agentic RL papers: rollout budgets, stateful environments, search-state awareness, credit assignment",
+          "summary": "Four arXiv papers on cutting rollout cost, extending RL beyond tool-centric settings, teaching search agents to assess their own state, and crediting individual decisions within an episode.",
+          "sids": [
+            "afd320e7f42ef5bd",
+            "a00ad2ffbda7f2e9",
+            "276a486ae6eefe6b",
+            "352167f7ac41065b"
+          ]
+        },
+        {
+          "kicker": "OCT 23",
+          "tone": "rising",
+          "headline": "AWS multi-turn RL guide, plus stability, simulation, robustness and token-credit papers",
+          "summary": "A managed-platform recipe on SageMaker AI and four arXiv papers on rounding alignment, token credit, dialogue user simulation and robust RL.",
+          "sids": [
+            "8a41e1e41cbecfde",
+            "453c138d9feefee3",
+            "40c644a15cb895a9",
+            "1e1ae7d5d09cb859",
+            "2b4f7152c682448f"
+          ]
+        },
+        {
+          "kicker": "RELIABILITY",
+          "tone": "turn",
+          "headline": "Reliability turn: calibrated rewards, credit-assignment limits, error-targeted agent fixes",
+          "summary": "Oct 26: three arXiv papers aim RL at hallucination, when fine-grained credit hurts, and terminal-agent misbehavior.",
+          "sids": [
+            "c3af4f37e1c19b19",
+            "868490bacebdc880",
+            "c07d00b3f0a46112"
+          ]
+        },
+        {
+          "kicker": "OCT 27",
+          "tone": "neutral",
+          "headline": "Harness co-training and environment scheduling: CoHARL and EnvSched",
+          "summary": "Oct 27: CoHARL optimizes the executable harness alongside the policy; EnvSched targets rollout generation and verification cost.",
+          "sids": [
+            "d448a8af2a653453",
+            "02ad246823185a44"
+          ]
+        },
+        {
+          "kicker": "OCT 29",
+          "tone": "neutral",
+          "headline": "Self-learning and confidence-aligned RLVR",
+          "summary": "Oct 29: one paper rewards knowledge acquisition coupled with reasoning; SCARL ties policy confidence to verifier outcomes.",
+          "sids": [
+            "d571e973b6e6916d",
+            "9471fde9e20a1e58"
+          ]
+        },
+        {
+          "kicker": "OCT 30",
+          "tone": "neutral",
+          "headline": "Skill routing, few-step flow RL and causal explanations",
+          "summary": "Oct 30: TalentRL routes hierarchical skills by strategy, a GRPO paper reshapes stochastic policy geometry for few-step flow models, and CausalXRL explains RL decisions with causal graphs.",
+          "sids": [
+            "29493d021878283c",
+            "65dc6916d3b352f1",
+            "4e3ef058b96b399d"
+          ]
+        },
+        {
+          "kicker": "NOW",
+          "tone": "now",
+          "headline": "Prompt compression and open multi-agent RL theory",
+          "summary": "Nov 2: EffComp trains a prompt compressor with hybrid RL and supervised learning; an axiomatic framework grounds RL when only some agents are controllable.",
+          "sids": [
+            "473a95cd7c540d1a",
+            "bce25dc1c825a3e7"
+          ]
+        }
+      ],
+      "day_captions": {
+        "db03100b1bd7cd3e": "arXiv benchmark for RL in agentic O-RAN controllers; the only telecom-domain item.",
+        "afd320e7f42ef5bd": "Uses reward disagreement to allocate rollout budgets for MCP agents; first training-cost item in the thread.",
+        "a00ad2ffbda7f2e9": "Agentic RL for small language models in stateful, data-centric environments.",
+        "276a486ae6eefe6b": "Self-assessment RL so retrieval-augmented search agents track their search state.",
+        "352167f7ac41065b": "Counterfactual branching to assign credit to individual decisions inside a rewarded agent episode.",
+        "8a41e1e41cbecfde": "AWS's hands-on multi-turn RL pipeline on SageMaker AI, the first managed-platform recipe in the thread.",
+        "453c138d9feefee3": "Traces on-policy instability in LLM RL to where rounding happens between inference and training systems.",
+        "40c644a15cb895a9": "Uses RL with hierarchical rewards for profile-driven user simulation in task-oriented dialogue.",
+        "1e1ae7d5d09cb859": "A unified library and benchmark for robust RL algorithms.",
+        "2b4f7152c682448f": "GRPO token-level credit from reward-model gradients, replacing one shared response-level advantage.",
+        "c3af4f37e1c19b19": "Confidence-calibrated RL rewards to cut RAG hallucinations while allowing abstention.",
+        "868490bacebdc880": "Finds fine-grained credit assignment can help or hurt multimodal agents, tested on video editing.",
+        "c07d00b3f0a46112": "Identifies specific terminal-agent misbehaviors, trains against them, and checks they are fixed.",
+        "d448a8af2a653453": "Co-evolves the agent policy and its executable harness, since tuning a harness for a fixed policy ignores how behavior shifts during learning.",
+        "02ad246823185a44": "Schedules environments under finite rollout budgets, the second rollout-cost paper after Oct 20's calibrated budgets.",
+        "d571e973b6e6916d": "Paper on RL to incentivize LLM self-learning for knowledge-intensive tasks.",
+        "9471fde9e20a1e58": "SCARL: aligns RLVR policy confidence with verifier results.",
+        "29493d021878283c": "Strategy-guided RL for routing among natural-language skills, rather than flat SkillBank retrieval.",
+        "65dc6916d3b352f1": "Applies GRPO to few-step flow models by shaping the stochastic policy geometry of large denoising transitions.",
+        "4e3ef058b96b399d": "Explains RL agent behavior through causal graph reasoning, addressing interpretability.",
+        "473a95cd7c540d1a": "Hybrid RL and supervised training for prompt compression, targeting cheaper and faster LLM inference.",
+        "bce25dc1c825a3e7": "Newest: axiomatic foundation for RL when only a subset of agents is controllable, e.g. smart grids."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-10-19",
+        "items": [
+          {
+            "sid": "736cb3afaf8cf4b3",
+            "title": "ClueFlow: Learning Long-Horizon Search through Attributed Research-State Transitions",
+            "url": "http://arxiv.org/abs/2610.25980v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Long-horizon search requires agents to acquire relevant evidence and integrate it into an evolving research state. Existing methods maintain research states to guide exploration or assign turn-level progress signals,...",
+            "published": "2026-10-19T08:07:35+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-23",
+        "items": [
+          {
+            "sid": "110ac885ad3cb773",
+            "title": "Lifelong Context Adaptation through Bidirectional Memory-Skill Learning",
+            "url": "http://arxiv.org/abs/2610.32295v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Lifelong LLM agents must learn from an expanding history of interactions while making each decision within a bounded context window. Memory makes past experience available, but the agent may still need to infer how to...",
+            "published": "2026-10-23T07:53:18+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-26",
+        "items": [
+          {
+            "sid": "868490bacebdc880",
+            "title": "When Fine-Grained Credit Assignment Helps and Hurts: Multimodal Agentic Reinforcement Learning through Video Editing",
+            "url": "http://arxiv.org/abs/2610.35497v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Reinforcement learning (RL) has shown promise for training multimodal agents to reason and use tools. However, it remains unclear when fine-grained credit assignment improves learning and when it fails to improve task...",
+            "published": "2026-10-26T14:25:40+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-30",
+        "items": [
+          {
+            "sid": "4e3ef058b96b399d",
+            "title": "CausalXRL: Explainable Reinforcement Learning through Causal Graph Reasoning",
+            "url": "http://arxiv.org/abs/2610.42028v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "Reinforcement learning is a powerful paradigm for training autonomous agents and has achieved impressive performance in complex environments. However, this success often comes at the cost of interpretability, diminish...",
+            "published": "2026-10-30T16:55:46+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-03",
+        "items": [
+          {
+            "sid": "219537f3fa2b3690",
+            "title": "MDSKILL: Learning to Internalize Skill Memory through Multi-View Distillation for Efficient Dynamic Agent Self-Evolution",
+            "url": "http://arxiv.org/abs/2611.05313v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Skill memories encode past experiences as textual prompts to improve reinforcement learning (RL) for self-evolving agents. Complementing RL, On-Policy Self-Distillation (OPSD) provides dense, fine-grained supervision...",
+            "published": "2026-11-03T18:19:55+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}
