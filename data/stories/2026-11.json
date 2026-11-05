@@ -413,6 +413,23 @@
   "type": "news",
   "url": "https://zyvop.com/is-ai-actually-cheap-enough-to-replace-developers-8i74u"
  },
+ "10ae15e7aac9f9d9": {
+  "first_seen": "2026-11-05T08:05:21.535185+00:00",
+  "id": "0fffbca6b9a2f5a3",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-04T12:47:32+00:00",
+  "sid": "10ae15e7aac9f9d9",
+  "source": "arxiv_cs_cl",
+  "summary": "Skills let language agents reuse experience across tasks as natural-language documents. Recent work evolves skills from interaction, but existing methods have limitations when skills evolve online. Prior methods update a skill offline from a batch of trajectories collected over many tasks. Some then adopt the new skill without any check, which can degrade the skill over time. Others keep it only if it improves performance on a held-out validation set, which is too slow and costly to run after every update. We introduce EvoGuard, a pairwise skill selector that mitigates skill degradation at low latency and cost. We first run the agent iteratively to build pools of skills and score each skill on a private test set to obtain utility labels. We pair the skills and use rejection sampling to keep only pairs with a clear utility gap. The selector is trained on the logits of two label tokens to pick the better skill. At deployment it decides in a single forward pass, which is significantly faster than evaluation on the private test set. Compared with adopting every new skill, EvoGuard improves success by 11.0% on ALFWorld, 5.9% on ScienceWorld, and 2.7% on LiveCodeBench.",
+  "summary_1line": "Skills let language agents reuse experience across tasks as natural-language documents. Recent work evolves skills from interaction, but existing methods have limitations when skills evolve online. Prior methods updat...",
+  "title": "EvoGuard: Mitigating Degradation in Online Skill Evolution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.06444v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "1148658a9f5b93f3": {
   "first_seen": "2026-11-03T13:05:11.255573+00:00",
   "id": "7c7114db8e2f23e6",
@@ -1323,6 +1340,30 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.01976v1",
   "why_it_matters": "Matches feed focus: agentic, eval, codex."
+ },
+ "3b93b07bf2154e4f": {
+  "also_covered": [
+   {
+    "source": "hackernews_ai",
+    "title": "LifeVal: Evaluating AI Model Performance on Personalized Agentic Consumer Tasks [pdf]",
+    "url": "https://cdn.openai.com/pdf/lifeval.pdf"
+   }
+  ],
+  "first_seen": "2026-11-05T08:05:21.535185+00:00",
+  "id": "e92aa2e5022cfe9a",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-04T15:55:20+00:00",
+  "sid": "3b93b07bf2154e4f",
+  "source": "arxiv_cs_ai",
+  "summary": "We introduce LifeVal, a benchmark evaluating AI model performance on personalized agentic consumer tasks. LifeVal covers the most valuable life tasks that a personalized digital superassistant could automate, representing over 1.7 trillion US dollars in annual willingness-to-pay across 148 consumer task categories (e.g., managing finances, moving apartments, searching for a job, finding childcare). To construct our activity distribution, we conducted a new survey of willingness-to-pay for a digital superassistant across a demographically representative sample of over 3,800 consumers, cross-referencing our results against the American Time Use Survey (Bureau of Labor Statistics, 2025) and the Multinational Time Use Study (Fisher et al., 2025). For the most valuable consumer activities, we recruited task creators to create AI evaluation tasks personalized using real ChatGPT conversations and memories, reference files, and personal context. Task creators had to pass our expertise threshold (including personally completing the task multiple times and seeing the results through in their real lives for over a year) and also write a rubric, ensuring that our evaluation measured the best personalized completion for that task. All tasks had to pass at least three rounds of human quality-control before acceptance into our final evaluation sets.",
+  "summary_1line": "We introduce LifeVal, a benchmark evaluating AI model performance on personalized agentic consumer tasks. LifeVal covers the most valuable life tasks that a personalized digital superassistant could automate, represen...",
+  "title": "LifeVal: Evaluating AI Model Performance on Personalized Agentic Consumer Tasks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.06687v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "3c72c5c3cd7d0707": {
   "content_excerpt": "NVIDIA researchers find Claude Opus 4.5 and GPT 5.6 Sol lose little accuracy with 16K contexts and frequent compaction, while long-context serving costs up to 7x more per token. Long context windows are one of the main selling points of frontier models. A new preprint from NVIDIA, titled “You don’t need long context”, questions whether agents actually need them. Peter Belcak, Pavlo Molchanov and ten co-authors test what happens when models must keep their working context short, by regularly summarizing their own history, and conclude that the long-context race may be solving the wrong problem. The team compared each model’s normal full-history run with “compaction” settings: once the conversation hits a threshold, the model writes a summary and continues in a fresh, short context. Settings ranged from a 128K limit down to 16K, compacted at 12K. The most radical test was “single-action contexts”: the model takes one step, writes a compact state and hands over to a fresh context. Peak context dropped from 130K–200K tokens to 15K–37K, with a median of 7K–9K. Retail API prices are flat per million tokens, so users rarely see that late tokens in a long context are much more expensive to generate. If agents work well with short contexts, providers and teams running their own models could serve the same workloads with less memory and fewer GPUs. The authors argue this rivals or exceeds savings from methods such as aggressive quantization. The study is broad. It covers 13 benchmarks,",
@@ -2771,6 +2812,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05724v1"
  },
+ "8a4649ddfcc04506": {
+  "first_seen": "2026-11-05T08:05:21.535185+00:00",
+  "id": "ee7198d6ece25116",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-05T07:13:48+00:00",
+  "sid": "8a4649ddfcc04506",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Moonshot AI Launches Kimi Hosted Agents as a Managed Agent-Harness Cloud Service Pandaily",
+  "summary_1line": "Moonshot AI Launches Kimi Hosted Agents as a Managed Agent-Harness Cloud Service Pandaily",
+  "title": "Moonshot AI Launches Kimi Hosted Agents as a Managed Agent-Harness Cloud Service",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPX2VjT2JCMnR2VVBMeEJSMGF1N3ItbVZic21Ua1d2cGZMa1BKVHVOUVo0X2p3Zm84MnpOeGtzSEJPc0hjcmI5RXBHeEFKcHpSRDlzX2lvN1pCOS1rMkJ3U19BRGcwdjhHQmtIRDFxZ1dvUS1KaG5SN0tIM1l3LVpESnd1dHVIbXk5dTBCTzdINFVLc2J2ZndlSXlTcw?oc=5",
+  "why_it_matters": "Matches feed focus: agent, harness."
+ },
  "8aa44442dd83a732": {
   "first_seen": "2026-11-04T18:04:59.867522+00:00",
   "id": "a8c4351035c324b5",
@@ -2976,6 +3034,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.04834v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "9537fd006b96a28a": {
+  "content_excerpt": "In the last 30 days, Spawn shipped 77,000 substantial changes. That's about 108 an hour, around the clock. We're a team of ten. The work is done by what we call the fleet, a team of permanent AI agents that each own a part of the company, from the engine to finance to bug triage. We spent $3.1 million on tokens last month, which makes us one of Anthropic's biggest customers. Even without the free Opus 5.5 we give our creators, we'd still be in their top 250. My first thought was that we were doing something wrong. So I had chats with some of my friends who run the biggest companies and startups to figure out how we could possibly be spending more than them. We weren't doing anything wrong, we just think about AI very differently. Most companies run big human teams that use AI, and we run a small human team alongside a big team of agents. To figure out what we were doing differently, I compared notes with a researcher at Anthropic. They talk to a lot of customers. They said Spawn is the one that works most like Anthropic. A lot of other founders wanted to understand how we think about this, so I've collected my ideas and learnings from the last year and written them down here for you. Since Fable came out, we've spent a large part of this year rediscovering how to build products from first principles. We now ship 500x more than we did 6 months ago. To give you an idea of the scale I'm talking about, we shipped 77k (substantial) changes to players in the last 30 days. That's an",
+  "first_seen": "2026-11-05T08:05:21.535185+00:00",
+  "id": "8e8b01c978d22cc6",
+  "published": "2026-11-05T07:16:36+00:00",
+  "sid": "9537fd006b96a28a",
+  "source": "hackernews_ai",
+  "summary_1line": "I Built the Most AI-Pilled Company in the World",
+  "title": "I Built the Most AI-Pilled Company in the World",
+  "type": "news",
+  "url": "https://twitter.com/jsnnsa/status/2115623382721126826"
  },
  "95c356529387fe0a": {
   "first_seen": "2026-11-05T00:08:35.012471+00:00",
@@ -3268,6 +3338,23 @@
   "type": "news",
   "url": "https://cloudbrowser.tv",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "a48b233c16d69100": {
+  "first_seen": "2026-11-05T08:05:21.535185+00:00",
+  "id": "55556f7aa2e1b6cd",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-04T18:23:14+00:00",
+  "sid": "a48b233c16d69100",
+  "source": "arxiv_cs_ai",
+  "summary": "In this work, we evaluate a simple inference-time scaling approach based on \\textit{turn-level best-of-N sampling} (\\method) for large language model (LLM) agents on complex, long-horizon tasks. We instantiate this using a \\textit{generator-selector} framework with two LLMs; at each turn, a \\emph{generator} model generates $N$ candidate actions and a \\emph{selector} model selects one of them, which is then executed in the environment. This paper is closely related to the work of \\cite{zainullina2025guided} who used critic models for guided search at inference time. Different from their work, we evaluate if off-the-shelf, open-weight LLMs can be effective at comparing different candidate actions directly. Experiments on long-horizon terminal tasks show that \\method can lead to significant performance improvements, both in terms of accuracy (5--10\\%) and consistency across repeated attempts. Analysis of agent trajectories reveal a shift in agent behaviour towards desirable patterns such as reduction in number of attempts to solve the task, improved task instruction following, debugging and testing.",
+  "summary_1line": "In this work, we evaluate a simple inference-time scaling approach based on \\textit{turn-level best-of-N sampling} (\\method) for large language model (LLM) agents on complex, long-horizon tasks. We instantiate this us...",
+  "title": "On Turn-Level Best-of-N Sampling for Scaling LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.06868v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "a5a07b8cf380c156": {
   "first_seen": "2026-11-05T07:05:25.501632+00:00",
@@ -4206,6 +4293,23 @@
   "type": "news",
   "url": "https://mahalsystems.ai/aot/optimizations",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "d4ec23da5e445584": {
+  "first_seen": "2026-11-05T08:05:21.535185+00:00",
+  "id": "313ff8549ef40c87",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-04T13:20:51+00:00",
+  "sid": "d4ec23da5e445584",
+  "source": "arxiv_cs_cl",
+  "summary": "Graph-based retrieval-augmented generation (GraphRAG) answers questions by retrieving over a knowledge graph built from a corpus. Yet retrieval strategies are designed around the structure their own construction pipeline produces, and whether they survive a change of construction is rarely tested. We study this cross-construction portability: whether one retrieval procedure, with no construction-specific schema, relation names, or retuning, stays effective when the graph is built differently. We introduce ArcRAG, which induces a query-local graph interface at inference time (the node labels, relation descriptors, and property keys reachable from the entities a question names), plans multi-hop traversals against it, and executes and repairs them as Cypher. We build each of the MuSiQue, HotpotQA, and TriviaQA corpora as a schema-guided graph (typed nodes, a closed relation set, source provenance) and as an open-information-extraction graph (untyped nodes, free-text relations), with the retriever's configuration fixed across them. We compare against a construction-agnostic Direct-Cypher agent, ablate each stage across retry and pass budgets on both graph families, and compare with results reported for prior GraphRAG systems, most of which design retrieval together with their own graph construction. Across the two constructions, we find that retrieval need not be co-designed with the graph: query-time interface induction keeps a construction-agnostic retriever effective when the ",
+  "summary_1line": "Graph-based retrieval-augmented generation (GraphRAG) answers questions by retrieving over a knowledge graph built from a corpus. Yet retrieval strategies are designed around the structure their own construction pipel...",
+  "title": "ArcRAG: Agentic Compositional Retrieval over Knowledge Graphs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.06481v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "d72e76ee34cd12ef": {
   "content_excerpt": "To create one, POST https://inspect.hookdeck.com/ (for example: curl -X POST https://inspect.hookdeck.com/). The JSON reply has ingest_url, where to send webhooks, and requests_url: GET it to wait for the next request. It waits up to 25 seconds and returns the request as JSON. If you can only make GET requests, ask the person to open https://inspect.hookdeck.com/ in a browser and share the URL it gives them. stripe-signature : t=1677834000,v1=0b144c08dca0ce58f56f8810da96ea76a3977f09966b624199d23e6dd0cedc1e,v0=135a50a00bfa300eb6f8078bc41ea7681c151a472d56264b774aea58a710e360",
