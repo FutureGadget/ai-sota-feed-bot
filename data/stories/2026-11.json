@@ -773,13 +773,18 @@
  "1c990a2a55a59e80": {
   "first_seen": "2026-11-05T07:07:24.638359+00:00",
   "id": "74157ab5d4d2321e",
+  "matched_topics": [
+   "agent"
+  ],
   "published": "2026-11-04T14:40:32+00:00",
   "sid": "1c990a2a55a59e80",
   "source": "arxiv_cs_ai",
+  "summary": "AI agents rely on third-party tools, such as Model Context Protocol (MCP) servers, whose publishers can be authenticated and whose execution can be restricted by runtime security policies. Yet authenticity does not guarantee benign behaviour: a legitimately signed tool may perform its advertised function while concealing malicious code that leaks confidential information. We demonstrate this trust failure with a signed MCP tool that embeds sensitive data in requests to a policy-allowed destination. Meta's MCPGuard-Dynamic, a state-of-the-art runtime defence, blocks a direct exfiltration attempt in the same run, yet fails to prevent this attack in every trial. We introduce germline execution, which limits information disclosure without inspecting or trusting tool implementations. Each tool invocation runs in ephemeral copies forked from a data-free germline process, each receiving only information authorised for its destination. Even if malicious code executes, what it can disclose is bounded by the data available to its copy. Under explicit assumptions on copy confinement and a data-free germline, we prove sink noninterference for every signed release and, for releases deterministic within our replay model, show that a verified witness establishes a flow violation. Across 153 attack runs, no unauthorised disclosure was detected under germline execution, compared with 5.9-74.5% of runs under baseline defences and an ablation. Invocations served by a single copy completed in 10",
   "summary_1line": "AI agents rely on third-party tools, such as Model Context Protocol (MCP) servers, whose publishers can be authenticated and whose execution can be restricted by runtime security policies. Yet authenticity does not guarantee benign behaviour: a legitimately signed tool may perfor",
   "title": "Signed, Sealed, Leaked: Trust Beyond Signature for MCP Toolchains",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.06585v1"
+  "url": "http://arxiv.org/abs/2611.06585v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "1cb312ba9579ab92": {
   "first_seen": "2026-11-04T04:05:15.928526+00:00",
@@ -1581,16 +1586,16 @@
  },
  "3dfd506de5b58da3": {
   "first_seen": "2026-11-05T19:04:43.522223+00:00",
-  "id": "01d711672ab28a1c",
+  "id": "b693fd19441b9f38",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-05T18:27:01+00:00",
+  "published": "2026-11-05T19:57:50+00:00",
   "sid": "3dfd506de5b58da3",
   "source": "openai_codex_releases",
   "summary": "Release 0.168.0-alpha.6",
   "summary_1line": "Release 0.168.0-alpha.6",
-  "title": "codex rust-v0.168.0-alpha.6",
+  "title": "codex 0.168.0-alpha.6",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.6",
   "why_it_matters": "Matches feed focus: codex."
@@ -1906,6 +1911,24 @@
   "type": "news",
   "url": "https://pub-a941bfd863a24f91a60e6c4979c18a84.r2.dev/pi-sandbox-uploads/362853802061074432/2026-11-05/1793853557213-869eca17-6f40-4338-9d1b-6b75ee0ae224-audit.html",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "464b347f5551c3b2": {
+  "first_seen": "2026-11-05T20:05:22.914023+00:00",
+  "id": "830a6306994997c4",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "codex"
+  ],
+  "published": "2026-11-05T19:22:23+00:00",
+  "sid": "464b347f5551c3b2",
+  "source": "hackernews_ai",
+  "summary": "I’ve been doing a lot of solo development lately and found myself hitting Claude token limits halfway through the week constantly. Even with a Max plan, I’d have to switch over to Codex or Cursor, and it would be a bit difficult to get used to the nuances of each harness. It’s still a problem for me, but I finally built Thinker to save me some tokens and help me get a bit more out of my coding agent subscriptions. I started off a bit in the dark about how token billing works, and had to dig deeper to figure out what workflows ended up hurting my budget the most. By far, it was large context windows. Claude tries to help out on costs by offering prompt caching - which is sort of a bandage on the bigger problem: context bloat. I find that my context window gets bloated with unneeded tokens in two main ways: Tool outputs from subtasks that are long finished. File reads, Bash commands, MCP outputs, etc. Main idea is that the model finished the work but carries the weight of it for every subsequent call - translating to wasted token usage. CLAUDE.md / AGENTS.md getting way too big. Lots of content gets dumped into these files as your agents work in your repo. I found that it’s not clear what is actually useful to be included there. Every token here counts, because it will be paid for in every session, and its cost scales linearly with the duration of your session. Thinker addresses both of these issues. We have a proxy that wires in between your harness and model to cut out old co",
+  "summary_1line": "I’ve been doing a lot of solo development lately and found myself hitting Claude token limits halfway through the week constantly. Even with a Max plan, I’d have to switch over to Codex or Cursor, and it would be a bi...",
+  "title": "Show HN: Thinker – Trim context and cache knowledge to extend agent usage limits",
+  "type": "news",
+  "url": "https://thinker.sh/how-it-works",
+  "why_it_matters": "Matches feed focus: agent, harness, codex."
  },
  "4715dd7a49e69939": {
   "first_seen": "2026-11-05T12:05:33.949815+00:00",
@@ -2287,6 +2310,22 @@
   "title": "Avartha: Fastest open-weight frontier voice AI beats OpenAI, Google, and xAI",
   "type": "news",
   "url": "https://avartha.ai/blog/introducing-avartha"
+ },
+ "5902ca540214c52c": {
+  "content_excerpt": "SemiAnalysis built GDPx, 206 long agent tasks across 11 expert fields, and the best model scored 12 percent. We worked out what each model pays per point, pulled the caveats SemiAnalysis states into the open, and walked through the one task that shows how strict the grading is. SemiAnalysis published GDPx on November 2, 2026 as a benchmark for general agent work in high-value fields: chip design, cybersecurity, biology, finance, legal, quant trading, recursive self-improvement, hardware design, materials science, alignment and software engineering. The leaderboard lists 206 tasks from 14 data partners. Tasks run up to 8 hours by default. One finance task drops the agent into a deal room of about 2,000 files. Models run in their own harness where one exists, such as Claude Code or Codex, and in OpenCode otherwise. The headline score averages the 11 fields equally, and each partner equally within a field, using each task's own grading over 3 attempts. SemiAnalysis lists an average cost per task next to each score. Dividing one by the other gives what each point of GDPx costs. These are our numbers, computed from the leaderboard; SemiAnalysis does not publish this column. Muse Wonder Full scores 9.0 percent but has no public price, so it has no cost per point. Two readings follow. If you need the single best result, Opus 5.5 leads. If you run many attempts and keep the best, Gemini 4 Carbon gets 91 percent of Opus's score for about a third of the cost per task, and GPT 6.1 Sol g",
+  "first_seen": "2026-11-05T20:05:22.914023+00:00",
+  "id": "53ecf3c453c9602b",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-05T19:13:23+00:00",
+  "sid": "5902ca540214c52c",
+  "source": "hackernews_ai",
+  "summary_1line": "GDPx agent benchmark: cost per point for 12 models, and the safety-filter caveat",
+  "title": "GDPx agent benchmark: cost per point for 12 models, and the safety-filter caveat",
+  "type": "news",
+  "url": "https://theainewsreport.com/2026-11-05-semianalysis-gdpx-agent-benchmark-cost-per-point-explained.html",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "59cc5547aff50775": {
   "first_seen": "2026-11-05T03:05:19.238517+00:00",
@@ -3601,6 +3640,24 @@
   "url": "https://hindsight.vectorize.io/blog/2026/11/03/hindsight-models",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "9c4184d44164e0d7": {
+  "content_excerpt": "Imagine a chief of staff who disappears every time you hand them a big project and only comes back once it's done. You'd probably fire them immediately. A good chief of staff keeps projects moving in the background while staying reachable and keeping you updated along the way. As we ask agents to work toward bigger goals, they need the same two properties. An agent has to be responsive, acting on a new instruction right away with the context of everything before it, and productive, making progress on many large tasks at once. The architecture we've used to build agents for a while can't meet both requirements. In a standard ReAct loop, each long tool call blocks the loop and every other task queues behind it. Instead, we're seeing the ecosystem converge on a split between one agent that stays with the user and background workers that do the long work. Claude Code runs subagents in the background by default, OpenAI's dots hand work to background workers to make progress on several things at once, and DeepSeek Harness built its super agent around a router that talks to people and background workers that run tasks in parallel. We’re bringing this pattern to Deep Agents with async subagents . An orchestrator stays available to the user and keeps the conversation's context organized, while async subagents run as background workers and report back when they finish. The amount of work the agent can take on then grows with the number of background workers instead of the length of one",
+  "first_seen": "2026-11-05T20:05:22.914023+00:00",
+  "id": "dd635241e7b46204",
+  "image_url": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6aecdf22f0b192d15c132b25_6aecdf0372d986b4c1a140a7_async-subagents-cover-webflow.png",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-05T20:00:00+00:00",
+  "sid": "9c4184d44164e0d7",
+  "source": "langchain_blog",
+  "summary": "Async subagents let an agent stay responsive while background workers run long tasks. How the orchestrator, notifications and approvals work in Deep Agents.",
+  "summary_1line": "Async subagents let an agent stay responsive while background workers run long tasks. How the orchestrator, notifications and approvals work in Deep Agents.",
+  "title": "Agents Are Going Async",
+  "type": "news",
+  "url": "https://www.langchain.com/blog/agents-are-going-async",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "9cfa80c5232a7be3": {
   "first_seen": "2026-11-04T09:05:15.061766+00:00",
   "id": "44c9fe4cf14a5c47",
@@ -3885,6 +3942,35 @@
   "url": "http://arxiv.org/abs/2611.05731v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "ab18151c1b1e77eb": {
+  "first_seen": "2026-11-05T20:05:22.914023+00:00",
+  "id": "28409e46481329ec",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-03T16:57:04+00:00",
+  "sid": "ab18151c1b1e77eb",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large language model agents increasingly retrieve tools from large catalogs, yet most retrievers rank each tool independently by request similarity. For multi tool tasks, this recovers the goal matching tool while omitting prerequisite tools required by the workflow.We introduce LIBRA, a framework for Library Induction by Runtime Assembly that turns a flat tool catalog into an executable tool library. An LLM proposes per tool contracts of candidate invocations, reusable outputs and state changes, and success conditions; LIBRA then tests these compositions in a sandbox and retains the relations supported at runtime. Constructed before user queries, the library requires no dependency annotations, tool use trajectories, or task specific training, and supports both one-shot and agentic retrieval. On AppWorld, BFCL, and SciToolEval, LIBRA improves one-shot Recall and NDCG over the same dense retriever by 7.9 and 3.7 percentage points on average. Within ToolReAGt, it yields corresponding gains of 4.5 and 2.9 points after ten retrieval iterations.",
+  "summary_1line": "Large language model agents increasingly retrieve tools from large catalogs, yet most retrievers rank each tool independently by request similarity. For multi tool tasks, this recovers the goal matching tool while omi...",
+  "title": "LIBRA: Programmatic Induction of Executable Tool Libraries",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05445v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "ab758b1d2464847a": {
+  "first_seen": "2026-11-05T20:05:22.914023+00:00",
+  "id": "b4b48b4a981cbefc",
+  "published": "2026-11-04T16:23:24+00:00",
+  "sid": "ab758b1d2464847a",
+  "source": "arxiv_cs_ai",
+  "summary": "Strong single-turn editing performance does not guarantee reliable multi-turn interaction: as edited outputs are repeatedly reused, small unintended changes can accumulate into severe visual drift. This long-term drift is often mitigated through training on multi-turn data or cross-turn rollouts, potentially altering pretrained priors, or through specialized inference-time mechanisms that are difficult to scale to foundation models. We introduce TailSteer, a final-stage training framework that improves multi-turn robustness while retaining the generative and editing capabilities acquired through earlier training. TailSteer follows a simple principle: keep early denoising dynamics close to those of the base model and concentrate preservation corrections near the trajectory tail, where fine-grained deviations can be suppressed. These corrections are learned from the editor's own on-policy denoising rollouts, using unchanged source content as a preservation reference without requiring curated ground-truth editing pairs. Experiments across the FLUX, SenseNova, and Qwen families show that TailSteer substantially reduces cumulative drift over 15-20 editing turns while largely preserving base-model performance on extensive text-to-image and single-image editing benchmarks. These results demonstrate that long-horizon editing robustness can be unlocked in foundation models after TailSteer, rather than by relearning their existing capabilities.",
+  "summary_1line": "Strong single-turn editing performance does not guarantee reliable multi-turn interaction: as edited outputs are repeatedly reused, small unintended changes can accumulate into severe visual drift. This long-term drif...",
+  "title": "TailSteer: Trajectory-Tail Steering for Drift-Resistant Multi-turn Image Editing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.06741v1"
+ },
  "ac4e5e06e79adb8f": {
   "first_seen": "2026-11-04T01:07:16.353037+00:00",
   "id": "35e200f5bb547915",
@@ -4082,6 +4168,20 @@
   "title": "Huawei Ascend Adds Day-Zero Support for Kimi K3.1 Pro Across Atlas A3 and Ascend 950 SuperPoDs",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPc1M4OXNUei1jbTVEbnNVLU4zVWtwZEE3ek9kTjdCYmhmd3RoQ09DRU0wN18ycjN2LXdreDcyYkFLeU9aTm5aNDVTRmZieFU4LXNZSlRVbGlFeHBEQzlBLTJKXzFzWG9lMThZZlBhemdhbjNGdHhjdUFyWS1TaXRmNk0xX2U5dzJGbnhWalBwSXpUR1hRZ3hvMXBiOXlRbVJwZmRuaA?oc=5"
+ },
+ "b3aec1efa38599db": {
+  "content_excerpt": "In November 2025, we published a newsletter saying that Google is selling TPUs to external customers. Since then, we have been proven right over and over again with Oracle, OpenAI , Anthropic, and Meta all becoming customers of TPUs just as our Accelerator Model reported. Hardware demand is only half the story, as NVIDIA’s moat has historically been its software and large developer ecosystem. This is where TPU is also making headway, partnering with upstream maintainers across the entire ecosystem, including the Meta PyTorch team, vLLM (Inferact, RedHat), SGLang (RadixArk), llm-d, Ray, etc. This is not a surprise to folks that have read our September 2026 article laying out Google TPU’s externalization strategy . Back in our September article, we published the first third-party TPUv7 results on InferenceX on single-turn workloads, showing that in an apples-to-apples FP8 comparison on Qwen 3.5 397B, TPUv7 Ironwood) delivered up to 50% better performance per dollar than B200 and B300. We also reported that many Google TPU customers were asking for AgentX results, since long-context, multi-turn agentic serving is where inference spend is heading. Previously, Jensen went on the Dwarkesh Podcast and commented on the fact that no other chips were taking advantage of their opportunity to show performance on InferenceX. Six months later, and indeed Google is taking full advantage of this opportunity. Today we are releasing the first official long-context, multi-turn, realistic agenti",
+  "first_seen": "2026-11-05T20:05:22.914023+00:00",
+  "id": "c181876996f72ce5",
+  "image_url": "https://substack-post-media.s3.amazonaws.com/public/images/26613df4-7e61-4073-b4a3-46b09741d358_1774x887.png",
+  "published": "2026-11-05T19:03:45+00:00",
+  "sid": "b3aec1efa38599db",
+  "source": "semianalysis",
+  "summary": "Viable Alternative of CUDA Moat, NVIDIA scared and working nights & weekends, Jensen’s Counter Submission, Kimi K3, Muse Spark Open, Qwen, GLM5.3, TorchTPU, vLLM, SGLang, llm-d, Ray",
+  "summary_1line": "Viable Alternative of CUDA Moat, NVIDIA scared and working nights & weekends, Jensen’s Counter Submission, Kimi K3, Muse Spark Open, Qwen, GLM5.3, TorchTPU, vLLM, SGLang, llm-d, Ray",
+  "title": "The Iron(wood) Throne: Google's TPU Stakes Its Claim on Inference",
+  "type": "news",
+  "url": "https://newsletter.semianalysis.com/p/tpu-strikes-the-king"
  },
  "b46f9fac570b0805": {
   "first_seen": "2026-11-03T10:05:34.032473+00:00",
@@ -4281,6 +4381,24 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03518v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "ba8cae5c09dbef94": {
+  "content_excerpt": "Remote-control interactive agent CLIs (Claude Code, Codex, Gemini) over tmux. One binary, three faces, one provider abstraction. Spawn other-provider agent workers from inside your agent session. Drive claude , codex , gemini , or opencode interactively in tmux from a CLI, MCP server, or YAML workflow. One binary, one provider abstraction — subscription-billed for claude/codex/gemini, bring-any-model for opencode. Your claude session can't spawn a codex session directly. With umbel mcp configured, it can: Your Claude Code agent now has umbel_spawn , umbel_send , umbel_wait , umbel_read , umbel_kill , and umbel_help in its toolbelt. Tell it: Spawn a Codex reviewer in ./worktrees/a and a Gemini tester in ./worktrees/b . Have them work in parallel, then synthesize their findings. It'll stand up both workers, dispatch the prompts, wait for completion, and read their outputs. Three subscriptions, three roles, one orchestration. The host's context stays clean — it spends tokens on planning and synthesis, not on doing the work itself. The server ships a server-level instructions block plus an on-demand umbel_help tool (topics: lifecycle , workflow , providers ) so your agent learns when to reach for umbel and how to use it without being drowned in upfront context. The same verbs from your shell — useful in scripts, cron, or when driving umbel without an MCP host: A single supervisor can drive workers across providers concurrently. The provider is recorded in meta.json per session so",
+  "first_seen": "2026-11-05T20:05:22.914023+00:00",
+  "id": "86f2567c8c3c4877",
+  "matched_topics": [
+   "agent",
+   "codex"
+  ],
+  "published": "2026-11-05T19:18:18+00:00",
+  "sid": "ba8cae5c09dbef94",
+  "source": "hackernews_ai",
+  "summary": "Been using this in all my sessions the last months. Opus 5.5 (over MCP) spawns Deepseek flash agents - and codex for audits etc. Very curious to hear what the HN crowd thinks/makes of it.",
+  "summary_1line": "Been using this in all my sessions the last months. Opus 5.5 (over MCP) spawns Deepseek flash agents - and codex for audits etc. Very curious to hear what the HN crowd thinks/makes of it.",
+  "title": "Show HN: Umbel – Remote-control agent CLIs over tmux",
+  "type": "news",
+  "url": "https://github.com/jahala/umbel",
+  "why_it_matters": "Matches feed focus: agent, codex."
  },
  "baaa37d6dddd5d25": {
   "content_excerpt": "Deterministic code dictionary for LLMs and developers: tree-sitter + SQLite, no AI. Cuts Claude Code token use by answering code questions from an index. A dictionary of your code for the AI, and a manual for you. It reads your project once, with no AI, and hands the answer over together with the question. Fewer turns, fewer tokens, the same correct answer. One line, once per machine. It also turns codedict on in Claude Code for every project. That's it. Open Claude Code in any git repository and ask about the code. There is nothing else to configure. Uninstall: run ~/.codedict/venv/bin/python -m codedict setup --remove (Windows: ~\\.codedict\\venv\\Scripts\\python.exe -m codedict setup --remove ) and delete the ~/.codedict folder. codedict came from a practical problem: on a real project with ~250 files in TypeScript, C# and Python, Claude Code sessions kept hitting the usage limit. We measured it, and the culprit was not the code being read but the number of turns . Every time the AI calls a tool (a grep, opening a file), Claude Code re-reads the whole context: 35 to 50 thousand tokens per turn. A simple question like \"where is X and who calls it?\" took 5 turns of grep and file reads. A flow question like \"from the click to the result\" took more than 20. The idea was to do the search work once, with no AI , in a local index, and hand the ready answer over together with the question. The AI answers in 1 or 2 turns instead of 5 to 20. The goal was to cut at least 55% of the token",
@@ -5412,6 +5530,18 @@
   "url": "http://arxiv.org/abs/2611.02561v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "f25b9201ad6bdcc6": {
+  "content_excerpt": "NVIDIA Cosmos world model development platform adds four new open-weight checkpoints to its Cosmos 3 model family for generating interactive world simulation and multi-sensor multi-view driving scenes: All four models are post-trained examples of Cosmos 3 Nano and have 16B trainable parameters. The models use OpenMDW1.1, permitting commercial and non-commercial use under its terms. 🦾 Robotics needs environments that can answer this across changing scenes and viewpoints. These checkpoints offer complementary ways to build them: Sim-Bimanual predicts visual consequences from actions, while Sim-Transfer turns a physics simulator’s controls into generated observations. 🚦 For autonomous driving, appearance and geometry must agree. Synchronized camera and LiDAR generation connects visual observations with 3D sensing. Scene and traffic-signal controls let researchers vary road layouts and signal states, then study how a driving policy responds. 🔄 Each observation can shape the next action. Streaming generation connects video prediction to ongoing interaction, giving world-model researchers a way to explore how actions and observations unfold together. 🌐 An open foundation for others to build on. NVIDIA’s vision is to help researchers and developers create richer, more responsive simulated worlds. Open weights and post-training recipes provide a shared starting point for adapting models, comparing methods, and contributing improvements. These problems remain hard: the work ahead is t",
+  "first_seen": "2026-11-05T20:05:22.914023+00:00",
+  "id": "628d7cc02c503139",
+  "published": "2026-11-05T19:35:16+00:00",
+  "sid": "f25b9201ad6bdcc6",
+  "source": "huggingface_blog",
+  "summary_1line": "New NVIDIA Cosmos 3 Open Models for Interactive World Simulation",
+  "title": "New NVIDIA Cosmos 3 Open Models for Interactive World Simulation",
+  "type": "research",
+  "url": "https://huggingface.co/blog/nvidia/cosmos-interactive-world-simulation"
+ },
  "f3ea6f58c95194f7": {
   "content_excerpt": "Synchronous speech and text translator with parallel delivery to arbitrary sinks. AI-TRANSLATOR listens to speech (or takes text), obtains a translation into a target language, and delivers the result to any number of independent sinks at the same time — text sinks (captions, on-screen displays, files) and voice sinks (translated speech routed to virtual audio devices, network audio streams). The defining property of the project: the translation core does not know where its result goes. The core produces a stream of translation events; delivery is performed by isolated sink modules that can be enabled and disabled individually. One and the same translation can go to a stage screen, broadcast captions and a voice channel simultaneously. Stage 1 (MVP) is implemented and covered by tests: the event bus, the sink subsystem, the console, WebSocket, transcript and Telegram sinks, the supervisor, the audio source on the synchronous translation provider, the offline text and scripted sources, and the command-line interface. Interfaces may still change before the 1.0 release. Linux is the primary platform: the Nix flake provides the development shell, transono drives PipeWire and ALSA, and virtual audio devices are created through its PipeWire module. macOS is supported for building and running: the project builds with Xcode Command Line Tools and a rustup toolchain, without Nix; audio capture and playback go through CoreAudio via cpal , and the PipeWire module of transono is not comp",
   "first_seen": "2026-11-03T03:05:29.307677+00:00",
@@ -5482,8 +5612,8 @@
   "published": "2026-11-02T04:13:51+00:00",
   "sid": "f4a904d03d800a16",
   "source": "hf_moonshotai_releases",
-  "summary": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 859, downloads: 11658.",
-  "summary_1line": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 859, downloads: 11658.",
+  "summary": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 880, downloads: 11658.",
+  "summary_1line": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 880, downloads: 11658.",
   "title": "moonshotai/Kimi-K3.1-Pro released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro"
