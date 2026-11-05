@@ -721,6 +721,35 @@
   "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPOWRQWmRtMFZFaDVDWGpNYXg2WV9pcVlKcVItSXlrS0twTU55X3VPZU1OSFFOUGhQUmlMcXg5dkVIemtCMFYydFdxc2lDOTQzUFZYNjhZOEpBTHlzdmt2V0JRRXlqRG9DZ0xnSFI3Y0stYnNyRFZpNzg5ekh6czVoVW5vUk40WEE5ZVA1ZVNseXplX3Z3b2hGTUFiN1RvS3Vk?oc=5",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "295354ff422b0d4d": {
+  "first_seen": "2026-11-05T01:05:48.377604+00:00",
+  "id": "1700e84e460fd535",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-04T00:00:00+00:00",
+  "sid": "295354ff422b0d4d",
+  "source": "openai_blog",
+  "summary": "Images 2.6 brings faster image generation, GIF creation, more precise editing, and new API controls across ChatGPT, Codex, and the API.",
+  "summary_1line": "Images 2.6 brings faster image generation, GIF creation, more precise editing, and new API controls across ChatGPT, Codex, and the API.",
+  "title": "Introducing Images 2.6",
+  "type": "news",
+  "url": "https://openai.com/index/introducing-images-2-6",
+  "why_it_matters": "Matches feed focus: codex."
+ },
+ "2aca440b2c0823d7": {
+  "content_excerpt": "We’re excited to announce Kinference [kay-inference] , a new open source project for building scalable inference platforms with vLLM. We created Kinference at Buoyant after watching our customers struggle to run open weight models in their environments. We designed Kinference to be the control plane layer for the platform you need to build. It uses vLLM to do the underlying inference, and provides the set of features necessary for building an inference platform in practice. This includes token rate limiting, tenant usage and cost tracking, intelligent load balancing, and inference policies. Kinference can be paired with your existing stack. Using Kinference is simply a matter of pointing inference clients to its HTTP endpoint and sending OpenAI or Anthropic-compatible inference traffic there. Kinference serves a heterogeneous, evolving set of models running on a heterogeneous, evolving pool of GPUs, to a heterogenous, evolving set of clients.. In addition to policies and a routing layer, Kinference provides inference-specific load balancing that takes into account signals like GPU queue sizes, historical performance, and the contents of the KV cache on the GPU. This KV-cache awareness, in particular, allows Kinference to send requests to the vLLM worker that will do the least work for that specific request. Modeling the KV cache content of the GPU can produce dramatic gains in performance for distributed inference. For example, in our public Kinference benchmarks , we showed ",
+  "first_seen": "2026-11-05T01:05:48.377604+00:00",
+  "id": "7fd9ff265205c751",
+  "published": "2026-11-04T00:00:00+00:00",
+  "sid": "2aca440b2c0823d7",
+  "source": "vllm_blog",
+  "summary": "Kinference is a new open source inference control plane for building scalable inference platforms with vLLM and Kubernetes, providing token rate limiting, tenant usage and cost tracking, intelligent load balancing, and inference policies.",
+  "summary_1line": "Kinference is a new open source inference control plane for building scalable inference platforms with vLLM and Kubernetes, providing token rate limiting, tenant usage and cost tracking, intelligent load balancing, an...",
+  "title": "Introducing Kinference: An Open Source Inference Control Plane for vLLM and Kubernetes",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-11-04-introducing-kinference"
+ },
  "2d77f36eefa1549d": {
   "first_seen": "2026-11-04T04:05:15.928526+00:00",
   "id": "14e2a680d620b156",
@@ -976,7 +1005,7 @@
   "sid": "399ff92e3dc351ae",
   "source": "arxiv_llm_reliability",
   "summary": "Hallucinations in Large Language Models (LLMs) remain a major challenge, as they can produce misleading, factually incorrect, or unverifiable information, thereby undermining their trustworthiness and reliability. However, reliable ground-truth labels remain a key challenge in evaluating hallucination detectors. Recent studies often construct labels automatically by comparing model generations with reference answers using similarity metrics such as BLEURT. This implicitly treats BLEURT similarity as a proxy for hallucination, despite its English-centric supervision, unbounded score range, and design as a similarity metric rather than a factuality measure, making threshold-based ground-truth construction potentially unreliable. Through comprehensive experiments using 15 automatic supervision judges, seven hallucination detection baselines, two generator models, two QA datasets, and five languages, we demonstrate that detector performance varies substantially with the choice of supervision judge. Human validation reveals substantial differences in labeling reliability, with QGen-9B achieving the lowest overall misclassification rate (12.86%), while BLEURT and BLEURT-n exhibit rates of 47.23% and 47.32%, respectively. Our findings highlight the limitations of automatic similarity-based labeling and the need for more reliable judging methods that better capture semantic and factual correctness.",
-  "summary_1line": "Hallucinations in Large Language Models (LLMs) remain a major challenge, as they can produce misleading, factually incorrect, or unverifiable information, thereby undermining their trustworthiness and reliability. How...",
+  "summary_1line": "Hallucinations in Large Language Models (LLMs) remain a major challenge, as they can produce misleading, factually incorrect, or unverifiable information, thereby undermining their trustworthiness and reliability. However, reliable ground-truth labels remain a key challenge in ev",
   "title": "When Ground Truth Is Not Ground Truth: Automatic Labeling for Hallucination Detection",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.04697v1",
@@ -1245,6 +1274,23 @@
   "type": "research",
   "url": "https://www.anthropic.com/research/provable-inference"
  },
+ "43cdd1931bd2a8c0": {
+  "first_seen": "2026-11-05T01:05:48.377604+00:00",
+  "id": "51800f7ee814ecf2",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-03T03:04:18+00:00",
+  "sid": "43cdd1931bd2a8c0",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large language models (LLMs) increasingly shape recommendations across chatbots, e-commerce, and user-generated content (UGC) platforms, creating demand for Generative Engine Optimization (GEO) to improve item visibility in generated responses. Existing GEO studies are mainly content-centric, optimizing visibility under general-purpose queries. However, a shared item description usually serves users with different needs and decision goals, resulting in its visibility gains being dependent on the request. To investigate how changing intent affects visibility, we formulate IntentGEO to evaluate shared rewrites across need specificity and decision progression. We revisit existing GEO methods and find that their visibility gains vary across user intents. More critically, learning-based prompt optimization can underperform its handwritten seed on average. Tracing these updates reveals prompt drift from explicit recommendation instructions toward generic promotional tactics. To address this drift, we propose AMO (Anchored Meta-Optimization), which preserves recommendation instructions in a fixed core while learning appended strategies from citation feedback. Across four domains and ten intent states, AMO improves average citation-rank gain by 35% over the strongest prior learning-based baseline and leads on nine states. Ablations show that learned additions improve on the fixed core alone and that AMO outperforms full-prompt optimization initialized from that core. It also achieves",
+  "summary_1line": "Large language models (LLMs) increasingly shape recommendations across chatbots, e-commerce, and user-generated content (UGC) platforms, creating demand for Generative Engine Optimization (GEO) to improve item visibil...",
+  "title": "IntentGEO: Intent-aware Generative Engine Optimization for Recommendation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.04225v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "43f56f7107586761": {
   "content_excerpt": "SAN FRANCISCO | October 30, 2026 – The Biological Computing Co. (TBC) , an applied biological computing company that uses living neurons to improve AI models, today launched TBC mischief 1, an AI video model that generates video 5x faster than its base model. Available on fal and OpenRouter , mischief 1 is the lowest-priced image-to-video model on both marketplaces, enabling video creators and developers to experiment with more ideas, faster and for less. The launch marks a major step in bringing discoveries from living neurons into commercial AI. mischief 1 is faster and cheaper because of efficiencies TBC discovered in living neurons and applied directly to the model. Just five weeks after announcing its collaboration with Amazon Web Services (AWS) to bring the model to enterprise customers, TBC is extending access to creators and developers through fal and OpenRouter. At half a cent per second, a five-second clip costs 2.5 cents, and 100 clips cost $2.50. Creators can test more ideas, compare takes and refine their work within the same budget. For developers, lower generation costs make it easier to build video into products that people can afford to use repeatedly. Wonder Studios, an AI-native creative studio, tested mischief 1 in its own production workflow. “Great storytelling comes from refining an idea until it’s right, and that’s usually the crunch point for time and budget. mischief 1’s speed and cost-effectiveness meant we could push the work much further within th",
   "first_seen": "2026-11-02T20:05:25.137504+00:00",
@@ -1301,7 +1347,7 @@
   "sid": "473a95cd7c540d1a",
   "source": "arxiv_llm_reliability",
   "summary": "Prompt compression is aimed at reducing input prompt lengths to enable cheaper, faster, and potentially higher-quality LLM predictions. However, existing prompt compression methods are often limited by modest compression gains, a risk of hallucination, and/or high compression latency. We propose EffComp, an Efficient prompt Compression framework for RAG-based question answering (QA). EffComp employs BERT-style document reranker and sentence selector models to allow fast extractive prompt compression at the sentence level. Its extractive nature prevents hallucinations in the compressed prompts. Additionally, the training process using a hybrid reinforcement and supervised learning approach is designed to optimize the compression ratio while preserving LLM accuracy. Experiments on various QA datasets demonstrate that EffComp outperforms state-of-the-art prompt compression methods achieving the best trade-off between compression ratio and accuracy with minimal latency. This makes it practical for real-world applications.",
-  "summary_1line": "Prompt compression is aimed at reducing input prompt lengths to enable cheaper, faster, and potentially higher-quality LLM predictions. However, existing prompt compression methods are often limited by modest compress...",
+  "summary_1line": "Prompt compression is aimed at reducing input prompt lengths to enable cheaper, faster, and potentially higher-quality LLM predictions. However, existing prompt compression methods are often limited by modest compression gains, a risk of hallucination, and/or high compression lat",
   "title": "EffComp: Efficient Prompt Compression via Hybrid Reinforcement & Supervised Learning",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.02766v1"
@@ -3782,7 +3828,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "dcc08e22467f3a8e": {
-  "content_excerpt": "Like a lot of lean teams, we ship faster than we can update our own docs. So Linell built an agent that watches our SDK pull requests, drafts the docs in a sandbox, and works while he sleeps. We sometimes ship faster than we can update our docs, but we can’t slow one down for the other. To help make that easier, I’ve been toying with a little app that watches our SDK repo for PRs, decides whether",
+  "content_excerpt": "Like a lot of lean teams, we ship faster than we can update our own docs. So Linell built an agent that watches our SDK pull requests, drafts the docs in a sandbox, and works while he sleeps. We sometimes ship faster than we can update our docs, but we can’t slow one down for the other. To help make that easier, I’ve been toying with a little app that watches our SDK repo for PRs, decides whether the docs need an update, and if they do , has a minion (err, Claude) open a draft PR before slipping back into the shadows. Nobody has to remember to ask. Obviously I named it Docsferatu. The first version in my head was just a webhook handler: GitHub posts \"PR opened\", the handler asks Claude whether the docs care, and if they do, it runs an agent that edits the website repo and opens a PR. Maybe forty lines. Bing bang bong done. The usual fix is a queue, a worker pool, a table of \"how far did this job get\", and retry logic you write yourself. That's the part I didn't want to build. The gist: you write a function as a series of named steps, and each step's result is saved once it finishes. Inngest calls the function over HTTP. When it calls again (after a crash, a redeploy, a retry, or just to run the next step), finished steps return their saved results instead of running again, and execution picks up after the last one that completed. A crash at minute 18 resumes at minute 18. The paid LLM call from minute 3 isn't re-run; its answer is already on file. Docsferatu has two main func",
   "first_seen": "2026-11-01T03:05:55.764929+00:00",
   "id": "ed821a746b0c2ac9",
   "matched_topics": [
