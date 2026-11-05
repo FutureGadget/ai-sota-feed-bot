@@ -195,8 +195,14 @@
   "first_seen": "2026-11-05T03:07:47.473054+00:00",
   "id": "b032be756972db7e",
   "published": "2026-11-05T02:20:53+00:00",
+  "release_highlights": [
+   "release(langgraph): 1.2.20",
+   "feat(langgraph): give each interrupt() in a task its own id",
+   "fix(langgraph): point the multiple-interrupts error at the current docs"
+  ],
   "sid": "09af4ba16f83444e",
   "source": "langgraph_releases",
+  "summary": "Changes since 1.2.19 release(langgraph): 1.2.20 ( #9595 ) feat(langgraph): give each interrupt() in a task its own id ( #9589 ) fix(langgraph): point the multiple-interrupts error at the current docs ( #9590 ) feat(langgraph): add a strict resume mode that refuses stale interrupt answers ( #9574 ) chore(deps-dev): bump types-requests from 2.33.0.20260906 to 2.33.0.20261006 in /libs/langgraph ( #9535 ) chore(deps-dev): bump pycryptodome from 3.23.0 to 4.2.0 in /libs/langgraph in the major group ( #9534 )",
   "summary_1line": "Changes since 1.2.19 release(langgraph): 1.2.20 ( #9595 ) feat(langgraph): give each interrupt() in a task its own id (<a class=\"issue-link js-issue-link\" hre",
   "title": "langgraph==1.2.20",
   "type": "release",
@@ -1124,6 +1130,22 @@
   "type": "news",
   "url": "https://openai.com/index/cisco-cyber"
  },
+ "37a5207d8920956c": {
+  "first_seen": "2026-11-05T04:05:26.395389+00:00",
+  "id": "7698b917289992ba",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-04T17:59:07+00:00",
+  "sid": "37a5207d8920956c",
+  "source": "arxiv_cs_ai",
+  "summary": "Large language model (LLM) coding agents develop software through experimentation, offering an opportunity to design the serving systems supporting their own operation. Effective serving requires coordinating implementation and operating decisions under session dependencies, latency constraints, and correctness requirements. We introduce ServerBench, a benchmark for agentic design of complete, specialized LLM serving systems. Agents experiment against a common objective, dollars per dollar: latency-qualified token value per dollar of GPU cost. Stateful replay preserves session dependencies, and independent verification checks the submitted system. Across 11 coding-agent models and three deployments, Claude Sonnet 5.5 achieves 2.97 dollars per dollar on Gemma E4B, $4.87\\times$ the vLLM reference; 22 of 33 runs yield verified systems, and 13 exceed the strongest baseline. Our analysis identifies three findings: high-value designs coordinate capacity improvements with load selection; agents interpret performance feedback through workload-relevant experiments; and reliable delivery requires verification of the execution paths introduced by optimization. Overall, ServerBench supports systematic study of how agents translate service objectives and feedback into effective, verified serving systems for given task specifications.",
+  "summary_1line": "Large language model (LLM) coding agents develop software through experimentation, offering an opportunity to design the serving systems supporting their own operation. Effective serving requires coordinating implemen...",
+  "title": "ServerBench: How can your coding agents design specialized LLM serving systems?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.06841v1",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "38183f78f9775e37": {
   "first_seen": "2026-11-05T02:05:37.010271+00:00",
   "id": "559b023954a38aa0",
@@ -1388,6 +1410,23 @@
   "title": "Alibaba Stocks Rise Nearly 5% as Qwen's Distribution Test Moves to iPhones",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQYks2RGFjTjJfLXlZTjlLTmNXVDdsQnZteVRjaUpvMHNieTVBT3dUaDNVbWI2bExuaEpEbVFJeXpMbHpqcEFpSW5yQU5YczY2NFlFeGpPcHhoMUtJTUpBY0NrUENLVXZIV25IV2hmSmZkSmNpNE1aY0swXy1WOGpEN2xsUkJHVHppeldpLUJUTER1S040WFpRTg?oc=5"
+ },
+ "40fb36da1f11792e": {
+  "first_seen": "2026-11-05T04:05:26.395389+00:00",
+  "id": "b1cc1f031d590ab6",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-04T15:51:30+00:00",
+  "sid": "40fb36da1f11792e",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Tool-using large language model (LLM) agents translate model outputs into consequential actions, turning indirect prompt injection into an execution-security problem. Existing defenses constrain tool calls, trajectories, or information flows, but often leave action semantics, state dependencies, and evidence relations implicit, limiting generalization across heterogeneous tools and complicating safe updates. We present \\ours{}, a dynamic ontology-guided governance framework. \\ours{} grounds heterogeneous calls in a shared semantic representation and combines an executable ontology with episode-level task state to derive deterministic ready, waiting, and forbidden decisions. A waiting decision identifies an unmet but recoverable obligation, enabling bounded replanning without expanding the agent's authorization boundary. \\ours{} evolves its ontology offline from verified training executions. An offline LLM proposes instance-independent action--state axioms, which are accepted only if they address ontology errors exposed by training failures, preserve logical consistency and protected entailments, and pass held-out validation before the ontology is frozen. We evaluate \\ours{} on AgentDojo, ASB, and AgentDyn under benign and indirect prompt-injection settings. \\ours{} achieves a 0\\% attack success rate (ASR) across all three benchmarks while improving task utility under attack compared with existing baselines. These results show that explicit semantic governance can strengthen e",
+  "summary_1line": "Tool-using large language model (LLM) agents translate model outputs into consequential actions, turning indirect prompt injection into an execution-security problem. Existing defenses constrain tool calls, trajectori...",
+  "title": "SecureGARD: Dynamic Ontology-Guided Governance for Secure Tool-Using LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.06682v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "4141e315102a7089": {
   "first_seen": "2026-11-02T05:05:11.397108+00:00",
@@ -2537,6 +2576,24 @@
   "url": "http://arxiv.org/abs/2611.02338v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "8469e80d372681e4": {
+  "first_seen": "2026-11-05T04:05:26.395389+00:00",
+  "id": "2a6c9c0a745d7ee6",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-11-04T17:20:09+00:00",
+  "sid": "8469e80d372681e4",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Efficient benchmarking estimates a system's full benchmark performance from a small number of task executions. Standard approaches rely solely on the binary correctness of executions from a collection of already-evaluated reference systems. An agentic system, however, produces a rich trace for each execution that can reveal substantially more about its capabilities. Leveraging this information requires useful trace representations. We propose representing a trace by extracting a structured summary of it with an LLM and embedding the summary with a standard text encoder. These representations preserve correctness- and task-related signal while minimizing the presence of system identity-, model family- and harness-related signals that dominate raw trace embeddings. Given this representation for each task execution from all reference systems, we construct low-dimensional representations of the systems and predict a new system's score from its position among the reference systems. On SWE-bench Verified and Terminal-Bench 2.0, augmenting an item-response model with this geometry-based prediction reduces mean absolute error from 0.13 to 0.08 (Wilcoxon $p < 10^{-4}$) and from 0.14 to 0.12 (Wilcoxon $p < 10^{-3}$), respectively, when provided a single random executed task. Further, given access to the full set of reference systems, our approach dominates baselines for any given number of executed tasks on both benchmarks.",
+  "summary_1line": "Efficient benchmarking estimates a system's full benchmark performance from a small number of task executions. Standard approaches rely solely on the binary correctness of executions from a collection of already-evalu...",
+  "title": "Task-Efficient Agent Evaluation Using Cached Traces",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.06803v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
+ },
  "854a452f65cee3d5": {
   "first_seen": "2026-11-01T10:03:30.273054+00:00",
   "id": "714b7849a69cd539",
@@ -2806,6 +2863,23 @@
   "type": "news",
   "url": "https://nolanlawson.com/2026/10/28/the-ai-cost-of-javascript-frameworks"
  },
+ "968a566b86bf85c0": {
+  "first_seen": "2026-11-05T04:05:26.395389+00:00",
+  "id": "4fb44b83e8746e8d",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-04T16:39:17+00:00",
+  "sid": "968a566b86bf85c0",
+  "source": "arxiv_cs_ai",
+  "summary": "Scientific image-analysis workflows require agents to select among diverse capabilities like description, detection, counting, and segmentation. Current multi-tool architectures conflate intent interpretation with visual execution, masking whether a failure arises from flawed reasoning (misrouting) or failed perception (invalid tool execution). This lack of auditability renders agents unreliable for high-stakes scientific automation. We introduce ZETA, an extensible architecture that operationalizes the decoupling of routing policy from action execution. ZETA resolves scientific intent before invoking specialized visual tools, treating measurement as a deterministic operation grounded in explicit geometry rather than generative output. This architecture exposes the \"black box\" of agent decision-making, allowing routing correctness and downstream execution to be evaluated as independent failure modes. To our knowledge, we provide the first controlled study in scientific vision-agent routing that isolates explicit routing-policy specification while holding the legal action interface fixed. Evaluation on a zero-shot benchmark of 51 scientific-intent queries shows that explicit routing semantics can substantially improve routing accuracy, particularly at semantically adjacent action boundaries, although improvements vary across models. For Qwen 3.8, explicit routing-policy specification improves segmentation routing accuracy from 6.2% to 75.0% and detection routing accuracy from ",
+  "summary_1line": "Scientific image-analysis workflows require agents to select among diverse capabilities like description, detection, counting, and segmentation. Current multi-tool architectures conflate intent interpretation with vis...",
+  "title": "Route First, See Later: Enabling Vision Agents to Reason Scientifically by Separating Routing Policy from Action Spaces",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.06760v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "96985a92e7482fe3": {
   "first_seen": "2026-11-03T06:05:21.577740+00:00",
   "id": "6121a48afd907037",
@@ -2949,6 +3023,22 @@
   "title": "llm 0.37",
   "type": "release",
   "url": "https://simonwillison.net/2026/Nov/2/llm"
+ },
+ "9e076e903f5a5a8f": {
+  "first_seen": "2026-11-05T04:05:26.395389+00:00",
+  "id": "0dcb5f20b3969840",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-04T18:10:33+00:00",
+  "sid": "9e076e903f5a5a8f",
+  "source": "arxiv_cs_lg",
+  "summary": "Computer-use agents (CUAs) have recently achieved superhuman performance on several long-horizon benchmarks. However, their computational cost limits their use in long-horizon tasks and real-time domains such as video games. A key bottleneck is representing each screenshot as thousands of visual tokens, which accumulate into long contexts as agents reason over extended interaction histories. We observe that most of these visual tokens are either semantically irrelevant to the agent's next action or temporally redundant across screenshots. Building on this observation, we introduce Visual Token Routing (VTR), a joint training framework for learning sparse visual representations that preserve the information needed for action prediction. In VTR, we train the vision-language model together with a lightweight spatio-temporal router that examines each image region in the current and previous screenshots and decides whether its visual token enters the language model. We optimize the router using an adaptive loss to keep the number of visual tokens as small as possible while minimizing performance degradation. With just 2,000 training steps, VTR matches the performance of the full-resolution model on OSWorld, CUA-World, and video game action prediction, while using 2.5-5.8x fewer visual tokens. These savings reduce inference cost by up to 3.3x and speed up prefill by up to 2.9x. VTR also outperforms lowering the image resolution and other baselines for dropping tokens, by up to 12.8",
+  "summary_1line": "Computer-use agents (CUAs) have recently achieved superhuman performance on several long-horizon benchmarks. However, their computational cost limits their use in long-horizon tasks and real-time domains such as video...",
+  "title": "Visual Token Routing: Learning to keep tokens that matter",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.06854v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "9ecd103388bdd513": {
   "content_excerpt": "A knowledge atlas for people AND for AI: fast local search, an organic map of your notes, code graphs, and an MCP door so any AI can read your vault. MIT. A knowledge atlas for people AND for AI. You read, search and explore your notes and code; any AI reads the same vault through a safe door. Obsidian is built for the person. AI-only tools are built for the model. Adamanteum serves both. If this is useful, please star the repo. It is the one thing that helps other people find it. The whole vault: 98,853 documents, 294,705 links, one living map. Screenshots are from the Stinger Industries team vault, running the same atlas. Sidebar search plus the Document Lens: read the original file without leaving the map. Open http://127.0.0.1:4173 . It starts on 18 fictional sample notes. If the port is taken, set PORT . To open your own Markdown folder, set ADAMANTEUM_VAULT to its absolute path (PowerShell: $env:ADAMANTEUM_VAULT = 'D:/Notes' ), then npm start . Your original notes are read-only by default. Notebook revisions live in .data/notebook.sqlite ; back up .data to keep the notebook, settings and indexes. Writing to your vault needs ADAMANTEUM_VAULT_WRITE=1 . A Windows launcher with a folder picker is included ( Launch Adamanteum.cmd ). Adamanteum does not ship with an AI, and nothing leaves your computer unless you choose it. There are two ways to plug your own in. 1. Put an AI inside Adamanteum (the \"Your AI\" button at the bottom of the screen). Add a connection card: Enter th",
@@ -4782,6 +4872,7 @@
   "published": "2026-11-05T02:55:48+00:00",
   "sid": "ff6c35403ec66552",
   "source": "search_cn_open_weight_labs",
+  "summary": "Moonshot AI Releases Full Weights For 2.8 Trillion Parameter Kimi K3.1 Pro Startup Fortune",
   "summary_1line": "<a href=\"https://news.google.com/rss/articles/CBMiogFBVV95cUxPYWs1Vy1EU1F2U0Y5UWloMjl6bHNDZGc0NUk5aGE0SHdqMFhSVHZ2dHUwVkJMYTZ6TmFVbWpzOUFzdkdKTFRlaF9rai1LYVd3bXlyOW1KemxXM3BlRGhSSGx2VG9Nc1VKMkREcVBJMVhhT0RuRWJVbzNRdWR1ejhQcWFpbmZNaTQ3bzBSRXZQaW0ySGpYQVRlUXMxNXJyck03bFE?oc=5\" targ",
   "title": "Moonshot AI Releases Full Weights For 2.8 Trillion Parameter Kimi K3.1 Pro",
   "type": "release",
