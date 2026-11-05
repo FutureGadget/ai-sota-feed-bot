@@ -547,6 +547,17 @@
   "url": "http://arxiv.org/abs/2611.03238v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "1eed7ce983ca5ef6": {
+  "first_seen": "2026-11-05T00:08:35.012471+00:00",
+  "id": "eb9bf8892fdfd709",
+  "published": "2026-11-03T17:55:57+00:00",
+  "sid": "1eed7ce983ca5ef6",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Evaluating whether a large language model (LLM) genuinely knows a concept remains a fundamental problem, since behavioral metrics can be fooled by suppression: a model that refuses to answer may still harbor recoverable knowledge. The framework measures the geometric coherence of",
+  "title": "The Geometry of Ignorance: Detecting Suppressed Knowledge in LLMs through Activation Fragmentation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05272v1"
+ },
  "20b2a3cb6b99ab11": {
   "first_seen": "2026-11-03T07:05:24.009620+00:00",
   "id": "3eee52cb1504c325",
@@ -979,13 +990,24 @@
   ],
   "published": "2026-11-02T01:30:27+00:00",
   "sid": "3a214163589601d8",
-  "source": "arxiv_cs_cl",
+  "source": "arxiv_agent_systems_research",
   "summary": "Agents are increasingly used for coding tasks, but the inference cost of large language models (LLMs) limits where they can run. Quantization reduces model size, but its effects on coding agents that execute and revise programs remain underexplored. We compare BF16 with 4-bit AWQ and GPTQ for Qwen2.5-Coder-Instruct (7B, 14B, and 32B) and Devstral-Small-2507 (24B) on OJBench coding problems across three seeds. We detect no statistically significant accuracy loss for any of the coding agents. However, final accuracy can conceal substantial behavioral changes: AWQ reduces Qwen-7B one-shot solves from 17 to 0 while increasing loop-based solves from 10 to 25. All Qwen-32B successes involve tool use, whereas Devstral rarely makes a valid executor call. Failure profiles also differ: Qwen-32B produces far more compilation errors than the smaller Qwen models, rising slightly under quantization, while Devstral's failures shift significantly from runtime errors toward wrong answers and timeouts. These findings indicate that quantization robustness in coding agents should be assessed through solution trajectories, tool use, and failure modes, in addition to final accuracy.",
-  "summary_1line": "Agents are increasingly used for coding tasks, but the inference cost of large language models (LLMs) limits where they can run. Quantization reduces model size, but its effects on coding agents that execute and revis...",
+  "summary_1line": "Agents are increasingly used for coding tasks, but the inference cost of large language models (LLMs) limits where they can run. Quantization reduces model size, but its effects on coding agents that execute and revise programs remain underexplored. We compare BF16 with 4-bit AWQ",
   "title": "Beyond Accuracy: How Quantization Affects Coding Agents",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.02368v1",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "3ac08f6799c57341": {
+  "first_seen": "2026-11-05T00:08:35.012471+00:00",
+  "id": "68eebc164f6af8a6",
+  "published": "2026-11-03T16:27:07+00:00",
+  "sid": "3ac08f6799c57341",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Generating HTML from natural-language specifications is an important application of code large language models (LLMs). Despite producing renderable pages, current models often fail to ensure functionality and visual quality during actual interaction. Existing methods typically ta",
+  "title": "Catalyzing Interactive HTML Generation Capabilities via High-Fidelity Reinforcement Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05151v1"
  },
  "3b1d851d80fa773c": {
   "first_seen": "2026-11-03T07:05:24.009620+00:00",
@@ -1619,7 +1641,7 @@
   "sid": "5ab1b6ecf4ca3e7a",
   "source": "arxiv_cs_cl",
   "summary": "Direct Nash Optimization (DNO) aligns a language model to a general preference function by approximating the Nash equilibrium of a two-player preference game. Its practical variant, DNO-Prct, iterates on-policy sampling, LLM-based rating of the samples together with a teacher's gold response, large-margin preference-pair selection and a DPO-style contrastive update. We re-implement DNO-Prct independently and study it on two open-weight instruct models, Llama 3.1 8B Instruct and Mistral 7B Instruct v0.1, with GPT-4o or a larger open-weight model of the same family as the annotator. On AlpacaEval 2.0 with GPT-4o as judge, three iterations raise the length-controlled (LC) win rate against GPT-4o from 31.7% to 45.3% for Llama and from 6.8% to 18.4% for Mistral, and the tuned 8B model scores above Llama 3.1 70B Instruct on every reported win rate. With same-family open-weight annotators, the runs retain 62% (Llama) and 82% (Mistral) of the LC gain achieved with GPT-4o as annotator, so the rating step does not require a proprietary model. In a separate ablation configuration, variants that remove the gold responses, remove the data look-back, or accept only teacher-preferred pairs score 6 to 10 LC points below the full procedure, whereas varying the number of on-policy samples per prompt (1 to 7) moves the LC win rate by at most 2.1 points, and a margin sweep (1 to 5) run in its own pipeline by at most 2.4 points. We also report the cost of the pipeline and where the practical algo",
-  "summary_1line": "Direct Nash Optimization (DNO) aligns a language model to a general preference function by approximating the Nash equilibrium of a two-player preference game. Its practical variant, DNO-Prct, iterates on-policy sampli...",
+  "summary_1line": "Direct Nash Optimization (DNO) aligns a language model to a general preference function by approximating the Nash equilibrium of a two-player preference game. Its practical variant, DNO-Prct, iterates on-policy sampling, LLM-based rating of the samples together with a teacher's g",
   "title": "Aligning Language Models with General Preferences: An Empirical Study of Direct Nash Optimization",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05373v1",
@@ -1919,7 +1941,7 @@
   "url": "https://opensource.googleblog.com/2026/10/introducing-elephant-goldfish-model-plugin.html"
  },
  "720b0d0c60188399": {
-  "content_excerpt": "LangSmith Bring Your Own Cloud (BYOC) now runs on AWS (GA), Azure (Beta), and Google Cloud (Beta). Your traces, evals, datasets, prompts, and agent deployments stay in your own cloud account, on the cloud you choose, and LangChain manages the data plane for you, from orchestration and scaling to platform updates. You decide where your agents run and where your telemetry lives, without taking on the work of running LangSmith yourself. To make that possible, BYOC splits LangSmith in two. LangChain runs the control plane , which holds auth, org and workspace config, billing metadata, hashed API keys, and static UI assets. You own the data plane , which holds everything sensitive, from traces, prompts, and datasets to experiments, agent deployments, and workspace secrets. An organization can hold several data planes, each in its specific account and region, and each data plane holds its workspaces. This lets you split data planes by region, environment, or business unit. For example, a platform team might run production and staging data planes in separate AWS accounts, while a business unit that standardized on Azure runs its own, separate BYOC deployment on Azure. Each team's traces land in the account that team owns. Until now, teams with strict compliance boundaries deployed and maintained self-hosted LangSmith. This kept their data inside their own boundary, but it took dedicated platform engineers to patch stateful services, configure databases, and run schema migrations. Wi",
+  "content_excerpt": "LangSmith Bring Your Own Cloud (BYOC) now runs on AWS (GA), Azure (Beta), and Google Cloud (Beta). Your traces, evals, datasets, prompts, and agent deployments stay in your own cloud account, on the cloud you choose, and LangChain manages the data plane for you, from orchestration and scaling to platform updates. By splitting the control plane and data plane in two, BYOC provides greater flexibily to decide where agents run and where telemetry lives, without taking on the work of running LangSmith. LangChain runs the control plane , which holds auth, org and workspace config, billing metadata, hashed API keys, and static UI assets. You own the data plane , which holds everything sensitive, from traces, prompts, and datasets to experiments, agent deployments, and workspace secrets. An organization can hold several data planes, each in its specific account and region, and each data plane holds its workspaces. This lets you split data planes by region, environment, or business unit. For example, a platform team might run production and staging data planes in separate AWS accounts, while a business unit that standardized on Azure runs its own, separate BYOC deployment on Azure. Each team's traces land in the account that team owns. Until now, teams with strict compliance boundaries deployed and maintained self-hosted LangSmith. This kept their data inside their own boundary, but it took dedicated platform engineers to patch stateful services, configure databases, and run schema m",
   "first_seen": "2026-11-03T19:08:46.325922+00:00",
   "id": "6f98da3a8edf66c0",
   "image_url": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6aea10da672af68b149a7fc2_6aea100d5e02bf39048b42b8_byoc-multicloud-cover.png",
@@ -1927,7 +1949,7 @@
    "agent",
    "eval"
   ],
-  "published": "2026-11-03T22:06:58+00:00",
+  "published": "2026-11-03T22:06:00+00:00",
   "sid": "720b0d0c60188399",
   "source": "langchain_blog",
   "summary": "LangSmith BYOC now runs on AWS (GA), Azure and Google Cloud (Beta). Your traces, evals, and agent deployments stay in your cloud account while LangChain runs it.",
@@ -2092,6 +2114,19 @@
   "title": "Xcode 27.3 adds GitHub Copilot to its built-in coding assistant",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQZ2hpSXMwV1dFT21nZ0VOaUZIQVdndmtubzI1ak1NdWo2Q193NlN1V0pWSm9WcWlhZjhSaXJINl9wMTlyUE1xMDR6UTNGWFA1bzNFM0J5ZmRvblY5bWZxa091SlhOMFRsUmNFTll2NzNRWnJxNUw1bVF3NGNPSE9VY1ZCaXdOampNSUxtRFN6RUY4Z1B2TWZEaHo3SQ?oc=5"
+ },
+ "7ac1c45f7bd0ae53": {
+  "content_excerpt": "Stateful real-time processing, history-preserving pipelines, and faster small-data development by Jungtaek Lim , Wenchen Fan , Andreas Neumann , Serge Rielau , Hyukjin Kwon , Jerry Peng , DB Tsai , Daniel Tenedorio , Xiao Li and Reynold Xin Apache Spark 4.3 brings stateful processing to Real-Time Mode, achieving sub-150 ms P99 end-to-end latency across three representative stateful benchmarks. Streaming aggregations, deduplication, and custom stateful processing can now run in Structured Streaming's low-latency execution mode, extending it to applications that need to remember context across events. The impact goes beyond faster pipelines. For supported workloads, you no longer need a separate streaming engine just to achieve millisecond-scale latency. From fraud detection to continuously updated user activity and device monitoring, developers can build stateful applications with familiar Structured Streaming APIs in the same open engine they use for batch processing, analytics, and AI. Stateful real-time streaming is the headline of Spark 4.3, but the improvements extend across the engine. The release delivers five key benefits: Together, these changes help developers use one open engine to explore data, maintain changing context, and power analytical and AI applications. Spark 4.3 also marks the start of a quarterly feature-release cadence , moving from one release every six months to one every three months. This shorter cycle puts completed improvements into users' hands s",
+  "first_seen": "2026-11-05T00:05:21.014824+00:00",
+  "id": "afae29eed5ac88d8",
+  "published": "2026-11-05T00:00:00+00:00",
+  "sid": "7ac1c45f7bd0ae53",
+  "source": "databricks_blog",
+  "summary": "IntroductionApache Spark 4.3 brings stateful processing to Real-Time Mode, achieving...",
+  "summary_1line": "IntroductionApache Spark 4.3 brings stateful processing to Real-Time Mode, achieving...",
+  "title": "Introducing Apache Spark® 4.3 - Now available in Databricks Runtime 19",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/introducing-apache-spark-43-now-available-databricks-runtime-19"
  },
  "7ae79fa7e63f017f": {
   "also_covered": [
@@ -2469,13 +2504,24 @@
   ],
   "published": "2026-11-03T13:04:46+00:00",
   "sid": "94da3bfcbd46a769",
-  "source": "arxiv_llm_reliability",
+  "source": "arxiv_cs_cl",
   "summary": "Post-training updates change what large language models (LLMs) can answer, but may leave their answerability judgments misaligned. We study this knowledge-judgment desynchronization through functional feeling of knowing (FoK), which supports selective generation, retrieval triggering, and model routing without implying subjective experience. We propose two trainable channels: a knowledge channel that changes answerability and a FoK channel that judges the current knowledge state. Three stages train them: on-policy supervised fine-tuning (OP-SFT) updates knowledge from corrected on-policy answers; knowledge-delta FoK training (K$Δ$-FT) adapts judgments across intermediate knowledge states; and FoK-guided policy optimization (FGPO) trains the subsequent answer or explanation. Factual-QA experiments, cross-dataset evaluation, and three sequential updates show that explicit FoK alignment improves judgment quality on updated knowledge. MMLU and ARC-Easy separately assess capability preservation.",
-  "summary_1line": "Post-training updates change what large language models (LLMs) can answer, but may leave their answerability judgments misaligned. We study this knowledge-judgment desynchronization through functional feeling of knowi...",
+  "summary_1line": "Post-training updates change what large language models (LLMs) can answer, but may leave their answerability judgments misaligned. We study this knowledge-judgment desynchronization through functional feeling of knowing (FoK), which supports selective generation, retrieval trigge",
   "title": "Feeling of Knowing in Large Language Models",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.04834v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "95c356529387fe0a": {
+  "first_seen": "2026-11-05T00:08:35.012471+00:00",
+  "id": "c760b0e75a37ea66",
+  "published": "2026-11-03T15:22:46+00:00",
+  "sid": "95c356529387fe0a",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Recent multimodal language models can reason directly about robot scenes, but it is unclear whether they need to repeatedly reinterpret raw visual observations at every step of an interaction. We propose shifting routine spatial reasoning from images to text and symbols through a",
+  "title": "Do Agentic Policies Need to Look at Every Step? Geometric Abstraction for Reasoning and Action",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05058v1"
  },
  "967be99077d13f07": {
   "content_excerpt": "One of my pet peeves with the web development community is that so many of the decisions we make are vibes-based. Frameworks are “blazing fast,” tools will “supercharge” your development, the right abstraction will benefit both you and your users ( DX and UX all in one!). All of this breathless boasting is usually offered with zero evidence. Alex Russell has called this “frontend’s lost decade” , Baldur Bjarnason has called programming a pop culture , and I’ve tried to counter this trend in my blog with facts and benchmarks (at my best, anyway). For a long time it seemed like our community’s allergy to evidence was driven by the desire for greater DX . In other words, devs just liked the way it felt to type JSX in React, and the arguments promoting React or related tools (“the virtual DOM is fast!”) were largely post-hoc rationalizations to justify those initial gut feelings. ( Jonathan Haidt would likely agree with this assessment.) But in the agentic era, when developers are no longer typing code by hand and are thus less constrained by DX, I still see vibes ruling the day (and not just in the sense of “vibe-coding”). Frontends are rewritten because some framework or another is “better for agents.” (Did anyone think to ask the agents?) The resulting code is “faster,” the agents make “fewer mistakes,” etc. Once again, these claims are often made without evidence. Whenever I read one of these accounts, I think to myself, “Where are the benchmarks?” Well I got curious, so I wr",
@@ -2917,7 +2963,7 @@
   "why_it_matters": "Matches feed focus: agent, harness."
  },
  "b12bd70de803121f": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. The article argues that reliable agentic AI architecture depends on a context engine that selects, injects, compresses, and expires information before it reaches the model. It separates context, memory, and knowledge, and recommends tiered memory, curated knowledge, and token budgeting. It also covers common anti-patterns, such as context stuffing and stale data loops, with mitigations. Nimisha Asthagiri shares how applying proven product engineering and architecture principles creates a bounded canvas for AI agents. She explains how this model provides agents with bounded autonomy, continuous drift detection, and decision records to scale software development resiliently. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervision paradox,\" where relia",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. The panelists explain how AI tools and vibe coding reshape frontend and mobile engineering. They share insights on evolving junior developer roles, managing AI-generated code review fatigue, designing systems for autonomous agents, enforcing architectural guardrails, and navigating economic shifts in open-source software sustainability. Nimisha Asthagiri shares how applying proven product engineering and architecture principles creates a bounded canvas for AI agents. She explains how this model provides agents with bounded autonomy, continuous drift detection, and decision records to scale software development resiliently. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervision paradox,\" where reliance on AI tools disrupts junior skill development, ",
   "first_seen": "2026-11-03T19:08:46.325922+00:00",
   "id": "da026ae179849140",
   "image_url": "https://res.infoq.com/news/2026/11/litert-tensor-api/en/headerimage/litert-tensor-api-1793729374644.jpeg",
@@ -3483,7 +3529,7 @@
   "sid": "cf858573320ea5b3",
   "source": "arxiv_cs_lg",
   "summary": "Vision-language verifiers judge whether an image faithfully matches a textual description, yet existing training pipelines typically rely on static supervision from stronger external judges or curated hard-negative data. Such supervision requires external generation or annotation, is teacher-bounded, and is difficult to adapt as model failures evolve. We introduce PROVE (Perturb-and-Repair Optimization for Vision-Language Evaluation), a self-play framework that trains verifiers through a closed perturb-verify-repair-verify loop. Starting from a known-correct image-caption pair, a Mutator introduces a typed perturbation over objects, attributes, counts, or relations. The verifier then judges the perturbed caption and provides textual feedback, which a Repairer uses to recover a faithful caption for re-verification. These two verification rounds produce structured rewards for informative mismatches and visually grounded repairs. Since perturbation, verification, and repair are role-conditioned behaviors of the same evolving multimodal backbone, updating the shared parameters also improves the verifier itself. Experiments show that PROVE improves fine-grained compositional verification across model scales and families and strengthens visual-detail robustness on the reference backbone, with limited, benchmark-dependent changes on broader multimodal tasks.",
-  "summary_1line": "Vision-language verifiers judge whether an image faithfully matches a textual description, yet existing training pipelines typically rely on static supervision from stronger external judges or curated hard-negative da...",
+  "summary_1line": "Vision-language verifiers judge whether an image faithfully matches a textual description, yet existing training pipelines typically rely on static supervision from stronger external judges or curated hard-negative data. Such supervision requires external generation or annotation",
   "title": "Perturb, Repair, Verify: Self-Play Vision-Language Verifiers for Compositional Understanding",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05158v1",
@@ -3661,6 +3707,17 @@
   "title": "British fintech Revolut slashes AI coding costs 10x by going self-hosted",
   "type": "news",
   "url": "https://www.theregister.com/ai-and-ml/2026/11/03/british-fintech-revolut-slashes-ai-coding-costs-10x-by-cutting-out-claude-and-going-self-hosted/5307345"
+ },
+ "d97ee2168f669bce": {
+  "first_seen": "2026-11-05T00:08:35.012471+00:00",
+  "id": "949ef4f7b1bc9a3e",
+  "published": "2026-11-03T17:54:33+00:00",
+  "sid": "d97ee2168f669bce",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Naive on-policy RL is often bottlenecked by the capabilities of the base model --- insufficient coverage can result in an inability to learn from certain rewards. At the same time, rewards in modern post-training systems often come from rich textual sources, e.g. judge models wit",
+  "title": "Stabilizing On-Policy Targeted Guidance in Agentic Reinforcement Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05266v1"
  },
  "daba25233d007e64": {
   "first_seen": "2026-11-04T06:07:33.226600+00:00",
@@ -3930,14 +3987,14 @@
  "ecb2e13c36b51ce4": {
   "content_excerpt": "My longest running agent testbed has been building the Interconnects Dashboard — an aggregator of all of the best data on open model adoption and performance from across the web. This dashboard is freely available and becoming quite useful. Still, all the measurements we have on open model adoption are incredibly imprecise. We have noisy platform metrics, marketing-related metrics from startups, and imperfect public evaluations. It takes an informed eye to figure out where things are going. These research notes are my current best approximations of where we stand. As with most things on Interconnects, our goal is to build well more value than we capture, so the data on the dashboard will remain free for the foreseeable future. These notes will be more raw than many of my articles, a place for sharing what I’m mulling over but don’t have complete evidence for (yet). They will be primarily paid, enabling me to speak more freely. If you work in AI policy or policy-facing research, please reach out to us and we can likely get discounted or free access. The primary question I wanted to address today is: What is the market for open model inference? Is it growing? Is it a rounding error relative to OpenAI/Anthropic? I’ve been building the best measurements I can here, primarily using the open model inference startups Baseten, Fireworks, and Together AI as the bellwethers here (along with the open model share of OpenRouter’s token volume, which they thankfully report in their API). T",
   "first_seen": "2026-11-04T17:04:44.410239+00:00",
-  "id": "5a43ac8793c38385",
+  "id": "3bc37ae17785f184",
   "image_url": "https://substackcdn.com/image/fetch/$s_!hFZ7!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6c5f2798-10bc-487a-8932-5f851ad61b24_1600x840.svg",
   "published": "2026-11-04T16:35:44+00:00",
   "sid": "ecb2e13c36b51ce4",
   "source": "interconnects",
   "summary": "Our first open model economy research note for paid subscribers.",
   "summary_1line": "Our first open model economy research note for paid subscribers.",
-  "title": "How well can we measure open model inference share?",
+  "title": "How big is the open model economy today?",
   "type": "news",
   "url": "https://www.interconnects.ai/p/how-well-can-we-measure-open-model"
  },
@@ -4007,6 +4064,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.04867v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "f05342069428b552": {
+  "first_seen": "2026-11-05T00:08:35.012471+00:00",
+  "id": "98db3261de99cc2e",
+  "published": "2026-11-03T18:28:04+00:00",
+  "sid": "f05342069428b552",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "We study context-aware time-series forecasting, in which a single target variable is predicted from its own history and a set of contextual variables, such as weather and calendar information. As the context becomes more diverse, a single model struggles to capture all of its reg",
+  "title": "CATF: A Manager-Worker Framework for Context-Aware Time-Series Forecasting",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05325v1"
  },
  "f192b6fc5b19cc60": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. The article argues that reliable agentic AI architecture depends on a context engine that selects, injects, compresses, and expires information before it reaches the model. It separates context, memory, and knowledge, and recommends tiered memory, curated knowledge, and token budgeting. It also covers common anti-patterns, such as context stuffing and stale data loops, with mitigations. This InfoQ Trends Report offers readers a comprehensive overview of emerging trends and technologies in the areas of AI, ML, and Data Engineering. This report summarizes the InfoQ editorial team’s and external guests' view on the current trends in AI and ML technologies and what to look out for in the next 12 months. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"superv",
