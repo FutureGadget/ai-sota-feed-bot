@@ -1,0 +1,173 @@
+{
+  "date": "2026-11-06",
+  "title": "What happened in AI — Nov 6, 2026",
+  "generated_at": "2026-11-06T22:30:00+00:00",
+  "intro": [
+    "Agents are getting real privileges, and the work today is controlling them: Stripe agents can now move money, Zalando published an OAuth broker for scoped access, and one developer's agent escalated to root through the docker group.",
+    "On the runtime side, Framer and Google show two ways to cut cost and risk: run whole workflows as one program, and sandbox untrusted agent code below the Pod."
+  ],
+  "highlights": [
+    "Stripe's MCP server lets agents send money through Treasury.",
+    "Zalando's Agentic Identity Broker gives agents scoped, revocable MCP access.",
+    "Google donates Agent Substrate and gVisor to the CNCF for agent sandboxing.",
+    "Framer's Harness 2 reports up to 33% lower cost by running workflows as one program.",
+    "Open-weight models win at 3% of price points, down from 41% in June (Village)."
+  ],
+  "article_count": 31,
+  "categories": [
+    {
+      "name": "Agent Runtimes and Sandboxing",
+      "slug": "agent-runtimes-sandboxing",
+      "summary": "Teams are cutting model round trips and isolating untrusted agent code at the infrastructure layer.",
+      "articles": [
+        {
+          "title": "Harness 2: executing agent code as it streams",
+          "summary": "Framer's agent now writes JavaScript to run whole workflows in one program, reporting up to 33% lower cost and 20% faster runs.",
+          "source": "hackernews_ai",
+          "url": "https://www.framer.com/blog/harness-2/",
+          "published": "2026-11-06T17:31:03+00:00"
+        },
+        {
+          "title": "Google Donates Agent Substrate and gVisor to the CNCF",
+          "summary": "Google argues the Kubernetes Pod lifecycle fits agents poorly and donates sandboxing projects to the CNCF for untrusted agent workloads.",
+          "source": "hackernews_ai",
+          "url": "https://opensource.googleblog.com/2026/11/sandboxing-untrusted-ai-agents-at-scale.html",
+          "published": "2026-11-06T10:19:21+00:00"
+        },
+        {
+          "title": "Aspen: Self-hostable Git server for agent-scale traffic",
+          "summary": "Pre-alpha Git server keeps packs in object storage and branch history in Postgres for hundreds of concurrent agent pushes.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/reason-machines/aspen",
+          "published": "2026-11-06T18:44:14+00:00"
+        },
+        {
+          "title": "Mantis: AI agents browse 36% faster than with Playwright MCP",
+          "summary": "An MCP browser tool claims 3-5x fewer input tokens than Playwright MCP across five replayed runs of one task.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/perzianhq/mantis",
+          "published": "2026-11-06T06:38:36+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Agent Access, Money, and Guardrails",
+      "slug": "agent-access-guardrails",
+      "summary": "Giving agents credentials and payment rights is moving from demos to scoped, auditable controls.",
+      "articles": [
+        {
+          "title": "AI agent can move money in Stripe",
+          "summary": "Stripe's MCP server now lets agents send money via Treasury; the post covers acting on a user's behalf versus as an independent actor.",
+          "source": "hackernews_ai",
+          "url": "https://stripe.dev/blog/your-ai-agent-can-move-money-in-stripe",
+          "published": "2026-11-06T16:20:29+00:00"
+        },
+        {
+          "title": "Agentic Identity Broker: OAuth delegation for AI agents",
+          "summary": "MIT-licensed OAuth2 broker from Zalando gives agents scoped, revocable access to MCP services.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/zalando-incubator/agentic-identity-broker",
+          "published": "2026-11-06T15:07:47+00:00"
+        },
+        {
+          "title": "Axiom blocks AI agents from inventing limits your code never defined",
+          "summary": "Pre-write hook for Claude Code and Cursor that blocks guesses on auth, rate limits, payments and DB constraints; regex-based, so bypassable.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/axiom-csc/axiom-skill",
+          "published": "2026-11-06T01:00:43+00:00"
+        },
+        {
+          "title": "The Docker group is root access, my agent used it to write to /etc",
+          "summary": "An agent without sudo mounted / through the docker group to edit /etc, exposing a privilege path the owner had left open for a decade.",
+          "source": "hackernews_ai",
+          "url": "https://jeena.net/notes/1497",
+          "published": "2026-11-06T10:59:56+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Evals, Cost, and Model Economics",
+      "slug": "evals-cost-economics",
+      "summary": "New measurements show where cheaper models suffice and where retrieval metrics mislead.",
+      "articles": [
+        {
+          "title": "Frontier quality at 1% of the cost: a production benchmark of LLM classifiers",
+          "summary": "Airbnb benchmarks models on risky-content, support and review classification, weighing accuracy against latency and cost.",
+          "source": "hackernews_ai",
+          "url": "https://airbnb.tech/ai-ml/frontier-quality-at-1-of-the-cost-a-production-benchmark-of-llm-classifiers/",
+          "published": "2026-11-06T12:42:07+00:00"
+        },
+        {
+          "title": "AML Cycle 2: Do agent memory rankings hold across tracks?",
+          "summary": "An Engram analysis of 6 memory systems on 1,536 LoCoMo questions found right retrieval does not guarantee a right answer.",
+          "source": "hackernews_ai",
+          "url": "https://twitter.com/AgentMemoryL/status/2117617801296802085",
+          "published": "2026-11-06T07:17:50+00:00"
+        },
+        {
+          "title": "Closed AI models dominate the price-performance frontier",
+          "summary": "Village's LLM Atlas finds an open-weight model wins at 3% of price points, down from 41% in June.",
+          "source": "hackernews_ai",
+          "url": "https://village.dev/blog/closed-ai-models-now-dominate-the-price-performance-frontier/",
+          "published": "2026-11-06T02:49:56+00:00"
+        },
+        {
+          "title": "Measuring how AI agents handle everyday wet-lab science",
+          "summary": "OpenAI's BioBasicsBench has 100 tasks testing whether agents interpret raw experimental data.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science",
+          "published": "2026-11-06T00:00:00+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Inference and Training Infrastructure",
+      "slug": "inference-training-infra",
+      "summary": "Serving and RL stacks are removing mismatches between training, export and production hardware.",
+      "articles": [
+        {
+          "title": "Announcing the XLA Serving Engine",
+          "summary": "Apache 2.0 runtime from OpenXLA enables a 'train in Python, serve in C++' workflow for JAX and PyTorch models.",
+          "source": "hackernews_ai",
+          "url": "https://opensource.googleblog.com/2026/11/supercharging-xla-inference-xla-serving-engine.html",
+          "published": "2026-11-06T15:21:03+00:00"
+        },
+        {
+          "title": "SageMaker Inference now supports Multi-Instance GPU",
+          "summary": "SageMaker endpoints can partition GPUs with MIG to raise utilization.",
+          "source": "aws_ml_blog",
+          "url": "https://aws.amazon.com/blogs/machine-learning/sagemaker-inference-now-supports-multi-instance-gpu-to-maximize-gpu-utilization-for-model-endpoints/",
+          "published": "2026-11-06T18:01:00+00:00"
+        },
+        {
+          "title": "Zero Mismatch, Simple Async RL",
+          "summary": "vLLM extends bit-exact rollout/trainer logprob agreement from synchronous to asynchronous RL, with an agent skill aligning each new model.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-11-06-zero-mismatch-async-rl",
+          "published": "2026-11-06T00:00:00+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Security Signals",
+      "slug": "security-signals",
+      "summary": "Attackers and defenders are both using agents against AI infrastructure.",
+      "articles": [
+        {
+          "title": "A Chinese-language framework targeting AI infrastructure",
+          "summary": "Era traced a Flowise chat of 4,972 'hello' messages whose replies leaked AWS credentials, metadata probes and process listings.",
+          "source": "hackernews_ai",
+          "url": "https://era.security/blog/greeter-flowise-ai-infrastructure-attack",
+          "published": "2026-11-06T03:15:49+00:00"
+        },
+        {
+          "title": "Partnering with Hacktron to find vulnerabilities in OpenAI's systems",
+          "summary": "OpenAI is using frontier AI with Hacktron to find vulnerabilities and test third-party connections.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/partnering-with-hacktron",
+          "published": "2026-11-06T08:00:00+00:00"
+        }
+      ]
+    }
+  ]
+}
