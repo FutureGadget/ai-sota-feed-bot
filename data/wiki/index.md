@@ -72,9 +72,9 @@ Schema: `config/wiki_schema.md`.
   - theme `shared-context` — What each agent gets to see (2)
 
 ### cost
-- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (55 entries, updated 2026-10-30)
+- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (56 entries, updated 2026-11-06)
   → solutions: agent-orchestration, context-compaction, cost-controls
-  - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (11)
+  - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (12)
   - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (11)
   - theme `routing` — Routing each turn to the cheapest model that can handle it (10)
   - theme `caching-and-serving` — Caching and serving efficiency set the floor price (12)
@@ -131,8 +131,8 @@ Schema: `config/wiki_schema.md`.
   - theme `drift-tooling` — Tools to pin, test, and replay against drift (6)
 
 ## Solutions
-- [agent-benchmarks](solutions/agent-benchmarks.md) — Agent benchmarks: fixed tasks that exercise real tool use (51 entries, updated 2026-10-06)
-  - theme `trusting-the-score` — What a score measures: model, harness, or noise (12)
+- [agent-benchmarks](solutions/agent-benchmarks.md) — Agent benchmarks: fixed tasks that exercise real tool use (52 entries, updated 2026-11-06)
+  - theme `trusting-the-score` — What a score measures: model, harness, or noise (13)
   - theme `own-workload` — Benchmarking on your own tools and real work (10)
   - theme `domain-suites` — Domain-specific suites mined from real work (14)
   - theme `adversarial-and-security` — Adversarial tools, poisoned inputs, and security (6)

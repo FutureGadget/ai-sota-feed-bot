@@ -2,134 +2,116 @@
 
 Focus: AI Platform Engineering
 
-## 1. Together Compiler: Continual Compilation for AI Inference
-- Type: news | Source: hackernews_ai
-- URL: https://www.together.ai/blog/together-compiler-continual-compilation-for-ai-inference
-- Score: 4.011 | Reliability: 1.0
+## 1. The Blueprint: Orchestrating 5,000+ AI assets for a World Cup TV spot
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/media-entertainment/how-mito-orchestrated-5000-plus-ai-assets-for-a-world-cup-tv-spot/
+- Score: 3.131 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, evaluation.
+
+## 2. SageMaker Inference now supports Multi-Instance GPU to maximize GPU utilization for model endpoints
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/sagemaker-inference-now-supports-multi-instance-gpu-to-maximize-gpu-utilization-for-model-endpoints/
+- Score: 2.911 | Reliability: 1.0
 - Why it matters: 
 
-## 2. Baton – Keep long coding goals moving across AI coding agents
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/cahian/baton
-- Score: 3.875 | Reliability: 1.0
+## 3. claude-code v2.1.319
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.319
+- Score: 2.848 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval, claude code.
+
+## 4. Measuring how AI agents handle everyday wet-lab science
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science
+- Score: 2.768 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. Frontier quality at 1% of the cost: a production benchmark of LLM classifiers
-- Type: news | Source: hackernews_ai
-- URL: https://airbnb.tech/ai-ml/frontier-quality-at-1-of-the-cost-a-production-benchmark-of-llm-classifiers/
-- Score: 3.835 | Reliability: 1.0
-- Why it matters: 
+## 5. τ-bench-LILT: Evaluating Conversational Agents on Realistic Multilingual Tool-Use Tasks
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.07203v1
+- Score: 2.736 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
 
-## 4. [AINews] Inkling 2 Small: 17A-594B trained in 68 hours on 12T tokens, beating Muse Spark
-- Type: news | Source: latent_space
-- URL: https://latent.space/p/ainews-inkling-2-small-17a-594b-trained-in-68-hours-on-12t-tokens-beating-muse-spark/
-- Score: 3.193 | Reliability: 1.0
-- Why it matters: 
-
-## 5. StrataFlux: Memory-Hierarchy-Native Low-Bit LLM Inference
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.08363v1
-- Score: 3.053 | Reliability: 1.0
+## 6. Twists and Turns: A Graph-Based Benchmark and Framework for Long-Term Memory in Exploration Tasks
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2611.06414v1
+- Score: 2.713 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 6. ToyBlocks: A controlled world for robot learning and evaluation
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/allenai/toyblocks
-- Score: 2.955 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 7. Muir: Linear Attention with Sensitivity-Allocated Gating and Matched-Filter Readout
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.08376v1
-- Score: 2.941 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 8. How We Optimized Browser Use for Deep Agents
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/how-we-optimized-browser-use-for-deep-agents
-- Score: 2.436 | Reliability: 1.0
+## 7. Enhancing Local and Global Structure in Compressed AI Agent Memory
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.08341v1
+- Score: 2.699 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 9. [AINews] It's Swapping Season
+## 8. Zero Mismatch, Simple Async RL: REINFORCE Zero, DeepSeek-V4.1 and Kimi K3.1
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-06-zero-mismatch-async-rl
+- Score: 2.418 | Reliability: 1.0
+- Why it matters: 
+
+## 9. Partnering with Hacktron to find vulnerabilities in OpenAI’s systems
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/partnering-with-hacktron
+- Score: 2.303 | Reliability: 1.0
+- Why it matters: 
+
+## 10. [AINews] It's Swapping Season
 - Type: news | Source: latent_space
 - URL: https://latent.space/p/ainews-it-s-swapping-season/
-- Score: 2.411 | Reliability: 1.0
+- Score: 2.262 | Reliability: 1.0
 - Why it matters: 
 
-## 10. Merge builds product and business tools with OpenAI technology
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/merge-builds-with-openai
-- Score: 2.067 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 11. Agent-R$^2$: Scaling Agents for Realistic Productivity Work via Real-Source Data Synthesis
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.08219v1
-- Score: 2.907 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
-
-## 12. Polarity Classification with Multitask Learning Syntax Augmentation
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.08323v1
-- Score: 2.735 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 13. Australian universities are creating AI-native graduates
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/australian-universities-ai-native-graduates
-- Score: 1.902 | Reliability: 1.0
-- Why it matters: 
-
-## 14. langgraph-sdk==0.4.14
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.14
-- Score: 1.87 | Reliability: 1.0
-- Why it matters: 
-
-## 15. How Cisco defends at machine speed with OpenAI
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/cisco-cyber
-- Score: 1.826 | Reliability: 1.0
-- Why it matters: 
-
-## 16. vLLM Delivers Day-0 Support for Kimi K3.1 Pro
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-04-kimi-k31-pro
-- Score: 1.77 | Reliability: 1.0
-- Why it matters: 
-
-## 17. codex 0.168.0-alpha.3
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.3
-- Score: 1.57 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 18. Harness Engineering: What's Actually New (And What Isn't)
-- Type: video | Source: ai_native_dev
-- URL: https://youtu.be/mHa0bImgN1o
-- Score: 1.433 | Reliability: 0.731
-- Why it matters: Matches feed focus: agentic, harness, eval.
-
-## 19. claude-code v2.1.318
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.318
-- Score: 1.308 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 20. Speeding up planning decisions with AI
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/speeding-up-planning-decisions-with-ai/
-- Score: 1.278 | Reliability: 1.0
-- Why it matters: 
-
-## 21. claude-agent-sdk-python v0.2.177
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.177
-- Score: 1.063 | Reliability: 1.0
+## 11. More Agents, More Reliable? System-Level Reliability of Multi-Agent LLMs under Operational-Profile Uncertainty
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.07140v1
+- Score: 2.681 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 22. v0.33.0rc2: [ROCm][Bugfix] Skip AITER tuned GEMM when M*N >= 2^31 on gfx950 (#64567)
+## 12. GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/introducing-gpt-6-cyber
+- Score: 2.258 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 13. codex rust-v0.169.0-alpha.2
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.2
+- Score: 2.254 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 14. How big is the open model economy today?
+- Type: news | Source: interconnects
+- URL: https://www.interconnects.ai/p/how-well-can-we-measure-open-model
+- Score: 2.1 | Reliability: 1.0
+- Why it matters: 
+
+## 15. claude-agent-sdk-python v0.2.179
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.179
+- Score: 1.964 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 16. Maggie Appleton: Agentic Coding Has Outgrown the Text Box
+- Type: video | Source: ai_native_dev
+- URL: https://youtu.be/0cySwRF7oJI
+- Score: 1.857 | Reliability: 0.808
+- Why it matters: Matches feed focus: agentic.
+
+## 17. langgraph-sdk==0.4.13
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.13
+- Score: 1.693 | Reliability: 1.0
+- Why it matters: 
+
+## 18. moonshotai/Kimi-K3.1-Pro released on Hugging Face
+- Type: release | Source: hf_moonshotai_releases
+- URL: https://huggingface.co/moonshotai/Kimi-K3.1-Pro
+- Score: 1.007 | Reliability: 1.0
+- Why it matters: 
+
+## 19. v0.33.0rc1: [CI] Fix stale NVFP4 decode test selector on DGX Spark (#64107)
 - Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc2
-- Score: 0.387 | Reliability: 1.0
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc1
+- Score: 0.392 | Reliability: 1.0
 - Why it matters:
