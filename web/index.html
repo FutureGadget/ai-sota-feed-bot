@@ -25,7 +25,7 @@
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20261107-precision-pages" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261107-precision-bar" />
   <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
   <script>
     (function () {
@@ -38,8 +38,8 @@
     })();
   </script>
   <script src="/oat.min.js?v=20260824-selfhost" defer></script>
-  <script defer src="/site-chrome.js?v=20261107-precision-pages"></script>
-  <script defer src="/subscribe-inline.js?v=20261107-precision-pages"></script>
+  <script defer src="/site-chrome.js?v=20261107-precision-bar"></script>
+  <script defer src="/subscribe-inline.js?v=20261107-precision-bar"></script>
   <style>
     html {
       font-size: 16px;
@@ -3377,8 +3377,19 @@
     // posts often have summary_1line == title and an empty summary; the Jev
     // gate fetched content_excerpt for many of them. Use its first sentence as
     // the lead's standfirst, never as a card summary for the other ranks.
+    // Page excerpts can open with repeated marquee or nav text ("40+ Models
+    // Chosen for Production..." three times). Collapse a run of the same
+    // phrase, then drop leading fragments that end in an ellipsis.
+    function stripExcerptDebris(text) {
+      let head = String(text || '').slice(0, 600);
+      const tail = String(text || '').slice(600);
+      head = head.replace(/(.{8,120}?)(?:\s*\1)+/g, '$1');
+      head = head.replace(/^(?:[^.!?\u2026]{3,120}(?:\.{3}|\u2026)\s*)+/, '');
+      return (head + tail).trim();
+    }
+
     function leadExcerpt(it) {
-      const raw = cleanText(it?.content_excerpt);
+      const raw = stripExcerptDebris(cleanText(it?.content_excerpt));
       if (!raw) return '';
       const match = raw.match(/^.{30,}?[.!?](?:\s|$)/);
       let s = (match ? match[0] : raw).trim();

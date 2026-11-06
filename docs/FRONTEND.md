@@ -80,23 +80,25 @@ order and checklist: `docs/design-docs/ui-framework-migration.md`.
 
 ## Share images and icons
 
-Share images still use the previous broadsheet palette and Playfair; they
-are due to be redrawn in the Precision style.
+Share images use the Precision light palette (they appear outside the site)
+and Geist.
 
 - `pipeline/og_cards.py` draws the per-edition cards in `web/og/` during the
-  feed run: nameplate and dateline, the page's red kicker, a Playfair headline,
-  a one-line summary (the recap's first highlight, or a storyline's latest
-  change), and counts. No reading-time claims.
-- `scripts/make_og_assets.py` draws the default card (nameplate, the feed
-  masthead, the line under it), the "LD" logo, and the stack-mark icons. Re-run
+  feed run: brand mark and dateline, the page's red mono kicker, a Geist
+  headline, a one-line summary (the recap's first highlight, or a storyline's
+  latest change), and counts. No reading-time claims.
+- `scripts/make_og_assets.py` draws the default card (brand, the feed
+  masthead, the line under it), the "LD" logo, and the rule-mark icons. Re-run
   it when the brand, masthead or tagline changes.
-- Fonts: vendored Playfair in `assets/fonts/playfair/` (OFL). Korean text
-  falls back to Nanum Myeongjo/Gothic from the workflow's `fonts-nanum`.
-- `web/favicon.svg` is the vector stack mark; keep its colours in step with
-  `MARK_*` in `make_og_assets.py`. `theme-color` meta tags and
-  `site.webmanifest` use the palette's paper and red.
+- Fonts: vendored Geist in `assets/fonts/geist/` (OFL). Korean text falls back
+  to Nanum Gothic from the workflow's `fonts-nanum`.
+- `web/favicon.svg` is the vector rule mark (a red tile with three ruled
+  lines, the same mark the header draws); keep it in step with `MARK_LINES`
+  in `make_og_assets.py`. `theme-color` meta tags and `site.webmanifest` use
+  the palette's paper.
 
-Examples: `docs/assets/share-images-2026-10-10/`.
+Examples: `docs/assets/share-images-2026-11-07/` (current) and
+`docs/assets/share-images-2026-10-10/` (the broadsheet cards).
 
 ## Feed front page
 

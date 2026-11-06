@@ -958,6 +958,36 @@ code, kbd, samp, pre {
   }
 }
 
+/* Precision phone bar: brand and actions share one row whenever they fit
+   (no language action, 370px and up). Narrower phones and pages with the
+   extra language action keep the two-row layout above. */
+@media (min-width: 370px) and (max-width: 480px) {
+  .site-bar:not(:has(.site-bar-language-action)) {
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  .site-bar:not(:has(.site-bar-language-action)) > .site-brand {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .site-bar:not(:has(.site-bar-language-action)) > .site-brand > span:last-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .site-bar:not(:has(.site-bar-language-action)) > .site-bar-actions {
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    width: auto;
+    justify-content: flex-end;
+  }
+}
+
 @media (max-width: 360px) {
   /* Keep the brand and primary subscribe action legible in the compact bar.
      The language action remains available in the in-flow header above. */

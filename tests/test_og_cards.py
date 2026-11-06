@@ -23,10 +23,6 @@ class OgCardTest(unittest.TestCase):
         self.assertTrue(og_cards.fonts_available())
         self.assertTrue((og_cards.FONT_DIR / "OFL.txt").exists())
 
-    @unittest.skip(
-        "Share cards keep the broadsheet palette until they are redrawn in the "
-        "Precision style; see docs/design-docs/ui-framework-migration.md (2026-11-07)."
-    )
     def test_palette_matches_the_site_light_theme(self) -> None:
         css = (ROOT / "web" / "site-chrome.css").read_text(encoding="utf-8")
         light = css.split('html[data-theme="dark"]', 1)[0]

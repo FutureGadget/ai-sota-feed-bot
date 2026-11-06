@@ -185,9 +185,9 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
     stories, threads, static SEO pages (incl. pre-rendered latest `/daily` and
     `/weekly` and the crawler-visible feed seed in `web/index.html`)
   - `og_cards.py` — per-edition Open Graph share cards → `web/og/*.png`
-    in the broadsheet style (nameplate + dateline, red kicker, Playfair
+    in the Precision style (brand mark + dateline, red mono kicker, Geist
     headline, one-line summary from the page's lead bullet, counts). Needs
-    Pillow and the vendored fonts in `assets/fonts/playfair/`; without either
+    Pillow and the vendored fonts in `assets/fonts/geist/`; without either
     it keeps the committed cards untouched
 
   - `build_wiki.py` — compiles the agent-engineering wiki markdown (topic
@@ -304,7 +304,7 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   Lab result records; the builder proves referenced files exist and the deploy
   build stages the directory at `/lab-artifacts/`.
   Brand assets:
-  `favicon.svg` (hand-authored stack mark), and `og-default.png`, `logo.png`
+  `favicon.svg` (hand-authored rule mark), and `og-default.png`, `logo.png`
   ("LD" monogram), `icon-512/192.png`, `apple-touch-icon.png`,
   `favicon-32/16.png`, `favicon.ico` (all from `scripts/make_og_assets.py`). Also `robots.txt`, `llms.txt`, `llm-guide.txt`.
   `mascot/mascot.js` — "Bubble Buddy", the decorative WebGL/Three.js mascot
@@ -403,9 +403,9 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   the agent-visible `prompt.md`; `COMMON.md` owns shared checkout, validation,
   commit, rebase/retry, and direct-to-`main` publishing rules. Harness metadata
   must not be injected into agent context.
-- `assets/fonts/playfair/` — vendored Playfair (SIL OFL) static instances used
-  only to draw share images; never staged into `public/`. `build_fonts.py`
-  rebuilds them from upstream
+- `assets/fonts/geist/` — vendored Geist (SIL OFL) static instances used
+  only to draw share images and icons; never staged into `public/` (the site
+  serves its own variable copies from `web/fonts/`)
 - `data/` — generated runtime artifacts (committed by bots; see Data Artifacts)
 - `docs/` — living documentation:
   - `docs/status/` — operational snapshots (`current-system-state.md`,

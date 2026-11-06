@@ -115,8 +115,8 @@ Smallest and most self-contained first, the feed last:
    rebuilt to the Precision front-page mockup. Now the next step, ahead of
    the smaller shells, because the owner approved the design on it; watch the
    north-star metric (weekly returning readers) after it ships.
-6. Share cards (`pipeline/og_cards.py`): redraw in the Precision style, then
-   re-enable `test_palette_matches_the_site_light_theme`.
+6. Share cards (`pipeline/og_cards.py`): done 2026-11-07 (Precision palette,
+   Geist, rule-mark icons).
 7. Delete `web/oat.min.css`, `web/oat.min.js`, `web/oat.LICENSE.txt`,
    `docs/references/oat-ui-vendor.md`, the Oat hash test and the parity block.
 
