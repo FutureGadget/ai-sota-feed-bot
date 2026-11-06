@@ -22,11 +22,7 @@ SHELLS = (
     "subscribe.html",
     "models.html",
 )
-# Shells already moved from Oat to the Tailwind + Basecoat layer (web/ui.css).
-# docs/design-docs/ui-framework-migration.md tracks the rest.
-UI_SHELLS = ("subscribe.html",)
-OAT_SHELLS = tuple(name for name in SHELLS if name not in UI_SHELLS)
-OAT_SCRIPT_SHELLS = (
+_RETIRED_OAT_SCRIPT_SHELLS = (
     "index.html",
     "daily.html",
     "weekly.html",
@@ -58,34 +54,17 @@ def assert_destination_order(test: unittest.TestCase, html: str) -> None:
 
 
 class SiteChromeContractTest(unittest.TestCase):
-    def test_self_hosted_oat_assets_are_complete_and_licensed(self) -> None:
-        expected_hashes = {
-            "oat.min.css": "2a24ff15f1e5cd70986eb242d9bbcbd9562b1cd5c039fde8c20955615687d655",
-            "oat.min.js": "f5814e213b82fa4edcff31963917c3bd9493761c5a2e93da2f6998ec9f41815c",
-        }
-        for filename, expected_hash in expected_hashes.items():
-            with self.subTest(filename=filename):
-                asset = ROOT / "web" / filename
-                self.assertTrue(asset.is_file(), f"missing self-hosted asset: {asset}")
-                self.assertGreater(asset.stat().st_size, 0)
-                self.assertEqual(hashlib.sha256(asset.read_bytes()).hexdigest(), expected_hash)
-
-        license_path = ROOT / "web" / "oat.LICENSE.txt"
-        self.assertTrue(license_path.is_file(), "vendored Oat must retain its MIT notice")
-        self.assertIn("MIT License", license_path.read_text(encoding="utf-8"))
-        provenance = (ROOT / "docs" / "references" / "oat-ui-vendor.md").read_text(encoding="utf-8")
-        self.assertIn("3be797d1f56322b213804c76169875a87bab82e0", provenance)
-
-        for filename in OAT_SHELLS:
-            with self.subTest(shell=filename):
-                html = (ROOT / "web" / filename).read_text(encoding="utf-8")
-                self.assertIn('href="/oat.min.css?v=20260824-selfhost"', html)
+    def test_oat_is_retired_and_every_shell_loads_the_ui_layer(self) -> None:
+        # Oat was replaced by Tailwind + Basecoat (web/ui.css) on 2026-11-07.
+        for asset in ("oat.min.css", "oat.min.js", "oat.LICENSE.txt"):
+            self.assertFalse((ROOT / "web" / asset).exists(), f"retired asset still present: {asset}")
+        render_src = (ROOT / "pipeline" / "render_static_pages.py").read_text(encoding="utf-8")
+        for name, html in [*((f, (ROOT / "web" / f).read_text(encoding="utf-8")) for f in SHELLS),
+                           ("render_static_pages.py", render_src)]:
+            with self.subTest(shell=name):
+                self.assertNotIn("oat.min", html)
                 self.assertNotIn("https://oat.ink/", html)
-
-        for filename in OAT_SCRIPT_SHELLS:
-            with self.subTest(script_shell=filename):
-                html = (ROOT / "web" / filename).read_text(encoding="utf-8")
-                self.assertIn('src="/oat.min.js?v=20260824-selfhost"', html)
+                self.assertIn('href="/ui.css?v=', html)
 
     def test_shared_assets_define_progressive_chrome(self) -> None:
         css = (ROOT / "web" / "site-chrome.css").read_text(encoding="utf-8")

@@ -11,8 +11,12 @@
  */
 
 /* source(none): scan only the files listed below, never the ~8k generated
-   pages or data/. Add a page here when it migrates. */
-@import "tailwindcss" source(none);
+   pages or data/. List a page here when its markup uses utility classes. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+/* Preflight with [hidden] made non-important; see scripts/build_ui_css.mjs. */
+@import "./generated/preflight.css" layer(base);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
 @source "../web/subscribe.html";
 
 /* Basecoat components in the Lyra style pack (square corners, matches the
@@ -101,6 +105,8 @@
   --color-wash-ink: var(--brief-ink);
 }
 
+@keyframes ui-spin { to { transform: rotate(360deg); } }
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -108,14 +114,221 @@
   body {
     @apply bg-background text-foreground font-sans;
   }
-  /* Parity with the Oat base that site-chrome.css and the render templates
-     were written against, so the shared header looks identical on migrated
-     and unmigrated pages. Remove once no page loads oat.min.css. */
+  /* Unscoped: the shared header and Editor's Desk read the same on every
+     page, including pages that opt out of the element defaults below. */
   h1, h2, h3, h4, h5, h6 {
     @apply leading-tight font-semibold wrap-break-word;
   }
   dialog {
     @apply leading-normal;
+  }
+  a {
+    @apply text-brand underline decoration-[color:var(--line-strong)] underline-offset-4 hover:decoration-current;
+  }
+
+  /* Element defaults. Every page's own CSS was written on top of Oat's
+     element base (retired 2026-11-07), so these restore the same rhythm in
+     the Precision style: preflight zeroes them, and pages only restyle what
+     they need. Values follow Oat's scale (1rem = space-4). A page built
+     entirely from utilities and Basecoat opts out with
+     <html data-ui-base="none"> (/subscribe). */
+  :where(html:not([data-ui-base="none"])) h1,
+  :where(html:not([data-ui-base="none"])) h2,
+  :where(html:not([data-ui-base="none"])) h3,
+  :where(html:not([data-ui-base="none"])) h4,
+  :where(html:not([data-ui-base="none"])) h5,
+  :where(html:not([data-ui-base="none"])) h6 {
+    font-weight: 600;
+    line-height: 1.25;
+    overflow-wrap: break-word;
+  }
+  :where(html:not([data-ui-base="none"])) h1 { font-size: clamp(1.75rem, 1.5rem + 1.1vw, 2.25rem); margin: 2.5rem 0 1.5rem; }
+  :where(html:not([data-ui-base="none"])) h2 { font-size: clamp(1.5rem, 1.3rem + 0.8vw, 1.875rem); margin: 2rem 0 1.25rem; }
+  :where(html:not([data-ui-base="none"])) h3 { font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem); margin: 1.5rem 0 1rem; }
+  :where(html:not([data-ui-base="none"])) h4 { font-size: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem); margin: 1.25rem 0 0.75rem; }
+  :where(html:not([data-ui-base="none"])) h5 { font-size: 1.125rem; margin: 1rem 0 0.5rem; }
+  :where(html:not([data-ui-base="none"])) h6 { font-size: 1rem; margin: 1rem 0 0.5rem; }
+  :where(html:not([data-ui-base="none"])) :is(h1, h2, h3, h4, h5, h6):first-child { margin-top: 0; }
+  :where(html:not([data-ui-base="none"])) p { margin: 0 0 1rem; overflow-wrap: break-word; }
+  :where(html:not([data-ui-base="none"])) p:last-child { margin-bottom: 0; }
+  :where(html:not([data-ui-base="none"])) ul,
+  :where(html:not([data-ui-base="none"])) ol { margin: 0 0 1rem; padding-inline-start: 1.5rem; }
+  :where(html:not([data-ui-base="none"])) ul { list-style: disc; }
+  :where(html:not([data-ui-base="none"])) ol { list-style: decimal; }
+  :where(html:not([data-ui-base="none"])) li { margin-bottom: 0.25rem; }
+  :where(html:not([data-ui-base="none"])) strong,
+  :where(html:not([data-ui-base="none"])) b { font-weight: 600; }
+  :where(html:not([data-ui-base="none"])) small { font-size: 0.875rem; }
+  :where(html:not([data-ui-base="none"])) img,
+  :where(html:not([data-ui-base="none"])) svg,
+  :where(html:not([data-ui-base="none"])) video,
+  :where(html:not([data-ui-base="none"])) canvas { display: inline; max-width: 100%; }
+  :where(html:not([data-ui-base="none"])) img,
+  :where(html:not([data-ui-base="none"])) video { height: auto; }
+  :where(html:not([data-ui-base="none"])) a {
+    @apply text-brand underline decoration-[color:var(--line-strong)] underline-offset-4 hover:decoration-current;
+  }
+  :where(html:not([data-ui-base="none"])) code,
+  :where(html:not([data-ui-base="none"])) kbd,
+  :where(html:not([data-ui-base="none"])) samp {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+  }
+  :where(html:not([data-ui-base="none"])) kbd {
+    padding: 0.05rem 0.35rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--card);
+  }
+  :where(html:not([data-ui-base="none"])) pre {
+    margin: 0 0 1rem;
+    padding: 1rem;
+    overflow-x: auto;
+    border-radius: 8px;
+    background: var(--card);
+    font-family: var(--font-mono);
+  }
+  :where(html:not([data-ui-base="none"])) blockquote {
+    margin: 1rem 0;
+    padding-inline-start: 1rem;
+    border-inline-start: 2px solid var(--border);
+    color: var(--muted);
+  }
+  :where(html:not([data-ui-base="none"])) hr { margin: 2rem 0; border: 0; border-top: 1px solid var(--border); }
+  :where(html:not([data-ui-base="none"])) mark { padding: 0 0.2em; border-radius: 3px; background: color-mix(in srgb, var(--warm) 28%, transparent); color: inherit; }
+  :where(html:not([data-ui-base="none"])) [hidden] { display: none; }
+  :where(html:not([data-ui-base="none"])) :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  :where(html:not([data-ui-base="none"])) :disabled,
+  :where(html:not([data-ui-base="none"])) [aria-disabled="true"] { cursor: not-allowed; opacity: 0.55; }
+  :where(html:not([data-ui-base="none"])) dialog { line-height: 1.5; }
+  :where(html:not([data-ui-base="none"])) dialog::backdrop { background: color-mix(in srgb, #05070b 55%, transparent); }
+
+  /* Buttons: a bare <button> is a quiet bordered control; pages restyle it. */
+  :where(html:not([data-ui-base="none"])) button,
+  :where(html:not([data-ui-base="none"])) [type="button"],
+  :where(html:not([data-ui-base="none"])) [type="submit"],
+  :where(html:not([data-ui-base="none"])) [type="reset"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+    background: var(--card);
+    color: var(--fg);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.12s, border-color 0.12s, color 0.12s;
+  }
+  :where(html:not([data-ui-base="none"])) :is(button, [type="button"], [type="submit"], [type="reset"]):hover:not(:disabled) {
+    border-color: var(--line-strong);
+  }
+
+  /* Form fields. */
+  :where(html:not([data-ui-base="none"])) label { display: block; font-size: 0.875rem; font-weight: 500; }
+  :where(html:not([data-ui-base="none"])) label:has(input:where([type="checkbox"], [type="radio"])) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 400;
+  }
+  :where(html:not([data-ui-base="none"])) :where(input:not([type="checkbox"], [type="radio"], [type="range"], [type="file"], [type="color"], [type="hidden"]), textarea, select) {
+    width: 100%;
+    margin-top: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-control);
+    background: var(--bg);
+    color: var(--fg);
+    font: inherit;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  :where(html:not([data-ui-base="none"])) :where(input, textarea, select)::placeholder { color: var(--muted); }
+  :where(html:not([data-ui-base="none"])) :where(input:not([type="checkbox"], [type="radio"]), textarea, select):focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+  :where(html:not([data-ui-base="none"])) textarea { min-height: 5rem; resize: vertical; }
+  :where(html:not([data-ui-base="none"])) select {
+    appearance: none;
+    padding-inline-end: 2rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2371717a' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.6rem center;
+  }
+  :where(html:not([data-ui-base="none"])) input:where([type="checkbox"], [type="radio"]) { accent-color: var(--accent); width: 1rem; height: 1rem; margin: 0; }
+
+  /* Tables. */
+  :where(html:not([data-ui-base="none"])) table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  :where(html:not([data-ui-base="none"])) thead { border-bottom: 1px solid var(--border); }
+  :where(html:not([data-ui-base="none"])) tfoot { border-top: 1px solid var(--border); }
+  :where(html:not([data-ui-base="none"])) th,
+  :where(html:not([data-ui-base="none"])) td { padding: 0.75rem 0.5rem; overflow-wrap: break-word; }
+  :where(html:not([data-ui-base="none"])) th { color: var(--muted); font-weight: 500; text-align: start; }
+  :where(html:not([data-ui-base="none"])) tbody tr { border-bottom: 1px solid var(--border); }
+  :where(html:not([data-ui-base="none"])) tbody tr:last-child { border-bottom: 0; }
+
+  /* Disclosures: a bordered box with a chevron; pages reset it where needed. */
+  :where(html:not([data-ui-base="none"])) details { overflow: hidden; border: 1px solid var(--border); border-radius: 12px; }
+  :where(html:not([data-ui-base="none"])) details + details { margin-top: -1px; border-start-start-radius: 0; border-start-end-radius: 0; }
+  :where(html:not([data-ui-base="none"])) details:has(+ details) { border-end-start-radius: 0; border-end-end-radius: 0; }
+  :where(html:not([data-ui-base="none"])) details[open] > summary { border-bottom: 1px solid var(--border); }
+  :where(html:not([data-ui-base="none"])) details > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    transition: background-color 0.12s;
+  }
+  :where(html:not([data-ui-base="none"])) details > summary:hover { background: var(--card); }
+  :where(html:not([data-ui-base="none"])) details > summary::-webkit-details-marker { display: none; }
+  :where(html:not([data-ui-base="none"])) details > summary::after {
+    content: "";
+    flex: none;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+    transition: transform 0.12s;
+  }
+  :where(html:not([data-ui-base="none"])) details[open] > summary::after { transform: rotate(180deg); }
+  :where(html:not([data-ui-base="none"])) details > :not(summary) { margin: 1rem; }
+
+  /* Status and busy states. */
+  :where(html:not([data-ui-base="none"])) [role="alert"] {
+    position: relative;
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    font-size: 0.875rem;
+  }
+  :where(html:not([data-ui-base="none"])) [aria-busy="true"] { cursor: progress; }
+  :where(html:not([data-ui-base="none"])) [aria-busy="true"]::before {
+    content: "";
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-inline-end: 0.5em;
+    vertical-align: -0.15em;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: ui-spin 0.7s linear infinite;
   }
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -124,9 +337,6 @@
       scroll-behavior: auto !important;
       transition-duration: 0.01ms !important;
     }
-  }
-  a {
-    @apply text-brand underline decoration-[color:var(--line-strong)] underline-offset-4 hover:decoration-current;
   }
 }
 
