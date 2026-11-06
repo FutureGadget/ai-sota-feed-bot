@@ -27,7 +27,7 @@ class PlaybookSurfaceTest(unittest.TestCase):
         self.assertNotIn("--accent:", self.html)
         self.assertIn("/site-chrome.css", self.html)
         self.assertIn("var(--font-display)", self.html)
-        self.assertIn("ui-monospace", self.html)  # monospace utility labels
+        self.assertIn("var(--font-mono)", self.html)  # Geist Mono utility labels
 
     def test_change_record_signature(self) -> None:
         # Records, not boxed cards; SIGNAL -> APPLY -> EXPECTED spine.
@@ -39,7 +39,7 @@ class PlaybookSurfaceTest(unittest.TestCase):
 
     def test_apply_is_the_dominant_block(self) -> None:
         # The Apply block carries the accent rule + wash + the largest body type.
-        self.assertIn("border-left:3px solid var(--apply-edge)", self.html)
+        self.assertIn("border: 1px solid color-mix(in srgb, var(--apply-edge) 35%, var(--border))", self.html)
         self.assertIn("background:var(--apply-wash)", self.html)
         self.assertIn(".pb-apply p { margin:0; font-size:1.06rem;", self.html)
         # Apply text (1.06rem) is larger than the signal/expected text (.88/.9rem).
@@ -108,7 +108,7 @@ class PlaybookSurfaceTest(unittest.TestCase):
 
     def test_skill_lab_uses_instrument_layout_and_explicit_conditions(self) -> None:
         self.assertIn(".pb-lab {", self.html)
-        self.assertIn("border-left:3px solid var(--apply-edge)", self.html)
+        self.assertIn("border: 1px solid color-mix(in srgb, var(--apply-edge) 35%, var(--border))", self.html)
         self.assertIn(".pb-lab-conditions { display:grid; grid-template-columns:repeat(3,minmax(0,1fr));", self.html)
         self.assertIn("No skill", self.html)
         self.assertIn("Minimal instructions", self.html)

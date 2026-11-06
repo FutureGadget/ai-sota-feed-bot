@@ -18,23 +18,23 @@ echoes the title or is empty, the lead uses the first sentence of the Jev
 
 | Element | Treatment |
 |---|---|
-| Masthead | Centered serif "The daily paper for AI engineers." and one status line (story count, last update). No kicker or promise line. Double rule above the lens controls |
+| Masthead | Left-aligned Geist "The daily paper for AI engineers." with the status line (story count, last update) set small on the right (below it on phones). No kicker or promise line. A 1px rule above the lens controls; the active lens is a filled pill |
 | Filter chips | Hidden on the default Brief; shown only for a non-default lens or pinned topics |
-| Editor's Desk strip | Red caps heading and three headlines in columns (one column on phones), no box, no summaries |
-| Section heading | "Front page" on the left; date · Morning/Afternoon/Evening/Late edition on the right; 2px rule |
-| Rank 1 | **Lead**: kicker (`01 AGENT ENGINEERING`, from the judge category), large serif headline, drop-cap standfirst with an uppercase initial, left 58% column |
+| Editor's Desk strip | Red sentence-case heading and three headlines in columns (one column on phones), no box, no summaries |
+| Section heading | "Front page" on the left in small semibold type; date · Morning/Afternoon/Evening/Late edition on the right in Geist Mono; 1px rule |
+| Rank 1 | **Lead**: kicker (`01 Agent engineering`: red mono rank, sentence-case category from the judge), large tight Geist headline, muted standfirst with no drop cap, left 58% column |
 | Ranks 2-5 | **Headlines**: numbered, beside the lead, headline and source line only (three headlines when the Brief has exactly four stories) |
 | Rank 6+ | The same headline cards under "The rest of the brief" (with the curated remainder count) |
 | Pool fold | After the last cap-compliant story: "More from the past 24 hours" plus a Show/Hide control for the over-cap pool |
-| Model Radar rail | Boxed module with a ruled caps heading |
+| Model Radar rail | 1px bordered, 12px-radius module with a sentence-case heading |
 | Reader-tuning note | A footnote under the finish line, not a banner above the list |
 
 ### Story cards
 
 Every card in the list, front page or not, is:
 
-- the headline (serif), then
-- one source line: source (red caps), time, type and New badges, the
+- the headline (Geist semibold), with a small Geist Mono rank to its left, then
+- one source line: source (muted), time, type and New badges, the
   storyline badge, then ☆ save and a "⋯" button.
 
 "⋯" opens a small panel holding everything a reader wants once: Share, Hide,
@@ -49,7 +49,9 @@ keeps its summary.
 
 Screenshots: `docs/assets/feed-front-page-2026-10-09/` (the experiment
 comparison), `docs/assets/broadsheet-theme-2026-10-10/` (every page type) and
-`docs/assets/feed-simplified-2026-10-10/` (this layout, desktop and phone).
+`docs/assets/feed-simplified-2026-10-10/` (the broadsheet layout), and
+`docs/assets/ui-framework-migration/front-precision-*.jpg` (the current
+Precision styling, 2026-11-07).
 
 ## When it renders
 

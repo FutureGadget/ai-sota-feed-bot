@@ -53,7 +53,7 @@ class ModelsSurfaceTest(unittest.TestCase):
         self.assertNotIn("--accent:", self.html)
         self.assertIn("/site-chrome.css", self.html)
         self.assertIn("var(--font-display)", self.html)
-        self.assertIn("ui-monospace", self.html)
+        self.assertIn("var(--font-mono)", self.html)
 
     def test_theme_toggle_present(self) -> None:
         self.assertIn('id="themeToggle"', self.html)

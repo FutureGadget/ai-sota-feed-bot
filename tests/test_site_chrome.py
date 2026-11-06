@@ -231,7 +231,7 @@ class SiteChromeContractTest(unittest.TestCase):
     def test_updates_shell_does_not_load_editorial_styles_twice(self) -> None:
         html = (ROOT / "web" / "updates.html").read_text(encoding="utf-8")
         js = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
-        self.assertIn('href="/editorial-updates.css?v=20261103"', html)
+        self.assertIn('href="/editorial-updates.css?v=20261107-precision"', html)
         self.assertIn("document.querySelector('link[href^=\"/editorial-updates.css\"]')", js)
 
     def test_feed_editorial_panel_starts_compact_on_phones(self) -> None:
