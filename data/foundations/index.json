@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T10:08:49.557809+00:00",
+  "generated_at": "2026-11-06T18:04:05.713796+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -71,6 +71,33 @@
   ],
   "recent_evidence": [
     {
+      "concept": "mcp-security-control-layers",
+      "concept_title": "What actually breaks when you run MCP in production, and how do you defend it?",
+      "id": "mcpvenom-2026-tool-poisoning-measurement",
+      "title": "MCP Tool Poisoning in Agentic AI Frameworks: A Cross-Framework Measurement Study",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-06"
+    },
+    {
+      "concept": "mcp-security-control-layers",
+      "concept_title": "What actually breaks when you run MCP in production, and how do you defend it?",
+      "id": "germline-2026-signed-tool-leak",
+      "title": "Signed, Sealed, Leaked: Trust Beyond Signature for MCP Toolchains",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-06"
+    },
+    {
+      "concept": "mcp-security-control-layers",
+      "concept_title": "What actually breaks when you run MCP in production, and how do you defend it?",
+      "id": "etude-2026-tool-update-gap",
+      "title": "Beyond Prompt Injection: The Tool Update Gap in LLM Agent Security",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-06"
+    },
+    {
       "concept": "agent-eval-design",
       "concept_title": "What should an agent eval actually measure?",
       "id": "arxiv-2611-04399-silent-instrument-errors",
@@ -114,33 +141,6 @@
       "tier": "theory/paper-backed",
       "kind": "theory-paper",
       "added": "2026-10-28"
-    },
-    {
-      "concept": "agent-stateful-permissions",
-      "concept_title": "Why can a permission check that's correct for a single tool call still let an agent break the rules across many?",
-      "id": "story-400904d310baccd7-scopehaven-suspended-user",
-      "title": "A suspended user's agent run still wrote a file: an internal pilot",
-      "tier": "production field-report-backed",
-      "kind": "production-field-report",
-      "added": "2026-10-28"
-    },
-    {
-      "concept": "agent-eval-design",
-      "concept_title": "What should an agent eval actually measure?",
-      "id": "episem-bench-2026-missing-evidence",
-      "title": "EpiSEM-Bench: Evaluating Safety and Evidence Recovery in LLM Agents under Missing Evidence",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-10-23"
-    },
-    {
-      "concept": "agent-context-lifecycle",
-      "concept_title": "Why does adding more context sometimes hurt an agent?",
-      "id": "langchain-2026-context-engineering-retrieval",
-      "title": "Context Engineering for AI Agents Starts with Retrieval",
-      "tier": "production field-report-backed",
-      "kind": "production-field-report",
-      "added": "2026-10-23"
     }
   ],
   "concepts": {
@@ -1908,14 +1908,14 @@
       "status": "active",
       "cluster": "safety",
       "cluster_label": "Safety and control",
-      "updated": "2026-10-07",
-      "latest_evidence_added": "2026-10-07",
+      "updated": "2026-11-06",
+      "latest_evidence_added": "2026-11-06",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
         {
           "heading": "Builder consequence",
-          "html": "<p>If &quot;securing MCP&quot; means &quot;put it behind an authenticated gateway,&quot; you have covered one layer of four. Documented MCP CVEs mostly happen inside or behind the server the gateway fronts: how a tool executes arguments, what the server can reach outbound, and whether a tool&#x27;s definition still matches what was approved. A gateway&#x27;s inbound auth check inspects none of these.</p>"
+          "html": "<p>If &quot;securing MCP&quot; means &quot;put it behind an authenticated gateway,&quot; you have covered one layer of four. Documented MCP CVEs mostly happen inside or behind the server the gateway fronts: how a tool executes arguments, what the server can reach outbound, and whether a tool&#x27;s definition or code still matches what was approved. A gateway&#x27;s inbound auth check inspects none of these, and a valid signature does not prove the tool is benign.</p>"
         },
         {
           "heading": "Short answer",
@@ -1927,15 +1927,15 @@
         },
         {
           "heading": "Mechanism",
-          "html": "<p><strong>Execution.</strong> A tool passes caller-controlled arguments into a shell string or <code>exec()</code>/<code>eval()</code>: classic command injection, reached through a tool call instead of a web form. The InfoQ analysis attributes <strong>13 of 30</strong> documented CVEs to this. Argument arrays leave nothing to inject into.</p>\n<p><strong>Management.</strong> MCP tooling ships operational surfaces built with dev-tool casualness and left reachable on production networks. Six CVEs are unauthenticated endpoints that should not have been reachable at all.</p>\n<p><strong>Outbound trust.</strong> Unrestricted egress plus a broad credential turns one SSRF into credential theft. CVE-2026-26118 let a malicious URL pull an Azure managed-identity token because nothing constrained the destination or scoped the token.</p>\n<p><strong>Semantic integrity.</strong> In a &quot;rug-pull,&quot; the tool a reviewer approved is not the tool that later executes, because the server&#x27;s advertised definition changed. Pinning a canonical hash of the approved definition turns any change into an explicit review event.</p>"
+          "html": "<p><strong>Execution.</strong> A tool passes caller-controlled arguments into a shell string or <code>exec()</code>/<code>eval()</code>: classic command injection, reached through a tool call instead of a web form. The InfoQ analysis attributes <strong>13 of 30</strong> documented CVEs to this. Argument arrays leave nothing to inject into.</p>\n<p><strong>Management.</strong> MCP tooling ships operational surfaces built with dev-tool casualness and left reachable on production networks. Six CVEs are unauthenticated endpoints that should not have been reachable at all.</p>\n<p><strong>Outbound trust.</strong> Unrestricted egress plus a broad credential turns one SSRF into credential theft. CVE-2026-26118 let a malicious URL pull an Azure managed-identity token because nothing constrained the destination or scoped the token.</p>\n<p><strong>Semantic integrity.</strong> Approval can go stale in two ways. A definition changes after review, or the code behind an unchanged definition does. ETUDE reaches 97.6% attack success through tool updates that run outside the model&#x27;s context, and a validly signed tool still leaked data in every trial against MCPGuard-Dynamic. In a &quot;rug-pull,&quot; the tool a reviewer approved is not the tool that later executes, because the server&#x27;s advertised definition changed. Pinning a canonical hash of the approved definition turns any change into an explicit review event.</p>"
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li><strong>Audit execution paths first; it is the largest CVE category.</strong> Grep for <code>shell=True</code>, <code>exec()</code>, <code>eval()</code>, and string-built commands; require argument arrays and fail CI on violations.</li><li><strong>Treat inspectors, test harnesses, and registration endpoints as production services</strong>, with authentication, network isolation, and minimal filesystem access.</li><li><strong>Put an egress allow-list on every server and scope credentials per tool purpose</strong>, so one leaked token cannot reach everything the server can.</li><li><strong>Pin tool manifests at registration</strong> with a SHA-256 hash of the canonical definition, and require operator review for any material change.</li><li><strong>Add input and context scanning on tool schemas and outputs.</strong> COPEX measured a 49.6% mean drop in attack success on an eight-attack subset; it is a mitigation, not a replacement for the controls above.</li><li><strong>Budget for controls beyond the gateway.</strong> It provides inbound routing, auth, and observability; execution, outbound, and integrity controls are separate work.</li></ul>"
+          "html": "<ul><li><strong>Audit execution paths first; it is the largest CVE category.</strong> Grep for <code>shell=True</code>, <code>exec()</code>, <code>eval()</code>, and string-built commands; require argument arrays and fail CI on violations.</li><li><strong>Treat inspectors, test harnesses, and registration endpoints as production services</strong>, with authentication, network isolation, and minimal filesystem access.</li><li><strong>Put an egress allow-list on every server and scope credentials per tool purpose</strong>, so one leaked token cannot reach everything the server can.</li><li><strong>Pin tool manifests at registration</strong> with a SHA-256 hash of the canonical definition, and require operator review for any material change.</li><li><strong>Re-verify tools on every update, not just at first approval.</strong> Signatures prove who published, not what the code does.</li><li><strong>Bound what each call can see.</strong> Run tool invocations with only the data authorised for their destination, as germline execution does.</li><li><strong>Add input and context scanning on tool schemas and outputs.</strong> COPEX measured a 49.6% mean drop in attack success on an eight-attack subset; a regex description scanner caught 20 of 45 poisoning scenarios. Treat scanning as partial, not a replacement for the controls above.</li><li><strong>Budget for controls beyond the gateway.</strong> It provides inbound routing, auth, and observability; execution, outbound, and integrity controls are separate work.</li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li>Equating &quot;behind an authenticated gateway&quot; with &quot;secure.&quot;</li><li>Leaving debug or inspector tooling reachable because it &quot;isn&#x27;t the real API.&quot;</li><li>Giving a tool an outbound credential broader than its one integration, so an SSRF becomes full-credential exfiltration.</li><li>Trusting a server&#x27;s current tool definition indefinitely after first approval.</li></ul>"
+          "html": "<ul><li>Equating &quot;behind an authenticated gateway&quot; with &quot;secure.&quot;</li><li>Leaving debug or inspector tooling reachable because it &quot;isn&#x27;t the real API.&quot;</li><li>Giving a tool an outbound credential broader than its one integration, so an SSRF becomes full-credential exfiltration.</li><li>Trusting a server&#x27;s tool definition or signed code indefinitely after first approval.</li><li>Relying on the model to refuse: frameworks add no defense, so resistance varies from 0.4% to 49.7% by model.</li></ul>"
         },
         {
           "heading": "Related",
@@ -1943,6 +1943,36 @@
         }
       ],
       "evidence": [
+        {
+          "id": "mcpvenom-2026-tool-poisoning-measurement",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "MCP Tool Poisoning in Agentic AI Frameworks: A Cross-Framework Measurement Study",
+          "note": "Runs real tool execution across 12 frameworks, 18 models, 45 scenarios (9,720 cells). Overall attack success is 22.9%; of successes, 12.1% verifiably exfiltrate a secret. Resistance is model-level: nine frameworks cluster at 23-26% and none implements intentional defense. A regex description scanner rejects 20 of 45 scenarios at a 7.2% false-positive rate.",
+          "added": "2026-11-06",
+          "url": "http://arxiv.org/abs/2611.03555v1",
+          "sid": "f4762eccd1c3e217"
+        },
+        {
+          "id": "etude-2026-tool-update-gap",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Beyond Prompt Injection: The Tool Update Gap in LLM Agent Security",
+          "note": "ETUDE embeds malicious code in an update to an initially benign tool. Across seven frameworks including Gemini CLI, Codex CLI, and Claude Code it reaches 97.6% attack success with 95.9% legitimate task completion. The payload runs outside the model's context, so in-context defenses do not see it.",
+          "added": "2026-11-06",
+          "url": "http://arxiv.org/abs/2611.01976v1",
+          "sid": "3b426192f1bc75ae"
+        },
+        {
+          "id": "germline-2026-signed-tool-leak",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Signed, Sealed, Leaked: Trust Beyond Signature for MCP Toolchains",
+          "note": "A validly signed MCP tool leaks data to a policy-allowed destination and defeats Meta's MCPGuard-Dynamic in every trial. Germline execution forks each call from a data-free process holding only destination-authorised data: no disclosure in 153 attack runs versus 5.9-74.5% under baselines.",
+          "added": "2026-11-06",
+          "url": "http://arxiv.org/abs/2611.06585v1",
+          "sid": "1c990a2a55a59e80"
+        },
         {
           "id": "copex-2026-mcp-adversarial-context",
           "kind": "benchmark-result",
