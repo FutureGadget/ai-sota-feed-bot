@@ -1740,6 +1740,18 @@
   "url": "http://arxiv.org/abs/2611.08323v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "3c43cab9bc9355ce": {
+  "first_seen": "2026-11-06T16:05:35.502169+00:00",
+  "id": "5ed4f8200928e063",
+  "published": "2026-11-05T16:04:31+00:00",
+  "sid": "3c43cab9bc9355ce",
+  "source": "arxiv_cs_cl",
+  "summary": "Multi-modal large language models (MLLMs) with impressive perception and understanding capabilities will enable a range of downstream applications. However, their substantial computational and memory requirements hinder the real-world implementation, particularly for resource-constrained edge devices. Quantization has emerged as an effective solution for deploying large models. While post-training quantization (PTQ) successfully retains the performance at moderate bit-width (e.g., W8A8), it suffers from severe performance degradation under low-bit quantization (e.g., W4A8), especially for small-scale models that are more suitable for edge deployment. In this paper, we propose ProQuant, a novel weight-activation quantization-aware training (QAT) framework tailored for low-bit MLLMs. First, to align the limited finetuning dataset distribution with the pretrained dataset distribution, we propose a self-relabeling (SRL) scheme to resample the responses of the open-source multimodal dataset. Second, we are the first to take a decoupled view of multi-modal (MM) understanding and language modeling abilities. We propose a progressive block activation (PBA) mechanism to prioritize the MM understanding recovery. We also introduce a vision-sensitive factor $\\vecτ$ that effectively identifies the MM-critical layers. Extensive experiments across various benchmarks, covering models with 2B-8B parameters, show that ProQuant significantly outperforms existing methods. For example, our W4A8 Q",
+  "summary_1line": "Multi-modal large language models (MLLMs) with impressive perception and understanding capabilities will enable a range of downstream applications. However, their substantial computational and memory requirements hind...",
+  "title": "ProQuant: Progressive Quantization-aware Training for Edge MLLMs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08216v1"
+ },
  "3c72c5c3cd7d0707": {
   "content_excerpt": "NVIDIA researchers find Claude Opus 4.5 and GPT 5.6 Sol lose little accuracy with 16K contexts and frequent compaction, while long-context serving costs up to 7x more per token. Long context windows are one of the main selling points of frontier models. A new preprint from NVIDIA, titled “You don’t need long context”, questions whether agents actually need them. Peter Belcak, Pavlo Molchanov and ten co-authors test what happens when models must keep their working context short, by regularly summarizing their own history, and conclude that the long-context race may be solving the wrong problem. The team compared each model’s normal full-history run with “compaction” settings: once the conversation hits a threshold, the model writes a summary and continues in a fresh, short context. Settings ranged from a 128K limit down to 16K, compacted at 12K. The most radical test was “single-action contexts”: the model takes one step, writes a compact state and hands over to a fresh context. Peak context dropped from 130K–200K tokens to 15K–37K, with a median of 7K–9K. Retail API prices are flat per million tokens, so users rarely see that late tokens in a long context are much more expensive to generate. If agents work well with short contexts, providers and teams running their own models could serve the same workloads with less memory and fewer GPUs. The authors argue this rivals or exceeds savings from methods such as aggressive quantization. The study is broad. It covers 13 benchmarks,",
   "first_seen": "2026-11-04T15:05:34.099063+00:00",
@@ -4241,6 +4253,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06835v1"
  },
+ "994e4f7080260995": {
+  "first_seen": "2026-11-06T16:05:35.502169+00:00",
+  "id": "d553c8e9cfeee409",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-05T17:10:10+00:00",
+  "sid": "994e4f7080260995",
+  "source": "arxiv_cs_lg",
+  "summary": "Reward machines (RMs) have been proposed as a reward formulation in reinforcement learning (RL) to capture non-Markovian tasks where credit assignment depends on history. By representing reward functions as automata, RMs expose the task's temporal structure and allow such rewards to be handled within a Markovian framework. However, they assume a labelling function, a proposition-grounding oracle for observations, which must be manually engineered for each environment, limiting their wider applicability. In this work, we address this limitation by proposing RM-VLM, a novel approach in which a large language model (LLM) generates an RM from a natural-language task description, and a vision-language model (VLM) acts as the labelling function, grounding the RM's propositions over image-based observations during RM-guided policy learning. A VLM-based value function estimator is used to assess the agent's progress towards each RM transition and derive a dense reward signal. We evaluate RM-VLM on three domains covering non-Markovian grid-world navigation, robotic manipulation, and 3D object collection. Our experimental results show that RM-VLM consistently achieves higher task success rates than existing VLM-based reward methods across all tested domains.",
+  "summary_1line": "Reward machines (RMs) have been proposed as a reward formulation in reinforcement learning (RL) to capture non-Markovian tasks where credit assignment depends on history. By representing reward functions as automata,...",
+  "title": "RM-VLM: From Natural-Language Task Descriptions to Vision-Grounded Reward Machines",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08308v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "99fb85f961738c74": {
   "content_excerpt": "Memory efficient and high performance Mixture-of-Experts inference for Apple Silicon 125 billion parameters. Up to 11 tokens per second. Under 10 GB of peak process memory. MoEShift is optimized for Apple Silicon: on a Mac mini M4 Pro with 24 GB of unified memory, it runs Qwen 3.8 Flash Next with roughly half the peak process memory of Strata and processes long prompts 2.6× faster. MoEShift leaves room for your other apps, helping your Mac stay responsive during inference instead of grinding to a halt under memory pressure. Keep browsing, writing and coding while the model works—all locally, with no cloud subscription. Alpha release. The core runtime is working, and the project is evolving quickly. You may encounter rough edges; your feedback helps shape the next release. Tested models and quantizations are listed below. Both use the shared SSD expert runtime on Apple Silicon. See supported architectures . Compared with Strata , a popular choice for local MoE inference, on a Mac mini M4 Pro with 24 GB unified memory . Both ran Qwen 3.8 Flash Next (125B), ISTA-DASLab GSQ-RCO IQ3_XXS, with an 8,192-token context, no cached prompt tokens and 256 output tokens. Strata: 0.2.7, build 0.1.52. Time includes server-measured prompt processing and generation, excluding startup. Memory is macOS footprint -p peak physical process footprint. UD Q6_K XL on the same Mac mini M4 Pro with 24 GB unified memory. Medians of three measured runs after warmup, with no cached prompt tokens and 512 ou",
   "first_seen": "2026-11-03T22:07:45.774266+00:00",
@@ -5404,6 +5433,22 @@
   "url": "http://arxiv.org/abs/2611.03066v1",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "bdd9f5fb04f8059a": {
+  "first_seen": "2026-11-06T16:05:35.502169+00:00",
+  "id": "a78531879780ae7b",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-05T15:21:16+00:00",
+  "sid": "bdd9f5fb04f8059a",
+  "source": "arxiv_cs_cl",
+  "summary": "LLM service selection requires performance evidence that reflects the demands of the current task. Aggregate scores obscure differences in capability and difficulty, while semantically related examples can involve different combinations of skills. We present RouteAlign, which uses task requirements to structure both the measurement of model performance and the selection of services. Task requirements describe capability demand and difficulty, enabling alignment with corresponding model performance measurements. Historical requirements determine how outcomes contribute to global profiles and local capability estimates; incoming requirements determine how those measurements inform the current decision. A shared scorer integrates the evidence, and a generation-cost preference controls selection among eligible services. Evaluation across diverse tasks and heterogeneous LLM services shows that RouteAlign extends the empirical quality-cost frontier toward higher task quality. Comparisons with open Jev-style decision backends show consistent quality gains, with lower generation cost than their strongest tested configuration. Ablations support the contribution of local performance evidence, while catalog-update experiments demonstrate effective reuse of the fitted scorer with refreshed model measurements.",
+  "summary_1line": "LLM service selection requires performance evidence that reflects the demands of the current task. Aggregate scores obscure differences in capability and difficulty, while semantically related examples can involve dif...",
+  "title": "RouteAlign: Aligning Task Requirements with Model Profiles for LLM Service Selection",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08162v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "be42304b1379f5f6": {
   "first_seen": "2026-11-03T19:08:46.325922+00:00",
   "id": "dd1cd1c194be0551",
@@ -5697,6 +5742,24 @@
   "url": "http://arxiv.org/abs/2611.01966v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "cde632e10e43804a": {
+  "first_seen": "2026-11-06T16:05:35.502169+00:00",
+  "id": "a19101b8aea113ce",
+  "matched_topics": [
+   "agent",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-11-06T13:57:16+00:00",
+  "sid": "cde632e10e43804a",
+  "source": "hackernews_ai",
+  "summary": "Hi HN, my friend's team and I have been building a game called GRID, a dog poker game with an AI twist. Under the cute dog graphics, GRID is an arena where LLMs compete, with no-limit hold’em as the medium. You duke it out as a strategist, vibe coder, and bot maker. Why: models get compared on benchmarks all the time, but rarely as my agent against yours in its truest form. GRID is our attempt at creating that arena, because we believe this type of game will exist in the future, as AI becomes as common a tool as the browser. How it works: * Paste a prompt and an MCP config into Claude Code, Codex or any MCP client. The agent waits for its turn and sends actions back through tool calls. * The strategy is text written in the game, up to 6,000 characters. We thought it’d be cool to have a preset, “Play like Elon”, to show you what you can do. * You can change the strategy any time, and it applies from the next action. You can even ask your AI to change it for you, based on what it learns about its opponents’ strategies from the match history. * Free beta. Play chips only. We just opened up the game today and are gathering data on how to steer this ship next. Rough edges: * MCP can be finicky, especially if you refresh your browser while in a match. If this happens and you can’t get your agent to connect, wait 5 min and retry | log out using the settings button at the top left and log back in. Stability is currently our top priority. * MCP also uses a lot of tokens, more than the",
+  "summary_1line": "Hi HN, my friend's team and I have been building a game called GRID, a dog poker game with an AI twist. Under the cute dog graphics, GRID is an arena where LLMs compete, with no-limit hold’em as the medium. You duke i...",
+  "title": "Show HN: Grid – A Hold'em arena where your AI agent plays your strategy (Beta)",
+  "type": "news",
+  "url": "https://penguinbase.com/game-install?game=192471728&ref=hn",
+  "why_it_matters": "Matches feed focus: agent, codex, claude code."
+ },
  "ce9f8f3fe2d7cb93": {
   "first_seen": "2026-11-05T10:06:08.885753+00:00",
   "id": "91193fdeaa0054ad",
@@ -5817,6 +5880,22 @@
   "type": "news",
   "url": "https://mahalsystems.ai/aot/optimizations",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "d2e1d4bcf8eebaac": {
+  "first_seen": "2026-11-06T16:05:35.502169+00:00",
+  "id": "99168e9b2acbc72d",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-06T15:07:47+00:00",
+  "sid": "d2e1d4bcf8eebaac",
+  "source": "hackernews_ai",
+  "summary": "Hi HN, I’m Jan. I am co-author of the Agentic Identity Broker (AIB), an MIT-licensed OAuth2 broker in the Zalando Incubator, that lets a user give an AI agent scoped, revocable access to MCP services. The broker solves three major challenges that are especially relevant in corporate environments: (A) Enable users to delegate workloads to agents without providing the agents all the user’s tokens. (B) Connect fragmented identity and authorization systems. (C) Centralize tool approvals and audit logging. We built AIB to fill an infrastructure gap in our own agent platform. At this moment in time, IETF working groups are still finalizing standards for agent identity, and vendors are still turning the necessary infrastructure into off-the-shelf products. We needed that infrastructure today. How it works: the user consents once per agent and service. The broker stores the third-party tokens encrypted. At request time a gateway (e.g. Agentgateway) does RFC 8693 token exchange. Agents never see user tokens and MCP servers only implement tools and don’t need to care about all the OAuth 2.1 plumbing. AIB is v0.1 and runs in production, bringing together hundreds of our agents with dozens of internal and external MCP servers. To try it locally: clone the repo, run \"just compose-up-detached\". The current features focus on on-behalf-of (OBO) use cases, where human actors delegate to agents. Next we are looking to also support headless agents, where agents are invoked by machines. Intent-b",
+  "summary_1line": "Hi HN, I’m Jan. I am co-author of the Agentic Identity Broker (AIB), an MIT-licensed OAuth2 broker in the Zalando Incubator, that lets a user give an AI agent scoped, revocable access to MCP services. The broker solve...",
+  "title": "Show HN: Agentic Identity Broker, OAuth Delegation for AI Agents",
+  "type": "news",
+  "url": "https://github.com/zalando-incubator/agentic-identity-broker",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "d4ec23da5e445584": {
   "first_seen": "2026-11-05T08:05:21.535185+00:00",
