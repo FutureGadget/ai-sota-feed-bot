@@ -2264,6 +2264,23 @@
   "type": "news",
   "url": "https://jeff-kline.github.io/posts/same-ai-results-for-less/index.html"
  },
+ "4e7cf2bff5db16a6": {
+  "first_seen": "2026-11-06T11:10:02.586087+00:00",
+  "id": "6cd88a85d119bc91",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-05T05:58:30+00:00",
+  "sid": "4e7cf2bff5db16a6",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Learned orchestration has emerged as a promising paradigm for large language model (LLM)-based multi-agent systems, in which a central orchestrator selects agents and controls the information they receive throughout a task. Despite rapid empirical progress, existing methods train the orchestrator by crediting each decision with its own advantage, implicitly assuming that the other decisions in the episode stay fixed. This assumption fails in orchestration, where the contribution of each decision to the final outcome depends on the decisions preceding it, so the gain of a joint update is not the sum of its per-decision effects. To address this challenge, we introduce \\textbf{IAPO}, an interaction-aware policy optimization framework that explicitly accounts for interactions among decisions. Specifically, IAPO exactly decomposes the performance difference between two policies into the effects of individual decisions and their interactions, which we prove can account for half of the attainable gain, and then optimizes both from sampled trajectories while certifying that every update is an improvement. On long-input versions of GSM8K, MATH, DROP, MBPP and HumanEval, against fifteen published multi-agent and workflow-search systems on the same 7B executor, IAPO's deployed plans reach the strongest system's accuracy with fewer tokens, and removing the interaction term costs 7 to 17 points of accuracy on code.",
+  "summary_1line": "Learned orchestration has emerged as a promising paradigm for large language model (LLM)-based multi-agent systems, in which a central orchestrator selects agents and controls the information they receive throughout a...",
+  "title": "Learning Multi-Agent Orchestration:Higher-Order Interactions in Policy Improvement",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.07495v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "4eb8a6cb7861fe9d": {
   "content_excerpt": "QwenPU is Qwen3.5-4B with a 32-bit RISC-V CPU and a vector unit compiled into its weights. The vector unit runs a whole neural network inside the model's forward passes: Andrej Karpathy's stories260K , the 260K-parameter Llama from llama2.c , runs as a program on it and writes its stories. It's part of Qwenputer : the same CPU, compiled into transformer layers in front of Qwen's own, every weight set by a compiler, with Qwen3.5's Gated DeltaNet state as its memory. Qwenputer-npu gave that CPU dot-product instructions. QwenPU gives it a vector unit of its own: separate memories in DeltaNet heads, 64-lane matrix rows a token, and whole vector results streamed through the token stream. Work in progress. QwenPU is exact, but not yet small: the checkpoint is 26.7 GB, so it needs a 40 GB or larger GPU to load whole. The story demo and the checks run the computer's layers on their own and fit a 24 GB GPU. Trimming the hidden size, and with it the checkpoint, is next. stories260K is a C program here ( guests/stories260k/stories_vx.c ). Its int4 weights sit in the vector unit's weight memory, loaded from the program, and every matrix row, residual add, softmax and attention read is a vector op. None of it is compiled into the checkpoint, so any model that fits runs the same way. Once upon a time, there was a little girl named Lily. She loved to play outside in the park. One day, she saw a big, red ball. She wanted to play with it, but it was too high Its memories are DeltaNet heads: 1",
   "first_seen": "2026-11-01T12:03:26.415102+00:00",
@@ -4672,6 +4689,22 @@
   "url": "http://arxiv.org/abs/2611.07820v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "af1c30d49054b16a": {
+  "content_excerpt": "I just learned that I have been running docker on my machine with passwordless sudo for the last uhm 10 years or so. I added my user to the docker group and with that anyone who takes over my user can just mount / and write as root everywhere ... But the most embarrassing thing is how I found out. I told a agent to do something and it realized it has to change a config in /etc/ but didn't have sudo, so it just mounted it with docker, bam! And I was so confused how it could write in /etc without sudo.",
+  "first_seen": "2026-11-06T11:10:02.586087+00:00",
+  "id": "6e4c34fdb30c27f3",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-06T10:59:56+00:00",
+  "sid": "af1c30d49054b16a",
+  "source": "hackernews_ai",
+  "summary_1line": "The Docker group is root access, my agent used it to write to /etc.",
+  "title": "The Docker group is root access, my agent used it to write to /etc.",
+  "type": "news",
+  "url": "https://jeena.net/notes/1497",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "afe272f4d0aa3179": {
   "content_excerpt": "Google Maps, social profiles, RAG, reviews, local AI visibility and more — production-grade tools exposed as pay-per-event APIs, from $0.002 per result plus run fees where applicable. Claude, GPT, Cursor and n8n discover and call them through MCP. Agents can also pay per call in USDC (x402). Pay per event, not per month. A Google Maps business costs $0.03 plus the run fee. A LinkedIn profile costs $0.02. Many Actors offer dryRun for integration tests; Apify platform usage may still apply. Businesses with phone, website, address, category, rating and reviews as clean JSON. Get alerted when public APIs break: OpenAPI diff + release classification, Slack alerts. Turn a business's Google reviews into a personalized audit report and outreach email. Live prices for French stations from official open data, filtered by department and fuel type. Track competitor hotel prices over time as clean datasets for revenue management. Audit one business website, Google profile and recent reviews with a transparent score and prioritized fixes. Create a persistent baseline and detect new reviews, rating changes and AI-readiness regressions with webhook alerts. Measure brand mentions and official-domain citations in real AI answers, with model-specific history and deltas. Each link opens a published Apify task with a prefilled input, FAQ and a real acceptance-test dataset. Il utilise le serveur MCP Apify ou la façade MCP Adaga, lit le schéma d’entrée de l’outil, puis lance une tâche publique ou u",
   "first_seen": "2026-11-03T09:04:30.637668+00:00",
@@ -4977,6 +5010,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06065v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "b8acd5d605b0c189": {
+  "content_excerpt": "The latest news from Google on open source releases, major projects, events, and outreach programs for early career developers. by Mofi Rahman , Developer Relations Engineer, and Brandon Royal , Product Manager, Google Cloud When Google introduced Kubernetes twelve years ago, the Pod became the default unit of compute for the cloud. The design assumed a straightforward lifecycle: a program boots, binds to a port, serves traffic, and runs until you stop it. An AI agent that’s running on a machine executes untrusted code, commands, and tool calls, and must be isolated from its host and its network resources. At the same time, these agents, whether they’re an interactive coding assistant, an SRE troubleshooter, or a multi-turn evaluation loop, do not run continuously. They execute a step, call a language model, and wait. Most of the time, the agent does nothing at all while it waits for a model to stream tokens or a human to review a pull request. In the same way that Kubernetes was created to address the needs of containerized applications, we introduced Agent Substrate as a new orchestrator for the emerging agentic applications. Secure by default, highly efficient and built for multi-million agent scale. Agent Substrate was designed from the ground up for AI agent security and density and brings the best parts of Kubernetes together with a new control and data plane for fully-isolated, ultra-low-latency sandboxed compute and storage. The growing Agent Substrate community has b",
+  "first_seen": "2026-11-06T11:10:02.586087+00:00",
+  "id": "5be4b4dd1a7517eb",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-06T10:19:21+00:00",
+  "sid": "b8acd5d605b0c189",
+  "source": "hackernews_ai",
+  "summary_1line": "Google Donates Agent Substrate and GVisor to the CNCF",
+  "title": "Google Donates Agent Substrate and GVisor to the CNCF",
+  "type": "news",
+  "url": "https://opensource.googleblog.com/2026/11/sandboxing-untrusted-ai-agents-at-scale.html",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "b8ddb6db7e02a2ca": {
   "first_seen": "2026-11-06T00:05:24.381443+00:00",
@@ -5875,6 +5924,20 @@
   "title": "GDPx: Measuring Frontier Model Capabilities Across the Most Valuable Domains",
   "type": "news",
   "url": "https://newsletter.semianalysis.com/p/gdpx-measuring-frontier-model-capabilities"
+ },
+ "d923a4fd914f2e7e": {
+  "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. November 5, 2026 — Inside Inkling 2 Small’s training run and METR’s study of AI research at Anthropic. Build AI systems with context graphs and agentic memory. Join Andrew Ng and AI engineers at NODES 2026 for 100+ live technical sessions . Free, online, 24 hours. Save your spot ! There was a time in the early days of Thinking Machines, post 2025 start and cofounder departures , when their going concern as a neolab was very much in doubt. Those days are clearly behind us, as Tinker (now a year old !) and Interaction Models and Inkling and other high-impact contributions to AI research have converted Thinky’s highly credentialed potential into actual concrete ships that establish that they are now a high-functioning neolab at the US frontier. Anyway, here’s Inkling 2 Small - pretrained from scratch in less than 3 days on <12T tokens native NVFP4, with single joint run RL , competitive with and often beating same-size Chinese models, with VERY good vision encoder : People are of course comparing with Western models like Mistral, Reflection and Meta Muse. People are calling it “ the smartest western open weight model by a margin ”, and while it is certainly",
+  "first_seen": "2026-11-06T11:10:02.586087+00:00",
+  "id": "f20afbef36e6cca8",
+  "image_url": "https://beehiiv-images-production.s3.amazonaws.com/uploads/asset/file/0b4283eb-1bca-4f20-a474-648eae34f704/Smol_Screenshot_2026-11-06_02.26.38-7ec1786ced3a658a.png?t=1793961438",
+  "published": "2026-11-06T10:35:21+00:00",
+  "sid": "d923a4fd914f2e7e",
+  "source": "latent_space",
+  "summary": "November 5, 2026 — Inside Inkling 2 Small’s training run and METR’s study of AI research at Anthropic.",
+  "summary_1line": "November 5, 2026 — Inside Inkling 2 Small’s training run and METR’s study of AI research at Anthropic.",
+  "title": "[AINews] Inkling 2 Small: 17A-594B trained in 68 hours on 12T tokens, beating Muse Spark",
+  "type": "news",
+  "url": "https://latent.space/p/ainews-inkling-2-small-17a-594b-trained-in-68-hours-on-12t-tokens-beating-muse-spark"
  },
  "d952ab6d652f8f98": {
   "content_excerpt": "Turns out cheap tokens get engineers doing things that save time, like debugging and tackling Jira tickets Revolut says that in less than a year it's managed to slash its AI coding inference costs by roughly 90 percent by making self-hosted models its default instead of relying primarily on commercial services like Claude. Speaking at the AI Engineer conference in New York last month, David Abitbo",
