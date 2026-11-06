@@ -22,6 +22,10 @@ SHELLS = (
     "subscribe.html",
     "models.html",
 )
+# Shells already moved from Oat to the Tailwind + Basecoat layer (web/ui.css).
+# docs/design-docs/ui-framework-migration.md tracks the rest.
+UI_SHELLS = ("subscribe.html",)
+OAT_SHELLS = tuple(name for name in SHELLS if name not in UI_SHELLS)
 OAT_SCRIPT_SHELLS = (
     "index.html",
     "daily.html",
@@ -72,7 +76,7 @@ class SiteChromeContractTest(unittest.TestCase):
         provenance = (ROOT / "docs" / "references" / "oat-ui-vendor.md").read_text(encoding="utf-8")
         self.assertIn("3be797d1f56322b213804c76169875a87bab82e0", provenance)
 
-        for filename in SHELLS:
+        for filename in OAT_SHELLS:
             with self.subTest(shell=filename):
                 html = (ROOT / "web" / filename).read_text(encoding="utf-8")
                 self.assertIn('href="/oat.min.css?v=20260824-selfhost"', html)
@@ -442,6 +446,7 @@ THEMED_SOURCES = (
     "web/models-compare.html",
     "web/model-comparison.css",
     "web/front-page.css",
+    "ui/site.css",
     "pipeline/render_static_pages.py",
 )
 SHARED_TOKENS = ("bg", "card", "border", "accent", "muted", "fg", "signal", "warm", "brief-wash", "brief-ink")

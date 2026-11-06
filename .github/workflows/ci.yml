@@ -37,6 +37,11 @@ jobs:
         with:
           node-version: "24"
 
+      - name: Check web/ui.css is built from ui/site.css
+        run: |
+          npm ci --ignore-scripts
+          npm run check:css
+
       - name: Run JavaScript tests
         shell: bash
         run: |
