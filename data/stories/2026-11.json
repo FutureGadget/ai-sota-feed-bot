@@ -147,7 +147,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "06728eec88e7e7f8": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. The panelists explain how AI tools and vibe coding reshape frontend and mobile engineering. They share insights on evolving junior developer roles, managing AI-generated code review fatigue, designing systems for autonomous agents, enforcing architectural guardrails, and navigating economic shifts in open-source software sustainability. Nimisha Asthagiri shares how applying proven product engineering and architecture principles creates a bounded canvas for AI agents. She explains how this model provides agents with bounded autonomy, continuous drift detection, and decision records to scale software development resiliently. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He explains the \"supervision paradox,\" where reliance on AI tools disrupts junior skill development, ",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. The panelists explain how AI tools and vibe coding reshape frontend and mobile engineering. They share insights on evolving junior developer roles, managing AI-generated code review fatigue, designing systems for autonomous agents, enforcing architectural guardrails, and navigating economic shifts in open-source software sustainability. Advait Patel shares a playbook for securing AI agent systems in production. He discusses moving defense boundaries from the prompt to the tool layer, enforcing scoped workload identities, and mitigating prompt injection via tool outputs. He explains how to structure audit-ready observability and implement kill switches to protect critical data while keeping deployment fast and compliant. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He",
   "first_seen": "2026-11-02T17:06:11.336056+00:00",
   "id": "30a63f395b968ad5",
   "image_url": "https://res.infoq.com/news/2026/11/torchtpu-native-pythorch-tpu/en/headerimage/torchtpu-1793636927771.jpeg",
@@ -893,6 +893,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03100v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "216df8b2e07ead6c": {
+  "content_excerpt": "At almost every budget, the best AI model you can buy is closed. An open-weight model wins at just 3% of price points, down from 41% in June. Village’s LLM Atlas maps the price-performance frontier: the strongest AI model at every price point. Open models win on value in bursts: a strong, cheap release, usually from DeepSeek, takes a wide band of budgets until the next closed model undercuts it. The latest closed releases have been both cheaper and stronger than anything open, so the band has shrunk to the very bottom of the price range. This study uses Village’s LLM Atlas , which estimates a capability score for each model and reasoning setting from public benchmark results and, with a separate cost model, its cost per task from evaluators’ runs, described in its methodology . Costs are relative to GPT-5 at high effort. For each date, we take every model released by then and find the most capable one at each of 201 budgets spread evenly on a log scale from 1% to three times GPT-5’s cost. The scores are from October 31, 2026; Atlas updates as new results arrive. Costs reflect what evaluators paid through hosted APIs, and open models can be cheaper to run on your own hardware. Restricting to models scored on at least 10 benchmark families, or narrowing the budgets to 3% to one times GPT-5’s cost, gives the same pattern; widening them to 0.3% to ten times raises today’s share to 16%, because tiny open models still win at the very cheapest end. A task that cost 79 cents with GPT",
+  "first_seen": "2026-11-06T04:05:23.287739+00:00",
+  "id": "bb35a14ef6eff649",
+  "published": "2026-11-06T02:49:56+00:00",
+  "sid": "216df8b2e07ead6c",
+  "source": "hackernews_ai",
+  "summary_1line": "Closed AI models dominate the price-performance frontier",
+  "title": "Closed AI models dominate the price-performance frontier",
+  "type": "news",
+  "url": "https://village.dev/blog/closed-ai-models-now-dominate-the-price-performance-frontier"
  },
  "219537f3fa2b3690": {
   "first_seen": "2026-11-04T05:04:25.379660+00:00",
@@ -2591,6 +2603,39 @@
   "url": "https://github.com/DevLoops-ai/unified-brain",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "5d920b8c07846333": {
+  "first_seen": "2026-11-06T04:05:23.287739+00:00",
+  "id": "3226a281f3df8e12",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-05T18:45:36+00:00",
+  "sid": "5d920b8c07846333",
+  "source": "arxiv_cs_ai",
+  "summary": "Reproducing machine learning experiments requires reconstructing procedures from information scattered across papers, released code, and supporting artifacts. For coding agents, reproduction success can therefore depend on their ability to fill in missing details, rather than on the released artifacts alone. We ask whether preserving recovered procedures and decisions improves subsequent independent reproduction. We define a standardized artifact design comprising a refined codebase, environment setup, experiment launchers, and a reproduction guide, and introduce ReproBridge, an agent workflow for constructing these refined reproducible artifacts. ReproBridge-Bench provides 1,029 tasks from 387 experiments across 36 papers, anchored by five human-verified reference scores per task. Agents attempt tasks in fresh sessions with raw code or refined artifacts; a separate Auditor checks execution evidence. Across four evaluated models, refined artifacts raise mean reproduction success from 76.4% to 92.6% and reduce downstream API spending by 19.7% on average. The cross-model success-rate spread narrows from 21.6 to 3.9 percentage points, with all four models achieving mean success rates above 90%. Removing any component reduces success in the ablation study, with the largest losses from code and environment removal. These results suggest that preserving execution knowledge helps even models with lower raw-code success reproduce experiments more reliably and at lower API cost.",
+  "summary_1line": "Reproducing machine learning experiments requires reconstructing procedures from information scattered across papers, released code, and supporting artifacts. For coding agents, reproduction success can therefore depe...",
+  "title": "ReproBridge: Building Reproducibility into ML Research Artifacts",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08452v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "5ee5b8329a1edab0": {
+  "first_seen": "2026-11-06T04:05:23.287739+00:00",
+  "id": "665e901f2cf80d9f",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-06T03:02:33+00:00",
+  "sid": "5ee5b8329a1edab0",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.169.0-alpha.1",
+  "summary_1line": "Release 0.169.0-alpha.1",
+  "title": "codex rust-v0.169.0-alpha.1",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.1",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "5f4102b8e6f18e43": {
   "content_excerpt": "Memory for coding agents: Markdown notes in a folder, recalled later over MCP. Apache-2.0. --client is claude-code , codex , cursor , grok , gemini , vscode , opencode or pi . One command adds Renor to that app, signs you in through the app's own flow (no token to copy), writes the memory rule below, and ends with a live check that your workspace answers. Search is hybrid (keywords and meaning). Sign up at renor.cloud . Your memory stays in a folder on your machine. No account, no API key. You need Node.js 22.16 or later (22.16+ or 24+); on an older Node, renor-engine prints one line saying so and exits. Restart the agent. The first start downloads about 12 MB, and the first Renor call works about 3 seconds after an empty start. Notes go to ~/.renor (set VAULT_PATH to use another folder). Then add the memory rule to the agent's instructions file, so it saves on its own. Grok. Grok starts project servers only in a folder it trusts, so register Renor in the project: Trust the folder in Grok, then restart Grok. To check it: ask Grok to save a real decision from your project, restart Grok, and ask about it in the new session. To turn telemetry off, set DO_NOT_TRACK=1 in the environment Grok runs in. Paste the memory rule into the project's AGENTS.md . Any other MCP client: the command is npx with the arguments -y renor-engine mcp (stdio). Then tell your agent a real decision (\"remember that the orders service uses Postgres 16\"), start a new session, and ask about it. Several agen",
   "first_seen": "2026-11-04T18:04:59.867522+00:00",
@@ -2784,8 +2829,14 @@
   "first_seen": "2026-11-06T03:07:09.890785+00:00",
   "id": "c4b0d7917bba1a47",
   "published": "2026-11-06T03:03:34+00:00",
+  "release_highlights": [
+   "release(sdk-py): 0.4.14",
+   "feat(sdk-py): add strict_resume to runs.create, stream and wait",
+   "feat(sdk-py): add tools and lifecycle to StreamMode"
+  ],
   "sid": "66af235e42475984",
   "source": "langgraph_releases",
+  "summary": "Changes since sdk==0.4.13 release(sdk-py): 0.4.14 ( #9610 ) feat(sdk-py): add strict_resume to runs.create, stream and wait ( #9599 ) feat(sdk-py): add tools and lifecycle to StreamMode ( #9601 )",
   "summary_1line": "Changes since sdk==0.4.13 release(sdk-py): 0.4.14 ( #9610 ) feat(sdk-py): add strict_resume to runs.create, stream and wait (<a class=\"issue-link js-issue-lin",
   "title": "langgraph-sdk==0.4.14",
   "type": "release",
@@ -3444,6 +3495,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "8812b05d9d428c4f": {
+  "first_seen": "2026-11-06T04:05:23.287739+00:00",
+  "id": "019847d219053af5",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-05T16:53:48+00:00",
+  "sid": "8812b05d9d428c4f",
+  "source": "arxiv_cs_ai",
+  "summary": "LLM pruning must preserve quality while meeting hardware- and workload-specific constraints on latency, throughput, and memory. Existing pruning workflows often target parameter counts, requiring practitioners to manually select model sizes that meet latency, throughput, and GPU memory limits. However, parameter count alone does not predict these metrics, which depend on the model architecture, workload, hardware, and serving engine. We introduce AutoCompress, a hardware-guided compression framework that directly incorporates such constraints into differentiable architecture search. AutoCompress jointly optimizes global and per-layer structure to produce heterogeneous architectures, guided by serving-engine cost models validated against end-to-end latency, throughput, and memory measurements. We evaluate AutoCompress on long-context local coding, batched datacenter serving, and latency-sensitive in-game interaction. Compared to the state-of-the-art Minitron pruning framework, AutoCompress improves average accuracy across eight benchmarks by 6.57, 2.35, and 0.57 percentage points on RTX 5070, RTX 5080, and H100, respectively. AutoCompress also compresses Nemotron 3.5 Super from 120B to 74B parameters for single-B200 BF16 serving at 128K context, retaining 95% of its mean benchmark score.",
+  "summary_1line": "LLM pruning must preserve quality while meeting hardware- and workload-specific constraints on latency, throughput, and memory. Existing pruning workflows often target parameter counts, requiring practitioners to manu...",
+  "title": "AutoCompress: Automated Hardware-Guided Model Compression",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08290v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "88142c54071f0e56": {
   "content_excerpt": "Shipvo: build once, publish for people and AI agents. Open-source React Native framework with signed OTA updates, a built-in admin, an agent-usable simulator over MCP, and measured simulator-vs-device parity. One React Native app, two places it runs. People get a native Android or iOS app from the stores, kept current with signed over-the-air updates. AI agents get the same release in a phone-sized simulator they can see and operate over MCP, with no device, including native features (camera, location, biometrics, payments, notifications). Every claim about the simulator is measured against real Android and iOS and published. Shipvo was briefly called PureNative. The hosted control plane is api.shipvo.dev and the hosted simulator sim.shipvo.dev ; the older purenative.workers.dev addresses keep answering for apps whose shell was built against them. Status: pre-launch, measured. OTA numbers come from a real low-end phone (Redmi 9A, 2 GB RAM): docs/spike-results.md . Agent results: docs/agent-gate-results.md . Simulator-vs-device parity: docs/parity-results.md . Native-feature parity (camera, location, permissions, payment prompt) is measured on Android; iOS is next. The iOS OTA runtime is verified on the iOS Simulator in CI (fetch, verify, stage, reload, cold start); physical iPhones are not yet measured. Every change to a native mobile app normally means a new build, a store submission, a review, and then waiting for users to update. Many never do. Shipvo separates what has to",
   "first_seen": "2026-11-02T08:03:35.121930+00:00",
@@ -3597,6 +3664,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.07640v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "8d3cc1c5f384da75": {
+  "first_seen": "2026-11-06T04:05:23.287739+00:00",
+  "id": "6d6a08ad8bf8e42a",
+  "published": "2026-11-06T03:06:58+00:00",
+  "sid": "8d3cc1c5f384da75",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Chatr Labs Releases Its Most Capable Unrestricted Qwen-Image-2.1 Model, Trained on One Million Images StreetInsider",
+  "summary_1line": "Chatr Labs Releases Its Most Capable Unrestricted Qwen-Image-2.1 Model, Trained on One Million Images StreetInsider",
+  "title": "Chatr Labs Releases Its Most Capable Unrestricted Qwen-Image-2.1 Model, Trained on One Million Images",
+  "type": "release",
+  "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxQbUtrYVYzNlkxR2JLRlJEQ3h4Zjg5UEhmbW1qZUhxZlcwbTA2bVYtdXprNllKdklPd0ppclpPNWNya0hoN1g5Mm91R0lMVlBxWXA5T25KZFF2bEI1UU9xVGJBcVplMEQxNkdacGRmZjBicXNUZnlFcXJRLXo5ZWEtRUdURk5ZWnFUUzhMWVBwakNiZUFXemNfLUcxNjV2eFIzNTVYZ0E5bUVhRF9BWUc2MGdhUWRJSUpIR3hfOFNzVlVkUjdkRWZpM00tbDZ5TTVzeGUwVFRqdy05cU5fVDJPZ18ybEkwSUtRU2l3UkJYd0VKbnJv?oc=5"
  },
  "8d86676710497099": {
   "content_excerpt": "We’re introducing StateBench , a benchmark for long-context state tracking —how well language models keep track of information about entities in long documents as they evolve. State tracking underlies tasks from reading code, where variables are assigned and reassigned, to following a story as characters physically move around and objects change hands. For example, if a mystery novel states that “John gave Mary the knife” right before a murder occurs, it’s important to know that the state of each character has changed. However, not all state-tracking problems are created equal: some require only finding the latest update; harder ones require following a chain of changes, where one missed step can throw off the final answer. For example, a harder variant of our mystery state tracking would be if John gave Mary the item in his backpack, with it previously known that Edward put a knife in John’s backpack. Transformers have well-documented theoretical limits on hard variants of state tracking with long dependency chains, helping motivate recurrent and hybrid architectures such as Gated DeltaNet that carry a running memory forward. Existing state-tracking tests tend to focus on the hardest cases, but as these designs become more common, researchers need to know which kinds of state tracking each architecture can handle. We would like to understand the differences between architectures not just on the hardest kinds of state tracking, but also on the simpler, potentially more common",
@@ -4381,6 +4460,22 @@
   "type": "news",
   "url": "https://github.com/Coding-Dev-Tools/engraphis",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "aefb83e12c9bf408": {
+  "first_seen": "2026-11-06T04:05:23.287739+00:00",
+  "id": "7a4ad3c0a81d90c2",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-05T10:59:23+00:00",
+  "sid": "aefb83e12c9bf408",
+  "source": "arxiv_cs_cl",
+  "summary": "As LLMs are increasingly asked questions about a user's personal experiences, retrieval must distinguish memories by time, place, person, and event. Current personal-memory pipelines rely on frozen dense embedding models to embed memories for retrieval, but we find that these models do not capture the four axes well. Swapping a memory's date or place barely shifts its embedding, and a trained projection on top of the frozen embedding does not recover the missing signal. The problem lives inside the model, where each axis is encoded by a distinct attention-head pattern. Guided by these findings, we propose Axis-LoRA, a per-axis adapter that places four LoRA branches inside the embedding model and combines them via a per-query gate. Across three standard embedding models evaluated on LongMemEval, ATM-Bench, and LoCoMo, Axis-LoRA improves 4-benchmark mean R@10 by $+1.28$ to $+1.56$~pp while training only a small fraction of the base parameters on a small axis-counterfactual training set. Code is available at https://github.com/dohoonkim-ai/axis-lora.",
+  "summary_1line": "As LLMs are increasingly asked questions about a user's personal experiences, retrieval must distinguish memories by time, place, person, and event. Current personal-memory pipelines rely on frozen dense embedding mod...",
+  "title": "Axis-LoRA: Probing and Adapting Embedding Models for Personal-Memory Retrieval",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.07820v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "afe272f4d0aa3179": {
   "content_excerpt": "Google Maps, social profiles, RAG, reviews, local AI visibility and more — production-grade tools exposed as pay-per-event APIs, from $0.002 per result plus run fees where applicable. Claude, GPT, Cursor and n8n discover and call them through MCP. Agents can also pay per call in USDC (x402). Pay per event, not per month. A Google Maps business costs $0.03 plus the run fee. A LinkedIn profile costs $0.02. Many Actors offer dryRun for integration tests; Apify platform usage may still apply. Businesses with phone, website, address, category, rating and reviews as clean JSON. Get alerted when public APIs break: OpenAPI diff + release classification, Slack alerts. Turn a business's Google reviews into a personalized audit report and outreach email. Live prices for French stations from official open data, filtered by department and fuel type. Track competitor hotel prices over time as clean datasets for revenue management. Audit one business website, Google profile and recent reviews with a transparent score and prioritized fixes. Create a persistent baseline and detect new reviews, rating changes and AI-readiness regressions with webhook alerts. Measure brand mentions and official-domain citations in real AI answers, with model-specific history and deltas. Each link opens a published Apify task with a prefilled input, FAQ and a real acceptance-test dataset. Il utilise le serveur MCP Apify ou la façade MCP Adaga, lit le schéma d’entrée de l’outil, puis lance une tâche publique ou u",
@@ -5473,6 +5568,22 @@
   "url": "http://arxiv.org/abs/2611.01934v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "d8329b534ce47d37": {
+  "first_seen": "2026-11-06T04:05:23.287739+00:00",
+  "id": "4faa202af3e6b9ad",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-05T11:31:13+00:00",
+  "sid": "d8329b534ce47d37",
+  "source": "arxiv_cs_cl",
+  "summary": "Autoregressive approaches with large language models, such as long chain-of-thought reasoning, have become the default for new AI applications because they reach higher accuracy on a wide range of tasks. In production, however, they give inconsistent answers, require parsing of outputs, and add cost and latency. Decision models address this: given a question and a set of options supplied by the user, they return a probability distribution over the options without autoregressive decoding. We present Drex, a family of four open decision models with 8B (DLM), 9B (v1.5), 35B with 3B active (v2.0), and 27B (Max) parameters. Each request consists of a state (a document, record, or agent context, optionally with images) and questions about it, each asking for a choice among options, a yes/no judgment, or a score on an ordered scale. Training combines supervised fine-tuning with reinforcement learning from adjusted feedback (RLAF), plus vision tuning for Max. Ablations show that RLAF improves accuracy and that consistency losses improve robustness to option order. On Decision Index 0.4.1, Max sets a new state of the art among the decision models we compare (67.52 on the public suite vs. 60.70 for Jev 1.14.0). On Decision Bench v4, it is statistically tied with d3-turbo and GPT-6 Sol and trails Claude Opus 5.5 by 1.6 points, and it has the highest accuracy among decision models on DecideBench. Max answers a typical request in 183 ms, against about 2.0 s for GPT-6 Sol and 3.5 s for Cla",
+  "summary_1line": "Autoregressive approaches with large language models, such as long chain-of-thought reasoning, have become the default for new AI applications because they reach higher accuracy on a wide range of tasks. In production...",
+  "title": "Towards Foundation Decision Models: Drex",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.07854v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "d8518666be6b2970": {
   "first_seen": "2026-11-04T00:07:04.928809+00:00",
   "id": "bc9ccc6d421c0cc7",
@@ -5728,6 +5839,18 @@
   "type": "news",
   "url": "https://hangingcontext.com",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "e1376b3038791065": {
+  "content_excerpt": "At first glance, the content of the conversation looked like a malfunctioning chatbot. Every stored user message (4,972 in total) said the same thing: \"hello\" . The responses, however, told a very different story. They contained user identities, AWS credentials, cloud metadata probe results, process listings, network information, and credential-file paths. A closer investigation by our research team at Era, revealed a Chinese-language exploitation framework that sent a series of rapid messages, 3.5 seconds apart, each delivering malicious commands. We named the framework Greeter after its seemingly benign “hello” greetings. It exploited an old vulnerability ( CVE-2024-58351 ) in Flowise’s runtime configuration mechanism. The vulnerability allows attackers to override JavaScript instructions for some of Flowise’s API endpoints, allowing the framework to execute malicious instructions without modifying the saved chatflow. As a result, the chatflow appeared harmless, while the API was in fact used to deliver malicious instructions and return the results of their execution. The structuring of the attack, with ephemeral hello messages, is what makes it so elegant, and difficult to detect unless you’re looking for specific IoC’s in logs. The attack demonstrates how a vulnerability in an AI application can expose the underlying infrastructure, sensitive information, and cloud identities accessible to its workload. For context, Flowise is a widely-adopted open-source agentic developm",
+  "first_seen": "2026-11-06T04:05:23.287739+00:00",
+  "id": "c533013fbf4644e7",
+  "published": "2026-11-06T03:15:49+00:00",
+  "sid": "e1376b3038791065",
+  "source": "hackernews_ai",
+  "summary_1line": "You Had Me at \"Hello\": A Chinese‑Language Framework Targeting AI Infrastructure",
+  "title": "You Had Me at \"Hello\": A Chinese‑Language Framework Targeting AI Infrastructure",
+  "type": "news",
+  "url": "https://era.security/blog/greeter-flowise-ai-infrastructure-attack"
  },
  "e165bd35858ba4df": {
   "first_seen": "2026-11-03T13:05:11.255573+00:00",
