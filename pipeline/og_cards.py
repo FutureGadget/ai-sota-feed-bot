@@ -2,9 +2,9 @@
 
 Every static page defaults to the one branded ``/og-default.png`` card, so a
 shared recap or storyline unfurls indistinguishably from the homepage. This
-module renders a 1200x630 card per edition in the site's broadsheet style
-(paper, ink, red kicker, Playfair headline; same system as
-``scripts/make_og_assets.py``): nameplate and dateline, the edition's kicker,
+module renders a 1200x630 card per edition in the site's Precision style
+(white paper, near-black ink, one red accent, Geist type; same system as
+``scripts/make_og_assets.py``): brand mark and dateline, the edition's kicker,
 title, a one-line summary, and counts — into ``web/og/<kind>-<ident>.png``.
 
 Pillow and the vendored fonts are optional on purpose. The hourly feed
@@ -35,56 +35,39 @@ except ImportError:  # pragma: no cover - environment-dependent
 ROOT = Path(__file__).resolve().parents[1]
 OG_DIR = ROOT / "web" / "og"
 
-# Broadsheet palette, mirrored from the light theme in web/site-chrome.css.
-PAPER = (244, 240, 230)  # --bg
-INK = (27, 24, 20)  # --fg
-MUTED = (98, 90, 77)  # --muted
-RED = (163, 48, 28)  # --accent
-RULE = (214, 205, 187)  # --border
+# Precision palette, mirrored from the light theme in web/site-chrome.css.
+PAPER = (255, 255, 255)  # --bg
+INK = (24, 24, 27)  # --fg
+MUTED = (98, 98, 107)  # --muted
+RED = (208, 38, 45)  # --accent
+RULE = (228, 228, 231)  # --border
 
 BRAND = "LLM Digest"
 URL = "llm-digest.com"
 W, H = 1200, 630
 MARGIN = 72
 
-# Vendored OFL serif (assets/fonts/playfair/README.md). Cards are only drawn
-# when these exist, so an environment without them keeps the committed PNGs
-# instead of writing cards in a fallback face.
-FONT_DIR = ROOT / "assets" / "fonts" / "playfair"
-DISPLAY_FONT = FONT_DIR / "Playfair-DisplayBold.ttf"
-TEXT_FONT = FONT_DIR / "Playfair-TextRegular.ttf"
-ITALIC_FONT = FONT_DIR / "Playfair-TextItalic.ttf"
+# Vendored OFL Geist (assets/fonts/geist/README.md), the site's own face.
+# Cards are only drawn when these exist, so an environment without them keeps
+# the committed PNGs instead of writing cards in a fallback face.
+FONT_DIR = ROOT / "assets" / "fonts" / "geist"
+DISPLAY_FONT = FONT_DIR / "Geist-SemiBold.ttf"
+TEXT_FONT = FONT_DIR / "Geist-Regular.ttf"
+MONO_FONT = FONT_DIR / "GeistMono-Medium.ttf"
 
-# Small-caps labels (kicker, counts, URL) in a sans face the hosted runners ship.
-LABEL_FONTS = [
-    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
-    "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
-    "/System/Library/Fonts/HelveticaNeue.ttc",
-]
-# Playfair has no Hangul. Korean headlines and summaries use a Korean serif
-# (Nanum Myeongjo ships in the fonts-nanum package the feed workflow installs);
-# Korean labels use a Korean sans.
-CJK_SERIF_BOLD_FONTS = [
-    "/usr/share/fonts/truetype/nanum/NanumMyeongjoBold.ttf",
-    "/System/Library/Fonts/Supplemental/AppleMyungjo.ttf",
-]
-CJK_SERIF_FONTS = [
-    "/usr/share/fonts/truetype/nanum/NanumMyeongjo.ttf",
-    "/System/Library/Fonts/Supplemental/AppleMyungjo.ttf",
-]
+# Geist has no Hangul. Korean text uses Nanum Gothic (the fonts-nanum package
+# the feed workflow installs) or a system Korean sans.
 CJK_BOLD_FONTS = [
+    "/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf",
     "/System/Library/Fonts/AppleSDGothicNeo.ttc",
     "/System/Library/Fonts/Supplemental/AppleGothic.ttf",
-    "/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf",
     "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc",
-    *LABEL_FONTS,
 ]
 CJK_REG_FONTS = [
+    "/usr/share/fonts/truetype/nanum/NanumGothic.ttf",
     "/System/Library/Fonts/AppleSDGothicNeo.ttc",
     "/System/Library/Fonts/Supplemental/AppleGothic.ttf",
-    "/usr/share/fonts/truetype/nanum/NanumGothic.ttf",
     "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
-    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
 ]
 
 # Cards registered by ensure() this run; prune() keeps exactly these.
@@ -92,7 +75,7 @@ _keep: set[str] = set()
 
 
 def fonts_available() -> bool:
-    return HAVE_PIL and all(p.exists() for p in (DISPLAY_FONT, TEXT_FONT, ITALIC_FONT))
+    return HAVE_PIL and all(p.exists() for p in (DISPLAY_FONT, TEXT_FONT, MONO_FONT))
 
 
 def _load_font(candidates, size: int):
@@ -109,40 +92,34 @@ def _needs_cjk_font(*values: str) -> bool:
     return any(any(ord(ch) > 0x2FFF for ch in str(value or "")) for value in values)
 
 
-def serif(kind: str, size: int, text: str = ""):
-    """Playfair for Latin text; a CJK face when the text needs one."""
+def face(kind: str, size: int, text: str = ""):
+    """Geist for Latin text ("display" semibold, "text" regular, "mono");
+    a Korean sans when the text needs one."""
     if _needs_cjk_font(text):
-        if kind == "display":
-            return _load_font([*CJK_SERIF_BOLD_FONTS, *CJK_BOLD_FONTS], size)
-        return _load_font([*CJK_SERIF_FONTS, *CJK_REG_FONTS], size)
-    path = {"display": DISPLAY_FONT, "italic": ITALIC_FONT}.get(kind, TEXT_FONT)
+        return _load_font(CJK_BOLD_FONTS if kind == "display" else CJK_REG_FONTS, size)
+    path = {"display": DISPLAY_FONT, "mono": MONO_FONT}.get(kind, TEXT_FONT)
     return _load_font([path], size)
 
 
-def label_font(size: int, text: str = ""):
-    return _load_font(CJK_BOLD_FONTS if _needs_cjk_font(text) else LABEL_FONTS, size)
-
-
-def draw_label(d, xy, text: str, size: int, fill, *, tracking: float = 0.18, align: str = "left") -> None:
-    """Letterspaced caps, the site's kicker style."""
-    text = text.upper()
-    font = label_font(size, text)
-    gap = size * tracking
-    widths = [d.textlength(ch, font=font) for ch in text]
-    total = sum(widths) + gap * max(len(text) - 1, 0)
+def draw_text(d, xy, text: str, kind: str, size: int, fill, *, align: str = "left") -> None:
+    font = face(kind, size, text)
     x, y = xy
     if align == "right":
-        x -= total
-    elif align == "center":
-        x -= total / 2
-    for ch, width in zip(text, widths):
-        d.text((x, y), ch, font=font, fill=fill)
-        x += width + gap
+        x -= d.textlength(text, font=font)
+    d.text((x, y), text, font=font, fill=fill)
 
 
-def double_rule(d, y: int, x0: int = MARGIN, x1: int = W - MARGIN) -> None:
-    d.line((x0, y, x1, y), fill=INK, width=3)
-    d.line((x0, y + 7, x1, y + 7), fill=INK, width=1)
+def brand_mark(d, x: int, y: int, size: int) -> None:
+    """The site's brand mark: a red tile with three ruled lines
+    (web/favicon.svg, .site-brand in web/site-chrome.css)."""
+    k = size / 20
+    d.rounded_rectangle([x, y, x + size, y + size], radius=round(5 * k), fill=RED)
+    for top, width in ((6, 10), (9.2, 10), (12.4, 6)):
+        d.rounded_rectangle(
+            [x + 5 * k, y + top * k, x + (5 + width) * k, y + (top + 1.6) * k],
+            radius=max(1, round(0.8 * k)),
+            fill=PAPER,
+        )
 
 
 def wrap(d, text: str, font, max_w: int, max_lines: int) -> list[str]:
@@ -180,41 +157,41 @@ def _render_card(kicker: str, title: str, stats: str, *, dateline: str = "", dek
     d = ImageDraw.Draw(img)
     text_w = W - 2 * MARGIN
 
-    # Nameplate row: paper name left, dateline right, double rule under both.
-    d.text((MARGIN, 40), BRAND, font=serif("display", 40), fill=INK)
+    # Brand row: mark and name left, dateline right, one hairline under both.
+    brand_mark(d, MARGIN, 52, 40)
+    draw_text(d, (MARGIN + 56, 52), BRAND, "display", 34, INK)
     if dateline:
-        date_font = serif("text", 24, dateline)
-        d.text((W - MARGIN - d.textlength(dateline, font=date_font), 54), dateline, font=date_font, fill=MUTED)
-    double_rule(d, 106)
+        draw_text(d, (W - MARGIN, 62), dateline, "mono", 22, MUTED, align="right")
+    d.line((MARGIN, 120, W - MARGIN, 120), fill=RULE, width=2)
 
-    draw_label(d, (MARGIN, 146), kicker, 21, RED)
+    draw_text(d, (MARGIN, 158), kicker, "mono", 24, RED)
 
-    footer_y = H - 110
+    footer_y = H - 104
     # Headline: as large as fits in two lines, else a smaller three.
-    for size, max_lines in ((80, 2), (64, 3)):
-        title_font = serif("display", size, title)
+    for size, max_lines in ((78, 2), (62, 3)):
+        title_font = face("display", size, title)
         lines = wrap(d, title, title_font, text_w, max_lines)
         if len(lines) < max_lines or max_lines == 3 or not lines[-1].endswith("…"):
             break
-    line_h = int(size * 1.12)
-    y = 186
+    line_h = int(size * 1.1)
+    y = 204
     for line in lines:
         d.text((MARGIN, y), line, font=title_font, fill=INK)
         y += line_h
 
     # One-line summary under the headline, only where it fits above the footer.
     if dek:
-        dek_font = serif("italic", 30, dek)
+        dek_font = face("text", 30, dek)
         dek_h = 42
-        room = (footer_y - 24 - (y + 14)) // dek_h
+        room = (footer_y - 24 - (y + 28)) // dek_h
         for line in wrap(d, dek, dek_font, text_w, max(0, min(2, room))):
-            d.text((MARGIN, y + 14), line, font=dek_font, fill=MUTED)
+            d.text((MARGIN, y + 28), line, font=dek_font, fill=MUTED)
             y += dek_h
 
-    d.line((MARGIN, footer_y, W - MARGIN, footer_y), fill=INK, width=2)
+    d.line((MARGIN, footer_y, W - MARGIN, footer_y), fill=RULE, width=2)
     if stats:
-        draw_label(d, (MARGIN, footer_y + 24), stats, 18, INK, tracking=0.14)
-    draw_label(d, (W - MARGIN, footer_y + 24), URL, 18, RED, align="right")
+        draw_text(d, (MARGIN, footer_y + 30), stats, "mono", 20, MUTED)
+    draw_text(d, (W - MARGIN, footer_y + 30), URL, "mono", 20, RED, align="right")
 
     buf = io.BytesIO()
     img.save(buf, format="PNG")

@@ -203,10 +203,12 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("const FRONT_PAGE_CATEGORY_LABELS = {", self.html)
         clean = _extract_js_function(self.html, "cleanText")
         keywords = _extract_js_function(self.html, "looksLikeKeywordList")
+        debris = _extract_js_function(self.html, "stripExcerptDebris")
         lead = _extract_js_function(self.html, "leadExcerpt")
         script = f"""
           {clean}
           {keywords}
+          {debris}
           {lead}
           console.log(leadExcerpt({{content_excerpt: 'A design skill for Claude Code, Codex, Cursor and OpenCode that refuses to look AI-generated. usehallmark.com and more.'}}));
         """
