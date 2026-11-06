@@ -1,0 +1,161 @@
+/* LLM Digest UI layer: Tailwind CSS v4 + Basecoat (shadcn/ui for plain HTML).
+ *
+ * Build:  npm run build:css   ->  web/ui.css (committed; CI checks it is fresh)
+ * Watch:  npm run watch:css
+ * Check:  npm run check:css   (what CI runs)
+ *
+ * Migration is page by page (docs/design-docs/ui-framework-migration.md). A page
+ * that has moved loads /ui.css instead of /oat.min.css. site-chrome.css still
+ * owns the broadsheet palette; this file never redefines --bg/--fg/--accent/...
+ * It only derives the shadcn token set Basecoat reads from those tokens.
+ */
+
+/* source(none): scan only the files listed below, never the ~8k generated
+   pages or data/. Add a page here when it migrates. */
+@import "tailwindcss" source(none);
+@source "../web/subscribe.html";
+
+/* Basecoat components in the Lyra style pack (square corners, matches the
+   broadsheet), limited to ui/basecoat-components.json by
+   scripts/build_ui_css.mjs. Basecoat's own base.css is deliberately NOT
+   imported: its :root block would overwrite the site palette (--accent,
+   --muted, --card, --border). */
+@import "./generated/basecoat.css";
+
+/* The site switches themes with html[data-theme="dark"], not .dark. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/* shadcn tokens derived from the broadsheet palette in site-chrome.css.
+   Names that already exist there with the same meaning (--card, --border,
+   --background, --foreground) are reused as-is. --accent and --muted mean
+   "brand red" and "secondary text" on this site but "hover surface" and
+   "muted surface" in shadcn, so Basecoat's versions live under --ui-*. */
+@layer theme {
+  :root {
+    --radius: 0px;
+    --card-foreground: var(--fg);
+    --popover: var(--card);
+    --popover-foreground: var(--fg);
+    --primary: var(--accent);
+    --primary-foreground: #fff;
+    --secondary: var(--brief-wash);
+    --secondary-foreground: var(--brief-ink);
+    --ui-muted: var(--brief-wash);
+    --muted-foreground: var(--muted);
+    --ui-accent: color-mix(in srgb, var(--fg) 7%, var(--card));
+    --accent-foreground: var(--fg);
+    --destructive: var(--err);
+    --input: var(--border);
+    --ring: var(--accent);
+  }
+  /* The dark accent is light; white text on it fails contrast. */
+  [data-theme="dark"] {
+    --primary-foreground: var(--bg);
+  }
+}
+
+@theme {
+  --font-sans: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-serif: "Iowan Old Style", "Charter", "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+  --font-display: "Bodoni 72", "Didot", "Playfair Display", "Iowan Old Style", Georgia, serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--ui-muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--ui-accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  /* Referenced by Basecoat's chart and sidebar components. */
+  --color-chart-1: var(--accent);
+  --color-chart-2: var(--signal);
+  --color-chart-3: var(--warm);
+  --color-chart-4: var(--muted);
+  --color-chart-5: var(--alert);
+  --color-sidebar: var(--card);
+  --color-sidebar-foreground: var(--fg);
+  --color-sidebar-primary: var(--accent);
+  --color-sidebar-primary-foreground: var(--primary-foreground);
+  --color-sidebar-accent: var(--ui-accent);
+  --color-sidebar-accent-foreground: var(--fg);
+  --color-sidebar-border: var(--border);
+  --color-sidebar-ring: var(--accent);
+  /* Broadsheet names, for page markup. */
+  --color-brand: var(--accent);
+  --color-ink-muted: var(--muted);
+  --color-wash: var(--brief-wash);
+  --color-wash-ink: var(--brief-ink);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  /* Parity with the Oat base that site-chrome.css and the render templates
+     were written against, so the shared header looks identical on migrated
+     and unmigrated pages. Remove once no page loads oat.min.css. */
+  h1, h2, h3, h4, h5, h6 {
+    @apply leading-tight font-semibold wrap-break-word;
+  }
+  dialog {
+    @apply leading-normal;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  a {
+    @apply text-brand underline underline-offset-2;
+  }
+}
+
+/* Broadsheet primitives shared by migrated pages. Page-specific layout stays
+   in utility classes on the markup. */
+@layer components {
+  .kicker {
+    @apply font-mono text-[0.67rem] leading-normal font-bold tracking-[0.13em] text-brand uppercase;
+  }
+  .message {
+    @apply mt-3 text-sm text-ink-muted;
+  }
+  .message[data-state="ok"] {
+    @apply font-semibold text-brand;
+  }
+  .message[data-state="err"] {
+    @apply text-destructive;
+  }
+  /* Site quality floor: a 3px focus ring (Lyra's is 1px). */
+  .btn,
+  .input {
+    @apply focus-visible:ring-3;
+  }
+  /* Comfortable touch targets: Lyra's controls are compact (h-8, text-xs). */
+  .btn[data-size="touch"] {
+    @apply h-12 px-6 text-base font-bold;
+  }
+  .input[data-size="touch"] {
+    @apply h-12 px-3.5 text-base md:text-base;
+  }
+}

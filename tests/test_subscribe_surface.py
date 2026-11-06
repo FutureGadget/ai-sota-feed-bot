@@ -21,29 +21,32 @@ class SubscribeSurfaceTest(unittest.TestCase):
         cls.html = (ROOT / "web" / "subscribe.html").read_text(encoding="utf-8")
 
     def test_uses_shared_broadsheet_tokens(self) -> None:
-        # Broadsheet theme: palette and display face come from site-chrome.css.
+        # Broadsheet theme: palette comes from site-chrome.css; components and
+        # utilities come from the Tailwind + Basecoat layer (ui/site.css).
         self.assertNotIn("--bg:", self.html)
         self.assertNotIn("--accent:", self.html)
         self.assertIn("/site-chrome.css", self.html)
-        self.assertIn("var(--font-display)", self.html)
-        self.assertIn("ui-monospace", self.html)
+        self.assertIn("/ui.css", self.html)
+        self.assertNotIn("oat.min", self.html)
+        self.assertIn("font-display", self.html)
+        self.assertIn('class="kicker', self.html)
 
     def test_signup_panel_is_the_focal_action(self) -> None:
         # Accent-ruled washed panel (not a rounded card); accent-filled button.
-        self.assertIn(".signup { margin:1.8rem 0 0; padding:1.35rem 1.4rem; border-left:3px solid var(--accent);", self.html)
-        self.assertIn("background:var(--brief-wash)", self.html)
-        self.assertIn('button[type="submit"], .external-signup {', self.html)
-        self.assertIn("background:var(--accent); color:#fff;", self.html)
+        self.assertIn('class="signup card', self.html)
+        self.assertIn("border-l-3 border-l-brand bg-wash", self.html)
+        self.assertIn('<button type="submit" class="btn w-full sm:w-auto" data-size="touch">Subscribe</button>', self.html)
+        self.assertIn('class="external-signup btn', self.html)
 
     def test_delivery_spec_replaces_generic_benefit_cards(self) -> None:
-        self.assertIn('class="deliveries"', self.html)
-        self.assertIn('class="delivery-when"', self.html)
+        self.assertIn('class="deliveries', self.html)
+        self.assertIn('class="delivery-when', self.html)
         # The old three benefit cards are gone.
         self.assertNotIn('class="benefits"', self.html)
         self.assertNotIn('class="benefit"', self.html)
         # Sample links preview the real products.
-        self.assertIn('class="sample" href="/daily"', self.html)
-        self.assertIn('class="sample" href="/weekly"', self.html)
+        self.assertIn('href="/daily">See today', self.html)
+        self.assertIn('href="/weekly">See this week', self.html)
 
     def test_preserves_config_paths_and_form_behavior(self) -> None:
         # Provider-config fallback + external signup option.
@@ -51,17 +54,20 @@ class SubscribeSurfaceTest(unittest.TestCase):
         self.assertIn("email_subscribe_enabled", self.html)
         self.assertIn("email_signup_url", self.html)
         self.assertIn("safeExternalUrl", self.html)
-        self.assertIn('class="external-signup"', self.html)
+        self.assertIn('class="external-signup', self.html)
         # Form posts to the subscribe API; honeypot + validation intact.
         self.assertIn("/api/subscribe", self.html)
         self.assertIn('name="website" class="hp"', self.html)
+        self.assertIn(".hp { position:absolute; left:-9999px;", self.html)
         self.assertIn(r"/^[^\s@]+@[^\s@]+\.[^\s@]+$/", self.html)
 
     def test_preserves_status_states_and_storage_keys(self) -> None:
         self.assertIn("ai_feed_email_subscribed_v1", self.html)
         self.assertIn("ai_feed_subscribe_nudge_done_v1", self.html)
-        self.assertIn('.message[data-state="ok"]', self.html)
-        self.assertIn('.message[data-state="err"]', self.html)
+        ui = (ROOT / "ui" / "site.css").read_text(encoding="utf-8")
+        self.assertIn('.message[data-state="ok"]', ui)
+        self.assertIn('.message[data-state="err"]', ui)
+        self.assertIn('class="message" role="status"', self.html)
         self.assertIn("Subscription is temporarily unavailable", self.html)
         self.assertIn("You’re subscribed", self.html)
         # Privacy / provider-owns-the-list copy stays.
@@ -69,10 +75,9 @@ class SubscribeSurfaceTest(unittest.TestCase):
         self.assertIn("unsubscribe link", self.html)
 
     def test_quality_floor(self) -> None:
-        self.assertIn("outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent)", self.html)
-        self.assertIn("@media (prefers-reduced-motion:reduce)", self.html)
+        # 3px focus ring and 48px touch targets live in ui/site.css.
+        self.assertIn('data-size="touch"', self.html)
         self.assertIn('id="themeToggle"', self.html)
-        self.assertIn("min-height:50px", self.html)  # comfortable touch targets
 
     def test_success_event_attributes_skill_lab_without_email(self) -> None:
         self.assertIn("function subscribeAttribution()", self.html)

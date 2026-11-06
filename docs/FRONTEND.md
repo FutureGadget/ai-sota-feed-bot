@@ -60,6 +60,18 @@ matching dark variant, and serif headlines.
 - `tests/test_site_chrome.py` (`BroadsheetThemeTest`) enforces both rules and
   checks that text tokens hold 4.5:1 contrast on `--bg`, `--card` and the wash.
 
+## UI framework
+
+Pages are moving from Oat (`web/oat.min.css`) to Tailwind CSS v4 + Basecoat,
+built into `web/ui.css` from `ui/site.css`. A page loads one or the other,
+never both; `/subscribe` is the first migrated page. Use Basecoat classes
+(`.btn`, `.input`, `.card`, `.field`, `.label`) for components and Tailwind
+utilities for layout, with `text-brand`, `text-ink-muted`, `bg-wash` and
+`font-display` for broadsheet colors and type. After editing `ui/site.css`,
+the component list or a migrated page's classes, run `npm run build:css` and
+commit `web/ui.css` (CI runs `npm run check:css`). Rules, token mapping, page
+order and checklist: `docs/design-docs/ui-framework-migration.md`.
+
 ## Share images and icons
 
 Share images follow the same theme (light palette only, since they appear
