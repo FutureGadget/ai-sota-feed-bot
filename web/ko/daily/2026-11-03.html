@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026년 11월 3일, 인공지능 분야에서 무슨 일이 일어났을까요? | LLM Digest</title>
+  <meta name="description" content="Claude Platform ships native OpenTelemetry ingestion into Databricks MLflow. LangSmith BYOC is GA on AWS, Beta on Azure and Google Cloud. Agent safety evals may not predict deployment behavior because of eval-awareness. Mandiant: stolen AI API keys…" />
+  <link rel="canonical" href="https://www.llm-digest.com/ko/daily/2026-11-03" />
+  <link rel="alternate" hreflang="ko" href="https://www.llm-digest.com/ko/daily/2026-11-03" />
+  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/daily/2026-11-03" />
+  <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/daily/2026-11-03" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="2026년 11월 3일, 인공지능 분야에서 무슨 일이 일어났을까요?" />
+  <meta property="og:description" content="Claude Platform ships native OpenTelemetry ingestion into Databricks MLflow. LangSmith BYOC is GA on AWS, Beta on Azure and Google Cloud. Agent safety evals may not predict deployment behavior because of eval-awareness. Mandiant: stolen AI API keys…" />
+  <meta property="og:url" content="https://www.llm-digest.com/ko/daily/2026-11-03" />
+  <meta property="article:published_time" content="2026-11-03T22:17:43+00:00" />
+  <meta property="og:image" content="https://www.llm-digest.com/og/daily-2026-11-03-ko.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og/daily-2026-11-03-ko.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="2026년 11월 3일, 인공지능 분야에서 무슨 일이 일어났을까요?" />
+  <meta name="twitter:description" content="Claude Platform ships native OpenTelemetry ingestion into Databricks MLflow. LangSmith BYOC is GA on AWS, Beta on Azure and Google Cloud. Agent safety evals may not predict deployment behavior because of eval-awareness. Mandiant: stolen AI API keys…" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "2026년 11월 3일, 인공지능 분야에서 무슨 일이 일어났을까요?", "description": "Claude Platform ships native OpenTelemetry ingestion into Databricks MLflow. LangSmith BYOC is GA on AWS, Beta on Azure and Google Cloud. Agent safety evals may not predict deployment behavior because of eval-awareness. Mandiant: stolen AI API keys…", "datePublished": "2026-11-03T22:17:43+00:00", "mainEntityOfPage": "https://www.llm-digest.com/ko/daily/2026-11-03", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://www.llm-digest.com/og/daily-2026-11-03-ko.png"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Daily recaps", "item": "https://www.llm-digest.com/daily"}, {"@type": "ListItem", "position": 3, "name": "2026-11-03", "item": "https://www.llm-digest.com/daily/2026-11-03"}]}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#17150f" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261103-chrome-preboot" />
+  <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
+  <script defer src="/site-chrome.js?v=20261103-chrome-preboot"></script>
+  <script defer src="/subscribe-inline.js?v=20261103-chrome-preboot"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
+    body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
+    menu a[role="button"], .archive select, menu .menu-share {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.74rem; letter-spacing: 0.03em;
+      padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 0; background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
+    menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
+    .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.66rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); }
+    .archive select { text-transform: none; letter-spacing: 0.02em; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border-left: 3px solid var(--accent); border-radius: 0;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: var(--font-display);
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+      menu {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.35rem;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      menu::-webkit-scrollbar {
+        display: none;
+      }
+      menu a {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .archive {
+        flex-shrink: 0;
+        margin-left: 1rem;
+        width: auto !important;
+      }
+      .archive select {
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .recap-video { display:grid; grid-template-columns:minmax(14rem,.7fr) minmax(0,1.3fr); gap:1.4rem 2.2rem;
+      align-items:center; margin:0 0 1.6rem; padding:0 0 1.5rem; border-bottom:1px solid var(--border); }
+    .recap-video { scroll-margin-top:1rem; }
+    .video-label { margin:0 0 .4rem; text-transform:uppercase; letter-spacing:.11em; font-size:.72rem;
+      font-weight:700; color:var(--accent); font-family:ui-monospace,"SFMono-Regular",monospace; }
+    .video-title { margin:0 0 .45rem; font-size:1.2rem; line-height:1.25; }
+    .video-meta { margin:0; color:var(--muted); font-size:.9rem; line-height:1.5; }
+    .video-frame { position:relative; aspect-ratio:16/9; width:100%; border:1px solid var(--border);
+      border-radius:6px; overflow:hidden; background:#000; }
+    .video-frame iframe, .video-play, .video-play img { position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
+    .video-play img { object-fit:cover; }
+    .video-play::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35)); }
+    .video-btn { position:absolute; z-index:1; left:50%; top:50%; width:4.2rem; height:4.2rem; margin:-2.1rem 0 0 -2.1rem;
+      border-radius:50%; background:var(--accent); color:#fff; display:grid; place-items:center; font-size:1.5rem;
+      padding-left:.2rem; box-sizing:border-box; transition:transform .15s ease; }
+    .video-play:hover .video-btn, .video-play:focus-visible .video-btn { transform:scale(1.08); }
+    @media (max-width:760px) { .recap-video { grid-template-columns:1fr; gap:1rem; } }
+    .daily-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
+      gap:1.5rem 2.5rem; align-items:end; margin:2.3rem 0 1.6rem; }
+    .daily-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .daily-hero .recap-title { margin:0; max-width:48rem; font-family:var(--font-display);
+      font-size:clamp(2.65rem,6.7vw,4.55rem); font-weight:700; letter-spacing:-.045em; line-height:.94; }
+    .daily-date { margin:0 0 .3rem; color:var(--muted); text-align:right;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; line-height:1.6; }
+    .daily-route { display:flex; align-items:center; gap:.65rem; justify-content:flex-end;
+      margin:.7rem 0 0; color:var(--muted); font-size:.78rem; }
+    .daily-route::before { content:""; width:3.5rem; height:5px;
+      background:linear-gradient(90deg,var(--signal) 0 58%,var(--accent) 58%); }
+    .intro { display:grid; grid-template-columns:minmax(16rem,.8fr) minmax(0,1.2fr);
+      gap:.7rem 2.2rem; padding:1.35rem 0 1.45rem; margin:0 0 1.4rem;
+      border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; font-size:.98rem; }
+    .intro .tldr { grid-column:1; grid-row:1 / span 8; margin:0; padding:0 1rem 0 0; border:0; }
+    .intro > p { grid-column:2; margin:0; line-height:1.62; }
+    .tldr-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem;
+      font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+    .tldr ul { margin:0; padding:0; list-style:none; gap:.6rem; }
+    .tldr li { position:relative; padding-left:1rem; font-size:.88rem; line-height:1.5; }
+    .tldr li::before { content:""; position:absolute; left:0; top:.47rem; width:6px; height:6px;
+      border-radius:1px; background:var(--signal); }
+    .toc { gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .toc a { flex:1; min-width:10rem; padding:.75rem .7rem; border:0;
+      border-right:1px solid var(--border); border-radius:0;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; color:var(--muted); }
+    .toc a:last-child { border-right:0; }
+    .toc a:hover { color:var(--accent); background:var(--brief-wash); }
+    .cat { margin-bottom:2.5rem; }
+    .cat h2 { padding-bottom:.7rem; margin:0; border-bottom:1px solid var(--border);
+      font-family:var(--font-display); font-size:1.55rem; line-height:1.1; }
+    .cat-summary { margin:.7rem 0 .2rem; color:var(--muted); font-size:.88rem; line-height:1.55; }
+    .articles { gap:0; }
+    article { display:grid; grid-template-columns:minmax(12rem,.62fr) minmax(0,1.38fr);
+      gap:.35rem 2rem; padding:1rem 0; border:0; border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; box-shadow:none; }
+    article h3 { grid-column:1; grid-row:1 / span 3; margin:0;
+      font-family:var(--font-display); font-size:1.12rem; line-height:1.25; }
+    article h3 a:hover { color:var(--accent); }
+    .art-meta, .art-summary { grid-column:2; }
+    .art-meta { margin:0; }
+    .badge { padding:0; border:0; border-radius:0; background:transparent; color:var(--muted);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.63rem; }
+    .art-summary { margin:0; font-size:.9rem; line-height:1.58; }
+    .playbook-takeaway { grid-column:2; margin:.75rem 0 0; padding:.8rem .9rem;
+      border:0; border-left:3px solid var(--accent); background:var(--brief-wash); }
+    .playbook-takeaway p { margin:0 0 .45rem; font-size:.78rem; line-height:1.48; }
+    .playbook-takeaway p:last-child { margin-bottom:0; }
+    .playbook-label, .playbook-takeaway p span { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.61rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .playbook-takeaway p span { display:block; margin-bottom:.12rem; }
+    .playbook-apply { padding:.5rem .6rem; background:var(--card); font-size:.88rem !important; }
+    .playbook-links { display:flex; justify-content:space-between; gap:.75rem; align-items:center; }
+    .playbook-links span { display:inline !important; margin:0 !important; }
+    .finish-line { display:flex; align-items:center; gap:.8rem; margin:2.8rem 0 .6rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--signal);
+      letter-spacing:.06em; text-transform:uppercase; }
+    .finish-line::before, .finish-line::after { content:""; height:1px; flex:1; background:var(--border); }
+    .subscribe-cta { border:0; border-left:3px solid var(--accent); border-radius:0;
+      background:var(--brief-wash); color:var(--brief-ink); }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .daily-hero { grid-template-columns:1fr; gap:.8rem; margin-top:1.7rem; }
+      .daily-hero .recap-title { font-size:3.05rem; }
+      .daily-date { text-align:left; }
+      .daily-route { justify-content:flex-start; }
+      .intro { grid-template-columns:1fr; gap:1.1rem; }
+      .intro .tldr, .intro > p { grid-column:1; grid-row:auto; }
+      .toc a { min-width:50%; border-bottom:1px solid var(--border); }
+      article { grid-template-columns:1fr; gap:.55rem; }
+      article h3, .art-meta, .art-summary, .playbook-takeaway { grid-column:1; grid-row:auto; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/daily">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>AI Daily Recap</h1>
+        <p id="meta" class="muted">24 articles · 5 categories</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily" aria-current="page">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Agent Know-How</a>
+        <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
+        <a href="/skills" data-site-destination="/skills">Skill Radar</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a href="/api/daily?date=2026-11-03">View as JSON</a>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/ko/daily/2026-11-03" data-share-title="2026년 11월 3일, 인공지능 분야에서 무슨 일이 일어났을까요?">Share this page</button>
+        <a class="site-language-action" href="/daily/2026-11-03" data-language-link data-language-locale="en" hidden aria-label="Read this page in English" title="Read in English"><span aria-hidden="true">🌐</span><span>EN</span></a>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+
+<div class="site-context" aria-label="Choose day"><a href="/daily/2026-11-02" aria-label="Previous day: 2026-11-02 · What happened in AI — Nov 2, 2026">‹</a><label class="archive muted"><span>Day</span><select id="archive" aria-label="Choose day"><option value="/daily/2026-11-05">2026-11-05 · What happened in AI — Nov 5, 2026</option><option value="/daily/2026-11-04">2026-11-04 · What happened in AI — Nov 4, 2026</option><option value="/daily/2026-11-03" selected>2026-11-03 · What happened in AI — Nov 3, 2026</option><option value="/daily/2026-11-02">2026-11-02 · What happened in AI — Nov 2, 2026</option><option value="/daily/2026-11-01">2026-11-01 · What happened in AI — Nov 1, 2026</option><option value="/daily/2026-10-31">2026-10-31 · What happened in AI — Oct 31, 2026</option><option value="/daily/2026-10-30">2026-10-30 · What happened in AI — Oct 30, 2026</option><option value="/daily/2026-10-29">2026-10-29 · What happened in AI — Oct 29, 2026</option><option value="/daily/2026-10-28">2026-10-28 · What happened in AI — Oct 28, 2026</option><option value="/daily/2026-10-27">2026-10-27 · What happened in AI — Oct 27, 2026</option><option value="/daily/2026-10-26">2026-10-26 · What happened in AI — Oct 26, 2026</option><option value="/daily/2026-10-25">2026-10-25 · What happened in AI — Oct 25, 2026</option><option value="/daily/2026-10-24">2026-10-24 · What happened in AI — Oct 24, 2026</option><option value="/daily/2026-10-23">2026-10-23 · What happened in AI — Oct 23, 2026</option><option value="/daily/2026-10-22">2026-10-22 · What happened in AI — Oct 22, 2026</option><option value="/daily/2026-10-21">2026-10-21 · What happened in AI — Oct 21, 2026</option><option value="/daily/2026-10-20">2026-10-20 · What happened in AI — Oct 20, 2026</option><option value="/daily/2026-10-19">2026-10-19 · What happened in AI — Oct 19, 2026</option><option value="/daily/2026-10-18">2026-10-18 · What happened in AI — Oct 18, 2026</option><option value="/daily/2026-10-17">2026-10-17 · What happened in AI — Oct 17, 2026</option><option value="/daily/2026-10-16">2026-10-16 · What happened in AI — Oct 16, 2026</option><option value="/daily/2026-10-15">2026-10-15 · What happened in AI — Oct 15, 2026</option><option value="/daily/2026-10-14">2026-10-14 · What happened in AI — Oct 14, 2026</option><option value="/daily/2026-10-13">2026-10-13 · What happened in AI — Oct 13, 2026</option><option value="/daily/2026-10-12">2026-10-12 · What happened in AI — Oct 12, 2026</option><option value="/daily/2026-10-11">2026-10-11 · What happened in AI — Oct 11, 2026</option><option value="/daily/2026-10-10">2026-10-10 · What happened in AI — Oct 10, 2026</option><option value="/daily/2026-10-09">2026-10-09 · What happened in AI — Oct 9, 2026</option><option value="/daily/2026-10-08">2026-10-08 · What happened in AI — Oct 8, 2026</option><option value="/daily/2026-10-07">2026-10-07 · What happened in AI — Oct 7, 2026</option><option value="/daily/2026-10-06">2026-10-06 · What happened in AI — Oct 6, 2026</option><option value="/daily/2026-10-05">2026-10-05 · What happened in AI — Oct 5, 2026</option><option value="/daily/2026-10-04">2026-10-04 · What happened in AI — Oct 4, 2026</option><option value="/daily/2026-10-03">2026-10-03 · What happened in AI — Oct 3, 2026</option><option value="/daily/2026-10-02">2026-10-02 · What happened in AI — Oct 2, 2026</option><option value="/daily/2026-10-01">2026-10-01 · What happened in AI — Oct 1, 2026</option><option value="/daily/2026-09-30">2026-09-30 · What happened in AI — Sep 30, 2026</option><option value="/daily/2026-09-29">2026-09-29 · What happened in AI — Sep 29, 2026</option><option value="/daily/2026-09-28">2026-09-28 · What happened in AI — Sep 28, 2026</option><option value="/daily/2026-09-27">2026-09-27 · What happened in AI — Sep 27, 2026</option><option value="/daily/2026-09-26">2026-09-26 · What happened in AI — Sep 26, 2026</option><option value="/daily/2026-09-25">2026-09-25 · What happened in AI — Sep 25, 2026</option><option value="/daily/2026-09-24">2026-09-24 · What happened in AI — Sep 24, 2026</option><option value="/daily/2026-09-23">2026-09-23 · What happened in AI — Sep 23, 2026</option><option value="/daily/2026-09-22">2026-09-22 · What happened in AI — Sep 22, 2026</option><option value="/daily/2026-09-21">2026-09-21 · What happened in AI — Sep 21, 2026</option><option value="/daily/2026-09-20">2026-09-20 · What happened in AI — Sep 20, 2026</option><option value="/daily/2026-09-19">2026-09-19 · What happened in AI — Sep 19, 2026</option><option value="/daily/2026-09-18">2026-09-18 · What happened in AI — Sep 18, 2026</option><option value="/daily/2026-09-17">2026-09-17 · What happened in AI — Sep 17, 2026</option><option value="/daily/2026-09-16">2026-09-16 · What happened in AI — Sep 16, 2026</option><option value="/daily/2026-09-15">2026-09-15 · What happened in AI — Sep 15, 2026</option><option value="/daily/2026-09-14">2026-09-14 · What happened in AI — Sep 14, 2026</option><option value="/daily/2026-09-13">2026-09-13 · What happened in AI — Sep 13, 2026</option><option value="/daily/2026-09-12">2026-09-12 · What happened in AI — Sep 12, 2026</option><option value="/daily/2026-09-11">2026-09-11 · What happened in AI — Sep 11, 2026</option><option value="/daily/2026-09-10">2026-09-10 · What happened in AI — Sep 10, 2026</option><option value="/daily/2026-09-09">2026-09-09 · What happened in AI — Sep 9, 2026</option><option value="/daily/2026-09-08">2026-09-08 · What happened in AI — Sep 8, 2026</option><option value="/daily/2026-09-07">2026-09-07 · What happened in AI — Sep 7, 2026</option><option value="/daily/2026-09-06">2026-09-06 · What happened in AI — Sep 6, 2026</option><option value="/daily/2026-09-05">2026-09-05 · What happened in AI — Sep 5, 2026</option><option value="/daily/2026-09-04">2026-09-04 · What happened in AI — Sep 4, 2026</option><option value="/daily/2026-09-03">2026-09-03 · What happened in AI — Sep 3, 2026</option><option value="/daily/2026-09-02">2026-09-02 · What happened in AI — Sep 2, 2026</option><option value="/daily/2026-09-01">2026-09-01 · What happened in AI — Sep 1, 2026</option><option value="/daily/2026-08-31">2026-08-31 · What happened in AI — Aug 31, 2026</option><option value="/daily/2026-08-30">2026-08-30 · What happened in AI — Aug 30, 2026</option><option value="/daily/2026-08-29">2026-08-29 · What happened in AI — Aug 29, 2026</option><option value="/daily/2026-08-28">2026-08-28 · What happened in AI — Aug 28, 2026</option><option value="/daily/2026-08-27">2026-08-27 · What happened in AI — Aug 27, 2026</option><option value="/daily/2026-08-26">2026-08-26 · What happened in AI — Aug 26, 2026</option><option value="/daily/2026-08-25">2026-08-25 · What happened in AI — Aug 25, 2026</option><option value="/daily/2026-08-24">2026-08-24 · What happened in AI — Aug 24, 2026</option><option value="/daily/2026-08-23">2026-08-23 · What happened in AI — Aug 23, 2026</option><option value="/daily/2026-08-22">2026-08-22 · What happened in AI — Aug 22, 2026</option><option value="/daily/2026-08-21">2026-08-21 · What happened in AI — Aug 21, 2026</option><option value="/daily/2026-08-20">2026-08-20 · What happened in AI — Aug 20, 2026</option><option value="/daily/2026-08-19">2026-08-19 · What happened in AI — Aug 19, 2026</option><option value="/daily/2026-08-18">2026-08-18 · What happened in AI — Aug 18, 2026</option><option value="/daily/2026-08-17">2026-08-17 · What happened in AI — Aug 17, 2026</option><option value="/daily/2026-08-16">2026-08-16 · What happened in AI — Aug 16, 2026</option><option value="/daily/2026-08-15">2026-08-15 · What happened in AI — Aug 15, 2026</option><option value="/daily/2026-08-14">2026-08-14 · What happened in AI — Aug 14, 2026</option><option value="/daily/2026-08-13">2026-08-13 · What happened in AI — Aug 13, 2026</option><option value="/daily/2026-08-12">2026-08-12 · What happened in AI — Aug 12, 2026</option><option value="/daily/2026-08-11">2026-08-11 · What happened in AI — Aug 11, 2026</option><option value="/daily/2026-08-10">2026-08-10 · What happened in AI — Aug 10, 2026</option><option value="/daily/2026-08-09">2026-08-09 · What happened in AI — Aug 9, 2026</option><option value="/daily/2026-08-08">2026-08-08 · What happened in AI — Aug 8, 2026</option><option value="/daily/2026-08-07">2026-08-07 · What happened in AI — Aug 7, 2026</option><option value="/daily/2026-08-06">2026-08-06 · What happened in AI — Aug 6, 2026</option><option value="/daily/2026-08-05">2026-08-05 · What happened in AI — Aug 5, 2026</option><option value="/daily/2026-08-04">2026-08-04 · What happened in AI — Aug 4, 2026</option><option value="/daily/2026-08-03">2026-08-03 · What happened in AI — Aug 3, 2026</option><option value="/daily/2026-08-02">2026-08-02 · What happened in AI — Aug 2, 2026</option><option value="/daily/2026-08-01">2026-08-01 · What happened in AI — Aug 1, 2026</option><option value="/daily/2026-07-31">2026-07-31 · What happened in AI — Jul 31, 2026</option><option value="/daily/2026-07-30">2026-07-30 · What happened in AI — Jul 30, 2026</option><option value="/daily/2026-07-29">2026-07-29 · What happened in AI — Jul 29, 2026</option><option value="/daily/2026-07-28">2026-07-28 · What happened in AI — Jul 28, 2026</option><option value="/daily/2026-07-27">2026-07-27 · What happened in AI — Jul 27, 2026</option><option value="/daily/2026-07-26">2026-07-26 · What happened in AI — Jul 26, 2026</option><option value="/daily/2026-07-25">2026-07-25 · What happened in AI — Jul 25, 2026</option><option value="/daily/2026-07-24">2026-07-24 · What happened in AI — Jul 24, 2026</option><option value="/daily/2026-07-23">2026-07-23 · What happened in AI — Jul 23, 2026</option><option value="/daily/2026-07-22">2026-07-22 · What happened in AI — Jul 22, 2026</option><option value="/daily/2026-07-21">2026-07-21 · What happened in AI — Jul 21, 2026</option><option value="/daily/2026-07-20">2026-07-20 · What happened in AI — Jul 20, 2026</option><option value="/daily/2026-07-19">2026-07-19 · What happened in AI — Jul 19, 2026</option><option value="/daily/2026-07-18">2026-07-18 · What happened in AI — Jul 18, 2026</option><option value="/daily/2026-07-17">2026-07-17 · What happened in AI — Jul 17, 2026</option><option value="/daily/2026-07-16">2026-07-16 · What happened in AI — Jul 16, 2026</option><option value="/daily/2026-07-15">2026-07-15 · What happened in AI — Jul 15, 2026</option><option value="/daily/2026-07-14">2026-07-14 · What happened in AI — Jul 14, 2026</option><option value="/daily/2026-07-13">2026-07-13 · What happened in AI — Jul 13, 2026</option><option value="/daily/2026-07-12">2026-07-12 · What happened in AI — Jul 12, 2026</option><option value="/daily/2026-07-11">2026-07-11 · What happened in AI — Jul 11, 2026</option><option value="/daily/2026-07-10">2026-07-10 · What happened in AI — Jul 10, 2026</option><option value="/daily/2026-07-09">2026-07-09 · What happened in AI — Jul 9, 2026</option><option value="/daily/2026-07-08">2026-07-08 · What happened in AI — Jul 8, 2026</option><option value="/daily/2026-07-07">2026-07-07 · What happened in AI — Jul 7, 2026</option><option value="/daily/2026-07-06">2026-07-06 · What happened in AI — Jul 6, 2026</option><option value="/daily/2026-07-05">2026-07-05 · What happened in AI — Jul 5, 2026</option><option value="/daily/2026-07-04">2026-07-04 · What happened in AI — Jul 4, 2026</option><option value="/daily/2026-07-03">2026-07-03 · What happened in AI — Jul 3, 2026</option><option value="/daily/2026-07-02">2026-07-02 · What happened in AI — Jul 2, 2026</option><option value="/daily/2026-07-01">2026-07-01 · What happened in AI — Jul 1, 2026</option><option value="/daily/2026-06-30">2026-06-30 · What happened in AI — Jun 30, 2026</option><option value="/daily/2026-06-29">2026-06-29 · What happened in AI — Jun 29, 2026</option><option value="/daily/2026-06-28">2026-06-28 · What happened in AI — Jun 28, 2026</option><option value="/daily/2026-06-27">2026-06-27 · What happened in AI — Jun 27, 2026</option><option value="/daily/2026-06-26">2026-06-26 · What happened in AI — Jun 26, 2026</option><option value="/daily/2026-06-25">2026-06-25 · What happened in AI — Jun 25, 2026</option><option value="/daily/2026-06-24">2026-06-24 · What happened in AI — Jun 24, 2026</option><option value="/daily/2026-06-23">2026-06-23 · What happened in AI — Jun 23, 2026</option><option value="/daily/2026-06-22">2026-06-22 · What happened in AI — Jun 22, 2026</option><option value="/daily/2026-06-21">2026-06-21 · What happened in AI — Jun 21, 2026</option><option value="/daily/2026-06-20">2026-06-20 · What happened in AI — Jun 20, 2026</option><option value="/daily/2026-06-19">2026-06-19 · What happened in AI — Jun 19, 2026</option><option value="/daily/2026-06-18">2026-06-18 · What happened in AI — Jun 18, 2026</option><option value="/daily/2026-06-17">2026-06-17 · What happened in AI — Jun 17, 2026</option><option value="/daily/2026-06-16">2026-06-16 · What happened in AI — Jun 16, 2026</option><option value="/daily/2026-06-14">2026-06-14 · What happened in AI — Jun 14, 2026</option><option value="/daily/2026-06-13">2026-06-13 · What happened in AI — Jun 13, 2026</option><option value="/daily/2026-06-11">2026-06-11 · What happened in AI — Jun 11, 2026</option><option value="/daily/2026-06-10">2026-06-10 · What happened in AI — Jun 10, 2026</option><option value="/daily/2026-06-09">2026-06-09 · What happened in AI — Jun 9, 2026</option><option value="/daily/2026-06-08">2026-06-08 · What happened in AI — Jun 8, 2026</option><option value="/daily/2026-06-07">2026-06-07 · What happened in AI — Jun 7, 2026</option><option value="/daily/2026-06-06">2026-06-06 · What happened in AI — Jun 6, 2026</option><option value="/daily/2026-06-05">2026-06-05 · What happened in AI — Jun 5, 2026</option></select></label><a href="/daily/2026-11-04" aria-label="Next day: 2026-11-04 · What happened in AI — Nov 4, 2026">›</a></div>
+    </header>
+
+    <section id="recap">
+      <section class="daily-hero"><div><p class="daily-kicker">The finishable daily brief</p><h2 class="recap-title">2026년 11월 3일, 인공지능 분야에서 무슨 일이 일어났을까요?</h2></div><div><p class="daily-date">Tuesday, Nov 3, 2026<br>24 articles · 5 categories</p><p class="daily-route">read top to bottom · then stop</p></div></section>
+      <!-- range is included in the custom hero -->
+      <div class="intro"><div class="tldr"><p class="tldr-label">In 30 seconds</p><ul><li>Claude Platform ships native OpenTelemetry ingestion into Databricks MLflow.</li><li>LangSmith BYOC is GA on AWS, Beta on Azure and Google Cloud.</li><li>Agent safety evals may not predict deployment behavior because of eval-awareness.</li><li>Mandiant: stolen AI API keys produced nearly $1M in charges for one company.</li><li>&#x27;Weight Space Programming&#x27; paper: LLMs can read and write network weights.</li><li>MoE inference for Apple Silicon fits 125B parameters in under 10 GB of peak memory.</li></ul></div><p>Observability went OpenTelemetry-native: Claude Platform traces now flow into Databricks MLflow, and LangSmith BYOC reached GA on AWS with Azure and Google Cloud in Beta.</p><p>Alongside it, a study of eval-versus-deployment behavior gaps and nearly $1M in stolen-API-key charges show where agent operations can fail quietly.</p></div>
+      <section class="recap-video" id="video" aria-label="Video explainer"><div><p class="video-label">Prefer to watch?</p><h3 class="video-title">LLM Digest Daily Explainer: Nov 3, 2026</h3><p class="video-meta">How today&#x27;s stories work, in 1:49. Loads from YouTube when you press play.</p></div><div class="video-frame"><a class="video-play" href="https://youtu.be/diX2bYhOZWA" data-video-id="diX2bYhOZWA" data-title="LLM Digest Daily Explainer: Nov 3, 2026" data-track="daily-video" aria-label="Play: LLM Digest Daily Explainer: Nov 3, 2026"><img src="https://i.ytimg.com/vi/diX2bYhOZWA/hqdefault.jpg" alt="" loading="lazy" decoding="async"><span class="video-btn" aria-hidden="true">&#9654;</span></a></div><script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.video-play[data-video-id]');if(!a)return;e.preventDefault();var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+a.dataset.videoId+'?autoplay=1&rel=0';f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;f.title=a.dataset.title||'Video';a.replaceWith(f);});</script></section><nav class="toc"><a href="#agent-harnesses-tool-use">에이전트 하네스, 메모리 및 도구 사용 (6)</a><a href="#observability-evals-reliability">관찰 가능성, 평가 및 에이전트 신뢰성 (6)</a><a href="#security-identity-agents">에이전트의 보안 및 신원 확인 (4)</a><a href="#inference-on-device">Inference 및 온디바이스 배포 (3)</a><a href="#models-research">모델 및 연구 (5)</a></nav><section class="cat" id="agent-harnesses-tool-use"><h2>에이전트 하네스, 메모리 및 도구 사용 <span class="count">6 items</span></h2><p class="cat-summary">팀들은 에이전트들을 공유 하네스로 통합하고 MCP 도구 호출에 대한 런타임 안전장치를 추가하고 있습니다.</p><div class="articles"><article><h3><a href="https://www.metaview.ai/resources/blog/how-we-built-one-harness-for-every-metaview-agent" target="_blank" rel="noopener" data-track="daily-link">Ramp의 Inspect에서 영감을 받아 모든 요원을 위한 맞춤형 하네스를 제작했습니다.</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/ed77cd03f4ebf889" data-track="story-link">Details</a></div><p class="art-summary">Metaview는 Ramp의 Inspect를 모델로 삼아 에이전트별 스캐폴딩 대신 하나의 공유 환경에서 소싱, 스크리닝 및 보고 에이전트를 실행합니다.</p></article><article><h3><a href="https://www.langchain.com/blog/how-we-optimized-browser-use-for-deep-agents" target="_blank" rel="noopener" data-track="daily-link">딥 에이전트를 위한 브라우저 사용 최적화 방법</a></h3><div class="art-meta"><span class="badge">langchain_blog</span><span class="badge">Nov 3</span><a class="badge" href="/story/449a5ebbef16a4ba" data-track="story-link">Details</a></div><p class="art-summary">Deep Agents의 브라우저 사용 방식 개선은 여러 단계를 거치는 웹 작업을 대상으로 하며, 이 글에서는 안정성을 높이기 위해 어떤 부분이 변경되었는지 설명합니다.</p></article><article><h3><a href="https://mahalsystems.ai/aot/optimizations/" target="_blank" rel="noopener" data-track="daily-link">에이전트 최적화 방법의 완전한(?) 라이브러리</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/d27bf3551a59ae57" data-track="story-link">Details</a></div><p class="art-summary">각 최적화 방법에 대한 근거가 제시된 에이전트 최적화 방법 목록과, 각 항목에 대해 자신의 에이전트를 검토할 수 있는 안내 메시지가 포함되어 있습니다.</p></article><article><h3><a href="https://github.com/hemanth1999k/mcpgraphy" target="_blank" rel="noopener" data-track="daily-link">Show HN: MCPgraphy – 에이전트의 MCP 도구가 작동하는 시점을 학습하는 프록시</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/c0934414c7b84b6b" data-track="story-link">Details</a></div><p class="art-summary">어떤 MCP 도구가 어떤 상태에서 성공적으로 작동하는지 학습한 다음, 다음에 발생할 가능성이 높은 오류 호출에 대해 경고하거나 차단하는 프록시입니다.</p></article><article><h3><a href="https://agent-browser.dev/desktop" target="_blank" rel="noopener" data-track="daily-link">Vercel : AI 에이전트용 컴퓨터 CLI 사용</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/8828f9c0b127d479" data-track="story-link">Details</a></div><p class="art-summary">Vercel 의 agent-desktop CLI 는 데스크톱 앱의 접근성 트리를 에이전트가 처리하는 참조와 함께 JSON 형식으로 노출합니다.</p></article><article><h3><a href="https://github.com/DevLoops-ai/unified-brain" target="_blank" rel="noopener" data-track="daily-link">HN 발표: 턴 기반 LLM 에이전트를 SQLite 및 System One 모델로 대체하기</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/5d8f9fe5b1958cc4" data-track="story-link">Details</a></div><p class="art-summary">SQLite 기반 System One 코딩 에이전트가 74점 xz 벤치마크에서 Claude Fable 5.1과 동일한 성능(69/74)을 1/20의 비용으로 달성했다고 주장합니다. (자체 보고된 내용이며 재현되지 않았습니다.)</p></article></div></section><section class="cat" id="observability-evals-reliability"><h2>관찰 가능성, 평가 및 에이전트 신뢰성 <span class="count">6 items</span></h2><p class="cat-summary">추적 기능은 여러 벤더에서 OpenTelemetry를 기본 기능으로 채택하고 있는 반면, 평가 연구에서는 테스트가 배포 동작을 얼마나 잘 예측하는지에 대한 의문이 제기되고 있습니다.</p><div class="articles"><article><h3><a href="https://www.databricks.com/blog/claude-platform-now-supports-native-opentelemetry-observability-databricks-mlflow" target="_blank" rel="noopener" data-track="daily-link">Claude Platform은 이제 Databricks MLflow에서 OpenTelemetry 관찰 기능을 기본적으로 지원합니다.</a></h3><div class="art-meta"><span class="badge">databricks_blog</span><a class="badge" href="/story/4db92d07b6f4ba7b" data-track="story-link">Details</a></div><p class="art-summary">Claude Platform 추적 데이터가 이제 OpenTelemetry를 통해 Databricks MLflow로 기본적으로 수집되므로 팀에서 프로덕션 실행에서 반복적으로 발생하는 오류를 분석할 수 있습니다.</p></article><article><h3><a href="https://www.langchain.com/blog/langsmith-byoc-aws-gc-azure" target="_blank" rel="noopener" data-track="daily-link">LangSmith BYOC가 이제 AWS, Azure 및 Google Cloud에서 사용 가능합니다.</a></h3><div class="art-meta"><span class="badge">langchain_blog</span><a class="badge" href="/story/720b0d0c60188399" data-track="story-link">Details</a></div><p class="art-summary">LangSmith BYOC는 AWS에서 정식 출시되었으며 Azure 및 Google Cloud에서 베타 버전으로 제공되어 추적, 평가, 데이터 세트 및 프롬프트를 자체 클라우드에 저장할 수 있습니다.</p></article><article><h3><a href="https://github.com/traccia-ai/traccia-py" target="_blank" rel="noopener" data-track="daily-link">HN 소개: Traccia – AI 에이전트의 기능을 제어하세요</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/07b0f4ca5cc4c25d" data-track="story-link">Details</a></div><p class="art-summary">OpenTelemetry 기반의 프레임워크에 구애받지 않는 SDK 로, 에이전트에 대한 추적, 평가 및 런타임 정책 적용 기능을 추가합니다.</p></article><article><h3><a href="https://alignment.openai.com/eval-production-behavior-gap/" target="_blank" rel="noopener" data-track="daily-link">평가 - 에이전트 안전의 Eval 행동 격차 및 평가 인식의 역할</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/6abf81ee397eb6f7" data-track="story-link">Details</a></div><p class="art-summary">안전성 평가와 실제 배포 시 에이전트의 행동을 비교하고 그 차이를 추적하며, 평가 인지도를 혼란 변수로 지적합니다.</p></article><article><h3><a href="https://www.langchain.com/blog/human-insight-strategic-advantage-agents" target="_blank" rel="noopener" data-track="daily-link">인간의 통찰력이 더 나은 에이전트를 구축하는 데 전략적 이점이 되는 이유는 무엇일까요?</a></h3><div class="art-meta"><span class="badge">langchain_blog</span><span class="badge">Nov 3</span><a class="badge" href="/story/0d563c3f0bde1f8a" data-track="story-link">Details</a></div><p class="art-summary">LangChain 장기적인 에이전트 평가에는 최종 결과뿐만 아니라 궤적에 대한 인간의 검토가 필요하다고 주장합니다.</p></article><article><h3><a href="https://jeff-kline.github.io/posts/same-ai-results-for-less/index.html" target="_blank" rel="noopener" data-track="daily-link">Show HN: 벤치마크 점수와의 절충 없이 AI 모델 비용을 최적화하는 도구</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/4e706521e7676f90" data-track="story-link">Details</a></div><p class="art-summary">설정별 목표 벤치마크 점수를 충족하면서도 가장 저렴한 모델 조합을 찾아주는 도구입니다.</p></article></div></section><section class="cat" id="security-identity-agents"><h2>에이전트의 보안 및 신원 확인 <span class="count">4 items</span></h2><p class="cat-summary">에이전트 신원 위임 및 API 키 도난은 오늘날 구체적인 운영 위험 요소입니다.</p><div class="articles"><article><h3><a href="https://aws.amazon.com/blogs/machine-learning/servicenow-on-behalf-of-token-exchange-with-bedrock-agentcore-gateway/" target="_blank" rel="noopener" data-track="daily-link">ServiceNow를 통한 Bedrock AgentCore Gateway 토큰 교환</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><a class="badge" href="/story/ef37b1dfd26f981c" data-track="story-link">Details</a></div><p class="art-summary">Bedrock AgentCore Gateway를 통한 ServiceNow 대행 토큰 교환 과정을 단계별로 설명하여, 에이전트가 공유 ID가 아닌 사용자 고유의 ID로 작업할 수 있도록 합니다.</p></article><article><h3><a href="https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models/" target="_blank" rel="noopener" data-track="daily-link">도난당한 AI API 키로 인해 한 회사가 거의 100만 달러에 달하는 손실을 입었습니다.</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/80218825bcdc9314" data-track="story-link">Details</a></div><p class="art-summary">Mandiant는 한 회사에서 발생한 약 100만 달러에 달하는 청구 내역을 도난당한 AI API 키와 연관시켜 추적했습니다.</p></article><article><h3><a href="https://projectzero.google/2026/10/fuzzing-v-AI.html" target="_blank" rel="noopener" data-track="daily-link">퍼저 vs. AI: 자바스크립트 엔진에서 Fuzzilli와 BigSleep 비교</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/4b134cedffabe49d" data-track="story-link">Details</a></div><p class="art-summary">Project Zero는 V8 취약점 탐지 능력에 있어 Fuzzilli와 Google의 BigSleep AI를 비교 분석했습니다.</p></article><article><h3><a href="https://www.anthropic.com/research/provable-inference" target="_blank" rel="noopener" data-track="daily-link">대규모 언어 모델을 위한 증명 가능한 추론의 진전</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/43862ef771dfba65" data-track="story-link">Details</a></div><p class="art-summary">Anthropic 연구소 소속 연구원들이 LLM 의 출력이 주장된 모델에서 나온 것인지 암호학적으로 검증하는 데 진전을 보였다고 보고했습니다.</p></article></div></section><section class="cat" id="inference-on-device"><h2>Inference 및 온디바이스 배포 <span class="count">3 items</span></h2><p class="cat-summary">메모리 효율적인 MoE 서비스 및 온디바이스 툴체인이 하드웨어 요구 사항을 지속적으로 낮추고 있습니다.</p><div class="articles"><article><h3><a href="https://github.com/davide-troiani/moeshift" target="_blank" rel="noopener" data-track="daily-link">Show HN: 더 적은 RAM을 사용하는 Mac에서 MoE 추론 속도를 높이는 방법</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/99fb85f961738c74" data-track="story-link">Details</a></div><p class="art-summary">Apple Silicon용 MoE 추론은 최대 10GB 미만의 메모리 사용량으로 1250억 개의 매개변수를 가진 모델을 초당 최대 11개의 토큰 속도로 실행합니다.</p></article><article><h3><a href="https://www.llamaindex.ai/blog/the-inference-stack-behind-ocria" target="_blank" rel="noopener" data-track="daily-link">OCRia의 Inference 스택</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/c9d7f27d5e8e7a98" data-track="story-link">Details</a></div><p class="art-summary">OCRia 팀은 추론이 병목 현상이 된 후 OCRia-1 문서 구문 분석 모델의 최적화 과정을 자세히 설명합니다.</p></article><article><h3><a href="https://www.infoq.com/news/2026/11/litert-tensor-api/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">구글, 기기 내 머신러닝 모델 구축, 맞춤 설정 및 최적화를 위한 LiteRT 텐서 API 출시</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/b12bd70de803121f" data-track="story-link">Details</a></div><p class="art-summary">Google의 LiteRT Tensor API 기기 배포를 위한 머신러닝 모델 구축, 맞춤 설정 및 최적화를 목표로 합니다.</p></article></div></section><section class="cat" id="models-research"><h2>모델 및 연구 <span class="count">5 items</span></h2><p class="cat-summary">웨이트스페이스 프로그래밍이 연구 논의를 주도하고 있으며, DeepSeek 과 Huawei가 중국 오픈 웨이트 시장의 지형을 바꾸고 있습니다.</p><div class="articles"><article><h3><a href="https://latent.space/p/ainews-llms-can-read-write-neural-network-weights-weight-space-programming-cuts-autoresearch-out-of/" target="_blank" rel="noopener" data-track="daily-link">[AI뉴스] LLMs 신경망 가중치를 읽고 쓸 수 있습니다: &quot;가중치 공간 프로그래밍&quot;으로 RSI 루프에서 자동 연구를 제거합니다</a></h3><div class="art-meta"><span class="badge">latent_space</span><a class="badge" href="/story/22262baef95a2fe5" data-track="story-link">Details</a></div><p class="art-summary">LLMs 신경망 가중치를 기본적으로 읽고 쓸 수 있다는 보고가 나왔는데, 이는 자기 개선 과정에서 자기 연구를 배제하기 위한 &#x27;가중치 공간 프로그래밍&#x27;의 결과입니다.</p></article><article><h3><a href="https://simonwillison.net/2026/Nov/3/qwen-can-interpret-model-weights/" target="_blank" rel="noopener" data-track="daily-link">제 노트북에 설치된 Qwen 3.8 27B 버전도 모델 가중치를 해석할 수 있습니다.</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Nov 3</span><a class="badge" href="/story/b5cba0d011349b3b" data-track="story-link">Details</a></div><p class="art-summary">사이먼 윌리슨은 가중치 공간 프로그래밍 논문을 따라 모델 가중치를 해석하기 위해 Qwen 3.8 27B를 로컬에서 실행합니다.</p></article><article><h3><a href="https://github.com/grainulation/papers" target="_blank" rel="noopener" data-track="daily-link">검증 후 투표: 다중 에이전트 LLMs 에서 잘못된 다수결을 뒤집는 방법</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/3277239334115b4b" data-track="story-link">Details</a></div><p class="art-summary">다중 에이전트 LLM 투표에서 잘못된 다수결을 뒤집는 검증 후 투표 방식에 대한 연구.</p></article><article><h3><a href="https://news.google.com/rss/articles/CBMikgFBVV95cUxPckFDR25sUkRoZC1yNGwtVjlVWm40dFRZTDZXbG9CaGFZUGFYWm1LMGEybTNIZzR2SHJRcXlZdWhybHJJeFpjQ2dNeTIxd1dDNFlRVkZ5aUxEX0RDbjZPcllSUV9paE1Ld1FyVjY4ZEVXQXNzZUM5UVFZVmJqdnV4WkJSNFRXcVRuSklneERVQncwUQ?oc=5" target="_blank" rel="noopener" data-track="daily-link">DeepSeek Harness에 텍스트를 플러그인으로 생성하는 크리에이터 모드가 추가되었습니다.</a></h3><div class="art-meta"><span class="badge">Dataconomy</span><a class="badge" href="/story/5caff7cc1c137a99" data-track="story-link">Details</a></div><p class="art-summary">DeepSeek Harness는 사용자가 채팅을 통해 에이전트 플러그인을 생성할 수 있는 크리에이터 모드를 추가합니다.</p></article><article><h3><a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxORXJiejlQNkFkN2xsVlU4OFRKWU80amRyV3M1OWpqMmNCRVhDbXExdzM2SjZzQ3ZwYlA1S1lERDJaNUZXTjVoY2Q5eWhKZEVUQVFDY2hnaFpZdkVPdTRvTDB0YkpEVElJYTJxaUFXTzZuRjdIVFpvY2hFWEJuUUx0SlFNZVFGQy1pREtpNE43Tk8wcldvX1ZSQkVKRkpraW14aTA2OVR5d2o?oc=5" target="_blank" rel="noopener" data-track="daily-link">화웨이 클라우드, MaaS에서 openPangu-2.0 모델 지원 종료 및 DeepSeek -V4.1-Flash 및 GLM-5.3 권장</a></h3><div class="art-meta"><span class="badge">Pandaily</span><a class="badge" href="/story/904b2dd082641494" data-track="story-link">Details</a></div><p class="art-summary">화웨이 클라우드는 MaaS에서 openPangu-2.0을 단종하고 사용자들에게 DeepSeek -V4.1-Flash 및 GLM-5.3을 권장할 예정입니다.</p></article></div></section><p class="finish-line">You are caught up for this edition</p><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and weekly recap.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="daily_end" data-subscribe-inline>Get the email digest →</a></aside>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+          btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+
+      // Share this page: native share sheet when available, clipboard fallback.
+      // The canonical URL is the durable landing target, so shares keep working.
+      var share = document.querySelector('.menu-share');
+      if (share) {
+        share.addEventListener('click', function () {
+          var url = share.getAttribute('data-share-url') || location.href;
+          var title = share.getAttribute('data-share-title') || document.title;
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var done = function () {
+            var label = share.textContent;
+            share.textContent = '✓ Link copied';
+            share.classList.add('copied');
+            setTimeout(function () { share.textContent = label; share.classList.remove('copied'); }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done, function () {});
+          }
+        });
+      }
+    })();
+  </script>
+
+  <script src="/nav-updates.js?v=20260910-editorial" defer></script>
+
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>
