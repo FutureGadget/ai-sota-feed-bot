@@ -1,4 +1,9 @@
-/* Feed front page and story list: a quiet, sectioned reading of the ranked
+/* Precision pass (2026-11-07): left-aligned masthead with a mono status
+   line, 1px rules, mono ranks, sans headlines, a muted source line, 12px
+   panels; no drop cap, no double rules. Mockup: the design canvas
+   "LLM Digest — new look directions", Precision page.
+
+   Feed front page and story list: a quiet, sectioned reading of the ranked
    Brief. Each story is a headline plus one source line; share, hide, feedback
    and the ranking reason sit behind the card's "⋯" panel. The Brief's first
    four or five stories open as a front page (a lead with its standfirst; four
@@ -12,56 +17,63 @@
    heading stays for screen readers; the masthead is its visual title. */
 .site-chrome .site-page-heading { position:absolute; width:1px; height:1px; margin:-1px;
   overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
-.feed-hero { display:block; margin:1.8rem 0 0; padding-bottom:1rem; text-align:center; }
+.feed-hero { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between;
+  gap:.6rem 2rem; margin:2.2rem 0 0; padding-bottom:1.4rem; text-align:left; }
 .feed-title { margin:0; font-family:var(--font-display);
-  font-size:clamp(2.6rem,7vw,4.9rem); font-weight:700; letter-spacing:-.02em; line-height:1;
+  font-size:clamp(2.2rem,4.6vw,3.3rem); font-weight:650; letter-spacing:-.045em; line-height:1;
   text-wrap:balance; word-break:keep-all; }
-#meta { margin:.7rem 0 0; color:var(--muted); }
-.controls-bar { border-top:3px double var(--fg); }
-.sections button.active { border-bottom-color:var(--fg); }
+#meta { margin:0; max-width:24rem; color:var(--muted); font-family:var(--font-mono);
+  font-size:.75rem; line-height:1.7; text-align:right; }
+.controls-bar { border-top:1px solid var(--border); }
+.sections button { border-radius:6px; }
+.sections button.active { border-bottom-color:transparent; background:var(--card);
+  box-shadow:inset 0 0 0 1px var(--border); color:var(--fg); }
 .selected-labels:empty { display:none; }
 
 /* Editor's Desk strip: headlines only, no box. */
 #freshUpdates .editorial-panel { margin:1.4rem 0 0; padding:0 0 1rem; border:0;
   border-bottom:1px solid var(--border); border-radius:0; background:transparent; }
-#freshUpdates .editorial-heading { margin:0 0 .6rem; font-family:var(--font-sans); font-size:.72rem;
-  font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); }
+#freshUpdates .editorial-heading { margin:0 0 .6rem; font-family:var(--font-sans); font-size: 0.78rem;
+  font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent); }
+#freshUpdates .editorial-compact .editorial-heading { display:inline; margin:0 .6rem 0 0; }
 #freshUpdates .editorial-dismiss { min-height:32px; margin:-.45rem 0 0; font-size:.8rem; }
 #freshUpdates .editorial-summary { display:none; }
 #freshUpdates .editorial-item { padding:.55rem 0; }
 #freshUpdates .editorial-meta { margin:0; font-size:.72rem; }
-#freshUpdates .editorial-title { min-height:0; font-family:var(--font-serif); font-size:1.02rem;
-  font-weight:700; line-height:1.35; }
+#freshUpdates .editorial-title { min-height:0; font-family:var(--font-sans); font-size:.98rem;
+  font-weight:600; line-height:1.35; letter-spacing:-.012em; }
 #freshUpdates .editorial-all { min-height:32px; margin-top:.3rem; font-size:.8rem; }
 #freshUpdates .editorial-meta time { flex-basis:auto; }
 
 /* Editor's Desk notes inside the list read as a ruled aside, not a card. */
-#list > .editor-desk { margin:0; padding:.95rem 0; border:0; border-bottom:1px solid var(--border);
-  border-left:3px solid var(--accent); padding-left:.9rem; border-radius:0; background:transparent; }
+#list > .editor-desk { margin:.75rem 0; padding:.95rem 1rem; border:1px solid var(--border);
+  border-radius:12px; background:var(--card); }
 
 /* Section headings: a bold title on the left, quiet context on the right. */
 .fp-head { display:flex; align-items:baseline; justify-content:space-between; gap:.4rem 1rem;
-  flex-wrap:wrap; margin:1.6rem 0 1rem; padding-bottom:.55rem; border-bottom:2px solid var(--fg); }
-.fp-head h2 { margin:0; font-family:var(--font-serif); font-size:1.55rem; font-weight:700;
-  letter-spacing:-.01em; line-height:1.15; }
-.fp-head-meta { font-family:var(--font-serif); font-style:italic; font-size:.92rem; color:var(--muted); }
+  flex-wrap:wrap; margin:1.8rem 0 1rem; padding-bottom:.6rem; border-bottom:1px solid var(--border); }
+.fp-head h2 { margin:0; font-family:var(--font-sans); font-size:1rem; font-weight:600;
+  letter-spacing:-.015em; line-height:1.3; }
+.fp-head-meta { font-family:var(--font-mono); font-style:normal; font-size:.75rem; color:var(--muted); }
 .fp-head-more { clear:both; margin-top:2.2rem; margin-bottom:0; }
 
 /* Story list: headline, then one source line with ☆ and ⋯. */
 #list > article { display:flex; flex-direction:column; padding:1rem 0 1rem 2.6rem;
-  border-bottom:1px solid var(--border); }
+  border:0; border-bottom:1px solid var(--border); border-radius:0; background:transparent; box-shadow:none; }
 #list > article:first-of-type { border-top:0; }
 #list > article.big-story::after { display:none; }
 #list > article .card-main { order:1; gap:0; }
 #list > article .card-top { order:2; align-items:center; margin:.45rem 0 0; padding-right:0; }
-#list > article .rank-no { top:1.05rem; width:2rem; font-family:var(--font-display);
-  font-size:1.15rem; color:var(--muted); }
-#list > article h3 { margin:0; font-family:var(--font-serif); font-size:1.16rem; line-height:1.3;
-  letter-spacing:0; word-break:keep-all; overflow-wrap:anywhere; }
-#list > article h3 a { font-weight:700; }
+#list > article .rank-no { top:1.2rem; width:2rem; font-family:var(--font-mono);
+  font-size:.78rem; font-weight:500; color:var(--muted); }
+#list > article h3 { margin:0; font-family:var(--font-sans); font-size:1.05rem; line-height:1.35;
+  letter-spacing:-.012em; word-break:keep-all; overflow-wrap:anywhere; }
+#list > article h3 a { font-weight:600; color:var(--fg); }
+#list > article h3 a:hover { color:var(--fg); text-decoration:underline;
+  text-decoration-color:var(--line-strong); text-underline-offset:4px; }
 #list > article .card-meta { gap:.2rem .55rem; align-items:center; }
-#list > article .card-top .src { font-family:var(--font-sans); font-size:.7rem; font-weight:700;
-  letter-spacing:.1em; text-transform:uppercase; color:var(--accent); }
+#list > article .card-top .src { font-family:var(--font-sans); font-size:.8rem; font-weight:500;
+  letter-spacing:0; text-transform:none; color:var(--muted); }
 #list > article .when { font-size:.75rem; }
 #list > article .card-top .badge { font-size:.72rem; }
 #list > article .card-actions { gap:.75rem; align-items:center; }
@@ -71,23 +83,23 @@ html[data-theme="dark"] #list a.badge-storyline { border:0; background:transpare
 
 /* The "⋯" panel: everything a reader may want once, out of the way. */
 /* Reset the UI library's boxed <details> (border, clipping, fade-in margin). */
-details.card-more { position:relative; margin:0; padding:0; border:0; border-radius:0;
+details.card-more { position:relative; margin:0; padding:0; border:0; border-radius: var(--radius-control);
   background:transparent; overflow:visible; }
 details.card-more > .card-more-panel { margin:0; animation:none; }
 details.card-more > summary { display:inline-flex; align-items:center; justify-content:center;
-  gap:0; min-width:32px; min-height:32px; margin:0; padding:0 .2rem; border:0; border-radius:0;
+  gap:0; min-width:32px; min-height:32px; margin:0; padding:0 .2rem; border:0; border-radius: var(--radius-control);
   background:transparent; box-shadow:none; list-style:none; cursor:pointer;
   color:var(--muted); font-size:1.15rem; line-height:1; letter-spacing:.05em; user-select:none; }
 details.card-more > summary::-webkit-details-marker { display:none; }
 details.card-more > summary:hover, details.card-more[open] > summary { color:var(--fg); background:transparent; }
 .card-more-panel { position:absolute; z-index:30; right:0; top:calc(100% + .35rem);
   display:grid; gap:.6rem; width:min(21rem, calc(100vw - 2rem)); padding:.8rem .9rem;
-  border:1px solid var(--fg); background:var(--card);
-  box-shadow:0 10px 28px color-mix(in srgb, var(--fg) 18%, transparent); text-align:left; }
+  border:1px solid var(--border); border-radius:12px; background:var(--bg);
+  box-shadow:0 16px 40px -12px color-mix(in srgb, #000 28%, transparent); text-align:left; }
 .card-more-actions { display:flex; flex-wrap:wrap; gap:.5rem; }
 .card-more-actions button { min-height:36px; padding:.2rem .7rem; border:1px solid var(--border);
-  border-radius:999px; background:transparent; color:var(--fg); font-size:.82rem; cursor:pointer; }
-.card-more-actions button:hover { border-color:var(--accent); color:var(--accent); }
+  border-radius:8px; background:transparent; color:var(--fg); font-size:.82rem; cursor:pointer; }
+.card-more-actions button:hover { border-color:var(--line-strong); background:var(--card); color:var(--fg); }
 .card-more-actions .share-btn::after, .card-more-actions .hide-btn::after { display:none; }
 #list > article .card-more-panel .matters { max-width:none; margin:0; padding:0; border:0;
   background:transparent; color:var(--muted); font-family:var(--font-sans); font-size:.8rem; line-height:1.5; }
@@ -101,18 +113,17 @@ details.card-more > summary:hover, details.card-more[open] > summary { color:var
 /* Front page: the lead with its standfirst, up to four headlines beside it. */
 #list:has(> article.fp-lead) { display:flow-root; min-width:0; }
 #list > article:is(.fp-lead,.fp-second) { min-width:0; }
-.fp-kicker { margin:0 0 .45rem; font-family:var(--font-sans); font-size:.7rem; font-weight:700;
-  letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
-.fp-rank { margin-right:.35rem; color:var(--muted); font-variant-numeric:tabular-nums; }
+.fp-kicker { margin:0 0 .45rem; font-family:var(--font-sans); font-size: 0.78rem; font-weight:700;
+  letter-spacing: 0; text-transform: none; color:var(--accent); }
+.fp-rank { margin-right:.5rem; color:var(--accent); font-family:var(--font-mono); font-weight:600;
+  font-variant-numeric:tabular-nums; }
 #list > article.fp-lead { padding:0 0 1.2rem; border-bottom:1px solid var(--border); }
-#list > article.fp-lead h3 { margin:0 0 .65rem; font-family:var(--font-display);
-  font-size:clamp(1.85rem,3.4vw,2.6rem); line-height:1.08; letter-spacing:-.01em; }
+#list > article.fp-lead h3 { margin:0 0 .7rem; font-family:var(--font-display);
+  font-size:clamp(1.75rem,3vw,2.25rem); font-weight:650; line-height:1.08; letter-spacing:-.035em; }
+#list > article.fp-lead h3 a { font-weight:650; }
 #list > article.fp-lead .why { display:block; -webkit-line-clamp:unset; overflow:visible; margin:0;
-  word-break:keep-all; overflow-wrap:anywhere;
-  font-family:var(--font-serif); font-size:1.06rem; line-height:1.65; color:var(--fg); }
-#list > article.fp-lead .why::first-letter { float:left; margin:.08em .1em 0 0;
-  font-family:var(--font-display); font-size:3.3em; line-height:.8; font-weight:700;
-  text-transform:uppercase; }
+  max-width:40em; word-break:keep-all; overflow-wrap:anywhere;
+  font-family:var(--font-sans); font-size:1rem; line-height:1.6; color:var(--muted); }
 #list > article.fp-second { padding-top:.85rem; padding-bottom:.85rem; }
 #list > article.fp-second .rank-no { top:.9rem; }
 #list:has(> article.fp-lead) > :not(article:is(.fp-lead,.fp-second)):not(.fp-head) { clear:both; }
@@ -132,25 +143,29 @@ details.card-more > summary:hover, details.card-more[open] > summary { color:var
 
 /* Boxed Model Radar module. */
 .model-radar-rail,
-.model-radar-inline { padding:1rem 1.1rem; border:1px solid var(--fg);
-  background:color-mix(in srgb,var(--fg) 4%,transparent); }
-.mr-rail-kicker { font-family:var(--font-sans); letter-spacing:.16em; color:var(--fg);
-  padding-bottom:.45rem; border-bottom:2px solid var(--fg); }
-.mr-rail-heading, .end-marker-title { font-family:var(--font-serif); letter-spacing:0; }
+.model-radar-inline { padding:1rem 1.1rem; border:1px solid var(--border); border-radius:12px;
+  background:var(--bg); }
+.mr-rail-kicker { font-family:var(--font-sans); font-size:.85rem; font-weight:600; letter-spacing:-.01em;
+  text-transform:none; color:var(--fg); padding-bottom:.55rem; border-bottom:1px solid var(--border); }
+.mr-rail-heading, .end-marker-title { font-family:var(--font-display); letter-spacing:-.025em; }
 
 /* Reader-tuning note: a footnote under the finish line. */
 .trust-banner { margin:1.4rem 0 0; padding:.9rem 0 0; border-top:1px solid var(--border);
   border-bottom:0; color:var(--muted); font-size:.85rem; }
 
 @media (max-width:640px) {
-  .feed-hero { text-align:left; margin-top:.6rem; padding-bottom:.55rem; }
-  .feed-title { font-size:2.2rem; }
-  #meta { margin-top:.45rem; }
-  .fp-head h2 { font-size:1.3rem; }
-  .fp-head-meta { font-size:.82rem; }
+  .feed-hero { display:block; margin-top:.9rem; padding-bottom:.9rem; }
+  .feed-title { font-size:2.15rem; }
+  #meta { margin-top:.6rem; text-align:left; }
+  .fp-head h2 { font-size:1rem; }
+  .fp-head-meta { font-size:.72rem; }
   #list > article { padding-left:2rem; }
-  #list > article .rank-no { width:1.6rem; font-size:1.05rem; }
+  #list > article .rank-no { width:1.6rem; font-size:.75rem; }
   #list > article.fp-lead { padding-left:0; }
-  #list > article.fp-lead h3 { font-size:1.7rem; }
-  #list > article h3 { font-size:1.08rem; }
+  #list > article.fp-lead h3 { font-size:1.65rem; }
+  #list > article h3 { font-size:1rem; }
 }
+
+/* fp-second rows sit beside the lead: flat rows, no card chrome. */
+#list > article.fp-second { border-radius:0; background:transparent; box-shadow:none; }
+.end-marker { border-radius:12px; }

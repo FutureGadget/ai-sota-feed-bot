@@ -54,7 +54,7 @@ html[data-theme="light"] {
   --font-display: "Geist", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: "Geist", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-sans: "Geist", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-mono: "Geist Mono", var(--font-mono);
   /* Precision chrome: hairlines one step darker than --border, 8px controls. */
   --line-strong: #c9c9cf;
   --radius-control: 8px;
@@ -191,10 +191,10 @@ code, kbd, samp, pre {
   min-height: 44px;
   padding: 0.5rem 0.65rem;
   border: 1px solid var(--border);
-  border-radius: 0;
+  border-radius: var(--radius-control);
   background: transparent;
   color: var(--fg);
-  font-family: ui-monospace, "SFMono-Regular", monospace;
+  font-family: var(--font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.02em;
   line-height: 1;
@@ -350,10 +350,10 @@ code, kbd, samp, pre {
   padding: 0.55rem 0.7rem;
   border: 0;
   border-right: 1px solid var(--border);
-  border-radius: 0;
+  border-radius: var(--radius-control);
   background: transparent;
   color: var(--muted);
-  font-family: ui-monospace, "SFMono-Regular", monospace;
+  font-family: var(--font-mono);
   font-size: 0.68rem;
   line-height: 1.25;
   text-decoration: none;
@@ -404,7 +404,7 @@ code, kbd, samp, pre {
   align-items: center;
   justify-content: center;
   border: 1px solid var(--border);
-  border-radius: 0;
+  border-radius: var(--radius-control);
   background: transparent;
   color: var(--fg);
   text-decoration: none;
@@ -436,10 +436,10 @@ code, kbd, samp, pre {
   padding: 0 0 0 0.65rem;
   border: 1px solid var(--border);
   color: var(--muted);
-  font-family: ui-monospace, "SFMono-Regular", monospace;
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .site-context .archive select {
@@ -449,7 +449,7 @@ code, kbd, samp, pre {
   padding: 0 2rem 0 0.55rem;
   border: 0;
   border-left: 1px solid var(--border);
-  border-radius: 0;
+  border-radius: var(--radius-control);
   background: transparent;
   color: var(--fg);
   font-size: 0.72rem;
@@ -464,7 +464,7 @@ code, kbd, samp, pre {
   margin: auto auto 0;
   padding: 0;
   border: 1px solid var(--border);
-  border-radius: 0;
+  border-radius: var(--radius-control);
   background: var(--bg);
   color: var(--fg);
   box-shadow: 0 -1.2rem 3rem color-mix(in srgb, #000 22%, transparent);
@@ -520,7 +520,7 @@ code, kbd, samp, pre {
   min-height: 44px;
   padding: 0.4rem 0.65rem;
   border: 1px solid var(--border);
-  border-radius: 0;
+  border-radius: var(--radius-control);
   background: transparent;
   color: var(--fg);
   cursor: pointer;
@@ -546,11 +546,11 @@ code, kbd, samp, pre {
 .site-nav-group-label {
   margin: 0 0 0.35rem;
   color: var(--accent);
-  font-family: ui-monospace, "SFMono-Regular", monospace;
-  font-size: 0.58rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .site-nav-group-links {
@@ -576,7 +576,7 @@ code, kbd, samp, pre {
   border: 0;
   border-right: 0;
   border-bottom: 1px solid var(--border);
-  border-radius: 0;
+  border-radius: var(--radius-control);
   background: transparent;
   font-size: 0.76rem;
 }
@@ -593,7 +593,7 @@ code, kbd, samp, pre {
 
 .site-nav-desc {
   color: var(--muted);
-  font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-sans);
   font-size: 0.78rem;
   line-height: 1.3;
 }
@@ -985,7 +985,7 @@ code, kbd, samp, pre {
    panel: square field and button, 46px targets, monospace utility labels,
    accent used once (the action). */
 .subscribe-inline {
-  --inline-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --inline-mono: var(--font-mono);
   --inline-err: #b42318;
   flex: 1 1 100%;
   width: 100%;
@@ -1032,10 +1032,10 @@ a[data-subscribe-inline][hidden] {
 .subscribe-inline-kicker {
   margin: 0 0 0.45rem;
   font-family: var(--inline-mono);
-  font-size: 0.66rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--accent);
 }
 
@@ -1052,7 +1052,7 @@ a[data-subscribe-inline][hidden] {
   padding: 0.6rem 0.8rem;
   border: 1px solid var(--border);
   border-right: 0;
-  border-radius: 0;
+  border-radius: var(--radius-control);
   background: var(--card, var(--bg));
   color: var(--fg);
   font: inherit;
@@ -1072,7 +1072,7 @@ a[data-subscribe-inline][hidden] {
   margin: 0;
   padding: 0.6rem 1.15rem;
   border: 1px solid var(--accent);
-  border-radius: 0;
+  border-radius: var(--radius-control);
   background: var(--accent);
   color: #fff;
   font: inherit;

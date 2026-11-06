@@ -25,7 +25,7 @@
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20261107-precision" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261107-precision-pages" />
   <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
   <script>
     (function () {
@@ -38,8 +38,8 @@
     })();
   </script>
   <script src="/oat.min.js?v=20260824-selfhost" defer></script>
-  <script defer src="/site-chrome.js?v=20261107-precision"></script>
-  <script defer src="/subscribe-inline.js?v=20261107-precision"></script>
+  <script defer src="/site-chrome.js?v=20261107-precision-pages"></script>
+  <script defer src="/subscribe-inline.js?v=20261107-precision-pages"></script>
   <style>
     html {
       font-size: 16px;
@@ -68,7 +68,7 @@
       color: var(--accent);
     }
     code {
-      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      font-family: var(--font-mono); font-size: 0.85em;
       padding: 0.12rem 0.3rem; background: var(--feed-wash, var(--card));
       border: 1px solid var(--border); border-radius: 4px; color: var(--fg);
     }
@@ -708,7 +708,7 @@
       font-size: 0.78rem;
       line-height: 1.45;
       color: var(--muted);
-      font-family: ui-monospace, "SFMono-Regular", monospace;
+      font-family: var(--font-mono);
       overflow-wrap: anywhere;
     }
     .also {
@@ -841,7 +841,7 @@
     }
     .editor-desk {
       border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--border));
-      border-left: 3px solid var(--accent);
+      border: 1px solid var(--border);
       background: color-mix(in srgb, var(--accent) 6%, var(--card));
       border-radius: 8px;
       padding: 0.75rem 0.9rem;
@@ -854,11 +854,11 @@
     }
     .editor-desk-kicker {
       color: var(--accent);
-      font-family: ui-monospace, "SFMono-Regular", monospace;
+      font-family: var(--font-mono);
       font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      letter-spacing: 0;
+      text-transform: none;
     }
     .editor-desk-title {
       font-weight: 700;
@@ -1067,7 +1067,7 @@
     /* Live-feed identity: a ranked reading ledger. The feed keeps all existing
        behavior; this layer makes order, evidence, and completion visually true.
        Colours and type tokens come from site-chrome.css. */
-    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    body { font-family:var(--font-sans); }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
     .topbar h1 { font-family:var(--font-display);
       font-size:1.7rem; letter-spacing:-.025em; }
@@ -1077,34 +1077,34 @@
       gap:1.5rem 2.5rem; align-items:end; margin:2rem 0 1.45rem; }
     .feed-title { margin:0; font-family:var(--font-display);
       font-size:clamp(2.8rem,7vw,4.7rem); font-weight:700; letter-spacing:-.048em; line-height:.92; }
-    #meta { margin:.75rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+    #meta { margin:.75rem 0 0; font-family:var(--font-mono);
       font-size:.75rem; line-height:1.55; }
     .controls-bar { display: flex; align-items: center; justify-content: space-between;
       border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 0;
       width: 100%; min-width: 0; }
     .sections { flex: 1; min-width: 0; gap: 0; margin-top: 0; padding: 0; border: 0; }
     .sections button { min-height:44px; padding:.55rem .8rem; border:0;
-      border-bottom:2px solid transparent; border-radius:0; color:var(--muted);
+      border-bottom:2px solid transparent; border-radius: var(--radius-control); color:var(--muted);
       font-size:.82rem; }
     .sections button:hover { color:var(--accent); border-color:transparent; }
     .sections button.active { background:transparent; border-bottom-color:var(--accent);
       color:var(--fg); font-weight:700; }
-    .controls-bar select { display: inline-block; flex-shrink: 0; width: auto; border: 0; border-radius: 0; background: transparent; font-size: 0.82rem;
+    .controls-bar select { display: inline-block; flex-shrink: 0; width: auto; border: 0; border-radius: var(--radius-control); background: transparent; font-size: 0.82rem;
       color: var(--muted); min-height: 44px; padding: 0 0.8rem; margin: 0; cursor: pointer; }
     /* Search lives with the filters it acts on; the input it reveals sits
        directly below this bar. */
     .controls-bar #searchToggle { flex-shrink: 0; min-height: 44px; min-width: 44px;
-      padding: 0 0.55rem; border: 0; border-left: 1px solid var(--border); border-radius: 0;
+      padding: 0 0.55rem; border: 0; border-left: 1px solid var(--border); border-radius: var(--radius-control);
       background: transparent; color: var(--muted); font-size: 0.9rem; line-height: 1; cursor: pointer; }
     .controls-bar #searchToggle:hover { color: var(--accent); }
     .controls-bar #searchToggle[aria-expanded="true"] { background: var(--feed-wash); }
     .searchbar { margin-top:.8rem; border-radius:3px; background:transparent; }
     .selected-labels { padding:.55rem 0; margin:0; border-bottom:1px solid var(--border); }
-    .selected-labels .badge { border:0; border-radius:0; padding:.2rem .45rem;
-      background:var(--feed-wash); font-family:ui-monospace,"SFMono-Regular",monospace;
+    .selected-labels .badge { border:0; border-radius: var(--radius-control); padding:.2rem .45rem;
+      background:var(--feed-wash); font-family:var(--font-mono);
       font-size:.75rem; }
     .trust-banner { margin:.75rem 0 0; padding:.65rem 0; border:0;
-      border-bottom:1px solid var(--border); border-radius:0; background:transparent; }
+      border-bottom:1px solid var(--border); border-radius: var(--radius-control); background:transparent; }
     .trust-banner[hidden] { display:none !important; }
     /* Model Release Radar sidebar teaser: a right rail on wide viewports (see
        the @media (min-width:1200px) block below for the layout switch),
@@ -1130,8 +1130,8 @@
     .model-radar-rail[hidden] { display:none !important; }
     .model-radar-inline { display:none; margin:0; padding:.9rem 0;
       border-bottom:1px solid var(--border); }
-    .mr-rail-kicker { margin:0 0 .3rem; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.75rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+    .mr-rail-kicker { margin:0 0 .3rem; font-family:var(--font-mono);
+      font-size:.75rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent); }
     .mr-rail-heading { margin:0 0 .35rem; font-family:var(--font-display);
       font-size:1.15rem; font-weight:700; letter-spacing:-.01em; line-height:1.1; }
     .mr-rail-lede { margin:0 0 .8rem; font-size:.78rem; line-height:1.5; color:var(--muted); }
@@ -1142,17 +1142,17 @@
     .mr-rail-link:hover .mr-rail-name, .mr-rail-link:focus-visible .mr-rail-name { color:var(--accent); text-decoration:underline; }
     .mr-rail-org { display:block; margin-top:.15rem; font-size:.75rem; line-height:1.35;
       color:var(--muted); }
-    .mr-rail-meta { display:block; margin-top:.1rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+    .mr-rail-meta { display:block; margin-top:.1rem; font-family:var(--font-mono);
       font-size:.75rem; color:var(--muted); }
     .mr-rail-badge { display:inline-flex; align-items:center; margin-left:.4rem; font-size:.75rem;
       font-weight:700; padding:.04rem .38rem; border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);
       border-radius:999px; color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,var(--card)); }
-    .mr-rail-variant { margin-left:.35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+    .mr-rail-variant { margin-left:.35rem; font-family:var(--font-mono);
       font-size:.75rem; font-weight:600; color:var(--muted); }
     .mr-rail-sources { margin:0 0 .8rem; font-size:.75rem; line-height:1.5; color:var(--muted); }
     .mr-rail-sources a { color:var(--muted); }
     .mr-rail-sources a:hover { color:var(--accent); }
-    .mr-rail-cta { display:inline-block; font-family:ui-monospace,"SFMono-Regular",monospace;
+    .mr-rail-cta { display:inline-block; font-family:var(--font-mono);
       font-size:.75rem; font-weight:700; letter-spacing:.02em; color:var(--accent); }
     .mr-rail-cta:hover { text-decoration:underline; }
     /* Narrow viewports: the right rail is invisible rather than merely moved
@@ -1169,7 +1169,7 @@
     #list { gap:0; margin-top:1.05rem; }
     .feed-column:has(.fresh-updates:not(:empty)) #list { margin-top:0; }
     #list > article { position:relative; padding:1.05rem 0 1.1rem 3.35rem;
-      border:0; border-bottom:1px solid var(--border); border-radius:0;
+      border:0; border-bottom:1px solid var(--border); border-radius: var(--radius-control);
       background:transparent; box-shadow:none; }
     /* Mobile cards are transparent over the page, so the sliding card must
        repaint with the page background to cover the hide hint. */
@@ -1181,18 +1181,18 @@
     #list > article:first-of-type { border-top:1px solid var(--border); }
     #list > article.big-story { border-left:0; }
     #list > article.big-story::after { content:"multi-source"; position:absolute; right:0; top:1.12rem;
-      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem;
-      letter-spacing:.07em; text-transform:uppercase; color:var(--alert); }
+      font-family:var(--font-mono); font-size: 0.78rem;
+      letter-spacing: 0; text-transform: none; color:var(--alert); }
     .rank-no { position:absolute; left:0; top:1rem; width:2.25rem;
       font-family:var(--font-display); font-size:1.65rem;
       line-height:1; font-weight:700; color:var(--muted); }
     .card-top { margin:0 0 .4rem; padding-right:5.5rem; gap:.5rem; }
     .card-meta { gap:.45rem .7rem; }
-    .card-top .src, .when { font-family:ui-monospace,"SFMono-Regular",monospace;
+    .card-top .src, .when { font-family:var(--font-mono);
       font-size:.75rem; font-weight:500; color:var(--muted); }
     .card-top .src { color:var(--fg); font-weight:700; letter-spacing:.04em; }
-    .card-top .badge, .badge { border:0; border-radius:0; padding:.05rem 0;
-      background:transparent; font-family:ui-monospace,"SFMono-Regular",monospace;
+    .card-top .badge, .badge { border:0; border-radius: var(--radius-control); padding:.05rem 0;
+      background:transparent; font-family:var(--font-mono);
       font-size:.75rem; }
     .card-top .badge::before { content:"· "; color:var(--border); }
     /* Storyline badge is the one tappable control inside .card-meta: give it
@@ -1206,15 +1206,15 @@
     article h3 a { font-weight:650; }
     .why { max-width:45rem; margin:.3rem 0 0; font-size:.93rem; line-height:1.56; }
     .matters { max-width:45rem; margin:.7rem 0 0; padding:.65rem .8rem;
-      border-left:2px solid var(--accent); background:var(--feed-wash);
-      color:var(--feed-ink); font-size:.84rem; line-height:1.5; }
+      border: 1px solid var(--border); background:var(--feed-wash);
+      color:var(--feed-ink); font-size:.84rem; line-height:1.5; border-radius: 12px; }
     .ranked-why { max-width:45rem; margin:.3rem 0 0; font-size:.78rem; }
-    .also { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.75rem; }
+    .also { font-family:var(--font-mono); font-size:.75rem; }
     .fb-row { margin-top:.7rem; padding-top:.6rem; border-top:1px solid color-mix(in srgb,var(--border) 65%,transparent); }
     .fb-label { font-size:.75rem; }
-    .fb-btn { border:0; border-bottom:1px solid var(--border); border-radius:0;
+    .fb-btn { border:0; border-bottom:1px solid var(--border); border-radius: var(--radius-control);
       padding:.15rem .35rem; font-size:.75rem; }
-    .catchup, .onboard { border:0; border-left:2px solid var(--accent); border-radius:0;
+    .catchup, .onboard { border:0; border: 1px solid var(--border); border-radius: 12px;
       background:var(--feed-wash); color:var(--feed-ink); }
     .catchup { margin-bottom:.8rem; padding:.75rem .9rem; }
     .end-marker { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.8rem;
@@ -1229,7 +1229,7 @@
     .end-marker .subscribe-inline { margin:.35rem auto 0; max-width:30rem; text-align:center; }
     .end-marker .subscribe-inline-row { text-align:left; }
     .state { border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
-      border-radius:0; }
+      border-radius: var(--radius-control); }
     @media (max-width:640px) {
       main { padding-left:1rem; padding-right:1rem; }
       .topbar { align-items:center; }
@@ -1414,7 +1414,7 @@
       border-bottom: 0;
     }
     .shortcut-row kbd {
-      font-family: ui-monospace, "SFMono-Regular", monospace;
+      font-family: var(--font-mono);
       font-size: 0.78rem;
       padding: 0.15rem 0.45rem;
       border: 1px solid var(--border);
@@ -1427,12 +1427,12 @@
       display: flex;
       align-items: center;
       gap: 0.25rem;
-      font-family: ui-monospace, "SFMono-Regular", monospace;
+      font-family: var(--font-mono);
       font-size: 0.78rem;
       color: var(--muted);
     }
   </style>
-  <link rel="stylesheet" href="/front-page.css?v=20261010-broadsheet" />
+  <link rel="stylesheet" href="/front-page.css?v=20261107-precision" />
   <link rel="stylesheet" href="/skills-strip.css?v=20261102-radar" />
 </head>
 <body>
@@ -4906,7 +4906,7 @@
   </script>
   <!-- Published-item discovery and opened-version tracking; see
        docs/product-specs/nav-update-indicators.md. -->
-  <script src="/nav-updates.js?v=20261103-compact" defer></script>
+  <script src="/nav-updates.js?v=20261107-precision" defer></script>
   <script src="/skills-strip.js?v=20261102-radar" defer></script>
 
   <!-- Model Release Radar sidebar teaser: optional, deferred, fails silently

@@ -25,7 +25,7 @@ class VoicesSurfaceTest(unittest.TestCase):
         self.assertNotIn("--accent:", self.html)
         self.assertIn("/site-chrome.css", self.html)
         self.assertIn("var(--font-display)", self.html)
-        self.assertIn("ui-monospace", self.html)
+        self.assertIn("var(--font-mono)", self.html)
 
     def test_annotated_reading_guide_signature(self) -> None:
         self.assertIn('class="voices-list"', self.html)

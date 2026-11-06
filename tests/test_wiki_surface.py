@@ -101,7 +101,7 @@ class WikiCssTest(unittest.TestCase):
         self.assertNotIn("--bg:", css)
         self.assertNotIn("--accent:", css)
         self.assertIn("var(--font-display)", css)
-        self.assertIn("ui-monospace", css)
+        self.assertIn("var(--font-mono)", css)
         # Quality floor + no Oat gray hover fill.
         self.assertIn("outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent)", css)
         self.assertIn("@media (prefers-reduced-motion:reduce)", css)

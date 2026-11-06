@@ -7,7 +7,7 @@ body {
   margin:0;
   background:var(--bg);
   color:var(--fg);
-  font:16px/1.5 "Avenir Next","Segoe UI",system-ui,sans-serif;
+  font:16px/1.5 var(--font-sans);
 }
 main {
   max-width:1180px;
@@ -40,9 +40,9 @@ button:hover {
   color:var(--muted);
 }
 .kicker {
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  font:700 .7rem ui-monospace,monospace;
+  text-transform: none;
+  letter-spacing: 0;
+  font:700 .7rem var(--font-mono);
   color:var(--accent);
   margin:2rem 0 .6rem;
 }
@@ -167,11 +167,10 @@ svg {
 }
 #selection {
   background:var(--apply-wash);
-  border-left:3px solid var(--accent);
+  border: 1px solid var(--border);
   padding:1rem;
   margin:.5rem 0 1rem;
-  min-height:5rem;
-}
+  min-height:5rem; border-radius: 12px; }
 #selection p {
   margin:.35rem 0 0;
 }

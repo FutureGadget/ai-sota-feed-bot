@@ -17,6 +17,12 @@ broadsheet leftovers (monospace caps kickers, left-border callouts, square
 controls). Screenshots after the theme swap:
 `docs/assets/ui-framework-migration/*precision*.jpg`.
 
+Visual status (2026-11-07): every page, the feed front page included, now
+renders in the Precision style. The broadsheet devices were removed from page
+CSS in one sweep (decision log, "Precision pass over every page"). What
+remains below is the component migration: moving each page off Oat onto
+Basecoat, which changes markup and removes the Oat reset rules, not the look.
+
 ## Why
 
 Oat styles bare elements globally (`article`, `details`/`summary`, `[role=tab]`,

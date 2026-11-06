@@ -195,9 +195,9 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("insert.after = Math.max(Number(insert.after) || 0, companionAfter);", render)
         self.assertIn("html: frontPageRuleHtml(restOfBrief)", render)
 
-    def test_front_page_lead_has_a_capitalised_standfirst(self) -> None:
+    def test_front_page_lead_has_a_standfirst(self) -> None:
         css = (ROOT / "web" / "front-page.css").read_text(encoding="utf-8")
-        self.assertIn("text-transform:uppercase;", css)
+        self.assertNotIn("text-transform:uppercase", css)  # Precision: sentence case
         self.assertIn("function leadExcerpt(it)", self.html)
         self.assertIn("if (!summaryRaw && frontPage === 'lead') summaryRaw = leadExcerpt(it);", self.html)
         self.assertIn("const FRONT_PAGE_CATEGORY_LABELS = {", self.html)
