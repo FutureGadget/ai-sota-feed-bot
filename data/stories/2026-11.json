@@ -1254,6 +1254,22 @@
   "url": "https://programmingtheloop.com/experiments/swarm-tax",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "2fb1a0f31494270f": {
+  "first_seen": "2026-11-06T05:10:08.075320+00:00",
+  "id": "f18877d26455da62",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-05T17:41:20+00:00",
+  "sid": "2fb1a0f31494270f",
+  "source": "arxiv_cs_cl",
+  "summary": "Masked diffusion language models offer parallel text generation, but independently sampling multiple tokens can disrupt their dependencies and change the output distribution. Exact continuous-time sampling avoids this approximation, yet typically requires one sequential model evaluation per token. We introduce SpecCTMC, a training-free speculative sampler that reduces this sequential bottleneck without a separate draft model. SpecCTMC proposes successive token updates using previously computed model predictions, evaluates their intermediate states in parallel, and applies an exact acceptance-and-correction procedure. We prove that SpecCTMC preserves the joint distribution of event times, generation order, and token values of the underlying continuous-time Markov chain. It therefore introduces neither time-discretization error nor additional factorization error from parallel decoding. Experiments on LLaDA-8B-Instruct and Dream-v0-Instruct-7B across five benchmarks demonstrate 1.73-4.38x fewer sequential model evaluations than direct continuous-time sampling, while preserving the reference sampling distribution. Our code is available at: https://github.com/kasakh/specctmc",
+  "summary_1line": "Masked diffusion language models offer parallel text generation, but independently sampling multiple tokens can disrupt their dependencies and change the output distribution. Exact continuous-time sampling avoids this...",
+  "title": "SpecCTMC: Exact Speculative Simulation of Diffusion Language Model Continuous-Time Markov Chains",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08362v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "3024d09a7913b631": {
   "content_excerpt": "An inference server for AMD GPUs, in C++ and HIP: language models, and image, video, speech and music generation. Its HTTP API speaks OpenAI's chat, completions, Responses, images, audio and video APIs, Anthropic's Messages API and llama-server's native one, so their clients and SDKs work unchanged. Model architectures, kernel libraries and quantisers are .so plugins; the ones in this tree are built and loaded the same way a third party's are ( docs/PLUGIN.md ). The bundled device kernels ( libr4d ) target AMD RDNA4 ( gfx1200 , gfx1201 ). The serve flags below are for two 32 GB cards (Radeon AI PRO R9700). The engine starts on any AMD GPU family; another card needs a kernel library for it. A machine with no GPU builds the host backend, whose AVX-512/AVX2 kernels ( libavx ) serve every model here: the small ones (EmbeddingGemma 2, Qwen3-ASR, the 0.8B-3B models) at interactive speed on a desktop CPU, the 27B and larger far more slowly than a card. A container holds everything the server needs: the weights, the tokeniser, the chat template and any drafter. Each download link's repository has the recipe and the exact command that made the file. Download one into your models directory (the transfer resumes if interrupted): The Gemma 4 container is keptn42's: GPTQ calibrated in transformers, with an int8 lm_head; its repository has the recipe and the calibration step. To convert Google's bf16 checkpoint yourself, data/recipes/gemma4-31b-dense-bf16-w4a8.recipe quantises without cali",
   "first_seen": "2026-11-01T20:05:53.130724+00:00",
@@ -2444,6 +2460,24 @@
   "type": "news",
   "url": "https://www.hume.ai/products/decision-model-api"
  },
+ "554e91182f04f9cb": {
+  "first_seen": "2026-11-06T05:10:08.075320+00:00",
+  "id": "bb40e6950d4f0a7d",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-11-05T18:18:39+00:00",
+  "sid": "554e91182f04f9cb",
+  "source": "arxiv_cs_ai",
+  "summary": "Coding agents are among the most economically consequential deployments of LLMs to date, making reliable evaluation increasingly important. Yet even benchmarks that are carefully validated at release can become stale. As models improve, they can discover valid solutions that existing verifiers reject, while changes to evaluation infrastructure can invalidate assumptions embedded in tasks and tests. We call the resulting accumulation of defects benchmark maintenance debt: a growing gap between benchmark scores and the capabilities they are intended to measure. We introduce a continuous-validation workflow for agentic benchmarks that combines community reports, task artifacts, agent traces, automated oracle checks, and human-gated repairs. We apply this workflow to Terminal-Bench 2.0, a benchmark that underwent extensive human and LM-assisted review and red-teaming before release. Our audit identifies issues in roughly 30% of the benchmark, and we release the resulting repairs as Terminal-Bench 2.1. These repairs change evaluation results: accuracy increased by over 10 percentage points and leaderboard positions move by up to three ranks, even as the overall ranking remains highly correlated (Spearman rho = 0.958). We evaluate how resource allocation shapes benchmark conclusions. We show that fixed wall-clock can materially change agent performance: For example, extending the time limit closes a 20pp harness gap on GPT 5.4 and shrinks a 30 pp gap on GPT 5.4 mini to 5 pp. Benchm",
+  "summary_1line": "Coding agents are among the most economically consequential deployments of LLMs to date, making reliable evaluation increasingly important. Yet even benchmarks that are carefully validated at release can become stale....",
+  "title": "Benchmarks as Software: Terminal-Bench and the Case for Continuous Benchmarks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08417v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
+ },
  "57b08f9866a26766": {
   "first_seen": "2026-11-04T11:05:34.944705+00:00",
   "id": "a6225ccd427c6200",
@@ -3503,7 +3537,7 @@
   ],
   "published": "2026-11-05T16:53:48+00:00",
   "sid": "8812b05d9d428c4f",
-  "source": "arxiv_cs_ai",
+  "source": "arxiv_cs_lg",
   "summary": "LLM pruning must preserve quality while meeting hardware- and workload-specific constraints on latency, throughput, and memory. Existing pruning workflows often target parameter counts, requiring practitioners to manually select model sizes that meet latency, throughput, and GPU memory limits. However, parameter count alone does not predict these metrics, which depend on the model architecture, workload, hardware, and serving engine. We introduce AutoCompress, a hardware-guided compression framework that directly incorporates such constraints into differentiable architecture search. AutoCompress jointly optimizes global and per-layer structure to produce heterogeneous architectures, guided by serving-engine cost models validated against end-to-end latency, throughput, and memory measurements. We evaluate AutoCompress on long-context local coding, batched datacenter serving, and latency-sensitive in-game interaction. Compared to the state-of-the-art Minitron pruning framework, AutoCompress improves average accuracy across eight benchmarks by 6.57, 2.35, and 0.57 percentage points on RTX 5070, RTX 5080, and H100, respectively. AutoCompress also compresses Nemotron 3.5 Super from 120B to 74B parameters for single-B200 BF16 serving at 128K context, retaining 95% of its mean benchmark score.",
   "summary_1line": "LLM pruning must preserve quality while meeting hardware- and workload-specific constraints on latency, throughput, and memory. Existing pruning workflows often target parameter counts, requiring practitioners to manu...",
   "title": "AutoCompress: Automated Hardware-Guided Model Compression",
@@ -5212,6 +5246,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05108v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "c506adad28825d2b": {
+  "first_seen": "2026-11-06T05:10:08.075320+00:00",
+  "id": "29c89362fae05fca",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-05T18:55:54+00:00",
+  "sid": "c506adad28825d2b",
+  "source": "arxiv_cs_lg",
+  "summary": "ML code should run where researchers choose, not where it was first written. Today, machine learning code mainly lives in two ecosystems, PyTorch on NVIDIA GPUs and JAX on Google TPUs. Migrating repositories between them means building and testing across frameworks and hardware. This migration is (1) a practical need, since it unlocks different hardware for researchers, and (2) a natural benchmark: it involves different frameworks and hardware, covers whole repositories, and is long-horizon and challenging. We introduce XStack, a benchmark that evaluates agents on migrating ML repositories between these two ecosystems. Each agent receives a PyTorch repository and a clean TPU machine and must deliver a JAX repository. Its output passes if it meets our grading criteria, based on the source repository's published result, authenticated and calibrated by us. Migration by agents remains unreliable: Claude Opus 5 passes 75%, GPT-5.6-sol 45%, and every other agent at most 40%. XStack is a step toward freeing ML code from its ecosystem. We release XStack to make progress toward reliable migration across frameworks and hardware measurable.",
+  "summary_1line": "ML code should run where researchers choose, not where it was first written. Today, machine learning code mainly lives in two ecosystems, PyTorch on NVIDIA GPUs and JAX on Google TPUs. Migrating repositories between t...",
+  "title": "XStack: A Benchmark for ML Repo Migration",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08472v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "c65c7708e93995ca": {
   "content_excerpt": "Two weeks ago, we opened up Phonon, our small text-to-speech model that runs on your own device. It needs no server and no network, and what you type stays with you. We've been very happy with the reception so far. So here's the story of the launch: why we built Phonon, what it can do, the demos that came with it, and how it did on Hugging Face's Open TTS Leaderboard. Most voice AI lives in the cloud: every sentence makes a round trip to a server. Phonon runs on your own device instead. Your text stays there and the voice works without a network. We’ve also opened the weights. Phonon 31m is Apache 2.0, so you can use it for free, even in a commercial product. The other models are CC BY-NC, so they’re free for non-commercial projects. If you’re building something commercial with those, pricing is based on your number of users, not how much speech you generate. Getting a good voice to run on a small device has always been hard. You could make the model small, but then it didn’t sound great. Or you could make it sound great, but then it wouldn’t fit. We addressed both. We announced Phonon in April and spent the next six months building on it with partners and early users. Their feedback helped us to shape this release. The models got smaller, and we added more languages and support for custom voices through voice cloning and voice design. Phonon is based on the Pocket TTS lineage and as such uses flow matching to generate the audio which is very different from the modeling techn",
