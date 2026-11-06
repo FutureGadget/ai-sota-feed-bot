@@ -2733,6 +2733,23 @@
   "url": "http://arxiv.org/abs/2611.07238v1",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "62538a53dd12f628": {
+  "first_seen": "2026-11-06T06:05:21.409735+00:00",
+  "id": "f9f3efe0e3bd6fc0",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-05T16:15:18+00:00",
+  "sid": "62538a53dd12f628",
+  "source": "arxiv_llm_reliability",
+  "summary": "Large language models (LLMs) are widely used for information access, content production, and agent-based task execution, but their outputs remain vulnerable to subtle, high-risk hallucinations. To systematically evaluate and advance post-generation hallucination detection, we introduce HaluCheck, a large-scale, bilingual benchmark comprising over 42k instances spanning both factual hallucinations in text and faithfulness hallucinations in agent trajectories. HaluCheck features fine-grained, multi-level annotations for detection, localization, and correction, covering different tasks and perturbation degrees. Experiments on fourteen LLMs reveal that, while models show basic sample-level detection ability, they struggle with fine-grained localization, correction, and agent hallucination detection. Further analysis demonstrates that thinking, web search, and supervised fine-tuning each offer partial improvements, but none fully solve the problem. HaluCheck thus provides a solid basis for benchmarking and diagnosing LLM reliability across text and agent scenarios.",
+  "summary_1line": "Large language models (LLMs) are widely used for information access, content production, and agent-based task execution, but their outputs remain vulnerable to subtle, high-risk hallucinations. To systematically evalu...",
+  "title": "From Twisted Facts to Rogue Agents: Can LLMs Reliably Detect Multi-Dimensional Hallucinations?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08231v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "62b230bc3b4454ae": {
   "first_seen": "2026-11-04T03:03:29.158969+00:00",
   "id": "a3f2c198a954de48",
@@ -3298,6 +3315,18 @@
   "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPTFhOWk9yYkRyNkE0d3FxeWNtVDdmcGFNTHBxeWxINk1iUGJMQTd4c2lXRkNMY3NjejVyTGIwZmdYQXUweTdNUHAwblI5M2dGNmd5TWR5SXo4Rmx6d3ZCWjZhX21YZHNoMDNhT3cycEtxd2FGeEdPbkR3UWRiRkNwbTJyandOcEtQXzRyUkxhdlhybTg?oc=5",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "7b101183f1178465": {
+  "content_excerpt": "I struggle to believe at an intuitive level that autonomous R&D is so ingenious. I have been monitoring a few side projects: In all of these cases, the model's judgment is just very poor in a basic way. For example: I judged an Apart hackathon last weekend and reviewed eight papers, all of which scored between 60% and 95% on Pangram. Predictably, the papers were often very similar to each other, and kind of methodologically incomplete in a vague but similar way, where they seem to overlook the most straightforward analysis. Maybe the important exception is certain hill-climbing tasks with fast feedback loops. For example, I improved the SOTA on \"listing all legal Scrabble moves\" by 10x just by prompting Astra over and over to try harder, to aim for , to \"systematically try every method in the literature that seems kind of related,\" etc. But even in that case, two big leaps were when I said that it should take into account the fact that you can measure across a game rather than per random position, and suggesting that it try to design algorithms for three different cases based on the number of blank tiles left in the bag (which cause the number of moves to explode). There is also the fact that Astra at least (and presumably Claude) tends to write reports that are extremely difficult to understand and some kind of Q&A interrogation is often needed to figure out what it actually did and what the key results are. Maybe there's a temptation to just say \"whatever\" and let it rip. I",
+  "first_seen": "2026-11-06T06:05:21.409735+00:00",
+  "id": "4bf9fa96989738c0",
+  "published": "2026-11-06T05:19:04+00:00",
+  "sid": "7b101183f1178465",
+  "source": "hackernews_ai",
+  "summary_1line": "I struggle to believe that AI R&D is ingenious",
+  "title": "I struggle to believe that AI R&D is ingenious",
+  "type": "news",
+  "url": "https://www.lesswrong.com/posts/DALNiKBjMGMF8grme/arjun-panickssery-s-shortform?commentId=fJtaHHHfx45tD7BSL"
+ },
  "7bf2baae197f3346": {
   "content_excerpt": "The Glow Labs research team has identified AI coding agents independently deciding to install deprecated MCP servers, potentially exposing organizations to high-severity vulnerabilities in servers that no longer receive security updates. Glow Labs calls this pattern MCPhantom where retired MCP servers keep turning up on developer machines. Our research team uncovered this pattern while monitoring risky agentic behavior, tracking activities, identifying MCP installs, and assessing agentic decision making processes. In 98% of the sessions where an agent set up a deprecated MCP server, it appears that reason for it being selected is because it was previously used in the model's training data. So that when the user asked for a capability, such as \"a GitHub MCP,\" and the agent filled in the name based on what it already \"knew\" from the past and not because it was the official or most up-to-date MCP available. In the other 2%, the user asked for the deprecated package by name and the agent obliged. In the GitHub example, instead of the official MCP server that GitHub maintains, the agent chose a deprecated Anthropic server that it remembered from its training data instead of looking for the latest secure version. That server's repository is archived, and its archive notice says no security updates or bug fixes will be provided. For security teams, this represents a significant risk, because software is landing on developer machines based on an agent's training data, with little to ",
   "first_seen": "2026-11-04T11:05:34.944705+00:00",
@@ -3537,7 +3566,7 @@
   ],
   "published": "2026-11-05T16:53:48+00:00",
   "sid": "8812b05d9d428c4f",
-  "source": "arxiv_cs_lg",
+  "source": "arxiv_cs_ai",
   "summary": "LLM pruning must preserve quality while meeting hardware- and workload-specific constraints on latency, throughput, and memory. Existing pruning workflows often target parameter counts, requiring practitioners to manually select model sizes that meet latency, throughput, and GPU memory limits. However, parameter count alone does not predict these metrics, which depend on the model architecture, workload, hardware, and serving engine. We introduce AutoCompress, a hardware-guided compression framework that directly incorporates such constraints into differentiable architecture search. AutoCompress jointly optimizes global and per-layer structure to produce heterogeneous architectures, guided by serving-engine cost models validated against end-to-end latency, throughput, and memory measurements. We evaluate AutoCompress on long-context local coding, batched datacenter serving, and latency-sensitive in-game interaction. Compared to the state-of-the-art Minitron pruning framework, AutoCompress improves average accuracy across eight benchmarks by 6.57, 2.35, and 0.57 percentage points on RTX 5070, RTX 5080, and H100, respectively. AutoCompress also compresses Nemotron 3.5 Super from 120B to 74B parameters for single-B200 BF16 serving at 128K context, retaining 95% of its mean benchmark score.",
   "summary_1line": "LLM pruning must preserve quality while meeting hardware- and workload-specific constraints on latency, throughput, and memory. Existing pruning workflows often target parameter counts, requiring practitioners to manu...",
   "title": "AutoCompress: Automated Hardware-Guided Model Compression",
