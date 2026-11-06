@@ -1,0 +1,27 @@
+{
+  "slug": "image-editing",
+  "generated_at": "2026-11-06T00:13:00+00:00",
+  "covers_last_updated": "2026-11-04T16:23:24+00:00",
+  "covers_member_sids": ["d1fe1050c29bd1ca","f1594d4deb389b81","71f1f68adb68c378","ab758b1d2464847a"],
+  "tldr": "Papers began treating image editing as a serving problem: EditJev routed each request across editing models because per-sample quality varies widely. MoI-Bench then benchmarked on-device editing, and RetryRoute added cost-aware routing for critique-and-retry loops.",
+  "whats_new": "TailSteer (Nov 4) targets multi-turn editing, where small unintended changes accumulate into visual drift even when single-turn quality is strong.",
+  "why_it_matters": "Editing models differ in cost by over an order of magnitude and in per-sample quality, so routing, retry policy and multi-turn drift become reliability and cost levers for any service that edits images.",
+  "beats": [
+    {"kicker": "ROUTING", "tone": "launch", "headline": "Per-sample variation motivates routing across editing models", "sids": ["d1fe1050c29bd1ca"]},
+    {"kicker": "DEVICES", "tone": "rising", "headline": "MoI-Bench measures image generation and editing on mobile hardware", "sids": ["f1594d4deb389b81"]},
+    {"kicker": "COST", "tone": "turn", "headline": "RetryRoute makes routing retry-aware for agentic editing services", "sids": ["71f1f68adb68c378"]},
+    {"kicker": "NOW", "tone": "now", "headline": "TailSteer attacks drift in multi-turn editing", "sids": ["ab758b1d2464847a"]}
+  ],
+  "open_questions": [
+    "Do any of these routing or steering methods get reproduced on independent editing benchmarks?",
+    "Will MoI-Bench results show on-device models closing the gap with server-side editors?",
+    "Does TailSteer's drift reduction hold across editing models beyond those it tested?"
+  ],
+  "take_for_builders": "If you run an edit-and-retry loop, log per-model reject rates and cost per accepted edit now, and cap multi-turn chains or re-anchor to the original image until drift fixes are independently verified.",
+  "day_captions": {
+    "d1fe1050c29bd1ca": "Frames model routing as the answer to sample-specific editing quality variation.",
+    "f1594d4deb389b81": "Adds a benchmark for on-device image generation and editing under resource limits.",
+    "71f1f68adb68c378": "Adds retry-aware routing to cut cost in critique-and-retry editing loops.",
+    "ab758b1d2464847a": "Shifts focus to cumulative visual drift across repeated edits."
+  }
+}

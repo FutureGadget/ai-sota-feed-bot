@@ -1,12 +1,12 @@
 {
  "slug": "skill-evolution",
  "label": "Skill Evolution",
- "item_count": 3,
- "day_count": 3,
+ "item_count": 4,
+ "day_count": 4,
  "source_count": 2,
  "first_seen": "2026-10-19T07:29:21+00:00",
- "last_updated": "2026-11-02T14:50:06+00:00",
- "generated_at": "2026-11-04T00:12:28.797841+00:00",
+ "last_updated": "2026-11-04T12:47:32+00:00",
+ "generated_at": "2026-11-06T00:13:28.162297+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_cl"
@@ -59,14 +59,30 @@
      "editor_note": "Extends skill construction to documentation-driven scientific software."
     }
    ]
+  },
+  {
+   "date": "2026-11-04",
+   "items": [
+    {
+     "title": "EvoGuard: Mitigating Degradation in Online Skill Evolution",
+     "url": "http://arxiv.org/abs/2611.06444v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Skills let language agents reuse experience across tasks as natural-language documents. Recent work evolves skills from interaction, but existing methods have limitations when skills evolve online. Prior methods updat...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "10ae15e7aac9f9d9",
+     "published": "2026-11-04T12:47:32+00:00",
+     "editor_note": "Addresses degradation when skills evolve online."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "EvoSkill v2 (Oct 19) evolves agent skills, meaning instructions, without touching the model or harness. A Oct 26 paper extended this to coding agents with hierarchical skills.",
+  "tldr": "EvoSkill v2 (Oct 19) evolves agent skills, meaning instructions, without touching the model or harness. A Oct 26 paper added hierarchical skills for coding agents, and ScienceCUA (Nov 2) built skills from software manuals.",
   "stale": false,
-  "whats_new": "ScienceCUA (Nov 2) builds skills from software manuals and web pages and refines them from execution feedback for scientific computer-use agents.",
-  "why_it_matters": "Skills are editable text, so agent behavior can improve without retraining; the open issue is whether evolved skills transfer across tasks and repos.",
-  "take_for_builders": "Version agent skills like code and keep a grader or benchmark, since evolution loops need a measurable signal to accept edits.",
+  "whats_new": "EvoGuard (Nov 4) targets degradation when skills evolve online, a failure mode the earlier skill-evolution papers left open.",
+  "why_it_matters": "Skills are editable text, so agent behavior can change without retraining; online evolution can also make skills worse, so accepted edits need a guard.",
+  "take_for_builders": "Version agent skills like code and gate each evolved edit on a grader or benchmark, with a rollback path in case online evolution degrades performance.",
   "beats": [
    {
     "kicker": "LAUNCH",
@@ -85,18 +101,32 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "SCIENCE",
+    "tone": "rising",
     "headline": "ScienceCUA builds skills from manuals and evolves them by execution",
     "sids": [
      "1e71fb03632c55bc"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "EvoGuard targets degradation in online skill evolution",
+    "sids": [
+     "10ae15e7aac9f9d9"
     ]
    }
   ],
   "open_questions": [
    "Do evolved skills hold up on tasks and repositories outside their training benchmark?",
-   "Does skill evolution beat hand-written skills on a shared benchmark?"
+   "Does skill evolution beat hand-written skills on a shared benchmark?",
+   "Does EvoGuard's mitigation hold when applied to other evolvers such as EvoSkill v2?"
   ],
-  "generated_at": "2026-11-04T00:00:00+00:00"
+  "provenance": {
+   "10ae15e7aac9f9d9": {
+    "status_update": true
+   }
+  },
+  "generated_at": "2026-11-06T00:12:54+00:00"
  }
 }

@@ -1,32 +1,63 @@
 {
   "slug": "kimi-k3-1",
-  "generated_at": "2026-11-05T00:12:46+00:00",
+  "generated_at": "2026-11-06T00:13:02+00:00",
+  "covers_last_updated": "2026-11-05T11:04:21+00:00",
+  "covers_member_sids": [
+    "885f20d9bf5f1cb3",
+    "ba3f3a220181f73f",
+    "b28b8ff92f103020",
+    "a497d201fd23202a",
+    "b5619922e4bc7751",
+    "cd442996a2b9d050",
+    "9bc4cd126d80eb25",
+    "e3d2d5f8c38c6fc9",
+    "2db4596402ec0fb3",
+    "8d2d33e6f1ccca8f",
+    "a74122a98f64e132",
+    "ec98b5b8607b36cd",
+    "8c88d0dda87d335e",
+    "63bd8bef18003998",
+    "c7d9ba0343c943d2",
+    "3399044813cf568b",
+    "1e628f9865c69d93",
+    "b380a66ae3304ffc",
+    "ff6c35403ec66552",
+    "8c57ba0858b1c3ee",
+    "c451c70cd81a6dbe",
+    "4715dd7a49e69939"
+  ],
   "tldr": "Kimi K3.1 started as a pre-release name tangled in China's proposed export-license rule, then was benchmarked against Opus 5.5 and GPT-6 Astra. Moonshot launched K3.1 Pro on Oct 24, and a quota-driven rocky rollout was followed by third-party hosting.",
-  "whats_new": "vLLM shipped day-0 support for Kimi K3.1 Pro on Nov 4, and Verda opened a preview of its inference service serving the model the same day.",
-  "why_it_matters": "Self-hosting is now practical on vLLM, and K3.1 Pro is on several third-party clouds, so you can price it against first-party quotas, which Moonshot had to reset after launch complaints.",
+  "whats_new": "Moonshot AI published the full 1.56TB weights of Kimi K3.1 Pro on Nov 5, with commercial use permitted under conditions; Huawei Ascend added day-zero support the same day.",
+  "why_it_matters": "Self-hosting K3.1 Pro is now possible with vLLM and Ascend hardware, but the licence conditions and a 1.56TB footprint decide whether it beats third-party hosts or first-party quotas on cost.",
   "status": {
-    "state": "Spreading",
+    "state": "Open weights",
     "tone": "now",
-    "changed": "2026-11-04",
-    "detail": "K3.1 Pro has moved from a quota-troubled first-party launch to vLLM support and several third-party hosts; independent quality and cost data are still thin.",
+    "changed": "2026-11-05",
+    "detail": "K3.1 Pro moved from a quota-troubled first-party launch to third-party hosting, vLLM support and a full weights release; independent quality and cost data are still thin.",
     "track": [
       {
         "label": "Pre-release",
         "detail": "Oct 16-23",
         "tone": "launch",
-        "weight": 20
+        "weight": 18
       },
       {
         "label": "Launch and quota reset",
         "detail": "Oct 24-27",
         "tone": "alert",
-        "weight": 35
+        "weight": 28
       },
       {
         "label": "Third-party hosting",
-        "detail": "Oct 28 → now",
+        "detail": "Oct 28 - Nov 4",
+        "tone": "rising",
+        "weight": 30
+      },
+      {
+        "label": "Weights released",
+        "detail": "Nov 5 → now",
         "tone": "now",
-        "weight": 45
+        "weight": 24
       }
     ]
   },
@@ -82,22 +113,36 @@
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
+      "kicker": "INFERENCE",
+      "tone": "rising",
       "headline": "vLLM day-0 support and Verda preview",
       "summary": "vLLM details sparse attention on a KDA hybrid, a packed KV cache and fused low-latency decode; Verda previews inference with K3.1 Pro.",
       "sids": [
         "3399044813cf568b",
         "1e628f9865c69d93"
       ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Full weights published, Huawei Ascend adds day-zero support",
+      "summary": "Moonshot releases the full 1.56TB, 2.8T-parameter weights with conditional commercial use; Huawei Ascend lists day-zero support.",
+      "sids": [
+        "b380a66ae3304ffc",
+        "ff6c35403ec66552",
+        "8c57ba0858b1c3ee",
+        "c451c70cd81a6dbe",
+        "4715dd7a49e69939"
+      ]
     }
   ],
   "open_questions": [
     "Do independent evals show K3.1 Pro matching Opus 5.5 on coding or agent tasks?",
+    "What do the commercial-use conditions in the weights licence actually restrict?",
     "What do third-party hosts charge versus Moonshot's first-party plans and quotas?",
     "Does the proposed export-license rule restrict access to the open weights?"
   ],
-  "take_for_builders": "Pin the vLLM version before self-hosting K3.1 Pro and rerun your own evals against Opus 5.5 before changing routing. Keep a second host as fallback, since the first-party quotas failed at launch.",
+  "take_for_builders": "Read the weights licence conditions before planning a self-host, and budget for 1.56TB of storage. Pin the vLLM version and rerun your own evals against Opus 5.5 before changing routing.",
   "day_captions": {
     "885f20d9bf5f1cb3": "Early naming piece on the Kimi K3.1 label.",
     "ba3f3a220181f73f": "Links the unreleased model to a proposed Chinese export-license requirement.",
@@ -110,26 +155,11 @@
     "63bd8bef18003998": "First third-party cloud listing, on NEAR AI Cloud.",
     "c7d9ba0343c943d2": "ZenMux lists it for long-context workflows.",
     "3399044813cf568b": "Day-0 vLLM support with the serving techniques it relies on.",
-    "1e628f9865c69d93": "Verda opens a preview of inference serving K3.1 Pro."
-  },
-  "covers_last_updated": "2026-11-04T16:58:53+00:00",
-  "covers_member_sids": [
-    "885f20d9bf5f1cb3",
-    "ba3f3a220181f73f",
-    "b28b8ff92f103020",
-    "a497d201fd23202a",
-    "b5619922e4bc7751",
-    "cd442996a2b9d050",
-    "9bc4cd126d80eb25",
-    "e3d2d5f8c38c6fc9",
-    "2db4596402ec0fb3",
-    "8d2d33e6f1ccca8f",
-    "a74122a98f64e132",
-    "ec98b5b8607b36cd",
-    "8c88d0dda87d335e",
-    "63bd8bef18003998",
-    "c7d9ba0343c943d2",
-    "3399044813cf568b",
-    "1e628f9865c69d93"
-  ]
+    "1e628f9865c69d93": "Verda opens a preview of inference serving K3.1 Pro.",
+    "b380a66ae3304ffc": "Huawei Ascend announces day-zero support on Atlas A3 and Ascend 950 SuperPoDs.",
+    "ff6c35403ec66552": "First report of the full 2.8T-parameter weights release.",
+    "8c57ba0858b1c3ee": "Adds the 1.56TB size and that commercial use is permitted with conditions.",
+    "c451c70cd81a6dbe": "TechNode confirms the weights release.",
+    "4715dd7a49e69939": "Reports the weights are published on Hugging Face."
+  }
 }

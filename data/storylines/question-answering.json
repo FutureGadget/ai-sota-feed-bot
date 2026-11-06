@@ -1,0 +1,120 @@
+{
+ "slug": "question-answering",
+ "label": "Question Answering",
+ "item_count": 4,
+ "day_count": 4,
+ "source_count": 3,
+ "first_seen": "2026-10-23T09:50:37+00:00",
+ "last_updated": "2026-11-04T13:30:54+00:00",
+ "generated_at": "2026-11-06T00:13:28.162297+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_cl",
+  "arxiv_llm_reliability"
+ ],
+ "days": [
+  {
+   "date": "2026-10-23",
+   "items": [
+    {
+     "title": "Cycle-of-Thought: Self-Evaluative Iterative Reasoning for Table Visual Question Answering in Document Images",
+     "url": "http://arxiv.org/abs/2610.32423v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Recent advances in Vision-Language Models (VLMs) have significantly improved Visual Question Answering (VQA) performance, yet their reasoning over structured content such as tables remains inconsistent, often plagued...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "1846766ba5a6742d",
+     "published": "2026-10-23T09:50:37+00:00",
+     "editor_note": "Iterative self-evaluation for table VQA over document images."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-26",
+   "items": [
+    {
+     "title": "Evolve on Graph: Self-Evolving Knowledge Graph Reasoning without Question Annotations",
+     "url": "http://arxiv.org/abs/2610.35598v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Knowledge graphs (KGs) provide reliable external knowledge for multi-hop factual reasoning with large language models (LLMs), yet most KGs in real-world domains such as finance and industry lack question--answer (QA)...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "26fc92a7573c4011",
+     "published": "2026-10-26T15:23:04+00:00",
+     "editor_note": "Knowledge-graph reasoning that evolves without QA annotations."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-27",
+   "items": [
+    {
+     "title": "DocSkill: Skill-Integrated Agentic Reasoning for Multilingual Multi-Hop Document Question Answering",
+     "url": "http://arxiv.org/abs/2610.36759v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Multilingual multi-hop document question answering (MMHop-DocQA) requires locating and integrating evidence across complex layouts, document pages, and diverse languages. Existing approaches include single-pass proces...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "334116357c766a21",
+     "published": "2026-10-27T07:14:59+00:00",
+     "editor_note": "Agentic skills applied to multilingual multi-hop document QA."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-04",
+   "items": [
+    {
+     "title": "LibriSpeech-Real-QA: A Benchmark for Streaming Question Answering",
+     "url": "http://arxiv.org/abs/2611.06496v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Most speech large language models (SLMs) still process speech in an offline manner. They only start responding after they receive the complete speech segment. However, many real-world applications require streaming sp...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "81f93605a5cf2115",
+     "published": "2026-11-04T13:30:54+00:00",
+     "editor_note": "Adds a benchmark for streaming speech QA, a new modality for the thread."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Late-October arXiv papers attacked question answering where plain LLM calls fall short: tables in document images and knowledge graphs without QA annotations. A multilingual multi-hop document QA paper then added agentic skills.",
+  "stale": false,
+  "whats_new": "LibriSpeech-Real-QA (Nov 4) is a benchmark for streaming question answering, where speech LLMs must respond before the full audio segment has arrived.",
+  "why_it_matters": "These are research papers, not products, but they show QA moving toward iterative self-checking, agentic skills and streaming input, which change latency and eval design for pipelines.",
+  "take_for_builders": "Treat these as preprints: if you run document or speech QA, note the benchmarks they introduce and wait for independent reproductions before changing a pipeline.",
+  "beats": [
+   {
+    "kicker": "DOCUMENTS & GRAPHS",
+    "tone": "launch",
+    "headline": "Self-evaluation and self-evolution for table and knowledge-graph QA",
+    "sids": [
+     "1846766ba5a6742d",
+     "26fc92a7573c4011"
+    ]
+   },
+   {
+    "kicker": "AGENTIC",
+    "tone": "rising",
+    "headline": "DocSkill brings skill-integrated agents to multilingual multi-hop document QA",
+    "sids": [
+     "334116357c766a21"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "LibriSpeech-Real-QA benchmarks streaming question answering for speech LLMs",
+    "sids": [
+     "81f93605a5cf2115"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do any of these methods report results that hold up outside their own benchmarks?",
+   "Will speech LLMs show measurable accuracy loss when answering before the full audio arrives?"
+  ],
+  "generated_at": "2026-11-06T00:12:51+00:00"
+ }
+}

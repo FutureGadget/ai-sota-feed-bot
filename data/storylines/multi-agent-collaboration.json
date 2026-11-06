@@ -1,0 +1,145 @@
+{
+ "slug": "multi-agent-collaboration",
+ "label": "Multi-Agent Collaboration",
+ "item_count": 6,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-10-26T13:12:41+00:00",
+ "last_updated": "2026-11-04T11:54:59+00:00",
+ "generated_at": "2026-11-06T00:13:28.162297+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_cl"
+ ],
+ "days": [
+  {
+   "date": "2026-10-26",
+   "items": [
+    {
+     "title": "Belief-Conditioned Multi-Agent Actor Critic for Decentralized LLM Collaboration",
+     "url": "http://arxiv.org/abs/2610.35398v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Recent work has explored optimizing LLM collaboration through Multi-Agent Reinforcement Learning (MARL), but many approaches still rely on predefined workflows, limiting efficiency and scalability. Decentralized LLM c...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "a210ea04fc2881ab",
+     "published": "2026-10-26T13:12:41+00:00",
+     "editor_note": "Frames decentralized MARL collaboration as an alternative to predefined workflows."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-29",
+   "items": [
+    {
+     "title": "Goal-Aware Dynamic Multi-Agent Collaboration for Long-Horizon Tasks",
+     "url": "http://arxiv.org/abs/2610.39193v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "LLM-based agents are increasingly used to complete complex, long-horizon tasks without human intervention. To make progress toward the task goal, agents need to perform different duties, such as planning and verificat...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "0b7565240a3894fa",
+     "published": "2026-10-29T02:15:35+00:00",
+     "editor_note": "Targets long-horizon tasks by dynamically assigning duties like planning and verification."
+    },
+    {
+     "title": "EvoTeam: Multi-Agent Collaboration via Evolving Teams",
+     "url": "http://arxiv.org/abs/2610.39813v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "LLM-based multi-agent systems (MAS) rely on collaboration among specialized agents to solve complex tasks. Existing methods improve MAS by refining the prompts, skills, and execution strategies of individual agents ba...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "19ab63ad1e235cad",
+     "published": "2026-10-29T10:55:30+00:00",
+     "editor_note": "Evolves the team itself rather than only refining individual agents' prompts."
+    },
+    {
+     "title": "Learning Calibrated Confidence for Multi-Agent Collaboration",
+     "url": "http://arxiv.org/abs/2610.39927v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Complex information seeking on the Web often requires collecting evidence from multiple documents and reasoning across them, as in multi-hop question answering. Multi-agent systems address such tasks by dividing work...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "2280cb34406eb550",
+     "published": "2026-10-29T12:30:00+00:00",
+     "editor_note": "Adds learned confidence calibration for multi-hop information-seeking agents."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-04",
+   "items": [
+    {
+     "title": "TandemBench: Benchmarking Decision Models for Multi-Agent Collaboration",
+     "url": "http://arxiv.org/abs/2611.05827v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Decision models choose among predefined options in tasks such as routing and action selection. In multi-agent collaboration, a decision determines how members divide work, exchange resources, and act in parallel. We i...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "346fd33a4e5b3077",
+     "published": "2026-11-04T02:08:57+00:00",
+     "editor_note": "Introduces a benchmark for decision models in multi-agent collaboration."
+    },
+    {
+     "title": "MA-Mesh: Resilient Multi-Agent Collaboration via Role-based Self-Healing",
+     "url": "http://arxiv.org/abs/2611.06389v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Effective collaboration in multi-agent systems requires mechanisms for coordination and adaptability in dynamic and uncertain environments. However, existing multi-agent systems rarely model resilience explicitly, ins...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "0b3a2ab108487321",
+     "published": "2026-11-04T11:54:59+00:00",
+     "editor_note": "Makes resilience explicit with role-based self-healing."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Late-October arXiv papers pushed LLM multi-agent collaboration away from fixed workflows, toward decentralized belief-conditioned actors, goal-aware role assignment, evolving teams and calibrated confidence. The thread so far is research-only, with no shipped framework behind it.",
+  "stale": false,
+  "whats_new": "Two Nov 4 papers shift focus to failure and measurement: MA-Mesh adds role-based self-healing, and TandemBench benchmarks how decision models split work between agents.",
+  "why_it_matters": "Research is moving from 'how agents collaborate' to 'how teams recover and how to measure coordination', the questions that decide whether multi-agent setups hold up in production.",
+  "take_for_builders": "Treat these as research signals: if you run multi-agent pipelines, test what happens when one role fails mid-task before adopting any of these methods.",
+  "status": {
+   "state": "Developing",
+   "tone": "rising",
+   "changed": "2026-11-04",
+   "detail": "Academic papers only; resilience and benchmarking now join the earlier coordination-design work."
+  },
+  "beats": [
+   {
+    "kicker": "DECENTRALIZE",
+    "tone": "launch",
+    "headline": "Decentralized actor-critic replaces predefined workflows",
+    "sids": [
+     "a210ea04fc2881ab"
+    ]
+   },
+   {
+    "kicker": "ADAPT",
+    "tone": "rising",
+    "headline": "Goal-aware roles, evolving teams and calibrated confidence",
+    "sids": [
+     "0b7565240a3894fa",
+     "19ab63ad1e235cad",
+     "2280cb34406eb550"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "turn",
+    "headline": "Self-healing and benchmarking arrive",
+    "sids": [
+     "346fd33a4e5b3077",
+     "0b3a2ab108487321"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does any open-source agent framework adopt role-based self-healing like MA-Mesh?",
+   "Do TandemBench results get reproduced on other multi-agent systems?",
+   "Do the dynamic-team methods report cost or latency overhead versus fixed workflows?"
+  ],
+  "generated_at": "2026-11-06T00:12:56+00:00"
+ }
+}

@@ -1,0 +1,152 @@
+{
+  "generated_at": "2026-11-06T00:12:16.048116+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "long-term-memory",
+    "label": "Long-Term Memory",
+    "item_count": 5,
+    "source_count": 2,
+    "day_count": 4,
+    "first_seen": "2026-10-23T14:59:37+00:00",
+    "last_updated": "2026-11-04T12:13:52+00:00",
+    "latest_title": "Twists and Turns: A Graph-Based Benchmark and Framework for Long-Term Memory in Exploration Tasks",
+    "member_sids": [
+      "db79b7b839ad79f4",
+      "caaf392509c9e434",
+      "fd965980a6846281",
+      "9cfa80c5232a7be3",
+      "fb3e45410f2c29fc"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/long-term-memory.json",
+    "prior_narrative": {
+      "slug": "long-term-memory",
+      "generated_at": "2026-10-29T00:30:00+00:00",
+      "covers_last_updated": "2026-10-27T15:51:42+00:00",
+      "covers_member_sids": [
+        "ed432b017107d755",
+        "db79b7b839ad79f4",
+        "caaf392509c9e434"
+      ],
+      "tldr": "Early threads covered evaluating agent memory beyond the context window and invalidating stale entries (PACMI, Oct 5). On Oct 11 an open-source repo showed coding-agent memory as a tree of plain files.",
+      "whats_new": "ETAMem (Oct 27) splits heterogeneous memory types and aligns them for conversational agents, following ActionRAG (Oct 23), which retrieves relation-consistent evidence via graph diffusion.",
+      "why_it_matters": "Memory research is moving from simple stores to structured retrieval: relation-aware evidence (ActionRAG) and separated memory types (ETAMem). Both add moving parts you would have to run, test and version.",
+      "status": {
+        "state": "Developing",
+        "tone": "rising",
+        "changed": "2026-10-27",
+        "detail": "Memory work now spans lightweight file stores and two new arXiv papers on structured retrieval; all are preprints or repos without independent replication."
+      },
+      "beats": [
+        {
+          "kicker": "FILE-BASED",
+          "tone": "launch",
+          "headline": "Coding-agent memory as a tree of plain files",
+          "summary": "An open-source repo implements long-term memory without a dedicated store.",
+          "sids": [
+            "ed432b017107d755"
+          ]
+        },
+        {
+          "kicker": "RETRIEVAL",
+          "tone": "rising",
+          "headline": "ActionRAG refines evidence with graph diffusion",
+          "summary": "Targets answers that depend on relations among facts, not isolated semantic matches.",
+          "sids": [
+            "db79b7b839ad79f4"
+          ]
+        },
+        {
+          "kicker": "NOW",
+          "tone": "now",
+          "headline": "ETAMem decouples and aligns heterogeneous memory",
+          "summary": "Addresses information entanglement in existing conversational memory systems.",
+          "sids": [
+            "caaf392509c9e434"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Does PACMI's invalidation cascade hold up on an independent long-horizon agent benchmark?",
+        "Will any file-based memory store publish results on stale-memory handling?",
+        "Do ActionRAG or ETAMem release code and benchmark numbers others can reproduce?"
+      ],
+      "take_for_builders": "Before adopting a structured memory design, rerun it on your own long-conversation traces and compare against a plain retrieval baseline; both new papers are unreplicated preprints.",
+      "day_captions": {
+        "ed432b017107d755": "A file-tree implementation of long-term memory for coding agents.",
+        "db79b7b839ad79f4": "Adds relation-aware evidence retrieval for consistent answers from long interaction histories.",
+        "caaf392509c9e434": "Proposes separating memory types and aligning them, targeting entangled information in conversational memory."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-10-23",
+        "items": [
+          {
+            "sid": "db79b7b839ad79f4",
+            "title": "ActionRAG: Evidence-Refining Graph Diffusion for Long-Term Memory in LLM Agents",
+            "url": "http://arxiv.org/abs/2610.32752v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "LLM agents need long-term memory that can recover precise and mutually consistent evidence from growing interaction histories, particularly when answers depend on relations among facts rather than isolated semantic ma...",
+            "published": "2026-10-23T14:59:37+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-27",
+        "items": [
+          {
+            "sid": "caaf392509c9e434",
+            "title": "ETAMem: Decoupling and Aligning Heterogeneous Memory for Long-Term Conversational Agents",
+            "url": "http://arxiv.org/abs/2610.37443v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Long-term memory enables Large Language Models (LLMs) to maintain coherent and personalized interactions across extended conversations. However, existing memory systems face two key challenges: (1) Information Entangl...",
+            "published": "2026-10-27T15:51:42+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-02",
+        "items": [
+          {
+            "sid": "fd965980a6846281",
+            "title": "A State Change Is Local, Its Consequences Are Not: Dependency-Aware State Revision for Long-Term Agent Memory",
+            "url": "http://arxiv.org/abs/2611.02912v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Long-lived agents rely on persistent memory of users, tasks and decisions, and this memory must stay consistent with a world that keeps changing. When an upstream fact changes, however, memory systems can revise the c...",
+            "published": "2026-11-02T10:44:02+00:00"
+          },
+          {
+            "sid": "9cfa80c5232a7be3",
+            "title": "What Is This Memory Useful For? Measuring Task-Conditioned Utility in Long-Term Agent Memory",
+            "url": "http://arxiv.org/abs/2611.03930v1",
+            "source": "arxiv_llm_reliability",
+            "type": "paper",
+            "summary_1line": "A stored experience may answer one future question and offer little help with another. We measure this task-conditioned utility rather than assigning each memory a single importance score. A task-blind writer stores a...",
+            "published": "2026-11-02T20:32:20+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-04",
+        "items": [
+          {
+            "sid": "fb3e45410f2c29fc",
+            "title": "Twists and Turns: A Graph-Based Benchmark and Framework for Long-Term Memory in Exploration Tasks",
+            "url": "http://arxiv.org/abs/2611.06414v1",
+            "source": "arxiv_llm_reliability",
+            "type": "paper",
+            "summary_1line": "Long-term problem-solving processes, such as scientific research and software development, proceed along an evolving trial-and-error trajectory toward a central goal. We term these \\textit{exploration tasks}, which re...",
+            "published": "2026-11-04T12:13:52+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}

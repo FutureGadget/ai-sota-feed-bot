@@ -1,33 +1,17 @@
 {
  "slug": "long-term-memory",
- "label": "Long-term Memory",
- "item_count": 3,
- "day_count": 3,
+ "label": "Long-Term Memory",
+ "item_count": 5,
+ "day_count": 4,
  "source_count": 2,
- "first_seen": "2026-10-11T01:02:14+00:00",
- "last_updated": "2026-10-27T15:51:42+00:00",
- "generated_at": "2026-10-30T00:12:48.475117+00:00",
+ "first_seen": "2026-10-23T14:59:37+00:00",
+ "last_updated": "2026-11-04T12:13:52+00:00",
+ "generated_at": "2026-11-06T00:13:28.162297+00:00",
  "sources": [
   "arxiv_cs_cl",
-  "hackernews_ai"
+  "arxiv_llm_reliability"
  ],
  "days": [
-  {
-   "date": "2026-10-11",
-   "items": [
-    {
-     "title": "Long-term memory for AI coding agents as a tree of plain files",
-     "url": "https://github.com/gonzaroman/IHMT-MEMORY",
-     "source": "hackernews_ai",
-     "type": "news",
-     "summary_1line": "Long-term memory for AI coding agents as a tree of plain files",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "ed432b017107d755",
-     "published": "2026-10-11T01:02:14+00:00",
-     "editor_note": "A file-tree implementation of long-term memory for coding agents."
-    }
-   ]
-  },
   {
    "date": "2026-10-23",
    "items": [
@@ -40,7 +24,7 @@
      "why_it_matters": "Matches feed focus: agent, evaluation.",
      "sid": "db79b7b839ad79f4",
      "published": "2026-10-23T14:59:37+00:00",
-     "editor_note": "Adds relation-aware evidence retrieval for consistent answers from long interaction histories."
+     "editor_note": "Relation-aware evidence retrieval via graph diffusion for consistent answers from long histories."
     }
    ]
   },
@@ -56,57 +40,103 @@
      "why_it_matters": "Matches feed focus: agent, eval.",
      "sid": "caaf392509c9e434",
      "published": "2026-10-27T15:51:42+00:00",
-     "editor_note": "Proposes separating memory types and aligning them, targeting entangled information in conversational memory."
+     "editor_note": "Separates memory types and aligns them to address entangled information in conversational memory."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-02",
+   "items": [
+    {
+     "title": "A State Change Is Local, Its Consequences Are Not: Dependency-Aware State Revision for Long-Term Agent Memory",
+     "url": "http://arxiv.org/abs/2611.02912v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Long-lived agents rely on persistent memory of users, tasks and decisions, and this memory must stay consistent with a world that keeps changing. When an upstream fact changes, however, memory systems can revise the c...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "fd965980a6846281",
+     "published": "2026-11-02T10:44:02+00:00",
+     "editor_note": "Targets stale dependent memories when an upstream fact changes."
+    },
+    {
+     "title": "What Is This Memory Useful For? Measuring Task-Conditioned Utility in Long-Term Agent Memory",
+     "url": "http://arxiv.org/abs/2611.03930v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "A stored experience may answer one future question and offer little help with another. We measure this task-conditioned utility rather than assigning each memory a single importance score. A task-blind writer stores a...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "9cfa80c5232a7be3",
+     "published": "2026-11-02T20:32:20+00:00",
+     "editor_note": "Measures memory value per downstream task instead of a single importance score."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-04",
+   "items": [
+    {
+     "title": "Twists and Turns: A Graph-Based Benchmark and Framework for Long-Term Memory in Exploration Tasks",
+     "url": "http://arxiv.org/abs/2611.06414v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Long-term problem-solving processes, such as scientific research and software development, proceed along an evolving trial-and-error trajectory toward a central goal. We term these \\textit{exploration tasks}, which re...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "fb3e45410f2c29fc",
+     "published": "2026-11-04T12:13:52+00:00",
+     "editor_note": "Adds a graph-based benchmark and framework for memory in long exploration tasks."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "Early threads covered evaluating agent memory beyond the context window and invalidating stale entries (PACMI, Oct 5). On Oct 11 an open-source repo showed coding-agent memory as a tree of plain files.",
+  "tldr": "Agent-memory research started with structured retrieval: ActionRAG (Oct 23) used graph diffusion for relation-consistent evidence, and ETAMem (Oct 27) separated and aligned heterogeneous memory types for conversational agents.",
   "stale": false,
-  "whats_new": "ETAMem (Oct 27) splits heterogeneous memory types and aligns them for conversational agents, following ActionRAG (Oct 23), which retrieves relation-consistent evidence via graph diffusion.",
-  "why_it_matters": "Memory research is moving from simple stores to structured retrieval: relation-aware evidence (ActionRAG) and separated memory types (ETAMem). Both add moving parts you would have to run, test and version.",
-  "take_for_builders": "Before adopting a structured memory design, rerun it on your own long-conversation traces and compare against a plain retrieval baseline; both new papers are unreplicated preprints.",
+  "whats_new": "A Nov 4 arXiv paper adds a graph-based benchmark and framework for long-term memory in exploration tasks, after two Nov 2 papers on dependency-aware state revision and task-conditioned memory utility.",
+  "why_it_matters": "The focus is shifting from how to store and retrieve memory to whether it stays consistent and useful: stale dependents, task-specific value and long trial-and-error trajectories. These are failure modes a production agent memory layer has to test for.",
+  "take_for_builders": "Replay your own long-running agent traces against a plain retrieval baseline, and add a test that changes an upstream fact and checks whether dependent memories are updated; all five papers are unreplicated preprints.",
   "status": {
    "state": "Developing",
    "tone": "rising",
-   "changed": "2026-10-27",
-   "detail": "Memory work now spans lightweight file stores and two new arXiv papers on structured retrieval; all are preprints or repos without independent replication."
+   "changed": "2026-11-04",
+   "detail": "Work has moved from retrieval design to consistency, utility measurement and benchmarks; all items are unreplicated arXiv preprints."
   },
   "beats": [
    {
-    "kicker": "FILE-BASED",
+    "kicker": "RETRIEVAL",
     "tone": "launch",
-    "headline": "Coding-agent memory as a tree of plain files",
-    "summary": "An open-source repo implements long-term memory without a dedicated store.",
+    "headline": "ActionRAG and ETAMem restructure how memory is retrieved",
+    "summary": "Relation-aware evidence retrieval and separated memory types for long-running agents.",
     "sids": [
-     "ed432b017107d755"
+     "db79b7b839ad79f4",
+     "caaf392509c9e434"
     ]
    },
    {
-    "kicker": "RETRIEVAL",
-    "tone": "rising",
-    "headline": "ActionRAG refines evidence with graph diffusion",
-    "summary": "Targets answers that depend on relations among facts, not isolated semantic matches.",
+    "kicker": "THE TURN",
+    "tone": "turn",
+    "headline": "Consistency and utility become the questions",
+    "summary": "One paper revises dependent memories when an upstream fact changes; another measures utility per task.",
     "sids": [
-     "db79b7b839ad79f4"
+     "fd965980a6846281",
+     "9cfa80c5232a7be3"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "ETAMem decouples and aligns heterogeneous memory",
-    "summary": "Addresses information entanglement in existing conversational memory systems.",
+    "headline": "A benchmark for memory in exploration tasks",
+    "summary": "Graph-based benchmark and framework for long trial-and-error work such as research and software development.",
     "sids": [
-     "caaf392509c9e434"
+     "fb3e45410f2c29fc"
     ]
    }
   ],
   "open_questions": [
-   "Does PACMI's invalidation cascade hold up on an independent long-horizon agent benchmark?",
-   "Will any file-based memory store publish results on stale-memory handling?",
-   "Do ActionRAG or ETAMem release code and benchmark numbers others can reproduce?"
+   "Do ActionRAG or ETAMem release code and benchmark numbers others can reproduce?",
+   "Does the dependency-aware revision method hold up on an independent long-horizon agent benchmark?",
+   "Will other memory systems report results on the new exploration-task benchmark?",
+   "Does task-conditioned utility change which memories a production agent chooses to store?"
   ],
-  "generated_at": "2026-10-29T00:30:00+00:00"
+  "generated_at": "2026-11-06T00:12:58+00:00"
  }
 }

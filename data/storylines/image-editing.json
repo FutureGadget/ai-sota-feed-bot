@@ -1,0 +1,125 @@
+{
+ "slug": "image-editing",
+ "label": "Image Editing",
+ "item_count": 4,
+ "day_count": 4,
+ "source_count": 2,
+ "first_seen": "2026-10-23T13:46:53+00:00",
+ "last_updated": "2026-11-04T16:23:24+00:00",
+ "generated_at": "2026-11-06T00:13:28.162297+00:00",
+ "sources": [
+  "arxiv_cs_ai",
+  "arxiv_cs_lg"
+ ],
+ "days": [
+  {
+   "date": "2026-10-23",
+   "items": [
+    {
+     "title": "EditJev: System One Routing for Image Editing Models",
+     "url": "http://arxiv.org/abs/2610.32635v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Instruction-based image editing models exhibit pronounced sample-specific performance variation: different models can produce substantially different results for the same source image and editing instruction, and the...",
+     "sid": "d1fe1050c29bd1ca",
+     "published": "2026-10-23T13:46:53+00:00",
+     "editor_note": "Frames model routing as the answer to sample-specific editing quality variation."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-27",
+   "items": [
+    {
+     "title": "MoI-Bench: A Benchmark for Image Generation and Editing on Mobile Devices",
+     "url": "http://arxiv.org/abs/2610.37599v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Developing on-device image models requires considering practical user needs, task types and device resource constraints. However, existing benchmarks provide limited guidance on identifying capability gaps between on-...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "f1594d4deb389b81",
+     "published": "2026-10-27T17:31:40+00:00",
+     "editor_note": "Adds a benchmark for on-device image generation and editing under resource limits."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-30",
+   "items": [
+    {
+     "title": "RetryRoute: Retry-Aware Model Routing for Agentic Image Editing Services",
+     "url": "http://arxiv.org/abs/2610.41460v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Web agents increasingly edit images by calling open editing models in a critique-and-retry loop, and these models differ in cost by more than an order of magnitude. After every rejected edit, a service must decide whe...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "71f1f68adb68c378",
+     "published": "2026-10-30T09:12:21+00:00",
+     "editor_note": "Adds retry-aware routing to cut cost in critique-and-retry editing loops."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-04",
+   "items": [
+    {
+     "title": "TailSteer: Trajectory-Tail Steering for Drift-Resistant Multi-turn Image Editing",
+     "url": "http://arxiv.org/abs/2611.06741v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Strong single-turn editing performance does not guarantee reliable multi-turn interaction: as edited outputs are repeatedly reused, small unintended changes can accumulate into severe visual drift. This long-term drif...",
+     "sid": "ab758b1d2464847a",
+     "published": "2026-11-04T16:23:24+00:00",
+     "editor_note": "Shifts focus to cumulative visual drift across repeated edits."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Papers began treating image editing as a serving problem: EditJev routed each request across editing models because per-sample quality varies widely. MoI-Bench then benchmarked on-device editing, and RetryRoute added cost-aware routing for critique-and-retry loops.",
+  "stale": false,
+  "whats_new": "TailSteer (Nov 4) targets multi-turn editing, where small unintended changes accumulate into visual drift even when single-turn quality is strong.",
+  "why_it_matters": "Editing models differ in cost by over an order of magnitude and in per-sample quality, so routing, retry policy and multi-turn drift become reliability and cost levers for any service that edits images.",
+  "take_for_builders": "If you run an edit-and-retry loop, log per-model reject rates and cost per accepted edit now, and cap multi-turn chains or re-anchor to the original image until drift fixes are independently verified.",
+  "beats": [
+   {
+    "kicker": "ROUTING",
+    "tone": "launch",
+    "headline": "Per-sample variation motivates routing across editing models",
+    "sids": [
+     "d1fe1050c29bd1ca"
+    ]
+   },
+   {
+    "kicker": "DEVICES",
+    "tone": "rising",
+    "headline": "MoI-Bench measures image generation and editing on mobile hardware",
+    "sids": [
+     "f1594d4deb389b81"
+    ]
+   },
+   {
+    "kicker": "COST",
+    "tone": "turn",
+    "headline": "RetryRoute makes routing retry-aware for agentic editing services",
+    "sids": [
+     "71f1f68adb68c378"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "TailSteer attacks drift in multi-turn editing",
+    "sids": [
+     "ab758b1d2464847a"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do any of these routing or steering methods get reproduced on independent editing benchmarks?",
+   "Will MoI-Bench results show on-device models closing the gap with server-side editors?",
+   "Does TailSteer's drift reduction hold across editing models beyond those it tested?"
+  ],
+  "generated_at": "2026-11-06T00:13:00+00:00"
+ }
+}
