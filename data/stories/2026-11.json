@@ -4397,6 +4397,17 @@
   "type": "news",
   "url": "https://blog.ai-process.dev/2026/10/26/go-vs-python-llm-gateway"
  },
+ "a205982525674e81": {
+  "first_seen": "2026-11-06T15:07:49.449008+00:00",
+  "id": "7bcad594c98fbd02",
+  "published": "2026-11-06T14:12:24+00:00",
+  "sid": "a205982525674e81",
+  "source": "search_cn_open_weight_labs",
+  "summary_1line": "Qwen 4: Release Date, Official Teaser and Confirmed Facts <font c",
+  "title": "Qwen 4: Release Date, Official Teaser and Confirmed Facts",
+  "type": "release",
+  "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1PZlV1ZmUzR1ZoeEZlTWpZaWFBUmxmcE5PeG5Nb3RYYjB3TGp0NTNpYUtMRXVnS3JPMUNtbmx6NnRLX3o3SXdhVWl5dE4tcXJCYmg4dWctbTAxLTN2MlE?oc=5"
+ },
  "a2659e184be00153": {
   "first_seen": "2026-11-05T09:05:17.469685+00:00",
   "id": "d6b3594ce6e22ced",
@@ -6280,6 +6291,19 @@
   "type": "news",
   "url": "https://dropbox.tech/machine-learning/how-two-engineer-side-projects-became-the-agent-taking-action-inside-dropbox",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "e572010b9c959715": {
+  "content_excerpt": "Last month, we showed that rollout and training can agree exactly. On DeepSeek-V4-Flash, vLLM and the trainer produced the same logprob for every sampled token, bit for bit, on the fast kernels, with an 8.7% reduction in rollout throughput. An agent skill now does the alignment for each new model. That post was about synchronous RL, which has no weight lag, so zero mismatch removes the only gap between rollout and training. This post is about asynchronous RL, which is faster but off-policy by design. Does zero mismatch still matter there? We answer with a new paper from NVIDIA Research and Inferact (Jian Hu et al.): REINFORCE Zero: Kernel Alignment Unlocks Stable Asynchronous RL with Importance Sampling . All numbers in sections 2 to 4 come from it. In synchronous RL, rollout and training take turns, and each waits for the other. Asynchronous RL runs them at the same time: rollout keeps generating while the learner updates. The price is weight lag . A sample generated with weights version v is trained at version k > v. The gap k − v is not small: REINFORCE Zero runs at lag 2 and 8 on math reasoning, and at lag 64 on agentic tool use. So the learner always trains on samples from an older policy. The standard correction is importance sampling (IS): reweight each token by π / μ, the learner's probability for it divided by the probability the rollout recorded when it sampled it. The question is whether that correction covers the whole gap. π is the learner's computation and μ is ",
+  "first_seen": "2026-11-06T15:05:35.908503+00:00",
+  "id": "fa7a41aab3d396b7",
+  "published": "2026-11-06T00:00:00+00:00",
+  "sid": "e572010b9c959715",
+  "source": "vllm_blog",
+  "summary": "Asynchronous RL trains on stale weights. Align rollout and training kernels bit for bit, and unclipped importance sampling corrects that lag. Plus zero-mismatch RL for DeepSeek-V4.1-Flash, Kimi K3.1 and AMD MI355X.",
+  "summary_1line": "Asynchronous RL trains on stale weights. Align rollout and training kernels bit for bit, and unclipped importance sampling corrects that lag. Plus zero-mismatch RL for DeepSeek-V4.1-Flash, Kimi K3.1 and AMD MI355X.",
+  "title": "Zero Mismatch, Simple Async RL: REINFORCE Zero, DeepSeek-V4.1 and Kimi K3.1",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-11-06-zero-mismatch-async-rl"
  },
  "e5cbd20eadc5c268": {
   "first_seen": "2026-11-04T07:03:38.827669+00:00",
