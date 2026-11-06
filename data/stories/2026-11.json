@@ -662,6 +662,18 @@
   "url": "https://openai.com/index/introducing-gpt-6-cyber",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "16877d78ed6100b6": {
+  "content_excerpt": "At Airbnb, we use AI models for classification tasks, such as detecting risky user-generated content, identifying why customers contact support, and recognizing topics in reviews. These tasks require subtle language understanding and the common sense to interpret what people leave unsaid. Frontier models, with hundreds of billions of parameters and internet-scale pretraining, are often good at these tasks. But for interactive products and high-volume workloads, accuracy is only part of the requirement. We also need low latency, manageable serving costs, and control over the tradeoff between false positives and false negatives. Smaller open-weight models are faster and cheaper to run at scale. By extracting logprobs, we’re able to produce a score for thresholding. But these small models are trained to handle a vast range of conversations and our tasks occupy just a tiny corner of that training distribution. Out of the box, they often miss subtle distinctions that matter immensely for our product. Better prompting has limits. (I’m often reminded of an assignment from elementary school: write instructions for how to make a PB&J. “Put the knife in the peanut butter,” you’d write, only to have the teacher stab through the jar or insert the handle instead of the blade. There seem to be no instructions detailed enough to avoid every possible lapse in common sense.) GLOWC, an internal framework used by engineers at Airbnb, makes it easy to fine-tune open-weight language (and vision-l",
+  "first_seen": "2026-11-06T14:05:07.235125+00:00",
+  "id": "efdb75d1b5f599b4",
+  "published": "2026-11-06T12:42:07+00:00",
+  "sid": "16877d78ed6100b6",
+  "source": "hackernews_ai",
+  "summary_1line": "Frontier quality at 1% of the cost: a production benchmark of LLM classifiers",
+  "title": "Frontier quality at 1% of the cost: a production benchmark of LLM classifiers",
+  "type": "news",
+  "url": "https://airbnb.tech/ai-ml/frontier-quality-at-1-of-the-cost-a-production-benchmark-of-llm-classifiers"
+ },
  "16f84d551cfc686c": {
   "content_excerpt": "I was recently made aware of how Claude Code spends 15-20% of the tokens on updating a three-word status line . Since I work almost entirely within Codex , I decided to take a peek at the code (Codex is open source and written in Rust). If you are working with an open source harness, be that Codex, pi, OpenCode, or something else, I encourage you to explore how it actually works. Whenever an unnamed thread receives a completed, nonempty user text message, an automatic thread naming procedure is invoked behind the scenes. 1 , 2 This happens for example when you start a fresh Codex session and enter the first instructions into the text box. In this case the full prompt, including the title naming instructions, labels and user's text, are capped at 960 bytes and sent to an LLM. 3 , 4 The returned response is a structured output, resulting in a thread title that is preferably under five words, or 36 characters. The preferred model is gpt-5.6-luna with low reasoning effort, when signed into ChatGPT and that model exists in the catalog; otherwise it uses the current selected model. 5 You can also explicitly rename the thread by evoking /rename and this doesn't cost you anything. However, if you run /rename with no arguments, Codex immediately makes an LLM call requesting a title suggestion. That request uses up to eight recent substantive user/assistant messages, excluding assistant commentary. 6 Next I took a look at the live activity indicator, to see if it's similar to how Claud",
   "first_seen": "2026-11-01T20:05:53.130724+00:00",
@@ -678,6 +690,22 @@
   "type": "news",
   "url": "https://armincat.com/articles/where-tokens-go",
   "why_it_matters": "Matches feed focus: agent, harness."
+ },
+ "179cb2dc1f9c4f81": {
+  "content_excerpt": "Relay a long coding goal across subscription agents without spending paid credits baton keeps one long coding goal moving for days by passing it between coding agents, stopping each one before it can spend money it should not. It works with Codex and Antigravity alone; Claude is an optional third, paid by use, that only joins the queue once you save an API key for it. Its turn ends at USD 50 or 5 hours, whichever comes first, it is left out of a goal after USD 150 spent in that goal, and the monthly ceiling stays above all of that. You give it a goal (an objective, a working directory and a verification command). It runs one agent until that agent nears its limit or its turn (5 hours) ends, hands the work to the next, and when every agent is out, sleeps until the earliest reset and carries on. It finishes only when the verification command exits 0; an agent saying \"done\" means nothing. Every agent runs through its vendor's own CLI. baton reimplements no agent. Context moves between them through the repository, its commits and a handoff file, and each vendor's own conversation is resumed when its turn comes again. Inside a goal the work follows a cycle of plan, build and review, with a strong and a working model per provider (see Phases ). How baton works: Codex, Antigravity and then Claude take turns; every goal runs plan, build and review, then the check, then consensus of every agent, and only then is it done. baton does not bring its own AI or its own methods. It drives to",
+  "first_seen": "2026-11-06T14:05:07.235125+00:00",
+  "id": "5633259cdc0ad1ba",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-06T13:24:08+00:00",
+  "sid": "179cb2dc1f9c4f81",
+  "source": "hackernews_ai",
+  "summary_1line": "Baton – Keep long coding goals moving across AI coding agents",
+  "title": "Baton – Keep long coding goals moving across AI coding agents",
+  "type": "news",
+  "url": "https://github.com/cahian/baton",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "17d622fadb91466e": {
   "first_seen": "2026-11-03T07:08:17.402292+00:00",
@@ -1334,12 +1362,12 @@
  "30689b894f03e4c2": {
   "content_excerpt": "40+ Models Chosen for Production...40+ Models Chosen for Production...40+ Models Chosen for Production... AI inference workloads are dynamic. There are thousands of regimes spanning new models, hardware platforms, customers, use cases, and traffic shapes. It’s no longer scalable to optimize each of these regimes by hand. Agents are a great fit for this problem, in theory. They can adapt to new workloads and search over the space of possible optimizations without relying on fixed rules or heuristics that plague human experts and traditional machine learning compilers. However, today’s agentic systems are bottlenecked by the speed of experimentation. In less than 24 hours, TKCC achieves up to 2.6x higher TPS across frontier open source models (Kimi K3, GLM 5.3, MiniMax M3.1-Flash, DeepSeek v4.1-Flash), sets the state-of-the-art on SemiAnalysis’ InferenceX benchmark for low-latency with 1111 TPS on MiniMax M3.1-Flash and 1205 TPS on DeepSeek v4.1-Flash, and outperforms available open-source megakernels by 1.7x on their workhorse Llama 1B batch size 1 setting. Furthermore, TKCC generalizes to domains beyond language model inference (weather modeling, PDE, time-series, and biology). This performance boost is enabled by TKCC’s 252x higher experiment throughput compared to baseline agentic performance optimization systems. Together Compiler is serving trillions of tokens today. As an inference provider, we see a variety of user behaviors based on regional patterns, new model release",
   "first_seen": "2026-11-05T16:09:06.783851+00:00",
-  "id": "92af3bd77873d6fc",
-  "published": "2026-11-05T15:07:35+00:00",
+  "id": "1181a4f0149fb98f",
+  "published": "2026-11-06T11:36:38+00:00",
   "sid": "30689b894f03e4c2",
   "source": "hackernews_ai",
-  "summary_1line": "Together AI Compiler for Inference",
-  "title": "Together AI Compiler for Inference",
+  "summary_1line": "Together Compiler: Continual Compilation for AI Inference",
+  "title": "Together Compiler: Continual Compilation for AI Inference",
   "type": "news",
   "url": "https://www.together.ai/blog/together-compiler-continual-compilation-for-ai-inference"
  },
@@ -1695,6 +1723,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06687v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "3c181f7e07538d84": {
+  "first_seen": "2026-11-06T14:05:07.235125+00:00",
+  "id": "e13391b03dab2c4a",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-05T17:19:09+00:00",
+  "sid": "3c181f7e07538d84",
+  "source": "arxiv_cs_cl",
+  "summary": "Sentiment Analysis (SA) is a fundamental NLP task concerned with the identification and categorization of subjective information in text. While lexicon-based methods offer transparency, they often struggle with linguistic phenomena such as negation and intensification. Syntactic parsing has been integrated into SA pipelines to address this, but conventional parsers introduce significant computational overhead. Recent work shows that reformulating dependency parsing as a Sequence Labeling (SEL) task can improve efficiency. We propose and compare two strategies for integrating syntactic knowledge into a neural sentiment analysis model under unified Multi-Task Learning (MTL). The first, Standard-MTL, jointly learns dependency parsing (via sequence labeling) and sentiment polarity classification using a shared encoder with two task-specific heads. The second, Contrastive-MTL, provides implicit syntactic guidance through a contrastive auxiliary objective and a syntax-biased attention pooling mechanism, without requiring explicit label prediction. Both rely on syntactic annotations during training and eliminate need for hand-crafted compositional rules or external parsing at inference. We evaluate eleven datasets spanning seven languages---the MARC corpus (English, Spanish, French, German) and seven datasets from SemEval-2022 Task 10 (English, Spanish, Norwegian, Basque, Catalan)---using four established SEL encodings. With the relative encoding, Contrastive-MTL outperforms a synta",
+  "summary_1line": "Sentiment Analysis (SA) is a fundamental NLP task concerned with the identification and categorization of subjective information in text. While lexicon-based methods offer transparency, they often struggle with lingui...",
+  "title": "Polarity Classification with Multitask Learning Syntax Augmentation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08323v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "3c72c5c3cd7d0707": {
   "content_excerpt": "NVIDIA researchers find Claude Opus 4.5 and GPT 5.6 Sol lose little accuracy with 16K contexts and frequent compaction, while long-context serving costs up to 7x more per token. Long context windows are one of the main selling points of frontier models. A new preprint from NVIDIA, titled “You don’t need long context”, questions whether agents actually need them. Peter Belcak, Pavlo Molchanov and ten co-authors test what happens when models must keep their working context short, by regularly summarizing their own history, and conclude that the long-context race may be solving the wrong problem. The team compared each model’s normal full-history run with “compaction” settings: once the conversation hits a threshold, the model writes a summary and continues in a fresh, short context. Settings ranged from a 128K limit down to 16K, compacted at 12K. The most radical test was “single-action contexts”: the model takes one step, writes a compact state and hands over to a fresh context. Peak context dropped from 130K–200K tokens to 15K–37K, with a median of 7K–9K. Retail API prices are flat per million tokens, so users rarely see that late tokens in a long context are much more expensive to generate. If agents work well with short contexts, providers and teams running their own models could serve the same workloads with less memory and fewer GPUs. The authors argue this rivals or exceeds savings from methods such as aggressive quantization. The study is broad. It covers 13 benchmarks,",
@@ -2632,6 +2676,22 @@
   "type": "news",
   "url": "https://openai.com/index/lifeval",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "5a90caffb2c87d2e": {
+  "content_excerpt": "Robots are learning to fold laundry, sort parts, and handle unfamiliar objects. But those demonstrations are often rather narrow and don't explain what a robot has learned or why it fails. To study a complex system, scientists often begin with a small, controlled environment, such as a petri dish or terrarium, where they can vary conditions and observe the effects. Robotics needs environments that make this kind of investigation possible—researchers should be able to change the training data or model design, repeat a test, and trace the cause of a failure. Today we're introducing a framework for creating these environments; we call them FoundationWorlds. Each pairs a controlled, simulated world targeted at studying robotics in a specific environment with tools for automatically generating tasks and training demonstrations, as well as metrics for measuring a robot's behavior over time. Together, they provide a setting for studying questions such as how models improve as more training data becomes available, and how to best combine high-level reasoning with precise physical control. Our first foundation world is ToyBlocks : an open simulation framework built around a robot arm and blocks on a tabletop. The setting is deliberately simple, but the robot must still reason about how the blocks interact and how to arrange them while pushing, flipping, and stacking. ToyBlocks automatically generates demonstrations, which are recordings of a robot completing tasks in simulation, witho",
+  "first_seen": "2026-11-06T14:05:07.235125+00:00",
+  "id": "e1a748630fb7bb97",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-06T14:00:48+00:00",
+  "sid": "5a90caffb2c87d2e",
+  "source": "huggingface_blog",
+  "summary_1line": "ToyBlocks: A controlled world for robot learning and evaluation",
+  "title": "ToyBlocks: A controlled world for robot learning and evaluation",
+  "type": "research",
+  "url": "https://huggingface.co/blog/allenai/toyblocks",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "5ab1b6ecf4ca3e7a": {
   "first_seen": "2026-11-04T18:04:59.867522+00:00",
@@ -6454,7 +6514,7 @@
   ],
   "published": "2026-11-05T16:08:05+00:00",
   "sid": "ef4ea7108d007ea3",
-  "source": "arxiv_agent_systems_research",
+  "source": "arxiv_cs_cl",
   "summary": "Large language models have made rapid progress in agentic reasoning and tool use, raising expectations for agents that can take over realistic productivity work from humans. However, current agents still struggle to finish such tasks, where success requires following long-horizon professional workflows, understanding heterogeneous file contexts, and producing usable deliverables under fine-grained requirements. A key bottleneck is the lack of scalable post-training data that reflects real work intent, authentic file environments, and deliverable-level evaluation. To close this gap, we introduce Agent-R$^2$, a $\\textbf{r}$eal-source data synthesis framework that scales training data for $\\textbf{r}$ealistic productivity work. Instead of relying on manually specified workflows or LLM-generated files, Agent-R$^2$ grounds synthesis throughout the pipeline in real occupational seeds, corpus-derived workflow evidence, and authentic web-sourced files. From 10k web-corpus candidates, Agent-R$^2$ distills 4k task instances that pair real multi-format attachments with fine-grained, deliverable-level rubrics. On this data, we train Agent-R$^2$-4B via supervised fine-tuning and rubric-based reinforcement learning, improving both end-to-end productivity performance and file-grounded reasoning. Trained on only 4k instances, Agent-R$^2$-4B surpasses Qwen3-235B-A22B-Thinking-2507 on both GDPval (51.0$\\%$ vs. 48.0$\\%$) and OfficeQA (14.8$\\%$ vs. 13.8$\\%$). Further analysis shows that Agent-R$",
   "summary_1line": "Large language models have made rapid progress in agentic reasoning and tool use, raising expectations for agents that can take over realistic productivity work from humans. However, current agents still struggle to f...",
   "title": "Agent-R$^2$: Scaling Agents for Realistic Productivity Work via Real-Source Data Synthesis",
