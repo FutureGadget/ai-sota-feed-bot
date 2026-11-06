@@ -192,13 +192,19 @@
  "07880d2bc4128864": {
   "first_seen": "2026-11-06T07:12:08.520944+00:00",
   "id": "f2733d375fc68e32",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
   "published": "2026-11-05T17:27:08+00:00",
   "sid": "07880d2bc4128864",
   "source": "arxiv_cs_ai",
+  "summary": "AI agents store text as embedding vectors and compress them at scale. A compression is accepted when each item's nearest neighbors survive, but agents also consolidate, delete, and compare memories, tasks that depend on which items lie far apart. We evaluate both ends with two label-free fidelities from our prior work: the local fidelity $L$ at 10 neighbors and the global fidelity $G$ at 30 to 50 percent of the memory. At 96 bytes per passage, rescored binary codes reach an $L$ of 0.97 yet move 10.1 percent of passages to another theme; PCA with 8-bit codes, at an $L$ of 0.77, moves 1.7 percent. Rescoring leaves the stored codes, and thus $G$, unchanged. We prove that across the $G$ band, $1-ν_k$ is at most 2 to 2.18 times the square root of the near-far rank-violation rate, and that this rate follows the distance noise of the compression (correlation 0.979). Our locality-aware quantization (LAQ) turns the bound into a hinge objective on the codebooks of an OPQ index, keeping its bytes, rotation, and search. To our knowledge, LAQ is the first quantizer whose objective comes from a proven bound on the far end. Reconstruction alone raises $G$ in 0 of 52 held-out runs; the far hinge raises it in all 52. LAQ raises $G$ in all 52 ($p=8.5\\times 10^{-4}$ over 13 memory-encoder groups), including the external FinDER memory, has the highest $G$ of seven equal-size quantizers in all 12 Multi-Doc-2025 runs, scales to a million passages, and keeps evidence recall.",
   "summary_1line": "AI agents store text as embedding vectors and compress them at scale. A compression is accepted when each item's nearest neighbors survive, but agents also consolidate, delete, and compare memories, tasks that depend on which items lie far apart. We evaluate both ends with two la",
   "title": "Enhancing Local and Global Structure in Compressed AI Agent Memory",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.08341v1"
+  "url": "http://arxiv.org/abs/2611.08341v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "07b0f4ca5cc4c25d": {
   "content_excerpt": "OpenTelemetry-native SDK for AI agent observability, tracing, evaluation, debugging, governance, and runtime policy enforcement. Framework-agnostic and built for OpenAI Agents, LangGraph, CrewAI, and LLM applications in production. Traccia is a production-ready Python SDK for observing, evaluating, and enforcing policies on AI agents and LLM applications at runtime. Built on OpenTelemetry, Traccia provides distributed tracing, token and cost tracking, evaluation, governance evidence, and runtime policy enforcement across AI agents, agentic workflows, and multi-agent systems. Framework-agnostic and built for OpenAI Agents, LangGraph, CrewAI, and LLM applications in production. Each call gets an llm.groq.chat.completions span and goes through the Spend Cap. Settlement charges Groq's reported usage at Groq's own price (cached prompt tokens at the cached rate); a stream closed or failed partway is charged an estimate of what it produced; a stream dropped without close() has its request aborted and is charged its full reservation, as is a with_streaming_response call, whose body you read yourself. A call still open at stop_tracing() ends its span; when the Spend Cap reserved budget for it, it is also aborted and charged that reservation (unless Groq reported usage), and otherwise it is left running, so a stream another thread is reading keeps working. Groq reports usage only at the end of a stream, so a call without it records its estimated token counts on the span instead ( llm.u",
@@ -435,6 +441,22 @@
   "url": "https://github.com/3351666087/scan-to-vector-skill",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "0dcaa3e1aea7c93f": {
+  "content_excerpt": "It works with Claude Code, Codex, Cursor or your own agent as an MCP server. Install in two commands . One real task (Luna, each tool’s median run of 5 by input tokens, replayed): about half the time, over 3.5x fewer input tokens, less than half the calls. Across all 5 runs: 3-5x fewer tokens, about half the time, 11-12 calls vs 21-29. This is a selected example from 16 long tasks; medians across all 16 are in Results . Full video . Mantis vs the accessibility tree (Playwright MCP) on public sites, gpt-6-luna and claude-haiku-5-5 . Every cell is a per-run median; time is end-to-end wall time per run: 0.1.13: headline numbers are 0.1.9's; later builds checked on Dickens (Luna, Haiku), the capability-v1 local set and the visual-live-v1 real-site set. Long tasks (correct: 14 keyed tasks, 42 runs per cell; medians: all 16 tasks, 48 runs per cell; both approaches run in the same session): Short tasks (30 tasks, 90 runs per cell; tree and screenshot columns are the earlier 20261026 run): Optional. Mantis can drive your real Chrome (your tabs, your sign-ins) instead of launching a fresh browser:",
+  "first_seen": "2026-11-06T10:10:26.296810+00:00",
+  "id": "55e904b2ebfd3eb9",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-06T06:38:36+00:00",
+  "sid": "0dcaa3e1aea7c93f",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Mantis – AI agents browse 36% faster than with Playwright MCP",
+  "title": "Show HN: Mantis – AI agents browse 36% faster than with Playwright MCP",
+  "type": "news",
+  "url": "https://github.com/perzianhq/mantis",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "0e1e76b78d380c4d": {
   "first_seen": "2026-11-05T16:09:06.783851+00:00",
   "id": "7d24c82bc584f43b",
@@ -521,6 +543,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06444v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "10db810923e56c16": {
+  "first_seen": "2026-11-06T10:10:26.296810+00:00",
+  "id": "f65de608d222642d",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-05T16:28:08+00:00",
+  "sid": "10db810923e56c16",
+  "source": "arxiv_cs_lg",
+  "summary": "We consider the problem of cross-validation (CV) in time series forecasting, with a focus on global forecasting models based on deep learning. The prevailing CV strategy in forecasting is to partition data across time with the last part of each series used for testing. With global models trained on collections of time series, however, a fundamentally different approach becomes possible: partitioning across series and time. We formalize series-wise CV for global forecasting models and benchmark several instantiations, including K-fold CV, bootstrapping, and Monte Carlo CV, on 11 datasets with 10 neural network architectures. We evaluate CV procedures along five dimensions: performance estimation, overoptimism rate, model selection accuracy, regret, and downstream forecasting performance. We withhold a random fraction of series from training so that they appear only in the test set. This protocol simulates the emergence of new series not seen during training, a common scenario in global forecasting. Under this protocol, our results reveal a nuanced trade-off: series-wise CV yields better downstream forecasting accuracy by guiding model selection toward configurations that generalize across both time and series, while time-wise CV retains a slight advantage for estimating out-of-sample error.",
+  "summary_1line": "We consider the problem of cross-validation (CV) in time series forecasting, with a focus on global forecasting models based on deep learning. The prevailing CV strategy in forecasting is to partition data across time...",
+  "title": "Series-wise Cross-validation for Global Time Series Forecasting",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08252v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "1148658a9f5b93f3": {
   "first_seen": "2026-11-03T13:05:11.255573+00:00",
@@ -2266,6 +2304,22 @@
   "type": "news",
   "url": "https://www.buoyant.io/blog/distributed-inference-benchmarks-kinference-vs-plain-kubernetes"
  },
+ "50bc93990145bd05": {
+  "first_seen": "2026-11-06T10:10:26.296810+00:00",
+  "id": "822d44c64d8c4a77",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-05T17:53:49+00:00",
+  "sid": "50bc93990145bd05",
+  "source": "arxiv_cs_lg",
+  "summary": "Linear attention compresses context into a fixed-size key-value state for linear-time training and constant-memory inference. Gated delta-rule models decay this state and erase its prediction for an incoming key before writing a new value; Gated DeltaNet-2 (GDN-2) generalizes this with channel-wise decay and decoupled, full-rank erase and write gates. However, we show that state updates are far less sensitive to erasure than to writes: key activation and unit normalization concentrate key energy onto a sparse subset of channels, whereas value writes scale all channels, so the erase gate can be parameterized at lower rank. Furthermore, slow-decaying state rows accumulate much larger norms than fast rows, dominating unweighted readout and forcing stronger write-time erasure to suppress interference. Guided by this analysis, we introduce Muir, which fuses all gates into a sensitivity-allocated low-rank projection, re-weights state rows with a matched-filter readout gate, and reinvests the saved parameters in a wider feed-forward network. Because standard chunkwise algorithms become numerically unstable at the large chunk sizes needed to saturate wide matrix units, we design a parallel update for stable, efficient training. Across 166M-1.34B parameters, Muir lowers perplexity by 1.8-2.0% over GDN-2 and 2.5-3.6% over Transformer, raises commonsense accuracy by up to 1.9 points, and improves extractive recall over GDN-2. At 1.34B, Muir outperforms both baselines on multi-hop and mu",
+  "summary_1line": "Linear attention compresses context into a fixed-size key-value state for linear-time training and constant-memory inference. Gated delta-rule models decay this state and erase its prediction for an incoming key befor...",
+  "title": "Muir: Linear Attention with Sensitivity-Allocated Gating and Matched-Filter Readout",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08376v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "51abf5f84d7f5698": {
   "first_seen": "2026-11-06T02:04:31.223147+00:00",
   "id": "974325596e8be76a",
@@ -3021,13 +3075,14 @@
   "url": "https://github.com/usetrim/trim"
  },
  "71a401f731f51fa0": {
-  "content_excerpt": "You are using an outdated browser. Please upgrade your browser to improve your experience. The latest news from Google on open source releases, major projects, events, and outreach programs for early career developers. by Brian Suchy , Jim Quinn , Elise Ewing , Oliver Newth and Dave Rensin on behalf of the Elephant-Goldfish Model team AI-powered velocity is transformative; however, it has silently introduced a potential reliability crisis by also increasing the velocity of “slop,” bugs, and session context collapse. Generative AI tools excel at increasing coding speed, but pure speed without structured guardrails means we are often auto-scaling our mistakes rather than simply writing code faster. We need a paradigm shift, aligning the human need for system comprehension with AI’s capacity for execution. As co-author Dave Rensin outlines in the article Elephants, Goldfish, and the New Golden Age of Software Engineering , “Design is the new code.” The EGM framework is a metaphor for a powerful way to develop AI-assisted software quickly and safely with humans intentionally in the loop. The “Elephant” is a context-rich, long-horizon AI session that holds the end-to-end architectural vision and project memory. No code is written here; it is purely dedicated to design, intent, and capturing micro-decisions. The Elephant session is where the AI interviews you and you debate the merits of your choices. Conversely, “Goldfish” are stateless, zero-context sessions used strictly to vali",
+  "content_excerpt": "The latest news from Google on open source releases, major projects, events, and outreach programs for early career developers. by Brian Suchy , Jim Quinn , Elise Ewing , Oliver Newth and Dave Rensin on behalf of the Elephant-Goldfish Model team AI-powered velocity is transformative; however, it has silently introduced a potential reliability crisis by also increasing the velocity of “slop,” bugs, and session context collapse. Generative AI tools excel at increasing coding speed, but pure speed without structured guardrails means we are often auto-scaling our mistakes rather than simply writing code faster. We need a paradigm shift, aligning the human need for system comprehension with AI’s capacity for execution. As co-author Dave Rensin outlines in the article Elephants, Goldfish, and the New Golden Age of Software Engineering , “Design is the new code.” The EGM framework is a metaphor for a powerful way to develop AI-assisted software quickly and safely with humans intentionally in the loop. The “Elephant” is a context-rich, long-horizon AI session that holds the end-to-end architectural vision and project memory. No code is written here; it is purely dedicated to design, intent, and capturing micro-decisions. The Elephant session is where the AI interviews you and you debate the merits of your choices. Conversely, “Goldfish” are stateless, zero-context sessions used strictly to validate specifications. Because they share no “blind spots” with the designer, they act as obj",
   "first_seen": "2026-11-01T07:07:29.038298+00:00",
-  "id": "69e5f7f565c489b6",
-  "published": "2026-11-01T00:39:58+00:00",
+  "id": "552713204e2ef990",
+  "published": "2026-11-06T09:22:46+00:00",
   "sid": "71a401f731f51fa0",
   "source": "hackernews_ai",
-  "title": "The Elephant-Goldfish Model plugin for spec-driven AI development",
+  "summary_1line": "The Elephant-Goldfish Model: scaling design-driven AI development",
+  "title": "The Elephant-Goldfish Model: scaling design-driven AI development",
   "type": "news",
   "url": "https://opensource.googleblog.com/2026/10/introducing-elephant-goldfish-model-plugin.html"
  },
@@ -5660,6 +5715,22 @@
   "url": "http://arxiv.org/abs/2611.06481v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "d54833c264e274a3": {
+  "content_excerpt": "Search, fetch, browse and act through one API built for agents, not for people reading a screen. Search and Fetch are free. I've spent most of this year building TinyResearch , and the goal has always been easy to say and hard to build: you hand it a hard question, and what comes back is good enough that you don't have to redo it. More and more, the one handing off that question isn't a person. It's an agent in the middle of a bigger job, like a sales agent prepping a brief before a call or an assistant comparing vendors for someone. An agent can't squint at a weak report and decide to double-check it the way you would, it just builds the next step on top of whatever it got back. So TinyResearch had to work as a step you can call and rely on, whether you're the one reading the report or your agent is. That came down to five things I measure every change against: factual correctness, credibility, readability, comprehensiveness and instruction following . This post is the long version of how TinyResearch gets there: what happens inside a run, how deep the loop actually goes, a few decisions I changed my mind on along the way, and how it does on three public benchmarks. If you just want to try it, it's live at agent.tinyfish.ai/playground/research . That's not one question. It's a handful of them hiding inside one sentence. How much would each cost over five years, including insurance, maintenance, and fuel or charging? What changes if you can't charge at home? How do they compa",
+  "first_seen": "2026-11-06T10:10:26.296810+00:00",
+  "id": "205f33069d1faa40",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-06T08:04:58+00:00",
+  "sid": "d54833c264e274a3",
+  "source": "hackernews_ai",
+  "summary_1line": "Stop running everything through LLMs: How I fixed my research agent",
+  "title": "Stop running everything through LLMs: How I fixed my research agent",
+  "type": "news",
+  "url": "https://www.tinyfish.ai/blog/inside-tinyresearch",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "d72e76ee34cd12ef": {
   "content_excerpt": "To create one, POST https://inspect.hookdeck.com/ (for example: curl -X POST https://inspect.hookdeck.com/). The JSON reply has ingest_url, where to send webhooks, and requests_url: GET it to wait for the next request. It waits up to 25 seconds and returns the request as JSON. If you can only make GET requests, ask the person to open https://inspect.hookdeck.com/ in a browser and share the URL it gives them. stripe-signature : t=1677834000,v1=0b144c08dca0ce58f56f8810da96ea76a3977f09966b624199d23e6dd0cedc1e,v0=135a50a00bfa300eb6f8078bc41ea7681c151a472d56264b774aea58a710e360",
   "first_seen": "2026-11-03T12:04:47.176869+00:00",
@@ -6309,6 +6380,23 @@
   "title": "One Assistant, Many Memories: Benchmarking Real-World Group Assistance When Recall Is Not Enough",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.04867v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "ef4ea7108d007ea3": {
+  "first_seen": "2026-11-06T10:10:26.296810+00:00",
+  "id": "628a2cfeae97283c",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-05T16:08:05+00:00",
+  "sid": "ef4ea7108d007ea3",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large language models have made rapid progress in agentic reasoning and tool use, raising expectations for agents that can take over realistic productivity work from humans. However, current agents still struggle to finish such tasks, where success requires following long-horizon professional workflows, understanding heterogeneous file contexts, and producing usable deliverables under fine-grained requirements. A key bottleneck is the lack of scalable post-training data that reflects real work intent, authentic file environments, and deliverable-level evaluation. To close this gap, we introduce Agent-R$^2$, a $\\textbf{r}$eal-source data synthesis framework that scales training data for $\\textbf{r}$ealistic productivity work. Instead of relying on manually specified workflows or LLM-generated files, Agent-R$^2$ grounds synthesis throughout the pipeline in real occupational seeds, corpus-derived workflow evidence, and authentic web-sourced files. From 10k web-corpus candidates, Agent-R$^2$ distills 4k task instances that pair real multi-format attachments with fine-grained, deliverable-level rubrics. On this data, we train Agent-R$^2$-4B via supervised fine-tuning and rubric-based reinforcement learning, improving both end-to-end productivity performance and file-grounded reasoning. Trained on only 4k instances, Agent-R$^2$-4B surpasses Qwen3-235B-A22B-Thinking-2507 on both GDPval (51.0$\\%$ vs. 48.0$\\%$) and OfficeQA (14.8$\\%$ vs. 13.8$\\%$). Further analysis shows that Agent-R$",
+  "summary_1line": "Large language models have made rapid progress in agentic reasoning and tool use, raising expectations for agents that can take over realistic productivity work from humans. However, current agents still struggle to f...",
+  "title": "Agent-R$^2$: Scaling Agents for Realistic Productivity Work via Real-Source Data Synthesis",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08219v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "efa01f312a148c6e": {
