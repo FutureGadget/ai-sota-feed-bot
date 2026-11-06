@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-05T18:05:34.066667+00:00",
+ "generated_at": "2026-11-06T18:05:03.358198+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,22 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-11-06-token-waste-measurement-framework",
+   "topic": "agent-cost",
+   "topic_title": "Agent token costs are unpredictable and easily run away",
+   "kind": "obstacle",
+   "date": "2026-11-06",
+   "title": "LLM-judged token-waste spans let agents drop 41-46% of reasoning with little accuracy loss"
+  },
+  {
+   "id": "2026-11-06-silent-instrument-errors-leaderboards",
+   "topic": "agent-benchmarks",
+   "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
+   "kind": "solution",
+   "date": "2026-11-06",
+   "title": "Silent grader and logging bugs reorder public agent leaderboards"
+  },
   {
    "id": "2026-11-05-germline-execution-signed-mcp-leak",
    "topic": "tool-use",
@@ -238,22 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-30",
    "title": "Claude Code re-sends each background agent's full transcript every ~30s for a status line"
-  },
-  {
-   "id": "2026-10-29-successful-call-loop",
-   "topic": "tool-use",
-   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
-   "kind": "obstacle",
-   "date": "2026-10-29",
-   "title": "A successful tool call is not progress: an agent reran one SQL query 254 times"
-  },
-  {
-   "id": "2026-10-29-inflight-run-outlives-suspension",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-10-29",
-   "title": "Agent runs started before a user suspension kept writing files, failing 2 of 14 checks"
   }
  ],
  "nodes": {
@@ -283,7 +283,7 @@
      "key": "harness-and-context",
      "title": "Harness, context, and topology drive the per-step bill",
      "summary": "What the agent re-reads, fetches, and re-sends each turn sets most of the bill; validated compaction, tool-instruction tuning, and task-level measurement beat naive truncation.",
-     "count": 11
+     "count": 12
     },
     {
      "key": "cheaper-models",
@@ -311,6 +311,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-06-token-waste-measurement-framework",
+     "topic": "agent-cost",
+     "date": "2026-11-06",
+     "title": "LLM-judged token-waste spans let agents drop 41-46% of reasoning with little accuracy loss",
+     "theme": "harness-and-context",
+     "html": "<p>A paper (paper-reported) records full agent trajectories, has an LLM judge mark removable spans, then validates them by deleting the spans and resuming execution. In online pruning on two agent benchmarks it removed <strong>41-46% of the model&#x27;s reasoning</strong> while largely preserving task performance.</p>\n<p>Waste varied more across tasks and agent settings than across models, and different harnesses added distinct inefficiencies under the same model and task. Reasoning and visible execution wasted tokens differently.</p>\n<p>Aggregate token counts hide this structure. Measure waste per task and per harness before choosing a cheaper model; the harness may be the larger lever.</p>",
+     "evidence": [
+      {
+       "sid": "61ea308958ff18b1",
+       "title": "How Do AI Agents Waste Your Money?"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-30-claude-code-status-line-summary-calls",
      "topic": "agent-cost",
@@ -1313,8 +1328,8 @@
      "title": "OpenAI adds usage analytics and enforceable spend controls to ChatGPT Enterprise"
     }
    ],
-   "entry_count": 55,
-   "latest_entry_date": "2026-10-30",
+   "entry_count": 56,
+   "latest_entry_date": "2026-11-06",
    "solutions": [
     {
      "slug": "agent-orchestration",
@@ -1332,6 +1347,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "61ea308958ff18b1",
+     "title": "How Do AI Agents Waste Your Money?"
+    },
     {
      "sid": "94430ceaa839cbc6",
      "title": "Claude Code regularly sends each background agent’s transcript to its model"
@@ -1581,7 +1600,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-10-30"
+   "updated": "2026-11-06"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -3632,6 +3651,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-06-silent-instrument-errors-leaderboards",
+     "topic": "agent-benchmarks",
+     "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
+     "date": "2026-11-06",
+     "title": "Silent grader and logging bugs reorder public agent leaderboards"
+    },
     {
      "id": "2026-10-26-simulated-control-evals-monitors",
      "topic": "llm-as-judge",
@@ -14082,7 +14108,7 @@
      "key": "trusting-the-score",
      "title": "What a score measures: model, harness, or noise",
      "summary": "Harness choice, protocol artifacts, and run-to-run noise can outweigh model differences; fixed environments, replays, counterfactual checks, and paired statistical trials are how scores earn trust.",
-     "count": 12
+     "count": 13
     },
     {
      "key": "own-workload",
@@ -14110,6 +14136,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-06-silent-instrument-errors-leaderboards",
+     "topic": "agent-benchmarks",
+     "date": "2026-11-06",
+     "title": "Silent grader and logging bugs reorder public agent leaderboards",
+     "theme": "trusting-the-score",
+     "html": "<p>A paper (paper-reported) audits the HAL and tau2-bench leaderboards from published artifacts alone. A general agent trailed an airline-benchmark scaffold by 13 points because it often ended conversations in a way that never triggered grading: only about half its episodes were scored, the rest stored as failures. Grading the other half closed the gap without rerunning anything.</p>\n<p>Three more errors surfaced: nested model calls counted twice in a cost column, grader-written actions logged as agent actions, and a mode check misreading four files that cut scores by 59-82 points with no error. HAL maintainers confirmed three.</p>\n<p>Report the graded fraction, aggregate cost from root spans, tag action provenance, and pin evaluator versions.</p>",
+     "evidence": [
+      {
+       "sid": "7dfaaa125cb6bf17",
+       "title": "Silent Instrument Errors Reorder Agent Leaderboards"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-evaluation",
+       "title": "Measuring whether an agent actually worked is hard"
+      }
+     ]
+    },
     {
      "id": "2026-09-18-refigbench-harness-shifts-scores",
      "topic": "agent-benchmarks",
@@ -14877,8 +14923,8 @@
     }
    ],
    "cross_entries": [],
-   "entry_count": 51,
-   "latest_entry_date": "2026-09-18",
+   "entry_count": 52,
+   "latest_entry_date": "2026-11-06",
    "solutions": [],
    "obstacles": [
     {
@@ -14896,6 +14942,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "7dfaaa125cb6bf17",
+     "title": "Silent Instrument Errors Reorder Agent Leaderboards"
+    },
     {
      "sid": "8953d96ac6a84322",
      "title": "ReFigBench: Benchmarking Scientific Figure Reconstruction as Editable PowerPoint Artifacts"
@@ -15101,7 +15151,7 @@
      "title": "DPBench: Structural Determinants of Multi-Agent LLM Coordination"
     }
    ],
-   "updated": "2026-10-06"
+   "updated": "2026-11-06"
   },
   "agent-orchestration": {
    "slug": "agent-orchestration",
