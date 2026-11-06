@@ -1,7 +1,21 @@
 # UI framework migration: Oat → Tailwind CSS v4 + Basecoat
 
-Status: **pilot shipped on `/subscribe`** (2026-11-06). Every other page still
-loads Oat. Decision record: `decision-log.md`, 2026-11-06.
+Status: **pilot shipped on `/subscribe`** (2026-11-06), and the whole site moved
+to the Precision theme (2026-11-07). Every page except `/subscribe` still
+loads Oat for components. Decision records: `decision-log.md`, 2026-11-06 and
+2026-11-07.
+
+## The look: Precision
+
+The approved direction keeps llm-digest's structure (masthead, section tabs,
+ranked Brief, Editor's Desk, Model and Skill Radar, the end-of-Brief line) and
+executes it in a Linear/Vercel style. The mockups live on the design canvas
+"LLM Digest — new look directions", Precision page (front page light, dark
+and phone; subscribe light and phone). Tokens are in `web/site-chrome.css`;
+Basecoat reads them through `ui/site.css`. As each page is rebuilt, drop its
+broadsheet leftovers (monospace caps kickers, left-border callouts, square
+controls). Screenshots after the theme swap:
+`docs/assets/ui-framework-migration/*precision*.jpg`.
 
 ## Why
 
@@ -91,9 +105,13 @@ Smallest and most self-contained first, the feed last:
    storyline, topic, foundations, skills, models. Add the renderer to
    `@source` (Tailwind reads class names from `.py` files) and re-render.
    Remove the Oat reset tests as each surface moves.
-5. `index.html` and `ko/index.html` (feed, `front-page.css`, swipe-to-hide).
-   Migrate last, behind the north-star check (weekly returning readers).
-6. Delete `web/oat.min.css`, `web/oat.min.js`, `web/oat.LICENSE.txt`,
+5. `index.html` and `ko/index.html` (feed, `front-page.css`, swipe-to-hide),
+   rebuilt to the Precision front-page mockup. Now the next step, ahead of
+   the smaller shells, because the owner approved the design on it; watch the
+   north-star metric (weekly returning readers) after it ships.
+6. Share cards (`pipeline/og_cards.py`): redraw in the Precision style, then
+   re-enable `test_palette_matches_the_site_light_theme`.
+7. Delete `web/oat.min.css`, `web/oat.min.js`, `web/oat.LICENSE.txt`,
    `docs/references/oat-ui-vendor.md`, the Oat hash test and the parity block.
 
 ### Per-page checklist

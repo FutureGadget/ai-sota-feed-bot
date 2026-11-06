@@ -46,19 +46,25 @@ Product contract:
 
 ## Site theme
 
-Every page uses one broadsheet theme: warm paper with an ink-red accent, a
-matching dark variant, and serif headlines.
+Every page uses one theme, Precision (2026-11-07): neutral grays, one red
+accent, Geist for text and headings, Geist Mono for ranks, scores, prices and
+dates, 1px lines, 8px controls, and a dark mode designed alongside light.
 
 - `web/site-chrome.css` owns the palette tokens (`--bg`, `--card`, `--border`,
-  `--accent`, `--muted`, `--fg`, `--signal`, `--warm`, the editorial washes
-  such as `--brief-wash`) for light and dark, plus the type tokens
-  `--font-display` (titles), `--font-serif` (headlines, reading text) and
-  `--font-sans` (UI). Every page already loads it.
+  `--line-strong`, `--accent`, `--muted`, `--fg`, `--signal`, `--warm`, the
+  editorial washes such as `--brief-wash`) for light and dark, plus the type
+  tokens `--font-display`, `--font-serif`, `--font-sans` (all Geist) and
+  `--font-mono` (Geist Mono). The fonts are self-hosted in `web/fonts/` (SIL
+  OFL) and staged by `scripts/build_site.py`. Every page already loads it.
 - Pages and `pipeline/render_static_pages.py` templates consume these tokens
   and never redefine them. Page-local tokens are fine for things that are not
   palette, such as storyline timeline hues (`--t-*`) or layout knobs.
-- `tests/test_site_chrome.py` (`BroadsheetThemeTest`) enforces both rules and
-  checks that text tokens hold 4.5:1 contrast on `--bg`, `--card` and the wash.
+- `tests/test_site_chrome.py` (`BroadsheetThemeTest`, named for the previous
+  theme) enforces both rules and checks that text tokens hold 4.5:1 contrast
+  on `--bg`, `--card` and the wash.
+- Avoid the old broadsheet devices when you touch a page: monospace all-caps
+  kickers, left-border callouts, square controls. Use sentence-case labels,
+  Geist Mono only for data, and Basecoat components.
 
 ## UI framework
 
@@ -74,8 +80,8 @@ order and checklist: `docs/design-docs/ui-framework-migration.md`.
 
 ## Share images and icons
 
-Share images follow the same theme (light palette only, since they appear
-outside the site).
+Share images still use the previous broadsheet palette and Playfair; they
+are due to be redrawn in the Precision style.
 
 - `pipeline/og_cards.py` draws the per-edition cards in `web/og/` during the
   feed run: nameplate and dateline, the page's red kicker, a Playfair headline,

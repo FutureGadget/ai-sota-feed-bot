@@ -19,10 +19,10 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
-  <meta name="theme-color" content="#f4f0e6" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#17150f" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/ui.css?v=20261106-basecoat-pilot" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20261103-chrome-preboot" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261107-precision" />
   <script>
     function sanitizedSubscribePath(rawHref) {
       try {
@@ -56,7 +56,7 @@
       document.documentElement.setAttribute('data-theme', t);
     })();
   </script>
-  <script defer src="/site-chrome.js?v=20261103-chrome-preboot"></script>
+  <script defer src="/site-chrome.js?v=20261107-precision"></script>
   <style>
     /* Email digest: Basecoat (Lyra) + Tailwind utilities, see ui/site.css.
        Only what utilities cannot express lives here. */
@@ -64,7 +64,7 @@
   </style>
 </head>
 <body class="overflow-x-clip leading-[1.55]">
-  <main class="mx-auto my-4 w-full max-w-[720px] px-[1.1rem] pb-12">
+  <main class="mx-auto my-4 w-full max-w-[1180px] px-[1.1rem] pb-12 sm:px-6">
     <header class="site-chrome" data-site-section="/subscribe">
       <div class="site-bar">
         <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
@@ -95,51 +95,59 @@
       </div>
     </header>
 
-    <section class="mt-8 mb-6 sm:mt-11">
-      <p class="kicker mb-2">The finishable AI brief · by email</p>
-      <h2 class="font-display max-w-[18ch] text-[2.5rem] leading-[0.96] font-bold tracking-[-0.04em] sm:text-[clamp(2.3rem,6.5vw,3.6rem)]">Catch up on AI in ten minutes a day.</h2>
-      <p class="mt-4 max-w-2xl text-[1.04rem] leading-relaxed">The model, infrastructure, agent-tooling, and research updates that matter for
-      platform &amp; agent engineers — ranked, deduplicated, and built to end. No infinite feed,
-      no hype.</p>
+    <div class="mt-10 mb-4 flex flex-wrap items-start gap-x-16 gap-y-12">
+      <div class="min-w-0 max-w-[560px] flex-[999_1_420px]">
+        <h2 class="text-[clamp(2.2rem,5vw,3rem)] leading-[1.02] font-semibold tracking-[-0.045em]">The Brief, in your inbox. Then it ends.</h2>
+        <p class="mt-4 text-[1.03rem] leading-relaxed text-ink-muted">Every <span data-daily-time>morning</span>, the AI stories that matter to platform and agent engineers, ranked and deduplicated. The same list everyone sees on the front page, plus the <span data-weekly-day>weekly</span> recap.</p>
+
+        <section class="signup mt-7" aria-labelledby="signupTitle">
+          <h3 id="signupTitle" class="sr-only">Get the email digest</h3>
+          <div id="signupSurface" class="min-h-[306px] sm:min-h-[228px]">
+            <p class="message" role="status">Checking subscription availability…</p>
+          </div>
+          <noscript><p class="message">JavaScript is required to submit the subscription form.</p></noscript>
+        </section>
+      </div>
+
+      <section id="samplePanel" class="sample-panel min-w-0 flex-[1_1_360px] overflow-hidden rounded-[14px] border bg-background" aria-label="The latest Brief" aria-busy="true">
+        <div class="flex justify-between gap-3 border-b bg-card px-4 py-3 text-[0.8rem] text-ink-muted">
+          <span><span class="font-medium text-foreground">The Brief</span>, <span id="sampleDate"></span></span>
+          <a class="text-ink-muted no-underline hover:text-foreground" href="/daily">Open</a>
+        </div>
+        <ol id="sampleList" class="m-0 min-h-[366px] list-none px-4 pt-1">
+          <li class="sample-skeleton border-b py-2.5" aria-hidden="true"><span class="block h-9 rounded-md bg-card"></span></li>
+          <li class="sample-skeleton border-b py-2.5" aria-hidden="true"><span class="block h-9 rounded-md bg-card"></span></li>
+          <li class="sample-skeleton border-b py-2.5" aria-hidden="true"><span class="block h-9 rounded-md bg-card"></span></li>
+          <li class="sample-skeleton border-b py-2.5" aria-hidden="true"><span class="block h-9 rounded-md bg-card"></span></li>
+          <li class="sample-skeleton border-b py-2.5" aria-hidden="true"><span class="block h-9 rounded-md bg-card"></span></li>
+          <li class="sample-skeleton border-b py-2.5" aria-hidden="true"><span class="block h-9 rounded-md bg-card"></span></li>
+        </ol>
+        <div class="flex justify-between gap-3 px-4 py-3 text-[0.8rem]">
+          <span id="sampleCount" class="text-ink-muted"></span>
+          <span class="font-medium text-brand">That’s the Brief.</span>
+        </div>
+      </section>
+    </div>
+
+    <section class="deliveries mt-12 grid gap-px overflow-hidden rounded-[14px] border bg-border sm:grid-cols-3" aria-label="What you receive">
+      <div class="delivery bg-background p-5">
+        <p class="delivery-when font-mono text-[0.75rem] text-brand">Daily, every <span data-daily-time>morning</span></p>
+        <h3 class="mt-2 text-[1.05rem] font-semibold tracking-[-0.02em]">The daily brief</h3>
+        <p class="mt-1 text-[0.9rem] leading-relaxed text-ink-muted">The day’s highest-signal updates. Read it and you’re caught up. <a class="sample font-medium" href="/daily">See today's brief</a></p>
+      </div>
+      <div class="delivery bg-background p-5">
+        <p class="delivery-when font-mono text-[0.75rem] text-brand">Weekly, <span data-weekly-day-plural>weekends</span></p>
+        <h3 class="mt-2 text-[1.05rem] font-semibold tracking-[-0.02em]">The weekly recap</h3>
+        <p class="mt-1 text-[0.9rem] leading-relaxed text-ink-muted">What shifted and what you missed, in one read. <a class="sample font-medium" href="/weekly">See this week's recap</a></p>
+      </div>
+      <div class="delivery bg-background p-5">
+        <p class="delivery-when font-mono text-[0.75rem] text-brand">Always</p>
+        <h3 class="mt-2 text-[1.05rem] font-semibold tracking-[-0.02em]">One transparent ranking</h3>
+        <p class="mt-1 text-[0.9rem] leading-relaxed text-ink-muted">No personalized filter bubble, no engagement bait. <a class="sample font-medium" href="/">See the live feed</a></p>
+      </div>
     </section>
 
-    <section class="signup card mt-7 gap-0 border-0 border-l-3 border-l-brand bg-wash px-5 py-5 text-wash-ink shadow-none ring-0 sm:px-6" aria-labelledby="signupTitle">
-      <h2 id="signupTitle" class="font-display mb-1 text-2xl leading-tight font-bold">Get the email digest</h2>
-      <p class="mb-4 text-[0.95rem] text-ink-muted">The daily brief plus the <span data-weekly-day>weekly</span> recap. Unsubscribe anytime.</p>
-      <div id="signupSurface">
-        <p class="message" role="status">Checking subscription availability…</p>
-      </div>
-      <noscript><p class="message">JavaScript is required to submit the subscription form.</p></noscript>
-    </section>
-
-    <section class="deliveries mt-8 border-t" aria-label="What you receive">
-      <div class="delivery grid gap-1.5 border-b py-4.5 sm:grid-cols-[minmax(7rem,.28fr)_minmax(0,1.72fr)] sm:gap-x-6">
-        <p class="delivery-when kicker text-[0.64rem] tracking-[0.1em]">Daily · every <span data-daily-time>morning</span></p>
-        <div class="min-w-0">
-          <h3 class="font-display mb-1 text-[1.18rem] leading-tight font-bold">The daily brief</h3>
-          <p class="text-[0.93rem] leading-relaxed text-ink-muted">The day's highest-signal updates, ranked and deduplicated — read it and you're caught up.
-          <a class="sample font-mono text-[0.7rem] whitespace-nowrap no-underline hover:underline" href="/daily">See today's brief →</a></p>
-        </div>
-      </div>
-      <div class="delivery grid gap-1.5 border-b py-4.5 sm:grid-cols-[minmax(7rem,.28fr)_minmax(0,1.72fr)] sm:gap-x-6">
-        <p class="delivery-when kicker text-[0.64rem] tracking-[0.1em]">Weekly · <span data-weekly-day-plural>weekends</span></p>
-        <div class="min-w-0">
-          <h3 class="font-display mb-1 text-[1.18rem] leading-tight font-bold">The weekly recap</h3>
-          <p class="text-[0.93rem] leading-relaxed text-ink-muted">The week's pattern report: what shifted and what you missed, in one read.
-          <a class="sample font-mono text-[0.7rem] whitespace-nowrap no-underline hover:underline" href="/weekly">See this week's recap →</a></p>
-        </div>
-      </div>
-      <div class="delivery grid gap-1.5 border-b py-4.5 sm:grid-cols-[minmax(7rem,.28fr)_minmax(0,1.72fr)] sm:gap-x-6">
-        <p class="delivery-when kicker text-[0.64rem] tracking-[0.1em]">Always</p>
-        <div class="min-w-0">
-          <h3 class="font-display mb-1 text-[1.18rem] leading-tight font-bold">One transparent ranking</h3>
-          <p class="text-[0.93rem] leading-relaxed text-ink-muted">The same low-hype ranking everyone sees — no personalized filter bubble, no engagement bait.
-          <a class="sample font-mono text-[0.7rem] whitespace-nowrap no-underline hover:underline" href="/">See the live feed →</a></p>
-        </div>
-      </div>
-    </section>
-
-    <footer class="mt-9 border-t pt-3.5 text-sm text-ink-muted">
+    <footer class="mt-10 border-t pt-4 text-sm text-ink-muted">
       Your address is stored by the email provider, not in this public repository.
       <a href="/">Return to the live feed</a>.
     </footer>
@@ -250,28 +258,23 @@
     }
 
     function formHtml() {
-      return `<form id="subscribeForm" class="flex flex-col gap-2.5 sm:flex-row sm:items-start" novalidate>
-        <input type="email" name="email" class="input w-full bg-card sm:flex-1" data-size="touch" required placeholder="you@example.com" aria-label="Email address" autocomplete="email" inputmode="email" />
-        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <button type="submit" class="btn w-full sm:w-auto" data-size="touch">Subscribe</button>
+      return `<form id="subscribeForm" class="flex flex-col gap-2" novalidate>
+        <label for="subscribeEmail" class="text-[0.82rem] font-medium">Email</label>
+        <div class="flex flex-col gap-2 sm:flex-row">
+          <input id="subscribeEmail" type="email" name="email" class="input w-full sm:flex-1" data-size="touch" required placeholder="you@company.com" autocomplete="email" inputmode="email" />
+          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button type="submit" class="btn w-full sm:w-auto" data-size="touch" data-variant="ink">Subscribe</button>
+        </div>
       </form>
-      <fieldset class="pref mt-4 min-w-0">
-        <legend class="kicker mb-2 text-[0.66rem] tracking-[0.1em] text-ink-muted">What you'll receive</legend>
-        <label class="pref-opt label mt-2 items-start gap-2.5 text-[0.92rem] leading-snug font-normal">
-          <input type="radio" class="input mt-0.5" name="cadence" value="both" form="subscribeForm" checked />
-          <span>Daily brief + ${SEND_SCHEDULE.weeklyDay} recap
-            <span class="mt-0.5 block text-[0.82rem] text-ink-muted">The full digest — one email every ${SEND_SCHEDULE.dailyTime} plus the weekly recap.</span>
-          </span>
-        </label>
-        <label class="pref-opt label mt-2 items-start gap-2.5 text-[0.92rem] leading-snug font-normal">
-          <input type="radio" class="input mt-0.5" name="cadence" value="weekly" form="subscribeForm" />
-          <span>${SEND_SCHEDULE.weeklyDay} recap only — less email
-            <span class="mt-0.5 block text-[0.82rem] text-ink-muted">Skip the daily brief; get just the weekly recap on ${SEND_SCHEDULE.weeklyDayPlural}.</span>
-          </span>
-        </label>
+      <fieldset class="pref mt-5 min-w-0">
+        <legend class="mb-2 text-[0.82rem] font-medium">Frequency</legend>
+        <div class="segmented">
+          <label class="pref-opt"><input type="radio" name="cadence" value="both" form="subscribeForm" checked /><span>Daily + ${SEND_SCHEDULE.weeklyDay}</span></label>
+          <label class="pref-opt"><input type="radio" name="cadence" value="weekly" form="subscribeForm" /><span>${SEND_SCHEDULE.weeklyDay} only</span></label>
+        </div>
       </fieldset>
       <p id="formMessage" class="message" role="status" aria-live="polite" hidden></p>
-      <p class="privacy mt-3.5 text-[0.84rem] text-ink-muted">No account required. Every email includes an unsubscribe link.</p>`;
+      <p class="privacy mt-4 text-[0.82rem] text-ink-muted">No account needed. Every email has a one-click unsubscribe link.</p>`;
     }
 
     function setMessage(text, state) {
@@ -335,7 +338,7 @@
         const config = await response.json();
         const externalUrl = safeExternalUrl(config?.digest?.email_signup_url);
         if (externalUrl) {
-          surface.innerHTML = `<a class="external-signup btn no-underline" data-size="touch" href="${externalUrl}" target="_blank" rel="noopener">Continue to email signup →</a>
+          surface.innerHTML = `<a class="external-signup btn no-underline" data-size="touch" data-variant="ink" href="${externalUrl}" target="_blank" rel="noopener">Continue to email signup →</a>
             <p class="privacy mt-3.5 text-[0.84rem] text-ink-muted">Signup and subscription preferences are managed by our email provider.</p>`;
           surface.querySelector('.external-signup')?.addEventListener('click', captureExternalHandoff);
           return;
@@ -360,8 +363,46 @@
       const current = document.documentElement.getAttribute('data-theme') || 'light';
       applyTheme(current === 'dark' ? 'light' : 'dark');
     });
+    async function initSample() {
+      // The latest Brief, live, so the sample never goes stale. Skeleton rows
+      // hold its space while it loads; the panel is removed only on failure.
+      const panel = document.getElementById('samplePanel');
+      const drop = () => { panel.hidden = true; };
+      try {
+        const response = await fetch('/api/daily', { headers: { accept: 'application/json' } });
+        if (!response.ok) return drop();
+        const recap = await response.json();
+        const items = Array.isArray(recap?.highlights) ? recap.highlights.slice(0, 6) : [];
+        if (!items.length) return drop();
+        const list = document.getElementById('sampleList');
+        list.replaceChildren();
+        items.forEach((text, index) => {
+          const li = document.createElement('li');
+          li.className = 'grid grid-cols-[28px_minmax(0,1fr)] gap-2 border-b py-2.5 text-[0.92rem] leading-snug';
+          const rank = document.createElement('span');
+          rank.className = 'pt-0.5 font-mono text-[0.75rem] text-ink-muted';
+          rank.textContent = String(index + 1).padStart(2, '0');
+          const body = document.createElement('span');
+          body.className = 'font-medium tracking-[-0.01em]';
+          body.textContent = String(text);
+          li.append(rank, body);
+          list.append(li);
+        });
+        const when = recap?.date ? new Date(`${recap.date}T12:00:00Z`) : null;
+        document.getElementById('sampleDate').textContent = when && !Number.isNaN(when.getTime())
+          ? new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(when)
+          : 'latest edition';
+        const count = Number(recap?.article_count) || 0;
+        document.getElementById('sampleCount').textContent = count ? `${count} read, ${items.length} sent` : `${items.length} stories`;
+        panel.removeAttribute('aria-busy');
+      } catch {
+        drop();
+      }
+    }
+
     localizeSchedule();
     initSignup();
+    initSample();
   </script>
 </body>
 </html>

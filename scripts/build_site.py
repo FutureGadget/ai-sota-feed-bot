@@ -17,7 +17,7 @@ PUBLIC_WEB_DIR = PUBLIC_DIR / "web"
 
 # web/ subdirectories that must also exist at the deployment root because pages
 # reference them with root-relative, extensioned URLs (see the staging step).
-ROOT_ASSET_DIRS = ("mascot", "universe", "og")
+ROOT_ASSET_DIRS = ("mascot", "universe", "og", "fonts")
 
 
 def stage_skill_lab_artifacts(sources: list[Path]) -> None:

@@ -20,23 +20,31 @@ class SubscribeSurfaceTest(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.html = (ROOT / "web" / "subscribe.html").read_text(encoding="utf-8")
 
-    def test_uses_shared_broadsheet_tokens(self) -> None:
-        # Broadsheet theme: palette comes from site-chrome.css; components and
-        # utilities come from the Tailwind + Basecoat layer (ui/site.css).
+    def test_uses_shared_theme_tokens(self) -> None:
+        # The palette comes from site-chrome.css; components and utilities
+        # come from the Tailwind + Basecoat layer (ui/site.css).
         self.assertNotIn("--bg:", self.html)
         self.assertNotIn("--accent:", self.html)
         self.assertIn("/site-chrome.css", self.html)
         self.assertIn("/ui.css", self.html)
         self.assertNotIn("oat.min", self.html)
-        self.assertIn("font-display", self.html)
-        self.assertIn('class="kicker', self.html)
+        self.assertIn("font-mono", self.html)
 
-    def test_signup_panel_is_the_focal_action(self) -> None:
-        # Accent-ruled washed panel (not a rounded card); accent-filled button.
-        self.assertIn('class="signup card', self.html)
-        self.assertIn("border-l-3 border-l-brand bg-wash", self.html)
-        self.assertIn('<button type="submit" class="btn w-full sm:w-auto" data-size="touch">Subscribe</button>', self.html)
+    def test_signup_is_the_focal_action(self) -> None:
+        # Ink-filled Subscribe next to the email field, real radios behind a
+        # segmented control, and the live latest Brief beside the form.
+        self.assertIn('class="signup', self.html)
+        self.assertIn('data-variant="ink">Subscribe</button>', self.html)
+        self.assertIn('class="segmented"', self.html)
         self.assertIn('class="external-signup btn', self.html)
+        self.assertIn("fetch('/api/daily'", self.html)
+        self.assertIn('id="samplePanel"', self.html)
+
+    def test_reserves_space_for_late_content(self) -> None:
+        # The form and the sample Brief arrive after fetches; their boxes are
+        # reserved up front so the page does not jump (CLS).
+        self.assertIn('id="signupSurface" class="min-h-[306px] sm:min-h-[228px]"', self.html)
+        self.assertIn("sample-skeleton", self.html)
 
     def test_delivery_spec_replaces_generic_benefit_cards(self) -> None:
         self.assertIn('class="deliveries', self.html)

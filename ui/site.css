@@ -32,7 +32,7 @@
    "muted surface" in shadcn, so Basecoat's versions live under --ui-*. */
 @layer theme {
   :root {
-    --radius: 0px;
+    --radius: 8px;
     --card-foreground: var(--fg);
     --popover: var(--card);
     --popover-foreground: var(--fg);
@@ -55,10 +55,9 @@
 }
 
 @theme {
-  --font-sans: "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --font-serif: "Iowan Old Style", "Charter", "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
-  --font-display: "Bodoni 72", "Didot", "Playfair Display", "Iowan Old Style", Georgia, serif;
-  --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-sans: "Geist", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Geist", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --radius-sm: var(--radius);
   --radius-md: var(--radius);
   --radius-lg: var(--radius);
@@ -127,7 +126,7 @@
     }
   }
   a {
-    @apply text-brand underline underline-offset-2;
+    @apply text-brand underline decoration-[color:var(--line-strong)] underline-offset-4 hover:decoration-current;
   }
 }
 
@@ -151,11 +150,34 @@
   .input {
     @apply focus-visible:ring-3;
   }
+  /* Precision primary action: ink on paper, inverted in dark mode. */
+  .btn[data-variant="ink"] {
+    @apply bg-foreground text-background no-underline hover:bg-foreground/85;
+  }
+  /* Two-option segmented control built from real radio inputs. */
+  .segmented {
+    @apply inline-grid grid-cols-2 gap-0.5 rounded-[9px] bg-card p-[3px] text-[0.85rem] ring-1 ring-border ring-inset;
+  }
+  .segmented label {
+    @apply relative cursor-pointer;
+  }
+  .segmented input {
+    @apply absolute size-px opacity-0;
+  }
+  .segmented span {
+    @apply flex min-h-10 items-center justify-center rounded-[7px] px-3 text-center text-ink-muted;
+  }
+  .segmented input:checked + span {
+    @apply bg-background font-medium text-foreground shadow-xs ring-1 ring-border;
+  }
+  .segmented input:focus-visible + span {
+    @apply outline-2 outline-offset-1 outline-ring;
+  }
   /* Comfortable touch targets: Lyra's controls are compact (h-8, text-xs). */
   .btn[data-size="touch"] {
-    @apply h-12 px-6 text-base font-bold;
+    @apply h-12 rounded-[8px] px-6 text-base font-semibold;
   }
   .input[data-size="touch"] {
-    @apply h-12 px-3.5 text-base md:text-base;
+    @apply h-12 rounded-[8px] border-[color:var(--line-strong)] bg-background px-3.5 text-base md:text-base;
   }
 }

@@ -34,6 +34,17 @@ class UiLayerTest(unittest.TestCase):
         self.assertIn("/*! tailwindcss v4.3.4 | MIT License", self.built)
         self.assertIn("/*! basecoat-css v1.1.0 (lyra subset) | MIT License", self.built)
 
+    def test_geist_is_self_hosted_and_staged(self) -> None:
+        css = (ROOT / "web" / "site-chrome.css").read_text(encoding="utf-8")
+        for font in ("Geist-Variable.woff2", "GeistMono-Variable.woff2"):
+            with self.subTest(font=font):
+                self.assertTrue((ROOT / "web" / "fonts" / font).is_file())
+                self.assertIn(f'url("/fonts/{font}")', css)
+        self.assertIn("font-display: swap", css)
+        self.assertIn("OFL", (ROOT / "web" / "fonts" / "Geist-OFL.txt").read_text(encoding="utf-8"))
+        build = (ROOT / "scripts" / "build_site.py").read_text(encoding="utf-8")
+        self.assertIn('"fonts"', build)
+
     def test_scans_only_listed_sources(self) -> None:
         # Auto-detection would scan ~8k generated pages and data/.
         self.assertIn('@import "tailwindcss" source(none);', self.source)
