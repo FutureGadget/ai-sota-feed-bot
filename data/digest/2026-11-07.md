@@ -2,104 +2,116 @@
 
 Focus: AI Platform Engineering
 
-## 1. How Grab Improved Mobile App Stability by Safely Handling Surge in AI-Generated Code Changes
+## 1. Show HN: Give your agent a Mac it can control
+- Type: news | Source: hackernews_ai
+- URL: https://offstage.cloud/
+- Score: 3.651 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 2. APM – A dependency manager for AI agents
+- Type: news | Source: hackernews_ai
+- URL: https://microsoft.github.io/apm/
+- Score: 3.273 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 3. Show HN: Service for the parallel execution of AI agent tasks on remote devices
+- Type: news | Source: hackernews_ai
+- URL: https://rungrid.space
+- Score: 2.935 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. Kimi AI Pricing: $1 API Top-Up vs $159 Plan [2026]
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMijwFBVV95cUxPMV9mRFdlRUlzazZ6ckU0NGszRUd5amVhWFBuLUhUbWN4cTUwRmNWalB4R25PY1pJN3JIUUlkS2VCT281MXpOcFNtR1dDa2sxTV9Bb2RsX0ktTGtvUWhQa1NwY0NLdERBeHZMN211dkNOd3BBV2h1X1J5Z1Z2RkdvWUF2LTkzTnIzdF92MkhjVQ?oc=5
+- Score: 2.848 | Reliability: 1.0
+- Why it matters: 
+
+## 5. How Grab Improved Mobile App Stability by Safely Handling Surge in AI-Generated Code Changes
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/11/grab-ai-generated-code-safety/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.927 | Reliability: 1.0
+- Score: 2.821 | Reliability: 1.0
 - Why it matters: 
 
-## 2. The Power of Meta Access in the Software of the Future --- Demonstrated on LLM Chat UIs and Chat AI
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.08428v1
-- Score: 2.699 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness, eval.
+## 6. RIVER: Evidence-guided multi-agent retrieval for enzyme--reaction discovery
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.07757v1
+- Score: 2.456 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval, codex.
 
-## 3. Learning the Task or Learning the Verifier? Rethinking Criteria Exposure in Embodied Self-Improvement
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.08318v1
-- Score: 2.665 | Reliability: 1.0
+## 7. Project EVE: Claude plays MMORPGs
+- Type: research | Source: anthropic_research
+- URL: https://www.anthropic.com/research/project-eve-claude-plays-mmorpgs
+- Score: 2.428 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 4. Agent-R$^2$: Scaling Agents for Realistic Productivity Work via Real-Source Data Synthesis
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.08219v1
-- Score: 2.643 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
-
-## 5. LangSmith BYOC is now available on AWS, Azure, and Google Cloud
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/langsmith-byoc-aws-gc-azure
-- Score: 2.272 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 6. Introducing Kinference: An Open Source Inference Control Plane for vLLM and Kubernetes
+## 8. Introducing Kinference: An Open Source Inference Control Plane for vLLM and Kubernetes
 - Type: news | Source: vllm_blog
 - URL: https://vllm.ai/blog/2026-11-04-introducing-kinference
-- Score: 2.219 | Reliability: 1.0
+- Score: 2.206 | Reliability: 1.0
 - Why it matters: 
 
-## 7. Accelerating engineering for the physical world
+## 9. Why human insight is a strategic advantage for building better agents
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/human-insight-strategic-advantage-agents
+- Score: 2.094 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 10. Accelerating engineering for the physical world
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/accelerating-engineering-for-the-physical-world
-- Score: 1.814 | Reliability: 1.0
+- Score: 1.798 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 8. Flipsnack grows product signups with conversion optimization
-- Type: release | Source: openai_blog
-- URL: https://openai.com/ads/customers/flipsnack
-- Score: 1.778 | Reliability: 1.0
-- Why it matters: 
-
-## 9. A thousand fewer paths to root
+## 11. Franklin Templeton uses OpenAI to support investment research
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/a-thousand-fewer-paths-to-root
-- Score: 1.739 | Reliability: 1.0
+- URL: https://openai.com/index/franklin-templeton
+- Score: 1.757 | Reliability: 1.0
 - Why it matters: 
 
-## 10. langgraph-cli==0.4.42
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.42
-- Score: 1.501 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Learning Multi-Agent Orchestration:Higher-Order Interactions in Policy Improvement
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.07495v1
-- Score: 2.604 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 12. Muir: Linear Attention with Sensitivity-Allocated Gating and Matched-Filter Readout
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.08376v1
-- Score: 2.6 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 13. codex 0.168.0-alpha.7
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.7
-- Score: 1.387 | Reliability: 1.0
+## 12. Scaling Git at OpenAI
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/scaling-git-at-openai
+- Score: 1.752 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 14. Speeding up planning decisions with AI
+## 13. Maggie Appleton: Agentic Coding Has Outgrown the Text Box
+- Type: video | Source: ai_native_dev
+- URL: https://youtu.be/0cySwRF7oJI
+- Score: 1.721 | Reliability: 0.692
+- Why it matters: Matches feed focus: agentic.
+
+## 14. langgraph-sdk==0.4.14
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.14
+- Score: 1.487 | Reliability: 1.0
+- Why it matters: 
+
+## 15. codex 0.167.0-alpha.3.2
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.3.2
+- Score: 1.334 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 16. Speeding up planning decisions with AI
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/speeding-up-planning-decisions-with-ai/
-- Score: 1.205 | Reliability: 1.0
+- Score: 1.156 | Reliability: 1.0
 - Why it matters: 
 
-## 15. claude-code v2.1.317
+## 17. claude-code v2.1.317
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.317
-- Score: 0.982 | Reliability: 1.0
+- Score: 0.977 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 16. claude-agent-sdk-python v0.2.178
+## 18. claude-agent-sdk-python v0.2.177
 - Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.178
-- Score: 0.852 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.177
+- Score: 0.895 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. vllm v0.33.0
+## 19. v0.33.0rc2: [ROCm][Bugfix] Skip AITER tuned GEMM when M*N >= 2^31 on gfx950 (#64567)
 - Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0
-- Score: 0.368 | Reliability: 1.0
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc2
+- Score: 0.326 | Reliability: 1.0
 - Why it matters:
