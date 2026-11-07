@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-06T18:05:03.358198+00:00",
+ "generated_at": "2026-11-07T18:05:03.399614+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,22 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-11-07-approved-is-not-exactly-once",
+   "topic": "tool-use",
+   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+   "kind": "obstacle",
+   "date": "2026-11-07",
+   "title": "Human approval is not exactly-once: crash-and-resume replays an approved payment"
+  },
+  {
+   "id": "2026-11-07-async-agents-responsive-and-productive",
+   "topic": "agent-orchestration",
+   "topic_title": "Orchestration patterns: topologies, handoffs, and harnesses",
+   "kind": "solution",
+   "date": "2026-11-07",
+   "title": "Async agents must stay responsive while working: LangChain says the old loop cannot do both"
+  },
   {
    "id": "2026-11-06-token-waste-measurement-framework",
    "topic": "agent-cost",
@@ -238,22 +254,6 @@
    "kind": "obstacle",
    "date": "2026-10-30",
    "title": "Verbatim local memory reports 91.8% on LongMemEval from 3.1k tokens per question"
-  },
-  {
-   "id": "2026-10-30-prefix-executability-trajectory-metric",
-   "topic": "agent-evaluation",
-   "topic_title": "Measuring whether an agent actually worked is hard",
-   "kind": "obstacle",
-   "date": "2026-10-30",
-   "title": "Final-success scores hide non-executable tool-call trajectories; prefix executability scores the path"
-  },
-  {
-   "id": "2026-10-30-claude-code-status-line-summary-calls",
-   "topic": "agent-cost",
-   "topic_title": "Agent token costs are unpredictable and easily run away",
-   "kind": "obstacle",
-   "date": "2026-10-30",
-   "title": "Claude Code re-sends each background agent's full transcript every ~30s for a status line"
   }
  ],
  "nodes": {
@@ -13367,10 +13367,30 @@
      "key": "production-runtimes",
      "title": "Running tool-calling agents in production",
      "summary": "Cloud runtimes now host the tool loop, and production deployments narrow the model to orchestration while specialized components, approvals, and isolation carry the work.",
-     "count": 4
+     "count": 5
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-07-approved-is-not-exactly-once",
+     "topic": "tool-use",
+     "date": "2026-11-07",
+     "title": "Human approval is not exactly-once: crash-and-resume replays an approved payment",
+     "theme": "production-runtimes",
+     "html": "<p>Call4Agents, a dependency-free Python library from a single author (Show HN, self-reported), targets a gap in approval flows: a &quot;yes&quot; from a human does not make a tool call run once. Its write-up replays one approved payment followed by a crash and a documented resume, and reports <strong>2 payments</strong> in LangGraph, Pydantic AI and the OpenAI Agents SDK.</p>\n<p>The library wraps the agent you already run, including an MCP server, so approved calls execute at most once after a retry.</p>\n<p>For builders: treat approval and idempotency as separate controls. Give every side-effecting tool call a stable key recorded before execution, and test resume-after-crash on your own harness.</p>",
+     "evidence": [
+      {
+       "sid": "385b20a2401d6d5d",
+       "title": "Show HN: Replay three AI agent approval failures in five seconds, in Python"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-orchestration",
+       "title": "Orchestration patterns: topologies, handoffs, and harnesses"
+      }
+     ]
+    },
     {
      "id": "2026-11-05-germline-execution-signed-mcp-leak",
      "topic": "tool-use",
@@ -13948,8 +13968,8 @@
      "title": "HashiCorp's Terraform MCP Server reaches general availability"
     }
    ],
-   "entry_count": 28,
-   "latest_entry_date": "2026-11-05",
+   "entry_count": 29,
+   "latest_entry_date": "2026-11-07",
    "solutions": [
     {
      "slug": "mcp",
@@ -13959,6 +13979,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "385b20a2401d6d5d",
+     "title": "Show HN: Replay three AI agent approval failures in five seconds, in Python"
+    },
     {
      "sid": "1c990a2a55a59e80",
      "title": "Signed, Sealed, Leaked: Trust Beyond Signature for MCP Toolchains"
@@ -14076,7 +14100,7 @@
      "title": "AI Agents Don't Need SMS APIs. They Need Infrastructure"
     }
    ],
-   "updated": "2026-11-05"
+   "updated": "2026-11-07"
   },
   "agent-benchmarks": {
    "slug": "agent-benchmarks",
@@ -15195,7 +15219,7 @@
      "key": "runtime-substrate",
      "title": "The durable runtime underneath the agents",
      "summary": "Workspace layout, durable queues, leases, and checkpoints are the load-bearing parts; options range from a Postgres recipe to purpose-built kernels and Google's Kubernetes-style AX.",
-     "count": 4
+     "count": 5
     },
     {
      "key": "harness-choice",
@@ -15205,6 +15229,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-07-async-agents-responsive-and-productive",
+     "topic": "agent-orchestration",
+     "date": "2026-11-07",
+     "title": "Async agents must stay responsive while working: LangChain says the old loop cannot do both",
+     "theme": "runtime-substrate",
+     "html": "<p>LangChain argues (vendor post) that agents given bigger goals need two properties at once: <strong>responsive</strong>, acting on a new instruction immediately with the full prior context, and <strong>productive</strong>, advancing many large tasks concurrently. Its claim is that the single blocking agent loop most teams have used cannot deliver both, so a long task leaves the agent unreachable until it finishes.</p>\n<p>The post frames this as an architecture change, not a prompt change: background work, mid-task steering and progress updates need a runtime that holds state outside one model call.</p>\n<p>For builders: if users will redirect a running agent, plan for durable state, interruptible runs and status reporting before adding more parallelism.</p>",
+     "evidence": [
+      {
+       "sid": "9c4184d44164e0d7",
+       "title": "Agents Are Going Async"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-04-cuga-harness-30-to-81",
      "topic": "agent-orchestration",
@@ -15633,6 +15672,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-07-approved-is-not-exactly-once",
+     "topic": "tool-use",
+     "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+     "date": "2026-11-07",
+     "title": "Human approval is not exactly-once: crash-and-resume replays an approved payment"
+    },
+    {
      "id": "2026-09-10-deep-agents-context-modes",
      "topic": "multi-agent",
      "topic_title": "Coordinating multiple agents adds more failure than capability",
@@ -15689,8 +15735,8 @@
      "title": "Stanford's DeLM cuts multi-agent task cost ~50% by removing the central orchestrator"
     }
    ],
-   "entry_count": 22,
-   "latest_entry_date": "2026-11-04",
+   "entry_count": 23,
+   "latest_entry_date": "2026-11-07",
    "solutions": [],
    "obstacles": [
     {
@@ -15708,6 +15754,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "9c4184d44164e0d7",
+     "title": "Agents Are Going Async"
+    },
     {
      "sid": "b05fd13d79e76b34",
      "title": "Same Model, Different Harness: CUGA, Hermes, and Deep Agents — When to Pick CUGA?"
@@ -15797,7 +15847,7 @@
      "title": "Ask HN: Multi-LLM orchestration frameworks that collaborate?"
     }
    ],
-   "updated": "2026-11-04"
+   "updated": "2026-11-07"
   },
   "agent-sandboxing": {
    "slug": "agent-sandboxing",

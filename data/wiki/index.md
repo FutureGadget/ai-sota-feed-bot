@@ -35,13 +35,13 @@ Schema: `config/wiki_schema.md`.
   - theme `measuring-planning` — Benchmarks for loops and long-horizon procedures (4)
 
 ### tool-use
-- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (28 entries, updated 2026-11-05)
+- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (29 entries, updated 2026-11-07)
   → solutions: mcp
   - theme `agent-native-surfaces` — Exposing existing systems as agent-callable tools (4)
   - theme `discovery-and-definitions` — Tool discovery and definition quality at scale (6)
   - theme `calling-reliability` — Making the calling loop reliable (9)
   - theme `guarding-the-call` — Checking and governing tool calls before they run (5)
-  - theme `production-runtimes` — Running tool-calling agents in production (4)
+  - theme `production-runtimes` — Running tool-calling agents in production (5)
 
 ### grounding
 - [grounding](obstacles/grounding.md) — An agent's answer is only as good as what it retrieved — and whether it can prove it (28 entries, updated 2026-10-06)
@@ -137,10 +137,10 @@ Schema: `config/wiki_schema.md`.
   - theme `domain-suites` — Domain-specific suites mined from real work (14)
   - theme `adversarial-and-security` — Adversarial tools, poisoned inputs, and security (6)
   - theme `long-horizon-and-subsystems` — Long horizons and subsystem diagnostics (9)
-- [agent-orchestration](solutions/agent-orchestration.md) — Orchestration patterns: topologies, handoffs, and harnesses (22 entries, updated 2026-11-04)
+- [agent-orchestration](solutions/agent-orchestration.md) — Orchestration patterns: topologies, handoffs, and harnesses (23 entries, updated 2026-11-07)
   - theme `code-driven` — Coordination written as code, not tool calls (5)
   - theme `orchestrator-tooling` — Open-source orchestrators and multi-model routers (7)
-  - theme `runtime-substrate` — The durable runtime underneath the agents (4)
+  - theme `runtime-substrate` — The durable runtime underneath the agents (5)
   - theme `harness-choice` — Choosing a harness: frameworks, managed runtimes, portability (6)
 - [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (66 entries, updated 2026-11-01)
   - theme `credential-boundary` — Keeping secrets and authority out of the sandbox (8)
