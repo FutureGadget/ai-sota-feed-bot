@@ -273,12 +273,14 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   published-item discovery in the
   feed, Desk, and section roots; `editorial-state.js` tracks opened versions.
   `updates.html` is the complete Latest/Unread collection.
-  **UI framework (migrating):** Oat (`oat.min.css`/`oat.min.js`) is being
-  replaced page by page with Tailwind CSS v4 + Basecoat, built from
-  `ui/site.css` into the committed `web/ui.css` by `npm run build:css`
-  (`scripts/build_ui_css.mjs`; CI fails on a stale build). Migrated so far:
-  `subscribe.html`. A page loads `/ui.css` (before `site-chrome.css`) or Oat,
-  never both. See `docs/design-docs/ui-framework-migration.md`.
+  **UI framework:** Tailwind CSS v4 + Basecoat, built from `ui/site.css` into
+  the committed `web/ui.css` by `npm run build:css`
+  (`scripts/build_ui_css.mjs`; CI fails on a stale build). Every shell and the
+  render template load `/ui.css` before `site-chrome.css`; Oat is retired.
+  `ui/site.css` carries zero-specificity element defaults (headings, lists,
+  buttons, inputs, tables, `details`) that pages build on; a page opts out with
+  `<html data-ui-base="none">` (`subscribe.html`, which uses Basecoat classes).
+  See `docs/design-docs/ui-framework-migration.md`.
   `subscribe-inline.js` (shared, deferred; loaded by `index.html` and the
   static page template) turns finish-point `a[data-subscribe-inline]` CTAs into
   an in-place email form when in-page signup is enabled.

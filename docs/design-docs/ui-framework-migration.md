@@ -1,9 +1,10 @@
 # UI framework migration: Oat → Tailwind CSS v4 + Basecoat
 
-Status: **pilot shipped on `/subscribe`** (2026-11-06), and the whole site moved
-to the Precision theme (2026-11-07). Every page except `/subscribe` still
-loads Oat for components. Decision records: `decision-log.md`, 2026-11-06 and
-2026-11-07.
+Status: **done** (2026-11-07). Oat is retired: every shell and the static-page
+template load `/ui.css`, and the Oat files are deleted. `/subscribe` is the only
+page built from Basecoat classes and utilities; the others keep their own page
+CSS on top of the element defaults described below. Decision records:
+`decision-log.md`, 2026-11-06 and 2026-11-07.
 
 ## The look: Precision
 
@@ -66,21 +67,31 @@ Node build step, because the output is committed. Versions are pinned exactly in
   shadcn's `.dark` class.
 - Load `/ui.css` **before** `/site-chrome.css`. Tailwind's output is layered and
   `site-chrome.css` is not, so the shared header always wins.
-- A page loads either Oat or `ui.css`, never both (`test_unmigrated_pages_do_not_load_ui_css`).
+- Every shell and the render template load `ui.css`; Oat must not come back
+  (`test_oat_is_retired_and_every_shell_loads_the_ui_layer`).
+- Preflight is a generated copy (`ui/generated/preflight.css`) whose `[hidden]`
+  rule is not `!important`, so page rules such as a disabled pager control
+  shown with `display:inline-flex` still win (`test_preflight_keeps_hidden_overridable`).
 - `source(none)`: Tailwind scans only the `@source` files listed in
   `ui/site.css`, not the ~8k generated pages or `data/`.
 
-### Oat parity block
+### Element defaults (replaced Oat)
 
-`site-chrome.css` and the render templates were written on top of Oat's base
-rules: semibold headings with 1.25 line height, underlined links with a 2px
-offset, and `dialog` line height 1.5. `ui/site.css` reproduces exactly those
-rules so the shared header and the Editor's Desk dialog compute identically on
-migrated and unmigrated pages. The pilot verified this by diffing computed
-styles of every chrome element (brand, page heading, Subscribe, theme toggle,
-Desk button, the open dialog and its links) at 375px and 1280px; after the
-parity block there were no differences. Delete the block when no page loads
-`oat.min.css`.
+Page CSS and the render templates were written on top of Oat's bare-element
+rules. `ui/site.css` reproduces the ones they rely on: semibold headings with
+1.25 line height, underlined links, `dialog` line height 1.5, heading sizes,
+paragraph and list spacing, `code`/`pre`, tables, bordered buttons and inputs,
+`details`/`summary` disclosures, `[role="alert"]` boxes and the `[aria-busy]`
+spinner. Everything except the heading, link and dialog rules is scoped with
+`:where(html:not([data-ui-base="none"]))`, so it has zero specificity and a page
+can opt out. `/subscribe` sets `data-ui-base="none"` because it is built from
+Basecoat classes alone.
+
+Verified by screenshotting 20 pages at 390px and 1280px in light and dark
+against `main`: the only visible change is the Daily/Weekly summary line height,
+which now follows those pages' own `line-height:1.58` (Oat had overridden it).
+Dialogs open and close with Escape and the backdrop on all six pages that have
+them.
 
 ## Pilot result: `/subscribe`
 
@@ -100,9 +111,11 @@ it. Measured on the local preview with the form enabled:
 
 Screenshots: `docs/assets/ui-framework-migration/subscribe-*-{before,after}.jpg`.
 
-## Order for the remaining pages
+## Order the pages moved in
 
-Smallest and most self-contained first, the feed last:
+All steps are done; step 7 was finished on 2026-11-07 by loading `ui.css` on every
+remaining page at once. Next, rebuild individual pages from Basecoat classes
+(the per-page checklist) when they are next touched.
 
 1. `updates.html`, `voices.html`, `playbook-lab.html` (small shells)
 2. `models.html`, `models-compare.html` (tables: add `table`)
@@ -117,28 +130,26 @@ Smallest and most self-contained first, the feed last:
    north-star metric (weekly returning readers) after it ships.
 6. Share cards (`pipeline/og_cards.py`): done 2026-11-07 (Precision palette,
    Geist, rule-mark icons).
-7. Delete `web/oat.min.css`, `web/oat.min.js`, `web/oat.LICENSE.txt`,
-   `docs/references/oat-ui-vendor.md`, the Oat hash test and the parity block.
+7. Delete `web/oat.min.css`, `web/oat.min.js`, `web/oat.LICENSE.txt` and
+   `docs/references/oat-ui-vendor.md`: done 2026-11-07.
 
 ### Per-page checklist
 
-- Swap the `oat.min.css` (and `oat.min.js`) link for
-  `/ui.css?v=<date>-<slug>` placed before `site-chrome.css`; add the page to
-  `@source`, `UI_SHELLS` in `tests/test_site_chrome.py` and `tests/test_ui_layer.py`.
+- Add the page to `@source` and to `UTILITY_SHELLS` in `tests/test_ui_layer.py`
+  so Tailwind generates the utilities it uses.
 - Replace page `<style>` rules with utilities or Basecoat classes; keep only
   what utilities cannot express.
-- If the page used an Oat web component (`oat.min.js`), replace it with the
-  Basecoat equivalent and its JS from `basecoat-css/dist/js/` (vendored, pinned).
+- For an interactive component, use the Basecoat equivalent and its JS from
+  `basecoat-css/dist/js/` (vendored, pinned).
 - `npm run build:css`, then screenshot 375px and desktop in light and dark,
   measure CLS, keyboard-focus every control, and diff the chrome's computed
-  styles against the Oat version.
+  styles against the previous version.
 - Bump the `?v=` on `ui.css` whenever `web/ui.css` changes. Every migrated
   page references the same version.
 - Add a decision-log entry.
 
 ## Rollback
 
-Per page: restore the `oat.min.css` link and the page's previous markup and
-`<style>` (git revert of that page's commit). The layer itself is additive:
-deleting `ui/`, `scripts/build_ui_css.mjs`, `web/ui.css`, the CI step and the
-three devDependencies leaves every Oat page untouched.
+Revert the 2026-11-07 "Retire Oat" commit: it restores the Oat files and the
+`oat.min.css` links. A page rebuilt from Basecoat classes is reverted with its
+own commit.

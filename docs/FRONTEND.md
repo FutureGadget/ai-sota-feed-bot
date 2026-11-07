@@ -73,9 +73,10 @@ dates, 1px lines, 8px controls, and a dark mode designed alongside light.
 
 ## UI framework
 
-Pages are moving from Oat (`web/oat.min.css`) to Tailwind CSS v4 + Basecoat,
-built into `web/ui.css` from `ui/site.css`. A page loads one or the other,
-never both; `/subscribe` is the first migrated page. Use Basecoat classes
+Every page loads Tailwind CSS v4 + Basecoat, built into `web/ui.css` from
+`ui/site.css` (Oat was retired 2026-11-07). `ui/site.css` supplies the bare
+element defaults page CSS builds on; `<html data-ui-base="none">` opts a page
+out, as `/subscribe` does. For new markup, use Basecoat classes
 (`.btn`, `.input`, `.card`, `.field`, `.label`) for components and Tailwind
 utilities for layout, with `text-brand`, `text-ink-muted`, `bg-wash` and
 `font-display` for broadsheet colors and type. After editing `ui/site.css`,

@@ -7,6 +7,13 @@
 - **Rationale:** Preloading makes the font usually arrive before first paint; metric-matched fallbacks keep line breaks stable when it doesn't. Metrics were computed with fontTools from the vendored TTFs against the Liberation fonts (metric-compatible with Arial and Courier New).
 - **Impact:** Storyline CLS 0.112 to 0.001 (390px) and 0.026 to 0.0003 (1280px); story and pre-rendered daily/weekly pages about 0.001. Labels set in `--font-mono` render in Geist Mono again. Remaining shifts on Playbook, Models, Foundations, Agent Know-How and the feed come from content their scripts insert; a separate fix. `web/site-chrome.css`, 13 shells, `pipeline/render_static_pages.py`, `tests/test_site_chrome.py` (`WebFontLoadingTest`), `docs/FRONTEND.md`.
 - **Rollback:** Revert the commit. Generated pages pick up the template change on the next render.
+## 2026-11-07 (Retire Oat: every page loads the Tailwind/Basecoat layer)
+
+- **Decision:** Swap `oat.min.css`/`oat.min.js` for `/ui.css` on all remaining shells and the static-page template, and delete the Oat files and vendor note. `ui/site.css` gains zero-specificity element defaults that reproduce the Oat rules page CSS relied on (headings, paragraphs, lists, code, tables, buttons, inputs, `details`, `[role="alert"]`, `[aria-busy]`), scoped so `<html data-ui-base="none">` opts out (`/subscribe`). The build generates a preflight copy whose `[hidden]` rule is not `!important`.
+- **Context / Problem:** After the Precision redesign, nine shells and every generated page still loaded Oat, so the site ran two UI layers and new surfaces kept needing Oat resets.
+- **Rationale:** Element defaults keep every page visually identical without rewriting each page's CSS now; pages move to Basecoat classes when next touched. Tailwind's stock `[hidden]{display:none !important}` hid the disabled next-day pager control, which page CSS shows deliberately.
+- **Impact:** 20 pages screenshotted at 390/1280 in light and dark match `main` except the Daily/Weekly summary line height, which now follows those pages' own 1.58. `web/ui.css` is 81.6 KB (9.9 KB gzip); Oat's 31.6 KB CSS and 10.4 KB JS are gone. Generated pages pick up the new link on the next render (deploy or feed run). A ~0.11 CLS on storyline pages predates this change (same value with Oat restored) and is left for a separate fix.
+- **Rollback:** Revert the commit; it restores the Oat files and links.
 
 ## 2026-11-07 (Precision leftovers: share cards, phone header, lead excerpt)
 
