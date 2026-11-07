@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
   <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/site-chrome.css?v=20261107-font-metrics" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261107-glitch-sweep" />
   <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
   <script>
     (function () {
@@ -32,18 +32,20 @@
       document.documentElement.setAttribute('data-theme', t);
     })();
   </script>
-  <script defer src="/site-chrome.js?v=20261107-font-metrics"></script>
+  <script defer src="/site-chrome.js?v=20261107-glitch-sweep"></script>
   <style>
     html { font-size:16px; -webkit-text-size-adjust:100%; text-size-adjust:100%; overflow-x:clip; }
     *, *::before, *::after { box-sizing:border-box; }
     body { margin:0; line-height:1.5; overflow-x:clip; background:var(--bg); color:var(--fg);
       font-family:var(--font-sans); }
     a { color:var(--accent); }
-    button, select { color:inherit; background:var(--card); border-color:var(--border); }
+    button, select { color:inherit; background-color:var(--card); border-color:var(--border); }
     main { width:100%; max-width:980px; margin:1rem auto; padding:0 1.35rem 3rem; overflow-x:clip; }
     #meta { margin:.35rem 0 0; color:var(--muted); font-family:var(--font-mono);
       font-size:.8rem; letter-spacing:.04em; }
-    .state { margin:2rem 0; padding:2.2rem 1rem; border:1px solid var(--border);
+    /* display:block overrides the [role="alert"] flex default, so Retry sits
+       centred under the message as the <br> intends. */
+    .state { display:block; margin:2rem 0; padding:2.2rem 1rem; border:1px solid var(--border);
       text-align:center; color:var(--muted); }
     .state button { min-height:44px; margin-top:.75rem; padding:.45rem .9rem; border:1px solid var(--accent);
       color:var(--accent); cursor:pointer; }
@@ -606,6 +608,6 @@
       'requestIdleCallback' in window ? requestIdleCallback(go, { timeout:5000 }) : setTimeout(go, 2500);
     }
   </script>
-  <script src="/nav-updates.js?v=20260910-editorial" defer></script>
+  <script src="/nav-updates.js?v=20261107-glitch-sweep" defer></script>
 </body>
 </html>

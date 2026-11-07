@@ -59,7 +59,12 @@ class SiteChromeContractTest(unittest.TestCase):
         for asset in ("oat.min.css", "oat.min.js", "oat.LICENSE.txt"):
             self.assertFalse((ROOT / "web" / asset).exists(), f"retired asset still present: {asset}")
         render_src = (ROOT / "pipeline" / "render_static_pages.py").read_text(encoding="utf-8")
-        for name, html in [*((f, (ROOT / "web" / f).read_text(encoding="utf-8")) for f in SHELLS),
+        # Every hand-written shell, the Korean ones included: a fixed list
+        # missed ko/playbook.html. map.html and foundations.html are generated.
+        generated = {"map.html", "foundations.html"}
+        shells = [p for p in sorted((ROOT / "web").glob("*.html")) if p.name not in generated]
+        shells += sorted((ROOT / "web" / "ko").glob("*.html"))
+        for name, html in [*((str(p.relative_to(ROOT / "web")), p.read_text(encoding="utf-8")) for p in shells),
                            ("render_static_pages.py", render_src)]:
             with self.subTest(shell=name):
                 self.assertNotIn("oat.min", html)
@@ -213,7 +218,7 @@ class SiteChromeContractTest(unittest.TestCase):
     def test_updates_shell_does_not_load_editorial_styles_twice(self) -> None:
         html = (ROOT / "web" / "updates.html").read_text(encoding="utf-8")
         js = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
-        self.assertIn('href="/editorial-updates.css?v=20261107-precision"', html)
+        self.assertIn('href="/editorial-updates.css?v=20261107-glitch-sweep"', html)
         self.assertIn("document.querySelector('link[href^=\"/editorial-updates.css\"]')", js)
 
     def test_feed_editorial_panel_starts_compact_on_phones(self) -> None:
@@ -555,3 +560,40 @@ class BroadsheetThemeTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class UiGlitchRegressionTest(unittest.TestCase):
+    """Pins the 2026-11-07 screenshot sweep fixes (decision log)."""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.chrome = (ROOT / "web" / "site-chrome.css").read_text(encoding="utf-8")
+        cls.front = (ROOT / "web" / "front-page.css").read_text(encoding="utf-8")
+
+    def test_every_select_keeps_its_chevron(self) -> None:
+        # Page rules use the `background` shorthand, which erases the chevron;
+        # this longhand rule outranks them.
+        block = self.chrome.split('html:not([data-ui-base="none"]) select:not([multiple]):not([size]) {', 1)[1].split("}", 1)[0]
+        self.assertIn("background-image:", block)
+        self.assertIn("padding-inline-end:", block)
+
+    def test_weekly_recap_styles_the_explainer_video(self) -> None:
+        self.assertIn(".video-frame", render.WEEKLY_RECAP_CSS)
+        self.assertIn(".video-frame", render.DAILY_RECAP_CSS)
+
+    def test_storyline_paragraph_rules_skip_the_labels(self) -> None:
+        src = Path(render.__file__).read_text(encoding="utf-8")
+        self.assertNotIn(".sl-latest p:last-child", src)
+        self.assertIn(".sl-latest > p:last-child", src)
+
+    def test_feed_modules_and_storyline_badge_on_phones(self) -> None:
+        self.assertIn("#list > .model-radar-inline { margin:1rem 0; }", self.front)
+        self.assertIn("a.badge-storyline::before { content:none; }", self.front)
+
+    def test_cta_note_clears_the_subscribe_button(self) -> None:
+        self.assertIn(".subscribe-cta .subscribe-inline-note {\n  margin-top: 0.5rem;", self.chrome)
+
+    def test_updates_theme_toggle_uses_the_shared_icons(self) -> None:
+        html = (ROOT / "web" / "updates.html").read_text(encoding="utf-8")
+        self.assertNotIn("◐", html)
+        self.assertIn("'☀️' : '🌙'", html)
