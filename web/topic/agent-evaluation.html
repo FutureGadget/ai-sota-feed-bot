@@ -6,6 +6,9 @@
   <title>Measuring whether an agent actually worked is hard — agent engineering | LLM Digest</title>
   <meta name="description" content="A chatbot is graded on its final answer; an agent has to be graded on what it *did* — the multi-step trajectory of tool calls, retries, and decisions that led there. Outputs are non-deterministic, &quot;correct-looking&quot; answers can come from broken…" />
   <link rel="canonical" href="https://www.llm-digest.com/topic/agent-evaluation" />
+  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/topic/agent-evaluation" />
+  <link rel="alternate" hreflang="ko" href="https://www.llm-digest.com/ko/topic/agent-evaluation" />
+  <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/topic/agent-evaluation" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -27,10 +30,10 @@
   <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
   <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/site-chrome.css?v=20261107-font-metrics" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261107-glitch-sweep" />
   <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
-  <script defer src="/site-chrome.js?v=20261107-font-metrics"></script>
-  <script defer src="/subscribe-inline.js?v=20261107-font-metrics"></script>
+  <script defer src="/site-chrome.js?v=20261107-glitch-sweep"></script>
+  <script defer src="/subscribe-inline.js?v=20261107-glitch-sweep"></script>
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -83,7 +86,8 @@
     .toc a:hover { border-color: var(--accent); }
     .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
     .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
-    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400;
+      white-space: nowrap; flex-shrink: 0; }
     .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
     .articles { display: flex; flex-direction: column; gap: 0.7rem; }
     article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
@@ -460,6 +464,7 @@
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
         <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/topic/agent-evaluation" data-share-title="Measuring whether an agent actually worked is hard — agent engineering">Share this page</button>
+        <a class="site-language-action" href="/ko/topic/agent-evaluation" data-language-link data-language-locale="ko" hidden aria-label="Read this page in Korean" title="Read in Korean"><span aria-hidden="true">🌐</span><span>KO</span></a>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
 
@@ -697,7 +702,7 @@
     })();
   </script>
 
-  <script src="/nav-updates.js?v=20260910-editorial" defer></script>
+  <script src="/nav-updates.js?v=20261107-glitch-sweep" defer></script>
 
 
   <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,

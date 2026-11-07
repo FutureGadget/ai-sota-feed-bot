@@ -6,6 +6,9 @@
   <title>Let&#x27;s Science — AI storyline | LLM Digest</title>
   <meta name="description" content="This thread originally tracked Anthropic&#x27;s Claude Science workbench launch and its same-day Modal compute integration. Those items have since aged out of the clustering window, leaving only pieces that share the &quot;Let&#x27;s Data Science&quot; publication…" />
   <link rel="canonical" href="https://www.llm-digest.com/storyline/claude-science" />
+  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/storyline/claude-science" />
+  <link rel="alternate" hreflang="ko" href="https://www.llm-digest.com/ko/storyline/claude-science" />
+  <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/storyline/claude-science" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -28,10 +31,10 @@
   <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
   <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/site-chrome.css?v=20261107-font-metrics" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261107-glitch-sweep" />
   <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
-  <script defer src="/site-chrome.js?v=20261107-font-metrics"></script>
-  <script defer src="/subscribe-inline.js?v=20261107-font-metrics"></script>
+  <script defer src="/site-chrome.js?v=20261107-glitch-sweep"></script>
+  <script defer src="/subscribe-inline.js?v=20261107-glitch-sweep"></script>
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -84,7 +87,8 @@
     .toc a:hover { border-color: var(--accent); }
     .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
     .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
-    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400;
+      white-space: nowrap; flex-shrink: 0; }
     .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
     .articles { display: flex; flex-direction: column; gap: 0.7rem; }
     article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
@@ -224,7 +228,7 @@
     .sl-latest-head { display:flex; align-items:center; gap:0.45rem; margin:0 0 0.45rem; }
     .sl-latest-dot { width:7px; height:7px; border-radius:50%; flex:none; background:var(--accent); }
     .sl-latest .sl-watch-label { color:var(--muted); margin:0; }
-    .sl-latest p:last-child { margin:0; max-width:44rem; font-size:1.14rem; line-height:1.62;
+    .sl-latest > p:last-child { margin:0; max-width:44rem; font-size:1.14rem; line-height:1.62;
       letter-spacing:-0.01em; }
     .sl-builder-take { margin:0; padding:1.45rem 1.35rem 1.55rem;
       border:0; border-left:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));
@@ -232,7 +236,7 @@
     .sl-builder-label { margin:0 0 0.55rem; font-family:var(--font-mono);
       font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none;
       color:var(--accent); }
-    .sl-builder-take p:last-child { margin:0; color:var(--sl-ink); font-size:0.91rem; line-height:1.6; }
+    .sl-builder-take > p:last-child { margin:0; color:var(--sl-ink); font-size:0.91rem; line-height:1.6; }
     .sl-background { margin:0 0 2rem; padding:0; border:0;
       border-bottom:1px solid var(--border); border-radius: var(--radius-control); background:transparent; box-shadow:none; }
     .sl-background > summary { cursor:pointer; min-height:50px; display:flex; align-items:center;
@@ -357,7 +361,7 @@
       .sl-follow-email { grid-column:1; }
       .sl-delta-grid { grid-template-columns:1fr; }
       .sl-latest { padding:1.35rem 0 1.45rem; }
-      .sl-latest p:last-child { font-size:1.04rem; }
+      .sl-latest > p:last-child { font-size:1.04rem; }
       .sl-builder-take { border-left:0; border-top:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));
         padding:1.1rem 1rem 1.2rem; }
       .sl-tabs { gap:1rem; flex-wrap:wrap; }
@@ -407,6 +411,7 @@
       <div class="site-actions-fallback" aria-label="Page actions">
         <a href="/api/storylines?slug=claude-science">View as JSON</a>
         <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/storyline/claude-science" data-share-title="Let&#x27;s Science — AI storyline">Share this page</button>
+        <a class="site-language-action" href="/ko/storyline/claude-science" data-language-link data-language-locale="ko" hidden aria-label="Read this page in Korean" title="Read in Korean"><span aria-hidden="true">🌐</span><span>KO</span></a>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
 
@@ -522,7 +527,7 @@
     })();
   </script>
 
-  <script src="/nav-updates.js?v=20260910-editorial" defer></script>
+  <script src="/nav-updates.js?v=20261107-glitch-sweep" defer></script>
 
 
   <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,

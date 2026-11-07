@@ -27,10 +27,10 @@
   <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
   <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/site-chrome.css?v=20261107-font-metrics" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261107-glitch-sweep" />
   <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
-  <script defer src="/site-chrome.js?v=20261107-font-metrics"></script>
-  <script defer src="/subscribe-inline.js?v=20261107-font-metrics"></script>
+  <script defer src="/site-chrome.js?v=20261107-glitch-sweep"></script>
+  <script defer src="/subscribe-inline.js?v=20261107-glitch-sweep"></script>
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -83,7 +83,8 @@
     .toc a:hover { border-color: var(--accent); }
     .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
     .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
-    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400;
+      white-space: nowrap; flex-shrink: 0; }
     .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
     .articles { display: flex; flex-direction: column; gap: 0.7rem; }
     article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
@@ -368,7 +369,7 @@
     })();
   </script>
 
-  <script src="/nav-updates.js?v=20260910-editorial" defer></script>
+  <script src="/nav-updates.js?v=20261107-glitch-sweep" defer></script>
 
 
   <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
