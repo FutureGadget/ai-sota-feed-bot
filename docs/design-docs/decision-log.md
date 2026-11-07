@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-11-07 (Refresh the 46 stale Korean translations)
+
+- **Decision:** Refresh every stale `data/i18n/ko` artifact (15 storylines, 23 topics, 5 foundations, 3 stories) against its current English source hash, and re-render their `web/ko` pages. The old English source for each artifact was recovered from git history by matching `existing_source_hash`; Korean for every unchanged string was reused, and only new or changed strings (128 strings, about 30k characters, plus 11 storyline TL;DRs the old artifacts had left in English) were translated. Storyline artifacts gain a Korean `description` (the translated TL;DR) for the page meta. Korean pages get `word-break: keep-all` so headlines break between words.
+- **Context / Problem:** The renderer skips stale artifacts, so these pages kept HTML rendered months earlier, with the broadsheet styling and a link to the deleted `oat.min.css`.
+- **Rationale:** Reusing unchanged translations keeps wording stable and limits new translation to the actual delta. For story, storyline, topic and foundations pages the renderer localizes only the title and description; the body stays English until the renderer consumes field-level translations.
+- **Impact:** `data/i18n/ko/{storyline,topic,foundations,story}/*.json` (46), `web/ko/...` (46 pages), `web/site-chrome.css`. `model` records `claude-opus-5-5 (refresh of <previous model>)`; `review_status` stays `machine`.
+- **Rollback:** Revert the commit; the renderer then skips the artifacts as stale again.
+
 ## 2026-11-07 (Storyline layout shift: font fallback metrics and pre-boot padding)
 
 - **Decision:** (1) Preload `Geist-Variable.woff2` and `GeistMono-Variable.woff2` on every shell and the static-page template, and add local fallback faces sized to Geist's metrics ("Geist Fallback" on Arial/Liberation Sans: `size-adjust` 104.9%; "Geist Mono Fallback" on Courier New/Liberation Mono) right after Geist in each font token. (2) Collapse `padding-block` on the hidden pre-boot fallback nav and actions rows, and restore it in the no-JS reveal. (3) Restore `--font-mono` to `"Geist Mono", … monospace`; the #560 sweep had made it refer to itself.

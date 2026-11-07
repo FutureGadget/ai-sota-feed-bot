@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LLM-as-judge: 트레이스 및 출력물에 대한 모델 기반 평가 | LLM Digest</title>
   <meta name="description" content="LLM-as-judge: 트레이스 및 출력물에 대한 모델 기반 평가" />
   <link rel="canonical" href="https://www.llm-digest.com/ko/topic/llm-as-judge" />
@@ -23,13 +23,17 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="LLM-as-judge: 트레이스 및 출력물에 대한 모델 기반 평가" />
   <meta name="twitter:description" content="LLM-as-judge: 트레이스 및 출력물에 대한 모델 기반 평가" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "LLM-as-judge: 트레이스 및 출력물에 대한 모델 기반 평가", "description": "Use a model to grade a model: give an LLM the agent's output (or its full trace) plus a rubric, and have it return a structured verdict. It scales the judgment human raters can't keep up with — every production trace, every CI run — and is the…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/llm-as-judge", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "LLM-as-judge: 트레이스 및 출력물에 대한 모델 기반 평가", "item": "https://www.llm-digest.com/topic/llm-as-judge"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "LLM-as-judge: 트레이스 및 출력물에 대한 모델 기반 평가", "description": "Use a model to grade a model: give an LLM the agent's output (or its full trace) plus a rubric, and have it return a structured verdict. It scales the judgment human raters can't keep up with — every production trace, every CI run — and is the…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/llm-as-judge", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Agent Know-How", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "LLM-as-judge: 트레이스 및 출력물에 대한 모델 기반 평가", "item": "https://www.llm-digest.com/topic/llm-as-judge"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
-  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260706-mobile-header-wrap" />
-  <script src="/posthog-client.js?v=20260708-dual-pageview"></script>
-  <script defer src="/site-chrome.js?v=20260706-mobile-header-wrap"></script>
-  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
+  <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261107-font-metrics" />
+  <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
+  <script defer src="/site-chrome.js?v=20261107-font-metrics"></script>
+  <script defer src="/subscribe-inline.js?v=20261107-font-metrics"></script>
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -37,21 +41,13 @@
     })();
   </script>
   <style>
-    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
-    }
-    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
+    body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
     *, *::before, *::after { box-sizing: border-box; }
     button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
     a { color: var(--accent); }
     code {
-      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      font-family: var(--font-mono); font-size: 0.85em;
       padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
       border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
     main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
@@ -61,16 +57,16 @@
     /* Quiet instrument nav — no Oat gray fills, hairline only. */
     menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
     menu a[role="button"], .archive select, menu .menu-share {
-      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.74rem; letter-spacing: 0.03em;
+      font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.03em;
       padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
-      border: 1px solid var(--border); border-radius: 0; background: transparent; color: var(--fg);
+      border: 1px solid var(--border); border-radius: var(--radius-control); background: transparent; color: var(--fg);
       text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
     menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
       border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
     menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
     .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
-      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.66rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted); }
+      font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0;
+      text-transform: none; color: var(--muted); }
     .archive select { text-transform: none; letter-spacing: 0.02em; }
     .muted { color: var(--muted); }
     .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
@@ -80,7 +76,7 @@
     .intro p { margin: 0 0 0.75rem; }
     .intro p:last-child { margin-bottom: 0; }
     .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
-    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+    .tldr-label { text-transform: none; letter-spacing: 0; font-size: 0.78rem;
       font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
     .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
     .tldr li { font-size: 0.95rem; line-height: 1.45; }
@@ -104,10 +100,16 @@
       background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
     .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
     /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
     .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
-      border-radius: 10px; background: var(--card); }
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border: 1px solid var(--border); border-radius: 12px;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
     .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: var(--font-display);
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
     .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
@@ -163,29 +165,17 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
-      --signal:#23875b; --warm:#b6780c;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
-      --signal:#54b886; --warm:#e0ad4e;
-    }
-    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    body { font-family:var(--font-sans); }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
     code {
-      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      font-family: var(--font-mono); font-size: 0.85em;
       padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
       border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
-    #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
+    #meta { font-family:var(--font-mono); font-size:.78rem; letter-spacing:.03em; }
     menu a[role="button"], .menu-share, .archive select {
-      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.74rem; letter-spacing:.03em;
+      font-family:var(--font-mono); font-size:.74rem; letter-spacing:.03em;
       padding:.42rem .6rem; min-height:34px; display:inline-flex; align-items:center;
-      border:1px solid var(--border); border-radius:0; background:transparent; color:var(--fg);
+      border:1px solid var(--border); border-radius: var(--radius-control); background:transparent; color:var(--fg);
       text-decoration:none; cursor:pointer; transition:border-color .12s ease, color .12s ease; }
     menu a[role="button"]:hover, .menu-share:hover, .archive select:hover {
       border-color:var(--accent); color:var(--accent); background:transparent; text-decoration:none; }
@@ -193,23 +183,23 @@
 
     /* Shared hero. */
     .wiki-hero { margin:2.3rem 0 1.7rem; }
-    .wiki-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
-    .wiki-headline { margin:0; max-width:30ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .wiki-kicker { margin:0 0 .55rem; font-family:var(--font-mono);
+      font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent); }
+    .wiki-headline { margin:0; max-width:30ch; font-family:var(--font-display);
       font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.1rem,4.8vw,3.3rem); }
     .map .wiki-headline { font-size:clamp(2.5rem,6.4vw,4.3rem); max-width:24ch; }
     .wiki-thesis { max-width:46rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
-    .wiki-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+    .wiki-readout { margin:1rem 0 0; font-family:var(--font-mono);
       font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
     .wiki-readout .on { color:var(--signal); }
     .wiki-readout .sep { color:var(--border); margin:0 .45rem; }
 
     /* ---- /map : obstacle → solution adjacency map ---- */
     .map-legend { margin:1.4rem 0 0; padding:.8rem 0 0; border-top:1px solid var(--border);
-      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; letter-spacing:.03em;
+      font-family:var(--font-mono); font-size:.72rem; letter-spacing:.03em;
       color:var(--muted); line-height:1.9; }
-    .map-legend b { color:var(--accent); font-weight:700; letter-spacing:.12em;
-      text-transform:uppercase; margin-right:.7rem; }
+    .map-legend b { color:var(--accent); font-weight:700; letter-spacing: 0;
+      text-transform: none; margin-right:.7rem; }
     .map-legend a { text-decoration:none; }
     .map-legend a:hover { text-decoration:underline; }
     .map-legend .sep { color:var(--border); margin:0 .35rem; }
@@ -217,19 +207,19 @@
     .map-area { margin:2.4rem 0 0; scroll-margin-top:1rem; }
     .map-area-head { display:flex; align-items:baseline; gap:.7rem; padding:0 0 .2rem;
       border-bottom:2px solid var(--fg); }
-    .map-area-head h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .map-area-head h2 { margin:0; font-family:var(--font-display);
       font-size:1.5rem; line-height:1.1; }
-    .map-area-head .map-area-meta { font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .map-area-head .map-area-meta { font-family:var(--font-mono);
+      font-size: 0.78rem; letter-spacing: 0; text-transform: none; color:var(--muted); }
     .map-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0;
       border:0; border-bottom:1px solid var(--border); border-radius:0; padding:0; background:transparent; }
     .map-obstacle { padding:1.1rem 1.6rem 1.2rem 0; border-right:1px solid var(--border); }
     .map-solutions { padding:1.1rem 0 1.2rem 1.6rem; }
-    .map-tag { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem;
-      font-weight:700; letter-spacing:.13em; text-transform:uppercase; margin:0 0 .45rem; }
+    .map-tag { display:block; font-family:var(--font-mono); font-size: 0.78rem;
+      font-weight:700; letter-spacing: 0; text-transform: none; margin:0 0 .45rem; }
     .map-obstacle .map-tag { color:var(--warm); }
     .map-solutions .map-tag { color:var(--accent); }
-    .map-obstacle h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .map-obstacle h3 { margin:0 0 .35rem; font-family:var(--font-display);
       font-size:1.2rem; line-height:1.15; }
     .map-obstacle h3 a { color:inherit; text-decoration:none; }
     .map-obstacle h3 a:hover { color:var(--accent); }
@@ -242,7 +232,7 @@
     .map-none { color:var(--muted); font-size:.86rem; font-style:italic; }
 
     .map-solindex { margin:3rem 0 0; padding:1.1rem 0 0; border-top:1px solid var(--border); }
-    .map-solindex h2 { margin:0 0 .8rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .map-solindex h2 { margin:0 0 .8rem; font-family:var(--font-display);
       font-size:1.25rem; line-height:1.1; }
     .map-sol-list { margin:0; padding:0; list-style:none; display:grid;
       grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); gap:.4rem 1.5rem; }
@@ -255,9 +245,9 @@
     .topic-lead { max-width:44rem; margin:.4rem 0 0; font-size:1.18rem; line-height:1.55; }
     .topic-lead p { margin:0; }
     .topic-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.4rem 2rem;
-      margin:1.6rem 0 0; padding:1.1rem 1.2rem; border-left:2px solid var(--accent); background:var(--brief-wash); }
-    .topic-xgroup-label { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+      margin:1.6rem 0 0; padding:1.1rem 1.2rem; border: 1px solid var(--border); background:var(--brief-wash); border-radius: 12px; }
+    .topic-xgroup-label { display:block; font-family:var(--font-mono);
+      font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent);
       margin:0 0 .6rem; }
     .topic-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
     .topic-xlinks li { font-size:.95rem; line-height:1.4; }
@@ -267,23 +257,163 @@
     .topic-section { display:grid; grid-template-columns:minmax(10rem,.32fr) minmax(0,1.68fr);
       gap:.4rem 2.2rem; padding:1.6rem 0; border-bottom:1px solid var(--border); }
     .topic-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
-    .topic-rail { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; font-weight:700;
-      letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.4; }
+    .topic-rail { font-family:var(--font-mono); font-size: 0.78rem; font-weight:700;
+      letter-spacing: 0; text-transform: none; color:var(--accent); line-height:1.4; }
     .topic-prose { min-width:0; max-width:44rem; }
     .topic-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.65; }
     .topic-prose p:last-child { margin-bottom:0; }
     .topic-prose strong { font-weight:650; }
     .topic-evidence .topic-rail { color:var(--muted); }
+    .topic-evidence details > summary, .topic-more > summary { cursor:pointer;
+      font-family:var(--font-mono); font-size:.72rem; letter-spacing:.04em;
+      color:var(--accent); padding:.3rem 0; }
+    .topic-evidence details[open] > summary { margin-bottom:.7rem; }
+
+    /* Latest updates (topic) + Recently filed (map): a dated ledger. */
+    .wiki-latest { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .wiki-latest li { display:grid; grid-template-columns:6.6rem minmax(0,1fr); gap:.8rem;
+      font-size:.94rem; line-height:1.4; }
+    .wiki-latest time { font-family:var(--font-mono); font-size:.7rem;
+      color:var(--muted); padding-top:.18rem; white-space:nowrap; }
+    .wiki-latest a { text-decoration:none; font-weight:600; }
+    .wiki-latest a:hover { text-decoration:underline; }
+    .wiki-latest .latest-topic { display:block; font-family:var(--font-mono);
+      font-size: 0.78rem; letter-spacing: 0; text-transform: none; color:var(--warm); margin:0 0 .1rem; }
+
+    /* Developments: entries grouped by theme. */
+    .topic-developments { margin:2.6rem 0 0; scroll-margin-top:5rem; }
+    .topic-dev-title { margin:0 0 .7rem; font-family:var(--font-display);
+      font-size:1.7rem; letter-spacing:-.03em; line-height:1.05; }
+    .topic-dev-title span { font-family:var(--font-mono); font-size:.8rem;
+      color:var(--muted); letter-spacing:0; margin-left:.3rem; vertical-align:middle; }
+    .topic-theme-nav ul { margin:0; padding:0 0 1rem; list-style:none; display:flex; flex-wrap:wrap; gap:.45rem; }
+    .topic-theme-nav a { display:inline-flex; align-items:center; gap:.45rem; padding:.36rem .6rem;
+      border:1px solid var(--border); font-size:.84rem; text-decoration:none; color:var(--fg); }
+    .topic-theme-nav a:hover { border-color:var(--accent); color:var(--accent); }
+    .topic-theme-nav .count { font-family:var(--font-mono); font-size:.68rem; color:var(--muted); }
+    .topic-theme { margin:1.4rem 0 0; scroll-margin-top:5rem; }
+    .topic-theme-head { padding:0 0 .5rem; border-bottom:2px solid var(--fg); }
+    .topic-theme-head h3 { margin:0; font-family:var(--font-display);
+      font-size:1.3rem; line-height:1.15; }
+    .topic-theme-meta { display:block; margin:.2rem 0 0; font-family:var(--font-mono);
+      font-size: 0.78rem; letter-spacing: 0; text-transform: none; color:var(--muted); }
+    .topic-theme-head p { margin:.45rem 0 0; max-width:44rem; font-size:.95rem; line-height:1.55; color:var(--muted); }
+    .wiki-entry { margin:0; padding:1.05rem 0 1.1rem; border:0; border-bottom:1px solid var(--border);
+      border-radius: var(--radius-control); background:transparent; box-shadow:none; scroll-margin-top:5rem; max-width:46rem; }
+    .wiki-entry:target { background:var(--brief-wash); box-shadow:-.8rem 0 0 var(--brief-wash), .8rem 0 0 var(--brief-wash); }
+    .entry-meta { margin:0 0 .25rem; font-family:var(--font-mono); font-size:.68rem;
+      color:var(--muted); letter-spacing:.03em; }
+    .entry-meta .sep { color:var(--border); margin:0 .4rem; }
+    .entry-title { margin:0 0 .45rem; font-size:1.05rem; line-height:1.35; font-weight:650; }
+    .entry-title a { color:inherit; text-decoration:none; }
+    .entry-title a:hover { color:var(--accent); }
+    .entry-body p { margin:0 0 .6rem; font-size:.96rem; line-height:1.6; }
+    .entry-body ul { margin:0 0 .6rem; padding-left:1.2rem; font-size:.96rem; line-height:1.55; }
+    .entry-body > :last-child { margin-bottom:0; }
+    .entry-sources { margin:.55rem 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.25rem; }
+    .entry-sources li { position:relative; padding-left:1.1rem; font-size:.84rem; line-height:1.4; }
+    .entry-sources li::before { content:"↗"; position:absolute; left:0; top:0; color:var(--muted); }
+    .entry-sources a { text-decoration:none; color:var(--muted); }
+    .entry-sources a:hover { color:var(--accent); text-decoration:underline; }
+    .entry-also { margin:.45rem 0 0; font-size:.8rem; color:var(--muted); }
+    .topic-more, .topic-evidence details { margin:.2rem 0 0; padding:0; border:0; border-radius: var(--radius-control);
+      background:transparent; }
+    .topic-more > summary { padding:.8rem 0; }
+
+    /* /map additions */
+    .map-row-meta { margin:.45rem 0 0; font-family:var(--font-mono);
+      font-size:.64rem; letter-spacing:.04em; color:var(--muted); }
+    .map-recent { margin:2rem 0 0; padding:1.1rem 1.2rem; border: 1px solid var(--border);
+      background:var(--brief-wash); border-radius: 12px; }
+    .map-recent h2 { margin:0; font-family:var(--font-display);
+      font-size:1.35rem; line-height:1.1; }
+    .map-recent-lede { margin:.3rem 0 .9rem; font-size:.86rem; color:var(--muted); }
     .evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.55rem; }
     .evidence-list li { font-size:.92rem; line-height:1.45; }
     .evidence-list .ev-story a { font-weight:600; text-decoration:none; }
     .evidence-list a { text-decoration:none; }
     .evidence-list a:hover { text-decoration:underline; }
-    .evidence-list .ev-kind { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
+    .evidence-list .ev-kind { font-family:var(--font-mono); font-size:.7rem;
       color:var(--muted); margin-left:.4rem; }
 
     button:focus-visible, a:focus-visible, select:focus-visible {
       outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+
+    /* ---- /map : knowledge universe (orbit view) ----
+       The viewport is deliberately deep-space dark in BOTH themes — it is an
+       instrument screen framed by the page, not a themed surface. All ku-*
+       colors are therefore hardcoded to the dark palette. */
+    .ku { margin:2rem 0 .4rem; }
+    .ku-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:.3rem 1.1rem; padding:0 0 .55rem; }
+    .ku-head b { font-family:var(--font-mono); font-size: 0.78rem; font-weight:700;
+      letter-spacing: 0; text-transform: none; color:var(--accent); }
+    .ku-readout { font-family:var(--font-mono); font-size:.68rem; color:var(--fg); }
+    .ku-legend { margin-left:auto; font-family:var(--font-mono);
+      font-size:.62rem; color:var(--muted); }
+    .ku-stage { position:relative; height:clamp(430px,68vh,640px); overflow:hidden;
+      background:#070b16; border:1px solid var(--border); border-radius:3px; }
+    .ku-canvas { position:absolute; inset:0; width:100%; height:100%; display:block;
+      cursor:grab; touch-action:pan-y; }
+    .ku-canvas:active { cursor:grabbing; }
+    .ku-canvas:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 55%,transparent); outline-offset:-3px; }
+    .ku-hint { margin:.55rem 0 0; font-family:var(--font-mono);
+      font-size:.64rem; line-height:1.6; color:var(--muted); max-width:62rem; }
+    .ku-tooltip { position:absolute; z-index:3; pointer-events:none; max-width:250px;
+      font-family:var(--font-mono); font-size:.66rem; line-height:1.45;
+      color:#e8f0fc; background:rgba(9,13,22,.93); border:1px solid #33415c; padding:.32rem .5rem; }
+    .ku-hud { position:absolute; z-index:3; left:.85rem; right:.85rem; bottom:.85rem;
+      display:flex; justify-content:center; align-items:stretch; gap:.4rem; pointer-events:none; }
+    .ku-hud button { pointer-events:auto; touch-action:manipulation; cursor:pointer;
+      color:#e8f0fc; background:rgba(10,14,23,.88); border:1px solid #33415c; border-radius:2px; }
+    .ku-hud button:hover { border-color:#8fd3ff; }
+    .ku-step { flex:none; width:2.4rem; font-size:1.3rem; line-height:1; }
+    .ku-step:hover { color:#8fd3ff; }
+    .ku-card { flex:0 1 auto; min-width:0; max-width:min(430px,100%); text-align:left;
+      white-space:normal; padding:.5rem .75rem .55rem; display:flex; flex-direction:column; gap:.2rem; }
+    .ku-card-name { display:flex; align-items:center; gap:.45rem; min-width:0;
+      font-family:var(--font-mono); font-size: 0.78rem; font-weight:700;
+      letter-spacing: 0; text-transform: none; }
+    .ku-card-name .ku-chip { width:.6rem; height:.6rem; }
+    .ku-card-meta { font-family:var(--font-mono); font-size:.62rem; color:#9aa6b6; }
+    .ku-card-sum { font-size:.74rem; line-height:1.45; color:#b9c4d6; overflow:hidden;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+    .ku-panel { position:absolute; z-index:4; top:.85rem; right:.85rem; bottom:.85rem;
+      width:min(345px,calc(100% - 1.7rem)); overflow:auto; overscroll-behavior:contain;
+      color:#e8f0fc; background:rgba(10,14,23,.94); border:1px solid #33415c; border-radius:2px;
+      backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+    .ku-panel header { position:sticky; top:0; z-index:1; display:flex; align-items:center; gap:.6rem;
+      padding:.75rem .85rem .6rem; background:rgba(10,14,23,.97); border-bottom:1px solid #232c3f; }
+    .ku-chip { flex:none; width:.72rem; height:.72rem; border-radius:50%;
+      background:var(--ku-c,#63a3ff); box-shadow:0 0 10px var(--ku-c,#63a3ff); }
+    .ku-panel h3 { margin:0; font-family:var(--font-display);
+      font-size:1.2rem; font-weight:700; letter-spacing:-.02em; line-height:1.05; }
+    .ku-panel header p { margin:.12rem 0 0; font-family:var(--font-mono);
+      font-size:.62rem; color:#9aa6b6; }
+    .ku-close { margin-left:auto; flex:none; width:1.8rem; height:1.8rem; font-size:1rem; cursor:pointer;
+      color:#e8f0fc; background:none; border:1px solid #33415c; border-radius:2px; }
+    .ku-close:hover { border-color:#8fd3ff; color:#8fd3ff; }
+    .ku-rows { list-style:none; margin:0; padding:.35rem .85rem .5rem; }
+    .ku-row { display:flex; gap:.55rem; padding:.55rem 0; border-bottom:1px solid #1c2436; }
+    .ku-row:last-child { border-bottom:0; }
+    .ku-row-solution { padding-left:1.15rem; }
+    .ku-dot { flex:none; width:.5rem; height:.5rem; border-radius:50%; margin-top:.5rem; }
+    .ku-dot-unread { background:#ffe9bd; box-shadow:0 0 8px #ffd97a; }
+    .ku-dot-read { background:#3a465c; }
+    .ku-kind { display:block; font-family:var(--font-mono); font-size: 0.78rem;
+      font-weight:700; letter-spacing: 0; text-transform: none; color:#8ea0c0; margin:0 0 .1rem; }
+    .ku-row a { color:#e8f0fc; font-size:.84rem; line-height:1.4; text-decoration:none; }
+    .ku-row a:hover { color:#8fd3ff; text-decoration:underline; }
+    .ku-row-meta { display:flex; align-items:center; gap:.5rem; margin-top:.2rem;
+      font-family:var(--font-mono); font-size:.6rem; color:#7f8ca3; }
+    .ku-badge { font-weight:700; font-size:.56rem; letter-spacing:.1em; padding:.08rem .3rem;
+      border:1px solid; border-radius:2px; }
+    .ku-badge-new { color:#ffd97a; border-color:#8a6c2f; }
+    .ku-badge-upd { color:#8fd3ff; border-color:#3c5f7d; }
+    .ku-panel footer { padding:.55rem .85rem .85rem; font-family:var(--font-mono);
+      font-size:.6rem; color:#7f8ca3; }
+    .map-list-title { margin:2.6rem 0 0; font-family:var(--font-display);
+      font-weight:700; letter-spacing:-.03em; font-size:1.5rem; color:var(--muted); }
+
     @media (max-width:620px) {
       main { padding-left:1rem; padding-right:1rem; }
       .map .wiki-headline { font-size:2.6rem; }
@@ -292,6 +422,14 @@
         padding:1.1rem 0 1rem; }
       .map-solutions { padding:1rem 0 1.2rem; }
       .topic-section { grid-template-columns:1fr; gap:.5rem; }
+      .wiki-latest li { grid-template-columns:1fr; gap:.1rem; }
+      .map-recent { padding:1rem .9rem; }
+      .ku-stage { height:clamp(380px,58vh,520px); }
+      .ku-legend { margin-left:0; }
+      .ku-panel { top:auto; left:.6rem; right:.6rem; bottom:.6rem; width:auto; max-height:64%; }
+      .ku-hud { left:.6rem; right:.6rem; bottom:.6rem; }
+      /* the bottom-sheet panel covers the stepper — one control at a time */
+      .ku-has-panel .ku-hud { display:none; }
     }
     @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
@@ -303,11 +441,11 @@
         <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
         <div class="site-bar-actions">
           <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
-          <button type="button" data-site-browse-open aria-label="Open Editor's Desk">Editor's Desk</button>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
         </div>
       </div>
       <div class="site-page-heading">
-        <h1>Agent Engineering Wiki</h1>
+        <h1>Agent Know-How</h1>
         <p id="meta" class="muted"></p>
       </div>
       <nav class="site-nav-fallback" aria-label="LLM Digest">
@@ -316,8 +454,10 @@
         <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
         <a href="/storylines" data-site-destination="/storylines">Storylines</a>
         <a href="/playbook" data-site-destination="/playbook">Playbook</a>
-        <a href="/map" data-site-destination="/map" aria-current="page">Knowledge map</a>
+        <a href="/map" data-site-destination="/map" aria-current="page">Agent Know-How</a>
         <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
+        <a href="/skills" data-site-destination="/skills">Skill Radar</a>
         <a href="/voices" data-site-destination="/voices">Voices</a>
         <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
       </nav>
@@ -331,27 +471,61 @@
     </header>
 
     <section id="recap">
-      <section class="wiki-hero"><p class="wiki-kicker">Agent engineering · knowledge map</p><h2 class="wiki-headline">LLM-as-judge: 트레이스 및 출력물에 대한 모델 기반 평가</h2><p class="wiki-readout"><span class="on">🛠️ Solution</span><span class="sep">·</span>active<span class="sep">·</span>9 sources<span class="sep">·</span>updated 2026-07-07</p></section>
+      <section class="wiki-hero"><p class="wiki-kicker">Agent engineering · know-how</p><h2 class="wiki-headline">LLM-as-judge: 트레이스 및 출력물에 대한 모델 기반 평가</h2><p class="wiki-readout"><span class="on">🛠️ Solution</span><span class="sep">·</span>active<span class="sep">·</span>18 entries<span class="sep">·</span>18 sources<span class="sep">·</span>updated 2026-10-28</p></section>
       <!-- range is included in the custom hero -->
 
       <div class="topic"><div class="topic-lead"><p>Use a model to grade a model: give an LLM the agent&#x27;s output (or its full trace) plus a rubric, and have it return a structured verdict. It scales the judgment human raters can&#x27;t keep up with — every production trace, every CI run — and is the practical backbone of agent evaluation when answers are open-ended.</p></div>
 <aside class="topic-xlinks"><div class="topic-xgroup"><span class="topic-xgroup-label">→ Addresses</span><ul><li><a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></li><li><a href="/topic/proving-agent-roi">Proving agent ROI and measuring cost efficiency is hard</a></li></ul></div></aside>
-<section class="topic-section"><div class="topic-rail">State of the art</div><div class="topic-prose"><p>The pattern is maturing from &quot;ask GPT to rate 1–5&quot; toward <strong>structured, trajectory-level judging</strong>: AWS&#x27;s Strands Evals reads a full trace and emits categorized failures with confidence scores and causal chains, not a single scalar.</p>
-<p><strong>Cost</strong> is the lever most teams are pulling first. Running a frontier judge over every trace is expensive, so LangChain and Fireworks fine-tune small open judges on production traces — mining perceived-error signals from real traffic to match frontier-judge quality at roughly 1/100th the cost. LangChain frames the whole loop as <strong>data mining, not labeling</strong>: cluster failures out of real traces first, fine-tune the cheap judge on those clusters, then use it to hill-climb the agent — so what gets judged comes from observed failure, not a rubric drafted before the traces existed.</p>
-<p>That cost lever now extends to the judge&#x27;s <strong>architecture</strong>, not just its size. &quot;Do Encoders Suffice?&quot; compares encoder-based classifiers against decoder (generative) judges and finds that for guardrail-style verdicts, a cheaper, lower-latency encoder can often match the generative judge — the right call when you need a fast, inline safety check rather than a free-text explanation. Morph Reflexes pushes the same lever further: it reads an agent trace once through a shared backbone and scores many behavioral signals (looping, reasoning leakage, user frustration) with separate classifier heads off the same forward pass, reusing KV-cache and compute to hit sub-30ms inference and under 2ms of marginal latency per added signal — turning &quot;judge every failure mode&quot; from N model calls into one shared-compute read of the trace.</p>
-<p>Judging is also moving <strong>earlier</strong>: OpenAI&#x27;s deployment simulation runs model-graded simulation over real conversation data to predict model behavior before release, rather than only checking after deployment.</p>
-<p>The counterweight to all of this speed-and-cost optimization is <strong>judge auditing</strong>. BabelJudge quantifies how unreliable judges are across languages and agent trajectories — position bias (favoring slot A), verbosity bias, and language-dependent drift that raw accuracy masks. A fine-tuned or frontier judge is only as trustworthy as the bias-and-agreement numbers you can show against held-out human labels.</p>
-<p>A sharper counterweight asks whether a judge is needed at all: for <strong>stateful</strong> agent evaluation, a deterministic-replacement approach checks state transitions directly rather than asking a model to grade them — when the task admits a programmatic check, skipping the judge removes its bias, cost, and non-determinism in one move. The practical reframe is to treat LLM-as-judge as the fallback for open-ended, hard-to-specify outputs, not the default for every evaluation.</p>
-<p>A cheaper lever than a bigger judge is <strong>ensembling smaller ones</strong>: rather than upgrading to a stronger single model, running independent judges under different personas — including one deliberately briefed to argue the opposite verdict — over the same artifact substantially cuts false positives. A practitioner reports this &quot;reasonable setup around the model&quot; lowers false-positive rates more reliably than swapping in a better model, extending the standing cost lever (smaller fine-tuned judges, cheaper encoders) with a quality lever that doesn&#x27;t require a bigger model at all.</p></div></section>
-<section class="topic-section"><div class="topic-rail">What&#x27;s new</div><div class="topic-prose"><p>LangChain reframes judge fine-tuning as a <strong>data-mining problem</strong>: mine production traces for failure clusters first, fine-tune the cheap judge on those clusters, then hill-climb agent performance from that signal — the same cost lever as before (small judge over frontier judge) but with the training target derived from observed failures rather than a rubric.</p>
-<p>Judge quality also gets a cheap lever that isn&#x27;t &quot;use a bigger model&quot;: ensembling independent judge personas over the same artifact — including a deliberately contrarian one — cuts false positives more reliably than upgrading to a stronger single judge, alongside the standing deterministic alternative for stateful tasks and BabelJudge&#x27;s numbers on judge bias.</p></div></section>
+<section class="topic-section topic-latest"><div class="topic-rail">Latest updates</div><div class="topic-prose"><ol class="wiki-latest"><li><time datetime="2026-10-28">Oct 28, 2026</time><span class="latest-main"><a href="/topic/llm-as-judge#2026-10-28-novelty-judges-prompt-sensitive">Novelty judges swing by 50+ points on small prompt changes</a></span></li><li><time datetime="2026-10-26">Oct 26, 2026</time><span class="latest-main"><a href="/topic/llm-as-judge#2026-10-26-simulated-control-evals-monitors">Simulated control evaluations test agent monitors with an LLM that fakes tool outputs</a></span></li><li><time datetime="2026-10-20">Oct 20, 2026</time><span class="latest-main"><a href="/topic/llm-as-judge#2026-10-20-decision-model-thresholds">Decision models replace LLM judges only after tuning the 0.50 threshold on your own labels</a></span></li><li><time datetime="2026-10-20">Oct 20, 2026</time><span class="latest-main"><a href="/topic/llm-as-judge#2026-10-20-audit-judge-three-pillars">Audit an LLM judge for stability, chance-corrected human agreement, and ensemble divergence</a></span></li><li><time datetime="2026-10-16">Oct 16, 2026</time><span class="latest-main"><a href="/topic/llm-as-judge#2026-10-16-mechanical-checks-beat-llm-judges">Mechanical checks catch errors LLM judges accept</a></span></li></ol></div></section>
+<section class="topic-section"><div class="topic-rail">State of the art</div><div class="topic-prose"><p>The pattern has moved past &quot;ask a model to rate 1–5&quot;. Current judges read the <strong>whole trace</strong> and return categorized failures with causes, and they now run in three places: offline over production traces, before release in simulated deployment, and inside the agent loop as a grader that sends per-criterion feedback back to the agent.</p>
+<p><strong>Cost is the first lever teams pull.</strong> A frontier judge over every trace is too expensive, so teams fine-tune small open judges on their own failure clusters (about 1/100th the cost) or swap the generative judge for encoder classifiers that score many signals in one pass.</p>
+<p><strong>Trust is the open problem.</strong> Judges show position, verbosity, and language bias that raw accuracy hides, and an LLM-written rubric can be wrong even when the judge is calibrated. The working practice: validate the judge against held-out human labels, ensemble cheap judges to cut false positives, and use a deterministic check instead of a judge whenever the task allows one.</p></div></section>
 <section class="topic-section"><div class="topic-rail">Trade-offs</div><div class="topic-prose"><p>The judge is itself a non-deterministic model: it has biases (verbosity, position, self-preference) and can be gamed. It needs its own validation against human labels, or it just launders noise.</p>
-<p>Cheap fine-tuned judges narrow the cost gap, but they can overfit to the trace distribution they were trained on and miss novel failure modes.</p>
-<p>Ensembling several judge personas cuts false positives but multiplies the number of judge calls per artifact, trading judge-side cost for precision — worth it only where false positives are expensive to triage by hand.</p>
-<p>LLM-as-judge works best paired with a rubric and a held-out human-labeled set, and when you care about explanations (which step failed) rather than a single opaque score.</p></div></section>
+<p>Cheap fine-tuned judges narrow the cost gap, but they can overfit to the trace distribution they were trained on and miss novel failure modes. Ensembling judge personas cuts false positives but multiplies judge calls per artifact.</p>
+<p>LLM-as-judge works best with a rubric, a held-out human-labeled set, and a need for explanations (which step failed) rather than one opaque score.</p></div></section>
 <section class="topic-section"><div class="topic-rail">Why it matters for platform engineers</div><div class="topic-prose"><p>This is what makes continuous agent eval affordable: a judge you can run in CI and on live traffic to catch regressions a model upgrade or prompt change introduces.</p>
 <p>The cost knob — frontier judge, fine-tuned local judge, or encoder classifier — is a real budget decision, and the judge itself becomes a dependency you must monitor and re-validate like any other piece of infra. Pairs with <a href="/topic/agent-benchmarks">agent benchmarks</a> for the fixed-task side of evaluation.</p></div></section>
-<section class="topic-section topic-evidence"><div class="topic-rail">Evidence · 9 sources</div><ul class="evidence-list"><li class="ev-story"><a href="/story/4235792e910ea51a">Building a 100x Cheaper Trace Judge with Fireworks</a></li><li class="ev-story"><a href="/story/12500c0bbe5e4d6f">AI Agent Failure Detection and Root Cause Analysis with Strands Evals</a></li><li class="ev-story"><a href="/story/c000018ba1f03575">Predicting model behavior before release by simulating deployment</a></li><li class="ev-story"><a href="/story/c579e90dd1110817">BabelJudge: Measuring LLM-as-a-Judge Reliability Across Languages and Agent Trajectories</a></li><li class="ev-story"><a href="/story/4e6b89625cd2f1df">Do Encoders Suffice? A Systematic Comparison of Encoder and Decoder Safety Judges for LLM Adversarial Evaluation</a></li><li class="ev-story"><a href="/story/cf0a37dd32efaf51">Show HN: Morph Reflexes – Multi-head classifiers for agent traces</a></li><li class="ev-story"><a href="/story/5d87a279aac331cb">A Deterministic Replacement for LLM-as-Judge in Stateful Agent Evaluation</a></li><li class="ev-story"><a href="/story/d8ea565801623af0">Agentic test processes, LLM benchmarks</a></li><li class="ev-story"><a href="/story/4a0a79e7203bae64">Improving Agents is a Data Mining Problem</a></li></ul></section></div>
+<section class="topic-developments" id="developments"><h2 class="topic-dev-title">Developments <span>18</span></h2><nav class="topic-theme-nav" aria-label="Themes"><ul><li><a href="#theme-structured-verdicts">From a 1-5 score to structured, trace-level verdicts<span class="count">3</span></a></li><li><a href="#theme-cheaper-judges">Making the judge cheap enough to run on every trace<span class="count">5</span></a></li><li><a href="#theme-trusting-the-judge">Auditing the judge, the rubric, and whether you need one<span class="count">10</span></a></li></ul></nav><section class="topic-theme" id="theme-structured-verdicts"><header class="topic-theme-head"><h3>From a 1-5 score to structured, trace-level verdicts</h3><span class="topic-theme-meta">3 entries · latest Aug 27, 2026</span><p>Judges now read whole trajectories and return categorized failures, run before release, or sit inside the agent loop as a grader.</p></header><article class="wiki-entry" id="2026-08-27-deep-agents-rubric-middleware"><p class="entry-meta"><time datetime="2026-08-27">Aug 27, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-08-27-deep-agents-rubric-middleware">Deep Agents RubricMiddleware puts the grader inside the agent loop</a></h4><div class="entry-body"><p>LangChain&#x27;s Deep Agents <strong>RubricMiddleware</strong> takes a newline-delimited checklist at invocation time and hands it to a separate grader sub-agent. The grader can call tools, such as a test runner, to gather evidence before it rules.</p>
+<p>When a criterion fails, the grader&#x27;s per-criterion feedback is injected back into the conversation and the agent re-runs, up to a configured cap. The rubric becomes a runtime input the agent iterates against, not an offline scoring pass.</p></div><ul class="entry-sources"><li><a href="/story/92884e6fce9aba7c">Introducing Rubrics: Build Agents that Evaluate and Correct Their Work</a></li></ul></article><article class="wiki-entry" id="2026-06-19-strands-evals-failure-detection"><p class="entry-meta"><time datetime="2026-06-19">Jun 19, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-06-19-strands-evals-failure-detection">AWS Strands Evals returns categorized failures with causal chains</a></h4><div class="entry-body"><p>AWS&#x27;s Strands Evals detectors read a full agent trace and return <strong>categorized failures</strong> with confidence scores, causal chains that link a root cause to its downstream symptoms, and a fix recommendation.</p>
+<p>The shift is from one scalar score to a verdict an engineer can act on: which step failed, why, and what to change.</p></div><ul class="entry-sources"><li><a href="/story/12500c0bbe5e4d6f">AI Agent Failure Detection and Root Cause Analysis with Strands Evals</a></li></ul></article><article class="wiki-entry" id="2026-06-19-openai-deployment-simulation"><p class="entry-meta"><time datetime="2026-06-19">Jun 19, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-06-19-openai-deployment-simulation">OpenAI simulates deployment to judge a model before release</a></h4><div class="entry-body"><p>OpenAI&#x27;s Deployment Simulation runs model-graded simulation over real conversation data to <strong>predict model behavior before release</strong>, instead of finding problems after an incident.</p>
+<p>It moves judging earlier in the lifecycle: the same graders that score production traces become a pre-release gate.</p></div><ul class="entry-sources"><li><a href="/story/c000018ba1f03575">Predicting model behavior before release by simulating deployment</a></li></ul></article></section><section class="topic-theme" id="theme-cheaper-judges"><header class="topic-theme-head"><h3>Making the judge cheap enough to run on every trace</h3><span class="topic-theme-meta">5 entries · latest Oct 20, 2026</span><p>Small fine-tuned judges, encoder classifiers, and shared-backbone heads cut judge cost and latency by one to two orders of magnitude.</p></header><article class="wiki-entry" id="2026-10-20-decision-model-thresholds"><p class="entry-meta"><time datetime="2026-10-20">Oct 20, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-10-20-decision-model-thresholds">Decision models replace LLM judges only after tuning the 0.50 threshold on your own labels</a></h4><div class="entry-body"><p>Hamel Husain compared six decision models (Jev, Perplexity Decider, Liquid d1, Cloudflare Clef Flash, OpenAI Decisions) on 100 labeled traces from a leasing agent. The default <strong>0.50 threshold</strong> is often wrong: tuning with cross-validation lifted Liquid d1 and Clef Flash, which otherwise missed his 80% precision and recall floor.</p>
+<p>On cost, Perplexity cost 0.82 cents per 100 eval runs at F1 0.79. OpenAI Decisions reached F1 0.87 at 3.72 cents, about 4.5x more. Scores were not calibrated probabilities: one Clef Flash bucket predicted 8% failure but failed 60% of the time. Platt scaling fixed several models, not all. This is one small dataset.</p>
+<p>For builders: tune and calibrate the threshold on saved scores before alerting on them.</p></div><ul class="entry-sources"><li><a href="/story/58b479d20c57cce8">How To Use Decision Models for Evals</a></li></ul></article><article class="wiki-entry" id="2026-07-07-judge-tuning-as-data-mining"><p class="entry-meta"><time datetime="2026-07-07">Jul 7, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-07-judge-tuning-as-data-mining">LangChain: improving agents is a data-mining problem</a></h4><div class="entry-body"><p>LangChain describes its loop as <strong>data mining, not labeling</strong>: cluster failures out of real agent traces first, fine-tune a cheap judge on those clusters, then use the judge to hill-climb the agent.</p>
+<p>What gets judged comes from observed failures, not a rubric drafted before any traces existed.</p></div><ul class="entry-sources"><li><a href="/story/4a0a79e7203bae64">Improving Agents is a Data Mining Problem</a></li></ul></article><article class="wiki-entry" id="2026-07-01-morph-reflexes-multi-head-classifiers"><p class="entry-meta"><time datetime="2026-07-01">Jul 1, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-01-morph-reflexes-multi-head-classifiers">Morph Reflexes scores many failure modes in one pass over a trace</a></h4><div class="entry-body"><p>Morph Reflexes reads an agent trace once through a shared backbone and scores behavioral signals — looping, reasoning leakage, user frustration — with <strong>separate classifier heads off the same forward pass</strong>.</p>
+<p>Reusing the KV cache gives sub-30ms inference and under 2ms of marginal latency per added signal, so &quot;judge every failure mode&quot; costs one read of the trace instead of N model calls.</p></div><ul class="entry-sources"><li><a href="/story/cf0a37dd32efaf51">Show HN: Morph Reflexes – Multi-head classifiers for agent traces</a></li></ul></article><details class="topic-more"><summary>Show 2 earlier entries</summary><article class="wiki-entry" id="2026-06-30-encoder-vs-decoder-safety-judges"><p class="entry-meta"><time datetime="2026-06-30">Jun 30, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-06-30-encoder-vs-decoder-safety-judges">Encoder classifiers can match generative judges for guardrail verdicts</a></h4><div class="entry-body"><p>&quot;Do Encoders Suffice?&quot; compares encoder classifiers with decoder (generative) judges for safety evaluation. For <strong>guardrail-style verdicts</strong>, a cheaper, lower-latency encoder often matches the generative judge.</p>
+<p>Use an encoder when you need a fast inline check; keep a generative judge when you need a free-text explanation.</p></div><ul class="entry-sources"><li><a href="/story/4e6b89625cd2f1df">Do Encoders Suffice? A Systematic Comparison of Encoder and Decoder Safety Judges for LLM Adversarial Evaluation</a></li></ul></article><article class="wiki-entry" id="2026-06-19-fireworks-100x-cheaper-trace-judge"><p class="entry-meta"><time datetime="2026-06-19">Jun 19, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-06-19-fireworks-100x-cheaper-trace-judge">LangChain and Fireworks fine-tune a trace judge at ~1/100th the cost</a></h4><div class="entry-body"><p>LangChain and Fireworks fine-tuned a small open model to mine perceived-error signals from production traces, <strong>matching frontier-judge performance at roughly 1/100th the cost</strong>.</p>
+<p>It makes judging every production trace affordable, which a frontier judge is not.</p></div><ul class="entry-sources"><li><a href="/story/4235792e910ea51a">Building a 100x Cheaper Trace Judge with Fireworks</a></li></ul></article></details></section><section class="topic-theme" id="theme-trusting-the-judge"><header class="topic-theme-head"><h3>Auditing the judge, the rubric, and whether you need one</h3><span class="topic-theme-meta">10 entries · latest Oct 28, 2026</span><p>Judges carry position, verbosity, and language bias, and rubrics can be wrong; calibrate against human labels or replace the judge with a deterministic check.</p></header><article class="wiki-entry" id="2026-10-28-novelty-judges-prompt-sensitive"><p class="entry-meta"><time datetime="2026-10-28">Oct 28, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-10-28-novelty-judges-prompt-sensitive">Novelty judges swing by 50+ points on small prompt changes</a></h4><div class="entry-body"><p>Ai2&#x27;s &quot;Old Ideas, Novel Problems&quot; benchmarks LLM novelty judges on 154 high-novelty ideas drawn from ICLR 2026 peer reviews. Across six judges (GPT-5.1/5.2/5.4, Claude Sonnet 4.5, Opus 4.5/4.6), changing a few words in the prompt shifted pairwise accuracy by more than <strong>50 percentage points</strong> (paper-reported).</p>
+<p>Retrieval and extra reasoning did not help consistently, and two purpose-built novelty systems scored below a plain prompted Opus 4.6 baseline. For builders: a judge validated on human-written papers may not transfer to generated ideas, so re-check any judge after every prompt or setup change.</p></div><ul class="entry-sources"><li><a href="/story/1d6c5c59e46e52b9">Can we trust LLMs to judge whether a research idea is novel?</a></li></ul></article><article class="wiki-entry" id="2026-10-26-simulated-control-evals-monitors"><p class="entry-meta"><time datetime="2026-10-26">Oct 26, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-10-26-simulated-control-evals-monitors">Simulated control evaluations test agent monitors with an LLM that fakes tool outputs</a></h4><div class="entry-body"><p>Redwood Research&#x27;s paper on simulated control evaluations (SCEs) tests whether a monitor, the model that flags or blocks an agent&#x27;s risky actions, would catch an agent deliberately trying to cause harm, such as quietly inserting a security flaw. An LLM simulates the tool outputs, so tests run under conditions closer to real deployment than static transcripts allow.</p>
+<p>For builders: a monitor&#x27;s catch rate on canned attacks overstates its real one. Measure it against an adaptive adversary in a simulated environment before trusting it as a gate.</p></div><ul class="entry-sources"><li><a href="/story/317b87334e0d2a63">Red-teaming AI agent monitors with an LLM that fakes tool outputs</a></li></ul><p class="entry-also">Also relevant to <a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></p></article><article class="wiki-entry" id="2026-10-20-audit-judge-three-pillars"><p class="entry-meta"><time datetime="2026-10-20">Oct 20, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-10-20-audit-judge-three-pillars">Audit an LLM judge for stability, chance-corrected human agreement, and ensemble divergence</a></h4><div class="entry-body"><p>A Google Cloud consulting post lists the judge biases to test for: verbosity, position, halo, agreeableness, and self-enhancement. It cites swapped option order flipping verdicts over 75% of the time and judges missing up to 75% of bad outputs (figures as cited by the vendor, no methodology given).</p>
+<p>Its audit has three steps:</p>
+<ul><li><strong>Stability:</strong> score the same output several times and measure variance; high variance means the rubric is ambiguous.</li><li><strong>Human alignment:</strong> use chance-corrected agreement, because a lenient judge looks good on mostly valid data.</li><li><strong>Ensembles:</strong> one judge per criterion, and at least two models on the same output to flag divergence.</li></ul>
+<p>For builders: report chance-corrected agreement, not raw accuracy, before trusting a judge in CI.</p></div><ul class="entry-sources"><li><a href="/story/4e6e796fa0c5bfc0">Who judges the judge? Three helpful ways to audit your LLM evaluators</a></li></ul></article><details class="topic-more"><summary>Show 7 earlier entries</summary><article class="wiki-entry" id="2026-10-16-mechanical-checks-beat-llm-judges"><p class="entry-meta"><time datetime="2026-10-16">Oct 16, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-10-16-mechanical-checks-beat-llm-judges">Mechanical checks catch errors LLM judges accept</a></h4><div class="entry-body"><p>A paper on verifying Lean autoformalizations pairs an LLM semantic review with <strong>mechanical numerical and vacuity checks</strong>. Statements are checked by computation, not only by a model&#x27;s reading of faithfulness.</p>
+<p>On three labeled datasets the combined method had the lowest accepted-error rate (fraction of incorrect statements it accepted) among the methods the authors evaluated. Expert review also found translation and source defects in existing datasets. Results are paper-reported, in a formal-math domain.</p>
+<p>For builders: where a claim can be checked by execution, arithmetic, or a vacuity test, run that check alongside the judge and return its output as checkable feedback. Keep the LLM judge for what only a model can assess.</p></div><ul class="entry-sources"><li><a href="/story/12ce418f6930dbfb">Beyond LLM Judge: Mechanical Verification for Agentic Autoformalization</a></li></ul><p class="entry-also">Also relevant to <a href="/topic/agent-reliability">Agents give fluent, confident-looking output even when it&#x27;s wrong</a></p></article><article class="wiki-entry" id="2026-10-11-judge-trustworthy-verdict-rate"><p class="entry-meta"><time datetime="2026-10-11">Oct 11, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-10-11-judge-trustworthy-verdict-rate">Zero-temperature judges still flip verdicts; the most consistent one was right only 51% of the time</a></h4><div class="entry-body"><p>A reliability audit stress-tested six frontier models as judges across four benchmarks, five prompt formats, two presentation orders, three temperatures, and ten repetitions. Verdicts changed across identical runs at temperature zero, and swapping answer order flipped the majority of verdicts on hard tasks. The most deterministic judge was perfectly consistent only by repeating wrong verdicts, agreeing with ground truth <strong>51%</strong> of the time.</p>
+<p>The authors propose a <em>trustworthy verdict rate</em>: the joint probability a verdict is reproducible, order-invariant, and accurate. Holistic rubric scoring beat pairwise win-rate and any single prompt tweak.</p>
+<p>For builders: measure consistency and order-invariance per item, not just agreement, and prefer rubric scores over pairwise comparisons.</p></div><ul class="entry-sources"><li><a href="/story/5a0ce18b71c2722a">All Verdicts are Not Equal: Rethinking LLM Judge Reliability</a></li></ul><p class="entry-also">Also relevant to <a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></p></article><article class="wiki-entry" id="2026-07-31-langsmith-align-evals"><p class="entry-meta"><time datetime="2026-07-31">Jul 31, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-31-langsmith-align-evals">LangSmith Align Evals calibrates judges against human labels in-product</a></h4><div class="entry-body"><p>LangSmith&#x27;s <strong>Align Evals</strong> lets a team calibrate its evaluators against human preference inside the tool.</p>
+<p>Validating the judge against human labels becomes a workflow step instead of a manual side-audit.</p></div><ul class="entry-sources"><li><a href="/story/1923a6eccdfa6038">Introducing Align Evals: Streamlining LLM Application Evaluation</a></li></ul></article><article class="wiki-entry" id="2026-07-15-llm-rubric-meta-evaluation"><p class="entry-meta"><time datetime="2026-07-15">Jul 15, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-15-llm-rubric-meta-evaluation">Can LLMs write reliable rubrics? A meta-evaluation</a></h4><div class="entry-body"><p>A meta-evaluation of LLM-generated grading rubrics, tested across generation setups and two model backbones on a paper-reproduction task, checks rubrics against semantic similarity and ground-truth scores.</p>
+<p>It treats <strong>the rubric as its own failure surface</strong>: a well-calibrated judge can still grade against a bad checklist.</p></div><ul class="entry-sources"><li><a href="/story/0570a6850cae75de">Can LLMs Write Reliable Rubrics? A Meta-Evaluation for Experiment Reproduction</a></li></ul></article><article class="wiki-entry" id="2026-07-05-ensemble-judge-personas"><p class="entry-meta"><time datetime="2026-07-05">Jul 5, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-05-ensemble-judge-personas">Ensembling judge personas cuts false positives more than a bigger model</a></h4><div class="entry-body"><p>Dan Luu&#x27;s notes on agentic coding report that running <strong>independent judges under different personas</strong> — including one briefed to argue the opposite verdict — over the same artifact cuts false positives more reliably than upgrading to a stronger single model.</p>
+<p>The cost is more judge calls per artifact, so it pays off where false positives are expensive to triage.</p></div><ul class="entry-sources"><li><a href="/story/d8ea565801623af0">Agentic test processes, LLM benchmarks, and other notes on agentic coding</a></li></ul></article><article class="wiki-entry" id="2026-07-03-deterministic-replacement-for-judges"><p class="entry-meta"><time datetime="2026-07-03">Jul 3, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-03-deterministic-replacement-for-judges">For stateful agents, check state transitions instead of asking a judge</a></h4><div class="entry-body"><p>A deterministic-replacement approach for <strong>stateful</strong> agent evaluation checks state transitions directly instead of asking a model to grade them.</p>
+<p>When the task admits a programmatic check, skipping the judge removes its bias, cost, and non-determinism at once. Treat LLM-as-judge as the fallback for open-ended outputs, not the default.</p></div><ul class="entry-sources"><li><a href="/story/5d87a279aac331cb">A Deterministic Replacement for LLM-as-Judge in Stateful Agent Evaluation</a></li></ul></article><article class="wiki-entry" id="2026-06-23-babeljudge-judge-bias"><p class="entry-meta"><time datetime="2026-06-23">Jun 23, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-06-23-babeljudge-judge-bias">BabelJudge measures judge bias across languages and agent trajectories</a></h4><div class="entry-body"><p>BabelJudge quantifies LLM-as-judge reliability across languages and agent trajectories. It finds <strong>position bias</strong> (favoring slot A), <strong>verbosity bias</strong>, and language-dependent drift that raw accuracy masks.</p>
+<p>A judge is only as trustworthy as the bias and agreement numbers you can show against held-out human labels.</p></div><ul class="entry-sources"><li><a href="/story/c579e90dd1110817">BabelJudge: Measuring LLM-as-a-Judge Reliability Across Languages and Agent Trajectories</a></li></ul></article></details></section></section>
+<section class="topic-section topic-cross"><div class="topic-rail">From related topics</div><div class="topic-prose"><ol class="wiki-latest"><li><time datetime="2026-09-21">Sep 21, 2026</time><span class="latest-main"><span class="latest-topic">Measuring whether an agent actually worked is hard</span><a href="/topic/agent-evaluation#2026-09-21-jev-evaluator-vs-llm-judges">Jev ships in LangSmith Evals as a faster, cheaper alternative to LLM judges</a></span></li><li><time datetime="2026-09-09">Sep 9, 2026</time><span class="latest-main"><span class="latest-topic">Measuring whether an agent actually worked is hard</span><a href="/topic/agent-evaluation#2026-09-09-multi-perspective-hallucination-adjudication">Multi-perspective adjudication catches subtle factual errors single annotators miss</a></span></li><li><time datetime="2026-08-27">Aug 27, 2026</time><span class="latest-main"><span class="latest-topic">Measuring whether an agent actually worked is hard</span><a href="/topic/agent-evaluation#2026-08-27-github-secret-scanning-eval-tiers">GitHub evaluates an LLM for secret scanning with a recall guardrail it cannot trade away</a></span></li><li><time datetime="2026-08-26">Aug 26, 2026</time><span class="latest-main"><span class="latest-topic">Measuring whether an agent actually worked is hard</span><a href="/topic/agent-evaluation#2026-08-26-judgment-receipts-evaluator-reasoning">Evaluators can keep the right verdict while their reasons stop tracking the evidence</a></span></li><li><time datetime="2026-08-19">Aug 19, 2026</time><span class="latest-main"><span class="latest-topic">Measuring whether an agent actually worked is hard</span><a href="/topic/agent-evaluation#2026-08-19-langsmith-tuned-evaluators">LangSmith Tuned Evaluators attach a Perceived Error signal to production traces</a></span></li><li><time datetime="2026-07-29">Jul 29, 2026</time><span class="latest-main"><span class="latest-topic">Measuring whether an agent actually worked is hard</span><a href="/topic/agent-evaluation#2026-07-29-similarweb-rubric-recalibration">Similarweb&#x27;s first report rubric rewarded source quantity until it was recalibrated</a></span></li><li><time datetime="2026-07-13">Jul 13, 2026</time><span class="latest-main"><span class="latest-topic">Measuring whether an agent actually worked is hard</span><a href="/topic/agent-evaluation#2026-07-13-human-vs-automated-100-traces">Checking 100 human-annotated traces shows automated evals diverge from human raters</a></span></li></ol></div></section>
+<section class="topic-section topic-evidence"><div class="topic-rail">Evidence · 18 sources</div><div class="topic-prose"><details><summary>All sources behind this page</summary><ul class="evidence-list"><li class="ev-story"><a href="/story/1d6c5c59e46e52b9">Can we trust LLMs to judge whether a research idea is novel?</a></li><li class="ev-story"><a href="/story/317b87334e0d2a63">Red-teaming AI agent monitors with an LLM that fakes tool outputs</a></li><li class="ev-story"><a href="/story/58b479d20c57cce8">How To Use Decision Models for Evals</a></li><li class="ev-story"><a href="/story/4e6e796fa0c5bfc0">Who judges the judge? Three helpful ways to audit your LLM evaluators</a></li><li class="ev-story"><a href="/story/12ce418f6930dbfb">Beyond LLM Judge: Mechanical Verification for Agentic Autoformalization</a></li><li class="ev-story"><a href="/story/5a0ce18b71c2722a">All Verdicts are Not Equal: Rethinking LLM Judge Reliability</a></li><li class="ev-story"><a href="/story/92884e6fce9aba7c">Introducing Rubrics: Build Agents that Evaluate and Correct Their Work</a></li><li class="ev-story"><a href="/story/1923a6eccdfa6038">Introducing Align Evals: Streamlining LLM Application Evaluation</a></li><li class="ev-story"><a href="/story/0570a6850cae75de">Can LLMs Write Reliable Rubrics? A Meta-Evaluation for Experiment Reproduction</a></li><li class="ev-story"><a href="/story/4a0a79e7203bae64">Improving Agents is a Data Mining Problem</a></li><li class="ev-story"><a href="/story/d8ea565801623af0">Agentic test processes, LLM benchmarks, and other notes on agentic coding</a></li><li class="ev-story"><a href="/story/5d87a279aac331cb">A Deterministic Replacement for LLM-as-Judge in Stateful Agent Evaluation</a></li><li class="ev-story"><a href="/story/cf0a37dd32efaf51">Show HN: Morph Reflexes – Multi-head classifiers for agent traces</a></li><li class="ev-story"><a href="/story/4e6b89625cd2f1df">Do Encoders Suffice? A Systematic Comparison of Encoder and Decoder Safety Judges for LLM Adversarial Evaluation</a></li><li class="ev-story"><a href="/story/c579e90dd1110817">BabelJudge: Measuring LLM-as-a-Judge Reliability Across Languages and Agent Trajectories</a></li><li class="ev-story"><a href="/story/12500c0bbe5e4d6f">AI Agent Failure Detection and Root Cause Analysis with Strands Evals</a></li><li class="ev-story"><a href="/story/c000018ba1f03575">Predicting model behavior before release by simulating deployment</a></li><li class="ev-story"><a href="/story/4235792e910ea51a">Building a 100x Cheaper Trace Judge with Fireworks</a></li></ul></details></div></section>
+<script>
+(function () {
+  function reveal() {
+    var id = decodeURIComponent((location.hash || '').slice(1));
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    for (var d = el.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) d.open = true;
+    el.scrollIntoView();
+  }
+  window.addEventListener('hashchange', reveal);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', reveal);
+  else reveal();
+})();
+</script></div>
     </section>
 
     <footer>
@@ -407,7 +581,7 @@
     })();
   </script>
 
-  <script src="/nav-updates.js?v=20260701" defer></script>
+  <script src="/nav-updates.js?v=20260910-editorial" defer></script>
 
 
   <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
