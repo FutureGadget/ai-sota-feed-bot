@@ -2500,6 +2500,22 @@
   "type": "news",
   "url": "https://projectzero.google/2026/10/fuzzing-v-AI.html"
  },
+ "4cf38e69c8d390b4": {
+  "first_seen": "2026-11-07T09:05:35.730719+00:00",
+  "id": "08ffeb424f6abe4b",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-05T18:58:17+00:00",
+  "sid": "4cf38e69c8d390b4",
+  "source": "arxiv_cs_cl",
+  "summary": "AI-Scientists arrived, but a world for them to grow in did not. Human scientists take theirs for granted $-$ centuries of open problems and shared ideas, waiting in the scientific literature. To AI-Scientists, that world is readable but not runnable, so we build Scientist World for them: every research paper becomes an executable environment. Our autonomous pipeline extracts each paper's open-ended research question and reproduces its proposed method as the baseline; an AI-Scientist entering the environment is evaluated against what the human authors achieved. We release the first 1,000 verified environments. With the world as an evaluation, we found that frontier AI-Scientists can already surpass the human researchers 74% of the time. As a record of how AI does science, it contains 6,400 hours of research traces, with every idea, experiment, failure, and success. As a training ground, we are able to raise (+158%) a small model to match frontier models in research ideation. At last, AI-Scientists' own world has arrived, grown from and growing with science itself.",
+  "summary_1line": "AI-Scientists arrived, but a world for them to grow in did not. Human scientists take theirs for granted $-$ centuries of open problems and shared ideas, waiting in the scientific literature. To AI-Scientists, that wo...",
+  "title": "Scientist World: Grow a Research World for AI-Scientists",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08478v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "4d3938441f216409": {
   "content_excerpt": "Ask a frontier model for a slide deck and you'll get a good one. Ask for ten and they start to look alike: the same tasteful defaults, the same house style, a faint \"AI-generated deck\" look. That's fine until you want the deck to look like your template. Frontier models have their own house style, and no amount of prompting stops them drifting back to it. And sometimes the content is confidential",
   "first_seen": "2026-11-03T17:06:51.488000+00:00",
@@ -3447,6 +3463,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03377v1"
  },
+ "6ca9cbc8faea0e06": {
+  "content_excerpt": "APM is a dependency manager for AI agents. Declare the skills, prompts, instructions, plugins, and MCP servers your project needs in one apm.yml , then any developer runs apm install to deploy each primitive to the harnesses that support it. See the targets matrix for support across GitHub Copilot, Claude Code, Grok Build, Cursor, OpenCode, Codex, Gemini, Windsurf, and Kiro. One apm.yml across supported harnesses and machines. The lockfile pins exact versions and content hashes so a fresh clone resolves the same package content byte-for-byte. Every install scans for hidden Unicode, pins content hashes, and blocks transitive MCP servers unless they are explicitly declared or trusted. No opt-in required. apm-policy.yml is enforced at install time, including transitive MCP. Tighten-only inheritance flows enterprise -> org -> repo. Runtime behavior is your harness’s domain. See the Governance Guide . Homebrew is optional. See all installation options for pip, Scoop, and manual installs. For standalone Unix installs, follow the installer’s shell-specific PATH guidance if the current terminal cannot find apm . This example omits $schema and uses APM’s working-draft contract. For an explicit schema, see contract selection and the corrected schema candidate ; the older published schemas reject the Git-plus-path form shown below. That’s it. Each selected harness receives the primitives it supports in one command; every dependency is pinned, and every MCP server is policy-checked befor",
+  "first_seen": "2026-11-07T09:05:35.730719+00:00",
+  "id": "1c49851bc6b92d52",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-07T08:51:43+00:00",
+  "sid": "6ca9cbc8faea0e06",
+  "source": "hackernews_ai",
+  "summary_1line": "APM – A dependency manager for AI agents",
+  "title": "APM – A dependency manager for AI agents",
+  "type": "news",
+  "url": "https://microsoft.github.io/apm",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "6d8a8ee7d8dd93df": {
   "content_excerpt": "For the past two years, building capable Agents meant designing tools, figuring out which actions help the model complete a task, deciding how granular each tool schema needs to be, or iterating on system instruction templates. This is changing. Agents are moving in the opposite direction by collapsing their entire tool catalog into one tool : exec . This is called Code Mode (or Programmatic Tool Calling). Instead of forcing the model to trigger tools one at a time across turns, the harness gives the model a single exec(code) tool. The model writes a short TypeScript or Python script that chains, combines, and awaits actions inside an isolated sandbox. To understand why agents are converging on a single exec tool, we should look at how tool calling evolved. Initially, we only gave agents a handful of tools because they couldn't reliably choose or filter across a large catalog. As models improved, we connected dozens of tools or MCP servers, but ran into context window limits. We solved that with tool search and progressive disclosure , letting agents look up tools on demand. Even with dynamic tool loading, we still had dozens of individual tools, and were still stuck with the limitation of standard tool calling: one action per turn. In standard tool calling, the model generates a structured object (typically JSON) that defines a single action (or at best a flat batch of independent calls, like reading three files), waits for the raw output to come back, adds it into the promp",
   "first_seen": "2026-11-02T16:03:35.608305+00:00",
@@ -4329,6 +4361,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.07640v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "8ce7eabf07520571": {
+  "content_excerpt": "This post shares research done as part of the Anthropic Fellows Program, April–July 2026. AI models may one day participate in real companies and markets, and several of our projects explored what that might look like. Claude has run a shop in our office , haggled on behalf of colleagues , and written code to fly a drone . In this project, we turned to a different setting: massively multiplayer online role-playing games (MMORPGs). MMORPGs are virtual worlds that in many ways reflect the complexity of the real world. They feature campaigns that coordinate many players, the acquisition and management of scarce resources, orienting and navigating through space, and trading in intricate in-game economies, all in a low-stakes environment. Doing all of this over weeks and months sits right at the edge of what frontier language models can currently do. We partnered with Fenris Creations to have Claude play two games in the EVE Universe: EVE Online, which has run continuously for more than two decades, and EVE Frontier, which is newer and still in development. Both are science-fiction games in which players fly spaceships around the vast galaxy, exploring, trading and fighting. In each, everyone shares one universe, and nearly everything of value in it is gathered and built by the players themselves, through long supply chains. Players can cooperate or betray each other, so getting anywhere takes organization and trust, much as it does in a real company. In EVE Online, the older of t",
+  "first_seen": "2026-11-07T09:05:35.730719+00:00",
+  "id": "a40ac11ada52850d",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-06T00:00:00+00:00",
+  "sid": "8ce7eabf07520571",
+  "source": "anthropic_research",
+  "summary": "We put Claude in two EVE games to study how AI agents handle markets and teamwork, where they break down, and what safeguards they might need.",
+  "summary_1line": "We put Claude in two EVE games to study how AI agents handle markets and teamwork, where they break down, and what safeguards they might need.",
+  "title": "Project EVE: Claude plays MMORPGs",
+  "type": "research",
+  "url": "https://www.anthropic.com/research/project-eve-claude-plays-mmorpgs",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "8d3cc1c5f384da75": {
   "first_seen": "2026-11-06T04:05:23.287739+00:00",
@@ -6450,6 +6499,18 @@
   "type": "news",
   "url": "https://www.tinyfish.ai/blog/inside-tinyresearch",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "d723295579b427cc": {
+  "content_excerpt": "This post investigates whether the source code of a program can be presented so that a large language model based analysis fails to report a defect that is genuinely present even though the models know what exception they miss (i.e. they have the knowledge but they don't apply it). Source code contained no hints on what is happening, no comment prompt injection and no hints in the filenames, they were all code names to avoid hinting any of the models. Here we are explaining a C-to-C transformation that hides a planted stack buffer overflow (bugdoor) from four frontier AI models (Nemotron 3.5 Super VL 120B, DeepSeek V4.1 Flash, OpenAI GPT-5.5, Anthropic Claude Sonnet 5.5). The tool used for this research was Karma Pro ( https://reviewcode.org ). Each model scanned the code at least 3 times. The interesting part: Some models knew the tricks we used but they still missed identifying the vulnerabilities However if I ask, some of the models know they missed the planted vulnerability but they could not reason to it. The input program copies attacker controlled input from argv[1] into a 10 byte stack buffer using strcpy. The transformed program performs the exact same bytes write operation, but hides the unbounded length behind two techniques: It prints the supplied name. strcpy copies bytes until it hits a null terminator (\\0). If argv[1] is 11+ bytes, strcpy writes past buffer[10], corrupting the stack. This is a stack buffer overflow . Input \"AAAAAAAAAAA\" (11 bytes) to strcpy wri",
+  "first_seen": "2026-11-07T09:05:35.730719+00:00",
+  "id": "34827ba150ee2f44",
+  "published": "2026-11-07T08:52:16+00:00",
+  "sid": "d723295579b427cc",
+  "source": "hackernews_ai",
+  "summary_1line": "AI Source Code Analysis Detection Evasion Techniques",
+  "title": "AI Source Code Analysis Detection Evasion Techniques",
+  "type": "news",
+  "url": "https://cipher.org.uk/2026/11/06/AI-Source-Code-Analysis-Detection-Evasion-Techniques"
  },
  "d72e76ee34cd12ef": {
   "content_excerpt": "To create one, POST https://inspect.hookdeck.com/ (for example: curl -X POST https://inspect.hookdeck.com/). The JSON reply has ingest_url, where to send webhooks, and requests_url: GET it to wait for the next request. It waits up to 25 seconds and returns the request as JSON. If you can only make GET requests, ask the person to open https://inspect.hookdeck.com/ in a browser and share the URL it gives them. stripe-signature : t=1677834000,v1=0b144c08dca0ce58f56f8810da96ea76a3977f09966b624199d23e6dd0cedc1e,v0=135a50a00bfa300eb6f8078bc41ea7681c151a472d56264b774aea58a710e360",
