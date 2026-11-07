@@ -6196,6 +6196,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03525v1"
  },
+ "c037c1d442d57b42": {
+  "content_excerpt": "Laplace's Scissors: protected readout rotations for open LLMs. Diagnose weak output directions, repair answers, preserve successful generations, and analyze scaling deviations with Rust and Triton on CUDA/HIP. Rotate an LLM’s output matrix to compute edits while preserving protected answers. Laplace’s Scissors computes rotation edits for an LLM’s original output matrix. probe constructs numerical inputs from model weights and traces directions with weak output discrimination, cancellation across layers, and the associated weight coordinates. diagnose uses cases with expected answer strings to find plane or joint rotations that repair failed answers while protecting successful ones. Each objective and protection condition is checked with actual GPU outputs. Scaling analysis applies the same edit policy across checkpoints to measure deviations from a reference curve and the amount recovered. Prepare a Rust toolchain, a Python environment that can import Triton 3.8, and a CUDA or HIP driver. Python provides the Triton compilation bridge. Rust handles model loading, tokenization, execution, edit computation, and result storage. .cargo/config.toml places Cargo build artifacts outside the project. LAPLACE_CACHE stores models, kernels, and run results. Select the backend and device index with LAPLACE_BACKEND=auto|cuda|hip and LAPLACE_DEVICE . Set LAPLACE_DRIVER_LIBRARY for the driver library path, or ROCM_PATH / HIP_PATH for the ROCm SDK. The HIP backend also checks the selected Pyt",
+  "first_seen": "2026-11-07T22:04:39.580317+00:00",
+  "id": "ed030d4b390b58ca",
+  "published": "2026-11-07T18:23:18+00:00",
+  "sid": "c037c1d442d57b42",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Laplace's Scissors – A tool for directly editing LLM weights",
+  "title": "Show HN: Laplace's Scissors – A tool for directly editing LLM weights",
+  "type": "news",
+  "url": "https://github.com/Miyamoto-Renya/LaplacesScissors"
+ },
  "c06c43a56528965e": {
   "content_excerpt": "Lyngvi is a hardened, agent-agnostic sandbox for running autonomous coding agents against your own repositories. You drive it from a desktop app — the conversation, the diff and the delivery in one window — or from the command line, which is the same product without the window. The agent gets a working copy, a toolchain and a controlled way out. It never gets your credentials, your git history or a route to the internet. Everything the app does is also a command. The CLI ships inside the app and in a package of its own, and both call the same core: Named after the island in Norse mythology where the wolf Fenrir was bound: a place where great power is kept within defined boundaries. Making a sandbox, talking to the agent, reading the diff and delivering what you approve are all in the app, and none of it needs the terminal. Every screen below is the real JavaFX app, run against a sandbox with one repository, three conversations and a change waiting to be reviewed. No mock-ups, no retouching. Every reply shows what the agent read, searched, ran and edited — with +/− counts on each edit — and what the turn cost in tokens and dollars. The strip above the composer says what is waiting for delivery, and that one file is held back. Everything else in Lyngvi is shell around these four. They are the reason an agent can run unattended in a repository you care about. The session container sits on an internal network with no default route. Every outbound connection goes through a Squid p",
   "first_seen": "2026-11-02T22:05:52.875104+00:00",
@@ -7667,7 +7679,7 @@
   "published": "2026-11-02T04:13:51+00:00",
   "sid": "f4a904d03d800a16",
   "source": "hf_moonshotai_releases",
-  "summary": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 1624, downloads: 22571.",
+  "summary": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 1626, downloads: 22571.",
   "summary_1line": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 916, downloads: 11658.",
   "title": "moonshotai/Kimi-K3.1-Pro released on Hugging Face",
   "type": "release",
