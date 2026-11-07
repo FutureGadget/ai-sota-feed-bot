@@ -2,122 +2,116 @@
 
 Focus: AI Platform Engineering
 
-## 1. [AINews] Inkling 2 Small: 17A-594B trained in 68 hours on 12T tokens, beating Muse Spark
-- Type: news | Source: latent_space
-- URL: https://latent.space/p/ainews-inkling-2-small-17a-594b-trained-in-68-hours-on-12t-tokens-beating-muse-spark/
-- Score: 2.489 | Reliability: 1.0
+## 1. TokiRecur – llama.cpp LLM launcher with KV-cache recycling
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/lhadzic377-netizen/TokiRecur
+- Score: 3.578 | Reliability: 1.0
 - Why it matters: 
 
-## 2. Task-Efficient Agent Evaluation Using Cached Traces
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.06803v1
-- Score: 2.662 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness, evaluation.
-
-## 3. Muir: Linear Attention with Sensitivity-Allocated Gating and Matched-Filter Readout
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.08376v1
-- Score: 2.474 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 4. Enhancing Local and Global Structure in Compressed AI Agent Memory
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.08341v1
-- Score: 2.394 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 5. codex 0.169.0-alpha.3
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.3
-- Score: 2.13 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 6. tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16
-- Score: 2.126 | Reliability: 1.0
-- Why it matters: 
-
-## 7. The Blueprint: Orchestrating 5,000+ AI assets for a World Cup TV spot
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/products/media-entertainment/how-mito-orchestrated-5000-plus-ai-assets-for-a-world-cup-tv-spot/
-- Score: 2.087 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, evaluation.
-
-## 8. claude-code v2.1.319
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.319
-- Score: 2.08 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval, claude code.
-
-## 9. Zero Mismatch, Simple Async RL: REINFORCE Zero, DeepSeek-V4.1 and Kimi K3.1
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-06-zero-mismatch-async-rl
-- Score: 2.055 | Reliability: 1.0
-- Why it matters: 
-
-## 10. Who Owns DeepSeek, The Chinese AI Company?
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiXkFVX3lxTE5ia290ZXNtM2dLektvdUJXRHp6dVJjeEdZTFY3OHRENnJKblk1N2hKcVRxMV9qYl81aFZ6Yk1yUk11V3ZqUGpKVDZmQjlTMklISEpRdjVZM1dQX043UkE?oc=5
-- Score: 1.903 | Reliability: 1.0
-- Why it matters: 
-
-## 11. More Agents, More Reliable? System-Level Reliability of Multi-Agent LLMs under Operational-Profile Uncertainty
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.07140v1
-- Score: 2.351 | Reliability: 1.0
+## 2. Infinix – Abandoned Local AI Agent Base Seeking Developers
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/Moonyeep/Infinix
+- Score: 3.358 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 12. Series-wise Cross-validation for Global Time Series Forecasting
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.08252v1
-- Score: 2.33 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+## 3. RigHaven – Self-hosted execution harness for AI agents
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/ggmm82/righaven
+- Score: 3.323 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
 
-## 13. Setting a new standard for responsible AI infrastructure
+## 4. ToyBlocks: A controlled world for robot learning and evaluation
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/allenai/toyblocks
+- Score: 2.301 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 5. RM-VLM: From Natural-Language Task Descriptions to Vision-Grounded Reward Machines
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.08308v1
+- Score: 2.243 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 6. RouteAlign: Aligning Task Requirements with Model Profiles for LLM Service Selection
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.08162v1
+- Score: 2.216 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 7. Measuring how AI agents handle everyday wet-lab science
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/setting-new-standard-responsible-ai-infrastructure
-- Score: 1.875 | Reliability: 1.0
+- URL: https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science
+- Score: 2.192 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 8. [AINews] It's Swapping Season
+- Type: news | Source: latent_space
+- URL: https://latent.space/p/ainews-it-s-swapping-season/
+- Score: 2.101 | Reliability: 1.0
 - Why it matters: 
+
+## 9. claude-code v2.1.319
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.319
+- Score: 2.06 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval, claude code.
+
+## 10. The Blueprint: Orchestrating 5,000+ AI assets for a World Cup TV spot
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/media-entertainment/how-mito-orchestrated-5000-plus-ai-assets-for-a-world-cup-tv-spot/
+- Score: 2.058 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, evaluation.
+
+## 11. Zero Mismatch, Simple Async RL: REINFORCE Zero, DeepSeek-V4.1 and Kimi K3.1
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-06-zero-mismatch-async-rl
+- Score: 2.034 | Reliability: 1.0
+- Why it matters: 
+
+## 12. tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16
+- Score: 2.028 | Reliability: 1.0
+- Why it matters: 
+
+## 13. codex 0.169.0-alpha.3
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.3
+- Score: 2.024 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
 
 ## 14. Partnering with Hacktron to find vulnerabilities in OpenAI’s systems
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/partnering-with-hacktron
-- Score: 1.762 | Reliability: 1.0
+- Score: 1.764 | Reliability: 1.0
 - Why it matters: 
 
-## 15. Daybreak Red is now available in AWS GovCloud (US-East)
+## 15. Rewarding defenders with bigger bug bounties
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/daybreak-red-aws-govcloud
-- Score: 1.711 | Reliability: 1.0
+- URL: https://openai.com/index/rewarding-defenders-with-bigger-bug-bounties
+- Score: 1.708 | Reliability: 1.0
 - Why it matters: 
 
-## 16. Maggie Appleton: Agentic Coding Has Outgrown the Text Box
-- Type: video | Source: ai_native_dev
-- URL: https://youtu.be/0cySwRF7oJI
-- Score: 1.624 | Reliability: 0.808
-- Why it matters: Matches feed focus: agentic.
-
-## 17. langgraph-cli==0.4.41
+## 16. langgraph==1.2.20
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.41
-- Score: 1.383 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.20
+- Score: 1.371 | Reliability: 1.0
 - Why it matters: 
 
-## 18. claude-agent-sdk-python v0.2.179
+## 17. claude-agent-sdk-python v0.2.179
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.179
-- Score: 1.303 | Reliability: 1.0
+- Score: 1.289 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 19. moonshotai/Kimi-K3.1-Pro released on Hugging Face
+## 18. moonshotai/Kimi-K3.1-Pro released on Hugging Face
 - Type: release | Source: hf_moonshotai_releases
 - URL: https://huggingface.co/moonshotai/Kimi-K3.1-Pro
-- Score: 1.033 | Reliability: 1.0
+- Score: 1.029 | Reliability: 1.0
 - Why it matters: 
 
-## 20. vllm v0.33.0
+## 19. vllm v0.33.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0
-- Score: 0.335 | Reliability: 1.0
+- Score: 0.334 | Reliability: 1.0
 - Why it matters:

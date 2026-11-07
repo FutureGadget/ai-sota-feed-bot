@@ -860,6 +860,23 @@
   "url": "https://aictrl.dev/blog/headless-coding-agent-cli-benchmark",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "199129c16e27f481": {
+  "content_excerpt": "RigHaven is a home and an on-demand toolbox for AI agents. You describe an objective; a coordinator composes a team of roles for it, picks the skills and the tools they need (99 managed CLI tools, from documents and video to CAD, data and networks), runs each role in its own isolated container and follows the work through review and delivery. You decide at every step : tool alternatives come with their trade-offs, each phase waits for your reply, and the runtime, not the model's goodwill, enforces your policies before anything is delivered. 15-second teaser ( MP4 ), produced by RigHaven itself: an EffectCraft motion-graphics role and a SoundCraft sound role working from the brief “a teaser explaining RigHaven's architecture”. It is promotional material; the guarantees RigHaven actually enforces are described below. How tasks, recipes, teams, skills, environments, connections and policies fit together: Concepts . Next: try a Recipe (Recipes → Use this recipe ), add a Connection to a database, or change the language in Account & preferences → Appearance . When RigHaven runs on a server, it cannot see your desk. Three small pieces bring it there; all of them connect to the server, so no router port is opened: RigHaven can also be installed from the browser as an app, with a one-line task card on small screens: phones and the installable app . Administrators manage accounts ( User administration ), shared connections, default program versions, capacity and software-image imports.",
+  "first_seen": "2026-11-07T21:05:29.599495+00:00",
+  "id": "db3c210172543dd8",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-07T19:40:06+00:00",
+  "sid": "199129c16e27f481",
+  "source": "hackernews_ai",
+  "summary_1line": "RigHaven – Self-hosted execution harness for AI agents",
+  "title": "RigHaven – Self-hosted execution harness for AI agents",
+  "type": "news",
+  "url": "https://github.com/ggmm82/righaven",
+  "why_it_matters": "Matches feed focus: agent, harness."
+ },
  "1af3fe1d5c8a78c9": {
   "content_excerpt": "Turn Rex into a harness for your coding agent: see what it changed, review it in Neovim, send comments back. Claude Code, Codex, OpenCode, Pi. Rex already runs your agents. rexmod builds the harness around them: it records every turn, so you see exactly what the agent changed; it opens a real editor beside the agent to read and review that code; and it hands your review back to the agent as its next input. Prompt, change, review, feedback: the whole loop stays in one Rex window, for Claude Code, Codex, OpenCode or Pi. rexmod is an unofficial mod, not made by or affiliated with Superlogical. It patches your local copy of Rex so Rex loads the panel; the uninstaller puts the official build back. You need a Mac with Apple silicon on macOS 15 or later, Rex installed and opened once, and Homebrew (for Neovim, fzf and Node, if you don't have them). Then quit Rex ( ⌘Q ) and open it again. Nothing is compiled on your machine. After brew upgrade rexmod , run rexmod-setup again. Options: --update-rex installs the latest official Rex first, --no-patch skips the panel, --no-hooks skips the agents. From a checkout, ./install.sh builds what it needs if Go and Xcode are there. Codex runs new hooks only after you trust them: start Codex and run /hooks once. OpenCode loads plugins when its background server starts, so quit OpenCode once after installing. The comment badge in the panel header sends pending comments right away. Without it they ride along with the next message you type to the age",
   "first_seen": "2026-11-01T23:04:20.917409+00:00",
@@ -2121,6 +2138,18 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPZlhRZXhnYlJmX1RiOUdNamRqUXJUU2NycHNuZWtGeEVUejJxNVdEQkQzUU1HMkxHR1dXeDhBVDlPRmVyUHFoMU96VkdBYzlRUFRSWkFFTGVBWWFjNXRRaUlld2d2alpFdVd0VXFlR2tMeXNJUWdDc3c1cG5SR3BPRVd0OVRFLXBvMWhJZ0hzRG1qU2VQazBDQjNQNHl2cXRJZFZV?oc=5",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "415ef1f826d6012e": {
+  "content_excerpt": "Toki Recur - recycled-prefill LLM toolkit: benchmarks prefill-reuse gains (TTFT, prefill tps, token savings), in-memory KV routing, model registry with per-stack llama-server+daemon. Cross-platform: ROCm/CUDA/Vulkan/Metal/CPU. KV cache reuse for local LLM inference. Exact prefix matching in front of llama-server , across CUDA, ROCm, SYCL, OpenVINO, Vulkan, Metal and CPU. When a new prompt arrives at an LLM server, the KV cache is rebuilt from scratch — even if 90% of it is identical to a prompt processed moments earlier. Toki Recur embeds the prompt, finds the closest cached prefix, verifies it token-for-token, and routes the request to the slot that already holds that state. An exact prefix match skips prefill; anything else takes the normal path. Reuse is in memory and lossless: outputs are byte-identical to a no-cache run. Disk persistence was tried and removed — restoring disk KV corrupted precision (88% substantive divergence from baseline in the benchmark), and the ?action=save / ?action=restore layer is dormant in the codebase. Nine workloads across four models (Qwen3.5-9B, Qwen3.6-35B-A3B, Qwen3.6-27B, Qwen3.5-122B-A10B): TTFT improves 62–96% and prefill throughput 410–1280% , with the biggest gains on the largest MoE models. Full table on tokirecur.com . A prefix cache is only as good as the prefix it can match. Measured with one supported model, one slot, and a long system prompt: Setup: Qwen3.5-2B Q4_K_M · llama-server b1099 (ROCm) · AMD Ryzen AI MAX+ 395 / Radeon ",
+  "first_seen": "2026-11-07T21:05:29.599495+00:00",
+  "id": "959b2e70621e16bc",
+  "published": "2026-11-07T18:08:43+00:00",
+  "sid": "415ef1f826d6012e",
+  "source": "hackernews_ai",
+  "summary_1line": "TokiRecur – llama.cpp LLM launcher with KV-cache recycling",
+  "title": "TokiRecur – llama.cpp LLM launcher with KV-cache recycling",
+  "type": "news",
+  "url": "https://github.com/lhadzic377-netizen/TokiRecur"
  },
  "416b05f86baa94c5": {
   "first_seen": "2026-11-07T00:07:33.105822+00:00",
@@ -5148,8 +5177,8 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 7, downloads: 0.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 7, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 8, downloads: 0.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 8, downloads: 0.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16"
@@ -7638,7 +7667,7 @@
   "published": "2026-11-02T04:13:51+00:00",
   "sid": "f4a904d03d800a16",
   "source": "hf_moonshotai_releases",
-  "summary": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 1621, downloads: 22571.",
+  "summary": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 1624, downloads: 22571.",
   "summary_1line": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 916, downloads: 11658.",
   "title": "moonshotai/Kimi-K3.1-Pro released on Hugging Face",
   "type": "release",
