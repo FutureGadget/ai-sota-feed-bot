@@ -253,7 +253,7 @@
     if (!document.querySelector('link[href^="/editorial-updates.css"]')) {
       var style = node('link');
       style.rel = 'stylesheet';
-      style.href = '/editorial-updates.css?v=20261107-precision';
+      style.href = '/editorial-updates.css?v=20261107-glitch-sweep';
       document.head.appendChild(style);
     }
     state.promise = Promise.all([

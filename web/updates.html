@@ -7,10 +7,11 @@
   <meta name="description" content="Catch up on the latest recaps, developing stories, engineering playbooks, and agent know-how.">
   <link rel="canonical" href="https://www.llm-digest.com/updates">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
   <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/site-chrome.css?v=20261107-font-metrics">
-  <link rel="stylesheet" href="/editorial-updates.css?v=20261107-precision">
+  <link rel="stylesheet" href="/site-chrome.css?v=20261107-glitch-sweep">
+  <link rel="stylesheet" href="/editorial-updates.css?v=20261107-glitch-sweep">
   <style>
     * { box-sizing:border-box; }
     body { margin:0; background:var(--bg); color:var(--fg); font-family:system-ui,sans-serif; }
@@ -23,8 +24,8 @@
   <script>
     try { document.documentElement.dataset.theme = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); } catch (e) {}
   </script>
-  <script defer src="/site-chrome.js?v=20261107-font-metrics"></script>
-  <script defer src="/nav-updates.js?v=20261107-precision"></script>
+  <script defer src="/site-chrome.js?v=20261107-glitch-sweep"></script>
+  <script defer src="/nav-updates.js?v=20261107-glitch-sweep"></script>
   <script defer src="/posthog-client.js"></script>
 </head>
 <body>
@@ -54,7 +55,7 @@
       <a href="/voices" data-site-destination="/voices">Voices</a>
       <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
     </nav>
-    <div class="site-actions-fallback" aria-label="Page actions"><button id="themeToggle" type="button" aria-label="Toggle theme">◐</button></div>
+    <div class="site-actions-fallback" aria-label="Page actions"><button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button></div>
   </header>
   <section id="editorialUpdates" class="editorial-panel" aria-label="Editorial updates">
     <p class="muted">Loading updates…</p>
@@ -64,11 +65,24 @@
   <footer><a href="/">Back to the live feed</a> · <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Get the email digest</a></footer>
 </main>
 <script>
-  document.getElementById('themeToggle').addEventListener('click', function () {
-    var theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-    document.documentElement.dataset.theme = theme;
-    try { localStorage.setItem('theme', theme); } catch (e) {}
-  });
+  (function () {
+    var btn = document.getElementById('themeToggle');
+    // Same icon contract as the other shells: the button shows the theme a
+    // click switches to.
+    function paint(theme) {
+      btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+      var label = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+      btn.setAttribute('title', label);
+      btn.setAttribute('aria-label', label);
+    }
+    paint(document.documentElement.dataset.theme || 'light');
+    btn.addEventListener('click', function () {
+      var theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = theme;
+      try { localStorage.setItem('theme', theme); } catch (e) {}
+      paint(theme);
+    });
+  })();
 </script>
 </body>
 </html>

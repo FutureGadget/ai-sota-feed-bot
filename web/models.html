@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
   <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/site-chrome.css?v=20261107-font-metrics" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261107-glitch-sweep" />
   <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
   <script>
     (function () {
@@ -35,7 +35,7 @@
       document.documentElement.setAttribute('data-theme', t);
     })();
   </script>
-  <script defer src="/site-chrome.js?v=20261107-font-metrics"></script>
+  <script defer src="/site-chrome.js?v=20261107-glitch-sweep"></script>
   <style>
     /* Model Release Radar - "AI operations instrument" family member, same
        shape as /playbook and /foundations: hairline rules, monospace utility
@@ -93,10 +93,11 @@
        obvious set, not a full column-sort matrix. */
     .mr-sort-control { display:inline-flex; align-items:center; gap:.5rem; }
     .mr-sort-control label { font-family:var(--font-mono); font-size: 0.78rem;
-      font-weight:700; letter-spacing: 0; text-transform: none; color:var(--muted); }
+      font-weight:700; letter-spacing: 0; text-transform: none; color:var(--muted);
+      white-space:nowrap; flex-shrink:0; }
     .mr-sort-select { font-family:var(--font-mono); font-size:.72rem;
       padding:.5rem .6rem; min-height:38px; border:1px solid var(--border); border-radius: var(--radius-control);
-      background:var(--card); color:var(--fg); cursor:pointer; max-width:16rem; }
+      background-color:var(--card); color:var(--fg); cursor:pointer; max-width:16rem; }
     .mr-sort-select:hover { border-color:var(--accent); }
     .mr-sort-select:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:2px; }
 
@@ -720,6 +721,6 @@
   <!-- "New updates" nav indicators; shared logic in /nav-updates.js - see
        docs/product-specs/nav-update-indicators.md. Section not yet part of
        its known set, so this no-ops harmlessly for /models. -->
-  <script src="/nav-updates.js?v=20260910-editorial" defer></script>
+  <script src="/nav-updates.js?v=20261107-glitch-sweep" defer></script>
 </body>
 </html>

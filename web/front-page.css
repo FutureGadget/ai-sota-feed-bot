@@ -145,6 +145,10 @@ details.card-more > summary:hover, details.card-more[open] > summary { color:var
 .model-radar-rail,
 .model-radar-inline { padding:1rem 1.1rem; border:1px solid var(--border); border-radius:12px;
   background:var(--bg); }
+/* Boxed modules between story rows need air above and below, or two of them
+   in a row (topic picker, then Model Radar) touch. */
+#list > .onboard,
+#list > .model-radar-inline { margin:1rem 0; }
 .mr-rail-kicker { font-family:var(--font-sans); font-size:.85rem; font-weight:600; letter-spacing:-.01em;
   text-transform:none; color:var(--fg); padding-bottom:.55rem; border-bottom:1px solid var(--border); }
 .mr-rail-heading, .end-marker-title { font-family:var(--font-display); letter-spacing:-.025em; }
@@ -164,6 +168,13 @@ details.card-more > summary:hover, details.card-more[open] > summary { color:var
   #list > article.fp-lead { padding-left:0; }
   #list > article.fp-lead h3 { font-size:1.65rem; }
   #list > article h3 { font-size:1rem; }
+  /* The storyline badge does not fit beside source and time on a phone. Give
+     it its own line with no leading separator, and keep ☆ and ⋯ on the first
+     line instead of floating between the two. */
+  #list > article .card-top { align-items:flex-start; }
+  #list > article .card-actions { margin-top:-.4rem; }
+  #list > article .card-meta a.badge-storyline { flex-basis:100%; justify-content:flex-start; min-height:2rem; }
+  #list > article .card-meta a.badge-storyline::before { content:none; }
 }
 
 /* fp-second rows sit beside the lead: flat rows, no card chrome. */
