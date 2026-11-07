@@ -17,6 +17,12 @@
   font-style: normal;
   font-display: swap;
 }
+/* Korean breaks between words (eojeol), not between syllables: without this
+   a headline can split a word across lines. */
+html[lang="ko"] :is(h1, h2, h3, h4, p, li, .recap-title) {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
 /* Fallback faces sized to Geist's metrics (computed from the vendored TTFs
    against Arial/Liberation Sans and Courier New/Liberation Mono), so text
    keeps its width and line breaks when the web font swaps in late. */

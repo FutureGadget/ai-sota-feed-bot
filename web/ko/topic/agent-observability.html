@@ -2,9 +2,9 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>에이전트의 행동 근거를 알 수 없는 이유 | LLM Digest</title>
-  <meta name="description" content="에이전트의 행동 근거를 알 수 없는 이유" />
+  <meta name="description" content="agent가 잘못 행동했을 때, 그 뒤의 run은 길고 비결정적인 모델 호출, 도구 결과, 중간 결정의 연쇄이며 대부분은 나중에 보이지 않습니다." />
   <link rel="canonical" href="https://www.llm-digest.com/ko/topic/agent-observability" />
   <link rel="alternate" hreflang="ko" href="https://www.llm-digest.com/ko/topic/agent-observability" />
   <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/topic/agent-observability" />
@@ -16,20 +16,24 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
   <meta property="og:title" content="에이전트의 행동 근거를 알 수 없는 이유" />
-  <meta property="og:description" content="에이전트의 행동 근거를 알 수 없는 이유" />
+  <meta property="og:description" content="agent가 잘못 행동했을 때, 그 뒤의 run은 길고 비결정적인 모델 호출, 도구 결과, 중간 결정의 연쇄이며 대부분은 나중에 보이지 않습니다." />
   <meta property="og:url" content="https://www.llm-digest.com/ko/topic/agent-observability" />
   <meta property="og:image" content="https://www.llm-digest.com/og/topic-agent-observability-ko.png" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og/topic-agent-observability-ko.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="에이전트의 행동 근거를 알 수 없는 이유" />
-  <meta name="twitter:description" content="에이전트의 행동 근거를 알 수 없는 이유" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "에이전트의 행동 근거를 알 수 없는 이유", "description": "When an agent does the wrong thing, the run that produced it is a long, non-deterministic chain of model calls, tool results, and intermediate decisions — and most of that is invisible after the fact. Unlike a stack trace, an agent's \"why\" is…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/agent-observability", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "에이전트의 행동 근거를 알 수 없는 이유", "item": "https://www.llm-digest.com/topic/agent-observability"}]}]}</script>
+  <meta name="twitter:description" content="agent가 잘못 행동했을 때, 그 뒤의 run은 길고 비결정적인 모델 호출, 도구 결과, 중간 결정의 연쇄이며 대부분은 나중에 보이지 않습니다." />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "에이전트의 행동 근거를 알 수 없는 이유", "description": "When an agent does the wrong thing, the run behind it is a long, non-deterministic chain of model calls, tool results, and intermediate decisions, and most of it is invisible afterwards. Unlike a stack trace, an agent's \"why\" is spread across a…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/agent-observability", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Agent Know-How", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "에이전트의 행동 근거를 알 수 없는 이유", "item": "https://www.llm-digest.com/topic/agent-observability"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
-  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260706-mobile-header-wrap" />
-  <script src="/posthog-client.js?v=20260708-dual-pageview"></script>
-  <script defer src="/site-chrome.js?v=20260706-mobile-header-wrap"></script>
-  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
+  <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261107-font-metrics" />
+  <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
+  <script defer src="/site-chrome.js?v=20261107-font-metrics"></script>
+  <script defer src="/subscribe-inline.js?v=20261107-font-metrics"></script>
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -37,21 +41,13 @@
     })();
   </script>
   <style>
-    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
-    }
-    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
+    body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
     *, *::before, *::after { box-sizing: border-box; }
     button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
     a { color: var(--accent); }
     code {
-      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      font-family: var(--font-mono); font-size: 0.85em;
       padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
       border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
     main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
@@ -61,16 +57,16 @@
     /* Quiet instrument nav — no Oat gray fills, hairline only. */
     menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
     menu a[role="button"], .archive select, menu .menu-share {
-      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.74rem; letter-spacing: 0.03em;
+      font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.03em;
       padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
-      border: 1px solid var(--border); border-radius: 0; background: transparent; color: var(--fg);
+      border: 1px solid var(--border); border-radius: var(--radius-control); background: transparent; color: var(--fg);
       text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
     menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
       border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
     menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
     .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
-      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.66rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted); }
+      font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0;
+      text-transform: none; color: var(--muted); }
     .archive select { text-transform: none; letter-spacing: 0.02em; }
     .muted { color: var(--muted); }
     .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
@@ -80,7 +76,7 @@
     .intro p { margin: 0 0 0.75rem; }
     .intro p:last-child { margin-bottom: 0; }
     .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
-    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+    .tldr-label { text-transform: none; letter-spacing: 0; font-size: 0.78rem;
       font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
     .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
     .tldr li { font-size: 0.95rem; line-height: 1.45; }
@@ -104,10 +100,16 @@
       background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
     .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
     /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
     .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
-      border-radius: 10px; background: var(--card); }
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border: 1px solid var(--border); border-radius: 12px;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
     .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: var(--font-display);
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
     .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
@@ -163,29 +165,17 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
-    :root, html[data-theme="light"] {
-      color-scheme: light;
-      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
-      --signal:#23875b; --warm:#b6780c;
-    }
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
-      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
-      --signal:#54b886; --warm:#e0ad4e;
-    }
-    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    body { font-family:var(--font-sans); }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
     code {
-      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      font-family: var(--font-mono); font-size: 0.85em;
       padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
       border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
-    #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
+    #meta { font-family:var(--font-mono); font-size:.78rem; letter-spacing:.03em; }
     menu a[role="button"], .menu-share, .archive select {
-      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.74rem; letter-spacing:.03em;
+      font-family:var(--font-mono); font-size:.74rem; letter-spacing:.03em;
       padding:.42rem .6rem; min-height:34px; display:inline-flex; align-items:center;
-      border:1px solid var(--border); border-radius:0; background:transparent; color:var(--fg);
+      border:1px solid var(--border); border-radius: var(--radius-control); background:transparent; color:var(--fg);
       text-decoration:none; cursor:pointer; transition:border-color .12s ease, color .12s ease; }
     menu a[role="button"]:hover, .menu-share:hover, .archive select:hover {
       border-color:var(--accent); color:var(--accent); background:transparent; text-decoration:none; }
@@ -193,23 +183,23 @@
 
     /* Shared hero. */
     .wiki-hero { margin:2.3rem 0 1.7rem; }
-    .wiki-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
-    .wiki-headline { margin:0; max-width:30ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .wiki-kicker { margin:0 0 .55rem; font-family:var(--font-mono);
+      font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent); }
+    .wiki-headline { margin:0; max-width:30ch; font-family:var(--font-display);
       font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.1rem,4.8vw,3.3rem); }
     .map .wiki-headline { font-size:clamp(2.5rem,6.4vw,4.3rem); max-width:24ch; }
     .wiki-thesis { max-width:46rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
-    .wiki-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+    .wiki-readout { margin:1rem 0 0; font-family:var(--font-mono);
       font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
     .wiki-readout .on { color:var(--signal); }
     .wiki-readout .sep { color:var(--border); margin:0 .45rem; }
 
     /* ---- /map : obstacle → solution adjacency map ---- */
     .map-legend { margin:1.4rem 0 0; padding:.8rem 0 0; border-top:1px solid var(--border);
-      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; letter-spacing:.03em;
+      font-family:var(--font-mono); font-size:.72rem; letter-spacing:.03em;
       color:var(--muted); line-height:1.9; }
-    .map-legend b { color:var(--accent); font-weight:700; letter-spacing:.12em;
-      text-transform:uppercase; margin-right:.7rem; }
+    .map-legend b { color:var(--accent); font-weight:700; letter-spacing: 0;
+      text-transform: none; margin-right:.7rem; }
     .map-legend a { text-decoration:none; }
     .map-legend a:hover { text-decoration:underline; }
     .map-legend .sep { color:var(--border); margin:0 .35rem; }
@@ -217,19 +207,19 @@
     .map-area { margin:2.4rem 0 0; scroll-margin-top:1rem; }
     .map-area-head { display:flex; align-items:baseline; gap:.7rem; padding:0 0 .2rem;
       border-bottom:2px solid var(--fg); }
-    .map-area-head h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .map-area-head h2 { margin:0; font-family:var(--font-display);
       font-size:1.5rem; line-height:1.1; }
-    .map-area-head .map-area-meta { font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .map-area-head .map-area-meta { font-family:var(--font-mono);
+      font-size: 0.78rem; letter-spacing: 0; text-transform: none; color:var(--muted); }
     .map-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0;
       border:0; border-bottom:1px solid var(--border); border-radius:0; padding:0; background:transparent; }
     .map-obstacle { padding:1.1rem 1.6rem 1.2rem 0; border-right:1px solid var(--border); }
     .map-solutions { padding:1.1rem 0 1.2rem 1.6rem; }
-    .map-tag { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem;
-      font-weight:700; letter-spacing:.13em; text-transform:uppercase; margin:0 0 .45rem; }
+    .map-tag { display:block; font-family:var(--font-mono); font-size: 0.78rem;
+      font-weight:700; letter-spacing: 0; text-transform: none; margin:0 0 .45rem; }
     .map-obstacle .map-tag { color:var(--warm); }
     .map-solutions .map-tag { color:var(--accent); }
-    .map-obstacle h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .map-obstacle h3 { margin:0 0 .35rem; font-family:var(--font-display);
       font-size:1.2rem; line-height:1.15; }
     .map-obstacle h3 a { color:inherit; text-decoration:none; }
     .map-obstacle h3 a:hover { color:var(--accent); }
@@ -242,7 +232,7 @@
     .map-none { color:var(--muted); font-size:.86rem; font-style:italic; }
 
     .map-solindex { margin:3rem 0 0; padding:1.1rem 0 0; border-top:1px solid var(--border); }
-    .map-solindex h2 { margin:0 0 .8rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .map-solindex h2 { margin:0 0 .8rem; font-family:var(--font-display);
       font-size:1.25rem; line-height:1.1; }
     .map-sol-list { margin:0; padding:0; list-style:none; display:grid;
       grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); gap:.4rem 1.5rem; }
@@ -255,9 +245,9 @@
     .topic-lead { max-width:44rem; margin:.4rem 0 0; font-size:1.18rem; line-height:1.55; }
     .topic-lead p { margin:0; }
     .topic-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.4rem 2rem;
-      margin:1.6rem 0 0; padding:1.1rem 1.2rem; border-left:2px solid var(--accent); background:var(--brief-wash); }
-    .topic-xgroup-label { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+      margin:1.6rem 0 0; padding:1.1rem 1.2rem; border: 1px solid var(--border); background:var(--brief-wash); border-radius: 12px; }
+    .topic-xgroup-label { display:block; font-family:var(--font-mono);
+      font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent);
       margin:0 0 .6rem; }
     .topic-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
     .topic-xlinks li { font-size:.95rem; line-height:1.4; }
@@ -267,23 +257,163 @@
     .topic-section { display:grid; grid-template-columns:minmax(10rem,.32fr) minmax(0,1.68fr);
       gap:.4rem 2.2rem; padding:1.6rem 0; border-bottom:1px solid var(--border); }
     .topic-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
-    .topic-rail { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; font-weight:700;
-      letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.4; }
+    .topic-rail { font-family:var(--font-mono); font-size: 0.78rem; font-weight:700;
+      letter-spacing: 0; text-transform: none; color:var(--accent); line-height:1.4; }
     .topic-prose { min-width:0; max-width:44rem; }
     .topic-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.65; }
     .topic-prose p:last-child { margin-bottom:0; }
     .topic-prose strong { font-weight:650; }
     .topic-evidence .topic-rail { color:var(--muted); }
+    .topic-evidence details > summary, .topic-more > summary { cursor:pointer;
+      font-family:var(--font-mono); font-size:.72rem; letter-spacing:.04em;
+      color:var(--accent); padding:.3rem 0; }
+    .topic-evidence details[open] > summary { margin-bottom:.7rem; }
+
+    /* Latest updates (topic) + Recently filed (map): a dated ledger. */
+    .wiki-latest { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .wiki-latest li { display:grid; grid-template-columns:6.6rem minmax(0,1fr); gap:.8rem;
+      font-size:.94rem; line-height:1.4; }
+    .wiki-latest time { font-family:var(--font-mono); font-size:.7rem;
+      color:var(--muted); padding-top:.18rem; white-space:nowrap; }
+    .wiki-latest a { text-decoration:none; font-weight:600; }
+    .wiki-latest a:hover { text-decoration:underline; }
+    .wiki-latest .latest-topic { display:block; font-family:var(--font-mono);
+      font-size: 0.78rem; letter-spacing: 0; text-transform: none; color:var(--warm); margin:0 0 .1rem; }
+
+    /* Developments: entries grouped by theme. */
+    .topic-developments { margin:2.6rem 0 0; scroll-margin-top:5rem; }
+    .topic-dev-title { margin:0 0 .7rem; font-family:var(--font-display);
+      font-size:1.7rem; letter-spacing:-.03em; line-height:1.05; }
+    .topic-dev-title span { font-family:var(--font-mono); font-size:.8rem;
+      color:var(--muted); letter-spacing:0; margin-left:.3rem; vertical-align:middle; }
+    .topic-theme-nav ul { margin:0; padding:0 0 1rem; list-style:none; display:flex; flex-wrap:wrap; gap:.45rem; }
+    .topic-theme-nav a { display:inline-flex; align-items:center; gap:.45rem; padding:.36rem .6rem;
+      border:1px solid var(--border); font-size:.84rem; text-decoration:none; color:var(--fg); }
+    .topic-theme-nav a:hover { border-color:var(--accent); color:var(--accent); }
+    .topic-theme-nav .count { font-family:var(--font-mono); font-size:.68rem; color:var(--muted); }
+    .topic-theme { margin:1.4rem 0 0; scroll-margin-top:5rem; }
+    .topic-theme-head { padding:0 0 .5rem; border-bottom:2px solid var(--fg); }
+    .topic-theme-head h3 { margin:0; font-family:var(--font-display);
+      font-size:1.3rem; line-height:1.15; }
+    .topic-theme-meta { display:block; margin:.2rem 0 0; font-family:var(--font-mono);
+      font-size: 0.78rem; letter-spacing: 0; text-transform: none; color:var(--muted); }
+    .topic-theme-head p { margin:.45rem 0 0; max-width:44rem; font-size:.95rem; line-height:1.55; color:var(--muted); }
+    .wiki-entry { margin:0; padding:1.05rem 0 1.1rem; border:0; border-bottom:1px solid var(--border);
+      border-radius: var(--radius-control); background:transparent; box-shadow:none; scroll-margin-top:5rem; max-width:46rem; }
+    .wiki-entry:target { background:var(--brief-wash); box-shadow:-.8rem 0 0 var(--brief-wash), .8rem 0 0 var(--brief-wash); }
+    .entry-meta { margin:0 0 .25rem; font-family:var(--font-mono); font-size:.68rem;
+      color:var(--muted); letter-spacing:.03em; }
+    .entry-meta .sep { color:var(--border); margin:0 .4rem; }
+    .entry-title { margin:0 0 .45rem; font-size:1.05rem; line-height:1.35; font-weight:650; }
+    .entry-title a { color:inherit; text-decoration:none; }
+    .entry-title a:hover { color:var(--accent); }
+    .entry-body p { margin:0 0 .6rem; font-size:.96rem; line-height:1.6; }
+    .entry-body ul { margin:0 0 .6rem; padding-left:1.2rem; font-size:.96rem; line-height:1.55; }
+    .entry-body > :last-child { margin-bottom:0; }
+    .entry-sources { margin:.55rem 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.25rem; }
+    .entry-sources li { position:relative; padding-left:1.1rem; font-size:.84rem; line-height:1.4; }
+    .entry-sources li::before { content:"↗"; position:absolute; left:0; top:0; color:var(--muted); }
+    .entry-sources a { text-decoration:none; color:var(--muted); }
+    .entry-sources a:hover { color:var(--accent); text-decoration:underline; }
+    .entry-also { margin:.45rem 0 0; font-size:.8rem; color:var(--muted); }
+    .topic-more, .topic-evidence details { margin:.2rem 0 0; padding:0; border:0; border-radius: var(--radius-control);
+      background:transparent; }
+    .topic-more > summary { padding:.8rem 0; }
+
+    /* /map additions */
+    .map-row-meta { margin:.45rem 0 0; font-family:var(--font-mono);
+      font-size:.64rem; letter-spacing:.04em; color:var(--muted); }
+    .map-recent { margin:2rem 0 0; padding:1.1rem 1.2rem; border: 1px solid var(--border);
+      background:var(--brief-wash); border-radius: 12px; }
+    .map-recent h2 { margin:0; font-family:var(--font-display);
+      font-size:1.35rem; line-height:1.1; }
+    .map-recent-lede { margin:.3rem 0 .9rem; font-size:.86rem; color:var(--muted); }
     .evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.55rem; }
     .evidence-list li { font-size:.92rem; line-height:1.45; }
     .evidence-list .ev-story a { font-weight:600; text-decoration:none; }
     .evidence-list a { text-decoration:none; }
     .evidence-list a:hover { text-decoration:underline; }
-    .evidence-list .ev-kind { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
+    .evidence-list .ev-kind { font-family:var(--font-mono); font-size:.7rem;
       color:var(--muted); margin-left:.4rem; }
 
     button:focus-visible, a:focus-visible, select:focus-visible {
       outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+
+    /* ---- /map : knowledge universe (orbit view) ----
+       The viewport is deliberately deep-space dark in BOTH themes — it is an
+       instrument screen framed by the page, not a themed surface. All ku-*
+       colors are therefore hardcoded to the dark palette. */
+    .ku { margin:2rem 0 .4rem; }
+    .ku-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:.3rem 1.1rem; padding:0 0 .55rem; }
+    .ku-head b { font-family:var(--font-mono); font-size: 0.78rem; font-weight:700;
+      letter-spacing: 0; text-transform: none; color:var(--accent); }
+    .ku-readout { font-family:var(--font-mono); font-size:.68rem; color:var(--fg); }
+    .ku-legend { margin-left:auto; font-family:var(--font-mono);
+      font-size:.62rem; color:var(--muted); }
+    .ku-stage { position:relative; height:clamp(430px,68vh,640px); overflow:hidden;
+      background:#070b16; border:1px solid var(--border); border-radius:3px; }
+    .ku-canvas { position:absolute; inset:0; width:100%; height:100%; display:block;
+      cursor:grab; touch-action:pan-y; }
+    .ku-canvas:active { cursor:grabbing; }
+    .ku-canvas:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 55%,transparent); outline-offset:-3px; }
+    .ku-hint { margin:.55rem 0 0; font-family:var(--font-mono);
+      font-size:.64rem; line-height:1.6; color:var(--muted); max-width:62rem; }
+    .ku-tooltip { position:absolute; z-index:3; pointer-events:none; max-width:250px;
+      font-family:var(--font-mono); font-size:.66rem; line-height:1.45;
+      color:#e8f0fc; background:rgba(9,13,22,.93); border:1px solid #33415c; padding:.32rem .5rem; }
+    .ku-hud { position:absolute; z-index:3; left:.85rem; right:.85rem; bottom:.85rem;
+      display:flex; justify-content:center; align-items:stretch; gap:.4rem; pointer-events:none; }
+    .ku-hud button { pointer-events:auto; touch-action:manipulation; cursor:pointer;
+      color:#e8f0fc; background:rgba(10,14,23,.88); border:1px solid #33415c; border-radius:2px; }
+    .ku-hud button:hover { border-color:#8fd3ff; }
+    .ku-step { flex:none; width:2.4rem; font-size:1.3rem; line-height:1; }
+    .ku-step:hover { color:#8fd3ff; }
+    .ku-card { flex:0 1 auto; min-width:0; max-width:min(430px,100%); text-align:left;
+      white-space:normal; padding:.5rem .75rem .55rem; display:flex; flex-direction:column; gap:.2rem; }
+    .ku-card-name { display:flex; align-items:center; gap:.45rem; min-width:0;
+      font-family:var(--font-mono); font-size: 0.78rem; font-weight:700;
+      letter-spacing: 0; text-transform: none; }
+    .ku-card-name .ku-chip { width:.6rem; height:.6rem; }
+    .ku-card-meta { font-family:var(--font-mono); font-size:.62rem; color:#9aa6b6; }
+    .ku-card-sum { font-size:.74rem; line-height:1.45; color:#b9c4d6; overflow:hidden;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+    .ku-panel { position:absolute; z-index:4; top:.85rem; right:.85rem; bottom:.85rem;
+      width:min(345px,calc(100% - 1.7rem)); overflow:auto; overscroll-behavior:contain;
+      color:#e8f0fc; background:rgba(10,14,23,.94); border:1px solid #33415c; border-radius:2px;
+      backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+    .ku-panel header { position:sticky; top:0; z-index:1; display:flex; align-items:center; gap:.6rem;
+      padding:.75rem .85rem .6rem; background:rgba(10,14,23,.97); border-bottom:1px solid #232c3f; }
+    .ku-chip { flex:none; width:.72rem; height:.72rem; border-radius:50%;
+      background:var(--ku-c,#63a3ff); box-shadow:0 0 10px var(--ku-c,#63a3ff); }
+    .ku-panel h3 { margin:0; font-family:var(--font-display);
+      font-size:1.2rem; font-weight:700; letter-spacing:-.02em; line-height:1.05; }
+    .ku-panel header p { margin:.12rem 0 0; font-family:var(--font-mono);
+      font-size:.62rem; color:#9aa6b6; }
+    .ku-close { margin-left:auto; flex:none; width:1.8rem; height:1.8rem; font-size:1rem; cursor:pointer;
+      color:#e8f0fc; background:none; border:1px solid #33415c; border-radius:2px; }
+    .ku-close:hover { border-color:#8fd3ff; color:#8fd3ff; }
+    .ku-rows { list-style:none; margin:0; padding:.35rem .85rem .5rem; }
+    .ku-row { display:flex; gap:.55rem; padding:.55rem 0; border-bottom:1px solid #1c2436; }
+    .ku-row:last-child { border-bottom:0; }
+    .ku-row-solution { padding-left:1.15rem; }
+    .ku-dot { flex:none; width:.5rem; height:.5rem; border-radius:50%; margin-top:.5rem; }
+    .ku-dot-unread { background:#ffe9bd; box-shadow:0 0 8px #ffd97a; }
+    .ku-dot-read { background:#3a465c; }
+    .ku-kind { display:block; font-family:var(--font-mono); font-size: 0.78rem;
+      font-weight:700; letter-spacing: 0; text-transform: none; color:#8ea0c0; margin:0 0 .1rem; }
+    .ku-row a { color:#e8f0fc; font-size:.84rem; line-height:1.4; text-decoration:none; }
+    .ku-row a:hover { color:#8fd3ff; text-decoration:underline; }
+    .ku-row-meta { display:flex; align-items:center; gap:.5rem; margin-top:.2rem;
+      font-family:var(--font-mono); font-size:.6rem; color:#7f8ca3; }
+    .ku-badge { font-weight:700; font-size:.56rem; letter-spacing:.1em; padding:.08rem .3rem;
+      border:1px solid; border-radius:2px; }
+    .ku-badge-new { color:#ffd97a; border-color:#8a6c2f; }
+    .ku-badge-upd { color:#8fd3ff; border-color:#3c5f7d; }
+    .ku-panel footer { padding:.55rem .85rem .85rem; font-family:var(--font-mono);
+      font-size:.6rem; color:#7f8ca3; }
+    .map-list-title { margin:2.6rem 0 0; font-family:var(--font-display);
+      font-weight:700; letter-spacing:-.03em; font-size:1.5rem; color:var(--muted); }
+
     @media (max-width:620px) {
       main { padding-left:1rem; padding-right:1rem; }
       .map .wiki-headline { font-size:2.6rem; }
@@ -292,6 +422,14 @@
         padding:1.1rem 0 1rem; }
       .map-solutions { padding:1rem 0 1.2rem; }
       .topic-section { grid-template-columns:1fr; gap:.5rem; }
+      .wiki-latest li { grid-template-columns:1fr; gap:.1rem; }
+      .map-recent { padding:1rem .9rem; }
+      .ku-stage { height:clamp(380px,58vh,520px); }
+      .ku-legend { margin-left:0; }
+      .ku-panel { top:auto; left:.6rem; right:.6rem; bottom:.6rem; width:auto; max-height:64%; }
+      .ku-hud { left:.6rem; right:.6rem; bottom:.6rem; }
+      /* the bottom-sheet panel covers the stepper — one control at a time */
+      .ku-has-panel .ku-hud { display:none; }
     }
     @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
@@ -303,11 +441,11 @@
         <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
         <div class="site-bar-actions">
           <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
-          <button type="button" data-site-browse-open aria-label="Open Editor's Desk">Editor's Desk</button>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
         </div>
       </div>
       <div class="site-page-heading">
-        <h1>Agent Engineering Wiki</h1>
+        <h1>Agent Know-How</h1>
         <p id="meta" class="muted"></p>
       </div>
       <nav class="site-nav-fallback" aria-label="LLM Digest">
@@ -316,8 +454,10 @@
         <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
         <a href="/storylines" data-site-destination="/storylines">Storylines</a>
         <a href="/playbook" data-site-destination="/playbook">Playbook</a>
-        <a href="/map" data-site-destination="/map" aria-current="page">Knowledge map</a>
+        <a href="/map" data-site-destination="/map" aria-current="page">Agent Know-How</a>
         <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
+        <a href="/skills" data-site-destination="/skills">Skill Radar</a>
         <a href="/voices" data-site-destination="/voices">Voices</a>
         <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
       </nav>
@@ -331,17 +471,64 @@
     </header>
 
     <section id="recap">
-      <section class="wiki-hero"><p class="wiki-kicker">Agent engineering · knowledge map</p><h2 class="wiki-headline">에이전트의 행동 근거를 알 수 없는 이유</h2><p class="wiki-readout"><span class="on">🧱 Obstacle</span><span class="sep">·</span>observability<span class="sep">·</span>active<span class="sep">·</span>6 sources<span class="sep">·</span>updated 2026-07-07</p></section>
+      <section class="wiki-hero"><p class="wiki-kicker">Agent engineering · know-how</p><h2 class="wiki-headline">에이전트의 행동 근거를 알 수 없는 이유</h2><p class="wiki-readout"><span class="on">🧱 Obstacle</span><span class="sep">·</span>observability<span class="sep">·</span>active<span class="sep">·</span>25 entries<span class="sep">·</span>25 sources<span class="sep">·</span>updated 2026-10-16</p></section>
       <!-- range is included in the custom hero -->
 
-      <div class="topic"><div class="topic-lead"><p>When an agent does the wrong thing, the run that produced it is a long, non-deterministic chain of model calls, tool results, and intermediate decisions — and most of that is invisible after the fact. Unlike a stack trace, an agent&#x27;s &quot;why&quot; is spread across a trajectory you didn&#x27;t log in enough detail, can&#x27;t replay deterministically, and can&#x27;t easily diff against a working run. Debugging an agent is increasingly the job, not a footnote to it.</p></div>
+      <div class="topic"><div class="topic-lead"><p>When an agent does the wrong thing, the run behind it is a long, non-deterministic chain of model calls, tool results, and intermediate decisions, and most of it is invisible afterwards. Unlike a stack trace, an agent&#x27;s &quot;why&quot; is spread across a trajectory you didn&#x27;t log in enough detail, can&#x27;t replay deterministically, and can&#x27;t easily diff against a working run.</p></div>
 <aside class="topic-xlinks"><div class="topic-xgroup"><span class="topic-xgroup-label">→ Solved by</span><ul><li><a href="/topic/agent-tracing">Tracing and trace analysis for agent runs</a></li></ul></div></aside>
-<section class="topic-section"><div class="topic-rail">State of the art</div><div class="topic-prose"><p>Observability for agents is splitting from generic APM into a <strong>trace-first</strong> discipline: the unit you capture is the full trajectory (prompts, tool calls, results, retries, sub-agent handoffs), and the work is making that trajectory queryable, diffable, and explainable. Tooling is consolidating around a common trace format and then layering analysis on top — open-source debuggers ingest traces from the emerging standards (Langfuse, Arize/OpenInference, or plain JSONL) and run a model *over the traces themselves* to surface recurring failure patterns rather than make an engineer read every span (HALO). Vendors are pushing the same idea up the stack into managed triage: LangSmith now ships a fleet on-call copilot for alert triage and dedicated voice/trace debugging, treating &quot;read the traces and tell me what&#x27;s breaking&quot; as an agentic product rather than a dashboard. A second front is <strong>monitoring agents you can&#x27;t fully trace at runtime</strong> — offline behavior monitoring evaluates internal agents from logged activity after the fact, which matters when live instrumentation is incomplete or the agent runs where you can&#x27;t watch it. The hard, still-open part is *evaluating the monitoring itself*: a multi-dataset benchmark for LLM agents in microservice failure diagnosis (AgentOps) exists precisely because &quot;did the agent correctly diagnose the failure&quot; is itself a trajectory-grading problem over multimodal observability data — so agent observability and <a href="/topic/agent-evaluation">evaluation</a> are converging, with the trace as the shared substrate.</p>
-<p>Instrumentation is also showing up <strong>inside the coding-agent product itself</strong>, not just in third-party observability tooling: Claude Code now emits <code>workflow.run_id</code> and <code>workflow.name</code> as OpenTelemetry attributes, so a multi-agent workflow run is traceable through the same OTel pipeline a team already operates for the rest of its stack, rather than requiring a bespoke exporter. Enterprise case studies are catching up to the same convergence from the ops side: Schneider Electric built its LLMOps foundations on LangSmith specifically to unify observability, evaluation, and deployment at scale — a real deployment of the &quot;trace as shared substrate&quot; idea, not just a vendor pitch for it.</p></div></section>
-<section class="topic-section"><div class="topic-rail">What&#x27;s new</div><div class="topic-prose"><p>Trace instrumentation is showing up natively in agent tooling: Claude Code now stamps <code>workflow.run_id</code>/<code>workflow.name</code> as OpenTelemetry attributes on multi-agent workflow runs, plugging into a team&#x27;s existing OTel pipeline instead of a bespoke export path. Schneider Electric&#x27;s LangSmith-based LLMOps foundations is a concrete enterprise case of observability, evaluation, and deployment converging into one stack at production scale.</p>
-<p>Trace analysis is becoming *agentic*: rather than dashboards a human reads, the new tools run a model over the captured traces — HALO&#x27;s RLM engine mines recurring failure modes from Langfuse/OpenInference/JSONL traces, and LangSmith ships a fleet on-call copilot that triages alerts and a voice-trace debugger. In parallel, offline monitoring of internal agents and a microservice-failure-diagnosis benchmark (AgentOps) push the field toward *measuring* whether the monitoring layer itself catches the right failures, tying observability tightly to trajectory-level eval.</p></div></section>
-<section class="topic-section"><div class="topic-rail">Why it matters for platform engineers</div><div class="topic-prose"><p>You cannot operate what you cannot explain. Without trajectory-level traces, a regression after a model upgrade, a silent tool failure, or a runaway loop is invisible until it shows up as cost or a user complaint — and you have no way to reproduce it. Observability is the precondition for the rest of the stack: <a href="/topic/agent-evaluation">evaluation</a> needs traces to grade, <a href="/topic/cost-controls">cost control</a> needs per-step attribution, and incident response needs a replayable run. The build-vs-buy question is whether to standardize on a trace format and own the analysis, or adopt a managed platform — but either way the trace is the new log line.</p></div></section>
-<section class="topic-section topic-evidence"><div class="topic-rail">Evidence · 6 sources</div><ul class="evidence-list"><li class="ev-story"><a href="/story/5d7159ca706a44c0">Show HN: RLM-based local debugger for AI agent traces</a></li><li class="ev-story"><a href="/story/8d1dc5b79d8b1372">June 2026: LangChain Newsletter — Fleet On-Call Copilot, Deep Agents Rubrics, and More</a></li><li class="ev-story"><a href="/story/345d694a3d9a314f">Evaluating Offline Monitoring of Internal AI Agents</a></li><li class="ev-story"><a href="/story/274255c89788d5c4">A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis</a></li><li class="ev-story"><a href="/story/c9f72591463a51bb">How Schneider Electric Built Their LLMOps Foundations With LangSmith</a></li><li class="ev-story"><a href="/story/863330601bd5d524">claude-code v2.1.202</a></li></ul></section></div>
+<section class="topic-section topic-latest"><div class="topic-rail">Latest updates</div><div class="topic-prose"><ol class="wiki-latest"><li><time datetime="2026-10-16">Oct 16, 2026</time><span class="latest-main"><a href="/topic/agent-observability#2026-10-16-grafana-agent-slos-error-budgets">Grafana turns agent behaviour into SLOs with error budgets</a></span></li><li><time datetime="2026-10-10">Oct 10, 2026</time><span class="latest-main"><a href="/topic/agent-observability#2026-10-10-cloudflare-traces-proxy-spans">Cloudflare Traces emits proxy-layer steps as OpenTelemetry spans that join your agent traces</a></span></li><li><time datetime="2026-09-24">Sep 24, 2026</time><span class="latest-main"><a href="/topic/agent-observability#2026-09-24-langsmith-trajectories-view">LangSmith Trajectories shows an agent session as one readable thread, not a span tree</a></span></li><li><time datetime="2026-09-12">Sep 12, 2026</time><span class="latest-main"><a href="/topic/agent-observability#2026-09-12-session-traces-and-cost-controls">Session traces and cost controls converge into one agent-failure diagnostic</a></span></li><li><time datetime="2026-09-07">Sep 7, 2026</time><span class="latest-main"><a href="/topic/agent-observability#2026-09-07-figma-security-alert-agents">Figma&#x27;s security agents resolve complex alerts 70% faster, with memory as the main lever</a></span></li></ol></div></section>
+<section class="topic-section"><div class="topic-rail">State of the art</div><div class="topic-prose"><p><strong>Observability for agents is trace-first.</strong> The unit captured is the full trajectory: prompts, tool calls, results, retries, and subagent handoffs. Harnesses and serving platforms now emit these spans natively over OpenTelemetry, and capture extends to voice agents and plain CLIs.</p>
+<p><strong>The bottleneck has moved from capture to reading.</strong> Teams run a model over the traces to surface recurring failure patterns, debug many coding agents in one console, and read a session as a single thread instead of a span tree. Loops and runaway spend show up in the same trace, so trace and cost views are merging.</p>
+<p><strong>Agentic root-cause analysis works with guardrails, not alone.</strong> Production systems pair pre-correlated telemetry with LLM analysis and keep a human approving changes. Evidence suggests models can reason about a failure once the context is assembled. The best frontier agent on a realistic oncall benchmark still gets only about a quarter of root causes right, so the pipeline, not the model, is the open problem.</p>
+<p><strong>Ownership is a design choice.</strong> Enterprises want traces and spend data in their own network, through a self-hosted gateway or a managed platform deployed into their cloud. Payload privacy defaults differ by framework, and traces can be truncated.</p>
+<p><strong>The trace has limits.</strong> Offline monitoring covers agents you can&#x27;t watch live, and agents can coordinate through hidden states a transcript never records. Evaluating the monitors is itself an <a href="/topic/agent-evaluation">evaluation</a> problem.</p></div></section>
+<section class="topic-section"><div class="topic-rail">Why it matters for platform engineers</div><div class="topic-prose"><p>You cannot operate what you cannot explain. Without trajectory-level traces, a regression after a model upgrade, a silent tool failure, or a runaway loop stays invisible until it shows up as cost or a user complaint, and you can&#x27;t reproduce it.</p>
+<p>Observability is the precondition for the rest of the stack: <a href="/topic/agent-evaluation">evaluation</a> needs traces to grade, <a href="/topic/cost-controls">cost control</a> needs per-step attribution, and incident response needs a replayable run. The build-vs-buy choice is whether to standardize on a trace format and own the analysis, or adopt a managed platform. Either way, check payload retention and truncation defaults: the trace is the new log line, and it carries secrets.</p></div></section>
+<section class="topic-developments" id="developments"><h2 class="topic-dev-title">Developments <span>25</span></h2><nav class="topic-theme-nav" aria-label="Themes"><ul><li><a href="#theme-trace-capture">Capturing the full trajectory<span class="count">7</span></a></li><li><a href="#theme-reading-traces">Making traces readable and analyzable<span class="count">6</span></a></li><li><a href="#theme-agentic-rca">Agents doing root-cause analysis and on-call<span class="count">6</span></a></li><li><a href="#theme-telemetry-ownership">Where agent telemetry lives<span class="count">3</span></a></li><li><a href="#theme-monitoring-limits">When the trace is not enough<span class="count">3</span></a></li></ul></nav><section class="topic-theme" id="theme-trace-capture"><header class="topic-theme-head"><h3>Capturing the full trajectory</h3><span class="topic-theme-meta">7 entries · latest Oct 10, 2026</span><p>Harnesses, serving platforms, and CLIs now emit agent spans natively over OpenTelemetry, across text and voice, but payload defaults, truncation, and retention vary by tool.</p></header><article class="wiki-entry" id="2026-10-10-cloudflare-traces-proxy-spans"><p class="entry-meta"><time datetime="2026-10-10">Oct 10, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-10-10-cloudflare-traces-proxy-spans">Cloudflare Traces emits proxy-layer steps as OpenTelemetry spans that join your agent traces</a></h4><div class="entry-body"><p>Cloudflare put Traces into open beta, extending automatic tracing beyond Workers to security rules, transformations, cache, routing, and origin handling, all as <strong>OpenTelemetry spans</strong>. It accepts and forwards W3C <code>traceparent</code> headers, so edge spans attach to the trace your agent harness already started. <strong>Trace Rules</strong> sample selectively.</p>
+<p>For builders, tool calls and model-gateway traffic that cross the edge no longer break the trace at the proxy. Pricing moves to <strong>ingestion and retention volume from December 1</strong>, so budget for span volume from agent loops before enabling it broadly.</p></div><ul class="entry-sources"><li><a href="/story/c96d66505e1261e7">Cloudflare Traces Turns the Proxy Layer into OpenTelemetry Spans, with New Volume-Based Pricing</a></li></ul></article><article class="wiki-entry" id="2026-08-20-pond-session-archive-in-s3"><p class="entry-meta"><time datetime="2026-08-20">Aug 20, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-08-20-pond-session-archive-in-s3">Pond archives agent sessions losslessly to your own S3 bucket and serves them over MCP</a></h4><div class="entry-body"><p><strong>Pond</strong>, a Show HN project, stores agent sessions from multiple machines in <strong>one S3 bucket you own</strong>, with no database service to run. Sessions are searchable and exposed to the agent as an MCP server.</p>
+<p>Session history becomes a durable, portable record under the team&#x27;s control rather than local files tied to one laptop or tool.</p></div><ul class="entry-sources"><li><a href="/story/dadedf10efb45ade">Show HN: Pond – lossless archive for agent sessions in your own S3</a></li></ul></article><article class="wiki-entry" id="2026-08-16-cloudflare-agent-tracing"><p class="entry-meta"><time datetime="2026-08-16">Aug 16, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-08-16-cloudflare-agent-tracing">Cloudflare adds native agent tracing, with truncated payloads and opposite privacy defaults</a></h4><div class="entry-body"><p>Cloudflare added agent spans to existing Workers traces: <code>invoke_agent</code>, <code>chat</code>/<code>execute_tool</code>, and <code>tool_approval</code>, keyed by agent name, agent ID, and conversation ID, so a session replays turn by turn.</p>
+<p>The gotchas are concrete:</p>
+<ul><li><strong>Payload recording defaults differ by framework</strong>: off under Vercel&#x27;s AI SDK, on under Flue. Those payloads often carry personal data or secrets.</li><li>Traces are not lossless; payloads may be <strong>truncated</strong>, dropping the arguments a debug session needs.</li><li>From October 1, 2026, every span is a billable event.</li></ul></div><ul class="entry-sources"><li><a href="/story/f07f7955a1ecbd39">Cloudflare Adds Agent Tracing, with Truncation Limits and Uneven Payload Defaults</a></li></ul></article><details class="topic-more"><summary>Show 4 earlier entries</summary><article class="wiki-entry" id="2026-08-12-llm-cli-reasoning-traces-and-logging"><p class="entry-meta"><time datetime="2026-08-12">Aug 12, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-08-12-llm-cli-reasoning-traces-and-logging">Simon Willison&#x27;s LLM 0.32 logs visible reasoning traces in redesigned SQLite logs</a></h4><div class="entry-body"><p><strong>LLM 0.32</strong>, the biggest release of the CLI since launch, adds visible reasoning traces, server-side provider tools, and <strong>redesigned content-addressable SQLite logs</strong>, plus features from the OpenAI Responses API.</p>
+<p>Trajectory capture is available in a widely used, framework-agnostic command-line tool, not only in hosted platforms.</p></div><ul class="entry-sources"><li><a href="/story/0c557d74dd5dcc14">New release of LLM adds support for reasoning traces, OpenAI Responses, server-side tools, and smarter logging</a></li></ul></article><article class="wiki-entry" id="2026-07-25-show-hn-coding-agent-observability"><p class="entry-meta"><time datetime="2026-07-25">Jul 25, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-25-show-hn-coding-agent-observability">Indie observability tools for coding agents keep appearing beside the vendors</a></h4><div class="entry-body"><p>A Show HN project ships <strong>observability for coding agents and LLM applications</strong>.</p>
+<p>It is one more self-hostable option in the trace-first tooling space, alongside the managed platforms.</p></div><ul class="entry-sources"><li><a href="/story/363d53a23c23f150">Show HN: Observability for Coding Agents and LLM Applications</a></li></ul></article><article class="wiki-entry" id="2026-07-21-langsmith-voice-agent-tracing"><p class="entry-meta"><time datetime="2026-07-21">Jul 21, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-21-langsmith-voice-agent-tracing">LangSmith traces voice agents, including audio, STT/TTS latency, and interruptions</a></h4><div class="entry-body"><p>LangSmith now traces <strong>voice agents</strong> built on Pipecat, LiveKit, OpenAI Realtime, and Gemini Live, capturing audio, STT and TTS latency, interruptions, and tool calls in one trace.</p>
+<p>Trajectory capture extends to the turn-taking and latency failures specific to spoken interfaces. See <a href="/topic/agent-latency">agent latency</a> for why voice has a harder real-time floor.</p></div><ul class="entry-sources"><li><a href="/story/dcbc4c8f98ebc760">Trace voice agents in LangSmith</a></li></ul></article><article class="wiki-entry" id="2026-07-07-claude-code-workflow-otel-attributes"><p class="entry-meta"><time datetime="2026-07-07">Jul 7, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-07-claude-code-workflow-otel-attributes">Claude Code tags workflow-spawned agents with OpenTelemetry run IDs</a></h4><div class="entry-body"><p>claude-code v2.1.202 adds <strong><code>workflow.run_id</code> and <code>workflow.name</code> OpenTelemetry attributes</strong> to telemetry from workflow-spawned agents, so a workflow run&#x27;s activity can be reconstructed from OTel data.</p>
+<p>A multi-agent run becomes traceable through the OTel pipeline a team already operates, with no bespoke exporter.</p></div><ul class="entry-sources"><li><a href="/story/863330601bd5d524">claude-code v2.1.202</a></li></ul></article></details></section><section class="topic-theme" id="theme-reading-traces"><header class="topic-theme-head"><h3>Making traces readable and analyzable</h3><span class="topic-theme-meta">6 entries · latest Sep 24, 2026</span><p>Capture is no longer the bottleneck; models now read traces to surface failure patterns, and viewers present a session as one readable thread instead of a span tree.</p></header><article class="wiki-entry" id="2026-09-24-langsmith-trajectories-view"><p class="entry-meta"><time datetime="2026-09-24">Sep 24, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-09-24-langsmith-trajectories-view">LangSmith Trajectories shows an agent session as one readable thread, not a span tree</a></h4><div class="entry-body"><p>LangSmith&#x27;s <strong>Trajectories</strong> renders a whole agent session as a conversational thread: user turns, tool calls, and subagent handoffs read top to bottom, instead of the nested span tree a generic OpenTelemetry viewer shows.</p>
+<p>It trades completeness of the tree for the job that bottlenecks debugging long-running agents: scanning a session fast enough to spot where it went wrong.</p></div><ul class="entry-sources"><li><a href="/story/b60131f089d99489">Trajectories now in LangSmith: A readable view of every agent session</a></li></ul></article><article class="wiki-entry" id="2026-09-12-session-traces-and-cost-controls"><p class="entry-meta"><time datetime="2026-09-12">Sep 12, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-09-12-session-traces-and-cost-controls">Session traces and cost controls converge into one agent-failure diagnostic</a></h4><div class="entry-body"><p>InfoQ coverage of agent observability practice treats <strong>tool-call loops and runaway spend</strong> as the same triage step: both show up in the same session trace, and both need enough preserved execution context for post-incident debugging.</p>
+<p>Cost dashboards and trace viewers are one diagnostic surface. See <a href="/topic/cost-controls">cost controls</a>.</p></div><ul class="entry-sources"><li><a href="/story/01827ff5d3cbb846">Session Traces and Cost Controls Help Diagnose AI Agent Failures</a></li></ul></article><article class="wiki-entry" id="2026-08-27-opensearch-mcp-apps-visual-observability"><p class="entry-meta"><time datetime="2026-08-27">Aug 27, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-08-27-opensearch-mcp-apps-visual-observability">OpenSearch MCP Apps return trace waterfalls and service maps inline in the agent chat</a></h4><div class="entry-body"><p>Amazon OpenSearch Service&#x27;s <strong>MCP Apps</strong> return an interactive visualization alongside each tool call&#x27;s text response. A local MCP server authenticates with AWS credentials, queries the same OpenSearch and Prometheus sources behind existing dashboards, and renders the result inline in the IDE.</p>
+<p>One conversation moves from alert to log clustering, trace waterfalls, and service maps without opening a separate tool. <a href="/topic/mcp">MCP</a> carries the observability payload itself.</p></div><ul class="entry-sources"><li><a href="/story/ec596dac47b8163f">Agentic observability with Amazon OpenSearch Service MCP Apps</a></li></ul></article><details class="topic-more"><summary>Show 3 earlier entries</summary><article class="wiki-entry" id="2026-07-14-langsmith-debugs-any-coding-agent"><p class="entry-meta"><time datetime="2026-07-14">Jul 14, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-14-langsmith-debugs-any-coding-agent">LangSmith traces Claude Code, Codex, Cursor, and Copilot in one debug console</a></h4><div class="entry-body"><p>LangSmith now positions itself as the <strong>debug console for any coding agent</strong>: Claude Code, Codex, Cursor, Copilot, and more. One view shows tool calls, subagent handoffs, errors, cost, and retries.</p>
+<p>Which agent produced a trace becomes a detail the observability layer abstracts away, instead of a reason to read each tool&#x27;s own logs.</p></div><ul class="entry-sources"><li><a href="/story/34b461bf5b9be5ff">How to Debug Coding Agents with LangSmith Traces</a></li></ul></article><article class="wiki-entry" id="2026-06-30-langsmith-fleet-on-call-copilot"><p class="entry-meta"><time datetime="2026-06-30">Jun 30, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-06-30-langsmith-fleet-on-call-copilot">LangSmith adds an on-call copilot that triages alerts from agent traces</a></h4><div class="entry-body"><p>LangChain&#x27;s June newsletter announces a <strong>Fleet on-call copilot for alert triage</strong> in LangSmith, plus voice trace debugging and experiment status tracking.</p>
+<p>&quot;Read the traces and tell me what&#x27;s breaking&quot; becomes a managed agentic product rather than a dashboard.</p></div><ul class="entry-sources"><li><a href="/story/8d1dc5b79d8b1372">June 2026: LangChain Newsletter — Fleet On-Call Copilot, Deep Agents Rubrics, and More</a></li></ul></article><article class="wiki-entry" id="2026-06-30-halo-model-reads-traces-for-failure-modes"><p class="entry-meta"><time datetime="2026-06-30">Jun 30, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-06-30-halo-model-reads-traces-for-failure-modes">HALO runs a model over agent traces to find recurring harness-level failure modes</a></h4><div class="entry-body"><p><strong>HALO</strong> is an open-source local debugger that ingests Langfuse, Arize/OpenInference, or JSONL traces and uses an RLM-based engine to find <strong>recurring harness-level failure modes</strong>. It produces reports you can feed into Cursor or Claude Code to patch the agent, and a desktop app answers questions over the traces.</p>
+<p>The engineer stops reading every span: a model reads the traces and the human reviews the patterns.</p></div><ul class="entry-sources"><li><a href="/story/5d7159ca706a44c0">Show HN: RLM-based local debugger for AI agent traces</a></li></ul></article></details></section><section class="topic-theme" id="theme-agentic-rca"><header class="topic-theme-head"><h3>Agents doing root-cause analysis and on-call</h3><span class="topic-theme-meta">6 entries · latest Sep 7, 2026</span><p>Production RCA and triage agents work when telemetry is pre-correlated and a human approves changes; benchmarks show end-to-end oncall accuracy is still low.</p></header><article class="wiki-entry" id="2026-09-07-figma-security-alert-agents"><p class="entry-meta"><time datetime="2026-09-07">Sep 7, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-09-07-figma-security-alert-agents">Figma&#x27;s security agents resolve complex alerts 70% faster, with memory as the main lever</a></h4><div class="entry-body"><p>Figma built alert-triage agents on a Panther SIEM foundation, querying 100+ data sources (AWS, Okta, GitHub, GCP, osquery) and scoped to the tools an on-call engineer uses. The team reports <strong>memory, not model choice or tool count</strong>, as the biggest quality lever.</p>
+<p>Reported results: <strong>70% faster resolution</strong> on complex alerts, 20% fewer on-call pages from re-tuned severity, and 100+ previously unknown vulnerabilities found. Agent-authored PRs default to draft and every fix needs human approval.</p></div><ul class="entry-sources"><li><a href="/story/ac7780096954b97a">How Figma Uses AI Agents for Security</a></li></ul></article><article class="wiki-entry" id="2026-08-12-langchain-kubernetes-sre-agent"><p class="entry-meta"><time datetime="2026-08-12">Aug 12, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-08-12-langchain-kubernetes-sre-agent">LangChain&#x27;s Kubernetes SRE agent needs human approval and records every step in traces</a></h4><div class="entry-body"><p>LangChain built an <strong>autonomous SRE agent for Kubernetes</strong> on Deep Agents. It requires <strong>human approval before applying a change</strong>, and every step, tool call, and decision is captured in LangSmith traces and covered by evals.</p>
+<p>The trace is what a human reviews before the agent acts, not only what an engineer replays afterward.</p></div><ul class="entry-sources"><li><a href="/story/6a2c44f62f58bd05">How we built an autonomous SRE agent for Kubernetes</a></li></ul></article><article class="wiki-entry" id="2026-08-05-orca-bench-oncall-rca"><p class="entry-meta"><time datetime="2026-08-05">Aug 5, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-08-05-orca-bench-oncall-rca">ORCA-bench: the best frontier agent gets 25.3% of realistic oncall root causes right</a></h4><div class="entry-body"><p><strong>ORCA-bench</strong> pairs an OpenTelemetry-instrumented microservice testbed (six days of metrics, logs, and traces) with <strong>1,079 oncall RCA tasks</strong>, graded by an LLM judge that human SREs re-scored (κ=0.90). Across five frontier agents, the best accuracy is <strong>25.3%</strong> on realistic-input tasks and 10.0% on hard ones. The weakest model invents an implausible root cause on 40% of reports.</p>
+<p>The authors read this as a lower bound on the real-world gap. The reasoning may be there, but the end-to-end oncall pipeline is mostly unsolved.</p></div><ul class="entry-sources"><li><a href="/story/135c077a65b61dda">ORCA-bench: How Ready Are Language Model Agents for Oncall?</a></li></ul></article><details class="topic-more"><summary>Show 3 earlier entries</summary><article class="wiki-entry" id="2026-07-25-coroot-rca-is-a-context-problem"><p class="entry-meta"><time datetime="2026-07-25">Jul 25, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-25-coroot-rca-is-a-context-problem">Coroot experiment: LLMs can do RCA once the telemetry context is prepared</a></h4><div class="entry-body"><p>A Coroot experiment running root-cause analysis across <strong>eleven models</strong> offers early evidence that modern LLMs can reason through RCA once given correctly prepared context.</p>
+<p>The hard problem moves from model reasoning to the pipelines that correlate telemetry into that context, the work Expedia&#x27;s STAR invests in.</p></div><ul class="entry-sources"><li><a href="/story/bda1da8f5bc3b679">AI Root Cause Analysis Shifts from Model Reasoning to Context Engineering</a></li></ul></article><article class="wiki-entry" id="2026-07-23-expedia-star-incident-analysis"><p class="entry-meta"><time datetime="2026-07-23">Jul 23, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-23-expedia-star-incident-analysis">Expedia&#x27;s STAR turns live telemetry into root-cause assessments with engineers in the loop</a></h4><div class="entry-body"><p>Expedia&#x27;s <strong>STAR</strong>, built on FastAPI, Datadog, Celery, Redis, and Langfuse, ingests service telemetry during incidents, runs <strong>structured workflows</strong> to generate root-cause assessments, and keeps engineers in the loop for the final call.</p>
+<p>It is the trace-plus-LLM-analysis pattern built on infrastructure a platform team already runs, not a new observability product.</p></div><ul class="entry-sources"><li><a href="/story/d0a4ccb3646c79ad">Expedia Uses AI Driven Service Telemetry Analyzer to Accelerate Incident Investigation</a></li></ul></article><article class="wiki-entry" id="2026-06-30-agentops-failure-diagnosis-benchmark"><p class="entry-meta"><time datetime="2026-06-30">Jun 30, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-06-30-agentops-failure-diagnosis-benchmark">A multi-dataset benchmark grades how LLM agents reason through microservice failures</a></h4><div class="entry-body"><p>A new benchmark for <strong>AgentOps</strong> evaluates LLM agents on microservice failure diagnosis over multimodal observability data. It adds two large datasets because existing benchmarks score only the final answer and ignore the reasoning process.</p>
+<p>Grading whether an agent diagnosed a failure correctly is a trajectory-grading problem, so agent observability and <a href="/topic/agent-evaluation">evaluation</a> converge on the trace.</p></div><ul class="entry-sources"><li><a href="/story/274255c89788d5c4">A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis</a></li></ul></article></details></section><section class="topic-theme" id="theme-telemetry-ownership"><header class="topic-theme-head"><h3>Where agent telemetry lives</h3><span class="topic-theme-meta">3 entries · latest Aug 12, 2026</span><p>Enterprises want traces and spend data inside their own network, answered either by self-hosted gateways or by managed platforms deployed into the customer&#x27;s cloud.</p></header><article class="wiki-entry" id="2026-08-12-langsmith-byoc-on-aws"><p class="entry-meta"><time datetime="2026-08-12">Aug 12, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-08-12-langsmith-byoc-on-aws">LangSmith Bring Your Own Cloud reaches GA on AWS</a></h4><div class="entry-body"><p>LangSmith&#x27;s <strong>Bring Your Own Cloud</strong> option is generally available on AWS, giving enterprise teams managed observability, evaluation, and deployment <strong>inside their own VPC</strong>.</p>
+<p>It meets the &quot;keep traces in our network&quot; requirement from the vendor side: the Claude Apps Gateway answers it by self-hosting, BYOC by deploying the managed product into the customer&#x27;s cloud.</p></div><ul class="entry-sources"><li><a href="/story/19b2c00e70a40ab1">LangSmith BYOC on AWS is generally available</a></li></ul></article><article class="wiki-entry" id="2026-07-15-claude-apps-gateway-self-hosted-control-plane"><p class="entry-meta"><time datetime="2026-07-15">Jul 15, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-15-claude-apps-gateway-self-hosted-control-plane">AWS&#x27;s Claude Apps Gateway relays telemetry and enforces spend caps from a self-hosted container</a></h4><div class="entry-body"><p>AWS and Anthropic released the <strong>Claude Apps Gateway</strong>, a single stateless container an organization runs in front of Claude Code and Claude Desktop. It centralizes identity, policy, routing, and telemetry, relays per-request usage metrics to the team&#x27;s own OpenTelemetry collector (CloudWatch, Prometheus), and enforces YAML-defined spend caps by org, group, or user.</p>
+<p>Telemetry relay and cost policy live in one customer-owned layer instead of a vendor dashboard.</p></div><ul class="entry-sources"><li><a href="/story/38f362bfcba6a0fa">AWS Ships Claude Apps Gateway as Self-Hosted Control Plane for Claude Code and Claude Desktop</a></li></ul></article><article class="wiki-entry" id="2026-07-07-schneider-electric-llmops-on-langsmith"><p class="entry-meta"><time datetime="2026-07-07">Jul 7, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-07-07-schneider-electric-llmops-on-langsmith">Schneider Electric unifies observability, evaluation, and deployment on LangSmith</a></h4><div class="entry-body"><p>Schneider Electric built its <strong>enterprise LLMOps foundations on LangSmith</strong> to unify observability, evaluation, and deployment for AI products at scale (vendor case study).</p>
+<p>It is an enterprise deployment of the trace as the shared substrate for ops and eval, not just a vendor pitch for it.</p></div><ul class="entry-sources"><li><a href="/story/c9f72591463a51bb">How Schneider Electric Built Their LLMOps Foundations With LangSmith</a></li></ul></article></section><section class="topic-theme" id="theme-monitoring-limits"><header class="topic-theme-head"><h3>When the trace is not enough</h3><span class="topic-theme-meta">3 entries · latest Oct 16, 2026</span><p>Offline monitoring covers agents you cannot instrument live, and latent-channel work shows a complete transcript can still miss how agents coordinated.</p></header><article class="wiki-entry" id="2026-10-16-grafana-agent-slos-error-budgets"><p class="entry-meta"><time datetime="2026-10-16">Oct 16, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-10-16-grafana-agent-slos-error-budgets">Grafana turns agent behaviour into SLOs with error budgets</a></h4><div class="entry-body"><p>Latency, error rate, and token counts say nothing about whether an answer was grounded or useful. Grafana proposes running <strong>evaluations</strong> per interaction (grounded, request fulfilled, toxic, PII exposed, injected) and treating each result as an SLI. Checks can be an LLM judge or deterministic rules such as regexes.</p>
+<p>Each behaviour gets its own objective instead of one &quot;quality score&quot;. Example: 95% of conversations judged fulfilled over 30 days; the other 5% is the error budget. While budget remains, teams can change prompts or models. Once it burns, effort shifts to quality.</p>
+<p>For builders, budget burn surfaces slow drift (a prompt, model, or retrieval change costing a fraction of a point per day) that error-rate alerts miss. Grafana-described proposal, not a measured result.</p></div><ul class="entry-sources"><li><a href="/story/d771557f3f2a708f">Grafana Applies SLOs and Error Budgets to AI Agent Behaviour</a></li></ul><p class="entry-also">Also relevant to <a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></p></article><article class="wiki-entry" id="2026-08-20-latent-channel-monitoring"><p class="entry-meta"><time datetime="2026-08-20">Aug 20, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-08-20-latent-channel-monitoring">Agents can coordinate through hidden states a full transcript never shows</a></h4><div class="entry-body"><p>Language-model agents can communicate through <strong>continuous hidden states invisible in public transcripts</strong>. Verifiable Latent Alignments (VLA) links each private latent-state record and channel status to the resulting public action through a shared event identifier, and layers representation anomaly detection on top.</p>
+<p>A complete trace of what agents said can still miss what they communicated. In <a href="/topic/multi-agent">multi-agent</a> systems, message-and-tool-call spans are the wrong unit when coordination happens below the message layer.</p></div><ul class="entry-sources"><li><a href="/story/0ada5d894838d46e">Beyond the Transcript: Detecting Covert Co ordination in Latent Multi-Agent Communication</a></li></ul></article><article class="wiki-entry" id="2026-06-30-offline-monitoring-of-internal-agents"><p class="entry-meta"><time datetime="2026-06-30">Jun 30, 2026</time><span class="sep">·</span>1 source</p><h4 class="entry-title"><a href="#2026-06-30-offline-monitoring-of-internal-agents">Offline monitoring evaluates internal agents from logged activity after the fact</a></h4><div class="entry-body"><p>&quot;Evaluating Offline Monitoring of Internal AI Agents&quot; studies <strong>monitoring agents from logged activity after the run</strong>, rather than with live instrumentation.</p>
+<p>This matters when runtime tracing is incomplete or the agent runs where you can&#x27;t watch it. The open question is how good such monitors are, which is itself an evaluation problem.</p></div><ul class="entry-sources"><li><a href="/story/345d694a3d9a314f">Evaluating Offline Monitoring of Internal AI Agents</a></li></ul></article></section></section>
+<section class="topic-section topic-cross"><div class="topic-rail">From related topics</div><div class="topic-prose"><ol class="wiki-latest"><li><time datetime="2026-10-31">Oct 31, 2026</time><span class="latest-main"><span class="latest-topic">Sandboxing, scoped credentials, and guardrails</span><a href="/topic/agent-sandboxing#2026-10-31-test-escaped-unsandboxed-subagents">A parallel subagent&#x27;s test escaped an unsandboxed Mac and spoke aloud on the host</a></span></li></ol></div></section>
+<section class="topic-section topic-evidence"><div class="topic-rail">Evidence · 25 sources</div><div class="topic-prose"><details><summary>All sources behind this page</summary><ul class="evidence-list"><li class="ev-story"><a href="/story/d771557f3f2a708f">Grafana Applies SLOs and Error Budgets to AI Agent Behaviour</a></li><li class="ev-story"><a href="/story/c96d66505e1261e7">Cloudflare Traces Turns the Proxy Layer into OpenTelemetry Spans, with New Volume-Based Pricing</a></li><li class="ev-story"><a href="/story/b60131f089d99489">Trajectories now in LangSmith: A readable view of every agent session</a></li><li class="ev-story"><a href="/story/01827ff5d3cbb846">Session Traces and Cost Controls Help Diagnose AI Agent Failures</a></li><li class="ev-story"><a href="/story/ac7780096954b97a">How Figma Uses AI Agents for Security</a></li><li class="ev-story"><a href="/story/ec596dac47b8163f">Agentic observability with Amazon OpenSearch Service MCP Apps</a></li><li class="ev-story"><a href="/story/dadedf10efb45ade">Show HN: Pond – lossless archive for agent sessions in your own S3</a></li><li class="ev-story"><a href="/story/0ada5d894838d46e">Beyond the Transcript: Detecting Covert Co ordination in Latent Multi-Agent Communication</a></li><li class="ev-story"><a href="/story/f07f7955a1ecbd39">Cloudflare Adds Agent Tracing, with Truncation Limits and Uneven Payload Defaults</a></li><li class="ev-story"><a href="/story/0c557d74dd5dcc14">New release of LLM adds support for reasoning traces, OpenAI Responses, server-side tools, and smarter logging</a></li><li class="ev-story"><a href="/story/19b2c00e70a40ab1">LangSmith BYOC on AWS is generally available</a></li><li class="ev-story"><a href="/story/6a2c44f62f58bd05">How we built an autonomous SRE agent for Kubernetes</a></li><li class="ev-story"><a href="/story/135c077a65b61dda">ORCA-bench: How Ready Are Language Model Agents for Oncall?</a></li><li class="ev-story"><a href="/story/363d53a23c23f150">Show HN: Observability for Coding Agents and LLM Applications</a></li><li class="ev-story"><a href="/story/bda1da8f5bc3b679">AI Root Cause Analysis Shifts from Model Reasoning to Context Engineering</a></li><li class="ev-story"><a href="/story/d0a4ccb3646c79ad">Expedia Uses AI Driven Service Telemetry Analyzer to Accelerate Incident Investigation</a></li><li class="ev-story"><a href="/story/dcbc4c8f98ebc760">Trace voice agents in LangSmith</a></li><li class="ev-story"><a href="/story/38f362bfcba6a0fa">AWS Ships Claude Apps Gateway as Self-Hosted Control Plane for Claude Code and Claude Desktop</a></li><li class="ev-story"><a href="/story/34b461bf5b9be5ff">How to Debug Coding Agents with LangSmith Traces</a></li><li class="ev-story"><a href="/story/c9f72591463a51bb">How Schneider Electric Built Their LLMOps Foundations With LangSmith</a></li><li class="ev-story"><a href="/story/863330601bd5d524">claude-code v2.1.202</a></li><li class="ev-story"><a href="/story/345d694a3d9a314f">Evaluating Offline Monitoring of Internal AI Agents</a></li><li class="ev-story"><a href="/story/8d1dc5b79d8b1372">June 2026: LangChain Newsletter — Fleet On-Call Copilot, Deep Agents Rubrics, and More</a></li><li class="ev-story"><a href="/story/5d7159ca706a44c0">Show HN: RLM-based local debugger for AI agent traces</a></li><li class="ev-story"><a href="/story/274255c89788d5c4">A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis</a></li></ul></details></div></section>
+<script>
+(function () {
+  function reveal() {
+    var id = decodeURIComponent((location.hash || '').slice(1));
+    if (!id) return;
+    var el = document.getElementById(id);
+    if (!el) return;
+    for (var d = el.closest('details'); d; d = d.parentElement && d.parentElement.closest('details')) d.open = true;
+    el.scrollIntoView();
+  }
+  window.addEventListener('hashchange', reveal);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', reveal);
+  else reveal();
+})();
+</script></div>
     </section>
 
     <footer>
@@ -397,7 +584,7 @@
     })();
   </script>
 
-  <script src="/nav-updates.js?v=20260701" defer></script>
+  <script src="/nav-updates.js?v=20260910-editorial" defer></script>
 
 
   <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
