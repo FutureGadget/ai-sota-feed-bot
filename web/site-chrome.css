@@ -17,6 +17,25 @@
   font-style: normal;
   font-display: swap;
 }
+/* Fallback faces sized to Geist's metrics (computed from the vendored TTFs
+   against Arial/Liberation Sans and Courier New/Liberation Mono), so text
+   keeps its width and line breaks when the web font swaps in late. */
+@font-face {
+  font-family: "Geist Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("Arimo");
+  size-adjust: 104.9%;
+  ascent-override: 95.81%;
+  descent-override: 28.12%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Geist Mono Fallback";
+  src: local("Courier New"), local("CourierNewPSMT"), local("Liberation Mono"), local("Cousine");
+  size-adjust: 99.98%;
+  ascent-override: 100.52%;
+  descent-override: 29.5%;
+  line-gap-override: 0%;
+}
 
 :root,
 html[data-theme="light"] {
@@ -51,10 +70,10 @@ html[data-theme="light"] {
   /* Shadcn-style tokens (Oat dialogs and inputs, Basecoat via ui/site.css). */
   --background: #ffffff;
   --foreground: #18181b;
-  --font-display: "Geist", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-serif: "Geist", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-sans: "Geist", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "Geist Mono", var(--font-mono);
+  --font-display: "Geist", "Geist Fallback", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Geist", "Geist Fallback", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Geist", "Geist Fallback", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, "SFMono-Regular", Menlo, monospace;
   /* Precision chrome: hairlines one step darker than --border, 8px controls. */
   --line-strong: #c9c9cf;
   --radius-control: 8px;
@@ -255,6 +274,7 @@ code, kbd, samp, pre {
   html:not(.site-chrome-enhanced):not(.site-chrome-static) .site-chrome .site-actions-fallback {
     max-height: 0;
     margin-top: 0;
+    padding-block: 0;
     overflow: hidden;
     border-width: 0;
     visibility: hidden;
@@ -266,6 +286,7 @@ code, kbd, samp, pre {
   to {
     max-height: 60rem;
     margin-top: 0.75rem;
+    padding-block: 0.35rem;
     border-width: 1px;
     visibility: visible;
   }
