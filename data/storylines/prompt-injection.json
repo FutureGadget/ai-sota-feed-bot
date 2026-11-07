@@ -1,100 +1,165 @@
 {
  "slug": "prompt-injection",
  "label": "Prompt Injection",
- "item_count": 3,
- "day_count": 2,
+ "item_count": 6,
+ "day_count": 5,
  "source_count": 2,
- "first_seen": "2026-08-28T15:00:33+00:00",
- "last_updated": "2026-09-01T17:40:13+00:00",
- "generated_at": "2026-09-18T10:07:09.496744+00:00",
+ "first_seen": "2026-10-27T17:58:52+00:00",
+ "last_updated": "2026-11-05T08:25:27+00:00",
+ "generated_at": "2026-11-07T00:12:50.771141+00:00",
  "sources": [
-  "arxiv_cs_ai",
-  "hackernews_ai"
+  "arxiv_agent_systems_research",
+  "arxiv_cs_ai"
  ],
  "days": [
   {
-   "date": "2026-08-28",
+   "date": "2026-10-27",
    "items": [
     {
-     "title": "LongPIBench: A Long-Context Benchmark for Prompt Injection",
-     "url": "http://arxiv.org/abs/2608.28411v1",
-     "source": "arxiv_cs_ai",
+     "title": "Heads of Security: Learned Attention Gates Improve Prompt Injection Robustness",
+     "url": "http://arxiv.org/abs/2610.37657v1",
+     "source": "arxiv_agent_systems_research",
      "type": "paper",
-     "summary_1line": "Prompt injection attacks pose a serious security risk to large language models in real-world applications. However, existing prompt injection benchmarks primarily focus on short-context inputs, leaving the attacks and...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "2e8dd0bd140383d9",
-     "published": "2026-08-28T15:00:33+00:00",
-     "editor_note": "A new benchmark paper targets long-context prompt injection, an area existing benchmarks mostly skip."
+     "summary_1line": "We introduce Heads of Security (HoS), a prompt injection defense that enforces instruction-data separation via a small set of learned per-head attention gates. HoS learns how each head should redistribute attention be...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "b483c5a93f031770",
+     "published": "2026-10-27T17:58:52+00:00",
+     "editor_note": "Proposes learned per-head attention gates to enforce instruction-data separation."
     }
    ]
   },
   {
-   "date": "2026-09-01",
+   "date": "2026-10-30",
    "items": [
     {
-     "title": "HiveTraceGuard-Pro: A Compact Generative Guardrail for Prompt Injection, Jailbreaks, and Adversarial Obfuscation",
-     "url": "http://arxiv.org/abs/2609.01046v1",
+     "title": "SecPO: Principled Adversarial Training for Prompt Injection Security",
+     "url": "http://arxiv.org/abs/2610.41998v1",
      "source": "arxiv_cs_ai",
      "type": "paper",
-     "summary_1line": "Production LLMs must handle inputs that attempt to override system instructions, bypass safety policies or elicit harmful responses. A common mitigation is a separate guardrail model. Existing reports, however, provid...",
-     "why_it_matters": "Matches feed focus: harness, evaluation.",
-     "sid": "2e814e5a70146cc1",
-     "published": "2026-09-01T10:46:09+00:00",
-     "editor_note": "A separate paper proposes a compact generative guardrail model for prompt injection, jailbreaks, and adversarial obfuscation."
+     "summary_1line": "Recognized as a top threat to AI agents, prompt injection allows instructions from untrusted data (email, documents, websites) to manipulate the agent's operation. The existing best-defended LLM, Meta-SecAlign, is tra...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "b2f578a2e015ebec",
+     "published": "2026-10-30T16:43:17+00:00",
+     "editor_note": "Adversarial training approach aimed at beating the best-defended model, Meta-SecAlign."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-01",
+   "items": [
+    {
+     "title": "MemHarmBench: Evaluating Cross-Session Prompt Injection in Memory-Persistent AI Agents",
+     "url": "http://arxiv.org/abs/2611.01700v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "AI agents often rely on persistent memory to retain user preferences and operational rules across sessions. However, this capability introduces a new safety risk: malicious instructions from messages, documents, or We...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "1c851e04a1a59b28",
+     "published": "2026-11-01T08:36:16+00:00",
+     "editor_note": "Benchmark for injection that persists across sessions through agent memory."
     },
     {
-     "title": "Show HN: Semantic Overlays – an NX bit for LLM prompt injection (live demo)",
-     "url": "https://semantic-overlays.vercel.app",
-     "source": "hackernews_ai",
-     "type": "news",
-     "summary_1line": "I've built a new method for steering LLMs called Semantic Overlays, small trained adapters on a frozen model which change how it perceives a piece of its context. The most readily applicable usage is to mitigate promp...",
-     "sid": "958e200401ba64f9",
-     "published": "2026-09-01T17:40:13+00:00",
-     "editor_note": "An independent builder demos Semantic Overlays, adapters on a frozen model that change its perception of context to mitigate prompt injection."
+     "title": "Beyond Prompt Injection: The Tool Update Gap in LLM Agent Security",
+     "url": "http://arxiv.org/abs/2611.01976v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Large language model based agents increasingly rely on external tools to invoke services and interact with web resources. These tools can evolve through software updates, yet agentic frameworks may continue trusting t...",
+     "why_it_matters": "Matches feed focus: agentic, eval, codex.",
+     "sid": "3b426192f1bc75ae",
+     "published": "2026-11-01T15:14:02+00:00",
+     "editor_note": "Flags that agents may keep trusting tools after they are updated."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-04",
+   "items": [
+    {
+     "title": "SPILLWAY: Separating Target Admission from Sanitization to Defend Tool-Using Agents against Prompt Injection",
+     "url": "http://arxiv.org/abs/2611.07222v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Tool-using agents act on email, files, and payments, so an instruction hidden in a web page or a shared document can make an agent send data or money to an attacker. Many runtime defenses put a language model on the decision that lets an action through, so the decision depends on",
+     "sid": "ff6fd9e5c49f2a11",
+     "published": "2026-11-04T23:18:10+00:00",
+     "editor_note": "Runtime defense that decouples action admission from sanitization."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-05",
+   "items": [
+    {
+     "title": "Beyond Instruction Override: Benchmarking Indirect Prompt Injection with Task-Tampering Attacks",
+     "url": "http://arxiv.org/abs/2611.07640v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Indirect prompt-injection (IPI) benchmarks predominantly test planted instructions that redirect a tool-using agent toward an attacker-chosen task. Yet attacker-controlled content can instead tamper with the outcome o...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "8cb3780368901295",
+     "published": "2026-11-05T08:25:27+00:00",
+     "editor_note": "Benchmark for attacks that tamper with task outcomes rather than override instructions."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "A new academic benchmark targets long-context prompt injection, an area existing benchmarks mostly skip, while a separate paper proposes a compact guardrail model for catching injection and jailbreak attempts.",
+  "tldr": "Late October papers proposed model-level defenses: learned attention gates (Heads of Security) and adversarial training (SecPO). Early November papers then widened the attack surface to persistent agent memory and silently updated tools.",
   "stale": false,
-  "whats_new": "An independent builder published a live demo of Semantic Overlays, small trained adapters on a frozen model that change what it perceives in its context as a way to mitigate prompt injection without a separate guardrail model.",
-  "why_it_matters": "Most production guardrails today are bolt-on classifiers; an adapter-based approach that changes the base model's own perception of untrusted context is a different mitigation shape worth evaluating before betting on a guardrail-model architecture.",
-  "take_for_builders": "If you rely on a bolt-on guardrail classifier for prompt injection, test it against a long-context attack before assuming coverage, and watch whether adapter-based mitigations like Semantic Overlays hold up under independent red-teaming.",
+  "whats_new": "A new benchmark shows indirect prompt injection can tamper with a tool-using agent's task outcome rather than just redirect it, a case most IPI benchmarks do not test.",
+  "why_it_matters": "Defenses tuned to block instruction override can miss attacks that corrupt memory, tool updates, or task results; test those paths before trusting a guardrail.",
+  "take_for_builders": "Add a task-tampering case, a cross-session memory-poisoning case, and a tool-version-change check to your agent red-team suite, and do not rely on instruction-override tests alone.",
+  "status": {
+   "state": "Developing",
+   "tone": "rising",
+   "changed": "2026-11-05",
+   "detail": "Research is shifting from single-turn instruction override to memory, tool-update, and task-tampering attacks, with new runtime defenses alongside."
+  },
   "beats": [
    {
-    "kicker": "BENCHMARK GAP",
+    "kicker": "MODEL-LEVEL DEFENSES",
     "tone": "launch",
-    "headline": "LongPIBench targets a long-context blind spot in prompt injection benchmarks",
-    "summary": "Existing prompt injection benchmarks focus on short-context inputs, leaving long-context attacks largely untested.",
+    "headline": "Attention gates and adversarial training target injection robustness",
+    "summary": "Heads of Security enforces instruction-data separation with learned per-head attention gates; SecPO proposes principled adversarial training.",
     "sids": [
-     "2e8dd0bd140383d9"
+     "b483c5a93f031770",
+     "b2f578a2e015ebec"
     ]
    },
    {
-    "kicker": "GUARDRAIL MODEL",
+    "kicker": "NEW ATTACK SURFACES",
     "tone": "rising",
-    "headline": "HiveTraceGuard-Pro proposes a compact generative guardrail for injection, jailbreaks, and obfuscation",
-    "summary": "A separate guardrail model aims to catch attempts to override system instructions or bypass safety policy, addressing gaps the authors say existing reports don't fully cover.",
+    "headline": "Persistent memory and tool updates open gaps beyond single-session injection",
+    "summary": "MemHarmBench tests cross-session injection in memory-persistent agents; the Tool Update Gap paper shows frameworks may keep trusting tools after updates.",
     "sids": [
-     "2e814e5a70146cc1"
+     "1c851e04a1a59b28",
+     "3b426192f1bc75ae"
     ]
    },
    {
-    "kicker": "ALTERNATIVE APPROACH",
-    "tone": "now",
-    "headline": "Show HN: Semantic Overlays mitigates prompt injection without a separate guardrail model",
-    "summary": "A live demo shows small trained adapters on a frozen model changing how it perceives its context, applied as a mitigation for prompt injection.",
+    "kicker": "RUNTIME DEFENSE",
+    "tone": "turn",
+    "headline": "SPILLWAY separates target admission from sanitization",
+    "summary": "Argues against putting an LLM on the decision that lets an action through, since that decision can itself be manipulated.",
     "sids": [
-     "958e200401ba64f9"
+     "ff6fd9e5c49f2a11"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Task-tampering benchmark exposes a gap in IPI evaluation",
+    "summary": "Attacker-controlled content can alter the outcome of the user's task instead of redirecting the agent.",
+    "sids": [
+     "8cb3780368901295"
     ]
    }
   ],
   "open_questions": [
-   "Does LongPIBench's long-context injection benchmark reveal failure rates that short-context benchmarks miss on production models?",
-   "Does HiveTraceGuard-Pro's compact guardrail hold up against obfuscated injection attempts that evade larger safety classifiers?",
-   "Does the Semantic Overlays adapter approach generalize beyond the demoed model, or is it tied to one architecture?"
+   "Do learned attention gates (Heads of Security) and SecPO training hold up against task-tampering attacks?",
+   "Do the memory and tool-update attack papers ship reproducible harnesses that independent teams can run?",
+   "Does SPILLWAY's admission/sanitization split keep its robustness in independent evaluation on real agent frameworks?"
   ],
-  "generated_at": "2026-09-02T05:10:00+00:00"
+  "generated_at": "2026-11-07T00:30:00+00:00"
  }
 }

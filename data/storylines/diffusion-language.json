@@ -1,33 +1,17 @@
 {
  "slug": "diffusion-language",
  "label": "Diffusion Language",
- "item_count": 4,
- "day_count": 4,
+ "item_count": 6,
+ "day_count": 6,
  "source_count": 2,
- "first_seen": "2026-10-09T10:07:37+00:00",
- "last_updated": "2026-10-27T17:55:24+00:00",
- "generated_at": "2026-10-30T00:12:48.475117+00:00",
+ "first_seen": "2026-10-22T17:00:39+00:00",
+ "last_updated": "2026-11-05T17:41:20+00:00",
+ "generated_at": "2026-11-07T00:12:50.771141+00:00",
  "sources": [
-  "arxiv_agent_systems_research",
-  "arxiv_cs_cl"
+  "arxiv_cs_cl",
+  "arxiv_llm_reliability"
  ],
  "days": [
-  {
-   "date": "2026-10-09",
-   "items": [
-    {
-     "title": "Masked Diffusion Language Agents for Tool-Integrated Chemical Reasoning",
-     "url": "http://arxiv.org/abs/2610.13330v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Designing tool-integrated reasoning agent systems for complex chemical tasks remains a fundamental challenge. Although recent chemical agents have demonstrated promising performance through the integration of external...",
-     "why_it_matters": "Matches feed focus: agentic, evaluation.",
-     "sid": "d4cd8af9958d846f",
-     "published": "2026-10-09T10:07:37+00:00",
-     "editor_note": "Shows a masked diffusion LM as the reasoning core of a tool-using chemistry agent."
-    }
-   ]
-  },
   {
    "date": "2026-10-22",
    "items": [
@@ -75,29 +59,68 @@
      "editor_note": "Extends the efficiency push to agents by adapting compute spent and text generated per interaction."
     }
    ]
+  },
+  {
+   "date": "2026-10-30",
+   "items": [
+    {
+     "title": "RangeSWA: Training-Free Length Extrapolation for Continuous Diffusion Language Models",
+     "url": "http://arxiv.org/abs/2610.42084v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Continuous diffusion language models show promising potential in text generation tasks, but are prone to problems such as text repetition, semantic drift, and generation quality degradation when the generation length...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "581b8a72b6b37583",
+     "published": "2026-10-30T17:35:48+00:00",
+     "editor_note": "Training-free fix for repetition and quality loss when continuous diffusion LMs generate longer text."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-03",
+   "items": [
+    {
+     "title": "VIGOR: Visual Gain Ordering for Hallucination Mitigation in Multimodal Discrete Diffusion Language Models",
+     "url": "http://arxiv.org/abs/2611.05066v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Multimodal discrete diffusion language models (dLLMs) generate responses through iterative mask prediction and offer a promising alternative to autoregressive large vision-language models. However, they still suffer f...",
+     "sid": "57b08f9866a26766",
+     "published": "2026-11-03T15:28:11+00:00",
+     "editor_note": "Targets hallucination in multimodal discrete diffusion LMs by ordering visual gain during mask prediction."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-05",
+   "items": [
+    {
+     "title": "SpecCTMC: Exact Speculative Simulation of Diffusion Language Model Continuous-Time Markov Chains",
+     "url": "http://arxiv.org/abs/2611.08362v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Masked diffusion language models offer parallel text generation, but independently sampling multiple tokens can disrupt their dependencies and change the output distribution. Exact continuous-time sampling avoids this...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "2fb1a0f31494270f",
+     "published": "2026-11-05T17:41:20+00:00",
+     "editor_note": "Speculative simulation that preserves the exact output distribution when sampling several tokens in parallel."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Diffusion language models first appeared here as the backbone of a tool-using chemistry agent. Days later they turned up on the offensive side, as a way to craft fluent black-box attacks on LLMs.",
+  "tldr": "Diffusion language models first surfaced here on the offensive side, as a way to craft fluent low-perplexity black-box attacks on LLMs. Two decoding-speed papers followed, cutting rounds via schedule distillation and adaptive compute for agents.",
   "stale": false,
-  "whats_new": "A second arXiv paper in two days targets dLLM inference speed: Metacognitive Decoding adapts where compute is spent and how much text is generated, aimed at diffusion-based agents.",
-  "why_it_matters": "Diffusion LLMs only pay off for serving if parallel decoding cuts rounds without hurting quality; two decoding papers in two days show the effort, but it is research-stage evidence, not a deployable runtime.",
-  "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet; if you prototype one, measure decoding rounds and quality against your autoregressive baseline, and include fluent-prompt attacks in red-team evals.",
+  "whats_new": "SpecCTMC proposes exact speculative simulation of masked diffusion LMs, keeping the output distribution intact while sampling multiple tokens in parallel; it follows length-extrapolation and multimodal hallucination papers.",
+  "why_it_matters": "Diffusion LLMs only pay off for serving if parallel decoding cuts rounds without changing output quality; SpecCTMC targets exactly that, but it is still research-stage evidence, not a deployable runtime.",
+  "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet; if you prototype one, measure decoding rounds, output-distribution drift and quality against your autoregressive baseline, and include fluent-prompt attacks in red-team evals.",
   "status": {
    "state": "Research · developing",
    "tone": "rising",
-   "changed": "2026-10-27",
-   "detail": "Four arXiv papers, no production release: agents, attacks and two decoding-speed approaches."
+   "changed": "2026-11-05",
+   "detail": "Six arXiv papers, no production release: attacks, decoding speed, length extrapolation and multimodal reliability."
   },
   "beats": [
-   {
-    "kicker": "AGENTS",
-    "tone": "launch",
-    "headline": "Masked diffusion LMs drive a tool-integrated chemistry agent",
-    "sids": [
-     "d4cd8af9958d846f"
-    ]
-   },
    {
     "kicker": "RISK",
     "tone": "turn",
@@ -109,24 +132,35 @@
    {
     "kicker": "SPEED",
     "tone": "rising",
-    "headline": "Schedule distillation aims to cut dLLM decoding rounds",
+    "headline": "Schedule distillation and metacognitive decoding aim to cut dLLM cost",
     "sids": [
-     "75e015095613159e"
+     "75e015095613159e",
+     "edcf9763d6b958dc"
+    ]
+   },
+   {
+    "kicker": "LIMITS",
+    "tone": "neutral",
+    "headline": "Length extrapolation and multimodal hallucination expose weak spots",
+    "sids": [
+     "581b8a72b6b37583",
+     "57b08f9866a26766"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Metacognitive Decoding targets efficient diffusion-based agents",
+    "headline": "SpecCTMC makes parallel sampling exact",
     "sids": [
-     "edcf9763d6b958dc"
+     "2fb1a0f31494270f"
     ]
    }
   ],
   "open_questions": [
-   "Do the schedule-distillation and metacognitive-decoding speedups hold on independent benchmarks at equal output quality?",
-   "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?"
+   "Do the schedule-distillation, metacognitive-decoding and SpecCTMC speedups hold on independent benchmarks at equal output quality?",
+   "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?",
+   "Does RangeSWA's training-free extrapolation hold on long outputs beyond the paper's tested lengths?"
   ],
-  "generated_at": "2026-10-29T00:30:00+00:00"
+  "generated_at": "2026-11-07T00:30:00+00:00"
  }
 }

@@ -1,0 +1,58 @@
+{
+  "slug": "attention-context",
+  "generated_at": "2026-11-07T00:30:00+00:00",
+  "tldr": "Late-October papers attacked long-context cost from several sides: isolating context in chain of thought, initializing linear-attention memory, and learned sparse attention. By early November the work moved to production sparse attention, TPU kernels and agent-side context compression.",
+  "whats_new": "Muir (Nov 5) reworks gated delta-rule linear attention with sensitivity-allocated gating, while QRAE compresses DeepSearch agent context using query-relevant attention entropy.",
+  "why_it_matters": "Long-context cost drives inference spend and latency for agents. Sparse and linear attention variants, plus agent-level context compression, are the levers that decide how much context a deployment can afford.",
+  "take_for_builders": "These are preprints with no shared benchmark, so do not plan around them yet. Track which ones ship in open-weight models or serving stacks, and rerun your long-context retrieval evals before adopting any.",
+  "covers_last_updated": "2026-11-05T17:53:49+00:00",
+  "covers_member_sids": ["97282ff9b80798e7","35220abd16206ae7","36261eb7a1c4b20b","2ef0f5e9028f8dae","2d77f36eefa1549d","392a1228ae5178b1","7726cf50890f3ade","50bc93990145bd05"],
+  "status": { "state": "Developing", "tone": "rising", "changed": "2026-11-05" },
+  "beats": [
+    {
+      "kicker": "FRAMING",
+      "tone": "launch",
+      "headline": "Attention leakage in chain of thought",
+      "sids": ["97282ff9b80798e7"]
+    },
+    {
+      "kicker": "CHEAPER MEMORY",
+      "tone": "rising",
+      "headline": "Linear and sparse attention target ultra-long context",
+      "summary": "Memory initialization for gated linear attention and latent sparse attention above 1M tokens.",
+      "sids": ["35220abd16206ae7","36261eb7a1c4b20b"]
+    },
+    {
+      "kicker": "PRODUCTION SPARSITY",
+      "tone": "turn",
+      "headline": "DeepSeek Sparse Attention and training-free block indexes",
+      "sids": ["2ef0f5e9028f8dae","2d77f36eefa1549d"]
+    },
+    {
+      "kicker": "HARDWARE",
+      "tone": "rising",
+      "headline": "Gated delta attention co-designed for TPUs",
+      "sids": ["392a1228ae5178b1"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "New gating design and agent context compression",
+      "sids": ["7726cf50890f3ade","50bc93990145bd05"]
+    }
+  ],
+  "open_questions": [
+    "Will any of these linear or sparse attention methods appear in a released open-weight model?",
+    "Do the long-context retrieval gains hold on independent benchmarks?"
+  ],
+  "day_captions": {
+    "97282ff9b80798e7": "Argues chain-of-thought steps may not causally drive answers and proposes context isolation.",
+    "35220abd16206ae7": "Initializes gated linear attention memory to improve long-context retrieval.",
+    "36261eb7a1c4b20b": "Latent sparse attention aimed at contexts above 1M tokens for long-horizon agents.",
+    "2ef0f5e9028f8dae": "Overlaps selection and attention in DeepSeek Sparse Attention.",
+    "2d77f36eefa1549d": "Training-free sparse attention using prompt-specific semantic block indexes.",
+    "392a1228ae5178b1": "Adapts gated delta attention to TPU hardware constraints.",
+    "7726cf50890f3ade": "Compresses retrieved context for DeepSearch agents to cut tokens and latency.",
+    "50bc93990145bd05": "New gating and readout design for gated delta-rule linear attention."
+  }
+}

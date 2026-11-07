@@ -1,0 +1,110 @@
+{
+ "slug": "reasoning-execution",
+ "label": "Reasoning Execution",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-10-19T11:59:57+00:00",
+ "last_updated": "2026-11-05T09:14:26+00:00",
+ "generated_at": "2026-11-07T00:12:50.771141+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_ai",
+  "arxiv_llm_reliability"
+ ],
+ "days": [
+  {
+   "date": "2026-10-19",
+   "items": [
+    {
+     "title": "Heartbeat Thinking: Speculative Reasoning and Tool Execution While Listening in Realtime Voice Agents",
+     "url": "http://arxiv.org/abs/2610.26233v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Tool-using voice agents often leave users waiting after speech ends, even when actionable information arrives earlier in the request. Speculative approaches begin work during speech, but chunk-bounded or interrupt-on-...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "52090699e3b64ede",
+     "published": "2026-10-19T11:59:57+00:00",
+     "editor_note": "Starts tool execution during speech to cut post-utterance wait in realtime voice agents."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-22",
+   "items": [
+    {
+     "title": "Certified Execution Harness for Agentic AI: Safe and Least-Intrusive Petri-Net Supervisory Control Between Reasoning and Action",
+     "url": "http://arxiv.org/abs/2610.31376v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "This paper studies the problem of safe tool execution for large language model (LLM) agents under prompt injection. Using Petri nets, we formalize the execution harness between the LLM and its tools as a supervisory c...",
+     "why_it_matters": "Matches feed focus: agentic, harness.",
+     "sid": "52c63825356144e3",
+     "published": "2026-10-22T14:48:16+00:00",
+     "editor_note": "Formal supervisory control over tool calls as a defense against prompt injection."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-05",
+   "items": [
+    {
+     "title": "MCPHallu: Benchmarking Reasoning, Execution, and Memory Hallucinations in MCP Agents",
+     "url": "http://arxiv.org/abs/2611.07689v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large language model agents are increasingly deployed through the Model Context Protocol (MCP), which allows them to discover and invoke tools across multiple servers at runtime. Existing MCP benchmarks primarily meas...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "45b80d77d473d30f",
+     "published": "2026-11-05T09:14:26+00:00",
+     "editor_note": "First benchmark here that splits MCP agent hallucinations into reasoning, execution, and memory."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Two October papers treated the gap between an agent's reasoning and its tool execution as a design surface: speculative execution to cut voice-agent latency, and a Petri-net supervisor to block unsafe calls. A November benchmark then measured where MCP agents fail across that gap.",
+  "stale": false,
+  "whats_new": "MCPHallu (Nov 5) benchmarks reasoning, execution, and memory hallucinations in MCP agents, shifting the thread from proposed harnesses to measured failure modes.",
+  "why_it_matters": "Agents calling tools across multiple MCP servers fail in distinct ways: wrong plans, wrong calls, wrong recall. Latency tricks and safety gates between reasoning and action both change where those failures surface.",
+  "take_for_builders": "Log reasoning, tool-call, and memory errors separately in your MCP agent evals, and treat the papers' harness and speculation results as unreplicated until you test them on your own tools.",
+  "status": {
+   "state": "Developing",
+   "tone": "rising",
+   "changed": "2026-11-05",
+   "detail": "Research papers only so far; no production implementation or independent replication in this thread."
+  },
+  "beats": [
+   {
+    "kicker": "SPECULATE",
+    "tone": "launch",
+    "headline": "Voice agents start reasoning and calling tools while the user is still speaking",
+    "sids": [
+     "52090699e3b64ede"
+    ]
+   },
+   {
+    "kicker": "GUARD",
+    "tone": "rising",
+    "headline": "Petri-net supervisor sits between the LLM and its tools to block unsafe execution",
+    "sids": [
+     "52c63825356144e3"
+    ]
+   },
+   {
+    "kicker": "MEASURE",
+    "tone": "now",
+    "headline": "MCPHallu benchmarks where MCP agents hallucinate",
+    "sids": [
+     "45b80d77d473d30f"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do speculative tool calls in voice agents hold up when the user revises the request mid-sentence?",
+   "Does the Petri-net harness add measurable latency or block legitimate calls in real MCP deployments?",
+   "Which MCPHallu failure category (reasoning, execution, memory) dominates across current models?"
+  ],
+  "generated_at": "2026-11-07T00:30:00+00:00"
+ }
+}
