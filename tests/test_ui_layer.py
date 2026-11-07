@@ -11,8 +11,13 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-UI_SHELLS = ("subscribe.html",)
-UI_VERSION = "20261106-basecoat-pilot"
+UI_SHELLS = (
+    "index.html", "ko/index.html", "daily.html", "weekly.html", "storyline.html",
+    "playbook.html", "playbook-lab.html", "voices.html", "models.html",
+    "models-compare.html", "subscribe.html",
+)
+UTILITY_SHELLS = ("subscribe.html",)  # pages whose markup uses utility classes
+UI_VERSION = "20261107-ui-base"
 
 
 class UiLayerTest(unittest.TestCase):
@@ -47,9 +52,9 @@ class UiLayerTest(unittest.TestCase):
 
     def test_scans_only_listed_sources(self) -> None:
         # Auto-detection would scan ~8k generated pages and data/.
-        self.assertIn('@import "tailwindcss" source(none);', self.source)
-        for shell in UI_SHELLS:
+        for shell in UTILITY_SHELLS:
             self.assertIn(f'@source "../web/{shell}";', self.source)
+        self.assertIn('@import "tailwindcss/utilities.css" layer(utilities) source(none);', self.source)
 
     def test_basecoat_base_tokens_never_override_the_palette(self) -> None:
         # Basecoat's base.css sets :root --accent/--muted/--card/--border to
@@ -90,16 +95,27 @@ class UiLayerTest(unittest.TestCase):
                 # site-chrome.css (unlayered) loads after, so it keeps owning the theme.
                 self.assertLess(ui, chrome)
 
-    def test_unmigrated_pages_do_not_load_ui_css(self) -> None:
-        # Tailwind preflight is global; mixing it with Oat on one page is untested.
-        for path in (ROOT / "web").glob("*.html"):
-            if path.name in UI_SHELLS:
-                continue
-            with self.subTest(page=path.name):
-                self.assertNotIn("/ui.css", path.read_text(encoding="utf-8"))
+    def test_render_template_loads_ui_css(self) -> None:
         render = (ROOT / "pipeline" / "render_static_pages.py").read_text(encoding="utf-8")
-        self.assertNotIn("/ui.css", render)
+        self.assertIn(f'href="/ui.css?v={UI_VERSION}"', render)
+        self.assertLess(render.index("/ui.css"), render.index("/site-chrome.css"))
 
+    def test_element_defaults_replace_oat_and_allow_opt_out(self) -> None:
+        # Pages were written on Oat's element base; ui/site.css restores it,
+        # scoped so a utility-built page can opt out.
+        scope = ':where(html:not([data-ui-base="none"]))'
+        for sel in (" p {", " ul,", " button,", " table {", " details {", ' [role="alert"] {'):
+            with self.subTest(selector=sel):
+                self.assertIn(scope + sel, self.source)
+        subscribe = (ROOT / "web" / "subscribe.html").read_text(encoding="utf-8")
+        self.assertIn('data-ui-base="none"', subscribe)
+
+    def test_preflight_keeps_hidden_overridable(self) -> None:
+        # Tailwind's preflight hides [hidden] with !important, which beats the
+        # chrome's deliberate always-visible controls; the build copies it
+        # with a normal declaration.
+        self.assertIn('@import "./generated/preflight.css" layer(base);', self.source)
+        self.assertNotIn("display:none!important}", self.built.split("[hidden]", 1)[1][:80])
 
 if __name__ == "__main__":
     unittest.main()
