@@ -92,6 +92,9 @@ class SiteChromeContractTest(unittest.TestCase):
         )
         self.assertIn(".site-actions-fallback", block)
         self.assertIn("visibility: hidden", block)
+        # The Precision rule gives the rows vertical padding; collapse it too,
+        # or each hidden row still takes 11px and the page jumps 22px.
+        self.assertIn("padding-block: 0;", block)
         # If the script never runs, the links come back on their own.
         self.assertIn("animation: site-chrome-fallback-reveal", block)
         self.assertIn("@keyframes site-chrome-fallback-reveal", css)
@@ -451,6 +454,50 @@ def _contrast(fg: str, bg: str) -> float:
 
     hi, lo = sorted((lum(fg), lum(bg)), reverse=True)
     return (hi + 0.05) / (lo + 0.05)
+
+
+class WebFontLoadingTest(unittest.TestCase):
+    """Geist swapping in late must not reflow the page (storyline CLS 0.11)."""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.css = (ROOT / "web" / "site-chrome.css").read_text(encoding="utf-8")
+
+    def _token(self, name: str) -> str:
+        match = re.search(rf"--{name}:\s*([^;]+);", self.css)
+        self.assertIsNotNone(match, name)
+        return match.group(1)
+
+    def test_font_tokens_put_a_metric_matched_fallback_after_geist(self) -> None:
+        for name in ("font-display", "font-serif", "font-sans"):
+            with self.subTest(token=name):
+                self.assertTrue(self._token(name).startswith('"Geist", "Geist Fallback",'))
+        mono = self._token("font-mono")
+        self.assertTrue(mono.startswith('"Geist Mono", "Geist Mono Fallback",'))
+        # A custom property that names itself is invalid at computed value
+        # time, which silently dropped Geist Mono from every data label.
+        self.assertNotIn("var(--font-mono)", mono)
+        self.assertIn("monospace", mono)
+
+    def test_fallback_faces_are_local_and_size_adjusted(self) -> None:
+        for family in ("Geist Fallback", "Geist Mono Fallback"):
+            with self.subTest(family=family):
+                block = self.css.split(f'font-family: "{family}";', 1)[1].split("}", 1)[0]
+                self.assertIn("src: local(", block)
+                for descriptor in ("size-adjust", "ascent-override", "descent-override"):
+                    self.assertIn(descriptor, block)
+
+    def test_every_page_preloads_both_fonts_before_the_stylesheet(self) -> None:
+        sources = {name: (ROOT / "web" / name).read_text(encoding="utf-8") for name in SHELLS}
+        sources["ko/index.html"] = (ROOT / "web" / "ko" / "index.html").read_text(encoding="utf-8")
+        sources["render template"] = Path(render.__file__).read_text(encoding="utf-8")
+        for name, text in sources.items():
+            stylesheet = text.index('href="/site-chrome.css')
+            for font in ("Geist-Variable.woff2", "GeistMono-Variable.woff2"):
+                with self.subTest(page=name, font=font):
+                    tag = f'<link rel="preload" href="/fonts/{font}" as="font" type="font/woff2" crossorigin />'
+                    self.assertIn(tag, text)
+                    self.assertLess(text.index(tag), stylesheet)
 
 
 class BroadsheetThemeTest(unittest.TestCase):

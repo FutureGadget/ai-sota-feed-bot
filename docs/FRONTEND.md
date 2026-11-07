@@ -56,6 +56,11 @@ dates, 1px lines, 8px controls, and a dark mode designed alongside light.
   tokens `--font-display`, `--font-serif`, `--font-sans` (all Geist) and
   `--font-mono` (Geist Mono). The fonts are self-hosted in `web/fonts/` (SIL
   OFL) and staged by `scripts/build_site.py`. Every page already loads it.
+- Every page preloads both woff2 files before `site-chrome.css`, and each
+  stack names a metric-matched local face next ("Geist Fallback" on Arial,
+  "Geist Mono Fallback" on Courier New, with `size-adjust` and ascent/descent
+  overrides). Text keeps its width when the web font swaps in late, so lines
+  don't rewrap. A new page needs the two preload tags (`WebFontLoadingTest`).
 - Pages and `pipeline/render_static_pages.py` templates consume these tokens
   and never redefine them. Page-local tokens are fine for things that are not
   palette, such as storyline timeline hues (`--t-*`) or layout knobs.
