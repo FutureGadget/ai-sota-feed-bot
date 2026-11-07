@@ -2,92 +2,104 @@
 
 Focus: AI Platform Engineering
 
-## 1. Show HN: Coding agent skills, tested on 15 backend tasks with hidden checks
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/globalmpc/backendskills
-- Score: 3.575 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 2. APM – A dependency manager for AI agents
-- Type: news | Source: hackernews_ai
-- URL: https://microsoft.github.io/apm/
-- Score: 3.498 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 3. AI Source Code Analysis Detection Evasion Techniques
-- Type: news | Source: hackernews_ai
-- URL: https://cipher.org.uk/2026/11/06/AI-Source-Code-Analysis-Detection-Evasion-Techniques/
-- Score: 3.099 | Reliability: 1.0
+## 1. How Grab Improved Mobile App Stability by Safely Handling Surge in AI-Generated Code Changes
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/11/grab-ai-generated-code-safety/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 3.034 | Reliability: 1.0
 - Why it matters: 
 
-## 4. XStack: A Benchmark for ML Repo Migration
+## 2. AutoCompress: Automated Hardware-Guided Model Compression
 - Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.08472v1
-- Score: 2.808 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+- URL: http://arxiv.org/abs/2611.08290v1
+- Score: 3.022 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 5. Gabor Gabor: E-Gaborformer, a Strictly Causal Speech Recognizer with Gabor-Dictionary Convolutions and Delta-Rule Memory
+## 3. SpecCTMC: Exact Speculative Simulation of Diffusion Language Model Continuous-Time Markov Chains
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.08092v1
-- Score: 2.353 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+- URL: http://arxiv.org/abs/2611.08362v1
+- Score: 2.872 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
-## 6. Migrating vLLM to the LibTorch Stable ABI
+## 4. Benchmarks as Software: Terminal-Bench and the Case for Continuous Benchmarks
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.08417v1
+- Score: 2.863 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness, evaluation.
+
+## 5. Introducing Kinference: An Open Source Inference Control Plane for vLLM and Kubernetes
 - Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-06-stable-abi-cuda
-- Score: 2.168 | Reliability: 1.0
+- URL: https://vllm.ai/blog/2026-11-04-introducing-kinference
+- Score: 2.231 | Reliability: 1.0
 - Why it matters: 
 
-## 7. Why human insight is a strategic advantage for building better agents
+## 6. Why human insight is a strategic advantage for building better agents
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/human-insight-strategic-advantage-agents
-- Score: 2.12 | Reliability: 1.0
+- Score: 2.117 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 8. Heimstaden is changing residential real estate management with AI
+## 7. Introducing Images 2.6
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/heimstaden
-- Score: 1.811 | Reliability: 1.0
+- URL: https://openai.com/index/introducing-images-2-6
+- Score: 2.006 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 9. Australian universities are creating AI-native graduates
+## 8. Cult.fit builds operational muscle with Codex
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/australian-universities-ai-native-graduates
-- Score: 1.782 | Reliability: 1.0
+- URL: https://openai.com/index/cultfit-builds-with-codex
+- Score: 1.962 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 9. Maggie Appleton: Agentic Coding Has Outgrown the Text Box
+- Type: video | Source: ai_native_dev
+- URL: https://youtu.be/0cySwRF7oJI
+- Score: 1.783 | Reliability: 0.692
+- Why it matters: Matches feed focus: agentic.
+
+## 10. DevRev delivers autonomous self-service with GPT-6.1 Sol
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/devrev-enterprise-self-service
+- Score: 1.768 | Reliability: 1.0
 - Why it matters: 
 
-## 10. A thousand fewer paths to root
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/a-thousand-fewer-paths-to-root
-- Score: 1.757 | Reliability: 1.0
-- Why it matters: 
+## 11. StrataFlux: Memory-Hierarchy-Native Low-Bit LLM Inference
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.08363v1
+- Score: 2.795 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 11. langgraph-cli==0.4.42
+## 12. Multimodal-SEA: Benchmarking AI Agent Security under Multimodal Social Engineering Attacks
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.08281v1
+- Score: 2.778 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, evaluation.
+
+## 13. langgraph-sdk==0.4.14
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.42
-- Score: 1.541 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.14
+- Score: 1.513 | Reliability: 1.0
 - Why it matters: 
 
-## 12. codex rust-v0.169.0-alpha.1
+## 14. codex 0.168.0-alpha.6
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.1
-- Score: 1.479 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.6
+- Score: 1.374 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 13. claude-code v2.1.318
+## 15. claude-code v2.1.317
 - Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.318
-- Score: 1.155 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.317
+- Score: 0.986 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 14. claude-agent-sdk-python v0.2.178
+## 16. claude-agent-sdk-python v0.2.178
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.178
-- Score: 0.875 | Reliability: 1.0
+- Score: 0.856 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 15. v0.33.0rc2: [ROCm][Bugfix] Skip AITER tuned GEMM when M*N >= 2^31 on gfx950 (#64567)
+## 17. v0.33.0rc2: [ROCm][Bugfix] Skip AITER tuned GEMM when M*N >= 2^31 on gfx950 (#64567)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc2
-- Score: 0.35 | Reliability: 1.0
+- Score: 0.348 | Reliability: 1.0
 - Why it matters:
