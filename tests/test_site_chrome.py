@@ -597,3 +597,12 @@ class UiGlitchRegressionTest(unittest.TestCase):
         html = (ROOT / "web" / "updates.html").read_text(encoding="utf-8")
         self.assertNotIn("◐", html)
         self.assertIn("'☀️' : '🌙'", html)
+
+    def test_feed_tabs_row_keeps_the_active_pill_off_its_rules(self) -> None:
+        self.assertIn(".controls-bar { border-top:1px solid var(--border); padding-block:4px; }", self.front)
+        self.assertIn(".controls-bar #searchToggle { border-radius:0; }", self.front)
+
+    def test_desk_count_badge_relies_on_the_button_gap(self) -> None:
+        block = self.chrome.split(".site-desk-count {", 1)[1].split("}", 1)[0]
+        self.assertIn("margin-left: 0;", block)
+        self.assertIn("border-radius: 4px;", block)
