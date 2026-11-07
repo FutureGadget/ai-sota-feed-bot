@@ -223,6 +223,7 @@
   "published": "2026-11-07T00:26:21+00:00",
   "sid": "073250d1f8e79567",
   "source": "hackernews_ai",
+  "summary": "Hey, we launched Goethe, because deploying models on hardware you control end-to-end is pain in the ass. Goethe is like Vercel, but for AI models and hardware. It manages your models and hardware you point it and runs corresponding optimal inference. -- install it -- deploy any model you want -- get an API you can use with any client securely",
   "summary_1line": "Hey, we launched Goethe, because deploying models on hardware you control end-to-end is pain in the ass. Goethe is like Vercel, but for AI models and hardware. It manages your models and hardware you point it and runs corresponding optimal inference. -- install it -- deploy any m",
   "title": "Show HN: Goethe – The infrastructure for self-hosted AI",
   "type": "news",
@@ -3689,6 +3690,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.07976v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "772c78fed213df84": {
+  "content_excerpt": "Skills that stop AI agents from writing backend code that passes the demo and breaks in production. Critical mistakes: 25/150 runs without, 2/150 with. Claude Code, Codex, Cursor. Agent skills that make Claude Code, Codex and Cursor write backend code like a senior engineer: safe on auth, data, money and schema changes by default. We gave agents 15 backend tasks with and without the skills, then ran a hidden check the agent never sees: 20 buyers at once for 5 items in stock, a user reading someone else's order, the old app version running against the new schema mid-deploy. Critical mistakes: 25/150 runs without the skills, 2/150 with them. (Sonnet 5.5 and Haiku 5.5, 5 runs per task.) Runs with a critical mistake, without → with the skills. Missed team conventions (down migrations, API docs) went from 30 to 4. Not fixed yet: Haiku on out-of-order webhook events. Every raw run, the tasks and how to rerun it are in bench/ . Codex and other AGENTS.md agents: append dist/AGENTS.md . Cursor: copy dist/cursor/ into .cursor/rules/ . Each skill ends with a Make it yours section for your team's choices (error format, API docs). Left as \"not set\", the agent follows what your repo already does. Agent still made a mistake with the skills loaded? Open an issue with the prompt and the diff. Edit skills in skills/ , then node scripts/build-dist.mjs . Skills that stop AI agents from writing backend code that passes the demo and breaks in production. Critical mistakes: 25/150 runs without, 2/1",
+  "first_seen": "2026-11-07T08:05:28.155245+00:00",
+  "id": "26069811ab1f733d",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-07T07:34:15+00:00",
+  "sid": "772c78fed213df84",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Coding agent skills, tested on 15 backend tasks with hidden checks",
+  "title": "Show HN: Coding agent skills, tested on 15 backend tasks with hidden checks",
+  "type": "news",
+  "url": "https://github.com/globalmpc/backendskills",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "7787a435833ce944": {
   "content_excerpt": "Open-source, self-hosted voice AI agents with a Vapi-compatible API. Bring your own keys or run 100% local and free (Whisper, Ollama, Kokoro). Calls on Twilio, Telnyx and Genesys, campaigns, model routes with fallback, cost per call. No per-minute platform fee. One command: npx openring Quick start · How it works · Compare · API guide · Providers · Roadmap · Português Hosted voice platforms charge a fee for every minute of every call, on top of what you already pay for speech-to-text, the model, the voice and the phone line. OpenRing does the same job on your own computer or server, with your own provider keys, and speaks the same JSON as Vapi. You need Node.js 18 or later. Everything else, Python included, installs itself: Settings live in ~/.openring/.env , created on the first run with a generated API key for apps that call the API (it's under Settings ). The free Kokoro voice downloads itself on the first start (about 120 MB). Each call runs a Pipecat pipeline: the caller's speech becomes text, the model answers (and can call your tools), and the voice speaks the answer back. Every turn's latency is recorded, step by step, and shown in the dashboard. — means we didn't find it in their public docs. On every platform you also pay for the model, the voice and the phone line, and for speech-to-text too, except that Retell's pricing page lists no separate charge for it. With OpenRing, the server, its uptime and any compliance work are yours; hosted platforms take on the first ",
