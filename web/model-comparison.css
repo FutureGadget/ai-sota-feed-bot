@@ -20,7 +20,7 @@ a {
 button,input,select {
   font:inherit;
   color:inherit;
-  background:var(--card);
+  background-color:var(--card);
   border:1px solid var(--border);
   border-radius:5px;
   padding:.55rem;
@@ -186,10 +186,40 @@ table {
   font-size:.85rem;
   white-space:nowrap;
 }
-caption {
-  text-align:left;
-  padding:.7rem 0;
+/* The table scrolls sideways on phones, and a caption is as wide as its
+   table, so the visible note sits outside the scroll area. */
+caption.sr-only {
+  position:absolute;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+}
+.table-note {
+  margin:1rem 0 0;
+  font-size:.85rem;
   font-weight:600;
+}
+.table-note + .table-wrap {
+  margin-top:.5rem;
+}
+/* Model names open the detail panel; style them as links, not form buttons. */
+td button[data-inspect] {
+  min-height:0;
+  padding:.4rem 0;
+  border:0;
+  background:none;
+  font-weight:600;
+  color:var(--fg);
+  text-align:left;
+  text-decoration:underline;
+  text-decoration-color:var(--line-strong);
+  text-underline-offset:3px;
+}
+td button[data-inspect]:hover {
+  color:var(--accent);
+  text-decoration-color:currentColor;
 }
 th,td {
   padding:.8rem .65rem;

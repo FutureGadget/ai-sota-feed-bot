@@ -13,8 +13,9 @@
 .editorial-all { display:inline-block; align-content:center; min-height:44px; color:var(--accent,#2457d6); font:600 .85rem/1.5 var(--font-sans); }
 .editorial-dismiss { float:right; min-width:44px; min-height:44px; margin:-.5rem -.4rem 0 .3rem; border:0; background:transparent; color:var(--muted,#687386); cursor:pointer; }
 .editorial-controls { display:flex; flex-wrap:wrap; gap:.5rem 1rem; margin:.8rem 0; }
-.editorial-controls label { font:500 .85rem/1.5 var(--font-sans); }
-.editorial-controls select { min-height:44px; max-width:100%; font:inherit; padding:.4rem; border:1px solid var(--border,#d7dde7); border-radius:.3rem; background:var(--card,#fff); color:inherit; }
+.editorial-controls label { display:inline-flex; align-items:center; gap:.5rem; font:500 .85rem/1.5 var(--font-sans); }
+/* background-color, not the shorthand: the shorthand erases the select's chevron. */
+.editorial-controls select { width:auto; min-height:44px; max-width:100%; margin:0; font:inherit; padding:.4rem 2rem .4rem .6rem; border:1px solid var(--border,#d7dde7); border-radius:var(--radius-control,.3rem); background-color:var(--card,#fff); color:inherit; }
 .editorial-empty { color:var(--muted,#687386); font:400 .9rem/1.6 var(--font-sans); }
 .editorial-panel a:focus-visible,.editorial-panel button:focus-visible,.editorial-panel select:focus-visible,.editorial-section summary:focus-visible { outline:2px solid var(--accent,#2457d6); outline-offset:3px; }
 .editorial-section summary { min-height:44px; align-content:center; cursor:pointer; font:600 .9rem/1.5 var(--font-sans); }

@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
   <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/site-chrome.css?v=20261107-font-metrics" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261107-glitch-sweep" />
   <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
   <script>
     (function () {
@@ -39,8 +39,8 @@
         stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
     })();
   </script>
-  <script defer src="/site-chrome.js?v=20261107-font-metrics"></script>
-  <script defer src="/subscribe-inline.js?v=20261107-font-metrics"></script>
+  <script defer src="/site-chrome.js?v=20261107-glitch-sweep"></script>
+  <script defer src="/subscribe-inline.js?v=20261107-glitch-sweep"></script>
   <style>
     html {
       font-size: 16px;
@@ -1237,8 +1237,11 @@
       .topbar-actions { flex-wrap:nowrap; justify-content:flex-end; }
       /* Timeframe sits inline at the right of the section tabs (one control row)
          rather than on its own line below them. */
+      /* A hairline separates the timeframe from the scrolling tabs, so a tab
+         fading out under the edge reads as "scroll for more", not clipped. */
       .controls-bar #rangeSelect { display: inline-block !important; flex-shrink: 0;
-        font-size: 0.78rem; padding: 0 0 0 0.5rem; }
+        font-size: 0.78rem; padding: 0 1.7rem 0 0.65rem; margin-left: 0.25rem;
+        border-left: 1px solid var(--border); border-radius: 0; }
       /* On mobile the brand promise IS the masthead: the "Live feed" h1 goes
          screen-reader-only and "The daily paper for AI engineers." becomes the single
          visible heading, so stories start a full heading-row sooner. */
@@ -1252,8 +1255,8 @@
         overflow-x: auto;
         border-bottom: 0;
         padding-bottom: 0.25rem;
-        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, black 72%, transparent 100%);
+        mask-image: linear-gradient(to right, black 72%, transparent 100%);
       }
       #list > article { padding-left:1.75rem; }
       .rank-no { width:1.2rem; font-size:1.35rem; }
@@ -1433,7 +1436,7 @@
       color: var(--muted);
     }
   </style>
-  <link rel="stylesheet" href="/front-page.css?v=20261107-precision" />
+  <link rel="stylesheet" href="/front-page.css?v=20261107-glitch-sweep" />
   <link rel="stylesheet" href="/skills-strip.css?v=20261102-radar" />
 </head>
 <body>
@@ -4921,7 +4924,7 @@
   </script>
   <!-- Published-item discovery and opened-version tracking; see
        docs/product-specs/nav-update-indicators.md. -->
-  <script src="/nav-updates.js?v=20261107-precision" defer></script>
+  <script src="/nav-updates.js?v=20261107-glitch-sweep" defer></script>
   <script src="/skills-strip.js?v=20261102-radar" defer></script>
 
   <!-- Model Release Radar sidebar teaser: optional, deferred, fails silently

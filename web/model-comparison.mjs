@@ -136,7 +136,9 @@ function startComparison(data) {
       const label = `${modelName(p)}, ${p.model.variant_label || 'standard'} effort, score ${p.score.toFixed(1)}, ${money(p.cost)}${p.frontier ? ', on frontier' : ''}`;
       return `<circle class="point${p.frontier ? ' frontier' : ''}${p.model.url_slug === selected ? ' selected' : ''}" cx="${x(p.cost)}" cy="${y(p.score)}" r="${p.frontier ? 6 : 4.5}" tabindex="0" role="button" aria-label="${esc(label)}" data-slug="${esc(p.model.url_slug)}"><title>${esc(label)}</title></circle>`;
     }).join('');
-    const occupied = [];
+    // Points are obstacles too: a label clamped at the right edge would
+    // otherwise sit on a neighbouring frontier dot.
+    const occupied = frontier.map(p => ({ x: x(p.cost) - 7, y: y(p.score) + 4, width: 14 }));
     const labels = [...frontier].sort((a, b) => b.score - a.score).slice(0, width < 600 ? 3 : 7).map(p => {
       const name = modelName(p), labelWidth = Math.min(name.length * 6.8, width / 2);
       const px = Math.max(left, Math.min(right - labelWidth, x(p.cost) + 9));
