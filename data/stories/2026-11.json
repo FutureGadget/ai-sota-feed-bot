@@ -4102,6 +4102,22 @@
   "type": "news",
   "url": "https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models"
  },
+ "80862ee92fd83149": {
+  "content_excerpt": "Local Autonomous Agent for Windows and Linux - Browser-controlled AI agent with workspace tools, diagnostics, and multi-agent delegation ⚠️ Project Status: ABANDONED / BASE FOR COMMUNITY. This project is no longer actively maintained by the original creator. The codebase is released as an open-source foundation for anyone to fork, improve, modify, or build upon. The only requirement: your derivative work must also remain free and open-source (GPL-3.0). Original Creator: Moonyeep - Built with Manus AI, based on ZeroScript architecture Infinix is a local autonomous AI agent for Windows and Linux, controlled through supported browser-based AI chats. Its local bridge provides endpoint diagnostics, workspace tools, browser automation, shell access under a selectable capability profile, and hierarchical multi-agent delegation. No separate model API key is required for browser providers. This project was created by Moonyeep using Manus AI , built upon the ZeroScript architecture. The original creator has abandoned this project and is releasing it as an open-source base for the community. Roblox Studio is an optional integration. When enabled, Infinix can also control Studio through its MCP server; the general local agent does not require Roblox Studio. Eight AI providers are supported: DeepSeek (chat.deepseek.com, recommended), ChatGPT (chatgpt.com), Google Gemini (gemini.google.com), Kimi (kimi.ai, Moonshot AI), GLM (chat.z.ai, Z.ai), Qwen (chat.qwen.ai), Arena (arena.ai, a multi-m",
+  "first_seen": "2026-11-07T18:03:37.622063+00:00",
+  "id": "13a8e0844e5932a0",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-07T17:54:37+00:00",
+  "sid": "80862ee92fd83149",
+  "source": "hackernews_ai",
+  "summary_1line": "Infinix – Abandoned Local AI Agent Base Seeking Developers",
+  "title": "Infinix – Abandoned Local AI Agent Base Seeking Developers",
+  "type": "news",
+  "url": "https://github.com/Moonyeep/Infinix",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "819549b983fd9118": {
   "content_excerpt": "SageMaker Inference now supports Multi-Instance GPU to maximize GPU utilization for model endpoints | Artificial Intelligence Skip to Main Content Filter: All English Contact us AWS Marketplace Support My account re:Invent Discover AWS Products Solutions Pricing Resources Search Filter: All Sign in to console Create account Explore topics re:Invent 2026 The sessions are set and your seat is waiting. Register now Build & Deploy AI Agents 88% of agent pilots stall. Learn what the rest do differently Get started Sign up free, connect your coding agent, and start building Data for agentic AI The 7 essential data capabilities to scale agentic AI Analyst Report AWS named a Leader in the 2026 Gartner Magic Quadrant for SCPS AI for Small Businesses Solutions designed for your business. Delivered by AWS Partners News & announcements AWS blog About AWS AWS is the world's most comprehensive cloud, enabling organizations to accelerate innovation, reduce costs, and scale more efficiently Why AWS Getting Started Security Compliance Trust Center Sustainability Our Impact Global Infrastructure Careers Featured Products Analytics Application Integration Artificial Intelligence Business Applications Compute Customer Experience Databases Developer Tools End User Computing Game Tech Management Tools Media Services Migration & Modernization Multicloud & Hybrid Networking & Content Delivery Operations Security & Identity Storage Supply Chain Browse all products Transformation Hubs Migrate to moder",
   "first_seen": "2026-11-06T18:05:28.132079+00:00",
@@ -4549,6 +4565,22 @@
   "title": "Open-source reference implementation of the Agent Name Service (ANS)",
   "type": "news",
   "url": "https://github.com/agentnameservice/ans",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "913cd197e9f52b0c": {
+  "content_excerpt": "Learn more about advertising on Uber. Reach consumers as they go anywhere and get anything. Agentic AI introduces a fundamentally different security model from traditional software. Unlike conventional services that execute predefined logic, agents dynamically reason over content from users, webpages, documents, tools, and other agents—and can translate that reasoning into real-world actions. This shifts part of the attack surface from traditional identity and API controls into the semantic layer, creating risks such as prompt injection, tool and memory poisoning, goal hijacking, behavioral drift, and hallucination-driven actions. Traditional authorization can determine who is allowed to act, but securing agentic systems requires answering a broader question: is the proposed action consistent with what the user requested, within the agent’s defined persona and intents, appropriate for the user’s role, and valid given the full session context—including the actions and decisions that preceded it? To address this challenge, we developed a defense-in-depth security framework spanning the full agent lifecycle: provisioning-time validation, runtime enforcement, and continuous assurance. The framework combines an agent registry, personas and explicit intents, constraints, tool and MCP validation, context-aware guardrails, and continuous red teaming with end-to-end observability and replay. At runtime, we introduced prompt provenance and evidence chaining to correlate privileged acti",
+  "first_seen": "2026-11-07T18:03:37.622063+00:00",
+  "id": "d3750f499d4372f4",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-07T15:23:58+00:00",
+  "sid": "913cd197e9f52b0c",
+  "source": "hackernews_ai",
+  "summary_1line": "Securing AI Agents [at Uber]: Lessons from Real-World Deployment",
+  "title": "Securing AI Agents [at Uber]: Lessons from Real-World Deployment",
+  "type": "news",
+  "url": "https://www.uber.com/us/en/blog/securing-ai-agents",
   "why_it_matters": "Matches feed focus: agent."
  },
  "9275031f37b65387": {
@@ -7657,6 +7689,22 @@
   "title": "Accelerating Long-Context Decoding in Large-Scale Hybrid LLMs Without Retraining",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06133v1"
+ },
+ "f88ba1bfaaff2950": {
+  "content_excerpt": "On October 22 Google described Agent Compute Engine : every AI agent session gets its own microVM, which is checkpointed while the model thinks, cloned copy-on-write from warm snapshots, and given no network card. You can’t use it yet, and the post has no latency or density numbers. So I built the same pattern on Firecracker in about 2,200 lines of Go and measured it on two machines. Sixty-four idle forks of a 512 MiB VM cost about 3 MiB of host memory each. On bare metal, a snapshot restore answers in 25 ms, 26 times faster than a cold boot, and 64 forks started at once are all ready in about 150 ms. On a Mac mini under nested virtualization, twelve forks started at once never became ready at all, and that failure taught me the most. In Google Cloud’s deep dive, each agent session gets a hardware-isolated, single-tenant microVM, and Google’s pitch is VM isolation at container speed and density. Preview is “in the coming months”. The post doesn’t give startup, resume, density or cost numbers, and it doesn’t say which hypervisor it uses. That same day, at AGNTCon + MCPCon in San Jose, the Agentic AI Foundation took on four new projects . Two of them are execution environments: Alibaba’s OpenSandbox and OpenEnv from Meta-PyTorch and Hugging Face. It was a busy week for agent sandboxes. I wanted to know how much of Google’s design you can build today from open parts, and what it costs. So I built four pieces on Firecracker: The code is in the companion repo . It has an orchestra",
+  "first_seen": "2026-11-07T18:03:37.622063+00:00",
+  "id": "ba8e9f442f49669f",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-07T16:01:40+00:00",
+  "sid": "f88ba1bfaaff2950",
+  "source": "hackernews_ai",
+  "summary_1line": "Google Described Its Agent Sandbox. I Built One with Firecracker and Measured It",
+  "title": "Google Described Its Agent Sandbox. I Built One with Firecracker and Measured It",
+  "type": "news",
+  "url": "https://antonau.tech/posts/2026/11/agents-microvm-firecracker",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "f8cd0bc0f3bed02d": {
   "first_seen": "2026-11-04T19:05:25.405489+00:00",
