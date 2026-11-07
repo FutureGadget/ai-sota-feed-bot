@@ -24,7 +24,12 @@
   text-wrap:balance; word-break:keep-all; }
 #meta { margin:0; max-width:24rem; color:var(--muted); font-family:var(--font-mono);
   font-size:.75rem; line-height:1.7; text-align:right; }
-.controls-bar { border-top:1px solid var(--border); }
+.controls-bar { border-top:1px solid var(--border); padding-block:4px; }
+/* The active tab is a boxed pill and the search toggle sits behind a hairline
+   divider; the row's vertical padding keeps the pill off the row's rules on
+   every width, and a straight divider must not take the control radius. */
+.controls-bar .sections { padding-bottom:0; align-items:center; }
+.controls-bar #searchToggle { border-radius:0; }
 .sections button { border-radius:6px; }
 .sections button.active { border-bottom-color:transparent; background:var(--card);
   box-shadow:inset 0 0 0 1px var(--border); color:var(--fg); }

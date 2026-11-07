@@ -1,5 +1,12 @@
 # Decision Log
 
+## 2026-11-07 (Feed tabs row and Desk badge padding)
+
+- **Decision:** Give the feed's controls bar 4px of vertical padding, drop the phone-only bottom padding on the section tabs, square the search toggle's hairline divider, and remove the Desk unread badge's left margin (the button's gap already spaces it) and round its corners.
+- **Context / Problem:** The owner reported wrong padding in the feed header. The active tab's ring filled the whole 46px row, so it sat on the row's top rule (2px above, 15px below on phones); the search toggle's single left border took the 8px control radius and curved into a box fragment; and the "Desk 63" badge got its 0.4rem margin on top of the inline-flex gap the Oat retirement added to buttons.
+- **Impact:** `web/front-page.css`, `web/site-chrome.css`, asset versions `20261107-tabs-row`, `tests/test_site_chrome.py`.
+- **Rollback:** Revert the commit.
+
 ## 2026-11-07 (Refresh the 46 stale Korean translations)
 
 - **Decision:** Refresh every stale `data/i18n/ko` artifact (15 storylines, 23 topics, 5 foundations, 3 stories) against its current English source hash, and re-render their `web/ko` pages. The old English source for each artifact was recovered from git history by matching `existing_source_hash`; Korean for every unchanged string was reused, and only new or changed strings (128 strings, about 30k characters, plus 11 storyline TL;DRs the old artifacts had left in English) were translated. Storyline artifacts gain a Korean `description` (the translated TL;DR) for the page meta. Korean pages get `word-break: keep-all` so headlines break between words.
