@@ -1,178 +1,141 @@
 {
-  "date": "2026-11-06",
-  "title": "What happened in AI — Nov 6, 2026",
-  "generated_at": "2026-11-06T22:30:00+00:00",
+  "date": "2026-11-07",
+  "title": "What happened in AI — Nov 7, 2026",
+  "generated_at": "2026-11-07T22:19:19Z",
   "intro": [
-    "Agents are getting real privileges, and the work today is controlling them: Stripe agents can now move money, Zalando published an OAuth broker for scoped access, and one developer's agent escalated to root through the docker group.",
-    "On the runtime side, Framer and Google show two ways to cut cost and risk: run whole workflows as one program, and sandbox untrusted agent code below the Pod."
+    "Agent isolation led the day: a Firecracker rebuild of Google's microVM sandbox, Uber's agent security lessons, and Alex Stamos calling password access for agents 'insane' all point to per-session isolation and no standing credentials.",
+    "Tooling is catching up with testable skills and verification gates, including backend skills that cut critical mistakes from 25/150 runs to 2/150."
   ],
   "highlights": [
-    "Stripe's MCP server lets agents send money through Treasury.",
-    "Zalando's Agentic Identity Broker gives agents scoped, revocable MCP access.",
-    "Google donates Agent Substrate and gVisor to the CNCF for agent sandboxing.",
-    "Framer's Harness 2 reports up to 33% lower cost by running workflows as one program.",
-    "Open-weight models win at 3% of price points, down from 41% in June (Village)."
+    "Firecracker rebuild of Google's agent sandbox publishes the latency numbers Google left out.",
+    "Uber details a distinct security model for agents that reason over untrusted content.",
+    "Alex Stamos: giving AI agents passwords is 'insane'.",
+    "APM brings one apm.yml dependency manifest to agent skills, prompts and MCP servers.",
+    "Backend skills cut critical mistakes from 25/150 to 2/150 runs in one benchmark.",
+    "TokiRecur reuses KV-cache prefixes to cut prefill cost in llama.cpp."
   ],
-  "article_count": 31,
+  "article_count": 20,
   "categories": [
     {
-      "name": "Agent Runtimes and Sandboxing",
-      "slug": "agent-runtimes-sandboxing",
-      "summary": "Teams are cutting model round trips and isolating untrusted agent code at the infrastructure layer.",
+      "name": "Agent Sandboxing & Security",
+      "slug": "sandboxing-security",
+      "summary": "Isolation is the common answer: per-session microVMs, per-role containers, and no standing credentials for agents.",
       "articles": [
         {
-          "title": "Harness 2: executing agent code as it streams",
-          "summary": "Framer's agent now writes JavaScript to run whole workflows in one program, reporting up to 33% lower cost and 20% faster runs.",
+          "title": "Google Described Its Agent Sandbox. I Built One with Firecracker and Measured It",
+          "summary": "A Firecracker rebuild of Google's Agent Compute Engine design (microVM per session, copy-on-write clones from warm snapshots, no network card) supplies the latency numbers Google's post omitted.",
           "source": "hackernews_ai",
-          "url": "https://www.framer.com/blog/harness-2/",
-          "published": "2026-11-06T17:31:03+00:00"
+          "url": "https://antonau.tech/posts/2026/11/agents-microvm-firecracker/",
+          "published": "2026-11-07T16:01:40Z"
         },
         {
-          "title": "Google Donates Agent Substrate and gVisor to the CNCF",
-          "summary": "Google argues the Kubernetes Pod lifecycle fits agents poorly and donates sandboxing projects to the CNCF for untrusted agent workloads.",
+          "title": "Securing AI Agents [at Uber]: Lessons from Real-World Deployment",
+          "summary": "Uber argues agents need a different security model than predefined-logic services because they reason over untrusted user and web content.",
           "source": "hackernews_ai",
-          "url": "https://opensource.googleblog.com/2026/11/sandboxing-untrusted-ai-agents-at-scale.html",
-          "published": "2026-11-06T10:19:21+00:00"
+          "url": "https://www.uber.com/us/en/blog/securing-ai-agents/",
+          "published": "2026-11-07T15:23:58Z"
         },
         {
-          "title": "Aspen: Self-hostable Git server for agent-scale traffic",
-          "summary": "Pre-alpha Git server keeps packs in object storage and branch history in Postgres for hundreds of concurrent agent pushes.",
+          "title": "Former Meta Security Chief Calls Password Access for AI Agents 'Insane'",
+          "summary": "Alex Stamos warns against handing agents passwords, as Meta ships custom 'spaces' in its Muse assistant.",
           "source": "hackernews_ai",
-          "url": "https://github.com/reason-machines/aspen",
-          "published": "2026-11-06T18:44:14+00:00"
+          "url": "https://epyhia.com/meta-launches-muse-ai-spaces-former-security-chief-calls-password",
+          "published": "2026-11-07T13:59:07Z"
         },
         {
-          "title": "Mantis: AI agents browse 36% faster than with Playwright MCP",
-          "summary": "An MCP browser tool claims 3-5x fewer input tokens than Playwright MCP across five replayed runs of one task.",
+          "title": "RigHaven – Self-hosted execution harness for AI agents",
+          "summary": "A coordinator composes role-based agent teams, each role in its own isolated container with access to 99 managed CLI tools.",
           "source": "hackernews_ai",
-          "url": "https://github.com/perzianhq/mantis",
-          "published": "2026-11-06T06:38:36+00:00"
+          "url": "https://github.com/ggmm82/righaven",
+          "published": "2026-11-07T19:40:06Z"
         }
       ]
     },
     {
-      "name": "Agent Access, Money, and Guardrails",
-      "slug": "agent-access-guardrails",
-      "summary": "Giving agents credentials and payment rights is moving from demos to scoped, auditable controls.",
+      "name": "Agent Tooling & Skills",
+      "slug": "agent-tooling-skills",
+      "summary": "Skills, dependency manifests, and earned-autonomy gates are turning agent setup into something testable and reproducible.",
       "articles": [
         {
-          "title": "AI agent can move money in Stripe",
-          "summary": "Stripe's MCP server now lets agents send money via Treasury; the post covers acting on a user's behalf versus as an independent actor.",
+          "title": "APM – A dependency manager for AI agents",
+          "summary": "Declare skills, prompts, instructions, plugins and MCP servers in one apm.yml; apm install deploys them to each supported harness, including GitHub Copilot.",
           "source": "hackernews_ai",
-          "url": "https://stripe.dev/blog/your-ai-agent-can-move-money-in-stripe",
-          "published": "2026-11-06T16:20:29+00:00"
+          "url": "https://microsoft.github.io/apm/",
+          "published": "2026-11-07T08:51:43Z"
         },
         {
-          "title": "Agentic Identity Broker: OAuth delegation for AI agents",
-          "summary": "MIT-licensed OAuth2 broker from Zalando gives agents scoped, revocable access to MCP services.",
+          "title": "Show HN: Coding agent skills, tested on 15 backend tasks with hidden checks",
+          "summary": "Backend skills for Claude Code, Codex and Cursor cut critical mistakes from 25 of 150 runs to 2 of 150 in the author's tests.",
           "source": "hackernews_ai",
-          "url": "https://github.com/zalando-incubator/agentic-identity-broker",
-          "published": "2026-11-06T15:07:47+00:00"
+          "url": "https://github.com/globalmpc/backendskills",
+          "published": "2026-11-07T07:34:15Z"
         },
         {
-          "title": "Axiom blocks AI agents from inventing limits your code never defined",
-          "summary": "Pre-write hook for Claude Code and Cursor that blocks guesses on auth, rate limits, payments and DB constraints; regex-based, so bypassable.",
+          "title": "Show HN: Select – AI agents that earn autonomy through verified work",
+          "summary": "Open-source orchestration where code checks every result against a delivery contract before an agent stops needing approval.",
           "source": "hackernews_ai",
-          "url": "https://github.com/axiom-csc/axiom-skill",
-          "published": "2026-11-06T01:00:43+00:00"
+          "url": "https://github.com/Kirby54/Select",
+          "published": "2026-11-07T01:55:27Z"
         },
         {
-          "title": "The Docker group is root access, my agent used it to write to /etc",
-          "summary": "An agent without sudo mounted / through the docker group to edit /etc, exposing a privilege path the owner had left open for a decade.",
+          "title": "Honeycomb Team Agents: AI SRE Done Right",
+          "summary": "Team agents run on goals you define, checking releases, instrumentation, cost and agent quality, with autonomy you control.",
           "source": "hackernews_ai",
-          "url": "https://jeena.net/notes/1497",
-          "published": "2026-11-06T10:59:56+00:00"
+          "url": "https://www.honeycomb.io/blog/honeycomb-team-agents-ai-sre-done-right",
+          "published": "2026-11-07T14:59:40Z"
         }
       ]
     },
     {
-      "name": "Evals, Cost, and Model Economics",
-      "slug": "evals-cost-economics",
-      "summary": "New measurements show where cheaper models suffice and where retrieval metrics mislead.",
+      "name": "Reliability & Verification",
+      "slug": "reliability-verification",
+      "summary": "Generated output needs an independent check: models can know a rule and still miss the defect.",
       "articles": [
         {
-          "title": "Frontier quality at 1% of the cost: a production benchmark of LLM classifiers",
-          "summary": "Airbnb benchmarks models on risky-content, support and review classification, weighing accuracy against latency and cost.",
+          "title": "AI Source Code Analysis Detection Evasion Techniques",
+          "summary": "Shows source code can be presented so LLM-based analysis misses a real defect even when the models know the exception.",
           "source": "hackernews_ai",
-          "url": "https://airbnb.tech/ai-ml/frontier-quality-at-1-of-the-cost-a-production-benchmark-of-llm-classifiers/",
-          "published": "2026-11-06T12:42:07+00:00"
+          "url": "https://cipher.org.uk/2026/11/06/AI-Source-Code-Analysis-Detection-Evasion-Techniques/",
+          "published": "2026-11-07T08:52:16Z"
         },
         {
-          "title": "AML Cycle 2: Do agent memory rankings hold across tracks?",
-          "summary": "An Engram analysis of 6 memory systems on 1,536 LoCoMo questions found right retrieval does not guarantee a right answer.",
-          "source": "hackernews_ai",
-          "url": "https://twitter.com/AgentMemoryL/status/2117617801296802085",
-          "published": "2026-11-06T07:17:50+00:00"
+          "title": "How Grab Improved Mobile App Stability by Safely Handling Surge in AI-Generated Code Changes",
+          "summary": "InfoQ reports on how Grab kept mobile app stability up as AI-generated code changes surged.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/11/grab-ai-generated-code-safety/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-11-07T11:00:00Z"
         },
         {
-          "title": "Closed AI models dominate the price-performance frontier",
-          "summary": "Village's LLM Atlas finds an open-weight model wins at 3% of price points, down from 41% in June.",
+          "title": "Reverse Engineering with AI: Your Decompiler Can Lie to You",
+          "summary": "Walkthrough that checks every AI conclusion against machine instructions after a wrong pseudo-C branch among 2,000 look-alike functions.",
           "source": "hackernews_ai",
-          "url": "https://village.dev/blog/closed-ai-models-now-dominate-the-price-performance-frontier/",
-          "published": "2026-11-06T02:49:56+00:00"
-        },
-        {
-          "title": "Measuring how AI agents handle everyday wet-lab science",
-          "summary": "OpenAI's BioBasicsBench has 100 tasks testing whether agents interpret raw experimental data.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science",
-          "published": "2026-11-06T00:00:00+00:00"
+          "url": "https://prod.codes/blog/reverse-engineering-with-ai-your-decompiler-can-lie-to-you/",
+          "published": "2026-11-07T01:31:19Z"
         }
       ]
     },
     {
-      "name": "Inference and Training Infrastructure",
-      "slug": "inference-training-infra",
-      "summary": "Serving and RL stacks are removing mismatches between training, export and production hardware.",
+      "name": "Inference & Models",
+      "slug": "inference-models",
+      "summary": "Local and domestic-hardware serving news centers on cache reuse and day-zero hardware support.",
       "articles": [
         {
-          "title": "Announcing the XLA Serving Engine",
-          "summary": "Apache 2.0 runtime from OpenXLA enables a 'train in Python, serve in C++' workflow for JAX and PyTorch models.",
+          "title": "TokiRecur – llama.cpp LLM launcher with KV-cache recycling",
+          "summary": "Exact-prefix KV-cache reuse in front of llama-server, with benchmarks for TTFT, prefill tokens per second and token savings across ROCm, CUDA, Vulkan and Metal.",
           "source": "hackernews_ai",
-          "url": "https://opensource.googleblog.com/2026/11/supercharging-xla-inference-xla-serving-engine.html",
-          "published": "2026-11-06T15:21:03+00:00"
+          "url": "https://github.com/lhadzic377-netizen/TokiRecur",
+          "published": "2026-11-07T18:08:43Z"
         },
         {
-          "title": "SageMaker Inference now supports Multi-Instance GPU",
-          "summary": "SageMaker endpoints can partition GPUs with MIG to raise utilization.",
-          "source": "aws_ml_blog",
-          "url": "https://aws.amazon.com/blogs/machine-learning/sagemaker-inference-now-supports-multi-instance-gpu-to-maximize-gpu-utilization-for-model-endpoints/",
-          "published": "2026-11-06T18:01:00+00:00"
-        },
-        {
-          "title": "Zero Mismatch, Simple Async RL",
-          "summary": "vLLM extends bit-exact rollout/trainer logprob agreement from synchronous to asynchronous RL, with an agent skill aligning each new model.",
-          "source": "vllm_blog",
-          "url": "https://vllm.ai/blog/2026-11-06-zero-mismatch-async-rl",
-          "published": "2026-11-06T00:00:00+00:00"
-        }
-      ]
-    },
-    {
-      "name": "Security Signals",
-      "slug": "security-signals",
-      "summary": "Attackers and defenders are both using agents against AI infrastructure.",
-      "articles": [
-        {
-          "title": "A Chinese-language framework targeting AI infrastructure",
-          "summary": "Era traced a Flowise chat of 4,972 'hello' messages whose replies leaked AWS credentials, metadata probes and process listings.",
-          "source": "hackernews_ai",
-          "url": "https://era.security/blog/greeter-flowise-ai-infrastructure-attack",
-          "published": "2026-11-06T03:15:49+00:00"
-        },
-        {
-          "title": "Partnering with Hacktron to find vulnerabilities in OpenAI's systems",
-          "summary": "OpenAI is using frontier AI with Hacktron to find vulnerabilities and test third-party connections.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/partnering-with-hacktron",
-          "published": "2026-11-06T08:00:00+00:00"
+          "title": "Moore Threads Adds Day-Zero Kimi K3.1 Pro Support on MTT S5000 GPUs",
+          "summary": "Moore Threads GPUs support Kimi K3.1 Pro from release day.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Pandaily",
+          "publisher_domain": "pandaily.com",
+          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPcWJhX01BVVZlVnVZLW1kX0JQVjg3aExnUGFCUHhQYzg5dG9ZWlBJR245dVY3MUczQXpMZllrNWF1NUdmZVU2YXVQWWxDdHFEMDlnXzB2SnNGN2NvaEhwVGt5UXlsWXVabll2V1RKMUhCOUl2ZHJ1MWdYczItbVg0bVBzXzNDdzBXWEE?oc=5",
+          "published": "2026-11-07T01:58:16Z"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "VZbud65py1Q",
-    "title": "LLM Digest Daily Explainer: Nov 6, 2026",
-    "duration_s": 118.0
-  }
+  ]
 }

@@ -1,0 +1,141 @@
+{
+  "date": "2026-11-07",
+  "title": "What happened in AI — Nov 7, 2026",
+  "generated_at": "2026-11-07T22:19:19Z",
+  "intro": [
+    "Agent isolation led the day: a Firecracker rebuild of Google's microVM sandbox, Uber's agent security lessons, and Alex Stamos calling password access for agents 'insane' all point to per-session isolation and no standing credentials.",
+    "Tooling is catching up with testable skills and verification gates, including backend skills that cut critical mistakes from 25/150 runs to 2/150."
+  ],
+  "highlights": [
+    "Firecracker rebuild of Google's agent sandbox publishes the latency numbers Google left out.",
+    "Uber details a distinct security model for agents that reason over untrusted content.",
+    "Alex Stamos: giving AI agents passwords is 'insane'.",
+    "APM brings one apm.yml dependency manifest to agent skills, prompts and MCP servers.",
+    "Backend skills cut critical mistakes from 25/150 to 2/150 runs in one benchmark.",
+    "TokiRecur reuses KV-cache prefixes to cut prefill cost in llama.cpp."
+  ],
+  "article_count": 20,
+  "categories": [
+    {
+      "name": "Agent Sandboxing & Security",
+      "slug": "sandboxing-security",
+      "summary": "Isolation is the common answer: per-session microVMs, per-role containers, and no standing credentials for agents.",
+      "articles": [
+        {
+          "title": "Google Described Its Agent Sandbox. I Built One with Firecracker and Measured It",
+          "summary": "A Firecracker rebuild of Google's Agent Compute Engine design (microVM per session, copy-on-write clones from warm snapshots, no network card) supplies the latency numbers Google's post omitted.",
+          "source": "hackernews_ai",
+          "url": "https://antonau.tech/posts/2026/11/agents-microvm-firecracker/",
+          "published": "2026-11-07T16:01:40Z"
+        },
+        {
+          "title": "Securing AI Agents [at Uber]: Lessons from Real-World Deployment",
+          "summary": "Uber argues agents need a different security model than predefined-logic services because they reason over untrusted user and web content.",
+          "source": "hackernews_ai",
+          "url": "https://www.uber.com/us/en/blog/securing-ai-agents/",
+          "published": "2026-11-07T15:23:58Z"
+        },
+        {
+          "title": "Former Meta Security Chief Calls Password Access for AI Agents 'Insane'",
+          "summary": "Alex Stamos warns against handing agents passwords, as Meta ships custom 'spaces' in its Muse assistant.",
+          "source": "hackernews_ai",
+          "url": "https://epyhia.com/meta-launches-muse-ai-spaces-former-security-chief-calls-password",
+          "published": "2026-11-07T13:59:07Z"
+        },
+        {
+          "title": "RigHaven – Self-hosted execution harness for AI agents",
+          "summary": "A coordinator composes role-based agent teams, each role in its own isolated container with access to 99 managed CLI tools.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/ggmm82/righaven",
+          "published": "2026-11-07T19:40:06Z"
+        }
+      ]
+    },
+    {
+      "name": "Agent Tooling & Skills",
+      "slug": "agent-tooling-skills",
+      "summary": "Skills, dependency manifests, and earned-autonomy gates are turning agent setup into something testable and reproducible.",
+      "articles": [
+        {
+          "title": "APM – A dependency manager for AI agents",
+          "summary": "Declare skills, prompts, instructions, plugins and MCP servers in one apm.yml; apm install deploys them to each supported harness, including GitHub Copilot.",
+          "source": "hackernews_ai",
+          "url": "https://microsoft.github.io/apm/",
+          "published": "2026-11-07T08:51:43Z"
+        },
+        {
+          "title": "Show HN: Coding agent skills, tested on 15 backend tasks with hidden checks",
+          "summary": "Backend skills for Claude Code, Codex and Cursor cut critical mistakes from 25 of 150 runs to 2 of 150 in the author's tests.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/globalmpc/backendskills",
+          "published": "2026-11-07T07:34:15Z"
+        },
+        {
+          "title": "Show HN: Select – AI agents that earn autonomy through verified work",
+          "summary": "Open-source orchestration where code checks every result against a delivery contract before an agent stops needing approval.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Kirby54/Select",
+          "published": "2026-11-07T01:55:27Z"
+        },
+        {
+          "title": "Honeycomb Team Agents: AI SRE Done Right",
+          "summary": "Team agents run on goals you define, checking releases, instrumentation, cost and agent quality, with autonomy you control.",
+          "source": "hackernews_ai",
+          "url": "https://www.honeycomb.io/blog/honeycomb-team-agents-ai-sre-done-right",
+          "published": "2026-11-07T14:59:40Z"
+        }
+      ]
+    },
+    {
+      "name": "Reliability & Verification",
+      "slug": "reliability-verification",
+      "summary": "Generated output needs an independent check: models can know a rule and still miss the defect.",
+      "articles": [
+        {
+          "title": "AI Source Code Analysis Detection Evasion Techniques",
+          "summary": "Shows source code can be presented so LLM-based analysis misses a real defect even when the models know the exception.",
+          "source": "hackernews_ai",
+          "url": "https://cipher.org.uk/2026/11/06/AI-Source-Code-Analysis-Detection-Evasion-Techniques/",
+          "published": "2026-11-07T08:52:16Z"
+        },
+        {
+          "title": "How Grab Improved Mobile App Stability by Safely Handling Surge in AI-Generated Code Changes",
+          "summary": "InfoQ reports on how Grab kept mobile app stability up as AI-generated code changes surged.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/11/grab-ai-generated-code-safety/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-11-07T11:00:00Z"
+        },
+        {
+          "title": "Reverse Engineering with AI: Your Decompiler Can Lie to You",
+          "summary": "Walkthrough that checks every AI conclusion against machine instructions after a wrong pseudo-C branch among 2,000 look-alike functions.",
+          "source": "hackernews_ai",
+          "url": "https://prod.codes/blog/reverse-engineering-with-ai-your-decompiler-can-lie-to-you/",
+          "published": "2026-11-07T01:31:19Z"
+        }
+      ]
+    },
+    {
+      "name": "Inference & Models",
+      "slug": "inference-models",
+      "summary": "Local and domestic-hardware serving news centers on cache reuse and day-zero hardware support.",
+      "articles": [
+        {
+          "title": "TokiRecur – llama.cpp LLM launcher with KV-cache recycling",
+          "summary": "Exact-prefix KV-cache reuse in front of llama-server, with benchmarks for TTFT, prefill tokens per second and token savings across ROCm, CUDA, Vulkan and Metal.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/lhadzic377-netizen/TokiRecur",
+          "published": "2026-11-07T18:08:43Z"
+        },
+        {
+          "title": "Moore Threads Adds Day-Zero Kimi K3.1 Pro Support on MTT S5000 GPUs",
+          "summary": "Moore Threads GPUs support Kimi K3.1 Pro from release day.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Pandaily",
+          "publisher_domain": "pandaily.com",
+          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPcWJhX01BVVZlVnVZLW1kX0JQVjg3aExnUGFCUHhQYzg5dG9ZWlBJR245dVY3MUczQXpMZllrNWF1NUdmZVU2YXVQWWxDdHFEMDlnXzB2SnNGN2NvaEhwVGt5UXlsWXVabll2V1RKMUhCOUl2ZHJ1MWdYczItbVg0bVBzXzNDdzBXWEE?oc=5",
+          "published": "2026-11-07T01:58:16Z"
+        }
+      ]
+    }
+  ]
+}
