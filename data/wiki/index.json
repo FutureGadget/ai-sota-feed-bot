@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-07T18:05:03.399614+00:00",
+ "generated_at": "2026-11-08T18:04:53.953562+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,30 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-11-08-firecracker-rebuild-of-google-agent-vms",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-11-08",
+   "title": "A Firecracker rebuild of Google's per-session agent microVM shows snapshot forks are cheap on bare metal"
+  },
+  {
+   "id": "2026-11-08-agentic-identity-broker-oauth-delegation",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-11-08",
+   "title": "Zalando's Agentic Identity Broker gives agents scoped, revocable OAuth access to MCP services"
+  },
+  {
+   "id": "2026-11-08-framer-streams-agent-code-execution",
+   "topic": "agent-orchestration",
+   "topic_title": "Orchestration patterns: topologies, handoffs, and harnesses",
+   "kind": "solution",
+   "date": "2026-11-08",
+   "title": "Framer's harness runs agent-written code as it streams, cutting tool steps 2x"
+  },
   {
    "id": "2026-11-07-approved-is-not-exactly-once",
    "topic": "tool-use",
@@ -230,30 +254,6 @@
    "kind": "solution",
    "date": "2026-10-31",
    "title": "Tracekit Box runs agents in micro-VMs where every network, credential, and write exit is signed"
-  },
-  {
-   "id": "2026-10-31-test-escaped-unsandboxed-subagents",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-10-31",
-   "title": "A parallel subagent's test escaped an unsandboxed Mac and spoke aloud on the host"
-  },
-  {
-   "id": "2026-10-30-copilot-cli-reads-ssh-without-prompt",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-10-30",
-   "title": "Copilot CLI read ~/.ssh on request with no approval prompt under default settings"
-  },
-  {
-   "id": "2026-10-30-turnbook-verbatim-memory-longmemeval",
-   "topic": "agent-memory",
-   "topic_title": "Agents forget across steps and sessions",
-   "kind": "obstacle",
-   "date": "2026-10-30",
-   "title": "Verbatim local memory reports 91.8% on LongMemEval from 3.1k tokens per question"
   }
  ],
  "nodes": {
@@ -1215,6 +1215,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-08-framer-streams-agent-code-execution",
+     "topic": "agent-orchestration",
+     "topic_title": "Orchestration patterns: topologies, handoffs, and harnesses",
+     "date": "2026-11-08",
+     "title": "Framer's harness runs agent-written code as it streams, cutting tool steps 2x"
+    },
     {
      "id": "2026-11-04-nvidia-16k-compaction",
      "topic": "context-compaction",
@@ -15207,7 +15214,7 @@
      "key": "code-driven",
      "title": "Coordination written as code, not tool calls",
      "summary": "Harnesses now drive sub-agent fan-out from programs, generated per task or written in plain JavaScript or Python, so coverage comes from control flow and one script can mix agents from different providers.",
-     "count": 5
+     "count": 6
     },
     {
      "key": "orchestrator-tooling",
@@ -15229,6 +15236,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-08-framer-streams-agent-code-execution",
+     "topic": "agent-orchestration",
+     "date": "2026-11-08",
+     "title": "Framer's harness runs agent-written code as it streams, cutting tool steps 2x",
+     "theme": "code-driven",
+     "html": "<p>Framer replaced a per-edit DSL harness with one where the agent writes a JavaScript program that inspects the document tree and applies hundreds of changes without returning to the model for each decision. The runtime compiles incoming code into cells and executes them while the model is still generating, so edits show on the canvas early.</p>\n<p>When an early cell fails an assumption, the stream is stopped, which avoids the remaining output-token charges, and the error goes back for a retry. Framer reports, as vendor-reported averages, 2x fewer tool steps and 39% fewer cached input tokens per message, with no measured quality loss, and up to 33% lower cost and 20% lower latency.</p>\n<p>For builders: streaming execution makes fail-fast a cost control.</p>",
+     "evidence": [
+      {
+       "sid": "c430d9570f8f07c3",
+       "title": "Harness 2: executing agent code as it streams"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-cost",
+       "title": "Agent token costs are unpredictable and easily run away"
+      }
+     ]
+    },
     {
      "id": "2026-11-07-async-agents-responsive-and-productive",
      "topic": "agent-orchestration",
@@ -15735,8 +15762,8 @@
      "title": "Stanford's DeLM cuts multi-agent task cost ~50% by removing the central orchestrator"
     }
    ],
-   "entry_count": 23,
-   "latest_entry_date": "2026-11-07",
+   "entry_count": 24,
+   "latest_entry_date": "2026-11-08",
    "solutions": [],
    "obstacles": [
     {
@@ -15754,6 +15781,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "c430d9570f8f07c3",
+     "title": "Harness 2: executing agent code as it streams"
+    },
     {
      "sid": "9c4184d44164e0d7",
      "title": "Agents Are Going Async"
@@ -15847,7 +15878,7 @@
      "title": "Ask HN: Multi-LLM orchestration frameworks that collaborate?"
     }
    ],
-   "updated": "2026-11-07"
+   "updated": "2026-11-08"
   },
   "agent-sandboxing": {
    "slug": "agent-sandboxing",
@@ -15879,7 +15910,7 @@
      "key": "credential-boundary",
      "title": "Keeping secrets and authority out of the sandbox",
      "summary": "Sandboxes don't scope the tokens inside them, so secrets move to identity-based access, ephemeral accounts, and egress proxies that inject real credentials only on the wire.",
-     "count": 8
+     "count": 9
     },
     {
      "key": "permission-policy",
@@ -15897,7 +15928,7 @@
      "key": "managed-platforms",
      "title": "Managed and self-hosted sandbox platforms",
      "summary": "MicroVM platforms from Modal, Docker, Azure, and Cloudflare, plus self-hosted hypervisors and paved-road internal platforms, compete on startup time, scale, and persistence.",
-     "count": 12
+     "count": 13
     },
     {
      "key": "egress-and-escapes",
@@ -15913,6 +15944,41 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-08-firecracker-rebuild-of-google-agent-vms",
+     "topic": "agent-sandboxing",
+     "date": "2026-11-08",
+     "title": "A Firecracker rebuild of Google's per-session agent microVM shows snapshot forks are cheap on bare metal",
+     "theme": "managed-platforms",
+     "html": "<p>Google&#x27;s Agent Compute Engine gives each agent session its own microVM, checkpointed while the model thinks, cloned copy-on-write from warm snapshots, with no network card. Google published no latency or density numbers and the preview is months away. An independent author rebuilt the pattern on Firecracker (about 2,200 lines of Go) and measured it, self-run: 64 idle forks of a 512 MiB VM cost about 3 MiB of host memory each, and a snapshot restore takes 25 ms, 26x faster than a cold boot.</p>\n<p>Under nested virtualization on a Mac mini, twelve concurrent forks never became ready.</p>\n<p>For builders: per-session VM isolation is buildable from open parts today, but benchmark on bare metal, not nested virtualization.</p>",
+     "evidence": [
+      {
+       "sid": "f88ba1bfaaff2950",
+       "title": "Google Described Its Agent Sandbox. I Built One with Firecracker and Measured It"
+      }
+     ],
+     "also": []
+    },
+    {
+     "id": "2026-11-08-agentic-identity-broker-oauth-delegation",
+     "topic": "agent-sandboxing",
+     "date": "2026-11-08",
+     "title": "Zalando's Agentic Identity Broker gives agents scoped, revocable OAuth access to MCP services",
+     "theme": "credential-boundary",
+     "html": "<p>The Agentic Identity Broker (AIB) is an MIT-licensed OAuth2 broker from the Zalando Incubator. A user delegates access to an AI agent, and the agent receives a scoped, revocable grant to MCP services instead of the user&#x27;s own credentials.</p>\n<p>This matches the credential-boundary pattern: authority is issued per agent and can be withdrawn without rotating the user&#x27;s secrets. The source is a Show HN post by a co-author, so there are no independent production results yet.</p>\n<p>For builders: if agents call MCP servers with a shared or personal token, a broker like this is a reference design for delegating instead.</p>",
+     "evidence": [
+      {
+       "sid": "d2e1d4bcf8eebaac",
+       "title": "Show HN: Agentic Identity Broker, OAuth Delegation for AI Agents"
+      }
+     ],
+     "also": [
+      {
+       "slug": "mcp",
+       "title": "Model Context Protocol: a standard interface for agent tools"
+      }
+     ]
+    },
     {
      "id": "2026-11-01-weir-planted-key-leak-test",
      "topic": "agent-sandboxing",
@@ -16998,8 +17064,8 @@
      "title": "A planted AGENTS.md in Downloads hijacked coding agents into installing malware"
     }
    ],
-   "entry_count": 66,
-   "latest_entry_date": "2026-11-01",
+   "entry_count": 68,
+   "latest_entry_date": "2026-11-08",
    "solutions": [],
    "obstacles": [
     {
@@ -17017,6 +17083,14 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "f88ba1bfaaff2950",
+     "title": "Google Described Its Agent Sandbox. I Built One with Firecracker and Measured It"
+    },
+    {
+     "sid": "d2e1d4bcf8eebaac",
+     "title": "Show HN: Agentic Identity Broker, OAuth Delegation for AI Agents"
+    },
     {
      "sid": "da0666cb075514bf",
      "title": "Show HN: Keep your credentials out of the AI agents you use and build"
@@ -17314,7 +17388,7 @@
      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
     }
    ],
-   "updated": "2026-11-01"
+   "updated": "2026-11-08"
   },
   "agent-tracing": {
    "slug": "agent-tracing",
@@ -19769,6 +19843,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-08-agentic-identity-broker-oauth-delegation",
+     "topic": "agent-sandboxing",
+     "topic_title": "Sandboxing, scoped credentials, and guardrails",
+     "date": "2026-11-08",
+     "title": "Zalando's Agentic Identity Broker gives agents scoped, revocable OAuth access to MCP services"
+    },
     {
      "id": "2026-11-05-germline-execution-signed-mcp-leak",
      "topic": "tool-use",
