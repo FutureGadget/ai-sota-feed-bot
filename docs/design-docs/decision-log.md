@@ -2926,3 +2926,23 @@ the original articles), `--no-pool` restores the old bundle exactly, and caps
 order by parsed time instead of date strings.
 
 Rollback: Same as the bundle-additions entry above.
+
+## 2026-11-08 - Re-add Addy Osmani's blog as a practitioner source
+
+Decision: Re-add `addyosmani_blog` (`https://addyosmani.com/rss.xml`, RSS 2.0)
+to `config/sources.yaml`. Map it to `practitioner_analysis` in
+`config/ranking.yaml` and `config/presets/balanced.yaml` with
+`source_bias: 0.06` (same as `eugene_yan`), and list it under the
+`practitioner` role in `config/editorial.yaml`.
+
+Rationale: The source was ingested through May 2026 and later dropped from
+`sources.yaml`. His recent writing (agent files, agentic skill decay,
+brownfield agentic engineering, AI code review) is on the agent-builder lens.
+The old flat 1.2 source weight is not carried over; per-source `source_bias`
+is how peer practitioner blogs are positioned now.
+
+Impact: Posts are collected and compete in `practitioner_analysis`.
+`validate_source.py` against a snapshot with three re-dated Addy items printed
+`EXPOSED` (two reached the final feed).
+
+Rollback: Remove the `addyosmani_blog` entries from the four config files.
