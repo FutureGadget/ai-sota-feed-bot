@@ -4914,6 +4914,23 @@
   "type": "news",
   "url": "https://openai.com/index/devrev-enterprise-self-service"
  },
+ "981c5fba5d1f60bf": {
+  "first_seen": "2026-11-08T16:05:38.194935+00:00",
+  "id": "e05d16b12f29c8f9",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-03T22:42:25+00:00",
+  "sid": "981c5fba5d1f60bf",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Multi-agent LLM systems explore in parallel by spawning sub-agents with isolated context windows, whereas single-agent systems append every search and verification step into one growing trajectory. However, existing multi-agent frameworks duplicate prefix KV caches across branches, exchange findings by re-prefilling text summaries, and flatten or drop cross-branch dependencies during reinforcement learning (RL). We introduce Octopus, a single-model multi-agent RL framework in which all threads share one backbone and coordinate over a GPU-resident directed acyclic graph (DAG) of KV states through five primitives (fork, read_thread, wait_threads, rewind, commit). Octopus combines three co-designed mechanisms: (1) Zero-Copy Radix Forking, which spawns branches as $\\mathcal{O}(1)$ cursor views over shared physical KV pages; (2) Attention-Only KV Mounting, which mounts a sibling thread's terminal KV blocks directly into full-attention layers while bypassing linear-recurrent states (Gated DeltaNet / Mamba-2), cutting off-task hijacking by $21\\times$ ($57.9\\% \\to 2.7\\%$) while retaining $92.2\\%$ of full-text mutual information at zero extra KV allocation; and (3) a Packed DAG-GRPO Trainer, which packs all episode branches into one block-sparse attention pass and assigns counterfactual branch credit via leave-one-branch-out marginal rewards. Trained end-to-end with GRPO on Qwen3.5-4B over a sparse BM25 corpus, Octopus reaches $49.6\\%$ accuracy on BrowseComp-Plus ($+17.5$ points over ",
+  "summary_1line": "Multi-agent LLM systems explore in parallel by spawning sub-agents with isolated context windows, whereas single-agent systems append every search and verification step into one growing trajectory. However, existing m...",
+  "title": "Octopus: One Brain, Many Branches for Latent-KV Multi-Agent Reinforcement Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.06956v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "982ed481e075c1fb": {
   "content_excerpt": "Personal agents are the intermediary between humans and the Internet, turning a person’s instructions into requests and actions on websites. A customer might ask a personal agent to compare products across your site, find support articles, or complete a purchase. To a site owner, all three interactions show up as automated traffic — and without a clear view of which agents are visiting and what they are doing, it can be difficult to know whether that traffic is helping your business or creating risk. Blocking agents altogether can feel like the safest choice, but it can mean losing customers. Better visibility into agent activity allows you to decide what access makes sense for your site. Today, we’re launching new analytics to help you understand how personal agents access your site on behalf of humans, along with more granular access policies to put those decisions into practice. Together, they let you welcome agents on your own terms, and in ways that support your business. Knowing which agent is behind a request turns unexplained automated traffic into traffic you can act on with confidence. Cloudflare maintains the largest verified bot directory in the world, and we are now bringing that intelligence into your traffic details. In Security Analytics, the Bot Analysis chart now shows Personal Assistants as a new category, next to Verified Bot, Likely Human, Likely Automated, and Automated. Security teams can select it to see only personal agent traffic over time. In Top st",
   "first_seen": "2026-11-04T15:05:34.099063+00:00",
@@ -5311,8 +5328,8 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 8, downloads: 0.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 8, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 51, downloads: 652.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 51, downloads: 652.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16"
