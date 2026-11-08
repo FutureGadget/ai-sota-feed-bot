@@ -1794,6 +1794,24 @@
   "url": "http://arxiv.org/abs/2611.04697v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "39b23f7babe95f92": {
+  "first_seen": "2026-11-08T04:06:17.021826+00:00",
+  "id": "ff915cf770967b76",
+  "matched_topics": [
+   "agent",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-11-07T23:26:26+00:00",
+  "sid": "39b23f7babe95f92",
+  "source": "hackernews_ai",
+  "summary": "after working quite rigorously for a few months with claude code, I found out that I was blindly approving permission requests for the sake of progressing my projects, this led me to realize that coding agents generate hundreds of commands underneath the covers which is necessary, but quite scary if you ask me. you've probably seen news recently about agents deleting databases or environments in production by accident. so i wanted to create something to gain visibility into what's actually happening and potentially block things before they occur. coding agents often log everything that they're doing, but even still, i want the ground level truth of what's happening. that's why i created sentient, written using claude code. it's open source (mit license), runs completely locally, no cloud syncing, read only, and watches actions straight from the kernel. all of this is summarized with a hopefully simple web ui. i run claude code on linux, so kernel tracking relies on tetragon, but, at the same time, i am trying to get approval to use security endpoint on mac, and will eventually roll out on windows. if you want to run sentient today against just the agent logs without kernel logs, that's also available now, you just need golang and sqlite3 to build. and today, i'm only supporting claude code, but will eventually get to codex and the like. please have a try, ping me if you have any questions or comments: hello@nosaka.ai https://github.com/nosaka4i/sentient https://nosaka.ai/blog",
+  "summary_1line": "after working quite rigorously for a few months with claude code, I found out that I was blindly approving permission requests for the sake of progressing my projects, this led me to realize that coding agents generat...",
+  "title": "Show HN: Sentient, Your Coding Agent Shouldn't Be a Black Box",
+  "type": "news",
+  "url": "https://nosaka.ai/sentient",
+  "why_it_matters": "Matches feed focus: agent, codex, claude code."
+ },
  "3a214163589601d8": {
   "first_seen": "2026-11-03T06:05:21.577740+00:00",
   "id": "c25ddf5b63f4feca",
@@ -3056,6 +3074,22 @@
   "title": "How I Review 2K Lines of AI Generated Code",
   "type": "news",
   "url": "https://bytesizedbets.com/p/how-to-review-a-2000-line-ai-written"
+ },
+ "5b77ba33d5d838fc": {
+  "content_excerpt": "Develop ideas with context and review documents with fresh eyes. EGM is an open-source plugin for AI assistants. Elephant holds your project context and drafts the specification. Goldfish reviewers examine the draft and referenced source material without the earlier conversation, helping expose unstated assumptions and blind spots. You make the architectural trade-offs and approve the specification before implementing. The built-in draft and design-review workflow targets software specifications. For other documents, choose reviewers and standards with /egm-review-loop . Bootstrap and drift reporting apply to software codebases. Choose your coding agent. Install the complete plugin so its skills can read the reviewer prompts and document standards. Open the published EGM plugin in the desktop app and install it. This listing is desktop-only. For Codex CLI, use the commands below. For the Antigravity App and Antigravity for IDEs (Visual Studio Code extension), run /plugin or see the installation instructions . Start a new session after installation. For Claude Cowork and ChatGPT Work , see the setup guide . Open your project in your coding agent and choose a feature that needs design decisions. This example adds webhook delivery: what should happen when a delivery fails, or the same event arrives twice? The commands below are shown without a prefix. In Antigravity (agy CLI) and Claude Code, add the /egm: prefix, for example /egm:egm-brainstorm . On agy CLI 1.4.10 an unprefixed",
+  "first_seen": "2026-11-08T04:06:17.021826+00:00",
+  "id": "a94cc7132439352d",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-08T03:50:34+00:00",
+  "sid": "5b77ba33d5d838fc",
+  "source": "hackernews_ai",
+  "summary_1line": "Elephant-Goldfish Model (Agent Skill)",
+  "title": "Elephant-Goldfish Model (Agent Skill)",
+  "type": "news",
+  "url": "https://github.com/google/elephant-goldfish-model",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "5caff7cc1c137a99": {
   "first_seen": "2026-11-03T10:05:34.032473+00:00",
@@ -6211,12 +6245,12 @@
  "c037c1d442d57b42": {
   "content_excerpt": "Laplace's Scissors: protected readout rotations for open LLMs. Diagnose weak output directions, repair answers, preserve successful generations, and analyze scaling deviations with Rust and Triton on CUDA/HIP. Rotate an LLM’s output matrix to compute edits while preserving protected answers. Laplace’s Scissors computes rotation edits for an LLM’s original output matrix. probe constructs numerical inputs from model weights and traces directions with weak output discrimination, cancellation across layers, and the associated weight coordinates. diagnose uses cases with expected answer strings to find plane or joint rotations that repair failed answers while protecting successful ones. Each objective and protection condition is checked with actual GPU outputs. Scaling analysis applies the same edit policy across checkpoints to measure deviations from a reference curve and the amount recovered. Prepare a Rust toolchain, a Python environment that can import Triton 3.8, and a CUDA or HIP driver. Python provides the Triton compilation bridge. Rust handles model loading, tokenization, execution, edit computation, and result storage. .cargo/config.toml places Cargo build artifacts outside the project. LAPLACE_CACHE stores models, kernels, and run results. Select the backend and device index with LAPLACE_BACKEND=auto|cuda|hip and LAPLACE_DEVICE . Set LAPLACE_DRIVER_LIBRARY for the driver library path, or ROCM_PATH / HIP_PATH for the ROCm SDK. The HIP backend also checks the selected Pyt",
   "first_seen": "2026-11-07T22:04:39.580317+00:00",
-  "id": "ed030d4b390b58ca",
-  "published": "2026-11-07T18:23:18+00:00",
+  "id": "df9b851a8dd88726",
+  "published": "2026-11-08T02:37:10+00:00",
   "sid": "c037c1d442d57b42",
   "source": "hackernews_ai",
   "summary_1line": "Show HN: Laplace's Scissors – A tool for directly editing LLM weights",
-  "title": "Show HN: Laplace's Scissors – A tool for directly editing LLM weights",
+  "title": "Show HN: LLM weight editing tool made by a 15-year-old",
   "type": "news",
   "url": "https://github.com/Miyamoto-Renya/LaplacesScissors"
  },
@@ -6435,6 +6469,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05358v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "c887dbd9e8b5b928": {
+  "content_excerpt": "We gave every uncensored model tools and five multi-step tasks. Smarter originals finish more, models built on weaker ones loop almost twice as often, and most still fail half the time. Uncensored models are mostly sold on what they will say. We wanted to know what they do: give them tools and a multi-step job, and see whether they finish, go in circles, or fall over. We ran all 31 ranked models on the Open Uncensored API through the same five agent tasks (edit a file, browse pages, multi-step math with a calculator, debug code until tests pass, analyse data), each capped at 14 turns. The intelligence of the model an uncensored edit came from does predict agent reliability: the correlation between the two is 0.56 across 31 models. Models built on originals scoring 60 or more finished 38% of tasks on average; the rest finished 27%. Neither number is good. Even the strong group fails more often than it succeeds. A loop is the model repeating the same tool call three times without progress. A crash is a malformed tool call, a made-up tool result, or giving up on tools mid-task. Models built on weaker originals loop almost twice as often. Crashes are common in both groups, so a strong original does not make a model safe to leave unattended. Several originals have more than one uncensored version on the API. Tasks finished out of 5: So far the versions of one original land within a task of each other. With one run per task that gap is noise, so we cannot yet say whether abliterati",
+  "first_seen": "2026-11-08T04:06:17.021826+00:00",
+  "id": "47aaa8523169b10c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-08T01:24:17+00:00",
+  "sid": "c887dbd9e8b5b928",
+  "source": "hackernews_ai",
+  "summary_1line": "Uncensored LLMs in agent loops: 31 models, 5 tasks, most fail half the time",
+  "title": "Uncensored LLMs in agent loops: 31 models, 5 tasks, most fail half the time",
+  "type": "news",
+  "url": "https://openuncensored.com/blog/uncensored-models-in-agent-loops",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "c9d7f27d5e8e7a98": {
   "content_excerpt": "While training and deploying our latest document parsing model, OCRia-1, we noticed a recurring bottleneck: inference was not fast enough. And this lined up with our experience customers had as well, latency is always one of the top asks for any document parsing workflow. So, we set out to work tinkering, and came back with a nearly 10x improvement in token generation, going from ~285 tokens/sec to ~2800 tokens/sec on a single B200 GPU. This means we can iterate on benchmarks faster and deliver results faster to users. We accomplished this by combining a ton of smaller improvements: reducing the bytes moved during inference, producing more tokens per target forward pass, and reducing the overall GPU and CPU overhead of each step. Some of these were easy wins with established practices (quantization, speculative decoding), while others required us to dig very deep into implementation details. OCRia is largely driven by image inputs with a text prompt, and outputs a structured textual representation of the document. Pages that are dense end up requiring longer outputs to represent them properly. Our primary focus for optimization then became increasing our generation speed across concurrent requests on a single GPU (B200 in this case). Inference in an LLM largely consists of two phases: prefill and decode . During prefill, inputs are processed and internal model state is built to generate a response. During decode, those inputs are passed through the model, and the output is th",
