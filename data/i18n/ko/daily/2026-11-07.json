@@ -1,0 +1,152 @@
+{
+  "locale": "ko",
+  "source_path": "/daily/2026-11-07",
+  "source_hash": "2c7df962ec158eedc2e64b9c767869899c837eadb328d8d807df9db9f0e860b4",
+  "translated_at": "2026-11-08T02:44:36.905978+00:00",
+  "model": "google-translate-v2",
+  "review_status": "machine",
+  "date": "2026-11-07",
+  "title": "2026년 11월 7일, 인공지능 분야에서 무슨 일이 일어났을까요?",
+  "generated_at": "2026-11-07T22:19:19Z",
+  "intro": [
+    "Agent isolation led the day: a Firecracker rebuild of Google's microVM sandbox, Uber's agent security lessons, and Alex Stamos calling password access for agents 'insane' all point to per-session isolation and no standing credentials.",
+    "Tooling is catching up with testable skills and verification gates, including backend skills that cut critical mistakes from 25/150 runs to 2/150."
+  ],
+  "highlights": [
+    "Firecracker rebuild of Google's agent sandbox publishes the latency numbers Google left out.",
+    "Uber details a distinct security model for agents that reason over untrusted content.",
+    "Alex Stamos: giving AI agents passwords is 'insane'.",
+    "APM brings one apm.yml dependency manifest to agent skills, prompts and MCP servers.",
+    "Backend skills cut critical mistakes from 25/150 to 2/150 runs in one benchmark.",
+    "TokiRecur reuses KV-cache prefixes to cut prefill cost in llama.cpp."
+  ],
+  "article_count": 20,
+  "categories": [
+    {
+      "name": "에이전트 샌드박싱 및 보안",
+      "slug": "sandboxing-security",
+      "summary": "격리가 일반적인 해결책입니다. 세션별 마이크로VM, 역할별 컨테이너, 그리고 에이전트에 대한 고정 자격 증명을 사용하지 않는 방식이 있습니다.",
+      "articles": [
+        {
+          "title": "구글이 에이전트 샌드박스에 대해 설명했습니다. 저는 Firecracker를 사용하여 에이전트 샌드박스를 구축하고 성능을 측정했습니다.",
+          "summary": "Firecracker를 사용하여 Google의 Agent Compute Engine 설계를 재구축한 결과(세션당 microVM, 웜 스냅샷에서 복사 시 쓰기 복제, 네트워크 카드 없음) Google 게시물에서 누락된 지연 시간 수치를 얻을 수 있었습니다.",
+          "source": "hackernews_ai",
+          "url": "https://antonau.tech/posts/2026/11/agents-microvm-firecracker/",
+          "published": "2026-11-07T16:01:40Z"
+        },
+        {
+          "title": "[우버에서] AI 에이전트 보안 강화: 실제 배포 사례에서 얻은 교훈",
+          "summary": "우버는 에이전트가 신뢰할 수 없는 사용자 및 웹 콘텐츠를 기반으로 추론하기 때문에 사전 정의된 로직 서비스와는 다른 보안 모델이 필요하다고 주장합니다.",
+          "source": "hackernews_ai",
+          "url": "https://www.uber.com/us/en/blog/securing-ai-agents/",
+          "published": "2026-11-07T15:23:58Z"
+        },
+        {
+          "title": "Meta 보안 전 대표, AI 에이전트 비밀번호 접근 허용은 '미친 짓'이라고 비판",
+          "summary": "알렉스 스타모스는 Meta 가 뮤즈 어시스턴트에 사용자 지정 '스페이스' 기능을 제공함에 따라 에이전트에게 비밀번호를 제공하는 것에 대해 경고했습니다.",
+          "source": "hackernews_ai",
+          "url": "https://epyhia.com/meta-launches-muse-ai-spaces-former-security-chief-calls-password",
+          "published": "2026-11-07T13:59:07Z"
+        },
+        {
+          "title": "RigHaven – AI 에이전트를 위한 자체 호스팅 실행 도구",
+          "summary": "코디네이터는 역할 기반 에이전트 팀을 구성하며, 각 역할은 99개의 관리형 CLI 도구에 접근할 수 있는 자체 격리된 컨테이너에 있습니다.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/ggmm82/righaven",
+          "published": "2026-11-07T19:40:06Z"
+        }
+      ]
+    },
+    {
+      "name": "에이전트 도구 및 기술",
+      "slug": "agent-tooling-skills",
+      "summary": "스킬, 의존성 선언문, 자율성 획득 게이트를 통해 에이전트 설정이 테스트 가능하고 재현 가능한 형태로 바뀌고 있습니다.",
+      "articles": [
+        {
+          "title": "APM – AI 에이전트용 종속성 관리자",
+          "summary": "스킬, 프롬프트, 지침, 플러그인 및 MCP 서버를 하나의 apm.yml 파일에 선언하세요. apm install 명령이 GitHub Copilot을 포함하여 지원되는 각 하네스에 이러한 항목들을 배포합니다.",
+          "source": "hackernews_ai",
+          "url": "https://microsoft.github.io/apm/",
+          "published": "2026-11-07T08:51:43Z"
+        },
+        {
+          "title": "HN 쇼: 숨겨진 검사가 포함된 15개의 백엔드 작업에서 테스트된 코딩 에이전트 기술",
+          "summary": "Claude Code, Codex 및 Cursor의 백엔드 기술을 활용하면 치명적인 오류가 150회 실행 중 25회에서 2회로 줄어들었습니다(저자의 테스트 결과).",
+          "source": "hackernews_ai",
+          "url": "https://github.com/globalmpc/backendskills",
+          "published": "2026-11-07T07:34:15Z"
+        },
+        {
+          "title": "HN 표시: 선택 – 검증된 작업을 통해 자율성을 획득하는 AI 에이전트",
+          "summary": "오픈소스 오케스트레이션으로, 에이전트가 더 이상 승인을 필요로 하지 않게 되기 전에 코드가 모든 결과를 전달 계약과 비교하여 검사합니다.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Kirby54/Select",
+          "published": "2026-11-07T01:55:27Z"
+        },
+        {
+          "title": "허니콤 팀 에이전트: AI SRE를 제대로 구현하기",
+          "summary": "팀 에이전트는 사용자가 정의한 목표를 기반으로 실행되며, 릴리스, 계측, 비용 및 에이전트 품질을 확인하고, 사용자가 제어하는 자율성을 갖습니다.",
+          "source": "hackernews_ai",
+          "url": "https://www.honeycomb.io/blog/honeycomb-team-agents-ai-sre-done-right",
+          "published": "2026-11-07T14:59:40Z"
+        }
+      ]
+    },
+    {
+      "name": "신뢰성 및 검증",
+      "slug": "reliability-verification",
+      "summary": "생성된 출력물은 독립적인 검증이 필요합니다. 모델은 규칙을 알고 있더라도 결함을 놓칠 수 있기 때문입니다.",
+      "articles": [
+        {
+          "title": "AI 소스 코드 분석 탐지 회피 기술",
+          "summary": "소스 코드를 제시하면 LLM 기반 분석 모델이 예외를 알고 있더라도 실제 결함을 놓칠 수 있음을 보여줍니다.",
+          "source": "hackernews_ai",
+          "url": "https://cipher.org.uk/2026/11/06/AI-Source-Code-Analysis-Detection-Evasion-Techniques/",
+          "published": "2026-11-07T08:52:16Z"
+        },
+        {
+          "title": "Grab은 AI가 생성한 코드 변경량 급증을 안전하게 처리하여 모바일 앱 안정성을 어떻게 향상시켰을까요?",
+          "summary": "InfoQ는 AI가 생성한 코드 변경이 급증하는 상황에서 Grab이 모바일 앱의 안정성을 어떻게 유지했는지에 대해 보도했습니다.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/11/grab-ai-generated-code-safety/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-11-07T11:00:00Z"
+        },
+        {
+          "title": "AI를 활용한 리버스 엔지니어링: 디컴파일러가 당신을 속일 수도 있습니다",
+          "summary": "2,000개의 유사 함수 중에서 잘못된 의사 C 분기가 발생한 후 모든 AI 결론이 기계어 명령과 일치하는지 확인하는 워크스루입니다.",
+          "source": "hackernews_ai",
+          "url": "https://prod.codes/blog/reverse-engineering-with-ai-your-decompiler-can-lie-to-you/",
+          "published": "2026-11-07T01:31:19Z"
+        }
+      ]
+    },
+    {
+      "name": "Inference 및 모델",
+      "slug": "inference-models",
+      "summary": "로컬 및 국내 하드웨어 서비스 관련 뉴스는 캐시 재사용과 초기 하드웨어 지원에 중점을 둡니다.",
+      "articles": [
+        {
+          "title": "TokiRecur – llama.cpp LLM 런처 ( KV 캐시 재활용 기능 포함)",
+          "summary": "정확한 접두사 KV 캐시를 llama-server 앞에 재사용하고, ROCm, CUDA, Vulkan 및 Metal 환경에서 TTFT, 초당 프리필 토큰 수, 토큰 절약량에 대한 벤치마크를 수행했습니다.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/lhadzic377-netizen/TokiRecur",
+          "published": "2026-11-07T18:08:43Z"
+        },
+        {
+          "title": "Moore Threads, MTT S5000 GPU에 Kimi K3.1 Pro 지원 기능 추가",
+          "summary": "Moore Threads GPU는 출시 당일부터 Kimi K3.1 Pro를 지원합니다.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Pandaily",
+          "publisher_domain": "pandaily.com",
+          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPcWJhX01BVVZlVnVZLW1kX0JQVjg3aExnUGFCUHhQYzg5dG9ZWlBJR245dVY3MUczQXpMZllrNWF1NUdmZVU2YXVQWWxDdHFEMDlnXzB2SnNGN2NvaEhwVGt5UXlsWXVabll2V1RKMUhCOUl2ZHJ1MWdYczItbVg0bVBzXzNDdzBXWEE?oc=5",
+          "published": "2026-11-07T01:58:16Z"
+        }
+      ]
+    }
+  ],
+  "video": {
+    "youtube_id": "0BiJ4gulKGk",
+    "title": "LLM Digest Daily Explainer: Nov 7, 2026",
+    "duration_s": 113.7
+  }
+}
