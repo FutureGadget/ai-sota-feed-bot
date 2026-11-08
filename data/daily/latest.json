@@ -1,146 +1,161 @@
 {
-  "date": "2026-11-07",
-  "title": "What happened in AI — Nov 7, 2026",
-  "generated_at": "2026-11-07T22:19:19Z",
+  "date": "2026-11-08",
+  "title": "What happened in AI — Nov 8, 2026",
+  "generated_at": "2026-11-08T22:15:23Z",
   "intro": [
-    "Agent isolation led the day: a Firecracker rebuild of Google's microVM sandbox, Uber's agent security lessons, and Alex Stamos calling password access for agents 'insane' all point to per-session isolation and no standing credentials.",
-    "Tooling is catching up with testable skills and verification gates, including backend skills that cut critical mistakes from 25/150 runs to 2/150."
+    "Builders are shrinking their agent stacks: Lovable deleted most of its agent code and one engineer dropped all agent skills, citing Anthropic's 80%+ Claude Code prompt cut with no measurable eval loss.",
+    "The infrastructure gap is memory: every coding tool stores it differently, and several projects propose a shared format or an inspectable store."
   ],
   "highlights": [
-    "Firecracker rebuild of Google's agent sandbox publishes the latency numbers Google left out.",
-    "Uber details a distinct security model for agents that reason over untrusted content.",
-    "Alex Stamos: giving AI agents passwords is 'insane'.",
-    "APM brings one apm.yml dependency manifest to agent skills, prompts and MCP servers.",
-    "Backend skills cut critical mistakes from 25/150 to 2/150 runs in one benchmark.",
-    "TokiRecur reuses KV-cache prefixes to cut prefill cost in llama.cpp."
+    "Lovable deleted almost all its agent code after 100k PRs.",
+    "Anthropic reportedly cut over 80% of Claude Code's system prompt with no measurable eval loss.",
+    "Agent memory lacks a shared format; the OpenTelemetry analogy is gaining ground.",
+    "ARTEX-driven campaigns stole 190k gaming credentials for under $400 in model costs.",
+    "Uncensored models in agent loops: most fail about half of multi-step tasks."
   ],
-  "article_count": 20,
+  "article_count": 17,
   "categories": [
     {
-      "name": "Agent Sandboxing & Security",
-      "slug": "sandboxing-security",
-      "summary": "Isolation is the common answer: per-session microVMs, per-role containers, and no standing credentials for agents.",
+      "name": "Agent harnesses: less scaffolding, more deletion",
+      "slug": "agent-harnesses-less-scaffolding",
+      "summary": "Builders report pruning agent code and skills as models improve, and the lighter harnesses they keep are small and inspectable.",
       "articles": [
         {
-          "title": "Google Described Its Agent Sandbox. I Built One with Firecracker and Measured It",
-          "summary": "A Firecracker rebuild of Google's Agent Compute Engine design (microVM per session, copy-on-write clones from warm snapshots, no network card) supplies the latency numbers Google's post omitted.",
+          "title": "Lovable: we deleted almost all our agent code",
+          "summary": "Lovable's lessons from 100k PRs: choices that once helped can hold you back, so the team keeps rebuilding how the agent works.",
           "source": "hackernews_ai",
-          "url": "https://antonau.tech/posts/2026/11/agents-microvm-firecracker/",
-          "published": "2026-11-07T16:01:40Z"
+          "url": "https://lovable.dev/blog/how-we-built-lovable-and-why-we-keep-rebuilding-it",
+          "published": "Sun, 08 Nov 2026 16:09:37 +0000"
         },
         {
-          "title": "Securing AI Agents [at Uber]: Lessons from Real-World Deployment",
-          "summary": "Uber argues agents need a different security model than predefined-logic services because they reason over untrusted user and web content.",
+          "title": "Author deletes all their agent skills",
+          "summary": "Cites Anthropic cutting over 80% of Claude Code's system prompt with no measurable loss on its own evals, and argues skills can over-constrain the agent.",
           "source": "hackernews_ai",
-          "url": "https://www.uber.com/us/en/blog/securing-ai-agents/",
-          "published": "2026-11-07T15:23:58Z"
+          "url": "https://philippdubach.com/posts/i-just-deleted-all-my-agent-skills/",
+          "published": "Sun, 08 Nov 2026 15:04:51 +0000"
         },
         {
-          "title": "Former Meta Security Chief Calls Password Access for AI Agents 'Insane'",
-          "summary": "Alex Stamos warns against handing agents passwords, as Meta ships custom 'spaces' in its Muse assistant.",
+          "title": "psi: a 6.4 MB coding agent in ANSI C and Lua",
+          "summary": "MIT-licensed core in C with the agent loop, tools and providers in Lua; works with Anthropic, Codex, OpenRouter or Ollama.",
           "source": "hackernews_ai",
-          "url": "https://epyhia.com/meta-launches-muse-ai-spaces-former-security-chief-calls-password",
-          "published": "2026-11-07T13:59:07Z"
+          "url": "https://psicode.ai/",
+          "published": "Sun, 08 Nov 2026 17:48:19 +0000"
         },
         {
-          "title": "RigHaven – Self-hosted execution harness for AI agents",
-          "summary": "A coordinator composes role-based agent teams, each role in its own isolated container with access to 99 managed CLI tools.",
+          "title": "My Local Coding Agent",
+          "summary": "A 25-year programmer describes a local agent setup and says LLMs in agent harnesses became capable of full features in January 2026.",
           "source": "hackernews_ai",
-          "url": "https://github.com/ggmm82/righaven",
-          "published": "2026-11-07T19:40:06Z"
+          "url": "https://hdembinski.github.io/posts/coding_agent.html",
+          "published": "Sun, 08 Nov 2026 19:12:20 +0000"
+        },
+        {
+          "title": "Designing an Always-On Agent",
+          "summary": "Argues today's agents do nothing until messaged and explores what a continuously running, environment-aware agent needs.",
+          "source": "hackernews_ai",
+          "url": "https://rubriclabs.com/blog/always-on-agents",
+          "published": "Sun, 08 Nov 2026 17:51:44 +0000"
         }
       ]
     },
     {
-      "name": "Agent Tooling & Skills",
-      "slug": "agent-tooling-skills",
-      "summary": "Skills, dependency manifests, and earned-autonomy gates are turning agent setup into something testable and reproducible.",
+      "name": "Agent memory and context become shared infrastructure",
+      "slug": "agent-memory-context-infrastructure",
+      "summary": "Memory is fragmented per tool, and new projects try a shared format or an inspectable filesystem-style store.",
       "articles": [
         {
-          "title": "APM – A dependency manager for AI agents",
-          "summary": "Declare skills, prompts, instructions, plugins and MCP servers in one apm.yml; apm install deploys them to each supported harness, including GitHub Copilot.",
+          "title": "Agent memory needs its OpenTelemetry moment",
+          "summary": "Each coding tool stores memory in its own shape and none can read the others; the post surveys existing formats and sketches a shared spec.",
           "source": "hackernews_ai",
-          "url": "https://microsoft.github.io/apm/",
-          "published": "2026-11-07T08:51:43Z"
+          "url": "https://www.lorekit.io/blog/open-agent-memory-format",
+          "published": "Sun, 08 Nov 2026 08:40:23 +0000"
         },
         {
-          "title": "Show HN: Coding agent skills, tested on 15 backend tasks with hidden checks",
-          "summary": "Backend skills for Claude Code, Codex and Cursor cut critical mistakes from 25 of 150 runs to 2 of 150 in the author's tests.",
+          "title": "OpenViking: a context database for agents",
+          "summary": "Open-source store that exposes knowledge, memory and skills as a viking:// virtual filesystem agents navigate with ls, tree, read and grep.",
           "source": "hackernews_ai",
-          "url": "https://github.com/globalmpc/backendskills",
-          "published": "2026-11-07T07:34:15Z"
+          "url": "https://github.com/volcengine/OpenViking",
+          "published": "Sun, 08 Nov 2026 04:44:14 +0000"
         },
         {
-          "title": "Show HN: Select – AI agents that earn autonomy through verified work",
-          "summary": "Open-source orchestration where code checks every result against a delivery contract before an agent stops needing approval.",
+          "title": "RepoMagpie: your coding agent remembers repos you've tried",
+          "summary": "Keeps your verdicts on libraries, CLIs and MCP servers so the agent checks them before installing a tool you already ruled out.",
           "source": "hackernews_ai",
-          "url": "https://github.com/Kirby54/Select",
-          "published": "2026-11-07T01:55:27Z"
+          "url": "https://github.com/Varshavia/RepoMagpie",
+          "published": "Sun, 08 Nov 2026 10:13:24 +0000"
         },
         {
-          "title": "Honeycomb Team Agents: AI SRE Done Right",
-          "summary": "Team agents run on goals you define, checking releases, instrumentation, cost and agent quality, with autonomy you control.",
+          "title": "Google's Elephant-Goldfish Model plugin",
+          "summary": "Splits work in two: Elephant keeps project context and drafts the spec; Goldfish reviewers read it without the prior conversation to expose blind spots.",
           "source": "hackernews_ai",
-          "url": "https://www.honeycomb.io/blog/honeycomb-team-agents-ai-sre-done-right",
-          "published": "2026-11-07T14:59:40Z"
+          "url": "https://github.com/google/elephant-goldfish-model",
+          "published": "Sun, 08 Nov 2026 03:50:34 +0000"
+        },
+        {
+          "title": "aiport: a local LLM gateway",
+          "summary": "Go gateway that routes Claude Code, Codex, Ollama and cloud models through one endpoint and shows which app called what.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/harelix/aiport",
+          "published": "Sun, 08 Nov 2026 11:44:16 +0000"
         }
       ]
     },
     {
-      "name": "Reliability & Verification",
-      "slug": "reliability-verification",
-      "summary": "Generated output needs an independent check: models can know a rule and still miss the defect.",
+      "name": "Security and reliability of agents under test",
+      "slug": "agent-security-reliability",
+      "summary": "Offensive agent use is cheap and measurable, while new work targets model backdoors and agent-loop failure rates.",
       "articles": [
         {
-          "title": "AI Source Code Analysis Detection Evasion Techniques",
-          "summary": "Shows source code can be presented so LLM-based analysis misses a real defect even when the models know the exception.",
+          "title": "Check Point: AI agents stole 190k gaming credentials for under $400",
+          "summary": "Analysis of ARTEX, an open-source LLM-driven pentesting platform, and how cybercrime campaigns used it at low model cost.",
           "source": "hackernews_ai",
-          "url": "https://cipher.org.uk/2026/11/06/AI-Source-Code-Analysis-Detection-Evasion-Techniques/",
-          "published": "2026-11-07T08:52:16Z"
+          "url": "https://research.checkpoint.com/2026/hacking-on-autopilot-inside-artex-cybercrime-campaigns/",
+          "published": "Sun, 08 Nov 2026 01:24:19 +0000"
         },
         {
-          "title": "How Grab Improved Mobile App Stability by Safely Handling Surge in AI-Generated Code Changes",
-          "summary": "InfoQ reports on how Grab kept mobile app stability up as AI-generated code changes surged.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/11/grab-ai-generated-code-safety/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-11-07T11:00:00Z"
+          "title": "What Can AI Hack? Inside Frontier Labs' Tests",
+          "summary": "Explains how to read system-card cyber evals, including OpenAI rating GPT-6 Astra its first Critical-level cyber model in September 2026.",
+          "source": "hackernews_ai",
+          "url": "https://dorcohen.dev/posts/what-can-ai-actually-hack/",
+          "published": "Sun, 08 Nov 2026 09:42:03 +0000"
         },
         {
-          "title": "Reverse Engineering with AI: Your Decompiler Can Lie to You",
-          "summary": "Walkthrough that checks every AI conclusion against machine instructions after a wrong pseudo-C branch among 2,000 look-alike functions.",
+          "title": "Uncensored LLMs in agent loops: 31 models, 5 tasks",
+          "summary": "Most models still fail about half the time on multi-step tasks; models built on weaker bases loop almost twice as often.",
           "source": "hackernews_ai",
-          "url": "https://prod.codes/blog/reverse-engineering-with-ai-your-decompiler-can-lie-to-you/",
-          "published": "2026-11-07T01:31:19Z"
+          "url": "https://openuncensored.com/blog/uncensored-models-in-agent-loops",
+          "published": "Sun, 08 Nov 2026 01:24:17 +0000"
+        },
+        {
+          "title": "NC State: new techniques to prevent AI backdoor attacks",
+          "summary": "Three techniques to block embedded triggers, plus a proposal to reuse backdoor methods as a security layer for users.",
+          "source": "hackernews_ai",
+          "url": "https://news.ncsu.edu/2026/11/new-techniques-to-prevent-backdoor-attacks/",
+          "published": "Sun, 08 Nov 2026 09:32:43 +0000"
         }
       ]
     },
     {
-      "name": "Inference & Models",
-      "slug": "inference-models",
-      "summary": "Local and domestic-hardware serving news centers on cache reuse and day-zero hardware support.",
+      "name": "Inference and fine-tuning off the CUDA path",
+      "slug": "inference-off-cuda-path",
+      "summary": "Two items show serving and tuning stacks moving beyond Nvidia and Python.",
       "articles": [
         {
-          "title": "TokiRecur – llama.cpp LLM launcher with KV-cache recycling",
-          "summary": "Exact-prefix KV-cache reuse in front of llama-server, with benchmarks for TTFT, prefill tokens per second and token savings across ROCm, CUDA, Vulkan and Metal.",
+          "title": "VindexLLM: GGUF inference in Delphi on Vulkan",
+          "summary": "Runs full transformer inference on the GPU through Vulkan compute shaders, with no Python or CUDA, needing only vulkan-1.dll.",
           "source": "hackernews_ai",
-          "url": "https://github.com/lhadzic377-netizen/TokiRecur",
-          "published": "2026-11-07T18:08:43Z"
+          "url": "https://github.com/tinyBigGAMES/VindexLLM",
+          "published": "Sun, 08 Nov 2026 05:25:50 +0000"
         },
         {
-          "title": "Moore Threads Adds Day-Zero Kimi K3.1 Pro Support on MTT S5000 GPUs",
-          "summary": "Moore Threads GPUs support Kimi K3.1 Pro from release day.",
+          "title": "Huawei Ascend adapts Kimi K3.1 Pro for LoRA fine-tuning",
+          "summary": "Fine-tuning runs on a 128-card Atlas 950 SuperPoD, per Pandaily.",
           "source": "search_cn_open_weight_labs",
           "publisher_name": "Pandaily",
           "publisher_domain": "pandaily.com",
-          "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPcWJhX01BVVZlVnVZLW1kX0JQVjg3aExnUGFCUHhQYzg5dG9ZWlBJR245dVY3MUczQXpMZllrNWF1NUdmZVU2YXVQWWxDdHFEMDlnXzB2SnNGN2NvaEhwVGt5UXlsWXVabll2V1RKMUhCOUl2ZHJ1MWdYczItbVg0bVBzXzNDdzBXWEE?oc=5",
-          "published": "2026-11-07T01:58:16Z"
+          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOTS1oQ3R3c2pRRUNhc3pTWmtRWkJueEtPVVZEa3RrUENjY0ZOTGE2SmVOZEN1YWtlWWlwUWJuR19fdTc1LUxMRjZRcFYwQ0MwdjdHSW5fTDdGU0RzYW11R0lVREtfVklaa1JZdEhnTkk2bEZPRXNoLThtdzRDanFHdkdrZEZqNWYwNTdXMA?oc=5",
+          "published": "Sun, 08 Nov 2026 01:50:51 GMT"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "0BiJ4gulKGk",
-    "title": "LLM Digest Daily Explainer: Nov 7, 2026",
-    "duration_s": 113.7
-  }
+  ]
 }
