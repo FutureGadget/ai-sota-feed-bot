@@ -319,7 +319,7 @@
   "sid": "09af4ba16f83444e",
   "source": "langgraph_releases",
   "summary": "Changes since 1.2.19 release(langgraph): 1.2.20 ( #9595 ) feat(langgraph): give each interrupt() in a task its own id ( #9589 ) fix(langgraph): point the multiple-interrupts error at the current docs ( #9590 ) feat(langgraph): add a strict resume mode that refuses stale interrupt answers ( #9574 ) chore(deps-dev): bump types-requests from 2.33.0.20260906 to 2.33.0.20261006 in /libs/langgraph ( #9535 ) chore(deps-dev): bump pycryptodome from 3.23.0 to 4.2.0 in /libs/langgraph in the major group ( #9534 )",
-  "summary_1line": "Changes since 1.2.19 release(langgraph): 1.2.20 ( #9595 ) feat(langgraph): give each interrupt() in a task its own id (<a class=\"issue-link js-issue-link\" hre",
+  "summary_1line": "release(langgraph): 1.2.20 · feat(langgraph): give each interrupt() in a task its own id · fix(langgraph): point the multiple-interrupts error at the current docs",
   "title": "langgraph==1.2.20",
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/1.2.20"
@@ -2546,7 +2546,7 @@
   "why_it_matters": "Matches feed focus: evaluation."
  },
  "4d3938441f216409": {
-  "content_excerpt": "Ask a frontier model for a slide deck and you'll get a good one. Ask for ten and they start to look alike: the same tasteful defaults, the same house style, a faint \"AI-generated deck\" look. That's fine until you want the deck to look like your template. Frontier models have their own house style, and no amount of prompting stops them drifting back to it. And sometimes the content is confidential",
+  "content_excerpt": "Ask a frontier model for a slide deck and you'll get a good one. Ask for ten and they start to look alike: the same tasteful defaults, the same house style, a faint \"AI-generated deck\" look. That's fine until you want the deck to look like your template. Frontier models have their own house style, and no amount of prompting stops them drifting back to it. And sometimes the content is confidential and can't leave your systems at all. Both of those point to a model you own: open weights, running on your own infrastructure, trained on your own design language. The catch is that small open models, the kind you'd actually self-host, are bad at this. Their decks come out broken: titles that vanish into the background, text running off the slide, shapes stacked on top of each other. Palette tests one bet: that a small open-weight model, trained on synthetic data in your design language and checked by a harness, can compete with frontier systems while you keep ownership of the result. We fine-tuned a 20B model to build decks the way people do: a designer plans the deck and a coder draws each slide. Its training data follows the IBM Design Language , and on PresentBench it ranks first on two of the three domains we measured. This post covers how we synthesized the data, trained the model and built a harness around it. A slide deck looks simple, but making one asks a model to do three things small models are bad at. It lays out the slide without seeing it. The model doesn't draw slides",
   "first_seen": "2026-11-03T17:06:51.488000+00:00",
   "id": "f4f866a3e7137f66",
   "published": "2026-11-03T16:35:36+00:00",
@@ -4636,9 +4636,9 @@
   ],
   "published": "2026-11-03T15:09:01+00:00",
   "sid": "92f891b192b00e63",
-  "source": "arxiv_cs_cl",
+  "source": "arxiv_agent_systems_research",
   "summary": "Large language models are deployed as long-horizon agents that compose diverse tools across MCP services into executable workflows. Existing MCP environment-scaling methods are data-centric: they first synthesize a database and scenario, then derive tools and tasks from them. As a result, tool interfaces may not match real ones, tool compositions are not grounded in execution, and tasks rarely span more than one environment. We propose ToolSpace, a tool-centric framework that reverses this order. ToolSpace mines data, state, and retry dependencies from adjacent calls in execution traces of real MCP services and open agent corpora, using deterministic rules rather than LLM judgment, and clusters the resulting weighted tool-composition graph into environments. Databases are synthesized only for state-mutating environments, while query and stateless tools replay recorded returns. ToolSpace then performs state-aware random walks with rollback and decompiles each chain into a natural-language task with assertion-based checks, keeping only samples that replay successfully from the initial state. Applied to AutomationBench and tau3-Bench Banking, the pipeline produces harder Pro versions on which 7 frontier models drop by up to 38.2 points. Across seven long-horizon tool-use benchmarks, ToolSpace raises Qwen3.6-35B-A3B from 23.0 to 41.0 average score (43.2 with RL) and GLM-5.2 from 44.6 to 56.6, on par with Claude Opus 5. Ablations show that execution-witnessed edges clearly outperf",
-  "summary_1line": "Large language models are deployed as long-horizon agents that compose diverse tools across MCP services into executable workflows. Existing MCP environment-scaling methods are data-centric: they first synthesize a da...",
+  "summary_1line": "Large language models are deployed as long-horizon agents that compose diverse tools across MCP services into executable workflows. Existing MCP environment-scaling methods are data-centric: they first synthesize a database and scenario, then derive tools and tasks from them. As",
   "title": "ToolSpace: Scaling Tool-Centric Environment Synthesis for Long-Horizon Agents",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05036v1",
@@ -7609,6 +7609,17 @@
   "url": "http://arxiv.org/abs/2611.06812v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "f3876a1daa7ca3fd": {
+  "first_seen": "2026-11-08T00:09:03.194953+00:00",
+  "id": "9c70e39afbeeb7c0",
+  "published": "2026-11-03T16:57:04+00:00",
+  "sid": "f3876a1daa7ca3fd",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "Large language model agents increasingly retrieve tools from large catalogs, yet most retrievers rank each tool independently by request similarity. For multi tool tasks, this recovers the goal matching tool while omitting prerequisite tools required by the workflow. We introduce",
+  "title": "LIBRA: Programmatic Induction of Executable Tool Libraries",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.05445v2"
+ },
  "f3ea6f58c95194f7": {
   "content_excerpt": "Synchronous speech and text translator with parallel delivery to arbitrary sinks. AI-TRANSLATOR listens to speech (or takes text), obtains a translation into a target language, and delivers the result to any number of independent sinks at the same time — text sinks (captions, on-screen displays, files) and voice sinks (translated speech routed to virtual audio devices, network audio streams). The defining property of the project: the translation core does not know where its result goes. The core produces a stream of translation events; delivery is performed by isolated sink modules that can be enabled and disabled individually. One and the same translation can go to a stage screen, broadcast captions and a voice channel simultaneously. Stage 1 (MVP) is implemented and covered by tests: the event bus, the sink subsystem, the console, WebSocket, transcript and Telegram sinks, the supervisor, the audio source on the synchronous translation provider, the offline text and scripted sources, and the command-line interface. Interfaces may still change before the 1.0 release. Linux is the primary platform: the Nix flake provides the development shell, transono drives PipeWire and ALSA, and virtual audio devices are created through its PipeWire module. macOS is supported for building and running: the project builds with Xcode Command Line Tools and a rustup toolchain, without Nix; audio capture and playback go through CoreAudio via cpal , and the PipeWire module of transono is not comp",
   "first_seen": "2026-11-03T03:05:29.307677+00:00",
@@ -7679,8 +7690,8 @@
   "published": "2026-11-02T04:13:51+00:00",
   "sid": "f4a904d03d800a16",
   "source": "hf_moonshotai_releases",
-  "summary": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 1627, downloads: 22571.",
-  "summary_1line": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 916, downloads: 11658.",
+  "summary": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 1631, downloads: 22571.",
+  "summary_1line": "New model weights from moonshotai on Hugging Face. Task: image-text-to-text. Likes: 1631, downloads: 22571.",
   "title": "moonshotai/Kimi-K3.1-Pro released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro"
