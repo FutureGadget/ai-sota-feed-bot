@@ -94,6 +94,17 @@
   "url": "http://arxiv.org/abs/2611.05148v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "0491c6de7a511fb5": {
+  "first_seen": "2026-11-08T07:07:44.832390+00:00",
+  "id": "f946180df4acc07c",
+  "published": "2026-11-05T17:10:03+00:00",
+  "sid": "0491c6de7a511fb5",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Diffusion language models can write many tokens per step, but must choose which tokens are safe to commit together. Mean-field decoding penalizes pairs of positions whose predictions look alike. We replace this proxy with the coupling itself: how much committing one token changes",
+  "title": "Measured Coupling for Parallel Decoding in Diffusion Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08307v1"
+ },
  "054cfd7046ceabc8": {
   "first_seen": "2026-11-06T00:05:24.381443+00:00",
   "id": "b7fba93c7f476146",
@@ -240,7 +251,7 @@
   "sid": "07880d2bc4128864",
   "source": "arxiv_cs_ai",
   "summary": "AI agents store text as embedding vectors and compress them at scale. A compression is accepted when each item's nearest neighbors survive, but agents also consolidate, delete, and compare memories, tasks that depend on which items lie far apart. We evaluate both ends with two label-free fidelities from our prior work: the local fidelity $L$ at 10 neighbors and the global fidelity $G$ at 30 to 50 percent of the memory. At 96 bytes per passage, rescored binary codes reach an $L$ of 0.97 yet move 10.1 percent of passages to another theme; PCA with 8-bit codes, at an $L$ of 0.77, moves 1.7 percent. Rescoring leaves the stored codes, and thus $G$, unchanged. We prove that across the $G$ band, $1-ν_k$ is at most 2 to 2.18 times the square root of the near-far rank-violation rate, and that this rate follows the distance noise of the compression (correlation 0.979). Our locality-aware quantization (LAQ) turns the bound into a hinge objective on the codebooks of an OPQ index, keeping its bytes, rotation, and search. To our knowledge, LAQ is the first quantizer whose objective comes from a proven bound on the far end. Reconstruction alone raises $G$ in 0 of 52 held-out runs; the far hinge raises it in all 52. LAQ raises $G$ in all 52 ($p=8.5\\times 10^{-4}$ over 13 memory-encoder groups), including the external FinDER memory, has the highest $G$ of seven equal-size quantizers in all 12 Multi-Doc-2025 runs, scales to a million passages, and keeps evidence recall.",
-  "summary_1line": "AI agents store text as embedding vectors and compress them at scale. A compression is accepted when each item's nearest neighbors survive, but agents also consolidate, delete, and compare memories, tasks that depend on which items lie far apart. We evaluate both ends with two la",
+  "summary_1line": "AI agents store text as embedding vectors and compress them at scale. A compression is accepted when each item's nearest neighbors survive, but agents also consolidate, delete, and compare memories, tasks that depend...",
   "title": "Enhancing Local and Global Structure in Compressed AI Agent Memory",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08341v1",
@@ -2133,7 +2144,7 @@
   ],
   "published": "2026-11-04T15:51:30+00:00",
   "sid": "40fb36da1f11792e",
-  "source": "arxiv_cs_lg",
+  "source": "arxiv_agent_systems_research",
   "summary": "Tool-using large language model (LLM) agents translate model outputs into consequential actions, turning indirect prompt injection into an execution-security problem. Existing defenses constrain tool calls, trajectories, or information flows, but often leave action semantics, state dependencies, and evidence relations implicit, limiting generalization across heterogeneous tools and complicating safe updates. We present \\ours{}, a dynamic ontology-guided governance framework. \\ours{} grounds heterogeneous calls in a shared semantic representation and combines an executable ontology with episode-level task state to derive deterministic ready, waiting, and forbidden decisions. A waiting decision identifies an unmet but recoverable obligation, enabling bounded replanning without expanding the agent's authorization boundary. \\ours{} evolves its ontology offline from verified training executions. An offline LLM proposes instance-independent action--state axioms, which are accepted only if they address ontology errors exposed by training failures, preserve logical consistency and protected entailments, and pass held-out validation before the ontology is frozen. We evaluate \\ours{} on AgentDojo, ASB, and AgentDyn under benign and indirect prompt-injection settings. \\ours{} achieves a 0\\% attack success rate (ASR) across all three benchmarks while improving task utility under attack compared with existing baselines. These results show that explicit semantic governance can strengthen e",
   "summary_1line": "Tool-using large language model (LLM) agents translate model outputs into consequential actions, turning indirect prompt injection into an execution-security problem. Existing defenses constrain tool calls, trajectori...",
   "title": "SecureGARD: Dynamic Ontology-Guided Governance for Secure Tool-Using LLM Agents",
@@ -2557,7 +2568,7 @@
   "sid": "4cf38e69c8d390b4",
   "source": "arxiv_cs_cl",
   "summary": "AI-Scientists arrived, but a world for them to grow in did not. Human scientists take theirs for granted $-$ centuries of open problems and shared ideas, waiting in the scientific literature. To AI-Scientists, that world is readable but not runnable, so we build Scientist World for them: every research paper becomes an executable environment. Our autonomous pipeline extracts each paper's open-ended research question and reproduces its proposed method as the baseline; an AI-Scientist entering the environment is evaluated against what the human authors achieved. We release the first 1,000 verified environments. With the world as an evaluation, we found that frontier AI-Scientists can already surpass the human researchers 74% of the time. As a record of how AI does science, it contains 6,400 hours of research traces, with every idea, experiment, failure, and success. As a training ground, we are able to raise (+158%) a small model to match frontier models in research ideation. At last, AI-Scientists' own world has arrived, grown from and growing with science itself.",
-  "summary_1line": "AI-Scientists arrived, but a world for them to grow in did not. Human scientists take theirs for granted $-$ centuries of open problems and shared ideas, waiting in the scientific literature. To AI-Scientists, that wo...",
+  "summary_1line": "AI-Scientists arrived, but a world for them to grow in did not. Human scientists take theirs for granted $-$ centuries of open problems and shared ideas, waiting in the scientific literature. To AI-Scientists, that world is readable but not runnable, so we build Scientist World f",
   "title": "Scientist World: Grow a Research World for AI-Scientists",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08478v1",
@@ -3018,7 +3029,7 @@
   "why_it_matters": "Matches feed focus: eval."
  },
  "5a90caffb2c87d2e": {
-  "content_excerpt": "Robots are learning to fold laundry, sort parts, and handle unfamiliar objects. But those demonstrations are often rather narrow and don't explain what a robot has learned or why it fails. To study a complex system, scientists often begin with a small, controlled environment, such as a petri dish or terrarium, where they can vary conditions and observe the effects. Robotics needs environments that make this kind of investigation possible—researchers should be able to change the training data or model design, repeat a test, and trace the cause of a failure. Today we're introducing a framework for creating these environments; we call them FoundationWorlds. Each pairs a controlled, simulated world targeted at studying robotics in a specific environment with tools for automatically generating tasks and training demonstrations, as well as metrics for measuring a robot's behavior over time. Together, they provide a setting for studying questions such as how models improve as more training data becomes available, and how to best combine high-level reasoning with precise physical control. Our first foundation world is ToyBlocks : an open simulation framework built around a robot arm and blocks on a tabletop. The setting is deliberately simple, but the robot must still reason about how the blocks interact and how to arrange them while pushing, flipping, and stacking. ToyBlocks automatically generates demonstrations, which are recordings of a robot completing tasks in simulation, witho",
+  "content_excerpt": "Robots are learning to fold laundry, sort parts, and handle unfamiliar objects. But those demonstrations are often rather narrow and don't explain what a robot has learned or why it fails. To study a complex system, scientists often begin with a small, controlled environment, such as a petri dish or terrarium, where they can vary conditions and observe the effects. Robotics needs environments that",
   "first_seen": "2026-11-06T14:05:07.235125+00:00",
   "id": "e1a748630fb7bb97",
   "matched_topics": [
@@ -4304,6 +4315,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "876fe6c1edb8596c": {
+  "content_excerpt": "Self-evolving Context Database for AI Agents. Unify Agent Memory, Knowledge RAG and Skills. OpenViking is an open-source context database for AI agents — one filesystem for everything an agent knows: knowledge, memory, and skills. Most agent memory is a black box: text goes in, embeddings come out, and nobody can see what was actually stored. OpenViking organizes context as a virtual filesystem under viking:// instead. Agents navigate it like files — ls , tree , read , write , grep — and you can open any directory to inspect and edit what your agent knows. Every directory carries a generated summary, so agents can scan summaries first and decide what to read. Try OpenViking Studio in your browser, no installation required. Self-host Web Studio . Semantically processed directories carry L0/L1 summaries, so agents can judge relevance before reading full files: OpenViking 0.3.22 has been evaluated on long-conversation user memory (LoCoMo) and multi-turn agent tasks (tau2-bench). Full results and setup details, including knowledge-base QA, are in the benchmark report ; reproduction scripts live in ./benchmark . To run your own experiments, follow the RAG and Memory evaluation guide for routine VikingBot memory evaluation, published LoCoMo reproduction, separate mem0 prompt comparisons, and RAG evaluation. The memory evaluation used Doubao 2.0 Pro as the VLM and Doubao-embedding-vision-251215 as the embedding model. Set up an OpenViking server first; if you already have one, skip ",
+  "first_seen": "2026-11-08T07:05:34.072568+00:00",
+  "id": "932f22e8143a9b02",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-08T04:44:14+00:00",
+  "sid": "876fe6c1edb8596c",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: We Build Shareable Context Layer for Agent Teams",
+  "title": "Show HN: We Build Shareable Context Layer for Agent Teams",
+  "type": "news",
+  "url": "https://github.com/volcengine/OpenViking",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "8812b05d9d428c4f": {
   "first_seen": "2026-11-06T04:05:23.287739+00:00",
   "id": "019847d219053af5",
@@ -4312,7 +4339,7 @@
   ],
   "published": "2026-11-05T16:53:48+00:00",
   "sid": "8812b05d9d428c4f",
-  "source": "arxiv_cs_lg",
+  "source": "arxiv_cs_ai",
   "summary": "LLM pruning must preserve quality while meeting hardware- and workload-specific constraints on latency, throughput, and memory. Existing pruning workflows often target parameter counts, requiring practitioners to manually select model sizes that meet latency, throughput, and GPU memory limits. However, parameter count alone does not predict these metrics, which depend on the model architecture, workload, hardware, and serving engine. We introduce AutoCompress, a hardware-guided compression framework that directly incorporates such constraints into differentiable architecture search. AutoCompress jointly optimizes global and per-layer structure to produce heterogeneous architectures, guided by serving-engine cost models validated against end-to-end latency, throughput, and memory measurements. We evaluate AutoCompress on long-context local coding, batched datacenter serving, and latency-sensitive in-game interaction. Compared to the state-of-the-art Minitron pruning framework, AutoCompress improves average accuracy across eight benchmarks by 6.57, 2.35, and 0.57 percentage points on RTX 5070, RTX 5080, and H100, respectively. AutoCompress also compresses Nemotron 3.5 Super from 120B to 74B parameters for single-B200 BF16 serving at 128K context, retaining 95% of its mean benchmark score.",
   "summary_1line": "LLM pruning must preserve quality while meeting hardware- and workload-specific constraints on latency, throughput, and memory. Existing pruning workflows often target parameter counts, requiring practitioners to manu...",
   "title": "AutoCompress: Automated Hardware-Guided Model Compression",
@@ -6531,6 +6558,18 @@
   "url": "https://github.com/narkco-kang/agent-fleet",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "cd44a088d357479c": {
+  "content_excerpt": "VindexLLM is a pure Delphi, GPU-powered LLM inference engine that uses Vulkan compute shaders to run GGUF models entirely on the GPU. It performs full transformer inference without relying on Python, CUDA, or other external runtimes, requiring only vulkan-1.dll, which is typically included with modern GPU drivers. VindexLLM is a GPU-accelerated LLM inference engine written entirely in Delphi, using Vulkan compute shaders for all heavy computation. It loads standard GGUF model files, runs the full transformer forward pass on the GPU, and produces text — no Python, no CUDA toolkit, no external runtimes. The only dependency is vulkan-1.dll , which already ships with every modern GPU driver. Feed it a prompt, get tokens back. Everything between — embedding lookup, 34 layers of attention and FFN, normalization, sampling — happens on the GPU via GLSL 450 compute shaders compiled to SPIR-V and embedded as Windows resources into the binary. Load a model, generate text, done. The chat example adds multi-turn conversation with SQLite-backed persistent memory and RAG retrieval across sessions. For the full implementations including status callbacks, cancel support, event hooks, error handling, and performance stats, see testbed\\UTest.Demo.pas . Most LLM inference stacks depend on CUDA (NVIDIA-only, ~3GB toolkit install), Python environments, or large runtime libraries. VindexLLM takes a different approach: VindexLLM implements the standard dense transformer forward pass. For each token,",
+  "first_seen": "2026-11-08T07:05:34.072568+00:00",
+  "id": "e1053a19c6a237c4",
+  "published": "2026-11-08T05:25:50+00:00",
+  "sid": "cd44a088d357479c",
+  "source": "hackernews_ai",
+  "summary_1line": "VindexLLM – Windows Vulkan GPU GGUF LLM inference engine written in Delphi 12",
+  "title": "VindexLLM – Windows Vulkan GPU GGUF LLM inference engine written in Delphi 12",
+  "type": "news",
+  "url": "https://github.com/tinyBigGAMES/VindexLLM"
+ },
  "cd6ae98674e10ae7": {
   "first_seen": "2026-11-03T04:13:31.497634+00:00",
   "id": "02c11551bf139a00",
@@ -7784,7 +7823,7 @@
   "sid": "f591ff4c9f116252",
   "source": "arxiv_cs_cl",
   "summary": "Typed-decision models score options that the caller supplies at request time, so their accuracy depends on label wording that the model's developer does not control. We compare two releases of a 307M-parameter multilingual cross-encoder, Ru-Jev, trained on thirteen Russian-language tasks; the later release adds an augmentation that presents labels in several surface forms. Holding questions fixed and varying only how eighteen routing labels are worded, we evaluate ten label vocabularies, produced by three separate processes and checked for overlap with the training data, with five candidates per question and, for eight of them, also with eighteen. On held-out vocabularies made of ordinary or borrowed words (English-derived jargon, office slang, department names), the augmented release is more accurate in every setting, by up to 0.24. Eleven of these fourteen gains survive a Holm correction (slang with eighteen candidates and descriptive sentences with five do not), and for jargon on all labels the label-level interval excludes zero in both settings. On abbreviations and opaque codes it gives no usable gain: on abbreviations it is not better, and worse on the clean slice, and on opaque codes both releases stay at or below chance once labels related to training options are removed. In most cells where accuracy rises, the risk-coverage area falls, but with eighteen candidates confident errors rise on jargon and slang. On two datasets neither release saw, accuracy moves by -8.4 a",
-  "summary_1line": "Typed-decision models score options that the caller supplies at request time, so their accuracy depends on label wording that the model's developer does not control. We compare two releases of a 307M-parameter multili...",
+  "summary_1line": "Typed-decision models score options that the caller supplies at request time, so their accuracy depends on label wording that the model's developer does not control. We compare two releases of a 307M-parameter multilingual cross-encoder, Ru-Jev, trained on thirteen Russian-langua",
   "title": "Label-Wording Augmentation in a Typed-Decision Encoder: Gains on Unfamiliar Words, Not on Abbreviations or Codes",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08439v1",
