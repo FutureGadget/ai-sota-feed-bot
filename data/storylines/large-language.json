@@ -1,12 +1,12 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 26,
+ "item_count": 27,
  "day_count": 12,
  "source_count": 10,
  "first_seen": "2026-10-20T08:50:39+00:00",
  "last_updated": "2026-11-05T19:22:23+00:00",
- "generated_at": "2026-11-07T00:12:50.771141+00:00",
+ "generated_at": "2026-11-08T00:11:26.446490+00:00",
  "sources": [
   "anthropic_research",
   "arxiv_agent_systems_research",
@@ -335,7 +335,7 @@
      "url": "http://arxiv.org/abs/2611.06715v1",
      "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Retrieval-augmented generation (RAG) assumes that language models can reason over relations stated in their context rather than fall back on associations memorized during pretraining. We study this evidence-conditione...",
+     "summary_1line": "Retrieval-augmented generation (RAG) assumes that language models can reason over relations stated in their context rather than fall back on associations memorized during pretraining. We study this evidence-conditioned relational reasoning in isolation, with the facts supplied di",
      "why_it_matters": "Matches feed focus: eval.",
      "sid": "63ff637171c98d2c",
      "published": "2026-11-04T16:11:26+00:00",
@@ -346,6 +346,15 @@
   {
    "date": "2026-11-05",
    "items": [
+    {
+     "title": "FedReason: Large Language Models as Weight-Space Meta-Aggregators for Heterogeneous Federated Learning",
+     "url": "http://arxiv.org/abs/2611.08383v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Federated learning servers combine client models with a fixed aggregation rule, and each rule in common use is designed for one kind of heterogeneity. We study whether a large language model (LLM) that inspects the client models can choose the rule itself, without any training on",
+     "sid": "416b05f86baa94c5",
+     "published": "2026-11-05T18:00:58+00:00"
+    },
     {
      "title": "Show HN: Thinker – Trim context and cache knowledge to extend agent usage limits",
      "url": "https://thinker.sh/how-it-works",
@@ -363,7 +372,7 @@
  "editorial": {
   "tldr": "This thread is a broad reading list on LLM behavior, reliability and knowledge. Oct 16-28 papers covered sycophancy, hallucination, steering and evals, then Mistral Large 4 landed on Hugging Face and vLLM on Oct 29 as work shifted to memory and retrieval.",
   "stale": false,
-  "whats_new": "Nov 2-5: Anthropic reported zkSNARK progress for provable inference, and a Show HN tool, Thinker, trims context and caches knowledge to stretch agent token limits.",
+  "whats_new": "Nov 5: the FedReason preprint tests an LLM as a weight-space aggregator for heterogeneous federated learning, alongside Anthropic's zkSNARK provable-inference work and the Show HN tool Thinker.",
   "why_it_matters": "The practical thread is context cost and knowledge handling: retrieval, memory and context trimming decide agent reliability and token spend more than any single model release here.",
   "take_for_builders": "If agent token limits bite, measure context trimming and caching against your own eval set before adopting it; treat the preprints and the Show HN tool as unreplicated.",
   "beats": [
@@ -426,13 +435,14 @@
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Provable inference, context engines, answerability judgments and a token-saving context trimmer",
+    "headline": "Provable inference, context engines, answerability judgments, federated aggregation and a token-saving tool",
     "sids": [
      "43862ef771dfba65",
      "744a7a52285cfa40",
      "94da3bfcbd46a769",
      "63ff637171c98d2c",
-     "464b347f5551c3b2"
+     "464b347f5551c3b2",
+     "416b05f86baa94c5"
     ]
    }
   ],
@@ -441,6 +451,6 @@
    "Will provable inference become practical for hosted model APIs?",
    "Do Mistral Large 4 serving claims on vLLM hold up in independent benchmarks?"
   ],
-  "generated_at": "2026-11-07T00:11:46.789303+00:00"
+  "generated_at": "2026-11-08T00:11:10+00:00"
  }
 }

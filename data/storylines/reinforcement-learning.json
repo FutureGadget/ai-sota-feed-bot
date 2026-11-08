@@ -1,12 +1,12 @@
 {
  "slug": "reinforcement-learning",
  "label": "Reinforcement Learning",
- "item_count": 25,
- "day_count": 11,
+ "item_count": 26,
+ "day_count": 12,
  "source_count": 6,
  "first_seen": "2026-10-20T18:15:52+00:00",
- "last_updated": "2026-11-04T13:24:54+00:00",
- "generated_at": "2026-11-06T00:13:28.162297+00:00",
+ "last_updated": "2026-11-05T16:19:52+00:00",
+ "generated_at": "2026-11-08T00:11:26.446490+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -338,19 +338,33 @@
      "editor_note": "Newest: finds multi-turn agent RL gains are sensitive to sampling breadth K and interaction depth."
     }
    ]
+  },
+  {
+   "date": "2026-11-05",
+   "items": [
+    {
+     "title": "FewStepRL: Fine-tuning Few-step Diffusion Models with Reinforcement Learning",
+     "url": "http://arxiv.org/abs/2611.08240v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Reinforcement learning (RL) has become a standard post-training method for diffusion models, but most RL objectives roll out the current policy at every iteration, and with a many-step sampler these rollouts typically dominate the cost of training. Few-step models cut this cost,",
+     "sid": "4e9768611cda6532",
+     "published": "2026-11-05T16:19:52+00:00"
+    }
+   ]
   }
  ],
  "editorial": {
   "tldr": "Reinforcement Learning is a loose grouping of arXiv agent-RL papers, not one developing story. Since Oct 20 it has collected work on rollout cost, search and RAG agents, and a split over fine-grained credit assignment.",
   "stale": false,
-  "whats_new": "Nov 4: an arXiv study finds multi-turn RL gains for LLM agents depend heavily on sampling breadth K and interaction depth, and Nov 3 adds guidance-stabilization and web-agent RL papers.",
+  "whats_new": "Nov 5: FewStepRL fine-tunes few-step diffusion models with RL to avoid costly per-iteration rollouts; Nov 4's study still finds multi-turn agent RL gains hinge on sampling breadth K and interaction depth.",
   "why_it_matters": "Agent RL results are sensitive to rollout budget, numerical setup and reward granularity, so a reported gain may not transfer to your harness. All are paper-reported, not production evidence.",
   "take_for_builders": "Before adopting any of these recipes, rerun them at your own sampling breadth and turn limits, and A/B fine-grained credit against episode-level reward; treat all results as unreplicated.",
   "status": {
    "state": "Developing",
    "tone": "rising",
-   "changed": "2026-11-04",
-   "detail": "A loose set of agentic-RL papers; the newest tests what multi-turn RL actually improves."
+   "changed": "2026-11-05",
+   "detail": "A loose set of agentic-RL papers; the newest extends RL post-training to few-step diffusion samplers."
   },
   "beats": [
    {
@@ -411,7 +425,8 @@
      "4e3ef058b96b399d",
      "65dc6916d3b352f1",
      "473a95cd7c540d1a",
-     "bce25dc1c825a3e7"
+     "bce25dc1c825a3e7",
+     "4e9768611cda6532"
     ]
    },
    {
@@ -434,6 +449,6 @@
     "status_update": true
    }
   },
-  "generated_at": "2026-11-06T00:13:12+00:00"
+  "generated_at": "2026-11-08T00:11:10+00:00"
  }
 }
