@@ -1,0 +1,161 @@
+{
+  "date": "2026-11-08",
+  "title": "What happened in AI — Nov 8, 2026",
+  "generated_at": "2026-11-08T22:15:23Z",
+  "intro": [
+    "Builders are shrinking their agent stacks: Lovable deleted most of its agent code and one engineer dropped all agent skills, citing Anthropic's 80%+ Claude Code prompt cut with no measurable eval loss.",
+    "The infrastructure gap is memory: every coding tool stores it differently, and several projects propose a shared format or an inspectable store."
+  ],
+  "highlights": [
+    "Lovable deleted almost all its agent code after 100k PRs.",
+    "Anthropic reportedly cut over 80% of Claude Code's system prompt with no measurable eval loss.",
+    "Agent memory lacks a shared format; the OpenTelemetry analogy is gaining ground.",
+    "ARTEX-driven campaigns stole 190k gaming credentials for under $400 in model costs.",
+    "Uncensored models in agent loops: most fail about half of multi-step tasks."
+  ],
+  "article_count": 17,
+  "categories": [
+    {
+      "name": "Agent harnesses: less scaffolding, more deletion",
+      "slug": "agent-harnesses-less-scaffolding",
+      "summary": "Builders report pruning agent code and skills as models improve, and the lighter harnesses they keep are small and inspectable.",
+      "articles": [
+        {
+          "title": "Lovable: we deleted almost all our agent code",
+          "summary": "Lovable's lessons from 100k PRs: choices that once helped can hold you back, so the team keeps rebuilding how the agent works.",
+          "source": "hackernews_ai",
+          "url": "https://lovable.dev/blog/how-we-built-lovable-and-why-we-keep-rebuilding-it",
+          "published": "Sun, 08 Nov 2026 16:09:37 +0000"
+        },
+        {
+          "title": "Author deletes all their agent skills",
+          "summary": "Cites Anthropic cutting over 80% of Claude Code's system prompt with no measurable loss on its own evals, and argues skills can over-constrain the agent.",
+          "source": "hackernews_ai",
+          "url": "https://philippdubach.com/posts/i-just-deleted-all-my-agent-skills/",
+          "published": "Sun, 08 Nov 2026 15:04:51 +0000"
+        },
+        {
+          "title": "psi: a 6.4 MB coding agent in ANSI C and Lua",
+          "summary": "MIT-licensed core in C with the agent loop, tools and providers in Lua; works with Anthropic, Codex, OpenRouter or Ollama.",
+          "source": "hackernews_ai",
+          "url": "https://psicode.ai/",
+          "published": "Sun, 08 Nov 2026 17:48:19 +0000"
+        },
+        {
+          "title": "My Local Coding Agent",
+          "summary": "A 25-year programmer describes a local agent setup and says LLMs in agent harnesses became capable of full features in January 2026.",
+          "source": "hackernews_ai",
+          "url": "https://hdembinski.github.io/posts/coding_agent.html",
+          "published": "Sun, 08 Nov 2026 19:12:20 +0000"
+        },
+        {
+          "title": "Designing an Always-On Agent",
+          "summary": "Argues today's agents do nothing until messaged and explores what a continuously running, environment-aware agent needs.",
+          "source": "hackernews_ai",
+          "url": "https://rubriclabs.com/blog/always-on-agents",
+          "published": "Sun, 08 Nov 2026 17:51:44 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Agent memory and context become shared infrastructure",
+      "slug": "agent-memory-context-infrastructure",
+      "summary": "Memory is fragmented per tool, and new projects try a shared format or an inspectable filesystem-style store.",
+      "articles": [
+        {
+          "title": "Agent memory needs its OpenTelemetry moment",
+          "summary": "Each coding tool stores memory in its own shape and none can read the others; the post surveys existing formats and sketches a shared spec.",
+          "source": "hackernews_ai",
+          "url": "https://www.lorekit.io/blog/open-agent-memory-format",
+          "published": "Sun, 08 Nov 2026 08:40:23 +0000"
+        },
+        {
+          "title": "OpenViking: a context database for agents",
+          "summary": "Open-source store that exposes knowledge, memory and skills as a viking:// virtual filesystem agents navigate with ls, tree, read and grep.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/volcengine/OpenViking",
+          "published": "Sun, 08 Nov 2026 04:44:14 +0000"
+        },
+        {
+          "title": "RepoMagpie: your coding agent remembers repos you've tried",
+          "summary": "Keeps your verdicts on libraries, CLIs and MCP servers so the agent checks them before installing a tool you already ruled out.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Varshavia/RepoMagpie",
+          "published": "Sun, 08 Nov 2026 10:13:24 +0000"
+        },
+        {
+          "title": "Google's Elephant-Goldfish Model plugin",
+          "summary": "Splits work in two: Elephant keeps project context and drafts the spec; Goldfish reviewers read it without the prior conversation to expose blind spots.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/google/elephant-goldfish-model",
+          "published": "Sun, 08 Nov 2026 03:50:34 +0000"
+        },
+        {
+          "title": "aiport: a local LLM gateway",
+          "summary": "Go gateway that routes Claude Code, Codex, Ollama and cloud models through one endpoint and shows which app called what.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/harelix/aiport",
+          "published": "Sun, 08 Nov 2026 11:44:16 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Security and reliability of agents under test",
+      "slug": "agent-security-reliability",
+      "summary": "Offensive agent use is cheap and measurable, while new work targets model backdoors and agent-loop failure rates.",
+      "articles": [
+        {
+          "title": "Check Point: AI agents stole 190k gaming credentials for under $400",
+          "summary": "Analysis of ARTEX, an open-source LLM-driven pentesting platform, and how cybercrime campaigns used it at low model cost.",
+          "source": "hackernews_ai",
+          "url": "https://research.checkpoint.com/2026/hacking-on-autopilot-inside-artex-cybercrime-campaigns/",
+          "published": "Sun, 08 Nov 2026 01:24:19 +0000"
+        },
+        {
+          "title": "What Can AI Hack? Inside Frontier Labs' Tests",
+          "summary": "Explains how to read system-card cyber evals, including OpenAI rating GPT-6 Astra its first Critical-level cyber model in September 2026.",
+          "source": "hackernews_ai",
+          "url": "https://dorcohen.dev/posts/what-can-ai-actually-hack/",
+          "published": "Sun, 08 Nov 2026 09:42:03 +0000"
+        },
+        {
+          "title": "Uncensored LLMs in agent loops: 31 models, 5 tasks",
+          "summary": "Most models still fail about half the time on multi-step tasks; models built on weaker bases loop almost twice as often.",
+          "source": "hackernews_ai",
+          "url": "https://openuncensored.com/blog/uncensored-models-in-agent-loops",
+          "published": "Sun, 08 Nov 2026 01:24:17 +0000"
+        },
+        {
+          "title": "NC State: new techniques to prevent AI backdoor attacks",
+          "summary": "Three techniques to block embedded triggers, plus a proposal to reuse backdoor methods as a security layer for users.",
+          "source": "hackernews_ai",
+          "url": "https://news.ncsu.edu/2026/11/new-techniques-to-prevent-backdoor-attacks/",
+          "published": "Sun, 08 Nov 2026 09:32:43 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Inference and fine-tuning off the CUDA path",
+      "slug": "inference-off-cuda-path",
+      "summary": "Two items show serving and tuning stacks moving beyond Nvidia and Python.",
+      "articles": [
+        {
+          "title": "VindexLLM: GGUF inference in Delphi on Vulkan",
+          "summary": "Runs full transformer inference on the GPU through Vulkan compute shaders, with no Python or CUDA, needing only vulkan-1.dll.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/tinyBigGAMES/VindexLLM",
+          "published": "Sun, 08 Nov 2026 05:25:50 +0000"
+        },
+        {
+          "title": "Huawei Ascend adapts Kimi K3.1 Pro for LoRA fine-tuning",
+          "summary": "Fine-tuning runs on a 128-card Atlas 950 SuperPoD, per Pandaily.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Pandaily",
+          "publisher_domain": "pandaily.com",
+          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOTS1oQ3R3c2pRRUNhc3pTWmtRWkJueEtPVVZEa3RrUENjY0ZOTGE2SmVOZEN1YWtlWWlwUWJuR19fdTc1LUxMRjZRcFYwQ0MwdjdHSW5fTDdGU0RzYW11R0lVREtfVklaa1JZdEhnTkk2bEZPRXNoLThtdzRDanFHdkdrZEZqNWYwNTdXMA?oc=5",
+          "published": "Sun, 08 Nov 2026 01:50:51 GMT"
+        }
+      ]
+    }
+  ]
+}
