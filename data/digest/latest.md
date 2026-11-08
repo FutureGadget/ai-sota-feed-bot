@@ -2,104 +2,104 @@
 
 Focus: AI Platform Engineering
 
-## 1. Why human insight is a strategic advantage for building better agents
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/human-insight-strategic-advantage-agents
-- Score: 1.895 | Reliability: 1.0
+## 1. How Grab Improved Mobile App Stability by Safely Handling Surge in AI-Generated Code Changes
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/11/grab-ai-generated-code-safety/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.165 | Reliability: 1.0
+- Why it matters: 
+
+## 2. Multimodal-SEA: Benchmarking AI Agent Security under Multimodal Social Engineering Attacks
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.08281v1
+- Score: 2.407 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, evaluation.
+
+## 3. Learning the Task or Learning the Verifier? Rethinking Criteria Exposure in Embodied Self-Improvement
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.08318v1
+- Score: 2.337 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. ReproBridge: Building Reproducibility into ML Research Artifacts
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.08452v1
-- Score: 2.739 | Reliability: 1.0
+## 4. DARE: Difficulty Analysis for Repair Enhancement
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.05797v1
+- Score: 2.32 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 5. LangSmith BYOC is now available on AWS, Azure, and Google Cloud
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/langsmith-byoc-aws-gc-azure
+- Score: 2.04 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 3. AutoCompress: Automated Hardware-Guided Model Compression
+## 6. Introducing Kinference: An Open Source Inference Control Plane for vLLM and Kubernetes
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-04-introducing-kinference
+- Score: 1.992 | Reliability: 1.0
+- Why it matters: 
+
+## 7. Accelerating engineering for the physical world
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/accelerating-engineering-for-the-physical-world
+- Score: 1.68 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 8. The Blueprint: Orchestrating 5,000+ AI assets for a World Cup TV spot
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/media-entertainment/how-mito-orchestrated-5000-plus-ai-assets-for-a-world-cup-tv-spot/
+- Score: 1.641 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, evaluation.
+
+## 9. Flipsnack grows product signups with conversion optimization
+- Type: release | Source: openai_blog
+- URL: https://openai.com/ads/customers/flipsnack
+- Score: 1.623 | Reliability: 1.0
+- Why it matters: 
+
+## 10. A thousand fewer paths to root
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/a-thousand-fewer-paths-to-root
+- Score: 1.599 | Reliability: 1.0
+- Why it matters: 
+
+## 11. Agent-R$^2$: Scaling Agents for Realistic Productivity Work via Real-Source Data Synthesis
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.08219v1
+- Score: 2.32 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
+
+## 12. Muir: Linear Attention with Sensitivity-Allocated Gating and Matched-Filter Readout
 - Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.08290v1
-- Score: 2.672 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2611.08376v1
+- Score: 2.278 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 4. SpecCTMC: Exact Speculative Simulation of Diffusion Language Model Continuous-Time Markov Chains
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.08362v1
-- Score: 2.538 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 5. Migrating vLLM to the LibTorch Stable ABI
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-06-stable-abi-cuda
-- Score: 1.847 | Reliability: 1.0
-- Why it matters: 
-
-## 6. Cult.fit builds operational muscle with Codex
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/cultfit-builds-with-codex
-- Score: 1.823 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 7. Introducing Images 2.6
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/introducing-images-2-6
-- Score: 1.798 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 8. DevRev delivers autonomous self-service with GPT-6.1 Sol
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/devrev-enterprise-self-service
-- Score: 1.584 | Reliability: 1.0
-- Why it matters: 
-
-## 9. langgraph-sdk==0.4.14
+## 13. langgraph-cli==0.4.42
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.14
-- Score: 1.291 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.42
+- Score: 1.274 | Reliability: 1.0
 - Why it matters: 
 
-## 10. Gemini Omni 1.2 Flash: Fast, cost-effective, and reliable video generation and editing now generally available
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/products/ai-machine-learning/gemini-omni-1-2-flash-generally-available/
-- Score: 1.244 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 11. Benchmarks as Software: Terminal-Bench and the Case for Continuous Benchmarks
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.08417v1
-- Score: 2.531 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness, evaluation.
-
-## 12. XStack: A Benchmark for ML Repo Migration
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.08472v1
-- Score: 2.489 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 13. codex rust-v0.169.0-alpha.1
+## 14. codex 0.168.0-alpha.7
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.1
-- Score: 1.241 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.7
+- Score: 1.187 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 14. Speeding up planning decisions with AI
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/speeding-up-planning-decisions-with-ai/
-- Score: 1.171 | Reliability: 1.0
-- Why it matters: 
-
-## 15. claude-code v2.1.318
+## 15. claude-code v2.1.317
 - Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.318
-- Score: 1.001 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.317
+- Score: 0.911 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 16. claude-agent-sdk-python v0.2.178
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.178
-- Score: 0.793 | Reliability: 1.0
+- Score: 0.782 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. v0.33.0rc2: [ROCm][Bugfix] Skip AITER tuned GEMM when M*N >= 2^31 on gfx950 (#64567)
+## 17. vllm v0.33.0
 - Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc2
-- Score: 0.293 | Reliability: 1.0
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0
+- Score: 0.318 | Reliability: 1.0
 - Why it matters:
