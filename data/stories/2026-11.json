@@ -3357,6 +3357,18 @@
   "url": "https://lovable.dev/blog/how-we-built-lovable-and-why-we-keep-rebuilding-it",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "55d059b88c6c576a": {
+  "content_excerpt": "Mixture-of-Experts (MoE) models have enabled state-of-the-art LLMs to be scaled to hundreds of billions of parameters, but they come with a fundamental and costly caveat: every expert MLP must occupy memory at inference time, even though the vast majority are idle for any given token. For example, Qwen3.5-122B has 256 experts in each of its 48 MoE layers, and 95% of its ~250 GB parameter memory footprint is taken up entirely by these expert MLPs alone. However, for any given token, only 8 experts in each layer are actually used. Expert pruning is one of the most direct fixes to this memory bottleneck. That is, permanently delete the least useful experts. Pruning avoids the latency issues which make dynamic loading/off-loading of experts impractical; it does not require any training; and it composes with quantization . Given these attractive benefits and the simplicity of the idea, it's easy to see why expert pruning has become a go-to approach for shrinking MoEs. The difficulty lies in deciding which experts are safest to remove. Existing pruning methods score each expert independently, assigning every expert a scalar importance score (based on a calibration dataset), and cutting out the least important experts (in each layer independently). These are first-order methods, because they assume each expert's contribution is independent of all others. In reality, experts form cooperative groups. We observe consistent clusters of co-activated experts in our own experiments, and in",
+  "first_seen": "2026-11-09T13:04:01.061413+00:00",
+  "id": "d26170c43578f4fa",
+  "published": "2026-11-09T12:34:29+00:00",
+  "sid": "55d059b88c6c576a",
+  "source": "huggingface_blog",
+  "summary_1line": "Your Experts Have Partners. There's HOPE for Keeping Them Together",
+  "title": "Your Experts Have Partners. There's HOPE for Keeping Them Together",
+  "type": "research",
+  "url": "https://huggingface.co/blog/amazon/higher-order-pruning-experts"
+ },
  "5606760643e4651e": {
   "first_seen": "2026-11-09T11:04:45.629576+00:00",
   "id": "17a41a22cc0a0430",
@@ -5896,6 +5908,24 @@
   "url": "https://paneflow.dev/blog/agent-status-osc-7501",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "a3b6edeb484770a3": {
+  "first_seen": "2026-11-09T13:04:01.061413+00:00",
+  "id": "7e30dfb90ce4d72f",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-05T19:07:15+00:00",
+  "sid": "a3b6edeb484770a3",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Groups can achieve more than individuals in the same amount of time, but only if their members coordinate: they must decide who works on what and what to share. However, this organization in multi-agent systems today usually comes from arbitrary, static harnesses designed a priori without adapting to agent behaviors or task specifications. We ask whether agents can instead learn to organize themselves. We introduce s$^3$, the first multi-agent reinforcement learning method in which agents decide for themselves how long to work alone and when to share findings or read teammates' messages, with no predefined organization or roles. Our s$^3$ agents learn to take different approaches, read each other's work, exhibit emergent roles that complement each other in the swarm, and generalize to bigger teams. We study both coordination, where agents must combine private information, and parallel exploration, where sharing discoveries can make search more efficient. With matched training and inference budgets, s$^3$, swarms evaluated with twice as many agents as in training solve over 25$\\times$ more coordination problems than the strongest baseline, and in exploration, communicating agents reduce repeated work by nearly 50% and outperform best-of-N by up to 9.4 percentage points. Rather than being designed in advance, s$^3$ enables organization to emerge from a shared goal. This opens the door to capable systems built from many models that learn to work together.",
+  "summary_1line": "Groups can achieve more than individuals in the same amount of time, but only if their members coordinate: they must decide who works on what and what to share. However, this organization in multi-agent systems today...",
+  "title": "s$^3$: Simple Scaling of Swarms via Cooperative Multi-agent RL",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08615v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
  "a3fde46d355d17fa": {
   "content_excerpt": "A persistent Chrome cloud browser for AI agents. Give every agent an isolated browser with saved login state and a browser you can pick up anytime. A cloud browser runs on a remote machine, so your agents can work beyond a single local desktop. Cloudbrowser gives each task an isolated Chrome browser with its own saved profile, a CDP URL for automation, and a live view you can open from anywhere. Start with a clean Chrome. Make it yours. Come back exactly to the profile you need. Save your cloud browser profile across tasks. Let a human sign in, then hand the same browser to an agent. Pause and fork a cloud browser into independent copies. Give every task its own space without repeating the setup. Pause cloud browser compute when the work is done. Resume Chrome and reconnect when you need it. Create a cloud browser with the REST API. Connect your favorite automation tool to its CDP URL. It explains how to install the CLI, sign in and create a browser without exposing a connection secret. Free includes 1 browser-hour per month and one running browser. Basic is $20/month for 250 hours and 10 concurrent browsers. Pro is $99/month for 1,250 hours and 100 concurrent browsers. Additional runtime is $0.08/hour on Basic or $0.06/hour on Pro. Free browsers pause at the limit. Paid upgrades are prorated; downgrades take effect next period. Anyone with a verified email can start on the Free plan. A cloud browser runs on a remote machine rather than your own computer. Cloudbrowser gives e",
   "first_seen": "2026-11-02T20:05:25.137504+00:00",
@@ -6522,6 +6552,19 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03223v1",
   "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
+ "b4c9eda632e112e3": {
+  "first_seen": "2026-11-09T13:04:01.061413+00:00",
+  "id": "ce3024c03f260b0e",
+  "image_url": "https://storage.googleapis.com/gweb-cloudblog-publish/original_images/1._SUperSliceVisualizer_compressed.gif",
+  "published": "2026-11-09T13:00:00+00:00",
+  "sid": "b4c9eda632e112e3",
+  "source": "google_cloud_blog",
+  "summary": "Running large-scale AI workloads on TPU and Google Kubernetes Engine (GKE) requires infrastructure that adapts as fast as your models change. Dynamic Slicing is generally available on GKE, which decouples logical TPU slice formation from physical nodepool provisioning. Compared to creating a static nodepool for each TPU slice, dynamic slicing reduces AI workload startup times by up to 5x and workload recovery by 4.5x — maximizing TPU goodput, efficiency, and workload resilience at scale. Beyond one workload, one nodepool Previously, managing TPU capacity at GKE standard required separate, fixed TPU slice topology nodepools, increasing startup times and complexity while preventing multi-host nodepools from hosting multiple AI workloads. Changing workload needs meant manually deleting and recreating nodepools. Additionally, this tight coupling created large failure domains where a single hardware fault crashed an entire slice, slowing recovery while reprovisioning. To overcome these challenges, we built GKE dynamic slicing, which decouples physical hardware provisioning from logical slice formation, dynamically stitching together TPU cubes using TPU optical circuit switching (OCS) technology to form various larger slice topologies (super-slicing), or partitioning TPU cubes into smaller slices for multiple workloads to run inside a nodepool (sub-slicing). By enabling workloads to assemble custom TPU slice topologies on demand without having to delete and recreate static nodepool",
+  "summary_1line": "Running large-scale AI workloads on TPU and Google Kubernetes Engine (GKE) requires infrastructure that adapts as fast as your models change. Dynamic Slicing is generally available on GKE, which decouples logical TPU...",
+  "title": "Now generally available: GKE dynamic slicing for higher resilience, and efficiency for TPUs",
+  "type": "news",
+  "url": "https://cloud.google.com/blog/products/containers-kubernetes/gke-dynamic-slicing-on-tpus"
  },
  "b4f19ea98f4ae71a": {
   "first_seen": "2026-11-06T09:09:35.727944+00:00",
