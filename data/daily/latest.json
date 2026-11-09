@@ -1,166 +1,218 @@
 {
-  "date": "2026-11-08",
-  "title": "What happened in AI — Nov 8, 2026",
-  "generated_at": "2026-11-08T22:15:23Z",
+  "date": "2026-11-09",
+  "title": "What happened in AI — Nov 9, 2026",
+  "generated_at": "2026-11-09T22:15:51Z",
   "intro": [
-    "Builders are shrinking their agent stacks: Lovable deleted most of its agent code and one engineer dropped all agent skills, citing Anthropic's 80%+ Claude Code prompt cut with no measurable eval loss.",
-    "The infrastructure gap is memory: every coding tool stores it differently, and several projects propose a shared format or an inspectable store."
+    "Agent safety was the day's dominant thread: new benchmarks and tools show permissions, provenance and isolation breaking once agents hold memory and shells, a week after a Firecracker guest escape.",
+    "Teams answered with eval-driven loops, policy layers and kill switches, while vendors kept shaving GPU idle time and porting friction."
   ],
   "highlights": [
-    "Lovable deleted almost all its agent code after 100k PRs.",
-    "Anthropic reportedly cut over 80% of Claude Code's system prompt with no measurable eval loss.",
-    "Agent memory lacks a shared format; the OpenTelemetry analogy is gaining ground.",
-    "ARTEX-driven campaigns stole 190k gaming credentials for under $400 in model costs.",
-    "Uncensored models in agent loops: most fail about half of multi-step tasks."
+    "Agent memory leaks confidential data in 67% of benchmark background tasks where raw RAG leaks 0%.",
+    "A Firecracker guest-to-host escape this week renews the case for one VM per agent.",
+    "OpenAI's Control Room can rapidly stop model workloads on safety or security concerns.",
+    "LangChain makes the case for eval-driven development over hand-testing agents.",
+    "GKE dynamic slicing for TPUs is GA; AWS TorchNeuron runs unmodified PyTorch on Trainium.",
+    "Anthropic recommends starting most builds on Opus 5.5 at medium effort."
   ],
-  "article_count": 17,
+  "article_count": 28,
   "categories": [
     {
-      "name": "Agent harnesses: less scaffolding, more deletion",
-      "slug": "agent-harnesses-less-scaffolding",
-      "summary": "Builders report pruning agent code and skills as models improve, and the lighter harnesses they keep are small and inspectable.",
+      "name": "Agent Safety, Memory & Governance",
+      "slug": "agent-safety-memory-governance",
+      "summary": "Agents now write memory, run shells and archive their own skills, so permissions, provenance and kill switches must live outside the model.",
       "articles": [
         {
-          "title": "Lovable: we deleted almost all our agent code",
-          "summary": "Lovable's lessons from 100k PRs: choices that once helped can hold you back, so the team keeps rebuilding how the agent works.",
+          "title": "Show HN: Raw RAG leaks 0%, but agent memory leaks 67%",
+          "summary": "A benchmark shows ACL filters stop raw RAG leaks but parent permissions vanish once agents synthesize notes into shared memory.",
           "source": "hackernews_ai",
-          "url": "https://lovable.dev/blog/how-we-built-lovable-and-why-we-keep-rebuilding-it",
-          "published": "Sun, 08 Nov 2026 16:09:37 +0000"
+          "url": "https://github.com/harishbalasubramanian/sentinel-eval",
+          "published": "Mon, 09 Nov 2026 14:33:07 +0000"
         },
         {
-          "title": "Author deletes all their agent skills",
-          "summary": "Cites Anthropic cutting over 80% of Claude Code's system prompt with no measurable loss on its own evals, and argues skills can over-constrain the agent.",
+          "title": "Show HN: MemSeal – provenance containment for agent long-term memory",
+          "summary": "Wraps each memory entry in a hash-chained provenance envelope and gates recall by trust tier before external sends.",
           "source": "hackernews_ai",
-          "url": "https://philippdubach.com/posts/i-just-deleted-all-my-agent-skills/",
-          "published": "Sun, 08 Nov 2026 15:04:51 +0000"
+          "url": "https://github.com/NagaYu/memseal",
+          "published": "Mon, 09 Nov 2026 12:58:14 +0000"
         },
         {
-          "title": "psi: a 6.4 MB coding agent in ANSI C and Lua",
-          "summary": "MIT-licensed core in C with the agent loop, tools and providers in Lua; works with Anthropic, Codex, OpenRouter or Ollama.",
+          "title": "Keep the Agent's Packets Out of the Host Kernel",
+          "summary": "After this week's Firecracker guest-to-host escape, argues for per-agent VMs with network boundaries that survive the next bug.",
           "source": "hackernews_ai",
-          "url": "https://psicode.ai/",
-          "published": "Sun, 08 Nov 2026 17:48:19 +0000"
+          "url": "https://kunalkushwaha.github.io/2026/11/09/keep-agent-packets-out-of-host-kernel/",
+          "published": "Mon, 09 Nov 2026 14:05:39 +0000"
         },
         {
-          "title": "My Local Coding Agent",
-          "summary": "A 25-year programmer describes a local agent setup and says LLMs in agent harnesses became capable of full features in January 2026.",
-          "source": "hackernews_ai",
-          "url": "https://hdembinski.github.io/posts/coding_agent.html",
-          "published": "Sun, 08 Nov 2026 19:12:20 +0000"
+          "title": "Introducing Control Room: Human control over AI workloads",
+          "summary": "OpenAI describes tracking model workloads across research infrastructure with the ability to stop them fast on safety or security concerns.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/introducing-control-room",
+          "published": "Mon, 09 Nov 2026 13:00:00 GMT"
         },
         {
-          "title": "Designing an Always-On Agent",
-          "summary": "Argues today's agents do nothing until messaged and explores what a continuously running, environment-aware agent needs.",
+          "title": "My AI agent archived 53 of its own skills during a maintenance run",
+          "summary": "A practitioner's account of an unprompted bulk skill archive, and the governance register built in response.",
           "source": "hackernews_ai",
-          "url": "https://rubriclabs.com/blog/always-on-agents",
-          "published": "Sun, 08 Nov 2026 17:51:44 +0000"
+          "url": "https://www.dhawalshah.net/article/ai-agent-governance/",
+          "published": "Mon, 09 Nov 2026 06:55:24 +0000"
+        },
+        {
+          "title": "Show HN: Airlock – Policy-as-code for fleets of AI coding agents",
+          "summary": "Proposes an open standard for expressing policy over fleets of autonomous engineering agents; early, seeking feedback.",
+          "source": "hackernews_ai",
+          "url": "https://airlock.lunareng.com/docs",
+          "published": "Mon, 09 Nov 2026 00:59:27 +0000"
         }
       ]
     },
     {
-      "name": "Agent memory and context become shared infrastructure",
-      "slug": "agent-memory-context-infrastructure",
-      "summary": "Memory is fragmented per tool, and new projects try a shared format or an inspectable filesystem-style store.",
+      "name": "Evals & Agent Reliability",
+      "slug": "evals-agent-reliability",
+      "summary": "Teams are formalizing how they measure agents: eval-driven loops, fair race harnesses and deterministic checks over agent output.",
       "articles": [
         {
-          "title": "Agent memory needs its OpenTelemetry moment",
-          "summary": "Each coding tool stores memory in its own shape and none can read the others; the post surveys existing formats and sketches a shared spec.",
-          "source": "hackernews_ai",
-          "url": "https://www.lorekit.io/blog/open-agent-memory-format",
-          "published": "Sun, 08 Nov 2026 08:40:23 +0000"
+          "title": "What Is Eval-Driven Development? How to Improve AI Agents",
+          "summary": "LangChain lays out EDD: fix a metric set first so every prompt or agent change is judged against it, not by hand-testing.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/what-is-eval-driven-development",
+          "published": "2026-11-09T19:00:00+00:00"
         },
         {
-          "title": "OpenViking: a context database for agents",
-          "summary": "Open-source store that exposes knowledge, memory and skills as a viking:// virtual filesystem agents navigate with ls, tree, read and grep.",
+          "title": "The Agents on Rails Files: enter lemans, a Ruby harness for fair agent races",
+          "summary": "Open-source harness for the Rails Foundation benchmark that equalizes conditions and blocks sandbox escapes and grader tampering over multi-hour runs.",
           "source": "hackernews_ai",
-          "url": "https://github.com/volcengine/OpenViking",
-          "published": "Sun, 08 Nov 2026 04:44:14 +0000"
+          "url": "https://evilmartians.com/chronicles/the-agents-on-rails-files-enter-lemans-a-ruby-harness-for-fair-agent-races",
+          "published": "Mon, 09 Nov 2026 14:01:54 +0000"
         },
         {
-          "title": "RepoMagpie: your coding agent remembers repos you've tried",
-          "summary": "Keeps your verdicts on libraries, CLIs and MCP servers so the agent checks them before installing a tool you already ruled out.",
+          "title": "Show HN: Divorce – an agent skill for native HTML, verified with Nu and axe",
+          "summary": "A Claude Code/Codex skill where W3C Nu and axe-core decide pass/fail; reports 76% fewer axe violations with the skill.",
           "source": "hackernews_ai",
-          "url": "https://github.com/Varshavia/RepoMagpie",
-          "published": "Sun, 08 Nov 2026 10:13:24 +0000"
+          "url": "https://github.com/ElRaxy/divorce",
+          "published": "Mon, 09 Nov 2026 16:54:03 +0000"
         },
         {
-          "title": "Google's Elephant-Goldfish Model plugin",
-          "summary": "Splits work in two: Elephant keeps project context and drafts the spec; Goldfish reviewers read it without the prior conversation to expose blind spots.",
+          "title": "Do AI coding agents care about SemVer or is it something for humans only?",
+          "summary": "Microsoft ran about 1,000 upgrade runs to test whether agents use version numbers as a risk signal; two models showed they do.",
           "source": "hackernews_ai",
-          "url": "https://github.com/google/elephant-goldfish-model",
-          "published": "Sun, 08 Nov 2026 03:50:34 +0000"
-        },
-        {
-          "title": "aiport: a local LLM gateway",
-          "summary": "Go gateway that routes Claude Code, Codex, Ollama and cloud models through one endpoint and shows which app called what.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/harelix/aiport",
-          "published": "Sun, 08 Nov 2026 11:44:16 +0000"
+          "url": "https://developer.microsoft.com/blog/do-ai-coding-agents-care-about-semver/",
+          "published": "Mon, 09 Nov 2026 16:03:09 +0000"
         }
       ]
     },
     {
-      "name": "Security and reliability of agents under test",
-      "slug": "agent-security-reliability",
-      "summary": "Offensive agent use is cheap and measurable, while new work targets model backdoors and agent-loop failure rates.",
+      "name": "Coding Agents & Dev Workflow",
+      "slug": "coding-agents-dev-workflow",
+      "summary": "Coding agents are producing most PRs, so the work shifts to reviewing, controlling and governing what they ship.",
       "articles": [
         {
-          "title": "Check Point: AI agents stole 190k gaming credentials for under $400",
-          "summary": "Analysis of ARTEX, an open-source LLM-driven pentesting platform, and how cybercrime campaigns used it at low model cost.",
-          "source": "hackernews_ai",
-          "url": "https://research.checkpoint.com/2026/hacking-on-autopilot-inside-artex-cybercrime-campaigns/",
-          "published": "Sun, 08 Nov 2026 01:24:19 +0000"
+          "title": "CodeRabbit scales agentic software development and ships 20x more",
+          "summary": "CodeRabbit says Codex lets the same team ship 20x more software while its OpenAI-backed review governs AI-generated code.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/coderabbit-codex-daybreak",
+          "published": "Mon, 09 Nov 2026 08:00:00 GMT"
         },
         {
-          "title": "What Can AI Hack? Inside Frontier Labs' Tests",
-          "summary": "Explains how to read system-card cyber evals, including OpenAI rating GPT-6 Astra its first Critical-level cyber model in September 2026.",
-          "source": "hackernews_ai",
-          "url": "https://dorcohen.dev/posts/what-can-ai-actually-hack/",
-          "published": "Sun, 08 Nov 2026 09:42:03 +0000"
+          "title": "Hide your slop PR descriptions behind <details><summary>",
+          "summary": "Simon Willison collapses agent-written PR descriptions in a details block so reviewers see a short summary first.",
+          "source": "simon_willison",
+          "url": "https://simonwillison.net/2026/Nov/9/details-summary/",
+          "published": "2026-11-09T04:25:05+00:00"
         },
         {
-          "title": "Uncensored LLMs in agent loops: 31 models, 5 tasks",
-          "summary": "Most models still fail about half the time on multi-step tasks; models built on weaker bases loop almost twice as often.",
+          "title": "Show HN: Control Layer Demo for AI Coding Agents",
+          "summary": "A demo control layer that restricts which files a coding agent like Claude Code may create, modify or delete.",
           "source": "hackernews_ai",
-          "url": "https://openuncensored.com/blog/uncensored-models-in-agent-loops",
-          "published": "Sun, 08 Nov 2026 01:24:17 +0000"
+          "url": "https://github.com/MintCoderpro/mintigate-demo",
+          "published": "Mon, 09 Nov 2026 08:43:54 +0000"
         },
         {
-          "title": "NC State: new techniques to prevent AI backdoor attacks",
-          "summary": "Three techniques to block embedded triggers, plus a proposal to reuse backdoor methods as a security layer for users.",
+          "title": "Show HN: Glassbrain – Read your agent's brain, know what your agent knows",
+          "summary": "Renders agent-written knowledge graphs as a single HTML file and diffs them, with a nonzero exit code on change for CI.",
           "source": "hackernews_ai",
-          "url": "https://news.ncsu.edu/2026/11/new-techniques-to-prevent-backdoor-attacks/",
-          "published": "Sun, 08 Nov 2026 09:32:43 +0000"
+          "url": "https://github.com/voidixyn/glassbrain",
+          "published": "Mon, 09 Nov 2026 09:22:54 +0000"
+        },
+        {
+          "title": "Which Claude model should you build with? Fable, Opus, Sonnet, or Haiku",
+          "summary": "Anthropic's guidance: start most work on Opus 5.5 at default medium effort, with trade-offs across Haiku 5.5, Sonnet 5.5 and Fable 5.2.",
+          "source": "claude_dev_blog",
+          "url": "https://claude.dev/blog/which-claude-model-should-you-build-with/",
+          "published": "Mon, 09 Nov 2026 12:00:00 GMT"
         }
       ]
     },
     {
-      "name": "Inference and fine-tuning off the CUDA path",
-      "slug": "inference-off-cuda-path",
-      "summary": "Two items show serving and tuning stacks moving beyond Nvidia and Python.",
+      "name": "Inference & Training Infrastructure",
+      "slug": "inference-training-infrastructure",
+      "summary": "Vendors are removing idle-GPU and porting friction: streamed training data, dynamic TPU slicing, Trainium without code changes, ready Dynamo recipes.",
       "articles": [
         {
-          "title": "VindexLLM: GGUF inference in Delphi on Vulkan",
-          "summary": "Runs full transformer inference on the GPU through Vulkan compute shaders, with no Python or CUDA, needing only vulkan-1.dll.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/tinyBigGAMES/VindexLLM",
-          "published": "Sun, 08 Nov 2026 05:25:50 +0000"
+          "title": "Accelerate GPU training on Unity Catalog tables with UCDataset",
+          "summary": "Databricks' beta PyTorch loader streams Unity Catalog tables straight to each GPU to stop expensive chips waiting on data.",
+          "source": "databricks_blog",
+          "url": "https://www.databricks.com/blog/accelerate-gpu-training-unity-catalog-tables-ucdataset",
+          "published": "Mon, 09 Nov 2026 19:00:00 GMT"
         },
         {
-          "title": "Huawei Ascend adapts Kimi K3.1 Pro for LoRA fine-tuning",
-          "summary": "Fine-tuning runs on a 128-card Atlas 950 SuperPoD, per Pandaily.",
+          "title": "Now generally available: GKE dynamic slicing for higher resilience, and efficiency for TPUs",
+          "summary": "GKE Dynamic Slicing is GA, decoupling logical TPU slices from physical hardware for resilience and utilization.",
+          "source": "google_cloud_blog",
+          "url": "https://cloud.google.com/blog/products/containers-kubernetes/gke-dynamic-slicing-on-tpus/",
+          "published": "Mon, 09 Nov 2026 13:00:00 +0000"
+        },
+        {
+          "title": "AWS Launches TorchNeuron to Run PyTorch Models on AWS Trainium Without Modifications",
+          "summary": "TorchNeuron lets unmodified PyTorch models run on Trainium, lowering the cost of moving off GPUs.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/11/aws-torchneuron-trainium-pytorch/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Mon, 09 Nov 2026 11:00:00 GMT"
+        },
+        {
+          "title": "NVIDIA Dynamo Recipes Bring Korea's Leading Open Models to Production",
+          "summary": "Dynamo deployment recipes for A.X K2, K-EXAONE 2.0, Solar Open 2 and Motif-3 cover multi-GPU routing and communication.",
+          "source": "nvidia_blog",
+          "url": "https://blogs.nvidia.com/blog/nvidia-dynamo-korea-open-models/",
+          "published": "Mon, 09 Nov 2026 05:00:00 +0000"
+        },
+        {
+          "title": "Show HN: clap.cpp – Audio embedding inference in C++ (GGML)",
+          "summary": "Pure C++ inference for CLAP, MuQ, CLaMP3 and MERT with an OpenAI-compatible embeddings server.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/gorse-io/clap.cpp",
+          "published": "Mon, 09 Nov 2026 04:46:12 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Enterprise Distribution & Platform Context",
+      "slug": "enterprise-distribution-platform-context",
+      "summary": "Models reach builders through existing cloud contracts and regional partnerships.",
+      "articles": [
+        {
+          "title": "ChatGPT Enterprise now available in AWS Marketplace",
+          "summary": "Procurement moves onto existing AWS purchasing and billing relationships.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/chatgpt-enterprise-aws-marketplace",
+          "published": "Mon, 09 Nov 2026 19:00:00 GMT"
+        },
+        {
+          "title": "NVIDIA Nemotron 3.5 Super VL is now available in Amazon SageMaker JumpStart",
+          "summary": "The vision-language model can now be deployed from SageMaker JumpStart.",
+          "source": "aws_ml_blog",
+          "url": "https://aws.amazon.com/blogs/machine-learning/nvidia-nemotron-3-5-super-vl-is-now-available-in-amazon-sagemaker-jumpstart/",
+          "published": "Mon, 09 Nov 2026 20:01:20 +0000"
+        },
+        {
+          "title": "Apple integrates Alibaba's Qwen AI in China — Korea Herald",
+          "summary": "Apple is reported to be integrating Alibaba's Qwen models for its China AI features.",
           "source": "search_cn_open_weight_labs",
-          "publisher_name": "Pandaily",
-          "publisher_domain": "pandaily.com",
-          "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOTS1oQ3R3c2pRRUNhc3pTWmtRWkJueEtPVVZEa3RrUENjY0ZOTGE2SmVOZEN1YWtlWWlwUWJuR19fdTc1LUxMRjZRcFYwQ0MwdjdHSW5fTDdGU0RzYW11R0lVREtfVklaa1JZdEhnTkk2bEZPRXNoLThtdzRDanFHdkdrZEZqNWYwNTdXMA?oc=5",
-          "published": "Sun, 08 Nov 2026 01:50:51 GMT"
+          "publisher_name": "UA.NEWS",
+          "publisher_domain": "ua.news",
+          "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPb0Q4MTRpbWJLRFEtNURGZHhCUU1kYjQtU29PTzlNc0RncjlEeXh5ZnJ1VEphYVI1Uks5YmZfQXZ6VnM0N1h3cDBmeTJCdzlSNzY1ZC1EeWFBcXptc2lQQzhpMTM2NTVocFZybGlJSi1NMFNuYlBFTklyaDZoMzlQUEtkTFd0ZTVPY2xHeUYzSFJ3OTY0Ymc?oc=5",
+          "published": "Mon, 09 Nov 2026 02:23:14 GMT"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "xkKphBtXB_A",
-    "title": "LLM Digest Daily Explainer: Nov 8, 2026",
-    "duration_s": 117.8
-  }
+  ]
 }
