@@ -65,6 +65,23 @@
   "url": "http://arxiv.org/abs/2611.05139v1",
   "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
+ "02e9abf47eaf3fa0": {
+  "first_seen": "2026-11-09T22:05:42.974699+00:00",
+  "id": "c82ebf36618531ca",
+  "matched_topics": [
+   "agentic",
+   "codex"
+  ],
+  "published": "2026-11-09T08:00:00+00:00",
+  "sid": "02e9abf47eaf3fa0",
+  "source": "openai_blog",
+  "summary": "CodeRabbit uses OpenAI models to govern and trust AI-generated code and Codex to ship 20 times more software with the same engineering team.",
+  "summary_1line": "CodeRabbit uses OpenAI models to govern and trust AI-generated code and Codex to ship 20 times more software with the same engineering team.",
+  "title": "CodeRabbit scales agentic software development and ships 20x more",
+  "type": "news",
+  "url": "https://openai.com/index/coderabbit-codex-daybreak",
+  "why_it_matters": "Matches feed focus: agentic, codex."
+ },
  "043210b88d2685e3": {
   "content_excerpt": "By Peter Olayemi and Onatunde Oladimeji. Tests run in October 2026 on LiteLLM v1.106.6 and the Revenium Python SDK 0.12.0. If you sell AI features and bill your customers for usage, a budget limit is a promise about your margins. We wanted to know how well that promise holds when things get messy: parallel calls, oversized responses, backend outages, restarts, and hundreds of customers at once. So",
   "first_seen": "2026-11-06T23:08:32.944335+00:00",
@@ -2630,6 +2647,7 @@
   "published": "2026-11-06T18:13:54+00:00",
   "sid": "423cb63904240d83",
   "source": "arxiv_cs_cl",
+  "summary": "The key-value (KV) cache dominates memory capacity and bandwidth in long-context LLM serving. While 4-bit microscaling formats (NVFP4, MXFP4) shrink the cache and run attention on FP4 Tensor Cores, a fundamental gap remains between algorithmic quantization and system-aware acceleration: existing FP4 KV systems use vanilla quantization that causes severe accuracy drops, whereas accuracy-oriented 4-bit algorithms rely on vector codebooks whose lookup overhead degrades decoding throughput. We present BitDecoding-FP4, an algorithm--system co-design for accurate and efficient native FP4 KV decoding. We mitigate three error sources: Dual-Residual Query Quantization splits queries into two FP4 tensors, cutting query logit error from 60% to 1%; Underflow-Aware Probability Scaling prevents E4M3 scales from rounding long-context probabilities to zero; and Outlier-Aware Key Quantization combines static smoothing, Hadamard rotation, and scale search to suppress key outliers under token-wise scaling. At the system level, we remove the softmax bottleneck via transposed softmax with fused probability quantization and stacked query MMA on paged KV caches. Across dense and MoE models with GQA and MLA, BitDecoding-FP4 stays within 0.5 points of BF16 KV accuracy with NVFP4 (1 point with MXFP4), and tracks BF16 KV in RL training rollouts. In end-to-end serving on NVIDIA B300 with Qwen3-4B and Qwen3-30B-A3B, it delivers 2.4-3.0$\\times$ higher peak serving throughput than BF16 KV. The implementati",
   "summary_1line": "The key-value (KV) cache dominates memory capacity and bandwidth in long-context LLM serving. While 4-bit microscaling formats (NVFP4, MXFP4) shrink the cache and run attention on FP4 Tensor Cores, a fundamental gap remains between algorithmic quantization and system-aware accele",
   "title": "BitDecoding-FP4: Native FP4 KV Cache Decoding via Algorithm-System Co-Design",
   "type": "paper",
@@ -4643,6 +4661,22 @@
   "url": "http://arxiv.org/abs/2611.09792v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
+ "78d08efcc4ad77de": {
+  "first_seen": "2026-11-09T22:05:42.974699+00:00",
+  "id": "0d67e1386e52c3af",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-05T19:50:11+00:00",
+  "sid": "78d08efcc4ad77de",
+  "source": "arxiv_llm_reliability",
+  "summary": "Intra-weight injection lets one model change another model's behaviour by editing its weights directly, without gradients. Such edits can range from altering lexical associations to enforcing output formats or updating factual knowledge. Despite growing interest in these approaches, there has been no systematic way to evaluate how well models perform them. We introduce IWIBench, which measures a large editor model's ability to modify the weights of a smaller target model (typically Gemma 3 4B IT) to achieve one of ten classical text-editing objectives while preserving its other capabilities. Editors are limited to four tools for reading and writing weights, with bounded tensor access and a fixed budget for generating and inspecting rollouts. A validator applies each proposed patch in a clean environment and compares the edited model against the unmodified target. Evaluating frontier closed- and open-weight models reveals sharply diverging capabilities, both across models and across tasks. A small number of models, most notably Astra and GPT-6.1 Sol, perform far ahead of the rest. The recency of this ability (little of it is evident in GPT-5.6 Sol, for instance), together with qualitative analysis, suggests it has been acquired through recent training. Tasks also vary widely: structured response resisted every attempt, and answer-length control yielded only one successful solution, whereas alias acquisition and recoding proved most amenable. Success in one task family correlat",
+  "summary_1line": "Intra-weight injection lets one model change another model's behaviour by editing its weights directly, without gradients. Such edits can range from altering lexical associations to enforcing output formats or updatin...",
+  "title": "IWIBench: Evaluating Gradient-Free Model Driven Intra-weight Injection",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08647v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "797aba84ba3e9103": {
   "first_seen": "2026-11-04T00:05:12.455371+00:00",
   "id": "eb44f9e033771ed2",
@@ -5211,16 +5245,16 @@
  },
  "885bc06050a058a0": {
   "first_seen": "2026-11-09T21:05:41.308068+00:00",
-  "id": "16266b3e4bbb3d93",
+  "id": "3674f4fa7ed30bf9",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-09T20:06:55+00:00",
+  "published": "2026-11-09T22:01:36+00:00",
   "sid": "885bc06050a058a0",
   "source": "openai_codex_releases",
   "summary": "Release 0.169.0-alpha.7",
   "summary_1line": "Release 0.169.0-alpha.7",
-  "title": "codex rust-v0.169.0-alpha.7",
+  "title": "codex 0.169.0-alpha.7",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.7",
   "why_it_matters": "Matches feed focus: codex."
@@ -6303,8 +6337,8 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 144, downloads: 1464.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 144, downloads: 1464.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 145, downloads: 1464.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 145, downloads: 1464.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16"
@@ -8390,6 +8424,18 @@
   "type": "news",
   "url": "https://github.com/fritzprix/devloops",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "dc6bacb2e80f865d": {
+  "first_seen": "2026-11-09T22:05:42.974699+00:00",
+  "id": "71e2d4c237da4fd7",
+  "published": "2026-11-09T13:00:00+00:00",
+  "sid": "dc6bacb2e80f865d",
+  "source": "openai_blog",
+  "summary": "Learn how OpenAI’s Control Room tracks model workloads across our research infrastructure and can rapidly stop them when safety or security concerns arise.",
+  "summary_1line": "Learn how OpenAI’s Control Room tracks model workloads across our research infrastructure and can rapidly stop them when safety or security concerns arise.",
+  "title": "Introducing Control Room: Human control over AI workloads",
+  "type": "news",
+  "url": "https://openai.com/index/introducing-control-room"
  },
  "dcc08e22467f3a8e": {
   "content_excerpt": "Like a lot of lean teams, we ship faster than we can update our own docs. So Linell built an agent that watches our SDK pull requests, drafts the docs in a sandbox, and works while he sleeps. We sometimes ship faster than we can update our docs, but we can’t slow one down for the other. To help make that easier, I’ve been toying with a little app that watches our SDK repo for PRs, decides whether the docs need an update, and if they do , has a minion (err, Claude) open a draft PR before slipping back into the shadows. Nobody has to remember to ask. Obviously I named it Docsferatu. The first version in my head was just a webhook handler: GitHub posts \"PR opened\", the handler asks Claude whether the docs care, and if they do, it runs an agent that edits the website repo and opens a PR. Maybe forty lines. Bing bang bong done. The usual fix is a queue, a worker pool, a table of \"how far did this job get\", and retry logic you write yourself. That's the part I didn't want to build. The gist: you write a function as a series of named steps, and each step's result is saved once it finishes. Inngest calls the function over HTTP. When it calls again (after a crash, a redeploy, a retry, or just to run the next step), finished steps return their saved results instead of running again, and execution picks up after the last one that completed. A crash at minute 18 resumes at minute 18. The paid LLM call from minute 3 isn't re-run; its answer is already on file. Docsferatu has two main func",
