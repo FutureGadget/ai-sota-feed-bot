@@ -1,0 +1,119 @@
+{
+  "locale": "ko",
+  "source_path": "/playbook/2026-11-03",
+  "source_hash": "bf8ab8512b74acd2f25b7ea35fb211e72e305ac0d98954fe291feb2a8726bca6",
+  "translated_at": "2026-11-09T02:57:51.929682+00:00",
+  "model": "google-translate-v2",
+  "review_status": "machine",
+  "date": "2026-11-03",
+  "title": "에이전트 빌더의 플레이북 — 2026년 11월 3일",
+  "generated_at": "2026-11-03T10:04:46Z",
+  "intro": [
+    "이번 주 결과는 모델이 아닌 에이전트 활용 방식에 따라 결정되었습니다. 도구 선택, 숨겨진 토큰 지출, 검증되지 않은 테스트 등이 모두 결과에 영향을 미쳤습니다."
+  ],
+  "card_count": 6,
+  "cards": [
+    {
+      "id": "pb-test-mcp-per-harness",
+      "kind": "source-backed",
+      "title": "MCP 서버의 성능을 특정 모델 하나만이 아닌, 각 에이전트 하네스를 통해 Benchmark .",
+      "area": "Tool use",
+      "problem": "동일한 모델이 동일한 21개의 MCP 서버에서 한 코딩 에이전트를 통해 82.0%의 점수를 받았고, 다른 코딩 에이전트를 통해서는 65.4%의 점수를 받았습니다.",
+      "apply": "사용자가 실행하는 모든 하네스에 대해 MCP 서버의 태스크 스위트를 실행하고, 에이전트가 서버 도구보다 먼저 어떤 내장 도구를 사용하는지 확인하십시오.",
+      "result": "사용자가 문제를 발견하기 전에 하네스 관련 결함을 먼저 찾아내어 모델 자체를 탓하지 않게 됩니다.",
+      "effort": "medium",
+      "source": "hackernews_ai",
+      "source_url": "https://m3.sineframe.com/blog/same-model-different-agent",
+      "source_sid": "b78023b26122d472",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "해당 소스는 21개 서버와 작업당 3회씩의 테스트를 통해 Claude Haiku 5.5의 경우 82.0% 대 65.4%의 정확도를 측정했습니다."
+      }
+    },
+    {
+      "id": "pb-mustfail-revert-check",
+      "kind": "source-backed",
+      "title": "에이전트의 소스 코드 변경 사항을 되돌리고 테스트를 다시 실행하여 실패할 수 있음을 입증하십시오.",
+      "area": "Evals",
+      "problem": "코딩 에이전트가 제공하는 녹색 스위트는 모의 객체를 확장하거나 값이 정의되었다는 것만 주장하는 경우 여전히 의미가 없을 수 있습니다.",
+      "apply": "에이전트 실행이 완료되면 소스 코드 변경 사항을 되돌리고, 새로 추가된 테스트는 그대로 유지한 채 다시 실행하십시오. 이때 여전히 통과하는 테스트는 해당 작업을 테스트하지 않는 것으로 간주하십시오.",
+      "result": "동어반복 테스트는 증거로 신뢰받기 전에 병합 전에 플래그가 지정됩니다.",
+      "effort": "low",
+      "source": "hackernews_ai",
+      "source_url": "https://github.com/greenlitbooks/mustfail",
+      "source_sid": "a53f6b2859b09ad7",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "이 자료는 해당 기술과 실패 원인을 설명하지만, 측정된 결과는 제시하지 않습니다."
+      }
+    },
+    {
+      "id": "pb-detect-repeated-tool-calls",
+      "kind": "source-backed",
+      "title": "동일한 도구 호출을 제한하여 루핑 에이전트가 조기에 중지되도록 합니다.",
+      "area": "Reliability",
+      "problem": "에이전트가 성공적으로 실행된 동일한 SQL 쿼리를 254번 반복 실행하여 토큰을 소모하고 데이터베이스 부하를 증가시키면서도 정상적으로 작동하는 것처럼 보였습니다.",
+      "apply": "각 작업별로 툴 호출의 이름과 인수를 해시하고, 동일한 호출이 연속으로 여러 번 성공하면 해당 호출을 중지하거나 다른 작업을 강제로 수행하도록 합니다.",
+      "result": "무한 루프는 예산을 낭비하고 데이터 레이어에 과부하를 주는 대신 조기에 종료됩니다.",
+      "effort": "low",
+      "source": "hackernews_ai",
+      "source_url": "https://armincat.com/articles/ai-agent-executed-same-query-254-times",
+      "source_sid": "e79cc677e615b2d8",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "사건 보고서는 그 과정의 반복을 기록하고 있으며, 경비원의 보상은 편집자의 추론에 달려 있습니다."
+      }
+    },
+    {
+      "id": "pb-audit-harness-background-tokens",
+      "kind": "source-backed",
+      "title": "작업 외부에서 토큰을 사용하는 숨겨진 호출을 감사합니다.",
+      "area": "Cost & latency",
+      "problem": "하네스는 세션 이름 지정 및 상태 표시줄 업데이트와 같은 백그라운드 모델 호출을 수행하지만 이러한 호출은 작업 로그에 나타나지 않습니다.",
+      "apply": "백그라운드 요청을 포함하여 하네스가 보내는 모든 모델 요청을 기록하고, 필수적이지 않은 호출은 비활성화하거나 더 저렴한 모델로 라우팅하십시오.",
+      "result": "저자는 이를 통해 상태 표시줄에 표시되는 토큰의 15~20%와 같이 아무런 작업도 수행하지 않는 지출을 드러낼 수 있다고 주장합니다.",
+      "effort": "low",
+      "source": "hackernews_ai",
+      "source_url": "https://armincat.com/articles/where-tokens-go",
+      "source_sid": "16f84d551cfc686c",
+      "evidence": {
+        "kind": "source-claimed",
+        "note": "저자는 Claude Code가 상태 표시줄에 토큰의 15~20%를 소비한다고 보고했는데, 이는 코드 분석 결과 중 하나에 근거한 주장입니다."
+      }
+    },
+    {
+      "id": "pb-measure-cli-startup-overhead",
+      "kind": "source-backed",
+      "title": "새로운 컨테이너에서 코딩 에이전트 CLI 실행하기 전에 작업별 시작 비용을 측정하세요.",
+      "area": "Cost & latency",
+      "problem": "터미널에서 빠르게 작동하는 것처럼 느껴지는 코딩 에이전트 CLI 라도 워크플로 작업마다 새 컨테이너에서 실행될 때는 비용이 많이 들 수 있습니다.",
+      "apply": "자체 CI 환경에서 후보 CLI의 시작 시간, 턴당 소요 시간, 메모리 사용량 및 이미지 크기 Benchmark 다음, 이를 작업 성공률과 별도로 비교 평가하십시오.",
+      "result": "추측하는 대신, 작업당 오버헤드가 파이프라인에 적합한 하네스를 선택합니다.",
+      "effort": "medium",
+      "source": "hackernews_ai",
+      "source_url": "https://aictrl.dev/blog/headless-coding-agent-cli-benchmark",
+      "source_sid": "18df784100d9cc05",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "해당 자료에 따르면 6개의 CLI 도구에 대해 시작 시간, 턴당 시간, 메모리 사용량, 이미지 크기 및 토큰 사용량을 측정했으며, 작업 완료 시간은 측정하지 않았다고 합니다."
+      }
+    },
+    {
+      "id": "pb-pin-tool-versions",
+      "kind": "source-backed",
+      "title": "도구가 업데이트될 때, 설치 시뿐만 아니라 도구 정의도 다시 검증해야 합니다.",
+      "area": "Safety",
+      "problem": "에이전트 프레임워크는 소프트웨어 업데이트로 인해 도구의 동작 방식이 변경된 후에도 해당 도구를 계속 신뢰합니다.",
+      "apply": "해시값을 기준으로 고정 도구 설명 및 스키마를 지정하고, MCP 서버 또는 도구가 이를 변경할 때마다 재승인 또는 차이점 검토를 요구합니다.",
+      "result": "조용히 수정된 도구는 이전 동작을 승인한 에이전트에 더 이상 새로운 동작을 주입할 수 없습니다.",
+      "effort": "medium",
+      "source": "arxiv_cs_ai",
+      "source_url": "http://arxiv.org/abs/2611.01976v1",
+      "source_sid": "3b426192f1bc75ae",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "이 논문은 도구 업데이트 격차를 제시하며, 제안된 제어 방식은 편집자의 추론입니다."
+      }
+    }
+  ]
+}
