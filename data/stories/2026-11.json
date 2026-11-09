@@ -534,6 +534,25 @@
   "url": "http://arxiv.org/abs/2611.09729v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "0d5030baccda0d7a": {
+  "content_excerpt": "Development on most agents starts the same way. You write a prompt, try a few questions by hand, adjust, and try again. This works well in the beginning, when agent errors are obvious and improvements are easy to see. But over time it becomes increasingly difficult to know whether your most recent change made an agent better or worse. Eval-driven development (EDD) solves this by giving you a consistent set of metrics to measure your agent’s performance against and guide your decision making. Here at LangChain we've used EDD when building our most advanced agents (check out our blog on IssueBench ), and have boiled it down to a three step process: In this blog, we'll walk through this process step by step so that your team can apply it to your own agent development process. The name and concept of eval-driven development borrows from test-driven development (TDD), where you write a failing test before writing the code that passes it. Agents differ from traditional code as they're non-deterministic: As a result, agents need a different kind of test. An eval handles this by scoring runs of your agent across a set of examples. Evals are more flexible than traditional testing. You can score any aspect of the agent's run and you can use other LLMs to score it ( LLM-as-a-judge ). With EDD, similar to TDD, these evals become your definition of success and you build your agent towards them. The first step in EDD is defining what your agent should do. Then, list the behaviors it needs ",
+  "first_seen": "2026-11-09T17:05:07.361061+00:00",
+  "id": "8dde0117446cba09",
+  "image_url": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6af1631684e7ff9e17bf30f3_6af16300f11e821788cff9c5_what-is-eval-driven-development-cover.png",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-09T19:00:00+00:00",
+  "sid": "0d5030baccda0d7a",
+  "source": "langchain_blog",
+  "summary": "Eval-driven development helps you build AI agents against a consistent set of metrics. Define good behavior, write the eval first, then compare experiments.",
+  "summary_1line": "Eval-driven development helps you build AI agents against a consistent set of metrics. Define good behavior, write the eval first, then compare experiments.",
+  "title": "What Is Eval-Driven Development? How to Improve AI Agents",
+  "type": "news",
+  "url": "https://www.langchain.com/blog/what-is-eval-driven-development",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "0d563c3f0bde1f8a": {
   "content_excerpt": "As agents take on longer, more complex tasks, evaluating their performance means looking beyond the final AI-generated answer. Human review plays an important role in agent development: it helps teams define what good looks like, evaluate performance in context, and turn expert judgment into data that drives improvement. In this blog, we explore three principles for effective human-in-the-loop workflows: defining quality through expert judgment, evaluating agents in context, and turning human feedback into reusable evaluation data that drives continuous improvement. An agent trace is a record of everything an agent did in a single attempt: user messages, model responses, tool calls, and intermediate steps. Teams use traces to debug behavior, score quality, and decide what to fix. Often an engineer or an online evaluator flags a trace when something looks off. The flag is a signal, not an explanation. It usually is not enough to know how to change the agent. The flagged trace goes into an annotation queue . A human reviewer opens the interaction and leaves feedback: did the agent do the right thing, and why or why not? Automation chooses what to review. The human supplies the judgment that builders act on. In LangSmith , a queue item can be one run (a single step or span) or a thread (the full multi-turn session). With a thread, the reviewer sees the conversation the user had, instead of one step cut out of it. Each reviewer brings domain judgment the trace does not contain on",
   "first_seen": "2026-11-03T22:07:45.774266+00:00",
@@ -2585,6 +2604,22 @@
   "title": "Show HN: Raw RAG leaks 0%, but agent memory leaks 67%",
   "type": "news",
   "url": "https://github.com/harishbalasubramanian/sentinel-eval",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "4378de97d0e3feec": {
+  "content_excerpt": "Your agent is in a toxic relationship with . It's not you, it's the spec. A skill for Claude Code & Codex: native HTML first, then proof from the W3C Nu validator and axe-core. Code decides pass/fail. 5 of 9 accessibility bugs pass both Nu and axe. divorce stops your agent from writing them. −29% HTML · −41% JavaScript · −76% axe violations , same agent with and without divorce. Numbers . Watch with sound (MP4) · music: Bach, Prelude in C major BWV 846, Kimiko Ishizaka, CC0 Your agent writes . Every validator says it's fine. Someone using a keyboard can't reach it. divorce makes the agent pick the native element first, then proves it with Nu and axe. One line for Claude Code, Codex, Gemini CLI, GitHub Copilot, OpenCode and more agents, via skills.sh . As a Claude Code plugin: Over 5 runs of 8 tasks. Nu errors: 3 of 40 pages with divorce, 0 of 40 without. Method and limits in evals . Both of these pass the Nu HTML Checker and axe. Only one can be reached with Tab. 5 of 9 pass both checkers. divorce picks the element before anything is checked. Then the gate checks the result: Nu on the HTML, axe on the rendered page. Code, not the model, delivers the verdict: pass , fail or not_measured ( exit codes ). Use the plugin commands above in Claude Code, or run one standalone route from an existing checkout's root; validator setup is separate. For a manual copy, copy the entire skills/divorce/ directory, including scripts, to ~/.claude/skills/divorce/ . Instruction blocks point to th",
+  "first_seen": "2026-11-09T17:05:07.361061+00:00",
+  "id": "4c6b616845b20cf4",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-09T16:54:03+00:00",
+  "sid": "4378de97d0e3feec",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Divorce – an agent skill for native HTML, verified with Nu and axe",
+  "title": "Show HN: Divorce – an agent skill for native HTML, verified with Nu and axe",
+  "type": "news",
+  "url": "https://github.com/ElRaxy/divorce",
   "why_it_matters": "Matches feed focus: agent."
  },
  "43862ef771dfba65": {
@@ -5429,7 +5464,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "91e8339abec141ef": {
-  "content_excerpt": "Ask HN: How do you evaluate the skills your AI agents use? | Hacker News Hacker News new | past | comments | ask | show | jobs | submit login Ask HN: How do you evaluate the skills your AI agents use? 4 points by enesalatas 1 hour ago | hide | past | favorite | 1 comment Do you systematically evaluate agent skills, either before or while using them? If so, what tools or methods do you use? Or do you mostly rely on reading the SKILL.md and trying things out? help bisonbear 17 minutes ago [–] There are two ways I see to do this: 1. Tell your agent to eval the skill itself ( https://code.claude.com/docs/en/plugin-evals ). This is easier and faster, but less accurate, and harder to extend to capture things like code quality. 2. Build your own benchmark out of work your normally do, and then eval the skill on that dataset. This is harder and more annoying (because creating benchmarks is hard) but provides deeper insight into how the skill affects the agent in known scenarios. It also depends on what the skill is doing. If it's creating an artifact (like a report, easier to eval) then your strategy is very different than if the skill is changing agent behavior (like telling it to use cheap subagents under XYZ conditions, harder to eval). The importance of doing this grows with the number of people using the skill. Working on my own projects, I don't usually bother. Working in an enterprise monorepo, suddenly the risk of shipping a bad skill is amplified, and evals become much more ",
+  "content_excerpt": "Ask HN: How do you evaluate the skills your AI agents use? | Hacker News Hacker News new | past | comments | ask | show | jobs | submit login Ask HN: How do you evaluate the skills your AI agents use? 8 points by enesalatas 2 hours ago | hide | past | favorite | 3 comments Do you systematically evaluate agent skills, either before or while using them? If so, what tools or methods do you use? Or do you mostly rely on reading the SKILL.md and trying things out? help bisonbear 1 hour ago [–] There are two ways I see to do this: 1. Tell your agent to eval the skill itself ( https://code.claude.com/docs/en/plugin-evals ). This is easier and faster, but less accurate, and harder to extend to capture things like code quality. 2. Build your own benchmark out of work your normally do, and then eval the skill on that dataset. This is harder and more annoying (because creating benchmarks is hard) but provides deeper insight into how the skill affects the agent in known scenarios. It also depends on what the skill is doing. If it's creating an artifact (like a report, easier to eval) then your strategy is very different than if the skill is changing agent behavior (like telling it to use cheap subagents under XYZ conditions, harder to eval). The importance of doing this grows with the number of people using the skill. Working on my own projects, I don't usually bother. Working in an enterprise monorepo, suddenly the risk of shipping a bad skill is amplified, and evals become much more at",
   "first_seen": "2026-11-09T16:04:55.935465+00:00",
   "id": "ad869d241078d93a",
   "matched_topics": [
@@ -6159,8 +6194,8 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 93, downloads: 652.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 93, downloads: 652.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 140, downloads: 1464.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 140, downloads: 1464.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16"
