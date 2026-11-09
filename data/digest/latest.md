@@ -2,116 +2,146 @@
 
 Focus: AI Platform Engineering
 
-## 1. Show HN: Raw RAG leaks 0%, but agent memory leaks 67%
+## 1. Do AI coding agents care about SemVer or is it something for humans only?
 - Type: news | Source: hackernews_ai
-- URL: https://github.com/harishbalasubramanian/sentinel-eval
-- Score: 3.973 | Reliability: 1.0
+- URL: https://developer.microsoft.com/blog/do-ai-coding-agents-care-about-semver/
+- Score: 4.033 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. The Agents on Rails Files: enter lemans, a Ruby harness for fair agent races
+## 2. Ask HN: How do you evaluate the skills your AI agents use?
 - Type: news | Source: hackernews_ai
-- URL: https://evilmartians.com/chronicles/the-agents-on-rails-files-enter-lemans-a-ruby-harness-for-fair-agent-races
-- Score: 3.951 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
+- URL: https://news.ycombinator.com/item?id=50426070
+- Score: 4.003 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
-## 3. Show HN: MemSeal – provenance containment for agent long-term memory
+## 3. Show HN: Raw RAG leaks 0%, but agent memory leaks 67%
 - Type: news | Source: hackernews_ai
-- URL: https://github.com/NagaYu/memseal
-- Score: 3.581 | Reliability: 1.0
+- URL: https://github.com/harishbalasubramanian/sentinel-eval
+- Score: 3.852 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 4. Your Experts Have Partners. There's HOPE for Keeping Them Together
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/amazon/higher-order-pruning-experts
-- Score: 3.296 | Reliability: 1.0
+- Score: 3.2 | Reliability: 1.0
 - Why it matters: 
 
-## 5. Now generally available: GKE dynamic slicing for higher resilience, and efficiency for TPUs
+## 5. Accelerate GPU training on Unity Catalog tables with UCDataset
+- Type: news | Source: databricks_blog
+- URL: https://www.databricks.com/blog/accelerate-gpu-training-unity-catalog-tables-ucdataset
+- Score: 3.012 | Reliability: 1.0
+- Why it matters: 
+
+## 6. Now generally available: GKE dynamic slicing for higher resilience, and efficiency for TPUs
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/containers-kubernetes/gke-dynamic-slicing-on-tpus/
-- Score: 3.004 | Reliability: 1.0
+- Score: 2.952 | Reliability: 1.0
 - Why it matters: 
 
-## 6. AWS Launches TorchNeuron to Run PyTorch Models on AWS Trainium Without Modifications
+## 7. Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's Demographics and Financial Context
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/nvidia/nemotron-personas-finance-japan
+- Score: 2.935 | Reliability: 1.0
+- Why it matters: 
+
+## 8. AWS Launches TorchNeuron to Run PyTorch Models on AWS Trainium Without Modifications
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/11/aws-torchneuron-trainium-pytorch/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.951 | Reliability: 1.0
+- Score: 2.849 | Reliability: 1.0
 - Why it matters: 
 
-## 7. Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots Rehearse Delicate Work in Simulation
+## 9. Why PMs are suddenly valuable again | Tulsee Doshi (Head of Product, Gemini)
+- Type: video | Source: lennys_podcast
+- URL: https://youtu.be/qGf2Yvan4Wg
+- Score: 2.256 | Reliability: 0.75
+- Why it matters: Matches feed focus: agent, harness, eval.
+
+## 10. Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots Rehearse Delicate Work in Simulation
 - Type: news | Source: nvidia_blog
 - URL: https://blogs.nvidia.com/blog/robotics-simulation-advancements-corl/
-- Score: 2.357 | Reliability: 1.0
+- Score: 2.233 | Reliability: 1.0
 - Why it matters: 
 
-## 8. Scaling Graph Similarity Learning with Graph Neural Networks
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.09805v1
-- Score: 2.199 | Reliability: 1.0
+## 11. Differentially Private GraphRAG: Protecting Relation Connectivity and Semantics
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.09658v1
+- Score: 2.151 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 9. On Agentic Manipulation Policies
+## 12. One Run Is Not Enough: A Monte Carlo Protocol for Evaluating LLM Reliability on Data Science Tasks
 - Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.09892v1
-- Score: 2.186 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness.
+- URL: http://arxiv.org/abs/2611.09729v1
+- Score: 2.15 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
-## 10. Why human insight is a strategic advantage for building better agents
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/human-insight-strategic-advantage-agents
-- Score: 1.739 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 11. Query-Guided RoPE Modulation for Lost-in-the-Middle Mitigation in Long-Context LLMs
+## 13. RidgeFill: Training-Free Late-Layer Cache Fill for Faster Prefill
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.09554v1
-- Score: 2.175 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2611.09709v1
+- Score: 2.147 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 12. Towards an Autonomous AI Steward for Large-Scale Physics Experiments: Integrating Causal Diagnostics, RAG, and Conformal Prediction
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.09298v1
-- Score: 2.167 | Reliability: 1.0
+## 14. Introducing Kinference: An Open Source Inference Control Plane for vLLM and Kubernetes
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-04-introducing-kinference
+- Score: 1.881 | Reliability: 1.0
+- Why it matters: 
+
+## 15. LangSmith BYOC is now available on AWS, Azure, and Google Cloud
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/langsmith-byoc-aws-gc-azure
+- Score: 1.863 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 13. codex rust-v0.169.0-alpha.4
+## 16. Introducing Images 2.6
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/introducing-images-2-6
+- Score: 1.669 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 17. codex rust-v0.169.0-alpha.5
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.4
-- Score: 1.623 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.5
+- Score: 1.571 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 14. Accelerating engineering for the physical world
+## 18. Introducing the Grid Protectors Program
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/accelerating-engineering-for-the-physical-world
-- Score: 1.536 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 15. Scaling Git at OpenAI
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/scaling-git-at-openai
-- Score: 1.523 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 16. Franklin Templeton uses OpenAI to support investment research
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/franklin-templeton
-- Score: 1.499 | Reliability: 1.0
+- URL: https://openai.com/index/grid-protectors-program
+- Score: 1.515 | Reliability: 1.0
 - Why it matters: 
 
-## 17. langgraph-sdk==0.4.14
+## 19. Maggie Appleton: Agentic Coding Has Outgrown the Text Box
+- Type: video | Source: ai_native_dev
+- URL: https://youtu.be/0cySwRF7oJI
+- Score: 1.485 | Reliability: 0.75
+- Why it matters: Matches feed focus: agentic.
+
+## 20. DevRev delivers autonomous self-service with GPT-6.1 Sol
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/devrev-enterprise-self-service
+- Score: 1.474 | Reliability: 1.0
+- Why it matters: 
+
+## 21. langgraph-cli==0.4.42
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.14
-- Score: 1.121 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.42
+- Score: 1.123 | Reliability: 1.0
 - Why it matters: 
 
-## 18. claude-code v2.1.317
+## 22. claude-code v2.1.317
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.317
-- Score: 0.847 | Reliability: 1.0
+- Score: 0.852 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 19. claude-agent-sdk-python v0.2.178
+## 23. claude-agent-sdk-python v0.2.177
 - Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.178
-- Score: 0.713 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.177
+- Score: 0.784 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
+
+## 24. vllm v0.33.0
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.33.0
+- Score: 0.3 | Reliability: 1.0
+- Why it matters:

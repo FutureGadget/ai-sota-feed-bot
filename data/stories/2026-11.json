@@ -518,6 +518,22 @@
   "type": "news",
   "url": "https://openai.com/index/preparing-our-next-security-sprint-to-harden-openai"
  },
+ "0d4497db5df885d5": {
+  "first_seen": "2026-11-09T16:04:55.935465+00:00",
+  "id": "276a68cfce2157ab",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-06T17:06:21+00:00",
+  "sid": "0d4497db5df885d5",
+  "source": "arxiv_cs_lg",
+  "summary": "Large language models (LLMs) have shown promise for automating data science workflows. Benchmarks such as DataSciBench (2026) and StatQA (2024) have advanced the evaluation of their capabilities across data science and statistical tasks. Assessing their reliability requires examining both the quality of their responses and their consistency across repeated runs, task types, and difficulty levels. With this aim, we introduce DS-QA, a benchmark comprising 100 data science and statistics questions drawn from UK university courses, spanning 16 datasets and three difficulty levels. We develop a three-layer evaluation framework that combines general response properties (runtime, verbosity and text similarity), coarse-grained metrics (accuracy, code executability and completeness), and task-specific metrics. We evaluate OpenAI models using a Monte Carlo protocol with 100 repeated runs. The results reveal substantial variability in responses to data visualisation and supervised learning tasks, particularly at medium and hard difficulty levels, highlighting the importance of evaluating consistency alongside response quality. We also find that an increase of 0.1 in the word verbosity ratio corresponds to an increase of about 0.013 in the token verbosity ratio.",
+  "summary_1line": "Large language models (LLMs) have shown promise for automating data science workflows. Benchmarks such as DataSciBench (2026) and StatQA (2024) have advanced the evaluation of their capabilities across data science an...",
+  "title": "One Run Is Not Enough: A Monte Carlo Protocol for Evaluating LLM Reliability on Data Science Tasks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.09729v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "0d563c3f0bde1f8a": {
   "content_excerpt": "As agents take on longer, more complex tasks, evaluating their performance means looking beyond the final AI-generated answer. Human review plays an important role in agent development: it helps teams define what good looks like, evaluate performance in context, and turn expert judgment into data that drives improvement. In this blog, we explore three principles for effective human-in-the-loop workflows: defining quality through expert judgment, evaluating agents in context, and turning human feedback into reusable evaluation data that drives continuous improvement. An agent trace is a record of everything an agent did in a single attempt: user messages, model responses, tool calls, and intermediate steps. Teams use traces to debug behavior, score quality, and decide what to fix. Often an engineer or an online evaluator flags a trace when something looks off. The flag is a signal, not an explanation. It usually is not enough to know how to change the agent. The flagged trace goes into an annotation queue . A human reviewer opens the interaction and leaves feedback: did the agent do the right thing, and why or why not? Automation chooses what to review. The human supplies the judgment that builders act on. In LangSmith , a queue item can be one run (a single step or span) or a thread (the full multi-turn session). With a thread, the reviewer sees the conversation the user had, instead of one step cut out of it. Each reviewer brings domain judgment the trace does not contain on",
   "first_seen": "2026-11-03T22:07:45.774266+00:00",
@@ -1498,6 +1514,22 @@
   "type": "news",
   "url": "https://openai.com/index/introducing-images-2-6",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "298e8e99ab738dd7": {
+  "content_excerpt": "Semantic versioning tells developers how risky an upgrade is. A patch fixes bugs, a minor release adds features without breaking anything and a major release breaks things, so you know how closely to look before you upgrade. On paper, that signal is redundant when an AI coding agent does the upgrade. The agent has no muscle memory tied to the old API. It can read the new code and run the tests, so why would it care what the version number says? We suspected it wouldn’t, and that SemVer had become something only people need. Two models proved us wrong. Across two experiments and almost 1,000 runs, the version number alone changed what they did with byte-identical code. Given an upgrade that broke the app, Claude Sonnet 5.5 ran the tests or read the new code in 2 of 10 runs when the upgrade was labeled a patch, and in all 10 when it was labeled a major release. Other models checked every upgrade, whatever the label said. Some agents still read SemVer, and for them, a patch label is a reason to check less. SemVer describes what the maintainer intended a release to do. Whether it works with your app is something an agent can check directly, by reading the code and running the tests. Still, models learn from repositories and docs where SemVer is everywhere. Somewhere in that data, they may have picked up the same habits developers have: a major release deserves a careful look, and a patch is safe to take. If they did, the label could decide how thoroughly an agent checks an upgrad",
+  "first_seen": "2026-11-09T16:04:55.935465+00:00",
+  "id": "4972dbaa81589ef9",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-09T16:03:09+00:00",
+  "sid": "298e8e99ab738dd7",
+  "source": "hackernews_ai",
+  "summary_1line": "Do AI coding agents care about SemVer or is it something for humans only?",
+  "title": "Do AI coding agents care about SemVer or is it something for humans only?",
+  "type": "news",
+  "url": "https://developer.microsoft.com/blog/do-ai-coding-agents-care-about-semver",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "29f64af329084635": {
   "content_excerpt": "The CRAFT framework set up on your own Claude and DataForSEO accounts in about two weeks. The register I use to govern my own AI agents, and the free guide to build yours. In-depth playbooks on AI, marketing, and scaling, from 14 years building companies across Asia. Original survey data from Asian businesses, and close reads of the regional research on AI adoption. Recurring cartoons on AI, coding, and what building with it actually looks like. On 14 June 2026, one of my AI agents archived 57 of its own 82 skills in ten minutes. It did not ask me first. Twenty-one of those skills were in active use, and two scheduled jobs lost their email and calendar access without any error. Nothing about the agent’s access had changed that week. Its model had. Five days earlier it had been switched to a new model, and this was the new model’s first unsupervised pass over the system. That is the argument of this article. AI agent governance fails at the moment something changes, not at setup. Most frameworks check an agent once, when it is approved. The risk arrives later: a model upgrade, a new skill, a gate you loosened because things were going well. I run several agents on my own site and brand, and every control I now use came from one of those changes. TL;DR: AI agent governance is the set of rules that decide what an agent can touch, when it must stop and ask, and how you find out what it did. The usual frameworks cover identity, access, monitoring and audit. They miss change. A mod",
@@ -3934,13 +3966,18 @@
  "659084301df3f128": {
   "first_seen": "2026-11-09T07:06:12.542504+00:00",
   "id": "e8d2c19142d33370",
+  "matched_topics": [
+   "eval"
+  ],
   "published": "2026-11-06T16:52:41+00:00",
   "sid": "659084301df3f128",
   "source": "arxiv_cs_cl",
+  "summary": "RidgeFill shortens prefill by not computing most of a model's upper layers for the prompt. The lower layers run exactly up to a split; from the split layer's state a per-layer map predicts every later layer's input, and each late layer writes its cache from that prediction. The design follows YOCO and DeepSeek-V4.1-Flash, where the projection is trained into the model. RidgeFill retrofits it onto models that were never trained for it: the map is a ridge regression fitted once in closed form from one pass over calibration text, the layer's own projections run unchanged, and a chosen set of rows, the last few thousand tokens, and every decoding step run the full model. Nothing is trained and no token is dropped. Most of the work was in measurement, finding a repeatable methodology. Loss averaged over all tokens hides RidgeFill's error. Needle retrieval in the filled region, loss on tokens that depend on distant context, and splice tests that swap filled keys or values for exact ones show which component carries it: the keys on Llama-3.1-8B, half of it in their scale, and the values and the recurrent state on Qwen3.5-9B. On Qwen3.8-27B in a llama.cpp fork on an A100, time to first token is 1.25 to 1.31x faster at 16K to 120K tokens with the maps in VRAM; RULER changes by -1.2 and -1.4 points and LongBench v2 by -1.4; the 95 % intervals include zero but do not rule out losses of a few points. On Qwen3.8-Flash-Next in vLLM it is 1.50 to 1.60x faster than exact at 9K to 32K tokens,",
   "summary_1line": "RidgeFill shortens prefill by not computing most of a model's upper layers for the prompt. The lower layers run exactly up to a split; from the split layer's state a per-layer map predicts every later layer's input, and each late layer writes its cache from that prediction. The d",
   "title": "RidgeFill: Training-Free Late-Layer Cache Fill for Faster Prefill",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.09709v1"
+  "url": "http://arxiv.org/abs/2611.09709v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "65d3949f01679d52": {
   "first_seen": "2026-11-03T14:05:20.958126+00:00",
@@ -4680,6 +4717,19 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06397v1"
  },
+ "7ddb05ad41f69953": {
+  "content_excerpt": "GPUs are usually the most expensive part of any training run, and most teams can't keep them busy. The bottleneck usually isn't the model. It's getting data from where it lives to the GPU fast enough - and every second those chips sit waiting, you're burning both time and money. Today we're releasing the Unity Catalog Dataset (UCDataset) in Beta on AI Runtime. UCDataset is a native PyTorch data loader that streams Unity Catalog tables directly to every GPU in your training job, with no exports, no copies, and no custom loader code. On simulated production workloads, UCDataset cut training time by 10x compared with reading an exported Parquet copy of the same data. Most training data for your models already lives in Unity Catalog tables. Getting it into a distributed training job means picking one of three workarounds, and each one costs you time and money: Then there's the loader itself. Every GPU and every worker needs its own balanced slice of the data. Teams spend time building this by hand, and a subtle bug can mean the model trains on duplicated or skipped rows without anyone noticing. The result: expensive GPUs sit idle, training takes longer than it should, and ML engineers maintain data plumbing instead of improving models. UCDataset makes Unity Catalog tables a first-class data source for distributed PyTorch training. You describe what to read (a table, the columns you need, and a row filter) and UCDataset streams training-ready batches to every GPU. Benefits include",
+  "first_seen": "2026-11-09T16:04:55.935465+00:00",
+  "id": "dfc1ad492e625f82",
+  "published": "2026-11-09T15:00:00+00:00",
+  "sid": "7ddb05ad41f69953",
+  "source": "databricks_blog",
+  "summary": "GPUs are usually the most expensive part of any training run, and most teams can't...",
+  "summary_1line": "GPUs are usually the most expensive part of any training run, and most teams can't...",
+  "title": "Accelerate GPU training on Unity Catalog tables with UCDataset",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/accelerate-gpu-training-unity-catalog-tables-ucdataset"
+ },
  "7dfaaa125cb6bf17": {
   "first_seen": "2026-11-04T07:03:38.827669+00:00",
   "id": "78944ae06e84a279",
@@ -5378,6 +5428,24 @@
   "url": "https://www.uber.com/us/en/blog/securing-ai-agents",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "91e8339abec141ef": {
+  "content_excerpt": "Ask HN: How do you evaluate the skills your AI agents use? | Hacker News Hacker News new | past | comments | ask | show | jobs | submit login Ask HN: How do you evaluate the skills your AI agents use? 4 points by enesalatas 1 hour ago | hide | past | favorite | 1 comment Do you systematically evaluate agent skills, either before or while using them? If so, what tools or methods do you use? Or do you mostly rely on reading the SKILL.md and trying things out? help bisonbear 17 minutes ago [–] There are two ways I see to do this: 1. Tell your agent to eval the skill itself ( https://code.claude.com/docs/en/plugin-evals ). This is easier and faster, but less accurate, and harder to extend to capture things like code quality. 2. Build your own benchmark out of work your normally do, and then eval the skill on that dataset. This is harder and more annoying (because creating benchmarks is hard) but provides deeper insight into how the skill affects the agent in known scenarios. It also depends on what the skill is doing. If it's creating an artifact (like a report, easier to eval) then your strategy is very different than if the skill is changing agent behavior (like telling it to use cheap subagents under XYZ conditions, harder to eval). The importance of doing this grows with the number of people using the skill. Working on my own projects, I don't usually bother. Working in an enterprise monorepo, suddenly the risk of shipping a bad skill is amplified, and evals become much more ",
+  "first_seen": "2026-11-09T16:04:55.935465+00:00",
+  "id": "ad869d241078d93a",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-09T14:24:22+00:00",
+  "sid": "91e8339abec141ef",
+  "source": "hackernews_ai",
+  "summary": "Do you systematically evaluate agent skills, either before or while using them? If so, what tools or methods do you use? Or do you mostly rely on reading the SKILL.md and trying things out?",
+  "summary_1line": "Do you systematically evaluate agent skills, either before or while using them? If so, what tools or methods do you use? Or do you mostly rely on reading the SKILL.md and trying things out?",
+  "title": "Ask HN: How do you evaluate the skills your AI agents use?",
+  "type": "news",
+  "url": "https://news.ycombinator.com/item?id=50426070",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "9275031f37b65387": {
   "first_seen": "2026-11-03T19:08:46.325922+00:00",
   "id": "69f92e36e1ae1bcc",
@@ -5693,6 +5761,36 @@
   "title": "Show HN: MoEShift - Faster large MoE inference with half the RAM",
   "type": "news",
   "url": "https://github.com/davide-troiani/moeshift"
+ },
+ "9a1617ac0ac4ae2d": {
+  "also_covered": [
+   {
+    "source": "latent_space",
+    "title": "[AINews] Gemini 4 Carbon tops leaderboards, launches for cyber defenders",
+    "url": "https://latent.space/p/ainews-gemini-4-carbon/"
+   },
+   {
+    "source": "google_deepmind_blog",
+    "title": "Gemini 4 Carbon: Our next frontier model",
+    "url": "https://deepmind.google/blog/gemini-4-carbon-our-next-frontier-model/"
+   },
+   {
+    "source": "google_cloud_blog",
+    "title": "Gemini Robotics Embodied Reasoning 2 is now available on Google Cloud",
+    "url": "https://cloud.google.com/blog/products/ai-machine-learning/gemini-robotics-embodied-reasoning-2-is-now-available-on-google-cloud/"
+   }
+  ],
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. In this episode, Edoardo Vacchi discusses the evolving landscape of WebAssembly on the backend, running Java workloads on GPUs using TornadoVM, and optimizing distributed AI inference using llm-d and vLLM on Kubernetes. Edoardo explains how llm-d manages cache locality (KV and prefix caches), request routing, and batch inference across Kubernetes clusters to maximize expensive GPU utilization. Vanessa Formicola shares how",
+  "first_seen": "2026-11-09T16:06:46.489496+00:00",
+  "id": "10f17a5696c76fe4",
+  "image_url": "https://res.infoq.com/news/2026/11/google-gemini-argon/en/headerimage/generatedHeaderImage-1794224974378.jpg",
+  "published": "2026-11-09T15:44:00+00:00",
+  "sid": "9a1617ac0ac4ae2d",
+  "source": "infoq_ai_ml",
+  "summary_1line": "Google has released Gemini 4 Argon framing it as a general-purpose physical-reasoning model for robot control, Real2Sim scene construction, multimodal labe",
+  "title": "Google Releases Gemini 4 Argon for Robotics Control, Simulation, and Policy Improvement",
+  "type": "release",
+  "url": "https://www.infoq.com/news/2026/11/google-gemini-argon/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
  },
  "9a186fa9d7a7512d": {
   "content_excerpt": "Long-term memory for your agents, fully managed. Sign up with GitHub and get $5 of free credit. The LLM writes, the decision model judges. hs-decide-1-flash takes over the small judgments inside Hindsight: better answers from six of seven LLMs, cheaper for five. With a reranker and an embedding model built for agent memory, open weights and hosted. The LLM writes, the decision model judges. Most of what an AI application asks an LLM isn't writing. It's small judgments: is this new, which of these matters, is this enough. Today we're releasing three models built for agent memory, starting with hs-decide-1-flash , a decision model that answers those judgments directly, so the LLM is left with the writing. A memory system is full of judgments. Between storing a memory and recalling it, Hindsight asks: is this fact new, or already known? Does it change what we believe? Which of these memories matter for this question? Is this evidence enough to answer? Could this new memory change that knowledge page? Hindsight used to ask an LLM every time. Each answer was a full generation call: seconds of latency, a bill for every token of context, and free text to parse back into a yes or no. On our evals, with a decision model answering the judgments, the LLM makes about a third fewer calls: 3.1 per case instead of 4.5. A decision model is built for exactly this shape of question. You give it the state and the question, and it returns a typed answer: a choice with a probability for each opti",
@@ -6330,6 +6428,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.04180v1",
   "why_it_matters": "Matches feed focus: agentic, harness, eval."
+ },
+ "ac8f18750241a65f": {
+  "content_excerpt": "A compound AI approach to Japanese personas grounded in real-world distributions In the financial sector, the utilization of real-world data faces significant constraints due to strict privacy regulations, compliance requirements, and the need for advanced domain expertise. In this context, the development of agentic AI in the financial domain requires synthetic data capable of avoiding the risks of using real data while reflecting demographics, household structures, and asset statuses to reproduce diverse, realistic financial scenarios. To address these challenges, Elith and NVIDIA have released Nemotron-Personas-Finance-Japan , a financial domain extension of the open-source persona dataset \" Nemotron-Personas-Japan .\" To our knowledge, it is the first open persona dataset at million-record scale that pairs Japan’s official statistics with household finance and financial literacy data. Built upon official government statistics, this dataset was developed using NeMo SDG-PGMs , a probabilistic graphical model framework for synthetic data generation (SDG), and NeMo Data Designer , an enterprise synthetic data generation system. Furthermore, to enhance the practical utility of the dataset in financial use cases, it was designed by incorporating insights and feedback provided by leading domestic financial institutions and industry associations, including Sompo Japan, Tokio Marine Holdings, Bank of Fukuoka, Mizuho Financial Group, Meiji Yasuda Life Insurance, and the Financial Da",
+  "first_seen": "2026-11-09T16:04:55.935465+00:00",
+  "id": "0483cc6fe5f4e7b5",
+  "published": "2026-11-09T15:05:57+00:00",
+  "sid": "ac8f18750241a65f",
+  "source": "huggingface_blog",
+  "summary_1line": "Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's Demographics and Financial Context",
+  "title": "Nemotron-Personas-Finance-Japan: A Synthetic Dataset Capturing Japan's Demographics and Financial Context",
+  "type": "research",
+  "url": "https://huggingface.co/blog/nvidia/nemotron-personas-finance-japan"
  },
  "ad981af6a985aff4": {
   "first_seen": "2026-11-04T06:07:33.226600+00:00",
@@ -7960,6 +8070,22 @@
   "title": "Stabilizing On-Policy Targeted Guidance in Agentic Reinforcement Learning",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05266v1"
+ },
+ "d9d0fb61b61c4e22": {
+  "first_seen": "2026-11-09T16:04:55.935465+00:00",
+  "id": "1acdf25484b52f79",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-06T16:06:30+00:00",
+  "sid": "d9d0fb61b61c4e22",
+  "source": "arxiv_cs_ai",
+  "summary": "Graph Retrieval-Augmented Generation (GraphRAG) connects information across documents through entity relationships to support relational reasoning. However, black-box access to GraphRAG systems can enable adversaries to reconstruct knowledge graphs and recover both structural connectivity between entities and the semantics of their relationships. Existing defenses lack formal privacy guarantees and provide limited protection against such reconstruction attacks. We propose RelGuard, the first differentially private framework for GraphRAG, which provides formal privacy guarantees by mitigating connectivity leakage and protecting relations and their semantic meaning through relation removal. We formalize relation differential privacy (relation-DP), which bounds the distinguishability of mechanism outputs according to the semantic distance between alternative relations while accounting for relation removal. Building on this definition, we develop a four-step defense mechanism that sanitizes source documents before GraphRAG indexing by perturbing relation predicates or removing their associated connectivity using the exponential mechanism. Experiments across three GraphRAG systems and two targeted reconstruction attacks demonstrate that RelGuard provides stronger protection against reconstruction attacks than four existing defense mechanisms while better preserving downstream utility.",
+  "summary_1line": "Graph Retrieval-Augmented Generation (GraphRAG) connects information across documents through entity relationships to support relational reasoning. However, black-box access to GraphRAG systems can enable adversaries...",
+  "title": "Differentially Private GraphRAG: Protecting Relation Connectivity and Semantics",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.09658v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "d9dbdb581f79f750": {
   "first_seen": "2026-11-06T03:05:24.904029+00:00",
