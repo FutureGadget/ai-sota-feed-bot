@@ -1,10 +1,18 @@
 {
   "slug": "diffusion-language",
-  "generated_at": "2026-11-07T00:30:00+00:00",
+  "generated_at": "2026-11-09T00:11:56+00:00",
   "covers_last_updated": "2026-11-05T17:41:20+00:00",
-  "covers_member_sids": ["4d1cef01d9ab5673","75e015095613159e","edcf9763d6b958dc","581b8a72b6b37583","57b08f9866a26766","2fb1a0f31494270f"],
+  "covers_member_sids": [
+    "4d1cef01d9ab5673",
+    "75e015095613159e",
+    "edcf9763d6b958dc",
+    "581b8a72b6b37583",
+    "57b08f9866a26766",
+    "0491c6de7a511fb5",
+    "2fb1a0f31494270f"
+  ],
   "tldr": "Diffusion language models first surfaced here on the offensive side, as a way to craft fluent low-perplexity black-box attacks on LLMs. Two decoding-speed papers followed, cutting rounds via schedule distillation and adaptive compute for agents.",
-  "whats_new": "SpecCTMC proposes exact speculative simulation of masked diffusion LMs, keeping the output distribution intact while sampling multiple tokens in parallel; it follows length-extrapolation and multimodal hallucination papers.",
+  "whats_new": "Measured Coupling (Nov 5) tackles which tokens a diffusion LM can safely commit in one step, after SpecCTMC offered exact speculative simulation of masked diffusion.",
   "why_it_matters": "Diffusion LLMs only pay off for serving if parallel decoding cuts rounds without changing output quality; SpecCTMC targets exactly that, but it is still research-stage evidence, not a deployable runtime.",
   "status": {
     "state": "Research · developing",
@@ -13,10 +21,41 @@
     "detail": "Six arXiv papers, no production release: attacks, decoding speed, length extrapolation and multimodal reliability."
   },
   "beats": [
-    {"kicker": "RISK", "tone": "turn", "headline": "Diffusion LMs used for perplexity-aware black-box attacks", "sids": ["4d1cef01d9ab5673"]},
-    {"kicker": "SPEED", "tone": "rising", "headline": "Schedule distillation and metacognitive decoding aim to cut dLLM cost", "sids": ["75e015095613159e","edcf9763d6b958dc"]},
-    {"kicker": "LIMITS", "tone": "neutral", "headline": "Length extrapolation and multimodal hallucination expose weak spots", "sids": ["581b8a72b6b37583","57b08f9866a26766"]},
-    {"kicker": "NOW", "tone": "now", "headline": "SpecCTMC makes parallel sampling exact", "sids": ["2fb1a0f31494270f"]}
+    {
+      "kicker": "RISK",
+      "tone": "turn",
+      "headline": "Diffusion LMs used for perplexity-aware black-box attacks",
+      "sids": [
+        "4d1cef01d9ab5673"
+      ]
+    },
+    {
+      "kicker": "SPEED",
+      "tone": "rising",
+      "headline": "Schedule distillation and metacognitive decoding aim to cut dLLM cost",
+      "sids": [
+        "75e015095613159e",
+        "edcf9763d6b958dc",
+        "0491c6de7a511fb5"
+      ]
+    },
+    {
+      "kicker": "LIMITS",
+      "tone": "neutral",
+      "headline": "Length extrapolation and multimodal hallucination expose weak spots",
+      "sids": [
+        "581b8a72b6b37583",
+        "57b08f9866a26766"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "SpecCTMC makes parallel sampling exact",
+      "sids": [
+        "2fb1a0f31494270f"
+      ]
+    }
   ],
   "open_questions": [
     "Do the schedule-distillation, metacognitive-decoding and SpecCTMC speedups hold on independent benchmarks at equal output quality?",
@@ -30,6 +69,7 @@
     "edcf9763d6b958dc": "Extends the efficiency push to agents by adapting compute spent and text generated per interaction.",
     "581b8a72b6b37583": "Training-free fix for repetition and quality loss when continuous diffusion LMs generate longer text.",
     "57b08f9866a26766": "Targets hallucination in multimodal discrete diffusion LMs by ordering visual gain during mask prediction.",
-    "2fb1a0f31494270f": "Speculative simulation that preserves the exact output distribution when sampling several tokens in parallel."
+    "2fb1a0f31494270f": "Speculative simulation that preserves the exact output distribution when sampling several tokens in parallel.",
+    "0491c6de7a511fb5": "Measured Coupling: picks which tokens are safe to commit together in parallel decoding instead of assuming mean-field independence."
   }
 }

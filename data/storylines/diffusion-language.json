@@ -1,12 +1,12 @@
 {
  "slug": "diffusion-language",
  "label": "Diffusion Language",
- "item_count": 6,
+ "item_count": 7,
  "day_count": 6,
  "source_count": 2,
  "first_seen": "2026-10-22T17:00:39+00:00",
  "last_updated": "2026-11-05T17:41:20+00:00",
- "generated_at": "2026-11-08T00:11:26.446490+00:00",
+ "generated_at": "2026-11-09T00:12:13.390560+00:00",
  "sources": [
   "arxiv_cs_cl",
   "arxiv_llm_reliability"
@@ -95,6 +95,16 @@
    "date": "2026-11-05",
    "items": [
     {
+     "title": "Measured Coupling for Parallel Decoding in Diffusion Language Models",
+     "url": "http://arxiv.org/abs/2611.08307v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Diffusion language models can write many tokens per step, but must choose which tokens are safe to commit together. Mean-field decoding penalizes pairs of positions whose predictions look alike. We replace this proxy with the coupling itself: how much committing one token changes",
+     "sid": "0491c6de7a511fb5",
+     "published": "2026-11-05T17:10:03+00:00",
+     "editor_note": "Measured Coupling: picks which tokens are safe to commit together in parallel decoding instead of assuming mean-field independence."
+    },
+    {
      "title": "SpecCTMC: Exact Speculative Simulation of Diffusion Language Model Continuous-Time Markov Chains",
      "url": "http://arxiv.org/abs/2611.08362v1",
      "source": "arxiv_cs_cl",
@@ -111,7 +121,7 @@
  "editorial": {
   "tldr": "Diffusion language models first surfaced here on the offensive side, as a way to craft fluent low-perplexity black-box attacks on LLMs. Two decoding-speed papers followed, cutting rounds via schedule distillation and adaptive compute for agents.",
   "stale": false,
-  "whats_new": "SpecCTMC proposes exact speculative simulation of masked diffusion LMs, keeping the output distribution intact while sampling multiple tokens in parallel; it follows length-extrapolation and multimodal hallucination papers.",
+  "whats_new": "Measured Coupling (Nov 5) tackles which tokens a diffusion LM can safely commit in one step, after SpecCTMC offered exact speculative simulation of masked diffusion.",
   "why_it_matters": "Diffusion LLMs only pay off for serving if parallel decoding cuts rounds without changing output quality; SpecCTMC targets exactly that, but it is still research-stage evidence, not a deployable runtime.",
   "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet; if you prototype one, measure decoding rounds, output-distribution drift and quality against your autoregressive baseline, and include fluent-prompt attacks in red-team evals.",
   "status": {
@@ -135,7 +145,8 @@
     "headline": "Schedule distillation and metacognitive decoding aim to cut dLLM cost",
     "sids": [
      "75e015095613159e",
-     "edcf9763d6b958dc"
+     "edcf9763d6b958dc",
+     "0491c6de7a511fb5"
     ]
    },
    {
@@ -161,6 +172,6 @@
    "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?",
    "Does RangeSWA's training-free extrapolation hold on long outputs beyond the paper's tested lengths?"
   ],
-  "generated_at": "2026-11-07T00:30:00+00:00"
+  "generated_at": "2026-11-09T00:11:56+00:00"
  }
 }
