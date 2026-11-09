@@ -711,6 +711,23 @@
   "url": "https://theainewsreport.com/2026-11-06-hn-agentic-setups-counted.html",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "138e084674254809": {
+  "first_seen": "2026-11-09T05:05:35.203421+00:00",
+  "id": "79c32fa18283ed54",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-06T17:00:09+00:00",
+  "sid": "138e084674254809",
+  "source": "arxiv_cs_cl",
+  "summary": "LLM agents benefit from using memory systems to improve performance on long-horizon, multi-session tasks. However, memory introduces a critical attack surface. Malicious instructions encountered in one session may be stored and propagated through memory before being retrieved and acted upon in later sessions. Because memory systems differ in how they process and retrieve information, the downstream effects of poisoning can vary significantly across systems. To quantify the effects of poisoning across different memory architectures, we introduce MemoryDojo, a benchmark for tracing the lifecycle of poisoned information through agent memory and measuring its influence on subsequent agent behavior. MemoryDojo is easily extensible, consists of 155 multi-session long-horizon trajectories covering four domains, and supports five different memory systems. Through our evaluation, we find that all memory systems are susceptible to memory poisoning, with substantial variation in downstream effects. We further propose a memory-aware poison optimization process that increases the poisoning efficacy, highlighting differences between memory architectures. We hope that MemoryDojo will support research on understanding and mitigating agentic memory risks.",
+  "summary_1line": "LLM agents benefit from using memory systems to improve performance on long-horizon, multi-session tasks. However, memory introduces a critical attack surface. Malicious instructions encountered in one session may be...",
+  "title": "MemoryDojo: Benchmarking Poisoning Through LLM Agent Memory",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.09721v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "145122ff5dd034c8": {
   "content_excerpt": "Congratulations, you've built an app on Databricks Apps, and it's gone from a couple of users to hundreds or thousands across your organization. Your users want it to respond fast and stay up. And your boss may not love having to pay for XLarge compute across a stack of instances. How do you make an app that runs fast, stays up and handles growing demand? The intuitive answer is more compute, but that only helps once you know where requests spend their time and whether the app is built to scale: its framework, async code and ability to run on several instances, so the platform can easily scale it up or out. In this guide, we walk through how to scale Databricks Apps across four stages: design; build; test and deploy; and operate (Figure 1). The focus of this guide is primarily application performance and resiliency at scale; it does not cover deployment automation or performance optimization and scaling of other Databricks services that may interact with the app. Good scaling decisions start before any code is written: agree what users need from the app, then decide where the work will run and where the data will live. Before choosing an architecture, it helps to pin down how much load the app has to handle and what a good experience looks like. We suggest agreeing two main targets: Alongside these, decide which work must survive a restart and check that critical dependencies can support that. This shapes how you split state and how many instances you run. Next, sketch a few ",
   "first_seen": "2026-11-05T19:04:43.522223+00:00",
@@ -3140,6 +3157,24 @@
   "url": "https://lovable.dev/blog/how-we-built-lovable-and-why-we-keep-rebuilding-it",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "569b9613f4d348fe": {
+  "first_seen": "2026-11-09T05:05:35.203421+00:00",
+  "id": "fcb232cd886aff11",
+  "matched_topics": [
+   "agent",
+   "evaluation",
+   "claude code"
+  ],
+  "published": "2026-11-06T17:54:01+00:00",
+  "sid": "569b9613f4d348fe",
+  "source": "arxiv_cs_ai",
+  "summary": "LLM-based coding agents such as Claude Code are guided by repository instruction files (also called context files or agent configuration files) like AGENTS.md and CLAUDE.md, which are read in every agent session. As any documentation artifact, these files can fall behind the code and become stale (e.g., a test folder moves, but the file still points to the old one). In technical debt terms, such a stale instruction is documentation debt, and its interest is the cost it adds to every later agent session. Evaluations that check only task success can miss this cost, and the stale file can persist. In this study, we ask what leads agents to act on a stale instruction, how it affects their behavior and at what cost, and how they recover. We study three real-world stale instructions from active open-source repositories in depth, each a different kind of guidance: a test command, a code location, and a procedure for adding a component. Agents fix 22 maintenance tasks under three versions of each instruction (left stale, corrected to the current path, and removed), with the code and the task held fixed, and we analyze 732 trajectories of two models at the level of individual tool calls. We find that agents follow stale guidance when it is relevant to their tasks, sometimes even when correct information is available elsewhere. On the stale test command, Claude Sonnet 5.5 needed about two extra tool calls per run, a third more than with the corrected command; in the other cases, we cou",
+  "summary_1line": "LLM-based coding agents such as Claude Code are guided by repository instruction files (also called context files or agent configuration files) like AGENTS.md and CLAUDE.md, which are read in every agent session. As a...",
+  "title": "When Instruction Files Go Stale: Documentation Debt and Hidden Cost in Coding Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.09802v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation, claude code."
+ },
  "57b08f9866a26766": {
   "first_seen": "2026-11-04T11:05:34.944705+00:00",
   "id": "a6225ccd427c6200",
@@ -4058,6 +4093,19 @@
   "url": "https://github.com/globalmpc/backendskills",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "77625322d4684167": {
+  "content_excerpt": "As AI agents take on more work, they need capable open models and security that advances alongside them. Hyundai Motor Group is exploring NVIDIA NemoClaw blueprints and the NVIDIA OpenShell runtime, while AIM Intelligence is integrating its Starfort platform with NVIDIA OpenShell to support secure AI agents for employee productivity and enterprise workflows . A key component of the NVIDIA Open Agent Safety Platform, OpenShell provides a secure runtime with sandboxed execution and policy-based controls to safeguard sensitive data, manage access to enterprise tools and govern autonomous agent actions. AIM Intelligence , a Korean AI security company, is integrating its Starfort agent control platform with NVIDIA OpenShell. The goal is to combine OpenShell’s runtime access controls with Starfort’s detection of malicious instructions and data leakage. The company is also considering a preliminary proof of concept for the public energy sector, with potential applications across enterprise, industrial and robotics environments. On the model side, LG AI Research is opening application programming interface access for K-EXAONE-2.5, developed using NVIDIA Nemotron datasets, including Nemotron-Personas-Korea . Nemotron-Personas-Korea is an open dataset of 7 million fully synthetic Korean personas, grounded in official Korean statistics, that model builders use to ground training data and evaluation in Korean contexts. NVIDIA Nemotron is a family of open models, datasets and techniques t",
+  "first_seen": "2026-11-09T05:07:43.757937+00:00",
+  "id": "6c05bbda35dea4ef",
+  "image_url": "https://blogs.nvidia.com/wp-content/uploads/2026/11/korea-agentic-ai-1920x1080-1.jpg",
+  "published": "2026-11-09T05:00:39+00:00",
+  "sid": "77625322d4684167",
+  "source": "nvidia_blog",
+  "summary_1line": "As AI agents take on more work, they need capable open models and security that advances alongside them. Hyundai Motor Group is exploring NVIDIA NemoClaw blueprints and the NVIDIA OpenShell runtime, while AIM Intelligence is integrating its Starfort platform with NVIDIA OpenShell",
+  "title": "Korea’s AI Ecosystem Advances and Secures Agentic AI With NVIDIA",
+  "type": "news",
+  "url": "https://blogs.nvidia.com/blog/korea-secure-agentic-ai"
+ },
  "7787a435833ce944": {
   "content_excerpt": "Open-source, self-hosted voice AI agents with a Vapi-compatible API. Bring your own keys or run 100% local and free (Whisper, Ollama, Kokoro). Calls on Twilio, Telnyx and Genesys, campaigns, model routes with fallback, cost per call. No per-minute platform fee. One command: npx openring Quick start · How it works · Compare · API guide · Providers · Roadmap · Português Hosted voice platforms charge a fee for every minute of every call, on top of what you already pay for speech-to-text, the model, the voice and the phone line. OpenRing does the same job on your own computer or server, with your own provider keys, and speaks the same JSON as Vapi. You need Node.js 18 or later. Everything else, Python included, installs itself: Settings live in ~/.openring/.env , created on the first run with a generated API key for apps that call the API (it's under Settings ). The free Kokoro voice downloads itself on the first start (about 120 MB). Each call runs a Pipecat pipeline: the caller's speech becomes text, the model answers (and can call your tools), and the voice speaks the answer back. Every turn's latency is recorded, step by step, and shown in the dashboard. — means we didn't find it in their public docs. On every platform you also pay for the model, the voice and the phone line, and for speech-to-text too, except that Retell's pricing page lists no separate charge for it. With OpenRing, the server, its uptime and any compliance work are yours; hosted platforms take on the first ",
   "first_seen": "2026-11-04T22:04:37.212189+00:00",
@@ -4111,6 +4159,23 @@
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.177",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "78c03d24ea8fae6d": {
+  "first_seen": "2026-11-09T05:05:35.203421+00:00",
+  "id": "3a0ac43c3e9c0021",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-06T17:46:53+00:00",
+  "sid": "78c03d24ea8fae6d",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Current evaluations of agentic AI systems primarily rely on benchmarks. However, the static nature of benchmarks makes them uninformative about the value of auditing interventions at deployment time. For reliable deployment, we often need to determine within an agent's trajectory whether or not to intervene, e.g., by verifying the agent's current output or steering it toward different behavior, using either human review or more costly models or time-consuming agentic supervision. The value of such interventions is fundamentally a causal inference question, asking whether the causal effect of such an intervention is beneficial for the final outcome. Estimating this causal effect is particularly challenging due to the dynamic nature of the problem: the impact of an intervention depends on the current context and environment, as well as the agent's future behavior. We develop the first methodologically grounded framework for evaluating the causal effects of randomized interventions within agent trajectories. By leveraging a relatively small dataset of agent trajectories collected under randomized interventions such as verification or screening, we can estimate the dynamic causal effect of a rich class of (contextual) intervention policies. The structural parameters that we estimate can also be used to construct safety leaderboards that capture the risk of various agentic actions, which can be used by practitioners for audit prioritization. Applying our methods to tau-bench Retai",
+  "summary_1line": "Current evaluations of agentic AI systems primarily rely on benchmarks. However, the static nature of benchmarks makes them uninformative about the value of auditing interventions at deployment time. For reliable depl...",
+  "title": "Knowing When to Intervene: Causal Evaluation of AI Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.09792v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "797aba84ba3e9103": {
   "first_seen": "2026-11-04T00:05:12.455371+00:00",
   "id": "eb44f9e033771ed2",
@@ -4162,6 +4227,25 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08281v1",
   "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
+ "7a56e2062f93f8c0": {
+  "first_seen": "2026-11-09T05:05:35.203421+00:00",
+  "id": "ca82d08c2e74cbcb",
+  "image_url": "https://static.simonwillison.net/static/2026/details-summary-pr.gif",
+  "matched_topics": [
+   "agent",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-11-09T04:25:05+00:00",
+  "sid": "7a56e2062f93f8c0",
+  "source": "simon_willison",
+  "summary": "Most of the changes I make to my projects these days come in the form of PRs opened for me by Claude Code or Codex. The PR is my unit of work - I use them to bundle commits together, iterating on them until a feature is complete, document decisions and then merge the finished result. Today's coding agents are great at writing PR descriptions. They're too good at describing the work The problem is that they are too good. An agent-written PR description is accurate and comprehensive. It describes the problem, the detailed solution, and the steps taken to verify it. That's a lot of information to absorb. It's not necessarily slop, but it reads like slop! It's very easy to spot an AI-written PR, and as with other forms of AI writing my instant reaction is best summarized as \"I'm not reading all of that\". It doesn't matter how accurate or useful the information is, I'm instantly put off by the thought that it will take me longer to read than it took the driving author to write... even when that driving author is me! I want human editorial judgement. I want someone to have thought just long enough about the PR to give me a human-approved introduction that helps me understand, at a high level, what the PR is for and whether it deserves more of my attention. I think I've found a low-effort way to do this that feels right. Hide most of it in a details/summary The HTML elements render as a collapsed heading (the summary) that can be expanded to view the larger piece of text. The code l",
+  "summary_1line": "Most of the changes I make to my projects these days come in the form of PRs opened for me by Claude Code or Codex. The PR is my unit of work - I use them to bundle commits together, iterating on them until a feature...",
+  "title": "Hide your slop PR descriptions behind <details><summary>",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Nov/9/details-summary",
+  "why_it_matters": "Matches feed focus: agent, codex, claude code."
  },
  "7ac1c45f7bd0ae53": {
   "content_excerpt": "Stateful real-time processing, history-preserving pipelines, and faster small-data development by Jungtaek Lim , Wenchen Fan , Andreas Neumann , Serge Rielau , Hyukjin Kwon , Jerry Peng , DB Tsai , Daniel Tenedorio , Xiao Li and Reynold Xin Apache Spark 4.3 brings stateful processing to Real-Time Mode, achieving sub-150 ms P99 end-to-end latency across three representative stateful benchmarks. Streaming aggregations, deduplication, and custom stateful processing can now run in Structured Streaming's low-latency execution mode, extending it to applications that need to remember context across events. The impact goes beyond faster pipelines. For supported workloads, you no longer need a separate streaming engine just to achieve millisecond-scale latency. From fraud detection to continuously updated user activity and device monitoring, developers can build stateful applications with familiar Structured Streaming APIs in the same open engine they use for batch processing, analytics, and AI. Stateful real-time streaming is the headline of Spark 4.3, but the improvements extend across the engine. The release delivers five key benefits: Together, these changes help developers use one open engine to explore data, maintain changing context, and power analytical and AI applications. Spark 4.3 also marks the start of a quarterly feature-release cadence , moving from one release every six months to one every three months. This shorter cycle puts completed improvements into users' hands s",
@@ -7640,6 +7724,23 @@
   "type": "news",
   "url": "https://era.security/blog/greeter-flowise-ai-infrastructure-attack"
  },
+ "e15bcaa61f6af9ac": {
+  "first_seen": "2026-11-09T05:05:35.203421+00:00",
+  "id": "06e07e14ba1f573b",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-06T14:29:11+00:00",
+  "sid": "e15bcaa61f6af9ac",
+  "source": "arxiv_cs_cl",
+  "summary": "Real-time Voice AI agents must separate the active user from intelligible background speech that survives conventional noise suppression. Background sources include television audio, family members, and colleagues. Production denoisers remove non-stationary environmental noise effectively. Background speech shares the spectral characteristics of the target and passes through, causing false acceptances in downstream speaker verification (SV) and automatic speech recognition (ASR). We benchmark open-source speaker embedders TitaNet-Large, TitaNet-Small, ECAPA-TDNN, CAM++, and SpeakerNet under a strict sub-second latency budget. Evaluation combines a controlled benchmark with a weighted human-annotated production set. Our controlled benchmark is built from real calls in which a second real speaker is injected into silence intervals at modulated amplitude. We report three findings. First, denoising before embedding is generally harmful and raises equal error rate (EER) across architectures. Second, truncating audio below the full voice-activity segment degrades every model. Third, roughly half of the TitaNet embedding is redundant for this task. Trailing dimensions encode population attributes such as language and gender. Such attributes carry little discriminative value in a demographically homogeneous user base. We distill these results into deployment guidance. Verification should run on raw audio with full voice-activity chunks. Thresholds should favor precision over F1. Trun",
+  "summary_1line": "Real-time Voice AI agents must separate the active user from intelligible background speech that survives conventional noise suppression. Background sources include television audio, family members, and colleagues. Pr...",
+  "title": "Benchmarking Speaker Embedders in the Sub-Second Regime for Real-Time Voice AI Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.09516v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "e165bd35858ba4df": {
   "first_seen": "2026-11-03T13:05:11.255573+00:00",
   "id": "2df5b34a13ff4e2b",
@@ -7705,6 +7806,22 @@
   "type": "news",
   "url": "https://dropbox.tech/machine-learning/how-two-engineer-side-projects-became-the-agent-taking-action-inside-dropbox",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "e5680f897e15540f": {
+  "first_seen": "2026-11-09T05:05:35.203421+00:00",
+  "id": "a83fd2073dd3ae8a",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-06T16:56:48+00:00",
+  "sid": "e5680f897e15540f",
+  "source": "arxiv_cs_lg",
+  "summary": "Modern LLM serving systems use prefix caching to accelerate multi-turn conversational workloads. They cache the key-value states of previous conversation prefixes and reuse them when subsequent requests share the same prefix, to avoid redundant prefill computation and reduce serving latency. However, achieving a high cache hit rate remains challenging because cache reuse depends on whether a conversation continues and how soon the next turn arrives. Our analysis of real workloads shows that user intent is a useful signal for this behavior, as different intents exhibit different continuation probabilities and inter-turn delays. Based on this key insight, we propose Intent-Aware Caching (IAC), an online eviction policy that classifies requests by intent, learns lightweight reuse statistics from recent serving logs and leverages these statistics to guide an oracle-inspired eviction strategy. Extensive evaluation on real workloads (WildChat and ShareChat) shows that IAC reaches a 34.6% cache hit rate. This substantially outperforms both the previous learning-based approach (18.8%) and traditional methods such as least recently used (LRU, 12.2%), while reducing average serving latency by up to 46.1%.",
+  "summary_1line": "Modern LLM serving systems use prefix caching to accelerate multi-turn conversational workloads. They cache the key-value states of previous conversation prefixes and reuse them when subsequent requests share the same...",
+  "title": "Intent-Aware Caching for Efficient LLM Serving",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.09715v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "e572010b9c959715": {
   "content_excerpt": "Last month, we showed that rollout and training can agree exactly. On DeepSeek-V4-Flash, vLLM and the trainer produced the same logprob for every sampled token, bit for bit, on the fast kernels, with an 8.7% reduction in rollout throughput. An agent skill now does the alignment for each new model. That post was about synchronous RL, which has no weight lag, so zero mismatch removes the only gap between rollout and training. This post is about asynchronous RL, which is faster but off-policy by design. Does zero mismatch still matter there? We answer with a new paper from NVIDIA Research and Inferact (Jian Hu et al.): REINFORCE Zero: Kernel Alignment Unlocks Stable Asynchronous RL with Importance Sampling . All numbers in sections 2 to 4 come from it. In synchronous RL, rollout and training take turns, and each waits for the other. Asynchronous RL runs them at the same time: rollout keeps generating while the learner updates. The price is weight lag . A sample generated with weights version v is trained at version k > v. The gap k − v is not small: REINFORCE Zero runs at lag 2 and 8 on math reasoning, and at lag 64 on agentic tool use. So the learner always trains on samples from an older policy. The standard correction is importance sampling (IS): reweight each token by π / μ, the learner's probability for it divided by the probability the rollout recorded when it sampled it. The question is whether that correction covers the whole gap. π is the learner's computation and μ is ",
@@ -7864,6 +7981,20 @@
   "type": "news",
   "url": "https://www.phoneuse.com",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "eb25380cc5e40adb": {
+  "content_excerpt": "NVIDIA is releasing Dynamo-optimized deployment recipes for Korea’s leading open models: A.X K2 from SK Telecom , K-EXAONE 2.0 from LG AI Research , Solar Open 2 from Upstage and Motif-3 from Motif Technologies . As models grow beyond the capacity of a single GPU, they must be split across multiple GPUs, requiring careful coordination of request routing and communication to maintain performance. NVIDIA Dynamo is an open source, distributed inference-serving framework built to deploy models in multi-node environments at data center scale. It handles this routing and communication to maximize inference performance. Optimized for NVIDIA B200 GPUs, these recipes take the guesswork out of deployment, delivering up to 2x performance out of the box. They help developers bring Korea’s open models into production faster and turn them into broadly accessible AI for All services.",
+  "first_seen": "2026-11-09T05:05:35.203421+00:00",
+  "id": "8f85f8277fc108b4",
+  "image_url": "https://blogs.nvidia.com/wp-content/uploads/2026/11/dynamo-korea-ai-day.jpg",
+  "published": "2026-11-09T05:00:00+00:00",
+  "sid": "eb25380cc5e40adb",
+  "source": "nvidia_blog",
+  "summary": "NVIDIA is releasing Dynamo-optimized deployment recipes for Korea’s leading open models: A.X K2 from SK Telecom, K-EXAONE 2.0 from LG AI Research, Solar Open 2 from Upstage and Motif-3 from Motif Technologies. As models grow beyond the capacity of a single GPU, they must be split across multiple GPUs, requiring careful coordination of request routing […]",
+  "summary_1line": "NVIDIA is releasing Dynamo-optimized deployment recipes for Korea’s leading open models: A.X K2 from SK Telecom, K-EXAONE 2.0 from LG AI Research, Solar Open 2 from Upstage and Motif-3 from Motif Technologies. As mode...",
+  "title": "NVIDIA Dynamo Recipes Bring Korea’s Leading Open Models to Production",
+  "type": "news",
+  "url": "https://blogs.nvidia.com/blog/nvidia-dynamo-korea-open-models"
  },
  "eb7336db174a104a": {
   "first_seen": "2026-11-05T19:04:43.522223+00:00",
