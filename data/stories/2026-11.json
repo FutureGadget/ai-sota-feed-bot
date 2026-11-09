@@ -2539,6 +2539,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09825v1"
  },
+ "42d0d220c3dc643e": {
+  "content_excerpt": "Deterministic benchmark and linter for derived-context ACL leaks in agent memory. Document permissions work for raw RAG (% leaks). They silently evaporate in agent memory: our benchmark demonstrates that cross-document synthesis leaks confidential parent secrets in 2 out of 3 background tasks (67%). ChromaDB and LlamaIndex metadata filters catch 100% of unauthorized raw chunk queries. But when agents synthesize notes across files into shared memory, parent ACLs are dropped, letting unprivileged users retrieve executive data. A raw RAG query keeps document identity. One document produces one chunk. The chunk carries classification and allowed_groups . The vector store checks those fields before returning data. Agent memory has a different shape. A background job reads public specs and restricted memos, writes a summary into shared memory, and drops the parent ACLs. The artifact is just text. It runs under the agent's service account. Later retrieval sees no document-level restriction. An intern gets the CEO's headcount plan. The vector store is doing its job. The authorization model is attached to the wrong object. Both reference pipelines run the same 24-document corpus, ACL map, personas, and three scoped synthesis tasks with deterministic local embeddings and a simulated LLM. No external API key is required. Derived artifact failure rate: 2/3 = 66.7% . Corpus-wide canary exposure: 6/18 = 33.3% . The benchmark has a negative control. artifact_public_infra ingests only data/c",
+  "first_seen": "2026-11-09T15:04:47.831224+00:00",
+  "id": "8aaa4d8837d31e97",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-09T14:33:07+00:00",
+  "sid": "42d0d220c3dc643e",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Raw RAG leaks 0%, but agent memory leaks 67%",
+  "title": "Show HN: Raw RAG leaks 0%, but agent memory leaks 67%",
+  "type": "news",
+  "url": "https://github.com/harishbalasubramanian/sentinel-eval",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "43862ef771dfba65": {
   "also_covered": [
    {
@@ -3639,6 +3655,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.1",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "5f134b01f4d15bc8": {
+  "first_seen": "2026-11-09T15:04:47.831224+00:00",
+  "id": "eaf4ec327e49acb6",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-06T15:01:03+00:00",
+  "sid": "5f134b01f4d15bc8",
+  "source": "arxiv_cs_cl",
+  "summary": "Long-context language models often neglect information in the middle of the input, a phenomenon known as \"lost-in-the-middle\". Part of this gap may stem from the long-range decay of rotary position embedding (RoPE), which weakens the positional signal between distant tokens. Existing input compression deletes low-importance tokens, and attention reweighting acts only after RoPE has weakened this signal. RoPE-level methods modify positions directly but apply the same remapping to every query. To address these limitations, we propose QGPM (Query-Guided Positional Modulation), a training-free method that reshapes RoPE positions using query relevance from the model's own attention heads. QGPM builds a broad relevance map for lower layers and a sharp one for upper layers. Low-relevance tokens advance by less than one position on fast-rotating planes, pulling relevant evidence toward the query. Slow-rotating planes keep the original layout, with every token in place. Experiments on NoLiMa and RULER with multiple context lengths show that QGPM improves over base models and strong baselines, with the largest gains on retrieval tasks, and generalizes across multiple backbones. Our code is available at https://github.com/iZHpy/QGPM.",
+  "summary_1line": "Long-context language models often neglect information in the middle of the input, a phenomenon known as \"lost-in-the-middle\". Part of this gap may stem from the long-range decay of rotary position embedding (RoPE), w...",
+  "title": "Query-Guided RoPE Modulation for Lost-in-the-Middle Mitigation in Long-Context LLMs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.09554v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "5f4102b8e6f18e43": {
   "content_excerpt": "Memory for coding agents: Markdown notes in a folder, recalled later over MCP. Apache-2.0. --client is claude-code , codex , cursor , grok , gemini , vscode , opencode or pi . One command adds Renor to that app, signs you in through the app's own flow (no token to copy), writes the memory rule below, and ends with a live check that your workspace answers. Search is hybrid (keywords and meaning). Sign up at renor.cloud . Your memory stays in a folder on your machine. No account, no API key. You need Node.js 22.16 or later (22.16+ or 24+); on an older Node, renor-engine prints one line saying so and exits. Restart the agent. The first start downloads about 12 MB, and the first Renor call works about 3 seconds after an empty start. Notes go to ~/.renor (set VAULT_PATH to use another folder). Then add the memory rule to the agent's instructions file, so it saves on its own. Grok. Grok starts project servers only in a folder it trusts, so register Renor in the project: Trust the folder in Grok, then restart Grok. To check it: ask Grok to save a real decision from your project, restart Grok, and ask about it in the new session. To turn telemetry off, set DO_NOT_TRACK=1 in the environment Grok runs in. Paste the memory rule into the project's AGENTS.md . Any other MCP client: the command is npx with the arguments -y renor-engine mcp (stdio). Then tell your agent a real decision (\"remember that the orders service uses Postgres 16\"), start a new session, and ask about it. Several agen",
   "first_seen": "2026-11-04T18:04:59.867522+00:00",
@@ -4073,6 +4105,20 @@
   "type": "news",
   "url": "https://www.philschmid.de/code-mode",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "6e07690c27eb09da": {
+  "content_excerpt": "Simulation, which has long been the proving ground for robots learning to walk, roll and hop, is now helping researchers teach robots tasks that require a finer touch: aligning gears, connecting cables and assembling small components. The shift from locomotion to manipulation is taking center stage at this week’s Conference on Robot Learning (CoRL) in Austin, Texas, alongside the rise of agentic robotics — a new paradigm that integrates frontier agents to create interpretable code for physical robotics systems. At CoRL, NVIDIA is introducing new open robotics technologies, including world action models , simulation tools, benchmarks and agentic workflows. Two NVIDIA papers are among six finalists out of thousands of submissions for the Best Paper Awards at CoRL: These advancements help researchers train robots on complex tasks, evaluate their performance across changing conditions and use failures to guide further learning — building the precision, adaptability and autonomy needed to move from lab demonstrations to industrial deployment. NVIDIA is working with partners like Ambi Robotics , Bosch Research , Dexmate , Dyna Robotics , FieldAI , Flexion , Noitom Robotics , Siemens , Skild AI , RLWRLD , UC Berkeley , Walden Robotics and the University of Washington to bring these advancements to the broader robotics community. The next level of robot autonomy requires robots to perceive their surroundings, anticipate how their actions will change the environment and execute comple",
+  "first_seen": "2026-11-09T15:04:47.831224+00:00",
+  "id": "4cab5527aa6c05bf",
+  "image_url": "https://blogs.nvidia.com/wp-content/uploads/2026/11/corl-corp-blog-promo-pack-1920x1080-1.png",
+  "published": "2026-11-09T14:00:01+00:00",
+  "sid": "6e07690c27eb09da",
+  "source": "nvidia_blog",
+  "summary": "Simulation, which has long been the proving ground for robots learning to walk, roll and hop, is now helping researchers teach robots tasks that require a finer touch: aligning gears, connecting cables and assembling small components. The shift from locomotion to manipulation is taking center stage at this week’s Conference on Robot Learning (CoRL) in […]",
+  "summary_1line": "Simulation, which has long been the proving ground for robots learning to walk, roll and hop, is now helping researchers teach robots tasks that require a finer touch: aligning gears, connecting cables and assembling...",
+  "title": "Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots Rehearse Delicate Work in Simulation",
+  "type": "news",
+  "url": "https://blogs.nvidia.com/blog/robotics-simulation-advancements-corl"
  },
  "6fd3ac39e855936d": {
   "first_seen": "2026-11-09T07:04:17.451357+00:00",
@@ -4771,6 +4817,23 @@
   "type": "news",
   "url": "https://github.com/Moonyeep/Infinix",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "80c6e5d6d331b12a": {
+  "first_seen": "2026-11-09T15:04:47.831224+00:00",
+  "id": "bca47e6a617e4f01",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-06T10:52:19+00:00",
+  "sid": "80c6e5d6d331b12a",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Long-term particle physics experiments face critical operational challenges: monitoring non-stationary machine data streams and preserving tacit expert knowledge. We present the \"Helmholtz Co-Pilot,\" a hybrid Multi-Agent System (MAS) acting as an autonomous experiment steward. The system can be triggered interactively by human operators or autonomously by an asynchronous causal diagnostics engine that runs independently of the MAS reasoning core. Continuously monitoring live hardware streams such as data acquisition and slow control, this engine performs dynamic causal discovery to trace cascading alarms back to their root causes and applies adaptive model selection to keep forecasts reliable across shifting machine states; upon detecting an anomaly, it hands a structured diagnostic report to the MAS. The reasoning layer itself relies on a high-throughput C++ core and a Python edge architecture orchestrating a directed acyclic graph (DAG) of specialized ReAct workers. It integrates a Retrieval-Augmented Generation (RAG) backbone for institutional memory and leverages conformal prediction to bound its evidence-based recommendations with mathematical coverage guarantees. This extended abstract outlines the architecture, the integration of software-enforced Human-in-the-Loop (HitL) guardrails, and ongoing shadow-testing within the KATRIN experiment.",
+  "summary_1line": "Long-term particle physics experiments face critical operational challenges: monitoring non-stationary machine data streams and preserving tacit expert knowledge. We present the \"Helmholtz Co-Pilot,\" a hybrid Multi-Ag...",
+  "title": "Towards an Autonomous AI Steward for Large-Scale Physics Experiments: Integrating Causal Diagnostics, RAG, and Conformal Prediction",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.09298v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "819549b983fd9118": {
   "content_excerpt": "SageMaker Inference now supports Multi-Instance GPU to maximize GPU utilization for model endpoints | Artificial Intelligence Skip to Main Content Filter: All English Contact us AWS Marketplace Support My account re:Invent Discover AWS Products Solutions Pricing Resources Search Filter: All Sign in to console Create account Explore topics re:Invent 2026 The sessions are set and your seat is waiting. Register now Build & Deploy AI Agents 88% of agent pilots stall. Learn what the rest do differently Get started Sign up free, connect your coding agent, and start building Data for agentic AI The 7 essential data capabilities to scale agentic AI Analyst Report AWS named a Leader in the 2026 Gartner Magic Quadrant for SCPS AI for Small Businesses Solutions designed for your business. Delivered by AWS Partners News & announcements AWS blog About AWS AWS is the world's most comprehensive cloud, enabling organizations to accelerate innovation, reduce costs, and scale more efficiently Why AWS Getting Started Security Compliance Trust Center Sustainability Our Impact Global Infrastructure Careers Featured Products Analytics Application Integration Artificial Intelligence Business Applications Compute Customer Experience Databases Developer Tools End User Computing Game Tech Management Tools Media Services Migration & Modernization Multicloud & Hybrid Networking & Content Delivery Operations Security & Identity Storage Supply Chain Browse all products Transformation Hubs Migrate to moder",
@@ -6986,6 +7049,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.5",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "bd4125af0ab8af12": {
+  "first_seen": "2026-11-09T15:04:47.831224+00:00",
+  "id": "2a620dc6816724be",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-06T17:55:35+00:00",
+  "sid": "bd4125af0ab8af12",
+  "source": "arxiv_cs_lg",
+  "summary": "Graph similarity computation is an important task in graph mining with many real-world applications, such as chemical compound analysis, program dependence comparison, and social network analysis. The problem is computationally challenging: Graph Edit Distance (GED) and Maximum Common Subgraph (MCS), which quantify the distance between graphs and identify their largest shared subgraph, respectively, are NP-hard to compute exactly. To address these computational challenges, Graph Neural Networks (GNNs) have been applied to this problem. However, existing GNN-based approaches have primarily focused on small-scale graph datasets, while scalability to larger scales remains underexplored. In this work, we propose FiLSim, a scalable GNN-based framework, and investigate whether a simplified GNN pipeline can maintain competitive performance on standard benchmarks while scaling to large graphs. We additionally propose a sequential graph-editing strategy to construct large-scale graph datasets with reliable GED labels to evaluate scalability. The proposed framework is evaluated on four benchmark datasets and four newly created large-scale datasets, demonstrating its effectiveness and scalability. FiLSim remains accurate on graphs with more than 150{,}000 nodes, where the baseline methods run out of memory or fail to learn, and scores all test pairs within seconds on a single GPU.",
+  "summary_1line": "Graph similarity computation is an important task in graph mining with many real-world applications, such as chemical compound analysis, program dependence comparison, and social network analysis. The problem is compu...",
+  "title": "Scaling Graph Similarity Learning with Graph Neural Networks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.09805v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "bd446f3c12095c6b": {
   "first_seen": "2026-11-06T03:05:24.904029+00:00",
   "id": "4683988eac99d9d0",
@@ -7089,6 +7168,22 @@
   "title": "Grading the Unannotated: Insights from the WorkRB Skill Extraction Challenge at RecSys-HR 2026",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03525v1"
+ },
+ "c02384b58f1bad50": {
+  "content_excerpt": "MemSeal: a deterministic provenance-tracking containment layer on the write/recall boundary of AI agent long-term memory (GATE 2 self-reported FAIL; evaluation only). MemSeal is a containment layer on the write/recall boundary of an AI agent's long-term memory. Every memory entry is wrapped in a provenance envelope (who wrote it, from what source, derived from what, at which trust tier) inside a SHA-256 hash chain. Deterministic policies decide what may be stored, and a trust-tiered recall path decides what may be surfaced — especially before an external send or an irreversible action. Write policies: W1 quarantines instruction-form content from any source but the user; W2 makes derived entries inherit their worst ancestor's trust tier (no laundering a document into a \"user fact\"); W3 rejects cross-principal writes and filters cross-principal recall; W4 seals secrets (by entry_class=secret and by shape) so plaintext never lands in the store; W5 sends a fact that contradicts a sealed fact to review. The gate is judged on an independent holdout corpus authored by a separate party that never saw MemSeal's code, the dev corpus, or the reports. The bars are fixed in advance and never moved. Conditions: C0 raw store · C2 write path · C3 write + recall path · C4 + consolidation guard. Overall: GATE 2 = FAIL on v2. Three deterministic fixes between v1 and v2 (classification-based secret sealing; a sole-basis recall gate; consolidation root retirement) closed both security criteria — ",
+  "first_seen": "2026-11-09T15:04:47.831224+00:00",
+  "id": "89fa7febd4861c36",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-09T12:58:14+00:00",
+  "sid": "c02384b58f1bad50",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: MemSeal – provenance containment for agent long-term memory",
+  "title": "Show HN: MemSeal – provenance containment for agent long-term memory",
+  "type": "news",
+  "url": "https://github.com/NagaYu/memseal",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "c037c1d442d57b42": {
   "content_excerpt": "Laplace's Scissors: protected readout rotations for open LLMs. Diagnose weak output directions, repair answers, preserve successful generations, and analyze scaling deviations with Rust and Triton on CUDA/HIP. Rotate an LLM’s output matrix to compute edits while preserving protected answers. Laplace’s Scissors computes rotation edits for an LLM’s original output matrix. probe constructs numerical inputs from model weights and traces directions with weak output discrimination, cancellation across layers, and the associated weight coordinates. diagnose uses cases with expected answer strings to find plane or joint rotations that repair failed answers while protecting successful ones. Each objective and protection condition is checked with actual GPU outputs. Scaling analysis applies the same edit policy across checkpoints to measure deviations from a reference curve and the amount recovered. Prepare a Rust toolchain, a Python environment that can import Triton 3.8, and a CUDA or HIP driver. Python provides the Triton compilation bridge. Rust handles model loading, tokenization, execution, edit computation, and result storage. .cargo/config.toml places Cargo build artifacts outside the project. LAPLACE_CACHE stores models, kernels, and run results. Select the backend and device index with LAPLACE_BACKEND=auto|cuda|hip and LAPLACE_DEVICE . Set LAPLACE_DRIVER_LIBRARY for the driver library path, or ROCM_PATH / HIP_PATH for the ROCm SDK. The HIP backend also checks the selected Pyt",
@@ -8324,6 +8419,23 @@
   "title": "Lakebase Postgres is now generally available on Google Cloud",
   "type": "news",
   "url": "https://www.databricks.com/blog/lakebase-postgres-now-generally-available-google-cloud"
+ },
+ "e84d20698cc7a671": {
+  "first_seen": "2026-11-09T15:04:47.831224+00:00",
+  "id": "cf2d4324fb6e717a",
+  "matched_topics": [
+   "agentic",
+   "harness"
+  ],
+  "published": "2026-11-06T18:59:34+00:00",
+  "sid": "e84d20698cc7a671",
+  "source": "arxiv_cs_lg",
+  "summary": "Recent work on robot manipulation has focused on specialist policies trained on demonstrations. We show that generalist AI models can control manipulators more reliably than specialist policies such as vision-language-action models (VLAs) and world-action models (WAMs). We systematically analyze agentic manipulation policies (AMPs), in which a generalist AI model commands the manipulator directly, adapting its actions as the task unfolds. We present AMP1, a reference harness that runs unchanged across single-arm, bimanual, and mobile manipulation. AMP1 achieves state-of-the-art results on the RoboLab-120 and CaP-Gym benchmarks, with no demonstrations or task-specific training. On RoboLab-120, AMP1 reaches an 85.6\\% success rate zero-shot, compared to 49.2\\% and 42.9\\% for leading VLA and WAM policies. The agent succeeds zero-shot in 104 of 108 real-world trials spanning twelve tasks and three robot instances, reducing failure rates by 20x and 15x relative to strong VLA and WAM baselines. The basic harness supplies no grasping, pushing, or placing skills; the agent develops its own strategies, such as searching for hidden objects, using objects as tools, and calibrating its cameras. With the addition of a persistent memory store, the agent can also learn from experience: an augmented harness with a memory representation that is carried across episodes lowers the failure rate on RoboDojo bimanual manipulation tasks by 4.6x relative to zero-shot deployment. Our analysis suggests",
+  "summary_1line": "Recent work on robot manipulation has focused on specialist policies trained on demonstrations. We show that generalist AI models can control manipulators more reliably than specialist policies such as vision-language...",
+  "title": "On Agentic Manipulation Policies",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.09892v1",
+  "why_it_matters": "Matches feed focus: agentic, harness."
  },
  "e8b041a136b14ecf": {
   "first_seen": "2026-11-08T14:04:46.175901+00:00",
