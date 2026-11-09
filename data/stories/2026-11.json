@@ -3551,6 +3551,25 @@
   "type": "news",
   "url": "https://avartha.ai/blog/introducing-avartha"
  },
+ "5892c0cb7396af2c": {
+  "also_covered": [
+   {
+    "source": "claude_dev_blog",
+    "title": "Safely scaling multi-agent teams with Claude Fable 5.2",
+    "url": "https://claude.dev/blog/safely-scaling-multi-agent-teams-with-fable-5-2/"
+   }
+  ],
+  "content_excerpt": "Introducing Claude Fable 5.2 on AWS | Artificial Intelligence Skip to Main Content Filter: All English Contact us AWS Marketplace Support My account re:Invent Discover AWS Products Solutions Pricing Resources Search Filter: All Sign in to console Create account Explore topics re:Invent 2026 The sessions are set and your seat is waiting. Register now Build & Deploy AI Agents 88% of agent pilots stall. Learn what the rest do differently Get started Sign up free, connect your coding agent, and start building Data for agentic AI The 7 essential data capabilities to scale agentic AI Analyst Report AWS named a Leader in the 2026 Gartner Magic Quadrant for SCPS AI for Small Businesses Solutions designed for your business. Delivered by AWS Partners News & announcements AWS blog About AWS AWS is the world's most comprehensive cloud, enabling organizations to accelerate innovation, reduce costs, and scale more efficiently Why AWS Getting Started Security Compliance Trust Center Sustainability Our Impact Global Infrastructure Careers Featured Products Analytics Application Integration Artificial Intelligence Business Applications Compute Customer Experience Databases Developer Tools End User Computing Game Tech Management Tools Media Services Migration & Modernization Multicloud & Hybrid Networking & Content Delivery Operations Security & Identity Storage Supply Chain Browse all products Transformation Hubs Migrate to modernize → Modernize to unlock data → unlock data to run AI Migrate ",
+  "first_seen": "2026-11-09T21:07:56.785787+00:00",
+  "id": "1854a34c44b493e0",
+  "published": "2026-11-09T20:04:37+00:00",
+  "sid": "5892c0cb7396af2c",
+  "source": "aws_ml_blog",
+  "summary_1line": "Claude Fable 5.2 and Claude Mythos 5.2 are now available on Amazon Bedrock and Claude Platform on AWS. Learn what's new in both models, why Fable 5.2 matters for your technical workloads, and how to get started building with it on Amazon Bedrock.",
+  "title": "Introducing Claude Fable 5.2 on AWS",
+  "type": "news",
+  "url": "https://aws.amazon.com/blogs/machine-learning/introducing-claude-fable-5-2-on-aws"
+ },
  "5902ca540214c52c": {
   "content_excerpt": "SemiAnalysis built GDPx, 206 long agent tasks across 11 expert fields, and the best model scored 12 percent. We worked out what each model pays per point, pulled the caveats SemiAnalysis states into the open, and walked through the one task that shows how strict the grading is. SemiAnalysis published GDPx on November 2, 2026 as a benchmark for general agent work in high-value fields: chip design, cybersecurity, biology, finance, legal, quant trading, recursive self-improvement, hardware design, materials science, alignment and software engineering. The leaderboard lists 206 tasks from 14 data partners. Tasks run up to 8 hours by default. One finance task drops the agent into a deal room of about 2,000 files. Models run in their own harness where one exists, such as Claude Code or Codex, and in OpenCode otherwise. The headline score averages the 11 fields equally, and each partner equally within a field, using each task's own grading over 3 attempts. SemiAnalysis lists an average cost per task next to each score. Dividing one by the other gives what each point of GDPx costs. These are our numbers, computed from the leaderboard; SemiAnalysis does not publish this column. Muse Wonder Full scores 9.0 percent but has no public price, so it has no cost per point. Two readings follow. If you need the single best result, Opus 5.5 leads. If you run many attempts and keep the best, Gemini 4 Carbon gets 91 percent of Opus's score for about a third of the cost per task, and GPT 6.1 Sol g",
   "first_seen": "2026-11-05T20:05:22.914023+00:00",
@@ -4205,6 +4224,19 @@
   "type": "news",
   "url": "https://microsoft.github.io/apm",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "6d32c6450e419289": {
+  "content_excerpt": "The current Claude lineup has four generally available models: Claude Haiku 5.5, Claude Sonnet 5.5, Claude Opus 5.5 and Claude Fable 5.2. Claude Mythos 5.2 is our most capable model for cybersecurity and life sciences research, available through our verification programs. If you build on the Claude Platform or work in Claude Code, you may be wondering which model to use for your common tasks. This article will help answer that question and how to think about the trade-offs. The quick answer is that you should start most work on Opus 5.5 at its default effort level, medium . There's a reason it's the default model in Claude Code. It costs half as much per input and output token as Fable 5.2, and it's the model we recommend starting with for most coding and knowledge work. Before you move models, try adjusting your effort level. It's a finer dial for both cost and capability. Past high , one more effort level can cost as much as a bigger model, so compare both on your own work. If you're past high , test the next model up at a lower effort instead. Conversely, one level down can get you the result you need at a lower rate. Higher effort helps when the model needs to think longer, call more tools, or check its own work more. Just keep in mind that it also adds latency. Additionally, moving to a higher effort level won't give a model knowledge or skill it doesn't have. For that, you still need to move up a model. Prices are Claude API list prices. For benchmark results, see the F",
+  "first_seen": "2026-11-09T21:05:41.308068+00:00",
+  "id": "327498c6dc00d01b",
+  "published": "2026-11-09T12:00:00+00:00",
+  "sid": "6d32c6450e419289",
+  "source": "claude_dev_blog",
+  "summary": "Which Claude model to pick, what they cost, and how to use them together.",
+  "summary_1line": "Which Claude model to pick, what they cost, and how to use them together.",
+  "title": "Which Claude model should you build with? Fable, Opus, Sonnet, or Haiku",
+  "type": "news",
+  "url": "https://claude.dev/blog/which-claude-model-should-you-build-with"
  },
  "6d8a8ee7d8dd93df": {
   "content_excerpt": "For the past two years, building capable Agents meant designing tools, figuring out which actions help the model complete a task, deciding how granular each tool schema needs to be, or iterating on system instruction templates. This is changing. Agents are moving in the opposite direction by collapsing their entire tool catalog into one tool : exec . This is called Code Mode (or Programmatic Tool Calling). Instead of forcing the model to trigger tools one at a time across turns, the harness gives the model a single exec(code) tool. The model writes a short TypeScript or Python script that chains, combines, and awaits actions inside an isolated sandbox. To understand why agents are converging on a single exec tool, we should look at how tool calling evolved. Initially, we only gave agents a handful of tools because they couldn't reliably choose or filter across a large catalog. As models improved, we connected dozens of tools or MCP servers, but ran into context window limits. We solved that with tool search and progressive disclosure , letting agents look up tools on demand. Even with dynamic tool loading, we still had dozens of individual tools, and were still stuck with the limitation of standard tool calling: one action per turn. In standard tool calling, the model generates a structured object (typically JSON) that defines a single action (or at best a flat batch of independent calls, like reading three files), waits for the raw output to come back, adds it into the promp",
@@ -5177,6 +5209,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05724v1"
  },
+ "885bc06050a058a0": {
+  "first_seen": "2026-11-09T21:05:41.308068+00:00",
+  "id": "16266b3e4bbb3d93",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-09T20:06:55+00:00",
+  "sid": "885bc06050a058a0",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.169.0-alpha.7",
+  "summary_1line": "Release 0.169.0-alpha.7",
+  "title": "codex rust-v0.169.0-alpha.7",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.7",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "89d038dcea5bcb51": {
   "first_seen": "2026-11-06T03:05:24.904029+00:00",
   "id": "c566df697f37b049",
@@ -5903,6 +5951,22 @@
   "title": "Leeroy: Making AI agents play World of Warcraft",
   "type": "news",
   "url": "https://pthm.dev/leeroy-making-ai-agents-play-world-of-warcraft",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "9b50deef609f26fa": {
+  "first_seen": "2026-11-09T21:05:41.308068+00:00",
+  "id": "9c41ac05cad75769",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-06T06:12:33+00:00",
+  "sid": "9b50deef609f26fa",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Creative tool use is a fundamental human capability and an important step toward general-purpose embodied intelligence. It requires agents to reason about object affordances, physical constraints, and manipulation strategies, especially when standard tools are unavailable. However, progress in this area is limited by the lack of real-world datasets that capture human tool-use behavior with sufficient scale, fidelity, and diversity. Existing benchmarks are often simulation-based, focus on simplified interactions, or lack detailed observations and annotations. We introduce ToolDex, a large-scale egocentric-exocentric (ego-exo) human demonstration dataset for creative physical tool use. ToolDex captures scenarios in which humans select, adapt, and repurpose available objects as tools. Using synchronized egocentric cameras and eight exocentric cameras, the dataset provides high-fidelity multi-view observations and rich annotations for hands, tools, target objects, and their deformable interactions. Beyond data collection, we establish a benchmark suite characterizing three core capabilities: physical tool-use reasoning, sparse-view 3D and 4D reconstruction, and robot policy learning. ToolDex provides a foundation for studying human tool-use behavior and developing embodied agents that can adaptively use tools in complex real-world environments. Dataset visualizations and benchmarking results are available at https://tooluse-dataset.github.io/.",
+  "summary_1line": "Creative tool use is a fundamental human capability and an important step toward general-purpose embodied intelligence. It requires agents to reason about object affordances, physical constraints, and manipulation str...",
+  "title": "ToolDex: An Ego-Exo Human Demonstration Dataset for Creative Physical Tool Use",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.09036v1",
   "why_it_matters": "Matches feed focus: agent."
  },
  "9b6ce22e2f29b264": {
@@ -7545,6 +7609,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05108v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "c502274f9d9a45db": {
+  "first_seen": "2026-11-09T21:05:41.308068+00:00",
+  "id": "8d2597c1bc41d6d4",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-09T20:09:14+00:00",
+  "sid": "c502274f9d9a45db",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.180/ pip install claude-agent-sdk==0.2.180",
+  "summary_1line": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.180/ pip install claude-agent-sdk==0.2.180",
+  "title": "claude-agent-sdk-python v0.2.180",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.180",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "c506adad28825d2b": {
   "first_seen": "2026-11-06T05:10:08.075320+00:00",
