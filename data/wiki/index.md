@@ -16,13 +16,13 @@ Schema: `config/wiki_schema.md`.
   - theme `consistency-and-autonomy` — Consistency, autonomy limits, and the human role (6)
 
 ### memory
-- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (74 entries, updated 2026-11-02)
+- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (76 entries, updated 2026-11-09)
   → solutions: context-compaction, vector-kb
   - theme `architectures` — Tiered and lifecycle memory architectures (14)
   - theme `local-first-stores` — Build vs. buy: managed services and developer-owned stores (17)
   - theme `shared-memory` — Sharing memory across agents, isolating it between users (10)
   - theme `recall-and-curation` — What to write, when to revoke, how to recall (16)
-  - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (9)
+  - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (11)
   - theme `measuring-memory` — Benchmarks and leaderboards for memory (8)
 
 ### planning
@@ -72,9 +72,9 @@ Schema: `config/wiki_schema.md`.
   - theme `shared-context` — What each agent gets to see (2)
 
 ### cost
-- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (56 entries, updated 2026-11-06)
+- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (57 entries, updated 2026-11-09)
   → solutions: agent-orchestration, context-compaction, cost-controls
-  - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (12)
+  - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (13)
   - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (11)
   - theme `routing` — Routing each turn to the cheapest model that can handle it (10)
   - theme `caching-and-serving` — Caching and serving efficiency set the floor price (12)

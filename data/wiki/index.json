@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-08T18:04:53.953562+00:00",
+ "generated_at": "2026-11-09T18:04:46.487106+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,30 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-11-09-memorydojo-poisoning-lifecycle",
+   "topic": "agent-memory",
+   "topic_title": "Agents forget across steps and sessions",
+   "kind": "obstacle",
+   "date": "2026-11-09",
+   "title": "MemoryDojo: every tested memory architecture propagates poisoned instructions across sessions"
+  },
+  {
+   "id": "2026-11-09-derived-memory-drops-acls",
+   "topic": "agent-memory",
+   "topic_title": "Agents forget across steps and sessions",
+   "kind": "obstacle",
+   "date": "2026-11-09",
+   "title": "Agent memory drops document ACLs: 67% of synthesis tasks leaked in one benchmark"
+  },
+  {
+   "id": "2026-11-09-stale-instruction-files",
+   "topic": "agent-cost",
+   "topic_title": "Agent token costs are unpredictable and easily run away",
+   "kind": "obstacle",
+   "date": "2026-11-09",
+   "title": "Stale AGENTS.md instructions add hidden tool calls that task-success metrics miss"
+  },
   {
    "id": "2026-11-08-firecracker-rebuild-of-google-agent-vms",
    "topic": "agent-sandboxing",
@@ -230,30 +254,6 @@
    "kind": "solution",
    "date": "2026-11-01",
    "title": "Weir tests whether agents leak credentials by planting unique fake keys"
-  },
-  {
-   "id": "2026-11-01-sandbox-conformance-contracts",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-11-01",
-   "title": "Open conformance lab turns sandbox claims into runnable contracts"
-  },
-  {
-   "id": "2026-10-31-embedded-browsers-in-coding-tools",
-   "topic": "prompt-injection",
-   "topic_title": "Untrusted input and tools can hijack an agent",
-   "kind": "obstacle",
-   "date": "2026-10-31",
-   "title": "Embedded browsers in five AI coding tools could run commands, read local files, or spoof the address bar"
-  },
-  {
-   "id": "2026-10-31-tracekit-box-signed-egress",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-10-31",
-   "title": "Tracekit Box runs agents in micro-VMs where every network, credential, and write exit is signed"
   }
  ],
  "nodes": {
@@ -283,7 +283,7 @@
      "key": "harness-and-context",
      "title": "Harness, context, and topology drive the per-step bill",
      "summary": "What the agent re-reads, fetches, and re-sends each turn sets most of the bill; validated compaction, tool-instruction tuning, and task-level measurement beat naive truncation.",
-     "count": 12
+     "count": 13
     },
     {
      "key": "cheaper-models",
@@ -311,6 +311,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-09-stale-instruction-files",
+     "topic": "agent-cost",
+     "date": "2026-11-09",
+     "title": "Stale AGENTS.md instructions add hidden tool calls that task-success metrics miss",
+     "theme": "harness-and-context",
+     "html": "<p>A study of 732 coding-agent trajectories (two models, 22 maintenance tasks, three real stale instructions: a test command, a code location, a procedure) finds agents follow stale guidance when it is relevant, even when correct information exists elsewhere. On the stale test command, Claude Sonnet 5.5 needed about two extra tool calls per run, a third more than with the corrected command; the other two cases showed no detectable difference. Agents recovered from the failures but none repaired the instruction file. Correcting the file removed operations on obsolete paths; deleting the instruction prevented most. Paper-reported.</p>\n<p>For builders: instruction files are read every session, so staleness is a recurring cost. Audit them against the code, and prefer fewer instructions.</p>",
+     "evidence": [
+      {
+       "sid": "569b9613f4d348fe",
+       "title": "When Instruction Files Go Stale: Documentation Debt and Hidden Cost in Coding Agents"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-06-token-waste-measurement-framework",
      "topic": "agent-cost",
@@ -1335,8 +1350,8 @@
      "title": "OpenAI adds usage analytics and enforceable spend controls to ChatGPT Enterprise"
     }
    ],
-   "entry_count": 56,
-   "latest_entry_date": "2026-11-06",
+   "entry_count": 57,
+   "latest_entry_date": "2026-11-09",
    "solutions": [
     {
      "slug": "agent-orchestration",
@@ -1354,6 +1369,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "569b9613f4d348fe",
+     "title": "When Instruction Files Go Stale: Documentation Debt and Hidden Cost in Coding Agents"
+    },
     {
      "sid": "61ea308958ff18b1",
      "title": "How Do AI Agents Waste Your Money?"
@@ -1607,7 +1626,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-11-06"
+   "updated": "2026-11-09"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -5415,7 +5434,7 @@
      "key": "memory-integrity",
      "title": "Poisoned, hidden, and sycophantic memory",
      "summary": "Persistent memory is a persistent attack surface; poisoned facts, concealed injections, forged reasoning, and sycophancy all pass through the write path.",
-     "count": 9
+     "count": 11
     },
     {
      "key": "measuring-memory",
@@ -5425,6 +5444,45 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-09-memorydojo-poisoning-lifecycle",
+     "topic": "agent-memory",
+     "date": "2026-11-09",
+     "title": "MemoryDojo: every tested memory architecture propagates poisoned instructions across sessions",
+     "theme": "memory-integrity",
+     "html": "<p>MemoryDojo is a benchmark of 155 multi-session, long-horizon trajectories across four domains that traces a poisoned instruction from the session where it is stored to the later session where it is retrieved and acted on. Across the five memory systems tested, the paper reports that all are susceptible, with large differences in downstream effect depending on how each system processes and retrieves memory. The authors also propose a memory-aware poison optimization that raises attack efficacy and exposes those architectural differences. Paper-reported.</p>\n<p>For builders: treat memory writes as an injection path. Choosing a memory architecture is partly a security decision, so test it with a cross-session poisoning trace before relying on it.</p>",
+     "evidence": [
+      {
+       "sid": "138e084674254809",
+       "title": "MemoryDojo: Benchmarking Poisoning Through LLM Agent Memory"
+      }
+     ],
+     "also": [
+      {
+       "slug": "prompt-injection",
+       "title": "Untrusted input and tools can hijack an agent"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-09-derived-memory-drops-acls",
+     "topic": "agent-memory",
+     "date": "2026-11-09",
+     "title": "Agent memory drops document ACLs: 67% of synthesis tasks leaked in one benchmark",
+     "theme": "memory-integrity",
+     "html": "<p><code>sentinel-eval</code>, a deterministic benchmark and linter, reports that metadata ACL filters in ChromaDB and LlamaIndex block 100% of unauthorized raw-chunk queries, yet cross-document synthesis into shared agent memory leaked confidential parent secrets in 2 of 3 background tasks (67%). A raw chunk keeps its document identity; a synthesized note does not, so the parent permission is lost. Self-reported by a Show HN project, not independently replicated.</p>\n<p>MemSeal, a separate Show HN layer, wraps each memory write in a hash-chained provenance envelope (author, source, derivation, trust tier) and gates recall by tier before external sends. Its own evaluation gate is self-reported as failing.</p>\n<p>For builders: carry parent ACLs through every derived memory write, or filter at recall by provenance.</p>",
+     "evidence": [
+      {
+       "sid": "42d0d220c3dc643e",
+       "title": "Show HN: Raw RAG leaks 0%, but agent memory leaks 67%"
+      },
+      {
+       "sid": "c02384b58f1bad50",
+       "title": "Show HN: MemSeal – provenance containment for agent long-term memory"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-02-discernmem-memory-defects",
      "topic": "agent-memory",
@@ -6673,8 +6731,8 @@
      "title": "An open-source memory plugin consolidates by forgetting and synthesizing instead of storing everything"
     }
    ],
-   "entry_count": 74,
-   "latest_entry_date": "2026-11-02",
+   "entry_count": 76,
+   "latest_entry_date": "2026-11-09",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -6688,6 +6746,18 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "138e084674254809",
+     "title": "MemoryDojo: Benchmarking Poisoning Through LLM Agent Memory"
+    },
+    {
+     "sid": "42d0d220c3dc643e",
+     "title": "Show HN: Raw RAG leaks 0%, but agent memory leaks 67%"
+    },
+    {
+     "sid": "c02384b58f1bad50",
+     "title": "Show HN: MemSeal – provenance containment for agent long-term memory"
+    },
     {
      "sid": "7d1c303b6572b6ff",
      "title": "Remembering Is Not Enough: Refining Memories and Learning When to Use Them in Multi-Agent Systems"
@@ -6997,7 +7067,7 @@
      "title": "Cloudflare Announces Agent Memory, a Managed Persistent Memory Service for AI Agents"
     }
    ],
-   "updated": "2026-11-02"
+   "updated": "2026-11-09"
   },
   "agent-observability": {
    "slug": "agent-observability",
@@ -12547,6 +12617,13 @@
     }
    ],
    "cross_entries": [
+    {
+     "id": "2026-11-09-memorydojo-poisoning-lifecycle",
+     "topic": "agent-memory",
+     "topic_title": "Agents forget across steps and sessions",
+     "date": "2026-11-09",
+     "title": "MemoryDojo: every tested memory architecture propagates poisoned instructions across sessions"
+    },
     {
      "id": "2026-10-30-copilot-cli-reads-ssh-without-prompt",
      "topic": "agent-sandboxing",
