@@ -4440,7 +4440,7 @@
   ],
   "published": "2026-11-06T17:46:53+00:00",
   "sid": "78c03d24ea8fae6d",
-  "source": "arxiv_agent_systems_research",
+  "source": "arxiv_cs_ai",
   "summary": "Current evaluations of agentic AI systems primarily rely on benchmarks. However, the static nature of benchmarks makes them uninformative about the value of auditing interventions at deployment time. For reliable deployment, we often need to determine within an agent's trajectory whether or not to intervene, e.g., by verifying the agent's current output or steering it toward different behavior, using either human review or more costly models or time-consuming agentic supervision. The value of such interventions is fundamentally a causal inference question, asking whether the causal effect of such an intervention is beneficial for the final outcome. Estimating this causal effect is particularly challenging due to the dynamic nature of the problem: the impact of an intervention depends on the current context and environment, as well as the agent's future behavior. We develop the first methodologically grounded framework for evaluating the causal effects of randomized interventions within agent trajectories. By leveraging a relatively small dataset of agent trajectories collected under randomized interventions such as verification or screening, we can estimate the dynamic causal effect of a rich class of (contextual) intervention policies. The structural parameters that we estimate can also be used to construct safety leaderboards that capture the risk of various agentic actions, which can be used by practitioners for audit prioritization. Applying our methods to tau-bench Retai",
   "summary_1line": "Current evaluations of agentic AI systems primarily rely on benchmarks. However, the static nature of benchmarks makes them uninformative about the value of auditing interventions at deployment time. For reliable depl...",
   "title": "Knowing When to Intervene: Causal Evaluation of AI Agents",
@@ -5281,6 +5281,23 @@
   "type": "news",
   "url": "https://github.com/agentnameservice/ans",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "907b9977cea18287": {
+  "content_excerpt": "Benchmarking coding agents in one sentence: give a model a task, let it work, check the result. The hard part is keeping the race fair. Every model must get the same conditions, and no agent should be able to escape its sandbox or fool its grader (and they try). And all of that has to keep running for hours. In the first post of The Agents on Rails Files , we shared how we design the checks for the benchmark . This time, we introduce lemans , the open source Ruby harness we built for the Rails Foundation to run every trial. We’ll show how an eval task is composed, what it takes to run and grade coding agents, and how cheating agents shaped its guardrails (one even paid for its cheat sheet with our API key). Two days of Ruby talks for small teams and big teams, then a community day. Nov 10-12, SFJAZZ. We’ve briefly told the origin story before : the benchmark started on Harbor , and we wanted a harness of our own, in Ruby, that we could bend to every new task. With encouragement from the Rails Foundation, that became lemans. The principles we started with still hold: Here for the cheating agents stuff rather than the harness? Skip to the security story and come back for the tour later. Let’s take a quick tour in case you want to repeat the benchmark on your own Rails app. lemans is a gem, and lemans init scaffolds a new bench with two example tasks: Before benchmarking any model, prove the task itself. The oracle agent applies the reference solution, and grading must score 1.0",
+  "first_seen": "2026-11-09T14:05:43.393874+00:00",
+  "id": "308648f193b0e3af",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-09T14:01:54+00:00",
+  "sid": "907b9977cea18287",
+  "source": "hackernews_ai",
+  "summary_1line": "The Agents on Rails Files: enter lemans, a Ruby harness for fair agent races",
+  "title": "The Agents on Rails Files: enter lemans, a Ruby harness for fair agent races",
+  "type": "news",
+  "url": "https://evilmartians.com/chronicles/the-agents-on-rails-files-enter-lemans-a-ruby-harness-for-fair-agent-races",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "913cd197e9f52b0c": {
   "content_excerpt": "Learn more about advertising on Uber. Reach consumers as they go anywhere and get anything. Agentic AI introduces a fundamentally different security model from traditional software. Unlike conventional services that execute predefined logic, agents dynamically reason over content from users, webpages, documents, tools, and other agents—and can translate that reasoning into real-world actions. This shifts part of the attack surface from traditional identity and API controls into the semantic layer, creating risks such as prompt injection, tool and memory poisoning, goal hijacking, behavioral drift, and hallucination-driven actions. Traditional authorization can determine who is allowed to act, but securing agentic systems requires answering a broader question: is the proposed action consistent with what the user requested, within the agent’s defined persona and intents, appropriate for the user’s role, and valid given the full session context—including the actions and decisions that preceded it? To address this challenge, we developed a defense-in-depth security framework spanning the full agent lifecycle: provisioning-time validation, runtime enforcement, and continuous assurance. The framework combines an agent registry, personas and explicit intents, constraints, tool and MCP validation, context-aware guardrails, and continuous red teaming with end-to-end observability and replay. At runtime, we introduced prompt provenance and evidence chaining to correlate privileged acti",
@@ -7352,6 +7369,22 @@
   "title": "The Inference Stack Behind OCRia",
   "type": "news",
   "url": "https://www.llamaindex.ai/blog/the-inference-stack-behind-ocria"
+ },
+ "ca0e64849a03e122": {
+  "content_excerpt": "Autonomous agents with shell access have superpowers, and a big attack surface. What this week’s Firecracker escape shows about VM boundaries, and how to set one that holds for tomorrow’s bug. An autonomous agent with a shell has superpowers. It installs packages, runs scripts, opens connections and fixes its own mistakes, without waiting for anyone. Nobody reviews each command. That’s the point. It’s also a big attack surface: every command it chooses, every package it pulls, every script a web page talks it into. So I run every agent in its own VM. This week, a guest VM got root on its host anyway. The first step was telling the host kernel where to write a checksum . The write-up , published on 7 November, targets Firecracker. I read it with one question: could this happen in Koala? Every network packet carries a checksum. Computing it costs CPU, so virtio lets the guest hand that job to the host: “the checksum starts here, write it there.” That shortcut is an offload , and it’s on by default in most fast VM networking. The kernel fix landed upstream on 14 October 2026. The bug gets patched. The pattern stays. The attack needs guest packets to reach the host kernel’s network stack with the hints attached. TAP and vhost-net, the usual fast paths, do exactly that. Koala uses neither. A virtio device and the guest agree on features at boot. Koala’s network device offers only two that reach the guest: a MAC address and modern virtio. No offloads, so the guest can’t even send t",
+  "first_seen": "2026-11-09T14:05:43.393874+00:00",
+  "id": "274d6220a1f5ba01",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-09T14:05:39+00:00",
+  "sid": "ca0e64849a03e122",
+  "source": "hackernews_ai",
+  "summary_1line": "Keep the Agent's Packets Out of the Host Kernel",
+  "title": "Keep the Agent's Packets Out of the Host Kernel",
+  "type": "news",
+  "url": "https://kunalkushwaha.github.io/2026/11/09/keep-agent-packets-out-of-host-kernel",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "ccf769a9ca0162cc": {
   "first_seen": "2026-11-03T21:09:26.741882+00:00",
