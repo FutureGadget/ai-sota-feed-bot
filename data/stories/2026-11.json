@@ -2151,6 +2151,22 @@
   "url": "https://blog.apify.com/llm-grounding-with-live-data",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "3ec16042cf11489a": {
+  "first_seen": "2026-11-09T04:05:46.806933+00:00",
+  "id": "2e2a6ecdc6b47c70",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-06T07:17:32+00:00",
+  "sid": "3ec16042cf11489a",
+  "source": "arxiv_cs_cl",
+  "summary": "Hundreds of millions of Indians communicate with digital systems in romanized Latin characters -- typing \"aap kaise hain\" rather than native script -- yet romanized Indic generation is absent from NLP benchmarks and evaluation frameworks. We demonstrate that automatic metrics (BGE-M3, BERTScore) systematically misrepresent the quality of romanized Hindi, Telugu, and Kannada generation. We evaluate four LLMs (Claude Opus 4.8, GPT-5.5, Gemini 2.5-flash, Qwen3.5-35B) on 142 OpenAssistant query-response pairs. On a 72-response diagnostic subset, native speakers rate GPT-5.5 1.43 points higher than Claude Opus 4.8 on a 12-point rubric, whereas their full-dataset BGE-M3 means differ by only 0.004. Two distinct model-specific failure modes emerge: Gemini produces script spillage (16.9% of Telugu responses leak native script), while Qwen collapses to English-only output (16.2% of Kannada responses). We introduce a failure-aware evaluation policy that assigns zero to empty outputs, script-corrupted responses, and instruction collapses -- revealing failures metrics alone cannot detect. Our results show that evaluating romanized Indic generation requires a coordinated bundle: semantic similarity, script compliance, failure coverage, and native-speaker acceptability.",
+  "summary_1line": "Hundreds of millions of Indians communicate with digital systems in romanized Latin characters -- typing \"aap kaise hain\" rather than native script -- yet romanized Indic generation is absent from NLP benchmarks and e...",
+  "title": "The Invisible Gap: Romanized Indic Generation Fails Where Automatic Metrics Succeed",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.09085v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "3f699cddaf3044d4": {
   "content_excerpt": "We benchmarked 4 coding-agent harness setups on 100 real software engineering tasks. Simply letting Claude think harder beat all of them. The most elaborate setup had 37 skills, spawned 17 agents, cost 8× as much, and still performed worse than vanilla Claude Code. We asked coding agents to make a small change to an event registration app: add a Zoom link and passcode to guest confirmation emails. One of the agent setups we tested was equipped with a harness containing 37 additional skills. Surely all that machinery would help? It decided the change deserved a thorough review, and spawned 17 agents: But somehow, none of them noticed the most important problem: the confirmation email went out when someone registered, before they'd paid . Following the user's instructions would give unpaid registrants the Zoom passcode! Seventeen agents, lots of review, and the central product issue went unnoticed. How much do coding-agent add-ons actually help? There's a Cambrian explosion of harnesses, skills, plugins, and elaborate coding workflows. Some people use vanilla Claude Code. Others have assembled small bureaucracies of specialized agents, reviewers, planners, and supervisors. A lot of these setups feel sophisticated. But do they actually produce better software? We decided to measure it. We tested several popular coding-agent setups using Opus 5.5 in Claude Code, evaluating them on software engineering tasks from Surge's sudo L7 benchmark. We also tested a simpler approach: leavin",
   "first_seen": "2026-11-04T22:04:37.212189+00:00",
@@ -4449,6 +4465,23 @@
   "url": "http://arxiv.org/abs/2611.02338v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "83722b13b6167c53": {
+  "first_seen": "2026-11-09T04:05:46.806933+00:00",
+  "id": "17f83c2dbb2a8224",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-06T00:06:13+00:00",
+  "sid": "83722b13b6167c53",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large Reasoning Models (LRMs) are one of the key components of current agentic systems. LRMs augment their output with an explicit chain-of-thought reasoning stage, introducing a new attack surface for thought injection, in which untrusted text resembling the model's own deliberation is fed back to the model. We present a two-part study of this attack, performed against the prevailing large, production class open-weight models (e.g., GLM-5.3, MiniMax-M2.5, Qwen3.8-Flash-Next). We first evaluate the effectiveness of static thought-injection prompts under different styles as well as tagged and untagged conditions and find that the effects of thinking tags and payload styles are all properties of the specific target model. In the second study, we exploit this model-specificity in a containerized agentic cyber range, using indirect injection prompts styled in the form of the target model's own reasoning traces to achieve attack success rates (ASR) up to 50% on operational objectives such as reverse-shell exfiltration and repository backdooring. We also find that the same malicious objective in standard prompt injection user voice never succeeds, and thinking tags suppress the agent's tendency to disclose the injection. Our results show that imitating a reasoning model's own thought style is effective for this style of attack, and that tag stripping is an unreliable defense.",
+  "summary_1line": "Large Reasoning Models (LRMs) are one of the key components of current agentic systems. LRMs augment their output with an explicit chain-of-thought reasoning stage, introducing a new attack surface for thought injecti...",
+  "title": "I Think, Therefore I Attack: Evaluating Thought Injection Attacks on Reasoning Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08811v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "839362c88e6491a8": {
   "content_excerpt": "Your agents call tools. Those tools touch data. Magertron governs both — and knows which tool touched which table, for whom, and what it cost. One gateway for model inference and tool calls across every vendor. Developers are spinning up ungoverned MCP servers on laptops, in personal cloud accounts, and inside your perimeter — with no audit trail and no controls. AI agents talking to these servers can execute actions at scale. Now you can find them. Magertron reads MCP client configs on every endpoint you manage, shows you every server in use — approved or not — and points them at the gateway with a single policy change. No resident agent on the laptop — a script and a timer, delivered by the MDM you already run. Enforcement lives in the Envoy ext_authz path. Every call crosses the same boundary — whether it lands on an MCP tool, a REST endpoint or an inference provider. Anthropic, OpenAI, or your own model pods — registered as governed endpoints. Every inference call is metered, charged back, and budget-capped, with provider keys held by Magertron, never the agent. SaaS or cloud-hosted MCP servers, registered in Magertron and governed by the same policies as your internal servers. Deploy MCP servers and LLM pods from any container image, monitor real-time CPU and memory metrics, and scale with a slider. Every action is audited. Namespace-scoped governance policies evaluate every deployment at deploy time. Error-severity rules block non-compliant servers. Warnings flag for re",
   "first_seen": "2026-11-05T19:04:43.522223+00:00",
@@ -4785,6 +4818,23 @@
   "type": "news",
   "url": "https://github.com/beepgrid/beepgrid",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "8fa167cc6e8eae13": {
+  "first_seen": "2026-11-09T04:05:46.806933+00:00",
+  "id": "edb380ee6b038a36",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-05T22:18:10+00:00",
+  "sid": "8fa167cc6e8eae13",
+  "source": "arxiv_cs_ai",
+  "summary": "Natural language offers an intuitive way to direct a virtual crowd while a simulation is running. Handwritten rules execute efficiently but cannot respond flexibly to varied instructions, whereas asking a large language model (LLM) to control the crowd at every update introduces repeated latency, cost, and the risk of unsupported actions. We present CrowdDirector, a framework that uses an LLM only when the user adds or changes an instruction. The LLM translates the request into a structured instruction, and a scene validator checks whether the entities and actions it references exist in the current Unity scene. Accepted instructions are stored and remain continuously active as the simulation is running. At each simulation tick, a graph neural network uses the current scene state and active instruction to choose an available action and target for each agent, while Unity handles movement, interactions, and animation. The network is trained offline on simulated scenarios, with LLM guidance on how agents should respond to instructions. Our evaluations show the scene validator's feasibility decisions matched human judgements more often than the LLM's own assessment, and on a behavioural benchmark CrowdDirector follows user instructions more closely than handwritten rules while avoiding repeated LLM calls. It therefore provides a practical middle ground between fixed rules and continuous LLM control.",
+  "summary_1line": "Natural language offers an intuitive way to direct a virtual crowd while a simulation is running. Handwritten rules execute efficiently but cannot respond flexibly to varied instructions, whereas asking a large langua...",
+  "title": "CrowdDirector: Runtime Orchestration of Crowd Simulation through Natural-Language Directives",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08763v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "8fb2c554d25d7fa9": {
   "first_seen": "2026-11-03T11:04:28.550424+00:00",
@@ -7512,6 +7562,22 @@
   "type": "release",
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.317",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "df40d12666dedf69": {
+  "first_seen": "2026-11-09T04:05:46.806933+00:00",
+  "id": "78a73ff409a624bd",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-05T22:03:10+00:00",
+  "sid": "df40d12666dedf69",
+  "source": "arxiv_cs_ai",
+  "summary": "Vision-Language Models (VLMs) have achieved strong performance on static visual understanding benchmarks, yet their ability to act in dynamic environments remains less well understood. We introduce AtariBench, a controlled benchmark that evaluates VLMs across 20 Atari 2600 games, requiring models to make sequential decisions from high-temporal-resolution gameplay streams. By decoupling fast in-game dynamics from wall-clock inference speed, AtariBench focuses on whether models can perceive rapid visual state changes, reason over spatiotemporal dynamics, and ground actions in the current observation. Our experiments reveal substantial limitations in state-of-the-art VLMs: models often fail to infer object motion and direction, exhibit brittle sequential decision-making, and over-rely on textual interaction history despite newly appended visual feedback. We further introduce a separability analysis to identify which in-game scores provide reliable signals of model competence, and use the benchmark to study how memory design and prompting strategies affect performance. Overall, AtariBench exposes a persistent gap between passive visual perception and active decision-making, providing a lightweight and rigorous testbed for developing VLMs that can reason and act in dynamic environments.",
+  "summary_1line": "Vision-Language Models (VLMs) have achieved strong performance on static visual understanding benchmarks, yet their ability to act in dynamic environments remains less well understood. We introduce AtariBench, a contr...",
+  "title": "AtariBench: Evaluating Spatiotemporal Reasoning of Vision-Language Models in Atari Gameplay",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.08755v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "df855f571dbd659f": {
   "first_seen": "2026-11-05T06:05:14.674295+00:00",
