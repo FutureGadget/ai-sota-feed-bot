@@ -1378,6 +1378,23 @@
   "url": "http://arxiv.org/abs/2611.03238v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "1eac8d4f8f1f4128": {
+  "first_seen": "2026-11-10T06:04:56.183410+00:00",
+  "id": "027af3d21547517f",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-09T08:19:04+00:00",
+  "sid": "1eac8d4f8f1f4128",
+  "source": "arxiv_cs_cl",
+  "summary": "Large language model agents increasingly rely on reusable natural-language skills, yet growing skill collections remain accumulations of isolated text artifacts that are difficult to compare, deduplicate, and compose. We argue that the reusable content of a skill lies not in its surface wording but in its procedural transitions: which operation to execute under a given state and which observable outcome to produce. Based on this observation, we propose State-Move-Outcome (SMO), a compilation-like framework that decomposes raw skills into reusable procedural bricks and organizes admitted bricks as an externalized symbolic structure. When compiling a skill, SMO first retrieves and composes existing bricks, dynamically connects them through Outcome-to-State conditions, and creates a candidate brick only for an uncovered procedure; the candidate becomes reusable only after validation and admission. Experiments on SkillsBench v1.1 demonstrate that SMO represents 232 rawSkills from 87 underlying tasks with 95 shared bricks, reducing the corresponding skill representations from 366,472 to 149,154 tokens--a $\\mathbf{59.3}\\times$ reduction and $\\mathbf{2.46}\\times$ compression. Across 232 skill-conditioned evaluation instances, SMO raises the average task score from $\\mathbf{0.6379}$ to $\\mathbf{0.7478}$ and increases 5/5 Pass instances from $\\mathbf{138}$ to $\\mathbf{164}$, while matching or outperforming rawSkill on $\\mathbf{208}$ of $\\mathbf{232}$ instances. It also reduces average",
+  "summary_1line": "Large language model agents increasingly rely on reusable natural-language skills, yet growing skill collections remain accumulations of isolated text artifacts that are difficult to compare, deduplicate, and compose....",
+  "title": "SMO: Compiling Natural Language Skills into Graphs of Reusable State-Move-Outcome Bricks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12041v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "1eed7ce983ca5ef6": {
   "first_seen": "2026-11-05T00:08:35.012471+00:00",
   "id": "eb9bf8892fdfd709",
@@ -3770,6 +3787,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09770v1"
  },
+ "562ed066dd9ee82b": {
+  "first_seen": "2026-11-10T06:04:56.183410+00:00",
+  "id": "33ec5d442301257c",
+  "published": "2026-11-10T06:00:48+00:00",
+  "sid": "562ed066dd9ee82b",
+  "source": "hackernews_ai",
+  "summary": "Only an email so far, nothing official I could find. I figure if you didn't get this email you are ok. --- We are writing to inform you of a security incident at one of our vendors, Fireworks AI, that may impact you. For the latest on the Fireworks AI incident, see their official updates here. Following an investigation by the Notion security team, we have determined that your workspace, [...], was among the This email explains what happened, what data of yours might be affected, what we’re doing to address this, and what we recommend to protect your data from this Fireworks AI incident. What is Fireworks AI and how we used them: Fireworks is one of the most used global AI infrastructure platforms powering tens of thousands of customers and used by hundreds of thousands of developers. We used Fireworks for classification jobs to help customers understand their own AI usage through a feature in Notion called Insights, and we used them as a general inference provider to serve open-weight models inside our product. The Insights feature has been disabled as we investigate this incident, and we are no longer serving open-weight models through Fireworks. What happened and how we addressed it: We learned from Fireworks about potential incidents earlier this month, and we shut down all connections to their systems out of an abundance of caution. On November 6, Fireworks notified us that malicious actors may have accessed potential customer data. Our team immediately began another int",
+  "summary_1line": "Only an email so far, nothing official I could find. I figure if you didn't get this email you are ok. --- We are writing to inform you of a security incident at one of our vendors, Fireworks AI, that may impact you....",
+  "title": "Tell HN: Notion AI chat sessions have been exposed via Fireworks AI hack",
+  "type": "news",
+  "url": "https://news.ycombinator.com/item?id=50436636"
+ },
  "569b9613f4d348fe": {
   "first_seen": "2026-11-09T05:05:35.203421+00:00",
   "id": "fcb232cd886aff11",
@@ -3992,6 +4021,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.11348v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "5bfc543d91bf8d2a": {
+  "first_seen": "2026-11-10T06:04:56.183410+00:00",
+  "id": "3083caf720a89416",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-08T11:43:34+00:00",
+  "sid": "5bfc543d91bf8d2a",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Long-context applications, long-lived agents, and multi-agent systems require large language models (LLMs) to process and retain extensive information. In these settings, the KV cache can exceed GPU high-bandwidth memory (HBM) capacity, necessitating offloading to host memory, where CPU-to-GPU transfers can dominate inference latency. While KV cache compression can reduce data movement, query-agnostic compression that guarantees accurate attention for arbitrary queries is extremely challenging, if not impossible. We introduce VerKV, a hybrid approach that provides $(ε, δ)$ guarantees for approximating attention on any given query. VerKV maintains a compact set of query-agnostic pivotal tokens on the GPU, together with a token-level sketch of the full KV cache, while retaining the complete cache in CPU memory. We introduce a novel stochastic sampling procedure, PoissonComp, to select the pivotal tokens. At inference time, our proposed KVFetch algorithm uses the pivotal tokens and the sketch to estimate the relative error of the resulting attention computation. If the estimate satisfies a user-specified $(ε, δ)$ tolerance, inference proceeds without accessing host memory. Otherwise, VerKV performs query-aware retrieval to fetch additional tokens from the CPU, refining the attention computation to meet the required tolerance. Thus, VerKV enables attention with bounded approximation error while minimizing CPU-to-GPU transfers. We show that PoissonComp outperforms state-of-the-art",
+  "summary_1line": "Long-context applications, long-lived agents, and multi-agent systems require large language models (LLMs) to process and retain extensive information. In these settings, the KV cache can exceed GPU high-bandwidth mem...",
+  "title": "Verify Before You Fetch: Reliable KV Cache Compression for LLM Inference",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.11319v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "5caff7cc1c137a99": {
   "first_seen": "2026-11-03T10:05:34.032473+00:00",
