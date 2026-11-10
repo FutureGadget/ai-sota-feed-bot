@@ -86,13 +86,18 @@
   "first_seen": "2026-11-10T19:07:52.541736+00:00",
   "id": "5918dea1ec26132a",
   "image_url": "https://i.ytimg.com/vi/3NH_i8M1Gqg/hq720.jpg",
+  "matched_topics": [
+   "agent"
+  ],
   "published": "2026-11-10T18:30:28+00:00",
   "sid": "0329a04172799202",
   "source": "ai_native_dev",
+  "summary": "Software development is moving from building the car to building the factory, but concerns about quality, cost and safety hold many teams back. In this opening keynote, Guy Podjarny, Founder & CEO of Tessl, lays out a path to a software factory you can trust: skills that define what good looks like, self-improving loops that learn from what they observe, and factories built around business outcomes. He shares real data from Tessl's own factory, from automated vulnerability remediation to cutting cost per PR. Recorded at AI DevCon New York 2026. What we cover: – Why quality, cost and safety concerns hold back software factories – Delegating to agents like a good manager: skills to loops to factory – Automated vulnerability remediation with skills – Verifiers that set limits on an agent's empowerment – Self-improving loops, and cutting cost per PR from $75 to $13 – From shared skills to a factory per product Chapters: 00:00:00 - Introduction: from building the car to building the factory 00:03:00 - Quality, cost and safety concerns 00:03:50 - Delegating well: skills to loops to factory 00:06:24 - What is a software factory? 00:07:47 - Skills: automated vulnerability remediation 00:12:18 - Safety: limiting an agent's empowerment 00:17:11 - Self-improving loops 00:21:16 - What makes a factory 00:24:03 - How organizations adopt factories 00:27:48 - Build vs buy, and the Tessl factory Register now for AI DevCon London 2027, June 7–8 at The Brewery, Moorgate: https://tessl.co/c3e Tr",
   "summary_1line": "Software development is moving from building the car to building the factory, but concerns about quality, cost and safety hold many teams back. In this opening keynote, Guy Podjarny, Founder & CEO of Tessl, lays out a path to a software factory you can trust: skills that define w",
   "title": "Guy Podjarny: Building a Software Factory You Can Trust",
   "type": "video",
-  "url": "https://youtu.be/3NH_i8M1Gqg"
+  "url": "https://youtu.be/3NH_i8M1Gqg",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "03fd9302c61cd3ba": {
   "content_excerpt": "The research team, which includes collaborators from NVIDIA and Flower Labs, have come up with a new method for recursive self-improving AI agents to continue improving themselves (by repeatedly testing and enhancing their own code) without hitting the evaluation ceiling that they frequently encounter. Their method also suggests a way of cutting the costs of the computational resource needed for the development of such AI agents. While agents can already improve themselves by editing their own code, testing variants, and keeping changes that perform better, this process is usually limited by a fixed evaluator, benchmark, or test suite. Once the agent has learned everything that fixed signal can distinguish, improvement slows or stalls. \"A self-improving agent can only get as good as the test that scores it,\" explains team member Alex Iacob , a PhD student in the Machine Learning Systems Lab under the supervision of Prof Nic Lane . \"The test does not merely measure progress, it defines it, so the efficacy of the test becomes a ceiling the agent cannot climb past.\" Now the researchers have addressed this issue by having both the self-improving agent and the evaluator evolve together. \"Instead of improving an agent against a fixed test, we let the evaluation evolve alongside the agent ,\" Alex adds. \"As the agent gets better, the evaluation also gets harder , and the bar keeps rising.\" Alex is the first author on the pre-print paper the research team has just uploaded to arXiv. T",
@@ -227,6 +232,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06731v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "058a0935df1d3873": {
+  "first_seen": "2026-11-10T21:05:43.516589+00:00",
+  "id": "1168bceec1387358",
+  "published": "2026-11-09T15:02:29+00:00",
+  "sid": "058a0935df1d3873",
+  "source": "arxiv_cs_ai",
+  "summary": "This work proposes WaveGen, a fully end-to-end diffusion-based text-to-waveform framework based on Spectral Forcing, which jointly learns an internal spectral trajectory and the target waveform trajectory within a single model, enabling direct end-to-end text-to-waveform generation. Unlike recent TTS pipelines, WaveGen does not rely on separately trained or externally decoded intermediate representations, such as neural audio codecs, Mel-spectrogram vocoders, or VAE-based latent models. In addition, WaveGen performs internal text-speech alignment within a single model, eliminating the need for external alignment modules such as duration predictors. To preserve a truly end-to-end formulation, our framework further avoids dependence on self-supervised representations, such as BERT-based text embeddings and Wav2Vec 2.0-based semantic representations, as well as semantic distillation methods for training optimization. To achieve this, we carefully design Spectral Forcing, a model architecture with disentangled diffusion heads, and a training objective based on a multi-scale spectral $v$-loss. We further validate the scalability of end-to-end TTS models by scaling the model size from 0.1B to 0.6B parameters. Using a single architecture, open-source data, and one-stage training, without external modules such as duration predictor or REPA, WaveGen demonstrates fully end-to-end waveform generation achieving state-of-the-art performance on the Emilia training dataset. In particular, W",
+  "summary_1line": "This work proposes WaveGen, a fully end-to-end diffusion-based text-to-waveform framework based on Spectral Forcing, which jointly learns an internal spectral trajectory and the target waveform trajectory within a sin...",
+  "title": "WaveGen: Truly End-to-End Waveform Generation via Internal Spectral Trajectory Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12527v1"
  },
  "05ddf4f433bbc624": {
   "first_seen": "2026-11-06T21:05:32.512052+00:00",
@@ -473,6 +490,18 @@
   "type": "news",
   "url": "https://github.com/Varshavia/RepoMagpie",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "098cacdba2ae6134": {
+  "first_seen": "2026-11-10T21:05:43.516589+00:00",
+  "id": "2b2ce5c041469719",
+  "published": "2026-11-09T16:11:49+00:00",
+  "sid": "098cacdba2ae6134",
+  "source": "arxiv_cs_cl",
+  "summary": "Serving systems choose a weight format for each model and deployment. A low-cost screen predicts the resulting KL divergence from the unquantized model's Fisher information using $\\tfrac12Δ^\\top FΔ$, the expansion underlying Hessian-aware and second-order post-training quantizers. We assess the reliability of this screen in GPU batches with channel-wise int8, per-tensor fp8 and group-wise int4 on Qwen3-8B, Qwen3-4B, OLMo-2-7B, Qwen3-32B and Qwen3-30B-A3B. Relative predictions hold across a 16-fold range of perturbation scales, int4 group sizes and rounding modes, while absolute predictions are heavy-tailed. A trimmed average brings 10 of 12 cells on Qwen3-4B and OLMo-2 within 15% of measured KL. The MoE model exhibits nonquadratic response at small perturbations, with int8 KL scaling as $α^{0.63}$. Computing per-sequence gradients in bf16 can cause fourfold prediction errors. We trace these errors to arithmetic in the lower half of the backward pass and eliminate them by using fp32 there. Batch-invariant kernels run at 0.55 times the throughput, while changes in reduction order introduce a floor of 0.17-0.22 nats per sequence. We build a screener with one streamed fp32 Fisher pass, trimmed tensor-block predictions with a band, a flag for aligned tensors and per-layer format allocation. On the unseen Mistral-7B-v0.3 family, all six predictions fall within the band, all three KL budgets are met, and vLLM throughput is predicted within 0.4%.",
+  "summary_1line": "Serving systems choose a weight format for each model and deployment. A low-cost screen predicts the resulting KL divergence from the unquantized model's Fisher information using $\\tfrac12Δ^\\top FΔ$, the expansion und...",
+  "title": "How Far Does Second-Order Linear Response Predict Quantization Mismatch? Pre-Registered Measurements on Five Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12634v1"
  },
  "09af4ba16f83444e": {
   "first_seen": "2026-11-05T03:07:47.473054+00:00",
@@ -4561,6 +4590,23 @@
   "url": "http://arxiv.org/abs/2611.11348v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "5bf610d1dd7d8e14": {
+  "first_seen": "2026-11-10T21:05:43.516589+00:00",
+  "id": "9b039c4d5b303417",
+  "image_url": "https://static.simonwillison.net/static/2026/carbon-pelican.webp",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-10T20:09:44+00:00",
+  "sid": "5bf610d1dd7d8e14",
+  "source": "simon_willison",
+  "summary": "Release: llm-gemini 0.36 Gemini 4 Carbon was announced two weeks ago for \"a subset of cyber defenders\", but today it's available to everyone else . This is Google's best ever Gemini, priced at $2/million input and $10/million output at launch (that's GPT-6.1 Sol / Claude Sonnet 5.5 prices) but scheduled to double in price to $4/$20 on December 1st (same as Opus 5.5). Here are three pelicans for the low, medium and high thinking efforts (it defaults to medium). This is the pelican I got for high: Gemini pelicans have all been great for a while now, so I also tested it out using Google's Antigravity IDE with a prompt I first tried with Claude Fable 5.2 yesterday : Make a three js animation where yonkers stands up as a big mech (cool stand up motion) and stomps around manhattan and queens and Brooklyn, use openstreetmap mapping data Here's the HTML result (I had to prompt \"build that into a standalone HTML file\" to get a version with no external dependencies). I then screen-captured that as a video: Update : Huh, just saw this on YouTube : Using Google Antigravity’s /swarm feature, Carbon built an open-world 3D game where you explore Google’s Mountain View campus as a pelican riding a GBike — coordinating subagents to model 3D assets in Blender from Omni and Nano Banana references, build the browser game in Three.js with WebGL shaders, and pair procedural Web Audio sound effects with Lyria music. Tags: llm-release , gemini , llm , google , generative-ai , ai , llms",
+  "summary_1line": "Release: llm-gemini 0.36 Gemini 4 Carbon was announced two weeks ago for \"a subset of cyber defenders\", but today it's available to everyone else . This is Google's best ever Gemini, priced at $2/million input and $10...",
+  "title": "llm-gemini 0.36",
+  "type": "release",
+  "url": "https://simonwillison.net/2026/Nov/10/llm-gemini",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "5bfc543d91bf8d2a": {
   "first_seen": "2026-11-10T06:04:56.183410+00:00",
   "id": "3083caf720a89416",
@@ -4638,6 +4684,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08452v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "5e376c6293c28ebd": {
+  "content_excerpt": "Agent Experience is the experience AI agents have when discovering, choosing, and using your technology. Practicing AX means systematically improving that experience. Measurement is how you know whether you did. Developers now ask AI agents to build with your SDK, API, or CLI, and they judge your technology by what the agent produces. If the agent picks a competing service, calls an API you deprecated, or reports success on a broken build, your technology looks broken, even when your docs are excellent for people. Mathias Biilmann of Netlify coined the term in January 2025 and described it as “the holistic experience AI agents will have as the user of a product or platform.” It applies to any AI agent, from a coding agent in your editor to ChatGPT calling your MCP server. AX comes down to two questions. The first is propensity : does the agent find your technology and choose it? Give the agent a task that doesn’t name your product, like adding email sending to an app, and see what it reaches for. The second is efficacy : once the agent uses your technology, does it use it correctly? Name your product in the task, and see whether the agent calls your current API or one you deprecated. Your eval tool might use other names, like discovery and selection for propensity, or quality for efficacy. For both, you score what each run produced and what it cost. Cost is easy to skip and easy to get wrong. For example, Claude Sonnet 5 launched with 33% lower per-token pricing than Sonnet 4",
+  "first_seen": "2026-11-10T21:05:43.516589+00:00",
+  "id": "892f18e72b704177",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-10T20:53:00+00:00",
+  "sid": "5e376c6293c28ebd",
+  "source": "hackernews_ai",
+  "summary_1line": "What Is Agent Experience (Ax)?",
+  "title": "What Is Agent Experience (Ax)?",
+  "type": "news",
+  "url": "https://developer.microsoft.com/blog/what-is-agent-experience-ax",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "5ee5b8329a1edab0": {
   "first_seen": "2026-11-06T04:05:23.287739+00:00",
@@ -5610,6 +5672,22 @@
   "title": "OpenRing – self-hosted voice AI agents with a Vapi-compatible API",
   "type": "news",
   "url": "https://github.com/elifalanrocha/openring",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "77dab1137dbb66ef": {
+  "content_excerpt": "I tried ZCode with GLM-5.3 on a real project. Here's how the coding agent works, what it costs, its permission modes, automations, API, and limits. I installed it on my Mac and pointed it at this site’s repository. I wanted to see how it handled a real project, not a small demo. The first result was good. GLM-5.3 found useful improvements in a codebase with more than 1,700 posts, and the app felt fast with a clear workflow. Z.ai calls it an Agentic Development Environment, or ADE. Unlike a VS Code fork, it has no traditional code editor. You give the agent a task. It plans the work, edits files, runs commands, uses the browser, and checks the result. The task keeps everything together: your goal, changed files, terminal output, browser context, and Git state. You can also run tasks in parallel, schedule recurring work, and control ZCode from your phone. Z.ai is the international name of Zhipu AI. The Beijing AI lab grew out of research at Tsinghua University. It builds the GLM family of models. Unlike OpenAI and Anthropic, Z.ai also publishes model weights you can download and host. ZCode is its official harness for GLM-5.3. The app is built around the model, and the model is tuned for this kind of agentic work. Z.ai sells API access and the GLM Coding Plan . The same subscription works in more than 20 coding agents, including Claude Code. It uses the same base model as GLM-5.2. Z.ai did not run another pre-training phase. The improvements came from post-training on longer en",
+  "first_seen": "2026-11-10T21:05:43.516589+00:00",
+  "id": "6914db8d70269221",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-10T20:22:57+00:00",
+  "sid": "77dab1137dbb66ef",
+  "source": "hackernews_ai",
+  "summary_1line": "ZCode review: Z.ai's GLM-5.3 coding agent on a real project",
+  "title": "ZCode review: Z.ai's GLM-5.3 coding agent on a real project",
+  "type": "news",
+  "url": "https://flaviocopes.com/zcode",
   "why_it_matters": "Matches feed focus: agent."
  },
  "7816cf52a39ef373": {
@@ -6787,6 +6865,7 @@
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. Where does answer engine optimization (AEO) end and agent experience begin? Inside Resend, from the docs that help Claude Code pick an email API to the tools it uses to send. Today’s podcast comes from a real life mystery: We are big fans of Cloudflare’s developer platform, and Cloudflare Email is a convenient tool especially when all your domains are already on Cloudflare. So why do agents keep suggesting we use Resend despite having an existing “home bias” and much larger incumbent player? Well, we got the guy who “does AEO for resend” - the CEO of AEO, Zeno Rocha, who has been writing about AEO since 2024 and Agent Experience since Feb 2025 , on the pod today: In a recent AEO study, Claude Code picked Resend first in 64 of the 102 email recommendations the researchers could extract. SendGrid came first seven times, yet showed up 55 times as an alternative. If the developer asks an agent to implement email and accepts the patch, how often does anyone get around to trying the second choice? The study breaks down the results by model and app. Our more recent comprehensive AEO study was a bit more competitive, with Postmark coming up top for most models. ",
   "first_seen": "2026-11-10T20:05:27.884052+00:00",
   "id": "43621219906daa29",
+  "image_url": "https://i.ytimg.com/vi/bdIoODXsu8k/maxresdefault.jpg",
   "matched_topics": [
    "agent",
    "claude code"
@@ -10299,6 +10378,38 @@
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.317",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "de25d9c4c09e2ab0": {
+  "first_seen": "2026-11-10T21:05:43.516589+00:00",
+  "id": "0c5016b565510597",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-09T17:50:05+00:00",
+  "sid": "de25d9c4c09e2ab0",
+  "source": "arxiv_cs_lg",
+  "summary": "Prompt-based continual learning adapts a frozen pre-trained vision transformer by tuning a small set of prompt tokens. Recently, one-prompt methods which share one single prompt across all tasks make this paradigm maximally parameter efficient. The open question is how a shared prompt can keep the knowledge of old classes while being updated for new ones. Existing methods protect old knowledge in parameter space, where they freeze task-specific prompts, expand new components, or sparsely gate which tokens receive gradients. However, this method sacrifices plasticity, yet the drift it still permits in shared tokens can corrupt the prompt's function on past classes. What must be preserved is the prompt's behavior. We propose TEA-Prompt, which couples (i) a token evaluation module that assigns each prompt token a continuous, input-conditional relevance score injected into the attention logits, softly specializing tokens across tasks without discarding any of them, and (ii) an attention-behavior anchoring loss that constrains each token's attention output around class-specific query regions using only compact Gaussian query statistics without stored old images, weighted by the token's past relevance. Anchoring the attention value allows the parameters to continue updating freely, as long as their interaction remains unchanged. TEA-Prompt achieves state-of-the-art accuracy with markedly lower forgetting on CIFAR-100, ImageNet-R, and CUB-200 with only 0.38M parameters. Code is publ",
+  "summary_1line": "Prompt-based continual learning adapts a frozen pre-trained vision transformer by tuning a small set of prompt tokens. Recently, one-prompt methods which share one single prompt across all tasks make this paradigm max...",
+  "title": "Anchor Behavior, Not Parameters: Rehearsal-Free Continual Learning with a Single Shared Prompt",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12777v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "df054a8f01dd5d5e": {
+  "first_seen": "2026-11-10T21:05:43.516589+00:00",
+  "id": "759757a9e32d46ea",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-09T13:40:09+00:00",
+  "sid": "df054a8f01dd5d5e",
+  "source": "arxiv_cs_cl",
+  "summary": "Despite growing attention to social bias in large language models (LLMs), existing bias benchmarks provide limited coverage of culturally grounded evaluation in Bengali, particularly within Bangladesh's sociocultural context. To address this gap, we develop a bilingual extension of BanglaBBQ comprising 61,312 question-answering instances across 12 social categories in English and Bengali. The benchmark incorporates balanced answer permutations, contrasting question framings, and both ambiguous and disambiguated contexts to systematically examine model performance and stereotype-aligned bias across languages. We validate the dataset through structural checks, 220 statistical tests, and expert annotation of 150 instances by four annotators, achieving strong inter-annotator agreement (Fleiss' \\k{appa}=0.8349). We evaluate eight LLMs across 490,496 instances and identify five key findings. First, disambiguated contexts yield substantially greater accuracy improvements in Bengali (+36.59 percentage points) than in English (+17.71). Second, all evaluated models exhibit lower accuracy in Bengali, although Mistral-Nemo shows the smallest cross-lingual accuracy gap (5.12 percentage points). Third, stereotype-aligned bias exhibits language and model dependent variation, increasing in Bengali for Gemma 2 9B but decreasing for Mistral-Nemo. Fourth, higher accuracy does not necessarily correspond to lower stereotype-aligned bias. Finally, bias varies considerably across social categories,",
+  "summary_1line": "Despite growing attention to social bias in large language models (LLMs), existing bias benchmarks provide limited coverage of culturally grounded evaluation in Bengali, particularly within Bangladesh's sociocultural...",
+  "title": "BDBBQ: A Human-AI Collaborative Benchmark for Bengali Social Bias in LLMs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12407v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "df1fcfb1c1518ce3": {
   "first_seen": "2026-11-10T02:06:52.305469+00:00",
   "id": "4f8545771f53edaf",
@@ -10376,6 +10487,22 @@
   "type": "news",
   "url": "https://offstage.cloud",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "e01475b582c9f905": {
+  "first_seen": "2026-11-10T21:05:43.516589+00:00",
+  "id": "ba71d7f93fe1a41e",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-09T18:30:41+00:00",
+  "sid": "e01475b582c9f905",
+  "source": "arxiv_cs_lg",
+  "summary": "Low-precision pretraining is usually judged by validation loss. We ask whether matching loss also means learning rare facts as efficiently. We train transformers from scratch with emulated 4-bit matrix multiplications on synthetic biographies with controlled exposure counts, on their own and mixed into web text. NVFP4 needs 1.32$\\times$ and 1.52$\\times$ as many exposures as BF16 to match its recall while validation loss differs by only 0.5% and 2%, and 1.26$\\times$ and 1.30$\\times$ when both models are evaluated with BF16 matrix multiplications. Under our primary readout, the exposure cost is about 1.2$\\times$ at matched loss. Zero-mean gradient noise reproduces the cost of quantizing only the backward pass, which barely moves the loss. In a controlled experiment at twice the NVFP4 error, noise fed only to Adam's second-moment estimate acts like a lower learning rate and its cost fades, whereas noise in the update lowers its signal-to-noise ratio and carries about two thirds of the cost through the end of training. Raising the learning rate to offset the smaller average step does not recover the cost, either for this noise or for NVFP4. Gradient statistics of BF16 checkpoints rank the costs of formats, partial quantizations and noise controls without fitting (Spearman 0.96). We suggest measuring rare-fact acquisition alongside loss when evaluating low-precision recipes.",
+  "summary_1line": "Low-precision pretraining is usually judged by validation loss. We ask whether matching loss also means learning rare facts as efficiently. We train transformers from scratch with emulated 4-bit matrix multiplications...",
+  "title": "What the Loss Curve Misses: FP4 Pretraining Slows the Acquisition of Rare Facts",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12832v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "e0570fe58d0da468": {
   "first_seen": "2026-11-02T18:03:57.410502+00:00",
