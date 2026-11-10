@@ -1,0 +1,45 @@
+{
+  "slug": "inference-kubernetes",
+  "generated_at": "2026-11-10T00:30:00+00:00",
+  "covers_last_updated": "2026-11-09T11:00:00+00:00",
+  "covers_member_sids": ["2aca440b2c0823d7", "509ceae27e7b57e7", "1d4bb99a8acae991"],
+  "tldr": "On Nov 4 the vLLM project introduced Kinference, an open source inference control plane for vLLM on Kubernetes. A benchmark post comparing it against plain Kubernetes followed a day later.",
+  "whats_new": "An InfoQ podcast (Nov 9) places llm-d and vLLM on Kubernetes in the wider distributed-inference conversation, alongside WebAssembly on the backend and TornadoVM for Java on GPUs.",
+  "why_it_matters": "Serving LLMs on Kubernetes is moving from generic pod scheduling toward inference-aware control planes (token rate limiting, tenant cost tracking, load balancing), which changes what a platform team builds versus adopts.",
+  "status": {
+    "state": "Emerging",
+    "tone": "rising",
+    "changed": "2026-11-09",
+    "detail": "Inference-aware Kubernetes tooling is getting launch, benchmark and practitioner coverage, but only one benchmark post exists so far."
+  },
+  "beats": [
+    {
+      "kicker": "LAUNCH",
+      "tone": "launch",
+      "headline": "Kinference debuts as an inference control plane for vLLM on Kubernetes",
+      "sids": ["2aca440b2c0823d7"]
+    },
+    {
+      "kicker": "EVIDENCE",
+      "tone": "rising",
+      "headline": "Buoyant benchmarks Kinference against plain Kubernetes",
+      "sids": ["509ceae27e7b57e7"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Practitioner view: llm-d and vLLM on Kubernetes, plus Wasm and TornadoVM",
+      "sids": ["1d4bb99a8acae991"]
+    }
+  ],
+  "open_questions": [
+    "Does an independent benchmark, not from the Kinference or Buoyant side, reproduce the comparison against plain Kubernetes?",
+    "How do Kinference and llm-d compare on features such as load balancing and tenant usage tracking?"
+  ],
+  "take_for_builders": "If you run vLLM on Kubernetes, read the Kinference benchmark methodology and rerun it on your own traffic mix before replacing your current routing and rate limiting.",
+  "day_captions": {
+    "2aca440b2c0823d7": "First announcement: an open source control plane covering token rate limiting, tenant usage and cost tracking, and load balancing for vLLM.",
+    "509ceae27e7b57e7": "A benchmark post comparing Kinference with plain Kubernetes, shared on Hacker News.",
+    "1d4bb99a8acae991": "Podcast with Edoardo Vacchi covering llm-d and vLLM on Kubernetes, widening the thread beyond Kinference."
+  }
+}

@@ -1,44 +1,45 @@
 {
   "slug": "large-language",
-  "generated_at": "2026-11-08T00:11:10+00:00",
-  "covers_last_updated": "2026-11-05T19:22:23+00:00",
+  "generated_at": "2026-11-10T00:30:00+00:00",
+  "covers_last_updated": "2026-11-06T17:32:49+00:00",
   "covers_member_sids": [
     "06d8677dec3b3c21",
-    "0f8439521ab02185",
     "16071b3c73317004",
-    "1d7852cb09b3031f",
-    "200271de2a2f52aa",
     "276a486ae6eefe6b",
-    "37f6c0c263213efd",
-    "416b05f86baa94c5",
-    "43862ef771dfba65",
-    "464b347f5551c3b2",
     "590975aa217085b7",
-    "5f97c21b490b1ce9",
-    "63ff637171c98d2c",
-    "744a7a52285cfa40",
     "8debe4581e047c88",
-    "94da3bfcbd46a769",
-    "a2f964aa6fcbf7ea",
-    "a8a5f23cd8e10643",
-    "b6b30743068c2627",
+    "f07fa8132755e14c",
     "c888971c48a268c3",
-    "ce941c554e9fce8e",
-    "d571e973b6e6916d",
+    "5f97c21b490b1ce9",
     "d5cd3db9b5f4a99b",
-    "e46c1ab3f7ca9939",
-    "e519641640234319",
+    "a2f964aa6fcbf7ea",
+    "200271de2a2f52aa",
     "e826ccda9d048b84",
-    "f07fa8132755e14c"
+    "37f6c0c263213efd",
+    "b6b30743068c2627",
+    "d571e973b6e6916d",
+    "e519641640234319",
+    "1d7852cb09b3031f",
+    "ce941c554e9fce8e",
+    "e46c1ab3f7ca9939",
+    "a8a5f23cd8e10643",
+    "0f8439521ab02185",
+    "43862ef771dfba65",
+    "744a7a52285cfa40",
+    "94da3bfcbd46a769",
+    "63ff637171c98d2c",
+    "416b05f86baa94c5",
+    "464b347f5551c3b2",
+    "5606760643e4651e"
   ],
-  "tldr": "This thread is a broad reading list on LLM behavior, reliability and knowledge. Oct 16-28 papers covered sycophancy, hallucination, steering and evals, then Mistral Large 4 landed on Hugging Face and vLLM on Oct 29 as work shifted to memory and retrieval.",
-  "whats_new": "Nov 5: the FedReason preprint tests an LLM as a weight-space aggregator for heterogeneous federated learning, alongside Anthropic's zkSNARK provable-inference work and the Show HN tool Thinker.",
-  "why_it_matters": "The practical thread is context cost and knowledge handling: retrieval, memory and context trimming decide agent reliability and token spend more than any single model release here.",
+  "tldr": "This thread is a broad reading list on LLM behavior, reliability and knowledge rather than one event. Oct 20-28 papers covered hallucination, steering and evals, then Mistral Large 4 landed on Hugging Face and vLLM on Oct 29 as work shifted to memory and retrieval.",
+  "whats_new": "Nov 6: the ROSE preprint proposes risk-aware subspace navigation for lifelong knowledge editing in multimodal LLMs, targeting locality erosion and catastrophic forgetting when facts are updated.",
+  "why_it_matters": "The practical thread is knowledge handling: retrieval, memory, editing and context trimming decide agent reliability and token spend more than any single model release here.",
   "beats": [
     {
-      "kicker": "OCT 16-21",
+      "kicker": "OCT 20-21",
       "tone": "launch",
-      "headline": "Early papers probe sycophancy, code-translation hallucination and search-state awareness",
+      "headline": "Early papers probe code-translation hallucination and search-state awareness",
       "sids": [
         "06d8677dec3b3c21",
         "16071b3c73317004",
@@ -92,8 +93,8 @@
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
+      "kicker": "NOV 2-5",
+      "tone": "rising",
       "headline": "Provable inference, context engines, answerability judgments, federated aggregation and a token-saving tool",
       "sids": [
         "43862ef771dfba65",
@@ -103,12 +104,21 @@
         "464b347f5551c3b2",
         "416b05f86baa94c5"
       ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Lifelong knowledge editing reaches multimodal models",
+      "sids": [
+        "5606760643e4651e"
+      ]
     }
   ],
   "open_questions": [
     "Do compiled-knowledge and parametric-memory methods beat plain retrieval on production agent workloads?",
     "Will provable inference become practical for hosted model APIs?",
-    "Do Mistral Large 4 serving claims on vLLM hold up in independent benchmarks?"
+    "Do Mistral Large 4 serving claims on vLLM hold up in independent benchmarks?",
+    "Do knowledge-editing methods like ROSE preserve unrelated behavior when tested outside their own benchmarks?"
   ],
   "take_for_builders": "If agent token limits bite, measure context trimming and caching against your own eval set before adopting it; treat the preprints and the Show HN tool as unreplicated.",
   "day_captions": {
@@ -137,6 +147,8 @@
     "744a7a52285cfa40": "Argues for a context engine that selects, injects and compresses memory.",
     "94da3bfcbd46a769": "Post-training can leave answerability judgments misaligned.",
     "63ff637171c98d2c": "Tests multilingual reasoning over in-context relational knowledge.",
-    "464b347f5551c3b2": "Show HN tool that trims context and caches knowledge to stretch token limits."
+    "416b05f86baa94c5": "Tests an LLM as a weight-space aggregator for heterogeneous federated learning.",
+    "464b347f5551c3b2": "Show HN tool that trims context and caches knowledge to stretch token limits.",
+    "5606760643e4651e": "Lifelong knowledge editing for multimodal LLMs, aimed at locality erosion and catastrophic forgetting."
   }
 }

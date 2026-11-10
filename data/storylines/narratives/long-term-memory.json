@@ -1,34 +1,68 @@
 {
   "slug": "long-term-memory",
-  "generated_at": "2026-11-06T00:12:58+00:00",
-  "covers_last_updated": "2026-11-04T12:13:52+00:00",
-  "covers_member_sids": ["db79b7b839ad79f4","caaf392509c9e434","fd965980a6846281","9cfa80c5232a7be3","fb3e45410f2c29fc"],
-  "tldr": "Agent-memory research started with structured retrieval: ActionRAG (Oct 23) used graph diffusion for relation-consistent evidence, and ETAMem (Oct 27) separated and aligned heterogeneous memory types for conversational agents.",
-  "whats_new": "A Nov 4 arXiv paper adds a graph-based benchmark and framework for long-term memory in exploration tasks, after two Nov 2 papers on dependency-aware state revision and task-conditioned memory utility.",
-  "why_it_matters": "The focus is shifting from how to store and retrieve memory to whether it stays consistent and useful: stale dependents, task-specific value and long trial-and-error trajectories. These are failure modes a production agent memory layer has to test for.",
+  "generated_at": "2026-11-10T01:00:00+00:00",
+  "covers_last_updated": "2026-11-09T12:58:14+00:00",
+  "covers_member_sids": [
+    "db79b7b839ad79f4",
+    "caaf392509c9e434",
+    "fd965980a6846281",
+    "9cfa80c5232a7be3",
+    "fb3e45410f2c29fc",
+    "c02384b58f1bad50"
+  ],
+  "tldr": "Agent-memory research started with structured retrieval: ActionRAG (Oct 23) used graph diffusion for relation-consistent evidence, and ETAMem (Oct 27) separated and aligned heterogeneous memory types. Early November papers turned to consistency, task-conditioned utility and exploration-task benchmarks.",
+  "whats_new": "A Nov 9 Show HN project, MemSeal, pitches provenance containment for agent long-term memory, a trust angle the research papers in this thread had not yet covered.",
+  "why_it_matters": "Memory work now spans retrieval, consistency, utility and, with MemSeal, provenance: where a stored memory came from and what it may influence. A production memory layer needs tests for each, and the new item is a project announcement, not a reviewed result.",
   "status": {
     "state": "Developing",
     "tone": "rising",
-    "changed": "2026-11-04",
-    "detail": "Work has moved from retrieval design to consistency, utility measurement and benchmarks; all items are unreplicated arXiv preprints."
+    "changed": "2026-11-09",
+    "detail": "Work has moved from retrieval design to consistency, utility and benchmarks, and now a provenance-focused open-source project; the research items are unreplicated arXiv preprints."
   },
   "beats": [
-    {"kicker": "RETRIEVAL", "tone": "launch", "headline": "ActionRAG and ETAMem restructure how memory is retrieved", "summary": "Relation-aware evidence retrieval and separated memory types for long-running agents.", "sids": ["db79b7b839ad79f4","caaf392509c9e434"]},
-    {"kicker": "THE TURN", "tone": "turn", "headline": "Consistency and utility become the questions", "summary": "One paper revises dependent memories when an upstream fact changes; another measures utility per task.", "sids": ["fd965980a6846281","9cfa80c5232a7be3"]},
-    {"kicker": "NOW", "tone": "now", "headline": "A benchmark for memory in exploration tasks", "summary": "Graph-based benchmark and framework for long trial-and-error work such as research and software development.", "sids": ["fb3e45410f2c29fc"]}
+    {
+      "kicker": "RETRIEVAL",
+      "tone": "launch",
+      "headline": "ActionRAG and ETAMem restructure how memory is retrieved",
+      "summary": "Relation-aware evidence retrieval and separated memory types for long-running agents.",
+      "sids": ["db79b7b839ad79f4", "caaf392509c9e434"]
+    },
+    {
+      "kicker": "THE TURN",
+      "tone": "turn",
+      "headline": "Consistency and utility become the questions",
+      "summary": "One paper revises dependent memories when an upstream fact changes; another measures utility per task.",
+      "sids": ["fd965980a6846281", "9cfa80c5232a7be3"]
+    },
+    {
+      "kicker": "BENCHMARK",
+      "tone": "rising",
+      "headline": "A benchmark for memory in exploration tasks",
+      "summary": "Graph-based benchmark and framework for long trial-and-error work such as research and software development.",
+      "sids": ["fb3e45410f2c29fc"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "MemSeal frames memory as a provenance problem",
+      "summary": "A Show HN project on provenance containment for agent long-term memory.",
+      "sids": ["c02384b58f1bad50"]
+    }
   ],
   "open_questions": [
     "Do ActionRAG or ETAMem release code and benchmark numbers others can reproduce?",
     "Does the dependency-aware revision method hold up on an independent long-horizon agent benchmark?",
     "Will other memory systems report results on the new exploration-task benchmark?",
-    "Does task-conditioned utility change which memories a production agent chooses to store?"
+    "Does task-conditioned utility change which memories a production agent chooses to store?",
+    "Does MemSeal publish evaluations or a threat model showing what its provenance containment actually blocks?"
   ],
-  "take_for_builders": "Replay your own long-running agent traces against a plain retrieval baseline, and add a test that changes an upstream fact and checks whether dependent memories are updated; all five papers are unreplicated preprints.",
+  "take_for_builders": "Replay your own long-running agent traces against a plain retrieval baseline, test that changing an upstream fact updates dependent memories, and record where each memory came from; treat the papers as unreplicated preprints and MemSeal as unevaluated until it publishes results.",
   "day_captions": {
     "db79b7b839ad79f4": "Relation-aware evidence retrieval via graph diffusion for consistent answers from long histories.",
     "caaf392509c9e434": "Separates memory types and aligns them to address entangled information in conversational memory.",
     "fd965980a6846281": "Targets stale dependent memories when an upstream fact changes.",
     "9cfa80c5232a7be3": "Measures memory value per downstream task instead of a single importance score.",
-    "fb3e45410f2c29fc": "Adds a graph-based benchmark and framework for memory in long exploration tasks."
+    "fb3e45410f2c29fc": "Adds a graph-based benchmark and framework for memory in long exploration tasks.",
+    "c02384b58f1bad50": "Adds a provenance-containment project for agent long-term memory, the first non-paper item in the thread."
   }
 }

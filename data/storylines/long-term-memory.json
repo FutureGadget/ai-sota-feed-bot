@@ -1,15 +1,16 @@
 {
  "slug": "long-term-memory",
  "label": "Long-Term Memory",
- "item_count": 5,
- "day_count": 4,
- "source_count": 2,
+ "item_count": 6,
+ "day_count": 5,
+ "source_count": 3,
  "first_seen": "2026-10-23T14:59:37+00:00",
- "last_updated": "2026-11-04T12:13:52+00:00",
- "generated_at": "2026-11-06T00:13:28.162297+00:00",
+ "last_updated": "2026-11-09T12:58:14+00:00",
+ "generated_at": "2026-11-10T00:13:24.787725+00:00",
  "sources": [
   "arxiv_cs_cl",
-  "arxiv_llm_reliability"
+  "arxiv_llm_reliability",
+  "hackernews_ai"
  ],
  "days": [
   {
@@ -79,26 +80,42 @@
      "url": "http://arxiv.org/abs/2611.06414v1",
      "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Long-term problem-solving processes, such as scientific research and software development, proceed along an evolving trial-and-error trajectory toward a central goal. We term these \\textit{exploration tasks}, which re...",
+     "summary_1line": "Long-term problem-solving processes, such as scientific research and software development, proceed along an evolving trial-and-error trajectory toward a central goal. We term these \\textit{exploration tasks}, which require models to remember not only facts but also how solutions",
      "why_it_matters": "Matches feed focus: eval.",
      "sid": "fb3e45410f2c29fc",
      "published": "2026-11-04T12:13:52+00:00",
      "editor_note": "Adds a graph-based benchmark and framework for memory in long exploration tasks."
     }
    ]
+  },
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "Show HN: MemSeal – provenance containment for agent long-term memory",
+     "url": "https://github.com/NagaYu/memseal",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Show HN: MemSeal – provenance containment for agent long-term memory",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "c02384b58f1bad50",
+     "published": "2026-11-09T12:58:14+00:00",
+     "editor_note": "Adds a provenance-containment project for agent long-term memory, the first non-paper item in the thread."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Agent-memory research started with structured retrieval: ActionRAG (Oct 23) used graph diffusion for relation-consistent evidence, and ETAMem (Oct 27) separated and aligned heterogeneous memory types for conversational agents.",
+  "tldr": "Agent-memory research started with structured retrieval: ActionRAG (Oct 23) used graph diffusion for relation-consistent evidence, and ETAMem (Oct 27) separated and aligned heterogeneous memory types. Early November papers turned to consistency, task-conditioned utility and exploration-task benchmarks.",
   "stale": false,
-  "whats_new": "A Nov 4 arXiv paper adds a graph-based benchmark and framework for long-term memory in exploration tasks, after two Nov 2 papers on dependency-aware state revision and task-conditioned memory utility.",
-  "why_it_matters": "The focus is shifting from how to store and retrieve memory to whether it stays consistent and useful: stale dependents, task-specific value and long trial-and-error trajectories. These are failure modes a production agent memory layer has to test for.",
-  "take_for_builders": "Replay your own long-running agent traces against a plain retrieval baseline, and add a test that changes an upstream fact and checks whether dependent memories are updated; all five papers are unreplicated preprints.",
+  "whats_new": "A Nov 9 Show HN project, MemSeal, pitches provenance containment for agent long-term memory, a trust angle the research papers in this thread had not yet covered.",
+  "why_it_matters": "Memory work now spans retrieval, consistency, utility and, with MemSeal, provenance: where a stored memory came from and what it may influence. A production memory layer needs tests for each, and the new item is a project announcement, not a reviewed result.",
+  "take_for_builders": "Replay your own long-running agent traces against a plain retrieval baseline, test that changing an upstream fact updates dependent memories, and record where each memory came from; treat the papers as unreplicated preprints and MemSeal as unevaluated until it publishes results.",
   "status": {
    "state": "Developing",
    "tone": "rising",
-   "changed": "2026-11-04",
-   "detail": "Work has moved from retrieval design to consistency, utility measurement and benchmarks; all items are unreplicated arXiv preprints."
+   "changed": "2026-11-09",
+   "detail": "Work has moved from retrieval design to consistency, utility and benchmarks, and now a provenance-focused open-source project; the research items are unreplicated arXiv preprints."
   },
   "beats": [
    {
@@ -122,12 +139,21 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "BENCHMARK",
+    "tone": "rising",
     "headline": "A benchmark for memory in exploration tasks",
     "summary": "Graph-based benchmark and framework for long trial-and-error work such as research and software development.",
     "sids": [
      "fb3e45410f2c29fc"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "MemSeal frames memory as a provenance problem",
+    "summary": "A Show HN project on provenance containment for agent long-term memory.",
+    "sids": [
+     "c02384b58f1bad50"
     ]
    }
   ],
@@ -135,8 +161,9 @@
    "Do ActionRAG or ETAMem release code and benchmark numbers others can reproduce?",
    "Does the dependency-aware revision method hold up on an independent long-horizon agent benchmark?",
    "Will other memory systems report results on the new exploration-task benchmark?",
-   "Does task-conditioned utility change which memories a production agent chooses to store?"
+   "Does task-conditioned utility change which memories a production agent chooses to store?",
+   "Does MemSeal publish evaluations or a threat model showing what its provenance containment actually blocks?"
   ],
-  "generated_at": "2026-11-06T00:12:58+00:00"
+  "generated_at": "2026-11-10T01:00:00+00:00"
  }
 }

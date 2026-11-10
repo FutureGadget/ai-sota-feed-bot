@@ -1,0 +1,112 @@
+{
+ "slug": "retrieval-augmented-generation",
+ "label": "Retrieval-Augmented Generation",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-10-29T16:40:02+00:00",
+ "last_updated": "2026-11-06T17:56:37+00:00",
+ "generated_at": "2026-11-10T00:13:24.787725+00:00",
+ "sources": [
+  "arxiv_cs_ai",
+  "arxiv_cs_cl",
+  "arxiv_llm_reliability"
+ ],
+ "days": [
+  {
+   "date": "2026-10-29",
+   "items": [
+    {
+     "title": "Retrieving from Your Own Mistakes: On-Policy Training of Embedding Models for Multi-Hop Retrieval-Augmented Generation",
+     "url": "http://arxiv.org/abs/2610.40409v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Complex questions in retrieval-augmented generation require evidence spread over several documents, and an answer is reliable only when the retriever finds all of it. Chain embedding retrievers collect such evidence s...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "cc7fe353e9f92660",
+     "published": "2026-10-29T16:40:02+00:00",
+     "editor_note": "Targets multi-hop RAG by training the embedding retriever on its own failures."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-02",
+   "items": [
+    {
+     "title": "TRIO: Task Refinement with Individual Optimization for Retrieval-Augmented Generation",
+     "url": "http://arxiv.org/abs/2611.02810v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "This paper studies retrieval-augmented generation (RAG), which leverages external knowledge to improve the performance of language models. Despite the remarkable progress, current RAG approaches are still far from sat...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "401ca1e322883a2d",
+     "published": "2026-11-02T09:17:22+00:00",
+     "editor_note": "Frames current RAG as unsatisfactory and proposes TRIO for task refinement."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-06",
+   "items": [
+    {
+     "title": "Compaction, decay and reinforcement in a two-tier conversational memory: a paired evaluation against retrieval-augmented generation",
+     "url": "http://arxiv.org/abs/2611.09807v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "A conversational agent that remembers has to decide what to keep. Retrieval-augmented generation keeps the transcript and searches it; the alternative is to compact each turn into atomic facts and search those. We com...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "49e633d61cb9577d",
+     "published": "2026-11-06T17:56:37+00:00",
+     "editor_note": "Moves the question from retrieval to memory: transcript search versus compacted atomic facts."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Late-October research targeted the retriever: a paper trained embedding models on their own mistakes so multi-hop questions find all the evidence they need. A November 2 paper, TRIO, then argued that current RAG approaches are still far from satisfactory.",
+  "stale": false,
+  "whats_new": "A Nov 6 paper compares RAG over a raw transcript against a two-tier memory that compacts each turn into atomic facts, testing whether conversational agents should keep the transcript at all.",
+  "why_it_matters": "RAG design choices (what you index, how the retriever is trained, what an agent remembers) are now being tested against alternatives, so the default pipeline is no longer a safe assumption.",
+  "take_for_builders": "If you run conversational memory over a raw transcript, rerun your own recall evals against a compacted-facts variant before changing anything; treat these papers as hypotheses until reproduced on your data.",
+  "status": {
+   "state": "Developing",
+   "tone": "rising",
+   "changed": "2026-11-06",
+   "detail": "Three arXiv papers in nine days probe different RAG layers: retriever training, task refinement, and agent memory."
+  },
+  "beats": [
+   {
+    "kicker": "RETRIEVER",
+    "tone": "launch",
+    "headline": "Training embedding models on their own retrieval mistakes for multi-hop RAG",
+    "summary": "Multi-hop answers are only reliable if the retriever finds all the evidence.",
+    "sids": [
+     "cc7fe353e9f92660"
+    ]
+   },
+   {
+    "kicker": "PIPELINE",
+    "tone": "rising",
+    "headline": "TRIO proposes task refinement with individual optimization for RAG",
+    "sids": [
+     "401ca1e322883a2d"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Two-tier conversational memory evaluated head-to-head against RAG",
+    "summary": "Compacting turns into atomic facts versus searching the stored transcript.",
+    "sids": [
+     "49e633d61cb9577d"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do the multi-hop retriever gains hold on benchmarks other than those the paper reports?",
+   "Does compacted fact memory beat transcript RAG outside the paper's paired evaluation?",
+   "Will any of these methods ship in a widely used RAG framework?"
+  ],
+  "generated_at": "2026-11-10T00:30:00+00:00"
+ }
+}

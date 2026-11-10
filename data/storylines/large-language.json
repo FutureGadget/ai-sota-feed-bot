@@ -1,12 +1,12 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 27,
- "day_count": 12,
+ "item_count": 28,
+ "day_count": 13,
  "source_count": 10,
  "first_seen": "2026-10-20T08:50:39+00:00",
- "last_updated": "2026-11-05T19:22:23+00:00",
- "generated_at": "2026-11-09T00:12:13.390560+00:00",
+ "last_updated": "2026-11-06T17:32:49+00:00",
+ "generated_at": "2026-11-10T00:13:24.787725+00:00",
  "sources": [
   "anthropic_research",
   "arxiv_agent_systems_research",
@@ -353,7 +353,8 @@
      "type": "paper",
      "summary_1line": "Federated learning servers combine client models with a fixed aggregation rule, and each rule in common use is designed for one kind of heterogeneity. We study whether a large language model (LLM) that inspects the client models can choose the rule itself, without any training on",
      "sid": "416b05f86baa94c5",
-     "published": "2026-11-05T18:00:58+00:00"
+     "published": "2026-11-05T18:00:58+00:00",
+     "editor_note": "Tests an LLM as a weight-space aggregator for heterogeneous federated learning."
     },
     {
      "title": "Show HN: Thinker – Trim context and cache knowledge to extend agent usage limits",
@@ -367,19 +368,34 @@
      "editor_note": "Show HN tool that trims context and caches knowledge to stretch token limits."
     }
    ]
+  },
+  {
+   "date": "2026-11-06",
+   "items": [
+    {
+     "title": "ROSE: Risk-Aware Orthogonal Subspace Navigation for Lifelong Knowledge Editing in Multimodal Large Language Models",
+     "url": "http://arxiv.org/abs/2611.09770v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Multimodal Large Language Models (MLLMs) require continuous factual updates to stay current, yet lifelong knowledge editing remains a daunting challenge. The primary obstacle is the severe Locality Erosion and Catastr...",
+     "sid": "5606760643e4651e",
+     "published": "2026-11-06T17:32:49+00:00",
+     "editor_note": "Lifelong knowledge editing for multimodal LLMs, aimed at locality erosion and catastrophic forgetting."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "This thread is a broad reading list on LLM behavior, reliability and knowledge. Oct 16-28 papers covered sycophancy, hallucination, steering and evals, then Mistral Large 4 landed on Hugging Face and vLLM on Oct 29 as work shifted to memory and retrieval.",
+  "tldr": "This thread is a broad reading list on LLM behavior, reliability and knowledge rather than one event. Oct 20-28 papers covered hallucination, steering and evals, then Mistral Large 4 landed on Hugging Face and vLLM on Oct 29 as work shifted to memory and retrieval.",
   "stale": false,
-  "whats_new": "Nov 5: the FedReason preprint tests an LLM as a weight-space aggregator for heterogeneous federated learning, alongside Anthropic's zkSNARK provable-inference work and the Show HN tool Thinker.",
-  "why_it_matters": "The practical thread is context cost and knowledge handling: retrieval, memory and context trimming decide agent reliability and token spend more than any single model release here.",
+  "whats_new": "Nov 6: the ROSE preprint proposes risk-aware subspace navigation for lifelong knowledge editing in multimodal LLMs, targeting locality erosion and catastrophic forgetting when facts are updated.",
+  "why_it_matters": "The practical thread is knowledge handling: retrieval, memory, editing and context trimming decide agent reliability and token spend more than any single model release here.",
   "take_for_builders": "If agent token limits bite, measure context trimming and caching against your own eval set before adopting it; treat the preprints and the Show HN tool as unreplicated.",
   "beats": [
    {
-    "kicker": "OCT 16-21",
+    "kicker": "OCT 20-21",
     "tone": "launch",
-    "headline": "Early papers probe sycophancy, code-translation hallucination and search-state awareness",
+    "headline": "Early papers probe code-translation hallucination and search-state awareness",
     "sids": [
      "06d8677dec3b3c21",
      "16071b3c73317004",
@@ -433,8 +449,8 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "NOV 2-5",
+    "tone": "rising",
     "headline": "Provable inference, context engines, answerability judgments, federated aggregation and a token-saving tool",
     "sids": [
      "43862ef771dfba65",
@@ -444,13 +460,22 @@
      "464b347f5551c3b2",
      "416b05f86baa94c5"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Lifelong knowledge editing reaches multimodal models",
+    "sids": [
+     "5606760643e4651e"
+    ]
    }
   ],
   "open_questions": [
    "Do compiled-knowledge and parametric-memory methods beat plain retrieval on production agent workloads?",
    "Will provable inference become practical for hosted model APIs?",
-   "Do Mistral Large 4 serving claims on vLLM hold up in independent benchmarks?"
+   "Do Mistral Large 4 serving claims on vLLM hold up in independent benchmarks?",
+   "Do knowledge-editing methods like ROSE preserve unrelated behavior when tested outside their own benchmarks?"
   ],
-  "generated_at": "2026-11-08T00:11:10+00:00"
+  "generated_at": "2026-11-10T00:30:00+00:00"
  }
 }

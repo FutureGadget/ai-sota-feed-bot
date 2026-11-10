@@ -1,0 +1,48 @@
+{
+  "slug": "retrieval-augmented-generation",
+  "generated_at": "2026-11-10T00:30:00+00:00",
+  "covers_last_updated": "2026-11-06T17:56:37+00:00",
+  "covers_member_sids": ["cc7fe353e9f92660", "401ca1e322883a2d", "49e633d61cb9577d"],
+  "tldr": "Late-October research targeted the retriever: a paper trained embedding models on their own mistakes so multi-hop questions find all the evidence they need. A November 2 paper, TRIO, then argued that current RAG approaches are still far from satisfactory.",
+  "whats_new": "A Nov 6 paper compares RAG over a raw transcript against a two-tier memory that compacts each turn into atomic facts, testing whether conversational agents should keep the transcript at all.",
+  "why_it_matters": "RAG design choices (what you index, how the retriever is trained, what an agent remembers) are now being tested against alternatives, so the default pipeline is no longer a safe assumption.",
+  "status": {
+    "state": "Developing",
+    "tone": "rising",
+    "changed": "2026-11-06",
+    "detail": "Three arXiv papers in nine days probe different RAG layers: retriever training, task refinement, and agent memory."
+  },
+  "beats": [
+    {
+      "kicker": "RETRIEVER",
+      "tone": "launch",
+      "headline": "Training embedding models on their own retrieval mistakes for multi-hop RAG",
+      "summary": "Multi-hop answers are only reliable if the retriever finds all the evidence.",
+      "sids": ["cc7fe353e9f92660"]
+    },
+    {
+      "kicker": "PIPELINE",
+      "tone": "rising",
+      "headline": "TRIO proposes task refinement with individual optimization for RAG",
+      "sids": ["401ca1e322883a2d"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Two-tier conversational memory evaluated head-to-head against RAG",
+      "summary": "Compacting turns into atomic facts versus searching the stored transcript.",
+      "sids": ["49e633d61cb9577d"]
+    }
+  ],
+  "open_questions": [
+    "Do the multi-hop retriever gains hold on benchmarks other than those the paper reports?",
+    "Does compacted fact memory beat transcript RAG outside the paper's paired evaluation?",
+    "Will any of these methods ship in a widely used RAG framework?"
+  ],
+  "take_for_builders": "If you run conversational memory over a raw transcript, rerun your own recall evals against a compacted-facts variant before changing anything; treat these papers as hypotheses until reproduced on your data.",
+  "day_captions": {
+    "cc7fe353e9f92660": "Targets multi-hop RAG by training the embedding retriever on its own failures.",
+    "401ca1e322883a2d": "Frames current RAG as unsatisfactory and proposes TRIO for task refinement.",
+    "49e633d61cb9577d": "Moves the question from retrieval to memory: transcript search versus compacted atomic facts."
+  }
+}

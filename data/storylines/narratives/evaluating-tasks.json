@@ -1,0 +1,72 @@
+{
+  "slug": "evaluating-tasks",
+  "generated_at": "2026-11-10T00:30:00+00:00",
+  "covers_last_updated": "2026-11-06T17:06:21+00:00",
+  "covers_member_sids": [
+    "55edc2615764e1b5",
+    "5f97c21b490b1ce9",
+    "3ca73f33ea96bd6a",
+    "423c688c0621c177",
+    "0b7565240a3894fa",
+    "52a3c89c275c2670",
+    "08c314bb237b4b82",
+    "3b93b07bf2154e4f",
+    "51abf5f84d7f5698",
+    "0d4497db5df885d5"
+  ],
+  "tldr": "Late-October arXiv papers framed long-horizon agent work as an evaluation problem, with benchmarks for continual learning and web search alongside new critic, memory and multi-agent methods. On Nov 1 a paper questioned whether long-horizon terminal benchmarks actually measure depth.",
+  "whats_new": "A Nov 6 paper argues one run is not enough and proposes a Monte Carlo protocol for measuring LLM reliability on data science tasks, following new consumer-task (LifeVal) and multilingual tool-use (τ-bench-LILT) benchmarks.",
+  "why_it_matters": "Agent benchmark scores are only as trustworthy as the task design and run count behind them: depth, language coverage and run-to-run variance all change what a number means for your deployment.",
+  "status": {
+    "state": "Developing",
+    "tone": "rising",
+    "changed": "2026-11-06",
+    "detail": "Research is shifting from adding long-horizon benchmarks to questioning their depth, language coverage and single-run reliability."
+  },
+  "beats": [
+    {
+      "kicker": "BENCHMARKS",
+      "tone": "launch",
+      "headline": "Long-horizon agents get exam-style benchmarks",
+      "summary": "Continual-learning and long-horizon web-search evaluations arrive in the same two days.",
+      "sids": ["55edc2615764e1b5", "5f97c21b490b1ce9"]
+    },
+    {
+      "kicker": "METHODS",
+      "tone": "rising",
+      "headline": "Critics, memory governance and goal-aware collaboration target long-horizon tasks",
+      "sids": ["3ca73f33ea96bd6a", "423c688c0621c177", "0b7565240a3894fa"]
+    },
+    {
+      "kicker": "THE TURN",
+      "tone": "turn",
+      "headline": "Is a long-horizon benchmark really deep?",
+      "summary": "A terminal-task paper questions turn count as a proxy for depth, while hierarchical multi-agent RL for web tasks continues.",
+      "sids": ["52a3c89c275c2670", "08c314bb237b4b82"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Evals widen to consumer tasks, other languages and repeat runs",
+      "sids": ["3b93b07bf2154e4f", "51abf5f84d7f5698", "0d4497db5df885d5"]
+    }
+  ],
+  "open_questions": [
+    "Will other benchmark authors adopt a depth measure beyond turns needed to pass a task?",
+    "Will multi-run Monte Carlo reporting become standard in agent benchmark releases?",
+    "Do results on τ-bench-LILT show a measurable gap between English and other languages for tool-using agents?"
+  ],
+  "take_for_builders": "Rerun your internal agent evals several times and report the spread rather than a single score, and add non-English tool-use cases before trusting an English-only benchmark result.",
+  "day_captions": {
+    "55edc2615764e1b5": "Opens the thread with a benchmark for continual learning from experience in LLM agents.",
+    "5f97c21b490b1ce9": "Adds a long-horizon web-search evaluation with failure-node localization.",
+    "3ca73f33ea96bd6a": "Proposes active critic learning to address credit assignment under sparse outcome rewards.",
+    "423c688c0621c177": "Addresses long-horizon agent memory by governing outdated versus still-needed memories.",
+    "0b7565240a3894fa": "Proposes goal-aware dynamic multi-agent collaboration for long-horizon tasks.",
+    "52a3c89c275c2670": "Challenges the assumption that task length in turns reflects depth in terminal benchmarks.",
+    "08c314bb237b4b82": "Applies hierarchical multi-agent reinforcement learning to long-horizon web tasks.",
+    "3b93b07bf2154e4f": "Introduces LifeVal, a benchmark for personalized agentic consumer tasks.",
+    "51abf5f84d7f5698": "Extends tool-use conversational agent evaluation beyond English.",
+    "0d4497db5df885d5": "Argues a single run is insufficient and proposes a Monte Carlo reliability protocol for data science tasks."
+  }
+}

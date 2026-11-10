@@ -1,53 +1,69 @@
 {
   "slug": "control-plane",
-  "generated_at": "2026-07-15T15:10:00Z",
-  "covers_last_updated": "2026-07-15T11:04:00+00:00",
+  "generated_at": "2026-11-10T00:30:00Z",
+  "covers_last_updated": "2026-11-09T13:00:00+00:00",
   "covers_member_sids": [
-    "5b23dea76f35363c",
-    "4a91155538c0332a",
-    "38f362bfcba6a0fa"
+    "bf373140a753bf98",
+    "cf001375f7a4438d",
+    "a9067e338ea6566b",
+    "2aca440b2c0823d7",
+    "952d2516af2e9054",
+    "dc6bacb2e80f865d"
   ],
-  "tldr": "\"Control plane\" surfaced as a shared label for three unrelated projects this month: an arXiv paper proposing a governance layer for enterprise AI systems, a solo developer's Show HN tool for orchestrating coding agents, and AWS's shipped Claude apps gateway. The items share a phrase, not a storyline — each is a standalone read.",
-  "whats_new": "The newest item is AWS's Claude apps gateway (also its own launch thread), which explicitly brands itself a \"self-hosted control plane\" for identity, policy, telemetry, routing, and spend caps.",
-  "why_it_matters": "\"Control plane\" means three different things here: an academic governance-layer design, a single-developer MCP orchestrator, and a shipped, supported deployment gateway — only the last one is something you can deploy today.",
+  "tldr": "Late October brought three Show HN projects pitching a control room or control plane for LLM agents: God, flightdeck, and Omneum. On Nov 4 the vLLM blog introduced Kinference, an open source inference control plane for vLLM on Kubernetes.",
+  "whats_new": "OpenAI published two Control Room posts on Nov 9: a central system that tracks model workloads across its research infrastructure and can rapidly stop them when safety or security concerns arise.",
+  "why_it_matters": "The label now spans three layers: agent observability, inference serving, and kill-switch control over training and research workloads. Check which layer a \"control plane\" actually governs before adopting it.",
   "status": {
     "state": "Recurring framing",
     "tone": "neutral",
-    "changed": "2026-07-15",
-    "detail": "Three unrelated teams converged on \"control plane\" language this month; only AWS's Claude apps gateway is a shipped product."
+    "changed": "2026-11-09",
+    "detail": "Independent projects keep using \"control plane\" or \"control room\" for different layers; OpenAI's Control Room is the latest and an internal system, not a product."
   },
   "beats": [
     {
-      "kicker": "RESEARCH",
+      "kicker": "AGENT TOOLING",
       "tone": "neutral",
-      "headline": "AGL-1 paper proposes a governance layer as an enterprise AI control plane",
-      "summary": "Academic design for a trust layer across copilots, RAG systems, and autonomous agents — a proposal, not a shipped system.",
-      "sids": ["5b23dea76f35363c"]
+      "headline": "Three Show HN projects pitch control surfaces for LLM agents",
+      "summary": "A real-time control room for agent societies, an observability and control plane for agents, and a local text-blind context control plane.",
+      "sids": [
+        "bf373140a753bf98",
+        "cf001375f7a4438d",
+        "a9067e338ea6566b"
+      ]
     },
     {
-      "kicker": "HOBBY PROJECT",
-      "tone": "neutral",
-      "headline": "Show HN: PlanWright pitches itself as a control plane for AI coding agents",
-      "summary": "An MCP-driven tool for planning in Claude Desktop, implementing in Codex, and reviewing in a custom triage agent, with decisions logged across each hop.",
-      "sids": ["4a91155538c0332a"]
+      "kicker": "INFERENCE",
+      "tone": "rising",
+      "headline": "Kinference brings an open source control plane to vLLM on Kubernetes",
+      "summary": "Token rate limiting, tenant usage and cost tracking, and load balancing for scalable inference platforms.",
+      "sids": [
+        "2aca440b2c0823d7"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "AWS brands its Claude apps gateway a self-hosted control plane",
-      "summary": "The only shipped, supported entry in this cluster: centralized identity, policy, telemetry, routing, and spend caps for Claude Code and Claude Desktop.",
-      "sids": ["38f362bfcba6a0fa"]
+      "headline": "OpenAI's Control Room tracks and can stop model workloads",
+      "summary": "Two posts on Nov 9 describe human control over AI workloads across OpenAI's research infrastructure.",
+      "sids": [
+        "952d2516af2e9054",
+        "dc6bacb2e80f865d"
+      ]
     }
   ],
   "open_questions": [
-    "Does AGL-1's governance-layer design get adopted or benchmarked by a real enterprise deployment?",
-    "Does PlanWright gain contributors or usage beyond the initial Show HN post?",
-    "Do more vendors converge on \"control plane\" language for agent or LLM deployment management?"
+    "Does Kinference see adoption or contributions beyond its launch post on the vLLM blog?",
+    "Does OpenAI publish technical detail on how Control Room stops workloads, such as triggers or approval paths?",
+    "Do the Show HN projects (God, flightdeck, Omneum) gain users or contributors after their launch posts?",
+    "Do other labs describe comparable workload tracking and stop controls?"
   ],
-  "take_for_builders": "Don't treat these as one trend to track — if you need agent governance today, evaluate AWS's shipped Claude apps gateway; treat AGL-1 and PlanWright as an early research idea and a single-developer tool, not production options.",
+  "take_for_builders": "If you run vLLM on Kubernetes, evaluate Kinference for per-tenant rate limits and cost tracking in a staging cluster. Treat the Show HN agent tools as early experiments and OpenAI's Control Room as a design reference, not something you can deploy.",
   "day_captions": {
-    "5b23dea76f35363c": "Proposes a governance-layer control plane for enterprise AI copilots, RAG systems, and autonomous agents — an academic design, not a shipped system.",
-    "4a91155538c0332a": "A single developer's MCP-based control plane routing plans across Claude Desktop, Codex, and a custom triage agent.",
-    "38f362bfcba6a0fa": "AWS's shipped, self-hosted Claude apps gateway brands itself the control plane for identity, policy, telemetry, routing, and spend caps."
+    "bf373140a753bf98": "First of three Show HN agent-tooling posts: a real-time control room for LLM agent societies, tied to an EMNLP 2026 demo.",
+    "cf001375f7a4438d": "Adds an observability and control plane aimed at running AI agents.",
+    "a9067e338ea6566b": "Applies the label to context management: a local, text-blind control plane for agents.",
+    "2aca440b2c0823d7": "Moves the term to infrastructure: an open source inference control plane for vLLM and Kubernetes with rate limiting and usage tracking.",
+    "952d2516af2e9054": "OpenAI describes a central system that tracks model workloads across its research infrastructure and can rapidly stop them on safety or security concerns.",
+    "dc6bacb2e80f865d": "Companion launch post for Control Room, framed around human control over AI workloads."
   }
 }

@@ -1,0 +1,52 @@
+{
+  "slug": "benchmarking-memory",
+  "generated_at": "2026-11-10T00:30:00+00:00",
+  "covers_last_updated": "2026-11-06T17:00:09+00:00",
+  "covers_member_sids": ["48ead5cc10a0a69d", "45b80d77d473d30f", "138e084674254809"],
+  "tldr": "In October a paper benchmarked personal agent memory on interaction preferences, asking whether agents stop re-asking what users already told them. In early November, two more benchmarks moved the question from convenience to correctness and security.",
+  "whats_new": "MemoryDojo (Nov 6) is a benchmark for poisoning attacks through LLM agent memory, where malicious instructions seen in one session can carry into later ones.",
+  "why_it_matters": "Agent memory is now being evaluated for three distinct failure modes (burdensome re-asking, hallucinated memory, poisoning), so a memory layer needs tests for each, not just recall.",
+  "status": {
+    "state": "Developing",
+    "tone": "rising",
+    "changed": "2026-11-06",
+    "detail": "Three arXiv benchmarks in about two weeks each probe a different way agent memory can fail.",
+    "track": [
+      { "label": "preferences", "detail": "Oct 21", "tone": "launch", "weight": 30 },
+      { "label": "hallucination", "detail": "Nov 5", "tone": "rising", "weight": 30 },
+      { "label": "poisoning", "detail": "Nov 6 → now", "tone": "now", "weight": 40 }
+    ]
+  },
+  "beats": [
+    {
+      "kicker": "PREFERENCES",
+      "tone": "launch",
+      "headline": "Benchmarking whether agents remember how users want to interact",
+      "summary": "Repeated questions, unnecessary confirmations and unwanted outreach framed as interaction burden.",
+      "sids": ["48ead5cc10a0a69d"]
+    },
+    {
+      "kicker": "RELIABILITY",
+      "tone": "rising",
+      "headline": "MCPHallu measures reasoning, execution and memory hallucinations in MCP agents",
+      "sids": ["45b80d77d473d30f"]
+    },
+    {
+      "kicker": "THE TURN",
+      "tone": "turn",
+      "headline": "MemoryDojo treats memory as an attack surface",
+      "sids": ["138e084674254809"]
+    }
+  ],
+  "open_questions": [
+    "Do any agent frameworks or memory products publish results on MemoryDojo?",
+    "Do the three benchmarks converge on shared metrics or test harnesses for memory?",
+    "Do vendors ship documented mitigations for cross-session memory poisoning?"
+  ],
+  "take_for_builders": "If your agent persists memory across sessions, add a test that plants an instruction in one session and checks it is not acted on in the next, and treat stored memory as untrusted input.",
+  "day_captions": {
+    "48ead5cc10a0a69d": "Frames memory quality as how often the agent bothers the user again about known preferences.",
+    "45b80d77d473d30f": "Adds memory hallucination as one of three failure categories for tool-using MCP agents.",
+    "138e084674254809": "Shifts the focus to security: memory persisting across sessions as a poisoning path."
+  }
+}
