@@ -28,6 +28,11 @@ data/quality/transcript_cache.json
 # ledgers themselves are committed runtime artifacts.
 data/brief/.*.json
 
+# Deploy-time precompute (scripts/build_served_data.mjs). Never commit it: the
+# API handlers prefer these files over the source data, so a checked-in copy
+# is served instead of the live ledger.
+data/served/
+
 # Feed replay scorecards are generated reports, not inputs.
 data/quality/feed_benchmark/runs/
 ui/generated/
