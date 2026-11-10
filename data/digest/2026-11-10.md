@@ -2,122 +2,134 @@
 
 Focus: AI Platform Engineering
 
-## 1. Presentation: Batch Intelligence at Scale: Cost-Efficient Multi-Agent LLM Workflows with Built-In Resilience
+## 1. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/introducing-alphaproof-code/
+- Score: 3.828 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 2. Presentation: Batch Intelligence at Scale: Cost-Efficient Multi-Agent LLM Workflows with Built-In Resilience
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/scaling-multi-agent-llm-batch/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.926 | Reliability: 1.0
+- Score: 3.801 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. I Access Auditor – see and revoke what your AI coding agents can access
+## 3. Nanocode – a hackable coding agent in one Python file
 - Type: news | Source: hackernews_ai
-- URL: https://github.com/dirmedmr-alt/ai-access-auditor
-- Score: 3.586 | Reliability: 1.0
+- URL: https://github.com/car-mrazomor/nanocode-agent
+- Score: 3.772 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. Fireworks.ai Update on October 2026 security incident
+## 4. Show HN: Cosh – An open-source AI agent orchestrator
 - Type: news | Source: hackernews_ai
-- URL: https://fireworks.ai/security/bulletins/october-2026-security-incident-update
-- Score: 3.079 | Reliability: 1.0
-- Why it matters: 
+- URL: https://github.com/DiegoZaluski/co-sh
+- Score: 3.719 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, codex.
 
-## 4. A GUI Agent Hits 79.5% on OSWorld by Training on Real-World Device Tasks
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiogFBVV95cUxNMkZyWXprOEt5bnJXY0ZLUURHbkdQa0kyeU1WcUlzSVFDTmMxd25xR2pqamp6ZDNWeWEzNTk3ZmhaQ0hGX25sSFhzanNvSFVnUThMSUY0RDFpdjJhMmMyVVNNbnhhNTN3cDBvU2ZuZ2xDUll0ZHg2X001ZUVVc0d1bW05SEdQWVpEUWQ5clQxS0ZYMDJobGVjbk9kU2kyS0oyekE?oc=5
-- Score: 3.062 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 5. Three AI engines: how often they name the same local business
+## 5. Music For Robots – 26 unquantized acoustic tracks for multimodal LLM evaluation
 - Type: news | Source: hackernews_ai
-- URL: https://markets.namebeam.ai/studies/three-engines-agreement-2026-10-24-to-11-09/
-- Score: 3.061 | Reliability: 1.0
-- Why it matters: 
-
-## 6. MaxIM: Maximally Informative Incremental Summarization via Reinforcement Learning
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.12825v1
-- Score: 3.037 | Reliability: 1.0
+- URL: https://github.com/luchtan-GIT/m4r-data
+- Score: 3.695 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 7. Large Language Models as a Universal Searcher for Open-World Automated Machine Learning
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.12791v1
-- Score: 3.032 | Reliability: 1.0
+## 6. LogCDM: Interpretable Log Anomaly Detection via Behavioral Graph Drift and Adaptive Signal Fusion
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.12775v1
+- Score: 2.977 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 8. CARE-PO: Controllable Tool-Call Efficiency for LLM Agents
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.12125v1
-- Score: 3.028 | Reliability: 1.0
+## 7. A GUI Agent Hits 79.5% on OSWorld by Training on Real-World Device Tasks
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiogFBVV95cUxNMkZyWXprOEt5bnJXY0ZLUURHbkdQa0kyeU1WcUlzSVFDTmMxd25xR2pqamp6ZDNWeWEzNTk3ZmhaQ0hGX25sSFhzanNvSFVnUThMSUY0RDFpdjJhMmMyVVNNbnhhNTN3cDBvU2ZuZ2xDUll0ZHg2X001ZUVVc0d1bW05SEdQWVpEUWQ5clQxS0ZYMDJobGVjbk9kU2kyS0oyekE?oc=5
+- Score: 2.97 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 9. [AINews] Fable 5.2 retakes World #1 LLM spot as $ANT IPO roadshow begins
+## 8. Agentic-OPD: Recovering Forgotten Agent Capabilities via On-Policy Distillation for Agentic Tasks
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.12799v1
+- Score: 2.957 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 9. Can Frontier Auto Researchers Reconstruct Human Research Decisions in AI?
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.12429v1
+- Score: 2.948 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, evaluation.
+
+## 10. [AINews] Fable 5.2 retakes World #1 LLM spot as $ANT IPO roadshow begins
 - Type: news | Source: latent_space
 - URL: https://latent.space/p/ainews-fable-5-2-retakes-world-1-llm-spot-as-ant-ipo-roadshow-begins/
-- Score: 2.978 | Reliability: 1.0
+- Score: 2.866 | Reliability: 1.0
 - Why it matters: 
 
-## 10. Closing the AI guidance gap in education
+## 11. Large Language Models as a Universal Searcher for Open-World Automated Machine Learning
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.12791v1
+- Score: 2.94 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 12. Correct First, Fast Second: What a Local 7B Code Model Can and Cannot Do for GPU Kernel Optimization
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2611.12079v1
+- Score: 2.934 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
+
+## 13. Closing the AI guidance gap in education
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/closing-ai-guidance-gap-education
-- Score: 2.27 | Reliability: 1.0
+- Score: 2.22 | Reliability: 1.0
 - Why it matters: 
 
-## 11. SciMARS: Multi-Agent Recursive Self-Improvement for Closed-Loop Scientific Discovery
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.12552v1
-- Score: 3.026 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, eval.
-
-## 12. More Than Just Style: Benchmarking Personality Influence in Large Language Models
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.12392v1
-- Score: 3.0 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 13. How We Optimized Browser Use for Deep Agents
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/how-we-optimized-browser-use-for-deep-agents
-- Score: 1.847 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 14. Merge builds product and business tools with OpenAI technology
+## 14. Cult.fit builds operational muscle with Codex
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/merge-builds-with-openai
-- Score: 1.736 | Reliability: 1.0
+- URL: https://openai.com/index/cultfit-builds-with-codex
+- Score: 1.82 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 15. Australian universities are creating AI-native graduates
+## 15. Partnering with Hacktron to find vulnerabilities in OpenAI’s systems
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/australian-universities-ai-native-graduates
-- Score: 1.658 | Reliability: 1.0
+- URL: https://openai.com/index/partnering-with-hacktron
+- Score: 1.706 | Reliability: 1.0
 - Why it matters: 
 
-## 16. claude-code v2.1.319
+## 16. Migrating vLLM to the LibTorch Stable ABI
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-06-stable-abi-cuda
+- Score: 1.706 | Reliability: 1.0
+- Why it matters: 
+
+## 17. Why human insight is a strategic advantage for building better agents
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/human-insight-strategic-advantage-agents
+- Score: 1.688 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 18. codex 0.169.0-alpha.6
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.6
+- Score: 1.518 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 19. claude-code v2.1.319
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.319
-- Score: 1.549 | Reliability: 1.0
+- Score: 1.517 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval, claude code.
 
-## 17. codex rust-v0.169.0-alpha.5
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.5
-- Score: 1.494 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 18. langgraph-sdk==0.4.12
+## 20. langgraph-sdk==0.4.14
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.12
-- Score: 0.946 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.14
+- Score: 1.043 | Reliability: 1.0
 - Why it matters: 
 
-## 19. v0.34.0rc0: [Transformers backend] Migrate Gemma and StableLM (#66393)
+## 21. v0.34.0rc0: [Transformers backend] Migrate Gemma and StableLM (#66393)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc0
-- Score: 0.939 | Reliability: 1.0
+- Score: 0.881 | Reliability: 1.0
 - Why it matters: 
 
-## 20. claude-agent-sdk-python v0.2.178
+## 22. claude-agent-sdk-python v0.2.178
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.178
-- Score: 0.748 | Reliability: 1.0
+- Score: 0.761 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
