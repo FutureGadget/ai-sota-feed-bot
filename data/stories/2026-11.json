@@ -1001,6 +1001,18 @@
   "type": "news",
   "url": "https://www.databricks.com/blog/unity-catalog-metric-views-now-power-bi-one-unified-governed-semantic-layer-all-your-reporting"
  },
+ "131509a7651f4930": {
+  "content_excerpt": "GPU checkpoint/restore for vLLM: snapshot a warmed-up engine (compiled kernels, CUDA graphs, weights, 1-8 GPUs) into an OCI image and restore it in seconds instead of a multi-minute cold start. Scale to zero, spot GPUs, Kubernetes optional. warmctl is GPU checkpoint/restore for vLLM. It snapshots a warmed-up engine and restores it in seconds on any host with the same GPUs and NVIDIA driver branch, so a new replica skips weight loading, torch.compile, kernel autotuning and CUDA graph capture. GLM-5.3-Flash on 8×H100: vLLM cold start 650 s, warmctl up 37 s, then stock serving speed. That makes scale to zero, fast autoscaling and spot GPU replacement practical for large models. The public catalog has 21 models on H100, H200, B200, B300, L40S and RTX PRO 6000. Any other model vLLM serves with sleep mode, build yourself ( tutorial ): warmctl up to serving, snapshot in page cache, against a vLLM cold start (weights on local disk, empty compile caches). ~ is the time to a ready engine while building the snapshot; where we measured both, a plain cold start was 1–24% shorter. On B200, GLM-5.3-Flash restores in 44 s (8×B200) and DeepSeek-V4.1-Flash in 73 s (4×B200). Every platform is in the catalog . GLM-5.3-Flash on 8×H100 by phase, from page cache and from a cold network file share (about 10 GB/s): Restored engines serve at stock vLLM speed or faster (GLM-5.3-Flash: 100–136% of stock throughput). build starts vLLM in a container, warms it over every shape in the profile and checkpoin",
+  "first_seen": "2026-11-10T23:04:50.256417+00:00",
+  "id": "4d4add923e985dcf",
+  "published": "2026-11-10T22:28:15+00:00",
+  "sid": "131509a7651f4930",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Warmctl – Fast cold starts for vLLM inference",
+  "title": "Show HN: Warmctl – Fast cold starts for vLLM inference",
+  "type": "news",
+  "url": "https://github.com/TensorRails/warmctl"
+ },
  "1348606c3ef0cb2f": {
   "first_seen": "2026-11-10T00:08:03.535530+00:00",
   "id": "d93702c85d6330d7",
@@ -1622,6 +1634,22 @@
   "title": "The Geometry of Ignorance: Detecting Suppressed Knowledge in LLMs through Activation Fragmentation",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05272v1"
+ },
+ "1f5946529a21c625": {
+  "first_seen": "2026-11-10T23:04:50.256417+00:00",
+  "id": "ea682af9cdc807e6",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-10T22:29:00+00:00",
+  "sid": "1f5946529a21c625",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.169.0-alpha.10",
+  "summary_1line": "Release 0.169.0-alpha.10",
+  "title": "codex rust-v0.169.0-alpha.10",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.10",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "20b2a3cb6b99ab11": {
   "first_seen": "2026-11-03T07:05:24.009620+00:00",
@@ -6403,6 +6431,18 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.7",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "88b74ff7495b6bee": {
+  "first_seen": "2026-11-10T23:04:50.256417+00:00",
+  "id": "e11e45dbe00e2adb",
+  "published": "2026-11-09T13:49:01+00:00",
+  "sid": "88b74ff7495b6bee",
+  "source": "arxiv_cs_cl",
+  "summary": "Hierarchical multi-label text classification (HMTC) requires models to capture both structural dependencies among labels and the fine-grained semantics of labels at different hierarchy levels. Existing methods often model hierarchy through prediction constraints or representations of individual labels and local relations. Structural and semantic supervision, however, are usually formulated separately. We instead use complete root-to-node label paths as a shared unit for both. Our framework introduces two auxiliary training objectives while retaining a standard multi-label classifier at inference. PathSimNCE aligns document representations with hierarchical paths using hierarchy-aware contrastive targets. These targets provide graded supervision for structurally related paths while preserving explicit supervision for the ground-truth paths. The complementary semantic objective uses LLM-generated, document-conditioned descriptions of the same positive paths. It thereby provides context-specific label semantics beyond static label representations. Experiments on three benchmarks show consistent improvements: structural alignment is particularly beneficial in deeper hierarchies, while semantic alignment provides additional gains for fine-grained labels.",
+  "summary_1line": "Hierarchical multi-label text classification (HMTC) requires models to capture both structural dependencies among labels and the fine-grained semantics of labels at different hierarchy levels. Existing methods often m...",
+  "title": "Path-Level Structural and Semantic Alignment for Hierarchical Multi-Label Text Classification",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12420v1"
  },
  "8915e46a098594e4": {
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. November 9, 2026 — Claude Fable 5.2 and Mythos 5.2 arrive on Anthropic’s IPO roadshow day. How much thinking is worth paying for? On Friday, we asked Jamin Ball what comes next for Anthropic’s IPO . On Monday the roadshow started and Anthropic shipped the long-anticipated next-version of Claude Fable and Mythos . Of course, it is the new top model in the world, taking back Opus 5.5’s #1 spot from Gemini 4 Carbon which had its brief moment in the sun (10 days). Fable comes with a 20% per token price cut… but is more token hungry, as both SemiAnalysis GDPx and Artificial Analysis agree: Fable 5.1 cost $10 per million input tokens and $50 per million output tokens. Fable 5.2 costs $8 and $40 . Yet on GDPx, a benchmark of professional tasks, SemiAnalysis paid $88.15 per task, up from $67.16 . The run logs give a clue. Where Opus 5.5 and Fable 5.1 would try about 20 test cases, 5.2 sometimes wrote hundreds or thousands and spun up subagents to check its work independently. All that checking helped Fable take first place at 16.4% . You pay for the checks either way. Which effort setting should you put in production? On FrontierCode 2.0, Anthropic reports that ",
