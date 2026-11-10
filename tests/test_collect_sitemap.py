@@ -177,6 +177,87 @@ class SitemapCollectionTest(unittest.TestCase):
         self.assertEqual(cache_row["title"], items[0]["title"])
         self.assertEqual(cache_row["description"], items[0]["summary"])
 
+    def _launch_source(self, **extra) -> dict:
+        source = {
+            "name": "anthropic_newsroom",
+            "type": "sitemap",
+            "url": "https://www.anthropic.com/sitemap.xml",
+            "include_prefixes": ["https://www.anthropic.com/news/"],
+            "include_patterns": [r"^https://www\.anthropic\.com/claude-[a-z0-9-]+$"],
+        }
+        source.update(extra)
+        return source
+
+    def test_include_patterns_keep_top_level_launch_pages(self) -> None:
+        sitemap = """
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          <url><loc>https://www.anthropic.com/claude-opus-5-5</loc><lastmod>2026-10-10</lastmod></url>
+          <url><loc>https://www.anthropic.com/claude/fable</loc><lastmod>2026-11-01</lastmod></url>
+          <url><loc>https://www.anthropic.com/news/s1-sec</loc><lastmod>2026-10-26</lastmod></url>
+          <url><loc>https://www.anthropic.com/careers</loc><lastmod>2026-11-02</lastmod></url>
+        </urlset>
+        """
+        now = datetime(2026, 11, 10, tzinfo=timezone.utc)
+        with patch.object(collect.urllib.request, "urlopen", return_value=FakeResponse(sitemap)):
+            items = collect.collect_from_sitemap(self._launch_source(), now)
+
+        self.assertEqual(
+            [i["url"] for i in items],
+            [
+                "https://www.anthropic.com/news/s1-sec",
+                "https://www.anthropic.com/claude-opus-5-5",
+            ],
+        )
+
+    def test_index_page_links_surface_launch_missing_from_sitemap(self) -> None:
+        sitemap = """
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          <url><loc>https://www.anthropic.com/news/s1-sec</loc><lastmod>2026-10-26</lastmod></url>
+        </urlset>
+        """
+        index = """
+        <html><body>
+          <a href="/news">All news</a>
+          <a href="/claude-fable-and-mythos-5-2">Introducing Claude Fable 5.2</a>
+          <a href="https://www.anthropic.com/news/s1-sec?utm=x">S-1</a>
+          <a href="/claude/fable">Fable product page</a>
+          <a href="/careers">Careers</a>
+        </body></html>
+        """
+        source = self._launch_source(index_pages=["https://www.anthropic.com/news"])
+        now = datetime(2026, 11, 10, tzinfo=timezone.utc)
+        with patch.object(
+            collect.urllib.request,
+            "urlopen",
+            side_effect=[FakeResponse(sitemap), FakeResponse(index)],
+        ):
+            items = collect.collect_from_sitemap(source, now)
+
+        self.assertEqual(
+            [i["url"] for i in items],
+            [
+                "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+                "https://www.anthropic.com/news/s1-sec",
+            ],
+        )
+
+    def test_index_page_failure_does_not_fail_sitemap_source(self) -> None:
+        sitemap = """
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          <url><loc>https://www.anthropic.com/news/s1-sec</loc><lastmod>2026-10-26</lastmod></url>
+        </urlset>
+        """
+        source = self._launch_source(index_pages=["https://www.anthropic.com/news"])
+        now = datetime(2026, 11, 10, tzinfo=timezone.utc)
+        with patch.object(
+            collect.urllib.request,
+            "urlopen",
+            side_effect=[FakeResponse(sitemap), OSError("boom")],
+        ):
+            items = collect.collect_from_sitemap(source, now)
+
+        self.assertEqual([i["url"] for i in items], ["https://www.anthropic.com/news/s1-sec"])
+
 
 if __name__ == "__main__":
     unittest.main()

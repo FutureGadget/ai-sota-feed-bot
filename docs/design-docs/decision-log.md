@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-11-10 (Collect Anthropic model launches outside /news/)
+
+- **Decision:** `anthropic_newsroom` also keeps top-level `https://www.anthropic.com/claude-<slug>` pages (new `include_patterns` sitemap option) and reads links from `https://www.anthropic.com/news` before the sitemap (new `index_pages` option). Index links go first so they survive the newest-60 cap; an index fetch failure is ignored.
+- **Context / Problem:** The Claude Fable 5.2 launch (2026-11-09) never reached the feed. Since September Anthropic publishes model launches at the top level (`/claude-fable-and-mythos-5-1`, `/claude-opus-5-5`, `/claude-sonnet-5-5`, `/claude-haiku-5-5`, `/claude-fable-and-mythos-5-2`) instead of under `/news/`, so the `/news/` prefix filter silently dropped every one of them. The sitemap also lagged the 5.2 launch while the `/news` index already linked it.
+- **Rationale:** The dash-form pattern excludes the `/claude/<model>` product pages. The `/news` index is the page Anthropic updates at launch time, so it is the fastest first-party signal without adding a scraper type.
+- **Impact:** `collectors/collect.py`, `config/sources.yaml`, `tests/test_collect_sitemap.py`, `docs/how-to/sources-and-filter-debugging.md`. One extra HTTP fetch per newsroom run.
+- **Rollback:** Remove `include_patterns` and `index_pages` from the `anthropic_newsroom` stanza; the collector code is inert without them.
+
 ## 2026-11-07 (Feed tabs row and Desk badge padding)
 
 - **Decision:** Give the feed's controls bar 4px of vertical padding, drop the phone-only bottom padding on the section tabs, square the search toggle's hairline divider, and remove the Desk unread badge's left margin (the button's gap already spaces it) and round its corners.

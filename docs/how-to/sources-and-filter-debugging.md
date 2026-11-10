@@ -21,6 +21,13 @@ Example (sitemap):
   url: "https://example.com/sitemap.xml"
   include_prefixes:
     - "https://example.com/research/"
+  # Optional: regexes for pages outside a common folder (OR-ed with prefixes).
+  include_patterns:
+    - '^https://example\.com/launch-[a-z0-9-]+$'
+  # Optional: index pages whose matching links are collected first, so a
+  # post appears before the sitemap lists it. A failed fetch is ignored.
+  index_pages:
+    - "https://example.com/news"
   weight: 1.1
 ```
 
