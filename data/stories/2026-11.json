@@ -1225,6 +1225,22 @@
   "url": "https://github.com/ggmm82/righaven",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "19aa1db2396cd0a9": {
+  "first_seen": "2026-11-10T17:05:49.390701+00:00",
+  "id": "fdf18d080388e183",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-10T15:50:33+00:00",
+  "sid": "19aa1db2396cd0a9",
+  "source": "hackernews_ai",
+  "summary": "Hi HN! Suppose you have notes, skills, and agent instructions that are part of your personal workflow, so you do not want them committed to the public repo, but at the same time, you want them to be in the workspace at the correct locations (e.g., AGENTS.md file locations matter), and these files cannot be simply gitignored because you also want versioning for them. The solution to this is actually just a bit more plain Git. $ git status --short # public repo ?? AGENTS.md ?? notes/ $ git dupe init # private repo Initialized empty Git repository in /home/brian/code/project/.git/dupe/ $ git dupe add notes/ AGENTS.md # private repo hint: notes is now hidden from the project's Git; run from the root, 'git dupe unhide -- notes' stops hiding it $ git dupe commit -m \"Notes and agent instructions\" # private repo [main (root-commit) 3eb3af9] Notes and agent instructions 3 files changed, 3 insertions(+) create mode 100644 .gitdupe create mode 100644 AGENTS.md create mode 100644 notes/todo.md $ git status --short # public repo: nothing $ git dupe log --oneline # private repo: your files 3eb3af9 Notes and agent instructions The solution, in short, is versioning those agent files in a repo, say (this repo is private to you and holds the history for your agent files), and that repo shares the same worktree as the public repo . You essentially overlap the two, with put in .git/ (and .git/ is that of the public repo) for a convenient solution. If you want to read more about the strategy used",
+  "summary_1line": "Hi HN! Suppose you have notes, skills, and agent instructions that are part of your personal workflow, so you do not want them committed to the public repo, but at the same time, you want them to be in the workspace a...",
+  "title": "Show HN: Git-dupe – plain Git per-project private versioning for agent files",
+  "type": "release",
+  "url": "https://github.com/BrianWeiHaoMa/git-dupe",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "1a6dda4c4f1da299": {
   "content_excerpt": "Most of my repositories have exactly one contributor. That contributor also reviews the pull requests, approves them, and merges them, usually within the same minute. It is a very efficient process. It is not a very good one. GitHub users have had AI review bots for a while now. My code lives on a self-hosted Forgejo instance, and I was not interested in giving a SaaS product a token for it. So I",
   "first_seen": "2026-11-10T14:10:51.864038+00:00",
@@ -1896,6 +1912,22 @@
   "url": "https://developer.microsoft.com/blog/do-ai-coding-agents-care-about-semver",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "29f0e99816524f78": {
+  "first_seen": "2026-11-10T17:05:49.390701+00:00",
+  "id": "59d721621f602fb0",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-09T13:43:52+00:00",
+  "sid": "29f0e99816524f78",
+  "source": "arxiv_cs_cl",
+  "summary": "Coordination between large language-model agents has become a central question for AI safety and software engineering, as such agents are deployed in groups that share infrastructure. Existing research tells the agents that partners exist or asks them to coordinate. Whether coordination arises through shared state alone, with nothing disclosing that anyone else is present, is the key question for deployments that share caches and memory between agents, yet it has rarely been examined, and never with independent replication; this study does both. Four agents each received a short arithmetic task and a key-value store presented to each as its own scratch space; two held complementary halves of one computation, and no prompt mentioned other agents, sharing or collaboration. For reliability, the environment was rebuilt independently from a written protocol, and both implementations ran under hashed locks on design, data and analysis. The results bear novelty value in three respects. Joint success occurred only through the shared store. Whether a model coordinated depended not on its vendor tier but on whether it wrote its intermediate result and looked at the store again, and one ordinary sentence, \"check your workspace again before submitting\", switched that second look on and off. The findings held under replication. For practice, state shared between agents is a communication channel and should be separated, namespaced and logged. For research, designs should be locked before ",
+  "summary_1line": "Coordination between large language-model agents has become a central question for AI safety and software engineering, as such agents are deployed in groups that share infrastructure. Existing research tells the agent...",
+  "title": "Unprompted coordination through shared memory in LLM agents: a locked two-implementation replication and extension",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12412v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "29f64af329084635": {
   "content_excerpt": "The CRAFT framework set up on your own Claude and DataForSEO accounts in about two weeks. The register I use to govern my own AI agents, and the free guide to build yours. In-depth playbooks on AI, marketing, and scaling, from 14 years building companies across Asia. Original survey data from Asian businesses, and close reads of the regional research on AI adoption. Recurring cartoons on AI, coding, and what building with it actually looks like. On 14 June 2026, one of my AI agents archived 57 of its own 82 skills in ten minutes. It did not ask me first. Twenty-one of those skills were in active use, and two scheduled jobs lost their email and calendar access without any error. Nothing about the agent’s access had changed that week. Its model had. Five days earlier it had been switched to a new model, and this was the new model’s first unsupervised pass over the system. That is the argument of this article. AI agent governance fails at the moment something changes, not at setup. Most frameworks check an agent once, when it is approved. The risk arrives later: a model upgrade, a new skill, a gate you loosened because things were going well. I run several agents on my own site and brand, and every control I now use came from one of those changes. TL;DR: AI agent governance is the set of rules that decide what an agent can touch, when it must stop and ask, and how you find out what it did. The usual frameworks cover identity, access, monitoring and audit. They miss change. A mod",
   "first_seen": "2026-11-09T07:04:17.451357+00:00",
@@ -2199,6 +2231,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08362v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "2ffd7e8cb1f550c6": {
+  "content_excerpt": "The Multimodal Knowledge Agent (MKA) benchmark, developed with Artificial Analysis, evaluates how agents reason across visually complex files to solve real-world knowledge work tasks. Gemini 4 Carbon provides top quality at a fraction of the price of similar models. In partnership with Artificial Analysis, we're launching MKA (Multimodal Knowledge Agent) , a new benchmark built to evaluate how agents reason across visually complex files to solve real-world knowledge work tasks. Most knowledge work benchmarks can be solved with text alone, without ever needing to look at an image or page layout. Yet, everyday professional work looks very different. Across many industries, day-to-day work is deeply visual — from cross-referencing architectural blueprints and tracing engineering schematics to synthesizing findings into polished decks, reports, and spreadsheets. We built MKA to measure how well agents can handle this visually complex work. To ground the benchmark in real-world workflows, we partnered with domain experts across 10 verticals and 83 occupations where day-to-day work is inherently visual. Together, these specialists — from architects and biologists to underwriters and data scientists — created MKA's 200-task evaluation set to assist them in their jobs. Each task reflects a multi-step project that takes a seasoned professional three to eight hours to complete, pairing a realistic prompt and a bundle of multimodal input files with an expert-written rubric of roughly 70",
+  "first_seen": "2026-11-10T17:05:49.390701+00:00",
+  "id": "bc9f6c699a175f39",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-10T16:12:21+00:00",
+  "sid": "2ffd7e8cb1f550c6",
+  "source": "hackernews_ai",
+  "summary_1line": "The Multimodal Knowledge Agent Benchmark",
+  "title": "The Multimodal Knowledge Agent Benchmark",
+  "type": "news",
+  "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "3007fcee676fa59f": {
   "first_seen": "2026-11-10T02:09:29.272611+00:00",
@@ -4256,6 +4304,22 @@
   "url": "https://theainewsreport.com/2026-11-05-semianalysis-gdpx-agent-benchmark-cost-per-point-explained.html",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "59155a6a8167b8c1": {
+  "first_seen": "2026-11-10T17:05:49.390701+00:00",
+  "id": "be26573817444509",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-09T14:23:38+00:00",
+  "sid": "59155a6a8167b8c1",
+  "source": "arxiv_cs_ai",
+  "summary": "Answer accuracy alone does not distinguish failures in acoustic perception, rule knowledge, and rule application. AuDiR (Audio Diagnostic Reasoning) examines these distinctions through controlled input interventions. Each item contains an audio clip, a multiple-choice question, a task-general rule, and a textual description of the acoustic observations needed to answer. Three conditions progressively supply the rule and observations; a fourth removes the audio while retaining the question and rule. The first correct diagnostic condition assigns an operational response label, without identifying a unique internal cause. The current benchmark contains 201 items in 18 families drawn from 9 sources, with answer references documented separately from percept extraction. In a preliminary evaluation of Gemini-3.8-flash, accuracy is 29.3% without supplied information, 31.3% with the rule, and 98.5% with the observations also supplied. No-audio accuracy is 23.9%, with a confidence interval containing the 25.0% chance rate. A family-level knowledge probe associates incomplete rule recall with larger gains from rule provision. These results show the benefit of supplying acoustic observations as text, while incomplete validation, possible recognition shortcuts, and non-monotonic responses limit stronger failure-attribution claims.",
+  "summary_1line": "Answer accuracy alone does not distinguish failures in acoustic perception, rule knowledge, and rule application. AuDiR (Audio Diagnostic Reasoning) examines these distinctions through controlled input interventions....",
+  "title": "AuDiR: Diagnosing Audio Reasoning with Rule and Percept Interventions",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12478v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "59cc5547aff50775": {
   "first_seen": "2026-11-05T03:05:19.238517+00:00",
   "id": "8a447c679795455b",
@@ -5509,6 +5573,18 @@
   "type": "release",
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.318",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "79a0f00b03e27450": {
+  "first_seen": "2026-11-10T17:05:49.390701+00:00",
+  "id": "140a3aa8f688b712",
+  "published": "2026-11-09T18:56:15+00:00",
+  "sid": "79a0f00b03e27450",
+  "source": "arxiv_llm_reliability",
+  "summary": "Anomaly detection (AD) is a critical for trustworthy machine learning and scientific discovery. Existing methods typically define anomalies through local density, isolation heuristics, or distance from a fitted distribution, making them sensitive to neighborhood scale, partitioning choices, or restrictive distributional assumptions. In this work, we introduce a new paradigm by formulating anomaly detection from a diversity perspective. We propose the $\\textit{Vendi Anomaly Score}$ (VAS), which detects anomalies by quantifying how much a sample changes the diversity of the dataset, as measured by the Vendi score, when removed. VAS captures both local redundancy and global data structure without relying on density estimation or partitioning heuristics. Moreover, VAS requires no hyperparameter tuning, instead adapting automatically to the spectral structure of the data. VAS is non-parametric and scales linearly with dataset size. Across 148 benchmark embedding datasets derived from 10 source datasets and 4 embedding architectures, VAS achieves state-of-the-art AD performance. We further validate VAS on large-scale ImageNet experiments, where it remains robust as both contamination rate and dataset scale increase.",
+  "summary_1line": "Anomaly detection (AD) is a critical for trustworthy machine learning and scientific discovery. Existing methods typically define anomalies through local density, isolation heuristics, or distance from a fitted distri...",
+  "title": "Vendi Anomaly Scores for Efficient and Accurate Anomaly Detection",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12871v1"
  },
  "7a180b2ecddc2718": {
   "first_seen": "2026-11-04T00:05:12.455371+00:00",
@@ -7262,6 +7338,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06793v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "a3261c64a9091141": {
+  "first_seen": "2026-11-10T17:05:49.390701+00:00",
+  "id": "6d0987fa441ceb42",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-09T11:57:33+00:00",
+  "sid": "a3261c64a9091141",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Cryptocurrency markets provide a natural testbed for autonomous AI agents because they are digital-native, high-frequency, and machine-speed environments, yet existing methods often struggle with non-stationary market regimes, opaque decisions, and fixed aggregation rules. In this paper, we propose Agent4Crypto, a dual-reflective and market-feedback-aligned multi-agent system. The framework coordinates specialized agents for data collection, analysis, risk assessment, reflection, and trading, synthesizing heterogeneous signals from prices, indicators, news, and charts in an interpretable decision pipeline. Our central design is a trader-centric decision mechanism: three style-specific trader agents, Aggressive, Neutral, and Conservative, generate candidate actions and natural-language rationales from the same market context, while their influence is learned rather than manually fixed. A PPO-based gating policy dynamically allocates trader weights through a dual-reflective feedback process. One reflection stream evaluates post-trade decision quality from realized portfolio outcomes and distills reusable lessons into a Financial ReasoningBank for retrieval in subsequent trader prompts, while the other estimates trader-level counterfactual contribution, indicating which style has recently aligned better with market movements. The PPO state combines Counterfactual Contribution Memory with market features, previous trader weights, and current trader actions, so trader influence ad",
+  "summary_1line": "Cryptocurrency markets provide a natural testbed for autonomous AI agents because they are digital-native, high-frequency, and machine-speed environments, yet existing methods often struggle with non-stationary market...",
+  "title": "Agent4Crypto: A Dual-Reflective and Market-Feedback-Aligned LLM-Based Multi-Agent System for Cryptocurrency Trading",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12269v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "a3433e936d2c04bf": {
   "first_seen": "2026-11-04T16:06:03.775381+00:00",
@@ -9030,6 +9123,22 @@
   "type": "news",
   "url": "https://openuncensored.com/blog/uncensored-models-in-agent-loops",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "c993e55fc42f7c69": {
+  "first_seen": "2026-11-10T17:05:49.390701+00:00",
+  "id": "3fa3ec1228d33571",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-10T16:52:11+00:00",
+  "sid": "c993e55fc42f7c69",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.169.0-alpha.9",
+  "summary_1line": "Release 0.169.0-alpha.9",
+  "title": "codex rust-v0.169.0-alpha.9",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.9",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "c9d7f27d5e8e7a98": {
   "content_excerpt": "While training and deploying our latest document parsing model, OCRia-1, we noticed a recurring bottleneck: inference was not fast enough. And this lined up with our experience customers had as well, latency is always one of the top asks for any document parsing workflow. So, we set out to work tinkering, and came back with a nearly 10x improvement in token generation, going from ~285 tokens/sec to ~2800 tokens/sec on a single B200 GPU. This means we can iterate on benchmarks faster and deliver results faster to users. We accomplished this by combining a ton of smaller improvements: reducing the bytes moved during inference, producing more tokens per target forward pass, and reducing the overall GPU and CPU overhead of each step. Some of these were easy wins with established practices (quantization, speculative decoding), while others required us to dig very deep into implementation details. OCRia is largely driven by image inputs with a text prompt, and outputs a structured textual representation of the document. Pages that are dense end up requiring longer outputs to represent them properly. Our primary focus for optimization then became increasing our generation speed across concurrent requests on a single GPU (B200 in this case). Inference in an LLM largely consists of two phases: prefill and decode . During prefill, inputs are processed and internal model state is built to generate a response. During decode, those inputs are passed through the model, and the output is th",
