@@ -1,113 +1,125 @@
 {
-  "date": "2026-11-03",
-  "title": "Agent Builder's Playbook — Nov 3, 2026",
-  "generated_at": "2026-11-03T10:04:46Z",
+  "date": "2026-11-10",
+  "title": "Agent Builder's Playbook — Nov 10, 2026",
+  "generated_at": "2026-11-10T10:03:59Z",
   "intro": [
-    "Agent harnesses, not models, decided outcomes this week: tool choice, hidden token spend and unchecked tests all moved results."
+    "Handoffs are this week's weak point: summaries lose task detail, invent permissions, and replay approved actions."
   ],
   "card_count": 6,
   "cards": [
     {
-      "id": "pb-test-mcp-per-harness",
+      "id": "pb-pass-full-task-to-every-subagent",
       "kind": "source-backed",
-      "title": "Benchmark your MCP server through each agent harness, not just one model",
-      "area": "Tool use",
-      "problem": "The same model scored 82.0% through one coding agent and 65.4% through another on the same 21 MCP servers.",
-      "apply": "Run your MCP server's task suite through every harness your users run, and check which built-in tools the agent reaches for before your server's tools.",
-      "result": "You find harness-specific failures before users do, instead of blaming the model.",
-      "effort": "medium",
+      "title": "Pass the full task file to every agent in a multi-agent pipeline",
+      "area": "Orchestration",
+      "problem": "A planner–coder–reviewer team passed 25.7% of hidden acceptance tests versus 56.8% for one agent, because only the planner saw the task.",
+      "apply": "Give the coder and reviewer the original task file alongside the planner summary. Benchmark the team against a single agent at equal spend before keeping the extra roles.",
+      "result": "In the source experiment, sharing the task file lifted the team to 54.1%, level with one agent, though still at higher cost.",
+      "effort": "low",
       "source": "hackernews_ai",
-      "source_url": "https://m3.sineframe.com/blog/same-model-different-agent",
-      "source_sid": "b78023b26122d472",
+      "source_url": "https://programmingtheloop.com/experiments/swarm-tax/",
+      "source_sid": "2facba8089563987",
+      "topic_url": "/topic/agent-orchestration",
       "evidence": {
         "kind": "source-measured",
-        "note": "The source measured 82.0% vs 65.4% for Claude Haiku 5.5 across 21 servers and three trials per task."
-      }
+        "note": "The author measured pass rates on six feature tasks with Codex."
+      },
+      "published": "Thu, 05 Nov 2026 23:10:43 +0000"
     },
     {
-      "id": "pb-mustfail-revert-check",
+      "id": "pb-compact-to-short-context",
       "kind": "source-backed",
-      "title": "Revert the agent's source change and re-run its tests to prove they can fail",
-      "area": "Evals",
-      "problem": "A green suite from a coding agent can still be vacuous when it widens a mock or asserts only that a value is defined.",
-      "apply": "After the agent finishes, revert its source changes, keep its new tests unchanged, and re-run; treat any test that still passes as not testing the work.",
-      "result": "Tautological tests get flagged before merge instead of being trusted as proof.",
-      "effort": "low",
-      "source": "hackernews_ai",
-      "source_url": "https://github.com/greenlitbooks/mustfail",
-      "source_sid": "a53f6b2859b09ad7",
-      "evidence": {
-        "kind": "editorial-inference",
-        "note": "The source describes the technique and failure modes; no measured outcome is claimed here."
-      }
-    },
-    {
-      "id": "pb-detect-repeated-tool-calls",
-      "kind": "source-backed",
-      "title": "Cap identical tool calls so a looping agent stops early",
-      "area": "Reliability",
-      "problem": "An agent re-ran the same successful SQL query 254 times, burning tokens and database load while appearing to work.",
-      "apply": "Hash each tool call's name and arguments per task, and stop or force a different action once the same call succeeds a few times in a row.",
-      "result": "Runaway loops end early instead of draining budget and hammering your data layer.",
-      "effort": "low",
-      "source": "hackernews_ai",
-      "source_url": "https://armincat.com/articles/ai-agent-executed-same-query-254-times",
-      "source_sid": "e79cc677e615b2d8",
-      "evidence": {
-        "kind": "editorial-inference",
-        "note": "The incident report documents the loop; the guard's payoff is the editor's inference."
-      }
-    },
-    {
-      "id": "pb-audit-harness-background-tokens",
-      "kind": "source-backed",
-      "title": "Audit hidden harness calls that spend tokens outside your task",
+      "title": "Compact agent history to a short context instead of paying for long windows",
       "area": "Cost & latency",
-      "problem": "Harnesses make background model calls, such as session naming and status-line updates, that never show up in your task logs.",
-      "apply": "Log every model request your harness sends, including background ones, and disable or route the non-essential calls to a cheaper model.",
-      "result": "The author claims this exposes spend that does no task work, such as 15-20% of tokens on a status line.",
-      "effort": "low",
+      "problem": "Long-context serving is priced up to 7x more per token, yet agents rarely use the extra window.",
+      "apply": "Summarize the agent history on a fixed cadence and cap working context near 16K tokens. Run your own eval against the full-context baseline before switching.",
+      "result": "NVIDIA reports little accuracy loss on Claude Opus 4.5 and GPT 5.6 Sol at 16K with frequent compaction, at a fraction of the serving cost.",
+      "effort": "medium",
       "source": "hackernews_ai",
-      "source_url": "https://armincat.com/articles/where-tokens-go",
-      "source_sid": "16f84d551cfc686c",
+      "source_url": "https://i10x.ai/news/nvidia-long-context-compaction-agents-study",
+      "source_sid": "3c72c5c3cd7d0707",
+      "topic_url": "/topic/context-compaction",
       "evidence": {
         "kind": "source-claimed",
-        "note": "The author reports Claude Code spends 15-20% of tokens on a status line; this is a claim from one reading of the code."
-      }
+        "note": "NVIDIA preprint \"You don't need long context\" reports the accuracy and cost result."
+      },
+      "published": "Wed, 04 Nov 2026 14:17:09 +0000"
     },
     {
-      "id": "pb-measure-cli-startup-overhead",
+      "id": "pb-audit-handoff-summaries",
       "kind": "source-backed",
-      "title": "Measure per-job startup cost before running a coding-agent CLI in fresh containers",
-      "area": "Cost & latency",
-      "problem": "A coding-agent CLI that feels fast in a terminal can be costly when every workflow job starts it in a fresh container.",
-      "apply": "Benchmark candidate CLIs on start-up time, time per turn, memory and image size in your own CI, then weigh that against task success separately.",
-      "result": "You pick a harness whose per-job overhead fits your pipeline instead of guessing.",
-      "effort": "medium",
-      "source": "hackernews_ai",
-      "source_url": "https://aictrl.dev/blog/headless-coding-agent-cli-benchmark",
-      "source_sid": "18df784100d9cc05",
-      "evidence": {
-        "kind": "source-measured",
-        "note": "The source measured start-up, per-turn time, memory, image size and tokens for six CLIs, and says it did not measure task completion."
-      }
-    },
-    {
-      "id": "pb-pin-tool-versions",
-      "kind": "source-backed",
-      "title": "Re-validate tool definitions when a tool updates, not just at install",
+      "title": "Audit compaction summaries for permissions the history never granted",
       "area": "Safety",
-      "problem": "Agent frameworks keep trusting a tool after a software update changes what it does.",
-      "apply": "Pin tool descriptions and schemas by hash, and require re-approval or a diff review whenever an MCP server or tool changes them.",
-      "result": "A silently modified tool can no longer inject new behavior into an agent that approved the old one.",
+      "problem": "A self-written handoff summary can state permissions or requirements the original record does not support, and the next step then obeys them.",
+      "apply": "Treat summaries as untrusted input: diff any permission, approval, or policy sentence against the source history, and drop unsupported ones before resuming.",
+      "result": "Compacted runs stop inheriting invented authorizations, so tool-call gates keep matching what the user actually approved.",
       "effort": "medium",
-      "source": "arxiv_cs_ai",
-      "source_url": "http://arxiv.org/abs/2611.01976v1",
-      "source_sid": "3b426192f1bc75ae",
+      "source": "arxiv_agent_systems_research",
+      "source_url": "http://arxiv.org/abs/2611.06545v1",
+      "source_sid": "73b8cbb5fe289269",
+      "topic_url": "/topic/prompt-injection",
       "evidence": {
         "kind": "editorial-inference",
-        "note": "The paper frames the tool update gap; the proposed control is the editor's inference."
-      }
+        "note": "The paper studies unsupported policy statements in handoff summaries; the mitigation is an editorial inference."
+      },
+      "published": "2026-11-04T14:12:09Z"
+    },
+    {
+      "id": "pb-idempotent-approved-tool-calls",
+      "kind": "source-backed",
+      "title": "Make approved tool calls run at most once across crashes",
+      "area": "Reliability",
+      "problem": "After a crash and documented resume, one approved payment ran twice in LangGraph, Pydantic AI and the OpenAI Agents SDK.",
+      "apply": "Key each approved side-effecting call by an idempotency ID and record it before executing. On resume, skip any ID already recorded.",
+      "result": "The source claims approved tool calls run at most once, which makes retries after a crash safe.",
+      "effort": "medium",
+      "source": "hackernews_ai",
+      "source_url": "https://github.com/salahmakboul/call4agents",
+      "source_sid": "385b20a2401d6d5d",
+      "topic_url": "/topic/agent-reliability",
+      "evidence": {
+        "kind": "source-claimed",
+        "note": "The Call4Agents write-up reproduces duplicate payments in three frameworks."
+      },
+      "published": "Thu, 05 Nov 2026 18:17:19 +0000"
+    },
+    {
+      "id": "pb-propagate-acl-into-agent-memory",
+      "kind": "source-backed",
+      "title": "Carry source ACLs onto every memory note your agent synthesizes",
+      "area": "Memory",
+      "problem": "Metadata filters block 100% of unauthorized raw-chunk queries, yet cross-document synthesis leaked confidential parent secrets in 2 of 3 background tasks.",
+      "apply": "Stamp each synthesized memory note with the intersection of its parents' permissions, and filter memory recall by the requesting user the same way as raw retrieval.",
+      "result": "Unprivileged users stop retrieving executive data through derived notes. Re-run the benchmark linter to confirm a 0% leak rate.",
+      "effort": "medium",
+      "source": "hackernews_ai",
+      "source_url": "https://github.com/harishbalasubramanian/sentinel-eval",
+      "source_sid": "42d0d220c3dc643e",
+      "topic_url": "/topic/agent-memory",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "The benchmark reports 0% raw-RAG leaks versus 67% agent-memory leaks."
+      },
+      "published": "Mon, 09 Nov 2026 14:33:07 +0000"
+    },
+    {
+      "id": "pb-let-agent-write-one-program",
+      "kind": "source-backed",
+      "title": "Let the agent express a bulk workflow as one program, not per-node tool calls",
+      "area": "Tool use",
+      "problem": "Bulk edits like replacing a brand color across thousands of nodes force a model round trip per decision.",
+      "apply": "Expose the document API to a sandboxed script. Have the agent write one program that inspects, decides and applies the changes, and start execution while it streams.",
+      "result": "Framer reports the rebuilt harness is up to 33% cheaper and 20% faster.",
+      "effort": "high",
+      "source": "hackernews_ai",
+      "source_url": "https://www.framer.com/blog/harness-2/",
+      "source_sid": "c430d9570f8f07c3",
+      "topic_url": "/topic/tool-use",
+      "evidence": {
+        "kind": "source-claimed",
+        "note": "Framer states the cost and latency figures for its own agent harness."
+      },
+      "published": "Fri, 06 Nov 2026 17:31:03 +0000"
     }
   ]
 }

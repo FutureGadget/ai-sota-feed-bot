@@ -1006,6 +1006,25 @@
     },
     "edition_date": "2026-09-18"
   },
+  "2facba8089563987": {
+    "id": "pb-pass-full-task-to-every-subagent",
+    "kind": "source-backed",
+    "title": "Pass the full task file to every agent in a multi-agent pipeline",
+    "area": "Orchestration",
+    "problem": "A planner–coder–reviewer team passed 25.7% of hidden acceptance tests versus 56.8% for one agent, because only the planner saw the task.",
+    "apply": "Give the coder and reviewer the original task file alongside the planner summary. Benchmark the team against a single agent at equal spend before keeping the extra roles.",
+    "result": "In the source experiment, sharing the task file lifted the team to 54.1%, level with one agent, though still at higher cost.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://programmingtheloop.com/experiments/swarm-tax/",
+    "source_sid": "2facba8089563987",
+    "topic_url": "/topic/agent-orchestration",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The author measured pass rates on six feature tasks with Codex."
+    },
+    "edition_date": "2026-11-10"
+  },
   "2ff277e441a4b0da": {
     "id": "pb-hydrafusion-cascade-routing",
     "kind": "source-backed",
@@ -1139,6 +1158,25 @@
     },
     "edition_date": "2026-09-15"
   },
+  "385b20a2401d6d5d": {
+    "id": "pb-idempotent-approved-tool-calls",
+    "kind": "source-backed",
+    "title": "Make approved tool calls run at most once across crashes",
+    "area": "Reliability",
+    "problem": "After a crash and documented resume, one approved payment ran twice in LangGraph, Pydantic AI and the OpenAI Agents SDK.",
+    "apply": "Key each approved side-effecting call by an idempotency ID and record it before executing. On resume, skip any ID already recorded.",
+    "result": "The source claims approved tool calls run at most once, which makes retries after a crash safe.",
+    "effort": "medium",
+    "source": "hackernews_ai",
+    "source_url": "https://github.com/salahmakboul/call4agents",
+    "source_sid": "385b20a2401d6d5d",
+    "topic_url": "/topic/agent-reliability",
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "The Call4Agents write-up reproduces duplicate payments in three frameworks."
+    },
+    "edition_date": "2026-11-10"
+  },
   "38f362bfcba6a0fa": {
     "id": "pb-self-hosted-control-plane-agent-spend",
     "kind": "source-backed",
@@ -1214,6 +1252,25 @@
       "note": "MCP working group's own description of the now-stable Enterprise-Managed Authorization extension and its adopter list."
     },
     "edition_date": "2026-07-10"
+  },
+  "3c72c5c3cd7d0707": {
+    "id": "pb-compact-to-short-context",
+    "kind": "source-backed",
+    "title": "Compact agent history to a short context instead of paying for long windows",
+    "area": "Cost & latency",
+    "problem": "Long-context serving is priced up to 7x more per token, yet agents rarely use the extra window.",
+    "apply": "Summarize the agent history on a fixed cadence and cap working context near 16K tokens. Run your own eval against the full-context baseline before switching.",
+    "result": "NVIDIA reports little accuracy loss on Claude Opus 4.5 and GPT 5.6 Sol at 16K with frequent compaction, at a fraction of the serving cost.",
+    "effort": "medium",
+    "source": "hackernews_ai",
+    "source_url": "https://i10x.ai/news/nvidia-long-context-compaction-agents-study",
+    "source_sid": "3c72c5c3cd7d0707",
+    "topic_url": "/topic/context-compaction",
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "NVIDIA preprint \"You don't need long context\" reports the accuracy and cost result."
+    },
+    "edition_date": "2026-11-10"
   },
   "3c9615b32d800197": {
     "id": "pb-eval-sre-agents-on-broken-integrations",
@@ -1309,6 +1366,25 @@
       "note": "LangChain's blog post claims the ~100x cost reduction and matched frontier judge quality; not an independently verified benchmark."
     },
     "edition_date": "2026-08-25"
+  },
+  "42d0d220c3dc643e": {
+    "id": "pb-propagate-acl-into-agent-memory",
+    "kind": "source-backed",
+    "title": "Carry source ACLs onto every memory note your agent synthesizes",
+    "area": "Memory",
+    "problem": "Metadata filters block 100% of unauthorized raw-chunk queries, yet cross-document synthesis leaked confidential parent secrets in 2 of 3 background tasks.",
+    "apply": "Stamp each synthesized memory note with the intersection of its parents' permissions, and filter memory recall by the requesting user the same way as raw retrieval.",
+    "result": "Unprivileged users stop retrieving executive data through derived notes. Re-run the benchmark linter to confirm a 0% leak rate.",
+    "effort": "medium",
+    "source": "hackernews_ai",
+    "source_url": "https://github.com/harishbalasubramanian/sentinel-eval",
+    "source_sid": "42d0d220c3dc643e",
+    "topic_url": "/topic/agent-memory",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The benchmark reports 0% raw-RAG leaks versus 67% agent-memory leaks."
+    },
+    "edition_date": "2026-11-10"
   },
   "42ebe570ca9aba75": {
     "id": "pb-skill-vs-subagent-frequency",
@@ -2031,6 +2107,25 @@
       "note": "The paper reports these execution-accuracy figures from its own Spider and BIRD experiments."
     },
     "edition_date": "2026-08-07"
+  },
+  "73b8cbb5fe289269": {
+    "id": "pb-audit-handoff-summaries",
+    "kind": "source-backed",
+    "title": "Audit compaction summaries for permissions the history never granted",
+    "area": "Safety",
+    "problem": "A self-written handoff summary can state permissions or requirements the original record does not support, and the next step then obeys them.",
+    "apply": "Treat summaries as untrusted input: diff any permission, approval, or policy sentence against the source history, and drop unsupported ones before resuming.",
+    "result": "Compacted runs stop inheriting invented authorizations, so tool-call gates keep matching what the user actually approved.",
+    "effort": "medium",
+    "source": "arxiv_agent_systems_research",
+    "source_url": "http://arxiv.org/abs/2611.06545v1",
+    "source_sid": "73b8cbb5fe289269",
+    "topic_url": "/topic/prompt-injection",
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "The paper studies unsupported policy statements in handoff summaries; the mitigation is an editorial inference."
+    },
+    "edition_date": "2026-11-10"
   },
   "741459db9e7f9b05": {
     "id": "pb-agent-microvm-sandbox",
@@ -3703,6 +3798,25 @@
       "note": "The paper's abstract describes the defense mechanism and its goal; specific quantitative benchmark results were not available in the reviewed excerpt."
     },
     "edition_date": "2026-08-11"
+  },
+  "c430d9570f8f07c3": {
+    "id": "pb-let-agent-write-one-program",
+    "kind": "source-backed",
+    "title": "Let the agent express a bulk workflow as one program, not per-node tool calls",
+    "area": "Tool use",
+    "problem": "Bulk edits like replacing a brand color across thousands of nodes force a model round trip per decision.",
+    "apply": "Expose the document API to a sandboxed script. Have the agent write one program that inspects, decides and applies the changes, and start execution while it streams.",
+    "result": "Framer reports the rebuilt harness is up to 33% cheaper and 20% faster.",
+    "effort": "high",
+    "source": "hackernews_ai",
+    "source_url": "https://www.framer.com/blog/harness-2/",
+    "source_sid": "c430d9570f8f07c3",
+    "topic_url": "/topic/tool-use",
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Framer states the cost and latency figures for its own agent harness."
+    },
+    "edition_date": "2026-11-10"
   },
   "c4fa725d5c123b2d": {
     "id": "pb-measure-reasoning-tokens-on-quantized-models",
