@@ -2251,6 +2251,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.07134v1"
  },
+ "34b99cad8f6b6602": {
+  "first_seen": "2026-11-10T08:04:55.363407+00:00",
+  "id": "b3028bd87c5c2f63",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-09T15:48:07+00:00",
+  "sid": "34b99cad8f6b6602",
+  "source": "arxiv_cs_ai",
+  "summary": "AI safety evaluations often involve sensitive prompts and proprietary models. Evaluators want to keep their evaluation prompts secret from model owners to prevent purposeful or incidental data leakage, ensuring longer usefulness of their benchmark. Model owners in turn wish to keep their proprietary model weights and inference code within their own secure infrastructure to protect their IP. We present a way forward for \"double-blind evals\", which provide cryptographic guarantees that an evaluator's prompts are not shared with the model owner, while simultaneously maintaining the confidentiality of the model weights and inference code. To accomplish this, we use secure enclaves that encrypt data in RAM at the hardware level. In a world-first pilot, we test this approach by evaluating a proprietary Google DeepMind model (Gemini 2.5 Flash Lite) against a selection of the private AILuminate benchmark corpus, using an NVIDIA H100 secure enclave on Google Cloud Platform, and using OpenMined's PySyft to maintain data and model privacy. We believe this effort marks the first use of this technology to provide mutual secrecy for one organization's frontier-class proprietary model weights and another organization's closed benchmark.",
+  "summary_1line": "AI safety evaluations often involve sensitive prompts and proprietary models. Evaluators want to keep their evaluation prompts secret from model owners to prevent purposeful or incidental data leakage, ensuring longer...",
+  "title": "Double Blind Evals: Resolving the Dual Confidentiality Dilemma in AI Safety Auditing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12604v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "34cc17b043f71260": {
   "first_seen": "2026-11-04T15:05:34.099063+00:00",
   "id": "9ceed7ebffb5ea13",
@@ -3341,6 +3357,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08478v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "4d29353472d6538a": {
+  "first_seen": "2026-11-10T08:04:55.363407+00:00",
+  "id": "17511ff888fba107",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-09T18:57:00+00:00",
+  "sid": "4d29353472d6538a",
+  "source": "arxiv_cs_cl",
+  "summary": "As multimodal agents accumulate increasingly long interaction histories, effectively retrieving and utilizing past information becomes critical for long-term interaction. Existing memory systems typically rely on semantic retrieval over compressed memories and expose predefined representations, which may miss relevant memories and overlook heterogeneous evidence needs across queries. We introduce \\textbf{\\hivemem}, a multimodal memory framework that interleaves \\textbf{\\textsc{H}}or\\textbf{\\textsc{i}}zontal Memory Expansion with \\textbf{\\textsc{Ve}}rtical Evidence Composition. For horizontal memory expansion, \\hivemem organizes memory episodes into a relational graph using textual and visual anchors, expanding semantically retrieved seeds with related neighbors to recover complementary information. For vertical evidence composition, each retrieved memory retains multiple evidence forms, including compact summaries, captions, grounded visual views, raw images, and interaction history. A lightweight trainable selector independently composes an evidence subset for each retrieved memory, enabling query-adaptive utilization of heterogeneous multimodal information. This two-dimensional design jointly broadens memory coverage and adapts the evidence contributed by individual memories. Experiments across three multimodal memory benchmarks show that \\hivemem consistently improves task performance across base models while reducing token consumption by about 90\\% compared with the most ",
+  "summary_1line": "As multimodal agents accumulate increasingly long interaction histories, effectively retrieving and utilizing past information becomes critical for long-term interaction. Existing memory systems typically rely on sema...",
+  "title": "HiVe-Mem: Interleaving Horizontal Memory Expansion and Vertical Evidence Composition for Multimodal Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12872v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "4d3938441f216409": {
   "content_excerpt": "Ask a frontier model for a slide deck and you'll get a good one. Ask for ten and they start to look alike: the same tasteful defaults, the same house style, a faint \"AI-generated deck\" look. That's fine until you want the deck to look like your template. Frontier models have their own house style, and no amount of prompting stops them drifting back to it. And sometimes the content is confidential and can't leave your systems at all. Both of those point to a model you own: open weights, running on your own infrastructure, trained on your own design language. The catch is that small open models, the kind you'd actually self-host, are bad at this. Their decks come out broken: titles that vanish into the background, text running off the slide, shapes stacked on top of each other. Palette tests one bet: that a small open-weight model, trained on synthetic data in your design language and checked by a harness, can compete with frontier systems while you keep ownership of the result. We fine-tuned a 20B model to build decks the way people do: a designer plans the deck and a coder draws each slide. Its training data follows the IBM Design Language , and on PresentBench it ranks first on two of the three domains we measured. This post covers how we synthesized the data, trained the model and built a harness around it. A slide deck looks simple, but making one asks a model to do three things small models are bad at. It lays out the slide without seeing it. The model doesn't draw slides",
@@ -6640,6 +6673,22 @@
   "url": "http://arxiv.org/abs/2611.06854v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "9e1d3199c1f9cd28": {
+  "content_excerpt": "Antelog checks every command your AI agent wants to run and stops the dangerous ones before they run. Free · Runs locally AI agents guess, and sometimes they guess wrong. Asking them to be careful isn’t enough. Example: Based on the PocketOS incident of April 2026. You ask the agent to fix a credential error in staging. The agent tries to delete a storage volume, which would delete your production database and its backups. Antelog stops it and asks you. The agent then fixes the wrong setting in staging only, which Antelog allows because it deletes nothing. Example: You ask the agent to delete test users. The agent tries DELETE FROM users with no filter, which would delete every user. Antelog stops it and asks you. The agent then deletes only users with test email addresses, which Antelog allows. Example: You ask the agent why login is failing. The agent tries to print your .env file, which would put your passwords and API keys into the chat. Antelog stops it and asks you. The agent then reads the example settings file, which has no real secrets, and Antelog allows it. Install Antelog. It checks every command your agent wants to run before it runs, and stops destructive ones like rm -rf on your home folder, DROP TABLE, force-pushing to main, deleting cloud databases, and reading .env files. Install is one command and needs no account. Yes. It stops DROP TABLE, DROP DATABASE, TRUNCATE, DELETE with no WHERE, dropdb, and deleting cloud databases and volumes through cloud command-",
+  "first_seen": "2026-11-10T08:04:55.363407+00:00",
+  "id": "45d0487499101bff",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-10T07:57:26+00:00",
+  "sid": "9e1d3199c1f9cd28",
+  "source": "hackernews_ai",
+  "summary_1line": "Antelog – stops AI coding agents from running dangerous commands",
+  "title": "Antelog – stops AI coding agents from running dangerous commands",
+  "type": "news",
+  "url": "https://antelog.dev",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "9ecd103388bdd513": {
   "content_excerpt": "A knowledge atlas for people AND for AI: fast local search, an organic map of your notes, code graphs, and an MCP door so any AI can read your vault. MIT. A knowledge atlas for people AND for AI. You read, search and explore your notes and code; any AI reads the same vault through a safe door. Obsidian is built for the person. AI-only tools are built for the model. Adamanteum serves both. If this is useful, please star the repo. It is the one thing that helps other people find it. The whole vault: 98,853 documents, 294,705 links, one living map. Screenshots are from the Stinger Industries team vault, running the same atlas. Sidebar search plus the Document Lens: read the original file without leaving the map. Open http://127.0.0.1:4173 . It starts on 18 fictional sample notes. If the port is taken, set PORT . To open your own Markdown folder, set ADAMANTEUM_VAULT to its absolute path (PowerShell: $env:ADAMANTEUM_VAULT = 'D:/Notes' ), then npm start . Your original notes are read-only by default. Notebook revisions live in .data/notebook.sqlite ; back up .data to keep the notebook, settings and indexes. Writing to your vault needs ADAMANTEUM_VAULT_WRITE=1 . A Windows launcher with a folder picker is included ( Launch Adamanteum.cmd ). Adamanteum does not ship with an AI, and nothing leaves your computer unless you choose it. There are two ways to plug your own in. 1. Put an AI inside Adamanteum (the \"Your AI\" button at the bottom of the screen). Add a connection card: Enter th",
   "first_seen": "2026-11-04T03:03:29.158969+00:00",
@@ -8067,6 +8116,18 @@
   "url": "https://github.com/chengmatt416/umbra",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "bee290c26f98bdef": {
+  "content_excerpt": "Following our August v0.2.0 release , VeRL-Omni v0.3.0 widens what you can train with reinforcement learning in a single, unified stack. This release brings asynchronous execution to more multimodal RL workloads, makes the V1 trainer the default for everyone, and expands post-training coverage across image, video, audio, and multimodal understanding. Building on v0.2.0's rollout batching and reusable model adapters, the focus this time is on making the whole pipeline work together : generation, reward evaluation, policy updates, and weight synchronization. Two end-to-end recipes show what that means in practice: MiniMax H3 audio-video post-training with DiffusionNFT , and MiniCPM-o 4.5 GSPO with colocated-sync or separate-async execution . Together they demonstrate an important design principle: the right execution mode depends on your workload. Overlapping rollout and training helps only when that overlap pays for the resources assigned to each role — and now you have the tools to measure exactly that. Multimodal RL has several expensive stages, each with different resource needs. An autoregressive model can spend a long time generating responses; a diffusion model runs repeated denoising steps; audio-video rewards add decoding and scorer inference on top. A strictly alternating loop leaves one role idle while another works. v0.3.0 breaks that bottleneck open with a richer set of execution paths: The point of these changes is choice , not a one-size-fits-all prescription. Th",
+  "first_seen": "2026-11-10T08:06:32.898278+00:00",
+  "id": "1a7481c4ca4554a5",
+  "published": "2026-11-06T00:00:00+00:00",
+  "sid": "bee290c26f98bdef",
+  "source": "vllm_blog",
+  "summary_1line": "VeRL-Omni v0.3.0 expands async RL, makes the V1 trainer the default, and adds reproducible recipes for audio-video generation and multimodal understanding.",
+  "title": "VeRL-Omni v0.3.0: Async Training and Broader Multimodal Post-Training",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-11-06-verl-omni-v0-3-0"
+ },
  "bef45a5954cc1f97": {
   "first_seen": "2026-11-04T06:07:33.226600+00:00",
   "id": "a594c8b1db18a154",
@@ -8466,6 +8527,23 @@
   "title": "Show HN: Agent-email-guard – agent tried to send 400 receipts, stopped at 5",
   "type": "news",
   "url": "https://github.com/agentisend/agent-email-guard"
+ },
+ "cba41f0395d50b9e": {
+  "first_seen": "2026-11-10T08:04:55.363407+00:00",
+  "id": "93d2ea712dc68629",
+  "image_url": "https://static.simonwillison.net/static/2026/artificial-analysis-haiku-class.webp",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-10T07:28:21+00:00",
+  "sid": "cba41f0395d50b9e",
+  "source": "simon_willison",
+  "summary": "Introducing Our Smallest, Most Efficient Model: Muse Ember Meta AI just launched their entry in the Claude Haiku/GPT Luna category: Muse Ember, which they describe as: [...] our smallest and most efficient model designed for complex reasoning execution and the work agents repeat all day: tool calls, coding subtasks, routing, extraction, and long document parsing. For shorter prompts it's priced the same as GPT-6 Luna and Claude Haiku 5.5 - both are $0.10/million input tokens and $0.50/million output. Today's other big model release, Claude Fable 5.2, is 80x that price at $8/$40. The pricing is a little less straightforward as prompts get longer, though. Luna, Ember, and Haiku all support up to a million input tokens, but they also all have a threshold after which the price goes up. Taking that threshold into account Ember is priced between the two others: Model Prompt size Input ($/M) Cached input Output GPT-6 Luna ≤272k $0.10 $0.01 $0.50 >272k $0.20 $0.02 $0.75 Muse Ember 1.0 ≤200k $0.10 $0.004 $0.50 >200k $0.30 $0.012 $1.50 Claude Haiku 5.5 ≤100k $0.10 $0.01 $0.50 >100k $0.50 $0.05 $2.50 But comparing price-per-token doesn't really make sense these days, when reasoning tokens mean that different models might use dramatically different numbers of tokens to solve the same problem. For that, one measure that's useful is the Artificial Analysis. And even more useful than that is their Intelligence Index vs. Cost per Task chart, which shows the following for those three models: ",
+  "summary_1line": "Introducing Our Smallest, Most Efficient Model: Muse Ember Meta AI just launched their entry in the Claude Haiku/GPT Luna category: Muse Ember, which they describe as: [...] our smallest and most efficient model desig...",
+  "title": "Introducing Our Smallest, Most Efficient Model: Muse Ember",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Nov/10/muse-ember",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "ccf769a9ca0162cc": {
   "first_seen": "2026-11-03T21:09:26.741882+00:00",
@@ -10236,13 +10314,19 @@
  "f7c3f0b6f1549e1e": {
   "first_seen": "2026-11-10T07:09:29.721027+00:00",
   "id": "112b643b52248530",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
   "published": "2026-11-09T18:33:13+00:00",
   "sid": "f7c3f0b6f1549e1e",
   "source": "arxiv_agent_systems_research",
+  "summary": "As large language models become more capable agents, they can exhibit deceptive behaviors, cheating human for higher rewards while appearing helpful. We attribute this failure to evaluation-side partial observability, where models are evaluated mainly from final outcome, without checking the faithfulness of underlying reasoning, tool use, and environmental effects. Prior mitigations address this partial observability by predefined evaluator latent belief space or one-shot monitoring, which do not extend to free-form language space and vulnerable to stronger deceptions that evade simple monitoring. In this work, we formulate deception mitigation as an Evaluation-Side Partially Observable Extensive Form Game (e-PoG), a max-min framework in which an agent maximizes reward, a monitor minimizes the agent's payoff by exposing deception from the full interaction trajectory, and a fixed verifier validates the monitor's claims and converts them into penalties. We define the solution concept as a Subgame-Perfect Oversight Equilibrium (SPOE) between agent and monitor, and prove its existence in finite games. With a perfect verifier, every SPOE is faithful; with an imperfect verifier, the guarantee persists if verifier errors do not reverse the ranking of monitor actions. To achieve faithful SPOE, we derive a two-timescale policy gradient algorithm and enhance the pipeline empirically with NLI verification and deterministic checks. Experiments with Gemma3-4B-IT and Qwen3-4B/8B on Agentic",
   "summary_1line": "As large language models become more capable agents, they can exhibit deceptive behaviors, cheating human for higher rewards while appearing helpful. We attribute this failure to evaluation-side partial observability, where models are evaluated mainly from final outcome, without",
   "title": "Mitigating Agentic Deception via Evaluation-Side Partially Observable Games",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.12835v1"
+  "url": "http://arxiv.org/abs/2611.12835v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "f816d6d32eff8ac9": {
   "content_excerpt": "If you're an erratic vibe coder, you know the day: Claude Code in one repo, Codex in another, a model on Ollama or llama.cpp, and credits on Bedrock, Anthropic, OpenAI and Meta. You switch models by task, sometimes mid-task, and jump between projects several times an hour. The apps you build call those models too, so each one ends up re-wiring the same providers. You can't see which app called what, and you find out about failures when something breaks. aiport is a Go program that runs on your machine (loopback only) and sits between your apps, your coding agents and the providers. aiport watches how your apps use models and proposes changes. Nothing is applied without your approval unless you turn that on, and every change can be reverted. Applications call aiport with their own token. aiport routes each call to the provider you chose, keeps the metadata, and turns repeated failures into Issues you can fix from the dashboard, or hand to the application's coding agent. You need Go 1.27+ ( brew install go , or go.dev/dl ). Dependencies are vendored and the dashboard is pre-built, so nothing else is downloaded. Or install the binary without cloning: go install github.com/harelix/aiport/cmd/aiport@latest (it lands in $(go env GOPATH)/bin ; run aiport init and aiport serve ). Open the dashboard address serve prints ( http://127.0.0.1:8787/ by default; init --listen picks another, and you can use aiport.localhost instead ), paste the management token and set a password. Paste your",
