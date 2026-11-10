@@ -14,10 +14,27 @@
 version: brief-ledger-v1
 enabled: true
 
-# Read the day's judged pool. A story admitted within the previous 24 hours is
-# skipped by the prior_story guard, so a long-running story does not get a new
-# card every day.
+# Read the day's judged pool. A story already in a retained ledger is skipped by
+# the prior_story guard, so a long-running story does not get a new card every
+# day. `admission` closes the gap past the retention window.
 retention_days: 3
+
+# A story is news once
+# --------------------
+# The pool carries a row for as long as its slot's freshness window allows (up
+# to ten days), and a row's first_seen_run restarts every UTC day. Without a
+# bound, a story returned to the Brief every 24 hours until it left the pool:
+# 40% of admissions over 2026-10-31..11-10 were repeats and added no story.
+#
+# max_hours_since_first_sighting: a story can be admitted only this long after
+#   the pool first saw it (minimum first_seen_run over history_days). 48 leaves
+#   a story held back by a flood guard two days to get in, which is where a
+#   quiet weekend's Brief comes from. Keep it at or below retention_days * 24 -
+#   24 so the prior_story guard still sees the earlier admission. 0 disables.
+# history_days: pool days read for the first sighting (pool retention is 14).
+admission:
+  max_hours_since_first_sighting: 48
+  history_days: 14
 
 # Gate
 # ----
@@ -39,7 +56,14 @@ release:
 
 # Unjudged rows are never scored zero: they take `scale` times the median
 # judged score of their source role, then the window median, then `fallback`.
+#
+# admit_edition_picks: an unjudged row with thin evidence is admitted when the
+# deterministic ranker gave it an edition seat. The judge cannot read
+# openai_blog pages (49 to 178 characters of teaser against a 300 floor), so
+# without this no OpenAI post reaches the Brief; 53 of the 56 rows it admitted
+# over 2026-10-28..11-10 are openai_blog. Other thin rows stay rejected.
 unjudged:
+  admit_edition_picks: true
   scale: 0.9
   fallback: 0.35
   platform_relevant: 0.5
@@ -76,9 +100,15 @@ freshness:
 # Brief shows the cap-compliant top, and the rest is one click away. A source
 # can contribute at most per_source_per_6h in any six-hour window (checked
 # symmetrically across UTC midnight).
+#
+# per_source_per_6h was 3. hackernews_ai passes about 40 keeps a day, so 3 left
+# stories the daily recap went on to pick with no card at all, not even under
+# the "More from" fold. The display caps already bound the visible top, so
+# this guard only decides what is reachable below it. 8 is worse than 5: the
+# community role cap then fills before noon UTC.
 quotas:
   global_per_day: 120
-  per_source_per_6h: 3
+  per_source_per_6h: 5
   roles:
     first_party: 28
     practitioner: 18

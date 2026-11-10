@@ -72,7 +72,8 @@ available to each function.
   read by `api/feed.js` and `api/rss.js`: `source_roles` (source -> role),
   `caps` (per-source caps by role), `role_totals` (cross-source totals),
   `search_quarantine` / `first_party_quarantine` (patterns + rescue keywords),
-  `story_clusters.enabled`, and the pipeline's editorial diagnostics.
+  `story_clusters.enabled`, `brief_top_band` (top-of-Brief rules for the
+  ledger-served feed), and the pipeline's editorial diagnostics.
 - `data/processed/runs/<Y>/<M>/<run_id>.json` + `runs_index.json`
   — per-run history (retention ~45d)
 - `data/quality/benchmark/` — offline Jev/decision-model benchmark:

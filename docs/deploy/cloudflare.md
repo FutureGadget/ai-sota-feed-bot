@@ -18,6 +18,10 @@ wrangler deploy              -> Worker + Workers Assets
 Order matters: the Worker preloads R2 keys synchronously, so a handler whose key
 was not published reads as a missing file.
 
+`data/served/` is build output and is gitignored. The handlers prefer a
+`served/*.json` file over the source data, so `build_served_data.mjs` empties
+the directory before it computes anything. Do not commit the directory.
+
 ## What each surface costs
 
 - **Pages** are static assets served before the Worker runs. `/skills`,

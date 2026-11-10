@@ -161,6 +161,18 @@ search_quarantine:
 # frontier slot should not spend a seat on an ad campaign, a customer story, or
 # an appointment. These patterns apply only to `first_party` sources and are
 # rescued by a concrete engineering signal in the title.
+# Top of the ledger-served Brief (api/feed.js). The ranker enforces the same
+# rules on each edition (config/ranking.yaml `top_band_constraints`), but the
+# default Brief is ordered by admission utility, not by edition rank, so they
+# have to be applied again at serving time. tests/test_brief_top_band.py keeps
+# the two in step. Rules reorder the cap-compliant top; they never drop a card.
+brief_top_band:
+  enabled: true
+  top_n: 10
+  max_research: 3
+  lead_excludes_research: true
+  lead_excludes_video: true
+
 first_party_quarantine:
   enabled: true
   low_value_patterns:

@@ -25,6 +25,13 @@ import { candidateItemLists } from '../api/share.js';
 import { GET as updatesGET } from '../api/updates.js';
 
 const OUT_DIR = path.join(process.cwd(), 'data', 'served');
+// Start from an empty directory. readBriefLedger, getRecentItems and the
+// updates handler all return a served/*.json file when one exists, so an
+// artifact left over from an earlier build (or checked into git, as happened
+// in the 2026-11-02 migration commit) is read back and rewritten unchanged on
+// every deploy: the Brief ledger, the RSS pool and the updates catalog stayed
+// frozen at 2026-11-01 while the deploys reported success.
+fs.rmSync(OUT_DIR, { recursive: true, force: true });
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 function write(name, value) {

@@ -26,7 +26,8 @@ The report is written under
 `--no-write` is set. The stdout log line is the daily/CI-friendly summary:
 
 ```text
-feed_replay days=3 ledgers=3 runs=70 admitted=225 keeps=676 keeps_admitted=187
+feed_replay days=3 ledgers=3 runs=70 admitted=225 stories=225 repeat_stories=0
+keeps=676 keeps_admitted=187
 keeps_rate=0.2766 top10_jaccard_mean=0.8956 top10_jaccard_min=0.5385
 rank_displacement_mean=0.3 unexpected_removals=0 expired_removals=126
 ```
@@ -43,6 +44,13 @@ story skips, and median publish-to-admission lag.
 - **`unexpected_removals`** must be 0. A non-zero value means a story left the
   visible 24h window before its admission aged out. That is the bug Phase 1/2
   fixed; investigate the ledger writer or API merge if it moves.
+- **`repeat_stories`** must be 0. It counts stories that hold a card in more
+  than one retained ledger, which is a re-admission. `stories` is the number
+  of distinct stories admitted across the retained ledgers.
+- **`stale_story`** (per day) counts gate-passing stories the pool first saw
+  more than `admission.max_hours_since_first_sighting` ago. It is large by
+  design: the pool carries a row for up to ten days. `duplicate_url` counts
+  articles that came back under a new story key.
 - **`expired_removals`** is expected: items leave when their admission crosses
   24 hours.
 - **`top10_jaccard_mean`** is how much the top of the Brief stays the same

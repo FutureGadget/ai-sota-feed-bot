@@ -341,7 +341,10 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
     Analysis endpoints, join alias map, license classification, recency/
     max-models policy
   - `editorial.yaml` - source roles/caps, search and first-party quarantine
-    patterns, story-cluster thresholds, seen-memory edition caps
+    patterns, story-cluster thresholds, seen-memory edition caps, and
+    `brief_top_band` (research cap and lead rule for the ledger-served Brief;
+    kept equal to `ranking.yaml` `top_band_constraints` by
+    `tests/test_brief_top_band.py`)
   - `decks.yaml` - deck selector weights, unjudged priors, release-tier
     scores, story-collapse switch, and per-deck budget/min_utility/source,
     role and category caps (daily, weekly)
@@ -593,13 +596,22 @@ APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
 - **The served Brief is append-only within its 24-hour arrival window.**
   The default `window=arrival` path reads `data/brief/<date>.json`, written by
   `pipeline/brief_ledger.py` from the day's judged pool. Admission is one card
-  per story, once per UTC day; quotas are flood guards, and `caps`/`role_totals`
+  per story, once: a pool row's `first_seen_run` restarts every UTC day, so
+  the ledger bounds admission by the earliest sighting across the retained
+  pool days (`config/brief.yaml` `admission`) and never by that field alone.
+  Quotas are flood guards, and `caps`/`role_totals`
   only order the top (over-cap stories stay in the response with
   `beyond_cap: true` under a collapsed fold). Calendar ranges still read the
   accumulated run pool, ordered by `score_at_first_seen`. RSS uses
   `orderWithEditorialCaps` and keeps over-cap admitted items; do not
   reintroduce a primary-only cap that drops them. When the ledger is missing,
   the run pool is the fallback.
+- **`data/served/` is deploy output and must never be committed.**
+  `readBriefLedger`, `getRecentItems` and the updates handler return a
+  `served/*.json` file when one exists, and `scripts/build_served_data.mjs`
+  builds those files by calling the same functions. A checked-in copy was read
+  back and rewritten unchanged on every deploy from 2026-11-02 to 2026-11-10.
+  The build now empties the directory first and `.gitignore` excludes it.
 - **Page routes live in one table: `worker/src/index.js` `STATIC_REWRITES`.**
   Unmatched paths have no asset fallback (`html_handling: none`), so a missing
   route 404s in production with no error anywhere. Add the route, then a test

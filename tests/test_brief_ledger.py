@@ -439,6 +439,227 @@ class BriefLedgerTest(unittest.TestCase):
         self.assertTrue(diag["written"])
         self.assertEqual(diag["items"], 0)
 
+    def _prior_ledger(self, day: str, url: str, admitted_at: str, story_key: str | None = None):
+        key = story_key or f"story:{url}"
+        _write(
+            self.brief / f"{day}.json",
+            {
+                "date": day,
+                "updated_at": admitted_at,
+                "items": {
+                    key: {
+                        "story_key": key,
+                        "url": url,
+                        "source": "openai_blog",
+                        "source_role": "first_party",
+                        "type": "news",
+                        "title": "Kimi",
+                        "admitted_at": admitted_at,
+                        "first_seen": admitted_at,
+                        "last_seen": admitted_at,
+                    }
+                },
+            },
+        )
+
+    def test_story_is_not_readmitted_once_its_24h_window_ends(self):
+        # The production pattern that produced a repeat card every day: the
+        # first build after midnight is a minute later than the day before,
+        # so a plain "within 24h" check lets the story back in.
+        self._prior_ledger("2026-10-26", "https://a.com/kimi", "2026-10-26T00:07:00+00:00")
+        self.write_pool(
+            [
+                _row(
+                    "https://a.com/kimi",
+                    source="openai_blog",
+                    role="first_party",
+                    title="Kimi",
+                    first_seen=f"{DAY}T00:09:00+00:00",
+                )
+            ]
+        )
+        diag = self.run_record(run_at=f"{DAY}T00:09:00+00:00")
+        self.assertEqual(diag["prior_story"], 1)
+        self.assertEqual(diag["items"], 0)
+
+    def test_story_the_pool_has_carried_for_days_is_stale_not_new(self):
+        # No ledger remembers it (retention is three days), but the pool does:
+        # a row's first_seen_run restarts each UTC day, so the bound reads the
+        # earliest sighting across the retained pool files.
+        config = json.loads(self.config.read_text(encoding="utf-8"))
+        config["admission"] = {"max_hours_since_first_sighting": 48, "history_days": 14}
+        _write(self.config, config)
+        old = _row(
+            "https://a.com/week-old",
+            source="openai_blog",
+            role="first_party",
+            title="Week old",
+            first_seen="2026-10-21T09:00:00+00:00",
+            published="2026-10-21T08:00:00+00:00",
+        )
+        self.write_pool([old], day="2026-10-21")
+        self.write_pool(
+            [
+                {**old, "first_seen_run": f"{DAY}T00:09:00+00:00"},
+                # Held back by a flood guard yesterday: still inside the bound.
+                _row(
+                    "https://a.com/yesterday",
+                    source="langchain_blog",
+                    role="first_party",
+                    title="Yesterday",
+                    first_seen=f"{DAY}T00:09:00+00:00",
+                ),
+            ]
+        )
+        self.write_pool(
+            [
+                _row(
+                    "https://a.com/yesterday",
+                    source="langchain_blog",
+                    role="first_party",
+                    title="Yesterday",
+                    first_seen="2026-10-26T10:00:00+00:00",
+                )
+            ],
+            day="2026-10-26",
+        )
+        diag = self.run_record(run_at=f"{DAY}T00:09:00+00:00")
+        self.assertEqual(diag["stale_story"], 1)
+        ledger = json.loads((self.brief / f"{DAY}.json").read_text(encoding="utf-8"))
+        self.assertEqual([item["title"] for item in ledger["items"].values()], ["Yesterday"])
+
+    def test_retitled_article_is_bounded_by_its_url_sighting(self):
+        config = json.loads(self.config.read_text(encoding="utf-8"))
+        config["admission"] = {"max_hours_since_first_sighting": 48, "history_days": 14}
+        _write(self.config, config)
+        self.write_pool(
+            [
+                _row(
+                    "https://a.com/plugin",
+                    source="openai_blog",
+                    role="first_party",
+                    title="Old title",
+                    story_key="story|title:old title",
+                    first_seen="2026-10-21T09:00:00+00:00",
+                )
+            ],
+            day="2026-10-21",
+        )
+        self.write_pool(
+            [
+                _row(
+                    "https://a.com/plugin",
+                    source="openai_blog",
+                    role="first_party",
+                    title="New title",
+                    story_key="story|title:new title",
+                    first_seen=f"{DAY}T00:09:00+00:00",
+                )
+            ]
+        )
+        diag = self.run_record(run_at=f"{DAY}T00:09:00+00:00")
+        self.assertEqual(diag["stale_story"], 1)
+        self.assertEqual(diag["items"], 0)
+
+    def test_admitted_article_gets_no_second_card_under_a_new_story_key(self):
+        # A cluster's story_key changes when a later outlet joins it.
+        self._prior_ledger(
+            "2026-10-26",
+            "https://a.com/launch",
+            "2026-10-26T21:00:00+00:00",
+            story_key="model:x|title:launch on aws",
+        )
+        self.write_pool(
+            [
+                _row(
+                    "https://a.com/launch",
+                    source="openai_blog",
+                    role="first_party",
+                    title="Launch",
+                    story_key="model:x|title:launch announcement",
+                    first_seen=f"{DAY}T00:09:00+00:00",
+                )
+            ]
+        )
+        diag = self.run_record(run_at=f"{DAY}T00:09:00+00:00")
+        self.assertEqual(diag["duplicate_url"], 1)
+        self.assertEqual(diag["items"], 0)
+
+    def test_unjudged_thin_row_is_admitted_only_with_an_edition_seat(self):
+        config = json.loads(self.config.read_text(encoding="utf-8"))
+        config["unjudged"]["admit_edition_picks"] = True
+        _write(self.config, config)
+
+        def thin(url, title, **extra):
+            return _row(
+                url,
+                source="openai_blog",
+                role="first_party",
+                title=title,
+                score=None,
+                verdict="unjudged",
+                evidence=150,
+                **extra,
+            )
+
+        self.write_pool(
+            [
+                thin("https://a.com/launch", "Edition pick", edition_runs=3),
+                thin("https://a.com/skipped", "Never in an edition"),
+            ]
+        )
+        diag = self.run_record()
+        self.assertEqual(diag["rejected_gate"], {"insufficient_evidence": 1})
+        self.assertEqual([item["title"] for item in self.ledger()["items"].values()], ["Edition pick"])
+
+    def test_edition_seat_does_not_admit_a_thin_row_when_the_switch_is_off(self):
+        self.write_pool(
+            [
+                _row(
+                    "https://a.com/launch",
+                    source="openai_blog",
+                    role="first_party",
+                    title="Edition pick",
+                    score=None,
+                    verdict="unjudged",
+                    evidence=150,
+                    edition_runs=3,
+                )
+            ]
+        )
+        diag = self.run_record()
+        self.assertEqual(diag["rejected_gate"], {"insufficient_evidence": 1})
+
+    def test_edition_seat_never_overrides_a_judge_verdict(self):
+        config = json.loads(self.config.read_text(encoding="utf-8"))
+        config["unjudged"]["admit_edition_picks"] = True
+        _write(self.config, config)
+        self.write_pool(
+            [
+                _row(
+                    "https://a.com/dropped",
+                    source="openai_blog",
+                    role="first_party",
+                    title="Judged drop",
+                    score=0.05,
+                    verdict="drop",
+                    evidence=150,
+                    edition_runs=3,
+                )
+            ]
+        )
+        diag = self.run_record()
+        self.assertEqual(diag["rejected_gate"], {"judge_drop": 1})
+
+    def test_production_config_admits_a_story_once(self):
+        admission = bl.load_config().get("admission") or {}
+        wait = float(admission.get("max_hours_since_first_sighting", 0) or 0)
+        self.assertGreater(wait, 0)
+        # The prior_story guard reads `retention_days` of ledgers; a story
+        # admitted at the edge of the bound must still be inside them.
+        retention = int(bl.load_config().get("retention_days", 3) or 3)
+        self.assertLessEqual(wait, retention * 24 - 24)
+
 
 if __name__ == "__main__":
     unittest.main()

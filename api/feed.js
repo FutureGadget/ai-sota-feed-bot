@@ -485,6 +485,53 @@ function balanceTopBand(items, primaryCount, topN = BRIEF_TOP_BAND, maxPerSource
   return out.concat(tail, overflow);
 }
 
+function isResearchItem(it) {
+  const slot = String(it?.slot || it?.v2_slot || '').trim().toLowerCase();
+  const cat = String(it?.llm_category || '').trim().toLowerCase();
+  const type = String(it?.type || '').trim().toLowerCase();
+  return slot === 'research_watch' || cat === 'research' || type === 'paper';
+}
+
+function isVideoItem(it) {
+  return String(it?.type || it?.content_kind || '').trim().toLowerCase() === 'video';
+}
+
+// The ranker caps research in an edition's top ten and keeps a paper or a
+// long video out of the lead (pipeline/ranking.py enforce_top_band_constraints).
+// The ledger-served Brief is ordered by admission utility, where an on-topic
+// arXiv paper scores as high as anything, so the same rules are applied here.
+// Each top-band seat goes to the best remaining story the rules allow; a story
+// passed over keeps its place in line for the next seat, so nothing is dropped
+// and the rest of the order is untouched. Only the cap-compliant prefix moves.
+function applyTopBandRules(items, primaryCount, rules) {
+  const list = Array.isArray(items) ? items : [];
+  if (!rules || rules.enabled === false) return list;
+  const remaining = list.slice(0, Math.max(0, primaryCount));
+  const overflow = list.slice(Math.max(0, primaryCount));
+  const topN = Math.max(1, Number(rules.top_n) || 10);
+  const maxResearch = Number.isFinite(Number(rules.max_research)) ? Number(rules.max_research) : Infinity;
+  const badLead = (it) =>
+    (rules.lead_excludes_research && isResearchItem(it)) || (rules.lead_excludes_video && isVideoItem(it));
+
+  const band = [];
+  let research = 0;
+  while (band.length < topN && remaining.length) {
+    let idx;
+    if (band.length === 0) {
+      // The lead comes from the top band itself: a day of nothing but papers
+      // keeps its paper lead.
+      idx = remaining.slice(0, topN).findIndex((it) => !badLead(it));
+    } else {
+      idx = remaining.findIndex((it) => !isResearchItem(it) || research < maxResearch);
+    }
+    if (idx === -1) idx = 0;
+    const [picked] = remaining.splice(idx, 1);
+    if (isResearchItem(picked)) research += 1;
+    band.push(picked);
+  }
+  return band.concat(remaining, overflow);
+}
+
 function summarizeLabels(items, max = 30) {
   const counts = new Map();
   for (const it of items) {
@@ -853,8 +900,12 @@ function assembleServedPool(items, { from, to, windowMode, selectedLabels, edito
   const filtered = applyLabelFilter(mergedWithLabels, selectedLabels);
   const totalItems = filtered.length;
   const firstOverflow = filtered.findIndex((it) => it.beyond_cap);
+  const primaryCount = firstOverflow === -1 ? filtered.length : firstOverflow;
   const ordered = selectedLabels.includes('brief')
-    ? balanceTopBand(filtered, firstOverflow === -1 ? filtered.length : firstOverflow)
+    ? balanceTopBand(
+        applyTopBandRules(filtered, primaryCount, editorial?.brief_top_band),
+        primaryCount
+      )
     : filtered;
   return {
     items: ordered.slice(0, limit),

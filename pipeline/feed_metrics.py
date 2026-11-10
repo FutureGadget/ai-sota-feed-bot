@@ -271,6 +271,8 @@ def day_summary(
         "rejected_gate": diagnostics.get("rejected_gate") or {},
         "rejected_quota": diagnostics.get("rejected_quota") or {},
         "prior_story": int(diagnostics.get("prior_story") or 0),
+        "stale_story": int(diagnostics.get("stale_story") or 0),
+        "duplicate_url": int(diagnostics.get("duplicate_url") or 0),
         "role_counts": dict(sorted(roles.items(), key=lambda kv: (-kv[1], kv[0]))),
         "top_sources": dict(sources.most_common(8)),
         "published_lag_median_hours": round(statistics.median(lags), 2) if lags else None,
@@ -362,6 +364,15 @@ def scorecard(
         summaries.append(day_summary(file["date"], file, load_pool_day(file["date"], pool_dir), served_ids=served_ids))
     run_times = load_run_times(processed_dir=processed_dir, days=days, end=end)
     stability_block = stability(entries, run_times)
+    # A story is admitted once. One that holds a card in more than one retained
+    # ledger was re-admitted, which is the repeat the reader sees.
+    days_per_story: dict[str, set[str]] = {}
+    for file in files:
+        for item in file.get("items") or []:
+            key = story_key(item)
+            if key:
+                days_per_story.setdefault(key, set()).add(str(file.get("date") or ""))
+    repeat_stories = sum(1 for seen_days in days_per_story.values() if len(seen_days) > 1)
     total_keeps = sum(row["keeps_total"] for row in summaries)
     total_keeps_admitted = sum(row["keeps_served"] for row in summaries)
     return {
@@ -373,6 +384,8 @@ def scorecard(
         "keeps_total": total_keeps,
         "keeps_admitted": total_keeps_admitted,
         "keeps_admission_rate": round(total_keeps_admitted / total_keeps, 4) if total_keeps else None,
+        "stories": len(days_per_story),
+        "repeat_stories": repeat_stories,
         "day_summaries": summaries,
         "stability": stability_block,
     }
