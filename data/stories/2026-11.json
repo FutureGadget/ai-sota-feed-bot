@@ -1519,6 +1519,23 @@
   "url": "https://ctxd.dev/blog/why-ctxd",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "23c0753cd928bfa7": {
+  "first_seen": "2026-11-10T05:05:42.399122+00:00",
+  "id": "6e391f1b0b02d407",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-09T07:24:54+00:00",
+  "sid": "23c0753cd928bfa7",
+  "source": "arxiv_cs_cl",
+  "summary": "In this work, we study whether frontier agent can continually improve real-world AI infrastructure over long horizons. We introduce Infrathon, a benchmark of diverse, long-horizon AI infrastructure optimization tasks across different levels. We evaluate six models across 150 runs with 24-hour budgets, totaling over 10,000 GPU-hours. Our results show that model rankings vary with the evaluation horizon, while 135 of the 150 runs achieve further improvements during the second half of their budgets. These findings indicate that shorter evaluations can overlook both optimization gains and changes in relative model performance. We also find agents can discover solutions that outperform human-designed baselines: Claude Opus 5.5 increases the mean KV-cache compression ratio from 6.82% with the human-designed Quant-VideoGen codec to 19.86%. Analysis of agent trajectories identifies task violations, unreliable testing, and premature completion as barriers to sustained improvement. Together, Our Infrathon framework provide resources for constructing long-horizon tasks, evaluating frontier agents, and discovering good infrastructure solutions.",
+  "summary_1line": "In this work, we study whether frontier agent can continually improve real-world AI infrastructure over long horizons. We introduce Infrathon, a benchmark of diverse, long-horizon AI infrastructure optimization tasks...",
+  "title": "Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.11995v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "23e6634a6b072bbd": {
   "first_seen": "2026-11-03T17:06:51.488000+00:00",
   "id": "6b6c3eb649f105f0",
@@ -2699,6 +2716,23 @@
   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPZlhRZXhnYlJmX1RiOUdNamRqUXJUU2NycHNuZWtGeEVUejJxNVdEQkQzUU1HMkxHR1dXeDhBVDlPRmVyUHFoMU96VkdBYzlRUFRSWkFFTGVBWWFjNXRRaUlld2d2alpFdVd0VXFlR2tMeXNJUWdDc3c1cG5SR3BPRVd0OVRFLXBvMWhJZ0hzRG1qU2VQazBDQjNQNHl2cXRJZFZV?oc=5",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "41573f419013b0c4": {
+  "first_seen": "2026-11-10T05:05:42.399122+00:00",
+  "id": "003c07ac49de37bd",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-08T19:52:13+00:00",
+  "sid": "41573f419013b0c4",
+  "source": "arxiv_agent_systems_research",
+  "summary": "A tool-using language model must decide whether to retry a failed call, correct it, or stop and tell the user. The error text alone may not be enough: the same feedback can lead to different actions depending on where it appears in the conversation. We isolate this delivery problem by varying placement, guidance, retained history and turn structure. Two studies with plans fixed before data collection, across 13 open models from 3B to 70B parameters, compare the next action and subsequent task completion, with exact deterministic reruns. A new user turn that retains the failed exchange avoids the severe stopping failure observed in Llama models when that exchange is removed. It is non-inferior to history rewriting in pooled synthetic comparisons, but is not best for every model. We implement this form as an opt-in recovery layer within a deterministic inference engine and evaluate it on public benchmarks and a coding agent. On ToolMaze, it raises success on explicit errors by 14.2 points with 7-8B models and 10.5 points with 32-70B models; Loud/Quiet, 24 multi-turn tasks with visible failures and silent corruption, scored by final-state agreement, shows no measurable gain. A client given the exact fault kind performs better still. The findings support delivery as a distinct factor in recovery, not an engine-exclusive solution or a universal retry policy.",
+  "summary_1line": "A tool-using language model must decide whether to retry a failed call, correct it, or stop and tell the user. The error text alone may not be enough: the same feedback can lead to different actions depending on where...",
+  "title": "Same Error, Different Recovery: How Delivery Changes LLM Agent Behavior",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.11581v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "415ef1f826d6012e": {
   "content_excerpt": "Toki Recur - recycled-prefill LLM toolkit: benchmarks prefill-reuse gains (TTFT, prefill tps, token savings), in-memory KV routing, model registry with per-stack llama-server+daemon. Cross-platform: ROCm/CUDA/Vulkan/Metal/CPU. KV cache reuse for local LLM inference. Exact prefix matching in front of llama-server , across CUDA, ROCm, SYCL, OpenVINO, Vulkan, Metal and CPU. When a new prompt arrives at an LLM server, the KV cache is rebuilt from scratch — even if 90% of it is identical to a prompt processed moments earlier. Toki Recur embeds the prompt, finds the closest cached prefix, verifies it token-for-token, and routes the request to the slot that already holds that state. An exact prefix match skips prefill; anything else takes the normal path. Reuse is in memory and lossless: outputs are byte-identical to a no-cache run. Disk persistence was tried and removed — restoring disk KV corrupted precision (88% substantive divergence from baseline in the benchmark), and the ?action=save / ?action=restore layer is dormant in the codebase. Nine workloads across four models (Qwen3.5-9B, Qwen3.6-35B-A3B, Qwen3.6-27B, Qwen3.5-122B-A10B): TTFT improves 62–96% and prefill throughput 410–1280% , with the biggest gains on the largest MoE models. Full table on tokirecur.com . A prefix cache is only as good as the prefix it can match. Measured with one supported model, one slot, and a long system prompt: Setup: Qwen3.5-2B Q4_K_M · llama-server b1099 (ROCm) · AMD Ryzen AI MAX+ 395 / Radeon ",
   "first_seen": "2026-11-07T21:05:29.599495+00:00",
@@ -3661,6 +3695,23 @@
   "type": "news",
   "url": "https://www.hume.ai/products/decision-model-api"
  },
+ "54f1f65b7c731a1b": {
+  "first_seen": "2026-11-10T05:05:42.399122+00:00",
+  "id": "ee5d5827e5be44be",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-08T19:33:25+00:00",
+  "sid": "54f1f65b7c731a1b",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Tool-using LLM agents act on instructions embedded in the data they read, so prompt injection is a structural rather than a prompt-wording problem. We compare in-prompt defences (hardened prompts, spotlighting, LLM detectors) with deterministic enforcement outside the model (four reference monitors of increasing strength), human approval and taint tracking, judged by one effect-based oracle independent of every defence in an executable environment of 13 tasks and 12 tools, with argument-fuzzing attackers and severity-weighted harm. In an evaluation with real open-weights models (Qwen2.5-1.5B and Qwen2.5-7B; 156 attack episodes per defence and model), the models proposed the attacker's call in 64% and 84% of attack episodes behind the task-bound monitor, which admitted 1.3% and 7.7%; guardrail effects depended on the model (a prompt guardrail moved obedience from 67% to 65% and from 86% to 55%, spotlighting plus a detector to 12% and 0%) against static attacks. Simulation with an assumed model covers what no real run did: under the assumed erosion law a persistent adaptive attacker or a compromised model drives every guardrail stack to 100.0% attack success, whereas the task-bound monitor holds severe actions at 0.0%; its residual (harm 0.69/10) falls by 62% under taint-triggered human review, and a human layer without a deterministic monitor fails against approval spamming unless each episode has a deterministic approval budget. Implementation quality matters: a naive monitor",
+  "summary_1line": "Tool-using LLM agents act on instructions embedded in the data they read, so prompt injection is a structural rather than a prompt-wording problem. We compare in-prompt defences (hardened prompts, spotlighting, LLM de...",
+  "title": "Treating the Model as an Untrusted Component: Deterministic Policy Enforcement, Human Approval and Taint Tracking Against Prompt Injection in Tool-Using Agents, with Validation on Open-Weights Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.11571v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "554e91182f04f9cb": {
   "first_seen": "2026-11-06T05:10:08.075320+00:00",
   "id": "bb40e6950d4f0a7d",
@@ -3924,6 +3975,23 @@
   "type": "news",
   "url": "https://psicode.ai",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "5bccb136daf1d5e9": {
+  "first_seen": "2026-11-10T05:05:42.399122+00:00",
+  "id": "aed378084be038be",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-08T12:49:31+00:00",
+  "sid": "5bccb136daf1d5e9",
+  "source": "arxiv_cs_ai",
+  "summary": "Standard Operating Procedures (SOPs) are kept concise for human readability, so LLM agents that generate executable skills from them lack the tacit knowledge and implementation details needed for automation. Human intervention fills these gaps, but must be repeated as SOPs evolve---a problem we call \\textit{SOP-skill drift}. We propose managing SOPs and Contextual Knowledge (CK) separately, together with a \\textit{contract-aware} evaluation that distinguishes genuine violations from CK-resolved differences. On eight Indeed-derived workflows (single LLM), it raises the functional-equivalence rate from 12\\% to 58\\%. Under three SOP-revision perturbations, previously extracted CK already covers 79.5\\% of newly introduced automation gaps.",
+  "summary_1line": "Standard Operating Procedures (SOPs) are kept concise for human readability, so LLM agents that generate executable skills from them lack the tacit knowledge and implementation details needed for automation. Human int...",
+  "title": "Separation of Skilling Context for Standard Operating Procedure-based Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.11348v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "5caff7cc1c137a99": {
   "first_seen": "2026-11-03T10:05:34.032473+00:00",
@@ -6981,6 +7049,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06612v1"
  },
+ "adc7ff27af4b9288": {
+  "first_seen": "2026-11-10T05:05:42.399122+00:00",
+  "id": "50bcdf38a6f5c3fa",
+  "published": "2026-11-09T02:03:03+00:00",
+  "sid": "adc7ff27af4b9288",
+  "source": "arxiv_cs_cl",
+  "summary": "LLM inference has two phases with different bottlenecks: LLM prefill runs once per request and is compute-intensive. Decoding repeats for every output token and is limited by memory bandwidth. To address the challenges associated with this issue, different solutions have been proposed. All of these solutions use the same model for both prefill and decode phases. We propose BridgeKV, which uses a larger model for prefill and a smaller model of the same family for decoding. A lightweight KV-stitching module translates the larger model's prompt cache into the smaller model's cache layout. It handles differences in cache shape and representation through learned local layer mixing and separate nonlinear maps for keys and values. With both models frozen, we train the module to align their caches and make the smaller model follow the larger model's next-token predictions. A second training stage adds low-rank adapters when further task adaptation is needed. Across six model pairs and five datasets, BridgeKV outperforms fine-tuned small-model baselines with matched trainable parameter budgets in all 30 settings. It closes up to 80% of the quality gap to using the larger model for both phases. On one A40 GPU, Llama-3.1-Instruct-8B to Llama-3.2-Instruct-1B achieves 3.0X faster requests than the larger model alone, with latency close to the smaller model alone. BridgeKV can improve the hardware and system solutions that separate prefill and decode phases across GPUs. A separate serving ",
+  "summary_1line": "LLM inference has two phases with different bottlenecks: LLM prefill runs once per request and is compute-intensive. Decoding repeats for every output token and is limited by memory bandwidth. To address the challenge...",
+  "title": "BridgeKV: Large-Model Prefill and Small-Model Decoding for LLM Inference via KV Cache Translation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.11761v1"
+ },
  "ae379e776ec13d7b": {
   "content_excerpt": "Local-first, inspectable memory for coding agents: durable context across sessions and repositories, code-aware recall, bi-temporal history, MCP, and a self-hosted WebUI. Persistent, local-first memory for AI agents. Engraphis stores scoped project knowledge, retrieves relevant evidence across vector, lexical, graph, and code search, and returns bounded context with sources an agent can inspect. The local engine uses SQLite and works offline. It keeps changes over time instead of silently replacing facts, and grounded recall cites retrieved memories or abstains when evidence is weak. The full local application requires Python 3.10 or newer. The NumPy-only core supports Python 3.9+. The dashboard opens at http://127.0.0.1:8700 . Local use needs no cloud account or API key. The current registered artifact contains three deterministic offline fixture runs. It separates context size, retrieval quality, and grounded decision checks; these small fixtures do not establish general task performance. Three offline fixtures separate context reduction, candidate and packed retrieval quality, and grounded behavior. The chart shows the artifact checksum prefix; see the benchmark guide for the full checksum and reproduction steps. The payload figure is a serialized JSON-shape estimate, not an MCP transport measurement or provider billing total. See the Benchmark methodology for artifact identity, counting methods, reproduction commands, external-evaluation boundaries, and limitations. Jev i",
   "first_seen": "2026-11-04T05:04:25.379660+00:00",
@@ -8235,6 +8315,22 @@
   "title": "VindexLLM – Windows Vulkan GPU GGUF LLM inference engine written in Delphi 12",
   "type": "news",
   "url": "https://github.com/tinyBigGAMES/VindexLLM"
+ },
+ "cd47cd6f74442984": {
+  "content_excerpt": "FlashStates: Unlocking Flexible Hybrid State Management for Agentic LLM Inference Chenxi Li 1,* , Weili Xu 2,*,† , Tianyi Zhang 1 , Jue Wang 1 , Zhongzhu Zhou 1 , Chenfeng Xu 3 1 Together AI 2 University of Illinois Urbana-Champaign 3 University of Texas at Austin FlashStates decouples recurrent checkpoint positions from KV-cache block boundaries, achieving fine-grained state reuse without dense checkpoint storage. In a hybrid model, attention keeps KV for every token, but each recurrent layer keeps one state that it overwrites as it reads. Resuming at a position needs the KV and a checkpoint taken exactly there; we call the pair a hybrid state. Each agent turn re-sends its whole context. Ideally, the engine computes only the tokens added since the previous turn ended. Any earlier token it computes again is redundant prefill , caused by one of three misses. Below 40 sessions, placement and dependency misses cause most of the redundant prefill in vLLM and SGLang. Capacity misses grow only from about 40 sessions. SGLang checkpoints every 256 tokens, so it has few placement misses (b). At 32 sessions, however, it keeps 4.2× as many checkpoints per request as vLLM. They compete for a fixed-size state pool, which causes its dependency misses (c). FlashStates saves recurrent checkpoints exactly where turns resume, and keeps or evicts each checkpoint together with the KV it depends on. The next turn resumes where the previous request ended, usually inside a KV block. ASC saves the r",
+  "first_seen": "2026-11-10T05:05:42.399122+00:00",
+  "id": "678b43e3e6296efc",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-10T04:29:35+00:00",
+  "sid": "cd47cd6f74442984",
+  "source": "hackernews_ai",
+  "summary_1line": "FlashStates Unlocking Flexible Hybrid State Management for Agentic LLM Inference",
+  "title": "FlashStates Unlocking Flexible Hybrid State Management for Agentic LLM Inference",
+  "type": "news",
+  "url": "https://flashstates.ai",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "cd6ae98674e10ae7": {
   "first_seen": "2026-11-03T04:13:31.497634+00:00",
