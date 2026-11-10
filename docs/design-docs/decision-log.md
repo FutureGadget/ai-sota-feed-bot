@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-11-10 (Drop undated pattern-matched launch pages)
+
+- **Decision:** A sitemap page admitted only by `include_patterns` (not by an `include_prefixes` folder) is dropped when the page exposes no publication date. Today's Brief, story store, judged pool and raw file had the stale cards removed by hand.
+- **Context / Problem:** The earlier same-day change collected every top-level `anthropic.com/claude-*` page. `/claude-opus-5-5`, `/claude-sonnet-5-5` and `/claude-fable-and-mythos-5-1` carry no date, so the collector fell back to their discovery time and the Opus 5.5 (Sep) and Fable 5.1 (Sep 1) launches entered the 2026-11-10 Brief as fresh news.
+- **Rationale:** Those landing pages are evergreen and rewritten long after launch, so neither discovery time nor `<lastmod>` says when they were news. Fresh launch pages (Fable 5.2, Haiku 5.5) do carry a date. `/news/` posts keep the discovery-time fallback.
+- **Impact:** `collectors/collect.py`, `tests/test_collect_sitemap.py`; data cleanup in `data/brief/2026-11-10.json`, `data/stories/{2026-11,index}.json`, `data/quality/pool/2026-11-10.json`, `data/raw/2026-11-10/items.json`, `web/story/{0dd3bed5c7dd1c27,e7232d52f37fd859}.html`, `web/sitemap.xml`.
+- **Rollback:** Revert the collector commit; undated launch pages then reappear with discovery-time dates.
+
 ## 2026-11-10 (Collect Anthropic model launches outside /news/)
 
 - **Decision:** `anthropic_newsroom` also keeps top-level `https://www.anthropic.com/claude-<slug>` pages (new `include_patterns` sitemap option) and reads links from `https://www.anthropic.com/news` before the sitemap (new `index_pages` option). Index links go first so they survive the newest-60 cap; an index fetch failure is ignored.

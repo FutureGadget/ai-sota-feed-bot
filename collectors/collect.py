@@ -1125,6 +1125,13 @@ def _sitemap_url_filter(source: dict):
     return include
 
 
+def _matches_include_prefix(source: dict, loc: str) -> bool:
+    prefixes = [str(p) for p in source.get("include_prefixes", []) or []]
+    if not prefixes and not source.get("include_patterns"):
+        return True
+    return any(loc.startswith(p) for p in prefixes)
+
+
 _HREF_RE = re.compile(r"""href\s*=\s*["']([^"'#]+)["']""", re.I)
 
 
@@ -1293,6 +1300,17 @@ def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
                     # transient page failure cannot make this URL "new" again
                     # on every run. The missing lookup marker keeps retries on.
                     cache[loc] = {**cache_row, "discovered_at": discovered_at}
+
+        # Pages admitted only by `include_patterns` (Anthropic's top-level
+        # launch pages) must carry a real publication date. Those landing pages
+        # are rewritten long after launch and several expose no date, so a
+        # discovery-time fallback would republish old launches as today's news.
+        if (
+            extract_from_page
+            and not published
+            and not _matches_include_prefix(source, loc)
+        ):
+            continue
 
         # `<lastmod>` means the URL changed, not that it was first published.
         # Extract-enabled sources therefore fall back to their stable discovery

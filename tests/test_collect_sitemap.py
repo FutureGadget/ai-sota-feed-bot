@@ -258,6 +258,47 @@ class SitemapCollectionTest(unittest.TestCase):
 
         self.assertEqual([i["url"] for i in items], ["https://www.anthropic.com/news/s1-sec"])
 
+    def test_undated_pattern_page_is_dropped_but_dated_one_kept(self) -> None:
+        sitemap = """
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          <url><loc>https://www.anthropic.com/claude-opus-5-5</loc><lastmod>2026-11-09</lastmod></url>
+          <url><loc>https://www.anthropic.com/claude-fable-and-mythos-5-2</loc><lastmod>2026-11-09</lastmod></url>
+          <url><loc>https://www.anthropic.com/news/undated-post</loc><lastmod>2026-11-08</lastmod></url>
+        </urlset>
+        """
+        undated = "<html><head><title>Introducing Claude Opus 5.5</title></head></html>"
+        dated = (
+            '<html><head><meta property="og:title" content="Fable 5.2">'
+            '<meta property="article:published_time" content="2026-11-09"></head></html>'
+        )
+        news = "<html><head><title>Undated news</title></head></html>"
+        source = self._launch_source(extract_published_from_page=True)
+        now = datetime(2026, 11, 10, tzinfo=timezone.utc)
+        pages = {
+            "https://www.anthropic.com/claude-opus-5-5": undated,
+            "https://www.anthropic.com/claude-fable-and-mythos-5-2": dated,
+            "https://www.anthropic.com/news/undated-post": news,
+        }
+
+        def fake_urlopen(req, timeout=30):
+            url = req.full_url
+            return FakeResponse(sitemap if url.endswith("sitemap.xml") else pages[url])
+
+        with (
+            patch.object(collect.urllib.request, "urlopen", side_effect=fake_urlopen),
+            patch.object(collect, "_load_sitemap_meta_cache", return_value={}),
+            patch.object(collect, "_save_sitemap_meta_cache"),
+        ):
+            items = collect.collect_from_sitemap(source, now)
+
+        self.assertEqual(
+            sorted(i["url"] for i in items),
+            [
+                "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+                "https://www.anthropic.com/news/undated-post",
+            ],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
