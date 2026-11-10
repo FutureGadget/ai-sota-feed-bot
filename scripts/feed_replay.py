@@ -52,6 +52,8 @@ def _day_lines(scorecard: dict) -> list[str]:
             f"gate={gate} "
             f"quota={quota} "
             f"prior_story={row['prior_story']} "
+            f"stale_story={row.get('stale_story', 0)} "
+            f"duplicate_url={row.get('duplicate_url', 0)} "
             f"lag_median_h={row['published_lag_median_hours']}"
         )
     return lines
@@ -90,6 +92,11 @@ def _markdown(scorecard: dict) -> str:
         f"- Expired removals: {stability.get('expired_total')}",
         f"- Unexpected removals: {stability.get('unexpected_removals')}",
         "",
+        "## Repeats",
+        "",
+        f"- Stories admitted: {scorecard.get('stories')}",
+        f"- Stories holding a card on more than one day: {scorecard.get('repeat_stories')}",
+        "",
     ]
     return "\n".join(lines)
 
@@ -119,7 +126,8 @@ def main() -> None:
     print(
         "feed_replay "
         f"days={card['days']} ledgers={card['ledgers']} runs={card['runs']} "
-        f"admitted={card['admitted']} keeps={card['keeps_total']} "
+        f"admitted={card['admitted']} stories={card.get('stories')} "
+        f"repeat_stories={card.get('repeat_stories')} keeps={card['keeps_total']} "
         f"keeps_admitted={card['keeps_admitted']} keeps_rate={card['keeps_admission_rate']} "
         f"top10_jaccard_mean={stability.get('top10_jaccard_mean')} "
         f"top10_jaccard_min={stability.get('top10_jaccard_min')} "

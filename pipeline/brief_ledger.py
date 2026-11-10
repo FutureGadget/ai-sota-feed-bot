@@ -320,14 +320,60 @@ def gate_reason(row: dict[str, Any], config: dict[str, Any]) -> str | None:
 
     # Missing evidence is the judge-unavailable fail-open path. Present but
     # thin evidence is rejected; the feed should not empty when Jev is down.
+    # The exception is a row the deterministic ranker gave an edition seat:
+    # the judge leaves a thin item unjudged so that policy can decide, and for
+    # a source whose pages cannot be fetched (openai_blog) that seat is the
+    # only decision there will ever be.
     evidence = row.get("judge_evidence_chars")
     if evidence is not None:
         try:
             if int(evidence) < int(config.get("min_evidence_chars", 300) or 300):
+                unjudged_cfg = config.get("unjudged") or {}
+                if unjudged_cfg.get("admit_edition_picks") and int(row.get("edition_runs") or 0) > 0:
+                    return None
                 return "insufficient_evidence"
         except (TypeError, ValueError):
             pass
     return None
+
+
+def first_sightings(
+    day: str,
+    config: dict[str, Any],
+    *,
+    pool_dir: Path | None = None,
+) -> dict[str, str]:
+    """Earliest pool sighting per story and per article URL (``url:<url>``).
+
+    A pool row's ``first_seen_run`` restarts every UTC day, so on its own it
+    cannot tell a story that arrived this morning from one the pool has
+    carried for a week. The minimum over the retained days can.
+    """
+    cfg = config.get("admission") or {}
+    history = int(cfg.get("history_days", 14) or 0)
+    if history <= 0:
+        return {}
+    directory = pool_dir or POOL_DIR
+    try:
+        end = date.fromisoformat(day)
+    except ValueError:
+        return {}
+    seen: dict[str, str] = {}
+    for offset in range(history, -1, -1):
+        payload = _read(directory / f"{(end - timedelta(days=offset)).isoformat()}.json", {})
+        for row in (payload.get("items") or {}).values():
+            if not isinstance(row, dict):
+                continue
+            stamp = str(row.get("first_seen_run") or "")
+            if not stamp:
+                continue
+            # Keyed by story and by article: a retitled page gets a new
+            # story_key, and it is still the article the pool saw last week.
+            url = normalize_url(row.get("url"))
+            for key in (story_id(row), f"url:{url}" if url else ""):
+                if key and (key not in seen or stamp < seen[key]):
+                    seen[key] = stamp
+    return seen
 
 
 def _source_role(row: dict[str, Any], editorial_cfg: dict[str, Any]) -> str:
@@ -527,6 +573,7 @@ def _admit(
     prior_stories: dict[str, str] | None = None,
     prior_items: list[dict[str, Any]] | None = None,
     admission_time_mode: str = "run",
+    sightings: dict[str, str] | None = None,
 ) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
     priors = deck_select.score_priors(list(rows.values()), config)
     diag: dict[str, Any] = {
@@ -540,6 +587,8 @@ def _admit(
         "rejected_gate": Counter(),
         "rejected_quota": Counter(),
         "prior_story": 0,
+        "stale_story": 0,
+        "duplicate_url": 0,
     }
     # One card per story. The pool is keyed by URL, so two outlets reporting
     # the same event can still be two rows with one story_key; keep the best
@@ -595,13 +644,29 @@ def _admit(
     prior_stories = prior_stories or {}
     run_time = parse_ts(run_at)
     use_first_seen = str(admission_time_mode) == "first_seen"
+    sightings = sightings or {}
+    # A cluster's story_key can change when a later outlet joins it, which
+    # would hand an already-admitted article a second card under the new key.
+    carded_urls = {
+        normalize_url(item.get("url"))
+        for item in list(existing.values()) + list(prior_items or [])
+        if isinstance(item, dict)
+    }
+    carded_urls.discard("")
+    admission_cfg = config.get("admission") or {}
+    max_wait = float(admission_cfg.get("max_hours_since_first_sighting", 0) or 0)
     for utility, first_seen, key, row, parts, fresh in scored:
         sid = story_id(row)
         if sid in existing:
             continue
-        prior_at = parse_ts(prior_stories.get(sid))
-        if prior_at is not None and abs(first_seen - prior_at) < timedelta(hours=24):
+        # One card per story: a story already in a retained ledger is not
+        # admitted again. Comparing against a 24-hour age let it back in on
+        # the first build after its window ended, every day.
+        if sid in prior_stories:
             diag["prior_story"] += 1
+            continue
+        if normalize_url(row.get("url")) in carded_urls:
+            diag["duplicate_url"] += 1
             continue
         role = _source_role(row, editorial_cfg)
         row_for_quota = {**row, "source_role": role}
@@ -609,6 +674,19 @@ def _admit(
         # moment it entered the ledger, not from its first pool sighting. The
         # backfill intentionally uses first_seen to reconstruct a past day.
         admitted_time = first_seen if use_first_seen or run_time is None else run_time
+        # A story is news once. The pool keeps a row for as long as its slot's
+        # freshness window allows (up to ten days), longer than the ledgers
+        # the prior_story guard can read, so the bound is on the pool's own
+        # first sighting of the story or of its article.
+        origins = [
+            stamp
+            for stamp in (sightings.get(sid), sightings.get(f"url:{normalize_url(row.get('url'))}"))
+            if stamp
+        ]
+        origin = parse_ts(min(origins)) if origins else None
+        if max_wait > 0 and origin is not None and admitted_time - origin >= timedelta(hours=max_wait):
+            diag["stale_story"] += 1
+            continue
         reason = _quota_reason(
             row_for_quota,
             admitted_time,
@@ -633,6 +711,7 @@ def _admit(
         if not item.get("story_key"):
             continue
         new_items[sid] = item
+        carded_urls.add(normalize_url(item.get("url")))
 
     diag["rejected_gate"] = dict(diag["rejected_gate"])
     diag["rejected_quota"] = dict(diag["rejected_quota"])
@@ -699,15 +778,17 @@ def record_run(
         prior_stories: dict[str, str] = {}
         prior_items: list[dict[str, Any]] = []
         day_date = date.fromisoformat(day)
-        for offset in (1, 2):
+        lookback = max(2, int(config.get("retention_days", 3) or 3))
+        for offset in range(1, lookback + 1):
             prior_day = (day_date - timedelta(days=offset)).isoformat()
             prior_payload = _read(directory / f"{prior_day}.json", {})
             for pid, pitem in (prior_payload.get("items") or {}).items():
                 if not isinstance(pitem, dict):
                     continue
                 prior_items.append(pitem)
-                if pitem.get("admitted_at"):
-                    prior_stories[pid] = str(pitem["admitted_at"])
+                admitted = str(pitem.get("admitted_at") or "")
+                if admitted and admitted > prior_stories.get(pid, ""):
+                    prior_stories[pid] = admitted
         updated = 0
         pool_by_story: dict[str, list[dict[str, Any]]] = {}
         for row in pool_rows.values():
@@ -730,6 +811,7 @@ def record_run(
             prior_stories=prior_stories,
             prior_items=prior_items,
             admission_time_mode=admission_time_mode,
+            sightings=first_sightings(day, config, pool_dir=pool_dir),
         )
         items = {**existing, **new_items}
         previous_diag = existing_payload.get("diagnostics") or {}

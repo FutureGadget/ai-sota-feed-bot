@@ -927,6 +927,7 @@ def write_editorial_artifact(diag: dict[str, Any] | None = None, cfg: dict[str, 
         "story_clusters": {
             "enabled": bool((cfg.get("story_clusters", {}) or {}).get("enabled", True)),
         },
+        "brief_top_band": cfg.get("brief_top_band", {}) or {},
         "diagnostics": diag or {},
     }
     EDITORIAL_ARTIFACT.parent.mkdir(parents=True, exist_ok=True)

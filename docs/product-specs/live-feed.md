@@ -75,8 +75,10 @@ one card per story when it first passes:
   (the judge drops release notes by design). Off-topic is rejected. When the
   judge is unavailable and no evidence field exists, the item fails open
   (the feed must not empty when Jev is down); present-but-thin evidence is
-  still rejected.
-- **Flood guards:** at most 3 admissions per source in any six-hour window,
+  still rejected, unless the deterministic ranker gave the story an edition
+  seat (`unjudged.admit_edition_picks`). That exception is how `openai_blog`
+  reaches the Brief: the judge cannot fetch its pages.
+- **Flood guards:** at most 5 admissions per source in any six-hour window,
   per-role daily caps (research 28, first-party 28, practitioner 18, community
   16, release 12, search 4, aggregator 4), and 120 admissions per UTC day.
 
@@ -84,9 +86,14 @@ Admission uses the deck selector's utility (judge score, platform relevance,
 coverage, source tune, in-edition) plus freshness evaluated at admission and a
 major-release must-cover bonus. Once admitted, a story keeps its card and
 position for the window; later builds update coverage and `last_seen`, never
-remove it. A story is not re-admitted within 24 hours of its previous
-admission. The feed API keeps the latest admission when a story spans two
-ledger files, then applies the display caps and front-page balance.
+remove it. A story gets one card: it is not admitted again while a retained
+ledger holds it or its article URL, and it cannot be admitted more than 48
+hours after the judged pool first saw it
+(`admission.max_hours_since_first_sighting`). The 48 hours let a story a flood
+guard held back still reach a quiet day's Brief. The feed API keeps the latest admission when a story spans two
+ledger files, then applies the display caps, the top-band rules
+(`brief_top_band` in `config/editorial.yaml`: at most three papers in the top
+ten, no paper or long video in the lead) and the front-page source balance.
 
 The run snapshots remain the source for calendar ranges (`Last 3d/7d/30d`,
 explicit dates) and for the fallback when no ledger exists yet. The

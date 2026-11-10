@@ -196,18 +196,31 @@ for the rolling 24h Brief; the edition is now a view, not the serving pool.
 
 - **Gate:** a judge score at or above 0.35 (keep band), unjudged with >= 300
   chars of evidence; releases by tier; off-topic rejected. The review band is
-  below the keep threshold, so it is not admitted.
+  below the keep threshold, so it is not admitted. An unjudged row with thin
+  evidence is admitted only when it won an edition seat
+  (`unjudged.admit_edition_picks`); a judged drop never is.
 - **Utility:** `config/brief.yaml` weights (judge, platform relevance, source
   coverage, reader tuning, in-edition) plus freshness at admission and a
   major-release must-cover bonus. The math reuses `deck_select.utility`.
-- **Flood guards:** 3 admissions per source in any six-hour window, per-role
+- **Flood guards:** 5 admissions per source in any six-hour window, per-role
   daily caps, and 120 per UTC day. These are admission limits, not display
   limits.
 - **Append-only:** a later build adds stories and updates coverage, but never
-  removes or re-ranks an admitted story. A story is not re-admitted within
-  24h of its previous admission.
+  removes or re-ranks an admitted story.
+- **Once:** a story gets one card. A story or article URL already in a
+  retained ledger is skipped (`prior_story`, `duplicate_url`), and a story the
+  pool first saw more than `admission.max_hours_since_first_sighting` (48h)
+  ago is skipped (`stale_story`). The first sighting is the minimum
+  `first_seen_run` over the retained pool days, because a pool row's own
+  `first_seen_run` restarts every UTC day.
 - **Serving:** the default `window=arrival` `/api/feed` path reads the ledger
-  and applies the same display caps and top-band balance as the run path.
+  and applies the same display caps and top-band balance as the run path,
+  plus the ranker's top-band rules: `config/editorial.yaml` `brief_top_band`
+  (exported in `editorial.json`) caps research at three of the top ten and
+  keeps a paper or a long video out of the lead. The ranker enforces these on
+  each edition, but the ledger is ordered by admission utility, so
+  `api/feed.js` applies them again. They reorder the cap-compliant top and
+  never drop a card.
   `Last 3d/7d/30d`, explicit dates, and the missing-ledger fallback read the
   accumulated run pool.
 - **Decks:** `deck_candidates.py` joins the ledger as `in_brief`; the pool
