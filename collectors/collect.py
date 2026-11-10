@@ -1104,6 +1104,50 @@ def _fetch_page_meta(url: str) -> dict:
     }
 
 
+def _sitemap_url_filter(source: dict):
+    """Build the URL include test for a sitemap source.
+
+    ``include_prefixes`` keeps plain prefix matching; ``include_patterns``
+    adds regexes for content outside a common folder (e.g. Anthropic model
+    launches at top-level ``/claude-opus-5-5`` rather than ``/news/...``).
+    With neither configured every URL is kept.
+    """
+    prefixes = [str(p) for p in source.get("include_prefixes", []) or []]
+    patterns = [re.compile(str(p)) for p in source.get("include_patterns", []) or []]
+    if not prefixes and not patterns:
+        return lambda loc: True
+
+    def include(loc: str) -> bool:
+        return any(loc.startswith(p) for p in prefixes) or any(
+            rx.search(loc) for rx in patterns
+        )
+
+    return include
+
+
+_HREF_RE = re.compile(r"""href\s*=\s*["']([^"'#]+)["']""", re.I)
+
+
+def _sitemap_index_page_urls(source: dict, include) -> list[str]:
+    """Article URLs linked from a source's ``index_pages``, in page order."""
+    out: list[str] = []
+    seen: set[str] = set()
+    for page in source.get("index_pages", []) or []:
+        try:
+            req = urllib.request.Request(page, headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                html_text = r.read().decode("utf-8", errors="ignore")
+        except Exception:
+            continue
+        for href in _HREF_RE.findall(html_text):
+            loc = urllib.parse.urljoin(page, html.unescape(href.strip())).split("?")[0]
+            if loc.rstrip("/") == page.rstrip("/") or loc in seen or not include(loc):
+                continue
+            seen.add(loc)
+            out.append(loc)
+    return out
+
+
 def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
     req = urllib.request.Request(source["url"], headers={"User-Agent": "Mozilla/5.0"})
     with urllib.request.urlopen(req, timeout=30) as r:
@@ -1112,7 +1156,7 @@ def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
     root = ET.fromstring(xml_bytes)
     ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
-    include_prefixes = source.get("include_prefixes", [])
+    include = _sitemap_url_filter(source)
     rows = []
     for u in root.findall("sm:url", ns):
         loc_el = u.find("sm:loc", ns)
@@ -1120,12 +1164,25 @@ def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
         if loc_el is None or not (loc_el.text or "").strip():
             continue
         loc = (loc_el.text or "").strip()
-        if include_prefixes and not any(loc.startswith(p) for p in include_prefixes):
+        if not include(loc):
             continue
         lastmod = (mod_el.text or "").strip() if mod_el is not None else ""
         rows.append((loc, lastmod))
 
     rows.sort(key=lambda x: x[1], reverse=True)
+
+    # Sitemaps can lag a launch by hours (anthropic.com linked the Fable 5.2
+    # launch from /news before its sitemap listed it). URLs linked from the
+    # source's index pages are current by definition, so they go first and
+    # survive the newest-60 cap below. An index fetch failure never fails the
+    # sitemap source.
+    index_urls = _sitemap_index_page_urls(source, include)
+    if index_urls:
+        by_loc = dict(rows)
+        index_set = set(index_urls)
+        rows = [(loc, by_loc.get(loc, "")) for loc in index_urls] + [
+            r for r in rows if r[0] not in index_set
+        ]
 
     source_name = source.get("name", "")
     extract_from_page = bool(source.get("extract_published_from_page", False) or source_name == "claude_blog")

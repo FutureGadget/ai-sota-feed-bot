@@ -44,6 +44,14 @@ sources:
     url: "https://www.anthropic.com/sitemap.xml"
     include_prefixes:
       - "https://www.anthropic.com/news/"
+    # Since Sep 2026 model launches live at the top level
+    # (/claude-opus-5-5, /claude-fable-and-mythos-5-2), not under /news/.
+    # The dash form excludes /claude/<model> product pages.
+    include_patterns:
+      - '^https://www\.anthropic\.com/claude-[a-z0-9-]+$'
+    # The sitemap lags launches; the /news index links them immediately.
+    index_pages:
+      - "https://www.anthropic.com/news"
     extract_published_from_page: true
   - name: anthropic_engineering
     type: sitemap
