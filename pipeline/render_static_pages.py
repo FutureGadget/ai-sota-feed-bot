@@ -6003,6 +6003,13 @@ def superseded_storyline_slugs(storyline_details: list[dict], index: dict | None
     }
 
 
+# Localized surfaces an API serves into a client shell (`/ko/` reads
+# feed/latest.json through /api/feed, `/ko/playbook` reads playbook/*.json
+# through /api/playbook). They have no English static page to localize, so the
+# static renderer, the sitemap and the hreflang links leave them alone.
+I18N_API_SERVED_SURFACES = ("feed", "playbook")
+
+
 def collect_i18n_pages(
     stories: dict[str, dict],
     storyline_details: list[dict],
@@ -6035,7 +6042,7 @@ def collect_i18n_pages(
                 rel_parts = artifact_path.relative_to(locale_dir).parts
             except ValueError:
                 rel_parts = ()
-            if rel_parts and rel_parts[0] == "feed":
+            if rel_parts and rel_parts[0] in I18N_API_SERVED_SURFACES:
                 continue
             artifact = load_json(artifact_path)
             if not isinstance(artifact, dict):

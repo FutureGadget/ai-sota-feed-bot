@@ -26,10 +26,12 @@ class I18nStaticPagesTest(unittest.TestCase):
         cls.wiki = render.load_wiki()
         cls.foundations = render.load_foundations()
         cls.artifact_paths = sorted((ROOT / "data" / "i18n" / "ko").glob("**/*.json"))
+        ko_dir = ROOT / "data" / "i18n" / "ko"
         cls.all_artifacts = [
             json.loads(path.read_text(encoding="utf-8"))
             for path in cls.artifact_paths
-            if path.name != "manifest.json" and "feed" not in path.parts
+            if path.name != "manifest.json"
+            and path.relative_to(ko_dir).parts[0] not in render.I18N_API_SERVED_SURFACES
         ]
         cls.i18n_pages = render.collect_i18n_pages(
             cls.stories,
@@ -211,6 +213,43 @@ class I18nStaticPagesTest(unittest.TestCase):
         self.assertIn("/web/ko/topic/", worker)
         self.assertIn("/web/ko/foundations/", worker)
         self.assertIn("^\\/ko\\/?$", worker)
+
+    def test_playbook_i18n_artifacts_are_not_static_pages(self) -> None:
+        # /ko/playbook is a client shell over /api/playbook; there is no
+        # English /playbook/<date> static page to localize. A fresh, valid
+        # edition artifact (plus its index list and latest copy) must not
+        # become a static page, a sitemap entry or an hreflang link.
+        edition = next(
+            (p for p in sorted((ROOT / "data" / "playbook").glob("20*.json"))), None
+        )
+        self.assertIsNotNone(edition, "no Playbook edition to test against")
+        source = json.loads(edition.read_text(encoding="utf-8"))
+        source_path = f"/playbook/{edition.stem}"
+        artifact = {
+            "locale": "ko",
+            "source_path": source_path,
+            "source_hash": render.i18n_source_hash(source),
+            "review_status": "machine",
+            "title": "플레이북",
+        }
+        original_i18n_dir = render.I18N_DIR
+        with tempfile.TemporaryDirectory() as tmp:
+            playbook_dir = Path(tmp) / "ko" / "playbook"
+            playbook_dir.mkdir(parents=True)
+            for name in (f"{edition.stem}.json", "latest.json"):
+                (playbook_dir / name).write_text(json.dumps(artifact), encoding="utf-8")
+            (playbook_dir / "index.json").write_text("[]", encoding="utf-8")
+            try:
+                render.I18N_DIR = Path(tmp)
+                stderr = io.StringIO()
+                with redirect_stderr(stderr):
+                    pages = render.collect_i18n_pages({}, [], {}, {})
+            finally:
+                render.I18N_DIR = original_i18n_dir
+
+        self.assertEqual(pages, {})
+        self.assertEqual(stderr.getvalue(), "")
+        self.assertEqual(render.language_links_for_path(source_path, pages), [])
 
     def test_feed_i18n_artifacts_are_not_static_pages(self) -> None:
         original_i18n_dir = render.I18N_DIR

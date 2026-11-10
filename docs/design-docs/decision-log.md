@@ -2992,3 +2992,22 @@ Rollback: Set `follows.watchlist: false` in `config/email.yaml` to stop the
 emails. Remove the `watchlist.js` and `watchlist.css` tags from
 `web/index.html` and the `story_watch_html` call in
 `pipeline/render_static_pages.py` to remove the UI.
+
+## 2026-11-10 - Korean Playbook artifacts are not static pages
+
+Decision: `collect_i18n_pages` skips `data/i18n/<locale>/playbook/` the same
+way it skips `feed/` (`I18N_API_SERVED_SURFACES`).
+
+Rationale: The first Korean Playbook artifacts landed on 2026-11-09
+(`ea64eda72`). `/ko/playbook` is a client shell over `/api/playbook`, and there
+is no English `/playbook/<date>` static page, but the collector accepted the
+dated artifact as a static page because `i18n_source_for_path` resolves
+Playbook sources for hashing. Nothing was rendered for it, so four tests in
+`test_i18n_static_pages` that expect an HTML file and a sitemap entry per
+collected artifact failed, and CI on `main` stayed red from that commit on.
+
+Impact: No served page changes. The render no longer warns
+`i18n source html missing path=/playbook/<date>` on every run, and CI's Python
+step passes again, so the CSS check and JavaScript tests behind it run.
+
+Rollback: Remove `"playbook"` from `I18N_API_SERVED_SURFACES`.
