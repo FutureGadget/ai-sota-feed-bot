@@ -1907,6 +1907,17 @@
   "url": "http://arxiv.org/abs/2611.08362v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "3007fcee676fa59f": {
+  "first_seen": "2026-11-10T02:09:29.272611+00:00",
+  "id": "1f165bf180209e0b",
+  "published": "2026-11-08T18:38:57+00:00",
+  "sid": "3007fcee676fa59f",
+  "source": "vllm_releases",
+  "summary_1line": "Signed-off-by: Harry Mellor 19981378+hmellor@users.noreply.github.com Co-authored-by: Claude Opus 5.5 noreply@anthropic.com",
+  "title": "v0.34.0rc0: [Transformers backend] Migrate Gemma and StableLM (#66393)",
+  "type": "release",
+  "url": "https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc0"
+ },
  "3024d09a7913b631": {
   "content_excerpt": "An inference server for AMD GPUs, in C++ and HIP: language models, and image, video, speech and music generation. Its HTTP API speaks OpenAI's chat, completions, Responses, images, audio and video APIs, Anthropic's Messages API and llama-server's native one, so their clients and SDKs work unchanged. Model architectures, kernel libraries and quantisers are .so plugins; the ones in this tree are built and loaded the same way a third party's are ( docs/PLUGIN.md ). The bundled device kernels ( libr4d ) target AMD RDNA4 ( gfx1200 , gfx1201 ). The serve flags below are for two 32 GB cards (Radeon AI PRO R9700). The engine starts on any AMD GPU family; another card needs a kernel library for it. A machine with no GPU builds the host backend, whose AVX-512/AVX2 kernels ( libavx ) serve every model here: the small ones (EmbeddingGemma 2, Qwen3-ASR, the 0.8B-3B models) at interactive speed on a desktop CPU, the 27B and larger far more slowly than a card. A container holds everything the server needs: the weights, the tokeniser, the chat template and any drafter. Each download link's repository has the recipe and the exact command that made the file. Download one into your models directory (the transfer resumes if interrupted): The Gemma 4 container is keptn42's: GPTQ calibrated in transformers, with an int8 lm_head; its repository has the recipe and the calibration step. To convert Google's bf16 checkpoint yourself, data/recipes/gemma4-31b-dense-bf16-w4a8.recipe quantises without cali",
   "first_seen": "2026-11-01T20:05:53.130724+00:00",
@@ -3488,7 +3499,7 @@
   "matched_topics": [
    "agent"
   ],
-  "published": "2026-11-02T17:26:31+00:00",
+  "published": "2026-11-10T01:27:47+00:00",
   "release_highlights": [
    "The S3 addressing style is now configurable",
    "Request cancellation is now checked before a request is dispatched to the backend, and before batch assembly in the TensorRT backend",
@@ -4379,6 +4390,23 @@
   "type": "news",
   "url": "https://www.philschmid.de/code-mode",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "6de730835e87bb66": {
+  "first_seen": "2026-11-10T02:06:52.305469+00:00",
+  "id": "edfa383c5c85860e",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-06T09:05:00+00:00",
+  "sid": "6de730835e87bb66",
+  "source": "arxiv_agent_systems_research",
+  "summary": "When a large language model (LLM) agent writes parametric CAD code from a natural-language specification, syntactic success decouples from semantic correctness. We release a benchmark and harness that measure this gap directly: 13 specification tasks whose every requirement maps to machine-checkable properties of the produced B-rep, measured by the kernel against published tolerance bands, with reference solutions and the full graded attempt corpus. The exact, self-audited oracle isolates two quantities no prior CAD benchmark reports: the silent-failure rate (a valid, renderable solid, an explicit completion claim, and at least one failed semantic check) and completion-claim calibration. Across four models from four vendors (156 attempts per architecture), single-shot agents claimed completion on 98% of attempts and were silently wrong on 14.1%; a tool-use loop that enforces measure-then-claim cut silent failures to 3.2% and raised claim precision from 64% to 96%, and a four-model ablation attributes the change to the claim contract rather than the feedback. A planner-coder-checker pipeline matched that precision at lower coverage with no success gain. Stated confidence was miscalibrated single-shot (ECE 0.32) and became informative under verification for three of four models. Hardening our own oracle flipped 18 of 519 regraded verdicts from pass to fail and none in reverse; a blind expert audit overturned 3 of the 18 silent failures outside the one ambiguously specified task",
+  "summary_1line": "When a large language model (LLM) agent writes parametric CAD code from a natural-language specification, syntactic success decouples from semantic correctness. We release a benchmark and harness that measure this gap...",
+  "title": "Done Is Not Correct: Measuring Silent Failures and Self-Verification Calibration When LLM Agents Take CAD Actions",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.10063v1",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "6e07690c27eb09da": {
   "content_excerpt": "Simulation, which has long been the proving ground for robots learning to walk, roll and hop, is now helping researchers teach robots tasks that require a finer touch: aligning gears, connecting cables and assembling small components. The shift from locomotion to manipulation is taking center stage at this week’s Conference on Robot Learning (CoRL) in Austin, Texas, alongside the rise of agentic robotics — a new paradigm that integrates frontier agents to create interpretable code for physical robotics systems. At CoRL, NVIDIA is introducing new open robotics technologies, including world action models , simulation tools, benchmarks and agentic workflows. Two NVIDIA papers are among six finalists out of thousands of submissions for the Best Paper Awards at CoRL: These advancements help researchers train robots on complex tasks, evaluate their performance across changing conditions and use failures to guide further learning — building the precision, adaptability and autonomy needed to move from lab demonstrations to industrial deployment. NVIDIA is working with partners like Ambi Robotics , Bosch Research , Dexmate , Dyna Robotics , FieldAI , Flexion , Noitom Robotics , Siemens , Skild AI , RLWRLD , UC Berkeley , Walden Robotics and the University of Washington to bring these advancements to the broader robotics community. The next level of robot autonomy requires robots to perceive their surroundings, anticipate how their actions will change the environment and execute comple",
@@ -8189,6 +8217,23 @@
   "url": "https://github.com/zalando-incubator/agentic-identity-broker",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "d48d8aea5d45b475": {
+  "first_seen": "2026-11-10T02:06:52.305469+00:00",
+  "id": "8b899ec768a42d2f",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-06T17:07:35+00:00",
+  "sid": "d48d8aea5d45b475",
+  "source": "arxiv_agent_systems_research",
+  "summary": "LLM-based multi-agent systems solve complex tasks through collaboration, but their growing, simultaneously resident key-value (KV) caches create a memory bottleneck. Applying single-model quantization policies independently ignores differences in agents' precision needs, potentially degrading collective reasoning. We introduce Coordinated Mixed-Precision KV Cache Quantization (CoMixKV), which combines online sensitivity estimation with joint agent-layer bit-width allocation under a shared memory budget. To our knowledge, CoMixKV is the first mixed-precision KV-cache quantization framework to jointly allocate precision across simultaneously resident agent caches under such a budget. The estimator derives sensitivity from a local attention-error bound using recent queries, keys, and values, without calibration data, trial quantization, or additional model passes. A shared controller combines these scores with remaining quantizable capacity and byte-level storage costs to minimize total estimated error. Allocations are refreshed as agents start or finish and new observations become available. Selected widths apply only to newly quantized blocks; recent states retain native precision and previously quantized blocks remain unchanged. Across four benchmarks and three LLM backbones at average 2-bit, 3-bit, and 4-bit settings, CoMixKV achieves strong accuracy against the evaluated quantization baselines. At the average 3-bit setting on Gemma-4-31B-it, it achieves 68.35% average accur",
+  "summary_1line": "LLM-based multi-agent systems solve complex tasks through collaboration, but their growing, simultaneously resident key-value (KV) caches create a memory bottleneck. Applying single-model quantization policies indepen...",
+  "title": "Coordinated Mixed-Precision KV Cache Quantization for Efficient LLM-based Multi-agent Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.10096v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "d4ec23da5e445584": {
   "first_seen": "2026-11-05T08:05:21.535185+00:00",
   "id": "313ff8549ef40c87",
@@ -8684,6 +8729,23 @@
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.317",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "df1fcfb1c1518ce3": {
+  "first_seen": "2026-11-10T02:06:52.305469+00:00",
+  "id": "4f8545771f53edaf",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-06T21:11:05+00:00",
+  "sid": "df1fcfb1c1518ce3",
+  "source": "arxiv_llm_reliability",
+  "summary": "We present Jais 3, a fleet of six open, Arabic-centric agentic language models ranging from 0.9B to 375B parameters. Jais 3 is built to complete tasks for Arabic speakers, not only to answer questions in plain text: it is trained to plan multi-step tasks, call tools and Model Context Protocol (MCP) servers, operate a terminal, search the web, and read, edit, and produce PDF, spreadsheet, and presentation files, while communicating with the user in Arabic. Instead of pretraining from scratch, we adapt each model of the fully open K2 Horizon fleet to Arabic through continual pretraining, followed by supervised fine-tuning (SFT), final token preference optimization (FTPO), and reinforcement learning with verifiable rewards (RLVR). We combine natural Arabic text with translated, transliterated, and synthetic Arabic, and replay the base model's own training data to keep its reasoning, agentic, and English abilities. Jais 3 covers Modern Standard Arabic and the major regional dialects, follows instructions with Arabic-specific constraints, and inherits the 512K-token context window of K2 Horizon (all models except the 0.9B). To our knowledge, its 375B model is the largest open Arabic-centric language model to date. For evaluation, we revisit how Arabic models are assessed, moving to fully generative evaluation on audited Arabic benchmarks. Across model sizes, Jais 3 matches or outperforms open-weight models of comparable size on Arabic and agentic benchmarks, with particularly stro",
+  "summary_1line": "We present Jais 3, a fleet of six open, Arabic-centric agentic language models ranging from 0.9B to 375B parameters. Jais 3 is built to complete tasks for Arabic speakers, not only to answer questions in plain text: i...",
+  "title": "Jais 3: Introducing Arabic-centric Agentic AI",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.10224v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "df40d12666dedf69": {
   "first_seen": "2026-11-09T04:05:46.806933+00:00",
   "id": "78a73ff409a624bd",
@@ -8869,6 +8931,18 @@
   "title": "What Frontier Labs Buy: A Data Deep Dive with Handshake AI — Garrett Lord & Team",
   "type": "news",
   "url": "https://latent.space/p/handshake"
+ },
+ "e4c0cc91cb49de72": {
+  "first_seen": "2026-11-10T02:06:52.305469+00:00",
+  "id": "60be7073259ad42d",
+  "published": "2026-11-06T22:43:50+00:00",
+  "sid": "e4c0cc91cb49de72",
+  "source": "arxiv_llm_reliability",
+  "summary": "Large language models (LLMs) are increasingly explored for resource management across the Cloud-Edge continuum. However, embedding LLMs directly inside latency-sensitive control loops places inference latency, execution jitter, and hallucination risks on the critical path. This study argues for a different use of LLMs: a continually instruction-tuned intent compiler that runs once per management intent or declared context change, above a fast, deterministic tactical controller that handles all low-latency runtime actions. We formulate intent compilation as a continual instruction tuning problem, because management intents arrive sequentially and accumulate while infrastructure and workload contexts drift. Unlike recent LLM-based management frameworks, our design scores the model's outputs by execution, so that catastrophic forgetting can be measured in the executed objective of the underlying controller. On a continuum simulator with a 2B backbone and parameter-efficient adapters, preliminary results show that naive sequential tuning forgets earlier intents in the executed objective, that replay of stored examples nearly prevents this forgetting, and that the tuned compact compiler performs on par with simpler translators while being more robust than a grammar parser to rephrased intents.",
+  "summary_1line": "Large language models (LLMs) are increasingly explored for resource management across the Cloud-Edge continuum. However, embedding LLMs directly inside latency-sensitive control loops places inference latency, executi...",
+  "title": "Continual Instruction Tuning for LLM-ased Management of Continuum Resources",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.10292v1"
  },
  "e5680f897e15540f": {
   "first_seen": "2026-11-09T05:05:35.203421+00:00",
