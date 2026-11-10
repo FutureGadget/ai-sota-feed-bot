@@ -75,6 +75,9 @@ fi
 # Storyline generation is intentionally owned by the Claude Code
 # storyline-scout + storyline-editor routine, not this hourly workflow.
 python pipeline/story_store.py sync
+# Watchlist entity index (data/watch/index.json, web/watch-data.json): which
+# stored stories are news about a thing readers can watch. Never blocks the feed.
+python pipeline/watch.py build || echo "watch_index_step_failed=1"
 python pipeline/render_static_pages.py
 
 # Processed snapshots are tiny and keep their archive; there is no Tier-1

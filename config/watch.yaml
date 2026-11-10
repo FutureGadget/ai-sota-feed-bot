@@ -1,0 +1,143 @@
+# Watchlist entities (docs/product-specs/watchlist.md).
+#
+# Things a reader can watch: tools, model families and engineering topics. A
+# story belongs to an entity when its TITLE contains one of `terms`, or when it
+# comes from one of `sources`. pipeline/watch.py and web/watchlist.js share the
+# matching rules, and tests/fixtures/watch_match_cases.json pins both.
+#
+# Term rules (case-insensitive, whole words, punctuation ignored):
+#   "claude code"   the words in order
+#   "qwen*"         any word starting with qwen (qwen3, qwen-max)
+# `not` phrases are removed from the title before matching, so "Claude Code
+# 2.1" does not count as news about Claude models.
+#
+# Slugs are stored in readers' browsers and in the email provider. Never rename
+# or reuse one; retire an entity by deleting it.
+version: 1
+window_days: 30
+
+entities:
+  # --- Tools and protocols -------------------------------------------------
+  - slug: claude-code
+    label: Claude Code
+    kind: tool
+    terms: ["claude code"]
+    sources: [claude_code_releases]
+  - slug: claude-agent-sdk
+    label: Claude Agent SDK
+    kind: tool
+    terms: ["claude agent sdk"]
+    sources: [claude_agent_sdk_python_releases]
+  - slug: codex
+    label: Codex
+    kind: tool
+    terms: ["codex"]
+    sources: [openai_codex_releases]
+  - slug: mcp
+    label: MCP
+    kind: tool
+    terms: ["mcp", "model context protocol"]
+  - slug: langchain
+    label: LangChain & LangGraph
+    kind: tool
+    terms: ["langchain", "langgraph", "langsmith"]
+    sources: [langgraph_releases, langchain_blog]
+  - slug: vllm
+    label: vLLM
+    kind: tool
+    terms: ["vllm"]
+    sources: [vllm_releases, vllm_blog]
+  - slug: github-copilot
+    label: GitHub Copilot
+    kind: tool
+    terms: ["copilot"]
+  - slug: agent-skills
+    label: Agent skills
+    kind: tool
+    terms: ["agent skill*", "claude skill*", "skill.md", "skills"]
+
+  # --- Model families ------------------------------------------------------
+  - slug: claude
+    label: Claude models
+    kind: model
+    terms: ["claude", "anthropic"]
+    not: ["claude code", "claude agent sdk"]
+  - slug: openai
+    label: GPT & OpenAI
+    kind: model
+    terms: ["gpt*", "openai", "chatgpt"]
+  - slug: gemini
+    label: Gemini & Gemma
+    kind: model
+    terms: ["gemini*", "gemma*", "deepmind"]
+  - slug: deepseek
+    label: DeepSeek
+    kind: model
+    terms: ["deepseek*"]
+  - slug: qwen
+    label: Qwen
+    kind: model
+    terms: ["qwen*", "tongyi"]
+  - slug: kimi
+    label: Kimi (Moonshot)
+    kind: model
+    terms: ["kimi*", "moonshot"]
+  - slug: glm
+    label: GLM (Zhipu)
+    kind: model
+    terms: ["glm*", "zhipu", "z.ai"]
+  - slug: nvidia
+    label: NVIDIA & Nemotron
+    kind: model
+    terms: ["nvidia", "nemotron*"]
+  - slug: hugging-face
+    label: Hugging Face
+    kind: model
+    terms: ["hugging face", "huggingface"]
+    sources: [huggingface_blog]
+
+  # --- Engineering topics --------------------------------------------------
+  - slug: evals
+    label: Evals & benchmarks
+    kind: topic
+    terms: ["eval", "evals", "evaluation*", "evaluating", "benchmark*", "swe-bench*"]
+  - slug: agent-memory
+    label: Agent memory
+    kind: topic
+    terms: ["memory", "memories"]
+  - slug: rag
+    label: RAG & retrieval
+    kind: topic
+    terms: ["rag", "retrieval*"]
+  - slug: multi-agent
+    label: Subagents & multi-agent
+    kind: topic
+    terms: ["subagent*", "sub-agent*", "multi-agent", "multiagent"]
+  - slug: agent-security
+    label: Sandboxes & agent security
+    kind: topic
+    terms: ["sandbox*", "prompt injection*", "exfiltrat*", "guardrail*", "jailbreak*"]
+  - slug: context-engineering
+    label: Context engineering
+    kind: topic
+    terms: ["context engineering", "context window*", "compaction", "context rot"]
+  - slug: inference
+    label: Inference & serving
+    kind: topic
+    terms: ["inference", "quantiz*", "serving", "speculative decoding"]
+  - slug: pricing
+    label: Pricing & cost
+    kind: topic
+    terms: ["pricing", "price", "prices", "cost", "costs", "prompt cach*"]
+  - slug: fine-tuning
+    label: Fine-tuning
+    kind: topic
+    terms: ["fine-tun*", "finetun*", "lora"]
+  - slug: voice
+    label: Voice & realtime
+    kind: topic
+    terms: ["voice", "realtime", "real-time", "speech", "tts"]
+  - slug: observability
+    label: Agent observability
+    kind: topic
+    terms: ["observability", "tracing", "opentelemetry", "otel"]

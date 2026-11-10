@@ -27,6 +27,7 @@ Editor-deck selection (offline / behind --selector, docs/how-to/deck-selector-be
 
 Reader-facing derivatives (built from the durable story store):
    pipeline/story_store.py sync      -> data/stories/   (/story/<sid> permalinks)
+   pipeline/watch.py build           -> data/watch/, web/watch-data.json (watchlist entities)
    pipeline/build_storylines.py      -> data/storylines/ (/storylines cross-day threads)
    pipeline/render_static_pages.py   -> web/ static pages + sitemap
 

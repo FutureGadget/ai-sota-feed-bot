@@ -1438,6 +1438,7 @@
   </style>
   <link rel="stylesheet" href="/front-page.css?v=20261107-tabs-row" />
   <link rel="stylesheet" href="/skills-strip.css?v=20261102-radar" />
+  <link rel="stylesheet" href="/watchlist.css?v=20261110-watch" />
 </head>
 <body>
   <a class="skip-link" href="#list">Skip to stories</a>
@@ -1511,6 +1512,7 @@
 
     <div class="feed-layout">
     <div class="feed-column">
+    <section id="watchHome" class="watch-home" aria-label="Your watchlist" hidden></section>
     <div id="freshUpdates" class="fresh-updates" aria-live="polite"></div>
     <p id="feedStatus" class="visually-hidden" role="status"></p>
     <section id="list" tabindex="-1" aria-label="Ranked stories">
@@ -3513,6 +3515,7 @@
                     ${isReaderBoosted ? `<span class="badge badge-boost" title="Reader clicks and feedback boosted ${source} in the ranking">👍 Reader-boosted</span>` : ''}
                   </p>` : ''}
                   ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
+                  <div class="watch-card-chips" data-watch-title="${title}" data-watch-source="${esc(it.source || '')}" hidden></div>
                   <div class="fb-row ${fbActive ? 'fb-has-voted' : ''}"><span class="fb-label">${fbActive ? FEEDBACK_THANKS : ''}</span><div class="fb-actions">${fbButtons}</div></div>
                 </div>
               </details>
@@ -4922,6 +4925,7 @@
        docs/product-specs/nav-update-indicators.md. -->
   <script src="/nav-updates.js?v=20261107-glitch-sweep" defer></script>
   <script src="/skills-strip.js?v=20261102-radar" defer></script>
+  <script src="/watchlist.js?v=20261110-watch" defer></script>
 
   <!-- Model Release Radar sidebar teaser: optional, deferred, fails silently
        - same philosophy as nav-updates.js above. Waits for window 'load' (the
