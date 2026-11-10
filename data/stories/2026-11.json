@@ -1209,6 +1209,17 @@
   "url": "https://github.com/ggmm82/righaven",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "1a6dda4c4f1da299": {
+  "content_excerpt": "Most of my repositories have exactly one contributor. That contributor also reviews the pull requests, approves them, and merges them, usually within the same minute. It is a very efficient process. It is not a very good one. GitHub users have had AI review bots for a while now. My code lives on a self-hosted Forgejo instance, and I was not interested in giving a SaaS product a token for it. So I",
+  "first_seen": "2026-11-10T14:10:51.864038+00:00",
+  "id": "4280859a29ce6e98",
+  "published": "2026-11-10T12:58:11+00:00",
+  "sid": "1a6dda4c4f1da299",
+  "source": "hackernews_ai",
+  "title": "A Read-Only AI Reviewer for Forgejo Pull Requests",
+  "type": "news",
+  "url": "https://blog.hofstede.it/a-read-only-ai-reviewer-for-forgejo-pull-requests"
+ },
  "1af3fe1d5c8a78c9": {
   "content_excerpt": "Turn Rex into a harness for your coding agent: see what it changed, review it in Neovim, send comments back. Claude Code, Codex, OpenCode, Pi. Rex already runs your agents. rexmod builds the harness around them: it records every turn, so you see exactly what the agent changed; it opens a real editor beside the agent to read and review that code; and it hands your review back to the agent as its next input. Prompt, change, review, feedback: the whole loop stays in one Rex window, for Claude Code, Codex, OpenCode or Pi. rexmod is an unofficial mod, not made by or affiliated with Superlogical. It patches your local copy of Rex so Rex loads the panel; the uninstaller puts the official build back. You need a Mac with Apple silicon on macOS 15 or later, Rex installed and opened once, and Homebrew (for Neovim, fzf and Node, if you don't have them). Then quit Rex ( ⌘Q ) and open it again. Nothing is compiled on your machine. After brew upgrade rexmod , run rexmod-setup again. Options: --update-rex installs the latest official Rex first, --no-patch skips the panel, --no-hooks skips the agents. From a checkout, ./install.sh builds what it needs if Go and Xcode are there. Codex runs new hooks only after you trust them: start Codex and run /hooks once. OpenCode loads plugins when its background server starts, so quit OpenCode once after installing. The comment badge in the panel header sends pending comments right away. Without it they ride along with the next message you type to the age",
   "first_seen": "2026-11-01T23:04:20.917409+00:00",
@@ -1665,6 +1676,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03406v1",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "24ae260dedf8a745": {
+  "first_seen": "2026-11-10T14:05:41.419296+00:00",
+  "id": "58cc3b11e3f21e05",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-09T13:51:18+00:00",
+  "sid": "24ae260dedf8a745",
+  "source": "arxiv_cs_ai",
+  "summary": "Discrete autoregressive modeling, notably through next-token prediction, has become a cornerstone of modern language models. Extending this paradigm to vision allows visual and language models to converge on a unified framework, thereby fostering shared methodology and infrastructure. This work investigates a central question: how far can a finite discrete vocabulary go in representing the richness of the visual world? We present dNaViT, a Discrete Native-resolution Vision Transformer that produces discrete visual primitives analogous to language tokens. Built upon a frozen pretrained encoder, dNaViT applies lightweight residual modulation with a dual-branch objective to inject reconstruction-aware cues into semantic features. By leveraging grouped product quantization, it scales discrete capacity without inflating spatial sequence lengths, while a balanced training recipe maintains both semantic and pixel-level information. Consequently, dNaViT functions as a versatile discrete visual tokenizer, enabling unified encoding across downstream tasks alongside high-fidelity image decoding. Extensive evaluations show that dNaViT matches or exceeds task-specific baselines across 12 visual understanding benchmarks, 4 generation benchmarks, and an image editing benchmark. These findings demonstrate that a compact discrete vocabulary can serve as a universal visual currency and unlock the full potential of fully unified, native multimodal methodology.",
+  "summary_1line": "Discrete autoregressive modeling, notably through next-token prediction, has become a cornerstone of modern language models. Extending this paradigm to vision allows visual and language models to converge on a unified...",
+  "title": "dNaViT: Discrete Codes are General-Purpose Visual Representations",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12426v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "24e1aea537d2f659": {
   "content_excerpt": "Find known secrets in your AI coding agent sessions (Claude Code, Codex, Cursor), then guard the next one with local hooks that trace risky commands to the content that dictated them. Open source, no telemetry. Stroq reads your own Claude Code and Codex sessions and shows how many commands came from text your agent read, and which keys left your machine. An example: a made-up machine with made-up sessions, keys and hosts. Hoo is Stroq's owl. Your card shows your own sessions. It reads your last 30 days of sessions, your key files and the folders your agent worked in; prints key names, never values; writes nothing but a small cache under ~/.stroq ; and sends nothing. No account, no telemetry. Every moment on the card has a stroq show line that prints the evidence behind it ( npx @stroq/cli show 1 ). stroq help --all lists the other commands. Needs Node.js 22 or newer. Apache-2.0. Stroq is a local security platform for AI coding agents: Claude Code, Cursor, Codex CLI and others. Its hooks judge every tool call before it runs. They deny curl | sh and outbound calls that carry a known secret from your machine, and they ask you first when a command repeats text the agent read, naming that text. The console shows which agents actually ask Stroq, and every decision with its reason. Sessions you already had can be checked too, without installing anything. The fifth screen is Rules : try an action without running it, turn rules on with a preview and a test, the history with an undo, a",
@@ -3729,6 +3756,25 @@
   "url": "http://arxiv.org/abs/2611.07203v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "51d3fa8b88672f87": {
+  "content_excerpt": "Show notes: Automated software delivery is moving faster than the people who used to approve every release. LaunchDarkly co-founder and CEO Edith Harbaugh tells Guy Podjarny why rollback should be autonomous, why one-shot coding agents fail, and why the bottleneck has moved to the last mile. What we cover: – How automated software delivery and autonomous rollback take humans out of the 2 a.m. incident – What makes a good feature flag, and when a homegrown system stops being enough – Why coding agents need an explicit definition of success before they write a line – Where release management fits in an AI software factory – Feature flags for AI agents: switching models and prompts at runtime – Running a c Transcript (sampled): keeping them uh aligned as they make many, many of these decisions is uh is is is hard because you know it takes the same amount of time to talk to their you know colleague and sort of you know describe what it is that they're they're uh they're building, and it's still a pain or like a product discomfort if uh if if they're misaligned. Like … part, which is describe what what success looks like, what failure looks like, uh, what are the guardrails that you want them to stay within? You know, like what are what are you know what are the lines, like what's disallowed, what's allowed. And so you need to do, you know, what we oftentimes avoid and just saying like we'll know it when we … of the software factory is this like tickets to PR, but then the sort of",
+  "first_seen": "2026-11-10T14:05:41.419296+00:00",
+  "id": "d1ca8e72739f9276",
+  "image_url": "https://i.ytimg.com/vi/ao3GNietz1w/hq720.jpg",
+  "matched_topics": [
+   "agentic",
+   "software delivery"
+  ],
+  "published": "2026-11-10T13:00:07+00:00",
+  "sid": "51d3fa8b88672f87",
+  "source": "ai_native_dev",
+  "summary": "Automated software delivery is moving faster than the people who used to approve every release. LaunchDarkly co-founder and CEO Edith Harbaugh tells Guy Podjarny why rollback should be autonomous, why one-shot coding agents fail, and why the bottleneck has moved to the last mile. What we cover: – How automated software delivery and autonomous rollback take humans out of the 2 a.m. incident – What makes a good feature flag, and when a homegrown system stops being enough – Why coding agents need an explicit definition of success before they write a line – Where release management fits in an AI software factory – Feature flags for AI agents: switching models and prompts at runtime – Running a company in the agentic coding era, and why teams should take dumb bets Chapters: 00:00:00 - Introduction 00:02:16 - From quarterly releases to 30,000 changes a day 00:03:32 - Autonomous rollback and automated software delivery 00:06:25 - What makes a good feature flag 00:10:46 - Defining success for coding agents 00:16:42 - Agent fleets and engineers as reviewers 00:24:05 - Feature flags in the software factory 00:29:02 - The bottleneck moves to the last mile 00:39:24 - Runtime controls for AI agents 00:44:26 - Running a company in the agentic coding era Build your software factory, one workflow at a time, with Tessl: https://tessl.co/e0p 🔔 Subscribe for weekly episodes on AI-native development Where has the bottleneck moved in your team's automated software delivery? Tell us in the comment",
+  "summary_1line": "Automated software delivery is moving faster than the people who used to approve every release. LaunchDarkly co-founder and CEO Edith Harbaugh tells Guy Podjarny why rollback should be autonomous, why one-shot coding...",
+  "title": "Edith Harbaugh: Code Is Cheap. The Last Mile Isn't.",
+  "type": "video",
+  "url": "https://youtu.be/ao3GNietz1w",
+  "why_it_matters": "Matches feed focus: agentic, software delivery."
+ },
  "5205e972eb2d23be": {
   "first_seen": "2026-11-03T14:05:20.958126+00:00",
   "id": "6233bf3f8ef612fe",
@@ -4111,6 +4157,11 @@
     "source": "claude_dev_blog",
     "title": "Safely scaling multi-agent teams with Claude Fable 5.2",
     "url": "https://claude.dev/blog/safely-scaling-multi-agent-teams-with-fable-5-2/"
+   },
+   {
+    "source": "simon_willison",
+    "title": "Quoting Prompting Claude Fable 5.2",
+    "url": "https://simonwillison.net/2026/Nov/10/prompting-claude-fable-52/"
    }
   ],
   "content_excerpt": "Introducing Claude Fable 5.2 on AWS | Artificial Intelligence Skip to Main Content Filter: All English Contact us AWS Marketplace Support My account re:Invent Discover AWS Products Solutions Pricing Resources Search Filter: All Sign in to console Create account Explore topics re:Invent 2026 The sessions are set and your seat is waiting. Register now Build & Deploy AI Agents 88% of agent pilots stall. Learn what the rest do differently Get started Sign up free, connect your coding agent, and start building Data for agentic AI The 7 essential data capabilities to scale agentic AI Analyst Report AWS named a Leader in the 2026 Gartner Magic Quadrant for SCPS AI for Small Businesses Solutions designed for your business. Delivered by AWS Partners News & announcements AWS blog About AWS AWS is the world's most comprehensive cloud, enabling organizations to accelerate innovation, reduce costs, and scale more efficiently Why AWS Getting Started Security Compliance Trust Center Sustainability Our Impact Global Infrastructure Careers Featured Products Analytics Application Integration Artificial Intelligence Business Applications Compute Customer Experience Databases Developer Tools End User Computing Game Tech Management Tools Media Services Migration & Modernization Multicloud & Hybrid Networking & Content Delivery Operations Security & Identity Storage Supply Chain Browse all products Transformation Hubs Migrate to modernize → Modernize to unlock data → unlock data to run AI Migrate ",
@@ -7834,7 +7885,7 @@
   ],
   "published": "2026-11-09T18:45:28+00:00",
   "sid": "b3a45cba6445f63d",
-  "source": "arxiv_agent_systems_research",
+  "source": "arxiv_cs_cl",
   "summary": "Large language model agents are increasingly deployed as multi-agent systems rather than as a standalone model operating within a single context. Recent agent harnesses allow the model to instantiate worker agents and to author the executable workflow that coordinates them, shifting the design of system structure from developers to the model at run time. The quality of this organization therefore constitutes a distinct capability, yet existing benchmarks either measure end-to-end task completion or evaluate coordination under structures specified in advance. We formalize this capability as workflow orchestration and introduce WorkflowArena, a benchmark of 145 long-horizon tasks spanning 8 professional domains, from software engineering and formal mathematics to legal analysis and 3D production. Each task specifies an initial workspace and an integrated deliverable composed of interdependent components, which is assessed by a hidden verifier. Agents determine autonomously whether and how to delegate, and all delegation is recorded, enabling joint evaluation of deliverable quality and the organization of the underlying work. Experiments with nine models show that no single configuration performs best across all domains and that systems exhibit distinct delegation strategies: at high effort, Claude models in Claude Code invoke workflows less frequently but with larger worker groups, whereas GPT models in Codex delegate more frequently in smaller units. When the executing model i",
   "summary_1line": "Large language model agents are increasingly deployed as multi-agent systems rather than as a standalone model operating within a single context. Recent agent harnesses allow the model to instantiate worker agents and...",
   "title": "WorkflowArena: Benchmarking Executable Workflow Orchestration in LLM-Based Multi-Agent Systems",
