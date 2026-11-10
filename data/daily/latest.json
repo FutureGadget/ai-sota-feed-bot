@@ -1,223 +1,232 @@
 {
-  "date": "2026-11-09",
-  "title": "What happened in AI — Nov 9, 2026",
-  "generated_at": "2026-11-09T22:15:51Z",
+  "date": "2026-11-10",
+  "title": "What happened in AI — Nov 10, 2026",
+  "generated_at": "2026-11-10T22:21:57Z",
   "intro": [
-    "Agent safety was the day's dominant thread: new benchmarks and tools show permissions, provenance and isolation breaking once agents hold memory and shells, a week after a Firecracker guest escape.",
-    "Teams answered with eval-driven loops, policy layers and kill switches, while vendors kept shaving GPU idle time and porting friction."
+    "Agent safety moved to enforcement points: tools that intercept commands, audit access and test database roles shipped alongside NVIDIA donating OpenShell to the CNCF.",
+    "Google made Gemini 4 Carbon generally available and DeepMind formally verified Signal's protocol code with agents, while the Fireworks AI breach spread to customer data."
   ],
   "highlights": [
-    "Agent memory leaks confidential data in 67% of benchmark background tasks where raw RAG leaks 0%.",
-    "A Firecracker guest-to-host escape this week renews the case for one VM per agent.",
-    "OpenAI's Control Room can rapidly stop model workloads on safety or security concerns.",
-    "LangChain makes the case for eval-driven development over hand-testing agents.",
-    "GKE dynamic slicing for TPUs is GA; AWS TorchNeuron runs unmodified PyTorch on Trainium.",
-    "Anthropic recommends starting most builds on Opus 5.5 at medium effort."
+    "Gemini 4 Carbon is generally available, with a new multimodal agent benchmark (MKA) alongside it.",
+    "DeepMind's AlphaProof Code formally verified security properties of Signal's real protocol code.",
+    "NVIDIA is donating its OpenShell agent-governance runtime to the CNCF.",
+    "A read-only Postgres role does not stop every harmful agent query; a reproducible test shows which ones.",
+    "Fireworks AI's breach now includes billing data and some customer secrets; Notion is notifying users.",
+    "Epoch: GB300 has 25x H100's agentic inference capacity on only 2.5x the FLOP/s."
   ],
-  "article_count": 28,
+  "article_count": 44,
   "categories": [
     {
-      "name": "Agent Safety, Memory & Governance",
-      "slug": "agent-safety-memory-governance",
-      "summary": "Agents now write memory, run shells and archive their own skills, so permissions, provenance and kill switches must live outside the model.",
+      "name": "Guardrails on What Agents Can Touch",
+      "slug": "guardrails-agent-access",
+      "summary": "Builders are moving agent safety from prompts to enforcement points: database roles, command interceptors, access audits and a CNCF-bound agent runtime.",
       "articles": [
         {
-          "title": "Show HN: Raw RAG leaks 0%, but agent memory leaks 67%",
-          "summary": "A benchmark shows ACL filters stop raw RAG leaks but parent permissions vanish once agents synthesize notes into shared memory.",
+          "title": "What a read-only Postgres role does and doesn't stop when an AI agent connects",
+          "summary": "A reproducible PostgreSQL 17.11 run shows which harms a read-only role blocks and which session settings and reads still get through.",
           "source": "hackernews_ai",
-          "url": "https://github.com/harishbalasubramanian/sentinel-eval",
-          "published": "Mon, 09 Nov 2026 14:33:07 +0000"
+          "url": "https://vericto.com/blog-post-postgres-read-only-role-ai-agents",
+          "published": "Tue, 10 Nov 2026 17:21:23 +0000"
         },
         {
-          "title": "Show HN: MemSeal – provenance containment for agent long-term memory",
-          "summary": "Wraps each memory entry in a hash-chained provenance envelope and gates recall by trust tier before external sends.",
+          "title": "Antelog – stops AI coding agents from running dangerous commands",
+          "summary": "Local interceptor that checks each shell command a coding agent proposes and pauses destructive ones, like deleting a production volume, for approval.",
           "source": "hackernews_ai",
-          "url": "https://github.com/NagaYu/memseal",
-          "published": "Mon, 09 Nov 2026 12:58:14 +0000"
+          "url": "https://antelog.dev/",
+          "published": "Tue, 10 Nov 2026 07:57:26 +0000"
         },
         {
-          "title": "Keep the Agent's Packets Out of the Host Kernel",
-          "summary": "After this week's Firecracker guest-to-host escape, argues for per-agent VMs with network boundaries that survive the next bug.",
+          "title": "I Access Auditor – see and revoke what your AI coding agents can access",
+          "summary": "Desktop app that inventories what Claude Code, Codex, Gemini CLI, Cursor and OpenCode can access, and lets you revoke it.",
           "source": "hackernews_ai",
-          "url": "https://kunalkushwaha.github.io/2026/11/09/keep-agent-packets-out-of-host-kernel/",
-          "published": "Mon, 09 Nov 2026 14:05:39 +0000"
+          "url": "https://github.com/dirmedmr-alt/ai-access-auditor",
+          "published": "Tue, 10 Nov 2026 08:31:13 +0000"
         },
         {
-          "title": "Introducing Control Room: Human control over AI workloads",
-          "summary": "OpenAI describes tracking model workloads across research infrastructure with the ability to stop them fast on safety or security concerns.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/introducing-control-room",
-          "published": "Mon, 09 Nov 2026 13:00:00 GMT"
-        },
-        {
-          "title": "My AI agent archived 53 of its own skills during a maintenance run",
-          "summary": "A practitioner's account of an unprompted bulk skill archive, and the governance register built in response.",
-          "source": "hackernews_ai",
-          "url": "https://www.dhawalshah.net/article/ai-agent-governance/",
-          "published": "Mon, 09 Nov 2026 06:55:24 +0000"
-        },
-        {
-          "title": "Show HN: Airlock – Policy-as-code for fleets of AI coding agents",
-          "summary": "Proposes an open standard for expressing policy over fleets of autonomous engineering agents; early, seeking feedback.",
-          "source": "hackernews_ai",
-          "url": "https://airlock.lunareng.com/docs",
-          "published": "Mon, 09 Nov 2026 00:59:27 +0000"
-        }
-      ]
-    },
-    {
-      "name": "Evals & Agent Reliability",
-      "slug": "evals-agent-reliability",
-      "summary": "Teams are formalizing how they measure agents: eval-driven loops, fair race harnesses and deterministic checks over agent output.",
-      "articles": [
-        {
-          "title": "What Is Eval-Driven Development? How to Improve AI Agents",
-          "summary": "LangChain lays out EDD: fix a metric set first so every prompt or agent change is judged against it, not by hand-testing.",
-          "source": "langchain_blog",
-          "url": "https://www.langchain.com/blog/what-is-eval-driven-development",
-          "published": "2026-11-09T19:00:00+00:00"
-        },
-        {
-          "title": "The Agents on Rails Files: enter lemans, a Ruby harness for fair agent races",
-          "summary": "Open-source harness for the Rails Foundation benchmark that equalizes conditions and blocks sandbox escapes and grader tampering over multi-hour runs.",
-          "source": "hackernews_ai",
-          "url": "https://evilmartians.com/chronicles/the-agents-on-rails-files-enter-lemans-a-ruby-harness-for-fair-agent-races",
-          "published": "Mon, 09 Nov 2026 14:01:54 +0000"
-        },
-        {
-          "title": "Show HN: Divorce – an agent skill for native HTML, verified with Nu and axe",
-          "summary": "A Claude Code/Codex skill where W3C Nu and axe-core decide pass/fail; reports 76% fewer axe violations with the skill.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/ElRaxy/divorce",
-          "published": "Mon, 09 Nov 2026 16:54:03 +0000"
-        },
-        {
-          "title": "Do AI coding agents care about SemVer or is it something for humans only?",
-          "summary": "Microsoft ran about 1,000 upgrade runs to test whether agents use version numbers as a risk signal; two models showed they do.",
-          "source": "hackernews_ai",
-          "url": "https://developer.microsoft.com/blog/do-ai-coding-agents-care-about-semver/",
-          "published": "Mon, 09 Nov 2026 16:03:09 +0000"
-        }
-      ]
-    },
-    {
-      "name": "Coding Agents & Dev Workflow",
-      "slug": "coding-agents-dev-workflow",
-      "summary": "Coding agents are producing most PRs, so the work shifts to reviewing, controlling and governing what they ship.",
-      "articles": [
-        {
-          "title": "CodeRabbit scales agentic software development and ships 20x more",
-          "summary": "CodeRabbit says Codex lets the same team ship 20x more software while its OpenAI-backed review governs AI-generated code.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/coderabbit-codex-daybreak",
-          "published": "Mon, 09 Nov 2026 08:00:00 GMT"
-        },
-        {
-          "title": "Hide your slop PR descriptions behind <details><summary>",
-          "summary": "Simon Willison collapses agent-written PR descriptions in a details block so reviewers see a short summary first.",
-          "source": "simon_willison",
-          "url": "https://simonwillison.net/2026/Nov/9/details-summary/",
-          "published": "2026-11-09T04:25:05+00:00"
-        },
-        {
-          "title": "Show HN: Control Layer Demo for AI Coding Agents",
-          "summary": "A demo control layer that restricts which files a coding agent like Claude Code may create, modify or delete.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/MintCoderpro/mintigate-demo",
-          "published": "Mon, 09 Nov 2026 08:43:54 +0000"
-        },
-        {
-          "title": "Show HN: Glassbrain – Read your agent's brain, know what your agent knows",
-          "summary": "Renders agent-written knowledge graphs as a single HTML file and diffs them, with a nonzero exit code on change for CI.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/voidixyn/glassbrain",
-          "published": "Mon, 09 Nov 2026 09:22:54 +0000"
-        },
-        {
-          "title": "Which Claude model should you build with? Fable, Opus, Sonnet, or Haiku",
-          "summary": "Anthropic's guidance: start most work on Opus 5.5 at default medium effort, with trade-offs across Haiku 5.5, Sonnet 5.5 and Fable 5.2.",
-          "source": "claude_dev_blog",
-          "url": "https://claude.dev/blog/which-claude-model-should-you-build-with/",
-          "published": "Mon, 09 Nov 2026 12:00:00 GMT"
-        }
-      ]
-    },
-    {
-      "name": "Inference & Training Infrastructure",
-      "slug": "inference-training-infrastructure",
-      "summary": "Vendors are removing idle-GPU and porting friction: streamed training data, dynamic TPU slicing, Trainium without code changes, ready Dynamo recipes.",
-      "articles": [
-        {
-          "title": "Accelerate GPU training on Unity Catalog tables with UCDataset",
-          "summary": "Databricks' beta PyTorch loader streams Unity Catalog tables straight to each GPU to stop expensive chips waiting on data.",
-          "source": "databricks_blog",
-          "url": "https://www.databricks.com/blog/accelerate-gpu-training-unity-catalog-tables-ucdataset",
-          "published": "Mon, 09 Nov 2026 19:00:00 GMT"
-        },
-        {
-          "title": "Now generally available: GKE dynamic slicing for higher resilience, and efficiency for TPUs",
-          "summary": "GKE Dynamic Slicing is GA, decoupling logical TPU slices from physical hardware for resilience and utilization.",
-          "source": "google_cloud_blog",
-          "url": "https://cloud.google.com/blog/products/containers-kubernetes/gke-dynamic-slicing-on-tpus/",
-          "published": "Mon, 09 Nov 2026 13:00:00 +0000"
-        },
-        {
-          "title": "AWS Launches TorchNeuron to Run PyTorch Models on AWS Trainium Without Modifications",
-          "summary": "TorchNeuron lets unmodified PyTorch models run on Trainium, lowering the cost of moving off GPUs.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/11/aws-torchneuron-trainium-pytorch/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "Mon, 09 Nov 2026 11:00:00 GMT"
-        },
-        {
-          "title": "NVIDIA Dynamo Recipes Bring Korea's Leading Open Models to Production",
-          "summary": "Dynamo deployment recipes for A.X K2, K-EXAONE 2.0, Solar Open 2 and Motif-3 cover multi-GPU routing and communication.",
+          "title": "NVIDIA Expands Open Source Commitment With OpenShell Donation and New AI Infrastructure",
+          "summary": "NVIDIA is donating OpenShell, its runtime for securing and governing autonomous agents, to the CNCF as a Sandbox project.",
           "source": "nvidia_blog",
-          "url": "https://blogs.nvidia.com/blog/nvidia-dynamo-korea-open-models/",
-          "published": "Mon, 09 Nov 2026 05:00:00 +0000"
+          "url": "https://blogs.nvidia.com/blog/open-source-openshell-infrastructure/",
+          "published": "Tue, 10 Nov 2026 16:00:03 +0000"
         },
         {
-          "title": "Show HN: clap.cpp – Audio embedding inference in C++ (GGML)",
-          "summary": "Pure C++ inference for CLAP, MuQ, CLaMP3 and MERT with an OpenAI-compatible embeddings server.",
+          "title": "Show HN: Fix Gate – verifies security-fix PRs, incl. AI-written ones",
+          "summary": "Rule-based GitHub Action that checks a security-fix PR: finding gone, nothing new, files parse, tests not newly failed; unrun checks never count as passes.",
           "source": "hackernews_ai",
-          "url": "https://github.com/gorse-io/clap.cpp",
-          "published": "Mon, 09 Nov 2026 04:46:12 +0000"
+          "url": "https://github.com/IWEBai/fix-gate-action",
+          "published": "Tue, 10 Nov 2026 18:26:35 +0000"
         }
       ]
     },
     {
-      "name": "Enterprise Distribution & Platform Context",
-      "slug": "enterprise-distribution-platform-context",
-      "summary": "Models reach builders through existing cloud contracts and regional partnerships.",
+      "name": "Agent Experience: Docs and APIs Now Have an Agent Audience",
+      "slug": "agent-experience",
+      "summary": "Agent traffic to docs is now large enough to measure, and vendors are starting to design SDKs and docs for the agent that picks them.",
       "articles": [
         {
-          "title": "ChatGPT Enterprise now available in AWS Marketplace",
-          "summary": "Procurement moves onto existing AWS purchasing and billing relationships.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/chatgpt-enterprise-aws-marketplace",
-          "published": "Mon, 09 Nov 2026 19:00:00 GMT"
+          "title": "Measure agent-traffic for any site",
+          "summary": "Open-source tool from Mintlify to measure how much of a site's traffic is agents, which ones, and whether a GPTBot request is really OpenAI.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/mintlify/agent-traffic",
+          "published": "Tue, 10 Nov 2026 19:29:46 +0000"
         },
         {
-          "title": "NVIDIA Nemotron 3.5 Super VL is now available in Amazon SageMaker JumpStart",
-          "summary": "The vision-language model can now be deployed from SageMaker JumpStart.",
-          "source": "aws_ml_blog",
-          "url": "https://aws.amazon.com/blogs/machine-learning/nvidia-nemotron-3-5-super-vl-is-now-available-in-amazon-sagemaker-jumpstart/",
-          "published": "Mon, 09 Nov 2026 20:01:20 +0000"
+          "title": "What Is Agent Experience (Ax)?",
+          "summary": "Microsoft defines AX: an agent picking a rival service or calling a deprecated API makes your product look broken, so measure it.",
+          "source": "hackernews_ai",
+          "url": "https://developer.microsoft.com/blog/what-is-agent-experience-ax/",
+          "published": "Tue, 10 Nov 2026 20:53:00 +0000"
         },
         {
-          "title": "Apple integrates Alibaba's Qwen AI in China — Korea Herald",
-          "summary": "Apple is reported to be integrating Alibaba's Qwen models for its China AI features.",
+          "title": "Designing for Agents — Zeno Rocha, Resend",
+          "summary": "Resend's Zeno Rocha on where answer-engine optimization ends and agent experience begins, from docs Claude Code reads to tools it calls.",
+          "source": "latent_space",
+          "url": "https://latent.space/p/resend/",
+          "published": "Tue, 10 Nov 2026 20:05:17 GMT"
+        },
+        {
+          "title": "Show HN: Get your coding agent off ~2019 JavaScript, onto modern web primitives",
+          "summary": "Agent skill that steers coding agents off legacy JavaScript patterns toward native browser primitives like CSS.highlights and dialog.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/GoogleChrome/modern-web-guidance",
+          "published": "Tue, 10 Nov 2026 18:01:15 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Verifying and Operating Agent-Built Software",
+      "slug": "verifying-operating-agents",
+      "summary": "The verification bar for agent output is rising, from formal proofs of real protocol code to evidence that messy codebases derail coding agents.",
+      "articles": [
+        {
+          "title": "Introducing AlphaProof Code: a breakthrough in verifying complex software at depth",
+          "summary": "DeepMind's agentic framework formally verified key security properties of the actual Signal protocol code.",
+          "source": "google_deepmind_blog",
+          "url": "https://deepmind.google/blog/introducing-alphaproof-code/",
+          "published": "Tue, 10 Nov 2026 12:02:28 +0000"
+        },
+        {
+          "title": "Google Finds that Technical Debt Can Derail Coding Agents Through \"Agent Distraction\"",
+          "summary": "Google research finds technical debt causes \"agent distraction\" that throws coding agents off task.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/11/google-agent-distraction/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Tue, 10 Nov 2026 18:00:00 GMT"
+        },
+        {
+          "title": "Article: LLM Reliability Layers Under Test: Accuracy, Yield, and the Limits of Verification",
+          "summary": "InfoQ tests LLM reliability layers on accuracy and yield, and maps where verification stops helping.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/articles/llm-reliability-layers-limits-accuracy/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Tue, 10 Nov 2026 09:00:00 GMT"
+        },
+        {
+          "title": "How Workday Built an Enterprise-Scale AI Agent Platform with LangGraph and LangSmith",
+          "summary": "Workday's internal agent platform uses LangGraph for orchestration and LangSmith for tracing and evals, targeting production agents by end of 2026.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/how-workday-built-an-enterprise-scale-ai-agent-platform-with-langgraph-and-langsmith",
+          "published": "2026-11-10T16:00:00+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Frontier and Small Model Releases",
+      "slug": "model-releases",
+      "summary": "Three labs shipped on the same news cycle: Google's top tier, Anthropic's Fable 5.2, and Meta's smallest Muse model.",
+      "articles": [
+        {
+          "title": "Gemini 4 Carbon is now available",
+          "summary": "Google's strongest model is now generally available, pitched on cybersecurity and long-horizon agentic work, after a two-week defender-only preview.",
+          "source": "google_deepmind_blog",
+          "url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available/",
+          "published": "Tue, 10 Nov 2026 16:03:47 +0000"
+        },
+        {
+          "title": "The Multimodal Knowledge Agent Benchmark",
+          "summary": "New Google and Artificial Analysis benchmark for agents that must reason over visually complex files, not just text.",
+          "source": "hackernews_ai",
+          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark/",
+          "published": "Tue, 10 Nov 2026 16:12:21 +0000"
+        },
+        {
+          "title": "[AINews] Fable 5.2 retakes World #1 LLM spot as $ANT IPO roadshow begins",
+          "summary": "Latent Space covers Fable 5.2 and Mythos 5.2 retaking the top LLM spot as Anthropic's IPO roadshow opened.",
+          "source": "latent_space",
+          "url": "https://latent.space/p/ainews-fable-5-2-retakes-world-1-llm-spot-as-ant-ipo-roadshow-begins/",
+          "published": "Tue, 10 Nov 2026 06:34:44 GMT"
+        },
+        {
+          "title": "Introducing Our Smallest, Most Efficient Model: Muse Ember",
+          "summary": "Meta's small, efficient model enters the Haiku/Luna tier, per Simon Willison's notes.",
+          "source": "simon_willison",
+          "url": "https://simonwillison.net/2026/Nov/10/muse-ember/",
+          "published": "2026-11-10T07:28:21+00:00"
+        },
+        {
+          "title": "Kimi K3.1 Pro Coder Arrives at 775 GB, Built to Fit One GPU",
+          "summary": "Moonshot's coding model ships as a 775 GB release aimed at fitting on a single GPU.",
           "source": "search_cn_open_weight_labs",
-          "publisher_name": "UA.NEWS",
-          "publisher_domain": "ua.news",
-          "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPb0Q4MTRpbWJLRFEtNURGZHhCUU1kYjQtU29PTzlNc0RncjlEeXh5ZnJ1VEphYVI1Uks5YmZfQXZ6VnM0N1h3cDBmeTJCdzlSNzY1ZC1EeWFBcXptc2lQQzhpMTM2NTVocFZybGlJSi1NMFNuYlBFTklyaDZoMzlQUEtkTFd0ZTVPY2xHeUYzSFJ3OTY0Ymc?oc=5",
-          "published": "Mon, 09 Nov 2026 02:23:14 GMT"
+          "publisher_name": "Pasquale Pillitteri",
+          "publisher_domain": "pasqualepillitteri.it",
+          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPQWVlRVJORHdHUnE4R3pnYm01NzJVNEtrRUdNMUxpdS02azZVS3hzSE5ERjRBVXJzOVZMa1FEajJuRVhhUF9menUybndPdzJ2MXo1UFlZUl9sVTdBLUhWVkgtaHhVMHk2SlNMem1GbVNHaDZEak9ReG02UmY3X0trd1phMWQ?oc=5",
+          "published": "Tue, 10 Nov 2026 14:31:32 GMT"
+        }
+      ]
+    },
+    {
+      "name": "Inference Economics: Memory, State and Mixed Hardware",
+      "slug": "inference-infrastructure",
+      "summary": "Inference gains now come from memory, state reuse and plumbing more than raw FLOP/s.",
+      "articles": [
+        {
+          "title": "Beyond FLOP/s: comparing AI hardware for inference by memory and communication",
+          "summary": "Epoch estimates GB300 delivers about 25x H100's agentic inference capacity per chip with only 2.5x the 8-bit FLOP/s.",
+          "source": "hackernews_ai",
+          "url": "https://epoch.ai/publications/inference-performance-index",
+          "published": "Tue, 10 Nov 2026 12:09:19 +0000"
+        },
+        {
+          "title": "FlashStates Unlocking Flexible Hybrid State Management for Agentic LLM Inference",
+          "summary": "Together AI and collaborators decouple recurrent checkpoints from KV-cache blocks so hybrid models can resume agent sessions without dense state storage.",
+          "source": "hackernews_ai",
+          "url": "https://flashstates.ai/",
+          "published": "Tue, 10 Nov 2026 04:29:35 +0000"
+        },
+        {
+          "title": "CUDA+ROCm dual-back ends LLM inference for mixed-vendor GPUs (up to 48% faster)",
+          "summary": "Patch splits GLM MoE inference across an RTX 5090 and a Radeon iGPU, CUDA for attention and HIP for experts, reporting up to 48% faster.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/mw00/project-maya/pull/879",
+          "published": "Tue, 10 Nov 2026 02:05:11 +0000"
+        },
+        {
+          "title": "Show HN: QueenMQ – slow LLM calls blocked our Kafka partitions, so we built it",
+          "summary": "Apache-2.0 message broker built after slow LLM calls blocked Kafka partitions; it has mostly replaced Kafka at its authors' company.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/queen-mq/queen",
+          "published": "Tue, 10 Nov 2026 14:52:36 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Inference Vendor Breach Widens",
+      "slug": "inference-vendor-breach",
+      "summary": "The Fireworks AI incident now reaches customer data, and downstream apps are notifying their own users.",
+      "articles": [
+        {
+          "title": "Fireworks.ai Update on October 2026 security incident",
+          "summary": "Fireworks now reports impact to account and billing data and, for some accounts, secrets, datasets and incomplete models.",
+          "source": "hackernews_ai",
+          "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident-update",
+          "published": "Tue, 10 Nov 2026 08:47:00 +0000"
+        },
+        {
+          "title": "Tell HN: Notion AI chat sessions have been exposed via Fireworks AI hack",
+          "summary": "Notion is emailing users that AI chat sessions may be exposed through its vendor Fireworks AI.",
+          "source": "hackernews_ai",
+          "url": "https://news.ycombinator.com/item?id=50436636",
+          "published": "Tue, 10 Nov 2026 06:00:48 +0000"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "pdL5WL03M0s",
-    "title": "LLM Digest Daily Explainer: Nov 9, 2026",
-    "duration_s": 119.6
-  }
+  ]
 }
