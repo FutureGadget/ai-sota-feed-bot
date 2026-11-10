@@ -707,3 +707,21 @@ and `period` (nullable date). It is derived from existing published artifacts
 by `lib/editorial-catalog.js`; no agent-authored field is newly required.
 See `docs/product-specs/nav-update-indicators.md` for source mappings, cadence,
 migration, inclusion/exclusion rules and browser state.
+
+## Watchlist (`data/watch/`)
+
+Written by `pipeline/watch.py build` in the feed run, after
+`story_store.py sync`. Contract: `docs/product-specs/watchlist.md`.
+
+- `data/watch/index.json` - `{version, window_days, updated_at, entities}`.
+  Each entity: `{slug, label, kind, terms, not, sources, count, last_updated,
+  items}`; `items` holds the 12 newest matching stories as `{sid, title,
+  source, url, first_seen}` (UTC). Read by `publish/publish_follows.py`. Not in
+  the R2 allowlist; no API reads it.
+- `web/watch-data.json` - the same entities with 5 items each as `{sid, title,
+  first_seen}`. A static asset read by `web/watchlist.js`.
+- `data/email/state.json -> follows.watch_sent_through` - cursor for watchlist
+  email alerts, next to `follows.sent_through`.
+
+Neither file carries a build timestamp; both change only when a matching story
+enters the store or `config/watch.yaml` changes.

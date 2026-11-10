@@ -14,7 +14,7 @@
 // validation guard abuse. With no EMAIL_API_KEY the endpoint returns 503 and
 // the client hides the form.
 
-import { follow, page, unfollow } from '../lib/follow.js';
+import { follow, page, unfollow, watch } from '../lib/follow.js';
 import { readerIdFor } from '../lib/reader-id.js';
 
 export { readerIdFor };
@@ -60,6 +60,7 @@ export async function POST(request) {
   }
   body = body || {};
   if (body.action === 'follow') return follow(body, apiKey);
+  if (body.action === 'watch') return watch(body, apiKey);
 
   // Honeypot: a real user leaves this empty; bots fill every field. Report
   // success without touching the provider so the bot learns nothing.

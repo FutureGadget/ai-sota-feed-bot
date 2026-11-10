@@ -1,0 +1,228 @@
+/* Watchlist (web/watchlist.js): Watch chips on feed cards and story pages, and
+   the feed's watchlist module. Uses the site palette tokens from
+   site-chrome.css; defines none of its own. */
+.watch-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+}
+.watch-chip {
+  min-height: 32px;
+  padding: 0.2rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  cursor: pointer;
+}
+.watch-chip:hover {
+  border-color: var(--line-strong, var(--muted));
+}
+.watch-chip[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+.watch-chip:focus-visible,
+.watch-link:focus-visible,
+.watch-dismiss:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.watch-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.watch-link:hover {
+  text-decoration: underline;
+}
+
+/* Feed module */
+.watch-home {
+  margin: 0 0 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+}
+.watch-home[hidden] {
+  display: none;
+}
+.watch-home-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.75rem;
+}
+.watch-home-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+.watch-home-count {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+.watch-home-actions {
+  display: inline-flex;
+  gap: 0.9rem;
+  margin-left: auto;
+}
+.watch-dismiss {
+  margin-left: auto;
+  padding: 0 0.3rem;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 1.15rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.watch-home-copy {
+  margin: 0.3rem 0 0.65rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.watch-rows {
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.watch-row {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.45rem 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.88rem;
+}
+.watch-row-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.watch-row a {
+  color: var(--fg);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.watch-row a:hover {
+  color: var(--accent);
+}
+.watch-row-when {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.watch-editor {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+.watch-editor-group + .watch-editor-group {
+  margin-top: 0.7rem;
+}
+.watch-editor-kind {
+  margin: 0 0 0.35rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.watch-email-slot {
+  margin-top: 0.7rem;
+}
+.watch-email-slot[hidden] {
+  display: none;
+}
+.watch-email-status {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.watch-email-slot .subscribe-inline {
+  margin-top: 0;
+}
+
+/* Feed cards: chips live in the "⋯" panel, under the actions. */
+.watch-card-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.6rem 0 0;
+}
+.watch-card-chips[hidden] {
+  display: none;
+}
+.watch-chips-label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Story pages */
+.watch-box {
+  margin: 0 0 2rem;
+  padding: 1rem 0 1.1rem;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.watch-box[hidden] {
+  display: none;
+}
+.watch-box .tldr-label {
+  margin: 0;
+}
+.watch-box-copy {
+  margin: 0.3rem 0 0.7rem;
+  font-size: 0.92rem;
+}
+.watch-box-hint {
+  margin: 0.7rem 0 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.watch-box .watch-chip {
+  min-height: 44px;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.86rem;
+}
+
+@media (max-width: 640px), (pointer: coarse) {
+  .watch-chip {
+    min-height: 44px;
+    padding: 0.45rem 0.8rem;
+  }
+  .watch-link {
+    min-height: 44px;
+  }
+}
+@media (max-width: 640px) {
+  /* Promo budget on a phone: four suggestions, then "All". */
+  .watch-intro-chips .watch-chip:nth-of-type(n + 5) {
+    display: none;
+  }
+  .watch-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.15rem 0.75rem;
+  }
+  .watch-row-label {
+    grid-column: 1 / -1;
+  }
+}

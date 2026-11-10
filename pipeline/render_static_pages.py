@@ -83,6 +83,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import og_cards  # noqa: E402
 from build_storylines import WEAK as STORYLINE_WEAK, title_tokens  # noqa: E402
 from story_store import load_store, parse_dt, story_sid  # noqa: E402
+import watch as watch_entities  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DAILY_DIR = ROOT / "data" / "daily"
@@ -2454,6 +2455,35 @@ def related_stories(
     return [other for _, _, other in scored[:RELATED_STORIES_MAX]]
 
 
+WATCH_ASSET_VERSION = "20261110-watch"
+_WATCH_ENTITIES: list[dict] | None = None
+
+
+def story_watch_html(rec: dict) -> str:
+    """Watch-chip slot for a story that is news about a watchable entity.
+
+    The slot is empty and hidden; web/watchlist.js fills it with one chip per
+    entity and the email-alert offer (docs/product-specs/watchlist.md). Stories
+    that match nothing get no slot, so their pages never load the script.
+    """
+    global _WATCH_ENTITIES
+    if _WATCH_ENTITIES is None:
+        try:
+            _WATCH_ENTITIES = watch_entities.load_entities()[0]
+        except Exception:
+            _WATCH_ENTITIES = []
+    title = squeeze(rec.get("title"))
+    source = squeeze(rec.get("source"))
+    if not watch_entities.match_entities(title, source, _WATCH_ENTITIES):
+        return ""
+    return (
+        f'<link rel="stylesheet" href="/watchlist.css?v={WATCH_ASSET_VERSION}" />'
+        '<section class="watch-box" aria-label="Watch these topics" data-watch-context="story" '
+        f'data-watch-title="{escape(title)}" data-watch-source="{escape(source)}" hidden></section>'
+        f'<script defer src="/watchlist.js?v={WATCH_ASSET_VERSION}"></script>'
+    )
+
+
 def render_story_body(
     rec: dict, stories: dict[str, dict], storyline_of: dict[str, tuple] | None = None
 ) -> str:
@@ -2548,6 +2578,8 @@ def render_story_body(
         '<div class="story-source-gate"><p class="tldr-label">Continue reading</p>'
         f'<div class="story-actions">{"".join(actions)}</div></div>'
     )
+
+    parts.append(story_watch_html(rec))
 
     covered = [c for c in rec.get("also_covered") or [] if isinstance(c, dict)]
     if covered:

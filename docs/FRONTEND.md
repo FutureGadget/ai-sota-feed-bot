@@ -127,3 +127,15 @@ complete Latest/Unread collection. It is linked as a secondary content action,
 not inserted into or reordered within the canonical section navigation.
 Dynamic Playbook/Lab pages report successful edition rendering through
 `editorial:opened`. Contract: `docs/product-specs/nav-update-indicators.md`.
+
+## Watchlist
+
+`web/watchlist.js` and `web/watchlist.css` add Watch chips and the feed's
+watchlist module. Any element with `data-watch-title` (plus optional
+`data-watch-source` and `data-watch-context="story"`) is filled with one chip
+per matching entity from `/watch-data.json`; an element that matches nothing
+stays hidden. The feed renders that slot inside each card's `details.card-more`
+panel and owns `#watchHome`; `story_watch_html()` in
+`pipeline/render_static_pages.py` emits the slot, stylesheet and script on
+story pages that match. The script reuses the `.subscribe-inline` form styles
+for its email offer. Contract: `docs/product-specs/watchlist.md`.

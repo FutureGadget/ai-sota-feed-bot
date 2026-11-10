@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Storyline follow alerts — email each follower when a story they follow moves.
+"""Follow alerts — email each follower when a story they follow or a topic they watch moves.
 
 Readers follow a storyline by email from its page (``lib/follow.js`` via ``/api/subscribe``), which
 stores the slug in the Resend contact property ``followed_storylines`` and puts
@@ -7,6 +7,13 @@ the contact in the "Storyline followers" segment. This job finds storylines
 whose content-based ``last_updated`` passed the committed cursor
 (``data/email/state.json → follows.sent_through``), then sends every follower
 one personal email covering just the stories they follow that moved.
+
+Watchlist alerts ride the same email (docs/product-specs/watchlist.md): readers
+who asked for email on their watchlist have entity slugs in the contact
+property ``watched_topics``. ``pipeline/watch.py`` writes which stories are news
+about each entity (``data/watch/index.json``); stories that entered after
+``follows.watch_sent_through`` go to the readers watching that entity. The job
+runs once a day, so a reader gets at most one of these emails a day.
 
 Broadcasts send one body to a whole segment, so per-follower content goes out
 as batch transactional emails (``/emails/batch``). Each carries signed unfollow
@@ -51,6 +58,8 @@ from publish.publish_email import (  # noqa: E402
 
 API = "https://api.resend.com"
 FOLLOW_PROPERTY = "followed_storylines"
+WATCH_PROPERTY = "watched_topics"
+WATCH_ITEMS_PER_TOPIC = 3
 FOLLOWERS_SEGMENT_NAME = "Storyline followers"
 SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,99}$")
 READER_ID_RE = re.compile(r"^anon_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
@@ -70,16 +79,18 @@ def parse_follows(value: object) -> list[str]:
     return out
 
 
-def unfollow_token(api_key: str, contact_id: str, slug: str) -> str:
-    """Must match ``unfollowToken`` in lib/follow.js."""
-    msg = f"unfollow:{contact_id}:{slug}".encode()
+def unfollow_token(api_key: str, contact_id: str, slug: str, kind: str = "") -> str:
+    """Must match ``unfollowToken`` in lib/follow.js. ``kind="w"`` is a watched topic."""
+    subject = f"w:{slug}" if kind == "w" and slug != "*" else slug
+    msg = f"unfollow:{contact_id}:{subject}".encode()
     return hmac.new(api_key.encode(), msg, hashlib.sha256).hexdigest()[:32]
 
 
-def unfollow_url(cfg: dict, api_key: str, contact_id: str, slug: str) -> str:
+def unfollow_url(cfg: dict, api_key: str, contact_id: str, slug: str, kind: str = "") -> str:
     base = cfg["site_base"].rstrip("/")
-    token = unfollow_token(api_key, contact_id, slug)
-    return f"{base}/api/subscribe?c={quote(contact_id, safe='')}&s={quote(slug, safe='*')}&t={token}"
+    token = unfollow_token(api_key, contact_id, slug, kind)
+    kind_param = "&k=w" if kind == "w" and slug != "*" else ""
+    return f"{base}/api/subscribe?c={quote(contact_id, safe='')}&s={quote(slug, safe='*')}&t={token}{kind_param}"
 
 
 def moved_storylines(since: str) -> list[dict]:
@@ -101,11 +112,83 @@ def latest_storyline_update() -> str:
     return max((str(r.get("last_updated") or "") for r in moved_storylines("")), default="")
 
 
-def render_follow_email(cfg: dict, api_key: str, contact: dict, threads: list[dict]) -> tuple[str, str]:
-    """(subject, html) for one follower and the followed threads that moved."""
+def moved_watches(since: str) -> list[dict]:
+    """Watched entities with stories that entered after ``since``, newest first.
+
+    Each is ``{slug, label, items}`` with only the new items, newest first.
+    """
+    p = ROOT / "data" / "watch" / "index.json"
+    try:
+        entities = json.loads(p.read_text(encoding="utf-8")).get("entities") or []
+    except Exception:
+        return []
+    moved = []
+    for ent in entities:
+        if not isinstance(ent, dict) or not SLUG_RE.match(str(ent.get("slug") or "")):
+            continue
+        items = [
+            i for i in ent.get("items") or []
+            if isinstance(i, dict) and i.get("sid") and i.get("title") and str(i.get("first_seen") or "") > since
+        ]
+        if items:
+            items.sort(key=lambda i: str(i["first_seen"]), reverse=True)
+            moved.append({"slug": ent["slug"], "label": str(ent.get("label") or ent["slug"]), "items": items})
+    return sorted(moved, key=lambda e: str(e["items"][0]["first_seen"]), reverse=True)
+
+
+def latest_watch_update() -> str:
+    return max((str(e["items"][0]["first_seen"]) for e in moved_watches("")), default="")
+
+
+def _clip(text: str, limit: int) -> str:
+    text = " ".join(str(text).split())
+    return text if len(text) <= limit else text[: limit - 1].rstrip() + "…"
+
+
+def watch_blocks(cfg: dict, api_key: str, contact: dict, watched: list[dict], rid_param: str) -> list[str]:
+    base = cfg["site_base"].rstrip("/")
+    shown: set[str] = set()  # a story that matches two watched topics is listed once
+    blocks = []
+    for ent in watched:
+        items = [i for i in ent["items"] if i["sid"] not in shown]
+        if not items:
+            continue
+        rows = []
+        for item in items[:WATCH_ITEMS_PER_TOPIC]:
+            shown.add(item["sid"])
+            link = f"{base}/story/{quote(str(item['sid']), safe='')}?utm_source={cfg['utm_source']}{rid_param}"
+            rows.append(
+                f'<div style="font-size:14px;line-height:1.5;margin-top:4px"><a href="{html.escape(link)}" '
+                f'style="color:#1a1a1a">{html.escape(_clip(item["title"], 140))}</a></div>'
+            )
+        extra = len(items) - WATCH_ITEMS_PER_TOPIC
+        more = f'<span style="color:#666">+{extra} more on the live feed</span><span style="color:#ccc"> · </span>' if extra > 0 else ""
+        stop = unfollow_url(cfg, api_key, contact["id"], ent["slug"], "w")
+        blocks.append(
+            '<div style="margin:0 0 18px">'
+            f'<div style="font-size:13px;font-weight:600;color:#666">{html.escape(ent["label"])}</div>'
+            + "".join(rows)
+            + f'<div style="font-size:12px;margin-top:6px">{more}<a href="{html.escape(stop)}" style="color:#999">'
+            f'Stop watching {html.escape(ent["label"])}</a></div></div>'
+        )
+    return blocks
+
+
+def render_follow_email(
+    cfg: dict, api_key: str, contact: dict, threads: list[dict], watched: list[dict] | None = None
+) -> tuple[str, str]:
+    """(subject, html) for one follower: followed threads that moved, then
+    watched topics with new coverage."""
+    watched = watched or []
     rid = contact.get("reader_id") or ""
     rid_param = f"&rid={rid}" if READER_ID_RE.match(rid) else ""
-    if len(threads) == 1:
+    if threads and watched:
+        subject = f"{len(threads) + len(watched)} updates on what you follow — LLM Digest"
+    elif len(watched) == 1:
+        subject = f"{watched[0]['label']}: {_clip(watched[0]['items'][0]['title'], 70)}"
+    elif watched:
+        subject = f"{len(watched)} things you watch changed — LLM Digest"
+    elif len(threads) == 1:
         subject = f"{threads[0].get('label') or threads[0]['slug']} moved — LLM Digest"
     else:
         subject = f"{len(threads)} stories you follow moved — LLM Digest"
@@ -127,16 +210,24 @@ def render_follow_email(cfg: dict, api_key: str, contact: dict, threads: list[di
             f'<span style="color:#ccc"> · </span><a href="{html.escape(stop)}" style="color:#999">'
             "Unfollow this story</a></div></div>"
         )
+    blocks.extend(watch_blocks(cfg, api_key, contact, watched, rid_param))
     stop_all = unfollow_url(cfg, api_key, contact["id"], "*")
+    if watched:
+        intro = "New coverage of what you watch." if not threads else "New coverage of what you follow and watch."
+        reason = "You get this because you asked for watchlist or story emails on llm-digest.com. "
+        stop_label = "Stop all story and watchlist emails"
+    else:
+        intro = "A story you follow picked up new coverage."
+        reason = "You get this because you followed these stories on llm-digest.com. "
+        stop_label = "Stop all story emails"
     body = (
         '<div style="font-family:-apple-system,Segoe UI,sans-serif;max-width:560px;margin:0 auto;padding:16px">'
         f'<div style="font-size:14px;font-weight:600;margin-bottom:14px">{logo_img(cfg)}LLM Digest</div>'
-        '<div style="font-size:13px;color:#666;margin-bottom:16px">'
-        "A story you follow picked up new coverage.</div>"
+        f'<div style="font-size:13px;color:#666;margin-bottom:16px">{intro}</div>'
         + "".join(blocks)
         + '<div style="font-size:12px;color:#999;border-top:1px solid #eee;padding-top:10px;margin-top:8px">'
-        "You get this because you followed these stories on llm-digest.com. "
-        f'<a href="{html.escape(stop_all)}" style="color:#999">Stop all story emails</a></div></div>'
+        + reason
+        + f'<a href="{html.escape(stop_all)}" style="color:#999">{stop_label}</a></div></div>'
     )
     return subject, body
 
@@ -195,6 +286,7 @@ def list_followers(api_key: str, segment_id: str) -> list[dict]:
             "email": c.get("email") or "",
             "unsubscribed": bool(c.get("unsubscribed")),
             "follows": parse_follows(prop(FOLLOW_PROPERTY)),
+            "watches": parse_follows(prop(WATCH_PROPERTY)),
             "reader_id": prop("reader_id"),
         })
     return followers
@@ -220,17 +312,22 @@ def send_batch(api_key: str, messages: list[dict], idempotency_prefix: str) -> N
 # --------------------------------------------------------------------------- #
 # Main
 # --------------------------------------------------------------------------- #
-def build_messages(cfg: dict, api_key: str, from_addr: str, followers: list[dict], moved: list[dict]) -> list[dict]:
+def build_messages(
+    cfg: dict, api_key: str, from_addr: str, followers: list[dict], moved: list[dict],
+    moved_watch: list[dict] | None = None,
+) -> list[dict]:
     by_slug = {t["slug"]: t for t in moved}
     messages = []
     for f in followers:
         if f["unsubscribed"] or not f["email"]:
             continue
         threads = [by_slug[s] for s in f["follows"] if s in by_slug]
-        if not threads:
+        watching = set(f.get("watches") or [])
+        watched = [e for e in moved_watch or [] if e["slug"] in watching]
+        if not threads and not watched:
             continue
         threads.sort(key=lambda t: str(t.get("last_updated") or ""), reverse=True)
-        subject, body = render_follow_email(cfg, api_key, f, threads)
+        subject, body = render_follow_email(cfg, api_key, f, threads, watched)
         stop_all = unfollow_url(cfg, api_key, f["id"], "*")
         messages.append({
             "from": from_addr,
@@ -242,7 +339,7 @@ def build_messages(cfg: dict, api_key: str, from_addr: str, followers: list[dict
                 "List-Unsubscribe": f"<{stop_all}>",
                 "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
             },
-            "tags": [{"name": "kind", "value": "storyline_follow"}],
+            "tags": [{"name": "kind", "value": "storyline_follow" if threads else "watchlist"}],
         })
     return messages
 
@@ -254,11 +351,17 @@ def main() -> int:
 
     cfg = load_config()
     state = load_state()
-    cursor = str((state.get("follows") or {}).get("sent_through") or "")
+    fstate = dict(state.get("follows") or {})
+    cursor = str(fstate.get("sent_through") or "")
+    watch_cursor = str(fstate.get("watch_sent_through") or "")
 
     if args.dry_run:
         moved = moved_storylines(cursor)
-        print(f"follows_dry_run=true cursor={cursor or 'unset'} moved={','.join(t['slug'] for t in moved)}")
+        moved_watch = moved_watches(watch_cursor) if watch_cursor else []
+        print(
+            f"follows_dry_run=true cursor={cursor or 'unset'} moved={','.join(t['slug'] for t in moved)} "
+            f"watch_cursor={watch_cursor or 'unset'} watch_moved={','.join(e['slug'] for e in moved_watch)}"
+        )
         return 0
 
     api_key = os.getenv("EMAIL_API_KEY", "").strip()
@@ -272,31 +375,55 @@ def main() -> int:
         print("follows_send_skipped=true reason=disabled_or_unconfigured")
         return 0
 
+    # Each cursor's first run only starts it from now, so launch never mails
+    # backlog. The two are independent: the watchlist cursor was added later.
+    initialized = False
+    moved: list[dict] = []
+    moved_watch: list[dict] = []
     if not cursor:
-        # First run: start from now so launch never mails the whole backlog.
-        state["follows"] = {"sent_through": latest_storyline_update()}
-        save_state(state)
-        print(f"follows_send_skipped=true reason=cursor_initialized sent_through={state['follows']['sent_through']}")
-        return 0
+        fstate["sent_through"] = latest_storyline_update()
+        initialized = True
+    else:
+        moved = moved_storylines(cursor)
+    if not watch_cursor:
+        latest_watch = latest_watch_update() if follows_cfg.get("watchlist", True) else ""
+        if latest_watch:
+            fstate["watch_sent_through"] = latest_watch
+            initialized = True
+    elif follows_cfg.get("watchlist", True):
+        moved_watch = moved_watches(watch_cursor)
 
-    moved = moved_storylines(cursor)
-    if not moved:
-        print(f"follows_send_skipped=true reason=nothing_moved cursor={cursor}")
+    if not moved and not moved_watch:
+        if initialized:
+            state["follows"] = fstate
+            save_state(state)
+            print(
+                f"follows_send_skipped=true reason=cursor_initialized sent_through={fstate.get('sent_through', '')} "
+                f"watch_sent_through={fstate.get('watch_sent_through', '')}"
+            )
+        else:
+            print(f"follows_send_skipped=true reason=nothing_moved cursor={cursor} watch_cursor={watch_cursor}")
         return 0
-    newest = str(moved[0].get("last_updated") or cursor)
+    newest = str(moved[0].get("last_updated") or cursor) if moved else cursor
+    newest_watch = str(moved_watch[0]["items"][0]["first_seen"]) if moved_watch else watch_cursor
 
     segment_id = followers_segment_id(api_key)
     followers = list_followers(api_key, segment_id) if segment_id else []
-    messages = build_messages(cfg, api_key, from_addr, followers, moved)
+    messages = build_messages(cfg, api_key, from_addr, followers, moved, moved_watch)
     if messages:
-        send_batch(api_key, messages, idempotency_prefix=f"follows-{newest}")
+        prefix = f"follows-{newest}" + (f"-w{newest_watch}" if moved_watch else "")
+        send_batch(api_key, messages, idempotency_prefix=prefix)
 
     # Advance only after every batch succeeded, so a failure re-sends.
-    state["follows"] = {"sent_through": newest}
+    if moved:
+        fstate["sent_through"] = newest
+    if moved_watch:
+        fstate["watch_sent_through"] = newest_watch
+    state["follows"] = fstate
     save_state(state)
     print(
-        f"follows_sent=true moved={len(moved)} followers={len(followers)} "
-        f"emails={len(messages)} sent_through={newest}"
+        f"follows_sent=true moved={len(moved)} watch_moved={len(moved_watch)} followers={len(followers)} "
+        f"emails={len(messages)} sent_through={newest} watch_sent_through={newest_watch}"
     )
     return 0
 

@@ -22,6 +22,7 @@ pipeline/build_digest.py               -> data/processed/latest.json + data/dige
    (pipeline/judge.py + pipeline/editorial_judge.py; incremental no-delta skip)
 pipeline/brief_ledger.py               -> data/brief/<date>.json (24h admission ledger)
 pipeline/story_store.py sync           -> data/stories/ (durable, append-only store)
+pipeline/watch.py build                -> data/watch/index.json + web/watch-data.json (watchlist entities)
 pipeline/render_static_pages.py        -> web/{daily,weekly,story}/*.html + sitemap.xml
 pipeline/build_foundations.py          -> data/foundations/index.json (deterministic concept compiler)
 
@@ -241,7 +242,8 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   `data/email/state.json` cursor — daily guard keys off the recap's `date`),
   `publish_follows.py` (storyline follow alerts: one personal email per
   follower when followed storylines move; runs after the daily digest;
-  cursor `follows.sent_through`), `backfill_reader_ids.py` (one-off
+  cursor `follows.sent_through`; the same email carries watchlist alerts for
+  readers with `watched_topics`, cursor `follows.watch_sent_through`), `backfill_reader_ids.py` (one-off
   `reader_id` backfill for existing Resend contacts)
 - `api/` — request handlers imported by the Cloudflare Worker
   (`worker/src/index.js`): `feed.js`, `rss.js`, `share.js` (`/s`), `daily.js`,
@@ -526,6 +528,11 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   `capability_cache.json`. Written by `pipeline/collect_skills.py run` via
   `skills-refresh.yml` (6h). Phase 1: no page or API reads `latest.json` yet.
   Schema: `docs/generated/db-schema.md`
+- `data/watch/index.json` + `web/watch-data.json` - watchlist entities
+  (`config/watch.yaml`) with their recent matching stories; written by
+  `pipeline/watch.py build` in the feed run. The first feeds watchlist email
+  alerts, the second the Watch chips and feed module (`web/watchlist.js`).
+  Spec: `docs/product-specs/watchlist.md`
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/metrics/` — `weekly_returning_readers.json`: durable weekly history for
   the north-star metric (`pipeline/north_star_metric.py`). Schema/rationale:

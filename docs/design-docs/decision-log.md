@@ -2962,3 +2962,33 @@ Impact: Posts are collected and compete in `practitioner_analysis`.
 `EXPOSED` (two reached the final feed).
 
 Rollback: Remove the `addyosmani_blog` entries from the four config files.
+
+## 2026-11-10 - Watchlist: readers watch tools, models and topics
+
+Decision: Add a reader-built watchlist (`docs/product-specs/watchlist.md`).
+`config/watch.yaml` curates 28 entities; `pipeline/watch.py` matches stored
+stories to them by title and source. Story pages and feed-card "⋯" panels get
+Watch chips, the feed gets a watchlist module, and `publish_follows.py` emails
+readers who ask, at most once a day, through the existing follow plumbing
+(`watched_topics` contact property, same segment, same `/api/subscribe` route).
+
+Rationale: Weekly returning readers held at 4-7 for ten weeks while new
+readers grew from 3 to 89. The only return offers were the daily digest and
+storyline Follow (about a dozen threads). `matched_topics` was too coarse to
+watch (`agent` tags 1,438 of the 3,756 stories stored since September), so entities are a curated
+list matched on titles.
+
+Impact: 56% of story pages (4,235 of 7,565) carry a Watch section. The Brief
+and its ranking are unchanged for every reader. The first email run only sets
+the `follows.watch_sent_through` cursor. Story pages gain the section on the
+next feed run, which re-renders them.
+
+Not verified: where new readers land and how storyline Follow converts today;
+PostHog was not consulted. The "new readers land on story pages" premise rests
+on the sitemap's 5,707 story URLs and the crawler analysis in
+`docs/status/north-star-metric.md`.
+
+Rollback: Set `follows.watchlist: false` in `config/email.yaml` to stop the
+emails. Remove the `watchlist.js` and `watchlist.css` tags from
+`web/index.html` and the `story_watch_html` call in
+`pipeline/render_static_pages.py` to remove the UI.
