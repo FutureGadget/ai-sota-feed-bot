@@ -1631,6 +1631,22 @@
   "url": "https://openai.com/index/introducing-images-2-6",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "29790635926e934f": {
+  "content_excerpt": "Inspect your app’s traffic on your Mac. Your coding agent can find a failed request, propose a rewrite and check the retry. You approve what changes. Through JoesProxy’s local MCP server, your agent can look up the matching requests without sending the whole capture into chat. You approve the network change on your Mac and refresh the app again. The agent can report the status and timing of each request; you check whether the catalog actually appeared. If you use Map Local, Rewrite and Throttling in Charles, you’ll recognize the workflow: serve a local file instead of the server’s response, change a field in live JSON, or slow down a request. JoesProxy handles those jobs on your Mac. Ask your agent, “What do the item prices in this cart response add up to?” With edge compute , JoesProxy adds them on the Mac that captured the response. The model gets the total instead of every line item. For a large cart, that means fewer input tokens to process and can lower the cost of the request. Tell your agent what you want to test: joining a live stream at the live edge, rewinding into DVR history, or switching tracks across a discontinuity. Your agent proposes a test stream for JoesProxy’s built-in HLS server. Once you approve it on your Mac, play it in your app. You watch the player; your agent can show you which playlists and segments it requested.",
+  "first_seen": "2026-11-10T03:08:56.949643+00:00",
+  "id": "45e869f631b724a2",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-09T23:39:03+00:00",
+  "sid": "29790635926e934f",
+  "source": "hackernews_ai",
+  "summary_1line": "JoesProxy – The free network workbench for your AI agent",
+  "title": "JoesProxy – The free network workbench for your AI agent",
+  "type": "news",
+  "url": "https://www.joesproxy.com",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "298e8e99ab738dd7": {
   "content_excerpt": "Semantic versioning tells developers how risky an upgrade is. A patch fixes bugs, a minor release adds features without breaking anything and a major release breaks things, so you know how closely to look before you upgrade. On paper, that signal is redundant when an AI coding agent does the upgrade. The agent has no muscle memory tied to the old API. It can read the new code and run the tests, so why would it care what the version number says? We suspected it wouldn’t, and that SemVer had become something only people need. Two models proved us wrong. Across two experiments and almost 1,000 runs, the version number alone changed what they did with byte-identical code. Given an upgrade that broke the app, Claude Sonnet 5.5 ran the tests or read the new code in 2 of 10 runs when the upgrade was labeled a patch, and in all 10 when it was labeled a major release. Other models checked every upgrade, whatever the label said. Some agents still read SemVer, and for them, a patch label is a reason to check less. SemVer describes what the maintainer intended a release to do. Whether it works with your app is something an agent can check directly, by reading the code and running the tests. Still, models learn from repositories and docs where SemVer is everywhere. Somewhere in that data, they may have picked up the same habits developers have: a major release deserves a careful look, and a patch is safe to take. If they did, the label could decide how thoroughly an agent checks an upgrad",
   "first_seen": "2026-11-09T16:04:55.935465+00:00",
@@ -2417,6 +2433,23 @@
   "type": "news",
   "url": "https://github.com/Jyotishmoy12/AgentTM",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "3d4687c88a1c80b9": {
+  "first_seen": "2026-11-10T03:08:56.949643+00:00",
+  "id": "c10a37cd899ab2c3",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-07T02:45:44+00:00",
+  "sid": "3d4687c88a1c80b9",
+  "source": "arxiv_cs_ai",
+  "summary": "LLM-based agents extend LLMs with tool calls, memory, planning, and retrieval to act in external environments, but they are vulnerable to attacks at different workflow steps. Existing defenses, including prompt engineering and post-training alignment, primarily improve LLM-only safety and often overlook risks that arise from multi-step execution. External verification adds guardrails to check each step separately, but it typically ignores how risks can propagate across steps. We argue that we should consider risk transitions across dependent steps through the agent workflow, rather than separate verification on a single step. In this paper, we propose \\textbf{T}ail-risk-aware \\textbf{A}gent \\textbf{S}afety (TAS), a tail-risk-aware safety framework that models agent workflow safety as a sequence of dependent safety states and constrains the rare but extreme risks (i.e., tail risk) with a shared budget. TAS first models safety-state transitions sequentially along the workflow as an MDP to trace risk propagation, then measures a tail-sensitive risk to target rare but high-cost risks (i.e., tail risk), and constrains the risk with a shared budget to derive a step-wise safety strategy. By constraining tail risk rather than the overall average, TAS suppresses rare high-cost failures while preserving utility in normal cases. Experiments show that TAS achieves better performance compared with eleven baselines across three benchmarks.",
+  "summary_1line": "LLM-based agents extend LLMs with tool calls, memory, planning, and retrieval to act in external environments, but they are vulnerable to attacks at different workflow steps. Existing defenses, including prompt engine...",
+  "title": "Tail-risk-aware Agent Safety: Constraining Tail Risks Across Multi-step LLM Agent Workflows",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.10411v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "3dfd506de5b58da3": {
   "first_seen": "2026-11-05T19:04:43.522223+00:00",
@@ -3476,6 +3509,17 @@
   "type": "news",
   "url": "https://github.com/anthropics/FlashProve"
  },
+ "53b2b46ecae5925b": {
+  "content_excerpt": "Same price per token, more output tokens. GPT Image 2.6 spends 3.3x the output tokens of 2.5 on the same picture. Anthropic changed its tokenizer, and the same text now comes out about 30% more tokens. Update, November 9: Claude Fable 5.2 is a fifth cheaper per token than Fable 5.1, and the same drawing cost 3.4x as much. New model, same price, everything looks great, you'd say, let's upgrade. But nope! There's a new trend now, cheating with output tokens. The price looks the same, but they've found a way to increase the price by increasing output tokens. Anthropic does the same thing too. Same price, more output tokens. In the end, they earn more. And you won't notice right away, not until you start comparing prices on the same task. Here's how I noticed. OpenAI released GPT Image 2.6 yesterday and I told my team to switch everything to it. They came back and said Sunburst 2.6 costs three times more. I said, are you sure the price went up threefold? Let me take a look too. Sunburst 2.5: input 8, output 30, cached 2. Same for Sunburst 2.6. It does. This is the usage OpenAI returned for the same prompt at 1024x1024, medium: Whoa, that's a hell of a difference. We ran two more prompts to be sure and got the same numbers. The 2.6 picture is a bit sharper, more contrast. Three times better? I don't think it's worth it. So what's the method they use? So far I see two. The first one is inflating output tokens. GPT Image 2.6 is one example, and Claude Fable 5.1 is another: on the sa",
+  "first_seen": "2026-11-10T03:11:16.614579+00:00",
+  "id": "04d142bddf6cb2ad",
+  "published": "2026-11-09T22:15:58+00:00",
+  "sid": "53b2b46ecae5925b",
+  "source": "hackernews_ai",
+  "title": "AI labs raise prices without raising prices",
+  "type": "news",
+  "url": "https://playcode.io/blog/ai-labs-raise-prices-without-raising-prices"
+ },
  "53c7f260bda35f14": {
   "first_seen": "2026-11-05T02:05:37.010271+00:00",
   "id": "dcdeb2d0e2b14a39",
@@ -3967,6 +4011,24 @@
   "url": "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "5fa568689690c9ce": {
+  "first_seen": "2026-11-10T03:08:56.949643+00:00",
+  "id": "8db100e7a2d297d0",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-11-07T03:35:51+00:00",
+  "sid": "5fa568689690c9ce",
+  "source": "arxiv_cs_cl",
+  "summary": "Self-evolving agents improve their own skills, memory, and harness code from experience without retraining the base LLM, and group-evolving agents go further by sharing these lessons across agents. Yet most such systems overlook that sharing across users and heterogeneous agents requires deciding who can benefit from each lesson and what information must remain private. We present MixUA, a memory system that distills independent user-agent trajectories into lessons and assigns each lesson to a user-agent pair, user, agent, or global scope according to whom it benefits and what it may disclose. For evaluation, we introduce CrossLearnBench, a mixed-user-agent benchmark that pairs established agent tasks with user preferences and privacy probes that test whether private facts leak into memory other users can read. With five users and seven agents, MixUA raises pass rates by up to 16 points over no memory and 5 over a single global memory, even on tasks previously tried only by other users on other agents. It retains up to 90% of previously stated preferences, and at most 0.02% of privacy probes find a planted private fact in a forbidden scope. We hope MixUA offers a scalable path toward a global system where users and agents co-evolve.",
+  "summary_1line": "Self-evolving agents improve their own skills, memory, and harness code from experience without retraining the base LLM, and group-evolving agents go further by sharing these lessons across agents. Yet most such syste...",
+  "title": "Who Remembers What? Multi-Granularity Memory Extraction for Multi-User, Multi-Agent Interaction",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.10439v1",
+  "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
  "5fbc35eb022e4033": {
   "first_seen": "2026-11-10T00:08:03.535530+00:00",
   "id": "f760262edc9ba2e7",
@@ -4344,6 +4406,23 @@
   "type": "news",
   "url": "https://www.honeycomb.io/blog/honeycomb-team-agents-ai-sre-done-right",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "6c6377dea1cd8cea": {
+  "first_seen": "2026-11-10T03:08:56.949643+00:00",
+  "id": "b90cf49155f9162b",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-07T12:07:01+00:00",
+  "sid": "6c6377dea1cd8cea",
+  "source": "arxiv_llm_reliability",
+  "summary": "Long-term personalized agents are increasingly expected to answer queries over user histories in which preferences, goals, and constraints evolve across interleaved conversations. Existing retrieval-based and structured-memory systems can surface relevant facts, but often return isolated memory units that do not explain which earlier preference was refined, contradicted, or superseded by later evidence. We introduce TransMem, a transition-aware memory retrieval framework that stores preference updates as explicit retrieval units alongside ordinary factual memories. During memory construction, TransMem routes user interaction history into topic-structured memory graphs, detects shift events, and grounds them as transition records. At inference time, TransMem first retrieves factual anchors and then adaptively expands over transition records, producing a compact context of factual anchors and accepted transition records. Experiments on PersonaMem and PersonaBench across two Qwen backbones show that TransMem outperforms representative retrieval-based and structured-memory baselines. Controlled analyses further show that transition records and adaptive expansion contribute beyond factual anchoring, chronological expansion, flat transition retrieval, and fixed-hop traversal. These results suggest that preference-update records are useful retrieval units for long-term personalization.",
+  "summary_1line": "Long-term personalized agents are increasingly expected to answer queries over user histories in which preferences, goals, and constraints evolve across interleaved conversations. Existing retrieval-based and structur...",
+  "title": "TransMem: Transition-Aware Retrieval for Evolving Personal Memory",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.10683v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "6ca9cbc8faea0e06": {
   "content_excerpt": "APM is a dependency manager for AI agents. Declare the skills, prompts, instructions, plugins, and MCP servers your project needs in one apm.yml , then any developer runs apm install to deploy each primitive to the harnesses that support it. See the targets matrix for support across GitHub Copilot, Claude Code, Grok Build, Cursor, OpenCode, Codex, Gemini, Windsurf, and Kiro. One apm.yml across supported harnesses and machines. The lockfile pins exact versions and content hashes so a fresh clone resolves the same package content byte-for-byte. Every install scans for hidden Unicode, pins content hashes, and blocks transitive MCP servers unless they are explicitly declared or trusted. No opt-in required. apm-policy.yml is enforced at install time, including transitive MCP. Tighten-only inheritance flows enterprise -> org -> repo. Runtime behavior is your harness’s domain. See the Governance Guide . Homebrew is optional. See all installation options for pip, Scoop, and manual installs. For standalone Unix installs, follow the installer’s shell-specific PATH guidance if the current terminal cannot find apm . This example omits $schema and uses APM’s working-draft contract. For an explicit schema, see contract selection and the corrected schema candidate ; the older published schemas reject the Git-plus-path form shown below. That’s it. Each selected harness receives the primitives it supports in one command; every dependency is pinned, and every MCP server is policy-checked befor",
@@ -4727,17 +4806,17 @@
   "why_it_matters": "Matches feed focus: agentic."
  },
  "7787a435833ce944": {
-  "content_excerpt": "Open-source, self-hosted voice AI agents with a Vapi-compatible API. Bring your own keys or run 100% local and free (Whisper, Ollama, Kokoro). Calls on Twilio, Telnyx and Genesys, campaigns, model routes with fallback, cost per call. No per-minute platform fee. One command: npx openring Quick start · How it works · Compare · API guide · Providers · Roadmap · Português Hosted voice platforms charge a fee for every minute of every call, on top of what you already pay for speech-to-text, the model, the voice and the phone line. OpenRing does the same job on your own computer or server, with your own provider keys, and speaks the same JSON as Vapi. You need Node.js 18 or later. Everything else, Python included, installs itself: Settings live in ~/.openring/.env , created on the first run with a generated API key for apps that call the API (it's under Settings ). The free Kokoro voice downloads itself on the first start (about 120 MB). Each call runs a Pipecat pipeline: the caller's speech becomes text, the model answers (and can call your tools), and the voice speaks the answer back. Every turn's latency is recorded, step by step, and shown in the dashboard. — means we didn't find it in their public docs. On every platform you also pay for the model, the voice and the phone line, and for speech-to-text too, except that Retell's pricing page lists no separate charge for it. With OpenRing, the server, its uptime and any compliance work are yours; hosted platforms take on the first ",
+  "content_excerpt": "Self-hosted voice AI agents with a Vapi-compatible API. AI phone agents on Twilio, Telnyx, Plivo, Vonage or SIP, with your keys or 100% local and free (Whisper, Ollama, Kokoro). No per-minute platform fee. npx openring The open-source, self-hosted Vapi alternative for voice AI agents. Vapi-compatible API, no platform fee. OpenRing runs AI phone agents, voice AI agents and AI receptionists that answer and place calls over Twilio, Telnyx, Plivo, Vonage or any SIP trunk, with your own provider keys or a free, 100% local stack (Whisper, Ollama, Kokoro). Quick start · How it works · Compare · API guide · Providers · Roadmap · Discussions Hosted voice platforms charge a fee for every minute of every call, on top of what you already pay for speech-to-text, the model, the voice and the phone line. OpenRing does the same job on your own computer or server, with your own provider keys, and speaks the same JSON as Vapi. You need Node.js 18 or later. Everything else, Python included, installs itself: Settings live in ~/.openring/.env , created on the first run with a generated API key for apps that call the API (it's under Settings ). The free Kokoro voice downloads itself on the first start (about 120 MB). Each call runs a Pipecat pipeline: the caller's speech becomes text, the model answers (and can call your tools), and the voice speaks the answer back. Every turn's latency is recorded, step by step, and shown in the dashboard. — means we didn't find it in their public docs. On every ",
   "first_seen": "2026-11-04T22:04:37.212189+00:00",
-  "id": "68677c4e7b4627f1",
+  "id": "e2f5286f516a4c4c",
   "matched_topics": [
    "agent"
   ],
-  "published": "2026-11-04T21:56:55+00:00",
+  "published": "2026-11-10T00:43:29+00:00",
   "sid": "7787a435833ce944",
   "source": "hackernews_ai",
-  "summary_1line": "OpenRing – Open-source, self-hosted voice AI agent platform (Vapi alternative)",
-  "title": "OpenRing – Open-source, self-hosted voice AI agent platform (Vapi alternative)",
+  "summary_1line": "OpenRing – self-hosted voice AI agents with a Vapi-compatible API",
+  "title": "OpenRing – self-hosted voice AI agents with a Vapi-compatible API",
   "type": "news",
   "url": "https://github.com/elifalanrocha/openring",
   "why_it_matters": "Matches feed focus: agent."
@@ -5393,6 +5472,23 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.7",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "89699433fb1b1431": {
+  "first_seen": "2026-11-10T03:08:56.949643+00:00",
+  "id": "1c6638976bb4592b",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-07T15:12:01+00:00",
+  "sid": "89699433fb1b1431",
+  "source": "arxiv_llm_reliability",
+  "summary": "Recursive self-improvement offers a promising path toward AI agents that improve through experience by refining their own harnesses without retraining their underlying large language models (LLMs). Making this self-improvement process reliable, however, requires more than generating new updates: agents must decide which changes are worth keeping. A greedy gate that accepts updates based solely on higher validation scores can mistake an observed gain for genuine progress and lead to performance degeneration, whereas overly conservative statistical gates may reject beneficial updates and hinder performance improvement. We introduce Trustworthy Recursive Updates with Statistical Testing (TRUST), a framework that adapts an online multiple hypothesis testing procedure to control the rate of false evolution across rounds, with an LLM analyzing historical context to help determine how much evidence is required to update the incumbent. Under interpretable assumptions, we prove that TRUST limits the proportion of accepted updates that result in unacceptable performance loss. We further derive a lower bound on the final performance gain. Across the benchmarks HotpotQA, DROP, and APPS with the models DeepSeek-V4-Flash and Qwen-3.8-Flash, TRUST reduces the average ratio of accepted inferior updates from the greedy gate's 45.59% to 2.78%, while achieving higher final scores than the state-of-the-art statistical gate baselines for recursive self-improvement. These findings demonstrate that",
+  "summary_1line": "Recursive self-improvement offers a promising path toward AI agents that improve through experience by refining their own harnesses without retraining their underlying large language models (LLMs). Making this self-im...",
+  "title": "Trustworthy Recursive Self-Improvement with Statistical Guarantees",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.10787v1",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "89d038dcea5bcb51": {
   "first_seen": "2026-11-06T03:05:24.904029+00:00",
@@ -6422,6 +6518,22 @@
   "type": "news",
   "url": "https://paneflow.dev/blog/agent-status-osc-7501",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "a38548abbeed9a82": {
+  "first_seen": "2026-11-10T03:08:56.949643+00:00",
+  "id": "f419222aa666bd3d",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-07T04:38:35+00:00",
+  "sid": "a38548abbeed9a82",
+  "source": "arxiv_cs_cl",
+  "summary": "Local AI promises capable personal assistants that run on users' own devices, keeping data and computation under their control. Open-weight models that fit on local devices can now handle practical tasks such as coding. Yet current inference engines fall short. Popular engines such as vLLM and SGLang target datacenter GPUs with dedicated host memory, while local engines underuse the memory hierarchy of unified-memory devices. We present Hibana, an inference engine for unified-memory devices that co-optimizes model representation, memory management, and decoding strategy. Model surgery, the process of editing a trained model's architecture to suit its hardware, changes how the model computes, shrinking its memory footprint and data movement. Unified-memory management preserves each agent's state across turns, so long-running agents can resume instantly instead of recomputing their state. Adaptive speculation generates several tokens per step. Hibana codesigns these features around the shared memory capacity and limited bandwidth of unified-memory systems-on-chip to support local multi-agent workloads. On a single DGX Spark serving Qwen and Nemotron models of up to 125B parameters, Hibana completes up to 3.4$\\times$ more agentic tasks per hour and delivers up to 3.9$\\times$ higher decoding throughput than other established frameworks such as vLLM, NVIDIA Flare, llama.cpp, and TensorFold. Code is available at https://github.com/sharar-project/hibana.",
+  "summary_1line": "Local AI promises capable personal assistants that run on users' own devices, keeping data and computation under their control. Open-weight models that fit on local devices can now handle practical tasks such as codin...",
+  "title": "Hibana: Fast Agentic Inference on Unified-Memory Devices",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.10469v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "a3b6edeb484770a3": {
   "first_seen": "2026-11-09T13:04:01.061413+00:00",
@@ -7989,6 +8101,17 @@
   "type": "news",
   "url": "https://openai.com/index/chatgpt-enterprise-aws-marketplace"
  },
+ "cb7b8ef6fb61e723": {
+  "content_excerpt": "Blast-radius control for AI agents that send email: budgets, rate ceiling, loop detection, kill switch, approval holds. Node, Python, PHP, Go. Works with any provider. Blast-radius control for agents that send email: at most N sends an hour, M a minute, no repeated messages, no mail to an important or new recipient without a person, and one call that stops everything. Works in front of nodemailer, Amazon SES, Resend, Postmark, any SMTP server, or AgentiSend. Every decision is one of allow , hold_for_approval or refuse , with a stable reason token, one human sentence and the numbers behind it: Mail to everyone else keeps flowing: a key that pages its owner 30 times an hour still sends a sign-in code to a new user. agent-email-guard runs inside your agent's process. That makes it easy to adopt, and it also means code the agent controls can remove it, and two processes with the in-memory store keep two separate budgets. Use the Redis or Postgres store to share limits across processes. AgentiSend enforces the same rules at the API, where the agent cannot bypass them: the budget, rate ceiling and kill switch live on the API key and apply to every process that uses it, a key can lower its own limits but never raise them, a paused key cannot resume itself, holds wait in an approval queue in the console, and the thresholds are published. The agent-email-guard/agentisend adapter speaks to it with the same decision shape: Put the limits in agent-email-guard.json and load it from Node, ",
+  "first_seen": "2026-11-10T03:11:16.614579+00:00",
+  "id": "9624e6d947a34e2f",
+  "published": "2026-11-09T21:39:06+00:00",
+  "sid": "cb7b8ef6fb61e723",
+  "source": "hackernews_ai",
+  "title": "Show HN: Agent-email-guard – agent tried to send 400 receipts, stopped at 5",
+  "type": "news",
+  "url": "https://github.com/agentisend/agent-email-guard"
+ },
  "ccf769a9ca0162cc": {
   "first_seen": "2026-11-03T21:09:26.741882+00:00",
   "id": "b7f53667d6217c99",
@@ -8644,6 +8767,21 @@
   "type": "news",
   "url": "https://github.com/fritzprix/devloops",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "dbc58eacee5d52ba": {
+  "first_seen": "2026-11-10T03:08:56.949643+00:00",
+  "id": "0bdf77c599c9f32d",
+  "published": "2026-11-10T02:29:43+00:00",
+  "release_highlights": [
+   "Added fast mode on Vertex in the global, us and eu regions, falling back to standard speed if Vertex refuses it"
+  ],
+  "sid": "dbc58eacee5d52ba",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added fast mode on Vertex in the global, us and eu regions, falling back to standard speed if Vertex refuses it",
+  "summary_1line": "Added fast mode on Vertex in the global, us and eu regions, falling back to standard speed if Vertex refuses it",
+  "title": "claude-code v2.1.322",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.322"
  },
  "dc6bacb2e80f865d": {
   "first_seen": "2026-11-09T22:05:42.974699+00:00",
@@ -9958,6 +10096,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03618v1",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "fed29696ba0516e2": {
+  "content_excerpt": "I’m adding an opt-in HIP expert helper to Maya’s CUDA engine. I wanted to use the RTX 5090 and the Radeon 8060S in my Strix Halo machine together: CUDA keeps attention, dense/shared layers and its expert cache, while a separately compiled HIP module stores and computes complementary GLM experts. I’ve kept this contribution focused on the existing GLM engine and its expert-helper path. I haven’t added DeepSeek support or a new inference engine. I merged upstream main 7bf15ac68f9bb5026bd5298849608c83be4ff6c2 into this branch with a normal merge, preserving the published history. The three conflicts were in remote_experts.hpp , remote_experts.cpp and glm_fast_path.cu : upstream's native EXL3 helper and asynchronous enqueue/wait changes intersected the external helper interface. I retained native EXL3/overlap behavior and the plugin's synchronous GGUF dispatch. External EXL3 or native MAYA_GLM_HELPER_OVERLAP=1 requests now fail explicitly before entering native helper CUDA state. Plugin grouped prefill overlap still works. I added a Release dispatch/setup regression to CI and documented this boundary; there is no new plugin ABI, kernel, SDK or default-policy change. Fresh CUDA engine and separate CUDA/HIP 7.1 modules build on the rig. Ubuntu server tests pass (793, 33 skipped), as do installer/tools tests (783, 39 skipped), HIP mapping, Release dispatch/reader/cost and upstream CPU fixtures. All 108 real-weight Maya-M expert arrays match the previous HIP 7.1 fixture bitwise. At 1",
+  "first_seen": "2026-11-10T03:08:56.949643+00:00",
+  "id": "6fa961a9184db75f",
+  "published": "2026-11-10T02:05:11+00:00",
+  "sid": "fed29696ba0516e2",
+  "source": "hackernews_ai",
+  "summary_1line": "CUDA+ROCm dual-back ends LLM inference for mixed-vendor GPUs (up to 48% faster)",
+  "title": "CUDA+ROCm dual-back ends LLM inference for mixed-vendor GPUs (up to 48% faster)",
+  "type": "news",
+  "url": "https://github.com/mw00/project-maya/pull/879"
  },
  "ff14e0cf361f2948": {
   "first_seen": "2026-11-09T00:08:10.338185+00:00",
