@@ -123,6 +123,24 @@
   "url": "http://arxiv.org/abs/2611.05636v1",
   "why_it_matters": "Matches feed focus: agent, harness, evaluation."
  },
+ "04524b2773c6396e": {
+  "first_seen": "2026-11-10T10:49:44.059605+00:00",
+  "id": "4a22b5ba5de524d7",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-09T15:20:32+00:00",
+  "sid": "04524b2773c6396e",
+  "source": "arxiv_agent_systems_research",
+  "summary": "We propose SciMARS, a framework for recursive task-local adaptation of multi-agent harnesses in closed-loop scientific discovery. Multi-agent systems coordinate analysis, experimental design, and verification as scientific evidence evolves. However, two problems limit their effectiveness: (i) without shared memory, agents lose observations and repeat work; (ii) fixed role procedures, handoffs, and memory policies perpetuate mistakes despite retained evidence. We address these problems with a shared evidence graph and separate component editors. SciMARS adapts roles and coordination; SciMARS + Memory adds a third editor for how agents record, retrieve, and receive evidence. Candidate probes guide composition and selection of the next harness. We evaluate scientific discovery through experimental-data replay and a digital twin. SciMARS + Memory resolves 12/18 GPT-6-Astra and 2/18 GLM-5.3 attempts on Autonomous Science Bench, compared with 8/18 and 1/18 for the base multi-agent team. On ScienceAgentBench and AppWorld, it solves 14/38 and 11/20 tasks, compared with 11/38 and 5/20 for the base team. These results support combining shared memory with harness adaptation across scientific and interactive tasks.",
+  "summary_1line": "We propose SciMARS, a framework for recursive task-local adaptation of multi-agent harnesses in closed-loop scientific discovery. Multi-agent systems coordinate analysis, experimental design, and verification as scien...",
+  "title": "SciMARS: Multi-Agent Recursive Self-Improvement for Closed-Loop Scientific Discovery",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12552v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
  "048f5d378548ff38": {
   "first_seen": "2026-11-04T06:05:16.733547+00:00",
   "id": "78a1d8da859efef7",
@@ -3022,6 +3040,22 @@
   "url": "http://arxiv.org/abs/2611.04225v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
+ "43d2f07b8fa119c1": {
+  "first_seen": "2026-11-10T10:49:44.059605+00:00",
+  "id": "53050295f177c8a1",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-09T18:07:42+00:00",
+  "sid": "43d2f07b8fa119c1",
+  "source": "arxiv_cs_lg",
+  "summary": "Reinforcement learning is now the mainstream paradigm for training LLMs on agentic tasks, yet standard practice keeps only the best-validation checkpoint and discards the rest. We show that this is lossy: in GRPO training of LLM agents, the best-validation checkpoint fails on problems that earlier checkpoints from the same run had already solved, and the union of problems solved across checkpoints far exceeds any single one. The discarded checkpoints thus form a teacher pool obtained at no additional training cost, which on-policy distillation (OPD) can mine to recover the lost coverage. Mining this pool raises two challenges: i) which checkpoint to distill from, as no checkpoint dominates the others and complementarity to the student is problem-specific; ii) where to trust it, as even a well-chosen teacher is only locally superior, so indiscriminate distillation overwrites behavior the student has already mastered. We propose Agentic-OPD, which treats the best-validation checkpoint as the student and all saved checkpoints as frozen teacher candidates, using the student's evolving capability gaps to guide both teacher selection and supervision filtering: the HCN policy (Highest Coverage Next) dynamically selects teachers by weighted coverage of the student's unsolved problems, while the LAD module (Locality-Aware Distillation) confines transfer to failed student rollouts on problems where the teacher performs better. Across five agentic task domains and 24 benchmarks and task",
+  "summary_1line": "Reinforcement learning is now the mainstream paradigm for training LLMs on agentic tasks, yet standard practice keeps only the best-validation checkpoint and discards the rest. We show that this is lossy: in GRPO trai...",
+  "title": "Agentic-OPD: Recovering Forgotten Agent Capabilities via On-Policy Distillation for Agentic Tasks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12799v1",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "43f56f7107586761": {
   "content_excerpt": "SAN FRANCISCO | October 30, 2026 – The Biological Computing Co. (TBC) , an applied biological computing company that uses living neurons to improve AI models, today launched TBC mischief 1, an AI video model that generates video 5x faster than its base model. Available on fal and OpenRouter , mischief 1 is the lowest-priced image-to-video model on both marketplaces, enabling video creators and developers to experiment with more ideas, faster and for less. The launch marks a major step in bringing discoveries from living neurons into commercial AI. mischief 1 is faster and cheaper because of efficiencies TBC discovered in living neurons and applied directly to the model. Just five weeks after announcing its collaboration with Amazon Web Services (AWS) to bring the model to enterprise customers, TBC is extending access to creators and developers through fal and OpenRouter. At half a cent per second, a five-second clip costs 2.5 cents, and 100 clips cost $2.50. Creators can test more ideas, compare takes and refine their work within the same budget. For developers, lower generation costs make it easier to build video into products that people can afford to use repeatedly. Wonder Studios, an AI-native creative studio, tested mischief 1 in its own production workflow. “Great storytelling comes from refining an idea until it’s right, and that’s usually the crunch point for time and budget. mischief 1’s speed and cost-effectiveness meant we could push the work much further within th",
   "first_seen": "2026-11-02T20:05:25.137504+00:00",
@@ -5117,6 +5151,18 @@
   "url": "https://blogs.nvidia.com/blog/korea-secure-agentic-ai",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "777234d8a97b3028": {
+  "content_excerpt": "This is an update to our previous security bulletin published on October 9, 2026. In response to the incident, we notified law enforcement and obtained assistance from a leading cybersecurity firm, Palo Alto Networks Unit 42, to help conduct forensic analysis. At the time of publishing the bulletin, only Fireworks stored secrets (e.g. used in evaluation jobs) were known to have been accessed. Since then, we discovered impacts to account and billing information. For a limited set of accounts, we also discovered impact to secrets, datasets, and incomplete models. The evidence indicates links to a cybercriminal threat actor group, which is financially motivated and aimed at selling tokens from unauthorized access to Large Language Models (LLMs) to illicit routing gateways, known as \"LLMJacking\". On November 2, Google Threat Intelligence Group and Mandiant published a blog post about the rise of LLMJacking, their motives, techniques used, and mitigation. A third-party cloud provider that hosted Fireworks R&D machines experienced a security incident on October 23. On October 24, the unauthorized third party used it to reach Fireworks development machines and then run an unauthorized workload that led to additional customer data impact. We detected this activity on the same day, and followed our incident response processes to take immediate remediation measures and close known critical vulnerabilities. As of October 25, we have not detected further evidence of successful unauthoriz",
+  "first_seen": "2026-11-10T10:49:44.059605+00:00",
+  "id": "c9fee5b000a666a6",
+  "published": "2026-11-10T08:47:00+00:00",
+  "sid": "777234d8a97b3028",
+  "source": "hackernews_ai",
+  "summary_1line": "Fireworks.ai Update on October 2026 security incident",
+  "title": "Fireworks.ai Update on October 2026 security incident",
+  "type": "news",
+  "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident-update"
+ },
  "7787a435833ce944": {
   "content_excerpt": "Self-hosted voice AI agents with a Vapi-compatible API. AI phone agents on Twilio, Telnyx, Plivo, Vonage or SIP, with your keys or 100% local and free (Whisper, Ollama, Kokoro). No per-minute platform fee. npx openring The open-source, self-hosted Vapi alternative for voice AI agents. Vapi-compatible API, no platform fee. OpenRing runs AI phone agents, voice AI agents and AI receptionists that answer and place calls over Twilio, Telnyx, Plivo, Vonage or any SIP trunk, with your own provider keys or a free, 100% local stack (Whisper, Ollama, Kokoro). Quick start · How it works · Compare · API guide · Providers · Roadmap · Discussions Hosted voice platforms charge a fee for every minute of every call, on top of what you already pay for speech-to-text, the model, the voice and the phone line. OpenRing does the same job on your own computer or server, with your own provider keys, and speaks the same JSON as Vapi. You need Node.js 18 or later. Everything else, Python included, installs itself: Settings live in ~/.openring/.env , created on the first run with a generated API key for apps that call the API (it's under Settings ). The free Kokoro voice downloads itself on the first start (about 120 MB). Each call runs a Pipecat pipeline: the caller's speech becomes text, the model answers (and can call your tools), and the voice speaks the answer back. Every turn's latency is recorded, step by step, and shown in the dashboard. — means we didn't find it in their public docs. On every ",
   "first_seen": "2026-11-04T22:04:37.212189+00:00",
@@ -5712,6 +5758,22 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "875aaebf224f48b2": {
+  "content_excerpt": "Free app for macOS, Windows and Linux that shows what your AI agents (Claude Code, Codex, Gemini CLI, Cursor, OpenCode) can access, asks before they act, and lets you take it back. Local only. An app for macOS, Windows and Linux that finds every access and privilege you've given to AI agents, asks before they act, and lets you take any of it back. Everything stays on your computer: no account, no tracking. The only connection it makes is a daily check for a new version (switch it off in Setup). On Linux the app lives in the tray instead of the menu bar. It finds the same agent access, and in place of the Mac-only parts it checks systemd and autostart jobs, logins saved in GNOME Keyring or KWallet (by name only), and membership of the docker group. On Windows it checks startup entries (registry and Startup folder), scheduled tasks, logins in Credential Manager, API keys in the user environment, and admin rights without a UAC prompt. The Linux and Windows app is in desktop/ (Electron); see build-linux.sh and appveyor.yml . Build it yourself: ./build-app.sh , then open dist/AI Access Auditor.app . You can drag it into /Applications. It needs Node.js ( brew install node ) and doesn't use a browser. Menu bar & alerts: the Mac app stays in the menu bar after you close its window. Every 5 minutes it checks for new access. When an agent gains something new, the shield turns red, a notification shows what was added, and the grant is labeled \"New\" in the app. \"Open at Login\" in the shi",
+  "first_seen": "2026-11-10T10:49:44.059605+00:00",
+  "id": "8f8eb10d0ee71acd",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-10T08:31:13+00:00",
+  "sid": "875aaebf224f48b2",
+  "source": "hackernews_ai",
+  "summary_1line": "I Access Auditor – see and revoke what your AI coding agents can access",
+  "title": "I Access Auditor – see and revoke what your AI coding agents can access",
+  "type": "news",
+  "url": "https://github.com/dirmedmr-alt/ai-access-auditor",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "876fe6c1edb8596c": {
   "content_excerpt": "Self-evolving Context Database for AI Agents. Unify Agent Memory, Knowledge RAG and Skills. OpenViking is an open-source context database for AI agents — one filesystem for everything an agent knows: knowledge, memory, and skills. Most agent memory is a black box: text goes in, embeddings come out, and nobody can see what was actually stored. OpenViking organizes context as a virtual filesystem under viking:// instead. Agents navigate it like files — ls , tree , read , write , grep — and you can open any directory to inspect and edit what your agent knows. Every directory carries a generated summary, so agents can scan summaries first and decide what to read. Try OpenViking Studio in your browser, no installation required. Self-host Web Studio . Semantically processed directories carry L0/L1 summaries, so agents can judge relevance before reading full files: OpenViking 0.3.22 has been evaluated on long-conversation user memory (LoCoMo) and multi-turn agent tasks (tau2-bench). Full results and setup details, including knowledge-base QA, are in the benchmark report ; reproduction scripts live in ./benchmark . To run your own experiments, follow the RAG and Memory evaluation guide for routine VikingBot memory evaluation, published LoCoMo reproduction, separate mem0 prompt comparisons, and RAG evaluation. The memory evaluation used Doubao 2.0 Pro as the VLM and Doubao-embedding-vision-251215 as the embedding model. Set up an OpenViking server first; if you already have one, skip ",
@@ -6655,6 +6717,22 @@
   "url": "https://www.langchain.com/blog/agents-are-going-async",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "9c88a41fbb756af3": {
+  "first_seen": "2026-11-10T10:49:44.059605+00:00",
+  "id": "73431aa42e8a504a",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-09T13:29:45+00:00",
+  "sid": "9c88a41fbb756af3",
+  "source": "arxiv_cs_cl",
+  "summary": "In addition to the effects of explicit input prompts and instructions, large language model outputs are influenced by underlying behavioral preferences similar to human personality tendencies. These tendencies can affect how models interpret situations and make decisions. However, their influence is difficult to disentangle from the effects of model capabilities and instructions. Therefore, we introduce SPACE, a benchmark framework combining a controlled evaluation protocol with complementary datasets for personality verification, capability assessment, and hierarchical situational tasks. Controlled comparisons across guidance conditions help distinguish personality influence from measured capability changes and immediate instruction effects. Experimental results demonstrate that although prompting can shift generation style, models' internal personality tendencies are persistent and not readily overridden by opposing instructions. Furthermore, these underlying tendencies have an observable influence on LLM task performance, highlighting the need for greater attention to these characteristics and potential applications. Training code and SPACE benchmark specifications are available at https://github.com/Niklauseik/SPACE-training.",
+  "summary_1line": "In addition to the effects of explicit input prompts and instructions, large language model outputs are influenced by underlying behavioral preferences similar to human personality tendencies. These tendencies can aff...",
+  "title": "More Than Just Style: Benchmarking Personality Influence in Large Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12392v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "9cfa80c5232a7be3": {
   "first_seen": "2026-11-04T09:05:15.061766+00:00",
   "id": "44c9fe4cf14a5c47",
@@ -6751,6 +6829,22 @@
   "title": "More daily API calls than Google searches, now applied to LLM inference",
   "type": "news",
   "url": "https://inference.alchemy.com"
+ },
+ "a01e90d4ffbc630a": {
+  "first_seen": "2026-11-10T10:49:44.059605+00:00",
+  "id": "95550d70bdd81738",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-09T09:41:37+00:00",
+  "sid": "a01e90d4ffbc630a",
+  "source": "arxiv_agent_systems_research",
+  "summary": "External tool calls are a major running cost of an LLM agent, while its training objectives align almost exclusively with task completion. In a step-level diagnosis of Qwen3.5 trajectories at two model sizes on GAIA, a long-horizon tool-use benchmark, we find that most contain removable calls, at a similar rate at both sizes. Some methods add an efficiency reward to the objective to reduce the call count, but introduce problems of their own: the anchor they price calls against is computed from the policy's own rollouts (e.g., the group's shortest correct rollout) and so moves with the policy; training can drift toward a collapsed policy that issues no tool call at all, a degeneracy seen in published reports and in our 27B baseline; and a training run delivers a single operating point, so the user cannot trade efficiency against capability. We present CARE-PO (Controllable Anchored Relative Efficiency Policy Optimization) to mitigate these problems. The efficiency reward prices calls against a reference budget anchored to the task's own difficulty and fixed before training. Injecting a successful trajectory from the training data into each online GRPO rollout group and charging for evidence a trajectory never gathers ease the drift toward a collapsed call count. Shaping the cost curve by an effort tag in the prompt yields an efficiency and a capability operating point from a single training run. On GAIA, five of the six operating points across three model sizes improve on thei",
+  "summary_1line": "External tool calls are a major running cost of an LLM agent, while its training objectives align almost exclusively with task completion. In a step-level diagnosis of Qwen3.5 trajectories at two model sizes on GAIA,...",
+  "title": "CARE-PO: Controllable Tool-Call Efficiency for LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12125v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "a0685d2b6bbcdd31": {
   "content_excerpt": "A field name, 2,000 look-alike functions and a wrong pseudo-C branch: an XRef walkthrough in which every conclusion is checked against machine instructions. TL;DR. Serialized field names can lead you to their offsets. The harder question is which code changes those fields: in a public example, 2,000 decoys write the same offsets as the real function. The real function and the displayed decoys earn the same 40 points for their writes to those fields. The real function gets ten more because it shares a caller, main , with the serializer; the decoys have no callers at all. The candidate is then checked against its instructions and call sites. The walkthrough uses XRef 0.4.0 and a synthetic C and assembly program; it demonstrates a method and is not a benchmark. Before the 0.4.0 release, one xref field query came back with not_found_under_limits : no matching layouts. The response flagged incomplete discovery under its analysis limits, but it gave no way to tell which keys the tool had seen or where it had lost the connection to the fields. That case is recorded in issue 76 . An empty list makes the next wrong move easy: widen the search at random, conclude that the structure is not there, or start taking the whole binary apart by hand. What I needed was an answer to a much narrower question: which observations get you from a field name to the code that changes it? Put in familiar terms: a program reports \"status\": \"failed\" —which function changed that field? That is an illustrat",
