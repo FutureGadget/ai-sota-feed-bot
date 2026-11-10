@@ -2,128 +2,116 @@
 
 Focus: AI Platform Engineering
 
-## 1. FlashStates Unlocking Flexible Hybrid State Management for Agentic LLM Inference
-- Type: news | Source: hackernews_ai
-- URL: https://flashstates.ai/
-- Score: 3.818 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 2. The Red Queen hypothesis – a new way forward for self-improving AI
-- Type: news | Source: hackernews_ai
-- URL: https://www.cl.cam.ac.uk/news/2026/07-21-red-queen-hypothesis/
-- Score: 3.628 | Reliability: 1.0
+## 1. [AINews] Fable 5.2 retakes World #1 LLM spot as $ANT IPO roadshow begins
+- Type: news | Source: latent_space
+- URL: https://latent.space/p/ainews-fable-5-2-retakes-world-1-llm-spot-as-ant-ipo-roadshow-begins/
+- Score: 3.544 | Reliability: 1.0
 - Why it matters: 
 
-## 3. Tell HN: Notion AI chat sessions have been exposed via Fireworks AI hack
-- Type: news | Source: hackernews_ai
-- URL: https://news.ycombinator.com/item?id=50436636
-- Score: 3.532 | Reliability: 1.0
-- Why it matters: 
-
-## 4. Same Error, Different Recovery: How Delivery Changes LLM Agent Behavior
+## 2. WorkflowArena: Benchmarking Executable Workflow Orchestration in LLM-Based Multi-Agent Systems
 - Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.11581v1
-- Score: 3.499 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+- URL: http://arxiv.org/abs/2611.12856v1
+- Score: 3.971 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, evaluation.
 
-## 5. Locating the source of a mysterious beep with Claude
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Nov/9/mysterious-beeps/
-- Score: 3.483 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation, claude code.
-
-## 6. Verify Before You Fetch: Reliable KV Cache Compression for LLM Inference
+## 3. Joi-Bench-Task: Benchmarking Task Coordination in Full-duplex Voice Agents through Interactive Simulation
 - Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.11319v1
-- Score: 3.278 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 7. Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.11995v1
-- Score: 3.263 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2611.12118v1
+- Score: 3.944 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 8. Introducing Claude Opus 5.5
+## 4. Can the Confidence and Decisions of System 1 Models Be Trusted? An Explainability and Perturbation Audit of Jev-Style Decision Models
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.12521v1
+- Score: 3.654 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 5. Socratic-tutor – turns an LLM into a strict personal tutor
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/janestreet/agent_skills
+- Score: 3.117 | Reliability: 1.0
+- Why it matters: 
+
+## 6. Nvidia's AI advantage is moving beyond the GPU
+- Type: news | Source: hackernews_ai
+- URL: https://techcrunch.com/2026/08/29/nvidias-ai-advantage-is-moving-beyond-the-gpu/
+- Score: 3.052 | Reliability: 1.0
+- Why it matters: 
+
+## 7. Introducing Claude Fable 5.1 and Claude Mythos 5.1
 - Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/claude-opus-5-5
-- Score: 2.878 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
+- URL: https://www.anthropic.com/claude-fable-and-mythos-5-1
+- Score: 2.706 | Reliability: 1.0
+- Why it matters: 
 
-## 9. Release 2.74.0 corresponding to NGC container 26.10
-- Type: release | Source: triton_releases
-- URL: https://github.com/triton-inference-server/server/releases/tag/v2.74.0
-- Score: 2.521 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 10. claude-code v2.1.322
+## 8. claude-code v2.1.322
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.322
-- Score: 2.157 | Reliability: 1.0
+- Score: 2.058 | Reliability: 1.0
 - Why it matters: 
 
-## 11. SMO: Compiling Natural Language Skills into Graphs of Reusable State-Move-Outcome Bricks
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.12041v1
-- Score: 3.051 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 12. Trustworthy Recursive Self-Improvement with Statistical Guarantees
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.10787v1
-- Score: 2.577 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
-
-## 13. Measuring how AI agents handle everyday wet-lab science
+## 9. GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science
-- Score: 2.072 | Reliability: 1.0
+- URL: https://openai.com/index/introducing-gpt-6-cyber
+- Score: 1.924 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 14. CodeRabbit scales agentic software development and ships 20x more
+## 10. Kuken Industries searches 70 years of drawings in minutes
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/coderabbit-codex-daybreak
-- Score: 2.058 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, codex.
-
-## 15. How Stanford Teaches AI-Native Engineering — Mihail Eric, Monaco
-- Type: news | Source: latent_space
-- URL: https://latent.space/p/cs146s/
-- Score: 1.952 | Reliability: 1.0
+- URL: https://openai.com/index/kuken
+- Score: 1.905 | Reliability: 1.0
 - Why it matters: 
 
-## 16. The Iron(wood) Throne: Google's TPU Stakes Its Claim on Inference
-- Type: news | Source: semianalysis
-- URL: https://newsletter.semianalysis.com/p/tpu-strikes-the-king
-- Score: 1.92 | Reliability: 1.0
+## 11. MIRIX-2.0: Multi-Agent Memory System
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.12068v1
+- Score: 3.441 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 12. AMSchem: Automated Schematic Visualization of AMS Circuits via Verifiable Agentic Generation
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.12333v1
+- Score: 3.309 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
+
+## 13. Control Room: A central system to track and stop model workloads across our research infrastructure
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/control-room
+- Score: 1.873 | Reliability: 1.0
 - Why it matters: 
 
-## 17. codex rust-v0.169.0-alpha.8
+## 14. LangSmith BYOC is now available on AWS, Azure, and Google Cloud
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/langsmith-byoc-aws-gc-azure
+- Score: 1.82 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 15. codex 0.167.0-alpha.4.1
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.8
-- Score: 1.805 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.4.1
+- Score: 1.786 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 18. Partnering with Hacktron to find vulnerabilities in OpenAI’s systems
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/partnering-with-hacktron
-- Score: 1.788 | Reliability: 1.0
+## 16. Zero Mismatch, Simple Async RL: REINFORCE Zero, DeepSeek-V4.1 and Kimi K3.1
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-06-zero-mismatch-async-rl
+- Score: 1.72 | Reliability: 1.0
 - Why it matters: 
 
-## 19. Agents Are Going Async
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/agents-are-going-async
-- Score: 1.782 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 17. v0.34.0rc0: [Transformers backend] Migrate Gemma and StableLM (#66393)
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc0
+- Score: 1.133 | Reliability: 1.0
+- Why it matters: 
 
-## 20. claude-agent-sdk-python v0.2.179
+## 18. claude-agent-sdk-python v0.2.179
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.179
-- Score: 1.13 | Reliability: 1.0
+- Score: 1.085 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 21. langgraph-sdk==0.4.12
+## 19. langgraph==1.2.20
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.12
-- Score: 1.005 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.20
+- Score: 1.048 | Reliability: 1.0
 - Why it matters:
