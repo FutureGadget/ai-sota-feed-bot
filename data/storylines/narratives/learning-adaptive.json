@@ -1,0 +1,47 @@
+{
+  "slug": "learning-adaptive",
+  "generated_at": "2026-11-11T00:13:33Z",
+  "covers_last_updated": "2026-11-09T18:58:41+00:00",
+  "covers_member_sids": [
+    "72c9dee23b49167c",
+    "4f75e58fea1157aa",
+    "ad7659407811cbec"
+  ],
+  "tldr": "This is not one developing event: three unrelated arXiv papers share the word \"adaptive\" and one idea, spending scarce resources where they help most. LAND (Nov 2) varies Best-of-N draws per input, and ASP (Nov 6) schedules RL rollouts to cut idle GPU time.",
+  "whats_new": "A Nov 9 theory paper shows adaptive quantization keeps TD learning's fast convergence rate even when an agent's updates cross a rate-limited channel.",
+  "why_it_matters": "Each paper targets a different budget: inference samples (LAND), RL-training GPU utilization (ASP), and communication bandwidth (TD quantization); only the first two touch production LLM stacks today.",
+  "beats": [
+    {
+      "kicker": "INFERENCE",
+      "tone": "launch",
+      "headline": "LAND learns how many Best-of-N draws each input deserves",
+      "summary": "Fixed-N sampling wastes compute on inputs whose candidate scores barely vary.",
+      "sids": ["72c9dee23b49167c"]
+    },
+    {
+      "kicker": "TRAINING",
+      "tone": "rising",
+      "headline": "ASP schedules asynchronous RL rollouts to reduce underutilization",
+      "summary": "Targets padding bubbles and other idle time across multi-instance LLM RL rollouts.",
+      "sids": ["4f75e58fea1157aa"]
+    },
+    {
+      "kicker": "THEORY",
+      "tone": "neutral",
+      "headline": "Adaptive quantization preserves TD-learning rates over rate-limited links",
+      "summary": "Policy evaluation with linear function approximation under a bandwidth constraint.",
+      "sids": ["ad7659407811cbec"]
+    }
+  ],
+  "open_questions": [
+    "Does LAND publish compute savings against fixed-N Best-of-N on a standard reward-model benchmark?",
+    "Is ASP's scheduler released as code, or integrated into an open RL framework?",
+    "Does the adaptive-quantization result extend beyond linear function approximation?"
+  ],
+  "take_for_builders": "If you run Best-of-N or async RL, read LAND and ASP for per-input sample budgets and rollout scheduling; treat the TD paper as theory, not a deployment change.",
+  "day_captions": {
+    "72c9dee23b49167c": "Inference-side entry: per-input sample counts instead of a fixed N.",
+    "4f75e58fea1157aa": "Training-side entry: rollout scheduling for asynchronous RL of LLMs.",
+    "ad7659407811cbec": "Theory entry: convergence guarantee under a communication budget."
+  }
+}

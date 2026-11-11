@@ -1,0 +1,47 @@
+{
+  "slug": "fast-inference",
+  "generated_at": "2026-11-11T00:13:33Z",
+  "covers_last_updated": "2026-11-10T22:28:15+00:00",
+  "covers_member_sids": [
+    "0a5f683f2cf3f23c",
+    "a38548abbeed9a82",
+    "131509a7651f4930"
+  ],
+  "tldr": "This is a loose cluster of three unrelated projects that share one goal: serving LLMs faster below the model layer. It began with Resin, a native scheduler for inference engines, and was followed by Hibana, an arXiv paper on agentic inference for unified-memory devices.",
+  "whats_new": "Warmctl, a new open-source tool shared on Show HN, targets slow cold starts for vLLM servers, adding a startup-latency fix to a thread about scheduling and local serving.",
+  "why_it_matters": "Inference latency increasingly depends on the layers around the model (request scheduling, memory layout, server warm-up), and each of these projects targets one of those layers.",
+  "beats": [
+    {
+      "kicker": "SCHEDULING",
+      "tone": "launch",
+      "headline": "Resin: a native scheduler for LLM inference engines",
+      "summary": "A Show HN project that puts request scheduling into a native component sitting in front of the inference engine.",
+      "sids": ["0a5f683f2cf3f23c"]
+    },
+    {
+      "kicker": "LOCAL",
+      "tone": "rising",
+      "headline": "Hibana targets agentic inference on unified-memory devices",
+      "summary": "Research on running agent workloads such as coding with open-weight models on local hardware with shared CPU/GPU memory.",
+      "sids": ["a38548abbeed9a82"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Warmctl tackles vLLM cold starts",
+      "summary": "A Show HN tool aimed at the startup delay before a vLLM server can take traffic.",
+      "sids": ["131509a7651f4930"]
+    }
+  ],
+  "open_questions": [
+    "Does Warmctl publish cold-start timings against a stock vLLM startup on named models and GPUs?",
+    "Does Resin integrate with vLLM or SGLang, or does it require its own engine?",
+    "Does Hibana release code, and which unified-memory hardware does it benchmark on?"
+  ],
+  "take_for_builders": "If vLLM startup time limits your autoscaling, measure your current cold-start time first, then trial Warmctl on a non-production replica and compare.",
+  "day_captions": {
+    "0a5f683f2cf3f23c": "Opens the thread with a scheduling-layer approach to faster serving.",
+    "a38548abbeed9a82": "Moves the thread from servers to local devices, with a research take on agent workloads.",
+    "131509a7651f4930": "Adds cold-start latency as a separate bottleneck, specific to vLLM deployments."
+  }
+}

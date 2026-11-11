@@ -1,0 +1,105 @@
+{
+ "slug": "closing-gap",
+ "label": "Closing Gap",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-10-22T17:49:44+00:00",
+ "last_updated": "2026-11-10T09:00:00+00:00",
+ "generated_at": "2026-11-11T00:14:41.869679+00:00",
+ "sources": [
+  "arxiv_cs_ai",
+  "arxiv_cs_lg",
+  "openai_blog"
+ ],
+ "days": [
+  {
+   "date": "2026-10-22",
+   "items": [
+    {
+     "title": "BeNice! Closing Looping's Inference-Memory Gap via KV-Sharing",
+     "url": "http://arxiv.org/abs/2610.31633v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Looped architectures scale quality while keeping parameter count fixed by repeatedly passing activations through the same block of layers. During inference, each recurrence generates independent KV-caches, causing mem...",
+     "sid": "4130504d6e1870e2",
+     "published": "2026-10-22T17:49:44+00:00",
+     "editor_note": "Research on the serving cost of looped transformers: per-recurrence KV-caches and a sharing scheme to shrink them."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-23",
+   "items": [
+    {
+     "title": "Closing the Modality Gap via Simplex-Constrained Representations",
+     "url": "http://arxiv.org/abs/2610.32890v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "While multimodal contrastive models like CLIP and CLAP successfully learn shared representations, their embeddings typically exhibit a persistent \\emph{modality gap}. We propose addressing this separation through a pu...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "5386e0ca809d2a22",
+     "published": "2026-10-23T16:57:48+00:00",
+     "editor_note": "Unrelated embedding-geometry paper; joins the thread only through its title wording."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "items": [
+    {
+     "title": "Closing the AI guidance gap in education",
+     "url": "https://openai.com/index/closing-ai-guidance-gap-education",
+     "source": "openai_blog",
+     "type": "news",
+     "summary_1line": "New ThinkYoung research and lessons from OpenAI’s EMEA education partnerships on supporting teachers, AI literacy, and independent learning.",
+     "sid": "69d4d9d74efa0162",
+     "published": "2026-11-10T09:00:00+00:00",
+     "editor_note": "Education-policy post from OpenAI; the newest item, but no technical continuation of the papers."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is not one developing story: three unrelated items share only the phrase \"closing the gap\" in their titles. Two October arXiv papers target model-side gaps, KV-cache memory in looped transformers and the CLIP-style modality gap in embeddings.",
+  "stale": false,
+  "whats_new": "OpenAI published ThinkYoung research and EMEA education-partnership lessons on AI literacy for teachers, an education-policy piece with no technical link to the earlier papers.",
+  "why_it_matters": "Only the KV-sharing paper bears on inference cost: looped architectures multiply KV-cache memory per recurrence, which sets serving footprint if they reach production.",
+  "take_for_builders": "Nothing to change: treat these as three separate reads, and keep the KV-sharing paper on file only if you evaluate looped or recurrent-depth models for serving.",
+  "beats": [
+   {
+    "kicker": "INFERENCE MEMORY",
+    "tone": "launch",
+    "headline": "BeNice! proposes KV-sharing to cut looped-model cache memory",
+    "summary": "Looped architectures reuse layers but create a separate KV-cache per recurrence; the paper shares caches across loops.",
+    "sids": [
+     "4130504d6e1870e2"
+    ]
+   },
+   {
+    "kicker": "EMBEDDINGS",
+    "tone": "neutral",
+    "headline": "Simplex-constrained representations target the modality gap",
+    "summary": "A separate research thread on aligning CLIP/CLAP-style multimodal embedding spaces.",
+    "sids": [
+     "5386e0ca809d2a22"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "OpenAI on the AI guidance gap in education",
+    "summary": "A policy and partnership write-up on teacher support and AI literacy, outside the engineering lens.",
+    "sids": [
+     "69d4d9d74efa0162"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does BeNice!'s KV-sharing hold quality at the recurrence depths looped models need to match deeper dense models?",
+   "Does any serving stack (vLLM, SGLang, TensorRT-LLM) add support for looped-architecture KV-sharing?",
+   "Does reducing the modality gap measurably improve cross-modal retrieval recall in production embedding pipelines?"
+  ],
+  "generated_at": "2026-11-11T00:13:31Z"
+ }
+}

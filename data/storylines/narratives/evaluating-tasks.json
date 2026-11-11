@@ -1,72 +1,210 @@
 {
   "slug": "evaluating-tasks",
-  "generated_at": "2026-11-10T00:30:00+00:00",
-  "covers_last_updated": "2026-11-06T17:06:21+00:00",
+  "generated_at": "2026-11-11T00:13:35Z",
+  "covers_last_updated": "2026-11-09T18:45:28+00:00",
   "covers_member_sids": [
+    "f4cbbc5a6a498cf5",
+    "f2df794e6fc1e504",
+    "520159e6ebe00b0f",
+    "9cbcaf295333969d",
+    "04d4d0197a10f579",
+    "4d53557cac2f8289",
+    "78e0961a0062764b",
+    "0f68e5b7b820e9e8",
     "55edc2615764e1b5",
+    "378efdb4d515dcd8",
+    "7c1fed0d11e9b516",
+    "500b1aba48043738",
     "5f97c21b490b1ce9",
     "3ca73f33ea96bd6a",
+    "6f21f6e8dedb00a0",
+    "594cded7cf1742be",
+    "7d1c303b6572b6ff",
+    "9c6961c015612e8b",
     "423c688c0621c177",
+    "d24c53b475096517",
+    "cd86ac953a59e37c",
+    "e13096c02b9a44d7",
+    "c2fbad095b72bbaa",
     "0b7565240a3894fa",
+    "a23623abdfcb0e52",
+    "05c46a37b489922f",
+    "3e4010b903d1d7e9",
+    "65dc6916d3b352f1",
+    "96207d6b2522935e",
     "52a3c89c275c2670",
+    "bce25dc1c825a3e7",
     "08c314bb237b4b82",
+    "7ae1983bc20b4540",
     "3b93b07bf2154e4f",
+    "c22d6852787690aa",
     "51abf5f84d7f5698",
-    "0d4497db5df885d5"
+    "4e7cf2bff5db16a6",
+    "0ebd0a94416e4da3",
+    "0d4497db5df885d5",
+    "d48d8aea5d45b475",
+    "23c0753cd928bfa7",
+    "a3261c64a9091141",
+    "b3a45cba6445f63d"
   ],
-  "tldr": "Late-October arXiv papers framed long-horizon agent work as an evaluation problem, with benchmarks for continual learning and web search alongside new critic, memory and multi-agent methods. On Nov 1 a paper questioned whether long-horizon terminal benchmarks actually measure depth.",
-  "whats_new": "A Nov 6 paper argues one run is not enough and proposes a Monte Carlo protocol for measuring LLM reliability on data science tasks, following new consumer-task (LifeVal) and multilingual tool-use (τ-bench-LILT) benchmarks.",
-  "why_it_matters": "Agent benchmark scores are only as trustworthy as the task design and run count behind them: depth, language coverage and run-to-run variance all change what a number means for your deployment.",
+  "tldr": "The thread opened Oct 21-22 with production write-ups (AWS Deep Insight, DoorDash flag cleanup) and a paper on herding cascades in multi-agent LLM systems, followed by a run of arXiv benchmarks and training, memory and orchestration methods for long-horizon agents. From Nov 1 the focus turned to the evals themselves: task depth, non-English tool use, LLM-judge drift and single-run variance.",
+  "whats_new": "Two Nov 9 benchmarks put agents on operator work: Infrathon tests long-horizon AI infrastructure optimization, and WorkflowArena scores multi-agent systems on producing executable workflow orchestrations.",
+  "why_it_matters": "Multi-agent and long-horizon agent results are only as useful as the eval behind them, and the newest benchmarks now target infra tuning and workflow orchestration, the work platform teams would actually hand an agent.",
   "status": {
     "state": "Developing",
     "tone": "rising",
-    "changed": "2026-11-06",
-    "detail": "Research is shifting from adding long-horizon benchmarks to questioning their depth, language coverage and single-run reliability."
+    "changed": "2026-11-09",
+    "detail": "A broad research cluster on multi-agent and long-horizon agents, now converging on benchmarks for infrastructure and orchestration work and on whether existing evals measure what they claim."
   },
   "beats": [
+    {
+      "kicker": "PRODUCTION",
+      "tone": "launch",
+      "headline": "Multi-agent systems meet production: write-ups and failure modes",
+      "summary": "Industry case studies sit next to a paper showing agents herding into runaway cascades.",
+      "sids": [
+        "f4cbbc5a6a498cf5",
+        "f2df794e6fc1e504",
+        "520159e6ebe00b0f",
+        "04d4d0197a10f579",
+        "0f68e5b7b820e9e8"
+      ]
+    },
     {
       "kicker": "BENCHMARKS",
       "tone": "launch",
       "headline": "Long-horizon agents get exam-style benchmarks",
-      "summary": "Continual-learning and long-horizon web-search evaluations arrive in the same two days.",
-      "sids": ["55edc2615764e1b5", "5f97c21b490b1ce9"]
+      "summary": "Continual learning, long web search, robot control and SAST-versus-agent security coverage get their own evals.",
+      "sids": [
+        "55edc2615764e1b5",
+        "5f97c21b490b1ce9",
+        "6f21f6e8dedb00a0",
+        "594cded7cf1742be",
+        "d24c53b475096517"
+      ]
     },
     {
-      "kicker": "METHODS",
+      "kicker": "TRAINING",
       "tone": "rising",
-      "headline": "Critics, memory governance and goal-aware collaboration target long-horizon tasks",
-      "sids": ["3ca73f33ea96bd6a", "423c688c0621c177", "0b7565240a3894fa"]
+      "headline": "Policy optimization and critics for sparse, long-horizon rewards",
+      "sids": [
+        "9cbcaf295333969d",
+        "78e0961a0062764b",
+        "500b1aba48043738",
+        "3ca73f33ea96bd6a",
+        "3e4010b903d1d7e9",
+        "08c314bb237b4b82"
+      ]
+    },
+    {
+      "kicker": "ORCHESTRATION",
+      "tone": "rising",
+      "headline": "Memory, harnesses and learned orchestration for agent teams",
+      "summary": "Papers on self-evolving teams, memory governance, harness design and runtime-checked orchestration.",
+      "sids": [
+        "378efdb4d515dcd8",
+        "7c1fed0d11e9b516",
+        "7d1c303b6572b6ff",
+        "9c6961c015612e8b",
+        "423c688c0621c177",
+        "e13096c02b9a44d7",
+        "c2fbad095b72bbaa",
+        "0b7565240a3894fa",
+        "a23623abdfcb0e52",
+        "bce25dc1c825a3e7",
+        "4e7cf2bff5db16a6",
+        "0ebd0a94416e4da3"
+      ]
+    },
+    {
+      "kicker": "ADJACENT",
+      "tone": "neutral",
+      "headline": "Loosely linked: quantization, retrieval and other side papers",
+      "summary": "These items share vocabulary with the thread but are not about evaluating agents; only the KV-cache paper targets multi-agent serving.",
+      "sids": [
+        "4d53557cac2f8289",
+        "cd86ac953a59e37c",
+        "05c46a37b489922f",
+        "65dc6916d3b352f1",
+        "96207d6b2522935e",
+        "7ae1983bc20b4540",
+        "d48d8aea5d45b475"
+      ]
     },
     {
       "kicker": "THE TURN",
       "tone": "turn",
-      "headline": "Is a long-horizon benchmark really deep?",
-      "summary": "A terminal-task paper questions turn count as a proxy for depth, while hierarchical multi-agent RL for web tasks continues.",
-      "sids": ["52a3c89c275c2670", "08c314bb237b4b82"]
+      "headline": "The evals themselves come under scrutiny",
+      "summary": "Depth, language coverage, judge drift and run-to-run variance all challenge what a single score means.",
+      "sids": [
+        "52a3c89c275c2670",
+        "3b93b07bf2154e4f",
+        "c22d6852787690aa",
+        "51abf5f84d7f5698",
+        "0d4497db5df885d5"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Evals widen to consumer tasks, other languages and repeat runs",
-      "sids": ["3b93b07bf2154e4f", "51abf5f84d7f5698", "0d4497db5df885d5"]
+      "headline": "Benchmarks target infra tuning and workflow orchestration",
+      "sids": [
+        "23c0753cd928bfa7",
+        "a3261c64a9091141",
+        "b3a45cba6445f63d"
+      ]
     }
   ],
   "open_questions": [
     "Will other benchmark authors adopt a depth measure beyond turns needed to pass a task?",
     "Will multi-run Monte Carlo reporting become standard in agent benchmark releases?",
-    "Do results on τ-bench-LILT show a measurable gap between English and other languages for tool-using agents?"
+    "Do results on τ-bench-LILT show a measurable gap between English and other languages for tool-using agents?",
+    "How do frontier agents score on Infrathon's infrastructure optimization tasks compared with human baselines?",
+    "Does WorkflowArena show multi-agent orchestration beating a single agent on the same tasks?"
   ],
-  "take_for_builders": "Rerun your internal agent evals several times and report the spread rather than a single score, and add non-English tool-use cases before trusting an English-only benchmark result.",
+  "take_for_builders": "Before giving an agent infra or orchestration work, run the task several times and report the spread, and recheck any LLM judge in your eval against fresh human labels.",
   "day_captions": {
-    "55edc2615764e1b5": "Opens the thread with a benchmark for continual learning from experience in LLM agents.",
-    "5f97c21b490b1ce9": "Adds a long-horizon web-search evaluation with failure-node localization.",
-    "3ca73f33ea96bd6a": "Proposes active critic learning to address credit assignment under sparse outcome rewards.",
-    "423c688c0621c177": "Addresses long-horizon agent memory by governing outdated versus still-needed memories.",
-    "0b7565240a3894fa": "Proposes goal-aware dynamic multi-agent collaboration for long-horizon tasks.",
-    "52a3c89c275c2670": "Challenges the assumption that task length in turns reflects depth in terminal benchmarks.",
-    "08c314bb237b4b82": "Applies hierarchical multi-agent reinforcement learning to long-horizon web tasks.",
-    "3b93b07bf2154e4f": "Introduces LifeVal, a benchmark for personalized agentic consumer tasks.",
+    "f4cbbc5a6a498cf5": "AWS lists five production challenges for multi-agent systems, from orchestration to secure code execution.",
+    "f2df794e6fc1e504": "Names a multi-agent failure mode: agents herding on each other's choices into runaway cascades.",
+    "520159e6ebe00b0f": "A Hacker News pointer to a framework for evaluating agentic systems.",
+    "04d4d0197a10f579": "An industrial case: DoorDash uses multi-agent LLMs to clean up stale feature flags.",
+    "4d53557cac2f8289": "Side paper on measuring social-media exposure to LLM profiling, not agent evaluation.",
+    "78e0961a0062764b": "Policy optimization applied to span-level hallucination detection.",
+    "0f68e5b7b820e9e8": "Proposes a knowledge layer that organizes enterprise context before multi-agent retrieval.",
+    "55edc2615764e1b5": "Benchmark for continual learning from experience in LLM agents.",
+    "378efdb4d515dcd8": "Self-evolution framework for decentralized multi-agent systems.",
+    "7c1fed0d11e9b516": "Separates coordination from task execution in multi-agent prompt optimization.",
+    "500b1aba48043738": "Multiscale policy optimization based on how critic values vary across turns.",
+    "5f97c21b490b1ce9": "Long-horizon web-search evaluation with failure-node localization.",
+    "3ca73f33ea96bd6a": "Active critic learning for credit assignment under sparse outcome rewards.",
+    "6f21f6e8dedb00a0": "EBench profiles a frontier model controlling robots directly versus through a harness.",
+    "594cded7cf1742be": "A survey framing work agents by system design, capabilities and optimization.",
+    "7d1c303b6572b6ff": "Argues stored team memory must be refined and selectively applied, not just recalled.",
+    "9c6961c015612e8b": "Treats the harness as part of the policy, so harness changes shift agent behavior.",
+    "423c688c0621c177": "Governs outdated versus still-needed memories for long-horizon agents.",
+    "d24c53b475096517": "Snyk VulnBench 2.0 measures what AI security agents find that deterministic SAST misses, and the reverse.",
+    "cd86ac953a59e37c": "Side survey on trustworthy distributed ML across cloud-edge-IoT, outside the agent thread.",
+    "e13096c02b9a44d7": "Proposes auditable belief updates as a safety layer for multi-agent systems.",
+    "c2fbad095b72bbaa": "Moves orchestrator training beyond one-shot system generation.",
+    "0b7565240a3894fa": "Goal-aware dynamic role assignment for long-horizon multi-agent tasks.",
+    "a23623abdfcb0e52": "Finds and closes information gaps created by fixed multi-agent communication graphs.",
+    "05c46a37b489922f": "Side paper on post-training quantization, not agent evaluation.",
+    "3e4010b903d1d7e9": "Tree-structured branching to assign delayed feedback in interactive agents.",
+    "65dc6916d3b352f1": "Side paper on RL for few-step flow models, outside the agent thread.",
+    "96207d6b2522935e": "Side paper on WeChat's retrieval framework, outside the agent thread.",
+    "52a3c89c275c2670": "Challenges turn count as a proxy for depth in long-horizon terminal benchmarks.",
+    "bce25dc1c825a3e7": "Axiomatic RL foundation for open multi-agent systems with partly controllable agents.",
+    "08c314bb237b4b82": "Hierarchical multi-agent RL for long-horizon web tasks.",
+    "7ae1983bc20b4540": "Side paper on simultaneous speech translation, outside the agent thread.",
+    "3b93b07bf2154e4f": "LifeVal benchmarks personalized agentic consumer tasks.",
+    "c22d6852787690aa": "Flags that LLM-as-a-judge agreement with human policy drifts in deployment.",
     "51abf5f84d7f5698": "Extends tool-use conversational agent evaluation beyond English.",
-    "0d4497db5df885d5": "Argues a single run is insufficient and proposes a Monte Carlo reliability protocol for data science tasks."
+    "4e7cf2bff5db16a6": "Models higher-order agent interactions when learning a central orchestrator.",
+    "0ebd0a94416e4da3": "Runtime-checked, intent-driven orchestration for cyber-physical systems.",
+    "0d4497db5df885d5": "Argues one run is insufficient and proposes a Monte Carlo reliability protocol.",
+    "d48d8aea5d45b475": "Coordinated KV-cache quantization to cut memory for co-resident agents.",
+    "23c0753cd928bfa7": "Infrathon asks whether frontier agents can keep improving real AI infrastructure over long horizons.",
+    "a3261c64a9091141": "A multi-agent crypto-trading system uses market feedback as its live testbed.",
+    "b3a45cba6445f63d": "WorkflowArena benchmarks whether multi-agent systems produce executable workflow orchestrations."
   }
 }

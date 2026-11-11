@@ -1,154 +1,162 @@
 {
   "slug": "large-language",
-  "generated_at": "2026-11-10T00:30:00+00:00",
-  "covers_last_updated": "2026-11-06T17:32:49+00:00",
+  "generated_at": "2026-11-11T00:13:31+00:00",
+  "covers_last_updated": "2026-11-09T18:25:42+00:00",
   "covers_member_sids": [
-    "06d8677dec3b3c21",
-    "16071b3c73317004",
+    "a00ad2ffbda7f2e9",
     "276a486ae6eefe6b",
-    "590975aa217085b7",
-    "8debe4581e047c88",
-    "f07fa8132755e14c",
-    "c888971c48a268c3",
-    "5f97c21b490b1ce9",
-    "d5cd3db9b5f4a99b",
-    "a2f964aa6fcbf7ea",
-    "200271de2a2f52aa",
-    "e826ccda9d048b84",
-    "37f6c0c263213efd",
-    "b6b30743068c2627",
+    "352167f7ac41065b",
+    "40c644a15cb895a9",
+    "453c138d9feefee3",
+    "8a41e1e41cbecfde",
+    "1e1ae7d5d09cb859",
+    "c3af4f37e1c19b19",
+    "868490bacebdc880",
+    "c07d00b3f0a46112",
+    "d448a8af2a653453",
+    "02ad246823185a44",
     "d571e973b6e6916d",
-    "e519641640234319",
-    "1d7852cb09b3031f",
-    "ce941c554e9fce8e",
-    "e46c1ab3f7ca9939",
-    "a8a5f23cd8e10643",
-    "0f8439521ab02185",
-    "43862ef771dfba65",
-    "744a7a52285cfa40",
-    "94da3bfcbd46a769",
-    "63ff637171c98d2c",
-    "416b05f86baa94c5",
-    "464b347f5551c3b2",
-    "5606760643e4651e"
+    "9471fde9e20a1e58",
+    "29493d021878283c",
+    "65dc6916d3b352f1",
+    "4e3ef058b96b399d",
+    "473a95cd7c540d1a",
+    "bce25dc1c825a3e7",
+    "3ac08f6799c57341",
+    "08c314bb237b4b82",
+    "d97ee2168f669bce",
+    "981c5fba5d1f60bf",
+    "4553deeec0e06574",
+    "4e9768611cda6532",
+    "4f75e58fea1157aa",
+    "6fd3ac39e855936d",
+    "84ecbe8e1def5e6c"
   ],
-  "tldr": "This thread is a broad reading list on LLM behavior, reliability and knowledge rather than one event. Oct 20-28 papers covered hallucination, steering and evals, then Mistral Large 4 landed on Hugging Face and vLLM on Oct 29 as work shifted to memory and retrieval.",
-  "whats_new": "Nov 6: the ROSE preprint proposes risk-aware subspace navigation for lifelong knowledge editing in multimodal LLMs, targeting locality erosion and catastrophic forgetting when facts are updated.",
-  "why_it_matters": "The practical thread is knowledge handling: retrieval, memory, editing and context trimming decide agent reliability and token spend more than any single model release here.",
+  "tldr": "This thread is a running stream of reinforcement-learning preprints, not one event; it was reclustered from a broader LLM-knowledge reading list. From Oct 21 the papers moved from agentic RL over stateful environments and credit assignment to training-stack fixes, then to multi-agent and long-horizon web agents in early November.",
+  "whats_new": "Nov 9: the MaxIM preprint trains incremental summarization with RL so an agent keeps a bounded memory of an unbounded interaction history, optimized for downstream task utility.",
+  "why_it_matters": "RL is becoming the default post-training tool for agents, and these papers locate where it breaks: credit assignment across turns, inference/training numeric mismatch, rollout cost and memory limits.",
   "beats": [
     {
-      "kicker": "OCT 20-21",
+      "kicker": "OCT 21-22",
       "tone": "launch",
-      "headline": "Early papers probe code-translation hallucination and search-state awareness",
+      "headline": "Agentic RL moves to stateful environments and per-decision credit",
+      "summary": "Early papers train small models on data-centric tasks and give search agents awareness of what they already retrieved.",
       "sids": [
-        "06d8677dec3b3c21",
-        "16071b3c73317004",
-        "276a486ae6eefe6b"
+        "a00ad2ffbda7f2e9",
+        "276a486ae6eefe6b",
+        "352167f7ac41065b"
       ]
     },
     {
-      "kicker": "OCT 22",
+      "kicker": "OCT 23",
       "tone": "rising",
-      "headline": "Price comparison, spectral edits, low-resource adaptation and KG-to-text benchmarks",
+      "headline": "Training-stack plumbing: rounding mismatch, a SageMaker guide and a robust-RL benchmark",
       "sids": [
-        "590975aa217085b7",
-        "8debe4581e047c88",
-        "f07fa8132755e14c",
-        "c888971c48a268c3"
+        "40c644a15cb895a9",
+        "453c138d9feefee3",
+        "8a41e1e41cbecfde",
+        "1e1ae7d5d09cb859"
       ]
     },
     {
-      "kicker": "OCT 26-28",
+      "kicker": "OCT 26-27",
       "tone": "rising",
-      "headline": "Long-horizon search evals, neuron steering, vulnerability probing, continual learning and translated benchmarks",
+      "headline": "RL aimed at agent failures: hallucination abstention, terminal misbehavior and harness co-design",
       "sids": [
-        "5f97c21b490b1ce9",
-        "d5cd3db9b5f4a99b",
-        "a2f964aa6fcbf7ea",
-        "200271de2a2f52aa",
-        "e826ccda9d048b84"
+        "c3af4f37e1c19b19",
+        "868490bacebdc880",
+        "c07d00b3f0a46112",
+        "d448a8af2a653453",
+        "02ad246823185a44"
       ]
     },
     {
-      "kicker": "OCT 29",
-      "tone": "turn",
-      "headline": "Mistral Large 4 ships on Hugging Face and vLLM; papers turn to self-learning and memory",
+      "kicker": "OCT 29-30",
+      "tone": "rising",
+      "headline": "Confidence calibration, self-learning and hierarchical skill routing",
       "sids": [
-        "b6b30743068c2627",
-        "37f6c0c263213efd",
         "d571e973b6e6916d",
-        "e519641640234319"
+        "9471fde9e20a1e58",
+        "29493d021878283c",
+        "65dc6916d3b352f1",
+        "4e3ef058b96b399d"
       ]
     },
     {
-      "kicker": "OCT 30",
+      "kicker": "NOV 2-3",
       "tone": "rising",
-      "headline": "Knowledge integration, retrieval harnesses, text-to-SQL, pruning and retrieval-to-parametric memory",
+      "headline": "Multi-agent RL, long-horizon web agents and prompt compression",
       "sids": [
-        "1d7852cb09b3031f",
-        "ce941c554e9fce8e",
-        "e46c1ab3f7ca9939",
-        "a8a5f23cd8e10643",
-        "0f8439521ab02185"
+        "473a95cd7c540d1a",
+        "bce25dc1c825a3e7",
+        "3ac08f6799c57341",
+        "08c314bb237b4b82",
+        "d97ee2168f669bce",
+        "981c5fba5d1f60bf"
       ]
     },
     {
-      "kicker": "NOV 2-5",
-      "tone": "rising",
-      "headline": "Provable inference, context engines, answerability judgments, federated aggregation and a token-saving tool",
+      "kicker": "THE TURN",
+      "tone": "turn",
+      "headline": "A skeptical audit: multi-turn RL gains hinge on sampling breadth and interaction depth",
       "sids": [
-        "43862ef771dfba65",
-        "744a7a52285cfa40",
-        "94da3bfcbd46a769",
-        "63ff637171c98d2c",
-        "464b347f5551c3b2",
-        "416b05f86baa94c5"
+        "4553deeec0e06574"
+      ]
+    },
+    {
+      "kicker": "NOV 5-6",
+      "tone": "rising",
+      "headline": "Rollout cost takes over: few-step diffusion RL, async scheduling and world-model memory",
+      "sids": [
+        "4e9768611cda6532",
+        "4f75e58fea1157aa",
+        "6fd3ac39e855936d"
       ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Lifelong knowledge editing reaches multimodal models",
+      "headline": "RL-trained summarization for bounded agent memory",
       "sids": [
-        "5606760643e4651e"
+        "84ecbe8e1def5e6c"
       ]
     }
   ],
   "open_questions": [
-    "Do compiled-knowledge and parametric-memory methods beat plain retrieval on production agent workloads?",
-    "Will provable inference become practical for hosted model APIs?",
-    "Do Mistral Large 4 serving claims on vLLM hold up in independent benchmarks?",
-    "Do knowledge-editing methods like ROSE preserve unrelated behavior when tested outside their own benchmarks?"
+    "Do multi-turn RL gains survive when interaction depth and sampling budget match a production agent's limits?",
+    "Does rounding-location alignment become a default in open RL stacks that separate inference and training engines?",
+    "Does RL-trained memory summarization like MaxIM beat plain truncation or retrieval on long-running agent tasks?",
+    "Will any of these methods ship with code that runs on managed services such as SageMaker MTRL?"
   ],
-  "take_for_builders": "If agent token limits bite, measure context trimming and caching against your own eval set before adopting it; treat the preprints and the Show HN tool as unreplicated.",
+  "take_for_builders": "Before running RL post-training on an agent, check that your inference and training engines produce matching log-probs, and size rollout budgets against the Nov 4 depth/breadth findings; treat the rest as unreplicated preprints.",
   "day_captions": {
-    "06d8677dec3b3c21": "Catalogs hallucination types in cross-language code translation and mitigations.",
-    "16071b3c73317004": "Applies LLMs to extracting materials data and knowledge.",
+    "a00ad2ffbda7f2e9": "Extends agentic RL for small models from tool-centric to stateful data-centric environments.",
     "276a486ae6eefe6b": "Self-assessment RL so search agents track what they already found.",
-    "590975aa217085b7": "Third-party price comparison of DeepSeek, Mistral Large 4 and Cohere; unverified marketing-style source.",
-    "8debe4581e047c88": "Spectral changes to feed-forward weights shift task capability profiles.",
-    "f07fa8132755e14c": "Corpus and parameter-efficient adaptation for Bashkir.",
-    "c888971c48a268c3": "Benchmarks recent LLMs on knowledge-graph-to-text generation.",
-    "5f97c21b490b1ce9": "Trajectory-aware benchmark for long-horizon web search.",
-    "d5cd3db9b5f4a99b": "Activation steering that preserves model capabilities.",
-    "a2f964aa6fcbf7ea": "Probes model context to detect vulnerabilities in agent-written code in real time.",
-    "200271de2a2f52aa": "Memory replay method for continual learning without forgetting.",
-    "e826ccda9d048b84": "Questions what translated benchmarks actually measure.",
-    "b6b30743068c2627": "Hugging Face release of Mistral Large 4.",
-    "37f6c0c263213efd": "vLLM day-0 serving support for Mistral Large 4.",
-    "d571e973b6e6916d": "RL to incentivize self-learning on knowledge-intensive tasks.",
-    "e519641640234319": "Registry-anchored memory graph for investor knowledge.",
-    "1d7852cb09b3031f": "Benchmark for integrating new context with parametric memory.",
-    "ce941c554e9fce8e": "Compiles knowledge ahead of time for agentic retrieval harnesses.",
-    "e46c1ab3f7ca9939": "Survey of LLM architectures for text-to-SQL.",
-    "a8a5f23cd8e10643": "Gradual pruning method for extreme sparsity.",
-    "0f8439521ab02185": "Turns retrieved knowledge into parametric memory.",
-    "43862ef771dfba65": "Anthropic reports progress on zkSNARK proofs of LLM inference.",
-    "744a7a52285cfa40": "Argues for a context engine that selects, injects and compresses memory.",
-    "94da3bfcbd46a769": "Post-training can leave answerability judgments misaligned.",
-    "63ff637171c98d2c": "Tests multilingual reasoning over in-context relational knowledge.",
-    "416b05f86baa94c5": "Tests an LLM as a weight-space aggregator for heterogeneous federated learning.",
-    "464b347f5551c3b2": "Show HN tool that trims context and caches knowledge to stretch token limits.",
-    "5606760643e4651e": "Lifelong knowledge editing for multimodal LLMs, aimed at locality erosion and catastrophic forgetting."
+    "352167f7ac41065b": "Twin-world counterfactuals to assign credit to individual decisions inside an episode.",
+    "40c644a15cb895a9": "RL-trained user simulator to generate task-oriented dialogue data under privacy limits.",
+    "453c138d9feefee3": "Shows inference/training implementation differences break on-policy updates even with identical BF16 weights.",
+    "8a41e1e41cbecfde": "The only vendor guide in the thread: end-to-end multi-turn RL on SageMaker, using Wordle.",
+    "1e1ae7d5d09cb859": "Unified library and benchmark for robust RL algorithms under distribution shift.",
+    "c3af4f37e1c19b19": "Confidence-calibrated rewards so RAG models abstain instead of hallucinating.",
+    "868490bacebdc880": "Maps when fine-grained credit assignment helps or hurts multimodal tool-using agents.",
+    "c07d00b3f0a46112": "Error-targeted RL that fixes specific terminal-agent misbehaviors and checks the fix.",
+    "d448a8af2a653453": "Co-evolves the executable harness with the agent policy during training.",
+    "02ad246823185a44": "Schedules environments to spend a fixed rollout budget more efficiently.",
+    "d571e973b6e6916d": "RL to incentivize self-learning on knowledge-intensive tasks in unfamiliar domains.",
+    "9471fde9e20a1e58": "Ties RLVR policy confidence to correctness, which verifier-only rewards leave unconstrained.",
+    "29493d021878283c": "Strategy-guided routing over a hierarchical skill bank instead of flat skill retrieval.",
+    "65dc6916d3b352f1": "Adapts GRPO to few-step flow models by shaping stochastic transitions.",
+    "4e3ef058b96b399d": "Causal-graph reasoning to make RL policies explainable.",
+    "473a95cd7c540d1a": "Hybrid RL and supervised training for higher-ratio prompt compression.",
+    "bce25dc1c825a3e7": "Axiomatic foundation for RL when only some agents in a system are controllable.",
+    "3ac08f6799c57341": "Rewards functional and visual quality for interactive HTML generation, not just renderability.",
+    "08c314bb237b4b82": "Hierarchical multi-agent RL for long-horizon multimodal web tasks.",
+    "d97ee2168f669bce": "Stabilizes on-policy guidance from judge-model feedback when the base model lacks coverage.",
+    "981c5fba5d1f60bf": "Shares latent KV state across sub-agents instead of isolated context windows.",
+    "4553deeec0e06574": "Finds multi-turn agentic RL gains are highly sensitive to sampling breadth and interaction depth.",
+    "4e9768611cda6532": "Cuts diffusion RL rollout cost by fine-tuning few-step samplers.",
+    "4f75e58fea1157aa": "Offline rollout scheduler that removes padding and idle bubbles in async multi-instance RL.",
+    "6fd3ac39e855936d": "Test-time model-based RL that encodes memory in world models.",
+    "84ecbe8e1def5e6c": "RL-optimized incremental summaries to keep agent memory bounded."
   }
 }

@@ -1,12 +1,12 @@
 {
  "slug": "anomaly-detection",
  "label": "Anomaly Detection",
- "item_count": 3,
- "day_count": 2,
+ "item_count": 4,
+ "day_count": 3,
  "source_count": 3,
- "first_seen": "2026-08-24T16:36:17+00:00",
- "last_updated": "2026-08-25T16:52:32+00:00",
- "generated_at": "2026-09-13T05:11:24.701931+00:00",
+ "first_seen": "2026-10-22T16:03:47+00:00",
+ "last_updated": "2026-11-09T18:56:15+00:00",
+ "generated_at": "2026-11-11T00:14:41.869679+00:00",
  "sources": [
   "arxiv_cs_ai",
   "arxiv_cs_lg",
@@ -14,89 +14,97 @@
  ],
  "days": [
   {
-   "date": "2026-08-24",
+   "date": "2026-10-22",
    "items": [
     {
-     "title": "RAD: Rule-Augmented Relational Anomaly Detection",
-     "url": "http://arxiv.org/abs/2608.23468v1",
+     "title": "MoG-VLM: Efficient Video Anomaly Detection through Motion-Guided Vision-Language Models",
+     "url": "http://arxiv.org/abs/2610.31478v1",
      "source": "arxiv_cs_lg",
      "type": "paper",
-     "summary_1line": "Anomaly detection is often applied to data stored in relational databases, yet most existing methods require flattening multiple tables into a single feature matrix. This flattening can obscure entity identity, schema...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "c1f5f7897cab6194",
-     "published": "2026-08-24T16:36:17+00:00",
-     "editor_note": "RAD proposes rule-augmented anomaly detection that operates directly on relational database structure instead of a flattened feature matrix."
-    },
-    {
-     "title": "Robustness of Anomaly Detection Models for Industrial Control Systems under Training-Time Data Contamination",
-     "url": "http://arxiv.org/abs/2608.23547v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Machine-learning-based anomaly detection is increasingly used in industrial control systems (ICS), yet most studies assume that detector training data is trustworthy. In practice, training data may be corrupted throug...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "c6589f453fe3efd2",
-     "published": "2026-08-24T17:49:36+00:00",
-     "editor_note": "A study measures how training-time data contamination degrades industrial-control-system anomaly detectors."
+     "summary_1line": "Vision-Language Models (VLMs) have shown strong potential for video anomaly detection, but dense frame-level inference makes them impractical for real-time deployment. Existing acceleration commonly relies on uniform...",
+     "sid": "10f91cbb4979cd0e",
+     "published": "2026-10-22T16:03:47+00:00",
+     "editor_note": "Uses motion guidance to cut the dense frame-level inference that makes VLM video anomaly detection impractical in real time."
     }
    ]
   },
   {
-   "date": "2026-08-25",
+   "date": "2026-10-23",
    "items": [
     {
-     "title": "Strictly Causal Streaming Video Anomaly Detection with a Theoretically-Grounded State-Space Core",
-     "url": "http://arxiv.org/abs/2608.24810v1",
+     "title": "Flownomaly: Single-Step Conditional-Mean Recovery for Few-Shot Anomaly Detection",
+     "url": "http://arxiv.org/abs/2610.32964v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Few-shot industrial anomaly detection requires modeling category-specific normality from only a handful of defect-free images. Common approaches tie inference to stored exemplars, impose rigid linear structure, or ris...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "ad09687688336a6f",
+     "published": "2026-10-23T17:53:30+00:00",
+     "editor_note": "Few-shot industrial defect detection that avoids stored exemplars and rigid linear structure via single-step conditional-mean recovery."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "LogCDM: Interpretable Log Anomaly Detection via Behavioral Graph Drift and Adaptive Signal Fusion",
+     "url": "http://arxiv.org/abs/2611.12775v1",
      "source": "arxiv_cs_ai",
      "type": "paper",
-     "summary_1line": "Recent work has applied Mamba style state space models (SSMs) to video anomaly detection, yet existing approaches still rely on buffering clips or windows internally, lack a theoretical account of how temporal memory...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "c8fa2c59f3b3c019",
-     "published": "2026-08-25T16:52:32+00:00",
-     "editor_note": "A strictly causal, state-space model targets real-time streaming video anomaly detection without internal clip buffering."
+     "summary_1line": "Log-based anomaly detection is increasingly dominated by large pretrained models, from BERT-scale encoders to 8B-parameter language models, which require GPUs at inference time and are difficult to deploy on the monit...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "d1b93ef36fd4bf1f",
+     "published": "2026-11-09T17:48:31+00:00",
+     "editor_note": "Moves log anomaly detection off GPU-bound pretrained models to interpretable behavioral-graph drift with adaptive signal fusion."
+    },
+    {
+     "title": "Vendi Anomaly Scores for Efficient and Accurate Anomaly Detection",
+     "url": "http://arxiv.org/abs/2611.12871v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Anomaly detection (AD) is a critical for trustworthy machine learning and scientific discovery. Existing methods typically define anomalies through local density, isolation heuristics, or distance from a fitted distri...",
+     "sid": "79a0f00b03e27450",
+     "published": "2026-11-09T18:56:15+00:00",
+     "editor_note": "Proposes a diversity-based (Vendi) anomaly score as an alternative to density, isolation and distance-from-distribution definitions."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "Three papers published within two days push anomaly detection along separate, unconnected fronts: relational-database structure, industrial-control-system security, and real-time video. None builds on the others — this is a cluster of concurrent research, not one unfolding event.",
+  "tldr": "This thread is a label, not one event: four unrelated arXiv papers that share the words \"anomaly detection\". The October pair targeted video and few-shot industrial inspection, and the August papers it replaced covered relational data, ICS security and streaming video.",
   "stale": false,
-  "whats_new": "The newest paper (Aug 25) proposes a causal, state-space model for streaming video anomaly detection that avoids buffering clips, unlike prior Mamba-style approaches.",
-  "why_it_matters": "If you're building anomaly detection into an agent or observability pipeline, these three papers map to distinct decision points: whether your data is relational (schema-aware methods), whether your training data can be adversarially poisoned (ICS robustness), and whether you need real-time, low-latency video inference (streaming state-space models).",
-  "take_for_builders": "Treat this as three independent leads, not one trend: check RAD if your anomaly signal lives in relational/warehouse data, check the ICS contamination study if your training pipeline ingests third-party or adversarial data, and check the streaming state-space model only if you need real-time video inference without clip buffering.",
+  "whats_new": "Two Nov 9 papers push anomaly detection toward cheaper inference: LogCDM flags log anomalies from behavioral-graph drift without GPU-bound language models, and Vendi Anomaly Scores proposes a diversity-based score in place of density or isolation heuristics.",
+  "why_it_matters": "The shared direction is cost: three of the four papers explicitly target cheaper or lighter detection than dense VLM, exemplar-store or 8B-parameter log models, which is the constraint that decides whether a detector can run inside a monitoring or agent pipeline.",
+  "take_for_builders": "Read LogCDM if your log anomaly detection needs GPU-hosted models today; skip the rest unless you run video or visual inspection, and wait for released code before planning a swap.",
   "beats": [
    {
-    "kicker": "RELATIONAL DATA",
+    "kicker": "VIDEO + INSPECTION",
     "tone": "neutral",
-    "headline": "RAD argues anomaly detection over relational databases shouldn't flatten tables into one feature matrix",
-    "summary": "Flattening multiple tables loses entity identity and schema structure; RAD instead applies rule-augmented detection directly on the relational structure.",
+    "headline": "October papers trim the inference cost of vision anomaly detection",
+    "summary": "MoG-VLM uses motion cues to avoid dense frame-level VLM inference; Flownomaly models normality from a handful of defect-free images without tying inference to stored exemplars.",
     "sids": [
-     "c1f5f7897cab6194"
+     "10f91cbb4979cd0e",
+     "ad09687688336a6f"
     ]
    },
    {
-    "kicker": "SECURITY ROBUSTNESS",
-    "tone": "neutral",
-    "headline": "A study tests industrial-control-system anomaly detectors under training-time data contamination",
-    "summary": "Most ICS anomaly-detection research assumes clean training data; this paper measures what happens when that data is poisoned instead.",
-    "sids": [
-     "c6589f453fe3efd2"
-    ]
-   },
-   {
-    "kicker": "STREAMING VIDEO",
+    "kicker": "LOGS + SCORING",
     "tone": "rising",
-    "headline": "A causal state-space model targets real-time video anomaly detection without clip buffering",
-    "summary": "Prior Mamba-style approaches to video anomaly detection still buffer clips or windows internally; this model claims a theoretically grounded, strictly causal alternative.",
+    "headline": "November papers target log monitoring and a new general-purpose anomaly score",
+    "summary": "LogCDM argues large pretrained log models are hard to deploy on monitoring hosts and offers an interpretable graph-drift alternative; Vendi Anomaly Scores redefines anomalies by diversity rather than density, isolation or distance.",
     "sids": [
-     "c8fa2c59f3b3c019"
+     "d1b93ef36fd4bf1f",
+     "79a0f00b03e27450"
     ]
    }
   ],
   "open_questions": [
-   "Do any of these three methods report benchmarks against a shared production anomaly-detection baseline, or only against prior academic work in their own subfield?",
-   "Does RAD's relational approach scale to the table counts and schema complexity found in real production data warehouses?",
-   "Has the ICS contamination study identified which specific defenses (if any) hold up under the poisoning attacks it tests?"
+   "Does LogCDM match the detection accuracy of BERT-scale or 8B-parameter log models on standard log benchmarks while running CPU-only?",
+   "Does Vendi Anomaly Scores hold up on high-dimensional embedding data such as LLM traces, or only on the benchmarks the paper reports?",
+   "Does MoG-VLM report end-to-end latency on real-time video, or only reduced frame counts?",
+   "Do any of these papers release code an operator could run against production telemetry?"
   ],
-  "generated_at": "2026-08-27T05:20:00+00:00"
+  "generated_at": "2026-11-11T00:13:30+00:00"
  }
 }

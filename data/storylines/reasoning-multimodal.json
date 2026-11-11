@@ -1,14 +1,15 @@
 {
  "slug": "reasoning-multimodal",
  "label": "Reasoning Multimodal",
- "item_count": 8,
- "day_count": 7,
- "source_count": 4,
+ "item_count": 12,
+ "day_count": 8,
+ "source_count": 5,
  "first_seen": "2026-10-23T10:43:41+00:00",
- "last_updated": "2026-11-06T17:32:49+00:00",
- "generated_at": "2026-11-10T00:13:24.787725+00:00",
+ "last_updated": "2026-11-09T18:57:00+00:00",
+ "generated_at": "2026-11-11T00:14:41.869679+00:00",
  "sources": [
   "arxiv_agent_systems_research",
+  "arxiv_cs_ai",
   "arxiv_cs_cl",
   "arxiv_cs_lg",
   "arxiv_llm_reliability"
@@ -34,6 +35,17 @@
    "date": "2026-10-27",
    "items": [
     {
+     "title": "Who Knows What - and What Does It Support? Perspective-Bounded Evidence Calibration for Multimodal Theory of Mind",
+     "url": "http://arxiv.org/abs/2610.36824v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Theory of Mind (ToM), the ability to infer others' beliefs, goals, and intentions, is a cornerstone of social intelligence. Multimodal ToM requires inferring an agent's mental state from evidence that is available to...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "afb43d44186a1777",
+     "published": "2026-10-27T08:23:46+00:00",
+     "editor_note": "Calibrates multimodal theory-of-mind answers to the evidence each agent could actually perceive."
+    },
+    {
      "title": "When Visual Evidence Is Insufficient: How Instructions, Post-Training, and Internal Activations Shape Refusal in Multimodal Language Models",
      "url": "http://arxiv.org/abs/2610.37430v1",
      "source": "arxiv_cs_lg",
@@ -42,6 +54,17 @@
      "sid": "1a8c5544b9b567ca",
      "published": "2026-10-27T15:42:20+00:00",
      "editor_note": "Studies how instructions, post-training and internal activations shape refusal when an image gives insufficient evidence."
+    },
+    {
+     "title": "PerceptRL: Making Visual Perception Rewardable in MLLMs from Answers to Interactions",
+     "url": "http://arxiv.org/abs/2610.37471v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Fine-grained visual perception remains a bottleneck during post-training of multimodal large language models (MLLMs), as perceptual errors can constrain gains from reasoning-focused optimization. Although image-captio...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "e379c9bd87f9ef79",
+     "published": "2026-10-27T16:04:10+00:00",
+     "editor_note": "Makes fine-grained visual perception a rewardable target in MLLM post-training."
     }
    ]
   },
@@ -131,28 +154,56 @@
      "editor_note": "Extends the thread to lifelong knowledge editing for multimodal LLMs."
     }
    ]
+  },
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "HumanSightBench: A Benchmark for Human Visual Perception in MLLMs",
+     "url": "http://arxiv.org/abs/2611.12305v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Multimodal large language models (MLLMs) have demonstrated strong performance on knowledge-intensive and reasoning-based vision-language benchmark datasets, but still struggle to solve the visual questions that people...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "b7edb4e2db8eeea8",
+     "published": "2026-11-09T12:27:19+00:00",
+     "editor_note": "Adds a benchmark of visual questions people find easy but MLLMs still fail."
+    },
+    {
+     "title": "HiVe-Mem: Interleaving Horizontal Memory Expansion and Vertical Evidence Composition for Multimodal Agents",
+     "url": "http://arxiv.org/abs/2611.12872v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "As multimodal agents accumulate increasingly long interaction histories, effectively retrieving and utilizing past information becomes critical for long-term interaction. Existing memory systems typically rely on sema...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "4d29353472d6538a",
+     "published": "2026-11-09T18:57:00+00:00",
+     "editor_note": "Brings the thread to agents: memory retrieval and evidence composition over long multimodal interaction histories."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Late-October papers focused on getting reasoning into multimodal models: reasoning-augmented embeddings, latent communication between vision and small language models, and continuous-space reasoning. By early November the research shifted to reliability, covering refusal, perception robustness, hallucination and unlearning.",
+  "tldr": "Late-October arXiv papers worked on getting reasoning into multimodal models: reasoning-augmented embeddings, rewardable perception, latent vision-to-small-model communication and continuous-space reasoning. Early November turned to reliability (refusal, perception robustness, hallucination) and then to post-release unlearning and knowledge editing.",
   "stale": false,
-  "whats_new": "ROSE (Nov 6) proposes risk-aware orthogonal subspace navigation for lifelong knowledge editing in multimodal LLMs, targeting locality erosion and catastrophic forgetting.",
-  "why_it_matters": "Multimodal models are being pushed toward deployable behavior: knowing when to refuse, resisting perceptual perturbation, avoiding hallucination, and being updated or unlearned after release.",
-  "take_for_builders": "If you serve multimodal models, add evals for insufficient-evidence refusal and perceptual perturbation before adopting any of these techniques; treat them as preprints until independently reproduced.",
+  "whats_new": "Two Nov 9 papers move the thread toward agents: HumanSightBench tests the human-easy visual questions MLLMs still miss, and HiVe-Mem proposes a memory system for multimodal agents with long interaction histories.",
+  "why_it_matters": "Multimodal reasoning research now targets what agent builders hit in production: perception errors, unsupported answers, stale knowledge and retrieval over long multimodal histories.",
+  "take_for_builders": "If you run multimodal agents, add evals for insufficient-evidence refusal, perceptual perturbation and long-history retrieval before adopting any of these techniques; treat them as preprints until reproduced.",
   "status": {
    "state": "Developing",
    "tone": "rising",
-   "changed": "2026-11-06",
-   "detail": "A cluster of arXiv papers moving from adding reasoning to multimodal models toward making them reliable and maintainable; all items are preprints."
+   "changed": "2026-11-09",
+   "detail": "A loose cluster of arXiv preprints on multimodal reasoning, moving from adding reasoning toward reliability, maintenance and agent memory; none is an independently reproduced result."
   },
   "beats": [
    {
     "kicker": "REASONING IN",
     "tone": "launch",
-    "headline": "Reasoning is added to embeddings, small-model perception and unified models",
-    "summary": "Three papers on using reasoning to improve multimodal representation and perception.",
+    "headline": "Reasoning is added to embeddings, perception rewards and small-model pipelines",
+    "summary": "Papers use reasoning or reward signals to improve multimodal representation and perception.",
     "sids": [
      "23a2048e82ce2894",
+     "e379c9bd87f9ef79",
      "abe1652e18273a1a",
      "282f057baf2d5931"
     ]
@@ -160,29 +211,42 @@
    {
     "kicker": "THE TURN",
     "tone": "turn",
-    "headline": "Focus shifts to refusal, robustness and hallucination",
-    "summary": "Papers examine when models should withhold answers and how reasoning fails under perceptual perturbation or hallucination.",
+    "headline": "Focus shifts to evidence, refusal, robustness and hallucination",
+    "summary": "Papers examine what evidence supports an answer, when to withhold one, and how reasoning fails under perceptual perturbation.",
     "sids": [
+     "afb43d44186a1777",
      "1a8c5544b9b567ca",
      "526c07c3667e6cf7",
      "57b08f9866a26766"
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "MAINTENANCE",
+    "tone": "neutral",
     "headline": "Post-deployment control: unlearning and knowledge editing",
-    "summary": "Work on removing and updating what multimodal models know.",
+    "summary": "Work on removing and updating what multimodal models know after release.",
     "sids": [
      "c43d3ff3aa20c41c",
      "5606760643e4651e"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "A human-perception benchmark and memory for multimodal agents",
+    "summary": "The newest items measure basic visual perception gaps and address retrieval over long agent histories.",
+    "sids": [
+     "b7edb4e2db8eeea8",
+     "4d29353472d6538a"
     ]
    }
   ],
   "open_questions": [
    "Do any of these methods get released with code or evaluations on production-scale multimodal models?",
-   "Can unlearning and knowledge-editing methods preserve reasoning quality in multimodal reasoning models?"
+   "Can unlearning and knowledge-editing methods preserve reasoning quality in multimodal reasoning models?",
+   "Do frontier MLLMs close the HumanSightBench gap, or does it persist across model releases?",
+   "Does HiVe-Mem's retrieval beat semantic-similarity memory on public multimodal agent benchmarks?"
   ],
-  "generated_at": "2026-11-10T00:30:00+00:00"
+  "generated_at": "2026-11-11T00:13:34Z"
  }
 }

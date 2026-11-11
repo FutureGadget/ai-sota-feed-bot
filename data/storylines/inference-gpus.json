@@ -1,0 +1,105 @@
+{
+ "slug": "inference-gpus",
+ "label": "Inference GPUs",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-10-25T17:00:00+00:00",
+ "last_updated": "2026-11-10T02:05:11+00:00",
+ "generated_at": "2026-11-11T00:14:41.869679+00:00",
+ "sources": [
+  "hackernews_ai",
+  "infoq_ai_ml"
+ ],
+ "days": [
+  {
+   "date": "2026-10-25",
+   "items": [
+    {
+     "title": "Google ML Drift Accelerates On-Device AI Inference across Diverse GPUs",
+     "url": "https://www.infoq.com/news/2026/10/google-ml-drift/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "Google has released ML Drift, an open-source, cross-platform GPU compute engine designed for on-device AI and machine learning inference. Licensed under Apache 2.0, it abstracts the complexities of different GPU hardw...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "cf9ccf494a614c63",
+     "published": "2026-10-25T17:00:00+00:00",
+     "editor_note": "First-party starting point: Google releases a vendor-neutral GPU engine, scoped to on-device inference."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-01",
+   "items": [
+    {
+     "title": "An inference server for AMD GPUs, in C++ and HIP",
+     "url": "https://codeberg.org/StillDeadcode/radiance",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "An inference server for AMD GPUs, in C++ and HIP",
+     "sid": "3024d09a7913b631",
+     "published": "2026-11-01T19:37:33+00:00",
+     "editor_note": "Independent AMD-only server in C++ and HIP; a Hacker News link with no published benchmarks."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "items": [
+    {
+     "title": "CUDA+ROCm dual-back ends LLM inference for mixed-vendor GPUs (up to 48% faster)",
+     "url": "https://github.com/mw00/project-maya/pull/879",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "CUDA+ROCm dual-back ends LLM inference for mixed-vendor GPUs (up to 48% faster)",
+     "sid": "fed29696ba0516e2",
+     "published": "2026-11-10T02:05:11+00:00",
+     "editor_note": "Moves the thread to datacenter LLMs: one job across NVIDIA and AMD, with a self-reported speedup claim."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a loose thread of three separate projects, not one event: each tries to run inference on GPUs beyond a single CUDA stack. Google opened it with ML Drift, an Apache 2.0 engine for on-device inference across GPU vendors, and a small C++/HIP inference server for AMD GPUs followed on Codeberg.",
+  "stale": false,
+  "whats_new": "A pull request to the open-source project-maya adds combined CUDA and ROCm backends so one LLM inference job can span NVIDIA and AMD GPUs; its title claims up to 48% faster, with no independent benchmark yet.",
+  "why_it_matters": "Inference that runs on more than one GPU vendor gives teams leverage on hardware cost and supply, but these projects are early and their performance numbers are self-reported.",
+  "take_for_builders": "Treat these as experiments: rerun your own latency and throughput evals on mixed or AMD hardware before you plan capacity around them, and keep your CUDA serving path as the fallback.",
+  "beats": [
+   {
+    "kicker": "CROSS-VENDOR",
+    "tone": "launch",
+    "headline": "Google open-sources ML Drift for on-device inference across GPUs",
+    "summary": "A first-party GPU compute engine that hides vendor differences for on-device ML inference.",
+    "sids": [
+     "cf9ccf494a614c63"
+    ]
+   },
+   {
+    "kicker": "AMD-NATIVE",
+    "tone": "rising",
+    "headline": "A C++/HIP inference server targets AMD GPUs directly",
+    "summary": "A small independent project skips CUDA and writes the server against AMD's HIP API.",
+    "sids": [
+     "3024d09a7913b631"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Dual CUDA+ROCm backend PR claims up to 48% faster mixed-vendor inference",
+    "summary": "An open pull request, not a release; the speedup comes from the PR title alone.",
+    "sids": [
+     "fed29696ba0516e2"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does the project-maya CUDA+ROCm pull request merge, and what workload and baseline produce the 48% figure?",
+   "Does an independent benchmark compare mixed NVIDIA+AMD inference against a single-vendor setup at equal cost?",
+   "Does ML Drift add server-side or LLM-scale support, or stay on-device only?",
+   "Does the AMD HIP inference server publish throughput and model-support numbers against vLLM on ROCm?"
+  ],
+  "generated_at": "2026-11-11T00:13:31Z"
+ }
+}

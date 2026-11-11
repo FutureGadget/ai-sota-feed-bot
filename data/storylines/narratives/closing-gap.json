@@ -1,0 +1,47 @@
+{
+  "slug": "closing-gap",
+  "generated_at": "2026-11-11T00:13:31Z",
+  "covers_last_updated": "2026-11-10T09:00:00+00:00",
+  "covers_member_sids": [
+    "4130504d6e1870e2",
+    "5386e0ca809d2a22",
+    "69d4d9d74efa0162"
+  ],
+  "tldr": "This is not one developing story: three unrelated items share only the phrase \"closing the gap\" in their titles. Two October arXiv papers target model-side gaps, KV-cache memory in looped transformers and the CLIP-style modality gap in embeddings.",
+  "whats_new": "OpenAI published ThinkYoung research and EMEA education-partnership lessons on AI literacy for teachers, an education-policy piece with no technical link to the earlier papers.",
+  "why_it_matters": "Only the KV-sharing paper bears on inference cost: looped architectures multiply KV-cache memory per recurrence, which sets serving footprint if they reach production.",
+  "beats": [
+    {
+      "kicker": "INFERENCE MEMORY",
+      "tone": "launch",
+      "headline": "BeNice! proposes KV-sharing to cut looped-model cache memory",
+      "summary": "Looped architectures reuse layers but create a separate KV-cache per recurrence; the paper shares caches across loops.",
+      "sids": ["4130504d6e1870e2"]
+    },
+    {
+      "kicker": "EMBEDDINGS",
+      "tone": "neutral",
+      "headline": "Simplex-constrained representations target the modality gap",
+      "summary": "A separate research thread on aligning CLIP/CLAP-style multimodal embedding spaces.",
+      "sids": ["5386e0ca809d2a22"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "OpenAI on the AI guidance gap in education",
+      "summary": "A policy and partnership write-up on teacher support and AI literacy, outside the engineering lens.",
+      "sids": ["69d4d9d74efa0162"]
+    }
+  ],
+  "open_questions": [
+    "Does BeNice!'s KV-sharing hold quality at the recurrence depths looped models need to match deeper dense models?",
+    "Does any serving stack (vLLM, SGLang, TensorRT-LLM) add support for looped-architecture KV-sharing?",
+    "Does reducing the modality gap measurably improve cross-modal retrieval recall in production embedding pipelines?"
+  ],
+  "take_for_builders": "Nothing to change: treat these as three separate reads, and keep the KV-sharing paper on file only if you evaluate looped or recurrent-depth models for serving.",
+  "day_captions": {
+    "4130504d6e1870e2": "Research on the serving cost of looped transformers: per-recurrence KV-caches and a sharing scheme to shrink them.",
+    "5386e0ca809d2a22": "Unrelated embedding-geometry paper; joins the thread only through its title wording.",
+    "69d4d9d74efa0162": "Education-policy post from OpenAI; the newest item, but no technical continuation of the papers."
+  }
+}

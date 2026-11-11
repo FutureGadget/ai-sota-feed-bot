@@ -3,49 +3,16 @@
  "label": "On-Policy Distillation",
  "item_count": 5,
  "day_count": 5,
- "source_count": 4,
- "first_seen": "2026-10-14T08:12:10+00:00",
- "last_updated": "2026-10-30T17:56:58+00:00",
- "generated_at": "2026-11-03T00:12:58.466703+00:00",
+ "source_count": 3,
+ "first_seen": "2026-10-22T17:05:21+00:00",
+ "last_updated": "2026-11-09T18:07:42+00:00",
+ "generated_at": "2026-11-11T00:14:41.869679+00:00",
  "sources": [
   "arxiv_agent_systems_research",
-  "arxiv_cn_open_weight_reports",
   "arxiv_cs_cl",
   "arxiv_cs_lg"
  ],
  "days": [
-  {
-   "date": "2026-10-14",
-   "items": [
-    {
-     "title": "Qwen-MT-Lumen at WMT2026: Instruction-Specialized Translation via Quality-Aware Training and On-Policy Distillation",
-     "url": "http://arxiv.org/abs/2610.19758v1",
-     "source": "arxiv_cn_open_weight_reports",
-     "type": "paper",
-     "summary_1line": "We present Lumen, The open-source model is available at, our submission to the WMT 2026 General Machine Translation Shared Task. We focus on instruction-specialized translation, where systems must produce accurate tra...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "ee660e8935ab6a11",
-     "published": "2026-10-14T08:12:10+00:00",
-     "editor_note": "Shows on-policy training in a competitive translation submission."
-    }
-   ]
-  },
-  {
-   "date": "2026-10-15",
-   "items": [
-    {
-     "title": "OPRD: On-Policy Reminder Distillation for Long-Horizon Coding Agents",
-     "url": "http://arxiv.org/abs/2610.21496v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Reliable repository-level coding requires agents not only to generate correct code but also to preserve constraints and respond to tool feedback across long interactions. However, our diagnostic analysis shows that ag...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "bb1f85907195d2e5",
-     "published": "2026-10-15T08:32:30+00:00",
-     "editor_note": "Extends the idea to long coding-agent sessions with tool feedback."
-    }
-   ]
-  },
   {
    "date": "2026-10-22",
    "items": [
@@ -93,39 +60,54 @@
      "editor_note": "Applies the technique to ranking, distilling an LLM into a decision model."
     }
    ]
+  },
+  {
+   "date": "2026-11-08",
+   "items": [
+    {
+     "title": "How Much Training-Inference Mismatch Can On-Policy Distillation Tolerate?",
+     "url": "http://arxiv.org/abs/2611.11450v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "On-policy distillation (OPD) trains a student language model on its own responses, guided by a fixed teacher. Generating these responses is expensive, so systems use quantized inference and asynchronous rollouts to reduce the cost. Both, however, introduce training-inference mism",
+     "sid": "0fc8668945f28662",
+     "published": "2026-11-08T15:22:47+00:00",
+     "editor_note": "Examines the cost side: whether cheap quantized or asynchronous rollouts break OPD training."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "Agentic-OPD: Recovering Forgotten Agent Capabilities via On-Policy Distillation for Agentic Tasks",
+     "url": "http://arxiv.org/abs/2611.12799v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Reinforcement learning is now the mainstream paradigm for training LLMs on agentic tasks, yet standard practice keeps only the best-validation checkpoint and discards the rest. We show that this is lossy: in GRPO trai...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "43d2f07b8fa119c1",
+     "published": "2026-11-09T18:07:42+00:00",
+     "editor_note": "Brings OPD into agent RL, using discarded GRPO checkpoints as a source of lost skills."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Papers from Oct 14 apply on-policy distillation (training a student on its own sampled trajectories, scored by a teacher) to translation and long-horizon coding agents. By Oct 22 the work turned to when the student should follow the teacher, and by Oct 26 to multi-agent serving configuration.",
+  "tldr": "On Oct 22 an arXiv paper asked when a student trained on its own sampled outputs should follow its teacher, a refinement of on-policy distillation (OPD). By Oct 30 papers had applied OPD to multi-agent routing and to rerankers, and on Nov 8 one measured how much quantized or asynchronous rollout mismatch OPD tolerates.",
   "stale": false,
-  "whats_new": "Oct 30: DecisionRank, an arXiv paper, applies on-policy distillation to transfer a generative LLM's ranking knowledge into a decision model that predicts scores directly, avoiding autoregressive decoding latency.",
-  "why_it_matters": "On-policy distillation is spreading from post-training into serving components such as multi-agent routing and rerankers, so teams can test it on latency- and cost-sensitive parts of a stack, not only on small chat models.",
-  "take_for_builders": "If you run an LLM reranker or router, benchmark a distilled decision model against it on your own queries for quality and latency before switching; none of these papers has independent replication yet.",
+  "whats_new": "Nov 9: Agentic-OPD, an arXiv paper, argues that keeping only the best-validation checkpoint from GRPO agent training discards capabilities, and uses on-policy distillation to recover them.",
+  "why_it_matters": "On-policy distillation is moving from a training trick into agent post-training and serving components, and its rollout cost now has a studied trade-off against quantized or asynchronous inference.",
+  "take_for_builders": "If you RL-train agents with GRPO, keep intermediate checkpoints instead of only the best-validation one until Agentic-OPD's recovery results are reproduced; none of these papers has independent replication yet.",
   "status": {
    "state": "Active research thread",
    "tone": "rising"
   },
   "beats": [
    {
-    "kicker": "TRANSLATION",
-    "tone": "launch",
-    "headline": "Qwen-MT-Lumen applies on-policy training to WMT 2026 translation",
-    "sids": [
-     "ee660e8935ab6a11"
-    ]
-   },
-   {
-    "kicker": "CODING AGENTS",
-    "tone": "rising",
-    "headline": "OPRD distills constraint reminders into long-horizon coding agents",
-    "sids": [
-     "bb1f85907195d2e5"
-    ]
-   },
-   {
     "kicker": "TEACHER TIMING",
-    "tone": "turn",
-    "headline": "Advantage-based method decides when to follow the teacher",
+    "tone": "launch",
+    "headline": "Advantage-based method decides when the student should follow the teacher",
     "sids": [
      "345d8b761233aa20"
     ]
@@ -133,26 +115,37 @@
    {
     "kicker": "SERVING",
     "tone": "rising",
-    "headline": "EvoRouter applies on-policy distillation to multi-agent routing cost",
+    "headline": "OPD moves into multi-agent routing and decision-model rerankers",
+    "summary": "EvoRouter targets multi-agent serving configuration cost; DecisionRank distills LLM ranking into a model that scores without decoding.",
     "sids": [
-     "6ec8d30bc1da5744"
+     "6ec8d30bc1da5744",
+     "79cbc9c6543a99c8"
+    ]
+   },
+   {
+    "kicker": "ROLLOUT COST",
+    "tone": "turn",
+    "headline": "Study tests how much training-inference mismatch OPD tolerates",
+    "sids": [
+     "0fc8668945f28662"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "DecisionRank distills LLM ranking knowledge into a decision-model reranker",
+    "headline": "Agentic-OPD recovers agent skills lost to best-checkpoint selection",
     "sids": [
-     "79cbc9c6543a99c8"
+     "43d2f07b8fa119c1"
     ]
    }
   ],
   "open_questions": [
-   "Does the advantage-based method beat plain on-policy distillation on agentic coding tasks, not only its own benchmarks?",
-   "Does any group release code that reproduces the OPRD long-horizon results?",
+   "Does the advantage-based method beat plain on-policy distillation on agentic tasks, not only its own benchmarks?",
    "Do EvoRouter's cost savings hold on production query mixes outside its own benchmark?",
-   "Does DecisionRank's distilled reranker match its LLM teacher's ranking quality on a third party's data?"
+   "Does DecisionRank's distilled reranker match its LLM teacher's ranking quality on a third party's data?",
+   "What quantization level or rollout staleness does the mismatch study find safe for OPD students?",
+   "Does any group release code that reproduces Agentic-OPD's capability recovery on a different agent benchmark?"
   ],
-  "generated_at": "2026-11-03T00:20:00+00:00"
+  "generated_at": "2026-11-11T00:13:33Z"
  }
 }

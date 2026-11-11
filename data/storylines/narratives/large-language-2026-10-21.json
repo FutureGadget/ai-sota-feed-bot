@@ -1,0 +1,140 @@
+{
+  "slug": "large-language-2026-10-21",
+  "generated_at": "2026-11-11T00:13:42Z",
+  "covers_last_updated": "2026-11-09T17:58:38+00:00",
+  "covers_member_sids": [
+    "16071b3c73317004",
+    "276a486ae6eefe6b",
+    "590975aa217085b7",
+    "8debe4581e047c88",
+    "f07fa8132755e14c",
+    "c888971c48a268c3",
+    "5f97c21b490b1ce9",
+    "d5cd3db9b5f4a99b",
+    "a2f964aa6fcbf7ea",
+    "200271de2a2f52aa",
+    "e826ccda9d048b84",
+    "37f6c0c263213efd",
+    "b6b30743068c2627",
+    "d571e973b6e6916d",
+    "e519641640234319",
+    "1d7852cb09b3031f",
+    "ce941c554e9fce8e",
+    "e46c1ab3f7ca9939",
+    "a8a5f23cd8e10643",
+    "0f8439521ab02185",
+    "43862ef771dfba65",
+    "744a7a52285cfa40",
+    "94da3bfcbd46a769",
+    "63ff637171c98d2c",
+    "416b05f86baa94c5",
+    "464b347f5551c3b2",
+    "5606760643e4651e",
+    "9c88a41fbb756af3",
+    "3b4f703ae0a8f385"
+  ],
+  "tldr": "This is not one story: the items share the phrase \"large language models\" and are mostly arXiv papers from Oct 21 onward. Two real threads sit inside it: the Mistral Large 4 launch on Oct 29, and a run of papers on how LLMs and agents handle memory, retrieval, and knowledge updates.",
+  "whats_new": "The Nov 9 additions are two arXiv papers, a personality-influence benchmark and an LLM-as-AutoML-searcher, so no new event has landed since Mistral Large 4 got day-0 vLLM and Hugging Face support on Oct 29.",
+  "why_it_matters": "The only deployable change here is Mistral Large 4 on vLLM; the memory and retrieval papers are research signal for agent context design, not shipped tooling.",
+  "beats": [
+    {
+      "kicker": "BACKGROUND",
+      "tone": "neutral",
+      "headline": "Unrelated LLM papers share a phrase, not an event",
+      "summary": "Oct 21–28 arXiv work spans materials extraction, steering, continual learning, translated benchmarks, and a long-horizon web-search eval.",
+      "sids": [
+        "16071b3c73317004",
+        "276a486ae6eefe6b",
+        "8debe4581e047c88",
+        "f07fa8132755e14c",
+        "c888971c48a268c3",
+        "5f97c21b490b1ce9",
+        "d5cd3db9b5f4a99b",
+        "a2f964aa6fcbf7ea",
+        "200271de2a2f52aa",
+        "e826ccda9d048b84"
+      ]
+    },
+    {
+      "kicker": "LAUNCH",
+      "tone": "launch",
+      "headline": "Mistral Large 4 ships with day-0 vLLM and Hugging Face support",
+      "summary": "vLLM lists sparse MLA, cross-layer KV sharing, speculative decoding, and P/D disaggregation on NVIDIA Blackwell.",
+      "sids": [
+        "590975aa217085b7",
+        "37f6c0c263213efd",
+        "b6b30743068c2627"
+      ]
+    },
+    {
+      "kicker": "THEME",
+      "tone": "rising",
+      "headline": "Memory, retrieval, and knowledge updates become the densest sub-thread",
+      "summary": "Papers and practitioner pieces Oct 29–Nov 6 on RAG-to-parametric distillation, memory graphs, context engines, and knowledge editing.",
+      "sids": [
+        "d571e973b6e6916d",
+        "e519641640234319",
+        "1d7852cb09b3031f",
+        "ce941c554e9fce8e",
+        "0f8439521ab02185",
+        "744a7a52285cfa40",
+        "94da3bfcbd46a769",
+        "63ff637171c98d2c",
+        "464b347f5551c3b2",
+        "5606760643e4651e"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Scattered research continues, led by Anthropic's provable-inference update",
+      "summary": "Text-to-SQL survey, extreme-sparsity pruning, zkSNARK provable inference, federated aggregation, personality benchmarking, and AutoML search.",
+      "sids": [
+        "e46c1ab3f7ca9939",
+        "a8a5f23cd8e10643",
+        "43862ef771dfba65",
+        "416b05f86baa94c5",
+        "9c88a41fbb756af3",
+        "3b4f703ae0a8f385"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Do independent benchmarks of Mistral Large 4 on vLLM confirm its long-context and throughput claims?",
+    "Does any provider publish Mistral Large 4 API pricing that confirms or overturns the reported price gap with DeepSeek and Cohere?",
+    "Does Anthropic ship provable inference (zkSNARK) as a product feature or customer-verifiable API option?",
+    "Does any agent framework adopt a separate context/memory/knowledge layer like the one InfoQ and the harness paper describe?"
+  ],
+  "take_for_builders": "If you serve open weights, test Mistral Large 4 on a current vLLM build before adopting it; treat the memory and retrieval papers as design input for your context layer, not drop-in components.",
+  "day_captions": {
+    "16071b3c73317004": "First member: a materials-science extraction survey, unrelated to the rest beyond the phrase.",
+    "276a486ae6eefe6b": "Search agents trained via RL to know when they have retrieved enough.",
+    "590975aa217085b7": "Search-sourced price comparison putting Mistral Large 4 against DeepSeek and Cohere.",
+    "8debe4581e047c88": "Interpretability work on how spectral edits to feed-forward weights shift task performance.",
+    "f07fa8132755e14c": "Low-resource language adaptation benchmark for Bashkir.",
+    "c888971c48a268c3": "Empirical comparison of recent LLMs on knowledge-graph-to-text generation.",
+    "5f97c21b490b1ce9": "Long-horizon web-search eval that localizes the failing step in an agent trajectory.",
+    "d5cd3db9b5f4a99b": "Activation-steering method that aims to keep general capability intact.",
+    "a2f964aa6fcbf7ea": "Real-time vulnerability screening of agent-generated code via model probing.",
+    "200271de2a2f52aa": "Continual-learning replay method that checks compatibility of incoming data.",
+    "e826ccda9d048b84": "Questions whether translated benchmarks like MMLU measure the same thing as native ones.",
+    "37f6c0c263213efd": "The launch's serving detail: vLLM day-0 support and the inference features it relies on.",
+    "b6b30743068c2627": "Hugging Face confirms the weights are published on the Hub.",
+    "d571e973b6e6916d": "Opens the memory sub-thread: RL to couple knowledge acquisition with reasoning.",
+    "e519641640234319": "Registry-anchored memory graph for persistent, provenance-preserving agent memory.",
+    "1d7852cb09b3031f": "Eval of whether models integrate facts arriving in context versus training.",
+    "ce941c554e9fce8e": "Argues agentic search harnesses solve accuracy and reframes context as compiled infrastructure.",
+    "e46c1ab3f7ca9939": "Survey of LLM architectures for text-to-SQL.",
+    "a8a5f23cd8e10643": "Gradual pruning method targeting quality at extreme sparsity to cut inference cost.",
+    "0f8439521ab02185": "Distills retrieved knowledge into weights to reduce RAG storage and inference cost.",
+    "43862ef771dfba65": "Anthropic's progress report on zkSNARK proofs for verifiable inference.",
+    "744a7a52285cfa40": "Practitioner framing: a context engine that selects, compresses, and expires information.",
+    "94da3bfcbd46a769": "Shows post-training can desync what a model knows from what it thinks it knows.",
+    "63ff637171c98d2c": "Tests whether models reason over relations in context or fall back on memorized ones.",
+    "416b05f86baa94c5": "Uses an LLM to pick the federated-learning aggregation rule.",
+    "464b347f5551c3b2": "Show HN tool that trims context and caches knowledge to stretch agent usage limits.",
+    "5606760643e4651e": "Lifelong knowledge editing method for multimodal models.",
+    "9c88a41fbb756af3": "Benchmark of how personality-like tendencies shift model outputs.",
+    "3b4f703ae0a8f385": "Latest member: an LLM as a cross-domain AutoML searcher."
+  }
+}
