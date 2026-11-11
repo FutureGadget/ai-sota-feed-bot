@@ -2785,6 +2785,23 @@
   "type": "news",
   "url": "https://openai.com/index/cisco-cyber"
  },
+ "3539e2a4cbd1a001": {
+  "first_seen": "2026-11-11T12:06:02.445789+00:00",
+  "id": "6ef9a87147961886",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-10T18:06:16+00:00",
+  "sid": "3539e2a4cbd1a001",
+  "source": "arxiv_cs_lg",
+  "summary": "We describe our solution for the 2026 BEHAVIOR Challenge: 100 long-horizon household tasks in the OmniGibson simulator. We placed 9th on the final leaderboard, the only independent team in the top 10. The core of the solution is a single vision-language-action (VLA) model, one checkpoint for all 100 tasks, built on our 1st-place 2025 solution, which is based on $π_{0.5}$. On the 50 tasks shared with 2025, its Q rises from 0.260 to 0.371; across all 100 tasks it scores 0.392. Our main conclusion from 2025 was that the model was undertrained, so most of the 2026 work went into training the model for longer, optimizing some training parameters, making each training step slightly faster and reducing the gradient noise: a migration from 50 to 100 tasks (semantic stages built from the demonstrations' skill annotations, task and stage embeddings of new tasks warm-started from similar old ones, and a 21-dimensional action space matching the teleoperation controls); variance-reduced multi-sample flow matching with a simple noise-vs-compute model that picks the number of action-expert samples per observation without ablations; and a 200k-step training run, about one pass over the 211M frames of the demonstrations. A cloud evaluation infrastructure keeps a shared record with provenance, episode diagnostics and restorable simulator states, and runs six simulators on one GPU together faster than real time. On top of the learned policy, 14 tasks are routed to a GPT-6 Astra coding agent tha",
+  "summary_1line": "We describe our solution for the 2026 BEHAVIOR Challenge: 100 long-horizon household tasks in the OmniGibson simulator. We placed 9th on the final leaderboard, the only independent team in the top 10. The core of the...",
+  "title": "One Policy for 100 Household Tasks: Our Solution for the 2026 BEHAVIOR Challenge",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14432v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "358a1c6bacebf96e": {
   "first_seen": "2026-11-10T16:04:52.810370+00:00",
   "id": "f522ef61c5748fbb",
@@ -8075,6 +8092,22 @@
   "type": "news",
   "url": "https://blog.ai-process.dev/2026/10/26/go-vs-python-llm-gateway"
  },
+ "a1b0375869d9fcfc": {
+  "first_seen": "2026-11-11T12:06:02.445789+00:00",
+  "id": "d0fc36594e557e82",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-10T18:39:49+00:00",
+  "sid": "a1b0375869d9fcfc",
+  "source": "arxiv_cs_cl",
+  "summary": "Text-to-SQL systems over large pooled catalogs must first retrieve the tables a question needs. We compare against the published table recall of RASL, which uses Claude 3.5 models to extract keywords and select tables, on pooled BIRD, Spider, and Fiben catalogs. FERN (Feature-Engineered Ranking with No generative LLM) instead fuses three frozen retrievers into 100 candidates, describes each with up to 120 features, and reorders them with LightGBM rankers fitted once on BIRD's training questions. On Spider, where it was not fitted, its candidate pool alone reaches RASL's published recall at fifteen tables (98.0), and the ranker raises the share of questions with every gold table in the top five (complete@5) from 83.9% to 95.6%. At five tables, FERN's recall is within one point of RASL's on Spider (96.7 vs 97.0) and on BIRD with its evidence hints (96.6 vs 97.5), and 8.2 points below on BIRD without them (89.3). On 121 real BEAVER questions, without BEAVER fitting, its recall at fifteen (82.1) falls between two BEAVER-trained retrievers (80.8, 84.5), but its complete@15 is below both (49.6 vs 54.5 and 62.0). On Fiben, it falls far short at fifteen tables (54.2 vs 69.2, different question sets), although its recall at fifty is numerically close to RASL's question-only retrieval result (80.7 vs 79.4). On BIRD dev with evidence, non-retrieval features raise complete@5 by 7.7 points over retrieval signals alone. On BIRD dev, median latency is 208 ms per question on one A100, withou",
+  "summary_1line": "Text-to-SQL systems over large pooled catalogs must first retrieve the tables a question needs. We compare against the published table recall of RASL, which uses Claude 3.5 models to extract keywords and select tables...",
+  "title": "FERN: Cross-Benchmark Table Retrieval for Text-to-SQL with Frozen Retrievers and Learned Ranking",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14477v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "a205982525674e81": {
   "first_seen": "2026-11-06T15:07:49.449008+00:00",
   "id": "7bcad594c98fbd02",
@@ -8770,6 +8803,18 @@
   "url": "https://adagasolutions.lu/toolbox",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "b015312ad173077f": {
+  "content_excerpt": "A local-first AI workspace for Lumo, DeepSeek and any OpenAI-compatible provider — with an OpenCode coding agent, projects, attachments, memory and tools. Switch providers, keep your history local, and hand coding tasks to OpenCode without leaving your desk. Lumo through lumo-tamer, DeepSeek, or any OpenAI-compatible endpoint. Switch providers in one click and keep one history. Run OpenCode inside a project folder, stream tool calls, choose the model and agent, and approve actions yourself or automatically. Token-by-token replies, provider-aware reasoning, Markdown and highlighted code. Stop a generation at any time. Generate images locally with Bonsai Image: prompt, model variant, resolution, seed, steps, guidance, batch of 4, stop and a persistent gallery. Start the backend automatically from the Images tab, unload the GPU model manually or on quit. Connects to your own PrismML backend. Conversations, projects, favorites and search live in local JSON files. Switch providers without losing your history. Drop text, code, PDF, DOCX/ODT or images. Text is extracted locally and images are OCR'd before being sent to the selected provider. Read, write, search and shell tools with a workspace sandbox and confirmation prompts. You stay in control. Tell the assistant who you are, what you do and how to behave. Durable memories can be extracted automatically and stay local. HTML and SVG creations open in a sandboxed canvas. The library keeps your best artifacts and images one click aw",
+  "first_seen": "2026-11-11T12:06:02.445789+00:00",
+  "id": "57d3a164b5aadc95",
+  "published": "2026-11-11T12:04:22+00:00",
+  "sid": "b015312ad173077f",
+  "source": "hackernews_ai",
+  "summary_1line": "Model Desk – A local-first multi-provider AI workspaceShared via URL-sharer",
+  "title": "Model Desk – A local-first multi-provider AI workspaceShared via URL-sharer",
+  "type": "news",
+  "url": "https://mrthp.github.io/model-desk"
+ },
  "b031b5b1afff320f": {
   "content_excerpt": "Write your data, queries, and mutations in TypeScript. FeltKit gives you the database, a typed API with live queries, roles enforced on the server, eight built-in services, agent access over MCP, a dashboard, and a build you can deploy three ways—already wired together. Each piece below is in the starter you get from npm create feltkit —running, tested, and sharing one FeltDB instance. Nothing to assemble, no glue code to maintain. Queries and mutations in TypeScript, validated against your schemas. A generated, typed client calls them from React. useQuery re-runs when data it read changes—whoever changed it: another person, an agent, or a background job. Declare roles and permissions once. Every caller—your UI, the HTTP API, AppPort, MCP, services—is checked the same way. Files, notifications, configuration, API keys, webhooks, jobs, schedules, and model selection—on your app’s own database. Agents use your app over MCP under a role, like people do. Consequential actions wait for approval—in production, from someone other than who proposed them. A dashboard for data, capabilities, services, models, and activity. In production, operators sign in with one-time grants. createTestApp gives every test a fresh FeltDB instance—no mocks. Act as any user and assert what the server allows. One container, Managed FeltDB, or your own FeltDB server. The build is verified before it is packaged. Declare the application, its roles, and its data. Write queries and mutations. FeltKit serves t",
   "first_seen": "2026-11-02T18:03:57.410502+00:00",
@@ -9202,6 +9247,24 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06065v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "b8aa81c71bc648cb": {
+  "first_seen": "2026-11-11T12:06:02.445789+00:00",
+  "id": "39f2b1c77dcbfb7e",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-10T15:33:22+00:00",
+  "sid": "b8aa81c71bc648cb",
+  "source": "arxiv_cs_ai",
+  "summary": "Software agents built on large language models generate traffic unlike human web traffic, yet routers have no class for it and cannot verify a sender's claim to be an agent. This paper proposes the Verifiable Agentic Traffic Class (VATC), which combines a reserved Differentiated Services Code Point (DSCP) value declaring agent traffic, a router-side classifier that demotes flows contradicting the declaration to a class served after best-effort traffic, and a rate-limited priority queue. VATC was compared with static Differentiated Services (DiffServ), a dedicated class that trusts the marking, and fq_codel, a per-flow fair-queuing scheduler, in two simulators and on a real Linux kernel. VATC matched DiffServ under steady load. In a constructed burst it cut mean agent queuing delay by 98% relative to DiffServ in simulation (assuming an immediate verdict), at a 12% increase in human delay; most of the gain came from the separate class. Under a spoofed flood in the kernel, the rate limit held human latency 11 times below DiffServ's. Without verification, DiffServ and a tightly configured fq_codel gave legitimate agents lower latency than VATC; a live four-feature classifier then demoted all 20 bulk-shaped spoofers and gave agents 0.30 ms, but missed six spoofers that copied the agent pattern. With emulated network delay, a timing feature of the classifier stopped separating agent from human flows. In real agent harnesses on a congested link, router queueing took 13% to 63% of ta",
+  "summary_1line": "Software agents built on large language models generate traffic unlike human web traffic, yet routers have no class for it and cannot verify a sender's claim to be an agent. This paper proposes the Verifiable Agentic...",
+  "title": "Verifiable Agentic Traffic Class: A Policed Quality-of-Service Mechanism for Agentic AI Traffic, Evaluated from Simulation to Real-Kernel Adversarial Testing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14211v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, eval."
  },
  "b8acd5d605b0c189": {
   "content_excerpt": "The latest news from Google on open source releases, major projects, events, and outreach programs for early career developers. by Mofi Rahman , Developer Relations Engineer, and Brandon Royal , Product Manager, Google Cloud When Google introduced Kubernetes twelve years ago, the Pod became the default unit of compute for the cloud. The design assumed a straightforward lifecycle: a program boots, binds to a port, serves traffic, and runs until you stop it. An AI agent that’s running on a machine executes untrusted code, commands, and tool calls, and must be isolated from its host and its network resources. At the same time, these agents, whether they’re an interactive coding assistant, an SRE troubleshooter, or a multi-turn evaluation loop, do not run continuously. They execute a step, call a language model, and wait. Most of the time, the agent does nothing at all while it waits for a model to stream tokens or a human to review a pull request. In the same way that Kubernetes was created to address the needs of containerized applications, we introduced Agent Substrate as a new orchestrator for the emerging agentic applications. Secure by default, highly efficient and built for multi-million agent scale. Agent Substrate was designed from the ground up for AI agent security and density and brings the best parts of Kubernetes together with a new control and data plane for fully-isolated, ultra-low-latency sandboxed compute and storage. The growing Agent Substrate community has b",
@@ -10833,6 +10896,24 @@
   "title": "Stabilizing On-Policy Targeted Guidance in Agentic Reinforcement Learning",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05266v1"
+ },
+ "d98105b6bf6a1293": {
+  "first_seen": "2026-11-11T12:06:02.445789+00:00",
+  "id": "5510f95995f850dc",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-11-10T18:50:06+00:00",
+  "sid": "d98105b6bf6a1293",
+  "source": "arxiv_cs_cl",
+  "summary": "Deploying LLM-based analytics agents in enterprise settings requires evaluation frameworks that can reliably detect failures across complex, multi-tool workflows. We present a three-phase comparative study of three evaluation frameworks, each representing a distinct evaluation paradigm (trace-based LLM judging, text-only LLM judging with red-teaming, and deterministic heuristics), applied to two analytics agents in a controlled research setting using frozen execution traces. Phase 1 quantifies evaluation harness stability through repeated measurements, finding that 97% of configurations meet the stability threshold and that stability patterns are agent-independent. Phase 2 measures known risk detection on 72 ground-truth test cases, where the trace-based framework achieves the best precision-recall balance (F1=0.90) while text-only evaluation matches on recall but generates 5x more false alarms. Phase 3 evaluates unknown risk discovery, uncovering 24 novel failures with zero overlap between functional testing and security red-teaming. Our results demonstrate that (1) the information available to the evaluation harness determines evaluation quality, (2) functional and security evaluation are complementary, and (3) LLM-based evaluation harnesses surface subtle errors that human reviewers miss. We recommend a two-framework strategy: trace-based evaluation for functional assessment and adversarial red-teaming for security validation.",
+  "summary_1line": "Deploying LLM-based analytics agents in enterprise settings requires evaluation frameworks that can reliably detect failures across complex, multi-tool workflows. We present a three-phase comparative study of three ev...",
+  "title": "Comparative Analysis of Agent Evaluation Frameworks: Stability, Detection, and Discovery in Enterprise Analytics Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14493v1",
+  "why_it_matters": "Matches feed focus: agent, harness, evaluation."
  },
  "d9d0fb61b61c4e22": {
   "first_seen": "2026-11-09T16:04:55.935465+00:00",
