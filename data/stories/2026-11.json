@@ -1667,6 +1667,22 @@
   "url": "http://arxiv.org/abs/2611.12041v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "1eb45d5078fca72b": {
+  "first_seen": "2026-11-11T04:03:46.404533+00:00",
+  "id": "c193d5bfda18186e",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-10T07:24:50+00:00",
+  "sid": "1eb45d5078fca72b",
+  "source": "arxiv_cs_cl",
+  "summary": "Retrieval-augmented generation (RAG) is bottlenecked by the token budget of large language models: feeding long documents into the context window is expensive, while aggressive textual compression discards fine-grained information that is irreversibly lost in a one-dimensional token sequence. We argue that this bottleneck is not fundamental to information density but to the choice of compression \\emph{modality}. Modern visual encoders can pack the contents of a rendered text page into roughly a hundred visual tokens with little semantic loss, opening a new compression-fidelity tradeoff that purely textual methods cannot reach. We present \\textbf{OpticalRAG}, a framework that renders documents as page images, encodes them with a frozen vision encoder, and distills the retrieved visual tokens into as few as $16$ injected tokens before passing them to the LLM. Two ingredients make this work without expensive cross-modal training: (i) \\emph{Encoder-Bridged Retrieval}, which projects text-query states into the visual feature space of the frozen encoder, through a projection shared with the compressor, to retrieve visual tokens from a text query, with no contrastive training; and (ii) \\emph{Query-Driven Distillation}, a lightweight cross-attention compressor that condenses the retrieved visual tokens into a small set of query-conditioned prefix tokens. On LongBench-v2, BAMBOO, and LooGLE-v2, OpticalRAG achieves the best compression-aware accuracy (CAP) on all three benchmarks while",
+  "summary_1line": "Retrieval-augmented generation (RAG) is bottlenecked by the token budget of large language models: feeding long documents into the context window is expensive, while aggressive textual compression discards fine-graine...",
+  "title": "OpticalRAG: Pixel-Space Compression for Token-Efficient Retrieval-Augmented Generation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.13675v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "1eed7ce983ca5ef6": {
   "first_seen": "2026-11-05T00:08:35.012471+00:00",
   "id": "eb9bf8892fdfd709",
@@ -7846,13 +7862,19 @@
  "a34f1fafb710e628": {
   "first_seen": "2026-11-11T03:11:00.633338+00:00",
   "id": "bb842682cdf3e25e",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
   "published": "2026-11-10T07:43:02+00:00",
   "sid": "a34f1fafb710e628",
   "source": "arxiv_agent_systems_research",
+  "summary": "Multi-agent systems provide a convenient framework for the massive deployment of agents based on Large Language Models (LLMs). It provides a sound framework where agents can interact with existing software to perform actions in an autonomous way. Agentic AI is the new term to denote these AI-based autonomous systems. In real multi-agent systems, agents need to deal with malicious agents some of which can exploit security vulnerabilities to do harm. A memory poisoning attack is an example of exploiting a vulnerability to modify agents knowledge and, thus, affect its behavior. In an agent, there are different types of memory systems (semantic, episodic, and short-term) which have their own characteristics and for which different memory poisoning attacks may be developed. In this paper we focus on semantic memory, we discuss its attack, and mitigation strategies. We introduce private knowledge retrieval and private inference. We propose a signature system in the knowledge base to prevent from undesired manipulation. This should avoid memory poisoning attacks by introducing security by design in the construction of the semantic memory. In our architecture, an agent contains a local Prolog-like inference system (i.e., using Horn clauses to represent knowledge) which accesses an external knowledge base to get the required knowledge. This externally signed knowledge base is accessed privately. We provide different implementations in Python using different privacy levels including k-",
   "summary_1line": "Multi-agent systems provide a convenient framework for the massive deployment of agents based on Large Language Models (LLMs). It provides a sound framework where agents can interact with existing software to perform actions in an autonomous way. Agentic AI is the new term to den",
   "title": "On Private Knowledge Retrieval and Private Inference for secure multi-agent systems",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.13696v1"
+  "url": "http://arxiv.org/abs/2611.13696v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "a377ed74f2094c77": {
   "first_seen": "2026-11-11T00:09:42.029607+00:00",
@@ -10487,6 +10509,22 @@
   "title": "Attend at the Right Resolution: Head-Adaptive Sparse Attention via Query-Key Interaction Structure",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09700v1"
+ },
+ "da59004745e476a6": {
+  "first_seen": "2026-11-11T04:03:46.404533+00:00",
+  "id": "159e014db728d1f0",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-10T00:46:51+00:00",
+  "sid": "da59004745e476a6",
+  "source": "arxiv_cs_lg",
+  "summary": "LLM agents drive inference engines with closed-loop sessions whose context grows every turn, and serving them economically depends on prefix caching: a hit costs an incremental prefill of about a thousand tokens, a miss recomputes a 10--40K-token context. We show that this makes prefix-cached agent serving metastable. With an identical base workload, a few minutes of extra arrivals leaves a vLLM server in a degraded regime--a ~10% hit ratio, about half the throughput, and a backlog that grows for the remaining 70 minutes--while its no-burst twin stays healthy (9 of 12 pairs; none in the reverse direction). The regime appears at loads the cache-warm server sustains, is absent without prefix caching, and also appears with Qwen3-32B on SWE-bench agent trace shapes and on SGLang, which tolerates larger triggers. Slower service keeps more sessions in the system, their working set outgrows the KV pool, and every turn becomes a recomputation; a first-order workload-balance condition, calibrated independently, brackets when the regime can drain. Getting out is the harder problem: throttling new admissions recovered 1 of 7 matched collapsed runs, while suspending admitted sessions against a capacity-based limit recovered all of them within minutes. A CPU offload tier delays the collapse but does not prevent it. A budgeter that bounds the resident KV demand of active sessions to the pool, with thresholds that need no per-workload tuning, prevented the failure in every run we tested.",
+  "summary_1line": "LLM agents drive inference engines with closed-loop sessions whose context grows every turn, and serving them economically depends on prefix caching: a hit costs an incremental prefill of about a thousand tokens, a mi...",
+  "title": "Bursts That Outlast Themselves: Persistent Degradation in Prefix-Cached Agent Serving",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.13412v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "da75917fd7542a9d": {
   "content_excerpt": "ARTEX is a Chinese open-source, AI-powered penetration testing platform designed to help security teams assess systems they own or are authorized to test. It uses large language models (LLMs) to coordinate multiple AI agents that plan tests, run security tools, and record evidence of potential vulnerabilities. Its web dashboard brings together assets, testing progress, captured traffic, and findings, allowing users to monitor activity and guide the agents. By linking each investigation to specific assets and supporting vulnerability retesting, ARTEX aims to reduce repetitive work while keeping human oversight central to the testing process. After the tool was observed in attacks against South Korean banks , its developer decided to make the project closed-source on October 8th. However, various maintained forks and backups of the original repository keep the tool publicly available to threat actors. As described further below, artifacts obtained by Check Point Research show that these systems can work fully autonomously after the initial goal has been set by the operator. Using agentic hacking frameworks like ARTEX, threat actors can carry out attacks at a previously impossible speed, on a broad scale and without any technical knowledge, opening the field to a large set of people. Besides ARTEX, other frameworks such as CyberStrike , Cairn or PentAGI offer similar capabilities. Check Point Research also observed various other custom agentic hacking frameworks in the wild. Whi",
