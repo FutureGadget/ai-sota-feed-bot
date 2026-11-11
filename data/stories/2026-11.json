@@ -657,6 +657,18 @@
   "url": "https://twitter.com/josharosen/status/2117687393213932003",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "0cf34b99a266365e": {
+  "content_excerpt": "Screening news with TypeSafe Jev before LLM synthesis cut input tokens 16–18% at a 0.70 threshold; blind judges could not tell five of six cells from raw. Currents News API keyword search is built for recall. A query for a geopolitical development or a stock ticker returns every publication that mentions the search terms, including wire duplicates, boilerplate press releases, and generic sector watchlists. An agent that summarizes this output pays frontier input prices for every article, on-topic or not, on every scheduled run. The two tiers differ by roughly 50–70× in input-token price. Frontier synthesis input currently runs $2.00–3.00 per million tokens; TypeSafe Jev classification input is $0.042 per million tokens. The practical answer is to move the relevance decision upstream: screen each candidate title and snippet with Jev, and send only retained candidates to the synthesis model. We built this pipeline end-to-end and measured it on live data: 2,000 candidate articles across two real news pools, 60 briefings from three synthesis models, and a blind panel that scored filtered versus raw briefings without knowing which was which. At the default 0.70 relevance threshold, screening cut downstream input tokens by 16–18%; five of six blind-panel quality cells were statistically indistinguishable from raw, and the sixth showed a small negative delta. Stricter thresholds screened out 30–52% of candidates. At frontier pricing, this nets roughly $10–17 per 1,000 screened 200-a",
+  "first_seen": "2026-11-11T11:05:47.588802+00:00",
+  "id": "869474af20a4af71",
+  "published": "2026-11-11T08:17:35+00:00",
+  "sid": "0cf34b99a266365e",
+  "source": "hackernews_ai",
+  "summary_1line": "Cutting LLM Token Costs with Currents News API and TypeSafe Jev Pre-Filtering",
+  "title": "Cutting LLM Token Costs with Currents News API and TypeSafe Jev Pre-Filtering",
+  "type": "news",
+  "url": "https://currentsapi.services/en/blog/cut-llm-token-costs-typesafe-jev-prefiltering"
+ },
  "0d09bcf62a2c48bd": {
   "first_seen": "2026-11-11T05:05:54.415069+00:00",
   "id": "8cf6bb45bfc156c7",
@@ -1389,12 +1401,17 @@
   "content_excerpt": "Frontier cloud LLMs carry high operational costs that can fluctuate unexpectedly, and relying on such third-party models introduces vulnerabilities, as providers can modify, deny, or deprecate access at any time. Furthermore, proprietary models offer limited customization for specific workflows, while posing risks to privacy, data control, and transparency. Besides, not every task demands frontier-level intelligence: small, specialized agents can be equally capable on specific tasks and significantly cheaper to run, since many routine or smaller workloads can be processed efficiently on-device. As intelligence per parameter continues to improve rapidly, we aim to stand at the forefront of this shift toward performant, privacy-focused, self-hosted models. Tether AI Research introduces BotPsy , a 0.8B-parameter model introduce BotPsy , a 0.8B-parameter model designed for function calling and agentic workflows, built on top of Qwen3.5-0.8B and suitable for on-device deployment. BotPsy is a \"personal assistant\" that uses tools to perform a variety of simple tasks for the user, in domains such as web search & research, travel & lifestyle, commerce & finance, business & customer operations, device & vehicle control, files & documents, calendar, and email & messaging. Due to its small parameter count, it is best suited to tasks of low to medium difficulty. BotPsy achieves state-of-the-art (SOTA) tool-use and agentic performance for its size, outperforming every model of up to 1.2B p",
   "first_seen": "2026-11-11T05:09:42.965072+00:00",
   "id": "7a13abe51b6f6e81",
+  "matched_topics": [
+   "agentic"
+  ],
   "published": "2026-11-11T05:01:16+00:00",
   "sid": "19b4fcb1faac9c9b",
   "source": "huggingface_blog",
+  "summary_1line": "BotPsy: On-Device Personal Assistant with a Sub-Billion-Parameter Agentic Language Model",
   "title": "BotPsy: On-Device Personal Assistant with a Sub-Billion-Parameter Agentic Language Model",
   "type": "research",
-  "url": "https://huggingface.co/blog/qvac/botpsy"
+  "url": "https://huggingface.co/blog/qvac/botpsy",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "1a6dda4c4f1da299": {
   "content_excerpt": "Most of my repositories have exactly one contributor. That contributor also reviews the pull requests, approves them, and merges them, usually within the same minute. It is a very efficient process. It is not a very good one. GitHub users have had AI review bots for a while now. My code lives on a self-hosted Forgejo instance, and I was not interested in giving a SaaS product a token for it. So I",
@@ -2415,6 +2432,25 @@
   "title": "Is hosting an open-source inference engine profitable?",
   "type": "news",
   "url": "https://userecurrence.ai/research/is-hosting-open-source-inference-profitable"
+ },
+ "2f29c9bac2f41eb0": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. Aditya Mulik explains how Walmart Global Tech deployed multi-agent LLM workflows across 4,700 stores for nightly batch inventory forecasting. He discusses tackling production hurdles - schema violations, cross-department data mismatches, and network drops - via MCP grounding and loop agents, while slashing cloud inference costs from $100k+ to $10k per month shifting from PTUs to pay-as-you-go. Vanessa Formicola shares how",
+  "first_seen": "2026-11-11T11:05:47.588802+00:00",
+  "id": "ad6698112df91fbe",
+  "image_url": "https://res.infoq.com/news/2026/11/qcon-ai-newyork-2026-program/en/headerimage/qcon-ai-new-york-2026-1794387431153.jpg",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-11T11:00:00+00:00",
+  "sid": "2f29c9bac2f41eb0",
+  "source": "infoq_ai_ml",
+  "summary": "QCon AI New York has published its full program for December 15–16, 2026. Engineers from LinkedIn, Netflix, DoorDash, Figma, Pinterest, Honeycomb, Harvey, Google DeepMind and OpenAI describe AI systems they run in production. Talks cover agent permissions and guardrails, eval loops, inference cost, AI code review, and team adoption. By Artenisa Chatziou",
+  "summary_1line": "QCon AI New York has published its full program for December 15–16, 2026. Engineers from LinkedIn, Netflix, DoorDash, Figma, Pinterest, Honeycomb, Harvey, Google DeepMind and OpenAI describe AI systems they run in pro...",
+  "title": "How LinkedIn, Netflix & DoorDash Run Agents, Evals & Inference in Production: QCon AI New York 2026",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/11/qcon-ai-newyork-2026-program/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "2f7be7ac68b1edc1": {
   "first_seen": "2026-11-10T10:05:37.288465+00:00",
@@ -3720,6 +3756,23 @@
   "type": "news",
   "url": "https://pub-a941bfd863a24f91a60e6c4979c18a84.r2.dev/pi-sandbox-uploads/362853802061074432/2026-11-05/1793853557213-869eca17-6f40-4338-9d1b-6b75ee0ae224-audit.html",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "4624cd53b720372c": {
+  "first_seen": "2026-11-11T11:05:47.588802+00:00",
+  "id": "4712720511de0b52",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-10T18:55:01+00:00",
+  "sid": "4624cd53b720372c",
+  "source": "arxiv_cs_lg",
+  "summary": "Agent harnesses have emerged as a promising mechanism for continual learning, alongside test-time parametric learning. However, the current benchmarks have several limitations: they generally focus on a single applied domain, serve each instance only once, and assume a single family of learner, so memory-based and weight-based systems are rarely compared on the same scale. We propose Continual-ARC, a lifelong stream built from the three ARC-AGI editions, whose tasks need no domain knowledge. The same tasks return after dormant gaps with fresh instances, while new tasks keep arriving. On each instance, the learner may pay for demonstrations, submit answers, or act inside the harness, with retries permitted on incorrect submissions, which are paid for. Each instance is scored based on the share of this feedback budget consumed. Since a learner may keep anything between instances, memory-based and weight-based systems are scored on the same scale. After the stream, the learner is frozen and tested on fresh instances of the tasks it met, which measures memorization, and on unseen tasks, which measures generalization. We run an agent harness with frozen weights, with and without persistence, on Qwen3.5-9B and GLM-5.3 Flash, comparing them with two prompting floors, a program-induction method and Qwen3.5-9B's weights trained to imitate GLM-5.3 Flash. Persistence in the harness generally does not improve memorization unless provided with explicit expert guidance. Most harness-based ",
+  "summary_1line": "Agent harnesses have emerged as a promising mechanism for continual learning, alongside test-time parametric learning. However, the current benchmarks have several limitations: they generally focus on a single applied...",
+  "title": "Continual-ARC: Measuring Skill Acquisition over a Working Lifetime",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14505v1",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "464b347f5551c3b2": {
   "first_seen": "2026-11-05T20:05:22.914023+00:00",
@@ -7234,6 +7287,18 @@
   "url": "https://github.com/luchtan-GIT/m4r-data",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "93a7fc4551e7291a": {
+  "content_excerpt": "We are publishing preliminary findings from a security incident affecting Phala infrastructure. Two groups of users may need to take action: We contained the incident on November 8. The affected model service has been restored with additional protections and monitoring. The attacker made further attempts after our KMS root key rotation on November 6, and we have observed no successful unauthorized access since containment. Our investigation and comprehensive verification of the remediation remain in progress. We are limiting exploit-specific details until this work is complete. We will then publish a full root cause analysis (RCA). We are sorry this happened, and we appreciate the patience of everyone checking their systems and rotating credentials. On November 5, we detected unauthorized activity on one server. The attacker chained a legacy internet-facing service with management interfaces that relied on loopback access for trust and did not independently authenticate callers. This allowed the attacker to create unauthorized CVMs and obtain application credentials. We blocked the identified access paths that day. On November 6, we rotated the KMS root key used to derive application secrets. On November 8 UTC, a third-party security researcher provided evidence that request data sent to DeepSeek V4 Flash 0731 had been exposed. We traced this evidence to an inference deployment on a new GPU server. It was serving production traffic without our full production security hardeni",
+  "first_seen": "2026-11-11T11:05:47.588802+00:00",
+  "id": "ff3a80a4d540f89a",
+  "published": "2026-11-11T09:48:10+00:00",
+  "sid": "93a7fc4551e7291a",
+  "source": "hackernews_ai",
+  "summary_1line": "Phala Confidential AI Compromised",
+  "title": "Phala Confidential AI Compromised",
+  "type": "news",
+  "url": "https://phala.com/posts/phala-november-preliminary-incident-report"
+ },
  "93ae92fecf61cfb3": {
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. Where does answer engine optimization (AEO) end and agent experience begin? Inside Resend, from the docs that help Claude Code pick an email API to the tools it uses to send. Today’s podcast comes from a real life mystery: We are big fans of Cloudflare’s developer platform, and Cloudflare Email is a convenient tool especially when all your domains are already on Cloudflare. So why do agents keep suggesting we use Resend despite having an existing “home bias” and much larger incumbent player? Well, we got the guy who “does AEO for resend” - the CEO of AEO, Zeno Rocha, who has been writing about AEO since 2024 and Agent Experience since Feb 2025 , on the pod today: In a recent AEO study, Claude Code picked Resend first in 64 of the 102 email recommendations the researchers could extract. SendGrid came first seven times, yet showed up 55 times as an alternative. If the developer asks an agent to implement email and accepts the patch, how often does anyone get around to trying the second choice? The study breaks down the results by model and app. Our more recent comprehensive AEO study was a bit more competitive, with Postmark coming up top for most models. ",
   "first_seen": "2026-11-10T20:05:27.884052+00:00",
@@ -7949,6 +8014,22 @@
   "title": "Partnering with Hacktron to find vulnerabilities in OpenAI’s systems",
   "type": "news",
   "url": "https://openai.com/index/partnering-with-hacktron"
+ },
+ "a0fddb4750d5a8c5": {
+  "content_excerpt": "Thinking about how GitHub PRs and issues are becoming the primary surface for collaboration between humans and agents. I've been noticing the growing use of GitHub, or rather core GitHub building blocks, as the natural choice for work management between humans and agents. Specifically issues and pull requests. One example close to me and my colleagues is how my friend and boss Tom Jung manages the identification, parcelling and specification of tasks for his agents to work on, as issues in the repo for our tutorial system . Another example is how that work is then managed in the form of pull requests (PRs), which I guess is a natural consequence of the first observation. Incidentally, this makes me think that this also changes the issue mechanism as a conveyance for work items rather than mere problem statements. A net positive, perhaps. Anyway, it's on the topic of PRs that I came across two blog posts from folks I have admired for a long time. In Hide your slop PR descriptions behind , Simon Willison uses HTML's details disclosure element to avoid the TL;DR reaction \"I'm not reading all of that\" to super-detailed agent-written descriptions which, while not incorrect, are too deep for the purposes of overview by a human. In “Doctor, it hurts when agents create unreviewable PRs.” “Don’t do that.” , Jon Udell describes the problem of agents raising PRs with thousands of lines that that are nigh on impossible to properly understand. He maintains (and I agree) that the PR should",
+  "first_seen": "2026-11-11T11:05:47.588802+00:00",
+  "id": "ce8a78aee72a8da9",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-11T10:15:18+00:00",
+  "sid": "a0fddb4750d5a8c5",
+  "source": "hackernews_ai",
+  "summary_1line": "GitHub affordances as human-agent conveyances",
+  "title": "GitHub affordances as human-agent conveyances",
+  "type": "news",
+  "url": "https://qmacro.org/blog/posts/2026/11/11/github-affordances-as-human-agent-conveyances",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "a13ff1e216e18174": {
   "first_seen": "2026-11-07T19:03:41.770501+00:00",
@@ -11449,6 +11530,7 @@
   "published": "2026-11-11T08:25:40+00:00",
   "sid": "e820c989ace63349",
   "source": "search_cn_open_weight_labs",
+  "summary": "Qwen4-Max Preview in Qwen Chat: a second door, same 14 days OrcaRouter",
   "summary_1line": "Qwen4-Max Preview in Qwen Chat: a second door, same",
   "title": "Qwen4-Max Preview in Qwen Chat: a second door, same 14 days",
   "type": "news",
@@ -11684,6 +11766,22 @@
   "type": "news",
   "url": "https://github.com/shashtag-ventures/linkedin-ops",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "ed6de29f41dd37b8": {
+  "first_seen": "2026-11-11T11:05:47.588802+00:00",
+  "id": "4d6882e74c244bde",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-10T15:18:00+00:00",
+  "sid": "ed6de29f41dd37b8",
+  "source": "arxiv_cs_ai",
+  "summary": "Deploying vision transformer models across connected and automated vehicles (CAVs) requires joint management of computation and Vehicle-to-Vehicle (V2V) communication. Static split-inference methods use fixed partition points and cannot adapt to time-varying link bandwidth, processing load, and concurrent multi-stream traffic. This paper proposes an edge orchestration framework that jointly selects model partition points, per-layer quantization bitwidths, and execution placement across heterogeneous vehicular compute nodes. The joint partitioning and mixed-precision allocation problem is formulated as a Mixed-Integer Linear Program (MILP) that minimizes compute and communication energy subject to end-to-end latency and task-quality constraints. The framework is evaluated on Jetson Orin Nano (8~GB), Jetson Orin NX (16~GB), and Jetson AGX Orin (32~GB) nodes using OPV2V-driven multi-stream workloads with $K \\in \\{2,4,6,8\\}$. Across the evaluated configurations, the proposed formulation reduces V2V communication energy by $33.3$--$36.0\\%$ relative to a Uniform INT8 split. At $K=8$, end-to-end task completion latency is reduced by $34.0\\%$ on the Orin Nano and $33.1\\%$ on the Orin NX relative to the same baseline, while limiting the reduction in 3D detection accuracy to $3.1$--$4.1$ percentage points in $\\mathrm{mAP}_{50}$ relative to FP16 execution.",
+  "summary_1line": "Deploying vision transformer models across connected and automated vehicles (CAVs) requires joint management of computation and Vehicle-to-Vehicle (V2V) communication. Static split-inference methods use fixed partitio...",
+  "title": "Joint Quantization and Dynamic Partitioning for Context-Aware Edge Vision Transformers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14196v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "ed77cd03f4ebf889": {
   "content_excerpt": "At Metaview, we build AI agents for recruiting: Sourcing, Application Review, Screening, Reports and more. They all run on one shared harness. It didn't start that way. Our earliest agent ran on AWS Step Functions, and after that each one was built differently: one agent on LangGraph, another on the OpenAI Responses API, others on hand-rolled loops. Every new product meant solving the same problems again: sandboxes, sessions, streaming, observability, model access. That was partly deliberate: trying different approaches taught us what worked, what didn't, and what was worth copying. Today a new agent is a prompt, some skills and a small config. Standing one up takes under two hours, down from several days. In January 2026, Ramp wrote about Inspect , their internal background coding agent. Each session runs in its own Modal Sandbox , with OpenCode as the agent inside. By February it was starting over half of Ramp's merged PRs. Within days, Keir had built Rook, our own version on the same blueprint. It started as a coding agent. Now it's used across the company: opening and reviewing PRs, triaging alerts, writing presentations, helping with customer requests and answering questions about how the product works. Think Claude Tag, five months before Claude Tag launched. Rook was also a better agent than the ones we shipped to customers. It had a real filesystem, bash and long-running sessions, and it planned its own work. Our LangGraph agent didn't. LangGraph has you lay out an ag",
