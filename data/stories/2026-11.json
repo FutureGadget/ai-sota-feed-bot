@@ -1000,6 +1000,17 @@
   "url": "http://arxiv.org/abs/2611.03622v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "11568aa8dfcf9a3c": {
+  "content_excerpt": "Multi-vector embedding models give each query token its own opportunity to find a match in a document. This makes them wonderfully expressive for search, but those document vectors add up quickly. A corpus with millions of documents can contain hundreds of millions of vectors! Token pooling makes these representations smaller by merging similar token vectors. The more aggressively I compress them, however, the easier it becomes to lose something useful. Pooling-aware training teaches the encoder to preserve the information that matters when its vectors are merged, helping you retrieve better from the same storage budget. In this post, I'll explain how pooling works, train a model for compressed retrieval with Sentence Transformers, and explore the resulting quality and storage tradeoff. With pool_factor=4 , my normally trained model retains 94.6% of its unpooled NanoBEIR nDCG@10, with a 4x reduction in document vectors. Token pooling-aware training raises that retention to 97.8% at the same storage budget! Let's see how. This post builds on pooling-aware training studied in Stefan Josef's Learn to Pool and LightOn's pooling regularization study , which also explores targeted training and adaptive budgets. Here, I'll focus on understanding the method and putting it to work with a short, reproducible Sentence Transformers example. Pooling-aware training improves retrieval quality at the same vector budget. Details below. A single-vector embedding model compresses an entire docu",
+  "first_seen": "2026-11-11T17:08:48.848985+00:00",
+  "id": "0c9b1bb5be7f65ca",
+  "published": "2026-11-11T00:00:00+00:00",
+  "sid": "11568aa8dfcf9a3c",
+  "source": "huggingface_blog",
+  "title": "Token Pooling-Aware Training for Multi-Vector Embedding Models",
+  "type": "research",
+  "url": "https://huggingface.co/blog/token-pooling"
+ },
  "1199f9e6988fa345": {
   "first_seen": "2026-11-09T11:04:45.629576+00:00",
   "id": "7b5edd062b00778c",
@@ -3215,6 +3226,17 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.4.1",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "3e4f1d6507cc67cd": {
+  "content_excerpt": "I was the co-founder and CTO of an AI-based ed-tech startup . I left the startup in October 2026 to spend time on other fields I’m interested in, particularly inference engineering, which I’m currently learning. Before moving on, I wanted to write down how we ran most of the product infrastructure without paying for every SaaS service out of pocket. The product had an LLM chat flow and an AI mock-",
+  "first_seen": "2026-11-11T17:08:48.848985+00:00",
+  "id": "5dccbd9d2e816c57",
+  "published": "2026-11-11T09:30:55+00:00",
+  "sid": "3e4f1d6507cc67cd",
+  "source": "hackernews_ai",
+  "title": "We Run a Bootstrapped AI Startup on Almost Zero Operating Costs",
+  "type": "news",
+  "url": "https://dmv.is-a.dev/writing/how-we-run-a-bootstrapped-ai-startup-on-almost-zero-operating-costs"
+ },
  "3e66d055d01eda56": {
   "content_excerpt": "The UK government is ensuring it does not remain reliant on artificial intelligence (AI) models from US companies through its tool development. Last week, a freedom of information (FOI) request response revealed that 10 out of 11 AI tools used in central government rely on AI models from US suppliers . The response to questions from UK AI firm Aventail revealed that the government uses models from",
   "first_seen": "2026-11-11T07:08:26.339528+00:00",
@@ -3883,6 +3905,17 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.3",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "48333b0dd2a3a8e4": {
+  "content_excerpt": "SPECTRA (Sparse-Precision Exact Channel Tensor Reconstruction Architecture) is an architecture-agnostic neural compression engine and high-throughput execution runtime engineered to break the Memory Wall on consumer and edge GPUs (including 4 GB and 8 GB NVIDIA RTX laptop and desktop GPUs). Run mathematical reasoning models (such as DeepSeek-R1-Distill ), deep transformers ( IBM Granite-3B , Llama",
+  "first_seen": "2026-11-11T17:08:48.848985+00:00",
+  "id": "45fa72c01be0d701",
+  "published": "2026-11-11T07:39:12+00:00",
+  "sid": "48333b0dd2a3a8e4",
+  "source": "hackernews_ai",
+  "title": "Compress any LLM 3x in one click, near-lossless, in under 50 MB RAM",
+  "type": "news",
+  "url": "https://github.com/NeuraCryption/SPECTRA"
  },
  "48d5bec970720ca5": {
   "content_excerpt": "Agent Memory Leaderboard on X: \"Why can the same Agent Memory system get different scores across reports? Redis reran memory systems on LongMemEval under a common judge and found gaps from previously published numbers. Models, prompts, retrieval settings, and scoring can all matter. Report: https:/… / X Post Log in Sign up Post Log in Sign up Agent Memory Leaderboard on X: \"Why can the same Agent Memory system get different scores across reports? Redis reran memory systems on LongMemEval under a common judge and found gaps from previously published numbers. Models, prompts, retrieval settings, and scoring can all matter. Report: https://t.co/oSU9gsCvza\" Conversation Agent Memory Leaderboard @AgentMemoryL Why can the same Agent Memory system get different scores across reports? Redis reran memory systems on LongMemEval under a common judge and found gaps from previously published numbers. Models, prompts, retrieval settings, and scoring can all matter. Report: redis.io/resources/agen… Made with AI 11:24 AM · Oct 29, 2026 · 185 Views 1 1 8 2 Log in or sign up for X See what’s happening and join the conversation Continue with phone Continue with Apple Continue with Google or Log in with username or email Relevant people Agent Memory Leaderboard @ AgentMemoryL Follow Agent Memory Leaderboard Official. First open championship for agent memory systems. Neutral · Reproducible · Fair. mailto: [email protected] What’s happening Show more Terms · Privacy · Cookies · Accessibility · Ads",
@@ -4921,6 +4954,23 @@
   "url": "http://arxiv.org/abs/2611.11319v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "5c1d73757e56ca65": {
+  "content_excerpt": "An enterprise benchmark developed with Turing compares Genie using Genie Ontology with two leading frontier agents. We developed a new enterprise data-agent benchmark in collaboration with Turing to compare Genie with two major frontier agents and their respective harnesses on business questions in a live Databricks workspace. The evaluation measures answer accuracy, token usage and time to complete the task. Genie had a 91% pass rate, compared with 45% and 58% for the other frontier agents, while using fewer than half the tokens. Unlike previous data agent benchmarks that typically only include tables, this benchmark also includes notebooks, dashboards, saved SQL queries, documents, and other analytical assets that capture enterprise knowledge, business definitions, and calculation rules. These assets provide key enterprise context that table schemas alone cannot establish. Genie Ontology is the enterprise context layer that gives every AI agent a shared understanding of the business . It automatically extracts and organizes this knowledge, surfacing relevant context for Genie to use when answering questions. Our previous evaluation of Genie with ontology used a proprietary dataset. This benchmark evaluates Genie using tasks and supporting analytical assets designed for sharing, so others can also run the evaluation. Answering business questions correctly requires accessing the institutional knowledge about how an organization interprets and uses its data. Teams develop this",
+  "first_seen": "2026-11-11T17:05:50.994140+00:00",
+  "id": "d17f50a3713d964f",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-11T15:00:00+00:00",
+  "sid": "5c1d73757e56ca65",
+  "source": "databricks_blog",
+  "summary": "We developed a new enterprise data-agent benchmark in collaboration with Turing to...",
+  "summary_1line": "We developed a new enterprise data-agent benchmark in collaboration with Turing to...",
+  "title": "Genie with Genie Ontology Delivers 1.6× the Accuracy with Less than Half the Tokens",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/genie-genie-ontology-delivers-16-accuracy-less-half-tokens",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "5caff7cc1c137a99": {
   "first_seen": "2026-11-03T10:05:34.032473+00:00",
   "id": "4e65ed39b081182e",
@@ -5445,6 +5495,18 @@
   "url": "http://arxiv.org/abs/2611.06633v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "678f7acc40117a14": {
+  "content_excerpt": "The agentic ontology, built by agents, governed by people, and designed for every agent, is now Generally Available with expanded knowledge sources and new tools to curate and refine it. AI agents are only as useful as their understanding of the business in which they work. Within a given domain, teams can curate that understanding by hand. Thousands of customers now run Genie Agents in production this way, including 7-Eleven, Virgin Atlantic and General Motors. However, enterprises are no longer deploying a single agent for a single domain. They are deploying many agents across every function, and each needs the same accurate and complete understanding of how the business works. The enterprise context that agents need is far larger than any team can write down or model by hand. It lives in the logic behind thousands of production dashboards, SQL queries, notebooks and BI semantic models, as well as in the documents and applications where teams record definitions and maintain a working knowledge of who does what. It also changes every week as products launch, campaigns run, and teams reorganize. This is why ontologies have historically struggled in the enterprise. Built by specialists and maintained manually, they captured only a narrow slice of the business and quickly became outdated as the business evolved. Agents change both sides of that problem. They are now the primary consumers of enterprise context, and they can also produce it by learning from the work teams already",
+  "first_seen": "2026-11-11T17:08:48.848985+00:00",
+  "id": "05d8012327f69c87",
+  "published": "2026-11-11T15:00:00+00:00",
+  "sid": "678f7acc40117a14",
+  "source": "databricks_blog",
+  "summary_1line": "AI agents are only as useful as their understanding of the business in which they work. Within a given domain...",
+  "title": "Announcing GA of Genie Ontology",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/announcing-ga-genie-ontology"
+ },
  "67f0cc476c10d6bc": {
   "first_seen": "2026-11-10T19:05:48.156054+00:00",
   "id": "ee5a755c15c62483",
@@ -5693,6 +5755,18 @@
   "title": "Practice Makes Precise: At CoRL, NVIDIA and Partners Reveal How Robots Rehearse Delicate Work in Simulation",
   "type": "news",
   "url": "https://blogs.nvidia.com/blog/robotics-simulation-advancements-corl"
+ },
+ "6e7dc1ce4166929c": {
+  "content_excerpt": "Empower your teams with enterprise search, dynamic artifacts, and cross-tool automation, grounded in business context through Genie Ontology In today’s enterprise, work rarely stays in one application. A single task can involve reconciling a ticket in one system, updating a document in another, and nudging a colleague in a Slack thread while you’re waiting on both. Many of these tools have added their own AI assistants to help you automate and enhance the work you do within them, but they each can help with only its part of the overall task. Without the context of your full workflow and the knowledge spread across the rest of your enterprise, these assistants may speed up individual steps, but you’re still left connecting the pieces and finishing the job by hand. Earlier this year, we introduced Genie One to help you find insights and automate work. Today , Genie One becomes the enterprise home for AI cowork , where every conversation, artifact, and workflow draws on your enterprise context from Genie Ontology and is governed through Unity Gateway. We also announced today that Genie can now take more autonomous action on your behalf, acting as a true always-on coworker for workflows across teams and tools. This release combines one place for you to find information, build finished work, and act across tools with one unified control plane for admins to govern that work as adoption grows. Genie One now brings the tools you use to find information, reach colleagues, build finish",
+  "first_seen": "2026-11-11T17:08:48.848985+00:00",
+  "id": "a5181993e5cc775e",
+  "published": "2026-11-11T15:00:00+00:00",
+  "sid": "6e7dc1ce4166929c",
+  "source": "databricks_blog",
+  "summary_1line": "In today’s enterprise, work rarely stays in one application. A single task can involve...",
+  "title": "Genie One: The AI cowork home for everyone",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/genie-one-ai-cowork-home-everyone"
  },
  "6fd3ac39e855936d": {
   "first_seen": "2026-11-09T07:04:17.451357+00:00",
@@ -6321,6 +6395,34 @@
   "type": "news",
   "url": "https://www.glow.io/blogs/mcphantom-ai-coding-agents-are-installing-vulnerable-deprecated-mcp-servers-from-training-data",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "7c3740bd83f86fa5": {
+  "first_seen": "2026-11-11T17:05:50.994140+00:00",
+  "id": "ca183ea5cff99627",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-11T16:21:33+00:00",
+  "sid": "7c3740bd83f86fa5",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.170.0-alpha.1",
+  "summary_1line": "Release 0.170.0-alpha.1",
+  "title": "codex rust-v0.170.0-alpha.1",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.170.0-alpha.1",
+  "why_it_matters": "Matches feed focus: codex."
+ },
+ "7c592589ecc9e501": {
+  "content_excerpt": "Databricks Genie plugins connect the agents your teams use to business context, leveraging Genie’s trusted insights and ontology Every business is adding more data to their AI-powered workflows. But more data doesn't automatically mean better insights. Inevitably, it means more places for an agent to look and more chances to find the wrong answer. Ask a frontier agent a question about your business and it starts a live search. It hops between MCP servers, opens a document, reads a schema, tries a table, backs out and tries another. It has little context on where the right answer lives, so it may guess its way through a random walk across the organization's data. What agents need is a map of the business before they start looking. That's why we announced Genie Ontology , the enterprise context layer, that combines governed definitions with continuously learned organizational knowledge giving AI agents the business understanding they need to deliver trusted insights. Today we are introducing new Databricks Genie plugins that give your team’s favorite agents a governed interface to access your enterprise context. These plugins work natively today in ChatGPT , Claude , Microsoft Copilot Cowork and Grok Bot so teams can maintain business context in Databricks and make it available across their preferred agents. Frontier agents can now draw on Genie Ontology to supply the definitions, relationships, and source context needed to interpret the business. Genie works out what the busin",
+  "first_seen": "2026-11-11T17:08:48.848985+00:00",
+  "id": "7b9d9a2c3667a952",
+  "published": "2026-11-11T15:00:00+00:00",
+  "sid": "7c592589ecc9e501",
+  "source": "databricks_blog",
+  "summary_1line": "Every business is adding more data to their AI-powered workflows. But more data doesn't...",
+  "title": "Bring your business context to ChatGPT, Claude, Microsoft Copilot Cowork and Grok Bot",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/bring-your-business-context-chatgpt-claude-microsoft-copilot-cowork-and-grok-bot"
  },
  "7c8506fea817bcb6": {
   "content_excerpt": "Workday is the trusted agentic platform for HR, finance, and IT, serving more than half the Fortune 500. The team set out to create the internal developer platform to build, deploy, and run AI agents in production, on Workday's infrastructure. The team leveraged LangGraph for agent orchestration and LangSmith for tracing, observability, and evals. In 2025, Workday’s leadership team saw the market opportunity for building agentic solutions and set an ambitious goal for agents in production by the end of 2026. Product teams needed a platform that could support both rapid prototyping and production deployments—a uniquely challenging mandate given Workday operates under some of the strictest security and data governance requirements in enterprise software. Getting any internal service into production means satisfying demanding audit, compliance, and data retention policies. The surface area was enormous for a team of four, encompassing a durable, scalable agent server; data access controls tied to Workday's audit policies; a collaborative eval platform; and an SDK that abstracted all of it. Workday’s Agent Platform team serves two user bases. 1.) the internal Workday engineering teams building agents, and 2.) the end customers of those agents. It lets teams focus on functional requirements, while handling authentication, security, compliance, and infrastructure. The first major product shipped was Workday's Agent System of Record, a governance layer that controls which APIs the a",
@@ -8147,6 +8249,26 @@
   "url": "http://arxiv.org/abs/2611.06793v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "a2f0f024fa6fc316": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. Aditya Mulik explains how Walmart Global Tech deployed multi-agent LLM workflows across 4,700 stores for nightly batch inventory forecasting. He discusses tackling production hurdles - schema violations, cross-department data mismatches, and network drops - via MCP grounding and loop agents, while slashing cloud inference costs from $100k+ to $10k per month shifting from PTUs to pay-as-you-go. Vanessa Formicola shares how",
+  "first_seen": "2026-11-11T17:05:50.994140+00:00",
+  "id": "034872ba64a1a483",
+  "image_url": "https://www.infoq.com/styles/static/images/logo/logo_bigger.jpg",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-11T14:28:00+00:00",
+  "sid": "a2f0f024fa6fc316",
+  "source": "infoq_ai_ml",
+  "summary": "JioHotstar evaluated 6 approaches to code retrieval for AI coding agents using SWE, CodeScale Bench, and an internal question-answering harness. Structural search performed well on concrete tasks, while semantic retrieval helped with ambiguous requirements. The findings highlight trade-offs in accuracy, token use, and tool design, underscoring the need to match retrieval tools to task types. By Leela Kumili",
+  "summary_1line": "JioHotstar evaluated 6 approaches to code retrieval for AI coding agents using SWE, CodeScale Bench, and an internal question-answering harness. Structural search performed well on concrete tasks, while semantic retri...",
+  "title": "JioHotstar Benchmarks Knowledge Bases for AI Coding Agents",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/11/jiohotstar-codingagent-retrieval/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
  "a3261c64a9091141": {
   "first_seen": "2026-11-10T17:05:49.390701+00:00",
   "id": "6d0987fa441ceb42",
@@ -8989,6 +9111,22 @@
   "title": "AI isn't slop. It's just the generic average. And not you",
   "type": "news",
   "url": "https://www.catchkill9.dev/posts/voiceprint-open-source.html"
+ },
+ "b2fc686d364c203f": {
+  "first_seen": "2026-11-11T17:05:50.994140+00:00",
+  "id": "ac7bfd1e68643066",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-10T15:47:46+00:00",
+  "sid": "b2fc686d364c203f",
+  "source": "arxiv_cs_cl",
+  "summary": "Transformer sentence encoders provide strong retrieval quality, but their inference cost becomes a bottleneck when embeddings must be produced on CPUs or refreshed frequently. We introduce StaRSE, a compact Russian static sentence encoder that removes Transformer inference at deployment time: token directions are stored as sign bits, token norms are stored separately, and sentences are encoded by mean pooling over norm-scaled sign directions. StaRSE is initialized from ruBERT-base, fine-tuned on Russian adjacent-sentence and task-shaped pairs, and post-trained with a contrastive stage that directly optimizes the sign-projected token table. On RuMTEB, StaRSE reaches a task mean of $51.16$, $7.98$ points above the strongest included static baseline. The packaged model occupies $11.3$ MiB and has a mean CPU latency of $0.08$ ms per sentence, compared with an estimated $55.7$ MiB 16-bit parameter footprint and $1.43$ ms mean CPU latency for the closest-quality contextual encoder. Ablations examine adjacent-sentence supervision, token norms, and direct sign-projected post-training.",
+  "summary_1line": "Transformer sentence encoders provide strong retrieval quality, but their inference cost becomes a bottleneck when embeddings must be produced on CPUs or refreshed frequently. We introduce StaRSE, a compact Russian st...",
+  "title": "StaRSE: Compact Russian Sentence Embeddings with a Sign-Coded Static Encoder",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14236v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "b380a66ae3304ffc": {
   "also_covered": [
@@ -9972,6 +10110,22 @@
   "url": "https://github.com/rgadda/frontend-eng-team",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "c4a35e75b732ef4a": {
+  "first_seen": "2026-11-11T17:05:50.994140+00:00",
+  "id": "27c1f9bde0f9ad76",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-10T16:26:19+00:00",
+  "sid": "c4a35e75b732ef4a",
+  "source": "arxiv_cs_ai",
+  "summary": "Evaluating candidate parallelization strategies through distributed training runs makes strategy selection prohibitively expensive at scale. Performance simulation offers a lower cost alternative, yet controlled comparisons among existing simulators remain difficult because they differ in the training stages they model and the workloads on which they are evaluated. We introduce LM-SimBench, a unified framework, profiling dataset, and benchmark for evaluating LLM training simulators. The framework decomposes simulation into functional stages from model compilation to schedule level aggregation, connecting execution representations and cost estimators to measurable evaluation targets. Following this framework, we profile 23 model settings from 10 dense and Mixture-of-Experts (MoE) LLM families on an Ascend Neural Processing Unit (NPU) cluster. The resulting dataset contains 348 feasible configurations that jointly vary five parallelism dimensions and activation recomputation, with six views spanning configuration, rank, operator, event, and kernel granularity. Evaluations of representative training simulators demonstrate how LM-SimBench supports comparisons of prediction accuracy, assessment of configuration selection, and diagnosis of prediction errors. Matched GPU-NPU experiments validate the cross-platform applicability of the collection and evaluation protocol and demonstrate NPU-guided GPU configuration selection.",
+  "summary_1line": "Evaluating candidate parallelization strategies through distributed training runs makes strategy selection prohibitively expensive at scale. Performance simulation offers a lower cost alternative, yet controlled compa...",
+  "title": "LM-SimBench: A Unified Framework, Dataset, and Benchmark for Large Language Model Training Simulation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14285v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "c4ddd06dce2136ce": {
   "first_seen": "2026-11-04T11:05:34.944705+00:00",
   "id": "346b78714691ed4d",
@@ -10364,6 +10518,18 @@
   "url": "http://arxiv.org/abs/2611.01966v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "cdb58f2515a39936": {
+  "content_excerpt": "Genie Agents now reason across your Lakehouse data, unstructured documents and enterprise tools in a single conversation. Thousands of teams use Genie Agents to turn deep operational questions into actionable outcomes every day. Across industries, organizations are putting Genie Agents to work on some of their most important business challenges: What these use cases have in common is the need for agents that deeply understand each business's unique context. Genie Agents ground their responses and actions in rich knowledge curated within Databricks, helping teams move from natural-language questions to trusted insights and action. As demand for context-rich workflows grows, agents need to reason beyond structured business data alone. They need to understand context from unstructured assets and connect to enterprise tools so they can reason across the full business environment and take action in the tools that run their business. Genie Agents started as the fastest way to turn business questions into SQL insights. Today, they have evolved into something bigger: a no-code agent that understands your entire business context. With unstructured data analysis and new MCP connectors , Genie Agents can conduct high-quality business analytics, analyze large volumes of documents and connect to your enterprise tools to take action on your behalf. And now with support for OpenSharing , Genie Agents can accelerate time-to-insights outside your enterprise. You can share a governed agent tha",
+  "first_seen": "2026-11-11T17:08:48.848985+00:00",
+  "id": "71a33211114a4501",
+  "published": "2026-11-11T15:00:00+00:00",
+  "sid": "cdb58f2515a39936",
+  "source": "databricks_blog",
+  "summary_1line": "Thousands of teams use Genie Agents to turn deep operational questions into actionable outcomes every day...",
+  "title": "From enterprise context to action: Genie Agents now analyze more data sources to transform your work",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/enterprise-context-action-genie-agents-now-analyze-more-data-sources-transform-your-work"
+ },
  "cde632e10e43804a": {
   "first_seen": "2026-11-06T16:05:35.502169+00:00",
   "id": "a19101b8aea113ce",
@@ -10699,6 +10865,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05234v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "d7414ba9c6092537": {
+  "first_seen": "2026-11-11T17:05:50.994140+00:00",
+  "id": "23ac67d98cfacd5f",
+  "published": "2026-11-11T15:11:59+00:00",
+  "sid": "d7414ba9c6092537",
+  "source": "simon_willison",
+  "summary": "Anthropic's IPO roadshow video Anthropic kicked off their IPO roadshow yesterday, and their roadshow video has some previously unreleased information about how their business works. The section on \"Approach to compute\" with co-founder Tom Brown is particularly interesting, describing how Anthropic train and serve Claude across AWS Trainium, Google TPUs, NVIDIA GPUs, and AMD GPUs. I'm not sure why there's no official video transcript, but here's one that I extracted using MacWhisper. Highlights below: We train and serve Claude now across all four major chip families. That's only possible because early on we made an unconventional bet on a multi-chip strategy. At the time, many people thought that running AI models on different chips wasn't worth the effort. Each chip needs its own tailored software stack and inference stack, which is expensive and difficult to build. We've now been doing it for years, and we've gotten incredibly good at it. [...] As an example, this year, we started working with AMD GPUs for the first time. In the past, bringing on a new chip platform took dozens of engineers months of work This time, we had Mythos try it out. It got Claude running on AMD in just three days, with basically no human intervention . Claude ported or wrote almost 100% of the kernels. [...] The second driver of our compute advantage is our rate of discovery of compute multipliers. We focus on total effective compute, which is the multiplicative product of physical capacity times th",
+  "summary_1line": "Anthropic's IPO roadshow video Anthropic kicked off their IPO roadshow yesterday, and their roadshow video has some previously unreleased information about how their business works. The section on \"Approach to compute...",
+  "title": "Anthropic's IPO roadshow video",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Nov/11/anthropic-ipo-roadshow"
  },
  "d765d772070fccd8": {
   "first_seen": "2026-11-03T12:04:47.176869+00:00",
