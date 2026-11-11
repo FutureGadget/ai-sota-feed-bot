@@ -3514,6 +3514,23 @@
   "url": "http://arxiv.org/abs/2611.06483v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "455c0c72bf13295c": {
+  "first_seen": "2026-11-11T03:08:40.490026+00:00",
+  "id": "04e981540027cd85",
+  "matched_topics": [
+   "agentic",
+   "harness"
+  ],
+  "published": "2026-11-10T11:52:40+00:00",
+  "sid": "455c0c72bf13295c",
+  "source": "arxiv_agent_systems_research",
+  "summary": "AI coding harnesses couple language models to shells, filesystems, and network sockets, turning the harness into an automated Living-off-the-Land (LotL) platform: once an adversary injects instructions into retrieved content, dual-use binaries such as bash, curl, and find become the payload. We argue that security in agentic systems is a structural property of the cognitive architecture and permission composition rather than an emergent property of individual models. Static regex blacklists miss structural evasions, whereas LLM-as-a-Judge guardrails incur high latency while over-blocking benign work. We present ActiveSecHarness, a neurosymbolic reference-monitor architecture built around Separation of Intelligence and Authority. It combines (1) Macaroon-inspired HMAC capability tokens across four Trust and Authority Rings, (2) a 2D product taint lattice $\\mathcal{L} = \\mathcal{L}_{\\mathrm{trust}} \\times \\mathcal{L}_{\\mathrm{sens}}$ and a workspace provenance ledger that prevents secret laundering across disk, (3) deterministic Ring-0 OS/tool guards, and (4) bytecode certificates, split-horizon audit logs, self-healing security test synthesis, and an adaptive UserWikiManager. Across $N=252$ fixtures ($120$ attack, $120$ benign, $12$ kill chains), a live local LLM judge (qwen3:4b) refuses $98.3\\%$ of benign work at $142.3\\,\\mathrm{ms}$ latency, whereas Ring 0 achieves $\\mathrm{ABR}=1.000$ and $\\mathrm{FPR}=0.000$ in $12.7\\,μ\\mathrm{s}$ ($11{,}200\\times$ faster). In a multi-step",
+  "summary_1line": "AI coding harnesses couple language models to shells, filesystems, and network sockets, turning the harness into an automated Living-off-the-Land (LotL) platform: once an adversary injects instructions into retrieved...",
+  "title": "From Attack Surface to Defense Architecture: Compositional Security for Agentic Coding Harnesses",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.13960v1",
+  "why_it_matters": "Matches feed focus: agentic, harness."
+ },
  "45805de25e6da487": {
   "first_seen": "2026-11-03T09:04:30.637668+00:00",
   "id": "08c7e7a49ec2fef2",
@@ -3920,6 +3937,17 @@
   "title": "Adaptive Scheduling Pipeline for Multi-Instance Asynchronous Reinforcement Learning",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08864v1"
+ },
+ "501ef39353c40289": {
+  "first_seen": "2026-11-11T03:11:00.633338+00:00",
+  "id": "c68029e12fb01aeb",
+  "published": "2026-11-10T03:54:03+00:00",
+  "sid": "501ef39353c40289",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Large language models increasingly evaluate, route, and moderate news, so a model's judgment of a headline has become a gatekeeping decision. We ask whether that judgment follows the fact being reported or the way the fact is framed. We combine an ecological audit of 63,926 Chine",
+  "title": "Framing-Induced Vulnerability in Large Language Models: Evidence from Chinese News Headlines",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.13531v1"
  },
  "5062d517c9f09810": {
   "first_seen": "2026-11-03T02:06:02.616034+00:00",
@@ -4917,6 +4945,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.02407v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "60cf435fff992a90": {
+  "first_seen": "2026-11-11T03:08:40.490026+00:00",
+  "id": "70a461841f6fb4c4",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-10T13:17:04+00:00",
+  "sid": "60cf435fff992a90",
+  "source": "arxiv_cn_open_weight_reports",
+  "summary": "Reusing key--value (KV) caches across language model updates could avoid repeated computation of shared context, but changes in model weights raise a fundamental question about what these caches preserve. We investigate direct cache reuse across four model updates, with a detailed study of DeepSeek-V4-Flash to Flash-0731. Our central finding is that caches can retain useful task information without faithfully reproducing the updated model's behavior. Retrieval accuracy varies substantially across updates, ranging from near-native performance to large losses. With source caches already available, reuse achieves median time-to-first-token speedups of $2.10$--$5.08\\times$ on three longer-prefix QA benchmarks. To characterize the behavioral differences behind these outcomes, we introduce Functional Cache Divergence, which compares next-token distributions under reused and native caches. Direct KV cache reuse better preserves native model behavior in natural-text continuation, whereas compatibility degrades with increasing prefix length in single-token retrieval tasks. Answer-margin analyses help explain how correct retrieval decisions survive substantial internal state changes. Yet even agreement on the first generated token does not ensure agreement in answer content or stopping behavior. These findings establish task utility and fidelity to native inference as distinct criteria for evaluating cross-version KV cache reuse.",
+  "summary_1line": "Reusing key--value (KV) caches across language model updates could avoid repeated computation of shared context, but changes in model weights raise a fundamental question about what these caches preserve. We investiga...",
+  "title": "Can KV Cache Be Reused Across Model Updates? A DeepSeek-V4-Flash Case Study",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14051v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "60e6f0629036df1b": {
   "content_excerpt": "vLLM relies heavily on PyTorch, with frequent calls to LibTorch in its C++ backend. As a result, changes to LibTorch’s binary interface may require vLLM to be rebuilt and relinked, even when the APIs remain unchanged. What if we could update LibTorch without rebuilding vLLM? That’s where the LibTorch Stable ABI comes in. With a LibTorch Stable ABI, updating LibTorch does not require rebuilding or updating vLLM in order to keep using it. Instead, we could swap out the torch wheel and import it directly into our vLLM package. As of v0.33.0, vLLM publishes LibTorch ABI Stable CUDA wheels. Left: Unstable ABI—new torch requires vLLM to rebuild. Right: Stable ABI—vLLM can import new torch directly. Note: Compatibility between vLLM and PyTorch still depends on other factors, including Python APIs, GPU-related requirements (such as the minimum supported CUDA version), and third-party dependencies. The LibTorch Stable ABI addresses binary compatibility but does not eliminate these other constraints. An application binary interface (ABI) defines how compiled code interacts with a library: how functions are called, data is laid out, and symbols are named. Even if an API looks the same in source code, an ABI change can force extensions to rebuild. A stable ABI preserves a supported set of binary interfaces across compatible versions, so extensions that use them can keep working without a rebuild. PyTorch's LibTorch Stable ABI has three layers: a stable C shim exposing selected LibTorch A",
@@ -7799,6 +7843,17 @@
   "url": "https://paneflow.dev/blog/agent-status-osc-7501",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "a34f1fafb710e628": {
+  "first_seen": "2026-11-11T03:11:00.633338+00:00",
+  "id": "bb842682cdf3e25e",
+  "published": "2026-11-10T07:43:02+00:00",
+  "sid": "a34f1fafb710e628",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "Multi-agent systems provide a convenient framework for the massive deployment of agents based on Large Language Models (LLMs). It provides a sound framework where agents can interact with existing software to perform actions in an autonomous way. Agentic AI is the new term to den",
+  "title": "On Private Knowledge Retrieval and Private Inference for secure multi-agent systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.13696v1"
+ },
  "a377ed74f2094c77": {
   "first_seen": "2026-11-11T00:09:42.029607+00:00",
   "id": "0ae4ad2809a399b5",
@@ -7825,6 +7880,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.10469v1",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "a397f1ea63ad8dd1": {
+  "content_excerpt": "aisync — AGENTS.md, but for live coordination between AI tools. One standup for all your AI coding tools: shared rules, a hash-chained journal, file claims and mid-session news for Claude Code, Codex and Cursor. Claude Code, Codex and Cursor share rules, a journal and file claims, and hear what the others did mid-session. Your AI tools are coworkers who never talk. aisync is their standup. Every t",
+  "first_seen": "2026-11-11T03:11:00.633338+00:00",
+  "id": "3d27ab5ae53fee25",
+  "published": "2026-11-10T21:13:03+00:00",
+  "sid": "a397f1ea63ad8dd1",
+  "source": "hackernews_ai",
+  "title": "Show HN: Aisync, advisory file claims so two AI agents don't edit one repo",
+  "type": "news",
+  "url": "https://github.com/MaxonT/aisync"
  },
  "a3b6edeb484770a3": {
   "first_seen": "2026-11-09T13:04:01.061413+00:00",
@@ -7939,7 +8005,7 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 169, downloads: 2627.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 170, downloads: 2627.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 146, downloads: 1464.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
@@ -8917,6 +8983,23 @@
   "url": "http://arxiv.org/abs/2611.04515v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "ba175d39f9ba45a4": {
+  "first_seen": "2026-11-11T03:08:40.490026+00:00",
+  "id": "faad48eeff6e59a5",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-10T12:04:54+00:00",
+  "sid": "ba175d39f9ba45a4",
+  "source": "arxiv_llm_reliability",
+  "summary": "Taxonomies are structured knowledge representations that support semantic search, recommendation, product catalog organization, and retrieval-augmented generation. Their automated construction from a fixed set of candidate entities requires more than plausible text generation: the resulting hierarchy must be complete, structurally valid, and semantically coherent. Large Language Models (LLMs) are promising for this task, but iterative free-form generation remains vulnerable to omitted or hallucinated entities, invalid hierarchical relations, and inconsistent organizational principles. We introduce TIGA (Taxonomy Induction with Tool-Grounded Agents), a knowledge-engineering architecture that formulates taxonomy induction as an iterative decision process over an explicit state and constrained action space. TIGA combines executable taxonomy-editing tools, an memory that records tool calls, rationales, and outcomes, and a runtime-adaptive organizational policy that the agent revises during inference. An optional global reviewer evaluates the constructed taxonomy against the candidate set and the active policy. We evaluate TIGA on four benchmark taxonomies using two LLM backbones and compare it with single-shot and iterative prompting-based baselines. TIGA achieves the strongest structural-quality results in most evaluated configurations, but does not dominate on every precision measure. The gains are accompanied by substantially higher token consumption, API-call volume, and infe",
+  "summary_1line": "Taxonomies are structured knowledge representations that support semantic search, recommendation, product catalog organization, and retrieval-augmented generation. Their automated construction from a fixed set of cand...",
+  "title": "Controlled Knowledge Engineering for Taxonomy Induction with Tool-Grounded LLM Agents and Runtime-Adaptive Policies",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.13966v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "ba455640ea71f562": {
   "first_seen": "2026-11-05T19:04:43.522223+00:00",
   "id": "3da6d197c74b4789",
@@ -9165,6 +9248,22 @@
   "title": "Towards a Trustworthy and Governable Internet of Agentics: An Architectural Perspective on Protocols, Systems, and Services",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03066v1",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
+ "bd9e024b04419d57": {
+  "first_seen": "2026-11-11T03:08:40.490026+00:00",
+  "id": "5df2cc0a74658e45",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-10T12:49:24+00:00",
+  "sid": "bd9e024b04419d57",
+  "source": "arxiv_cs_cl",
+  "summary": "Language-model agents increasingly tackle long-horizon tasks whose interaction histories exceed the model's active context. They must therefore decide what to write down and what to read back, and when to do either. Recent work has begun to use on-policy distillation (OPD) to make memory control part of the policy, relying on memory tools and compaction protocols that lie outside either model's pre-training. However, this weakens the distillation on both sides: the teacher cannot give useful guidance on an interface it has never used, and the student samples too few meaningful memory actions for that guidance to take effect. To study this problem, we introduce Coding Agent Memory Gym II (CAMG-II), a suite of long-horizon agentic-RL environments spanning Shop, Coding, AutoResearch, General, and Visual. Alongside each environment's native task interface, CAMG-II provides ordinary Bash access and an episode-persistent workspace, enabling the policy to create, revise, search, and reuse files as memory across context replacements. We also introduce Coding Agent Memory Post-Training II (CAMP-II), which trains a single policy jointly across all five environments with fully asynchronous OPD to learn this file-based memory behavior directly from a frozen teacher with a prior for file operations. On CAMG-II, CAMP-II obtains 2.97 times the gain of the strongest OPD baseline. The memory behavior CAMP-II learns generalizes to two external benchmarks, Terminal-Bench 2.1 and SWE-Bench Pro V",
+  "summary_1line": "Language-model agents increasingly tackle long-horizon tasks whose interaction histories exceed the model's active context. They must therefore decide what to write down and what to read back, and when to do either. R...",
+  "title": "Coding Agent Memory Post-Training II: Unlocking the Memory Potential of Pre-trained File Operations for Long-Horizon Tasks via On-Policy Distillation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14009v1",
   "why_it_matters": "Matches feed focus: agentic."
  },
  "bdd9f5fb04f8059a": {
@@ -10561,6 +10660,23 @@
   "url": "http://arxiv.org/abs/2611.04196v1",
   "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
+ "dd9d747905a1bbbe": {
+  "first_seen": "2026-11-11T03:08:40.490026+00:00",
+  "id": "84e82c0656db65ca",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-10T03:29:29+00:00",
+  "sid": "dd9d747905a1bbbe",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Small language models (SLMs) running on mobile devices can keep user data private and work without connectivity. But they perform well only when fine-tuned for the target task and sized for the target device, a process that today requires repeated expert tuning. We present {\\it Mobile AI Factory}, an agentic system that builds a fine-tuned, quantized SLM for a given task and phone. Given a task specification and a target phone, an orchestrator LLM chooses whether to tune hyperparameters, mine real data, or generate synthetic examples, while fixed rules roll back changes that hurt accuracy. The factory searches from small to large models across base models and quantizations, adapts its accuracy goal as it searches, and uses real measurements of the target phone across inference engines and backends. We evaluate Mobile AI Factory on ten tasks and four Android phones. On an unseen testset, its on-device models outperform two five-shot frontier models on five tasks, by up to 0.34, and match them on three more. Its search comes within 0.03 of exhaustively training all 27 model variants on an entity extraction task, while using 19$\\times$ less GPU time. Phone measurements also matter: the best configuration changes across phones. Without phone measurements, Claude Opus 5.5, given the full hardware and model specifications, misses the app's requirements in 25\\% of easy and moderate cases and in 60\\% of hard ones. Code is available at: https://github.com/evanly-gh/SLM_Factory.",
+  "summary_1line": "Small language models (SLMs) running on mobile devices can keep user data private and work without connectivity. But they perform well only when fine-tuned for the target task and sized for the target device, a proces...",
+  "title": "Mobile AI Factory: Building Specialized Language Models for Your Mobile Device",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.13509v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "ddf42b69c8e05c7b": {
   "first_seen": "2026-11-03T02:06:02.616034+00:00",
   "id": "6179abb2350134e8",
@@ -11362,6 +11478,17 @@
   "type": "research",
   "url": "https://www.anthropic.com/research/components-of-agent-memory",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "f02955fc17b49224": {
+  "first_seen": "2026-11-11T03:11:00.633338+00:00",
+  "id": "b7c56712ab65890b",
+  "published": "2026-11-10T03:50:04+00:00",
+  "sid": "f02955fc17b49224",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Communities in the United States and around the world are contesting data centers, the physical infrastructure of AI. These disputes pose environmental justice issues: residents must weigh unevenly distributed burdens using evidence scattered across metrics, corporate claims, pol",
+  "title": "EJAI: Judgment-Preserving Civic AI for Data Center Environmental Justice",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.13525v1"
  },
  "f05342069428b552": {
   "first_seen": "2026-11-05T00:08:35.012471+00:00",
