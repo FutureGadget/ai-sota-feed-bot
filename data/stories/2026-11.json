@@ -3265,6 +3265,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.02936v1"
  },
+ "4081da62254c0683": {
+  "content_excerpt": "In an age when agents can write code in any programming language, it’s fair to ask: why have agents write code in C#? Last year, I was a technical lead on the effort at Motion ($500m valuation, series C, post YCombinator startup, ~40 engineers) to move the entire backend off of TypeScript + Node and shift to a combination of C# and F# for all future backends . The reasons are numerous and I’ve written about this extensively before , but it’s worth summarizing this again in mid 2026 framed in the context of building in an agent-first reality: Aside from that, if developers are no longer writing code, why not choose a platform that has: Given the benefits of adding both build and runtime type safety as well as a mature, well-documented, and broad first party platform, C# is a surprisingly strong choice for building real software with AI. The objective of this two-part series is to shed some light on how C# and the .NET ecosystem is an ideal foundation for building production software with agents. If you’re using Docker Compose or Tilt for dev runtime orchestration, you may have occasionally wished that it was just a bit more programmable . That’s exactly the gap that Aspire fills: a programmable orchestration layer that makes it easy to build an isolated runtime stack that agents can control while building software. The best analogy is to consider the difference between Terraform and Pulumi or CDK. Terraform is a declarative tool for building infrastructure, while Pulumi and CD",
+  "first_seen": "2026-11-11T08:04:45.810095+00:00",
+  "id": "80ddf1ccbe2212da",
+  "published": "2026-11-11T05:35:17+00:00",
+  "sid": "4081da62254c0683",
+  "source": "hackernews_ai",
+  "summary_1line": "The Unexpected AI Stack: C# + .NET",
+  "title": "The Unexpected AI Stack: C# + .NET",
+  "type": "news",
+  "url": "https://chrlschn.dev/blog/2026/08/the-unexpected-ai-stack-csharp-dotnet-part-1"
+ },
  "4094d4340f9e66f9": {
   "first_seen": "2026-11-02T20:05:25.137504+00:00",
   "id": "e4b74a3a62ab6094",
@@ -5419,6 +5431,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03377v1"
  },
+ "6b202536a684fb26": {
+  "first_seen": "2026-11-11T08:04:45.810095+00:00",
+  "id": "643b882943efcd60",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-10T16:46:59+00:00",
+  "sid": "6b202536a684fb26",
+  "source": "arxiv_cs_ai",
+  "summary": "External memory enables LLM agents to improve from experience by distilling trajectories of past tasks into concise lessons for new tasks. However, memory can also lead to memory-induced degradation, where an agent fails on tasks it would solve without memory, often because it follows a lesson that is incorrect, or misapplies or misreads a valid one. This is because lessons are inferred from trajectories labeled only with task success or failure, yet are typically provided without the trajectories they came from, leaving the agent no way to check them. To address this, we introduce WikiTrace, an evidence-linked memory system designed to let agents check each lesson against its original trajectory. Specifically, motivated by the finding that a trajectory often still holds the evidence needed to catch an erroneous lesson, WikiTrace stores each lesson as a concise insight linked to a summary of why its trajectory succeeded or failed and to the raw trajectory itself. Then, on a new task, the agent starts from all insights and, whenever one lacks details needed to act, conflicts with another, or comes from a failed task, descends through its links with terminal tools to fill in missing details or correct the insight before acting. We validate WikiTrace on five agentic benchmarks, showing that it consistently outperforms existing memory approaches and a baseline given the same insights alone, while also reducing memory-induced degradation. Our code is available at https://github.co",
+  "summary_1line": "External memory enables LLM agents to improve from experience by distilling trajectories of past tasks into concise lessons for new tasks. However, memory can also lead to memory-induced degradation, where an agent fa...",
+  "title": "Don't Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14320v1",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "6b3826262e4e6d4b": {
   "content_excerpt": "Honeycomb Team Agents are AI SRE coworkers that join your team proactively, not just reactively. Personal agents answer questions about production with evidence; team agents run on goals you define, checking releases, instrumentation, cost, agent quality, and resolving incidents with autonomy you match to risk. Canvas agents can now read your code, incidents, runbooks and tickets, to get to the right solution, first time. Also new: AI Ecosystem and LLM cost tracking in early access, Anomaly Detection GA, and onboarding from your coding agent. Picture an idyllic Tuesday afternoon: last night's release nudged checkout p99 up 41%, but an agent noticed. Nobody got paged, and your SLOs didn't start burning. Instead, the agent acted and already narrowed it down to one retry change. It filed a ticket for the Payments team and flagged the PR. By the time anyone would have noticed, the fix is in review. That's what SRE was always supposed to feel like. This Innovation Week, we're previewing Honeycomb Team Agents: AI SRE agents that join your team as coworkers and proactively check on releases and hygiene, not just responding to alerts. They arrive at AWS re:Invent on December 1. In theory, reliable systems, fewer pages, and teams that own their services all sounded great. But in practice, SREs are buried in reactive work. The goal of every team owning their services' reliability requires that those teams learn SRE best practices and this can take forever. And AI has cranked the rate o",
   "first_seen": "2026-11-07T15:05:24.345011+00:00",
@@ -6386,6 +6414,22 @@
   "title": "Stolen AI API keys generated nearly $1M in charges for a single company",
   "type": "news",
   "url": "https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models"
+ },
+ "80500b1292cc170c": {
+  "content_excerpt": "Researcher finds 35,000 Grok Build apps wide open to anyone who looked for them. Grok Build, the vibe-coding agent from SpaceXSI, is leaking data—some of it proprietary business information and other sensitive secrets—from thousands of its users, including the very same Elon Musk-owned company that offers the platform, new research shows. The information is revealed through links allowing Grok Build users to share their apps with others. Grok takes steps to randomize the URLs so only people who know the exact URL can access the data stored there. A design decision by developers of the platform, however, completely torpedoes that objective and makes it possible for anyone to enumerate thousands of live Grok Build projects. Except in rare cases, clicking those links opens the app and reveals all data associated with it. Research from security firm Claroc shows that the exposed data includes things like internal business plans, ad proposals, medical exam results, galley checklists from a celebrity cruise line, and employee names and ID numbers. Ironically, some of the sensitive data comes from two-dozen apps built by SpaceXSI (the name of the now-merged SpaceX and xAI) itself. A small sampling of the documents revealed in the SpaceXSI apps—Claroc found 24 of them—include an onboarding plan, marked confidential, for a new member of SpaceXSI’s enterprise sales team, a sales territory map of 594 accounts, internal system addresses for sales team tools, and advertising proposals. “W",
+  "first_seen": "2026-11-11T08:04:45.810095+00:00",
+  "id": "b9f98ca437c60b24",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-11T07:24:31+00:00",
+  "sid": "80500b1292cc170c",
+  "source": "hackernews_ai",
+  "summary_1line": "Grok Build coding agent leaks confidential info, some belonging to SpaceXSI",
+  "title": "Grok Build coding agent leaks confidential info, some belonging to SpaceXSI",
+  "type": "news",
+  "url": "https://arstechnica.com/security/2026/11/grok-build-coding-agent-leaks-oodles-of-confidential-info-some-belonging-to-spacexsi",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "80862ee92fd83149": {
   "content_excerpt": "Local Autonomous Agent for Windows and Linux - Browser-controlled AI agent with workspace tools, diagnostics, and multi-agent delegation ⚠️ Project Status: ABANDONED / BASE FOR COMMUNITY. This project is no longer actively maintained by the original creator. The codebase is released as an open-source foundation for anyone to fork, improve, modify, or build upon. The only requirement: your derivative work must also remain free and open-source (GPL-3.0). Original Creator: Moonyeep - Built with Manus AI, based on ZeroScript architecture Infinix is a local autonomous AI agent for Windows and Linux, controlled through supported browser-based AI chats. Its local bridge provides endpoint diagnostics, workspace tools, browser automation, shell access under a selectable capability profile, and hierarchical multi-agent delegation. No separate model API key is required for browser providers. This project was created by Moonyeep using Manus AI , built upon the ZeroScript architecture. The original creator has abandoned this project and is releasing it as an open-source base for the community. Roblox Studio is an optional integration. When enabled, Infinix can also control Studio through its MCP server; the general local agent does not require Roblox Studio. Eight AI providers are supported: DeepSeek (chat.deepseek.com, recommended), ChatGPT (chatgpt.com), Google Gemini (gemini.google.com), Kimi (kimi.ai, Moonshot AI), GLM (chat.z.ai, Z.ai), Qwen (chat.qwen.ai), Arena (arena.ai, a multi-m",
@@ -7486,6 +7530,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08308v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "99e35db5c56c4bd6": {
+  "first_seen": "2026-11-11T08:04:45.810095+00:00",
+  "id": "f0944294e84888a6",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-10T16:52:25+00:00",
+  "sid": "99e35db5c56c4bd6",
+  "source": "arxiv_agent_systems_research",
+  "summary": "LLM agents increasingly operate in long-horizon, verifier-rich environments, but current self-improvement mechanisms often write episode-derived lessons directly into memory, making local success an unreliable signal for reusable and safe knowledge. This paper addresses the core question of when an experience-derived behavioral update should be admitted into persistent agent state. We propose Falsification-Gated Self-Evolution (FGSE), a verifier-grounded framework that represents each candidate lesson as a structured hypothesis with an explicit precondition, behavior change, expected effect, and verifier. FGSE applies the hypothesis only in a temporary state, tests it on target-transfer, falsification, and archived-regression probes, and then commits, refines, or rejects it according to measured gain and risk. Across web, app, tool-use, and long-term memory benchmarks, FGSE achieves strong task performance, including 39.8 WebArena success rate, 78.8 AppWorld average completion, and 0.724/0.487 Pass$^1$ on $τ$-Retail/$τ$-Airline, while reducing falsification failures to 5.0%, regression damage to 1.3%, and harmful committed updates to 3.6%. These results suggest that testing memory updates as hypotheses supports more reliable long-term adaptation.",
+  "summary_1line": "LLM agents increasingly operate in long-horizon, verifier-rich environments, but current self-improvement mechanisms often write episode-derived lessons directly into memory, making local success an unreliable signal...",
+  "title": "When Should Agents Remember? Falsification-Gated Self-Evolution for LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14326v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "99fb85f961738c74": {
   "content_excerpt": "Memory efficient and high performance Mixture-of-Experts inference for Apple Silicon 125 billion parameters. Up to 11 tokens per second. Under 10 GB of peak process memory. MoEShift is optimized for Apple Silicon: on a Mac mini M4 Pro with 24 GB of unified memory, it runs Qwen 3.8 Flash Next with roughly half the peak process memory of Strata and processes long prompts 2.6× faster. MoEShift leaves room for your other apps, helping your Mac stay responsive during inference instead of grinding to a halt under memory pressure. Keep browsing, writing and coding while the model works—all locally, with no cloud subscription. Alpha release. The core runtime is working, and the project is evolving quickly. You may encounter rough edges; your feedback helps shape the next release. Tested models and quantizations are listed below. Both use the shared SSD expert runtime on Apple Silicon. See supported architectures . Compared with Strata , a popular choice for local MoE inference, on a Mac mini M4 Pro with 24 GB unified memory . Both ran Qwen 3.8 Flash Next (125B), ISTA-DASLab GSQ-RCO IQ3_XXS, with an 8,192-token context, no cached prompt tokens and 256 output tokens. Strata: 0.2.7, build 0.1.52. Time includes server-measured prompt processing and generation, excluding startup. Memory is macOS footprint -p peak physical process footprint. UD Q6_K XL on the same Mac mini M4 Pro with 24 GB unified memory. Medians of three measured runs after warmup, with no cached prompt tokens and 512 ou",
@@ -10313,6 +10373,22 @@
   "url": "https://github.com/zalando-incubator/agentic-identity-broker",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "d48977b6fbc84b1e": {
+  "content_excerpt": "Microsoft researchers have discovered “Lazarus,” a backdoor technique that can reprogram dormant neurons in an AI model, causing an otherwise normal AI agent to execute malicious commands when a hidden trigger appears. The threat is especially serious for AI agents with tool or terminal access. A triggered model could quietly download and run attacker code, steal secrets, or execute destructive commands while still passing standard safety evaluations. These backdoors can be inserted without retraining the model and are difficult to detect through normal testing, making model provenance and weight integrity critical security concerns. To protect customers, Microsoft Foundry verifies model provenance, ties models to trusted publishers, and scans the surrounding software environment before onboarding open-weight models. Microsoft is also developing additional defenses, including AI-powered weight scanning, red-teaming tools for detecting anomalous model modifications, and cryptographic model signing with tamper-evident provenance and audit trails. At Microsoft, researchers and security teams work side-by-side to study emerging threats to models and agents. Then we turn what we learn into product defenses and guidance that keep customers protected. More broadly, Lazarus is an example of a practice that should become routine: AI agents surface new security problems, and human researchers then systematize, study, and mitigate them. We find (opens in new tab) that weight-reprogrammi",
+  "first_seen": "2026-11-11T08:04:45.810095+00:00",
+  "id": "83f5e652356ebdb7",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-11T07:41:39+00:00",
+  "sid": "d48977b6fbc84b1e",
+  "source": "hackernews_ai",
+  "summary_1line": "Reprogramming Dormant Neurons to Backdoor AI Agents",
+  "title": "Reprogramming Dormant Neurons to Backdoor AI Agents",
+  "type": "news",
+  "url": "https://www.microsoft.com/en-us/research/blog/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "d48d8aea5d45b475": {
   "first_seen": "2026-11-10T02:06:52.305469+00:00",
   "id": "8b899ec768a42d2f",
@@ -11199,6 +11275,23 @@
   "title": "Continual Instruction Tuning for LLM-ased Management of Continuum Resources",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.10292v1"
+ },
+ "e520883df7aedc67": {
+  "first_seen": "2026-11-11T08:04:45.810095+00:00",
+  "id": "26e5bd1ebf46a158",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-11T07:43:48+00:00",
+  "sid": "e520883df7aedc67",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Alibaba Folds Qoder's Harness Into Qwen Code 1.0 Preview and Open-Sources the Combined Agent Core Pandaily",
+  "summary_1line": "Alibaba Folds Qoder's Harness Into Qwen Code 1.0 Preview and Open-Sources the Combined Agent Core Pandaily",
+  "title": "Alibaba Folds Qoder's Harness Into Qwen Code 1.0 Preview and Open-Sources the Combined Agent Core",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQbk5oM3JOSDludmtlT1k0S2NjRGVoejB0dnowWmpwNXZITEVIM20ycnhVcFU5czVYNjBJZGJIZnMwTnNVS0dORnNNNjA5OWJoOU41dzgwRDkxMnNBM3F1dktZVndra3FETElQU1cwLTNmamhudFhCSnhHdUlXVmN3SndnUGVWdTZpR2llX2hvQVU?oc=5",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "e5680f897e15540f": {
   "first_seen": "2026-11-09T05:05:35.203421+00:00",
