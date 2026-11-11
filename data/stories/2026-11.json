@@ -491,6 +491,22 @@
   "url": "https://github.com/Varshavia/RepoMagpie",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "0984c8e9f69f5209": {
+  "content_excerpt": "Transaction guardrails for AI agents that hold crypto wallets - simulate, evaluate against policy + reputation, allow/block/escalate with a signed audit trail. EVM + Solana AgentGuard is a transaction guardrail layer for AI agents that hold crypto wallets. Before an agent signs or broadcasts anything, it submits the proposed transaction to AgentGuard, which simulates it against live chain state, evaluates the simulated effects against an operator-defined policy, and returns allow , block or escalate with a human-readable explanation, a 0–100 risk score and an immutable audit record. Agents never get to decide for themselves whether a transaction is safe. It works on EVM chains and Solana, decodes the usual drain vectors (unlimited approvals, setApprovalForAll , permits, swaps with zero minimum output, SetAuthority, interactions with never-seen contracts), and ships with a conservative default policy plus a TypeScript SDK that wraps any signer so that signTransaction / sendTransaction are checked transparently. On top of the rule engine, a contract reputation layer ( @agentguard/reputation , in this repo) aggregates allow/deny lists, on-chain heuristics (age, proxy, bytecode size) and optional external intel feeds, and an optional behavioral anomaly layer ( @agentguard/behavior , separately licensed, see What's open and what's not ) scores each transaction against the agent's own learned baseline. Both plug into the same pipeline and both fail closed: an outage or an unreadabl",
+  "first_seen": "2026-11-11T00:05:47.504556+00:00",
+  "id": "23929373288173e3",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-10T21:37:21+00:00",
+  "sid": "0984c8e9f69f5209",
+  "source": "hackernews_ai",
+  "summary_1line": "AgentGuard – Transaction guardrails for AI agents that hold wallets",
+  "title": "AgentGuard – Transaction guardrails for AI agents that hold wallets",
+  "type": "news",
+  "url": "https://github.com/Radmo3/agentguard",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "098cacdba2ae6134": {
   "first_seen": "2026-11-10T21:05:43.516589+00:00",
   "id": "2b2ce5c041469719",
@@ -498,7 +514,7 @@
   "sid": "098cacdba2ae6134",
   "source": "arxiv_cs_cl",
   "summary": "Serving systems choose a weight format for each model and deployment. A low-cost screen predicts the resulting KL divergence from the unquantized model's Fisher information using $\\tfrac12Δ^\\top FΔ$, the expansion underlying Hessian-aware and second-order post-training quantizers. We assess the reliability of this screen in GPU batches with channel-wise int8, per-tensor fp8 and group-wise int4 on Qwen3-8B, Qwen3-4B, OLMo-2-7B, Qwen3-32B and Qwen3-30B-A3B. Relative predictions hold across a 16-fold range of perturbation scales, int4 group sizes and rounding modes, while absolute predictions are heavy-tailed. A trimmed average brings 10 of 12 cells on Qwen3-4B and OLMo-2 within 15% of measured KL. The MoE model exhibits nonquadratic response at small perturbations, with int8 KL scaling as $α^{0.63}$. Computing per-sequence gradients in bf16 can cause fourfold prediction errors. We trace these errors to arithmetic in the lower half of the backward pass and eliminate them by using fp32 there. Batch-invariant kernels run at 0.55 times the throughput, while changes in reduction order introduce a floor of 0.17-0.22 nats per sequence. We build a screener with one streamed fp32 Fisher pass, trimmed tensor-block predictions with a band, a flag for aligned tensors and per-layer format allocation. On the unseen Mistral-7B-v0.3 family, all six predictions fall within the band, all three KL budgets are met, and vLLM throughput is predicted within 0.4%.",
-  "summary_1line": "Serving systems choose a weight format for each model and deployment. A low-cost screen predicts the resulting KL divergence from the unquantized model's Fisher information using $\\tfrac12Δ^\\top FΔ$, the expansion und...",
+  "summary_1line": "Serving systems choose a weight format for each model and deployment. A low-cost screen predicts the resulting KL divergence from the unquantized model's Fisher information using $\\tfrac12Δ^\\top FΔ$, the expansion underlying Hessian-aware and second-order post-training quantizers",
   "title": "How Far Does Second-Order Linear Response Predict Quantization Mismatch? Pre-Registered Measurements on Five Language Models",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12634v1"
@@ -1193,6 +1209,22 @@
   "url": "https://armincat.com/articles/where-tokens-go",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "1722797545fcdd03": {
+  "first_seen": "2026-11-11T00:05:47.504556+00:00",
+  "id": "88f14705d93702bc",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-09T17:00:16+00:00",
+  "sid": "1722797545fcdd03",
+  "source": "arxiv_cs_ai",
+  "summary": "When AI agents screen items for a costly human assessor, as in agentic search, e-discovery and AI reviewing of papers, only what they pass gets judged. We show what each kind of evidence can establish about their errors, even with unlimited data. Agreement shows that agents concur, not that they are right, however many there are. Acceptance by the assessor gives precision but only a lower bound on recall. Knowing which agents found which relevant items gives an upper bound on recall if agents' finds are not negatively correlated, and caps what one more agent can add if agents are interchangeable. Without assumptions about the agents, recall can be pinned down only by judging items they did not pass: a random sample of these estimates how many relevant items were missed, to any chosen accuracy, and the sample needed does not grow with the number of agents.",
+  "summary_1line": "When AI agents screen items for a costly human assessor, as in agentic search, e-discovery and AI reviewing of papers, only what they pass gets judged. We show what each kind of evidence can establish about their erro...",
+  "title": "Multi-Agent Screening: What Agreement and Acceptance Cannot Tell You",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12705v1",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "179cb2dc1f9c4f81": {
   "content_excerpt": "Relay a long coding goal across subscription agents without spending paid credits baton keeps one long coding goal moving for days by passing it between coding agents, stopping each one before it can spend money it should not. It works with Codex and Antigravity alone; Claude is an optional third, paid by use, that only joins the queue once you save an API key for it. Its turn ends at USD 50 or 5 hours, whichever comes first, it is left out of a goal after USD 150 spent in that goal, and the monthly ceiling stays above all of that. You give it a goal (an objective, a working directory and a verification command). It runs one agent until that agent nears its limit or its turn (5 hours) ends, hands the work to the next, and when every agent is out, sleeps until the earliest reset and carries on. It finishes only when the verification command exits 0; an agent saying \"done\" means nothing. Every agent runs through its vendor's own CLI. baton reimplements no agent. Context moves between them through the repository, its commits and a handoff file, and each vendor's own conversation is resumed when its turn comes again. Inside a goal the work follows a cycle of plan, build and review, with a strong and a working model per provider (see Phases ). How baton works: Codex, Antigravity and then Claude take turns; every goal runs plan, build and review, then the check, then consensus of every agent, and only then is it done. baton does not bring its own AI or its own methods. It drives to",
   "first_seen": "2026-11-06T14:05:07.235125+00:00",
@@ -1448,6 +1480,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06876v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "1c564d62e97c9758": {
+  "first_seen": "2026-11-11T00:09:42.029607+00:00",
+  "id": "57937ed34ca9fade",
+  "published": "2026-11-09T17:38:16+00:00",
+  "sid": "1c564d62e97c9758",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Preference optimization has become a central approach for aligning large language models with human values, but its effectiveness depends heavily on the quality of preference annotations. In practice, preference data is often noisy due to annotation errors and ambiguity. Existing",
+  "title": "PORT: Preference Optimization via Robust Token-Level Reweighting",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12763v1"
  },
  "1c82a88a4c8c1d62": {
   "first_seen": "2026-11-07T00:07:33.105822+00:00",
@@ -5236,6 +5279,17 @@
   "url": "https://www.honeycomb.io/blog/honeycomb-team-agents-ai-sre-done-right",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "6b45baee4ce1e000": {
+  "first_seen": "2026-11-11T00:09:42.029607+00:00",
+  "id": "a900e2f3fc358ae0",
+  "published": "2026-11-09T14:43:42+00:00",
+  "sid": "6b45baee4ce1e000",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Does grouping translation updates before speech synthesis change the measured completion gap between two translators? We compare StreamAtt with its fixed-audio-history baseline on ten English-German talks. For each translation, we keep the intended text and its availability times",
+  "title": "Text Grouping Changes Completion-Time Comparisons in Long-Form Simultaneous Speech Translation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12501v1"
+ },
  "6b6709b612e5913e": {
   "first_seen": "2026-11-10T18:05:44.764785+00:00",
   "id": "4db7293e0cbafaf0",
@@ -5600,6 +5654,17 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "768f71309768fea7": {
+  "first_seen": "2026-11-11T00:09:42.029607+00:00",
+  "id": "a8c5ee367e34aad3",
+  "published": "2026-11-09T02:22:48+00:00",
+  "sid": "768f71309768fea7",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Retrieval-Augmented Generation (RAG) systems have demonstrated remarkable effectiveness in mitigating hallucinations by incorporating external knowledge. However, the retrieval process inevitably introduces noise, posing significant challenges to RAG robustness. Fundamentally, no",
+  "title": "ARMOR: Adaptive Curriculum Meta-Learning for Noise-Robust RAG Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.11771v1"
+ },
  "77145208361ffe08": {
   "also_covered": [
    {
@@ -5787,6 +5852,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08647v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "7923128b87795738": {
+  "first_seen": "2026-11-11T00:09:42.029607+00:00",
+  "id": "ef553573f2424765",
+  "published": "2026-11-09T14:48:33+00:00",
+  "sid": "7923128b87795738",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Generalizing deepfake detection across facial manipulation and fully generated video remains challenging due to forgery traces varying with the manipulation method and scene content. Explicit spatial and temporal feature differences offer a way to capture this variation, but also",
+  "title": "MARS: Multiscale Appearance-Residual Streams for Video Forgery Detection",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12508v1"
  },
  "797aba84ba3e9103": {
   "first_seen": "2026-11-04T00:05:12.455371+00:00",
@@ -6096,6 +6172,22 @@
   "title": "Design Tenets for Agent Identity Management Systems",
   "type": "news",
   "url": "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "7ea8d672f28ccb5b": {
+  "content_excerpt": "Agent A writes a change. Agent B reviews it and says it looks great. Agent A then edits one more file “real quick” and ships. Nobody lied. The review was fine. It was a review of different code. I have been doing this for roughly thirty years, and I can report that “the thing we checked is not the thing we shipped” is the oldest bug in the business. We have simply found a way to do it faster and with more confidence. I wrote Uncle ( github.com/unclehq/uncle ) because I got tired of it. At Yahoo I built Yahoo Mail's anti-spam system. Billions of messages a month, six patents, and one durable lesson: a component does not get to declare its own output trustworthy because it produced it. Spammers taught me that. Apparently it also applies to the thing we now let write our code, review our code, and then tell us how it went. Today's workflow: the agent implements, tests, reviews itself, and reports “done, all green.” Did the tests run? Did they finish? Did the reviewer look at the final code? Who knows, ask the agent. (It will say yes. It is very confident. It is always very confident.) A second reviewing agent does not fix this. Adding reviewers to an unbound review is just adding more people to a meeting that has already ended. A Git tree has a hash. That is a concrete thing to staple evidence to. So record that the review passed against a particular tree, that the tests passed against that same tree, that a human approved it, and then check, before publishing, that you are stil",
+  "first_seen": "2026-11-11T00:05:47.504556+00:00",
+  "id": "a4f013b2b4747cb9",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-10T21:04:47+00:00",
+  "sid": "7ea8d672f28ccb5b",
+  "source": "hackernews_ai",
+  "summary_1line": "An AI agent said the code was verified. The evidence said otherwise",
+  "title": "An AI agent said the code was verified. The evidence said otherwise",
+  "type": "news",
+  "url": "https://brian.biz/blog/ai-agents-verify",
   "why_it_matters": "Matches feed focus: agent."
  },
  "7eddd5b3047f8f44": {
@@ -7695,6 +7787,17 @@
   "url": "https://paneflow.dev/blog/agent-status-osc-7501",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "a377ed74f2094c77": {
+  "first_seen": "2026-11-11T00:09:42.029607+00:00",
+  "id": "0ae4ad2809a399b5",
+  "published": "2026-11-09T09:09:50+00:00",
+  "sid": "a377ed74f2094c77",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "One of the fundamental needs for reaching resilient production infrastructure is flexible manufacturing, which requires translating changing production requirements into implementable system configurations. This paper introduces \\textbf{CRAFT-AI}, an agentic AI approach combining",
+  "title": "CRAFT-AI: Capability and Requirement Alignment for Flexible Manufacturing through Agentic AI",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12092v1"
+ },
  "a38548abbeed9a82": {
   "first_seen": "2026-11-10T03:08:56.949643+00:00",
   "id": "f419222aa666bd3d",
@@ -7806,6 +7909,17 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.3.2",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "a5d2a1146081717d": {
+  "first_seen": "2026-11-11T00:09:42.029607+00:00",
+  "id": "f2db40df4ffc236f",
+  "published": "2026-11-09T17:15:46+00:00",
+  "sid": "a5d2a1146081717d",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Post-LayerNorm Transformers have seen limited practical adoption due to enduring difficulties in scaling them to large depths. While prior research has focused on stabilising Post-LayerNorm by improving conditioning at initialisation, stability often deteriorates when models are",
+  "title": "KiteNorm: Variance Regularisation for Stable and Scalable Post-LN Transformers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12729v1"
  },
  "a64346d6b971f202": {
   "first_seen": "2026-11-07T15:05:24.345011+00:00",
@@ -9504,16 +9618,16 @@
  },
  "c993e55fc42f7c69": {
   "first_seen": "2026-11-10T17:05:49.390701+00:00",
-  "id": "3fa3ec1228d33571",
+  "id": "7004525154552cf6",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-10T16:52:11+00:00",
+  "published": "2026-11-10T22:13:52+00:00",
   "sid": "c993e55fc42f7c69",
   "source": "openai_codex_releases",
   "summary": "Release 0.169.0-alpha.9",
   "summary_1line": "Release 0.169.0-alpha.9",
-  "title": "codex rust-v0.169.0-alpha.9",
+  "title": "codex 0.169.0-alpha.9",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.9",
   "why_it_matters": "Matches feed focus: codex."
@@ -9803,6 +9917,17 @@
   "title": "Context Mode – An Open-Source MCP Server That Reduces AI Coding Context Usage",
   "type": "news",
   "url": "https://github.com/mksglu/context-mode"
+ },
+ "d00224aef4751a19": {
+  "first_seen": "2026-11-11T00:09:42.029607+00:00",
+  "id": "7cfa6363b01b4e1e",
+  "published": "2026-11-09T18:33:13+00:00",
+  "sid": "d00224aef4751a19",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "AI models' growing capacity for complex reasoning has made them attractive tools for forecasting, or the systematic prediction of the future based on past and present data. However, should AI forecasting systems be adopted, human builders will shoulder the work of building and ev",
+  "title": "Programming Prescience: Issues in Human Construction of Forecasting Bots",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12834v1"
  },
  "d1b2dd4715d89ea1": {
   "content_excerpt": "Self-hosted home AI lab: live gauges, admission-controlled job runner, training and testing recipes, approved memory, and a team room any AI can join. MIT. A self-hosted home AI lab for one box: live gauges, a job runner that refuses to overload the machine, recipe templates for training and testing, memory you approve, and a team room any AI can join. Then Controls , switch to LIVE , pick slow_count , Check it fits , Start , type START . Press Pause everything half way, then Resume : the saved pieces are kept and the job finishes. Rack Community ships no model and no keys. It is the place your models run and report. To use the sample, copy engine/samples/ask_model.recipe.json into your Rack folder's recipes/ and add ask_model 8 to its peaks.conf . Admission control. admit.sh admits a job only if max(live memory in use, declared total) + the job's peak <= LIMIT . The declared total is a base figure plus the declared peaks of admitted jobs that are still alive, so two jobs that have not yet touched memory cannot both be admitted into the same gap. A refused job exits 75 and says why. Peaks live in peaks.conf ; ADMIT_LIMIT (default 90) and ADMIT_BASE (default 10) are in GB. Durable pieces. A job is split into named pieces. Each piece result is written atomically and in order, so a crash, a restart or a pause resumes at the first piece that was not saved. A supervisor outside the worker enforces a wall-clock limit per piece, including a worker stuck in a native call. Dry-run fir",
@@ -10160,6 +10285,17 @@
   "type": "news",
   "url": "https://latent.space/p/ainews-inkling-2-small-17a-594b-trained-in-68-hours-on-12t-tokens-beating-muse-spark"
  },
+ "d9424aebc884a5c5": {
+  "first_seen": "2026-11-11T00:09:42.029607+00:00",
+  "id": "40982d31b2ffdc29",
+  "published": "2026-11-09T14:13:32+00:00",
+  "sid": "d9424aebc884a5c5",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Speculative decoders raise throughput by banking more target tokens per forward pass, and Medusa, EAGLE-3, DFlash and DSpark all do it the same way: more candidates that survive verification. All of them draft in the target's own vocabulary, so one node of the candidate tree is o",
+  "title": "Phrase-Level Speculative Decoding on a Frozen Target",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12464v1"
+ },
  "d952ab6d652f8f98": {
   "content_excerpt": "Turns out cheap tokens get engineers doing things that save time, like debugging and tackling Jira tickets Revolut says that in less than a year it's managed to slash its AI coding inference costs by roughly 90 percent by making self-hosted models its default instead of relying primarily on commercial services like Claude. Speaking at the AI Engineer conference in New York last month, David Abitbo",
   "first_seen": "2026-11-04T12:05:53.154435+00:00",
@@ -10428,7 +10564,7 @@
   "sid": "de25d9c4c09e2ab0",
   "source": "arxiv_cs_lg",
   "summary": "Prompt-based continual learning adapts a frozen pre-trained vision transformer by tuning a small set of prompt tokens. Recently, one-prompt methods which share one single prompt across all tasks make this paradigm maximally parameter efficient. The open question is how a shared prompt can keep the knowledge of old classes while being updated for new ones. Existing methods protect old knowledge in parameter space, where they freeze task-specific prompts, expand new components, or sparsely gate which tokens receive gradients. However, this method sacrifices plasticity, yet the drift it still permits in shared tokens can corrupt the prompt's function on past classes. What must be preserved is the prompt's behavior. We propose TEA-Prompt, which couples (i) a token evaluation module that assigns each prompt token a continuous, input-conditional relevance score injected into the attention logits, softly specializing tokens across tasks without discarding any of them, and (ii) an attention-behavior anchoring loss that constrains each token's attention output around class-specific query regions using only compact Gaussian query statistics without stored old images, weighted by the token's past relevance. Anchoring the attention value allows the parameters to continue updating freely, as long as their interaction remains unchanged. TEA-Prompt achieves state-of-the-art accuracy with markedly lower forgetting on CIFAR-100, ImageNet-R, and CUB-200 with only 0.38M parameters. Code is publ",
-  "summary_1line": "Prompt-based continual learning adapts a frozen pre-trained vision transformer by tuning a small set of prompt tokens. Recently, one-prompt methods which share one single prompt across all tasks make this paradigm max...",
+  "summary_1line": "Prompt-based continual learning adapts a frozen pre-trained vision transformer by tuning a small set of prompt tokens. Recently, one-prompt methods which share one single prompt across all tasks make this paradigm maximally parameter efficient. The open question is how a shared p",
   "title": "Anchor Behavior, Not Parameters: Rehearsal-Free Continual Learning with a Single Shared Prompt",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12777v1",
@@ -10538,7 +10674,7 @@
   "sid": "e01475b582c9f905",
   "source": "arxiv_cs_lg",
   "summary": "Low-precision pretraining is usually judged by validation loss. We ask whether matching loss also means learning rare facts as efficiently. We train transformers from scratch with emulated 4-bit matrix multiplications on synthetic biographies with controlled exposure counts, on their own and mixed into web text. NVFP4 needs 1.32$\\times$ and 1.52$\\times$ as many exposures as BF16 to match its recall while validation loss differs by only 0.5% and 2%, and 1.26$\\times$ and 1.30$\\times$ when both models are evaluated with BF16 matrix multiplications. Under our primary readout, the exposure cost is about 1.2$\\times$ at matched loss. Zero-mean gradient noise reproduces the cost of quantizing only the backward pass, which barely moves the loss. In a controlled experiment at twice the NVFP4 error, noise fed only to Adam's second-moment estimate acts like a lower learning rate and its cost fades, whereas noise in the update lowers its signal-to-noise ratio and carries about two thirds of the cost through the end of training. Raising the learning rate to offset the smaller average step does not recover the cost, either for this noise or for NVFP4. Gradient statistics of BF16 checkpoints rank the costs of formats, partial quantizations and noise controls without fitting (Spearman 0.96). We suggest measuring rare-fact acquisition alongside loss when evaluating low-precision recipes.",
-  "summary_1line": "Low-precision pretraining is usually judged by validation loss. We ask whether matching loss also means learning rare facts as efficiently. We train transformers from scratch with emulated 4-bit matrix multiplications...",
+  "summary_1line": "Low-precision pretraining is usually judged by validation loss. We ask whether matching loss also means learning rare facts as efficiently. We train transformers from scratch with emulated 4-bit matrix multiplications on synthetic biographies with controlled exposure counts, on t",
   "title": "What the Loss Curve Misses: FP4 Pretraining Slows the Acquisition of Rare Facts",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12832v1",
@@ -10559,6 +10695,17 @@
   "type": "news",
   "url": "https://hangingcontext.com",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "e07cc0f8ad9bbda1": {
+  "first_seen": "2026-11-11T00:09:42.029607+00:00",
+  "id": "138a4546174027da",
+  "published": "2026-11-09T17:12:09+00:00",
+  "sid": "e07cc0f8ad9bbda1",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Selecting an effective cover photo is a critical yet understudied problem in visual merchandising for e-commerce marketplaces. On Airbnb, hosts upload many photos depicting different rooms, amenities, and points of interest, but must manually choose a single static cover photo th",
+  "title": "OptiCover: A Scalable and Multi-Surface Framework for Cold-Start Visual Optimization under Semantic Constraints",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12727v1"
  },
  "e1376b3038791065": {
   "content_excerpt": "At first glance, the content of the conversation looked like a malfunctioning chatbot. Every stored user message (4,972 in total) said the same thing: \"hello\" . The responses, however, told a very different story. They contained user identities, AWS credentials, cloud metadata probe results, process listings, network information, and credential-file paths. A closer investigation by our research team at Era, revealed a Chinese-language exploitation framework that sent a series of rapid messages, 3.5 seconds apart, each delivering malicious commands. We named the framework Greeter after its seemingly benign “hello” greetings. It exploited an old vulnerability ( CVE-2024-58351 ) in Flowise’s runtime configuration mechanism. The vulnerability allows attackers to override JavaScript instructions for some of Flowise’s API endpoints, allowing the framework to execute malicious instructions without modifying the saved chatflow. As a result, the chatflow appeared harmless, while the API was in fact used to deliver malicious instructions and return the results of their execution. The structuring of the attack, with ephemeral hello messages, is what makes it so elegant, and difficult to detect unless you’re looking for specific IoC’s in logs. The attack demonstrates how a vulnerability in an AI application can expose the underlying infrastructure, sensitive information, and cloud identities accessible to its workload. For context, Flowise is a widely-adopted open-source agentic developm",
@@ -10668,6 +10815,17 @@
   "title": "Cloudflare Makes Basin Serverless Analytics Generally Available",
   "type": "news",
   "url": "https://www.infoq.com/news/2026/11/cloudflare-basin-analytics/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
+ "e4a8bfb7f3eb8edb": {
+  "first_seen": "2026-11-11T00:09:42.029607+00:00",
+  "id": "afdc655b72a9cfb0",
+  "published": "2026-11-09T16:43:26+00:00",
+  "sid": "e4a8bfb7f3eb8edb",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Interpretability tools are usually built for one model at a time: a refusal direction, a truthfulness probe, or a steering vector is found with labeled data inside the model it explains. We ask whether such tools can be carried to other models through a map between residual strea",
+  "title": "Interpretability Is Not Model-Specific",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12675v1"
  },
  "e4b7803bfd815ac5": {
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. Handshake went from launch to $1B in one year pushing the envelope of specialized data for frontier labs. Our first deep dive into a data lab with specific examples across Finance, Bio, and Alignment This is our first Latent Space deep dive with an AI data company . In roughly a year, Handshake’s AI training business went from launch to $1 billion in gross annualized revenue . What are frontier labs buying at that scale? What evals are models still nowhere close to human level on? Garrett Lord brought the people who build these reinforcement learning environments to show us. For the first time, we are walking through them live! To cover the scope of Handshake, we had to produce a very special joint podcast across our Science/Engineering/Research/Finance podcast hosts, because Handshake’s business runs across all these and more. Finance. In the finance demo, the agent has to find its assignment in a bank’s email, work out which files govern the deal, and deliver a workbook. Watch what happens to one line in the client’s email about existing goodwill. The agent carries the number into Python and subtracts it. Collin points out that the model can explain th",
@@ -11427,6 +11585,17 @@
   "url": "http://arxiv.org/abs/2611.11306v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "f591b640a4eb41aa": {
+  "first_seen": "2026-11-11T00:09:42.029607+00:00",
+  "id": "918db9754aa99fe0",
+  "published": "2026-11-09T18:51:03+00:00",
+  "sid": "f591b640a4eb41aa",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Persona generalization occurs when fine-tuning a language model in one domain induces behavioral changes in others -- for example, the broadly unsafe behavior observed in emergent misalignment. We discover a surprising \"on-the-line\" phenomenon in persona generalization: in-domain",
+  "title": "Is Persona Generalization Predictable?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12864v1"
+ },
  "f591ff4c9f116252": {
   "first_seen": "2026-11-06T19:05:33.734547+00:00",
   "id": "28c6225c70fd24b4",
@@ -11580,6 +11749,17 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.5",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "f8fd338e224c2309": {
+  "first_seen": "2026-11-11T00:09:42.029607+00:00",
+  "id": "d7e875dfbac218fa",
+  "published": "2026-11-09T13:58:23+00:00",
+  "sid": "f8fd338e224c2309",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Non-linear functions are an important class of operations in modern large language models. However, chip vendors building for AI have so far relied on traditional vector or scalar processing units for non-linear functions. The performance of these units has not kept pace with mat",
+  "title": "To SIMD or Not to SIMD: Comparing RVV vs. CGRA SoCs for Non-Linear Functions in AI",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12435v1"
  },
  "f94d68a4c1147dcc": {
   "first_seen": "2026-11-10T19:05:48.156054+00:00",
@@ -11768,6 +11948,17 @@
   "type": "news",
   "url": "https://openai.com/index/heimstaden",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "fcaeb8e884476a8c": {
+  "first_seen": "2026-11-11T00:09:42.029607+00:00",
+  "id": "a4239aae25e82b28",
+  "published": "2026-11-09T16:45:11+00:00",
+  "sid": "fcaeb8e884476a8c",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "A world model predicts how a scene changes after an action, and a planner uses it to search for actions that reach a goal. If the camera moves or the controller changes, the same command moves the robot differently: when its commands are turned by 90 degrees, a frozen planner wit",
+  "title": "Library of Hands: Fix the Hands, Not the World Model",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.12678v1"
  },
  "fd965980a6846281": {
   "first_seen": "2026-11-03T07:05:24.009620+00:00",
