@@ -2,16 +2,23 @@
 slug: agent-instruction-file-growth
 title: "Why does CLAUDE.md (or AGENTS.md) only ever grow, never shrink?"
 question: "Why does CLAUDE.md (or AGENTS.md) only ever grow, never shrink?"
-summary: "Agent instruction files grow because appending a rule is cheap while proving a rule is safe to delete becomes combinatorial once its rationale is forgotten. A 1,867-repository study found these files more than tripling; writing the why next to each rule reversed the growth."
+summary: "Agent instruction files grow because appending a rule is cheap while proving a deletion safe becomes combinatorial once its rationale is lost. The rules that stay then go stale: agents follow outdated guidance, pay extra tool calls, and never repair the file."
 status: active
 cluster: memory
-updated: 2026-10-06
+updated: 2026-11-11
 audience: "strong-software-engineer"
 math_depth: intuition
 related_topics: [agent-memory, context-compaction]
 related_playbook_cards: []
 related_storylines: []
 evidence:
+  - id: stale-instruction-files-2026-documentation-debt
+    kind: benchmark-result
+    title: "When Instruction Files Go Stale: Documentation Debt and Hidden Cost in Coding Agents"
+    url: "http://arxiv.org/abs/2611.09802"
+    sid: "569b9613f4d348fe"
+    added: 2026-11-11
+    note: "Three real stale AGENTS.md/CLAUDE.md instructions (a test command, a code location, an add-a-component procedure), each left stale, corrected, or removed, over 22 maintenance tasks and 732 trajectories from two models. Agents followed stale guidance when it was task-relevant, sometimes despite correct information elsewhere. The stale test command cost Claude Sonnet 5.5 about two extra tool calls per run, a third more; other cases showed no detectable difference. No agent repaired the file. Correcting removed all obsolete-path operations; removing prevented most."
   - id: chakrabarti-2026-catastrophic-remembering-theory
     kind: theory-paper
     title: "Why Does CLAUDE.md Keep Growing? Catastrophic Remembering in Agentic Coding"
@@ -33,10 +40,10 @@ evidence:
 ---
 
 ## Builder consequence
-If your CLAUDE.md, AGENTS.md, or system prompt only gains rules, trying harder to prune will not fix it. The cause is a cost asymmetry: once nobody remembers why a rule was added, proving it is safe to remove becomes a combinatorial check nobody runs. A 1,867-repository study found these files more than tripling. The fix is changing what you write when you add a rule.
+If your CLAUDE.md, AGENTS.md, or system prompt only gains rules, trying harder to prune will not fix it. Once nobody remembers why a rule was added, proving it safe to remove becomes a combinatorial check nobody runs. The rules that survive then go stale, and agents follow them anyway while task success hides the cost. Write the why with each rule, and test that the file still matches the code.
 
 ## Short answer
-Appending an instruction costs one line. Safely deleting one requires proving it will not reintroduce the failure it was added to prevent. Once that reason is forgotten, the proof means reasoning about how the instruction interacts with every other instruction in the file, a cost that grows exponentially with file size. Nobody pays it, so the file only grows. Writing the rationale as a comment next to each rule is the one intervention shown to reverse this.
+Appending an instruction costs one line. Safely deleting one requires proving it will not reintroduce the failure it was added to prevent. Once that reason is forgotten, the proof means reasoning about how the instruction interacts with every other instruction in the file, a cost that grows exponentially with file size. Nobody pays it, so the file only grows. Writing the rationale as a comment next to each rule is the one intervention shown to reverse this. Surviving rules also rot: agents act on a stale path or command and never fix the file.
 
 ## Builder model
 Model an instruction file as an append-only log with hidden debt, not a document you tidy now and then. Every rule added without its *why* is a future deletion decision that gets more expensive as the file grows. "Clean sweep" rewrites reset the size but not the asymmetry, so growth resumes on the next commit. The fix has to change the cost of deletion, not the current size.
@@ -47,6 +54,8 @@ Model an instruction file as an append-only log with hidden debt, not a document
 **Real repositories show the signature.** The catastrophic-remembering study tracked 247,694 instruction lifetimes and found files growing +226% over their lifetime, adding a net +4.9 instructions per commit. The older an instruction is, the less likely anyone removes it.
 
 **The bottleneck is the missing rationale, not the count.** A comment stating what an instruction guards against turns "why is this here" from a reconstruction-by-testing problem into a fact you can read and re-check. In the paper's controlled test, rationale comments cut excess instructions from +211.3% to +1.4% over the known-optimal set and improved real-world instruction-following by up to 23.1%. The comments change whether the agent follows instructions correctly, not just file size.
+
+**Kept rules go stale, and agents obey them.** In a 732-trajectory study, agents followed a stale instruction whenever it was relevant to the task, sometimes even with the correct path visible elsewhere. They usually recovered from the immediate failure, so the task still passed, but none repaired the file. A stale test command cost about a third more tool calls on every run.
 
 **It generalizes beyond CLAUDE.md.** Any accreting instruction surface an agent or team treats as authoritative, such as system prompts, runbooks, or review checklists, has the same asymmetry.
 
@@ -63,12 +72,14 @@ Neither a person nor an agent can run that check without a stated reason for eac
 - **Delete rules whose stated reason is stale first.** A documented rationale turns a combinatorial guess into one fact-check.
 - **Track net instructions added per commit** on any file agents read as instructions. Steady upward drift with no deletions is the growth signature.
 - **Treat old, undocumented rules as your highest-risk debt.** Deletion likelihood falls with age, so the longer an unexplained rule survives, the less likely it is ever reconsidered.
-- **Do not rely on periodic clean-sweep rewrites.** Without rationale comments, growth resumes immediately.
+- **Check instruction files against the code in CI.** Assert that every path and command the file names still exists or runs; a stale rule costs every later session.
+- **Delete a stale rule you cannot fix right away.** Removal prevented most obsolete-path operations; only correction prevented all.
 
 ## Failure modes
 - Deleting an old, undocumented rule on a hunch, triggering the regression it silently prevented and making the team afraid to delete anything again.
 - Fixing for shorter instructions instead of documented reasons.
-- Assuming the problem is specific to CLAUDE.md when any accreting instruction surface has it.
+- Judging an instruction file by task success, which hides the extra tool calls a stale rule adds.
+- Expecting the agent to repair a stale rule it tripped over; none did.
 - Citing the 99.3% bloat reduction or 23.1% gain as replicated results rather than one preprint's figures.
 - Confusing this with session context bloat: this is a persistent file growing across commits, not a conversation growing turn by turn.
 

@@ -2,15 +2,29 @@
 slug: agent-memory-evaluation
 title: "Does adding memory to an agent actually make it better?"
 question: "Does adding memory to an agent actually make it better?"
-summary: "Three independent 2026 evaluations agree agent memory is not a universal win: one technique gains one model 16 points of task completion and another zero, and every memory framework one benchmark tested scored worse than no memory at all."
+summary: "Independent 2026 evaluations agree agent memory is not a universal win: one technique gains one model 16 points and another zero, and correct memory can score below no memory. Linking lessons to their source trajectories and testing each write before committing it reduce the harm."
 status: active
 cluster: evaluation
-updated: 2026-10-06
+updated: 2026-11-11
 audience: "strong-software-engineer"
 related_topics: [agent-memory, agent-evaluation]
 related_playbook_cards: []
 related_storylines: []
 evidence:
+  - id: wikitrace-2026-evidence-linked-memory
+    kind: benchmark-result
+    title: "Don't Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents"
+    url: "http://arxiv.org/abs/2611.14320"
+    sid: "6b202536a684fb26"
+    added: 2026-11-11
+    note: "Names memory-induced degradation: an agent fails a task it solves without memory because it follows a wrong lesson or misapplies a valid one. Cause: lessons are inferred from pass/fail labels and served without their source trajectory. WikiTrace links each lesson to a success/failure summary and the raw trajectory, and the agent descends those links when a lesson is underspecified, conflicts, or came from a failed task. Outperforms prior memory methods and insights-alone on five agentic benchmarks."
+  - id: fgse-2026-falsification-gated-memory
+    kind: benchmark-result
+    title: "When Should Agents Remember? Falsification-Gated Self-Evolution for LLM Agents"
+    url: "http://arxiv.org/abs/2611.14326"
+    sid: "99e35db5c56c4bd6"
+    added: 2026-11-11
+    note: "Treats each candidate lesson as a hypothesis with a precondition, behavior change, expected effect, and verifier. It is applied only in temporary state and tested on target-transfer, falsification, and archived-regression probes before being committed, refined, or rejected. Reports 39.8 WebArena success and 78.8 AppWorld completion, with regression damage at 1.3% and harmful committed updates at 3.6%."
   - id: aml-2026-first-cycle-results
     kind: benchmark-result
     title: "Agent Memory Leaderboard — first public results (Text Memory)"
@@ -46,7 +60,7 @@ No, not automatically. Memory's payoff depends on three things these evaluations
 - **Correct memory can distort reasoning.** On MemTrapBench, every tested framework underperformed no memory, the best by more than 10%.
 - **The model decides the gain.** ALTK-Evolve measured +16.1 to +0.0 points across eight models on the same benchmark.
 
-Treat memory as an intervention you A/B test per model and task, not a component you install once.
+Treat memory as an intervention you A/B test per model and task, not a component you install once. Gate what gets written, and keep each lesson's evidence.
 
 ## Builder model
 A memory system lands in one of three ways, and each needs a different check:
@@ -67,6 +81,11 @@ A recall-accuracy check ("did it retrieve the right fact?") covers only the mech
 
 Both are built so a system passes a "did it retrieve the right fact" check and still fails. The mitigation that worked, AdaptiveMem, acts at inference time: the model is told to recognize a biasing memory and discount it. It changes how memory is used, not what gets stored.
 
+**Unverifiable lessons cause the harm.** Experience memory distills lessons from trajectories labeled only pass or fail, then serves the lesson without the trajectory. The agent cannot check a wrong lesson, so it follows it. Two fixes act on that gap:
+
+- **At read time:** WikiTrace links each lesson to its trajectory, and the agent re-reads the source when a lesson is vague, conflicting, or came from a failure.
+- **At write time:** Falsification-Gated Self-Evolution commits a lesson only after it survives transfer, falsification, and regression probes, holding harmful committed updates to 3.6%.
+
 **A guideline only helps a model that lacks the behavior.** ALTK-Evolve is a self-distillation loop: mine the agent's own successful and failed trajectories for behavioral guidelines, consolidate them, and reinject them into later runs. Its effect varies by model because of headroom, not a flaw in the method. Strong models with a real capability gap gained from the full guideline set; others did best with a compact core plus task-specific retrieval to limit token overhead; a model already at ceiling gained nothing however the guidelines were dosed.
 
 ## How to apply
@@ -75,11 +94,14 @@ Both are built so a system passes a "did it retrieve the right fact" check and s
 - **Size the memory payload to the model.** A compact core plus targeted retrieval beat the full guideline set for some models; "more memory" is not a safe default even when memory helps.
 - **Treat a leaderboard rank as a starting point.** The best public score is 58.02/100, and cross-track comparisons are explicitly invalid, so a top rank doesn't transfer to your task.
 - **Re-test after a model swap.** Memory payoff is model-specific, so upgrading or switching the model invalidates a prior memory A/B result.
+- **Keep each lesson's provenance.** Store the trajectory ID and outcome next to the lesson so the agent, or you, can check it.
+- **Gate memory writes with a regression probe.** Replay archived tasks with the candidate lesson in temporary state before committing it.
 
 ## Failure modes
 - **Shipping on someone else's number:** adopting a memory layer on a vendor's rank or a paper's aggregate claim without a no-memory control on your own model and task.
 - **Recall-only validation:** checking that the right fact came back and missing that correct content can still distort reasoning and lower task performance.
 - **Assuming wins survive upgrades:** expecting a memory gain on one model to hold after a switch, when a saturated model can gain nothing from the same mechanism.
+- **Write-on-success memory:** committing lessons straight from one episode's pass/fail label, with no regression check or link back to the trajectory.
 - **One dose for every model:** giving every model the full guideline or memory payload, adding token overhead where it buys nothing.
 
 ## Related

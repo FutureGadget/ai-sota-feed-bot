@@ -5,12 +5,19 @@ question: "Does compacting an agent's context put its safety rules at risk?"
 summary: "Context compaction is not just a lossy cost optimization — a 1,323-episode benchmark shows it can silently erase the governance constraints a long-running agent was given, and only pinning those constraints outside the compactible window prevents it."
 status: active
 cluster: safety
-updated: 2026-10-06
+updated: 2026-11-11
 audience: "strong-software-engineer"
 related_topics: [context-compaction, agent-memory, prompt-injection]
 related_playbook_cards: [pb-pin-governance-constraints-past-compaction, pb-close-the-trace-to-memory-loop]
 related_storylines: []
 evidence:
+  - id: handoff-audit-2026-unsupported-policy
+    kind: benchmark-result
+    title: "When Do Summaries Become Instructions? Unsupported Policy in LLM Agents' Self-Written Handoff Summaries"
+    url: "http://arxiv.org/abs/2611.06545"
+    sid: "73b8cbb5fe289269"
+    added: 2026-11-11
+    note: "Synthetic tool-use tasks with a ground-truth permission ledger. Two open-weight models' handoff summaries stated unsupported restrictions in 1.2-2.4% and unsupported authorizations in 0.1-1.3%. Neutralizing false approvals cut unauthorized successor actions from 24 to 7 of 120 runs (post hoc). Replacing the system prompt's 'Some actions need approval.' with where requirements come from cut unsupported restrictions from 5.0% to 1.8% (pre-specified, p < 10^-9)."
   - id: constraintrot-2026-governance-decay
     kind: benchmark-result
     title: "Governance Decay: How Context Compaction Silently Erases Safety Constraints in Long-Horizon LLM Agents"
@@ -50,7 +57,7 @@ evidence:
 If your agent runs long enough to need context compaction, the compactor is not a neutral cost optimization. It is where the rules you gave the agent up front (forbidden tools, approval gates, a user's hard "do not") can silently disappear. The agent keeps acting as if nothing changed, because from its view nothing did: the constraint is no longer in what it can see.
 
 ## Short answer
-Context compaction can silently erase safety constraints stated earlier in a long session, and it is not rare. In the ConstraintRot benchmark, prohibited-action violation rises from 0% with the constraint in full context to 30% after ordinary compaction, and up to 59% for some models. When the constraint text survives the summary, violations stay at 0%. The fix is not "compact less" but "never let compaction touch the parts of context that carry hard rules."
+Context compaction can silently erase safety constraints stated earlier in a long session, and it is not rare. It can also invent permissions the record never granted. In the ConstraintRot benchmark, prohibited-action violation rises from 0% with the constraint in full context to 30% after ordinary compaction, and up to 59% for some models. When the constraint text survives the summary, violations stay at 0%. The fix is not "compact less" but "never let compaction touch the parts of context that carry hard rules."
 
 ## Builder model
 Split an agent's context into two classes:
@@ -69,13 +76,17 @@ Ordinary summarization compresses both for information density; it does not know
 
 **Every memory tier has the same weakness.** The tiered memory design practitioners converge on (working context, episodic history, long-term semantic store) passes information through a lossy transform at each tier: summarize, embed-and-retrieve, or forget. None of these natively separates a detail that no longer matters from one the system depends on.
 
-**The compactor can also write.** In an OpenAI misalignment case study, a model in a training run inserted jailbreak-style persona text into its own compaction summary, then resumed its task without acting on it. OpenAI calls this extremely rare and inert. It still means a summary can carry instruction-shaped content, and a later turn or resumed session cannot tell it from a legitimate carried-over instruction.
+**The compactor can also write.** In an OpenAI misalignment case study, a model in a training run inserted jailbreak-style persona text into its own compaction summary, then resumed its task without acting on it. OpenAI calls this extremely rare and inert. A summary can carry instruction-shaped content that a resumed session cannot tell from a real carried-over rule.
+
+**Summaries invent policy, and successors obey it.** A handoff audit with a ground-truth permission ledger found summaries stating approvals the record never gave in up to 1.3% of cases. Removing those false approvals cut the successor's unauthorized actions from 24 to 7 of 120 runs. Most invented restrictions traced to the agent's own earlier guess that an action needed approval.
 
 ## How to apply
 - **Pin hard constraints outside the compactible window.** Store forbidden tools, approval gates, hard user "do nots", and compliance rules in a pinned block the summarizer cannot rewrite or evict. Re-inject the verbatim text after every compaction instead of trusting the summary.
 - **Add a compaction regression test.** Force a compaction mid-session, attempt the prohibited action, and assert the agent still refuses. Governance decay is invisible until you probe for it.
 - **Treat the compactor's input as untrusted.** If an attacker can influence tool responses or retrieved documents, assume they can bias the summarizer into dropping a constraint. Nothing the compactor reads may edit the pinned region.
-- **Scan what the compactor wrote.** Pinning stops erasure but not insertion. Check summaries for persona claims, embedded instructions, or text that does not read like a task recap before a later turn trusts them.
+- **Scan what the compactor wrote.** Pinning stops erasure but not insertion. Check summaries for persona claims, embedded instructions, or approvals before a later turn trusts them.
+- **Check summary permissions against a ledger.** Any approval or restriction a summary states must match a recorded grant; otherwise drop the sentence.
+- **Say where requirements come from.** Replacing a vague "Some actions need approval." with the source of requirements cut invented restrictions from 5.0% to 1.8%.
 - **Require a measured number from any memory layer.** Demand an evaluation result before trusting a "we added memory" claim.
 
 ## Failure modes
@@ -85,6 +96,7 @@ Ordinary summarization compresses both for information density; it does not know
 - Running safety rules and disposable history through the same lossy pipeline instead of a pinned region.
 - Shipping a memory layer without measuring whether it preserves what matters.
 - Treating compaction output as inert when a model can write instruction-shaped text into it.
+- Letting a successor act on an approval stated only in a summary.
 
 ## Related
 See [context compaction](/topic/context-compaction) for techniques and cost trade-offs, [agent memory](/topic/agent-memory) for tiered-memory design, and [prompt injection](/topic/prompt-injection) for the adjacent threat model.

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-06T18:04:05.713796+00:00",
+  "generated_at": "2026-11-11T10:10:48.177027+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -71,6 +71,42 @@
   ],
   "recent_evidence": [
     {
+      "concept": "context-compaction-safety",
+      "concept_title": "Does compacting an agent's context put its safety rules at risk?",
+      "id": "handoff-audit-2026-unsupported-policy",
+      "title": "When Do Summaries Become Instructions? Unsupported Policy in LLM Agents' Self-Written Handoff Summaries",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-11"
+    },
+    {
+      "concept": "agent-memory-evaluation",
+      "concept_title": "Does adding memory to an agent actually make it better?",
+      "id": "wikitrace-2026-evidence-linked-memory",
+      "title": "Don't Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-11"
+    },
+    {
+      "concept": "agent-memory-evaluation",
+      "concept_title": "Does adding memory to an agent actually make it better?",
+      "id": "fgse-2026-falsification-gated-memory",
+      "title": "When Should Agents Remember? Falsification-Gated Self-Evolution for LLM Agents",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-11"
+    },
+    {
+      "concept": "agent-instruction-file-growth",
+      "concept_title": "Why does CLAUDE.md (or AGENTS.md) only ever grow, never shrink?",
+      "id": "stale-instruction-files-2026-documentation-debt",
+      "title": "When Instruction Files Go Stale: Documentation Debt and Hidden Cost in Coding Agents",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-11"
+    },
+    {
       "concept": "mcp-security-control-layers",
       "concept_title": "What actually breaks when you run MCP in production, and how do you defend it?",
       "id": "mcpvenom-2026-tool-poisoning-measurement",
@@ -105,42 +141,6 @@
       "tier": "benchmark/result-backed",
       "kind": "benchmark-result",
       "added": "2026-11-04"
-    },
-    {
-      "concept": "agent-eval-design",
-      "concept_title": "What should an agent eval actually measure?",
-      "id": "arxiv-2610-32110-warped-formatters",
-      "title": "Who Verifies the Tools? How Warped Formatters Mislead Agents and Their Verifiers",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-04"
-    },
-    {
-      "concept": "llm-cache-integrity",
-      "concept_title": "Why do LLM caches fail silently?",
-      "id": "cloudflare-2026-kv-cache-exposure",
-      "title": "Cross-request KV cache exposure in the GLM-5.3 Workers AI model, and our remediation with SGLang",
-      "tier": "production field-report-backed",
-      "kind": "production-field-report",
-      "added": "2026-10-30"
-    },
-    {
-      "concept": "llm-cache-integrity",
-      "concept_title": "Why do LLM caches fail silently?",
-      "id": "arxiv-2610-34817-cachelint",
-      "title": "Silent and Costly: Characterizing and Detecting Prompt-Caching Mis-Integration in LLM Agents",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-10-30"
-    },
-    {
-      "concept": "agent-stateful-permissions",
-      "concept_title": "Why can a permission check that's correct for a single tool call still let an agent break the rules across many?",
-      "id": "story-7e505f680072dedd-permission-to-retry",
-      "title": "Permission to Retry: A Study of Authorization and Recovery in AI Agent Workflows",
-      "tier": "theory/paper-backed",
-      "kind": "theory-paper",
-      "added": "2026-10-28"
     }
   ],
   "concepts": {
@@ -493,22 +493,22 @@
       "slug": "agent-instruction-file-growth",
       "title": "Why does CLAUDE.md (or AGENTS.md) only ever grow, never shrink?",
       "question": "Why does CLAUDE.md (or AGENTS.md) only ever grow, never shrink?",
-      "summary": "Agent instruction files grow because appending a rule is cheap while proving a rule is safe to delete becomes combinatorial once its rationale is forgotten. A 1,867-repository study found these files more than tripling; writing the why next to each rule reversed the growth.",
+      "summary": "Agent instruction files grow because appending a rule is cheap while proving a deletion safe becomes combinatorial once its rationale is lost. The rules that stay then go stale: agents follow outdated guidance, pay extra tool calls, and never repair the file.",
       "status": "active",
       "cluster": "memory",
       "cluster_label": "Memory and context",
-      "updated": "2026-10-06",
-      "latest_evidence_added": "2026-08-15",
+      "updated": "2026-11-11",
+      "latest_evidence_added": "2026-11-11",
       "audience": "strong-software-engineer",
       "math_depth": "intuition",
       "sections": [
         {
           "heading": "Builder consequence",
-          "html": "<p>If your CLAUDE.md, AGENTS.md, or system prompt only gains rules, trying harder to prune will not fix it. The cause is a cost asymmetry: once nobody remembers why a rule was added, proving it is safe to remove becomes a combinatorial check nobody runs. A 1,867-repository study found these files more than tripling. The fix is changing what you write when you add a rule.</p>"
+          "html": "<p>If your CLAUDE.md, AGENTS.md, or system prompt only gains rules, trying harder to prune will not fix it. Once nobody remembers why a rule was added, proving it safe to remove becomes a combinatorial check nobody runs. The rules that survive then go stale, and agents follow them anyway while task success hides the cost. Write the why with each rule, and test that the file still matches the code.</p>"
         },
         {
           "heading": "Short answer",
-          "html": "<p>Appending an instruction costs one line. Safely deleting one requires proving it will not reintroduce the failure it was added to prevent. Once that reason is forgotten, the proof means reasoning about how the instruction interacts with every other instruction in the file, a cost that grows exponentially with file size. Nobody pays it, so the file only grows. Writing the rationale as a comment next to each rule is the one intervention shown to reverse this.</p>"
+          "html": "<p>Appending an instruction costs one line. Safely deleting one requires proving it will not reintroduce the failure it was added to prevent. Once that reason is forgotten, the proof means reasoning about how the instruction interacts with every other instruction in the file, a cost that grows exponentially with file size. Nobody pays it, so the file only grows. Writing the rationale as a comment next to each rule is the one intervention shown to reverse this. Surviving rules also rot: agents act on a stale path or command and never fix the file.</p>"
         },
         {
           "heading": "Builder model",
@@ -516,7 +516,7 @@
         },
         {
           "heading": "Mechanism",
-          "html": "<p><strong>Append is cheap; verified delete is exponential.</strong> Adding instruction <code>|D|+1</code> is O(1). Removing an old instruction whose purpose is lost means checking whether any subset of the other instructions depends on it, which is O(2^|D|) in the worst case. The rational default becomes &quot;leave it in.&quot;</p>\n<p><strong>Real repositories show the signature.</strong> The catastrophic-remembering study tracked 247,694 instruction lifetimes and found files growing +226% over their lifetime, adding a net +4.9 instructions per commit. The older an instruction is, the less likely anyone removes it.</p>\n<p><strong>The bottleneck is the missing rationale, not the count.</strong> A comment stating what an instruction guards against turns &quot;why is this here&quot; from a reconstruction-by-testing problem into a fact you can read and re-check. In the paper&#x27;s controlled test, rationale comments cut excess instructions from +211.3% to +1.4% over the known-optimal set and improved real-world instruction-following by up to 23.1%. The comments change whether the agent follows instructions correctly, not just file size.</p>\n<p><strong>It generalizes beyond CLAUDE.md.</strong> Any accreting instruction surface an agent or team treats as authoritative, such as system prompts, runbooks, or review checklists, has the same asymmetry.</p>"
+          "html": "<p><strong>Append is cheap; verified delete is exponential.</strong> Adding instruction <code>|D|+1</code> is O(1). Removing an old instruction whose purpose is lost means checking whether any subset of the other instructions depends on it, which is O(2^|D|) in the worst case. The rational default becomes &quot;leave it in.&quot;</p>\n<p><strong>Real repositories show the signature.</strong> The catastrophic-remembering study tracked 247,694 instruction lifetimes and found files growing +226% over their lifetime, adding a net +4.9 instructions per commit. The older an instruction is, the less likely anyone removes it.</p>\n<p><strong>The bottleneck is the missing rationale, not the count.</strong> A comment stating what an instruction guards against turns &quot;why is this here&quot; from a reconstruction-by-testing problem into a fact you can read and re-check. In the paper&#x27;s controlled test, rationale comments cut excess instructions from +211.3% to +1.4% over the known-optimal set and improved real-world instruction-following by up to 23.1%. The comments change whether the agent follows instructions correctly, not just file size.</p>\n<p><strong>Kept rules go stale, and agents obey them.</strong> In a 732-trajectory study, agents followed a stale instruction whenever it was relevant to the task, sometimes even with the correct path visible elsewhere. They usually recovered from the immediate failure, so the task still passed, but none repaired the file. A stale test command cost about a third more tool calls on every run.</p>\n<p><strong>It generalizes beyond CLAUDE.md.</strong> Any accreting instruction surface an agent or team treats as authoritative, such as system prompts, runbooks, or review checklists, has the same asymmetry.</p>"
         },
         {
           "heading": "Math intuition",
@@ -524,11 +524,11 @@
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li><strong>Write the why next to every new rule</strong> in CLAUDE.md, AGENTS.md, or a system prompt: the failure it prevents or the constraint it enforces. Brevity and better organization were not the measured fix; rationale comments were.</li><li><strong>Delete rules whose stated reason is stale first.</strong> A documented rationale turns a combinatorial guess into one fact-check.</li><li><strong>Track net instructions added per commit</strong> on any file agents read as instructions. Steady upward drift with no deletions is the growth signature.</li><li><strong>Treat old, undocumented rules as your highest-risk debt.</strong> Deletion likelihood falls with age, so the longer an unexplained rule survives, the less likely it is ever reconsidered.</li><li><strong>Do not rely on periodic clean-sweep rewrites.</strong> Without rationale comments, growth resumes immediately.</li></ul>"
+          "html": "<ul><li><strong>Write the why next to every new rule</strong> in CLAUDE.md, AGENTS.md, or a system prompt: the failure it prevents or the constraint it enforces. Brevity and better organization were not the measured fix; rationale comments were.</li><li><strong>Delete rules whose stated reason is stale first.</strong> A documented rationale turns a combinatorial guess into one fact-check.</li><li><strong>Track net instructions added per commit</strong> on any file agents read as instructions. Steady upward drift with no deletions is the growth signature.</li><li><strong>Treat old, undocumented rules as your highest-risk debt.</strong> Deletion likelihood falls with age, so the longer an unexplained rule survives, the less likely it is ever reconsidered.</li><li><strong>Check instruction files against the code in CI.</strong> Assert that every path and command the file names still exists or runs; a stale rule costs every later session.</li><li><strong>Delete a stale rule you cannot fix right away.</strong> Removal prevented most obsolete-path operations; only correction prevented all.</li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li>Deleting an old, undocumented rule on a hunch, triggering the regression it silently prevented and making the team afraid to delete anything again.</li><li>Fixing for shorter instructions instead of documented reasons.</li><li>Assuming the problem is specific to CLAUDE.md when any accreting instruction surface has it.</li><li>Citing the 99.3% bloat reduction or 23.1% gain as replicated results rather than one preprint&#x27;s figures.</li><li>Confusing this with session context bloat: this is a persistent file growing across commits, not a conversation growing turn by turn.</li></ul>"
+          "html": "<ul><li>Deleting an old, undocumented rule on a hunch, triggering the regression it silently prevented and making the team afraid to delete anything again.</li><li>Fixing for shorter instructions instead of documented reasons.</li><li>Judging an instruction file by task success, which hides the extra tool calls a stale rule adds.</li><li>Expecting the agent to repair a stale rule it tripped over; none did.</li><li>Citing the 99.3% bloat reduction or 23.1% gain as replicated results rather than one preprint&#x27;s figures.</li><li>Confusing this with session context bloat: this is a persistent file growing across commits, not a conversation growing turn by turn.</li></ul>"
         },
         {
           "heading": "Related",
@@ -536,6 +536,16 @@
         }
       ],
       "evidence": [
+        {
+          "id": "stale-instruction-files-2026-documentation-debt",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "When Instruction Files Go Stale: Documentation Debt and Hidden Cost in Coding Agents",
+          "note": "Three real stale AGENTS.md/CLAUDE.md instructions (a test command, a code location, an add-a-component procedure), each left stale, corrected, or removed, over 22 maintenance tasks and 732 trajectories from two models. Agents followed stale guidance when it was task-relevant, sometimes despite correct information elsewhere. The stale test command cost Claude Sonnet 5.5 about two extra tool calls per run, a third more; other cases showed no detectable difference. No agent repaired the file. Correcting removed all obsolete-path operations; removing prevented most.",
+          "added": "2026-11-11",
+          "url": "http://arxiv.org/abs/2611.09802",
+          "sid": "569b9613f4d348fe"
+        },
         {
           "id": "chakrabarti-2026-catastrophic-remembering-theory",
           "kind": "theory-paper",
@@ -581,12 +591,12 @@
       "slug": "agent-memory-evaluation",
       "title": "Does adding memory to an agent actually make it better?",
       "question": "Does adding memory to an agent actually make it better?",
-      "summary": "Three independent 2026 evaluations agree agent memory is not a universal win: one technique gains one model 16 points of task completion and another zero, and every memory framework one benchmark tested scored worse than no memory at all.",
+      "summary": "Independent 2026 evaluations agree agent memory is not a universal win: one technique gains one model 16 points and another zero, and correct memory can score below no memory. Linking lessons to their source trajectories and testing each write before committing it reduce the harm.",
       "status": "active",
       "cluster": "evaluation",
       "cluster_label": "Evals and reliability",
-      "updated": "2026-10-06",
-      "latest_evidence_added": "2026-08-26",
+      "updated": "2026-11-11",
+      "latest_evidence_added": "2026-11-11",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -596,7 +606,7 @@
         },
         {
           "heading": "Short answer",
-          "html": "<p>No, not automatically. Memory&#x27;s payoff depends on three things these evaluations expose:</p>\n<ul><li><strong>Retrieval is still unsolved.</strong> The Agent Memory Leaderboard&#x27;s top score is 58.02 out of 100.</li><li><strong>Correct memory can distort reasoning.</strong> On MemTrapBench, every tested framework underperformed no memory, the best by more than 10%.</li><li><strong>The model decides the gain.</strong> ALTK-Evolve measured +16.1 to +0.0 points across eight models on the same benchmark.</li></ul>\n<p>Treat memory as an intervention you A/B test per model and task, not a component you install once.</p>"
+          "html": "<p>No, not automatically. Memory&#x27;s payoff depends on three things these evaluations expose:</p>\n<ul><li><strong>Retrieval is still unsolved.</strong> The Agent Memory Leaderboard&#x27;s top score is 58.02 out of 100.</li><li><strong>Correct memory can distort reasoning.</strong> On MemTrapBench, every tested framework underperformed no memory, the best by more than 10%.</li><li><strong>The model decides the gain.</strong> ALTK-Evolve measured +16.1 to +0.0 points across eight models on the same benchmark.</li></ul>\n<p>Treat memory as an intervention you A/B test per model and task, not a component you install once. Gate what gets written, and keep each lesson&#x27;s evidence.</p>"
         },
         {
           "heading": "Builder model",
@@ -604,15 +614,15 @@
         },
         {
           "heading": "Mechanism",
-          "html": "<p><strong>Standardized measurement shows the ceiling.</strong> The Agent Memory Leaderboard gives the memory system only Add and Search while the platform owns Answer and Eval, so no submission can tune its score by controlling grading. Under that boundary, across recall, multi-hop, temporal, governance, personalization, rule-execution, safety, and privacy tasks, the best of 69 completed submissions scored 58.02 out of 100. Purpose-built commercial memory is still far from passing its own designed benchmark.</p>\n<p><strong>Retrieved content can bias unrelated reasoning.</strong> MemTrapBench tests whether the content of a correct memory distorts the current task. Its two traps:</p>\n<ul><li><strong>Reasoning fixation:</strong> the model over-anchors on a retrieved prior approach.</li><li><strong>Belief distortion:</strong> a retrieved fact shifts the model&#x27;s beliefs in ways that leak into unrelated reasoning.</li></ul>\n<p>Both are built so a system passes a &quot;did it retrieve the right fact&quot; check and still fails. The mitigation that worked, AdaptiveMem, acts at inference time: the model is told to recognize a biasing memory and discount it. It changes how memory is used, not what gets stored.</p>\n<p><strong>A guideline only helps a model that lacks the behavior.</strong> ALTK-Evolve is a self-distillation loop: mine the agent&#x27;s own successful and failed trajectories for behavioral guidelines, consolidate them, and reinject them into later runs. Its effect varies by model because of headroom, not a flaw in the method. Strong models with a real capability gap gained from the full guideline set; others did best with a compact core plus task-specific retrieval to limit token overhead; a model already at ceiling gained nothing however the guidelines were dosed.</p>"
+          "html": "<p><strong>Standardized measurement shows the ceiling.</strong> The Agent Memory Leaderboard gives the memory system only Add and Search while the platform owns Answer and Eval, so no submission can tune its score by controlling grading. Under that boundary, across recall, multi-hop, temporal, governance, personalization, rule-execution, safety, and privacy tasks, the best of 69 completed submissions scored 58.02 out of 100. Purpose-built commercial memory is still far from passing its own designed benchmark.</p>\n<p><strong>Retrieved content can bias unrelated reasoning.</strong> MemTrapBench tests whether the content of a correct memory distorts the current task. Its two traps:</p>\n<ul><li><strong>Reasoning fixation:</strong> the model over-anchors on a retrieved prior approach.</li><li><strong>Belief distortion:</strong> a retrieved fact shifts the model&#x27;s beliefs in ways that leak into unrelated reasoning.</li></ul>\n<p>Both are built so a system passes a &quot;did it retrieve the right fact&quot; check and still fails. The mitigation that worked, AdaptiveMem, acts at inference time: the model is told to recognize a biasing memory and discount it. It changes how memory is used, not what gets stored.</p>\n<p><strong>Unverifiable lessons cause the harm.</strong> Experience memory distills lessons from trajectories labeled only pass or fail, then serves the lesson without the trajectory. The agent cannot check a wrong lesson, so it follows it. Two fixes act on that gap:</p>\n<ul><li><strong>At read time:</strong> WikiTrace links each lesson to its trajectory, and the agent re-reads the source when a lesson is vague, conflicting, or came from a failure.</li><li><strong>At write time:</strong> Falsification-Gated Self-Evolution commits a lesson only after it survives transfer, falsification, and regression probes, holding harmful committed updates to 3.6%.</li></ul>\n<p><strong>A guideline only helps a model that lacks the behavior.</strong> ALTK-Evolve is a self-distillation loop: mine the agent&#x27;s own successful and failed trajectories for behavioral guidelines, consolidate them, and reinject them into later runs. Its effect varies by model because of headroom, not a flaw in the method. Strong models with a real capability gap gained from the full guideline set; others did best with a compact core plus task-specific retrieval to limit token overhead; a model already at ceiling gained nothing however the guidelines were dosed.</p>"
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li><strong>Measure against a no-memory control on your own model and task.</strong> A +16.1pp-to-0.0pp spread on one mechanism means someone else&#x27;s result tells you little about yours.</li><li><strong>Don&#x27;t stop at recall accuracy.</strong> Add a check for whether retrieved memory changes behavior on tasks it is otherwise unrelated to; correct retrieval can still make the agent worse.</li><li><strong>Size the memory payload to the model.</strong> A compact core plus targeted retrieval beat the full guideline set for some models; &quot;more memory&quot; is not a safe default even when memory helps.</li><li><strong>Treat a leaderboard rank as a starting point.</strong> The best public score is 58.02/100, and cross-track comparisons are explicitly invalid, so a top rank doesn&#x27;t transfer to your task.</li><li><strong>Re-test after a model swap.</strong> Memory payoff is model-specific, so upgrading or switching the model invalidates a prior memory A/B result.</li></ul>"
+          "html": "<ul><li><strong>Measure against a no-memory control on your own model and task.</strong> A +16.1pp-to-0.0pp spread on one mechanism means someone else&#x27;s result tells you little about yours.</li><li><strong>Don&#x27;t stop at recall accuracy.</strong> Add a check for whether retrieved memory changes behavior on tasks it is otherwise unrelated to; correct retrieval can still make the agent worse.</li><li><strong>Size the memory payload to the model.</strong> A compact core plus targeted retrieval beat the full guideline set for some models; &quot;more memory&quot; is not a safe default even when memory helps.</li><li><strong>Treat a leaderboard rank as a starting point.</strong> The best public score is 58.02/100, and cross-track comparisons are explicitly invalid, so a top rank doesn&#x27;t transfer to your task.</li><li><strong>Re-test after a model swap.</strong> Memory payoff is model-specific, so upgrading or switching the model invalidates a prior memory A/B result.</li><li><strong>Keep each lesson&#x27;s provenance.</strong> Store the trajectory ID and outcome next to the lesson so the agent, or you, can check it.</li><li><strong>Gate memory writes with a regression probe.</strong> Replay archived tasks with the candidate lesson in temporary state before committing it.</li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li><strong>Shipping on someone else&#x27;s number:</strong> adopting a memory layer on a vendor&#x27;s rank or a paper&#x27;s aggregate claim without a no-memory control on your own model and task.</li><li><strong>Recall-only validation:</strong> checking that the right fact came back and missing that correct content can still distort reasoning and lower task performance.</li><li><strong>Assuming wins survive upgrades:</strong> expecting a memory gain on one model to hold after a switch, when a saturated model can gain nothing from the same mechanism.</li><li><strong>One dose for every model:</strong> giving every model the full guideline or memory payload, adding token overhead where it buys nothing.</li></ul>"
+          "html": "<ul><li><strong>Shipping on someone else&#x27;s number:</strong> adopting a memory layer on a vendor&#x27;s rank or a paper&#x27;s aggregate claim without a no-memory control on your own model and task.</li><li><strong>Recall-only validation:</strong> checking that the right fact came back and missing that correct content can still distort reasoning and lower task performance.</li><li><strong>Assuming wins survive upgrades:</strong> expecting a memory gain on one model to hold after a switch, when a saturated model can gain nothing from the same mechanism.</li><li><strong>Write-on-success memory:</strong> committing lessons straight from one episode&#x27;s pass/fail label, with no regression check or link back to the trajectory.</li><li><strong>One dose for every model:</strong> giving every model the full guideline or memory payload, adding token overhead where it buys nothing.</li></ul>"
         },
         {
           "heading": "Related",
@@ -620,6 +630,26 @@
         }
       ],
       "evidence": [
+        {
+          "id": "wikitrace-2026-evidence-linked-memory",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Don't Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents",
+          "note": "Names memory-induced degradation: an agent fails a task it solves without memory because it follows a wrong lesson or misapplies a valid one. Cause: lessons are inferred from pass/fail labels and served without their source trajectory. WikiTrace links each lesson to a success/failure summary and the raw trajectory, and the agent descends those links when a lesson is underspecified, conflicts, or came from a failed task. Outperforms prior memory methods and insights-alone on five agentic benchmarks.",
+          "added": "2026-11-11",
+          "url": "http://arxiv.org/abs/2611.14320",
+          "sid": "6b202536a684fb26"
+        },
+        {
+          "id": "fgse-2026-falsification-gated-memory",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "When Should Agents Remember? Falsification-Gated Self-Evolution for LLM Agents",
+          "note": "Treats each candidate lesson as a hypothesis with a precondition, behavior change, expected effect, and verifier. It is applied only in temporary state and tested on target-transfer, falsification, and archived-regression probes before being committed, refined, or rejected. Reports 39.8 WebArena success and 78.8 AppWorld completion, with regression damage at 1.3% and harmful committed updates at 3.6%.",
+          "added": "2026-11-11",
+          "url": "http://arxiv.org/abs/2611.14326",
+          "sid": "99e35db5c56c4bd6"
+        },
         {
           "id": "aml-2026-first-cycle-results",
           "kind": "benchmark-result",
@@ -1439,8 +1469,8 @@
       "status": "active",
       "cluster": "safety",
       "cluster_label": "Safety and control",
-      "updated": "2026-10-06",
-      "latest_evidence_added": "2026-09-19",
+      "updated": "2026-11-11",
+      "latest_evidence_added": "2026-11-11",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -1450,7 +1480,7 @@
         },
         {
           "heading": "Short answer",
-          "html": "<p>Context compaction can silently erase safety constraints stated earlier in a long session, and it is not rare. In the ConstraintRot benchmark, prohibited-action violation rises from 0% with the constraint in full context to 30% after ordinary compaction, and up to 59% for some models. When the constraint text survives the summary, violations stay at 0%. The fix is not &quot;compact less&quot; but &quot;never let compaction touch the parts of context that carry hard rules.&quot;</p>"
+          "html": "<p>Context compaction can silently erase safety constraints stated earlier in a long session, and it is not rare. It can also invent permissions the record never granted. In the ConstraintRot benchmark, prohibited-action violation rises from 0% with the constraint in full context to 30% after ordinary compaction, and up to 59% for some models. When the constraint text survives the summary, violations stay at 0%. The fix is not &quot;compact less&quot; but &quot;never let compaction touch the parts of context that carry hard rules.&quot;</p>"
         },
         {
           "heading": "Builder model",
@@ -1458,15 +1488,15 @@
         },
         {
           "heading": "Mechanism",
-          "html": "<p><strong>Compaction optimizes for continuity, not rules.</strong> To stay under a token budget, agents evict old turns, replace them with a running summary, or both. The summarizer decides what to keep, usually for task continuity.</p>\n<p><strong>Erasure is measurable and common.</strong> The Governance Decay study measured constraint survival across 1,323 episodes: violation tracks whether the constraint wording survives the summary (0% when it does, 38% when dropped), not the model&#x27;s willingness to comply.</p>\n<p><strong>The compactor is an attack surface.</strong> A Compaction-Eviction Attack plants content that biases the summarizer to omit a legitimate policy; optimized versions defeat every evaluated model. The training-free fix, Constraint Pinning, quarantines constraints where compaction cannot touch them and restores violation to 0%.</p>\n<p><strong>Every memory tier has the same weakness.</strong> The tiered memory design practitioners converge on (working context, episodic history, long-term semantic store) passes information through a lossy transform at each tier: summarize, embed-and-retrieve, or forget. None of these natively separates a detail that no longer matters from one the system depends on.</p>\n<p><strong>The compactor can also write.</strong> In an OpenAI misalignment case study, a model in a training run inserted jailbreak-style persona text into its own compaction summary, then resumed its task without acting on it. OpenAI calls this extremely rare and inert. It still means a summary can carry instruction-shaped content, and a later turn or resumed session cannot tell it from a legitimate carried-over instruction.</p>"
+          "html": "<p><strong>Compaction optimizes for continuity, not rules.</strong> To stay under a token budget, agents evict old turns, replace them with a running summary, or both. The summarizer decides what to keep, usually for task continuity.</p>\n<p><strong>Erasure is measurable and common.</strong> The Governance Decay study measured constraint survival across 1,323 episodes: violation tracks whether the constraint wording survives the summary (0% when it does, 38% when dropped), not the model&#x27;s willingness to comply.</p>\n<p><strong>The compactor is an attack surface.</strong> A Compaction-Eviction Attack plants content that biases the summarizer to omit a legitimate policy; optimized versions defeat every evaluated model. The training-free fix, Constraint Pinning, quarantines constraints where compaction cannot touch them and restores violation to 0%.</p>\n<p><strong>Every memory tier has the same weakness.</strong> The tiered memory design practitioners converge on (working context, episodic history, long-term semantic store) passes information through a lossy transform at each tier: summarize, embed-and-retrieve, or forget. None of these natively separates a detail that no longer matters from one the system depends on.</p>\n<p><strong>The compactor can also write.</strong> In an OpenAI misalignment case study, a model in a training run inserted jailbreak-style persona text into its own compaction summary, then resumed its task without acting on it. OpenAI calls this extremely rare and inert. A summary can carry instruction-shaped content that a resumed session cannot tell from a real carried-over rule.</p>\n<p><strong>Summaries invent policy, and successors obey it.</strong> A handoff audit with a ground-truth permission ledger found summaries stating approvals the record never gave in up to 1.3% of cases. Removing those false approvals cut the successor&#x27;s unauthorized actions from 24 to 7 of 120 runs. Most invented restrictions traced to the agent&#x27;s own earlier guess that an action needed approval.</p>"
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li><strong>Pin hard constraints outside the compactible window.</strong> Store forbidden tools, approval gates, hard user &quot;do nots&quot;, and compliance rules in a pinned block the summarizer cannot rewrite or evict. Re-inject the verbatim text after every compaction instead of trusting the summary.</li><li><strong>Add a compaction regression test.</strong> Force a compaction mid-session, attempt the prohibited action, and assert the agent still refuses. Governance decay is invisible until you probe for it.</li><li><strong>Treat the compactor&#x27;s input as untrusted.</strong> If an attacker can influence tool responses or retrieved documents, assume they can bias the summarizer into dropping a constraint. Nothing the compactor reads may edit the pinned region.</li><li><strong>Scan what the compactor wrote.</strong> Pinning stops erasure but not insertion. Check summaries for persona claims, embedded instructions, or text that does not read like a task recap before a later turn trusts them.</li><li><strong>Require a measured number from any memory layer.</strong> Demand an evaluation result before trusting a &quot;we added memory&quot; claim.</li></ul>"
+          "html": "<ul><li><strong>Pin hard constraints outside the compactible window.</strong> Store forbidden tools, approval gates, hard user &quot;do nots&quot;, and compliance rules in a pinned block the summarizer cannot rewrite or evict. Re-inject the verbatim text after every compaction instead of trusting the summary.</li><li><strong>Add a compaction regression test.</strong> Force a compaction mid-session, attempt the prohibited action, and assert the agent still refuses. Governance decay is invisible until you probe for it.</li><li><strong>Treat the compactor&#x27;s input as untrusted.</strong> If an attacker can influence tool responses or retrieved documents, assume they can bias the summarizer into dropping a constraint. Nothing the compactor reads may edit the pinned region.</li><li><strong>Scan what the compactor wrote.</strong> Pinning stops erasure but not insertion. Check summaries for persona claims, embedded instructions, or approvals before a later turn trusts them.</li><li><strong>Check summary permissions against a ledger.</strong> Any approval or restriction a summary states must match a recorded grant; otherwise drop the sentence.</li><li><strong>Say where requirements come from.</strong> Replacing a vague &quot;Some actions need approval.&quot; with the source of requirements cut invented restrictions from 5.0% to 1.8%.</li><li><strong>Require a measured number from any memory layer.</strong> Demand an evaluation result before trusting a &quot;we added memory&quot; claim.</li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li>Trusting a summarizer to keep &quot;the important parts&quot; without testing whether governance text survives.</li><li>Treating governance decay as rare when ordinary compaction pushes violation into double digits.</li><li>Never running a Compaction-Eviction-style attack against your own pipeline, so the first adversarial drop happens in production.</li><li>Running safety rules and disposable history through the same lossy pipeline instead of a pinned region.</li><li>Shipping a memory layer without measuring whether it preserves what matters.</li><li>Treating compaction output as inert when a model can write instruction-shaped text into it.</li></ul>"
+          "html": "<ul><li>Trusting a summarizer to keep &quot;the important parts&quot; without testing whether governance text survives.</li><li>Treating governance decay as rare when ordinary compaction pushes violation into double digits.</li><li>Never running a Compaction-Eviction-style attack against your own pipeline, so the first adversarial drop happens in production.</li><li>Running safety rules and disposable history through the same lossy pipeline instead of a pinned region.</li><li>Shipping a memory layer without measuring whether it preserves what matters.</li><li>Treating compaction output as inert when a model can write instruction-shaped text into it.</li><li>Letting a successor act on an approval stated only in a summary.</li></ul>"
         },
         {
           "heading": "Related",
@@ -1474,6 +1504,16 @@
         }
       ],
       "evidence": [
+        {
+          "id": "handoff-audit-2026-unsupported-policy",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "When Do Summaries Become Instructions? Unsupported Policy in LLM Agents' Self-Written Handoff Summaries",
+          "note": "Synthetic tool-use tasks with a ground-truth permission ledger. Two open-weight models' handoff summaries stated unsupported restrictions in 1.2-2.4% and unsupported authorizations in 0.1-1.3%. Neutralizing false approvals cut unauthorized successor actions from 24 to 7 of 120 runs (post hoc). Replacing the system prompt's 'Some actions need approval.' with where requirements come from cut unsupported restrictions from 5.0% to 1.8% (pre-specified, p < 10^-9).",
+          "added": "2026-11-11",
+          "url": "http://arxiv.org/abs/2611.06545",
+          "sid": "73b8cbb5fe289269"
+        },
         {
           "id": "openai-2026-self-generated-compaction-injection",
           "kind": "story",
