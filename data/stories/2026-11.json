@@ -6053,6 +6053,19 @@
   "url": "http://arxiv.org/abs/2611.08647v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "78d158c9c83b2617": {
+  "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. Our usual bar for making a fundraise a title story these days is a decacorn ($10B) valuation. We missed Mercor’s $10B Series C last year when it had less than $500m in revenue, but knew we wouldn’t have to wait too long til the next round, since it crossed $1B in Feb and $2B in June , it has now hit $3B annualized, surviving hacks : The company reports 5 million experts, and their TAM: “In the United States alone, there are more than 800 distinct occupations, each containing workflows that models have yet to be evaluated against.” We’re seeing the impact of AI investment in our business. We already spend 3x as much on inference as on employee salaries, and it pays for itself by making our team better at their jobs . If that ratio holds as AI spreads through the rest of the economy, it points to something closer to double-digit GDP growth over the next five years, nearly 3x the rate we’re used to. We have yet to do a Mercor pod (will work on it!) but to better understand a data vendor business, you can look at our recent deep dive with Handshake AI , one of their competitors: AI News for 11/09/2026-11/10/2026. We checked 12 subreddits, 544 Twitters and no",
+  "first_seen": "2026-11-11T10:04:51.201841+00:00",
+  "id": "e7b9497fabea1f8b",
+  "published": "2026-11-11T09:34:28+00:00",
+  "sid": "78d158c9c83b2617",
+  "source": "latent_space",
+  "summary": "November 10, 2026 — Google GA's Gemini 4 Carbon.",
+  "summary_1line": "November 10, 2026 — Google GA's Gemini 4 Carbon.",
+  "title": "[AINews] Mercor $750m Series D at $20B valuation, $3B run rate",
+  "type": "news",
+  "url": "https://latent.space/p/ainews-mercor-750m-series-d-at-20b-valuation-3b-run-rate"
+ },
  "7923128b87795738": {
   "first_seen": "2026-11-11T00:09:42.029607+00:00",
   "id": "ef553573f2424765",
@@ -10017,6 +10030,22 @@
   "type": "news",
   "url": "https://www.llamaindex.ai/blog/the-inference-stack-behind-ocria"
  },
+ "ca0cd6bcfdb70098": {
+  "first_seen": "2026-11-11T10:04:51.201841+00:00",
+  "id": "05f0efb4ac81a2cb",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-10T17:40:24+00:00",
+  "sid": "ca0cd6bcfdb70098",
+  "source": "arxiv_cs_cl",
+  "summary": "Diffusion Language Models (DLMs) have emerged as effective alternatives to autoregressive models for latency-critical tasks, enabling faster token generation. Recent advances employ block diffusion with self-editing capabilities, where each block refines tokens iteratively before advancing to the next one. Yet each block is only as fast as its slowest token, and the next block cannot start before it. We suggest Blurring the Block Boundaries (B3), a novel method with which two blocks are refined in parallel within a shared forward pass. B3 calibrates itself on the fly, opening the next block only once the model is ready to start generating it. It is a training-free and hyperparameter-free acceleration method which seamlessly integrates within any self-editing block diffusion model. Evaluated on state-of-the-art DLMs across 10 diverse datasets spanning varied tasks and difficulty levels, B3 results in on par generation quality and 11.5-14.5% speedup compared to the base model, pushing the Pareto frontier for latency-quality trade-offs in DLM inference.",
+  "summary_1line": "Diffusion Language Models (DLMs) have emerged as effective alternatives to autoregressive models for latency-critical tasks, enabling faster token generation. Recent advances employ block diffusion with self-editing c...",
+  "title": "Blurring the Block Boundaries: Overlapping Block Denoising for Efficient Diffusion Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14387v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "ca0e64849a03e122": {
   "content_excerpt": "Autonomous agents with shell access have superpowers, and a big attack surface. What this week’s Firecracker escape shows about VM boundaries, and how to set one that holds for tomorrow’s bug. An autonomous agent with a shell has superpowers. It installs packages, runs scripts, opens connections and fixes its own mistakes, without waiting for anyone. Nobody reviews each command. That’s the point. It’s also a big attack surface: every command it chooses, every package it pulls, every script a web page talks it into. So I run every agent in its own VM. This week, a guest VM got root on its host anyway. The first step was telling the host kernel where to write a checksum . The write-up , published on 7 November, targets Firecracker. I read it with one question: could this happen in Koala? Every network packet carries a checksum. Computing it costs CPU, so virtio lets the guest hand that job to the host: “the checksum starts here, write it there.” That shortcut is an offload , and it’s on by default in most fast VM networking. The kernel fix landed upstream on 14 October 2026. The bug gets patched. The pattern stays. The attack needs guest packets to reach the host kernel’s network stack with the hints attached. TAP and vhost-net, the usual fast paths, do exactly that. Koala uses neither. A virtio device and the guest agree on features at boot. Koala’s network device offers only two that reach the guest: a MAC address and modern virtio. No offloads, so the guest can’t even send t",
   "first_seen": "2026-11-09T14:05:43.393874+00:00",
@@ -11690,6 +11719,19 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08428v1",
   "why_it_matters": "Matches feed focus: agentic, harness, eval."
+ },
+ "ede6a9e6d61f7fb8": {
+  "content_excerpt": "Multimodal inference adds an encoding stage before language-model execution. Images, video frames, and audio must be processed into embeddings before the language model can use them. The demand on this stage varies with media size, modality, and request mix, and can change independently of prefill and decode demand. Encoder / Prefill / Decode (EPD) disaggregation separates these stages into independently deployed vLLM instances. Recent work in the vLLM community has expanded EPD across model execution, remote embedding transfer, shared caching, multimodal input handling, and request routing. DeepSeek's inference deployment Q&A describes an E/P/D architecture with a separately deployed vision encoder. vLLM has supported encoder disaggregation since our December 2025 architecture post , and continues to improve that support. vLLM main now also supports metadata-only EPD for DeepSeek V4.1 Flash. This post explains the engineering behind that progress, with a focus on five changes: The EPD tracker links the ongoing work. The core vLLM capabilities described below, including MiMo and XPU support, are included in vLLM v0.32.0. DeepSeek V4.1 Flash metadata-only support is available on main through #62802 . The vLLM Router and SMG integrations below use their respective main branches. EPD supports two deployment patterns: E+PD , with a separate encoder and a combined prefill/decode instance, and E/P/D , with all three stages deployed separately. Figure 1. E+PD separates encoding from",
+  "first_seen": "2026-11-11T10:04:51.201841+00:00",
+  "id": "1e8d0c71a5c14be9",
+  "published": "2026-11-11T00:00:00+00:00",
+  "sid": "ede6a9e6d61f7fb8",
+  "source": "vllm_blog",
+  "summary": "Recent advances in vLLM encoder disaggregation: metadata-only multimodal requests, dedicated encoder execution, remote embedding transfer, cross-encoder caching, and lower-overhead EPD routing.",
+  "summary_1line": "Recent advances in vLLM encoder disaggregation: metadata-only multimodal requests, dedicated encoder execution, remote embedding transfer, cross-encoder caching, and lower-overhead EPD routing.",
+  "title": "Encoder Disaggregation in vLLM: Scaling Multimodal Serving with EPD",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-11-11-encoder-disaggregation-epd"
  },
  "ef1ec6a63d1a78aa": {
   "first_seen": "2026-11-09T11:04:45.629576+00:00",
