@@ -1044,6 +1044,7 @@
   "published": "2026-11-11T00:00:00+00:00",
   "sid": "11568aa8dfcf9a3c",
   "source": "huggingface_blog",
+  "summary_1line": "Token Pooling-Aware Training for Multi-Vector Embedding Models",
   "title": "Token Pooling-Aware Training for Multi-Vector Embedding Models",
   "type": "research",
   "url": "https://huggingface.co/blog/token-pooling"
@@ -1673,6 +1674,22 @@
   "url": "https://simonwillison.net/2026/Nov/9/mysterious-beeps",
   "why_it_matters": "Matches feed focus: agent, evaluation, claude code."
  },
+ "1cd37d39d82ad148": {
+  "first_seen": "2026-11-11T23:06:29.744326+00:00",
+  "id": "2fe3ec9ae02edb92",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-10T17:59:28+00:00",
+  "sid": "1cd37d39d82ad148",
+  "source": "arxiv_cs_cl",
+  "summary": "Streaming speech recognizers output a word only after the speaker has finished it, typically 90-400 ms later. For a voice agent every millisecond counts: the sooner the words are outputted, the sooner the agent can start a search or plan its reply. We present Earlybird, a 29M-parameter streaming recognizer (16.8 MB at 4 bits). Earlybird learns from audio cut off at random points, including partway through a word, and is asked to predict every word that is due by then in full, plus a guess of the next two words. Its raw token probabilities give a confidence for every word including the one still being spoken. On clean audiobook speech (LibriSpeech test-clean), the median word is predicted correctly 90 ms before the speaker finishes it, while released streaming models get it 90 to 400 ms after it ends. Earlybird is the earliest on all six test sets we time, covering audiobooks, TED talks, public speech, earnings calls, and synthetic speech. On the same audiobooks, 69% of words are predicted correctly before they end, against 3-25% for the other models. For words still being spoken, confidence is calibrated, with an expected calibration error (ECE) of 3.7 to 5.5. On the eight English Open ASR Leaderboard sets, it is more accurate than Moonshine Tiny on every set and roughly ties Whistle, a model of the same size.",
+  "summary_1line": "Streaming speech recognizers output a word only after the speaker has finished it, typically 90-400 ms later. For a voice agent every millisecond counts: the sooner the words are outputted, the sooner the agent can st...",
+  "title": "Earlybird: Predictive Streaming Speech Recognition in 29M Parameters",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14421v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "1cff1239c8922e03": {
   "content_excerpt": "NVIDIA Nemotron 3.5 Super VL is now available in Amazon SageMaker JumpStart | Artificial Intelligence Skip to Main Content Filter: All English Contact us AWS Marketplace Support My account re:Invent Discover AWS Products Solutions Pricing Resources Search Filter: All Sign in to console Create account Explore topics re:Invent 2026 The sessions are set and your seat is waiting. Register now Build & Deploy AI Agents 88% of agent pilots stall. Learn what the rest do differently Get started Sign up free, connect your coding agent, and start building Data for agentic AI The 7 essential data capabilities to scale agentic AI Analyst Report AWS named a Leader in the 2026 Gartner Magic Quadrant for SCPS AI for Small Businesses Solutions designed for your business. Delivered by AWS Partners News & announcements AWS blog About AWS AWS is the world's most comprehensive cloud, enabling organizations to accelerate innovation, reduce costs, and scale more efficiently Why AWS Getting Started Security Compliance Trust Center Sustainability Our Impact Global Infrastructure Careers Featured Products Analytics Application Integration Artificial Intelligence Business Applications Compute Customer Experience Databases Developer Tools End User Computing Game Tech Management Tools Media Services Migration & Modernization Multicloud & Hybrid Networking & Content Delivery Operations Security & Identity Storage Supply Chain Browse all products Transformation Hubs Migrate to modernize → Modernize to unlo",
   "first_seen": "2026-11-09T20:04:06.275319+00:00",
@@ -2029,6 +2046,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03406v1",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "241fc9f7d029e500": {
+  "first_seen": "2026-11-11T23:06:29.744326+00:00",
+  "id": "38b471313cb55bfc",
+  "published": "2026-11-10T17:53:44+00:00",
+  "sid": "241fc9f7d029e500",
+  "source": "arxiv_cs_cl",
+  "summary": "Local language models can save memory by storing weights in fewer bits, and they can reduce sensitivity to the order of answer options by averaging a few reorderings. We ask whether the first makes the second worse, and which is the cheaper way to spend a fixed budget. On Qwen3-0.6B and Qwen3-1.7B with simulated round-to-nearest weight quantization (8, 6, 4 and 3 bits, fp16 reference), read from the logits of the letters A to D on ARC-Easy, ARC-Challenge, MMLU and HellaSwag (300 items each), 6 bits lose no accuracy against fp16 (they score +1.8 (+1.0 to +2.5) and +0.9 (+0.3 to +1.5) points higher, which we do not explain), and 8 bits change it by -0.7 (-1.1 to -0.3) and -0.4 (-0.7 to -0.2) points. At 4 bits the answer-slot skew rises from 0.15 to 0.53 (0.6B) and from 0.07 to 0.12 (1.7B); Gaussian noise at the same weight SNR gives 0.15 and 0.37 (two draws) and 0.19 (one draw), so the control is inconclusive on whether rounding adds slot skew beyond equal-power noise. Flip rates rise but stay below an accuracy-matched baseline of independent uniform errors. Averaging four cyclic orders recovers +12.6 points at 4 bits for 0.6B (+5.3 at fp16). We price bits and passes in one machine-independent unit, weight bytes read times passes. In cost-matched pairs, extra orders beat extra bits only when the weights have 6 or more bits, and the decision table reduces to: use 6-bit weights and spend the rest of the budget on up to four orders, one pass each. Everything is simulated on two sm",
+  "summary_1line": "Local language models can save memory by storing weights in fewer bits, and they can reduce sensitivity to the order of answer options by averaging a few reorderings. We ask whether the first makes the second worse, a...",
+  "title": "Bits or permutations? Spending a fixed inference budget on weight precision or on option-order averaging in small local language models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14413v1"
  },
  "24ae260dedf8a745": {
   "first_seen": "2026-11-10T14:05:41.419296+00:00",
@@ -5163,6 +5192,22 @@
   "url": "http://arxiv.org/abs/2611.08452v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "5ddb49a19fc35296": {
+  "first_seen": "2026-11-11T23:06:29.744326+00:00",
+  "id": "b3b21b5eb17f7d5b",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-10T16:09:44+00:00",
+  "sid": "5ddb49a19fc35296",
+  "source": "arxiv_cs_lg",
+  "summary": "Fault diagnosis in complex systems requires linking observed changes in physical quantities to the failure mechanisms that produce them. Experienced engineers perform this task by combining sensor information with knowledge of system behavior and fault propagation. Large Language Models (LLMs) can support this process, but their diagnostic reasoning depends on the availability of asset-specific engineering knowledge and on how this knowledge is represented and used during inference. This work introduces Chain of Physics (CoP), an LLM-based fault-diagnosis framework built around a Constrained Knowledge Graph (CKG) generated automatically from asset-specific reference documentation. CoP addresses failure-sensor association from textual engineering knowledge. The CKG stores diagnostic chains connecting failure modes, changes in physical quantities, and monitoring sensors. During inference, semantically similar graph paths are retrieved for each question and used as both information and in-context examples for the reasoning process. Candidate failure modes are extracted from the question and analysed independently through dedicated LLM calls, which generate plausible failure-to-observation chains. A final decision module compares these chains with the available answer choices. CoP is evaluated on the FailureSensorIQ benchmark across four industrial asset classes and three LLMs. Compared with direct prompting and conventional Retrieval-Augmented Generation (RAG), CoP improves diag",
+  "summary_1line": "Fault diagnosis in complex systems requires linking observed changes in physical quantities to the failure mechanisms that produce them. Experienced engineers perform this task by combining sensor information with kno...",
+  "title": "Chain of Physics: Supporting Fault Diagnosis with Engineering-Inspired Large Language Model Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14263v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "5e376c6293c28ebd": {
   "content_excerpt": "Agent Experience is the experience AI agents have when discovering, choosing, and using your technology. Practicing AX means systematically improving that experience. Measurement is how you know whether you did. Developers now ask AI agents to build with your SDK, API, or CLI, and they judge your technology by what the agent produces. If the agent picks a competing service, calls an API you deprecated, or reports success on a broken build, your technology looks broken, even when your docs are excellent for people. Mathias Biilmann of Netlify coined the term in January 2025 and described it as “the holistic experience AI agents will have as the user of a product or platform.” It applies to any AI agent, from a coding agent in your editor to ChatGPT calling your MCP server. AX comes down to two questions. The first is propensity : does the agent find your technology and choose it? Give the agent a task that doesn’t name your product, like adding email sending to an app, and see what it reaches for. The second is efficacy : once the agent uses your technology, does it use it correctly? Name your product in the task, and see whether the agent calls your current API or one you deprecated. Your eval tool might use other names, like discovery and selection for propensity, or quality for efficacy. For both, you score what each run produced and what it cost. Cost is easy to skip and easy to get wrong. For example, Claude Sonnet 5 launched with 33% lower per-token pricing than Sonnet 4",
   "first_seen": "2026-11-10T21:05:43.516589+00:00",
@@ -5308,6 +5353,22 @@
   "type": "news",
   "url": "https://gitlab.com/__alexander__/anathem",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "5fea87bc836d7e1b": {
+  "first_seen": "2026-11-11T23:06:29.744326+00:00",
+  "id": "49d4e091d3442222",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-10T17:16:54+00:00",
+  "sid": "5fea87bc836d7e1b",
+  "source": "arxiv_cs_lg",
+  "summary": "Time series foundation models (TSFMs) forecast unseen series without task-specific training. Increasingly they are built on recurrent backbones, whose constant per-step cost makes long-context inference cheap, and which, unlike transformers, carry a state. A recurrent backbone computes its prediction from two inputs: the observed context window and the initial recurrent state. In practice only the first is utilised and the initial state is unused by convention. We ask whether the initial state can be utilised in recurrent TSFMs. Using the xLSTM-based zero-shot forecaster TiRex as a case study, we freeze the backbone and train only a small head that writes a context vector into the initial state, so that any change in accuracy is attributable to the injected state rather than to adapted weights. A spectral summary of the input window, learned once and applied unchanged to every series, lowers mean GiftEval MASE by 0.175%, with every seed improving, which neither a parameter-matched LoRA adapter nor a learnable static state reproduces. An embedding of text attached to each series, evaluated on six MoTime datasets, reveals two roles for the state. As a per-dataset adaptation surface, a static state lowers MASE by 0.04-6.96% of the zero-shot baseline (8-70% of the gain of full fine-tuning). As a channel for exogenous information, the text-conditioned state lowers it by a further 0.15-0.41% of the zero-shot baseline on four of six datasets and, combined with a LoRA adapter, exceed",
+  "summary_1line": "Time series foundation models (TSFMs) forecast unseen series without task-specific training. Increasingly they are built on recurrent backbones, whose constant per-step cost makes long-context inference cheap, and whi...",
+  "title": "The Unused Input: The Initial State as a Conditioning Interface for Recurrent TSFMs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14357v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "6029e916d3c97dcd": {
   "content_excerpt": "Each agent reasons and calls tools on its paired runner. Sessions run independently and repeat automatically. Leave your contact details and we’ll get in touch when Rungrid’s MVP is ready to try. Checking computers one by one means repeating instructions and gathering context in separate sessions. Rungrid lets you describe the work once and choose which machines it applies to. Check installed software versions, inspect service status or review configuration across selected computers without repeating the same request on each machine. Ask for a snapshot of CPU, memory and disk usage from selected machines to help identify resource pressure and decide where to investigate next. Select the affected machines and ask agents to inspect logs, check relevant processes and attempt a targeted fix where the available tools allow it. Create a task describing the work. Attach one reusable agent configuration : a model and its parameters, not a running agent. Attach the runners you want to use. A runner is a background program on a local machine, not an AI agent. Execution creates a separate agent instance for each selected runner, using the attached configuration. Each instance uses tools only on its paired runner’s machine.",
@@ -6606,6 +6667,7 @@
   "published": "2026-11-11T15:00:00+00:00",
   "sid": "7c592589ecc9e501",
   "source": "databricks_blog",
+  "summary": "Every business is adding more data to their AI-powered workflows. But more data doesn't...",
   "summary_1line": "Every business is adding more data to their AI-powered workflows. But more data doesn't...",
   "title": "Bring your business context to ChatGPT, Claude, Microsoft Copilot Cowork and Grok Bot",
   "type": "news",
@@ -7556,9 +7618,12 @@
    "codex"
   ],
   "published": "2026-11-11T20:03:57+00:00",
+  "release_highlights": [
+   "Codex now sends tool updates incrementally by default on Google Cloud Vertex AI. To opt out, set incremental_tools_legacy_gcp = false under [features] in con..."
+  ],
   "sid": "917e81f74d6a6479",
   "source": "openai_codex_releases",
-  "summary": "Release 0.167.2",
+  "summary": "New Features Codex now sends tool updates incrementally by default on Google Cloud Vertex AI. To opt out, set incremental_tools_legacy_gcp = false under [features] in config.toml . ( #60617 , #60848 ) Changelog Full Changelog: rust-v0.167.1...rust-v0.167.2",
   "summary_1line": "Release 0.167.2",
   "title": "codex rust-v0.167.2",
   "type": "release",
@@ -9190,6 +9255,22 @@
   "title": "Model Desk – A local-first multi-provider AI workspaceShared via URL-sharer",
   "type": "news",
   "url": "https://mrthp.github.io/model-desk"
+ },
+ "b015def37a0ec1fb": {
+  "content_excerpt": "SkillOpt is a text-space optimizer that trains reusable natural-language skills for frozen LLM agents through trajectory-driven edits, validation-gated updates, and deployable best_skill.md artifacts. Train agent skills like you train neural networks — with epochs, (mini-)batchsize, learning rates, and validation gates — but without touching model weights. 📖 For installation, data preparation, training/eval commands, configuration, and framework internals, start with the versioned SkillOpt documentation . A concise rendered overview is available in the Documentation & Reproduction Guide , and longer-form engineering analysis appears on the Technical Blog . We also maintain a Changelog for released and unreleased changes. Modern agent skills are usually hand-crafted, generated one-shot by a strong LLM, or evolved through loosely controlled self-revision — none of which behaves like a deep-learning optimizer for the skill itself, and none of which reliably improves over its starting point under feedback. SkillOpt treats the skill document as the trainable state of a frozen agent , and trains it with the discipline that makes weight-space optimization reproducible. A separate optimizer model turns scored rollouts into bounded add / delete / replace edits on a single skill document; in the default paper-style path, a candidate edit is accepted only when it strictly improves a held-out validation score. A textual learning-rate budget, a rejected-edit buffer, and an epoch-wise slow",
+  "first_seen": "2026-11-11T23:06:29.744326+00:00",
+  "id": "514e2318569e30fa",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-11T22:20:08+00:00",
+  "sid": "b015def37a0ec1fb",
+  "source": "hackernews_ai",
+  "summary_1line": "SkillOpt: Self-Evolving Agent Skills with Zero Inference Overhead",
+  "title": "SkillOpt: Self-Evolving Agent Skills with Zero Inference Overhead",
+  "type": "news",
+  "url": "https://github.com/microsoft/skillopt",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "b031b5b1afff320f": {
   "content_excerpt": "Write your data, queries, and mutations in TypeScript. FeltKit gives you the database, a typed API with live queries, roles enforced on the server, eight built-in services, agent access over MCP, a dashboard, and a build you can deploy three ways—already wired together. Each piece below is in the starter you get from npm create feltkit —running, tested, and sharing one FeltDB instance. Nothing to assemble, no glue code to maintain. Queries and mutations in TypeScript, validated against your schemas. A generated, typed client calls them from React. useQuery re-runs when data it read changes—whoever changed it: another person, an agent, or a background job. Declare roles and permissions once. Every caller—your UI, the HTTP API, AppPort, MCP, services—is checked the same way. Files, notifications, configuration, API keys, webhooks, jobs, schedules, and model selection—on your app’s own database. Agents use your app over MCP under a role, like people do. Consequential actions wait for approval—in production, from someone other than who proposed them. A dashboard for data, capabilities, services, models, and activity. In production, operators sign in with one-time grants. createTestApp gives every test a fresh FeltDB instance—no mocks. Act as any user and assert what the server allows. One container, Managed FeltDB, or your own FeltDB server. The build is verified before it is packaged. Declare the application, its roles, and its data. Write queries and mutations. FeltKit serves t",
@@ -12667,6 +12748,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08196v1"
  },
+ "f3e38ae5005dd7f5": {
+  "content_excerpt": "Coding agents are getting remarkably good at writing LLM infrastructure, from GPU kernels and schedulers to custom serving engines. Suppose an AI agent is strong enough to build a fast inference engine from scratch; in this second half of the problem, the bottleneck shifts from capability to verification : how do we know the engine it wrote is actually correct? Passing latency and throughput benchmarks still leaves rare concurrency bugs hidden. As a single engineer begins orchestrating 100, 1,000, or even 10,000 coding agents in parallel, human code review hits a hard cognitive wall. Having agents review other agents does not solve this either; as pstack author Lauren Tan noted , adversarial reviews are mostly a waste of tokens, and it is far better to spend those tokens on empirical and formal verification. In this post, we introduce vstack , a 5-stage formal verification workflow for coding agents, and veriserve , a prototype verifiable LLM serving engine with PD disaggregation built around a formally verified KV-page lifecycle design model. Applying vstack to production Prefill-Decode serving uncovered three classes of real RDMA and cache concurrency bugs across SGLang and vLLM, resulting in 6 proposed upstream pull requests . Meanwhile, veriserve backs its PdLedger design model with a 226-module, 516,973-obligation TLAPS safety proof while adding only 0.18% mean p50 TPOT overhead on NVIDIA GB200. We believe verifiable serving defines the second half of LLM infra as autono",
+  "first_seen": "2026-11-11T23:06:29.744326+00:00",
+  "id": "d7dc4f7b7502fac4",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-11T20:58:34+00:00",
+  "sid": "f3e38ae5005dd7f5",
+  "source": "hackernews_ai",
+  "summary_1line": "Towards Verifiable LLM Infra: Agent-Driven Proof of Agent-Implemented Inference",
+  "title": "Towards Verifiable LLM Infra: Agent-Driven Proof of Agent-Implemented Inference",
+  "type": "news",
+  "url": "https://haoailab.com/blogs/verifiable-llm-infra",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "f3ea6f58c95194f7": {
   "content_excerpt": "Synchronous speech and text translator with parallel delivery to arbitrary sinks. AI-TRANSLATOR listens to speech (or takes text), obtains a translation into a target language, and delivers the result to any number of independent sinks at the same time — text sinks (captions, on-screen displays, files) and voice sinks (translated speech routed to virtual audio devices, network audio streams). The defining property of the project: the translation core does not know where its result goes. The core produces a stream of translation events; delivery is performed by isolated sink modules that can be enabled and disabled individually. One and the same translation can go to a stage screen, broadcast captions and a voice channel simultaneously. Stage 1 (MVP) is implemented and covered by tests: the event bus, the sink subsystem, the console, WebSocket, transcript and Telegram sinks, the supervisor, the audio source on the synchronous translation provider, the offline text and scripted sources, and the command-line interface. Interfaces may still change before the 1.0 release. Linux is the primary platform: the Nix flake provides the development shell, transono drives PipeWire and ALSA, and virtual audio devices are created through its PipeWire module. macOS is supported for building and running: the project builds with Xcode Command Line Tools and a rustup toolchain, without Nix; audio capture and playback go through CoreAudio via cpal , and the PipeWire module of transono is not comp",
   "first_seen": "2026-11-03T03:05:29.307677+00:00",
@@ -13115,6 +13212,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06414v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "fb674da0aadacebe": {
+  "content_excerpt": "Presence ambiently notices confusion, absence, attention changes, and shared visual context, then responds without interrupting work. No deck. Tell me what you’re building, and we’ll work out whether Presence belongs in it. Your best prospects get a founder watching them install, stepping in at the right moment, and learning what made the product difficult. Presence makes that available to everyone. Notices when someone goes quiet, looks away, or gets stuck. Then it speaks without being asked. Minute 60 costs the same as minute 1. Meetings, debugging, onboarding, and support can keep going. Presence notices what people don’t put into prompts. It knows when to help, wait, or keep working. Presence reads coarse signals such as present, looking away, screen shared, and engaged. It does not send a continuous video feed. When the reasoning model needs to look, it receives a low-resolution frame. Higher resolution is available when the task calls for it. Frames are not retained in later conversation history. The launch demo is not recorded. Other sessions require separate, session-specific consent before recording. It steps in when someone gets stuck, then reports where they got stuck, what it helped with, and what it left behind. A Teams, Meet, or Zoom meeting URL. Presence joins with the same prompt and tools. Choose an approved outbound call path, then choose who Presence should call. Inbound calls remain carrier-originated. A Teams, Meet, or Zoom meeting URL. Presence joins wit",
+  "first_seen": "2026-11-11T23:06:29.744326+00:00",
+  "id": "ca2bef90962b4ca1",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-11T21:30:08+00:00",
+  "sid": "fb674da0aadacebe",
+  "source": "hackernews_ai",
+  "summary": "hi HN lots of talk of full duplex video agent, so here is one that you add to your product today. And cheaply. Why? so it can see what the user is doing and respond accordingly. It sits with your user why they try your product and lets you know when they are confused. Can even jump in and debug with screen share. what it gets you: a demo that runs for the user without you having to check how to use: give your favorite coding agent the docs, it looks at your docs and creates it. Where it loses: Working from cafe? going to be hard to listen. Try with headphones. Privacy: no video saved without consent. And it can obtain consent on the call if you let it. Try for free. Camera needed. Not recorded. Link in first comment",
+  "summary_1line": "hi HN lots of talk of full duplex video agent, so here is one that you add to your product today. And cheaply. Why? so it can see what the user is doing and respond accordingly. It sits with your user why they try you...",
+  "title": "Show HN: Presence – full duplex video agent that demos your product",
+  "type": "news",
+  "url": "https://presence.bohita.com",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "fba8aacc27f4de81": {
   "content_excerpt": "CloudOpsBench Skip to content CloudOps Bench . Leaderboard About Blog Contributors GitHub CloudOps Bench A benchmark for AI agents on real cloud operations How it works View the tasks Release v1.0 Show results table pareto waffle Model leaderboard . Select a row to view details. Rank Model Harness Resolution rate Release date Time Tokens Cost 01 claude-fable-5-1 (max) claude-code claude-code 60.6% Sept 1, 2026 38.6h 97.9M $404.3 02 gpt-6-astra (max) codex codex 58.9% Sept 3, 2026 16.5h 98.0M $310.9 03 gemini-4-argon (high) gemini-cli gemini-cli 57.5% Oct 13, 2026 34.2h 173.9M $100.5 04 grok-4.7 (high) cursor-cli cursor-cli 56.5% Sept 21, 2026 33.2h 178.3M $138.8 05 gpt-6-astra (high) codex codex 54.2% Sept 3, 2026 16.1h 62.4M $188.4 06 grok-4.7 (high) grok-build grok-build 48.3% Sept 21, 2026 25.9h 173.4M $127.3 07 claude-opus-5-5 (high) terminus-2 terminus-2 47.8% Sept 22, 2026 19.5h 22.6M $45.1 08 claude-opus-5-5 (high) claude-code claude-code 46.7% Sept 22, 2026 14.0h 37.4M $36.6 09 claude-fable-5-1 (high) terminus-2 terminus-2 43.8% Sept 1, 2026 19.0h 37.3M $319.1 10 gemini-3.8-flash (high) terminus-2 terminus-2 42.8% Sept 2, 2026 33.2h 337.4M $70.0 11 gpt-6-astra (high) terminus-2 terminus-2 42.8% Sept 3, 2026 12.9h 19.2M $94.6 12 grok-4.7 (medium) grok-build grok-build 40.0% Sept 21, 2026 21.4h 121.6M $91.6 13 grok-4.6 (high) cursor-cli cursor-cli 39.7% Aug 12, 2026 19.7h 78.2M $63.8 14 grok-4.6 (medium) grok-build grok-build 36.7% Aug 12, 2026 16.2h 59.4M $51.2 15 grok",
