@@ -1,237 +1,213 @@
 {
-  "date": "2026-11-10",
-  "title": "What happened in AI — Nov 10, 2026",
-  "generated_at": "2026-11-10T22:21:57Z",
+  "date": "2026-11-11",
+  "title": "What happened in AI — Nov 11, 2026",
+  "generated_at": "2026-11-11T22:16:19Z",
   "intro": [
-    "Agent safety moved to enforcement points: tools that intercept commands, audit access and test database roles shipped alongside NVIDIA donating OpenShell to the CNCF.",
-    "Google made Gemini 4 Carbon generally available and DeepMind formally verified Signal's protocol code with agents, while the Fireworks AI breach spread to customer data."
+    "Agent guardrails failed in public four ways today: a read-only workspace agent was argued into writing in ninety seconds, 35,000 Grok Build apps were readable through share links, Microsoft showed a backdoor that survives safety evals, and Phala reported a breach.",
+    "Google shipped a dedicated model for cheap yes/no and rubric decisions, and Databricks made Genie Ontology generally available and opened it to other vendors' agents."
   ],
   "highlights": [
-    "Gemini 4 Carbon is generally available, with a new multimodal agent benchmark (MKA) alongside it.",
-    "DeepMind's AlphaProof Code formally verified security properties of Signal's real protocol code.",
-    "NVIDIA is donating its OpenShell agent-governance runtime to the CNCF.",
-    "A read-only Postgres role does not stop every harmful agent query; a reproducible test shows which ones.",
-    "Fireworks AI's breach now includes billing data and some customer secrets; Notion is notifying users.",
-    "Epoch: GB300 has 25x H100's agentic inference capacity on only 2.5x the FLOP/s."
+    "A read-only ChatGPT workspace agent was talked into writing to Notion in about ninety seconds.",
+    "35,000 Grok Build apps were open through share links, including data from SpaceXSI itself.",
+    "Microsoft's Lazarus backdoor needs no retraining and passes standard safety evaluations.",
+    "Gemini Decisions API scores up to 1,000 yes/no or rubric questions in one multimodal pass.",
+    "Databricks' Genie Ontology is generally available and plugs into ChatGPT, Claude and Copilot.",
+    "vLLM now scales multimodal encoding separately from prefill and decode."
   ],
-  "article_count": 44,
+  "article_count": 42,
   "categories": [
     {
-      "name": "Guardrails on What Agents Can Touch",
-      "slug": "guardrails-agent-access",
-      "summary": "Builders are moving agent safety from prompts to enforcement points: database roles, command interceptors, access audits and a CNCF-bound agent runtime.",
+      "name": "Agent Guardrails and Sharing Defaults Fail in the Open",
+      "slug": "agent-guardrails-fail",
+      "summary": "Four separate reports show agent safety breaking at the configuration layer: a read-only instruction, a share-link design, model weights and a confidential-compute service.",
       "articles": [
         {
-          "title": "What a read-only Postgres role does and doesn't stop when an AI agent connects",
-          "summary": "A reproducible PostgreSQL 17.11 run shows which harms a read-only role blocks and which session settings and reads still get through.",
+          "title": "Prompt Injection, Esq.: pwning AI agent guardrails with lawyerspeak",
+          "summary": "A ChatGPT workspace agent set up as read-only on a Notion hiring tracker was talked into writing to it in about ninety seconds using legal-sounding language.",
           "source": "hackernews_ai",
-          "url": "https://vericto.com/blog-post-postgres-read-only-role-ai-agents",
-          "published": "Tue, 10 Nov 2026 17:21:23 +0000"
+          "url": "https://www.mrnice.dev/posts/heavyweight-guardrails/",
+          "published": "Wed, 11 Nov 2026 18:41:14 +0000"
         },
         {
-          "title": "Antelog – stops AI coding agents from running dangerous commands",
-          "summary": "Local interceptor that checks each shell command a coding agent proposes and pauses destructive ones, like deleting a production volume, for approval.",
+          "title": "Grok Build coding agent leaks confidential info, some belonging to SpaceXSI",
+          "summary": "A researcher found 35,000 Grok Build apps readable through their share links, exposing user secrets and data belonging to SpaceXSI itself.",
           "source": "hackernews_ai",
-          "url": "https://antelog.dev/",
-          "published": "Tue, 10 Nov 2026 07:57:26 +0000"
+          "url": "https://arstechnica.com/security/2026/11/grok-build-coding-agent-leaks-oodles-of-confidential-info-some-belonging-to-spacexsi/",
+          "published": "Wed, 11 Nov 2026 07:24:31 +0000"
         },
         {
-          "title": "I Access Auditor – see and revoke what your AI coding agents can access",
-          "summary": "Desktop app that inventories what Claude Code, Codex, Gemini CLI, Cursor and OpenCode can access, and lets you revoke it.",
+          "title": "Reprogramming Dormant Neurons to Backdoor AI Agents",
+          "summary": "Microsoft's Lazarus technique plants a trigger-activated backdoor in a model without retraining; a tool-using agent passes standard safety evals until the trigger appears.",
           "source": "hackernews_ai",
-          "url": "https://github.com/dirmedmr-alt/ai-access-auditor",
-          "published": "Tue, 10 Nov 2026 08:31:13 +0000"
+          "url": "https://www.microsoft.com/en-us/research/blog/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents/",
+          "published": "Wed, 11 Nov 2026 07:41:39 +0000"
         },
         {
-          "title": "NVIDIA Expands Open Source Commitment With OpenShell Donation and New AI Infrastructure",
-          "summary": "NVIDIA is donating OpenShell, its runtime for securing and governing autonomous agents, to the CNCF as a Sandbox project.",
-          "source": "nvidia_blog",
-          "url": "https://blogs.nvidia.com/blog/open-source-openshell-infrastructure/",
-          "published": "Tue, 10 Nov 2026 16:00:03 +0000"
+          "title": "Phala Confidential AI Compromised",
+          "summary": "Phala's preliminary incident report: contained November 8 after a KMS root key rotation on November 6, with exploit details withheld until remediation is verified.",
+          "source": "hackernews_ai",
+          "url": "https://phala.com/posts/phala-november-preliminary-incident-report",
+          "published": "Wed, 11 Nov 2026 09:48:10 +0000"
         },
         {
-          "title": "Show HN: Fix Gate – verifies security-fix PRs, incl. AI-written ones",
-          "summary": "Rule-based GitHub Action that checks a security-fix PR: finding gone, nothing new, files parse, tests not newly failed; unrun checks never count as passes.",
+          "title": "How do you limit an agent's kubectl when dev and prod share a cluster?",
+          "summary": "Walkthrough of scoping an agent's kubectl access by namespace when dev and prod share one EKS, GKE or AKS cluster.",
           "source": "hackernews_ai",
-          "url": "https://github.com/IWEBai/fix-gate-action",
-          "published": "Tue, 10 Nov 2026 18:26:35 +0000"
+          "url": "https://skyportal.ai/blog/separate-kubernetes-environments-by-namespace-on-eks-gke-or-aks-with-skyportal/",
+          "published": "Wed, 11 Nov 2026 18:21:02 +0000"
         }
       ]
     },
     {
-      "name": "Agent Experience: Docs and APIs Now Have an Agent Audience",
-      "slug": "agent-experience",
-      "summary": "Agent traffic to docs is now large enough to measure, and vendors are starting to design SDKs and docs for the agent that picks them.",
+      "name": "Business Context Becomes a Shared Layer for Agents",
+      "slug": "business-context-layer",
+      "summary": "Databricks made its agent-built ontology generally available and opened it to other vendors' agents, and LangChain credits the context around the model for its sales agent's output quality.",
       "articles": [
         {
-          "title": "Measure agent-traffic for any site",
-          "summary": "Open-source tool from Mintlify to measure how much of a site's traffic is agents, which ones, and whether a GPTBot request is really OpenAI.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/mintlify/agent-traffic",
-          "published": "Tue, 10 Nov 2026 19:29:46 +0000"
+          "title": "Announcing GA of Genie Ontology",
+          "summary": "Genie Ontology, a business-context layer built by agents and curated by people for use across many agents, is generally available with more knowledge sources.",
+          "source": "databricks_blog",
+          "url": "https://www.databricks.com/blog/announcing-ga-genie-ontology",
+          "published": "Wed, 11 Nov 2026 15:00:00 GMT"
         },
         {
-          "title": "What Is Agent Experience (Ax)?",
-          "summary": "Microsoft defines AX: an agent picking a rival service or calling a deprecated API makes your product look broken, so measure it.",
-          "source": "hackernews_ai",
-          "url": "https://developer.microsoft.com/blog/what-is-agent-experience-ax/",
-          "published": "Tue, 10 Nov 2026 20:53:00 +0000"
+          "title": "Genie with Genie Ontology Delivers 1.6× the Accuracy with Less than Half the Tokens",
+          "summary": "On a Databricks and Turing benchmark of business questions in a live workspace, Genie passed 91% against 45% and 58% for two frontier agents, on under half the tokens. Vendor-run.",
+          "source": "databricks_blog",
+          "url": "https://www.databricks.com/blog/genie-genie-ontology-delivers-16-accuracy-less-half-tokens",
+          "published": "Wed, 11 Nov 2026 15:00:00 GMT"
         },
         {
-          "title": "Designing for Agents — Zeno Rocha, Resend",
-          "summary": "Resend's Zeno Rocha on where answer-engine optimization ends and agent experience begins, from docs Claude Code reads to tools it calls.",
-          "source": "latent_space",
-          "url": "https://latent.space/p/resend/",
-          "published": "Tue, 10 Nov 2026 20:05:17 GMT"
+          "title": "Bring your business context to ChatGPT, Claude, Microsoft Copilot Cowork and Grok Bot",
+          "summary": "Genie plugins expose the same ontology and trusted answers to ChatGPT, Claude, Microsoft Copilot Cowork and Grok Bot.",
+          "source": "databricks_blog",
+          "url": "https://www.databricks.com/blog/bring-your-business-context-chatgpt-claude-microsoft-copilot-cowork-and-grok-bot",
+          "published": "Wed, 11 Nov 2026 15:00:00 GMT"
         },
         {
-          "title": "Show HN: Get your coding agent off ~2019 JavaScript, onto modern web primitives",
-          "summary": "Agent skill that steers coding agents off legacy JavaScript patterns toward native browser primitives like CSS.highlights and dialog.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/GoogleChrome/modern-web-guidance",
-          "published": "Tue, 10 Nov 2026 18:01:15 +0000"
-        }
-      ]
-    },
-    {
-      "name": "Verifying and Operating Agent-Built Software",
-      "slug": "verifying-operating-agents",
-      "summary": "The verification bar for agent output is rising, from formal proofs of real protocol code to evidence that messy codebases derail coding agents.",
-      "articles": [
-        {
-          "title": "Introducing AlphaProof Code: a breakthrough in verifying complex software at depth",
-          "summary": "DeepMind's agentic framework formally verified key security properties of the actual Signal protocol code.",
-          "source": "google_deepmind_blog",
-          "url": "https://deepmind.google/blog/introducing-alphaproof-code/",
-          "published": "Tue, 10 Nov 2026 12:02:28 +0000"
-        },
-        {
-          "title": "Google Finds that Technical Debt Can Derail Coding Agents Through \"Agent Distraction\"",
-          "summary": "Google research finds technical debt causes \"agent distraction\" that throws coding agents off task.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/11/google-agent-distraction/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "Tue, 10 Nov 2026 18:00:00 GMT"
-        },
-        {
-          "title": "Article: LLM Reliability Layers Under Test: Accuracy, Yield, and the Limits of Verification",
-          "summary": "InfoQ tests LLM reliability layers on accuracy and yield, and maps where verification stops helping.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/articles/llm-reliability-layers-limits-accuracy/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "Tue, 10 Nov 2026 09:00:00 GMT"
-        },
-        {
-          "title": "How Workday Built an Enterprise-Scale AI Agent Platform with LangGraph and LangSmith",
-          "summary": "Workday's internal agent platform uses LangGraph for orchestration and LangSmith for tracing and evals, targeting production agents by end of 2026.",
+          "title": "How our GTM Agent builds consistent, high-quality sales artifacts",
+          "summary": "LangChain's internal GTM agent produced 1,540 sales artifacts in 12 weeks; the post attributes consistency to the business context and structure built around the model.",
           "source": "langchain_blog",
-          "url": "https://www.langchain.com/blog/how-workday-built-an-enterprise-scale-ai-agent-platform-with-langgraph-and-langsmith",
-          "published": "2026-11-10T16:00:00+00:00"
+          "url": "https://www.langchain.com/blog/gtm-agent-high-quality-sales-artifacts",
+          "published": "2026-11-11T00:16:00+00:00"
         }
       ]
     },
     {
-      "name": "Frontier and Small Model Releases",
-      "slug": "model-releases",
-      "summary": "Three labs shipped on the same news cycle: Google's top tier, Anthropic's Fable 5.2, and Meta's smallest Muse model.",
+      "name": "Classification and Filtering Move Off the Frontier Model",
+      "slug": "cheap-decisions-filtering",
+      "summary": "Yes/no and routing decisions are getting their own cheaper primitives: a dedicated Google decision model, SQL functions in AlloyDB, and a pre-filter in front of LLM synthesis.",
       "articles": [
         {
-          "title": "Gemini 4 Carbon is now available",
-          "summary": "Google's strongest model is now generally available, pitched on cybersecurity and long-horizon agentic work, after a two-week defender-only preview.",
-          "source": "google_deepmind_blog",
-          "url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available/",
-          "published": "Tue, 10 Nov 2026 16:03:47 +0000"
+          "title": "Gemini Decisions API: Fast, calibrated multimodal decisions",
+          "summary": "New Gemini Decision 1 model scores up to 1,000 yes/no, choice and rubric questions in one pass over text, images, audio, video and PDFs, returning confidence scores.",
+          "source": "google_ai_blog",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+          "published": "Wed, 11 Nov 2026 18:00:00 +0000"
         },
         {
-          "title": "The Multimodal Knowledge Agent Benchmark",
-          "summary": "New Google and Artificial Analysis benchmark for agents that must reason over visually complex files, not just text.",
+          "title": "Cutting LLM Token Costs with Currents News API and TypeSafe Jev Pre-Filtering",
+          "summary": "Screening news articles with TypeSafe Jev at a 0.70 threshold before synthesis cut input tokens 16-18%; blind judges could not tell five of six outputs from unfiltered runs.",
           "source": "hackernews_ai",
-          "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark/",
-          "published": "Tue, 10 Nov 2026 16:12:21 +0000"
+          "url": "https://currentsapi.services/en/blog/cut-llm-token-costs-typesafe-jev-prefiltering",
+          "published": "Wed, 11 Nov 2026 08:17:35 +0000"
         },
         {
-          "title": "[AINews] Fable 5.2 retakes World #1 LLM spot as $ANT IPO roadshow begins",
-          "summary": "Latent Space covers Fable 5.2 and Mythos 5.2 retaking the top LLM spot as Anthropic's IPO roadshow opened.",
-          "source": "latent_space",
-          "url": "https://latent.space/p/ainews-fable-5-2-retakes-world-1-llm-spot-as-ant-ipo-roadshow-begins/",
-          "published": "Tue, 10 Nov 2026 06:34:44 GMT"
+          "title": "Introducing new AI functions for AlloyDB: ai.classify and ai.extract",
+          "summary": "AlloyDB adds ai.classify and ai.extract, SQL functions that label and pull fields from unstructured text stored in the transactional database.",
+          "source": "google_cloud_blog",
+          "url": "https://cloud.google.com/blog/products/databases/ai-classify-and-ai-extract-functions-in-alloydb-ai/",
+          "published": "Wed, 11 Nov 2026 17:00:00 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Inference Serving: Split Stages and Cheaper Hardware",
+      "slug": "inference-serving-hardware",
+      "summary": "vLLM separated multimodal encoding into its own scalable tier, while two local-inference projects target old GPUs and clustered Macs.",
+      "articles": [
+        {
+          "title": "Encoder Disaggregation in vLLM: Scaling Multimodal Serving with EPD",
+          "summary": "vLLM's Encoder/Prefill/Decode disaggregation runs each stage as an independently deployed instance, so multimodal encoding scales separately from prefill and decode.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-11-11-encoder-disaggregation-epd",
+          "published": "Wed, 11 Nov 2026 00:00:00 GMT"
         },
         {
-          "title": "Introducing Our Smallest, Most Efficient Model: Muse Ember",
-          "summary": "Meta's small, efficient model enters the Haiku/Luna tier, per Simon Willison's notes.",
+          "title": "Kindi: The fastest software inference engine for low-cost GPUs",
+          "summary": "Kindi 0.5.0 runs 2B to 33B models on older NVIDIA cards, Radeon integrated graphics and CPU, and reports faster generation than llama.cpp from 512 to 64K context.",
+          "source": "hackernews_ai",
+          "url": "https://amirhusain.com/software/kindi/",
+          "published": "Wed, 11 Nov 2026 18:18:33 +0000"
+        },
+        {
+          "title": "Apple's Claris Testing 'Harbor' App for Local AI on Macs",
+          "summary": "Apple's Claris subsidiary is testing Harbor, which turns Apple silicon Macs into a private AI server and pools memory across Macs over Thunderbolt 5.",
+          "source": "hackernews_ai",
+          "url": "https://www.macrumors.com/2026/11/10/apple-claris-harbor-app/",
+          "published": "Wed, 11 Nov 2026 08:19:20 +0000"
+        },
+        {
+          "title": "Anthropic's IPO roadshow video",
+          "summary": "Simon Willison pulls previously unreleased details from Anthropic's IPO roadshow video, including its section on approach to compute.",
           "source": "simon_willison",
-          "url": "https://simonwillison.net/2026/Nov/10/muse-ember/",
-          "published": "2026-11-10T07:28:21+00:00"
-        },
+          "url": "https://simonwillison.net/2026/Nov/11/anthropic-ipo-roadshow/",
+          "published": "2026-11-11T15:11:59+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Coding Agents: Harnesses, Memory and Review Surfaces",
+      "slug": "coding-agent-harnesses",
+      "summary": "Alibaba open-sourced the agent core behind Qwen Code alongside a Qwen4-Max preview, and OpenAI showed voice steering and cloud handoff for Codex.",
+      "articles": [
         {
-          "title": "Kimi K3.1 Pro Coder Arrives at 775 GB, Built to Fit One GPU",
-          "summary": "Moonshot's coding model ships as a 775 GB release aimed at fitting on a single GPU.",
+          "title": "Alibaba Folds Qoder's Harness Into Qwen Code 1.0 Preview and Open-Sources the Combined Agent Core",
+          "summary": "Alibaba merged Qoder's harness into Qwen Code 1.0 Preview and open-sourced the combined agent core.",
           "source": "search_cn_open_weight_labs",
-          "publisher_name": "Pasquale Pillitteri",
-          "publisher_domain": "pasqualepillitteri.it",
-          "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPQWVlRVJORHdHUnE4R3pnYm01NzJVNEtrRUdNMUxpdS02azZVS3hzSE5ERjRBVXJzOVZMa1FEajJuRVhhUF9menUybndPdzJ2MXo1UFlZUl9sVTdBLUhWVkgtaHhVMHk2SlNMem1GbVNHaDZEak9ReG02UmY3X0trd1phMWQ?oc=5",
-          "published": "Tue, 10 Nov 2026 14:31:32 GMT"
-        }
-      ]
-    },
-    {
-      "name": "Inference Economics: Memory, State and Mixed Hardware",
-      "slug": "inference-infrastructure",
-      "summary": "Inference gains now come from memory, state reuse and plumbing more than raw FLOP/s.",
-      "articles": [
-        {
-          "title": "Beyond FLOP/s: comparing AI hardware for inference by memory and communication",
-          "summary": "Epoch estimates GB300 delivers about 25x H100's agentic inference capacity per chip with only 2.5x the 8-bit FLOP/s.",
-          "source": "hackernews_ai",
-          "url": "https://epoch.ai/publications/inference-performance-index",
-          "published": "Tue, 10 Nov 2026 12:09:19 +0000"
+          "publisher_name": "Pandaily",
+          "publisher_domain": "pandaily.com",
+          "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQbk5oM3JOSDludmtlT1k0S2NjRGVoejB0dnowWmpwNXZITEVIM20ycnhVcFU5czVYNjBJZGJIZnMwTnNVS0dORnNNNjA5OWJoOU41dzgwRDkxMnNBM3F1dktZVndra3FETElQU1cwLTNmamhudFhCSnhHdUlXVmN3SndnUGVWdTZpR2llX2hvQVU?oc=5",
+          "published": "Wed, 11 Nov 2026 07:43:48 GMT"
         },
         {
-          "title": "FlashStates Unlocking Flexible Hybrid State Management for Agentic LLM Inference",
-          "summary": "Together AI and collaborators decouple recurrent checkpoints from KV-cache blocks so hybrid models can resume agent sessions without dense state storage.",
-          "source": "hackernews_ai",
-          "url": "https://flashstates.ai/",
-          "published": "Tue, 10 Nov 2026 04:29:35 +0000"
+          "title": "Alibaba's Qwen4-Max Preview Launches Abruptly, Targeting Complex Coding and Professional Software Operations",
+          "summary": "Alibaba released Qwen4-Max Preview without advance notice, aimed at complex coding and professional software operation.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "BigGo Finance",
+          "publisher_domain": "finance.biggo.com",
+          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9sR3YtS0VVdzJPT3lmOExUaFJsUmJEcVRzTWZva2h1cUg5NjJ5TGN4VzdMTHJuWlNteWI1Q3NmSzNKSnpHZjByTFNCYUZ1OUR3N2pSaUJXVmlnYlFBZ2FjSFlyZm1rNjl6SEl5ZTkzeTJnOEJPUHc?oc=5",
+          "published": "Wed, 11 Nov 2026 04:25:00 GMT"
         },
         {
-          "title": "CUDA+ROCm dual-back ends LLM inference for mixed-vendor GPUs (up to 48% faster)",
-          "summary": "Patch splits GLM MoE inference across an RTX 5090 and a Radeon iGPU, CUDA for attention and HIP for experts, reporting up to 48% faster.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/mw00/project-maya/pull/879",
-          "published": "Tue, 10 Nov 2026 02:05:11 +0000"
+          "title": "AI Engineer Code Summit: OpenAI on New Ways of Working With Codex",
+          "summary": "At AI Engineer Code Summit, OpenAI showed steering Codex by voice and handing work off to the cloud.",
+          "source": "latent_space",
+          "url": "https://latent.space/p/codex-work/",
+          "published": "Wed, 11 Nov 2026 04:49:48 GMT"
         },
         {
-          "title": "Show HN: QueenMQ – slow LLM calls blocked our Kafka partitions, so we built it",
-          "summary": "Apache-2.0 message broker built after slow LLM calls blocked Kafka partitions; it has mostly replaced Kafka at its authors' company.",
+          "title": "Show HN: Anathem – local memory for coding agents, no LLM and no daemon",
+          "summary": "Single-binary local memory for coding agents: SQLite storage, hybrid BM25 plus static-embedding search and an MCP server, with no LLM or daemon.",
           "source": "hackernews_ai",
-          "url": "https://github.com/queen-mq/queen",
-          "published": "Tue, 10 Nov 2026 14:52:36 +0000"
-        }
-      ]
-    },
-    {
-      "name": "Inference Vendor Breach Widens",
-      "slug": "inference-vendor-breach",
-      "summary": "The Fireworks AI incident now reaches customer data, and downstream apps are notifying their own users.",
-      "articles": [
-        {
-          "title": "Fireworks.ai Update on October 2026 security incident",
-          "summary": "Fireworks now reports impact to account and billing data and, for some accounts, secrets, datasets and incomplete models.",
-          "source": "hackernews_ai",
-          "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident-update",
-          "published": "Tue, 10 Nov 2026 08:47:00 +0000"
+          "url": "https://gitlab.com/__alexander__/anathem",
+          "published": "Wed, 11 Nov 2026 18:10:46 +0000"
         },
         {
-          "title": "Tell HN: Notion AI chat sessions have been exposed via Fireworks AI hack",
-          "summary": "Notion is emailing users that AI chat sessions may be exposed through its vendor Fireworks AI.",
+          "title": "GitHub affordances as human-agent conveyances",
+          "summary": "Argues GitHub issues and pull requests are becoming the default work-management surface between humans and agents: issues as task specs, PRs as review.",
           "source": "hackernews_ai",
-          "url": "https://news.ycombinator.com/item?id=50436636",
-          "published": "Tue, 10 Nov 2026 06:00:48 +0000"
+          "url": "https://qmacro.org/blog/posts/2026/11/11/github-affordances-as-human-agent-conveyances/",
+          "published": "Wed, 11 Nov 2026 10:15:18 +0000"
+        },
+        {
+          "title": "AI proved your code correct. What did it prove?",
+          "summary": "Explainer on agent-produced formal proofs: the check holds only relative to the specification and assumptions it was run against.",
+          "source": "hackernews_ai",
+          "url": "https://kellerai.io/resources/ai-proved-your-code-correct",
+          "published": "Wed, 11 Nov 2026 01:01:30 +0000"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "v_q0l1IPNC4",
-    "title": "LLM Digest Daily Explainer: Nov 10, 2026",
-    "duration_s": 116.8
-  }
+  ]
 }
