@@ -1,20 +1,34 @@
 {
  "slug": "diffusion-language",
  "label": "Diffusion Language",
- "item_count": 7,
- "day_count": 6,
- "source_count": 2,
- "first_seen": "2026-10-22T17:00:39+00:00",
- "last_updated": "2026-11-05T17:41:20+00:00",
- "generated_at": "2026-11-09T00:12:13.390560+00:00",
+ "item_count": 26,
+ "day_count": 16,
+ "source_count": 5,
+ "first_seen": "2026-10-22T02:20:21+00:00",
+ "last_updated": "2026-11-10T18:32:28+00:00",
+ "generated_at": "2026-11-12T00:15:17.843192+00:00",
  "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_ai",
   "arxiv_cs_cl",
+  "arxiv_cs_lg",
   "arxiv_llm_reliability"
  ],
  "days": [
   {
    "date": "2026-10-22",
    "items": [
+    {
+     "title": "Better Reasoning, Not Just Bigger Models: A Structure-Grounded Framework for Efficient and Reliable Inference",
+     "url": "http://arxiv.org/abs/2610.30611v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Scaling large language models has substantially improved linguistic fluency, yet reliable autonomous agents require more than fluent generation. In multi-turn inference, current agentic systems often produce semantica...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "b3f4301ff8d83589",
+     "published": "2026-10-22T02:20:21+00:00",
+     "editor_note": "Adjacent framing paper: argues reliable multi-turn agent inference needs structure, not only larger models."
+    },
     {
      "title": "Diffusion Language Models for Perplexity-Aware Black-Box Attacks",
      "url": "http://arxiv.org/abs/2610.31558v1",
@@ -25,6 +39,21 @@
      "sid": "4d1cef01d9ab5673",
      "published": "2026-10-22T17:00:39+00:00",
      "editor_note": "Uses a diffusion LM to generate low-perplexity attack prompts against black-box LLMs."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-23",
+   "items": [
+    {
+     "title": "NgramRL: Accelerating RL Post-Training for Structured Generation via Rollout-Aware N-gram Speculative Decoding",
+     "url": "http://arxiv.org/abs/2610.32881v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Reinforcement learning (RL) post-training improves the reasoning capabilities of large language models, but its cost is dominated by autoregressive rollout generation, which can exceed 70% of training time. Existing s...",
+     "sid": "6dbbfb1c94ed9d7f",
+     "published": "2026-10-23T16:47:29+00:00",
+     "editor_note": "Applies n-gram speculative decoding to RL post-training rollouts, which the paper says can exceed 70% of training time."
     }
    ]
   },
@@ -48,6 +77,16 @@
    "date": "2026-10-27",
    "items": [
     {
+     "title": "CRISP: Co-designing Pruning and Scheduling for Efficient MoE Inference on Edge Servers",
+     "url": "http://arxiv.org/abs/2610.37442v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Mixture-of-Experts (MoE) inference on memory-constrained edge platforms is often dominated by expert-weight movement rather than computation. Although each token activates only a small subset of experts, routing is in...",
+     "sid": "ed7966c78dc36a0b",
+     "published": "2026-10-27T15:51:14+00:00",
+     "editor_note": "Adjacent: co-designs pruning and scheduling for MoE inference on memory-constrained edge servers, where moving expert weights dominates."
+    },
+    {
      "title": "Metacognitive Decoding: Efficient Inference for Diffusion Language Agents",
      "url": "http://arxiv.org/abs/2610.37642v1",
      "source": "arxiv_cs_cl",
@@ -61,8 +100,34 @@
    ]
   },
   {
+   "date": "2026-10-29",
+   "items": [
+    {
+     "title": "Difficulty Calibration Across Time for Membership Inference in Diffusion Models",
+     "url": "http://arxiv.org/abs/2610.40616v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Modern diffusion models are trained on massive datasets that often include copyrighted or private images. Membership inference attacks (MIAs) address this by testing whether a given image was in a model's training set. The standard approach scores an image by its reconstruction l",
+     "sid": "1423e77dae0d2a75",
+     "published": "2026-10-29T17:54:54+00:00",
+     "editor_note": "Image-side privacy angle: a membership inference method for testing whether an image was in a diffusion model's training set."
+    }
+   ]
+  },
+  {
    "date": "2026-10-30",
    "items": [
+    {
+     "title": "Prune Gradually, Adapt Sparsely: Efficient Pruning of Large Language Models at Extreme Sparsity",
+     "url": "http://arxiv.org/abs/2610.41968v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Weight pruning can reduce the storage and inference cost of large language models (LLMs), but preserving quality at high sparsity levels remains challenging. Existing methods face a quality-cost trade-off in this regi...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "a8a5f23cd8e10643",
+     "published": "2026-10-30T16:17:43+00:00",
+     "editor_note": "Adjacent: gradual pruning with sparse adaptation to hold LLM quality at extreme sparsity."
+    },
     {
      "title": "RangeSWA: Training-Free Length Extrapolation for Continuous Diffusion Language Models",
      "url": "http://arxiv.org/abs/2610.42084v1",
@@ -77,6 +142,37 @@
    ]
   },
   {
+   "date": "2026-11-01",
+   "items": [
+    {
+     "title": "MatMoE: Matryoshka Mixture-of-Experts with Dynamic Mixed-Precision Quantization for Efficient Inference",
+     "url": "http://arxiv.org/abs/2611.01704v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Mixture-of-Experts (MoE) architecture has been widely adopted in large language models (LLMs) since it reduces the computational cost through sparse expert activation. However, the massive parameter scale of MoE model...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "01d6db945cd3f0c2",
+     "published": "2026-11-01T08:46:40+00:00",
+     "editor_note": "Adjacent: nested MoE with dynamic mixed-precision quantization to shrink MoE inference cost."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-02",
+   "items": [
+    {
+     "title": "EffComp: Efficient Prompt Compression via Hybrid Reinforcement & Supervised Learning",
+     "url": "http://arxiv.org/abs/2611.02766v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Prompt compression is aimed at reducing input prompt lengths to enable cheaper, faster, and potentially higher-quality LLM predictions. However, existing prompt compression methods are often limited by modest compress...",
+     "sid": "473a95cd7c540d1a",
+     "published": "2026-11-02T08:46:28+00:00",
+     "editor_note": "Adjacent: prompt compression trained with a hybrid of reinforcement and supervised learning."
+    }
+   ]
+  },
+  {
    "date": "2026-11-03",
    "items": [
     {
@@ -84,10 +180,57 @@
      "url": "http://arxiv.org/abs/2611.05066v1",
      "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Multimodal discrete diffusion language models (dLLMs) generate responses through iterative mask prediction and offer a promising alternative to autoregressive large vision-language models. However, they still suffer f...",
+     "summary_1line": "Multimodal discrete diffusion language models (dLLMs) generate responses through iterative mask prediction and offer a promising alternative to autoregressive large vision-language models. However, they still suffer from hallucination, producing outputs that are plausible under l",
      "sid": "57b08f9866a26766",
      "published": "2026-11-03T15:28:11+00:00",
      "editor_note": "Targets hallucination in multimodal discrete diffusion LMs by ordering visual gain during mask prediction."
+    },
+    {
+     "title": "MDSKILL: Learning to Internalize Skill Memory through Multi-View Distillation for Efficient Dynamic Agent Self-Evolution",
+     "url": "http://arxiv.org/abs/2611.05313v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Skill memories encode past experiences as textual prompts to improve reinforcement learning (RL) for self-evolving agents. Complementing RL, On-Policy Self-Distillation (OPSD) provides dense, fine-grained supervision...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "219537f3fa2b3690",
+     "published": "2026-11-03T18:19:55+00:00",
+     "editor_note": "Adjacent: distills textual skill memory into a self-evolving agent instead of carrying it as prompts."
+    },
+    {
+     "title": "Give the Drafter a Second Chance to Guess: Parallel Reconsideration for Speculative Decoding",
+     "url": "http://arxiv.org/abs/2611.05724v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Speculative decoding accelerates large language model inference with a small drafter, whose per-guess acceptance rate determines the achievable speedup. Feature-level drafters share a design choice: every token, easy...",
+     "sid": "884381d0dd03d261",
+     "published": "2026-11-03T22:52:34+00:00",
+     "editor_note": "Lets a speculative-decoding drafter reconsider its guesses in parallel to raise per-guess acceptance."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-04",
+   "items": [
+    {
+     "title": "Accelerating Long-Context Decoding in Large-Scale Hybrid LLMs Without Retraining",
+     "url": "http://arxiv.org/abs/2611.06133v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "The full-attention layers of large language models (LLMs) make every generated token more expensive than the previous one, slowing models down on long-context tasks. Hybrid models reduce this cost by replacing most full-attention layers with linear-attention layers, but the first",
+     "sid": "f78a35ba2c2de2e1",
+     "published": "2026-11-04T08:18:38+00:00",
+     "editor_note": "Adjacent: speeds long-context decoding in hybrid full/linear-attention LLMs without retraining."
+    },
+    {
+     "title": "SpecCompact: Accelerating LLM Agent Context Compaction with Slot-Parallel Semantic Speculative Verification",
+     "url": "http://arxiv.org/abs/2611.06876v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "LLM agents use context compaction to manage growing interaction histories, but summarizing long histories with large models can introduce substantial delays. Compaction therefore requires balancing information retenti...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "1c1687d38f9aafb9",
+     "published": "2026-11-04T18:34:41+00:00",
+     "editor_note": "Carries the speculate-then-verify pattern into agent context compaction to cut summarization delay."
     }
    ]
   },
@@ -116,33 +259,138 @@
      "editor_note": "Speculative simulation that preserves the exact output distribution when sampling several tokens in parallel."
     }
    ]
+  },
+  {
+   "date": "2026-11-06",
+   "items": [
+    {
+     "title": "DUET: Dual-Sparse Inference for Block Diffusion Language Models",
+     "url": "http://arxiv.org/abs/2611.09239v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Diffusion language models (DLMs) enable parallel token generation through iterative denoising, yet their inference remains costly due to repeated attention over a growing historical prefix and repeated processing of the entire current generation block. Historical attention become",
+     "sid": "5fbc35eb022e4033",
+     "published": "2026-11-06T09:59:42+00:00",
+     "editor_note": "DUET: sparsifies both attention over the growing prefix and processing of the current block in block diffusion LMs."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-07",
+   "items": [
+    {
+     "title": "D-REAL: Acceptance-Length Optimization with Unbiased Gradients for Speculative Decoding",
+     "url": "http://arxiv.org/abs/2611.10432v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Speculative decoding efficiency depends on the number of consecutively accepted draft tokens, yet token-level training objectives do not directly optimize this quantity. We introduce D-REAL (Drafter Reinforcement of E...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "b1fe6c30c1c550df",
+     "published": "2026-11-07T03:19:43+00:00",
+     "editor_note": "D-REAL: trains the drafter on acceptance length directly, with unbiased gradients, instead of token-level objectives."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-08",
+   "items": [
+    {
+     "title": "D3Tree: Learning to Prune Block-Diffusion Draft Trees for Efficient Verification",
+     "url": "http://arxiv.org/abs/2611.11371v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Block-diffusion drafters propose a whole block of tokens in one forward pass, and draft trees built from their position-wise marginals increase the expected accepted length of speculative decoding. Every tree node occupies a query row in target verification, so under concurrent s",
+     "sid": "a4e942d0f147f07c",
+     "published": "2026-11-08T13:29:14+00:00",
+     "editor_note": "Learns to prune block-diffusion draft trees, since every tree node costs a verification row on the target."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "DForkTree: Accelerating Speculative Decoding with Fork-Aware Block Diffusion Draft Trees",
+     "url": "http://arxiv.org/abs/2611.12356v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Speculative decoding speeds up language models by letting a lightweight drafter propose several future tokens that the target model verifies in parallel. Block diffusion drafters such as DFlash draft a whole block in one forward pass, and DDTree builds a draft tree from their per",
+     "sid": "0aacbce5f85ac122",
+     "published": "2026-11-09T13:06:52+00:00",
+     "editor_note": "Builds fork-aware draft trees from a block-diffusion drafter, following DFlash and DDTree."
+    },
+    {
+     "title": "Phrase-Level Speculative Decoding on a Frozen Target",
+     "url": "http://arxiv.org/abs/2611.12464v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Speculative decoders raise throughput by banking more target tokens per forward pass, and Medusa, EAGLE-3, DFlash and DSpark all do it the same way: more candidates that survive verification. All of them draft in the target's own vocabulary, so one node of the candidate tree is o",
+     "sid": "d9424aebc884a5c5",
+     "published": "2026-11-09T14:13:32+00:00",
+     "editor_note": "Drafts at phrase level against a frozen target instead of in the target's own token vocabulary."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "items": [
+    {
+     "title": "Blurring the Block Boundaries: Overlapping Block Denoising for Efficient Diffusion Language Models",
+     "url": "http://arxiv.org/abs/2611.14387v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Diffusion Language Models (DLMs) have emerged as effective alternatives to autoregressive models for latency-critical tasks, enabling faster token generation. Recent advances employ block diffusion with self-editing c...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "ca0cd6bcfdb70098",
+     "published": "2026-11-10T17:40:24+00:00",
+     "editor_note": "Overlaps denoising blocks to make block diffusion LMs more efficient for latency-critical generation."
+    },
+    {
+     "title": "REAL Loss: Optimizing Real Expected Acceptance Length for Speculative Decoding",
+     "url": "http://arxiv.org/abs/2611.14399v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Speculative decoding accelerates LLM inference by having a draft model propose multiple tokens for the target model to verify in one pass. The speedup is governed by the expected acceptance length (EAL), yet standard...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "256bf90ce51f6665",
+     "published": "2026-11-10T17:45:12+00:00",
+     "editor_note": "Second drafter loss within a week, after D-REAL, that optimizes expected acceptance length for speculative-decoding drafters."
+    },
+    {
+     "title": "C$^2$-Routing: Complementary Cropping and Compression for Efficient Vision-Language Inference",
+     "url": "http://arxiv.org/abs/2611.14469v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Visual Question Answering (VQA) imposes substantial computational overhead on vision-language models (VLMs), motivating model-agnostic input reduction methods that can be readily applied across diverse VLMs, including...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "d7a4f91e59e352a3",
+     "published": "2026-11-10T18:32:28+00:00",
+     "editor_note": "Adjacent: model-agnostic image cropping and compression to cut vision-language inference cost."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Diffusion language models first surfaced here on the offensive side, as a way to craft fluent low-perplexity black-box attacks on LLMs. Two decoding-speed papers followed, cutting rounds via schedule distillation and adaptive compute for agents.",
+  "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It began with diffusion language models as an attack tool and a parallel-decoding alternative, then widened to speculative decoding, pruning, MoE serving and prompt compression.",
   "stale": false,
-  "whats_new": "Measured Coupling (Nov 5) tackles which tokens a diffusion LM can safely commit in one step, after SpecCTMC offered exact speculative simulation of masked diffusion.",
-  "why_it_matters": "Diffusion LLMs only pay off for serving if parallel decoding cuts rounds without changing output quality; SpecCTMC targets exactly that, but it is still research-stage evidence, not a deployable runtime.",
-  "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet; if you prototype one, measure decoding rounds, output-distribution drift and quality against your autoregressive baseline, and include fluent-prompt attacks in red-team evals.",
-  "status": {
-   "state": "Research · developing",
-   "tone": "rising",
-   "changed": "2026-11-05",
-   "detail": "Six arXiv papers, no production release: attacks, decoding speed, length extrapolation and multimodal reliability."
-  },
+  "whats_new": "Overlapping Block Denoising (Nov 10) targets block-diffusion LM efficiency, the same day REAL Loss proposed training speculative-decoding drafters directly on expected acceptance length.",
+  "why_it_matters": "The two lines are converging: block-diffusion models now show up as drafters inside speculative decoding, where the target model still verifies every token, which is a lower-risk route into a serving stack than replacing the autoregressive model.",
+  "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet. If you run speculative decoding, the nearer-term experiment is a block-diffusion drafter: measure accepted length and verification cost under your real concurrency before adopting it.",
   "beats": [
    {
     "kicker": "RISK",
-    "tone": "turn",
-    "headline": "Diffusion LMs used for perplexity-aware black-box attacks",
+    "tone": "alert",
+    "headline": "Diffusion models show up as an attack and privacy surface",
+    "summary": "One paper uses a diffusion LM to write fluent attack prompts; another tests training-set membership in image diffusion models.",
     "sids": [
-     "4d1cef01d9ab5673"
+     "4d1cef01d9ab5673",
+     "1423e77dae0d2a75"
     ]
    },
    {
     "kicker": "SPEED",
     "tone": "rising",
-    "headline": "Schedule distillation and metacognitive decoding aim to cut dLLM cost",
+    "headline": "Schedule distillation, metacognitive decoding and Measured Coupling aim to cut dLLM decoding rounds",
     "sids": [
      "75e015095613159e",
      "edcf9763d6b958dc",
@@ -159,19 +407,70 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "EXACTNESS",
+    "tone": "rising",
     "headline": "SpecCTMC makes parallel sampling exact",
     "sids": [
      "2fb1a0f31494270f"
     ]
+   },
+   {
+    "kicker": "ADJACENT",
+    "tone": "neutral",
+    "headline": "Non-diffusion efficiency work shares the thread: pruning, MoE serving, compression and agent overhead",
+    "summary": "These papers share the efficient-inference theme, not the diffusion method.",
+    "sids": [
+     "b3f4301ff8d83589",
+     "ed7966c78dc36a0b",
+     "a8a5f23cd8e10643",
+     "01d6db945cd3f0c2",
+     "473a95cd7c540d1a",
+     "219537f3fa2b3690",
+     "f78a35ba2c2de2e1",
+     "1c1687d38f9aafb9",
+     "d7a4f91e59e352a3"
+    ]
+   },
+   {
+    "kicker": "SPECULATION",
+    "tone": "rising",
+    "headline": "Speculative decoding papers chase longer accepted drafts",
+    "summary": "Two papers a few days apart, D-REAL and REAL Loss, both train the drafter on acceptance length instead of token-level loss.",
+    "sids": [
+     "6dbbfb1c94ed9d7f",
+     "884381d0dd03d261",
+     "b1fe6c30c1c550df",
+     "d9424aebc884a5c5",
+     "256bf90ce51f6665"
+    ]
+   },
+   {
+    "kicker": "THE TURN",
+    "tone": "turn",
+    "headline": "Block-diffusion drafters enter speculative decoding",
+    "summary": "D3Tree and DForkTree treat a block-diffusion model as the drafter and work on the draft tree the target verifies.",
+    "sids": [
+     "a4e942d0f147f07c",
+     "0aacbce5f85ac122"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Block diffusion LMs get their own inference optimizations",
+    "sids": [
+     "5fbc35eb022e4033",
+     "ca0cd6bcfdb70098"
+    ]
    }
   ],
   "open_questions": [
-   "Do the schedule-distillation, metacognitive-decoding and SpecCTMC speedups hold on independent benchmarks at equal output quality?",
+   "Do the schedule-distillation, metacognitive-decoding, Measured Coupling and SpecCTMC speedups hold on independent benchmarks at equal output quality?",
    "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?",
-   "Does RangeSWA's training-free extrapolation hold on long outputs beyond the paper's tested lengths?"
+   "Does RangeSWA's training-free extrapolation hold on long outputs beyond the paper's tested lengths?",
+   "Does a block-diffusion drafter with a pruned draft tree beat existing drafters on end-to-end throughput under concurrent serving load?",
+   "Do D-REAL and REAL Loss report comparable acceptance-length gains on the same drafter and target pairs?"
   ],
-  "generated_at": "2026-11-09T00:11:56+00:00"
+  "generated_at": "2026-11-12T00:14:38+00:00"
  }
 }

@@ -1,38 +1,53 @@
 {
   "slug": "diffusion-language",
-  "generated_at": "2026-11-09T00:11:56+00:00",
-  "covers_last_updated": "2026-11-05T17:41:20+00:00",
+  "generated_at": "2026-11-12T00:14:38+00:00",
+  "covers_last_updated": "2026-11-10T18:32:28+00:00",
   "covers_member_sids": [
+    "b3f4301ff8d83589",
     "4d1cef01d9ab5673",
+    "6dbbfb1c94ed9d7f",
     "75e015095613159e",
+    "ed7966c78dc36a0b",
     "edcf9763d6b958dc",
+    "1423e77dae0d2a75",
+    "a8a5f23cd8e10643",
     "581b8a72b6b37583",
+    "01d6db945cd3f0c2",
+    "473a95cd7c540d1a",
     "57b08f9866a26766",
+    "219537f3fa2b3690",
+    "884381d0dd03d261",
+    "f78a35ba2c2de2e1",
+    "1c1687d38f9aafb9",
     "0491c6de7a511fb5",
-    "2fb1a0f31494270f"
+    "2fb1a0f31494270f",
+    "5fbc35eb022e4033",
+    "b1fe6c30c1c550df",
+    "a4e942d0f147f07c",
+    "0aacbce5f85ac122",
+    "d9424aebc884a5c5",
+    "ca0cd6bcfdb70098",
+    "256bf90ce51f6665",
+    "d7a4f91e59e352a3"
   ],
-  "tldr": "Diffusion language models first surfaced here on the offensive side, as a way to craft fluent low-perplexity black-box attacks on LLMs. Two decoding-speed papers followed, cutting rounds via schedule distillation and adaptive compute for agents.",
-  "whats_new": "Measured Coupling (Nov 5) tackles which tokens a diffusion LM can safely commit in one step, after SpecCTMC offered exact speculative simulation of masked diffusion.",
-  "why_it_matters": "Diffusion LLMs only pay off for serving if parallel decoding cuts rounds without changing output quality; SpecCTMC targets exactly that, but it is still research-stage evidence, not a deployable runtime.",
-  "status": {
-    "state": "Research · developing",
-    "tone": "rising",
-    "changed": "2026-11-05",
-    "detail": "Six arXiv papers, no production release: attacks, decoding speed, length extrapolation and multimodal reliability."
-  },
+  "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It began with diffusion language models as an attack tool and a parallel-decoding alternative, then widened to speculative decoding, pruning, MoE serving and prompt compression.",
+  "whats_new": "Overlapping Block Denoising (Nov 10) targets block-diffusion LM efficiency, the same day REAL Loss proposed training speculative-decoding drafters directly on expected acceptance length.",
+  "why_it_matters": "The two lines are converging: block-diffusion models now show up as drafters inside speculative decoding, where the target model still verifies every token, which is a lower-risk route into a serving stack than replacing the autoregressive model.",
   "beats": [
     {
       "kicker": "RISK",
-      "tone": "turn",
-      "headline": "Diffusion LMs used for perplexity-aware black-box attacks",
+      "tone": "alert",
+      "headline": "Diffusion models show up as an attack and privacy surface",
+      "summary": "One paper uses a diffusion LM to write fluent attack prompts; another tests training-set membership in image diffusion models.",
       "sids": [
-        "4d1cef01d9ab5673"
+        "4d1cef01d9ab5673",
+        "1423e77dae0d2a75"
       ]
     },
     {
       "kicker": "SPEED",
       "tone": "rising",
-      "headline": "Schedule distillation and metacognitive decoding aim to cut dLLM cost",
+      "headline": "Schedule distillation, metacognitive decoding and Measured Coupling aim to cut dLLM decoding rounds",
       "sids": [
         "75e015095613159e",
         "edcf9763d6b958dc",
@@ -49,27 +64,97 @@
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
+      "kicker": "EXACTNESS",
+      "tone": "rising",
       "headline": "SpecCTMC makes parallel sampling exact",
       "sids": [
         "2fb1a0f31494270f"
       ]
+    },
+    {
+      "kicker": "ADJACENT",
+      "tone": "neutral",
+      "headline": "Non-diffusion efficiency work shares the thread: pruning, MoE serving, compression and agent overhead",
+      "summary": "These papers share the efficient-inference theme, not the diffusion method.",
+      "sids": [
+        "b3f4301ff8d83589",
+        "ed7966c78dc36a0b",
+        "a8a5f23cd8e10643",
+        "01d6db945cd3f0c2",
+        "473a95cd7c540d1a",
+        "219537f3fa2b3690",
+        "f78a35ba2c2de2e1",
+        "1c1687d38f9aafb9",
+        "d7a4f91e59e352a3"
+      ]
+    },
+    {
+      "kicker": "SPECULATION",
+      "tone": "rising",
+      "headline": "Speculative decoding papers chase longer accepted drafts",
+      "summary": "Two papers a few days apart, D-REAL and REAL Loss, both train the drafter on acceptance length instead of token-level loss.",
+      "sids": [
+        "6dbbfb1c94ed9d7f",
+        "884381d0dd03d261",
+        "b1fe6c30c1c550df",
+        "d9424aebc884a5c5",
+        "256bf90ce51f6665"
+      ]
+    },
+    {
+      "kicker": "THE TURN",
+      "tone": "turn",
+      "headline": "Block-diffusion drafters enter speculative decoding",
+      "summary": "D3Tree and DForkTree treat a block-diffusion model as the drafter and work on the draft tree the target verifies.",
+      "sids": [
+        "a4e942d0f147f07c",
+        "0aacbce5f85ac122"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Block diffusion LMs get their own inference optimizations",
+      "sids": [
+        "5fbc35eb022e4033",
+        "ca0cd6bcfdb70098"
+      ]
     }
   ],
   "open_questions": [
-    "Do the schedule-distillation, metacognitive-decoding and SpecCTMC speedups hold on independent benchmarks at equal output quality?",
+    "Do the schedule-distillation, metacognitive-decoding, Measured Coupling and SpecCTMC speedups hold on independent benchmarks at equal output quality?",
     "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?",
-    "Does RangeSWA's training-free extrapolation hold on long outputs beyond the paper's tested lengths?"
+    "Does RangeSWA's training-free extrapolation hold on long outputs beyond the paper's tested lengths?",
+    "Does a block-diffusion drafter with a pruned draft tree beat existing drafters on end-to-end throughput under concurrent serving load?",
+    "Do D-REAL and REAL Loss report comparable acceptance-length gains on the same drafter and target pairs?"
   ],
-  "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet; if you prototype one, measure decoding rounds, output-distribution drift and quality against your autoregressive baseline, and include fluent-prompt attacks in red-team evals.",
+  "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet. If you run speculative decoding, the nearer-term experiment is a block-diffusion drafter: measure accepted length and verification cost under your real concurrency before adopting it.",
   "day_captions": {
+    "b3f4301ff8d83589": "Adjacent framing paper: argues reliable multi-turn agent inference needs structure, not only larger models.",
     "4d1cef01d9ab5673": "Uses a diffusion LM to generate low-perplexity attack prompts against black-box LLMs.",
+    "6dbbfb1c94ed9d7f": "Applies n-gram speculative decoding to RL post-training rollouts, which the paper says can exceed 70% of training time.",
     "75e015095613159e": "Proposes learning when to commit tokens, reducing the decoding rounds dLLMs need.",
+    "ed7966c78dc36a0b": "Adjacent: co-designs pruning and scheduling for MoE inference on memory-constrained edge servers, where moving expert weights dominates.",
     "edcf9763d6b958dc": "Extends the efficiency push to agents by adapting compute spent and text generated per interaction.",
+    "1423e77dae0d2a75": "Image-side privacy angle: a membership inference method for testing whether an image was in a diffusion model's training set.",
+    "a8a5f23cd8e10643": "Adjacent: gradual pruning with sparse adaptation to hold LLM quality at extreme sparsity.",
     "581b8a72b6b37583": "Training-free fix for repetition and quality loss when continuous diffusion LMs generate longer text.",
+    "01d6db945cd3f0c2": "Adjacent: nested MoE with dynamic mixed-precision quantization to shrink MoE inference cost.",
+    "473a95cd7c540d1a": "Adjacent: prompt compression trained with a hybrid of reinforcement and supervised learning.",
     "57b08f9866a26766": "Targets hallucination in multimodal discrete diffusion LMs by ordering visual gain during mask prediction.",
+    "219537f3fa2b3690": "Adjacent: distills textual skill memory into a self-evolving agent instead of carrying it as prompts.",
+    "884381d0dd03d261": "Lets a speculative-decoding drafter reconsider its guesses in parallel to raise per-guess acceptance.",
+    "f78a35ba2c2de2e1": "Adjacent: speeds long-context decoding in hybrid full/linear-attention LLMs without retraining.",
+    "1c1687d38f9aafb9": "Carries the speculate-then-verify pattern into agent context compaction to cut summarization delay.",
+    "0491c6de7a511fb5": "Measured Coupling: picks which tokens are safe to commit together in parallel decoding instead of assuming mean-field independence.",
     "2fb1a0f31494270f": "Speculative simulation that preserves the exact output distribution when sampling several tokens in parallel.",
-    "0491c6de7a511fb5": "Measured Coupling: picks which tokens are safe to commit together in parallel decoding instead of assuming mean-field independence."
+    "5fbc35eb022e4033": "DUET: sparsifies both attention over the growing prefix and processing of the current block in block diffusion LMs.",
+    "b1fe6c30c1c550df": "D-REAL: trains the drafter on acceptance length directly, with unbiased gradients, instead of token-level objectives.",
+    "a4e942d0f147f07c": "Learns to prune block-diffusion draft trees, since every tree node costs a verification row on the target.",
+    "0aacbce5f85ac122": "Builds fork-aware draft trees from a block-diffusion drafter, following DFlash and DDTree.",
+    "d9424aebc884a5c5": "Drafts at phrase level against a frozen target instead of in the target's own token vocabulary.",
+    "ca0cd6bcfdb70098": "Overlaps denoising blocks to make block diffusion LMs more efficient for latency-critical generation.",
+    "256bf90ce51f6665": "Second drafter loss within a week, after D-REAL, that optimizes expected acceptance length for speculative-decoding drafters.",
+    "d7a4f91e59e352a3": "Adjacent: model-agnostic image cropping and compression to cut vision-language inference cost."
   }
 }

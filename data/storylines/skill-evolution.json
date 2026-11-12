@@ -4,30 +4,14 @@
  "item_count": 4,
  "day_count": 4,
  "source_count": 2,
- "first_seen": "2026-10-19T07:29:21+00:00",
- "last_updated": "2026-11-04T12:47:32+00:00",
- "generated_at": "2026-11-06T00:13:28.162297+00:00",
+ "first_seen": "2026-10-26T15:34:29+00:00",
+ "last_updated": "2026-11-10T12:53:12+00:00",
+ "generated_at": "2026-11-12T00:15:17.843192+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_cl"
  ],
  "days": [
-  {
-   "date": "2026-10-19",
-   "items": [
-    {
-     "title": "EvoSkill v2: Fully Agentic Skill Evolution from Benchmark Adaptation to a Stateful Evolver",
-     "url": "http://arxiv.org/abs/2610.25931v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "EvoSkill v2 is a three-agent system that edits the instructions (skills) an agent is given, leaving its model and harness intact. The user starts a run by describing a benchmark and supplying a grader, which a benchma...",
-     "why_it_matters": "Matches feed focus: agentic, harness.",
-     "sid": "3af6dffb8c0777d2",
-     "published": "2026-10-19T07:29:21+00:00",
-     "editor_note": "Skill evolution with model and harness held fixed."
-    }
-   ]
-  },
   {
    "date": "2026-10-26",
    "items": [
@@ -72,29 +56,37 @@
      "why_it_matters": "Matches feed focus: agent, evaluation.",
      "sid": "10ae15e7aac9f9d9",
      "published": "2026-11-04T12:47:32+00:00",
-     "editor_note": "Addresses degradation when skills evolve online."
+     "editor_note": "Names degradation under online evolution as the problem to fix."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "items": [
+    {
+     "title": "Program-Aided Patchable Skill Evolution",
+     "url": "http://arxiv.org/abs/2611.14019v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Agent skills have emerged as an effective means of enabling LLM agents to solve complex, interactive tasks by encoding reusable knowledge without modifying model parameters. Recent approaches further improve skill ada...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "6097f9821d2ffeb8",
+     "published": "2026-11-10T12:53:12+00:00",
+     "editor_note": "Adds a program-aided, patch-based route to adapting skills."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "EvoSkill v2 (Oct 19) evolves agent skills, meaning instructions, without touching the model or harness. A Oct 26 paper added hierarchical skills for coding agents, and ScienceCUA (Nov 2) built skills from software manuals.",
+  "tldr": "This thread groups independent arXiv papers on one theme, not one event: agents improving their own skills while the model stays fixed. A coding-agent paper (Oct 26) added hierarchical skills, ScienceCUA (Nov 2) built skills from software manuals, and EvoGuard (Nov 4) targeted degradation when skills evolve online.",
   "stale": false,
-  "whats_new": "EvoGuard (Nov 4) targets degradation when skills evolve online, a failure mode the earlier skill-evolution papers left open.",
-  "why_it_matters": "Skills are editable text, so agent behavior can change without retraining; online evolution can also make skills worse, so accepted edits need a guard.",
-  "take_for_builders": "Version agent skills like code and gate each evolved edit on a grader or benchmark, with a rollback path in case online evolution degrades performance.",
+  "whats_new": "Program-Aided Patchable Skill Evolution (Nov 10) is the fourth skill-evolution paper in the thread, pitching skills that are patched with program support, with model parameters left untouched.",
+  "why_it_matters": "Skills are editable artifacts, so agent behavior can change without retraining; online evolution can also make skills worse, so every accepted edit needs a guard.",
+  "take_for_builders": "Version agent skills like code: keep each evolved edit as a reviewable diff, gate it on a grader or benchmark, and keep a rollback path in case online evolution degrades performance.",
   "beats": [
    {
-    "kicker": "LAUNCH",
-    "tone": "launch",
-    "headline": "EvoSkill v2: a three-agent system that edits skills",
-    "sids": [
-     "3af6dffb8c0777d2"
-    ]
-   },
-   {
     "kicker": "CODING",
-    "tone": "rising",
+    "tone": "launch",
     "headline": "Hierarchical skills separate reusable experience from repo-specific context",
     "sids": [
      "187923b6aa7d2a93"
@@ -109,24 +101,29 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "FRICTION",
+    "tone": "turn",
     "headline": "EvoGuard targets degradation in online skill evolution",
+    "summary": "The first paper in the thread to treat skill evolution itself as a failure source.",
     "sids": [
      "10ae15e7aac9f9d9"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "A program-aided approach makes skill evolution patchable",
+    "sids": [
+     "6097f9821d2ffeb8"
     ]
    }
   ],
   "open_questions": [
    "Do evolved skills hold up on tasks and repositories outside their training benchmark?",
    "Does skill evolution beat hand-written skills on a shared benchmark?",
-   "Does EvoGuard's mitigation hold when applied to other evolvers such as EvoSkill v2?"
+   "Does EvoGuard's mitigation hold when applied to other skill evolvers?",
+   "Do patch-level skill edits degrade less under online evolution than whole-document rewrites?"
   ],
-  "provenance": {
-   "10ae15e7aac9f9d9": {
-    "status_update": true
-   }
-  },
-  "generated_at": "2026-11-06T00:12:54+00:00"
+  "generated_at": "2026-11-12T00:13:57+00:00"
  }
 }

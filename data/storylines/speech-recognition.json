@@ -1,0 +1,107 @@
+{
+ "slug": "speech-recognition",
+ "label": "Speech Recognition",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-10-28T19:30:01+00:00",
+ "last_updated": "2026-11-10T17:59:28+00:00",
+ "generated_at": "2026-11-12T00:15:17.843192+00:00",
+ "sources": [
+  "arxiv_cs_cl",
+  "arxiv_cs_lg",
+  "arxiv_llm_reliability"
+ ],
+ "days": [
+  {
+   "date": "2026-10-28",
+   "items": [
+    {
+     "title": "Streaming Speech Recognition on a Microcontroller: a 65.7M-Parameter Transducer in 2 and 4 Bits on the ESP32-P4",
+     "url": "http://arxiv.org/abs/2610.38739v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "We run Kroko, a 65.7M-parameter streaming Zipformer2 transducer for English, on the ESP32-P4, a microcontroller with two 400 MHz RISC-V cores, a 128-bit SIMD extension (PIE) and 32 MB of PSRAM, but no neural accelerator. Without any training, the encoder's 290 matrices are stored",
+     "sid": "64d5612d6441ca2f",
+     "published": "2026-10-28T19:30:01+00:00",
+     "editor_note": "The deployment-footprint data point: low-bit storage of the encoder's 290 matrices without any training, on a microcontroller."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-30",
+   "items": [
+    {
+     "title": "From Transcription to Reformulation: Defining and Benchmarking Grounded Generative Speech Recognition",
+     "url": "http://arxiv.org/abs/2610.41292v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Speech language models have expanded automatic speech recognition (ASR) from transcription to general speech-to-text generation. Yet existing benchmarks still assume a single ground-truth transcript per utterance, an...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "e829938c6d7f203a",
+     "published": "2026-10-30T05:53:56+00:00",
+     "editor_note": "The evaluation angle: questions the single-ground-truth-transcript assumption behind current ASR benchmarks."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "items": [
+    {
+     "title": "Earlybird: Predictive Streaming Speech Recognition in 29M Parameters",
+     "url": "http://arxiv.org/abs/2611.14421v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Streaming speech recognizers output a word only after the speaker has finished it, typically 90-400 ms later. For a voice agent every millisecond counts: the sooner the words are outputted, the sooner the agent can st...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "1cd37d39d82ad148",
+     "published": "2026-11-10T17:59:28+00:00",
+     "editor_note": "The latency angle: frames word-output delay as the cost a voice agent pays before it can start responding."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a topical cluster of three independent arXiv papers on speech recognition, not one unfolding event. A late-October paper ran Kroko, a 65.7M-parameter streaming Zipformer2 transducer, at 2 and 4 bits on an ESP32-P4 microcontroller with no neural accelerator, and a second argued that ASR benchmarks still assume a single ground-truth transcript per utterance.",
+  "stale": false,
+  "whats_new": "Earlybird, a 29M-parameter predictive streaming recognizer, targets the 90-400 ms that streaming ASR typically waits after a speaker finishes a word before outputting it, a delay it frames as a voice-agent cost.",
+  "why_it_matters": "The three papers touch separate parts of a voice-agent stack: where the recognizer can run, how soon it emits words, and whether a single-reference benchmark can score speech models that generate rather than transcribe.",
+  "take_for_builders": "Treat all three as single-paper claims: before changing a voice pipeline, measure your own recognizer's word-finalization delay, since that is the number Earlybird's 90-400 ms framing says to compare against.",
+  "beats": [
+   {
+    "kicker": "FOOTPRINT",
+    "tone": "launch",
+    "headline": "A 65.7M-parameter streaming transducer runs on an ESP32-P4 in 2 and 4 bits",
+    "summary": "The target chip has two 400 MHz RISC-V cores, a 128-bit SIMD extension and 32 MB of PSRAM, with no neural accelerator.",
+    "sids": [
+     "64d5612d6441ca2f"
+    ]
+   },
+   {
+    "kicker": "EVALUATION",
+    "tone": "neutral",
+    "headline": "A benchmark proposal for grounded generative speech recognition",
+    "summary": "The paper argues that speech language models moved ASR from transcription to general speech-to-text generation while benchmarks kept one reference transcript per utterance.",
+    "sids": [
+     "e829938c6d7f203a"
+    ]
+   },
+   {
+    "kicker": "LATENCY",
+    "tone": "now",
+    "headline": "Earlybird predicts words early to cut streaming lag in 29M parameters",
+    "summary": "It starts from the observation that streaming recognizers output a word 90-400 ms after the speaker finishes it.",
+    "sids": [
+     "1cd37d39d82ad148"
+    ]
+   }
+  ],
+  "open_questions": [
+   "What accuracy does the 2-bit and 4-bit Kroko encoder lose against the full-precision model, and does it run in real time on the ESP32-P4?",
+   "How much of the 90-400 ms output delay does Earlybird remove, and at what word-error cost when a prediction is wrong?",
+   "Do existing speech language models rank differently under a grounded generative benchmark than under single-reference WER?",
+   "Does any of the three papers ship code or weights that others can reproduce?"
+  ],
+  "generated_at": "2026-11-12T00:13:57Z"
+ }
+}

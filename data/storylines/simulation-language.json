@@ -1,0 +1,107 @@
+{
+ "slug": "simulation-language",
+ "label": "Simulation Language",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-11-04T16:17:28+00:00",
+ "last_updated": "2026-11-10T16:26:19+00:00",
+ "generated_at": "2026-11-12T00:15:17.843192+00:00",
+ "sources": [
+  "arxiv_cs_ai",
+  "arxiv_cs_cl"
+ ],
+ "days": [
+  {
+   "date": "2026-11-04",
+   "items": [
+    {
+     "title": "Template Gap Reconstruction for Shell Output Simulation with Small Language Models",
+     "url": "http://arxiv.org/abs/2611.06731v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Small language models offer a compact basis for shell simulation without executing submitted commands, but full-output decoding requires them to predict recurring utility structure alongside content that varies across...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "054cfd7046ceabc8",
+     "published": "2026-11-04T16:17:28+00:00",
+     "editor_note": "Opens the cluster with command-free shell simulation on small models, splitting recurring utility structure from variable content."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-05",
+   "items": [
+    {
+     "title": "SpecCTMC: Exact Speculative Simulation of Diffusion Language Model Continuous-Time Markov Chains",
+     "url": "http://arxiv.org/abs/2611.08362v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Masked diffusion language models offer parallel text generation, but independently sampling multiple tokens can disrupt their dependencies and change the output distribution. Exact continuous-time sampling avoids this...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "2fb1a0f31494270f",
+     "published": "2026-11-05T17:41:20+00:00",
+     "editor_note": "Unrelated to the shell paper: an exact sampler for diffusion language models that keeps parallel generation from changing the output distribution."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "items": [
+    {
+     "title": "LM-SimBench: A Unified Framework, Dataset, and Benchmark for Large Language Model Training Simulation",
+     "url": "http://arxiv.org/abs/2611.14285v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Evaluating candidate parallelization strategies through distributed training runs makes strategy selection prohibitively expensive at scale. Performance simulation offers a lower cost alternative, yet controlled compa...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "c4a35e75b732ef4a",
+     "published": "2026-11-10T16:26:19+00:00",
+     "editor_note": "Moves the theme to infrastructure: a framework, dataset, and benchmark for simulating LLM training instead of running it."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a loose cluster of three arXiv papers that share the word \"simulation\", not one event. The first two covered small language models that imitate shell output without executing the submitted commands, and SpecCTMC, an exact speculative sampler for masked diffusion language models.",
+  "stale": false,
+  "whats_new": "LM-SimBench proposes a unified framework, dataset, and benchmark for simulating LLM training performance, aimed at choosing a parallelization strategy without paying for distributed training runs.",
+  "why_it_matters": "Each paper replaces an expensive or risky real run with a cheaper stand-in: a shell that never executes the command, a diffusion sampler that keeps the exact output distribution, and a training-performance simulator.",
+  "take_for_builders": "Treat these as three separate preprints, not a trend. If you are sizing a distributed training job, read LM-SimBench for how it compares simulators before trusting any single simulator's strategy ranking.",
+  "beats": [
+   {
+    "kicker": "SHELL",
+    "tone": "neutral",
+    "headline": "Small language models simulate shell output without running the command",
+    "summary": "Full-output decoding makes the model predict recurring utility structure as well as the content that varies, which is the gap template reconstruction targets.",
+    "sids": [
+     "054cfd7046ceabc8"
+    ]
+   },
+   {
+    "kicker": "SAMPLING",
+    "tone": "neutral",
+    "headline": "SpecCTMC targets exact parallel sampling for masked diffusion language models",
+    "summary": "Sampling several tokens independently can break their dependencies and shift the output distribution; exact continuous-time sampling avoids that.",
+    "sids": [
+     "2fb1a0f31494270f"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "LM-SimBench benchmarks simulators of LLM training performance",
+    "summary": "Testing candidate parallelization strategies with real distributed runs is prohibitively expensive at scale, so the paper standardizes how simulators are compared.",
+    "sids": [
+     "c4a35e75b732ef4a"
+    ]
+   }
+  ],
+  "open_questions": [
+   "How closely do LM-SimBench simulators predict measured distributed-training performance on real clusters?",
+   "Does SpecCTMC's exact speculative sampling reduce wall-clock generation time against standard masked diffusion samplers?",
+   "How often does template-based shell simulation diverge from real command output on utilities outside its templates?",
+   "Do any of the three papers release code or data that an independent team has reproduced?"
+  ],
+  "generated_at": "2026-11-12T00:13:57Z"
+ }
+}

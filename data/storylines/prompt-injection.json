@@ -1,15 +1,17 @@
 {
  "slug": "prompt-injection",
  "label": "Prompt Injection",
- "item_count": 6,
- "day_count": 5,
- "source_count": 2,
+ "item_count": 10,
+ "day_count": 8,
+ "source_count": 4,
  "first_seen": "2026-10-27T17:58:52+00:00",
- "last_updated": "2026-11-05T08:25:27+00:00",
- "generated_at": "2026-11-09T00:12:13.390560+00:00",
+ "last_updated": "2026-11-11T18:41:14+00:00",
+ "generated_at": "2026-11-12T00:15:17.843192+00:00",
  "sources": [
   "arxiv_agent_systems_research",
-  "arxiv_cs_ai"
+  "arxiv_cs_ai",
+  "arxiv_llm_reliability",
+  "hackernews_ai"
  ],
  "days": [
   {
@@ -100,22 +102,75 @@
      "sid": "8cb3780368901295",
      "published": "2026-11-05T08:25:27+00:00",
      "editor_note": "Benchmark for attacks that tamper with task outcomes rather than override instructions."
+    },
+    {
+     "title": "IWIBench: Evaluating Gradient-Free Model Driven Intra-weight Injection",
+     "url": "http://arxiv.org/abs/2611.08647v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Intra-weight injection lets one model change another model's behaviour by editing its weights directly, without gradients. Such edits can range from altering lexical associations to enforcing output formats or updatin...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "78d08efcc4ad77de",
+     "published": "2026-11-05T19:50:11+00:00",
+     "editor_note": "Adjacent, not prompt injection: benchmarks one model editing another's weights without gradients."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-06",
+   "items": [
+    {
+     "title": "I Think, Therefore I Attack: Evaluating Thought Injection Attacks on Reasoning Agents",
+     "url": "http://arxiv.org/abs/2611.08811v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Large Reasoning Models (LRMs) are one of the key components of current agentic systems. LRMs augment their output with an explicit chain-of-thought reasoning stage, introducing a new attack surface for thought injecti...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "83722b13b6167c53",
+     "published": "2026-11-06T00:06:13+00:00",
+     "editor_note": "Names the chain-of-thought stage of reasoning models as its own injection surface."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-08",
+   "items": [
+    {
+     "title": "Treating the Model as an Untrusted Component: Deterministic Policy Enforcement, Human Approval and Taint Tracking Against Prompt Injection in Tool-Using Agents, with Validation on Open-Weights Models",
+     "url": "http://arxiv.org/abs/2611.11571v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Tool-using LLM agents act on instructions embedded in the data they read, so prompt injection is a structural rather than a prompt-wording problem. We compare in-prompt defences (hardened prompts, spotlighting, LLM de...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "54f1f65b7c731a1b",
+     "published": "2026-11-08T19:33:25+00:00",
+     "editor_note": "Compares in-prompt defences with deterministic enforcement, human approval, and taint tracking."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-11",
+   "items": [
+    {
+     "title": "Prompt Injection, Esq.: pwning AI agent guardrails with lawyerspeak",
+     "url": "https://www.mrnice.dev/posts/heavyweight-guardrails",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Prompt Injection, Esq.: pwning AI agent guardrails with lawyerspeak",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "5b14ba0a321ddbad",
+     "published": "2026-11-11T18:41:14+00:00",
+     "editor_note": "First practitioner report in the thread: a guardrail bypass built on legal-style phrasing."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "Late October papers proposed model-level defenses: learned attention gates (Heads of Security) and adversarial training (SecPO). Early November papers then widened the attack surface to persistent agent memory and silently updated tools.",
+  "tldr": "This is a research cluster, not one event: late-October papers proposed model-level defenses (Heads of Security attention gates, SecPO adversarial training). Early-November papers then widened the attack surface to agent memory, tool updates, task outcomes, and reasoning traces, while a Nov 8 paper argued for treating the model as an untrusted component.",
   "stale": false,
-  "whats_new": "A new benchmark shows indirect prompt injection can tamper with a tool-using agent's task outcome rather than just redirect it, a case most IPI benchmarks do not test.",
-  "why_it_matters": "Defenses tuned to block instruction override can miss attacks that corrupt memory, tool updates, or task results; test those paths before trusting a guardrail.",
-  "take_for_builders": "Add a task-tampering case, a cross-session memory-poisoning case, and a tool-version-change check to your agent red-team suite, and do not rely on instruction-override tests alone.",
-  "status": {
-   "state": "Developing",
-   "tone": "rising",
-   "changed": "2026-11-05",
-   "detail": "Research is shifting from single-turn instruction override to memory, tool-update, and task-tampering attacks, with new runtime defenses alongside."
-  },
+  "whats_new": "A practitioner write-up, \"Prompt Injection, Esq.\", reports bypassing AI agent guardrails with legal-style phrasing, three days after a paper argued injection defense belongs in deterministic policy rather than in the prompt.",
+  "why_it_matters": "The thread keeps moving the defense out of the model: a guardrail that reads text can be argued with, so the control that holds is the one enforced in code around the tool call.",
+  "take_for_builders": "Gate high-impact tool calls with deterministic policy and human approval instead of an LLM judge, then add legal-register, task-tampering, memory-poisoning, and tool-version-change cases to your red-team suite.",
   "beats": [
    {
     "kicker": "MODEL-LEVEL DEFENSES",
@@ -139,7 +194,7 @@
    },
    {
     "kicker": "RUNTIME DEFENSE",
-    "tone": "turn",
+    "tone": "neutral",
     "headline": "SPILLWAY separates target admission from sanitization",
     "summary": "Argues against putting an LLM on the decision that lets an action through, since that decision can itself be manipulated.",
     "sids": [
@@ -147,20 +202,42 @@
     ]
    },
    {
+    "kicker": "WIDER ATTACKS",
+    "tone": "rising",
+    "headline": "Benchmarks add task tampering, thought injection, and weight-level injection",
+    "summary": "Two papers extend injection past instruction override, to task outcomes and the chain-of-thought stage; IWIBench is adjacent, covering one model editing another's weights rather than prompts.",
+    "sids": [
+     "8cb3780368901295",
+     "78d08efcc4ad77de",
+     "83722b13b6167c53"
+    ]
+   },
+   {
+    "kicker": "THE TURN",
+    "tone": "turn",
+    "headline": "Paper frames injection as structural and treats the model as untrusted",
+    "summary": "Compares in-prompt defences (hardened prompts, spotlighting) against deterministic policy enforcement, human approval, and taint tracking, validated on open-weights models.",
+    "sids": [
+     "54f1f65b7c731a1b"
+    ]
+   },
+   {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Task-tampering benchmark exposes a gap in IPI evaluation",
-    "summary": "Attacker-controlled content can alter the outcome of the user's task instead of redirecting the agent.",
+    "headline": "Practitioner post claims guardrail bypass using lawyerspeak",
+    "summary": "The first non-paper item in the thread: a write-up on defeating agent guardrails with legal-style language.",
     "sids": [
-     "8cb3780368901295"
+     "5b14ba0a321ddbad"
     ]
    }
   ],
   "open_questions": [
-   "Do learned attention gates (Heads of Security) and SecPO training hold up against task-tampering attacks?",
+   "Do learned attention gates (Heads of Security) and SecPO training hold up against task-tampering and thought-injection attacks?",
    "Do the memory and tool-update attack papers ship reproducible harnesses that independent teams can run?",
-   "Does SPILLWAY's admission/sanitization split keep its robustness in independent evaluation on real agent frameworks?"
+   "Does SPILLWAY's admission/sanitization split keep its robustness in independent evaluation on real agent frameworks?",
+   "Which guardrail products does the lawyerspeak bypass work against, and do their vendors confirm or patch it?",
+   "Do deterministic policy enforcement and taint tracking hold on closed frontier models, beyond the open-weights models the paper validated on?"
   ],
-  "generated_at": "2026-11-07T00:30:00+00:00"
+  "generated_at": "2026-11-12T00:14:30+00:00"
  }
 }

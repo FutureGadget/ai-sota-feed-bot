@@ -1,0 +1,47 @@
+{
+  "slug": "routing-inference",
+  "generated_at": "2026-11-12T00:13:57Z",
+  "covers_last_updated": "2026-11-10T18:32:28+00:00",
+  "covers_member_sids": [
+    "0e98622582a57b4b",
+    "e58d58fddbc120e8",
+    "d7a4f91e59e352a3"
+  ],
+  "tldr": "This is a loose topical cluster, not one event: three unrelated items that each use \"routing\" to cut inference cost or latency at a different layer. OpenRouter rebuilt provider routing in its hosted gateway on Oct 30, and a Show HN on Nov 7 introduced Sibyl, an immutable local inference appliance with routing built in.",
+  "whats_new": "The arXiv paper C²-Routing (Nov 10) moves routing to the input layer, pairing image cropping with compression as a model-agnostic way to shrink what a vision-language model must process for visual question answering.",
+  "why_it_matters": "\"Routing\" now names three separate cost and latency levers (which provider serves a request, which local backend runs it, and how much input reaches the model), and each one is tuned and evaluated differently.",
+  "beats": [
+    {
+      "kicker": "GATEWAY",
+      "tone": "launch",
+      "headline": "OpenRouter rebuilds provider routing for better, faster inference",
+      "summary": "Routing at the hosted-gateway layer: choosing which provider serves a request.",
+      "sids": ["0e98622582a57b4b"]
+    },
+    {
+      "kicker": "LOCAL",
+      "tone": "neutral",
+      "headline": "Sibyl packages a local inference stack as an immutable appliance with routing",
+      "summary": "A solo side project, described by its author as early days, that puts routing in a portable self-hosted box configured through a UI.",
+      "sids": ["e58d58fddbc120e8"]
+    },
+    {
+      "kicker": "RESEARCH",
+      "tone": "now",
+      "headline": "C²-Routing applies routing to VLM inputs: cropping plus compression",
+      "summary": "A paper on model-agnostic input reduction for visual question answering, unrelated to either product above.",
+      "sids": ["d7a4f91e59e352a3"]
+    }
+  ],
+  "open_questions": [
+    "Does OpenRouter publish latency or success-rate numbers that quantify the rebuilt provider routing?",
+    "Does Sibyl's routing select among local models and backends only, or can it also fall back to hosted providers?",
+    "How much accuracy does C²-Routing give up for its input reduction, and does the result hold across VLMs beyond those the paper tests?"
+  ],
+  "take_for_builders": "Treat these as three independent decisions. If you send traffic through OpenRouter, re-measure latency and provider distribution after the routing rebuild; evaluate the appliance and the paper on their own evidence before adopting either.",
+  "day_captions": {
+    "0e98622582a57b4b": "OpenRouter's own account of rebuilding provider routing, the hosted-gateway end of the cluster.",
+    "e58d58fddbc120e8": "Adds the self-hosted angle: an early-stage, UI-configured local inference appliance that includes routing.",
+    "d7a4f91e59e352a3": "Adds the research angle: routing as input reduction for vision-language models, combining cropping and compression."
+  }
+}
