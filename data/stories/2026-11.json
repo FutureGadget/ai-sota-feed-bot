@@ -2462,6 +2462,19 @@
   "type": "news",
   "url": "https://vllm.ai/blog/2026-11-04-introducing-kinference"
  },
+ "2b1a5a2b8a869dfe": {
+  "content_excerpt": "vLLM supports Thinking Machines' Inkling 2 Small on day 0. It is a multimodal (text and vision) MoE model with 594B total and 17B active parameters and up to 1M tokens of context. The model also comes with a native DSpark speculator. vLLM supports it with optimized performance (up to 630 TPS/user at TP4 and acceptance length 3.5) and also supports LoRA. Figure 1. Inkling 2 Small architecture. Gold marks what is new or changed since Inkling. Inkling backbone + recent advances. Inkling 2 Small keeps Inkling's backbone: the 5:1 mix of sliding-window and full attention, GQA with a learned relative bias instead of RoPE, the four short convolutions per layer and a sigmoid-routed MoE. On top of it, it adds recent advances. Block attention residuals replace the residual stream, so before each sublayer a learned query mixes the outputs of earlier 6-layer blocks. Gated attention puts a sigmoid gate on each head's output, together with a per-token attention sink . It replaces the hMLP image encoder with a 23-layer ViT. Mixed-precision MoE with Four-Over-Six NVFP4. Out of Inkling 2 Small's 48 layers, the experts of the first 40 use NVFP4 and those of the last 8 use MXFP8. The NVFP4 activations use a per-token global scale plus dual-candidate block scales ( Four Over Six ): for each 16-element block, the quantizer tries scaling the block's maximum to 6 and to 4, and keeps whichever gives the lower reconstruction error (MAE). DSpark speculator with an RNN head. The checkpoint also ships a ",
+  "first_seen": "2026-11-12T22:04:49.875487+00:00",
+  "id": "349354012d9c3fb7",
+  "published": "2026-11-12T00:00:00+00:00",
+  "sid": "2b1a5a2b8a869dfe",
+  "source": "vllm_blog",
+  "summary": "vLLM supports Thinking Machines' Inkling 2 Small from day 0: attention residuals, a new decode kernel for relative-bias attention, all-reduce fused with the ops around it, and DSpark speculative decoding.",
+  "summary_1line": "vLLM supports Thinking Machines' Inkling 2 Small from day 0: attention residuals, a new decode kernel for relative-bias attention, all-reduce fused with the ops around it, and DSpark speculative decoding.",
+  "title": "Inkling 2 Small on vLLM: Day-0 Support",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-11-12-inkling2-small"
+ },
  "2c00110bd6231e59": {
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. What happens when students can one-shot last year’s homework? Inside CS146S and the engineering team at Monaco. The AI Engineer YouTube channel just crossed one million subscribers . Thank you to everyone who’s watched a talk, sent one to a teammate, or put something they learned into production. For this special, we wanted to sit down with someone who has to answer a question a lot of us are asking at work: what should a software engineer actually learn now? Mihail Eric has two places to test his answer. He teaches The Modern Software Developer at Stanford and leads AI at Monaco, where his colleagues use coding agents to ship software and investigate outages. I asked him to take us through the syllabus, then tell us which parts survived contact with his own engineering team. This is also meant as a preview for all of you joining us in San Francisco for AIE Code next week, as required knowledge for all the conversations with the speakers, sponsors and attendees you’re about to have. If you can see this as a LS subscriber and haven’t got a ticket yet, you can use this code for 30% off (no refunds, sorry) The first run of CS146S had nine assignments and a ",
   "first_seen": "2026-11-08T22:05:35.246341+00:00",
@@ -6165,6 +6178,22 @@
   "url": "https://microsoft.github.io/apm",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "6cfc942e5da70ee0": {
+  "first_seen": "2026-11-12T22:04:49.875487+00:00",
+  "id": "b8cb2b430362184d",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-12T21:29:07+00:00",
+  "sid": "6cfc942e5da70ee0",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.168.0",
+  "summary_1line": "Release 0.168.0",
+  "title": "codex rust-v0.168.0",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "6d32c6450e419289": {
   "content_excerpt": "The current Claude lineup has four generally available models: Claude Haiku 5.5, Claude Sonnet 5.5, Claude Opus 5.5 and Claude Fable 5.2. Claude Mythos 5.2 is our most capable model for cybersecurity and life sciences research, available through our verification programs. If you build on the Claude Platform or work in Claude Code, you may be wondering which model to use for your common tasks. This article will help answer that question and how to think about the trade-offs. The quick answer is that you should start most work on Opus 5.5 at its default effort level, medium . There's a reason it's the default model in Claude Code. It costs half as much per input and output token as Fable 5.2, and it's the model we recommend starting with for most coding and knowledge work. Before you move models, try adjusting your effort level. It's a finer dial for both cost and capability. Past high , one more effort level can cost as much as a bigger model, so compare both on your own work. If you're past high , test the next model up at a lower effort instead. Conversely, one level down can get you the result you need at a lower rate. Higher effort helps when the model needs to think longer, call more tools, or check its own work more. Just keep in mind that it also adds latency. Additionally, moving to a higher effort level won't give a model knowledge or skill it doesn't have. For that, you still need to move up a model. Prices are Claude API list prices. For benchmark results, see the F",
   "first_seen": "2026-11-09T21:05:41.308068+00:00",
@@ -7429,6 +7458,19 @@
   "type": "news",
   "url": "https://github.com/volcengine/OpenViking",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "87d176270cb26539": {
+  "content_excerpt": "Deploy frontier AI models on AWS Trainium with SGLang-Neuron | Artificial Intelligence Skip to Main Content Filter: All English Contact us AWS Marketplace Support My account re:Invent Discover AWS Products Solutions Pricing Resources Search Filter: All Sign in to console Create account Explore topics re:Invent 2026 The sessions are set and your seat is waiting. Register now Build & Deploy AI Agents 88% of agent pilots stall. Learn what the rest do differently Get started Sign up free, connect your coding agent, and start building Data for agentic AI The 7 essential data capabilities to scale agentic AI Analyst Report AWS named a Leader in the 2026 Gartner Magic Quadrant for SCPS AI for Small Businesses Solutions designed for your business. Delivered by AWS Partners News & announcements AWS blog About AWS AWS is the world's most comprehensive cloud, enabling organizations to accelerate innovation, reduce costs, and scale more efficiently Why AWS Getting Started Security Compliance Trust Center Sustainability Our Impact Global Infrastructure Careers Featured Products Analytics Application Integration Artificial Intelligence Business Applications Compute Customer Experience Databases Developer Tools End User Computing Game Tech Management Tools Media Services Migration & Modernization Multicloud & Hybrid Networking & Content Delivery Operations Security & Identity Storage Supply Chain Browse all products Transformation Hubs Migrate to modernize → Modernize to unlock data → unloc",
+  "first_seen": "2026-11-12T22:04:49.875487+00:00",
+  "id": "19318a3cf4f35f05",
+  "published": "2026-11-12T22:03:34+00:00",
+  "sid": "87d176270cb26539",
+  "source": "aws_ml_blog",
+  "summary": "SGLang-Neuron is now publicly available through an AWS Deep Learning Container. With SGLang-Neuron, you can serve models and generate reinforcement learning rollouts with SGLang on AWS Trainium using the same SGLang interface you already know, all running on native PyTorch.",
+  "summary_1line": "SGLang-Neuron is now publicly available through an AWS Deep Learning Container. With SGLang-Neuron, you can serve models and generate reinforcement learning rollouts with SGLang on AWS Trainium using the same SGLang i...",
+  "title": "Deploy frontier AI models on AWS Trainium with SGLang-Neuron",
+  "type": "news",
+  "url": "https://aws.amazon.com/blogs/machine-learning/deploy-frontier-ai-models-on-aws-trainium-with-sglang-neuron"
  },
  "87f8cfbf92cb6ac1": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. Hannes Hapke shares how Dataiku’s open-source Kiji Inspector applies Sparse Autoencoders (SAEs) directly to decision tokens to expose why agents pick specific tools. Moving past superficial chain-of-thought narratives, he discusses causal ablation, layer activation extraction via patched vLLM engines, and production monitoring workflows for software architects and senior engineering leaders. Vanessa Formicola shares how t",
@@ -9296,7 +9338,7 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 205, downloads: 3241.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 208, downloads: 3738.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 146, downloads: 1464.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
