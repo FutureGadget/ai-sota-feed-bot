@@ -5157,7 +5157,7 @@
   "published": "2026-11-10T20:09:44+00:00",
   "sid": "5bf610d1dd7d8e14",
   "source": "simon_willison",
-  "summary": "Release: llm-gemini 0.36 Gemini 4 Carbon was announced two weeks ago for \"a subset of cyber defenders\", but today it's available to everyone else . This is Google's best ever Gemini, priced at $2/million input and $10/million output at launch (that's GPT-6.1 Sol / Claude Sonnet 5.5 prices) but scheduled to double in price to $4/$20 on December 1st (same as Opus 5.5). Here are three pelicans for the low, medium and high thinking efforts (it defaults to medium). This is the pelican I got for high: Gemini pelicans have all been great for a while now, so I also tested it out using Google's Antigravity IDE with a prompt I first tried with Claude Fable 5.2 yesterday : Make a three js animation where yonkers stands up as a big mech (cool stand up motion) and stomps around manhattan and queens and Brooklyn, use openstreetmap mapping data Here's the HTML result (I had to prompt \"build that into a standalone HTML file\" to get a version with no external dependencies). I then screen-captured that as a video: Update : Huh, just saw this on YouTube : Using Google Antigravity’s /swarm feature, Carbon built an open-world 3D game where you explore Google’s Mountain View campus as a pelican riding a GBike — coordinating subagents to model 3D assets in Blender from Omni and Nano Banana references, build the browser game in Three.js with WebGL shaders, and pair procedural Web Audio sound effects with Lyria music. Tags: llm-release , gemini , llm , google , generative-ai , ai , llms , pelican-rid",
+  "summary": "Release: llm-gemini 0.36 Gemini 4 Carbon was announced two weeks ago for \"a subset of cyber defenders\", but today it's available to everyone else . This is Google's best ever Gemini, priced at $2/million input and $10/million output at launch (that's GPT-6.1 Sol / Claude Sonnet 5.5 prices) but scheduled to double in price to $4/$20 on December 1st (same as Opus 5.5). Here are three pelicans for the low, medium and high thinking efforts (it defaults to medium). This is the pelican I got for high: Gemini pelicans have all been great for a while now, so I also tested it out using Google's Antigravity IDE with a prompt I first tried with Claude Fable 5.2 yesterday : Make a three js animation where yonkers stands up as a big mech (cool stand up motion) and stomps around manhattan and queens and Brooklyn, use openstreetmap mapping data Here's the HTML result (I had to prompt \"build that into a standalone HTML file\" to get a version with no external dependencies). I then screen-captured that as a video: Update : Huh, just saw this on YouTube (and tweeted by Google CEO Sundar Pichai ): Using Google Antigravity’s /swarm feature, Carbon built an open-world 3D game where you explore Google’s Mountain View campus as a pelican riding a GBike — coordinating subagents to model 3D assets in Blender from Omni and Nano Banana references, build the browser game in Three.js with WebGL shaders, and pair procedural Web Audio sound effects with Lyria music. Here's the playable version in AI Studio.",
   "summary_1line": "Release: llm-gemini 0.36 Gemini 4 Carbon was announced two weeks ago for \"a subset of cyber defenders\", but today it's available to everyone else . This is Google's best ever Gemini, priced at $2/million input and $10...",
   "title": "llm-gemini 0.36",
   "type": "release",
@@ -5587,13 +5587,18 @@
  "623504292c072dfc": {
   "first_seen": "2026-11-12T00:07:07.309660+00:00",
   "id": "708e816e9ae261ca",
+  "matched_topics": [
+   "evaluation"
+  ],
   "published": "2026-11-10T18:47:22+00:00",
   "sid": "623504292c072dfc",
   "source": "arxiv_cs_ai",
+  "summary": "Research ideation is iterative: researchers refine their ideas step by step based on feedback. Yet existing evaluations obscure this search process, making it difficult to understand how LLMs explore the space of research ideas and what limits their progress. We introduce Re-Search, which adapts the format of Twenty Questions to research ideation: given only the research problem of a published paper, a model must rediscover the paper's core idea by asking yes-or-no questions. Built from 200 ICML 2026 papers, Re-Search tracks how a model's idea evolves as it asks questions and receives binary oracle feedback, isolating ideation from execution. Across six recent LLMs, nearly all progress happens within the first 30 of 100 questions, which largely decide how the game ends; after that, most models plateau. Through controlled interventions on the candidate questions and the hypothesis space, we find that the bottleneck is generation, not judgment: models recognize a good idea or a good question when one is offered, but often cannot produce it on their own. We further analyze the ideation traces and find that models fail by either over-exploiting one direction or over-exploring too many. These findings point to concrete design principles for autoresearch systems: since models can judge candidates they cannot produce, enriching the search with externally sourced ideas and questions may be more effective than improving any single model's generation ability.",
   "summary_1line": "Research ideation is iterative: researchers refine their ideas step by step based on feedback. Yet existing evaluations obscure this search process, making it difficult to understand how LLMs explore the space of research ideas and what limits their progress. We introduce Re-Sear",
   "title": "Re-Search: Dissecting LLM Ideation Through a Two-Player Questioning Game",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.14487v1"
+  "url": "http://arxiv.org/abs/2611.14487v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "62538a53dd12f628": {
   "first_seen": "2026-11-06T06:05:21.409735+00:00",
@@ -8961,6 +8966,22 @@
   "title": "KiteNorm: Variance Regularisation for Stable and Scalable Post-LN Transformers",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12729v1"
+ },
+ "a6081ae92d24578d": {
+  "content_excerpt": "Evidence-first PM skills for Claude Code, Codex, and Cursor: make PRDs, metrics, experiments, AI evals, and launch copy show their receipts. Six agent skills for Claude Code, Codex, and Cursor that make PRDs, metrics, experiment readouts, AI evaluations, and launch copy say where each claim comes from and what each number does not prove. AI agents are fast at writing product docs. They are also fast at writing \"97% reliable\", \"users love it\", and \"proven to increase conversion\" with nothing behind it. Receipts adds the habit good PMs already have: before a claim ships, it has to point at something real. Project-only install: ./install.sh cursor --project path/to/repo (writes to .cursor/skills/ , .claude/skills/ , or .agents/skills/ for Codex). Install is tested for all three agents. How and when each agent picks up a skill on its own varies, so naming the skill in your request is the most reliable trigger. After claim-receipts : \"In one 780-link YouTube batch, every job completed, but 759 of 780 results were flagged as low evidence.\" The second sentence is less flattering and far more useful. It tells a reader, a hiring manager, or your own team exactly what the system did and where it still falls short. Before launch, an agent ran claim-receipts on this README. It checked 8 claims and caught one that overstated: see the full output . I'm Ali Raza , a Bay Area product manager and AI builder. Each skill is the written-down version of a method I used on real work: Broad librari",
+  "first_seen": "2026-11-12T05:05:50.158184+00:00",
+  "id": "7ea571ee7d6ec904",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-12T01:51:05+00:00",
+  "sid": "a6081ae92d24578d",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Receipts, agent skills that make PRDs and metrics cite their evidence",
+  "title": "Show HN: Receipts, agent skills that make PRDs and metrics cite their evidence",
+  "type": "news",
+  "url": "https://github.com/aliraza2025/receipts",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "a64346d6b971f202": {
   "first_seen": "2026-11-07T15:05:24.345011+00:00",
