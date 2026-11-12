@@ -2258,6 +2258,22 @@
   "type": "news",
   "url": "https://openai.com/index/setting-new-standard-responsible-ai-infrastructure"
  },
+ "26275b05876b4a1d": {
+  "content_excerpt": "Agent skills for building apps on smart glasses from every major brand: Even Realities G2, Meta Ray-Ban Display, Rokid, Vuzix Z100, Android XR and more. Works with Claude Code, Codex, Cursor and Copilot. Agent skills that teach coding agents to build apps for smart glasses from every major brand. Agent Skills are folders with a SKILL.md file (instructions plus optional reference files) that a coding agent loads when a task matches; the format is defined in the Agent Skills specification . Works with Claude Code, Codex, Cursor, GitHub Copilot, Gemini CLI and other agents that read Agent Skills. Plugin installs for each tool are under Install for other agents . Version 1.0.1, released 2026-11-09. Vendor facts were checked against their sources on 2026-11-08 and 2026-11-09. Nothing has been tested on real glasses yet, and every file says how it was verified. Not covered: VR and MR headsets such as Meta Quest or Apple Vision Pro, and regular phone UI. This market changes monthly, and agents answer from memory. In our evaluation we gave agents 11 realistic developer requests, once with these skills and once without. Without them, agents: Facts in this list are as of 2026-11-08. The skills hand the agent these facts with their sources and dates, so it does not have to guess. To install one skill only: npx skills add hinty-eu/smart-glasses-skills --skill smart-glasses-rokid . The full table, with microphone, input, phones and testing columns and a source for every cell, is in skills",
+  "first_seen": "2026-11-12T23:04:45.522667+00:00",
+  "id": "713914a0b6a34fd6",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-12T21:02:33+00:00",
+  "sid": "26275b05876b4a1d",
+  "source": "hackernews_ai",
+  "summary_1line": "Agent skills for building smart glasses apps",
+  "title": "Agent skills for building smart glasses apps",
+  "type": "news",
+  "url": "https://github.com/hinty-eu/smart-glasses-skills",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "26a00da01aefd2ae": {
   "content_excerpt": "Genie is always on, proactively working alongside you on long-running enterprise tasks, grounded in your business context, within your organization’s guardrails. • Genie is now an autonomous AI coworker that handles long-running tasks on your behalf, operating within the guardrails you set. • Genie Ontology, an agentic ontology built by agents and governed by people, provides trusted business context, while Genie Search finds information across your lakehouse and business systems to help Genie deliver accurate and complete answers. • Unity Gateway lets admins control tool access, trace actions, and set spending limits to keep autonomy under control. AI assistants can run analyses and summarize meetings, but employees still manage the work around them. That’s because most enterprise work is continuous, complex, and data-intensive. To monitor pipeline performance or manage budgets, someone has to track changes, decide what matters, and take action. Earlier this year, we introduced Genie One to help teams understand their data and act on it. Thousands of customers use Genie in production, including Zillow , Unilever , adidas , Atlassian , and AstraZeneca . Today, we’re introducing the new Genie: an autonomous AI coworker that proactively handles long-running enterprise work for you. Genie stays on the job continuously, tracking progress, following up on missing inputs, and taking action as new information arrives. You set the guardrails, supervise its work, and approve where nee",
   "first_seen": "2026-11-12T00:07:07.309660+00:00",
@@ -2955,6 +2971,23 @@
   "title": "Building Legal Agents When You Can't See the Data - Jacob Lauritzen, CTO of Legora",
   "type": "news",
   "url": "https://latent.space/p/building_legal_agents_when_you_can_t_see_the_data_-_jacob_lauritzen_cto_of_legora",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "33948c421834d8b2": {
+  "content_excerpt": "TL;DR: On one NVIDIA Vera Rubin NVL72 rack, vLLM serves DeepSeek-V4.1-Flash at 1.7M tokens/s per GPU while each user gets 387 tokens/s, 58× GB300 NVL72, and reaches 2.52M at peak throughput and 1,810 tokens/s for a single user. The gains come from building on what is new in Rubin: kernels tuned for its split memory and FP4 tensor cores, specialized decode kernels for low latency, and a rack-wide KV cache and Engram tables shared over NVLink. This is the third post in our DeepSeek-V4.1-Flash series. The first post covered day-0 bring-up and kernel fusions. The second scaled the model to a GB300 NVL72 rack with P/D disaggregation and Wide-EP. This post moves the same stack to Vera Rubin NVL72, which we introduced last month . Rubin opens up new avenues for optimization. We start with the hardware facts that shaped our work, then go through four groups of optimizations: Figure 1: SemiAnalysis AgentX on NVIDIA Vera Rubin NVL72 (vLLM, P/D disaggregation, Wide-EP) vs. GB300 NVL72. Throughput counts cached input, uncached input and output tokens ( GB300 source ). We measure performance with the SemiAnalysis AgentX benchmark as a representative agentic serving workload, aligned with our previous posts. Figure 1 compares the two racks' raw throughput (total tokens per GPU per second, including input, cached, and output) and power-normalized throughput, respectively in two tabs. We use the same methodology as in our previous GB300 post . For kernels and model forward profiling, vllm be",
+  "first_seen": "2026-11-12T23:04:45.522667+00:00",
+  "id": "b6d49d943ead8dc1",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-12T00:00:00+00:00",
+  "sid": "33948c421834d8b2",
+  "source": "vllm_blog",
+  "summary": "On one NVIDIA Vera Rubin NVL72 rack, vLLM serves DeepSeek-V4.1-Flash on SemiAnalysis AgentX at 1.7M tokens/s per GPU at a P90 of 387 tokens/s per user, 58x GB300 NVL72 at the same interactivity.",
+  "summary_1line": "On one NVIDIA Vera Rubin NVL72 rack, vLLM serves DeepSeek-V4.1-Flash on SemiAnalysis AgentX at 1.7M tokens/s per GPU at a P90 of 387 tokens/s per user, 58x GB300 NVL72 at the same interactivity.",
+  "title": "DeepSeek-V4.1-Flash on Vera Rubin NVL72: 58x Throughput vs. GB300 NVL72 at 387 tokens/s",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-11-12-deepseek-v41-flash-vera-rubin",
   "why_it_matters": "Matches feed focus: agent."
  },
  "3399044813cf568b": {
@@ -7336,6 +7369,28 @@
   "url": "https://magertron.com/#install",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "8427d4fee9a7d1b9": {
+  "first_seen": "2026-11-12T23:04:45.522667+00:00",
+  "id": "b1969cb9ea2e9944",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-11-12T22:12:13+00:00",
+  "release_highlights": [
+   "Added Code Mode, an experimental opt-in in which Claude writes JavaScript to call its tools; see to turn it on, or to turn it off for an organization",
+   "Added engines[\"claude-code\"] to plugin.json : plugins outside their stated Claude Code version range are not installed, updated or loaded, and install and up...",
+   "Added type checking of a plugin's TypeScript hooks module to claude plugin validate ; each finding is a warning, and --strict fails on it"
+  ],
+  "sid": "8427d4fee9a7d1b9",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added Code Mode, an experimental opt-in in which Claude writes JavaScript to call its tools; see https://code.claude.com/docs/en/code-mode to turn it on, or to turn it off for an organization Added engines[\"claude-code\"] to plugin.json : plugins outside their stated Claude Code version range are not installed, updated or loaded, and install and update pick the newest version that fits Added type checking of a plugin's TypeScript hooks module to claude plugin validate ; each finding is a warning, and --strict fails on it Added to claude plugin validate the $ nouns a mod's engine.create hook adds, withholds or replaces Added support for CLAUDE_CODE_AUTO_MODE_MODEL in managed settings for Claude Desktop sessions on third-party providers (takes effect once Claude Desktop includes this version) Added an options menu (stop, switch to usage credits, upgrade) when a model needs usage credits that are turned off or used up Added a progress heartbeat every 30 seconds while hooks run long in claude -p and SDK sessions, so a host such as Claude Desktop won't end the turn as hung (once it includes this version) Added .docx support to Artifact tool asset uploads Added a /diff to close hint to the diff panel, and the keys that focus and close a panel to the ? shortcut guide Added a start-up warning for Bash allow rules with a * in a variable's value, such as Bash(PORT=* npm run dev) Added a warning when a plugin's language server can't start, naming the server and what to che",
+  "summary_1line": "Added Code Mode, an experimental opt-in in which Claude writes JavaScript to call its tools; see to turn it on, or to turn it off for an organization · Added engines[\"claude-code\"] to plugin.json : plugins outside the...",
+  "title": "claude-code v2.1.323",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.323",
+  "why_it_matters": "Matches feed focus: agent, claude code."
+ },
  "8469e80d372681e4": {
   "first_seen": "2026-11-05T04:05:26.395389+00:00",
   "id": "2a6c9c0a745d7ee6",
@@ -8079,6 +8134,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03280v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "92bcff336f9d2934": {
+  "content_excerpt": "An agent on Neon Functions, Lakebase Postgres, and AI Gateway that hands its routine steps to a small model tuned on its own traffic Mubit is middleware for AI agents. It sits between your agent and the model with a one-line endpoint change, learns from every call, and moves recurring steps to small models tuned on your own traffic, while the frontier model keeps the hard ones. There's nothing extra to host. To show how that works with Neon, they built a template for cutting frontier-model token spend - an agent on Neon Functions and Lakebase Postgres that sends every model call through Mubit to Neon AI Gateway . The example workload is a data analyst agent that answers business questions over Postgres, but the setup applies to any agent on Neon that calls frontier models through AI Gateway: Once Mubit has tuned a small model for the routine steps, it serves them itself, and lessons from verified runs help the agent avoid repeating mistakes. In the example workload, using Mubit cut the agent's gpt-5.5 tokens by 73% and made it 40% faster, without losing accuracy. \"Neon gives agents a database and a model endpoint in one place. Mubit sits in between and learns from every call, so an agent on Neon gets cheaper and more reliable the more it runs\" — Anil Peri, CEO at Mubit \"We built AI Gateway so agents on Neon can call frontier models through one endpoint. Mubit is a good example of what you can put in front of it. The agent passes the repetitive stuff to small models, and when ",
+  "first_seen": "2026-11-12T23:04:45.522667+00:00",
+  "id": "6ee0b81525f704e7",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-12T22:00:29+00:00",
+  "sid": "92bcff336f9d2934",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Neon and Mubit: an agent that cuts its own frontier-model tokens by 73%",
+  "title": "Show HN: Neon and Mubit: an agent that cuts its own frontier-model tokens by 73%",
+  "type": "news",
+  "url": "https://neon.com/blog/mubit-neon-ai-gateway",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "92f891b192b00e63": {
   "first_seen": "2026-11-04T05:04:25.379660+00:00",
@@ -11653,6 +11724,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12834v1"
  },
+ "d121304c3de64e9e": {
+  "content_excerpt": "Learn about artificial intelligence and machine learning across the GitHub ecosystem and the wider industry. Explore the capabilities and benefits of AI code generation and how it can improve your developer experience. Discover how we deliver a performant and highly available experience across the GitHub platform. Explore best practices for building software at scale with a majority remote team. Get a glimpse at the technology underlying the world’s leading AI-powered developer platform. Learn how we build security into everything we do across the developer lifecycle. Our engineering and security teams do some incredible work. Let’s take a look at how we use GitHub to be more productive, build collaboratively, and shift security left. Organizations worldwide are incorporating open source methodologies into the way they build and ship their own software. Learn about core challenges in DevSecOps, and how you can start addressing them with AI and automation. Learn about artificial intelligence and machine learning across the GitHub ecosystem and the wider industry. Explore the capabilities and benefits of AI code generation and how it can improve your developer experience. Discover how we deliver a performant and highly available experience across the GitHub platform. Explore best practices for building software at scale with a majority remote team. Get a glimpse at the technology underlying the world’s leading AI-powered developer platform. Learn how we build security into ever",
+  "first_seen": "2026-11-12T23:04:45.522667+00:00",
+  "id": "cbf50467f0795845",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-12T22:54:52+00:00",
+  "sid": "d121304c3de64e9e",
+  "source": "github_blog_ai_ml",
+  "summary": "Agent skills capture repeatable engineering work in files teams can review and reuse, while tools, project context, and permissions remain specific to the host that runs them. The post Build once, run on any agent: A practical guide to agent skills appeared first on The GitHub Blog .",
+  "summary_1line": "Agent skills capture repeatable engineering work in files teams can review and reuse, while tools, project context, and permissions remain specific to the host that runs them. The post Build once, run on any agent: A...",
+  "title": "Build once, run on any agent: A practical guide to agent skills",
+  "type": "news",
+  "url": "https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "d1b2dd4715d89ea1": {
   "content_excerpt": "Self-hosted home AI lab: live gauges, admission-controlled job runner, training and testing recipes, approved memory, and a team room any AI can join. MIT. A self-hosted home AI lab for one box: live gauges, a job runner that refuses to overload the machine, recipe templates for training and testing, memory you approve, and a team room any AI can join. Then Controls , switch to LIVE , pick slow_count , Check it fits , Start , type START . Press Pause everything half way, then Resume : the saved pieces are kept and the job finishes. Rack Community ships no model and no keys. It is the place your models run and report. To use the sample, copy engine/samples/ask_model.recipe.json into your Rack folder's recipes/ and add ask_model 8 to its peaks.conf . Admission control. admit.sh admits a job only if max(live memory in use, declared total) + the job's peak <= LIMIT . The declared total is a base figure plus the declared peaks of admitted jobs that are still alive, so two jobs that have not yet touched memory cannot both be admitted into the same gap. A refused job exits 75 and says why. Peaks live in peaks.conf ; ADMIT_LIMIT (default 90) and ADMIT_BASE (default 10) are in GB. Durable pieces. A job is split into named pieces. Each piece result is written atomically and in order, so a crash, a restart or a pause resumes at the first piece that was not saved. A supervisor outside the worker enforces a wall-clock limit per piece, including a worker stuck in a native call. Dry-run fir",
   "first_seen": "2026-11-05T05:05:30.850959+00:00",
@@ -11801,6 +11889,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06481v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "d531ebb15aa98d2e": {
+  "content_excerpt": "Infertrail AI gateway honeypot uncovered multiple active campaigns by threat actors to test api keys, validate them and resell them giving light to how the black market reseller inference market works. In order to discover what would happen we created two honeypot LLM gateways: one mirroring LiteLLM and another one mirroring a generic OpenAI-compatible endpoint. We then proceeded to create over 40 individual organizations, each with at least on Github repository in a way that was convincing to threat actors. API keys along with the addresses of the gateways were added to these repositories in such a way that it looked like they were added by mistake by AI or human error. From this we observed over 3 million requests to our gateways, most of which were probing attacks and some of which ended up using inference in a pattern that we identified as reseller/gateway activity. Some connected to harnesses like OMP or Hermes, others connected to Telegram agents and some were even directly sourced from black market reseller domains directly. For realism we initially created GitHub projects spanning a wide array of types: ticket triage, document indexing, agent tools, and other AI applications. To make our accidental leaks seem realistic, we included a working key and our gateway’s URL in code examples in the repositories. In order to make our honeypot more attractive we advertised multiple SOTA models including astra, fable, opus 5 and sol. The attacker prompts were routed to hosted op",
+  "first_seen": "2026-11-12T23:04:45.522667+00:00",
+  "id": "589d10bf4a6657ac",
+  "published": "2026-11-12T19:52:01+00:00",
+  "sid": "d531ebb15aa98d2e",
+  "source": "hackernews_ai",
+  "summary_1line": "We tracked AI key theft over 35 days. Here's what we learned",
+  "title": "We tracked AI key theft over 35 days. Here's what we learned",
+  "type": "news",
+  "url": "https://infertrail.com/blog/llm-api-key-honeypot"
  },
  "d54833c264e274a3": {
   "content_excerpt": "Search, fetch, browse and act through one API built for agents, not for people reading a screen. Search and Fetch are free. I've spent most of this year building TinyResearch , and the goal has always been easy to say and hard to build: you hand it a hard question, and what comes back is good enough that you don't have to redo it. More and more, the one handing off that question isn't a person. It's an agent in the middle of a bigger job, like a sales agent prepping a brief before a call or an assistant comparing vendors for someone. An agent can't squint at a weak report and decide to double-check it the way you would, it just builds the next step on top of whatever it got back. So TinyResearch had to work as a step you can call and rely on, whether you're the one reading the report or your agent is. That came down to five things I measure every change against: factual correctness, credibility, readability, comprehensiveness and instruction following . This post is the long version of how TinyResearch gets there: what happens inside a run, how deep the loop actually goes, a few decisions I changed my mind on along the way, and how it does on three public benchmarks. If you just want to try it, it's live at agent.tinyfish.ai/playground/research . That's not one question. It's a handful of them hiding inside one sentence. How much would each cost over five years, including insurance, maintenance, and fuel or charging? What changes if you can't charge at home? How do they compa",
