@@ -172,7 +172,7 @@
   "sid": "04524b2773c6396e",
   "source": "arxiv_agent_systems_research",
   "summary": "We propose SciMARS, a framework for recursive task-local adaptation of multi-agent harnesses in closed-loop scientific discovery. Multi-agent systems coordinate analysis, experimental design, and verification as scientific evidence evolves. However, two problems limit their effectiveness: (i) without shared memory, agents lose observations and repeat work; (ii) fixed role procedures, handoffs, and memory policies perpetuate mistakes despite retained evidence. We address these problems with a shared evidence graph and separate component editors. SciMARS adapts roles and coordination; SciMARS + Memory adds a third editor for how agents record, retrieve, and receive evidence. Candidate probes guide composition and selection of the next harness. We evaluate scientific discovery through experimental-data replay and a digital twin. SciMARS + Memory resolves 12/18 GPT-6-Astra and 2/18 GLM-5.3 attempts on Autonomous Science Bench, compared with 8/18 and 1/18 for the base multi-agent team. On ScienceAgentBench and AppWorld, it solves 14/38 and 11/20 tasks, compared with 11/38 and 5/20 for the base team. These results support combining shared memory with harness adaptation across scientific and interactive tasks.",
-  "summary_1line": "We propose SciMARS, a framework for recursive task-local adaptation of multi-agent harnesses in closed-loop scientific discovery. Multi-agent systems coordinate analysis, experimental design, and verification as scien...",
+  "summary_1line": "We propose SciMARS, a framework for recursive task-local adaptation of multi-agent harnesses in closed-loop scientific discovery. Multi-agent systems coordinate analysis, experimental design, and verification as scientific evidence evolves. However, two problems limit their effec",
   "title": "SciMARS: Multi-Agent Recursive Self-Improvement for Closed-Loop Scientific Discovery",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12552v1",
@@ -621,7 +621,7 @@
   "sid": "0ada6edaa8802c6a",
   "source": "arxiv_cs_cl",
   "summary": "LLM agents are increasingly used for open-ended, data-driven scientific discovery, yet most of them evaluate hypotheses pointwise, testing an empirical claim $h$ only against its complement $\\neg h$. When evidence rejects $h$, the agent learns that one explanation is unlikely but not which alternative the evidence supports. To recover that alternative, we introduce Contrastive Discovery, which replaces the single hypothesis with a contrast set, a scientific question paired with mutually exclusive and collectively exhaustive competing explanations. Each experiment is scored by how its evidence redistributes belief across the set, and the question is resolved when belief concentrates on one explanation. Because contrast sets change only the unit an agent proposes and scores, an existing agent can use them to re-evaluate evidence it has already collected or to guide its search. Across six domains, $89\\%$ of the pointwise candidates with the largest belief shifts are rejections. On the same evidence, contrast sets resolve $73\\%$ of these candidates to a specific alternative. When contrast sets guide search, the agent resolves $67\\%$ more questions than pointwise surprisal under the same experiment budget. In a blinded study, $38$ human experts chose the same explanation on $78\\%$ of resolved questions and on $82\\%$ of questions where the pointwise agent rejected its hypothesis and stopped. Together, these results support explicit competing explanations as a way for discovery agen",
-  "summary_1line": "LLM agents are increasingly used for open-ended, data-driven scientific discovery, yet most of them evaluate hypotheses pointwise, testing an empirical claim $h$ only against its complement $\\neg h$. When evidence rej...",
+  "summary_1line": "LLM agents are increasingly used for open-ended, data-driven scientific discovery, yet most of them evaluate hypotheses pointwise, testing an empirical claim $h$ only against its complement $\\neg h$. When evidence rejects $h$, the agent learns that one explanation is unlikely but",
   "title": "Contrastive Discovery: Open-Ended Scientific Discovery over Competing Explanations",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14514v1",
@@ -1325,6 +1325,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.01835v1"
  },
+ "1801030a1117e68f": {
+  "first_seen": "2026-11-12T00:07:07.309660+00:00",
+  "id": "fa91f8a50c1817d1",
+  "published": "2026-11-10T13:55:52+00:00",
+  "sid": "1801030a1117e68f",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "We present our system for the SHROOM-visions 2026 shared task on character-level hallucination span detection in image-conditioned vision-language model (VLM) responses, evaluated across English, French, Italian, and Chinese. The detector is built on a frozen Gemma-4-12B-it backb",
+  "title": "Sckwoky at SHROOM-Visions: Character-Level Hallucination-Span Detection in Image-Conditioned VLMs via Dual-Prompted LoRA Decoders",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14100v1"
+ },
  "1816d36cbb0339ec": {
   "first_seen": "2026-11-05T03:05:19.238517+00:00",
   "id": "128c3635809eb88f",
@@ -1684,7 +1695,7 @@
   "sid": "1cd37d39d82ad148",
   "source": "arxiv_cs_cl",
   "summary": "Streaming speech recognizers output a word only after the speaker has finished it, typically 90-400 ms later. For a voice agent every millisecond counts: the sooner the words are outputted, the sooner the agent can start a search or plan its reply. We present Earlybird, a 29M-parameter streaming recognizer (16.8 MB at 4 bits). Earlybird learns from audio cut off at random points, including partway through a word, and is asked to predict every word that is due by then in full, plus a guess of the next two words. Its raw token probabilities give a confidence for every word including the one still being spoken. On clean audiobook speech (LibriSpeech test-clean), the median word is predicted correctly 90 ms before the speaker finishes it, while released streaming models get it 90 to 400 ms after it ends. Earlybird is the earliest on all six test sets we time, covering audiobooks, TED talks, public speech, earnings calls, and synthetic speech. On the same audiobooks, 69% of words are predicted correctly before they end, against 3-25% for the other models. For words still being spoken, confidence is calibrated, with an expected calibration error (ECE) of 3.7 to 5.5. On the eight English Open ASR Leaderboard sets, it is more accurate than Moonshine Tiny on every set and roughly ties Whistle, a model of the same size.",
-  "summary_1line": "Streaming speech recognizers output a word only after the speaker has finished it, typically 90-400 ms later. For a voice agent every millisecond counts: the sooner the words are outputted, the sooner the agent can st...",
+  "summary_1line": "Streaming speech recognizers output a word only after the speaker has finished it, typically 90-400 ms later. For a voice agent every millisecond counts: the sooner the words are outputted, the sooner the agent can start a search or plan its reply. We present Earlybird, a 29M-par",
   "title": "Earlybird: Predictive Streaming Speech Recognition in 29M Parameters",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14421v1",
@@ -2054,7 +2065,7 @@
   "sid": "241fc9f7d029e500",
   "source": "arxiv_cs_cl",
   "summary": "Local language models can save memory by storing weights in fewer bits, and they can reduce sensitivity to the order of answer options by averaging a few reorderings. We ask whether the first makes the second worse, and which is the cheaper way to spend a fixed budget. On Qwen3-0.6B and Qwen3-1.7B with simulated round-to-nearest weight quantization (8, 6, 4 and 3 bits, fp16 reference), read from the logits of the letters A to D on ARC-Easy, ARC-Challenge, MMLU and HellaSwag (300 items each), 6 bits lose no accuracy against fp16 (they score +1.8 (+1.0 to +2.5) and +0.9 (+0.3 to +1.5) points higher, which we do not explain), and 8 bits change it by -0.7 (-1.1 to -0.3) and -0.4 (-0.7 to -0.2) points. At 4 bits the answer-slot skew rises from 0.15 to 0.53 (0.6B) and from 0.07 to 0.12 (1.7B); Gaussian noise at the same weight SNR gives 0.15 and 0.37 (two draws) and 0.19 (one draw), so the control is inconclusive on whether rounding adds slot skew beyond equal-power noise. Flip rates rise but stay below an accuracy-matched baseline of independent uniform errors. Averaging four cyclic orders recovers +12.6 points at 4 bits for 0.6B (+5.3 at fp16). We price bits and passes in one machine-independent unit, weight bytes read times passes. In cost-matched pairs, extra orders beat extra bits only when the weights have 6 or more bits, and the decision table reduces to: use 6-bit weights and spend the rest of the budget on up to four orders, one pass each. Everything is simulated on two sm",
-  "summary_1line": "Local language models can save memory by storing weights in fewer bits, and they can reduce sensitivity to the order of answer options by averaging a few reorderings. We ask whether the first makes the second worse, a...",
+  "summary_1line": "Local language models can save memory by storing weights in fewer bits, and they can reduce sensitivity to the order of answer options by averaging a few reorderings. We ask whether the first makes the second worse, and which is the cheaper way to spend a fixed budget. On Qwen3-0",
   "title": "Bits or permutations? Spending a fixed inference budget on weight precision or on option-order averaging in small local language models",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14413v1"
@@ -2153,6 +2164,18 @@
   "type": "news",
   "url": "https://openai.com/index/setting-new-standard-responsible-ai-infrastructure"
  },
+ "26a00da01aefd2ae": {
+  "content_excerpt": "Genie is always on, proactively working alongside you on long-running enterprise tasks, grounded in your business context, within your organization’s guardrails. • Genie is now an autonomous AI coworker that handles long-running tasks on your behalf, operating within the guardrails you set. • Genie Ontology, an agentic ontology built by agents and governed by people, provides trusted business context, while Genie Search finds information across your lakehouse and business systems to help Genie deliver accurate and complete answers. • Unity Gateway lets admins control tool access, trace actions, and set spending limits to keep autonomy under control. AI assistants can run analyses and summarize meetings, but employees still manage the work around them. That’s because most enterprise work is continuous, complex, and data-intensive. To monitor pipeline performance or manage budgets, someone has to track changes, decide what matters, and take action. Earlier this year, we introduced Genie One to help teams understand their data and act on it. Thousands of customers use Genie in production, including Zillow , Unilever , adidas , Atlassian , and AstraZeneca . Today, we’re introducing the new Genie: an autonomous AI coworker that proactively handles long-running enterprise work for you. Genie stays on the job continuously, tracking progress, following up on missing inputs, and taking action as new information arrives. You set the guardrails, supervise its work, and approve where nee",
+  "first_seen": "2026-11-12T00:07:07.309660+00:00",
+  "id": "551aa0bb17a9c831",
+  "published": "2026-11-11T16:00:00+00:00",
+  "sid": "26a00da01aefd2ae",
+  "source": "databricks_blog",
+  "summary_1line": "AI assistants can run analyses and summarize meetings, but employees still manage...",
+  "title": "The new Genie: autonomous AI for complex enterprise work",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/new-genie-autonomous-ai-complex-enterprise-work"
+ },
  "26bc756ec216b604": {
   "first_seen": "2026-11-11T20:05:49.624616+00:00",
   "id": "03074b6114e63637",
@@ -2164,7 +2187,7 @@
   "sid": "26bc756ec216b604",
   "source": "arxiv_cs_ai",
   "summary": "Formal world models can support planning, verification, and safety reasoning, but constructing them from open-ended natural-language situations is difficult, particularly in multi-agent settings where several formalizations may be plausible. We study whether five LLMs can generate such world models as partially observable stochastic games and whether mechanical validity is sufficient to establish that the resulting model faithfully represents the intended decision problem. We introduce a benchmark of 44 scenarios spanning game, situational, and cultural settings and evaluate generated world models along three dimensions: mechanical validity, reference-relative structural agreement, and semantic criteria. Across three empirical tracks, we analyze 410 first-pass generations. In the reference-backed game track, 134/135 generated world models pass a strict mechanical audit, yet mean permutation-invariant structural F1 is only 0.366, with just 28/134 mechanically valid models exactly matching the authored reference. In the cultural track, explicitly naming the country changes the generated structural representation for most LLMs while producing only small changes in automated semantic scores. These results show that executability is a necessary but insufficient criterion for LLM-generated world models: models that are mechanically valid can still differ substantially in the structure used by downstream neuro-symbolic reasoning and planning.",
-  "summary_1line": "Formal world models can support planning, verification, and safety reasoning, but constructing them from open-ended natural-language situations is difficult, particularly in multi-agent settings where several formaliz...",
+  "summary_1line": "Formal world models can support planning, verification, and safety reasoning, but constructing them from open-ended natural-language situations is difficult, particularly in multi-agent settings where several formalizations may be plausible. We study whether five LLMs can generat",
   "title": "Evaluating LLM-Generated World Models for Neuro-Symbolic Reasoning",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14419v1",
@@ -2689,6 +2712,17 @@
   "type": "news",
   "url": "https://agenticresourcediscovery.org",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "30c1da6e37b95f40": {
+  "first_seen": "2026-11-12T00:07:07.309660+00:00",
+  "id": "62930b2e163e65e5",
+  "published": "2026-11-09T20:18:32+00:00",
+  "sid": "30c1da6e37b95f40",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "LLM-based agents can reason, use tools and collaborate. However, coordinating increasingly complex agentic applications becomes difficult to understand, monitor and improve. Decisions distributed across prompts, tool calls and application logic make workflows implicit. We introdu",
+  "title": "From Process Models to Composable Agentic Workflows: Combining BPMN, Agents and Enterprise Knowledge",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.13196v1"
  },
  "315067631b45108f": {
   "content_excerpt": "Any two of three AI engines share at least one business name 56.8% of the time (95 percent interval 54.5 to 59.0 percent): 1066 engine pairs across 771 question-days, 54 questions, 17 run days, 2026-10-24 to 2026-11-09, ChatGPT (OpenAI) gpt-5-mini, Claude (Anthropic) bedrock haiku 4.5, Gemini (Google) flash lite. Names were extracted mechanically by capitalisation from the public corpus (github.com/mrcrtr1979-droid/namebeam-visibility-index), matched on canonical form. Generic names filtered. Three engines only (ChatGPT gpt-5-mini, Claude bedrock haiku 4.5, Gemini flash lite). Local-business questions only. This is a count of agreement, not a measurement of causes or outcomes.",
@@ -5307,6 +5341,17 @@
   "url": "https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "5f857b7f5e194396": {
+  "first_seen": "2026-11-12T00:07:07.309660+00:00",
+  "id": "c59ecb8867fdae98",
+  "published": "2026-11-10T18:01:23+00:00",
+  "sid": "5f857b7f5e194396",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Time-Series Foundation Models (TSFMs) are increasingly used in sensor applications, where sampling frequency (SF) varies across sensors, devices, and operating modes (e.g., power saving). Ideally, TSFMs must remain effective during such SF changes, provided the SF retains task-cr",
+  "title": "Quantifying the Sampling Frequency Invariance of Time-Series Foundation Models for Sensor Data Applications",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14425v1"
+ },
  "5fa568689690c9ce": {
   "first_seen": "2026-11-10T03:08:56.949643+00:00",
   "id": "8db100e7a2d297d0",
@@ -5505,6 +5550,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.07238v1",
   "why_it_matters": "Matches feed focus: agent, harness."
+ },
+ "623504292c072dfc": {
+  "first_seen": "2026-11-12T00:07:07.309660+00:00",
+  "id": "708e816e9ae261ca",
+  "published": "2026-11-10T18:47:22+00:00",
+  "sid": "623504292c072dfc",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Research ideation is iterative: researchers refine their ideas step by step based on feedback. Yet existing evaluations obscure this search process, making it difficult to understand how LLMs explore the space of research ideas and what limits their progress. We introduce Re-Sear",
+  "title": "Re-Search: Dissecting LLM Ideation Through a Two-Player Questioning Game",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14487v1"
  },
  "62538a53dd12f628": {
   "first_seen": "2026-11-06T06:05:21.409735+00:00",
@@ -6509,7 +6565,7 @@
   "sid": "79a0f00b03e27450",
   "source": "arxiv_llm_reliability",
   "summary": "Anomaly detection (AD) is a critical for trustworthy machine learning and scientific discovery. Existing methods typically define anomalies through local density, isolation heuristics, or distance from a fitted distribution, making them sensitive to neighborhood scale, partitioning choices, or restrictive distributional assumptions. In this work, we introduce a new paradigm by formulating anomaly detection from a diversity perspective. We propose the $\\textit{Vendi Anomaly Score}$ (VAS), which detects anomalies by quantifying how much a sample changes the diversity of the dataset, as measured by the Vendi score, when removed. VAS captures both local redundancy and global data structure without relying on density estimation or partitioning heuristics. Moreover, VAS requires no hyperparameter tuning, instead adapting automatically to the spectral structure of the data. VAS is non-parametric and scales linearly with dataset size. Across 148 benchmark embedding datasets derived from 10 source datasets and 4 embedding architectures, VAS achieves state-of-the-art AD performance. We further validate VAS on large-scale ImageNet experiments, where it remains robust as both contamination rate and dataset scale increase.",
-  "summary_1line": "Anomaly detection (AD) is a critical for trustworthy machine learning and scientific discovery. Existing methods typically define anomalies through local density, isolation heuristics, or distance from a fitted distri...",
+  "summary_1line": "Anomaly detection (AD) is a critical for trustworthy machine learning and scientific discovery. Existing methods typically define anomalies through local density, isolation heuristics, or distance from a fitted distribution, making them sensitive to neighborhood scale, partitioni",
   "title": "Vendi Anomaly Scores for Efficient and Accurate Anomaly Detection",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12871v1"
@@ -7047,7 +7103,7 @@
   "sid": "84ecbe8e1def5e6c",
   "source": "arxiv_llm_reliability",
   "summary": "AI systems must often maintain bounded memory of unbounded interaction histories. However, optimizing the memory representation, and its updates, for downstream task utility is difficult for standard reinforcement learning (RL) due to severe credit assignment bottlenecks induced by sparse, delayed rewards. We introduce MaxIM (Maximally Informative Incremental Memory), a framework that formulates incremental summarization as a capacity-constrained, information-theoretic reward-shaping problem. Grounded in value suboptimality bounds, we show that bounding sequential information loss motivates maximizing the predictive log-likelihood of future, task-relevant targets, a variational lower bound on predictive sufficiency. We introduce a recursive consistency condition to ensure summaries are grounded by maximizing mutual information (MI) with the observed history. We mitigate credit assignment issues with a parameterized asymmetric critic that computes step-wise variational MI bounds for dense reward shaping. Empirical evaluation on long-horizon scientific reading and multi-turn dialogue benchmarks shows that MaxIM outperforms RL, supervised fine-tuning, and prompt-focused baselines on factual grounding, comprehensive autorater metrics, and downstream task utility across strict token budgets and extended horizons, without the need for expensive human preference labels.",
-  "summary_1line": "AI systems must often maintain bounded memory of unbounded interaction histories. However, optimizing the memory representation, and its updates, for downstream task utility is difficult for standard reinforcement lea...",
+  "summary_1line": "AI systems must often maintain bounded memory of unbounded interaction histories. However, optimizing the memory representation, and its updates, for downstream task utility is difficult for standard reinforcement learning (RL) due to severe credit assignment bottlenecks induced",
   "title": "MaxIM: Maximally Informative Incremental Summarization via Reinforcement Learning",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12825v1",
@@ -7630,6 +7686,17 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.2",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "91a68f1b2b1b2b0c": {
+  "first_seen": "2026-11-12T00:07:07.309660+00:00",
+  "id": "1afed727b9149a4d",
+  "published": "2026-11-10T17:57:51+00:00",
+  "sid": "91a68f1b2b1b2b0c",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Local decoding usually fixes one weight precision for the whole generation. We study a different allocation: store 8-bit weights, decode with their top 4 bits, and redo a step at 8 bits only when the low-precision output distribution looks uncertain (entropy above a threshold or",
+  "title": "Precision on Demand: Escalating Weight Bits at Uncertain Decoding Steps in a Small Local Model",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14418v1"
+ },
  "91e8339abec141ef": {
   "content_excerpt": "Ask HN: How do you evaluate the skills your AI agents use? | Hacker News Hacker News new | past | comments | ask | show | jobs | submit login Ask HN: How do you evaluate the skills your AI agents use? 8 points by enesalatas 2 hours ago | hide | past | favorite | 3 comments Do you systematically evaluate agent skills, either before or while using them? If so, what tools or methods do you use? Or do you mostly rely on reading the SKILL.md and trying things out? help bisonbear 1 hour ago [–] There are two ways I see to do this: 1. Tell your agent to eval the skill itself ( https://code.claude.com/docs/en/plugin-evals ). This is easier and faster, but less accurate, and harder to extend to capture things like code quality. 2. Build your own benchmark out of work your normally do, and then eval the skill on that dataset. This is harder and more annoying (because creating benchmarks is hard) but provides deeper insight into how the skill affects the agent in known scenarios. It also depends on what the skill is doing. If it's creating an artifact (like a report, easier to eval) then your strategy is very different than if the skill is changing agent behavior (like telling it to use cheap subagents under XYZ conditions, harder to eval). The importance of doing this grows with the number of people using the skill. Working on my own projects, I don't usually bother. Working in an enterprise monorepo, suddenly the risk of shipping a bad skill is amplified, and evals become much more at",
   "first_seen": "2026-11-09T16:04:55.935465+00:00",
@@ -7726,6 +7793,17 @@
   "type": "news",
   "url": "https://latent.space/p/resend",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "94045c979b35ebe7": {
+  "first_seen": "2026-11-12T00:07:07.309660+00:00",
+  "id": "57bf0c81e4861f32",
+  "published": "2026-11-09T21:25:08+00:00",
+  "sid": "94045c979b35ebe7",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "When an LLM agent fails part-way through a long task, the usual analysis records a symptom: a failure-mode label, or the agent and step judged responsible. It does not say where the error entered, which state carried it to the symptom, whether anything in the trajectory contradic",
+  "title": "Dependable Long-Horizon LLM Agents: A Trajectory-Centered Empirical Study of Where Errors Enter and Which Controls Reach Them",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.13254v1"
  },
  "949c5fafa228b2de": {
   "content_excerpt": "In September 2026, OpenAI rated GPT-6 Astra its first model at the “Critical” level of cyber capability. [1] System cards are full of lines like that one, or “saturated on Cybench,” or “66% on CyberGym.” [2] When I did my master’s research on machine learning safety, GPT-2 and GPT-3 were tested on language tasks like question answering and summarization. [3] [4] By the time I finished, AI help with code meant Copilot suggesting whole lines or entire functions. [5] Now models are tested on breaking into web apps and exploiting Chrome. Cybersecurity benchmarks were new to me, and I didn’t expect models to have come this far. This post goes through what I found. I grouped the public benchmarks into four kinds of task, roughly from easiest to hardest. For one benchmark of each kind, here is how quickly models climbed it: The rest of this post takes each level in turn, covering what the model gets, where it runs and how a pass is decided. The first cyber benchmarks borrowed from capture-the-flag competitions, where the goal is to dig a secret string, the flag, out of a deliberately vulnerable file, program or server. The model works in a Linux container with the challenge files and a shell, sometimes plus a server to attack, and submits the flag for an exact-match check. The InterCode paper shows a real run of GPT-4 on a beginner forensics puzzle. It was given a compressed disk image, the name of the file hiding the flag, and a hint to use the sleuthkit tools. Each step builds on ",
@@ -8699,6 +8777,17 @@
   "url": "https://cloudbrowser.tv",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "a434ee9e09b4cac2": {
+  "first_seen": "2026-11-12T00:07:07.309660+00:00",
+  "id": "a1a9d42ca7904058",
+  "published": "2026-11-10T17:50:15+00:00",
+  "sid": "a434ee9e09b4cac2",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Concept-based explanations in neural models are important for the development, certification, and adoption of autonomous systems. Yet, interpretability remains correlational. Without methods to guide and quantify causal relationships between explanations, a concept explanation ca",
+  "title": "Causal Concept Explanations for Deep Neural Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14407v1"
+ },
  "a48b233c16d69100": {
   "first_seen": "2026-11-05T08:05:21.535185+00:00",
   "id": "55556f7aa2e1b6cd",
@@ -8745,6 +8834,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.11371v1"
  },
+ "a5093670fda52ab4": {
+  "first_seen": "2026-11-12T00:07:07.309660+00:00",
+  "id": "81f34f5d53da708b",
+  "published": "2026-11-10T16:48:21+00:00",
+  "sid": "a5093670fda52ab4",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Language-model systems use self-judgment to decide which answers to release, review, or recompute. Because intervention is costly, an assurance score must rank errors well at the available budget, not merely over the full ranking. We compare the judge's continuous verdict-token s",
+  "title": "Auditing the Judge: Internal Signals for LLM Reasoning Assurance",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14323v1"
+ },
  "a5a07b8cf380c156": {
   "first_seen": "2026-11-05T07:05:25.501632+00:00",
   "id": "2297b9a668afa74a",
@@ -8778,7 +8878,7 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 192, downloads: 3241.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 195, downloads: 3241.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 146, downloads: 1464.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
@@ -9608,6 +9708,17 @@
   "type": "news",
   "url": "https://cloud.google.com/blog/products/ai-machine-learning/what-google-cloud-announced-in-ai-this-month",
   "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
+ },
+ "b6805052b5174dca": {
+  "first_seen": "2026-11-12T00:07:07.309660+00:00",
+  "id": "9bb9b3b122cd8c0b",
+  "published": "2026-11-10T17:37:13+00:00",
+  "sid": "b6805052b5174dca",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Large language models (LLMs) increasingly exhibit capabilities that resemble human Learning by Thinking (LbT), the acquisition of new insight through internal processes such as explanation and reasoning, without new external input. A systematic account of the cognitive mechanisms",
+  "title": "Cognitive Mapping of Learning by Thinking Mechanisms in Large Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14382v1"
  },
  "b714ae4897509f90": {
   "first_seen": "2026-11-03T09:04:30.637668+00:00",
@@ -11084,6 +11195,17 @@
   "url": "https://github.com/zalando-incubator/agentic-identity-broker",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "d32fe2a92d9e612d": {
+  "first_seen": "2026-11-12T00:07:07.309660+00:00",
+  "id": "59e42748260eeff2",
+  "published": "2026-11-10T16:41:49+00:00",
+  "sid": "d32fe2a92d9e612d",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Adding abstention to a task-adapted multimodal model can discard correct answers, including capabilities acquired during adaptation. We formulate abstention repair as maximizing correct abstention on unanswerable questions under a budget on newly lost correct answers. We propose",
+  "title": "Multimodal Abstention That Preserves Acquired Correct Answers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14311v1"
+ },
  "d48977b6fbc84b1e": {
   "content_excerpt": "Microsoft researchers have discovered “Lazarus,” a backdoor technique that can reprogram dormant neurons in an AI model, causing an otherwise normal AI agent to execute malicious commands when a hidden trigger appears. The threat is especially serious for AI agents with tool or terminal access. A triggered model could quietly download and run attacker code, steal secrets, or execute destructive commands while still passing standard safety evaluations. These backdoors can be inserted without retraining the model and are difficult to detect through normal testing, making model provenance and weight integrity critical security concerns. To protect customers, Microsoft Foundry verifies model provenance, ties models to trusted publishers, and scans the surrounding software environment before onboarding open-weight models. Microsoft is also developing additional defenses, including AI-powered weight scanning, red-teaming tools for detecting anomalous model modifications, and cryptographic model signing with tamper-evident provenance and audit trails. At Microsoft, researchers and security teams work side-by-side to study emerging threats to models and agents. Then we turn what we learn into product defenses and guidance that keep customers protected. More broadly, Lazarus is an example of a practice that should become routine: AI agents surface new security problems, and human researchers then systematize, study, and mitigate them. We find (opens in new tab) that weight-reprogrammi",
   "first_seen": "2026-11-11T08:04:45.810095+00:00",
@@ -11288,7 +11410,7 @@
   "sid": "d7a4f91e59e352a3",
   "source": "arxiv_cs_lg",
   "summary": "Visual Question Answering (VQA) imposes substantial computational overhead on vision-language models (VLMs), motivating model-agnostic input reduction methods that can be readily applied across diverse VLMs, including in black-box settings. Simply enforcing a visual-token cap reduces computation, but it can discard information needed to answer the question. A single reduction strategy also struggles to accommodate different scenarios. Our key observation is that cropping and compression are complementary: cropping highlights small targets and local details, whereas whole-image compression better preserves context for large targets or distributed evidence. Based on this observation, we propose C$^2$-Routing, which adaptively selects cropping or compression according to the input image and question. Since both strategies may still discard key information, we further design a safety gate that uses the predicted joint correctness distribution under original and reduced inputs to guide fallback and protect accuracy. To accommodate consumer GPU resource constraints, all training and evaluation experiments run on RTX 3090 GPUs. To measure gains beyond token capping, we use full-image baselines with the same cap of 1,024 visual tokens. We conduct extensive evaluation on three VLMs and 18 datasets spanning local details, global scenes, scene text, and documents. With the visual budget already capped, C$^2$-Routing further reduces end-to-end FLOPs by 36.53% and visual tokens by 42.36% ",
-  "summary_1line": "Visual Question Answering (VQA) imposes substantial computational overhead on vision-language models (VLMs), motivating model-agnostic input reduction methods that can be readily applied across diverse VLMs, including...",
+  "summary_1line": "Visual Question Answering (VQA) imposes substantial computational overhead on vision-language models (VLMs), motivating model-agnostic input reduction methods that can be readily applied across diverse VLMs, including in black-box settings. Simply enforcing a visual-token cap red",
   "title": "C$^2$-Routing: Complementary Cropping and Compression for Efficient Vision-Language Inference",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14469v1",
@@ -11660,6 +11782,17 @@
   "type": "news",
   "url": "https://www.inngest.com/blog/docsferatu-an-agent-that-drafts-docs-prs-while-you-sleep",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "dcfca63926ea22ea": {
+  "first_seen": "2026-11-12T00:07:07.309660+00:00",
+  "id": "cddc16af5b06cd95",
+  "published": "2026-11-10T16:56:16+00:00",
+  "sid": "dcfca63926ea22ea",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Users often complain that AI assistants such as ChatGPT are getting worse. Some versions do change, but human evaluation leaves a second possibility untested: the people judging may change. We separate the two on Chatbot Arena, a public platform where people compare answers from",
+  "title": "AI Isn't Getting Dumber, We're Getting Pickier: Rising Standards in Human Evaluation of Large Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14333v1"
  },
  "dd1c8c50f739daa8": {
   "first_seen": "2026-11-05T21:06:13.977425+00:00",
