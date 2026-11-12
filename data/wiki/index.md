@@ -16,12 +16,12 @@ Schema: `config/wiki_schema.md`.
   - theme `consistency-and-autonomy` — Consistency, autonomy limits, and the human role (6)
 
 ### memory
-- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (76 entries, updated 2026-11-09)
+- [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions (78 entries, updated 2026-11-12)
   → solutions: context-compaction, vector-kb
   - theme `architectures` — Tiered and lifecycle memory architectures (14)
   - theme `local-first-stores` — Build vs. buy: managed services and developer-owned stores (17)
   - theme `shared-memory` — Sharing memory across agents, isolating it between users (10)
-  - theme `recall-and-curation` — What to write, when to revoke, how to recall (16)
+  - theme `recall-and-curation` — What to write, when to revoke, how to recall (18)
   - theme `memory-integrity` — Poisoned, hidden, and sycophantic memory (11)
   - theme `measuring-memory` — Benchmarks and leaderboards for memory (8)
 
@@ -35,11 +35,11 @@ Schema: `config/wiki_schema.md`.
   - theme `measuring-planning` — Benchmarks for loops and long-horizon procedures (4)
 
 ### tool-use
-- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (29 entries, updated 2026-11-07)
+- [tool-use](obstacles/tool-use.md) — Agents reach the outside world through fragile, ad-hoc integrations (30 entries, updated 2026-11-12)
   → solutions: mcp
   - theme `agent-native-surfaces` — Exposing existing systems as agent-callable tools (4)
   - theme `discovery-and-definitions` — Tool discovery and definition quality at scale (6)
-  - theme `calling-reliability` — Making the calling loop reliable (9)
+  - theme `calling-reliability` — Making the calling loop reliable (10)
   - theme `guarding-the-call` — Checking and governing tool calls before they run (5)
   - theme `production-runtimes` — Running tool-calling agents in production (5)
 
@@ -63,9 +63,9 @@ Schema: `config/wiki_schema.md`.
   - theme `eval-in-production` — Evals as a production workflow: mined from traces, gated in CI (31)
 
 ### multi-agent
-- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (36 entries, updated 2026-10-25)
+- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (37 entries, updated 2026-11-12)
   → solutions: agent-benchmarks, agent-orchestration, agent-tracing
-  - theme `when-it-pays` — When coordination helps: topology, roles, and allocation (9)
+  - theme `when-it-pays` — When coordination helps: topology, roles, and allocation (10)
   - theme `production-evidence` — Production deployments and what they report (12)
   - theme `parallel-coding-agents` — Keeping parallel coding agents from colliding (4)
   - theme `oversight-and-safety` — Oversight, collusion, and authorization between agents (9)
@@ -105,11 +105,11 @@ Schema: `config/wiki_schema.md`.
   - theme `monitoring-limits` — When the trace is not enough (3)
 
 ### security
-- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (61 entries, updated 2026-10-31)
+- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (63 entries, updated 2026-11-12)
   → solutions: agent-sandboxing
-  - theme `injection-paths` — New paths for injected instructions (11)
+  - theme `injection-paths` — New paths for injected instructions (12)
   - theme `model-defenses` — Guardrail models, model hardening, and how defenses are measured (13)
-  - theme `harness-controls` — Permissions, approvals, and sandboxes in the agent harness (10)
+  - theme `harness-controls` — Permissions, approvals, and sandboxes in the agent harness (11)
   - theme `agent-authorization` — Agents as identities with scoped, per-action authorization (12)
   - theme `eval-escapes` — Agents attacking real systems from cyber evals and training runs (7)
   - theme `offensive-cyber` — Frontier cyber models and weaponized agents (8)
@@ -142,9 +142,9 @@ Schema: `config/wiki_schema.md`.
   - theme `orchestrator-tooling` — Open-source orchestrators and multi-model routers (7)
   - theme `runtime-substrate` — The durable runtime underneath the agents (5)
   - theme `harness-choice` — Choosing a harness: frameworks, managed runtimes, portability (6)
-- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (68 entries, updated 2026-11-08)
+- [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails (69 entries, updated 2026-11-12)
   - theme `credential-boundary` — Keeping secrets and authority out of the sandbox (9)
-  - theme `permission-policy` — Scoping what the agent may do (11)
+  - theme `permission-policy` — Scoping what the agent may do (12)
   - theme `local-sandboxes` — Local sandboxes and tool-call supervisors (11)
   - theme `managed-platforms` — Managed and self-hosted sandbox platforms (13)
   - theme `egress-and-escapes` — Real escapes: egress, allowlists, and harness bugs (14)

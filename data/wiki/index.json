@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-09T18:04:46.487106+00:00",
+ "generated_at": "2026-11-12T18:06:13.812795+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,62 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-11-12-error-delivery-changes-recovery",
+   "topic": "tool-use",
+   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
+   "kind": "obstacle",
+   "date": "2026-11-12",
+   "title": "Where a tool error lands in the conversation changes whether the model retries, fixes, or quits"
+  },
+  {
+   "id": "2026-11-12-task-bound-monitor-vs-guardrails",
+   "topic": "prompt-injection",
+   "topic_title": "Untrusted input and tools can hijack an agent",
+   "kind": "obstacle",
+   "date": "2026-11-12",
+   "title": "A task-bound monitor admitted 1.3-7.7% of attack calls that the model proposed 64-84% of the time"
+  },
+  {
+   "id": "2026-11-12-fake-letterhead-overrides-read-only",
+   "topic": "prompt-injection",
+   "topic_title": "Untrusted input and tools can hijack an agent",
+   "kind": "obstacle",
+   "date": "2026-11-12",
+   "title": "A fake law-firm letter posted in Slack talked a read-only agent into rewriting its own guardrail"
+  },
+  {
+   "id": "2026-11-12-per-user-agents-worse-than-coordinator",
+   "topic": "multi-agent",
+   "topic_title": "Coordinating multiple agents adds more failure than capability",
+   "kind": "obstacle",
+   "date": "2026-11-12",
+   "title": "One agent serving every user beat one agent per user in all four shared-resource environments"
+  },
+  {
+   "id": "2026-11-12-postgres-read-only-role-limits",
+   "topic": "agent-sandboxing",
+   "topic_title": "Sandboxing, scoped credentials, and guardrails",
+   "kind": "solution",
+   "date": "2026-11-12",
+   "title": "A read-only Postgres role's settings are session defaults; only the GRANTs hold against an agent"
+  },
+  {
+   "id": "2026-11-12-wikitrace-evidence-linked-lessons",
+   "topic": "agent-memory",
+   "topic_title": "Agents forget across steps and sessions",
+   "kind": "obstacle",
+   "date": "2026-11-12",
+   "title": "Linking each stored lesson to its source trajectory lets the agent check it before acting"
+  },
+  {
+   "id": "2026-11-12-fgse-falsification-gated-writes",
+   "topic": "agent-memory",
+   "topic_title": "Agents forget across steps and sessions",
+   "kind": "obstacle",
+   "date": "2026-11-12",
+   "title": "Testing a lesson as a hypothesis before committing it held harmful memory updates to 3.6%"
+  },
   {
    "id": "2026-11-09-memorydojo-poisoning-lifecycle",
    "topic": "agent-memory",
@@ -198,62 +254,6 @@
    "kind": "solution",
    "date": "2026-11-04",
    "title": "Coding agents install deprecated MCP servers with known vulnerabilities"
-  },
-  {
-   "id": "2026-11-04-nvidia-16k-compaction",
-   "topic": "context-compaction",
-   "topic_title": "Context compaction: summarize, compress, and curate the working set",
-   "kind": "solution",
-   "date": "2026-11-04",
-   "title": "NVIDIA preprint: 16K contexts with frequent compaction lose little accuracy"
-  },
-  {
-   "id": "2026-11-04-claude-platform-otel-mlflow",
-   "topic": "agent-tracing",
-   "topic_title": "Tracing and trace analysis for agent runs",
-   "kind": "solution",
-   "date": "2026-11-04",
-   "title": "Claude Platform exports native OpenTelemetry traces to Databricks MLflow"
-  },
-  {
-   "id": "2026-11-04-cuga-harness-30-to-81",
-   "topic": "agent-orchestration",
-   "topic_title": "Orchestration patterns: topologies, handoffs, and harnesses",
-   "kind": "solution",
-   "date": "2026-11-04",
-   "title": "Swapping the harness moved one open-weight model from 30% to 81% task completion"
-  },
-  {
-   "id": "2026-11-02-claude-code-mistake-guards",
-   "topic": "agent-reliability",
-   "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
-   "kind": "obstacle",
-   "date": "2026-11-02",
-   "title": "A logged-mistake corpus becomes executable Claude Code guards, each with a blocking test"
-  },
-  {
-   "id": "2026-11-02-discernmem-memory-defects",
-   "topic": "agent-memory",
-   "topic_title": "Agents forget across steps and sessions",
-   "kind": "obstacle",
-   "date": "2026-11-02",
-   "title": "DiscernMem repairs flawed shared memories and learns when each one should apply"
-  },
-  {
-   "id": "2026-11-01-same-model-different-agent-mcp",
-   "topic": "tool-use",
-   "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
-   "kind": "obstacle",
-   "date": "2026-11-01",
-   "title": "Same model scored 17 points apart on MCP servers depending on the agent harness"
-  },
-  {
-   "id": "2026-11-01-weir-planted-key-leak-test",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-11-01",
-   "title": "Weir tests whether agents leak credentials by planting unique fake keys"
   }
  ],
  "nodes": {
@@ -5428,7 +5428,7 @@
      "key": "recall-and-curation",
      "title": "What to write, when to revoke, how to recall",
      "summary": "Similarity recall misses logically relevant and stale-but-superseded facts, so the work is shifting to revocation, write-time curation, and recall that reasons over the store.",
-     "count": 16
+     "count": 18
     },
     {
      "key": "memory-integrity",
@@ -5444,6 +5444,36 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-12-wikitrace-evidence-linked-lessons",
+     "topic": "agent-memory",
+     "date": "2026-11-12",
+     "title": "Linking each stored lesson to its source trajectory lets the agent check it before acting",
+     "theme": "recall-and-curation",
+     "html": "<p>The WikiTrace paper targets memory-induced degradation: an agent fails a task it would solve without memory because it follows a wrong lesson or misapplies a valid one. Lessons are served without the trajectories they came from, so the agent cannot check them.</p>\n<p>WikiTrace stores each lesson as a short insight linked to a summary of why the trajectory succeeded or failed, and to the raw trajectory. The agent starts from the insights and follows the links with terminal tools when an insight lacks detail, conflicts with another, or came from a failed task.</p>\n<p>It beats existing memory approaches and an insights-only baseline on five agentic benchmarks while reducing degradation. Paper-reported.</p>\n<p>For builders: keep provenance pointers on distilled memory, and measure tasks that memory breaks, not only tasks it fixes.</p>",
+     "evidence": [
+      {
+       "sid": "6b202536a684fb26",
+       "title": "Don't Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents"
+      }
+     ],
+     "also": []
+    },
+    {
+     "id": "2026-11-12-fgse-falsification-gated-writes",
+     "topic": "agent-memory",
+     "date": "2026-11-12",
+     "title": "Testing a lesson as a hypothesis before committing it held harmful memory updates to 3.6%",
+     "theme": "recall-and-curation",
+     "html": "<p>Falsification-Gated Self-Evolution (FGSE) treats each experience-derived lesson as a structured hypothesis with a precondition, a behavior change, an expected effect, and a verifier. The lesson is applied only in a temporary state and tested on three probe sets: target transfer, falsification, and archived regressions. It is then committed, refined, or rejected on measured gain and risk.</p>\n<p>The paper reports 39.8 WebArena success, 78.8 AppWorld average completion, and 0.724/0.487 Pass^1 on tau-Retail/tau-Airline, with regression damage at 1.3% and harmful committed updates at 3.6%. Paper-reported; it needs an environment with a verifier.</p>\n<p>For builders: gate memory writes the way you gate code. Stage the update, run a regression set of archived tasks, and commit only on a measured gain.</p>",
+     "evidence": [
+      {
+       "sid": "99e35db5c56c4bd6",
+       "title": "When Should Agents Remember? Falsification-Gated Self-Evolution for LLM Agents"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-09-memorydojo-poisoning-lifecycle",
      "topic": "agent-memory",
@@ -6731,8 +6761,8 @@
      "title": "An open-source memory plugin consolidates by forgetting and synthesizing instead of storing everything"
     }
    ],
-   "entry_count": 76,
-   "latest_entry_date": "2026-11-09",
+   "entry_count": 78,
+   "latest_entry_date": "2026-11-12",
    "solutions": [
     {
      "slug": "context-compaction",
@@ -6746,6 +6776,14 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "6b202536a684fb26",
+     "title": "Don't Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents"
+    },
+    {
+     "sid": "99e35db5c56c4bd6",
+     "title": "When Should Agents Remember? Falsification-Gated Self-Evolution for LLM Agents"
+    },
     {
      "sid": "138e084674254809",
      "title": "MemoryDojo: Benchmarking Poisoning Through LLM Agent Memory"
@@ -7067,7 +7105,7 @@
      "title": "Cloudflare Announces Agent Memory, a Managed Persistent Memory Service for AI Agents"
     }
    ],
-   "updated": "2026-11-09"
+   "updated": "2026-11-12"
   },
   "agent-observability": {
    "slug": "agent-observability",
@@ -10650,7 +10688,7 @@
      "key": "when-it-pays",
      "title": "When coordination helps: topology, roles, and allocation",
      "summary": "Communication structure, per-role model capacity, and task allocation decide whether extra agents help; on a small local model a two-call refinement loop beats a five-agent pipeline outright.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "production-evidence",
@@ -10678,6 +10716,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-12-per-user-agents-worse-than-coordinator",
+     "topic": "multi-agent",
+     "date": "2026-11-12",
+     "title": "One agent serving every user beat one agent per user in all four shared-resource environments",
+     "theme": "when-it-pays",
+     "html": "<p>Anthropic Fellows tested teams where each user delegates to their own agent over a shared resource: a token budget, a clinic calendar, a group order, a merge queue. A single coordinator beat the peer-to-peer team in all four, by about 10 to 45 points for Claude Opus 5 and Sonnet 5.</p>\n<ul><li><strong>Stalling:</strong> from 4 to 16 agents, the share that ever acted fell from 66% to 10% (Sonnet 5).</li><li><strong>Race:</strong> a user&#x27;s constraint reached the ordering agent in 94-99% of episodes but was in its context at commit in only 47-67%.</li></ul>\n<p>Fixes were environment-specific. A team lead closed the budget gap; a platform guard that blocks checkout until pending messages are read recovered 62-73% of failed orders. Simulated users; lab-reported. Three environments ship as MAMUBench.</p>",
+     "evidence": [
+      {
+       "sid": "23e8ac3f97dad8c1",
+       "title": "Worse Together: How Performance Breaks Down in Multi-User Multi-Agent Teams"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-10-25-herding-runaway-cascades",
      "topic": "multi-agent",
@@ -11418,8 +11471,8 @@
      "title": "Practitioners want frameworks where models with different strengths split the work"
     }
    ],
-   "entry_count": 36,
-   "latest_entry_date": "2026-10-25",
+   "entry_count": 37,
+   "latest_entry_date": "2026-11-12",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -11437,6 +11490,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "23e8ac3f97dad8c1",
+     "title": "Worse Together: How Performance Breaks Down in Multi-User Multi-Agent Teams"
+    },
     {
      "sid": "f2df794e6fc1e504",
      "title": "LLM Multi-Agent Systems Are Vulnerable to Herding and Runaway Cascades"
@@ -11582,7 +11639,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-10-25"
+   "updated": "2026-11-12"
   },
   "prompt-injection": {
    "slug": "prompt-injection",
@@ -11610,7 +11667,7 @@
      "key": "injection-paths",
      "title": "New paths for injected instructions",
      "summary": "Injected instructions now arrive through fetched pages, API routers, self-spreading documents, caches shared between sandboxes, and even the agent's own compaction summaries; the root cause is role confusion, not a missing filter.",
-     "count": 11
+     "count": 12
     },
     {
      "key": "model-defenses",
@@ -11622,7 +11679,7 @@
      "key": "harness-controls",
      "title": "Permissions, approvals, and sandboxes in the agent harness",
      "summary": "Coding-agent harnesses now default to manual approval, per-argument permission rules, OS-level sandboxes, and classifier-gated auto modes; each layer has a published bypass, so teams stack them rather than trust one.",
-     "count": 10
+     "count": 11
     },
     {
      "key": "agent-authorization",
@@ -11644,6 +11701,46 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-12-task-bound-monitor-vs-guardrails",
+     "topic": "prompt-injection",
+     "date": "2026-11-12",
+     "title": "A task-bound monitor admitted 1.3-7.7% of attack calls that the model proposed 64-84% of the time",
+     "theme": "harness-controls",
+     "html": "<p>A paper compares in-prompt defences with deterministic enforcement outside the model, across 13 tasks and 12 tools with an effect-based oracle. Qwen2.5-1.5B and 7B proposed the attacker&#x27;s call in 64% and 84% of 156 attack episodes; a task-bound reference monitor admitted 1.3% and 7.7%.</p>\n<p>Prompt guardrails were model-dependent: a hardened prompt moved obedience from 67% to 65% on one model and 86% to 55% on the other.</p>\n<p>Monitor quality matters. A naive monitor admitted 18 of 33 effective attack variants, a hardened one 6, a capability-bound one 1.</p>\n<p>Limits the authors state: two small open-weights models, static attacks only, and the human-approval and taint-tracking results are simulation-only. In that simulation, approval without a deterministic per-episode budget fails to approval spamming.</p>",
+     "evidence": [
+      {
+       "sid": "54f1f65b7c731a1b",
+       "title": "Treating the Model as an Untrusted Component: Deterministic Policy Enforcement, Human Approval and Taint Tracking Against Prompt Injection in Tool-Using Agents, with Validation on Open-Weights Models"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-sandboxing",
+       "title": "Sandboxing, scoped credentials, and guardrails"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-12-fake-letterhead-overrides-read-only",
+     "topic": "prompt-injection",
+     "date": "2026-11-12",
+     "title": "A fake law-firm letter posted in Slack talked a read-only agent into rewriting its own guardrail",
+     "theme": "injection-paths",
+     "html": "<p>A security engineer posted an image of a letter on generated law-firm letterhead into the Slack channel of a ChatGPT workspace agent connected to a Notion hiring tracker. The agent&#x27;s instructions said read-only. It updated its instructions with the letter&#x27;s terms and prepared to edit records.</p>\n<p>The write did not happen only because the Notion connection exposed no create tool. It did expose an update tool, which nobody counted as write access because the prompt said read-only.</p>\n<p>Single self-run demonstration by an author who works at an agent-security vendor.</p>\n<p>For builders: the attached tool list is the permission list. Audit it, drop write tools the task does not need, and put required writes behind a scoped token or a human approval on the action itself.</p>",
+     "evidence": [
+      {
+       "sid": "5b14ba0a321ddbad",
+       "title": "Prompt Injection, Esq.: pwning AI agent guardrails with lawyerspeak"
+      }
+     ],
+     "also": [
+      {
+       "slug": "tool-use",
+       "title": "Agents reach the outside world through fragile, ad-hoc integrations"
+      }
+     ]
+    },
     {
      "id": "2026-10-31-embedded-browsers-in-coding-tools",
      "topic": "prompt-injection",
@@ -12674,8 +12771,8 @@
      "title": "Agent memory systems readily admit poisoned facts, a reproducible benchmark shows"
     }
    ],
-   "entry_count": 61,
-   "latest_entry_date": "2026-10-31",
+   "entry_count": 63,
+   "latest_entry_date": "2026-11-12",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -12685,6 +12782,14 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "54f1f65b7c731a1b",
+     "title": "Treating the Model as an Untrusted Component: Deterministic Policy Enforcement, Human Approval and Taint Tracking Against Prompt Injection in Tool-Using Agents, with Validation on Open-Weights Models"
+    },
+    {
+     "sid": "5b14ba0a321ddbad",
+     "title": "Prompt Injection, Esq.: pwning AI agent guardrails with lawyerspeak"
+    },
     {
      "sid": "e5726bf03a816877",
      "title": "How the built-in browsers in five AI coding tools broke basic browser rules"
@@ -12962,7 +13067,7 @@
      "title": "Show HN: Deep-XPIA – Prompt injection benchmark for multi-agent AI systems"
     }
    ],
-   "updated": "2026-10-31"
+   "updated": "2026-11-12"
   },
   "proving-agent-roi": {
    "slug": "proving-agent-roi",
@@ -13439,7 +13544,7 @@
      "key": "calling-reliability",
      "title": "Making the calling loop reliable",
      "summary": "A standard wire does not make calling behavior reliable; flaky tools, schema-constraint interference, and connection failures are measurable failure modes, and the harness itself is now tuned or trained to fix them.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "guarding-the-call",
@@ -13455,6 +13560,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-12-error-delivery-changes-recovery",
+     "topic": "tool-use",
+     "date": "2026-11-12",
+     "title": "Where a tool error lands in the conversation changes whether the model retries, fixes, or quits",
+     "theme": "calling-reliability",
+     "html": "<p>A paper holds the error text fixed and varies its placement, guidance, retained history, and turn structure across 13 open models from 3B to 70B parameters.</p>\n<p>Delivering the error as a new user turn that keeps the failed exchange avoided a severe stopping failure seen in Llama models when that exchange was removed. As an opt-in recovery layer in an inference engine, it raised ToolMaze success on explicit errors by 14.2 points for 7-8B models and 10.5 points for 32-70B models.</p>\n<p>It showed no measurable gain on 24 tasks with silent corruption and was not best for every model. A client told the exact fault kind did better still. Paper-reported.</p>\n<p>For builders: test error delivery per model, and pass a typed fault kind where the harness has one.</p>",
+     "evidence": [
+      {
+       "sid": "41573f419013b0c4",
+       "title": "Same Error, Different Recovery: How Delivery Changes LLM Agent Behavior"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-07-approved-is-not-exactly-once",
      "topic": "tool-use",
@@ -13961,6 +14081,20 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-12-postgres-read-only-role-limits",
+     "topic": "agent-sandboxing",
+     "topic_title": "Sandboxing, scoped credentials, and guardrails",
+     "date": "2026-11-12",
+     "title": "A read-only Postgres role's settings are session defaults; only the GRANTs hold against an agent"
+    },
+    {
+     "id": "2026-11-12-fake-letterhead-overrides-read-only",
+     "topic": "prompt-injection",
+     "topic_title": "Untrusted input and tools can hijack an agent",
+     "date": "2026-11-12",
+     "title": "A fake law-firm letter posted in Slack talked a read-only agent into rewriting its own guardrail"
+    },
+    {
      "id": "2026-09-05-langchain-mcp-elicitation-as-interrupt",
      "topic": "mcp",
      "topic_title": "Model Context Protocol: a standard interface for agent tools",
@@ -14052,8 +14186,8 @@
      "title": "HashiCorp's Terraform MCP Server reaches general availability"
     }
    ],
-   "entry_count": 29,
-   "latest_entry_date": "2026-11-07",
+   "entry_count": 30,
+   "latest_entry_date": "2026-11-12",
    "solutions": [
     {
      "slug": "mcp",
@@ -14063,6 +14197,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "41573f419013b0c4",
+     "title": "Same Error, Different Recovery: How Delivery Changes LLM Agent Behavior"
+    },
     {
      "sid": "385b20a2401d6d5d",
      "title": "Show HN: Replay three AI agent approval failures in five seconds, in Python"
@@ -14184,7 +14322,7 @@
      "title": "AI Agents Don't Need SMS APIs. They Need Infrastructure"
     }
    ],
-   "updated": "2026-11-07"
+   "updated": "2026-11-12"
   },
   "agent-benchmarks": {
    "slug": "agent-benchmarks",
@@ -15993,7 +16131,7 @@
      "key": "permission-policy",
      "title": "Scoping what the agent may do",
      "summary": "Permissions are getting finer and more central, with per-parameter rules, approval-gated writes, IdP-managed connectors, sequence-aware policy, and portable permission specs.",
-     "count": 11
+     "count": 12
     },
     {
      "key": "local-sandboxes",
@@ -16021,6 +16159,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-12-postgres-read-only-role-limits",
+     "topic": "agent-sandboxing",
+     "date": "2026-11-12",
+     "title": "A read-only Postgres role's settings are session defaults; only the GRANTs hold against an agent",
+     "theme": "permission-policy",
+     "html": "<p>A reproducible run on PostgreSQL 17.11 checks what a careful read-only agent role stops.</p>\n<ul><li><strong>Defaults, not limits:</strong> the session can run <code>SET default_transaction_read_only = off</code> and <code>SET statement_timeout = 0</code>. Writes then fail only on missing GRANTs. <code>CONNECTION LIMIT</code> holds because it is a role attribute.</li><li><strong>Wrapper bypass:</strong> a tool that wraps SQL in <code>BEGIN TRANSACTION READ ONLY</code> loses to <code>COMMIT; DELETE ...</code> when the driver accepts stacked statements. On a role with write grants, all six rows were deleted.</li><li><strong>Harmful reads:</strong> <code>GRANT SELECT</code> covers every column, and <code>pg_catalog</code> exposes ungranted tables&#x27; schemas.</li></ul>\n<p>For builders: give the agent its own role with column-level grants and role-bound row-level security, send SQL as one prepared statement, and enforce time limits from a pooler or watchdog. Vendor-authored, plain Postgres.</p>",
+     "evidence": [
+      {
+       "sid": "9ebc28a7a2621ca2",
+       "title": "What a read-only Postgres role does and doesn't stop when an AI agent connects"
+      }
+     ],
+     "also": [
+      {
+       "slug": "tool-use",
+       "title": "Agents reach the outside world through fragile, ad-hoc integrations"
+      }
+     ]
+    },
     {
      "id": "2026-11-08-firecracker-rebuild-of-google-agent-vms",
      "topic": "agent-sandboxing",
@@ -17106,6 +17264,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-12-task-bound-monitor-vs-guardrails",
+     "topic": "prompt-injection",
+     "topic_title": "Untrusted input and tools can hijack an agent",
+     "date": "2026-11-12",
+     "title": "A task-bound monitor admitted 1.3-7.7% of attack calls that the model proposed 64-84% of the time"
+    },
+    {
      "id": "2026-11-05-germline-execution-signed-mcp-leak",
      "topic": "tool-use",
      "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
@@ -17141,8 +17306,8 @@
      "title": "A planted AGENTS.md in Downloads hijacked coding agents into installing malware"
     }
    ],
-   "entry_count": 68,
-   "latest_entry_date": "2026-11-08",
+   "entry_count": 69,
+   "latest_entry_date": "2026-11-12",
    "solutions": [],
    "obstacles": [
     {
@@ -17160,6 +17325,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "9ebc28a7a2621ca2",
+     "title": "What a read-only Postgres role does and doesn't stop when an AI agent connects"
+    },
     {
      "sid": "f88ba1bfaaff2950",
      "title": "Google Described Its Agent Sandbox. I Built One with Firecracker and Measured It"
@@ -17465,7 +17634,7 @@
      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
     }
    ],
-   "updated": "2026-11-08"
+   "updated": "2026-11-12"
   },
   "agent-tracing": {
    "slug": "agent-tracing",
