@@ -1328,13 +1328,18 @@
  "1801030a1117e68f": {
   "first_seen": "2026-11-12T00:07:07.309660+00:00",
   "id": "fa91f8a50c1817d1",
+  "matched_topics": [
+   "eval"
+  ],
   "published": "2026-11-10T13:55:52+00:00",
   "sid": "1801030a1117e68f",
   "source": "arxiv_llm_reliability",
+  "summary": "We present our system for the SHROOM-visions 2026 shared task on character-level hallucination span detection in image-conditioned vision-language model (VLM) responses, evaluated across English, French, Italian, and Chinese. The detector is built on a frozen Gemma-4-12B-it backbone with trainable LoRA adapters (approximately 10.7M parameters). Because the backbone is a causal decoder, hidden states read from a single copy of an answer cannot attend to subsequent tokens; we therefore repeat the candidate answer within one prompt and extract features from its second occurrence, giving every position approximate bidirectional context in a single non-autoregressive pass. A character-level locator combines intermediate hidden states to predict hallucination probabilities, BIO boundaries, and a response-level abstention score, while separate language-specific classifiers assign one of five hallucination types to each predicted span. On the closed test set, our system reaches a macro-averaged character IoU of 0.4404, more than doubling the official baseline (0.1854), and ranks 5th-6th on IoU across the four languages. On the English tuning split, controlled ablations attribute a gain to the repeated answer that is comparable to that of LoRA adaptation (its held-out gain is smaller and concentrated on hallucinated answers), and they show that the detector relies on the image-answer pairing: shuffling images across examples drives IoU down to the level of the predict-nothing floor or",
   "summary_1line": "We present our system for the SHROOM-visions 2026 shared task on character-level hallucination span detection in image-conditioned vision-language model (VLM) responses, evaluated across English, French, Italian, and Chinese. The detector is built on a frozen Gemma-4-12B-it backb",
   "title": "Sckwoky at SHROOM-Visions: Character-Level Hallucination-Span Detection in Image-Conditioned VLMs via Dual-Prompted LoRA Decoders",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.14100v1"
+  "url": "http://arxiv.org/abs/2611.14100v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "1816d36cbb0339ec": {
   "first_seen": "2026-11-05T03:05:19.238517+00:00",
@@ -2171,6 +2176,7 @@
   "published": "2026-11-11T16:00:00+00:00",
   "sid": "26a00da01aefd2ae",
   "source": "databricks_blog",
+  "summary": "AI assistants can run analyses and summarize meetings, but employees still manage...",
   "summary_1line": "AI assistants can run analyses and summarize meetings, but employees still manage...",
   "title": "The new Genie: autonomous AI for complex enterprise work",
   "type": "news",
@@ -3425,6 +3431,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09085v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "3f5db491bb6150c6": {
+  "content_excerpt": "A compiler and runtime for reversible, gradient-free LLM weight edits with activation-based triggers and automatic rollback. Reversible, gradient-free weight editing for local language models on CPU, Apple Silicon and CUDA. v0.1.0. W-ISA provides a JSON instruction format, a compiler and a Python runtime for named weight operations, request-scoped patches and snapshot restoration. The repository includes executable experiments and their recorded measurements. Compile a small JSON program, bind it to PyTorch parameter names, and change live weights with deterministic linear algebra. The runtime freezes the model and performs edits under torch.no_grad() . The default loader targets Qwen/Qwen2.5-0.5B-Instruct . It also accepts a local checkpoint path or another Transformers causal LM, including HuggingFaceTB/SmolLM-135M-Instruct . Parameter names and dimensions come from the loaded model. W-ISA provides the intervention runtime; NCP adds candidate synthesis, verification and rule admission. Cite the paper for the component used in your work. CITATION.cff provides machine-readable metadata; GitHub's Cite this repository entry uses the W-ISA paper as its preferred citation. The software uses the MIT License . Both papers use CC BY-NC-ND 4.0 ; the paper license does not change the software license. We credit Rikiya Takehi, Jayden Teoh, Alex Zhang, and Omar Khattab for the weight-space programming perspective presented in Sparks of Weight-Space Programming: LLMs can natively read & ",
+  "first_seen": "2026-11-12T02:07:17.303486+00:00",
+  "id": "301fa5f3cb6adcf2",
+  "published": "2026-11-11T23:47:21+00:00",
+  "sid": "3f5db491bb6150c6",
+  "source": "hackernews_ai",
+  "title": "Show HN: W-ISA – An instruction set for programming LLM weights",
+  "type": "news",
+  "url": "https://github.com/eax/w-isa"
  },
  "3f699cddaf3044d4": {
   "content_excerpt": "We benchmarked 4 coding-agent harness setups on 100 real software engineering tasks. Simply letting Claude think harder beat all of them. The most elaborate setup had 37 skills, spawned 17 agents, cost 8× as much, and still performed worse than vanilla Claude Code. We asked coding agents to make a small change to an event registration app: add a Zoom link and passcode to guest confirmation emails. One of the agent setups we tested was equipped with a harness containing 37 additional skills. Surely all that machinery would help? It decided the change deserved a thorough review, and spawned 17 agents: But somehow, none of them noticed the most important problem: the confirmation email went out when someone registered, before they'd paid . Following the user's instructions would give unpaid registrants the Zoom passcode! Seventeen agents, lots of review, and the central product issue went unnoticed. How much do coding-agent add-ons actually help? There's a Cambrian explosion of harnesses, skills, plugins, and elaborate coding workflows. Some people use vanilla Claude Code. Others have assembled small bureaucracies of specialized agents, reviewers, planners, and supervisors. A lot of these setups feel sophisticated. But do they actually produce better software? We decided to measure it. We tested several popular coding-agent setups using Opus 5.5 in Claude Code, evaluating them on software engineering tasks from Surge's sudo L7 benchmark. We also tested a simpler approach: leavin",
@@ -6382,6 +6399,22 @@
   "url": "https://blogs.nvidia.com/blog/korea-secure-agentic-ai",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "77712ebaab650f16": {
+  "first_seen": "2026-11-12T02:03:59.575597+00:00",
+  "id": "5e9c0b564b15d5a5",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-10T15:29:57+00:00",
+  "sid": "77712ebaab650f16",
+  "source": "arxiv_cs_cl",
+  "summary": "During extended wakefulness, mammalian neocortical networks experience localized periods of transient neuronal silence termed off-states. Here, we examine how analogous spatiotemporally concentrated disruptions affect sequential reasoning in autoregressive Large Language Models (LLMs). Evaluating 250 paired derivations on the GSM8K benchmark across two 8B models (Qwen3-8B and LLaMA-3.1-8B-Instruct), we contrast clustered bursts of attention head masking against budget-matched diffuse i.i.d. dropout. Concentrated bursts induce substantial reasoning degradation: at onset parameter $\\mathcal{B}=0.10$ (scheduling $\\sim 5.7\\%$ of vulnerable head-token volume), Qwen3-8B accuracy drops from $91.2\\%$ under diffuse noise to $78.8\\%$ under burst dropout ($Δ= -12.4$ percentage points [pp], exact McNemar $p = 5.5 \\times 10^{-6}$), while LLaMA-3.1-8B-Instruct drops from $84.0\\%$ to $76.8\\%$ ($Δ= -7.2$ pp, $p = 0.0198$). Conversely, dispersing the identical cumulative budget uniformly across generation steps via stratified quintile matching yields substantially milder degradation (retaining $91.2\\%$ in Qwen and $84.0\\%$ in LLaMA). In an exploratory factorial dissociation ($N=100$), single-step dropout density is associated with an acute drop in a single schedule draw ($-10.0$ pp on Qwen, $p_{\\text{holm}} = 0.0425$), while multi-token continuity exhibits an inconclusive compounding trend ($-7.0$ pp, $p_{\\text{holm}} = 0.1892$). Error analysis reveals that Qwen failures reflect derivation er",
+  "summary_1line": "During extended wakefulness, mammalian neocortical networks experience localized periods of transient neuronal silence termed off-states. Here, we examine how analogous spatiotemporally concentrated disruptions affect...",
+  "title": "Breakdown of Autoregressive Multi-Step Reasoning Under Concentrated vs. Diffuse Attention Head Dropout",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14209v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "777234d8a97b3028": {
   "content_excerpt": "This is an update to our previous security bulletin published on October 9, 2026. In response to the incident, we notified law enforcement and obtained assistance from a leading cybersecurity firm, Palo Alto Networks Unit 42, to help conduct forensic analysis. At the time of publishing the bulletin, only Fireworks stored secrets (e.g. used in evaluation jobs) were known to have been accessed. Since then, we discovered impacts to account and billing information. For a limited set of accounts, we also discovered impact to secrets, datasets, and incomplete models. The evidence indicates links to a cybercriminal threat actor group, which is financially motivated and aimed at selling tokens from unauthorized access to Large Language Models (LLMs) to illicit routing gateways, known as \"LLMJacking\". On November 2, Google Threat Intelligence Group and Mandiant published a blog post about the rise of LLMJacking, their motives, techniques used, and mitigation. A third-party cloud provider that hosted Fireworks R&D machines experienced a security incident on October 23. On October 24, the unauthorized third party used it to reach Fireworks development machines and then run an unauthorized workload that led to additional customer data impact. We detected this activity on the same day, and followed our incident response processes to take immediate remediation measures and close known critical vulnerabilities. As of October 25, we have not detected further evidence of successful unauthoriz",
   "first_seen": "2026-11-10T10:49:44.059605+00:00",
@@ -7608,17 +7641,17 @@
   "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxORXJiejlQNkFkN2xsVlU4OFRKWU80amRyV3M1OWpqMmNCRVhDbXExdzM2SjZzQ3ZwYlA1S1lERDJaNUZXTjVoY2Q5eWhKZEVUQVFDY2hnaFpZdkVPdTRvTDB0YkpEVElJYTJxaUFXTzZuRjdIVFpvY2hFWEJuUUx0SlFNZVFGQy1pREtpNE43Tk8wcldvX1ZSQkVKRkpraW14aTA2OVR5d2o?oc=5"
  },
  "905e59c6da797651": {
-  "content_excerpt": "Open-source reference implementation of the Agent Name Service (ANS) based on the IETF draft — registry, transparency log, and offline verifier in Go. ans is an open-source implementation of the Agent Name Service (ANS), a registry + transparency log for discovering and verifying AI agents by name. Every registered agent gets: The wire shape — event envelope, SCITT COSE receipts, sumdb-note checkpoints, /root-keys format — is the public contract. Offline verifiers and TL clients depend on it byte-for-byte. Both daemons ( ans-ra , ans-tl ) serve Swagger UI at /docs — browse http://localhost:18080/docs (RA) and http://localhost:18081/docs (TL) after make build && scripts/demo/start.sh . The raw OpenAPI bytes live at /docs/openapi.yaml on each host. To call protected endpoints from Swagger UI's \"Try it out\" button: click Authorize in the top-right and paste the static API key. The quickstart defaults are: The RA writes signed events; the TL verifies, ingests, and publishes them. An operator can run just the TL (for read-only verification) or both together (full registry). For a native Ubuntu host with systemd, Caddy, OIDC, and Let’s Encrypt, see the RA/TL deployment guide . Tear down with scripts/demo/stop.sh or scripts/demo/stop.sh --clean to wipe the data directory. The default DNS verifier in config/ra-local.yaml is noop , which accepts any DNS state. To exercise the real lookup verifier end-to-end without touching public DNS, run the bundled authoritative server: ans-dns is ",
+  "content_excerpt": "Open-source reference implementation of the Agent Name Service (ANS) based on the IETF draft — registry, transparency log, and offline verifier in Go. ans is an open-source implementation of the Agent Name Service (ANS), a registry + transparency log for discovering and verifying AI agents by name. Every registered agent gets: The wire shape — event envelope, SCITT COSE receipts, sumdb-note checkpoints, /root-keys format — is the public contract. Offline verifiers and TL clients depend on it byte-for-byte. Both daemons ( ans-ra , ans-tl ) serve Swagger UI at /docs — browse http://localhost:18080/docs (RA) and http://localhost:18081/docs (TL) after make build && scripts/demo/start.sh . The raw OpenAPI bytes live at /docs/openapi.yaml on each host. The RA and TL specs use relative server URLs so Swagger requests target the host serving the document: /v2 for RA management, and / for the RA events feed and TL. Generated clients must be configured with an absolute deployment base URL, preserving those path prefixes; the specs provide no default host. To call protected endpoints from Swagger UI's \"Try it out\" button: click Authorize in the top-right and paste the static API key. The quickstart defaults are: The RA writes signed events; the TL verifies, ingests, and publishes them. An operator can run just the TL (for read-only verification) or both together (full registry). For a native Ubuntu host with systemd, Caddy, OIDC, and Let’s Encrypt, see the RA/TL deployment guide . Tear ",
   "first_seen": "2026-11-05T02:05:37.010271+00:00",
-  "id": "5a75d9b7a4999bc9",
+  "id": "c69d67f513bce079",
   "matched_topics": [
    "agent"
   ],
-  "published": "2026-11-04T22:54:54+00:00",
+  "published": "2026-11-11T21:18:47+00:00",
   "sid": "905e59c6da797651",
   "source": "hackernews_ai",
-  "summary_1line": "Open-source reference implementation of the Agent Name Service (ANS)",
-  "title": "Open-source reference implementation of the Agent Name Service (ANS)",
+  "summary_1line": "Agent Name Service",
+  "title": "Agent Name Service",
   "type": "news",
   "url": "https://github.com/agentnameservice/ans",
   "why_it_matters": "Matches feed focus: agent."
@@ -7697,6 +7730,18 @@
   "title": "Precision on Demand: Escalating Weight Bits at Uncertain Decoding Steps in a Small Local Model",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14418v1"
+ },
+ "91dad0068ec24e5b": {
+  "content_excerpt": "One of our biggest goals on the WebAI team at Hugging Face is to make browser inference as fast and as user-friendly as possible. Getting there is a multi-layer effort: models need browser-friendly representations, runtimes need to build efficient execution plans, and the individual GPU operations at the bottom of the stack need to make the most of many different devices and browser implementations. Today, we are releasing the first layer of that effort: @huggingface/kernels , a minimal library for loading and running optimized WebGPU kernels from the Hugging Face Hub, together with an initial collection of 207 kernels at huggingface.co/webgpu-kernels . The collection covers operations used across a wide variety of machine learning architectures and workloads. More importantly, each kernel is published as a complete, versioned package: its interface, shader templates, correctness cases, benchmark cases, and usage instructions all live together on the Hub. We are also launching Fleet , an in-browser GPU benchmarking and testing suite that runs and scores the kernels on your hardware. Beyond the results for your own machine, Fleet gives the community a way to contribute performance and correctness evidence from devices we could never cover in a conventional test lab. With your consent, every run adds private evidence that can help us find failures (incorrect results, pathologically slow cases, etc.), improve kernel variants, and make better optimization decisions across real-wo",
+  "first_seen": "2026-09-01T16:03:14.951978+00:00",
+  "id": "6ac368bb799c4088",
+  "published": "2026-11-11T22:12:54+00:00",
+  "sid": "91dad0068ec24e5b",
+  "source": "hackernews_ai",
+  "summary_1line": "Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI",
+  "title": "HuggingFace/Kernels: 200 WebGPU Kernels for Local AI",
+  "type": "news",
+  "url": "https://huggingface.co/blog/webgpu-kernels"
  },
  "91e8339abec141ef": {
   "content_excerpt": "Ask HN: How do you evaluate the skills your AI agents use? | Hacker News Hacker News new | past | comments | ask | show | jobs | submit login Ask HN: How do you evaluate the skills your AI agents use? 8 points by enesalatas 2 hours ago | hide | past | favorite | 3 comments Do you systematically evaluate agent skills, either before or while using them? If so, what tools or methods do you use? Or do you mostly rely on reading the SKILL.md and trying things out? help bisonbear 1 hour ago [–] There are two ways I see to do this: 1. Tell your agent to eval the skill itself ( https://code.claude.com/docs/en/plugin-evals ). This is easier and faster, but less accurate, and harder to extend to capture things like code quality. 2. Build your own benchmark out of work your normally do, and then eval the skill on that dataset. This is harder and more annoying (because creating benchmarks is hard) but provides deeper insight into how the skill affects the agent in known scenarios. It also depends on what the skill is doing. If it's creating an artifact (like a report, easier to eval) then your strategy is very different than if the skill is changing agent behavior (like telling it to use cheap subagents under XYZ conditions, harder to eval). The importance of doing this grows with the number of people using the skill. Working on my own projects, I don't usually bother. Working in an enterprise monorepo, suddenly the risk of shipping a bad skill is amplified, and evals become much more at",
@@ -8199,6 +8244,17 @@
   "title": "llm-anthropic 0.31",
   "type": "release",
   "url": "https://simonwillison.net/2026/Nov/9/llm-anthropic"
+ },
+ "9ae868216f30b30e": {
+  "content_excerpt": "Local proxy that keeps personal data out of LLM prompts: swaps names, emails, phones and keys for placeholders, restores them byte-exact in replies, streams and tool calls. Fails closed. Your data stays yours. A local proxy that swaps names, emails, phones and keys for placeholders before a prompt reaches an LLM provider, and puts them back in the reply. Python 3.11 or newer. swapback demo runs a fake model with made-up data: no key, no network. The proxy listens on 127.0.0.1:8787 ; point your client at it and change nothing else: swapback init writes swapback.yaml and known.yaml . Put the names, emails, phones and IDs that must never reach a provider in known.yaml (or build it from a contacts export with swapback known init --vcf contacts.vcf ), set upstream: in swapback.yaml , run swapback check-config , then start swapback-proxy . The full steps, including OpenRouter and Anthropic base URLs, are in the guide . No model to download and nothing probabilistic: exact matching plus patterns, about 5,900 lines of Python, 3 dependencies. Re-run the leak test yourself with swapback selftest (made-up data, 7 request paths, about 12 s). Project facts: Python 3.11+, about 5,900 lines (302 KB), 3 dependencies (PyYAML, phonenumbers, pyahocorasick), stdlib HTTP server, MIT. The vendored rule sets live in swapback/vendor (see THIRD_PARTY_NOTICES.md ); tools/build_vendor.py regenerates the Presidio patterns. MIT, see LICENSE . Bundled rule data: gitleaks (MIT) and Microsoft Presidio (MIT)",
+  "first_seen": "2026-11-12T02:07:17.303486+00:00",
+  "id": "975d04e8683ad6aa",
+  "published": "2026-11-12T00:09:39+00:00",
+  "sid": "9ae868216f30b30e",
+  "source": "hackernews_ai",
+  "title": "Keeping names, emails and phone numbers out of LLM prompts with a local proxy",
+  "type": "news",
+  "url": "https://github.com/rmpmrepo1278/swapback"
  },
  "9b40d9fa77faf20b": {
   "content_excerpt": "I’ve been using AI coding agents daily for my work as a software engineer. I typically give them well-defined tasks that take me less than an hour to complete manually. But I don’t think I truly understand these tools. How do they approach a task that takes hours to complete? How do they plan, recover from mistakes, collaborate with other agents? How could I even measure this? So I decided to build a benchmark. I was inspired by RuneBench , a benchmark that has AI coding agents play RuneScape by writing code against an SDK. I played a lot of World of Warcraft during the Burning Crusade and Wrath of the Lich King expansions, and when I saw RuneBench I knew I wanted to try this in WoW. World of Warcraft has a mature private server implementation (AzerothCore). It’s a game that I know well, and it has content that is explicitly designed to be completed by a group. A dungeon designed for 5 players is a benchmark task that someone else has carefully designed and balanced for you. And you can’t complete it solo. World of Warcraft is a real-time game. A fight can be won or lost in less than 5 seconds. But an LLM-based agent works in turns, and one turn can take anywhere from 2 to 60 seconds. So the agents can’t directly control their character. Instead they control a headless game client, and they write Lua scripts that are executed by the game client. The scripts play the game in real time while the agent is thinking. The client doesn’t have a screen either. It communicates directl",
@@ -8879,7 +8935,7 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 195, downloads: 3241.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 196, downloads: 3241.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 146, downloads: 1464.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
@@ -11202,6 +11258,7 @@
   "published": "2026-11-10T16:41:49+00:00",
   "sid": "d32fe2a92d9e612d",
   "source": "arxiv_cs_lg",
+  "summary": "Adding abstention to a task-adapted multimodal model can discard correct answers, including capabilities acquired during adaptation. We formulate abstention repair as maximizing correct abstention on unanswerable questions under a budget on newly lost correct answers. We propose ReFrain (Regression-Free Abstention), which combines a linear probe on first-token logits, threshold calibration on held-out image clusters, and a deterministic veto that replaces rejected outputs with the displayed \"none of the above\" option while preserving all other responses. \"Regression-free\" denotes zero loss on the calibration set at the zero-budget target. All abstention methods in our main comparison start from the same answering-SFT checkpoint; we separately track lost correct answers, repaired errors, and retained SFT gains. On Qwen2.5-VL-3B, ReFrain at zero budget retains all 57 SFT-gained answers with no losses and improves correct abstention by 7.30 percentage points. At a 0.5% calibration budget, it reaches 74.05% correct abstention with 8 losses and retains 55 gains; CLIP-UP EmbLoRA reaches 64.65% with 62 losses, 41 repairs, and 40 retained gains. The same probe at its default threshold loses 298 correct answers. With models and thresholds frozen, confirmation on 228 independent question clusters yields 66.05% correct abstention and no losses at the 0.5% point, exceeding EmbLoRA by 32.72 percentage points. Ordinary refusal SFT achieves higher correct abstention at greater regression co",
   "summary_1line": "Adding abstention to a task-adapted multimodal model can discard correct answers, including capabilities acquired during adaptation. We formulate abstention repair as maximizing correct abstention on unanswerable questions under a budget on newly lost correct answers. We propose",
   "title": "Multimodal Abstention That Preserves Acquired Correct Answers",
   "type": "paper",
@@ -11767,6 +11824,23 @@
   "title": "Introducing Control Room: Human control over AI workloads",
   "type": "news",
   "url": "https://openai.com/index/introducing-control-room"
+ },
+ "dc87a80ea633c7c1": {
+  "content_excerpt": "Upgrade a vibe-coded site to premium with your coding agent. Motion first, then taste, checked in a real browser: a premium-motion skill with an upgrade workflow, plus a critic that records your local page. Claude Code, Cursor, Codex, any agent. Left: a site an agent built from a one-paragraph brief. Right: the same site after a fresh agent (Opus 5.5) ran premium-motion upgrade on it. Nothing edited by hand. All four upgrades . Every agent-built landing page looks the same: near-black with one neon accent, a headline with an italic word, pill buttons, a bento grid, a logo marquee, and every section fading up the same way. It is not ugly. It just tells everyone a model made it, and nobody looked at it before it shipped. Every line below is one command. They work with any model and any coding agent, and the same commands run on macOS, Linux and Windows (bash, zsh or PowerShell). The CLI and npx lines need Node.js 22 or later; the git line needs only git. The full setup (critic, skill and agent configuration). Install, then run init in your project: init detects your agent (Claude Code, Cursor, Codex, VS Code, OpenCode), installs the skill, offers to download a matching Chromium, and shows every file it would change before asking you to type yes . Nothing is written without that, and your existing settings are kept. For -a , use your agent's name: claude-code , cursor , codex , gemini-cli , github-copilot , windsurf , cline , roo , zed , opencode , goose , kiro-cli , amp , junie",
+  "first_seen": "2026-11-12T02:03:59.575597+00:00",
+  "id": "413fc732489fb77e",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-12T01:53:52+00:00",
+  "sid": "dc87a80ea633c7c1",
+  "source": "hackernews_ai",
+  "summary": "Built a tool to unslop UI and add cool motion. It's an open-source workflow for coding agents, using Chromium to inspect the rendered site, catch broken animations, overlapping elements, layout issues, and other visual problems, then gives the agent feedback to fix them. a/b tests are in the repo.",
+  "summary_1line": "Built a tool to unslop UI and add cool motion. It's an open-source workflow for coding agents, using Chromium to inspect the rendered site, catch broken animations, overlapping elements, layout issues, and other visua...",
+  "title": "Show HN: Motion Debugger – A browser critic for AI slop",
+  "type": "news",
+  "url": "https://github.com/ShadowKingYT444/motion-debugger",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "dcc08e22467f3a8e": {
   "content_excerpt": "Like a lot of lean teams, we ship faster than we can update our own docs. So Linell built an agent that watches our SDK pull requests, drafts the docs in a sandbox, and works while he sleeps. We sometimes ship faster than we can update our docs, but we can’t slow one down for the other. To help make that easier, I’ve been toying with a little app that watches our SDK repo for PRs, decides whether the docs need an update, and if they do , has a minion (err, Claude) open a draft PR before slipping back into the shadows. Nobody has to remember to ask. Obviously I named it Docsferatu. The first version in my head was just a webhook handler: GitHub posts \"PR opened\", the handler asks Claude whether the docs care, and if they do, it runs an agent that edits the website repo and opens a PR. Maybe forty lines. Bing bang bong done. The usual fix is a queue, a worker pool, a table of \"how far did this job get\", and retry logic you write yourself. That's the part I didn't want to build. The gist: you write a function as a series of named steps, and each step's result is saved once it finishes. Inngest calls the function over HTTP. When it calls again (after a crash, a redeploy, a retry, or just to run the next step), finished steps return their saved results instead of running again, and execution picks up after the last one that completed. A crash at minute 18 resumes at minute 18. The paid LLM call from minute 3 isn't re-run; its answer is already on file. Docsferatu has two main func",
