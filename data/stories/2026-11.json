@@ -2063,6 +2063,22 @@
   "url": "http://arxiv.org/abs/2611.03406v1",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "23e8ac3f97dad8c1": {
+  "content_excerpt": "As AI agents become more capable and widely used, they are increasingly required to interact with each other. Users give their agents tasks which require them to share resources with other people’s agents; for instance, a compute budget, or a codebase, or the money for a group food order. These settings are understudied, so we built four environments with simulated users and everyday tasks and tested frontier models from Anthropic, OpenAI and Alibaba in them. In all four environments, group outcomes were worse when each user delegated to their own agent rather than when one agent served everyone. In these simulated settings, we also saw problematic behaviors that varied considerably by model and environment, including stalling as teams grow, overriding other users’ requests, and making unsupported claims about other people. Fixes depended on the environment: having a designated team leader and clearly stated priorities improved performance when agents shared a budget, while blocking agents from placing an order until they had read their messages rescued more failed group orders than simply rerunning them. We are releasing three of the environments as a benchmark, MAMUBench, so that others can use them to test how well agents coordinate, and how they behave, in multi-user, multi-agent systems. As AI agents become more common, users increasingly deploy them to pursue goals that require interacting with other agents. If you're reading this, you've probably had Claude run an expe",
+  "first_seen": "2026-11-12T08:05:07.652909+00:00",
+  "id": "a09b35ba7b677ce8",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-12T06:48:42+00:00",
+  "sid": "23e8ac3f97dad8c1",
+  "source": "hackernews_ai",
+  "summary_1line": "Worse Together: How Performance Breaks Down in Multi-User Multi-Agent Teams",
+  "title": "Worse Together: How Performance Breaks Down in Multi-User Multi-Agent Teams",
+  "type": "news",
+  "url": "https://alignment.anthropic.com/2026/worse-together",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "241fc9f7d029e500": {
   "first_seen": "2026-11-11T23:06:29.744326+00:00",
   "id": "38b471313cb55bfc",
@@ -2738,13 +2754,18 @@
  "30c1da6e37b95f40": {
   "first_seen": "2026-11-12T00:07:07.309660+00:00",
   "id": "62930b2e163e65e5",
+  "matched_topics": [
+   "agentic"
+  ],
   "published": "2026-11-09T20:18:32+00:00",
   "sid": "30c1da6e37b95f40",
   "source": "arxiv_agent_systems_research",
+  "summary": "LLM-based agents can reason, use tools and collaborate. However, coordinating increasingly complex agentic applications becomes difficult to understand, monitor and improve. Decisions distributed across prompts, tool calls and application logic make workflows implicit. We introduce **Recursive Capability Composition**, enabling agents to execute business processes and expose them as reusable Agentic Tools. This paper presents a BPMN-based approach to Agentic Workflows, combining explicit orchestration with autonomous reasoning. SemTalk BPMN models are transformed into executable workflows using a LangGraph/Pregel runtime. Agentic Tasks introduce LLM reasoning at selected activities, while conventional BPMN controls process flows, deterministic decisions, system interactions and human approvals. Agentic Participants provide reusable interfaces for agent behavior or other executable processes. BPMN orchestration makes multi-agent systems more understandable and manageable. Explicit process models provide developers and operators with a shared view of workflow structures and execution progress, facilitating debugging, monitoring and optimization. Enterprise agents also need organization-specific context. Process Models and Knowledge Graphs describe activities, participants, information objects, decisions and relationships between processes. They provide structured knowledge of how an organization operates, supporting informed agent decisions and actions. Our contributions are th",
   "summary_1line": "LLM-based agents can reason, use tools and collaborate. However, coordinating increasingly complex agentic applications becomes difficult to understand, monitor and improve. Decisions distributed across prompts, tool calls and application logic make workflows implicit. We introdu",
   "title": "From Process Models to Composable Agentic Workflows: Combining BPMN, Agents and Enterprise Knowledge",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.13196v1"
+  "url": "http://arxiv.org/abs/2611.13196v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "315067631b45108f": {
   "content_excerpt": "Any two of three AI engines share at least one business name 56.8% of the time (95 percent interval 54.5 to 59.0 percent): 1066 engine pairs across 771 question-days, 54 questions, 17 run days, 2026-10-24 to 2026-11-09, ChatGPT (OpenAI) gpt-5-mini, Claude (Anthropic) bedrock haiku 4.5, Gemini (Google) flash lite. Names were extracted mechanically by capitalisation from the public corpus (github.com/mrcrtr1979-droid/namebeam-visibility-index), matched on canonical form. Generic names filtered. Three engines only (ChatGPT gpt-5-mini, Claude bedrock haiku 4.5, Gemini flash lite). Local-business questions only. This is a count of agreement, not a measurement of causes or outcomes.",
@@ -7919,13 +7940,19 @@
  "94045c979b35ebe7": {
   "first_seen": "2026-11-12T00:07:07.309660+00:00",
   "id": "57bf0c81e4861f32",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
   "published": "2026-11-09T21:25:08+00:00",
   "sid": "94045c979b35ebe7",
   "source": "arxiv_agent_systems_research",
+  "summary": "When an LLM agent fails part-way through a long task, the usual analysis records a symptom: a failure-mode label, or the agent and step judged responsible. It does not say where the error entered, which state carried it to the symptom, whether anything in the trajectory contradicted it, or which control could have caught it. We define an episode record that ties a candidate fault to its origin, propagation, detection, response and consequence, located by operational phase and state domain, and that names the control families whose observation and reach cover it. We turned the record into a written annotation protocol and applied it to 95 failed runs of six multi-agent systems from the public Who&When and MAD corpora, reading each trajectory in full. Faults enter early (median at 0.18 of the run), mostly as wrong decisions or fabrications over task state, and in 37 of 88 Who&When runs before the step the corpus' human labels mark as decisive. In 72% of failed runs the trajectory already contained evidence against the error before the failure; in 88% of those no agent acted on it. Something flagged a deviation in 31% of runs, but no response removed the deviated state. Independent judges reading the unused evidence, task contracts fixed at admission, and re-checking beliefs against the environment reach most episodes; restoring the agent's own state would have sufficed in 35 of 95 runs. A text scan of the raw corpus also shows that 45% of the hand-crafted Who&When failures ende",
   "summary_1line": "When an LLM agent fails part-way through a long task, the usual analysis records a symptom: a failure-mode label, or the agent and step judged responsible. It does not say where the error entered, which state carried it to the symptom, whether anything in the trajectory contradic",
   "title": "Dependable Long-Horizon LLM Agents: A Trajectory-Centered Empirical Study of Where Errors Enter and Which Controls Reach Them",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.13254v1"
+  "url": "http://arxiv.org/abs/2611.13254v1",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "949c5fafa228b2de": {
   "content_excerpt": "In September 2026, OpenAI rated GPT-6 Astra its first model at the “Critical” level of cyber capability. [1] System cards are full of lines like that one, or “saturated on Cybench,” or “66% on CyberGym.” [2] When I did my master’s research on machine learning safety, GPT-2 and GPT-3 were tested on language tasks like question answering and summarization. [3] [4] By the time I finished, AI help with code meant Copilot suggesting whole lines or entire functions. [5] Now models are tested on breaking into web apps and exploiting Chrome. Cybersecurity benchmarks were new to me, and I didn’t expect models to have come this far. This post goes through what I found. I grouped the public benchmarks into four kinds of task, roughly from easiest to hardest. For one benchmark of each kind, here is how quickly models climbed it: The rest of this post takes each level in turn, covering what the model gets, where it runs and how a pass is decided. The first cyber benchmarks borrowed from capture-the-flag competitions, where the goal is to dig a secret string, the flag, out of a deliberately vulnerable file, program or server. The model works in a Linux container with the challenge files and a shell, sometimes plus a server to attack, and submits the flag for an exact-match check. The InterCode paper shows a real run of GPT-4 on a beginner forensics puzzle. It was given a compressed disk image, the name of the file hiding the flag, and a hint to use the sleuthkit tools. Each step builds on ",
@@ -8930,13 +8957,18 @@
  "a434ee9e09b4cac2": {
   "first_seen": "2026-11-12T00:07:07.309660+00:00",
   "id": "a1a9d42ca7904058",
+  "matched_topics": [
+   "evaluation"
+  ],
   "published": "2026-11-10T17:50:15+00:00",
   "sid": "a434ee9e09b4cac2",
   "source": "arxiv_llm_reliability",
+  "summary": "Concept-based explanations in neural models are important for the development, certification, and adoption of autonomous systems. Yet, interpretability remains correlational. Without methods to guide and quantify causal relationships between explanations, a concept explanation can be provided without being necessary or sufficient for the observed output thereby appearing correct while misleading. We introduce Causal Concept Wrapper Network (CCW-Net), the first use of interventional mediation analysis from fields such as economics, medicine, and epidemiology as a training objective to align causal effects of concept-based explanations with a model's output. We further apply mediation analysis as an evaluation tool to quantify, per concept label combination, how much of any model's output is causally attributable to each concept explanation. As a training objective, CCW-Net shapes a model's concept representations such that they are both necessary and sufficient for the outputs they are credited with and independent of other concepts' contributions. Counterfactual concept representations anchor a set of causal alignment criteria: necessity, sufficiency, and independence. Necessity drives irrelevant concept effects toward zero, sufficiency ensures relevant concept representations fully reconstruct a model's output, and independence enforces the total effect decomposes linearly across concepts. We evaluate CCW-Net across aircraft control, driving, and image classification. CCW-Ne",
   "summary_1line": "Concept-based explanations in neural models are important for the development, certification, and adoption of autonomous systems. Yet, interpretability remains correlational. Without methods to guide and quantify causal relationships between explanations, a concept explanation ca",
   "title": "Causal Concept Explanations for Deep Neural Models",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.14407v1"
+  "url": "http://arxiv.org/abs/2611.14407v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "a48b233c16d69100": {
   "first_seen": "2026-11-05T08:05:21.535185+00:00",
@@ -9044,7 +9076,7 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 201, downloads: 3241.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 203, downloads: 3241.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 146, downloads: 1464.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
@@ -12347,6 +12379,22 @@
   "title": "Cloudflare Makes Basin Serverless Analytics Generally Available",
   "type": "news",
   "url": "https://www.infoq.com/news/2026/11/cloudflare-basin-analytics/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
+ "e43967052c90d199": {
+  "first_seen": "2026-11-12T08:05:07.652909+00:00",
+  "id": "503a1d427ff1f03d",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-10T16:53:27+00:00",
+  "sid": "e43967052c90d199",
+  "source": "arxiv_cs_lg",
+  "summary": "Stochastic diffusion samplers often require substantially more neural function evaluations (NFEs) than deterministic samplers to achieve comparable sample quality. Although higher-order discretization accelerates deterministic sampling, its benefits for stochastic sampling remains unclear. We establish matching upper and worst-case lower bounds showing that stochastic samplers with higher-order approximations remain first-order convergent, even with exact score functions. Thus, increasing the approximation order does not generally improve the convergence order. Motivated by this limitation, we introduce forward-value discretization, a training-free framework that evaluates the data/noise prediction model at a lookahead estimate constructed from previous predictions. For deterministic sampling, the resulting Forward DPMSolver (F-DPMSolver), improves sample quality at low NFE budgets through its DDIM-based variant, despite remaining first-order convergent. For stochastic sampling, we develop Forward DDPM (F-DDPM), which evaluates the model at a cleaner lookahead point adjusted for subsequent noise injection. This estimate reuses both the previous model prediction and the previously injected noise. Both variants admit first-order convergence guarantees with one model evaluation per iteration. Across CIFAR-10, ImageNet, FFHQ, and LSUN, F-DDPM consistently achieves lower FID than the evaluated stochastic baselines at matched NFE budgets. With 1.5 times as many NFEs as deterministi",
+  "summary_1line": "Stochastic diffusion samplers often require substantially more neural function evaluations (NFEs) than deterministic samplers to achieve comparable sample quality. Although higher-order discretization accelerates dete...",
+  "title": "Forward-Value Discretization: Faster Stochastic Diffusion Sampling Without High-Order Approximation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.14328v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "e4a8bfb7f3eb8edb": {
   "first_seen": "2026-11-11T00:09:42.029607+00:00",
