@@ -610,6 +610,24 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08487v1"
  },
+ "0a5bb227785b4de1": {
+  "first_seen": "2026-11-13T03:04:51.949705+00:00",
+  "id": "5175709750d097fc",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-11T14:13:26+00:00",
+  "sid": "0a5bb227785b4de1",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Emerging personal AI agents raise fundamental scalability and privacy concerns for centralized multi-agent systems (MASs), which rely on a global orchestrator with broad access to agents, resources, and communication. In decentralized environments, global visibility is unavailable. Agents need to proactively discover non-local resources (e.g. tools, skills), and collaborate with other agents to solve tasks. We study decentralized multi-agent collaboration under graph-constrained communication, a natural reflection of human structures. Each agent observes only its local state and can interact only with neighboring agents. We introduce a benchmark with synthetic scalable distributed tool calling with 100K+ tools. Our experiments reveal that recent LLM agents struggle to discover non-local relevant resources and collaborate in decentralized setting. Moreover, standard reinforcement learning fails to reliably overcome this limitation, suggesting that decentralized MAS needs more explicit harness mechanisms for effective collaboration, even using SOTA LLMs. We then present a strong baseline \\textbf{GraphHarness}, combining topology-aware warmup with self-improving LLM-based routing. Results show that GraphHarness substantially improves task success (+48.5) and produces higher quality collaboration (+30.6), while using fewer costs (+34.0) than baselines.",
+  "summary_1line": "Emerging personal AI agents raise fundamental scalability and privacy concerns for centralized multi-agent systems (MASs), which rely on a global orchestrator with broad access to agents, resources, and communication....",
+  "title": "DecArena: Evaluating Large-Scale Decentralized Multi-Agent Collaboration",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.15521v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
  "0aacbce5f85ac122": {
   "first_seen": "2026-11-10T07:09:29.721027+00:00",
   "id": "d393fa93c50f5aed",
@@ -1075,6 +1093,24 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09798v1",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "12180ec98690a1e3": {
+  "first_seen": "2026-11-13T03:04:51.949705+00:00",
+  "id": "76376b833b39e352",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-11-11T09:53:20+00:00",
+  "sid": "12180ec98690a1e3",
+  "source": "arxiv_llm_reliability",
+  "summary": "Agentic time series forecasting extends conventional approaches beyond one-shot numerical prediction toward autonomous, context-aware interaction. However, existing benchmarks offer limited integrated support for diverse contextual information, forecasting-specific adaptive interactions, and systematic evaluation of forecasting agents. In this paper, we introduce CastWorld, an agentic benchmark for context-aware time series forecasting. First, its context-rich dataset suite spans 8 domains and 25 real-world datasets, covering external variables, events, and historical cases under a unified context specification. Second, a lightweight, modular forecasting-native harness provides 49 core tools and a state-adaptive loop that tracks forecast versions and enables iterative evidence gathering and forecast revision. Intermediate forecasts can expose information gaps, while newly acquired evidence guides subsequent revisions and final version selection. Third, model-level evaluation assesses forecast quality, process execution, behavioral trustworthiness, and resource efficiency through decision trajectories and forecast-version histories. Also, systems-level evaluation compares predictive accuracy across forecasting systems. Experiments reveal distinct decision behaviors among agents with comparable accuracy. Additional interactions do not necessarily improve forecasts, and agents may fail to select their best previously generated predictions. Allowing evidence acquisition during fo",
+  "summary_1line": "Agentic time series forecasting extends conventional approaches beyond one-shot numerical prediction toward autonomous, context-aware interaction. However, existing benchmarks offer limited integrated support for dive...",
+  "title": "CastWorld: Benchmarking Context-Aware Agentic Time Series Forecasting Beyond Predictive Accuracy",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.15262v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
  },
  "1273631ee9013ed5": {
   "first_seen": "2026-11-04T06:05:16.733547+00:00",
@@ -6099,6 +6135,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08232v1"
  },
+ "6711271701a16ef8": {
+  "first_seen": "2026-11-13T03:04:51.949705+00:00",
+  "id": "c9c738cf7b9b9cfb",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-11T07:15:18+00:00",
+  "sid": "6711271701a16ef8",
+  "source": "arxiv_cs_cl",
+  "summary": "LLM workloads sometimes ask many independent questions about the same long document, as in document QA, data labeling and LLM-based evaluation. Prefix caching removes the redundant prefill shared by these queries, but each decode step still reads the document's key-value (KV) cache once per question, so decoding is bound by memory bandwidth and scales with the number of questions. We present Parallel Prompting, which decodes P questions as P independent streams of a single request all at once, fixing this issue. In our method, every step reads the shared document once for all P streams, and a stream-id attention mask, evaluated inside the attention kernel, keeps each answer conditioned only on the document and its own question. We implement Parallel Prompting in SGLang by adding about 80 lines to three existing files and a small engine package; the mask needs no dense tensor, and every decode step has a fixed shape that is captured as a CUDA graph. With CodeLlama-7B, 8k-16k-token documents and 64-256 questions per document, Parallel Prompting is 3.7x faster than stock SGLang with its FlashInfer backend on an A100 and 5.9-6.0x faster on an RTX A6000, on two SGLang releases, including the most recent release. Timed on identical inputs, it is faster than stock SGLang in all 144 runs (2 GPUs x 2 releases x 6 workloads x 6 input sets). Code: https://github.com/jlab-nlp/parallel-prompting",
+  "summary_1line": "LLM workloads sometimes ask many independent questions about the same long document, as in document QA, data labeling and LLM-based evaluation. Prefix caching removes the redundant prefill shared by these queries, but...",
+  "title": "Read Once, Answer Many: Parallel Prompting for Shared-Context LLM Inference",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.15130v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "675a1ee412378534": {
   "first_seen": "2026-11-05T21:06:13.977425+00:00",
   "id": "d466a7865c7df5de",
@@ -6808,6 +6860,24 @@
   "type": "news",
   "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident-update"
  },
+ "77739bd5e4a4a49c": {
+  "first_seen": "2026-11-13T03:04:51.949705+00:00",
+  "id": "d64437cd0d7fa496",
+  "matched_topics": [
+   "agent",
+   "eval",
+   "claude code"
+  ],
+  "published": "2026-11-11T08:36:16+00:00",
+  "sid": "77739bd5e4a4a49c",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Document editing is among the most common knowledge-work tasks, yet existing benchmarks for evaluating autonomous agents on Word document editing provide fully specified attribute-modification instructions. They do not evaluate agents' ability to infer the appropriate attributes from document context, a capability essential in real-world editing where users expect consistency without spelling out every attribute. We introduce WordInferBench, a benchmark comprising 280 base document-editing instances, each paired with three instruction conditions: descriptive (the instruction explicitly lists every attribute change), referential (the instruction points to another object as an exemplar), and inferential (the agent must examine document context to infer what attributes to apply). To evaluate contextual attribute inference, each base instance is constructed so that the target formatting is recoverable from an in-document exemplar. The instances are derived from real Word documents collected from Common Crawl and cover 13 object types and 81 attributes. We evaluate six recent coding-agent systems and find that the best-performing evaluated system, Claude Code with Opus 4.6, achieves a 62.9% task-level pass rate on descriptive variants but only 40.7% on inferential variants, indicating that current systems complete tasks less reliably when the required formatting changes must be determined from document context.",
+  "summary_1line": "Document editing is among the most common knowledge-work tasks, yet existing benchmarks for evaluating autonomous agents on Word document editing provide fully specified attribute-modification instructions. They do no...",
+  "title": "WordInferBench: Can Agents Infer How to Edit from Word Document Context?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.15189v1",
+  "why_it_matters": "Matches feed focus: agent, eval, claude code."
+ },
  "7787a435833ce944": {
   "content_excerpt": "Self-hosted voice AI agents with a Vapi-compatible API. AI phone agents on Twilio, Telnyx, Plivo, Vonage or SIP, with your keys or 100% local and free (Whisper, Ollama, Kokoro). No per-minute platform fee. npx openring The open-source, self-hosted Vapi alternative for voice AI agents. Vapi-compatible API, no platform fee. OpenRing runs AI phone agents, voice AI agents and AI receptionists that answer and place calls over Twilio, Telnyx, Plivo, Vonage or any SIP trunk, with your own provider keys or a free, 100% local stack (Whisper, Ollama, Kokoro). Quick start · How it works · Compare · API guide · Providers · Roadmap · Discussions Hosted voice platforms charge a fee for every minute of every call, on top of what you already pay for speech-to-text, the model, the voice and the phone line. OpenRing does the same job on your own computer or server, with your own provider keys, and speaks the same JSON as Vapi. You need Node.js 18 or later. Everything else, Python included, installs itself: Settings live in ~/.openring/.env , created on the first run with a generated API key for apps that call the API (it's under Settings ). The free Kokoro voice downloads itself on the first start (about 120 MB). Each call runs a Pipecat pipeline: the caller's speech becomes text, the model answers (and can call your tools), and the voice speaks the answer back. Every turn's latency is recorded, step by step, and shown in the dashboard. — means we didn't find it in their public docs. On every ",
   "first_seen": "2026-11-04T22:04:37.212189+00:00",
@@ -7378,6 +7448,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14925v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "7fa13061c9420ef9": {
+  "content_excerpt": "Graph-powered liveness checks for AI-written code. Fails a pull request that leaves orphaned, superseded, or unreachable code. TypeScript, JavaScript, Python, Java. Coding agents write code fast, and they leave things behind: a helper that is never called, a UserServiceV2 sitting next to the UserService it replaced, a route that was unregistered while its handler stayed. Loose Ends checks every change before merge and reports, with evidence, whether the code it added or touched is still reachable from a real entry point. That is the express-api example after an agent-style change: a v2 service was added and wired in, the original was left behind, and an unused pagination helper was added. Loose Ends builds a Liveness Graph of TypeScript, JavaScript, Python, and Java code: imports, exports, re-exports, references between top-level declarations, dynamic imports, and package dependencies. It finds roots in package manifests, scripts, framework conventions (Next.js routes, Vite entries, browser extension manifests, serverless functions, tool configs, Django apps, pyproject entry points, server commands in Dockerfiles and Procfiles, Spring and Jakarta annotations, Android manifests and layouts), config, and tests. It analyzes the base and head revisions and reports only what the change did. Existing dead code never blocks a pull request. It is not an LLM guessing whether code looks unused, a general code reviewer, a formatter, or a security scanner. It does not claim that unobserv",
+  "first_seen": "2026-11-13T03:04:51.949705+00:00",
+  "id": "24a15c8960ed1808",
+  "published": "2026-11-13T02:56:13+00:00",
+  "sid": "7fa13061c9420ef9",
+  "source": "hackernews_ai",
+  "summary_1line": "Loose Ends: A check for unused code AI wrote or forgot to remove",
+  "title": "Loose Ends: A check for unused code AI wrote or forgot to remove",
+  "type": "news",
+  "url": "https://github.com/sid732/loose-ends"
  },
  "80218825bcdc9314": {
   "content_excerpt": "Written by: Christopher Romano, Codi Starks, Garrett Mahoney, John Wolfram, Josh Murchie, K Singh, Mathew Potaczek, Mike Lombardi, Rik Dolfing Mandiant responded to multiple incidents in 2026 in which threat actors hijacked enterprise access to Large Language Models (LLMs), a tactic known as \"LLMJacking.\" Spanning a variety of cloud and LLM providers, these intrusions impacted organizations in North America, South America, and Asia Pacific across the financial services, retail, technology, and transportation sectors. Unlike the gradual resource consumption associated with cryptojacking, LLMJacking can generate large spikes in fraudulent cloud charges in a matter of hours. Across individual incidents, we observed fraudulent charges associated with resource consumption exceeding $100,000 USD in a single day, with cumulative charges at some organizations reaching $1 million USD before access was revoked. Analyzing the criminal ecosystem behind these frontline compromises, and building upon previous reporting on the growing underground market for LLM credentials, Google Threat Intelligence Group (GTIG) has identified a diverse set of financially motivated threat clusters operating out of multiple regions globally. As the LLMJacking ecosystem matures, we are also tracking a division of labor between threat actors establishing initial access to compromised environments and operators managing downstream monetization infrastructure, known as “LLM Mixers”. LLM Mixers function as illic",
@@ -8237,6 +8319,17 @@
   "type": "news",
   "url": "https://openai.com/index/singapore-airlines-travel-work"
  },
+ "90c4910632af2ad4": {
+  "first_seen": "2026-11-13T03:06:34.958267+00:00",
+  "id": "0f22526e4a04fd99",
+  "published": "2026-11-11T14:22:09+00:00",
+  "sid": "90c4910632af2ad4",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Retrieval-augment generation is a prevalent strategy to mitigate hallucinations of LLMs. The attributable RAG (RAGQ) generates quotes for its answers. The quotes indicate which input contexts support the RAG to derive the answers, enhancing the answer's verifiability and trustwor",
+  "title": "Faithful in Steps: Improving Generalization and Citation in RAG via Query Decomposition",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.15538v1"
+ },
  "913cd197e9f52b0c": {
   "content_excerpt": "Learn more about advertising on Uber. Reach consumers as they go anywhere and get anything. Agentic AI introduces a fundamentally different security model from traditional software. Unlike conventional services that execute predefined logic, agents dynamically reason over content from users, webpages, documents, tools, and other agents—and can translate that reasoning into real-world actions. This shifts part of the attack surface from traditional identity and API controls into the semantic layer, creating risks such as prompt injection, tool and memory poisoning, goal hijacking, behavioral drift, and hallucination-driven actions. Traditional authorization can determine who is allowed to act, but securing agentic systems requires answering a broader question: is the proposed action consistent with what the user requested, within the agent’s defined persona and intents, appropriate for the user’s role, and valid given the full session context—including the actions and decisions that preceded it? To address this challenge, we developed a defense-in-depth security framework spanning the full agent lifecycle: provisioning-time validation, runtime enforcement, and continuous assurance. The framework combines an agent registry, personas and explicit intents, constraints, tool and MCP validation, context-aware guardrails, and continuous red teaming with end-to-end observability and replay. At runtime, we introduced prompt provenance and evidence chaining to correlate privileged acti",
   "first_seen": "2026-11-07T18:03:37.622063+00:00",
@@ -8968,6 +9061,17 @@
   "url": "http://arxiv.org/abs/2611.03930v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "9d07c66eb96e8096": {
+  "first_seen": "2026-11-13T03:06:34.958267+00:00",
+  "id": "5abb84595ca6e0f7",
+  "published": "2026-11-11T05:10:32+00:00",
+  "sid": "9d07c66eb96e8096",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "What makes an image creative? Although this may seem like a highly subjective decision, research in psychology suggests that creativity may be based on a set of fundamental creativity dimensions such as novelty, surprise, and arousal. A deeper understanding of image creativity ca",
+  "title": "Estimating Image Creativity",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.15044v1"
+ },
  "9d2ae92f0e830442": {
   "first_seen": "2026-11-11T21:04:54.891963+00:00",
   "id": "eb5b92e4c20dbea5",
@@ -9677,6 +9781,17 @@
   "type": "news",
   "url": "https://rufous.chat",
   "why_it_matters": "Matches feed focus: agent, harness."
+ },
+ "a7b79c5f448ee3b6": {
+  "first_seen": "2026-11-13T03:06:34.958267+00:00",
+  "id": "8034acad00220253",
+  "published": "2026-11-11T14:02:55+00:00",
+  "sid": "a7b79c5f448ee3b6",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Deep Reinforcement Learning (RL) plays a crucial role in tackling complex tasks, yet its reliance on deep neural networks makes the learned policies opaque. To enhance the trustworthiness of RL policies, existing work (e.g., the SILVER framework [Li et al., 2025]) has focused on",
+  "title": "ReShap: Interpretable Reinforcement Learning for High-Dimensional Multi-Action Settings",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.15507v1"
  },
  "a7ba0ec6f234c053": {
   "first_seen": "2026-11-07T13:03:35.656334+00:00",
@@ -13282,6 +13397,22 @@
   "type": "news",
   "url": "https://github.com/NVIDIA/spark-local-inference"
  },
+ "e69956fbb635a06d": {
+  "first_seen": "2026-11-13T03:04:51.949705+00:00",
+  "id": "712fe6dd2f3dd2fe",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-11T13:53:09+00:00",
+  "sid": "e69956fbb635a06d",
+  "source": "arxiv_cs_lg",
+  "summary": "Vision-language-action (VLA) models predict chunks of future actions, and when objects move, those chunks go stale before they are executed. We study what makes a pretrained VLA reactive, using \\pihalf{} on two dynamic simulation benchmarks and three real-robot tasks. We vary the prediction and execution horizons, compare synchronous and asynchronous inference, test methods that deliver actions sooner or keep successive chunks continuous, and adapt the policy with motion cues and latent-space reinforcement learning. The best prediction horizon is about one second, and the best execution horizon depends on the checkpoint. Short horizons help more with asynchronous execution, and methods that keep the trajectory continuous outperform those that only reduce latency. Adapting the policy repairs targeted failures, but on the conveyor task changing the execution horizon gained as much. Reactivity depends on the execution pipeline as much as on the policy, so both should be evaluated together.",
+  "summary_1line": "Vision-language-action (VLA) models predict chunks of future actions, and when objects move, those chunks go stale before they are executed. We study what makes a pretrained VLA reactive, using \\pihalf{} on two dynami...",
+  "title": "What Makes a VLA Reactive? A Study of Execution Strategies for Dynamic Manipulation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.15491v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "e6e805daf5cea453": {
   "first_seen": "2026-11-07T00:07:33.105822+00:00",
   "id": "72050327195f01b4",
@@ -14530,6 +14661,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03634v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "fc7811b322745a9e": {
+  "first_seen": "2026-11-13T03:06:34.958267+00:00",
+  "id": "97cac729ae54c6f3",
+  "published": "2026-11-11T12:53:52+00:00",
+  "sid": "fc7811b322745a9e",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "LLM-based recommendation agents can search catalogs, inspect products, ask users, and revise rejected recommendations. However, these behaviors are often governed by hand-designed workflows, while existing training methods optimize isolated components such as query rewriting or l",
+  "title": "SimRec: Learning to Search, Ask, and Recommend from Simulated Interaction",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.15426v1"
  },
  "fc7c1780406958b5": {
   "first_seen": "2026-11-04T00:07:04.928809+00:00",
