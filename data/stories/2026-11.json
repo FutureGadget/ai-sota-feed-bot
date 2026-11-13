@@ -2254,6 +2254,23 @@
   "url": "https://github.com/AGGIB/Stroq",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "253d2626b6cc1b75": {
+  "first_seen": "2026-11-13T04:04:56.067313+00:00",
+  "id": "ad97615d8c64581a",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-11T22:09:11+00:00",
+  "sid": "253d2626b6cc1b75",
+  "source": "arxiv_cs_lg",
+  "summary": "To act effectively, agents must gather contextual information across resources such as chats, issue trackers, email and knowledge bases, to answer questions like \"what was decided in the last project meeting?\" or \"where is the FAQ for our internal tooling?\" Where this information lives in a user's environment is unknown to the agent, so it re-explores the same resources across consecutive interactions. Common routing approaches represent each resource as a tool and rely on high-level descriptions to generalize to unseen environments. Such descriptions often fail to separate similar or overlapping resources and cannot improve from the agent's subsequent interactions. We introduce Wayfinder, an adaptive router that uses the documents cited by the downstream agent as feedback about where relevant information resides. These citations update Wayfinder's internal resource representations, which subsequent interactions use to prioritize the resources likely to contain relevant information. We also introduce resource augmentation during offline reinforcement learning, which anonymizes and permutes resource identities to discourage training-time overfitting of which resource holds which topic; our ablations suggest it helps most when few training environments are available. Because no openly available professional environments pair realistic queries with resource-access patterns, we construct and release three controlled testbeds derived from existing datasets: NFCorpus, FEVER and Tec",
+  "summary_1line": "To act effectively, agents must gather contextual information across resources such as chats, issue trackers, email and knowledge bases, to answer questions like \"what was decided in the last project meeting?\" or \"whe...",
+  "title": "Wayfinder: Adaptive Resource Routing from Agent Citations",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.16053v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "25493a43cba550c7": {
   "first_seen": "2026-11-03T19:08:46.325922+00:00",
   "id": "75b355b2a8dde883",
@@ -6407,9 +6424,14 @@
    "codex"
   ],
   "published": "2026-11-12T21:29:07+00:00",
+  "release_highlights": [
+   "Browse model providers under Sessions → Model providers and choose the default for new chats. ( #59541 , #59722 )",
+   "Enable features.tui_workspace to view a side conversation beside the main chat. Drag the divider to resize the panes or press leader z to zoom the focused pa...",
+   "Attach recordings when using an audio-capable model. Codex skips confirmed rejected recordings on later turns and uses clip duration to keep more short recor..."
+  ],
   "sid": "6cfc942e5da70ee0",
   "source": "openai_codex_releases",
-  "summary": "Release 0.168.0",
+  "summary": "New Features Browse model providers under Sessions → Model providers and choose the default for new chats. ( #59541 , #59722 ) Enable features.tui_workspace to view a side conversation beside the main chat. Drag the divider to resize the panes or press leader z to zoom the focused pane. ( #58992 , #59527 , #59595 ) Attach recordings when using an audio-capable model. Codex skips confirmed rejected recordings on later turns and uses clip duration to keep more short recordings in context. ( #59234 , #59268 ) Enable features.image_generation_animation to generate or edit animated GIFs with optional frame count and timing controls. ( #59073 ) Fullscreen Codex displays image previews and pets in tmux on Ghostty and Kitty with allow-passthrough all . ( #59579 , #59580 ) Set tui.notification_method = \"osc777\" for terminal notifications. Approval notifications show longer command previews and distinguish terminal input from network access requests. ( #59256 ) Bug Fixes Local TUI history and resume pickers filter newly created threads by the signed-in ChatGPT account. ( #58918 ) Open and resumed chats use their saved model provider after you change the default for new chats. ( #59503 ) The TUI renders replies interrupted by tool calls as a single Markdown message and restores reasoning summaries when replaying a conversation. ( #59698 , #59700 ) Steering messages reach running turns when sent during the final transcript save or after switching back to a long-running chat. ( #58877 , #",
   "summary_1line": "Release 0.168.0",
   "title": "codex rust-v0.168.0",
   "type": "release",
@@ -7243,6 +7265,23 @@
   "url": "https://www.langchain.com/blog/how-workday-built-an-enterprise-scale-ai-agent-platform-with-langgraph-and-langsmith",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "7cdc4256677ae764": {
+  "first_seen": "2026-11-13T04:04:56.067313+00:00",
+  "id": "e4f661159aa7242b",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-11T16:04:12+00:00",
+  "sid": "7cdc4256677ae764",
+  "source": "arxiv_llm_reliability",
+  "summary": "As memory-augmented agents increasingly support long-term and personalized interactions, reliable recall of emotional experiences while preserving their associated affect becomes necessary. However, existing evaluations usually assess emotion accuracy and factual memory grounding separately, overlooking event-affect correspondence. In this work, we formulate Affective-Episodic Retrospection (AER) as a task that explicitly evaluates the recovery of past events, associated affects, and their correspondence, and define Event-Affect Decoupling as a failure mode where the correct emotion is recalled but associated with the wrong episode. To diagnose Event-Affect Decoupling, we propose EM-TRACE, a stage-wise framework that decomposes AER into retrieval, affect recovery, and realization. On a controlled GoEmotions-based benchmark, Emotion-only retrieval achieves 28.65% affect recovery but retrieves the target episode for only 4.44% of queries, yielding a UAR of 24.21%. Further analysis reveals that event retrieval and affect assignment introduce distinct binding failures. These findings show that reliable AER requires grounded recall of emotional experiences, where episode retrieval, affect recovery, event-affect binding, and generation quality should be evaluated jointly. Our code is available at https://anonymous.4open.science/r/A412/.",
+  "summary_1line": "As memory-augmented agents increasingly support long-term and personalized interactions, reliable recall of emotional experiences while preserving their associated affect becomes necessary. However, existing evaluatio...",
+  "title": "Can Agents Relive Past Experiences? Diagnosing Event-Affect Decoupling in Affective-Episodic Retrospection",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.15655v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "7cea71caf9c900ed": {
   "first_seen": "2026-11-12T13:05:38.021723+00:00",
   "id": "ec3455d8f9269dbd",
@@ -7338,6 +7377,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.04968v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "7e22bab1b14da71f": {
+  "first_seen": "2026-11-13T04:07:21.465234+00:00",
+  "id": "ef48ae9c7377d5cd",
+  "published": "2026-11-11T10:52:21+00:00",
+  "sid": "7e22bab1b14da71f",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Language models evolve, but the observations, revisions, and context accumulated through user interactions should remain usable. Each new model must be able to retrieve past evidence, track revisions, and add new observations. We present MIGRO, a decoupled long-term memory system",
+  "title": "MIGRO: A Decoupled and Portable Long-Term Memory System for Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.15315v1"
  },
  "7e71a00f8d6a3e38": {
   "content_excerpt": "Models tried in order. First non-rate-limited model is used. If all are cooling down, waits for the shortest cooldown. Model used for worker subagent calls. \"Default\" follows the priority list rotation. \"Priority model\" always forces the #1 model in the list. Model used for background tasks: chat title generation, prompt suggestions, etc. \"Default\" uses the first available model from the priority list. \"None\" disables all utility LLM calls. Applied as defaults to custom endpoints (vLLM / Ollama / LM Studio). Other providers use their own defaults. Set a value to override; leave blank for provider default. HuggingFace key enables FLUX / SDXL via HF Inference as a fallback for generate_image (Pollinations works without a key). Env var: HF_API_KEY . Developer key: unlocks the Worker's shared provider keys. When filled, each finished or failed Task chat and every console error/warning is also sent to the Worker's logs, tagged with this session's ID. When a message includes multimedia, requests are routed to these models. \"Auto\" uses the first capable model from the priority list. Where FreeGent may send requests. The level applies at once and is saved in this browser only (profiles do not carry it). Optional, Routed level only. freegent.ai and the local dev server already proxy provider calls, so leave this empty unless you host FreeGent on your own domain or fork (the built-in Worker refuses other origins). Then deploy cf-worker/ to your own Cloudflare account (free tier) and pa",
@@ -8808,6 +8858,24 @@
   "type": "news",
   "url": "https://openai.com/index/introducing-businesses-chatgpt"
  },
+ "9932c5c6541ad96e": {
+  "first_seen": "2026-11-13T04:04:56.067313+00:00",
+  "id": "baa97d1f56f85fdf",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-11-11T10:07:09+00:00",
+  "sid": "9932c5c6541ad96e",
+  "source": "arxiv_cs_ai",
+  "summary": "Agent self-improvement requires feedback about task success, yet external feedback may be unavailable at test time. Agents must then infer success from observable evidence, and incomplete verification can misguide subsequent updates. We introduce Verify by Doing (VbD), a method that co-evolves Actor and Evaluator harnesses within a single task while keeping model weights fixed. The Evaluator actively inspects artifacts and environment state with tools; its findings ground an internal signal for output selection and guide updates to both execution and verification procedures. Proposed Evaluators undergo comparative review on common candidates, while Actor updates require support from their own fresh outputs. Across AutomationBench, $τ^3$ Banking, and selected GDPval tasks, VbD achieves the highest overall scores among the compared methods operating without external feedback, with gains of 3.3, 4.1, and 2.3 percentage points over the strongest baselines on the main backbone. Ablations support the contributions of active verification and Evaluator evolution, and selection from fixed candidate pools shows that improved verification can recover successful outputs without generating new ones.",
+  "summary_1line": "Agent self-improvement requires feedback about task success, yet external feedback may be unavailable at test time. Agents must then infer success from observable evidence, and incomplete verification can misguide sub...",
+  "title": "Verify by Doing: Co-Evolving Agent Execution and Evaluation without External Feedback",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.15276v1",
+  "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
  "994e4f7080260995": {
   "first_seen": "2026-11-06T16:05:35.502169+00:00",
   "id": "d553c8e9cfeee409",
@@ -10219,6 +10287,23 @@
   "type": "news",
   "url": "https://jeena.net/notes/1497",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "af82d2a6a77bcf84": {
+  "first_seen": "2026-11-13T04:04:56.067313+00:00",
+  "id": "2e53ed04529d2d5e",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-11T10:44:21+00:00",
+  "sid": "af82d2a6a77bcf84",
+  "source": "arxiv_cs_ai",
+  "summary": "LLM-driven program evolution rests on three decisions: govern directs the search from accumulated evidence, propose constructs the next candidate, and judge settles validity and fitness. All three appear in every system, and existing work splits into two lines over who makes each. Controller-centric systems strengthen govern and neglect the autonomy of propose, which caps what evolution can reach. Agent-centric systems let a coding agent take over both govern and propose, at a cognitive and computational cost. Neither line protects the independent authority of judge, so benchmark reliability suffers. These failures share one root: autonomy is misallocated across the three decisions. We address this problem with EvoTrias, a separation-of-powers architecture in which each decision has one owner: Structured Governance for what spans evolution rounds, Open Proposal for construction inside a task, and Protected Judgment behind a private evaluator. These owners exchange typed contracts only, and runtime hooks reinforce the boundaries. This separation also lets EvoTrias run as a plugin that turns an existing coding agent into an evolution system. EvoTrias sets a new state of the art on mathematical, systems, and algorithm-design benchmarks. Three further results show what each owner buys: separating Governance from Proposal cuts token cost by 64%, Open Proposal extends evolution to a 680K-line industrial repository, and Protected Judgment keeps benchmark scores faithful to transfer.",
+  "summary_1line": "LLM-driven program evolution rests on three decisions: govern directs the search from accumulated evidence, propose constructs the next candidate, and judge settles validity and fitness. All three appear in every syst...",
+  "title": "Where Autonomy Belongs: A Separation of Powers for Agentic Program Evolution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.15309v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "afe272f4d0aa3179": {
   "content_excerpt": "Google Maps, social profiles, RAG, reviews, local AI visibility and more — production-grade tools exposed as pay-per-event APIs, from $0.002 per result plus run fees where applicable. Claude, GPT, Cursor and n8n discover and call them through MCP. Agents can also pay per call in USDC (x402). Pay per event, not per month. A Google Maps business costs $0.03 plus the run fee. A LinkedIn profile costs $0.02. Many Actors offer dryRun for integration tests; Apify platform usage may still apply. Businesses with phone, website, address, category, rating and reviews as clean JSON. Get alerted when public APIs break: OpenAPI diff + release classification, Slack alerts. Turn a business's Google reviews into a personalized audit report and outreach email. Live prices for French stations from official open data, filtered by department and fuel type. Track competitor hotel prices over time as clean datasets for revenue management. Audit one business website, Google profile and recent reviews with a transparent score and prioritized fixes. Create a persistent baseline and detect new reviews, rating changes and AI-readiness regressions with webhook alerts. Measure brand mentions and official-domain citations in real AI answers, with model-specific history and deltas. Each link opens a published Apify task with a prefilled input, FAQ and a real acceptance-test dataset. Il utilise le serveur MCP Apify ou la façade MCP Adaga, lit le schéma d’entrée de l’outil, puis lance une tâche publique ou u",
@@ -14665,13 +14750,19 @@
  "fc7811b322745a9e": {
   "first_seen": "2026-11-13T03:06:34.958267+00:00",
   "id": "97cac729ae54c6f3",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
   "published": "2026-11-11T12:53:52+00:00",
   "sid": "fc7811b322745a9e",
   "source": "arxiv_agent_systems_research",
+  "summary": "LLM-based recommendation agents can search catalogs, inspect products, ask users, and revise rejected recommendations. However, these behaviors are often governed by hand-designed workflows, while existing training methods optimize isolated components such as query rewriting or list ranking rather than the interaction policy as a whole. We present SimRec, a reinforcement learning framework that trains the full interaction policy of a tool-integrated recommendation agent. SimRec introduces two components. A task-anchored user simulator provides feedback on every recommendation: conditioned on the current task need rather than on user profile, and it can be an external LLM or the recommender itself under self-play. A task-aligned reward optimizes the whole trajectory with GRPO, crediting natural retrieval quality and valid tool use alongside the final hit, with training-only target injection to handle sparse hits over large catalogs. On ESCI and Amazon C4, SimRec improves the NDCG@100 of a Qwen3-4B agent from 32.23% to 35.42% and from 22.94% to 24.72%}, outperforming training-free agents on far larger backbones and task-aligned baselines on NDCG. Analysis shows that the trained agent verifies candidates, uses preferences, and recovers from rejected recommendations far more often than its untrained counterpart. Our code is available at https://github.com/ZJU-REAL/SimRec .",
   "summary_1line": "LLM-based recommendation agents can search catalogs, inspect products, ask users, and revise rejected recommendations. However, these behaviors are often governed by hand-designed workflows, while existing training methods optimize isolated components such as query rewriting or l",
   "title": "SimRec: Learning to Search, Ask, and Recommend from Simulated Interaction",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.15426v1"
+  "url": "http://arxiv.org/abs/2611.15426v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "fc7c1780406958b5": {
   "first_seen": "2026-11-04T00:07:04.928809+00:00",
