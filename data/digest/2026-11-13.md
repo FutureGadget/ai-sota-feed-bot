@@ -2,98 +2,92 @@
 
 Focus: AI Platform Engineering
 
-## 1. Netflix Turns Operational Data Into a Knowledge Graph for AI-Driven Observability
+## 1. New AI agent observability and governance across BigQuery and Looker
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/data-analytics/enterprise-ai-agent-observability-with-bigquery-and-looker/
+- Score: 4.042 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
+
+## 2. Google Open Sources Ambient Quality Agent (AQuA) to Diagnose Production AI Agent Failures
 - Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/11/netflix-ai-driven-observability/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.387 | Reliability: 1.0
+- URL: https://www.infoq.com/news/2026/11/google-ambient-agent-prod/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 3.349 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. Label-Efficient Document-Grounded Factuality Detection via Cross-Paraphrastic Invariance Learning
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.16264v1
-- Score: 3.225 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+## 3. DeepSeek Turns Its Whole App Into an API With Search, File Reading, Voice and Safety Built In
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiuwFBVV95cUxNMk5aU2dlc2J1dGk2SnZjX2tjNXZ5cHRrN3hsNnFVT3F2ZFMxZG9yaUZjamI1U3Y1UHU5SnlDbDRhT1QteGF4MENqM29kRXZvSHByTXhxUGNGQXdhdjFFUVFEbG5lTHlvWndUWk04ZFo5VmFObXdJaVpNWjIyS0NMWkx4THhENHdlWFNoYmVKSUdGcFBTYzR6RVM1RHRKYzYtN1lGbTRBRVlFQ290OEFqWFdMamEyblppcWtz?oc=5
+- Score: 3.269 | Reliability: 1.0
+- Why it matters: 
 
-## 3. Skill Adapter: Personalized Modification and Online Routing of General-Purpose Skills
+## 4. XYBench: Helping with the problem behind the question
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/allenai/xybench
+- Score: 3.036 | Reliability: 1.0
+- Why it matters: 
+
+## 5. LiveGeo: Benchmarking Geographic Agents in Continuously Evolving Worlds
 - Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.17007v1
-- Score: 3.093 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2611.17267v1
+- Score: 3.03 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 6. From Delegation to Coordination: Learning Efficient Multi-Agent Deep Research
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.17041v1
+- Score: 3.017 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 4. Cited but Unused: Parametric Provenance in Retrieval-Augmented Generation
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.17161v1
-- Score: 3.089 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 5. Introducing ChatGPT Wallet
+## 7. Introducing ChatGPT Wallet
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-chatgpt-wallet
-- Score: 2.933 | Reliability: 1.0
+- Score: 2.85 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
-## 6. H3-Image Day-0 Support: 4K in 0.87s with Vera Rubin
+## 8. H3-Image Day-0 Support: 4K in 0.87s with Vera Rubin
 - Type: news | Source: vllm_blog
 - URL: https://vllm.ai/blog/2026-11-12-minimax-h3-image-rubin
-- Score: 2.46 | Reliability: 1.0
+- Score: 2.441 | Reliability: 1.0
 - Why it matters: 
 
-## 7. Opening the datasets behind our AI weather models
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/opening-the-datasets-behind-our-ai-weather-models/
-- Score: 1.823 | Reliability: 1.0
-- Why it matters: 
-
-## 8. codex 0.171.0-alpha.2
+## 9. codex rust-v0.171.0-alpha.4
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.2
-- Score: 1.815 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.4
+- Score: 2.142 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 9. ChatGPT Plus for veterans and servicemembers
+## 10. Supporting research on AI and children’s safety
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/children-first-declaration
+- Score: 1.836 | Reliability: 1.0
+- Why it matters: 
+
+## 11. Actor, Judge, or Teacher? Understanding Decision Models in Long-Horizon Agents
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.17167v1
+- Score: 3.013 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 12. ChatGPT Plus for veterans and servicemembers
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/chatgpt-plus-for-veterans
-- Score: 1.791 | Reliability: 1.0
+- Score: 1.796 | Reliability: 1.0
 - Why it matters: 
-
-## 10. Singapore Airlines elevates travel & work with OpenAI technology
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/singapore-airlines-travel-work
-- Score: 1.717 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Auditing AI peer reviewers: a benchmark on real scientific papers
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.17052v1
-- Score: 3.08 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation, claude code.
-
-## 12. Paper-Faithful Federated Learning: Scientific Checks for Practitioner and Agent Development
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.17129v1
-- Score: 3.057 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
 
 ## 13. claude-code v2.1.321
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.321
-- Score: 1.403 | Reliability: 1.0
+- Score: 1.407 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 14. Gemini Robotics 2.5 accelerates real-world general dexterity
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/
-- Score: 1.352 | Reliability: 1.0
-- Why it matters: 
-
-## 15. Release 2.74.0 corresponding to NGC container 26.10
+## 14. Release 2.74.0 corresponding to NGC container 26.10
 - Type: release | Source: triton_releases
 - URL: https://github.com/triton-inference-server/server/releases/tag/v2.74.0
-- Score: 1.071 | Reliability: 1.0
+- Score: 1.064 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 16. claude-agent-sdk-python v0.2.179
+## 15. claude-agent-sdk-python v0.2.179
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.179
-- Score: 0.762 | Reliability: 1.0
+- Score: 0.771 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.

@@ -4387,6 +4387,22 @@
   "url": "https://ajx.dev",
   "why_it_matters": "Matches feed focus: agentic, harness, codex."
  },
+ "44b9deb6ee2badc9": {
+  "first_seen": "2026-11-13T17:06:40.570545+00:00",
+  "id": "eedc5d572cc302d0",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-13T16:28:38+00:00",
+  "sid": "44b9deb6ee2badc9",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.171.0-alpha.4",
+  "summary_1line": "Release 0.171.0-alpha.4",
+  "title": "codex rust-v0.171.0-alpha.4",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.4",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "4553deeec0e06574": {
   "first_seen": "2026-11-05T16:09:06.783851+00:00",
   "id": "7f5e327bb205f61a",
@@ -9134,6 +9150,18 @@
   "url": "http://arxiv.org/abs/2611.01940v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "96c7f67bef86f831": {
+  "content_excerpt": "Truly useful AI assistants need to be able to help users who ask misguided questions—not just users who ask the right question with the right amount of detail. We’re releasing XYBench , a benchmark of 8K+ questions that tests how AI assistants respond to requests based on misconceptions, such as asking how to thicken frosting that keeps sliding off cupcakes when the real problem is that the cupcakes are still too warm to frost. XYBench won the Best Resource Paper Award at EMNLP 2026. A mismatch between the approach someone asks about and the goal they want to achieve is known as the XY problem : a person wants to accomplish X, assumes a particular approach Y will work, and asks for help with Y. In the cupcake example, the person is so committed to making the frosting stick that they fail to consider the warmth of the cupcake as the true problem to be addressed. Developed with researchers at Carnegie Mellon, NVIDIA, and Johns Hopkins, XYBench exposes a critical gap in LLMs' ability to troubleshoot problems: recognizing when a user's request is based on an implicit misconception and appropriately redirecting them toward a solution that addresses their actual goal. Drawing on 8,115 real-world questions spanning programming and everyday activities such as cooking and home repair, we introduce a benchmark that measures whether models identify these misconceptions and are able to prioritize effective solutions in their responses. The models we evaluated on XYBench – Claude Sonnet 4",
+  "first_seen": "2026-11-13T17:06:40.570545+00:00",
+  "id": "280e7a2e0502f38c",
+  "published": "2026-11-13T17:02:35+00:00",
+  "sid": "96c7f67bef86f831",
+  "source": "huggingface_blog",
+  "summary_1line": "XYBench: Helping with the problem behind the question",
+  "title": "XYBench: Helping with the problem behind the question",
+  "type": "research",
+  "url": "https://huggingface.co/blog/allenai/xybench"
+ },
  "96ef71c73b9aef6d": {
   "content_excerpt": "When our evals became too expensive and slow to run, we rearchitected our single investigation agent into a team of ~40 loosely coupled agents. While there are some tradeoffs, it’s made evals run 5x faster for cents on the dollar, and we can experiment much more rapidly to evolve our product. We’ve been building Cleric for about three years now, starting with a single agent, initially based on LangGraph, and later switching to Claude Agent SDK. Cleric’s investigation agent takes a system alert (service down, latency up, memory/disk pressure, and so on), plans an investigation, and queries observability systems and Kubernetes for logs, metrics, traces, pod statuses, etc. It then generates hypotheses, collects findings, and repeats this in a loop, each time going deeper, until it finds a root cause with evidence pointing back to the source systems. In the last month, our agent has evolved in some interesting ways—the core difference being that it’s not one agent anymore. This post gets into why, what it unlocked, and how we’re thinking about the future. Evaluations are the engine of agent improvement loop, and so from the early start of Cleric, we invested heavily in this area. Our evals were end-to-end investigations. We’d simulate a system failure with a known root cause, have our agent run a full investigation on it, and check whether the agent found that expected root cause. Each run cost around $1.5 and took about four minutes to complete. The full suite cost $200 and took",
   "first_seen": "2026-11-04T18:04:59.867522+00:00",
@@ -10809,6 +10837,24 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.15309v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "afc8570c206a9195": {
+  "first_seen": "2026-11-13T17:06:40.570545+00:00",
+  "id": "34ccbfee6c54732e",
+  "image_url": "https://storage.googleapis.com/gweb-cloudblog-publish/images/1_-_Unified_Agent_Observability_Framework_.max-1000x1000.png",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-13T17:00:00+00:00",
+  "sid": "afc8570c206a9195",
+  "source": "google_cloud_blog",
+  "summary": "As enterprises move AI agents from experimental prototypes into production, data and platform teams are discovering that deploying an agent is only half the battle — you also need to see how it reasons, which data it touches, and what it costs to run. Today, we are announcing expanded AI agent observability and evaluation capabilities across Google Data Cloud, giving you unified visibility into your first-party (1P) data agents in BigQuery and Looker as well as custom third-party (3P) agents built with agent development frameworks such as Agent Development Kit (ADK) or LangGraph. Putting conversational and autonomous agents into production requires solving three operational challenges: tracing multi-step reasoning while protecting sensitive data, controlling token consumption and query spend, and evaluating answer accuracy before prompt or schema changes reach users. Let’s explore how our new agent observability and evaluation capabilities help you do this. What's new: Agent observability across Data Cloud Running agents at scale means you need to see how they perform, what they cost, and what actions they take. We're rolling out a unified telemetry framework across Google's Agentic Data Cloud that works the same way for every agent: Capture telemetry from the agent, land it in BigQuery tables you own, and analyze it wherever your teams already work. Unified agent observability framework capturing logging telemetry across 1P and 3P agents into BigQuery to surface performance ",
+  "summary_1line": "As enterprises move AI agents from experimental prototypes into production, data and platform teams are discovering that deploying an agent is only half the battle — you also need to see how it reasons, which data it...",
+  "title": "New AI agent observability and governance across BigQuery and Looker",
+  "type": "news",
+  "url": "https://cloud.google.com/blog/products/data-analytics/enterprise-ai-agent-observability-with-bigquery-and-looker",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "afe272f4d0aa3179": {
   "content_excerpt": "Google Maps, social profiles, RAG, reviews, local AI visibility and more — production-grade tools exposed as pay-per-event APIs, from $0.002 per result plus run fees where applicable. Claude, GPT, Cursor and n8n discover and call them through MCP. Agents can also pay per call in USDC (x402). Pay per event, not per month. A Google Maps business costs $0.03 plus the run fee. A LinkedIn profile costs $0.02. Many Actors offer dryRun for integration tests; Apify platform usage may still apply. Businesses with phone, website, address, category, rating and reviews as clean JSON. Get alerted when public APIs break: OpenAPI diff + release classification, Slack alerts. Turn a business's Google reviews into a personalized audit report and outreach email. Live prices for French stations from official open data, filtered by department and fuel type. Track competitor hotel prices over time as clean datasets for revenue management. Audit one business website, Google profile and recent reviews with a transparent score and prioritized fixes. Create a persistent baseline and detect new reviews, rating changes and AI-readiness regressions with webhook alerts. Measure brand mentions and official-domain citations in real AI answers, with model-specific history and deltas. Each link opens a published Apify task with a prefilled input, FAQ and a real acceptance-test dataset. Il utilise le serveur MCP Apify ou la façade MCP Adaga, lit le schéma d’entrée de l’outil, puis lance une tâche publique ou u",
@@ -15288,6 +15334,18 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOd0tTZ3c1MHRILWV0NE9xeFFWaVUyMFNGcU1yUGdGUUxpbVFRaDVaZjJlOTZJU3NzUlBMbW9NbFNfUW9DeFJ1Z09fNmxVbEc3amdhUkQ1TmdmaERDMktMZzlNVGFsd01xcWVGQldmYnVaOTNXVWFYQVNoc2ZzV2trTm1QTFNGbTFwU1E?oc=5",
   "why_it_matters": "Matches feed focus: harness."
+ },
+ "f9c4356a60656c46": {
+  "first_seen": "2026-11-13T17:06:40.570545+00:00",
+  "id": "97c33c47f2445df1",
+  "published": "2026-11-13T16:25:29+00:00",
+  "sid": "f9c4356a60656c46",
+  "source": "search_cn_open_weight_labs",
+  "summary": "DeepSeek Turns Its Whole App Into an API With Search, File Reading, Voice and Safety Built In Startup Fortune",
+  "summary_1line": "DeepSeek Turns Its Whole App Into an API With Search, File Reading, Voice and Safety Built In Startup Fortune",
+  "title": "DeepSeek Turns Its Whole App Into an API With Search, File Reading, Voice and Safety Built In",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNMk5aU2dlc2J1dGk2SnZjX2tjNXZ5cHRrN3hsNnFVT3F2ZFMxZG9yaUZjamI1U3Y1UHU5SnlDbDRhT1QteGF4MENqM29kRXZvSHByTXhxUGNGQXdhdjFFUVFEbG5lTHlvWndUWk04ZFo5VmFObXdJaVpNWjIyS0NMWkx4THhENHdlWFNoYmVKSUdGcFBTYzR6RVM1RHRKYzYtN1lGbTRBRVlFQ290OEFqWFdMamEyblppcWtz?oc=5"
  },
  "f9d81d0a259ab7bb": {
   "first_seen": "2026-11-11T05:05:54.415069+00:00",
