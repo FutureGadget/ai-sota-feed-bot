@@ -2344,6 +2344,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14413v1"
  },
+ "2421b6130882e9e3": {
+  "content_excerpt": "I've adopted a multi-agent setup, and I can't see going back. I've been skeptical of token maxing tools like Gas Town, whose running cost felt inordinate and whose creator admits was mostly used to build itself. On the other hand, models are now good enough to autonomously and productively work for long periods of time. My effort now goes towards keeping the fleet on track, maintaining progress towards high-level goals, and increasing the number of agents doing high-quality work. Working this way is more similar to a pre-AI engineering manager than a pre-AI software engineer. There's less technical growth and less in-depth understanding of the code. But the scope and volume of what I'm able to build is dramatically greater than it was before. Rather than pitch yet another agent orchestrator 1 to you, I'll explain how I landed here, which components of multi-agent orchestration matter, and what this shift means for the practice of software engineering. AI allows me to make progress on several tasks at once, which I started managing with a sea of iTerm windows. This quickly got difficult to manage. Some tasks are fire-and-forget, while I need to drive others myself. Managing tabs by hand didn't give me a way to distinguish between them. It was also lossy: accidentally closing a tab means resuming by fishing the session out of Codex (or was it Claude Code?). Even when keeping tabs running, it was not always trivial to remember what each tab was working on. I built a central Tmux",
+  "first_seen": "2026-11-13T21:04:51.417122+00:00",
+  "id": "322804b24989f38a",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-13T20:42:55+00:00",
+  "sid": "2421b6130882e9e3",
+  "source": "hackernews_ai",
+  "summary_1line": "Embracing Multi-Agent Development",
+  "title": "Embracing Multi-Agent Development",
+  "type": "news",
+  "url": "https://tombedor.dev/multi-agent-orchestration",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "24ae260dedf8a745": {
   "first_seen": "2026-11-10T14:05:41.419296+00:00",
   "id": "58cc3b11e3f21e05",
@@ -10244,6 +10260,24 @@
   "url": "http://arxiv.org/abs/2611.14407v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "a443b3b055385161": {
+  "content_excerpt": "We introduced Kitesurf , our stateless browser for AI agents that runs entirely on top of Workers, in August and followed up in September with WebMCP support, new APIs, and improved compatibility. On every occasion, we mentioned our commitment to open sourcing it so that developers could run their own browser engine on their own Cloudflare accounts if they want to. That promise is now real. Kitesurf is open source on GitHub under the Apache 2.0 license. You can read the code, run it locally, change it, and deploy your own instance to Cloudflare Workers. Kitesurf runs entirely on Cloudflare Workers. It parses HTML, applies CSS, executes page JavaScript, and renders screenshots without a browser container. It supports the Chrome DevTools Protocol (CDP), so you can connect clients such as Puppeteer. Our main goal is to give AI agents a lightweight, efficient browser — one that can load websites, execute JavaScript, and interact with pages while using less CPU and memory than a full browser like Chromium, and scaling on demand across Cloudflare’s global Workers network. Read more about why and how we built Kitesurf in our initial announcement and how to use it in Browser Run’s developer documentation. Kitesurf builds on Cloudflare’s Developer Platform and APIs, alongside an ecosystem of open-source Rust packages compiled to WebAssembly: These projects made Kitesurf possible. They retain their respective licenses; the repository's NOTICE documents third-party notices. Kitesurf has",
+  "first_seen": "2026-11-13T21:04:51.417122+00:00",
+  "id": "38bee056382bc915",
+  "image_url": "https://blog.cloudflare.com/_emdash/api/media/file/01M7B8M53647Q1KNRABY8VM2G7.png",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-13T20:20:21+00:00",
+  "sid": "a443b3b055385161",
+  "source": "cloudflare_blog",
+  "summary": "Kitesurf, our experimental browser engine for AI agents, is now open source. Inspect the code, run it locally, or deploy your own instance on Cloudflare Workers.",
+  "summary_1line": "Kitesurf, our experimental browser engine for AI agents, is now open source. Inspect the code, run it locally, or deploy your own instance on Cloudflare Workers.",
+  "title": "Kitesurf is now open source",
+  "type": "news",
+  "url": "https://blog.cloudflare.com/kitesurf-open-source",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "a48b233c16d69100": {
   "first_seen": "2026-11-05T08:05:21.535185+00:00",
   "id": "55556f7aa2e1b6cd",
@@ -11308,6 +11342,22 @@
   "url": "https://github.com/qybaihe/bla",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "b517f4a9054f10fd": {
+  "content_excerpt": "Executor is a free Claude Code plugin that runs the engineer's loop for you. It plans a spec into features and builds them in parallel. It reviews every PR against your spec and your repo's conventions, checks its own findings, and fixes the bugs it confirms. The merge stays with you. New to agent builds? Take the free 5-day email course : install Executor and run your first review on day one, then specs, context budgets and your own plugin. The story behind it: I don't code anymore. Executor does it all. . More on the Executor page . How it works · What it costs · What it never does · Commands · Install · FAQ · Reference Each PR is a draft in a GitHub stack , with a few bullets, a diagram when the change has a shape, and a Testing section. Before you see it, each one has passed your build, your tests and a review. These numbers come from real builds and count the main thread plus every subagent, at API list prices: Opus $4 in / $20 out, Sonnet $2 / $10 per million tokens, cache reads $0.20. Each release that changes the cost adds a row here. The launch article walks through these numbers, $1.43 to $3.13 per PR across versions. You can also ask in plain words: \"build docs/rfc-12.md\", \"review acme/api#7\", \"where are my builds\". Then type /executor:init . It checks the GitHub CLI, its sign-in and the gh-stack extension, offering to install it. In a build repository it offers to enable Executor in the committed .claude/settings.json , merged in without touching your other settin",
+  "first_seen": "2026-11-13T21:04:51.417122+00:00",
+  "id": "88943eb5b41373b5",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-13T18:21:53+00:00",
+  "sid": "b517f4a9054f10fd",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: I measured what each agent-built pull request costs (~$2.42)",
+  "title": "Show HN: I measured what each agent-built pull request costs (~$2.42)",
+  "type": "news",
+  "url": "https://github.com/sebwilgosz/agent-executor",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "b5cba0d011349b3b": {
   "first_seen": "2026-11-03T17:06:51.488000+00:00",
   "id": "366cf98f55427d25",
@@ -12231,6 +12281,18 @@
   "url": "https://www.evalshift.dev/blog/ai-evals-for-agents",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "c3db479db3bd9471": {
+  "first_seen": "2026-11-13T21:04:51.417122+00:00",
+  "id": "1a2314949354f29d",
+  "published": "2026-11-13T20:37:26+00:00",
+  "sid": "c3db479db3bd9471",
+  "source": "search_cn_open_weight_labs",
+  "summary": "DeepSeek opens its full app toolkit to developers through its API Crypto Briefing",
+  "summary_1line": "DeepSeek opens its full app toolkit to developers through its API Crypto Briefing",
+  "title": "DeepSeek opens its full app toolkit to developers through its API",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5ZeFE5eEI5enVPUzhwZkdXM0d3T3RYRWZSbTVKOVNuZTRlcGxiSThJWHRReTJONjVwNTE3em1ZRXNtR0dFRU1KQ3lyVml1WmJOZ2lRYnAydU5MZmh4b1lmQXlwcTdjcU5kM2NoVldfdjUycUpDZ2ptajdB?oc=5"
+ },
  "c430d9570f8f07c3": {
   "content_excerpt": "We rebuilt the Framer Agent’s harness to let it take on whole workflows in a single program. Making it up to 33% cheaper, and 20% faster. A request like “find every use of our old brand color and replace it” can involve inspecting thousands of nodes and changing hundreds of properties. The agent can now express that work in JavaScript, inspect the document, decide which nodes to change, and apply the updates without returning to the model for each decision. To support that much work in one program, we built an execution system that runs JavaScript while the model is still writing it. We compile incoming code into executable cells and run them as they become available. You can see the first changes on the canvas before the model finishes generating the rest. We preserve the live feedback of our original harness while giving the agent loops, conditionals, and access to the document. We can also catch failed assumptions before generation finishes, stop the remaining stream, avoid further output-token charges, and return the information the agent needs to try again. The new architecture uses 2x fewer tool steps and 39% fewer cached input tokens per message, on average. This represents a meaningful increase in task efficiency with no measured reduction in quality. Framer uses a tree structure to represent your design documents. This tree acts as an AST from which code and CMS content are deterministically generated. The first version of our harness used a DSL (domain-specific lang",
   "first_seen": "2026-11-06T19:05:33.734547+00:00",
@@ -12384,6 +12446,22 @@
   "title": "AgentOPSD: Turn-Level Credit Assignment via Recursive Belief Revision",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12587v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "c6351186c83b6a2b": {
+  "first_seen": "2026-11-13T21:04:51.417122+00:00",
+  "id": "ef70e62df83857b0",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-12T17:07:22+00:00",
+  "sid": "c6351186c83b6a2b",
+  "source": "arxiv_cs_cl",
+  "summary": "Enforcement defenses against prompt injection, such as CaMeL, Progent, IPIGuard and DRIFT, ask the agent's own model to write a security artifact (a program, a privilege policy, a dependency graph or a constraint list) that code then enforces. We ask whether small language model (SLM) agents can be trusted to write these artifacts. Across 15 open-weight models, 13 of them between 1.7B and 12B parameters, they cannot: the policies, graphs and constraints that the agent's model writes admit attacks on 14 (Progent), 13 (IPIGuard) and 11 (DRIFT) of the models, and CaMeL's programs fail to run in up to 68% of episodes. We present CapLite, which derives its policy from the tool schemas, commits the write calls before any tool result is read, and admits a write only if every argument that decides whom or what it affects is stated in the user's request. This guarantees write integrity: injected text cannot add a write, and no write reaches a recipient, amount, object or destination that the user did not state. No attack succeeds in 13,935 attacked AgentDojo episodes. CapLite reaches utility under attack comparable to CaMeL's (29.0% vs. 27.2%) with fewer tokens than every other enforcement defense and than the undefended agent: 17.1k per episode, 18% of CaMeL's, and the highest utility per token of all enforcement defenses.",
+  "summary_1line": "Enforcement defenses against prompt injection, such as CaMeL, Progent, IPIGuard and DRIFT, ask the agent's own model to write a security artifact (a program, a privilege policy, a dependency graph or a constraint list...",
+  "title": "CapLite: Prompt-Injection Defense for Small Language Model Agents without Model-Written Security Artifacts",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17115v1",
   "why_it_matters": "Matches feed focus: agent."
  },
  "c65c7708e93995ca": {
@@ -14220,6 +14298,29 @@
   "title": "Zero Mismatch, Simple Async RL: REINFORCE Zero, DeepSeek-V4.1 and Kimi K3.1",
   "type": "news",
   "url": "https://vllm.ai/blog/2026-11-06-zero-mismatch-async-rl"
+ },
+ "e58a3ce1f17ad846": {
+  "first_seen": "2026-11-13T21:04:51.417122+00:00",
+  "id": "02ec0b1022eff07a",
+  "matched_topics": [
+   "agent",
+   "eval",
+   "claude code"
+  ],
+  "published": "2026-11-13T20:40:01+00:00",
+  "release_highlights": [
+   "Fixed a security issue in how zstd-compressed responses are decoded",
+   "Added a spinner tip in VS Code and similar integrated terminals about re-running a notebook cell, shown once Claude has read or edited a Jupyter notebook",
+   "Added a line under the error shown when your organization's policy blocks a request, saying how to continue: run /rewind and change the message, or run /clear"
+  ],
+  "sid": "e58a3ce1f17ad846",
+  "source": "claude_code_releases",
+  "summary": "What's changed Fixed a security issue in how zstd-compressed responses are decoded Added a spinner tip in VS Code and similar integrated terminals about re-running a notebook cell, shown once Claude has read or edited a Jupyter notebook Added a line under the error shown when your organization's policy blocks a request, saying how to continue: run /rewind and change the message, or run /clear Added a note for Claude when a sandboxed git checkout , git stash or autostash pull cannot update protected files such as those in .claude Fixed /security-review and skills' inline git commands stopping with an error in worktrees of bare repositories, --separate-git-dir checkouts and Android repo checkouts Fixed subagents with their own model being moved to the plan-mode model when the model setting is opusplan or haiku Fixed subagents on a different model sizing file reads and MCP results with the main session's model Fixed sessions on many third-party gateways and Foundry stopping with a context length error on every turn instead of compacting Fixed recent turns sometimes going missing from a resumed session after Claude Code stopped without a clean exit Fixed shell commands running in the launch directory after the working directory was deleted; the command now fails with a message and can be re-issued Fixed an approved plan edit being lost when the plansDirectory folder can't take it: the plan is now saved in the default plans folder, and a warning says where and why Fixed a saved so",
+  "summary_1line": "Fixed a security issue in how zstd-compressed responses are decoded · Added a spinner tip in VS Code and similar integrated terminals about re-running a notebook cell, shown once Claude has read or edited a Jupyter no...",
+  "title": "claude-code v2.1.325",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.325",
+  "why_it_matters": "Matches feed focus: agent, eval, claude code."
  },
  "e58d58fddbc120e8": {
   "content_excerpt": "All-in-one private AI inference server. A hardened, immutable Fedora bootc host with llama.cpp, OpenAI- and Ollama-compatible APIs, Open WebUI and a model manager, for AMD, NVIDIA and Intel GPUs. Sibyl is an all-in-one inference server. It turns a computer with one or more GPUs into a private AI server. You install it from a USB stick or over the network, and you run it from a web browser or a ter",
