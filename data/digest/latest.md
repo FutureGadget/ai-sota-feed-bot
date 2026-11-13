@@ -2,134 +2,104 @@
 
 Focus: AI Platform Engineering
 
-## 1. Witness – a voice-anchored evidence recorder for AI coding agents
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/wookat/witness
-- Score: 3.778 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 2. Show HN: Give your agent its own temp mail service
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/shbernal/buzon
-- Score: 3.411 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 3. LiveGeo: Benchmarking Geographic Agents in Continuously Evolving Worlds
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.17267v1
-- Score: 3.385 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 4. From Delegation to Coordination: Learning Efficient Multi-Agent Deep Research
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.17041v1
-- Score: 3.294 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 5. Actor, Judge, or Teacher? Understanding Decision Models in Long-Horizon Agents
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.17167v1
-- Score: 3.292 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 6. Show HN: I built a tool to check website access for 14 AI crawlers
-- Type: news | Source: hackernews_ai
-- URL: https://floxolab.com/ai-crawler-checker
-- Score: 3.271 | Reliability: 1.0
-- Why it matters: 
-
-## 7. codex 0.169.0
+## 1. codex 0.169.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.169.0
-- Score: 3.155 | Reliability: 1.0
+- Score: 3.023 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval, codex.
 
-## 8. Sandbox resourcing: burst, don't reserve
+## 2. Discovering Effective Agent Memory Designs through Program Evolution
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.17068v1
+- Score: 3.878 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 3. Metal Sandbox: Isolated Execution and Command Scheduling for GPU Coding Agents on Apple Silicon
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.17294v1
+- Score: 3.694 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 4. AURA 2.0: From User-Driven Responses to Model-Initiated Conversations in Streaming Video
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.17048v1
+- Score: 3.63 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 5. Sandbox resourcing: burst, don't reserve
 - Type: news | Source: modal_blog
 - URL: https://modal.com/blog/sandbox-bursting
-- Score: 2.844 | Reliability: 1.0
+- Score: 2.766 | Reliability: 1.0
 - Why it matters: 
 
-## 9. Build once, run on any agent: A practical guide to agent skills
+## 6. How Workday Built an Enterprise-Scale AI Agent Platform with LangGraph and LangSmith
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/how-workday-built-an-enterprise-scale-ai-agent-platform-with-langgraph-and-langsmith
+- Score: 2.462 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 7. Build once, run on any agent: A practical guide to agent skills
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/
-- Score: 2.442 | Reliability: 1.0
+- Score: 2.435 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 10. Gemini 4 Carbon is now available
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/gemini-4-carbon-is-now-available/
-- Score: 2.203 | Reliability: 1.0
-- Why it matters: 
-
-## 11. CoReMem: Cost-Internalizing Memory for Successive Coding Tasks with Prospective Valuation
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.17316v1
-- Score: 3.276 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 12. Lost in Delegation: Studying the Effectiveness of Task Orchestration in Generative Search
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.16526v1
-- Score: 3.162 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 13. What Is Eval-Driven Development? How to Improve AI Agents
+## 8. What Is Eval-Driven Development? How to Improve AI Agents
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/what-is-eval-driven-development
-- Score: 2.127 | Reliability: 1.0
+- Score: 2.09 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 14. Cloudflare Makes Basin Serverless Analytics Generally Available
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/11/cloudflare-basin-analytics/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.088 | Reliability: 1.0
+## 9. Gilbert + Tobin rethinks the business of law with AI
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/gilbert-tobin-sam-nickless
+- Score: 1.847 | Reliability: 1.0
 - Why it matters: 
 
-## 15. Gondola doubles revenue as its team builds more with Codex
-- Type: news | Source: openai_blog
-- URL: https://openai.com/business/customer-stories/gondola
-- Score: 1.991 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 16. CodeRabbit scales agentic software development and ships 20x more
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/coderabbit-codex-daybreak
-- Score: 1.838 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, codex.
-
-## 17. ChatGPT Enterprise now available in AWS Marketplace
+## 10. ChatGPT Enterprise now available in AWS Marketplace
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/chatgpt-enterprise-aws-marketplace
-- Score: 1.769 | Reliability: 1.0
+- Score: 1.757 | Reliability: 1.0
 - Why it matters: 
 
-## 18. claude-code v2.1.321
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.321
-- Score: 1.509 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 19. Gemini Robotics 2.5 accelerates real-world general dexterity
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/
-- Score: 1.352 | Reliability: 1.0
-- Why it matters: 
-
-## 20. claude-agent-sdk-python v0.2.180
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.180
-- Score: 1.004 | Reliability: 1.0
+## 11. S1-Evo: Experience-Guided Evidence Competition Attacks on Typed System-1 Decision Models
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.16937v1
+- Score: 3.514 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 21. vllm v0.34.0rc1
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc1
-- Score: 0.923 | Reliability: 1.0
+## 12. Label-Efficient Document-Grounded Factuality Detection via Cross-Paraphrastic Invariance Learning
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2611.16264v1
+- Score: 3.432 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 13. Control Room: A central system to track and stop model workloads across our research infrastructure
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/control-room
+- Score: 1.728 | Reliability: 1.0
 - Why it matters: 
 
-## 22. tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face
+## 14. claude-code v2.1.322
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.322
+- Score: 1.169 | Reliability: 1.0
+- Why it matters: 
+
+## 15. claude-agent-sdk-python v0.2.180
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.180
+- Score: 0.98 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 16. vllm v0.34.0rc2
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc2
+- Score: 0.979 | Reliability: 1.0
+- Why it matters: 
+
+## 17. tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
 - URL: https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16
-- Score: 0.902 | Reliability: 1.0
+- Score: 0.899 | Reliability: 1.0
 - Why it matters:
