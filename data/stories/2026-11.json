@@ -3076,6 +3076,23 @@
   "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/multimodal-knowledge-agent-benchmark",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "3007f82c38138e35": {
+  "content_excerpt": "Safety evaluations inform some of the most consequential decisions we make about an AI model, including whether it’s ready to deploy, which safeguards ship alongside it, and what our next round of safety training and research should focus on. When we say a model is “safer than its predecessor,” we mean that it scored better on a set of evals someone built. But a safety claim is only as sound as the eval behind it, and good ones are hard to build. A safety eval measures a model’s propensity to cause or contribute to harm, whether its response to a request makes harm more or less likely, and how severe that harm would be, rather than measuring specific capabilities. It can cover different types of harm. For example, a user may actively request harmful outputs (such as seeking instructions on how to harm themselves), or they may request outputs that are intended to be harmless, but that come with high risk of unintended harm (such as seeking information on the appropriate dose of a drug). Essentially, a safety eval asks, “Given a specific input, did the model do the right thing?” Like other types of evals, these can be tricky to get right: researchers have repeatedly found that AI evals are easy to game , don’t always measure what they claim to measure, and aren’t documented well enough to reproduce . The results can change depending on whether the questions are multiple-choice or open-ended , or even based on how answer options are ordered . Psychology faced similar issues a de",
+  "first_seen": "2026-11-13T18:05:44.751251+00:00",
+  "id": "a5611129e99bfcab",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-13T00:00:00+00:00",
+  "sid": "3007f82c38138e35",
+  "source": "anthropic_research",
+  "summary": "Recommendations for designing, running, and reporting safety evaluations, based on our own experiences.",
+  "summary_1line": "Recommendations for designing, running, and reporting safety evaluations, based on our own experiences.",
+  "title": "Building strong safety evaluations",
+  "type": "research",
+  "url": "https://www.anthropic.com/research/building-strong-safety-evaluations",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "3007fcee676fa59f": {
   "first_seen": "2026-11-10T02:09:29.272611+00:00",
   "id": "1f165bf180209e0b",
@@ -7002,6 +7019,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03388v1"
  },
+ "72eff2cf25179487": {
+  "content_excerpt": "Artificial Analysis launched Endpoint Accuracy Index v1.1 , finding nearly 1 in 4 serverless endpoints score below reference. Index composites BFCL v4-500 (tools), HLE-250 (reasoning) and AA-LCR-25 (long context) against a self-hosted baseline. Artificial Analysis has released version 1.1 of its Endpoint Accuracy Index , which compares hosted open-weight models with reference deployments of their official weights. Across more than 100 serverless endpoints, roughly one in four scores below its reference deployment. That gap matters because a model name does not fully describe the product behind an API. Providers may quantize weights, use custom kernels, modify inference settings, limit output length, or introduce implementation bugs. The index measures how much accuracy each endpoint preserves, adding a quality signal to the usual comparisons of price, latency, and throughput. Artificial Analysis reruns each endpoint against three equally weighted evaluations, then compares the results with a self-hosted baseline using the official weights at the recommended precision. A score of 100% matches the reference result. Scores above 100% can occur because repeated evaluations still contain sampling variance, so the accompanying 95% confidence interval remains essential. Reference configurations are documented down to the serving software and hardware. The GLM-5.3 reference , for example, uses eight NVIDIA B200 GPUs, SGLang 0.5.18, native FP8 weights with DeepGEMM kernels, EAGLE spec",
+  "first_seen": "2026-11-13T18:05:44.751251+00:00",
+  "id": "a0671d9d58a5299e",
+  "published": "2026-11-13T17:08:35+00:00",
+  "sid": "72eff2cf25179487",
+  "source": "hackernews_ai",
+  "summary_1line": "1 in 4 3rd Party AI Endpoints Underperform Their Advertised Models",
+  "title": "1 in 4 3rd Party AI Endpoints Underperform Their Advertised Models",
+  "type": "news",
+  "url": "https://hermes-ai.net/news/artificial-analysis-finds-1-in-4-ai-endpoints-quietly-underperform-their"
+ },
  "73419ac0ca196e2b": {
   "first_seen": "2026-11-10T07:09:29.721027+00:00",
   "id": "30700900357ab225",
@@ -7772,6 +7801,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.04968v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "7e1aac5af3fd842b": {
+  "first_seen": "2026-11-13T18:05:44.751251+00:00",
+  "id": "820b0a84cc1fea11",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-12T15:32:47+00:00",
+  "sid": "7e1aac5af3fd842b",
+  "source": "arxiv_cs_ai",
+  "summary": "Existing adaptive-reasoning methods shorten the explicit reasoning a model writes, or skip it by switching modes; either way the answer is still written out token by token. \\emph{Rather than deciding how much to think}, we explore a different paradigm, \\emph{zero-or-$T$ thinking}: a single model either answers from the implicit thinking inside one forward pass, generating no token, or performs full autoregressive reasoning at a cost of $T$ tokens when that is worth paying. We realise it in a \\emph{hybrid decision model} (HDM), where one frozen backbone serves both modes and a lightweight \\emph{self-routing block} chooses between them. The block estimates the \\emph{value of thinking}, the utility the slow mode is expected to add over the fast one, from what that implicit thinking has already produced, and the slow mode runs only where that value exceeds a price $λ$ set per request. Where no per-decision label exists, as in episodic agentic tasks, we introduce \\emph{Calibrated Decision Policy Optimisation} (CDPO), a reinforcement-learning recipe that trains the block from episode-level returns. We evaluate HDM on MMLU-Pro, AGIEval, GPQA-Diamond, JevBench, BANKING77 and MiniWoB. Specifically, on JevBench HDM-4B scores $0.857$ against Jev's $0.851$ ($+0.7\\%$) at a median $0.179$\\,s against $0.652$ ($-72.5\\%$). On the agentic venue MiniWoB HDM-27B cuts token cost by $80.1\\%$.",
+  "summary_1line": "Existing adaptive-reasoning methods shorten the explicit reasoning a model writes, or skip it by switching modes; either way the answer is still written out token by token. \\emph{Rather than deciding how much to think...",
+  "title": "The Value of Thinking: Learning When to Reason in Hybrid Decision Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.16961v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "7e22bab1b14da71f": {
   "first_seen": "2026-11-13T04:07:21.465234+00:00",
@@ -12075,6 +12121,25 @@
   "url": "https://github.com/hemanth1999k/mcpgraphy",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "c0b6f006ddd07334": {
+  "first_seen": "2026-11-13T18:05:44.751251+00:00",
+  "id": "7b0d65ee33ef372a",
+  "matched_topics": [
+   "agent",
+   "eval",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-11-13T15:10:20+00:00",
+  "sid": "c0b6f006ddd07334",
+  "source": "hackernews_ai",
+  "summary": "Hi HN, this is Max, Marc and Clemens, co-founders of Langfuse, the open source tool for agent & observability & evals ( https://github.com/langfuse/langfuse ). It’s been a minute since our last Show HN in August 2023 ( https://news.ycombinator.com/item?id=37310070 ) - we’ve been busy building out and serving our tracing & eval pieces over the past years and have been very lucky to build a successful company and open source project around it. Today, we are happy to show the beta of Langfuse AI Gateway: https://github.com/langfuse/langfuse/tree/main/ai-gateway . You may ask, why an AI Gateway as our second product: it’s been one our community’s strongest asks + integration pattern that we’ve seen. We want to offer a scalable, reliable and secure way to solve for the gateway use case in the same way that we’ve done with tracing/evals over the past years. And we’ve recently grown our team with some excellent folks - expect to see more bigger bets from us. Our observability SDKs currently see the code you instrument. Much of a company's model traffic runs through code that is not or cannot be easily instrumented: coding agents like Pi, Claude Code and Codex, internal tools, scripts etc. Third party gateways are already popular ways to emit traces to Langfuse and we’re happy to now ship one natively. You change your base URL and your API key. Langfuse AI Gateway forwards the native request with a provider key that does not need to be distributed across the team. Right now, it doesn",
+  "summary_1line": "Hi HN, this is Max, Marc and Clemens, co-founders of Langfuse, the open source tool for agent & observability & evals ( https://github.com/langfuse/langfuse ). It’s been a minute since our last Show HN in August 2023...",
+  "title": "Show HN: Langfuse AI Gateway, open source rust gateway to trace every LLM call",
+  "type": "news",
+  "url": "https://github.com/langfuse/langfuse/tree/main/ai-gateway",
+  "why_it_matters": "Matches feed focus: agent, eval, codex."
+ },
  "c1b2c07e08e5d0c6": {
   "first_seen": "2026-11-04T11:08:00.319038+00:00",
   "id": "a80f71b9a80d4e2b",
@@ -13334,6 +13399,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14493v1",
   "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
+ "d99b7127f7fd99e6": {
+  "content_excerpt": "AI agents now read email, book travel and move money for the people who use them. Every tool call also pulls in text that someone else wrote, and whoever controls that text can try to steer the agent. OWASP calls this agent goal hijack and ranks it first in its Top 10 for Agentic Applications (2026) . In September we announced Agent Anomaly Detection in Private Preview on Gemini Enterprise Agent Platform. It reads your agents' traces and logs asynchronously, without adding latency, and flags sessions where an agent acts outside its intended boundaries. We tested this feature against benchmarks for this top risk of agent goal hijack. Security tools tend to look good on tests their own team wrote, so we ran five non-Google-written, public agent-security benchmarks through Agent Anomaly Detection without changing anything. In four of them, the harmful instruction hides in data that a tool returns. In the fifth, the user asks for harm directly. The model itself didn't follow about half of the harmful instructions it read. It refused three in four direct requests for harm, and ignored or failed at about 30% of the instructions hidden in tool output. Of the ones that were executed, Agent Anomaly Detection flagged 87% for post-execution review. It raised false alarms on 2% to 16% of benign sessions, depending on the tools the agent uses. Poisoned memory is the clear gap: when instructions planted in the agent’s long-term memory made it act, Agent Anomaly Detection caught 4 of 18. We",
+  "first_seen": "2026-11-13T18:05:44.751251+00:00",
+  "id": "784613dea7ec34c8",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-13T16:33:33+00:00",
+  "sid": "d99b7127f7fd99e6",
+  "source": "hackernews_ai",
+  "summary_1line": "Agent Anomaly Detection scores on benchmarks we didn't write",
+  "title": "Agent Anomaly Detection scores on benchmarks we didn't write",
+  "type": "news",
+  "url": "https://developers.googleblog.com/how-agent-anomaly-detection-scores-on-benchmarks-we-didnt-write",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "d9d0fb61b61c4e22": {
   "first_seen": "2026-11-09T16:04:55.935465+00:00",
