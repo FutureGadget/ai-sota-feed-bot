@@ -443,6 +443,27 @@
   "type": "news",
   "url": "https://github.com/meshapplied/Goethe"
  },
+ "07543f4ab00099db": {
+  "first_seen": "2026-11-13T23:05:48.387501+00:00",
+  "id": "7a1a7148c56967b2",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-13T22:38:15+00:00",
+  "release_highlights": [
+   "Python security relock: all integration uv.lock files (lock files only, no Python floor changes)",
+   "BREAKING: raise requires-python for security fixes across integrations (stacked on #24039 )",
+   "Python security relock: all integration uv.lock files (lock files only, no Python floor changes)"
+  ],
+  "sid": "07543f4ab00099db",
+  "source": "llamaindex_releases",
+  "summary": "Release Notes [2026-11-13] llama-index-agent-agentmesh [0.3.0] Python security relock: all integration uv.lock files (lock files only, no Python floor changes) ( #24039 ) BREAKING: raise requires-python for security fixes across integrations (stacked on #24039 ) ( #24040 ) llama-index-callbacks-argilla [0.6.0] Python security relock: all integration uv.lock files (lock files only, no Python floor changes) ( #24039 ) BREAKING: raise requires-python for security fixes across integrations (stacked on #24039 ) ( #24040 ) llama-index-callbacks-arize-phoenix [0.8.0] Python security relock: all integration uv.lock files (lock files only, no Python floor changes) ( #24039 ) BREAKING: raise requires-python for security fixes across integrations (stacked on #24039 ) ( #24040 ) llama-index-callbacks-honeyhive [0.6.0] Python security relock: all integration uv.lock files (lock files only, no Python floor changes) ( #24039 ) BREAKING: raise requires-python for security fixes across integrations (stacked on #24039 ) ( #24040 ) llama-index-callbacks-langfuse [0.6.0] Python security relock: all integration uv.lock files (lock files only, no Python floor changes) ( #24039 ) BREAKING: raise requires-python for security fixes across integrations (stacked on #24039 ) ( #24040 ) llama-index-callbacks-literalai [1.5.0] Python security relock: all integration uv.lock files (lock files only, no Python floor changes) ( #24039 ) BREAKING: raise requires-python for security fixes across integrations (s",
+  "summary_1line": "Python security relock: all integration uv.lock files (lock files only, no Python floor changes) · BREAKING: raise requires-python for security fixes across integrations (stacked on #24039 ) · Python security relock:...",
+  "title": "llama_index v0.14.26",
+  "type": "release",
+  "url": "https://github.com/run-llama/llama_index/releases/tag/v0.14.26",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "076bcadf42543fda": {
   "content_excerpt": "How waiting a little has saved us over 50% on inference requests over the last few months. And taught us something unexpected about our coding agents. Pi's extensibility and Doubleword's inference options make experiments like these possible. At Tesseracted Labs, we've been running our coding agents on an ensemble of models for some time, many of them served through Doubleword . Our pi extension discovers the available models, keeps pricing current, and uses discounted flex inference by default. It's become part of how we work. For this article, we've put together a new public GitHub repository with selected code snippets and runnable examples showing how we do it. Our day-to-day workflows follow the same approach but are more involved; the repository is a focused companion to this article, rather than a complete copy of our production setup. Two examples tell the story. The first starts with a simple question: if an agent can wait a little longer for an answer, how much money does that actually save? The second came as a surprise: our agent was answering questions successfully while failing to follow some of the instructions it had been given. For the first example, I ran a small controlled comparison of realtime and flex on the same model. Flex's published token rates were 24–27% lower, estimated request costs were lower in every matched pair, and median end-to-end response time increased by less than half a second. Those measurements are a snapshot, not a claim about every",
   "first_seen": "2026-11-13T20:04:44.417151+00:00",
@@ -2754,6 +2775,18 @@
   "title": "Inkling 2 Small on vLLM: Day-0 Support",
   "type": "news",
   "url": "https://vllm.ai/blog/2026-11-12-inkling2-small"
+ },
+ "2b4992932ff2ee7d": {
+  "first_seen": "2026-11-13T23:05:48.387501+00:00",
+  "id": "e7fbe93df39edaa9",
+  "published": "2026-11-12T18:52:33+00:00",
+  "sid": "2b4992932ff2ee7d",
+  "source": "arxiv_cs_cl",
+  "summary": "Reinforcement learning with verifiable rewards (RLVR) typically relies on a verifier that can reliably judge whether sampled solutions are correct. However, in many realistic settings, complete verification is generally unavailable, while cheap checks can only falsify failures. We formalize this regime as one-sided verifiability (OSV): verified negatives are reliable counterexamples, but verified positives are merely non-falsified candidates and may contain many false positives. This asymmetry makes standard RLVR unreliable, because reinforcing verified positives can directly reward shortcuts that pass partial checks. To address this issue, we propose Negative-Only Policy Optimization (NOPO), which treats verified positives as unlabeled and updates the policy only by suppressing trusted verified negatives. Specifically, NOPO combines a reference-relative negative suppression loss with a group-level adapter that scales each update by the proportion of non-falsified responses. Across unit-test, constraint-check, and LLM self-verifiers, NOPO improves pass@k over baselines on code, logic, and math benchmarks when oracle rewards are unavailable. These gains persist under inference-time scaling and cross-benchmark transfer.",
+  "summary_1line": "Reinforcement learning with verifiable rewards (RLVR) typically relies on a verifier that can reliably judge whether sampled solutions are correct. However, in many realistic settings, complete verification is general...",
+  "title": "Negative-Only Policy Optimization for One-Sided Verifiable Rewards",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17287v1"
  },
  "2c00110bd6231e59": {
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. What happens when students can one-shot last year’s homework? Inside CS146S and the engineering team at Monaco. The AI Engineer YouTube channel just crossed one million subscribers . Thank you to everyone who’s watched a talk, sent one to a teammate, or put something they learned into production. For this special, we wanted to sit down with someone who has to answer a question a lot of us are asking at work: what should a software engineer actually learn now? Mihail Eric has two places to test his answer. He teaches The Modern Software Developer at Stanford and leads AI at Monaco, where his colleagues use coding agents to ship software and investigate outages. I asked him to take us through the syllabus, then tell us which parts survived contact with his own engineering team. This is also meant as a preview for all of you joining us in San Francisco for AIE Code next week, as required knowledge for all the conversations with the speakers, sponsors and attendees you’re about to have. If you can see this as a LS subscriber and haven’t got a ticket yet, you can use this code for 30% off (no refunds, sorry) The first run of CS146S had nine assignments and a ",
@@ -5743,6 +5776,30 @@
   "title": "How I Review 2K Lines of AI Generated Code",
   "type": "news",
   "url": "https://bytesizedbets.com/p/how-to-review-a-2000-line-ai-written"
+ },
+ "5b69826eead48a96": {
+  "also_covered": [
+   {
+    "source": "infoq_ai_ml",
+    "title": "Google Releases Gemini 4 Argon for Robotics Control, Simulation, and Policy Improvement",
+    "url": "https://www.infoq.com/news/2026/11/google-gemini-argon/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+   },
+   {
+    "source": "google_ai_blog",
+    "title": "Google Search gets a major upgrade with Gemini 4 Hydrogen",
+    "url": "https://blog.google/products-and-platforms/products/search/gemini-4-hydrogen-search-upgrade/"
+   }
+  ],
+  "content_excerpt": "Today, we’re introducing Gemini 4 Hydrogen, bringing cutting-edge intelligence to everyone — with speed and efficiency for everyday coding and agentic workflows. While our frontier models, Gemini 4 Carbon and Gemini 4 Argon , excel at deep, long-horizon reasoning on your hardest problems, Hydrogen is built for rapid execution across diverse agentic workflows. With Hydrogen, we’re also bringing Gemini 4 to everyone — for all tiers of Google AI Studio , the Gemini API, Gemini for business , the Gemini app , Google Search , and paid Google AI Pro and Ultra subscribers in Google Antigravity . Hydrogen surpasses Argon on the Artificial Analysis Intelligence Index at its default high thinking level (51 vs. 50, and reaching 54 at its highest xhigh thinking setting), while often completing tasks faster than models in its class. Gemini 4 Hydrogen is priced flat across its entire 1 million-token context window at $1.50 per million input tokens and $7.50 per million output tokens. In real-world software development, while teams rely on frontier models like Carbon and Argon for deep architectural judgment when designing systems or untangling subtle bugs, they still need a fast, disciplined execution model for writing code, running tests, and verifying changes. Hydrogen is built to stand on its own as a model for everyday work — or to pair with Carbon and Argon as the high-efficiency execution engine in multi-model workflows. To help make this multi-model collaboration automatic, we’re in",
+  "first_seen": "2026-11-13T23:05:48.387501+00:00",
+  "id": "8021ddbb9b3e5137",
+  "published": "2026-11-12T18:00:50+00:00",
+  "sid": "5b69826eead48a96",
+  "source": "google_deepmind_blog",
+  "summary_1line": "Introducing Gemini 4 Hydrogen",
+  "title": "Introducing Gemini 4 Hydrogen",
+  "type": "news",
+  "url": "https://deepmind.google/blog/introducing-gemini-4-hydrogen"
  },
  "5b77ba33d5d838fc": {
   "content_excerpt": "Develop ideas with context and review documents with fresh eyes. EGM is an open-source plugin for AI assistants. Elephant holds your project context and drafts the specification. Goldfish reviewers examine the draft and referenced source material without the earlier conversation, helping expose unstated assumptions and blind spots. You make the architectural trade-offs and approve the specification before implementing. The built-in draft and design-review workflow targets software specifications. For other documents, choose reviewers and standards with /egm-review-loop . Bootstrap and drift reporting apply to software codebases. Choose your coding agent. Install the complete plugin so its skills can read the reviewer prompts and document standards. Open the published EGM plugin in the desktop app and install it. This listing is desktop-only. For Codex CLI, use the commands below. For the Antigravity App and Antigravity for IDEs (Visual Studio Code extension), run /plugin or see the installation instructions . Start a new session after installation. For Claude Cowork and ChatGPT Work , see the setup guide . Open your project in your coding agent and choose a feature that needs design decisions. This example adds webhook delivery: what should happen when a delivery fails, or the same event arrives twice? The commands below are shown without a prefix. In Antigravity (agy CLI) and Claude Code, add the /egm: prefix, for example /egm:egm-brainstorm . On agy CLI 1.4.10 an unprefixed",
@@ -10459,7 +10516,7 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 221, downloads: 4332.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 236, downloads: 4332.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 146, downloads: 1464.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
@@ -10659,7 +10716,7 @@
   "published": "2026-11-13T21:12:58+00:00",
   "sid": "a9838c3aa51b7e92",
   "source": "vllm_releases",
-  "summary": "[Release][Tests] Mock device_memory_info in the #66704 utilization-wa…",
+  "summary": "[KVConnector] Allocate the extensible KV cache exportable for EXPORTS…",
   "summary_1line": "[Release][Tests] Mock device_memory_info in the #66704 utilization-wa…",
   "title": "vllm v0.34.0rc3",
   "type": "release",
