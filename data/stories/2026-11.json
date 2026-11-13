@@ -47,6 +47,22 @@
   "url": "http://arxiv.org/abs/2611.01704v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "0218b1af8990e061": {
+  "content_excerpt": "DistDebug-Bench gives agents 120 real failures from 11 production distributed systems. Failures surface far from their cause, and reports, logs, and stack traces show only part of what happened. Each incident is a real, closed bug from a production system’s issue tracker, most often a logic, concurrency, or error-handling fault. The agent gets the report, its logs or stack traces, and the repository before the fix, and must name the code blocks that caused the failure. Most coding benchmarks grade the patch; DistDebug-Bench scores the diagnosis itself, against human-labeled causal code. The report points to leader election and log replay, but the labeled cause is ZooKeeperServer.shutdown , which keeps stale in-memory state alive into the next quorum. Original incident ↗ Block coverage is the share of the labeled root-cause code blocks a diagnosis reaches; block precision is the share of the code it names that is part of the cause. Finding the file is only the start: across these configurations, coverage falls by 13–22 percentage points when agents must identify the causal code blocks. Means average three runs within each incident and weight the 120 incidents equally; whiskers are 95% incident-bootstrap confidence intervals. Run Mini-SWE-Agent on ZooKeeper-2845 with the paper’s protocol. From a benchmark checkout, the runner prepares an anonymized workspace at the buggy ZooKeeper revision, runs the agent in a sandbox, and the scorer applies the paper’s evaluator. Python 3.10+,",
+  "first_seen": "2026-11-13T07:03:56.482557+00:00",
+  "id": "6417acbca7c5d040",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-13T05:19:29+00:00",
+  "sid": "0218b1af8990e061",
+  "source": "hackernews_ai",
+  "summary_1line": "DistDebug-Bench: Can LLM Agents Diagnose Bugs in Distributed Systems?",
+  "title": "DistDebug-Bench: Can LLM Agents Diagnose Bugs in Distributed Systems?",
+  "type": "news",
+  "url": "https://distdebug.com",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "025c4e742cc7984d": {
   "first_seen": "2026-11-04T06:05:16.733547+00:00",
   "id": "1340c9045f605810",
@@ -2365,6 +2381,22 @@
   "type": "news",
   "url": "https://github.com/hinty-eu/smart-glasses-skills",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "2629ba2c887da5dc": {
+  "first_seen": "2026-11-13T07:03:56.482557+00:00",
+  "id": "f8568259467ee1a7",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-12T16:31:54+00:00",
+  "sid": "2629ba2c887da5dc",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Most AI assistants respond only when prompted, remaining silent even when events in the video stream offer meaningful opportunities for conversation. To move beyond purely user-driven interaction, we present AURA 2.0, a streaming video large language model that introduces three core upgrades to AURA. The key advance is Model-Initiated Conversation (MIC), which enables the model to identify topics worth discussing in the evolving visual stream and initiate conversations at appropriate moments without a user query. Stream-Aware Tool Calling (SATC) enables the model to invoke external tools using the current visual and conversational context and incorporate returned information into the ongoing interaction. Interactive Visual Grounding (IVG) supports visual grounding in both user inputs and model outputs. The model can identify objects marked by users on video frames and produce frame-aligned bounding boxes to link its responses to specific objects and regions. To develop these capabilities, we construct a dedicated streaming interaction dataset and adopt a three-stage training scheme to integrate the new behaviors with AURA's existing streaming interaction abilities. We further incorporate Long-Horizon Interaction Memory (LHIM) to maintain contextual continuity over extended video streams. Evaluations on public streaming benchmarks show that AURA 2.0 achieves leading performance among open-source streaming models, while targeted evaluations further validate its new interaction ",
+  "summary_1line": "Most AI assistants respond only when prompted, remaining silent even when events in the video stream offer meaningful opportunities for conversation. To move beyond purely user-driven interaction, we present AURA 2.0,...",
+  "title": "AURA 2.0: From User-Driven Responses to Model-Initiated Conversations in Streaming Video",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17048v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "26a00da01aefd2ae": {
   "content_excerpt": "Genie is always on, proactively working alongside you on long-running enterprise tasks, grounded in your business context, within your organization’s guardrails. • Genie is now an autonomous AI coworker that handles long-running tasks on your behalf, operating within the guardrails you set. • Genie Ontology, an agentic ontology built by agents and governed by people, provides trusted business context, while Genie Search finds information across your lakehouse and business systems to help Genie deliver accurate and complete answers. • Unity Gateway lets admins control tool access, trace actions, and set spending limits to keep autonomy under control. AI assistants can run analyses and summarize meetings, but employees still manage the work around them. That’s because most enterprise work is continuous, complex, and data-intensive. To monitor pipeline performance or manage budgets, someone has to track changes, decide what matters, and take action. Earlier this year, we introduced Genie One to help teams understand their data and act on it. Thousands of customers use Genie in production, including Zillow , Unilever , adidas , Atlassian , and AstraZeneca . Today, we’re introducing the new Genie: an autonomous AI coworker that proactively handles long-running enterprise work for you. Genie stays on the job continuously, tracking progress, following up on missing inputs, and taking action as new information arrives. You set the guardrails, supervise its work, and approve where nee",
@@ -5976,6 +6008,41 @@
   "url": "http://arxiv.org/abs/2611.07238v1",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "61fe6193294930a8": {
+  "first_seen": "2026-11-13T07:03:56.482557+00:00",
+  "id": "d82cf849c56dedbe",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-12T16:42:04+00:00",
+  "sid": "61fe6193294930a8",
+  "source": "arxiv_cs_cl",
+  "summary": "Program evolution provides a promising approach to discover agent memory designs and study the choices underlying their effectiveness. We introduce MAPE, a framework that evolves whole memory programs from minimal seeds through a standardized lifecycle interface and an iterative diagnosis-proposal loop. Experiments on LoCoMo and LongMemEval yield an absolute accuracy gain of up to 12% over manually designed baselines at 35% of the serving cost, with further evaluations supporting transfer across serving backbones and benchmarks. Empirical analyses and ablations identify and validate two recurring design patterns: retaining raw conversations as retrievable evidence preserves details omitted from extracted memories, while composing retrieved evidence according to query intent helps the answering model use it effectively. Transplanting the composition module into five existing memory systems improves accuracy across all five. Beyond these patterns, the search objective shapes where computation goes: optimizing serving cost alongside accuracy shifts computation from LLM-based memory construction to selective processing at query time while retaining competitive accuracy. Together, these findings offer empirical lessons for agent memory design. Code is available at https://github.com/ash-ding/MAPE.",
+  "summary_1line": "Program evolution provides a promising approach to discover agent memory designs and study the choices underlying their effectiveness. We introduce MAPE, a framework that evolves whole memory programs from minimal see...",
+  "title": "Discovering Effective Agent Memory Designs through Program Evolution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17068v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "6227956d94e37099": {
+  "first_seen": "2026-11-13T07:03:56.482557+00:00",
+  "id": "00d45a553c505ed4",
+  "matched_topics": [
+   "agent",
+   "evaluation",
+   "claude code"
+  ],
+  "published": "2026-11-12T16:33:51+00:00",
+  "sid": "6227956d94e37099",
+  "source": "arxiv_cs_cl",
+  "summary": "LLM-based peer review is now used at production scale, but its evaluation remains limited. We introduce a benchmark that injects objective, localisable errors of four types (general issues, mathematics, numerics, citations) at three severity levels into real papers and measures each reviewer's detection rate by error type and severity, together with its false-positive rate on clean copies. We also present Skepthical, a multi-agent reviewer that verifies citation-backed claims by retrieving the cited papers, mathematics with computer algebra, and numerical claims with executed code. We apply the benchmark to two corpora of 15 recent arXiv preprints each, one in astrophysics and one in machine learning (ML), injecting a total of 357 errors, and evaluate twelve reviewer systems: six single-LLM reviewers, two Claude Code configurations, three publicly available reviewers, and Skepthical. The choice of model has the largest impact on detection rate: given the same prompt, three frontier LLMs differ by about 50 percentage points in total detection on both corpora. Tools and scaffolding help when they contribute what the model cannot supply on its own. In particular, on astrophysics, Claude Code improves on a single Claude call in mathematics and numerics detection, and enforced citation retrieval gives Skepthical the highest citation error detection rate of all systems by a large margin. This citation lead, however, is not observed on ML, where the models appear to know the literat",
+  "summary_1line": "LLM-based peer review is now used at production scale, but its evaluation remains limited. We introduce a benchmark that injects objective, localisable errors of four types (general issues, mathematics, numerics, cita...",
+  "title": "Auditing AI peer reviewers: a benchmark on real scientific papers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17052v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation, claude code."
+ },
  "623504292c072dfc": {
   "first_seen": "2026-11-12T00:07:07.309660+00:00",
   "id": "708e816e9ae261ca",
@@ -6519,6 +6586,22 @@
   "url": "http://arxiv.org/abs/2611.12521v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "6d787b5f61f43f5e": {
+  "first_seen": "2026-11-13T07:03:56.482557+00:00",
+  "id": "5e7e8f1b977eaf8a",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-12T15:21:44+00:00",
+  "sid": "6d787b5f61f43f5e",
+  "source": "arxiv_cs_ai",
+  "summary": "Typed System-1 (S1) decision models are increasingly deployed in LLM agents for routing, moderation, and authorization to cut inference cost, yet untrusted context can still manipulate typed outputs and alter execution branches. Unlike autoregressive System-2 (S2) models, S1 interfaces score dynamic rules and options without token-by-token decoding, mismatching attacks targeting text continuation or explicit override commands. We propose S1-Evo, a self-evolving framework tailored to S1's contract-based option competition and margin feedback. S1-Evo perturbs untrusted fields via contract-aware evidence channels to induce \\emph{evidence competition} with original task evidence while preserving fact invariance. Offline on seed tasks, it optimizes candidates via feedback search guided by directional margins and re-verification, distilling verified flips into experience cards. At test time, S1-Evo retrieves relevant cards to construct perturbations for unseen tasks. Across four benchmarks and three S1 models, S1-Evo reaches 71.99\\% mean ASR and 57.47\\% high-confidence ASR on \\texttt{jev-1.14}, and causes up to 24.00\\% E2E agent violations.",
+  "summary_1line": "Typed System-1 (S1) decision models are increasingly deployed in LLM agents for routing, moderation, and authorization to cut inference cost, yet untrusted context can still manipulate typed outputs and alter executio...",
+  "title": "S1-Evo: Experience-Guided Evidence Competition Attacks on Typed System-1 Decision Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.16937v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "6d8a8ee7d8dd93df": {
   "content_excerpt": "For the past two years, building capable Agents meant designing tools, figuring out which actions help the model complete a task, deciding how granular each tool schema needs to be, or iterating on system instruction templates. This is changing. Agents are moving in the opposite direction by collapsing their entire tool catalog into one tool : exec . This is called Code Mode (or Programmatic Tool Calling). Instead of forcing the model to trigger tools one at a time across turns, the harness gives the model a single exec(code) tool. The model writes a short TypeScript or Python script that chains, combines, and awaits actions inside an isolated sandbox. To understand why agents are converging on a single exec tool, we should look at how tool calling evolved. Initially, we only gave agents a handful of tools because they couldn't reliably choose or filter across a large catalog. As models improved, we connected dozens of tools or MCP servers, but ran into context window limits. We solved that with tool search and progressive disclosure , letting agents look up tools on demand. Even with dynamic tool loading, we still had dozens of individual tools, and were still stuck with the limitation of standard tool calling: one action per turn. In standard tool calling, the model generates a structured object (typically JSON) that defines a single action (or at best a flat batch of independent calls, like reading three files), waits for the raw output to come back, adds it into the promp",
   "first_seen": "2026-11-02T16:03:35.608305+00:00",
@@ -6836,6 +6919,18 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "75c799a9844b9c74": {
+  "content_excerpt": "The ML Platform Behind Uber's AI | Michelangelo AI Skip to main content Michelangelo AI Docs Blog GitHub Search The ML Platform Behind Uber's AI. Now open source. | Get Started View on GitHub Proven at Uber Scale 400+ Active ML projects 20K+ Model training jobs / month 5K+ Models in production 45M+ Real-time predictions / sec (peak) Everything you need for ML in production Feature Management Coming Soon Centralized feature store with versioning, lineage tracking, and real-time serving for consistent ML features across training and inference. Model Training Scalable distributed training with experiment tracking, hyperparameter tuning, and automatic resource management. Evaluation Coming Soon Comprehensive model evaluation with automated metrics, A/B testing, and performance benchmarking across datasets. Deployment One-click deployment to production with canary releases, traffic splitting, and automatic rollback capabilities. Monitoring Coming Soon Real-time model monitoring with drift detection, alerting, and observability for production ML systems. Simple, powerful API From training to production in minutes Python CLI YAML 1 import michelangelo . uniflow . core as uniflow 2 from michelangelo . uniflow . plugins . ray import RayTask 3 4 @uniflow . task ( config = RayTask ( head_cpu = 2 , worker_instances = 2 ) ) 5 def train ( train_data , validation_data , params : dict ) : 6 \"\"\"Distributed training with Ray.\"\"\" 7 trainer = XGBoostTrainer ( 8 params = params , 9 datasets = { \"",
+  "first_seen": "2026-11-13T07:03:56.482557+00:00",
+  "id": "13010257f22ce245",
+  "published": "2026-11-13T04:56:40+00:00",
+  "sid": "75c799a9844b9c74",
+  "source": "hackernews_ai",
+  "summary_1line": "Michelangelo AI",
+  "title": "Michelangelo AI",
+  "type": "news",
+  "url": "https://michelangelo-ai.org"
  },
  "768f71309768fea7": {
   "first_seen": "2026-11-11T00:09:42.029607+00:00",
@@ -9898,7 +9993,7 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 215, downloads: 3738.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 220, downloads: 3738.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 146, downloads: 1464.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
@@ -12567,13 +12662,18 @@
  "d72b4c142f493bf7": {
   "first_seen": "2026-11-13T05:05:52.175173+00:00",
   "id": "fb7941f432288a89",
+  "matched_topics": [
+   "codex"
+  ],
   "published": "2026-11-13T04:34:19+00:00",
   "sid": "d72b4c142f493bf7",
   "source": "openai_codex_releases",
+  "summary": "Release 0.171.0-alpha.2",
   "summary_1line": "Release 0.171.0-alpha.2",
   "title": "codex rust-v0.171.0-alpha.2",
   "type": "release",
-  "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.2"
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.2",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "d72e76ee34cd12ef": {
   "content_excerpt": "To create one, POST https://inspect.hookdeck.com/ (for example: curl -X POST https://inspect.hookdeck.com/). The JSON reply has ingest_url, where to send webhooks, and requests_url: GET it to wait for the next request. It waits up to 25 seconds and returns the request as JSON. If you can only make GET requests, ask the person to open https://inspect.hookdeck.com/ in a browser and share the URL it gives them. stripe-signature : t=1677834000,v1=0b144c08dca0ce58f56f8810da96ea76a3977f09966b624199d23e6dd0cedc1e,v0=135a50a00bfa300eb6f8078bc41ea7681c151a472d56264b774aea58a710e360",
@@ -12904,6 +13004,23 @@
   "title": "langgraph-cli==0.4.42",
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.42"
+ },
+ "da32c83c0713c2ad": {
+  "first_seen": "2026-11-13T07:03:56.482557+00:00",
+  "id": "f390b169b7246841",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-12T17:22:17+00:00",
+  "sid": "da32c83c0713c2ad",
+  "source": "arxiv_cs_lg",
+  "summary": "Federated learning experiments can produce reasonable-looking results even when the experiment implementation differs from the intended experimental protocol. Small errors in configuration, data partitioning, aggregation, randomness, evaluation, or checkpoint recovery may therefore affect a comparison without causing the program to fail. We present FedBrew, a research codebase for controlled and reproducible federated learning experiments. Its focus is controlled simulation with checks of specified conditions of the intended experimental protocol. FedBrew uses configuration checks, identifiable client data partitions, checkpoint recovery checks, self-describing run records, and development-time checks of scientific conditions. These checks assess, for example, whether client partitions are disjoint and exhaustive and aggregation weights match the prescribed rule; numerical and recovery checks examine non-finite client model states and interrupted runs. The same structure also provides clear extension points and automated checks for new algorithms, datasets, models, and tasks, whether they are added by researchers or AI coding agents. FedBrew therefore supports reproducible and inspectable FL experiments through checks of specified software and scientific conditions and the run records associated with reported results.",
+  "summary_1line": "Federated learning experiments can produce reasonable-looking results even when the experiment implementation differs from the intended experimental protocol. Small errors in configuration, data partitioning, aggregat...",
+  "title": "Paper-Faithful Federated Learning: Scientific Checks for Practitioner and Agent Development",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17129v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "da4e6d10d3401d6d": {
   "first_seen": "2026-11-10T00:08:03.535530+00:00",
@@ -14027,6 +14144,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08428v1",
   "why_it_matters": "Matches feed focus: agentic, harness, eval."
+ },
+ "edb4432f6456214d": {
+  "content_excerpt": "An agent skill is a packaged capability that extends an AI agent with a specific, production ready behavior such as data access, automation, or domain logic. Skills give agents secure, structured ways to take action across your stack, so they can move beyond chat and reliably execute real workflows. They are modular, composable, and built to plug directly into modern web infrastructure. Skills work with 18+ AI agents including Claude Code, GitHub Copilot, Cursor, Cline, and many others. When you run the skills CLI from an eve project directory, it auto-detects the project and prompts you to install the skills for your eve building agent: Select Yes to install the skills into your project's agent/skills/ directory. Select No to install them for your local AI coding agent. On Next.js 16.3 and later, next dev sets up version-matched framework guidance for agents through the bundled docs and AGENTS.md . The skills below add specific workflows on top of it. Learn more in How Next.js supports AI coding agents . Use these skills to run code in an isolated Linux environment or move heavy builds and tests off your local machine. The Vercel plugin also bundles Sandbox guidance as vercel-sandbox , alongside offload-to-sandbox . Follow the Sandbox quickstart to connect your Vercel project and run your first command. Browse the skills.sh directory to discover skills from Vercel and the community. You can also search for skills using the CLI: TanStack Intent loads agent skills from install",
+  "first_seen": "2026-11-13T07:03:56.482557+00:00",
+  "id": "7e8ce728ea244e3c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-13T04:54:17+00:00",
+  "sid": "edb4432f6456214d",
+  "source": "hackernews_ai",
+  "summary_1line": "Agent Skills",
+  "title": "Agent Skills",
+  "type": "news",
+  "url": "https://vercel.com/docs/agent-resources/skills",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "ede6a9e6d61f7fb8": {
   "content_excerpt": "Multimodal inference adds an encoding stage before language-model execution. Images, video frames, and audio must be processed into embeddings before the language model can use them. The demand on this stage varies with media size, modality, and request mix, and can change independently of prefill and decode demand. Encoder / Prefill / Decode (EPD) disaggregation separates these stages into independently deployed vLLM instances. Recent work in the vLLM community has expanded EPD across model execution, remote embedding transfer, shared caching, multimodal input handling, and request routing. DeepSeek's inference deployment Q&A describes an E/P/D architecture with a separately deployed vision encoder. vLLM has supported encoder disaggregation since our December 2025 architecture post , and continues to improve that support. vLLM main now also supports metadata-only EPD for DeepSeek V4.1 Flash. This post explains the engineering behind that progress, with a focus on five changes: The EPD tracker links the ongoing work. The core vLLM capabilities described below, including MiMo and XPU support, are included in vLLM v0.32.0. DeepSeek V4.1 Flash metadata-only support is available on main through #62802 . The vLLM Router and SMG integrations below use their respective main branches. EPD supports two deployment patterns: E+PD , with a separate encoder and a combined prefill/decode instance, and E/P/D , with all three stages deployed separately. Figure 1. E+PD separates encoding from",
