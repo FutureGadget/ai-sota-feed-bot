@@ -1,0 +1,338 @@
+{
+  "week": "2026-W46",
+  "start": "2026-11-07",
+  "end": "2026-11-13",
+  "title": "What happened in AI — Nov 7–13, 2026",
+  "generated_at": "2026-11-13T21:10:32Z",
+  "intro": [
+    "Three launches landed in three days: Claude Fable 5.2 on November 9, Gemini 4 Carbon on November 10 and Google's Gemini Decisions API on November 11. The third changes the most for builders, because a calibrated yes/no model for routing and grading now sits beside the flagships as its own tier.",
+    "The layers beneath agents looked less trustworthy. Fireworks widened its October breach to account and billing data, Phala reported an attack on its confidential-AI service, and Artificial Analysis found roughly one in four hosted endpoints scoring below the reference weights.",
+    "The response was verification with evidence the agent cannot edit: hooks that catch weakened tests, hidden checks for skills, and a formal proof of Signal's protocol code. Check the endpoint, the provider and the diff yourself, because a model name or a green build no longer settles it."
+  ],
+  "highlights": [
+    "Claude Fable 5.2 and Gemini 4 Carbon shipped one day apart.",
+    "Gemini Decisions API scores up to 1,000 yes/no and rubric questions in a single pass.",
+    "vLLM on one Vera Rubin NVL72 rack served 387 tokens/s per user at 58x GB300 throughput.",
+    "Roughly one in four of 100+ serverless endpoints scored below its reference deployment.",
+    "Agent memory leaked confidential data in 2 of 3 background tasks where raw RAG leaked none.",
+    "Backend skills cut critical mistakes from 25 of 150 runs to 2 of 150 under hidden checks."
+  ],
+  "article_count": 40,
+  "categories": [
+    {
+      "name": "Frontier Launches and the Decision-Model Tier",
+      "slug": "frontier-launches-decision-models",
+      "summary": "Anthropic and Google shipped flagship models one day apart, and Google added a dedicated decision model beside them. Model choice is now a recurring task: Vercel measures a production half-life of about six weeks.",
+      "articles": [
+        {
+          "title": "[AINews] Fable 5.2 retakes World #1 LLM spot as $ANT IPO roadshow begins",
+          "summary": "Anthropic shipped Claude Fable 5.2 and Mythos 5.2 on the first day of its IPO roadshow, and the issue asks how much thinking is worth paying for.",
+          "source": "latent_space",
+          "url": "https://latent.space/p/ainews-fable-5-2-retakes-world-1-llm-spot-as-ant-ipo-roadshow-begins/",
+          "published": "Tue, 10 Nov 2026 06:34:44 GMT"
+        },
+        {
+          "title": "Gemini 4 Carbon is now available",
+          "summary": "Google's strongest model is generally available after a two-week preview with cybersecurity defenders, aimed at long-horizon agentic work, software engineering and scientific reasoning.",
+          "source": "google_deepmind_blog",
+          "url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available/",
+          "published": "Tue, 10 Nov 2026 16:03:47 +0000"
+        },
+        {
+          "title": "Which Claude model should you build with? Fable, Opus, Sonnet, or Haiku",
+          "summary": "Anthropic's guide to Haiku 5.5, Sonnet 5.5, Opus 5.5 and Fable 5.2 says to start most work on Opus 5.5 at its default medium effort.",
+          "source": "claude_dev_blog",
+          "url": "https://claude.dev/blog/which-claude-model-should-you-build-with/",
+          "published": "Mon, 09 Nov 2026 12:00:00 GMT"
+        },
+        {
+          "title": "Gemini Decisions API: Fast, calibrated multimodal decisions",
+          "summary": "Gemini Decision 1 scores up to 1,000 yes/no, choice and rubric questions in one pass over text, images, audio, video and PDFs, returning confidence scores for routing, grading and policy checks.",
+          "source": "google_ai_blog",
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+          "published": "Wed, 11 Nov 2026 18:00:00 +0000"
+        },
+        {
+          "title": "[AINews] D-Day (Decision Models Day)",
+          "summary": "Google's entry makes decision models a market, and at AI Engineer Cloudflare showed which parts of a build failure a classifier can handle.",
+          "source": "latent_space",
+          "url": "https://latent.space/p/ainews-d-day-decision-models-day/",
+          "published": "Thu, 12 Nov 2026 05:26:54 GMT"
+        },
+        {
+          "title": "Edge0-145B: Frontier AI Capabilities on Your Own Computer",
+          "summary": "Edge0 open-sourced 145B and 120B on-device models with a unified inference framework, claiming coding and agent ability that rivals cloud models.",
+          "source": "hackernews_ai",
+          "url": "https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer",
+          "published": "Thu, 12 Nov 2026 23:06:17 +0000"
+        },
+        {
+          "title": "AI labs raise prices without raising prices",
+          "summary": "Per-token prices held while token counts rose: GPT Image 2.6 spends 3.3x the output tokens of 2.5, and Anthropic's new tokenizer turns the same text into about 30% more tokens.",
+          "source": "hackernews_ai",
+          "url": "https://playcode.io/blog/ai-labs-raise-prices-without-raising-prices",
+          "published": "Mon, 09 Nov 2026 22:15:58 +0000"
+        },
+        {
+          "title": "Vercel Data Shows AI Models Have Six-Week Half-Life in Production",
+          "summary": "Vercel's AI Gateway index, drawn from more than 100 trillion tokens a month, puts a production model's half-life at about six weeks.",
+          "source": "hackernews_ai",
+          "url": "https://epyhia.com/vercel-data-shows-ai-models-have-six-week-half-life-in-production",
+          "published": "Thu, 12 Nov 2026 13:33:15 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Serving Economics on New Hardware",
+      "slug": "serving-economics-new-hardware",
+      "summary": "Serving cost moved on hardware memory, warm state and billing terms rather than raw compute. Hosted endpoints also turned out to differ from the weights they advertise.",
+      "articles": [
+        {
+          "title": "DeepSeek-V4.1-Flash on Vera Rubin NVL72: 58x Throughput vs. GB300 NVL72 at 387 tokens/s",
+          "summary": "One Vera Rubin NVL72 rack serves each user 387 tokens/s at 58x the throughput of a GB300 NVL72, using a rack-wide KV cache shared over NVLink.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-11-12-deepseek-v41-flash-vera-rubin",
+          "published": "Thu, 12 Nov 2026 00:00:00 GMT"
+        },
+        {
+          "title": "Inkling 2 Small on vLLM: Day-0 Support",
+          "summary": "Thinking Machines' 594B-total, 17B-active multimodal MoE with 1M context runs on vLLM at launch, at up to 630 tokens/s per user with its native speculator.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-11-12-inkling2-small",
+          "published": "Thu, 12 Nov 2026 00:00:00 GMT"
+        },
+        {
+          "title": "Encoder Disaggregation in vLLM: Scaling Multimodal Serving with EPD",
+          "summary": "vLLM splits encoding, prefill and decode into separately deployed instances, so the encoder scales with media load independently of token demand.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-11-11-encoder-disaggregation-epd",
+          "published": "Wed, 11 Nov 2026 00:00:00 GMT"
+        },
+        {
+          "title": "Show HN: Warmctl – Fast cold starts for vLLM inference",
+          "summary": "warmctl snapshots a warmed vLLM engine into an OCI image: GLM-5.3-Flash on 8xH100 comes up in 37 s against a 650 s cold start.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/TensorRails/warmctl",
+          "published": "Tue, 10 Nov 2026 22:28:15 +0000"
+        },
+        {
+          "title": "1 in 4 3rd Party AI Endpoints Underperform Their Advertised Models",
+          "summary": "Artificial Analysis compared more than 100 serverless endpoints with reference deployments of the official weights, and roughly one in four scored below.",
+          "source": "hackernews_ai",
+          "url": "https://hermes-ai.net/news/artificial-analysis-finds-1-in-4-ai-endpoints-quietly-underperform-their/",
+          "published": "Fri, 13 Nov 2026 17:08:35 +0000"
+        },
+        {
+          "title": "Beyond FLOP/s: comparing AI hardware for inference by memory and communication",
+          "summary": "Epoch estimates a GB300 delivers about 25x an H100's agentic inference capacity on only 2.5x the FLOP/s, because memory and inter-chip communication dominate.",
+          "source": "hackernews_ai",
+          "url": "https://epoch.ai/publications/inference-performance-index",
+          "published": "Tue, 10 Nov 2026 12:09:19 +0000"
+        },
+        {
+          "title": "Our LLM cost model was double-counting batch and cache discounts",
+          "summary": "Batch is half price on every provider that offers it, but it does not stack with caching the way it appears, and dropping a model tier saves more.",
+          "source": "hackernews_ai",
+          "url": "https://beforeyouship.dev/blog/llm-batch-api-pricing",
+          "published": "Thu, 12 Nov 2026 12:48:20 +0000"
+        },
+        {
+          "title": "Inception's Diffusion LLM API Is Shutting Down",
+          "summary": "Inception emailed customers that the Mercury API hosting its diffusion LLMs is shutting down, with no blog post yet.",
+          "source": "hackernews_ai",
+          "url": "https://news.ycombinator.com/item?id=50470335",
+          "published": "Thu, 12 Nov 2026 16:51:58 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Provider Breaches and Agent Data Leaks",
+      "slug": "provider-breaches-agent-data-leaks",
+      "summary": "Two inference providers disclosed compromises, and researchers showed agent data escaping through channels that output-only audits never inspect: memory, inter-agent messages and share links.",
+      "articles": [
+        {
+          "title": "Fireworks.ai Update on October 2026 security incident",
+          "summary": "Fireworks widened its October breach beyond stored secrets to account and billing information, plus secrets, datasets and incomplete models for a limited set of accounts.",
+          "source": "hackernews_ai",
+          "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident-update",
+          "published": "Tue, 10 Nov 2026 08:47:00 +0000"
+        },
+        {
+          "title": "Phala Confidential AI Compromised",
+          "summary": "Phala's preliminary report covers an attack on its confidential-AI model service, contained on November 8 after a KMS root key rotation, with two user groups asked to act.",
+          "source": "hackernews_ai",
+          "url": "https://phala.com/posts/phala-november-preliminary-incident-report",
+          "published": "Wed, 11 Nov 2026 09:48:10 +0000"
+        },
+        {
+          "title": "Grok Build coding agent leaks confidential info, some belonging to SpaceXSI",
+          "summary": "A researcher found 35,000 Grok Build apps open through share links, exposing proprietary business data and secrets, including the vendor's own.",
+          "source": "hackernews_ai",
+          "url": "https://arstechnica.com/security/2026/11/grok-build-coding-agent-leaks-oodles-of-confidential-info-some-belonging-to-spacexsi/",
+          "published": "Wed, 11 Nov 2026 07:24:31 +0000"
+        },
+        {
+          "title": "Lazare, Veni Foras: Reprogramming Dormant Neurons to Backdoor AI Agents",
+          "summary": "Microsoft researchers' Lazarus technique reprograms dormant neurons so a normal-looking agent runs malicious commands when a hidden trigger appears.",
+          "source": "hackernews_ai",
+          "url": "https://www.microsoft.com/en-us/research/blog/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents/",
+          "published": "Thu, 12 Nov 2026 11:20:13 +0000"
+        },
+        {
+          "title": "Show HN: Raw RAG leaks 0%, but agent memory leaks 67%",
+          "summary": "Metadata filters blocked 100% of unauthorized raw-chunk queries, but synthesis into shared agent memory dropped parent ACLs and leaked in 2 of 3 background tasks.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/harishbalasubramanian/sentinel-eval",
+          "published": "Mon, 09 Nov 2026 14:33:07 +0000"
+        },
+        {
+          "title": "Show HN: AgentLeak – open-source privacy testing for multi-agent LLM systems",
+          "summary": "Across 1,000 scenarios, inter-agent messages leaked 68.8% of the time against 27.2% for final outputs, so output-only audits miss 41.7% of leaks.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Privatris/AgentLeak",
+          "published": "Fri, 13 Nov 2026 01:36:36 +0000"
+        },
+        {
+          "title": "Prompt Injection, Esq.: pwning AI agent guardrails with lawyerspeak",
+          "summary": "A ChatGPT workspace agent restricted to read-only access on a Notion tracker gave way in about ninety seconds to legal-sounding phrasing.",
+          "source": "hackernews_ai",
+          "url": "https://www.mrnice.dev/posts/heavyweight-guardrails/",
+          "published": "Wed, 11 Nov 2026 18:41:14 +0000"
+        },
+        {
+          "title": "Security flaws in popular AI tools have nearly tripled",
+          "summary": "Reported flaws in 17 open-source AI tools, including vLLM, LangChain and Open WebUI, rose from 156 in 2025 to 423 by October 28, 2026.",
+          "source": "hackernews_ai",
+          "url": "https://birdyfoot.com/research/ai-tool-vulnerabilities",
+          "published": "Thu, 12 Nov 2026 23:30:18 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Verifying Agent-Written Code",
+      "slug": "verifying-agent-written-code",
+      "summary": "Teams stopped taking an agent's word that work is done. The week's tools and studies check the diff, the test suite and the diagnosis with evidence the agent cannot edit.",
+      "articles": [
+        {
+          "title": "Show HN: Agent-roast – Catches coding agents that weaken tests to get CI green",
+          "summary": "agent-roast flags a red build turned green by a loosened assertion, a skipped test, a lowered coverage gate or an allow-fail CI step, offline and without tokens.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Nari-Ab/agent-roast/",
+          "published": "Thu, 12 Nov 2026 15:03:06 +0000"
+        },
+        {
+          "title": "An AI agent said the code was verified. The evidence said otherwise",
+          "summary": "Agent B approved the change, then Agent A edited one more file before shipping, so the review described code that never shipped.",
+          "source": "hackernews_ai",
+          "url": "https://brian.biz/blog/ai-agents-verify/",
+          "published": "Tue, 10 Nov 2026 21:04:47 +0000"
+        },
+        {
+          "title": "Show HN: Coding agent skills, tested on 15 backend tasks with hidden checks",
+          "summary": "On 15 backend tasks with hidden checks, critical mistakes fell from 25 of 150 runs without the skills to 2 of 150 with them.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/globalmpc/backendskills",
+          "published": "Sat, 07 Nov 2026 07:34:15 +0000"
+        },
+        {
+          "title": "Do AI coding agents care about SemVer or is it something for humans only?",
+          "summary": "Microsoft expected coding agents to ignore version numbers during upgrades, and two models proved the team wrong across almost 1,000 runs.",
+          "source": "hackernews_ai",
+          "url": "https://developer.microsoft.com/blog/do-ai-coding-agents-care-about-semver/",
+          "published": "Mon, 09 Nov 2026 16:03:09 +0000"
+        },
+        {
+          "title": "Introducing AlphaProof Code: a breakthrough in verifying complex software at depth",
+          "summary": "DeepMind's agentic framework mathematically proved key security properties of the actual code behind the Signal protocol.",
+          "source": "google_deepmind_blog",
+          "url": "https://deepmind.google/blog/introducing-alphaproof-code/",
+          "published": "Tue, 10 Nov 2026 12:02:28 +0000"
+        },
+        {
+          "title": "DistDebug-Bench: Can LLM Agents Diagnose Bugs in Distributed Systems?",
+          "summary": "The benchmark gives agents 120 real failures from 11 production distributed systems and scores the diagnosis against human-labeled causal code, not the patch.",
+          "source": "hackernews_ai",
+          "url": "https://distdebug.com/",
+          "published": "Fri, 13 Nov 2026 05:19:29 +0000"
+        },
+        {
+          "title": "Worse Together: How Performance Breaks Down in Multi-User Multi-Agent Teams",
+          "summary": "In four simulated environments, group outcomes were worse when each user delegated to their own agent than when one agent served everyone.",
+          "source": "hackernews_ai",
+          "url": "https://alignment.anthropic.com/2026/worse-together/",
+          "published": "Thu, 12 Nov 2026 06:48:42 +0000"
+        },
+        {
+          "title": "A silent agent loop cost me $3k in API bills",
+          "summary": "max_retries fires only on errors, so a loop that keeps returning valid output looks like success to the framework and ran up a $3k bill.",
+          "source": "hackernews_ai",
+          "url": "https://agenttrafficcop.com/blog/silent-agent-loop-cost-3k/",
+          "published": "Mon, 09 Nov 2026 13:39:29 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Agent Platform Plumbing",
+      "slug": "agent-platform-plumbing",
+      "summary": "Vendors filled in the infrastructure agents need to act with accountability: payment approval, a kill switch, naming, dependency pinning and sandboxes priced for idle time.",
+      "articles": [
+        {
+          "title": "Introducing ChatGPT Wallet",
+          "summary": "Agents in ChatGPT Work and Codex can now complete purchases with user approval and existing card protections.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/introducing-chatgpt-wallet",
+          "published": "Fri, 13 Nov 2026 15:00:00 GMT"
+        },
+        {
+          "title": "Control Room: A central system to track and stop model workloads across our research infrastructure",
+          "summary": "OpenAI's central system tracks model workloads across its research infrastructure and can stop them rapidly when a safety or security concern arises.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/control-room",
+          "published": "Mon, 09 Nov 2026 13:00:00 GMT"
+        },
+        {
+          "title": "NVIDIA Expands Open Source Commitment With OpenShell Donation and New AI Infrastructure",
+          "summary": "NVIDIA is contributing OpenShell, its open-source runtime for securing and governing autonomous agents, to the CNCF.",
+          "source": "nvidia_blog",
+          "url": "https://blogs.nvidia.com/blog/open-source-openshell-infrastructure/",
+          "published": "Tue, 10 Nov 2026 16:00:03 +0000"
+        },
+        {
+          "title": "Agent Name Service",
+          "summary": "An open-source Go reference implementation of the IETF-draft Agent Name Service ships a registry, a transparency log and an offline verifier.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/agentnameservice/ans",
+          "published": "Wed, 11 Nov 2026 21:18:47 +0000"
+        },
+        {
+          "title": "APM – A dependency manager for AI agents",
+          "summary": "One apm.yml declares a project's skills, prompts, plugins and MCP servers, and a lockfile pins exact versions and content hashes across harnesses.",
+          "source": "hackernews_ai",
+          "url": "https://microsoft.github.io/apm/",
+          "published": "Sat, 07 Nov 2026 08:51:43 +0000"
+        },
+        {
+          "title": "Google Described Its Agent Sandbox. I Built One with Firecracker and Measured It",
+          "summary": "A 2,200-line Go rebuild of Google's microVM-per-session pattern measured about 3 MiB of host memory per idle fork and a 25 ms snapshot restore on bare metal.",
+          "source": "hackernews_ai",
+          "url": "https://antonau.tech/posts/2026/11/agents-microvm-firecracker/",
+          "published": "Sat, 07 Nov 2026 16:01:40 +0000"
+        },
+        {
+          "title": "Sandbox resourcing: burst, don't reserve",
+          "summary": "A typical Modal Sandbox spends more than half its life below 6% of peak CPU, which is the case for burst billing over fixed reservations.",
+          "source": "modal_blog",
+          "url": "https://modal.com/blog/sandbox-bursting",
+          "published": "2026-11-12T17:00:00.000Z"
+        },
+        {
+          "title": "Genie with Genie Ontology Delivers 1.6× the Accuracy with Less than Half the Tokens",
+          "summary": "In a vendor-run benchmark built with Turing, Genie with Genie Ontology passed 91% of tasks against 45% and 58% for two frontier agents, using under half the tokens.",
+          "source": "databricks_blog",
+          "url": "https://www.databricks.com/blog/genie-genie-ontology-delivers-16-accuracy-less-half-tokens",
+          "published": "Wed, 11 Nov 2026 15:00:00 GMT"
+        }
+      ]
+    }
+  ]
+}

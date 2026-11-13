@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What happened in AI — Nov 7–13, 2026 | LLM Digest</title>
+  <meta name="description" content="Claude Fable 5.2 and Gemini 4 Carbon shipped one day apart. Gemini Decisions API scores up to 1,000 yes/no and rubric questions in a single pass. vLLM on one Vera Rubin NVL72 rack served 387 tokens/s per user at 58x GB300 throughput. Roughly one in…" />
+  <link rel="canonical" href="https://www.llm-digest.com/weekly/2026-W46" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="What happened in AI — Nov 7–13, 2026" />
+  <meta property="og:description" content="Claude Fable 5.2 and Gemini 4 Carbon shipped one day apart. Gemini Decisions API scores up to 1,000 yes/no and rubric questions in a single pass. vLLM on one Vera Rubin NVL72 rack served 387 tokens/s per user at 58x GB300 throughput. Roughly one in…" />
+  <meta property="og:url" content="https://www.llm-digest.com/weekly/2026-W46" />
+  <meta property="article:published_time" content="2026-11-13T21:10:32+00:00" />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="What happened in AI — Nov 7–13, 2026" />
+  <meta name="twitter:description" content="Claude Fable 5.2 and Gemini 4 Carbon shipped one day apart. Gemini Decisions API scores up to 1,000 yes/no and rubric questions in a single pass. vLLM on one Vera Rubin NVL72 rack served 387 tokens/s per user at 58x GB300 throughput. Roughly one in…" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "What happened in AI — Nov 7–13, 2026", "description": "Claude Fable 5.2 and Gemini 4 Carbon shipped one day apart. Gemini Decisions API scores up to 1,000 yes/no and rubric questions in a single pass. vLLM on one Vera Rubin NVL72 rack served 387 tokens/s per user at 58x GB300 throughput. Roughly one in…", "datePublished": "2026-11-13T21:10:32+00:00", "mainEntityOfPage": "https://www.llm-digest.com/weekly/2026-W46", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Weekly recaps", "item": "https://www.llm-digest.com/weekly"}, {"@type": "ListItem", "position": 3, "name": "2026-W46", "item": "https://www.llm-digest.com/weekly/2026-W46"}]}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
+  <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261107-tabs-row" />
+  <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
+  <script defer src="/site-chrome.js?v=20261107-tabs-row"></script>
+  <script defer src="/subscribe-inline.js?v=20261107-tabs-row"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
+    body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    code {
+      font-family: var(--font-mono); font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
+    menu a[role="button"], .archive select, menu .menu-share {
+      font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.03em;
+      padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: var(--radius-control); background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
+    menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
+    .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
+      font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0;
+      text-transform: none; color: var(--muted); }
+    .archive select { text-transform: none; letter-spacing: 0.02em; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: none; letter-spacing: 0; font-size: 0.78rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400;
+      white-space: nowrap; flex-shrink: 0; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border: 1px solid var(--border); border-radius: 12px;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: var(--font-display);
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+      menu {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.35rem;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      menu::-webkit-scrollbar {
+        display: none;
+      }
+      menu a {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .archive {
+        flex-shrink: 0;
+        margin-left: 1rem;
+        width: auto !important;
+      }
+      .archive select {
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    .recap-video { display:grid; grid-template-columns:minmax(14rem,.7fr) minmax(0,1.3fr); gap:1.4rem 2.2rem;
+      align-items:center; margin:0 0 1.6rem; padding:0 0 1.5rem; border-bottom:1px solid var(--border); }
+    .recap-video { scroll-margin-top:1rem; }
+    .video-label { margin:0 0 .4rem; text-transform: none; letter-spacing: 0; font-size: 0.78rem;
+      font-weight:700; color:var(--accent); font-family:var(--font-mono); }
+    .video-title { margin:0 0 .45rem; font-size:1.2rem; line-height:1.25; }
+    .video-meta { margin:0; color:var(--muted); font-size:.9rem; line-height:1.5; }
+    .video-frame { position:relative; aspect-ratio:16/9; width:100%; border:1px solid var(--border);
+      border-radius:6px; overflow:hidden; background:#000; }
+    .video-frame iframe, .video-play, .video-play img { position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
+    .video-play img { object-fit:cover; }
+    .video-play::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35)); }
+    .video-btn { position:absolute; z-index:1; left:50%; top:50%; width:4.2rem; height:4.2rem; margin:-2.1rem 0 0 -2.1rem;
+      border-radius:50%; background:var(--accent); color:#fff; display:grid; place-items:center; font-size:1.5rem;
+      padding-left:.2rem; box-sizing:border-box; transition:transform .15s ease; }
+    .video-play:hover .video-btn, .video-play:focus-visible .video-btn { transform:scale(1.08); }
+    @media (max-width:760px) { .recap-video { grid-template-columns:1fr; gap:1rem; } }
+    :root, html[data-theme="light"]{ --turn:#c4483f;
+    }
+    html[data-theme="dark"]{ --turn:#ef756d;
+    }
+    body { font-family:var(--font-sans); }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .weekly-hero { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(15rem,.55fr);
+      gap:1.5rem 2.6rem; align-items:end; margin:2.35rem 0 1.7rem; }
+    .weekly-kicker { margin:0 0 .35rem; font-family:var(--font-mono);
+      font-size: 0.78rem; font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent); }
+    .weekly-hero .recap-title { margin:0; max-width:49rem;
+      font-family:var(--font-display);
+      font-size:clamp(2.75rem,7vw,4.75rem); font-weight:700; letter-spacing:-.047em; line-height:.92; }
+    .weekly-range { margin:0 0 .25rem; color:var(--muted); text-align:right;
+      font-family:var(--font-mono); font-size:.72rem; line-height:1.65; }
+    .weekly-mark { display:flex; justify-content:flex-end; gap:4px; height:7px; margin:.75rem 0 0; }
+    .weekly-mark span { width:2.7rem; background:var(--accent); border-radius:99px; }
+    .weekly-mark span:nth-child(2) { width:1.7rem; background:var(--signal); border-radius:99px; }
+    .weekly-mark span:nth-child(3) { width:.9rem; background:var(--warm); border-radius:99px; }
+    .intro { display:grid; grid-template-columns:minmax(16rem,.75fr) minmax(0,1.25fr);
+      gap:1.5rem 2.4rem; padding:1.5rem; margin:0 0 1.6rem;
+      border:1px solid var(--border); border-radius:8px; background:var(--card); font-size:.98rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01); }
+    .intro .tldr { grid-column:1; grid-row:1 / span 8; margin:0; padding:0; border:0; }
+    .intro > p { grid-column:2; margin:0 0 .8rem; line-height:1.64; }
+    .intro > p:last-child { margin-bottom: 0; }
+    .tldr-label { font-family:var(--font-mono); font-size: 0.78rem;
+      font-weight:700; letter-spacing: 0; text-transform: none; color:var(--accent); }
+    .tldr ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.62rem; }
+    .tldr li { position:relative; padding-left:1rem; font-size:.87rem; line-height:1.48; }
+    .tldr li::before { content:""; position:absolute; left:0; top:.45rem; width:6px; height:6px;
+      border-radius:50%; background:var(--warm); }
+
+    /* Weekly Focus Widget */
+    .weekly-focus-widget {
+      margin: 0 0 1.6rem;
+      padding: 1.25rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+    }
+    .focus-bar {
+      display: flex;
+      height: 8px;
+      border-radius: 99px;
+      overflow: hidden;
+      background: var(--border);
+      margin-bottom: 1rem;
+    }
+    .focus-segment {
+      height: 100%;
+      transition: opacity 0.15s ease;
+    }
+    .focus-segment:hover {
+      opacity: 0.85;
+    }
+    .focus-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      text-decoration: none;
+      color: var(--fg);
+      font-size: 0.75rem;
+      transition: color 0.15s ease;
+    }
+    .legend-item:hover {
+      color: var(--accent);
+    }
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .legend-name {
+      font-weight: 500;
+    }
+    .legend-count {
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      white-space: nowrap;
+    }
+
+    /* Sticky Category/View Mode Navigation Bar */
+    .toc {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-glass, rgba(245, 247, 250, 0.9));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      margin: 1.5rem 0 2rem;
+      padding: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    html[data-theme="dark"] .toc {
+      background: var(--bg-glass, rgba(17, 21, 28, 0.9));
+    }
+    .toc-links {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 2px;
+    }
+    .toc-links::-webkit-scrollbar {
+      display: none;
+    }
+    .toc a {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-decoration: none;
+      color: var(--muted);
+      padding: 0.35rem 0.65rem;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .toc a:hover, .toc a.active {
+      color: var(--accent);
+      background: var(--week-wash);
+      border-color: color-mix(in srgb, var(--accent) 20%, transparent);
+    }
+    .view-mode-selector {
+      display: inline-flex;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 2px;
+      flex-shrink: 0;
+    }
+    .view-btn {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      padding: 0.3rem 0.65rem;
+      border: none;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.12s ease;
+    }
+    .view-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+    }
+    html[data-theme="dark"] .view-btn.active {
+      color: var(--week-ink);
+    }
+
+    .cat { position:relative; margin-bottom:4rem; padding-left:1.4rem; scroll-margin-top:4rem; }
+    .cat::before { content:""; position:absolute; left:0; top:.1rem; bottom:0; width:4px; border-radius:2px; background:var(--accent); }
+    .cat:nth-of-type(3n+1)::before { background:var(--signal); }
+    .cat:nth-of-type(3n+2)::before { background:var(--warm); }
+    .cat h2 { margin:0; padding:0 0 .8rem; border-bottom:1px solid var(--border);
+      font-family:var(--font-display); font-size:1.85rem; line-height:1; }
+    .cat h2 .count { display:block; margin-top:.45rem;
+      font-family:var(--font-mono); font-size:.64rem; font-weight:400; color:var(--muted); }
+    .cat-summary { margin:.85rem 0 .2rem; max-width:48rem; color:var(--fg); font-size:1rem; line-height:1.58; }
+    
+    .articles { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; }
+    article { display:flex; flex-direction:column; justify-content:space-between; padding:1.25rem;
+      border:1px solid var(--border); border-radius:8px; background:var(--card);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+    article:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-color: color-mix(in srgb, var(--accent) 30%, var(--border)); }
+    article h3 { margin:0 0 .5rem; font-family:var(--font-display);
+      font-size:1.15rem; line-height:1.25; font-weight:600; }
+    article h3 a { text-decoration: none; color: var(--fg); transition: color 0.15s ease; }
+    article h3 a:hover { color:var(--accent); }
+    .art-meta { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:0 0 .75rem; }
+    .badge { display:inline-flex; align-items:center; padding:0.15rem 0.45rem; border:1px solid var(--border);
+      border-radius:4px; background:var(--week-wash); color:var(--muted);
+      font-family:var(--font-mono); font-size:.62rem; font-weight:500; }
+    .art-summary { margin:0; font-size:.88rem; line-height:1.55; color:var(--fg); flex-grow:1; }
+    .playbook-takeaway { margin: 1rem 0 0; padding: 1rem; border: 1px solid var(--border);
+      border: 1px solid var(--border); border-radius: 6px; background: var(--week-wash);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .playbook-takeaway:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04); }
+    .playbook-label { display: flex; align-items: center; gap: 0.35rem; margin: 0 0 0.75rem;
+      font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0; text-transform: none; color: var(--accent); }
+    .playbook-label::before { content: "💡"; font-size: 0.8rem; }
+    .playbook-takeaway p { margin: 0 0 0.65rem; font-size: 0.8rem; line-height: 1.5; }
+    .playbook-takeaway p:last-of-type { margin-bottom: 0.75rem; }
+    .playbook-takeaway p span { display: block; margin-bottom: 0.2rem;
+      font-family: var(--font-mono); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0; text-transform: none; color: var(--muted); }
+    .playbook-apply { padding: 0.6rem 0.75rem; border: 1px solid var(--border); border-radius: 4px;
+      background: var(--card); font-size: 0.82rem !important; }
+    .playbook-apply span { color: var(--accent) !important; }
+    .playbook-links { display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem;
+      padding-top: 0.6rem; border-top: 1px solid var(--border); font-size: 0.7rem; }
+    .playbook-links span { display: inline !important; margin: 0 !important; font-family: var(--font-mono);
+      font-size: 0.78rem; font-weight: 700; text-transform: none; color: var(--muted); }
+    .playbook-links a { font-family: var(--font-mono); font-size: 0.68rem;
+      text-decoration: none; font-weight: 600; }
+    .weekly-close { display:flex; align-items:center; gap:.8rem; margin:3rem 0 .6rem;
+      font-family:var(--font-mono); font-size: 0.78rem; color:var(--accent);
+      letter-spacing: 0; text-transform: none; }
+    .weekly-close::before, .weekly-close::after { content: ""; height: 1px; flex: 1; background: var(--border); }
+    .subscribe-cta { border:0; border: 1px solid var(--border); border-radius: 12px;
+      background:var(--week-wash); color:var(--week-ink); }
+
+    .art-toggle-btn { display: none; }
+
+    /* Scan Mode overrides */
+    .scan-mode .articles { grid-template-columns: 1fr; gap: 0.75rem; }
+    .scan-mode article { flex-direction: row; align-items: center; justify-content: space-between;
+      gap: 1.5rem; padding: 0.75rem 1rem; min-height: auto; }
+    .scan-mode article h3 { margin: 0; font-size: 0.95rem; line-height: 1.3; flex: 1; }
+    .scan-mode article .art-meta { margin: 0; flex-shrink: 0; }
+    .scan-mode article .art-summary,
+    .scan-mode article .playbook-takeaway { display: none; width: 100%; margin-top: 0.75rem; }
+    .scan-mode .art-toggle-btn { display: inline-flex; align-items: center;
+      font-family: var(--font-mono); font-size: .62rem; padding: .12rem .35rem;
+      border: 1px solid var(--border); border-radius: 3px; background: transparent; cursor: pointer; }
+    .scan-mode .art-toggle-btn:hover { border-color: var(--accent); color: var(--accent); }
+    
+    /* Expanded article in scan mode */
+    .scan-mode article.expanded { flex-direction: column; align-items: flex-start; }
+    .scan-mode article.expanded h3 { width: 100%; margin-bottom: 0.5rem; }
+    .scan-mode article.expanded .art-meta { margin-bottom: 0.75rem; }
+    .scan-mode article.expanded .art-summary { display: block; }
+    .scan-mode article.expanded .playbook-takeaway { display: block; }
+
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .weekly-hero { grid-template-columns:1fr; gap:.85rem; margin-top:1.75rem; }
+      .weekly-hero .recap-title { font-size:3rem; }
+      .weekly-range { text-align:left; }
+      .weekly-mark { justify-content:flex-start; }
+      .intro { grid-template-columns:1fr; gap:1.1rem; }
+      .intro .tldr, .intro > p { grid-column:1; grid-row:auto; }
+      .toc { flex-direction: column; align-items: stretch; gap: 0.75rem; padding: 0.5rem 0; }
+      .toc-links { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+        padding-bottom: 2px; -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%); }
+      .toc-links::-webkit-scrollbar { display: none; }
+      .view-mode-selector { align-self: flex-start; }
+      .cat { padding-left:1rem; }
+      .articles { grid-template-columns:1fr; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/weekly">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>AI Weekly Recap</h1>
+        <p id="meta" class="muted">40 articles · 5 categories</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly" aria-current="page">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Agent Know-How</a>
+        <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
+        <a href="/skills" data-site-destination="/skills">Skill Radar</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a href="/api/weekly?week=2026-W46">View as JSON</a>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/weekly/2026-W46" data-share-title="What happened in AI — Nov 7–13, 2026">Share this page</button>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+
+<div class="site-context" aria-label="Choose week"><a href="/weekly/2026-W45" aria-label="Previous week: 2026-W45 · What happened in AI — Oct 31–Nov 6, 2026">‹</a><label class="archive muted"><span>Week</span><select id="archive" aria-label="Choose week"><option value="/weekly/2026-W46" selected>2026-W46 · What happened in AI — Nov 7–13, 2026</option><option value="/weekly/2026-W45">2026-W45 · What happened in AI — Oct 31–Nov 6, 2026</option><option value="/weekly/2026-W44">2026-W44 · What happened in AI — Oct 24–30, 2026</option><option value="/weekly/2026-W43">2026-W43 · What happened in AI — Oct 17–23, 2026</option><option value="/weekly/2026-W42">2026-W42 · What happened in AI — Oct 10–16, 2026</option><option value="/weekly/2026-W41">2026-W41 · What happened in AI — Oct 3–9, 2026</option><option value="/weekly/2026-W40">2026-W40 · What happened in AI — Sep 26 – Oct 2, 2026</option><option value="/weekly/2026-W39">2026-W39 · What happened in AI — Sep 19–25, 2026</option><option value="/weekly/2026-W38">2026-W38 · What happened in AI — Sep 12–18, 2026</option><option value="/weekly/2026-W37">2026-W37 · What happened in AI — Sep 5–11, 2026</option><option value="/weekly/2026-W36">2026-W36 · What happened in AI — Aug 29 – Sep 4, 2026</option><option value="/weekly/2026-W35">2026-W35 · What happened in AI — Aug 22–28, 2026</option><option value="/weekly/2026-W34">2026-W34 · What happened in AI — Aug 15–21, 2026</option><option value="/weekly/2026-W33">2026-W33 · What happened in AI — Aug 8–14, 2026</option><option value="/weekly/2026-W32">2026-W32 · What happened in AI — Aug 1–7, 2026</option><option value="/weekly/2026-W31">2026-W31 · What happened in AI — Jul 25–31, 2026</option><option value="/weekly/2026-W30">2026-W30 · What happened in AI — Jul 18-24, 2026</option><option value="/weekly/2026-W29">2026-W29 · What happened in AI — Jul 11–17, 2026</option><option value="/weekly/2026-W28">2026-W28 · What happened in AI — Jul 4–10, 2026</option><option value="/weekly/2026-W27">2026-W27 · What happened in AI — Jun 27 – Jul 3, 2026</option><option value="/weekly/2026-W26">2026-W26 · What happened in AI — Jun 21–27, 2026</option><option value="/weekly/2026-W25">2026-W25 · What happened in AI — Jun 15–21, 2026</option><option value="/weekly/2026-W24">2026-W24 · What happened in AI — Jun 7–13, 2026</option><option value="/weekly/2026-W23">2026-W23 · What happened in AI — Jun 1–7, 2026</option></select></label><span class="site-context-disabled" aria-hidden="true">›</span></div>
+    </header>
+
+    <section id="recap">
+      <section class="weekly-hero"><div><p class="weekly-kicker">Weekly pattern report</p><h2 class="recap-title">5 shifts that shaped AI this week</h2></div><div><p class="weekly-range">2026-11-07 → 2026-11-13<br>2026-W46 · 40 articles reviewed</p><div class="weekly-mark" aria-hidden="true"><span></span><span></span><span></span></div></div></section>
+      <!-- range is included in the custom hero -->
+      <div class="intro"><div class="tldr"><p class="tldr-label">The week in signals</p><ul><li>Claude Fable 5.2 and Gemini 4 Carbon shipped one day apart.</li><li>Gemini Decisions API scores up to 1,000 yes/no and rubric questions in a single pass.</li><li>vLLM on one Vera Rubin NVL72 rack served 387 tokens/s per user at 58x GB300 throughput.</li><li>Roughly one in four of 100+ serverless endpoints scored below its reference deployment.</li><li>Agent memory leaked confidential data in 2 of 3 background tasks where raw RAG leaked none.</li><li>Backend skills cut critical mistakes from 25 of 150 runs to 2 of 150 under hidden checks.</li></ul></div><p>Three launches landed in three days: Claude Fable 5.2 on November 9, Gemini 4 Carbon on November 10 and Google&#x27;s Gemini Decisions API on November 11. The third changes the most for builders, because a calibrated yes/no model for routing and grading now sits beside the flagships as its own tier.</p><p>The layers beneath agents looked less trustworthy. Fireworks widened its October breach to account and billing data, Phala reported an attack on its confidential-AI service, and Artificial Analysis found roughly one in four hosted endpoints scoring below the reference weights.</p><p>The response was verification with evidence the agent cannot edit: hooks that catch weakened tests, hidden checks for skills, and a formal proof of Signal&#x27;s protocol code. Check the endpoint, the provider and the diff yourself, because a model name or a green build no longer settles it.</p></div><div class="weekly-focus-widget"><div class="focus-bar"><div class="focus-segment" style="width: 20.0%; background: var(--accent);" title="Frontier Launches and the Decision-Model Tier: 8 items"></div><div class="focus-segment" style="width: 20.0%; background: var(--signal);" title="Serving Economics on New Hardware: 8 items"></div><div class="focus-segment" style="width: 20.0%; background: var(--warm);" title="Provider Breaches and Agent Data Leaks: 8 items"></div><div class="focus-segment" style="width: 20.0%; background: var(--turn);" title="Verifying Agent-Written Code: 8 items"></div><div class="focus-segment" style="width: 20.0%; background: var(--muted);" title="Agent Platform Plumbing: 8 items"></div></div><div class="focus-legend"><a href="#frontier-launches-decision-models" class="legend-item"><span class="legend-dot" style="background: var(--accent);"></span><span class="legend-name">Frontier Launches and the Decision-Model Tier</span><span class="legend-count">8 (20%)</span></a><a href="#serving-economics-new-hardware" class="legend-item"><span class="legend-dot" style="background: var(--signal);"></span><span class="legend-name">Serving Economics on New Hardware</span><span class="legend-count">8 (20%)</span></a><a href="#provider-breaches-agent-data-leaks" class="legend-item"><span class="legend-dot" style="background: var(--warm);"></span><span class="legend-name">Provider Breaches and Agent Data Leaks</span><span class="legend-count">8 (20%)</span></a><a href="#verifying-agent-written-code" class="legend-item"><span class="legend-dot" style="background: var(--turn);"></span><span class="legend-name">Verifying Agent-Written Code</span><span class="legend-count">8 (20%)</span></a><a href="#agent-platform-plumbing" class="legend-item"><span class="legend-dot" style="background: var(--muted);"></span><span class="legend-name">Agent Platform Plumbing</span><span class="legend-count">8 (20%)</span></a></div></div>
+      <nav class="toc"><div class="toc-links"><a href="#frontier-launches-decision-models">Frontier Launches and the Decision-Model Tier (8)</a><a href="#serving-economics-new-hardware">Serving Economics on New Hardware (8)</a><a href="#provider-breaches-agent-data-leaks">Provider Breaches and Agent Data Leaks (8)</a><a href="#verifying-agent-written-code">Verifying Agent-Written Code (8)</a><a href="#agent-platform-plumbing">Agent Platform Plumbing (8)</a></div><div class="view-mode-selector"><button id="toggle-detailed" class="view-btn active" type="button">Detailed</button><button id="toggle-scan" class="view-btn" type="button">Scan</button></div></nav><section class="cat" id="frontier-launches-decision-models"><h2>Frontier Launches and the Decision-Model Tier <span class="count">8 items</span></h2><p class="cat-summary">Anthropic and Google shipped flagship models one day apart, and Google added a dedicated decision model beside them. Model choice is now a recurring task: Vercel measures a production half-life of about six weeks.</p><div class="articles"><article><h3><a href="https://latent.space/p/ainews-fable-5-2-retakes-world-1-llm-spot-as-ant-ipo-roadshow-begins/" target="_blank" rel="noopener" data-track="weekly-link">[AINews] Fable 5.2 retakes World #1 LLM spot as $ANT IPO roadshow begins</a></h3><div class="art-meta"><span class="badge">latent_space</span><a class="badge" href="/story/8915e46a098594e4" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Anthropic shipped Claude Fable 5.2 and Mythos 5.2 on the first day of its IPO roadshow, and the issue asks how much thinking is worth paying for.</p></article><article><h3><a href="https://deepmind.google/blog/gemini-4-carbon-is-now-available/" target="_blank" rel="noopener" data-track="weekly-link">Gemini 4 Carbon is now available</a></h3><div class="art-meta"><span class="badge">google_deepmind_blog</span><a class="badge" href="/story/55cb0588b3e8436e" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Google&#x27;s strongest model is generally available after a two-week preview with cybersecurity defenders, aimed at long-horizon agentic work, software engineering and scientific reasoning.</p></article><article><h3><a href="https://claude.dev/blog/which-claude-model-should-you-build-with/" target="_blank" rel="noopener" data-track="weekly-link">Which Claude model should you build with? Fable, Opus, Sonnet, or Haiku</a></h3><div class="art-meta"><span class="badge">claude_dev_blog</span><a class="badge" href="/story/6d32c6450e419289" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Anthropic&#x27;s guide to Haiku 5.5, Sonnet 5.5, Opus 5.5 and Fable 5.2 says to start most work on Opus 5.5 at its default medium effort.</p></article><article><h3><a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/" target="_blank" rel="noopener" data-track="weekly-link">Gemini Decisions API: Fast, calibrated multimodal decisions</a></h3><div class="art-meta"><span class="badge">google_ai_blog</span><a class="badge" href="/story/02bfed5e7aa817ea" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Gemini Decision 1 scores up to 1,000 yes/no, choice and rubric questions in one pass over text, images, audio, video and PDFs, returning confidence scores for routing, grading and policy checks.</p></article><article><h3><a href="https://latent.space/p/ainews-d-day-decision-models-day/" target="_blank" rel="noopener" data-track="weekly-link">[AINews] D-Day (Decision Models Day)</a></h3><div class="art-meta"><span class="badge">latent_space</span><a class="badge" href="/story/fd1e2e3d38e06683" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Google&#x27;s entry makes decision models a market, and at AI Engineer Cloudflare showed which parts of a build failure a classifier can handle.</p></article><article><h3><a href="https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer" target="_blank" rel="noopener" data-track="weekly-link">Edge0-145B: Frontier AI Capabilities on Your Own Computer</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/4e10e32134f86500" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Edge0 open-sourced 145B and 120B on-device models with a unified inference framework, claiming coding and agent ability that rivals cloud models.</p></article><article><h3><a href="https://playcode.io/blog/ai-labs-raise-prices-without-raising-prices" target="_blank" rel="noopener" data-track="weekly-link">AI labs raise prices without raising prices</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/53b2b46ecae5925b" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Per-token prices held while token counts rose: GPT Image 2.6 spends 3.3x the output tokens of 2.5, and Anthropic&#x27;s new tokenizer turns the same text into about 30% more tokens.</p></article><article><h3><a href="https://epyhia.com/vercel-data-shows-ai-models-have-six-week-half-life-in-production" target="_blank" rel="noopener" data-track="weekly-link">Vercel Data Shows AI Models Have Six-Week Half-Life in Production</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/f4e0da7b6fe690cd" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Vercel&#x27;s AI Gateway index, drawn from more than 100 trillion tokens a month, puts a production model&#x27;s half-life at about six weeks.</p></article></div></section><section class="cat" id="serving-economics-new-hardware"><h2>Serving Economics on New Hardware <span class="count">8 items</span></h2><p class="cat-summary">Serving cost moved on hardware memory, warm state and billing terms rather than raw compute. Hosted endpoints also turned out to differ from the weights they advertise.</p><div class="articles"><article><h3><a href="https://vllm.ai/blog/2026-11-12-deepseek-v41-flash-vera-rubin" target="_blank" rel="noopener" data-track="weekly-link">DeepSeek-V4.1-Flash on Vera Rubin NVL72: 58x Throughput vs. GB300 NVL72 at 387 tokens/s</a></h3><div class="art-meta"><span class="badge">vllm_blog</span><a class="badge" href="/story/33948c421834d8b2" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">One Vera Rubin NVL72 rack serves each user 387 tokens/s at 58x the throughput of a GB300 NVL72, using a rack-wide KV cache shared over NVLink.</p></article><article><h3><a href="https://vllm.ai/blog/2026-11-12-inkling2-small" target="_blank" rel="noopener" data-track="weekly-link">Inkling 2 Small on vLLM: Day-0 Support</a></h3><div class="art-meta"><span class="badge">vllm_blog</span><a class="badge" href="/story/2b1a5a2b8a869dfe" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Thinking Machines&#x27; 594B-total, 17B-active multimodal MoE with 1M context runs on vLLM at launch, at up to 630 tokens/s per user with its native speculator.</p></article><article><h3><a href="https://vllm.ai/blog/2026-11-11-encoder-disaggregation-epd" target="_blank" rel="noopener" data-track="weekly-link">Encoder Disaggregation in vLLM: Scaling Multimodal Serving with EPD</a></h3><div class="art-meta"><span class="badge">vllm_blog</span><a class="badge" href="/story/ede6a9e6d61f7fb8" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">vLLM splits encoding, prefill and decode into separately deployed instances, so the encoder scales with media load independently of token demand.</p></article><article><h3><a href="https://github.com/TensorRails/warmctl" target="_blank" rel="noopener" data-track="weekly-link">Show HN: Warmctl – Fast cold starts for vLLM inference</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/131509a7651f4930" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">warmctl snapshots a warmed vLLM engine into an OCI image: GLM-5.3-Flash on 8xH100 comes up in 37 s against a 650 s cold start.</p></article><article><h3><a href="https://hermes-ai.net/news/artificial-analysis-finds-1-in-4-ai-endpoints-quietly-underperform-their/" target="_blank" rel="noopener" data-track="weekly-link">1 in 4 3rd Party AI Endpoints Underperform Their Advertised Models</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/72eff2cf25179487" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Artificial Analysis compared more than 100 serverless endpoints with reference deployments of the official weights, and roughly one in four scored below.</p></article><article><h3><a href="https://epoch.ai/publications/inference-performance-index" target="_blank" rel="noopener" data-track="weekly-link">Beyond FLOP/s: comparing AI hardware for inference by memory and communication</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/2dbb06d855d6e9c7" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Epoch estimates a GB300 delivers about 25x an H100&#x27;s agentic inference capacity on only 2.5x the FLOP/s, because memory and inter-chip communication dominate.</p></article><article><h3><a href="https://beforeyouship.dev/blog/llm-batch-api-pricing" target="_blank" rel="noopener" data-track="weekly-link">Our LLM cost model was double-counting batch and cache discounts</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/eaa21bf05890f3ba" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Batch is half price on every provider that offers it, but it does not stack with caching the way it appears, and dropping a model tier saves more.</p></article><article><h3><a href="https://news.ycombinator.com/item?id=50470335" target="_blank" rel="noopener" data-track="weekly-link">Inception&#x27;s Diffusion LLM API Is Shutting Down</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Inception emailed customers that the Mercury API hosting its diffusion LLMs is shutting down, with no blog post yet.</p></article></div></section><section class="cat" id="provider-breaches-agent-data-leaks"><h2>Provider Breaches and Agent Data Leaks <span class="count">8 items</span></h2><p class="cat-summary">Two inference providers disclosed compromises, and researchers showed agent data escaping through channels that output-only audits never inspect: memory, inter-agent messages and share links.</p><div class="articles"><article><h3><a href="https://fireworks.ai/security/bulletins/october-2026-security-incident-update" target="_blank" rel="noopener" data-track="weekly-link">Fireworks.ai Update on October 2026 security incident</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/777234d8a97b3028" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Fireworks widened its October breach beyond stored secrets to account and billing information, plus secrets, datasets and incomplete models for a limited set of accounts.</p></article><article><h3><a href="https://phala.com/posts/phala-november-preliminary-incident-report" target="_blank" rel="noopener" data-track="weekly-link">Phala Confidential AI Compromised</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/93a7fc4551e7291a" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Phala&#x27;s preliminary report covers an attack on its confidential-AI model service, contained on November 8 after a KMS root key rotation, with two user groups asked to act.</p></article><article><h3><a href="https://arstechnica.com/security/2026/11/grok-build-coding-agent-leaks-oodles-of-confidential-info-some-belonging-to-spacexsi/" target="_blank" rel="noopener" data-track="weekly-link">Grok Build coding agent leaks confidential info, some belonging to SpaceXSI</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/80500b1292cc170c" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">A researcher found 35,000 Grok Build apps open through share links, exposing proprietary business data and secrets, including the vendor&#x27;s own.</p></article><article><h3><a href="https://www.microsoft.com/en-us/research/blog/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents/" target="_blank" rel="noopener" data-track="weekly-link">Lazare, Veni Foras: Reprogramming Dormant Neurons to Backdoor AI Agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/d48977b6fbc84b1e" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Microsoft researchers&#x27; Lazarus technique reprograms dormant neurons so a normal-looking agent runs malicious commands when a hidden trigger appears.</p></article><article><h3><a href="https://github.com/harishbalasubramanian/sentinel-eval" target="_blank" rel="noopener" data-track="weekly-link">Show HN: Raw RAG leaks 0%, but agent memory leaks 67%</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/42d0d220c3dc643e" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Metadata filters blocked 100% of unauthorized raw-chunk queries, but synthesis into shared agent memory dropped parent ACLs and leaked in 2 of 3 background tasks.</p><aside class="playbook-takeaway" aria-label="Playbook takeaway"><p class="playbook-label">Playbook takeaway</p><p class="playbook-problem"><span>Problem</span>Metadata filters block 100% of unauthorized raw-chunk queries, yet cross-document synthesis leaked confidential parent secrets in 2 of 3 background tasks.</p><p class="playbook-apply"><span>Apply</span>Stamp each synthesized memory note with the intersection of its parents&#x27; permissions, and filter memory recall by the requesting user the same way as raw retrieval.</p><p class="playbook-result"><span>Expected</span>Unprivileged users stop retrieving executive data through derived notes. Re-run the benchmark linter to confirm a 0% leak rate.</p><p class="playbook-links"><span>Source measured</span><a href="/topic/agent-memory" data-track="weekly-playbook">Open guide →</a></p></aside></article><article><h3><a href="https://github.com/Privatris/AgentLeak" target="_blank" rel="noopener" data-track="weekly-link">Show HN: AgentLeak – open-source privacy testing for multi-agent LLM systems</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/3debe09eabc6be1b" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Across 1,000 scenarios, inter-agent messages leaked 68.8% of the time against 27.2% for final outputs, so output-only audits miss 41.7% of leaks.</p></article><article><h3><a href="https://www.mrnice.dev/posts/heavyweight-guardrails/" target="_blank" rel="noopener" data-track="weekly-link">Prompt Injection, Esq.: pwning AI agent guardrails with lawyerspeak</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/5b14ba0a321ddbad" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">A ChatGPT workspace agent restricted to read-only access on a Notion tracker gave way in about ninety seconds to legal-sounding phrasing.</p></article><article><h3><a href="https://birdyfoot.com/research/ai-tool-vulnerabilities" target="_blank" rel="noopener" data-track="weekly-link">Security flaws in popular AI tools have nearly tripled</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/4308dc695dd41630" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Reported flaws in 17 open-source AI tools, including vLLM, LangChain and Open WebUI, rose from 156 in 2025 to 423 by October 28, 2026.</p></article></div></section><section class="cat" id="verifying-agent-written-code"><h2>Verifying Agent-Written Code <span class="count">8 items</span></h2><p class="cat-summary">Teams stopped taking an agent&#x27;s word that work is done. The week&#x27;s tools and studies check the diff, the test suite and the diagnosis with evidence the agent cannot edit.</p><div class="articles"><article><h3><a href="https://github.com/Nari-Ab/agent-roast/" target="_blank" rel="noopener" data-track="weekly-link">Show HN: Agent-roast – Catches coding agents that weaken tests to get CI green</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/fd9beafc87d51c96" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">agent-roast flags a red build turned green by a loosened assertion, a skipped test, a lowered coverage gate or an allow-fail CI step, offline and without tokens.</p></article><article><h3><a href="https://brian.biz/blog/ai-agents-verify/" target="_blank" rel="noopener" data-track="weekly-link">An AI agent said the code was verified. The evidence said otherwise</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/7ea8d672f28ccb5b" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Agent B approved the change, then Agent A edited one more file before shipping, so the review described code that never shipped.</p></article><article><h3><a href="https://github.com/globalmpc/backendskills" target="_blank" rel="noopener" data-track="weekly-link">Show HN: Coding agent skills, tested on 15 backend tasks with hidden checks</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/772c78fed213df84" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">On 15 backend tasks with hidden checks, critical mistakes fell from 25 of 150 runs without the skills to 2 of 150 with them.</p></article><article><h3><a href="https://developer.microsoft.com/blog/do-ai-coding-agents-care-about-semver/" target="_blank" rel="noopener" data-track="weekly-link">Do AI coding agents care about SemVer or is it something for humans only?</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/298e8e99ab738dd7" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Microsoft expected coding agents to ignore version numbers during upgrades, and two models proved the team wrong across almost 1,000 runs.</p></article><article><h3><a href="https://deepmind.google/blog/introducing-alphaproof-code/" target="_blank" rel="noopener" data-track="weekly-link">Introducing AlphaProof Code: a breakthrough in verifying complex software at depth</a></h3><div class="art-meta"><span class="badge">google_deepmind_blog</span><a class="badge" href="/story/0e9fb0eb84f13acf" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">DeepMind&#x27;s agentic framework mathematically proved key security properties of the actual code behind the Signal protocol.</p></article><article><h3><a href="https://distdebug.com/" target="_blank" rel="noopener" data-track="weekly-link">DistDebug-Bench: Can LLM Agents Diagnose Bugs in Distributed Systems?</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/0218b1af8990e061" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">The benchmark gives agents 120 real failures from 11 production distributed systems and scores the diagnosis against human-labeled causal code, not the patch.</p></article><article><h3><a href="https://alignment.anthropic.com/2026/worse-together/" target="_blank" rel="noopener" data-track="weekly-link">Worse Together: How Performance Breaks Down in Multi-User Multi-Agent Teams</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/23e8ac3f97dad8c1" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">In four simulated environments, group outcomes were worse when each user delegated to their own agent than when one agent served everyone.</p></article><article><h3><a href="https://agenttrafficcop.com/blog/silent-agent-loop-cost-3k/" target="_blank" rel="noopener" data-track="weekly-link">A silent agent loop cost me $3k in API bills</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">max_retries fires only on errors, so a loop that keeps returning valid output looks like success to the framework and ran up a $3k bill.</p></article></div></section><section class="cat" id="agent-platform-plumbing"><h2>Agent Platform Plumbing <span class="count">8 items</span></h2><p class="cat-summary">Vendors filled in the infrastructure agents need to act with accountability: payment approval, a kill switch, naming, dependency pinning and sandboxes priced for idle time.</p><div class="articles"><article><h3><a href="https://openai.com/index/introducing-chatgpt-wallet" target="_blank" rel="noopener" data-track="weekly-link">Introducing ChatGPT Wallet</a></h3><div class="art-meta"><span class="badge">openai_blog</span><a class="badge" href="/story/7d4d71d056da0286" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">Agents in ChatGPT Work and Codex can now complete purchases with user approval and existing card protections.</p></article><article><h3><a href="https://openai.com/index/control-room" target="_blank" rel="noopener" data-track="weekly-link">Control Room: A central system to track and stop model workloads across our research infrastructure</a></h3><div class="art-meta"><span class="badge">openai_blog</span><a class="badge" href="/story/952d2516af2e9054" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">OpenAI&#x27;s central system tracks model workloads across its research infrastructure and can stop them rapidly when a safety or security concern arises.</p></article><article><h3><a href="https://blogs.nvidia.com/blog/open-source-openshell-infrastructure/" target="_blank" rel="noopener" data-track="weekly-link">NVIDIA Expands Open Source Commitment With OpenShell Donation and New AI Infrastructure</a></h3><div class="art-meta"><span class="badge">nvidia_blog</span><a class="badge" href="/story/8eec2e0e61665676" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">NVIDIA is contributing OpenShell, its open-source runtime for securing and governing autonomous agents, to the CNCF.</p></article><article><h3><a href="https://github.com/agentnameservice/ans" target="_blank" rel="noopener" data-track="weekly-link">Agent Name Service</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/905e59c6da797651" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">An open-source Go reference implementation of the IETF-draft Agent Name Service ships a registry, a transparency log and an offline verifier.</p></article><article><h3><a href="https://microsoft.github.io/apm/" target="_blank" rel="noopener" data-track="weekly-link">APM – A dependency manager for AI agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/6ca9cbc8faea0e06" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">One apm.yml declares a project&#x27;s skills, prompts, plugins and MCP servers, and a lockfile pins exact versions and content hashes across harnesses.</p></article><article><h3><a href="https://antonau.tech/posts/2026/11/agents-microvm-firecracker/" target="_blank" rel="noopener" data-track="weekly-link">Google Described Its Agent Sandbox. I Built One with Firecracker and Measured It</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/f88ba1bfaaff2950" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">A 2,200-line Go rebuild of Google&#x27;s microVM-per-session pattern measured about 3 MiB of host memory per idle fork and a 25 ms snapshot restore on bare metal.</p></article><article><h3><a href="https://modal.com/blog/sandbox-bursting" target="_blank" rel="noopener" data-track="weekly-link">Sandbox resourcing: burst, don&#x27;t reserve</a></h3><div class="art-meta"><span class="badge">modal_blog</span><span class="badge">Nov 12</span><a class="badge" href="/story/86cff174db20bc69" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">A typical Modal Sandbox spends more than half its life below 6% of peak CPU, which is the case for burst billing over fixed reservations.</p></article><article><h3><a href="https://www.databricks.com/blog/genie-genie-ontology-delivers-16-accuracy-less-half-tokens" target="_blank" rel="noopener" data-track="weekly-link">Genie with Genie Ontology Delivers 1.6× the Accuracy with Less than Half the Tokens</a></h3><div class="art-meta"><span class="badge">databricks_blog</span><a class="badge" href="/story/5c1d73757e56ca65" data-track="story-link">Details</a><button class="art-toggle-btn" type="button" aria-expanded="false">Expand</button></div><p class="art-summary">In a vendor-run benchmark built with Turing, Genie with Genie Ontology passed 91% of tasks against 45% and 58% for two frontier agents, using under half the tokens.</p></article></div></section><p class="weekly-close">The week, resolved into patterns</p><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Get next week’s recap by email.</strong><br><span class="muted">Plus the finishable daily brief every day.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="weekly_end" data-subscribe-inline>Get the email digest →</a></aside>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+          btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+
+      // Share this page: native share sheet when available, clipboard fallback.
+      // The canonical URL is the durable landing target, so shares keep working.
+      var share = document.querySelector('.menu-share');
+      if (share) {
+        share.addEventListener('click', function () {
+          var url = share.getAttribute('data-share-url') || location.href;
+          var title = share.getAttribute('data-share-title') || document.title;
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var done = function () {
+            var label = share.textContent;
+            share.textContent = '✓ Link copied';
+            share.classList.add('copied');
+            setTimeout(function () { share.textContent = label; share.classList.remove('copied'); }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done, function () {});
+          }
+        });
+      }
+    })();
+
+  const btnDetailed = document.getElementById('toggle-detailed');
+  const btnScan = document.getElementById('toggle-scan');
+  const recapEl = document.getElementById('recap');
+
+  if (btnDetailed && btnScan && recapEl) {
+    function setMode(mode) {
+      if (mode === 'scan') {
+        recapEl.classList.add('scan-mode');
+        btnScan.classList.add('active');
+        btnDetailed.classList.remove('active');
+        localStorage.setItem('weekly_view_mode', 'scan');
+      } else {
+        recapEl.classList.remove('scan-mode');
+        btnDetailed.classList.add('active');
+        btnScan.classList.remove('active');
+        localStorage.setItem('weekly_view_mode', 'detailed');
+      }
+    }
+
+    btnDetailed.addEventListener('click', () => setMode('detailed'));
+    btnScan.addEventListener('click', () => setMode('scan'));
+
+    const saved = localStorage.getItem('weekly_view_mode');
+    if (saved === 'scan') {
+      setMode('scan');
+    }
+  }
+
+  if (recapEl) {
+    recapEl.addEventListener('click', function (e) {
+      const btn = e.target.closest('.art-toggle-btn');
+      if (!btn) return;
+      const article = btn.closest('article');
+      if (!article) return;
+      const isExpanded = article.classList.toggle('expanded');
+      btn.textContent = isExpanded ? 'Collapse' : 'Expand';
+      btn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+    });
+  }
+
+  if (window.IntersectionObserver) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          document.querySelectorAll('.toc-links a').forEach(a => {
+            if (a.getAttribute('href') === '#' + id) {
+              a.classList.add('active');
+            } else {
+              a.classList.remove('active');
+            }
+          });
+        }
+      });
+    }, {
+      rootMargin: '-10% 0px -75% 0px'
+    });
+
+    document.querySelectorAll('section.cat').forEach(section => {
+      observer.observe(section);
+    });
+  }
+  </script>
+
+  <script src="/nav-updates.js?v=20261107-glitch-sweep" defer></script>
+
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>
