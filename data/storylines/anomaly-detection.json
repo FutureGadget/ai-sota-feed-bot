@@ -1,12 +1,12 @@
 {
  "slug": "anomaly-detection",
- "label": "Anomaly Detection",
- "item_count": 7,
- "day_count": 6,
+ "label": "Analysis Detection",
+ "item_count": 6,
+ "day_count": 5,
  "source_count": 5,
- "first_seen": "2026-10-22T16:03:47+00:00",
+ "first_seen": "2026-10-23T17:53:30+00:00",
  "last_updated": "2026-11-10T18:50:06+00:00",
- "generated_at": "2026-11-12T00:15:17.843192+00:00",
+ "generated_at": "2026-11-13T00:13:02.772238+00:00",
  "sources": [
   "arxiv_cs_ai",
   "arxiv_cs_cl",
@@ -15,21 +15,6 @@
   "hackernews_ai"
  ],
  "days": [
-  {
-   "date": "2026-10-22",
-   "items": [
-    {
-     "title": "MoG-VLM: Efficient Video Anomaly Detection through Motion-Guided Vision-Language Models",
-     "url": "http://arxiv.org/abs/2610.31478v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Vision-Language Models (VLMs) have shown strong potential for video anomaly detection, but dense frame-level inference makes them impractical for real-time deployment. Existing acceleration commonly relies on uniform...",
-     "sid": "10f91cbb4979cd0e",
-     "published": "2026-10-22T16:03:47+00:00",
-     "editor_note": "Uses motion guidance to cut the dense frame-level inference that makes VLM video anomaly detection impractical in real time."
-    }
-   ]
-  },
   {
    "date": "2026-10-23",
    "items": [
@@ -96,10 +81,10 @@
      "url": "http://arxiv.org/abs/2611.12871v1",
      "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Anomaly detection (AD) is a critical for trustworthy machine learning and scientific discovery. Existing methods typically define anomalies through local density, isolation heuristics, or distance from a fitted distri...",
+     "summary_1line": "Anomaly detection (AD) is a critical for trustworthy machine learning and scientific discovery. Existing methods typically define anomalies through local density, isolation heuristics, or distance from a fitted distribution, making them sensitive to neighborhood scale, partitioni",
      "sid": "79a0f00b03e27450",
      "published": "2026-11-09T18:56:15+00:00",
-     "editor_note": "Proposes a diversity-based (Vendi) anomaly score as an alternative to density, isolation and distance-from-distribution definitions."
+     "editor_note": "Proposes a Vendi-based anomaly score as an alternative to density, isolation and distance-from-distribution definitions."
     }
    ]
   },
@@ -121,19 +106,18 @@
   }
  ],
  "editorial": {
-  "tldr": "This thread is a label, not one event: seven unrelated items that share the word \"detection\". Late-October papers covered video, few-shot industrial inspection and deepfake detectors, and on Nov 9 LogCDM and Vendi Anomaly Scores moved the theme to log monitoring and a general-purpose anomaly score.",
+  "tldr": "This thread is a label, not one event: six unrelated items that share the word \"detection\". Late-October papers covered few-shot industrial inspection and deepfake detectors, and on Nov 9 LogCDM and Vendi Anomaly Scores moved the theme to log monitoring and a general-purpose anomaly score.",
   "stale": false,
   "whats_new": "A Nov 10 arXiv paper moves the thread from data anomalies to agent failures: a three-phase comparative study of how reliably evaluation frameworks detect failures in multi-tool enterprise analytics agents.",
   "why_it_matters": "Two engineering questions recur across the items: whether a detector is cheap enough to run where the data lives, and whether it can be trusted once deployed. The newest paper asks the second question of the eval frameworks that gate agent releases.",
-  "take_for_builders": "Read the agent evaluation comparison before you rely on a single eval framework to gate an analytics agent, and read LogCDM if your log anomaly detection needs GPU-hosted models today. The vision and deepfake papers only apply if you run those workloads.",
+  "take_for_builders": "Read the agent evaluation comparison before you rely on a single eval framework to gate an analytics agent, and read LogCDM if your log anomaly detection needs GPU-hosted models today. The inspection and deepfake papers only apply if you run those workloads.",
   "beats": [
    {
-    "kicker": "VIDEO + INSPECTION",
+    "kicker": "INSPECTION",
     "tone": "neutral",
-    "headline": "October papers trim the inference cost of vision anomaly detection",
-    "summary": "MoG-VLM uses motion cues to avoid dense frame-level VLM inference; Flownomaly models normality from a handful of defect-free images without tying inference to stored exemplars.",
+    "headline": "An October paper tackles few-shot industrial anomaly detection",
+    "summary": "Flownomaly models normality from a handful of defect-free images without tying inference to stored exemplars.",
     "sids": [
-     "10f91cbb4979cd0e",
      "ad09687688336a6f"
     ]
    },
@@ -151,7 +135,7 @@
     "kicker": "LOGS + SCORING",
     "tone": "neutral",
     "headline": "November papers target log monitoring and a new general-purpose anomaly score",
-    "summary": "LogCDM argues large pretrained log models are hard to deploy on monitoring hosts and offers an interpretable graph-drift alternative; Vendi Anomaly Scores redefines anomalies by diversity rather than density, isolation or distance.",
+    "summary": "LogCDM argues large pretrained log models are hard to deploy on monitoring hosts and offers an interpretable graph-drift alternative; Vendi Anomaly Scores proposes an alternative to density, isolation and distance definitions of an anomaly.",
     "sids": [
      "d1b93ef36fd4bf1f",
      "79a0f00b03e27450"
@@ -170,11 +154,10 @@
   "open_questions": [
    "Which evaluation framework in the Nov 10 comparison detects multi-tool agent failures most reliably, and are its scores stable across repeated runs?",
    "Does federated training measurably reduce Grad-CAM faithfulness in deepfake detectors compared with centralized training?",
-   "Does LogCDM match the detection accuracy of BERT-scale or 8B-parameter log models on standard log benchmarks while running CPU-only?",
+   "Does LogCDM match the detection accuracy of BERT-scale or 8B-parameter log models on standard log benchmarks without a GPU at inference time?",
    "Does Vendi Anomaly Scores hold up on high-dimensional embedding data such as LLM traces, or only on the benchmarks the paper reports?",
-   "Does MoG-VLM report end-to-end latency on real-time video, or only reduced frame counts?",
    "Do any of these papers release code an operator could run against production telemetry?"
   ],
-  "generated_at": "2026-11-12T00:13:57+00:00"
+  "generated_at": "2026-11-13T00:12:09Z"
  }
 }

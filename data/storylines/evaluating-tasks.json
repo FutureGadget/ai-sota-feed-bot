@@ -1,307 +1,34 @@
 {
  "slug": "evaluating-tasks",
- "label": "Large Language",
- "item_count": 82,
- "day_count": 19,
- "source_count": 12,
- "first_seen": "2026-10-22T00:44:58+00:00",
- "last_updated": "2026-11-11T14:28:00+00:00",
- "generated_at": "2026-11-12T00:15:17.843192+00:00",
+ "label": "Reasoning Multimodal",
+ "item_count": 15,
+ "day_count": 9,
+ "source_count": 6,
+ "first_seen": "2026-10-23T10:43:41+00:00",
+ "last_updated": "2026-11-12T01:51:05+00:00",
+ "generated_at": "2026-11-13T00:13:02.772238+00:00",
  "sources": [
-  "anthropic_research",
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
   "arxiv_cs_cl",
   "arxiv_cs_lg",
   "arxiv_llm_reliability",
-  "hackernews_ai",
-  "huggingface_blog",
-  "infoq_ai_ml",
-  "langchain_blog",
-  "search_cn_open_weight_labs",
-  "vllm_blog"
+  "hackernews_ai"
  ],
  "days": [
-  {
-   "date": "2026-10-22",
-   "items": [
-    {
-     "title": "DeepSeek vs Mistral Large 4 vs Cohere: 9x Price Gap [2026]",
-     "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPN1hlSUJENkV6eFRCbEVzMl8zU3p4YjBTQ1dra0RTU2QyWnh3ZlVYZDB6cUNqdXNtUjFDZFZNYkpIVy1DV0F6S0tNdXpFZ3BkMWZLYXZaZ3VOUkczanNSS2RDUkZYWmhqUVZwRXhPaHB5LTc1dDVRM3IxSjBGNnl4djlEV2NCeV9uVWh5UWN5VQ?oc=5",
-     "source": "search_cn_open_weight_labs",
-     "type": "news",
-     "summary_1line": "DeepSeek vs Mistral Large 4 vs Cohere: 9x Price Gap [2026] tech-insider.org",
-     "sid": "590975aa217085b7",
-     "published": "2026-10-22T00:44:58+00:00",
-     "editor_note": "A price comparison of DeepSeek, Mistral Large 4 and Cohere headlining a 9x gap."
-    },
-    {
-     "title": "Spectral Smoothing and Spiking Perturbations Reconfigure Capability Profiles and Selective Task Performance in Large Language Models",
-     "url": "http://arxiv.org/abs/2610.30676v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Singular-value spectra encode important structure in transformer feed-forward projections, yet their causal role in downstream behavior remains underexplored. We study post-hoc spectral smoothing and spiking intervent...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "8debe4581e047c88",
-     "published": "2026-10-22T03:42:07+00:00",
-     "editor_note": "Side paper: editing feed-forward singular-value spectra shifts which tasks a model does well."
-    },
-    {
-     "title": "LLM Multi-Agent Systems Are Vulnerable to Herding and Runaway Cascades",
-     "url": "http://arxiv.org/abs/2610.30769v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Large language models (LLMs) increasingly operate in multi-agent systems where they collaborate by responding to others' choices, creating endogenous feedback loops with vulnerability to social influence, herding beha...",
-     "why_it_matters": "Matches feed focus: agent, evaluation.",
-     "sid": "f2df794e6fc1e504",
-     "published": "2026-10-22T05:42:55+00:00",
-     "editor_note": "Names a multi-agent failure mode: agents herding on each other's choices into runaway cascades."
-    },
-    {
-     "title": "A framework for evaluating agentic AI systems",
-     "url": "https://deepsense.ai/blog/your-agent-passed-the-eval-should-you-ship-it",
-     "source": "hackernews_ai",
-     "type": "news",
-     "summary_1line": "A framework for evaluating agentic AI systems",
-     "why_it_matters": "Matches feed focus: agentic, eval.",
-     "sid": "520159e6ebe00b0f",
-     "published": "2026-10-22T07:32:51+00:00",
-     "editor_note": "A Hacker News pointer to a framework for evaluating agentic systems."
-    },
-    {
-     "title": "ReflectPO: Reflection-Guided Policy Optimization for Long-Horizon LLM Agents",
-     "url": "http://arxiv.org/abs/2610.30933v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "With external tools, large language models (LLMs) can tackle complex tasks through sustained environmental interaction. LLM-based agents are therefore increasingly used to tackle complex long-horizon tasks in real-wor...",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "9cbcaf295333969d",
-     "published": "2026-10-22T08:54:24+00:00",
-     "editor_note": "ReflectPO uses reflection to guide policy optimization for long-horizon LLM agents."
-    },
-    {
-     "title": "Multi-Tool Selection for Robotic Systems: Comparing Semantic Retrieval and LLM",
-     "url": "http://arxiv.org/abs/2610.31013v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Natural-language interfaces allow users to command robotic systems without interacting directly with mission planners or robotics middleware. Their reliable use depends on robot tool routing, defined here as the selec...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "99b3c1ea8994d761",
-     "published": "2026-10-22T09:48:18+00:00",
-     "editor_note": "Compares semantic retrieval against an LLM for routing commands to robot tools."
-    },
-    {
-     "title": "Automating Feature Flag Cleanup at Scale with Multi-Agent LLM Systems: An Industrial Experience at DoorDash",
-     "url": "http://arxiv.org/abs/2610.31351v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Feature flags are runtime configuration mechanisms used for gradual feature rollouts, experimentation, and kill switches. Once a feature is fully rolled out, the flag and its gated code become technical debt and can i...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "04d4d0197a10f579",
-     "published": "2026-10-22T14:32:23+00:00",
-     "editor_note": "An industrial case: DoorDash uses multi-agent LLMs to clean up stale feature flags."
-    },
-    {
-     "title": "Parameter-Efficient Adaptation of Large Language Models to a Low-Resource Agglutinative Language: A Corpus, Datasets, and a Reproducible Benchmark for the Bashkir Language",
-     "url": "http://arxiv.org/abs/2610.31397v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Bashkir is a low-resource agglutinative language written in Cyrillic and remains poorly represented in modern LLMs. We present an open resource suite and a systematic benchmark of adaptation methods: the Bashkir Web C...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "f07fa8132755e14c",
-     "published": "2026-10-22T14:59:55+00:00",
-     "editor_note": "Side paper: a corpus and reproducible adaptation benchmark for the low-resource Bashkir language."
-    },
-    {
-     "title": "An Empirical Study of Recent Large Language Models for Knowledge Graph to Text Generation on Standard Benchmarks",
-     "url": "http://arxiv.org/abs/2610.31529v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Knowledge graph-to-text (KG-to-text) generation verbalizes a set of knowledge graph triples into fluent natural language. While fine-tuned encoder-decoder models have long been the standard approach, recent LLMs are b...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "c888971c48a268c3",
-     "published": "2026-10-22T16:36:35+00:00",
-     "editor_note": "Side study of recent LLMs on standard knowledge-graph-to-text benchmarks."
-    },
-    {
-     "title": "Social-HUMINT: An LLM-Augmented Unified Framework for Measuring Social Media Exposure",
-     "url": "http://arxiv.org/abs/2610.31573v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "In the post-API landscape, social-media profiling has become inexpensive and automated: Large Language Models (LLMs) can extract structured information from unstructured content and deduce attributes users never discl...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "4d53557cac2f8289",
-     "published": "2026-10-22T17:13:46+00:00",
-     "editor_note": "Side paper on measuring social-media exposure to LLM profiling, not agent evaluation."
-    }
-   ]
-  },
   {
    "date": "2026-10-23",
    "items": [
     {
-     "title": "SOPO: Socratic Guided Policy Optimization for Span-Level Hallucination Detection",
-     "url": "http://arxiv.org/abs/2610.32212v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Large Language Models (LLMs) have gained widespread adoption in various natural language processing tasks, but suffer from hallucination issues where they generate unfaithful or inconsistent content. While Reinforceme...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "78e0961a0062764b",
-     "published": "2026-10-23T06:08:17+00:00",
-     "editor_note": "Policy optimization applied to span-level hallucination detection."
-    },
-    {
-     "title": "Can LLM Annotators Match Human Consistency? Benchmarking Human Agreement and Optimizing Multi-Agent with Contrastive Knowledge",
-     "url": "http://arxiv.org/abs/2610.32415v1",
+     "title": "Beyond Post-Hoc Rewards: Privileged Reasoning Exploration for Multimodal Embeddings",
+     "url": "http://arxiv.org/abs/2610.32474v1",
      "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "LLM-based annotation has advanced rapidly, yet existing benchmarks remain misaligned with real-world practice. Actual annotation often involves lengthy, task-specific guidelines, and different annotators may produce d...",
-     "why_it_matters": "Matches feed focus: agent, evaluation.",
-     "sid": "cc54f78af820ba5f",
-     "published": "2026-10-23T09:43:38+00:00",
-     "editor_note": "Benchmarks LLM annotators against human agreement under long, task-specific guidelines."
-    },
-    {
-     "title": "Reimagining Enterprise RAG for Multi-Agent Systems: A Knowledge Layer That Organizes Before It Retrieves",
-     "url": "http://arxiv.org/abs/2610.32851v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "Enterprises are deploying agentic AI across the software development lifecycle, and they need the behavioral logic of the systems they act on, not stakeholder documentation. A seven-agent reverse-engineering pipeline...",
-     "why_it_matters": "Matches feed focus: agentic, eval.",
-     "sid": "0f68e5b7b820e9e8",
-     "published": "2026-10-23T16:21:56+00:00",
-     "editor_note": "Proposes a knowledge layer that organizes enterprise context before multi-agent retrieval."
-    },
-    {
-     "title": "Context Engineering (Agent Memory) for AI Agents Starts with Retrieval",
-     "url": "https://www.langchain.com/blog/context-engineering-starts-with-retrieval",
-     "source": "langchain_blog",
-     "type": "news",
-     "summary_1line": "Agents waste time and context on clumsy searches, oversized results and stale data. Learn the retrieval techniques LangChain's Deep Agents harness uses to get the right context in.",
-     "why_it_matters": "Matches feed focus: agent, harness, eval.",
-     "sid": "b0133c74d1515b7b",
-     "published": "2026-10-23T17:00:00+00:00",
-     "editor_note": "LangChain describes the retrieval techniques its Deep Agents harness uses to avoid oversized results and stale data."
-    }
-   ]
-  },
-  {
-   "date": "2026-10-25",
-   "items": [
-    {
-     "title": "Continual Learning Exam: Benchmarking Long-Horizon RSI and Experiential Learning in LLM Agents",
-     "url": "http://arxiv.org/abs/2610.33956v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Continual learning is the ability of LLM agents to improve over time by acquiring, refining, and applying knowledge from experience while retaining useful prior knowledge. It is essential for agents learning over long...",
-     "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
-     "sid": "55edc2615764e1b5",
-     "published": "2026-10-25T00:00:25+00:00",
-     "editor_note": "Benchmark for continual learning from experience in LLM agents."
-    },
-    {
-     "title": "EvolveMAS: A Unified Self-Evolution Framework for Decentralized Multi-Agent Systems",
-     "url": "http://arxiv.org/abs/2610.34450v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Decentralized multi-agent systems (MAS) enable large language model agents to interact without centralized control. Agents need to adapt to other agents at test time and reuse accumulated experience to refine their in...",
-     "why_it_matters": "Matches feed focus: agent, evaluation.",
-     "sid": "378efdb4d515dcd8",
-     "published": "2026-10-25T17:09:49+00:00",
-     "editor_note": "Self-evolution framework for decentralized multi-agent systems."
-    }
-   ]
-  },
-  {
-   "date": "2026-10-26",
-   "items": [
-    {
-     "title": "CEPO: A General Framework for Improving Prompt Optimization in Multi-Agent Systems",
-     "url": "http://arxiv.org/abs/2610.34722v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Multi-agent systems (MAS) require both effective coordination and specialized task execution. Existing prompt optimization approaches typically couple these functions within agent-specific prompts. We introduce Coordi...",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "7c1fed0d11e9b516",
-     "published": "2026-10-26T02:19:53+00:00",
-     "editor_note": "Separates coordination from task execution in multi-agent prompt optimization."
-    },
-    {
-     "title": "Multiscale Policy Optimization for Long-Horizon LLM Agents",
-     "url": "http://arxiv.org/abs/2610.35013v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Long-horizon LLM agents interact with their environments through complete assistant turns while generating each action token by token. We observe that critic values vary primarily across turns, motivating optimization...",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "500b1aba48043738",
-     "published": "2026-10-26T08:22:11+00:00",
-     "editor_note": "Multiscale policy optimization based on how critic values vary across turns."
-    },
-    {
-     "title": "LongSearchEval: Evaluating Long-Horizon Web Search Capabilities of Large Language Models via a Trajectory-Aware Agent Framework with Failure-Node Localization",
-     "url": "http://arxiv.org/abs/2610.35150v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Long-horizon web search requires LLM-based agents to integrate information across web pages through extended interactions under task-specific constraints. Evaluating this capability is important not only for measuring...",
-     "why_it_matters": "Matches feed focus: agent, evaluation.",
-     "sid": "5f97c21b490b1ce9",
-     "published": "2026-10-26T10:15:38+00:00",
-     "editor_note": "Long-horizon web-search evaluation with failure-node localization."
-    },
-    {
-     "title": "CANS: Capability-Preserving Neuron Steering for Large Language Models",
-     "url": "http://arxiv.org/abs/2610.35530v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Activation steering offers training-free and dynamic control of target behaviors in large language models, but existing methods can impair general capabilities and require domain-specific intervention designs. We intr...",
+     "summary_1line": "Advances in Multimodal Large Language Models (MLLMs) have driven substantial progress in multimodal embeddings. Recent methods exploit generative capabilities by augmenting embedded inputs with self-generated reasonin...",
      "why_it_matters": "Matches feed focus: eval.",
-     "sid": "d5cd3db9b5f4a99b",
-     "published": "2026-10-26T14:45:23+00:00",
-     "editor_note": "Side paper: neuron-level activation steering that aims to preserve general capabilities."
-    },
-    {
-     "title": "FOCUS: Active Critic Learning for Long-Horizon Language Model Agents",
-     "url": "http://arxiv.org/abs/2610.35801v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Sparse outcome rewards make it difficult for long-horizon language-model agents to assign credit to earlier actions. Learned critics provide value estimates for intermediate states, but these estimates can be inaccura...",
-     "why_it_matters": "Matches feed focus: agentic.",
-     "sid": "3ca73f33ea96bd6a",
-     "published": "2026-10-26T17:34:47+00:00",
-     "editor_note": "Active critic learning for credit assignment under sparse outcome rewards."
-    },
-    {
-     "title": "Reva: Real-Time Vulnerability Detection through Contextual Probing of Large Language Models",
-     "url": "http://arxiv.org/abs/2610.35829v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "A vulnerability costs more to fix the later it is discovered. As coding agents generate code faster than developers can review it, software needs a first line of defense screening each new function in real time. LLM a...",
-     "why_it_matters": "Matches feed focus: agentic.",
-     "sid": "a2f964aa6fcbf7ea",
-     "published": "2026-10-26T17:50:09+00:00",
-     "editor_note": "Side paper: real-time screening of each new function for vulnerabilities as coding agents outpace review."
-    },
-    {
-     "title": "Profiling a Frontier Agent with EBench: From Direct Control to Harness with Policy",
-     "url": "http://arxiv.org/abs/2610.35832v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "Frontier multimodal large language models (MLLMs) can control robots without robot-specific training, but how their capabilities compare and interact with post-trained vision-language-action (VLA) and world action mod...",
-     "why_it_matters": "Matches feed focus: agent, harness, eval.",
-     "sid": "6f21f6e8dedb00a0",
-     "published": "2026-10-26T17:51:02+00:00",
-     "editor_note": "EBench profiles a frontier model controlling robots directly versus through a harness."
-    },
-    {
-     "title": "Work Agents: Systems, Capabilities, and Optimization",
-     "url": "http://arxiv.org/abs/2610.35845v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "As foundation models evolve from information generation to digital work execution, agents are increasingly capable of completing complex tasks across tools, applications, and workflows. However, existing research lack...",
-     "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
-     "sid": "594cded7cf1742be",
-     "published": "2026-10-26T17:56:21+00:00",
-     "editor_note": "A survey framing work agents by system design, capabilities and optimization."
+     "sid": "23a2048e82ce2894",
+     "published": "2026-10-23T10:43:41+00:00",
+     "editor_note": "Opens the cluster: explores reasoning during training of multimodal embeddings instead of rewarding it after the fact."
     }
    ]
   },
@@ -309,195 +36,47 @@
    "date": "2026-10-27",
    "items": [
     {
-     "title": "Remembering Is Not Enough: Refining Memories and Learning When to Use Them in Multi-Agent Systems",
-     "url": "http://arxiv.org/abs/2610.36652v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Memory helps LLM-based multi-agent systems reuse experience, but stored advice can be flawed or applied in the wrong situation. Team-level success or failure alone cannot reliably show whether a memory needs correctio...",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "7d1c303b6572b6ff",
-     "published": "2026-10-27T05:12:46+00:00",
-     "editor_note": "Argues stored team memory must be refined and selectively applied, not just recalled."
-    },
-    {
-     "title": "CAMR: Compatibility-Aware Memory Replay for Continual Learning in Large Language Models",
-     "url": "http://arxiv.org/abs/2610.36734v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Continual learning requires large language models to acquire new knowledge and capabilities while retaining what they have learned. Fine-tuning and replay support acquisition and retention, but deciding whether incomi...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "200271de2a2f52aa",
-     "published": "2026-10-27T06:52:54+00:00",
-     "editor_note": "Side paper: memory replay for continual learning at the model level, not agent memory."
-    },
-    {
-     "title": "Your Policy Is Secretly a Harness: The Decision Geometry of Agent Interfaces",
-     "url": "http://arxiv.org/abs/2610.37255v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Language model agents are post-trained and deployed through a harness, the prompts, tools, and control logic that present a task to the model and execute its outputs. Harnesses are often revised and judged by how an a...",
-     "why_it_matters": "Matches feed focus: agent, harness.",
-     "sid": "9c6961c015612e8b",
-     "published": "2026-10-27T13:52:25+00:00",
-     "editor_note": "Treats the harness as part of the policy, so harness changes shift agent behavior."
-    }
-   ]
-  },
-  {
-   "date": "2026-10-28",
-   "items": [
-    {
-     "title": "CALM: Conflict-Aware Lifecycle Memory Governance for Long-Horizon Language Agents",
-     "url": "http://arxiv.org/abs/2610.38573v1",
+     "title": "Who Knows What - and What Does It Support? Perspective-Bounded Evidence Calibration for Multimodal Theory of Mind",
+     "url": "http://arxiv.org/abs/2610.36824v1",
      "source": "arxiv_cs_ai",
      "type": "paper",
-     "summary_1line": "A memory can be outdated for present-day reasoning yet indispensable for reconstructing the past. Relevance-based retrieval overlooks this tension: semantic relevance, evidence-grounded validity, and query-specific el...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "423c688c0621c177",
-     "published": "2026-10-28T10:06:57+00:00",
-     "editor_note": "Governs outdated versus still-needed memories for long-horizon agents."
+     "summary_1line": "Theory of Mind (ToM), the ability to infer others' beliefs, goals, and intentions, is a cornerstone of social intelligence. Multimodal ToM requires inferring an agent's mental state from evidence that is available to...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "afb43d44186a1777",
+     "published": "2026-10-27T08:23:46+00:00",
+     "editor_note": "Calibrates multimodal theory-of-mind inference to the evidence each observer can actually see."
     },
     {
-     "title": "How Deterministic SAST and AI Security Agents Divide the Work: Coverage, Harness Policy and Cost in Snyk VulnBench 2.0",
-     "url": "http://arxiv.org/abs/2610.38617v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "We ask what AI coding agents and AI security harnesses find that deterministic static application security testing (SAST) does not, and what they miss that SAST catches. VulnBench 2.0 is a benchmark of 108 hand-curate...",
-     "why_it_matters": "Matches feed focus: agent, harness, eval.",
-     "sid": "d24c53b475096517",
-     "published": "2026-10-28T10:38:43+00:00",
-     "editor_note": "Snyk VulnBench 2.0 measures what AI security agents find that deterministic SAST misses, and the reverse."
-    },
-    {
-     "title": "Gold vs.~Translation: Are We Measuring Language, Knowledge, or Locality in Translated Benchmarks?",
-     "url": "http://arxiv.org/abs/2610.38788v1",
+     "title": "Clearing the FoG: Training KG Agents to Retrieve the Evidence Behind Their Answers",
+     "url": "http://arxiv.org/abs/2610.37405v1",
      "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Translated versions of English-origin benchmarks such as MMLU are widely used to evaluate large language models in non-English languages, yet it remains unclear whether they measure the same constructs as natively created benchmarks. We frame this as a proxy validity question and",
-     "sid": "e826ccda9d048b84",
-     "published": "2026-10-28T19:56:32+00:00",
-     "editor_note": "Asks whether translated benchmarks such as MMLU measure the same constructs as natively written ones."
-    },
-    {
-     "title": "Trustworthy Distributed Machine Learning in Cloud-Edge-IoT Systems: A Heterogeneity-Aware Survey of Security, Privacy, and Robustness",
-     "url": "http://arxiv.org/abs/2610.38793v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Distributed machine learning (DML), including conventional distributed training and federated learning (FL), enables collaborative model development across cloud-edge-IoT systems without fully centralizing raw data. H...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "cd86ac953a59e37c",
-     "published": "2026-10-28T20:00:47+00:00",
-     "editor_note": "Side survey on trustworthy distributed ML across cloud-edge-IoT, outside the agent thread."
-    },
-    {
-     "title": "Auditable Belief Updates as a Missing Safety Layer for LLM-Powered Multi-Agent Systems",
-     "url": "http://arxiv.org/abs/2610.38869v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Large Language Models (LLMs) are increasingly being used as cognitive interfaces that shape how users interpret evidence, communicate, and make decisions. As deployed systems become more multimodal, tool-using, and mu...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "e13096c02b9a44d7",
-     "published": "2026-10-28T20:40:33+00:00",
-     "editor_note": "Proposes auditable belief updates as a safety layer for multi-agent systems."
-    },
-    {
-     "title": "MAS-Loop: Beyond One-Shot Orchestration towards Self-Evolving Multi-Agent Systems",
-     "url": "http://arxiv.org/abs/2610.38946v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Training-time multi-agent system (MAS) design seeks to learn reusable orchestration policies, yet prevailing approaches remain largely one-shot: an Orchestrator generates a system but only observes and learns from its...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "c2fbad095b72bbaa",
-     "published": "2026-10-28T21:32:05+00:00",
-     "editor_note": "Moves orchestrator training beyond one-shot system generation."
-    }
-   ]
-  },
-  {
-   "date": "2026-10-29",
-   "items": [
-    {
-     "title": "Day 0 support for Mistral Large 4 on vLLM",
-     "url": "https://vllm.ai/blog/2026-10-29-mistral-large-4",
-     "source": "vllm_blog",
-     "type": "news",
-     "summary_1line": "Day-0 vLLM support for Mistral Large 4 with sparse MLA, cross-layer KV sharing, DSpark speculative decoding, DCP/PCP long context and NIXL P/D on NVIDIA Blackwell.",
-     "sid": "37f6c0c263213efd",
-     "published": "2026-10-29T00:00:00+00:00",
-     "editor_note": "vLLM ships day-0 serving support for Mistral Large 4."
-    },
-    {
-     "title": "Welcome Le Chonk: Mistral Large 4 on Hugging Face",
-     "url": "https://huggingface.co/blog/mistral-large4",
-     "source": "huggingface_blog",
-     "type": "research",
-     "summary_1line": "Welcome Le Chonk: Mistral Large 4 on Hugging Face",
-     "sid": "b6b30743068c2627",
-     "published": "2026-10-29T00:00:00+00:00",
-     "editor_note": "Hugging Face announces Mistral Large 4 on the Hub."
-    },
-    {
-     "title": "Goal-Aware Dynamic Multi-Agent Collaboration for Long-Horizon Tasks",
-     "url": "http://arxiv.org/abs/2610.39193v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "LLM-based agents are increasingly used to complete complex, long-horizon tasks without human intervention. To make progress toward the task goal, agents need to perform different duties, such as planning and verificat...",
+     "summary_1line": "Large language models (LLMs) can answer many factual questions correctly, but a correct answer is not necessarily a supported one. For an LLM agent, a knowledge graph (KG) plays two roles: as a source of answers, it s...",
      "why_it_matters": "Matches feed focus: agent.",
-     "sid": "0b7565240a3894fa",
-     "published": "2026-10-29T02:15:35+00:00",
-     "editor_note": "Goal-aware dynamic role assignment for long-horizon multi-agent tasks."
+     "sid": "197852ee4cb6ede2",
+     "published": "2026-10-27T15:20:37+00:00",
+     "editor_note": "Trains knowledge-graph agents to retrieve the evidence behind an answer, since a correct answer may be unsupported."
     },
     {
-     "title": "Incentivizing Self-Learning in Large Language Models via Reinforcement Learning",
-     "url": "http://arxiv.org/abs/2610.39671v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Large language models (LLMs) draw on parametric knowledge and retrieval-augmented generation (RAG) to solve knowledge-intensive tasks. Yet problem solving in unfamiliar domains calls for tightly coupled knowledge acquisition and reasoning, beyond factual retrieval and aggregation",
-     "sid": "d571e973b6e6916d",
-     "published": "2026-10-29T09:21:26+00:00",
-     "editor_note": "Uses reinforcement learning to reward a model for acquiring knowledge in unfamiliar domains."
-    },
-    {
-     "title": "Locating and Closing Information Gaps in Multi-Agent Systems",
-     "url": "http://arxiv.org/abs/2610.40186v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Multi-step Web tasks often require several LLM agents to gather and combine evidence. The communication graph of a fixed workflow restricts which agents can read each other's outputs: evidence retrieved by one agent m...",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "a23623abdfcb0e52",
-     "published": "2026-10-29T14:45:43+00:00",
-     "editor_note": "Finds and closes information gaps created by fixed multi-agent communication graphs."
-    },
-    {
-     "title": "A Unified Hessian-Guided Framework for Post-Training Quantization",
-     "url": "http://arxiv.org/abs/2610.40345v1",
+     "title": "When Visual Evidence Is Insufficient: How Instructions, Post-Training, and Internal Activations Shape Refusal in Multimodal Language Models",
+     "url": "http://arxiv.org/abs/2610.37430v1",
      "source": "arxiv_cs_lg",
      "type": "paper",
-     "summary_1line": "Low-bit quantization enables efficient deployment of large language models by reducing memory footprint and computational cost. Achieving high accuracy at low precision requires selecting quantization ranges, linear transformations, and weight rounding decisions. Existing approac",
-     "sid": "05c46a37b489922f",
-     "published": "2026-10-29T16:06:01+00:00",
-     "editor_note": "Side paper on post-training quantization, not agent evaluation."
+     "summary_1line": "For reliable deployment, multimodal large language models (MLLMs) should recognize when an image provides insufficient evidence to answer a question and withhold unsupported answers. Yet refusal alone is not necessari...",
+     "sid": "1a8c5544b9b567ca",
+     "published": "2026-10-27T15:42:20+00:00",
+     "editor_note": "Studies how instructions, post-training and activations shape refusal when an image gives too little evidence."
     },
     {
-     "title": "FIRME: Registry-Anchored Memory Graphs for Evolving, Heterogeneous Investor Knowledge",
-     "url": "http://arxiv.org/abs/2610.40482v1",
-     "source": "arxiv_cs_cl",
+     "title": "PerceptRL: Making Visual Perception Rewardable in MLLMs from Answers to Interactions",
+     "url": "http://arxiv.org/abs/2610.37471v1",
+     "source": "arxiv_agent_systems_research",
      "type": "paper",
-     "summary_1line": "Financial AI workflows that reuse investor knowledge need persistent memory that integrates observations across sources and periods without losing identity or provenance. In a knowledge graph, recurring observations may use different surface forms, fragmenting relationship histor",
-     "sid": "e519641640234319",
-     "published": "2026-10-29T17:13:45+00:00",
-     "editor_note": "Registry-anchored memory graphs that keep identity and provenance across sources in financial workflows."
-    },
-    {
-     "title": "Retrieval as Traversal: Value-Indexed Memory for Stateful Long-Context Agents",
-     "url": "http://arxiv.org/abs/2610.40545v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "Long-context models repeatedly solve closely related retrieval problems. Attention or global retrieval can retain large stores, but each forward pass again searches for what matters. Recurrent compression avoids this...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "29a5435531059481",
-     "published": "2026-10-29T17:37:21+00:00",
-     "editor_note": "Value-indexed memory that treats retrieval as traversal for stateful long-context agents."
+     "summary_1line": "Fine-grained visual perception remains a bottleneck during post-training of multimodal large language models (MLLMs), as perceptual errors can constrain gains from reasoning-focused optimization. Although image-captio...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "e379c9bd87f9ef79",
+     "published": "2026-10-27T16:04:10+00:00",
+     "editor_note": "PerceptRL makes fine-grained visual perception a rewardable target in MLLM post-training."
     }
    ]
   },
@@ -505,134 +84,37 @@
    "date": "2026-10-30",
    "items": [
     {
-     "title": "ImplicitHop: Evaluating knowledge integration across context and memory",
-     "url": "http://arxiv.org/abs/2610.41169v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "The ability to integrate new information and deduce its consequences is central to learning, understanding, and reasoning in large language models (LLMs). Whether information arrives during training or in-context, mod...",
-     "why_it_matters": "Matches feed focus: agent, evaluation.",
-     "sid": "1d7852cb09b3031f",
-     "published": "2026-10-30T02:44:51+00:00",
-     "editor_note": "ImplicitHop evaluates whether models integrate knowledge across context and memory."
-    },
-    {
-     "title": "Context as Infrastructure: Knowledge Compilation for Retrieval in Agentic Systems with Harnesses",
-     "url": "http://arxiv.org/abs/2610.41172v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Retrieval-augmented generation is becoming agentic. A search harness writes queries, reads results, reformulates, and decides when to stop. This largely solves accuracy: a harness with only BM25/grep and MiniMax M3 an...",
-     "why_it_matters": "Matches feed focus: agentic, harness, eval.",
-     "sid": "ce941c554e9fce8e",
-     "published": "2026-10-30T02:48:37+00:00",
-     "editor_note": "Argues agentic search harnesses shift the retrieval problem toward compiling knowledge ahead of time."
-    },
-    {
-     "title": "Early Stopping in Large Reasoning Models: A Survey and Empirical Audit of Efficiency and Reliability",
-     "url": "http://arxiv.org/abs/2611.00166v1",
+     "title": "When AI Investigators Cannot Trust Their Tools: Conflict-Aware Evidence Verification for Cyber Threat Investigation",
+     "url": "http://arxiv.org/abs/2610.41191v1",
      "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Large reasoning models can improve accuracy by generating longer reasoning traces, but some of this computation may be unnecessary. Early-stopping methods aim to stop once enough reasoning is available to answer. Eval...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "fdfc122cd97a630f",
-     "published": "2026-10-30T11:39:08+00:00",
-     "editor_note": "Side survey and audit of early-stopping methods for reasoning models."
+     "summary_1line": "LLM agents increasingly triage security alerts by combining the outputs of several detection tools, implicitly treating those tools as trustworthy. Unlike prior work on conflicts between a model's knowledge and its co...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "3cfb1d63c07d8098",
+     "published": "2026-10-30T03:13:59+00:00",
+     "editor_note": "Security angle: alert-triage agents that assume their detection tools are trustworthy get a conflict-aware verification step."
     },
     {
-     "title": "TSBPO: Tree-Structured Branching for Policy Optimization in Interactive Language Agents",
-     "url": "http://arxiv.org/abs/2610.41697v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Training interactive language agents from terminal outcomes poses three coupled problems: which task and state continuations to sample, how to assign delayed feedback to decisions, and how to aggregate token losses fo...",
-     "why_it_matters": "Matches feed focus: agent, evaluation.",
-     "sid": "3e4010b903d1d7e9",
-     "published": "2026-10-30T13:04:05+00:00",
-     "editor_note": "Tree-structured branching to assign delayed feedback in interactive agents."
-    },
-    {
-     "title": "Reimagining Text-to-SQL: A Survey of Large Language Model Architectures and Strategies",
-     "url": "http://arxiv.org/abs/2611.00171v1",
+     "title": "Latent-Lens: Visual Perception in Small Language Models Through Latent Communication",
+     "url": "http://arxiv.org/abs/2610.41751v1",
      "source": "arxiv_agent_systems_research",
      "type": "paper",
-     "summary_1line": "Text-to-SQL systems translate natural language questions into executable SQL queries, democratizing access to relational data. Early approaches relied on handcrafted rules and template matching, while subsequent neura...",
-     "why_it_matters": "Matches feed focus: agentic, evaluation.",
-     "sid": "e46c1ab3f7ca9939",
-     "published": "2026-10-30T13:45:49+00:00",
-     "editor_note": "Side survey of LLM architectures and strategies for text-to-SQL."
-    },
-    {
-     "title": "Optimizing Stochastic Policy Geometry for Few-Step Flow Reinforcement Learning",
-     "url": "http://arxiv.org/abs/2610.41949v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Few-step flow models generate samples through a handful of large denoising transitions. Applying GRPO to such models requires introducing stochasticity into the denoising transitions, and when a single transition span...",
-     "sid": "65dc6916d3b352f1",
-     "published": "2026-10-30T16:05:17+00:00",
-     "editor_note": "Side paper on RL for few-step flow models, outside the agent thread."
-    },
-    {
-     "title": "Prune Gradually, Adapt Sparsely: Efficient Pruning of Large Language Models at Extreme Sparsity",
-     "url": "http://arxiv.org/abs/2610.41968v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "Weight pruning can reduce the storage and inference cost of large language models (LLMs), but preserving quality at high sparsity levels remains challenging. Existing methods face a quality-cost trade-off in this regi...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "a8a5f23cd8e10643",
-     "published": "2026-10-30T16:17:43+00:00",
-     "editor_note": "Side paper on pruning LLMs at extreme sparsity."
-    },
-    {
-     "title": "DAMI: Dual-Axis Memory Initialization for Enhanced Long-Context Retrieval in Gated Linear Attention",
-     "url": "http://arxiv.org/abs/2610.41994v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Linear attention scales linearly with sequence length, but its finite-state memory can limit long-context retrieval. In gated linear recurrences, memory retention depends on state decay, which is shaped jointly by gat...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "35220abd16206ae7",
-     "published": "2026-10-30T16:39:37+00:00",
-     "editor_note": "Side paper on memory initialization for long-context retrieval in gated linear attention."
-    },
-    {
-     "title": "From Lookups to Lessons: Turning Retrieved Knowledge into Parametric Memory",
-     "url": "http://arxiv.org/abs/2611.00450v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Retrieval-augmented generation (RAG) helps large language models (LLMs) answer factual questions beyond their training data, but it adds storage and inference costs. Distilling previously retrieved information into pa...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "0f8439521ab02185",
-     "published": "2026-10-30T23:05:50+00:00",
-     "editor_note": "Distills previously retrieved information into parametric memory to cut RAG storage and inference cost."
-    }
-   ]
-  },
-  {
-   "date": "2026-10-31",
-   "items": [
-    {
-     "title": "WeSearch: A Unified Model-Centric Retrieval Framework for WeChat Search",
-     "url": "http://arxiv.org/abs/2611.00530v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "We present WeSearch, a unified, model-centric retrieval framework for large-scale, continuously evolving content search. Prevailing methods assign documents fixed hierarchical Semantic IDs, implicitly assuming each do...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "96207d6b2522935e",
-     "published": "2026-10-31T01:35:20+00:00",
-     "editor_note": "Side paper on WeChat's retrieval framework, outside the agent thread."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-01",
-   "items": [
-    {
-     "title": "Is Your Long-Horizon Benchmark Really Deep? Measuring and Synthesizing Depth in Terminal Tasks",
-     "url": "http://arxiv.org/abs/2611.01927v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "Long-horizon terminal tasks are used to evaluate and train agents. Human-curated datasets are scarce, so many synthesis methods have emerged. They usually measure the length of a task by the turns a model needs to pas...",
+     "summary_1line": "Bridging independent vision-language models (VLMs) and small language models (SLMs) in a modular multi-agent system typically forces them to exchange information as discrete text, which creates a lossy bottleneck for...",
      "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "52a3c89c275c2670",
-     "published": "2026-11-01T14:05:27+00:00",
-     "editor_note": "Challenges turn count as a proxy for depth in long-horizon terminal benchmarks."
+     "sid": "abe1652e18273a1a",
+     "published": "2026-10-30T13:53:44+00:00",
+     "editor_note": "Replaces lossy text hand-offs between a vision model and a small language model with latent communication."
+    },
+    {
+     "title": "Latent Reasoning in Continuous Space for Unified Multimodal Models",
+     "url": "http://arxiv.org/abs/2610.42149v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Unified Multimodal Models (UMMs) achieve remarkable success on diverse multimodal understanding and generation tasks, yet they still struggle to effectively leverage language-based chain-of-thought reasoning for image...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "282f057baf2d5931",
+     "published": "2026-10-30T17:59:43+00:00",
+     "editor_note": "Moves chain-of-thought for unified multimodal models into continuous latent space."
     }
    ]
   },
@@ -640,36 +122,14 @@
    "date": "2026-11-02",
    "items": [
     {
-     "title": "Progress on provable inference for large language models",
-     "url": "https://www.anthropic.com/research/provable-inference",
-     "source": "anthropic_research",
-     "type": "research",
-     "summary_1line": "Sharing progress on a powerful type of cryptographic proof known as a zkSNARK, which is uniquely fit for provable inference.",
-     "sid": "43862ef771dfba65",
-     "published": "2026-11-02T00:00:00+00:00",
-     "editor_note": "Side item: Anthropic reports progress on zkSNARK proofs for provable inference."
-    },
-    {
-     "title": "Article: Systemic Approach to Memory, Knowledge, and Context in Agentic AI Architectures",
-     "url": "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-     "source": "infoq_ai_ml",
-     "type": "news",
-     "summary_1line": "The article argues that reliable agentic AI architecture depends on a context engine that selects, injects, compresses, and expires information before it reaches the model. It separates context, memory, and knowledge,...",
-     "why_it_matters": "Matches feed focus: agentic.",
-     "sid": "744a7a52285cfa40",
-     "published": "2026-11-02T11:00:00+00:00",
-     "editor_note": "InfoQ article separating context, memory and knowledge, with a context engine that selects, compresses and expires information."
-    },
-    {
-     "title": "An Axiomatic Framework for Reinforcement Learning in Open Multi-Agent Systems",
-     "url": "http://arxiv.org/abs/2611.03301v1",
-     "source": "arxiv_agent_systems_research",
+     "title": "MIRA: Reinforcing Multimodal Reasoning via Deceptive Contextual Augmentation",
+     "url": "http://arxiv.org/abs/2611.03087v1",
+     "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Open multi-agent systems, where only a subset of agents are controllable, are central to real-world domains such as smart grids, yet lack a principled foundation for reinforcement learning algorithm design. We study t...",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "bce25dc1c825a3e7",
-     "published": "2026-11-02T15:36:22+00:00",
-     "editor_note": "Axiomatic RL foundation for open multi-agent systems with partly controllable agents."
+     "summary_1line": "While Reinforcement Learning with Verifiable Rewards (RLVR) has significantly advanced multimodal reasoning, existing frameworks suffer from a critical \"perception-reasoning gap.\" Due to an over-reliance on seemingly relevant visual tokens, even minor perceptual perturbations can",
+     "sid": "526c07c3667e6cf7",
+     "published": "2026-11-02T13:09:45+00:00",
+     "editor_note": "MIRA targets the perception-reasoning gap in RLVR training with deceptive contextual augmentation."
     }
    ]
   },
@@ -677,26 +137,14 @@
    "date": "2026-11-03",
    "items": [
     {
-     "title": "Feeling of Knowing in Large Language Models",
-     "url": "http://arxiv.org/abs/2611.04834v1",
+     "title": "VIGOR: Visual Gain Ordering for Hallucination Mitigation in Multimodal Discrete Diffusion Language Models",
+     "url": "http://arxiv.org/abs/2611.05066v1",
      "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Post-training updates change what large language models (LLMs) can answer, but may leave their answerability judgments misaligned. We study this knowledge-judgment desynchronization through functional feeling of knowi...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "94da3bfcbd46a769",
-     "published": "2026-11-03T13:04:46+00:00",
-     "editor_note": "Side paper: post-training updates can leave a model's sense of what it can answer misaligned."
-    },
-    {
-     "title": "JHiMA-WebRL: A Joint Hierarchical Multi-Agent Reinforcement Learning Framework for Long-Horizon Web Tasks",
-     "url": "http://arxiv.org/abs/2611.05263v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Multimodal web agents have shown promising capabilities for interacting with websites through graphical user interfaces (GUIs), yet realistic web tasks often require long-horizon, multi-step planning that remains chal...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "08c314bb237b4b82",
-     "published": "2026-11-03T17:49:14+00:00",
-     "editor_note": "Hierarchical multi-agent RL for long-horizon web tasks."
+     "summary_1line": "Multimodal discrete diffusion language models (dLLMs) generate responses through iterative mask prediction and offer a promising alternative to autoregressive large vision-language models. However, they still suffer from hallucination, producing outputs that are plausible under l",
+     "sid": "57b08f9866a26766",
+     "published": "2026-11-03T15:28:11+00:00",
+     "editor_note": "Side paper: hallucination mitigation for multimodal discrete diffusion language models."
     }
    ]
   },
@@ -712,146 +160,12 @@
      "sid": "c43d3ff3aa20c41c",
      "published": "2026-11-04T08:48:07+00:00",
      "editor_note": "Side paper on unlearning cross-modal associations in multimodal reasoning models."
-    },
-    {
-     "title": "ArcRAG: Agentic Compositional Retrieval over Knowledge Graphs",
-     "url": "http://arxiv.org/abs/2611.06481v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Graph-based retrieval-augmented generation (GraphRAG) answers questions by retrieving over a knowledge graph built from a corpus. Yet retrieval strategies are designed around the structure their own construction pipel...",
-     "why_it_matters": "Matches feed focus: agentic, eval.",
-     "sid": "d4ec23da5e445584",
-     "published": "2026-11-04T13:20:51+00:00",
-     "editor_note": "ArcRAG has an agent compose retrieval strategies over a knowledge graph."
-    },
-    {
-     "title": "CRESiST: Self-Enhancing Explorative Policy Learning for Simultaneous Speech Translation",
-     "url": "http://arxiv.org/abs/2611.06501v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Simultaneous Speech Translation (SimulST) requires balancing translation quality and latency. While Large Language Models (LLMs) excel in offline translation, current LLM-based SimulST systems predominantly rely on pr...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "7ae1983bc20b4540",
-     "published": "2026-11-04T13:32:57+00:00",
-     "editor_note": "Side paper on simultaneous speech translation, outside the agent thread."
-    },
-    {
-     "title": "LifeVal: Evaluating AI Model Performance on Personalized Agentic Consumer Tasks",
-     "url": "http://arxiv.org/abs/2611.06687v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "We introduce LifeVal, a benchmark evaluating AI model performance on personalized agentic consumer tasks. LifeVal covers the most valuable life tasks that a personalized digital superassistant could automate, represen...",
-     "why_it_matters": "Matches feed focus: agentic, evaluation.",
-     "sid": "3b93b07bf2154e4f",
-     "published": "2026-11-04T15:55:20+00:00",
-     "editor_note": "LifeVal benchmarks personalized agentic consumer tasks."
-    },
-    {
-     "title": "Reasoning over Non-Parametric Memory in Multilingual LLMs: A Cognitive-Based Analysis of Relational Knowledge",
-     "url": "http://arxiv.org/abs/2611.06715v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Retrieval-augmented generation (RAG) assumes that language models can reason over relations stated in their context rather than fall back on associations memorized during pretraining. We study this evidence-conditione...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "63ff637171c98d2c",
-     "published": "2026-11-04T16:11:26+00:00",
-     "editor_note": "Tests whether multilingual LLMs reason over relations stated in context or fall back on memorized associations."
-    },
-    {
-     "title": "PromptOps: Iterative Prompt Optimization for LLM-as-a-Judge Systems",
-     "url": "http://arxiv.org/abs/2611.07123v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Large language models (LLMs) are increasingly used as automated judges for evaluating the behavior of chatbots and other AI systems. In deployment, however, their agreement with the intended human evaluation policy may degrade as user interactions and score distributions change.",
-     "sid": "c22d6852787690aa",
-     "published": "2026-11-04T20:38:52+00:00",
-     "editor_note": "Flags that LLM-as-a-judge agreement with human policy drifts in deployment."
-    },
-    {
-     "title": "τ-bench-LILT: Evaluating Conversational Agents on Realistic Multilingual Tool-Use Tasks",
-     "url": "http://arxiv.org/abs/2611.07203v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Frontier evaluations of tool-using conversational agents are conducted almost exclusively in English, leaving a critical gap for organizations deploying agents in other languages and regions. We present $τ$-bench-LILT...",
-     "why_it_matters": "Matches feed focus: agent, evaluation.",
-     "sid": "51abf5f84d7f5698",
-     "published": "2026-11-04T22:47:38+00:00",
-     "editor_note": "Extends tool-use conversational agent evaluation beyond English."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-05",
-   "items": [
-    {
-     "title": "Learning Multi-Agent Orchestration:Higher-Order Interactions in Policy Improvement",
-     "url": "http://arxiv.org/abs/2611.07495v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Learned orchestration has emerged as a promising paradigm for large language model (LLM)-based multi-agent systems, in which a central orchestrator selects agents and controls the information they receive throughout a...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "4e7cf2bff5db16a6",
-     "published": "2026-11-05T05:58:30+00:00",
-     "editor_note": "Models higher-order agent interactions when learning a central orchestrator."
-    },
-    {
-     "title": "FedReason: Large Language Models as Weight-Space Meta-Aggregators for Heterogeneous Federated Learning",
-     "url": "http://arxiv.org/abs/2611.08383v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "Federated learning servers combine client models with a fixed aggregation rule, and each rule in common use is designed for one kind of heterogeneity. We study whether a large language model (LLM) that inspects the client models can choose the rule itself, without any training on",
-     "sid": "416b05f86baa94c5",
-     "published": "2026-11-05T18:00:58+00:00",
-     "editor_note": "Side paper: an LLM picks the aggregation rule in heterogeneous federated learning."
-    },
-    {
-     "title": "Show HN: Thinker – Trim context and cache knowledge to extend agent usage limits",
-     "url": "https://thinker.sh/how-it-works",
-     "source": "hackernews_ai",
-     "type": "news",
-     "summary_1line": "I’ve been doing a lot of solo development lately and found myself hitting Claude token limits halfway through the week constantly. Even with a Max plan, I’d have to switch over to Codex or Cursor, and it would be a bi...",
-     "why_it_matters": "Matches feed focus: agent, harness, codex.",
-     "sid": "464b347f5551c3b2",
-     "published": "2026-11-05T19:22:23+00:00",
-     "editor_note": "A Show HN tool that trims context and caches knowledge to stretch coding-agent usage limits."
     }
    ]
   },
   {
    "date": "2026-11-06",
    "items": [
-    {
-     "title": "You Had Me at \"Hello\": A Chinese‑Language Framework Targeting AI Infrastructure",
-     "url": "https://era.security/blog/greeter-flowise-ai-infrastructure-attack",
-     "source": "hackernews_ai",
-     "type": "news",
-     "summary_1line": "You Had Me at \"Hello\": A Chinese‑Language Framework Targeting AI Infrastructure",
-     "sid": "e1376b3038791065",
-     "published": "2026-11-06T03:15:49+00:00",
-     "editor_note": "Side item: a Hacker News pointer to a Chinese-language framework targeting AI infrastructure."
-    },
-    {
-     "title": "One Run Is Not Enough: A Monte Carlo Protocol for Evaluating LLM Reliability on Data Science Tasks",
-     "url": "http://arxiv.org/abs/2611.09729v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Large language models (LLMs) have shown promise for automating data science workflows. Benchmarks such as DataSciBench (2026) and StatQA (2024) have advanced the evaluation of their capabilities across data science an...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "0d4497db5df885d5",
-     "published": "2026-11-06T17:06:21+00:00",
-     "editor_note": "Argues one run is insufficient and proposes a Monte Carlo reliability protocol."
-    },
-    {
-     "title": "Coordinated Mixed-Precision KV Cache Quantization for Efficient LLM-based Multi-agent Systems",
-     "url": "http://arxiv.org/abs/2611.10096v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "LLM-based multi-agent systems solve complex tasks through collaboration, but their growing, simultaneously resident key-value (KV) caches create a memory bottleneck. Applying single-model quantization policies indepen...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "d48d8aea5d45b475",
-     "published": "2026-11-06T17:07:35+00:00",
-     "editor_note": "Coordinated KV-cache quantization to cut memory for co-resident agents."
-    },
     {
      "title": "ROSE: Risk-Aware Orthogonal Subspace Navigation for Lifelong Knowledge Editing in Multimodal Large Language Models",
      "url": "http://arxiv.org/abs/2611.09770v1",
@@ -865,315 +179,111 @@
    ]
   },
   {
-   "date": "2026-11-07",
-   "items": [
-    {
-     "title": "TransMem: Transition-Aware Retrieval for Evolving Personal Memory",
-     "url": "http://arxiv.org/abs/2611.10683v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Long-term personalized agents are increasingly expected to answer queries over user histories in which preferences, goals, and constraints evolve across interleaved conversations. Existing retrieval-based and structur...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "6c6377dea1cd8cea",
-     "published": "2026-11-07T12:07:01+00:00",
-     "editor_note": "Transition-aware retrieval for personal memory where user preferences change across conversations."
-    }
-   ]
-  },
-  {
    "date": "2026-11-09",
    "items": [
     {
-     "title": "Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization",
-     "url": "http://arxiv.org/abs/2611.11995v1",
+     "title": "HumanSightBench: A Benchmark for Human Visual Perception in MLLMs",
+     "url": "http://arxiv.org/abs/2611.12305v1",
      "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "In this work, we study whether frontier agent can continually improve real-world AI infrastructure over long horizons. We introduce Infrathon, a benchmark of diverse, long-horizon AI infrastructure optimization tasks...",
-     "why_it_matters": "Matches feed focus: agent, evaluation.",
-     "sid": "23c0753cd928bfa7",
-     "published": "2026-11-09T07:24:54+00:00",
-     "editor_note": "Infrathon asks whether frontier agents can keep improving real AI infrastructure over long horizons."
-    },
-    {
-     "title": "More Than Just Style: Benchmarking Personality Influence in Large Language Models",
-     "url": "http://arxiv.org/abs/2611.12392v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "In addition to the effects of explicit input prompts and instructions, large language model outputs are influenced by underlying behavioral preferences similar to human personality tendencies. These tendencies can aff...",
+     "summary_1line": "Multimodal large language models (MLLMs) have demonstrated strong performance on knowledge-intensive and reasoning-based vision-language benchmark datasets, but still struggle to solve the visual questions that people...",
      "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "9c88a41fbb756af3",
-     "published": "2026-11-09T13:29:45+00:00",
-     "editor_note": "Side benchmark of how personality tendencies influence LLM outputs."
+     "sid": "b7edb4e2db8eeea8",
+     "published": "2026-11-09T12:27:19+00:00",
+     "editor_note": "HumanSightBench benchmarks MLLMs on visual questions people solve easily."
     },
     {
-     "title": "Large Language Models as a Universal Searcher for Open-World Automated Machine Learning",
-     "url": "http://arxiv.org/abs/2611.12791v1",
+     "title": "HiVe-Mem: Interleaving Horizontal Memory Expansion and Vertical Evidence Composition for Multimodal Agents",
+     "url": "http://arxiv.org/abs/2611.12872v1",
      "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "Developing effective machine learning models requires complex manual tuning, while current Automated Machine Learning (AutoML) frameworks remain domain-specific and isolate model architecture, training hyperparameter,...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "3b4f703ae0a8f385",
-     "published": "2026-11-09T17:58:38+00:00",
-     "editor_note": "Side paper: LLMs as a searcher for open-world AutoML."
-    },
-    {
-     "title": "WorkflowArena: Benchmarking Executable Workflow Orchestration in LLM-Based Multi-Agent Systems",
-     "url": "http://arxiv.org/abs/2611.12856v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Large language model agents are increasingly deployed as multi-agent systems rather than as a standalone model operating within a single context. Recent agent harnesses allow the model to instantiate worker agents and...",
-     "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
-     "sid": "b3a45cba6445f63d",
-     "published": "2026-11-09T18:45:28+00:00",
-     "editor_note": "WorkflowArena benchmarks whether multi-agent systems produce executable workflow orchestrations."
+     "summary_1line": "As multimodal agents accumulate increasingly long interaction histories, effectively retrieving and utilizing past information becomes critical for long-term interaction. Existing memory systems typically rely on sema...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "4d29353472d6538a",
+     "published": "2026-11-09T18:57:00+00:00",
+     "editor_note": "HiVe-Mem pairs memory expansion with evidence composition for multimodal agents with long interaction histories."
     }
    ]
   },
   {
-   "date": "2026-11-10",
+   "date": "2026-11-12",
    "items": [
     {
-     "title": "Framing-Induced Vulnerability in Large Language Models: Evidence from Chinese News Headlines",
-     "url": "http://arxiv.org/abs/2611.13531v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Large language models increasingly evaluate, route, and moderate news, so a model's judgment of a headline has become a gatekeeping decision. We ask whether that judgment follows the fact being reported or the way the fact is framed. We combine an ecological audit of 63,926 Chine",
-     "sid": "501ef39353c40289",
-     "published": "2026-11-10T03:54:03+00:00",
-     "editor_note": "Audits whether a model's judgment of a news headline follows the fact or its framing."
-    },
-    {
-     "title": "On Private Knowledge Retrieval and Private Inference for secure multi-agent systems",
-     "url": "http://arxiv.org/abs/2611.13696v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Multi-agent systems provide a convenient framework for the massive deployment of agents based on Large Language Models (LLMs). It provides a sound framework where agents can interact with existing software to perform actions in an autonomous way. Agentic AI is the new term to den",
-     "why_it_matters": "Matches feed focus: agentic, eval.",
-     "sid": "a34f1fafb710e628",
-     "published": "2026-11-10T07:43:02+00:00",
-     "editor_note": "Private knowledge retrieval and private inference for secure multi-agent systems."
-    },
-    {
-     "title": "Coding Agent Memory Post-Training II: Unlocking the Memory Potential of Pre-trained File Operations for Long-Horizon Tasks via On-Policy Distillation",
-     "url": "http://arxiv.org/abs/2611.14009v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Language-model agents increasingly tackle long-horizon tasks whose interaction histories exceed the model's active context. They must therefore decide what to write down and what to read back, and when to do either. R...",
-     "why_it_matters": "Matches feed focus: agentic.",
-     "sid": "bd9e024b04419d57",
-     "published": "2026-11-10T12:49:24+00:00",
-     "editor_note": "Post-trains coding agents to use file operations as memory when history exceeds the context window."
-    },
-    {
-     "title": "Chain of Physics: Supporting Fault Diagnosis with Engineering-Inspired Large Language Model Reasoning",
-     "url": "http://arxiv.org/abs/2611.14263v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Fault diagnosis in complex systems requires linking observed changes in physical quantities to the failure mechanisms that produce them. Experienced engineers perform this task by combining sensor information with kno...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "5ddb49a19fc35296",
-     "published": "2026-11-10T16:09:44+00:00",
-     "editor_note": "Side paper: engineering-style LLM reasoning for fault diagnosis in physical systems."
-    },
-    {
-     "title": "LM-SimBench: A Unified Framework, Dataset, and Benchmark for Large Language Model Training Simulation",
-     "url": "http://arxiv.org/abs/2611.14285v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "Evaluating candidate parallelization strategies through distributed training runs makes strategy selection prohibitively expensive at scale. Performance simulation offers a lower cost alternative, yet controlled compa...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "c4a35e75b732ef4a",
-     "published": "2026-11-10T16:26:19+00:00",
-     "editor_note": "LM-SimBench benchmarks simulators that predict LLM training performance without running distributed jobs."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-11",
-   "items": [
-    {
-     "title": "JioHotstar Benchmarks Knowledge Bases for AI Coding Agents",
-     "url": "https://www.infoq.com/news/2026/11/jiohotstar-codingagent-retrieval/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-     "source": "infoq_ai_ml",
+     "title": "Show HN: Receipts, agent skills that make PRDs and metrics cite their evidence",
+     "url": "https://github.com/aliraza2025/receipts",
+     "source": "hackernews_ai",
      "type": "news",
-     "summary_1line": "JioHotstar evaluated 6 approaches to code retrieval for AI coding agents using SWE, CodeScale Bench, and an internal question-answering harness. Structural search performed well on concrete tasks, while semantic retri...",
-     "why_it_matters": "Matches feed focus: agent, harness, eval.",
-     "sid": "a2f0f024fa6fc316",
-     "published": "2026-11-11T14:28:00+00:00",
-     "editor_note": "JioHotstar compares 6 code-retrieval approaches for coding agents; structural search did well on concrete tasks."
+     "summary_1line": "Show HN: Receipts, agent skills that make PRDs and metrics cite their evidence",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "a6081ae92d24578d",
+     "published": "2026-11-12T01:51:05+00:00",
+     "editor_note": "First tooling item: agent skills that make PRDs and metrics cite their evidence."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "A loose research cluster, not one event: it opened Oct 22 with DoorDash's multi-agent flag cleanup and a paper on herding cascades, then widened into agent benchmarks, training, orchestration and memory papers. From Nov 1 several papers questioned the evals themselves: task depth, non-English tool use, LLM-judge drift and single-run variance.",
+  "tldr": "A loose research cluster, not one event: from Oct 23, arXiv papers on multimodal models gathered around two problems, weak visual perception and answers that lack supporting evidence. Early November added hallucination mitigation, unlearning and knowledge editing, then a human-perception benchmark and an evidence-composing memory system for multimodal agents.",
   "stale": false,
-  "whats_new": "JioHotstar benchmarked 6 code-retrieval approaches for AI coding agents on SWE, CodeScale Bench and an internal Q&A harness, finding structural search performed well on concrete tasks.",
-  "why_it_matters": "An agent's score depends on the eval design and on what retrieval puts in its context, and this thread now has evidence on both from production teams, not only from papers.",
-  "take_for_builders": "Benchmark your coding agent's retrieval layer on your own repository tasks before choosing structural or semantic search, and run each eval several times so you report the spread, not one score.",
+  "whats_new": "A Show HN project, Receipts, ships agent skills that make PRDs and metrics cite their evidence, a tooling counterpart to the thread's papers on agents that must back answers with support.",
+  "why_it_matters": "A correct answer is not necessarily a supported one, and these papers treat evidence retrieval, refusal on thin visual input and distrust of conflicting tool output as things to train and test separately from accuracy.",
+  "take_for_builders": "Add a supported-answer check to your agent evals: score whether the cited evidence backs the answer and whether the agent declines when the input is insufficient, separately from answer accuracy.",
   "beats": [
    {
-    "kicker": "PRODUCTION",
+    "kicker": "EVIDENCE",
     "tone": "launch",
-    "headline": "Multi-agent systems meet production: write-ups and failure modes",
-    "summary": "Industry case studies sit next to a paper showing agents herding into runaway cascades.",
+    "headline": "Correct is not the same as supported",
+    "summary": "Papers ask agents to retrieve the evidence behind an answer, refuse when an image shows too little, and verify tool outputs that conflict.",
     "sids": [
-     "f2df794e6fc1e504",
-     "520159e6ebe00b0f",
-     "04d4d0197a10f579",
-     "0f68e5b7b820e9e8"
+     "afb43d44186a1777",
+     "197852ee4cb6ede2",
+     "1a8c5544b9b567ca",
+     "3cfb1d63c07d8098"
     ]
    },
    {
-    "kicker": "BENCHMARKS",
-    "tone": "launch",
-    "headline": "Long-horizon agents get exam-style benchmarks",
-    "summary": "Continual learning, long web search, robot control and SAST-versus-agent security coverage get their own evals.",
-    "sids": [
-     "99b3c1ea8994d761",
-     "55edc2615764e1b5",
-     "5f97c21b490b1ce9",
-     "6f21f6e8dedb00a0",
-     "594cded7cf1742be",
-     "d24c53b475096517",
-     "1d7852cb09b3031f"
-    ]
-   },
-   {
-    "kicker": "TRAINING",
+    "kicker": "PERCEPTION",
     "tone": "rising",
-    "headline": "Policy optimization and critics for sparse, long-horizon rewards",
+    "headline": "Visual perception named as the bottleneck for multimodal reasoning",
+    "summary": "Training methods reward perception directly or move reasoning into latent space, and a benchmark tests the visual questions people find easy.",
     "sids": [
-     "9cbcaf295333969d",
-     "78e0961a0062764b",
-     "500b1aba48043738",
-     "3ca73f33ea96bd6a",
-     "d571e973b6e6916d",
-     "3e4010b903d1d7e9",
-     "08c314bb237b4b82"
-    ]
-   },
-   {
-    "kicker": "ORCHESTRATION",
-    "tone": "rising",
-    "headline": "Memory, harnesses and learned orchestration for agent teams",
-    "summary": "Papers on self-evolving teams, memory governance, harness design and runtime-checked orchestration.",
-    "sids": [
-     "378efdb4d515dcd8",
-     "7c1fed0d11e9b516",
-     "7d1c303b6572b6ff",
-     "9c6961c015612e8b",
-     "423c688c0621c177",
-     "e13096c02b9a44d7",
-     "c2fbad095b72bbaa",
-     "0b7565240a3894fa",
-     "a23623abdfcb0e52",
-     "bce25dc1c825a3e7",
-     "4e7cf2bff5db16a6"
-    ]
-   },
-   {
-    "kicker": "MEMORY",
-    "tone": "rising",
-    "headline": "Retrieval and memory become the agent's context layer",
-    "summary": "Practitioner posts and papers treat what an agent retrieves, stores and expires as an engineering surface of its own.",
-    "sids": [
-     "b0133c74d1515b7b",
-     "e519641640234319",
-     "29a5435531059481",
-     "ce941c554e9fce8e",
-     "0f8439521ab02185",
-     "744a7a52285cfa40",
-     "d4ec23da5e445584",
-     "63ff637171c98d2c",
-     "464b347f5551c3b2",
-     "6c6377dea1cd8cea",
-     "a34f1fafb710e628",
-     "bd9e024b04419d57"
-    ]
-   },
-   {
-    "kicker": "RELEASE",
-    "tone": "launch",
-    "headline": "Mistral Large 4 lands on Hugging Face with day-0 vLLM support",
-    "summary": "A model release swept into the cluster by its name, with a price comparison alongside.",
-    "sids": [
-     "590975aa217085b7",
-     "37f6c0c263213efd",
-     "b6b30743068c2627"
+     "23a2048e82ce2894",
+     "e379c9bd87f9ef79",
+     "abe1652e18273a1a",
+     "282f057baf2d5931",
+     "526c07c3667e6cf7",
+     "b7edb4e2db8eeea8"
     ]
    },
    {
     "kicker": "ADJACENT",
     "tone": "neutral",
-    "headline": "Loosely linked: model internals, surveys and other side papers",
-    "summary": "These items share the phrase \"large language models\" with the thread but are not about evaluating or building agents.",
+    "headline": "Loosely linked: hallucination, unlearning and editing inside multimodal models",
+    "summary": "These papers share the word \"multimodal\" with the thread but work on model internals, not agent evidence.",
     "sids": [
-     "8debe4581e047c88",
-     "f07fa8132755e14c",
-     "c888971c48a268c3",
-     "4d53557cac2f8289",
-     "d5cd3db9b5f4a99b",
-     "a2f964aa6fcbf7ea",
-     "200271de2a2f52aa",
-     "cd86ac953a59e37c",
-     "05c46a37b489922f",
-     "fdfc122cd97a630f",
-     "e46c1ab3f7ca9939",
-     "65dc6916d3b352f1",
-     "a8a5f23cd8e10643",
-     "35220abd16206ae7",
-     "96207d6b2522935e",
-     "43862ef771dfba65",
-     "94da3bfcbd46a769",
+     "57b08f9866a26766",
      "c43d3ff3aa20c41c",
-     "7ae1983bc20b4540",
-     "416b05f86baa94c5",
-     "e1376b3038791065",
-     "d48d8aea5d45b475",
-     "5606760643e4651e",
-     "9c88a41fbb756af3",
-     "3b4f703ae0a8f385",
-     "5ddb49a19fc35296"
-    ]
-   },
-   {
-    "kicker": "THE TURN",
-    "tone": "turn",
-    "headline": "The evals themselves come under scrutiny",
-    "summary": "Depth, language coverage, translated test sets, judge drift and run-to-run variance all challenge what a single score means.",
-    "sids": [
-     "cc54f78af820ba5f",
-     "e826ccda9d048b84",
-     "52a3c89c275c2670",
-     "3b93b07bf2154e4f",
-     "c22d6852787690aa",
-     "51abf5f84d7f5698",
-     "0d4497db5df885d5",
-     "501ef39353c40289"
+     "5606760643e4651e"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Benchmarks target operator work: infra tuning, orchestration, code retrieval",
+    "headline": "Evidence handling reaches agent memory and agent skills",
+    "summary": "A memory paper composes evidence across long multimodal histories, and a Show HN project makes product documents cite theirs.",
     "sids": [
-     "23c0753cd928bfa7",
-     "b3a45cba6445f63d",
-     "c4a35e75b732ef4a",
-     "a2f0f024fa6fc316"
-    ],
-    "summary": "JioHotstar's in-house comparison of code-retrieval approaches joins Infrathon and WorkflowArena."
+     "4d29353472d6538a",
+     "a6081ae92d24578d"
+    ]
    }
   ],
   "open_questions": [
-   "Will other benchmark authors adopt a depth measure beyond turns needed to pass a task?",
-   "Will multi-run Monte Carlo reporting become standard in agent benchmark releases?",
-   "Do results on τ-bench-LILT show a measurable gap between English and other languages for tool-using agents?",
-   "How do frontier agents score on Infrathon's infrastructure optimization tasks compared with human baselines?",
-   "Does WorkflowArena show multi-agent orchestration beating a single agent on the same tasks?",
-   "Do other teams reproduce JioHotstar's result that structural code search does well on concrete coding-agent tasks?"
+   "Do KG agents trained to retrieve supporting evidence keep their answer accuracy on standard QA benchmarks?",
+   "Does conflict-aware evidence verification get tested on production security alert triage, beyond the paper's own evaluation?",
+   "How do frontier MLLMs score on HumanSightBench compared with human performance?",
+   "Do refusal behaviours for insufficient visual evidence survive post-training, or does fine-tuning erode them?",
+   "Does Receipts publish any measurement of how often its cited evidence actually supports the claim?"
   ],
-  "generated_at": "2026-11-12T00:15:08Z"
+  "generated_at": "2026-11-13T00:12:43Z"
  }
 }

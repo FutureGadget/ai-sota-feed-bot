@@ -1,0 +1,107 @@
+{
+ "slug": "multi-agent-teams",
+ "label": "Multi-Agent Teams",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-10-29T10:55:30+00:00",
+ "last_updated": "2026-11-12T06:48:42+00:00",
+ "generated_at": "2026-11-13T00:13:02.772238+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "hackernews_ai"
+ ],
+ "days": [
+  {
+   "date": "2026-10-29",
+   "items": [
+    {
+     "title": "EvoTeam: Multi-Agent Collaboration via Evolving Teams",
+     "url": "http://arxiv.org/abs/2610.39813v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "LLM-based multi-agent systems (MAS) rely on collaboration among specialized agents to solve complex tasks. Existing methods improve MAS by refining the prompts, skills, and execution strategies of individual agents ba...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "19ab63ad1e235cad",
+     "published": "2026-10-29T10:55:30+00:00",
+     "editor_note": "Opens the thread with a design proposal: improve a multi-agent system by evolving its team rather than refining individual agents."
+    }
+   ]
+  },
+  {
+   "date": "2026-10-30",
+   "items": [
+    {
+     "title": "What YC's Minecraft and Mindustry agent swarms show about multi-agent teams",
+     "url": "https://theainewsreport.com/2026-10-30-yc-agent-swarms-minecraft-mindustry-explained.html",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "What YC's Minecraft and Mindustry agent swarms show about multi-agent teams",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "44225d1b4bc360e4",
+     "published": "2026-10-30T16:58:55+00:00",
+     "editor_note": "Adds a practitioner-facing read of agent swarms operating in two games, Minecraft and Mindustry."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "items": [
+    {
+     "title": "Worse Together: How Performance Breaks Down in Multi-User Multi-Agent Teams",
+     "url": "https://alignment.anthropic.com/2026/worse-together",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Worse Together: How Performance Breaks Down in Multi-User Multi-Agent Teams",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "23e8ac3f97dad8c1",
+     "published": "2026-11-12T06:48:42+00:00",
+     "editor_note": "First failure-focused item: performance breakdown when multi-agent teams serve more than one user."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a research thread, not one event: three unrelated items about how teams of LLM agents perform. On Oct 29 the EvoTeam paper proposed evolving the team itself instead of tuning individual agents, and an Oct 30 explainer drew lessons from YC's Minecraft and Mindustry agent swarms.",
+  "stale": false,
+  "whats_new": "A Nov 12 post on Anthropic's alignment site, \"Worse Together\", examines how performance breaks down in multi-agent teams that serve multiple users, the thread's first item focused on failure.",
+  "why_it_matters": "The first two items treat adding agents as a way to gain capability; the newest treats team composition, with more than one user in the loop, as a source of degradation to measure.",
+  "take_for_builders": "Before adding agents or sharing one agent team across users, run the same eval against a single-agent, single-user baseline and compare. Read \"Worse Together\" for the breakdown conditions it reports before choosing a team topology.",
+  "beats": [
+   {
+    "kicker": "TEAM DESIGN",
+    "tone": "neutral",
+    "headline": "EvoTeam proposes evolving the team instead of tuning each agent",
+    "summary": "The paper contrasts itself with methods that refine the prompts, skills and execution strategies of individual agents.",
+    "sids": [
+     "19ab63ad1e235cad"
+    ]
+   },
+   {
+    "kicker": "SWARMS",
+    "tone": "neutral",
+    "headline": "An explainer reads YC's game-playing agent swarms for team lessons",
+    "summary": "The write-up covers agent swarms run in Minecraft and Mindustry.",
+    "sids": [
+     "44225d1b4bc360e4"
+    ]
+   },
+   {
+    "kicker": "FAILURE MODES",
+    "tone": "turn",
+    "headline": "\"Worse Together\" studies how multi-user multi-agent teams break down",
+    "summary": "A post on Anthropic's alignment site turns the thread from building teams to measuring where they lose performance.",
+    "sids": [
+     "23e8ac3f97dad8c1"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Which conditions in \"Worse Together\" cause the breakdown: more agents, more users, or conflicting instructions between users?",
+   "Does \"Worse Together\" report a mitigation, or only the degradation?",
+   "Does EvoTeam beat a strong single-agent baseline at equal token cost?",
+   "Do the game-swarm results from Minecraft and Mindustry carry over to software or data tasks?"
+  ],
+  "generated_at": "2026-11-13T00:12:09Z"
+ }
+}

@@ -1,10 +1,8 @@
 {
   "slug": "diffusion-language",
-  "generated_at": "2026-11-12T00:14:38+00:00",
+  "generated_at": "2026-11-13T00:12:10Z",
   "covers_last_updated": "2026-11-10T18:32:28+00:00",
   "covers_member_sids": [
-    "b3f4301ff8d83589",
-    "4d1cef01d9ab5673",
     "6dbbfb1c94ed9d7f",
     "75e015095613159e",
     "ed7966c78dc36a0b",
@@ -30,20 +28,10 @@
     "256bf90ce51f6665",
     "d7a4f91e59e352a3"
   ],
-  "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It began with diffusion language models as an attack tool and a parallel-decoding alternative, then widened to speculative decoding, pruning, MoE serving and prompt compression.",
+  "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It opened in late October with speculative decoding for RL rollouts and work on cutting diffusion-LM decoding rounds, then widened to pruning, MoE serving, prompt compression and drafter training.",
   "whats_new": "Overlapping Block Denoising (Nov 10) targets block-diffusion LM efficiency, the same day REAL Loss proposed training speculative-decoding drafters directly on expected acceptance length.",
   "why_it_matters": "The two lines are converging: block-diffusion models now show up as drafters inside speculative decoding, where the target model still verifies every token, which is a lower-risk route into a serving stack than replacing the autoregressive model.",
   "beats": [
-    {
-      "kicker": "RISK",
-      "tone": "alert",
-      "headline": "Diffusion models show up as an attack and privacy surface",
-      "summary": "One paper uses a diffusion LM to write fluent attack prompts; another tests training-set membership in image diffusion models.",
-      "sids": [
-        "4d1cef01d9ab5673",
-        "1423e77dae0d2a75"
-      ]
-    },
     {
       "kicker": "SPEED",
       "tone": "rising",
@@ -74,11 +62,11 @@
     {
       "kicker": "ADJACENT",
       "tone": "neutral",
-      "headline": "Non-diffusion efficiency work shares the thread: pruning, MoE serving, compression and agent overhead",
-      "summary": "These papers share the efficient-inference theme, not the diffusion method.",
+      "headline": "Non-diffusion-LM efficiency work shares the thread: pruning, MoE serving, compression and agent overhead",
+      "summary": "These papers share the efficient-inference theme, not the diffusion-LM method; one is an image-diffusion privacy paper matched on the word alone.",
       "sids": [
-        "b3f4301ff8d83589",
         "ed7966c78dc36a0b",
+        "1423e77dae0d2a75",
         "a8a5f23cd8e10643",
         "01d6db945cd3f0c2",
         "473a95cd7c540d1a",
@@ -130,13 +118,11 @@
   ],
   "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet. If you run speculative decoding, the nearer-term experiment is a block-diffusion drafter: measure accepted length and verification cost under your real concurrency before adopting it.",
   "day_captions": {
-    "b3f4301ff8d83589": "Adjacent framing paper: argues reliable multi-turn agent inference needs structure, not only larger models.",
-    "4d1cef01d9ab5673": "Uses a diffusion LM to generate low-perplexity attack prompts against black-box LLMs.",
     "6dbbfb1c94ed9d7f": "Applies n-gram speculative decoding to RL post-training rollouts, which the paper says can exceed 70% of training time.",
     "75e015095613159e": "Proposes learning when to commit tokens, reducing the decoding rounds dLLMs need.",
     "ed7966c78dc36a0b": "Adjacent: co-designs pruning and scheduling for MoE inference on memory-constrained edge servers, where moving expert weights dominates.",
     "edcf9763d6b958dc": "Extends the efficiency push to agents by adapting compute spent and text generated per interaction.",
-    "1423e77dae0d2a75": "Image-side privacy angle: a membership inference method for testing whether an image was in a diffusion model's training set.",
+    "1423e77dae0d2a75": "Adjacent, image side: a membership inference method for testing whether an image was in a diffusion model's training set.",
     "a8a5f23cd8e10643": "Adjacent: gradual pruning with sparse adaptation to hold LLM quality at extreme sparsity.",
     "581b8a72b6b37583": "Training-free fix for repetition and quality loss when continuous diffusion LMs generate longer text.",
     "01d6db945cd3f0c2": "Adjacent: nested MoE with dynamic mixed-precision quantization to shrink MoE inference cost.",

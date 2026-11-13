@@ -1,14 +1,9 @@
 {
   "slug": "reinforcement-learning",
-  "generated_at": "2026-11-09T00:11:56+00:00",
-  "covers_last_updated": "2026-11-05T16:19:52+00:00",
+  "generated_at": "2026-11-13T00:12:09Z",
+  "covers_last_updated": "2026-11-10T18:58:46+00:00",
   "covers_member_sids": [
-    "afd320e7f42ef5bd",
-    "a00ad2ffbda7f2e9",
-    "276a486ae6eefe6b",
-    "352167f7ac41065b",
     "40c644a15cb895a9",
-    "2b4f7152c682448f",
     "453c138d9feefee3",
     "8a41e1e41cbecfde",
     "1e1ae7d5d09cb859",
@@ -29,57 +24,47 @@
     "d97ee2168f669bce",
     "981c5fba5d1f60bf",
     "4553deeec0e06574",
-    "4e9768611cda6532"
+    "4e9768611cda6532",
+    "4f75e58fea1157aa",
+    "6fd3ac39e855936d",
+    "84ecbe8e1def5e6c",
+    "283f892f9c4f657a"
   ],
-  "tldr": "Reinforcement Learning is a loose grouping of arXiv agent-RL papers, not one developing story. Since Oct 20 it has collected work on rollout cost, search and RAG agents, and a split over fine-grained credit assignment.",
-  "whats_new": "Nov 5: FewStepRL fine-tunes few-step diffusion models with RL to avoid costly per-iteration rollouts; Nov 4's study still finds multi-turn agent RL gains hinge on sampling breadth K and interaction depth.",
+  "tldr": "Reinforcement Learning is a loose grouping of arXiv papers on RL for LLMs and agents, plus one AWS guide, not one developing story. Since Oct 23 it has collected work on rollout cost, RAG calibration and agent harnesses, and two studies showing that fine-grained credit and multi-turn RL gains depend on the setup.",
+  "whats_new": "Nov 10: AutoScaffold argues RLVR's outcome reward shrinks each attempt to a single number and proposes AI-guided training-time scaffolds; Nov 9's MaxIM applies RL to bounded-memory summarization of long interaction histories.",
   "why_it_matters": "Agent RL results are sensitive to rollout budget, numerical setup and reward granularity, so a reported gain may not transfer to your harness. All are paper-reported, not production evidence.",
-  "status": {
-    "state": "Developing",
-    "tone": "rising",
-    "changed": "2026-11-05",
-    "detail": "A loose set of agentic-RL papers; the newest extends RL post-training to few-step diffusion samplers."
-  },
-  "provenance": {
-    "4553deeec0e06574": {
-      "status_update": true
-    }
-  },
   "beats": [
     {
       "kicker": "COST",
       "tone": "launch",
-      "headline": "Rollout budgets and numerical stability set the cost of agent RL",
+      "headline": "Rollout scheduling and numerical stability set the cost of agent RL",
+      "summary": "Environment-aware and asynchronous rollout scheduling, BF16 rounding alignment, and a managed SageMaker recipe.",
       "sids": [
-        "afd320e7f42ef5bd",
-        "02ad246823185a44",
         "453c138d9feefee3",
-        "8a41e1e41cbecfde"
-      ],
-      "summary": "Budget allocation, environment-aware scheduling, BF16 rounding alignment, and a managed SageMaker recipe."
+        "8a41e1e41cbecfde",
+        "02ad246823185a44",
+        "4f75e58fea1157aa"
+      ]
     },
     {
-      "kicker": "ENVIRONMENTS",
+      "kicker": "CALIBRATION",
       "tone": "rising",
-      "headline": "Search, data and RAG agents get RL recipes with self-assessment and calibration",
+      "headline": "RL recipes tie confidence to correctness for RAG and knowledge tasks",
       "sids": [
-        "a00ad2ffbda7f2e9",
-        "276a486ae6eefe6b",
-        "d571e973b6e6916d",
         "c3af4f37e1c19b19",
+        "d571e973b6e6916d",
         "9471fde9e20a1e58"
       ]
     },
     {
       "kicker": "THE TURN",
       "tone": "turn",
-      "headline": "Credit assignment: finer signals help in some settings and hurt in others",
+      "headline": "Two studies find agent RL gains depend on credit granularity and interaction limits",
+      "summary": "Fine-grained credit can fail in video editing; multi-turn gains shift with sampling breadth K and interaction depth.",
       "sids": [
-        "352167f7ac41065b",
-        "2b4f7152c682448f",
-        "868490bacebdc880"
-      ],
-      "summary": "Twin-world and token-level credit compete with a video-editing study showing finer credit can fail."
+        "868490bacebdc880",
+        "4553deeec0e06574"
+      ]
     },
     {
       "kicker": "HARNESS",
@@ -97,7 +82,7 @@
     {
       "kicker": "ADJACENT",
       "tone": "neutral",
-      "headline": "Neighboring RL work: simulation, robustness, explainability, compression, flow models",
+      "headline": "Neighboring RL work: simulation, robustness, explainability, compression, diffusion and world models",
       "sids": [
         "40c644a15cb895a9",
         "1e1ae7d5d09cb859",
@@ -105,37 +90,41 @@
         "65dc6916d3b352f1",
         "473a95cd7c540d1a",
         "bce25dc1c825a3e7",
+        "981c5fba5d1f60bf",
         "4e9768611cda6532",
-        "981c5fba5d1f60bf"
+        "6fd3ac39e855936d"
       ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Multi-turn RL gains depend on sampling breadth and interaction depth",
+      "headline": "Newest papers try to recover training signal a single outcome reward discards",
+      "summary": "MaxIM targets credit assignment for memory updates; AutoScaffold adds AI-guided scaffolds to RLVR training.",
       "sids": [
-        "4553deeec0e06574"
+        "84ecbe8e1def5e6c",
+        "283f892f9c4f657a"
       ]
     }
   ],
   "open_questions": [
     "Do the multi-turn RL findings hold when sampling breadth and interaction depth are fixed to your production limits?",
     "Do the credit-assignment findings from video editing hold on text-only tool-use agents?",
-    "Do reward-disagreement rollout budgets cut cost on agents outside the MCP benchmark?",
-    "Does co-evolving the harness with the policy beat a fixed harness on independent tasks?"
+    "Does co-evolving the harness with the policy beat a fixed harness on independent tasks?",
+    "Do gains from training-time scaffolds like AutoScaffold persist once the scaffold is removed at inference?",
+    "Does RL-trained incremental summarization like MaxIM beat a prompted summarizer on agent tasks outside its own benchmarks?"
   ],
-  "take_for_builders": "Before adopting any of these recipes, rerun them at your own sampling breadth and turn limits, and A/B fine-grained credit against episode-level reward; treat all results as unreplicated.",
+  "take_for_builders": "Before adopting any of these recipes, rerun them at your own sampling breadth and turn limits, and A/B fine-grained credit or scaffolded rewards against episode-level reward; treat all results as unreplicated.",
   "day_captions": {
-    "4553deeec0e06574": "Newest: finds multi-turn agent RL gains are sensitive to sampling breadth K and interaction depth.",
+    "283f892f9c4f657a": "Newest: AI-guided training-time scaffolds to use the RLVR experience an outcome reward throws away.",
+    "84ecbe8e1def5e6c": "RL for incremental summarization, aimed at the credit-assignment bottleneck in bounded-memory updates.",
+    "4f75e58fea1157aa": "Offline rollout scheduler for multi-instance asynchronous LLM RL, targeting rollout underutilization.",
+    "6fd3ac39e855936d": "Test-time model-based RL to encode memory in world models; adjacent to the thread.",
+    "4e9768611cda6532": "RL fine-tuning for few-step diffusion models, where many-step rollouts dominate training cost.",
+    "4553deeec0e06574": "Finds multi-turn agent RL gains are sensitive to sampling breadth K and interaction depth.",
     "868490bacebdc880": "Study of when fine-grained credit assignment helps or hurts, using video editing.",
-    "352167f7ac41065b": "Counterfactual twin-world branching to credit individual decisions in an episode.",
-    "2b4f7152c682448f": "Token-level credit for GRPO using reward-model gradients.",
-    "afd320e7f42ef5bd": "Uses reward disagreement to allocate rollout budgets for MCP tool agents.",
     "02ad246823185a44": "Schedules rollouts by environment to cut verification cost under a fixed budget.",
     "453c138d9feefee3": "Aligns where rounding happens between inference and training to keep updates on-policy.",
     "8a41e1e41cbecfde": "AWS hands-on multi-turn RL pipeline on SageMaker, demonstrated on Wordle.",
-    "a00ad2ffbda7f2e9": "Framework for agentic RL in stateful data-centric environments for small models.",
-    "276a486ae6eefe6b": "Adds search-state self-assessment to RL-trained retrieval agents.",
     "d571e973b6e6916d": "RL to couple knowledge acquisition with reasoning in unfamiliar domains.",
     "c3af4f37e1c19b19": "Confidence-calibrated rewards to curb RAG hallucination with abstention.",
     "9471fde9e20a1e58": "Ties RLVR policy confidence to correctness.",
