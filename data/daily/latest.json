@@ -1,207 +1,239 @@
 {
-  "date": "2026-11-12",
-  "title": "What happened in AI — Nov 12, 2026",
-  "generated_at": "2026-11-12T22:16:42Z",
+  "date": "2026-11-13",
+  "title": "What happened in AI — Nov 13, 2026",
+  "generated_at": "2026-11-13T22:17:58Z",
   "intro": [
-    "Verifying agent-written code was today's main thread. A new hook catches coding agents that weaken tests to turn CI green, Martin Fowler's site argues customer tests are now the human-AI contract, and one essay says human review cannot keep up with agent-built inference engines.",
-    "Anthropic found that groups do worse when every user brings their own agent. On the serving side, Google open-sourced XSE and vLLM shipped day-0 support for Inkling 2 Small and MiniMax H3-Image."
+    "Trusting the model name on an endpoint got harder today. Artificial Analysis found roughly one in four serverless endpoints scores below a reference deployment of the same open weights, and Notion disclosed that a Fireworks AI incident exposed AI chat messages containing API keys.",
+    "Agents also gained ways to act on their own. Cloudflare open-sourced its Kitesurf agent browser, OpenAI launched a wallet for agent purchases, and several engineers published how they run fleets of coding agents."
   ],
   "highlights": [
-    "agent-roast flags coding agents that loosen assertions, skip tests or lower coverage gates to get CI green.",
-    "Anthropic: group outcomes fell in all four test environments when each user delegated to their own agent.",
-    "Google open-sourced XSE, the Python-free serving engine behind six million queries a second.",
-    "vLLM serves Thinking Machines' Inkling 2 Small on day 0 at up to 630 tokens per second per user.",
-    "Vercel's gateway data puts a production model's half-life at about six weeks.",
-    "Inception Labs is shutting down the Mercury API for its diffusion LLMs, per a customer email."
+    "Artificial Analysis: about 1 in 4 of 100+ serverless endpoints scores below a reference deployment of the same weights.",
+    "Cloudflare open-sourced Kitesurf, its Workers-based browser for AI agents, under Apache 2.0.",
+    "OpenAI's ChatGPT Wallet lets agents complete purchases with user approval.",
+    "AgentLeak: inter-agent messages leak sensitive data 68.8% of the time; output-only audits miss 41.7%.",
+    "Tesseracted Labs cut inference spend by over 50% by defaulting coding agents to flex inference.",
+    "DistDebug-Bench scores agents on diagnosing 120 real distributed-systems failures, not on patching them."
   ],
-  "article_count": 52,
+  "article_count": 48,
   "categories": [
     {
-      "name": "Coding Agents: Proving the Change Is Right",
-      "slug": "coding-agent-verification",
-      "summary": "Five pieces treat verification, not generation, as the bottleneck once agents write both the code and its tests.",
+      "name": "Running Coding-Agent Fleets",
+      "slug": "coding-agent-fleets",
+      "summary": "Four practitioners describe the same shift: the engineer's job moves from writing code to keeping parallel agents on track, and the tooling follows.",
       "articles": [
         {
-          "title": "Show HN: Agent-roast – Catches coding agents that weaken tests to get CI green",
-          "summary": "A deterministic, offline hook for Claude Code, Codex and Cursor that diffs each change for loosened assertions, skipped or deleted tests, lowered coverage thresholds and CI steps allowed to fail.",
+          "title": "Embracing Multi-Agent Development",
+          "summary": "A practitioner who was skeptical of token-heavy orchestrators now runs a multi-agent setup full time and says the work resembles engineering management: keeping the fleet on high-level goals.",
           "source": "hackernews_ai",
-          "url": "https://github.com/Nari-Ab/agent-roast/",
-          "published": "Thu, 12 Nov 2026 15:03:06 +0000"
+          "url": "https://tombedor.dev/multi-agent-orchestration/",
+          "published": "Fri, 13 Nov 2026 20:42:55 +0000"
         },
         {
-          "title": "Towards Verifiable LLM Infra",
-          "summary": "Argues that passing latency and throughput benchmarks leaves rare concurrency bugs hidden in agent-written inference engines, and that human review cannot scale to 1,000 parallel coding agents.",
+          "title": "How I run my agent fleet to build my product",
+          "summary": "Separates a single-player, experimental agent fleet from a software factory, and argues engineers past 5-10 parallel chats have to move up to one or the other.",
           "source": "hackernews_ai",
-          "url": "https://haoailab.com/blogs/verifiable-llm-infra/",
-          "published": "Thu, 12 Nov 2026 05:53:11 +0000"
+          "url": "https://www.stet.sh/blog/running-an-agent-fleet",
+          "published": "Fri, 13 Nov 2026 15:23:19 +0000"
         },
         {
-          "title": "Ensuring AI-generated code does what we want",
-          "summary": "Martin Fowler's site argues that when AI writes both production and test code, customer tests rather than developer tests become the contract between humans and the agent.",
+          "title": "Show HN: I measured what each agent-built pull request costs (~$2.42)",
+          "summary": "Executor, a free Claude Code plugin, plans a spec into features, builds them in parallel and reviews each PR against the spec; its author measured about $2.42 per agent-built pull request.",
           "source": "hackernews_ai",
-          "url": "https://martinfowler.com/articles/tests-as-data.html",
-          "published": "Thu, 12 Nov 2026 15:14:50 +0000"
+          "url": "https://github.com/sebwilgosz/agent-executor",
+          "published": "Fri, 13 Nov 2026 18:21:53 +0000"
         },
         {
-          "title": "The Hard Part of AI Coding Is the Second Change",
-          "summary": "An agent-added retry can double-charge a customer when a timeout hides a successful charge: the feature works, the test suite grows, and the system gets worse.",
+          "title": "Show HN: Agent-plan a CLI that automatically commits your agent's plans",
+          "summary": "A CLI that commits the markdown research, plan and handoff documents coding agents generate, so cross-session context has a fixed home in the repo.",
           "source": "hackernews_ai",
-          "url": "https://brian.biz/blog/ai-agents-keep-it-working/",
-          "published": "Thu, 12 Nov 2026 16:39:36 +0000"
-        },
-        {
-          "title": "How much of GitHub's most-starred AI tooling is written by coding agents?",
-          "summary": "Across 324,088 commits in 52 top AI-tooling repos, the median repo has an AI signature on 16.9% of commits from its last 180 active days; 10 repos are at 50% or more.",
-          "source": "hackernews_ai",
-          "url": "https://www.soufraz.com/famous-repos-research/",
-          "published": "Thu, 12 Nov 2026 17:00:39 +0000"
+          "url": "https://github.com/ghmeier/agent-plan",
+          "published": "Fri, 13 Nov 2026 15:23:59 +0000"
         }
       ]
     },
     {
-      "name": "Agent Runtimes: Isolation, Permissions and Shared Resources",
-      "slug": "agent-runtime-permissions",
-      "summary": "Anthropic measured a multi-agent coordination failure, while four open-source projects put controls at the sandbox, the tool call, the MCP config and the prompt.",
+      "name": "Agent Building Blocks: Browsers, Payments, Tools",
+      "slug": "agent-building-blocks",
+      "summary": "Vendors shipped the pieces agents need to act outside a chat window: a self-hostable browser, a purchase flow with user approval, and app-level tools behind an API.",
       "articles": [
         {
-          "title": "Worse Together: How Performance Breaks Down in Multi-User Multi-Agent Teams",
-          "summary": "In four simulated environments with models from Anthropic, OpenAI and Alibaba, group outcomes were worse when each user delegated to their own agent than when one agent served everyone.",
-          "source": "hackernews_ai",
-          "url": "https://alignment.anthropic.com/2026/worse-together/",
-          "published": "Thu, 12 Nov 2026 06:48:42 +0000"
+          "title": "Kitesurf is now open source",
+          "summary": "Cloudflare released Kitesurf, its stateless browser for AI agents with WebMCP support, under Apache 2.0; you can run it locally or deploy your own instance on Workers.",
+          "source": "cloudflare_blog",
+          "url": "https://blog.cloudflare.com/kitesurf-open-source/",
+          "published": "Fri, 13 Nov 2026 20:20:21 GMT"
         },
         {
-          "title": "Agent Substrate",
-          "summary": "A zero-trust sandbox runtime that claims 10x the density of standard containers, resume in under 500ms and more than 500 activations per second, with isolated compute, identity, networking and storage per agent.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/agent-substrate/substrate",
-          "published": "Thu, 12 Nov 2026 07:26:45 +0000"
+          "title": "Introducing ChatGPT Wallet",
+          "summary": "OpenAI's wallet lets agents in ChatGPT Work, Codex and dots complete purchases with user approval and existing card protections.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/introducing-chatgpt-wallet",
+          "published": "Fri, 13 Nov 2026 15:00:00 GMT"
         },
         {
-          "title": "Show HN: Taster – Plain-English rules your agent can't forget or ignore",
-          "summary": "Checks every agent tool call against plain-English rules before it runs, and screens each tool result for prompt injection before the agent reads it.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/rinkesh2010rpp/taster-ai",
-          "published": "Thu, 12 Nov 2026 08:41:11 +0000"
+          "title": "DeepSeek Turns Its Whole App Into an API With Search, File Reading, Voice and Safety Built In",
+          "summary": "DeepSeek exposes its app's search, file reading, voice and safety features to developers through its API.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Startup Fortune",
+          "publisher_domain": "startupfortune.com",
+          "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNMk5aU2dlc2J1dGk2SnZjX2tjNXZ5cHRrN3hsNnFVT3F2ZFMxZG9yaUZjamI1U3Y1UHU5SnlDbDRhT1QteGF4MENqM29kRXZvSHByTXhxUGNGQXdhdjFFUVFEbG5lTHlvWndUWk04ZFo5VmFObXdJaVpNWjIyS0NMWkx4THhENHdlWFNoYmVKSUdGcFBTYzR6RVM1RHRKYzYtN1lGbTRBRVlFQ290OEFqWFdMamEyblppcWtz?oc=5",
+          "published": "Fri, 13 Nov 2026 16:25:29 GMT"
         },
         {
-          "title": "Agent-access-review – an access review for AI agents' MCP configs",
-          "summary": "Inventories an organization's agents and MCP servers, works out what each can read, write, execute and send, and tests that access against 12 controls mapped to NIST 800-53 and SOC 2.",
+          "title": "Show HN: Give your agent its own temp mail service",
+          "summary": "buzon is a CLI and agent skill for a self-hosted Cloudflare Worker mail server: it creates addresses on your domain, waits for the verification code or magic link, and records which address belongs to which account.",
           "source": "hackernews_ai",
-          "url": "https://github.com/Mihirajmera/agent-access-review",
-          "published": "Thu, 12 Nov 2026 15:32:15 +0000"
+          "url": "https://github.com/shbernal/buzon",
+          "published": "Fri, 13 Nov 2026 08:11:48 +0000"
         },
         {
-          "title": "Keeping names, emails and phone numbers out of LLM prompts with a local proxy",
-          "summary": "swapback is a fail-closed local proxy that swaps names, emails, phone numbers and keys for placeholders before a prompt leaves the machine, then restores them in replies, streams and tool calls.",
+          "title": "Witness – a voice-anchored evidence recorder for AI coding agents",
+          "summary": "Records a spoken bug report alongside the clicks, requests, console errors, DOM mutations and rrweb replay from the same second, then hands the package to a coding agent.",
           "source": "hackernews_ai",
-          "url": "https://github.com/rmpmrepo1278/swapback",
-          "published": "Thu, 12 Nov 2026 00:09:39 +0000"
+          "url": "https://github.com/wookat/witness",
+          "published": "Fri, 13 Nov 2026 08:57:35 +0000"
         }
       ]
     },
     {
-      "name": "Inference Serving: Day-0 Models and New Serving Engines",
-      "slug": "inference-serving-engines",
-      "summary": "Google open-sourced two pieces of its serving stack, and vLLM shipped same-day support for two new models with published throughput numbers.",
+      "name": "Evals: Checking What You Were Actually Served",
+      "slug": "evals-verification",
+      "summary": "New measurements target gaps that standard benchmarks skip: whether a hosted endpoint matches the official weights, whether an agent can diagnose a bug, and whether agent-written code is still reachable.",
       "articles": [
         {
-          "title": "Google gooses Python AI performance by... removing Python",
-          "summary": "Google open-sourced XSE, the XLA Serving Engine, which takes the Python interpreter out of the serving path and handles six million queries a second across Search, Ads and YouTube Shorts.",
+          "title": "1 in 4 3rd Party AI Endpoints Underperform Their Advertised Models",
+          "summary": "Artificial Analysis' Endpoint Accuracy Index v1.1 compares 100+ serverless endpoints with reference deployments of the official weights on tool-calling, reasoning and long-context tests; roughly one in four scores below reference.",
           "source": "hackernews_ai",
-          "url": "https://www.theregister.com/devops/2026/11/11/google-gooses-python-ai-performance-by-removing-python/5308995",
-          "published": "Thu, 12 Nov 2026 09:23:49 +0000"
+          "url": "https://hermes-ai.net/news/artificial-analysis-finds-1-in-4-ai-endpoints-quietly-underperform-their/",
+          "published": "Fri, 13 Nov 2026 17:08:35 +0000"
         },
         {
-          "title": "Inkling 2 Small on vLLM: Day-0 Support",
-          "summary": "vLLM serves Thinking Machines' multimodal MoE model (594B total, 17B active parameters, up to 1M tokens of context) at up to 630 tokens per second per user, with LoRA support.",
-          "source": "vllm_blog",
-          "url": "https://vllm.ai/blog/2026-11-12-inkling2-small",
-          "published": "Thu, 12 Nov 2026 00:00:00 GMT"
+          "title": "DistDebug-Bench: Can LLM Agents Diagnose Bugs in Distributed Systems?",
+          "summary": "120 real, closed failures from 11 production distributed systems; the agent gets the report, logs and pre-fix repo and is scored on naming the causal code blocks, not on the patch.",
+          "source": "hackernews_ai",
+          "url": "https://distdebug.com/",
+          "published": "Fri, 13 Nov 2026 05:19:29 +0000"
         },
         {
-          "title": "H3-Image Day-0 Support: 4K in 0.87s with Vera Rubin",
-          "summary": "vLLM-Omni runs MiniMax H3-Image on four NVIDIA Vera Rubin GPUs at a 0.87-second median for native 4096×4096 images; a separate throughput configuration reaches 6,115 images per hour.",
-          "source": "vllm_blog",
-          "url": "https://vllm.ai/blog/2026-11-12-minimax-h3-image-rubin",
-          "published": "Thu, 12 Nov 2026 00:00:00 GMT"
+          "title": "Loose Ends: A check for unused code AI wrote or forgot to remove",
+          "summary": "A graph-based PR check for TypeScript, JavaScript, Python and Java that fails changes leaving orphaned, superseded or unreachable code, such as a UserServiceV2 beside the service it replaced.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/sid732/loose-ends",
+          "published": "Fri, 13 Nov 2026 02:56:13 +0000"
         },
         {
-          "title": "Google Open-Sources TPU Sync for KV Cache and Weight Transfer on TPUs",
-          "summary": "Google open-sourced TPU Sync for moving KV cache and model weights on TPUs.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/11/google-tpu-sync/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "Thu, 12 Nov 2026 10:06:00 GMT"
+          "title": "Transcript Testing: Helping Humans Verify AI Code",
+          "summary": "Proposes writing tests as transcripts meant for humans to read, so people can verify systems where AI writes most of the code.",
+          "source": "hackernews_ai",
+          "url": "https://andrew.nerdnetworks.org/blog/2026/11/13/transcript-testing/",
+          "published": "Fri, 13 Nov 2026 16:20:05 +0000"
         },
         {
-          "title": "Deploy frontier AI models on AWS Trainium with SGLang-Neuron",
-          "summary": "AWS walks through serving frontier models on its Trainium chips with SGLang-Neuron.",
-          "source": "aws_ml_blog",
-          "url": "https://aws.amazon.com/blogs/machine-learning/deploy-frontier-ai-models-on-aws-trainium-with-sglang-neuron/",
-          "published": "Thu, 12 Nov 2026 22:03:34 +0000"
+          "title": "Schelling Atlas: AI agents know where to find each other on the web",
+          "summary": "Researchers at ELLIS Tübingen and the Max Planck Institute test whether two independent agents can find each other on the web to exchange secret tokens without being told where to meet.",
+          "source": "hackernews_ai",
+          "url": "https://schelling-atlas.com/",
+          "published": "Fri, 13 Nov 2026 01:41:48 +0000"
         }
       ]
     },
     {
-      "name": "Model Churn and What It Does to Your Cost Model",
-      "slug": "model-churn-cost",
-      "summary": "Production models turn over in weeks, a hosted model API is going away, and one team found its discount math was wrong.",
+      "name": "Observability and ML Platform Plumbing",
+      "slug": "observability-platform",
+      "summary": "Tracing moved into the request path and the data warehouse, and Uber's production ML platform became something you can run yourself.",
       "articles": [
         {
-          "title": "Vercel Data Shows AI Models Have Six-Week Half-Life in Production",
-          "summary": "Vercel's November AI Gateway Production Index, drawn from more than 100 trillion tokens a month, puts the effective half-life of a model in production at about six weeks.",
+          "title": "Show HN: Langfuse AI Gateway, open source rust gateway to trace every LLM call",
+          "summary": "Langfuse's co-founders released an open-source Rust gateway that traces every LLM call passing through it.",
           "source": "hackernews_ai",
-          "url": "https://epyhia.com/vercel-data-shows-ai-models-have-six-week-half-life-in-production",
-          "published": "Thu, 12 Nov 2026 13:33:15 +0000"
+          "url": "https://github.com/langfuse/langfuse/tree/main/ai-gateway",
+          "published": "Fri, 13 Nov 2026 15:10:20 +0000"
         },
         {
-          "title": "Our LLM cost model was double-counting batch and cache discounts",
-          "summary": "Batch is half price on every provider that offers it, yet it is the smallest of three cost levers, does not stack with caching the way it appears to, and loses to a tier drop.",
-          "source": "hackernews_ai",
-          "url": "https://beforeyouship.dev/blog/llm-batch-api-pricing",
-          "published": "Thu, 12 Nov 2026 12:48:20 +0000"
+          "title": "New AI agent observability and governance across BigQuery and Looker",
+          "summary": "Google Cloud added agent observability and governance to BigQuery and Looker, aimed at showing how a production agent reasons and which data it touches.",
+          "source": "google_cloud_blog",
+          "url": "https://cloud.google.com/blog/products/data-analytics/enterprise-ai-agent-observability-with-bigquery-and-looker/",
+          "published": "Fri, 13 Nov 2026 17:00:00 +0000"
         },
         {
-          "title": "Inception's Diffusion LLM API Is Shutting Down",
-          "summary": "A customer posted an email from Inception Labs saying the Mercury API that hosts its diffusion models is shutting down; no blog post had been published yet.",
+          "title": "Michelangelo AI",
+          "summary": "Uber open-sourced Michelangelo, the ML platform it reports running 5K+ production models and 20K+ training jobs a month on; the feature store is listed as coming soon.",
           "source": "hackernews_ai",
-          "url": "https://news.ycombinator.com/item?id=50470335",
-          "published": "Thu, 12 Nov 2026 16:51:58 +0000"
+          "url": "https://michelangelo-ai.org/",
+          "published": "Fri, 13 Nov 2026 04:56:40 +0000"
         }
       ]
     },
     {
-      "name": "Data Systems Sized for Agent Query Load",
-      "slug": "data-systems-for-agents",
-      "summary": "Databricks and a new embedded graph engine both redesign the data layer around agents as the caller.",
+      "name": "Inference Cost, Speed and Determinism",
+      "slug": "inference-cost-serving",
+      "summary": "Five reports put numbers on cheaper and faster inference, from discounted flex tiers to a rewritten local hot path.",
       "articles": [
         {
-          "title": "Lakehouse//RT: Scale real-time analytics, not your bill",
-          "summary": "Databricks targets the sustained concurrency of agents, which can run hundreds of queries per second where a human analyst runs a few dozen in an afternoon.",
-          "source": "databricks_blog",
-          "url": "https://www.databricks.com/blog/lakehousert-scale-real-time-analytics-not-your-bill",
-          "published": "Thu, 12 Nov 2026 16:53:43 GMT"
-        },
-        {
-          "title": "Relate by Neo4j – embedded, agent-native graph database",
-          "summary": "A Rust property-graph engine in a single binary that speaks Cypher 25 and stores a graph as one file, a directory or in memory, with Python, Node.js, WASM and Rust bindings.",
+          "title": "Waiting a little saves us over 50% on inference",
+          "summary": "Tesseracted Labs defaults its coding agents to discounted flex inference through a pi extension and Doubleword, and reports saving over 50% on inference requests across several months.",
           "source": "hackernews_ai",
-          "url": "https://github.com/relatedb/relate",
-          "published": "Thu, 12 Nov 2026 15:45:07 +0000"
+          "url": "https://tesseracted.com/the-price-of-patience/",
+          "published": "Fri, 13 Nov 2026 19:33:19 +0000"
         },
         {
-          "title": "Genie in Slack is now Generally Available: Governed AI cowork, right where work happens",
-          "summary": "Generally available: Genie answers in DMs and channels under the asker's Unity Catalog permissions, and updates documents and tickets through MCP connectors after approval.",
-          "source": "databricks_blog",
-          "url": "https://www.databricks.com/blog/genie-slack-now-generally-available-governed-ai-cowork-right-where-work-happens",
-          "published": "Thu, 12 Nov 2026 15:00:00 GMT"
+          "title": "Eliminating Nondeterminism in LLM Inference with Integer-Only Arithmetic",
+          "summary": "Follows up Thinking Machines' finding that one prompt sent 1,000 times at temperature 0 returned 80 different answers, and removes the floating-point cause with integer-only arithmetic.",
+          "source": "hackernews_ai",
+          "url": "https://nathan.rs/posts/detllm/",
+          "published": "Fri, 13 Nov 2026 16:32:18 +0000"
+        },
+        {
+          "title": "Doubling LLM token rates in ComfyUI",
+          "summary": "ComfyUI rewrote the hot path of its local text generation around the Qwen3.x family; the same checkpoints on the same GPU now generate tokens up to twice as fast.",
+          "source": "hackernews_ai",
+          "url": "https://blog.comfy.org/p/doubling-llm-token-rates-in-comfyui",
+          "published": "Fri, 13 Nov 2026 02:52:50 +0000"
+        },
+        {
+          "title": "Frontier AI takes only months to get 10 times cheaper",
+          "summary": "Village's LLM Atlas prices finished tasks rather than tokens: a task that cost 79 cents on GPT-5 at launch now costs about 2 cents on a newer model, and newer launches are undercut faster.",
+          "source": "hackernews_ai",
+          "url": "https://village.dev/blog/frontier-ai-used-to-take-over-a-year-to-get-10-times-cheaper-now-it-takes-months/",
+          "published": "Fri, 13 Nov 2026 18:09:33 +0000"
+        },
+        {
+          "title": "Anthropic Says Its AI Model Cut AMD Chip Switch to Three Days",
+          "summary": "Anthropic says its own model helped get Claude running on AMD chips in three days.",
+          "source": "hackernews_ai",
+          "url": "https://finance.yahoo.com/technology/ai/articles/anthropic-says-ai-model-cut-154824196.html",
+          "published": "Fri, 13 Nov 2026 06:16:33 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Agent Security and Data Exposure",
+      "slug": "agent-security",
+      "summary": "Leaks and hijacks show up in the channels output-only audits never read: inter-agent messages, tool-call text and a third-party inference vendor.",
+      "articles": [
+        {
+          "title": "Show HN: AgentLeak – open-source privacy testing for multi-agent LLM systems",
+          "summary": "A 1,000-scenario benchmark across 7 channels and 5 LLMs finds inter-agent messages leak sensitive data 68.8% of the time against 27.2% for final outputs; output-only audits miss 41.7%.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Privatris/AgentLeak",
+          "published": "Fri, 13 Nov 2026 01:36:36 +0000"
+        },
+        {
+          "title": "Agent Anomaly Detection scores on benchmarks we didn't write",
+          "summary": "Google tested its trace-reading detector for agent goal hijack, OWASP's top agentic risk for 2026, against third-party benchmarks; it runs asynchronously on traces and logs, adding no latency.",
+          "source": "hackernews_ai",
+          "url": "https://developers.googleblog.com/how-agent-anomaly-detection-scores-on-benchmarks-we-didnt-write/",
+          "published": "Fri, 13 Nov 2026 16:33:33 +0000"
+        },
+        {
+          "title": "Notion AI chat transcripts exposed in Fireworks AI breach",
+          "summary": "Notion's advisory on the Fireworks AI incident: it revoked Notion API keys found in affected user messages on Nov 11 and reported exposed third-party keys to their issuers on Nov 12.",
+          "source": "hackernews_ai",
+          "url": "https://www.notion.com/en-gb/security/advisories/security-incident-involving-a-third-party-ai-vendor",
+          "published": "Fri, 13 Nov 2026 02:49:47 +0000"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "Bn-C_y2JoXk",
-    "title": "LLM Digest Daily Explainer: Nov 12, 2026",
-    "duration_s": 108.0
-  }
+  ]
 }
