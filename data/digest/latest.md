@@ -2,116 +2,98 @@
 
 Focus: AI Platform Engineering
 
-## 1. Show HN: Langfuse AI Gateway, open source rust gateway to trace every LLM call
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/langfuse/langfuse/tree/main/ai-gateway
-- Score: 4.529 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval, codex.
-
-## 2. Agent Anomaly Detection scores on benchmarks we didn't write
-- Type: news | Source: hackernews_ai
-- URL: https://developers.googleblog.com/how-agent-anomaly-detection-scores-on-benchmarks-we-didnt-write/
-- Score: 4.176 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 3. 1 in 4 3rd Party AI Endpoints Underperform Their Advertised Models
-- Type: news | Source: hackernews_ai
-- URL: https://hermes-ai.net/news/artificial-analysis-finds-1-in-4-ai-endpoints-quietly-underperform-their/
-- Score: 3.919 | Reliability: 1.0
-- Why it matters: 
-
-## 4. New AI agent observability and governance across BigQuery and Looker
+## 1. New AI agent observability and governance across BigQuery and Looker
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/data-analytics/enterprise-ai-agent-observability-with-bigquery-and-looker/
-- Score: 3.895 | Reliability: 1.0
+- Score: 3.753 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 5. Building strong safety evaluations
+## 2. Netflix Turns Operational Data Into a Knowledge Graph for AI-Driven Observability
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/11/netflix-ai-driven-observability/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 3.213 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 3. Building strong safety evaluations
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/building-strong-safety-evaluations
-- Score: 3.161 | Reliability: 1.0
+- Score: 3.079 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 6. Cited but Unused: Parametric Provenance in Retrieval-Augmented Generation
+## 4. When Both Sides Adapt: The Challenges of Evaluating Interactive LLM Systems
 - Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.17161v1
-- Score: 2.955 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+- URL: http://arxiv.org/abs/2611.17239v1
+- Score: 2.954 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
-## 7. XYBench: Helping with the problem behind the question
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/allenai/xybench
-- Score: 2.914 | Reliability: 1.0
-- Why it matters: 
+## 5. Skill Adapter: Personalized Modification and Online Routing of General-Purpose Skills
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.17007v1
+- Score: 2.951 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
-## 8. Introducing ChatGPT Wallet
+## 6. Introducing ChatGPT Wallet
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-chatgpt-wallet
-- Score: 2.755 | Reliability: 1.0
+- Score: 2.66 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
-## 9. H3-Image Day-0 Support: 4K in 0.87s with Vera Rubin
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-12-minimax-h3-image-rubin
-- Score: 2.422 | Reliability: 1.0
-- Why it matters: 
-
-## 10. Encoder Disaggregation in vLLM: Scaling Multimodal Serving with EPD
+## 7. Encoder Disaggregation in vLLM: Scaling Multimodal Serving with EPD
 - Type: news | Source: vllm_blog
 - URL: https://vllm.ai/blog/2026-11-11-encoder-disaggregation-epd
-- Score: 2.173 | Reliability: 1.0
+- Score: 2.155 | Reliability: 1.0
 - Why it matters: 
 
-## 11. The Value of Thinking: Learning When to Reason in Hybrid Decision Models
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.16961v1
-- Score: 2.907 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 12. codex rust-v0.171.0-alpha.4
+## 8. codex 0.171.0-alpha.4
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.4
-- Score: 2.088 | Reliability: 1.0
+- Score: 2.014 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 13. Supporting research on AI and children’s safety
+## 9. Gilbert + Tobin rethinks the business of law with AI
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/gilbert-tobin-sam-nickless
+- Score: 1.819 | Reliability: 1.0
+- Why it matters: 
+
+## 10. Supporting research on AI and children’s safety
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/children-first-declaration
-- Score: 1.828 | Reliability: 1.0
+- Score: 1.819 | Reliability: 1.0
 - Why it matters: 
 
-## 14. ChatGPT Plus for veterans and servicemembers
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/chatgpt-plus-for-veterans
-- Score: 1.788 | Reliability: 1.0
-- Why it matters: 
+## 11. CoReMem: Cost-Internalizing Memory for Successive Coding Tasks with Prospective Valuation
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.17316v1
+- Score: 2.946 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 15. Opening the datasets behind our AI weather models
+## 12. Opening the datasets behind our AI weather models
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/opening-the-datasets-behind-our-ai-weather-models/
-- Score: 1.769 | Reliability: 1.0
+- Score: 1.71 | Reliability: 1.0
 - Why it matters: 
 
-## 16. langgraph-cli==0.4.43
+## 13. langgraph-cli==0.4.43
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.43
-- Score: 1.7 | Reliability: 1.0
+- Score: 1.669 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. claude-code v2.1.321
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.321
-- Score: 1.409 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 18. Gemini Robotics 2.5 accelerates real-world general dexterity
+## 14. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
 - Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/
-- Score: 1.404 | Reliability: 1.0
+- URL: https://deepmind.google/blog/introducing-alphaproof-code/
+- Score: 1.642 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 15. claude-code v2.1.322
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.322
+- Score: 1.083 | Reliability: 1.0
 - Why it matters: 
 
-## 19. Release 2.74.0 corresponding to NGC container 26.10
-- Type: release | Source: triton_releases
-- URL: https://github.com/triton-inference-server/server/releases/tag/v2.74.0
-- Score: 1.056 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 16. vllm v0.34.0rc2
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc2
+- Score: 0.874 | Reliability: 1.0
+- Why it matters:
