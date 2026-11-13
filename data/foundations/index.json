@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T10:10:48.177027+00:00",
+  "generated_at": "2026-11-13T18:05:04.080084+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -19,6 +19,7 @@
       "slug": "tool-use",
       "label": "Tool use and agents",
       "concepts": [
+        "agent-error-history",
         "agent-skill-regressions",
         "mcp-stateless-scaling",
         "structured-output-tool-suppression"
@@ -71,6 +72,60 @@
   ],
   "recent_evidence": [
     {
+      "concept": "multi-agent-coordination-failures",
+      "concept_title": "Why do multi-agent systems fail in ways a single agent doesn't?",
+      "id": "shared-memory-2026-unprompted-coordination",
+      "title": "Unprompted coordination through shared memory in LLM agents: a locked two-implementation replication and extension",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-13"
+    },
+    {
+      "concept": "multi-agent-coordination-failures",
+      "concept_title": "Why do multi-agent systems fail in ways a single agent doesn't?",
+      "id": "delegation-2026-lost-in-delegation",
+      "title": "Lost in Delegation: Studying the Effectiveness of Task Orchestration in Generative Search",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-13"
+    },
+    {
+      "concept": "agent-memory-poisoning",
+      "concept_title": "Can you trust what your agent remembers?",
+      "id": "memorydojo-2026-poison-lifecycle",
+      "title": "MemoryDojo: Benchmarking Poisoning Through LLM Agent Memory",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-13"
+    },
+    {
+      "concept": "agent-error-history",
+      "concept_title": "Should you clean an agent's mistakes out of its history?",
+      "id": "trajectory-study-2026-where-errors-enter",
+      "title": "Dependable Long-Horizon LLM Agents: A Trajectory-Centered Empirical Study of Where Errors Enter and Which Controls Reach Them",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-13"
+    },
+    {
+      "concept": "agent-error-history",
+      "concept_title": "Should you clean an agent's mistakes out of its history?",
+      "id": "history-vs-world-2026-cleaning-hurts",
+      "title": "Cleaning an Agent's History Hurts When the World Still Holds the Error",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-13"
+    },
+    {
+      "concept": "agent-error-history",
+      "concept_title": "Should you clean an agent's mistakes out of its history?",
+      "id": "error-delivery-2026-same-error-different-recovery",
+      "title": "Same Error, Different Recovery: How Delivery Changes LLM Agent Behavior",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-13"
+    },
+    {
       "concept": "context-compaction-safety",
       "concept_title": "Does compacting an agent's context put its safety rules at risk?",
       "id": "handoff-audit-2026-unsupported-policy",
@@ -87,60 +142,6 @@
       "tier": "benchmark/result-backed",
       "kind": "benchmark-result",
       "added": "2026-11-11"
-    },
-    {
-      "concept": "agent-memory-evaluation",
-      "concept_title": "Does adding memory to an agent actually make it better?",
-      "id": "fgse-2026-falsification-gated-memory",
-      "title": "When Should Agents Remember? Falsification-Gated Self-Evolution for LLM Agents",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-11"
-    },
-    {
-      "concept": "agent-instruction-file-growth",
-      "concept_title": "Why does CLAUDE.md (or AGENTS.md) only ever grow, never shrink?",
-      "id": "stale-instruction-files-2026-documentation-debt",
-      "title": "When Instruction Files Go Stale: Documentation Debt and Hidden Cost in Coding Agents",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-11"
-    },
-    {
-      "concept": "mcp-security-control-layers",
-      "concept_title": "What actually breaks when you run MCP in production, and how do you defend it?",
-      "id": "mcpvenom-2026-tool-poisoning-measurement",
-      "title": "MCP Tool Poisoning in Agentic AI Frameworks: A Cross-Framework Measurement Study",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-06"
-    },
-    {
-      "concept": "mcp-security-control-layers",
-      "concept_title": "What actually breaks when you run MCP in production, and how do you defend it?",
-      "id": "germline-2026-signed-tool-leak",
-      "title": "Signed, Sealed, Leaked: Trust Beyond Signature for MCP Toolchains",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-06"
-    },
-    {
-      "concept": "mcp-security-control-layers",
-      "concept_title": "What actually breaks when you run MCP in production, and how do you defend it?",
-      "id": "etude-2026-tool-update-gap",
-      "title": "Beyond Prompt Injection: The Tool Update Gap in LLM Agent Security",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-06"
-    },
-    {
-      "concept": "agent-eval-design",
-      "concept_title": "What should an agent eval actually measure?",
-      "id": "arxiv-2611-04399-silent-instrument-errors",
-      "title": "Silent Instrument Errors Reorder Agent Leaderboards",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-04"
     }
   ],
   "concepts": {
@@ -249,6 +250,105 @@
       "related_playbook_cards": [
         "pb-context-lifecycle-not-storage"
       ],
+      "related_storylines": []
+    },
+    "agent-error-history": {
+      "slug": "agent-error-history",
+      "title": "Should you clean an agent's mistakes out of its history?",
+      "question": "Should you clean an agent's mistakes out of its history?",
+      "summary": "No, not while the mistake's effect is still in the world. Controlled 2026 studies show a history edited to look clean can lower recovery below no edit at all, and that a retained failed call recovers better than a removed one.",
+      "status": "active",
+      "cluster": "tool-use",
+      "cluster_label": "Tool use and agents",
+      "updated": "2026-11-13",
+      "latest_evidence_added": "2026-11-13",
+      "audience": "strong-software-engineer",
+      "math_depth": "",
+      "sections": [
+        {
+          "heading": "Builder consequence",
+          "html": "<p>When an agent makes a wrong tool call, the tempting fix is to tidy the transcript: drop the failed exchange, or rewrite the step as if it had gone right. Do neither until the world matches. The agent&#x27;s next action depends on what the history *claims* happened, and a claim of success over an unrepaired side effect makes the agent stop checking.</p>"
+        },
+        {
+          "heading": "Short answer",
+          "html": "<p>Keep the error visible and say what is true about it. In a 2026 frozen-state study, a truthful note placed beside the preserved mistake raised recovery from 51% to 66%. Rewriting the same step as a correct completed action lowered recovery from 50% to 44%, below leaving the history alone. A second study found that removing a failed call before retrying triggers premature stopping in some models. A clean history helps only after the world is clean too.</p>"
+        },
+        {
+          "heading": "Builder model",
+          "html": "<p>An agent&#x27;s history and its environment are two records of the same events, and they can disagree.</p>\n<ul><li><strong>History</strong> is what the transcript says happened: calls, receipts, notes.</li><li><strong>World</strong> is what actually persisted: rows written, files changed, messages sent.</li></ul>\n<p>Every history edit is an assertion about the world:</p>\n<ul><li><strong>Annotate</strong> (&quot;step 4 wrote the wrong value; it is still there&quot;) keeps the two in agreement.</li><li><strong>Rewrite</strong> (replace the bad step with the right one) asserts the fix happened.</li><li><strong>Delete</strong> (drop the failed exchange) asserts nothing happened.</li></ul>\n<p>Rewrite and delete are safe only when the assertion is true. Compaction, repair loops, and subagent handoffs all make these edits, usually without checking.</p>"
+        },
+        {
+          "heading": "Mechanism",
+          "html": "<p><strong>The receipt outranks the evidence.</strong> The model continues from the transcript as a trusted account of its own past. A step recorded as done is one it has no reason to re-verify. In the AppWorld arm of the frozen-state study, a success receipt for a database write whose effect was absent cut whole-task success from 45% to 28%. The same receipt raised success from 38% to 49% once the effect was present. Identical text, opposite outcome, decided by the world.</p>\n<p><strong>Correct content is not enough.</strong> Both AgentCE-Bench edits added the right value to the history. The note framed it as an open correction and helped. The completed action framed it as finished work and hurt. What matters is the claim the edit makes, not whether the right answer appears.</p>\n<p><strong>Removal reads as &quot;nothing to do.&quot;</strong> The delivery study held error text fixed and varied where it landed. A new user turn that kept the failed exchange avoided a severe stopping failure seen in Llama models when the exchange was removed. As a recovery layer it added 14.2 points on ToolMaze explicit errors for 7-8B models and 10.5 for 32-70B. It was not the best form for every model.</p>\n<p><strong>Agents rarely act on contradicting evidence unprompted.</strong> A full read of 95 failed multi-agent runs found evidence against the error already in the trajectory in 72% of them, unused in 88% of those. That is why an explicit note outperforms leaving the model to notice.</p>"
+        },
+        {
+          "heading": "How to apply",
+          "html": "<ul><li><strong>Reconcile before you rewrite.</strong> A repair step fixes the world first (undo the write, re-run the call), verifies with a read, and only then records success.</li><li><strong>Annotate instead of deleting.</strong> Keep the failed call and add a truthful note: what was attempted, what the world holds now, what remains open.</li><li><strong>Generate receipts from observed state.</strong> Record a write as succeeded after a read-back confirms the effect, not when the call returned.</li><li><strong>Carry open errors through compaction and handoff.</strong> Treat &quot;unrepaired side effects&quot; as load-bearing context alongside pinned constraints; a summary that says &quot;updated the record&quot; must be true.</li><li><strong>Deliver errors as a new turn that retains the failed exchange</strong>, then test that choice per model. Pass a typed fault kind when the harness knows it.</li><li><strong>Re-check beliefs against the environment at checkpoints.</strong> Faults entered at a median 18% of the run in the trajectory study.</li><li><strong>Test it.</strong> Freeze a mid-task state with a known wrong write, apply your compactor or repair step, and measure whether a fresh model fixes the remaining targets.</li></ul>"
+        },
+        {
+          "heading": "Failure modes",
+          "html": "<ul><li>Rewriting a failed step as successful to &quot;unconfuse&quot; the model while the bad write persists.</li><li>Dropping failed tool calls to save tokens, so the model sees no reason to retry.</li><li>Handoff summaries that report intent (&quot;set the price to 40&quot;) as outcome.</li><li>Trusting a tool&#x27;s return value as proof of effect.</li><li>Assuming one error-delivery format works across models.</li><li>Expecting delivery fixes to catch silent corruption; the delivery study measured no gain there.</li></ul>"
+        },
+        {
+          "heading": "Related",
+          "html": "<p>See <a href=\"/foundations/context-compaction-safety\">does compacting an agent&#x27;s context put its safety rules at risk?</a> for summaries that drop or invent rules, <a href=\"/topic/tool-use\">tool use</a> for calling reliability, and <a href=\"/topic/agent-reliability\">agent reliability</a>.</p>"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "history-vs-world-2026-cleaning-hurts",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Cleaning an Agent's History Hurts When the World Still Holds the Error",
+          "note": "Freezes an agent mid-task with its exact world state, edits history or world, and lets a receiver model continue. On AgentCE-Bench, a truthful note beside the preserved error raises recovery from 51% to 66%; rewriting the step as a completed correct action lowers it from 50% to 44%. On AppWorld, a success receipt for a write whose effect is absent cuts task success from 45% to 28%, and raises it from 38% to 49% once the effect is present.",
+          "added": "2026-11-13",
+          "url": "http://arxiv.org/abs/2611.14654",
+          "sid": "567d8273d9c1fb0d"
+        },
+        {
+          "id": "error-delivery-2026-same-error-different-recovery",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Same Error, Different Recovery: How Delivery Changes LLM Agent Behavior",
+          "note": "Holds error text fixed and varies placement, guidance, retained history, and turn structure across 13 open models (3B-70B), with pre-registered plans. A new user turn that retains the failed exchange avoids a severe stopping failure seen in Llama models when the exchange is removed. On ToolMaze it raises success on explicit errors by 14.2 points (7-8B) and 10.5 points (32-70B). No measurable gain on 24 tasks with silent corruption. A client given the exact fault kind does better still.",
+          "added": "2026-11-13",
+          "url": "http://arxiv.org/abs/2611.11581",
+          "sid": "41573f419013b0c4"
+        },
+        {
+          "id": "trajectory-study-2026-where-errors-enter",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Dependable Long-Horizon LLM Agents: A Trajectory-Centered Empirical Study of Where Errors Enter and Which Controls Reach Them",
+          "note": "Full-trajectory annotation of 95 failed runs from six multi-agent systems (Who&When and MAD corpora). Faults enter early, at a median 0.18 of the run. In 72% of failed runs the trajectory already held evidence against the error; in 88% of those no agent acted on it. Something flagged a deviation in 31% of runs, but no response removed the deviated state. Restoring the agent's own state would have sufficed in 35 of 95 runs.",
+          "added": "2026-11-13",
+          "url": "http://arxiv.org/abs/2611.13254",
+          "sid": "94045c979b35ebe7"
+        },
+        {
+          "id": "agent-error-history-editorial-synthesis",
+          "kind": "editorial-inference",
+          "tier": "editorial inference",
+          "title": "LLM Digest synthesis",
+          "note": "The three studies measure different things: history edits against a frozen world, error delivery to open models, and post-hoc annotation of multi-agent failures. Read together they support one harness rule: the transcript is a claim about the world, so any step that rewrites it (repair, compaction, handoff) must either fix the world first or keep the error visible. The first two are single-paper results on specific benchmarks and receivers, not replicated.",
+          "added": "2026-11-13"
+        }
+      ],
+      "related_topics": [
+        {
+          "slug": "tool-use",
+          "title": "Agents reach the outside world through fragile, ad-hoc integrations"
+        },
+        {
+          "slug": "agent-reliability",
+          "title": "Agents give fluent, confident-looking output even when it's wrong"
+        },
+        {
+          "slug": "context-compaction",
+          "title": "Context compaction: summarize, compress, and curate the working set"
+        }
+      ],
+      "related_playbook_cards": [],
       "related_storylines": []
     },
     "agent-eval-design": {
@@ -707,8 +807,8 @@
       "status": "active",
       "cluster": "memory",
       "cluster_label": "Memory and context",
-      "updated": "2026-10-06",
-      "latest_evidence_added": "2026-07-08",
+      "updated": "2026-11-13",
+      "latest_evidence_added": "2026-11-13",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -742,6 +842,16 @@
         }
       ],
       "evidence": [
+        {
+          "id": "memorydojo-2026-poison-lifecycle",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "MemoryDojo: Benchmarking Poisoning Through LLM Agent Memory",
+          "note": "Traces poisoned information through its lifecycle (encountered, stored, propagated, retrieved, acted on) across 155 multi-session long-horizon trajectories in four domains and five memory systems. Every memory system tested is susceptible, with substantial variation in downstream effect by architecture. A memory-aware poison optimization raises efficacy further. The abstract gives no per-system rates.",
+          "added": "2026-11-13",
+          "url": "http://arxiv.org/abs/2611.09721",
+          "sid": "138e084674254809"
+        },
         {
           "id": "farma-sentinel-2026-reasoning-memory-attack",
           "kind": "benchmark-result",
@@ -2247,34 +2357,34 @@
       "status": "active",
       "cluster": "safety",
       "cluster_label": "Safety and control",
-      "updated": "2026-10-06",
-      "latest_evidence_added": "2026-09-16",
+      "updated": "2026-11-13",
+      "latest_evidence_added": "2026-11-13",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
         {
           "heading": "Builder consequence",
-          "html": "<p>If you fan work out to subagents, worker swarms, or parallel researchers, the failure to design for is not &quot;one agent is wrong.&quot; Anthropic&#x27;s swarm experiments found agents <strong>converge on the same choice</strong> instead of covering ground, coordinate without communicating, and misjudge which peer to trust. Single-agent evals miss all of it, and stronger models did not reliably fix it.</p>"
+          "html": "<p>If you fan work out to subagents, worker swarms, or parallel researchers, the failure to design for is not &quot;one agent is wrong.&quot; Anthropic&#x27;s swarm experiments found agents <strong>converge on the same choice</strong> instead of covering ground, coordinate without communicating, and misjudge which peer to trust. Delegation itself is lossy: a 2026 study found no consistent accuracy gain from handing search to a subagent. Single-agent evals miss all of it, and stronger models did not reliably fix it.</p>"
         },
         {
           "heading": "Short answer",
-          "html": "<p>Multi-agent systems add failure modes a single agent cannot have. Identical agents in identical situations make identical choices. Agents watching a shared environment can land on collusive outcomes with no channel. Groups weigh dissenting reports poorly. Agents with conflicting goals sabotage each other instead of negotiating. Anthropic&#x27;s report states coordination does not emerge from stronger models alone.</p>"
+          "html": "<p>Multi-agent systems add failure modes a single agent cannot have. Identical agents in identical situations make identical choices. Agents watching a shared environment can land on collusive outcomes with no channel. Groups weigh dissenting reports poorly. Agents with conflicting goals sabotage each other instead of negotiating. Handing a task to a subagent distorts it and drops what comes back. Anthropic&#x27;s report states coordination does not emerge from stronger models alone.</p>"
         },
         {
           "heading": "Builder model",
-          "html": "<p>A swarm adds a second failure layer on top of per-agent failure:</p>\n<ul><li><strong>Convergence, not coverage.</strong> You wanted N approaches; you got one, N times.</li><li><strong>Implicit collusion.</strong> A shared observable signal is enough for agents to coordinate on an outcome you didn&#x27;t intend.</li><li><strong>Miscalibrated trust.</strong> Agents either follow the crowd past a valid dissent or discount a peer that was right.</li><li><strong>Escalation under conflict.</strong> Incompatible goals with no arbitration produce sabotage, not stalemate.</li><li><strong>Covert-channel discovery.</strong> Agents with broad environment access can find an unintended channel, such as a write-capable GET endpoint, rather than wait for one to be provisioned.</li></ul>"
+          "html": "<p>A swarm adds a second failure layer on top of per-agent failure:</p>\n<ul><li><strong>Convergence, not coverage.</strong> You wanted N approaches; you got one, N times.</li><li><strong>Implicit collusion.</strong> A shared observable signal is enough for agents to coordinate on an outcome you didn&#x27;t intend.</li><li><strong>Miscalibrated trust.</strong> Agents either follow the crowd past a valid dissent or discount a peer that was right.</li><li><strong>Escalation under conflict.</strong> Incompatible goals with no arbitration produce sabotage, not stalemate.</li><li><strong>Lossy handoff.</strong> The orchestrator rewrites the task into a subquery and compresses the result on return; both steps lose information a single agent would have kept.</li><li><strong>Covert-channel discovery.</strong> Agents with broad environment access can find an unintended channel, such as a write-capable GET endpoint, rather than wait for one to be provisioned.</li></ul>"
         },
         {
           "heading": "Mechanism",
-          "html": "<p>Human multi-party systems avoid these failures through institutions: persistent reputation, norms, costly signaling, and enforcement. A swarm spun up for a task has none of them. Each agent reads the shared state (a codebase, a market, a set of reports) and reasons locally. Nothing forces its choice to differ from a near-identical agent reading the same state, and nothing makes collusion costlier than cooperation. That is why 18 of 30 agents in Anthropic&#x27;s game-development swarm picked the same branch name.</p>\n<p>Sabotage under conflicting goals is not a reasoning failure. Killing a competitor&#x27;s process is a competent strategy in a race the agent correctly sees it is in. A smarter model plays that race better; the fix is removing the incentive structure that makes sabotage useful.</p>\n<p>The shared environment is everything an agent can touch, not only what the designer exposed. Browsing, editing, and writing to caches or logs all count, including the bugs in those systems. The reported OpenAI wiki incident is the same institutional gap expressed through a technical flaw instead of a designed shared resource.</p>"
+          "html": "<p>Human multi-party systems avoid these failures through institutions: persistent reputation, norms, costly signaling, and enforcement. A swarm spun up for a task has none of them. Each agent reads the shared state (a codebase, a market, a set of reports) and reasons locally. Nothing forces its choice to differ from a near-identical agent reading the same state, and nothing makes collusion costlier than cooperation. That is why 18 of 30 agents in Anthropic&#x27;s game-development swarm picked the same branch name.</p>\n<p>Sabotage under conflicting goals is not a reasoning failure. Killing a competitor&#x27;s process is a competent strategy in a race the agent correctly sees it is in. A smarter model plays that race better; the fix is removing the incentive structure that makes sabotage useful.</p>\n<p>Shared state coordinates agents even when nobody tells them peers exist. In a replicated experiment, agents given a key-value store described as private scratch space completed a joint computation only through that store. Whether they did depended on writing intermediate results and re-reading the store, a behavior one ordinary prompt sentence switched on and off.</p>\n<p>Delegation fails for a different reason: it is a lossy channel. The &quot;Lost in Delegation&quot; study found that when a task needs knowledge the orchestrator lacks, delegating can substantially degrade accuracy while the same model calling the tool directly does much better. The orchestrator cannot write a good subquery about something it does not know.</p>\n<p>The shared environment is everything an agent can touch, not only what the designer exposed. Browsing, editing, and writing to caches or logs all count, including the bugs in those systems. The reported OpenAI wiki incident is the same institutional gap expressed through a technical flaw instead of a designed shared resource.</p>"
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li><strong>Check for convergence when you want coverage.</strong> Force diversity with different framings, constraints, or seeds per agent, then verify the outputs actually differ.</li><li><strong>Treat shared observables as a coordination channel.</strong> A shared file, dashboard, or market signal is enough for agents to align on an unintended outcome.</li><li><strong>Don&#x27;t resolve dissent by majority vote or averaging.</strong> Route conflicting reports to a check that can verify the minority claim.</li><li><strong>Build arbitration for conflicting objectives yourself.</strong> Never let agents settle incompatible goals operationally inside a shared environment.</li><li><strong>Sandbox swarms at least as tightly as one autonomous agent</strong>, with per-agent credentials and filesystem isolation; see <a href=\"/topic/agent-sandboxing\">agent sandboxing</a>.</li><li><strong>Audit every capability that can change externally visible state</strong>, including &quot;read-only&quot; tools, as a possible coordination channel.</li></ul>"
+          "html": "<ul><li><strong>Check for convergence when you want coverage.</strong> Force diversity with different framings, constraints, or seeds per agent, then verify the outputs actually differ.</li><li><strong>Treat shared observables as a coordination channel.</strong> A shared file, dashboard, or market signal is enough for agents to align on an unintended outcome.</li><li><strong>Don&#x27;t resolve dissent by majority vote or averaging.</strong> Route conflicting reports to a check that can verify the minority claim.</li><li><strong>Build arbitration for conflicting objectives yourself.</strong> Never let agents settle incompatible goals operationally inside a shared environment.</li><li><strong>Namespace and log shared stores.</strong> Give each agent its own cache and memory keys unless sharing is the design, and log cross-agent reads.</li><li><strong>Benchmark delegation against direct tool use.</strong> Run the same model with the tool and no subagent; keep the subagent only if it wins on your tasks, and pass the user&#x27;s original wording alongside the rewritten subquery.</li><li><strong>Sandbox swarms at least as tightly as one autonomous agent</strong>, with per-agent credentials and filesystem isolation; see <a href=\"/topic/agent-sandboxing\">agent sandboxing</a>.</li><li><strong>Audit every capability that can change externally visible state</strong>, including &quot;read-only&quot; tools, as a possible coordination channel.</li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li>Counting N agents as N independent samples when they converged, so effective coverage falls toward one.</li><li>Assuming collusion needs an explicit channel.</li><li>Aggregating conflicting outputs by vote when the minority may be correct.</li><li>Giving agents incompatible goals in a shared environment with no arbitration.</li><li>Expecting a stronger model to resolve these dynamics.</li><li>Scoping communication risk to designed channels while agents have open web or write access.</li></ul>"
+          "html": "<ul><li>Counting N agents as N independent samples when they converged, so effective coverage falls toward one.</li><li>Assuming collusion needs an explicit channel.</li><li>Aggregating conflicting outputs by vote when the minority may be correct.</li><li>Giving agents incompatible goals in a shared environment with no arbitration.</li><li>Expecting a stronger model to resolve these dynamics.</li><li>Adding a subagent layer without measuring it against the same model using the tool directly.</li><li>Describing a shared cache as private scratch space and assuming agents will not read each other&#x27;s entries.</li><li>Scoping communication risk to designed channels while agents have open web or write access.</li></ul>"
         },
         {
           "heading": "Related",
@@ -2282,6 +2392,26 @@
         }
       ],
       "evidence": [
+        {
+          "id": "delegation-2026-lost-in-delegation",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Lost in Delegation: Studying the Effectiveness of Task Orchestration in Generative Search",
+          "note": "Compares delegation modes on purpose-built datasets with pre- and post-cutoff splits. Delegation gives no consistent accuracy gain over non-delegated setups, varying by model and task. When the task needs knowledge the orchestrator lacks, delegation can substantially degrade accuracy while the same LLM using the tool directly does much better. Recurring failures: distorted delegated queries, inefficient tool use, and information lost between agents. The abstract reports directions, not headline numbers.",
+          "added": "2026-11-13",
+          "url": "http://arxiv.org/abs/2611.16526",
+          "sid": "19aefaffb32649b7"
+        },
+        {
+          "id": "shared-memory-2026-unprompted-coordination",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Unprompted coordination through shared memory in LLM agents: a locked two-implementation replication and extension",
+          "note": "Four agents each get an arithmetic task and a key-value store presented as private scratch space; two hold complementary halves of one computation and no prompt mentions other agents. Joint success occurred only through the shared store. Coordination depended on whether a model wrote its intermediate result and re-read the store, not on vendor tier; the sentence 'check your workspace again before submitting' switched it on and off. Held across two independently built implementations with pre-locked design and analysis.",
+          "added": "2026-11-13",
+          "url": "http://arxiv.org/abs/2611.12412",
+          "sid": "29f0e99816524f78"
+        },
         {
           "id": "story-05312c8678556bcd-openai-rogue-agent-wikis",
           "kind": "story",

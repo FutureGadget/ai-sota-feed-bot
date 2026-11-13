@@ -29,6 +29,13 @@ evidence:
     url: "http://arxiv.org/abs/2607.01071v1"
     added: 2026-07-08
     note: "Argues most memory benchmarks only check storage, retrieval, and updates. Proposes five tasks testing whether an agent rejects memory as insufficient evidence, respects its scope, resolves memory-vs-evidence conflicts, tracks updates, and uses valid memory for personalization. Surfaces sycophancy, over-trusting a stored memory over fresh correct evidence, as a non-adversarial failure mode."
+  - id: memorydojo-2026-poison-lifecycle
+    kind: benchmark-result
+    title: "MemoryDojo: Benchmarking Poisoning Through LLM Agent Memory"
+    url: "http://arxiv.org/abs/2611.09721"
+    sid: "138e084674254809"
+    added: 2026-11-13
+    note: "Traces poisoned information through its lifecycle (encountered, stored, propagated, retrieved, acted on) across 155 multi-session long-horizon trajectories in four domains and five memory systems. Every memory system tested is susceptible, with substantial variation in downstream effect by architecture. A memory-aware poison optimization raises efficacy further. The abstract gives no per-system rates."
   - id: agent-memory-poisoning-editorial-synthesis
     kind: editorial-inference
     title: "LLM Digest synthesis"
