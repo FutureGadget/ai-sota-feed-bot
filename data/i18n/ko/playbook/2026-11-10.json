@@ -1,0 +1,131 @@
+{
+  "locale": "ko",
+  "source_path": "/playbook/2026-11-10",
+  "source_hash": "65c420c522b4b4a6841315d8187b28442fab9ce48a1950f08f9d80b78dcf9ed3",
+  "translated_at": "2026-11-14T03:33:07.130820+00:00",
+  "model": "google-translate-v2",
+  "review_status": "machine",
+  "date": "2026-11-10",
+  "title": "에이전트 빌더의 플레이북 — 2026년 11월 10일",
+  "generated_at": "2026-11-10T10:03:59Z",
+  "intro": [
+    "이번 주 약점은 인수인계 과정입니다. 요약에서 작업 세부 정보가 누락되고, 권한이 임의로 설정되며, 승인된 작업이 다시 실행되는 문제가 발생합니다."
+  ],
+  "card_count": 6,
+  "cards": [
+    {
+      "id": "pb-pass-full-task-to-every-subagent",
+      "kind": "source-backed",
+      "title": "다중 에이전트 파이프라인에서 전체 작업 파일을 모든 에이전트에 전달합니다.",
+      "area": "Orchestration",
+      "problem": "기획자-코더-검토자로 구성된 팀은 숨겨진 승인 테스트의 25.7%를 통과한 반면, 단일 담당자는 56.8%를 통과했습니다. 이는 기획자만 해당 작업을 볼 수 있었기 때문입니다.",
+      "apply": "코더와 리뷰어에게 계획 요약과 함께 원래 작업 파일을 제공하세요. 추가 역할을 유지하기 전에 동일한 예산으로 단일 상담원을 운영할 때와 비교하여 팀의 성과 Benchmark .",
+      "result": "원본 실험에서 작업 파일을 공유함으로써 팀의 성과는 54.1%로 향상되어 상담원 한 명이 작업했을 때와 같은 수준이 되었지만, 여전히 비용은 더 높았습니다.",
+      "effort": "low",
+      "source": "hackernews_ai",
+      "source_url": "https://programmingtheloop.com/experiments/swarm-tax/",
+      "source_sid": "2facba8089563987",
+      "topic_url": "/topic/agent-orchestration",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "저자는 Codex를 사용하여 6가지 기능 작업에 대한 통과율을 측정했습니다."
+      },
+      "published": "Thu, 05 Nov 2026 23:10:43 +0000"
+    },
+    {
+      "id": "pb-compact-to-short-context",
+      "kind": "source-backed",
+      "title": "긴 시간 동안 비용을 지불하는 대신, 간결한 컨텍스트로 에이전트 기록을 압축합니다.",
+      "area": "Cost & latency",
+      "problem": "장기 컨텍스트 서비스는 토큰당 최대 7배 더 비싸지만, 상담원들은 추가적인 시간적 여유를 거의 활용하지 않습니다.",
+      "apply": "일정한 주기로 상담원 기록을 요약하고 작업 컨텍스트를 약 16,000개 토큰으로 제한합니다. 전환하기 전에 전체 컨텍스트 기준선에 대해 자체 평가를 실행하십시오.",
+      "result": "NVIDIA 잦은 압축에도 불구하고 16K 해상도에서 Claude Opus 4.5 및 GPT 5.6 Sol의 정확도 손실이 거의 없으며, 서비스 비용도 훨씬 저렴하다고 보고했습니다.",
+      "effort": "medium",
+      "source": "hackernews_ai",
+      "source_url": "https://i10x.ai/news/nvidia-long-context-compaction-agents-study",
+      "source_sid": "3c72c5c3cd7d0707",
+      "topic_url": "/topic/context-compaction",
+      "evidence": {
+        "kind": "source-claimed",
+        "note": "NVIDIA 사전 공개 자료 \"긴 맥락이 필요하지 않습니다\"에서는 정확도 및 비용 결과를 보고합니다."
+      },
+      "published": "Wed, 04 Nov 2026 14:17:09 +0000"
+    },
+    {
+      "id": "pb-audit-handoff-summaries",
+      "kind": "source-backed",
+      "title": "권한 기록에 따라 부여되지 않은 권한에 대한 감사 압축 요약",
+      "area": "Safety",
+      "problem": "직접 작성한 인수인계 요약서에는 원본 기록에서 지원하지 않는 권한 또는 요구 사항을 명시할 수 있으며, 다음 단계는 해당 내용을 준수합니다.",
+      "apply": "요약 정보를 신뢰할 수 없는 입력으로 처리하십시오. 권한, 승인 또는 정책 관련 문장을 원본 기록과 비교하여, 지원되지 않는 문장은 삭제한 후 작업을 재개하십시오.",
+      "result": "압축된 실행은 임의로 부여된 권한을 상속받지 않으므로 도구 호출 게이트는 사용자가 실제로 승인한 내용과 계속 일치합니다.",
+      "effort": "medium",
+      "source": "arxiv_agent_systems_research",
+      "source_url": "http://arxiv.org/abs/2611.06545v1",
+      "source_sid": "73b8cbb5fe289269",
+      "topic_url": "/topic/prompt-injection",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "이 논문은 인수인계 요약에서 근거가 부족한 정책 진술을 연구하며, 그 완화책은 편집상의 추론에 불과합니다."
+      },
+      "published": "2026-11-04T14:12:09Z"
+    },
+    {
+      "id": "pb-idempotent-approved-tool-calls",
+      "kind": "source-backed",
+      "title": "승인된 툴 호출은 크래시 발생 시 최대 한 번만 실행되도록 합니다.",
+      "area": "Reliability",
+      "problem": "시스템 충돌 및 재개 기록 이후, 승인된 결제 건 하나가 LangGraph, Pydantic AI 및 OpenAI Agents SDK 에서 두 번 실행되었습니다.",
+      "apply": "승인된 각 부작용 호출에 대해 멱등성 ID를 부여하고 실행 전에 기록합니다. 실행을 재개할 때 이미 기록된 ID는 건너뜁니다.",
+      "result": "해당 자료에 따르면 승인된 도구 호출은 최대 한 번만 실행되므로 충돌 후 재시도가 안전하다고 합니다.",
+      "effort": "medium",
+      "source": "hackernews_ai",
+      "source_url": "https://github.com/salahmakboul/call4agents",
+      "source_sid": "385b20a2401d6d5d",
+      "topic_url": "/topic/agent-reliability",
+      "evidence": {
+        "kind": "source-claimed",
+        "note": "Call4Agents의 보고서는 세 가지 프레임워크에서 중복 결제를 재현합니다."
+      },
+      "published": "Thu, 05 Nov 2026 18:17:19 +0000"
+    },
+    {
+      "id": "pb-propagate-acl-into-agent-memory",
+      "kind": "source-backed",
+      "title": "에이전트가 합성하는 모든 메모리 노트에 소스 ACL을 함께 전달합니다.",
+      "area": "Memory",
+      "problem": "메타데이터 필터는 승인되지 않은 원시 청크 쿼리를 100% 차단했지만, 문서 간 합성 과정에서 백그라운드 작업 3개 중 2개에서 기밀 상위 비밀 정보가 유출되었습니다.",
+      "apply": "합성된 각 메모리 노트에 부모 노트의 권한 교집합을 표시하고, 요청하는 사용자에 따라 원시 검색과 동일한 방식으로 메모리 불러오기를 필터링합니다.",
+      "result": "권한이 없는 사용자는 파생된 메모를 통해 임원 데이터를 더 이상 검색할 수 없습니다. 벤치마크 린터를 다시 실행하여 누출률이 0%인지 확인하십시오.",
+      "effort": "medium",
+      "source": "hackernews_ai",
+      "source_url": "https://github.com/harishbalasubramanian/sentinel-eval",
+      "source_sid": "42d0d220c3dc643e",
+      "topic_url": "/topic/agent-memory",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "벤치마크 보고서에 따르면 원시 RAG 누출은 0%인 반면 에이전트 메모리 누출은 67%입니다."
+      },
+      "published": "Mon, 09 Nov 2026 14:33:07 +0000"
+    },
+    {
+      "id": "pb-let-agent-write-one-program",
+      "kind": "source-backed",
+      "title": "에이전트가 노드별 도구 호출이 아닌, 대량 워크플로를 하나의 프로그램으로 표현하도록 하십시오.",
+      "area": "Tool use",
+      "problem": "수천 개의 노드에 걸쳐 브랜드 색상을 바꾸는 것과 같은 대량 편집 작업은 각 결정마다 모델의 왕복 통신을 필요로 합니다.",
+      "apply": "샌드박스 환경에서 스크립트가 문서 API 사용할 수 있도록 노출합니다. 에이전트가 문서를 검사하고, 변경 사항을 판단하고 적용하는 프로그램을 하나 작성하고, 스트리밍 방식으로 실행을 시작하도록 합니다.",
+      "result": "프레이머는 재설계된 하네스가 최대 33% 저렴하고 20% 더 빠르다고 보고했습니다.",
+      "effort": "high",
+      "source": "hackernews_ai",
+      "source_url": "https://www.framer.com/blog/harness-2/",
+      "source_sid": "c430d9570f8f07c3",
+      "topic_url": "/topic/tool-use",
+      "evidence": {
+        "kind": "source-claimed",
+        "note": "Framer는 자사 에이전트 하네스의 비용 및 지연 시간 수치를 명시합니다."
+      },
+      "published": "Fri, 06 Nov 2026 17:31:03 +0000"
+    }
+  ]
+}
