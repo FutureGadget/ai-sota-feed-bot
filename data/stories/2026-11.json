@@ -1048,6 +1048,22 @@
   "type": "release",
   "url": "https://simonwillison.net/2026/Nov/3/llm"
  },
+ "0eef7e301ca1897a": {
+  "first_seen": "2026-11-14T09:04:51.864325+00:00",
+  "id": "42fce40d9d820b58",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-12T17:55:33+00:00",
+  "sid": "0eef7e301ca1897a",
+  "source": "arxiv_cs_cl",
+  "summary": "Low-Rank Adaptation (LoRA) often underperforms full fine-tuning, especially in heterogeneous and continual-learning settings in which substantial forgetting occurs. In general, it suffers from an undesirable learning-forgetting trade-off across diverse fine-tuning settings. We identify a potential contributor: LoRA adapters, especially high-rank ones, frequently fail to realize the available capacity afforded by the configured rank. Specifically, we find that standard LoRA updates have effective rank far below their configured rank, limiting how broadly the update energy is distributed. Therefore, we propose training mechanisms that optimize the original objective while maximizing adapter effective rank. Our main method adds a simple, stable, differentiable, and SVD-free Rényi-2 effective-rank regularizer to the language-modeling loss. We also connect capacity maximization to norm-bounded updates. In mixed-domain rank sweeps on three models evaluated with multiple random seeds, a penalty weight of $λ=0.01$ lowers mean Wiki perplexity at every tested rank of at least $16$ relative to unpenalized LoRA. Mean training perplexity improves or increases by at most $0.02$ in all but one model-rank comparison. Single-task and scheduling experiments further show that the balance between learning and retention depends on the configuration. We also observe that several LoRA variants in the literature also suffer from the identified capacity issue, and our approach provides a complementar",
+  "summary_1line": "Low-Rank Adaptation (LoRA) often underperforms full fine-tuning, especially in heterogeneous and continual-learning settings in which substantial forgetting occurs. In general, it suffers from an undesirable learning-...",
+  "title": "Maximizing Capacity Utilization of LoRA Adapters for Mitigating the Learning-Forgetting Trade-off",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17191v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "0f0020abcf733229": {
   "first_seen": "2026-11-10T13:05:59.025979+00:00",
   "id": "2703144159467320",
@@ -6436,12 +6452,17 @@
   "content_excerpt": "Managing multiple sessions across a build used to require you to divide the work, juggle handoffs, and stitch the results back together. Now in a Claude Code project, you describe what needs to get done and Claude manages the work. Claude scopes the request, delegates the work, coordinates parallel threads, reviews the outputs, and assembles the finished result. You can steer progress throughout,",
   "first_seen": "2026-11-14T06:08:28.042975+00:00",
   "id": "e8618848b231e358",
+  "matched_topics": [
+   "claude code"
+  ],
   "published": "2026-11-14T00:28:11+00:00",
   "sid": "60e5719ddad5001d",
   "source": "hackernews_ai",
+  "summary_1line": "Anthropic upgrades Claude Code Projects to run parallel AI workers",
   "title": "Anthropic upgrades Claude Code Projects to run parallel AI workers",
   "type": "news",
-  "url": "https://claude.com/resources/articles/projects-redesigned"
+  "url": "https://claude.com/resources/articles/projects-redesigned",
+  "why_it_matters": "Matches feed focus: claude code."
  },
  "60e6f0629036df1b": {
   "content_excerpt": "vLLM relies heavily on PyTorch, with frequent calls to LibTorch in its C++ backend. As a result, changes to LibTorch’s binary interface may require vLLM to be rebuilt and relinked, even when the APIs remain unchanged. What if we could update LibTorch without rebuilding vLLM? That’s where the LibTorch Stable ABI comes in. With a LibTorch Stable ABI, updating LibTorch does not require rebuilding or updating vLLM in order to keep using it. Instead, we could swap out the torch wheel and import it directly into our vLLM package. As of v0.33.0, vLLM publishes LibTorch ABI Stable CUDA wheels. Left: Unstable ABI—new torch requires vLLM to rebuild. Right: Stable ABI—vLLM can import new torch directly. Note: Compatibility between vLLM and PyTorch still depends on other factors, including Python APIs, GPU-related requirements (such as the minimum supported CUDA version), and third-party dependencies. The LibTorch Stable ABI addresses binary compatibility but does not eliminate these other constraints. An application binary interface (ABI) defines how compiled code interacts with a library: how functions are called, data is laid out, and symbols are named. Even if an API looks the same in source code, an ABI change can force extensions to rebuild. A stable ABI preserves a supported set of binary interfaces across compatible versions, so extensions that use them can keep working without a rebuild. PyTorch's LibTorch Stable ABI has three layers: a stable C shim exposing selected LibTorch A",
@@ -6961,6 +6982,19 @@
   "title": "Library of Layers (LoL): Adaptively Ordering Transformer Layers at Runtime",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03526v1"
+ },
+ "6afdd40324dd1591": {
+  "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. November 13, 2026 — What 1.0 changes for apps that run models locally. Plus, LangChain raises $300M at a $3B valuation. Congrats to both llama.ccp and ggml for reaching 1.0 (declaring stability and removing 35 deprecated functions from llama.cpp’s public header) and with SGLang also announcing 1.0 at the recent SGLang Summit . However, today’s title story goes to the No AI Slop manifesto , which arose out of the conference discussions at AIE CODE and which Dex introduced in the closing keynote after cosignatures by many of the speakers at the conference. It seems Hacker News also liked it , voting it up to the front page today. We started this manifesto to offer a useful tool for discussion at work, and hope it gets used that way. Full manifesto, with cosignatures and edits and discussions open at https://www.slopmanifesto.com/ Sponsored by Deepgram Deepgram is the voice AI infrastructure behind natural conversation—bringing speech-to-text, text-to-speech, voice-focused LLMs, and agents to teams building with voice AI. For any stack and any tools you already love building with, Deepgram slots in as your foundational voice AI technology. So you have contr",
+  "first_seen": "2026-11-14T09:04:51.864325+00:00",
+  "id": "44d7b1c9d54e1ecc",
+  "published": "2026-11-14T08:31:02+00:00",
+  "sid": "6afdd40324dd1591",
+  "source": "latent_space",
+  "summary": "November 13, 2026 — AIE speakers unite to lay out how to fight slop.",
+  "summary_1line": "November 13, 2026 — AIE speakers unite to lay out how to fight slop.",
+  "title": "[AINews] The No AI Slop Manifesto",
+  "type": "news",
+  "url": "https://latent.space/p/ainews-the-no-ai-slop-manifesto"
  },
  "6b0a48e52ca49e48": {
   "first_seen": "2026-11-04T00:07:04.928809+00:00",
@@ -10913,8 +10947,8 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 260, downloads: 4332.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 260, downloads: 4332.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 262, downloads: 4332.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 262, downloads: 4332.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16"
