@@ -3,6 +3,10 @@
   var enabled = false;
   var disabled = false;
   var scrollDepthStarted = false;
+  var engagementStarted = false;
+  // Visible time on one page that counts as a person reading it.
+  var ENGAGED_DWELL_MS = 10000;
+  var ENGAGEMENT_INPUTS = ['pointerdown', 'keydown', 'wheel', 'touchstart'];
 
   function isLocalHost() {
     return /^(localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\])$/.test(window.location.hostname);
@@ -18,6 +22,18 @@
   // `?rid=` from an email link may carry (see api/subscribe.js).
   var READER_ID_RE = /^anon_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
   var sessionAnonId = null;
+  var profileState = 'unknown';
+
+  // 'fresh' when this browser had no reader id before this page load. A
+  // crawler that opens every page in a new browser profile is always fresh;
+  // a returning reader, or one arriving from an email `rid=` link, is not.
+  function readProfileState() {
+    try {
+      profileState = localStorage.getItem(ANON_ID_KEY) ? 'returning' : 'fresh';
+    } catch (e) {
+      profileState = 'unknown';
+    }
+  }
 
   // Email links carry `rid=<subscriber reader id>` so a click from a mail app's
   // in-app browser counts as the same reader instead of a new one. Adopt it as
@@ -31,6 +47,7 @@
       window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
       if (!READER_ID_RE.test(rid)) return;
       sessionAnonId = rid;
+      profileState = 'returning';
       try {
         localStorage.setItem(ANON_ID_KEY, rid);
       } catch (e) {}
@@ -125,6 +142,78 @@
     schedule();
   }
 
+  // `engaged_visit` fires once per page load, on the first trusted input or
+  // after ENGAGED_DWELL_MS of visible time. Nothing captured on load proves a
+  // person was there: `scroll_depth` fires when the page fits the viewport and
+  // `editorial_update_open` when the page renders.
+  function startEngagementTracking() {
+    if (engagementStarted) return;
+    engagementStarted = true;
+    try {
+      var doc = window.document;
+      var startedAt = Date.now();
+      var visibleMs = 0;
+      var visibleSince = null;
+      var timer = null;
+      var done = false;
+
+      function isVisible() {
+        return !doc || doc.visibilityState !== 'hidden';
+      }
+
+      function stop() {
+        done = true;
+        if (timer) window.clearTimeout(timer);
+        for (var i = 0; i < ENGAGEMENT_INPUTS.length; i += 1) {
+          window.removeEventListener(ENGAGEMENT_INPUTS[i], onInput, true);
+        }
+        if (doc) doc.removeEventListener('visibilitychange', onVisibility);
+      }
+
+      function engaged(trigger) {
+        if (done) return;
+        stop();
+        capture('engaged_visit', {
+          path: window.location.pathname,
+          trigger: trigger,
+          ms_since_load: Date.now() - startedAt,
+        });
+      }
+
+      function onInput(event) {
+        if (event && event.isTrusted === false) return;
+        engaged(event && event.type ? event.type : 'input');
+      }
+
+      function arm() {
+        visibleSince = Date.now();
+        timer = window.setTimeout(function () {
+          engaged('dwell');
+        }, Math.max(0, ENGAGED_DWELL_MS - visibleMs));
+      }
+
+      function onVisibility() {
+        if (done) return;
+        if (isVisible()) {
+          if (visibleSince === null) arm();
+          return;
+        }
+        if (visibleSince !== null) visibleMs += Date.now() - visibleSince;
+        visibleSince = null;
+        if (timer) window.clearTimeout(timer);
+        timer = null;
+      }
+
+      for (var i = 0; i < ENGAGEMENT_INPUTS.length; i += 1) {
+        window.addEventListener(ENGAGEMENT_INPUTS[i], onInput, { capture: true, passive: true });
+      }
+      if (doc) doc.addEventListener('visibilitychange', onVisibility);
+      if (isVisible()) arm();
+    } catch (e) {
+      console.debug('posthog_engagement_failed', e);
+    }
+  }
+
   function installPostHogSnippet() {
     !(function (t, e) {
       var o, n, p, r;
@@ -209,6 +298,9 @@
         capture_pageleave: true,
         persistence: 'localStorage+cookie',
         loaded: function (sdk) {
+          // Registered before the initial `$pageview`, so every event from
+          // this page carries it.
+          sdk.register({ profile_state: profileState });
           var anon = getAnonUserId();
           sdk.identify(anon);
           window.__posthogEnabled = true;
@@ -224,14 +316,20 @@
     }
   }
 
+  readProfileState();
   adoptEmailReaderId();
 
   window.aiFeedPostHog = {
     capture: capture,
     getAnonUserId: getAnonUserId,
+    getProfileState: function () {
+      return profileState;
+    },
     init: init,
+    startEngagementTracking: startEngagementTracking,
     startScrollDepthTracking: startScrollDepthTracking,
   };
 
+  startEngagementTracking();
   init();
 })();
