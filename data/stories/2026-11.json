@@ -5424,7 +5424,7 @@
   "sid": "5303ff4c2285ef2a",
   "source": "arxiv_cs_ai",
   "summary": "Large language model (LLM) agents use external skills to reuse task procedures and experience with tools. General-purpose skills describe shared execution procedures, while specific tool choices, operating practices, and output requirements vary across users. In long-horizon tasks, subgoals, available inputs, and environmental states change as execution progresses. Agents must select currently applicable skills from an expanding skill pool and prepare candidates for subsequent steps. We propose Skill Adapter, which enables personalized modification and online routing of general-purpose skills. The system distills local adjustments from user requirements and execution feedback and stores them as Adapters linked to general-purpose skills. The routing agent selects general-purpose skills and applicable Adapters based on the current subtask, execution progress, and environmental feedback, incrementally maintaining a task-level online skill library that the main LLM reads on demand. The system preloads candidates for subsequent nodes and rechecks their applicability once actual inputs are determined. Reinforcement learning optimizes the two types of decisions using modification gains and routing outcomes, respectively. We evaluate Skill Adapter on ALFWorld, WebShop, and SkillsBench. Compared with SkillRL, it improves task success rates by an average of 11.43 percentage points and reduces mean execution time on all three benchmarks. Skill Adapter retains its performance advantage w",
-  "summary_1line": "Large language model (LLM) agents use external skills to reuse task procedures and experience with tools. General-purpose skills describe shared execution procedures, while specific tool choices, operating practices,...",
+  "summary_1line": "Large language model (LLM) agents use external skills to reuse task procedures and experience with tools. General-purpose skills describe shared execution procedures, while specific tool choices, operating practices, and output requirements vary across users. In long-horizon task",
   "title": "Skill Adapter: Personalized Modification and Online Routing of General-Purpose Skills",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17007v1",
@@ -6426,6 +6426,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14051v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "60e5719ddad5001d": {
+  "content_excerpt": "Managing multiple sessions across a build used to require you to divide the work, juggle handoffs, and stitch the results back together. Now in a Claude Code project, you describe what needs to get done and Claude manages the work. Claude scopes the request, delegates the work, coordinates parallel threads, reviews the outputs, and assembles the finished result. You can steer progress throughout,",
+  "first_seen": "2026-11-14T06:08:28.042975+00:00",
+  "id": "e8618848b231e358",
+  "published": "2026-11-14T00:28:11+00:00",
+  "sid": "60e5719ddad5001d",
+  "source": "hackernews_ai",
+  "title": "Anthropic upgrades Claude Code Projects to run parallel AI workers",
+  "type": "news",
+  "url": "https://claude.com/resources/articles/projects-redesigned"
  },
  "60e6f0629036df1b": {
   "content_excerpt": "vLLM relies heavily on PyTorch, with frequent calls to LibTorch in its C++ backend. As a result, changes to LibTorch’s binary interface may require vLLM to be rebuilt and relinked, even when the APIs remain unchanged. What if we could update LibTorch without rebuilding vLLM? That’s where the LibTorch Stable ABI comes in. With a LibTorch Stable ABI, updating LibTorch does not require rebuilding or updating vLLM in order to keep using it. Instead, we could swap out the torch wheel and import it directly into our vLLM package. As of v0.33.0, vLLM publishes LibTorch ABI Stable CUDA wheels. Left: Unstable ABI—new torch requires vLLM to rebuild. Right: Stable ABI—vLLM can import new torch directly. Note: Compatibility between vLLM and PyTorch still depends on other factors, including Python APIs, GPU-related requirements (such as the minimum supported CUDA version), and third-party dependencies. The LibTorch Stable ABI addresses binary compatibility but does not eliminate these other constraints. An application binary interface (ABI) defines how compiled code interacts with a library: how functions are called, data is laid out, and symbols are named. Even if an API looks the same in source code, an ABI change can force extensions to rebuild. A stable ABI preserves a supported set of binary interfaces across compatible versions, so extensions that use them can keep working without a rebuild. PyTorch's LibTorch Stable ABI has three layers: a stable C shim exposing selected LibTorch A",
@@ -10865,8 +10876,8 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 236, downloads: 4332.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 236, downloads: 4332.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 254, downloads: 4332.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 254, downloads: 4332.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16"
@@ -15881,6 +15892,17 @@
   "type": "release",
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.181",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "f554571bee1c5033": {
+  "content_excerpt": "A browser engine for your agentic workflow. One binary, no CDP, no Chromium, and a protocol small enough to audit in an afternoon . Built agent-first: extraction over pixels, stable refs over coordinates, failures you can catch instead of hangs. Three commitments shape the whole engine: it blocks when unsure, it hands the page to a human when a human is needed, and it leaves evidence for everythin",
+  "first_seen": "2026-11-14T06:08:28.042975+00:00",
+  "id": "1f9eb91a5cf4dbd1",
+  "published": "2026-11-14T03:22:22+00:00",
+  "sid": "f554571bee1c5033",
+  "source": "hackernews_ai",
+  "title": "Show HN: Browserr – An MCP-first browser for AI agents (one Rust binary)",
+  "type": "news",
+  "url": "https://browserr.dev"
  },
  "f56117201cb74a00": {
   "content_excerpt": "We also picked the mix on four fifths of the searches and tested it on the rest. Two providers then reached 75.5% and four reached 82.6%. The rows are grouped by provider family, by how much their results overlap. Google-results group: serper, firecrawl, tinyfish, tavily and serpapi. brave and you.com form the second family. Own index: exa, perplexity, parallel, ceramic and seltz. Our next post covers the families in detail. At Telem.ai, we want every search your agent makes to find the best answer on the web, whichever provider holds it. You shouldn't have to track which provider is good at what, because we take that part off your hands. Your agent shouldn't miss an answer because it asked the wrong web search provider. Let's start with a simple question: is one good provider enough? Better yet, is the best provider enough? We tested a dozen providers on the same agent searches and counted what each one found. The web is wider than any one provider, and even the best one sees only part of it. We ran a series of experiments on real searches from an AI agent and checked which providers came back with the answer. Every extra provider costs money and gives your agent more to read, so we wanted to know how much each one adds. Methods at the end has the full setup. On its own, the best provider had the known answer in its top five 68% of the time. About a third of the searches came back without the known answer in their top five. No single provider stood out: the top three finishe",
