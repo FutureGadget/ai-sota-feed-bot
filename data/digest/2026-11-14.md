@@ -5,125 +5,107 @@ Focus: AI Platform Engineering
 ## 1. DeepSeek opens its app features through the API
 - Type: news | Source: search_cn_open_weight_labs
 - URL: https://news.google.com/rss/articles/CBMiakFVX3lxTE9sQ0VFTEJQRHUxQjNFU1FhbGtvVFp6Y1A5YVhPWDctTHZnZ0VjcEFDMklKcnNMQnlmVlJ4SlNNV0xTb1E2UzVOUkllTkJSUnNQTmNqaF9kWkxtdXlINjNlamJrZFpRdnNFYnc?oc=5
-- Score: 3.224 | Reliability: 1.0
+- Score: 3.141 | Reliability: 1.0
 - Why it matters: 
 
-## 2. JudgeMix: Judge-Guided Mixed-Rollout Data Synthesis for LLM Agents
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.16174v1
-- Score: 3.408 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
-
-## 3. [AINews] The No AI Slop Manifesto
+## 2. [AINews] The No AI Slop Manifesto
 - Type: news | Source: latent_space
 - URL: https://latent.space/p/ainews-the-no-ai-slop-manifesto/
-- Score: 3.139 | Reliability: 1.0
+- Score: 3.028 | Reliability: 1.0
 - Why it matters: 
 
-## 4. S1-Evo: Experience-Guided Evidence Competition Attacks on Typed System-1 Decision Models
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.16937v1
-- Score: 2.968 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 5. AgentSSL: Can MLE Agents Leverage Unlabeled Data?
+## 3. Paper-Faithful Federated Learning: Scientific Checks for Practitioner and Agent Development
 - Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.17323v1
-- Score: 2.892 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
+- URL: http://arxiv.org/abs/2611.17129v1
+- Score: 2.786 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 4. LiveGeo: Benchmarking Geographic Agents in Continuously Evolving Worlds
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.17267v1
+- Score: 2.784 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 5. Actor, Judge, or Teacher? Understanding Decision Models in Long-Horizon Agents
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.17167v1
+- Score: 2.702 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
 ## 6. Open Source DocumentDB 1.0 Reaches General Availability
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/11/mongodb-compatible-documentdb/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.396 | Reliability: 1.0
+- Score: 2.292 | Reliability: 1.0
 - Why it matters: 
 
-## 7. codex 0.169.0
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.169.0
-- Score: 2.343 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval, codex.
+## 7. Azure Logic Apps Standard Gets a Local CLI in Preview
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/11/logic-apps-local-cli/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.179 | Reliability: 1.0
+- Why it matters: 
 
-## 8. How Workday Built an Enterprise-Scale AI Agent Platform with LangGraph and LangSmith
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/how-workday-built-an-enterprise-scale-ai-agent-platform-with-langgraph-and-langsmith
-- Score: 2.28 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 9. Build once, run on any agent: A practical guide to agent skills
+## 8. Build once, run on any agent: A practical guide to agent skills
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/
-- Score: 2.068 | Reliability: 1.0
+- Score: 1.991 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 10. langgraph-prebuilt==1.1.2
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/prebuilt%3D%3D1.1.2
-- Score: 1.741 | Reliability: 1.0
-- Why it matters: 
-
-## 11. We Are What We Remember: Mental-State-Driven Memory for Long-Term Character Dialogue
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.16223v1
-- Score: 2.888 | Reliability: 1.0
+## 9. What Is Eval-Driven Development? How to Improve AI Agents
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/what-is-eval-driven-development
+- Score: 1.942 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 12. Auditing AI peer reviewers: a benchmark on real scientific papers
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.17052v1
-- Score: 2.831 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation, claude code.
+## 10. JioStar’s chief architect on AI discovery at 500M-user scale
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/jiostar-vijay-seshadri
+- Score: 1.826 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 13. vllm v0.34.0rc4
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc4
-- Score: 1.726 | Reliability: 1.0
+## 11. When Both Sides Adapt: The Challenges of Evaluating Interactive LLM Systems
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.17239v1
+- Score: 2.698 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 12. Introducing Businesses in ChatGPT
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/introducing-businesses-chatgpt
+- Score: 1.739 | Reliability: 1.0
 - Why it matters: 
 
-## 14. Gilbert + Tobin rethinks the business of law with AI
+## 13. Gilbert + Tobin rethinks the business of law with AI
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/gilbert-tobin-sam-nickless
 - Score: 1.717 | Reliability: 1.0
 - Why it matters: 
 
-## 15. Helping caregivers use AI in everyday life
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/helping-caregivers-use-ai-in-everyday-life
-- Score: 1.644 | Reliability: 1.0
+## 14. langgraph-checkpoint==4.3.2
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/checkpoint%3D%3D4.3.2
+- Score: 1.681 | Reliability: 1.0
 - Why it matters: 
 
-## 16. ChatGPT Enterprise now available in AWS Marketplace
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/chatgpt-enterprise-aws-marketplace
+## 15. vllm v0.34.0rc4
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc4
 - Score: 1.623 | Reliability: 1.0
 - Why it matters: 
 
-## 17. claude-code v2.1.323
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.323
-- Score: 1.58 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
+## 16. codex 0.171.0-alpha.2
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.2
+- Score: 1.53 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
 
-## 18. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/introducing-alphaproof-code/
-- Score: 1.514 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 19. claude-agent-sdk-python v0.2.181
+## 17. claude-agent-sdk-python v0.2.182
 - Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.181
-- Score: 1.442 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.182
+- Score: 1.388 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 20. Opening the datasets behind our AI weather models
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/opening-the-datasets-behind-our-ai-weather-models/
-- Score: 1.287 | Reliability: 1.0
-- Why it matters: 
-
-## 21. tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16
-- Score: 0.815 | Reliability: 1.0
+## 18. claude-code v2.1.322
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.322
+- Score: 1.079 | Reliability: 1.0
 - Why it matters:
