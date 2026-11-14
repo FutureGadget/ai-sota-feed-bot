@@ -2,122 +2,146 @@
 
 Focus: AI Platform Engineering
 
-## 1. llama_index v0.14.26
+## 1. Show HN: Open-Source Version of Cyclon: Phone where AI is the interface?
+- Type: release | Source: hackernews_ai
+- URL: https://opencyclone.vercel.app/
+- Score: 3.716 | Reliability: 1.0
+- Why it matters: 
+
+## 2. DeepSeek Opens Its App's Search, File, OCR and Voice Tools as APIs So Developers Can Rebuild the App
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiowFBVV95cUxNREtNc2xqMVZHOGluRzU2dVJpclVpQmZqcEM3ZzN3WU5XYmdtdHNuWE80UzBmMHA0RWoxU2EtbnpDWXNRbEIwclVPMmZtN0pzV3NVd0R5bDZyMTg3b1RaOUpvX084Sm1wVGFmSVk4dUNmM19GOTluem10WDJBZ2N3ZERPUVRVLUFIbGl4VFdXRFh6Q1R6d1ZmYTNTM29yZ1lPdUY0?oc=5
+- Score: 3.323 | Reliability: 1.0
+- Why it matters: 
+
+## 3. Show HN: Portal2Bench – Can AI agents solve Portal 2?
+- Type: news | Source: hackernews_ai
+- URL: https://kingstonyip.com/portal2bench
+- Score: 3.228 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. Adapting to AI penetration testing orchestrators: The Modern Security Model
+- Type: news | Source: hackernews_ai
+- URL: https://blog.cloudflare.com/adapting-to-ai-penetration-testing-orchestrators/
+- Score: 3.112 | Reliability: 1.0
+- Why it matters: 
+
+## 5. llama_index v0.14.26
 - Type: release | Source: llamaindex_releases
 - URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.26
-- Score: 2.992 | Reliability: 1.0
+- Score: 2.88 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. DeepSeek-V4.1-Flash on Vera Rubin NVL72: 58x Throughput vs. GB300 NVL72 at 387 tokens/s
+## 6. Presentation: Opening the Black Box: Critical Explainability for AI Agent Tool Selection with Kiji Inspector
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/presentations/explainable-ai-llm-agent-decisions/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.831 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 7. DeepSeek-V4.1-Flash on Vera Rubin NVL72: 58x Throughput vs. GB300 NVL72 at 387 tokens/s
 - Type: news | Source: vllm_blog
 - URL: https://vllm.ai/blog/2026-11-12-deepseek-v41-flash-vera-rubin
-- Score: 2.824 | Reliability: 1.0
+- Score: 2.792 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. JioHotstar Benchmarks Knowledge Bases for AI Coding Agents
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/11/jiohotstar-codingagent-retrieval/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.782 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, eval.
+## 8. llm-gemini 0.37
+- Type: release | Source: simon_willison
+- URL: https://simonwillison.net/2026/Nov/12/llm-gemini/
+- Score: 2.77 | Reliability: 1.0
+- Why it matters: 
 
-## 4. Introducing Gemini 4 Hydrogen
+## 9. Introducing Gemini 4 Hydrogen
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-gemini-4-hydrogen/
-- Score: 2.705 | Reliability: 1.0
+- Score: 2.701 | Reliability: 1.0
 - Why it matters: 
 
-## 5. The Value of Thinking: Learning When to Reason in Hybrid Decision Models
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.16961v1
-- Score: 2.647 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 6. LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite
-- Score: 2.642 | Reliability: 1.0
-- Why it matters: 
-
-## 7. Kitesurf is now open source
-- Type: news | Source: cloudflare_blog
-- URL: https://blog.cloudflare.com/kitesurf-open-source/
-- Score: 2.641 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 8. RMIT-ADM+S at TREC RAG 2026: Research Agents, Retriever Ablations, and Open-Weight Replication
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.16425v1
-- Score: 2.641 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 9. Shield helps technicians hand off legacy portal work with OpenAI
-- Type: news | Source: openai_blog
-- URL: https://openai.com/business/customer-stories/shield
-- Score: 2.486 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 10. claude-code v2.1.325
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.325
-- Score: 2.483 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval, claude code.
-
-## 11. OpenFold3 on Amazon SageMaker JumpStart: Predict biomolecular structures
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/openfold3-on-amazon-sagemaker-jumpstart-predict-biomolecular-structures/
-- Score: 2.366 | Reliability: 1.0
-- Why it matters: 
-
-## 12. How Amplitude ships product improvements in 1–2 days with OpenAI
-- Type: news | Source: openai_blog
-- URL: https://openai.com/business/customer-stories/amplitude
-- Score: 2.306 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 13. Inkling 2 Small on vLLM: Day-0 Support
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-12-inkling2-small
-- Score: 2.257 | Reliability: 1.0
-- Why it matters: 
-
-## 14. langgraph==1.2.22
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.22
-- Score: 2.167 | Reliability: 1.0
-- Why it matters: 
-
-## 15. Build once, run on any agent: A practical guide to agent skills
-- Type: news | Source: github_blog_ai_ml
-- URL: https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/
-- Score: 2.162 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 16. codex 0.171.0-alpha.5
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.5
-- Score: 1.969 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 17. JioStar’s chief architect on AI discovery at 500M-user scale
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/jiostar-vijay-seshadri
-- Score: 1.897 | Reliability: 1.0
+## 10. Can KV Cache Be Reused Across Model Updates? A DeepSeek-V4-Flash Case Study
+- Type: paper | Source: arxiv_cn_open_weight_reports
+- URL: http://arxiv.org/abs/2611.14051v1
+- Score: 2.626 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 18. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/introducing-alphaproof-code/
-- Score: 1.621 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 19. Opening the datasets behind our AI weather models
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/opening-the-datasets-behind-our-ai-weather-models/
-- Score: 1.586 | Reliability: 1.0
+## 11. Shortcuts or Memorisation? Revisiting Data Corruption in Natural Language Understanding with Large Language Models
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.16843v1
+- Score: 2.604 | Reliability: 1.0
 - Why it matters: 
 
-## 20. vllm v0.34.0rc3
+## 12. SAGE-QA: Semantic-Aware, Grounded Evaluation for Closed-Context Question Answering on SQuAD 2.0
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2611.16300v1
+- Score: 2.603 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 13. Kitesurf is now open source
+- Type: news | Source: cloudflare_blog
+- URL: https://blog.cloudflare.com/kitesurf-open-source/
+- Score: 2.547 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 14. aws-emulator
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Nov/11/aws-emulator/
+- Score: 2.432 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 15. Shield helps technicians hand off legacy portal work with OpenAI
+- Type: news | Source: openai_blog
+- URL: https://openai.com/business/customer-stories/shield
+- Score: 2.41 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 16. claude-code v2.1.325
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.325
+- Score: 2.377 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval, claude code.
+
+## 17. Which Claude model should you build with? Fable, Opus, Sonnet, or Haiku
+- Type: news | Source: claude_dev_blog
+- URL: https://claude.dev/blog/which-claude-model-should-you-build-with/
+- Score: 2.339 | Reliability: 1.0
+- Why it matters: 
+
+## 18. How Amplitude ships product improvements in 1–2 days with OpenAI
+- Type: news | Source: openai_blog
+- URL: https://openai.com/business/customer-stories/amplitude
+- Score: 2.304 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 19. Inkling 2 Small on vLLM: Day-0 Support
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-12-inkling2-small
+- Score: 2.23 | Reliability: 1.0
+- Why it matters: 
+
+## 20. langgraph-checkpoint-postgres==3.2.1
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/checkpointpostgres%3D%3D3.2.1
+- Score: 2.136 | Reliability: 1.0
+- Why it matters: 
+
+## 21. Introducing new AI functions for AlloyDB: ai.classify and ai.extract
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/databases/ai-classify-and-ai-extract-functions-in-alloydb-ai/
+- Score: 2.07 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 22. Gondola doubles revenue as its team builds more with Codex
+- Type: news | Source: openai_blog
+- URL: https://openai.com/business/customer-stories/gondola
+- Score: 2.022 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 23. claude-agent-sdk-python v0.2.182
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.182
+- Score: 1.874 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 24. vllm v0.34.0rc3
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc3
-- Score: 1.46 | Reliability: 1.0
+- Score: 1.364 | Reliability: 1.0
 - Why it matters:

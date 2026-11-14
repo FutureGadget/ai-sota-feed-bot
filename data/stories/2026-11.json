@@ -725,8 +725,14 @@
   "first_seen": "2026-11-14T02:08:38.834251+00:00",
   "id": "81d67b580f9e93d3",
   "published": "2026-11-14T01:39:04+00:00",
+  "release_highlights": [
+   "release(checkpoint-postgres): 3.2.1",
+   "release(checkpoint): 4.3.2",
+   "perf(checkpoint-postgres): run a lone store read outside a pipeline"
+  ],
   "sid": "0b1d1845805b77e2",
   "source": "langgraph_releases",
+  "summary": "Changes since checkpointpostgres==3.2.0 release(checkpoint-postgres): 3.2.1 ( #9700 ) release(checkpoint): 4.3.2 ( #9699 ) perf(checkpoint-postgres): run a lone store read outside a pipeline ( #9635 ) perf(checkpoint-postgres): skip the async saver's lock for connection pools ( #9638 ) perf(checkpoint-postgres): load no pending writes without a thread hop ( #9639 ) release(checkpoint): 4.3.1 ( #9447 ) chore(deps): bump certifi from 2026.1.4 to 2026.10.19 in /libs/checkpoint-postgres ( #9369 )",
   "summary_1line": "Changes since checkpointpostgres==3.2.0 release(checkpoint-postgres): 3.2.1 ( #9700 ) release(checkpoint): 4.3.2 (<a class=\"issue-link js-issue-link\" href=\"ht",
   "title": "langgraph-checkpoint-postgres==3.2.1",
   "type": "release",
@@ -1478,6 +1484,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12705v1",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "173841a135ec48af": {
+  "first_seen": "2026-11-14T03:04:51.091256+00:00",
+  "id": "aa8a2c9cfb3171cc",
+  "published": "2026-11-12T14:18:44+00:00",
+  "sid": "173841a135ec48af",
+  "source": "arxiv_cs_cl",
+  "summary": "Pre-trained encoders fine-tuned on natural language inference (NLI) and other language understanding tasks keep much of their accuracy after the input is perturbed, e.g. by removing all nouns or shuffling the words. Does the same hold for large language models (LLMs), and if so, is it because they have seen the benchmarks during pre-training? In this paper we revisit these perturbation experiments with eight LLMs alongside fine-tuned encoders on GLUE and the three rounds of ANLI. Regardless of model size, every system that answers directly retains 36-72% of its above-chance performance without nouns on MNLI compared to only 14-29% on ANLI. Only a model that reasons before answering departs from this pattern. We also check contamination indicators (including exact $n$-gram counts in the public pre-training data of two of the models) and find no link between exposure and robustness. Our strongest evidence comes from 368 new, human-validated items that none of the models can have seen. All eight LLMs keep more of their performance without nouns on items written in MNLI's style than on items written without its cues. When the perturbation instead removes the function words carrying such cues, this advantage reverses. In light of these results, we argue that robustness to perturbation on familiar NLI benchmarks reflects dataset shortcuts rather than memorisation, and tells us more about the benchmark than about the model.",
+  "summary_1line": "Pre-trained encoders fine-tuned on natural language inference (NLI) and other language understanding tasks keep much of their accuracy after the input is perturbed, e.g. by removing all nouns or shuffling the words. D...",
+  "title": "Shortcuts or Memorisation? Revisiting Data Corruption in Natural Language Understanding with Large Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.16843v1"
  },
  "179cb2dc1f9c4f81": {
   "content_excerpt": "Relay a long coding goal across subscription agents without spending paid credits baton keeps one long coding goal moving for days by passing it between coding agents, stopping each one before it can spend money it should not. It works with Codex and Antigravity alone; Claude is an optional third, paid by use, that only joins the queue once you save an API key for it. Its turn ends at USD 50 or 5 hours, whichever comes first, it is left out of a goal after USD 150 spent in that goal, and the monthly ceiling stays above all of that. You give it a goal (an objective, a working directory and a verification command). It runs one agent until that agent nears its limit or its turn (5 hours) ends, hands the work to the next, and when every agent is out, sleeps until the earliest reset and carries on. It finishes only when the verification command exits 0; an agent saying \"done\" means nothing. Every agent runs through its vendor's own CLI. baton reimplements no agent. Context moves between them through the repository, its commits and a handoff file, and each vendor's own conversation is resumed when its turn comes again. Inside a goal the work follows a cycle of plan, build and review, with a strong and a working model per provider (see Phases ). How baton works: Codex, Antigravity and then Claude take turns; every goal runs plan, build and review, then the check, then consensus of every agent, and only then is it done. baton does not bring its own AI or its own methods. It drives to",
@@ -3056,13 +3074,18 @@
  "2e73b9cb16efae6d": {
   "first_seen": "2026-11-14T02:08:38.834251+00:00",
   "id": "ff62c104dab7afb5",
+  "matched_topics": [
+   "evaluation"
+  ],
   "published": "2026-11-12T04:56:28+00:00",
   "sid": "2e73b9cb16efae6d",
   "source": "arxiv_llm_reliability",
+  "summary": "Closed-context question answering (QA) requires a system to generate an answer strictly supported by a supplied passage, or to abstain when the passage lacks adequate evidence. SQuAD 2.0 is a widely used benchmark for this setting, scored by Exact Match (EM) i.e., character-level agreement with human reference spans after lexical normalization. For generative large language models (LLMs), however, an EM failure may reflect a valid paraphrase or an alternative passage-supported answer rather than a hallucination. The best prior leaderboard EM is approximately 91%, but evaluating generative models requires separating lexical divergence from factual error. We introduce SAGE-QA (Semantic-Aware, Grounded Evaluation for Question Answering), a multi-tiered framework combining reference-based Semantic Equivalence Scoring (SES) and passage-based Re-Validation Scoring (RVS). On a fixed set of 10,000 SQuAD 2.0 validation examples, we compute EM and decision-matrix F1 from TP, TN, FP, and FN counts for zero-shot closed-weight frontier models and for open-weight models, untuned and fine-tuned. Zero-shot, Claude Opus 4.6 and Gemini 3.1 Pro reach 85.21 and 86.66 EM, outperforming untuned Llama 3 8B (56.88), gpt-oss-20b (66.28), and Llama 3.3 70B (71.39). Parameter-efficient fine-tuning adds 21.19 to 34.06 EM points, raising these models to 90.94, 87.47, and 94.24 EM, respectively. Auditing the frontier models with SAGE-QA and an external LLM judge yields dataset-wide SES scores of 92.81 for",
   "summary_1line": "Closed-context question answering (QA) requires a system to generate an answer strictly supported by a supplied passage, or to abstain when the passage lacks adequate evidence. SQuAD 2.0 is a widely used benchmark for this setting, scored by Exact Match (EM) i.e., character-level",
   "title": "SAGE-QA: Semantic-Aware, Grounded Evaluation for Closed-Context Question Answering on SQuAD 2.0",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.16300v1"
+  "url": "http://arxiv.org/abs/2611.16300v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "2e744629f011634d": {
   "first_seen": "2026-11-10T11:07:28.794290+00:00",
@@ -7024,7 +7047,7 @@
   "why_it_matters": "Matches feed focus: codex."
  },
  "6d32c6450e419289": {
-  "content_excerpt": "The current Claude lineup has four generally available models: Claude Haiku 5.5, Claude Sonnet 5.5, Claude Opus 5.5 and Claude Fable 5.2. Claude Mythos 5.2 is our most capable model for cybersecurity and life sciences research, available through our verification programs. If you build on the Claude Platform or work in Claude Code, you may be wondering which model to use for your common tasks. This article will help answer that question and how to think about the trade-offs. The quick answer is that you should start most work on Opus 5.5 at its default effort level, medium . There's a reason it's the default model in Claude Code. It costs half as much per input and output token as Fable 5.2, and it's the model we recommend starting with for most coding and knowledge work. Before you move models, try adjusting your effort level. It's a finer dial for both cost and capability. Past high , one more effort level can cost as much as a bigger model, so compare both on your own work. If you're past high , test the next model up at a lower effort instead. Conversely, one level down can get you the result you need at a lower rate. Higher effort helps when the model needs to think longer, call more tools, or check its own work more. Just keep in mind that it also adds latency. Additionally, moving to a higher effort level won't give a model knowledge or skill it doesn't have. For that, you still need to move up a model. Prices are Claude API list prices. For benchmark results, see the F",
+  "content_excerpt": "The current Claude lineup has four generally available models: Claude Haiku 5.5, Claude Sonnet 5.5, Claude Opus 5.5 and Claude Fable 5.2. Claude Mythos 5.2 is our most capable model for cybersecurity and life sciences research, available through our verification programs. If you build on the Claude Platform or work in Claude Code , you may be wondering which model to use for your common tasks. This article will help answer that question and how to think about the trade-offs. The quick answer is that you should start most work on Opus 5.5 at its default effort level, medium . There's a reason it's the default model in Claude Code. It costs half as much per input and output token as Fable 5.2, and it's the model we recommend starting with for most coding and knowledge work. Before you move models, try adjusting your effort level. It's a finer dial for both cost and capability. Past high , one more effort level can cost as much as a bigger model, so compare both on your own work. If you're past high , test the next model up at a lower effort instead. Conversely, one level down can get you the result you need at a lower rate. Higher effort helps when the model needs to think longer, call more tools, or check its own work more. Just keep in mind that it also adds latency. Additionally, moving to a higher effort level won't give a model knowledge or skill it doesn't have. For that, you still need to move up a model. Prices are Claude API list prices. For benchmark results, see the ",
   "first_seen": "2026-11-09T21:05:41.308068+00:00",
   "id": "327498c6dc00d01b",
   "published": "2026-11-09T12:00:00+00:00",
@@ -8400,6 +8423,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17267v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "83270260bb0f21b1": {
+  "content_excerpt": "Over the last month, the number of Large Language Model (LLM) penetration testing and orchestration frameworks has exploded. Just a few weeks ago, ARTEX — an open source agentic penetration testing system that automates offensive security workflows — was the only framework available. In just the last three days, we have seen over 50 framework families attempt to scan Cloudflare customers globally. The number of Internet Protocol (IP) addresses seen running these frameworks has grown into the thousands and continues to increase daily. The proliferation of these frameworks has significantly changed the status quo in cyber defense: defenders are struggling to keep up with the volumetric nature of these autonomously guided attacks. ARTEX was taken down by its creator Autumn-27 on October 8. (“The malicious exploitation of this tool runs entirely counter to its original intent,” they wrote in Chinese. ) But in the month since, the ecosystem has exploded with new fragmented versions of it. There are now over 12,000 repositories, with several hundred unique forks containing lineage from the original repository. Additionally, hundreds of other similar agentic orchestration frameworks have been created since October 8. Daily requests of AI penetration testing (pentesting) and exploitation tools has grown by 30x since October 1. These tools have also begun chaining stolen customer credentials in some of the more complex attacks, such as lateral movement chaining throughout an environme",
+  "first_seen": "2026-11-14T03:04:51.091256+00:00",
+  "id": "e2fe10a3cf736862",
+  "published": "2026-11-13T22:38:07+00:00",
+  "sid": "83270260bb0f21b1",
+  "source": "hackernews_ai",
+  "summary_1line": "Adapting to AI penetration testing orchestrators: The Modern Security Model",
+  "title": "Adapting to AI penetration testing orchestrators: The Modern Security Model",
+  "type": "news",
+  "url": "https://blog.cloudflare.com/adapting-to-ai-penetration-testing-orchestrators"
  },
  "83722b13b6167c53": {
   "first_seen": "2026-11-09T04:05:46.806933+00:00",
@@ -11607,6 +11642,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14236v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "b33772086c53007e": {
+  "content_excerpt": "OpenCyclone is a free, open-source version that converts your Android phone into an AI phone. Someone else designed your phone. You already paid for it. We wrote an app. Together they do the thing: you ask, and your phone gets it done. It works in your apps on a hidden screen while you keep using your phone. Before anything is sent, paid, or deleted, it stops and shows you exactly what will happen. Ask for the tool you need. The phone writes a small app, tests it, fixes it, and puts it on your home page. Change it by asking again. Bring your own model: sign in with ChatGPT, use OpenRouter, paste a key, or point it at a model on your own network. Add tools through the Model Context Protocol. Keep the apps you already use. The agent works inside them with your accounts, follows the rules you set, and never opens the apps on your protected list. The approval gate is code, not a promise in a prompt. You can read it, test it, and change it. That is what the word \"open\" is for. We will run OpenCyclone on two public benchmarks for phone agents and publish every result here, including the failures. Each task is scored by checking the app itself, not by asking the agent if it succeeded. 116 tasks in 20 real apps, from Google Research. Most phone agents report this score, so ours can stand next to theirs. 201 harder tasks, published at ACL 2026. It also tests whether the agent asks you when a request leaves out a fact, and whether it can use connected tools. Neither benchmark checks th",
+  "first_seen": "2026-11-14T03:04:51.091256+00:00",
+  "id": "6673d982189f747d",
+  "published": "2026-11-14T02:46:12+00:00",
+  "sid": "b33772086c53007e",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Open-Source Version of Cyclon: Phone where AI is the interface?",
+  "title": "Show HN: Open-Source Version of Cyclon: Phone where AI is the interface?",
+  "type": "release",
+  "url": "https://opencyclone.vercel.app"
  },
  "b380a66ae3304ffc": {
   "also_covered": [
@@ -15467,6 +15514,18 @@
   "type": "news",
   "url": "https://www.databricks.com/blog/lakehousert-scale-real-time-analytics-not-your-bill",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "f157cadb4b083395": {
+  "first_seen": "2026-11-14T03:04:51.091256+00:00",
+  "id": "ee4372f6ee0bd0cf",
+  "published": "2026-11-14T02:00:31+00:00",
+  "sid": "f157cadb4b083395",
+  "source": "search_cn_open_weight_labs",
+  "summary": "DeepSeek Opens Its App's Search, File, OCR and Voice Tools as APIs So Developers Can Rebuild the App Pandaily",
+  "summary_1line": "DeepSeek Opens Its App's Search, File, OCR and Voice Tools as APIs So Developers Can Rebuild the App Pandaily",
+  "title": "DeepSeek Opens Its App's Search, File, OCR and Voice Tools as APIs So Developers Can Rebuild the App",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNREtNc2xqMVZHOGluRzU2dVJpclVpQmZqcEM3ZzN3WU5XYmdtdHNuWE80UzBmMHA0RWoxU2EtbnpDWXNRbEIwclVPMmZtN0pzV3NVd0R5bDZyMTg3b1RaOUpvX084Sm1wVGFmSVk4dUNmM19GOTluem10WDJBZ2N3ZERPUVRVLUFIbGl4VFdXRFh6Q1R6d1ZmYTNTM29yZ1lPdUY0?oc=5"
  },
  "f1908d0038e22f5b": {
   "first_seen": "2026-11-13T05:03:49.483648+00:00",
