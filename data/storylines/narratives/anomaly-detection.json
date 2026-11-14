@@ -1,28 +1,19 @@
 {
   "slug": "anomaly-detection",
-  "generated_at": "2026-11-13T00:12:09Z",
-  "covers_last_updated": "2026-11-10T18:50:06+00:00",
+  "generated_at": "2026-11-14T00:12:07Z",
+  "covers_last_updated": "2026-11-13T16:33:33+00:00",
   "covers_member_sids": [
-    "ad09687688336a6f",
     "3aae7945b66d45c3",
     "d723295579b427cc",
     "d1b93ef36fd4bf1f",
     "79a0f00b03e27450",
-    "d98105b6bf6a1293"
+    "d98105b6bf6a1293",
+    "d99b7127f7fd99e6"
   ],
-  "tldr": "This thread is a label, not one event: six unrelated items that share the word \"detection\". Late-October papers covered few-shot industrial inspection and deepfake detectors, and on Nov 9 LogCDM and Vendi Anomaly Scores moved the theme to log monitoring and a general-purpose anomaly score.",
-  "whats_new": "A Nov 10 arXiv paper moves the thread from data anomalies to agent failures: a three-phase comparative study of how reliably evaluation frameworks detect failures in multi-tool enterprise analytics agents.",
-  "why_it_matters": "Two engineering questions recur across the items: whether a detector is cheap enough to run where the data lives, and whether it can be trusted once deployed. The newest paper asks the second question of the eval frameworks that gate agent releases.",
+  "tldr": "This thread is a label, not one event: six unrelated items that share the word \"detection\". It opened with a deepfake-detector explainability paper and a post on evading AI code analysis, moved to log monitoring and a general-purpose anomaly score on Nov 9, then reached agents on Nov 10 with a study of how reliably eval frameworks catch agent failures.",
+  "whats_new": "A Nov 13 Google Developers Blog post reports how its Agent Anomaly Detection scores on benchmarks Google did not write, the thread's first vendor write-up on detecting anomalies in agents.",
+  "why_it_matters": "Two engineering questions recur across the items: whether a detector is cheap enough to run where the data lives, and whether it can be trusted once deployed. The two newest items ask the second question of agent tooling, first of eval frameworks and now of a vendor's anomaly detector.",
   "beats": [
-    {
-      "kicker": "INSPECTION",
-      "tone": "neutral",
-      "headline": "An October paper tackles few-shot industrial anomaly detection",
-      "summary": "Flownomaly models normality from a handful of defect-free images without tying inference to stored exemplars.",
-      "sids": [
-        "ad09687688336a6f"
-      ]
-    },
     {
       "kicker": "DETECTOR TRUST",
       "tone": "neutral",
@@ -51,22 +42,32 @@
       "sids": [
         "d98105b6bf6a1293"
       ]
+    },
+    {
+      "kicker": "VENDOR BENCHMARKS",
+      "tone": "now",
+      "headline": "Google scores its Agent Anomaly Detection on third-party benchmarks",
+      "summary": "The post's framing is external validation: results on benchmarks the team did not author. It is a first-party report, and the thread holds no independent replication.",
+      "sids": [
+        "d99b7127f7fd99e6"
+      ]
     }
   ],
   "open_questions": [
+    "Which third-party benchmarks does Google's Agent Anomaly Detection post use, and has anyone outside Google reproduced the scores?",
     "Which evaluation framework in the Nov 10 comparison detects multi-tool agent failures most reliably, and are its scores stable across repeated runs?",
     "Does federated training measurably reduce Grad-CAM faithfulness in deepfake detectors compared with centralized training?",
     "Does LogCDM match the detection accuracy of BERT-scale or 8B-parameter log models on standard log benchmarks without a GPU at inference time?",
     "Does Vendi Anomaly Scores hold up on high-dimensional embedding data such as LLM traces, or only on the benchmarks the paper reports?",
     "Do any of these papers release code an operator could run against production telemetry?"
   ],
-  "take_for_builders": "Read the agent evaluation comparison before you rely on a single eval framework to gate an analytics agent, and read LogCDM if your log anomaly detection needs GPU-hosted models today. The inspection and deepfake papers only apply if you run those workloads.",
+  "take_for_builders": "Before adopting an agent anomaly detector, check which benchmarks its vendor reports and whether they resemble your agents' tool traces; read the Nov 10 eval-framework comparison before letting one framework gate a release.",
   "day_captions": {
-    "ad09687688336a6f": "Few-shot industrial defect detection that avoids stored exemplars and rigid linear structure via single-step conditional-mean recovery.",
     "3aae7945b66d45c3": "Asks whether privacy-preserving federated training costs deepfake detectors the faithfulness of their Grad-CAM explanations.",
     "d723295579b427cc": "The adversarial side of the theme: a write-up of techniques for evading AI source code analysis.",
     "d1b93ef36fd4bf1f": "Moves log anomaly detection off GPU-bound pretrained models to interpretable behavioral-graph drift with adaptive signal fusion.",
     "79a0f00b03e27450": "Proposes a Vendi-based anomaly score as an alternative to density, isolation and distance-from-distribution definitions.",
-    "d98105b6bf6a1293": "First agent-engineering item in the thread: compares evaluation frameworks on how reliably they detect failures in multi-tool analytics agents."
+    "d98105b6bf6a1293": "First agent-engineering item in the thread: compares evaluation frameworks on how reliably they detect failures in multi-tool analytics agents.",
+    "d99b7127f7fd99e6": "First vendor item: Google reports its Agent Anomaly Detection results on benchmarks it did not author."
   }
 }

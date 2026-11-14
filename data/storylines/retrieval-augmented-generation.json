@@ -1,12 +1,12 @@
 {
  "slug": "retrieval-augmented-generation",
  "label": "Retrieval-Augmented Generation",
- "item_count": 3,
- "day_count": 3,
+ "item_count": 6,
+ "day_count": 5,
  "source_count": 3,
  "first_seen": "2026-10-29T16:40:02+00:00",
- "last_updated": "2026-11-06T17:56:37+00:00",
- "generated_at": "2026-11-10T00:13:24.787725+00:00",
+ "last_updated": "2026-11-12T17:39:14+00:00",
+ "generated_at": "2026-11-14T00:13:06.733465+00:00",
  "sources": [
   "arxiv_cs_ai",
   "arxiv_cs_cl",
@@ -49,6 +49,17 @@
    "date": "2026-11-06",
    "items": [
     {
+     "title": "Assessing the Impact of Retrieval-Augmented Generation on Algorithmic Problem-Solving",
+     "url": "http://arxiv.org/abs/2611.09791v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Competitive programming problems pose distinctive challenges for Large Language Models, as they demand not only proficient code generation but also advanced algorithmic reasoning. This study presents a Retrieval-Augme...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "eb1f61303f3e3d57",
+     "published": "2026-11-06T17:46:28+00:00",
+     "editor_note": "Tests RAG on competitive programming, where algorithmic reasoning matters as much as code generation."
+    },
+    {
      "title": "Compaction, decay and reinforcement in a two-tier conversational memory: a paired evaluation against retrieval-augmented generation",
      "url": "http://arxiv.org/abs/2611.09807v1",
      "source": "arxiv_cs_cl",
@@ -60,19 +71,51 @@
      "editor_note": "Moves the question from retrieval to memory: transcript search versus compacted atomic facts."
     }
    ]
+  },
+  {
+   "date": "2026-11-10",
+   "items": [
+    {
+     "title": "OpticalRAG: Pixel-Space Compression for Token-Efficient Retrieval-Augmented Generation",
+     "url": "http://arxiv.org/abs/2611.13675v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Retrieval-augmented generation (RAG) is bottlenecked by the token budget of large language models: feeding long documents into the context window is expensive, while aggressive textual compression discards fine-graine...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "1eb45d5078fca72b",
+     "published": "2026-11-10T07:24:50+00:00",
+     "editor_note": "Adds the cost angle: pixel-space compression to fit long documents in the token budget."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "items": [
+    {
+     "title": "Cited but Unused: Parametric Provenance in Retrieval-Augmented Generation",
+     "url": "http://arxiv.org/abs/2611.17161v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Retrieval-augmented generation systems attach citations to attribute claims to their sources. These citations frequently misstate provenance, and standard verification cannot detect this. We measure provenance by coun...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "9a823f949628f234",
+     "published": "2026-11-12T17:39:14+00:00",
+     "editor_note": "First item in the thread to question RAG's citations: attached sources may not be what the model used."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Late-October research targeted the retriever: a paper trained embedding models on their own mistakes so multi-hop questions find all the evidence they need. A November 2 paper, TRIO, then argued that current RAG approaches are still far from satisfactory.",
+  "tldr": "Late-October and early-November papers worked on the RAG pipeline itself: training embedding retrievers on their own mistakes for multi-hop questions, and TRIO's task refinement. By Nov 6-10 the papers were testing RAG's assumptions instead, against compacted fact memory, on competitive programming, and against the context token budget.",
   "stale": false,
-  "whats_new": "A Nov 6 paper compares RAG over a raw transcript against a two-tier memory that compacts each turn into atomic facts, testing whether conversational agents should keep the transcript at all.",
-  "why_it_matters": "RAG design choices (what you index, how the retriever is trained, what an agent remembers) are now being tested against alternatives, so the default pipeline is no longer a safe assumption.",
-  "take_for_builders": "If you run conversational memory over a raw transcript, rerun your own recall evals against a compacted-facts variant before changing anything; treat these papers as hypotheses until reproduced on your data.",
+  "whats_new": "A Nov 12 paper, \"Cited but Unused,\" reports that RAG citations frequently misstate where an answer came from, and that standard citation verification cannot detect it.",
+  "why_it_matters": "A citation that passes verification may still not be what the model used, so citation checks alone do not prove a RAG answer is grounded in the retrieved documents.",
+  "take_for_builders": "If you treat citations as your groundedness signal, add an ablation check to your evals: remove the cited passage and see whether the answer changes.",
   "status": {
    "state": "Developing",
    "tone": "rising",
-   "changed": "2026-11-06",
-   "detail": "Three arXiv papers in nine days probe different RAG layers: retriever training, task refinement, and agent memory."
+   "changed": "2026-11-12",
+   "detail": "Six separate arXiv papers in two weeks, not one event: they probe retriever training, pipeline refinement, agent memory, code tasks, context cost, and citation provenance."
   },
   "beats": [
    {
@@ -93,20 +136,42 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
-    "headline": "Two-tier conversational memory evaluated head-to-head against RAG",
-    "summary": "Compacting turns into atomic facts versus searching the stored transcript.",
+    "kicker": "STRESS TESTS",
+    "tone": "rising",
+    "headline": "RAG measured against compacted fact memory and on competitive programming",
+    "summary": "Two Nov 6 papers evaluate where RAG helps instead of proposing a new retriever.",
     "sids": [
+     "eb1f61303f3e3d57",
      "49e633d61cb9577d"
+    ]
+   },
+   {
+    "kicker": "COST",
+    "tone": "neutral",
+    "headline": "OpticalRAG compresses retrieved documents in pixel space to save tokens",
+    "summary": "It targets the token budget, arguing aggressive text compression discards fine-grained detail.",
+    "sids": [
+     "1eb45d5078fca72b"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "turn",
+    "headline": "\"Cited but Unused\": RAG citations frequently misstate provenance",
+    "summary": "The paper says standard verification cannot detect the mismatch.",
+    "sids": [
+     "9a823f949628f234"
     ]
    }
   ],
   "open_questions": [
    "Do the multi-hop retriever gains hold on benchmarks other than those the paper reports?",
    "Does compacted fact memory beat transcript RAG outside the paper's paired evaluation?",
-   "Will any of these methods ship in a widely used RAG framework?"
+   "Will any of these methods ship in a widely used RAG framework?",
+   "Does the citation-provenance gap reproduce across models and RAG stacks beyond those the paper measured?",
+   "Does a practical check emerge that catches a cited-but-unused source in production?",
+   "Does pixel-space compression preserve answer accuracy on documents where exact figures or identifiers matter?"
   ],
-  "generated_at": "2026-11-10T00:30:00+00:00"
+  "generated_at": "2026-11-14T00:12:07Z"
  }
 }

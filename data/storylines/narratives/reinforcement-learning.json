@@ -1,145 +1,155 @@
 {
   "slug": "reinforcement-learning",
-  "generated_at": "2026-11-13T00:12:09Z",
-  "covers_last_updated": "2026-11-10T18:58:46+00:00",
+  "generated_at": "2026-11-14T00:12:07Z",
+  "covers_last_updated": "2026-11-13T01:36:36+00:00",
   "covers_member_sids": [
-    "40c644a15cb895a9",
-    "453c138d9feefee3",
-    "8a41e1e41cbecfde",
-    "1e1ae7d5d09cb859",
-    "c3af4f37e1c19b19",
-    "868490bacebdc880",
-    "c07d00b3f0a46112",
-    "d448a8af2a653453",
-    "02ad246823185a44",
-    "d571e973b6e6916d",
-    "9471fde9e20a1e58",
-    "29493d021878283c",
+    "378efdb4d515dcd8",
+    "7c1fed0d11e9b516",
+    "500b1aba48043738",
+    "6f21f6e8dedb00a0",
+    "594cded7cf1742be",
+    "7d1c303b6572b6ff",
+    "9c6961c015612e8b",
+    "d24c53b475096517",
+    "cd86ac953a59e37c",
+    "e13096c02b9a44d7",
+    "c2fbad095b72bbaa",
+    "a23623abdfcb0e52",
+    "3e4010b903d1d7e9",
     "65dc6916d3b352f1",
-    "4e3ef058b96b399d",
-    "473a95cd7c540d1a",
     "bce25dc1c825a3e7",
-    "3ac08f6799c57341",
-    "08c314bb237b4b82",
-    "d97ee2168f669bce",
-    "981c5fba5d1f60bf",
-    "4553deeec0e06574",
-    "4e9768611cda6532",
-    "4f75e58fea1157aa",
-    "6fd3ac39e855936d",
-    "84ecbe8e1def5e6c",
-    "283f892f9c4f657a"
+    "5ab1b6ecf4ca3e7a",
+    "7ae1983bc20b4540",
+    "c22d6852787690aa",
+    "4e7cf2bff5db16a6",
+    "d48d8aea5d45b475",
+    "23c0753cd928bfa7",
+    "b3a45cba6445f63d",
+    "a34f1fafb710e628",
+    "ae75fdfb8dec6766",
+    "151cc2392264c544",
+    "2b4992932ff2ee7d",
+    "3debe09eabc6be1b"
   ],
-  "tldr": "Reinforcement Learning is a loose grouping of arXiv papers on RL for LLMs and agents, plus one AWS guide, not one developing story. Since Oct 23 it has collected work on rollout cost, RAG calibration and agent harnesses, and two studies showing that fine-grained credit and multi-turn RL gains depend on the setup.",
-  "whats_new": "Nov 10: AutoScaffold argues RLVR's outcome reward shrinks each attempt to a single number and proposes AI-guided training-time scaffolds; Nov 9's MaxIM applies RL to bounded-memory summarization of long interaction histories.",
-  "why_it_matters": "Agent RL results are sensitive to rollout budget, numerical setup and reward granularity, so a reported gain may not transfer to your harness. All are paper-reported, not production evidence.",
+  "tldr": "This thread is a loose grouping of arXiv papers on LLM multi-agent systems and agent policy training, not one developing story. Since Oct 25 it has collected work on learned and self-evolving orchestration, RL recipes for long-horizon agents, four agent benchmarks, and papers on auditing, privacy and failure attribution.",
+  "whats_new": "Nov 13: AgentLeak, an open-source privacy-testing tool for multi-agent LLM systems, appeared as a Show HN, the thread's first item that is a tool rather than an arXiv paper.",
+  "why_it_matters": "Multi-agent work is shifting from hand-wired workflows to learned orchestration, while tooling to audit, attribute failures in, and privacy-test those systems is only now appearing. Every result here is paper- or author-reported, not production evidence.",
   "beats": [
     {
-      "kicker": "COST",
+      "kicker": "ORCHESTRATION",
       "tone": "launch",
-      "headline": "Rollout scheduling and numerical stability set the cost of agent RL",
-      "summary": "Environment-aware and asynchronous rollout scheduling, BF16 rounding alignment, and a managed SageMaker recipe.",
+      "headline": "Papers move multi-agent design from one-shot wiring to learned, self-evolving orchestration",
+      "summary": "Self-evolution, coordination-aware prompt optimization, memory refinement, information-gap repair and learned orchestrators.",
       "sids": [
-        "453c138d9feefee3",
-        "8a41e1e41cbecfde",
-        "02ad246823185a44",
-        "4f75e58fea1157aa"
+        "378efdb4d515dcd8",
+        "7c1fed0d11e9b516",
+        "7d1c303b6572b6ff",
+        "c2fbad095b72bbaa",
+        "a23623abdfcb0e52",
+        "4e7cf2bff5db16a6"
       ]
     },
     {
-      "kicker": "CALIBRATION",
+      "kicker": "POLICY TRAINING",
       "tone": "rising",
-      "headline": "RL recipes tie confidence to correctness for RAG and knowledge tasks",
+      "headline": "RL recipes for long-horizon agents target turn-level credit and partial verifiers",
+      "summary": "Multiscale and tree-structured policy optimization, a harness-as-policy analysis, open multi-agent RL axioms, and negative-only RLVR.",
       "sids": [
-        "c3af4f37e1c19b19",
-        "d571e973b6e6916d",
-        "9471fde9e20a1e58"
+        "500b1aba48043738",
+        "9c6961c015612e8b",
+        "3e4010b903d1d7e9",
+        "bce25dc1c825a3e7",
+        "2b4992932ff2ee7d"
       ]
     },
     {
-      "kicker": "THE TURN",
-      "tone": "turn",
-      "headline": "Two studies find agent RL gains depend on credit granularity and interaction limits",
-      "summary": "Fine-grained credit can fail in video editing; multi-turn gains shift with sampling breadth K and interaction depth.",
-      "sids": [
-        "868490bacebdc880",
-        "4553deeec0e06574"
-      ]
-    },
-    {
-      "kicker": "HARNESS",
+      "kicker": "BENCHMARKS",
       "tone": "rising",
-      "headline": "Error-targeted training, co-evolved harnesses and skill routing for tool agents",
+      "headline": "Four benchmarks test agents on robot control, security review, AI infra and workflow orchestration",
+      "summary": "EBench, Snyk VulnBench 2.0, Infrathon and WorkflowArena.",
       "sids": [
-        "c07d00b3f0a46112",
-        "d448a8af2a653453",
-        "29493d021878283c",
-        "d97ee2168f669bce",
-        "08c314bb237b4b82",
-        "3ac08f6799c57341"
+        "6f21f6e8dedb00a0",
+        "d24c53b475096517",
+        "23c0753cd928bfa7",
+        "b3a45cba6445f63d"
+      ]
+    },
+    {
+      "kicker": "COST",
+      "tone": "neutral",
+      "headline": "KV-cache quantization and small-model routing aim at multi-agent memory and compute cost",
+      "sids": [
+        "d48d8aea5d45b475",
+        "151cc2392264c544"
+      ]
+    },
+    {
+      "kicker": "ASSURANCE",
+      "tone": "rising",
+      "headline": "Auditing, private retrieval and failure attribution get proposed as multi-agent safety layers",
+      "sids": [
+        "e13096c02b9a44d7",
+        "a34f1fafb710e628",
+        "ae75fdfb8dec6766"
       ]
     },
     {
       "kicker": "ADJACENT",
       "tone": "neutral",
-      "headline": "Neighboring RL work: simulation, robustness, explainability, compression, diffusion and world models",
+      "headline": "Neighboring work: surveys, preference alignment, judge prompts, speech translation and flow models",
       "sids": [
-        "40c644a15cb895a9",
-        "1e1ae7d5d09cb859",
-        "4e3ef058b96b399d",
+        "594cded7cf1742be",
+        "cd86ac953a59e37c",
         "65dc6916d3b352f1",
-        "473a95cd7c540d1a",
-        "bce25dc1c825a3e7",
-        "981c5fba5d1f60bf",
-        "4e9768611cda6532",
-        "6fd3ac39e855936d"
+        "5ab1b6ecf4ca3e7a",
+        "7ae1983bc20b4540",
+        "c22d6852787690aa"
       ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Newest papers try to recover training signal a single outcome reward discards",
-      "summary": "MaxIM targets credit assignment for memory updates; AutoScaffold adds AI-guided scaffolds to RLVR training.",
+      "headline": "AgentLeak brings open-source privacy testing for multi-agent systems to Show HN",
       "sids": [
-        "84ecbe8e1def5e6c",
-        "283f892f9c4f657a"
+        "3debe09eabc6be1b"
       ]
     }
   ],
   "open_questions": [
-    "Do the multi-turn RL findings hold when sampling breadth and interaction depth are fixed to your production limits?",
-    "Do the credit-assignment findings from video editing hold on text-only tool-use agents?",
-    "Does co-evolving the harness with the policy beat a fixed harness on independent tasks?",
-    "Do gains from training-time scaffolds like AutoScaffold persist once the scaffold is removed at inference?",
-    "Does RL-trained incremental summarization like MaxIM beat a prompted summarizer on agent tasks outside its own benchmarks?"
+    "Does learned or self-evolving orchestration beat a fixed, hand-designed workflow on an independent benchmark such as WorkflowArena?",
+    "Does any independent group reproduce the turn-level or tree-structured policy optimization gains on long-horizon agents?",
+    "Does AgentLeak publish leak-rate results for named agent frameworks, and are they independently reproduced?",
+    "Does failure attribution like CoLFA identify the responsible agent and step accurately on production traces, not only on its own benchmarks?",
+    "Does coordinated KV-cache quantization hold task quality when agents run different base models?"
   ],
-  "take_for_builders": "Before adopting any of these recipes, rerun them at your own sampling breadth and turn limits, and A/B fine-grained credit or scaffolded rewards against episode-level reward; treat all results as unreplicated.",
+  "take_for_builders": "Keep hand-designed workflows as the baseline when trialing learned orchestration, and add inter-agent data-leak and per-agent failure-attribution checks to your eval suite before widening what agents share.",
   "day_captions": {
-    "283f892f9c4f657a": "Newest: AI-guided training-time scaffolds to use the RLVR experience an outcome reward throws away.",
-    "84ecbe8e1def5e6c": "RL for incremental summarization, aimed at the credit-assignment bottleneck in bounded-memory updates.",
-    "4f75e58fea1157aa": "Offline rollout scheduler for multi-instance asynchronous LLM RL, targeting rollout underutilization.",
-    "6fd3ac39e855936d": "Test-time model-based RL to encode memory in world models; adjacent to the thread.",
-    "4e9768611cda6532": "RL fine-tuning for few-step diffusion models, where many-step rollouts dominate training cost.",
-    "4553deeec0e06574": "Finds multi-turn agent RL gains are sensitive to sampling breadth K and interaction depth.",
-    "868490bacebdc880": "Study of when fine-grained credit assignment helps or hurts, using video editing.",
-    "02ad246823185a44": "Schedules rollouts by environment to cut verification cost under a fixed budget.",
-    "453c138d9feefee3": "Aligns where rounding happens between inference and training to keep updates on-policy.",
-    "8a41e1e41cbecfde": "AWS hands-on multi-turn RL pipeline on SageMaker, demonstrated on Wordle.",
-    "d571e973b6e6916d": "RL to couple knowledge acquisition with reasoning in unfamiliar domains.",
-    "c3af4f37e1c19b19": "Confidence-calibrated rewards to curb RAG hallucination with abstention.",
-    "9471fde9e20a1e58": "Ties RLVR policy confidence to correctness.",
-    "c07d00b3f0a46112": "Targets specific terminal-agent misbehaviors with error-focused RL.",
-    "d448a8af2a653453": "Co-evolves the policy and its executable harness during training.",
-    "29493d021878283c": "Hierarchical skill routing guided by high-level strategy.",
-    "d97ee2168f669bce": "Stabilizes on-policy targeted guidance when base-model coverage limits learning.",
-    "08c314bb237b4b82": "Hierarchical multi-agent RL for long-horizon web tasks.",
-    "3ac08f6799c57341": "RL for interactive HTML generation with functional and visual rewards.",
-    "40c644a15cb895a9": "RL user simulator with hierarchical rewards for task-oriented dialogue data.",
-    "1e1ae7d5d09cb859": "Library and benchmark for robust RL algorithms.",
-    "4e3ef058b96b399d": "Explains RL decisions with causal graphs.",
-    "65dc6916d3b352f1": "Policy geometry for GRPO on few-step flow models.",
-    "473a95cd7c540d1a": "Hybrid RL and supervised prompt compression.",
-    "bce25dc1c825a3e7": "Axiomatic framework for RL in open multi-agent systems.",
-    "981c5fba5d1f60bf": "Octopus: latent-KV sharing for multi-agent RL with parallel sub-agents; adjacent to the thread."
+    "378efdb4d515dcd8": "Opens the thread: test-time adaptation and experience reuse for decentralized agents with no central controller.",
+    "7c1fed0d11e9b516": "Separates coordination from task execution in multi-agent prompt optimization.",
+    "500b1aba48043738": "Observes critic values vary mainly across turns and optimizes long-horizon agents at that scale.",
+    "6f21f6e8dedb00a0": "Benchmarks frontier multimodal models controlling robots directly versus through a harness with a policy.",
+    "594cded7cf1742be": "Broad overview of work agents across tools, applications and workflows; context, not a new method.",
+    "7d1c303b6572b6ff": "Argues team-level success alone cannot show which stored memory needs correcting or when to apply it.",
+    "9c6961c015612e8b": "Treats the harness of prompts, tools and control logic as part of the policy being trained.",
+    "d24c53b475096517": "VulnBench 2.0 compares what AI security agents and deterministic SAST each find and miss.",
+    "cd86ac953a59e37c": "Survey of security, privacy and robustness in distributed and federated training; adjacent to the thread.",
+    "e13096c02b9a44d7": "Position paper proposing auditable belief updates as a safety layer for multi-agent systems.",
+    "c2fbad095b72bbaa": "Moves orchestrator training beyond one-shot system generation toward iterative self-evolution.",
+    "a23623abdfcb0e52": "Targets evidence stranded by a fixed workflow's communication graph on multi-step web tasks.",
+    "3e4010b903d1d7e9": "Tree-structured branching to couple sampling, delayed credit and token-loss aggregation in agent RL.",
+    "65dc6916d3b352f1": "Policy geometry for GRPO on few-step flow models; adjacent to the thread.",
+    "bce25dc1c825a3e7": "Axiomatic framework for RL in open multi-agent systems where only some agents are controllable.",
+    "5ab1b6ecf4ca3e7a": "Empirical study of Direct Nash Optimization for preference alignment; adjacent to the thread.",
+    "7ae1983bc20b4540": "Explorative policy learning for simultaneous speech translation; adjacent to the thread.",
+    "c22d6852787690aa": "Iterative prompt optimization to keep LLM judges aligned with human policy as usage drifts.",
+    "4e7cf2bff5db16a6": "Studies higher-order interactions when a central orchestrator learns agent selection and information flow.",
+    "d48d8aea5d45b475": "Coordinates mixed-precision KV-cache quantization across agents instead of per model.",
+    "23c0753cd928bfa7": "Infrathon benchmarks agents on long-horizon, real-world AI infrastructure optimization.",
+    "b3a45cba6445f63d": "WorkflowArena benchmarks executable workflow orchestration with spawned worker agents.",
+    "a34f1fafb710e628": "Examines private knowledge retrieval and private inference for secure multi-agent deployments.",
+    "ae75fdfb8dec6766": "Lightweight failure attribution that traces the decisive error step and responsible agent.",
+    "151cc2392264c544": "Tests small models and prompt optimization for routing requests to reasoning, retrieval or tools.",
+    "2b4992932ff2ee7d": "Negative-only policy optimization for RLVR when the verifier's signal is one-sided.",
+    "3debe09eabc6be1b": "Newest: an open-source privacy-testing tool, and the only non-arXiv item in the thread."
   }
 }

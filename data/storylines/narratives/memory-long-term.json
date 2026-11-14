@@ -1,24 +1,83 @@
 {
   "slug": "memory-long-term",
-  "generated_at": "2026-09-01T05:10:00Z",
-  "covers_last_updated": "2026-08-31T09:41:26+00:00",
+  "generated_at": "2026-11-14T00:12:06Z",
+  "covers_last_updated": "2026-11-12T03:17:19+00:00",
   "covers_member_sids": [
-    "40602cd71e370eb6",
-    "5960e24b491051f2",
-    "92250613f04ac1b9"
+    "caaf392509c9e434",
+    "fd965980a6846281",
+    "9cfa80c5232a7be3",
+    "fb3e45410f2c29fc",
+    "c02384b58f1bad50",
+    "7e22bab1b14da71f",
+    "f48f97340f1b60b5"
   ],
-  "tldr": "Three separate long-term-memory research papers grouped by a shared title phrase rather than one developing story. It opened Aug 17 with FTA-Mem's fact-time-affect anchored memory for low-density emotional-support dialogue, then Agent Zero Memory's Aug 30 case for provenance-aware memory instead of one fixed structure.",
-  "whats_new": "A new arXiv benchmark, UTILMEM, argues existing long-term-memory evals measure only pointwise factual recall and proposes scoring how well an agent actually uses the evidence it retrieves.",
-  "why_it_matters": "If you eval your agent's memory system on recall alone, UTILMEM's framing is a reminder that retrieving the right fact and correctly using it in the reply are different failure modes worth separate checks.",
-  "take_for_builders": "Before trusting a recall-only memory eval, check whether it also scores evidence utilization — UTILMEM's task design is a starting point for adding that check to your own harness.",
+  "tldr": "This is a topical cluster of independent long-term-memory work, not one developing event; its August items argued that recall-only evals miss whether an agent uses what it retrieves. Since Oct 27 the focus has moved from recall to upkeep: separating entangled memory types, revising dependent facts, scoring memories per task, sealing provenance, and porting memory across models.",
+  "whats_new": "A Nov 12 arXiv paper proposes mental-state-driven memory for long-term character dialogue, arguing that shared history is the basis of an evolving relationship rather than a repository of facts.",
+  "why_it_matters": "Six of the seven items target what happens after a memory is written: revision when an upstream fact changes, per-task usefulness, provenance, and survival across a model swap. Those are the failure modes a recall benchmark does not exercise.",
+  "take_for_builders": "Add a stale-dependency case to your memory evals: change one upstream fact, then check whether the agent still acts on stored conclusions that depended on it.",
+  "beats": [
+    {
+      "kicker": "STRUCTURE",
+      "tone": "launch",
+      "headline": "ETAMem separates heterogeneous memory types for conversational agents",
+      "summary": "The paper names information entanglement as a core problem in existing memory systems and proposes decoupling, then aligning, the different kinds of memory.",
+      "sids": [
+        "caaf392509c9e434"
+      ]
+    },
+    {
+      "kicker": "REVISION",
+      "tone": "turn",
+      "headline": "A changed fact leaves its downstream consequences stale",
+      "summary": "Dependency-aware state revision treats an update as more than a local edit: what was derived from the old fact has to be revised too.",
+      "sids": [
+        "fd965980a6846281"
+      ]
+    },
+    {
+      "kicker": "MEASUREMENT",
+      "tone": "rising",
+      "headline": "Two papers measure memory by task, not by a single score",
+      "summary": "One scores how useful a stored experience is for a given future task; the other adds a graph-based benchmark for trial-and-error work such as research and software development.",
+      "sids": [
+        "9cfa80c5232a7be3",
+        "fb3e45410f2c29fc"
+      ]
+    },
+    {
+      "kicker": "OWNERSHIP",
+      "tone": "rising",
+      "headline": "Provenance containment and model-portable memory",
+      "summary": "MemSeal, a Show HN project, contains memory by provenance; MIGRO decouples the memory system from the model so accumulated observations and revisions survive a model change.",
+      "sids": [
+        "c02384b58f1bad50",
+        "7e22bab1b14da71f"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Character dialogue gets memory driven by mental state",
+      "summary": "The newest paper criticizes mainstream conversational memory as passive and models shared history as part of an evolving relationship.",
+      "sids": [
+        "f48f97340f1b60b5"
+      ]
+    }
+  ],
   "open_questions": [
-    "Does FTA-Mem's fact-time-affect anchoring generalize beyond emotional-support dialogue to task-oriented agents?",
-    "Does Agent Zero Memory's provenance tracking add meaningful latency or storage overhead versus a single fixed structure?",
-    "Does UTILMEM report results for today's popular memory frameworks (vector-store or graph-based), or only research prototypes?"
+    "Does dependency-aware state revision report the latency or token cost of propagating one changed fact through dependent memories?",
+    "Do the task-conditioned utility and exploration-task benchmarks report results for widely used vector-store or graph-based memory frameworks, or only research prototypes?",
+    "Does MIGRO show retrieval quality holding when the underlying model is swapped, and across which model families?",
+    "Does MemSeal publish a threat model or any evaluation of its provenance containment against memory-poisoning attempts?",
+    "Does mental-state-driven memory transfer from character dialogue to task-oriented agents?"
   ],
   "day_captions": {
-    "40602cd71e370eb6": "Opens the thread with a memory architecture purpose-built for low-density emotional-support dialogue, not general-purpose recall.",
-    "5960e24b491051f2": "Argues against committing to one memory structure, proposing provenance tracking across fact stores, vector indexes, and other backends.",
-    "92250613f04ac1b9": "Reframes evaluation itself: scoring whether an agent actually uses retrieved evidence, not just whether it recalls isolated facts."
+    "caaf392509c9e434": "Opens the current window with an architecture claim: mixed memory types get entangled, so store them separately and align them.",
+    "fd965980a6846281": "Adds the consistency problem: revising one fact is not enough when other stored memories depend on it.",
+    "9cfa80c5232a7be3": "Replaces a single importance score per memory with usefulness measured against the specific future task.",
+    "fb3e45410f2c29fc": "Extends memory evaluation from conversation to long trial-and-error trajectories, with a graph-based benchmark and framework.",
+    "c02384b58f1bad50": "The only non-paper item: an open-source project applying provenance containment to agent memory, known here from its Show HN title alone.",
+    "7e22bab1b14da71f": "Treats memory as an asset that should outlive the model: retrieve past evidence, track revisions, and add observations after a model change.",
+    "f48f97340f1b60b5": "Shifts the goal from fact recall to relationship continuity in character dialogue, driven by modeled mental state."
   }
 }

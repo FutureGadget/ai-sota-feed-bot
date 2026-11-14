@@ -1,12 +1,12 @@
 {
  "slug": "prompt-injection",
  "label": "Prompt Injection",
- "item_count": 24,
- "day_count": 15,
+ "item_count": 26,
+ "day_count": 16,
  "source_count": 6,
  "first_seen": "2026-10-25T00:00:25+00:00",
- "last_updated": "2026-11-11T18:41:14+00:00",
- "generated_at": "2026-11-13T00:13:02.772238+00:00",
+ "last_updated": "2026-11-12T18:58:22+00:00",
+ "generated_at": "2026-11-14T00:13:06.733465+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -181,6 +181,17 @@
    "date": "2026-11-04",
    "items": [
     {
+     "title": "Twists and Turns: A Graph-Based Benchmark and Framework for Long-Term Memory in Exploration Tasks",
+     "url": "http://arxiv.org/abs/2611.06414v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Long-term problem-solving processes, such as scientific research and software development, proceed along an evolving trial-and-error trajectory toward a central goal. We term these \\textit{exploration tasks}, which re...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "fb3e45410f2c29fc",
+     "published": "2026-11-04T12:13:52+00:00",
+     "editor_note": "Adjacent: graph-based benchmark for long-term memory in trial-and-error exploration tasks."
+    },
+    {
      "title": "LifeVal: Evaluating AI Model Performance on Personalized Agentic Consumer Tasks",
      "url": "http://arxiv.org/abs/2611.06687v1",
      "source": "arxiv_cs_ai",
@@ -351,7 +362,23 @@
      "why_it_matters": "Matches feed focus: agent.",
      "sid": "5b14ba0a321ddbad",
      "published": "2026-11-11T18:41:14+00:00",
-     "editor_note": "First practitioner report in the thread: a guardrail bypass built on legal-style phrasing."
+     "editor_note": "Still the newest injection item: a practitioner guardrail bypass built on legal-style phrasing."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "items": [
+    {
+     "title": "CoReMem: Cost-Internalizing Memory for Successive Coding Tasks with Prospective Valuation",
+     "url": "http://arxiv.org/abs/2611.17316v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Coding agents tackle successive tasks on an evolving repository, carrying forward edits and writing memory before the next task is known. Selecting memory for unknown next tasks requires balancing future usefulness ag...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "21fb7be8e1ad8383",
+     "published": "2026-11-12T18:58:22+00:00",
+     "editor_note": "Adjacent: memory selection for successive coding tasks that weighs future usefulness against cost."
     }
    ]
   }
@@ -359,7 +386,7 @@
  "editorial": {
   "tldr": "This is a research cluster, not one event: late-October papers proposed model-level defenses (Heads of Security attention gates, SecPO adversarial training). Early-November papers widened the attack surface to agent memory, tool updates, task outcomes, and reasoning traces, and a Nov 8 paper argued for treating the model as an untrusted component.",
   "stale": false,
-  "whats_new": "No new injection item since the Nov 11 \"Prompt Injection, Esq.\" post on bypassing agent guardrails with legal-style phrasing; reclustering only added 14 adjacent long-horizon agent and evaluation papers.",
+  "whats_new": "The Nov 11 \"Prompt Injection, Esq.\" post on bypassing agent guardrails with legal-style phrasing is still the latest injection item; the Nov 12 addition, CoReMem, is an adjacent coding-agent memory paper.",
   "why_it_matters": "The thread keeps moving the defense out of the model: a guardrail that reads text can be argued with, so the control that holds is the one enforced in code around the tool call.",
   "take_for_builders": "Gate high-impact tool calls with deterministic policy and human approval instead of an LLM judge, then add legal-register, task-tampering, memory-poisoning, and tool-version-change cases to your red-team suite.",
   "beats": [
@@ -407,7 +434,7 @@
     "kicker": "ADJACENT WORK",
     "tone": "neutral",
     "headline": "Long-horizon agent and evaluation papers share the cluster, not the topic",
-    "summary": "Fourteen papers on long-horizon agents, memory, and benchmarks were grouped in by shared wording; none addresses prompt injection.",
+    "summary": "Sixteen papers on long-horizon agents, memory, and benchmarks were grouped in by shared wording; none addresses prompt injection.",
     "sids": [
      "55edc2615764e1b5",
      "5f97c21b490b1ce9",
@@ -416,13 +443,15 @@
      "0b7565240a3894fa",
      "52a3c89c275c2670",
      "08c314bb237b4b82",
+     "fb3e45410f2c29fc",
      "3b93b07bf2154e4f",
      "51abf5f84d7f5698",
      "df40d12666dedf69",
      "0d4497db5df885d5",
      "23c0753cd928bfa7",
      "bd9e024b04419d57",
-     "26bc756ec216b604"
+     "26bc756ec216b604",
+     "21fb7be8e1ad8383"
     ]
    },
    {
@@ -438,7 +467,7 @@
     "kicker": "NOW",
     "tone": "now",
     "headline": "Practitioner post claims guardrail bypass using lawyerspeak",
-    "summary": "The first non-paper item in the thread: a write-up on defeating agent guardrails with legal-style language.",
+    "summary": "The only non-paper item in the thread: a write-up on defeating agent guardrails with legal-style language.",
     "sids": [
      "5b14ba0a321ddbad"
     ]
@@ -451,6 +480,6 @@
    "Which guardrail products does the lawyerspeak bypass work against, and do their vendors confirm or patch it?",
    "Do deterministic policy enforcement and taint tracking hold on closed frontier models, beyond the open-weights models the paper validated on?"
   ],
-  "generated_at": "2026-11-13T00:12:09Z"
+  "generated_at": "2026-11-14T00:12:07Z"
  }
 }

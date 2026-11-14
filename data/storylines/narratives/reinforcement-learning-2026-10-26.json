@@ -1,0 +1,134 @@
+{
+  "slug": "reinforcement-learning-2026-10-26",
+  "generated_at": "2026-11-14T00:12:06Z",
+  "covers_last_updated": "2026-11-12T11:38:21+00:00",
+  "covers_member_sids": [
+    "c3af4f37e1c19b19",
+    "868490bacebdc880",
+    "c07d00b3f0a46112",
+    "d448a8af2a653453",
+    "02ad246823185a44",
+    "d571e973b6e6916d",
+    "9471fde9e20a1e58",
+    "29493d021878283c",
+    "65dc6916d3b352f1",
+    "4e3ef058b96b399d",
+    "473a95cd7c540d1a",
+    "bce25dc1c825a3e7",
+    "3ac08f6799c57341",
+    "08c314bb237b4b82",
+    "d97ee2168f669bce",
+    "219537f3fa2b3690",
+    "981c5fba5d1f60bf",
+    "4553deeec0e06574",
+    "4e9768611cda6532",
+    "4f75e58fea1157aa",
+    "6fd3ac39e855936d",
+    "f5f5bfe9b72425ef",
+    "29f0e99816524f78",
+    "84ecbe8e1def5e6c",
+    "283f892f9c4f657a",
+    "a7b79c5f448ee3b6",
+    "e372c76cd210406f"
+  ],
+  "tldr": "This thread is a topical grouping of 27 arXiv preprints since Oct 26, not one event: what they share is reinforcement learning as a post-training method for LLMs and agents. Most of them work on one of three problems: what the reward should measure, how to train multi-turn tool-using agents, and how to pay for the rollouts.",
+  "whats_new": "A Nov 12 preprint targets batch makespan for agent workloads, RL rollouts included, by coordinating LLM inference with environment execution, the third rollout-scheduling paper in this thread since Oct 27.",
+  "why_it_matters": "For teams that post-train their own agents, the recurring constraints in these papers are rollout cost and reward design, and three of the 27 treat rollout scheduling as an infrastructure problem in its own right.",
+  "beats": [
+    {
+      "kicker": "REWARD SIGNAL",
+      "tone": "launch",
+      "headline": "Outcome-only rewards draw six papers on calibration, credit and guidance",
+      "summary": "These papers change what the policy is rewarded for: abstaining, matching confidence to correctness, or using the textual feedback a single outcome score discards.",
+      "sids": [
+        "c3af4f37e1c19b19",
+        "868490bacebdc880",
+        "d571e973b6e6916d",
+        "9471fde9e20a1e58",
+        "d97ee2168f669bce",
+        "283f892f9c4f657a"
+      ]
+    },
+    {
+      "kicker": "AGENT TRAINING",
+      "tone": "rising",
+      "headline": "RL moves onto the agent stack: harnesses, skills, memory and sub-agents",
+      "summary": "Ten papers apply RL to parts of an agent system rather than to a single-turn model, and one asks what multi-turn RL actually improves.",
+      "sids": [
+        "c07d00b3f0a46112",
+        "d448a8af2a653453",
+        "29493d021878283c",
+        "473a95cd7c540d1a",
+        "3ac08f6799c57341",
+        "08c314bb237b4b82",
+        "219537f3fa2b3690",
+        "981c5fba5d1f60bf",
+        "4553deeec0e06574",
+        "84ecbe8e1def5e6c"
+      ]
+    },
+    {
+      "kicker": "ROLLOUT COST",
+      "tone": "now",
+      "headline": "Three papers treat rollout scheduling as the bottleneck",
+      "summary": "Environment-aware scheduling on Oct 27, an offline scheduler for asynchronous LLM RL on Nov 6, and inference-environment coordination on Nov 12.",
+      "sids": [
+        "02ad246823185a44",
+        "4f75e58fea1157aa",
+        "e372c76cd210406f"
+      ]
+    },
+    {
+      "kicker": "ADJACENT",
+      "tone": "neutral",
+      "headline": "Eight clustered papers sit outside LLM agent post-training",
+      "summary": "Diffusion and flow fine-tuning, classical RL interpretability and theory, and two agent papers on voice benchmarks and shared-memory coordination.",
+      "sids": [
+        "65dc6916d3b352f1",
+        "4e3ef058b96b399d",
+        "bce25dc1c825a3e7",
+        "4e9768611cda6532",
+        "6fd3ac39e855936d",
+        "f5f5bfe9b72425ef",
+        "29f0e99816524f78",
+        "a7b79c5f448ee3b6"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Do any of the three rollout-scheduling approaches ship as open-source code or get adopted in a public training stack?",
+    "Does an independent group reproduce the finding that multi-turn RL gains depend on sampling breadth and interaction depth?",
+    "Do the confidence-calibration methods for RLVR hold on agent tasks, beyond the RAG and reasoning settings they were proposed for?",
+    "Does co-evolving the harness with the policy beat tuning a harness for a fixed policy on a shared public benchmark?"
+  ],
+  "take_for_builders": "Before adding GPUs to an agent RL or batch-eval pipeline, measure how much rollout wall-clock goes to environment execution and padding rather than inference, since that is the waste the three scheduling papers target.",
+  "day_captions": {
+    "c3af4f37e1c19b19": "Opens the reward-design strand: RL that rewards correct answers, penalizes wrong ones and allows abstention, aimed at RAG hallucinations.",
+    "868490bacebdc880": "Asks when fine-grained credit assignment helps a multimodal tool-using agent and when it does not, using video editing as the test task.",
+    "c07d00b3f0a46112": "Applies error-targeted learning to terminal agents: find specific misbehaviors, train against them, check that they are fixed.",
+    "d448a8af2a653453": "Argues a harness tuned for a fixed policy goes stale as the policy learns, and trains the two together.",
+    "02ad246823185a44": "First rollout-cost paper in the thread: environment-aware scheduling under a finite rollout budget.",
+    "d571e973b6e6916d": "Uses RL to push models toward coupled knowledge acquisition and reasoning in unfamiliar domains, beyond retrieval and aggregation.",
+    "9471fde9e20a1e58": "Names the calibration gap in RLVR: the verifier rewards passing answers, but nothing ties the policy's confidence to correctness.",
+    "29493d021878283c": "Replaces flat retrieval from a skill bank with routing that models the high-level strategy first.",
+    "65dc6916d3b352f1": "Off the agent track: how to inject stochasticity so GRPO can train few-step flow models.",
+    "4e3ef058b96b399d": "Classical RL interpretability: explains agent policies through causal graph reasoning.",
+    "473a95cd7c540d1a": "Trains a prompt compressor with a mix of RL and supervised learning, aimed at cheaper and faster LLM calls.",
+    "bce25dc1c825a3e7": "Theory entry: an axiomatic basis for RL when only a subset of agents is controllable, with smart grids as the motivating domain.",
+    "3ac08f6799c57341": "Uses RL to close the gap between HTML that renders and HTML that works and looks right under real interaction.",
+    "08c314bb237b4b82": "Hierarchical multi-agent RL for long-horizon, multi-step tasks in GUI web agents.",
+    "d97ee2168f669bce": "Addresses on-policy RL stalling when the base model cannot reach the reward, using guidance drawn from textual reward sources such as judge models.",
+    "219537f3fa2b3690": "Moves skill memory out of the prompt and into the model by combining RL with on-policy self-distillation.",
+    "981c5fba5d1f60bf": "Multi-agent RL for sub-agents that explore in parallel with isolated context windows.",
+    "4553deeec0e06574": "The thread's diagnostic paper: multi-turn RL gains are highly sensitive to sampling breadth and interaction depth.",
+    "4e9768611cda6532": "Diffusion counterpart to the rollout-cost theme: RL fine-tuning of few-step models, where many-step rollouts otherwise dominate training cost.",
+    "4f75e58fea1157aa": "Second scheduling paper: an offline rollout scheduler for multi-instance asynchronous RL of LLMs that targets rollout underutilization such as padding from uneven lengths.",
+    "6fd3ac39e855936d": "Model-based RL entry on encoding memory in world models at test time.",
+    "f5f5bfe9b72425ef": "A benchmark with no RL method: task coordination in full-duplex voice agents, where users interrupt and redirect mid-speech.",
+    "29f0e99816524f78": "A replication study with no RL method: whether LLM agents coordinate through shared memory without being told to.",
+    "84ecbe8e1def5e6c": "Trains incremental summarization with RL so bounded agent memory is optimized for downstream task utility.",
+    "283f892f9c4f657a": "Adds AI-chosen training-time hints to RLVR, on the argument that an outcome reward reduces each attempt to a single number.",
+    "a7b79c5f448ee3b6": "Classical RL interpretability for high-dimensional multi-action policies.",
+    "e372c76cd210406f": "Latest item: coordinates LLM inference with environment execution to cut batch makespan for evals, synthetic data and RL rollouts."
+  }
+}

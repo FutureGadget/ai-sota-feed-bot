@@ -1,9 +1,8 @@
 {
   "slug": "diffusion-language",
-  "generated_at": "2026-11-13T00:12:10Z",
-  "covers_last_updated": "2026-11-10T18:32:28+00:00",
+  "generated_at": "2026-11-14T00:12:06Z",
+  "covers_last_updated": "2026-11-12T16:26:27+00:00",
   "covers_member_sids": [
-    "6dbbfb1c94ed9d7f",
     "75e015095613159e",
     "ed7966c78dc36a0b",
     "edcf9763d6b958dc",
@@ -15,8 +14,6 @@
     "57b08f9866a26766",
     "219537f3fa2b3690",
     "884381d0dd03d261",
-    "f78a35ba2c2de2e1",
-    "1c1687d38f9aafb9",
     "0491c6de7a511fb5",
     "2fb1a0f31494270f",
     "5fbc35eb022e4033",
@@ -26,10 +23,11 @@
     "d9424aebc884a5c5",
     "ca0cd6bcfdb70098",
     "256bf90ce51f6665",
-    "d7a4f91e59e352a3"
+    "d7a4f91e59e352a3",
+    "e267de687efb45c3"
   ],
-  "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It opened in late October with speculative decoding for RL rollouts and work on cutting diffusion-LM decoding rounds, then widened to pruning, MoE serving, prompt compression and drafter training.",
-  "whats_new": "Overlapping Block Denoising (Nov 10) targets block-diffusion LM efficiency, the same day REAL Loss proposed training speculative-decoding drafters directly on expected acceptance length.",
+  "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It opened in late October with work on cutting diffusion-LM decoding rounds, widened to pruning, MoE serving and prompt compression, and by Nov 8-10 had block-diffusion models appearing as drafters inside speculative decoding.",
+  "whats_new": "The only addition since Nov 10 is an adjacent Nov 12 paper on coordinating delegation in multi-agent deep research; the diffusion-LM and speculative-decoding lines have no new entries.",
   "why_it_matters": "The two lines are converging: block-diffusion models now show up as drafters inside speculative decoding, where the target model still verifies every token, which is a lower-risk route into a serving stack than replacing the autoregressive model.",
   "beats": [
     {
@@ -63,7 +61,7 @@
       "kicker": "ADJACENT",
       "tone": "neutral",
       "headline": "Non-diffusion-LM efficiency work shares the thread: pruning, MoE serving, compression and agent overhead",
-      "summary": "These papers share the efficient-inference theme, not the diffusion-LM method; one is an image-diffusion privacy paper matched on the word alone.",
+      "summary": "These papers share the efficient-inference theme, not the diffusion-LM method; one is an image-diffusion privacy paper matched on the word alone, and the newest is a multi-agent deep-research paper.",
       "sids": [
         "ed7966c78dc36a0b",
         "1423e77dae0d2a75",
@@ -71,9 +69,8 @@
         "01d6db945cd3f0c2",
         "473a95cd7c540d1a",
         "219537f3fa2b3690",
-        "f78a35ba2c2de2e1",
-        "1c1687d38f9aafb9",
-        "d7a4f91e59e352a3"
+        "d7a4f91e59e352a3",
+        "e267de687efb45c3"
       ]
     },
     {
@@ -82,7 +79,6 @@
       "headline": "Speculative decoding papers chase longer accepted drafts",
       "summary": "Two papers a few days apart, D-REAL and REAL Loss, both train the drafter on acceptance length instead of token-level loss.",
       "sids": [
-        "6dbbfb1c94ed9d7f",
         "884381d0dd03d261",
         "b1fe6c30c1c550df",
         "d9424aebc884a5c5",
@@ -102,7 +98,7 @@
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Block diffusion LMs get their own inference optimizations",
+      "headline": "Block diffusion LMs get their own inference optimizations; nothing new on this line since Nov 10",
       "sids": [
         "5fbc35eb022e4033",
         "ca0cd6bcfdb70098"
@@ -118,7 +114,6 @@
   ],
   "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet. If you run speculative decoding, the nearer-term experiment is a block-diffusion drafter: measure accepted length and verification cost under your real concurrency before adopting it.",
   "day_captions": {
-    "6dbbfb1c94ed9d7f": "Applies n-gram speculative decoding to RL post-training rollouts, which the paper says can exceed 70% of training time.",
     "75e015095613159e": "Proposes learning when to commit tokens, reducing the decoding rounds dLLMs need.",
     "ed7966c78dc36a0b": "Adjacent: co-designs pruning and scheduling for MoE inference on memory-constrained edge servers, where moving expert weights dominates.",
     "edcf9763d6b958dc": "Extends the efficiency push to agents by adapting compute spent and text generated per interaction.",
@@ -130,8 +125,6 @@
     "57b08f9866a26766": "Targets hallucination in multimodal discrete diffusion LMs by ordering visual gain during mask prediction.",
     "219537f3fa2b3690": "Adjacent: distills textual skill memory into a self-evolving agent instead of carrying it as prompts.",
     "884381d0dd03d261": "Lets a speculative-decoding drafter reconsider its guesses in parallel to raise per-guess acceptance.",
-    "f78a35ba2c2de2e1": "Adjacent: speeds long-context decoding in hybrid full/linear-attention LLMs without retraining.",
-    "1c1687d38f9aafb9": "Carries the speculate-then-verify pattern into agent context compaction to cut summarization delay.",
     "0491c6de7a511fb5": "Measured Coupling: picks which tokens are safe to commit together in parallel decoding instead of assuming mean-field independence.",
     "2fb1a0f31494270f": "Speculative simulation that preserves the exact output distribution when sampling several tokens in parallel.",
     "5fbc35eb022e4033": "DUET: sparsifies both attention over the growing prefix and processing of the current block in block diffusion LMs.",
@@ -141,6 +134,7 @@
     "d9424aebc884a5c5": "Drafts at phrase level against a frozen target instead of in the target's own token vocabulary.",
     "ca0cd6bcfdb70098": "Overlaps denoising blocks to make block diffusion LMs more efficient for latency-critical generation.",
     "256bf90ce51f6665": "Second drafter loss within a week, after D-REAL, that optimizes expected acceptance length for speculative-decoding drafters.",
-    "d7a4f91e59e352a3": "Adjacent: model-agnostic image cropping and compression to cut vision-language inference cost."
+    "d7a4f91e59e352a3": "Adjacent: model-agnostic image cropping and compression to cut vision-language inference cost.",
+    "e267de687efb45c3": "Adjacent: argues delegation in multi-agent deep research only pays off when task allocation and subtask execution are coordinated; not a diffusion-LM or decoding paper."
   }
 }

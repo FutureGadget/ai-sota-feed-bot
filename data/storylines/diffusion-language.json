@@ -1,12 +1,12 @@
 {
  "slug": "diffusion-language",
  "label": "Diffusion Language",
- "item_count": 24,
- "day_count": 15,
+ "item_count": 22,
+ "day_count": 14,
  "source_count": 4,
- "first_seen": "2026-10-23T16:47:29+00:00",
- "last_updated": "2026-11-10T18:32:28+00:00",
- "generated_at": "2026-11-13T00:13:02.772238+00:00",
+ "first_seen": "2026-10-26T17:35:58+00:00",
+ "last_updated": "2026-11-12T16:26:27+00:00",
+ "generated_at": "2026-11-14T00:13:06.733465+00:00",
  "sources": [
   "arxiv_cs_ai",
   "arxiv_cs_cl",
@@ -14,21 +14,6 @@
   "arxiv_llm_reliability"
  ],
  "days": [
-  {
-   "date": "2026-10-23",
-   "items": [
-    {
-     "title": "NgramRL: Accelerating RL Post-Training for Structured Generation via Rollout-Aware N-gram Speculative Decoding",
-     "url": "http://arxiv.org/abs/2610.32881v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "Reinforcement learning (RL) post-training improves the reasoning capabilities of large language models, but its cost is dominated by autoregressive rollout generation, which can exceed 70% of training time. Existing s...",
-     "sid": "6dbbfb1c94ed9d7f",
-     "published": "2026-10-23T16:47:29+00:00",
-     "editor_note": "Applies n-gram speculative decoding to RL post-training rollouts, which the paper says can exceed 70% of training time."
-    }
-   ]
-  },
   {
    "date": "2026-10-26",
    "items": [
@@ -152,7 +137,7 @@
      "url": "http://arxiv.org/abs/2611.05066v1",
      "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Multimodal discrete diffusion language models (dLLMs) generate responses through iterative mask prediction and offer a promising alternative to autoregressive large vision-language models. However, they still suffer from hallucination, producing outputs that are plausible under l",
+     "summary_1line": "Multimodal discrete diffusion language models (dLLMs) generate responses through iterative mask prediction and offer a promising alternative to autoregressive large vision-language models. However, they still suffer f...",
      "sid": "57b08f9866a26766",
      "published": "2026-11-03T15:28:11+00:00",
      "editor_note": "Targets hallucination in multimodal discrete diffusion LMs by ordering visual gain during mask prediction."
@@ -177,32 +162,6 @@
      "sid": "884381d0dd03d261",
      "published": "2026-11-03T22:52:34+00:00",
      "editor_note": "Lets a speculative-decoding drafter reconsider its guesses in parallel to raise per-guess acceptance."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-04",
-   "items": [
-    {
-     "title": "Accelerating Long-Context Decoding in Large-Scale Hybrid LLMs Without Retraining",
-     "url": "http://arxiv.org/abs/2611.06133v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "The full-attention layers of large language models (LLMs) make every generated token more expensive than the previous one, slowing models down on long-context tasks. Hybrid models reduce this cost by replacing most full-attention layers with linear-attention layers, but the first",
-     "sid": "f78a35ba2c2de2e1",
-     "published": "2026-11-04T08:18:38+00:00",
-     "editor_note": "Adjacent: speeds long-context decoding in hybrid full/linear-attention LLMs without retraining."
-    },
-    {
-     "title": "SpecCompact: Accelerating LLM Agent Context Compaction with Slot-Parallel Semantic Speculative Verification",
-     "url": "http://arxiv.org/abs/2611.06876v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "LLM agents use context compaction to manage growing interaction histories, but summarizing long histories with large models can introduce substantial delays. Compaction therefore requires balancing information retenti...",
-     "why_it_matters": "Matches feed focus: agent, evaluation.",
-     "sid": "1c1687d38f9aafb9",
-     "published": "2026-11-04T18:34:41+00:00",
-     "editor_note": "Carries the speculate-then-verify pattern into agent context compaction to cut summarization delay."
     }
    ]
   },
@@ -340,12 +299,28 @@
      "editor_note": "Adjacent: model-agnostic image cropping and compression to cut vision-language inference cost."
     }
    ]
+  },
+  {
+   "date": "2026-11-12",
+   "items": [
+    {
+     "title": "From Delegation to Coordination: Learning Efficient Multi-Agent Deep Research",
+     "url": "http://arxiv.org/abs/2611.17041v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Multi-agent deep-research systems use delegation to parallelize search and keep long tool traces out of the main agent's context. Yet delegation helps only when task allocation and subtask execution are coordinated: t...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "e267de687efb45c3",
+     "published": "2026-11-12T16:26:27+00:00",
+     "editor_note": "Adjacent: argues delegation in multi-agent deep research only pays off when task allocation and subtask execution are coordinated; not a diffusion-LM or decoding paper."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It opened in late October with speculative decoding for RL rollouts and work on cutting diffusion-LM decoding rounds, then widened to pruning, MoE serving, prompt compression and drafter training.",
+  "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It opened in late October with work on cutting diffusion-LM decoding rounds, widened to pruning, MoE serving and prompt compression, and by Nov 8-10 had block-diffusion models appearing as drafters inside speculative decoding.",
   "stale": false,
-  "whats_new": "Overlapping Block Denoising (Nov 10) targets block-diffusion LM efficiency, the same day REAL Loss proposed training speculative-decoding drafters directly on expected acceptance length.",
+  "whats_new": "The only addition since Nov 10 is an adjacent Nov 12 paper on coordinating delegation in multi-agent deep research; the diffusion-LM and speculative-decoding lines have no new entries.",
   "why_it_matters": "The two lines are converging: block-diffusion models now show up as drafters inside speculative decoding, where the target model still verifies every token, which is a lower-risk route into a serving stack than replacing the autoregressive model.",
   "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet. If you run speculative decoding, the nearer-term experiment is a block-diffusion drafter: measure accepted length and verification cost under your real concurrency before adopting it.",
   "beats": [
@@ -380,7 +355,7 @@
     "kicker": "ADJACENT",
     "tone": "neutral",
     "headline": "Non-diffusion-LM efficiency work shares the thread: pruning, MoE serving, compression and agent overhead",
-    "summary": "These papers share the efficient-inference theme, not the diffusion-LM method; one is an image-diffusion privacy paper matched on the word alone.",
+    "summary": "These papers share the efficient-inference theme, not the diffusion-LM method; one is an image-diffusion privacy paper matched on the word alone, and the newest is a multi-agent deep-research paper.",
     "sids": [
      "ed7966c78dc36a0b",
      "1423e77dae0d2a75",
@@ -388,9 +363,8 @@
      "01d6db945cd3f0c2",
      "473a95cd7c540d1a",
      "219537f3fa2b3690",
-     "f78a35ba2c2de2e1",
-     "1c1687d38f9aafb9",
-     "d7a4f91e59e352a3"
+     "d7a4f91e59e352a3",
+     "e267de687efb45c3"
     ]
    },
    {
@@ -399,7 +373,6 @@
     "headline": "Speculative decoding papers chase longer accepted drafts",
     "summary": "Two papers a few days apart, D-REAL and REAL Loss, both train the drafter on acceptance length instead of token-level loss.",
     "sids": [
-     "6dbbfb1c94ed9d7f",
      "884381d0dd03d261",
      "b1fe6c30c1c550df",
      "d9424aebc884a5c5",
@@ -419,7 +392,7 @@
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Block diffusion LMs get their own inference optimizations",
+    "headline": "Block diffusion LMs get their own inference optimizations; nothing new on this line since Nov 10",
     "sids": [
      "5fbc35eb022e4033",
      "ca0cd6bcfdb70098"
@@ -433,6 +406,6 @@
    "Does a block-diffusion drafter with a pruned draft tree beat existing drafters on end-to-end throughput under concurrent serving load?",
    "Do D-REAL and REAL Loss report comparable acceptance-length gains on the same drafter and target pairs?"
   ],
-  "generated_at": "2026-11-13T00:12:10Z"
+  "generated_at": "2026-11-14T00:12:06Z"
  }
 }

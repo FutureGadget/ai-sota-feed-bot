@@ -1,12 +1,12 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 24,
- "day_count": 13,
+ "item_count": 25,
+ "day_count": 14,
  "source_count": 7,
  "first_seen": "2026-10-25T17:09:49+00:00",
- "last_updated": "2026-11-10T17:37:13+00:00",
- "generated_at": "2026-11-13T00:13:02.772238+00:00",
+ "last_updated": "2026-11-11T19:19:08+00:00",
+ "generated_at": "2026-11-14T00:13:06.733465+00:00",
  "sources": [
   "anthropic_research",
   "arxiv_agent_systems_research",
@@ -334,17 +334,33 @@
      "summary_1line": "Large language models (LLMs) increasingly exhibit capabilities that resemble human Learning by Thinking (LbT), the acquisition of new insight through internal processes such as explanation and reasoning, without new external input. A systematic account of the cognitive mechanisms",
      "sid": "b6805052b5174dca",
      "published": "2026-11-10T17:37:13+00:00",
-     "editor_note": "Latest item: a cognitive account of how models gain insight through explanation and reasoning without new input."
+     "editor_note": "A cognitive account of how models gain insight through explanation and reasoning without new input."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-11",
+   "items": [
+    {
+     "title": "ShadowBench: Exposing Lexical Anchoring and the Illusion of Forgetting in Large Language Models",
+     "url": "http://arxiv.org/abs/2611.15925v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large Language Models (LLMs) have emerged as primary interfaces for factual retrieval, yet current evaluation paradigms rely almost exclusively on explicit entity names. In this work, we demonstrate that LLM knowledge...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "f1908d0038e22f5b",
+     "published": "2026-11-11T19:19:08+00:00",
+     "editor_note": "Latest item: a benchmark arguing recall evals over-rely on explicit entity names, which bears on how forgetting is measured."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event; a recluster replaced its earlier reinforcement-learning focus. From Oct 25 it ran from agent evaluation and model-control methods through compression papers and Anthropic's Nov 2 provable-inference update to knowledge editing and unlearning in early November.",
+  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 25 it ran from agent evaluation and model-control methods through compression papers and Anthropic's Nov 2 provable-inference update to knowledge editing and unlearning, then to Nov 10 studies of rater drift on Chatbot Arena and framing effects in LLM judgments.",
   "stale": false,
-  "whats_new": "Nov 10: a Chatbot Arena study separates model change from rater change behind \"AI is getting worse\" complaints and argues human standards are rising; a same-day audit asks whether LLM headline judgments follow facts or framing.",
-  "why_it_matters": "Most items are single unreplicated preprints, but three recurring topics touch production: whether human-preference evals stay comparable over time, what quantization and pruning cost in quality, and whether post-training updates leave a model's sense of what it knows out of sync.",
-  "take_for_builders": "If you track model quality with human-preference votes over time, hold a fixed rater pool or a frozen reference set before concluding a model regressed; treat the remaining preprints as unreplicated reading, not deployment guidance.",
+  "whats_new": "Nov 11: ShadowBench argues factual-recall evaluation relies almost entirely on explicit entity names, and its title claims that hides lexical anchoring and an \"illusion of forgetting\" in LLMs.",
+  "why_it_matters": "Most items are single unreplicated preprints, but three recurring topics touch production: whether unlearning and knowledge edits remove knowledge or only its name-keyed recall, whether human-preference evals stay comparable over time, and what quantization and pruning cost in quality.",
+  "take_for_builders": "Before signing off an unlearning or knowledge-edit change, test recall with prompts that describe the entity without naming it; treat these preprints as unreplicated reading, not deployment guidance.",
   "beats": [
    {
     "kicker": "OCT 25-27",
@@ -396,10 +412,10 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "NOV 9-10",
+    "tone": "rising",
     "headline": "Judgment under scrutiny: rising rater standards on Chatbot Arena, framing effects and personality benchmarks",
-    "summary": "Nov 9-10 also brings an LLM AutoML searcher, physics-guided fault diagnosis, a training-simulation benchmark and a cognitive account of learning by thinking.",
+    "summary": "These days also bring an LLM AutoML searcher, physics-guided fault diagnosis, a training-simulation benchmark and a cognitive account of learning by thinking.",
     "sids": [
      "9c88a41fbb756af3",
      "3b4f703ae0a8f385",
@@ -409,15 +425,25 @@
      "dcfca63926ea22ea",
      "b6805052b5174dca"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "ShadowBench questions name-based recall tests and whether models really forget",
+    "summary": "A single preprint that returns to the Nov 3-6 unlearning and editing topic from the evaluation side.",
+    "sids": [
+     "f1908d0038e22f5b"
+    ]
    }
   ],
   "open_questions": [
-   "Does Anthropic publish proving cost or latency figures for zkSNARK-based provable inference?",
-   "Do Chatbot Arena or other human-preference leaderboards adjust rankings for the rater drift the Nov 10 study describes?",
-   "Does the early-stopping audit identify a method that cuts reasoning tokens without lowering reliability?",
+   "Do published unlearning or knowledge-editing methods still pass when probed without explicit entity names, as ShadowBench's framing suggests they may not?",
    "Do post-training updates from knowledge editing or unlearning keep a model's answerability judgments aligned with what it can answer?",
+   "Do Chatbot Arena or other human-preference leaderboards adjust rankings for the rater drift the Nov 10 study describes?",
+   "Does Anthropic publish proving cost or latency figures for zkSNARK-based provable inference?",
+   "Does the early-stopping audit identify a method that cuts reasoning tokens without lowering reliability?",
    "Does RL-incentivized self-learning beat plain RAG on knowledge-intensive tasks in unfamiliar domains when replicated?"
   ],
-  "generated_at": "2026-11-13T00:12:10Z"
+  "generated_at": "2026-11-14T00:12:07Z"
  }
 }

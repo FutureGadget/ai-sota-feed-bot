@@ -1,16 +1,23 @@
 {
   "slug": "retrieval-augmented-generation",
-  "generated_at": "2026-11-10T00:30:00+00:00",
-  "covers_last_updated": "2026-11-06T17:56:37+00:00",
-  "covers_member_sids": ["cc7fe353e9f92660", "401ca1e322883a2d", "49e633d61cb9577d"],
-  "tldr": "Late-October research targeted the retriever: a paper trained embedding models on their own mistakes so multi-hop questions find all the evidence they need. A November 2 paper, TRIO, then argued that current RAG approaches are still far from satisfactory.",
-  "whats_new": "A Nov 6 paper compares RAG over a raw transcript against a two-tier memory that compacts each turn into atomic facts, testing whether conversational agents should keep the transcript at all.",
-  "why_it_matters": "RAG design choices (what you index, how the retriever is trained, what an agent remembers) are now being tested against alternatives, so the default pipeline is no longer a safe assumption.",
+  "generated_at": "2026-11-14T00:12:07Z",
+  "covers_last_updated": "2026-11-12T17:39:14+00:00",
+  "covers_member_sids": [
+    "cc7fe353e9f92660",
+    "401ca1e322883a2d",
+    "eb1f61303f3e3d57",
+    "49e633d61cb9577d",
+    "1eb45d5078fca72b",
+    "9a823f949628f234"
+  ],
+  "tldr": "Late-October and early-November papers worked on the RAG pipeline itself: training embedding retrievers on their own mistakes for multi-hop questions, and TRIO's task refinement. By Nov 6-10 the papers were testing RAG's assumptions instead, against compacted fact memory, on competitive programming, and against the context token budget.",
+  "whats_new": "A Nov 12 paper, \"Cited but Unused,\" reports that RAG citations frequently misstate where an answer came from, and that standard citation verification cannot detect it.",
+  "why_it_matters": "A citation that passes verification may still not be what the model used, so citation checks alone do not prove a RAG answer is grounded in the retrieved documents.",
   "status": {
     "state": "Developing",
     "tone": "rising",
-    "changed": "2026-11-06",
-    "detail": "Three arXiv papers in nine days probe different RAG layers: retriever training, task refinement, and agent memory."
+    "changed": "2026-11-12",
+    "detail": "Six separate arXiv papers in two weeks, not one event: they probe retriever training, pipeline refinement, agent memory, code tasks, context cost, and citation provenance."
   },
   "beats": [
     {
@@ -18,31 +25,62 @@
       "tone": "launch",
       "headline": "Training embedding models on their own retrieval mistakes for multi-hop RAG",
       "summary": "Multi-hop answers are only reliable if the retriever finds all the evidence.",
-      "sids": ["cc7fe353e9f92660"]
+      "sids": [
+        "cc7fe353e9f92660"
+      ]
     },
     {
       "kicker": "PIPELINE",
       "tone": "rising",
       "headline": "TRIO proposes task refinement with individual optimization for RAG",
-      "sids": ["401ca1e322883a2d"]
+      "sids": [
+        "401ca1e322883a2d"
+      ]
+    },
+    {
+      "kicker": "STRESS TESTS",
+      "tone": "rising",
+      "headline": "RAG measured against compacted fact memory and on competitive programming",
+      "summary": "Two Nov 6 papers evaluate where RAG helps instead of proposing a new retriever.",
+      "sids": [
+        "eb1f61303f3e3d57",
+        "49e633d61cb9577d"
+      ]
+    },
+    {
+      "kicker": "COST",
+      "tone": "neutral",
+      "headline": "OpticalRAG compresses retrieved documents in pixel space to save tokens",
+      "summary": "It targets the token budget, arguing aggressive text compression discards fine-grained detail.",
+      "sids": [
+        "1eb45d5078fca72b"
+      ]
     },
     {
       "kicker": "NOW",
-      "tone": "now",
-      "headline": "Two-tier conversational memory evaluated head-to-head against RAG",
-      "summary": "Compacting turns into atomic facts versus searching the stored transcript.",
-      "sids": ["49e633d61cb9577d"]
+      "tone": "turn",
+      "headline": "\"Cited but Unused\": RAG citations frequently misstate provenance",
+      "summary": "The paper says standard verification cannot detect the mismatch.",
+      "sids": [
+        "9a823f949628f234"
+      ]
     }
   ],
   "open_questions": [
     "Do the multi-hop retriever gains hold on benchmarks other than those the paper reports?",
     "Does compacted fact memory beat transcript RAG outside the paper's paired evaluation?",
-    "Will any of these methods ship in a widely used RAG framework?"
+    "Will any of these methods ship in a widely used RAG framework?",
+    "Does the citation-provenance gap reproduce across models and RAG stacks beyond those the paper measured?",
+    "Does a practical check emerge that catches a cited-but-unused source in production?",
+    "Does pixel-space compression preserve answer accuracy on documents where exact figures or identifiers matter?"
   ],
-  "take_for_builders": "If you run conversational memory over a raw transcript, rerun your own recall evals against a compacted-facts variant before changing anything; treat these papers as hypotheses until reproduced on your data.",
+  "take_for_builders": "If you treat citations as your groundedness signal, add an ablation check to your evals: remove the cited passage and see whether the answer changes.",
   "day_captions": {
     "cc7fe353e9f92660": "Targets multi-hop RAG by training the embedding retriever on its own failures.",
     "401ca1e322883a2d": "Frames current RAG as unsatisfactory and proposes TRIO for task refinement.",
-    "49e633d61cb9577d": "Moves the question from retrieval to memory: transcript search versus compacted atomic facts."
+    "eb1f61303f3e3d57": "Tests RAG on competitive programming, where algorithmic reasoning matters as much as code generation.",
+    "49e633d61cb9577d": "Moves the question from retrieval to memory: transcript search versus compacted atomic facts.",
+    "1eb45d5078fca72b": "Adds the cost angle: pixel-space compression to fit long documents in the token budget.",
+    "9a823f949628f234": "First item in the thread to question RAG's citations: attached sources may not be what the model used."
   }
 }

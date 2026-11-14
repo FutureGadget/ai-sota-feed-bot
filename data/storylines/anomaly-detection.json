@@ -3,34 +3,17 @@
  "label": "Analysis Detection",
  "item_count": 6,
  "day_count": 5,
- "source_count": 5,
- "first_seen": "2026-10-23T17:53:30+00:00",
- "last_updated": "2026-11-10T18:50:06+00:00",
- "generated_at": "2026-11-13T00:13:02.772238+00:00",
+ "source_count": 4,
+ "first_seen": "2026-10-29T06:49:14+00:00",
+ "last_updated": "2026-11-13T16:33:33+00:00",
+ "generated_at": "2026-11-14T00:13:06.733465+00:00",
  "sources": [
   "arxiv_cs_ai",
   "arxiv_cs_cl",
-  "arxiv_cs_lg",
   "arxiv_llm_reliability",
   "hackernews_ai"
  ],
  "days": [
-  {
-   "date": "2026-10-23",
-   "items": [
-    {
-     "title": "Flownomaly: Single-Step Conditional-Mean Recovery for Few-Shot Anomaly Detection",
-     "url": "http://arxiv.org/abs/2610.32964v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Few-shot industrial anomaly detection requires modeling category-specific normality from only a handful of defect-free images. Common approaches tie inference to stored exemplars, impose rigid linear structure, or ris...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "ad09687688336a6f",
-     "published": "2026-10-23T17:53:30+00:00",
-     "editor_note": "Few-shot industrial defect detection that avoids stored exemplars and rigid linear structure via single-step conditional-mean recovery."
-    }
-   ]
-  },
   {
    "date": "2026-10-29",
    "items": [
@@ -103,24 +86,31 @@
      "editor_note": "First agent-engineering item in the thread: compares evaluation frameworks on how reliably they detect failures in multi-tool analytics agents."
     }
    ]
+  },
+  {
+   "date": "2026-11-13",
+   "items": [
+    {
+     "title": "Agent Anomaly Detection scores on benchmarks we didn't write",
+     "url": "https://developers.googleblog.com/how-agent-anomaly-detection-scores-on-benchmarks-we-didnt-write",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Agent Anomaly Detection scores on benchmarks we didn't write",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "d99b7127f7fd99e6",
+     "published": "2026-11-13T16:33:33+00:00",
+     "editor_note": "First vendor item: Google reports its Agent Anomaly Detection results on benchmarks it did not author."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "This thread is a label, not one event: six unrelated items that share the word \"detection\". Late-October papers covered few-shot industrial inspection and deepfake detectors, and on Nov 9 LogCDM and Vendi Anomaly Scores moved the theme to log monitoring and a general-purpose anomaly score.",
+  "tldr": "This thread is a label, not one event: six unrelated items that share the word \"detection\". It opened with a deepfake-detector explainability paper and a post on evading AI code analysis, moved to log monitoring and a general-purpose anomaly score on Nov 9, then reached agents on Nov 10 with a study of how reliably eval frameworks catch agent failures.",
   "stale": false,
-  "whats_new": "A Nov 10 arXiv paper moves the thread from data anomalies to agent failures: a three-phase comparative study of how reliably evaluation frameworks detect failures in multi-tool enterprise analytics agents.",
-  "why_it_matters": "Two engineering questions recur across the items: whether a detector is cheap enough to run where the data lives, and whether it can be trusted once deployed. The newest paper asks the second question of the eval frameworks that gate agent releases.",
-  "take_for_builders": "Read the agent evaluation comparison before you rely on a single eval framework to gate an analytics agent, and read LogCDM if your log anomaly detection needs GPU-hosted models today. The inspection and deepfake papers only apply if you run those workloads.",
+  "whats_new": "A Nov 13 Google Developers Blog post reports how its Agent Anomaly Detection scores on benchmarks Google did not write, the thread's first vendor write-up on detecting anomalies in agents.",
+  "why_it_matters": "Two engineering questions recur across the items: whether a detector is cheap enough to run where the data lives, and whether it can be trusted once deployed. The two newest items ask the second question of agent tooling, first of eval frameworks and now of a vendor's anomaly detector.",
+  "take_for_builders": "Before adopting an agent anomaly detector, check which benchmarks its vendor reports and whether they resemble your agents' tool traces; read the Nov 10 eval-framework comparison before letting one framework gate a release.",
   "beats": [
-   {
-    "kicker": "INSPECTION",
-    "tone": "neutral",
-    "headline": "An October paper tackles few-shot industrial anomaly detection",
-    "summary": "Flownomaly models normality from a handful of defect-free images without tying inference to stored exemplars.",
-    "sids": [
-     "ad09687688336a6f"
-    ]
-   },
    {
     "kicker": "DETECTOR TRUST",
     "tone": "neutral",
@@ -149,15 +139,25 @@
     "sids": [
      "d98105b6bf6a1293"
     ]
+   },
+   {
+    "kicker": "VENDOR BENCHMARKS",
+    "tone": "now",
+    "headline": "Google scores its Agent Anomaly Detection on third-party benchmarks",
+    "summary": "The post's framing is external validation: results on benchmarks the team did not author. It is a first-party report, and the thread holds no independent replication.",
+    "sids": [
+     "d99b7127f7fd99e6"
+    ]
    }
   ],
   "open_questions": [
+   "Which third-party benchmarks does Google's Agent Anomaly Detection post use, and has anyone outside Google reproduced the scores?",
    "Which evaluation framework in the Nov 10 comparison detects multi-tool agent failures most reliably, and are its scores stable across repeated runs?",
    "Does federated training measurably reduce Grad-CAM faithfulness in deepfake detectors compared with centralized training?",
    "Does LogCDM match the detection accuracy of BERT-scale or 8B-parameter log models on standard log benchmarks without a GPU at inference time?",
    "Does Vendi Anomaly Scores hold up on high-dimensional embedding data such as LLM traces, or only on the benchmarks the paper reports?",
    "Do any of these papers release code an operator could run against production telemetry?"
   ],
-  "generated_at": "2026-11-13T00:12:09Z"
+  "generated_at": "2026-11-14T00:12:07Z"
  }
 }
