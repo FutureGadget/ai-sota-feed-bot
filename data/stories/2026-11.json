@@ -800,6 +800,17 @@
   "type": "news",
   "url": "https://currentsapi.services/en/blog/cut-llm-token-costs-typesafe-jev-prefiltering"
  },
+ "0d05da62757cd652": {
+  "content_excerpt": "Adversarial multi-agent detection engineering: Blue authors Sigma rules, Red attacks them, a deterministic referee proves coverage, and a stakeholder review chain ships the rule with its review trail. Turn a threat (a CVE, a CISA KEV entry, an incident writeup, an ATT&CK technique) into a validated first-version detection — a proven starting point a detection team hardens further, not a claim of finished, forever-bulletproof coverage — plus three artifacts that ship together : The thing nobody else produces is #3. A model can write you a Sigma rule; it cannot hand you a proof that the rule works, an adversary that provably evades the weak version, and an honest record of how the rule was hardened until it held. A bounded, fixed adversary. Red commits to two real, documented attacks in round one and re-throws those same two against the hardened rule each round — the same \"built once, can't move its goalposts\" discipline as the fixed test corpus. real-coverage therefore means something concrete and honest: the first-version rule fires on every attack in the corpus, stays silent on benign look-alikes, and caught both of Red's real attacks. It is a validated baseline, not a promise of coverage against every future evasion — that is the detection team's job to extend. Agents propose; the engine proves. Four role-specialized LLM agents (Threat Analyst, Blue Detection Engineer, Telemetry, Red-Team Adversary) do the creative work. Everything that decides truth — FP/FN evaluation, adv",
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "8f5878ec4e069d70",
+  "published": "2026-11-13T23:40:12+00:00",
+  "sid": "0d05da62757cd652",
+  "source": "hackernews_ai",
+  "title": "Doc-foundry – AI writes Security detection rules, then proves they work",
+  "type": "news",
+  "url": "https://github.com/mjha-arya/DOC-foundry"
+ },
  "0d09bcf62a2c48bd": {
   "first_seen": "2026-11-11T05:05:54.415069+00:00",
   "id": "8cf6bb45bfc156c7",
@@ -3342,6 +3353,17 @@
   "url": "https://latent.space/p/building_legal_agents_when_you_can_t_see_the_data_-_jacob_lauritzen_cto_of_legora",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "335ccd3caa00e6d5": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "9b507ce78e628f42",
+  "published": "2026-11-12T05:04:43+00:00",
+  "sid": "335ccd3caa00e6d5",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "Reinforcement learning has improved the tool-use capabilities of large language models. However, better task performance can coincide with increased tool hallucination. Reliable tool use requires decisions to follow the current task state: available information, tool capabilities",
+  "title": "StateAlign: Internalizing State-Aware Decision-Making for Reliable Multi-Turn Tool Agents via Reinforcement Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.16304v1"
+ },
  "33948c421834d8b2": {
   "content_excerpt": "TL;DR: On one NVIDIA Vera Rubin NVL72 rack, vLLM serves DeepSeek-V4.1-Flash at 1.7M tokens/s per GPU while each user gets 387 tokens/s, 58× GB300 NVL72, and reaches 2.52M at peak throughput and 1,810 tokens/s for a single user. The gains come from building on what is new in Rubin: kernels tuned for its split memory and FP4 tensor cores, specialized decode kernels for low latency, and a rack-wide KV cache and Engram tables shared over NVLink. This is the third post in our DeepSeek-V4.1-Flash series. The first post covered day-0 bring-up and kernel fusions. The second scaled the model to a GB300 NVL72 rack with P/D disaggregation and Wide-EP. This post moves the same stack to Vera Rubin NVL72, which we introduced last month . Rubin opens up new avenues for optimization. We start with the hardware facts that shaped our work, then go through four groups of optimizations: Figure 1: SemiAnalysis AgentX on NVIDIA Vera Rubin NVL72 (vLLM, P/D disaggregation, Wide-EP) vs. GB300 NVL72. Throughput counts cached input, uncached input and output tokens ( GB300 source ). We measure performance with the SemiAnalysis AgentX benchmark as a representative agentic serving workload, aligned with our previous posts. Figure 1 compares the two racks' raw throughput (total tokens per GPU per second, including input, cached, and output) and power-normalized throughput, respectively in two tabs. We use the same methodology as in our previous GB300 post . For kernels and model forward profiling, vllm be",
   "first_seen": "2026-11-12T23:04:45.522667+00:00",
@@ -3872,6 +3894,17 @@
   "url": "https://i10x.ai/news/nvidia-long-context-compaction-agents-study",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "3c8be7d703db1d67": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "cd5cb5572fc6c091",
+  "published": "2026-11-12T17:52:51+00:00",
+  "sid": "3c8be7d703db1d67",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Federated learning (FL) enables independent data owners to train models collaboratively without centralizing raw data. However, identifying collaborators, preparing training tasks, and coordinating execution and incentives hinder its practical adoption by organizations without sp",
+  "title": "Cortex-FL: Agent-Mediated Collaboration for Federated Learning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17186v1"
+ },
  "3ccf7ed41268b899": {
   "content_excerpt": "A local Go CLI that records real, AgentTM-managed noninteractive Codex runs in SQLite, with baseline/final workspace checkpoints and historical file inspection. The embedded React/TypeScript UI displays real stored sessions, timelines, historical files, parent diffs and isolated worktree forks. This implements Milestones 0–5 in the MVP specification . Validation status: real Windows end-to-end coding, tests, intermediate capture, CLI/UI restoration, failure and Ctrl+C cancellation passed. Automated tests, selected race checks and five browser tests pass. All six OS/architecture release targets build; Windows installation was tested. Remote CI and native Linux/macOS execution are configured but not claimed as observed here. See release evidence , Codex compatibility , snapshots , UI/API , and fork safety/recovery . Local archives are generated under dist/0.1.0/ . Select the archive for your OS and architecture, verify it against the matching SHA256SUMS , and extract the single executable. Git 2.42+ and an authenticated Codex CLI are required for recording. Go and Node are not needed to run the release executable. The local installers verify archive checksums before installing; they do not download anything. Windows example: PATH changes require -AddToPath ; upgrades require -Force . If script execution is disabled, extract the ZIP and invoke agenttm.exe directly. On Unix use sh scripts/install.sh archive.tar.gz [install-directory] . AgentTM opens http://127.0.0.1:7331 in your ",
   "first_seen": "2026-11-02T09:04:39.623668+00:00",
@@ -4336,6 +4369,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09825v1"
  },
+ "429c2fc60045adbd": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "baa30aca29418746",
+  "published": "2026-11-12T17:03:40+00:00",
+  "sid": "429c2fc60045adbd",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Memory decides which LLMs an edge device runs, and how fast: capacity on a $4$ GB Jetson Nano, bandwidth on an $8$ GB Jetson Orin Nano Super. Deployed formats (GPTQ, AWQ, $\\texttt{llama.cpp}$'s K- and I-quants) spend equal bits on every integer code of a matrix, although the code",
+  "title": "LazyWeights: Decode-on-Demand Edge LLMs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17108v1"
+ },
  "42d0d220c3dc643e": {
   "content_excerpt": "Deterministic benchmark and linter for derived-context ACL leaks in agent memory. Document permissions work for raw RAG (% leaks). They silently evaporate in agent memory: our benchmark demonstrates that cross-document synthesis leaks confidential parent secrets in 2 out of 3 background tasks (67%). ChromaDB and LlamaIndex metadata filters catch 100% of unauthorized raw chunk queries. But when agents synthesize notes across files into shared memory, parent ACLs are dropped, letting unprivileged users retrieve executive data. A raw RAG query keeps document identity. One document produces one chunk. The chunk carries classification and allowed_groups . The vector store checks those fields before returning data. Agent memory has a different shape. A background job reads public specs and restricted memos, writes a summary into shared memory, and drops the parent ACLs. The artifact is just text. It runs under the agent's service account. Later retrieval sees no document-level restriction. An intern gets the CEO's headcount plan. The vector store is doing its job. The authorization model is attached to the wrong object. Both reference pipelines run the same 24-document corpus, ACL map, personas, and three scoped synthesis tasks with deterministic local embeddings and a simulated LLM. No external API key is required. Derived artifact failure rate: 2/3 = 66.7% . Corpus-wide canary exposure: 6/18 = 33.3% . The benchmark has a negative control. artifact_public_infra ingests only data/c",
   "first_seen": "2026-11-09T15:04:47.831224+00:00",
@@ -4610,6 +4654,17 @@
   "url": "http://arxiv.org/abs/2611.14505v1",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "463947138381fd18": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "2c44d32f915f6e78",
+  "published": "2026-11-12T17:43:44+00:00",
+  "sid": "463947138381fd18",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "A small fine-tuned parser that emits a well-formed but wrong tree fails silently: nothing downstream can tell. We ask whether the output format, a free design choice, controls how often this happens. On the PIZZA ordering benchmark we fine-tune two sub-billion models (Qwen3.5-0.8",
+  "title": "Parsed, Plausible, Wrong: Output Format Controls Silent Errors in Small-Model Semantic Parsing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17169v1"
+ },
  "464b347f5551c3b2": {
   "first_seen": "2026-11-05T20:05:22.914023+00:00",
   "id": "830a6306994997c4",
@@ -4702,6 +4757,17 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.3",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "47563fc1b7c22072": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "256a39895ac40567",
+  "published": "2026-11-12T18:55:09+00:00",
+  "sid": "47563fc1b7c22072",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Interactive video-to-video applications require real-time generation while maintaining long-range temporal consistency. However, recent methods achieve speed by restricting attention to a fixed-length causal window. This limits long-range consistency whenever relevant history fal",
+  "title": "Consistent Video-to-Video Translation via Explicit Correspondences",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17298v1"
  },
  "48333b0dd2a3a8e4": {
   "content_excerpt": "SPECTRA (Sparse-Precision Exact Channel Tensor Reconstruction Architecture) is an architecture-agnostic neural compression engine and high-throughput execution runtime engineered to break the Memory Wall on consumer and edge GPUs (including 4 GB and 8 GB NVIDIA RTX laptop and desktop GPUs). Run mathematical reasoning models (such as DeepSeek-R1-Distill ), deep transformers ( IBM Granite-3B , Llama",
@@ -4942,6 +5008,17 @@
   "title": "Show HN: A tool to optimize AI model cost without benchmark score trade-offs",
   "type": "news",
   "url": "https://jeff-kline.github.io/posts/same-ai-results-for-less/index.html"
+ },
+ "4e7ae13af50d7670": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "e12078d3439db623",
+  "published": "2026-11-12T15:50:46+00:00",
+  "sid": "4e7ae13af50d7670",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "Educational simulations are a well-established pedagogical technique that gives learners opportunities to apply knowledge, respond to challenges, and reflect on their performance. High-quality simulations, however, are difficult to build, requiring instructor input, scenario desi",
+  "title": "Primer: An AI Framework for Instructor-Centered Educational Simulation Creation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.16986v1"
  },
  "4e7cf2bff5db16a6": {
   "first_seen": "2026-11-06T11:10:02.586087+00:00",
@@ -5449,6 +5526,17 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE80SV90WUR5VUlMNUsyMll5T29ldF9HQmg4THh5ZmxPS0hDSVFZZlpGb3ZRNTFaRklWMGZQdlNTWnRhMGY2MXI1Y2xkR0hLM3MxTi1scUllNnQwVUkta0ZTcmgwSmVCU0kwRzNZemtwZnI4SFU?oc=5"
  },
+ "5582f7f356b5781e": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "9159d66d880ea5c2",
+  "published": "2026-11-12T15:09:15+00:00",
+  "sid": "5582f7f356b5781e",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Speech recognition (ASR) systems are usually compared by word error rate (WER) on recorded files, after punctuation, capital letters and number format are removed. In dictation, the audio is streamed live and the text goes into the user's message as written, so what matters is wh",
+  "title": "Beyond Word Error Rate: A Failure Taxonomy of Streaming Dictation ASR",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.16919v1"
+ },
  "55a30966cc422eea": {
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. NaiveAI could potentially top Artificial Analysis’s speed rankings. Our hands-on test suggests its coding quality holds up against DeepSeek. Editor’s note: With this post, we are launching a new series focused on trying new models and products with unbiased reviews. Reach out with suggestions to tips@latent.space. Naive-N0.5-Flash is a new open-weights model built for AI coding tasks and tuned to generate as many tokens per second as possible . It was developed by a Chinese company called NaiveAI , with the aim of speeding up engineering and research workflows so that teams can experiment, iterate and solve complex problems faster. The model is an evolution of Xiaomi’s MiMo-V2.5 , which NaiveAI has trained further for long-context reasoning and paired with its own NaiveRT inference engine. Naive-N0.5-Flash arrives with a bold pitch: a model built largely by AI and trained to do AI research itself, with recursive self-improvement as the long-term goal. To see what changed, it helps to know where it started. MiMo-V2.5 is a 310B-parameter sparse Mixture-of-Experts model with 15B active parameters, trained on 48T tokens. Its language backbone inherits the hy",
   "first_seen": "2026-11-10T19:05:48.156054+00:00",
@@ -5849,6 +5937,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.11348v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "5be3937b8676d728": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "861c441d36137e83",
+  "published": "2026-11-12T18:28:08+00:00",
+  "sid": "5be3937b8676d728",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Modern automated heuristic discovery (AHD) systems increasingly rival hand-crafted heuristics by leveraging Large Language Models (LLMs) to iteratively mutate and refine solutions. A natural assumption is that more powerful and more expensive models consistently yield better heur",
+  "title": "Ballad: Bandit-Based LLM Routing for Automated Heuristic Discovery",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17241v1"
  },
  "5bf610d1dd7d8e14": {
   "first_seen": "2026-11-10T21:05:43.516589+00:00",
@@ -6550,6 +6649,17 @@
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.14"
  },
+ "66afd15d3cc82624": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "bf84a2d892b63624",
+  "published": "2026-11-12T15:49:00+00:00",
+  "sid": "66afd15d3cc82624",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Weight-space programming (WSP) uses language models to construct neural network weights without training. We test whether known game mechanics can be compiled into compact agents that generalise to held-out levels, renderings and start states within a game family. Writers receive",
+  "title": "Compiling Known Rules into Compact Neural Agents: Weight-Space Programming on Unseen Games",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.16981v1"
+ },
  "66bf592dd3386f74": {
   "first_seen": "2026-11-07T00:07:33.105822+00:00",
   "id": "7e1a6408198c7f90",
@@ -7109,6 +7219,17 @@
   "url": "http://arxiv.org/abs/2611.07778v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "727605d9a6fc24e4": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "ff7207c10f260f37",
+  "published": "2026-11-12T18:51:05+00:00",
+  "sid": "727605d9a6fc24e4",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "We propose Synthesis Smuggling, a novel threat model in which an adversarial LLM infers sensitive information about a user from routine assistance-seeking interactions and steganographically encodes that into innocuous-looking model-generated content. The user may then unknowingl",
+  "title": "Synthesis Smuggling: Maliciously Hiding Inferred Personal Attributes in LLM Outputs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17280v1"
+ },
  "72c9dee23b49167c": {
   "first_seen": "2026-11-04T00:07:04.928809+00:00",
   "id": "2431a6844b9cf64b",
@@ -7473,6 +7594,17 @@
   "url": "https://prod.codes/blog/your-ai-agent-has-amnesia-mine-keeps-receipts",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "786f89e829185d67": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "e5c714dc41c0086e",
+  "published": "2026-11-12T18:56:56+00:00",
+  "sid": "786f89e829185d67",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Looped models have emerged as a prominent paradigm for reasoning, with successes on simple reasoning puzzles such as Sudoku-Extreme and Maze-Unique. However, these models can be unstable, slow to train, and use many parameters and FLOPs to solve simple puzzles. Descent on an ener",
+  "title": "Classical Energies Learn to Reason 1,000x Faster than Looped Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17309v1"
+ },
  "78707f692812a1e4": {
   "first_seen": "2026-11-03T03:05:29.307677+00:00",
   "id": "e1d5665311228d3e",
@@ -7607,6 +7739,17 @@
   "title": "Xcode 27.3 adds GitHub Copilot to its built-in coding assistant",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQZ2hpSXMwV1dFT21nZ0VOaUZIQVdndmtubzI1ak1NdWo2Q193NlN1V0pWSm9WcWlhZjhSaXJINl9wMTlyUE1xMDR6UTNGWFA1bzNFM0J5ZmRvblY5bWZxa091SlhOMFRsUmNFTll2NzNRWnJxNUw1bVF3NGNPSE9VY1ZCaXdOampNSUxtRFN6RUY4Z1B2TWZEaHo3SQ?oc=5"
+ },
+ "7a26d0140df52888": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "40f741d9d2ab2ea8",
+  "published": "2026-11-12T12:35:03+00:00",
+  "sid": "7a26d0140df52888",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Large language models (LLMs) often exhibit sycophancy, a tendency to agree with users, flatter or affirm them, and preserve their face, even when independent judgment or critical feedback would be more useful. Prior work has largely evaluated sycophancy through benchmark evaluati",
+  "title": "Mind the Accuracy-Approval Gap: How Users Evaluate Sycophantic AI in Everyday Tasks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.16722v1"
  },
  "7a43cf5ab3d0fb44": {
   "first_seen": "2026-11-06T08:03:34.634977+00:00",
@@ -8310,6 +8453,17 @@
   "url": "http://arxiv.org/abs/2611.12825v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "85363033843f7ffd": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "659d12b1d33317e3",
+  "published": "2026-11-12T15:28:56+00:00",
+  "sid": "85363033843f7ffd",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "General-purpose language models are trained mostly on English: over open models we review, at most, non-English pretraining data makes up only a 12% share. Models built for European languages give them far more, but score well below general-purpose models of the same size. A comm",
+  "title": "Lara Mini Base: Language Diversity as a Resource, Not a Trade-off",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.16956v1"
+ },
  "854a452f65cee3d5": {
   "first_seen": "2026-11-01T10:03:30.273054+00:00",
   "id": "714b7849a69cd539",
@@ -8604,6 +8758,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05292v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "8ad8b0afed3a4e6a": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "d5fc07f24729a503",
+  "published": "2026-11-12T18:16:37+00:00",
+  "sid": "8ad8b0afed3a4e6a",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Oral exams are compelling because (1) students can be asked to provide their reasoning for an answer and (2) their interactive nature permits follow-up questions to resolve ambiguous answers. But oral exams scale poorly. In this paper, we present scalable conversational assessmen",
+  "title": "Scalable Conversational Assessment: Chat-Based Exams with a Two-Agent LLM Pipeline",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17220v1"
  },
  "8b0ac0eb80399541": {
   "content_excerpt": "The defensible asset in enterprise AI is not the model. It’s the organizational world model. Every major compute era decomposes into specialized layers with different winners at each level. Cloud split into IaaS, PaaS, and SaaS. The modern data stack split into ingestion, warehousing, transformation, and BI. Each time, specialists beat the generalists because each layer has its own economics: its own rate of change, capital requirements, and sources of lock-in. The enterprise AI agent stack is doing the same thing right now. Arvind Jain, the CEO of Glean, recently published a structural analysis of the emerging enterprise agent architecture that crystallized something I’d been thinking about. He describes a stack splitting into six layers (security, context, models, orchestration, agents, and interfaces), and each layer is defensible to a different degree. Glean sits in the context layer so the usual positioning caveats apply, but the structural argument is sound regardless of who makes it. The three sections below cover models converging toward shared infrastructure, the two depths of the context layer, and the compounding flywheel that context and orchestration form. The model layer is converging fastest toward commodity economics. Training costs scale roughly 2.4x per year , with current frontier runs costing hundreds of millions and billion-dollar training runs already underway , according to Anthropic’s Dario Amodei. Only a handful of organizations on Earth can operate a",
@@ -10300,6 +10465,22 @@
   "url": "http://arxiv.org/abs/2611.08615v1",
   "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
+ "a3e4ae6a63d5c123": {
+  "content_excerpt": "Agent skills for running self-hosted production safely: production-safe feedback loops, safe deploys, server maintenance, and Claude Code setup hygiene. Six skills that stop your AI coding agent from hurting production, and keep its own setup clean. Made for people who run their apps on their own server (Docker, Postgres, a VPS) and use an AI agent such as Claude Code on that same machine. That setup is convenient, but it means one wrong test run, repro loop or deploy can hit live data. These skills put guard rails around exactly those moments. 3. Try one: type /simba-skills:server-maintenance in any session, or just ask Claude to run your tests and watch production-safe-loops check where they will write first. Using Cursor, Codex, Copilot or another agent? Run npx skills@latest add simbaTmotsi/simba-skills instead. Pick one install method, not both, or you'll get every skill twice. Turn on auto-update once and new versions arrive whenever Claude Code starts. Add \"autoUpdate\": true to this marketplace in ~/.claude/settings.json : The repo includes an eval suite in plugin/evals/ that runs Claude Code on the same scenarios with and without the plugin: It's a small suite (Claude Code 2.1.323, November 2026), so treat it as a sanity check rather than a benchmark. Run it yourself with claude plugin eval plugin from the repo root. simba-skills has no server and collects nothing. Everything runs on your machine, as you. What the skills touch: Contributions are welcome when they are ",
+  "first_seen": "2026-11-14T00:03:42.398047+00:00",
+  "id": "81e379528b88c098",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-13T21:37:07+00:00",
+  "sid": "a3e4ae6a63d5c123",
+  "source": "hackernews_ai",
+  "summary_1line": "Skills that stop AI coding agents from touching production",
+  "title": "Skills that stop AI coding agents from touching production",
+  "type": "news",
+  "url": "https://github.com/simbaTmotsi/simba-skills",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "a3fde46d355d17fa": {
   "content_excerpt": "A persistent Chrome cloud browser for AI agents. Give every agent an isolated browser with saved login state and a browser you can pick up anytime. A cloud browser runs on a remote machine, so your agents can work beyond a single local desktop. Cloudbrowser gives each task an isolated Chrome browser with its own saved profile, a CDP URL for automation, and a live view you can open from anywhere. Start with a clean Chrome. Make it yours. Come back exactly to the profile you need. Save your cloud browser profile across tasks. Let a human sign in, then hand the same browser to an agent. Pause and fork a cloud browser into independent copies. Give every task its own space without repeating the setup. Pause cloud browser compute when the work is done. Resume Chrome and reconnect when you need it. Create a cloud browser with the REST API. Connect your favorite automation tool to its CDP URL. It explains how to install the CLI, sign in and create a browser without exposing a connection secret. Free includes 1 browser-hour per month and one running browser. Basic is $20/month for 250 hours and 10 concurrent browsers. Pro is $99/month for 1,250 hours and 100 concurrent browsers. Additional runtime is $0.08/hour on Basic or $0.06/hour on Pro. Free browsers pause at the limit. Paid upgrades are prorated; downgrades take effect next period. Anyone with a verified email can start on the Free plan. A cloud browser runs on a remote machine rather than your own computer. Cloudbrowser gives e",
   "first_seen": "2026-11-02T20:05:25.137504+00:00",
@@ -11634,6 +11815,17 @@
   "type": "news",
   "url": "https://developer.nvidia.com/blog/3-ways-to-boost-moe-inference-on-nvidia-dgx-spark"
  },
+ "b87d6d714a5b03b8": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "f5bad0000efb49c7",
+  "published": "2026-11-12T18:59:54+00:00",
+  "sid": "b87d6d714a5b03b8",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "How multimodal language models should encode visual input remains up for debate. Most models use a pretrained vision encoder, while some recent recipes train the encoder from scratch with the language model or remove it entirely. Vision encoders bundle together three design choic",
+  "title": "Unbundling Multimodal Vision Encoding",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17334v1"
+ },
  "b8a0226387bcfc62": {
   "first_seen": "2026-11-06T02:04:31.223147+00:00",
   "id": "4c1455b1e2ef1f38",
@@ -12666,6 +12858,17 @@
   "type": "news",
   "url": "https://news.ncsu.edu/2026/11/new-techniques-to-prevent-backdoor-attacks"
  },
+ "c810c6ee6c2f1c48": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "1d4245aefafa3c51",
+  "published": "2026-11-12T18:10:06+00:00",
+  "sid": "c810c6ee6c2f1c48",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Deep neural networks for image processing are increasingly deployed on resource-constrained edge devices such as drones, medical systems, and smartphones, where limited computational resources and memory bandwidth pose significant challenges for efficient inference. Pruning durin",
+  "title": "Theoretical and Empirical Analysis of Sparse Convolution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17212v1"
+ },
  "c84dcb9b6c650e61": {
   "first_seen": "2026-11-04T15:05:34.099063+00:00",
   "id": "27bac525aaaf76dc",
@@ -13071,6 +13274,17 @@
   "title": "Programming Prescience: Issues in Human Construction of Forecasting Bots",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12834v1"
+ },
+ "d0753fe647bf38c8": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "e49e585dc49f7604",
+  "published": "2026-11-12T05:23:22+00:00",
+  "sid": "d0753fe647bf38c8",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "Multi-agent systems of language models are often motivated by an averaging argument: if the agents' errors are unbiased and independent, the error of an aggregate of N answers falls as 1/sqrt(N). Fermi estimation, whose continuous answers are aggregated on the logarithmic scale,",
+  "title": "Shared Item-Level Error Limits the Aggregation of Small Language Models in Fermi Estimation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.16315v1"
  },
  "d121304c3de64e9e": {
   "content_excerpt": "Learn about artificial intelligence and machine learning across the GitHub ecosystem and the wider industry. Explore the capabilities and benefits of AI code generation and how it can improve your developer experience. Discover how we deliver a performant and highly available experience across the GitHub platform. Explore best practices for building software at scale with a majority remote team. Get a glimpse at the technology underlying the world’s leading AI-powered developer platform. Learn how we build security into everything we do across the developer lifecycle. Our engineering and security teams do some incredible work. Let’s take a look at how we use GitHub to be more productive, build collaboratively, and shift security left. Organizations worldwide are incorporating open source methodologies into the way they build and ship their own software. Learn about core challenges in DevSecOps, and how you can start addressing them with AI and automation. Learn about artificial intelligence and machine learning across the GitHub ecosystem and the wider industry. Explore the capabilities and benefits of AI code generation and how it can improve your developer experience. Discover how we deliver a performant and highly available experience across the GitHub platform. Explore best practices for building software at scale with a majority remote team. Get a glimpse at the technology underlying the world’s leading AI-powered developer platform. Learn how we build security into ever",
@@ -13507,6 +13721,22 @@
   "type": "news",
   "url": "https://www.infoq.com/news/2026/11/grab-ai-generated-code-safety/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
  },
+ "d86a04a30677a0b4": {
+  "content_excerpt": "Your team decides what matters and why. The agents take care of the how: specialized AI agents work through your whole test process, from the first requirement to the final test report. Connected to your ticket and test management systems, without test scripts, in your own infrastructure. Open source under AGPL-3.0. Features marked Prototype already work end to end, but need more testing than other features, especially in real customer environments, and may need some additional adaptation. Steps to reproduce · Expected and actual result · Environment: Chrome, Windows 11 QuAIA (Quality Assurance with Intelligent Agents) is an open-source multi-agent system. Specialized AI agents react to what happens in your project and work hand in hand across the whole test process. An orchestrator hands out the work, each agent masters one job, and open standards (A2A and MCP) let them talk to each other and make it easy to connect your tools. With AI assistants, developers deliver more code in less time, and more defects come along for the ride. If testing still relies on manual clicking and fragile scripts, it becomes the bottleneck of the whole delivery pipeline. Coding assistants and coding agents have become standard equipment. Teams deliver more features, more often, and in parallel. AI accelerates delivery and defects alike: generated code tends to bring extra logic errors and security gaps that someone has to catch. Development has gone agentic; quality assurance mostly hasn’t. Auto",
+  "first_seen": "2026-11-14T00:03:42.398047+00:00",
+  "id": "b3cbcc2dbb5b7468",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-13T22:53:09+00:00",
+  "sid": "d86a04a30677a0b4",
+  "source": "hackernews_ai",
+  "summary_1line": "QuAIA: An open-source team of AI agents that handles the whole test process",
+  "title": "QuAIA: An open-source team of AI agents that handles the whole test process",
+  "type": "news",
+  "url": "https://quaia.dev",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "d88e4c119d297a17": {
   "content_excerpt": "Audio embedding inference in pure C++ supports CLAP, MuQ, CLaMP3 and MERT with Python, Node and Rust bindings Start the server with a GGUF supporting the requested modality, such as CLAP, CLaMP3 or MuQ-MuLan (default listen address: 127.0.0.1:8080 ): The model is loaded once at startup. Its API identifier is the GGUF filename ( larger_clap_general-q4_k_m.gguf in this example), not its full path or a Hugging Face repository ID. Send an OpenAI-compatible text embeddings request: Audio inputs use one input_audio content block per item. Encode the complete WAV, MP3 or FLAC file as standard base64 (no whitespace or data-URL prefix): This project is licensed under the Apache License 2.0 . Third-party dependencies retain their respective licenses. Audio embedding inference in pure C++ supports CLAP, MuQ, CLaMP3 and MERT with Python, Node and Rust bindings",
   "first_seen": "2026-11-09T07:04:17.451357+00:00",
@@ -13561,6 +13791,17 @@
   "type": "news",
   "url": "https://www.infoq.com/news/2026/11/google-ambient-agent-prod/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "d8e760a3847a4eea": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "c31df671af39c48d",
+  "published": "2026-11-12T16:58:53+00:00",
+  "sid": "d8e760a3847a4eea",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "The rapid growth of artificial intelligence is driving demand for new data centers at large scale and on short deployment timelines. To power them, firms connect to the commercial grid or contract generation directly, but interconnection and gas-turbine delays now incentivize on-",
+  "title": "Speed-to-Power Dominates Energy Costs for AI Data Centers: Technoeconomic Analysis of Powering AI in the Continental United States",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17098v1"
  },
  "d8f20dc54f55cc2d": {
   "first_seen": "2026-11-10T00:08:03.535530+00:00",
@@ -14693,6 +14934,17 @@
   "type": "news",
   "url": "https://www.phoneuse.com",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "e9d6747e88f3a8d5": {
+  "first_seen": "2026-11-14T00:06:50.558978+00:00",
+  "id": "bbd4f0edc7cec155",
+  "published": "2026-11-12T17:01:39+00:00",
+  "sid": "e9d6747e88f3a8d5",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Merging independently fine-tuned checkpoints into a single multi-task model requires no data, no labels, and no gradient steps. In practice the task vectors of different tasks interfere, and the standard remedies--averaging, magnitude pruning, sign election--operate entry by entr",
+  "title": "Joint Null-Space Projection for Data-Free Model Merging",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17103v1"
  },
  "ea8437cc624e0625": {
   "content_excerpt": "CLI and agent skill for a self-hosted cloudflare_temp_email instance: tiered addresses, codes and links, a local registry, and deploys. buzon is a CLI for a self-hosted cloudflare_temp_email instance, a mail server that runs on a Cloudflare Worker with D1. It creates addresses on your domain, waits for the verification code or magic link, and keeps a local record of which address belongs to which account. Public temp-mail services are blocked by most sign-up forms, and their inboxes are readable by anyone who guesses the name. A catch-all on your own domain avoids both, but turns into a pile of addresses nobody remembers. buzon puts a lifetime on each address, cleans up the short ones, and records the long ones. Or as a standalone binary, with no Bun needed, for linux-x64 , linux-arm64 , darwin-x64 or darwin-arm64 from the latest release : buzon reads its passwords from BUZON_SITE_PASSWORD and BUZON_ADMIN_PASSWORD , or else from the keyring: the Secret Service through secret-tool on Linux, the Keychain on macOS. No instance yet? docs/deploying.md goes from a domain on Cloudflare to a running one, mostly through buzon init --deploy . Point buzon at the instance. It checks that the instance answers, serves the domain and accepts the password before writing anything: skills/buzon teaches an agent to pick the tier, get a code or link, and find an address again later. Install it with: A test fails the build when the skill names a command or flag the CLI does not have. Cloudflare E",
