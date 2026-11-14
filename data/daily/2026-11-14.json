@@ -1,0 +1,196 @@
+{
+  "date": "2026-11-14",
+  "title": "What happened in AI — Nov 14, 2026",
+  "generated_at": "2026-11-14T22:15:57Z",
+  "intro": [
+    "Coordinating many coding agents is turning into a product feature: Claude Code Projects now scopes, delegates and reviews parallel work itself, and one founder's all-agent org merged 1,119 PRs in a week.",
+    "The day's best engineering writing put agent failures outside the model, in stale repo context, drifting job state, and per-tool permissions that leak data once agents are chained."
+  ],
+  "highlights": [
+    "Claude Code Projects now runs a coordinator that splits work into parallel threads and reviews the results.",
+    "An all-agent org on Amp merged 1,119 PRs in a week and grew its own bureaucracy.",
+    "Google: stale specs and resolved bugs in a repo read as instructions to coding agents.",
+    "Three agents that each respect their permissions can still leak data together.",
+    "DeepSeek opened its app's search, file, OCR and voice tools as APIs and ported DeepEP to Huawei Ascend."
+  ],
+  "article_count": 39,
+  "categories": [
+    {
+      "name": "Agent fleets: coordination moves into the product",
+      "slug": "agent-fleets-coordination",
+      "summary": "The manager role in multi-agent coding is being automated: a coordinator scopes, delegates and reviews, and the human steers from one thread.",
+      "articles": [
+        {
+          "title": "Anthropic upgrades Claude Code Projects to run parallel AI workers",
+          "summary": "Claude now scopes a request, splits it into parallel threads, reviews the outputs and assembles the result, and keeps working after you step away.",
+          "source": "hackernews_ai",
+          "url": "https://claude.com/resources/articles/projects-redesigned",
+          "published": "Sat, 14 Nov 2026 00:28:11 +0000"
+        },
+        {
+          "title": "My agent org speedran a company",
+          "summary": "An all-agent engineering org on Amp merged 1,119 PRs in one week, and the agents rebuilt big-company bureaucracy when told to organize like one.",
+          "source": "hackernews_ai",
+          "url": "https://perfloop.ai/blog/my-agent-org-speedran-a-company",
+          "published": "Sat, 14 Nov 2026 19:27:11 +0000"
+        },
+        {
+          "title": "Show HN: CodeRelay – Let your coding agent delegate work to a teammate's agen",
+          "summary": "Hands work between teammates' coding agents with API contracts pinned to Git commits, so two agents stop editing the same files.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/AymanAhsan/CodeRelay",
+          "published": "Sat, 14 Nov 2026 16:56:39 +0000"
+        },
+        {
+          "title": "Goal Engineering",
+          "summary": "LangChain argues open-ended agents need explicit metrics to optimize, and that a badly scoped goal mostly buys wasted tokens.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/goal-engineering",
+          "published": "2026-11-14T16:00:00+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Context and state: where agents actually fail",
+      "slug": "context-and-state-reliability",
+      "summary": "Two of the day's best writeups locate agent failures outside the model: stale repo context and drifting job state.",
+      "articles": [
+        {
+          "title": "Agent Distraction",
+          "summary": "Google warns that obsolete specs, resolved bugs and stale docs in a repo read as instructions to a coding agent and send it on side-quests.",
+          "source": "hackernews_ai",
+          "url": "https://developers.googleblog.com/agent-distraction/",
+          "published": "Sat, 14 Nov 2026 03:47:16 +0000"
+        },
+        {
+          "title": "Why a 98%-accurate model leaves an agent's state right only 21% of the time",
+          "summary": "Per-step errors compound across a long job; the AXI paper holds job state on the host and gates every reply deterministically before applying it.",
+          "source": "hackernews_ai",
+          "url": "https://zenodo.org/records/23958737",
+          "published": "Sat, 14 Nov 2026 10:48:00 +0000"
+        },
+        {
+          "title": "Write the eval before the fix: building a WhatsApp transcriber with LLM-TDD",
+          "summary": "A worked example of LLM-TDD: each bug in a voice-transcription pipeline gets a failing eval case before any prompt change.",
+          "source": "hackernews_ai",
+          "url": "https://waldo.vanderlore.de/blog/whatyousay-privacy-voice-pipeline/",
+          "published": "Sat, 14 Nov 2026 12:43:31 +0000"
+        },
+        {
+          "title": "Show HN: Portal2Bench – Can AI agents solve Portal 2?",
+          "summary": "An agent benchmark on Portal 2 test chambers capped at $30 per run: GPT-6.1 Sol solves 20 of 26, Opus 5.5 solves 11.",
+          "source": "hackernews_ai",
+          "url": "https://kingstonyip.com/portal2bench",
+          "published": "Sat, 14 Nov 2026 00:40:55 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Agent permissions don't compose",
+      "slug": "agent-security-permissions",
+      "summary": "Per-tool permissions are not a security boundary; the fixes on offer are reference monitors, staged effects and hard spend caps.",
+      "articles": [
+        {
+          "title": "Transitive Policies for Agents: Agent Permissions Don't Automatically Compose",
+          "summary": "Three agents that each obey their own tool permissions can still leak customer data once an orchestrator chains them together.",
+          "source": "hackernews_ai",
+          "url": "https://glthr.com/transitive-policies-for-ai-agents",
+          "published": "Sat, 14 Nov 2026 12:33:40 +0000"
+        },
+        {
+          "title": "The Missing Ring-0 Protections for AI Agents",
+          "summary": "Argues coding agents need a reference monitor they cannot edit, and that it only works if file and command effects are staged first.",
+          "source": "hackernews_ai",
+          "url": "https://hwtn.io/essays/t0013-missing-ring-0-protections-ai",
+          "published": "Sat, 14 Nov 2026 16:23:05 +0000"
+        },
+        {
+          "title": "Before I Trust an Agent, I Try to Break Its Box",
+          "summary": "A hands-on attempt to escape a per-agent sandbox from the inside, listing what broke and what is still untested.",
+          "source": "hackernews_ai",
+          "url": "https://kunalkushwaha.github.io/2026/11/06/before-i-trust-an-agent/",
+          "published": "Sat, 14 Nov 2026 16:14:06 +0000"
+        },
+        {
+          "title": "Show HN: Shotoku – Local-first action governance and budget caps for AI agents",
+          "summary": "Local, deterministic per-vendor and per-day spend caps for agents, enforced before a payment goes out, with a tamper-evident audit log.",
+          "source": "hackernews_ai",
+          "url": "https://www.shotoku.dev/",
+          "published": "Sat, 14 Nov 2026 13:02:53 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Harness building blocks and reference stacks",
+      "slug": "harness-building-blocks",
+      "summary": "Builders shared the practical parts of a harness: tool loops, browsers, approval flows, and a catalog of what production teams run.",
+      "articles": [
+        {
+          "title": "Build Your Own AI Coding Agent Harness",
+          "summary": "Vercel's course builds a coding-agent harness from the tool loop up, covering context pruning, sandboxing and subagent delegation.",
+          "source": "hackernews_ai",
+          "url": "https://vercel.com/academy/build-ai-agent-harness",
+          "published": "Sat, 14 Nov 2026 12:09:46 +0000"
+        },
+        {
+          "title": "Show HN: Browserr – An MCP-first browser for AI agents (one Rust binary)",
+          "summary": "An MCP-first browser engine in one Rust binary with no CDP or Chromium; it blocks when unsure and hands the page to a human.",
+          "source": "hackernews_ai",
+          "url": "https://browserr.dev",
+          "published": "Sat, 14 Nov 2026 03:22:22 +0000"
+        },
+        {
+          "title": "Building a human-in-the-loop Slackbot agent",
+          "summary": "A reference Slackbot where code and Claude clear easy cases and people approve risky ones, built around outages, token overruns and bad output formats.",
+          "source": "hackernews_ai",
+          "url": "https://mays.co/human-in-the-loop-slackbot-agent",
+          "published": "Sat, 14 Nov 2026 14:34:08 +0000"
+        },
+        {
+          "title": "WhatWeRun, a database of real production AI agent stacks",
+          "summary": "A catalog of production agent stacks drawn only from public writeups, with costs kept on the source's own basis.",
+          "source": "hackernews_ai",
+          "url": "https://whatwerun.dev",
+          "published": "Sat, 14 Nov 2026 19:42:04 +0000"
+        },
+        {
+          "title": "Show HN: SunsetLint – find retiring AI model IDs in your GitHub repos",
+          "summary": "Finds retiring model IDs in your repos by file and line, next to the shutdown date and the provider's suggested replacement.",
+          "source": "hackernews_ai",
+          "url": "https://www.sunsetlint.com",
+          "published": "Sat, 14 Nov 2026 13:41:01 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Models, APIs and non-NVIDIA infra",
+      "slug": "models-apis-infra",
+      "summary": "DeepSeek shipped on two fronts: its app's tools became APIs, and its expert-parallel library now targets Huawei Ascend.",
+      "articles": [
+        {
+          "title": "DeepSeek Opens Its App's Search, File, OCR and Voice Tools as APIs So Developers Can Rebuild the App",
+          "summary": "DeepSeek exposes its app's search, file, OCR and voice tools as APIs, so developers can rebuild the app's features on their own stack.",
+          "source": "search_cn_open_weight_labs",
+          "publisher_name": "Pandaily",
+          "publisher_domain": "pandaily.com",
+          "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNREtNc2xqMVZHOGluRzU2dVJpclVpQmZqcEM3ZzN3WU5XYmdtdHNuWE80UzBmMHA0RWoxU2EtbnpDWXNRbEIwclVPMmZtN0pzV3NVd0R5bDZyMTg3b1RaOUpvX084Sm1wVGFmSVk4dUNmM19GOTluem10WDJBZ2N3ZERPUVRVLUFIbGl4VFdXRFh6Q1R6d1ZmYTNTM29yZ1lPdUY0?oc=5",
+          "published": "Sat, 14 Nov 2026 02:00:31 GMT"
+        },
+        {
+          "title": "Training and Inference on Huawei Ascend NPUs",
+          "summary": "DeepEP-Ascend ports DeepSeek's MoE all-to-all communication library to Ascend NPUs with FP8 dispatch and a buffer API matching the NVIDIA version.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/deepseek-ai/DeepEP-Ascend",
+          "published": "Sat, 14 Nov 2026 16:30:03 +0000"
+        },
+        {
+          "title": "I Tried Every LLM Architecture Change Since 2020",
+          "summary": "An ablation of architecture changes since GPT-3 finds fine-grained MoE the biggest win, with linear attention and hyper-connections also paying off.",
+          "source": "hackernews_ai",
+          "url": "https://www.nikita-pavlichenko.com/blog/every-llm-architecture-change",
+          "published": "Sat, 14 Nov 2026 18:41:54 +0000"
+        }
+      ]
+    }
+  ]
+}

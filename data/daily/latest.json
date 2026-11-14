@@ -1,244 +1,196 @@
 {
-  "date": "2026-11-13",
-  "title": "What happened in AI — Nov 13, 2026",
-  "generated_at": "2026-11-13T22:17:58Z",
+  "date": "2026-11-14",
+  "title": "What happened in AI — Nov 14, 2026",
+  "generated_at": "2026-11-14T22:15:57Z",
   "intro": [
-    "Trusting the model name on an endpoint got harder today. Artificial Analysis found roughly one in four serverless endpoints scores below a reference deployment of the same open weights, and Notion disclosed that a Fireworks AI incident exposed AI chat messages containing API keys.",
-    "Agents also gained ways to act on their own. Cloudflare open-sourced its Kitesurf agent browser, OpenAI launched a wallet for agent purchases, and several engineers published how they run fleets of coding agents."
+    "Coordinating many coding agents is turning into a product feature: Claude Code Projects now scopes, delegates and reviews parallel work itself, and one founder's all-agent org merged 1,119 PRs in a week.",
+    "The day's best engineering writing put agent failures outside the model, in stale repo context, drifting job state, and per-tool permissions that leak data once agents are chained."
   ],
   "highlights": [
-    "Artificial Analysis: about 1 in 4 of 100+ serverless endpoints scores below a reference deployment of the same weights.",
-    "Cloudflare open-sourced Kitesurf, its Workers-based browser for AI agents, under Apache 2.0.",
-    "OpenAI's ChatGPT Wallet lets agents complete purchases with user approval.",
-    "AgentLeak: inter-agent messages leak sensitive data 68.8% of the time; output-only audits miss 41.7%.",
-    "Tesseracted Labs cut inference spend by over 50% by defaulting coding agents to flex inference.",
-    "DistDebug-Bench scores agents on diagnosing 120 real distributed-systems failures, not on patching them."
+    "Claude Code Projects now runs a coordinator that splits work into parallel threads and reviews the results.",
+    "An all-agent org on Amp merged 1,119 PRs in a week and grew its own bureaucracy.",
+    "Google: stale specs and resolved bugs in a repo read as instructions to coding agents.",
+    "Three agents that each respect their permissions can still leak data together.",
+    "DeepSeek opened its app's search, file, OCR and voice tools as APIs and ported DeepEP to Huawei Ascend."
   ],
-  "article_count": 48,
+  "article_count": 39,
   "categories": [
     {
-      "name": "Running Coding-Agent Fleets",
-      "slug": "coding-agent-fleets",
-      "summary": "Four practitioners describe the same shift: the engineer's job moves from writing code to keeping parallel agents on track, and the tooling follows.",
+      "name": "Agent fleets: coordination moves into the product",
+      "slug": "agent-fleets-coordination",
+      "summary": "The manager role in multi-agent coding is being automated: a coordinator scopes, delegates and reviews, and the human steers from one thread.",
       "articles": [
         {
-          "title": "Embracing Multi-Agent Development",
-          "summary": "A practitioner who was skeptical of token-heavy orchestrators now runs a multi-agent setup full time and says the work resembles engineering management: keeping the fleet on high-level goals.",
+          "title": "Anthropic upgrades Claude Code Projects to run parallel AI workers",
+          "summary": "Claude now scopes a request, splits it into parallel threads, reviews the outputs and assembles the result, and keeps working after you step away.",
           "source": "hackernews_ai",
-          "url": "https://tombedor.dev/multi-agent-orchestration/",
-          "published": "Fri, 13 Nov 2026 20:42:55 +0000"
+          "url": "https://claude.com/resources/articles/projects-redesigned",
+          "published": "Sat, 14 Nov 2026 00:28:11 +0000"
         },
         {
-          "title": "How I run my agent fleet to build my product",
-          "summary": "Separates a single-player, experimental agent fleet from a software factory, and argues engineers past 5-10 parallel chats have to move up to one or the other.",
+          "title": "My agent org speedran a company",
+          "summary": "An all-agent engineering org on Amp merged 1,119 PRs in one week, and the agents rebuilt big-company bureaucracy when told to organize like one.",
           "source": "hackernews_ai",
-          "url": "https://www.stet.sh/blog/running-an-agent-fleet",
-          "published": "Fri, 13 Nov 2026 15:23:19 +0000"
+          "url": "https://perfloop.ai/blog/my-agent-org-speedran-a-company",
+          "published": "Sat, 14 Nov 2026 19:27:11 +0000"
         },
         {
-          "title": "Show HN: I measured what each agent-built pull request costs (~$2.42)",
-          "summary": "Executor, a free Claude Code plugin, plans a spec into features, builds them in parallel and reviews each PR against the spec; its author measured about $2.42 per agent-built pull request.",
+          "title": "Show HN: CodeRelay – Let your coding agent delegate work to a teammate's agen",
+          "summary": "Hands work between teammates' coding agents with API contracts pinned to Git commits, so two agents stop editing the same files.",
           "source": "hackernews_ai",
-          "url": "https://github.com/sebwilgosz/agent-executor",
-          "published": "Fri, 13 Nov 2026 18:21:53 +0000"
+          "url": "https://github.com/AymanAhsan/CodeRelay",
+          "published": "Sat, 14 Nov 2026 16:56:39 +0000"
         },
         {
-          "title": "Show HN: Agent-plan a CLI that automatically commits your agent's plans",
-          "summary": "A CLI that commits the markdown research, plan and handoff documents coding agents generate, so cross-session context has a fixed home in the repo.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/ghmeier/agent-plan",
-          "published": "Fri, 13 Nov 2026 15:23:59 +0000"
+          "title": "Goal Engineering",
+          "summary": "LangChain argues open-ended agents need explicit metrics to optimize, and that a badly scoped goal mostly buys wasted tokens.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/goal-engineering",
+          "published": "2026-11-14T16:00:00+00:00"
         }
       ]
     },
     {
-      "name": "Agent Building Blocks: Browsers, Payments, Tools",
-      "slug": "agent-building-blocks",
-      "summary": "Vendors shipped the pieces agents need to act outside a chat window: a self-hostable browser, a purchase flow with user approval, and app-level tools behind an API.",
+      "name": "Context and state: where agents actually fail",
+      "slug": "context-and-state-reliability",
+      "summary": "Two of the day's best writeups locate agent failures outside the model: stale repo context and drifting job state.",
       "articles": [
         {
-          "title": "Kitesurf is now open source",
-          "summary": "Cloudflare released Kitesurf, its stateless browser for AI agents with WebMCP support, under Apache 2.0; you can run it locally or deploy your own instance on Workers.",
-          "source": "cloudflare_blog",
-          "url": "https://blog.cloudflare.com/kitesurf-open-source/",
-          "published": "Fri, 13 Nov 2026 20:20:21 GMT"
+          "title": "Agent Distraction",
+          "summary": "Google warns that obsolete specs, resolved bugs and stale docs in a repo read as instructions to a coding agent and send it on side-quests.",
+          "source": "hackernews_ai",
+          "url": "https://developers.googleblog.com/agent-distraction/",
+          "published": "Sat, 14 Nov 2026 03:47:16 +0000"
         },
         {
-          "title": "Introducing ChatGPT Wallet",
-          "summary": "OpenAI's wallet lets agents in ChatGPT Work, Codex and dots complete purchases with user approval and existing card protections.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/introducing-chatgpt-wallet",
-          "published": "Fri, 13 Nov 2026 15:00:00 GMT"
+          "title": "Why a 98%-accurate model leaves an agent's state right only 21% of the time",
+          "summary": "Per-step errors compound across a long job; the AXI paper holds job state on the host and gates every reply deterministically before applying it.",
+          "source": "hackernews_ai",
+          "url": "https://zenodo.org/records/23958737",
+          "published": "Sat, 14 Nov 2026 10:48:00 +0000"
         },
         {
-          "title": "DeepSeek Turns Its Whole App Into an API With Search, File Reading, Voice and Safety Built In",
-          "summary": "DeepSeek exposes its app's search, file reading, voice and safety features to developers through its API.",
+          "title": "Write the eval before the fix: building a WhatsApp transcriber with LLM-TDD",
+          "summary": "A worked example of LLM-TDD: each bug in a voice-transcription pipeline gets a failing eval case before any prompt change.",
+          "source": "hackernews_ai",
+          "url": "https://waldo.vanderlore.de/blog/whatyousay-privacy-voice-pipeline/",
+          "published": "Sat, 14 Nov 2026 12:43:31 +0000"
+        },
+        {
+          "title": "Show HN: Portal2Bench – Can AI agents solve Portal 2?",
+          "summary": "An agent benchmark on Portal 2 test chambers capped at $30 per run: GPT-6.1 Sol solves 20 of 26, Opus 5.5 solves 11.",
+          "source": "hackernews_ai",
+          "url": "https://kingstonyip.com/portal2bench",
+          "published": "Sat, 14 Nov 2026 00:40:55 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Agent permissions don't compose",
+      "slug": "agent-security-permissions",
+      "summary": "Per-tool permissions are not a security boundary; the fixes on offer are reference monitors, staged effects and hard spend caps.",
+      "articles": [
+        {
+          "title": "Transitive Policies for Agents: Agent Permissions Don't Automatically Compose",
+          "summary": "Three agents that each obey their own tool permissions can still leak customer data once an orchestrator chains them together.",
+          "source": "hackernews_ai",
+          "url": "https://glthr.com/transitive-policies-for-ai-agents",
+          "published": "Sat, 14 Nov 2026 12:33:40 +0000"
+        },
+        {
+          "title": "The Missing Ring-0 Protections for AI Agents",
+          "summary": "Argues coding agents need a reference monitor they cannot edit, and that it only works if file and command effects are staged first.",
+          "source": "hackernews_ai",
+          "url": "https://hwtn.io/essays/t0013-missing-ring-0-protections-ai",
+          "published": "Sat, 14 Nov 2026 16:23:05 +0000"
+        },
+        {
+          "title": "Before I Trust an Agent, I Try to Break Its Box",
+          "summary": "A hands-on attempt to escape a per-agent sandbox from the inside, listing what broke and what is still untested.",
+          "source": "hackernews_ai",
+          "url": "https://kunalkushwaha.github.io/2026/11/06/before-i-trust-an-agent/",
+          "published": "Sat, 14 Nov 2026 16:14:06 +0000"
+        },
+        {
+          "title": "Show HN: Shotoku – Local-first action governance and budget caps for AI agents",
+          "summary": "Local, deterministic per-vendor and per-day spend caps for agents, enforced before a payment goes out, with a tamper-evident audit log.",
+          "source": "hackernews_ai",
+          "url": "https://www.shotoku.dev/",
+          "published": "Sat, 14 Nov 2026 13:02:53 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Harness building blocks and reference stacks",
+      "slug": "harness-building-blocks",
+      "summary": "Builders shared the practical parts of a harness: tool loops, browsers, approval flows, and a catalog of what production teams run.",
+      "articles": [
+        {
+          "title": "Build Your Own AI Coding Agent Harness",
+          "summary": "Vercel's course builds a coding-agent harness from the tool loop up, covering context pruning, sandboxing and subagent delegation.",
+          "source": "hackernews_ai",
+          "url": "https://vercel.com/academy/build-ai-agent-harness",
+          "published": "Sat, 14 Nov 2026 12:09:46 +0000"
+        },
+        {
+          "title": "Show HN: Browserr – An MCP-first browser for AI agents (one Rust binary)",
+          "summary": "An MCP-first browser engine in one Rust binary with no CDP or Chromium; it blocks when unsure and hands the page to a human.",
+          "source": "hackernews_ai",
+          "url": "https://browserr.dev",
+          "published": "Sat, 14 Nov 2026 03:22:22 +0000"
+        },
+        {
+          "title": "Building a human-in-the-loop Slackbot agent",
+          "summary": "A reference Slackbot where code and Claude clear easy cases and people approve risky ones, built around outages, token overruns and bad output formats.",
+          "source": "hackernews_ai",
+          "url": "https://mays.co/human-in-the-loop-slackbot-agent",
+          "published": "Sat, 14 Nov 2026 14:34:08 +0000"
+        },
+        {
+          "title": "WhatWeRun, a database of real production AI agent stacks",
+          "summary": "A catalog of production agent stacks drawn only from public writeups, with costs kept on the source's own basis.",
+          "source": "hackernews_ai",
+          "url": "https://whatwerun.dev",
+          "published": "Sat, 14 Nov 2026 19:42:04 +0000"
+        },
+        {
+          "title": "Show HN: SunsetLint – find retiring AI model IDs in your GitHub repos",
+          "summary": "Finds retiring model IDs in your repos by file and line, next to the shutdown date and the provider's suggested replacement.",
+          "source": "hackernews_ai",
+          "url": "https://www.sunsetlint.com",
+          "published": "Sat, 14 Nov 2026 13:41:01 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Models, APIs and non-NVIDIA infra",
+      "slug": "models-apis-infra",
+      "summary": "DeepSeek shipped on two fronts: its app's tools became APIs, and its expert-parallel library now targets Huawei Ascend.",
+      "articles": [
+        {
+          "title": "DeepSeek Opens Its App's Search, File, OCR and Voice Tools as APIs So Developers Can Rebuild the App",
+          "summary": "DeepSeek exposes its app's search, file, OCR and voice tools as APIs, so developers can rebuild the app's features on their own stack.",
           "source": "search_cn_open_weight_labs",
-          "publisher_name": "Startup Fortune",
-          "publisher_domain": "startupfortune.com",
-          "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxNMk5aU2dlc2J1dGk2SnZjX2tjNXZ5cHRrN3hsNnFVT3F2ZFMxZG9yaUZjamI1U3Y1UHU5SnlDbDRhT1QteGF4MENqM29kRXZvSHByTXhxUGNGQXdhdjFFUVFEbG5lTHlvWndUWk04ZFo5VmFObXdJaVpNWjIyS0NMWkx4THhENHdlWFNoYmVKSUdGcFBTYzR6RVM1RHRKYzYtN1lGbTRBRVlFQ290OEFqWFdMamEyblppcWtz?oc=5",
-          "published": "Fri, 13 Nov 2026 16:25:29 GMT"
+          "publisher_name": "Pandaily",
+          "publisher_domain": "pandaily.com",
+          "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNREtNc2xqMVZHOGluRzU2dVJpclVpQmZqcEM3ZzN3WU5XYmdtdHNuWE80UzBmMHA0RWoxU2EtbnpDWXNRbEIwclVPMmZtN0pzV3NVd0R5bDZyMTg3b1RaOUpvX084Sm1wVGFmSVk4dUNmM19GOTluem10WDJBZ2N3ZERPUVRVLUFIbGl4VFdXRFh6Q1R6d1ZmYTNTM29yZ1lPdUY0?oc=5",
+          "published": "Sat, 14 Nov 2026 02:00:31 GMT"
         },
         {
-          "title": "Show HN: Give your agent its own temp mail service",
-          "summary": "buzon is a CLI and agent skill for a self-hosted Cloudflare Worker mail server: it creates addresses on your domain, waits for the verification code or magic link, and records which address belongs to which account.",
+          "title": "Training and Inference on Huawei Ascend NPUs",
+          "summary": "DeepEP-Ascend ports DeepSeek's MoE all-to-all communication library to Ascend NPUs with FP8 dispatch and a buffer API matching the NVIDIA version.",
           "source": "hackernews_ai",
-          "url": "https://github.com/shbernal/buzon",
-          "published": "Fri, 13 Nov 2026 08:11:48 +0000"
+          "url": "https://github.com/deepseek-ai/DeepEP-Ascend",
+          "published": "Sat, 14 Nov 2026 16:30:03 +0000"
         },
         {
-          "title": "Witness – a voice-anchored evidence recorder for AI coding agents",
-          "summary": "Records a spoken bug report alongside the clicks, requests, console errors, DOM mutations and rrweb replay from the same second, then hands the package to a coding agent.",
+          "title": "I Tried Every LLM Architecture Change Since 2020",
+          "summary": "An ablation of architecture changes since GPT-3 finds fine-grained MoE the biggest win, with linear attention and hyper-connections also paying off.",
           "source": "hackernews_ai",
-          "url": "https://github.com/wookat/witness",
-          "published": "Fri, 13 Nov 2026 08:57:35 +0000"
-        }
-      ]
-    },
-    {
-      "name": "Evals: Checking What You Were Actually Served",
-      "slug": "evals-verification",
-      "summary": "New measurements target gaps that standard benchmarks skip: whether a hosted endpoint matches the official weights, whether an agent can diagnose a bug, and whether agent-written code is still reachable.",
-      "articles": [
-        {
-          "title": "1 in 4 3rd Party AI Endpoints Underperform Their Advertised Models",
-          "summary": "Artificial Analysis' Endpoint Accuracy Index v1.1 compares 100+ serverless endpoints with reference deployments of the official weights on tool-calling, reasoning and long-context tests; roughly one in four scores below reference.",
-          "source": "hackernews_ai",
-          "url": "https://hermes-ai.net/news/artificial-analysis-finds-1-in-4-ai-endpoints-quietly-underperform-their/",
-          "published": "Fri, 13 Nov 2026 17:08:35 +0000"
-        },
-        {
-          "title": "DistDebug-Bench: Can LLM Agents Diagnose Bugs in Distributed Systems?",
-          "summary": "120 real, closed failures from 11 production distributed systems; the agent gets the report, logs and pre-fix repo and is scored on naming the causal code blocks, not on the patch.",
-          "source": "hackernews_ai",
-          "url": "https://distdebug.com/",
-          "published": "Fri, 13 Nov 2026 05:19:29 +0000"
-        },
-        {
-          "title": "Loose Ends: A check for unused code AI wrote or forgot to remove",
-          "summary": "A graph-based PR check for TypeScript, JavaScript, Python and Java that fails changes leaving orphaned, superseded or unreachable code, such as a UserServiceV2 beside the service it replaced.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/sid732/loose-ends",
-          "published": "Fri, 13 Nov 2026 02:56:13 +0000"
-        },
-        {
-          "title": "Transcript Testing: Helping Humans Verify AI Code",
-          "summary": "Proposes writing tests as transcripts meant for humans to read, so people can verify systems where AI writes most of the code.",
-          "source": "hackernews_ai",
-          "url": "https://andrew.nerdnetworks.org/blog/2026/11/13/transcript-testing/",
-          "published": "Fri, 13 Nov 2026 16:20:05 +0000"
-        },
-        {
-          "title": "Schelling Atlas: AI agents know where to find each other on the web",
-          "summary": "Researchers at ELLIS Tübingen and the Max Planck Institute test whether two independent agents can find each other on the web to exchange secret tokens without being told where to meet.",
-          "source": "hackernews_ai",
-          "url": "https://schelling-atlas.com/",
-          "published": "Fri, 13 Nov 2026 01:41:48 +0000"
-        }
-      ]
-    },
-    {
-      "name": "Observability and ML Platform Plumbing",
-      "slug": "observability-platform",
-      "summary": "Tracing moved into the request path and the data warehouse, and Uber's production ML platform became something you can run yourself.",
-      "articles": [
-        {
-          "title": "Show HN: Langfuse AI Gateway, open source rust gateway to trace every LLM call",
-          "summary": "Langfuse's co-founders released an open-source Rust gateway that traces every LLM call passing through it.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/langfuse/langfuse/tree/main/ai-gateway",
-          "published": "Fri, 13 Nov 2026 15:10:20 +0000"
-        },
-        {
-          "title": "New AI agent observability and governance across BigQuery and Looker",
-          "summary": "Google Cloud added agent observability and governance to BigQuery and Looker, aimed at showing how a production agent reasons and which data it touches.",
-          "source": "google_cloud_blog",
-          "url": "https://cloud.google.com/blog/products/data-analytics/enterprise-ai-agent-observability-with-bigquery-and-looker/",
-          "published": "Fri, 13 Nov 2026 17:00:00 +0000"
-        },
-        {
-          "title": "Michelangelo AI",
-          "summary": "Uber open-sourced Michelangelo, the ML platform it reports running 5K+ production models and 20K+ training jobs a month on; the feature store is listed as coming soon.",
-          "source": "hackernews_ai",
-          "url": "https://michelangelo-ai.org/",
-          "published": "Fri, 13 Nov 2026 04:56:40 +0000"
-        }
-      ]
-    },
-    {
-      "name": "Inference Cost, Speed and Determinism",
-      "slug": "inference-cost-serving",
-      "summary": "Five reports put numbers on cheaper and faster inference, from discounted flex tiers to a rewritten local hot path.",
-      "articles": [
-        {
-          "title": "Waiting a little saves us over 50% on inference",
-          "summary": "Tesseracted Labs defaults its coding agents to discounted flex inference through a pi extension and Doubleword, and reports saving over 50% on inference requests across several months.",
-          "source": "hackernews_ai",
-          "url": "https://tesseracted.com/the-price-of-patience/",
-          "published": "Fri, 13 Nov 2026 19:33:19 +0000"
-        },
-        {
-          "title": "Eliminating Nondeterminism in LLM Inference with Integer-Only Arithmetic",
-          "summary": "Follows up Thinking Machines' finding that one prompt sent 1,000 times at temperature 0 returned 80 different answers, and removes the floating-point cause with integer-only arithmetic.",
-          "source": "hackernews_ai",
-          "url": "https://nathan.rs/posts/detllm/",
-          "published": "Fri, 13 Nov 2026 16:32:18 +0000"
-        },
-        {
-          "title": "Doubling LLM token rates in ComfyUI",
-          "summary": "ComfyUI rewrote the hot path of its local text generation around the Qwen3.x family; the same checkpoints on the same GPU now generate tokens up to twice as fast.",
-          "source": "hackernews_ai",
-          "url": "https://blog.comfy.org/p/doubling-llm-token-rates-in-comfyui",
-          "published": "Fri, 13 Nov 2026 02:52:50 +0000"
-        },
-        {
-          "title": "Frontier AI takes only months to get 10 times cheaper",
-          "summary": "Village's LLM Atlas prices finished tasks rather than tokens: a task that cost 79 cents on GPT-5 at launch now costs about 2 cents on a newer model, and newer launches are undercut faster.",
-          "source": "hackernews_ai",
-          "url": "https://village.dev/blog/frontier-ai-used-to-take-over-a-year-to-get-10-times-cheaper-now-it-takes-months/",
-          "published": "Fri, 13 Nov 2026 18:09:33 +0000"
-        },
-        {
-          "title": "Anthropic Says Its AI Model Cut AMD Chip Switch to Three Days",
-          "summary": "Anthropic says its own model helped get Claude running on AMD chips in three days.",
-          "source": "hackernews_ai",
-          "url": "https://finance.yahoo.com/technology/ai/articles/anthropic-says-ai-model-cut-154824196.html",
-          "published": "Fri, 13 Nov 2026 06:16:33 +0000"
-        }
-      ]
-    },
-    {
-      "name": "Agent Security and Data Exposure",
-      "slug": "agent-security",
-      "summary": "Leaks and hijacks show up in the channels output-only audits never read: inter-agent messages, tool-call text and a third-party inference vendor.",
-      "articles": [
-        {
-          "title": "Show HN: AgentLeak – open-source privacy testing for multi-agent LLM systems",
-          "summary": "A 1,000-scenario benchmark across 7 channels and 5 LLMs finds inter-agent messages leak sensitive data 68.8% of the time against 27.2% for final outputs; output-only audits miss 41.7%.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/Privatris/AgentLeak",
-          "published": "Fri, 13 Nov 2026 01:36:36 +0000"
-        },
-        {
-          "title": "Agent Anomaly Detection scores on benchmarks we didn't write",
-          "summary": "Google tested its trace-reading detector for agent goal hijack, OWASP's top agentic risk for 2026, against third-party benchmarks; it runs asynchronously on traces and logs, adding no latency.",
-          "source": "hackernews_ai",
-          "url": "https://developers.googleblog.com/how-agent-anomaly-detection-scores-on-benchmarks-we-didnt-write/",
-          "published": "Fri, 13 Nov 2026 16:33:33 +0000"
-        },
-        {
-          "title": "Notion AI chat transcripts exposed in Fireworks AI breach",
-          "summary": "Notion's advisory on the Fireworks AI incident: it revoked Notion API keys found in affected user messages on Nov 11 and reported exposed third-party keys to their issuers on Nov 12.",
-          "source": "hackernews_ai",
-          "url": "https://www.notion.com/en-gb/security/advisories/security-incident-involving-a-third-party-ai-vendor",
-          "published": "Fri, 13 Nov 2026 02:49:47 +0000"
+          "url": "https://www.nikita-pavlichenko.com/blog/every-llm-architecture-change",
+          "published": "Sat, 14 Nov 2026 18:41:54 +0000"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "zocOm6pWNnY",
-    "title": "LLM Digest Daily Explainer: Nov 13, 2026",
-    "duration_s": 113.9
-  }
+  ]
 }
