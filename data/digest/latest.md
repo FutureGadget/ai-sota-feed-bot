@@ -2,104 +2,116 @@
 
 Focus: AI Platform Engineering
 
-## 1. Goal Engineering
+## 1. EnvOpt: Automated Optimization for Agent Environments
+- Type: news | Source: hackernews_ai
+- URL: https://bespokelabs.ai/blog/envopt
+- Score: 3.782 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 2. See and revoke what your AI coding agents can access
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/dirmedmr-alt/ai-access-auditor
+- Score: 3.747 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 3. My agent org speedran a company
+- Type: news | Source: hackernews_ai
+- URL: https://perfloop.ai/blog/my-agent-org-speedran-a-company
+- Score: 3.515 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. Goal Engineering
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/goal-engineering
-- Score: 2.903 | Reliability: 1.0
+- Score: 2.799 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. Google Open Sources Ambient Quality Agent (AQuA) to Diagnose Production AI Agent Failures
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/11/google-ambient-agent-prod/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.691 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 5. New AI agent observability and governance across BigQuery and Looker
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/data-analytics/enterprise-ai-agent-observability-with-bigquery-and-looker/
+- Score: 2.444 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
 
-## 3. From Delegation to Coordination: Learning Efficient Multi-Agent Deep Research
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.17041v1
-- Score: 2.562 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+## 6. Building strong safety evaluations
+- Type: research | Source: anthropic_research
+- URL: https://www.anthropic.com/research/building-strong-safety-evaluations
+- Score: 2.434 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
-## 4. Skill Adapter: Personalized Modification and Online Routing of General-Purpose Skills
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.17007v1
-- Score: 2.549 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 5. CoReMem: Cost-Internalizing Memory for Successive Coding Tasks with Prospective Valuation
+## 7. ArchSpace: Recording, Reviewing, and Referencing LLM Architecture Research
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.17316v1
-- Score: 2.529 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2611.17332v1
+- Score: 2.403 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 8. CapLite: Prompt-Injection Defense for Small Language Model Agents without Model-Written Security Artifacts
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.17115v1
+- Score: 2.333 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. Introducing ChatGPT Wallet
+## 9. Introducing ChatGPT Wallet
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-chatgpt-wallet
-- Score: 2.048 | Reliability: 1.0
+- Score: 2.035 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
-## 7. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
+## 10. Encoder Disaggregation in vLLM: Scaling Multimodal Serving with EPD
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-11-encoder-disaggregation-epd
+- Score: 1.941 | Reliability: 1.0
+- Why it matters: 
+
+## 11. claude-code v2.1.325
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.325
+- Score: 1.799 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval, claude code.
+
+## 12. Kitesurf is now open source
+- Type: news | Source: cloudflare_blog
+- URL: https://blog.cloudflare.com/kitesurf-open-source/
+- Score: 1.692 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 13. langgraph-cli==0.4.43
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.43
+- Score: 1.681 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 14. CodeRabbit scales agentic software development and ships 20x more
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/coderabbit-codex-daybreak
+- Score: 1.669 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, codex.
+
+## 15. Kuken Industries searches 70 years of drawings in minutes
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/kuken
+- Score: 1.563 | Reliability: 1.0
+- Why it matters: 
+
+## 16. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-alphaproof-code/
-- Score: 1.951 | Reliability: 1.0
+- Score: 1.501 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 8. Cogent and OpenAI build cyber defense factories for enterprises
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/cogent-security
-- Score: 1.691 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 9. Singapore Airlines elevates travel & work with OpenAI technology
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/singapore-airlines-travel-work
-- Score: 1.609 | Reliability: 1.0
-- Why it matters: 
-
-## 10. codex 0.171.0-alpha.4
+## 17. codex 0.171.0-alpha.4
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.4
-- Score: 1.459 | Reliability: 1.0
+- Score: 1.458 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 11. SimRec: Learning to Search, Ask, and Recommend from Simulated Interaction
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.15426v1
-- Score: 2.454 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 12. Opening the datasets behind our AI weather models
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/opening-the-datasets-behind-our-ai-weather-models/
-- Score: 1.431 | Reliability: 1.0
-- Why it matters: 
-
-## 13. Gemini Robotics 2.5 accelerates real-world general dexterity
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/
-- Score: 1.386 | Reliability: 1.0
-- Why it matters: 
-
-## 14. langgraph-checkpoint==4.3.2
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/checkpoint%3D%3D4.3.2
-- Score: 1.382 | Reliability: 1.0
-- Why it matters: 
-
-## 15. claude-code v2.1.321
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.321
-- Score: 1.288 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 16. Release 2.74.0 corresponding to NGC container 26.10
+## 18. Release 2.74.0 corresponding to NGC container 26.10
 - Type: release | Source: triton_releases
 - URL: https://github.com/triton-inference-server/server/releases/tag/v2.74.0
-- Score: 0.984 | Reliability: 1.0
+- Score: 0.954 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. claude-agent-sdk-python v0.2.180
+## 19. claude-agent-sdk-python v0.2.180
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.180
-- Score: 0.899 | Reliability: 1.0
+- Score: 0.874 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
