@@ -10,8 +10,8 @@ Follow `.agents/skills/video-common/SKILL.md` for every step, with
 `<kind>` = `daily` and `<key>` = the recap date. These values apply:
 
 - Source: `data/daily/<date>.json` only. Work dir: `build/daily-video/<date>/`.
-- Stories: pick 4-6.
-- Scenes: 6-8, at most 8. Pass no `--max-scenes`.
+- Stories: cover every highlight and every category per `video-common` step 2; one scene may carry two highlights from the same category.
+- Scenes: 7-8, at most 8. Pass no `--max-scenes`.
 - Duration: 90-120 s.
 - YouTube title: `LLM Digest Daily Explainer - <Mon D, YYYY>`. Attach title:
   `LLM Digest Daily Explainer: <Mon D, YYYY>`.

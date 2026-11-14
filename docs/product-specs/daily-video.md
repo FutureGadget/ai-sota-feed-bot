@@ -33,6 +33,14 @@ Only facts in the recap summaries; no invented numbers, causes or quotes; no
 number is drawn unless the recap gives one; generic diagrams are labeled
 illustrative.
 
+## Coverage
+The video is the audio edition of the recap, not a separate edit. Scene 1 states
+the recap `intro`'s central claim and the last scene gives its takeaway. Every
+highlight and every category appears in a scene; at most 2 highlights and 1
+category may be cut, each with a reason. The lead story is a highlight. The
+storyboard maps highlights and categories to scenes in `coverage.json`, and
+`.agents/skills/video-common/scripts/check_coverage.py` must pass before voicing.
+
 ## Email
 When the recap has a valid `video`, the daily email shows a "Watch the 2-minute
 explainer" link under the "In 30 seconds" box. It points to

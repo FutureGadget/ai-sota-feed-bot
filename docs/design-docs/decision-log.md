@@ -3052,3 +3052,28 @@ Impact: No served page changes. The render no longer warns
 step passes again, so the CSS check and JavaScript tests behind it run.
 
 Rollback: Remove `"playbook"` from `I18N_API_SERVED_SURFACES`.
+
+## 2026-11-14 - Explainer videos must cover the recap
+
+Decision: The daily and weekly video skills treat the recap's `intro`,
+`highlights` and category summaries as the storyboard spine. Every highlight and
+category gets a scene (cuts capped at 2 and 1, with reasons), scene 1 and the
+closing takeaway come from the intro, the lead story is a highlight, and
+`check_coverage.py` gates voicing.
+
+Rationale: The video skills named none of those fields as inputs. They told the
+agent to pick 4-6 (daily) or 5-8 (weekly) stories by mechanism and magnitude, to
+skip announcement-only stories, and to give the lead story 40% of the runtime.
+For 2026-W46 the recap led with three launches, while the video description led
+with highlight 4 (endpoint quality); the 2026-11-13 video description omitted
+the Kitesurf and ChatGPT Wallet stories and the coding-agent fleets category.
+`weekly-video` also asked for a title scene that `video-common` rejects. Video
+transcripts were not available, so the gap is inferred from the skill text, the
+recap JSON and the YouTube descriptions.
+
+Impact: Daily videos use 7-8 scenes, with the lead story at about 30% of the
+runtime. Weekly videos keep 9-12 scenes. Existing published videos are not
+regenerated.
+
+Rollback: Revert the skill and spec edits and delete `check_coverage.py` and
+`tests/test_video_coverage.py`.
