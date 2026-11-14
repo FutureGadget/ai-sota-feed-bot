@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-13T18:06:46.944771+00:00",
+ "generated_at": "2026-11-14T18:05:55.590947+00:00",
  "areas": [
   {
    "area": "reliability",
@@ -95,6 +95,62 @@
   }
  ],
  "latest_entries": [
+  {
+   "id": "2026-11-14-trace-anomaly-detection-third-party-benchmarks",
+   "topic": "prompt-injection",
+   "topic_title": "Untrusted input and tools can hijack an agent",
+   "kind": "obstacle",
+   "date": "2026-11-14",
+   "title": "Async trace anomaly detection flagged 87% of executed goal hijacks but caught 4 of 18 memory-poisoning runs"
+  },
+  {
+   "id": "2026-11-14-agent-permissions-do-not-compose",
+   "topic": "prompt-injection",
+   "topic_title": "Untrusted input and tools can hijack an agent",
+   "kind": "obstacle",
+   "date": "2026-11-14",
+   "title": "Three agents that each obey their tool permissions can still leak private data together"
+  },
+  {
+   "id": "2026-11-14-swarmsafe-delta-message-effects",
+   "topic": "multi-agent",
+   "topic_title": "Coordinating multiple agents adds more failure than capability",
+   "kind": "obstacle",
+   "date": "2026-11-14",
+   "title": "Paired protocol isolates upstream messages: real delivery raised risky violations to 21.4% from 1.0% hidden"
+  },
+  {
+   "id": "2026-11-14-hosted-endpoints-underperform-reference",
+   "topic": "model-drift",
+   "topic_title": "Agent behavior drifts as the model, SDK, and runtime churn under it",
+   "kind": "obstacle",
+   "date": "2026-11-14",
+   "title": "About 1 in 4 serverless endpoints for an open-weight model score below a reference deployment"
+  },
+  {
+   "id": "2026-11-14-stale-todos-distract-coding-agents",
+   "topic": "context-compaction",
+   "topic_title": "Context compaction: summarize, compress, and curate the working set",
+   "kind": "solution",
+   "date": "2026-11-14",
+   "title": "Stale TODOs and obsolete docs pull coding agents into side-quests, measurable from traces"
+  },
+  {
+   "id": "2026-11-14-flex-inference-for-coding-agents",
+   "topic": "agent-cost",
+   "topic_title": "Agent token costs are unpredictable and easily run away",
+   "kind": "obstacle",
+   "date": "2026-11-14",
+   "title": "Flex-tier inference cut coding-agent request cost for under half a second of added median latency"
+  },
+  {
+   "id": "2026-11-14-distdebug-bench-root-cause",
+   "topic": "agent-benchmarks",
+   "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
+   "kind": "solution",
+   "date": "2026-11-14",
+   "title": "Distributed-systems debugging benchmark: agents find the file but miss the causal code blocks"
+  },
   {
    "id": "2026-11-13-toolturns-follow-ups-degrade",
    "topic": "tool-use",
@@ -198,62 +254,6 @@
    "kind": "obstacle",
    "date": "2026-11-12",
    "title": "Where a tool error lands in the conversation changes whether the model retries, fixes, or quits"
-  },
-  {
-   "id": "2026-11-12-task-bound-monitor-vs-guardrails",
-   "topic": "prompt-injection",
-   "topic_title": "Untrusted input and tools can hijack an agent",
-   "kind": "obstacle",
-   "date": "2026-11-12",
-   "title": "A task-bound monitor admitted 1.3-7.7% of attack calls that the model proposed 64-84% of the time"
-  },
-  {
-   "id": "2026-11-12-fake-letterhead-overrides-read-only",
-   "topic": "prompt-injection",
-   "topic_title": "Untrusted input and tools can hijack an agent",
-   "kind": "obstacle",
-   "date": "2026-11-12",
-   "title": "A fake law-firm letter posted in Slack talked a read-only agent into rewriting its own guardrail"
-  },
-  {
-   "id": "2026-11-12-per-user-agents-worse-than-coordinator",
-   "topic": "multi-agent",
-   "topic_title": "Coordinating multiple agents adds more failure than capability",
-   "kind": "obstacle",
-   "date": "2026-11-12",
-   "title": "One agent serving every user beat one agent per user in all four shared-resource environments"
-  },
-  {
-   "id": "2026-11-12-postgres-read-only-role-limits",
-   "topic": "agent-sandboxing",
-   "topic_title": "Sandboxing, scoped credentials, and guardrails",
-   "kind": "solution",
-   "date": "2026-11-12",
-   "title": "A read-only Postgres role's settings are session defaults; only the GRANTs hold against an agent"
-  },
-  {
-   "id": "2026-11-12-wikitrace-evidence-linked-lessons",
-   "topic": "agent-memory",
-   "topic_title": "Agents forget across steps and sessions",
-   "kind": "obstacle",
-   "date": "2026-11-12",
-   "title": "Linking each stored lesson to its source trajectory lets the agent check it before acting"
-  },
-  {
-   "id": "2026-11-12-fgse-falsification-gated-writes",
-   "topic": "agent-memory",
-   "topic_title": "Agents forget across steps and sessions",
-   "kind": "obstacle",
-   "date": "2026-11-12",
-   "title": "Testing a lesson as a hypothesis before committing it held harmful memory updates to 3.6%"
-  },
-  {
-   "id": "2026-11-09-memorydojo-poisoning-lifecycle",
-   "topic": "agent-memory",
-   "topic_title": "Agents forget across steps and sessions",
-   "kind": "obstacle",
-   "date": "2026-11-09",
-   "title": "MemoryDojo: every tested memory architecture propagates poisoned instructions across sessions"
   }
  ],
  "nodes": {
@@ -301,7 +301,7 @@
      "key": "caching-and-serving",
      "title": "Caching and serving efficiency set the floor price",
      "summary": "Prompt caching at 90%+ hit rates, KV-cache offload, GPU packing, and pay-for-use runtimes cut fixed cost by large factors before any model choice.",
-     "count": 12
+     "count": 13
     },
     {
      "key": "price-curve",
@@ -311,6 +311,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-14-flex-inference-for-coding-agents",
+     "topic": "agent-cost",
+     "date": "2026-11-14",
+     "title": "Flex-tier inference cut coding-agent request cost for under half a second of added median latency",
+     "theme": "caching-and-serving",
+     "html": "<p>Tesseracted Labs runs its coding agents on an ensemble of models through Doubleword, and its harness extension uses discounted flex inference by default. The team reports saving over 50% on inference requests over several months.</p>\n<p>In a small controlled comparison of realtime and flex on the same model, flex&#x27;s published token rates were 24-27% lower. Estimated request cost was lower in every matched pair, and median end-to-end response time rose by less than half a second. The author calls this a snapshot, not a general result, and publishes runnable examples.</p>\n<p>For builders: most agent steps are not latency-critical. Make delayed-capacity tiers the harness default, and reserve realtime for turns where a person is waiting.</p>",
+     "evidence": [
+      {
+       "sid": "076bcadf42543fda",
+       "title": "Waiting a little saves us over 50% on inference"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-09-stale-instruction-files",
      "topic": "agent-cost",
@@ -1364,8 +1379,8 @@
      "title": "OpenAI adds usage analytics and enforceable spend controls to ChatGPT Enterprise"
     }
    ],
-   "entry_count": 57,
-   "latest_entry_date": "2026-11-09",
+   "entry_count": 58,
+   "latest_entry_date": "2026-11-14",
    "solutions": [
     {
      "slug": "agent-orchestration",
@@ -1383,6 +1398,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "076bcadf42543fda",
+     "title": "Waiting a little saves us over 50% on inference"
+    },
     {
      "sid": "569b9613f4d348fe",
      "title": "When Instruction Files Go Stale: Documentation Debt and Hidden Cost in Coding Agents"
@@ -1640,7 +1659,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-11-09"
+   "updated": "2026-11-14"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -7636,6 +7655,20 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-14-trace-anomaly-detection-third-party-benchmarks",
+     "topic": "prompt-injection",
+     "topic_title": "Untrusted input and tools can hijack an agent",
+     "date": "2026-11-14",
+     "title": "Async trace anomaly detection flagged 87% of executed goal hijacks but caught 4 of 18 memory-poisoning runs"
+    },
+    {
+     "id": "2026-11-14-distdebug-bench-root-cause",
+     "topic": "agent-benchmarks",
+     "topic_title": "Agent benchmarks: fixed tasks that exercise real tool use",
+     "date": "2026-11-14",
+     "title": "Distributed-systems debugging benchmark: agents find the file but miss the causal code blocks"
+    },
+    {
      "id": "2026-10-31-test-escaped-unsandboxed-subagents",
      "topic": "agent-sandboxing",
      "topic_title": "Sandboxing, scoped credentials, and guardrails",
@@ -9883,6 +9916,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-14-stale-todos-distract-coding-agents",
+     "topic": "context-compaction",
+     "topic_title": "Context compaction: summarize, compress, and curate the working set",
+     "date": "2026-11-14",
+     "title": "Stale TODOs and obsolete docs pull coding agents into side-quests, measurable from traces"
+    },
+    {
      "id": "2026-09-02-utilmem-evidence-utilization",
      "topic": "agent-memory",
      "topic_title": "Agents forget across steps and sessions",
@@ -10059,7 +10099,7 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p><strong>Every layer under the agent is a drift source.</strong> Frameworks ship regressions and fix them two releases later. Coding-agent CLIs change permission checks, auto-review policy, and model metadata in point releases. Serving runtimes move latency and sampling, and the backend alone explains a large share of benchmark variance.</p>\n<p><strong>Changelogs are not a reliable signal.</strong> The clearest pattern is the Claude Agent SDK: most releases say only &quot;updated bundled CLI&quot;, while the forwarded CLI carries permission-bypass fixes, credential-leak fixes, new tools, or a break that took down every request behind a gateway. The same shape appears in Codex point releases that quietly change context windows and review defaults.</p>\n<p><strong>Pinning is necessary but not sufficient.</strong> Anthropic&#x27;s own Claude Code quality postmortem traced weeks of complaints to vendor-side changes in default reasoning effort, a caching bug, and a system-prompt line. None touched a model or SDK version a customer could pin. Default-model swaps (a new default Opus) do the same to anyone who referenced &quot;the default&quot;.</p>\n<p><strong>The consensus discipline</strong> is to treat model, SDK, framework, and runtime as pinned dependencies behind a regression gate: declared compatible version ranges, staged upgrades, and evals before rollout. Vendors now apply the same gate to their own prompt and default changes.</p>\n<p><strong>The open problem is reproduction.</strong> Non-deterministic inference and moving tool state make a drift-caused failure hard to replay. Record-and-replay from a cut point in a saved trajectory is the newest answer, but tooling is early and &quot;track latest&quot; remains the ecosystem default.</p>"
+     "html": "<p><strong>Every layer under the agent is a drift source.</strong> Frameworks ship regressions and fix them two releases later. Coding-agent CLIs change permission checks, auto-review policy, and model metadata in point releases. Serving runtimes move latency and sampling, and the backend alone explains a large share of benchmark variance. Even the provider is a version: about one in four hosted endpoints of an open-weight model score below its reference deployment.</p>\n<p><strong>Changelogs are not a reliable signal.</strong> The clearest pattern is the Claude Agent SDK: most releases say only &quot;updated bundled CLI&quot;, while the forwarded CLI carries permission-bypass fixes, credential-leak fixes, new tools, or a break that took down every request behind a gateway. The same shape appears in Codex point releases that quietly change context windows and review defaults.</p>\n<p><strong>Pinning is necessary but not sufficient.</strong> Anthropic&#x27;s own Claude Code quality postmortem traced weeks of complaints to vendor-side changes in default reasoning effort, a caching bug, and a system-prompt line. None touched a model or SDK version a customer could pin. Default-model swaps (a new default Opus) do the same to anyone who referenced &quot;the default&quot;.</p>\n<p><strong>The consensus discipline</strong> is to treat model, SDK, framework, and runtime as pinned dependencies behind a regression gate: declared compatible version ranges, staged upgrades, and evals before rollout. Vendors now apply the same gate to their own prompt and default changes.</p>\n<p><strong>The open problem is reproduction.</strong> Non-deterministic inference and moving tool state make a drift-caused failure hard to replay. Record-and-replay from a cut point in a saved trajectory is the newest answer, but tooling is early and &quot;track latest&quot; remains the ecosystem default.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -10088,8 +10128,8 @@
     {
      "key": "serving-runtime-drift",
      "title": "The serving runtime as a drift source",
-     "summary": "Inference-runtime upgrades move latency, sampling, and even supported platforms, and the backend alone accounts for a large share of observed benchmark variance.",
-     "count": 3
+     "summary": "Inference-runtime upgrades and provider choice move latency, sampling, and accuracy; about one in four hosted open-weight endpoints scores below its reference deployment.",
+     "count": 4
     },
     {
      "key": "drift-tooling",
@@ -10099,6 +10139,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-14-hosted-endpoints-underperform-reference",
+     "topic": "model-drift",
+     "date": "2026-11-14",
+     "title": "About 1 in 4 serverless endpoints for an open-weight model score below a reference deployment",
+     "theme": "serving-runtime-drift",
+     "html": "<p>Artificial Analysis&#x27;s Endpoint Accuracy Index v1.1 reruns more than 100 serverless endpoints of open-weight models on three equally weighted evals: BFCL v4 (tool calling), HLE (reasoning), and AA-LCR (long context). Each score is relative to a self-hosted reference at the recommended precision. Roughly one in four endpoints scored below its reference.</p>\n<p>The index documents each reference down to hardware and serving stack, for example GLM-5.3 on eight B200s with SGLang and native FP8. It names the likely causes: quantization, custom kernels, changed inference settings, output-length limits, and bugs. Scores carry 95% confidence intervals because sampling variance alone can push an endpoint above 100%.</p>\n<p>For builders: the same model name at two providers is two products. Rerun your own tool-calling evals when you switch providers.</p>",
+     "evidence": [
+      {
+       "sid": "72eff2cf25179487",
+       "title": "1 in 4 3rd Party AI Endpoints Underperform Their Advertised Models"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-benchmarks",
+       "title": "Agent benchmarks: fixed tasks that exercise real tool use"
+      }
+     ]
+    },
     {
      "id": "2026-11-13-six-week-model-half-life",
      "topic": "model-drift",
@@ -10637,8 +10697,8 @@
     }
    ],
    "cross_entries": [],
-   "entry_count": 30,
-   "latest_entry_date": "2026-11-13",
+   "entry_count": 31,
+   "latest_entry_date": "2026-11-14",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -10652,6 +10712,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "72eff2cf25179487",
+     "title": "1 in 4 3rd Party AI Endpoints Underperform Their Advertised Models"
+    },
     {
      "sid": "f4e0da7b6fe690cd",
      "title": "Vercel Data Shows AI Models Have Six-Week Half-Life in Production"
@@ -10849,7 +10913,7 @@
      "title": "claude-code v2.1.183"
     }
    ],
-   "updated": "2026-11-13"
+   "updated": "2026-11-14"
   },
   "multi-agent": {
    "slug": "multi-agent",
@@ -10895,7 +10959,7 @@
      "key": "oversight-and-safety",
      "title": "Oversight, collusion, and authorization between agents",
      "summary": "Swarms collude and sabotage without an adversary and can coordinate through hidden states; answers so far are arbiters with veto power, human pauses, per-agent credentials, and multi-agent-specific monitoring.",
-     "count": 9
+     "count": 10
     },
     {
      "key": "shared-context",
@@ -10905,6 +10969,21 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-14-swarmsafe-delta-message-effects",
+     "topic": "multi-agent",
+     "date": "2026-11-14",
+     "title": "Paired protocol isolates upstream messages: real delivery raised risky violations to 21.4% from 1.0% hidden",
+     "theme": "oversight-and-safety",
+     "html": "<p>SwarmSafe-Delta asks whether an upstream agent&#x27;s message changed the executor&#x27;s action. It freezes upstream computation and varies only delivery: real, hidden, or a format-matched placebo. It then scores one committed action against deterministic benign and risky policy states.</p>\n<p>Across four models on constructed tasks, real delivery produced 21.4% risky-world violations, against 5.0% with placebo and 1.0% hidden. Real delivery also improved benign success. In a regime that requires an upstream lookup, it raised safe completion by 74.2 points over hidden, so cutting communication costs utility.</p>\n<p>The effect depended on whether the message recommended a prerequisite check or direct execution. The authors frame this as a measurement protocol, not a natural failure rate.</p>\n<p>For builders: inter-agent messages are an attack and error surface. Test them with placebo controls.</p>",
+     "evidence": [
+      {
+       "sid": "999b562dd3f5608a",
+       "title": "SwarmSafe-Delta: Isolating Message Effects on LLM Agent Safety"
+      }
+     ],
+     "also": []
+    },
     {
      "id": "2026-11-13-delegation-no-consistent-gain",
      "topic": "multi-agent",
@@ -11533,6 +11612,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-14-agent-permissions-do-not-compose",
+     "topic": "prompt-injection",
+     "topic_title": "Untrusted input and tools can hijack an agent",
+     "date": "2026-11-14",
+     "title": "Three agents that each obey their tool permissions can still leak private data together"
+    },
+    {
      "id": "2026-11-13-evidence-present-nobody-acted",
      "topic": "agent-reliability",
      "topic_title": "Agents give fluent, confident-looking output even when it's wrong",
@@ -11694,8 +11780,8 @@
      "title": "Practitioners want frameworks where models with different strengths split the work"
     }
    ],
-   "entry_count": 38,
-   "latest_entry_date": "2026-11-13",
+   "entry_count": 39,
+   "latest_entry_date": "2026-11-14",
    "solutions": [
     {
      "slug": "agent-benchmarks",
@@ -11713,6 +11799,10 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "999b562dd3f5608a",
+     "title": "SwarmSafe-Delta: Isolating Message Effects on LLM Agent Safety"
+    },
     {
      "sid": "19aefaffb32649b7",
      "title": "Lost in Delegation: Studying the Effectiveness of Task Orchestration in Generative Search"
@@ -11866,7 +11956,7 @@
      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
     }
    ],
-   "updated": "2026-11-13"
+   "updated": "2026-11-14"
   },
   "prompt-injection": {
    "slug": "prompt-injection",
@@ -11906,13 +11996,13 @@
      "key": "harness-controls",
      "title": "Permissions, approvals, and sandboxes in the agent harness",
      "summary": "Coding-agent harnesses now default to manual approval, per-argument permission rules, OS-level sandboxes, and classifier-gated auto modes; each layer has a published bypass, so teams stack them rather than trust one.",
-     "count": 11
+     "count": 12
     },
     {
      "key": "agent-authorization",
      "title": "Agents as identities with scoped, per-action authorization",
      "summary": "Agents are being treated as non-human identities with delegated, per-action, and sequence-aware authorization, now available as open policy languages, gateways, and managed platforms.",
-     "count": 12
+     "count": 13
     },
     {
      "key": "eval-escapes",
@@ -11928,6 +12018,46 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-14-trace-anomaly-detection-third-party-benchmarks",
+     "topic": "prompt-injection",
+     "date": "2026-11-14",
+     "title": "Async trace anomaly detection flagged 87% of executed goal hijacks but caught 4 of 18 memory-poisoning runs",
+     "theme": "harness-controls",
+     "html": "<p>Google ran Agent Anomaly Detection, which reads agent traces and logs asynchronously and adds no request latency, unchanged against five public agent-security benchmarks it did not write. Four hide the harmful instruction in tool output; one asks for harm directly.</p>\n<p>All figures are vendor-reported:</p>\n<ul><li>The model itself refused three in four direct harmful requests and ignored or failed about 30% of injected instructions.</li><li>Of the attacks that did execute, the detector flagged <strong>87%</strong> for post-execution review.</li><li>False alarms ran 2% to 16% of benign sessions, depending on the agent&#x27;s tools.</li><li>Instructions planted in long-term memory were the gap: <strong>4 of 18</strong> caught.</li></ul>\n<p>For builders: an after-the-fact monitor is a review queue. Pair it with a pre-execution boundary, and audit what gets written to memory.</p>",
+     "evidence": [
+      {
+       "sid": "d99b7127f7fd99e6",
+       "title": "Agent Anomaly Detection scores on benchmarks we didn't write"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-observability",
+       "title": "You can't see why an agent did what it did"
+      }
+     ]
+    },
+    {
+     "id": "2026-11-14-agent-permissions-do-not-compose",
+     "topic": "prompt-injection",
+     "date": "2026-11-14",
+     "title": "Three agents that each obey their tool permissions can still leak private data together",
+     "theme": "agent-authorization",
+     "html": "<p>A worked example shows per-agent permissions are not a system policy. A Writer can only file tickets, a Reader can only query customer records, and a Sender can only reply to the ticket&#x27;s verified address. A model orchestrator routes between them.</p>\n<p>An attacker with a valid customer account asks for a &quot;resend&quot; of a report listing the ten largest accounts and their balances. The Writer files it, the orchestrator hands it to the Reader, and the Sender mails the result to the attacker. No agent exceeded its own permissions.</p>\n<p>For builders: authorization has to follow the data across handoffs. Check where an output may flow, based on its provenance, at the point it leaves the system, not only what each agent may call.</p>",
+     "evidence": [
+      {
+       "sid": "89f7bd12a1554243",
+       "title": "Transitive Policies for Agents: Agent Permissions Don't Automatically Compose"
+      }
+     ],
+     "also": [
+      {
+       "slug": "multi-agent",
+       "title": "Coordinating multiple agents adds more failure than capability"
+      }
+     ]
+    },
     {
      "id": "2026-11-12-task-bound-monitor-vs-guardrails",
      "topic": "prompt-injection",
@@ -12998,8 +13128,8 @@
      "title": "Agent memory systems readily admit poisoned facts, a reproducible benchmark shows"
     }
    ],
-   "entry_count": 63,
-   "latest_entry_date": "2026-11-12",
+   "entry_count": 65,
+   "latest_entry_date": "2026-11-14",
    "solutions": [
     {
      "slug": "agent-sandboxing",
@@ -13009,6 +13139,14 @@
    "obstacles": [],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "d99b7127f7fd99e6",
+     "title": "Agent Anomaly Detection scores on benchmarks we didn't write"
+    },
+    {
+     "sid": "89f7bd12a1554243",
+     "title": "Transitive Policies for Agents: Agent Permissions Don't Automatically Compose"
+    },
     {
      "sid": "54f1f65b7c731a1b",
      "title": "Treating the Model as an Untrusted Component: Deterministic Policy Enforcement, Human Approval and Taint Tracking Against Prompt Injection in Tool-Using Agents, with Validation on Open-Weights Models"
@@ -13294,7 +13432,7 @@
      "title": "Show HN: Deep-XPIA – Prompt injection benchmark for multi-agent AI systems"
     }
    ],
-   "updated": "2026-11-12"
+   "updated": "2026-11-14"
   },
   "proving-agent-roi": {
    "slug": "proving-agent-roi",
@@ -14629,10 +14767,30 @@
      "key": "long-horizon-and-subsystems",
      "title": "Long horizons and subsystem diagnostics",
      "summary": "Long-horizon suites show final-answer scores overstate success, while subsystem benchmarks (memory, knowledge conflicts, root-cause reasoning, coordination) grade the inner process so a regression can be localized.",
-     "count": 9
+     "count": 10
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-14-distdebug-bench-root-cause",
+     "topic": "agent-benchmarks",
+     "date": "2026-11-14",
+     "title": "Distributed-systems debugging benchmark: agents find the file but miss the causal code blocks",
+     "theme": "long-horizon-and-subsystems",
+     "html": "<p>DistDebug-Bench gives agents 120 real, closed failures from 11 production distributed systems, mostly logic, concurrency, and error-handling bugs. The agent gets the report, partial logs or stack traces, and the repository before the fix. It is scored on the diagnosis, not the patch, against human-labeled causal code blocks.</p>\n<p>Failures surface far from their cause. In one ZooKeeper incident the report points at leader election, but the cause is a shutdown path that carries stale state into the next quorum.</p>\n<p>Across the tested configurations, coverage falls <strong>13-22 percentage points</strong> when agents must name the causal blocks rather than the file. Results average three runs per incident with bootstrap confidence intervals.</p>\n<p>For builders: &quot;found the right file&quot; overstates agentic root-cause analysis. Grade incident agents on causal precision.</p>",
+     "evidence": [
+      {
+       "sid": "0218b1af8990e061",
+       "title": "DistDebug-Bench: Can LLM Agents Diagnose Bugs in Distributed Systems?"
+      }
+     ],
+     "also": [
+      {
+       "slug": "agent-observability",
+       "title": "You can't see why an agent did what it did"
+      }
+     ]
+    },
     {
      "id": "2026-11-06-silent-instrument-errors-leaderboards",
      "topic": "agent-benchmarks",
@@ -15421,6 +15579,13 @@
    ],
    "cross_entries": [
     {
+     "id": "2026-11-14-hosted-endpoints-underperform-reference",
+     "topic": "model-drift",
+     "topic_title": "Agent behavior drifts as the model, SDK, and runtime churn under it",
+     "date": "2026-11-14",
+     "title": "About 1 in 4 serverless endpoints for an open-weight model score below a reference deployment"
+    },
+    {
      "id": "2026-11-13-toolturns-follow-ups-degrade",
      "topic": "tool-use",
      "topic_title": "Agents reach the outside world through fragile, ad-hoc integrations",
@@ -15428,8 +15593,8 @@
      "title": "The best agent resolves 69.6% of single tool requests but only 39.8% of three-turn dialogues"
     }
    ],
-   "entry_count": 52,
-   "latest_entry_date": "2026-11-06",
+   "entry_count": 53,
+   "latest_entry_date": "2026-11-14",
    "solutions": [],
    "obstacles": [
     {
@@ -15447,6 +15612,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "0218b1af8990e061",
+     "title": "DistDebug-Bench: Can LLM Agents Diagnose Bugs in Distributed Systems?"
+    },
     {
      "sid": "7dfaaa125cb6bf17",
      "title": "Silent Instrument Errors Reorder Agent Leaderboards"
@@ -15656,7 +15825,7 @@
      "title": "DPBench: Structural Determinants of Multi-Agent LLM Coordination"
     }
    ],
-   "updated": "2026-11-06"
+   "updated": "2026-11-14"
   },
   "agent-orchestration": {
    "slug": "agent-orchestration",
@@ -18303,7 +18472,7 @@
      "key": "curating-the-working-set",
      "title": "Curating what stays in context",
      "summary": "Compaction is becoming one step in a curation discipline that trims tool output at the input boundary, consolidates stored memory, and loads instructions only when needed.",
-     "count": 7
+     "count": 8
     },
     {
      "key": "compaction-safety",
@@ -18325,6 +18494,26 @@
     }
    ],
    "entries": [
+    {
+     "id": "2026-11-14-stale-todos-distract-coding-agents",
+     "topic": "context-compaction",
+     "date": "2026-11-14",
+     "title": "Stale TODOs and obsolete docs pull coding agents into side-quests, measurable from traces",
+     "theme": "curating-the-working-set",
+     "html": "<p>A Google engineering post argues that what humans skim past in a codebase, agents treat as a call to action. Obsolete specs, resolved bugs, and lagging docs enter context during research. At best they cost tokens, steps, and time; at worst they ground the agent on false facts.</p>\n<p>The measurement trick: inline <code>TODO(bug/...)</code> comments are a proxy. The team cross-references every TODO an agent reads against the linked bug&#x27;s status and the user&#x27;s prompt. That separates valid work from wasted detours automatically, across distributed traces covering hundreds of millions of agent steps.</p>\n<p>For builders: stale repo text is a context-quality problem, not only a hygiene one. Linked tickets give you a machine-checkable signal of which in-repo instructions are dead.</p>",
+     "evidence": [
+      {
+       "sid": "370ba7508446141c",
+       "title": "Agent Distraction"
+      }
+     ],
+     "also": [
+      {
+       "slug": "grounding",
+       "title": "An agent's answer is only as good as what it retrieved — and whether it can prove it"
+      }
+     ]
+    },
     {
      "id": "2026-11-13-clean-history-stale-world",
      "topic": "context-compaction",
@@ -18663,8 +18852,8 @@
      "title": "Stream processing with Kafka and Flink drives dynamic memory tiering for agents"
     }
    ],
-   "entry_count": 17,
-   "latest_entry_date": "2026-11-13",
+   "entry_count": 18,
+   "latest_entry_date": "2026-11-14",
    "solutions": [],
    "obstacles": [
     {
@@ -18686,6 +18875,10 @@
    ],
    "related_storylines": [],
    "evidence": [
+    {
+     "sid": "370ba7508446141c",
+     "title": "Agent Distraction"
+    },
     {
      "sid": "567d8273d9c1fb0d",
      "title": "Cleaning an Agent's History Hurts When the World Still Holds the Error"
@@ -18755,7 +18948,7 @@
      "title": "Show HN: Memory system for AI agents with associations, forgetting, synthesis"
     }
    ],
-   "updated": "2026-11-13"
+   "updated": "2026-11-14"
   },
   "cost-controls": {
    "slug": "cost-controls",

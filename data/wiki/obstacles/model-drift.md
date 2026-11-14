@@ -8,7 +8,7 @@ solutions: [version-pinning, agent-benchmarks]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-14
 themes:
   - key: bundled-cli-bumps
     title: SDK bumps that hide what changed underneath
@@ -21,7 +21,7 @@ themes:
     summary: Default models, reasoning effort, system prompts, context-window metadata, and review policies change on the vendor side, often silently, and pinning a version does not catch them.
   - key: serving-runtime-drift
     title: The serving runtime as a drift source
-    summary: Inference-runtime upgrades move latency, sampling, and even supported platforms, and the backend alone accounts for a large share of observed benchmark variance.
+    summary: Inference-runtime upgrades and provider choice move latency, sampling, and accuracy; about one in four hosted open-weight endpoints scores below its reference deployment.
   - key: drift-tooling
     title: Tools to pin, test, and replay against drift
     summary: Version ranges, intent-based versioning, cross-language tests, and cut-point replay are emerging, but the default posture across the ecosystem is still "track latest".
@@ -39,7 +39,8 @@ own code never changed.
 and fix them two releases later. Coding-agent CLIs change permission checks,
 auto-review policy, and model metadata in point releases. Serving runtimes move
 latency and sampling, and the backend alone explains a large share of
-benchmark variance.
+benchmark variance. Even the provider is a version: about one in four hosted
+endpoints of an open-weight model score below its reference deployment.
 
 **Changelogs are not a reliable signal.** The clearest pattern is the Claude
 Agent SDK: most releases say only "updated bundled CLI", while the forwarded

@@ -63,21 +63,21 @@ Schema: `config/wiki_schema.md`.
   - theme `eval-in-production` — Evals as a production workflow: mined from traces, gated in CI (31)
 
 ### multi-agent
-- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (38 entries, updated 2026-11-13)
+- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (39 entries, updated 2026-11-14)
   → solutions: agent-benchmarks, agent-orchestration, agent-tracing
   - theme `when-it-pays` — When coordination helps: topology, roles, and allocation (11)
   - theme `production-evidence` — Production deployments and what they report (12)
   - theme `parallel-coding-agents` — Keeping parallel coding agents from colliding (4)
-  - theme `oversight-and-safety` — Oversight, collusion, and authorization between agents (9)
+  - theme `oversight-and-safety` — Oversight, collusion, and authorization between agents (10)
   - theme `shared-context` — What each agent gets to see (2)
 
 ### cost
-- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (57 entries, updated 2026-11-09)
+- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (58 entries, updated 2026-11-14)
   → solutions: agent-orchestration, context-compaction, cost-controls
   - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (13)
   - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (11)
   - theme `routing` — Routing each turn to the cheapest model that can handle it (10)
-  - theme `caching-and-serving` — Caching and serving efficiency set the floor price (12)
+  - theme `caching-and-serving` — Caching and serving efficiency set the floor price (13)
   - theme `price-curve` — Falling token prices, rising workflow spend (11)
 - [proving-agent-roi](obstacles/proving-agent-roi.md) — Proving agent ROI and measuring cost efficiency is hard (9 entries, updated 2026-10-06)
   → solutions: cost-controls, llm-as-judge
@@ -105,12 +105,12 @@ Schema: `config/wiki_schema.md`.
   - theme `monitoring-limits` — When the trace is not enough (3)
 
 ### security
-- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (63 entries, updated 2026-11-12)
+- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (65 entries, updated 2026-11-14)
   → solutions: agent-sandboxing
   - theme `injection-paths` — New paths for injected instructions (12)
   - theme `model-defenses` — Guardrail models, model hardening, and how defenses are measured (13)
-  - theme `harness-controls` — Permissions, approvals, and sandboxes in the agent harness (11)
-  - theme `agent-authorization` — Agents as identities with scoped, per-action authorization (12)
+  - theme `harness-controls` — Permissions, approvals, and sandboxes in the agent harness (12)
+  - theme `agent-authorization` — Agents as identities with scoped, per-action authorization (13)
   - theme `eval-escapes` — Agents attacking real systems from cyber evals and training runs (7)
   - theme `offensive-cyber` — Frontier cyber models and weaponized agents (8)
 
@@ -122,21 +122,21 @@ Schema: `config/wiki_schema.md`.
   - theme `fleet-density` — Sandbox density and scale-to-zero for idle fleets (1)
 
 ### drift
-- [model-drift](obstacles/model-drift.md) — Agent behavior drifts as the model, SDK, and runtime churn under it (30 entries, updated 2026-11-13)
+- [model-drift](obstacles/model-drift.md) — Agent behavior drifts as the model, SDK, and runtime churn under it (31 entries, updated 2026-11-14)
   → solutions: agent-benchmarks, version-pinning
   - theme `bundled-cli-bumps` — SDK bumps that hide what changed underneath (10)
   - theme `regressions-and-reverts` — Regressions shipped and rolled back in point releases (4)
   - theme `model-and-default-changes` — Models, defaults, and prompts that change under you (7)
-  - theme `serving-runtime-drift` — The serving runtime as a drift source (3)
+  - theme `serving-runtime-drift` — The serving runtime as a drift source (4)
   - theme `drift-tooling` — Tools to pin, test, and replay against drift (6)
 
 ## Solutions
-- [agent-benchmarks](solutions/agent-benchmarks.md) — Agent benchmarks: fixed tasks that exercise real tool use (52 entries, updated 2026-11-06)
+- [agent-benchmarks](solutions/agent-benchmarks.md) — Agent benchmarks: fixed tasks that exercise real tool use (53 entries, updated 2026-11-14)
   - theme `trusting-the-score` — What a score measures: model, harness, or noise (13)
   - theme `own-workload` — Benchmarking on your own tools and real work (10)
   - theme `domain-suites` — Domain-specific suites mined from real work (14)
   - theme `adversarial-and-security` — Adversarial tools, poisoned inputs, and security (6)
-  - theme `long-horizon-and-subsystems` — Long horizons and subsystem diagnostics (9)
+  - theme `long-horizon-and-subsystems` — Long horizons and subsystem diagnostics (10)
 - [agent-orchestration](solutions/agent-orchestration.md) — Orchestration patterns: topologies, handoffs, and harnesses (24 entries, updated 2026-11-08)
   - theme `code-driven` — Coordination written as code, not tool calls (6)
   - theme `orchestrator-tooling` — Open-source orchestrators and multi-model routers (7)
@@ -153,8 +153,8 @@ Schema: `config/wiki_schema.md`.
   - theme `capture` — Capturing the run: zero-config SDKs, platform spans, new modalities (4)
   - theme `storage` — Storing and searching traces at fleet scale (3)
   - theme `diagnosis` — Reading and diagnosing traces (6)
-- [context-compaction](solutions/context-compaction.md) — Context compaction: summarize, compress, and curate the working set (17 entries, updated 2026-11-13)
-  - theme `curating-the-working-set` — Curating what stays in context (7)
+- [context-compaction](solutions/context-compaction.md) — Context compaction: summarize, compress, and curate the working set (18 entries, updated 2026-11-14)
+  - theme `curating-the-working-set` — Curating what stays in context (8)
   - theme `compaction-safety` — The compactor as a safety surface (4)
   - theme `skipping-compaction` — Skipping compaction with bigger windows or recursive dispatch (5)
   - theme `compressed-serving` — Buying back accuracy lost to compression (1)
