@@ -3435,13 +3435,18 @@
  "335ccd3caa00e6d5": {
   "first_seen": "2026-11-14T00:06:50.558978+00:00",
   "id": "9b507ce78e628f42",
+  "matched_topics": [
+   "agent"
+  ],
   "published": "2026-11-12T05:04:43+00:00",
   "sid": "335ccd3caa00e6d5",
   "source": "arxiv_agent_systems_research",
+  "summary": "Reinforcement learning has improved the tool-use capabilities of large language models. However, better task performance can coincide with increased tool hallucination. Reliable tool use requires decisions to follow the current task state: available information, tool capabilities, and task progress. Our analysis shows that agents sometimes execute when they should ask for information, retrieve it, or decline an infeasible request, even when reasoning identifies missing information. We introduce StateAlign, combining task-state construction with state-contrastive reinforcement learning. The data cover five task conditions and pair states with different action requirements. Outcome rewards guide task completion; token-level contrasts compare the same generated reasoning and actions under paired states to train outputs that fit the current state. Experiments across five base models from three families show improvements on BFCL v4 multi-turn, ToolSandbox, and When2Call. Ablations show that state construction improves performance and reliability under different reward designs. The complete method further reduces tool hallucination across three Qwen3 sizes. On Qwen3-8B, StateAlign improves BFCL v4 multi-turn accuracy from 45.5% to 55.2% and reduces no-tool hallucination on SimpleToolHalluBench from 62.2% under outcome-only training to 56.1%. Behavioral analyses show more consistent decisions, more complete multi-call execution, and stronger recovery after tool errors.",
   "summary_1line": "Reinforcement learning has improved the tool-use capabilities of large language models. However, better task performance can coincide with increased tool hallucination. Reliable tool use requires decisions to follow the current task state: available information, tool capabilities",
   "title": "StateAlign: Internalizing State-Aware Decision-Making for Reliable Multi-Turn Tool Agents via Reinforcement Learning",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.16304v1"
+  "url": "http://arxiv.org/abs/2611.16304v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "33948c421834d8b2": {
   "content_excerpt": "TL;DR: On one NVIDIA Vera Rubin NVL72 rack, vLLM serves DeepSeek-V4.1-Flash at 1.7M tokens/s per GPU while each user gets 387 tokens/s, 58× GB300 NVL72, and reaches 2.52M at peak throughput and 1,810 tokens/s for a single user. The gains come from building on what is new in Rubin: kernels tuned for its split memory and FP4 tensor cores, specialized decode kernels for low latency, and a rack-wide KV cache and Engram tables shared over NVLink. This is the third post in our DeepSeek-V4.1-Flash series. The first post covered day-0 bring-up and kernel fusions. The second scaled the model to a GB300 NVL72 rack with P/D disaggregation and Wide-EP. This post moves the same stack to Vera Rubin NVL72, which we introduced last month . Rubin opens up new avenues for optimization. We start with the hardware facts that shaped our work, then go through four groups of optimizations: Figure 1: SemiAnalysis AgentX on NVIDIA Vera Rubin NVL72 (vLLM, P/D disaggregation, Wide-EP) vs. GB300 NVL72. Throughput counts cached input, uncached input and output tokens ( GB300 source ). We measure performance with the SemiAnalysis AgentX benchmark as a representative agentic serving workload, aligned with our previous posts. Figure 1 compares the two racks' raw throughput (total tokens per GPU per second, including input, cached, and output) and power-normalized throughput, respectively in two tabs. We use the same methodology as in our previous GB300 post . For kernels and model forward profiling, vllm be",
@@ -7854,13 +7859,18 @@
  "7a26d0140df52888": {
   "first_seen": "2026-11-14T00:06:50.558978+00:00",
   "id": "40f741d9d2ab2ea8",
+  "matched_topics": [
+   "evaluation"
+  ],
   "published": "2026-11-12T12:35:03+00:00",
   "sid": "7a26d0140df52888",
   "source": "arxiv_llm_reliability",
+  "summary": "Large language models (LLMs) often exhibit sycophancy, a tendency to agree with users, flatter or affirm them, and preserve their face, even when independent judgment or critical feedback would be more useful. Prior work has largely evaluated sycophancy through benchmark evaluations, but less is known about how users perceive and respond to sycophantic AI in everyday tasks. We combine benchmark evaluations with two large-scale user studies. We study four personas defined through system prompts: objective (instructed to prioritize accuracy over agreement), soft-sycophantic, hard-sycophantic, and baseline (no persona-specific system prompt). Benchmarks show that even baseline exhibits substantial sycophancy, agreeing with users' stated views 71.7% of the time on NLP Survey, compared with 54.8% for objective and 89.5% for hard-sycophantic. Under conversational pressure on TruthfulQA, accuracy ranged from 81.9% for objective to 59.6% for baseline and 8.7% for hard-sycophantic. Participants were assigned to one of the four personas, and either discussed contested policy topics or collaborated with AI on email writing. Despite its higher accuracy under pressure, objective AI was rated significantly less respectful and satisfying than the other personas, and less trustworthy than baseline. Baseline and sycophantic personas did not differ significantly. Persona did not significantly affect how often participants changed their opinions, although participants who discussed with objecti",
   "summary_1line": "Large language models (LLMs) often exhibit sycophancy, a tendency to agree with users, flatter or affirm them, and preserve their face, even when independent judgment or critical feedback would be more useful. Prior work has largely evaluated sycophancy through benchmark evaluati",
   "title": "Mind the Accuracy-Approval Gap: How Users Evaluate Sycophantic AI in Everyday Tasks",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.16722v1"
+  "url": "http://arxiv.org/abs/2611.16722v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "7a43cf5ab3d0fb44": {
   "first_seen": "2026-11-06T08:03:34.634977+00:00",
@@ -8195,6 +8205,20 @@
   "title": "MIGRO: A Decoupled and Portable Long-Term Memory System for Language Models",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.15315v1"
+ },
+ "7e55f69884382e44": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. Hannes Hapke shares how Dataiku’s open-source Kiji Inspector applies Sparse Autoencoders (SAEs) directly to decision tokens to expose why agents pick specific tools. Moving past superficial chain-of-thought narratives, he discusses causal ablation, layer activation extraction via patched vLLM engines, and production monitoring workflows for software architects and senior engineering leaders. Henry Wilson shares actionable",
+  "first_seen": "2026-11-14T07:05:52.296320+00:00",
+  "id": "9822d4fa9f4b5ece",
+  "image_url": "https://www.infoq.com/styles/static/images/logo/logo_bigger.jpg",
+  "published": "2026-11-14T06:37:00+00:00",
+  "sid": "7e55f69884382e44",
+  "source": "infoq_ai_ml",
+  "summary": "DocumentDB 1.0 is the first generally available release of the open source, MIT-licensed document database built on PostgreSQL, with compatibility for the MongoDB wire protocol. Most MongoDB drivers, tools, and queries work without changes. By Renato Losio",
+  "summary_1line": "DocumentDB 1.0 is the first generally available release of the open source, MIT-licensed document database built on PostgreSQL, with compatibility for the MongoDB wire protocol. Most MongoDB drivers, tools, and querie...",
+  "title": "Open Source DocumentDB 1.0 Reaches General Availability",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/11/mongodb-compatible-documentdb/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
  },
  "7e71a00f8d6a3e38": {
   "content_excerpt": "Models tried in order. First non-rate-limited model is used. If all are cooling down, waits for the shortest cooldown. Model used for worker subagent calls. \"Default\" follows the priority list rotation. \"Priority model\" always forces the #1 model in the list. Model used for background tasks: chat title generation, prompt suggestions, etc. \"Default\" uses the first available model from the priority list. \"None\" disables all utility LLM calls. Applied as defaults to custom endpoints (vLLM / Ollama / LM Studio). Other providers use their own defaults. Set a value to override; leave blank for provider default. HuggingFace key enables FLUX / SDXL via HF Inference as a fallback for generate_image (Pollinations works without a key). Env var: HF_API_KEY . Developer key: unlocks the Worker's shared provider keys. When filled, each finished or failed Task chat and every console error/warning is also sent to the Worker's logs, tagged with this session's ID. When a message includes multimedia, requests are routed to these models. \"Auto\" uses the first capable model from the priority list. Where FreeGent may send requests. The level applies at once and is saved in this browser only (profiles do not carry it). Optional, Routed level only. freegent.ai and the local dev server already proxy provider calls, so leave this empty unless you host FreeGent on your own domain or fork (the built-in Worker refuses other origins). Then deploy cf-worker/ to your own Cloudflare account (free tier) and pa",
@@ -8593,6 +8617,7 @@
   "published": "2026-11-12T15:28:56+00:00",
   "sid": "85363033843f7ffd",
   "source": "arxiv_cs_cl",
+  "summary": "General-purpose language models are trained mostly on English: over open models we review, at most, non-English pretraining data makes up only a 12% share. Models built for European languages give them far more, but score well below general-purpose models of the same size. A common concern is that, in small models, languages compete for capacity. We present Lara Mini base, a model trained from scratch on 6T tokens in English and 44 other languages, which together cover all 24 official languages of the European Union. As training progresses, the 44 other languages together come to outweigh English. To give these languages enough capacity at low cost, Lara Mini base uses a mixture of experts architecture with 7.2B total and 0.6B active parameters. Among open base models with up to 2B active parameters, it achieves the highest average score across standard English, multilingual, math, and code benchmarks, ahead of models trained on 4 to 6 times as many tokens. Its margin is largest on multilingual benchmarks in the languages it supports and on math benchmarks. It supports contexts of up to 128k tokens. We find that our MoE architecture reduces capacity competition between languages. For a single user on one GPU, without quantization, it generates text at least 1.8 times faster than any model with a higher average score. We release the weights of Lara Mini base under the CC BY-NC-SA 4.0 license. In addition, we will release T-HellaSwag, a higher-quality machine translation of the",
   "summary_1line": "General-purpose language models are trained mostly on English: over open models we review, at most, non-English pretraining data makes up only a 12% share. Models built for European languages give them far more, but score well below general-purpose models of the same size. A comm",
   "title": "Lara Mini Base: Language Diversity as a Resource, Not a Trade-off",
   "type": "paper",
@@ -8843,6 +8868,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.07932v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "8a1cf35e4c1e866a": {
+  "content_excerpt": "ripgrep is one of the most popular command-line search tools, with over 57,000 stars on GitHub. Despite its popularity and rich feature set, the documentation consisted of just two files: a feature-focused README and a tutorial-style GUIDE. While these files were well-written, they left gaps: Using an evolved version of my documentation automation workflow (originally built for Prodigy’s documentation ), I generated 50+ pages of enhanced documentation, now live at https://iepathos.github.io/ripgrep . The original workflow used mdBook, a simple static site generator popular in the Rust ecosystem. MkDocs Material offers significantly more features: The ripgrep workflow introduced critical improvements over previous iterations. The complete flow: The breakthrough feature: automatic page splitting based on structural analysis. The original GUIDE.md was over 1,400 lines—a monolithic wall of text. The workflow now analyzes page structure before processing and automatically splits oversized pages into focused subpages based on: After page splitting creates new files, we ensure every page gets processed with direct filesystem scanning : After drift is fixed, each page gets enhanced in the map phase (not reduce), meaning each agent has full context about what the page covers: The AI attempts context-aware decisions: “Pattern matching is decision-heavy, add a decision tree. Installation varies by platform, use tabbed content.” When you generate dozens of Mermaid diagrams automatically,",
+  "first_seen": "2026-11-14T07:05:52.296320+00:00",
+  "id": "2510fee03db0d2c5",
+  "published": "2026-11-14T05:19:51+00:00",
+  "sid": "8a1cf35e4c1e866a",
+  "source": "hackernews_ai",
+  "summary_1line": "Transforming Ripgrep's Documentation with AI Automation and MkDocs",
+  "title": "Transforming Ripgrep's Documentation with AI Automation and MkDocs",
+  "type": "news",
+  "url": "https://entropicdrift.com/blog/mkdocs-drift-automation"
  },
  "8a44e693f8230b16": {
   "content_excerpt": "Mintlify hosts documentation for thousands of companies, and those sites serve hundreds of millions of requests a month. For years almost all of that came from developers reading docs in a browser. Now a growing share comes from agents: Claude Code pulling a page into a coding session, ChatGPT answering a question with your docs, Cursor checking an API reference before it writes a call. As that traffic grew, we kept needing to answer questions our tools couldn't. How much of our traffic is agents, and which ones? Is that request from GPTBot really OpenAI, or someone borrowing the name? Is a coding agent reading the docs, or is an AI company crawling them for training data, or a script mirroring llms.txt every hour? The bot lists we started with matched user agent substrings, put everything automated into one bucket, and believed whatever a request claimed to be. So we built our own. We studied our traffic, tested the existing open-source bot lists against it, and kept track of which signals actually separate one kind of request from another. agent-traffic is what came out of that: a tested dataset of the user agents, headers and official verification sources of real agents and crawlers, plus a small classifier that applies it. We're open-sourcing it so you don't have to learn all of this from scratch. Install the skill in Claude Code, Cursor, Codex or any agent the skills CLI supports: The skill teaches your agent how classification works and how to use the package and datase",
@@ -10876,8 +10913,8 @@
   "published": "2026-11-07T14:20:29+00:00",
   "sid": "a64346d6b971f202",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 254, downloads: 4332.",
-  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 254, downloads: 4332.",
+  "summary": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 258, downloads: 4332.",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: text-generation. Likes: 258, downloads: 4332.",
   "title": "tencent/Qwen3.8-27B-DSpine-b16 released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Qwen3.8-27B-DSpine-b16"
