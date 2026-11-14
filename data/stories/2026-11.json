@@ -3620,6 +3620,22 @@
   "url": "http://arxiv.org/abs/2611.08946v1",
   "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
+ "370ba7508446141c": {
+  "content_excerpt": "What is easy for humans to skim past in code, agents see as a call to action. They do not know better, latching on to that which is littered across the files read during the planning and research phase of the coding journey. As agents' agency through tools and skills grows the ability for side-quests scales proportionally. Obsolete specs, long resolved bugs, and lagging documentation no longer rest in long forgotten corners of the codebase, but rather are unintentionally ingested as context indirecting and misdirecting the next wave of coders - the agents. This indirection is not free: in the best case it only costs tokens, steps, and time - in the worst case it distracts and grounds the agent on falsehoods leading to incorrect logic and decisions during implementation. Measuring how often agents fall into these traps across millions of monthly sessions is impossible with manual human review - we need an objective signal derivable from the code itself. Inline TODO(bug/...) comments provide the perfect proxy. TODOs tend to be left behind long after the underlying bug is resolved or abandoned, while the linked bug ticket acts as the canonical record. By cross-referencing every TODO an agent encounters against the TODO's bug status and the user's prompt, we can automatically separate valid work from wasted detours at scale. By leveraging the distributed traces of agent interactions across thousands of engineers and over hundreds of millions of individual agent steps, we quantify",
+  "first_seen": "2026-11-14T05:05:55.696857+00:00",
+  "id": "ad85245920c4bc85",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-14T03:47:16+00:00",
+  "sid": "370ba7508446141c",
+  "source": "hackernews_ai",
+  "summary_1line": "Agent Distraction",
+  "title": "Agent Distraction",
+  "type": "news",
+  "url": "https://developers.googleblog.com/agent-distraction",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "37a5207d8920956c": {
   "first_seen": "2026-11-05T04:05:26.395389+00:00",
   "id": "7698b917289992ba",
@@ -7518,17 +7534,17 @@
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "772c78fed213df84": {
-  "content_excerpt": "Skills that stop AI agents from writing backend code that passes the demo and breaks in production. Critical mistakes: 25/150 runs without, 2/150 with. Claude Code, Codex, Cursor. Agent skills that make Claude Code, Codex and Cursor write backend code like a senior engineer: safe on auth, data, money and schema changes by default. We gave agents 15 backend tasks with and without the skills, then ran a hidden check the agent never sees: 20 buyers at once for 5 items in stock, a user reading someone else's order, the old app version running against the new schema mid-deploy. Critical mistakes: 25/150 runs without the skills, 2/150 with them. (Sonnet 5.5 and Haiku 5.5, 5 runs per task.) Runs with a critical mistake, without → with the skills. Missed team conventions (down migrations, API docs) went from 30 to 4. Not fixed yet: Haiku on out-of-order webhook events. Every raw run, the tasks and how to rerun it are in bench/ . Codex and other AGENTS.md agents: append dist/AGENTS.md . Cursor: copy dist/cursor/ into .cursor/rules/ . Each skill ends with a Make it yours section for your team's choices (error format, API docs). Left as \"not set\", the agent follows what your repo already does. Agent still made a mistake with the skills loaded? Open an issue with the prompt and the diff. Edit skills in skills/ , then node scripts/build-dist.mjs . Skills that stop AI agents from writing backend code that passes the demo and breaks in production. Critical mistakes: 25/150 runs without, 2/1",
+  "content_excerpt": "Skills that stop AI agents from writing backend code that passes the demo and breaks in production. Critical mistakes: 25/150 runs without, 2/150 with. Claude Code, Codex, Cursor. Agent skills that make Claude Code, Codex and Cursor write backend code like a senior engineer: safe on auth, data, money and schema changes by default. We gave agents 15 backend tasks with and without the skills, then ran a hidden check the agent never sees: 20 buyers at once for 5 items in stock, a user reading someone else's order, the old app version running against the new schema mid-deploy. Critical mistakes: 25/150 runs without the skills, 2/150 with them. (Sonnet 5.5 and Haiku 5.5, 5 runs per task.) Runs with a critical mistake, without → with the skills. Most of the gap is two tasks: login-rate-limit and rename-column account for 20 of the 25, and 10 of the 15 tasks had no critical mistake either way. Not fixed yet: Haiku on out-of-order webhook events. Codex and other AGENTS.md agents: append dist/AGENTS.md . Cursor: copy dist/cursor/ into .cursor/rules/ . Each skill ends with a Make it yours section for your team's choices (error format, API docs). Left as \"not set\", the agent follows what your repo already does. Agent still made a mistake with the skills loaded? Open an issue with the prompt and the diff. Edit skills in skills/ , then node scripts/build-dist.mjs . Skills that stop AI agents from writing backend code that passes the demo and breaks in production. Critical mistakes: 25/150",
   "first_seen": "2026-11-07T08:05:28.155245+00:00",
-  "id": "26069811ab1f733d",
+  "id": "27d82a06fc491e69",
   "matched_topics": [
    "agent"
   ],
-  "published": "2026-11-07T07:34:15+00:00",
+  "published": "2026-11-14T03:32:05+00:00",
   "sid": "772c78fed213df84",
   "source": "hackernews_ai",
-  "summary_1line": "Show HN: Coding agent skills, tested on 15 backend tasks with hidden checks",
-  "title": "Show HN: Coding agent skills, tested on 15 backend tasks with hidden checks",
+  "summary_1line": "Show HN: Back endskills – agent skills for safer auth, data and migration code",
+  "title": "Show HN: Back endskills – agent skills for safer auth, data and migration code",
   "type": "news",
   "url": "https://github.com/globalmpc/backendskills",
   "why_it_matters": "Matches feed focus: agent."
@@ -16316,8 +16332,14 @@
   "first_seen": "2026-11-14T02:08:38.834251+00:00",
   "id": "77959962609c8212",
   "published": "2026-11-14T01:31:16+00:00",
+  "release_highlights": [
+   "release(checkpoint): 4.3.2",
+   "perf(checkpoint): stop InMemoryStore search at the requested page",
+   "perf(checkpoint): dedupe batched store reads with a dict"
+  ],
   "sid": "fc2ba48bea4dc06f",
   "source": "langgraph_releases",
+  "summary": "Changes since checkpoint==4.3.1 release(checkpoint): 4.3.2 ( #9699 ) perf(checkpoint): stop InMemoryStore search at the requested page ( #9633 ) perf(checkpoint): dedupe batched store reads with a dict ( #9636 ) chore(deps): bump the minor-and-patch group in /libs/checkpoint with 6 updates ( #9529 ) chore(deps-dev): bump pycryptodome from 3.23.0 to 4.2.0 in /libs/checkpoint in the major group ( #9531 )",
   "summary_1line": "Changes since checkpoint==4.3.1 release(checkpoint): 4.3.2 ( #9699 ) perf(checkpoint): stop InMemoryStore search at the requested page (<a class=\"issue-link j",
   "title": "langgraph-checkpoint==4.3.2",
   "type": "release",

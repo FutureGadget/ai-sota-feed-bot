@@ -1,31 +1,33 @@
 {
  "date": "2026-11-14",
  "diagnostics": {
-  "admitted": 0,
-  "candidates": 215,
-  "duplicate_url": 6,
-  "items": 34,
-  "keeps": 96,
-  "new": 0,
-  "off_topic": 21,
-  "prior_story": 42,
+  "admitted": 1,
+  "candidates": 262,
+  "duplicate_url": 9,
+  "items": 35,
+  "keeps": 122,
+  "new": 1,
+  "off_topic": 27,
+  "prior_story": 48,
   "rejected_gate": {
-   "insufficient_evidence": 7,
+   "insufficient_evidence": 8,
    "judge_drop": 8,
-   "off_topic": 21,
-   "score_low": 57
+   "off_topic": 27,
+   "score_low": 65
   },
   "rejected_quota": {
-   "source_quota": 34
+   "source_quota": 36
   },
-  "releases": 23,
-  "reviews": 67,
-  "role_counts": {},
+  "releases": 30,
+  "reviews": 79,
+  "role_counts": {
+   "community": 1
+  },
   "run_candidates": 140,
-  "stale_story": 7,
-  "stories": 122,
-  "unjudged": 14,
-  "updated": 23,
+  "stale_story": 27,
+  "stories": 154,
+  "unjudged": 15,
+  "updated": 10,
   "written": true
  },
  "items": {
@@ -52,7 +54,7 @@
     "release_lane": 0.19
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-14T04:07:09.568693+00:00",
+   "last_seen": "2026-11-14T05:08:11.718841+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.934,
@@ -60,7 +62,7 @@
    "rank_at_first_seen": 34,
    "release_tier": null,
    "score_at_first_seen": 1.2468,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "community_signal",
    "source": "search_cn_open_weight_labs",
    "source_count": 1,
@@ -101,7 +103,7 @@
     "release_lane": 0.95
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-14T04:07:09.568693+00:00",
+   "last_seen": "2026-11-14T05:08:11.718841+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.99,
@@ -109,7 +111,7 @@
    "rank_at_first_seen": 29,
    "release_tier": "minor",
    "score_at_first_seen": 0.6798,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "agent_tooling_releases",
    "source": "langgraph_releases",
    "source_count": 1,
@@ -150,7 +152,7 @@
     "release_lane": 0.95
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-14T04:07:09.568693+00:00",
+   "last_seen": "2026-11-14T05:08:11.718841+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.993,
@@ -158,7 +160,7 @@
    "rank_at_first_seen": 32,
    "release_tier": "minor",
    "score_at_first_seen": 0.6584,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "agent_tooling_releases",
    "source": "langgraph_releases",
    "source_count": 1,
@@ -199,7 +201,7 @@
     "release_lane": 0.96
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-14T04:07:09.568693+00:00",
+   "last_seen": "2026-11-14T05:08:11.718841+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.991,
@@ -207,7 +209,7 @@
    "rank_at_first_seen": 31,
    "release_tier": "minor",
    "score_at_first_seen": 0.6771,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "agent_tooling_releases",
    "source": "langgraph_releases",
    "source_count": 1,
@@ -248,7 +250,7 @@
     "release_lane": 0.95
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-14T04:07:09.568693+00:00",
+   "last_seen": "2026-11-14T05:08:11.718841+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.989,
@@ -256,7 +258,7 @@
    "rank_at_first_seen": 30,
    "release_tier": "minor",
    "score_at_first_seen": 0.6796,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "agent_tooling_releases",
    "source": "langgraph_releases",
    "source_count": 1,
@@ -273,6 +275,57 @@
    "utility_basis": "release:minor",
    "v2_slot": "agent_tooling_releases",
    "why_it_matters": ""
+  },
+  "story|title:agent distraction": {
+   "admission_rank": 35,
+   "admitted_at": "2026-11-14T05:08:11.718841+00:00",
+   "also_covered": [],
+   "content_excerpt": "What is easy for humans to skim past in code, agents see as a call to action. They do not know better, latching on to that which is littered across the files read during the planning and research phase of the coding journey. As agents' agency through tools and skills grows the ability for side-quests scales proportionally. Obsolete specs, long resolved bugs, and lagging documentation no longer rest in long forgotten corners of the codebase, but rather are unintentionally ingested as context indirecting and misdirecting the next wave of coders - the agents. This indirection is not free: in the best case it only costs tokens, steps, and time - in the worst case it distracts and grounds the agent on falsehoods leading to incorrect logic and decisions during implementation. Measuring how often agents fall into these traps across millions of monthly sessions is impossible with manual human review - we need an objective signal derivable from the code itself. Inline TODO(bug/...) comments provide the perfect proxy. TODOs tend to be left behind long after the underlying bug is resolved or abandoned, while the linked bug ticket acts as the canonical record. By cross-referencing every TODO an agent encounters against the TODO's bug status and the user's prompt, we can automatically separate valid work from wasted detours at scale. By leveraging the distributed traces of agent interactions across thousands of engineers and over hundreds of millions of individual agent steps, we quantify the impact of TODO distractions in the codebase and how agents act on them: Controlling for developer, codebase complexity, task type, model tier, number of files read, initial prompt length, and the step where the bug reference appeared, using a multi-way fixed-effects regression with developer-clustered standard errors, we see that unprompted bug detours add substantial overhead (all stat sig p<0.0001). Per session: The Obsolete Detour: In the following trajectory we can observe how this drift plays out. During an investigation into an unrelated bug The agent views SurfaceControlTest.java and sees // TODO(bug/XXX) This bug, while fixed in 2023, remains lingering in the codebase leading to subsequent investigation distraction across Steps with the agent digging into the bug to learn more. The Eager Agent: In the trajectory the agent encountered a TODO in the bug it was investigating and decided (unprompted) to \"fix\" the code The agent executed multiple Code Search and internal knowle",
+   "first_seen": "2026-11-14T05:08:11.718841+00:00",
+   "freshness_at_admission": 0.9744,
+   "id": "ad85245920c4bc85",
+   "image_url": null,
+   "judge_category": "agent_engineering",
+   "judge_category_confidence": 0.86,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-14T05:07:54.024067+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.86,
+   "judge_signals": {
+    "corporate_marketing": 0.17,
+    "keep": 0.86,
+    "platform_relevant": 0.96,
+    "release_lane": 0.05
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-14T05:08:11.718841+00:00",
+   "llm_category": "platform",
+   "matched_topics": [
+    "agent"
+   ],
+   "prefilter_score": 1.919,
+   "published": "Sat, 14 Nov 2026 03:47:16 +0000",
+   "rank_at_first_seen": 35,
+   "release_tier": null,
+   "score_at_first_seen": 1.4069,
+   "seen_count": 1,
+   "slot": "community_signal",
+   "source": "hackernews_ai",
+   "source_count": 1,
+   "source_role": "community",
+   "source_tune": 0.13,
+   "story_cluster_id": "c4f5b0f16e9ce88f",
+   "story_key": "story|title:agent distraction",
+   "summary_1line": "Agent Distraction",
+   "time_decay_factor": 0.981,
+   "title": "Agent Distraction",
+   "type": "news",
+   "url": "https://developers.googleblog.com/agent-distraction/",
+   "utility": 1.4069,
+   "utility_basis": "judge",
+   "v2_slot": "community_signal",
+   "why_it_matters": "Matches feed focus: agent."
   },
   "story|title:ballad bandit based llm routing for automated heuristic discovery": {
    "admission_rank": 17,
@@ -591,7 +644,7 @@
     "release_lane": 0.09
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-14T03:06:32.852143+00:00",
+   "last_seen": "2026-11-14T05:08:11.718841+00:00",
    "llm_category": "agent_engineering",
    "matched_topics": [],
    "prefilter_score": 1.973,
@@ -599,7 +652,7 @@
    "rank_at_first_seen": 6,
    "release_tier": null,
    "score_at_first_seen": 1.2283,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "community_signal",
    "source": "hackernews_ai",
    "source_count": 1,
@@ -838,7 +891,7 @@
     "release_lane": 0.23
    },
    "judge_verdict": "review",
-   "last_seen": "2026-11-14T04:07:09.568693+00:00",
+   "last_seen": "2026-11-14T05:08:11.718841+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 0.857,
@@ -846,7 +899,7 @@
    "rank_at_first_seen": 33,
    "release_tier": null,
    "score_at_first_seen": 0.465,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "frontier_official",
    "source": "google_deepmind_blog",
    "source_count": 1,
@@ -887,7 +940,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-14T03:06:32.852143+00:00",
+   "last_seen": "2026-11-14T05:08:11.718841+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -897,7 +950,7 @@
    "rank_at_first_seen": 23,
    "release_tier": null,
    "score_at_first_seen": 1.3404,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "community_signal",
    "source": "hackernews_ai",
    "source_count": 1,
@@ -987,7 +1040,7 @@
     "release_lane": 0.11
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-14T03:06:32.852143+00:00",
+   "last_seen": "2026-11-14T05:08:11.718841+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -997,7 +1050,7 @@
    "rank_at_first_seen": 8,
    "release_tier": null,
    "score_at_first_seen": 1.1983,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "community_signal",
    "source": "hackernews_ai",
    "source_count": 1,
@@ -1076,7 +1129,7 @@
    "judge_error": "insufficient_evidence",
    "judge_evidence_chars": 167,
    "judge_verdict": "unjudged",
-   "last_seen": "2026-11-14T04:07:09.568693+00:00",
+   "last_seen": "2026-11-14T05:08:11.718841+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -1086,7 +1139,7 @@
    "rank_at_first_seen": 24,
    "release_tier": null,
    "score_at_first_seen": 0.5219,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "frontier_official",
    "source": "openai_blog",
    "source_count": 1,
@@ -1695,5 +1748,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-14T04:07:09.568693+00:00"
+ "updated_at": "2026-11-14T05:08:11.718841+00:00"
 }
