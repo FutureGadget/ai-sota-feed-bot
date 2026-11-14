@@ -50,6 +50,42 @@ and cuts the last scored week from 1,576 to 32. Do **not** replace this with an
 engagement filter based on `scroll_depth` or `$web_vitals`: the crawler runs a
 real browser and emits both.
 
+### Engaged-visit label for acquisition numbers (2026-11-14)
+
+The pageview floor protects this metric only. Web Analytics channel and
+landing-page totals still counted every crawler hit as a Direct session; the
+PostHog inbox report "Daily-edition Direct visits still lack a known
+acquisition source" traced to this crawler. Its fingerprint is spoofed
+(Chrome 151 on Windows, 1920x1080 screen, randomized viewport), so PostHog's
+`isLikelyBot` returns false, and nothing the client captured on load proved a
+person was present: `scroll_depth` fires when the page fits the viewport and
+`editorial_update_open` when the page renders.
+
+`web/posthog-client.js` now records two labels:
+
+- `profile_state` on every event: `fresh` when the browser had no reader id
+  before this page, `returning` when it had one or arrived from an email
+  `rid=` link, `unknown` when storage is blocked.
+- `engaged_visit`, once per page load, on the first trusted pointer, key,
+  wheel or touch input, or after 10 seconds of visible time.
+
+A crawler page is `fresh` and closes within a second without input, so it never
+emits `engaged_visit`. Count acquisition with sessions that have an
+`engaged_visit`; to label likely automation, take `fresh` sessions without one:
+
+```sql
+SELECT $session_id,
+       countIf(event = 'engaged_visit') > 0 AS engaged,
+       anyIf(properties.profile_state, event = '$pageview') AS profile_state
+FROM events
+WHERE timestamp >= now() - INTERVAL 7 DAY AND $session_id IS NOT NULL
+GROUP BY $session_id
+```
+
+A human who leaves a fresh page in under 10 seconds without touching it is
+labelled with the crawler. That is the intended trade: such a visit was not
+acquisition either. Events from before 2026-11-14 have neither label.
+
 "Pageview" here means the standard posthog-js `$pageview`, emitted by
 `web/posthog-client.js` (this also powers PostHog Web Analytics). The rollup
 query still matches the legacy custom `page_view` as well — it was dual-emitted

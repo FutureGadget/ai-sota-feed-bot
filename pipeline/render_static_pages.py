@@ -414,7 +414,7 @@ PAGE_JS = """\
 # "New updates" nav indicators for generated pages — same shared script as the
 # hand-edited shells (see docs/product-specs/nav-update-indicators.md).
 NAV_UPDATES_TAG = '<script src="/nav-updates.js?v=20261107-glitch-sweep" defer></script>'
-POSTHOG_CLIENT_ASSET_VERSION = "20260924-email-reader-id"
+POSTHOG_CLIENT_ASSET_VERSION = "20261114-engaged-visit"
 POSTHOG_CLIENT_TAG = f'<script defer src="/posthog-client.js?v={POSTHOG_CLIENT_ASSET_VERSION}"></script>'
 # Follow button for static storyline pages. Mirrors the localStorage contract
 # in web/storyline.html (FOLLOWS_KEY ai_feed_storyline_follows_v1) so a follow

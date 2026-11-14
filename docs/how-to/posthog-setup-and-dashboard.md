@@ -12,6 +12,14 @@ This runbook describes how to enable PostHog for `ai-sota-feed-bot`, verify inge
   - `feed_view`
   - `impression_batch`
   - `click`
+  - `engaged_visit` (once per page load, on the first trusted pointer, key,
+    wheel or touch input, or after 10 seconds of visible time; properties
+    `path`, `trigger`, `ms_since_load`)
+- Every event carries the super property `profile_state`: `fresh` when the
+  browser had no reader id before the page loaded, `returning` when it did
+  (or arrived from an email `rid=` link), `unknown` when storage is blocked.
+  A session that is `fresh` and has no `engaged_visit` is likely the sitemap
+  crawler; see `docs/status/north-star-metric.md` for the filter.
 
 ---
 
@@ -122,6 +130,9 @@ Create a dashboard with these insights:
   `docs/status/north-star-metric.md`. Cross-check it in PostHog itself with a
   built-in **Retention** insight (event: `$pageview`, weekly granularity) if
   you want a visual sanity check against the rollup's numbers.
+- For acquisition and channel numbers (Direct sessions, landing pages), count
+  sessions that contain an `engaged_visit`, or exclude `profile_state = 'fresh'`
+  sessions without one. Raw Web Analytics session totals include the crawler.
 
 ---
 
