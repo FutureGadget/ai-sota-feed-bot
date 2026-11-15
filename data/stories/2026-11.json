@@ -5480,6 +5480,22 @@
   "url": "http://arxiv.org/abs/2611.08376v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "50e21ee544acc01f": {
+  "content_excerpt": "A sandbox for AI runs: every agent task gets its own FlashVM. It's claimed warm in milliseconds, runs whatever the agent wrote behind a real hypervisor boundary, and is thrown away when the task ends. One install, no account, no cloud. We built our own virtual machine for this: FlashVM , leaner and faster than a conventional microVM. PowerShell as Administrator. It enables the hypervisor if needed, picks x64 or ARM64 and verifies the checksum. Then jail the agent you already use, unchanged: flash agents setup , then cd my-project && claude . It runs in its own VM and sees only that folder. The full tour: flash demo . Scripts, package installs, test suites, and Docker builds run inside a VM with its own kernel. Cap CPU, memory, disk and network only when you want to, and decide what it may reach with --egress . Nothing touches the host. flash-mcp hands Claude, Cursor or any MCP client the whole lifecycle in 21 tools: create, run commands, copy files, fork, limit what it can reach, call APIs without holding the key, watch, snapshot, restore, tear down. Warm pools keep spares already running, so a task claims one instead of booting. Snapshots restore a prepared environment in milliseconds, and flash fork branches a running VM into copies that carry on from where it was. A GPU pool loads an AI model on the host's GPU once and every VM you allow sends it requests. No VM touches the GPU or needs a driver, and snapshots and warm pools keep working. Metal on Apple silicon, Vulkan on ",
+  "first_seen": "2026-11-15T16:05:03.750280+00:00",
+  "id": "6a5483dbef4e5226",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-15T15:09:19+00:00",
+  "sid": "50e21ee544acc01f",
+  "source": "hackernews_ai",
+  "summary_1line": "FlashVMM – jail your AI agent in a MicroVM that boots in 18 ms",
+  "title": "FlashVMM – jail your AI agent in a MicroVM that boots in 18 ms",
+  "type": "news",
+  "url": "https://flashvmm.com",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "514c35edc0c4a06c": {
   "content_excerpt": "Most engineering blog posts describe a system the authors built. This one describes a system that caught its own bugs. On 2026-06-10, the autonomous agent organization that runs agent.ceo found, root-caused, fixed, and verified four distinct platform bugs in a single working day — not because someone scheduled a bug hunt, but because the agents hit the bugs in the course of their ordinary work and refused to let them slide. We think that's the more interesting story: not \"agents can write code,\" but \"an agent organization can police itself.\" 1. A task that lost its acceptance. Our task system assigns work over a real-time message bus and also writes a durable record of every task. The bug: the assignment was published before the durable record was created . Fast auto-accepts — arriving about a second later — looked up a record that didn't exist yet and were silently dropped. Then the late-arriving create overwrote the status back to \"assigned.\" The symptom was a stream of false \"nobody accepted this\" escalations and tasks whose timestamps lagged by 30–50 seconds. The fix was an ordering change — create the durable record before publishing the notification — plus a guard that refuses to clobber a newer status, plus a loud warning on the path that used to fail silently. Six regression tests now hold the line. 2. A test pretending to be real work. This one is our favorite, because of how it was caught. A set of test fixtures — fake tasks that exist only to exercise the code — le",
   "first_seen": "2026-11-08T14:04:46.175901+00:00",
@@ -12088,6 +12104,23 @@
   "type": "research",
   "url": "https://huggingface.co/blog/ibm-research/cuga-harness",
   "why_it_matters": "Matches feed focus: agent, harness."
+ },
+ "b0f5fd4de77a14f3": {
+  "content_excerpt": "Your desktop companion for code, ideas, and everyday work. Keeps the conversation going, with your apps connected. Events keep the work connected. Explore the choices behind Pizza’s memory, tools, and interfaces. Reactor advances each turn through an event-driven state machine. The immutable SQLite event log is the source for the interface, model context, and history tree. Interrupts, retries, and parallel tool calls have explicit handlers. Recorded events make state easier to rebuild and inspect. Fork from a message in the past. Continue along a new branch while keeping the earlier path available to revisit and compare. A continuing conversation and a branchable history work together. Context compaction helps the conversation keep going. The model calls a single CLI tool. Reading, writing, editing, and workspace messaging are commands behind that interface. A small tool schema reduces repeated definitions in the model context. Extra instructions and capabilities can be loaded as needed. The desktop GUI, terminal UI, JSON-RPC, and one-shot print mode consume the same SessionFacade event stream. Use Pizza interactively, automate a task, or embed it in your own tooling. The interfaces share the same agent runtime. Go from a rough idea to something real. Pizza works in your projects, keeps the context, and helps you carry the work forward. Give your personal assistant a goal. Project agents work in their own context and send the results back. You do not need to start a fresh ses",
+  "first_seen": "2026-11-15T16:05:03.750280+00:00",
+  "id": "7759f2dbe4850b3a",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-15T16:04:32+00:00",
+  "sid": "b0f5fd4de77a14f3",
+  "source": "hackernews_ai",
+  "summary": "Hi HN, I made Pizza, an open-source, event-driven AI agent. No `while true`. Each turn is a state machine. Conversations and tool calls go into an immutable SQLite log. The UI, model context, and session tree are built from that log. The model gets one tool: a CLI. Reading files, editing code, and running commands all go through it. You can keep a conversation going without manually starting new sessions. Pizza compacts context as needed, and you can branch from any earlier message. Agents in separate workspaces talk through `tell`, each doing the work in its own project. An SSH host can be a workspace too: Pizza deploys itself there and runs remotely. Desktop and terminal interfaces are included. Bring your own model. https://github.com/pizza-agent/pizza",
+  "summary_1line": "Hi HN, I made Pizza, an open-source, event-driven AI agent. No `while true`. Each turn is a state machine. Conversations and tool calls go into an immutable SQLite log. The UI, model context, and session tree are buil...",
+  "title": "Show HN: Pizza – An event-driven AI agent, no while true",
+  "type": "news",
+  "url": "https://pizza.hertzbeat.com",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "b12bd70de803121f": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. The panelists explain how AI tools and vibe coding reshape frontend and mobile engineering. They share insights on evolving junior developer roles, managing AI-generated code review fatigue, designing systems for autonomous agents, enforcing architectural guardrails, and navigating economic shifts in open-source software sustainability. Advait Patel shares a playbook for securing AI agent systems in production. He discusses moving defense boundaries from the prompt to the tool layer, enforcing scoped workload identities, and mitigating prompt injection via tool outputs. He explains how to structure audit-ready observability and implement kill switches to protect critical data while keeping deployment fast and compliant. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He",
