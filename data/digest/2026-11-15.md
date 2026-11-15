@@ -2,116 +2,110 @@
 
 Focus: AI Platform Engineering
 
-## 1. GitSeed – Self-hosted control plane for AI coding agents
+## 1. AXI Framework: The Cure for the Cost Crisis in AI
 - Type: news | Source: hackernews_ai
-- URL: https://github.com/gitseed-dev/gitseed
-- Score: 3.493 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+- URL: https://zenodo.org/records/23958737
+- Score: 3.494 | Reliability: 1.0
+- Why it matters: 
 
 ## 2. Show HN: Widefleet Cloud - Deploy agent-built internal apps with SSO and storage
 - Type: news | Source: hackernews_ai
 - URL: https://widefleet.com/
-- Score: 3.398 | Reliability: 1.0
+- Score: 3.25 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. Groma.md: Stay in control of your architecture as AI agents write code
+## 3. Show HN: Attest – Test what AI agents do, not just what they say
 - Type: news | Source: hackernews_ai
-- URL: https://github.com/MrLesk/Groma.md
-- Score: 3.379 | Reliability: 1.0
+- URL: https://attest-framework.github.io/
+- Score: 3.235 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 4. Meta’s Muse: How we launched the most successful consumer product this year | Mona Sarantakos
-- Type: video | Source: lennys_podcast
-- URL: https://youtu.be/WY0cdD4gNoQ
-- Score: 2.701 | Reliability: 0.818
-- Why it matters: Matches feed focus: agentic, eval.
+## 4. Auditing AI peer reviewers: a benchmark on real scientific papers
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.17052v1
+- Score: 2.446 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation, claude code.
 
-## 5. What Breaks Going From 1 Coding Agent to 10 | James Moss, Tessl
-- Type: video | Source: ai_native_dev
-- URL: https://youtu.be/B4sTAoiyR_k
-- Score: 2.654 | Reliability: 0.818
-- Why it matters: Matches feed focus: agent, software delivery.
+## 5. Paper-Faithful Federated Learning: Scientific Checks for Practitioner and Agent Development
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.17129v1
+- Score: 2.437 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
 
-## 6. Goal Engineering
+## 6. LiveGeo: Benchmarking Geographic Agents in Continuously Evolving Worlds
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.17267v1
+- Score: 2.429 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 7. Goal Engineering
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/goal-engineering
-- Score: 2.306 | Reliability: 1.0
+- Score: 2.287 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. LazyWeights: Decode-on-Demand Edge LLMs
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.17108v1
-- Score: 1.987 | Reliability: 1.0
-- Why it matters: 
-
-## 8. SwarmSafe-Delta: Isolating Message Effects on LLM Agent Safety
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.16123v1
-- Score: 1.983 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 9. Human or Synthetic? What a Fixed Budget Buys for Post-Training
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.16895v1
-- Score: 1.959 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 10. H3-Image Day-0 Support: 4K in 0.87s with Vera Rubin
+## 8. H3-Image Day-0 Support: 4K in 0.87s with Vera Rubin
 - Type: news | Source: vllm_blog
 - URL: https://vllm.ai/blog/2026-11-12-minimax-h3-image-rubin
-- Score: 1.952 | Reliability: 1.0
+- Score: 1.941 | Reliability: 1.0
 - Why it matters: 
 
-## 11. codex 0.171.0-alpha.6
+## 9. codex 0.171.0-alpha.6
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.6
-- Score: 1.903 | Reliability: 1.0
+- Score: 1.788 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 12. New AI agent observability and governance across BigQuery and Looker
+## 10. New AI agent observability and governance across BigQuery and Looker
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/data-analytics/enterprise-ai-agent-observability-with-bigquery-and-looker/
-- Score: 1.772 | Reliability: 1.0
+- Score: 1.712 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 13. Measuring how AI agents handle everyday wet-lab science
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/measuring-how-ai-agents-handle-wet-lab-science
-- Score: 1.605 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 11. Actor, Judge, or Teacher? Understanding Decision Models in Long-Horizon Agents
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.17167v1
+- Score: 2.356 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
-## 14. Supporting research on AI and children’s safety
+## 12. JioStar’s chief architect on AI discovery at 500M-user scale
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/jiostar-vijay-seshadri
+- Score: 1.621 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 13. Supporting research on AI and children’s safety
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/children-first-declaration
-- Score: 1.603 | Reliability: 1.0
+- Score: 1.599 | Reliability: 1.0
 - Why it matters: 
 
-## 15. ChatGPT Plus for veterans and servicemembers
+## 14. ChatGPT Plus for veterans and servicemembers
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/chatgpt-plus-for-veterans
-- Score: 1.54 | Reliability: 1.0
+- Score: 1.536 | Reliability: 1.0
 - Why it matters: 
 
-## 16. claude-code v2.1.321
+## 15. claude-code v2.1.321
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.321
-- Score: 1.201 | Reliability: 1.0
+- Score: 1.182 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 17. langgraph==1.2.22
+## 16. langgraph-checkpoint-postgres==3.2.1
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.22
-- Score: 1.18 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/checkpointpostgres%3D%3D3.2.1
+- Score: 1.155 | Reliability: 1.0
 - Why it matters: 
 
-## 18. claude-agent-sdk-python v0.2.181
+## 17. claude-agent-sdk-python v0.2.180
 - Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.181
-- Score: 0.997 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.180
+- Score: 0.853 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 19. Release 2.74.0 corresponding to NGC container 26.10
+## 18. Release 2.74.0 corresponding to NGC container 26.10
 - Type: release | Source: triton_releases
 - URL: https://github.com/triton-inference-server/server/releases/tag/v2.74.0
-- Score: 0.83 | Reliability: 1.0
+- Score: 0.828 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
