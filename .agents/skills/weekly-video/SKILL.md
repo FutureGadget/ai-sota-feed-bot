@@ -11,13 +11,13 @@ Follow `.agents/skills/video-common/SKILL.md` for every step, with
 values apply:
 
 - Source: `data/weekly/<week>.json` only. Work dir: `build/weekly-video/<week>/`.
-- Stories: cover every highlight and every category per `video-common` step 2,
-  then add stories that show a pattern across days (the same problem from two
-  sources, a before and after, a number that moved).
-- Scenes: 9-12, at most 12. The default `--max-scenes 12` applies. Scene 1 is
+- Stories: tiers per `video-common` step 2. Deep scenes: 3. In lead and deep
+  scenes, show the pattern across days (the same problem from two sources, a
+  before and after, a number that moved).
+- Scenes: 7-10, at most 12: cold open, lead, 3 deep, quick, close. The default `--max-scenes 12` applies. Scene 1 is
   the hook and states the through-line from the recap intro. End with a recap
   scene that names `llm-digest.com`.
-- Duration: 150-180 s. A scene runs about 16 s, so 9-11 scenes fit.
+- Duration: 150-180 s.
 - Voice: the run needs up to 12 requests, more than one model's 10 per day.
   The fallback chain covers it; expect two models to voice one video and
   report both.

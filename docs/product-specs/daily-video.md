@@ -1,6 +1,6 @@
 # Daily explainer video
 
-A 90-120 s narrated video that explains how 4-6 of the day's stories work, shown
+A 90-120 s narrated video that explains the day's top stories in depth and names the rest, shown
 on the daily recap page.
 
 ## Reader behavior
@@ -34,11 +34,16 @@ number is drawn unless the recap gives one; generic diagrams are labeled
 illustrative.
 
 ## Coverage
-The video is the audio edition of the recap, not a separate edit. Scene 1 states
-the recap `intro`'s central claim and the last scene gives its takeaway. Every
-highlight and every category appears in a scene; at most 2 highlights and 1
-category may be cut, each with a reason. The lead story is a highlight. The
-storyboard maps highlights and categories to scenes in `coverage.json`, and
+The video is the audio edition of the recap, not a separate edit. Recap
+`highlights` are written in priority order and set the depth of each story:
+the first is the lead (about 30 percent of the runtime), the next 2 get a deep
+scene each (before, change, spoken so-what), and the rest get one spoken line
+each in a single quick scene. A highlight with no mechanism or number to
+explain is swapped to the quick scene with a reason and the next one moves up.
+At most 1 highlight and 1 category may be cut, each with a reason. The cold
+open states the sharpest fact within 3 s, then the recap `intro`'s central
+claim; each scene opens with a line tying it to the one before; the last scene
+gives the intro's takeaway. The storyboard records tiers in `coverage.json`, and
 `.agents/skills/video-common/scripts/check_coverage.py` must pass before voicing.
 
 ## Email

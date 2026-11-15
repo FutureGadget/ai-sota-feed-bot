@@ -4,23 +4,26 @@
 Usage: check_coverage.py --kind daily|weekly --id KEY --narration narration.json --coverage coverage.json
 
 coverage.json:
-  {"highlights": [{"i": 0, "scene": "s2"}, {"i": 3, "cut": "reason"}, ...],
-   "categories": [{"slug": "<category slug>", "scene": "s4"}, {"slug": "...", "cut": "reason"}],
-   "lead": 0}
+  {"highlights": [{"i": 0, "scene": "s2", "tier": "lead"}, {"i": 1, "scene": "s3", "tier": "deep"},
+                  {"i": 2, "scene": "s5", "tier": "quick", "swap": "reason"}, {"i": 4, "cut": "reason"}],
+   "categories": [{"slug": "<category slug>", "scene": "s4"}, {"slug": "...", "cut": "reason"}]}
 
-`i` indexes recap `highlights`. `lead` is the highlight index the lead story
-comes from. Exit 0 when the mapping is complete, else print the problems and
-exit 1.
+`i` indexes recap `highlights`, which are in priority order. The lead and deep
+tiers must be the first highlights in that order; a highlight that is skipped
+for a lower-ranked one must be `quick` with a `swap` reason. Exit 0 when the
+mapping is complete, else print the problems and exit 1.
 """
 import argparse, json, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[4]
-MAX_CUT_HIGHLIGHTS = 2
+MAX_CUT_HIGHLIGHTS = 1
+DEEP = {"daily": 2, "weekly": 3}
+TIERS = ("lead", "deep", "quick")
 MAX_CUT_CATEGORIES = 1
 
 
-def check(recap: dict, narration: list, coverage: dict) -> list[str]:
+def check(recap: dict, narration: list, coverage: dict, kind: str = "daily") -> list[str]:
     errors: list[str] = []
     scenes = {s.get("id") for s in narration}
     highlights = recap.get("highlights") or []
@@ -47,12 +50,32 @@ def check(recap: dict, narration: list, coverage: dict) -> list[str]:
         errors.append(f"highlights: {cut_h} cut, at most {MAX_CUT_HIGHLIGHTS}")
     if cut_c > MAX_CUT_CATEGORIES:
         errors.append(f"categories: {cut_c} cut, at most {MAX_CUT_CATEGORIES}")
-    lead = coverage.get("lead")
-    cut_ids = {r.get("i") for r in coverage.get("highlights") or [] if r.get("scene") is None}
-    if not isinstance(lead, int) or not 0 <= lead < len(highlights):
-        errors.append("lead: must be a highlight index")
-    elif lead in cut_ids:
-        errors.append("lead: the lead highlight cannot be cut")
+    rows = [r for r in coverage.get("highlights") or [] if r.get("scene") is not None and isinstance(r.get("i"), int)]
+    for r in rows:
+        if r.get("tier") not in TIERS:
+            errors.append(f"highlights: i {r['i']} needs a tier of {', '.join(TIERS)}")
+        if r.get("swap") is not None and (r.get("tier") != "quick" or not str(r["swap"]).strip()):
+            errors.append(f"highlights: i {r['i']} swap needs tier quick and a reason")
+    # Eligible = shown and not swapped out, in priority order. The first is the
+    # lead and the next DEEP[kind] are deep, so depth follows the recap's ranking.
+    eligible = sorted(r["i"] for r in rows if r.get("swap") is None)
+    want_deep = eligible[1 : 1 + DEEP[kind]]
+    tier = {r["i"]: r.get("tier") for r in rows}
+    leads = sorted(i for i, t in tier.items() if t == "lead")
+    deeps = sorted(i for i, t in tier.items() if t == "deep")
+    if not eligible:
+        errors.append("highlights: no lead; every shown highlight is swapped")
+    elif leads != eligible[:1]:
+        errors.append(f"highlights: lead must be highlight {eligible[0]}, got {leads}")
+    if eligible and deeps != want_deep:
+        errors.append(f"highlights: deep must be highlights {want_deep}, got {deeps}")
+    by_scene: dict = {}
+    for r in rows:
+        if r.get("tier") in ("lead", "deep"):
+            by_scene.setdefault(r["scene"], []).append(r["i"])
+    for scene, ids in by_scene.items():
+        if len(ids) > 1:
+            errors.append(f"highlights: scene {scene!r} carries lead/deep highlights {ids}; one scene each")
     return errors
 
 
@@ -66,7 +89,7 @@ def main() -> None:
     recap = json.loads((ROOT / "data" / a.kind / f"{a.id}.json").read_text(encoding="utf-8"))
     narration = json.loads(Path(a.narration).read_text(encoding="utf-8"))
     coverage = json.loads(Path(a.coverage).read_text(encoding="utf-8"))
-    errors = check(recap, narration, coverage)
+    errors = check(recap, narration, coverage, a.kind)
     if errors:
         print("\n".join(errors))
         sys.exit(1)

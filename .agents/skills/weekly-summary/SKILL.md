@@ -154,6 +154,8 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
 - `highlights` (optional but recommended) is a "In 30 seconds" bullet list the
   page renders above the intro — 3–6 scannable one-liners so a reader gets the
   gist without reading the full narrative. Cover the week's biggest threads.
+  Order them by importance to the reader, most important first; the explainer
+  video leads with the first and goes deep on the next ones.
 - Treat each category as a **weekly shift**, not a storage bucket. Its `summary`
   should make one clear pattern claim that the listed articles then support.
   Avoid vague labels such as "Other news" or categories defined only by source.

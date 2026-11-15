@@ -34,32 +34,44 @@ category `summary` first.
 - The video is the recap's audio edition. Its through-line is the `intro`:
   scene 1 states the intro's central claim, and the last scene's takeaway is the
   intro's closing takeaway, in the viewer's terms.
-- Every highlight appears: each gets a story scene, or shares one with a
-  highlight from the same category. Cut at most 2, each with a reason.
-- Every category appears in at least one scene. Cut at most 1, with a reason.
-- The lead story is one of the highlights.
+- Highlights are in priority order. Give each a tier:
+  - `lead`: the first highlight. One scene, about 30 percent of the runtime.
+  - `deep`: the next highlights, as many as the kind skill sets. One scene
+    each with all three beats.
+  - `quick`: every remaining highlight, one spoken line each, together in one
+    "also today" / "also this week" scene before the last scene.
+- A lead or deep scene needs a mechanism, comparison or number in the recap
+  summaries. When a highlight has none, mark it `"tier":"quick","swap":"<reason>"`
+  and promote the next highlight. Never pad a deep scene.
+- Every highlight appears. Cut at most 1, with a reason.
+- Every category appears in at least one scene; the quick scene counts. Cut at
+  most 1, with a reason.
 - Write `coverage.json` next to `narration.json` before step 3 and run the
   check there (step 3). Format:
-  `{"lead":0,"highlights":[{"i":0,"scene":"s2"},{"i":3,"cut":"<reason>"}],"categories":[{"slug":"<slug>","scene":"s4"}]}`
+  `{"highlights":[{"i":0,"scene":"s2","tier":"lead"},{"i":1,"scene":"s3","tier":"deep"},{"i":2,"scene":"s5","tier":"quick","swap":"<reason>"},{"i":4,"cut":"<reason>"}],"categories":[{"slug":"<slug>","scene":"s4"}]}`
   with `i` the index in `highlights`.
 - Use only facts in the recap summaries. Derived arithmetic is fine. Never
   invent numbers, causes or quotes. If no number is given, do not draw one.
   Label any diagram that is a generic illustration as illustrative.
-- Fill the remaining scenes with stories whose summaries explain a mechanism,
-  comparison or magnitude.
-- A launch that is a highlight gets a scene. Explain what changes for the
+- A launch in a lead or deep scene is explained by what changes for the
   builder: a price, a limit, a capability, a decision.
-- Pick one lead story from the highlights (the sharpest number, tradeoff or
-  surprise) and give it about 30 percent of the runtime. Supporting stories
-  each teach a different mechanism: a price, a tradeoff, a workflow.
-- Scene 1 is a hook of 8 s at most, not a title card. Open on the intro's
-  central claim as a big animated number, or a one-line question. Narration
-  starts within 1 s. No "here is what happened" opener. The brand is a small
-  corner mark.
-- Every story scene runs three beats: before (the old situation, drawn
+- Deep stories each teach a different mechanism: a price, a tradeoff, a
+  workflow.
+- Scene 1 is a cold open of 8 s at most, not a title card. The first spoken
+  sentence is the sharpest fact from the lead or a deep story, with its number
+  when the recap gives one, and it lands within 3 s. The intro's central claim
+  follows as the second sentence. No "here is what happened" opener. The brand
+  is a small corner mark.
+- Thread the scenes. Each lead, deep and quick scene opens with one short
+  spoken line that ties it to the scene before, following the intro's argument
+  ("That is the promise. Here is where it breaks."). No scene starts cold.
+- Every lead and deep scene runs three beats: before (the old situation, drawn
   simply), the change (one animated transformation that shows the mechanism),
   then so-what (one red-highlighted consequence phrased as "so you can ..." or
-  "watch out if ...").
+  "watch out if ..."). Speak the so-what in the narration; do not leave it
+  on screen only.
+- The quick scene shows one row per highlight, revealed as its line is spoken.
+  No so-what band.
 - Make magnitude visible. Count up every number the recap gives and pair it
   with a comparison bar or a derived ratio, with the arithmetic on screen.
   No number in the recap means no number on screen: use before/after
@@ -75,8 +87,8 @@ category `summary` first.
 - The last scene gives the intro's takeaway as one sentence for the viewer, then
   at most three one-line bullets, then `llm-digest.com`. The narration ends on the
   takeaway, not the URL.
-- Narration: spoken, conversational, second person, 1-3 short sentences per
-  scene. Open each story with a concrete image or a question, not "<Company>
+- Narration: spoken, conversational, second person. Lead scene 5-7 short
+  sentences, deep scenes 3-5, other scenes 1-3. Open each story with a concrete image or a question, not "<Company>
   announced". Numbers and acronyms spelled out. Never read a list aloud. Write
   `narration.json`: `[{"id":"s1","text":"..."}]`.
 - Look: light broadsheet. Paper `#f4efe4`, ink `#15120f`, one red `#c4271c`,
@@ -90,14 +102,15 @@ category `summary` first.
   diagrams and notes above y=490 so the band and captions never overlap them.
   Keep dashed routes and labels clear of the band.
 - Reject the storyboard if: `check_coverage.py` fails; scene 1 is a title card; two adjacent scenes share
-  a layout; a story scene has no so-what; a number has no comparison; the lead
-  story runs under 25 s of a daily video.
+  a layout; a lead or deep scene has no spoken so-what; a scene after scene 1 opens
+  without a tie to the one before; a number has no comparison; the lead story
+  runs under 25 s of a daily video; a deep scene runs under 15 s.
 
 ## 3. Voice
 
 ```bash
 python .agents/skills/video-common/scripts/check_coverage.py --kind <kind> --id <key> \
-  --narration narration.json --coverage coverage.json
+  --narration narration.json --coverage coverage.json   # checks tiers for <kind>
 python .agents/skills/video-common/scripts/gemini_tts.py narration.json clips --voice Kore
 python .agents/skills/video-common/scripts/assemble.py timing narration.json clips
 ```
@@ -167,6 +180,6 @@ python .agents/skills/video-common/scripts/attach_video.py --kind <kind> --id <k
 
 ## Report
 
-Target key, highlights cut and why, categories cut and why, stories chosen, TTS requests used (and which model voiced each
+Target key, the tier of each highlight, swaps and cuts with reasons, categories cut and why, TTS requests used (and which model voiced each
 clip), video duration, YouTube URL, validation result, and any claim you were
 unsure about.

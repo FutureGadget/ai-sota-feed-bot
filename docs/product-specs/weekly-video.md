@@ -28,16 +28,21 @@ video file is never committed. The weekly index entries do not carry `video`.
 `.agents/routines/weekly-video/` (skill `.agents/skills/weekly-video/`, shared
 steps in `.agents/skills/video-common/`) runs Saturday 06:40 KST, 40 minutes
 after the weekly recap routine. It uploads first and attaches `video` only after
-the upload succeeds. A weekly video uses 9-12 scenes and follows the coverage rules below. Voice requests spread
+the upload succeeds. A weekly video uses 7-10 scenes and follows the coverage rules below. Voice requests spread
 across the Gemini TTS fallback chain, so one video may carry two voices. Setup
 and failure handling: `docs/how-to/daily-video-routine.md`.
 
 ## Coverage
-The video is the audio edition of the recap, not a separate edit. Scene 1 states
-the recap `intro`'s central claim and the last scene gives its takeaway. Every
-highlight and every category appears in a scene; at most 2 highlights and 1
-category may be cut, each with a reason. The lead story is a highlight. The
-storyboard maps highlights and categories to scenes in `coverage.json`, and
+The video is the audio edition of the recap, not a separate edit. Recap
+`highlights` are written in priority order and set the depth of each story:
+the first is the lead (about 30 percent of the runtime), the next 3 get a deep
+scene each (before, change, spoken so-what), and the rest get one spoken line
+each in a single quick scene. A highlight with no mechanism or number to
+explain is swapped to the quick scene with a reason and the next one moves up.
+At most 1 highlight and 1 category may be cut, each with a reason. The cold
+open states the sharpest fact within 3 s, then the recap `intro`'s central
+claim; each scene opens with a line tying it to the one before; the last scene
+gives the intro's takeaway. The storyboard records tiers in `coverage.json`, and
 `.agents/skills/video-common/scripts/check_coverage.py` must pass before voicing.
 
 ## Content rules
