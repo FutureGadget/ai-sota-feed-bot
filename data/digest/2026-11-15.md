@@ -2,128 +2,104 @@
 
 Focus: AI Platform Engineering
 
-## 1. What nobody tells you about writing agent skills
-- Type: news | Source: hackernews_ai
-- URL: https://newsletter.posthog.com/p/what-nobody-tells-you-about-writing
-- Score: 3.542 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 2. EnvOpt: Automated Optimization for Agent Environments
-- Type: news | Source: hackernews_ai
-- URL: https://bespokelabs.ai/blog/envopt
-- Score: 3.439 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 3. See and revoke what your AI coding agents can access
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/dirmedmr-alt/ai-access-auditor
-- Score: 3.408 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 4. Goal Engineering
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/goal-engineering
-- Score: 2.514 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 5. Cited but Unused: Parametric Provenance in Retrieval-Augmented Generation
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.17161v1
-- Score: 2.485 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 6. Introducing Gemini 4 Hydrogen
+## 1. Introducing Gemini 4 Hydrogen
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-gemini-4-hydrogen/
-- Score: 2.427 | Reliability: 1.0
+- Score: 2.436 | Reliability: 1.0
 - Why it matters: 
 
-## 7. Building strong safety evaluations
-- Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/building-strong-safety-evaluations
-- Score: 2.395 | Reliability: 1.0
+## 2. When Both Sides Adapt: The Challenges of Evaluating Interactive LLM Systems
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.17239v1
+- Score: 2.483 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 8. The Value of Thinking: Learning When to Reason in Hybrid Decision Models
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.16961v1
-- Score: 2.391 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
+## 3. Actor, Judge, or Teacher? Understanding Decision Models in Long-Horizon Agents
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.17167v1
+- Score: 2.483 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
-## 9. New AI agent observability and governance across BigQuery and Looker
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/products/data-analytics/enterprise-ai-agent-observability-with-bigquery-and-looker/
-- Score: 2.35 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
+## 4. Lost in Delegation: Studying the Effectiveness of Task Orchestration in Generative Search
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.16526v1
+- Score: 2.47 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
 
-## 10. llama_index v0.14.26
+## 5. How Amplitude ships product improvements in 1–2 days with OpenAI
+- Type: news | Source: openai_blog
+- URL: https://openai.com/business/customer-stories/amplitude
+- Score: 2.129 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 6. llama_index v0.14.26
 - Type: release | Source: llamaindex_releases
 - URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.26
-- Score: 2.069 | Reliability: 1.0
+- Score: 2.062 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 11. Negative-Only Policy Optimization for One-Sided Verifiable Rewards
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.17287v1
-- Score: 2.351 | Reliability: 1.0
-- Why it matters: 
-
-## 12. Introducing ChatGPT Wallet
+## 7. Introducing ChatGPT Wallet
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-chatgpt-wallet
-- Score: 2.017 | Reliability: 1.0
+- Score: 2.028 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
-## 13. Build once, run on any agent: A practical guide to agent skills
+## 8. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/introducing-alphaproof-code/
+- Score: 1.994 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 9. How our GTM Agent builds consistent, high-quality sales artifacts
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/gtm-agent-high-quality-sales-artifacts
+- Score: 1.884 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 10. Build once, run on any agent: A practical guide to agent skills
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/
-- Score: 1.825 | Reliability: 1.0
+- Score: 1.809 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 14. claude-code v2.1.325
+## 11. CoReMem: Cost-Internalizing Memory for Successive Coding Tasks with Prospective Valuation
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.17316v1
+- Score: 2.465 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 12. claude-code v2.1.325
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.325
-- Score: 1.799 | Reliability: 1.0
+- Score: 1.795 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval, claude code.
 
-## 15. langgraph-cli==0.4.43
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.43
-- Score: 1.645 | Reliability: 1.0
+## 13. GPT‑6 Cyber: Advancing the frontier of aligned cybersecurity agents
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/introducing-gpt-6-cyber
+- Score: 1.589 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 16. Kitesurf is now open source
+## 14. Kitesurf is now open source
 - Type: news | Source: cloudflare_blog
 - URL: https://blog.cloudflare.com/kitesurf-open-source/
-- Score: 1.623 | Reliability: 1.0
+- Score: 1.552 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. Closing the AI guidance gap in education
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/closing-ai-guidance-gap-education
-- Score: 1.583 | Reliability: 1.0
-- Why it matters: 
-
-## 18. codex 0.171.0-alpha.5
+## 15. codex 0.171.0-alpha.5
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.5
-- Score: 1.49 | Reliability: 1.0
+- Score: 1.488 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 19. Australian universities are creating AI-native graduates
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/australian-universities-ai-native-graduates
-- Score: 1.425 | Reliability: 1.0
-- Why it matters: 
+## 16. claude-agent-sdk-python v0.2.182
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.182
+- Score: 1.385 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 20. Opening the datasets behind our AI weather models
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/opening-the-datasets-behind-our-ai-weather-models/
-- Score: 1.376 | Reliability: 1.0
-- Why it matters: 
-
-## 21. vllm v0.34.0rc2
+## 17. vllm v0.34.0rc3
 - Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc2
-- Score: 0.812 | Reliability: 1.0
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc3
+- Score: 1.025 | Reliability: 1.0
 - Why it matters:
