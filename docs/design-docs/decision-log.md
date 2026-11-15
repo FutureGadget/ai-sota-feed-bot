@@ -3077,3 +3077,29 @@ regenerated.
 
 Rollback: Revert the skill and spec edits and delete `check_coverage.py` and
 `tests/test_video_coverage.py`.
+
+## 2026-11-15 - Explainer videos tier stories by the recap's highlight order
+
+Decision: Recap `highlights` are written most important first. The video gives
+the first highlight the lead scene, the next 2 (daily) or 3 (weekly) a deep
+scene each, and the rest one line each in a quick scene. A highlight with
+nothing to explain is swapped down with a reason. The cold open states a fact
+within 3 s, each scene opens with a line tying it to the previous one, and every
+lead and deep scene speaks its so-what. `check_coverage.py` enforces the tiers.
+
+Rationale: The 2026-11-14 daily video, the first made under the coverage rules,
+covered all five highlights but gave five of them about 13 s and one or two
+sentences each, with no spoken consequence and no link between scenes; the
+first fact arrived at 0:15. Letting the video agent choose which stories go
+deep would repeat the editorial drift fixed on 2026-11-14, and the recap skills
+did not rank highlights, so ranking moved to the recap agent, which sees the
+judged input bundle. The bundle's article summaries are short excerpts, so it
+adds no evidence for deeper scenes; the swap rule keeps thin stories out of
+them.
+
+Impact: Daily videos use 6-8 scenes and weekly videos 7-10. Highlight cuts
+drop from 2 to 1. The "In 30 seconds" list on recap pages is now ordered by
+importance. Read from the 2026-11-14 transcript only; visuals were not
+reviewed and no video was rendered under the new rules.
+
+Rollback: Revert this change; the 2026-11-14 coverage rules remain.
