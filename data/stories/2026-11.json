@@ -4664,6 +4664,7 @@
   "published": "2026-11-12T17:03:40+00:00",
   "sid": "429c2fc60045adbd",
   "source": "arxiv_cs_cl",
+  "summary": "Memory decides which LLMs an edge device runs, and how fast: capacity on a $4$ GB Jetson Nano, bandwidth on an $8$ GB Jetson Orin Nano Super. Deployed formats (GPTQ, AWQ, $\\texttt{llama.cpp}$'s K- and I-quants) spend equal bits on every integer code of a matrix, although the codes are far from uniform. $\\texttt{LazyWeights}$ keeps these formats but tunes GPTQ so the codes compress, Huffman-codes them losslessly in interleaved lanes, and decodes them on demand in a small unit between DRAM and L2, so GPU kernels run unchanged and DRAM moves only coded bytes. At $1\\%$ and $3.5\\%$ perplexity budgets, coded Phi-3-mini, Mistral-7B and SmolLM-1.7B are $5.7-31.4\\%$ smaller than the best $\\texttt{llama.cpp}$ format. A bit-exact $0.21$ mm$^2$ ASIC decoder unit ($1$ GHz, $7$ nm) cuts Orin latency and energy per token by up to $36\\%$ and $38\\%$ ($54\\%$ and $44\\%$ with prompt-lookup speculation). On the Nano, $\\texttt{LazyWeights}$ needs $58-64\\%$ less time and $53-57\\%$ less energy per token than CPU $\\texttt{llama.cpp}$, and runs a streamed Mistral-7B 6.6$\\times$ faster at $3.89$ bits per weight. A Huffman decoder beats an rANS decoder in rate and area at equal throughput; the ASIC decoder unit runs bit-exact on a Zynq UltraScale+ FPGA (AMD ZCU102).",
   "summary_1line": "Memory decides which LLMs an edge device runs, and how fast: capacity on a $4$ GB Jetson Nano, bandwidth on an $8$ GB Jetson Orin Nano Super. Deployed formats (GPTQ, AWQ, $\\texttt{llama.cpp}$'s K- and I-quants) spend equal bits on every integer code of a matrix, although the code",
   "title": "LazyWeights: Decode-on-Demand Edge LLMs",
   "type": "paper",
@@ -7132,13 +7133,18 @@
  "676c3e2ea633395a": {
   "first_seen": "2026-11-15T00:08:53.527868+00:00",
   "id": "caa6e747d30fc0df",
+  "matched_topics": [
+   "eval"
+  ],
   "published": "2026-11-12T14:51:51+00:00",
   "sid": "676c3e2ea633395a",
   "source": "arxiv_cs_cl",
+  "summary": "Post-training of large language models typically combines supervised fine-tuning (SFT) with preference-based fine-tuning such as Direct Preference Optimization (DPO). Human-annotated and synthetically generated preference data differ substantially in per-sample cost, but prior work typically holds sample count fixed when comparing the two. In this work, we explicitly study the interplay between cost and performance by comparing the effect of post-training with human and synthetic preference data under a fixed, dollar-matched annotation budget. We train and evaluate multiple base model families across helpfulness and summarization tasks. We find that synthetic data is far more cost-efficient at low-to-moderate budgets, achieving high win rates with as little as \\$200--\\$400. On helpfulness, human data closes the gap only at budgets roughly two orders of magnitude larger; on summarization, it does not close the gap at any tested budget. We also find that human-annotated data varies in reliability: one widely used human preference source substantially underperforms another, and the gap persists even after standard remedies such as domain restriction and deduplication.",
   "summary_1line": "Post-training of large language models typically combines supervised fine-tuning (SFT) with preference-based fine-tuning such as Direct Preference Optimization (DPO). Human-annotated and synthetically generated preference data differ substantially in per-sample cost, but prior wo",
   "title": "Human or Synthetic? What a Fixed Budget Buys for Post-Training",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.16895v1"
+  "url": "http://arxiv.org/abs/2611.16895v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "678f7acc40117a14": {
   "content_excerpt": "The agentic ontology, built by agents, governed by people, and designed for every agent, is now Generally Available with expanded knowledge sources and new tools to curate and refine it. AI agents are only as useful as their understanding of the business in which they work. Within a given domain, teams can curate that understanding by hand. Thousands of customers now run Genie Agents in production this way, including 7-Eleven, Virgin Atlantic and General Motors. However, enterprises are no longer deploying a single agent for a single domain. They are deploying many agents across every function, and each needs the same accurate and complete understanding of how the business works. The enterprise context that agents need is far larger than any team can write down or model by hand. It lives in the logic behind thousands of production dashboards, SQL queries, notebooks and BI semantic models, as well as in the documents and applications where teams record definitions and maintain a working knowledge of who does what. It also changes every week as products launch, campaigns run, and teams reorganize. This is why ontologies have historically struggled in the enterprise. Built by specialists and maintained manually, they captured only a narrow slice of the business and quickly became outdated as the business evolved. Agents change both sides of that problem. They are now the primary consumers of enterprise context, and they can also produce it by learning from the work teams already",
@@ -10340,13 +10346,18 @@
  "999b562dd3f5608a": {
   "first_seen": "2026-11-14T02:08:38.834251+00:00",
   "id": "af41266ba3c95e15",
+  "matched_topics": [
+   "agent"
+  ],
   "published": "2026-11-12T00:17:32+00:00",
   "sid": "999b562dd3f5608a",
   "source": "arxiv_agent_systems_research",
+  "summary": "When a tool-using LLM agent team violates policy, aggregate outcomes do not reveal whether an upstream message changed the executor's action. We introduce SwarmSafe-Delta, a paired executable protocol that freezes upstream computation, varies real, hidden, and format-matched placebo delivery, and scores a single committed action against deterministic benign and risky policy states under preassigned budgets. Across four models and constructed optional tasks, real delivery at $N=4$ produces 21.4% risky-world violations, versus 5.0% with placebo and 1.0% with hidden delivery (paired differences +16.4 and +20.3 percentage points). Real delivery also improves benign task success, illustrating that suppressing communication sacrifices utility. In a second regime constructed to require an upstream lookup route, real delivery improves safe completion by 74.2 points relative to hidden delivery. These effects quantify message-delivery contrasts under specified information dependencies, not naturally occurring failure rates. Exploratory action-level analyses show that the effect depends strongly on whether the upstream message recommends a prerequisite check or direct execution; model differences also largely track these message compositions. The contribution is a controlled, execution-grounded measurement protocol rather than a general claim that agent communication is harmful or protective.",
   "summary_1line": "When a tool-using LLM agent team violates policy, aggregate outcomes do not reveal whether an upstream message changed the executor's action. We introduce SwarmSafe-Delta, a paired executable protocol that freezes upstream computation, varies real, hidden, and format-matched plac",
   "title": "SwarmSafe-Delta: Isolating Message Effects on LLM Agent Safety",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.16123v1"
+  "url": "http://arxiv.org/abs/2611.16123v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "99e35db5c56c4bd6": {
   "first_seen": "2026-11-11T08:04:45.810095+00:00",
@@ -14223,6 +14234,17 @@
   "url": "http://arxiv.org/abs/2611.16315v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "d0ec535b41d5d7e1": {
+  "content_excerpt": "A linear probe folded into the row lets the model's own hidden state decide when its thinking is done. Tested on Qwen3.5-4B and on DeepSeek V4.1 Flash (763B, running on a laptop). A reasoning model ends its thinking by emitting one token, . Like every token, its logit is a dot product of that token's row of the output layer (the \"head\") with the final normalized hidden state h . So adding a vector to that single row adds a linear readout of h to one decision, the decision to stop: g is a linear probe that separates two kinds of positions in the model's own thinking: paragraph ends after the right answer has already appeared (the model is only re-checking), and everything else (still solving, or mid-sentence). β sets how hard the edit pushes. The row is re-quantized into the file's own format and shipped as an ordinary weights file. The engine, chat template and agent harness are untouched, and the model costs exactly as much to run as before. 1. The edited stop probability is exact. Only ℓ close changes, so with o the base model's log-odds of at a position, Given recorded hidden states, the edited model's stop probability at every position of every trace is a closed-form function of β. No generation is needed to tune it. 2. Every other token's distribution is unchanged, conditional on not stopping. For any j ≠ close , P′(j | not close) = P(j | not close) . So a trace sampled from the original model is also a valid sample from the edited model up to the point where the edit st",
+  "first_seen": "2026-11-15T20:07:03.892833+00:00",
+  "id": "411a56652d0e1e11",
+  "published": "2026-11-15T17:07:12+00:00",
+  "sid": "d0ec535b41d5d7e1",
+  "source": "hackernews_ai",
+  "title": "Editing one row of an LLM's output layer to stop it overthinking",
+  "type": "news",
+  "url": "https://think-graft.vercel.app"
+ },
  "d121304c3de64e9e": {
   "content_excerpt": "Learn about artificial intelligence and machine learning across the GitHub ecosystem and the wider industry. Explore the capabilities and benefits of AI code generation and how it can improve your developer experience. Discover how we deliver a performant and highly available experience across the GitHub platform. Explore best practices for building software at scale with a majority remote team. Get a glimpse at the technology underlying the world’s leading AI-powered developer platform. Learn how we build security into everything we do across the developer lifecycle. Our engineering and security teams do some incredible work. Let’s take a look at how we use GitHub to be more productive, build collaboratively, and shift security left. Organizations worldwide are incorporating open source methodologies into the way they build and ship their own software. Learn about core challenges in DevSecOps, and how you can start addressing them with AI and automation. Learn about artificial intelligence and machine learning across the GitHub ecosystem and the wider industry. Explore the capabilities and benefits of AI code generation and how it can improve your developer experience. Discover how we deliver a performant and highly available experience across the GitHub platform. Explore best practices for building software at scale with a majority remote team. Get a glimpse at the technology underlying the world’s leading AI-powered developer platform. Learn how we build security into ever",
   "first_seen": "2026-11-12T23:04:45.522667+00:00",
@@ -16972,6 +16994,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOd0tTZ3c1MHRILWV0NE9xeFFWaVUyMFNGcU1yUGdGUUxpbVFRaDVaZjJlOTZJU3NzUlBMbW9NbFNfUW9DeFJ1Z09fNmxVbEc3amdhUkQ1TmdmaERDMktMZzlNVGFsd01xcWVGQldmYnVaOTNXVWFYQVNoc2ZzV2trTm1QTFNGbTFwU1E?oc=5",
   "why_it_matters": "Matches feed focus: harness."
+ },
+ "f9bc1d0eac05fde6": {
+  "content_excerpt": "groma.md - Your architecture as OKF Markdown in Git, and one C4 map you can walk. Scanned from source, curated by you and your agents. Your architecture, alive. A live C4 map of your repository, stored as OKF Markdown in Git. groma.md scans your code into a first C4 architecture map. You can curate it into the architecture you would explain to a new teammate, either yourself or with your coding agent. The map stays open while you work. Save a file and the map updates. Work on a Backlog.md task and it appears pinned to the components it touches. Everything is plain Markdown in your repository, so architecture changes are reviewed in the same pull request as the code. groma.md is free, MIT-licensed, and runs locally with no account or backend. Scans run offline once the scanners are installed, use deterministic code analysis, and call no AI service. You can use groma.md entirely without AI. Three steps. Scan your code, then review and curate the map yourself or with your coding agent. Backlog.md provides the tasks shown on the map; groma.md works without it. To run without Node.js, download the standalone executable for your platform. macOS requires Apple Silicon. groma web scans your repository automatically at startup and opens the map. On a new project, it first walks you through project setup and scanner selection in your browser. The first scan gives you a starting map from what the scanners can detect. To turn it into your architecture, click Copy prompt on the map's firs",
+  "first_seen": "2026-11-15T20:05:15.888181+00:00",
+  "id": "46d1a28626b41a36",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-15T17:18:44+00:00",
+  "sid": "f9bc1d0eac05fde6",
+  "source": "hackernews_ai",
+  "summary_1line": "Groma.md: Stay in control of your architecture as AI agents write code",
+  "title": "Groma.md: Stay in control of your architecture as AI agents write code",
+  "type": "news",
+  "url": "https://github.com/MrLesk/Groma.md",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "f9c4356a60656c46": {
   "first_seen": "2026-11-13T17:06:40.570545+00:00",
