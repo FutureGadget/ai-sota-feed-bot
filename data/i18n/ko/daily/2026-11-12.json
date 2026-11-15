@@ -1,0 +1,213 @@
+{
+  "locale": "ko",
+  "source_path": "/daily/2026-11-12",
+  "source_hash": "33809ed978507a1901b1096a77f9240a369bc5e24cbf66397427cb1aec1e2c9f",
+  "translated_at": "2026-11-15T03:03:12.668215+00:00",
+  "model": "google-translate-v2",
+  "review_status": "machine",
+  "date": "2026-11-12",
+  "title": "2026년 11월 12일, 인공지능 분야에서 무슨 일이 일어났을까요?",
+  "generated_at": "2026-11-12T22:16:42Z",
+  "intro": [
+    "Verifying agent-written code was today's main thread. A new hook catches coding agents that weaken tests to turn CI green, Martin Fowler's site argues customer tests are now the human-AI contract, and one essay says human review cannot keep up with agent-built inference engines.",
+    "Anthropic found that groups do worse when every user brings their own agent. On the serving side, Google open-sourced XSE and vLLM shipped day-0 support for Inkling 2 Small and MiniMax H3-Image."
+  ],
+  "highlights": [
+    "agent-roast flags coding agents that loosen assertions, skip tests or lower coverage gates to get CI green.",
+    "Anthropic: group outcomes fell in all four test environments when each user delegated to their own agent.",
+    "Google open-sourced XSE, the Python-free serving engine behind six million queries a second.",
+    "vLLM serves Thinking Machines' Inkling 2 Small on day 0 at up to 630 tokens per second per user.",
+    "Vercel's gateway data puts a production model's half-life at about six weeks.",
+    "Inception Labs is shutting down the Mercury API for its diffusion LLMs, per a customer email."
+  ],
+  "article_count": 52,
+  "categories": [
+    {
+      "name": "코딩 에이전트: 변화가 옳다는 것을 증명하다",
+      "slug": "coding-agent-verification",
+      "summary": "다섯 가지 사례 연구에서는 에이전트가 코드와 테스트를 모두 작성한 후에는 생성보다는 검증을 병목 현상으로 간주합니다.",
+      "articles": [
+        {
+          "title": "Show HN: Agent-roast – CI 통과를 위해 테스트를 약화시키는 코딩 에이전트를 잡아냅니다.",
+          "summary": "Claude Code, Codex 및 Cursor에 대한 결정론적이고 오프라인 방식의 후크로, 완화된 어설션, 건너뛰거나 삭제된 테스트, 낮아진 코드 커버리지 임계값 및 실패가 허용된 CI 단계에 대한 각 변경 사항을 비교합니다.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Nari-Ab/agent-roast/",
+          "published": "Thu, 12 Nov 2026 15:03:06 +0000"
+        },
+        {
+          "title": "검증 가능한 LLM 인프라 구축을 향하여",
+          "summary": "지연 시간 및 처리량 벤치마크를 통과하는 것만으로는 에이전트가 작성한 추론 엔진에 숨겨진 드문 동시성 버그를 발견할 수 없으며, 인간의 검토는 1,000개의 병렬 코딩 에이전트에 대응할 수 없다고 주장합니다.",
+          "source": "hackernews_ai",
+          "url": "https://haoailab.com/blogs/verifiable-llm-infra/",
+          "published": "Thu, 12 Nov 2026 05:53:11 +0000"
+        },
+        {
+          "title": "AI가 생성한 코드가 우리가 원하는 대로 작동하도록 보장",
+          "summary": "마틴 파울러의 웹사이트는 AI가 프로덕션 코드와 테스트 코드를 모두 작성할 때, 개발자 테스트가 아닌 고객 테스트가 인간과 AI 에이전트 간의 계약이 된다고 주장합니다.",
+          "source": "hackernews_ai",
+          "url": "https://martinfowler.com/articles/tests-as-data.html",
+          "published": "Thu, 12 Nov 2026 15:14:50 +0000"
+        },
+        {
+          "title": "AI 코딩에서 가장 어려운 부분은 두 번째 수정입니다.",
+          "summary": "상담원이 추가한 재시도 기능으로 인해 타임아웃으로 인해 성공적인 결제가 숨겨져 고객에게 이중 청구가 발생할 수 있습니다. 이 기능은 작동하지만 테스트 스위트가 확장됨에 따라 시스템은 오히려 악화됩니다.",
+          "source": "hackernews_ai",
+          "url": "https://brian.biz/blog/ai-agents-keep-it-working/",
+          "published": "Thu, 12 Nov 2026 16:39:36 +0000"
+        },
+        {
+          "title": "GitHub에서 가장 많은 별점을 받은 AI 도구 중 코딩 에이전트가 작성한 것은 얼마나 될까요?",
+          "summary": "상위 52개 AI 툴 저장소의 324,088개 커밋을 분석한 결과, 지난 180일간의 활동 기간 동안 AI 서명이 포함된 커밋이 중앙값 기준으로 16.9%에 달하며, 10개 저장소는 50% 이상을 기록했습니다.",
+          "source": "hackernews_ai",
+          "url": "https://www.soufraz.com/famous-repos-research/",
+          "published": "Thu, 12 Nov 2026 17:00:39 +0000"
+        }
+      ]
+    },
+    {
+      "name": "에이전트 런타임: 격리, 권한 및 공유 리소스",
+      "slug": "agent-runtime-permissions",
+      "summary": "Anthropic 다중 에이전트 조정 실패를 측정했으며, 4개의 오픈 소스 프로젝트는 샌드박스, 도구 호출, MCP 구성 및 프롬프트에 제어 기능을 적용했습니다.",
+      "articles": [
+        {
+          "title": "함께하면 더 나빠진다: 다중 사용자 다중 에이전트 팀에서 성능이 저하되는 이유",
+          "summary": "Anthropic , OpenAI , Alibaba의 모델을 사용한 네 가지 시뮬레이션 환경에서, 각 사용자가 자신의 에이전트에 작업을 위임했을 때보다 하나의 에이전트가 모든 사용자를 담당했을 때 그룹 성과가 더 나빴습니다.",
+          "source": "hackernews_ai",
+          "url": "https://alignment.anthropic.com/2026/worse-together/",
+          "published": "Thu, 12 Nov 2026 06:48:42 +0000"
+        },
+        {
+          "title": "에이전트 기질",
+          "summary": "표준 컨테이너보다 10배 높은 밀도, 500ms 미만의 빠른 재개 시간, 초당 500회 이상의 활성화 속도를 자랑하는 제로 트러스트 샌드박스 런타임으로, 에이전트별로 컴퓨팅, ID, 네트워킹 및 스토리지가 격리되어 있습니다.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/agent-substrate/substrate",
+          "published": "Thu, 12 Nov 2026 07:26:45 +0000"
+        },
+        {
+          "title": "HN 쇼: 맛보기 – 에이전트가 잊거나 무시할 수 없는 쉬운 설명으로 된 규칙들",
+          "summary": "에이전트 도구 호출이 실행되기 전에 모든 호출을 일반 영어 규칙에 따라 검사하고, 에이전트가 결과를 읽기 전에 각 도구 결과에 프롬프트 삽입이 있는지 검사합니다.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/rinkesh2010rpp/taster-ai",
+          "published": "Thu, 12 Nov 2026 08:41:11 +0000"
+        },
+        {
+          "title": "에이전트 액세스 검토 – AI 에이전트의 MCP 구성에 대한 액세스 검토",
+          "summary": "조직의 에이전트 및 MCP 서버 목록을 작성하고, 각각이 읽고, 쓰고, 실행하고, 전송할 수 있는 권한을 파악하며, NIST 800-53 및 SOC 2에 매핑된 12가지 제어 항목에 대해 해당 액세스 권한을 테스트합니다.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Mihirajmera/agent-access-review",
+          "published": "Thu, 12 Nov 2026 15:32:15 +0000"
+        },
+        {
+          "title": "로컬 프록시를 사용하여 LLM 프롬프트에서 이름, 이메일 및 전화번호를 제외합니다.",
+          "summary": "swapback은 프롬프트가 시스템을 떠나기 전에 이름, 이메일, 전화번호 및 키를 자리 표시자로 교체한 다음 응답, 스트림 및 도구 호출에서 원래대로 복원하는 장애 폐쇄형 로컬 프록시입니다.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/rmpmrepo1278/swapback",
+          "published": "Thu, 12 Nov 2026 00:09:39 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Inference 기반 서비스: Day-0 모델 및 새로운 서비스 엔진",
+      "slug": "inference-serving-engines",
+      "summary": "구글은 자사의 서비스 스택 구성 요소 두 가지를 오픈 소스로 공개했으며, vLLM은 공개된 처리량 수치와 함께 두 가지 새로운 모델에 대한 지원을 당일에 제공했습니다.",
+      "articles": [
+        {
+          "title": "구글, 파이썬 AI 성능 향상을 위해 파이썬 제거 등의 조치를 취하다",
+          "summary": "구글은 XLA 서빙 엔진인 XSE를 오픈소스로 공개했습니다. XSE는 파이썬 인터프리터를 서비스 경로에서 제거하고 검색, 광고 및 유튜브 쇼츠 전반에 걸쳐 초당 6백만 건의 쿼리를 처리합니다.",
+          "source": "hackernews_ai",
+          "url": "https://www.theregister.com/devops/2026/11/11/google-gooses-python-ai-performance-by-removing-python/5308995",
+          "published": "Thu, 12 Nov 2026 09:23:49 +0000"
+        },
+        {
+          "title": "vLLM의 Inkling 2 Small: 출시 첫날 지원",
+          "summary": "vLLM은 LoRA 지원하며 Thinking Machines의 멀티모달 MoE 모델(총 5940억 개, 활성 매개변수 170억 개, 컨텍스트 토큰 최대 100만 개)을 사용자당 초당 최대 630개의 토큰으로 처리합니다.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-11-12-inkling2-small",
+          "published": "Thu, 12 Nov 2026 00:00:00 GMT"
+        },
+        {
+          "title": "H3-Image Day-0 지원: Vera Rubin으로 4K 해상도 0.87초 촬영",
+          "summary": "vLLM-Omni는 4개의 NVIDIA Vera Rubin GPU에서 MiniMax H3-Image를 실행하여 네이티브 4096×4096 이미지에 대해 평균 0.87초의 처리 시간을 기록합니다. 별도의 처리량 구성에서는 시간당 최대 6,115개의 이미지를 처리할 수 있습니다.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-11-12-minimax-h3-image-rubin",
+          "published": "Thu, 12 Nov 2026 00:00:00 GMT"
+        },
+        {
+          "title": "구글, TPU에서 KV 캐시 및 가중치 전송을 위한 TPU Sync 오픈소스 공개",
+          "summary": "Google은 TPU에서 KV 캐시와 모델 가중치를 이동하는 TPU Sync를 오픈 소스로 공개했습니다.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/11/google-tpu-sync/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Thu, 12 Nov 2026 10:06:00 GMT"
+        },
+        {
+          "title": "SGLang-Neuron을 사용하여 AWS Trainium에 최첨단 AI 모델을 배포하세요.",
+          "summary": "AWS는 SGLang-Neuron을 사용하여 Trainium 칩에서 최첨단 모델을 제공하는 과정을 설명합니다.",
+          "source": "aws_ml_blog",
+          "url": "https://aws.amazon.com/blogs/machine-learning/deploy-frontier-ai-models-on-aws-trainium-with-sglang-neuron/",
+          "published": "Thu, 12 Nov 2026 22:03:34 +0000"
+        }
+      ]
+    },
+    {
+      "name": "모델 변경과 그것이 비용 모델에 미치는 영향",
+      "slug": "model-churn-cost",
+      "summary": "실제 운영 모델은 몇 주 만에 교체되고, 호스팅 모델 API 사라지며, 한 팀은 할인 계산 방식이 잘못되었음을 발견했습니다.",
+      "articles": [
+        {
+          "title": "Vercel 데이터에 따르면 AI 모델은 실제 운영 환경에서 6주 정도의 반감기를 갖는 것으로 나타났습니다.",
+          "summary": "Vercel 의 11월 AI 게이트웨이 생산 지수는 매달 100조 개 이상의 토큰 데이터를 기반으로 하며, 실제 운영 환경에서 모델의 유효 반감기를 약 6주로 추정합니다.",
+          "source": "hackernews_ai",
+          "url": "https://epyhia.com/vercel-data-shows-ai-models-have-six-week-half-life-in-production",
+          "published": "Thu, 12 Nov 2026 13:33:15 +0000"
+        },
+        {
+          "title": "저희 LLM 비용 모델은 배치 할인과 캐시 할인을 이중으로 계산했습니다.",
+          "summary": "배치 처리는 이를 제공하는 모든 공급업체에서 반값에 제공되지만, 세 가지 비용 절감 요소 중 가장 작은 비중을 차지하며, 겉보기와 달리 캐싱과 시너지 효과를 내지 못하고, 등급 하락 시 그 효과가 사라집니다.",
+          "source": "hackernews_ai",
+          "url": "https://beforeyouship.dev/blog/llm-batch-api-pricing",
+          "published": "Thu, 12 Nov 2026 12:48:20 +0000"
+        },
+        {
+          "title": "Inception의 Diffusion LLM API 종료됩니다.",
+          "summary": "한 고객이 인셉션 랩스에서 온 이메일을 게시했는데, 그 이메일에는 확산 모델을 호스팅하는 머큐리 API 종료된다는 내용이 담겨 있었습니다. 아직 블로그 게시물은 올라오지 않았습니다.",
+          "source": "hackernews_ai",
+          "url": "https://news.ycombinator.com/item?id=50470335",
+          "published": "Thu, 12 Nov 2026 16:51:58 +0000"
+        }
+      ]
+    },
+    {
+      "name": "에이전트 쿼리 부하에 맞춰 설계된 데이터 시스템",
+      "slug": "data-systems-for-agents",
+      "summary": "Databricks 와 새로운 임베디드 그래프 엔진은 모두 발신자를 상담원으로 하는 데이터 계층을 재설계합니다.",
+      "articles": [
+        {
+          "title": "레이크하우스//RT: 요금 부담을 줄이지 말고 실시간 분석 기능을 확장하세요.",
+          "summary": "Databricks 에이전트의 지속적인 동시 실행을 목표로 하며, 이를 통해 사람이 오후에 수십 건의 쿼리를 실행하는 데 비해 초당 수백 건의 쿼리를 실행할 수 있습니다.",
+          "source": "databricks_blog",
+          "url": "https://www.databricks.com/blog/lakehousert-scale-real-time-analytics-not-your-bill",
+          "published": "Thu, 12 Nov 2026 16:53:43 GMT"
+        },
+        {
+          "title": "Neo4j의 Relate - 내장형 에이전트 기반 그래프 데이터베이스",
+          "summary": "Cypher 25를 지원하고 그래프를 하나의 파일, 디렉터리 또는 메모리에 저장하는 Rust 속성 그래프 엔진으로, Python, Node.js, WASM 및 Rust 바인딩을 제공합니다.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/relatedb/relate",
+          "published": "Thu, 12 Nov 2026 15:45:07 +0000"
+        },
+        {
+          "title": "Slack의 Genie가 정식 출시되었습니다: 업무가 이루어지는 바로 그곳에서 관리되는 AI 기반 협업 환경을 경험하세요.",
+          "summary": "일반적으로 이용 가능: Genie는 질문자의 Unity Catalog 권한에 따라 DM 및 채널에서 답변하며, 승인 후 MCP 커넥터를 통해 문서 및 티켓을 업데이트합니다.",
+          "source": "databricks_blog",
+          "url": "https://www.databricks.com/blog/genie-slack-now-generally-available-governed-ai-cowork-right-where-work-happens",
+          "published": "Thu, 12 Nov 2026 15:00:00 GMT"
+        }
+      ]
+    }
+  ],
+  "video": {
+    "youtube_id": "Bn-C_y2JoXk",
+    "title": "LLM Digest Daily Explainer: Nov 12, 2026",
+    "duration_s": 108.0
+  }
+}
