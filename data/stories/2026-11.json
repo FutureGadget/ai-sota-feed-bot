@@ -204,7 +204,7 @@
   "sid": "046191ac623ca927",
   "source": "arxiv_cs_ai",
   "summary": "In interactive systems where users engage with LLMs, users are adaptive and, after observing LLM responses, can change their prompting strategy, as well as the type and difficulty of subsequent tasks. Thus model responses can influence the set of prompts on which the model is subsequently evaluated. We study the implications of this user adaptivity and prompt endogeneity for the evaluation of LLMs. We define two classes of estimands for comparing models: the common-distribution effect, which compares model performance on the same distribution of prompts, and the induced-distribution effect, which compares each model on the prompt distribution generated through user interaction. We show that offline benchmark evaluation and live A/B testing target different quantities, with the standard difference-in-means estimators for the two methods converging to the common-distribution effect and the induced-distribution effect, respectively. This distinction can affect decision-making: the two comparisons can rank models differently and lead to discrepancies in deployment recommendations. We characterize when such ranking reversals occur and provide a sufficient condition under which the rankings are guaranteed to agree. This result provides a practical heuristic for assessing whether offline evaluation is sufficient to reproduce the decision suggested by a live experiment. Third, we show, in a stylized linear model of interactions, that user adaptivity can increase variance in estimatio",
-  "summary_1line": "In interactive systems where users engage with LLMs, users are adaptive and, after observing LLM responses, can change their prompting strategy, as well as the type and difficulty of subsequent tasks. Thus model respo...",
+  "summary_1line": "In interactive systems where users engage with LLMs, users are adaptive and, after observing LLM responses, can change their prompting strategy, as well as the type and difficulty of subsequent tasks. Thus model responses can influence the set of prompts on which the model is sub",
   "title": "When Both Sides Adapt: The Challenges of Evaluating Interactive LLM Systems",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17239v1",
@@ -527,16 +527,16 @@
  },
  "084071daf3b6536f": {
   "first_seen": "2026-11-10T20:05:27.884052+00:00",
-  "id": "c1b5e62537612001",
+  "id": "8a251f0921271319",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-10T19:42:33+00:00",
+  "published": "2026-11-11T01:34:42+00:00",
   "sid": "084071daf3b6536f",
   "source": "openai_codex_releases",
   "summary": "Release 0.167.0-alpha.4.2",
   "summary_1line": "Release 0.167.0-alpha.4.2",
-  "title": "codex rust-v0.167.0-alpha.4.2",
+  "title": "codex 0.167.0-alpha.4.2",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.4.2",
   "why_it_matters": "Matches feed focus: codex."
@@ -638,7 +638,7 @@
   "sid": "098cacdba2ae6134",
   "source": "arxiv_cs_cl",
   "summary": "Serving systems choose a weight format for each model and deployment. A low-cost screen predicts the resulting KL divergence from the unquantized model's Fisher information using $\\tfrac12Δ^\\top FΔ$, the expansion underlying Hessian-aware and second-order post-training quantizers. We assess the reliability of this screen in GPU batches with channel-wise int8, per-tensor fp8 and group-wise int4 on Qwen3-8B, Qwen3-4B, OLMo-2-7B, Qwen3-32B and Qwen3-30B-A3B. Relative predictions hold across a 16-fold range of perturbation scales, int4 group sizes and rounding modes, while absolute predictions are heavy-tailed. A trimmed average brings 10 of 12 cells on Qwen3-4B and OLMo-2 within 15% of measured KL. The MoE model exhibits nonquadratic response at small perturbations, with int8 KL scaling as $α^{0.63}$. Computing per-sequence gradients in bf16 can cause fourfold prediction errors. We trace these errors to arithmetic in the lower half of the backward pass and eliminate them by using fp32 there. Batch-invariant kernels run at 0.55 times the throughput, while changes in reduction order introduce a floor of 0.17-0.22 nats per sequence. We build a screener with one streamed fp32 Fisher pass, trimmed tensor-block predictions with a band, a flag for aligned tensors and per-layer format allocation. On the unseen Mistral-7B-v0.3 family, all six predictions fall within the band, all three KL budgets are met, and vLLM throughput is predicted within 0.4%.",
-  "summary_1line": "Serving systems choose a weight format for each model and deployment. A low-cost screen predicts the resulting KL divergence from the unquantized model's Fisher information using $\\tfrac12Δ^\\top FΔ$, the expansion underlying Hessian-aware and second-order post-training quantizers",
+  "summary_1line": "Serving systems choose a weight format for each model and deployment. A low-cost screen predicts the resulting KL divergence from the unquantized model's Fisher information using $\\tfrac12Δ^\\top FΔ$, the expansion und...",
   "title": "How Far Does Second-Order Linear Response Predict Quantization Mismatch? Pre-Registered Measurements on Five Language Models",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12634v1"
@@ -2105,16 +2105,16 @@
  },
  "1df314a3d0950977": {
   "first_seen": "2026-11-11T09:05:43.406869+00:00",
-  "id": "bc57d0a413883075",
+  "id": "c12e3e4c1d059a3c",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-11T09:02:51+00:00",
+  "published": "2026-11-11T10:17:38+00:00",
   "sid": "1df314a3d0950977",
   "source": "openai_codex_releases",
   "summary": "Release 0.169.0-alpha.11",
   "summary_1line": "Release 0.169.0-alpha.11",
-  "title": "codex rust-v0.169.0-alpha.11",
+  "title": "codex 0.169.0-alpha.11",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.11",
   "why_it_matters": "Matches feed focus: codex."
@@ -2243,16 +2243,16 @@
  },
  "1f5946529a21c625": {
   "first_seen": "2026-11-10T23:04:50.256417+00:00",
-  "id": "ea682af9cdc807e6",
+  "id": "e0aca517cc350d74",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-10T22:29:00+00:00",
+  "published": "2026-11-11T03:38:15+00:00",
   "sid": "1f5946529a21c625",
   "source": "openai_codex_releases",
   "summary": "Release 0.169.0-alpha.10",
   "summary_1line": "Release 0.169.0-alpha.10",
-  "title": "codex rust-v0.169.0-alpha.10",
+  "title": "codex 0.169.0-alpha.10",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.10",
   "why_it_matters": "Matches feed focus: codex."
@@ -2656,7 +2656,7 @@
   ],
   "published": "2026-11-12T16:31:54+00:00",
   "sid": "2629ba2c887da5dc",
-  "source": "arxiv_agent_systems_research",
+  "source": "arxiv_cs_ai",
   "summary": "Most AI assistants respond only when prompted, remaining silent even when events in the video stream offer meaningful opportunities for conversation. To move beyond purely user-driven interaction, we present AURA 2.0, a streaming video large language model that introduces three core upgrades to AURA. The key advance is Model-Initiated Conversation (MIC), which enables the model to identify topics worth discussing in the evolving visual stream and initiate conversations at appropriate moments without a user query. Stream-Aware Tool Calling (SATC) enables the model to invoke external tools using the current visual and conversational context and incorporate returned information into the ongoing interaction. Interactive Visual Grounding (IVG) supports visual grounding in both user inputs and model outputs. The model can identify objects marked by users on video frames and produce frame-aligned bounding boxes to link its responses to specific objects and regions. To develop these capabilities, we construct a dedicated streaming interaction dataset and adopt a three-stage training scheme to integrate the new behaviors with AURA's existing streaming interaction abilities. We further incorporate Long-Horizon Interaction Memory (LHIM) to maintain contextual continuity over extended video streams. Evaluations on public streaming benchmarks show that AURA 2.0 achieves leading performance among open-source streaming models, while targeted evaluations further validate its new interaction ",
   "summary_1line": "Most AI assistants respond only when prompted, remaining silent even when events in the video stream offer meaningful opportunities for conversation. To move beyond purely user-driven interaction, we present AURA 2.0,...",
   "title": "AURA 2.0: From User-Driven Responses to Model-Initiated Conversations in Streaming Video",
@@ -3245,7 +3245,7 @@
   "url": "https://userecurrence.ai/research/is-hosting-open-source-inference-profitable"
  },
  "2f29c9bac2f41eb0": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. Aditya Mulik explains how Walmart Global Tech deployed multi-agent LLM workflows across 4,700 stores for nightly batch inventory forecasting. He discusses tackling production hurdles - schema violations, cross-department data mismatches, and network drops - via MCP grounding and loop agents, while slashing cloud inference costs from $100k+ to $10k per month shifting from PTUs to pay-as-you-go. Vanessa Formicola shares how",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. Hannes Hapke shares how Dataiku’s open-source Kiji Inspector applies Sparse Autoencoders (SAEs) directly to decision tokens to expose why agents pick specific tools. Moving past superficial chain-of-thought narratives, he discusses causal ablation, layer activation extraction via patched vLLM engines, and production monitoring workflows for software architects and senior engineering leaders. Henry Wilson shares actionable",
   "first_seen": "2026-11-11T11:05:47.588802+00:00",
   "id": "ad6698112df91fbe",
   "image_url": "https://res.infoq.com/news/2026/11/qcon-ai-newyork-2026-program/en/headerimage/qcon-ai-new-york-2026-1794387431153.jpg",
@@ -5147,16 +5147,16 @@
  },
  "4c719563acf49568": {
   "first_seen": "2026-11-11T20:08:30.197010+00:00",
-  "id": "052f05fc429c33b1",
+  "id": "7cba811bdd220e6e",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-11T19:59:53+00:00",
+  "published": "2026-11-11T22:27:26+00:00",
   "sid": "4c719563acf49568",
   "source": "openai_codex_releases",
   "summary": "Release 0.169.0-alpha.11.1",
   "summary_1line": "Release 0.169.0-alpha.11.1",
-  "title": "codex rust-v0.169.0-alpha.11.1",
+  "title": "codex 0.169.0-alpha.11.1",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.11.1",
   "why_it_matters": "Matches feed focus: codex."
@@ -5364,7 +5364,7 @@
   "sid": "501ef39353c40289",
   "source": "arxiv_llm_reliability",
   "summary": "Large language models increasingly evaluate, route, and moderate news, so a model's judgment of a headline has become a gatekeeping decision. We ask whether that judgment follows the fact being reported or the way the fact is framed. We combine an ecological audit of 63,926 Chinese news headlines with a controlled experiment. The experiment covers 30 real events, 30 synthetic events, and 29 natural headline pairs, tested on four Chinese models. Changing only the headline frame shifted both perceived misleadingness and event severity, and the direction and ordering of the shifts were the same for DeepSeek, MiMo, Dots, and LongCat. Emotionally intensified headlines raised severity ratings by 0.65 to 0.88 points, whereas positively reframed headlines lowered them by 0.34 to 0.52 points. Supplying the article body reduced this severity bias by 54 to 80 percent, and all four reductions were significant at p < .01. A small human reference study showed the same direction of effect. Headline-only LLM evaluation therefore carries a measurable robustness gap, and framing sensitivity belongs among the reliability properties that deployment and governance check.",
-  "summary_1line": "Large language models increasingly evaluate, route, and moderate news, so a model's judgment of a headline has become a gatekeeping decision. We ask whether that judgment follows the fact being reported or the way the fact is framed. We combine an ecological audit of 63,926 Chine",
+  "summary_1line": "Large language models increasingly evaluate, route, and moderate news, so a model's judgment of a headline has become a gatekeeping decision. We ask whether that judgment follows the fact being reported or the way the...",
   "title": "Framing-Induced Vulnerability in Large Language Models: Evidence from Chinese News Headlines",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.13531v1",
@@ -8722,7 +8722,7 @@
   "sid": "82c898dd3f78c28e",
   "source": "arxiv_cs_ai",
   "summary": "We introduce GeoWorld, a controllable and continuously evolving geographic environment platform for LLM agents, and LiveGeo, a benchmark for evaluating reliable decision-making in real-world geographic environments using GeoWorld. Unlike existing evaluations that largely reason and plan over fixed geographic states, GeoWorld is grounded in real-world geographic structure and allows external world states to evolve along their own temporal processes while preserving verifiable state histories. LiveGeo places geographic tasks within this evolving environment, requiring agents to actively acquire task-relevant information, verify whether the evidence supporting prior decisions remains valid, and revise their plans when necessary. Our results reveal that even frontier LLMs struggle with static tasks, with no model consistently excelling across tasks, while strong static performance does not ensure dynamic reliability. Further analysis identifies a key bottleneck: agents struggle to acquire and translate relevant evidence into valid decisions and maintain their correctness as the world evolves. By releasing LiveGeo together with its GeoWorld platform, we aim to provide the community with a flexible and extensible infrastructure for studying the next generation of agents capable of reliable action in evolving geographic worlds.",
-  "summary_1line": "We introduce GeoWorld, a controllable and continuously evolving geographic environment platform for LLM agents, and LiveGeo, a benchmark for evaluating reliable decision-making in real-world geographic environments us...",
+  "summary_1line": "We introduce GeoWorld, a controllable and continuously evolving geographic environment platform for LLM agents, and LiveGeo, a benchmark for evaluating reliable decision-making in real-world geographic environments using GeoWorld. Unlike existing evaluations that largely reason a",
   "title": "LiveGeo: Benchmarking Geographic Agents in Continuously Evolving Worlds",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17267v1",
@@ -9670,19 +9670,19 @@
  },
  "917e81f74d6a6479": {
   "first_seen": "2026-11-11T20:05:49.624616+00:00",
-  "id": "5659be646eb2a85d",
+  "id": "3740c3a0cc50a183",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-11T20:03:57+00:00",
+  "published": "2026-11-11T22:46:17+00:00",
   "release_highlights": [
    "Codex now sends tool updates incrementally by default on Google Cloud Vertex AI. To opt out, set incremental_tools_legacy_gcp = false under [features] in con..."
   ],
   "sid": "917e81f74d6a6479",
   "source": "openai_codex_releases",
   "summary": "New Features Codex now sends tool updates incrementally by default on Google Cloud Vertex AI. To opt out, set incremental_tools_legacy_gcp = false under [features] in config.toml . ( #60617 , #60848 ) Changelog Full Changelog: rust-v0.167.1...rust-v0.167.2",
-  "summary_1line": "Release 0.167.2",
-  "title": "codex rust-v0.167.2",
+  "summary_1line": "Codex now sends tool updates incrementally by default on Google Cloud Vertex AI. To opt out, set incremental_tools_legacy_gcp = false under [features] in con...",
+  "title": "codex 0.167.2",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.2",
   "why_it_matters": "Matches feed focus: codex."
@@ -10296,7 +10296,7 @@
   "sid": "9a823f949628f234",
   "source": "arxiv_cs_ai",
   "summary": "Retrieval-augmented generation systems attach citations to attribute claims to their sources. These citations frequently misstate provenance, and standard verification cannot detect this. We measure provenance by counterfactual value substitution: a fact in the retrieved passages is replaced with a false variant and the model re-queried. We find that across five sizes of one model family and a second comparator family, 1.2% to 15.7% of citable claims derive from parametric memory rather than the retrieved context. At the most conservative substitution distance these figures are 4.6% and 8.5% on the two models we tested at it, with the rate rising with model size within a family. We further find that natural language inference verification, the standard approach, gives results indistinguishable from chance across models, even when restricted to the cited passage. We determine that the cause is structural: a model answering from memory selects a citation that agrees with its output. Comparing ten attribution methods on identical claims, the contrast between the model's distribution with and without context best separates provenance. Acting on that signal does not improve provenance honesty at these base rates. The resulting detector is hence still not accurate enough to act on: it measures what the model knew rather than what it used, and separating those remains the open problem.",
-  "summary_1line": "Retrieval-augmented generation systems attach citations to attribute claims to their sources. These citations frequently misstate provenance, and standard verification cannot detect this. We measure provenance by coun...",
+  "summary_1line": "Retrieval-augmented generation systems attach citations to attribute claims to their sources. These citations frequently misstate provenance, and standard verification cannot detect this. We measure provenance by counterfactual value substitution: a fact in the retrieved passages",
   "title": "Cited but Unused: Parametric Provenance in Retrieval-Augmented Generation",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17161v1",
@@ -10893,7 +10893,7 @@
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "a2f0f024fa6fc316": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. Aditya Mulik explains how Walmart Global Tech deployed multi-agent LLM workflows across 4,700 stores for nightly batch inventory forecasting. He discusses tackling production hurdles - schema violations, cross-department data mismatches, and network drops - via MCP grounding and loop agents, while slashing cloud inference costs from $100k+ to $10k per month shifting from PTUs to pay-as-you-go. Vanessa Formicola shares how",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. Hannes Hapke shares how Dataiku’s open-source Kiji Inspector applies Sparse Autoencoders (SAEs) directly to decision tokens to expose why agents pick specific tools. Moving past superficial chain-of-thought narratives, he discusses causal ablation, layer activation extraction via patched vLLM engines, and production monitoring workflows for software architects and senior engineering leaders. Henry Wilson shares actionable",
   "first_seen": "2026-11-11T17:05:50.994140+00:00",
   "id": "034872ba64a1a483",
   "image_url": "https://www.infoq.com/styles/static/images/logo/logo_bigger.jpg",
@@ -10968,7 +10968,7 @@
   "sid": "a34f1fafb710e628",
   "source": "arxiv_agent_systems_research",
   "summary": "Multi-agent systems provide a convenient framework for the massive deployment of agents based on Large Language Models (LLMs). It provides a sound framework where agents can interact with existing software to perform actions in an autonomous way. Agentic AI is the new term to denote these AI-based autonomous systems. In real multi-agent systems, agents need to deal with malicious agents some of which can exploit security vulnerabilities to do harm. A memory poisoning attack is an example of exploiting a vulnerability to modify agents knowledge and, thus, affect its behavior. In an agent, there are different types of memory systems (semantic, episodic, and short-term) which have their own characteristics and for which different memory poisoning attacks may be developed. In this paper we focus on semantic memory, we discuss its attack, and mitigation strategies. We introduce private knowledge retrieval and private inference. We propose a signature system in the knowledge base to prevent from undesired manipulation. This should avoid memory poisoning attacks by introducing security by design in the construction of the semantic memory. In our architecture, an agent contains a local Prolog-like inference system (i.e., using Horn clauses to represent knowledge) which accesses an external knowledge base to get the required knowledge. This externally signed knowledge base is accessed privately. We provide different implementations in Python using different privacy levels including k-",
-  "summary_1line": "Multi-agent systems provide a convenient framework for the massive deployment of agents based on Large Language Models (LLMs). It provides a sound framework where agents can interact with existing software to perform actions in an autonomous way. Agentic AI is the new term to den",
+  "summary_1line": "Multi-agent systems provide a convenient framework for the massive deployment of agents based on Large Language Models (LLMs). It provides a sound framework where agents can interact with existing software to perform...",
   "title": "On Private Knowledge Retrieval and Private Inference for secure multi-agent systems",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.13696v1",
@@ -13106,16 +13106,16 @@
  },
  "c071e937c4f30eb8": {
   "first_seen": "2026-11-11T20:08:30.197010+00:00",
-  "id": "541bb5c3a7232b53",
+  "id": "d2cd4a44b931cb29",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-11T19:57:10+00:00",
+  "published": "2026-11-11T23:59:38+00:00",
   "sid": "c071e937c4f30eb8",
   "source": "openai_codex_releases",
   "summary": "Release 0.167.0-alpha.4.3",
   "summary_1line": "Release 0.167.0-alpha.4.3",
-  "title": "codex rust-v0.167.0-alpha.4.3",
+  "title": "codex 0.167.0-alpha.4.3",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.4.3",
   "why_it_matters": "Matches feed focus: codex."
@@ -14036,15 +14036,15 @@
  "d48977b6fbc84b1e": {
   "content_excerpt": "Microsoft researchers have discovered “Lazarus,” a backdoor technique that can reprogram dormant neurons in an AI model, causing an otherwise normal AI agent to execute malicious commands when a hidden trigger appears. The threat is especially serious for AI agents with tool or terminal access. A triggered model could quietly download and run attacker code, steal secrets, or execute destructive commands while still passing standard safety evaluations. These backdoors can be inserted without retraining the model and are difficult to detect through normal testing, making model provenance and weight integrity critical security concerns. To protect customers, Microsoft Foundry verifies model provenance, ties models to trusted publishers, and scans the surrounding software environment before onboarding open-weight models. Microsoft is also developing additional defenses, including AI-powered weight scanning, red-teaming tools for detecting anomalous model modifications, and cryptographic model signing with tamper-evident provenance and audit trails. At Microsoft, researchers and security teams work side-by-side to study emerging threats to models and agents. Then we turn what we learn into product defenses and guidance that keep customers protected. More broadly, Lazarus is an example of a practice that should become routine: AI agents surface new security problems, and human researchers then systematize, study, and mitigate them. We find (opens in new tab) that weight-reprogrammi",
   "first_seen": "2026-11-11T08:04:45.810095+00:00",
-  "id": "83f5e652356ebdb7",
+  "id": "51a6db923dddffaf",
   "matched_topics": [
    "agent"
   ],
-  "published": "2026-11-11T07:41:39+00:00",
+  "published": "2026-11-12T11:20:13+00:00",
   "sid": "d48977b6fbc84b1e",
   "source": "hackernews_ai",
-  "summary_1line": "Reprogramming Dormant Neurons to Backdoor AI Agents",
-  "title": "Reprogramming Dormant Neurons to Backdoor AI Agents",
+  "summary_1line": "Lazare, Veni Foras: Reprogramming Dormant Neurons to Backdoor AI Agents",
+  "title": "Lazare, Veni Foras: Reprogramming Dormant Neurons to Backdoor AI Agents",
   "type": "news",
   "url": "https://www.microsoft.com/en-us/research/blog/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents",
   "why_it_matters": "Matches feed focus: agent."
@@ -14905,7 +14905,7 @@
   "sid": "de25d9c4c09e2ab0",
   "source": "arxiv_cs_lg",
   "summary": "Prompt-based continual learning adapts a frozen pre-trained vision transformer by tuning a small set of prompt tokens. Recently, one-prompt methods which share one single prompt across all tasks make this paradigm maximally parameter efficient. The open question is how a shared prompt can keep the knowledge of old classes while being updated for new ones. Existing methods protect old knowledge in parameter space, where they freeze task-specific prompts, expand new components, or sparsely gate which tokens receive gradients. However, this method sacrifices plasticity, yet the drift it still permits in shared tokens can corrupt the prompt's function on past classes. What must be preserved is the prompt's behavior. We propose TEA-Prompt, which couples (i) a token evaluation module that assigns each prompt token a continuous, input-conditional relevance score injected into the attention logits, softly specializing tokens across tasks without discarding any of them, and (ii) an attention-behavior anchoring loss that constrains each token's attention output around class-specific query regions using only compact Gaussian query statistics without stored old images, weighted by the token's past relevance. Anchoring the attention value allows the parameters to continue updating freely, as long as their interaction remains unchanged. TEA-Prompt achieves state-of-the-art accuracy with markedly lower forgetting on CIFAR-100, ImageNet-R, and CUB-200 with only 0.38M parameters. Code is publ",
-  "summary_1line": "Prompt-based continual learning adapts a frozen pre-trained vision transformer by tuning a small set of prompt tokens. Recently, one-prompt methods which share one single prompt across all tasks make this paradigm maximally parameter efficient. The open question is how a shared p",
+  "summary_1line": "Prompt-based continual learning adapts a frozen pre-trained vision transformer by tuning a small set of prompt tokens. Recently, one-prompt methods which share one single prompt across all tasks make this paradigm max...",
   "title": "Anchor Behavior, Not Parameters: Rehearsal-Free Continual Learning with a Single Shared Prompt",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12777v1",
@@ -15015,7 +15015,7 @@
   "sid": "e01475b582c9f905",
   "source": "arxiv_cs_lg",
   "summary": "Low-precision pretraining is usually judged by validation loss. We ask whether matching loss also means learning rare facts as efficiently. We train transformers from scratch with emulated 4-bit matrix multiplications on synthetic biographies with controlled exposure counts, on their own and mixed into web text. NVFP4 needs 1.32$\\times$ and 1.52$\\times$ as many exposures as BF16 to match its recall while validation loss differs by only 0.5% and 2%, and 1.26$\\times$ and 1.30$\\times$ when both models are evaluated with BF16 matrix multiplications. Under our primary readout, the exposure cost is about 1.2$\\times$ at matched loss. Zero-mean gradient noise reproduces the cost of quantizing only the backward pass, which barely moves the loss. In a controlled experiment at twice the NVFP4 error, noise fed only to Adam's second-moment estimate acts like a lower learning rate and its cost fades, whereas noise in the update lowers its signal-to-noise ratio and carries about two thirds of the cost through the end of training. Raising the learning rate to offset the smaller average step does not recover the cost, either for this noise or for NVFP4. Gradient statistics of BF16 checkpoints rank the costs of formats, partial quantizations and noise controls without fitting (Spearman 0.96). We suggest measuring rare-fact acquisition alongside loss when evaluating low-precision recipes.",
-  "summary_1line": "Low-precision pretraining is usually judged by validation loss. We ask whether matching loss also means learning rare facts as efficiently. We train transformers from scratch with emulated 4-bit matrix multiplications on synthetic biographies with controlled exposure counts, on t",
+  "summary_1line": "Low-precision pretraining is usually judged by validation loss. We ask whether matching loss also means learning rare facts as efficiently. We train transformers from scratch with emulated 4-bit matrix multiplications...",
   "title": "What the Loss Curve Misses: FP4 Pretraining Slows the Acquisition of Rare Facts",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12832v1",
@@ -15491,7 +15491,7 @@
   "sid": "e820c989ace63349",
   "source": "search_cn_open_weight_labs",
   "summary": "Qwen4-Max Preview in Qwen Chat: a second door, same 14 days OrcaRouter",
-  "summary_1line": "Qwen4-Max Preview in Qwen Chat: a second door, same",
+  "summary_1line": "Qwen4-Max Preview in Qwen Chat: a second door, same 14 days OrcaRouter",
   "title": "Qwen4-Max Preview in Qwen Chat: a second door, same 14 days",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5YR05pc1lJQkhLTXVZZ2tBSGlaMkF3ZEZBSmtfM085ekV6MmRreHRCb1lETWNUV1hVS1ItcXI1bTY4amxLdmxTYVFPbV9qbzFmd01jQ3hoWHFQUmc1emJ4ZElKY1JpdHpVWTR0NGZqWndiZ2Rr?oc=5"
