@@ -2,104 +2,116 @@
 
 Focus: AI Platform Engineering
 
-## 1. Introducing Gemini 4 Hydrogen
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/introducing-gemini-4-hydrogen/
-- Score: 2.327 | Reliability: 1.0
+## 1. Skills for Real Scientists – Steer Away AI Slop
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/HiteSit/real-scientist-skills
+- Score: 3.4 | Reliability: 1.0
 - Why it matters: 
 
-## 2. JudgeMix: Judge-Guided Mixed-Rollout Data Synthesis for LLM Agents
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.16174v1
-- Score: 3.031 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
+## 2. Show HN: Vantage-V-AI – 2-bit ternary KV-cache with attention sinks
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/khoadev-vn/VANTAGE-V-AI
+- Score: 2.973 | Reliability: 1.0
+- Why it matters: 
 
-## 3. Sandbox resourcing: burst, don't reserve
+## 3. What Breaks Going From 1 Coding Agent to 10 | James Moss, Tessl
+- Type: video | Source: ai_native_dev
+- URL: https://youtu.be/B4sTAoiyR_k
+- Score: 2.789 | Reliability: 0.643
+- Why it matters: Matches feed focus: agent, software delivery.
+
+## 4. Misaligned AI behaviors that indicate loss-of-control risk
+- Type: news | Source: hackernews_ai
+- URL: https://guidelight.ai/blog/categories-of-misaligned-ai-behaviors
+- Score: 2.695 | Reliability: 1.0
+- Why it matters: 
+
+## 5. Sandbox resourcing: burst, don't reserve
 - Type: news | Source: modal_blog
 - URL: https://modal.com/blog/sandbox-bursting
-- Score: 2.285 | Reliability: 1.0
+- Score: 2.287 | Reliability: 1.0
 - Why it matters: 
 
-## 4. Scalable Conversational Assessment: Chat-Based Exams with a Two-Agent LLM Pipeline
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.17220v1
-- Score: 2.212 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
+## 6. Consistent Video-to-Video Translation via Explicit Correspondences
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.17298v1
+- Score: 2.151 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 5. ShadowBench: Exposing Lexical Anchoring and the Illusion of Forgetting in Large Language Models
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.15925v1
-- Score: 2.193 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
+## 7. Can KV Cache Be Reused Across Model Updates? A DeepSeek-V4-Flash Case Study
+- Type: paper | Source: arxiv_cn_open_weight_reports
+- URL: http://arxiv.org/abs/2611.14051v1
+- Score: 2.142 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 6. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
+## 8. Lara Mini Base: Language Diversity as a Resource, Not a Trade-off
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.16956v1
+- Score: 2.124 | Reliability: 1.0
+- Why it matters: 
+
+## 9. How Workday Built an Enterprise-Scale AI Agent Platform with LangGraph and LangSmith
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/how-workday-built-an-enterprise-scale-ai-agent-platform-with-langgraph-and-langsmith
+- Score: 2.026 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 10. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-alphaproof-code/
-- Score: 1.876 | Reliability: 1.0
+- Score: 1.851 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. How our GTM Agent builds consistent, high-quality sales artifacts
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/gtm-agent-high-quality-sales-artifacts
-- Score: 1.825 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 8. Gondola doubles revenue as its team builds more with Codex
+## 11. Gilbert + Tobin rethinks the business of law with AI
 - Type: news | Source: openai_blog
-- URL: https://openai.com/business/customer-stories/gondola
-- Score: 1.803 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 9. Build once, run on any agent: A practical guide to agent skills
-- Type: news | Source: github_blog_ai_ml
-- URL: https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/
-- Score: 1.771 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 10. Introducing Businesses in ChatGPT
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/introducing-businesses-chatgpt
-- Score: 1.652 | Reliability: 1.0
+- URL: https://openai.com/index/gilbert-tobin-sam-nickless
+- Score: 1.586 | Reliability: 1.0
 - Why it matters: 
 
-## 11. CodeRabbit scales agentic software development and ships 20x more
+## 12. ChatGPT Enterprise now available in AWS Marketplace
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/coderabbit-codex-daybreak
-- Score: 1.624 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, codex.
-
-## 12. Gemini Robotics 2.5 accelerates real-world general dexterity
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/
-- Score: 1.301 | Reliability: 1.0
+- URL: https://openai.com/index/chatgpt-enterprise-aws-marketplace
+- Score: 1.531 | Reliability: 1.0
 - Why it matters: 
 
-## 13. claude-code v2.1.323
+## 13. Control Room: A central system to track and stop model workloads across our research infrastructure
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/control-room
+- Score: 1.514 | Reliability: 1.0
+- Why it matters: 
+
+## 14. Why PMs are suddenly valuable again | Tulsee Doshi (Head of Product, Gemini)
+- Type: video | Source: lennys_podcast
+- URL: https://youtu.be/qGf2Yvan4Wg
+- Score: 1.364 | Reliability: 0.643
+- Why it matters: Matches feed focus: agent, harness, eval.
+
+## 15. claude-code v2.1.323
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.323
-- Score: 1.276 | Reliability: 1.0
+- Score: 1.277 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 14. codex 0.170.0-alpha.3
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.170.0-alpha.3
-- Score: 1.264 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 15. langgraph==1.2.22
+## 16. langgraph-checkpoint-postgres==3.2.1
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.22
-- Score: 1.225 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/checkpointpostgres%3D%3D3.2.1
+- Score: 1.224 | Reliability: 1.0
 - Why it matters: 
 
-## 16. claude-agent-sdk-python v0.2.181
+## 17. codex 0.170.0-alpha.3
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.170.0-alpha.3
+- Score: 1.22 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 18. claude-agent-sdk-python v0.2.182
 - Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.181
-- Score: 1.062 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.182
+- Score: 1.111 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. vllm v0.34.0rc1
+## 19. vllm v0.34.0rc4
 - Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc1
-- Score: 0.661 | Reliability: 1.0
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc4
+- Score: 0.935 | Reliability: 1.0
 - Why it matters:
