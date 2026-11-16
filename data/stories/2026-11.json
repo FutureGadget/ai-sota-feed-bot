@@ -603,6 +603,23 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.167.0-alpha.4.2",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "084301ebd6f9e5a4": {
+  "first_seen": "2026-11-16T11:06:17.692956+00:00",
+  "id": "41785905225f7bed",
+  "matched_topics": [
+   "agentic",
+   "harness"
+  ],
+  "published": "2026-11-13T18:59:02+00:00",
+  "sid": "084301ebd6f9e5a4",
+  "source": "arxiv_cs_lg",
+  "summary": "Robot-use agents (RUAs) have emerged as a promising approach to general-purpose robot control. However, strong performance has so far been achieved only by frontier proprietary models such as GPT-6 Astra and Claude Fable 5.2, whereas open-weight models remain substantially less capable. We show that an open-weight 27B reasoning model can be trained to use real robots natively through reinforcement learning, entirely in simulation and without demonstrations. Like a computer-use agent (CUA), the model observes the environment, reasons in a chain of thought, and generates the next end-effector pose, without any harness. We build a Post-training Engine for Agentic Robotics (PEAR) and use it to train the model on simulated robot tasks at scale with robot-use reinforcement learning (RURL), mirroring how frontier models acquire computer use. We find that the skills acquired in simulation generalize well beyond the training tasks: they transfer to an unseen robot, to the real world, and to novel instructions. After training on LIBERO and RoboDojo in simulation, the model succeeds in 60% of our trials on a real dual-arm robot, whereas the base model succeeds in none. On LIBERO, training raises the success rate from 1.6% to 74.4%, approaching GPT-6 Astra and GPT-6.1 Sol at maximum reasoning effort. Compared with $π_{0.5}$, a vision-language-action model fine-tuned on demonstrations, our model is substantially more robust to changes in the task itself. On LIBERO-Pro, $π_{0.5}$ succeeds ",
+  "summary_1line": "Robot-use agents (RUAs) have emerged as a promising approach to general-purpose robot control. However, strong performance has so far been achieved only by frontier proprietary models such as GPT-6 Astra and Claude Fa...",
+  "title": "Training Reasoning Models in Simulation to Natively Use Real Robots",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18562v1",
+  "why_it_matters": "Matches feed focus: agentic, harness."
+ },
  "08c314bb237b4b82": {
   "first_seen": "2026-11-04T10:05:31.670878+00:00",
   "id": "383ad444462b1648",
@@ -4100,6 +4117,7 @@
   "published": "2026-11-13T17:26:39+00:00",
   "sid": "3985de9df0cd2149",
   "source": "arxiv_llm_reliability",
+  "summary": "Reliable use of large language models (LLMs) requires uncertainty estimates that separate ambiguity intrinsic to a prompt from genuine knowledge gaps. Bayesian and deep-ensemble methods deliver this aleatoric/epistemic decomposition in principle, but are computationally prohibitive at LLM scale and require white-box access. Existing black-box methods, in contrast, summarize to a single scalar that cannot make the distinction. We introduce a two-level ensemble that bridges this gap. Stochastic decoding of a fixed prompt forms the inner ensemble; meaning-preserving semantic perturbations of the prompt form the outer ensemble. Variability is measured in a continuous embedding space, and the law of total covariance gives an exact within-/between-perturbation decomposition to estimate aleatoric and epistemic uncertainty (AU/EU); it requires only black-box sampling access. On top of this estimator, we contribute three theoretical results that ground the framework: (i) a finite-sample bias identity for nested Monte Carlo with a closed-form bias-corrected epistemic estimator; (ii) a Bayesian bridge bounding the gap between perturbation-population AU/EU and Bayesian targets; and (iii) a separation result identifying a class of failure modes that any consistency-only black-box method provably misses while perturbation-based EU detects. Across five short QA benchmarks and four instruction-tuned LLMs spanning two families and two scales, our estimator is competitive with strong white-box",
   "summary_1line": "Reliable use of large language models (LLMs) requires uncertainty estimates that separate ambiguity intrinsic to a prompt from genuine knowledge gaps. Bayesian and deep-ensemble methods deliver this aleatoric/epistemic decomposition in principle, but are computationally prohibiti",
   "title": "Black-Box Uncertainty Quantification for Large Language Models via Ensemble-of-Ensembles",
   "type": "paper",
@@ -6353,6 +6371,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09802v1",
   "why_it_matters": "Matches feed focus: agent, evaluation, claude code."
+ },
+ "5729d7c3be69bbc7": {
+  "first_seen": "2026-11-16T11:06:17.692956+00:00",
+  "id": "ee9b1175d58fa227",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-13T18:29:51+00:00",
+  "sid": "5729d7c3be69bbc7",
+  "source": "arxiv_cs_cl",
+  "summary": "This paper introduces MeReader, a privacy-preserving, offline and progress-aware AI assistant designed to function as a contextual companion for narrative reading on consumer hardware. Unlike conventional Large Language Model (LLM)-based systems that process documents/books online in an all-texts-at-once type of way, thereby risking narrative spoilers, MeReader confines both retrieval and generation to the reader's distinct position in the text. The system integrates a hybrid retrieval architecture, combining vector similarity, BM25, and summary embeddings, to ensure high fidelity to the reader's current context. We evaluate the system across classical English books using both quantitative comprehension metrics and qualitative LLM-based independent judging. The results identify a quality-latency frontier, showing that mid-sized local models (2b-4b) can achieve comprehension parity with larger counterparts (5b+) while maintaining acceptable response quality. Importantly, the proposed progress-aware boundary mechanism is shown to prevent future content leakage without compromising retrieval quality and correctness. These findings suggest that a localized, privacy-centric approach can augment, rather than replace, the digital reading experience, offering a good alternative to cloud-dependent services. Therein, there remains a lack of amalgamate systems which combine progress-aware, privacy-preserving, and narrative eBook reading with AI support. It is in this very gap that the d",
+  "summary_1line": "This paper introduces MeReader, a privacy-preserving, offline and progress-aware AI assistant designed to function as a contextual companion for narrative reading on consumer hardware. Unlike conventional Large Langua...",
+  "title": "MeReader: An Offline, Privacy-Preserving, Progress-Aware AI Assistant for Narrative eBook Reading",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18513v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "57b08f9866a26766": {
   "first_seen": "2026-11-04T11:05:34.944705+00:00",
@@ -10502,6 +10536,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03280v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "92b26dd85adb6a57": {
+  "first_seen": "2026-11-16T11:06:17.692956+00:00",
+  "id": "29a61b70a19a015d",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-13T18:49:36+00:00",
+  "sid": "92b26dd85adb6a57",
+  "source": "arxiv_cs_lg",
+  "summary": "Generative modeling based on stochastic interpolants requires specifying two key choices: an interpolant schedule bridging the initial and target distributions, and an efficient discretization of the resulting probability-flow ODE. In this work, we introduce a new framework for joint schedule/discretization design based on the analyticity properties of the (complexified) ODE trajectories, which in turn ensure good numerical behavior. Our formulation can be solved exactly via conformal mapping, yielding a natural family of variance-preserving elliptic schedules, parametrized by Jacobi elliptic functions. Pairing an elliptic schedule with a tailored discretization, we obtain Zoloflow, a new sampling algorithm closely connected to Zolotarev's optimal rational function approximants. Crucially, both the elliptic schedule and Zoloflow explicitly incorporate the condition number $κ$ of the target distribution and reduce to the classical trig schedule in the limit $κ\\rightarrow 1$. For Gaussian targets, Zoloflow achieves minimax optimality among all oblivious score-span algorithms, attaining total-variation error $\\varepsilon$ using $Θ(\\logκ\\,\\log(\\sqrt d/\\varepsilon))$ (exact) score queries. For the log-concave case, the elliptic schedule allows sampling with at most $\\varepsilon$ 2-Wasserstein-error by requiring merely $\\widetilde{O}(\\sqrt{d} \\, \\mathrm{polylog}(κ, 1/\\varepsilon))$ score evaluations. Complementing these theoretical results, we empirically evaluate the elliptic sche",
+  "summary_1line": "Generative modeling based on stochastic interpolants requires specifying two key choices: an interpolant schedule bridging the initial and target distributions, and an efficient discretization of the resulting probabi...",
+  "title": "Elliptic Sampling: Optimal Interpolant Schedules for Gaussians and Beyond",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18542v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "92bcff336f9d2934": {
   "content_excerpt": "An agent on Neon Functions, Lakebase Postgres, and AI Gateway that hands its routine steps to a small model tuned on its own traffic Mubit is middleware for AI agents. It sits between your agent and the model with a one-line endpoint change, learns from every call, and moves recurring steps to small models tuned on your own traffic, while the frontier model keeps the hard ones. There's nothing extra to host. To show how that works with Neon, they built a template for cutting frontier-model token spend - an agent on Neon Functions and Lakebase Postgres that sends every model call through Mubit to Neon AI Gateway . The example workload is a data analyst agent that answers business questions over Postgres, but the setup applies to any agent on Neon that calls frontier models through AI Gateway: Once Mubit has tuned a small model for the routine steps, it serves them itself, and lessons from verified runs help the agent avoid repeating mistakes. In the example workload, using Mubit cut the agent's gpt-5.5 tokens by 73% and made it 40% faster, without losing accuracy. \"Neon gives agents a database and a model endpoint in one place. Mubit sits in between and learns from every call, so an agent on Neon gets cheaper and more reliable the more it runs\" — Anil Peri, CEO at Mubit \"We built AI Gateway so agents on Neon can call frontier models through one endpoint. Mubit is a good example of what you can put in front of it. The agent passes the repetitive stuff to small models, and when ",
@@ -18040,13 +18090,18 @@
  "fb984b4ec46a1a9a": {
   "first_seen": "2026-11-16T03:24:13.745359+00:00",
   "id": "c76c330677f0f0fa",
+  "matched_topics": [
+   "evaluation"
+  ],
   "published": "2026-11-13T15:11:11+00:00",
   "sid": "fb984b4ec46a1a9a",
   "source": "arxiv_llm_reliability",
+  "summary": "Whether a language model's answer is correct often depends on context: the same value can be right under one jurisdiction, date, or legal definition and wrong under another. We introduce GT-FENG (General Theory of Factual Evaluation and Normative Grounding), the first general framework to unify contextual/temporal correctness and rule-based error attribution across law, policy, and other rule-governed domains. GT-FENG checks answers against the applicable rules and identifies documented rules that match incorrect answers. It shows that when multiple rules give the same value, the answer alone cannot tell which rule the model used. In Medicaid income-limit answers from two models, documenting the asked state's own records reduces the number of wrong answers that match only other states' values by 68-78%, and more than half of stable wrong answers then match two or more documented sources. GT-FENG provides a foundation for evaluating language models in rule-governed domains and for future benchmarks and evaluation toolkits. We release GT-FENG as an open-source Python package, gtfeng.",
   "summary_1line": "Whether a language model's answer is correct often depends on context: the same value can be right under one jurisdiction, date, or legal definition and wrong under another. We introduce GT-FENG (General Theory of Factual Evaluation and Normative Grounding), the first general fra",
   "title": "GT-FENG: General Theory of Factual Evaluation and Normative Grounding in Language Models *Author(s)",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.18279v1"
+  "url": "http://arxiv.org/abs/2611.18279v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "fba8aacc27f4de81": {
   "content_excerpt": "CloudOpsBench Skip to content CloudOps Bench . Leaderboard About Blog Contributors GitHub CloudOps Bench A benchmark for AI agents on real cloud operations How it works View the tasks Release v1.0 Show results table pareto waffle Model leaderboard . Select a row to view details. Rank Model Harness Resolution rate Release date Time Tokens Cost 01 claude-fable-5-1 (max) claude-code claude-code 60.6% Sept 1, 2026 38.6h 97.9M $404.3 02 gpt-6-astra (max) codex codex 58.9% Sept 3, 2026 16.5h 98.0M $310.9 03 gemini-4-argon (high) gemini-cli gemini-cli 57.5% Oct 13, 2026 34.2h 173.9M $100.5 04 grok-4.7 (high) cursor-cli cursor-cli 56.5% Sept 21, 2026 33.2h 178.3M $138.8 05 gpt-6-astra (high) codex codex 54.2% Sept 3, 2026 16.1h 62.4M $188.4 06 grok-4.7 (high) grok-build grok-build 48.3% Sept 21, 2026 25.9h 173.4M $127.3 07 claude-opus-5-5 (high) terminus-2 terminus-2 47.8% Sept 22, 2026 19.5h 22.6M $45.1 08 claude-opus-5-5 (high) claude-code claude-code 46.7% Sept 22, 2026 14.0h 37.4M $36.6 09 claude-fable-5-1 (high) terminus-2 terminus-2 43.8% Sept 1, 2026 19.0h 37.3M $319.1 10 gemini-3.8-flash (high) terminus-2 terminus-2 42.8% Sept 2, 2026 33.2h 337.4M $70.0 11 gpt-6-astra (high) terminus-2 terminus-2 42.8% Sept 3, 2026 12.9h 19.2M $94.6 12 grok-4.7 (medium) grok-build grok-build 40.0% Sept 21, 2026 21.4h 121.6M $91.6 13 grok-4.6 (high) cursor-cli cursor-cli 39.7% Aug 12, 2026 19.7h 78.2M $63.8 14 grok-4.6 (medium) grok-build grok-build 36.7% Aug 12, 2026 16.2h 59.4M $51.2 15 grok",
