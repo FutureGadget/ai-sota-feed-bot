@@ -66,6 +66,17 @@
   "url": "http://arxiv.org/abs/2611.18459v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "018ac20c79d4eeba": {
+  "content_excerpt": "To continue exploring this website, please rotate your device to a vertical orientation Inference techniques either move a deployment along the latency–throughput frontier or push the entire frontier out, creating more efficiency to allocate. In the AI industry, we borrowed the term “efficient frontier” from economists. We use it to talk about managing tradeoffs, most often the tradeoff between co",
+  "first_seen": "2026-11-16T08:05:26.663948+00:00",
+  "id": "99b7056908383cb8",
+  "published": "2026-11-15T23:55:50+00:00",
+  "sid": "018ac20c79d4eeba",
+  "source": "hackernews_ai",
+  "title": "The efficient frontier of LLM inference",
+  "type": "news",
+  "url": "https://www.baseten.co/blog/the-efficient-frontier-of-llm-inference/#quantization"
+ },
  "01d6db945cd3f0c2": {
   "first_seen": "2026-11-03T04:13:31.497634+00:00",
   "id": "b6f58e302babfc80",
@@ -3824,6 +3835,18 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.1",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "34685a84f2863ee6": {
+  "first_seen": "2026-11-16T08:04:02.861282+00:00",
+  "id": "b425a2b9661e7f29",
+  "published": "2026-11-13T16:34:37+00:00",
+  "sid": "34685a84f2863ee6",
+  "source": "arxiv_cs_ai",
+  "summary": "Interactive LLM services must meet latency service-level objectives (SLOs) for the time to first token (TTFT) and the time between tokens (TBT), as streaming and soft real-time applications require predictable token delivery. We identify decode jitters in both aggregated and disaggregated serving. A jitter delays every request in the batch, and long responses span hundreds of steps, so even rare overruns cause many SLO violations. In aggregated serving, SLO-aware schedulers set each step's prefill budget until its predicted latency just meets the TBT target, leaving no room for mispredictions or host stalls. Disaggregation meets average TBT targets at a cost in capacity, yet the steps that admit new requests still run late. We present \\sysname, a scheduler that calibrates how much prefill work each decode step carries using the measured tail of its own iteration latency. The SLO determines how rare a late step must be, and \\sysname leaves enough headroom in each iteration to prevent overruns and meet the target decode latency. This headroom slows prefill, so \\sysname serves the shortest waiting prompt first. When TTFT deadlines grow with prompt length, the long prompts it delays have the most time to spare. Under disaggregation, it spaces admissions so that no request waits on more slow admission steps than its P99 target allows. On three attention families and varying workloads, \\sysname sustains 2.4--2.9$\\times$ the SLO goodput of the strongest baseline on Qwen3-8B and Deep",
+  "summary_1line": "Interactive LLM services must meet latency service-level objectives (SLOs) for the time to first token (TTFT) and the time between tokens (TBT), as streaming and soft real-time applications require predictable token d...",
+  "title": "VelServe: Taming Decode Jitters in LLM Inference with Tail-Calibrated Scheduling",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18392v1"
  },
  "346e59fe4752752d": {
   "content_excerpt": "For the third consecutive year, we asked Python developers how they use and experience Python typing: the language features, specifications, and tools used to describe and check types in Python code. We run the survey to learn what is working and what library maintainers, tool builders, documentation authors, and standards contributors should tackle next. Most respondents were experienced Python developers: 76.4% had used Python for at least five years. The clearest change was the shift in checker choice, while missing library type information remained the most common difficulty. Broader and more accurate type information would help users of data-science packages: Dynamic frameworks pose a different challenge because current type systems cannot express some runtime behavior. Possible directions include new typing features and checker support tailored to individual libraries and frameworks. Tool builders could focus on editor feedback and an initial checker run that requires little configuration: Error messages could link to short explanations and examples. Typing documentation can assume Python experience. Projects using multiple checkers would benefit from clear explanations of intentional differences between them. Better callable syntax remains a practical area for standards work , especially if improvements keep common typing tasks straightforward. AI usage remains an open question: The findings on AI leave an open question about which interactions between AI tools and typ",
@@ -9503,6 +9526,24 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.16206v1"
  },
+ "872582ba68666058": {
+  "first_seen": "2026-11-16T08:04:02.861282+00:00",
+  "id": "c236a2d61b9eccd4",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-13T18:58:08+00:00",
+  "sid": "872582ba68666058",
+  "source": "arxiv_cs_lg",
+  "summary": "Recent work shows that large language models (LLMs) can operate directly on the parameters of other neural networks. They can read what a network was trained to do, fix a network that fails, and write working networks from scratch, all without gradient descent. This capability has been termed Weight-Space Programming (WSP). Exploring this new paradigm systematically requires a robust benchmark. We introduce WEIGHTBENCH, a benchmark that evaluates LLMs of increasing capability on 42 WSP tasks across five tracks: reading, fixing and writing weights, recognizing edits that are impossible, and data-free compression. The networks whose weights the LLMs read and edit range from 2K-parameter control policies to 7B-parameter language models. Experimental benchmark results show that frontier agents can already read small networks and write working control policies without ever running them, but cannot yet patch language models, compress them without data, or tell an impossible edit from a hard one. On all 42 tasks, Claude Opus 5.5 reaches a macro score of 0.535 (Sonnet 5.5 0.466, Haiku 5.5 0.402, DeepSeek v4-flash 0.215); on the 38 tasks it was run on, GPT-6.1-sol reaches 0.568 against Opus's 0.546. Code, the task registry, our OS-level sandbox harness, and the live leaderboard are publicly available at https://github.com/Aayush-Marasini/WeightBench.",
+  "summary_1line": "Recent work shows that large language models (LLMs) can operate directly on the parameters of other neural networks. They can read what a network was trained to do, fix a network that fails, and write working networks...",
+  "title": "WeightBench: Evaluating Language Models as Weight-Space Programmers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18553v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
  "875aaebf224f48b2": {
   "content_excerpt": "Free app for macOS, Windows and Linux that shows what your AI agents (Claude Code, Codex, Gemini CLI, Cursor, OpenCode) can access, asks before they act, and lets you take it back. Local only. See everything your AI coding agents can access on your computer, and take any of it back. Claude Code, Codex, Gemini CLI, Cursor, OpenCode and other agents collect permissions over time: auto-approved commands, MCP servers with tokens, trusted folders, saved logins, API keys left in their logs. AI Access Auditor finds all of it, explains each item in one line, and lets you remove it with one click, with undo. The same scan runs in a terminal, in scripts and in CI. It needs Node.js 18 or later, and nothing is installed: Or from a copy of this repository: node server.js --scan . Run --help for every option. When a new version is out, the app downloads it in the background from this repository's releases and checks it before anything is installed: the checksum published with the release must match, and on a Mac the app must also be signed with this developer's Apple Developer ID and notarized by Apple. Then one click on Restart to update installs it. The .deb packages, which need administrator rights, keep a download link instead. Everything stays on your computer: no account, no telemetry. The only network request is a daily check for a new version on GitHub, which you can turn off in Setup. The local server listens only on 127.0.0.1, checks a per-session token, and masks secrets in its ",
   "first_seen": "2026-11-10T10:49:44.059605+00:00",
@@ -13568,6 +13609,17 @@
   "type": "news",
   "url": "https://openai.com/index/cultfit-builds-with-codex",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "bc181140a23e603b": {
+  "content_excerpt": "CrowdGPT is focusing on creating the world's first 0$, datacenterless and 100% open AI. Run the app on your computer, and the AI gets better. A single company training a frontier model uses thousands of A100s in a datacenter. Most people don't have that hardware. But millions of people have gaming PCs with RTX cards sitting idle. CrowdGPT uses that compute, and the model that gets trained belongs",
+  "first_seen": "2026-11-16T08:05:26.663948+00:00",
+  "id": "86fc473d10d1266e",
+  "published": "2026-11-16T00:13:30+00:00",
+  "sid": "bc181140a23e603b",
+  "source": "hackernews_ai",
+  "title": "CrowdGPT – AI Owned by Everyone",
+  "type": "news",
+  "url": "https://www.crowdgpt.net/#home"
  },
  "bc7fe2eccde51f72": {
   "content_excerpt": "One Python interface for chat, streaming, tool calls, and structured output across AI providers. Republic stops at providers; agent loops, tool execution, and gateways stay in your code. A model is named provider:model . Switch services by changing the name, such as anthropic:MODEL_ID , google:MODEL_ID , or deepseek:MODEL_ID ; each reads its key from REPUBLIC_ _API_KEY . See the provider directory for every supported service.",
