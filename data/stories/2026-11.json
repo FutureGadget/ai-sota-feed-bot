@@ -4960,6 +4960,22 @@
   "url": "http://arxiv.org/abs/2611.12799v1",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "43f4dc59084af34d": {
+  "first_seen": "2026-11-16T07:06:51.713260+00:00",
+  "id": "cc34c3ca43fc3f67",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-13T18:41:44+00:00",
+  "sid": "43f4dc59084af34d",
+  "source": "arxiv_cs_cl",
+  "summary": "Wafer-scale accelerators offer massive compute capacity through hundreds of thousands of processing elements (PEs) interconnected across a single wafer, but realizing this potential requires efficient application mapping. Their scale makes programming these systems and mapping applications onto them challenging. Existing approaches rely on template-based mappings to maintain productivity, but these templates restrict the mapping design space. In particular, they impose fixed geometric layouts over the PE grid, often leaving compute and memory resources underutilized. In this work, we present WaferTetris, a system that removes these geometric restrictions through freeform mapping. Its Tetris-like strategy flexibly packs computation across the wafer, improving PE utilization and usable memory capacity while preserving PE-task code. We develop a recurrence-based throughput model that captures branch-and-join dependencies to guide spatial parallelism, and an architecture model with per-color gates that enable existing FPGA place-and-route algorithms to enforce WSE routing constraints. We evaluate WaferTetris on Cerebras WSE-3 using LLM decoding and scientific stencil benchmarks. For LLM decoding, it achieves up to $4.42\\times$ the system throughput of a template-based automatic mapping baseline on the same fabric size. Compared with the manually optimized WaferLLM, WaferTetris supports $1.8\\times$ the context length for LLaMA3.1-8B (80k versus 44k), while delivering equal or high",
+  "summary_1line": "Wafer-scale accelerators offer massive compute capacity through hundreds of thousands of processing elements (PEs) interconnected across a single wafer, but realizing this potential requires efficient application mapp...",
+  "title": "WaferTetris: Efficient Freeform Mapping on Wafer-Scale Accelerators",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18527v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "43f56f7107586761": {
   "content_excerpt": "SAN FRANCISCO | October 30, 2026 – The Biological Computing Co. (TBC) , an applied biological computing company that uses living neurons to improve AI models, today launched TBC mischief 1, an AI video model that generates video 5x faster than its base model. Available on fal and OpenRouter , mischief 1 is the lowest-priced image-to-video model on both marketplaces, enabling video creators and developers to experiment with more ideas, faster and for less. The launch marks a major step in bringing discoveries from living neurons into commercial AI. mischief 1 is faster and cheaper because of efficiencies TBC discovered in living neurons and applied directly to the model. Just five weeks after announcing its collaboration with Amazon Web Services (AWS) to bring the model to enterprise customers, TBC is extending access to creators and developers through fal and OpenRouter. At half a cent per second, a five-second clip costs 2.5 cents, and 100 clips cost $2.50. Creators can test more ideas, compare takes and refine their work within the same budget. For developers, lower generation costs make it easier to build video into products that people can afford to use repeatedly. Wonder Studios, an AI-native creative studio, tested mischief 1 in its own production workflow. “Great storytelling comes from refining an idea until it’s right, and that’s usually the crunch point for time and budget. mischief 1’s speed and cost-effectiveness meant we could push the work much further within th",
   "first_seen": "2026-11-02T20:05:25.137504+00:00",
@@ -11802,7 +11818,7 @@
   ],
   "published": "2026-11-13T17:44:01+00:00",
   "sid": "a44ee00fea440f11",
-  "source": "arxiv_cs_cl",
+  "source": "arxiv_agent_systems_research",
   "summary": "LLM-based verifiers are increasingly used to evaluate agent executions, but their reliability is typically measured under a single representation of the trajectory. In deployed agent systems, the same execution may be exposed through composed tools, delegation boundaries, or compacted histories, changing what execution evidence is directly observable to the verifier. It therefore remains unclear whether correct verifier judgments persist across such abstraction boundaries. We introduce Verification Transport, a reliability test that measures judgment stability under abstraction-induced changes in execution observability. We construct matched native, abstracted, and restored views of the same frozen executions while holding the task, realized trajectory, outcome, ground truth, evaluation criterion, and verifier fixed. Across four agent-evaluation benchmarks, seven verifier backbones, four verification protocols, and three abstraction boundaries, we find substantial transport failure, reaching about 31% under macro abstraction and delegation. Verification protocols exhibit distinct failure modes: direct verification more often produces incorrect verdicts, whereas evidence-grounded and deliberative protocols tend to abstain under limited observability. This suggests that lower transport failure rates do not necessarily imply greater reliability. Restoring the corresponding execution provenance recovers 85.5% of transport failures, while recovery is lower when provenance is lossy",
   "summary_1line": "LLM-based verifiers are increasingly used to evaluate agent executions, but their reliability is typically measured under a single representation of the trajectory. In deployed agent systems, the same execution may be...",
   "title": "Do Verifier Judgments Survive Abstraction? Measuring Verification Transport for LLM Agent Evaluation",
