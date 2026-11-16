@@ -1,12 +1,12 @@
 {
  "slug": "prompt-injection",
  "label": "Prompt Injection",
- "item_count": 26,
- "day_count": 16,
+ "item_count": 25,
+ "day_count": 15,
  "source_count": 6,
- "first_seen": "2026-10-25T00:00:25+00:00",
+ "first_seen": "2026-10-26T10:15:38+00:00",
  "last_updated": "2026-11-12T18:58:22+00:00",
- "generated_at": "2026-11-14T00:13:06.733465+00:00",
+ "generated_at": "2026-11-16T00:12:18.135630+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -16,22 +16,6 @@
   "hackernews_ai"
  ],
  "days": [
-  {
-   "date": "2026-10-25",
-   "items": [
-    {
-     "title": "Continual Learning Exam: Benchmarking Long-Horizon RSI and Experiential Learning in LLM Agents",
-     "url": "http://arxiv.org/abs/2610.33956v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Continual learning is the ability of LLM agents to improve over time by acquiring, refining, and applying knowledge from experience while retaining useful prior knowledge. It is essential for agents learning over long...",
-     "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
-     "sid": "55edc2615764e1b5",
-     "published": "2026-10-25T00:00:25+00:00",
-     "editor_note": "Adjacent, not injection: a benchmark for continual learning in long-horizon agents."
-    }
-   ]
-  },
   {
    "date": "2026-10-26",
    "items": [
@@ -218,7 +202,7 @@
      "url": "http://arxiv.org/abs/2611.07222v1",
      "source": "arxiv_agent_systems_research",
      "type": "paper",
-     "summary_1line": "Tool-using agents act on email, files, and payments, so an instruction hidden in a web page or a shared document can make an agent send data or money to an attacker. Many runtime defenses put a language model on the decision that lets an action through, so the decision depends on",
+     "summary_1line": "Tool-using agents act on email, files, and payments, so an instruction hidden in a web page or a shared document can make an agent send data or money to an attacker. Many runtime defenses put a language model on the d...",
      "why_it_matters": "Matches feed focus: agent.",
      "sid": "ff6fd9e5c49f2a11",
      "published": "2026-11-04T23:18:10+00:00",
@@ -386,7 +370,7 @@
  "editorial": {
   "tldr": "This is a research cluster, not one event: late-October papers proposed model-level defenses (Heads of Security attention gates, SecPO adversarial training). Early-November papers widened the attack surface to agent memory, tool updates, task outcomes, and reasoning traces, and a Nov 8 paper argued for treating the model as an untrusted component.",
   "stale": false,
-  "whats_new": "The Nov 11 \"Prompt Injection, Esq.\" post on bypassing agent guardrails with legal-style phrasing is still the latest injection item; the Nov 12 addition, CoReMem, is an adjacent coding-agent memory paper.",
+  "whats_new": "No new injection item since Nov 12: the Nov 11 \"Prompt Injection, Esq.\" guardrail-bypass post remains the latest, and the Nov 12 CoReMem paper is adjacent coding-agent memory work.",
   "why_it_matters": "The thread keeps moving the defense out of the model: a guardrail that reads text can be argued with, so the control that holds is the one enforced in code around the tool call.",
   "take_for_builders": "Gate high-impact tool calls with deterministic policy and human approval instead of an LLM judge, then add legal-register, task-tampering, memory-poisoning, and tool-version-change cases to your red-team suite.",
   "beats": [
@@ -434,9 +418,8 @@
     "kicker": "ADJACENT WORK",
     "tone": "neutral",
     "headline": "Long-horizon agent and evaluation papers share the cluster, not the topic",
-    "summary": "Sixteen papers on long-horizon agents, memory, and benchmarks were grouped in by shared wording; none addresses prompt injection.",
+    "summary": "Fifteen papers on long-horizon agents, memory, and benchmarks were grouped in by shared wording; none addresses prompt injection.",
     "sids": [
-     "55edc2615764e1b5",
      "5f97c21b490b1ce9",
      "3ca73f33ea96bd6a",
      "423c688c0621c177",
@@ -480,6 +463,6 @@
    "Which guardrail products does the lawyerspeak bypass work against, and do their vendors confirm or patch it?",
    "Do deterministic policy enforcement and taint tracking hold on closed frontier models, beyond the open-weights models the paper validated on?"
   ],
-  "generated_at": "2026-11-14T00:12:07Z"
+  "generated_at": "2026-11-16T00:11:54Z"
  }
 }

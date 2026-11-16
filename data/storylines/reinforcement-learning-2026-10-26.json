@@ -1,12 +1,12 @@
 {
  "slug": "reinforcement-learning-2026-10-26",
  "label": "Reinforcement Learning",
- "item_count": 27,
+ "item_count": 28,
  "day_count": 13,
  "source_count": 5,
  "first_seen": "2026-10-26T10:11:24+00:00",
  "last_updated": "2026-11-12T11:38:21+00:00",
- "generated_at": "2026-11-14T00:13:06.733465+00:00",
+ "generated_at": "2026-11-16T00:12:18.135630+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -356,6 +356,17 @@
    "date": "2026-11-12",
    "items": [
     {
+     "title": "StateAlign: Internalizing State-Aware Decision-Making for Reliable Multi-Turn Tool Agents via Reinforcement Learning",
+     "url": "http://arxiv.org/abs/2611.16304v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Reinforcement learning has improved the tool-use capabilities of large language models. However, better task performance can coincide with increased tool hallucination. Reliable tool use requires decisions to follow the current task state: available information, tool capabilities",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "335ccd3caa00e6d5",
+     "published": "2026-11-12T05:04:43+00:00",
+     "editor_note": "Adds a failure mode to the agent-training strand: RL tool-use gains can coincide with more tool hallucination, so it trains decisions to follow the current task state."
+    },
+    {
      "title": "Reducing Batch Makespan for LLM Agent Workloads through Inference-Environment Coordination",
      "url": "http://arxiv.org/abs/2611.16661v1",
      "source": "arxiv_cs_ai",
@@ -364,17 +375,17 @@
      "why_it_matters": "Matches feed focus: agent, evaluation.",
      "sid": "e372c76cd210406f",
      "published": "2026-11-12T11:38:21+00:00",
-     "editor_note": "Latest item: coordinates LLM inference with environment execution to cut batch makespan for evals, synthetic data and RL rollouts."
+     "editor_note": "Third scheduling paper: coordinates LLM inference with environment execution to cut batch makespan for evals, synthetic data and RL rollouts."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This thread is a topical grouping of 27 arXiv preprints since Oct 26, not one event: what they share is reinforcement learning as a post-training method for LLMs and agents. Most of them work on one of three problems: what the reward should measure, how to train multi-turn tool-using agents, and how to pay for the rollouts.",
+  "tldr": "This thread is a topical grouping of 28 arXiv preprints since Oct 26, not one event: what they share is reinforcement learning as a post-training method for LLMs and agents. Most of them work on one of three problems: what the reward should measure, how to train multi-turn tool-using agents, and how to pay for the rollouts.",
   "stale": false,
-  "whats_new": "A Nov 12 preprint targets batch makespan for agent workloads, RL rollouts included, by coordinating LLM inference with environment execution, the third rollout-scheduling paper in this thread since Oct 27.",
-  "why_it_matters": "For teams that post-train their own agents, the recurring constraints in these papers are rollout cost and reward design, and three of the 27 treat rollout scheduling as an infrastructure problem in its own right.",
-  "take_for_builders": "Before adding GPUs to an agent RL or batch-eval pipeline, measure how much rollout wall-clock goes to environment execution and padding rather than inference, since that is the waste the three scheduling papers target.",
+  "whats_new": "Two Nov 12 preprints close the window: StateAlign reports that RL tool-use gains can coincide with more tool hallucination and trains state-aware tool decisions, and a third rollout-scheduling paper coordinates inference with environment execution.",
+  "why_it_matters": "For teams that post-train their own agents, these papers flag three costs: rollout scheduling as an infrastructure problem, reward design, and RL tool-use gains that can bring more tool hallucination.",
+  "take_for_builders": "Before adding GPUs to an agent RL pipeline, measure how much rollout wall-clock goes to environment execution and padding; after any RL tool-use tune, track tool-hallucination rate alongside task success.",
   "beats": [
    {
     "kicker": "REWARD SIGNAL",
@@ -394,7 +405,7 @@
     "kicker": "AGENT TRAINING",
     "tone": "rising",
     "headline": "RL moves onto the agent stack: harnesses, skills, memory and sub-agents",
-    "summary": "Ten papers apply RL to parts of an agent system rather than to a single-turn model, and one asks what multi-turn RL actually improves.",
+    "summary": "Eleven papers apply RL to parts of an agent system rather than to a single-turn model; one asks what multi-turn RL actually improves, and one targets the tool hallucination RL can introduce.",
     "sids": [
      "c07d00b3f0a46112",
      "d448a8af2a653453",
@@ -405,7 +416,8 @@
      "219537f3fa2b3690",
      "981c5fba5d1f60bf",
      "4553deeec0e06574",
-     "84ecbe8e1def5e6c"
+     "84ecbe8e1def5e6c",
+     "335ccd3caa00e6d5"
     ]
    },
    {
@@ -440,8 +452,9 @@
    "Do any of the three rollout-scheduling approaches ship as open-source code or get adopted in a public training stack?",
    "Does an independent group reproduce the finding that multi-turn RL gains depend on sampling breadth and interaction depth?",
    "Do the confidence-calibration methods for RLVR hold on agent tasks, beyond the RAG and reasoning settings they were proposed for?",
-   "Does co-evolving the harness with the policy beat tuning a harness for a fixed policy on a shared public benchmark?"
+   "Does co-evolving the harness with the policy beat tuning a harness for a fixed policy on a shared public benchmark?",
+   "Does state-aware RL training cut tool hallucination without giving back the task-success gains, on a public multi-turn tool benchmark?"
   ],
-  "generated_at": "2026-11-14T00:12:06Z"
+  "generated_at": "2026-11-16T00:11:56Z"
  }
 }

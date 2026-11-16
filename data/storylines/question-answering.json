@@ -1,50 +1,18 @@
 {
  "slug": "question-answering",
  "label": "Question Answering",
- "item_count": 4,
- "day_count": 4,
+ "item_count": 3,
+ "day_count": 3,
  "source_count": 3,
- "first_seen": "2026-10-23T09:50:37+00:00",
- "last_updated": "2026-11-04T13:30:54+00:00",
- "generated_at": "2026-11-09T00:12:13.390560+00:00",
+ "first_seen": "2026-10-27T07:14:59+00:00",
+ "last_updated": "2026-11-12T04:56:28+00:00",
+ "generated_at": "2026-11-16T00:12:18.135630+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_cl",
   "arxiv_llm_reliability"
  ],
  "days": [
-  {
-   "date": "2026-10-23",
-   "items": [
-    {
-     "title": "Cycle-of-Thought: Self-Evaluative Iterative Reasoning for Table Visual Question Answering in Document Images",
-     "url": "http://arxiv.org/abs/2610.32423v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Recent advances in Vision-Language Models (VLMs) have significantly improved Visual Question Answering (VQA) performance, yet their reasoning over structured content such as tables remains inconsistent, often plagued...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "1846766ba5a6742d",
-     "published": "2026-10-23T09:50:37+00:00",
-     "editor_note": "Iterative self-evaluation for table VQA over document images."
-    }
-   ]
-  },
-  {
-   "date": "2026-10-26",
-   "items": [
-    {
-     "title": "Evolve on Graph: Self-Evolving Knowledge Graph Reasoning without Question Annotations",
-     "url": "http://arxiv.org/abs/2610.35598v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Knowledge graphs (KGs) provide reliable external knowledge for multi-hop factual reasoning with large language models (LLMs), yet most KGs in real-world domains such as finance and industry lack question--answer (QA)...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "26fc92a7573c4011",
-     "published": "2026-10-26T15:23:04+00:00",
-     "editor_note": "Knowledge-graph reasoning that evolves without QA annotations."
-    }
-   ]
-  },
   {
    "date": "2026-10-27",
    "items": [
@@ -76,45 +44,65 @@
      "editor_note": "Adds a benchmark for streaming speech QA, a new modality for the thread."
     }
    ]
+  },
+  {
+   "date": "2026-11-12",
+   "items": [
+    {
+     "title": "SAGE-QA: Semantic-Aware, Grounded Evaluation for Closed-Context Question Answering on SQuAD 2.0",
+     "url": "http://arxiv.org/abs/2611.16300v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Closed-context question answering (QA) requires a system to generate an answer strictly supported by a supplied passage, or to abstain when the passage lacks adequate evidence. SQuAD 2.0 is a widely used benchmark for this setting, scored by Exact Match (EM) i.e., character-level",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "2e73b9cb16efae6d",
+     "published": "2026-11-12T04:56:28+00:00",
+     "editor_note": "Turns the thread to evaluation: grounded, abstention-aware scoring in place of Exact Match."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Late-October arXiv papers attacked question answering where plain LLM calls fall short: tables in document images and knowledge graphs without QA annotations. A multilingual multi-hop document QA paper then added agentic skills.",
+  "tldr": "The thread opened in late October with DocSkill, an arXiv paper applying skill-integrated agents to multilingual multi-hop document QA. LibriSpeech-Real-QA followed on Nov 4 with a benchmark for streaming speech QA, where models must answer before the full audio arrives.",
   "stale": false,
-  "whats_new": "LibriSpeech-Real-QA (Nov 4) is a benchmark for streaming question answering, where speech LLMs must respond before the full audio segment has arrived.",
-  "why_it_matters": "These are research papers, not products, but they show QA moving toward iterative self-checking, agentic skills and streaming input, which change latency and eval design for pipelines.",
-  "take_for_builders": "Treat these as preprints: if you run document or speech QA, note the benchmarks they introduce and wait for independent reproductions before changing a pipeline.",
+  "whats_new": "SAGE-QA (Nov 12) proposes semantic-aware, grounded scoring for SQuAD 2.0 closed-context QA, replacing character-level Exact Match with checks on whether answers are supported by the passage or correctly abstain.",
+  "why_it_matters": "The thread has shifted from new QA methods to how QA is measured: if Exact Match misjudges grounded answers and abstentions, RAG eval suites built on it misreport faithfulness.",
+  "take_for_builders": "If your QA or RAG evals score with Exact Match, spot-check a sample of grounded paraphrases and abstentions by hand before trusting the metric; treat all three papers as preprints until reproduced.",
   "beats": [
    {
-    "kicker": "DOCUMENTS & GRAPHS",
-    "tone": "launch",
-    "headline": "Self-evaluation and self-evolution for table and knowledge-graph QA",
-    "sids": [
-     "1846766ba5a6742d",
-     "26fc92a7573c4011"
-    ]
-   },
-   {
     "kicker": "AGENTIC",
-    "tone": "rising",
+    "tone": "launch",
     "headline": "DocSkill brings skill-integrated agents to multilingual multi-hop document QA",
+    "summary": "Evidence must be located across pages, layouts and languages, which single-pass approaches handle poorly.",
     "sids": [
      "334116357c766a21"
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "NEW MODALITY",
+    "tone": "rising",
     "headline": "LibriSpeech-Real-QA benchmarks streaming question answering for speech LLMs",
+    "summary": "Targets speech models that only respond after the complete audio segment arrives.",
     "sids": [
      "81f93605a5cf2115"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "SAGE-QA challenges Exact Match scoring for grounded, abstention-aware QA",
+    "summary": "Moves the thread from methods to evaluation: scoring support from the passage and correct abstention on SQuAD 2.0.",
+    "sids": [
+     "2e73b9cb16efae6d"
     ]
    }
   ],
   "open_questions": [
    "Do any of these methods report results that hold up outside their own benchmarks?",
-   "Will speech LLMs show measurable accuracy loss when answering before the full audio arrives?"
+   "Will speech LLMs show measurable accuracy loss when answering before the full audio arrives?",
+   "How far do SQuAD 2.0 model rankings move when scored with SAGE-QA instead of Exact Match?",
+   "Is SAGE-QA's grounding check released as code that can be dropped into an existing RAG eval harness?"
   ],
-  "generated_at": "2026-11-06T00:12:51+00:00"
+  "generated_at": "2026-11-16T00:11:55+00:00"
  }
 }

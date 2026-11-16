@@ -1,7 +1,56 @@
 {
- "generated_at": "2026-11-14T00:13:06.733465+00:00",
+ "generated_at": "2026-11-16T00:12:18.135630+00:00",
  "window_days": 21,
  "storylines": [
+  {
+   "slug": "control-plane",
+   "label": "Control Plane",
+   "item_count": 7,
+   "day_count": 6,
+   "source_count": 3,
+   "first_seen": "2026-10-26T02:11:28+00:00",
+   "last_updated": "2026-11-15T17:12:48+00:00",
+   "latest_title": "GitSeed – Self-hosted control plane for AI coding agents",
+   "days": [
+    "2026-10-26",
+    "2026-10-27",
+    "2026-10-30",
+    "2026-11-04",
+    "2026-11-09",
+    "2026-11-15"
+   ],
+   "member_sids": [
+    "bf373140a753bf98",
+    "cf001375f7a4438d",
+    "a9067e338ea6566b",
+    "2aca440b2c0823d7",
+    "952d2516af2e9054",
+    "dc6bacb2e80f865d",
+    "5239c892cb76b746"
+   ],
+   "member_urls": [
+    "https://github.com/XiaoLuoLYG/GOD",
+    "https://flightdeck-hq.com",
+    "https://github.com/cole-h06/omneum",
+    "https://vllm.ai/blog/2026-11-04-introducing-kinference",
+    "https://openai.com/index/control-room",
+    "https://openai.com/index/introducing-control-room",
+    "https://github.com/gitseed-dev/gitseed"
+   ],
+   "editorial": {
+    "tldr": "Late October brought three Show HN projects pitching a control room or control plane for LLM agents, and on Nov 4 the vLLM blog introduced Kinference, an inference control plane for vLLM on Kubernetes. On Nov 9 OpenAI described Control Room, an internal system that tracks research workloads and can stop them on safety or security concerns.",
+    "stale": false,
+    "whats_new": "GitSeed, posted to Hacker News on Nov 15, applies the label to coding agents: a self-hosted control plane for running AI coding agents.",
+    "why_it_matters": "\"Control plane\" now covers four layers: agent observability, coding-agent orchestration, inference serving, and kill-switch control over research workloads. Check which layer a tool actually governs before adopting it.",
+    "take_for_builders": "If you run vLLM on Kubernetes, evaluate Kinference for per-tenant rate limits and cost tracking in a staging cluster. Treat GitSeed and the Show HN agent tools as early experiments, and OpenAI's Control Room as a design reference you cannot deploy.",
+    "status": {
+     "state": "Recurring framing",
+     "tone": "neutral",
+     "changed": "2026-11-15",
+     "detail": "Independent projects keep using \"control plane\" for different layers; the newest, GitSeed, targets self-hosted coding agents."
+    }
+   }
+  },
   {
    "slug": "anomaly-detection",
    "label": "Analysis Detection",
@@ -45,14 +94,13 @@
   {
    "slug": "reinforcement-learning",
    "label": "Multi-Agent Systems",
-   "item_count": 27,
-   "day_count": 16,
+   "item_count": 26,
+   "day_count": 15,
    "source_count": 6,
-   "first_seen": "2026-10-25T17:09:49+00:00",
+   "first_seen": "2026-10-26T02:19:53+00:00",
    "last_updated": "2026-11-13T01:36:36+00:00",
    "latest_title": "Show HN: AgentLeak – open-source privacy testing for multi-agent LLM systems",
    "days": [
-    "2026-10-25",
     "2026-10-26",
     "2026-10-27",
     "2026-10-28",
@@ -70,7 +118,6 @@
     "2026-11-13"
    ],
    "member_sids": [
-    "378efdb4d515dcd8",
     "7c1fed0d11e9b516",
     "500b1aba48043738",
     "6f21f6e8dedb00a0",
@@ -99,7 +146,6 @@
     "3debe09eabc6be1b"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2610.34450v1",
     "http://arxiv.org/abs/2610.34722v1",
     "http://arxiv.org/abs/2610.35013v1",
     "http://arxiv.org/abs/2610.35832v1",
@@ -128,7 +174,7 @@
     "https://github.com/Privatris/AgentLeak"
    ],
    "editorial": {
-    "tldr": "This thread is a loose grouping of arXiv papers on LLM multi-agent systems and agent policy training, not one developing story. Since Oct 25 it has collected work on learned and self-evolving orchestration, RL recipes for long-horizon agents, four agent benchmarks, and papers on auditing, privacy and failure attribution.",
+    "tldr": "This thread is a loose grouping of arXiv papers on LLM multi-agent systems and agent policy training, not one developing story. Since Oct 26 it has collected work on learned and self-evolving orchestration, RL recipes for long-horizon agents, four agent benchmarks, and papers on auditing, privacy and failure attribution.",
     "stale": false,
     "whats_new": "Nov 13: AgentLeak, an open-source privacy-testing tool for multi-agent LLM systems, appeared as a Show HN, the thread's first item that is a tool rather than an arXiv paper.",
     "why_it_matters": "Multi-agent work is shifting from hand-wired workflows to learned orchestration, while tooling to audit, attribute failures in, and privacy-test those systems is only now appearing. Every result here is paper- or author-reported, not production evidence.",
@@ -136,16 +182,100 @@
    }
   },
   {
+   "slug": "diffusion-language",
+   "label": "Diffusion Language",
+   "item_count": 24,
+   "day_count": 14,
+   "source_count": 4,
+   "first_seen": "2026-10-26T17:35:58+00:00",
+   "last_updated": "2026-11-12T18:58:50+00:00",
+   "latest_title": "Learning When Diffusion Language Models Should Regenerate",
+   "days": [
+    "2026-10-26",
+    "2026-10-27",
+    "2026-10-29",
+    "2026-10-30",
+    "2026-11-01",
+    "2026-11-02",
+    "2026-11-03",
+    "2026-11-05",
+    "2026-11-06",
+    "2026-11-07",
+    "2026-11-08",
+    "2026-11-09",
+    "2026-11-10",
+    "2026-11-12"
+   ],
+   "member_sids": [
+    "75e015095613159e",
+    "ed7966c78dc36a0b",
+    "edcf9763d6b958dc",
+    "1423e77dae0d2a75",
+    "a8a5f23cd8e10643",
+    "581b8a72b6b37583",
+    "01d6db945cd3f0c2",
+    "473a95cd7c540d1a",
+    "57b08f9866a26766",
+    "219537f3fa2b3690",
+    "884381d0dd03d261",
+    "4e9768611cda6532",
+    "0491c6de7a511fb5",
+    "2fb1a0f31494270f",
+    "5fbc35eb022e4033",
+    "b1fe6c30c1c550df",
+    "a4e942d0f147f07c",
+    "0aacbce5f85ac122",
+    "d9424aebc884a5c5",
+    "ca0cd6bcfdb70098",
+    "256bf90ce51f6665",
+    "d7a4f91e59e352a3",
+    "e267de687efb45c3",
+    "679b2c4e802619e6"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.35804v1",
+    "http://arxiv.org/abs/2610.37442v1",
+    "http://arxiv.org/abs/2610.37642v1",
+    "http://arxiv.org/abs/2610.40616v1",
+    "http://arxiv.org/abs/2610.41968v1",
+    "http://arxiv.org/abs/2610.42084v1",
+    "http://arxiv.org/abs/2611.01704v1",
+    "http://arxiv.org/abs/2611.02766v1",
+    "http://arxiv.org/abs/2611.05066v1",
+    "http://arxiv.org/abs/2611.05313v1",
+    "http://arxiv.org/abs/2611.05724v1",
+    "http://arxiv.org/abs/2611.08240v1",
+    "http://arxiv.org/abs/2611.08307v1",
+    "http://arxiv.org/abs/2611.08362v1",
+    "http://arxiv.org/abs/2611.09239v1",
+    "http://arxiv.org/abs/2611.10432v1",
+    "http://arxiv.org/abs/2611.11371v1",
+    "http://arxiv.org/abs/2611.12356v1",
+    "http://arxiv.org/abs/2611.12464v1",
+    "http://arxiv.org/abs/2611.14387v1",
+    "http://arxiv.org/abs/2611.14399v1",
+    "http://arxiv.org/abs/2611.14469v1",
+    "http://arxiv.org/abs/2611.17041v1",
+    "http://arxiv.org/abs/2611.17320v1"
+   ],
+   "editorial": {
+    "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It opened in late October with work on cutting diffusion-LM decoding rounds, widened to pruning, MoE serving and prompt compression, and by Nov 8-10 had block-diffusion models appearing as drafters inside speculative decoding.",
+    "stale": false,
+    "whats_new": "A Nov 12 paper finds diffusion LMs' hidden states carry error signals that token confidence misses, and learns when to remask and regenerate text instead of relying on confidence thresholds.",
+    "why_it_matters": "Diffusion LMs are gaining a self-correction step (remasking), and block-diffusion models now appear as speculative-decoding drafters the target still verifies; the drafter route is the lower-risk way into a serving stack.",
+    "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet. If you run speculative decoding, test a block-diffusion drafter and measure accepted length and verification cost under your real concurrency before adopting it."
+   }
+  },
+  {
    "slug": "prompt-injection",
    "label": "Prompt Injection",
-   "item_count": 26,
-   "day_count": 16,
+   "item_count": 25,
+   "day_count": 15,
    "source_count": 6,
-   "first_seen": "2026-10-25T00:00:25+00:00",
+   "first_seen": "2026-10-26T10:15:38+00:00",
    "last_updated": "2026-11-12T18:58:22+00:00",
    "latest_title": "CoReMem: Cost-Internalizing Memory for Successive Coding Tasks with Prospective Valuation",
    "days": [
-    "2026-10-25",
     "2026-10-26",
     "2026-10-27",
     "2026-10-28",
@@ -163,7 +293,6 @@
     "2026-11-12"
    ],
    "member_sids": [
-    "55edc2615764e1b5",
     "5f97c21b490b1ce9",
     "3ca73f33ea96bd6a",
     "b483c5a93f031770",
@@ -191,7 +320,6 @@
     "21fb7be8e1ad8383"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2610.33956v1",
     "http://arxiv.org/abs/2610.35150v1",
     "http://arxiv.org/abs/2610.35801v1",
     "http://arxiv.org/abs/2610.37657v1",
@@ -221,9 +349,40 @@
    "editorial": {
     "tldr": "This is a research cluster, not one event: late-October papers proposed model-level defenses (Heads of Security attention gates, SecPO adversarial training). Early-November papers widened the attack surface to agent memory, tool updates, task outcomes, and reasoning traces, and a Nov 8 paper argued for treating the model as an untrusted component.",
     "stale": false,
-    "whats_new": "The Nov 11 \"Prompt Injection, Esq.\" post on bypassing agent guardrails with legal-style phrasing is still the latest injection item; the Nov 12 addition, CoReMem, is an adjacent coding-agent memory paper.",
+    "whats_new": "No new injection item since Nov 12: the Nov 11 \"Prompt Injection, Esq.\" guardrail-bypass post remains the latest, and the Nov 12 CoReMem paper is adjacent coding-agent memory work.",
     "why_it_matters": "The thread keeps moving the defense out of the model: a guardrail that reads text can be argued with, so the control that holds is the one enforced in code around the tool call.",
     "take_for_builders": "Gate high-impact tool calls with deterministic policy and human approval instead of an LLM judge, then add legal-register, task-tampering, memory-poisoning, and tool-version-change cases to your red-team suite."
+   }
+  },
+  {
+   "slug": "federated-learning",
+   "label": "Federated Learning",
+   "item_count": 3,
+   "day_count": 2,
+   "source_count": 2,
+   "first_seen": "2026-11-05T18:00:58+00:00",
+   "last_updated": "2026-11-12T17:52:51+00:00",
+   "latest_title": "Cortex-FL: Agent-Mediated Collaboration for Federated Learning",
+   "days": [
+    "2026-11-05",
+    "2026-11-12"
+   ],
+   "member_sids": [
+    "416b05f86baa94c5",
+    "da32c83c0713c2ad",
+    "3c8be7d703db1d67"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2611.08383v1",
+    "http://arxiv.org/abs/2611.17129v1",
+    "http://arxiv.org/abs/2611.17186v1"
+   ],
+   "editorial": {
+    "tldr": "This is not one event: it is three separate arXiv papers that apply LLMs or agents to federated learning (FL). The first, FedReason on Nov 5, asks whether an LLM can inspect client models and pick the server's aggregation rule without any training.",
+    "stale": false,
+    "whats_new": "Two Nov 12 papers move agents into FL operations: Cortex-FL uses agents to find collaborators and coordinate training, and a companion paper proposes scientific checks to catch FL code that silently drifts from its protocol.",
+    "why_it_matters": "Agents are being pitched as the operators of multi-party training, where a silent config or partitioning bug produces plausible but wrong results.",
+    "take_for_builders": "If you run or let agents generate FL experiments, add explicit checks on data partitioning and aggregation config before trusting results; treat LLM-driven aggregation as research, not a deployable default."
    }
   },
   {
@@ -273,90 +432,96 @@
    }
   },
   {
-   "slug": "diffusion-language",
-   "label": "Diffusion Language",
-   "item_count": 22,
+   "slug": "large-language",
+   "label": "Large Language",
+   "item_count": 25,
    "day_count": 14,
-   "source_count": 4,
-   "first_seen": "2026-10-26T17:35:58+00:00",
-   "last_updated": "2026-11-12T16:26:27+00:00",
-   "latest_title": "From Delegation to Coordination: Learning Efficient Multi-Agent Deep Research",
+   "source_count": 7,
+   "first_seen": "2026-10-26T10:15:38+00:00",
+   "last_updated": "2026-11-12T14:18:44+00:00",
+   "latest_title": "Shortcuts or Memorisation? Revisiting Data Corruption in Natural Language Understanding with Large Language Models",
    "days": [
     "2026-10-26",
     "2026-10-27",
     "2026-10-29",
     "2026-10-30",
-    "2026-11-01",
+    "2026-10-31",
     "2026-11-02",
     "2026-11-03",
+    "2026-11-04",
     "2026-11-05",
     "2026-11-06",
-    "2026-11-07",
-    "2026-11-08",
     "2026-11-09",
     "2026-11-10",
+    "2026-11-11",
     "2026-11-12"
    ],
    "member_sids": [
-    "75e015095613159e",
-    "ed7966c78dc36a0b",
-    "edcf9763d6b958dc",
-    "1423e77dae0d2a75",
+    "5f97c21b490b1ce9",
+    "d5cd3db9b5f4a99b",
+    "a2f964aa6fcbf7ea",
+    "200271de2a2f52aa",
+    "d571e973b6e6916d",
+    "05c46a37b489922f",
+    "fdfc122cd97a630f",
+    "e46c1ab3f7ca9939",
     "a8a5f23cd8e10643",
-    "581b8a72b6b37583",
-    "01d6db945cd3f0c2",
-    "473a95cd7c540d1a",
-    "57b08f9866a26766",
-    "219537f3fa2b3690",
-    "884381d0dd03d261",
-    "0491c6de7a511fb5",
-    "2fb1a0f31494270f",
-    "5fbc35eb022e4033",
-    "b1fe6c30c1c550df",
-    "a4e942d0f147f07c",
-    "0aacbce5f85ac122",
-    "d9424aebc884a5c5",
-    "ca0cd6bcfdb70098",
-    "256bf90ce51f6665",
-    "d7a4f91e59e352a3",
-    "e267de687efb45c3"
+    "96207d6b2522935e",
+    "43862ef771dfba65",
+    "94da3bfcbd46a769",
+    "c43d3ff3aa20c41c",
+    "416b05f86baa94c5",
+    "e1376b3038791065",
+    "5606760643e4651e",
+    "9c88a41fbb756af3",
+    "3b4f703ae0a8f385",
+    "501ef39353c40289",
+    "5ddb49a19fc35296",
+    "c4a35e75b732ef4a",
+    "dcfca63926ea22ea",
+    "b6805052b5174dca",
+    "f1908d0038e22f5b",
+    "173841a135ec48af"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2610.35804v1",
-    "http://arxiv.org/abs/2610.37442v1",
-    "http://arxiv.org/abs/2610.37642v1",
-    "http://arxiv.org/abs/2610.40616v1",
+    "http://arxiv.org/abs/2610.35150v1",
+    "http://arxiv.org/abs/2610.35530v1",
+    "http://arxiv.org/abs/2610.35829v1",
+    "http://arxiv.org/abs/2610.36734v1",
+    "http://arxiv.org/abs/2610.39671v1",
+    "http://arxiv.org/abs/2610.40345v1",
+    "http://arxiv.org/abs/2611.00166v1",
+    "http://arxiv.org/abs/2611.00171v1",
     "http://arxiv.org/abs/2610.41968v1",
-    "http://arxiv.org/abs/2610.42084v1",
-    "http://arxiv.org/abs/2611.01704v1",
-    "http://arxiv.org/abs/2611.02766v1",
-    "http://arxiv.org/abs/2611.05066v1",
-    "http://arxiv.org/abs/2611.05313v1",
-    "http://arxiv.org/abs/2611.05724v1",
-    "http://arxiv.org/abs/2611.08307v1",
-    "http://arxiv.org/abs/2611.08362v1",
-    "http://arxiv.org/abs/2611.09239v1",
-    "http://arxiv.org/abs/2611.10432v1",
-    "http://arxiv.org/abs/2611.11371v1",
-    "http://arxiv.org/abs/2611.12356v1",
-    "http://arxiv.org/abs/2611.12464v1",
-    "http://arxiv.org/abs/2611.14387v1",
-    "http://arxiv.org/abs/2611.14399v1",
-    "http://arxiv.org/abs/2611.14469v1",
-    "http://arxiv.org/abs/2611.17041v1"
+    "http://arxiv.org/abs/2611.00530v1",
+    "https://www.anthropic.com/research/provable-inference",
+    "http://arxiv.org/abs/2611.04834v1",
+    "http://arxiv.org/abs/2611.06168v1",
+    "http://arxiv.org/abs/2611.08383v1",
+    "https://era.security/blog/greeter-flowise-ai-infrastructure-attack",
+    "http://arxiv.org/abs/2611.09770v1",
+    "http://arxiv.org/abs/2611.12392v1",
+    "http://arxiv.org/abs/2611.12791v1",
+    "http://arxiv.org/abs/2611.13531v1",
+    "http://arxiv.org/abs/2611.14263v1",
+    "http://arxiv.org/abs/2611.14285v1",
+    "http://arxiv.org/abs/2611.14333v1",
+    "http://arxiv.org/abs/2611.14382v1",
+    "http://arxiv.org/abs/2611.15925v1",
+    "http://arxiv.org/abs/2611.16843v1"
    ],
    "editorial": {
-    "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It opened in late October with work on cutting diffusion-LM decoding rounds, widened to pruning, MoE serving and prompt compression, and by Nov 8-10 had block-diffusion models appearing as drafters inside speculative decoding.",
+    "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 26 it ran from agent evaluation and model control through compression papers, Anthropic's Nov 2 provable-inference update and knowledge editing to Nov 10-11 studies of rater drift, framing effects and ShadowBench's name-anchored recall tests.",
     "stale": false,
-    "whats_new": "The only addition since Nov 10 is an adjacent Nov 12 paper on coordinating delegation in multi-agent deep research; the diffusion-LM and speculative-decoding lines have no new entries.",
-    "why_it_matters": "The two lines are converging: block-diffusion models now show up as drafters inside speculative decoding, where the target model still verifies every token, which is a lower-risk route into a serving stack than replacing the autoregressive model.",
-    "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet. If you run speculative decoding, the nearer-term experiment is a block-diffusion drafter: measure accepted length and verification cost under your real concurrency before adopting it."
+    "whats_new": "Nov 12: a study revisits why fine-tuned models keep most of their NLI accuracy after inputs are corrupted, such as deleting all nouns or shuffling words, and asks whether LLMs do the same through shortcuts or memorisation.",
+    "why_it_matters": "Most items are single unreplicated preprints, but a shared theme now touches production evals: benchmark scores can survive name removal, word shuffling or rater drift, so a passing score may not show the model used the content you think it did.",
+    "take_for_builders": "Add perturbed controls to your eval suite: rerun key tasks with entity names paraphrased and inputs shuffled, and treat an unchanged score as a sign of shortcuts, not skill."
    }
   },
   {
    "slug": "reinforcement-learning-2026-10-26",
    "label": "Reinforcement Learning",
-   "item_count": 27,
+   "item_count": 28,
    "day_count": 13,
    "source_count": 5,
    "first_seen": "2026-10-26T10:11:24+00:00",
@@ -404,6 +569,7 @@
     "84ecbe8e1def5e6c",
     "283f892f9c4f657a",
     "a7b79c5f448ee3b6",
+    "335ccd3caa00e6d5",
     "e372c76cd210406f"
    ],
    "member_urls": [
@@ -433,14 +599,15 @@
     "http://arxiv.org/abs/2611.12825v1",
     "http://arxiv.org/abs/2611.14515v1",
     "http://arxiv.org/abs/2611.15507v1",
+    "http://arxiv.org/abs/2611.16304v1",
     "http://arxiv.org/abs/2611.16661v1"
    ],
    "editorial": {
-    "tldr": "This thread is a topical grouping of 27 arXiv preprints since Oct 26, not one event: what they share is reinforcement learning as a post-training method for LLMs and agents. Most of them work on one of three problems: what the reward should measure, how to train multi-turn tool-using agents, and how to pay for the rollouts.",
+    "tldr": "This thread is a topical grouping of 28 arXiv preprints since Oct 26, not one event: what they share is reinforcement learning as a post-training method for LLMs and agents. Most of them work on one of three problems: what the reward should measure, how to train multi-turn tool-using agents, and how to pay for the rollouts.",
     "stale": false,
-    "whats_new": "A Nov 12 preprint targets batch makespan for agent workloads, RL rollouts included, by coordinating LLM inference with environment execution, the third rollout-scheduling paper in this thread since Oct 27.",
-    "why_it_matters": "For teams that post-train their own agents, the recurring constraints in these papers are rollout cost and reward design, and three of the 27 treat rollout scheduling as an infrastructure problem in its own right.",
-    "take_for_builders": "Before adding GPUs to an agent RL or batch-eval pipeline, measure how much rollout wall-clock goes to environment execution and padding rather than inference, since that is the waste the three scheduling papers target."
+    "whats_new": "Two Nov 12 preprints close the window: StateAlign reports that RL tool-use gains can coincide with more tool hallucination and trains state-aware tool decisions, and a third rollout-scheduling paper coordinates inference with environment execution.",
+    "why_it_matters": "For teams that post-train their own agents, these papers flag three costs: rollout scheduling as an infrastructure problem, reward design, and RL tool-use gains that can bring more tool hallucination.",
+    "take_for_builders": "Before adding GPUs to an agent RL pipeline, measure how much rollout wall-clock goes to environment execution and padding; after any RL tool-use tune, track tool-hallucination rate alongside task success."
    }
   },
   {
@@ -475,6 +642,38 @@
     "whats_new": "A Nov 12 post on Anthropic's alignment site, \"Worse Together\", examines how performance breaks down in multi-agent teams that serve multiple users, the thread's first item focused on failure.",
     "why_it_matters": "The first two items treat adding agents as a way to gain capability; the newest treats team composition, with more than one user in the loop, as a source of degradation to measure.",
     "take_for_builders": "Before adding agents or sharing one agent team across users, run the same eval against a single-agent, single-user baseline and compare. Read \"Worse Together\" for the breakdown conditions it reports before choosing a team topology."
+   }
+  },
+  {
+   "slug": "question-answering",
+   "label": "Question Answering",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-10-27T07:14:59+00:00",
+   "last_updated": "2026-11-12T04:56:28+00:00",
+   "latest_title": "SAGE-QA: Semantic-Aware, Grounded Evaluation for Closed-Context Question Answering on SQuAD 2.0",
+   "days": [
+    "2026-10-27",
+    "2026-11-04",
+    "2026-11-12"
+   ],
+   "member_sids": [
+    "334116357c766a21",
+    "81f93605a5cf2115",
+    "2e73b9cb16efae6d"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.36759v1",
+    "http://arxiv.org/abs/2611.06496v1",
+    "http://arxiv.org/abs/2611.16300v1"
+   ],
+   "editorial": {
+    "tldr": "The thread opened in late October with DocSkill, an arXiv paper applying skill-integrated agents to multilingual multi-hop document QA. LibriSpeech-Real-QA followed on Nov 4 with a benchmark for streaming speech QA, where models must answer before the full audio arrives.",
+    "stale": false,
+    "whats_new": "SAGE-QA (Nov 12) proposes semantic-aware, grounded scoring for SQuAD 2.0 closed-context QA, replacing character-level Exact Match with checks on whether answers are supported by the passage or correctly abstain.",
+    "why_it_matters": "The thread has shifted from new QA methods to how QA is measured: if Exact Match misjudges grounded answers and abstentions, RAG eval suites built on it misreport faithfulness.",
+    "take_for_builders": "If your QA or RAG evals score with Exact Match, spot-check a sample of grounded paraphrases and abstentions by hand before trusting the metric; treat all three papers as preprints until reproduced."
    }
   },
   {
@@ -518,233 +717,6 @@
     "whats_new": "A Nov 12 arXiv paper proposes mental-state-driven memory for long-term character dialogue, arguing that shared history is the basis of an evolving relationship rather than a repository of facts.",
     "why_it_matters": "Six of the seven items target what happens after a memory is written: revision when an upstream fact changes, per-task usefulness, provenance, and survival across a model swap. Those are the failure modes a recall benchmark does not exercise.",
     "take_for_builders": "Add a stale-dependency case to your memory evals: change one upstream fact, then check whether the agent still acts on stored conclusions that depended on it."
-   }
-  },
-  {
-   "slug": "evaluating-tasks",
-   "label": "Evidence Multimodal",
-   "item_count": 14,
-   "day_count": 8,
-   "source_count": 6,
-   "first_seen": "2026-10-27T08:23:46+00:00",
-   "last_updated": "2026-11-12T01:51:05+00:00",
-   "latest_title": "Show HN: Receipts, agent skills that make PRDs and metrics cite their evidence",
-   "days": [
-    "2026-10-27",
-    "2026-10-30",
-    "2026-11-02",
-    "2026-11-03",
-    "2026-11-04",
-    "2026-11-06",
-    "2026-11-09",
-    "2026-11-12"
-   ],
-   "member_sids": [
-    "afb43d44186a1777",
-    "197852ee4cb6ede2",
-    "1a8c5544b9b567ca",
-    "e379c9bd87f9ef79",
-    "3cfb1d63c07d8098",
-    "abe1652e18273a1a",
-    "282f057baf2d5931",
-    "526c07c3667e6cf7",
-    "57b08f9866a26766",
-    "c43d3ff3aa20c41c",
-    "5606760643e4651e",
-    "b7edb4e2db8eeea8",
-    "4d29353472d6538a",
-    "a6081ae92d24578d"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2610.36824v1",
-    "http://arxiv.org/abs/2610.37405v1",
-    "http://arxiv.org/abs/2610.37430v1",
-    "http://arxiv.org/abs/2610.37471v1",
-    "http://arxiv.org/abs/2610.41191v1",
-    "http://arxiv.org/abs/2610.41751v1",
-    "http://arxiv.org/abs/2610.42149v1",
-    "http://arxiv.org/abs/2611.03087v1",
-    "http://arxiv.org/abs/2611.05066v1",
-    "http://arxiv.org/abs/2611.06168v1",
-    "http://arxiv.org/abs/2611.09770v1",
-    "http://arxiv.org/abs/2611.12305v1",
-    "http://arxiv.org/abs/2611.12872v1",
-    "https://github.com/aliraza2025/receipts"
-   ],
-   "editorial": {
-    "tldr": "A loose research cluster, not one event: from Oct 27, arXiv papers on multimodal models gathered around two problems, weak visual perception and answers that lack supporting evidence. Early November added hallucination mitigation, unlearning and knowledge editing, then a human-perception benchmark and an evidence-composing memory system for multimodal agents.",
-    "stale": false,
-    "whats_new": "A Show HN project, Receipts, ships agent skills that make PRDs and metrics cite their evidence, a tooling counterpart to the thread's papers on agents that must back answers with support.",
-    "why_it_matters": "A correct answer is not necessarily a supported one, and these papers treat evidence retrieval, refusal on thin visual input and distrust of conflicting tool output as things to train and test separately from accuracy.",
-    "take_for_builders": "Add a supported-answer check to your agent evals: score whether the cited evidence backs the answer and whether the agent declines when the input is insufficient, separately from answer accuracy."
-   }
-  },
-  {
-   "slug": "large-language",
-   "label": "Large Language",
-   "item_count": 25,
-   "day_count": 14,
-   "source_count": 7,
-   "first_seen": "2026-10-25T17:09:49+00:00",
-   "last_updated": "2026-11-11T19:19:08+00:00",
-   "latest_title": "ShadowBench: Exposing Lexical Anchoring and the Illusion of Forgetting in Large Language Models",
-   "days": [
-    "2026-10-25",
-    "2026-10-26",
-    "2026-10-27",
-    "2026-10-29",
-    "2026-10-30",
-    "2026-10-31",
-    "2026-11-02",
-    "2026-11-03",
-    "2026-11-04",
-    "2026-11-05",
-    "2026-11-06",
-    "2026-11-09",
-    "2026-11-10",
-    "2026-11-11"
-   ],
-   "member_sids": [
-    "378efdb4d515dcd8",
-    "5f97c21b490b1ce9",
-    "d5cd3db9b5f4a99b",
-    "a2f964aa6fcbf7ea",
-    "200271de2a2f52aa",
-    "d571e973b6e6916d",
-    "05c46a37b489922f",
-    "fdfc122cd97a630f",
-    "e46c1ab3f7ca9939",
-    "a8a5f23cd8e10643",
-    "96207d6b2522935e",
-    "43862ef771dfba65",
-    "94da3bfcbd46a769",
-    "c43d3ff3aa20c41c",
-    "416b05f86baa94c5",
-    "e1376b3038791065",
-    "5606760643e4651e",
-    "9c88a41fbb756af3",
-    "3b4f703ae0a8f385",
-    "501ef39353c40289",
-    "5ddb49a19fc35296",
-    "c4a35e75b732ef4a",
-    "dcfca63926ea22ea",
-    "b6805052b5174dca",
-    "f1908d0038e22f5b"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2610.34450v1",
-    "http://arxiv.org/abs/2610.35150v1",
-    "http://arxiv.org/abs/2610.35530v1",
-    "http://arxiv.org/abs/2610.35829v1",
-    "http://arxiv.org/abs/2610.36734v1",
-    "http://arxiv.org/abs/2610.39671v1",
-    "http://arxiv.org/abs/2610.40345v1",
-    "http://arxiv.org/abs/2611.00166v1",
-    "http://arxiv.org/abs/2611.00171v1",
-    "http://arxiv.org/abs/2610.41968v1",
-    "http://arxiv.org/abs/2611.00530v1",
-    "https://www.anthropic.com/research/provable-inference",
-    "http://arxiv.org/abs/2611.04834v1",
-    "http://arxiv.org/abs/2611.06168v1",
-    "http://arxiv.org/abs/2611.08383v1",
-    "https://era.security/blog/greeter-flowise-ai-infrastructure-attack",
-    "http://arxiv.org/abs/2611.09770v1",
-    "http://arxiv.org/abs/2611.12392v1",
-    "http://arxiv.org/abs/2611.12791v1",
-    "http://arxiv.org/abs/2611.13531v1",
-    "http://arxiv.org/abs/2611.14263v1",
-    "http://arxiv.org/abs/2611.14285v1",
-    "http://arxiv.org/abs/2611.14333v1",
-    "http://arxiv.org/abs/2611.14382v1",
-    "http://arxiv.org/abs/2611.15925v1"
-   ],
-   "editorial": {
-    "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 25 it ran from agent evaluation and model-control methods through compression papers and Anthropic's Nov 2 provable-inference update to knowledge editing and unlearning, then to Nov 10 studies of rater drift on Chatbot Arena and framing effects in LLM judgments.",
-    "stale": false,
-    "whats_new": "Nov 11: ShadowBench argues factual-recall evaluation relies almost entirely on explicit entity names, and its title claims that hides lexical anchoring and an \"illusion of forgetting\" in LLMs.",
-    "why_it_matters": "Most items are single unreplicated preprints, but three recurring topics touch production: whether unlearning and knowledge edits remove knowledge or only its name-keyed recall, whether human-preference evals stay comparable over time, and what quantization and pruning cost in quality.",
-    "take_for_builders": "Before signing off an unlearning or knowledge-edit change, test recall with prompts that describe the entity without naming it; treat these preprints as unreplicated reading, not deployment guidance."
-   }
-  },
-  {
-   "slug": "inference-engine",
-   "label": "Inference Engine",
-   "item_count": 8,
-   "day_count": 7,
-   "source_count": 3,
-   "first_seen": "2026-10-24T00:24:08+00:00",
-   "last_updated": "2026-11-11T18:18:33+00:00",
-   "latest_title": "Kindi: The fastest software inference engine for low-cost GPUs",
-   "days": [
-    "2026-10-24",
-    "2026-10-31",
-    "2026-11-02",
-    "2026-11-04",
-    "2026-11-06",
-    "2026-11-08",
-    "2026-11-11"
-   ],
-   "member_sids": [
-    "11667337918f4f3c",
-    "c7641f54401d6258",
-    "e6077e10f16ce2d8",
-    "fc7c1780406958b5",
-    "2f11643a689186b4",
-    "9b6ce22e2f29b264",
-    "cd44a088d357479c",
-    "1adc84018e934ecd"
-   ],
-   "member_urls": [
-    "https://news.google.com/rss/articles/CBMinAFBVV95cUxNWFQyRXJtQU5CWDVfWjZfUXpLaDFFUkFJc2tkWWE3RDljeVRhRmoyRXhIS1A1cG5Hd0VxTDhZdlNENmY1czlEQ19uZjVKOXRja1ZMeW5DNXpNT1hydjNKUlNLaFpZNlV2OHI5NkZIaGJFbUs0OUpMa1JqLUc2WHdjN2VmTHY0eDJCZDI2aW5mQVFudnl2RXdWSDJWNzE?oc=5",
-    "https://dasllama.io/articles/2026-10-28-the-need-for-speed.html",
-    "https://github.com/NVIDIA/spark-local-inference",
-    "http://arxiv.org/abs/2611.03503v1",
-    "https://userecurrence.ai/research/is-hosting-open-source-inference-profitable",
-    "https://opensource.googleblog.com/2026/11/supercharging-xla-inference-xla-serving-engine.html",
-    "https://github.com/tinyBigGAMES/VindexLLM",
-    "https://amirhusain.com/software/kindi"
-   ],
-   "editorial": {
-    "tldr": "This is a topical cluster, not one event: eight items since Oct 24 that share only the phrase \"inference engine\". They split into build-or-host economics, vendor runtimes from Nvidia and Google, independent engines for niche stacks, and one arXiv hardware paper.",
-    "stale": false,
-    "whats_new": "Kindi, posted Nov 11, bills itself as the fastest software inference engine for low-cost GPUs; the listing carries no benchmark, so the speed claim is the author's own.",
-    "why_it_matters": "The serving layer is fragmenting by hardware target (DGX Spark, XLA, Vulkan on Windows, low-cost GPUs) while two items question whether building or hosting an engine pays at all.",
-    "take_for_builders": "Treat every speed claim in this cluster as unverified until you run it on your own model and hardware; settle the build-or-host question with your own utilization numbers before adopting a new engine."
-   }
-  },
-  {
-   "slug": "inference-gpus",
-   "label": "Inference GPUs",
-   "item_count": 4,
-   "day_count": 4,
-   "source_count": 2,
-   "first_seen": "2026-10-25T17:00:00+00:00",
-   "last_updated": "2026-11-11T18:18:33+00:00",
-   "latest_title": "Kindi: The fastest software inference engine for low-cost GPUs",
-   "days": [
-    "2026-10-25",
-    "2026-11-01",
-    "2026-11-10",
-    "2026-11-11"
-   ],
-   "member_sids": [
-    "cf9ccf494a614c63",
-    "3024d09a7913b631",
-    "fed29696ba0516e2",
-    "1adc84018e934ecd"
-   ],
-   "member_urls": [
-    "https://www.infoq.com/news/2026/10/google-ml-drift/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-    "https://codeberg.org/StillDeadcode/radiance",
-    "https://github.com/mw00/project-maya/pull/879",
-    "https://amirhusain.com/software/kindi"
-   ],
-   "editorial": {
-    "tldr": "This is a loose thread of separate projects, not one event: each tries to run inference on GPUs beyond a single high-end CUDA stack. Google opened it with ML Drift, an Apache 2.0 engine for on-device inference across GPU vendors; a C++/HIP server for AMD GPUs and a project-maya pull request for mixed CUDA+ROCm LLM inference, titled up to 48% faster, followed.",
-    "stale": false,
-    "whats_new": "Kindi, a software inference engine aimed at low-cost GPUs, surfaced on Hacker News billing itself as the fastest in its class; the claim is the author's own, with no independent benchmark in the thread.",
-    "why_it_matters": "Inference that runs on cheaper or non-NVIDIA GPUs gives teams leverage on hardware cost and supply, but these projects are early and every performance claim here is self-reported.",
-    "take_for_builders": "Treat these as experiments: rerun your own latency and throughput evals on low-cost, mixed, or AMD hardware before you plan capacity around them, and keep your current CUDA serving path as the fallback."
    }
   }
  ]

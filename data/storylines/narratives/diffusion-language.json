@@ -1,7 +1,7 @@
 {
   "slug": "diffusion-language",
-  "generated_at": "2026-11-14T00:12:06Z",
-  "covers_last_updated": "2026-11-12T16:26:27+00:00",
+  "generated_at": "2026-11-16T00:12:03Z",
+  "covers_last_updated": "2026-11-12T18:58:50+00:00",
   "covers_member_sids": [
     "75e015095613159e",
     "ed7966c78dc36a0b",
@@ -14,6 +14,7 @@
     "57b08f9866a26766",
     "219537f3fa2b3690",
     "884381d0dd03d261",
+    "4e9768611cda6532",
     "0491c6de7a511fb5",
     "2fb1a0f31494270f",
     "5fbc35eb022e4033",
@@ -24,11 +25,12 @@
     "ca0cd6bcfdb70098",
     "256bf90ce51f6665",
     "d7a4f91e59e352a3",
-    "e267de687efb45c3"
+    "e267de687efb45c3",
+    "679b2c4e802619e6"
   ],
   "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It opened in late October with work on cutting diffusion-LM decoding rounds, widened to pruning, MoE serving and prompt compression, and by Nov 8-10 had block-diffusion models appearing as drafters inside speculative decoding.",
-  "whats_new": "The only addition since Nov 10 is an adjacent Nov 12 paper on coordinating delegation in multi-agent deep research; the diffusion-LM and speculative-decoding lines have no new entries.",
-  "why_it_matters": "The two lines are converging: block-diffusion models now show up as drafters inside speculative decoding, where the target model still verifies every token, which is a lower-risk route into a serving stack than replacing the autoregressive model.",
+  "whats_new": "A Nov 12 paper finds diffusion LMs' hidden states carry error signals that token confidence misses, and learns when to remask and regenerate text instead of relying on confidence thresholds.",
+  "why_it_matters": "Diffusion LMs are gaining a self-correction step (remasking), and block-diffusion models now appear as speculative-decoding drafters the target still verifies; the drafter route is the lower-risk way into a serving stack.",
   "beats": [
     {
       "kicker": "SPEED",
@@ -61,7 +63,7 @@
       "kicker": "ADJACENT",
       "tone": "neutral",
       "headline": "Non-diffusion-LM efficiency work shares the thread: pruning, MoE serving, compression and agent overhead",
-      "summary": "These papers share the efficient-inference theme, not the diffusion-LM method; one is an image-diffusion privacy paper matched on the word alone, and the newest is a multi-agent deep-research paper.",
+      "summary": "These papers share the efficient-inference theme, not the diffusion-LM method; two are image-diffusion papers (membership inference, few-step RL fine-tuning) matched on the word alone.",
       "sids": [
         "ed7966c78dc36a0b",
         "1423e77dae0d2a75",
@@ -69,6 +71,7 @@
         "01d6db945cd3f0c2",
         "473a95cd7c540d1a",
         "219537f3fa2b3690",
+        "4e9768611cda6532",
         "d7a4f91e59e352a3",
         "e267de687efb45c3"
       ]
@@ -96,23 +99,33 @@
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
-      "headline": "Block diffusion LMs get their own inference optimizations; nothing new on this line since Nov 10",
+      "kicker": "BLOCK DIFFUSION",
+      "tone": "rising",
+      "headline": "Block diffusion LMs get their own inference optimizations: DUET sparsity and overlapping block denoising",
       "sids": [
         "5fbc35eb022e4033",
         "ca0cd6bcfdb70098"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Diffusion LMs learn when to remask and regenerate their own output",
+      "summary": "The Nov 12 paper uses hidden states, not token confidence, to decide when and what to revise; its diagnosis is run on Sudoku.",
+      "sids": [
+        "679b2c4e802619e6"
       ]
     }
   ],
   "open_questions": [
     "Do the schedule-distillation, metacognitive-decoding, Measured Coupling and SpecCTMC speedups hold on independent benchmarks at equal output quality?",
+    "Does learned remasking improve accuracy on natural-language or code tasks beyond the Sudoku diagnosis, and at what extra decoding cost?",
     "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?",
-    "Does RangeSWA's training-free extrapolation hold on long outputs beyond the paper's tested lengths?",
     "Does a block-diffusion drafter with a pruned draft tree beat existing drafters on end-to-end throughput under concurrent serving load?",
-    "Do D-REAL and REAL Loss report comparable acceptance-length gains on the same drafter and target pairs?"
+    "Do D-REAL and REAL Loss report comparable acceptance-length gains on the same drafter and target pairs?",
+    "Does RangeSWA's training-free extrapolation hold on long outputs beyond the paper's tested lengths?"
   ],
-  "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet. If you run speculative decoding, the nearer-term experiment is a block-diffusion drafter: measure accepted length and verification cost under your real concurrency before adopting it.",
+  "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet. If you run speculative decoding, test a block-diffusion drafter and measure accepted length and verification cost under your real concurrency before adopting it.",
   "day_captions": {
     "75e015095613159e": "Proposes learning when to commit tokens, reducing the decoding rounds dLLMs need.",
     "ed7966c78dc36a0b": "Adjacent: co-designs pruning and scheduling for MoE inference on memory-constrained edge servers, where moving expert weights dominates.",
@@ -135,6 +148,8 @@
     "ca0cd6bcfdb70098": "Overlaps denoising blocks to make block diffusion LMs more efficient for latency-critical generation.",
     "256bf90ce51f6665": "Second drafter loss within a week, after D-REAL, that optimizes expected acceptance length for speculative-decoding drafters.",
     "d7a4f91e59e352a3": "Adjacent: model-agnostic image cropping and compression to cut vision-language inference cost.",
-    "e267de687efb45c3": "Adjacent: argues delegation in multi-agent deep research only pays off when task allocation and subtask execution are coordinated; not a diffusion-LM or decoding paper."
+    "e267de687efb45c3": "Adjacent: argues delegation in multi-agent deep research only pays off when task allocation and subtask execution are coordinated; not a diffusion-LM paper.",
+    "4e9768611cda6532": "Adjacent, image side: cuts RL fine-tuning cost for few-step diffusion samplers; not a language-model paper.",
+    "679b2c4e802619e6": "Adds self-correction to the dLLM line: a learned signal for when to remask and regenerate, after finding token confidence misses errors that hidden states expose."
   }
 }

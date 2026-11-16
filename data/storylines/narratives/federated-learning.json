@@ -1,0 +1,36 @@
+{
+  "slug": "federated-learning",
+  "generated_at": "2026-11-16T00:11:54Z",
+  "covers_last_updated": "2026-11-12T17:52:51+00:00",
+  "covers_member_sids": ["416b05f86baa94c5", "da32c83c0713c2ad", "3c8be7d703db1d67"],
+  "tldr": "This is not one event: it is three separate arXiv papers that apply LLMs or agents to federated learning (FL). The first, FedReason on Nov 5, asks whether an LLM can inspect client models and pick the server's aggregation rule without any training.",
+  "whats_new": "Two Nov 12 papers move agents into FL operations: Cortex-FL uses agents to find collaborators and coordinate training, and a companion paper proposes scientific checks to catch FL code that silently drifts from its protocol.",
+  "why_it_matters": "Agents are being pitched as the operators of multi-party training, where a silent config or partitioning bug produces plausible but wrong results.",
+  "beats": [
+    {
+      "kicker": "LLM AS AGGREGATOR",
+      "tone": "launch",
+      "headline": "FedReason: an LLM chooses the aggregation rule per round",
+      "summary": "Replaces a fixed rule, each built for one kind of client heterogeneity, with an LLM that inspects client weights.",
+      "sids": ["416b05f86baa94c5"]
+    },
+    {
+      "kicker": "AGENTS RUN FL",
+      "tone": "now",
+      "headline": "Agents coordinate FL; checks test whether runs match the paper",
+      "summary": "One paper hands collaborator discovery, task prep and incentives to agents; the other targets implementation errors that still yield reasonable-looking results.",
+      "sids": ["da32c83c0713c2ad", "3c8be7d703db1d67"]
+    }
+  ],
+  "open_questions": [
+    "Does FedReason's LLM-chosen aggregation beat the best fixed rule on standard non-IID benchmarks?",
+    "Is Cortex-FL's code released, and has it run across real organizational boundaries?",
+    "Do the paper-faithful checks catch errors introduced by coding agents, not just human practitioners?"
+  ],
+  "take_for_builders": "If you run or let agents generate FL experiments, add explicit checks on data partitioning and aggregation config before trusting results; treat LLM-driven aggregation as research, not a deployable default.",
+  "day_captions": {
+    "416b05f86baa94c5": "Opens the thread: an LLM as a training-free meta-aggregator in the FL server.",
+    "da32c83c0713c2ad": "Adds the failure mode: FL implementations can diverge from protocol while results still look plausible.",
+    "3c8be7d703db1d67": "Extends agents from the server to the full collaboration workflow, including partner discovery and incentives."
+  }
+}

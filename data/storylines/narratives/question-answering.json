@@ -1,26 +1,55 @@
 {
   "slug": "question-answering",
-  "generated_at": "2026-11-06T00:12:51+00:00",
-  "covers_last_updated": "2026-11-04T13:30:54+00:00",
-  "covers_member_sids": ["1846766ba5a6742d","26fc92a7573c4011","334116357c766a21","81f93605a5cf2115"],
-  "tldr": "Late-October arXiv papers attacked question answering where plain LLM calls fall short: tables in document images and knowledge graphs without QA annotations. A multilingual multi-hop document QA paper then added agentic skills.",
-  "whats_new": "LibriSpeech-Real-QA (Nov 4) is a benchmark for streaming question answering, where speech LLMs must respond before the full audio segment has arrived.",
-  "why_it_matters": "These are research papers, not products, but they show QA moving toward iterative self-checking, agentic skills and streaming input, which change latency and eval design for pipelines.",
+  "generated_at": "2026-11-16T00:11:55+00:00",
+  "covers_last_updated": "2026-11-12T04:56:28+00:00",
+  "covers_member_sids": [
+    "334116357c766a21",
+    "81f93605a5cf2115",
+    "2e73b9cb16efae6d"
+  ],
+  "tldr": "The thread opened in late October with DocSkill, an arXiv paper applying skill-integrated agents to multilingual multi-hop document QA. LibriSpeech-Real-QA followed on Nov 4 with a benchmark for streaming speech QA, where models must answer before the full audio arrives.",
+  "whats_new": "SAGE-QA (Nov 12) proposes semantic-aware, grounded scoring for SQuAD 2.0 closed-context QA, replacing character-level Exact Match with checks on whether answers are supported by the passage or correctly abstain.",
+  "why_it_matters": "The thread has shifted from new QA methods to how QA is measured: if Exact Match misjudges grounded answers and abstentions, RAG eval suites built on it misreport faithfulness.",
   "provenance": {},
   "beats": [
-    {"kicker": "DOCUMENTS & GRAPHS", "tone": "launch", "headline": "Self-evaluation and self-evolution for table and knowledge-graph QA", "sids": ["1846766ba5a6742d","26fc92a7573c4011"]},
-    {"kicker": "AGENTIC", "tone": "rising", "headline": "DocSkill brings skill-integrated agents to multilingual multi-hop document QA", "sids": ["334116357c766a21"]},
-    {"kicker": "NOW", "tone": "now", "headline": "LibriSpeech-Real-QA benchmarks streaming question answering for speech LLMs", "sids": ["81f93605a5cf2115"]}
+    {
+      "kicker": "AGENTIC",
+      "tone": "launch",
+      "headline": "DocSkill brings skill-integrated agents to multilingual multi-hop document QA",
+      "summary": "Evidence must be located across pages, layouts and languages, which single-pass approaches handle poorly.",
+      "sids": [
+        "334116357c766a21"
+      ]
+    },
+    {
+      "kicker": "NEW MODALITY",
+      "tone": "rising",
+      "headline": "LibriSpeech-Real-QA benchmarks streaming question answering for speech LLMs",
+      "summary": "Targets speech models that only respond after the complete audio segment arrives.",
+      "sids": [
+        "81f93605a5cf2115"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "SAGE-QA challenges Exact Match scoring for grounded, abstention-aware QA",
+      "summary": "Moves the thread from methods to evaluation: scoring support from the passage and correct abstention on SQuAD 2.0.",
+      "sids": [
+        "2e73b9cb16efae6d"
+      ]
+    }
   ],
   "open_questions": [
     "Do any of these methods report results that hold up outside their own benchmarks?",
-    "Will speech LLMs show measurable accuracy loss when answering before the full audio arrives?"
+    "Will speech LLMs show measurable accuracy loss when answering before the full audio arrives?",
+    "How far do SQuAD 2.0 model rankings move when scored with SAGE-QA instead of Exact Match?",
+    "Is SAGE-QA's grounding check released as code that can be dropped into an existing RAG eval harness?"
   ],
-  "take_for_builders": "Treat these as preprints: if you run document or speech QA, note the benchmarks they introduce and wait for independent reproductions before changing a pipeline.",
+  "take_for_builders": "If your QA or RAG evals score with Exact Match, spot-check a sample of grounded paraphrases and abstentions by hand before trusting the metric; treat all three papers as preprints until reproduced.",
   "day_captions": {
-    "1846766ba5a6742d": "Iterative self-evaluation for table VQA over document images.",
-    "26fc92a7573c4011": "Knowledge-graph reasoning that evolves without QA annotations.",
     "334116357c766a21": "Agentic skills applied to multilingual multi-hop document QA.",
-    "81f93605a5cf2115": "Adds a benchmark for streaming speech QA, a new modality for the thread."
+    "81f93605a5cf2115": "Adds a benchmark for streaming speech QA, a new modality for the thread.",
+    "2e73b9cb16efae6d": "Turns the thread to evaluation: grounded, abstention-aware scoring in place of Exact Match."
   }
 }

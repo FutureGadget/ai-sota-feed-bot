@@ -4,9 +4,9 @@
  "item_count": 25,
  "day_count": 14,
  "source_count": 7,
- "first_seen": "2026-10-25T17:09:49+00:00",
- "last_updated": "2026-11-11T19:19:08+00:00",
- "generated_at": "2026-11-14T00:13:06.733465+00:00",
+ "first_seen": "2026-10-26T10:15:38+00:00",
+ "last_updated": "2026-11-12T14:18:44+00:00",
+ "generated_at": "2026-11-16T00:12:18.135630+00:00",
  "sources": [
   "anthropic_research",
   "arxiv_agent_systems_research",
@@ -17,22 +17,6 @@
   "hackernews_ai"
  ],
  "days": [
-  {
-   "date": "2026-10-25",
-   "items": [
-    {
-     "title": "EvolveMAS: A Unified Self-Evolution Framework for Decentralized Multi-Agent Systems",
-     "url": "http://arxiv.org/abs/2610.34450v1",
-     "source": "arxiv_agent_systems_research",
-     "type": "paper",
-     "summary_1line": "Decentralized multi-agent systems (MAS) enable large language model agents to interact without centralized control. Agents need to adapt to other agents at test time and reuse accumulated experience to refine their in...",
-     "why_it_matters": "Matches feed focus: agent, evaluation.",
-     "sid": "378efdb4d515dcd8",
-     "published": "2026-10-25T17:09:49+00:00",
-     "editor_note": "Opens the thread: decentralized LLM agents that adapt to each other at test time and reuse accumulated experience."
-    }
-   ]
-  },
   {
    "date": "2026-10-26",
    "items": [
@@ -45,7 +29,7 @@
      "why_it_matters": "Matches feed focus: agent, evaluation.",
      "sid": "5f97c21b490b1ce9",
      "published": "2026-10-26T10:15:38+00:00",
-     "editor_note": "Long-horizon web-search benchmark that localizes the node where a trajectory fails."
+     "editor_note": "Opens the thread: a long-horizon web-search benchmark that localizes the node where a trajectory fails."
     },
     {
      "title": "CANS: Capability-Preserving Neuron Steering for Large Language Models",
@@ -287,7 +271,7 @@
      "url": "http://arxiv.org/abs/2611.13531v1",
      "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Large language models increasingly evaluate, route, and moderate news, so a model's judgment of a headline has become a gatekeeping decision. We ask whether that judgment follows the fact being reported or the way the fact is framed. We combine an ecological audit of 63,926 Chine",
+     "summary_1line": "Large language models increasingly evaluate, route, and moderate news, so a model's judgment of a headline has become a gatekeeping decision. We ask whether that judgment follows the fact being reported or the way the...",
      "why_it_matters": "Matches feed focus: evaluation.",
      "sid": "501ef39353c40289",
      "published": "2026-11-10T03:54:03+00:00",
@@ -350,25 +334,39 @@
      "why_it_matters": "Matches feed focus: evaluation.",
      "sid": "f1908d0038e22f5b",
      "published": "2026-11-11T19:19:08+00:00",
-     "editor_note": "Latest item: a benchmark arguing recall evals over-rely on explicit entity names, which bears on how forgetting is measured."
+     "editor_note": "A benchmark arguing recall evals over-rely on explicit entity names, which bears on how forgetting is measured."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "items": [
+    {
+     "title": "Shortcuts or Memorisation? Revisiting Data Corruption in Natural Language Understanding with Large Language Models",
+     "url": "http://arxiv.org/abs/2611.16843v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Pre-trained encoders fine-tuned on natural language inference (NLI) and other language understanding tasks keep much of their accuracy after the input is perturbed, e.g. by removing all nouns or shuffling the words. D...",
+     "sid": "173841a135ec48af",
+     "published": "2026-11-12T14:18:44+00:00",
+     "editor_note": "Latest item: brings the input-corruption test from fine-tuned encoders to LLMs, extending the question of what eval scores really measure."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 25 it ran from agent evaluation and model-control methods through compression papers and Anthropic's Nov 2 provable-inference update to knowledge editing and unlearning, then to Nov 10 studies of rater drift on Chatbot Arena and framing effects in LLM judgments.",
+  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 26 it ran from agent evaluation and model control through compression papers, Anthropic's Nov 2 provable-inference update and knowledge editing to Nov 10-11 studies of rater drift, framing effects and ShadowBench's name-anchored recall tests.",
   "stale": false,
-  "whats_new": "Nov 11: ShadowBench argues factual-recall evaluation relies almost entirely on explicit entity names, and its title claims that hides lexical anchoring and an \"illusion of forgetting\" in LLMs.",
-  "why_it_matters": "Most items are single unreplicated preprints, but three recurring topics touch production: whether unlearning and knowledge edits remove knowledge or only its name-keyed recall, whether human-preference evals stay comparable over time, and what quantization and pruning cost in quality.",
-  "take_for_builders": "Before signing off an unlearning or knowledge-edit change, test recall with prompts that describe the entity without naming it; treat these preprints as unreplicated reading, not deployment guidance.",
+  "whats_new": "Nov 12: a study revisits why fine-tuned models keep most of their NLI accuracy after inputs are corrupted, such as deleting all nouns or shuffling words, and asks whether LLMs do the same through shortcuts or memorisation.",
+  "why_it_matters": "Most items are single unreplicated preprints, but a shared theme now touches production evals: benchmark scores can survive name removal, word shuffling or rater drift, so a passing score may not show the model used the content you think it did.",
+  "take_for_builders": "Add perturbed controls to your eval suite: rerun key tasks with entity names paraphrased and inputs shuffled, and treat an unchanged score as a sign of shortcuts, not skill.",
   "beats": [
    {
     "kicker": "OCT 25-27",
     "tone": "launch",
     "headline": "Agent evaluation and model control: long-horizon search, neuron steering, real-time vulnerability screening",
-    "summary": "Opening papers cover self-evolving decentralized multi-agent systems, a web-search benchmark that localizes the failing step, and replay for continual learning.",
+    "summary": "Opening papers cover a web-search benchmark that localizes the failing step, capability-preserving steering and replay for continual learning.",
     "sids": [
-     "378efdb4d515dcd8",
      "5f97c21b490b1ce9",
      "d5cd3db9b5f4a99b",
      "a2f964aa6fcbf7ea",
@@ -427,23 +425,32 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "NOV 11",
+    "tone": "rising",
     "headline": "ShadowBench questions name-based recall tests and whether models really forget",
     "summary": "A single preprint that returns to the Nov 3-6 unlearning and editing topic from the evaluation side.",
     "sids": [
      "f1908d0038e22f5b"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Corrupted-input study asks whether LLMs pass understanding tasks through shortcuts or memorisation",
+    "summary": "Like ShadowBench a day earlier, it tests whether a score reflects the content of the input or surface cues.",
+    "sids": [
+     "173841a135ec48af"
+    ]
    }
   ],
   "open_questions": [
    "Do published unlearning or knowledge-editing methods still pass when probed without explicit entity names, as ShadowBench's framing suggests they may not?",
-   "Do post-training updates from knowledge editing or unlearning keep a model's answerability judgments aligned with what it can answer?",
+   "Does the Nov 12 corruption study find LLMs keep accuracy on shuffled or noun-stripped inputs, and does it attribute that to shortcuts or memorised test data?",
    "Do Chatbot Arena or other human-preference leaderboards adjust rankings for the rater drift the Nov 10 study describes?",
    "Does Anthropic publish proving cost or latency figures for zkSNARK-based provable inference?",
    "Does the early-stopping audit identify a method that cuts reasoning tokens without lowering reliability?",
    "Does RL-incentivized self-learning beat plain RAG on knowledge-intensive tasks in unfamiliar domains when replicated?"
   ],
-  "generated_at": "2026-11-14T00:12:07Z"
+  "generated_at": "2026-11-16T00:11:49Z"
  }
 }

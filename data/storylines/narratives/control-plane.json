@@ -1,23 +1,24 @@
 {
   "slug": "control-plane",
-  "generated_at": "2026-11-10T00:30:00Z",
-  "covers_last_updated": "2026-11-09T13:00:00+00:00",
+  "generated_at": "2026-11-16T00:11:59Z",
+  "covers_last_updated": "2026-11-15T17:12:48+00:00",
   "covers_member_sids": [
     "bf373140a753bf98",
     "cf001375f7a4438d",
     "a9067e338ea6566b",
     "2aca440b2c0823d7",
     "952d2516af2e9054",
-    "dc6bacb2e80f865d"
+    "dc6bacb2e80f865d",
+    "5239c892cb76b746"
   ],
-  "tldr": "Late October brought three Show HN projects pitching a control room or control plane for LLM agents: God, flightdeck, and Omneum. On Nov 4 the vLLM blog introduced Kinference, an open source inference control plane for vLLM on Kubernetes.",
-  "whats_new": "OpenAI published two Control Room posts on Nov 9: a central system that tracks model workloads across its research infrastructure and can rapidly stop them when safety or security concerns arise.",
-  "why_it_matters": "The label now spans three layers: agent observability, inference serving, and kill-switch control over training and research workloads. Check which layer a \"control plane\" actually governs before adopting it.",
+  "tldr": "Late October brought three Show HN projects pitching a control room or control plane for LLM agents, and on Nov 4 the vLLM blog introduced Kinference, an inference control plane for vLLM on Kubernetes. On Nov 9 OpenAI described Control Room, an internal system that tracks research workloads and can stop them on safety or security concerns.",
+  "whats_new": "GitSeed, posted to Hacker News on Nov 15, applies the label to coding agents: a self-hosted control plane for running AI coding agents.",
+  "why_it_matters": "\"Control plane\" now covers four layers: agent observability, coding-agent orchestration, inference serving, and kill-switch control over research workloads. Check which layer a tool actually governs before adopting it.",
   "status": {
     "state": "Recurring framing",
     "tone": "neutral",
-    "changed": "2026-11-09",
-    "detail": "Independent projects keep using \"control plane\" or \"control room\" for different layers; OpenAI's Control Room is the latest and an internal system, not a product."
+    "changed": "2026-11-15",
+    "detail": "Independent projects keep using \"control plane\" for different layers; the newest, GitSeed, targets self-hosted coding agents."
   },
   "beats": [
     {
@@ -41,13 +42,22 @@
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
+      "kicker": "LAB INFRA",
+      "tone": "turn",
       "headline": "OpenAI's Control Room tracks and can stop model workloads",
       "summary": "Two posts on Nov 9 describe human control over AI workloads across OpenAI's research infrastructure.",
       "sids": [
         "952d2516af2e9054",
         "dc6bacb2e80f865d"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "GitSeed pitches a self-hosted control plane for coding agents",
+      "summary": "The label returns to open source agent tooling, this time scoped to AI coding agents.",
+      "sids": [
+        "5239c892cb76b746"
       ]
     }
   ],
@@ -55,15 +65,17 @@
     "Does Kinference see adoption or contributions beyond its launch post on the vLLM blog?",
     "Does OpenAI publish technical detail on how Control Room stops workloads, such as triggers or approval paths?",
     "Do the Show HN projects (God, flightdeck, Omneum) gain users or contributors after their launch posts?",
+    "What does GitSeed actually control for coding agents: sandboxes, permissions, repo access, or just job scheduling?",
     "Do other labs describe comparable workload tracking and stop controls?"
   ],
-  "take_for_builders": "If you run vLLM on Kubernetes, evaluate Kinference for per-tenant rate limits and cost tracking in a staging cluster. Treat the Show HN agent tools as early experiments and OpenAI's Control Room as a design reference, not something you can deploy.",
+  "take_for_builders": "If you run vLLM on Kubernetes, evaluate Kinference for per-tenant rate limits and cost tracking in a staging cluster. Treat GitSeed and the Show HN agent tools as early experiments, and OpenAI's Control Room as a design reference you cannot deploy.",
   "day_captions": {
     "bf373140a753bf98": "First of three Show HN agent-tooling posts: a real-time control room for LLM agent societies, tied to an EMNLP 2026 demo.",
     "cf001375f7a4438d": "Adds an observability and control plane aimed at running AI agents.",
     "a9067e338ea6566b": "Applies the label to context management: a local, text-blind control plane for agents.",
     "2aca440b2c0823d7": "Moves the term to infrastructure: an open source inference control plane for vLLM and Kubernetes with rate limiting and usage tracking.",
     "952d2516af2e9054": "OpenAI describes a central system that tracks model workloads across its research infrastructure and can rapidly stop them on safety or security concerns.",
-    "dc6bacb2e80f865d": "Companion launch post for Control Room, framed around human control over AI workloads."
+    "dc6bacb2e80f865d": "Companion launch post for Control Room, framed around human control over AI workloads.",
+    "5239c892cb76b746": "Narrows the label to coding agents with a self-hosted control plane, posted on Hacker News."
   }
 }
