@@ -2,146 +2,122 @@
 
 Focus: AI Platform Engineering
 
-## 1. Show HN: gavel: guided code review with your coding agent
-- Type: news | Source: hackernews_ai
-- URL: https://photostructure.com/coding/gavel/
-- Score: 3.644 | Reliability: 1.0
+## 1. Alibaba Launches Qwen4-Max With Lower API Prices
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiigFBVV95cUxON1l1QWRja2lMdGVUTXhpSXpuVVkzWnRSS0x5QmRTRWFiUm4xWFR4LU4xNDNpZDJvTG9zc3JIMER3NWpJaXBhdUlFRVZ4S1BNZXRiR0dnMGdrRWRKYk5DZlVnbUVWQjVHRGNna2ZwX3I4RGJiVWk0X3RlbU5LNXNoNTdxMHNLUkM5U3c?oc=5
+- Score: 3.369 | Reliability: 1.0
+- Why it matters: 
+
+## 2. LuthorSQL: A One-Pass Text-to-SQL Model as System 1 for a Slower LLM Agent
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.17780v1
+- Score: 2.885 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. I built an open-source multi-agent DAG orchestrator and AST RAG engine on Termux
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/KrypticKode007/Golden-Agent
-- Score: 3.438 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 3. Discovering Effective Agent Memory Designs through Program Evolution
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.17068v1
-- Score: 2.721 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 4. Metal Sandbox: Isolated Execution and Command Scheduling for GPU Coding Agents on Apple Silicon
+## 3. AscendGYM: A Cost-Aware Kernel Optimization Benchmark for Real-World Workloads on Ascend NPUs
 - Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.17294v1
-- Score: 2.522 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
+- URL: http://arxiv.org/abs/2611.17621v1
+- Score: 2.862 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, evaluation.
 
-## 5. S1-Evo: Experience-Guided Evidence Competition Attacks on Typed System-1 Decision Models
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.16937v1
-- Score: 2.511 | Reliability: 1.0
+## 4. Gamer: A Generalist Vision-Language-Action Foundation Model for Long-Horizon Real-Time Game Agent
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.18397v1
+- Score: 2.847 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. Our new blog for science
+## 5. Our new blog for science
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/our-new-blog-for-science
-- Score: 2.488 | Reliability: 1.0
+- Score: 2.413 | Reliability: 1.0
+- Why it matters: 
+
+## 6. Introducing Gemini 4 Hydrogen
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/introducing-gemini-4-hydrogen/
+- Score: 2.267 | Reliability: 1.0
 - Why it matters: 
 
 ## 7. A step toward defining the Standard Model on a lattice
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/step-toward-defining-the-standard-model
-- Score: 2.322 | Reliability: 1.0
+- Score: 2.248 | Reliability: 1.0
 - Why it matters: 
 
-## 8. [AINews] The No AI Slop Manifesto
-- Type: news | Source: latent_space
-- URL: https://latent.space/p/ainews-the-no-ai-slop-manifesto/
-- Score: 2.304 | Reliability: 1.0
-- Why it matters: 
-
-## 9. Introducing Gemini 4 Hydrogen
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/introducing-gemini-4-hydrogen/
-- Score: 2.258 | Reliability: 1.0
-- Why it matters: 
-
-## 10. Goal Engineering
+## 8. Goal Engineering
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/goal-engineering
-- Score: 2.197 | Reliability: 1.0
+- Score: 2.176 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 11. AgentSSL: Can MLE Agents Leverage Unlabeled Data?
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.17323v1
-- Score: 2.393 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 12. Teach Genie One your workflows: The ultimate guide for skills in Genie One
-- Type: news | Source: databricks_blog
-- URL: https://www.databricks.com/blog/teach-genie-one-your-workflows-ultimate-guide-skills-genie-one
-- Score: 2.135 | Reliability: 1.0
-- Why it matters: 
-
-## 13. llm-gemini 0.37
-- Type: release | Source: simon_willison
-- URL: https://simonwillison.net/2026/Nov/12/llm-gemini/
-- Score: 2.099 | Reliability: 1.0
-- Why it matters: 
-
-## 14. Introducing ChatGPT Wallet
+## 9. Introducing ChatGPT Wallet
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-chatgpt-wallet
-- Score: 2.062 | Reliability: 1.0
+- Score: 2.071 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
-## 15. LLMON: An LLM-Native Markup Language, now in Granite 4.1 3B and 8B
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite
-- Score: 2.044 | Reliability: 1.0
+## 10. Teach Genie One your workflows: The ultimate guide for skills in Genie One
+- Type: news | Source: databricks_blog
+- URL: https://www.databricks.com/blog/teach-genie-one-your-workflows-ultimate-guide-skills-genie-one
+- Score: 2.054 | Reliability: 1.0
 - Why it matters: 
 
-## 16. Gemini Decisions API
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Nov/11/gemini-decisions-api/
-- Score: 2.007 | Reliability: 1.0
+## 11. FlexCast: Flexible Context Learning for Time Series Foundation Models
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.17862v1
+- Score: 2.843 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 12. Envisioning Agentic Robotics: A New Era of Robotic Systems
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.18359v1
+- Score: 2.842 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness, evaluation.
+
+## 13. H3-Image Day-0 Support: 4K in 0.87s with Vera Rubin
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-12-minimax-h3-image-rubin
+- Score: 1.843 | Reliability: 1.0
 - Why it matters: 
 
-## 17. codex 0.171.0-alpha.7
+## 14. codex 0.171.0-alpha.7
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.7
-- Score: 1.891 | Reliability: 1.0
+- Score: 1.786 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 18. llama_index v0.14.26
+## 15. llama_index v0.14.26
 - Type: release | Source: llamaindex_releases
 - URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.26
-- Score: 1.719 | Reliability: 1.0
+- Score: 1.701 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 19. New AI agent observability and governance across BigQuery and Looker
+## 16. New AI agent observability and governance across BigQuery and Looker
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/data-analytics/enterprise-ai-agent-observability-with-bigquery-and-looker/
-- Score: 1.56 | Reliability: 1.0
+- Score: 1.543 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 20. claude-code v2.1.325
+## 17. claude-code v2.1.325
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.325
-- Score: 1.503 | Reliability: 1.0
+- Score: 1.488 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval, claude code.
 
-## 21. langgraph==1.2.21
+## 18. langgraph-cli==0.4.43
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.21
-- Score: 1.339 | Reliability: 1.0
-- Why it matters: 
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.43
+- Score: 1.419 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 22. Kitesurf is now open source
+## 19. Kitesurf is now open source
 - Type: news | Source: cloudflare_blog
 - URL: https://blog.cloudflare.com/kitesurf-open-source/
-- Score: 1.265 | Reliability: 1.0
+- Score: 1.25 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 23. Gemini Robotics 2.5 accelerates real-world general dexterity
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/
-- Score: 1.238 | Reliability: 1.0
-- Why it matters: 
-
-## 24. Release 2.74.0 corresponding to NGC container 26.10
-- Type: release | Source: triton_releases
-- URL: https://github.com/triton-inference-server/server/releases/tag/v2.74.0
-- Score: 0.815 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 20. vllm v0.34.0rc2
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0rc2
+- Score: 0.605 | Reliability: 1.0
+- Why it matters:
