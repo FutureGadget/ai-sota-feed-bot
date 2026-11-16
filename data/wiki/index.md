@@ -26,11 +26,11 @@ Schema: `config/wiki_schema.md`.
   - theme `measuring-memory` — Benchmarks and leaderboards for memory (8)
 
 ### planning
-- [agent-planning](obstacles/agent-planning.md) — Agents plan multi-step work badly — they loop, stall, or skip steps (40 entries, updated 2026-10-14)
+- [agent-planning](obstacles/agent-planning.md) — Agents plan multi-step work badly — they loop, stall, or skip steps (41 entries, updated 2026-11-16)
   → solutions: agent-orchestration
   - theme `loop-as-infrastructure` — The agent loop as reusable infrastructure (12)
   - theme `ask-or-proceed` — Deciding when to ask, explore, or how much to do (6)
-  - theme `verify-and-replan` — Verification loops and re-planning on failure (8)
+  - theme `verify-and-replan` — Verification loops and re-planning on failure (9)
   - theme `learned-planning` — Learning to plan from experience, RL, and code (10)
   - theme `measuring-planning` — Benchmarks for loops and long-horizon procedures (4)
 
@@ -63,19 +63,19 @@ Schema: `config/wiki_schema.md`.
   - theme `eval-in-production` — Evals as a production workflow: mined from traces, gated in CI (31)
 
 ### multi-agent
-- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (41 entries, updated 2026-11-15)
+- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability (43 entries, updated 2026-11-16)
   → solutions: agent-benchmarks, agent-orchestration, agent-tracing
-  - theme `when-it-pays` — When coordination helps: topology, roles, and allocation (11)
+  - theme `when-it-pays` — When coordination helps: topology, roles, and allocation (12)
   - theme `production-evidence` — Production deployments and what they report (13)
   - theme `parallel-coding-agents` — Keeping parallel coding agents from colliding (4)
-  - theme `oversight-and-safety` — Oversight, collusion, and authorization between agents (10)
+  - theme `oversight-and-safety` — Oversight, collusion, and authorization between agents (11)
   - theme `shared-context` — What each agent gets to see (3)
 
 ### cost
-- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (59 entries, updated 2026-11-15)
+- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away (60 entries, updated 2026-11-16)
   → solutions: agent-orchestration, context-compaction, cost-controls
   - theme `harness-and-context` — Harness, context, and topology drive the per-step bill (14)
-  - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (11)
+  - theme `cheaper-models` — Downshifting to cheaper models, costed on total tokens (12)
   - theme `routing` — Routing each turn to the cheapest model that can handle it (10)
   - theme `caching-and-serving` — Caching and serving efficiency set the floor price (13)
   - theme `price-curve` — Falling token prices, rising workflow spend (11)
@@ -105,13 +105,13 @@ Schema: `config/wiki_schema.md`.
   - theme `monitoring-limits` — When the trace is not enough (3)
 
 ### security
-- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (65 entries, updated 2026-11-14)
+- [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent (67 entries, updated 2026-11-16)
   → solutions: agent-sandboxing
   - theme `injection-paths` — New paths for injected instructions (12)
   - theme `model-defenses` — Guardrail models, model hardening, and how defenses are measured (13)
   - theme `harness-controls` — Permissions, approvals, and sandboxes in the agent harness (12)
-  - theme `agent-authorization` — Agents as identities with scoped, per-action authorization (13)
-  - theme `eval-escapes` — Agents attacking real systems from cyber evals and training runs (7)
+  - theme `agent-authorization` — Agents as identities with scoped, per-action authorization (14)
+  - theme `eval-escapes` — Agents attacking real systems from cyber evals and training runs (8)
   - theme `offensive-cyber` — Frontier cyber models and weaponized agents (8)
 
 ### scalability
@@ -131,9 +131,9 @@ Schema: `config/wiki_schema.md`.
   - theme `drift-tooling` — Tools to pin, test, and replay against drift (6)
 
 ## Solutions
-- [agent-benchmarks](solutions/agent-benchmarks.md) — Agent benchmarks: fixed tasks that exercise real tool use (53 entries, updated 2026-11-14)
-  - theme `trusting-the-score` — What a score measures: model, harness, or noise (13)
-  - theme `own-workload` — Benchmarking on your own tools and real work (10)
+- [agent-benchmarks](solutions/agent-benchmarks.md) — Agent benchmarks: fixed tasks that exercise real tool use (55 entries, updated 2026-11-16)
+  - theme `trusting-the-score` — What a score measures: model, harness, or noise (14)
+  - theme `own-workload` — Benchmarking on your own tools and real work (11)
   - theme `domain-suites` — Domain-specific suites mined from real work (14)
   - theme `adversarial-and-security` — Adversarial tools, poisoned inputs, and security (6)
   - theme `long-horizon-and-subsystems` — Long horizons and subsystem diagnostics (10)
@@ -163,10 +163,10 @@ Schema: `config/wiki_schema.md`.
   - theme `attribution` — Attributing spend to the PR, the agent, and the anomaly (3)
   - theme `hard-caps` — Hard caps that run before the call, not after the bill (5)
   - theme `caching-and-filtering` — Caching and pre-filtering cut fixed overhead (5)
-- [llm-as-judge](solutions/llm-as-judge.md) — LLM-as-judge: model-graded evaluation of traces and outputs (18 entries, updated 2026-10-28)
+- [llm-as-judge](solutions/llm-as-judge.md) — LLM-as-judge: model-graded evaluation of traces and outputs (19 entries, updated 2026-11-16)
   - theme `structured-verdicts` — From a 1-5 score to structured, trace-level verdicts (3)
   - theme `cheaper-judges` — Making the judge cheap enough to run on every trace (5)
-  - theme `trusting-the-judge` — Auditing the judge, the rubric, and whether you need one (10)
+  - theme `trusting-the-judge` — Auditing the judge, the rubric, and whether you need one (11)
 - [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools (36 entries, updated 2026-11-04)
   - theme `stateless-spec` — The stateless spec and what MCP is actually for (7)
   - theme `auth-and-governance` — Authorization and governance of connector fleets (10)

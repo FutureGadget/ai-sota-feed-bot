@@ -8,11 +8,11 @@ solutions: [agent-orchestration, agent-benchmarks, agent-tracing]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-16
 themes:
   - key: when-it-pays
     title: "When coordination helps: topology, roles, and allocation"
-    summary: Communication structure, per-role model capacity, and task allocation decide whether extra agents help; on a small local model a two-call refinement loop beats a five-agent pipeline outright.
+    summary: Against compute-matched baselines most multi-agent gains vanish; extra agents pay only with partitioned evidence, external verification, or diverse models, and topology and role allocation decide the rest.
   - key: production-evidence
     title: Production deployments and what they report
     summary: Named deployments in security ops, trading, sales, code review, healthcare, and internal platform work report real gains from role specialization plus human checkpoints; the numbers are self-reported by the teams or vendors.
@@ -35,14 +35,15 @@ the gains — the hard part isn't building the agents, it's getting them to work
 together without costing more than one good agent would.
 
 ## State of the art
-The question has moved from "more agents?" to "when do more agents pay?", and
-the answer is narrower than the hype. **Communication structure dominates agent
-count.** Research on topology, per-role model capacity, and auction-based task
-allocation finds that who talks to whom, which role gets the strong model, and
-how work is assigned decide the outcome. Removing the central orchestrator cut
-task cost about 50% in one study. On a local 7B model, a two-call
-self-refinement loop beat a five-agent pipeline outright, with error
-accumulation across handoffs as the culprit.
+Most measured multi-agent gains are extra compute, not coordination. A
+meta-analysis of 516 configurations found that against baselines matched on
+samples or budget, multi-agent setups averaged **-4.2 accuracy points** and
+trailed in 74% of contrasts. Agents that share identical evidence gain nothing
+by talking; gains need partitioned evidence, an external verifier, or diverse
+models. **Communication structure dominates agent count**: who talks to whom,
+which role gets the strong model, and how work is assigned decide the outcome.
+On a local 7B model, a two-call self-refinement loop beat a five-agent
+pipeline, with error accumulation across handoffs as the culprit.
 
 **Where it pays, the shape is specialization plus human checkpoints.** Named
 deployments in security operations, trading, sales, code review, healthcare
@@ -64,8 +65,9 @@ plan or veto actions, per-agent credentials, kernel-governed shared memory, and
 monitoring built for multi-agent failure modes. Detecting covert coordination
 is still research.
 
-The durable lesson: default to one agent, and add agents only when the task
-decomposes and the handoffs are cheap and well-typed. The patterns and
+The durable lesson: default to one agent, benchmark against best-of-N on the
+same budget, and add agents only when they see different data and the
+handoffs are cheap and well-typed. The patterns and
 runtimes live on [agent orchestration](/topic/agent-orchestration).
 
 ## Why it matters for platform engineers
