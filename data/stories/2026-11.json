@@ -2869,6 +2869,22 @@
   "url": "http://arxiv.org/abs/2611.14515v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "2867f3480e90e23f": {
+  "content_excerpt": "Benchmark for computer-use agents on self-hosted business apps, graded by whole-database diffs: success, collateral damage, irreversible changes, false completion. A benchmark that checks what a computer-use agent actually did to the database, not what it said it did. Agents drive real, self-hosted business apps (Invoice Ninja, Dolibarr, Odoo 17, Odoo 18) in a browser. Every episode starts from the same database snapshot, and afterwards the whole database is diffed . That gives four verdicts per episode instead of one: Agents: GPT-6 Luna (accessibility tree + screenshot) and UI-TARS-1.5-7B (screenshot only), same harness, 30-step budget. Full write-up with every table, the failure taxonomy and the limitations: reports/phase0_writeup.md . These are small-sample results from one person's Phase 0: 36 to 72 episodes per cell, one run per task, Wilson 95% intervals. Read Limitations before quoting a number. You need Docker, Python 3.10 to 3.12 (or uv , which fetches one for you), and about 8 GB of free disk. Check the published numbers without running anything (rebuilds every table from the committed episode summaries: 635 scored, plus 35 superseded ones kept for a sensitivity check): swm up takes about six minutes the first time (image download and seeding). In Phase 0, GPT-6 Luna cost one to three cents per successful task. Each episode writes screenshots, the step log and a summary.json under runs/ / / . Apps: invoiceninja · dolibarr · odoo17 · odoo18 . Everything binds to 127.",
+  "first_seen": "2026-11-16T05:05:08.995750+00:00",
+  "id": "463ffac7cca63cb4",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-16T04:49:45+00:00",
+  "sid": "2867f3480e90e23f",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: A benchmark that diffs the whole database after an AI agent's task",
+  "title": "Show HN: A benchmark that diffs the whole database after an AI agent's task",
+  "type": "news",
+  "url": "https://github.com/shubhamjoshipromail-svg/software-world-model",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "28c838a66808367f": {
   "first_seen": "2026-11-04T10:05:31.670878+00:00",
   "id": "96d15bb38fc4d96e",
@@ -9932,13 +9948,18 @@
  "8da93282dcb219d5": {
   "first_seen": "2026-11-16T03:24:13.745359+00:00",
   "id": "3856e544bd2cac4e",
+  "matched_topics": [
+   "agent"
+  ],
   "published": "2026-11-13T05:10:32+00:00",
   "sid": "8da93282dcb219d5",
   "source": "arxiv_cs_ai",
+  "summary": "Running large language models (LLMs) on local devices keeps data private, removes per-token cost, cuts network latency, and keeps working without a connection. Two shifts now strain how such models are served. On one device, several agents share a locally served model with an interactive user. Across devices, a developer or small team often owns several capable machines from different vendors, which sit idle most of the day because every local server serves one runtime on one machine. We present Superfluid, an open-source LLM server built for local inference at both scales. On one device, Superfluid drives llama.cpp, MLX, or BaseRT in isolated worker processes through one scheduler that moves interactive requests ahead of agent work, computes a prompt shared by many requests once, and writes every token to a durable log before it reaches the client. Across devices, one Superfluid server turns a fleet of machines into a single API endpoint. Machines with different hardware serve copies of the same model, receive work according to their measured speed, and can join or fail under load without losing a request. For Qwen3.8-27B on an Apple M5 Pro, a chat sent while eight agents are working receives its first token in 1.5 s, against 291-612 s on llama-server, Ollama, and mlx_lm.server. On six machines from three chip vendors serving 64 simulated users for one hour, Superfluid answers all 5,041 requests while machines join one at a time and one is killed and rejoins; throughput grow",
   "summary_1line": "Running large language models (LLMs) on local devices keeps data private, removes per-token cost, cuts network latency, and keeps working without a connection. Two shifts now strain how such models are served. On one device, several agents share a locally served model with an int",
   "title": "Superfluid: Local AI Server for Distributed LLM Inference",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.17753v1"
+  "url": "http://arxiv.org/abs/2611.17753v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "8ddf2e67d3917490": {
   "first_seen": "2026-11-03T06:05:21.577740+00:00",
@@ -14296,6 +14317,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05358v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "c876496118766282": {
+  "first_seen": "2026-11-16T05:05:08.995750+00:00",
+  "id": "0254f1b551805152",
+  "published": "2026-11-16T04:27:15+00:00",
+  "sid": "c876496118766282",
+  "source": "vllm_releases",
+  "summary": "v0.34.0",
+  "summary_1line": "v0.34.0",
+  "title": "vllm v0.34.0",
+  "type": "release",
+  "url": "https://github.com/vllm-project/vllm/releases/tag/v0.34.0"
  },
  "c887dbd9e8b5b928": {
   "content_excerpt": "We gave every uncensored model tools and five multi-step tasks. Smarter originals finish more, models built on weaker ones loop almost twice as often, and most still fail half the time. Uncensored models are mostly sold on what they will say. We wanted to know what they do: give them tools and a multi-step job, and see whether they finish, go in circles, or fall over. We ran all 31 ranked models on the Open Uncensored API through the same five agent tasks (edit a file, browse pages, multi-step math with a calculator, debug code until tests pass, analyse data), each capped at 14 turns. The intelligence of the model an uncensored edit came from does predict agent reliability: the correlation between the two is 0.56 across 31 models. Models built on originals scoring 60 or more finished 38% of tasks on average; the rest finished 27%. Neither number is good. Even the strong group fails more often than it succeeds. A loop is the model repeating the same tool call three times without progress. A crash is a malformed tool call, a made-up tool result, or giving up on tools mid-task. Models built on weaker originals loop almost twice as often. Crashes are common in both groups, so a strong original does not make a model safe to leave unattended. Several originals have more than one uncensored version on the API. Tasks finished out of 5: So far the versions of one original land within a task of each other. With one run per task that gap is noise, so we cannot yet say whether abliterati",
