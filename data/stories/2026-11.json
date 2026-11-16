@@ -3278,6 +3278,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14317v1"
  },
+ "2cf9e0b91befb6ce": {
+  "content_excerpt": "This repo is in beta. We're still iterating on the methodology, so the approach and results may change. These results show speed (time to complete a research task) and cost for a single agent, not performance under heavy load, and providers differ in ways these tests won't capture. How fast and how cheap is each inference provider at serving an AI research agent using open-source LLMs? We record each model doing a set of research tasks once, using questions from Google's FRAMES benchmark, then replay those conversations on every provider. We measure how long the model calls take and what they cost at list price . Every model provider gets the same set of requests for a given model and task, so we're testing how each provider serves the model, not the model's ability to complete the task well. This is not a benchmark of model quality. Every model here completes every task, and we don't check whether its answers are right. The purpose of this benchmark is to compare timing and cost across providers, not model intelligence. Each model answers a set of multi-hop questions from FRAMES as a research agent, with tools to search and read Wikipedia. We only use tasks that every model is able to finish, and save each model's conversations along with the Wikipedia responses. The benchmark replays those conversations. For each turn, we send the conversation up to that point to the provider, time the response, and move on to the next recorded turn. The Wikipedia results come from the reco",
+  "first_seen": "2026-11-16T16:06:16.108628+00:00",
+  "id": "51bfa48ffab3abb4",
+  "published": "2026-11-16T14:51:47+00:00",
+  "sid": "2cf9e0b91befb6ce",
+  "source": "hackernews_ai",
+  "summary_1line": "Benchmarking OSS inference vendors on cost/latency",
+  "title": "Benchmarking OSS inference vendors on cost/latency",
+  "type": "news",
+  "url": "https://github.com/powerset-co/inference-bench"
+ },
  "2d12feb9adcfe619": {
   "content_excerpt": "I just deleted all my agent skills after reading Jakob Breu’s (hot) take. I kind of had a gut feeling myself for a long time as models evolve but I didn’t really have the evidence to back it up, so I went looking for it. Some of what I found: Also, Anthropic cut over 80% of Claude Code’s system prompt with “no measurable loss” on its own evaluations, and says it was overconstraining the agent, skills included. Karpathy’s prompts keep getting shorter . Boris Cherny reportedly says to delete the lot every six months. Then there’s security. There seems to be at least one vulnerability in about a quarter of 31,132 skills. A second study found similar problems. I might regret some of this. SkillsBench found curated skills lifted pass rates from 33.9% to 50.5%. Jim Bennett’s line seems right to me: skills that repeat the docs can go, but no model can infer your own process and voice. Topics: do agent skills work, agent skills benchmark, are Claude Code skills worth it, delete Claude Code skills, agent skills security Developers in the METR study felt faster while measuring slower, so a skill that feels helpful still needs a test. My router applies the same discipline to model choice, judging each option on completed tasks.",
   "first_seen": "2026-11-08T17:05:46.722946+00:00",
@@ -5968,6 +5980,23 @@
   "url": "http://arxiv.org/abs/2611.07203v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "51b59fa245434a4b": {
+  "first_seen": "2026-11-16T16:06:16.108628+00:00",
+  "id": "43307d27b3bc7b3c",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-13T11:50:28+00:00",
+  "sid": "51b59fa245434a4b",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Artificial intelligence has progressed from task-specific systems toward general models spanning perception, generation, reasoning, and autonomous interaction, making reliable evaluation essential for comparison, deployment, and post-training feedback. At scale, modern evaluation pipelines increasingly rely on LLM-as-a-Judge to produce scores, preferences, and critiques; in its fixed-context setting, the judge relies on the supplied evaluand and evaluation materials. Yet a reliable verdict may require evidence beyond the supplied evaluand and context---either because critical environmental states remain unrecorded in the static execution log, or because controversial factual claims require external verification. Passive judges cannot obtain that missing evidence before deciding, especially when evaluating agent trajectories, executable artifacts, or domain-specific reports. Recent work therefore develops active evaluators that seek missing evidence and update their grounds for judgment before deciding. We bring these advances together through Agent-as-a-Judge, focusing on how evaluators construct and control checking processes within the broader LLM-based judging landscape. We define the scope through evaluation-directed checks and the use of their results, covering both structured workflows and observation-driven control. We organize the design space by multi-agent collaboration, tool integration, memory, and planning, and show how these mechanisms supply the checks and evid",
+  "summary_1line": "Artificial intelligence has progressed from task-specific systems toward general models spanning perception, generation, reasoning, and autonomous interaction, making reliable evaluation essential for comparison, depl...",
+  "title": "Agent-as-a-Judge",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18067v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "51d3fa8b88672f87": {
   "content_excerpt": "Show notes: Automated software delivery is moving faster than the people who used to approve every release. LaunchDarkly co-founder and CEO Edith Harbaugh tells Guy Podjarny why rollback should be autonomous, why one-shot coding agents fail, and why the bottleneck has moved to the last mile. What we cover: – How automated software delivery and autonomous rollback take humans out of the 2 a.m. incident – What makes a good feature flag, and when a homegrown system stops being enough – Why coding agents need an explicit definition of success before they write a line – Where release management fits in an AI software factory – Feature flags for AI agents: switching models and prompts at runtime – Running a c Transcript (sampled): keeping them uh aligned as they make many, many of these decisions is uh is is is hard because you know it takes the same amount of time to talk to their you know colleague and sort of you know describe what it is that they're they're uh they're building, and it's still a pain or like a product discomfort if uh if if they're misaligned. Like … part, which is describe what what success looks like, what failure looks like, uh, what are the guardrails that you want them to stay within? You know, like what are what are you know what are the lines, like what's disallowed, what's allowed. And so you need to do, you know, what we oftentimes avoid and just saying like we'll know it when we … of the software factory is this like tickets to PR, but then the sort of",
   "first_seen": "2026-11-10T14:05:41.419296+00:00",
@@ -8440,6 +8469,22 @@
   "title": "Michelangelo AI",
   "type": "news",
   "url": "https://michelangelo-ai.org"
+ },
+ "75db6f155d9769a5": {
+  "first_seen": "2026-11-16T16:06:16.108628+00:00",
+  "id": "583168f86acff560",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-13T18:30:58+00:00",
+  "sid": "75db6f155d9769a5",
+  "source": "arxiv_llm_reliability",
+  "summary": "Mechanistic Interpretability (MI) has made significant progress in explaining the internal computations of Large Language Models (LLMs); however, these advances have yet to demonstrate comparable success in explaining the decision-making processes of LLM-based agents. This paper examines the challenges MI tools face when applied to realistic agentic failures. We focus on one such failure: web agents hallucinating actions that are not available on a website. We apply a series of mechanistic analyzes to Qwen2.5-7B-Instruct as it interacts with live websites. We find that a linear probe trained on the last prompt token can predict hallucinations before generation begins (0.80 AUC) and steering along a probe direction corrects 85\\% of hallucinations, but disrupts 7\\% of valid actions. However, these results only provide a partial explanation of why the agent hallucinates. The probe direction is sensitive to prompt formatting, losing much of its steering effect after a minor change to how actions are represented. Additionally, circuit identification can be difficult as the computation is distributed across multiple components and positions, and the information the agent relies on varies across examples. We discuss how these observations challenge the assumptions underlying standard MI methods for circuit discovery and feature identification, and outline future directions for making these methods better suited to explain failures in LLM-based agents.",
+  "summary_1line": "Mechanistic Interpretability (MI) has made significant progress in explaining the internal computations of Large Language Models (LLMs); however, these advances have yet to demonstrate comparable success in explaining...",
+  "title": "Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18514v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "768f71309768fea7": {
   "first_seen": "2026-11-11T00:09:42.029607+00:00",
@@ -13569,6 +13614,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17334v1"
  },
+ "b88431679f55f635": {
+  "content_excerpt": "One long-term memory for every AI coding tool: Claude Code, Cursor, Codex, Copilot. MCP server, SDKs, hosted or self-hosted. Tell one tool once, and they all know. Claude Code, Cursor, Codex, GitHub Copilot and any MCP client share one long-term memory of your decisions, preferences and project context, across sessions and across tools. ⭐ If Memro saves you from re-explaining your project, star the repo (top right): it helps other developers find it. Website · Docs · Discord · Voice demo · What broke wiring one memory into 4 AI tools Source-available: free for personal, research and other non-commercial use, including self-hosting; commercial use runs on Memro Cloud or a commercial license. github.com/memrohq/memro is the single public repository for Memro: the Go server, official SDKs (Python, JavaScript/TypeScript, Go), the MCP server and the CLI. Adds Memro's MCP server and recalls the project's memory at the start of every session. See integrations/claude-code . In your assistant, say: \"Remember that our primary database is PostgreSQL 16 with pgvector.\" Restart your session and ask: \"What database and extensions do we use?\" Run the full Memro API server and PostgreSQL with pgvector on your own infrastructure: (Note: The prebuilt image one-liner downloads docker-compose.release.yml with pinned ghcr.io/memrohq/memro:0.1.0 and ghcr.io/memrohq/memro-dashboard:0.1.0 images, available once v0.1.0 is published.) For complete deployment options, production topologies, and configu",
+  "first_seen": "2026-11-16T16:06:16.108628+00:00",
+  "id": "fda31422ac832910",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-16T14:59:57+00:00",
+  "sid": "b88431679f55f635",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Memro – Run multiple AI coding agents in one repo without collisions",
+  "title": "Show HN: Memro – Run multiple AI coding agents in one repo without collisions",
+  "type": "news",
+  "url": "https://github.com/memrohq/memro",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "b8a0226387bcfc62": {
   "first_seen": "2026-11-06T02:04:31.223147+00:00",
   "id": "4c1455b1e2ef1f38",
@@ -14390,13 +14451,18 @@
  "c2d1b58f9d54b8ac": {
   "first_seen": "2026-11-16T03:24:13.745359+00:00",
   "id": "93aee11ce423a5bb",
+  "matched_topics": [
+   "agent"
+  ],
   "published": "2026-11-13T11:25:42+00:00",
   "sid": "c2d1b58f9d54b8ac",
   "source": "arxiv_cs_cl",
+  "summary": "When a conversational Voice AI agent places an outbound call, the far end may be a live person, a voicemail greeting, an interactive voice response (IVR) system, or increasingly another AI system answering on the callee's behalf. Standard Answering Machine Detection (AMD) reports only whether a human or a machine picked up, a design meant for human call centres, where one machine is as uninteresting as another. That single bit does not tell a Voice AI agent what to do, since leaving a voicemail message, navigating an IVR and holding a short exchange with another AI are three different actions and a two-valued label cannot distinguish them. In 1,000 randomly sampled calls from our own outbound deployment, a live person answered 48.1%, a voicemail system 44.6%, an AI 6.9% and an IVR 0.4%. Our proposed framework, FEND, reads the far end's audio and its streaming transcript and runs one detector for each automated class (voicemail, IVR, AI callee), with human the default when nothing fires, returning a single label within 20 seconds. On a public benchmark the voicemail components reach 100% accuracy without ever misclassifying a live human, where Asterisk's AMD misclassifies 30 to 66% of them. For the AI callee, acoustic features do not transfer across recording conditions, but speech timing does, separating AI from human at 0.952 ROC-AUC, because synthesised speech leaves far shorter gaps between words. On production traffic, separating a live person from any automated far end r",
   "summary_1line": "When a conversational Voice AI agent places an outbound call, the far end may be a live person, a voicemail greeting, an interactive voice response (IVR) system, or increasingly another AI system answering on the callee's behalf. Standard Answering Machine Detection (AMD) reports",
   "title": "FEND: Far-End Detection in Outbound Voice AI Calls",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.18050v1"
+  "url": "http://arxiv.org/abs/2611.18050v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "c30390e065b7ab96": {
   "content_excerpt": "60-rule static security scanner, MCP server & skill poisoning auditor for AI-generated codebases (Claude Code, Codex, Cursor). Your agent ships fast. It also ships NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY , a DELETE route with no session check, and a CREATE TABLE with no Row Level Security — because it was optimising for \"it works\". vibe-shield is a static security scanner built for that failure mode , plus an Agent Skill that makes Claude Code, Codex, Cursor and Windsurf audit before they say \"done\" . Reports include severity, CWE, locations, snippets, OWASP 2025 web mappings for every rule and contextual LLM mappings when applicable, and illustrative remediation. Examples are not automatic project-specific patches; validate them against the application. The scanner itself is offline and read-only by default; --cache , --out , --report , --patch-prompt and init explicitly write files. Installing with npx can require network access. An A+ score applies only to the rules and files examined and is not a security certification. npm 2.0.0 is already published and cannot be overwritten. It provides the scanner and MCP server but predates the universal --agents initializer in this repository. Use the GitHub v2 ref for that setup until a newer npm version is published. To exercise this checkout locally, run npm ci && npm run build , then node dist/bin/vibe-shield.js with the same arguments. It works. It also has three critical vulnerabilities — no authentication, SQL injection, and an ",
@@ -15479,6 +15545,22 @@
   "title": "Show HN: Qwen Reasoning Traces Trainer and Inference Server",
   "type": "news",
   "url": "https://github.com/cookiengineer/qwen-reasoning-trainer"
+ },
+ "d646ec07a2b31e93": {
+  "first_seen": "2026-11-16T16:06:16.108628+00:00",
+  "id": "c8743a55c1bf6441",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-16T15:10:19+00:00",
+  "sid": "d646ec07a2b31e93",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.171.0-alpha.8",
+  "summary_1line": "Release 0.171.0-alpha.8",
+  "title": "codex rust-v0.171.0-alpha.8",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.8",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "d723295579b427cc": {
   "content_excerpt": "This post investigates whether the source code of a program can be presented so that a large language model based analysis fails to report a defect that is genuinely present even though the models know what exception they miss (i.e. they have the knowledge but they don't apply it). Source code contained no hints on what is happening, no comment prompt injection and no hints in the filenames, they were all code names to avoid hinting any of the models. Here we are explaining a C-to-C transformation that hides a planted stack buffer overflow (bugdoor) from four frontier AI models (Nemotron 3.5 Super VL 120B, DeepSeek V4.1 Flash, OpenAI GPT-5.5, Anthropic Claude Sonnet 5.5). The tool used for this research was Karma Pro ( https://reviewcode.org ). Each model scanned the code at least 3 times. The interesting part: Some models knew the tricks we used but they still missed identifying the vulnerabilities However if I ask, some of the models know they missed the planted vulnerability but they could not reason to it. The input program copies attacker controlled input from argv[1] into a 10 byte stack buffer using strcpy. The transformed program performs the exact same bytes write operation, but hides the unbounded length behind two techniques: It prints the supplied name. strcpy copies bytes until it hits a null terminator (\\0). If argv[1] is 11+ bytes, strcpy writes past buffer[10], corrupting the stack. This is a stack buffer overflow . Input \"AAAAAAAAAAA\" (11 bytes) to strcpy wri",
@@ -17396,6 +17478,24 @@
   "type": "news",
   "url": "https://www.databricks.com/blog/lakehousert-scale-real-time-analytics-not-your-bill",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "f0d415ce70d864b8": {
+  "content_excerpt": "Composite memory meta-provider for Hermes Agent. Use Honcho, Mem0, and Supermemory simultaneously. Comemo is a composite memory provider for Hermes Agent. It runs multiple memory providers at the same time instead of one. Hermes lets you pick one memory provider. You can use Honcho, Mem0, Supermemory, or Hindsight, but only one at a time. Comemo sits in that single slot and writes to all of them at once. Reads come back merged and deduplicated. If one provider fails, the others keep running. Hermes only activates one at a time. This is a known constraint ( Issue #24770 , marked wontfix in core). The maintainers asked the community to build a composite provider as a catalog plugin instead. On every write, Comemo fans out to all active providers in parallel using a thread pool. If a provider fails, the write goes into a local SQLite retry queue and replays at the next session start. On every read, Comemo queries all active providers in parallel, merges the results, and deduplicates identical lines before returning to Hermes. Then run hermes memory setup — Hermes walks through enabling each provider and stores API keys securely in its secret scope. Restart Hermes after and Comemo is live. After install: run hermes memory setup — Hermes presents each field from the config schema, writes non-secret settings to ~/.hermes/config.yaml , and stores API keys securely in its secret scope. Runs the setup wizard. Prompts for which providers to enable and writes non-secret settings to ~/.h",
+  "first_seen": "2026-11-16T16:06:16.108628+00:00",
+  "id": "b58bae6a803b59a6",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-16T15:21:15+00:00",
+  "sid": "f0d415ce70d864b8",
+  "source": "hackernews_ai",
+  "summary": "There are many memory providers that can be used externally with Hermes Agent. However, like many other AI agents, Hermes only provides one slot for an external memory provider. Comemo takes that slot and acts as a composite provider. How? It fans out memory writes to multiple backends such as Mem0, Honcho, and Supermemory. On retrieval, it queries the enabled providers, merges their results, and removes duplicates before returning them to Hermes. I intend to add support for more memory providers and eventually extend Comemo to other open-source AI agents with similar limitations.",
+  "summary_1line": "There are many memory providers that can be used externally with Hermes Agent. However, like many other AI agents, Hermes only provides one slot for an external memory provider. Comemo takes that slot and acts as a co...",
+  "title": "Show HN: Comemo – composite memory provider for Hermes Agent",
+  "type": "news",
+  "url": "https://github.com/andausman/comemo",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "f157cadb4b083395": {
   "first_seen": "2026-11-14T03:04:51.091256+00:00",
