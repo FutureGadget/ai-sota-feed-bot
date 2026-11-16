@@ -1,34 +1,33 @@
 {
  "date": "2026-11-16",
  "diagnostics": {
-  "admitted": 3,
-  "candidates": 547,
-  "duplicate_url": 9,
-  "items": 60,
+  "admitted": 1,
+  "candidates": 550,
+  "duplicate_url": 10,
+  "items": 61,
   "keeps": 264,
-  "new": 3,
+  "new": 1,
   "off_topic": 72,
   "prior_story": 78,
   "rejected_gate": {
    "insufficient_evidence": 18,
-   "judge_drop": 30,
+   "judge_drop": 33,
    "off_topic": 72,
    "score_low": 114
   },
   "rejected_quota": {
-   "role_quota": 76,
-   "source_quota": 22
+   "role_quota": 97
   },
   "releases": 36,
   "reviews": 129,
   "role_counts": {
-   "first_party": 3
+   "community": 1
   },
   "run_candidates": 140,
   "stale_story": 69,
   "stories": 313,
   "unjudged": 38,
-  "updated": 13,
+  "updated": 14,
   "written": true
  },
  "items": {
@@ -44,7 +43,7 @@
    "judge_error": "insufficient_evidence",
    "judge_evidence_chars": 151,
    "judge_verdict": "unjudged",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.915,
@@ -52,7 +51,7 @@
    "rank_at_first_seen": 60,
    "release_tier": null,
    "score_at_first_seen": 0.6753,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "frontier_official",
    "source": "openai_blog",
    "source_count": 1,
@@ -578,7 +577,7 @@
    "judge_error": "insufficient_evidence",
    "judge_evidence_chars": 0,
    "judge_verdict": "unjudged",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -588,7 +587,7 @@
    "rank_at_first_seen": 49,
    "release_tier": null,
    "score_at_first_seen": 0.8002,
-   "seen_count": 5,
+   "seen_count": 6,
    "slot": "frontier_official",
    "source": "openai_blog",
    "source_count": 1,
@@ -809,6 +808,55 @@
    "v2_slot": "research_watch",
    "why_it_matters": "Matches feed focus: agent, harness, evaluation."
   },
+  "story|title:benchmarking oss inference vendors on cost latency": {
+   "admission_rank": 61,
+   "admitted_at": "2026-11-16T20:09:26.713090+00:00",
+   "also_covered": [],
+   "content_excerpt": "This repo is in beta. We're still iterating on the methodology, so the approach and results may change. These results show speed (time to complete a research task) and cost for a single agent, not performance under heavy load, and providers differ in ways these tests won't capture. How fast and how cheap is each inference provider at serving an AI research agent using open-source LLMs? We record each model doing a set of research tasks once, using questions from Google's FRAMES benchmark, then replay those conversations on every provider. We measure how long the model calls take and what they cost at list price . Every model provider gets the same set of requests for a given model and task, so we're testing how each provider serves the model, not the model's ability to complete the task well. This is not a benchmark of model quality. Every model here completes every task, and we don't check whether its answers are right. The purpose of this benchmark is to compare timing and cost across providers, not model intelligence. Each model answers a set of multi-hop questions from FRAMES as a research agent, with tools to search and read Wikipedia. We only use tasks that every model is able to finish, and save each model's conversations along with the Wikipedia responses. The benchmark replays those conversations. For each turn, we send the conversation up to that point to the provider, time the response, and move on to the next recorded turn. The Wikipedia results come from the recording, so the timings only include model calls. Each model works through the tasks differently, so results are only comparable between providers serving the same model. Every provider gets the same settings for a given model (minimal reasoning, and temperature 0). After an untimed warm-up request, each provider handles one request at a time. Time spent waiting on rate limits isn't counted. Caching works normally within a task, and to see how much it helps, we also resend each task's last turn without the conversation cached. Each run goes through every task several times. A task that fails gets retried, and we only publish a run if every task finished. We run the benchmark monthly and on request, and the charts average every run from the last 30 days. Some runs only cover one provider, so providers may be measured on different days. Cost is the list price for the tokens each provider reports. Credits and discounts aren't included. Contributions are welcome. Feel free to open an issue o",
+   "first_seen": "2026-11-16T20:09:26.713090+00:00",
+   "freshness_at_admission": 0.9756,
+   "id": "51bfa48ffab3abb4",
+   "image_url": null,
+   "judge_category": "inference_serving",
+   "judge_category_confidence": 0.68,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-16T16:08:21.001313+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.87,
+   "judge_signals": {
+    "corporate_marketing": 0.07,
+    "keep": 0.87,
+    "platform_relevant": 0.98,
+    "release_lane": 0.14
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-16T16:08:38.672989+00:00",
+   "llm_category": "platform",
+   "matched_topics": [],
+   "prefilter_score": 1.923,
+   "published": "Mon, 16 Nov 2026 14:51:47 +0000",
+   "rank_at_first_seen": 61,
+   "release_tier": null,
+   "score_at_first_seen": 1.3881,
+   "seen_count": 1,
+   "slot": "community_signal",
+   "source": "hackernews_ai",
+   "source_count": 1,
+   "source_role": "community",
+   "source_tune": null,
+   "story_cluster_id": "877049721da48245",
+   "story_key": "story|title:benchmarking oss inference vendors on cost latency",
+   "summary_1line": "Benchmarking OSS inference vendors on cost/latency",
+   "time_decay_factor": 0.982,
+   "title": "Benchmarking OSS inference vendors on cost/latency",
+   "type": "news",
+   "url": "https://github.com/powerset-co/inference-bench",
+   "utility": 1.3881,
+   "utility_basis": "judge",
+   "v2_slot": "community_signal",
+   "why_it_matters": ""
+  },
   "story|title:broadening access to ai for scientists": {
    "admission_rank": 55,
    "admitted_at": "2026-11-16T18:05:50.957238+00:00",
@@ -821,7 +869,7 @@
    "judge_error": "insufficient_evidence",
    "judge_evidence_chars": 135,
    "judge_verdict": "unjudged",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.986,
@@ -829,7 +877,7 @@
    "rank_at_first_seen": 55,
    "release_tier": null,
    "score_at_first_seen": 0.6753,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "frontier_official",
    "source": "openai_blog",
    "source_count": 1,
@@ -870,7 +918,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "inference_serving",
    "matched_topics": [],
    "prefilter_score": 1.982,
@@ -878,7 +926,7 @@
    "rank_at_first_seen": 52,
    "release_tier": null,
    "score_at_first_seen": 1.1997,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "cloud_platform_updates",
    "source": "databricks_blog",
    "source_count": 1,
@@ -1069,7 +1117,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.571,
@@ -1077,7 +1125,7 @@
    "rank_at_first_seen": 11,
    "release_tier": null,
    "score_at_first_seen": 1.2456,
-   "seen_count": 14,
+   "seen_count": 15,
    "slot": "research_watch",
    "source": "arxiv_cs_cl",
    "source_count": 1,
@@ -1368,7 +1416,7 @@
     "release_lane": 0.05
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -1378,7 +1426,7 @@
    "rank_at_first_seen": 58,
    "release_tier": null,
    "score_at_first_seen": 1.2194,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "practitioner_analysis",
    "source": "langchain_blog",
    "source_count": 1,
@@ -1623,7 +1671,7 @@
     "release_lane": 0.11
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -1633,7 +1681,7 @@
    "rank_at_first_seen": 54,
    "release_tier": null,
    "score_at_first_seen": 0.9078,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "cloud_platform_updates",
    "source": "databricks_blog",
    "source_count": 1,
@@ -1674,7 +1722,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.535,
@@ -1682,7 +1730,7 @@
    "rank_at_first_seen": 18,
    "release_tier": null,
    "score_at_first_seen": 1.2179,
-   "seen_count": 9,
+   "seen_count": 10,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -1861,7 +1909,7 @@
    "judge_error": "insufficient_evidence",
    "judge_evidence_chars": 169,
    "judge_verdict": "unjudged",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "eval"
@@ -1871,7 +1919,7 @@
    "rank_at_first_seen": 51,
    "release_tier": null,
    "score_at_first_seen": 0.5025,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "frontier_official",
    "source": "openai_blog",
    "source_count": 1,
@@ -2246,7 +2294,7 @@
    "judge_error": "insufficient_evidence",
    "judge_evidence_chars": 132,
    "judge_verdict": "unjudged",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.986,
@@ -2254,7 +2302,7 @@
    "rank_at_first_seen": 56,
    "release_tier": null,
    "score_at_first_seen": 0.6753,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "frontier_official",
    "source": "openai_blog",
    "source_count": 1,
@@ -2344,7 +2392,7 @@
     "release_lane": 0.07
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "frontier_product",
    "matched_topics": [],
    "prefilter_score": 1.966,
@@ -2352,7 +2400,7 @@
    "rank_at_first_seen": 53,
    "release_tier": null,
    "score_at_first_seen": 1.1248,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "cloud_platform_updates",
    "source": "databricks_blog",
    "source_count": 1,
@@ -2542,7 +2590,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.57,
@@ -2550,7 +2598,7 @@
    "rank_at_first_seen": 31,
    "release_tier": null,
    "score_at_first_seen": 0.7214,
-   "seen_count": 15,
+   "seen_count": 16,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -2591,7 +2639,7 @@
     "release_lane": 0.09
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -2601,7 +2649,7 @@
    "rank_at_first_seen": 59,
    "release_tier": null,
    "score_at_first_seen": 1.0036,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "practitioner_analysis",
    "source": "langchain_blog",
    "source_count": 1,
@@ -2642,7 +2690,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T19:08:31.734014+00:00",
+   "last_seen": "2026-11-16T20:09:26.713090+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.596,
@@ -2650,7 +2698,7 @@
    "rank_at_first_seen": 16,
    "release_tier": null,
    "score_at_first_seen": 1.2245,
-   "seen_count": 13,
+   "seen_count": 14,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -2967,5 +3015,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-16T19:08:31.734014+00:00"
+ "updated_at": "2026-11-16T20:09:26.713090+00:00"
 }
