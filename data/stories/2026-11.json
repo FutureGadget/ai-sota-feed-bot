@@ -3921,6 +3921,18 @@
   "url": "http://arxiv.org/abs/2611.05088v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "31c90e17a3d4c4b3": {
+  "first_seen": "2026-11-16T23:04:08.342264+00:00",
+  "id": "6f7f3b53e856176b",
+  "published": "2026-11-13T15:04:05+00:00",
+  "sid": "31c90e17a3d4c4b3",
+  "source": "arxiv_cs_ai",
+  "summary": "Existing memory forensics for machine learning systems typically targets static artifacts, such as model weights or prompt logs, rather than the transient computational states of a live inference process. This gap limits an examiner's ability to analyze the specific behavior of a running large language model (LLM) service that cannot be restarted or modified. We present a method for acquiring per-layer residual-stream activations from a live GPU process using a non-modifying debugger, without requiring prior knowledge of the model's architecture parameters or weights. The approach employs a general six-stage process with platform-specific adapters, utilizing either a PyTorch allocator clock or a kernel-launch clock to identify and read tensor allocations from video memory. We validate this acquisition on 33 open-source decoder-only models across nine architecture classes, demonstrating that the recovered bytes are byte-exact and usable for downstream analysis. As a use case, we apply linear probes trained on standard framework activations to the recovered states, successfully distinguishing refusal from compliance with an AUROC of 0.88 on held-out prompts. This work establishes that live, observational access to intermediate hidden states is feasible on named inference platforms, providing a new source of evidence for examining the operational behavior of deployed AI systems.",
+  "summary_1line": "Existing memory forensics for machine learning systems typically targets static artifacts, such as model weights or prompt logs, rather than the transient computational states of a live inference process. This gap lim...",
+  "title": "From Bytes to Behavior: Request-Level Attribution from Live GPU Hidden States",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18272v1"
+ },
  "3268d0f7bc246f29": {
   "first_seen": "2026-11-06T00:05:24.381443+00:00",
   "id": "d8cde5aa70376b63",
@@ -5841,6 +5853,28 @@
   "type": "news",
   "url": "https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer"
  },
+ "4e2b4f1543d14800": {
+  "first_seen": "2026-11-16T23:04:08.342264+00:00",
+  "id": "b9f820e4f3f50a53",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-11-16T22:11:05+00:00",
+  "release_highlights": [
+   "Added support for turning on Code Mode while agent teams are enabled; if you already turned it on, sessions with teams on now start in Code Mode",
+   "Added a startup warning when an --allowedTools , --disallowedTools or --tools value has an entry that doesn't look like a complete rule",
+   "Added a message explaining why MCP servers stop loading when an administrator adds managed-mcp.json during a session"
+  ],
+  "sid": "4e2b4f1543d14800",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added support for turning on Code Mode while agent teams are enabled; if you already turned it on, sessions with teams on now start in Code Mode Added a startup warning when an --allowedTools , --disallowedTools or --tools value has an entry that doesn't look like a complete rule Added a message explaining why MCP servers stop loading when an administrator adds managed-mcp.json during a session Added a row to /status that says when your provider or an environment variable such as DISABLE_TELEMETRY turns features off Added a note in /plugin and claude plugin list when a malformed plugin.json field such as author or homepage is ignored Added Ctrl+O to show hidden startup notices Added a hint in the empty prompt that says what to do after a request fails Added an esc to stop footer hint in a subagent's view where Esc would stop it Added OTEL_RESOURCE_INCLUDE_HOST to include host.name and host.id in OpenTelemetry resource attributes (off by default) Added overflowX=\"scroll\" on a mod's Box , and maxLines and wrap=\"clip\" on its Text Fixed cp of a file being refused when only its source was covered by an Edit deny rule Fixed Bash commands that delete or overwrite files ( find -delete , cat a > b , sort -o ) being summed up in the transcript as a search or a read Fixed a misleading \"Dangerous rm operation\" warning in the Bash permission prompt on some commands with no rm that Claude Code can't read reliably Fixed background sessions losing the LLM gateway your shell ex",
+  "summary_1line": "Added support for turning on Code Mode while agent teams are enabled; if you already turned it on, sessions with teams on now start in Code Mode · Added a startup warning when an --allowedTools , --disallowedTools or...",
+  "title": "claude-code v2.1.326",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.326",
+  "why_it_matters": "Matches feed focus: agent, claude code."
+ },
  "4e706521e7676f90": {
   "content_excerpt": "Each setting has its own scores to match, so each has its own lowest cost. Paying more may buy a higher score. A blend is a weighted average of models. Its cost and every score use the same shares, which total 100%. Splitting real work this way is untested. The single-slide creation task compares single models only, because its preference ratings cannot be averaged. When nothing cheaper matches, nothing at the same cost does better. No measured model or blend at that cost scores higher on one benchmark without scoring lower on another. Your setting may still score too low for your work. Each task uses its own benchmark, cost unit and date. Frontend development uses automation and terminal-task benchmarks as a stand-in. HLE tests advanced academic questions, not proof writing or research. A setting such as “High” may mean different amounts of computing at different providers. Savings here are benchmark estimates. Latency, quotas, switching and other deployment costs are excluded. Test alternatives on your own tasks. This page applies the approach of Zhou et al. (2022), which used data envelopment analysis (DEA) to compare language models’ resource use with their performance. Here, the resource is API cost and performance is each task’s benchmark scores. The single-slide task uses the free disposal hull (FDH) variant, which compares individual models only. I directed the work and edited the prose. I used this page’s own results to choose models for building it: GPT-6 Astra at f",
   "first_seen": "2026-11-03T13:05:11.255573+00:00",
@@ -6541,6 +6575,18 @@
   "title": "Your Experts Have Partners. There's HOPE for Keeping Them Together",
   "type": "research",
   "url": "https://huggingface.co/blog/amazon/higher-order-pruning-experts"
+ },
+ "55f9a62f165093eb": {
+  "content_excerpt": "Do contact forms on AI-built sites send anything? A Playwright harness that checks without sending, with known-answer fixtures and the study's method and results. We submitted the contact form on public Lovable and Bolt sites while recording every network request and blocking all of them , so no message ever reached a site owner. On the final run, 27 of 105 forms showed a success message (\"Message sent!\") and sent nothing; 54 of 105 sent the typed message. On sites without demo signs, 16 of 73 were fake. After the contact form is found, every request is intercepted. Same-origin static files and cross-origin scripts, styles and fonts load; everything else is recorded and aborted . The harness fills visible fields with obvious test values (never honeypots), presses send and watches the page for five seconds. Open DevTools → Network and press send: a working form adds a request that carries the text you typed. The write-up's fix section lists three ways to fix it. Coding agents (Claude Code, Cursor, Codex) can install a skill that adds a working form and replaces fake handlers: Nothing is submitted to anyone. The site list and per-site results are not published, and the write-up names no site. Please use the harness the same way. Do contact forms on AI-built sites send anything? A Playwright harness that checks without sending, with known-answer fixtures and the study's method and results.",
+  "first_seen": "2026-11-16T23:04:08.342264+00:00",
+  "id": "93bcb780cf81bddf",
+  "published": "2026-11-16T22:47:31+00:00",
+  "sid": "55f9a62f165093eb",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: We submitted 105 AI-built contact forms – 27 said \"sent\", sent nothing",
+  "title": "Show HN: We submitted 105 AI-built contact forms – 27 said \"sent\", sent nothing",
+  "type": "news",
+  "url": "https://github.com/formgong/dead-forms-study"
  },
  "55ff14dc4213127d": {
   "first_seen": "2026-11-11T19:04:58.831990+00:00",
@@ -8510,6 +8556,20 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03388v1"
  },
+ "72deb6b1318ab1a9": {
+  "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. This episode is sponsored by Deepgram. Try Deepgram for voice agents that truly understand your context! #contextiseverything Not many people know that Stable Diffusion is why I went fulltime into AI (I aptly titled Multiverse, not Metaverse to call out Zuck’s mistaken investment). It turns out that Dustin Podell also had the same aha moment - quitting his day job when the model came out. But we took very different paths… I stuck to what I knew in human content creation, and Dustin immersed deep into AI content creation with Andreas Blattmann , co-inventor of Latent Diffusion and the rest of the world-leading imagegen crew at Stability AI. Stability fell apart, but Anj Midha helped the core group spin out to BFL, which immediately built an incredible new imagegen model in the Flux series. But why are they now going into video and world models? Andreas gives an example you can try with one hand. If somebody tosses you a ball, your hand starts moving before the ball reaches you. You can do that without being able to write down the trajectory. When he talks about building visual intelligence , that’s the kind of knowledge he means. A still can show you wher",
+  "first_seen": "2026-11-16T23:04:08.342264+00:00",
+  "id": "27224267d32d9577",
+  "image_url": "https://beehiiv-images-production.s3.amazonaws.com/uploads/asset/file/da64ff93-162a-4ee5-888f-5eed9b88d3f9/flux3-a.jpg?t=1794863946",
+  "published": "2026-11-16T21:28:46+00:00",
+  "sid": "72deb6b1318ab1a9",
+  "source": "latent_space",
+  "summary": "Black Forest Labs’ case for learning AGI from pixels, motion and sound.",
+  "summary_1line": "Black Forest Labs’ case for learning AGI from pixels, motion and sound.",
+  "title": "Building Visual Intelligence — Andreas Blattmann & Dustin Podell, Black Forest Labs",
+  "type": "news",
+  "url": "https://latent.space/p/bfl-web-archive"
+ },
  "72eff2cf25179487": {
   "content_excerpt": "Artificial Analysis launched Endpoint Accuracy Index v1.1 , finding nearly 1 in 4 serverless endpoints score below reference. Index composites BFCL v4-500 (tools), HLE-250 (reasoning) and AA-LCR-25 (long context) against a self-hosted baseline. Artificial Analysis has released version 1.1 of its Endpoint Accuracy Index , which compares hosted open-weight models with reference deployments of their official weights. Across more than 100 serverless endpoints, roughly one in four scores below its reference deployment. That gap matters because a model name does not fully describe the product behind an API. Providers may quantize weights, use custom kernels, modify inference settings, limit output length, or introduce implementation bugs. The index measures how much accuracy each endpoint preserves, adding a quality signal to the usual comparisons of price, latency, and throughput. Artificial Analysis reruns each endpoint against three equally weighted evaluations, then compares the results with a self-hosted baseline using the official weights at the recommended precision. A score of 100% matches the reference result. Scores above 100% can occur because repeated evaluations still contain sampling variance, so the accompanying 95% confidence interval remains essential. Reference configurations are documented down to the serving software and hardware. The GLM-5.3 reference , for example, uses eight NVIDIA B200 GPUs, SGLang 0.5.18, native FP8 weights with DeepGEMM kernels, EAGLE spec",
   "first_seen": "2026-11-13T18:05:44.751251+00:00",
@@ -9222,6 +9282,22 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.170.0-alpha.1",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "7c4bd04e8d4159ae": {
+  "content_excerpt": "A convention for support tickets from AI agents. Let a customer's AI agent report a problem to your team and pick up the reply, even in a later session. An agent's export tool returns the wrong number of pages. The agent tells the user, who agrees to report it, and it does so in one call: The agent carries on with its work. A script it left in the background polls the watch URL, which says only that something changed. When it does, the agent reads the ticket: Fields are left out here to keep it short. This is output from the reference server . Much of the work done with a developer product is now done by someone's AI agent. When the agent hits a bug, a wrong result or a tool that can't do what was asked, it works around the problem or gives up. The developer may never hear about it, and the company behind the product might not know that anything is wrong. Many MCP servers gained a feedback tool during 2026, each under a different name and almost all one-way: the report goes in and nothing comes back. Support tools still assume a person typing into a chat window. It is written with developer tools in mind, where an AI coding agent builds an integration with your product. Nothing in it is specific to code, though. It works for any product with an MCP server or an API, and for any AI tool that uses one on a person's behalf. This is not a new idea. A few small projects already let agents open tickets and read replies, and Bird's command line tool lets its own customers create, li",
+  "first_seen": "2026-11-16T23:04:08.342264+00:00",
+  "id": "857cd5cc72c68dc6",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-16T23:00:44+00:00",
+  "sid": "7c4bd04e8d4159ae",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Standard Support – a convention for AI agents to file support tickets",
+  "title": "Show HN: Standard Support – a convention for AI agents to file support tickets",
+  "type": "news",
+  "url": "https://standardsupport.dev",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "7c592589ecc9e501": {
   "content_excerpt": "Databricks Genie plugins connect the agents your teams use to business context, leveraging Genie’s trusted insights and ontology Every business is adding more data to their AI-powered workflows. But more data doesn't automatically mean better insights. Inevitably, it means more places for an agent to look and more chances to find the wrong answer. Ask a frontier agent a question about your business and it starts a live search. It hops between MCP servers, opens a document, reads a schema, tries a table, backs out and tries another. It has little context on where the right answer lives, so it may guess its way through a random walk across the organization's data. What agents need is a map of the business before they start looking. That's why we announced Genie Ontology , the enterprise context layer, that combines governed definitions with continuously learned organizational knowledge giving AI agents the business understanding they need to deliver trusted insights. Today we are introducing new Databricks Genie plugins that give your team’s favorite agents a governed interface to access your enterprise context. These plugins work natively today in ChatGPT , Claude , Microsoft Copilot Cowork and Grok Bot so teams can maintain business context in Databricks and make it available across their preferred agents. Frontier agents can now draw on Genie Ontology to supply the definitions, relationships, and source context needed to interpret the business. Genie works out what the busin",
@@ -16629,6 +16705,22 @@
   "title": "Strengthening the fight against online child sexual abuse with new tools and support",
   "type": "news",
   "url": "https://openai.com/index/strengthening-online-child-safety"
+ },
+ "dd6b4250fdb22f84": {
+  "first_seen": "2026-11-16T23:04:08.342264+00:00",
+  "id": "77ae7497ceec1d39",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-16T22:07:36+00:00",
+  "sid": "dd6b4250fdb22f84",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.171.0-alpha.10",
+  "summary_1line": "Release 0.171.0-alpha.10",
+  "title": "codex rust-v0.171.0-alpha.10",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.10",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "dd9d747905a1bbbe": {
   "first_seen": "2026-11-11T03:08:40.490026+00:00",
