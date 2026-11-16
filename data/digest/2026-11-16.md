@@ -2,134 +2,146 @@
 
 Focus: AI Platform Engineering
 
-## 1. Introducing Gemini 4 Hydrogen
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/introducing-gemini-4-hydrogen/
-- Score: 2.201 | Reliability: 1.0
-- Why it matters: 
-
-## 2. WeightBench: Evaluating Language Models as Weight-Space Programmers
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.18553v1
-- Score: 2.613 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, eval.
-
-## 3. PerfArena: Ranking LLMs by Code Performance
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.18030v1
-- Score: 2.594 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 4. VelServe: Taming Decode Jitters in LLM Inference with Tail-Calibrated Scheduling
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.18392v1
-- Score: 2.577 | Reliability: 1.0
-- Why it matters: 
-
-## 5. DeepSeek-V4.1-Flash on Vera Rubin NVL72: 58x Throughput vs. GB300 NVL72 at 387 tokens/s
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-12-deepseek-v41-flash-vera-rubin
-- Score: 2.104 | Reliability: 1.0
+## 1. SASY: Agent Policies in Declarative Logic
+- Type: news | Source: hackernews_ai
+- URL: https://sasy.ai/
+- Score: 3.871 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. Which Claude model should you build with? Fable, Opus, Sonnet, or Haiku
-- Type: news | Source: claude_dev_blog
-- URL: https://claude.dev/blog/which-claude-model-should-you-build-with/
-- Score: 2.052 | Reliability: 1.0
-- Why it matters: 
-
-## 7. llm-gemini 0.37
-- Type: release | Source: simon_willison
-- URL: https://simonwillison.net/2026/Nov/12/llm-gemini/
-- Score: 2.029 | Reliability: 1.0
-- Why it matters: 
-
-## 8. Our new blog for science
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/our-new-blog-for-science
-- Score: 1.95 | Reliability: 1.0
-- Why it matters: 
-
-## 9. Shield helps technicians hand off legacy portal work with OpenAI
-- Type: news | Source: openai_blog
-- URL: https://openai.com/business/customer-stories/shield
-- Score: 1.9 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 10. aws-emulator
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Nov/11/aws-emulator/
-- Score: 1.86 | Reliability: 1.0
+## 2. Hibana: Fast Agentic Inference on Unified-Memory Devices
+- Type: news | Source: hackernews_ai
+- URL: https://sharar-project.github.io/blog/sharar-paper/
+- Score: 3.821 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 11. WaferTetris: Efficient Freeform Mapping on Wafer-Scale Accelerators
+## 3. TrustGraph – ACLs that follow the data through your AI agents
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/skishore23/trustgraph
+- Score: 3.816 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. DeepSeek Imposes Compute Quotas on Free Users as Global Token Usage Ranks No. 1
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMidkFVX3lxTFBlbEUzWFNIblAzZEdsNldtaWxXbE43Ylk3VEdwZGZyaDZhOW9jbFlRaFRHZ2IwWFlUSWNaSlEyZHRINHVIazNqd1FURlVqWHRaYUcycmo0dlRIY19BUW1mQVgxeWdLb3g0MjJCZE5ialR3R2xGTmc?oc=5
+- Score: 3.254 | Reliability: 1.0
+- Why it matters: 
+
+## 5. Interactive Program Induction with Language Model Priors
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.18527v1
-- Score: 2.56 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2611.18485v1
+- Score: 2.527 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 6. Clean Tickets, Wrong Orders: Catching Silent Errors with a Language Model in Your Browser Tab
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.18284v1
+- Score: 2.524 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 7. Vision-Language-Action Models: A Life-Cycle Survey of Design, Training and Deployment
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.18372v1
+- Score: 2.476 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 8. Introducing Gemini 4 Hydrogen
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/introducing-gemini-4-hydrogen/
+- Score: 2.153 | Reliability: 1.0
+- Why it matters: 
+
+## 9. DeepSeek-V4.1-Flash on Vera Rubin NVL72: 58x Throughput vs. GB300 NVL72 at 387 tokens/s
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-12-deepseek-v41-flash-vera-rubin
+- Score: 2.1 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 10. Which Claude model should you build with? Fable, Opus, Sonnet, or Haiku
+- Type: news | Source: claude_dev_blog
+- URL: https://claude.dev/blog/which-claude-model-should-you-build-with/
+- Score: 2.008 | Reliability: 1.0
+- Why it matters: 
+
+## 11. CoPre-MoE: Consolidating and Preserving MoE for Multimodal Continual Instruction Tuning
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.18417v1
+- Score: 2.475 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 12. Vision-as-a-Tool: Visual Harness for Multimodal Agentic Coding
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.17797v1
-- Score: 2.527 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness, eval.
+## 12. VLAN: Vision-Language Accessible Navigation
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.18346v1
+- Score: 2.461 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
 
-## 13. A step toward defining the Standard Model on a lattice
+## 13. How Amplitude ships product improvements in 1–2 days with OpenAI
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/step-toward-defining-the-standard-model
-- Score: 1.79 | Reliability: 1.0
-- Why it matters: 
+- URL: https://openai.com/business/customer-stories/amplitude
+- Score: 2.003 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 14. Teach Genie One your workflows: The ultimate guide for skills in Genie One
-- Type: news | Source: databricks_blog
-- URL: https://www.databricks.com/blog/teach-genie-one-your-workflows-ultimate-guide-skills-genie-one
-- Score: 1.638 | Reliability: 1.0
-- Why it matters: 
+## 14. Shield helps technicians hand off legacy portal work with OpenAI
+- Type: news | Source: openai_blog
+- URL: https://openai.com/business/customer-stories/shield
+- Score: 1.853 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 15. llama_index v0.14.26
+## 15. Gondola doubles revenue as its team builds more with Codex
+- Type: news | Source: openai_blog
+- URL: https://openai.com/business/customer-stories/gondola
+- Score: 1.796 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 16. Build once, run on any agent: A practical guide to agent skills
+- Type: news | Source: github_blog_ai_ml
+- URL: https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/
+- Score: 1.673 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 17. llama_index v0.14.26
 - Type: release | Source: llamaindex_releases
 - URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.26
-- Score: 1.619 | Reliability: 1.0
+- Score: 1.597 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 16. vllm v0.34.0
+## 18. vllm v0.34.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0
-- Score: 1.528 | Reliability: 1.0
+- Score: 1.43 | Reliability: 1.0
 - Why it matters: 
 
-## 17. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/introducing-alphaproof-code/
-- Score: 1.432 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 18. claude-code v2.1.325
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.325
-- Score: 1.414 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval, claude code.
-
-## 19. codex 0.171.0-alpha.4
+## 19. codex 0.171.0-alpha.5
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.4
-- Score: 1.296 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.5
+- Score: 1.285 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 20. Opening the datasets behind our AI weather models
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/opening-the-datasets-behind-our-ai-weather-models/
-- Score: 1.28 | Reliability: 1.0
+- Score: 1.237 | Reliability: 1.0
 - Why it matters: 
 
-## 21. Kitesurf is now open source
+## 21. Gemini Robotics 2.5 accelerates real-world general dexterity
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/
+- Score: 1.211 | Reliability: 1.0
+- Why it matters: 
+
+## 22. claude-code v2.1.323
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.323
+- Score: 1.186 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 23. Kitesurf is now open source
 - Type: news | Source: cloudflare_blog
 - URL: https://blog.cloudflare.com/kitesurf-open-source/
-- Score: 1.188 | Reliability: 1.0
+- Score: 1.106 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 22. langgraph-checkpoint==4.3.2
+## 24. langgraph==1.2.22
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/checkpoint%3D%3D4.3.2
-- Score: 1.079 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.22
+- Score: 1.062 | Reliability: 1.0
 - Why it matters:
