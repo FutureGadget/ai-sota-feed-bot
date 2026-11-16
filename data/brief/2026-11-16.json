@@ -1,33 +1,33 @@
 {
  "date": "2026-11-16",
  "diagnostics": {
-  "admitted": 4,
-  "candidates": 182,
+  "admitted": 1,
+  "candidates": 206,
   "duplicate_url": 4,
-  "items": 4,
-  "keeps": 84,
-  "new": 4,
-  "off_topic": 13,
-  "prior_story": 57,
+  "items": 5,
+  "keeps": 97,
+  "new": 1,
+  "off_topic": 21,
+  "prior_story": 66,
   "rejected_gate": {
-   "insufficient_evidence": 4,
-   "judge_drop": 12,
-   "off_topic": 13,
-   "score_low": 53
+   "insufficient_evidence": 5,
+   "judge_drop": 13,
+   "off_topic": 21,
+   "score_low": 54
   },
   "rejected_quota": {
    "source_quota": 5
   },
-  "releases": 13,
-  "reviews": 57,
+  "releases": 15,
+  "reviews": 59,
   "role_counts": {
-   "community": 4
+   "community": 1
   },
   "run_candidates": 140,
-  "stale_story": 30,
-  "stories": 100,
-  "unjudged": 8,
-  "updated": 0,
+  "stale_story": 33,
+  "stories": 113,
+  "unjudged": 9,
+  "updated": 3,
   "written": true
  },
  "items": {
@@ -54,7 +54,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T01:09:46.512308+00:00",
+   "last_seen": "2026-11-16T02:07:51.386061+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.899,
@@ -62,7 +62,7 @@
    "rank_at_first_seen": 1,
    "release_tier": null,
    "score_at_first_seen": 1.3455,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "community_signal",
    "source": "hackernews_ai",
    "source_count": 1,
@@ -129,6 +129,57 @@
    "v2_slot": "community_signal",
    "why_it_matters": ""
   },
+  "story|title:gavel guided code review with your coding agent": {
+   "admission_rank": 5,
+   "admitted_at": "2026-11-16T02:07:51.386061+00:00",
+   "also_covered": [],
+   "content_excerpt": "Review local Git changes in your browser with Claude Code or Codex . The gavel skill tells your agent to prepare a brief, explain its choices beside the code, and guide you through the diff. Large changes are split into focused reviews, so you have less context to hold in your head at once. Ask questions in threads, request revisions, and give each part a verdict. As a background task, I’ve been working for … longer than I’d like to admit on the task of adding authentication and authorization to PhotoStructure. The fourth (!!) dev spike was the charm—the first three attempts left me with a pretty solid set of specifications to guide the implementation. I wrote the db schema and the onboarding flow. Claude and Codex helped flesh out the implementation over several hundred sessions, coordinated with technical project plans . I reviewed every change before committing it. And it’s been a slog . It’s a given that authentication and authorization are going to be hard. But I felt like my reviewing approach kinda sucked had a lot of opportunity for improvement. It’s a bit of a PITA. My brain only has so many thinks it can think in a day. Any friction to giving the robot feedback, especially as your brain fades, can let “fuck it, ship it” creep in. I was explaining this to my wife during a walk, and realized that there was a better way. At a prior job at a Big Company, I helped interns get their PRs approved and merged by having them write a narrative around their diffs . This approach helps walk the reviewer through the PR, and is way better than the asciibetical sort order of staged diffs and a proposed git commit message that I’d been slogging through. The reviewer spends their limited cognitive mojo on judging the PR, not on basic orientation and background arcana. If the agent could write a “brief” for every review–just a sentence or three–and then add linked comments through the diffs to walk me through the changes, each review would be much simpler to digest and wrap my brain around. But, ugh, agents still work via a glorified chat interface. The Codex and Claude desktop apps, for example, each have a diff tool, but neither threads your comments. Juggling multiple issues simultaneously in one review is work . I’ve also seen the Codex diff viewer get confused and show irrelevant diffs from other worktrees. The Codex iOS app is supposed to show diffs, but that hasn’t worked for me, and the Claude iOS app doesn’t even have diffs afaict. I looked for an open sou",
+   "first_seen": "2026-11-16T02:07:51.386061+00:00",
+   "freshness_at_admission": 0.976,
+   "id": "82e62e2132eb877b",
+   "image_url": null,
+   "judge_category": "agent_engineering",
+   "judge_category_confidence": 0.84,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-16T02:07:35.994422+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.62,
+   "judge_signals": {
+    "corporate_marketing": 0.23,
+    "keep": 0.62,
+    "platform_relevant": 0.92,
+    "release_lane": 0.1
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-16T02:07:51.386061+00:00",
+   "llm_category": "platform",
+   "matched_topics": [
+    "agent"
+   ],
+   "prefilter_score": 1.924,
+   "published": "Mon, 16 Nov 2026 00:52:02 +0000",
+   "rank_at_first_seen": 5,
+   "release_tier": null,
+   "score_at_first_seen": 1.1392,
+   "seen_count": 1,
+   "slot": "community_signal",
+   "source": "hackernews_ai",
+   "source_count": 1,
+   "source_role": "community",
+   "source_tune": 0.134,
+   "story_cluster_id": "780c5d92d4aef6cc",
+   "story_key": "story|title:gavel guided code review with your coding agent",
+   "summary_1line": "Howdy! I've been working on an open-source tool that helps lighten the burden of reviewing what your coding agents write. You still see all the lines of code, but the agents write a \"tour guide\" that links you through...",
+   "time_decay_factor": 0.982,
+   "title": "Show HN: gavel: guided code review with your coding agent",
+   "type": "news",
+   "url": "https://photostructure.com/coding/gavel/",
+   "utility": 1.1392,
+   "utility_basis": "judge",
+   "v2_slot": "community_signal",
+   "why_it_matters": "Matches feed focus: agent."
+  },
   "story|title:i built an open source multi agent dag orchestrator and ast rag engine on termux": {
    "admission_rank": 3,
    "admitted_at": "2026-11-16T01:09:46.512308+00:00",
@@ -152,7 +203,7 @@
     "release_lane": 0.2
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T01:09:46.512308+00:00",
+   "last_seen": "2026-11-16T02:07:51.386061+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -162,7 +213,7 @@
    "rank_at_first_seen": 3,
    "release_tier": null,
    "score_at_first_seen": 1.0801,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "community_signal",
    "source": "hackernews_ai",
    "source_count": 1,
@@ -203,7 +254,7 @@
     "release_lane": 0.11
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T01:09:46.512308+00:00",
+   "last_seen": "2026-11-16T02:07:51.386061+00:00",
    "llm_category": "agent_engineering",
    "matched_topics": [],
    "prefilter_score": 1.788,
@@ -211,7 +262,7 @@
    "rank_at_first_seen": 4,
    "release_tier": null,
    "score_at_first_seen": 1.0444,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "community_signal",
    "source": "hackernews_ai",
    "source_count": 1,
@@ -232,5 +283,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-16T01:09:46.512308+00:00"
+ "updated_at": "2026-11-16T02:07:51.386061+00:00"
 }
