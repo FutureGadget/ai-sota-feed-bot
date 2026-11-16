@@ -2,32 +2,32 @@
  "date": "2026-11-16",
  "diagnostics": {
   "admitted": 1,
-  "candidates": 550,
+  "candidates": 582,
   "duplicate_url": 10,
-  "items": 61,
-  "keeps": 264,
+  "items": 62,
+  "keeps": 276,
   "new": 1,
-  "off_topic": 72,
+  "off_topic": 79,
   "prior_story": 78,
   "rejected_gate": {
-   "insufficient_evidence": 18,
-   "judge_drop": 33,
-   "off_topic": 72,
-   "score_low": 114
+   "insufficient_evidence": 23,
+   "judge_drop": 35,
+   "off_topic": 79,
+   "score_low": 120
   },
   "rejected_quota": {
-   "role_quota": 97
+   "role_quota": 108
   },
   "releases": 36,
-  "reviews": 129,
+  "reviews": 137,
   "role_counts": {
-   "community": 1
+   "default": 1
   },
   "run_candidates": 140,
   "stale_story": 69,
-  "stories": 313,
-  "unjudged": 38,
-  "updated": 14,
+  "stories": 325,
+  "unjudged": 43,
+  "updated": 11,
   "written": true
  },
  "items": {
@@ -43,7 +43,7 @@
    "judge_error": "insufficient_evidence",
    "judge_evidence_chars": 151,
    "judge_verdict": "unjudged",
-   "last_seen": "2026-11-16T20:09:26.713090+00:00",
+   "last_seen": "2026-11-16T21:07:09.431995+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.915,
@@ -51,7 +51,7 @@
    "rank_at_first_seen": 60,
    "release_tier": null,
    "score_at_first_seen": 0.6753,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "frontier_official",
    "source": "openai_blog",
    "source_count": 1,
@@ -117,6 +117,58 @@
    "utility_basis": "judge",
    "v2_slot": "community_signal",
    "why_it_matters": ""
+  },
+  "model:claude|title:how the claude code team thinks about verification": {
+   "admission_rank": 62,
+   "admitted_at": "2026-11-16T21:07:09.431995+00:00",
+   "also_covered": [],
+   "content_excerpt": "How end-to-end, property and differential tests let coding agents verify their work with evidence, and what the Claude Code team does to keep its verifiers honest. On the Claude Code team, the vast majority of our code (~90%) is written and reviewed by Claude . At this scale, how we equip our agents to verify their work with evidence becomes extremely important. Verification loops are the building block that lets you delegate more work to Claude. Without them, you can really only run one or two Claudes at a time, because you have to check everything yourself. With them, you can run dozens or hundreds in parallel. That’s because giving agents a way to verify their output is an effective way to improve quality. In internal testing around structured file generation, having a separate grader check Claude’s work against a rubric improved task success by up to 10 points over a standard prompting loop, with the largest gains on the hardest problems. What was once expensive to verify (tests, benchmarks, specs, real end-to-end runs) is now cheap to request from an agent. Like code, agents can quickly generate tests, benchmarks, and specs. And once generated, these tests and benchmarks run as software so they can be run frequently without using many additional tokens. You can also close the verification loop by using the results to improve the agent’s performance on that task. For example, if an agent repeatedly fails a test that checks logs for user data, you can create a hook or a more explicit rule in your CLAUDE.md to avoid future issues. This (mostly) stops issues from happening again. So if verification is critical to producing quality code at a high velocity, what types of tests should you use and how should you apply them across your pipeline? This article answers those questions and also shares the process used by the Claude Code team. If your tests are flaky you’ll train the agent to run them again rather than fixing the failing code. If your tests are slow, the agent will do fewer tests across batches which can make pinpointing issues difficult. Heavier tests are best deployed before you’ve committed the changes. If you have to focus on one test type, pick end-to-end. These tests describe real user flows like adding an item to a cart, checking out, and moving to a confirmation page. The reason E2E tests are so effective is that they are difficult to fool–either the whole feature works or it doesn't. They also have definitive done criteria and can concrete",
+   "first_seen": "2026-11-16T21:07:09.431995+00:00",
+   "freshness_at_admission": 0.839,
+   "id": "a8872563f0cb3de1",
+   "image_url": null,
+   "judge_category": "agent_engineering",
+   "judge_category_confidence": 0.67,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-16T21:06:57.380707+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.89,
+   "judge_signals": {
+    "corporate_marketing": 0.14,
+    "keep": 0.89,
+    "platform_relevant": 0.97,
+    "release_lane": 0.05
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-16T21:07:09.431995+00:00",
+   "llm_category": "platform",
+   "matched_topics": [
+    "agent",
+    "claude code"
+   ],
+   "prefilter_score": 1.892,
+   "published": "Mon, 16 Nov 2026 12:00:00 GMT",
+   "rank_at_first_seen": 62,
+   "release_tier": null,
+   "score_at_first_seen": 1.3568,
+   "seen_count": 1,
+   "slot": "frontier_official",
+   "source": "claude_dev_blog",
+   "source_count": 1,
+   "source_role": "default",
+   "source_tune": 0.0,
+   "story_cluster_id": "5ae63c10b07685f9",
+   "story_key": "model:claude|title:how the claude code team thinks about verification",
+   "summary_1line": "How end-to-end, property and differential tests let coding agents verify their work with evidence, and what the Claude Code team does to keep its verifiers honest.",
+   "time_decay_factor": 0.945,
+   "title": "How the Claude Code team thinks about verification",
+   "type": "news",
+   "url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
+   "utility": 1.3568,
+   "utility_basis": "judge",
+   "v2_slot": "frontier_official",
+   "why_it_matters": "Matches feed focus: agent, claude code."
   },
   "model:codex|ver:0.171|title:codex rust v0 171 0 alpha 8": {
    "admission_rank": 50,
@@ -577,7 +629,7 @@
    "judge_error": "insufficient_evidence",
    "judge_evidence_chars": 0,
    "judge_verdict": "unjudged",
-   "last_seen": "2026-11-16T20:09:26.713090+00:00",
+   "last_seen": "2026-11-16T21:07:09.431995+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -587,7 +639,7 @@
    "rank_at_first_seen": 49,
    "release_tier": null,
    "score_at_first_seen": 0.8002,
-   "seen_count": 6,
+   "seen_count": 7,
    "slot": "frontier_official",
    "source": "openai_blog",
    "source_count": 1,
@@ -869,7 +921,7 @@
    "judge_error": "insufficient_evidence",
    "judge_evidence_chars": 135,
    "judge_verdict": "unjudged",
-   "last_seen": "2026-11-16T20:09:26.713090+00:00",
+   "last_seen": "2026-11-16T21:07:09.431995+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.986,
@@ -877,7 +929,7 @@
    "rank_at_first_seen": 55,
    "release_tier": null,
    "score_at_first_seen": 0.6753,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "frontier_official",
    "source": "openai_blog",
    "source_count": 1,
@@ -918,7 +970,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T20:09:26.713090+00:00",
+   "last_seen": "2026-11-16T21:07:09.431995+00:00",
    "llm_category": "inference_serving",
    "matched_topics": [],
    "prefilter_score": 1.982,
@@ -926,7 +978,7 @@
    "rank_at_first_seen": 52,
    "release_tier": null,
    "score_at_first_seen": 1.1997,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "cloud_platform_updates",
    "source": "databricks_blog",
    "source_count": 1,
@@ -1416,7 +1468,7 @@
     "release_lane": 0.05
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T20:09:26.713090+00:00",
+   "last_seen": "2026-11-16T21:07:09.431995+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -1426,7 +1478,7 @@
    "rank_at_first_seen": 58,
    "release_tier": null,
    "score_at_first_seen": 1.2194,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "practitioner_analysis",
    "source": "langchain_blog",
    "source_count": 1,
@@ -1671,7 +1723,7 @@
     "release_lane": 0.11
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T20:09:26.713090+00:00",
+   "last_seen": "2026-11-16T21:07:09.431995+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -1681,7 +1733,7 @@
    "rank_at_first_seen": 54,
    "release_tier": null,
    "score_at_first_seen": 0.9078,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "cloud_platform_updates",
    "source": "databricks_blog",
    "source_count": 1,
@@ -1909,7 +1961,7 @@
    "judge_error": "insufficient_evidence",
    "judge_evidence_chars": 169,
    "judge_verdict": "unjudged",
-   "last_seen": "2026-11-16T20:09:26.713090+00:00",
+   "last_seen": "2026-11-16T21:07:09.431995+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "eval"
@@ -1919,7 +1971,7 @@
    "rank_at_first_seen": 51,
    "release_tier": null,
    "score_at_first_seen": 0.5025,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "frontier_official",
    "source": "openai_blog",
    "source_count": 1,
@@ -2294,7 +2346,7 @@
    "judge_error": "insufficient_evidence",
    "judge_evidence_chars": 132,
    "judge_verdict": "unjudged",
-   "last_seen": "2026-11-16T20:09:26.713090+00:00",
+   "last_seen": "2026-11-16T21:07:09.431995+00:00",
    "llm_category": "platform",
    "matched_topics": [],
    "prefilter_score": 1.986,
@@ -2302,7 +2354,7 @@
    "rank_at_first_seen": 56,
    "release_tier": null,
    "score_at_first_seen": 0.6753,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "frontier_official",
    "source": "openai_blog",
    "source_count": 1,
@@ -2392,7 +2444,7 @@
     "release_lane": 0.07
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T20:09:26.713090+00:00",
+   "last_seen": "2026-11-16T21:07:09.431995+00:00",
    "llm_category": "frontier_product",
    "matched_topics": [],
    "prefilter_score": 1.966,
@@ -2400,7 +2452,7 @@
    "rank_at_first_seen": 53,
    "release_tier": null,
    "score_at_first_seen": 1.1248,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "cloud_platform_updates",
    "source": "databricks_blog",
    "source_count": 1,
@@ -2590,7 +2642,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T20:09:26.713090+00:00",
+   "last_seen": "2026-11-16T21:07:09.431995+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.57,
@@ -2598,7 +2650,7 @@
    "rank_at_first_seen": 31,
    "release_tier": null,
    "score_at_first_seen": 0.7214,
-   "seen_count": 16,
+   "seen_count": 17,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -2639,7 +2691,7 @@
     "release_lane": 0.09
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-16T20:09:26.713090+00:00",
+   "last_seen": "2026-11-16T21:07:09.431995+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -2649,7 +2701,7 @@
    "rank_at_first_seen": 59,
    "release_tier": null,
    "score_at_first_seen": 1.0036,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "practitioner_analysis",
    "source": "langchain_blog",
    "source_count": 1,
@@ -3015,5 +3067,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-16T20:09:26.713090+00:00"
+ "updated_at": "2026-11-16T21:07:09.431995+00:00"
 }

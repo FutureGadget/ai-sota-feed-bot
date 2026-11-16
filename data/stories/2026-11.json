@@ -198,6 +198,18 @@
   "url": "https://youtu.be/3NH_i8M1Gqg",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "03d552b29a70ea20": {
+  "first_seen": "2026-11-16T21:05:25.746783+00:00",
+  "id": "12c8490f02639804",
+  "published": "2026-11-13T12:36:00+00:00",
+  "sid": "03d552b29a70ea20",
+  "source": "arxiv_cs_cl",
+  "summary": "Knowledge distillation usually trains a compact student from scratch, which needs a large amount of data even though the teacher's weights already encode most of what the student has to learn. In this work, we explore building the student directly from the teacher's weights. We propose Concertina, which folds every group of N adjacent teacher layers into one shared block that is executed N times. Each loop step carries a low-rank correction initialized from the layer it replaces, and a per-token gate mixes these corrections, to let every token recover the behavior of the original layers from a single shared block. We further design a distillation data recipe that balances general, mathematical, academic and targeted multiple-choice data, to recover all capabilities of the teacher together rather than one at the expense of another. On Qwen3-4B, a 2.27B Concertina model distilled on 22B tokens retains about 90% of the teacher on commonsense and mathematical reasoning and 84% on average across eight benchmarks. It outperforms same-size dense and layer-sharing baselines, as well as Qwen3-1.7B, which is trained on over a thousand times more data. These results suggest that a compact model need not be retrained at scale, since folding the teacher into itself and distilling it on the right data recovers most of its capabilities. Code is available at https://github.com/myboker/concertina.",
+  "summary_1line": "Knowledge distillation usually trains a compact student from scratch, which needs a large amount of data even though the teacher's weights already encode most of what the student has to learn. In this work, we explore...",
+  "title": "Folding Language Models into Themselves",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18113v1"
+ },
  "03fd9302c61cd3ba": {
   "content_excerpt": "The research team, which includes collaborators from NVIDIA and Flower Labs, have come up with a new method for recursive self-improving AI agents to continue improving themselves (by repeatedly testing and enhancing their own code) without hitting the evaluation ceiling that they frequently encounter. Their method also suggests a way of cutting the costs of the computational resource needed for the development of such AI agents. While agents can already improve themselves by editing their own code, testing variants, and keeping changes that perform better, this process is usually limited by a fixed evaluator, benchmark, or test suite. Once the agent has learned everything that fixed signal can distinguish, improvement slows or stalls. \"A self-improving agent can only get as good as the test that scores it,\" explains team member Alex Iacob , a PhD student in the Machine Learning Systems Lab under the supervision of Prof Nic Lane . \"The test does not merely measure progress, it defines it, so the efficacy of the test becomes a ceiling the agent cannot climb past.\" Now the researchers have addressed this issue by having both the self-improving agent and the evaluator evolve together. \"Instead of improving an agent against a fixed test, we let the evaluation evolve alongside the agent ,\" Alex adds. \"As the agent gets better, the evaluation also gets harder , and the bar keeps rising.\" Alex is the first author on the pre-print paper the research team has just uploaded to arXiv. T",
   "first_seen": "2026-11-10T04:03:44.888735+00:00",
@@ -5276,6 +5288,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "450d5a403be356b6": {
+  "first_seen": "2026-11-16T21:05:25.746783+00:00",
+  "id": "00182b84ada1ed5e",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-13T16:14:31+00:00",
+  "sid": "450d5a403be356b6",
+  "source": "arxiv_cs_lg",
+  "summary": "When a sequential decision system falls short of an optimum, its score does not reveal which modifications would improve its decisions. DECODE is a benchmark for testing such modifications through controlled experiments on planning and available information. Its consumer-credit collections generator provides five partially observed environments that share known dynamics matrices and vary a memory parameter and process noise. The experiments change selected inputs or planning rules while keeping the rest of the solver fixed. Each comparison specifies the solver's state inputs, response inputs and planning horizon. On the deterministic base environment, which was selected for a large gap between six-month and one-month planning with the hidden state, extending planning from one to six months increases the scores of two gradient-boosted solvers by 15 to 17 percentage points of the exact optimum, computed with the hidden state and borrower traits. Even at this horizon, the best graded solver, whose repayment response is fitted on logs, remains 15.6 points below that optimum. In a specified intervention sequence, three changes to its state inputs and their evaluation during search lower its score by 6.3 points, and replacing its fitted repayment model with the true response, evaluated with hidden borrower traits, then raises it by 15.6, a net recovery of nine of those points. Because the intermediate effects are conditional on the repayment model and the order of the changes, they",
+  "summary_1line": "When a sequential decision system falls short of an optimum, its score does not reveal which modifications would improve its decisions. DECODE is a benchmark for testing such modifications through controlled experimen...",
+  "title": "DECODE: Decomposable Environments for COntrolled Sequential-Decision Evaluation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18367v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "4553deeec0e06574": {
   "first_seen": "2026-11-05T16:09:06.783851+00:00",
   "id": "7f5e327bb205f61a",
@@ -7218,6 +7246,23 @@
   "url": "http://arxiv.org/abs/2611.02407v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "60761832689e48e0": {
+  "content_excerpt": "Open-source GammaRips options-flow trading harness: clone the exact morning workflow (agent picks a contract at run time from live liquidity). Live data via the GammaRips MCP (subscription). Educational, not investment advice. An open-source agent workflow harness for the GammaRips MCP curated options dataset. GammaRips is a data layer, not a signal service. Every trading day, the engine filters ~3,500 optionable US stocks down to a curated cohort of liquid, tradable, high-edge option contracts and serves that dataset over MCP. Your agent pulls the surviving cohort, layers its own live catalyst research (X/Twitter cashtags, filings, web search, parallel subagents), and builds a deterministic trade plan with historical MFE/MAE excursion data. Instead of dumping noisy raw chains into an LLM context window, GammaRips filters the US options universe down to the daily cohort of surviving contracts that pass strict quantitative and liquidity gates: Connect any MCP-compatible agent (Claude Code, Grok, Codex, Cursor, or custom runners): Fetch today's surviving tradable option contracts and their point-in-time volatility and liquidity metrics ( rv_iv_ratio , open_interest , mid_price , delta , dte , and opportunity surfaces), alongside market calendar status ( get_market_calendar_status ) and VIX term-structure regime ( get_regime_context ). GammaRips handles the quantitative options filtering; you bring the catalyst layer. Have your agent (Claude Code, Grok, Codex, Cursor) spin up pa",
+  "first_seen": "2026-11-16T21:05:25.746783+00:00",
+  "id": "ab4dbfbfed20c2b0",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-16T20:08:03+00:00",
+  "sid": "60761832689e48e0",
+  "source": "hackernews_ai",
+  "summary_1line": "Open-source harness and MCP dataset for options trading with AI agents",
+  "title": "Open-source harness and MCP dataset for options trading with AI agents",
+  "type": "news",
+  "url": "https://github.com/DevDizzle/gammarips-harness",
+  "why_it_matters": "Matches feed focus: agent, harness."
+ },
  "6097f9821d2ffeb8": {
   "first_seen": "2026-11-11T18:06:00.744503+00:00",
   "id": "a59ded8f24c3a234",
@@ -7717,6 +7762,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.15130v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "6728e97750a58875": {
+  "content_excerpt": "Kubernetes’ next AI push targets GPU efficiency, massive clusters, and safer agents. SALT LAKE CITY — I’m often surprised how many people don’t know just how important Kubernetes is to AI. After all, in the Cloud Native Computing Foundation (CNCF) January 2026 Annual Cloud Native Survey , 66% of organizations hosting generative AI models use Kubernetes for their inference workloads. Throw in everyone who runs other kinds of AI workloads on Kubernetes, and it’s clear a majority of AI users depend on Kubernetes for their workloads. So, at KubeCon North America 2026 , both the CNCF and vendors presented the next wave of Kubernetes improvements, designed to keep AI productive while making the most of their cloud infrastructure with smarter scheduling, larger control planes, faster container startup, and tighter controls over autonomous agents. Kubernetes 1.38 , scheduled for December 16, is the next milestone. So you can expect, as an early Christmas present, gang scheduling and additional accelerator-allocation capabilities advancing toward stable status. But the conference’s message extended beyond one release. Other important improvements are also arriving through Karpenter. This open-source, high-performance Kubernetes node lifecycle manager automatically provisions and terminates compute resources in response to unscheduled pod requests and other emerging CNCF projects. As Mike Stefaniak, AWS’s Head of Containers, said in his keynote, “AI workloads can spin up 10s of 1000s o",
+  "first_seen": "2026-11-16T21:05:25.746783+00:00",
+  "id": "8cbe5dcf53651073",
+  "published": "2026-11-16T20:48:53+00:00",
+  "sid": "6728e97750a58875",
+  "source": "hackernews_ai",
+  "summary_1line": "Kubernetes Is Strengthening Its Position as the AI Platform of Choice",
+  "title": "Kubernetes Is Strengthening Its Position as the AI Platform of Choice",
+  "type": "news",
+  "url": "https://cloudnativenow.com/features/kubernetes-is-strengthening-its-position-as-the-ai-platform-of-choice"
  },
  "675a1ee412378534": {
   "first_seen": "2026-11-05T21:06:13.977425+00:00",
@@ -10206,6 +10263,18 @@
   "url": "http://arxiv.org/abs/2611.05292v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "8ac6ca4d7f430268": {
+  "first_seen": "2026-11-16T21:05:25.746783+00:00",
+  "id": "08c40b9e7a6efe40",
+  "published": "2026-11-16T20:52:34+00:00",
+  "sid": "8ac6ca4d7f430268",
+  "source": "hackernews_ai",
+  "summary": "Hi HN, I'm Matteo from meshapplied (YC W27), building this with Peter and Janos. We think you can and should own your inference, so we built software that actually supports that. Goethe turns a Linux machine with an NVIDIA GPU into an API your OpenAI, Anthropic compatible clients can call. ``` curl -fsSL https://goethe.sh/install.sh | bash goethe start ``` It's open source (Apache 2.0) and written in Rust, with our own NVFP4 and ternary kernels. On a single RTX 5090, Qwen3.8-27B NVFP4 decodes at 255 tok/s at concurrency 1 (686 at concurrency 4). The setup is on the model card: [huggingface.co/meshapplied]( https://huggingface.co/meshapplied/Qwen3.8-27B-NVFP4-NInfer ) Limits: it's Linux only on Ampere or newer, the first model load takes a few minutes, and the API uses a self-signed certificate. Logging in with `goethe login` is optional and turns on the optimized kernels. Docs: [goethe.sh/docs]( https://goethe.sh/docs ) I'd love to hear what breaks and what you'd want next.",
+  "summary_1line": "Hi HN, I'm Matteo from meshapplied (YC W27), building this with Peter and Janos. We think you can and should own your inference, so we built software that actually supports that. Goethe turns a Linux machine with an N...",
+  "title": "Show HN: Goethe – turn your computer into an inference engine",
+  "type": "news",
+  "url": "https://github.com/meshapplied/goethe"
+ },
  "8ad8b0afed3a4e6a": {
   "first_seen": "2026-11-14T00:06:50.558978+00:00",
   "id": "d5fc07f24729a503",
@@ -11370,6 +11439,24 @@
   "title": "Show HN: MoEShift - Faster large MoE inference with half the RAM",
   "type": "news",
   "url": "https://github.com/davide-troiani/moeshift"
+ },
+ "9a0aa0e71b450c03": {
+  "content_excerpt": "How end-to-end, property and differential tests let coding agents verify their work with evidence, and what the Claude Code team does to keep its verifiers honest. On the Claude Code team, the vast majority of our code (~90%) is written and reviewed by Claude . At this scale, how we equip our agents to verify their work with evidence becomes extremely important. Verification loops are the building block that lets you delegate more work to Claude. Without them, you can really only run one or two Claudes at a time, because you have to check everything yourself. With them, you can run dozens or hundreds in parallel. That’s because giving agents a way to verify their output is an effective way to improve quality. In internal testing around structured file generation, having a separate grader check Claude’s work against a rubric improved task success by up to 10 points over a standard prompting loop, with the largest gains on the hardest problems. What was once expensive to verify (tests, benchmarks, specs, real end-to-end runs) is now cheap to request from an agent. Like code, agents can quickly generate tests, benchmarks, and specs. And once generated, these tests and benchmarks run as software so they can be run frequently without using many additional tokens. You can also close the verification loop by using the results to improve the agent’s performance on that task. For example, if an agent repeatedly fails a test that checks logs for user data, you can create a hook or a mo",
+  "first_seen": "2026-11-16T21:05:25.746783+00:00",
+  "id": "a8872563f0cb3de1",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-11-16T12:00:00+00:00",
+  "sid": "9a0aa0e71b450c03",
+  "source": "claude_dev_blog",
+  "summary": "How end-to-end, property and differential tests let coding agents verify their work with evidence, and what the Claude Code team does to keep its verifiers honest.",
+  "summary_1line": "How end-to-end, property and differential tests let coding agents verify their work with evidence, and what the Claude Code team does to keep its verifiers honest.",
+  "title": "How the Claude Code team thinks about verification",
+  "type": "news",
+  "url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification",
+  "why_it_matters": "Matches feed focus: agent, claude code."
  },
  "9a1617ac0ac4ae2d": {
   "also_covered": [
