@@ -1802,6 +1802,23 @@
   "url": "https://github.com/cahian/baton",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "17b8c5d2ddd309b6": {
+  "first_seen": "2026-11-17T04:04:14.578855+00:00",
+  "id": "9679c18ce9fcaf3b",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-15T01:07:23+00:00",
+  "sid": "17b8c5d2ddd309b6",
+  "source": "arxiv_cs_cl",
+  "summary": "LLM agents operating repeatedly in the same environment, such as a code repository, a database, or an application suite, encounter tasks that share latent structure. Experience can reveal this structure, allowing agents to reuse environment knowledge and learn from environmental feedback. Agents can adapt at test-time using this experience through two channels: retaining it in context and updating their weights. These channels are usually studied separately, leaving unclear what each contributes and when they complement each other. We compare in-context learning (ICL), reinforcement learning with verifiable rewards using GRPO, and self-distillation using SDPO, alone and in combination, using a shared online protocol and modular framework. Agents encounter matched task streams, are evaluated on each task before adapting to it, and learn only from their own attempts and environment feedback. We evaluate 14 adaptation mechanisms and a stateless baseline with Qwen3.5-9B on 109 tasks from four environments drawn from SWE-bench Verified, AppWorld, ScienceWorld, and BIRD-Critic-SQLite, using five task orders per environment. ICL provides the largest standalone gain: its best policy raises mean success across environments from 28.8% to 49.4%. Adding GRPO to this policy achieves the highest mean success, 51.6%. While adding GRPO improves the overall mean under every ICL policy, SDPO has mixed effects. Trace analyses show fewer lookups and shorter attempts under ICL, consistent with re",
+  "summary_1line": "LLM agents operating repeatedly in the same environment, such as a code repository, a database, or an application suite, encounter tasks that share latent structure. Experience can reveal this structure, allowing agen...",
+  "title": "Where Should LLM Agents Adapt at Test Time? In Context, in Weights, or Both",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.19700v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "17d622fadb91466e": {
   "first_seen": "2026-11-03T07:08:17.402292+00:00",
   "id": "cb8a24ea612c17c4",
@@ -4049,6 +4066,17 @@
   "title": "Dharma Field Extractor: Any Document In, Structured Fields in JSON Out",
   "type": "research",
   "url": "https://huggingface.co/blog/Dharma-AI/dharma-field-extractor"
+ },
+ "333639c388f5e270": {
+  "content_excerpt": "Gemini Decision 1 is a multimodal decision model from Google released on November 11, 2026. It is analogous to Jev , the System One model from TypeSafe AI. While browsing Hacker News, I stumbled upon What music does Gemini Decision 1 like? by Liam Warfield. He ends the article with a few ideas to extend his project. The last of these suggestions, “Does it [Gemini Decision 1] like or hate AI-generated music?”, stood out to me because it implicitly suggests that the decision model may be able to recognize AI-generated audio. As it turns out, Gemini Decision 1 can separate AI voices from human voices well above chance, but only if the AI voice generator was published before 2025. As a quick clarification, I am saying separates rather than categorizes as the model has a strong bias towards labeling all tested audio as human-made. Out of 1,020 AI clips, only 20 were given a 50% or higher chance of being AI-generated. However, the ROC-AUC chance that a random AI clip is assigned a higher P(AI) than a random human clip was significantly higher in pre-2025 models, suggesting that recent AI voices are less distinguishable than before. Each point is an AI voice generator, measured by how well Gemini Decision 1 separates 30 of its audio clips from 200 human audiobook clips. When pooled together, generators from 2023 and 2024 are separated with an AUC of 0.67. Six older generators, from 2017 to 2022, score the same (0.67). However, generators released in 2025 and 2026 have an AUC of only",
+  "first_seen": "2026-11-17T04:05:58.927087+00:00",
+  "id": "723b75eaee664302",
+  "published": "2026-11-17T01:08:11+00:00",
+  "sid": "333639c388f5e270",
+  "source": "hackernews_ai",
+  "title": "Gemini Decision 1 can't separate AI voices made after 2024",
+  "type": "news",
+  "url": "https://echo.ls/posts/gemini-decision-ai-voices"
  },
  "3343cd5df22c7f0b": {
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. Legora can’t read a single trace of what its agent does for a lawyer. The data belongs to the law firm’s clients. How do you build and test an agent when you can’t see its work? Jacob Lauritzen is the CTO of Legora, one of the fastest-growing companies... Legora can’t read a single trace of what its agent does for a lawyer. The data belongs to the law firm’s clients. How do you build and test an agent when you can’t see its work? Jacob Lauritzen is the CTO of Legora, one of the fastest-growing companies in legal tech history. The team started in a Stockholm basement with ChatGPT, Swedish law, and a search tool. Today, a lawyer can use Legora to draft and edit Word documents, review 10,000 contracts in a single table, or run due diligence. The agent also coordinates work between lawyers, clients, and other agents. When Legora made its own acquisitions, the team used it for diligence. • Why Legora resisted adding a model picker for years, and why it finally added one • Jacob’s estimate that models already do about 60% of legal work well, and why the rest takes a smarter model • How three engineers and three lawyers build test environments modeled on custom",
@@ -6779,6 +6807,23 @@
   "url": "http://arxiv.org/abs/2611.09802v1",
   "why_it_matters": "Matches feed focus: agent, evaluation, claude code."
  },
+ "56d285ed7661f5a6": {
+  "first_seen": "2026-11-17T04:04:14.578855+00:00",
+  "id": "0c53e41a01dd7ca5",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-14T23:19:31+00:00",
+  "sid": "56d285ed7661f5a6",
+  "source": "arxiv_cs_ai",
+  "summary": "AI agents often discover mid-execution that their plan is broken, for example when an action fails or a tool is withdrawn. Deployed systems use conventions such as retry loops or \"always replan,\" and a recent benchmark finds no fixed strategy dominates. This paper derives the optimal policy. In the model, a disruption destroys the causal support of part of a plan; repair is a partial reset that preserves the plan's structure, replanning is a full reset, and changing a plan is costly because others have conditioned on it. The optimal policy is a threshold in effective disruption depth: repair shallow damage, replan after deep damage, and abandon the goal when even a fresh plan is not worth its cost. Depth depends on plan structure. In expectation, a single broken action forces 1+R(G)/n actions to be revalidated, where R(G) counts the pairs of actions joined by a dependency path; to first order, a fully serial plan switches to replanning at raw damage about w times smaller than a plan of w parallel chains. A closed-form stability-price threshold determines when a worse repaired plan should be kept over a better fresh one. As language-model planners push replanning costs toward zero, the stability price becomes the only force sustaining plan commitment. Under repeated disruptions, revision frictions make commitment hysteresis optimal: the agent keeps executing a plan it would never choose fresh, and each repair adds patch debt until the debt outweighs repair's cost advantage and",
+  "summary_1line": "AI agents often discover mid-execution that their plan is broken, for example when an action fails or a tool is withdrawn. Deployed systems use conventions such as retry loops or \"always replan,\" and a recent benchmar...",
+  "title": "When AI Agents Should Repair, Replan, or Abandon: A Threshold Theory of Plan Commitment",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.19663v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "5729d7c3be69bbc7": {
   "first_seen": "2026-11-16T11:06:17.692956+00:00",
   "id": "ee9b1175d58fa227",
@@ -8501,6 +8546,22 @@
   "url": "https://machinelearningmastery.com/the-complete-guide-to-llm-evaluation",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "6f6be21f91e99ce9": {
+  "content_excerpt": "Woolly is the open memory engine for agents. It keeps facts current and learns from every session, through an API, Python and JavaScript SDKs, plugins and MCP. It runs on your own machine by default, in Markdown you can read. Every AI coding tool starts from zero. You explain your stack to Cursor, then again to Claude Code, then to Codex. Each keeps its own memory, or none, and none of them know what you decided yesterday or what your teammate’s agent learned this morning. Woolly is the memory they share . It’s one folder on your laptop, plain Markdown, with no cloud and no account. Any tool that speaks MCP can save to it and search it, and woolly proxy gives the same memory to Ollama and any app that uses the OpenAI or Anthropic API. When a session starts, your agent gets your profile, the project’s notes and where you left off . When it ends, Woolly saves what you decided and why. The agents you build get the same memory. Send a conversation to the memory API and a local model decides what’s new, what changed and what’s no longer true, per user. While you’re away, Woolly dreams . It tidies what it knows and learns lessons from your sessions. Claude Code opens every session with your profile, the project’s notes and a handoff from last time. Nobody has to say “here’s my stack” again. When a session ends, Woolly saves what you chose, why, and what you ruled out. No agent pitches the rejected option again. Give the agents you build a memory with an API shaped like mem0’s. For ",
+  "first_seen": "2026-11-17T04:04:14.578855+00:00",
+  "id": "ee5313c44970e503",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-17T04:01:19+00:00",
+  "sid": "6f6be21f91e99ce9",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Woolly, a local mem0-compatible memory API for AI agents",
+  "title": "Show HN: Woolly, a local mem0-compatible memory API for AI agents",
+  "type": "news",
+  "url": "https://usewoolly.com",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "6fd3ac39e855936d": {
   "first_seen": "2026-11-09T07:04:17.451357+00:00",
   "id": "3ce8c2bcd82e1b99",
@@ -9412,7 +9473,7 @@
   "why_it_matters": "Matches feed focus: codex."
  },
  "7c4bd04e8d4159ae": {
-  "content_excerpt": "A convention for support tickets from AI agents. Let a customer's AI agent report a problem to your team and pick up the reply, even in a later session. An agent's export tool returns the wrong number of pages. The agent tells the user, who agrees to report it, and it does so in one call: The agent carries on with its work. A script it left in the background polls the watch URL, which says only that something changed. When it does, the agent reads the ticket: Fields are left out here to keep it short. This is output from the reference server . Much of the work done with a developer product is now done by someone's AI agent. When the agent hits a bug, a wrong result or a tool that can't do what was asked, it works around the problem or gives up. The developer may never hear about it, and the company behind the product might not know that anything is wrong. Many MCP servers gained a feedback tool during 2026, each under a different name and almost all one-way: the report goes in and nothing comes back. Support tools still assume a person typing into a chat window. It is written with developer tools in mind, where an AI coding agent builds an integration with your product. Nothing in it is specific to code, though. It works for any product with an MCP server or an API, and for any AI tool that uses one on a person's behalf. This is not a new idea. A few small projects already let agents open tickets and read replies, and Bird's command line tool lets its own customers create, li",
+  "content_excerpt": "A convention for how AI agents ask for support. Let a customer's AI agent ask for help, send feedback, or open a ticket with your team and pick up the reply, even in a later session. An agent's export tool returns the wrong number of pages. It asks for help first: The documentation has nothing. The user needs the full document, so this is more than feedback: the agent tells the user, who agrees to open a ticket. The agent carries on with its work. A script it left in the background polls the watch URL, which says only that something changed. When it does, the agent reads the ticket: Fields are left out here to keep it short. This is output from the reference server . Much of the work done with a developer product is now done by someone's AI agent. When the agent hits a bug, a wrong result or a tool that can't do what was asked, it works around the problem or gives up. The developer may never hear about it, and the company behind the product might not know that anything is wrong. Many MCP servers gained a feedback tool during 2026, each under a different name and almost all one-way: the report goes in and nothing comes back. That is fine for feedback, and no use when someone needs an answer. Support tools still assume a person typing into a chat window. It is written with developer tools in mind, where an AI coding agent builds an integration with your product. Nothing in it is specific to code, though. It works for any product with an MCP server or an API, and for any AI tool",
   "first_seen": "2026-11-16T23:04:08.342264+00:00",
   "id": "857cd5cc72c68dc6",
   "matched_topics": [
@@ -9861,6 +9922,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09298v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "8138237fac2e053c": {
+  "first_seen": "2026-11-17T04:04:14.578855+00:00",
+  "id": "1a95195d1fea646d",
+  "matched_topics": [
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-11-15T13:55:51+00:00",
+  "sid": "8138237fac2e053c",
+  "source": "arxiv_llm_reliability",
+  "summary": "Vision-language models (VLMs) are routinely aligned with offline pairwise RLHF objectives, but multimodal preference data is scarce and treats every response token as equally informative. Under a small preference budget, pair construction becomes nearly irrelevant: standard DPO-style, image-conditional, and self-improvement objectives all perform within 1.1 points on MM-RLHF metrics and 0.5 points on hallucination rates, matching the SFT baseline. We call this entropy-blind preference optimization: the learning signal ignores policy uncertainty, which in chain-of-thought VLMs concentrates on specific fork tokens where visual claims are made. We introduce GEM-MM, extending entropy-guided preference modeling to VLMs. It samples on-policy candidates, rewards high-entropy reasoning forks, penalizes uncertain final answers, and updates the model via group-normalized policy gradients. On a 3000-prompt MM-RLHF budget with Qwen3-VL-4B-Instruct, GEM-MM achieves the best entropy-depth preference score (61.7% vs. 57.3-58.4% baselines) and implicit-reward accuracy (41.4%). Crucially, it reduces AMBER hallucination from 23.4-24.0 to 20.6 and CHAIR from 5.0-5.1 to 4.6 at matched caption coverage. It also ranks best on all three HallusionBench granularities, with a conservative operating point raising the near-chosen rate to 62.4%. An off-the-shelf multimodal reward model ranks GEM-MM first, and two such models independently confirm our main ablations (p < 0.001). We report confidence inter",
+  "summary_1line": "Vision-language models (VLMs) are routinely aligned with offline pairwise RLHF objectives, but multimodal preference data is scarce and treats every response token as equally informative. Under a small preference budg...",
+  "title": "GEM-MM: Reducing VLM Hallucination with Entropy-Guided Preference Alignment",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.20016v1",
+  "why_it_matters": "Matches feed focus: harness, evaluation."
  },
  "819549b983fd9118": {
   "content_excerpt": "SageMaker Inference now supports Multi-Instance GPU to maximize GPU utilization for model endpoints | Artificial Intelligence Skip to Main Content Filter: All English Contact us AWS Marketplace Support My account re:Invent Discover AWS Products Solutions Pricing Resources Search Filter: All Sign in to console Create account Explore topics re:Invent 2026 The sessions are set and your seat is waiting. Register now Build & Deploy AI Agents 88% of agent pilots stall. Learn what the rest do differently Get started Sign up free, connect your coding agent, and start building Data for agentic AI The 7 essential data capabilities to scale agentic AI Analyst Report AWS named a Leader in the 2026 Gartner Magic Quadrant for SCPS AI for Small Businesses Solutions designed for your business. Delivered by AWS Partners News & announcements AWS blog About AWS AWS is the world's most comprehensive cloud, enabling organizations to accelerate innovation, reduce costs, and scale more efficiently Why AWS Getting Started Security Compliance Trust Center Sustainability Our Impact Global Infrastructure Careers Featured Products Analytics Application Integration Artificial Intelligence Business Applications Compute Customer Experience Databases Developer Tools End User Computing Game Tech Management Tools Media Services Migration & Modernization Multicloud & Hybrid Networking & Content Delivery Operations Security & Identity Storage Supply Chain Browse all products Transformation Hubs Migrate to moder",
@@ -10377,6 +10455,22 @@
   "title": "[AINews] Fable 5.2 retakes World #1 LLM spot as $ANT IPO roadshow begins",
   "type": "news",
   "url": "https://latent.space/p/ainews-fable-5-2-retakes-world-1-llm-spot-as-ant-ipo-roadshow-begins"
+ },
+ "8920f408c9a7dd5d": {
+  "first_seen": "2026-11-17T04:04:14.578855+00:00",
+  "id": "51e951bf31f352f3",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-15T18:44:24+00:00",
+  "sid": "8920f408c9a7dd5d",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Typed Decision Models such as TypeSafe's Jev, also called System One or System 1 models, answer typed questions about an input with a probability for each option, and they need no training. Many NLP papers still fine-tune a task-specific classifier, and prompted large language models (LLMs) trail such classifiers on most text classification benchmarks. We ask how many of these fine-tuned classifiers a Typed Decision Model can replace under each paper's own evaluation, and what is needed where it cannot. We swap the predictors of 24 ACL-venue papers for Jev, keep each paper's splits, label definitions and metric, and check the results with Cloudflare's Clef, Microsoft-Decision-1 and OpenAI's GPT-6 Luna Decisions. The resulting 46 English test sets, with their questions and published scores, form the TDM-Gauntlet benchmark. With a zero-shot prompt, Jev directly replaced the paper's predictor on 12 of the 46 test sets, mostly single judgments with plain labels, but rarely where the paper's method was trained on its labels. Where Jev scored lower, we most often attributed the shortfall to an annotation convention that the label name does not state. With 500 training labels plus validation and no user-managed GPU, calibration and GEPA-style prompt optimization closed a median 72% of the gap to the paper's method, about twice what off-the-shelf GEPA closed, for a median $1.66 per search. On the same labels, fine-tuned encoders such as RoBERTa and DeBERTa closed 59%, and LoRA fine-t",
+  "summary_1line": "Typed Decision Models such as TypeSafe's Jev, also called System One or System 1 models, answer typed questions about an input with a probability for each option, and they need no training. Many NLP papers still fine-...",
+  "title": "Do We Still Need Fine-Tuned Classifiers? Swapping Typed Decision Models into 24 ACL-Venue Papers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.20191v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "89699433fb1b1431": {
   "first_seen": "2026-11-10T03:08:56.949643+00:00",
@@ -14024,6 +14118,23 @@
   "url": "https://github.com/sebwilgosz/agent-executor",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "b5b0c79d003eaa81": {
+  "first_seen": "2026-11-17T04:04:14.578855+00:00",
+  "id": "d6437567fe895cf9",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-15T12:45:21+00:00",
+  "sid": "b5b0c79d003eaa81",
+  "source": "arxiv_agent_systems_research",
+  "summary": "ITOps observability products must integrate data from different tools and systems. We present ITOps Observability Studio, a multi-modal multi-agent system that orchestrates observability workflows through collaborative AI agents. Its three-tier architecture features inter-agent communication, specialized LLM-powered agents for data access, schema operations and visualization, and unified tool integration. The system supports natural language to GraphQL translation, GraphQL schema generation, schema mapping, trace data lifecycle management and multi-tool workflows for reliability engineering. Its agents are instrumented with agent analytics, so that their model and tool calls can be traced. We evaluate each agent on its own benchmark, scored against gold answers where they exist and by a model judge for schema mapping and chart quality. Query generation on a public benchmark and routing work well with a current open model, and the data lifecycle management agent solves most of its scenarios. The evaluation exposed defects that only appear when prompts, parsers and serving stacks are tested together, and we report them together with their fixes.",
+  "summary_1line": "ITOps observability products must integrate data from different tools and systems. We present ITOps Observability Studio, a multi-modal multi-agent system that orchestrates observability workflows through collaborativ...",
+  "title": "Autonomous Multi-modal Agents for ITOps Observability",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.19982v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "b5cba0d011349b3b": {
   "first_seen": "2026-11-03T17:06:51.488000+00:00",
   "id": "366cf98f55427d25",
@@ -15449,6 +15560,23 @@
   "type": "news",
   "url": "https://openuncensored.com/blog/uncensored-models-in-agent-loops",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "c8910153e9e659e7": {
+  "content_excerpt": "MCP server that lets AI coding agents in any harness find and message each other: one list, tags, multicast, * bus. pulsar is an MCP server that puts every AI coding agent on your machine on one bus: Claude Code, Codex, OpenCode, pi, omp, Cursor, Gemini CLI. Agents can see who else is running, tag themselves by what they work on, and message one agent, a group, or all of them. A message can wake an agent that is sitting idle. Setup finds your agents, shows exactly which files it will change, and asks once. It backs up every file it touches and copies pulsar to a local folder that each agent runs, so no session start waits on npm. Setup installs to ~/.local/share/pulsar/ and points every agent at the current link, so npx pulsar@latest setup upgrades in place. No Node? curl -fsSL https://raw.githubusercontent.com/yocontra/pulsar/main/install.sh | bash installs a private Node and runs the same setup. Prefer your harness's own package manager? These install the MCP server and the skill (push delivery into pi and omp needs the npm package, which carries their extension): pulsar setup also sets Claude's crossSessionInbound and Codex's tool approval, which plugin installs cannot. Without a push path for that client, messages wait in the agent's inbox, and every pulsar tool result says when unread messages are waiting. pulsar also installs a short skill that teaches agents when to use these, and the MCP server sends the same guidance as instructions. One small daemon per machine (sta",
+  "first_seen": "2026-11-17T04:04:14.578855+00:00",
+  "id": "f11eeb59b3c720dd",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-17T03:18:53+00:00",
+  "sid": "c8910153e9e659e7",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Pulsar – cross-harness agent to agent communication and messaging",
+  "title": "Show HN: Pulsar – cross-harness agent to agent communication and messaging",
+  "type": "news",
+  "url": "https://github.com/yocontra/pulsar",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "c993e55fc42f7c69": {
   "first_seen": "2026-11-10T17:05:49.390701+00:00",
@@ -17266,6 +17394,22 @@
   "type": "news",
   "url": "https://dropbox.tech/machine-learning/how-two-engineer-side-projects-became-the-agent-taking-action-inside-dropbox",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "e2fd6d26a416c296": {
+  "first_seen": "2026-11-17T04:04:14.578855+00:00",
+  "id": "c82a513022fb895d",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-17T03:09:14+00:00",
+  "sid": "e2fd6d26a416c296",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.171.0-alpha.11",
+  "summary_1line": "Release 0.171.0-alpha.11",
+  "title": "codex rust-v0.171.0-alpha.11",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.11",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "e303c0d1aac8c0b8": {
   "first_seen": "2026-11-12T07:06:23.164525+00:00",
