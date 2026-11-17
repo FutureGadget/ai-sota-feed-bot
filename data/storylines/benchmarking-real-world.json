@@ -1,0 +1,124 @@
+{
+ "slug": "benchmarking-real-world",
+ "label": "Benchmarking Real-World",
+ "item_count": 4,
+ "day_count": 4,
+ "source_count": 2,
+ "first_seen": "2026-11-03T13:23:37+00:00",
+ "last_updated": "2026-11-13T15:18:33+00:00",
+ "generated_at": "2026-11-17T00:13:09.187086+00:00",
+ "sources": [
+  "arxiv_cs_ai",
+  "arxiv_cs_cl"
+ ],
+ "days": [
+  {
+   "date": "2026-11-03",
+   "items": [
+    {
+     "title": "One Assistant, Many Memories: Benchmarking Real-World Group Assistance When Recall Is Not Enough",
+     "url": "http://arxiv.org/abs/2611.04867v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "The value of memory lies not only in recall but in using it to provide appropriate assistance. Recent benchmarks test memory use in personalisation and agentic tasks, but seldom evaluate assistance without fixed answe...",
+     "why_it_matters": "Matches feed focus: agentic, evaluation.",
+     "sid": "ef4c20cc8b60cd08",
+     "published": "2026-11-03T13:23:37+00:00",
+     "editor_note": "Opens the cluster: memory evaluated by the quality of assistance it enables across many users."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization",
+     "url": "http://arxiv.org/abs/2611.11995v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "In this work, we study whether frontier agent can continually improve real-world AI infrastructure over long horizons. We introduce Infrathon, a benchmark of diverse, long-horizon AI infrastructure optimization tasks...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "23c0753cd928bfa7",
+     "published": "2026-11-09T07:24:54+00:00",
+     "editor_note": "Moves the real-world framing to infrastructure: long-horizon optimization tasks for agents."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "items": [
+    {
+     "title": "ARE-bench: Benchmarking Agents' Research Ability in Real-World Researcher Sessions and Workspaces",
+     "url": "http://arxiv.org/abs/2611.14364v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Research agents achieve increasingly strong benchmark scores, yet these scores do not necessarily translate into reliable delivery in ongoing research projects. Many research-agent benchmarks emphasize standalone task...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "d56fa1c78b5794b5",
+     "published": "2026-11-10T17:21:31+00:00",
+     "editor_note": "Applies it to research agents, scoring delivery inside real researcher sessions rather than standalone tasks."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-13",
+   "items": [
+    {
+     "title": "PrivacyPR: A Dataset of Real-World Privacy Fixes for Benchmarking Privacy-Aware Code Review",
+     "url": "http://arxiv.org/abs/2611.18293v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Coding agents increasingly review code, yet whether they catch the privacy defects that laws such as the GDPR require software to avoid remains largely untested, partly because few datasets connect real privacy defect...",
+     "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
+     "sid": "004673f14a75854b",
+     "published": "2026-11-13T15:18:33+00:00",
+     "editor_note": "Extends it to code review with a dataset of real privacy fixes tied to their defects."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a research trend, not one developing event: four unrelated arXiv papers in ten days each build a benchmark from real sessions or real fixes instead of synthetic tasks. It began with group-assistant memory use (Nov 3), then moved to agents optimizing AI infrastructure over long horizons and agents working inside real researcher workspaces.",
+  "stale": false,
+  "whats_new": "PrivacyPR (Nov 13) brings the real-world-benchmark push to code review, pairing real privacy fixes with the defects behind them to test whether coding agents catch GDPR-relevant bugs.",
+  "why_it_matters": "Each paper argues that standalone task scores overstate how agents perform on long-horizon, stateful, compliance-sensitive work, which is the work platform teams actually deploy them on.",
+  "take_for_builders": "If you gate agent rollouts on public benchmark scores, add one eval built from your own logged sessions or past fixes; for coding-agent review, check whether PrivacyPR's data is released before relying on the agent for privacy checks.",
+  "beats": [
+   {
+    "kicker": "MEMORY",
+    "tone": "launch",
+    "headline": "Group-assistant benchmark tests memory use, not just recall",
+    "summary": "Evaluates whether an assistant shared by many users turns remembered context into appropriate help when there is no fixed answer.",
+    "sids": [
+     "ef4c20cc8b60cd08"
+    ]
+   },
+   {
+    "kicker": "LONG HORIZON",
+    "tone": "rising",
+    "headline": "Infrathon and ARE-bench test agents on sustained real work",
+    "summary": "One asks whether agents keep improving real AI infrastructure over long horizons; the other scores research agents inside real researcher sessions and workspaces.",
+    "sids": [
+     "23c0753cd928bfa7",
+     "d56fa1c78b5794b5"
+    ]
+   },
+   {
+    "kicker": "LATEST",
+    "tone": "now",
+    "headline": "PrivacyPR targets privacy defects in agent code review",
+    "summary": "A dataset linking real privacy fixes to the defects they repaired, aimed at coding agents that review pull requests.",
+    "sids": [
+     "004673f14a75854b"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Will any of these four benchmarks publish a public leaderboard with frontier-model scores?",
+   "Do agents that score well on standalone suites rank lower on Infrathon or ARE-bench, as the authors suggest?",
+   "What share of PrivacyPR's real privacy defects do current coding-agent reviewers catch?",
+   "Will the datasets and harnesses be released openly enough to rerun as internal evals?"
+  ],
+  "generated_at": "2026-11-17T00:12:26Z"
+ }
+}

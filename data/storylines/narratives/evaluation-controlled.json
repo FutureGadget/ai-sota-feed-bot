@@ -1,0 +1,40 @@
+{
+  "slug": "evaluation-controlled",
+  "generated_at": "2026-11-17T00:12:18Z",
+  "covers_last_updated": "2026-11-13T16:14:31+00:00",
+  "covers_member_sids": [
+    "a7c918cc21d10797",
+    "5a90caffb2c87d2e",
+    "450d5a403be356b6"
+  ],
+  "tldr": "This is a research trend, not one developing event: three unrelated groups published benchmarks that change one variable at a time so a failure can be traced to a cause. On Nov 6, KLEAR did this for Korean LLM knowledge questions and AllenAI's ToyBlocks did it for robot learning in a simulated block world.",
+  "whats_new": "DECODE (Nov 13) brings controlled evaluation to sequential decision-making, using decomposable environments to test which change to a system actually improves its decisions.",
+  "why_it_matters": "A single aggregate score cannot tell you whether an agent failed on missing knowledge, poor planning, or the environment, and these benchmarks are designed to separate those causes.",
+  "beats": [
+    {
+      "kicker": "ORIGIN",
+      "tone": "launch",
+      "headline": "Two controlled benchmarks land the same day: Korean LLM knowledge and robot learning",
+      "summary": "KLEAR separates missing knowledge from other error sources. ToyBlocks gives robot policies a controlled world to train and test in.",
+      "sids": ["a7c918cc21d10797", "5a90caffb2c87d2e"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "DECODE applies the same idea to sequential decision systems",
+      "summary": "Decomposable environments let researchers test whether a specific change to a system improves its decisions.",
+      "sids": ["450d5a403be356b6"]
+    }
+  ],
+  "open_questions": [
+    "Does a controlled benchmark for LLM agents with tool use appear, separating tool, planning, and knowledge failures?",
+    "Do DECODE or KLEAR release code and data that can be run against production models?",
+    "Do diagnoses from these controlled setups match what aggregate leaderboards show for the same models?"
+  ],
+  "take_for_builders": "When an agent eval regresses, add ablation cases that change one factor at a time (knowledge, plan length, environment) before you trust the aggregate score.",
+  "day_captions": {
+    "a7c918cc21d10797": "Language-specific case: rewrites Korean benchmarks so a wrong answer can be traced to missing knowledge.",
+    "5a90caffb2c87d2e": "Embodied case: AllenAI's controlled block world for robot learning and evaluation.",
+    "450d5a403be356b6": "Extends the approach to sequential decisions, testing which system change helps."
+  }
+}

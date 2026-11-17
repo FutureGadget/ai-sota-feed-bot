@@ -1,0 +1,45 @@
+{
+  "slug": "benchmarking-real-world",
+  "generated_at": "2026-11-17T00:12:26Z",
+  "covers_last_updated": "2026-11-13T15:18:33+00:00",
+  "covers_member_sids": ["ef4c20cc8b60cd08", "23c0753cd928bfa7", "d56fa1c78b5794b5", "004673f14a75854b"],
+  "tldr": "This is a research trend, not one developing event: four unrelated arXiv papers in ten days each build a benchmark from real sessions or real fixes instead of synthetic tasks. It began with group-assistant memory use (Nov 3), then moved to agents optimizing AI infrastructure over long horizons and agents working inside real researcher workspaces.",
+  "whats_new": "PrivacyPR (Nov 13) brings the real-world-benchmark push to code review, pairing real privacy fixes with the defects behind them to test whether coding agents catch GDPR-relevant bugs.",
+  "why_it_matters": "Each paper argues that standalone task scores overstate how agents perform on long-horizon, stateful, compliance-sensitive work, which is the work platform teams actually deploy them on.",
+  "beats": [
+    {
+      "kicker": "MEMORY",
+      "tone": "launch",
+      "headline": "Group-assistant benchmark tests memory use, not just recall",
+      "summary": "Evaluates whether an assistant shared by many users turns remembered context into appropriate help when there is no fixed answer.",
+      "sids": ["ef4c20cc8b60cd08"]
+    },
+    {
+      "kicker": "LONG HORIZON",
+      "tone": "rising",
+      "headline": "Infrathon and ARE-bench test agents on sustained real work",
+      "summary": "One asks whether agents keep improving real AI infrastructure over long horizons; the other scores research agents inside real researcher sessions and workspaces.",
+      "sids": ["23c0753cd928bfa7", "d56fa1c78b5794b5"]
+    },
+    {
+      "kicker": "LATEST",
+      "tone": "now",
+      "headline": "PrivacyPR targets privacy defects in agent code review",
+      "summary": "A dataset linking real privacy fixes to the defects they repaired, aimed at coding agents that review pull requests.",
+      "sids": ["004673f14a75854b"]
+    }
+  ],
+  "open_questions": [
+    "Will any of these four benchmarks publish a public leaderboard with frontier-model scores?",
+    "Do agents that score well on standalone suites rank lower on Infrathon or ARE-bench, as the authors suggest?",
+    "What share of PrivacyPR's real privacy defects do current coding-agent reviewers catch?",
+    "Will the datasets and harnesses be released openly enough to rerun as internal evals?"
+  ],
+  "take_for_builders": "If you gate agent rollouts on public benchmark scores, add one eval built from your own logged sessions or past fixes; for coding-agent review, check whether PrivacyPR's data is released before relying on the agent for privacy checks.",
+  "day_captions": {
+    "ef4c20cc8b60cd08": "Opens the cluster: memory evaluated by the quality of assistance it enables across many users.",
+    "23c0753cd928bfa7": "Moves the real-world framing to infrastructure: long-horizon optimization tasks for agents.",
+    "d56fa1c78b5794b5": "Applies it to research agents, scoring delivery inside real researcher sessions rather than standalone tasks.",
+    "004673f14a75854b": "Extends it to code review with a dataset of real privacy fixes tied to their defects."
+  }
+}

@@ -1,9 +1,8 @@
 {
   "slug": "diffusion-language",
-  "generated_at": "2026-11-16T00:12:03Z",
-  "covers_last_updated": "2026-11-12T18:58:50+00:00",
+  "generated_at": "2026-11-17T00:12:23Z",
+  "covers_last_updated": "2026-11-15T23:55:50+00:00",
   "covers_member_sids": [
-    "75e015095613159e",
     "ed7966c78dc36a0b",
     "edcf9763d6b958dc",
     "1423e77dae0d2a75",
@@ -14,7 +13,6 @@
     "57b08f9866a26766",
     "219537f3fa2b3690",
     "884381d0dd03d261",
-    "4e9768611cda6532",
     "0491c6de7a511fb5",
     "2fb1a0f31494270f",
     "5fbc35eb022e4033",
@@ -26,18 +24,19 @@
     "256bf90ce51f6665",
     "d7a4f91e59e352a3",
     "e267de687efb45c3",
-    "679b2c4e802619e6"
+    "679b2c4e802619e6",
+    "018074f62583197d",
+    "018ac20c79d4eeba"
   ],
-  "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It opened in late October with work on cutting diffusion-LM decoding rounds, widened to pruning, MoE serving and prompt compression, and by Nov 8-10 had block-diffusion models appearing as drafters inside speculative decoding.",
-  "whats_new": "A Nov 12 paper finds diffusion LMs' hidden states carry error signals that token confidence misses, and learns when to remask and regenerate text instead of relying on confidence thresholds.",
-  "why_it_matters": "Diffusion LMs are gaining a self-correction step (remasking), and block-diffusion models now appear as speculative-decoding drafters the target still verifies; the drafter route is the lower-risk way into a serving stack.",
+  "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It opened in late October with diffusion-LM decoding and MoE pruning work, and by Nov 8-12 had block-diffusion drafters inside speculative decoding and diffusion LMs learning when to remask their own output.",
+  "whats_new": "Callo (Nov 13) runs speculative decoding on invalidated KV cache so agent requests whose context was edited can start decoding before re-prefill finishes under prefill-decode disaggregation.",
+  "why_it_matters": "The diffusion-LM work is still paper-stage, but the speculative-decoding side is reaching serving systems: drafters verified by the target, and now speculation over stale KV to hide re-prefill latency in agent sessions.",
   "beats": [
     {
       "kicker": "SPEED",
       "tone": "rising",
-      "headline": "Schedule distillation, metacognitive decoding and Measured Coupling aim to cut dLLM decoding rounds",
+      "headline": "Metacognitive decoding and Measured Coupling aim to cut dLLM decoding cost",
       "sids": [
-        "75e015095613159e",
         "edcf9763d6b958dc",
         "0491c6de7a511fb5"
       ]
@@ -63,7 +62,7 @@
       "kicker": "ADJACENT",
       "tone": "neutral",
       "headline": "Non-diffusion-LM efficiency work shares the thread: pruning, MoE serving, compression and agent overhead",
-      "summary": "These papers share the efficient-inference theme, not the diffusion-LM method; two are image-diffusion papers (membership inference, few-step RL fine-tuning) matched on the word alone.",
+      "summary": "These papers share the efficient-inference theme, not the diffusion-LM method; one is an image-diffusion membership-inference paper matched on the word alone.",
       "sids": [
         "ed7966c78dc36a0b",
         "1423e77dae0d2a75",
@@ -71,7 +70,6 @@
         "01d6db945cd3f0c2",
         "473a95cd7c540d1a",
         "219537f3fa2b3690",
-        "4e9768611cda6532",
         "d7a4f91e59e352a3",
         "e267de687efb45c3"
       ]
@@ -108,26 +106,35 @@
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
+      "kicker": "SELF-CORRECTION",
+      "tone": "rising",
       "headline": "Diffusion LMs learn when to remask and regenerate their own output",
       "summary": "The Nov 12 paper uses hidden states, not token confidence, to decide when and what to revise; its diagnosis is run on Sudoku.",
       "sids": [
         "679b2c4e802619e6"
       ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Speculation moves into serving: Callo drafts over invalidated KV for agent sessions",
+      "summary": "Callo and a Baseten post on the inference efficiency frontier are serving-side additions, not diffusion-LM papers.",
+      "sids": [
+        "018074f62583197d",
+        "018ac20c79d4eeba"
+      ]
     }
   ],
   "open_questions": [
-    "Do the schedule-distillation, metacognitive-decoding, Measured Coupling and SpecCTMC speedups hold on independent benchmarks at equal output quality?",
+    "Do the metacognitive-decoding, Measured Coupling and SpecCTMC speedups hold on independent benchmarks at equal output quality?",
     "Does learned remasking improve accuracy on natural-language or code tasks beyond the Sudoku diagnosis, and at what extra decoding cost?",
     "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?",
     "Does a block-diffusion drafter with a pruned draft tree beat existing drafters on end-to-end throughput under concurrent serving load?",
-    "Do D-REAL and REAL Loss report comparable acceptance-length gains on the same drafter and target pairs?",
-    "Does RangeSWA's training-free extrapolation hold on long outputs beyond the paper's tested lengths?"
+    "How often does Callo's speculation over invalidated KV get rejected after heavy context edits, and does it still beat waiting for re-prefill then?",
+    "Do D-REAL and REAL Loss report comparable acceptance-length gains on the same drafter and target pairs?"
   ],
-  "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet. If you run speculative decoding, test a block-diffusion drafter and measure accepted length and verification cost under your real concurrency before adopting it.",
+  "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet. If agent sessions edit context often, measure how much decode time your stack loses to re-prefill on cache misses before evaluating approaches like Callo.",
   "day_captions": {
-    "75e015095613159e": "Proposes learning when to commit tokens, reducing the decoding rounds dLLMs need.",
     "ed7966c78dc36a0b": "Adjacent: co-designs pruning and scheduling for MoE inference on memory-constrained edge servers, where moving expert weights dominates.",
     "edcf9763d6b958dc": "Extends the efficiency push to agents by adapting compute spent and text generated per interaction.",
     "1423e77dae0d2a75": "Adjacent, image side: a membership inference method for testing whether an image was in a diffusion model's training set.",
@@ -149,7 +156,8 @@
     "256bf90ce51f6665": "Second drafter loss within a week, after D-REAL, that optimizes expected acceptance length for speculative-decoding drafters.",
     "d7a4f91e59e352a3": "Adjacent: model-agnostic image cropping and compression to cut vision-language inference cost.",
     "e267de687efb45c3": "Adjacent: argues delegation in multi-agent deep research only pays off when task allocation and subtask execution are coordinated; not a diffusion-LM paper.",
-    "4e9768611cda6532": "Adjacent, image side: cuts RL fine-tuning cost for few-step diffusion samplers; not a language-model paper.",
-    "679b2c4e802619e6": "Adds self-correction to the dLLM line: a learned signal for when to remask and regenerate, after finding token confidence misses errors that hidden states expose."
+    "679b2c4e802619e6": "Adds self-correction to the dLLM line: a learned signal for when to remask and regenerate, after finding token confidence misses errors that hidden states expose.",
+    "018074f62583197d": "Brings speculative decoding into disaggregated serving: decode starts on invalidated KV while agent requests with edited context would otherwise wait for re-prefill.",
+    "018ac20c79d4eeba": "Adjacent, vendor side: a Baseten post on the efficiency frontier of LLM inference, surfaced via Hacker News; not a diffusion-LM item."
   }
 }

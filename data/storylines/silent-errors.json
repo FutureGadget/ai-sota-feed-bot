@@ -1,0 +1,129 @@
+{
+ "slug": "silent-errors",
+ "label": "Silent Errors",
+ "item_count": 4,
+ "day_count": 4,
+ "source_count": 3,
+ "first_seen": "2026-11-03T06:34:45+00:00",
+ "last_updated": "2026-11-13T15:13:47+00:00",
+ "generated_at": "2026-11-17T00:13:09.187086+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_ai",
+  "arxiv_cs_cl"
+ ],
+ "days": [
+  {
+   "date": "2026-11-03",
+   "items": [
+    {
+     "title": "Silent Instrument Errors Reorder Agent Leaderboards",
+     "url": "http://arxiv.org/abs/2611.04399v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "On a public agent leaderboard, a general-purpose agent trails a scaffold built for an airline customer-service benchmark by 13 points on the tasks that touch its database, and a reader could conclude that generality c...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "7dfaaa125cb6bf17",
+     "published": "2026-11-03T06:34:45+00:00",
+     "editor_note": "Opens the theme on the eval side: harness errors that raise no alarm can change which agent looks better."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-05",
+   "items": [
+    {
+     "title": "Accepted but Wrong: Silent Failures of LLM Code Repairs after API Migrations",
+     "url": "http://arxiv.org/abs/2611.08269v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "After a runtime or API migration, an LLM-repaired procedure can run cleanly yet return wrong results, and a release check on typical test inputs ships it. We report a preregistered study of 73 tasks covering 60 documented changes in CPython, Node.js and SQLite. Every candidate is",
+     "sid": "eb99161271fd6e76",
+     "published": "2026-11-05T16:41:32+00:00",
+     "editor_note": "Shows the same failure mode in LLM code repair, backed by a preregistered 73-task study across three runtimes."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "items": [
+    {
+     "title": "Parsed, Plausible, Wrong: Output Format Controls Silent Errors in Small-Model Semantic Parsing",
+     "url": "http://arxiv.org/abs/2611.17169v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "A small fine-tuned parser that emits a well-formed but wrong tree fails silently: nothing downstream can tell. We ask whether the output format, a free design choice, controls how often this happens. On the PIZZA ordering benchmark we fine-tune two sub-billion models (Qwen3.5-0.8",
+     "sid": "463947138381fd18",
+     "published": "2026-11-12T17:43:44+00:00",
+     "editor_note": "Turns output format into a design lever for silent error rates in small fine-tuned parsers."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-13",
+   "items": [
+    {
+     "title": "Clean Tickets, Wrong Orders: Catching Silent Errors with a Language Model in Your Browser Tab",
+     "url": "http://arxiv.org/abs/2611.18284v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "A small language model that turns a typed order into structure can fail in two ways. It can print something broken, which any system rejects. Or it can print a clean, well formed order that nobody placed. Our companio...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "ecee4c24e69ad111",
+     "published": "2026-11-13T15:13:47+00:00",
+     "editor_note": "The companion paper moves from measurement to detection, running the checker in a browser tab."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a research trend, not one developing event: four independent arXiv papers in two weeks study outputs that pass every check and are still wrong. The first two found them in agent leaderboard harnesses and in LLM code repairs after API migrations.",
+  "stale": false,
+  "whats_new": "A Nov 13 companion paper moves from measuring silent errors to catching them: a small model in a browser tab flags clean, well-formed orders that the customer never placed.",
+  "why_it_matters": "Schema validation, clean exits and passing typical-input tests do not catch these errors. Agent evals and LLM-generated code need checks on the meaning of the output, not just its shape.",
+  "take_for_builders": "Add semantic checks to your release gate: test migrated or LLM-repaired code on edge inputs, not only typical ones, and audit eval harness scoring before trusting a leaderboard gap.",
+  "beats": [
+   {
+    "kicker": "EVALS",
+    "tone": "launch",
+    "headline": "Silent instrument errors reorder a public agent leaderboard",
+    "summary": "A 13-point gap on database-touching airline tasks may reflect the measuring harness, not the agent's general ability.",
+    "sids": [
+     "7dfaaa125cb6bf17"
+    ]
+   },
+   {
+    "kicker": "CODE REPAIR",
+    "tone": "turn",
+    "headline": "LLM repairs after API migrations run cleanly but return wrong results",
+    "summary": "Preregistered study of 73 tasks over 60 documented changes in CPython, Node.js and SQLite; typical-input release checks ship the bad repairs.",
+    "sids": [
+     "eb99161271fd6e76"
+    ]
+   },
+   {
+    "kicker": "PARSING",
+    "tone": "rising",
+    "headline": "Output format choice controls how often small parsers fail silently",
+    "summary": "Sub-billion fine-tuned models on the PIZZA ordering benchmark emit well-formed but wrong trees at rates that depend on the target format.",
+    "sids": [
+     "463947138381fd18"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Catching well-formed wrong orders with an in-browser language model",
+    "sids": [
+     "ecee4c24e69ad111"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do public agent leaderboards re-score entries after correcting the harness errors the Nov 3 paper describes?",
+   "Does the format effect seen on PIZZA hold for larger models or for tool-call JSON in agent loops?",
+   "How many wrong-but-valid outputs does the browser-tab checker miss, and how often does it flag correct orders?"
+  ],
+  "generated_at": "2026-11-17T00:12:21Z"
+ }
+}

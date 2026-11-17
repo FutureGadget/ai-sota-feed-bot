@@ -1,0 +1,72 @@
+{
+  "slug": "empirical-audit",
+  "generated_at": "2026-11-17T00:12:22Z",
+  "covers_last_updated": "2026-11-13T18:30:58+00:00",
+  "covers_member_sids": [
+    "fdfc122cd97a630f",
+    "fd81b2702033c7c6",
+    "5ab1b6ecf4ca3e7a",
+    "94045c979b35ebe7",
+    "77f0b452ecfd74d0",
+    "60cf435fff992a90",
+    "9b791542dc8bb7cc",
+    "44583beb4fa9105b",
+    "75db6f155d9769a5"
+  ],
+  "tldr": "This is a research trend, not one developing event: nine unrelated arXiv papers from Oct 30 to Nov 13 that each re-test a technique already in use. It began with audits of test-time compute (early stopping for reasoning models, search for world-action models) and spread to preference alignment, token-spend metrics, KV-cache reuse and benchmark integrity.",
+  "whats_new": "On Nov 13 the audits reached agent debugging: one paper tests whether mechanistic interpretability can explain web agents hallucinating page elements, the same day another audits the safety side effects of persona-vector steering.",
+  "why_it_matters": "Each paper re-checks an assumption platform teams already ship on (early stopping, token budgets, cache reuse, steering vectors, benchmark scores), so the findings are inputs to existing eval and cost decisions, not new features.",
+  "beats": [
+    {
+      "kicker": "COMPUTE",
+      "tone": "launch",
+      "headline": "Audits of test-time compute: early stopping and candidate search",
+      "summary": "Two papers ask whether extra inference spend buys reliability or just tokens.",
+      "sids": ["fdfc122cd97a630f", "fd81b2702033c7c6"]
+    },
+    {
+      "kicker": "ALIGNMENT",
+      "tone": "neutral",
+      "headline": "Direct Nash Optimization tested as a practical alignment recipe",
+      "sids": ["5ab1b6ecf4ca3e7a"]
+    },
+    {
+      "kicker": "COST & INFRA",
+      "tone": "rising",
+      "headline": "Token spend as a productivity metric, and KV caches across model updates",
+      "summary": "Two operational assumptions examined: what token budgets measure and whether cached context survives a weight update.",
+      "sids": ["77f0b452ecfd74d0", "60cf435fff992a90"]
+    },
+    {
+      "kicker": "EVAL INTEGRITY",
+      "tone": "turn",
+      "headline": "Benchmark scores can be throttled, and persona steering has safety side effects",
+      "summary": "Two papers question signals teams use to judge model capability and safety.",
+      "sids": ["9b791542dc8bb7cc", "44583beb4fa9105b"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Agent failures: where errors enter long trajectories, and whether interpretability can explain them",
+      "sids": ["94045c979b35ebe7", "75db6f155d9769a5"]
+    }
+  ],
+  "open_questions": [
+    "Do the early-stopping and test-time search audits publish thresholds a serving stack can adopt directly?",
+    "Does the DeepSeek-V4-Flash KV-cache result hold for other model families or larger weight updates?",
+    "Does any provider or eval harness add checks for deliberate score throttling (sandbagging)?",
+    "Does the trajectory-centered error study release its traces or controls so other agent teams can reproduce it?"
+  ],
+  "take_for_builders": "Before tuning early stopping, token budgets, cross-version KV-cache reuse or steering vectors in production, read the matching audit and rerun its check on your own workload rather than trusting vendor defaults.",
+  "day_captions": {
+    "fdfc122cd97a630f": "Survey plus audit of early-stopping methods for reasoning models, weighing saved compute against reliability.",
+    "fd81b2702033c7c6": "Asks when test-time search really helps world-action models, focusing on candidate selection and simulator integrity.",
+    "5ab1b6ecf4ca3e7a": "Empirical study of Direct Nash Optimization's practical iterative variant for general-preference alignment.",
+    "94045c979b35ebe7": "Traces where errors enter long-horizon agent trajectories and which controls can reach them, beyond failure-mode labels.",
+    "77f0b452ecfd74d0": "Links five weeks of coding-agent token usage to engineering output to test token spend as a productivity metric.",
+    "60cf435fff992a90": "Tests whether KV caches stay reusable after a model update, using DeepSeek-V4-Flash.",
+    "9b791542dc8bb7cc": "Studies whether a model can be driven to a target benchmark score while its failures still look like a weaker model's.",
+    "44583beb4fa9105b": "Audits safety side effects of preventative persona-vector steering against traits like sycophancy and hallucination.",
+    "75db6f155d9769a5": "Case study applying mechanistic interpretability to web agents hallucinating page elements."
+  }
+}

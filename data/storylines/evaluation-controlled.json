@@ -1,0 +1,94 @@
+{
+ "slug": "evaluation-controlled",
+ "label": "Evaluation Controlled",
+ "item_count": 3,
+ "day_count": 2,
+ "source_count": 3,
+ "first_seen": "2026-11-06T09:42:50+00:00",
+ "last_updated": "2026-11-13T16:14:31+00:00",
+ "generated_at": "2026-11-17T00:13:09.187086+00:00",
+ "sources": [
+  "arxiv_cs_lg",
+  "arxiv_llm_reliability",
+  "huggingface_blog"
+ ],
+ "days": [
+  {
+   "date": "2026-11-06",
+   "items": [
+    {
+     "title": "KLEAR: Knowledge-Matched LLM Evaluation in Korean across Application Requirements via Controlled Benchmark Transformation",
+     "url": "http://arxiv.org/abs/2611.09223v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Existing Korean benchmarks for Large Language Models (LLMs) evaluate performance across diverse knowledge domains, but their accuracy scores cannot distinguish whether incorrect responses arise from a lack of required...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "a7c918cc21d10797",
+     "published": "2026-11-06T09:42:50+00:00",
+     "editor_note": "Language-specific case: rewrites Korean benchmarks so a wrong answer can be traced to missing knowledge."
+    },
+    {
+     "title": "ToyBlocks: A controlled world for robot learning and evaluation",
+     "url": "https://huggingface.co/blog/allenai/toyblocks",
+     "source": "huggingface_blog",
+     "type": "research",
+     "summary_1line": "ToyBlocks: A controlled world for robot learning and evaluation",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "5a90caffb2c87d2e",
+     "published": "2026-11-06T14:00:48+00:00",
+     "editor_note": "Embodied case: AllenAI's controlled block world for robot learning and evaluation."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-13",
+   "items": [
+    {
+     "title": "DECODE: Decomposable Environments for COntrolled Sequential-Decision Evaluation",
+     "url": "http://arxiv.org/abs/2611.18367v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "When a sequential decision system falls short of an optimum, its score does not reveal which modifications would improve its decisions. DECODE is a benchmark for testing such modifications through controlled experimen...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "450d5a403be356b6",
+     "published": "2026-11-13T16:14:31+00:00",
+     "editor_note": "Extends the approach to sequential decisions, testing which system change helps."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a research trend, not one developing event: three unrelated groups published benchmarks that change one variable at a time so a failure can be traced to a cause. On Nov 6, KLEAR did this for Korean LLM knowledge questions and AllenAI's ToyBlocks did it for robot learning in a simulated block world.",
+  "stale": false,
+  "whats_new": "DECODE (Nov 13) brings controlled evaluation to sequential decision-making, using decomposable environments to test which change to a system actually improves its decisions.",
+  "why_it_matters": "A single aggregate score cannot tell you whether an agent failed on missing knowledge, poor planning, or the environment, and these benchmarks are designed to separate those causes.",
+  "take_for_builders": "When an agent eval regresses, add ablation cases that change one factor at a time (knowledge, plan length, environment) before you trust the aggregate score.",
+  "beats": [
+   {
+    "kicker": "ORIGIN",
+    "tone": "launch",
+    "headline": "Two controlled benchmarks land the same day: Korean LLM knowledge and robot learning",
+    "summary": "KLEAR separates missing knowledge from other error sources. ToyBlocks gives robot policies a controlled world to train and test in.",
+    "sids": [
+     "a7c918cc21d10797",
+     "5a90caffb2c87d2e"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "DECODE applies the same idea to sequential decision systems",
+    "summary": "Decomposable environments let researchers test whether a specific change to a system improves its decisions.",
+    "sids": [
+     "450d5a403be356b6"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does a controlled benchmark for LLM agents with tool use appear, separating tool, planning, and knowledge failures?",
+   "Do DECODE or KLEAR release code and data that can be run against production models?",
+   "Do diagnoses from these controlled setups match what aggregate leaderboards show for the same models?"
+  ],
+  "generated_at": "2026-11-17T00:12:18Z"
+ }
+}

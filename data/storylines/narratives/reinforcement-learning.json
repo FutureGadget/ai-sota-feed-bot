@@ -1,152 +1,68 @@
 {
   "slug": "reinforcement-learning",
-  "generated_at": "2026-11-16T00:11:54Z",
-  "covers_last_updated": "2026-11-13T01:36:36+00:00",
+  "generated_at": "2026-11-17T00:12:37Z",
+  "covers_last_updated": "2026-11-13T12:23:14+00:00",
   "covers_member_sids": [
-    "7c1fed0d11e9b516",
-    "500b1aba48043738",
-    "6f21f6e8dedb00a0",
-    "594cded7cf1742be",
-    "7d1c303b6572b6ff",
-    "9c6961c015612e8b",
-    "d24c53b475096517",
-    "cd86ac953a59e37c",
-    "e13096c02b9a44d7",
-    "c2fbad095b72bbaa",
-    "a23623abdfcb0e52",
     "3e4010b903d1d7e9",
-    "65dc6916d3b352f1",
-    "bce25dc1c825a3e7",
+    "8b24b2aa117fb77b",
     "5ab1b6ecf4ca3e7a",
-    "7ae1983bc20b4540",
-    "c22d6852787690aa",
-    "4e7cf2bff5db16a6",
-    "d48d8aea5d45b475",
+    "06c2c68bc425da7f",
     "23c0753cd928bfa7",
-    "b3a45cba6445f63d",
-    "a34f1fafb710e628",
-    "ae75fdfb8dec6766",
+    "b76cb948754a8e57",
+    "1c564d62e97c9758",
     "151cc2392264c544",
-    "2b4992932ff2ee7d",
-    "3debe09eabc6be1b"
+    "7b04b19e28032924",
+    "c9c6bd7b30cb6c70"
   ],
-  "tldr": "This thread is a loose grouping of arXiv papers on LLM multi-agent systems and agent policy training, not one developing story. Since Oct 26 it has collected work on learned and self-evolving orchestration, RL recipes for long-horizon agents, four agent benchmarks, and papers on auditing, privacy and failure attribution.",
-  "whats_new": "Nov 13: AgentLeak, an open-source privacy-testing tool for multi-agent LLM systems, appeared as a Show HN, the thread's first item that is a tool rather than an arXiv paper.",
-  "why_it_matters": "Multi-agent work is shifting from hand-wired workflows to learned orchestration, while tooling to audit, attribute failures in, and privacy-test those systems is only now appearing. Every result here is paper- or author-reported, not production evidence.",
+  "tldr": "This is a loose cluster of arXiv papers that share the word \"optimization\", not one developing story; it was reclustered away from the earlier multi-agent grouping. It now holds two research strands: agent RL and preference-optimization recipes (TSBPO, DNO, steerable multi-objective GRPO, PORT), and agents that optimize GPU kernels and AI infrastructure (question-driven kernel agents, a local 7B model study, Infrathon).",
+  "whats_new": "Nov 13: AscendGYM added a cost-aware kernel-optimization benchmark for real workloads on Ascend NPUs, and VEPO proposed preference optimization grounded in visual evidence to cut multilingual hallucination in vision-language models.",
+  "why_it_matters": "Kernel and infra tuning is becoming a benchmarked agent task, and preference optimization is being adapted for noisy labels and shifting objectives; every result here is author-reported on the papers' own benchmarks, not production evidence.",
   "beats": [
     {
-      "kicker": "ORCHESTRATION",
+      "kicker": "AGENT RL",
       "tone": "launch",
-      "headline": "Papers move multi-agent design from one-shot wiring to learned, self-evolving orchestration",
-      "summary": "Coordination-aware prompt optimization, memory refinement, self-evolution, information-gap repair and learned orchestrators.",
-      "sids": [
-        "7c1fed0d11e9b516",
-        "7d1c303b6572b6ff",
-        "c2fbad095b72bbaa",
-        "a23623abdfcb0e52",
-        "4e7cf2bff5db16a6"
-      ]
+      "headline": "TSBPO tackles sampling and delayed credit for agents trained on terminal outcomes",
+      "sids": ["3e4010b903d1d7e9"]
     },
     {
-      "kicker": "POLICY TRAINING",
+      "kicker": "PREFERENCE OPTIMIZATION",
       "tone": "rising",
-      "headline": "RL recipes for long-horizon agents target turn-level credit and partial verifiers",
-      "summary": "Multiscale and tree-structured policy optimization, a harness-as-policy analysis, open multi-agent RL axioms, and negative-only RLVR.",
-      "sids": [
-        "500b1aba48043738",
-        "9c6961c015612e8b",
-        "3e4010b903d1d7e9",
-        "bce25dc1c825a3e7",
-        "2b4992932ff2ee7d"
-      ]
+      "headline": "Preference-optimization papers target general preferences, shifting objectives, noisy labels and visual grounding",
+      "summary": "DNO empirical study, steerable multi-objective GRPO with LoRA adapters, PORT token reweighting, and VEPO.",
+      "sids": ["5ab1b6ecf4ca3e7a", "06c2c68bc425da7f", "1c564d62e97c9758", "c9c6bd7b30cb6c70"]
     },
     {
-      "kicker": "BENCHMARKS",
+      "kicker": "KERNEL & INFRA AGENTS",
       "tone": "rising",
-      "headline": "Four benchmarks test agents on robot control, security review, AI infra and workflow orchestration",
-      "summary": "EBench, Snyk VulnBench 2.0, Infrathon and WorkflowArena.",
-      "sids": [
-        "6f21f6e8dedb00a0",
-        "d24c53b475096517",
-        "23c0753cd928bfa7",
-        "b3a45cba6445f63d"
-      ]
+      "headline": "Agents that tune GPU kernels and AI infrastructure get methods and benchmarks",
+      "summary": "Question-driven kernel agents, a local 7B CUDA study, Infrathon, and the Ascend NPU benchmark AscendGYM.",
+      "sids": ["8b24b2aa117fb77b", "b76cb948754a8e57", "23c0753cd928bfa7", "7b04b19e28032924"]
     },
     {
       "kicker": "COST",
       "tone": "neutral",
-      "headline": "KV-cache quantization and small-model routing aim at multi-agent memory and compute cost",
-      "sids": [
-        "d48d8aea5d45b475",
-        "151cc2392264c544"
-      ]
-    },
-    {
-      "kicker": "ASSURANCE",
-      "tone": "rising",
-      "headline": "Auditing, private retrieval and failure attribution get proposed as multi-agent safety layers",
-      "sids": [
-        "e13096c02b9a44d7",
-        "a34f1fafb710e628",
-        "ae75fdfb8dec6766"
-      ]
-    },
-    {
-      "kicker": "ADJACENT",
-      "tone": "neutral",
-      "headline": "Neighboring work: surveys, preference alignment, judge prompts, speech translation and flow models",
-      "sids": [
-        "594cded7cf1742be",
-        "cd86ac953a59e37c",
-        "65dc6916d3b352f1",
-        "5ab1b6ecf4ca3e7a",
-        "7ae1983bc20b4540",
-        "c22d6852787690aa"
-      ]
-    },
-    {
-      "kicker": "NOW",
-      "tone": "now",
-      "headline": "AgentLeak brings open-source privacy testing for multi-agent systems to Show HN",
-      "sids": [
-        "3debe09eabc6be1b"
-      ]
+      "headline": "Small-model routing tries to switch on reasoning, retrieval and tools only when a request needs them",
+      "sids": ["151cc2392264c544"]
     }
   ],
   "open_questions": [
-    "Does learned or self-evolving orchestration beat a fixed, hand-designed workflow on an independent benchmark such as WorkflowArena?",
-    "Does any independent group reproduce the turn-level or tree-structured policy optimization gains on long-horizon agents?",
-    "Does AgentLeak publish leak-rate results for named agent frameworks, and are they independently reproduced?",
-    "Does failure attribution like CoLFA identify the responsible agent and step accurately on production traces, not only on its own benchmarks?",
-    "Does coordinated KV-cache quantization hold task quality when agents run different base models?"
+    "Does any independent group reproduce TSBPO's gains on long-horizon agent tasks outside the paper's own environments?",
+    "Do kernel-optimization agents beat vendor libraries and hand-tuned kernels on Infrathon or AscendGYM workloads under their cost accounting?",
+    "Can a locally hosted 7B code model produce correct CUDA kernels reliably enough to use without a larger model in the loop?",
+    "Does PORT's token-level reweighting hold its advantage when preference-label noise is measured on real production feedback?",
+    "Does small-model routing cut compute without a measurable quality drop on traffic other than the study's benchmark?"
   ],
-  "take_for_builders": "Keep hand-designed workflows as the baseline when trialing learned orchestration, and add inter-agent data-leak and per-agent failure-attribution checks to your eval suite before widening what agents share.",
+  "take_for_builders": "If you trial an agent for kernel or infra tuning, gate every change on a correctness check before measuring speed, and compare against your current vendor-library baseline; treat the preference-optimization results as candidates for your own eval, not drop-in replacements for DPO.",
   "day_captions": {
-    "7c1fed0d11e9b516": "Opens the thread: separates coordination from task execution in multi-agent prompt optimization.",
-    "500b1aba48043738": "Observes critic values vary mainly across turns and optimizes long-horizon agents at that scale.",
-    "6f21f6e8dedb00a0": "Benchmarks frontier multimodal models controlling robots directly versus through a harness with a policy.",
-    "594cded7cf1742be": "Broad overview of work agents across tools, applications and workflows; context, not a new method.",
-    "7d1c303b6572b6ff": "Argues team-level success alone cannot show which stored memory needs correcting or when to apply it.",
-    "9c6961c015612e8b": "Treats the harness of prompts, tools and control logic as part of the policy being trained.",
-    "d24c53b475096517": "VulnBench 2.0 compares what AI security agents and deterministic SAST each find and miss.",
-    "cd86ac953a59e37c": "Survey of security, privacy and robustness in distributed and federated training; adjacent to the thread.",
-    "e13096c02b9a44d7": "Position paper proposing auditable belief updates as a safety layer for multi-agent systems.",
-    "c2fbad095b72bbaa": "Moves orchestrator training beyond one-shot system generation toward iterative self-evolution.",
-    "a23623abdfcb0e52": "Targets evidence stranded by a fixed workflow's communication graph on multi-step web tasks.",
-    "3e4010b903d1d7e9": "Tree-structured branching to couple sampling, delayed credit and token-loss aggregation in agent RL.",
-    "65dc6916d3b352f1": "Policy geometry for GRPO on few-step flow models; adjacent to the thread.",
-    "bce25dc1c825a3e7": "Axiomatic framework for RL in open multi-agent systems where only some agents are controllable.",
-    "5ab1b6ecf4ca3e7a": "Empirical study of Direct Nash Optimization for preference alignment; adjacent to the thread.",
-    "7ae1983bc20b4540": "Explorative policy learning for simultaneous speech translation; adjacent to the thread.",
-    "c22d6852787690aa": "Iterative prompt optimization to keep LLM judges aligned with human policy as usage drifts.",
-    "4e7cf2bff5db16a6": "Studies higher-order interactions when a central orchestrator learns agent selection and information flow.",
-    "d48d8aea5d45b475": "Coordinates mixed-precision KV-cache quantization across agents instead of per model.",
-    "23c0753cd928bfa7": "Infrathon benchmarks agents on long-horizon, real-world AI infrastructure optimization.",
-    "b3a45cba6445f63d": "WorkflowArena benchmarks executable workflow orchestration with spawned worker agents.",
-    "a34f1fafb710e628": "Examines private knowledge retrieval and private inference for secure multi-agent deployments.",
-    "ae75fdfb8dec6766": "Lightweight failure attribution that traces the decisive error step and responsible agent.",
-    "151cc2392264c544": "Tests small models and prompt optimization for routing requests to reasoning, retrieval or tools.",
-    "2b4992932ff2ee7d": "Negative-only policy optimization for RLVR when the verifier's signal is one-sided.",
-    "3debe09eabc6be1b": "Newest: an open-source privacy-testing tool, and the only non-arXiv item in the thread."
+    "3e4010b903d1d7e9": "Opens the cluster: one recipe coupling continuation sampling, delayed credit and token-loss aggregation for agent RL.",
+    "8b24b2aa117fb77b": "First kernel-agent item: argues for question-driven agents over scripted or fully free-form ones.",
+    "5ab1b6ecf4ca3e7a": "Empirical look at Direct Nash Optimization's practical variant for general-preference alignment.",
+    "06c2c68bc425da7f": "Trains one steerable policy across objective trade-offs with jointly trained low-rank adapters.",
+    "23c0753cd928bfa7": "Infrathon asks whether frontier agents can keep improving real AI infrastructure over long horizons.",
+    "b76cb948754a8e57": "Measures how much interaction strategy matters for Qwen2.5-Coder-7B writing CUDA kernels on 30 KernelBench tasks.",
+    "1c564d62e97c9758": "Token-level reweighting to make preference optimization robust to noisy annotations.",
+    "151cc2392264c544": "Tests whether small models and prompt optimization can route requests to optional reasoning, retrieval or tools.",
+    "7b04b19e28032924": "Newest: AscendGYM extends kernel benchmarking to cost-aware optimization on Ascend NPUs.",
+    "c9c6bd7b30cb6c70": "Newest: VEPO applies preference optimization to multilingual object hallucination in vision-language models."
   }
 }

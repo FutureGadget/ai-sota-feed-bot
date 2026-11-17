@@ -3,31 +3,15 @@
  "label": "Inference Engine",
  "item_count": 8,
  "day_count": 7,
- "source_count": 3,
- "first_seen": "2026-10-24T00:24:08+00:00",
- "last_updated": "2026-11-11T18:18:33+00:00",
- "generated_at": "2026-11-14T00:13:06.733465+00:00",
+ "source_count": 2,
+ "first_seen": "2026-10-31T19:17:31+00:00",
+ "last_updated": "2026-11-16T20:52:34+00:00",
+ "generated_at": "2026-11-17T00:13:09.187086+00:00",
  "sources": [
   "arxiv_cs_ai",
-  "hackernews_ai",
-  "search_llm_ops_news"
+  "hackernews_ai"
  ],
  "days": [
-  {
-   "date": "2026-10-24",
-   "items": [
-    {
-     "title": "Why founders keep failing to vibecode their own LLM inference engine",
-     "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNWFQyRXJtQU5CWDVfWjZfUXpLaDFFUkFJc2tkWWE3RDljeVRhRmoyRXhIS1A1cG5Hd0VxTDhZdlNENmY1czlEQ19uZjVKOXRja1ZMeW5DNXpNT1hydjNKUlNLaFpZNlV2OHI5NkZIaGJFbUs0OUpMa1JqLUc2WHdjN2VmTHY0eDJCZDI2aW5mQVFudnl2RXdWSDJWNzE?oc=5",
-     "source": "search_llm_ops_news",
-     "type": "news",
-     "summary_1line": "Why founders keep failing to vibecode their own LLM inference engine Startup Fortune",
-     "sid": "11667337918f4f3c",
-     "published": "2026-10-24T00:24:08+00:00",
-     "editor_note": "Opens the build-or-buy question: an argument that vibecoded LLM inference engines keep failing for founders."
-    }
-   ]
-  },
   {
    "date": "2026-10-31",
    "items": [
@@ -124,25 +108,39 @@
      "summary_1line": "Kindi: The fastest software inference engine for low-cost GPUs",
      "sid": "1adc84018e934ecd",
      "published": "2026-11-11T18:18:33+00:00",
-     "editor_note": "Newest entry: a software engine for low-cost GPUs with a self-declared \"fastest\" claim."
+     "editor_note": "A software engine for low-cost GPUs with a self-declared \"fastest\" claim and no published benchmark."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-16",
+   "items": [
+    {
+     "title": "Show HN: Goethe – turn your computer into an inference engine",
+     "url": "https://github.com/meshapplied/goethe",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Hi HN, I'm Matteo from meshapplied (YC W27), building this with Peter and Janos. We think you can and should own your inference, so we built software that actually supports that. Goethe turns a Linux machine with an N...",
+     "sid": "8ac6ca4d7f430268",
+     "published": "2026-11-16T20:52:34+00:00",
+     "editor_note": "Newest entry and first startup product: a YC-backed tool that turns a Linux machine into a self-owned inference engine."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This is a topical cluster, not one event: eight items since Oct 24 that share only the phrase \"inference engine\". They split into build-or-host economics, vendor runtimes from Nvidia and Google, independent engines for niche stacks, and one arXiv hardware paper.",
+  "tldr": "This is a topical cluster, not one event: eight items since Oct 31 that share only the phrase \"inference engine\". They split into hosting economics, vendor runtimes from Nvidia and Google, independent engines for niche stacks, and one arXiv hardware paper.",
   "stale": false,
-  "whats_new": "Kindi, posted Nov 11, bills itself as the fastest software inference engine for low-cost GPUs; the listing carries no benchmark, so the speed claim is the author's own.",
-  "why_it_matters": "The serving layer is fragmenting by hardware target (DGX Spark, XLA, Vulkan on Windows, low-cost GPUs) while two items question whether building or hosting an engine pays at all.",
-  "take_for_builders": "Treat every speed claim in this cluster as unverified until you run it on your own model and hardware; settle the build-or-host question with your own utilization numbers before adopting a new engine.",
+  "whats_new": "Goethe, a Show HN posted Nov 16 by YC-backed meshapplied, pitches software that turns a Linux machine into your own inference engine; the post makes the \"own your inference\" case but cites no benchmarks.",
+  "why_it_matters": "The serving layer is fragmenting by hardware target (DGX Spark, XLA, Vulkan on Windows, low-cost GPUs, a single Linux box) while the hosting-profitability question stays open.",
+  "take_for_builders": "Treat every speed claim in this cluster as unverified until you run it on your own model and hardware; settle the self-host question with your own utilization numbers before adopting Goethe or any other new engine.",
   "beats": [
    {
-    "kicker": "BUILD OR BUY",
+    "kicker": "ECONOMICS",
     "tone": "neutral",
-    "headline": "Two pieces question the economics of running your own engine",
-    "summary": "One asks why founders fail at vibecoding an LLM inference engine; the other asks whether hosting an open-source engine is profitable.",
+    "headline": "An analysis asks whether hosting an open-source inference engine pays",
+    "summary": "The cost side of the cluster: whether self-hosting an open-source engine is profitable at all.",
     "sids": [
-     "11667337918f4f3c",
      "2f11643a689186b4"
     ]
    },
@@ -175,14 +173,24 @@
     "sids": [
      "fc7c1780406958b5"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "YC startup meshapplied launches Goethe to run inference on your own Linux machine",
+    "summary": "The first venture-backed entry in the cluster, framed as owning your inference rather than renting it.",
+    "sids": [
+     "8ac6ca4d7f430268"
+    ]
    }
   ],
   "open_questions": [
    "Does any independent benchmark confirm Kindi's \"fastest on low-cost GPUs\" claim?",
+   "Which models and GPUs does Goethe support, and how does its throughput compare with vLLM or llama.cpp on the same box?",
    "Which model formats and hardware does Google's XLA Serving Engine support at launch?",
    "Does Nvidia's Flare run on hardware other than DGX Spark?",
    "At what utilization does hosting an open-source inference engine break even against a managed API?"
   ],
-  "generated_at": "2026-11-12T00:13:57Z"
+  "generated_at": "2026-11-17T00:12:21Z"
  }
 }
