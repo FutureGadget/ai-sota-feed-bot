@@ -858,6 +858,17 @@
   "url": "http://arxiv.org/abs/2611.15521v1",
   "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
+ "0a955d5ce4e49a6f": {
+  "first_seen": "2026-11-17T00:08:58.064493+00:00",
+  "id": "ae3012bc5f60ef96",
+  "published": "2026-11-13T16:59:46+00:00",
+  "sid": "0a955d5ce4e49a6f",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Humans know that airplanes are fast, that this extends to red airplanes, but that it does not hold for broken airplanes. How do LLMs acquire category knowledge that humans learn and apply effortlessly? We introduce LeCat, a two-part framework to analyze LLM's Learning of Category",
+  "title": "LECAT: Measuring LLM Category Learning from Pretraining Data",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18419v1"
+ },
  "0aacbce5f85ac122": {
   "first_seen": "2026-11-10T07:09:29.721027+00:00",
   "id": "d393fa93c50f5aed",
@@ -1142,6 +1153,17 @@
   "type": "news",
   "url": "https://github.com/perzianhq/mantis",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "0e1daf24d6328a56": {
+  "first_seen": "2026-11-17T00:08:58.064493+00:00",
+  "id": "91a5ed35d3c8fa8c",
+  "published": "2026-11-13T14:40:26+00:00",
+  "sid": "0e1daf24d6328a56",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Efficient sequential recommendation has emerged as a promising paradigm for providing real-time personalized service. To deploy models under resource-constrained environment, model compression becomes a necessity, yet existing methods typically apply uniform compression ratios, o",
+  "title": "RACE: Ranking-Uncertainty Aware Capacity-Adaptive Customization for Efficient Sequential Recommendation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18244v1"
  },
  "0e1e76b78d380c4d": {
   "first_seen": "2026-11-05T16:09:06.783851+00:00",
@@ -2877,6 +2899,17 @@
   "url": "http://arxiv.org/abs/2611.14399v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "257c436948408480": {
+  "first_seen": "2026-11-17T00:08:58.064493+00:00",
+  "id": "5b71cdb9f0c6830e",
+  "published": "2026-11-13T14:58:11+00:00",
+  "sid": "257c436948408480",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Answer continuation often returns a diagnosis already stated in unfinished clinical reasoning. We study this behavior in MamaReason, adapted from dense Gemma 4 31B, on MamaBench's 217 paired maternal and child-health presentations. An explicit-commitment extractor identifies a di",
+  "title": "MamaReason: Unfinished Reasoning and Answer Recovery in Clinical Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18264v1"
+ },
  "25f77d9f083eed7d": {
   "first_seen": "2026-11-10T04:03:44.888735+00:00",
   "id": "141b1c964499c477",
@@ -3204,7 +3237,7 @@
   "sid": "29af66db261f00b5",
   "source": "arxiv_cs_cl",
   "summary": "Speech applications require decisions about term presence, turn completion, and language within an audio window. We present Marimba, an interface for typed speech decisions built on frozen Qwen3-ASR 0.6B features. Lexical questions use zero-shot scoring of ASR transcripts; non-lexical questions use a question-conditioned head and a separate layer-18 turn-end readout. Language identification uses the ASR model's own language scores. On private conversational test sets, decoder AUROC is 0.80-0.92; on public read speech it is 0.92-0.97. Speech Commands four-way accuracy is 0.93; binary lexical ECE is at most 0.08. Personal-information detection, which passes the greedy transcript to a private, curated PII pipeline, reaches item-level F1 0.904 on synthetic Brazilian Portuguese speech (1.000 on reference transcripts). Layer-12 speaker readouts detect speaker change with AUROC 0.966-0.980 on AMI and VoxConverse, above an ECAPA baseline, and count speakers (0, 1, 2, or 3+) more accurately than pyannote 3.1. The turn-end readout reaches AUROC 0.930 versus Smart Turn v3.2 at 0.982 on Smart Turn's own test set. On a subset of ICSI meetings labeled by next speaker, AUROC is 0.716 versus 0.712; the paired confidence interval includes zero.",
-  "summary_1line": "Speech applications require decisions about term presence, turn completion, and language within an audio window. We present Marimba, an interface for typed speech decisions built on frozen Qwen3-ASR 0.6B features. Lex...",
+  "summary_1line": "Speech applications require decisions about term presence, turn completion, and language within an audio window. We present Marimba, an interface for typed speech decisions built on frozen Qwen3-ASR 0.6B features. Lexical questions use zero-shot scoring of ASR transcripts; non-le",
   "title": "Marimba: A System One Model for Speech",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18330v1"
@@ -3928,7 +3961,7 @@
   "sid": "31c90e17a3d4c4b3",
   "source": "arxiv_cs_ai",
   "summary": "Existing memory forensics for machine learning systems typically targets static artifacts, such as model weights or prompt logs, rather than the transient computational states of a live inference process. This gap limits an examiner's ability to analyze the specific behavior of a running large language model (LLM) service that cannot be restarted or modified. We present a method for acquiring per-layer residual-stream activations from a live GPU process using a non-modifying debugger, without requiring prior knowledge of the model's architecture parameters or weights. The approach employs a general six-stage process with platform-specific adapters, utilizing either a PyTorch allocator clock or a kernel-launch clock to identify and read tensor allocations from video memory. We validate this acquisition on 33 open-source decoder-only models across nine architecture classes, demonstrating that the recovered bytes are byte-exact and usable for downstream analysis. As a use case, we apply linear probes trained on standard framework activations to the recovered states, successfully distinguishing refusal from compliance with an AUROC of 0.88 on held-out prompts. This work establishes that live, observational access to intermediate hidden states is feasible on named inference platforms, providing a new source of evidence for examining the operational behavior of deployed AI systems.",
-  "summary_1line": "Existing memory forensics for machine learning systems typically targets static artifacts, such as model weights or prompt logs, rather than the transient computational states of a live inference process. This gap lim...",
+  "summary_1line": "Existing memory forensics for machine learning systems typically targets static artifacts, such as model weights or prompt logs, rather than the transient computational states of a live inference process. This gap limits an examiner's ability to analyze the specific behavior of a",
   "title": "From Bytes to Behavior: Request-Level Attribution from Live GPU Hidden States",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18272v1"
@@ -5348,7 +5381,7 @@
   "sid": "450d5a403be356b6",
   "source": "arxiv_cs_lg",
   "summary": "When a sequential decision system falls short of an optimum, its score does not reveal which modifications would improve its decisions. DECODE is a benchmark for testing such modifications through controlled experiments on planning and available information. Its consumer-credit collections generator provides five partially observed environments that share known dynamics matrices and vary a memory parameter and process noise. The experiments change selected inputs or planning rules while keeping the rest of the solver fixed. Each comparison specifies the solver's state inputs, response inputs and planning horizon. On the deterministic base environment, which was selected for a large gap between six-month and one-month planning with the hidden state, extending planning from one to six months increases the scores of two gradient-boosted solvers by 15 to 17 percentage points of the exact optimum, computed with the hidden state and borrower traits. Even at this horizon, the best graded solver, whose repayment response is fitted on logs, remains 15.6 points below that optimum. In a specified intervention sequence, three changes to its state inputs and their evaluation during search lower its score by 6.3 points, and replacing its fitted repayment model with the true response, evaluated with hidden borrower traits, then raises it by 15.6, a net recovery of nine of those points. Because the intermediate effects are conditional on the repayment model and the order of the changes, they",
-  "summary_1line": "When a sequential decision system falls short of an optimum, its score does not reveal which modifications would improve its decisions. DECODE is a benchmark for testing such modifications through controlled experimen...",
+  "summary_1line": "When a sequential decision system falls short of an optimum, its score does not reveal which modifications would improve its decisions. DECODE is a benchmark for testing such modifications through controlled experiments on planning and available information. Its consumer-credit c",
   "title": "DECODE: Decomposable Environments for COntrolled Sequential-Decision Evaluation",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18367v1",
@@ -5938,6 +5971,17 @@
   "title": "QwenPU: An LLM running inside another LLM's weights",
   "type": "news",
   "url": "https://huggingface.co/divagr1925/QwenPU"
+ },
+ "4eec554a257d88ac": {
+  "first_seen": "2026-11-17T00:08:58.064493+00:00",
+  "id": "daa15b882f854aaf",
+  "published": "2026-11-13T15:21:50+00:00",
+  "sid": "4eec554a257d88ac",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "AI judges, models that grade another system's output against a rubric, extend clinical review to the scale at which clinical AI writes. When teams use judge assessments to select a prompt or train a model, the judge becomes part of the intervention. Selection can then favor error",
+  "title": "When evaluation becomes intervention in clinical AI",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18297v1"
  },
  "4f23b0942aea3fd7": {
   "first_seen": "2026-11-06T21:05:32.512052+00:00",
@@ -7820,6 +7864,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.16981v1"
  },
+ "66b4c281f60db986": {
+  "first_seen": "2026-11-17T00:08:58.064493+00:00",
+  "id": "279163434b3b2b12",
+  "published": "2026-11-13T15:32:09+00:00",
+  "sid": "66b4c281f60db986",
+  "source": "arxiv_cs_ai",
+  "summary_1line": "Web platforms record user and item activity in relational databases whose schemas differ from platform to platform, which makes it difficult to transfer predictive models between them. Relational foundation models address this through cross-database pretraining, yet recent improv",
+  "title": "Experts Across Schemas: Agent-Guided Mixture-of-Relational-Experts for Cross-Database Generalization",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18315v1"
+ },
  "66bf592dd3386f74": {
   "first_seen": "2026-11-07T00:07:33.105822+00:00",
   "id": "7e1a6408198c7f90",
@@ -8721,7 +8776,7 @@
   "sid": "75db6f155d9769a5",
   "source": "arxiv_llm_reliability",
   "summary": "Mechanistic Interpretability (MI) has made significant progress in explaining the internal computations of Large Language Models (LLMs); however, these advances have yet to demonstrate comparable success in explaining the decision-making processes of LLM-based agents. This paper examines the challenges MI tools face when applied to realistic agentic failures. We focus on one such failure: web agents hallucinating actions that are not available on a website. We apply a series of mechanistic analyzes to Qwen2.5-7B-Instruct as it interacts with live websites. We find that a linear probe trained on the last prompt token can predict hallucinations before generation begins (0.80 AUC) and steering along a probe direction corrects 85\\% of hallucinations, but disrupts 7\\% of valid actions. However, these results only provide a partial explanation of why the agent hallucinates. The probe direction is sensitive to prompt formatting, losing much of its steering effect after a minor change to how actions are represented. Additionally, circuit identification can be difficult as the computation is distributed across multiple components and positions, and the information the agent relies on varies across examples. We discuss how these observations challenge the assumptions underlying standard MI methods for circuit discovery and feature identification, and outline future directions for making these methods better suited to explain failures in LLM-based agents.",
-  "summary_1line": "Mechanistic Interpretability (MI) has made significant progress in explaining the internal computations of Large Language Models (LLMs); however, these advances have yet to demonstrate comparable success in explaining...",
+  "summary_1line": "Mechanistic Interpretability (MI) has made significant progress in explaining the internal computations of Large Language Models (LLMs); however, these advances have yet to demonstrate comparable success in explaining the decision-making processes of LLM-based agents. This paper",
   "title": "Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18514v1",
@@ -11236,6 +11291,20 @@
   "title": "Do Agentic Policies Need to Look at Every Step? Geometric Abstraction for Reasoning and Action",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05058v1"
+ },
+ "9634b5e75ef12012": {
+  "content_excerpt": "At SC26, an annual supercomputing conference taking place this week in Chicago, NVIDIA is introducing the DGX Spark HPC Developer Kit for researchers, academics and developers. The kit is a four-node cluster of NVIDIA DGX Spark systems , each connected directly to its two neighbors in a ring, with an NVIDIA HPC SDK installation playbook coming soon. Researchers get a place at their desk to run multi-node scientific workloads, AI models and agents, instead of waiting for time on a shared GPU cluster. The kit puts the GB10 Grace Blackwell Superchip on researchers’ desks. It scales from one system, or node, to four — linked directly to one another over NVIDIA ConnectX-7 networking, with no network switch to buy or set up. At four nodes, it provides 512GB of combined memory and 20TB of NVMe storage that provides researchers more capacity to distribute models and scientific workloads across the cluster. With NVFP4, researchers can deploy models with up to 700B parameters locally across the four DGX Spark clusters, such as DeepSeek V4.1. With that much power at the desk, researchers with a fixed compute and server allocation no longer have to wait in a queue for every job. Teams can develop and debug on their own, saving server hours for production runs and keeping unpublished results, and proprietary datasets on premises. The playbook for NVIDIA HPC SDK is coming soon, bringing GPU-accelerated C, C++ and Fortran compilers, libraries and message passing interface tools to the DGX S",
+  "first_seen": "2026-11-17T00:06:08.911711+00:00",
+  "id": "a741021645dc32cb",
+  "image_url": "https://blogs.nvidia.com/wp-content/uploads/2026/11/SC-Local-AI-DGX-Spark-Clusters-Blog-Header.jpg",
+  "published": "2026-11-16T23:00:05+00:00",
+  "sid": "9634b5e75ef12012",
+  "source": "nvidia_blog",
+  "summary": "At SC26, an annual supercomputing conference taking place this week in Chicago, NVIDIA is introducing the DGX Spark HPC Developer Kit for researchers, academics and developers. The kit is a four-node cluster of NVIDIA DGX Spark systems, each connected directly to its two neighbors in a ring, with an NVIDIA HPC SDK installation playbook coming […]",
+  "summary_1line": "At SC26, an annual supercomputing conference taking place this week in Chicago, NVIDIA is introducing the DGX Spark HPC Developer Kit for researchers, academics and developers. The kit is a four-node cluster of NVIDIA...",
+  "title": "NVIDIA DGX Spark Developer Kit Turns a Desk Into a Supercomputing Lab",
+  "type": "news",
+  "url": "https://blogs.nvidia.com/blog/dgx-spark-hpc-developer-kit-sc26"
  },
  "96571aa39f8d3b2f": {
   "content_excerpt": "Every agent tool stores memory in its own shape, and every week someone builds another one. None of them can read the others. Observability had the same problem until OpenTelemetry gave everyone one data model to share. A tour of today's memory formats, the proposals that already exist, and what a shared spec could look like. List every place your coding tools keep something they \"remember\". A typical setup today: That's four different shapes, and none of them can read the others . A lesson your CI agent learns stays in whatever wrote it. Your editor agent can't read it, and neither can the next tool you try. Each format is reasonable on its own. Together, they rebuild the same small idea again and again: a note an agent left for its future self, stored at some address, true for a while. And the list keeps growing. Browse r/ClaudeAI, r/LocalLLaMA or r/cursor and you'll find a steady stream of \"I built a memory layer for my agent\" posts, each with its own storage, its own schema and its own MCP tools. That's good evidence the problem is real: people keep hitting it badly enough to build something. But every new solution adds one more format that nothing else can read. The problem isn't a missing tool. It's a missing agreement , and that only comes from the community working on it together. I build one of these tools, LoreKit, which is open source. This isn't a pitch that LoreKit has solved memory. Its format is one proposal among several, with gaps of its own. The point is tha",
@@ -14420,6 +14489,17 @@
   "url": "http://arxiv.org/abs/2611.03301v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "bcf09a18088ef1bf": {
+  "first_seen": "2026-11-17T00:08:58.064493+00:00",
+  "id": "9ce1a0f4248d3f26",
+  "published": "2026-11-13T14:28:47+00:00",
+  "sid": "bcf09a18088ef1bf",
+  "source": "arxiv_agent_systems_research",
+  "summary_1line": "Personal assistant robots powered by large language models (LLMs) are likely to enter everyday life within the next decade, but the values that should guide their behaviour remain largely unspecified. Current alignment practice steers a single model toward an aggregate of human v",
+  "title": "Personalization of Basic and Moral Values Guiding LLM-Controlled Assistant Robots",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18230v1"
+ },
  "bd21d02e32b3dea4": {
   "first_seen": "2026-11-05T18:05:22.421411+00:00",
   "id": "804233001f44b24b",
@@ -15181,6 +15261,17 @@
   "url": "https://github.com/federicolaterra/knemora",
   "why_it_matters": "Matches feed focus: agentic, eval, claude code."
  },
+ "c782cc86916eca79": {
+  "first_seen": "2026-11-17T00:08:58.064493+00:00",
+  "id": "efe126489d2d2bbc",
+  "published": "2026-11-13T15:06:43+00:00",
+  "sid": "c782cc86916eca79",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Activation steering via sparse autoencoders (SAEs) enables behavioral control of large language models without task-specific fine-tuning. Yet, standard methods apply the steering signal at every generated token, displacing representations from the distribution the model was train",
+  "title": "Right Token, Right Time: From Per-Token Gating to Trajectory-Aware Activation Steering",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18274v1"
+ },
  "c7d4b5215a65d795": {
   "content_excerpt": "Researchers have demonstrated three new techniques to prevent so-called “backdoor attacks,” which induce malicious or undesirable behavior in AI models. The researchers have also proposed a concept that would repurpose backdoor attack techniques to create an additional layer of security for users. Backdoor attacks refer to instances in which someone has secretly embedded a “trigger” in an AI model that – when activated – forces the model to perform specific actions. “The important point is that the model can behave normally when the trigger is absent, making the backdoor difficult to notice during ordinary use or testing,” says Jung-Eun Kim, corresponding author of four papers describing the work and an assistant professor of computer science at North Carolina State University. “But when the trigger is activated, it can cause the model to do things an attacker intended such as generating unwanted text and executing malicious commands. “Given that AI models are used for everything from financial transactions to software development, the ability to control behaviors of AI represents a significant vulnerability,” says Kim. As AI models have become more common, and are being used for more applications, there is an increasing need to “fine-tune” the models to perform these new tasks effectively. Fine-tuning refers to additional training for AI models, which involves using additional datasets. This creates new opportunities for backdoor attacks, which can be tailored to the specifi",
   "first_seen": "2026-11-08T10:04:53.519499+00:00",
@@ -15330,6 +15421,17 @@
   "title": "Google gooses Python AI performance by... removing Python",
   "type": "news",
   "url": "https://www.theregister.com/devops/2026/11/11/google-gooses-python-ai-performance-by-removing-python/5308995"
+ },
+ "ca54e3a4f2c1d30b": {
+  "first_seen": "2026-11-17T00:08:58.064493+00:00",
+  "id": "a2a07c802fb56d48",
+  "published": "2026-11-13T16:16:03+00:00",
+  "sid": "ca54e3a4f2c1d30b",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Anomaly detection in tabular data poses significant challenges due to heterogeneous feature types-mixing numerical, categorical, and textual attributes, which complicate learning meaningful representations of normality. Recent work has applied large language models (LLMs) to this",
+  "title": "f-Divergence Self-Play for Tabular Anomaly Detection via Large Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18370v1"
  },
  "caa9073cefb43725": {
   "first_seen": "2026-11-09T20:04:06.275319+00:00",
@@ -15714,6 +15816,17 @@
   "type": "news",
   "url": "https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "d1b22ca3efd7f735": {
+  "first_seen": "2026-11-17T00:08:58.064493+00:00",
+  "id": "3fca83511549dcf9",
+  "published": "2026-11-13T17:01:18+00:00",
+  "sid": "d1b22ca3efd7f735",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Linear-attention language models replace a growing key-value cache with a recurrent state of fixed size. On an edge FPGA, this state can exceed the on-chip memory and must be paged to external memory. This paper asks whether such paging dominates the cost of decoding (generating",
+  "title": "The State Is Not the Bottleneck: A Paged-State Gated-DeltaNet Tile on a Tri-Mode Multicast Mesh, Bit-Exact from RTL to Silicon",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18422v1"
  },
  "d1b2dd4715d89ea1": {
   "content_excerpt": "Self-hosted home AI lab: live gauges, admission-controlled job runner, training and testing recipes, approved memory, and a team room any AI can join. MIT. A self-hosted home AI lab for one box: live gauges, a job runner that refuses to overload the machine, recipe templates for training and testing, memory you approve, and a team room any AI can join. Then Controls , switch to LIVE , pick slow_count , Check it fits , Start , type START . Press Pause everything half way, then Resume : the saved pieces are kept and the job finishes. Rack Community ships no model and no keys. It is the place your models run and report. To use the sample, copy engine/samples/ask_model.recipe.json into your Rack folder's recipes/ and add ask_model 8 to its peaks.conf . Admission control. admit.sh admits a job only if max(live memory in use, declared total) + the job's peak <= LIMIT . The declared total is a base figure plus the declared peaks of admitted jobs that are still alive, so two jobs that have not yet touched memory cannot both be admitted into the same gap. A refused job exits 75 and says why. Peaks live in peaks.conf ; ADMIT_LIMIT (default 90) and ADMIT_BASE (default 10) are in GB. Durable pieces. A job is split into named pieces. Each piece result is written atomically and in order, so a crash, a restart or a pause resumes at the first piece that was not saved. A supervisor outside the worker enforces a wall-clock limit per piece, including a worker stuck in a native call. Dry-run fir",
@@ -17308,6 +17421,17 @@
   "url": "http://arxiv.org/abs/2611.15491v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "e69a60411c2e3dd4": {
+  "first_seen": "2026-11-17T00:08:58.064493+00:00",
+  "id": "82928d36a3d6c06e",
+  "published": "2026-11-13T16:24:42+00:00",
+  "sid": "e69a60411c2e3dd4",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Tree ensembles are among the most accurate models for tabular data, yet the computation behind a single prediction is spread over hundreds of decision rules. Feature attributions and counterfactuals explain such predictions through the influence of features or a change of the inp",
+  "title": "Where Tree Ensembles Decide: Structural Local Explanation with Decision Predicate Graphs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18382v1"
+ },
  "e6e805daf5cea453": {
   "first_seen": "2026-11-07T00:07:33.105822+00:00",
   "id": "72050327195f01b4",
@@ -17407,6 +17531,36 @@
   "type": "video",
   "url": "https://youtu.be/qGf2Yvan4Wg",
   "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
+ "e8bf37d355c7e572": {
+  "first_seen": "2026-11-17T00:08:58.064493+00:00",
+  "id": "768db749d60ce7d6",
+  "published": "2026-11-13T09:41:55+00:00",
+  "sid": "e8bf37d355c7e572",
+  "source": "arxiv_cs_cl",
+  "summary_1line": "Human Label Variation (HLV) is increasingly recognised as an informative signal that reflects meaningful differences in how people interpret the same input. While HLV has been studied extensively in Natural Language Inference (NLI), much less is known about HLV in Visual Entailme",
+  "title": "In the Eye of the Beholder: Human Label Variation in Textual and Visual Entailment",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17954v1"
+ },
+ "e92a16b627ebc27c": {
+  "first_seen": "2026-11-17T00:06:08.911711+00:00",
+  "id": "69cf9ece4f644283",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-11-12T21:14:49+00:00",
+  "sid": "e92a16b627ebc27c",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Major industry multi-agent systems like Codex and Claude Code can be broken by attacks that have long been unsuccessful against modern frontier models. AI Safety as a discipline has largely focused on finding the bounds and vulnerabilities of AI models used in isolation. Yet as humans increasingly deploy these models as agents and multi-agent systems, the same attacks that had been thought to be patched when using a model in isolation can break these same models under specific circumstances. We show that these system breaks are not purely theoretical, but can break Claude Code, Codex, and a reference harness, all unmodified and used with their own sub-agent mechanisms. We show the attack by asking agents to answer questions from a store of files on disk in which we have planted a forged record. Searching the store themselves, the strong model orchestrators commit almost zero harmful revisions in over 1,000 trials. However, if that same orchestrator model delegates to a cheaper sub-agent, which is what these harnesses are built to do, the same models on the same facts fail on 20/180, 44/180, 75/180 and 553/900. Thus, even when the system is driven by a strong model, the system's safety lands near the weak reader's, not the orchestrator's. Simulations over 18 models show the same effect in the delivery channel where five aggregators, who on their own were almost never unsafe, repeat a corrupted sub-agent's error in 751/757 trials. The safety of real-world agentic systems that u",
+  "summary_1line": "Major industry multi-agent systems like Codex and Claude Code can be broken by attacks that have long been unsuccessful against modern frontier models. AI Safety as a discipline has largely focused on finding the boun...",
+  "title": "Only as Safe as the Weakest Agent: A Break That Appears Only When the System Is Multi-Agent",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.17520v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, codex."
  },
  "e955a8e9bcd8e3a8": {
   "content_excerpt": "Open-source AI agent orchestration with verified results, human oversight, and earned autonomy. Agents of any kind — developers, marketers, support, sales — work in an organization you design. Every result is checked by code against a delivery contract, and an agent stops needing your approval only once its verified record shows it can — per task type, revocable at any time. Status: 0.2. Accounts, guided setup, local IMAP/SMTP mail tests, routines and the verification loop are covered by end-to-end tests. Docker images build and the Compose stack starts successfully in Ubuntu GitHub Actions CI. Real model API calls have not been verified yet: see Limits . Multi-agent orchestrators let you decide in advance what agents may do alone. Select replaces that guess with evidence: These four come from the end-to-end test run against local IMAP and SMTP test servers ( E2E_SCREENSHOTS_DIR ); the others are the demo company. All are real captures. These are real Playwright screenshots of Select running locally with fictional demo data . No external model provider or mailbox is connected in this capture session. Requirements: Docker Desktop (Windows, macOS) or Docker Engine with Compose (Linux). The script writes .env with random secrets (keep a copy), starts the containers and opens http://localhost:3000 , where the first visit creates your account. Without the script: cp .env.example .env , set the secrets, docker compose up --build . No API key yet? Open the demo company from the acco",
@@ -17513,6 +17667,22 @@
   "title": "Our LLM cost model was double-counting batch and cache discounts",
   "type": "news",
   "url": "https://beforeyouship.dev/blog/llm-batch-api-pricing"
+ },
+ "eace29d2efd34712": {
+  "first_seen": "2026-11-17T00:06:08.911711+00:00",
+  "id": "aad500412d99fc9c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-16T23:06:15+00:00",
+  "sid": "eace29d2efd34712",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.183/ pip install claude-agent-sdk==0.2.183",
+  "summary_1line": "PyPI: https://pypi.org/project/claude-agent-sdk/0.2.183/ pip install claude-agent-sdk==0.2.183",
+  "title": "claude-agent-sdk-python v0.2.183",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.183",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "eb1f61303f3e3d57": {
   "first_seen": "2026-11-10T00:04:45.371214+00:00",
@@ -17886,6 +18056,17 @@
   "title": "CATF: A Manager-Worker Framework for Context-Aware Time-Series Forecasting",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05325v1"
+ },
+ "f0683efe869a6cf0": {
+  "first_seen": "2026-11-17T00:08:58.064493+00:00",
+  "id": "f251f3089a027994",
+  "published": "2026-11-13T18:26:07+00:00",
+  "sid": "f0683efe869a6cf0",
+  "source": "arxiv_cs_lg",
+  "summary_1line": "Barron et al. (2026) recently identified numerical issues in the softmax and soft cross-entropy loss. We show that similar issues are present in standard divergence operations between categorical distributions. This includes the forward and reverse Kullback-Leibler (KL) divergenc",
+  "title": "On numerical issues of divergences between nearly equal distributions",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.18511v1"
  },
  "f08ad8d3c9853ba9": {
   "content_excerpt": "AI agents can multiply your query volume. Lakehouse//RT keeps your bill from multiplying with it. AI agents are pushing the limits of data warehouses. A human analyst might run a few dozen queries in an afternoon. An agent can run hundreds per second, around the clock. And with growing demand for use cases like customer-facing dashboards that refresh in milliseconds and applications with embedded analytics, real-time workloads are quickly becoming a standard part of how businesses use data. Most data warehouses were designed for human-scale query volume, not the sustained concurrency agents generate. And even when a warehouse can deliver low latency, the bill grows as fast as demand: 10x the queries could easily mean 10x the cost. We built Lakehouse//RT not only to serve real-time workloads directly on the lakehouse , but to do so without growing your costs at the same rate as your queries. Most data warehouses scale capacity in step with demand: more queries, more compute, more cost. That works well for many analytics workloads, where query volume tracks the number of people asking questions. Real-time workloads are different. When AI agents and thousands of concurrent users all need answers in milliseconds, query volume can grow far faster than headcount, and cost grows with it. Real-time workloads are also often spiky. The usual way to handle that is to overprovision: add capacity in large blocks and keep it running so latency holds up at peak. You end up paying for idle c",
