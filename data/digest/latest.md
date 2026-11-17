@@ -2,146 +2,134 @@
 
 Focus: AI Platform Engineering
 
-## 1. How the Claude Code team thinks about verification
-- Type: news | Source: claude_dev_blog
-- URL: https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/
-- Score: 3.642 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 2. llm 0.37.3
+## 1. llm 0.37.3
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Nov/16/llm/
-- Score: 2.841 | Reliability: 1.0
+- Score: 2.721 | Reliability: 1.0
 - Why it matters: 
 
-## 3. From tasks to goals
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/from-tasks-to-goals
-- Score: 2.733 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 4. Introducing the Databricks AI Index: The state of enterprise AI tokenomics
-- Type: news | Source: databricks_blog
-- URL: https://www.databricks.com/blog/introducing-databricks-ai-index-state-enterprise-ai-tokenomics
-- Score: 2.584 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 5. Taxonomy of multi-agent design patterns, anti-patterns, and lessons from manufacturing
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/taxonomy-of-multi-agent-design-patterns-anti-patterns-and-lessons-from-manufacturing/
-- Score: 2.513 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 6. The Critic Can Hurt: On the Safety of Critics in LLM-Guided AutoML Search
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.19037v1
-- Score: 2.485 | Reliability: 1.0
+## 2. A Hierarchical Statistical Framework for Evaluating Agent Reliability
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.19614v1
+- Score: 2.919 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
-## 7. Building Visual Intelligence — Andreas Blattmann & Dustin Podell, Black Forest Labs
-- Type: news | Source: latent_space
-- URL: https://latent.space/p/bfl/
-- Score: 2.482 | Reliability: 1.0
-- Why it matters: 
+## 3. Large Language Models for AI Infrastructure
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.19061v1
+- Score: 2.909 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
-## 8. claude-code v2.1.326
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.326
-- Score: 2.446 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 9. LogT: Logically Think with Images for Visual Search
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.19200v1
-- Score: 2.367 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 10. Ask Precisely, Assume Wisely: Interactive Evaluation of Ambiguity Resolution in Large Language Models
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.18905v1
-- Score: 2.243 | Reliability: 1.0
+## 4. Omni-Workspace: Benchmarking Omni-Modal AI Assistants on Multimodal Workspace Tasks
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.19202v1
+- Score: 2.8 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 11. Strengthening the fight against online child sexual abuse with new tools and support
+## 5. NVIDIA DGX Spark Developer Kit Turns a Desk Into a Supercomputing Lab
+- Type: news | Source: nvidia_blog
+- URL: https://blogs.nvidia.com/blog/dgx-spark-hpc-developer-kit-sc26/
+- Score: 2.37 | Reliability: 1.0
+- Why it matters: 
+
+## 6. Building Visual Intelligence — Andreas Blattmann & Dustin Podell, Black Forest Labs
+- Type: news | Source: latent_space
+- URL: https://latent.space/p/bfl/
+- Score: 2.367 | Reliability: 1.0
+- Why it matters: 
+
+## 7. claude-code v2.1.326
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.326
+- Score: 2.365 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 8. Tabular foundation models on Databricks AI Runtime
+- Type: news | Source: databricks_blog
+- URL: https://www.databricks.com/blog/tabular-foundation-models-databricks-ai-runtime
+- Score: 2.252 | Reliability: 1.0
+- Why it matters: 
+
+## 9. Goal Engineering
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/goal-engineering
+- Score: 2.168 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 10. At Holiday Extras, dots get to work before anyone asks
+- Type: news | Source: openai_blog
+- URL: https://openai.com/business/customer-stories/holiday-extras-dots
+- Score: 2.091 | Reliability: 1.0
+- Why it matters: 
+
+## 11. What Moves a LoCoMo Score? Memory Context, Answer Prompts and Judges
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.19199v1
+- Score: 2.709 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 12. CLEAR: Legible and Steerable Recommendation via Grounded Natural-Language Interests
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.19110v1
+- Score: 2.636 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 13. [AINews] The No AI Slop Manifesto
+- Type: news | Source: latent_space
+- URL: https://latent.space/p/ainews-the-no-ai-slop-manifesto/
+- Score: 2.082 | Reliability: 1.0
+- Why it matters: 
+
+## 14. Strengthening the fight against online child sexual abuse with new tools and support
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/strengthening-online-child-safety
-- Score: 2.173 | Reliability: 1.0
+- Score: 2.077 | Reliability: 1.0
 - Why it matters: 
 
-## 12. Science at the Frontier: How scientists use ChatGPT
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/science-at-the-frontier
-- Score: 2.151 | Reliability: 1.0
-- Why it matters: 
-
-## 13. Broadening access to AI for scientists
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/expanding-chatgpt-for-academic-researchers
-- Score: 2.126 | Reliability: 1.0
-- Why it matters: 
-
-## 14. codex rust-v0.170.0-alpha.4.1
+## 15. codex 0.170.0-alpha.4.1
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.170.0-alpha.4.1
-- Score: 2.117 | Reliability: 1.0
+- Score: 2.077 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 15. Agent-as-a-Judge
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.18067v1
-- Score: 2.035 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
+## 16. Science at the Frontier: How scientists use ChatGPT
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/science-at-the-frontier
+- Score: 2.058 | Reliability: 1.0
+- Why it matters: 
 
-## 16. claude-agent-sdk-python v0.2.183
+## 17. claude-agent-sdk-python v0.2.183
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.183
-- Score: 2.009 | Reliability: 1.0
+- Score: 1.932 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. Meta’s Muse: Inside the launch of the most successful consumer product this year | Mona Sarantakos
-- Type: video | Source: lennys_podcast
-- URL: https://youtu.be/WY0cdD4gNoQ
-- Score: 1.965 | Reliability: 0.844
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 18. Dru Knox on the First 5 Problems Every Factory Hits | Tessl
-- Type: video | Source: ai_native_dev
-- URL: https://youtu.be/RQerOLmFiiE
-- Score: 1.779 | Reliability: 0.844
-- Why it matters: Matches feed focus: agent.
-
-## 19. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/introducing-alphaproof-code/
-- Score: 1.416 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 20. Gemini Robotics 2.5 accelerates real-world general dexterity
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/
-- Score: 1.401 | Reliability: 1.0
+## 18. Gemini Decisions API
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Nov/11/gemini-decisions-api/
+- Score: 1.846 | Reliability: 1.0
 - Why it matters: 
 
-## 21. New AI agent observability and governance across BigQuery and Looker
+## 19. llama_index v0.14.26
+- Type: release | Source: llamaindex_releases
+- URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.26
+- Score: 1.55 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 20. New AI agent observability and governance across BigQuery and Looker
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/data-analytics/enterprise-ai-agent-observability-with-bigquery-and-looker/
-- Score: 1.306 | Reliability: 1.0
+- Score: 1.268 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 22. langgraph==1.2.21
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.21
-- Score: 1.22 | Reliability: 1.0
-- Why it matters: 
-
-## 23. Kitesurf is now open source
+## 21. Kitesurf is now open source
 - Type: news | Source: cloudflare_blog
 - URL: https://blog.cloudflare.com/kitesurf-open-source/
-- Score: 1.014 | Reliability: 1.0
+- Score: 0.978 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 24. Release 2.74.0 corresponding to NGC container 26.10
+## 22. Release 2.74.0 corresponding to NGC container 26.10
 - Type: release | Source: triton_releases
 - URL: https://github.com/triton-inference-server/server/releases/tag/v2.74.0
-- Score: 0.738 | Reliability: 1.0
+- Score: 0.737 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
