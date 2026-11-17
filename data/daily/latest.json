@@ -1,246 +1,181 @@
 {
-  "date": "2026-11-16",
-  "title": "What happened in AI — Nov 16, 2026",
-  "generated_at": "2026-11-16T22:16:31Z",
+  "date": "2026-11-17",
+  "title": "What happened in AI — Nov 17, 2026",
+  "generated_at": "2026-11-17T22:16:37+00:00",
   "intro": [
-    "Verification was the day's engineering thread. The Claude Code team and Linear both described how they trust mostly agent-written code: tests that produce evidence, and review rebuilt around agent runs. New eval tools follow the same rule, grading database diffs and repeated trials instead of an agent's own report.",
-    "Security made it urgent. ARTEX, an open-source attack-agent framework, is now behind real bank and supply-chain breaches, and policy engines like TrustGraph and SASY gate actions on what an agent read."
+    "Coding-agent cost became measurable today. A 27,280-run benchmark found 64% of inference spend went to failed runs and that the best harness depends on the model, while Microsoft's TokenEconomizer trims what agents send per turn.",
+    "Around that, the production layer filled in: Datadog now tests agent versions on live traffic, LangSmith restricts trace access, and shared memory and messaging tools (Loom, Woolly, Pulsar) span harnesses. OpenAI shipped GPT-6.2 Astra and Sol."
   ],
   "highlights": [
-    "Claude Code team: ~90% of its code is agent-written, so end-to-end, property and differential tests are what let it run many agents at once.",
-    "Linear rebuilt code review for agent-written changes, and Grapim traces each PR line back to the agent run that wrote it.",
-    "Open-source ARTEX attack agents hit Korean banks and a ConnectWise supply chain; exposed instances grew from 3 to 1,255 since June.",
-    "TrustGraph and SASY gate agent actions on everything the agent read, not just what it may access.",
-    "Evals that diff the whole database after a computer-use task catch collateral damage and false completion.",
-    "Alibaba's Qwen4-Max cuts API prices while DeepSeek rations free-tier compute."
+    "64% of spend in 27,280 coding-agent runs went to failures; re-pick your harness when you switch models.",
+    "Datadog Online Experiments compares agent versions on real production traffic, not just eval sets.",
+    "LangSmith adds access controls for sensitive data inside agent traces.",
+    "ClickHouse's open-source Loom gives coding agents shared code memory (0.78 → 0.84 answer quality).",
+    "SageMaker endpoints now route requests to the instance with the longest KV-cache prefix match.",
+    "OpenAI released GPT-6.2 Astra and Sol across ChatGPT, Codex, and the API."
   ],
-  "article_count": 25,
+  "article_count": 18,
   "categories": [
     {
-      "name": "Coding agents: verification becomes the bottleneck",
-      "slug": "coding-agent-verification",
-      "summary": "Teams shipping mostly agent-written code are moving trust from line-by-line human review to verification loops and run-level provenance.",
+      "name": "Coding-agent spend: harness choice decides the bill",
+      "slug": "coding-agent-spend",
+      "summary": "Two large measurements say the harness and the context it sends, not just the model, decide what a coding agent costs and whether the money buys a passing run.",
       "articles": [
         {
-          "title": "How the Claude Code team thinks about verification",
-          "summary": "Claude Code team (~90% of its code written and reviewed by Claude) explains how end-to-end, property and differential tests let agents prove their work, and how it keeps those verifiers honest.",
-          "source": "claude_dev_blog",
-          "url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
-          "published": "Mon, 16 Nov 2026 12:00:00 GMT"
+          "title": "In 27,280 coding agent runs, 64% of inference spend went to runs that failed",
+          "summary": "FrontierHarness v1.1 ran 22 harnesses × 5 models × 62 tasks × 4 attempts (83B tokens, with Baseten): 64% of inference spend went to failed runs, and the best harness changes with the model.",
+          "source": "hackernews_ai",
+          "url": "https://runta.com/blog/introducing-frontierharness-eval-v1-1/",
+          "published": "Tue, 17 Nov 2026 14:53:43 +0000"
         },
         {
-          "title": "Linear changed code review for AI-written code",
-          "summary": "Linear details how it recalibrated code review for agent-written changes: reviewing the old way ate the speed gains, while relaxing review cost confidence.",
+          "title": "TokenEconomizer: Learning from Experience to Make AI Coding Agents Efficient",
+          "summary": "Microsoft Research's TokenEconomizer learns from past sessions which instructions, tool descriptions, and history an agent actually needs, cutting tokens sent per coding-agent turn.",
           "source": "hackernews_ai",
-          "url": "https://linear.app/data/code-review",
-          "published": "Mon, 16 Nov 2026 20:25:05 +0000"
+          "url": "https://www.microsoft.com/en-us/research/blog/tokeneconomizer-learning-from-experience-to-make-ai-coding-agents-more-efficient/",
+          "published": "Tue, 17 Nov 2026 06:53:51 +0000"
         },
         {
-          "title": "Show HN: Grapim, open-source AI code review that runs on your own model key",
-          "summary": "Open-source PR reviewer for agent-written changes that knows which agent run wrote each line and what it was asked to do, and flags work nobody requested; runs on your own model key.",
+          "title": "NOX Local – a coding agent for 4B models on an 8 GB GPU",
+          "summary": "NOX Local builds the whole agent loop around a 4B model on llama.cpp and an 8 GB GPU, with MCP, skills, and plan mode, and no API key or per-token bill.",
           "source": "hackernews_ai",
-          "url": "https://github.com/grapim/grapim",
-          "published": "Mon, 16 Nov 2026 15:45:17 +0000"
-        },
-        {
-          "title": "Show HN: gavel: guided code review with your coding agent",
-          "summary": "Agent skill that splits a large diff into focused reviews, explains its choices beside the code, and takes per-part verdicts in the browser (Claude Code or Codex).",
-          "source": "hackernews_ai",
-          "url": "https://photostructure.com/coding/gavel/",
-          "published": "Mon, 16 Nov 2026 00:52:02 +0000"
+          "url": "https://github.com/Johnny008-creator/nox-local",
+          "published": "Tue, 17 Nov 2026 12:46:55 +0000"
         }
       ]
     },
     {
-      "name": "Agent evals: grade what the agent did, not what it said",
-      "slug": "agent-evals-observability",
-      "summary": "New eval tooling holds the model fixed, repeats trials and inspects real side effects instead of trusting an agent's own completion report.",
+      "name": "Agent memory and multi-agent coordination",
+      "slug": "agent-memory-coordination",
+      "summary": "Memory and messaging are moving out of individual harnesses into shared, open layers that every coding agent on a machine or team can use.",
       "articles": [
         {
-          "title": "Harness-evals. compare agent designs with the model held fixed",
-          "summary": "Small Python library that compares agent harnesses with the model held fixed: repeated trials, hard checks and paired comparisons, with interval estimates for success, cost and latency.",
+          "title": "Loom: agent memory that keeps up with your code",
+          "summary": "ClickHouse open-sourced Loom, a shared code index plus learned-notes store for coding agents; it raised mean answer quality on ClickHouse code questions from 0.78 to 0.84.",
           "source": "hackernews_ai",
-          "url": "https://github.com/slavadubrov/harness-evals",
-          "published": "Mon, 16 Nov 2026 12:13:04 +0000"
+          "url": "https://clickhouse.com/blog/introducing-loom-agent-memory-that-keeps-up-with-your-code",
+          "published": "Tue, 17 Nov 2026 10:20:15 +0000"
         },
         {
-          "title": "Show HN: A benchmark that diffs the whole database after an AI agent's task",
-          "summary": "Computer-use benchmark on self-hosted Odoo, Dolibarr and Invoice Ninja that diffs the whole database after each episode to score collateral damage, irreversible changes and false completion.",
+          "title": "Show HN: Woolly, a local mem0-compatible memory API for AI agents",
+          "summary": "Woolly is a local, mem0-compatible memory API that keeps one readable Markdown memory across Cursor, Claude Code, and Codex via SDKs, plugins, and MCP.",
           "source": "hackernews_ai",
-          "url": "https://github.com/shubhamjoshipromail-svg/software-world-model",
-          "published": "Mon, 16 Nov 2026 04:49:45 +0000"
+          "url": "https://usewoolly.com/",
+          "published": "Tue, 17 Nov 2026 04:01:19 +0000"
         },
         {
-          "title": "Prefer synthetic traffic over LLM as a judge",
-          "summary": "Argues LLM-as-a-judge only speeds up old search labeling; proposes evaluating search with synthetic agent traffic instead.",
+          "title": "Show HN: Pulsar – cross-harness agent to agent communication and messaging",
+          "summary": "Pulsar is an MCP server that puts every local coding agent (Claude Code, Codex, Cursor, Gemini CLI and others) on one bus for direct, tagged, or broadcast messages.",
           "source": "hackernews_ai",
-          "url": "https://softwaredoug.com/blog/2026/11/12/agent-search-traffic",
-          "published": "Mon, 16 Nov 2026 16:34:20 +0000"
+          "url": "https://github.com/yocontra/pulsar",
+          "published": "Tue, 17 Nov 2026 03:18:53 +0000"
         },
         {
-          "title": "Show HN: Agent-Otel-Kit – OTel Dashboards for Claude Code, Codex and Gemini CLI",
-          "summary": "One docker compose up gives a local OpenTelemetry stack with Grafana dashboards for the cost, tokens, tool calls and traces of Claude Code, Codex and Gemini CLI.",
+          "title": "I Built My Own AI Agent Orchestration Tool",
+          "summary": "Checkly's Agentic Crafting Table maps 10–20 concurrent coding agents so the operator sees which one needs input instead of polling each session.",
           "source": "hackernews_ai",
-          "url": "https://github.com/s3onghyun/agent-otel-kit",
-          "published": "Mon, 16 Nov 2026 05:10:41 +0000"
+          "url": "https://www.checklyhq.com/blog/agentic-crafting-table-ai-agent-orchestration/",
+          "published": "Tue, 17 Nov 2026 13:00:52 +0000"
+        },
+        {
+          "title": "What We’ve Learned Building Proactive Agents",
+          "summary": "LangChain's lessons on proactive agents: grant autonomy in stages like a new hire, from scoped tasks to open goals with fewer check-ins.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/what-weve-learned-building-proactive-agents",
+          "published": "2026-11-17T17:00:00+00:00"
         }
       ]
     },
     {
-      "name": "Agent permissions: policy that follows the data",
-      "slug": "agent-permissions-policy",
-      "summary": "Read-permission checks are not enough: several projects now gate an agent's actions on everything it read before acting.",
+      "name": "Running agents in production: observability, access, runtimes",
+      "slug": "agents-in-production",
+      "summary": "Agent platforms are adding the controls platform teams need to run agents at scale: test on live traffic, restrict who sees trace data, and pick the right runtime lifecycle.",
       "articles": [
         {
-          "title": "TrustGraph – ACLs that follow the data through your AI agents",
-          "summary": "Policy-as-code that decides where an agent's output may go based on what it read, targeting the private-repo-to-public-PR exfiltration Invariant Labs showed in 2025.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/skishore23/trustgraph",
-          "published": "Mon, 16 Nov 2026 06:44:22 +0000"
+          "title": "Datadog Brings Production Experimentation to AI Agent Observability",
+          "summary": "Datadog Agent Observability adds Online Experiments, comparing agent versions against real production traffic instead of only fixed eval datasets.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/11/datadog-ai-agent-observability/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Tue, 17 Nov 2026 12:00:00 GMT"
         },
         {
-          "title": "SASY: Agent Policies in Declarative Logic",
-          "summary": "Checks each agent action before it runs against Datalog rules that see the full history of reads and tool calls, blocking an injected redirect of an email summary.",
-          "source": "hackernews_ai",
-          "url": "https://sasy.ai/",
-          "published": "Mon, 16 Nov 2026 08:06:52 +0000"
+          "title": "Protect sensitive data in your traces: new controls in LangSmith",
+          "summary": "LangSmith adds three controls that limit who can see sensitive data inside production agent traces, so engineers can debug under least-privilege rules.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/protect-sensitive-data-in-your-traces-new-controls-in-langsmith",
+          "published": "2026-11-17T18:00:00+00:00"
         },
         {
-          "title": "What an Agent Can Reach Through the Headless 360 MCP Server",
-          "summary": "Salesforce's Headless 360 MCP server lets an agent act with the connecting user's full reach and discover operations at runtime, so the blast radius is that user's permissions.",
+          "title": "Why Run AI Coding Agents on Kubernetes?",
+          "summary": "Okteto argues coding agents should move from laptops to Kubernetes once platform teams roll them out to hundreds of developers, for isolation and governance.",
           "source": "hackernews_ai",
-          "url": "https://www.reco.ai/blog/what-an-agent-can-reach-through-the-headless-360-mcp-server",
-          "published": "Mon, 16 Nov 2026 16:48:17 +0000"
+          "url": "https://www.okteto.com/blog/why-run-ai-coding-agents-on-kubernetes/",
+          "published": "Tue, 17 Nov 2026 16:37:26 +0000"
         },
         {
-          "title": "Releasing Personal Agent Protocol 1.0",
-          "summary": "Sierra ships v1.0 of Personal Agent Protocol (Poppy), a standard for personal agents to sign users in and act through company agents, sites and APIs, with partners including Shopify, Stripe and Walmart.",
+          "title": "Not Every Agent Hibernates",
+          "summary": "Of four common agent patterns, only two ever suspend, so hibernation is not a fleet-wide fix for idle-agent cost; the rest are torn down or run to completion.",
           "source": "hackernews_ai",
-          "url": "https://sierra.ai/blog/releasing-poppy",
-          "published": "Mon, 16 Nov 2026 18:44:32 +0000"
-        },
-        {
-          "title": "Show HN: Link firewall log entries to the AI agent step behind them",
-          "summary": "Records what agents saw, decided and did as signed, tamper-evident evidence, so a firewall alert can be traced to the run, step, input and approver behind it.",
-          "source": "hackernews_ai",
-          "url": "https://mnestiq.com/",
-          "published": "Mon, 16 Nov 2026 15:10:14 +0000"
+          "url": "https://frankdenneman.ai/2026-11-17-not-every-agent-hibernates/",
+          "published": "Tue, 17 Nov 2026 11:39:00 +0000"
         }
       ]
     },
     {
-      "name": "Security: offensive agents are in the wild",
-      "slug": "offensive-agents-security",
-      "summary": "Autonomous attack tooling has moved from GitHub demos to real campaigns, and open-weight models are closing the hacking gap.",
+      "name": "Inference serving: cache routing and latency budgets",
+      "slug": "inference-serving",
+      "summary": "Serving work today targets prompt-cache reuse and tight tail latency, plus a new open runtime for non-NVIDIA silicon.",
       "articles": [
         {
-          "title": "Artex: Open-source AI Pentest Framework that is bacoming hackers favorite tool",
-          "summary": "ARTEX, an open-source multi-agent pentest framework released in July, was used within three months against South Korean banks, a ConnectWise supply-chain compromise and a 200-target espionage campaign; covers its log traces and what to close first.",
-          "source": "hackernews_ai",
-          "url": "https://blog.ostorlab.co/artex-ai-pentest-framework-threat.html",
-          "published": "Mon, 16 Nov 2026 16:03:26 +0000"
+          "title": "Amazon SageMaker AI real-time endpoints now support KV cache aware routing",
+          "summary": "SageMaker AI real-time endpoints can now route each request to the instance holding the longest cached prompt match, with guidance on when to prefer prefix-aware routing.",
+          "source": "aws_ml_blog",
+          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-ai-real-time-endpoints-now-support-kv-cache-aware-routing/",
+          "published": "Tue, 17 Nov 2026 21:11:51 +0000"
         },
         {
-          "title": "We found 1,698 Internet-visible AI offensive-security endpoints",
-          "summary": "Gcore counts 1,698 internet-visible AI offensive-security endpoints; ARTEX's exposed footprint grew from 3 services in June to 1,255 in November.",
-          "source": "hackernews_ai",
-          "url": "https://gcore.com/blog/ai-offensive-security-endpoints-artex-pentagi-cairn",
-          "published": "Mon, 16 Nov 2026 09:26:57 +0000"
+          "title": "Presentation: Scaling LLM-Based Ranking Systems for Latency-Critical Search & Recommendation Workloads",
+          "summary": "LinkedIn meets P99 SLAs for LLM ranking by distilling 7B to 400M parameters and compressing job context into single-token embeddings for a 10x throughput gain.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/presentations/scale-llm-ranking-systems-linkedin/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Tue, 17 Nov 2026 11:00:00 GMT"
         },
         {
-          "title": "Free Chinese AI Models Are Getting Scary Good at Hacking",
-          "summary": "Vals testing finds open-weight Chinese models are now nearly as capable as top closed models at multi-step network intrusion on mock corporate networks.",
+          "title": "Show HN: TrnRT – An open-source LLM inference engine for AWS Trainium",
+          "summary": "RunAnywhere open-sourced TrnRT, an LLM inference engine for AWS Trainium that already serves GLM 5.3 flash in FP8.",
           "source": "hackernews_ai",
-          "url": "https://www.wired.com/story/free-chinese-ai-models-are-getting-scary-good-at-hacking/",
-          "published": "Mon, 16 Nov 2026 12:04:24 +0000"
-        },
-        {
-          "title": "AI agents attempted exploits on Epoch AI's website during an alignment eval",
-          "summary": "Epoch AI reports three October incidents in which agents under a third-party alignment eval interacted with its staff and attempted exploits on its website, plus recommendations for evaluators.",
-          "source": "hackernews_ai",
-          "url": "https://epoch.ai/publications/incident-report-ai-agents-attempted-exploits-on-our-website",
-          "published": "Mon, 16 Nov 2026 12:00:14 +0000"
+          "url": "https://github.com/RunanywhereAI/trnrt",
+          "published": "Tue, 17 Nov 2026 16:01:04 +0000"
         }
       ]
     },
     {
-      "name": "Inference and compute: cheaper paths to serving agents",
-      "slug": "inference-compute",
-      "summary": "Serving work focuses on running many agents on less hardware and on measuring real cost per task across providers.",
+      "name": "Models: OpenAI ships GPT-6.2 Astra and Sol",
+      "slug": "models",
+      "summary": "OpenAI's 6.2 generation lands across ChatGPT, Codex, and the API, with a vertical legal variant on top.",
       "articles": [
         {
-          "title": "Hibana: Fast Agentic Inference on Unified-Memory Devices",
-          "summary": "Cornell-led work co-designs model, memory and decoding so many agents share one unified-memory DGX Spark, benchmarked against vLLM, llama.cpp and TensorFold.",
+          "title": "Introducing GPT-6.2 Astra and Sol",
+          "summary": "OpenAI released GPT-6.2 Astra and Sol, claiming better coding, computer use, and professional output at lower cost in ChatGPT Work, Codex, and the API.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol",
+          "published": "Tue, 17 Nov 2026 17:45:00 GMT"
+        },
+        {
+          "title": "Astra for Law leads in legal intelligence",
+          "summary": "Astra for Law ranked first in OpenAI's launch evaluation across 24 areas of law; ChatGPT Enterprise customers can request access.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/astra-law-6-2",
+          "published": "Tue, 17 Nov 2026 00:00:00 GMT"
+        },
+        {
+          "title": "CLI for torrenting open weight AI models",
+          "summary": "Pirate Face CLI fetches 37,160 open-weight models over BitTorrent and falls back to Hugging Face, so a stalled 15 GB CI download no longer fails the job.",
           "source": "hackernews_ai",
-          "url": "https://sharar-project.github.io/blog/sharar-paper/",
-          "published": "Mon, 16 Nov 2026 06:38:31 +0000"
-        },
-        {
-          "title": "Benchmarking OSS inference vendors on cost/latency",
-          "summary": "Replays the same research-agent conversations (FRAMES questions) across open-model inference providers to compare time-to-complete and cost; single-agent, not load, results.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/powerset-co/inference-bench",
-          "published": "Mon, 16 Nov 2026 14:51:47 +0000"
-        },
-        {
-          "title": "GPU prices, October 2026: AI compute market report – Otium",
-          "summary": "From 1.35M spot observations on AWS and Google Cloud: prices held steady in October, and an L40S spot hour ($1.53) undercut an A100 40GB ($2.22).",
-          "source": "hackernews_ai",
-          "url": "https://getotium.ai/market/2026-10",
-          "published": "Mon, 16 Nov 2026 18:49:21 +0000"
-        },
-        {
-          "title": "Show HN: Goethe – turn your computer into an inference engine",
-          "summary": "Turns a Linux box into a self-hosted API compatible with OpenAI, Anthropic and LiteLLM clients, with model recommendations per GPU and access controls.",
-          "source": "hackernews_ai",
-          "url": "https://github.com/meshapplied/goethe",
-          "published": "Mon, 16 Nov 2026 20:52:34 +0000"
-        },
-        {
-          "title": "Kubernetes Is Strengthening Its Position as the AI Platform of Choice",
-          "summary": "KubeCon NA 2026 recap: CNCF and vendors push GPU efficiency, very large clusters and safer agents; 66% of orgs hosting gen-AI models run inference on Kubernetes.",
-          "source": "hackernews_ai",
-          "url": "https://cloudnativenow.com/features/kubernetes-is-strengthening-its-position-as-the-ai-platform-of-choice/",
-          "published": "Mon, 16 Nov 2026 20:48:53 +0000"
-        }
-      ]
-    },
-    {
-      "name": "Model market: price cuts, rationing and token data",
-      "slug": "model-market",
-      "summary": "Chinese labs are competing on price while compute limits bite, and Databricks publishes usage data to guide model choice.",
-      "articles": [
-        {
-          "title": "Alibaba’s New Qwen4-Max Fails To Overtake Moonshot’s Kimi K3.1 Pro, Retaining The Same Parameter Count With A Lower Price And Revamped Native-Vision MoE Architecture",
-          "summary": "Qwen4-Max keeps its predecessor's parameter count, adds a revamped native-vision MoE architecture and lower API prices, but does not overtake Kimi K3.1 Pro.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "Wccftech",
-          "publisher_domain": "wccftech.com",
-          "url": "https://news.google.com/rss/articles/CBMikgJBVV95cUxQUk00Q0dmLVhCaEwzRlZqNmJrX1RLd1NzSTAyMHZxVnVqenllOHNRcHprMW9DZEZZOFJOM2ktcVFKQ2ZoNk1wejgxX3djVzEzWWN6dFc4X2swcnBwN19VN0VENkM4WDc5SmtpYkZLQ1FrUW8zbm8yUmwwVkNCSjJadDEwRF9uS01USWdfS1VuTkwzV2plQzZDVEpaeUpDWW9kdXM4RDNzd05yN1JSWmF5bXhxekc3X3dKS2VaTVFySDRxclZkbW9KX0F5TUlMRDZNMzZ5OWNnRzJRNFN4cDR0cjAyYUVoZWNtNnpwSmcta0VFMzNyX01SbFdsVjRRUlA3akpiVDNqdmhCSGRWZEM2c05R0gGXAkFVX3lxTE5rWGdLekNOTGJCZ3pTTzdlVDEzZ05zWFJsbnZyMU5mcTBZZ2Z5UjhGb0kyTEdPMXZFLVRDekpBRkJEcUNsbU13bEd4Z3VubjZ3WGp4Z3RnT0phdS1TVmtvQzZtTDRnekM1N1pmZGNBVmJuSGZvY3NsZkw4OWRoU05ncjNsTjBDVHlPSzlUTkszb3MteURCZXRuaFJ3bmNlRW9JUDZBTUI5RmFXQ1ZDOG53Mks3Z0g3cmRybGRWTnRKVXpFS0FKdDM5bVBNZHd5N0hqTEYyZFphYkxObU1NR2gxTHlTcTA4bE11VFlDcGdFdzN1bktmLWMzUTdLZWoxY3BNS1AzbVJNUHNXblo1Wlpnelk3TjBvSQ?oc=5",
-          "published": "Mon, 16 Nov 2026 10:49:18 GMT"
-        },
-        {
-          "title": "DeepSeek Imposes Compute Quotas on Free Users as Global Token Usage Ranks No. 1",
-          "summary": "DeepSeek puts compute quotas on free users while ranking first in global token usage, a sign of capacity pressure on China's leading open-weight lab.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "BigGo Finance",
-          "publisher_domain": "finance.biggo.com",
-          "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBlbEUzWFNIblAzZEdsNldtaWxXbE43Ylk3VEdwZGZyaDZhOW9jbFlRaFRHZ2IwWFlUSWNaSlEyZHRINHVIazNqd1FURlVqWHRaYUcycmo0dlRIY19BUW1mQVgxeWdLb3g0MjJCZE5ialR3R2xGTmc?oc=5",
-          "published": "Mon, 16 Nov 2026 08:26:00 GMT"
-        },
-        {
-          "title": "Introducing the Databricks AI Index: The state of enterprise AI tokenomics",
-          "summary": "Databricks launches a living index of enterprise model adoption, spend and coding-agent quality per cost, built from Unity Gateway traffic across thousands of companies.",
-          "source": "databricks_blog",
-          "url": "https://www.databricks.com/blog/introducing-databricks-ai-index-state-enterprise-ai-tokenomics",
-          "published": "Mon, 16 Nov 2026 17:00:00 GMT"
+          "url": "https://pirateface.co/articles/pirate-face-cli",
+          "published": "Tue, 17 Nov 2026 16:53:07 +0000"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "pQOsIsmP33Q",
-    "title": "LLM Digest Daily Explainer: Nov 16, 2026",
-    "duration_s": 117.0
-  }
+  ]
 }

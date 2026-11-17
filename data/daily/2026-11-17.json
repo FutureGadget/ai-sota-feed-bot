@@ -1,0 +1,181 @@
+{
+  "date": "2026-11-17",
+  "title": "What happened in AI — Nov 17, 2026",
+  "generated_at": "2026-11-17T22:16:37+00:00",
+  "intro": [
+    "Coding-agent cost became measurable today. A 27,280-run benchmark found 64% of inference spend went to failed runs and that the best harness depends on the model, while Microsoft's TokenEconomizer trims what agents send per turn.",
+    "Around that, the production layer filled in: Datadog now tests agent versions on live traffic, LangSmith restricts trace access, and shared memory and messaging tools (Loom, Woolly, Pulsar) span harnesses. OpenAI shipped GPT-6.2 Astra and Sol."
+  ],
+  "highlights": [
+    "64% of spend in 27,280 coding-agent runs went to failures; re-pick your harness when you switch models.",
+    "Datadog Online Experiments compares agent versions on real production traffic, not just eval sets.",
+    "LangSmith adds access controls for sensitive data inside agent traces.",
+    "ClickHouse's open-source Loom gives coding agents shared code memory (0.78 → 0.84 answer quality).",
+    "SageMaker endpoints now route requests to the instance with the longest KV-cache prefix match.",
+    "OpenAI released GPT-6.2 Astra and Sol across ChatGPT, Codex, and the API."
+  ],
+  "article_count": 18,
+  "categories": [
+    {
+      "name": "Coding-agent spend: harness choice decides the bill",
+      "slug": "coding-agent-spend",
+      "summary": "Two large measurements say the harness and the context it sends, not just the model, decide what a coding agent costs and whether the money buys a passing run.",
+      "articles": [
+        {
+          "title": "In 27,280 coding agent runs, 64% of inference spend went to runs that failed",
+          "summary": "FrontierHarness v1.1 ran 22 harnesses × 5 models × 62 tasks × 4 attempts (83B tokens, with Baseten): 64% of inference spend went to failed runs, and the best harness changes with the model.",
+          "source": "hackernews_ai",
+          "url": "https://runta.com/blog/introducing-frontierharness-eval-v1-1/",
+          "published": "Tue, 17 Nov 2026 14:53:43 +0000"
+        },
+        {
+          "title": "TokenEconomizer: Learning from Experience to Make AI Coding Agents Efficient",
+          "summary": "Microsoft Research's TokenEconomizer learns from past sessions which instructions, tool descriptions, and history an agent actually needs, cutting tokens sent per coding-agent turn.",
+          "source": "hackernews_ai",
+          "url": "https://www.microsoft.com/en-us/research/blog/tokeneconomizer-learning-from-experience-to-make-ai-coding-agents-more-efficient/",
+          "published": "Tue, 17 Nov 2026 06:53:51 +0000"
+        },
+        {
+          "title": "NOX Local – a coding agent for 4B models on an 8 GB GPU",
+          "summary": "NOX Local builds the whole agent loop around a 4B model on llama.cpp and an 8 GB GPU, with MCP, skills, and plan mode, and no API key or per-token bill.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Johnny008-creator/nox-local",
+          "published": "Tue, 17 Nov 2026 12:46:55 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Agent memory and multi-agent coordination",
+      "slug": "agent-memory-coordination",
+      "summary": "Memory and messaging are moving out of individual harnesses into shared, open layers that every coding agent on a machine or team can use.",
+      "articles": [
+        {
+          "title": "Loom: agent memory that keeps up with your code",
+          "summary": "ClickHouse open-sourced Loom, a shared code index plus learned-notes store for coding agents; it raised mean answer quality on ClickHouse code questions from 0.78 to 0.84.",
+          "source": "hackernews_ai",
+          "url": "https://clickhouse.com/blog/introducing-loom-agent-memory-that-keeps-up-with-your-code",
+          "published": "Tue, 17 Nov 2026 10:20:15 +0000"
+        },
+        {
+          "title": "Show HN: Woolly, a local mem0-compatible memory API for AI agents",
+          "summary": "Woolly is a local, mem0-compatible memory API that keeps one readable Markdown memory across Cursor, Claude Code, and Codex via SDKs, plugins, and MCP.",
+          "source": "hackernews_ai",
+          "url": "https://usewoolly.com/",
+          "published": "Tue, 17 Nov 2026 04:01:19 +0000"
+        },
+        {
+          "title": "Show HN: Pulsar – cross-harness agent to agent communication and messaging",
+          "summary": "Pulsar is an MCP server that puts every local coding agent (Claude Code, Codex, Cursor, Gemini CLI and others) on one bus for direct, tagged, or broadcast messages.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/yocontra/pulsar",
+          "published": "Tue, 17 Nov 2026 03:18:53 +0000"
+        },
+        {
+          "title": "I Built My Own AI Agent Orchestration Tool",
+          "summary": "Checkly's Agentic Crafting Table maps 10–20 concurrent coding agents so the operator sees which one needs input instead of polling each session.",
+          "source": "hackernews_ai",
+          "url": "https://www.checklyhq.com/blog/agentic-crafting-table-ai-agent-orchestration/",
+          "published": "Tue, 17 Nov 2026 13:00:52 +0000"
+        },
+        {
+          "title": "What We’ve Learned Building Proactive Agents",
+          "summary": "LangChain's lessons on proactive agents: grant autonomy in stages like a new hire, from scoped tasks to open goals with fewer check-ins.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/what-weve-learned-building-proactive-agents",
+          "published": "2026-11-17T17:00:00+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Running agents in production: observability, access, runtimes",
+      "slug": "agents-in-production",
+      "summary": "Agent platforms are adding the controls platform teams need to run agents at scale: test on live traffic, restrict who sees trace data, and pick the right runtime lifecycle.",
+      "articles": [
+        {
+          "title": "Datadog Brings Production Experimentation to AI Agent Observability",
+          "summary": "Datadog Agent Observability adds Online Experiments, comparing agent versions against real production traffic instead of only fixed eval datasets.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/11/datadog-ai-agent-observability/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Tue, 17 Nov 2026 12:00:00 GMT"
+        },
+        {
+          "title": "Protect sensitive data in your traces: new controls in LangSmith",
+          "summary": "LangSmith adds three controls that limit who can see sensitive data inside production agent traces, so engineers can debug under least-privilege rules.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/protect-sensitive-data-in-your-traces-new-controls-in-langsmith",
+          "published": "2026-11-17T18:00:00+00:00"
+        },
+        {
+          "title": "Why Run AI Coding Agents on Kubernetes?",
+          "summary": "Okteto argues coding agents should move from laptops to Kubernetes once platform teams roll them out to hundreds of developers, for isolation and governance.",
+          "source": "hackernews_ai",
+          "url": "https://www.okteto.com/blog/why-run-ai-coding-agents-on-kubernetes/",
+          "published": "Tue, 17 Nov 2026 16:37:26 +0000"
+        },
+        {
+          "title": "Not Every Agent Hibernates",
+          "summary": "Of four common agent patterns, only two ever suspend, so hibernation is not a fleet-wide fix for idle-agent cost; the rest are torn down or run to completion.",
+          "source": "hackernews_ai",
+          "url": "https://frankdenneman.ai/2026-11-17-not-every-agent-hibernates/",
+          "published": "Tue, 17 Nov 2026 11:39:00 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Inference serving: cache routing and latency budgets",
+      "slug": "inference-serving",
+      "summary": "Serving work today targets prompt-cache reuse and tight tail latency, plus a new open runtime for non-NVIDIA silicon.",
+      "articles": [
+        {
+          "title": "Amazon SageMaker AI real-time endpoints now support KV cache aware routing",
+          "summary": "SageMaker AI real-time endpoints can now route each request to the instance holding the longest cached prompt match, with guidance on when to prefer prefix-aware routing.",
+          "source": "aws_ml_blog",
+          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-ai-real-time-endpoints-now-support-kv-cache-aware-routing/",
+          "published": "Tue, 17 Nov 2026 21:11:51 +0000"
+        },
+        {
+          "title": "Presentation: Scaling LLM-Based Ranking Systems for Latency-Critical Search & Recommendation Workloads",
+          "summary": "LinkedIn meets P99 SLAs for LLM ranking by distilling 7B to 400M parameters and compressing job context into single-token embeddings for a 10x throughput gain.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/presentations/scale-llm-ranking-systems-linkedin/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Tue, 17 Nov 2026 11:00:00 GMT"
+        },
+        {
+          "title": "Show HN: TrnRT – An open-source LLM inference engine for AWS Trainium",
+          "summary": "RunAnywhere open-sourced TrnRT, an LLM inference engine for AWS Trainium that already serves GLM 5.3 flash in FP8.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/RunanywhereAI/trnrt",
+          "published": "Tue, 17 Nov 2026 16:01:04 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Models: OpenAI ships GPT-6.2 Astra and Sol",
+      "slug": "models",
+      "summary": "OpenAI's 6.2 generation lands across ChatGPT, Codex, and the API, with a vertical legal variant on top.",
+      "articles": [
+        {
+          "title": "Introducing GPT-6.2 Astra and Sol",
+          "summary": "OpenAI released GPT-6.2 Astra and Sol, claiming better coding, computer use, and professional output at lower cost in ChatGPT Work, Codex, and the API.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/introducing-gpt-6-2-astra-sol",
+          "published": "Tue, 17 Nov 2026 17:45:00 GMT"
+        },
+        {
+          "title": "Astra for Law leads in legal intelligence",
+          "summary": "Astra for Law ranked first in OpenAI's launch evaluation across 24 areas of law; ChatGPT Enterprise customers can request access.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/astra-law-6-2",
+          "published": "Tue, 17 Nov 2026 00:00:00 GMT"
+        },
+        {
+          "title": "CLI for torrenting open weight AI models",
+          "summary": "Pirate Face CLI fetches 37,160 open-weight models over BitTorrent and falls back to Hugging Face, so a stalled 15 GB CI download no longer fails the job.",
+          "source": "hackernews_ai",
+          "url": "https://pirateface.co/articles/pirate-face-cli",
+          "published": "Tue, 17 Nov 2026 16:53:07 +0000"
+        }
+      ]
+    }
+  ]
+}
