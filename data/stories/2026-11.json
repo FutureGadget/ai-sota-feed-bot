@@ -393,6 +393,23 @@
   "url": "http://arxiv.org/abs/2611.06731v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "0561a5c41c68aca9": {
+  "first_seen": "2026-11-17T15:05:19.878102+00:00",
+  "id": "c4fbb07c2cf05ab0",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-16T11:35:01+00:00",
+  "sid": "0561a5c41c68aca9",
+  "source": "arxiv_agent_systems_research",
+  "summary": "AI agents are being deployed on Indian workflows such as payments, tax, forms, travel and customer support in Hindi and Hinglish. Public agent evaluations rarely cover these workflows, and many score with another language model. We present Navital Gym, a set of six open environments with 321 public tasks in five task families: trip planning, UPI payments and disputes, GST invoicing and returns, form filling (including a multi-document split) and customer support in Hindi, Hinglish and three experimental Indian languages. Every task is graded by named, deterministic rules that recompute the outcome from a synthetic sandbox world. No language model judges any score. We report one run per task for three models on all six environments, Claude Opus 5.5, Claude Sonnet 5.5 and Claude Haiku 4.5, and for Gemini 3.1 Flash-Lite on two (UPI and the Support core). Opus solves 315 of 321 tasks, Sonnet 302 and Haiku 205. Trip planning and Hindi/Hinglish support separate the models most. We also describe a private held-out set that is not published, and a 7B adapter trained in the gym. Code is Apache-2.0 and task data is CC BY 4.0. The rules are a documented simplification of Indian practice, not the live systems.",
+  "summary_1line": "AI agents are being deployed on Indian workflows such as payments, tax, forms, travel and customer support in Hindi and Hinglish. Public agent evaluations rarely cover these workflows, and many score with another lang...",
+  "title": "Navital Gym: Rule-Graded Agent Environments for Indian Workflows",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.20924v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "058a0935df1d3873": {
   "first_seen": "2026-11-10T21:05:43.516589+00:00",
   "id": "1168bceec1387358",
@@ -1552,6 +1569,22 @@
   "title": "Show HN: Warmctl – Fast cold starts for vLLM inference",
   "type": "news",
   "url": "https://github.com/TensorRails/warmctl"
+ },
+ "13225fd2d3574734": {
+  "content_excerpt": "When building agents in Claude Platform, using fewer subagents in favor of progressively disclosed context and tools can improve quality while reducing cost and latency. Here’s when and how to migrate. If you’ve built an agent in Claude Platform that includes multiple subagents, see which may make sense to fold into the main agent loop using our migration kit . It runs a guided workflow to identify your patterns, evaluate alternatives, and verify the best approach. It includes a demo that you can try on a mock system before running on your agent. Subagents – agents with their own context window, tools, and instructions, orchestrated by a coordinator – are a core component of agent design. They are effective at verification, parallel work, and modular permissioning. We use them in many of our own agents that we build using Claude Platform, for example our multi-agent research system . However, recently the Applied AI team has found a pattern of enterprise agent deployments that have benefited from folding routers, planners, and domain subagents into the main agent loop. In our comparisons across several enterprise deployments , a single agent with skills frequently outperformed both the one-prompt-for-everything design and the subagent design on quality, and often at a lower cost and latency per task. For example, one company found the dozen specialist subagents within its customer-facing agent made a consistent on-brand experience difficult to maintain and added latency that ",
+  "first_seen": "2026-10-24T20:04:51.842291+00:00",
+  "id": "ab2679a0eadec6d1",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-17T14:46:24+00:00",
+  "sid": "13225fd2d3574734",
+  "source": "hackernews_ai",
+  "summary_1line": "Building agents: When to fold subagents into your main agent loop",
+  "title": "Building agents: When to fold subagents into your main agent loop",
+  "type": "news",
+  "url": "https://claude.com/resources/articles/building-agents-when-to-fold-subagents-into-your-main-agent-loop",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "13244a5e59c39757": {
   "content_excerpt": "An LLM agent's cost and success depend on its model, its harness, and its environment. Agents are often deployed in rich environments shared by many tasks, such as a company's Slack workspace or a complex collection of data sources, documents or tickets. We call these stationary environments. To improve an agent, one can tune the model or edit the harness; we show that changing how information is organized in the environment is a third direction. We introduce EnvOpt, a method for automated end-to-end optimization of stationary environments for any given model and harness, using real or synthetic tasks without needing any graders or reference answers. An LLM agent’s cost and success rate depend on three things: the model parameters, the harness, and the structure of the environment it interacts with. The first two are actively optimized through parameter tuning and harness optimization, while the environment is often considered immutable. Yet, the same information can be given to an agent in very different forms. For example, a company’s Slack history can either sit behind a remote server and be accessible via MCP or exported in plain text files that can be read and searched with terminal tools like grep. This choice alone can significantly affect how much work the agent needs to perform to solve a task. Stationary environments refer to environments with large collections of artifacts that remain the same or are similar across many tasks. For example, a banking agent uses the ",
@@ -6176,6 +6209,22 @@
   "url": "http://arxiv.org/abs/2611.08478v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "4d16bc2828110439": {
+  "content_excerpt": "Running Claude Code like an engineering team: one operator, parallel lanes, audited merges. Running Claude Code like an engineering team: one operator, parallel lanes, audited merges. Using a single Claude Code session for a small fix works fine. Using it for a real feature usually turns into a mess of conflicting edits, silently dropped rules during merges, half-baked bug patches, and a giant commit at the end. Throwing more agents at it doesn't fix that on its own. Parallel agents with no shared plan just make code messier, faster. The main session never writes code. It becomes the operator : it briefs the subagents, checks what they hand back, and talks to you. Lanes build in parallel against one shared contract. Every merge gets audited, and every bug gets a root cause before it gets a fix. Every rule in here exists because breaking it cost me hours. Steal them. Change them. Make them stricter for your project. You'll also need git, and Node.js with npx . The debugger MCP server runs through it. Add this to .claude/settings.json in your repo. Everyone who opens the repo gets the plugin. The skills never hardcode a command. They run a key from your Commands table, so the same kit works on Python, JS/TS, Go, or anything with a test command. After /shark:init , your project file tells Claude to load /shark:operator at the start of each session. You don't need to type it every time, and your session becomes a full-fledged engineering team. Already use your own orchestration l",
+  "first_seen": "2026-11-17T15:05:19.878102+00:00",
+  "id": "6106a99024881510",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-17T14:35:35+00:00",
+  "sid": "4d16bc2828110439",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Shark-skills Multi-agent orchestration and step-debugging for Claude",
+  "title": "Show HN: Shark-skills Multi-agent orchestration and step-debugging for Claude",
+  "type": "news",
+  "url": "https://github.com/tusharsrivastava/shark-skills",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "4d29353472d6538a": {
   "first_seen": "2026-11-10T08:04:55.363407+00:00",
   "id": "17511ff888fba107",
@@ -9390,6 +9439,22 @@
   "title": "ARMOR: Adaptive Curriculum Meta-Learning for Noise-Robust RAG Reasoning",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.11771v1"
+ },
+ "76dc46fd98b03354": {
+  "content_excerpt": "We partnered with Baseten to build the largest-scale harness leaderboard using 83B tokens across 27,280 agent runs. We wanted to answer two questions: when you switch your model, should you consider switching the harness too? What is the best harness for each model? Previously, our v1.0 FrontierHarness leaderboard ranked harnesses on a single model, Kimi K3. V1.1 expands the benchmark to 22 harnesses × 5 models × 62 tasks × 4 attempts, 76× the size of v1.0. Through our experiments, we found that you should consider switching harnesses when switching models to maximize your experience. Each model had a different best-value (pass rate vs. cost) harness: Codex CLI with GLM-5.3, Pi with GLM-5.3 Flash, ZCode with DeepSeek V4.1 Flash 1017, Oh My Pi with Muse and Alma with Kimi-K3. Cost ranks moved far between models. By cost per task, the median harness moved 11 of 22 places, and Codex CLI went from 1st with GLM-5.3 to 16th with Kimi-K3. Each point is one harness: further left is a lower average cost per task, and higher is a higher pass rate. The orange line joins the harnesses that no other harness beats in both cost and pass rate. Select a model to filter all figures of this post. Over all models, four harnesses are on the line: OpenCode v2 (lowest cost per task, $0.561), Pi, Codex CLI and ZCode (highest pass rate, 61.9%). The others cost up to 1.6 times as much and passed 50.6% to 60.2%. Each card names the best-value harness for one model: the lowest cost per pass, unless anot",
+  "first_seen": "2026-11-17T15:05:19.878102+00:00",
+  "id": "eb5f9d1205361f24",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-17T14:53:43+00:00",
+  "sid": "76dc46fd98b03354",
+  "source": "hackernews_ai",
+  "summary_1line": "In 27,280 coding agent runs, 64% of inference spend went to runs that failed",
+  "title": "In 27,280 coding agent runs, 64% of inference spend went to runs that failed",
+  "type": "news",
+  "url": "https://runta.com/blog/introducing-frontierharness-eval-v1-1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "77145208361ffe08": {
   "also_covered": [
@@ -16706,6 +16771,22 @@
   "url": "https://penguinbase.com/game-install?game=192471728&ref=hn",
   "why_it_matters": "Matches feed focus: agent, codex, claude code."
  },
+ "ce03d967f429d822": {
+  "first_seen": "2026-11-17T15:05:19.878102+00:00",
+  "id": "bd1f00fdc90fcbd2",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-16T18:20:09+00:00",
+  "sid": "ce03d967f429d822",
+  "source": "arxiv_cs_cl",
+  "summary": "When an authorization policy blocks an agent's tool call, the audit log should name the facts that forced the decision and nothing more. For an executable policy over an enumerable context space this minimal sufficient reason can be computed exactly, so an explanation is scored against ground truth rather than a proxy for it. We use that exactness to ask what a model can learn from a verifier that has no error in it. The explainer sees one request and one decision, never the policy, and has thirty turns in which it may call the policy on altered requests and ask whether a candidate set of facts is sufficient. Frontier models find the exact reason about half the time with the tools alone, and one sentence telling them to shrink the answer lifts Haiku 4.5 from 58% to 75%. A 4B model fine-tuned on 2000 traces of the deletion algorithm reaches 92% on the policy it was trained on. Teacher kind is what moves this: at matched data size the algorithm-taught student leads the frontier-taught one in all three training seeds, and the two arms never overlap. What the student learns is a fixed schedule of sufficiency checks, and the schedule does not travel. On three public policies it never saw, its answers stay sufficient (94%) and stop being minimal (48%), while Haiku under the same sentence is exact on all 47 episodes. Reinforcement learning from the exact reward leaves held-out accuracy where it was and inverts the strategy, from probing the policy to spending the entire budget on su",
+  "summary_1line": "When an authorization policy blocks an agent's tool call, the audit log should name the facts that forced the decision and nothing more. For an executable policy over an enumerable context space this minimal sufficien...",
+  "title": "Procedure without Judgment: What Small Language Models Learn under an Exact Verifier",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.21529v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "ce9f8f3fe2d7cb93": {
   "first_seen": "2026-11-05T10:06:08.885753+00:00",
   "id": "91193fdeaa0054ad",
@@ -19346,6 +19427,22 @@
   "title": "TorchCurves: Differentiable Parametric Curves",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14516v1"
+ },
+ "f1f4919c8faec00a": {
+  "first_seen": "2026-11-17T15:05:19.878102+00:00",
+  "id": "7a59bf680f19b174",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-16T15:55:56+00:00",
+  "sid": "f1f4919c8faec00a",
+  "source": "arxiv_cs_cl",
+  "summary": "Existing Large Vision-Language Model benchmarks primarily evaluate visual understanding in general everyday scenarios, leaving historical consistency with a specified era and country largely underexplored. To address this gap, we propose AnachroBench, a controlled discriminative benchmark for evaluating historical consistency in visual scenes. It contains 1,600 image pairs from eight countries spanning the late 19th to the early 20th century, each pairing an original historical image with an anachronistic version containing a seamlessly inserted modern object. AnachroBench evaluates three aspects: Inserted Object Perception, which tests whether models detect the inserted modern object; Era-Country Consistency, which assesses whether the scene is consistent with the specified era and country; and Conditional Era-Country Consistency, which measures consistency judgments only when the inserted object is correctly perceived. A false consistency judgment occurs when a model perceives the modern object but still judges the scene as historically consistent. Overall, AnachroBench reveals a gap between inserted object perception and era-country consistency judgments, providing a targeted evaluation of this behavior.",
+  "summary_1line": "Existing Large Vision-Language Model benchmarks primarily evaluate visual understanding in general everyday scenarios, leaving historical consistency with a specified era and country largely underexplored. To address...",
+  "title": "AnachroBench: Evaluating Historical Consistency in Large Vision-Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.21292v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "f2081976a5948855": {
   "content_excerpt": "Dual-Traffic Shadow Testing Engine for AI-Refactored Legacy Code | Real-time traffic teeing, semantic diffing & automated LLM regression test generation Eliminating the 5% risk that stops enterprise CTOs from deploying AI-modernized backends to production. 🌐 Interactive Live Cloud Sandbox : https://shadowdiff-demo.fly.dev (Self-driving dual-traffic simulator active) Enterprises are actively modernizing mission-critical legacy backends (Java 7/8 Spring monoliths, Python 2 Django, PHP 5.6 backends) into modern cloud-native services (Go, TypeScript/Node, FastAPI) using AI code migration engines. While AI generates ~95% of refactored code accurately, the remaining 5% of hidden edge cases make production deployment an unacceptable risk : ShadowDiff is a high-performance network proxy and analysis engine that duplicates real staging or production HTTP traffic, sending identical payloads to both the legacy service and the AI-refactored service simultaneously. ShadowDiff integrates directly with Envoy Proxy and Istio Service Mesh using request_mirror_policies . Traffic is cloned asynchronously at line rate in the network layer with zero application latency penalty . Captures and correlates SQL statements executed by both services for each HTTP trace: Every isolated edge case is analyzed by Google Gemini ( gemini-2.0-flash ), which writes a turnkey integration test (Go httptest or Vitest) and diagnoses the code fix. A native deployment blocker that evaluates traffic quality during pre",
