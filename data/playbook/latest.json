@@ -1,125 +1,144 @@
 {
-  "date": "2026-11-10",
-  "title": "Agent Builder's Playbook — Nov 10, 2026",
-  "generated_at": "2026-11-10T10:03:59Z",
+  "date": "2026-11-17",
+  "title": "Agent Builder's Playbook — Nov 17, 2026",
+  "generated_at": "2026-11-17T10:04:53Z",
   "intro": [
-    "Handoffs are this week's weak point: summaries lose task detail, invent permissions, and replay approved actions."
+    "This week's theme is checks that don't trust the happy path: verify gates the change can't edit, endpoint canaries for silent accuracy loss, and evals that hold the judge fixed."
   ],
-  "card_count": 6,
+  "card_count": 7,
   "cards": [
     {
-      "id": "pb-pass-full-task-to-every-subagent",
+      "id": "pb-gate-commits-on-verify-skill",
       "kind": "source-backed",
-      "title": "Pass the full task file to every agent in a multi-agent pipeline",
-      "area": "Orchestration",
-      "problem": "A planner–coder–reviewer team passed 25.7% of hidden acceptance tests versus 56.8% for one agent, because only the planner saw the task.",
-      "apply": "Give the coder and reviewer the original task file alongside the planner summary. Benchmark the team against a single agent at equal spend before keeping the extra roles.",
-      "result": "In the source experiment, sharing the task file lifted the team to 54.1%, level with one agent, though still at higher cost.",
-      "effort": "low",
-      "source": "hackernews_ai",
-      "source_url": "https://programmingtheloop.com/experiments/swarm-tax/",
-      "source_sid": "2facba8089563987",
-      "topic_url": "/topic/agent-orchestration",
-      "evidence": {
-        "kind": "source-measured",
-        "note": "The author measured pass rates on six feature tasks with Codex."
-      },
-      "published": "Thu, 05 Nov 2026 23:10:43 +0000"
-    },
-    {
-      "id": "pb-compact-to-short-context",
-      "kind": "source-backed",
-      "title": "Compact agent history to a short context instead of paying for long windows",
-      "area": "Cost & latency",
-      "problem": "Long-context serving is priced up to 7x more per token, yet agents rarely use the extra window.",
-      "apply": "Summarize the agent history on a fixed cadence and cap working context near 16K tokens. Run your own eval against the full-context baseline before switching.",
-      "result": "NVIDIA reports little accuracy loss on Claude Opus 4.5 and GPT 5.6 Sol at 16K with frequent compaction, at a fraction of the serving cost.",
-      "effort": "medium",
-      "source": "hackernews_ai",
-      "source_url": "https://i10x.ai/news/nvidia-long-context-compaction-agents-study",
-      "source_sid": "3c72c5c3cd7d0707",
-      "topic_url": "/topic/context-compaction",
-      "evidence": {
-        "kind": "source-claimed",
-        "note": "NVIDIA preprint \"You don't need long context\" reports the accuracy and cost result."
-      },
-      "published": "Wed, 04 Nov 2026 14:17:09 +0000"
-    },
-    {
-      "id": "pb-audit-handoff-summaries",
-      "kind": "source-backed",
-      "title": "Audit compaction summaries for permissions the history never granted",
-      "area": "Safety",
-      "problem": "A self-written handoff summary can state permissions or requirements the original record does not support, and the next step then obeys them.",
-      "apply": "Treat summaries as untrusted input: diff any permission, approval, or policy sentence against the source history, and drop unsupported ones before resuming.",
-      "result": "Compacted runs stop inheriting invented authorizations, so tool-call gates keep matching what the user actually approved.",
-      "effort": "medium",
-      "source": "arxiv_agent_systems_research",
-      "source_url": "http://arxiv.org/abs/2611.06545v1",
-      "source_sid": "73b8cbb5fe289269",
-      "topic_url": "/topic/prompt-injection",
-      "evidence": {
-        "kind": "editorial-inference",
-        "note": "The paper studies unsupported policy statements in handoff summaries; the mitigation is an editorial inference."
-      },
-      "published": "2026-11-04T14:12:09Z"
-    },
-    {
-      "id": "pb-idempotent-approved-tool-calls",
-      "kind": "source-backed",
-      "title": "Make approved tool calls run at most once across crashes",
+      "title": "Gate agent commits on a verify skill the change cannot edit",
       "area": "Reliability",
-      "problem": "After a crash and documented resume, one approved payment ran twice in LangGraph, Pydantic AI and the OpenAI Agents SDK.",
-      "apply": "Key each approved side-effecting call by an idempotency ID and record it before executing. On resume, skip any ID already recorded.",
-      "result": "The source claims approved tool calls run at most once, which makes retries after a crash safe.",
+      "problem": "Without a fast way for agents to prove their own changes work, a human must check everything, which caps you at one or two agents at a time.",
+      "apply": "Add a `verify` skill that boots and drives the app end to end, and require it (or a code review) before each commit. Keep the gating rules on the base branch so a change can never edit the check that judges it. Run new gates in observe mode first, and escalate to a human after three failed fix rounds.",
+      "result": "Anthropic reports that a separate rubric grader lifted task success by up to 10 points on its structured-file tasks, and verification loops let its team run dozens of agents in parallel.",
       "effort": "medium",
-      "source": "hackernews_ai",
-      "source_url": "https://github.com/salahmakboul/call4agents",
-      "source_sid": "385b20a2401d6d5d",
+      "source": "claude_dev_blog",
+      "source_url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
+      "source_sid": "9a0aa0e71b450c03",
       "topic_url": "/topic/agent-reliability",
       "evidence": {
         "kind": "source-claimed",
-        "note": "The Call4Agents write-up reproduces duplicate payments in three frameworks."
+        "note": "Anthropic reports its own internal testing; no external replication."
       },
-      "published": "Thu, 05 Nov 2026 18:17:19 +0000"
+      "published": "Mon, 16 Nov 2026 12:00:00 GMT"
     },
     {
-      "id": "pb-propagate-acl-into-agent-memory",
+      "id": "pb-flex-tier-for-non-streaming-loops",
       "kind": "source-backed",
-      "title": "Carry source ACLs onto every memory note your agent synthesizes",
-      "area": "Memory",
-      "problem": "Metadata filters block 100% of unauthorized raw-chunk queries, yet cross-document synthesis leaked confidential parent secrets in 2 of 3 background tasks.",
-      "apply": "Stamp each synthesized memory note with the intersection of its parents' permissions, and filter memory recall by the requesting user the same way as raw retrieval.",
-      "result": "Unprivileged users stop retrieving executive data through derived notes. Re-run the benchmark linter to confirm a 0% leak rate.",
-      "effort": "medium",
+      "title": "Route non-streaming agent calls to the flex tier",
+      "area": "Cost & latency",
+      "problem": "Coding agents pay realtime token prices even though their loop waits for the complete response before acting.",
+      "apply": "Where the agent consumes only finished responses, send requests with `service_tier: \"flex\"` by default and keep a one-command switch back to realtime for when the queue backs up. Keep realtime for anything that streams partial output or acts on a partial tool call.",
+      "result": "In the author's matched test, flex token rates were 24–27% lower and median end-to-end latency rose only from 4.48 s to 4.84 s; first-token latency rose from 0.17 s to 4.84 s.",
+      "effort": "low",
       "source": "hackernews_ai",
-      "source_url": "https://github.com/harishbalasubramanian/sentinel-eval",
-      "source_sid": "42d0d220c3dc643e",
+      "source_url": "https://tesseracted.com/the-price-of-patience/",
+      "source_sid": "076bcadf42543fda",
+      "topic_url": "/topic/cost-controls",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "Five interleaved rounds per tier on one model; costs estimated from published tariffs, not invoices."
+      },
+      "published": "Fri, 13 Nov 2026 19:33:19 +0000"
+    },
+    {
+      "id": "pb-check-endpoint-output-caps-and-tool-schemas",
+      "kind": "source-backed",
+      "title": "Check a hosted endpoint's output cap and tool-argument types before you adopt it",
+      "area": "Tool use",
+      "problem": "About one in four hosted open-weight endpoints scores below the reference deployment of the same model. The main causes are output caps and schema bugs, not FP4 quantization.",
+      "apply": "Before picking a provider, read its maximum output tokens and confirm the cap fits your longest reasoning trace. Run a canary that sends string-typed tool arguments such as IDs and asserts they come back as strings.",
+      "result": "In Artificial Analysis's index, endpoints capped near 32K output tokens scored 22–29% on HLE-250 against 55% for the reference. Two endpoints that sent string arguments as numbers fell to 50–51% on BFCL, against 59% for the reference.",
+      "effort": "low",
+      "source": "hackernews_ai",
+      "source_url": "https://hermes-ai.net/news/artificial-analysis-finds-1-in-4-ai-endpoints-quietly-underperform-their/",
+      "source_sid": "72eff2cf25179487",
+      "topic_url": "/topic/tool-use",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "Artificial Analysis Endpoint Accuracy Index v1.1 across more than 100 endpoints, as reported."
+      },
+      "published": "Fri, 13 Nov 2026 17:08:35 +0000"
+    },
+    {
+      "id": "pb-enforce-data-flow-at-send-time",
+      "kind": "source-backed",
+      "title": "Check data provenance and recipient rights when the send happens",
+      "area": "Safety",
+      "problem": "Each agent can obey its own tool permissions while the team still leaks private data, for example an attacker's ticket that routes a database summary to an email sender.",
+      "apply": "Have the runtime, not the model, tag content with its source and confidentiality label, and keep those labels attached across handoffs. At every outbound tool such as email or webhook, block the send unless the recipient may receive every label in the payload. Scope read tools to the requester's own records.",
+      "result": "Cross-agent exfiltration chains fail at the send step, even when the orchestrator is fooled into making the request.",
+      "effort": "high",
+      "source": "hackernews_ai",
+      "source_url": "https://glthr.com/transitive-policies-for-ai-agents",
+      "source_sid": "89f7bd12a1554243",
+      "topic_url": "/topic/prompt-injection",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "The source is a design argument with a worked attack example, not a measured study."
+      },
+      "published": "Sat, 14 Nov 2026 12:33:40 +0000"
+    },
+    {
+      "id": "pb-unread-message-guard-for-peer-agents",
+      "kind": "source-backed",
+      "title": "Block shared-resource actions until an agent has read its messages",
+      "area": "Orchestration",
+      "problem": "When each user's agent acts on a shared budget, calendar, or group order, group outcomes are worse than with one coordinating agent.",
+      "apply": "Make the action tool, such as placing an order or spending budget, refuse to run while the agent has unread peer messages. For a shared budget, name one lead agent that ranks jobs by value and allocates, and have the other agents report to it.",
+      "result": "In Anthropic's environments, the unread-message guard rescued more failed group orders than rerunning them. A designated lead with clear priorities improved shared-budget outcomes.",
+      "effort": "low",
+      "source": "hackernews_ai",
+      "source_url": "https://alignment.anthropic.com/2026/worse-together/",
+      "source_sid": "23e8ac3f97dad8c1",
+      "topic_url": "/topic/multi-agent",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "Anthropic Fellows measured across simulated multi-user environments, released as MAMUBench."
+      },
+      "published": "Thu, 12 Nov 2026 06:48:42 +0000"
+    },
+    {
+      "id": "pb-ab-test-recovery-advice-vs-neutral",
+      "kind": "source-backed",
+      "title": "A/B-test tool-failure recovery advice against a neutral reminder",
+      "area": "Evals",
+      "problem": "Teams add recovery hints to tool error messages on the assumption that they help, but the hints can lower task success.",
+      "apply": "Run your agent with real injected tool faults under two conditions: your recovery advice and a neutral reminder. Grade by final system state, not by the agent's report, and ship the advice only if it beats the control.",
+      "result": "In AgentFaultBench, generic advice moved success by −8.33 to +1.06 points against the control. A revised policy reached 161/192 correct final states against 142/192.",
+      "effort": "medium",
+      "source": "arxiv_cs_lg",
+      "source_url": "http://arxiv.org/abs/2611.20711v1",
+      "source_sid": "b9f35f290ebb4bb0",
+      "topic_url": "/topic/agent-evaluation",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "Paper runs 1,944 primary and 624 follow-up runs on LangGraph and CrewAI agents in an isolated GitLab."
+      },
+      "published": "2026-11-16T08:19:25Z"
+    },
+    {
+      "id": "pb-pin-judge-and-prompt-in-memory-evals",
+      "kind": "source-backed",
+      "title": "Pin the judge and answer prompt before you compare memory systems",
+      "area": "Evals",
+      "problem": "Memory benchmark scores such as LoCoMo shift with the judge and answer prompt, so a reported gain may come from setup rather than from memory.",
+      "apply": "When you compare memory designs, fix the answer model, answer prompt, and judge, and rerun a whole-conversation baseline under those exact settings. Report the paired difference with its confidence interval.",
+      "result": "Changing only the judge moved a LoCoMo score by up to 7.2 points, and changing only the answer prompt moved it by up to 9.3.",
+      "effort": "low",
+      "source": "arxiv_cs_ai",
+      "source_url": "http://arxiv.org/abs/2611.19199v1",
+      "source_sid": "fe2344cdcbd096cd",
       "topic_url": "/topic/agent-memory",
       "evidence": {
         "kind": "source-measured",
-        "note": "The benchmark reports 0% raw-RAG leaks versus 67% agent-memory leaks."
+        "note": "Paper measures 1,540 questions under two answer models, two prompts, and three judges."
       },
-      "published": "Mon, 09 Nov 2026 14:33:07 +0000"
-    },
-    {
-      "id": "pb-let-agent-write-one-program",
-      "kind": "source-backed",
-      "title": "Let the agent express a bulk workflow as one program, not per-node tool calls",
-      "area": "Tool use",
-      "problem": "Bulk edits like replacing a brand color across thousands of nodes force a model round trip per decision.",
-      "apply": "Expose the document API to a sandboxed script. Have the agent write one program that inspects, decides and applies the changes, and start execution while it streams.",
-      "result": "Framer reports the rebuilt harness is up to 33% cheaper and 20% faster.",
-      "effort": "high",
-      "source": "hackernews_ai",
-      "source_url": "https://www.framer.com/blog/harness-2/",
-      "source_sid": "c430d9570f8f07c3",
-      "topic_url": "/topic/tool-use",
-      "evidence": {
-        "kind": "source-claimed",
-        "note": "Framer states the cost and latency figures for its own agent harness."
-      },
-      "published": "Fri, 06 Nov 2026 17:31:03 +0000"
+      "published": "2026-11-14T06:41:22Z"
     }
   ]
 }

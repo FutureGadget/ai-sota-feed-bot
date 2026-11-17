@@ -75,6 +75,25 @@
     },
     "edition_date": "2026-10-13"
   },
+  "076bcadf42543fda": {
+    "id": "pb-flex-tier-for-non-streaming-loops",
+    "kind": "source-backed",
+    "title": "Route non-streaming agent calls to the flex tier",
+    "area": "Cost & latency",
+    "problem": "Coding agents pay realtime token prices even though their loop waits for the complete response before acting.",
+    "apply": "Where the agent consumes only finished responses, send requests with `service_tier: \"flex\"` by default and keep a one-command switch back to realtime for when the queue backs up. Keep realtime for anything that streams partial output or acts on a partial tool call.",
+    "result": "In the author's matched test, flex token rates were 24–27% lower and median end-to-end latency rose only from 4.48 s to 4.84 s; first-token latency rose from 0.17 s to 4.84 s.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://tesseracted.com/the-price-of-patience/",
+    "source_sid": "076bcadf42543fda",
+    "topic_url": "/topic/cost-controls",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Five interleaved rounds per tier on one model; costs estimated from published tariffs, not invoices."
+    },
+    "edition_date": "2026-11-17"
+  },
   "077b61a0fed02bcc": {
     "id": "pb-selective-context-retrieval-not-full-playbook",
     "kind": "source-backed",
@@ -663,6 +682,25 @@
       "note": "Tool's own description of its contract format and workflow; auditability payoff stated qualitatively, no measured figures."
     },
     "edition_date": "2026-07-03"
+  },
+  "23e8ac3f97dad8c1": {
+    "id": "pb-unread-message-guard-for-peer-agents",
+    "kind": "source-backed",
+    "title": "Block shared-resource actions until an agent has read its messages",
+    "area": "Orchestration",
+    "problem": "When each user's agent acts on a shared budget, calendar, or group order, group outcomes are worse than with one coordinating agent.",
+    "apply": "Make the action tool, such as placing an order or spending budget, refuse to run while the agent has unread peer messages. For a shared budget, name one lead agent that ranks jobs by value and allocates, and have the other agents report to it.",
+    "result": "In Anthropic's environments, the unread-message guard rescued more failed group orders than rerunning them. A designated lead with clear priorities improved shared-budget outcomes.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://alignment.anthropic.com/2026/worse-together/",
+    "source_sid": "23e8ac3f97dad8c1",
+    "topic_url": "/topic/multi-agent",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Anthropic Fellows measured across simulated multi-user environments, released as MAMUBench."
+    },
+    "edition_date": "2026-11-17"
   },
   "24ddbe91a622a3cd": {
     "id": "pb-rag-trust-not-just-relevance",
@@ -2089,6 +2127,25 @@
     },
     "edition_date": "2026-09-08"
   },
+  "72eff2cf25179487": {
+    "id": "pb-check-endpoint-output-caps-and-tool-schemas",
+    "kind": "source-backed",
+    "title": "Check a hosted endpoint's output cap and tool-argument types before you adopt it",
+    "area": "Tool use",
+    "problem": "About one in four hosted open-weight endpoints scores below the reference deployment of the same model. The main causes are output caps and schema bugs, not FP4 quantization.",
+    "apply": "Before picking a provider, read its maximum output tokens and confirm the cap fits your longest reasoning trace. Run a canary that sends string-typed tool arguments such as IDs and asserts they come back as strings.",
+    "result": "In Artificial Analysis's index, endpoints capped near 32K output tokens scored 22–29% on HLE-250 against 55% for the reference. Two endpoints that sent string arguments as numbers fell to 50–51% on BFCL, against 59% for the reference.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://hermes-ai.net/news/artificial-analysis-finds-1-in-4-ai-endpoints-quietly-underperform-their/",
+    "source_sid": "72eff2cf25179487",
+    "topic_url": "/topic/tool-use",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Artificial Analysis Endpoint Accuracy Index v1.1 across more than 100 endpoints, as reported."
+    },
+    "edition_date": "2026-11-17"
+  },
   "7339a1b37836ee76": {
     "id": "pb-cache-verified-repairs-as-memory",
     "kind": "source-backed",
@@ -2621,6 +2678,25 @@
     },
     "edition_date": "2026-07-28"
   },
+  "89f7bd12a1554243": {
+    "id": "pb-enforce-data-flow-at-send-time",
+    "kind": "source-backed",
+    "title": "Check data provenance and recipient rights when the send happens",
+    "area": "Safety",
+    "problem": "Each agent can obey its own tool permissions while the team still leaks private data, for example an attacker's ticket that routes a database summary to an email sender.",
+    "apply": "Have the runtime, not the model, tag content with its source and confidentiality label, and keep those labels attached across handoffs. At every outbound tool such as email or webhook, block the send unless the recipient may receive every label in the payload. Scope read tools to the requester's own records.",
+    "result": "Cross-agent exfiltration chains fail at the send step, even when the orchestrator is fooled into making the request.",
+    "effort": "high",
+    "source": "hackernews_ai",
+    "source_url": "https://glthr.com/transitive-policies-for-ai-agents",
+    "source_sid": "89f7bd12a1554243",
+    "topic_url": "/topic/prompt-injection",
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "The source is a design argument with a worked attack example, not a measured study."
+    },
+    "edition_date": "2026-11-17"
+  },
   "8c2466d58106f2ad": {
     "id": "pb-beat-majority-vote-before-debate",
     "kind": "source-backed",
@@ -2905,6 +2981,25 @@
       "note": "Qualitative design argument, not a benchmarked result; no source-cited numbers apply."
     },
     "edition_date": "2026-07-03"
+  },
+  "9a0aa0e71b450c03": {
+    "id": "pb-gate-commits-on-verify-skill",
+    "kind": "source-backed",
+    "title": "Gate agent commits on a verify skill the change cannot edit",
+    "area": "Reliability",
+    "problem": "Without a fast way for agents to prove their own changes work, a human must check everything, which caps you at one or two agents at a time.",
+    "apply": "Add a `verify` skill that boots and drives the app end to end, and require it (or a code review) before each commit. Keep the gating rules on the base branch so a change can never edit the check that judges it. Run new gates in observe mode first, and escalate to a human after three failed fix rounds.",
+    "result": "Anthropic reports that a separate rubric grader lifted task success by up to 10 points on its structured-file tasks, and verification loops let its team run dozens of agents in parallel.",
+    "effort": "medium",
+    "source": "claude_dev_blog",
+    "source_url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
+    "source_sid": "9a0aa0e71b450c03",
+    "topic_url": "/topic/agent-reliability",
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Anthropic reports its own internal testing; no external replication."
+    },
+    "edition_date": "2026-11-17"
   },
   "9ab83fdefb7e8bb3": {
     "id": "pb-stage-agent-autonomy-with-human-gates",
@@ -3551,6 +3646,25 @@
       "note": "AWS reports the P75 cold-start figures for the old and new runtime from its own benchmarks."
     },
     "edition_date": "2026-09-22"
+  },
+  "b9f35f290ebb4bb0": {
+    "id": "pb-ab-test-recovery-advice-vs-neutral",
+    "kind": "source-backed",
+    "title": "A/B-test tool-failure recovery advice against a neutral reminder",
+    "area": "Evals",
+    "problem": "Teams add recovery hints to tool error messages on the assumption that they help, but the hints can lower task success.",
+    "apply": "Run your agent with real injected tool faults under two conditions: your recovery advice and a neutral reminder. Grade by final system state, not by the agent's report, and ship the advice only if it beats the control.",
+    "result": "In AgentFaultBench, generic advice moved success by −8.33 to +1.06 points against the control. A revised policy reached 161/192 correct final states against 142/192.",
+    "effort": "medium",
+    "source": "arxiv_cs_lg",
+    "source_url": "http://arxiv.org/abs/2611.20711v1",
+    "source_sid": "b9f35f290ebb4bb0",
+    "topic_url": "/topic/agent-evaluation",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Paper runs 1,944 primary and 624 follow-up runs on LangGraph and CrewAI agents in an isolated GitLab."
+    },
+    "edition_date": "2026-11-17"
   },
   "ba3ccd9e9d203387": {
     "id": "pb-gitspawn-sanitize-git-config",
@@ -4786,6 +4900,25 @@
       "note": "Qualitative takeaway from the paper's motivation; the bundled summary did not include quantified results."
     },
     "edition_date": "2026-08-25"
+  },
+  "fe2344cdcbd096cd": {
+    "id": "pb-pin-judge-and-prompt-in-memory-evals",
+    "kind": "source-backed",
+    "title": "Pin the judge and answer prompt before you compare memory systems",
+    "area": "Evals",
+    "problem": "Memory benchmark scores such as LoCoMo shift with the judge and answer prompt, so a reported gain may come from setup rather than from memory.",
+    "apply": "When you compare memory designs, fix the answer model, answer prompt, and judge, and rerun a whole-conversation baseline under those exact settings. Report the paired difference with its confidence interval.",
+    "result": "Changing only the judge moved a LoCoMo score by up to 7.2 points, and changing only the answer prompt moved it by up to 9.3.",
+    "effort": "low",
+    "source": "arxiv_cs_ai",
+    "source_url": "http://arxiv.org/abs/2611.19199v1",
+    "source_sid": "fe2344cdcbd096cd",
+    "topic_url": "/topic/agent-memory",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Paper measures 1,540 questions under two answer models, two prompts, and three judges."
+    },
+    "edition_date": "2026-11-17"
   },
   "ffff9fe41413e4ac": {
     "id": "pb-comment-agent-instructions-before-pruning",
