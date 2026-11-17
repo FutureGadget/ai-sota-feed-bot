@@ -4176,6 +4176,18 @@
   "url": "http://arxiv.org/abs/2611.20827v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "3047d7657748ea76": {
+  "first_seen": "2026-11-17T23:06:17.092314+00:00",
+  "id": "db023ba03b680656",
+  "published": "2026-11-17T08:00:00+00:00",
+  "sid": "3047d7657748ea76",
+  "source": "openai_blog",
+  "summary": "Explore the new Sales plugin and 30+ new and expanded partner plugins in ChatGPT to research prospects, prepare pitches, update your CRM, and move deals forward.",
+  "summary_1line": "Explore the new Sales plugin and 30+ new and expanded partner plugins in ChatGPT to research prospects, prepare pitches, update your CRM, and move deals forward.",
+  "title": "Introducing ChatGPT for Sales",
+  "type": "news",
+  "url": "https://openai.com/index/introducing-chatgpt-for-sales"
+ },
  "3064a8ace1fdfaeb": {
   "content_excerpt": "We’re officially skill-pilled. PostHog teams have published 226 skills to our internal skill store , and we have 187 SKILL.md files across 28 different products in our codebase. Everyone uses skills to both improve PostHog and their own workflows. They’re essential because agents have amnesia. Every conversation, they rediscover your codebase and workflows from scratch. They pick the wrong tool, fall for the same gotchas, and repeat old mistakes. They figure it out eventually, but only after wasting time and tokens. This is irritating for engineers who hate repeating themselves. That’s why they automate, write abstractions, and keep handy scripts around. Skills are this instinct applied to agents. Write them once and never explain to agents again. Here’s everything we’ve learned about writing skills that actually work, for both you and your product. Agents can learn entire programming languages, figure out how to use nearly any tool you throw at them, and improve themselves in a loop, but only if they have context to do it in. Context is usually dumped in all at once at the beginning, which limits the amount agents have to work with. Skills flip this. Instead of loading everything up front, they disclose information progressively. The skill’s information is only loaded when the agent decides it’s relevant, whether that is the main SKILL.md file or references and scripts within it. This means good skills act as a router . First, the agent needs to choose to load the skill. The",
   "first_seen": "2026-11-15T02:05:04.534147+00:00",
@@ -6677,6 +6689,17 @@
   "type": "news",
   "url": "https://flashvmm.com",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "50fba0f4984fc98e": {
+  "content_excerpt": "Terminal-native AI coding assistant for real repositories. Inspect code, edit files, run tests, and verify changes from the CLI. ⚠️ Experimental Beta — Agav is under active development. Expect breaking changes, rough edges, and rapid iteration. Feedback and bug reports are welcome! Download binaries or pre-releases from Releases . See docs.agav.dev/getting-started/installation for detailed install",
+  "first_seen": "2026-11-17T23:09:38.855308+00:00",
+  "id": "082d9b068e59f157",
+  "published": "2026-11-17T14:13:10+00:00",
+  "sid": "50fba0f4984fc98e",
+  "source": "hackernews_ai",
+  "title": "Show HN: Agav – an open-source terminal agent designed to waste fewer tokens",
+  "type": "news",
+  "url": "https://github.com/prapaa-ai/agav"
  },
  "51009fb859c1b51e": {
   "first_seen": "2026-11-17T08:06:55.339329+00:00",
@@ -11751,6 +11774,13 @@
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "8f6af8c44a4a1bfb": {
+  "also_covered": [
+   {
+    "source": "simon_willison",
+    "title": "GPT‑6.2 Astra and GPT‑6.2 Sol",
+    "url": "https://simonwillison.net/2026/Nov/17/gpt62-astra-and-sol/"
+   }
+  ],
   "first_seen": "2026-11-17T19:05:29.013393+00:00",
   "id": "31e7b62c9116f845",
   "matched_topics": [
@@ -17229,7 +17259,7 @@
   "published": "2026-11-17T21:05:52+00:00",
   "sid": "cf3bd3dc31c3f29b",
   "source": "openai_codex_releases",
-  "summary": "Release 0.169.1",
+  "summary": "Chores No verified release highlights available. Changelog Full Changelog: rust-v0.169.0...rust-v0.169.1",
   "summary_1line": "Release 0.169.1",
   "title": "codex rust-v0.169.1",
   "type": "release",
@@ -18848,6 +18878,25 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.14328v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "e45fd791e1fe03c2": {
+  "first_seen": "2026-11-17T23:06:17.092314+00:00",
+  "id": "fd037a884cee50be",
+  "image_url": "https://static.simonwillison.net/static/2026/sandbox-proxy.png",
+  "matched_topics": [
+   "agent",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-11-17T22:52:29+00:00",
+  "sid": "e45fd791e1fe03c2",
+  "source": "simon_willison",
+  "summary": "External sandboxes for coding agents I've been exploring new ways to sandbox code that is executed by agents, with a focus on making it safer to try out local models without worrying that a mistake or prompt injection attack might cause them to take damaging actions on a machine. I worked on this project with Prime Radiant , the AI research lab behind Superpowers and other projects . My post on the Prime Radiant blog introduces the external sandbox pattern, where code executed by the agent runs inside a dedicated sandbox while the agent itself lives outside of that sandbox. To demonstrate this pattern we've released three sandbox server implementations: external-sandbox-v86 runs a Node.js server which then uses v86 to run Alpine Linux inside WebAssembly. external-sandbox-container is a Python web server which runs the sandbox in Alpine Linux inside an Apple Containers instance. external-sandbox-quicksand is another Python web server, this time using Microsoft's Quicksand sandboxing library, which bundles QEMU and Alpine Linux in a Python package! Each of these implementations offers the same localhost API. You can then configure Pi, Claude Code, or Codex to send API calls to that sandbox any time they want to execute code. The sandboxes also include an optional HTTP/HTTPS allow-list proxy, so you can control exactly which hosts your agent's code is allowed to communicate with - plus a credential replacement mechanism to make authenticated API calls without sharing a secret wi",
+  "summary_1line": "External sandboxes for coding agents I've been exploring new ways to sandbox code that is executed by agents, with a focus on making it safer to try out local models without worrying that a mistake or prompt injection...",
+  "title": "External sandboxes for coding agents",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents",
+  "why_it_matters": "Matches feed focus: agent, codex, claude code."
  },
  "e4a8bfb7f3eb8edb": {
   "first_seen": "2026-11-11T00:09:42.029607+00:00",
