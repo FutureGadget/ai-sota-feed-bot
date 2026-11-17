@@ -134,6 +134,14 @@ def main() -> None:
         rule_mark(size, rounded=True).save(WEB / name, optimize=True)
     rule_mark(64, rounded=True).save(WEB / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
     print("wrote og-default.png, logo.png, icon-512/192, apple-touch-icon, favicon-32/16/.ico in web/")
+    import hashlib
+
+    token = hashlib.sha256((WEB / "og-default.png").read_bytes()).hexdigest()[:8]
+    print(
+        f"og-default.png content hash: {token} -- if it changed, set "
+        f'DEFAULT_OG_IMAGE = "/og-default.png?v={token}" in pipeline/render_static_pages.py '
+        "and update the hand-edited shells so share caches refetch the card"
+    )
 
 
 if __name__ == "__main__":
