@@ -8,7 +8,7 @@ solutions: [agent-orchestration, agent-benchmarks, agent-tracing]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-11-16
+updated: 2026-11-17
 themes:
   - key: when-it-pays
     title: "When coordination helps: topology, roles, and allocation"
@@ -21,7 +21,7 @@ themes:
     summary: Teams isolate concurrent coding agents with a branch and worktree each and gate merges with a neutral verifier; newer tools add symbol-level leases and orchestrator-owned lease records.
   - key: oversight-and-safety
     title: Oversight, collusion, and authorization between agents
-    summary: Swarms collude and sabotage without an adversary and can coordinate through hidden states; answers so far are arbiters with veto power, human pauses, per-agent credentials, and multi-agent-specific monitoring.
+    summary: System safety drops to the weakest sub-agent's, and swarms collude without an adversary; answers so far are arbiters with veto power, human pauses, per-agent credentials, and multi-agent-specific monitoring.
   - key: shared-context
     title: What each agent gets to see
     summary: Handoffs are becoming a per-subagent choice between forking the supervisor's context and starting isolated, and kernel-governed shared memory beats letting each agent decide what to share.
@@ -57,10 +57,11 @@ coding agents each get a branch and worktree, and a neutral verifier decides
 what merges. Finer tools add symbol-level leases and orchestrator-owned lease
 records, so a crashed agent can't strand work.
 
-**The open problem is oversight.** Anthropic's swarm experiments produced
-collusion and sabotage with no external adversary, agents can coordinate
-through hidden states no transcript records, and routers trust agents'
-self-descriptions. Current answers are arbiters that check work against the
+**The open problem is oversight.** A strong orchestrator does not make the
+system safe: when Claude Code and Codex delegate reading to a cheaper
+sub-agent, safety falls to the sub-agent's level. Swarms collude and sabotage
+with no external adversary, and agents can coordinate through hidden states no
+transcript records. Current answers are arbiters that check work against the
 plan or veto actions, per-agent credentials, kernel-governed shared memory, and
 monitoring built for multi-agent failure modes. Detecting covert coordination
 is still research.
