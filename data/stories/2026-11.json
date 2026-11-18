@@ -3759,6 +3759,24 @@
   "url": "http://arxiv.org/abs/2611.23074v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "2a783f6259dc0b2d": {
+  "content_excerpt": "Coding is the largest category of enterprise AI application spend, reaching $34B in 2026 . Every company now wants to know what all that spend returns, but most engineering leaders still can’t give an exact answer to what it's buying. To try to understand coding agent ROI, teams used to look at high-level data like usage analytics and AI consumption, but these don’t provide insight into what tokens actually produce. Answering the ROI question is hard and requires visibility into spend across users and teams, along with a way to connect it to outcomes. We felt this friction firsthand when spend with our own coding agent, Robin, started climbing, and is one of the reasons we built a model router. Now we're excited to offer a practical solution for our customers too. LangSmith now offers reporting built for coding agents, along with new capabilities that tie their spend to the pull requests they produce. This provides a clearer way to calculate the ROI behind coding agent budgets and understand how changes to models and policies impact it. The new LangSmith Agent Platform operates around the agent. Each agent has its own record and belongs to an \"agent type\" that determines what its dashboard shows, which data it connects to, and how it's evaluated. Coding agents are the first specialized agent type, and present data on pull requests, one of the signs that the agent's work is useful. LangSmith already traces coding agents across model providers, including Claude Code and Codex .",
+  "first_seen": "2026-11-18T15:04:12.182610+00:00",
+  "id": "9fc6590ddd363922",
+  "image_url": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6afd2e9dfe8e56017d39e855_langsmith-coding-agents-cover.png",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-18T15:00:00+00:00",
+  "sid": "2a783f6259dc0b2d",
+  "source": "langchain_blog",
+  "summary": "LangSmith now offers reporting built for coding agents, along with new capabilities that tie their spend to the pull requests they produce.",
+  "summary_1line": "LangSmith now offers reporting built for coding agents, along with new capabilities that tie their spend to the pull requests they produce.",
+  "title": "LangSmith for Coding Agents: Now track spend by outcome",
+  "type": "news",
+  "url": "https://www.langchain.com/blog/langsmith-coding-agents-roi",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "2a9427c55f20d0ad": {
   "first_seen": "2026-11-15T23:06:05.718817+00:00",
   "id": "4d8a32dd5c7d1541",
@@ -6627,6 +6645,22 @@
   "type": "news",
   "url": "https://projectzero.google/2026/10/fuzzing-v-AI.html"
  },
+ "4b5e13953f6ead09": {
+  "content_excerpt": "California Attorney General Rob Bonta sued OpenAI on Monday, alleging the company knowingly continued testing advanced artificial intelligence models despite repeated security failures that allowed autonomous AI agents to escape isolated environments and launch cyberattacks against real-world organizations. The lawsuit claims OpenAI misled the public about its cybersecurity safeguards and failed to adequately monitor increasingly advanced AI cybersecurity models, resulting in more than 80 incidents in which the company lost control of its agents during testing. The legal action follows a July security incident where hundreds of OpenAI-powered agents escaped a controlled testing environment and hacked Hugging Face , an artificial intelligence platform, compromising production infrastructure and stealing internal credentials. California says the Hugging Face attack resulted from OpenAI repeatedly focusing on experimental AI testing without ensuring adequate safeguards were in place. \"The Hugging Face cyberattack was the predictable result of an internal culture at OpenAI that prioritizes growth and rapid model development over safety and accountability,\" the complaint reads . The lawsuit alleges that OpenAI continued testing increasingly capable AI agents despite knowing its sandbox environments could be bypassed, potentially exposing third-party systems to unauthorized activity. \"In truth, OpenAI failed to comply with its own internal policies and consistently and aggressively",
+  "first_seen": "2026-11-18T15:04:12.182610+00:00",
+  "id": "75e8363b1cdebdb0",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-18T14:38:17+00:00",
+  "sid": "4b5e13953f6ead09",
+  "source": "hackernews_ai",
+  "summary_1line": "California sues OpenAI over AI agents escaping sandboxes, hacking firms",
+  "title": "California sues OpenAI over AI agents escaping sandboxes, hacking firms",
+  "type": "news",
+  "url": "https://www.bleepingcomputer.com/news/security/california-sues-openai-over-ai-agents-escaping-sandboxes-hacking-firms",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "4c719563acf49568": {
   "first_seen": "2026-11-11T20:08:30.197010+00:00",
   "id": "7cba811bdd220e6e",
@@ -8127,6 +8161,18 @@
   "url": "https://github.com/google/elephant-goldfish-model",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "5b89a2db7f60ae90": {
+  "content_excerpt": "Today we're open sourcing Rumble-2-Flash under the Apache 2.0 license. It's a 0.5B-parameter speech recognition model for 40+ languages that competes with models 3-60x its size. Rumble-2-Flash uses the Qwen3-ASR architecture for day-0 support. If your stack runs Transformers or vLLM, it runs Rumble-2-Flash, with no forked runtime or trust_remote_code . To find out how small a model could get before accuracy dropped off, we distilled Rumble-2, our larger production model, into it with on-policy distillation. The student doesn't train on transcripts the teacher wrote. It transcribes the audio itself, and the teacher grades that transcript token by token: at every position, it gives its own probability for what should come next, and the student learns to match it. Because the student learns from its own outputs, it gets corrected on exactly the mistakes it makes, with feedback on every token instead of one score per clip. On-policy distillation normally requires teacher and student to share a tokenizer, and ours don't: choosing Qwen3-ASR meant taking its vocabulary too. GOLD removes that restriction. It merges tokens where the two tokenizers split the text differently, so both models are compared over the same text. Tokens that exist in both vocabularies are compared directly, and the rest by their sorted probabilities. On the Open ASR Leaderboard multilingual track, Rumble-2-Flash averages a 6.96% error rate across Chinese, German, French, Italian, Spanish, Portuguese, Hindi, D",
+  "first_seen": "2026-11-18T15:04:12.182610+00:00",
+  "id": "86028e38b752658d",
+  "published": "2026-11-18T00:00:00+00:00",
+  "sid": "5b89a2db7f60ae90",
+  "source": "huggingface_blog",
+  "summary_1line": "Rumble-2-Flash: an open 0.5B speech model for 40+ languages",
+  "title": "Rumble-2-Flash: an open 0.5B speech model for 40+ languages",
+  "type": "research",
+  "url": "https://huggingface.co/blog/rumble-2-flash"
+ },
  "5ba3c8a17a29551e": {
   "content_excerpt": "6.4 MB portable binary. Written in ANSI C and Lua. Runs on Linux, macOS, Windows, Haiku, and more. Auditable, MIT. A coding agent should be a tool you can understand, carry with you, and change. psi starts with a small C core and puts the high-level behavior in Lua. The agent loop, terminal interface, tools, and providers are all open to inspection. Keep the parts you need. Build the parts you’re missing. Anthropic, OpenAI Codex, OpenRouter, or local models with Ollama. Resume a session with a different provider. Branch a conversation, explore another approach, and return. Sessions are append-only JSONL with a full tree. An interactive TUI, a simple REPL, one-shot prompts, and Lua evaluation. At your keyboard or in your scripts. What stays with psi, and what builds it. Connections come from its software bills of materials. Select a package to follow its connections. Expand a package for its license and dependencies. Select a node to see its version, package license metadata, and shown connections. Nix runtime closure + direct build inputs for .#default at 646098f . Other platforms and static builds differ. The full build closure contains 918 packages; the diagram shows runtime relationships and direct build-input relationships. C89 and Lua are a deliberate choice. psi runs on familiar desktops and less-traveled systems, with a Cosmopolitan build that runs on Linux, macOS, and Windows. Across i686, x86_64, aarch64, and riscv64 where available. See the porting notes for build d",
   "first_seen": "2026-11-08T19:05:38.378392+00:00",
@@ -9010,6 +9056,23 @@
   "url": "https://widefleet.com",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "65811fd7da16acc1": {
+  "first_seen": "2026-11-18T15:04:12.182610+00:00",
+  "id": "80c5b48caa1e8998",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-17T17:37:17+00:00",
+  "sid": "65811fd7da16acc1",
+  "source": "arxiv_cs_cl",
+  "summary": "Effective multi-agent collaboration requires agents to adapt task allocation as goals and responsibilities evolve. Prior task-allocation frameworks often assume static goals, full observability, or rely on large language models (LLMs) without explicit, verifiable beliefs about task allocation or intent. These assumptions limit their applicability to real-world collaboration, where agents often lack full information about each other's actions, progress, or local environment. To support dynamic task allocation under partial observability, we introduce a communication-augmented Bayesian task-allocation framework. Our agent uses dialogue to reduce uncertainty about the environment and collaborators, while keeping decisions grounded in explicit probabilistic beliefs. We evaluate our framework in an Overcooked domain extended with dynamically arriving tasks under both full and partial object-space observability. Our communication agent consistently outperforms a vanilla LLM agent in both settings. Additionally, our framework performs comparably to a non-communicating task-allocation baseline under full observability, but substantially outperforms it under partial observability as task complexity increases by an average speed up of 0.585 and completes on average 18 timesteps faster. These results indicate that our agent is more efficient in dynamic task allocation than baselines in partially observable environments, and that communication is important as available information decrea",
+  "summary_1line": "Effective multi-agent collaboration requires agents to adapt task allocation as goals and responsibilities evolve. Prior task-allocation frameworks often assume static goals, full observability, or rely on large langu...",
+  "title": "Dynamic Task Allocation with Dialogue",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.23119v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "659084301df3f128": {
   "first_seen": "2026-11-09T07:06:12.542504+00:00",
   "id": "e8d2c19142d33370",
@@ -9540,6 +9603,22 @@
   "title": "Show HN: Smart Node, a self-hosted crew of AI agents for a small business",
   "type": "news",
   "url": "https://github.com/dklymentiev/smart-node"
+ },
+ "6c4aeadbb63ee69f": {
+  "first_seen": "2026-11-18T15:04:12.182610+00:00",
+  "id": "95a61ffec641b3e6",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-17T17:59:13+00:00",
+  "sid": "6c4aeadbb63ee69f",
+  "source": "arxiv_agent_systems_research",
+  "summary": "The \"AI revolution\" has enabled teams across the technology industry to deliver software features at unprecedented velocity. While code evolves faster than ever, customer-facing documentation often struggles to stay up to speed. As users increasingly rely on LLM-based agents that consume documentation as their primary interface, the impact of this documentation gap worsens: stale information propagates and is treated as authoritative. Signals for identifying where documentation has fallen behind already exist in abundance, both explicit (e.g., resolved support tickets revealing what documentation lacks) and implicit (e.g., code-documentation discrepancies detectable from automated loops). We deploy a multi-agent system, built around a triage agent we call \"TriAgent,\" that continuously extracts these signals and repairs documentation drift. Over 43 days of shadow-mode operation, our system triaged 499 tickets and surfaced 92 gaps in the documentation. Using a panel of LLM judges from independent model families, 81.1% of TriAgent's verifiable assertions were correct (245 of the 302 assertions the human resolution addresses; majority of three judges); on length-comparable pairs the panel preferred TriAgent's response in 70.5% of pairs and the human engineer's in 23.2% (the rest had no judge majority). Importantly, agent- and human-sourced replies tended to be complementary, with the human often surfacing insights that were either buried within the existing documentation or missi",
+  "summary_1line": "The \"AI revolution\" has enabled teams across the technology industry to deliver software features at unprecedented velocity. While code evolves faster than ever, customer-facing documentation often struggles to stay u...",
+  "title": "Mind the Gap: A Deployed Multi-Agent System for Documentation Maintenance",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.23142v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "6c6377dea1cd8cea": {
   "first_seen": "2026-11-10T03:08:56.949643+00:00",
@@ -14790,6 +14869,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12729v1"
  },
+ "a5e71090463b25c6": {
+  "first_seen": "2026-11-18T15:04:12.182610+00:00",
+  "id": "661d394ef6462adc",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-17T18:57:10+00:00",
+  "sid": "a5e71090463b25c6",
+  "source": "arxiv_cs_lg",
+  "summary": "LLM agents increasingly drive their own learning. Self-improvement methods delegate various components of model optimization to the models themselves. As models become more capable, this motivates a basic question: do these increasingly capable models still need us to specify how they should self-improve? In this paper we study an autonomous paradigm in which, given basic primitives, resources, and a general goal for self-improvement, agents construct their own self-learning algorithm for context-based optimization. Using the setting of gameplay as a testbed, a frozen LLM agent is given a compute budget and tools for collecting experience and updating text documents, and allowed to freely experiment without an externally imposed loop or access to real-world data. We find that sufficiently capable models do self-improve under these conditions, demonstrating strategies that align with classic cognitive frameworks for self-regulated learning and constructs from machine learning literature on self-generated curricula. Furthermore, we study the extent to which the learned text artifacts transfer to external benchmarks, observing improvement across different game horizons, mechanics, and 3D navigation.",
+  "summary_1line": "LLM agents increasingly drive their own learning. Self-improvement methods delegate various components of model optimization to the models themselves. As models become more capable, this motivates a basic question: do...",
+  "title": "Do LLM Agents Still Need to Be Told How to Self-Improve?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.23219v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "a5ffcd0a46dd44fd": {
   "content_excerpt": "Agent Substrate is a security-hardened, zero-trust runtime for sandboxed agents, engineered to safely run millions of agents and tools with 10x higher density than standard containers. Purpose-built for the era of autonomous agents, Substrate delivers fast resume operations in less than 500ms, with more than 500 activations per second. Agents get isolated compute, identity, networking, and storage. Sensitive credentials are kept out of reach from untrusted code. It supports multiple sandbox technologies, including microVMs and gVisor, while enabling a consistent lifecycle and management of all sandboxes. At its core, Agent Substrate maps a larger set of “actors” (stateful workloads such as agents) onto a smaller pool of ready “workers”. Because agents spend most of their lives waiting on models, tools, or humans, Substrate snapshots idle actors out of memory and restores them when a request arrives. Substrate is a low-opinion runtime, not an agent SDK. The workloads it runs do not have to be AI agents, though autonomous, untrusted, mostly-idle agents are the target for its isolation and scheduling model. It runs on standard Kubernetes: Pods, autoscaling, NetworkPolicies. It adds agent-specific scheduling, snapshotting, identity, and network mediation. This allows agentic, inference, training, and reinforcement learning workloads to share one infrastructure plane. Substrate treats every actor as untrusted and mutually hostile, so tenants can share physical nodes without sharin",
   "first_seen": "2026-11-12T09:07:47.378235+00:00",
@@ -15526,6 +15621,18 @@
   "title": "llm-gemini 0.37",
   "type": "release",
   "url": "https://simonwillison.net/2026/Nov/12/llm-gemini"
+ },
+ "aef632472a5e3af7": {
+  "content_excerpt": "Real-time forecasting, anomaly detection, and optimization, powered by IBM time-series models with more than 50 million downloads. Now available natively on Confluent, in the cloud and on premises, running on CPUs. Every business generates a continuous record of change: a machine reading, a payment, a sale, an order, or a change in inventory. These observations form time series, and they carry signals that can help teams anticipate what happens next. The challenge is turning those signals into decisions while they still matter. A forecast delivered after a production run, a stockout, or a payment authorization may be accurate, but too late to influence the outcome. IBM and Confluent are bringing time-series foundation models closer to the data as it flows. With Apache Flink, teams can apply forecasting , anomaly detection and semantic intelligence to streaming data using SQL, making model outputs available to the applications and people responsible for the next action. Foundation models have changed how organizations work with text, images, and documents. Time-series foundation models extend a similar idea to numerical data by learning general patterns from diverse historical data and then applying that knowledge to new series and tasks. The models can provide a starting point without requiring teams to train a separate model for every series. Depending on the task and deployment, teams can also fine-tune a model or combine its outputs with other data and business logic. Figu",
+  "first_seen": "2026-11-18T15:04:12.182610+00:00",
+  "id": "e40a589bdf7906e9",
+  "published": "2026-11-18T15:00:23+00:00",
+  "sid": "aef632472a5e3af7",
+  "source": "huggingface_blog",
+  "summary_1line": "Time-Series Models in the Streamhouse: A New Frontier and Use Cases",
+  "title": "Time-Series Models in the Streamhouse: A New Frontier and Use Cases",
+  "type": "research",
+  "url": "https://huggingface.co/blog/ibm-research/time-series-powered-streamhouse"
  },
  "aefb83e12c9bf408": {
   "first_seen": "2026-11-06T04:05:23.287739+00:00",
@@ -17292,6 +17399,22 @@
   "title": "BrowserDo·Embiody – a browser built for AI agents",
   "type": "news",
   "url": "https://embiody.com/blog/embiody-0-9-preview",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "c16327a14472b017": {
+  "content_excerpt": "Keeps Claude Desktop, Google Antigravity, and OpenAI Codex in sync on the same project using a local-first SQLite MCP server. Switch between Claude Desktop , OpenAI Codex , and Google Antigravity without losing state. Deterministic 4-tier context compilation. Sub-2ms latency. Zero cloud dependencies. Overview • Architecture • Interactive REPL & CLI • FastMCP Tools • Quickstart • Verification Every time you switch between these assistants, your context breaks . Decisions agreed upon in Claude Desktop are invisible to Antigravity. Tasks started in Antigravity are unknown to Codex. Developers waste thousands of tokens and manual hours copy-pasting diffs, status updates, and architectural constraints across disconnected chat windows. Project-M is a local-first Model Context Protocol (MCP) server and verified project-state compiler. It passively harvests session turns, maintains an immutable ledger of Architectural Decision Records (ADRs), synchronizes task batons, and serves a deterministic Tier 1 Briefing Card (< 450 tokens) to any requesting AI agent in under 2 milliseconds . Instead of relying on expensive third-party vector databases or paid embedding APIs, Project-M uses SQLite's native FTS5 (Full-Text Search 5) virtual table engine with BM25 probabilistic relevance ranking : Project-M features a Claude-Code-inspired terminal interface with the official Brutalist Chevron Monogram Logo , live hardware specs, and a rich interactive REPL. Launch the interactive shell anytime wi",
+  "first_seen": "2026-11-18T15:04:12.182610+00:00",
+  "id": "e2f3bbb9d7058399",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-18T14:31:10+00:00",
+  "sid": "c16327a14472b017",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Project-M – Local shared memory for AI coding agents",
+  "title": "Show HN: Project-M – Local shared memory for AI coding agents",
+  "type": "news",
+  "url": "https://github.com/adityadebnath009/Project-M",
   "why_it_matters": "Matches feed focus: agent."
  },
  "c16da948123691c6": {
