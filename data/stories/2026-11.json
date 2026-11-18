@@ -17,6 +17,23 @@
   "url": "http://arxiv.org/abs/2611.18293v1",
   "why_it_matters": "Matches feed focus: agent, harness, evaluation."
  },
+ "006ae1454b4d32df": {
+  "first_seen": "2026-11-18T08:06:11.109800+00:00",
+  "id": "2bb37bd6838b7627",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-17T16:57:03+00:00",
+  "sid": "006ae1454b4d32df",
+  "source": "arxiv_cs_cl",
+  "summary": "Agent evolution follows a simple loop: a proposer writes candidate artifacts (prompts, skills, memories) and selection accepts those that score higher. This loop has shown promise, yet practitioners face a puzzle: methods trade wins across papers, and evolution often fails to bootstrap on certain tasks. We trace this puzzle to the Resolution Hypothesis: agent evolution stalls not because methods fail to propose better artifacts, but because noisy evaluations cannot reliably identify them. Across seven evolution methods and six models (over 10M LLM calls), we find support for the hypothesis at both levels where evaluation scores are used. At the candidate level (choosing artifacts), helpful candidate artifacts exist, but selection is no better than random at telling them from harmful ones, so errors accumulate across rounds. At the method level (ranking methods), typical margins of a few percentage points are smaller than the difference between two independent runs of the same method, so published rankings often rest on luck. Together, these findings indicate that agent evolution is often bottlenecked by reliably identifying improvements. This calls for a shift in how we develop and evaluate self-improving agents, from designing ever more candidate improvement systems to making true improvements detectable and accumulable.",
+  "summary_1line": "Agent evolution follows a simple loop: a proposer writes candidate artifacts (prompts, skills, memories) and selection accepts those that score higher. This loop has shown promise, yet practitioners face a puzzle: met...",
+  "title": "The Resolution Hypothesis: Agent Evolution's Key Is Identifying Improvements",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.23068v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "00c51435deb4a7b9": {
   "content_excerpt": "Three events in October 2026 involving Trajectory Labs, PBC, and our recommendations for evaluators In late October, three events occurred during alignment evals run by Trajectory Labs, PBC (Trajectory) in which AI agents — identified by Trajectory as publicly available frontier models — interacted with Epoch employees and the Epoch website. Trajectory is an organization that builds safety evals and conducts red-teaming of frontier models. To avoid misattributing behavior, this report does not name any AI models or developers, as Epoch AI has not independently verified which were involved. The first event, which occurred without Epoch’s approval or prior notice from Trajectory, involved agents attempting multiple exploits, including an SQL injection, and contacting Epoch employees under false identities to try to obtain proprietary Epoch benchmark information. This behavior appears to have resulted, at least in part, from Trajectory giving the agents an intentionally impossible task and instructions not to give up or conclude the task was impossible. The second event involved renewed agent activity on our public website, which Trajectory attributed to agents getting past a DNS redirect that Trajectory had set up to keep them on a local copy of Epoch’s site. In the third event, Epoch collaborated with Trajectory on an alignment experiment similar to the first event. Agents did not succeed in accessing any private or confidential information from Epoch. On the evening of Octobe",
   "first_seen": "2026-11-16T13:04:20.816459+00:00",
@@ -4853,7 +4870,7 @@
   "published": "2026-11-17T03:44:46+00:00",
   "sid": "364859f834c86602",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 72, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 108, downloads: 0.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 1, downloads: 0.",
   "title": "tencent/Hy4-flash released on Hugging Face",
   "type": "release",
@@ -6069,6 +6086,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17620v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "4492c920009ce7cf": {
+  "first_seen": "2026-11-18T08:06:11.109800+00:00",
+  "id": "60dced69dc4c8085",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-17T18:22:01+00:00",
+  "sid": "4492c920009ce7cf",
+  "source": "arxiv_cs_ai",
+  "summary": "Empirical research is changing rapidly as AI coding agents are becoming increasingly proficient in every step of it, from writing code to manipulating data. We argue that while the potential of coding agents for science is vast, their use in hypothesis testing poses a substantial threat to classical inference, as these agents enable a supercharged form of selective inference. In particular, we argue that coding agents carrying out empirical research introduce a new type of post-selection inference that combines human-like, open-ended search over an implicit space of estimators with programmatic replayability of both the selection and the estimation process. Indeed, we find that on simulated data with zero effects, four frontier agents report significant p-values between 54% and 98% of the time when asked to produce a compelling finding. We propose a simple procedure for detecting and correcting these distortions. After an agent has completed its analysis, we reset and replay it on subsamples of the data to estimate the agent's relative probability of selecting that analysis when it looks statistically favorable. For agents with stable selection behavior, the resulting corrected test is asymptotically valid and consistent conditional on selection. Importantly, the correction is learned from the black-box agent's actual choices rather than a model of how it searches, so it remains valid even as AI technology continues to evolve rapidly. In simulations, the correction robustly l",
+  "summary_1line": "Empirical research is changing rapidly as AI coding agents are becoming increasingly proficient in every step of it, from writing code to manipulating data. We argue that while the potential of coding agents for scien...",
+  "title": "Inference after coding agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.23174v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "449a5ebbef16a4ba": {
   "content_excerpt": "Browser agents can now take on multi-step work that's painful and time-consuming for people. Personal agents like Instinct and Meta's Muse plan cross-country road trips, cancel unused subscriptions, and list cars for sale, all on sites with no public APIs. DataDome saw agentic browser requests jump 4.7x in September alone. Browser use helps in two places: actions an API can't cover, like using a website the agent wasn't set up for, and end-to-end testing of the web apps coding agents build. Either way, the agent needs two things: This post focuses on the tools, and on making them good enough that the agent uses the browser well. We set out to give agents in Managed Deep Agents a browser. We compared seven toolsets and picked the best one, Stagehand ( GitHub ) from Browserbase . Then we improved it based on what agents did in LangSmith traces, and validated every change with evals. The biggest lesson was how much room there is to improve an agent through tool design. Browser use toolsets come in a few forms: native tools, an MCP server , or a CLI the agent runs in a shell. Browser use poses two unique challenges for those tools: We iterated with the agent development lifecycle : run the agent on a benchmark, read its traces in LangSmith to see where it wasted steps or tokens, change the tool, and run evals to check that the change helped. Every run was a LangSmith experiment , so we could compare setups side by side and click from any number into the trace behind it. We had ev",
@@ -7882,6 +7915,18 @@
   "type": "news",
   "url": "https://openai.com/index/lifeval",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "5a10d07ea77b0867": {
+  "content_excerpt": "A Lack of ownership verification on the Hugging Face platform allowed researchers to take control of Kokoro, a text-to-speech model used in projects from Google, NVIDIA, AMD, Intel, and Amazon Web Services. An attacker hijacking the account could use it as a distribution channel in supply-chain attacks, potentially leading to data theft or code execution. However, the researchers demonstrated a stealthier attack: they modified the model's weights so it produced audio that differed from the input text, without changing the underlying application code. Because only the weights change, there is no malicious code or signature for malware scanners to detect, the researchers say. \"We changed what this model says by fine-tuning its neural weights. Same input text. Same voice file. Same configuration. Same inference code — not a single line touched in the application that runs it,\" said security researcher Alon Hertz . Kokoro is an open-weight model that converts text into speech. It supports multiple languages and has more than 50 voice presets. Although its developer, Hexgrad, has not pushed an update since April 2025, the project continues to be popular, with nearly 13 million monthly downloads on Hugging Face. The GitHub repository and the Python package on PyPI also went silent around the same time. Kokoro is supported by developer tools from Google, NVIDIA, and Intel, including software for voice agents and on-device speech synthesis. AMD and Amazon Web Services have also publi",
+  "first_seen": "2026-11-18T08:06:11.109800+00:00",
+  "id": "deda183323d10646",
+  "published": "2026-11-18T07:52:01+00:00",
+  "sid": "5a10d07ea77b0867",
+  "source": "hackernews_ai",
+  "summary_1line": "Researchers hijack Hugging Face account for popular Kokoro AI model",
+  "title": "Researchers hijack Hugging Face account for popular Kokoro AI model",
+  "type": "news",
+  "url": "https://www.bleepingcomputer.com/news/security/researchers-hijack-hugging-face-account-for-popular-kokoro-ai-model"
  },
  "5a90caffb2c87d2e": {
   "content_excerpt": "Robots are learning to fold laundry, sort parts, and handle unfamiliar objects. But those demonstrations are often rather narrow and don't explain what a robot has learned or why it fails. To study a complex system, scientists often begin with a small, controlled environment, such as a petri dish or terrarium, where they can vary conditions and observe the effects. Robotics needs environments that make this kind of investigation possible—researchers should be able to change the training data or model design, repeat a test, and trace the cause of a failure. Today we're introducing a framework for creating these environments; we call them FoundationWorlds. Each pairs a controlled, simulated world targeted at studying robotics in a specific environment with tools for automatically generating tasks and training demonstrations, as well as metrics for measuring a robot's behavior over time. Together, they provide a setting for studying questions such as how models improve as more training data becomes available, and how to best combine high-level reasoning with precise physical control. Our first foundation world is ToyBlocks : an open simulation framework built around a robot arm and blocks on a tabletop. The setting is deliberately simple, but the robot must still reason about how the blocks interact and how to arrange them while pushing, flipping, and stacking. ToyBlocks automatically generates demonstrations, which are recordings of a robot completing tasks in simulation, witho",
@@ -13846,6 +13891,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.21301v1"
  },
+ "9f86a6e1777765ce": {
+  "content_excerpt": "An independent index measuring how resistant AI benchmarks are to training-data contamination, stale public questions, and evaluation harness leaks Cross-study findings connecting benchmark integrity scores with live official model leaderboards, and more Compares current-generation models across actively updated Tier S held-out evaluations and active Tier C & D benchmarks. Frozen legacy leaderboards missing recent frontier models are excluded to prevent cohort bias. Each shape is one audited benchmark: left to right shows how many months old it is since its last major update, and bottom to top shows its integrity score (0–100). Circles are private held-out tests that stay trustworthy with age; diamonds are public or easy-to-access datasets that tend to leak and lose value over time. Hover or click any shape to inspect it. Distribution of Tiers S–D and average scores across fields. Click any bar to filter the table above. Groups benchmarks by how strictly their questions and answers are protected—from locked private servers at the top to open public downloads at the bottom. Each bar shows that group's average integrity score (out of 100), its lowest-to-highest range, and clickable benchmark examples. Last updated 2026-11-18 · Independent evaluation of benchmark contamination resistance across primary sources.",
+  "first_seen": "2026-11-18T08:06:11.109800+00:00",
+  "id": "a5bb2a932fcbdd5d",
+  "matched_topics": [
+   "harness"
+  ],
+  "published": "2026-11-18T07:41:41+00:00",
+  "sid": "9f86a6e1777765ce",
+  "source": "hackernews_ai",
+  "summary_1line": "BenchAudit – Auditing LLM benchmarks for leaks, data reuse, and harness gaps",
+  "title": "BenchAudit – Auditing LLM benchmarks for leaks, data reuse, and harness gaps",
+  "type": "news",
+  "url": "https://benchaudit.org",
+  "why_it_matters": "Matches feed focus: harness."
+ },
  "9fa61d1131664c30": {
   "first_seen": "2026-11-03T01:03:41.790206+00:00",
   "id": "496a50b4b2f057bd",
@@ -14908,6 +14969,22 @@
   "title": "Shield helps technicians hand off legacy portal work with OpenAI",
   "type": "news",
   "url": "https://openai.com/business/customer-stories/shield",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "aa0e7ab947744a98": {
+  "first_seen": "2026-11-18T08:06:11.109800+00:00",
+  "id": "d75ce55e1cbdff3d",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-17T18:59:27+00:00",
+  "sid": "aa0e7ab947744a98",
+  "source": "arxiv_cs_lg",
+  "summary": "Applications such as visual accessibility agents and robotics require answering questions about recent video content promptly, over a bounded window of past frames (e.g., the last two minutes). Hybrid vision-language models (VLMs), which interleave attention with linear recurrent layers such as Gated DeltaNet (GDN), are attractive for this setting, but maintaining a sliding window is expensive. The reason is that recurrent layers combine all past frames into a shared state, so expiring old frames normally requires re-running the entire window through the model. We observe that the recurrent update is affine in the state with input-dependent coefficients, so the effect of each frame can be captured as a transformation that composes associatively. We present Spool, a training-free framework that caches per-frame state transformations and composes them efficiently as the window advances, removing expired frames from each recurrent layer's state without replaying frames through the backbone. Removal is exact within each layer; as with key-value eviction in attention, expired frames can retain residual influence through the cached inputs computed by earlier layers. We design a dedicated data structure and GPU kernels to achieve low caching and composition overhead. Across five open-source hybrid VLMs and four video reasoning benchmarks, Spool achieves the lowest p95 time-to-first-token in all 20 model-benchmark tests, reducing it by a geometric mean of $6.6\\times$ over the faster ",
+  "summary_1line": "Applications such as visual accessibility agents and robotics require answering questions about recent video content promptly, over a bounded window of past frames (e.g., the last two minutes). Hybrid vision-language...",
+  "title": "Spool: Low-Latency Streaming Inference for Hybrid Vision-Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.23228v1",
   "why_it_matters": "Matches feed focus: agent."
  },
  "aaeb7b15ed6fabde": {
@@ -16997,6 +17074,22 @@
   "title": "Show HN: MCPgraphy – a proxy that learns when your agent's MCP tools work",
   "type": "news",
   "url": "https://github.com/hemanth1999k/mcpgraphy",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "c0a4a03fd75fbd26": {
+  "content_excerpt": "One CV, made to fit every job posting by your AI agent. Oriko plans every page before the file exists, never splits a job across pages and never invents a fact. Word or PDF, classic or in the look of the terminal. One CV, made to fit every job posting, laid out so no job ever breaks across a page. oriko makes a fitting version of your CV for every job you apply to. You write your CV once, with your jobs, skills, languages and contact details. When you find a job you like, you give the posting to an AI assistant, in plain words and in any language. The assistant fits your CV to it: it moves the matching skills up, hides what does not help and shortens long lists, and it never invents anything. You see the result right away as a preview of every page in the terminal, and you get a Word file that you open in Google Docs and save as PDF, or the PDF itself when LibreOffice is installed. The script installs the command oriko and then the agent skill, for Claude Code and every other agent it finds. For the skill it runs the skills CLI behind skills.sh. Run the line again to update both. oriko always writes the Word file for Google Docs. With LibreOffice it writes the PDF too, the page Google Docs would make: oriko build --out cv.pdf . --pdf installs LibreOffice with brew, apt or dnf; without it, the script names the command to run. The agent reads all three, asks in short rounds before a fact from your notes goes into your CV, and builds a version for the posting. You read the previ",
+  "first_seen": "2026-11-18T08:06:11.109800+00:00",
+  "id": "8de70b18a8a8a29c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-18T07:45:00+00:00",
+  "sid": "c0a4a03fd75fbd26",
+  "source": "hackernews_ai",
+  "summary_1line": "Oriko CLI – Create your CV in the terminal with builtin Agent support",
+  "title": "Oriko CLI – Create your CV in the terminal with builtin Agent support",
+  "type": "news",
+  "url": "https://github.com/honeyglass/oriko",
   "why_it_matters": "Matches feed focus: agent."
  },
  "c0b6f006ddd07334": {
@@ -19550,6 +19643,22 @@
   "url": "http://arxiv.org/abs/2611.02659v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation, claude code."
  },
+ "e1a5bf89796892de": {
+  "first_seen": "2026-11-18T08:06:11.109800+00:00",
+  "id": "677c86c822f08b35",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-17T15:53:58+00:00",
+  "sid": "e1a5bf89796892de",
+  "source": "arxiv_cs_ai",
+  "summary": "Safety benchmarks for computer-use agents (CUAs) place the harm either in the intent of the task or on a single screen: a malicious instruction, an injected command, a phishing page. An agent that checks the task and each screen in isolation can pass them, so they do not test whether it combines facts seen on different screens. Yet in delegated work, harm often arises exactly this way: a fact about a person on one screen, a fact about an item on another, and a legitimate task that binds them. We introduce SEAM (Safety Execution Across Multiple screens), a benchmark of such cross-screen compositional harm: 600 multi-step, cross-application OSWorld tasks in which the instruction and every single observation are benign and only their combination is harmful. Minimal-pair variants that differ in one place, scored from the server log rather than by an LLM judge, locate where an agent fails. General-purpose open-weight and flagship agents carry out the harm in up to 92% of runs, yet decline when the user states it in one sentence. Agents open the decisive pages, so exposure is not the primary bottleneck. Asked about those pages, they flag the harm, and with thinking they often write the conflict into their reasoning and confirm anyway. Safety recognition thus does not reliably translate into safe execution, and the translation depends on the information channel: the same warning stops agents far more often in the user's instruction than on screen. Proprietary models are markedly mor",
+  "summary_1line": "Safety benchmarks for computer-use agents (CUAs) place the harm either in the intent of the task or on a single screen: a malicious instruction, an injected command, a phishing page. An agent that checks the task and...",
+  "title": "SEAM: Computer-Use Agents Know the Harm Between Screens, and Commit It Anyway",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.22971v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "e1ada688349ca1c5": {
   "first_seen": "2026-11-03T11:04:28.550424+00:00",
   "id": "fe6f734f9fec8e54",
@@ -21845,6 +21954,23 @@
   "title": "[AINews] D-Day (Decision Models Day)",
   "type": "news",
   "url": "https://latent.space/p/ainews-d-day-decision-models-day"
+ },
+ "fd3d9b15585eb3e1": {
+  "first_seen": "2026-11-18T08:06:11.109800+00:00",
+  "id": "c8d23c83e6caf237",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-17T15:39:40+00:00",
+  "sid": "fd3d9b15585eb3e1",
+  "source": "arxiv_cs_cl",
+  "summary": "Contact center systems often need to make bounded decisions, such as identifying a caller's intent, retrieving the knowledge-base article that answers a query, assessing agent compliance, or judging the output of AI models used in production. Decision models return a typed answer and its probability directly, making them a promising cost-effective alternative to generative Large Language Models (LLMs) in such bounded conversational tasks. However, their effectiveness in real-world contact center applications remains unclear. In this paper, we compare nine decision models against thirteen generative LLMs in zero-shot settings across eight contact center use cases: six classification tasks and two judging tasks. Our experiments demonstrate that many decision models can match the performance of frontier LLMs on contact center classification, and API-based closed decision models achieve this at the lowest per-request cost among the API models we evaluate. We further observe that their confident predictions are more accurate, enabling selective routing in real-world production scenarios. Across classification tasks, the main weakness of most decision models is abstention: they rarely choose the no-answer option, which accounts for most of their gap to the strongest LLMs (although Gemini-Decision-1 is the notable exception in this regard). We also find that the judging quality of decision models drops sharply for smaller models, and they are also more prone to position bias. In sho",
+  "summary_1line": "Contact center systems often need to make bounded decisions, such as identifying a caller's intent, retrieving the knowledge-base article that answers a query, assessing agent compliance, or judging the output of AI m...",
+  "title": "Can Decision Models Replace LLMs in Real-World Contact Center Classification and Judging Tasks?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.22949v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "fd75b8db67a35aca": {
   "first_seen": "2026-11-18T07:05:07.242320+00:00",
