@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. LangSmith for Coding Agents: Now track spend by outcome
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/langsmith-coding-agents-roi
-- Score: 3.864 | Reliability: 1.0
+- Score: 3.762 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. Keeping Agents Fast: High-Interactivity Decode with FlyDSL MonoKernels in vLLM
 - Type: news | Source: vllm_blog
 - URL: https://vllm.ai/blog/2026-11-18-flydsl-monokernels
-- Score: 3.767 | Reliability: 1.0
+- Score: 3.679 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. Show HN: Project-M – Local shared memory for AI coding agents
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/adityadebnath009/Project-M
-- Score: 3.748 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 4. Presentation: Behind Booking.com's AI Evolution: The Unpolished Story
+## 3. Presentation: Behind Booking.com's AI Evolution: The Unpolished Story
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/bookingcom-ml-data-platform-evolution/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.734 | Reliability: 1.0
+- Score: 3.637 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 5. Quoting Daniel Stenberg
+## 4. Quoting Daniel Stenberg
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Nov/18/daniel-stenberg/
-- Score: 3.524 | Reliability: 1.0
+- Score: 3.424 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. California sues OpenAI over AI agents escaping sandboxes, hacking firms
-- Type: news | Source: hackernews_ai
-- URL: https://www.bleepingcomputer.com/news/security/california-sues-openai-over-ai-agents-escaping-sandboxes-hacking-firms/
-- Score: 3.419 | Reliability: 1.0
+## 5. Spool: Low-Latency Streaming Inference for Hybrid Vision-Language Models
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.23228v1
+- Score: 3.31 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
+
+## 6. CodeReel: Accelerating Code-to-Video Agents with Exact Frame Reuse and Blocking-Aware Scheduling
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.22967v1
+- Score: 3.217 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, codex, claude code.
 
 ## 7. Time-Series Models in the Streamhouse: A New Frontier and Use Cases
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/ibm-research/time-series-powered-streamhouse
-- Score: 3.275 | Reliability: 1.0
+- Score: 3.195 | Reliability: 1.0
 - Why it matters: 
 
-## 8. Runtime Verification of Multiple Natural Language Criteria for Agent Governance
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.23074v1
-- Score: 3.202 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 9. DeepSeek API Pricing Updated: Server-Side Search and Web Scraping No Longer Charged Separately
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMixgFBVV95cUxPRGt5N2liNDN2SEJLMVRvWElKRjJ3cE1tZWJCLUhaLXhsbzE2M0E5YTgxZGVRcEt0Q0paYXFqQzZkQmlGRERWRldpVG0yWHJuT1ZEbmUtZTJhMUpYUlRYbVVTaW4yY0FNOE5qUk9DUl9TcW5TenRLLWZ0QjI1cFE5UDYwb2FCeFA2ZUstMUVUa29BWUxGVGpCUVBQLTRkSmdYZVpjRTJYZV80c1NsU0VaYkJsX09oQ1FLSWIzY1VRY013OTNrT0E?oc=5
-- Score: 3.17 | Reliability: 1.0
-- Why it matters: 
-
-## 10. ForecastGym: A Live, Controlled, and Replayable Benchmark for Forecasting Agents
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.23045v1
-- Score: 3.034 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 11. StitchRAG: Constructing Compact and Evidence-Preserving Contexts for RAG with Diffusion-Based Stitching
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.22766v1
-- Score: 3.016 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 12. Multi-Agent Memory Inconsistency: Where Factual Conflicts Disappear in LLM Agents
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.22245v1
-- Score: 2.983 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 13. How AUMOVIO centralized AI access with Databricks Unity Gateway
+## 8. What's new for Genie in Microsoft: Copilot Cowork and Chat, Microsoft Teams, and Excel.
 - Type: news | Source: databricks_blog
-- URL: https://www.databricks.com/blog/how-aumovio-centralized-ai-access-databricks-unity-gateway
-- Score: 2.604 | Reliability: 1.0
+- URL: https://www.databricks.com/blog/whats-new-genie-microsoft-copilot-cowork-and-chat-microsoft-teams-and-excel
+- Score: 2.827 | Reliability: 1.0
 - Why it matters: 
 
-## 14. codex 0.170.0
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.170.0
-- Score: 2.243 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, codex.
+## 9. The Gemini app is now available on lower-memory Android devices.
+- Type: news | Source: google_ai_blog
+- URL: https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/
+- Score: 2.723 | Reliability: 1.0
+- Why it matters: 
 
-## 15. Paul Stack: I'll Never Write Infrastructure as Code Again
+## 10. [AINews] Perplexity hits a $1B revenue run rate, up 4x in 2026
+- Type: news | Source: latent_space
+- URL: https://latent.space/p/ainews-perplexity-hits-a-1b-revenue-run-rate-up-4x-in-2026/
+- Score: 2.48 | Reliability: 1.0
+- Why it matters: 
+
+## 11. 180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/moe-expert-streaming
+- Score: 3.167 | Reliability: 1.0
+- Why it matters: 
+
+## 12. RagHarnessDebugger: Jev-Guided Agentic RAG in Contract Inference Repair Auditing
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.22991v1
+- Score: 3.113 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness, eval.
+
+## 13. Paul Stack: I'll Never Write Infrastructure as Code Again
 - Type: video | Source: ai_native_dev
 - URL: https://youtu.be/Y6T_fPy3C3Q
-- Score: 2.191 | Reliability: 0.806
+- Score: 2.167 | Reliability: 0.806
 - Why it matters: Matches feed focus: agent, harness, software delivery.
+
+## 14. codex rust-v0.172.0-alpha.1
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.172.0-alpha.1
+- Score: 2.119 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 15. Advancing computer-use agents for healthcare teams
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/advancing-computer-use-for-healthcare-teams
+- Score: 1.94 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 16. Introducing OpenAI for Chile
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-openai-for-chile
-- Score: 1.943 | Reliability: 1.0
+- Score: 1.927 | Reliability: 1.0
 - Why it matters: 
 
-## 17. How Revolut raises ambition without lowering the bar
+## 17. At Holiday Extras, dots get to work before anyone asks
 - Type: news | Source: openai_blog
-- URL: https://openai.com/business/customer-stories/revolut
-- Score: 1.921 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 18. Strengthening NATO and allied cyber defenses with AI
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/strengthening-nato-allied-cyber-defences-ai
-- Score: 1.808 | Reliability: 1.0
+- URL: https://openai.com/business/customer-stories/holiday-extras-dots
+- Score: 1.761 | Reliability: 1.0
 - Why it matters: 
 
-## 19. Sandbox resourcing: burst, don't reserve
-- Type: news | Source: modal_blog
-- URL: https://modal.com/blog/sandbox-bursting
-- Score: 1.786 | Reliability: 1.0
-- Why it matters: 
+## 18. Meta’s Muse: Inside the launch of the most successful consumer product this year | Mona Sarantakos
+- Type: video | Source: lennys_podcast
+- URL: https://youtu.be/WY0cdD4gNoQ
+- Score: 1.629 | Reliability: 0.806
+- Why it matters: Matches feed focus: agentic, eval.
 
-## 20. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
+## 19. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-alphaproof-code/
-- Score: 1.632 | Reliability: 1.0
+- Score: 1.622 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 21. claude-code v2.1.326
+## 20. claude-code v2.1.325
 - Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.326
-- Score: 1.49 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.325
+- Score: 1.214 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval, claude code.
 
-## 22. langgraph-cli==0.4.43
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.43
-- Score: 1.17 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 23. claude-agent-sdk-python v0.2.183
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.183
-- Score: 1.117 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 24. Gemini Robotics 2.5 accelerates real-world general dexterity
+## 21. Gemini Robotics 2.5 accelerates real-world general dexterity
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/
-- Score: 1.112 | Reliability: 1.0
-- Why it matters:
+- Score: 1.103 | Reliability: 1.0
+- Why it matters: 
+
+## 22. langgraph==1.2.21
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.21
+- Score: 1.028 | Reliability: 1.0
+- Why it matters: 
+
+## 23. claude-agent-sdk-python v0.2.182
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.182
+- Score: 0.937 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 24. Release 2.74.0 corresponding to NGC container 26.10
+- Type: release | Source: triton_releases
+- URL: https://github.com/triton-inference-server/server/releases/tag/v2.74.0
+- Score: 0.799 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
