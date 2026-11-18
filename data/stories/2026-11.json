@@ -63,6 +63,22 @@
   "type": "news",
   "url": "https://blogs.nvidia.com/blog/ian-buck-sc26"
  },
+ "012976eaf8c36d5e": {
+  "first_seen": "2026-11-18T03:08:59.408548+00:00",
+  "id": "bf129b732c316138",
+  "matched_topics": [
+   "harness"
+  ],
+  "published": "2026-11-17T03:48:06+00:00",
+  "sid": "012976eaf8c36d5e",
+  "source": "arxiv_agent_systems_research",
+  "summary": "We post-train NVIDIA's Nemotron 3.5 Super (120B total, 12B active parameters) with reinforcement learning (RL) on five expert-built task datasets, one at a time: real-world software engineering, complex constraints, long-horizon tool use, professional chart understanding and enterprise document reasoning. Each run trains a fresh rank-32 LoRA adapter with CISPO on Tinker, with no supervised stage, and each adapter is compared with the base model on the same tasks, harness and settings. On twelve headline benchmarks, eight built by other groups and four by Surge AI, the gains range from +4.5 points on IFBench to +13.8 on GDP_pdf, which rises from 10.4% to 24.2%; SWE-bench Pro V2 rises from 86.9% to 92.1%, Terminal-Bench 2.1 from 63.9% to 70.3%, MultiChallenge from 58.3% to 66.6%, AutomationBench from 14.8% to 27.5% and Chartography from 39.4% to 50.6%. The document adapter, trained without API tools, also gains +8.0 points on AutomationBench. In attempts read side by side with the base model's on tasks each adapter newly solves, the base model's failures recur in a few modes, and each adapter does more often what the base model missed: the tool-use adapter finds the data and the rules before acting, the coding adapter writes its own test or scratch files on SWE-bench Pro V2, the constraints adapter carries earlier turns into its answers, the chart adapter measures the marks in code, and the document adapter reads AutomationBench's spreadsheets.",
+  "summary_1line": "We post-train NVIDIA's Nemotron 3.5 Super (120B total, 12B active parameters) with reinforcement learning (RL) on five expert-built task datasets, one at a time: real-world software engineering, complex constraints, l...",
+  "title": "What RL on Expert-Built Tasks Teaches Nemotron 3.5 Super",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.22161v1",
+  "why_it_matters": "Matches feed focus: harness."
+ },
  "017a8eca787a7c1a": {
   "content_excerpt": "That’s because AI agent security is poorly understood. There’s no go-to recipe for it yet. We even lack a good mental model for how to secure agents (and what they are in the first place). If you planned travel to a dangerous place, you might prepare by researching how you could get robbed or scammed and take self-defense classes, buy protective clothing, fill pockets with decoy wallets, etc. A lot of cybersecurity infrastructure works this way: we know what risks exist and mitigate them with tools and policies. For instance, attackers often access sensitive data with a chain of compromised credentials (e.g. a compromised GitHub session token exposes a hardcoded AWS IAM token, which lets attackers mint production database credentials). These are like self-defense classes: they help us prevent or deal with attacks. But even a Navy SEAL with a bulletproof vest, a black belt in Jiu Jitsu, and a deadly arsenal can die from a deadly infection because humans can’t perceive these threats. This is the security challenge we face with agents: running agents securely requires protecting them from risks they can’t see. Humans solve this with hazmat suits: an area is contaminated with invisible dangers, so the only effective safety mechanism is to physically separate the body from the viruses, bacteria, or chemicals. Even a Nobel prize-winning virologist can’t see a deadly virus, and AI agents can’t reliably recognize risky instructions and actions. That’s not a flaw, but a corollary of t",
   "first_seen": "2026-11-02T20:05:25.137504+00:00",
@@ -662,6 +678,19 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17862v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "07c2ea0deef45ad6": {
+  "content_excerpt": "Why adaptive concurrency limits work better than fixed request-rate limits for long-running operations. As part of the Compute Platform team at Databricks, we turn cloud infrastructure into clusters ready to run customer workloads. Our day-to-day work includes provisioning virtual machines and coordinating cluster creation across AWS, Azure, and Google Cloud. Our goal is to keep these systems available while letting customers use as much capacity as we can safely provide. In this post, we'll explore why fixed request-rate limits can fall short for these long-running operations, how adaptive concurrency limits help, and what we learned applying them to cluster creation for Databricks classic compute. You don't need to know any of this to use Databricks, but if you're curious about what happens behind a Databricks Runtime cluster launch, join us for a look inside the kitchen. Historically, we protected the system with fixed request-rate limits, tested against different load patterns and failure scenarios. We scaled our services primarily by adding resources and adjusting per-customer limits. The combination of workloads and dependency failures made these limits increasingly difficult to test and tune. Conservative limits turned away customer requests despite spare capacity, yet kept accepting requests when our services or dependencies, such as cloud providers, slowed down. Engineers manually lowered limits to shed load during incidents and raised them again after recovery. Adap",
+  "first_seen": "2026-11-18T03:08:59.408548+00:00",
+  "id": "c983d45941bfe9b2",
+  "published": "2026-11-18T02:30:31+00:00",
+  "sid": "07c2ea0deef45ad6",
+  "source": "databricks_blog",
+  "summary": "As part of the Compute Platform team at Databricks, we turn cloud infrastructure...",
+  "summary_1line": "As part of the Compute Platform team at Databricks, we turn cloud infrastructure...",
+  "title": "How we raised Databricks cluster rate limits by 7.5×",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/how-we-raised-databricks-cluster-rate-limits-75"
  },
  "084071daf3b6536f": {
   "first_seen": "2026-11-10T20:05:27.884052+00:00",
@@ -7075,6 +7104,22 @@
   "type": "news",
   "url": "https://www.databricks.com/blog/tabular-foundation-models-databricks-ai-runtime"
  },
+ "52db107ccd0104e2": {
+  "content_excerpt": "4-Gate discriminative control plane for AI agents: preserves KV caches, cuts LLM cost 76.9%, and achieves 3.95x median speedup. 4-Gate discriminative control plane that preserves KV caches, cuts LLM cost 76.9%, and achieves 3.95x median speedup. QuadGate is an open-source 4-gate discriminative control plane for AI coding and knowledge agents that preserves KV prefix caches, enforces offline security invariants, routes subagents by Expected Cost of Completion, and audits completion to achieve 76.9% lower cost, 3.95x median speedup (71.1% lower mean latency), and 100.0% pass@1. It runs as a persistent localhost daemon ( 127.0.0.1:8787 ), cold-session reverse proxy ( 127.0.0.1:8788 ), and zero-dependency < 450 ms hook shim ( qg-shim ) across Antigravity (including native Swarms), Claude Code , OpenAI Codex CLI , and MCP clients without spending output tokens on generative critics. Full signed receipts, SHA-256 task hashes, and methodology are published in benchmarks/reports/v1_release_proof.md (mirrored in benchmarks/reports/LATEST_PROOF.md ; 210 total receipts across 105 matched Baseline vs. QuadGate pairs over 3 runs using live gemini-decision-1 on cloud-eligible coding tasks and local Air-Gap routing elsewhere), backed by ECE calibration profiles in benchmarks/reports/calibration_decision1.json and benchmarks/reports/calibration_onnx_local.json . All totals include Gate 4 1-Strike retry tax and live classifier compute cost. Resilience Model: qg-shim enforces a < 450 ms socket",
+  "first_seen": "2026-11-18T03:08:59.408548+00:00",
+  "id": "142eafc7f2f6bb80",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-18T01:48:00+00:00",
+  "sid": "52db107ccd0104e2",
+  "source": "hackernews_ai",
+  "summary_1line": "QuadGate – 4-gate control plane that keeps agent KV prefix caches warm SHow HN",
+  "title": "QuadGate – 4-gate control plane that keeps agent KV prefix caches warm SHow HN",
+  "type": "news",
+  "url": "https://github.com/blagoslov333-cloud/quadgate",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "5303ff4c2285ef2a": {
   "first_seen": "2026-11-13T13:03:52.323114+00:00",
   "id": "da6e1f2db6275b2f",
@@ -10218,6 +10263,24 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12871v1"
  },
+ "7a0c85ad18799951": {
+  "first_seen": "2026-11-18T03:08:59.408548+00:00",
+  "id": "4972e8950dcf25dd",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-17T11:07:31+00:00",
+  "sid": "7a0c85ad18799951",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Tool-using language-model agents must act on information from untrusted emails, webpages, and documents. This creates a central security challenge: malicious instructions and legitimate task directives can arrive through the same interaction channel. Existing defenses are largely hand-designed and static, making further improvements dependent on repeated manual redesign. We introduce Evolution Under Fire, a staged framework that couples safety-harness evolution with adaptive stressor evolution. Utility-constrained, Pareto-scheduled tree search evolves complete executable safety harnesses from execution evidence while keeping the task model, benchmark, tools, and evaluator fixed. Adaptive stressor evolution then discovers utility-preserving attacks that guide a subsequent stage of harness evolution. On AgentDyn with GPT-4o-mini, an evolved harness reduces attack success from 50.4% to 3.0%, improves clean and attacked utility over the initial harness, and offers a stronger security-utility trade-off than reproduced defenses. On Agent-SafetyBench with Qwen2.5-7B-Instruct, harness evolution reduces attack success from 82.6% to 62.0% while retaining helpfulness and runtime validity. Evolved harnesses also transfer without further evolution to Qwen3.5-35B-A3B, reducing attack success from 32.1% to 0.9% while improving attacked-task utility.",
+  "summary_1line": "Tool-using language-model agents must act on information from untrusted emails, webpages, and documents. This creates a central security challenge: malicious instructions and legitimate task directives can arrive thro...",
+  "title": "Evolution Under Fire: Evolving Agent Safety Harnesses with Adaptive Injection Stressors",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.22583v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
  "7a0de46d20b53e4f": {
   "first_seen": "2026-11-13T00:08:39.142506+00:00",
   "id": "9b1e83e7b4464d4e",
@@ -10376,6 +10439,23 @@
   "title": "I struggle to believe that AI R&D is ingenious",
   "type": "news",
   "url": "https://www.lesswrong.com/posts/DALNiKBjMGMF8grme/arjun-panickssery-s-shortform?commentId=fJtaHHHfx45tD7BSL"
+ },
+ "7bef6817168934e0": {
+  "first_seen": "2026-11-18T03:08:59.408548+00:00",
+  "id": "7ec1e6840e222fc9",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-17T03:30:03+00:00",
+  "sid": "7bef6817168934e0",
+  "source": "arxiv_cs_cl",
+  "summary": "Open-weight language models are widely observed to get worse the longer they generate. Often, attempts to fix this involve more training. At high temperature, The sampler, i.e. the rule that picks the next token out of the model's probabilities, decides whether long and agentic generation survives and/or thrives. We test 29 open-weight models from 1B to 122B parameters on ten established benchmarks plus needle retrieval out to one million tokens, covering SWE-bench Verified coding agents, long chain-of-thought reasoning, long-form writing, long structured output and long-context reading. Samplers that keep their pool of candidate tokens small and steady as temperature rises don't lose accuracy. Samplers that let in low-probability tokens fall apart. At temperature 2, coding agents running top-p, top-k or Top-H resolve 0 of 100 GitHub issues, while the same agents running top-nsigma resolve 46 to 62 and win every issue the two samplers disagree on, on three Qwen3.5 models. Over all benchmarks top-nsigma keeps a median 100% of its temperature-1 score where top-p keeps 26%. Counting how many tokens each sampler lets through explains why. In one Llama-3.1-8B story, going from temperature 1 to 2 grows top-p's pool from 4 tokens to 51,845 while top-nsigma stays at 3. Across 133 combinations of sampler setting and temperature, the typical pool size predicts judged quality (Spearman correlation of -0.77), and when we pick the pool at temperature 1 and only apply temperature afterward",
+  "summary_1line": "Open-weight language models are widely observed to get worse the longer they generate. Often, attempts to fix this involve more training. At high temperature, The sampler, i.e. the rule that picks the next token out o...",
+  "title": "Long-Context Generation Is a Sampling Problem (When You Turn Up the Heat)",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.22148v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "7bf2baae197f3346": {
   "content_excerpt": "The Glow Labs research team has identified AI coding agents independently deciding to install deprecated MCP servers, potentially exposing organizations to high-severity vulnerabilities in servers that no longer receive security updates. Glow Labs calls this pattern MCPhantom where retired MCP servers keep turning up on developer machines. Our research team uncovered this pattern while monitoring risky agentic behavior, tracking activities, identifying MCP installs, and assessing agentic decision making processes. In 98% of the sessions where an agent set up a deprecated MCP server, it appears that reason for it being selected is because it was previously used in the model's training data. So that when the user asked for a capability, such as \"a GitHub MCP,\" and the agent filled in the name based on what it already \"knew\" from the past and not because it was the official or most up-to-date MCP available. In the other 2%, the user asked for the deprecated package by name and the agent obliged. In the GitHub example, instead of the official MCP server that GitHub maintains, the agent chose a deprecated Anthropic server that it remembered from its training data instead of looking for the latest secure version. That server's repository is archived, and its archive notice says no security updates or bug fixes will be provided. For security teams, this represents a significant risk, because software is landing on developer machines based on an agent's training data, with little to ",
@@ -14598,6 +14678,23 @@
   "url": "http://arxiv.org/abs/2611.05445v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "ab31cf7efa665033": {
+  "first_seen": "2026-11-18T03:08:59.408548+00:00",
+  "id": "336bdca932972f48",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-17T01:00:24+00:00",
+  "sid": "ab31cf7efa665033",
+  "source": "arxiv_cs_cl",
+  "summary": "Improving the quality, clarity, and flow of long documents remains a challenging problem in NLP, as human editing typically occurs through iterative refinement rather than a single-pass rewrite. Most existing automated systems act as black-box generators or rely on supervised learning, limiting interpretability and failing to capture the sequential nature of revisions. In this paper, we propose RLDE, an automated end-to-end metric-driven RL framework that formulates document revision as a reference-free MDP problem (unsupervised with respect to paired document-revision targets). Working with a limited action space (NOOP, INSERT, DELETE, REPLACE), RLDE leverages Pointer Networks for dynamic span selection at the token level and sends generative actions to the frozen BART-base model to obtain context-aware suggestions. PPO agents learn to optimize a multi-objective reward function based on readability, perplexity, and grammar metrics with the help of a novel SBERT-based Semantic Preservation Penalty constraint to avoid deletion degeneracy. Evaluations on the BEA-2019 dataset showed statistically significant results (p < 0.01) across all metrics, where Flesch Reading Ease increased from 49.8 to 59.4, perplexity decreased from 63.7 to 39.8, while preserving 93% of semantic information. When compared to Chain-of-Thought (CoT) prompt-engineered models like GPT-4 and LLaMA-2, RLDE shows high performance at a very low computational inference cost. Moreover, the quality of edits gener",
+  "summary_1line": "Improving the quality, clarity, and flow of long documents remains a challenging problem in NLP, as human editing typically occurs through iterative refinement rather than a single-pass rewrite. Most existing automate...",
+  "title": "RLDE: A Reinforcement Learning Framework for Interpretable Iterative Document Editing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.22039v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "ab5a9b4b9d65ffdb": {
   "content_excerpt": "Deterministic circuit breaker for AI coding agents. Stops Claude Code from guessing on auth, rate limits, payments, and DB constraints. Axiom is a local guardrail for AI coding agents. It runs as a pre-write hook in Claude Code and Cursor, and as a stdin/stdout filter for any agent that can pipe tool calls through a subprocess. Zero dependencies. No API keys. No tokens. Blocks before the write. Detection is regex and AST-pattern based, not semantic. A motivated agent or attacker can bypass these checks with minor obfuscation. This tool catches the most common accidental violations, not adversarial ones. For adversarial resistance, pair it with container isolation and branch protection. That's it. The installer downloads the hook, registers it in .claude/settings.json , and generates .axiom/invariants.yaml from your codebase — all in one step. Axiom runs automatically in every Claude Code and Cursor session from this point on. Why curl | bash is safe here: The installer is a bash script that downloads 6 Python files and registers a hook in .claude/settings.json . It makes no network calls after install, never runs as root, and writes only to your project directory (or ~/.claude/ with --global ). Read it: https://github.com/axiom-csc/axiom-claude-skill/blob/v1.2.2/install.sh On UNKNOWN — Claude halts and asks the exact right question. On FALSE — Claude outputs an AxiomConstraintViolation and stops. Auth checks are path-scoped — they only fire in files under auth/ , middleware/ ",
   "first_seen": "2026-11-06T01:05:02.835983+00:00",
@@ -14765,6 +14862,22 @@
   "title": "Scaling Taxonomy-Free Image Labeling with Generative AI: A Multimodal",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12725v1"
+ },
+ "ad076a99b8923baf": {
+  "first_seen": "2026-11-18T03:08:59.408548+00:00",
+  "id": "95cdee5fb483919f",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-18T02:28:30+00:00",
+  "sid": "ad076a99b8923baf",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.170.0",
+  "summary_1line": "Release 0.170.0",
+  "title": "codex rust-v0.170.0",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.170.0",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "ad5b9db8ae2b02cb": {
   "content_excerpt": "Think about how you work with a new hire. In their first week, you give them small, well-scoped tasks, like triaging a bug report or updating a doc. Soon you're giving them bigger tasks, and eventually you're handing them a lofty goal and letting them figure out how to tackle it. They still come to you with clarifying questions or review requests, just less often over time. Agents have gotten good enough that you can onboard them the same way, and like a good new hire, they're turning into proactive problem solvers. Personal agents like Muse, Instinct, and OpenAI's dots popularized proactive agents, which run in the background and work toward larger goals instead of waiting for a prompt. Hone puts it most directly, describing its Engines as AI that is \"assigned goals rather than tasks.\" Goals let these agents take on harder problems that play out over days or weeks. A proactive agent still checks in with you when it's unsure what you want or needs your sign-off before something goes out. When your direct reports get really good at their jobs, you might find that you've become the bottleneck, and the same is true for agents. As they take on more goals, your attention becomes the scarce resource. We think two things are essential to building proactive agents that use it well: memory and UX. A proactive agent responds to events in its environment, which come from three places: The examples throughout come from two proactive agents we run internally at LangChain: These agents ope",
@@ -17136,6 +17249,18 @@
   "url": "http://arxiv.org/abs/2611.20688v1",
   "why_it_matters": "Matches feed focus: agentic, harness, eval."
  },
+ "c80f34c62db9e593": {
+  "content_excerpt": "Forty-one years ago Ken Thompson explained at the ACM Turing Award lecture how he had planted a self-reproducing backdoor in a C compiler that compiled a C compiler that ultimately compiled login.c. Auditing the source of that compiler or of login.c did not catch it because the backdoor re-inserted itself every time the compiler built login.c. And so was the logic to emit a backdoor for login.c. This is a self-propagating backdoor that lives in the compiler. And we learnt that you cannot trust anything without the root of trust being trustworthy in the first place! Forty-one years later the same structure has reappeared in the training pipelines behind large language models, and with it a new supply chain. Modern SFT pipelines lean on the same delegation a compiler does: Somewhere upstream of a model's training pipeline LLM models are applied as formatters, paraphrasers, scorers, as filters, orchestrators, etc. No multi billion parameters model is solely based on curated source corpus by humans. Instead data is collected into a processed and automatically formatted corpus that downstream training treats as ground truth. Poisoning a training set is not new. Recent work showed a near constant number of poisoned documents can backdoor a model regardless of dataset size [3]. That is static poison: bad data goes in, bad behavior comes out, and the bad data sits in the set for anyone to find. What we show goes a step further: The poison does not sit in one dataset. It lives in a he",
+  "first_seen": "2026-11-18T03:08:59.408548+00:00",
+  "id": "5a4d01dcb644bda4",
+  "published": "2026-11-18T02:24:00+00:00",
+  "sid": "c80f34c62db9e593",
+  "source": "hackernews_ai",
+  "summary_1line": "Reflections on Trusting AI: A Virus Inside an LLM",
+  "title": "Reflections on Trusting AI: A Virus Inside an LLM",
+  "type": "news",
+  "url": "https://phrack.org/issues/73/reflections-on-trusting-ai-a-virus-inside-an-llm_md"
+ },
  "c810c6ee6c2f1c48": {
   "first_seen": "2026-11-14T00:06:50.558978+00:00",
   "id": "1d4245aefafa3c51",
@@ -18269,6 +18394,22 @@
   "url": "https://quaia.dev",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "d87fc1f9790063c0": {
+  "content_excerpt": "This is an agent-native repository. Use your coding agent (Claude Code, Codex, ...) to understand, deploy, benchmark and develop Evolving Infra. It reads AGENTS.md for the rules and the map of the code, and follows a skill for each task. Evolving Infra is an LLM serving system that adapts itself to the agent workload purely online , with no offline profiling . Serving coding, math and computer-use agents with GLM-5.2 and Kimi K2.6 on up to 256 GB300 GPUs, it reduces mean end-to-end latency by up to 4.1× and P95 time to first token by up to 14× compared with NVIDIA Dynamo , with up to 2.7× its throughput. Math (Putnam), coding (Claude Code) and computer-use (OSWorld) agents, three concurrency levels each. Lower is better. The router sends each request to a prefill node and a decode node. The planner moves nodes between the two groups (dashed arrow). KV stays in shared host memory while an agent branch still uses it. Architecture describes the request path. Evolving Infra is set up and run by your coding agent (Claude Code, Codex, ...): each task below is a skill that the agent follows step by step, checking each step and reporting what it ran. Every component is in the runtime image, built for x86_64 (H200, B300) and aarch64 (GB300): docker.io/weili0234/evolving-infra:v0.1.0 . Ask your agent: \"Reproduce the paper's Claude Code result on our Slurm cluster, following skills/run-benchmark/SKILL.md .\" Give it the workload (Claude Code, Putnam or OSWorld), the Slurm account and par",
+  "first_seen": "2026-11-18T03:08:59.408548+00:00",
+  "id": "c9bea301daa0211e",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-18T02:16:23+00:00",
+  "sid": "d87fc1f9790063c0",
+  "source": "hackernews_ai",
+  "summary_1line": "Evolving Infra: Agent-Adaptive LLM Serving at Scale",
+  "title": "Evolving Infra: Agent-Adaptive LLM Serving at Scale",
+  "type": "news",
+  "url": "https://github.com/mit-han-lab/EvolvingInfra",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "d88e4c119d297a17": {
   "content_excerpt": "Audio embedding inference in pure C++ supports CLAP, MuQ, CLaMP3 and MERT with Python, Node and Rust bindings Start the server with a GGUF supporting the requested modality, such as CLAP, CLaMP3 or MuQ-MuLan (default listen address: 127.0.0.1:8080 ): The model is loaded once at startup. Its API identifier is the GGUF filename ( larger_clap_general-q4_k_m.gguf in this example), not its full path or a Hugging Face repository ID. Send an OpenAI-compatible text embeddings request: Audio inputs use one input_audio content block per item. Encode the complete WAV, MP3 or FLAC file as standard base64 (no whitespace or data-URL prefix): This project is licensed under the Apache License 2.0 . Third-party dependencies retain their respective licenses. Audio embedding inference in pure C++ supports CLAP, MuQ, CLaMP3 and MERT with Python, Node and Rust bindings",
   "first_seen": "2026-11-09T07:04:17.451357+00:00",
@@ -18879,6 +19020,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12777v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "dec4d075135f7b7e": {
+  "first_seen": "2026-11-18T03:08:59.408548+00:00",
+  "id": "6221ff6841093681",
+  "published": "2026-11-17T04:52:41+00:00",
+  "sid": "dec4d075135f7b7e",
+  "source": "arxiv_cs_lg",
+  "summary": "Scaling has driven the success of large language models (LLM), with sparse mixture-of-experts (MoE) architectures enabling greater parameter capacity without a proportional increase in computation. At large scales, MoE models rely on expert parallelism to distribute experts across devices. Each MoE layer requires two synchronous collective communication steps during inference: dispatching hidden states to the activated experts and combining the resulting expert outputs. As compute throughput has outpaced interconnect bandwidth, these synchronous collectives have become a major bottleneck to MoE scaling and efficiency. We address this challenge with EchoMoE, a lightweight architecture modification that retrofits existing MoE models, requiring approximately 8,500x fewer training tokens than full pretraining. Motivated by the observation that transformer blocks update the residual stream incrementally, we use a hidden state from an earlier layer as a reference and communicate only the compressed difference between it and the current state, rather than communicating each hidden state in full. EchoMoE periodically refreshes these reference states and transmits only the compressed differences synchronously, reducing the traffic on latency-critical paths without significant computational overhead. EchoMoE reduces inter-node communication volume by 58% and improves throughput by 22.6%, while preserving average performance within 3.8 percentage points across 18 benchmarks. EchoMoE fur",
+  "summary_1line": "Scaling has driven the success of large language models (LLM), with sparse mixture-of-experts (MoE) architectures enabling greater parameter capacity without a proportional increase in computation. At large scales, Mo...",
+  "title": "Communicate the Change: Efficient Expert Parallelism via Activation Compression",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.22215v1"
  },
  "df054a8f01dd5d5e": {
   "first_seen": "2026-11-10T21:05:43.516589+00:00",
@@ -20022,6 +20175,23 @@
   "title": "Expertise capture in workplace AI",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.21456v1"
+ },
+ "ef13b517c919ea76": {
+  "content_excerpt": "Claude Docs is a doc editor that you, your teammates, and Claude all work in together. The interesting part is that a Claude session anywhere, from chat to Claude Code, can open the same doc and read, write, and comment in it live, right next to you. We released Docs on September 16, 2026. This post is about the service that runs underneath it. Three weeks before Claude Docs opened to the public, it was running as a proof of concept on a single node, used by a few thousand people inside Anthropic. We were racing toward an ambitious launch date, and our own estimate said we'd see millions of docs within the first few days. We launched on September 16. By September 22, people had created over 4.6 million docs. Across 2 billion requests we saw only 60 server errors, and we never had to roll back. The whole Docs service ran on about 50 memory-optimized pods. But honestly, this only worked because our frontier models have gotten much better recently (I used an internal research model roughly comparable to Claude Fable 5.2). In our experience, they can now stick with one goal through a run like this for weeks, which is what helped us hit launch scale in a tight timeline. A few thousand internal users on one machine told us nothing about whether the service would survive launch, and we obviously didn't have launch traffic to test with. We wanted real evidence to decide how fast we could roll out. So on September 4, about two weeks before launch, I had Claude drive a staging cluster ",
+  "first_seen": "2026-11-18T03:08:59.408548+00:00",
+  "id": "c6547d57504dbb0f",
+  "matched_topics": [
+   "claude code"
+  ],
+  "published": "2026-11-17T12:00:00+00:00",
+  "sid": "ef13b517c919ea76",
+  "source": "claude_dev_blog",
+  "summary": "Claude Docs is a doc editor that you, your teammates, and Claude all work in together. The interesting part is that a Claude session anywhere, from chat to Claude Code, can open the same doc and read, write, and comment in it live, right next to you. We released Docs on September 16, 2026. This post is about the service that runs underneath it.",
+  "summary_1line": "Claude Docs is a doc editor that you, your teammates, and Claude all work in together. The interesting part is that a Claude session anywhere, from chat to Claude Code, can open the same doc and read, write, and comme...",
+  "title": "Using a \"chaos loop\" to harden the Claude Docs launch: 60 server errors across billions of requests",
+  "type": "news",
+  "url": "https://claude.dev/blog/chaos-loop-claude-docs-launch",
+  "why_it_matters": "Matches feed focus: claude code."
  },
  "ef1ec6a63d1a78aa": {
   "first_seen": "2026-11-09T11:04:45.629576+00:00",
