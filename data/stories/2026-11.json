@@ -3687,6 +3687,23 @@
   "url": "https://www.dhawalshah.net/article/ai-agent-governance",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "2a0be454413b0af8": {
+  "first_seen": "2026-11-18T05:05:12.923622+00:00",
+  "id": "11f4064f8d462277",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-17T17:01:00+00:00",
+  "sid": "2a0be454413b0af8",
+  "source": "arxiv_cs_cl",
+  "summary": "AI agents are governed by hundreds of natural language criteria, yet existing verifiers cannot efficiently evaluate an agent's output against a large set of such criteria and report which are satisfied, violated, or inapplicable. We introduce the VFM, a tree-attention verifier that encodes the shared context and target text, and scores N natural language criteria in parallel, returning independent per-criterion ternary verdicts. The VFM is pretrained on CriteriaBank, a corpus of 394K (context, target, criterion, verdict) tuples spanning over 321K distinct criterion strings. A finetuned VFM-4B outperforms GPT-5.4 on a synthetic governance benchmark. On the DynaBench multi-criterion benchmark, it outperforms DynaGuard-4B on trace-level failure detection, and its per-criterion verdicts localize the violated rule and support focused escalation to a larger chain-of-thought judge. We show that CriteriaBank pretraining improves cross-domain transfer, particularly in the low-data regime, while matching a strong direct-finetuning control at full data. On a single H100, VFM-4B evaluates 1,000 criteria against a 4K-token context in under 2s at <11 GB VRAM, making it suitable for runtime verification.",
+  "summary_1line": "AI agents are governed by hundreds of natural language criteria, yet existing verifiers cannot efficiently evaluate an agent's output against a large set of such criteria and report which are satisfied, violated, or i...",
+  "title": "Runtime Verification of Multiple Natural Language Criteria for Agent Governance",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.23074v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "2a9427c55f20d0ad": {
   "first_seen": "2026-11-15T23:06:05.718817+00:00",
   "id": "4d8a32dd5c7d1541",
@@ -4145,6 +4162,17 @@
   "url": "https://www.infoq.com/news/2026/11/qcon-ai-newyork-2026-program/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "2f60e884dd6140fa": {
+  "first_seen": "2026-11-18T05:09:21.523415+00:00",
+  "id": "006d284354f428fa",
+  "published": "2026-11-18T04:34:06+00:00",
+  "sid": "2f60e884dd6140fa",
+  "source": "openai_codex_releases",
+  "summary_1line": "Release 0.171.0-alpha.13",
+  "title": "codex rust-v0.171.0-alpha.13",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.13"
+ },
  "2f7be7ac68b1edc1": {
   "first_seen": "2026-11-10T10:05:37.288465+00:00",
   "id": "1b8d7af518bb1b13",
@@ -4402,6 +4430,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.13196v1",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "30e3fc959dd5093e": {
+  "content_excerpt": "Compromised agent-framework versions 1.26.1 and 1.26.2 on PyPI use .pth startup hooks to exfiltrate Azure, GitHub Actions, and CI/CD credentials. The Microsoft agent-framework PyPI package was compromised on November 17th, affecting versions 1.26.1 and 1.26.2. Both versions install Python startup hooks that silently collect credentials, environment data, and cloud identity tokens, then exfiltrate them to a webhook[.]site endpoint. Avoid installing either version; if installed, remove them and rotate potentially exposed credentials. On Python startup, the .pth file imports a module that launches collection in a background process/thread. Version 1.26.1 routes through agent_framework_meta.pth → agent_framework_meta/**init**.py → agent_framework_meta/_telemetry.py ; 1.26.2 uses af_runtime_diag.pth → af_runtime_diag.py . The code gathers credential-related environment variables, local config/credential files, and other processes’ environments. It also requests cloud/workflow identity tokens (including Azure in both versions and GitHub Actions OIDC in 1.26.2). It serializes the results, compresses and Base64-encodes them, then POSTs them to the same concealed webhook.site endpoint: https[://]webhook[.]site/d381fd80-ec62-42ad-8f5c-d1b15103c9bb agent_framework_meta.pth executes on interpreter startup through Python’s site processing: agent_framework_meta/__init__.py adds a supposedly diagnostic hook that imports and starts the payload, suppressing errors: agent_framework_meta/_telem",
+  "first_seen": "2026-11-18T05:05:12.923622+00:00",
+  "id": "be810481a84d3dae",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-18T05:02:34+00:00",
+  "sid": "30e3fc959dd5093e",
+  "source": "hackernews_ai",
+  "summary_1line": "Microsoft's agent-framework PyPI package Compromised with Credential Stealer",
+  "title": "Microsoft's agent-framework PyPI package Compromised with Credential Stealer",
+  "type": "news",
+  "url": "https://socket.dev/blog/agent-framework-pypi-package-compromised-with-credential-stealer",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "315067631b45108f": {
   "content_excerpt": "Any two of three AI engines share at least one business name 56.8% of the time (95 percent interval 54.5 to 59.0 percent): 1066 engine pairs across 771 question-days, 54 questions, 17 run days, 2026-10-24 to 2026-11-09, ChatGPT (OpenAI) gpt-5-mini, Claude (Anthropic) bedrock haiku 4.5, Gemini (Google) flash lite. Names were extracted mechanically by capitalisation from the public corpus (github.com/mrcrtr1979-droid/namebeam-visibility-index), matched on canonical form. Generic names filtered. Three engines only (ChatGPT gpt-5-mini, Claude bedrock haiku 4.5, Gemini flash lite). Local-business questions only. This is a count of agreement, not a measurement of causes or outcomes.",
@@ -4783,7 +4827,7 @@
   "published": "2026-11-17T03:44:46+00:00",
   "sid": "364859f834c86602",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 1, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 22, downloads: 0.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 1, downloads: 0.",
   "title": "tencent/Hy4-flash released on Hugging Face",
   "type": "release",
@@ -10028,6 +10072,24 @@
   "url": "https://blogs.nvidia.com/blog/korea-secure-agentic-ai",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "776905612a242927": {
+  "first_seen": "2026-11-18T05:05:12.923622+00:00",
+  "id": "8cac128aab11aa0c",
+  "matched_topics": [
+   "agent",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-11-17T15:52:15+00:00",
+  "sid": "776905612a242927",
+  "source": "arxiv_cs_ai",
+  "summary": "Coding agents make videos by writing and refining programs in a build--inspect--edit loop. A finished film costs a median of $2.85 in model calls and 11 minutes, over a third of that time in builds that block the agent. We find that much of this time is avoidable, for two reasons. First, 37.5% of the frames of a session's later films were drawn before, many shifted in time or inside an edited scene. Second, half of the builds stop at a check, where the agent needs only the verdict, but which builds stop is unknown until the checks finish. We present CodeReel, a training-free execution layer behind agents' existing commands. Exact frame reuse keys each frame by its drawing commands, regardless of its position in time, and reuses each frame whose key recurs. Blocking-aware scheduling runs the checks first and starts the render alongside them, at idle priority, unless the session's recent builds make a pass unlikely. Scheduling spends CPU to answer sooner and reuse returns it; exact keys let later versions use frames rendered for a failed one as the agent thinks. We introduce EditLoop, a benchmark of replayable agent sessions whose films are checked against renders from scratch. On it, CodeReel cuts the agent's wait by 36.3% against Rebuild, a warm pipeline with parallel rendering, and by 57.9% against Sequential, today's step-by-step pipeline. On time-shifting edits its reuse renders 43.9%, close to the 43.0% whose pixels are new, while Manim-style caching renders 99.8%. With r",
+  "summary_1line": "Coding agents make videos by writing and refining programs in a build--inspect--edit loop. A finished film costs a median of $2.85 in model calls and 11 minutes, over a third of that time in builds that block the agen...",
+  "title": "CodeReel: Accelerating Code-to-Video Agents with Exact Frame Reuse and Blocking-Aware Scheduling",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.22967v1",
+  "why_it_matters": "Matches feed focus: agent, codex, claude code."
+ },
  "77712ebaab650f16": {
   "first_seen": "2026-11-12T02:03:59.575597+00:00",
   "id": "5e9c0b564b15d5a5",
@@ -10273,6 +10335,24 @@
   "title": "MARS: Multiscale Appearance-Residual Streams for Video Forgery Detection",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12508v1"
+ },
+ "7923c91a772b6495": {
+  "first_seen": "2026-11-18T05:05:12.923622+00:00",
+  "id": "c4d49c78fe4cea0e",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-11-17T16:07:17+00:00",
+  "sid": "7923c91a772b6495",
+  "source": "arxiv_cs_ai",
+  "summary": "Agentic systems using retrieval-augmented generation (RAG) must repair their own answers by gathering more evidence, testing alternative policies and deciding if, when, and what repairs are needed. Yet how do we know if a system's repairs are working when metrics like accuracy can be misleading? We present RagHarnessDebugger, a framework that records every repair decision in a Jev-guided harness for contract inference and audits the record to facilitate complete debugging of all decisions taken during a RAG repair journey. RagHarnessDebugger checks that each trace is intact, that each validation applies to the candidate it is counted for, and which answers the acceptance rule can reach. We tested our approach on ContractNLI non-disclosure agreements with two reader models and a replication set of separate contracts. Our debugger's audit layer exposed failure patterns that were hidden under aggregate metrics, policies acceptance cost of repairs vs regressions and policy acceptance gap of 77% and 76% of available but unrealised repairs on development and replication sets. Our audit, together with a labeled error analysis and replay mechanism, allowed following the execution path all the way to the terminal decision - uncovering where missing repairs became lost. Our revised harness improved accuracy over the initial BM25-only baseline by 3.6 points on development contracts and 3.7 points on the replication set, and even improved our full contract access reference score by 1.1 o",
+  "summary_1line": "Agentic systems using retrieval-augmented generation (RAG) must repair their own answers by gathering more evidence, testing alternative policies and deciding if, when, and what repairs are needed. Yet how do we know...",
+  "title": "RagHarnessDebugger: Jev-Guided Agentic RAG in Contract Inference Repair Auditing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.22991v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, eval."
  },
  "797aba84ba3e9103": {
   "first_seen": "2026-11-04T00:05:12.455371+00:00",
@@ -11346,6 +11426,22 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "86b481fec78194a4": {
+  "first_seen": "2026-11-18T05:05:12.923622+00:00",
+  "id": "703db28d9cbdf867",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-17T13:33:26+00:00",
+  "sid": "86b481fec78194a4",
+  "source": "arxiv_cs_cl",
+  "summary": "Retrieval-augmented generation (RAG) improves factuality by grounding large language models (LLMs) in external evidence. However, long retrieved contexts incur computational overhead and can even hurt performance due to noisy or irrelevant content. We propose \\textsc{StitchRAG}, a framework for constructing compact context in RAG. \\textsc{StitchRAG} builds a faithful, information-dense context while dynamically compressing the retrieved passages. We adapt the size reduction ratio to each passage by formulating a utility maximization trading-off the retained information and computation costs. We then extract answer candidates and query-related keywords from passages as anchors and collect passage sentences containing anchors under the derived size constraint. Finally, we connect or stitch the collected sentences together using text diffusion to form a coherent and natural context. Experiments on five open-domain QA benchmarks show that \\textsc{StitchRAG} consistently outperforms diverse multi-step and compression baselines. Extensive ablations show the effectiveness of dynamic size allocation, anchor preservation, and diffusion-based stitching.",
+  "summary_1line": "Retrieval-augmented generation (RAG) improves factuality by grounding large language models (LLMs) in external evidence. However, long retrieved contexts incur computational overhead and can even hurt performance due...",
+  "title": "StitchRAG: Constructing Compact and Evidence-Preserving Contexts for RAG with Diffusion-Based Stitching",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.22766v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "86cff174db20bc69": {
   "content_excerpt": "Across Modal, a typical Sandbox spends more than half its life using less than 6% of its peak CPU. Take a coding agent: the Sandbox sits nearly idle while the model reasons about what to do next, and spikes only when the agent installs dependencies, runs tests, or builds the project. The same pattern shows up in other common Sandbox workloads: RL rollouts, evals, and app builders. Today, most sandboxes are priced based on a fixed-resource reservation model. Reservations are a poor fit for spiky work, for two reasons: We believe your bill should align with your workload, rising when it’s busy and falling when it’s idle. That’s why our Sandboxes burst: a Sandbox gets the CPU and memory it needs when your work spikes and gives them back when it is done. You pay for what you actually use. Every Sandbox bursts by default. Start with the base 0.125 cores and 128 MiB request and let your Sandbox grow as it needs. With active-resource pricing, you pay each second for what you use, with the small request as a floor. You can request more to guarantee it, but you’ll pay for those resources even when your Sandbox is idle. You can also set a limit to cap how far your Sandbox can burst; think of it as setting the size of the computer the Sandbox lives on. Most workloads don’t need to set a request or limit: use the default and burst from there. Because you pay for what you use, estimate your costs from average usage rather than peak usage: CPU cost ≈ runtime × CPU rate × average cores used",
@@ -15339,6 +15435,23 @@
   "type": "news",
   "url": "https://pizza.hertzbeat.com",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "b10db1cfe642b466": {
+  "first_seen": "2026-11-18T05:05:12.923622+00:00",
+  "id": "7e5df6ed3caeeec8",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-11-16T19:12:50+00:00",
+  "sid": "b10db1cfe642b466",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Asynchronous reinforcement learning increases training throughput, but data from stale policies and numerical mismatch between training and inference can destabilize learning. To stabilize off-policy learning, score centering (SC) removes the effect of reward baselines on the expected update. Our gradient diagnostics show less extreme gradients with SC than with importance sampling (IS), but SC can still fail when the learner moves far from the behavior policy that generated the data. To limit this policy mismatch, we introduce Regularized Score Centering (RSC), which adds a reverse Kullback-Leibler (KL) penalty to encourage the learner's next-token distribution to stay close to the behavior policy's next-token distribution. RSC works with or without truncated importance sampling (TIS), which caps token importance weights. Our theoretical analysis supports this approach, showing that KL regularization improves convergence guarantees. We evaluate dense and mixture-of-experts models on mathematical reasoning and agentic tasks, including online shopping, tool use, games, and fully asynchronous software engineering. RSC with TIS substantially improves sample efficiency across all agentic benchmarks, attaining higher training rewards with the same number of sampled responses. In final evaluations, it achieves top performance across all six agentic tasks, improving by 14.3% on AppWorld and reaching 9.9 times the strongest baseline's score on BabyAI.",
+  "summary_1line": "Asynchronous reinforcement learning increases training throughput, but data from stale policies and numerical mismatch between training and inference can destabilize learning. To stabilize off-policy learning, score c...",
+  "title": "Regularized Score Centering",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.21791v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "b12bd70de803121f": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. The panelists explain how AI tools and vibe coding reshape frontend and mobile engineering. They share insights on evolving junior developer roles, managing AI-generated code review fatigue, designing systems for autonomous agents, enforcing architectural guardrails, and navigating economic shifts in open-source software sustainability. Advait Patel shares a playbook for securing AI agent systems in production. He discusses moving defense boundaries from the prompt to the tool layer, enforcing scoped workload identities, and mitigating prompt injection via tool outputs. He explains how to structure audit-ready observability and implement kill switches to protect critical data while keeping deployment fast and compliant. Alasdair Allan discusses empirical research from METR and Anthropic on AI coding adoption. He",
@@ -21170,6 +21283,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12702v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "f98bc560cbed3df7": {
+  "first_seen": "2026-11-18T05:05:12.923622+00:00",
+  "id": "c6431fc23be3dbc4",
+  "published": "2026-11-18T04:56:54+00:00",
+  "sid": "f98bc560cbed3df7",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Lebrel Brings Uncensored DeepSeek V4.1 Flash From $0.13 per Million Input Tokens, Adds Alibaba's Qwen4-Max on Day One markets.businessinsider.com",
+  "summary_1line": "Lebrel Brings Uncensored DeepSeek V4.1 Flash From $0.13 per Million Input Tokens, Adds Alibaba's Qwen4-Max on Day One markets.businessinsider.com",
+  "title": "Lebrel Brings Uncensored DeepSeek V4.1 Flash From $0.13 per Million Input Tokens, Adds Alibaba's Qwen4-Max on Day One",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMihAJBVV95cUxQQ3hDQWF3RlFOalIxZFB2N2l4ZEs4bkMzeEtJTEFxbkFpSmhSdDlxRzQ2QkxUQTFFekE2MTNvaGtxd2NlQWkwV292RzUyUFcyRmhyYUpzRGlKS1FieEd1Rm1aR09sTnZidmEtWjdxdmNyZXc0Qi1ZOTk1eFRTTUloVDRoX2JTb1FSLWFISWM5cktDVVdrZEVMcFROaGZiUmU1ekFneV9Sc1lyMGdUM1M2QUllNmJ1bDhacDZjczN6V21RM1BKWjdfeDhQLXhVQTlURE5OY09OZE5yM29aSXZZN1ZTbjVobW85N1NwUm9uRDdQZUZscEFuaE9fMTl5M01mSkxpTQ?oc=5"
  },
  "f98fe0fa452cac2f": {
   "first_seen": "2026-11-12T12:04:50.926409+00:00",
