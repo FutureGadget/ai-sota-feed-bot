@@ -1,0 +1,260 @@
+{
+  "generated_at": "2026-11-18T00:12:17.179960+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "multi-agent-systems",
+    "label": "Multi-Agent Systems",
+    "item_count": 13,
+    "source_count": 4,
+    "day_count": 10,
+    "first_seen": "2026-10-28T20:40:33+00:00",
+    "last_updated": "2026-11-17T11:00:00+00:00",
+    "latest_title": "Presentation: Scaling LLM-Based Ranking Systems for Latency-Critical Search & Recommendation Workloads",
+    "member_sids": [
+      "e13096c02b9a44d7",
+      "c2fbad095b72bbaa",
+      "a23623abdfcb0e52",
+      "bce25dc1c825a3e7",
+      "7e75b9009b3b0ccb",
+      "37a5207d8920956c",
+      "d48d8aea5d45b475",
+      "b3a45cba6445f63d",
+      "a34f1fafb710e628",
+      "ae75fdfb8dec6766",
+      "3debe09eabc6be1b",
+      "d761218419b3b591",
+      "3449739a151bbd6a"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/multi-agent-systems.json",
+    "prior_narrative": {
+      "slug": "multi-agent-systems",
+      "generated_at": "2026-10-01T05:10:00+00:00",
+      "covers_last_updated": "2026-09-30T14:09:57+00:00",
+      "covers_member_sids": [
+        "9463df6fcb6ce102",
+        "c9bd4843a93b6790",
+        "9b401e98b8571b23"
+      ],
+      "tldr": "Three arXiv papers in two weeks treat multi-agent systems as a shared-state problem. MACE (Sep 18) stores collaboration traces in an adaptive memory graph; a Sep 29 paper ties task regions to agent responsibility, handoffs, and memory access.",
+      "whats_new": "A Sep 30 paper examines safety of latent communication, where agents exchange internal representations instead of text to cut token and latency cost.",
+      "why_it_matters": "Memory, handoffs, and inter-agent channels are where multi-agent systems break in production; these papers propose mechanisms, not production results.",
+      "status": {
+        "state": "Research · developing",
+        "tone": "rising",
+        "changed": "2026-09-30",
+        "detail": "Three papers, all single-paper claims with no independent replication yet."
+      },
+      "beats": [
+        {
+          "kicker": "MEMORY",
+          "tone": "launch",
+          "headline": "MACE reuses collaboration traces through adaptive memory graphs",
+          "summary": "Preserves each action's prerequisites so agents can reuse plan, verify, and repair procedures.",
+          "sids": [
+            "9463df6fcb6ce102"
+          ]
+        },
+        {
+          "kicker": "STRUCTURE",
+          "tone": "rising",
+          "headline": "Topological coherence couples workflow, responsibility, and memory access",
+          "summary": "Task regions define tool scope; cross-region dependencies become handoffs.",
+          "sids": [
+            "c9bd4843a93b6790"
+          ]
+        },
+        {
+          "kicker": "NOW",
+          "tone": "now",
+          "headline": "Latent communication trades text overhead for a new safety surface",
+          "sids": [
+            "9b401e98b8571b23"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Does any of these approaches ship in an open-source agent framework?",
+        "Do latent channels get an independent safety evaluation beyond the proposing paper?"
+      ],
+      "take_for_builders": "Keep inter-agent messages as inspectable text in anything audited; treat latent communication as research until a safety evaluation replicates.",
+      "day_captions": {
+        "9463df6fcb6ce102": "Memory-graph approach to reusing multi-agent collaboration traces.",
+        "c9bd4843a93b6790": "Frames handoffs and memory access as properties of workflow structure.",
+        "9b401e98b8571b23": "Raises safety concerns for agents that communicate in representation space."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-10-28",
+        "items": [
+          {
+            "sid": "e13096c02b9a44d7",
+            "title": "Auditable Belief Updates as a Missing Safety Layer for LLM-Powered Multi-Agent Systems",
+            "url": "http://arxiv.org/abs/2610.38869v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Large Language Models (LLMs) are increasingly being used as cognitive interfaces that shape how users interpret evidence, communicate, and make decisions. As deployed systems become more multimodal, tool-using, and mu...",
+            "published": "2026-10-28T20:40:33+00:00"
+          },
+          {
+            "sid": "c2fbad095b72bbaa",
+            "title": "MAS-Loop: Beyond One-Shot Orchestration towards Self-Evolving Multi-Agent Systems",
+            "url": "http://arxiv.org/abs/2610.38946v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Training-time multi-agent system (MAS) design seeks to learn reusable orchestration policies, yet prevailing approaches remain largely one-shot: an Orchestrator generates a system but only observes and learns from its...",
+            "published": "2026-10-28T21:32:05+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-10-29",
+        "items": [
+          {
+            "sid": "a23623abdfcb0e52",
+            "title": "Locating and Closing Information Gaps in Multi-Agent Systems",
+            "url": "http://arxiv.org/abs/2610.40186v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Multi-step Web tasks often require several LLM agents to gather and combine evidence. The communication graph of a fixed workflow restricts which agents can read each other's outputs: evidence retrieved by one agent m...",
+            "published": "2026-10-29T14:45:43+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-02",
+        "items": [
+          {
+            "sid": "bce25dc1c825a3e7",
+            "title": "An Axiomatic Framework for Reinforcement Learning in Open Multi-Agent Systems",
+            "url": "http://arxiv.org/abs/2611.03301v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Open multi-agent systems, where only a subset of agents are controllable, are central to real-world domains such as smart grids, yet lack a principled foundation for reinforcement learning algorithm design. We study t...",
+            "published": "2026-11-02T15:36:22+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-04",
+        "items": [
+          {
+            "sid": "7e75b9009b3b0ccb",
+            "title": "Design Tenets for Agent Identity Management Systems",
+            "url": "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
+            "source": "hackernews_ai",
+            "type": "news",
+            "summary_1line": "Design Tenets for Agent Identity Management Systems",
+            "published": "2026-11-04T02:42:44+00:00"
+          },
+          {
+            "sid": "37a5207d8920956c",
+            "title": "ServerBench: How can your coding agents design specialized LLM serving systems?",
+            "url": "http://arxiv.org/abs/2611.06841v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Large language model (LLM) coding agents develop software through experimentation, offering an opportunity to design the serving systems supporting their own operation. Effective serving requires coordinating implemen...",
+            "published": "2026-11-04T17:59:07+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-06",
+        "items": [
+          {
+            "sid": "d48d8aea5d45b475",
+            "title": "Coordinated Mixed-Precision KV Cache Quantization for Efficient LLM-based Multi-agent Systems",
+            "url": "http://arxiv.org/abs/2611.10096v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "LLM-based multi-agent systems solve complex tasks through collaboration, but their growing, simultaneously resident key-value (KV) caches create a memory bottleneck. Applying single-model quantization policies indepen...",
+            "published": "2026-11-06T17:07:35+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-09",
+        "items": [
+          {
+            "sid": "b3a45cba6445f63d",
+            "title": "WorkflowArena: Benchmarking Executable Workflow Orchestration in LLM-Based Multi-Agent Systems",
+            "url": "http://arxiv.org/abs/2611.12856v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Large language model agents are increasingly deployed as multi-agent systems rather than as a standalone model operating within a single context. Recent agent harnesses allow the model to instantiate worker agents and...",
+            "published": "2026-11-09T18:45:28+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-10",
+        "items": [
+          {
+            "sid": "a34f1fafb710e628",
+            "title": "On Private Knowledge Retrieval and Private Inference for secure multi-agent systems",
+            "url": "http://arxiv.org/abs/2611.13696v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Multi-agent systems provide a convenient framework for the massive deployment of agents based on Large Language Models (LLMs). It provides a sound framework where agents can interact with existing software to perform...",
+            "published": "2026-11-10T07:43:02+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-11",
+        "items": [
+          {
+            "sid": "ae75fdfb8dec6766",
+            "title": "CoLFA: Collaboration-Guided Lightweight Failure Attribution for LLM-Based Multi-Agent Systems",
+            "url": "http://arxiv.org/abs/2611.14980v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Failure attribution in multi-agent systems requires tracing error formation to identify the decisive error step and the responsible agent. However, agents' division of work and information exchange lead to Interleaved...",
+            "published": "2026-11-11T03:38:54+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-13",
+        "items": [
+          {
+            "sid": "3debe09eabc6be1b",
+            "title": "Show HN: AgentLeak – open-source privacy testing for multi-agent LLM systems",
+            "url": "https://github.com/Privatris/AgentLeak",
+            "source": "hackernews_ai",
+            "type": "news",
+            "summary_1line": "Show HN: AgentLeak – open-source privacy testing for multi-agent LLM systems",
+            "published": "2026-11-13T01:36:36+00:00"
+          },
+          {
+            "sid": "d761218419b3b591",
+            "title": "Securing Multi-Agent Systems by Design",
+            "url": "http://arxiv.org/abs/2611.17883v1",
+            "source": "arxiv_agent_systems_research",
+            "type": "paper",
+            "summary_1line": "Multi-agent systems solve complex tasks by decomposing them into subtasks, delegating the subtasks to agents, and aggregating the agents' responses using an aggregation rule. Malicious agents can manipulate the final solution by providing malicious responses to their assigned sub",
+            "published": "2026-11-13T08:22:06+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-17",
+        "items": [
+          {
+            "sid": "3449739a151bbd6a",
+            "title": "Presentation: Scaling LLM-Based Ranking Systems for Latency-Critical Search & Recommendation Workloads",
+            "url": "https://www.infoq.com/presentations/scale-llm-ranking-systems-linkedin/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+            "source": "infoq_ai_ml",
+            "type": "news",
+            "summary_1line": "Sundara Raman Ramachandran shares how LinkedIn productionizes LLM ranking under strict P99 latency SLAs. He discusses distilling a 7B model down to 400M parameters, compressing job contexts into single-token embedding...",
+            "published": "2026-11-17T11:00:00+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}

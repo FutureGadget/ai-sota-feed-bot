@@ -1,0 +1,239 @@
+{
+  "generated_at": "2026-11-18T00:12:17.179960+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "inference-engine",
+    "label": "Inference Engine",
+    "item_count": 9,
+    "source_count": 2,
+    "day_count": 8,
+    "first_seen": "2026-10-31T19:17:31+00:00",
+    "last_updated": "2026-11-17T16:01:04+00:00",
+    "latest_title": "Show HN: TrnRT – An open-source LLM inference engine for AWS Trainium",
+    "member_sids": [
+      "c7641f54401d6258",
+      "e6077e10f16ce2d8",
+      "fc7c1780406958b5",
+      "2f11643a689186b4",
+      "9b6ce22e2f29b264",
+      "cd44a088d357479c",
+      "1adc84018e934ecd",
+      "8ac6ca4d7f430268",
+      "b955388224554f43"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/inference-engine.json",
+    "prior_narrative": {
+      "slug": "inference-engine",
+      "generated_at": "2026-11-17T00:12:21Z",
+      "covers_last_updated": "2026-11-16T20:52:34+00:00",
+      "covers_member_sids": [
+        "c7641f54401d6258",
+        "e6077e10f16ce2d8",
+        "fc7c1780406958b5",
+        "2f11643a689186b4",
+        "9b6ce22e2f29b264",
+        "cd44a088d357479c",
+        "1adc84018e934ecd",
+        "8ac6ca4d7f430268"
+      ],
+      "tldr": "This is a topical cluster, not one event: eight items since Oct 31 that share only the phrase \"inference engine\". They split into hosting economics, vendor runtimes from Nvidia and Google, independent engines for niche stacks, and one arXiv hardware paper.",
+      "whats_new": "Goethe, a Show HN posted Nov 16 by YC-backed meshapplied, pitches software that turns a Linux machine into your own inference engine; the post makes the \"own your inference\" case but cites no benchmarks.",
+      "why_it_matters": "The serving layer is fragmenting by hardware target (DGX Spark, XLA, Vulkan on Windows, low-cost GPUs, a single Linux box) while the hosting-profitability question stays open.",
+      "beats": [
+        {
+          "kicker": "ECONOMICS",
+          "tone": "neutral",
+          "headline": "An analysis asks whether hosting an open-source inference engine pays",
+          "summary": "The cost side of the cluster: whether self-hosting an open-source engine is profitable at all.",
+          "sids": [
+            "2f11643a689186b4"
+          ]
+        },
+        {
+          "kicker": "VENDOR RUNTIMES",
+          "tone": "launch",
+          "headline": "Nvidia's Flare for DGX Spark and Google's XLA Serving Engine appear",
+          "summary": "Both are first-party runtimes tied to the vendor's own stack: DGX Spark hardware and the XLA compiler.",
+          "sids": [
+            "e6077e10f16ce2d8",
+            "9b6ce22e2f29b264"
+          ]
+        },
+        {
+          "kicker": "INDEPENDENT ENGINES",
+          "tone": "rising",
+          "headline": "Solo projects target a game scripting language, Delphi on Vulkan, and low-cost GPUs",
+          "summary": "Three independent engines, each aimed at a stack the mainstream runtimes do not centre on.",
+          "sids": [
+            "c7641f54401d6258",
+            "cd44a088d357479c",
+            "1adc84018e934ecd"
+          ]
+        },
+        {
+          "kicker": "RESEARCH",
+          "tone": "neutral",
+          "headline": "arXiv paper proposes one matrix engine for PHY signal processing and DNN inference",
+          "summary": "The paper starts from the opposing demands the two workloads place on matrix multiplication.",
+          "sids": [
+            "fc7c1780406958b5"
+          ]
+        },
+        {
+          "kicker": "NOW",
+          "tone": "now",
+          "headline": "YC startup meshapplied launches Goethe to run inference on your own Linux machine",
+          "summary": "The first venture-backed entry in the cluster, framed as owning your inference rather than renting it.",
+          "sids": [
+            "8ac6ca4d7f430268"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Does any independent benchmark confirm Kindi's \"fastest on low-cost GPUs\" claim?",
+        "Which models and GPUs does Goethe support, and how does its throughput compare with vLLM or llama.cpp on the same box?",
+        "Which model formats and hardware does Google's XLA Serving Engine support at launch?",
+        "Does Nvidia's Flare run on hardware other than DGX Spark?",
+        "At what utilization does hosting an open-source inference engine break even against a managed API?"
+      ],
+      "take_for_builders": "Treat every speed claim in this cluster as unverified until you run it on your own model and hardware; settle the self-host question with your own utilization numbers before adopting Goethe or any other new engine.",
+      "day_captions": {
+        "c7641f54401d6258": "A hobby-scale engine written with macros in a game scripting language, framed around speed.",
+        "e6077e10f16ce2d8": "Nvidia's own repository for Flare, a local inference engine for DGX Spark.",
+        "fc7c1780406958b5": "The only paper here: a hardware matrix engine shared between PHY signal processing and DNN inference.",
+        "2f11643a689186b4": "Adds the cost side: an analysis of whether hosting an open-source inference engine is profitable.",
+        "9b6ce22e2f29b264": "Google's open-source blog announces the XLA Serving Engine for XLA-based inference.",
+        "cd44a088d357479c": "A Windows-only GGUF engine running on Vulkan GPUs, written in Delphi 12.",
+        "1adc84018e934ecd": "A software engine for low-cost GPUs with a self-declared \"fastest\" claim and no published benchmark.",
+        "8ac6ca4d7f430268": "Newest entry and first startup product: a YC-backed tool that turns a Linux machine into a self-owned inference engine."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-10-31",
+        "items": [
+          {
+            "sid": "c7641f54401d6258",
+            "title": "Inference engine in game scripting language using macros",
+            "url": "https://dasllama.io/articles/2026-10-28-the-need-for-speed.html",
+            "source": "hackernews_ai",
+            "type": "news",
+            "summary_1line": "Inference engine in game scripting language using macros",
+            "published": "2026-10-31T19:17:31+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-02",
+        "items": [
+          {
+            "sid": "e6077e10f16ce2d8",
+            "title": "Flare, Nvidia's DGX Spark Inference Engine",
+            "url": "https://github.com/NVIDIA/spark-local-inference",
+            "source": "hackernews_ai",
+            "type": "news",
+            "summary_1line": "Flare, Nvidia's DGX Spark Inference Engine",
+            "published": "2026-11-02T01:11:27+00:00"
+          },
+          {
+            "sid": "fc7c1780406958b5",
+            "title": "A Cross-Domain Matrix Engine for Signal Processing and Deep Neural Net Inference",
+            "url": "http://arxiv.org/abs/2611.03503v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Matrix multiplication dominates both PHY signal processing and Deep Neural Network (DNN) inference, yet these domains place opposing demands on the matrix engine. Signal processing requires low-latency execution of relatively small matrix operations, whereas DNN inference, partic",
+            "published": "2026-11-02T17:40:14+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-04",
+        "items": [
+          {
+            "sid": "2f11643a689186b4",
+            "title": "Is hosting an open-source inference engine profitable?",
+            "url": "https://userecurrence.ai/research/is-hosting-open-source-inference-profitable",
+            "source": "hackernews_ai",
+            "type": "news",
+            "summary_1line": "Is hosting an open-source inference engine profitable?",
+            "published": "2026-11-04T02:58:34+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-06",
+        "items": [
+          {
+            "sid": "9b6ce22e2f29b264",
+            "title": "Supercharging XLA-Based Inference: Announcing the Launch of XLA Serving Engine",
+            "url": "https://opensource.googleblog.com/2026/11/supercharging-xla-inference-xla-serving-engine.html",
+            "source": "hackernews_ai",
+            "type": "news",
+            "summary_1line": "Supercharging XLA-Based Inference: Announcing the Launch of XLA Serving Engine",
+            "published": "2026-11-06T15:21:03+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-08",
+        "items": [
+          {
+            "sid": "cd44a088d357479c",
+            "title": "VindexLLM – Windows Vulkan GPU GGUF LLM inference engine written in Delphi 12",
+            "url": "https://github.com/tinyBigGAMES/VindexLLM",
+            "source": "hackernews_ai",
+            "type": "news",
+            "summary_1line": "VindexLLM – Windows Vulkan GPU GGUF LLM inference engine written in Delphi 12",
+            "published": "2026-11-08T05:25:50+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-11",
+        "items": [
+          {
+            "sid": "1adc84018e934ecd",
+            "title": "Kindi: The fastest software inference engine for low-cost GPUs",
+            "url": "https://amirhusain.com/software/kindi",
+            "source": "hackernews_ai",
+            "type": "news",
+            "summary_1line": "Kindi: The fastest software inference engine for low-cost GPUs",
+            "published": "2026-11-11T18:18:33+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-16",
+        "items": [
+          {
+            "sid": "8ac6ca4d7f430268",
+            "title": "Show HN: Goethe – turn your computer into an inference engine",
+            "url": "https://github.com/meshapplied/goethe",
+            "source": "hackernews_ai",
+            "type": "news",
+            "summary_1line": "Hi HN, I'm Matteo from meshapplied (YC W27), building this with Peter and Janos. We think you can and should own your inference, so we built software that actually supports that. Goethe turns a Linux machine with an N...",
+            "published": "2026-11-16T20:52:34+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-17",
+        "items": [
+          {
+            "sid": "b955388224554f43",
+            "title": "Show HN: TrnRT – An open-source LLM inference engine for AWS Trainium",
+            "url": "https://github.com/RunanywhereAI/trnrt",
+            "source": "hackernews_ai",
+            "type": "news",
+            "summary_1line": "Hi HN, Sanchit here from RunAnywhere (YC W26). We just open-sourced TrnRT: Trainium RunTime, our inference engine for AWS Trainium. We started 3 weeks back, and currently we’re able to serve and run GLM 5.3 flash (FP8...",
+            "published": "2026-11-17T16:01:04+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}

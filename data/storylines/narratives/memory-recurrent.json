@@ -1,0 +1,47 @@
+{
+  "slug": "memory-recurrent",
+  "generated_at": "2026-11-18T00:13:28Z",
+  "covers_last_updated": "2026-11-16T18:32:05+00:00",
+  "covers_member_sids": [
+    "61e185e423e61214",
+    "1e587df8b443a929",
+    "46d71c45a0641225"
+  ],
+  "tldr": "This is not one event: three unrelated arXiv papers share the words \"recurrent memory\". It opened with the Dynamical Memory Transformer, which pairs attention with selective recurrent memories to keep per-token cost constant instead of growing with the KV cache.",
+  "whats_new": "The latest paper (Nov 16) benchmarks memory capacity of variational quantum recurrent networks for time-series prediction, which is off the LLM-inference path entirely.",
+  "why_it_matters": "Only the first two papers touch the long-context cost problem builders pay for: KV-cache growth versus fixed-size recurrent state in SSM-style models.",
+  "beats": [
+    {
+      "kicker": "CONTEXT COST",
+      "tone": "launch",
+      "headline": "Dynamical Memory Transformer targets constant-cost attention",
+      "summary": "Hybrid design: keep attention's direct retrieval, but compress history into selective recurrent memories so per-token cost stops scaling with context length.",
+      "sids": ["61e185e423e61214"]
+    },
+    {
+      "kicker": "THEORY",
+      "tone": "rising",
+      "headline": "Representation theory questions diagonal SSM recurrences",
+      "summary": "Examines what linear recurrent memory can represent when implementations make the recurrence diagonal to keep the parallel scan cheap.",
+      "sids": ["1e587df8b443a929"]
+    },
+    {
+      "kicker": "TANGENT",
+      "tone": "neutral",
+      "headline": "Quantum recurrent networks benchmarked on time-series memory",
+      "summary": "Shares the vocabulary, not the thread: a quantum ML benchmark with no bearing on LLM serving.",
+      "sids": ["46d71c45a0641225"]
+    }
+  ],
+  "open_questions": [
+    "Does the Dynamical Memory Transformer publish long-context retrieval results against a full-KV-cache baseline?",
+    "Does the diagonal-recurrence analysis lead to a concrete non-diagonal SSM variant with a parallel scan of comparable cost?",
+    "Does any inference engine ship support for a selective-recurrent-memory hybrid?"
+  ],
+  "take_for_builders": "No action: treat these as research to watch, and wait for released weights or a long-context eval before changing any KV-cache or model-choice plans.",
+  "day_captions": {
+    "61e185e423e61214": "Anchor paper: proposes a hybrid that trades the growing KV cache for selective recurrent memories.",
+    "1e587df8b443a929": "Theory angle on why diagonal SSM recurrences may limit what fixed-size state can remember.",
+    "46d71c45a0641225": "Clustered by shared wording only; quantum time-series work outside the LLM-serving lens."
+  }
+}

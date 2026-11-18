@@ -1,12 +1,12 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 20,
- "day_count": 13,
+ "item_count": 24,
+ "day_count": 14,
  "source_count": 6,
- "first_seen": "2026-10-27T06:52:54+00:00",
- "last_updated": "2026-11-13T17:26:39+00:00",
- "generated_at": "2026-11-17T00:13:09.187086+00:00",
+ "first_seen": "2026-10-29T09:21:26+00:00",
+ "last_updated": "2026-11-16T16:19:01+00:00",
+ "generated_at": "2026-11-18T00:14:17.482304+00:00",
  "sources": [
   "anthropic_research",
   "arxiv_agent_systems_research",
@@ -16,22 +16,6 @@
   "arxiv_llm_reliability"
  ],
  "days": [
-  {
-   "date": "2026-10-27",
-   "items": [
-    {
-     "title": "CAMR: Compatibility-Aware Memory Replay for Continual Learning in Large Language Models",
-     "url": "http://arxiv.org/abs/2610.36734v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Continual learning requires large language models to acquire new knowledge and capabilities while retaining what they have learned. Fine-tuning and replay support acquisition and retention, but deciding whether incomi...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "200271de2a2f52aa",
-     "published": "2026-10-27T06:52:54+00:00",
-     "editor_note": "Opens the thread: replay for continual learning that weighs whether incoming data is compatible with what the model holds."
-    }
-   ]
-  },
   {
    "date": "2026-10-29",
    "items": [
@@ -43,7 +27,7 @@
      "summary_1line": "Large language models (LLMs) draw on parametric knowledge and retrieval-augmented generation (RAG) to solve knowledge-intensive tasks. Yet problem solving in unfamiliar domains calls for tightly coupled knowledge acquisition and reasoning, beyond factual retrieval and aggregation",
      "sid": "d571e973b6e6916d",
      "published": "2026-10-29T09:21:26+00:00",
-     "editor_note": "RL to couple knowledge acquisition with reasoning in unfamiliar domains, beyond plain RAG."
+     "editor_note": "Opens the thread: RL to couple knowledge acquisition with reasoning in unfamiliar domains, beyond plain RAG."
     }
    ]
   },
@@ -282,6 +266,16 @@
    "date": "2026-11-13",
    "items": [
     {
+     "title": "f-Divergence Self-Play for Tabular Anomaly Detection via Large Language Models",
+     "url": "http://arxiv.org/abs/2611.18370v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Anomaly detection in tabular data poses significant challenges due to heterogeneous feature types-mixing numerical, categorical, and textual attributes, which complicate learning meaningful representations of normality. Recent work has applied large language models (LLMs) to this",
+     "sid": "ca54e3a4f2c1d30b",
+     "published": "2026-11-13T16:16:03+00:00",
+     "editor_note": "Side branch: LLM self-play for anomaly detection over mixed-type tabular data."
+    },
+    {
      "title": "Black-Box Uncertainty Quantification for Large Language Models via Ensemble-of-Ensembles",
      "url": "http://arxiv.org/abs/2611.18453v1",
      "source": "arxiv_llm_reliability",
@@ -289,25 +283,78 @@
      "summary_1line": "Reliable use of large language models (LLMs) requires uncertainty estimates that separate ambiguity intrinsic to a prompt from genuine knowledge gaps. Bayesian and deep-ensemble methods deliver this aleatoric/epistemic decomposition in principle, but are computationally prohibiti",
      "sid": "3985de9df0cd2149",
      "published": "2026-11-13T17:26:39+00:00",
-     "editor_note": "Latest item: shifts from whether scores are trustworthy to whether individual answers are, via a black-box aleatoric/epistemic split."
+     "editor_note": "Shifts from whether scores are trustworthy to whether individual answers are, via a black-box aleatoric/epistemic split."
+    },
+    {
+     "title": "Ask Precisely, Assume Wisely: Interactive Evaluation of Ambiguity Resolution in Large Language Models",
+     "url": "http://arxiv.org/abs/2611.18905v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Ambiguity is a core challenge in human--AI interaction, where models must decide when to make assumptions and when to seek clarification. Existing approaches to ambiguity evaluation largely focus on coverage over mult...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "53cced15d557cd0b",
+     "published": "2026-11-13T20:07:26+00:00",
+     "editor_note": "Evaluates interactively when a model should ask for clarification versus make an assumption."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-14",
+   "items": [
+    {
+     "title": "Large Language Models for AI Infrastructure",
+     "url": "http://arxiv.org/abs/2611.19061v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Large language models (LLMs) are increasingly used to design, optimize, and operate the infrastructure behind AI training and serving, yet the literature remains fragmented across hardware design, machine learning sys...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "fb7a288ad791ee0d",
+     "published": "2026-11-14T01:12:36+00:00",
+     "editor_note": "Survey mapping LLM use across designing, optimizing and operating AI training and serving infrastructure."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-16",
+   "items": [
+    {
+     "title": "Benchmarking Large Language Models for Linguistic Annotation",
+     "url": "http://arxiv.org/abs/2611.21291v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Assessing large language models for linguistic annotation requires task-specific evaluation under documented conditions. We present dhAIBench, a Python benchmarking and annotation tool with a web interface for explori...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "1e13d673398b4485",
+     "published": "2026-11-16T15:55:45+00:00",
+     "editor_note": "Python tool and web interface for benchmarking LLM linguistic annotation under documented conditions."
+    },
+    {
+     "title": "TRIAGE-CPG: A Cross-Model Study of Budgeted Static Malware Triage with Large Language Models",
+     "url": "http://arxiv.org/abs/2611.21331v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "When triaging unknown binaries, security analysts must decide which samples to clear as benign, flag as malicious, or escalate for deeper analysis. Large Language Models (LLMs) could support these decisions by interpr...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "8f0034965a63d29c",
+     "published": "2026-11-16T16:19:01+00:00",
+     "editor_note": "Latest item: cross-model study of LLMs clearing, flagging or escalating unknown binaries under a budget."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 27 it ran from continual learning and pruning through Anthropic's Nov 2 provable-inference update and knowledge editing to Nov 10-12 studies questioning what eval scores measure: rater drift, name-anchored recall and corrupted-input shortcuts.",
+  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 29 it ran through self-learning, pruning, Anthropic's Nov 2 provable-inference update and knowledge editing to Nov 10-13 work on what eval scores measure and when a model should abstain or ask for clarification.",
   "stale": false,
-  "whats_new": "Nov 13: a black-box uncertainty method uses an ensemble of ensembles to split prompt ambiguity from genuine knowledge gaps without the compute cost of Bayesian or deep-ensemble approaches.",
-  "why_it_matters": "Most items are single unreplicated preprints, but the latest run touches production reliability: scores can survive name removal or shuffled inputs, and black-box uncertainty is the signal an API-only deployment has for deciding when to abstain or escalate.",
-  "take_for_builders": "Add perturbed controls to your eval suite (paraphrased entity names, shuffled inputs), and before adopting black-box uncertainty for abstention, measure its extra call cost per request.",
+  "whats_new": "Nov 16: TRIAGE-CPG compares LLMs deciding under a budget whether to clear, flag or escalate unknown binaries, and dhAIBench benchmarks LLMs for linguistic annotation under documented conditions.",
+  "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on a production question: when a model should answer, ask, abstain or escalate, and how to measure that decision rather than raw accuracy.",
+  "take_for_builders": "Score your agent's answer/ask/abstain/escalate decisions as a separate eval with perturbed controls (renamed entities, shuffled inputs), and measure the per-request call cost of any uncertainty method before wiring it into routing.",
   "beats": [
    {
-    "kicker": "OCT 27-29",
+    "kicker": "OCT 29",
     "tone": "launch",
-    "headline": "Keeping models current: compatibility-aware replay and RL-driven self-learning",
-    "summary": "Two papers on acquiring new knowledge without losing old capabilities.",
+    "headline": "Keeping models current: RL-driven self-learning beyond plain RAG",
+    "summary": "Opens the window with knowledge acquisition coupled to reasoning in unfamiliar domains.",
     "sids": [
-     "200271de2a2f52aa",
      "d571e973b6e6916d"
     ]
    },
@@ -369,23 +416,36 @@
     ]
    },
    {
+    "kicker": "NOV 13",
+    "tone": "rising",
+    "headline": "Knowing when not to answer: black-box uncertainty and an interactive ambiguity-resolution eval",
+    "summary": "One splits prompt ambiguity from knowledge gaps via API calls only; the other scores when a model should ask versus assume. A tabular anomaly-detection paper lands the same day.",
+    "sids": [
+     "ca54e3a4f2c1d30b",
+     "3985de9df0cd2149",
+     "53cced15d557cd0b"
+    ]
+   },
+   {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Black-box uncertainty quantification separates prompt ambiguity from knowledge gaps",
-    "summary": "An ensemble-of-ensembles method aimed at models reachable only through an API.",
+    "headline": "Applied decisions: budgeted malware triage, annotation benchmarking and a survey of LLMs for AI infrastructure",
+    "summary": "The newest items move from model internals to LLMs making operational calls under cost and documentation constraints.",
     "sids": [
-     "3985de9df0cd2149"
+     "fb7a288ad791ee0d",
+     "1e13d673398b4485",
+     "8f0034965a63d29c"
     ]
    }
   ],
   "open_questions": [
+   "Does TRIAGE-CPG report which models escalate too rarely or too often under a fixed analysis budget?",
    "Does the ensemble-of-ensembles method report how many model calls per prompt it needs, and how that compares with deep ensembles?",
+   "Does the ambiguity-resolution eval show models asking for clarification at the right rate, or defaulting to assumptions?",
    "Do published unlearning or knowledge-editing methods still pass when probed without explicit entity names, as ShadowBench suggests they may not?",
-   "Does the corruption study find LLMs keep accuracy on shuffled or noun-stripped inputs, and does it attribute that to shortcuts or memorised test data?",
    "Do Chatbot Arena or other human-preference leaderboards adjust rankings for the rater drift the Nov 10 study describes?",
-   "Does Anthropic publish proving cost or latency figures for zkSNARK-based provable inference?",
-   "Does the early-stopping audit identify a method that cuts reasoning tokens without lowering reliability?"
+   "Does Anthropic publish proving cost or latency figures for zkSNARK-based provable inference?"
   ],
-  "generated_at": "2026-11-17T00:12:42Z"
+  "generated_at": "2026-11-18T00:13:28Z"
  }
 }

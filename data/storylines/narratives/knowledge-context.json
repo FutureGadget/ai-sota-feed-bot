@@ -1,0 +1,77 @@
+{
+  "slug": "knowledge-context",
+  "generated_at": "2026-11-18T00:13:28Z",
+  "covers_last_updated": "2026-11-16T17:50:53+00:00",
+  "covers_member_sids": [
+    "e519641640234319",
+    "29a5435531059481",
+    "1d7852cb09b3031f",
+    "ce941c554e9fce8e",
+    "35220abd16206ae7",
+    "0f8439521ab02185",
+    "744a7a52285cfa40",
+    "d4ec23da5e445584",
+    "63ff637171c98d2c",
+    "464b347f5551c3b2",
+    "6c6377dea1cd8cea",
+    "a34f1fafb710e628",
+    "590316d609c0ce23",
+    "b5bf234c229cd676"
+  ],
+  "tldr": "This is a loose cluster of mostly arXiv research on agent memory and context, not one event. Since late October, papers have proposed graph and transition-aware memory, while InfoQ and an arXiv paper argued that context should be engineered as infrastructure.",
+  "whats_new": "Jetriever (Nov 16) ranks stored agent memories by a model's usefulness score for the current question instead of embedding similarity.",
+  "why_it_matters": "Several papers report that similarity-only retrieval misses what agents need: evolving facts, multi-hop links, and memories that do not resemble the query.",
+  "beats": [
+    {
+      "kicker": "STRUCTURED MEMORY",
+      "tone": "launch",
+      "headline": "Graph and time-aware memory to keep identity and change history",
+      "summary": "Papers model memory as registries, knowledge graphs, and preference transitions instead of flat chunks.",
+      "sids": ["e519641640234319", "d4ec23da5e445584", "6c6377dea1cd8cea"]
+    },
+    {
+      "kicker": "CONTEXT AS INFRA",
+      "tone": "rising",
+      "headline": "Context, memory, and knowledge framed as an engineered layer",
+      "summary": "A paper, an InfoQ architecture piece, and a Show HN tool all treat context selection and compression as a system component.",
+      "sids": ["ce941c554e9fce8e", "744a7a52285cfa40", "464b347f5551c3b2"]
+    },
+    {
+      "kicker": "RELIABILITY",
+      "tone": "neutral",
+      "headline": "Evaluations probe whether models actually reason over retrieved knowledge",
+      "summary": "Work on multi-hop integration, multilingual relational reasoning, false-correction adoption, and private retrieval.",
+      "sids": ["1d7852cb09b3031f", "63ff637171c98d2c", "590316d609c0ce23", "a34f1fafb710e628"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Retrieval mechanics move from similarity toward utility",
+      "summary": "Value-indexed traversal, linear-attention memory, distillation into weights, and utility-ranked recall.",
+      "sids": ["29a5435531059481", "35220abd16206ae7", "0f8439521ab02185", "b5bf234c229cd676"]
+    }
+  ],
+  "open_questions": [
+    "Does utility-ranked retrieval like Jetriever beat embedding search on a public agent-memory benchmark at comparable cost?",
+    "Will any agent framework or vector store ship graph or transition-aware memory as a default?",
+    "Do the knowledge-integration evaluations (ImplicitHop, KAD) get adopted as standard RAG regression tests?",
+    "Does distilling retrieved knowledge into weights reduce RAG serving cost in a production report?"
+  ],
+  "take_for_builders": "Add eval cases where the useful memory does not resemble the query or a fact has changed over time, and check whether your similarity-only retriever misses them before adopting a new memory design.",
+  "day_captions": {
+    "e519641640234319": "Registry-anchored graph memory that keeps entity identity and provenance across sources.",
+    "29a5435531059481": "Recasts retrieval as traversal over a value-indexed memory instead of re-searching each pass.",
+    "1d7852cb09b3031f": "Benchmark for integrating new facts across context and memory.",
+    "ce941c554e9fce8e": "Argues agentic search harnesses mostly fix accuracy, shifting the problem to compiling knowledge for context.",
+    "35220abd16206ae7": "Model-level angle: initialization to improve long-context recall in gated linear attention.",
+    "0f8439521ab02185": "Distills previously retrieved knowledge into parameters to cut RAG storage and inference cost.",
+    "744a7a52285cfa40": "Practitioner architecture piece separating context, memory, and knowledge behind a context engine.",
+    "d4ec23da5e445584": "Agentic, compositional retrieval over knowledge graphs not tied to one construction pipeline.",
+    "63ff637171c98d2c": "Tests whether multilingual models reason over in-context relations or fall back on memorized ones.",
+    "464b347f5551c3b2": "Developer tool that trims context and caches knowledge to stretch coding-agent usage limits.",
+    "6c6377dea1cd8cea": "Retrieval aware of how user preferences and goals change across conversations.",
+    "a34f1fafb710e628": "Adds the security angle: private knowledge retrieval and inference for multi-agent systems.",
+    "590316d609c0ce23": "Shows conversation context and wording change whether a model recovers a fact after a false correction.",
+    "b5bf234c229cd676": "Latest: replaces similarity search with utility scoring across the full memory pool."
+  }
+}

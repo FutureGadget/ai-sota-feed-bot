@@ -1,16 +1,16 @@
 {
- "generated_at": "2026-11-17T00:13:09.187086+00:00",
+ "generated_at": "2026-11-18T00:14:17.482304+00:00",
  "window_days": 21,
  "storylines": [
   {
    "slug": "inference-engine",
    "label": "Inference Engine",
-   "item_count": 8,
-   "day_count": 7,
+   "item_count": 9,
+   "day_count": 8,
    "source_count": 2,
    "first_seen": "2026-10-31T19:17:31+00:00",
-   "last_updated": "2026-11-16T20:52:34+00:00",
-   "latest_title": "Show HN: Goethe – turn your computer into an inference engine",
+   "last_updated": "2026-11-17T16:01:04+00:00",
+   "latest_title": "Show HN: TrnRT – An open-source LLM inference engine for AWS Trainium",
    "days": [
     "2026-10-31",
     "2026-11-02",
@@ -18,7 +18,8 @@
     "2026-11-06",
     "2026-11-08",
     "2026-11-11",
-    "2026-11-16"
+    "2026-11-16",
+    "2026-11-17"
    ],
    "member_sids": [
     "c7641f54401d6258",
@@ -28,7 +29,8 @@
     "9b6ce22e2f29b264",
     "cd44a088d357479c",
     "1adc84018e934ecd",
-    "8ac6ca4d7f430268"
+    "8ac6ca4d7f430268",
+    "b955388224554f43"
    ],
    "member_urls": [
     "https://dasllama.io/articles/2026-10-28-the-need-for-speed.html",
@@ -38,366 +40,436 @@
     "https://opensource.googleblog.com/2026/11/supercharging-xla-inference-xla-serving-engine.html",
     "https://github.com/tinyBigGAMES/VindexLLM",
     "https://amirhusain.com/software/kindi",
-    "https://github.com/meshapplied/goethe"
+    "https://github.com/meshapplied/goethe",
+    "https://github.com/RunanywhereAI/trnrt"
    ],
    "editorial": {
-    "tldr": "This is a topical cluster, not one event: eight items since Oct 31 that share only the phrase \"inference engine\". They split into hosting economics, vendor runtimes from Nvidia and Google, independent engines for niche stacks, and one arXiv hardware paper.",
+    "tldr": "This is a topical cluster, not one event: nine items since Oct 31 that share only the phrase \"inference engine\". Before the latest post it covered hosting economics, vendor runtimes from Nvidia and Google, solo engines for niche stacks, an arXiv hardware paper, and YC startup meshapplied's Goethe for a single Linux box.",
     "stale": false,
-    "whats_new": "Goethe, a Show HN posted Nov 16 by YC-backed meshapplied, pitches software that turns a Linux machine into your own inference engine; the post makes the \"own your inference\" case but cites no benchmarks.",
-    "why_it_matters": "The serving layer is fragmenting by hardware target (DGX Spark, XLA, Vulkan on Windows, low-cost GPUs, a single Linux box) while the hosting-profitability question stays open.",
-    "take_for_builders": "Treat every speed claim in this cluster as unverified until you run it on your own model and hardware; settle the self-host question with your own utilization numbers before adopting Goethe or any other new engine."
+    "whats_new": "RunAnywhere (YC W26) open-sourced TrnRT on Nov 17, an LLM inference engine for AWS Trainium that the team says serves GLM 5.3 Flash in FP8 after three weeks of work.",
+    "why_it_matters": "The serving layer keeps fragmenting by hardware target (DGX Spark, XLA, Vulkan on Windows, low-cost GPUs, a Linux box, now Trainium), so engine choice is increasingly a hardware decision rather than a model one.",
+    "take_for_builders": "Treat every engine here as unbenchmarked until you run it on your own model and hardware; if Trainium pricing tempts you, test TrnRT against your current GPU serving path before moving traffic."
    }
   },
   {
-   "slug": "kimi-k3-1",
-   "label": "Kimi K3.1",
-   "item_count": 17,
-   "day_count": 11,
-   "source_count": 4,
-   "first_seen": "2026-10-27T04:27:05+00:00",
-   "last_updated": "2026-11-16T10:49:18+00:00",
-   "via_scout": true,
-   "latest_title": "Alibaba’s New Qwen4-Max Fails To Overtake Moonshot’s Kimi K3.1 Pro, Retaining The Same Parameter Count With A Lower Price And Revamped Native-Vision MoE Architecture",
+   "slug": "aws-trainium",
+   "label": "AWS Trainium",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-11-09T11:00:00+00:00",
+   "last_updated": "2026-11-17T16:01:04+00:00",
+   "latest_title": "Show HN: TrnRT – An open-source LLM inference engine for AWS Trainium",
    "days": [
-    "2026-10-27",
+    "2026-11-09",
+    "2026-11-12",
+    "2026-11-17"
+   ],
+   "member_sids": [
+    "9c0e227c170b2b6c",
+    "87d176270cb26539",
+    "b955388224554f43"
+   ],
+   "member_urls": [
+    "https://www.infoq.com/news/2026/11/aws-torchneuron-trainium-pytorch/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "https://aws.amazon.com/blogs/machine-learning/deploy-frontier-ai-models-on-aws-trainium-with-sglang-neuron",
+    "https://github.com/RunanywhereAI/trnrt"
+   ],
+   "editorial": {
+    "tldr": "This is a run of related software releases, not one event: AWS is filling the gaps in the Trainium software stack. TorchNeuron came first, a native PyTorch backend unveiled at PyTorch Conference that runs existing PyTorch code on Trainium with little or no change. SGLang-Neuron followed and brought the SGLang serving interface to the chip.",
+    "stale": false,
+    "whats_new": "RunAnywhere (YC W26) open-sourced TrnRT, a Trainium inference engine it built in three weeks that already serves GLM 5.3 Flash in FP8. It is the first non-AWS serving stack in this thread.",
+    "why_it_matters": "Trainium's main barrier has been the Neuron-specific porting work. Native PyTorch and SGLang support lower that cost, so Trainium becomes a realistic second inference and RL-rollout target next to GPUs.",
+    "take_for_builders": "If you run SGLang or PyTorch on GPUs, benchmark one model on Trainium through the SGLang-Neuron container before you commit to porting it. Keep GPUs as the fallback until you have per-token cost and latency numbers."
+   }
+  },
+  {
+   "slug": "multi-agent-systems",
+   "label": "Multi-Agent Systems",
+   "item_count": 13,
+   "day_count": 10,
+   "source_count": 4,
+   "first_seen": "2026-10-28T20:40:33+00:00",
+   "last_updated": "2026-11-17T11:00:00+00:00",
+   "latest_title": "Presentation: Scaling LLM-Based Ranking Systems for Latency-Critical Search & Recommendation Workloads",
+   "days": [
     "2026-10-28",
     "2026-10-29",
     "2026-11-02",
     "2026-11-04",
-    "2026-11-05",
     "2026-11-06",
-    "2026-11-07",
+    "2026-11-09",
+    "2026-11-10",
+    "2026-11-11",
+    "2026-11-13",
+    "2026-11-17"
+   ],
+   "member_sids": [
+    "e13096c02b9a44d7",
+    "c2fbad095b72bbaa",
+    "a23623abdfcb0e52",
+    "bce25dc1c825a3e7",
+    "7e75b9009b3b0ccb",
+    "37a5207d8920956c",
+    "d48d8aea5d45b475",
+    "b3a45cba6445f63d",
+    "a34f1fafb710e628",
+    "ae75fdfb8dec6766",
+    "3debe09eabc6be1b",
+    "d761218419b3b591",
+    "3449739a151bbd6a"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.38869v1",
+    "http://arxiv.org/abs/2610.38946v1",
+    "http://arxiv.org/abs/2610.40186v1",
+    "http://arxiv.org/abs/2611.03301v1",
+    "https://www.nist.gov/blogs/cybersecurity-insights/design-tenets-agent-identity-management-systems",
+    "http://arxiv.org/abs/2611.06841v1",
+    "http://arxiv.org/abs/2611.10096v1",
+    "http://arxiv.org/abs/2611.12856v1",
+    "http://arxiv.org/abs/2611.13696v1",
+    "http://arxiv.org/abs/2611.14980v1",
+    "https://github.com/Privatris/AgentLeak",
+    "http://arxiv.org/abs/2611.17883v1",
+    "https://www.infoq.com/presentations/scale-llm-ranking-systems-linkedin/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+   ],
+   "editorial": {
+    "tldr": "This is a loose research cluster, not one event: September papers framed multi-agent systems as a shared-state problem (memory graphs, handoffs, latent channels). Since Oct 28 the work has split into orchestration benchmarks, security and privacy controls, failure attribution, and memory cost.",
+    "stale": false,
+    "whats_new": "The newest item, a Nov 17 InfoQ talk on how LinkedIn distilled a 7B ranking model to 400M parameters to meet P99 latency SLAs, is a serving-cost case study rather than a multi-agent result.",
+    "why_it_matters": "The open problems in multi-agent stacks have moved from how to coordinate to how to secure, debug, and pay for them: agent identity, data leakage, which agent caused a failure, and KV-cache memory per resident agent.",
+    "take_for_builders": "Give each agent its own identity and scoped credentials, and log which agent produced each step, so failures and leaks can be attributed; treat the orchestration and quantization papers as research until they are replicated."
+   }
+  },
+  {
+   "slug": "diffusion-language",
+   "label": "Efficient Learning",
+   "item_count": 11,
+   "day_count": 10,
+   "source_count": 6,
+   "first_seen": "2026-10-30T16:17:43+00:00",
+   "last_updated": "2026-11-17T06:53:51+00:00",
+   "latest_title": "TokenEconomizer: Learning from Experience to Make AI Coding Agents Efficient",
+   "days": [
+    "2026-10-30",
+    "2026-11-01",
+    "2026-11-02",
+    "2026-11-03",
     "2026-11-08",
     "2026-11-10",
+    "2026-11-12",
+    "2026-11-15",
+    "2026-11-16",
+    "2026-11-17"
+   ],
+   "member_sids": [
+    "a8a5f23cd8e10643",
+    "01d6db945cd3f0c2",
+    "473a95cd7c540d1a",
+    "219537f3fa2b3690",
+    "a4e942d0f147f07c",
+    "ca0cd6bcfdb70098",
+    "d7a4f91e59e352a3",
+    "e267de687efb45c3",
+    "018ac20c79d4eeba",
+    "15de4f547fb7e7f3",
+    "60d6d445e0dacc9d"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2610.41968v1",
+    "http://arxiv.org/abs/2611.01704v1",
+    "http://arxiv.org/abs/2611.02766v1",
+    "http://arxiv.org/abs/2611.05313v1",
+    "http://arxiv.org/abs/2611.11371v1",
+    "http://arxiv.org/abs/2611.14387v1",
+    "http://arxiv.org/abs/2611.14469v1",
+    "http://arxiv.org/abs/2611.17041v1",
+    "https://www.baseten.co/blog/the-efficient-frontier-of-llm-inference/#quantization",
+    "http://arxiv.org/abs/2611.20771v1",
+    "https://www.microsoft.com/en-us/research/blog/tokeneconomizer-learning-from-experience-to-make-ai-coding-agents-more-efficient"
+   ],
+   "editorial": {
+    "tldr": "This is a loose cluster of inference-efficiency work, not one event; reclustering dropped most of the earlier diffusion-LM papers. It opened Oct 30 with pruning, MoE quantization and prompt compression, and by Nov 8-12 added block-diffusion drafters and overlapping block denoising.",
+    "stale": false,
+    "whats_new": "Microsoft Research's TokenEconomizer (Nov 17) has AI coding agents learn from past runs to spend fewer tokens, a day after Nemotron 3.5 Bolt E4B, a 4GB open small model tuned for fast conversational agents.",
+    "why_it_matters": "The efficiency work is moving from model internals (pruning, MoE quantization, diffusion decoding) to the agent layer, where token spend per task and small on-device models set the bill.",
+    "take_for_builders": "Log tokens per completed agent task before adopting any of these methods, so TokenEconomizer-style savings or a small-model swap can be measured against your own baseline; do not plan capacity around diffusion LLMs yet."
+   }
+  },
+  {
+   "slug": "dgx-spark",
+   "label": "DGX Spark",
+   "item_count": 5,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-10-28T09:31:23+00:00",
+   "last_updated": "2026-11-16T23:00:05+00:00",
+   "latest_title": "NVIDIA DGX Spark Developer Kit Turns a Desk Into a Supercomputing Lab",
+   "days": [
+    "2026-10-28",
+    "2026-11-02",
     "2026-11-16"
    ],
    "member_sids": [
-    "fead0b546e2fd64e",
-    "8c88d0dda87d335e",
-    "63bd8bef18003998",
-    "c7d9ba0343c943d2",
-    "f4a904d03d800a16",
-    "3399044813cf568b",
-    "1e628f9865c69d93",
-    "b380a66ae3304ffc",
-    "ff6c35403ec66552",
-    "8c57ba0858b1c3ee",
-    "c451c70cd81a6dbe",
-    "4715dd7a49e69939",
-    "e572010b9c959715",
-    "4ae0b622afc8b642",
-    "975749c9dd84b6cc",
-    "215a2fdef8653151",
-    "afb6a3de4e8f985d"
+    "754548d382a06747",
+    "7281347817fe3ba2",
+    "e6077e10f16ce2d8",
+    "b836eb939c37ffa5",
+    "9634b5e75ef12012"
    ],
    "member_urls": [
-    "https://news.google.com/rss/articles/CBMiWEFVX3lxTE1zaDM4NW9UOU02UHN4Zi1tcTFsSWdDR054UnRqb2cwRWZTMmNXWjRIMldPT2huczNVYmJmc3hxSE4yclNKV2J6UXhDVGotVldoYWpOT1F6a1Q?oc=5",
-    "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQaXZnQ1VPbTVMaHJOX2NKSUl3T1hxem9OT1dGc3M1OVlPZVE1OWRSS2ZhaV8wdC1OWndieXZPd1NLaF85WUstRWlNNWRIR0xTUlVEcVVLOTZwNGZ3X0hiNzBxRGhoOGxHWXdVeE5PR3hNeDlFazJ3eWdkdzJQLXprUzRLRkJjZkhjdDhUcjhjUVpMc0JpRW1hdW1MdGZ6Q2JBQV9XTXl1MFF4aDNyUF9CcmpTVUN3YWl6YkcySmlKTEtKdVRjVGtHRWR3VE9BbEF50gHQAUFVX3lxTE9yb0ZaeVFTcDQybWN0b0JfQVZwczZ5R1lEY09OaVZJSjZfTWNwZjd2UkhGQ252dXRYZUVWRlhJQjNxODdEZmNZREVSb3A0YTBmX0lkRVRYbkJrLVQ5MWY3c0JwSWpHN1k0ZGk1anBYSy1mWGFPclN1am5ZajFiaU1SZHRabTA5bFFub2ZIVFppYXVuWHhqQTZkSmVvTGFBNnJHUFN4andkS2c0YUR4V2tTeU1CSllVblVySjY5U3BKeUxlNlY4RWVVMHJnZmdJdnE?oc=5",
-    "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9tNkhBNVVLdHFIMDZKNkV3LUVxbzJwS1oxVkNoUlp2RmkwbmRkejBQWE4zb01Xejg4TnlRYlZyOU1jSVUxVFoxWmxJNnhIMElwdTJVVTBOSHNRMnMy?oc=5",
-    "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQaFFfTzR1bmVrcVpyQVBTRTZvR2MwcDBsTmw2QWdwTGVvQ0l4VFE1TlgySDNGWGgtZzFkb0hWVGhGU096V1YyRG9GdGVSazUtMG43WWtTMjNGY3NPVXR0X1hTSm45bHlIbmRTVy1BMHVfVTJQazEzN2lXYUJhS041RVBlSmFaRGRLUUQ0TDBZTFJYbVRxVWh5V2swVUR0VGw3OFc4LVp4OWotbWRwYW5idm9ad1B6Z0hkY2xQNTZNZjE?oc=5",
-    "https://huggingface.co/moonshotai/Kimi-K3.1-Pro",
-    "https://vllm.ai/blog/2026-11-04-kimi-k31-pro",
-    "https://verda.com/blog/verda-inference-in-preview",
-    "https://news.google.com/rss/articles/CBMipAFBVV95cUxPc1M4OXNUei1jbTVEbnNVLU4zVWtwZEE3ek9kTjdCYmhmd3RoQ09DRU0wN18ycjN2LXdreDcyYkFLeU9aTm5aNDVTRmZieFU4LXNZSlRVbGlFeHBEQzlBLTJKXzFzWG9lMThZZlBhemdhbjNGdHhjdUFyWS1TaXRmNk0xX2U5dzJGbnhWalBwSXpUR1hRZ3hvMXBiOXlRbVJwZmRuaA?oc=5",
-    "https://news.google.com/rss/articles/CBMiogFBVV95cUxPYWs1Vy1EU1F2U0Y5UWloMjl6bHNDZGc0NUk5aGE0SHdqMFhSVHZ2dHUwVkJMYTZ6TmFVbWpzOUFzdkdKTFRlaF9rai1LYVd3bXlyOW1KemxXM3BlRGhSSGx2VG9Nc1VKMkREcVBJMVhhT0RuRWJVbzNRdWR1ejhQcWFpbmZNaTQ3bzBSRXZQaW0ySGpYQVRlUXMxNXJyck03bFE?oc=5",
-    "https://news.google.com/rss/articles/CBMidkFVX3lxTE1zWlB0WjBqMGFLdm04WlBHU1NoT3hHUXNhS3V3eEQ1M1c5UEQtc055N2k1T2dSR1RiX084MXk2NWZ5bzBfRVp0QjMycU1sZ0ZjbllsU1F4T2x6QTNIQldIMFN1dUtQUVRJWUNUN3BXZTFRV19NalE?oc=5",
-    "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPZ3ZqcjR1SkNXOHhVeXNqeWQ4dW5WZ2hOeENPcFlFaUZzbXAzQXVfYlZjU3Flc1k2aFRGRF94NWtGN2ozY2VVU1VmT2lSc0Q5MDZRM2Y5U0F6Q1RLM3JJSTZiUHhxajdDU0FXRVlCWFRPbWZoQ01JTzRGRGdKZzVsZUstNzBBNkUt?oc=5",
-    "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5FV2ROOGlfZC1mOU1EUTFyVjdIMlBnSElscXdfNDNiU2JkYlMxUHVhWnd0aE5NUzlVcjQtc3plaFdWSmpVcWpkc1pNSkF3bWpsa2JZSUtYUkVVTDQ?oc=5",
-    "https://vllm.ai/blog/2026-11-06-zero-mismatch-async-rl",
-    "https://news.google.com/rss/articles/CBMiigFBVV95cUxPcWJhX01BVVZlVnVZLW1kX0JQVjg3aExnUGFCUHhQYzg5dG9ZWlBJR245dVY3MUczQXpMZllrNWF1NUdmZVU2YXVQWWxDdHFEMDlnXzB2SnNGN2NvaEhwVGt5UXlsWXVabll2V1RKMUhCOUl2ZHJ1MWdYczItbVg0bVBzXzNDdzBXWEE?oc=5",
-    "https://news.google.com/rss/articles/CBMijAFBVV95cUxOTS1oQ3R3c2pRRUNhc3pTWmtRWkJueEtPVVZEa3RrUENjY0ZOTGE2SmVOZEN1YWtlWWlwUWJuR19fdTc1LUxMRjZRcFYwQ0MwdjdHSW5fTDdGU0RzYW11R0lVREtfVklaa1JZdEhnTkk2bEZPRXNoLThtdzRDanFHdkdrZEZqNWYwNTdXMA?oc=5",
-    "https://news.google.com/rss/articles/CBMihAFBVV95cUxPQWVlRVJORHdHUnE4R3pnYm01NzJVNEtrRUdNMUxpdS02azZVS3hzSE5ERjRBVXJzOVZMa1FEajJuRVhhUF9menUybndPdzJ2MXo1UFlZUl9sVTdBLUhWVkgtaHhVMHk2SlNMem1GbVNHaDZEak9ReG02UmY3X0trd1phMWQ?oc=5",
-    "https://news.google.com/rss/articles/CBMikgJBVV95cUxQUk00Q0dmLVhCaEwzRlZqNmJrX1RLd1NzSTAyMHZxVnVqenllOHNRcHprMW9DZEZZOFJOM2ktcVFKQ2ZoNk1wejgxX3djVzEzWWN6dFc4X2swcnBwN19VN0VENkM4WDc5SmtpYkZLQ1FrUW8zbm8yUmwwVkNCSjJadDEwRF9uS01USWdfS1VuTkwzV2plQzZDVEpaeUpDWW9kdXM4RDNzd05yN1JSWmF5bXhxekc3X3dKS2VaTVFySDRxclZkbW9KX0F5TUlMRDZNMzZ5OWNnRzJRNFN4cDR0cjAyYUVoZWNtNnpwSmcta0VFMzNyX01SbFdsVjRRUlA3akpiVDNqdmhCSGRWZEM2c05R0gGXAkFVX3lxTE5rWGdLekNOTGJCZ3pTTzdlVDEzZ05zWFJsbnZyMU5mcTBZZ2Z5UjhGb0kyTEdPMXZFLVRDekpBRkJEcUNsbU13bEd4Z3VubjZ3WGp4Z3RnT0phdS1TVmtvQzZtTDRnekM1N1pmZGNBVmJuSGZvY3NsZkw4OWRoU05ncjNsTjBDVHlPSzlUTkszb3MteURCZXRuaFJ3bmNlRW9JUDZBTUI5RmFXQ1ZDOG53Mks3Z0g3cmRybGRWTnRKVXpFS0FKdDM5bVBNZHd5N0hqTEYyZFphYkxObU1NR2gxTHlTcTA4bE11VFlDcGdFdzN1bktmLWMzUTdLZWoxY3BNS1AzbVJNUHNXblo1Wlpnelk3TjBvSQ?oc=5"
+    "https://github.com/vllm-project/vllm/releases/tag/v0.33.0rc1",
+    "https://blogs.nvidia.com/blog/local-ai-rtx-spark-laptops-updates-models-agents-games",
+    "https://github.com/NVIDIA/spark-local-inference",
+    "https://developer.nvidia.com/blog/3-ways-to-boost-moe-inference-on-nvidia-dgx-spark",
+    "https://blogs.nvidia.com/blog/dgx-spark-hpc-developer-kit-sc26"
    ],
    "editorial": {
-    "tldr": "Moonshot launched Kimi K3.1 Pro on Oct 27 with a botched rollout that forced an apology and restored user quotas. It then published the full weights on Hugging Face in early November, and vLLM, Huawei Ascend and Moore Threads shipped day-zero support, followed by a Coder variant sized at 775 GB.",
+    "tldr": "By Oct 28, vLLM's CI was testing DGX Spark, and NVIDIA was shipping the related RTX Spark laptops from six OEMs. On Nov 2, NVIDIA added Flare, a DGX Spark inference engine, and a guide to running a 124B MoE model on one box.",
     "stale": false,
-    "whats_new": "Wccftech reports on Nov 16 that Alibaba's new Qwen4-Max does not overtake Kimi K3.1 Pro, despite matching its parameter count at a lower price, so K3.1 Pro stays the open-weight reference point.",
-    "why_it_matters": "Kimi K3.1 Pro is a 2.8T-parameter open-weight model with day-zero vLLM support and hosted endpoints on NEAR AI Cloud, ZenMux and Verda, so teams can run it in-house or via third parties instead of depending on Moonshot's own quota-limited service.",
-    "take_for_builders": "Before routing production traffic to Kimi K3.1 Pro, read the licence's commercial conditions and pin a vLLM release with its day-zero support, and keep a second host as fallback given the botched launch.",
+    "whats_new": "At SC26 on Nov 16, NVIDIA introduced the DGX Spark HPC Developer Kit, a four-node DGX Spark cluster aimed at researchers and developers.",
+    "why_it_matters": "DGX Spark is moving from a single desk box to a small multi-node target, so local serving work now covers both single-box MoE tuning and cross-node setups.",
+    "take_for_builders": "If you target DGX Spark, benchmark Flare against your pinned vLLM build on one box first; hold multi-node plans until the kit's interconnect and serving support are documented.",
     "status": {
-     "state": "Open weights · ecosystem adopting",
+     "state": "Expanding to clusters",
      "tone": "rising",
-     "changed": "2026-11-02",
-     "detail": "Weights are public under a commercial licence with conditions; serving, hardware and fine-tuning support has followed, and the newest item is a rival-model comparison, not new Moonshot news.",
+     "changed": "2026-11-16",
+     "detail": "NVIDIA keeps adding DGX Spark tooling and hardware configurations; no independent benchmarks are in the thread yet.",
      "track": [
       {
-       "label": "Hosted launch",
-       "detail": "Oct 27–Nov 1",
-       "tone": "alert",
+       "label": "CI coverage",
+       "detail": "Oct 28",
+       "tone": "launch",
        "weight": 25
       },
       {
-       "label": "Open weights + ecosystem",
-       "detail": "Nov 2 → now",
+       "label": "single-box tooling",
+       "detail": "Nov 2",
+       "tone": "rising",
+       "weight": 40
+      },
+      {
+       "label": "4-node kit",
+       "detail": "Nov 16 → now",
        "tone": "now",
-       "weight": 75
+       "weight": 35
       }
      ]
     }
    }
   },
   {
-   "slug": "diffusion-language",
-   "label": "Diffusion Language",
-   "item_count": 24,
-   "day_count": 15,
+   "slug": "reinforcement-learning",
+   "label": "Optimization Language",
+   "item_count": 16,
+   "day_count": 10,
    "source_count": 5,
-   "first_seen": "2026-10-27T15:51:14+00:00",
-   "last_updated": "2026-11-15T23:55:50+00:00",
-   "latest_title": "The efficient frontier of LLM inference",
+   "first_seen": "2026-10-30T13:04:05+00:00",
+   "last_updated": "2026-11-16T18:59:04+00:00",
+   "latest_title": "ViRA: Toward Ultra-High-Resolution Visual Agents via Cross-Input Relative Policy Optimization",
    "days": [
-    "2026-10-27",
-    "2026-10-29",
     "2026-10-30",
-    "2026-11-01",
     "2026-11-02",
     "2026-11-03",
+    "2026-11-04",
     "2026-11-05",
     "2026-11-06",
-    "2026-11-07",
-    "2026-11-08",
     "2026-11-09",
-    "2026-11-10",
     "2026-11-12",
     "2026-11-13",
-    "2026-11-15"
+    "2026-11-16"
    ],
    "member_sids": [
-    "ed7966c78dc36a0b",
-    "edcf9763d6b958dc",
-    "1423e77dae0d2a75",
-    "a8a5f23cd8e10643",
-    "581b8a72b6b37583",
-    "01d6db945cd3f0c2",
-    "473a95cd7c540d1a",
-    "57b08f9866a26766",
-    "219537f3fa2b3690",
-    "884381d0dd03d261",
-    "0491c6de7a511fb5",
-    "2fb1a0f31494270f",
-    "5fbc35eb022e4033",
-    "b1fe6c30c1c550df",
-    "a4e942d0f147f07c",
-    "0aacbce5f85ac122",
-    "d9424aebc884a5c5",
-    "ca0cd6bcfdb70098",
-    "256bf90ce51f6665",
-    "d7a4f91e59e352a3",
-    "e267de687efb45c3",
-    "679b2c4e802619e6",
-    "018074f62583197d",
-    "018ac20c79d4eeba"
+    "3e4010b903d1d7e9",
+    "65dc6916d3b352f1",
+    "8b24b2aa117fb77b",
+    "5ab1b6ecf4ca3e7a",
+    "7ae1983bc20b4540",
+    "4e7cf2bff5db16a6",
+    "06c2c68bc425da7f",
+    "23c0753cd928bfa7",
+    "b76cb948754a8e57",
+    "e07cc0f8ad9bbda1",
+    "1c564d62e97c9758",
+    "151cc2392264c544",
+    "2b4992932ff2ee7d",
+    "7b04b19e28032924",
+    "c9c6bd7b30cb6c70",
+    "51009fb859c1b51e"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2610.37442v1",
-    "http://arxiv.org/abs/2610.37642v1",
-    "http://arxiv.org/abs/2610.40616v1",
-    "http://arxiv.org/abs/2610.41968v1",
-    "http://arxiv.org/abs/2610.42084v1",
-    "http://arxiv.org/abs/2611.01704v1",
-    "http://arxiv.org/abs/2611.02766v1",
-    "http://arxiv.org/abs/2611.05066v1",
-    "http://arxiv.org/abs/2611.05313v1",
-    "http://arxiv.org/abs/2611.05724v1",
-    "http://arxiv.org/abs/2611.08307v1",
-    "http://arxiv.org/abs/2611.08362v1",
-    "http://arxiv.org/abs/2611.09239v1",
-    "http://arxiv.org/abs/2611.10432v1",
-    "http://arxiv.org/abs/2611.11371v1",
-    "http://arxiv.org/abs/2611.12356v1",
-    "http://arxiv.org/abs/2611.12464v1",
-    "http://arxiv.org/abs/2611.14387v1",
-    "http://arxiv.org/abs/2611.14399v1",
-    "http://arxiv.org/abs/2611.14469v1",
-    "http://arxiv.org/abs/2611.17041v1",
-    "http://arxiv.org/abs/2611.17320v1",
-    "http://arxiv.org/abs/2611.18459v1",
-    "https://www.baseten.co/blog/the-efficient-frontier-of-llm-inference/#quantization"
+    "http://arxiv.org/abs/2610.41697v1",
+    "http://arxiv.org/abs/2610.41949v1",
+    "http://arxiv.org/abs/2611.03517v1",
+    "http://arxiv.org/abs/2611.05373v1",
+    "http://arxiv.org/abs/2611.06501v1",
+    "http://arxiv.org/abs/2611.07495v1",
+    "http://arxiv.org/abs/2611.09634v1",
+    "http://arxiv.org/abs/2611.11995v1",
+    "http://arxiv.org/abs/2611.12079v1",
+    "http://arxiv.org/abs/2611.12727v1",
+    "http://arxiv.org/abs/2611.12763v1",
+    "http://arxiv.org/abs/2611.16414v1",
+    "http://arxiv.org/abs/2611.17287v1",
+    "http://arxiv.org/abs/2611.17621v1",
+    "http://arxiv.org/abs/2611.18096v1",
+    "http://arxiv.org/abs/2611.21605v1"
    ],
    "editorial": {
-    "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It opened in late October with diffusion-LM decoding and MoE pruning work, and by Nov 8-12 had block-diffusion drafters inside speculative decoding and diffusion LMs learning when to remask their own output.",
+    "tldr": "This is a loose cluster of arXiv papers that share policy- and preference-optimization vocabulary, not one developing story. It spans three research strands: RL recipes for agents (TSBPO, learned multi-agent orchestration, negative-only rewards), preference-optimization variants (DNO, steerable GRPO, PORT, VEPO), and agents that tune GPU kernels and AI infrastructure (Infrathon, AscendGYM).",
     "stale": false,
-    "whats_new": "Callo (Nov 13) runs speculative decoding on invalidated KV cache so agent requests whose context was edited can start decoding before re-prefill finishes under prefill-decode disaggregation.",
-    "why_it_matters": "The diffusion-LM work is still paper-stage, but the speculative-decoding side is reaching serving systems: drafters verified by the target, and now speculation over stale KV to hide re-prefill latency in agent sessions.",
-    "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet. If agent sessions edit context often, measure how much decode time your stack loses to re-prefill on cache misses before evaluating approaches like Callo."
+    "whats_new": "Nov 16: ViRA applied cross-input relative policy optimization to train visual agents that zoom into ultra-high-resolution images and answer from the evidence rather than common sense.",
+    "why_it_matters": "RL fine-tuning is being pointed at agent behaviors builders care about (credit over long trajectories, orchestration, tool-gated routing, kernel tuning), but every result here is author-reported on the papers' own benchmarks, not production evidence.",
+    "take_for_builders": "If you trial an agent for kernel or infra tuning, gate every change on a correctness check before measuring speed and compare against your vendor-library baseline; treat the RL and preference-optimization recipes as candidates for your own eval, not drop-in replacements for DPO or GRPO."
    }
   },
   {
-   "slug": "control-plane",
-   "label": "Control Plane",
-   "item_count": 4,
-   "day_count": 4,
+   "slug": "memory-recurrent",
+   "label": "Memory Recurrent",
+   "item_count": 3,
+   "day_count": 3,
    "source_count": 2,
-   "first_seen": "2026-10-27T18:34:12+00:00",
-   "last_updated": "2026-11-15T17:12:48+00:00",
-   "latest_title": "GitSeed – Self-hosted control plane for AI coding agents",
+   "first_seen": "2026-10-30T15:06:37+00:00",
+   "last_updated": "2026-11-16T18:32:05+00:00",
+   "latest_title": "Benchmarking memory and nonlinear processing capacity of quantum recurrent neural networks for time series prediction",
    "days": [
-    "2026-10-27",
     "2026-10-30",
-    "2026-11-04",
-    "2026-11-15"
+    "2026-11-12",
+    "2026-11-16"
    ],
    "member_sids": [
-    "cf001375f7a4438d",
-    "a9067e338ea6566b",
-    "2aca440b2c0823d7",
-    "5239c892cb76b746"
+    "61e185e423e61214",
+    "1e587df8b443a929",
+    "46d71c45a0641225"
    ],
    "member_urls": [
-    "https://flightdeck-hq.com",
-    "https://github.com/cole-h06/omneum",
-    "https://vllm.ai/blog/2026-11-04-introducing-kinference",
-    "https://github.com/gitseed-dev/gitseed"
+    "http://arxiv.org/abs/2610.41850v1",
+    "http://arxiv.org/abs/2611.17162v1",
+    "http://arxiv.org/abs/2611.21552v1"
    ],
    "editorial": {
-    "tldr": "This is a loose cluster around a shared label, not one developing event. Late October brought two Show HN agent tools calling themselves control planes, flightdeck for observability and Omneum for local context management, and on Nov 4 the vLLM blog introduced Kinference, an open source inference control plane for vLLM on Kubernetes.",
+    "tldr": "This is not one event: three unrelated arXiv papers share the words \"recurrent memory\". It opened with the Dynamical Memory Transformer, which pairs attention with selective recurrent memories to keep per-token cost constant instead of growing with the KV cache.",
     "stale": false,
-    "whats_new": "GitSeed, posted to Hacker News on Nov 15, applies the label to coding agents: a self-hosted control plane for running AI coding agents.",
-    "why_it_matters": "\"Control plane\" now names three different layers: agent observability, coding-agent orchestration, and multi-tenant inference serving. Check which layer a tool actually governs before adopting it.",
-    "take_for_builders": "If you run vLLM on Kubernetes, evaluate Kinference for per-tenant rate limits and cost tracking in a staging cluster. Treat GitSeed, flightdeck and Omneum as early experiments until they show releases and outside contributors."
+    "whats_new": "The latest paper (Nov 16) benchmarks memory capacity of variational quantum recurrent networks for time-series prediction, which is off the LLM-inference path entirely.",
+    "why_it_matters": "Only the first two papers touch the long-context cost problem builders pay for: KV-cache growth versus fixed-size recurrent state in SSM-style models.",
+    "take_for_builders": "No action: treat these as research to watch, and wait for released weights or a long-context eval before changing any KV-cache or model-choice plans."
    }
   },
   {
-   "slug": "reinforcement-learning-2026-10-26",
-   "label": "Reinforcement Learning",
-   "item_count": 23,
-   "day_count": 13,
-   "source_count": 5,
-   "first_seen": "2026-10-27T01:25:26+00:00",
-   "last_updated": "2026-11-13T18:50:05+00:00",
-   "latest_title": "Imitation Bootstrapped Multi-Agent Reinforcement Learning",
+   "slug": "benchmarking-real-world",
+   "label": "Benchmarking Real-World",
+   "item_count": 7,
+   "day_count": 7,
+   "source_count": 4,
+   "first_seen": "2026-11-03T13:23:37+00:00",
+   "last_updated": "2026-11-16T18:32:05+00:00",
+   "latest_title": "Benchmarking memory and nonlinear processing capacity of quantum recurrent neural networks for time series prediction",
    "days": [
-    "2026-10-27",
-    "2026-10-29",
-    "2026-10-30",
-    "2026-11-02",
     "2026-11-03",
-    "2026-11-04",
     "2026-11-05",
     "2026-11-06",
     "2026-11-09",
     "2026-11-10",
-    "2026-11-11",
-    "2026-11-12",
-    "2026-11-13"
+    "2026-11-13",
+    "2026-11-16"
    ],
    "member_sids": [
-    "d448a8af2a653453",
-    "02ad246823185a44",
-    "d571e973b6e6916d",
-    "9471fde9e20a1e58",
-    "29493d021878283c",
-    "65dc6916d3b352f1",
-    "4e3ef058b96b399d",
-    "473a95cd7c540d1a",
-    "bce25dc1c825a3e7",
-    "3ac08f6799c57341",
-    "08c314bb237b4b82",
-    "d97ee2168f669bce",
-    "981c5fba5d1f60bf",
-    "4553deeec0e06574",
-    "4e9768611cda6532",
-    "4f75e58fea1157aa",
-    "6fd3ac39e855936d",
-    "84ecbe8e1def5e6c",
-    "283f892f9c4f657a",
-    "a7b79c5f448ee3b6",
-    "335ccd3caa00e6d5",
-    "ea7e5e3ff883dd79",
-    "97cfb937ffa2810c"
+    "ef4c20cc8b60cd08",
+    "45b80d77d473d30f",
+    "138e084674254809",
+    "23c0753cd928bfa7",
+    "d56fa1c78b5794b5",
+    "004673f14a75854b",
+    "46d71c45a0641225"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2610.36469v1",
-    "http://arxiv.org/abs/2610.37609v1",
-    "http://arxiv.org/abs/2610.39671v1",
-    "http://arxiv.org/abs/2610.40407v1",
-    "http://arxiv.org/abs/2610.41143v1",
-    "http://arxiv.org/abs/2610.41949v1",
-    "http://arxiv.org/abs/2610.42028v1",
-    "http://arxiv.org/abs/2611.02766v1",
-    "http://arxiv.org/abs/2611.03301v1",
-    "http://arxiv.org/abs/2611.05151v1",
-    "http://arxiv.org/abs/2611.05263v1",
-    "http://arxiv.org/abs/2611.05266v1",
-    "http://arxiv.org/abs/2611.06956v1",
-    "http://arxiv.org/abs/2611.06483v1",
-    "http://arxiv.org/abs/2611.08240v1",
-    "http://arxiv.org/abs/2611.08864v1",
-    "http://arxiv.org/abs/2611.09625v1",
-    "http://arxiv.org/abs/2611.12825v1",
-    "http://arxiv.org/abs/2611.14515v1",
-    "http://arxiv.org/abs/2611.15507v1",
-    "http://arxiv.org/abs/2611.16304v1",
-    "http://arxiv.org/abs/2611.17790v1",
-    "http://arxiv.org/abs/2611.18543v1"
+    "http://arxiv.org/abs/2611.04867v1",
+    "http://arxiv.org/abs/2611.07689v1",
+    "http://arxiv.org/abs/2611.09721v1",
+    "http://arxiv.org/abs/2611.11995v1",
+    "http://arxiv.org/abs/2611.14364v1",
+    "http://arxiv.org/abs/2611.18293v1",
+    "http://arxiv.org/abs/2611.21552v1"
    ],
    "editorial": {
-    "tldr": "This thread is a topical grouping of 23 arXiv preprints since Oct 27, not one event: what they share is reinforcement learning as a post-training method for LLMs and agents. Most work on one of three problems: what the reward should measure, how to train multi-turn tool-using agents, and how to pay for the rollouts.",
+    "tldr": "This is a research trend, not one event: six unrelated arXiv papers in ten days each build an agent benchmark from real sessions, real tools or real fixes. It began with group-assistant memory (Nov 3), added MCP hallucinations and memory poisoning, then moved to long-horizon infra work, researcher workspaces and privacy-aware code review (Nov 13).",
     "stale": false,
-    "whats_new": "Nov 13 adds AutoRL, a multi-agent system proposed to run the full RL training pipeline itself, and a method that bootstraps multi-agent RL from demonstrations; the Nov 12 StateAlign finding that RL tool-use gains can raise tool hallucination stays the main practical flag.",
-    "why_it_matters": "For teams that post-train their own agents, these papers flag three costs: rollout scheduling as an infrastructure problem, reward design, and RL tool-use gains that can bring more tool hallucination.",
-    "take_for_builders": "Before adding GPUs to an agent RL pipeline, measure how much rollout wall-clock goes to environment execution and padding; after any RL tool-use tune, track tool-hallucination rate alongside task success."
+    "whats_new": "The newest member (Nov 16) is a quantum recurrent-network benchmark for time-series prediction; it shares only the word \"benchmarking\", so PrivacyPR (Nov 13) remains the last agent-relevant entry.",
+    "why_it_matters": "Each agent paper argues that standalone task scores overstate how agents behave on stateful, tool-heavy, long-horizon or compliance-sensitive work, which is the work platform teams actually deploy them on.",
+    "take_for_builders": "If your agents persist memory or call MCP tools, add an eval that replays a poisoned instruction across sessions and logs tool-call hallucinations; keep gating rollouts on one eval built from your own logged sessions, not public scores alone."
    }
   },
   {
-   "slug": "empirical-audit",
-   "label": "Empirical Audit",
-   "item_count": 9,
-   "day_count": 6,
-   "source_count": 5,
-   "first_seen": "2026-10-30T11:39:08+00:00",
-   "last_updated": "2026-11-13T18:30:58+00:00",
-   "latest_title": "Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination",
+   "slug": "knowledge-context",
+   "label": "Knowledge Context",
+   "item_count": 14,
+   "day_count": 9,
+   "source_count": 6,
+   "first_seen": "2026-10-29T17:13:45+00:00",
+   "last_updated": "2026-11-16T17:50:53+00:00",
+   "latest_title": "Jetriever: Shifting Agent Memory Retrieval from Similarity to Utility",
    "days": [
+    "2026-10-29",
     "2026-10-30",
-    "2026-11-03",
-    "2026-11-09",
+    "2026-11-02",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-07",
     "2026-11-10",
-    "2026-11-11",
-    "2026-11-13"
+    "2026-11-13",
+    "2026-11-16"
    ],
    "member_sids": [
-    "fdfc122cd97a630f",
-    "fd81b2702033c7c6",
-    "5ab1b6ecf4ca3e7a",
-    "94045c979b35ebe7",
-    "77f0b452ecfd74d0",
-    "60cf435fff992a90",
-    "9b791542dc8bb7cc",
-    "44583beb4fa9105b",
-    "75db6f155d9769a5"
+    "e519641640234319",
+    "29a5435531059481",
+    "1d7852cb09b3031f",
+    "ce941c554e9fce8e",
+    "35220abd16206ae7",
+    "0f8439521ab02185",
+    "744a7a52285cfa40",
+    "d4ec23da5e445584",
+    "63ff637171c98d2c",
+    "464b347f5551c3b2",
+    "6c6377dea1cd8cea",
+    "a34f1fafb710e628",
+    "590316d609c0ce23",
+    "b5bf234c229cd676"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2611.00166v1",
-    "http://arxiv.org/abs/2610.41970v1",
-    "http://arxiv.org/abs/2611.05373v1",
-    "http://arxiv.org/abs/2611.13254v1",
-    "http://arxiv.org/abs/2611.13396v1",
-    "http://arxiv.org/abs/2611.14051v1",
-    "http://arxiv.org/abs/2611.15568v1",
-    "http://arxiv.org/abs/2611.17620v1",
-    "http://arxiv.org/abs/2611.18514v1"
+    "http://arxiv.org/abs/2610.40482v1",
+    "http://arxiv.org/abs/2610.40545v1",
+    "http://arxiv.org/abs/2610.41169v1",
+    "http://arxiv.org/abs/2610.41172v1",
+    "http://arxiv.org/abs/2610.41994v1",
+    "http://arxiv.org/abs/2611.00450v1",
+    "https://www.infoq.com/articles/agentic-ai-context-memory-knowledge/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "http://arxiv.org/abs/2611.06481v1",
+    "http://arxiv.org/abs/2611.06715v1",
+    "https://thinker.sh/how-it-works",
+    "http://arxiv.org/abs/2611.10683v1",
+    "http://arxiv.org/abs/2611.13696v1",
+    "http://arxiv.org/abs/2611.17763v1",
+    "http://arxiv.org/abs/2611.21478v1"
    ],
    "editorial": {
-    "tldr": "This is a research trend, not one developing event: nine unrelated arXiv papers from Oct 30 to Nov 13 that each re-test a technique already in use. It began with audits of test-time compute (early stopping for reasoning models, search for world-action models) and spread to preference alignment, token-spend metrics, KV-cache reuse and benchmark integrity.",
+    "tldr": "This is a loose cluster of mostly arXiv research on agent memory and context, not one event. Since late October, papers have proposed graph and transition-aware memory, while InfoQ and an arXiv paper argued that context should be engineered as infrastructure.",
     "stale": false,
-    "whats_new": "On Nov 13 the audits reached agent debugging: one paper tests whether mechanistic interpretability can explain web agents hallucinating page elements, the same day another audits the safety side effects of persona-vector steering.",
-    "why_it_matters": "Each paper re-checks an assumption platform teams already ship on (early stopping, token budgets, cache reuse, steering vectors, benchmark scores), so the findings are inputs to existing eval and cost decisions, not new features.",
-    "take_for_builders": "Before tuning early stopping, token budgets, cross-version KV-cache reuse or steering vectors in production, read the matching audit and rerun its check on your own workload rather than trusting vendor defaults."
+    "whats_new": "Jetriever (Nov 16) ranks stored agent memories by a model's usefulness score for the current question instead of embedding similarity.",
+    "why_it_matters": "Several papers report that similarity-only retrieval misses what agents need: evolving facts, multi-hop links, and memories that do not resemble the query.",
+    "take_for_builders": "Add eval cases where the useful memory does not resemble the query or a fact has changed over time, and check whether your similarity-only retriever misses them before adopting a new memory design."
    }
   },
   {
    "slug": "large-language",
    "label": "Large Language",
-   "item_count": 20,
-   "day_count": 13,
+   "item_count": 24,
+   "day_count": 14,
    "source_count": 6,
-   "first_seen": "2026-10-27T06:52:54+00:00",
-   "last_updated": "2026-11-13T17:26:39+00:00",
-   "latest_title": "Black-Box Uncertainty Quantification for Large Language Models via Ensemble-of-Ensembles",
+   "first_seen": "2026-10-29T09:21:26+00:00",
+   "last_updated": "2026-11-16T16:19:01+00:00",
+   "latest_title": "TRIAGE-CPG: A Cross-Model Study of Budgeted Static Malware Triage with Large Language Models",
    "days": [
-    "2026-10-27",
     "2026-10-29",
     "2026-10-30",
     "2026-11-02",
@@ -409,10 +481,11 @@
     "2026-11-10",
     "2026-11-11",
     "2026-11-12",
-    "2026-11-13"
+    "2026-11-13",
+    "2026-11-14",
+    "2026-11-16"
    ],
    "member_sids": [
-    "200271de2a2f52aa",
     "d571e973b6e6916d",
     "fdfc122cd97a630f",
     "e46c1ab3f7ca9939",
@@ -431,10 +504,14 @@
     "b6805052b5174dca",
     "f1908d0038e22f5b",
     "173841a135ec48af",
-    "3985de9df0cd2149"
+    "ca54e3a4f2c1d30b",
+    "3985de9df0cd2149",
+    "53cced15d557cd0b",
+    "fb7a288ad791ee0d",
+    "1e13d673398b4485",
+    "8f0034965a63d29c"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2610.36734v1",
     "http://arxiv.org/abs/2610.39671v1",
     "http://arxiv.org/abs/2611.00166v1",
     "http://arxiv.org/abs/2611.00171v1",
@@ -453,205 +530,155 @@
     "http://arxiv.org/abs/2611.14382v1",
     "http://arxiv.org/abs/2611.15925v1",
     "http://arxiv.org/abs/2611.16843v1",
-    "http://arxiv.org/abs/2611.18453v1"
+    "http://arxiv.org/abs/2611.18370v1",
+    "http://arxiv.org/abs/2611.18453v1",
+    "http://arxiv.org/abs/2611.18905v1",
+    "http://arxiv.org/abs/2611.19061v1",
+    "http://arxiv.org/abs/2611.21291v1",
+    "http://arxiv.org/abs/2611.21331v1"
    ],
    "editorial": {
-    "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 27 it ran from continual learning and pruning through Anthropic's Nov 2 provable-inference update and knowledge editing to Nov 10-12 studies questioning what eval scores measure: rater drift, name-anchored recall and corrupted-input shortcuts.",
+    "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 29 it ran through self-learning, pruning, Anthropic's Nov 2 provable-inference update and knowledge editing to Nov 10-13 work on what eval scores measure and when a model should abstain or ask for clarification.",
     "stale": false,
-    "whats_new": "Nov 13: a black-box uncertainty method uses an ensemble of ensembles to split prompt ambiguity from genuine knowledge gaps without the compute cost of Bayesian or deep-ensemble approaches.",
-    "why_it_matters": "Most items are single unreplicated preprints, but the latest run touches production reliability: scores can survive name removal or shuffled inputs, and black-box uncertainty is the signal an API-only deployment has for deciding when to abstain or escalate.",
-    "take_for_builders": "Add perturbed controls to your eval suite (paraphrased entity names, shuffled inputs), and before adopting black-box uncertainty for abstention, measure its extra call cost per request."
+    "whats_new": "Nov 16: TRIAGE-CPG compares LLMs deciding under a budget whether to clear, flag or escalate unknown binaries, and dhAIBench benchmarks LLMs for linguistic annotation under documented conditions.",
+    "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on a production question: when a model should answer, ask, abstain or escalate, and how to measure that decision rather than raw accuracy.",
+    "take_for_builders": "Score your agent's answer/ask/abstain/escalate decisions as a separate eval with perturbed controls (renamed entities, shuffled inputs), and measure the per-request call cost of any uncertainty method before wiring it into routing."
    }
   },
   {
-   "slug": "anomaly-detection",
-   "label": "Analysis Detection",
-   "item_count": 6,
-   "day_count": 5,
-   "source_count": 4,
-   "first_seen": "2026-10-29T06:49:14+00:00",
-   "last_updated": "2026-11-13T16:33:33+00:00",
-   "latest_title": "Agent Anomaly Detection scores on benchmarks we didn't write",
-   "days": [
-    "2026-10-29",
-    "2026-11-07",
-    "2026-11-09",
-    "2026-11-10",
-    "2026-11-13"
-   ],
-   "member_sids": [
-    "3aae7945b66d45c3",
-    "d723295579b427cc",
-    "d1b93ef36fd4bf1f",
-    "79a0f00b03e27450",
-    "d98105b6bf6a1293",
-    "d99b7127f7fd99e6"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2610.39483v1",
-    "https://cipher.org.uk/2026/11/06/AI-Source-Code-Analysis-Detection-Evasion-Techniques",
-    "http://arxiv.org/abs/2611.12775v1",
-    "http://arxiv.org/abs/2611.12871v1",
-    "http://arxiv.org/abs/2611.14493v1",
-    "https://developers.googleblog.com/how-agent-anomaly-detection-scores-on-benchmarks-we-didnt-write"
-   ],
-   "editorial": {
-    "tldr": "This thread is a label, not one event: six unrelated items that share the word \"detection\". It opened with a deepfake-detector explainability paper and a post on evading AI code analysis, moved to log monitoring and a general-purpose anomaly score on Nov 9, then reached agents on Nov 10 with a study of how reliably eval frameworks catch agent failures.",
-    "stale": false,
-    "whats_new": "A Nov 13 Google Developers Blog post reports how its Agent Anomaly Detection scores on benchmarks Google did not write, the thread's first vendor write-up on detecting anomalies in agents.",
-    "why_it_matters": "Two engineering questions recur across the items: whether a detector is cheap enough to run where the data lives, and whether it can be trusted once deployed. The two newest items ask the second question of agent tooling, first of eval frameworks and now of a vendor's anomaly detector.",
-    "take_for_builders": "Before adopting an agent anomaly detector, check which benchmarks its vendor reports and whether they resemble your agents' tool traces; read the Nov 10 eval-framework comparison before letting one framework gate a release."
-   }
-  },
-  {
-   "slug": "evaluation-controlled",
-   "label": "Evaluation Controlled",
-   "item_count": 3,
-   "day_count": 2,
-   "source_count": 3,
-   "first_seen": "2026-11-06T09:42:50+00:00",
-   "last_updated": "2026-11-13T16:14:31+00:00",
-   "latest_title": "DECODE: Decomposable Environments for COntrolled Sequential-Decision Evaluation",
-   "days": [
-    "2026-11-06",
-    "2026-11-13"
-   ],
-   "member_sids": [
-    "a7c918cc21d10797",
-    "5a90caffb2c87d2e",
-    "450d5a403be356b6"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2611.09223v1",
-    "https://huggingface.co/blog/allenai/toyblocks",
-    "http://arxiv.org/abs/2611.18367v1"
-   ],
-   "editorial": {
-    "tldr": "This is a research trend, not one developing event: three unrelated groups published benchmarks that change one variable at a time so a failure can be traced to a cause. On Nov 6, KLEAR did this for Korean LLM knowledge questions and AllenAI's ToyBlocks did it for robot learning in a simulated block world.",
-    "stale": false,
-    "whats_new": "DECODE (Nov 13) brings controlled evaluation to sequential decision-making, using decomposable environments to test which change to a system actually improves its decisions.",
-    "why_it_matters": "A single aggregate score cannot tell you whether an agent failed on missing knowledge, poor planning, or the environment, and these benchmarks are designed to separate those causes.",
-    "take_for_builders": "When an agent eval regresses, add ablation cases that change one factor at a time (knowledge, plan length, environment) before you trust the aggregate score."
-   }
-  },
-  {
-   "slug": "benchmarking-real-world",
-   "label": "Benchmarking Real-World",
-   "item_count": 4,
-   "day_count": 4,
-   "source_count": 2,
-   "first_seen": "2026-11-03T13:23:37+00:00",
-   "last_updated": "2026-11-13T15:18:33+00:00",
-   "latest_title": "PrivacyPR: A Dataset of Real-World Privacy Fixes for Benchmarking Privacy-Aware Code Review",
-   "days": [
-    "2026-11-03",
-    "2026-11-09",
-    "2026-11-10",
-    "2026-11-13"
-   ],
-   "member_sids": [
-    "ef4c20cc8b60cd08",
-    "23c0753cd928bfa7",
-    "d56fa1c78b5794b5",
-    "004673f14a75854b"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2611.04867v1",
-    "http://arxiv.org/abs/2611.11995v1",
-    "http://arxiv.org/abs/2611.14364v1",
-    "http://arxiv.org/abs/2611.18293v1"
-   ],
-   "editorial": {
-    "tldr": "This is a research trend, not one developing event: four unrelated arXiv papers in ten days each build a benchmark from real sessions or real fixes instead of synthetic tasks. It began with group-assistant memory use (Nov 3), then moved to agents optimizing AI infrastructure over long horizons and agents working inside real researcher workspaces.",
-    "stale": false,
-    "whats_new": "PrivacyPR (Nov 13) brings the real-world-benchmark push to code review, pairing real privacy fixes with the defects behind them to test whether coding agents catch GDPR-relevant bugs.",
-    "why_it_matters": "Each paper argues that standalone task scores overstate how agents perform on long-horizon, stateful, compliance-sensitive work, which is the work platform teams actually deploy them on.",
-    "take_for_builders": "If you gate agent rollouts on public benchmark scores, add one eval built from your own logged sessions or past fixes; for coding-agent review, check whether PrivacyPR's data is released before relying on the agent for privacy checks."
-   }
-  },
-  {
-   "slug": "silent-errors",
-   "label": "Silent Errors",
-   "item_count": 4,
-   "day_count": 4,
-   "source_count": 3,
-   "first_seen": "2026-11-03T06:34:45+00:00",
-   "last_updated": "2026-11-13T15:13:47+00:00",
-   "latest_title": "Clean Tickets, Wrong Orders: Catching Silent Errors with a Language Model in Your Browser Tab",
-   "days": [
-    "2026-11-03",
-    "2026-11-05",
-    "2026-11-12",
-    "2026-11-13"
-   ],
-   "member_sids": [
-    "7dfaaa125cb6bf17",
-    "eb99161271fd6e76",
-    "463947138381fd18",
-    "ecee4c24e69ad111"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2611.04399v1",
-    "http://arxiv.org/abs/2611.08269v1",
-    "http://arxiv.org/abs/2611.17169v1",
-    "http://arxiv.org/abs/2611.18284v1"
-   ],
-   "editorial": {
-    "tldr": "This is a research trend, not one developing event: four independent arXiv papers in two weeks study outputs that pass every check and are still wrong. The first two found them in agent leaderboard harnesses and in LLM code repairs after API migrations.",
-    "stale": false,
-    "whats_new": "A Nov 13 companion paper moves from measuring silent errors to catching them: a small model in a browser tab flags clean, well-formed orders that the customer never placed.",
-    "why_it_matters": "Schema validation, clean exits and passing typical-input tests do not catch these errors. Agent evals and LLM-generated code need checks on the meaning of the output, not just its shape.",
-    "take_for_builders": "Add semantic checks to your release gate: test migrated or LLM-repaired code on edge inputs, not only typical ones, and audit eval harness scoring before trusting a leaderboard gap."
-   }
-  },
-  {
-   "slug": "reinforcement-learning",
-   "label": "Optimization Language",
-   "item_count": 10,
+   "slug": "empirical-audit",
+   "label": "Empirical Audit",
+   "item_count": 11,
    "day_count": 7,
-   "source_count": 4,
-   "first_seen": "2026-10-30T13:04:05+00:00",
-   "last_updated": "2026-11-13T12:23:14+00:00",
-   "latest_title": "VEPO: Mitigating Multilingual Hallucinations in LVLMs via Visual Evidence-guided Preference Optimization",
+   "source_count": 5,
+   "first_seen": "2026-10-30T11:39:08+00:00",
+   "last_updated": "2026-11-16T16:19:01+00:00",
+   "latest_title": "TRIAGE-CPG: A Cross-Model Study of Budgeted Static Malware Triage with Large Language Models",
    "days": [
     "2026-10-30",
-    "2026-11-02",
     "2026-11-03",
-    "2026-11-06",
     "2026-11-09",
-    "2026-11-12",
-    "2026-11-13"
+    "2026-11-10",
+    "2026-11-11",
+    "2026-11-13",
+    "2026-11-16"
    ],
    "member_sids": [
-    "3e4010b903d1d7e9",
-    "8b24b2aa117fb77b",
+    "fdfc122cd97a630f",
+    "fd81b2702033c7c6",
+    "b80471ec3bc792a2",
     "5ab1b6ecf4ca3e7a",
-    "06c2c68bc425da7f",
-    "23c0753cd928bfa7",
-    "b76cb948754a8e57",
-    "1c564d62e97c9758",
-    "151cc2392264c544",
-    "7b04b19e28032924",
-    "c9c6bd7b30cb6c70"
+    "94045c979b35ebe7",
+    "77f0b452ecfd74d0",
+    "60cf435fff992a90",
+    "9b791542dc8bb7cc",
+    "44583beb4fa9105b",
+    "75db6f155d9769a5",
+    "8f0034965a63d29c"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2610.41697v1",
-    "http://arxiv.org/abs/2611.03517v1",
+    "http://arxiv.org/abs/2611.00166v1",
+    "http://arxiv.org/abs/2610.41970v1",
+    "http://arxiv.org/abs/2611.00464v1",
     "http://arxiv.org/abs/2611.05373v1",
-    "http://arxiv.org/abs/2611.09634v1",
-    "http://arxiv.org/abs/2611.11995v1",
-    "http://arxiv.org/abs/2611.12079v1",
-    "http://arxiv.org/abs/2611.12763v1",
-    "http://arxiv.org/abs/2611.16414v1",
-    "http://arxiv.org/abs/2611.17621v1",
-    "http://arxiv.org/abs/2611.18096v1"
+    "http://arxiv.org/abs/2611.13254v1",
+    "http://arxiv.org/abs/2611.13396v1",
+    "http://arxiv.org/abs/2611.14051v1",
+    "http://arxiv.org/abs/2611.15568v1",
+    "http://arxiv.org/abs/2611.17620v1",
+    "http://arxiv.org/abs/2611.18514v1",
+    "http://arxiv.org/abs/2611.21331v1"
    ],
    "editorial": {
-    "tldr": "This is a loose cluster of arXiv papers that share the word \"optimization\", not one developing story; it was reclustered away from the earlier multi-agent grouping. It now holds two research strands: agent RL and preference-optimization recipes (TSBPO, DNO, steerable multi-objective GRPO, PORT), and agents that optimize GPU kernels and AI infrastructure (question-driven kernel agents, a local 7B model study, Infrathon).",
+    "tldr": "This is a research trend, not one developing event: eleven unrelated arXiv papers from Oct 30 to Nov 16 that each re-test a technique already in use. It began with audits of inference cost (early stopping, test-time search, small-model compression) and spread to alignment, token-spend metrics, KV-cache reuse, benchmark integrity and agent debugging.",
     "stale": false,
-    "whats_new": "Nov 13: AscendGYM added a cost-aware kernel-optimization benchmark for real workloads on Ascend NPUs, and VEPO proposed preference optimization grounded in visual evidence to cut multilingual hallucination in vision-language models.",
-    "why_it_matters": "Kernel and infra tuning is becoming a benchmarked agent task, and preference optimization is being adapted for noisy labels and shifting objectives; every result here is author-reported on the papers' own benchmarks, not production evidence.",
-    "take_for_builders": "If you trial an agent for kernel or infra tuning, gate every change on a correctness check before measuring speed, and compare against your current vendor-library baseline; treat the preference-optimization results as candidates for your own eval, not drop-in replacements for DPO."
+    "whats_new": "On Nov 16 the audits reached security: TRIAGE-CPG compares several LLMs on budgeted static malware triage, testing which models can clear, flag or escalate unknown binaries under a fixed analysis budget.",
+    "why_it_matters": "Each paper re-checks an assumption platform teams already ship on (early stopping, compression stacks, token budgets, cache reuse, steering vectors, benchmark scores, LLM triage), so the findings feed existing eval and cost decisions rather than adding features.",
+    "take_for_builders": "Before tuning early stopping, compression, token budgets, cross-version KV-cache reuse or steering vectors in production, read the matching audit and rerun its check on your own workload rather than trusting vendor defaults."
+   }
+  },
+  {
+   "slug": "kimi-k3-1",
+   "label": "Kimi K3.1",
+   "item_count": 15,
+   "day_count": 10,
+   "source_count": 4,
+   "first_seen": "2026-10-28T20:59:48+00:00",
+   "last_updated": "2026-11-16T10:49:18+00:00",
+   "via_scout": true,
+   "latest_title": "Alibaba’s New Qwen4-Max Fails To Overtake Moonshot’s Kimi K3.1 Pro, Retaining The Same Parameter Count With A Lower Price And Revamped Native-Vision MoE Architecture",
+   "days": [
+    "2026-10-28",
+    "2026-10-29",
+    "2026-11-02",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-06",
+    "2026-11-07",
+    "2026-11-08",
+    "2026-11-10",
+    "2026-11-16"
+   ],
+   "member_sids": [
+    "63bd8bef18003998",
+    "c7d9ba0343c943d2",
+    "f4a904d03d800a16",
+    "3399044813cf568b",
+    "1e628f9865c69d93",
+    "b380a66ae3304ffc",
+    "ff6c35403ec66552",
+    "8c57ba0858b1c3ee",
+    "c451c70cd81a6dbe",
+    "4715dd7a49e69939",
+    "e572010b9c959715",
+    "4ae0b622afc8b642",
+    "975749c9dd84b6cc",
+    "215a2fdef8653151",
+    "afb6a3de4e8f985d"
+   ],
+   "member_urls": [
+    "https://news.google.com/rss/articles/CBMiXEFVX3lxTE9tNkhBNVVLdHFIMDZKNkV3LUVxbzJwS1oxVkNoUlp2RmkwbmRkejBQWE4zb01Xejg4TnlRYlZyOU1jSVUxVFoxWmxJNnhIMElwdTJVVTBOSHNRMnMy?oc=5",
+    "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQaFFfTzR1bmVrcVpyQVBTRTZvR2MwcDBsTmw2QWdwTGVvQ0l4VFE1TlgySDNGWGgtZzFkb0hWVGhGU096V1YyRG9GdGVSazUtMG43WWtTMjNGY3NPVXR0X1hTSm45bHlIbmRTVy1BMHVfVTJQazEzN2lXYUJhS041RVBlSmFaRGRLUUQ0TDBZTFJYbVRxVWh5V2swVUR0VGw3OFc4LVp4OWotbWRwYW5idm9ad1B6Z0hkY2xQNTZNZjE?oc=5",
+    "https://huggingface.co/moonshotai/Kimi-K3.1-Pro",
+    "https://vllm.ai/blog/2026-11-04-kimi-k31-pro",
+    "https://verda.com/blog/verda-inference-in-preview",
+    "https://news.google.com/rss/articles/CBMipAFBVV95cUxPc1M4OXNUei1jbTVEbnNVLU4zVWtwZEE3ek9kTjdCYmhmd3RoQ09DRU0wN18ycjN2LXdreDcyYkFLeU9aTm5aNDVTRmZieFU4LXNZSlRVbGlFeHBEQzlBLTJKXzFzWG9lMThZZlBhemdhbjNGdHhjdUFyWS1TaXRmNk0xX2U5dzJGbnhWalBwSXpUR1hRZ3hvMXBiOXlRbVJwZmRuaA?oc=5",
+    "https://news.google.com/rss/articles/CBMiogFBVV95cUxPYWs1Vy1EU1F2U0Y5UWloMjl6bHNDZGc0NUk5aGE0SHdqMFhSVHZ2dHUwVkJMYTZ6TmFVbWpzOUFzdkdKTFRlaF9rai1LYVd3bXlyOW1KemxXM3BlRGhSSGx2VG9Nc1VKMkREcVBJMVhhT0RuRWJVbzNRdWR1ejhQcWFpbmZNaTQ3bzBSRXZQaW0ySGpYQVRlUXMxNXJyck03bFE?oc=5",
+    "https://news.google.com/rss/articles/CBMidkFVX3lxTE1zWlB0WjBqMGFLdm04WlBHU1NoT3hHUXNhS3V3eEQ1M1c5UEQtc055N2k1T2dSR1RiX084MXk2NWZ5bzBfRVp0QjMycU1sZ0ZjbllsU1F4T2x6QTNIQldIMFN1dUtQUVRJWUNUN3BXZTFRV19NalE?oc=5",
+    "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPZ3ZqcjR1SkNXOHhVeXNqeWQ4dW5WZ2hOeENPcFlFaUZzbXAzQXVfYlZjU3Flc1k2aFRGRF94NWtGN2ozY2VVU1VmT2lSc0Q5MDZRM2Y5U0F6Q1RLM3JJSTZiUHhxajdDU0FXRVlCWFRPbWZoQ01JTzRGRGdKZzVsZUstNzBBNkUt?oc=5",
+    "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5FV2ROOGlfZC1mOU1EUTFyVjdIMlBnSElscXdfNDNiU2JkYlMxUHVhWnd0aE5NUzlVcjQtc3plaFdWSmpVcWpkc1pNSkF3bWpsa2JZSUtYUkVVTDQ?oc=5",
+    "https://vllm.ai/blog/2026-11-06-zero-mismatch-async-rl",
+    "https://news.google.com/rss/articles/CBMiigFBVV95cUxPcWJhX01BVVZlVnVZLW1kX0JQVjg3aExnUGFCUHhQYzg5dG9ZWlBJR245dVY3MUczQXpMZllrNWF1NUdmZVU2YXVQWWxDdHFEMDlnXzB2SnNGN2NvaEhwVGt5UXlsWXVabll2V1RKMUhCOUl2ZHJ1MWdYczItbVg0bVBzXzNDdzBXWEE?oc=5",
+    "https://news.google.com/rss/articles/CBMijAFBVV95cUxOTS1oQ3R3c2pRRUNhc3pTWmtRWkJueEtPVVZEa3RrUENjY0ZOTGE2SmVOZEN1YWtlWWlwUWJuR19fdTc1LUxMRjZRcFYwQ0MwdjdHSW5fTDdGU0RzYW11R0lVREtfVklaa1JZdEhnTkk2bEZPRXNoLThtdzRDanFHdkdrZEZqNWYwNTdXMA?oc=5",
+    "https://news.google.com/rss/articles/CBMihAFBVV95cUxPQWVlRVJORHdHUnE4R3pnYm01NzJVNEtrRUdNMUxpdS02azZVS3hzSE5ERjRBVXJzOVZMa1FEajJuRVhhUF9menUybndPdzJ2MXo1UFlZUl9sVTdBLUhWVkgtaHhVMHk2SlNMem1GbVNHaDZEak9ReG02UmY3X0trd1phMWQ?oc=5",
+    "https://news.google.com/rss/articles/CBMikgJBVV95cUxQUk00Q0dmLVhCaEwzRlZqNmJrX1RLd1NzSTAyMHZxVnVqenllOHNRcHprMW9DZEZZOFJOM2ktcVFKQ2ZoNk1wejgxX3djVzEzWWN6dFc4X2swcnBwN19VN0VENkM4WDc5SmtpYkZLQ1FrUW8zbm8yUmwwVkNCSjJadDEwRF9uS01USWdfS1VuTkwzV2plQzZDVEpaeUpDWW9kdXM4RDNzd05yN1JSWmF5bXhxekc3X3dKS2VaTVFySDRxclZkbW9KX0F5TUlMRDZNMzZ5OWNnRzJRNFN4cDR0cjAyYUVoZWNtNnpwSmcta0VFMzNyX01SbFdsVjRRUlA3akpiVDNqdmhCSGRWZEM2c05R0gGXAkFVX3lxTE5rWGdLekNOTGJCZ3pTTzdlVDEzZ05zWFJsbnZyMU5mcTBZZ2Z5UjhGb0kyTEdPMXZFLVRDekpBRkJEcUNsbU13bEd4Z3VubjZ3WGp4Z3RnT0phdS1TVmtvQzZtTDRnekM1N1pmZGNBVmJuSGZvY3NsZkw4OWRoU05ncjNsTjBDVHlPSzlUTkszb3MteURCZXRuaFJ3bmNlRW9JUDZBTUI5RmFXQ1ZDOG53Mks3Z0g3cmRybGRWTnRKVXpFS0FKdDM5bVBNZHd5N0hqTEYyZFphYkxObU1NR2gxTHlTcTA4bE11VFlDcGdFdzN1bktmLWMzUTdLZWoxY3BNS1AzbVJNUHNXblo1Wlpnelk3TjBvSQ?oc=5"
+   ],
+   "editorial": {
+    "tldr": "Kimi K3.1 Pro reached third-party hosts NEAR AI Cloud and ZenMux in late October. Moonshot then published the full weights on Hugging Face on Nov 2, and vLLM, Huawei Ascend and Moore Threads shipped day-zero support, followed by a 775 GB Coder variant.",
+    "stale": false,
+    "whats_new": "Wccftech reports on Nov 16 that Alibaba's new Qwen4-Max does not overtake Kimi K3.1 Pro, despite matching its parameter count at a lower price, so K3.1 Pro stays the open-weight reference point.",
+    "why_it_matters": "Kimi K3.1 Pro is a 2.8T-parameter open-weight model with day-zero vLLM support and hosted endpoints on NEAR AI Cloud, ZenMux and Verda, so teams can self-host it or pick among third-party hosts instead of depending on Moonshot's own service.",
+    "take_for_builders": "Before routing production traffic to Kimi K3.1 Pro, read the licence's commercial conditions, pin a vLLM release with its day-zero support, and keep a second host as fallback.",
+    "status": {
+     "state": "Open weights · ecosystem adopting",
+     "tone": "rising",
+     "changed": "2026-11-02",
+     "detail": "Weights are public under a commercial licence with conditions; serving, hardware and fine-tuning support has followed, and the newest item is a rival-model comparison, not new Moonshot news.",
+     "track": [
+      {
+       "label": "Hosted only",
+       "detail": "Oct 28–Nov 1",
+       "tone": "launch",
+       "weight": 20
+      },
+      {
+       "label": "Open weights + ecosystem",
+       "detail": "Nov 2 → now",
+       "tone": "now",
+       "weight": 80
+      }
+     ]
+    }
    }
   }
  ]

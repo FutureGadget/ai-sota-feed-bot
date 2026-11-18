@@ -1,11 +1,19 @@
 {
   "slug": "benchmarking-real-world",
-  "generated_at": "2026-11-17T00:12:26Z",
-  "covers_last_updated": "2026-11-13T15:18:33+00:00",
-  "covers_member_sids": ["ef4c20cc8b60cd08", "23c0753cd928bfa7", "d56fa1c78b5794b5", "004673f14a75854b"],
-  "tldr": "This is a research trend, not one developing event: four unrelated arXiv papers in ten days each build a benchmark from real sessions or real fixes instead of synthetic tasks. It began with group-assistant memory use (Nov 3), then moved to agents optimizing AI infrastructure over long horizons and agents working inside real researcher workspaces.",
-  "whats_new": "PrivacyPR (Nov 13) brings the real-world-benchmark push to code review, pairing real privacy fixes with the defects behind them to test whether coding agents catch GDPR-relevant bugs.",
-  "why_it_matters": "Each paper argues that standalone task scores overstate how agents perform on long-horizon, stateful, compliance-sensitive work, which is the work platform teams actually deploy them on.",
+  "generated_at": "2026-11-18T00:13:29Z",
+  "covers_last_updated": "2026-11-16T18:32:05+00:00",
+  "covers_member_sids": [
+    "ef4c20cc8b60cd08",
+    "45b80d77d473d30f",
+    "138e084674254809",
+    "23c0753cd928bfa7",
+    "d56fa1c78b5794b5",
+    "004673f14a75854b",
+    "46d71c45a0641225"
+  ],
+  "tldr": "This is a research trend, not one event: six unrelated arXiv papers in ten days each build an agent benchmark from real sessions, real tools or real fixes. It began with group-assistant memory (Nov 3), added MCP hallucinations and memory poisoning, then moved to long-horizon infra work, researcher workspaces and privacy-aware code review (Nov 13).",
+  "whats_new": "The newest member (Nov 16) is a quantum recurrent-network benchmark for time-series prediction; it shares only the word \"benchmarking\", so PrivacyPR (Nov 13) remains the last agent-relevant entry.",
+  "why_it_matters": "Each agent paper argues that standalone task scores overstate how agents behave on stateful, tool-heavy, long-horizon or compliance-sensitive work, which is the work platform teams actually deploy them on.",
   "beats": [
     {
       "kicker": "MEMORY",
@@ -15,6 +23,13 @@
       "sids": ["ef4c20cc8b60cd08"]
     },
     {
+      "kicker": "FAILURE MODES",
+      "tone": "turn",
+      "headline": "MCPHallu and MemoryDojo benchmark how agents break",
+      "summary": "One measures reasoning, execution and memory hallucinations in MCP tool use; the other tests whether malicious instructions persist through agent memory across sessions.",
+      "sids": ["45b80d77d473d30f", "138e084674254809"]
+    },
+    {
       "kicker": "LONG HORIZON",
       "tone": "rising",
       "headline": "Infrathon and ARE-bench test agents on sustained real work",
@@ -22,24 +37,36 @@
       "sids": ["23c0753cd928bfa7", "d56fa1c78b5794b5"]
     },
     {
-      "kicker": "LATEST",
-      "tone": "now",
+      "kicker": "CODE REVIEW",
+      "tone": "rising",
       "headline": "PrivacyPR targets privacy defects in agent code review",
       "summary": "A dataset linking real privacy fixes to the defects they repaired, aimed at coding agents that review pull requests.",
       "sids": ["004673f14a75854b"]
+    },
+    {
+      "kicker": "OFF-THREAD",
+      "tone": "neutral",
+      "headline": "Quantum RNN time-series benchmark joins on a shared keyword",
+      "summary": "Quantum machine-learning research with no agent or platform angle; clustered here only by the word \"benchmarking\".",
+      "sids": ["46d71c45a0641225"]
     }
   ],
   "open_questions": [
-    "Will any of these four benchmarks publish a public leaderboard with frontier-model scores?",
+    "Will any of these benchmarks publish a public leaderboard with frontier-model scores?",
+    "Which MCP hallucination type in MCPHallu do current agents fail most often: reasoning, execution or memory?",
+    "Does MemoryDojo show poisoned memory surviving into later sessions for the memory systems teams actually ship?",
     "Do agents that score well on standalone suites rank lower on Infrathon or ARE-bench, as the authors suggest?",
     "What share of PrivacyPR's real privacy defects do current coding-agent reviewers catch?",
     "Will the datasets and harnesses be released openly enough to rerun as internal evals?"
   ],
-  "take_for_builders": "If you gate agent rollouts on public benchmark scores, add one eval built from your own logged sessions or past fixes; for coding-agent review, check whether PrivacyPR's data is released before relying on the agent for privacy checks.",
+  "take_for_builders": "If your agents persist memory or call MCP tools, add an eval that replays a poisoned instruction across sessions and logs tool-call hallucinations; keep gating rollouts on one eval built from your own logged sessions, not public scores alone.",
   "day_captions": {
     "ef4c20cc8b60cd08": "Opens the cluster: memory evaluated by the quality of assistance it enables across many users.",
+    "45b80d77d473d30f": "Shifts to failure modes: hallucinations in reasoning, execution and memory for agents using MCP tools across servers.",
+    "138e084674254809": "Adds a security angle: malicious instructions from one session persisting through agent memory into later ones.",
     "23c0753cd928bfa7": "Moves the real-world framing to infrastructure: long-horizon optimization tasks for agents.",
     "d56fa1c78b5794b5": "Applies it to research agents, scoring delivery inside real researcher sessions rather than standalone tasks.",
-    "004673f14a75854b": "Extends it to code review with a dataset of real privacy fixes tied to their defects."
+    "004673f14a75854b": "Extends it to code review with a dataset of real privacy fixes tied to their defects.",
+    "46d71c45a0641225": "Keyword match only: a quantum ML time-series benchmark that adds nothing to the agent-evaluation thread."
   }
 }

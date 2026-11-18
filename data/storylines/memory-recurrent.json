@@ -1,0 +1,104 @@
+{
+ "slug": "memory-recurrent",
+ "label": "Memory Recurrent",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-10-30T15:06:37+00:00",
+ "last_updated": "2026-11-16T18:32:05+00:00",
+ "generated_at": "2026-11-18T00:14:17.482304+00:00",
+ "sources": [
+  "arxiv_cs_ai",
+  "arxiv_cs_lg"
+ ],
+ "days": [
+  {
+   "date": "2026-10-30",
+   "items": [
+    {
+     "title": "Dynamical Memory Transformer: Selective Recurrent Memories with Constant Cost Attention",
+     "url": "http://arxiv.org/abs/2610.41850v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Transformers retain an explicit history of the sequence, allowing attention to directly retrieve past representations. However, the size of the KV-Cache and the cost of a new token increase with the context length. State Space Models compress the past into a fixed-size recurrent",
+     "sid": "61e185e423e61214",
+     "published": "2026-10-30T15:06:37+00:00",
+     "editor_note": "Anchor paper: proposes a hybrid that trades the growing KV cache for selective recurrent memories."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "items": [
+    {
+     "title": "Symmetry in Time: A Representation Theory of Linear Recurrent Memory",
+     "url": "http://arxiv.org/abs/2611.17162v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "State space models (SSMs) are an emerging alternative to Transformers. SSMs offer linear-time inference and parallel training, but most implementations make the parallel scan efficient by making the recurrence diagonal: each channel of the hidden state is multiplied by an input-d",
+     "sid": "1e587df8b443a929",
+     "published": "2026-11-12T17:39:35+00:00",
+     "editor_note": "Theory angle on why diagonal SSM recurrences may limit what fixed-size state can remember."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-16",
+   "items": [
+    {
+     "title": "Benchmarking memory and nonlinear processing capacity of quantum recurrent neural networks for time series prediction",
+     "url": "http://arxiv.org/abs/2611.21552v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Quantum machine learning has emerged as a promising approach to time series prediction. While quantum reservoir computing has been widely explored for this setting, variational quantum models tailored to sequential da...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "46d71c45a0641225",
+     "published": "2026-11-16T18:32:05+00:00",
+     "editor_note": "Clustered by shared wording only; quantum time-series work outside the LLM-serving lens."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is not one event: three unrelated arXiv papers share the words \"recurrent memory\". It opened with the Dynamical Memory Transformer, which pairs attention with selective recurrent memories to keep per-token cost constant instead of growing with the KV cache.",
+  "stale": false,
+  "whats_new": "The latest paper (Nov 16) benchmarks memory capacity of variational quantum recurrent networks for time-series prediction, which is off the LLM-inference path entirely.",
+  "why_it_matters": "Only the first two papers touch the long-context cost problem builders pay for: KV-cache growth versus fixed-size recurrent state in SSM-style models.",
+  "take_for_builders": "No action: treat these as research to watch, and wait for released weights or a long-context eval before changing any KV-cache or model-choice plans.",
+  "beats": [
+   {
+    "kicker": "CONTEXT COST",
+    "tone": "launch",
+    "headline": "Dynamical Memory Transformer targets constant-cost attention",
+    "summary": "Hybrid design: keep attention's direct retrieval, but compress history into selective recurrent memories so per-token cost stops scaling with context length.",
+    "sids": [
+     "61e185e423e61214"
+    ]
+   },
+   {
+    "kicker": "THEORY",
+    "tone": "rising",
+    "headline": "Representation theory questions diagonal SSM recurrences",
+    "summary": "Examines what linear recurrent memory can represent when implementations make the recurrence diagonal to keep the parallel scan cheap.",
+    "sids": [
+     "1e587df8b443a929"
+    ]
+   },
+   {
+    "kicker": "TANGENT",
+    "tone": "neutral",
+    "headline": "Quantum recurrent networks benchmarked on time-series memory",
+    "summary": "Shares the vocabulary, not the thread: a quantum ML benchmark with no bearing on LLM serving.",
+    "sids": [
+     "46d71c45a0641225"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does the Dynamical Memory Transformer publish long-context retrieval results against a full-KV-cache baseline?",
+   "Does the diagonal-recurrence analysis lead to a concrete non-diagonal SSM variant with a parallel scan of comparable cost?",
+   "Does any inference engine ship support for a selective-recurrent-memory hybrid?"
+  ],
+  "generated_at": "2026-11-18T00:13:28Z"
+ }
+}

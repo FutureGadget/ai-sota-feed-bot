@@ -1,68 +1,110 @@
 {
   "slug": "reinforcement-learning",
-  "generated_at": "2026-11-17T00:12:37Z",
-  "covers_last_updated": "2026-11-13T12:23:14+00:00",
+  "generated_at": "2026-11-18T00:13:28Z",
+  "covers_last_updated": "2026-11-16T18:59:04+00:00",
   "covers_member_sids": [
     "3e4010b903d1d7e9",
+    "65dc6916d3b352f1",
     "8b24b2aa117fb77b",
     "5ab1b6ecf4ca3e7a",
+    "7ae1983bc20b4540",
+    "4e7cf2bff5db16a6",
     "06c2c68bc425da7f",
     "23c0753cd928bfa7",
     "b76cb948754a8e57",
+    "e07cc0f8ad9bbda1",
     "1c564d62e97c9758",
     "151cc2392264c544",
+    "2b4992932ff2ee7d",
     "7b04b19e28032924",
-    "c9c6bd7b30cb6c70"
+    "c9c6bd7b30cb6c70",
+    "51009fb859c1b51e"
   ],
-  "tldr": "This is a loose cluster of arXiv papers that share the word \"optimization\", not one developing story; it was reclustered away from the earlier multi-agent grouping. It now holds two research strands: agent RL and preference-optimization recipes (TSBPO, DNO, steerable multi-objective GRPO, PORT), and agents that optimize GPU kernels and AI infrastructure (question-driven kernel agents, a local 7B model study, Infrathon).",
-  "whats_new": "Nov 13: AscendGYM added a cost-aware kernel-optimization benchmark for real workloads on Ascend NPUs, and VEPO proposed preference optimization grounded in visual evidence to cut multilingual hallucination in vision-language models.",
-  "why_it_matters": "Kernel and infra tuning is becoming a benchmarked agent task, and preference optimization is being adapted for noisy labels and shifting objectives; every result here is author-reported on the papers' own benchmarks, not production evidence.",
+  "tldr": "This is a loose cluster of arXiv papers that share policy- and preference-optimization vocabulary, not one developing story. It spans three research strands: RL recipes for agents (TSBPO, learned multi-agent orchestration, negative-only rewards), preference-optimization variants (DNO, steerable GRPO, PORT, VEPO), and agents that tune GPU kernels and AI infrastructure (Infrathon, AscendGYM).",
+  "whats_new": "Nov 16: ViRA applied cross-input relative policy optimization to train visual agents that zoom into ultra-high-resolution images and answer from the evidence rather than common sense.",
+  "why_it_matters": "RL fine-tuning is being pointed at agent behaviors builders care about (credit over long trajectories, orchestration, tool-gated routing, kernel tuning), but every result here is author-reported on the papers' own benchmarks, not production evidence.",
   "beats": [
     {
       "kicker": "AGENT RL",
       "tone": "launch",
-      "headline": "TSBPO tackles sampling and delayed credit for agents trained on terminal outcomes",
-      "sids": ["3e4010b903d1d7e9"]
+      "headline": "RL recipes target the hard parts of training agents: delayed credit, orchestration and partial verifiers",
+      "summary": "TSBPO, few-step flow RL, CRESiST for speech translation, learned multi-agent orchestration, and negative-only policy optimization.",
+      "sids": [
+        "3e4010b903d1d7e9",
+        "65dc6916d3b352f1",
+        "7ae1983bc20b4540",
+        "4e7cf2bff5db16a6",
+        "2b4992932ff2ee7d"
+      ]
     },
     {
       "kicker": "PREFERENCE OPTIMIZATION",
       "tone": "rising",
       "headline": "Preference-optimization papers target general preferences, shifting objectives, noisy labels and visual grounding",
       "summary": "DNO empirical study, steerable multi-objective GRPO with LoRA adapters, PORT token reweighting, and VEPO.",
-      "sids": ["5ab1b6ecf4ca3e7a", "06c2c68bc425da7f", "1c564d62e97c9758", "c9c6bd7b30cb6c70"]
+      "sids": [
+        "5ab1b6ecf4ca3e7a",
+        "06c2c68bc425da7f",
+        "1c564d62e97c9758",
+        "c9c6bd7b30cb6c70"
+      ]
     },
     {
       "kicker": "KERNEL & INFRA AGENTS",
       "tone": "rising",
       "headline": "Agents that tune GPU kernels and AI infrastructure get methods and benchmarks",
       "summary": "Question-driven kernel agents, a local 7B CUDA study, Infrathon, and the Ascend NPU benchmark AscendGYM.",
-      "sids": ["8b24b2aa117fb77b", "b76cb948754a8e57", "23c0753cd928bfa7", "7b04b19e28032924"]
+      "sids": [
+        "8b24b2aa117fb77b",
+        "b76cb948754a8e57",
+        "23c0753cd928bfa7",
+        "7b04b19e28032924"
+      ]
     },
     {
-      "kicker": "COST",
+      "kicker": "APPLIED OPTIMIZATION",
       "tone": "neutral",
-      "headline": "Small-model routing tries to switch on reasoning, retrieval and tools only when a request needs them",
-      "sids": ["151cc2392264c544"]
+      "headline": "Optimization moves into serving cost and product decisions",
+      "summary": "Small-model routing that switches on reasoning, retrieval or tools only when needed, and Airbnb-style cold-start cover-photo selection.",
+      "sids": [
+        "151cc2392264c544",
+        "e07cc0f8ad9bbda1"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "ViRA trains high-resolution visual agents to read evidence instead of guessing",
+      "sids": [
+        "51009fb859c1b51e"
+      ]
     }
   ],
   "open_questions": [
     "Does any independent group reproduce TSBPO's gains on long-horizon agent tasks outside the paper's own environments?",
+    "Does negative-only policy optimization train useful agents when the verifier can only reject wrong answers in real tool-use settings?",
     "Do kernel-optimization agents beat vendor libraries and hand-tuned kernels on Infrathon or AscendGYM workloads under their cost accounting?",
     "Can a locally hosted 7B code model produce correct CUDA kernels reliably enough to use without a larger model in the loop?",
     "Does PORT's token-level reweighting hold its advantage when preference-label noise is measured on real production feedback?",
     "Does small-model routing cut compute without a measurable quality drop on traffic other than the study's benchmark?"
   ],
-  "take_for_builders": "If you trial an agent for kernel or infra tuning, gate every change on a correctness check before measuring speed, and compare against your current vendor-library baseline; treat the preference-optimization results as candidates for your own eval, not drop-in replacements for DPO.",
+  "take_for_builders": "If you trial an agent for kernel or infra tuning, gate every change on a correctness check before measuring speed and compare against your vendor-library baseline; treat the RL and preference-optimization recipes as candidates for your own eval, not drop-in replacements for DPO or GRPO.",
   "day_captions": {
     "3e4010b903d1d7e9": "Opens the cluster: one recipe coupling continuation sampling, delayed credit and token-loss aggregation for agent RL.",
+    "65dc6916d3b352f1": "Adjacent method work: how to inject stochasticity so GRPO works on few-step flow models.",
     "8b24b2aa117fb77b": "First kernel-agent item: argues for question-driven agents over scripted or fully free-form ones.",
     "5ab1b6ecf4ca3e7a": "Empirical look at Direct Nash Optimization's practical variant for general-preference alignment.",
+    "7ae1983bc20b4540": "Applies explorative policy learning to the quality-latency trade-off in simultaneous speech translation.",
+    "4e7cf2bff5db16a6": "Brings RL to multi-agent systems: learning how a central orchestrator picks agents and routes information.",
     "06c2c68bc425da7f": "Trains one steerable policy across objective trade-offs with jointly trained low-rank adapters.",
     "23c0753cd928bfa7": "Infrathon asks whether frontier agents can keep improving real AI infrastructure over long horizons.",
     "b76cb948754a8e57": "Measures how much interaction strategy matters for Qwen2.5-Coder-7B writing CUDA kernels on 30 KernelBench tasks.",
+    "e07cc0f8ad9bbda1": "Off-lens outlier: cold-start cover-photo optimization for e-commerce listings, pulled in by shared vocabulary.",
     "1c564d62e97c9758": "Token-level reweighting to make preference optimization robust to noisy annotations.",
     "151cc2392264c544": "Tests whether small models and prompt optimization can route requests to optional reasoning, retrieval or tools.",
-    "7b04b19e28032924": "Newest: AscendGYM extends kernel benchmarking to cost-aware optimization on Ascend NPUs.",
-    "c9c6bd7b30cb6c70": "Newest: VEPO applies preference optimization to multilingual object hallucination in vision-language models."
+    "2b4992932ff2ee7d": "Extends RL with verifiable rewards to settings where the verifier can only confirm failures.",
+    "7b04b19e28032924": "AscendGYM extends kernel benchmarking to cost-aware optimization on Ascend NPUs.",
+    "c9c6bd7b30cb6c70": "VEPO applies preference optimization to multilingual object hallucination in vision-language models.",
+    "51009fb859c1b51e": "Newest: relative policy optimization across inputs to make zooming visual agents ground answers in the image."
   }
 }

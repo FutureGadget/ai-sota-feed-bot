@@ -1,12 +1,12 @@
 {
  "slug": "inference-engine",
  "label": "Inference Engine",
- "item_count": 8,
- "day_count": 7,
+ "item_count": 9,
+ "day_count": 8,
  "source_count": 2,
  "first_seen": "2026-10-31T19:17:31+00:00",
- "last_updated": "2026-11-16T20:52:34+00:00",
- "generated_at": "2026-11-17T00:13:09.187086+00:00",
+ "last_updated": "2026-11-17T16:01:04+00:00",
+ "generated_at": "2026-11-18T00:14:17.482304+00:00",
  "sources": [
   "arxiv_cs_ai",
   "hackernews_ai"
@@ -123,17 +123,33 @@
      "summary_1line": "Hi HN, I'm Matteo from meshapplied (YC W27), building this with Peter and Janos. We think you can and should own your inference, so we built software that actually supports that. Goethe turns a Linux machine with an N...",
      "sid": "8ac6ca4d7f430268",
      "published": "2026-11-16T20:52:34+00:00",
-     "editor_note": "Newest entry and first startup product: a YC-backed tool that turns a Linux machine into a self-owned inference engine."
+     "editor_note": "First startup product in the cluster: a YC-backed tool that turns a Linux machine into a self-owned inference engine."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-17",
+   "items": [
+    {
+     "title": "Show HN: TrnRT – An open-source LLM inference engine for AWS Trainium",
+     "url": "https://github.com/RunanywhereAI/trnrt",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Hi HN, Sanchit here from RunAnywhere (YC W26). We just open-sourced TrnRT: Trainium RunTime, our inference engine for AWS Trainium. We started 3 weeks back, and currently we’re able to serve and run GLM 5.3 flash (FP8...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "b955388224554f43",
+     "published": "2026-11-17T16:01:04+00:00",
+     "editor_note": "Newest entry and first engine aimed at AWS Trainium, open-sourced by a YC startup three weeks into the build."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This is a topical cluster, not one event: eight items since Oct 31 that share only the phrase \"inference engine\". They split into hosting economics, vendor runtimes from Nvidia and Google, independent engines for niche stacks, and one arXiv hardware paper.",
+  "tldr": "This is a topical cluster, not one event: nine items since Oct 31 that share only the phrase \"inference engine\". Before the latest post it covered hosting economics, vendor runtimes from Nvidia and Google, solo engines for niche stacks, an arXiv hardware paper, and YC startup meshapplied's Goethe for a single Linux box.",
   "stale": false,
-  "whats_new": "Goethe, a Show HN posted Nov 16 by YC-backed meshapplied, pitches software that turns a Linux machine into your own inference engine; the post makes the \"own your inference\" case but cites no benchmarks.",
-  "why_it_matters": "The serving layer is fragmenting by hardware target (DGX Spark, XLA, Vulkan on Windows, low-cost GPUs, a single Linux box) while the hosting-profitability question stays open.",
-  "take_for_builders": "Treat every speed claim in this cluster as unverified until you run it on your own model and hardware; settle the self-host question with your own utilization numbers before adopting Goethe or any other new engine.",
+  "whats_new": "RunAnywhere (YC W26) open-sourced TrnRT on Nov 17, an LLM inference engine for AWS Trainium that the team says serves GLM 5.3 Flash in FP8 after three weeks of work.",
+  "why_it_matters": "The serving layer keeps fragmenting by hardware target (DGX Spark, XLA, Vulkan on Windows, low-cost GPUs, a Linux box, now Trainium), so engine choice is increasingly a hardware decision rather than a model one.",
+  "take_for_builders": "Treat every engine here as unbenchmarked until you run it on your own model and hardware; if Trainium pricing tempts you, test TrnRT against your current GPU serving path before moving traffic.",
   "beats": [
    {
     "kicker": "ECONOMICS",
@@ -177,20 +193,22 @@
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "YC startup meshapplied launches Goethe to run inference on your own Linux machine",
-    "summary": "The first venture-backed entry in the cluster, framed as owning your inference rather than renting it.",
+    "headline": "Two YC startups open-source engines: Goethe for a Linux box, TrnRT for AWS Trainium",
+    "summary": "Venture-backed entries arrive a day apart, one pitching self-owned inference, the other a non-Nvidia cloud accelerator.",
     "sids": [
-     "8ac6ca4d7f430268"
+     "8ac6ca4d7f430268",
+     "b955388224554f43"
     ]
    }
   ],
   "open_questions": [
+   "Which models beyond GLM 5.3 Flash does TrnRT serve, and how does its throughput compare with AWS's own Neuron serving stack?",
    "Does any independent benchmark confirm Kindi's \"fastest on low-cost GPUs\" claim?",
    "Which models and GPUs does Goethe support, and how does its throughput compare with vLLM or llama.cpp on the same box?",
    "Which model formats and hardware does Google's XLA Serving Engine support at launch?",
    "Does Nvidia's Flare run on hardware other than DGX Spark?",
    "At what utilization does hosting an open-source inference engine break even against a managed API?"
   ],
-  "generated_at": "2026-11-17T00:12:21Z"
+  "generated_at": "2026-11-18T00:13:28Z"
  }
 }

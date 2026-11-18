@@ -1,0 +1,106 @@
+{
+ "slug": "aws-trainium",
+ "label": "AWS Trainium",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-11-09T11:00:00+00:00",
+ "last_updated": "2026-11-17T16:01:04+00:00",
+ "generated_at": "2026-11-18T00:14:17.482304+00:00",
+ "sources": [
+  "aws_ml_blog",
+  "hackernews_ai",
+  "infoq_ai_ml"
+ ],
+ "days": [
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "AWS Launches TorchNeuron to Run PyTorch Models on AWS Trainium without Modifications",
+     "url": "https://www.infoq.com/news/2026/11/aws-torchneuron-trainium-pytorch/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "At the recent PyTorch Conference North America 2026, Amazon introduced TorchNeuron, a native PyTorch backend that enables developers to run existing PyTorch code on AWS Trainium AI chips with virtually no code modific...",
+     "sid": "9c0e227c170b2b6c",
+     "published": "2026-11-09T11:00:00+00:00",
+     "editor_note": "Opens the thread: AWS's framework-level answer to Trainium's PyTorch porting cost."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "items": [
+    {
+     "title": "Deploy frontier AI models on AWS Trainium with SGLang-Neuron",
+     "url": "https://aws.amazon.com/blogs/machine-learning/deploy-frontier-ai-models-on-aws-trainium-with-sglang-neuron",
+     "source": "aws_ml_blog",
+     "type": "news",
+     "summary_1line": "SGLang-Neuron is now publicly available through an AWS Deep Learning Container. With SGLang-Neuron, you can serve models and generate reinforcement learning rollouts with SGLang on AWS Trainium using the same SGLang i...",
+     "sid": "87d176270cb26539",
+     "published": "2026-11-12T22:03:34+00:00",
+     "editor_note": "Adds production serving and RL rollouts through SGLang, packaged as an AWS container."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-17",
+   "items": [
+    {
+     "title": "Show HN: TrnRT – An open-source LLM inference engine for AWS Trainium",
+     "url": "https://github.com/RunanywhereAI/trnrt",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Hi HN, Sanchit here from RunAnywhere (YC W26). We just open-sourced TrnRT: Trainium RunTime, our inference engine for AWS Trainium. We started 3 weeks back, and currently we’re able to serve and run GLM 5.3 flash (FP8...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "b955388224554f43",
+     "published": "2026-11-17T16:01:04+00:00",
+     "editor_note": "First third-party open-source engine, a sign that interest is spreading beyond AWS's own tooling."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a run of related software releases, not one event: AWS is filling the gaps in the Trainium software stack. TorchNeuron came first, a native PyTorch backend unveiled at PyTorch Conference that runs existing PyTorch code on Trainium with little or no change. SGLang-Neuron followed and brought the SGLang serving interface to the chip.",
+  "stale": false,
+  "whats_new": "RunAnywhere (YC W26) open-sourced TrnRT, a Trainium inference engine it built in three weeks that already serves GLM 5.3 Flash in FP8. It is the first non-AWS serving stack in this thread.",
+  "why_it_matters": "Trainium's main barrier has been the Neuron-specific porting work. Native PyTorch and SGLang support lower that cost, so Trainium becomes a realistic second inference and RL-rollout target next to GPUs.",
+  "take_for_builders": "If you run SGLang or PyTorch on GPUs, benchmark one model on Trainium through the SGLang-Neuron container before you commit to porting it. Keep GPUs as the fallback until you have per-token cost and latency numbers.",
+  "beats": [
+   {
+    "kicker": "FRAMEWORK",
+    "tone": "launch",
+    "headline": "TorchNeuron: unmodified PyTorch code runs on Trainium",
+    "summary": "AWS's claim is that a native backend removes most of the model porting work.",
+    "sids": [
+     "9c0e227c170b2b6c"
+    ]
+   },
+   {
+    "kicker": "SERVING",
+    "tone": "rising",
+    "headline": "SGLang-Neuron ships as an AWS Deep Learning Container",
+    "summary": "It handles serving and RL rollout generation through the standard SGLang interface.",
+    "sids": [
+     "87d176270cb26539"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "A startup open-sources TrnRT, its own Trainium inference engine",
+    "summary": "It is early, three weeks of work, but it shows builders outside AWS targeting the chip.",
+    "sids": [
+     "b955388224554f43"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does TorchNeuron cover torch.compile and custom kernels, or only eager-mode ops?",
+   "How do SGLang-Neuron throughput and cost per token on Trainium compare with the same model on H100-class GPUs?",
+   "Will independent benchmarks back TrnRT's GLM 5.3 Flash FP8 serving, and which other models will it add?",
+   "Will vLLM or other mainstream serving stacks get first-class Trainium support?"
+  ],
+  "generated_at": "2026-11-18T00:13:28Z"
+ }
+}

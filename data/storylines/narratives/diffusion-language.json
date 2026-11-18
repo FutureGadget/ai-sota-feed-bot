@@ -1,163 +1,87 @@
 {
   "slug": "diffusion-language",
-  "generated_at": "2026-11-17T00:12:23Z",
-  "covers_last_updated": "2026-11-15T23:55:50+00:00",
+  "generated_at": "2026-11-18T00:13:29Z",
+  "covers_last_updated": "2026-11-17T06:53:51+00:00",
   "covers_member_sids": [
-    "ed7966c78dc36a0b",
-    "edcf9763d6b958dc",
-    "1423e77dae0d2a75",
     "a8a5f23cd8e10643",
-    "581b8a72b6b37583",
     "01d6db945cd3f0c2",
     "473a95cd7c540d1a",
-    "57b08f9866a26766",
     "219537f3fa2b3690",
-    "884381d0dd03d261",
-    "0491c6de7a511fb5",
-    "2fb1a0f31494270f",
-    "5fbc35eb022e4033",
-    "b1fe6c30c1c550df",
     "a4e942d0f147f07c",
-    "0aacbce5f85ac122",
-    "d9424aebc884a5c5",
     "ca0cd6bcfdb70098",
-    "256bf90ce51f6665",
     "d7a4f91e59e352a3",
     "e267de687efb45c3",
-    "679b2c4e802619e6",
-    "018074f62583197d",
-    "018ac20c79d4eeba"
+    "018ac20c79d4eeba",
+    "15de4f547fb7e7f3",
+    "60d6d445e0dacc9d"
   ],
-  "tldr": "This is a loose cluster of arXiv papers on cheaper LLM inference, not one event. It opened in late October with diffusion-LM decoding and MoE pruning work, and by Nov 8-12 had block-diffusion drafters inside speculative decoding and diffusion LMs learning when to remask their own output.",
-  "whats_new": "Callo (Nov 13) runs speculative decoding on invalidated KV cache so agent requests whose context was edited can start decoding before re-prefill finishes under prefill-decode disaggregation.",
-  "why_it_matters": "The diffusion-LM work is still paper-stage, but the speculative-decoding side is reaching serving systems: drafters verified by the target, and now speculation over stale KV to hide re-prefill latency in agent sessions.",
+  "tldr": "This is a loose cluster of inference-efficiency work, not one event; reclustering dropped most of the earlier diffusion-LM papers. It opened Oct 30 with pruning, MoE quantization and prompt compression, and by Nov 8-12 added block-diffusion drafters and overlapping block denoising.",
+  "whats_new": "Microsoft Research's TokenEconomizer (Nov 17) has AI coding agents learn from past runs to spend fewer tokens, a day after Nemotron 3.5 Bolt E4B, a 4GB open small model tuned for fast conversational agents.",
+  "why_it_matters": "The efficiency work is moving from model internals (pruning, MoE quantization, diffusion decoding) to the agent layer, where token spend per task and small on-device models set the bill.",
   "beats": [
     {
-      "kicker": "SPEED",
-      "tone": "rising",
-      "headline": "Metacognitive decoding and Measured Coupling aim to cut dLLM decoding cost",
+      "kicker": "COMPRESSION",
+      "tone": "launch",
+      "headline": "Pruning, MoE quantization and input compression shrink inference cost",
+      "summary": "Four papers cut cost on the model or input side: extreme-sparsity pruning, Matryoshka MoE with mixed precision, RL-trained prompt compression, and VLM image cropping.",
       "sids": [
-        "edcf9763d6b958dc",
-        "0491c6de7a511fb5"
-      ]
-    },
-    {
-      "kicker": "LIMITS",
-      "tone": "neutral",
-      "headline": "Length extrapolation and multimodal hallucination expose weak spots",
-      "sids": [
-        "581b8a72b6b37583",
-        "57b08f9866a26766"
-      ]
-    },
-    {
-      "kicker": "EXACTNESS",
-      "tone": "rising",
-      "headline": "SpecCTMC makes parallel sampling exact",
-      "sids": [
-        "2fb1a0f31494270f"
-      ]
-    },
-    {
-      "kicker": "ADJACENT",
-      "tone": "neutral",
-      "headline": "Non-diffusion-LM efficiency work shares the thread: pruning, MoE serving, compression and agent overhead",
-      "summary": "These papers share the efficient-inference theme, not the diffusion-LM method; one is an image-diffusion membership-inference paper matched on the word alone.",
-      "sids": [
-        "ed7966c78dc36a0b",
-        "1423e77dae0d2a75",
         "a8a5f23cd8e10643",
         "01d6db945cd3f0c2",
         "473a95cd7c540d1a",
-        "219537f3fa2b3690",
-        "d7a4f91e59e352a3",
-        "e267de687efb45c3"
+        "d7a4f91e59e352a3"
       ]
     },
     {
-      "kicker": "SPECULATION",
+      "kicker": "DIFFUSION DECODING",
       "tone": "rising",
-      "headline": "Speculative decoding papers chase longer accepted drafts",
-      "summary": "Two papers a few days apart, D-REAL and REAL Loss, both train the drafter on acceptance length instead of token-level loss.",
-      "sids": [
-        "884381d0dd03d261",
-        "b1fe6c30c1c550df",
-        "d9424aebc884a5c5",
-        "256bf90ce51f6665"
-      ]
-    },
-    {
-      "kicker": "THE TURN",
-      "tone": "turn",
-      "headline": "Block-diffusion drafters enter speculative decoding",
-      "summary": "D3Tree and DForkTree treat a block-diffusion model as the drafter and work on the draft tree the target verifies.",
+      "headline": "Block-diffusion work targets draft-tree verification and block-boundary latency",
+      "summary": "The two remaining diffusion-LM papers: D3Tree prunes block-diffusion draft trees for speculative decoding, and overlapping block denoising cuts latency in block diffusion LMs.",
       "sids": [
         "a4e942d0f147f07c",
-        "0aacbce5f85ac122"
-      ]
-    },
-    {
-      "kicker": "BLOCK DIFFUSION",
-      "tone": "rising",
-      "headline": "Block diffusion LMs get their own inference optimizations: DUET sparsity and overlapping block denoising",
-      "sids": [
-        "5fbc35eb022e4033",
         "ca0cd6bcfdb70098"
       ]
     },
     {
-      "kicker": "SELF-CORRECTION",
+      "kicker": "AGENT OVERHEAD",
       "tone": "rising",
-      "headline": "Diffusion LMs learn when to remask and regenerate their own output",
-      "summary": "The Nov 12 paper uses hidden states, not token confidence, to decide when and what to revise; its diagnosis is run on Sudoku.",
+      "headline": "Agent papers attack prompt-carried skill memory and wasted delegation",
+      "summary": "MDSKILL distills skill memory into weights instead of prompts; a deep-research paper argues delegation only pays off when allocation and execution are coordinated.",
       "sids": [
-        "679b2c4e802619e6"
+        "219537f3fa2b3690",
+        "e267de687efb45c3"
       ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Speculation moves into serving: Callo drafts over invalidated KV for agent sessions",
-      "summary": "Callo and a Baseten post on the inference efficiency frontier are serving-side additions, not diffusion-LM papers.",
+      "headline": "Efficiency reaches vendors and agent products: Baseten, Nemotron Bolt, TokenEconomizer",
+      "summary": "The latest items are a serving-vendor post, a small open model for agents, and a lab blog on coding-agent token spend, not arXiv method papers.",
       "sids": [
-        "018074f62583197d",
-        "018ac20c79d4eeba"
+        "018ac20c79d4eeba",
+        "15de4f547fb7e7f3",
+        "60d6d445e0dacc9d"
       ]
     }
   ],
   "open_questions": [
-    "Do the metacognitive-decoding, Measured Coupling and SpecCTMC speedups hold on independent benchmarks at equal output quality?",
-    "Does learned remasking improve accuracy on natural-language or code tasks beyond the Sudoku diagnosis, and at what extra decoding cost?",
-    "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?",
+    "How much does TokenEconomizer cut tokens per resolved coding task, and on which agent harness and benchmark?",
+    "Does Nemotron 3.5 Bolt E4B hold tool-calling accuracy at 4GB against Gemma-4-E4B-it, the model it was post-trained from?",
     "Does a block-diffusion drafter with a pruned draft tree beat existing drafters on end-to-end throughput under concurrent serving load?",
-    "How often does Callo's speculation over invalidated KV get rejected after heavy context edits, and does it still beat waiting for re-prefill then?",
-    "Do D-REAL and REAL Loss report comparable acceptance-length gains on the same drafter and target pairs?"
+    "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?",
+    "Do the pruning and MoE quantization gains hold on agentic and long-context tasks, not only perplexity and short benchmarks?"
   ],
-  "take_for_builders": "Do not plan serving capacity around diffusion LLMs yet. If agent sessions edit context often, measure how much decode time your stack loses to re-prefill on cache misses before evaluating approaches like Callo.",
+  "take_for_builders": "Log tokens per completed agent task before adopting any of these methods, so TokenEconomizer-style savings or a small-model swap can be measured against your own baseline; do not plan capacity around diffusion LLMs yet.",
   "day_captions": {
-    "ed7966c78dc36a0b": "Adjacent: co-designs pruning and scheduling for MoE inference on memory-constrained edge servers, where moving expert weights dominates.",
-    "edcf9763d6b958dc": "Extends the efficiency push to agents by adapting compute spent and text generated per interaction.",
-    "1423e77dae0d2a75": "Adjacent, image side: a membership inference method for testing whether an image was in a diffusion model's training set.",
-    "a8a5f23cd8e10643": "Adjacent: gradual pruning with sparse adaptation to hold LLM quality at extreme sparsity.",
-    "581b8a72b6b37583": "Training-free fix for repetition and quality loss when continuous diffusion LMs generate longer text.",
-    "01d6db945cd3f0c2": "Adjacent: nested MoE with dynamic mixed-precision quantization to shrink MoE inference cost.",
-    "473a95cd7c540d1a": "Adjacent: prompt compression trained with a hybrid of reinforcement and supervised learning.",
-    "57b08f9866a26766": "Targets hallucination in multimodal discrete diffusion LMs by ordering visual gain during mask prediction.",
-    "219537f3fa2b3690": "Adjacent: distills textual skill memory into a self-evolving agent instead of carrying it as prompts.",
-    "884381d0dd03d261": "Lets a speculative-decoding drafter reconsider its guesses in parallel to raise per-guess acceptance.",
-    "0491c6de7a511fb5": "Measured Coupling: picks which tokens are safe to commit together in parallel decoding instead of assuming mean-field independence.",
-    "2fb1a0f31494270f": "Speculative simulation that preserves the exact output distribution when sampling several tokens in parallel.",
-    "5fbc35eb022e4033": "DUET: sparsifies both attention over the growing prefix and processing of the current block in block diffusion LMs.",
-    "b1fe6c30c1c550df": "D-REAL: trains the drafter on acceptance length directly, with unbiased gradients, instead of token-level objectives.",
-    "a4e942d0f147f07c": "Learns to prune block-diffusion draft trees, since every tree node costs a verification row on the target.",
-    "0aacbce5f85ac122": "Builds fork-aware draft trees from a block-diffusion drafter, following DFlash and DDTree.",
-    "d9424aebc884a5c5": "Drafts at phrase level against a frozen target instead of in the target's own token vocabulary.",
-    "ca0cd6bcfdb70098": "Overlaps denoising blocks to make block diffusion LMs more efficient for latency-critical generation.",
-    "256bf90ce51f6665": "Second drafter loss within a week, after D-REAL, that optimizes expected acceptance length for speculative-decoding drafters.",
-    "d7a4f91e59e352a3": "Adjacent: model-agnostic image cropping and compression to cut vision-language inference cost.",
-    "e267de687efb45c3": "Adjacent: argues delegation in multi-agent deep research only pays off when task allocation and subtask execution are coordinated; not a diffusion-LM paper.",
-    "679b2c4e802619e6": "Adds self-correction to the dLLM line: a learned signal for when to remask and regenerate, after finding token confidence misses errors that hidden states expose.",
-    "018074f62583197d": "Brings speculative decoding into disaggregated serving: decode starts on invalidated KV while agent requests with edited context would otherwise wait for re-prefill.",
-    "018ac20c79d4eeba": "Adjacent, vendor side: a Baseten post on the efficiency frontier of LLM inference, surfaced via Hacker News; not a diffusion-LM item."
+    "a8a5f23cd8e10643": "Starting point: gradual pruning with sparse adaptation to hold LLM quality at extreme sparsity.",
+    "01d6db945cd3f0c2": "Adds MoE-specific compression: nested experts with dynamic mixed-precision quantization.",
+    "473a95cd7c540d1a": "Moves compression to the input: prompt compression trained with a hybrid of RL and supervised learning.",
+    "219537f3fa2b3690": "First agent-side item: distills textual skill memory into the model instead of carrying it as prompts.",
+    "a4e942d0f147f07c": "Diffusion meets speculative decoding: learns to prune block-diffusion draft trees, since every node costs a verification row on the target.",
+    "ca0cd6bcfdb70098": "Overlaps denoising blocks so block diffusion LMs stop paying latency at block boundaries.",
+    "d7a4f91e59e352a3": "Extends input reduction to vision-language models with model-agnostic cropping and compression.",
+    "e267de687efb45c3": "Argues multi-agent deep research wastes compute unless delegation and subtask execution are coordinated.",
+    "018ac20c79d4eeba": "Vendor view: a Baseten post on the efficiency frontier of LLM inference, surfaced via Hacker News.",
+    "15de4f547fb7e7f3": "A shipped artifact: an open 4GB small model post-trained from Gemma-4-E4B-it for fast conversational agents.",
+    "60d6d445e0dacc9d": "Newest: Microsoft Research has coding agents learn from experience to spend fewer tokens."
   }
 }

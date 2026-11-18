@@ -1,47 +1,91 @@
 {
   "slug": "multi-agent-systems",
-  "generated_at": "2026-10-01T05:10:00+00:00",
-  "covers_last_updated": "2026-09-30T14:09:57+00:00",
-  "covers_member_sids": ["9463df6fcb6ce102", "c9bd4843a93b6790", "9b401e98b8571b23"],
-  "tldr": "Three arXiv papers in two weeks treat multi-agent systems as a shared-state problem. MACE (Sep 18) stores collaboration traces in an adaptive memory graph; a Sep 29 paper ties task regions to agent responsibility, handoffs, and memory access.",
-  "whats_new": "A Sep 30 paper examines safety of latent communication, where agents exchange internal representations instead of text to cut token and latency cost.",
-  "why_it_matters": "Memory, handoffs, and inter-agent channels are where multi-agent systems break in production; these papers propose mechanisms, not production results.",
-  "status": {
-    "state": "Research · developing",
-    "tone": "rising",
-    "changed": "2026-09-30",
-    "detail": "Three papers, all single-paper claims with no independent replication yet."
-  },
+  "generated_at": "2026-11-18T00:13:29Z",
+  "covers_last_updated": "2026-11-17T11:00:00+00:00",
+  "covers_member_sids": [
+    "e13096c02b9a44d7",
+    "c2fbad095b72bbaa",
+    "a23623abdfcb0e52",
+    "bce25dc1c825a3e7",
+    "7e75b9009b3b0ccb",
+    "37a5207d8920956c",
+    "d48d8aea5d45b475",
+    "b3a45cba6445f63d",
+    "a34f1fafb710e628",
+    "ae75fdfb8dec6766",
+    "3debe09eabc6be1b",
+    "d761218419b3b591",
+    "3449739a151bbd6a"
+  ],
+  "tldr": "This is a loose research cluster, not one event: September papers framed multi-agent systems as a shared-state problem (memory graphs, handoffs, latent channels). Since Oct 28 the work has split into orchestration benchmarks, security and privacy controls, failure attribution, and memory cost.",
+  "whats_new": "The newest item, a Nov 17 InfoQ talk on how LinkedIn distilled a 7B ranking model to 400M parameters to meet P99 latency SLAs, is a serving-cost case study rather than a multi-agent result.",
+  "why_it_matters": "The open problems in multi-agent stacks have moved from how to coordinate to how to secure, debug, and pay for them: agent identity, data leakage, which agent caused a failure, and KV-cache memory per resident agent.",
   "beats": [
     {
-      "kicker": "MEMORY",
+      "kicker": "ORCHESTRATION",
       "tone": "launch",
-      "headline": "MACE reuses collaboration traces through adaptive memory graphs",
-      "summary": "Preserves each action's prerequisites so agents can reuse plan, verify, and repair procedures.",
-      "sids": ["9463df6fcb6ce102"]
+      "headline": "Papers attack fixed workflows: self-evolving orchestrators, information gaps, and a benchmark",
+      "summary": "MAS-Loop learns orchestration from repeated runs, a gap-locating method fixes communication graphs that hide evidence, and WorkflowArena benchmarks executable worker-spawning workflows.",
+      "sids": [
+        "c2fbad095b72bbaa",
+        "a23623abdfcb0e52",
+        "bce25dc1c825a3e7",
+        "b3a45cba6445f63d"
+      ]
     },
     {
-      "kicker": "STRUCTURE",
+      "kicker": "TRUST",
+      "tone": "turn",
+      "headline": "Security and privacy become the dominant thread, from NIST guidance to an open-source leak tester",
+      "summary": "Auditable belief updates, NIST identity tenets, private retrieval, secure aggregation against malicious agents, and AgentLeak all target what one agent can see, claim, or leak.",
+      "sids": [
+        "e13096c02b9a44d7",
+        "7e75b9009b3b0ccb",
+        "a34f1fafb710e628",
+        "3debe09eabc6be1b",
+        "d761218419b3b591"
+      ]
+    },
+    {
+      "kicker": "DEBUGGING",
       "tone": "rising",
-      "headline": "Topological coherence couples workflow, responsibility, and memory access",
-      "summary": "Task regions define tool scope; cross-region dependencies become handoffs.",
-      "sids": ["c9bd4843a93b6790"]
+      "headline": "CoLFA traces a failure to the decisive step and the responsible agent",
+      "sids": [
+        "ae75fdfb8dec6766"
+      ]
     },
     {
-      "kicker": "NOW",
+      "kicker": "COST",
       "tone": "now",
-      "headline": "Latent communication trades text overhead for a new safety surface",
-      "sids": ["9b401e98b8571b23"]
+      "headline": "Memory and serving cost: coordinated KV-cache quantization, agent-designed serving, LinkedIn's distillation",
+      "summary": "Only the KV-cache paper is multi-agent-specific; ServerBench and the LinkedIn talk are adjacent serving work the clustering pulled in.",
+      "sids": [
+        "37a5207d8920956c",
+        "d48d8aea5d45b475",
+        "3449739a151bbd6a"
+      ]
     }
   ],
   "open_questions": [
-    "Does any of these approaches ship in an open-source agent framework?",
-    "Do latent channels get an independent safety evaluation beyond the proposing paper?"
+    "Does any open-source agent framework adopt per-agent identity along the lines of NIST's design tenets?",
+    "Does AgentLeak gain users or published results against real frameworks beyond its Show HN launch?",
+    "Does WorkflowArena get adopted as a shared orchestration benchmark by other papers?",
+    "Does coordinated KV-cache quantization ship in a serving engine that hosts several agents per GPU?"
   ],
-  "take_for_builders": "Keep inter-agent messages as inspectable text in anything audited; treat latent communication as research until a safety evaluation replicates.",
+  "take_for_builders": "Give each agent its own identity and scoped credentials, and log which agent produced each step, so failures and leaks can be attributed; treat the orchestration and quantization papers as research until they are replicated.",
   "day_captions": {
-    "9463df6fcb6ce102": "Memory-graph approach to reusing multi-agent collaboration traces.",
-    "c9bd4843a93b6790": "Frames handoffs and memory access as properties of workflow structure.",
-    "9b401e98b8571b23": "Raises safety concerns for agents that communicate in representation space."
+    "e13096c02b9a44d7": "Proposes auditable belief updates as a safety layer between agents.",
+    "c2fbad095b72bbaa": "Argues orchestrators should learn across runs instead of designing a system once.",
+    "a23623abdfcb0e52": "Shows fixed communication graphs can hide evidence one agent retrieved from another.",
+    "bce25dc1c825a3e7": "Theory work on RL when only some agents are controllable; least practical item in the cluster.",
+    "7e75b9009b3b0ccb": "Only standards-body source: NIST design tenets for agent identity management.",
+    "37a5207d8920956c": "Benchmark for coding agents designing LLM serving systems; adjacent, not multi-agent.",
+    "d48d8aea5d45b475": "Names KV-cache memory of co-resident agents as a bottleneck and quantizes them jointly.",
+    "b3a45cba6445f63d": "Benchmark for harnesses that spawn worker agents to run executable workflows.",
+    "a34f1fafb710e628": "Adds private retrieval and private inference to the multi-agent security discussion.",
+    "ae75fdfb8dec6766": "Lightweight method for attributing a failure to the step and agent that caused it.",
+    "3debe09eabc6be1b": "First runnable tool in the thread: open-source privacy testing for multi-agent systems.",
+    "d761218419b3b591": "Defends aggregation of subtask answers against malicious agents.",
+    "3449739a151bbd6a": "Production case study on latency and distillation; tangential to multi-agent work."
   }
 }

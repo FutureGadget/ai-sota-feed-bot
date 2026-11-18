@@ -1,49 +1,64 @@
 {
-  "tldr": "By Oct 28, vLLM's CI had started tracking DGX Spark as a test target, with a fix to a stale NVFP4 decode test selector in v0.33.0rc1. NVIDIA's earlier RTX Spark launch, with up to 128GB of unified memory, set the hardware context.",
-  "whats_new": "On Nov 2, NVIDIA published a guide to boosting 124B MoE inference on a single DGX Spark, and a Flare inference engine for DGX Spark appeared.",
-  "why_it_matters": "Single-box, 128GB-class local inference is getting first-party tooling and upstream CI coverage, which makes on-prem MoE serving a more realistic option.",
+  "slug": "dgx-spark",
+  "generated_at": "2026-11-18T00:13:28+00:00",
+  "covers_last_updated": "2026-11-16T23:00:05+00:00",
+  "covers_member_sids": [
+    "754548d382a06747",
+    "7281347817fe3ba2",
+    "e6077e10f16ce2d8",
+    "b836eb939c37ffa5",
+    "9634b5e75ef12012"
+  ],
+  "tldr": "By Oct 28, vLLM's CI was testing DGX Spark, and NVIDIA was shipping the related RTX Spark laptops from six OEMs. On Nov 2, NVIDIA added Flare, a DGX Spark inference engine, and a guide to running a 124B MoE model on one box.",
+  "whats_new": "At SC26 on Nov 16, NVIDIA introduced the DGX Spark HPC Developer Kit, a four-node DGX Spark cluster aimed at researchers and developers.",
+  "why_it_matters": "DGX Spark is moving from a single desk box to a small multi-node target, so local serving work now covers both single-box MoE tuning and cross-node setups.",
   "status": {
-    "state": "Tooling maturing",
+    "state": "Expanding to clusters",
     "tone": "rising",
-    "changed": "2026-11-02",
-    "detail": "NVIDIA is publishing DGX Spark-specific inference tooling and tuning guidance."
+    "changed": "2026-11-16",
+    "detail": "NVIDIA keeps adding DGX Spark tooling and hardware configurations; no independent benchmarks are in the thread yet.",
+    "track": [
+      { "label": "CI coverage", "detail": "Oct 28", "tone": "launch", "weight": 25 },
+      { "label": "single-box tooling", "detail": "Nov 2", "tone": "rising", "weight": 40 },
+      { "label": "4-node kit", "detail": "Nov 16 → now", "tone": "now", "weight": 35 }
+    ]
+  },
+  "provenance": {
+    "9634b5e75ef12012": { "status_update": true }
   },
   "beats": [
     {
-      "kicker": "CI",
+      "kicker": "GROUNDWORK",
+      "tone": "launch",
+      "headline": "vLLM CI tests DGX Spark as RTX Spark laptops ship",
+      "summary": "Upstream serving tests and the sibling laptop line set the context.",
+      "sids": ["754548d382a06747", "7281347817fe3ba2"]
+    },
+    {
+      "kicker": "TOOLING",
       "tone": "rising",
-      "headline": "vLLM CI covers DGX Spark",
-      "summary": "v0.33.0rc1 fixes a stale NVFP4 decode test selector.",
-      "sids": [
-        "754548d382a06747"
-      ]
+      "headline": "Flare engine and a 124B MoE tuning guide for one DGX Spark",
+      "sids": ["e6077e10f16ce2d8", "b836eb939c37ffa5"]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "First-party inference engine and MoE tuning guide for DGX Spark",
-      "sids": [
-        "e6077e10f16ce2d8",
-        "b836eb939c37ffa5"
-      ]
+      "headline": "SC26: four-node DGX Spark HPC Developer Kit",
+      "sids": ["9634b5e75ef12012"]
     }
   ],
   "open_questions": [
     "Does Flare outperform vLLM on DGX Spark in published benchmarks?",
-    "Do NVIDIA's MoE tuning techniques land in upstream vLLM releases?"
+    "Do NVIDIA's MoE tuning techniques land in upstream vLLM releases?",
+    "What interconnect does the four-node kit use, and do Flare or vLLM support serving across its nodes?",
+    "What does the HPC Developer Kit cost, and when does it ship?"
   ],
-  "take_for_builders": "If you target DGX Spark, benchmark Flare and the NVIDIA MoE tuning steps against your current vLLM build before committing to a serving stack.",
+  "take_for_builders": "If you target DGX Spark, benchmark Flare against your pinned vLLM build on one box first; hold multi-node plans until the kit's interconnect and serving support are documented.",
   "day_captions": {
-    "754548d382a06747": "vLLM v0.33.0rc1 fixes a stale NVFP4 decode test selector in its DGX Spark CI.",
-    "e6077e10f16ce2d8": "A Flare inference engine for DGX Spark appears.",
-    "b836eb939c37ffa5": "NVIDIA's guide to optimizing 124B MoE inference on a single DGX Spark."
-  },
-  "slug": "dgx-spark",
-  "generated_at": "2026-11-04T06:00:00+00:00",
-  "covers_last_updated": "2026-11-02T04:13:18+00:00",
-  "covers_member_sids": [
-    "754548d382a06747",
-    "e6077e10f16ce2d8",
-    "b836eb939c37ffa5"
-  ]
+    "754548d382a06747": "Shows DGX Spark is a vLLM CI target: v0.33.0rc1 fixes a stale NVFP4 decode test selector.",
+    "7281347817fe3ba2": "Sibling context: RTX Spark laptops ship from ASUS, Dell, HP, Lenovo, Microsoft and MSI with agent tooling.",
+    "e6077e10f16ce2d8": "NVIDIA's own DGX Spark inference engine, Flare, appears on GitHub.",
+    "b836eb939c37ffa5": "First-party tuning recipe for serving a 124B MoE model on a single DGX Spark.",
+    "9634b5e75ef12012": "Moves the thread from one box to a four-node cluster kit announced at SC26."
+  }
 }

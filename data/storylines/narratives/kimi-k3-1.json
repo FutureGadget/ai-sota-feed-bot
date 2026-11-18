@@ -1,10 +1,8 @@
 {
   "slug": "kimi-k3-1",
-  "generated_at": "2026-11-17T00:12:28Z",
+  "generated_at": "2026-11-18T00:13:29Z",
   "covers_last_updated": "2026-11-16T10:49:18+00:00",
   "covers_member_sids": [
-    "fead0b546e2fd64e",
-    "8c88d0dda87d335e",
     "63bd8bef18003998",
     "c7d9ba0343c943d2",
     "f4a904d03d800a16",
@@ -21,82 +19,106 @@
     "215a2fdef8653151",
     "afb6a3de4e8f985d"
   ],
-  "tldr": "Moonshot launched Kimi K3.1 Pro on Oct 27 with a botched rollout that forced an apology and restored user quotas. It then published the full weights on Hugging Face in early November, and vLLM, Huawei Ascend and Moore Threads shipped day-zero support, followed by a Coder variant sized at 775 GB.",
+  "tldr": "Kimi K3.1 Pro reached third-party hosts NEAR AI Cloud and ZenMux in late October. Moonshot then published the full weights on Hugging Face on Nov 2, and vLLM, Huawei Ascend and Moore Threads shipped day-zero support, followed by a 775 GB Coder variant.",
   "whats_new": "Wccftech reports on Nov 16 that Alibaba's new Qwen4-Max does not overtake Kimi K3.1 Pro, despite matching its parameter count at a lower price, so K3.1 Pro stays the open-weight reference point.",
-  "why_it_matters": "Kimi K3.1 Pro is a 2.8T-parameter open-weight model with day-zero vLLM support and hosted endpoints on NEAR AI Cloud, ZenMux and Verda, so teams can run it in-house or via third parties instead of depending on Moonshot's own quota-limited service.",
+  "why_it_matters": "Kimi K3.1 Pro is a 2.8T-parameter open-weight model with day-zero vLLM support and hosted endpoints on NEAR AI Cloud, ZenMux and Verda, so teams can self-host it or pick among third-party hosts instead of depending on Moonshot's own service.",
   "status": {
     "state": "Open weights · ecosystem adopting",
     "tone": "rising",
     "changed": "2026-11-02",
     "detail": "Weights are public under a commercial licence with conditions; serving, hardware and fine-tuning support has followed, and the newest item is a rival-model comparison, not new Moonshot news.",
     "track": [
-      { "label": "Hosted launch", "detail": "Oct 27–Nov 1", "tone": "alert", "weight": 25 },
-      { "label": "Open weights + ecosystem", "detail": "Nov 2 → now", "tone": "now", "weight": 75 }
+      {
+        "label": "Hosted only",
+        "detail": "Oct 28–Nov 1",
+        "tone": "launch",
+        "weight": 20
+      },
+      {
+        "label": "Open weights + ecosystem",
+        "detail": "Nov 2 → now",
+        "tone": "now",
+        "weight": 80
+      }
     ]
   },
   "provenance": {
-    "f4a904d03d800a16": { "status_update": true }
+    "f4a904d03d800a16": {
+      "status_update": true
+    }
   },
   "beats": [
     {
-      "kicker": "LAUNCH · FRICTION",
-      "tone": "alert",
-      "headline": "Kimi K3.1 Pro launches, then Moonshot apologises and restores user quotas",
-      "summary": "SCMP reports the launch was botched badly enough that Moonshot restored quotas the same day; the item does not detail the failure.",
-      "sids": ["fead0b546e2fd64e", "8c88d0dda87d335e"]
-    },
-    {
       "kicker": "THIRD-PARTY HOSTING",
-      "tone": "rising",
+      "tone": "launch",
       "headline": "NEAR AI Cloud and ZenMux add Kimi K3.1 Pro endpoints",
       "summary": "ZenMux pitches it for long-context workflows.",
-      "sids": ["63bd8bef18003998", "c7d9ba0343c943d2"]
+      "sids": [
+        "63bd8bef18003998",
+        "c7d9ba0343c943d2"
+      ]
     },
     {
       "kicker": "THE TURN",
       "tone": "turn",
       "headline": "Full weights land on Hugging Face, free for commercial use with conditions",
       "summary": "Reports put the model at 2.8T parameters and the checkpoint at 1.56 TB; the HF card lists it as image-text-to-text.",
-      "sids": ["f4a904d03d800a16", "ff6c35403ec66552", "8c57ba0858b1c3ee", "c451c70cd81a6dbe", "4715dd7a49e69939"]
+      "sids": [
+        "f4a904d03d800a16",
+        "ff6c35403ec66552",
+        "8c57ba0858b1c3ee",
+        "c451c70cd81a6dbe",
+        "4715dd7a49e69939"
+      ]
     },
     {
       "kicker": "SERVING STACK",
       "tone": "rising",
       "headline": "vLLM, Verda, Huawei Ascend and Moore Threads ship day-zero support",
       "summary": "vLLM's post details sparse attention on a KDA hybrid, a packed FP8/NVFP4 KV cache, token-sharded prefill and decode context parallelism.",
-      "sids": ["3399044813cf568b", "1e628f9865c69d93", "b380a66ae3304ffc", "4ae0b622afc8b642"]
+      "sids": [
+        "3399044813cf568b",
+        "1e628f9865c69d93",
+        "b380a66ae3304ffc",
+        "4ae0b622afc8b642"
+      ]
     },
     {
       "kicker": "TRAINING",
       "tone": "rising",
       "headline": "Kimi K3.1 becomes a target for RL and LoRA fine-tuning recipes",
       "summary": "vLLM covers bit-exact async RL for Kimi K3.1; Huawei runs LoRA fine-tuning on a 128-card Atlas 950 SuperPoD.",
-      "sids": ["e572010b9c959715", "975749c9dd84b6cc"]
+      "sids": [
+        "e572010b9c959715",
+        "975749c9dd84b6cc"
+      ]
     },
     {
       "kicker": "VARIANT",
       "tone": "rising",
       "headline": "Kimi K3.1 Pro Coder arrives at 775 GB, built to fit one GPU",
-      "sids": ["215a2fdef8653151"]
+      "sids": [
+        "215a2fdef8653151"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
       "headline": "Qwen4-Max fails to overtake Kimi K3.1 Pro despite a lower price",
       "summary": "Wccftech frames K3.1 Pro as the bar Alibaba's same-size MoE missed; the item gives no benchmark numbers.",
-      "sids": ["afb6a3de4e8f985d"]
+      "sids": [
+        "afb6a3de4e8f985d"
+      ]
     }
   ],
   "open_questions": [
-    "What caused the Oct 27 launch failure, and has Moonshot's hosted API had quota or capacity problems since?",
     "What are the conditions on commercial use in the Kimi K3.1 Pro licence?",
     "Which single GPU does the 775 GB Coder variant target, and at what quantization?",
-    "Do independent coding and agent benchmarks confirm K3.1 Pro ahead of Qwen4-Max?"
+    "Do independent coding and agent benchmarks confirm K3.1 Pro ahead of Qwen4-Max?",
+    "Does Moonshot ship a smaller K3.1 checkpoint that fits commodity serving hardware?"
   ],
-  "take_for_builders": "Before routing production traffic to Kimi K3.1 Pro, read the licence's commercial conditions and pin a vLLM release with its day-zero support, and keep a second host as fallback given the botched launch.",
+  "take_for_builders": "Before routing production traffic to Kimi K3.1 Pro, read the licence's commercial conditions, pin a vLLM release with its day-zero support, and keep a second host as fallback.",
   "day_captions": {
-    "fead0b546e2fd64e": "First report of the upgraded Kimi model launch.",
-    "8c88d0dda87d335e": "Launch failure: Moonshot apologises and restores user quotas.",
     "63bd8bef18003998": "First third-party host: NEAR AI Cloud.",
     "c7d9ba0343c943d2": "ZenMux adds it as a long-context option.",
     "f4a904d03d800a16": "First-party weights drop on Hugging Face, the event that opened the model up.",

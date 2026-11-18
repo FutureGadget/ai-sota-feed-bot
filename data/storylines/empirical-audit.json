@@ -1,12 +1,12 @@
 {
  "slug": "empirical-audit",
  "label": "Empirical Audit",
- "item_count": 9,
- "day_count": 6,
+ "item_count": 11,
+ "day_count": 7,
  "source_count": 5,
  "first_seen": "2026-10-30T11:39:08+00:00",
- "last_updated": "2026-11-13T18:30:58+00:00",
- "generated_at": "2026-11-17T00:13:09.187086+00:00",
+ "last_updated": "2026-11-16T16:19:01+00:00",
+ "generated_at": "2026-11-18T00:14:17.482304+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cn_open_weight_reports",
@@ -39,6 +39,17 @@
      "sid": "fd81b2702033c7c6",
      "published": "2026-10-30T16:21:07+00:00",
      "editor_note": "Asks when test-time search really helps world-action models, focusing on candidate selection and simulator integrity."
+    },
+    {
+     "title": "Compression Technique Interactions in Small Language Models: A Factorial Ablation Study",
+     "url": "http://arxiv.org/abs/2611.00464v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Deploying small language models on resource-constrained hardware requires compression, yet practitioners lack systematic guidance on how quantization, pruning, and post-compression recovery interact when combined. We...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "b80471ec3bc792a2",
+     "published": "2026-10-30T23:36:03+00:00",
+     "editor_note": "Factorial ablation of how quantization, pruning and recovery interact when stacked on small language models."
     }
    ]
   },
@@ -135,30 +146,47 @@
      "url": "http://arxiv.org/abs/2611.18514v1",
      "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Mechanistic Interpretability (MI) has made significant progress in explaining the internal computations of Large Language Models (LLMs); however, these advances have yet to demonstrate comparable success in explaining...",
+     "summary_1line": "Mechanistic Interpretability (MI) has made significant progress in explaining the internal computations of Large Language Models (LLMs); however, these advances have yet to demonstrate comparable success in explaining the decision-making processes of LLM-based agents. This paper",
      "why_it_matters": "Matches feed focus: agentic.",
      "sid": "75db6f155d9769a5",
      "published": "2026-11-13T18:30:58+00:00",
      "editor_note": "Case study applying mechanistic interpretability to web agents hallucinating page elements."
     }
    ]
+  },
+  {
+   "date": "2026-11-16",
+   "items": [
+    {
+     "title": "TRIAGE-CPG: A Cross-Model Study of Budgeted Static Malware Triage with Large Language Models",
+     "url": "http://arxiv.org/abs/2611.21331v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "When triaging unknown binaries, security analysts must decide which samples to clear as benign, flag as malicious, or escalate for deeper analysis. Large Language Models (LLMs) could support these decisions by interpr...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "8f0034965a63d29c",
+     "published": "2026-11-16T16:19:01+00:00",
+     "editor_note": "Extends the audit pattern to security: compares LLMs on clear/flag/escalate decisions for unknown binaries under a budget."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "This is a research trend, not one developing event: nine unrelated arXiv papers from Oct 30 to Nov 13 that each re-test a technique already in use. It began with audits of test-time compute (early stopping for reasoning models, search for world-action models) and spread to preference alignment, token-spend metrics, KV-cache reuse and benchmark integrity.",
+  "tldr": "This is a research trend, not one developing event: eleven unrelated arXiv papers from Oct 30 to Nov 16 that each re-test a technique already in use. It began with audits of inference cost (early stopping, test-time search, small-model compression) and spread to alignment, token-spend metrics, KV-cache reuse, benchmark integrity and agent debugging.",
   "stale": false,
-  "whats_new": "On Nov 13 the audits reached agent debugging: one paper tests whether mechanistic interpretability can explain web agents hallucinating page elements, the same day another audits the safety side effects of persona-vector steering.",
-  "why_it_matters": "Each paper re-checks an assumption platform teams already ship on (early stopping, token budgets, cache reuse, steering vectors, benchmark scores), so the findings are inputs to existing eval and cost decisions, not new features.",
-  "take_for_builders": "Before tuning early stopping, token budgets, cross-version KV-cache reuse or steering vectors in production, read the matching audit and rerun its check on your own workload rather than trusting vendor defaults.",
+  "whats_new": "On Nov 16 the audits reached security: TRIAGE-CPG compares several LLMs on budgeted static malware triage, testing which models can clear, flag or escalate unknown binaries under a fixed analysis budget.",
+  "why_it_matters": "Each paper re-checks an assumption platform teams already ship on (early stopping, compression stacks, token budgets, cache reuse, steering vectors, benchmark scores, LLM triage), so the findings feed existing eval and cost decisions rather than adding features.",
+  "take_for_builders": "Before tuning early stopping, compression, token budgets, cross-version KV-cache reuse or steering vectors in production, read the matching audit and rerun its check on your own workload rather than trusting vendor defaults.",
   "beats": [
    {
     "kicker": "COMPUTE",
     "tone": "launch",
-    "headline": "Audits of test-time compute: early stopping and candidate search",
-    "summary": "Two papers ask whether extra inference spend buys reliability or just tokens.",
+    "headline": "Audits of inference cost: early stopping, test-time search and compression",
+    "summary": "Three papers ask whether cheaper or extra inference actually buys what it promises.",
     "sids": [
      "fdfc122cd97a630f",
-     "fd81b2702033c7c6"
+     "fd81b2702033c7c6",
+     "b80471ec3bc792a2"
     ]
    },
    {
@@ -190,21 +218,31 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
-    "headline": "Agent failures: where errors enter long trajectories, and whether interpretability can explain them",
+    "kicker": "AGENT FAILURES",
+    "tone": "rising",
+    "headline": "Where errors enter long agent trajectories, and whether interpretability can explain them",
     "sids": [
      "94045c979b35ebe7",
      "75db6f155d9769a5"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Cross-model audit of LLMs for budgeted malware triage",
+    "sids": [
+     "8f0034965a63d29c"
     ]
    }
   ],
   "open_questions": [
    "Do the early-stopping and test-time search audits publish thresholds a serving stack can adopt directly?",
+   "Does the compression ablation name a quantization-plus-pruning order that is safe to combine on small models?",
    "Does the DeepSeek-V4-Flash KV-cache result hold for other model families or larger weight updates?",
    "Does any provider or eval harness add checks for deliberate score throttling (sandbagging)?",
-   "Does the trajectory-centered error study release its traces or controls so other agent teams can reproduce it?"
+   "Does the trajectory-centered error study release its traces or controls so other agent teams can reproduce it?",
+   "Does TRIAGE-CPG release its benchmark so security teams can rerun the model comparison on their own samples?"
   ],
-  "generated_at": "2026-11-17T00:12:22Z"
+  "generated_at": "2026-11-18T00:13:28Z"
  }
 }
