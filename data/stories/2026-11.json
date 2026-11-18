@@ -19800,6 +19800,20 @@
   "url": "http://arxiv.org/abs/2611.05345v1",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "daf2b3e0d41882f4": {
+  "content_excerpt": "Cloudflare has become a neolab. We’re building our own frontier AI models for our customers and the open-source community. Both extraction models are hosted on Workers AI and full open weights are available on Hugging Face . We’re also excited to re-introduce ourselves as the Workers AI superintelligence team, the frontier AI research team behind Clef , Clairic, and lots more in the works. This team is working quickly to push the AI frontier and build useful models for Cloudflare’s customers and the open source community. Since announcing Clairic in preview, we have received a ton of use cases and helpful feedback on how customers wanted to use an extraction model. We heard about use cases ranging from extracting data from images like receipts to reading values from support tickets. We knew that we wanted extraction to be the clear focus for the model, so it had to excel at reading from unstructured data. We decided to go back to the drawing board with Clairic and redesigned our architecture, differentiating this new version of Clairic from our preview release. For ordinary text and number extraction fields, we now use parallel slot autoregressive generation instead of a single forward pass. Each field uses the tokens it has already written to choose its next token, then stops at its own end marker. All the fields advance together in the serving batch, still giving lightning-fast latency per request. This boosted our accuracy in extraction for both text and images, and the tr",
+  "first_seen": "2026-11-18T22:05:24.556650+00:00",
+  "id": "1ab3b2342637cba3",
+  "image_url": "https://blog.cloudflare.com/_emdash/api/media/file/01M7R8CJQT5KFR9NBMZB2FTDQ3.01M7R8CK3P86K910EXDKQFBE6N.png",
+  "published": "2026-11-18T22:00:00+00:00",
+  "sid": "daf2b3e0d41882f4",
+  "source": "cloudflare_blog",
+  "summary": "Add your teaser here. It should complement the headline, not repeat it. Teaser cannot be longer than 240 characters. The Blog Review Gem will suggest an excerpt. Clairic graduates from preview, while Clairic-flash joins the repertoire on Workers AI. We’re doing an open-weight release for both extraction models.",
+  "summary_1line": "Add your teaser here. It should complement the headline, not repeat it. Teaser cannot be longer than 240 characters. The Blog Review Gem will suggest an excerpt. Clairic graduates from preview, while Clairic-flash joi...",
+  "title": "An updated Clairic and Clairic-flash are now open-weight, from the new Workers AI Superintelligence team",
+  "type": "news",
+  "url": "https://blog.cloudflare.com/open-clairic"
+ },
  "db061f7ddeb2135d": {
   "first_seen": "2026-11-04T11:05:34.944705+00:00",
   "id": "d5f3a07b6e76f5a5",
@@ -21375,6 +21389,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.21456v1"
  },
+ "eef9b762f0728ea7": {
+  "content_excerpt": "149M on-device first tier for phone agents: pre-registered routing to frontier models (AndroidControl). Paper, model, per-step outputs, registration log. Paper: paper/main.pdf (preprint: doi:10.5281/zenodo.23818333 ). Model: Milo Pointer on Hugging Face . All Claude API calls behind the AndroidControl results cost $86.75 in total (Batch prices), and each training run of the model takes about 6.4 hours on one NVIDIA T4 . A 149M-parameter local model answers the phone-agent steps it is confident about and hands the rest to a frontier model. On 1,000 held-out AndroidControl steps (offline, one step at a time, pre-registered): A further registered test on 650 steps from test episodes used in no earlier sample, with a learned hand-off rule frozen beforehand, found routing to Opus more accurate than Opus alone: 599 vs 581 (+2.8 points, 95% CI [+1.0, +4.5], p = 0.003) , with 73.7% of steps answered locally ( python bench/ac_confirm_score.py , needs numpy). Limits: offline single steps with a human-written step instruction; a comparable cascade lost on live AndroidWorld tasks; the small model alone is not better than Opus given the same examples; on a Pixel 6a CPU the model takes a median 3.4 s per step. Details in paper/main.pdf . Follow-up, goal only (registered 2026-10-30, after the paper): a 1.5B planner (Qwen2.5-1.5B, LoRA, trained on the dataset's human step instructions) writes the instruction for the same executor. On 1,804 in-domain steps: human instruction 90.2%, goal alone",
+  "first_seen": "2026-11-18T22:05:24.556650+00:00",
+  "id": "a6848a057de03a73",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-18T21:44:59+00:00",
+  "sid": "eef9b762f0728ea7",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: A 149M model handles 70% of phone-agent steps locally, Claude the rest",
+  "title": "Show HN: A 149M model handles 70% of phone-agent steps locally, Claude the rest",
+  "type": "news",
+  "url": "https://github.com/chayworks/milo-pointer",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "ef13b517c919ea76": {
   "content_excerpt": "Claude Docs is a doc editor that you, your teammates, and Claude all work in together. The interesting part is that a Claude session anywhere, from chat to Claude Code, can open the same doc and read, write, and comment in it live, right next to you. We released Docs on September 16, 2026. This post is about the service that runs underneath it. Three weeks before Claude Docs opened to the public, it was running as a proof of concept on a single node, used by a few thousand people inside Anthropic. We were racing toward an ambitious launch date, and our own estimate said we'd see millions of docs within the first few days. We launched on September 16. By September 22, people had created over 4.6 million docs. Across 2 billion requests we saw only 60 server errors, and we never had to roll back. The whole Docs service ran on about 50 memory-optimized pods. But honestly, this only worked because our frontier models have gotten much better recently (I used an internal research model roughly comparable to Claude Fable 5.2). In our experience, they can now stick with one goal through a run like this for weeks, which is what helped us hit launch scale in a tight timeline. A few thousand internal users on one machine told us nothing about whether the service would survive launch, and we obviously didn't have launch traffic to test with. We wanted real evidence to decide how fast we could roll out. So on September 4, about two weeks before launch, I had Claude drive a staging cluster ",
   "first_seen": "2026-11-18T03:08:59.408548+00:00",
@@ -22806,6 +22836,30 @@
   "type": "news",
   "url": "https://github.com/Nari-Ab/agent-roast",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "fd9bebbff7e69286": {
+  "also_covered": [
+   {
+    "source": "philschmid",
+    "title": "Gemini 4 Carbon, Hydrogen, Decisions API, self-hosted agent sandboxes and more",
+    "url": "https://www.philschmid.de/google-deepmind-roundup-nov-2026"
+   },
+   {
+    "source": "google_ai_blog",
+    "title": "Google Search gets a major upgrade with Gemini 4 Hydrogen",
+    "url": "https://blog.google/products-and-platforms/products/search/gemini-4-hydrogen-search-upgrade/"
+   }
+  ],
+  "content_excerpt": "Bringing frontier-level intelligence with fast end-to-end task completion across complex software engineering, knowledge work, and science workflows. Today, we’re introducing Gemini 4 Neon — bringing frontier-level intelligence with fast end-to-end task completion across complex software engineering, knowledge work, and science workflows. Neon ranks ahead of comparable models and #3 overall with a score of 61 on the Artificial Analysis Intelligence Index at its xhigh thinking level, landing just behind larger, slower models. On the Vals Index , Neon ranks #2 and lands on the Pareto frontier. Beyond just pushing on raw model capability, we’re continuing to make our models better to work with, Neon ranks #2 on steerability (adapting cleanly to mid-task user corrections) on the new Agent Arena Index . Neon also excels at multi-step instruction following and builds on our ongoing progress to curb fabrication, recording our lowest fabrication rate yet in internal Google Antigravity testing. The model is priced at $3 per million input tokens ($0.15 per million cached input tokens, a 95% discount) and $15 per million output tokens, with a 1 million-token context window. Gemini 4 Neon is rolling out today in the Gemini API in Google AI Studio , Gemini for business (via API and model dropdown), for paid Google AI Pro and Ultra subscribers in Google Antigravity , and for Pro and Ultra subscribers in the Gemini app . Enterprise work lives in spreadsheets, PDFs, charts, audio, and video.",
+  "first_seen": "2026-11-18T22:05:24.556650+00:00",
+  "id": "6904138f127d73bc",
+  "published": "2026-11-18T21:35:43+00:00",
+  "sid": "fd9bebbff7e69286",
+  "source": "google_deepmind_blog",
+  "summary_1line": "Introducing Gemini 4 Neon",
+  "title": "Introducing Gemini 4 Neon",
+  "type": "news",
+  "url": "https://deepmind.google/blog/introducing-gemini-4-neon"
  },
  "fde11ee66fd4594d": {
   "first_seen": "2026-11-04T09:05:15.061766+00:00",
