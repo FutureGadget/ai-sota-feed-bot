@@ -1,34 +1,35 @@
 {
  "date": "2026-11-18",
  "diagnostics": {
-  "admitted": 3,
-  "candidates": 588,
+  "admitted": 2,
+  "candidates": 613,
   "duplicate_url": 12,
-  "items": 61,
-  "keeps": 324,
-  "new": 3,
-  "off_topic": 51,
+  "items": 63,
+  "keeps": 334,
+  "new": 2,
+  "off_topic": 57,
   "prior_story": 42,
   "rejected_gate": {
-   "insufficient_evidence": 27,
-   "judge_drop": 26,
-   "off_topic": 51,
-   "score_low": 116
+   "insufficient_evidence": 28,
+   "judge_drop": 27,
+   "off_topic": 57,
+   "score_low": 122
   },
   "rejected_quota": {
-   "role_quota": 189,
-   "source_quota": 24
+   "role_quota": 191,
+   "source_quota": 27
   },
-  "releases": 32,
-  "reviews": 139,
+  "releases": 33,
+  "reviews": 148,
   "role_counts": {
-   "first_party": 3
+   "first_party": 1,
+   "practitioner": 1
   },
   "run_candidates": 140,
-  "stale_story": 42,
-  "stories": 367,
-  "unjudged": 43,
-  "updated": 2,
+  "stale_story": 45,
+  "stories": 377,
+  "unjudged": 44,
+  "updated": 12,
   "written": true
  },
  "items": {
@@ -657,7 +658,7 @@
     "release_lane": 0.07
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T15:05:59.528591+00:00",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -667,7 +668,7 @@
    "rank_at_first_seen": 58,
    "release_tier": null,
    "score_at_first_seen": 1.2924,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "practitioner_analysis",
    "source": "vllm_blog",
    "source_count": 1,
@@ -857,7 +858,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T02:08:58.288901+00:00",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.602,
@@ -1108,7 +1109,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T02:08:58.288901+00:00",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.578,
@@ -1116,7 +1117,7 @@
    "rank_at_first_seen": 33,
    "release_tier": null,
    "score_at_first_seen": 1.1001,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -1157,7 +1158,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T02:08:58.288901+00:00",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.555,
@@ -1165,7 +1166,7 @@
    "rank_at_first_seen": 31,
    "release_tier": null,
    "score_at_first_seen": 1.1523,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -1234,6 +1235,55 @@
    "v2_slot": "community_signal",
    "why_it_matters": "Matches feed focus: agent."
   },
+  "story|title:how aumovio centralized ai access with databricks unity gateway": {
+   "admission_rank": 63,
+   "admitted_at": "2026-11-18T16:07:30.328718+00:00",
+   "also_covered": [],
+   "content_excerpt": "by Louis Rottmeier , Maximilian Fest , Michael Boesl , Michael Weber , Martin Gindler and Kelly Albano As AI adoption grew, AUMOVIO teams developed different ways to access large language models. Today, Databricks Unity Gateway provides a shared entry point for our AI workloads. This blog discusses how we brought these approaches together. Teams at AUMOVIO developed different ways to access LLMs, including provider integrations and gateways built for specific use cases. These approaches all addressed real needs, but as AI adoption grew, their variety added complexity to operations, cost attribution and consistent governance. Together, these approaches highlighted the value of a shared operating model for managing our AI workloads with a single AI gateway solution AUMOVIO's cross-functional AI taskforce brought together stakeholders from security, data protection, business areas and IT. The taskforce decided on one central AI Gateway as the shared route for LLM access and governance , establishing a common direction for model access across the company. From there, our job was to make the central path useful to teams and their applications. Building an AI gateway is straightforward, but operating one as an enterprise service is a permanent commitment: provider APIs change, dependencies need patching, security requirements evolve, and users need support. Once applications depend on it, a gateway needs a roadmap, an on-call rotation and a support process. Weighing that against buying yet another AI gateway, five arguments decided why Databricks Unity Gateway was the solution for us. 1. Databricks was already our data platform. 1ADP, the One AUMOVIO Data Platform, runs on Databricks. Putting model access next to our governed enterprise data meant no new vendor, no new network path to review and no isolated stack to operate. 2. Corporate identity integration. Databricks is integrated with our corporate Microsoft Entra ID tenant, and other AUMOVIO applications authenticate against that same tenant. An application presents its Entra ID token and gets access to Unity Gateway through token exchange, with no separate account, no API key to distribute and no bespoke integration. Onboarding a new AI-enabled application takes a permission grant, and access to every model ends automatically when the corporate identity does. 3. Governance and usage tracking. Model approvals, access policies, usage tracking and logging sit in one place instead of being reimplemented per ap",
+   "first_seen": "2026-11-18T16:07:30.328718+00:00",
+   "freshness_at_admission": 0.9611,
+   "id": "bb0e15263465c9b8",
+   "image_url": null,
+   "judge_category": "inference_serving",
+   "judge_category_confidence": 0.77,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-18T16:07:14.718470+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.65,
+   "judge_signals": {
+    "corporate_marketing": 0.49,
+    "keep": 0.65,
+    "platform_relevant": 0.97,
+    "release_lane": 0.04
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
+   "llm_category": "platform",
+   "matched_topics": [],
+   "prefilter_score": 1.938,
+   "published": "Wed, 18 Nov 2026 14:03:54 GMT",
+   "rank_at_first_seen": 63,
+   "release_tier": null,
+   "score_at_first_seen": 1.0417,
+   "seen_count": 1,
+   "slot": "cloud_platform_updates",
+   "source": "databricks_blog",
+   "source_count": 1,
+   "source_role": "first_party",
+   "source_tune": 0.011,
+   "story_cluster_id": "f9ddffc4ab1fc5db",
+   "story_key": "story|title:how aumovio centralized ai access with databricks unity gateway",
+   "summary_1line": "As AI adoption grew, AUMOVIO teams developed different ways to access large language...",
+   "time_decay_factor": 0.971,
+   "title": "How AUMOVIO centralized AI access with Databricks Unity Gateway",
+   "type": "news",
+   "url": "https://www.databricks.com/blog/how-aumovio-centralized-ai-access-databricks-unity-gateway",
+   "utility": 1.0417,
+   "utility_basis": "judge",
+   "v2_slot": "cloud_platform_updates",
+   "why_it_matters": ""
+  },
   "story|title:langsmith for coding agents now track spend by outcome": {
    "admission_rank": 61,
    "admitted_at": "2026-11-18T15:05:59.528591+00:00",
@@ -1257,7 +1307,7 @@
     "release_lane": 0.25
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T15:05:59.528591+00:00",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agent"
@@ -1267,7 +1317,7 @@
    "rank_at_first_seen": 61,
    "release_tier": null,
    "score_at_first_seen": 1.2161,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "practitioner_analysis",
    "source": "langchain_blog",
    "source_count": 1,
@@ -1753,7 +1803,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T14:07:17.646920+00:00",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agentic"
@@ -1763,7 +1813,7 @@
    "rank_at_first_seen": 52,
    "release_tier": null,
    "score_at_first_seen": 1.1471,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "practitioner_analysis",
    "source": "infoq_ai_ml",
    "source_count": 1,
@@ -1879,6 +1929,57 @@
    "utility": 1.4568,
    "utility_basis": "judge",
    "v2_slot": "community_signal",
+   "why_it_matters": "Matches feed focus: agent."
+  },
+  "story|title:quoting daniel stenberg": {
+   "admission_rank": 62,
+   "admitted_at": "2026-11-18T16:07:30.328718+00:00",
+   "also_covered": [],
+   "content_excerpt": "",
+   "first_seen": "2026-11-18T16:07:30.328718+00:00",
+   "freshness_at_admission": 0.9971,
+   "id": "7ac84a05222cad53",
+   "image_url": null,
+   "judge_category": "agent_engineering",
+   "judge_category_confidence": 0.84,
+   "judge_evidence_chars": 1386,
+   "judge_judged_at": "2026-11-18T16:07:14.717380+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.59,
+   "judge_signals": {
+    "corporate_marketing": 0.08,
+    "keep": 0.59,
+    "platform_relevant": 0.56,
+    "release_lane": 0.04
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
+   "llm_category": "platform",
+   "matched_topics": [
+    "agent"
+   ],
+   "prefilter_score": 1.998,
+   "published": "2026-11-18T15:58:27+00:00",
+   "rank_at_first_seen": 62,
+   "release_tier": null,
+   "score_at_first_seen": 1.0524,
+   "seen_count": 1,
+   "slot": "practitioner_analysis",
+   "source": "simon_willison",
+   "source_count": 1,
+   "source_role": "practitioner",
+   "source_tune": 0.138,
+   "story_cluster_id": "532e4e9eac341f25",
+   "story_key": "story|title:quoting daniel stenberg",
+   "summary_1line": "During the time these agents converted 185,000 lines of C code into 340,000 lines of Rust code (I counted), we merged over 300 commits in the actual curl project. We actually improved curl during these a little more t...",
+   "time_decay_factor": 0.998,
+   "title": "Quoting Daniel Stenberg",
+   "type": "news",
+   "url": "https://simonwillison.net/2026/Nov/18/daniel-stenberg/",
+   "utility": 1.0524,
+   "utility_basis": "judge",
+   "v2_slot": "practitioner_analysis",
    "why_it_matters": "Matches feed focus: agent."
   },
   "story|title:replicating and extending weight space programming frontier llms compile program": {
@@ -2100,7 +2201,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T10:08:19.840037+00:00",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
    "llm_category": "research",
    "matched_topics": [
     "agent",
@@ -2111,7 +2212,7 @@
    "rank_at_first_seen": 48,
    "release_tier": null,
    "score_at_first_seen": 1.4103,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "research_watch",
    "source": "arxiv_cs_cl",
    "source_count": 1,
@@ -2397,7 +2498,7 @@
     "release_lane": 0.13
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T15:05:59.528591+00:00",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.999,
@@ -2405,7 +2506,7 @@
    "rank_at_first_seen": 60,
    "release_tier": null,
    "score_at_first_seen": 1.3196,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "research_watch",
    "source": "huggingface_blog",
    "source_count": 1,
@@ -2495,7 +2596,7 @@
     "release_lane": 0.44
    },
    "judge_verdict": "review",
-   "last_seen": "2026-11-18T15:05:59.528591+00:00",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.989,
@@ -2503,7 +2604,7 @@
    "rank_at_first_seen": 51,
    "release_tier": "major",
    "score_at_first_seen": 1.8845,
-   "seen_count": 5,
+   "seen_count": 6,
    "slot": "practitioner_analysis",
    "source": "infoq_ai_ml",
    "source_count": 1,
@@ -2841,7 +2942,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T14:07:17.646920+00:00",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.756,
@@ -2849,7 +2950,7 @@
    "rank_at_first_seen": 7,
    "release_tier": null,
    "score_at_first_seen": 1.0983,
-   "seen_count": 7,
+   "seen_count": 8,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -2943,7 +3044,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T02:08:58.288901+00:00",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.661,
@@ -2951,7 +3052,7 @@
    "rank_at_first_seen": 29,
    "release_tier": null,
    "score_at_first_seen": 1.2238,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -2992,7 +3093,7 @@
     "release_lane": 0.15
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T15:05:59.528591+00:00",
+   "last_seen": "2026-11-18T16:07:30.328718+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.874,
@@ -3000,7 +3101,7 @@
    "rank_at_first_seen": 59,
    "release_tier": null,
    "score_at_first_seen": 1.4085,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "research_watch",
    "source": "huggingface_blog",
    "source_count": 1,
@@ -3070,5 +3171,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-18T15:05:59.528591+00:00"
+ "updated_at": "2026-11-18T16:07:30.328718+00:00"
 }
