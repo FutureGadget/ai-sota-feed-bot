@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T18:05:04.080084+00:00",
+  "generated_at": "2026-11-18T10:10:22.014861+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -66,11 +66,57 @@
         "context-compaction-safety",
         "cyber-eval-sandbox-escapes",
         "mcp-security-control-layers",
-        "multi-agent-coordination-failures"
+        "multi-agent-coordination-failures",
+        "prompt-injection-enforcement"
       ]
     }
   ],
   "recent_evidence": [
+    {
+      "concept": "prompt-injection-enforcement",
+      "concept_title": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
+      "id": "zhang-2026-task-tampering-ipi",
+      "title": "Beyond Instruction Override: Benchmarking Indirect Prompt Injection with Task-Tampering Attacks",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-18"
+    },
+    {
+      "concept": "prompt-injection-enforcement",
+      "concept_title": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
+      "id": "xu-2026-caplite-write-integrity",
+      "title": "CapLite: Prompt-Injection Defense for Small Language Model Agents without Model-Written Security Artifacts",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-18"
+    },
+    {
+      "concept": "prompt-injection-enforcement",
+      "concept_title": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
+      "id": "xiao-2026-text-similarity-guardrail-limits",
+      "title": "Safe Resemblance, Silent Propagation: Limits of Text-Similarity Guardrails for AI Agent Safety",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-18"
+    },
+    {
+      "concept": "prompt-injection-enforcement",
+      "concept_title": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
+      "id": "lim-2026-spillway-target-admission",
+      "title": "SPILLWAY: Separating Target Admission from Sanitization to Defend Tool-Using Agents against Prompt Injection",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-18"
+    },
+    {
+      "concept": "prompt-injection-enforcement",
+      "concept_title": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
+      "id": "aljumaily-2026-model-as-untrusted-component",
+      "title": "Treating the Model as an Untrusted Component: Deterministic Policy Enforcement, Human Approval and Taint Tracking Against Prompt Injection in Tool-Using Agents",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-18"
+    },
     {
       "concept": "multi-agent-coordination-failures",
       "concept_title": "Why do multi-agent systems fail in ways a single agent doesn't?",
@@ -97,51 +143,6 @@
       "tier": "benchmark/result-backed",
       "kind": "benchmark-result",
       "added": "2026-11-13"
-    },
-    {
-      "concept": "agent-error-history",
-      "concept_title": "Should you clean an agent's mistakes out of its history?",
-      "id": "trajectory-study-2026-where-errors-enter",
-      "title": "Dependable Long-Horizon LLM Agents: A Trajectory-Centered Empirical Study of Where Errors Enter and Which Controls Reach Them",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-13"
-    },
-    {
-      "concept": "agent-error-history",
-      "concept_title": "Should you clean an agent's mistakes out of its history?",
-      "id": "history-vs-world-2026-cleaning-hurts",
-      "title": "Cleaning an Agent's History Hurts When the World Still Holds the Error",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-13"
-    },
-    {
-      "concept": "agent-error-history",
-      "concept_title": "Should you clean an agent's mistakes out of its history?",
-      "id": "error-delivery-2026-same-error-different-recovery",
-      "title": "Same Error, Different Recovery: How Delivery Changes LLM Agent Behavior",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-13"
-    },
-    {
-      "concept": "context-compaction-safety",
-      "concept_title": "Does compacting an agent's context put its safety rules at risk?",
-      "id": "handoff-audit-2026-unsupported-policy",
-      "title": "When Do Summaries Become Instructions? Unsupported Policy in LLM Agents' Self-Written Handoff Summaries",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-11"
-    },
-    {
-      "concept": "agent-memory-evaluation",
-      "concept_title": "Does adding memory to an agent actually make it better?",
-      "id": "wikitrace-2026-evidence-linked-memory",
-      "title": "Don't Just Trust Your Memory: Evidence-Linked Memory Reduces Memory-Induced Degradation in LLM Agents",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-11"
     }
   ],
   "concepts": {
@@ -2448,6 +2449,129 @@
         {
           "slug": "agent-orchestration",
           "title": "Orchestration patterns: topologies, handoffs, and harnesses"
+        },
+        {
+          "slug": "agent-sandboxing",
+          "title": "Sandboxing, scoped credentials, and guardrails"
+        }
+      ],
+      "related_playbook_cards": [],
+      "related_storylines": []
+    },
+    "prompt-injection-enforcement": {
+      "slug": "prompt-injection-enforcement",
+      "title": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
+      "question": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
+      "summary": "Prompt injection is structural: the model reads attacker text through the same channel as the task. Defenses that ask a model to notice the attack fail under adaptive attackers; defenses that bind each write's target to the user's request, enforced in code, hold.",
+      "status": "active",
+      "cluster": "safety",
+      "cluster_label": "Safety and control",
+      "updated": "2026-11-18",
+      "latest_evidence_added": "2026-11-18",
+      "audience": "strong-software-engineer",
+      "math_depth": "intuition",
+      "sections": [
+        {
+          "heading": "Builder consequence",
+          "html": "<p>Stop treating prompt injection as a prompt-wording or classifier problem. Assume the model <strong>will</strong> propose the attacker&#x27;s tool call, then put a deterministic check between the proposal and execution: a write is allowed only when its target (recipient, account, path, URL) traces to the user&#x27;s request or a typed field from a trusted read. Budget separately for the attacks that check cannot see: manipulated values inside calls you expected.</p>"
+        },
+        {
+          "heading": "Short answer",
+          "html": "<p>The model reads the task and the attacker&#x27;s text through the same channel, so any defense that relies on the model noticing the attack fails once the attacker adapts. In one study, small models proposed the attacker&#x27;s call in <strong>64-84%</strong> of episodes; a task-bound monitor outside the model admitted <strong>1.3-7.7%</strong>. Target-binding defenses enforced in code (SPILLWAY, CapLite) reported near-zero redirections. They do not stop attacks that keep the expected tool and change a value: a tool-policy defense still allowed <strong>15.4%</strong> of those.</p>"
+        },
+        {
+          "heading": "Builder model",
+          "html": "<p>Sort every defense by <strong>who makes the allow decision</strong>:</p>\n<ul><li><strong>The model, steered by text:</strong> hardened system prompts, spotlighting, delimiter tricks. Attacker text competes directly with them.</li><li><strong>A second model:</strong> LLM or similarity detectors. They share the first model&#x27;s exposure, and similarity scores misfire on rewording and quotation.</li><li><strong>Code, using a policy the model wrote:</strong> CaMeL-style plans. Sound if the artifact is right; small models often write wrong or unrunnable ones.</li><li><strong>Code, using a policy from schemas and the user&#x27;s request:</strong> target binding. The attacker&#x27;s text never reaches the decision.</li></ul>\n<p>Only the last group survives an attacker who keeps trying.</p>"
+        },
+        {
+          "heading": "Mechanism",
+          "html": "<p><strong>Injection is an authority confusion, not a content problem.</strong> A web page or email is allowed to supply data, not to decide which account receives money. The model has no reliable channel to tell those roles apart, so the fix is to make the decision somewhere the attacker&#x27;s text cannot reach.</p>\n<p><strong>Target admission makes provenance checkable.</strong> SPILLWAY admits a target only if it appears in a typed field returned by a read-only tool or matches a fixed delegation rule. CapLite goes further: it fixes the set of write actions before reading any tool output and allows a write only when the user&#x27;s request names the arguments that determine its target. An injected instruction can still change the model&#x27;s plan, but it cannot add a write to an attacker-chosen destination.</p>\n<p><strong>Detection decays under adaptation; enforcement does not.</strong> A detector is a classifier with a threshold, and a persistent attacker searches for inputs below it. In simulation, adaptive attackers drove every guardrail stack to 100% success while the deterministic monitor held severe actions at 0%.</p>\n<p><strong>The open hole is value tampering.</strong> Task-tampering attacks keep the expected tool and recipient but change what the agent believes: a price, a state flag, a decision rule. Target binding does not inspect those values, which is why observation- and state-targeting attacks kept 9.5-12.1% success under detection and 15.4% under tool policy.</p>"
+        },
+        {
+          "heading": "Math intuition",
+          "html": "<p>Model an adaptive attacker as making <code>k</code> independent tries against a detector that misses each with probability <code>p</code>. The chance at least one gets through is <code>1 - (1 - p)^k</code>. With <code>p = 0.05</code> and <code>k = 50</code>, that is about <strong>92%</strong>. A detector&#x27;s per-try miss rate tells you little once retries are free.</p>\n<p>A target-binding check is different: for an action whose target is not derivable from trusted inputs, the pass probability is 0 regardless of <code>k</code>, because the check never reads the attacker&#x27;s text. Its residual risk lives in the actions it allows by construction, such as an expected call with a tampered value, so measure that class separately instead of averaging it into one attack-success number.</p>"
+        },
+        {
+          "heading": "How to apply",
+          "html": "<ul><li><strong>Classify every tool as read or write</strong>, and give each write a declared target argument.</li><li><strong>Bind write targets in code:</strong> allow only targets that appear in the user&#x27;s request, a fixed allowlist, or a typed field from a read-only tool. Reject targets that appear only in free text the model read.</li><li><strong>Commit the write plan before reading untrusted content</strong> where the workflow allows it.</li><li><strong>Don&#x27;t let a small model write its own security policy.</strong> Derive policy from tool schemas instead.</li><li><strong>Keep detectors as telemetry,</strong> not gates: log what they flag, never rely on them to block.</li><li><strong>Require human approval for irreversible writes</strong> whose values came from untrusted reads.</li><li><strong>Test value tampering explicitly:</strong> add eval cases where the attack keeps the right tool and target and changes a number, state, or rule.</li></ul>"
+        },
+        {
+          "heading": "Failure modes",
+          "html": "<ul><li>Shipping a hardened prompt plus detector and reporting attack success from static, non-adaptive attacks.</li><li>Gating multi-agent relays on text similarity, which misses reworded payloads and blocks legitimate quotes.</li><li>Trusting a model-generated plan or policy without checking that it runs and constrains targets.</li><li>Declaring the agent safe because redirection attacks fail, while tampered values flow through allowed calls.</li><li>Letting free-text tool output populate a write target &quot;just this once&quot; for convenience.</li></ul>"
+        },
+        {
+          "heading": "Related",
+          "html": "<p>See <a href=\"/topic/prompt-injection\">prompt injection</a> for the threat landscape, <a href=\"/foundations/agent-tool-exfiltration-channels\">why exfiltration channels survive fixes</a>, and <a href=\"/foundations/mcp-security-control-layers\">MCP security control layers</a>.</p>"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "aljumaily-2026-model-as-untrusted-component",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Treating the Model as an Untrusted Component: Deterministic Policy Enforcement, Human Approval and Taint Tracking Against Prompt Injection in Tool-Using Agents",
+          "note": "13 tasks, 12 tools, real runs on Qwen2.5-1.5B and 7B. The models proposed the attacker's tool call in 64% and 84% of attack episodes, but a task-bound monitor outside the model admitted only 1.3% and 7.7%. In simulation, persistent adaptive attackers drove every in-prompt guardrail stack to 100% success while the monitor held severe actions at 0.0%. Human-approval and taint results are simulation-only.",
+          "added": "2026-11-18",
+          "url": "http://arxiv.org/abs/2611.11571v1",
+          "sid": "54f1f65b7c731a1b"
+        },
+        {
+          "id": "lim-2026-spillway-target-admission",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "SPILLWAY: Separating Target Admission from Sanitization to Defend Tool-Using Agents against Prompt Injection",
+          "note": "Admits an action's target only if it came from a typed field of a read-only tool result or a fixed delegation rule; a deterministic sanitizer strips instruction-like spans and keeps them as evidence, and a local judge may restore a refused call but never one targeting removed text. Templated injections redirected no actions across three backbones; mean attack success under a released RL attacker was 0.007, with near-zero added model calls.",
+          "added": "2026-11-18",
+          "url": "http://arxiv.org/abs/2611.07222v1",
+          "sid": "ff6fd9e5c49f2a11"
+        },
+        {
+          "id": "xu-2026-caplite-write-integrity",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "CapLite: Prompt-Injection Defense for Small Language Model Agents without Model-Written Security Artifacts",
+          "note": "CaMeL, Progent, IPIGuard and DRIFT have the agent's own model write the policy that code enforces. Across 15 open-weight models (13 at 1.7B-12B), small models wrote exploitable artifacts and CaMeL programs failed to run in up to 68% of episodes. CapLite derives policy from tool schemas, commits writes before reading tool output, and allows a write only when the user's request states its target: zero successful attacks over 13,935 AgentDojo episodes, 29.0% utility under attack, about 18% of CaMeL's tokens.",
+          "added": "2026-11-18",
+          "url": "http://arxiv.org/abs/2611.17115v1",
+          "sid": "c6351186c83b6a2b"
+        },
+        {
+          "id": "zhang-2026-task-tampering-ipi",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Beyond Instruction Override: Benchmarking Indirect Prompt Injection with Task-Tampering Attacks",
+          "note": "Defines an attack by authority: content that influences a decision its source may not make. 90 cases in three environments tamper with decisions the benign task already requires. Detect-and-remove cuts objective attacks to 2.4% but leaves observation and state attacks at 9.5% and 12.1%; a tool-policy defense allows 15.4% versus 17.0% undefended, because the attack uses the expected tools with manipulated values.",
+          "added": "2026-11-18",
+          "url": "http://arxiv.org/abs/2611.07640v1",
+          "sid": "8cb3780368901295"
+        },
+        {
+          "id": "xiao-2026-text-similarity-guardrail-limits",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Safe Resemblance, Silent Propagation: Limits of Text-Similarity Guardrails for AI Agent Safety",
+          "note": "Tests DonkeyRail, a BLEU/ROUGE-L/METEOR guardrail, on a three-agent email relay. At its default threshold it misses outputs that carry out a reworded injected instruction and flags legitimate quotation and template reuse. A threshold recalibrated on one template set does not transfer to new templates.",
+          "added": "2026-11-18",
+          "url": "http://arxiv.org/abs/2611.21520v1",
+          "sid": "576e1bdcfd029627"
+        },
+        {
+          "id": "prompt-injection-enforcement-editorial-synthesis",
+          "kind": "editorial-inference",
+          "tier": "editorial inference",
+          "title": "LLM Digest synthesis",
+          "note": "Across these papers the dividing line is who decides whether an action is allowed. Defenses that ask a model (hardened prompt, detector, model-written policy) inherit the model's exposure to attacker text. Defenses that bind an action's target to the user's request or to typed, trusted fields, checked in code, do not, but they only cover write targets: value tampering inside an allowed call stays open.",
+          "added": "2026-11-18"
+        }
+      ],
+      "related_topics": [
+        {
+          "slug": "prompt-injection",
+          "title": "Untrusted input and tools can hijack an agent"
+        },
+        {
+          "slug": "tool-use",
+          "title": "Agents reach the outside world through fragile, ad-hoc integrations"
         },
         {
           "slug": "agent-sandboxing",
