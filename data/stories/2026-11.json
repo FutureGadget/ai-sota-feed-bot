@@ -1988,6 +1988,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.21486v1"
  },
+ "16e6cebb16c964fe": {
+  "first_seen": "2026-11-18T12:05:14.379466+00:00",
+  "id": "9446e0ef58cf14cf",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-17T16:56:46+00:00",
+  "sid": "16e6cebb16c964fe",
+  "source": "arxiv_cs_ai",
+  "summary": "Self-improving agents are typically optimized for the results they produce, with less attention to how they produce them. Their instructions give designers limited ways to shape how they work, especially when the task is open-ended. This paper studies whether a short value statement in an agent's persistent instruction file changes not only how well the agent performs but also what it builds. Four higher-order value types in Schwartz's theory of basic human values were evaluated: openness to change, conservation, self-enhancement, and self-transcendence. Across diverse coding tasks, the values were held fixed within each run over multiple iterations of self-improvement. Three findings emerged: (1) Values matter for performance across a diverse set of tasks. The openness values increase performance on held-out data, whereas the opposite conservation values result in scores below those of an agent given no values. (2) Values change what agents build, producing solution algorithms that differ in size, complexity and approach. (3) Human oversight is still needed for designing values. Allowing the agent to revise its own values narrows the differences between sets of values, and values distilled from the AI literature provide no detectable gain over having no values. Properly designed values can thus influence what a self-improving coding agent builds and, where the task permits, how well it performs.",
+  "summary_1line": "Self-improving agents are typically optimized for the results they produce, with less attention to how they produce them. Their instructions give designers limited ways to shape how they work, especially when the task...",
+  "title": "Values Shape What Self-Improving Coding Agents Build",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.23067v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "16f84d551cfc686c": {
   "content_excerpt": "I was recently made aware of how Claude Code spends 15-20% of the tokens on updating a three-word status line . Since I work almost entirely within Codex , I decided to take a peek at the code (Codex is open source and written in Rust). If you are working with an open source harness, be that Codex, pi, OpenCode, or something else, I encourage you to explore how it actually works. Whenever an unnamed thread receives a completed, nonempty user text message, an automatic thread naming procedure is invoked behind the scenes. 1 , 2 This happens for example when you start a fresh Codex session and enter the first instructions into the text box. In this case the full prompt, including the title naming instructions, labels and user's text, are capped at 960 bytes and sent to an LLM. 3 , 4 The returned response is a structured output, resulting in a thread title that is preferably under five words, or 36 characters. The preferred model is gpt-5.6-luna with low reasoning effort, when signed into ChatGPT and that model exists in the catalog; otherwise it uses the current selected model. 5 You can also explicitly rename the thread by evoking /rename and this doesn't cost you anything. However, if you run /rename with no arguments, Codex immediately makes an LLM call requesting a title suggestion. That request uses up to eight recent substantive user/assistant messages, excluding assistant commentary. 6 Next I took a look at the live activity indicator, to see if it's similar to how Claud",
   "first_seen": "2026-11-01T20:05:53.130724+00:00",
@@ -22154,7 +22171,7 @@
   ],
   "published": "2026-11-17T16:49:21+00:00",
   "sid": "fd75b8db67a35aca",
-  "source": "arxiv_cs_ai",
+  "source": "arxiv_cs_lg",
   "summary": "Long-video question answering benchmarks like Video-MME-v2 typically evaluate systems under a uniform frame budget for every question, despite stark variation in the evidence each query actually demands. We analyze this mismatch on Video-MME-v2 and find that different question subsets prefer different frozen frame-budget policies, while uniformly increasing the frame count does not reliably improve all metrics. These findings motivate fixed-mean frame-budget routing, a controlled inference setting in which each question may receive a different frame budget while the average budget matches a uniform reference. We introduce FrameRouter, a training-free test-time framework that combines an evidence-demand router, a budget-constrained allocation rule, and a frozen bank of frame-sampling policies. By controlling how much visual evidence each question receives while leaving the underlying samplers unchanged, FrameRouter is orthogonal to query-aware frame selection. Across Video-MME-v2 and several long-video understanding benchmarks, FrameRouter improves long-video question answering by using the same average visual budget more selectively across questions. Code is available at https://github.com/bingjunluo/FrameRouter.",
   "summary_1line": "Long-video question answering benchmarks like Video-MME-v2 typically evaluate systems under a uniform frame budget for every question, despite stark variation in the evidence each query actually demands. We analyze th...",
   "title": "FrameRouter: Frame Budget Routing for Long-Video Understanding on Video-MME-v2 and Beyond",

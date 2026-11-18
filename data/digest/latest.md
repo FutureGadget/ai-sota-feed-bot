@@ -5,143 +5,137 @@ Focus: AI Platform Engineering
 ## 1. Presentation: Behind Booking.com's AI Evolution: The Unpolished Story
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/bookingcom-ml-data-platform-evolution/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 4.182 | Reliability: 1.0
+- Score: 4.076 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 2. Gemini AI agents repeatedly bypassed safeguards to attack real website
-- Type: news | Source: hackernews_ai
-- URL: https://www.bleepingcomputer.com/news/security/gemini-ai-agents-repeatedly-bypassed-safeguards-to-attack-real-website/
-- Score: 3.788 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 3. Microsoft agent-framework Compromised Twice on PyPI
-- Type: news | Source: hackernews_ai
-- URL: https://safedep.io/blog/microsoft-agent-framework-pypi-compromise
-- Score: 3.702 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 4. Show HN: I cut an LLM's screen-watching cost to ~138 tokens per step
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/Vumb-VibeCoder/super-computer-agent
-- Score: 3.644 | Reliability: 1.0
-- Why it matters: 
-
-## 5. Einsia AI Launches Visual Cipher Bench to Evaluate Long-Horizon Visual Reasoning in AI Agents
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMi4gFBVV95cUxOTC0zWUV4djRvQ1NFdXFvLTRFdlF0Q1ZZakNpUnI4Mmd6TGx5T2ZXbURmbENndGNxNVJzSDhEbVB4TGpSdEpnUW0xdGRMQ3BkNFllbTl4VnNWVHc0SWdxTVQwbXFDLU0xNWI0dVNFVG5ZVnpXa2ROVDZtVDRYSkIxTjRpYnJESFdSSUtXN3ppQzJieFI5bll1WnhyTWhpX0RnV2h2YjVqVlppdXZKZFN2dzFkT2JhUDRSWTZMLUZESEJWeldwY2FvVW55OVZRV3BBQ3RTQ1YydG56LWIzMlh0bVhn?oc=5
-- Score: 3.412 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 6. When the World Is the Test Suite: Agentic Intelligence for the Physical World
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.22291v1
-- Score: 3.151 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
-
-## 7. Agent Trust Infrastructure (ATI): A Federated Identity, Trust, Attestation, and Accountability Architecture for Cross-Organization Autonomous AI Agents
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.23202v1
-- Score: 3.142 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 8. Multi-Agent Memory Inconsistency: Where Factual Conflicts Disappear in LLM Agents
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2611.22245v1
-- Score: 3.135 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 9. Gemini 4 Carbon, Hydrogen, Decisions API, self-hosted agent sandboxes and more
-- Type: news | Source: philschmid
-- URL: https://www.philschmid.de/google-deepmind-roundup-nov-2026
-- Score: 2.709 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 10. claude-code v2.1.327
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.327
-- Score: 2.217 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval, claude code.
-
-## 11. Inference after coding agents
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.23174v1
-- Score: 3.127 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 12. The Resolution Hypothesis: Agent Evolution's Key Is Identifying Improvements
+## 2. ForecastGym: A Live, Controlled, and Replayable Benchmark for Forecasting Agents
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.23068v1
-- Score: 3.103 | Reliability: 1.0
+- URL: http://arxiv.org/abs/2611.23045v1
+- Score: 3.177 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 13. How Revolut raises ambition without lowering the bar
+## 3. FrameRouter: Frame Budget Routing for Long-Video Understanding on Video-MME-v2 and Beyond
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.23055v1
+- Score: 3.163 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 4. When Passing Checks Do Not Establish Completion: Evidence Interpretation in Coding Agents
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.22835v1
+- Score: 3.157 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 5. Gemini 4 Carbon, Hydrogen, Decisions API, self-hosted agent sandboxes and more
+- Type: news | Source: philschmid
+- URL: https://www.philschmid.de/google-deepmind-roundup-nov-2026
+- Score: 2.704 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 6. [AINews] Perplexity hits a $1B revenue run rate, up 4x in 2026
+- Type: news | Source: latent_space
+- URL: https://latent.space/p/ainews-perplexity-hits-a-1b-revenue-run-rate-up-4x-in-2026/
+- Score: 2.466 | Reliability: 1.0
+- Why it matters: 
+
+## 7. From tasks to goals
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/from-tasks-to-goals
+- Score: 2.219 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 8. Microsoft says its new AI coding model rivals Claude Opus 5.5 at 5% of the cost
+- Type: news | Source: search_agent_engineering_news
+- URL: https://news.google.com/rss/articles/CBMikwFBVV95cUxQNnIyYlA2MTF3bjg5VFFOOFkxdHNDbDBwYWc2SU9LXzIwVno5blktS0NNdV9CVXdnOTlzYkh0dWpFbEpMQkZpa1BCdXFpR0dLdlAzS3VCODFiQTBwbnFjTkdoVzlkYUUzY3VjT3c1MzB0cEZZdjQ4cUcyOHd1QzE3UGl2M2pZZkh1bG9lTktpSmIta0E?oc=5
+- Score: 2.174 | Reliability: 1.0
+- Why it matters: 
+
+## 9. How Revolut raises ambition without lowering the bar
 - Type: news | Source: openai_blog
 - URL: https://openai.com/business/customer-stories/revolut
-- Score: 2.038 | Reliability: 1.0
+- Score: 2.003 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 14. vllm v0.34.0
+## 10. vllm v0.34.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0
-- Score: 2.008 | Reliability: 1.0
+- Score: 1.985 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, codex.
 
-## 15. Strengthening NATO and allied cyber defenses with AI
+## 11. Values Shape What Self-Improving Coding Agents Build
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.23067v1
+- Score: 3.099 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 12. SEAM: Computer-Use Agents Know the Harm Between Screens, and Commit It Anyway
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.22971v1
+- Score: 3.084 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 13. What Breaks Going From 1 Coding Agent to 10 | James Moss, Tessl
+- Type: video | Source: ai_native_dev
+- URL: https://youtu.be/B4sTAoiyR_k
+- Score: 1.855 | Reliability: 0.806
+- Why it matters: Matches feed focus: agent, software delivery.
+
+## 14. Strengthening NATO and allied cyber defenses with AI
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/strengthening-nato-allied-cyber-defences-ai
-- Score: 1.865 | Reliability: 1.0
+- Score: 1.83 | Reliability: 1.0
 - Why it matters: 
 
-## 16. codex 0.171.0-alpha.13
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.13
-- Score: 1.863 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 17. DeepSeek-V4.1-Flash on Vera Rubin NVL72: 58x Throughput vs. GB300 NVL72 at 387 tokens/s
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-11-12-deepseek-v41-flash-vera-rubin
-- Score: 1.851 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 18. A step toward defining the Standard Model on a lattice
+## 15. A step toward defining the Standard Model on a lattice
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/step-toward-defining-the-standard-model
-- Score: 1.814 | Reliability: 1.0
+- Score: 1.781 | Reliability: 1.0
 - Why it matters: 
 
-## 19. Goal Engineering
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/goal-engineering
-- Score: 1.806 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 16. codex 0.170.0-alpha.4.2
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.170.0-alpha.4.2
+- Score: 1.771 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
 
-## 20. llm-gemini 0.37
-- Type: release | Source: simon_willison
-- URL: https://simonwillison.net/2026/Nov/12/llm-gemini/
-- Score: 1.727 | Reliability: 1.0
+## 17. claude-code v2.1.326
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.326
+- Score: 1.737 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 18. Encoder Disaggregation in vLLM: Scaling Multimodal Serving with EPD
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-11-encoder-disaggregation-epd
+- Score: 1.535 | Reliability: 1.0
 - Why it matters: 
 
-## 21. tencent/Hy4-flash released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/Hy4-flash
-- Score: 1.681 | Reliability: 1.0
-- Why it matters: 
-
-## 22. claude-agent-sdk-python v0.2.183
+## 19. claude-agent-sdk-python v0.2.184
 - Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.183
-- Score: 1.437 | Reliability: 1.0
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.184
+- Score: 1.459 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 23. llama_index v0.14.26
+## 20. llama_index v0.14.26
 - Type: release | Source: llamaindex_releases
 - URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.26
-- Score: 1.433 | Reliability: 1.0
+- Score: 1.377 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 24. Opening the datasets behind our AI weather models
+## 21. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
 - Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/opening-the-datasets-behind-our-ai-weather-models/
-- Score: 1.261 | Reliability: 1.0
+- URL: https://deepmind.google/blog/introducing-alphaproof-code/
+- Score: 1.292 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 22. Why PMs are suddenly valuable again | Tulsee Doshi (Head of Product, Gemini)
+- Type: video | Source: lennys_podcast
+- URL: https://youtu.be/qGf2Yvan4Wg
+- Score: 1.176 | Reliability: 0.806
+- Why it matters: Matches feed focus: agent, harness, eval.
+
+## 23. Gemini Robotics 2.5 accelerates real-world general dexterity
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/
+- Score: 1.11 | Reliability: 1.0
 - Why it matters:

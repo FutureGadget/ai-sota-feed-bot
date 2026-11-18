@@ -1,34 +1,34 @@
 {
  "date": "2026-11-18",
  "diagnostics": {
-  "admitted": 2,
-  "candidates": 542,
+  "admitted": 1,
+  "candidates": 545,
   "duplicate_url": 12,
-  "items": 52,
-  "keeps": 304,
-  "new": 2,
+  "items": 53,
+  "keeps": 305,
+  "new": 1,
   "off_topic": 45,
-  "prior_story": 37,
+  "prior_story": 38,
   "rejected_gate": {
    "insufficient_evidence": 22,
-   "judge_drop": 23,
+   "judge_drop": 24,
    "off_topic": 45,
    "score_low": 109
   },
   "rejected_quota": {
    "role_quota": 185,
-   "source_quota": 21
+   "source_quota": 20
   },
-  "releases": 30,
-  "reviews": 128,
+  "releases": 31,
+  "reviews": 129,
   "role_counts": {
-   "practitioner": 2
+   "community": 1
   },
   "run_candidates": 140,
-  "stale_story": 38,
-  "stories": 342,
+  "stale_story": 39,
+  "stories": 344,
   "unjudged": 35,
-  "updated": 2,
+  "updated": 4,
   "written": true
  },
  "items": {
@@ -106,7 +106,7 @@
     "release_lane": 0.95
    },
    "judge_verdict": "drop",
-   "last_seen": "2026-11-18T10:08:19.840037+00:00",
+   "last_seen": "2026-11-18T12:08:09.858798+00:00",
    "llm_category": "release",
    "matched_topics": [
     "agent"
@@ -116,7 +116,7 @@
    "rank_at_first_seen": 25,
    "release_tier": "minor",
    "score_at_first_seen": 0.6485,
-   "seen_count": 7,
+   "seen_count": 8,
    "slot": "agent_tooling_releases",
    "source": "claude_agent_sdk_python_releases",
    "source_count": 1,
@@ -1328,6 +1328,57 @@
    "v2_slot": "vendor_general_updates",
    "why_it_matters": ""
   },
+  "story|title:microsoft agent framework compromised twice on pypi": {
+   "admission_rank": 53,
+   "admitted_at": "2026-11-18T12:08:09.858798+00:00",
+   "also_covered": [],
+   "content_excerpt": "Two releases of agent-framework , Microsoft’s official Python metapackage for its Agent Framework, steal credentials from any environment that installs them. Nothing has to import the package. A .pth file runs the stealer each time Python starts, so a pip install in a CI job is enough. It takes environment variables and credential files. It also asks Azure DevOps, Azure managed identity and, in the second release, GitHub Actions for fresh tokens, and sends those out too. SafeDep flagged version 1.26.1 22 minutes after it reached PyPI on 17 November 2026. By then the attacker was close to publishing again. Once 1.26.1 came off PyPI, 1.26.2 shipped the same stealer under different file names, and SafeDep flagged it 4 minutes after upload. Removing one version did not stop an attacker who could still publish. The last clean release is 1.26.0. Update (18 November 2026): PyPI shows that vibiret , an account created on the day of the attack, can publish to agent-framework and five related projects. Four of those projects install with agent-framework. See A maintainer account created the same day . PyPI lists two maintainers for the project, microsoft and vibiret . The project gets about 192,000 downloads a month. How many installs the two bad versions got is not known yet. Static analysis of the wheel finds the .pth hook, the collector and the webhook.site endpoint. PyPI no longer serves 1.26.1. The payload moves to new files and adds GitHub Actions OIDC theft. Every release from 1.20.0 through 1.26.0 shipped a wheel and an sdist. Both malicious versions are a single wheel. The 1.26.1 wheel is 10,402 bytes, up from 6,681 in 1.26.0. A metapackage that always shipped both files now ships one. Missing provenance does not set the bad wheels apart. PyPI has no attestation for 1.26.0 either, so a consumer had no cryptographic way to tell Microsoft’s uploads from the attacker’s. This is the second Microsoft package on PyPI to get rogue releases in six months. In May, durabletask 1.4.1 to 1.4.3 went up with a stolen API token and had no matching commits or tags. The payloads and infrastructure share nothing, so there is no evidence that links the two incidents. PyPI lists a second maintainer on agent-framework, vibiret . The account joined PyPI on 17 November 2026, the day both malicious versions went up. Besides agent-framework, it can publish to the five projects below. It is not listed on agent-framework-core, which holds the framework’s code. PyPI does not publish w",
+   "first_seen": "2026-11-18T12:08:09.858798+00:00",
+   "freshness_at_admission": 0.9611,
+   "id": "13ac34de8702182c",
+   "image_url": null,
+   "judge_category": "evaluation_reliability",
+   "judge_category_confidence": 0.76,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-18T11:06:36.149273+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.97,
+   "judge_signals": {
+    "corporate_marketing": 0.02,
+    "keep": 0.97,
+    "platform_relevant": 0.8,
+    "release_lane": 0.03
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-18T11:06:51.682107+00:00",
+   "llm_category": "platform",
+   "matched_topics": [
+    "agent"
+   ],
+   "prefilter_score": 1.88,
+   "published": "Wed, 18 Nov 2026 09:03:17 +0000",
+   "rank_at_first_seen": 53,
+   "release_tier": null,
+   "score_at_first_seen": 1.4462,
+   "seen_count": 1,
+   "slot": "community_signal",
+   "source": "hackernews_ai",
+   "source_count": 1,
+   "source_role": "community",
+   "source_tune": null,
+   "story_cluster_id": "3f7b0f28a5b746cb",
+   "story_key": "story|title:microsoft agent framework compromised twice on pypi",
+   "summary_1line": "Microsoft agent-framework Compromised Twice on PyPI",
+   "time_decay_factor": 0.971,
+   "title": "Microsoft agent-framework Compromised Twice on PyPI",
+   "type": "news",
+   "url": "https://safedep.io/blog/microsoft-agent-framework-pypi-compromise",
+   "utility": 1.4462,
+   "utility_basis": "judge",
+   "v2_slot": "community_signal",
+   "why_it_matters": "Matches feed focus: agent."
+  },
   "story|title:microsoft s agent framework pypi package compromised with credential stealer": {
    "admission_rank": 45,
    "admitted_at": "2026-11-18T07:06:48.653810+00:00",
@@ -1500,7 +1551,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T11:06:51.682107+00:00",
+   "last_seen": "2026-11-18T12:08:09.858798+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agentic"
@@ -1510,7 +1561,7 @@
    "rank_at_first_seen": 52,
    "release_tier": null,
    "score_at_first_seen": 1.1471,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "practitioner_analysis",
    "source": "infoq_ai_ml",
    "source_count": 1,
@@ -2144,7 +2195,7 @@
     "release_lane": 0.44
    },
    "judge_verdict": "review",
-   "last_seen": "2026-11-18T11:06:51.682107+00:00",
+   "last_seen": "2026-11-18T12:08:09.858798+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.989,
@@ -2152,7 +2203,7 @@
    "rank_at_first_seen": 51,
    "release_tier": "major",
    "score_at_first_seen": 1.8845,
-   "seen_count": 1,
+   "seen_count": 2,
    "slot": "practitioner_analysis",
    "source": "infoq_ai_ml",
    "source_count": 1,
@@ -2441,7 +2492,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T09:07:14.148888+00:00",
+   "last_seen": "2026-11-18T12:08:09.858798+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.756,
@@ -2449,7 +2500,7 @@
    "rank_at_first_seen": 7,
    "release_tier": null,
    "score_at_first_seen": 1.0983,
-   "seen_count": 4,
+   "seen_count": 5,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -2621,5 +2672,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-18T11:06:51.682107+00:00"
+ "updated_at": "2026-11-18T12:08:09.858798+00:00"
 }
