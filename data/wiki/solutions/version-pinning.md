@@ -6,11 +6,11 @@ status: active
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-18
 themes:
   - key: transitive-pinning
     title: Pinning the whole chain, not just the SDK
-    summary: Agent SDK patch releases routinely forward bundled CLI and model-metadata changes, including permission fixes, so a pin must reach SDK, bundled CLI, and model to mean anything.
+    summary: SDK patch releases forward bundled CLI and model changes, and compromised framework releases and hijacked weight repos reach loose ranges, so pins must cover packages and model revisions by hash.
   - key: compatibility-signals
     title: Compatibility ranges and deprecation signals
     summary: Frameworks now let you declare supported API version ranges, and agent CLIs warn when a requested model is deprecated or auto-updated, turning silent substrate changes into checkable signals.
@@ -39,6 +39,13 @@ hooks. Codex showed the same on another vendor's stack, correcting bundled
 models' context windows inside a release billed as an instructions refresh. A
 lockfile that pins the SDK alone cannot tell a cosmetic bump from a
 security-relevant one.
+
+**Pins are now a supply-chain defense, not only a stability tool.** In
+November a compromised `agent-framework` release on PyPI stole CI and cloud
+credentials from anyone resolving a loose `>=1.26` range, and a hijacked
+Hugging Face account showed weights can be swapped with no code change to
+review. Exact versions with hashes, and model revision hashes rather than
+branches, are what closed both.
 
 **Compatibility signals are arriving.** LangGraph's CLI accepts declared API
 version ranges, and Claude Code warns when a requested model is deprecated or

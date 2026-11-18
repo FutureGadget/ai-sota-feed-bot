@@ -3,6 +3,7 @@ title: "Langfuse v4 stores traces and eval results in one immutable ClickHouse t
 date: 2026-08-19
 theme: storage
 evidence: [f49b38f16a2b7158]
+also: [agent-evaluation]
 ---
 Langfuse v4 rebuilds both **agent traces and evaluation results onto one immutable ClickHouse table**, collapsing what were separate storage paths into one queryable store.
 

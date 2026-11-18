@@ -8,7 +8,7 @@ solutions: [cost-controls, llm-as-judge]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-18
 themes:
   - key: per-task-attribution
     title: Metering spend per user, project, and session
@@ -18,7 +18,7 @@ themes:
     summary: Finance and model vendors now frame ROI and model choice as cost per successful task, settled by workload-specific evals rather than per-token price or leaderboards.
   - key: outcome-evidence
     title: Outcome case studies, and the rollout that raised spend
-    summary: Vendor-published case studies report productivity and conversion gains, but a 3,500-engineer rollout that raised spend ~60% shows unattributed deployment can erase them.
+    summary: Vendor case studies report gains, but a 3,500-engineer rollout raised spend ~60% and a 718-firm study found 30% more code, flat shipped work, and 49% slower review.
 ---
 
 ## TL;DR
@@ -46,8 +46,10 @@ how much spend buys nothing: only about 7% of agent turns needed a frontier
 model, and dropping a central orchestrator cut multi-agent cost about half.
 
 **The outcome side is still mostly vendor case studies.** Reported numbers
-include a 21% engineering productivity lift and a 250% conversion lift with
-40 hours saved per rep. Each is a single, vendor-published customer figure.
+include a 21% engineering productivity lift and a 250% conversion lift, each
+a single, vendor-published customer figure. The first broad independent
+study points the other way: across 718 firms, coding agents added about 30%
+more code while finished work stayed flat and review took 49% longer.
 
 **The counter-example is the most useful data point.** A frontier
 coding-model rollout to about 3,500 engineers raised total coding spend
@@ -55,9 +57,9 @@ about 60%, because the model helps on complex work but not the medium- and
 low-complexity majority. The fix was a budget tier steering the model to
 tasks where it pays off: cost-per-task attribution, applied after the fact.
 
-**The open problem is independent, per-task instrumentation on the outcome
-side.** Spend is now measurable per task; value delivered per task mostly is
-not.
+**The open problem is the unit of value.** Spend now links to merged pull
+requests (LangSmith outcomes), but a merged PR ignores review load and
+reverts; shipped work per review hour is the measure nobody instruments yet.
 
 ## Why it matters for platform engineers
 Platform engineers cannot justify AI budgets on vague productivity claims.
