@@ -5948,6 +5948,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17108v1"
  },
+ "42bd6eac49ad5da3": {
+  "first_seen": "2026-11-18T14:04:23.440805+00:00",
+  "id": "f765a8bcfc4bb5ee",
+  "published": "2026-11-18T13:38:55+00:00",
+  "sid": "42bd6eac49ad5da3",
+  "source": "search_cn_open_weight_labs",
+  "summary": "DeepSeek API Pricing Updated: Server-Side Search and Web Scraping No Longer Charged Separately KuCoin",
+  "summary_1line": "DeepSeek API Pricing Updated: Server-Side Search and Web Scraping No Longer Charged Separately KuCoin",
+  "title": "DeepSeek API Pricing Updated: Server-Side Search and Web Scraping No Longer Charged Separately",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPRGt5N2liNDN2SEJLMVRvWElKRjJ3cE1tZWJCLUhaLXhsbzE2M0E5YTgxZGVRcEt0Q0paYXFqQzZkQmlGRERWRldpVG0yWHJuT1ZEbmUtZTJhMUpYUlRYbVVTaW4yY0FNOE5qUk9DUl9TcW5TenRLLWZ0QjI1cFE5UDYwb2FCeFA2ZUstMUVUa29BWUxGVGpCUVBQLTRkSmdYZVpjRTJYZV80c1NsU0VaYkJsX09oQ1FLSWIzY1VRY013OTNrT0E?oc=5"
+ },
  "42d0d220c3dc643e": {
   "content_excerpt": "Deterministic benchmark and linter for derived-context ACL leaks in agent memory. Document permissions work for raw RAG (% leaks). They silently evaporate in agent memory: our benchmark demonstrates that cross-document synthesis leaks confidential parent secrets in 2 out of 3 background tasks (67%). ChromaDB and LlamaIndex metadata filters catch 100% of unauthorized raw chunk queries. But when agents synthesize notes across files into shared memory, parent ACLs are dropped, letting unprivileged users retrieve executive data. A raw RAG query keeps document identity. One document produces one chunk. The chunk carries classification and allowed_groups . The vector store checks those fields before returning data. Agent memory has a different shape. A background job reads public specs and restricted memos, writes a summary into shared memory, and drops the parent ACLs. The artifact is just text. It runs under the agent's service account. Later retrieval sees no document-level restriction. An intern gets the CEO's headcount plan. The vector store is doing its job. The authorization model is attached to the wrong object. Both reference pipelines run the same 24-document corpus, ACL map, personas, and three scoped synthesis tasks with deterministic local embeddings and a simulated LLM. No external API key is required. Derived artifact failure rate: 2/3 = 66.7% . Corpus-wide canary exposure: 6/18 = 33.3% . The benchmark has a negative control. artifact_public_infra ingests only data/c",
   "first_seen": "2026-11-09T15:04:47.831224+00:00",
@@ -9839,6 +9851,23 @@
   "type": "news",
   "url": "https://evalship.com",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "70c82430c7b2a8f8": {
+  "content_excerpt": "Interactive LLM applications depend on low decode latency. A coding agent must finish generating its current action before it can call the next tool, so decode sits on the task’s critical path. Serving these workloads at low concurrency prioritizes per-user responsiveness over aggregate throughput. A decode step executes a chain of GPU kernels for operations such as projections, attention, and expert computation. At small batch sizes, many of these kernels do only a little work, yet each still incurs GPU-side dispatch, startup, and completion costs. A dependent kernel cannot proceed until its inputs are ready, so whole-kernel boundaries also limit overlap. Repeated across a long chain, these costs can account for a substantial part of decode latency, while the small amount of parallel work leaves GPU capacity unused. HIP graphs reduce CPU launch overhead, but do not eliminate these GPU-side costs. Figure 1 illustrates the repeated stages; widths and gaps are schematic, not measured durations or an overhead breakdown. This post explores how MonoKernels written in FlyDSL reduce decode latency in vLLM for interactive LLM serving on AMD Instinct GPUs. We explain the approach and its integration with vLLM, then examine performance and accuracy. A MonoKernel combines multiple dependent operator stages inside a single GPU kernel launch, using an explicitly designed schedule rather than a separate launch at every operator boundary. Here, mono means a single kernel execution boundary,",
+  "first_seen": "2026-11-18T14:04:23.440805+00:00",
+  "id": "509fa9d9f5410429",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-18T00:00:00+00:00",
+  "sid": "70c82430c7b2a8f8",
+  "source": "vllm_blog",
+  "summary": "How FlyDSL MonoKernels keep agents responsive with high-interactivity decode in vLLM on AMD Instinct GPUs, using model-specific fusion, data-ready handoffs, and specialized-decode integration.",
+  "summary_1line": "How FlyDSL MonoKernels keep agents responsive with high-interactivity decode in vLLM on AMD Instinct GPUs, using model-specific fusion, data-ready handoffs, and specialized-decode integration.",
+  "title": "Keeping Agents Fast: High-Interactivity Decode with FlyDSL MonoKernels in vLLM",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-11-18-flydsl-monokernels",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "70e13916d8e1cc37": {
   "content_excerpt": "Local context optimization for AI coding tools, with an optional cloud control plane for auth, quotas, billing, and receipts. Point Cursor, Continue, VS Code Chat, Claude Code, and similar clients at a local OpenAI-compatible proxy. Trim reduces prompt size before requests reach your upstream provider. Deep Mode runs on your machine only - never in Trim cloud. go install github.com/usetrim/trim/cli/cmd/trim@v… is not supported while cli/go.mod contains a local replace for the server module. Use a clone, Release binaries, npm, or Homebrew instead. Optional flags (Unix installer): TRIM_WITH_TREESITTER=1 , TRIM_WITH_ZIG_TREESITTER=1 , TRIM_WITH_DEEP=1 . Telemetry from installers is privacy-light and soft-fail. Opt out with DO_NOT_TRACK=1 or TRIM_TELEMETRY_DISABLED=1 . No environment variables required for Trim Cloud (official npm / Homebrew / installers). Always-on: leave Start Trim with your IDE checked in the dashboard (or trim autostart enable ). OS logon uses launchd / systemd user / Windows Startup Run → %LOCALAPPDATA%\\Trim\\bin - preference stays on even if OS registration is blocked; then use trim start or the IDE extension. Docs: Always-on , trim autostart . Everyday vs advanced commands: trim help . Always-on details: trim help autostart · trim help daemon . Copy .trimrc.example → .trimrc for compression modes ( mild | balanced | aggressive | custom ). Admin console details: apps/admin/README.md . Release / taps / signing: packaging/README.md . Plan order is plan_catalog",

@@ -1,14 +1,14 @@
 {
  "date": "2026-11-18",
  "diagnostics": {
-  "admitted": 4,
-  "candidates": 546,
+  "admitted": 1,
+  "candidates": 553,
   "duplicate_url": 12,
-  "items": 57,
-  "keeps": 305,
-  "new": 4,
+  "items": 58,
+  "keeps": 311,
+  "new": 1,
   "off_topic": 45,
-  "prior_story": 38,
+  "prior_story": 39,
   "rejected_gate": {
    "insufficient_evidence": 22,
    "judge_drop": 24,
@@ -16,19 +16,19 @@
    "score_low": 110
   },
   "rejected_quota": {
-   "role_quota": 185,
+   "role_quota": 189,
    "source_quota": 16
   },
   "releases": 31,
   "reviews": 130,
   "role_counts": {
-   "community": 4
+   "first_party": 1
   },
   "run_candidates": 140,
-  "stale_story": 39,
-  "stories": 344,
-  "unjudged": 35,
-  "updated": 3,
+  "stale_story": 40,
+  "stories": 351,
+  "unjudged": 36,
+  "updated": 5,
   "written": true
  },
  "items": {
@@ -634,6 +634,57 @@
    "v2_slot": "community_signal",
    "why_it_matters": ""
   },
+  "model:vllm|title:keeping agents fast high interactivity decode with flydsl monokernels in vllm": {
+   "admission_rank": 58,
+   "admitted_at": "2026-11-18T14:07:17.646920+00:00",
+   "also_covered": [],
+   "content_excerpt": "Interactive LLM applications depend on low decode latency. A coding agent must finish generating its current action before it can call the next tool, so decode sits on the task’s critical path. Serving these workloads at low concurrency prioritizes per-user responsiveness over aggregate throughput. A decode step executes a chain of GPU kernels for operations such as projections, attention, and expert computation. At small batch sizes, many of these kernels do only a little work, yet each still incurs GPU-side dispatch, startup, and completion costs. A dependent kernel cannot proceed until its inputs are ready, so whole-kernel boundaries also limit overlap. Repeated across a long chain, these costs can account for a substantial part of decode latency, while the small amount of parallel work leaves GPU capacity unused. HIP graphs reduce CPU launch overhead, but do not eliminate these GPU-side costs. Figure 1 illustrates the repeated stages; widths and gaps are schematic, not measured durations or an overhead breakdown. This post explores how MonoKernels written in FlyDSL reduce decode latency in vLLM for interactive LLM serving on AMD Instinct GPUs. We explain the approach and its integration with vLLM, then examine performance and accuracy. A MonoKernel combines multiple dependent operator stages inside a single GPU kernel launch, using an explicitly designed schedule rather than a separate launch at every operator boundary. Here, mono means a single kernel execution boundary, not an entire model in one kernel. A model’s mono-decode path can contain several MonoKernels, and a decoder layer does not have to map to exactly one launch. The goal is not just to make individual operators faster, but to shorten the waits between them. Inspired by TileRT , the implementations discussed here use a persistent launch : a fixed grid of GPU thread blocks works through multiple stages. A thread block is a group of GPU threads executing together; it can continue with subsequent work once the required dependencies are satisfied. Both paths in Figure 2 can be replayed under HIP graphs. The difference is between multiple independent kernels and an author-designed persistent schedule within a launch. Some whole-kernel boundaries become finer-grained handoffs between portions of the computation. A key design challenge is deciding where a MonoKernel begins and ends : which operations share one launch, and which remain in separate kernels. Fusing more stages is not automatically",
+   "first_seen": "2026-11-18T14:07:17.646920+00:00",
+   "freshness_at_admission": 0.7619,
+   "id": "509fa9d9f5410429",
+   "image_url": null,
+   "judge_category": "inference_serving",
+   "judge_category_confidence": 1.0,
+   "judge_evidence_chars": 2500,
+   "judge_judged_at": "2026-11-18T14:07:05.179046+00:00",
+   "judge_model": "jev-1.14",
+   "judge_rubric_version": "feed-quality-v3",
+   "judge_score": 0.88,
+   "judge_signals": {
+    "corporate_marketing": 0.03,
+    "keep": 0.88,
+    "platform_relevant": 0.98,
+    "release_lane": 0.07
+   },
+   "judge_verdict": "keep",
+   "last_seen": "2026-11-18T14:07:17.646920+00:00",
+   "llm_category": "platform",
+   "matched_topics": [
+    "agent"
+   ],
+   "prefilter_score": 1.838,
+   "published": "Wed, 18 Nov 2026 00:00:00 GMT",
+   "rank_at_first_seen": 58,
+   "release_tier": null,
+   "score_at_first_seen": 1.2924,
+   "seen_count": 1,
+   "slot": "practitioner_analysis",
+   "source": "vllm_blog",
+   "source_count": 1,
+   "source_role": "first_party",
+   "source_tune": -0.15,
+   "story_cluster_id": "6de5febcb256adf2",
+   "story_key": "model:vllm|title:keeping agents fast high interactivity decode with flydsl monokernels in vllm",
+   "summary_1line": "How FlyDSL MonoKernels keep agents responsive with high-interactivity decode in vLLM on AMD Instinct GPUs, using model-specific fusion, data-ready handoffs, and specialized-decode integration.",
+   "time_decay_factor": 0.871,
+   "title": "Keeping Agents Fast: High-Interactivity Decode with FlyDSL MonoKernels in vLLM",
+   "type": "news",
+   "url": "https://vllm.ai/blog/2026-11-18-flydsl-monokernels",
+   "utility": 1.2924,
+   "utility_basis": "judge",
+   "v2_slot": "practitioner_analysis",
+   "why_it_matters": "Matches feed focus: agent."
+  },
   "story|title:a background agent to fix breaking changes in dependency updates": {
    "admission_rank": 11,
    "admitted_at": "2026-11-18T00:07:17.220601+00:00",
@@ -904,7 +955,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T04:05:18.518771+00:00",
+   "last_seen": "2026-11-18T14:07:17.646920+00:00",
    "llm_category": "research",
    "matched_topics": [
     "agent",
@@ -916,7 +967,7 @@
    "rank_at_first_seen": 46,
    "release_tier": null,
    "score_at_first_seen": 1.4218,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "research_watch",
    "source": "arxiv_agent_systems_research",
    "source_count": 1,
@@ -1651,7 +1702,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T13:08:27.535036+00:00",
+   "last_seen": "2026-11-18T14:07:17.646920+00:00",
    "llm_category": "platform",
    "matched_topics": [
     "agentic"
@@ -1661,7 +1712,7 @@
    "rank_at_first_seen": 52,
    "release_tier": null,
    "score_at_first_seen": 1.1471,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "practitioner_analysis",
    "source": "infoq_ai_ml",
    "source_count": 1,
@@ -2344,7 +2395,7 @@
     "release_lane": 0.44
    },
    "judge_verdict": "review",
-   "last_seen": "2026-11-18T13:08:27.535036+00:00",
+   "last_seen": "2026-11-18T14:07:17.646920+00:00",
    "llm_category": "release",
    "matched_topics": [],
    "prefilter_score": 1.989,
@@ -2352,7 +2403,7 @@
    "rank_at_first_seen": 51,
    "release_tier": "major",
    "score_at_first_seen": 1.8845,
-   "seen_count": 3,
+   "seen_count": 4,
    "slot": "practitioner_analysis",
    "source": "infoq_ai_ml",
    "source_count": 1,
@@ -2690,7 +2741,7 @@
     "release_lane": 0.03
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T13:08:27.535036+00:00",
+   "last_seen": "2026-11-18T14:07:17.646920+00:00",
    "llm_category": "research",
    "matched_topics": [],
    "prefilter_score": 1.756,
@@ -2698,7 +2749,7 @@
    "rank_at_first_seen": 7,
    "release_tier": null,
    "score_at_first_seen": 1.0983,
-   "seen_count": 6,
+   "seen_count": 7,
    "slot": "research_watch",
    "source": "arxiv_llm_reliability",
    "source_count": 1,
@@ -2739,7 +2790,7 @@
     "release_lane": 0.04
    },
    "judge_verdict": "keep",
-   "last_seen": "2026-11-18T09:07:14.148888+00:00",
+   "last_seen": "2026-11-18T14:07:17.646920+00:00",
    "llm_category": "research",
    "matched_topics": [
     "agent",
@@ -2751,7 +2802,7 @@
    "rank_at_first_seen": 47,
    "release_tier": null,
    "score_at_first_seen": 1.4169,
-   "seen_count": 2,
+   "seen_count": 3,
    "slot": "research_watch",
    "source": "arxiv_cs_ai",
    "source_count": 1,
@@ -2870,5 +2921,5 @@
  },
  "schema_version": 1,
  "timezone": "UTC",
- "updated_at": "2026-11-18T13:08:27.535036+00:00"
+ "updated_at": "2026-11-18T14:07:17.646920+00:00"
 }
