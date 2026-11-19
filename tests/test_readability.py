@@ -114,3 +114,45 @@ class ReadableLengthTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class KoreanCommunityVoiceTest(unittest.TestCase):
+    """Korean threads are written for the board, not translated from English."""
+
+    def _post(self, line):
+        return {"threads": {"ko": {"title": "제목", "body": [line], "comments": []}}}
+
+    def test_literal_translation_is_flagged(self):
+
+        issues = community.style_issues(self._post("덜 불타는 소식\n- 뭔가 나옴"))
+        self.assertEqual(len(issues), 1)
+        self.assertIn("덜 불타는", issues[0])
+
+    def test_phrase_in_reply_is_flagged(self):
+
+        post = {"threads": {"ko": {"title": "제목", "body": ["본문"], "comments": [
+            {"author": "ㅇㅇ", "body": "댓글", "replies": [{"author": "ㅇㅇ", "body": "오늘 거 포장 없이 감"}]}]}}}
+        self.assertTrue(community.style_issues(post))
+
+    def test_natural_heading_passes(self):
+
+        self.assertEqual(community.style_issues(self._post("나머지 자잘한 거\n- 뭔가 나옴")), [])
+
+    def test_english_thread_is_not_checked(self):
+
+        post = {"threads": {"en": {"title": "t", "body": ["Less on fire: stuff"], "comments": []}}}
+        self.assertEqual(community.style_issues(post), [])
+
+    def test_committed_posts_read_natural(self):
+
+        for path in sorted((ROOT / "data" / "community").glob("*/*.json")):
+            post = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(community.style_issues(post), [], path.name)
+
+    def test_skill_lists_literal_phrases(self):
+
+        skill = (ROOT / ".agents" / "skills" / "community-thread" / "SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("영어 스레드를 번역하지 말 것", skill)
+        for phrase in ("덜 불타는", "포장 없이"):
+            self.assertIn(phrase, skill)
+            self.assertIn(phrase, community.KO_LITERAL_PHRASES)
