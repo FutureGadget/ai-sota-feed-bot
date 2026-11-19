@@ -592,6 +592,26 @@ def language_switch_html(cfg: dict, locale: str = "en") -> str:
     )
 
 
+EMAIL_FONT_STACK = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
+EMAIL_FONT_STACK_KO = (
+    "-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',"
+    "'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
+)
+
+
+def wrapper_attrs(locale: str = "en") -> str:
+    """Attributes for the email's outer container. Korean breaks lines between
+    words (keep-all) instead of mid-word, the same rule the web pages use, and
+    names Hangul fonts before the Latin fallbacks."""
+    style = "max-width:640px;margin:0 auto;padding:24px 18px;color:#111;"
+    if locale == "ko":
+        return (
+            f'lang="ko" style="{style}font-family:{EMAIL_FONT_STACK_KO};'
+            'word-break:keep-all;overflow-wrap:break-word"'
+        )
+    return f'style="{style}font-family:{EMAIL_FONT_STACK}"'
+
+
 def logo_img(cfg: dict) -> str:
     """Small brand mark for the email header (absolute URL — email clients can't
     resolve site-relative paths). Square logo served from the site root."""
@@ -733,7 +753,7 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
     community_html = render_community_email(cfg, "daily", recap_date, locale)
     body = f"""\
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#fff">{preheader}{PREHEADER_PAD}</div>
-<div style="max-width:640px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111">
+<div {wrapper_attrs(locale)}>
   <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}LLM Digest · {recap_date}</div>
   <h1 style="font-size:20px;margin:6px 0 2px">{_t(locale, "daily_h1")}</h1>
   <div style="font-size:13px;color:#777;margin-bottom:12px">{sub_meta}</div>
@@ -938,7 +958,7 @@ def render_weekly(
     video_html = video_link_html(cfg, wk, site_path(locale, f"/weekly/{wk.get('week','')}"), _t(locale, "video_weekly"))
     body = f"""\
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#fff">{preheader}{PREHEADER_PAD}</div>
-<div style="max-width:640px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111">
+<div {wrapper_attrs(locale)}>
   <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}{_t(locale, "weekly_header")}</div>
   <h1 style="font-size:21px;margin:6px 0 10px">{html.escape(title)}</h1>
   {video_html}

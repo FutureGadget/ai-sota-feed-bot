@@ -2985,6 +2985,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05272v1"
  },
+ "1efbc276679369d7": {
+  "first_seen": "2026-11-19T10:04:09.237962+00:00",
+  "id": "0df93db3565e2455",
+  "published": "2026-11-18T15:46:58+00:00",
+  "sid": "1efbc276679369d7",
+  "source": "arxiv_cs_ai",
+  "summary": "Continual learning (CL) enables neural networks to adapt to non-stationary data streams by mitigating catastrophic forgetting, offering a path to robust, private, and adaptable edge devices. Yet, porting CL to real-world edge devices remains challenging for two reasons: (i) online operation, where sensor data arrives one sample at a time and the device must adapt on-the-fly, and (ii) the low footprint of edge devices, which makes traditional error backpropagation training prohibitive. Inspired by the brain's wake and sleep cycles, the former for rapid adaptation with minimal resources and the latter for long-term consolidation, we introduce Hypnos, an open-source dual-phase platform for efficient CL at the edge. In the wake phase (e.g., daily operation), Hypnos relies on a low-footprint system-on-chip with a RISC-V microcontroller unit (MCU) targeting efficient inference and supporting lightweight gradient-free prototype updates. In the sleep phase (e.g., night-time charging), where wall-plug energy and larger memory budgets are available, a smart charger performs rehearsal-based gradient updates for consolidation. Deployed on a ZCU104 field-programmable gate array (FPGA) and synthesized in a 28-nm process, Hypnos is benchmarked on the CORe50 NICv2-391 protocol. It sets a new state-of-the-art accuracy of 78.6%-81.6% for edge CL systems, with an on-device latency of 7.79s-10.54s per sample depending on activation precision, and requires $3.8\\times$ fewer learning steps and $22",
+  "summary_1line": "Continual learning (CL) enables neural networks to adapt to non-stationary data streams by mitigating catastrophic forgetting, offering a path to robust, private, and adaptable edge devices. Yet, porting CL to real-wo...",
+  "title": "Hypnos: A Dual-Phase End-to-End Platform for Scalable Continual Learning at the Edge",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24637v1"
+ },
  "1f5946529a21c625": {
   "first_seen": "2026-11-10T23:04:50.256417+00:00",
   "id": "e0aca517cc350d74",
@@ -4736,6 +4748,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18272v1"
  },
+ "31fa9cd8fb58d57c": {
+  "first_seen": "2026-11-19T11:06:25.197218+00:00",
+  "id": "b4a43e338368f530",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-17T16:49:33+00:00",
+  "sid": "31fa9cd8fb58d57c",
+  "source": "arxiv_agent_systems_research",
+  "summary": "LLM-based multi-agent systems (MAS) rely on not only individual agent behaviors but also the interactions that connect agents, including message exchanges and task dependencies. Existing MAS safeguards mainly perform agent-level anomaly detection, which becomes insufficient when failures originate from agent interactions and detected anomalies do not necessarily reveal their true sources. To address this limitation, we propose \\textbf{TRACE-MAS}, a finer-grained framework for diagnosing and repairing MAS failures. TRACE-MAS learns normal collaborative execution patterns from benign trajectories and detects deviations in agent state changes, message transitions, and task dependency evolutions. It further identifies responsible execution elements through source-aware attribution and selects minimal interventions to restore collaboration while preserving task-critical capabilities. Experiments on five MAS benchmarks demonstrate that TRACE-MAS significantly improves root-cause localization accuracy by \\textbf{60.2}\\% and achieves consistent gains in task recovery over strong MAS safeguards.",
+  "summary_1line": "LLM-based multi-agent systems (MAS) rely on not only individual agent behaviors but also the interactions that connect agents, including message exchanges and task dependencies. Existing MAS safeguards mainly perform...",
+  "title": "TRACE-MAS: Diagnosing and Repairing Collaboration Failures in Multi-Agent Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.23362v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "3268d0f7bc246f29": {
   "first_seen": "2026-11-06T00:05:24.381443+00:00",
   "id": "d8cde5aa70376b63",
@@ -5075,11 +5103,23 @@
   "published": "2026-11-17T03:44:46+00:00",
   "sid": "364859f834c86602",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 258, downloads: 159.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 277, downloads: 159.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 1, downloads: 0.",
   "title": "tencent/Hy4-flash released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/tencent/Hy4-flash"
+ },
+ "369674385192a647": {
+  "first_seen": "2026-11-19T10:04:09.237962+00:00",
+  "id": "b14436a52c221116",
+  "published": "2026-11-18T18:34:10+00:00",
+  "sid": "369674385192a647",
+  "source": "arxiv_cs_lg",
+  "summary": "A fixed dispatch rate for LLM inference becomes stale as serving fleets resize and request sizes change. Generative output length is unknown at admission, and shared provider pools can lose capacity. We present Cap-and-Track, a design for asynchronous inference across provider capacity and internal GPUs. Meta's traffic shaper implements Cap-and-Track for post and live-video understanding. Refusals signal the backend's current admission ceiling. Durable priority queues hold excess work outside execution, including refused requests for retry. Cap is a fail-fast admission check at the saturated resource that refuses work before a long wait. Using only those refusals, the Track dispatcher probes upward and backs off. It follows the ceiling without output-length prediction or a fleet-level rate to retune. In a concurrent same-traffic production A/B, the shaper ran per-replica Cap plus Track. It served a classifier on 43% fewer H100s than its queued, fixed-rate precursor, though lower-priority work waited longer at backfill peaks. In steady-capacity real-engine replay, Track ran within 1% of the goodput of a fixed rate tuned above measured capacity, with about a quarter of that rate's refusal share. The shaper carries more than 300 million online requests and hundreds of terabytes of media a day. During a backfill, it handled 1.1 billion requests in its busiest 24 hours. Lessons include keeping queues inside inference engines just long enough to fill batches, steering dispatch by c",
+  "summary_1line": "A fixed dispatch rate for LLM inference becomes stale as serving fleets resize and request sizes change. Generative output length is unknown at admission, and shared provider pools can lose capacity. We present Cap-an...",
+  "title": "Cap-and-Track: Optimizing LLM Inference Request Dispatch Across Shifting Capacity",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24891v1"
  },
  "370ba7508446141c": {
   "content_excerpt": "What is easy for humans to skim past in code, agents see as a call to action. They do not know better, latching on to that which is littered across the files read during the planning and research phase of the coding journey. As agents' agency through tools and skills grows the ability for side-quests scales proportionally. Obsolete specs, long resolved bugs, and lagging documentation no longer rest in long forgotten corners of the codebase, but rather are unintentionally ingested as context indirecting and misdirecting the next wave of coders - the agents. This indirection is not free: in the best case it only costs tokens, steps, and time - in the worst case it distracts and grounds the agent on falsehoods leading to incorrect logic and decisions during implementation. Measuring how often agents fall into these traps across millions of monthly sessions is impossible with manual human review - we need an objective signal derivable from the code itself. Inline TODO(bug/...) comments provide the perfect proxy. TODOs tend to be left behind long after the underlying bug is resolved or abandoned, while the linked bug ticket acts as the canonical record. By cross-referencing every TODO an agent encounters against the TODO's bug status and the user's prompt, we can automatically separate valid work from wasted detours at scale. By leveraging the distributed traces of agent interactions across thousands of engineers and over hundreds of millions of individual agent steps, we quantify",
@@ -13110,6 +13150,24 @@
   "type": "research",
   "url": "https://huggingface.co/blog/allenai/statebench"
  },
+ "8d8e848d91ad382d": {
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites and Chief Security Architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. Jabez Eliezer Manuel discusses the 20-year evolution of Booking.com’s data management and ML platforms. He explains how they scaled MySQL topologies, sunset Hadoop for cloud architecture, and built high-throughput model serving and feature stores operating at 400B predictions per day. He also shares insights on personalization, interleaved experimentation, and their new agentic AI foundation. Nicholas Matsakis shares why AI makes Rust the ideal choice for modern production systems, skipping steep adoption hurdles via compiler guardrails. He discusses Symposium - an open-source, agent-oriented toolchain from the Rust Foundation - and demonstrates how the Agent Client Protocol (ACP) standardizes agent-to-tool extensibility across diverse enterprise developer workflows. Henry Wilson shares actionable tools from the BBC Sounds re-architecture to help",
+  "first_seen": "2026-11-19T11:06:25.197218+00:00",
+  "id": "226205e6d9c62b7a",
+  "image_url": "https://res.infoq.com/presentations/rust-ai-symposium-agent-client-protocol/en/mediumimage/NikoMatsakis-medium-1793279155828.jpeg",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-19T11:00:00+00:00",
+  "sid": "8d8e848d91ad382d",
+  "source": "infoq_ai_ml",
+  "summary": "Nicholas Matsakis shares why AI makes Rust the ideal choice for modern production systems, skipping steep adoption hurdles via compiler guardrails. He discusses Symposium - an open-source, agent-oriented toolchain from the Rust Foundation - and demonstrates how the Agent Client Protocol (ACP) standardizes agent-to-tool extensibility across diverse enterprise developer workflows. By Niko Matsakis",
+  "summary_1line": "Nicholas Matsakis shares why AI makes Rust the ideal choice for modern production systems, skipping steep adoption hurdles via compiler guardrails. He discusses Symposium - an open-source, agent-oriented toolchain fro...",
+  "title": "Presentation: RIIIR: Rewrite It In *Idiomatic* Rust (with AI)",
+  "type": "news",
+  "url": "https://www.infoq.com/presentations/rust-ai-symposium-agent-client-protocol/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "8da93282dcb219d5": {
   "first_seen": "2026-11-16T03:24:13.745359+00:00",
   "id": "3856e544bd2cac4e",
@@ -14888,6 +14946,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12125v1",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "a023d867fd30b5bd": {
+  "first_seen": "2026-11-19T10:04:09.237962+00:00",
+  "id": "a80a70c3b3ac4e3c",
+  "matched_topics": [
+   "agentic",
+   "harness"
+  ],
+  "published": "2026-11-18T15:53:39+00:00",
+  "sid": "a023d867fd30b5bd",
+  "source": "arxiv_cs_cl",
+  "summary": "We present Piccolo, a family of multimodal decision models (0.8B to 27B) that coevolves model capabilities and training data via Agentic Data Engineering and recursive self-improvement (RSI). The models predict probabilities over candidate answers for general-purpose text and visual judgments, agent harnesses, data workflows, and interactive games. Piccolo-27B tops the Decision Index Vision Full leaderboard with a score of 75.59, while Piccolo-9B and Piccolo-4B achieve 68.35 and 67.46, respectively. All three rank first on the Private benchmark in their respective model-size categories. Research agents analyze model behavior, construct training data, conduct experiments, and use the results to refine subsequent proposals. Semantic slices and a shared research memory connect these actions across the model family's development. With training recipes comprising hundreds of thousands of examples, data selection and feedback-driven refinement are central to the self-improvement process. Our large-scale RSI exploration yields three counter-intuitive insights for decision-model development: (1) Backbone-recipe co-adaptation outweighs raw model recency: earlier backbones can surpass newer generations on visual tasks under identical recipes; (2) Targeted data curation enables 4B-9B models to rival 27B baselines on specialized workflows; and (3) Continuous loss reduction can decouple from and even degrade discrete decision accuracy. Together with the released weights and tools from the",
+  "summary_1line": "We present Piccolo, a family of multimodal decision models (0.8B to 27B) that coevolves model capabilities and training data via Agentic Data Engineering and recursive self-improvement (RSI). The models predict probab...",
+  "title": "Piccolo: Co-Evolving Decision Models and Data through Recursive Self-Improvement",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24651v1",
+  "why_it_matters": "Matches feed focus: agentic, harness."
  },
  "a0685d2b6bbcdd31": {
   "content_excerpt": "A field name, 2,000 look-alike functions and a wrong pseudo-C branch: an XRef walkthrough in which every conclusion is checked against machine instructions. TL;DR. Serialized field names can lead you to their offsets. The harder question is which code changes those fields: in a public example, 2,000 decoys write the same offsets as the real function. The real function and the displayed decoys earn the same 40 points for their writes to those fields. The real function gets ten more because it shares a caller, main , with the serializer; the decoys have no callers at all. The candidate is then checked against its instructions and call sites. The walkthrough uses XRef 0.4.0 and a synthetic C and assembly program; it demonstrates a method and is not a benchmark. Before the 0.4.0 release, one xref field query came back with not_found_under_limits : no matching layouts. The response flagged incomplete discovery under its analysis limits, but it gave no way to tell which keys the tool had seen or where it had lost the connection to the fields. That case is recorded in issue 76 . An empty list makes the next wrong move easy: widen the search at random, conclude that the structure is not there, or start taking the whole binary apart by hand. What I needed was an answer to a much narrower question: which observations get you from a field name to the code that changes it? Put in familiar terms: a program reports \"status\": \"failed\" —which function changed that field? That is an illustrat",
