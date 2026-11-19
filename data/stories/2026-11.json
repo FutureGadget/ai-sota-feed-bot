@@ -1726,6 +1726,22 @@
   "type": "news",
   "url": "https://github.com/TensorRails/warmctl"
  },
+ "131c1f6ecd16f89b": {
+  "first_seen": "2026-11-19T14:06:24.038545+00:00",
+  "id": "1217e830994667a3",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-18T17:45:51+00:00",
+  "sid": "131c1f6ecd16f89b",
+  "source": "arxiv_cs_cl",
+  "summary": "Hybrid attention models combine full and linear attention to achieve a better quality--efficiency trade-off. Converting pretrained Transformers into such models requires identifying which layers should retain full attention under a prescribed budget. We identify two off-policy mismatches in FlashMorph's layer selection: (i) continuous branch interpolation and teacher-forced hidden states differ from discrete hybrid computation; and (ii) frozen model weights fail to account for parameter adaptation during subsequent recovery. We introduce FlashMorph2, an on-policy layer-selection method that (I) evaluates sampled discrete hybrid architectures end to end using their own hidden states, and (II) jointly optimizes layer-selection scores and model weights under the recovery objective to reflect post-adaptation performance. Experiments across Qwen3 model scales and linear-attention variants show that FlashMorph2 consistently outperforms existing layer-selection methods, improving average scores over FlashMorph by $+2.42$ points on RULER, $+1.08$ on LongBench, and $+0.76$ on recall-intensive tasks, while completing layer selection in only $0.72$--$3.57$ GPU hours across 0.6B--8B models, demonstrating high efficiency and scalability.",
+  "summary_1line": "Hybrid attention models combine full and linear attention to achieve a better quality--efficiency trade-off. Converting pretrained Transformers into such models requires identifying which layers should retain full att...",
+  "title": "On-Policy Morphing into Hybrid Attention Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24809v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "13225fd2d3574734": {
   "content_excerpt": "When building agents in Claude Platform, using fewer subagents in favor of progressively disclosed context and tools can improve quality while reducing cost and latency. Here’s when and how to migrate. If you’ve built an agent in Claude Platform that includes multiple subagents, see which may make sense to fold into the main agent loop using our migration kit . It runs a guided workflow to identify your patterns, evaluate alternatives, and verify the best approach. It includes a demo that you can try on a mock system before running on your agent. Subagents – agents with their own context window, tools, and instructions, orchestrated by a coordinator – are a core component of agent design. They are effective at verification, parallel work, and modular permissioning. We use them in many of our own agents that we build using Claude Platform, for example our multi-agent research system . However, recently the Applied AI team has found a pattern of enterprise agent deployments that have benefited from folding routers, planners, and domain subagents into the main agent loop. In our comparisons across several enterprise deployments , a single agent with skills frequently outperformed both the one-prompt-for-everything design and the subagent design on quality, and often at a lower cost and latency per task. For example, one company found the dozen specialist subagents within its customer-facing agent made a consistent on-brand experience difficult to maintain and added latency that ",
   "first_seen": "2026-10-24T20:04:51.842291+00:00",
@@ -2858,6 +2874,22 @@
   "title": "Podcast: Distributed LLM Inference on Kubernetes with llm-d, Wasm, & TornadoVM",
   "type": "news",
   "url": "https://www.infoq.com/podcasts/distributed-llm-inference-kubernetes/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
+ "1d53e40b7caafde7": {
+  "content_excerpt": "Experts tell me that if another sandbox provider launches this week, the gravity well will be so severe that Silicon Valley might just collapse in on itself, never again to be seen by the outside world. I mean, where else do you see such a high density of compute resellers? And sandboxes are just one part of the equation! In the last 6 months, we’ve seen the release of celld , Temporal’s massive Series E , and the actor model gaining traction like it’s the 1970s. And as much as software engineers-turned-CEOs would like to convince you that they’re just BEAM and Erlang people at heart, that’s not the reason the actor model is infecting the hive mind. Like everything these days, the reason is AI. Specifically, these technologies all solve the same problem of AI agent state . We’ve written a lot about agent state, and we have some opinions to share. There’s a correct architecture for designing state that’s scalable and resilient. But fair warning, this involves a few different concepts. We’ll introduce these and arrive at our recommendation, that of the coordinated snapshot . AI agents are stateful by nature. When you start taking apart a coding agent like Claude Code , you’ll notice at least 3 aspects of state: When you run a coding agent locally, these three bits of state are also local. You can inspect their contents: As we can see, local state is easy to manage on a local disk. It’s a solved problem. Engineers who are building agentic products aren’t usually building local a",
+  "first_seen": "2026-11-19T14:06:24.038545+00:00",
+  "id": "a3ae359617dd4bd8",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-19T13:21:33+00:00",
+  "sid": "1d53e40b7caafde7",
+  "source": "hackernews_ai",
+  "summary_1line": "Coordinated Snapshots of Agent State",
+  "title": "Coordinated Snapshots of Agent State",
+  "type": "news",
+  "url": "https://hatchet.run/blog/agent-statefulness",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "1df314a3d0950977": {
   "first_seen": "2026-11-11T09:05:43.406869+00:00",
@@ -4936,6 +4968,22 @@
   "type": "news",
   "url": "https://openai.com/index/our-new-blog-for-science"
  },
+ "341333f6cd123692": {
+  "content_excerpt": "Today we're announcing eve 1.0 , the open-source framework for building production-ready agents. Since the public preview in June , we've worked with early adopters to prepare eve for 1.0, shipping 230+ releases and merging thousands of pull requests. With this release, eve is now generally available. We've made eve faster, expanded integrations, and improved observability. Security controls let you decide which actions need approval and what data gets collected. We've also made it easier for coding agents to build with, measuring that experience with a rigorous evaluation suite. With eve handling your harness and infrastructure, you and your agent can focus on building instead. The harness in eve is the loop that calls models, runs tools, and delegates work to subagents. You choose the model, add or replace tools, edit instructions, and decide which actions need approval. The open-source Workflow SDK saves progress as the agent runs, so it can pick up from its last completed step after a crash. Multiplayer sessions and agent-to-agent calls are built in. For managed hosting, deploy your eve agent to Vercel. Vercel Workflows handles durable execution, and Vercel Sandbox runs agent-generated code in isolation. Build software factories that turn requests into tested pull requests, company brains that answer questions from your business data, or customer-facing agents in your product. Thousands of businesses already run eve in production for internal and customer-facing agents. R",
+  "first_seen": "2026-11-19T14:06:24.038545+00:00",
+  "id": "8b09cf4d5c9160ab",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-19T11:39:25+00:00",
+  "sid": "341333f6cd123692",
+  "source": "hackernews_ai",
+  "summary_1line": "Eve 1.0 – Agent framework from Vercel",
+  "title": "Eve 1.0 – Agent framework from Vercel",
+  "type": "news",
+  "url": "https://vercel.com/blog/eve-is-now-generally-available",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "3449739a151bbd6a": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites and Chief Security Architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. The article describes an architecture for agentic AI in regulated utility operations. Agents reason and propose actions, but a deterministic policy gate and a governed tool gateway control execution, with human approval where required. It covers an AWS reference implementation, grounding in runbooks, governed prediction, outcome validation, audit evidence, and phased autonomy. Sundara Raman Ramachandran shares how LinkedIn productionizes LLM ranking under strict P99 latency SLAs. He discusses distilling a 7B model down to 400M parameters, compressing job contexts into single-token embeddings for a 10x throughput leap, and eliminating hidden system bottlenecks - from custom flash attention masks to Python GIL workarounds, gc.freeze, and non-blocking CUDA memory copies. Henry Wilson shares actionable tools from the BBC Sounds re-architecture to hel",
   "first_seen": "2026-11-17T11:06:06.780664+00:00",
@@ -5131,7 +5179,7 @@
   "published": "2026-11-17T03:44:46+00:00",
   "sid": "364859f834c86602",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 290, downloads: 2053.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 294, downloads: 2053.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 1, downloads: 0.",
   "title": "tencent/Hy4-flash released on Hugging Face",
   "type": "release",
@@ -6958,6 +7006,22 @@
   "type": "news",
   "url": "https://www.bleepingcomputer.com/news/security/california-sues-openai-over-ai-agents-escaping-sandboxes-hacking-firms",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "4b6510adf466295a": {
+  "first_seen": "2026-11-19T14:06:24.038545+00:00",
+  "id": "3c0bd1447a79a3a0",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-18T15:56:20+00:00",
+  "sid": "4b6510adf466295a",
+  "source": "arxiv_cs_cl",
+  "summary": "A central challenge in adapting large language models (LLMs) is capability preservation: an adaptation can achieve its target while degrading general capabilities. We introduce CurvDelta, a scalable framework that incorporates the preservation constraint into the parameterization of the model update. By analyzing the local geometry of the preservation constraint around the pre-adaptation model, CurvDelta constructs a low-curvature space in which parameter updates leave the preservation loss nearly invariant. We make its construction practical for LLMs through Kronecker-factored approximate curvature (K-FAC) and a factorized projection. We also introduce CurvLoRA, a low-rank variant within the same preservation geometry, designed for more efficient adaptation. Both methods apply to preservation-constrained adaptation tasks such as capability learning and selective unlearning. We evaluate our methods on mathematical reasoning, code generation, and knowledge unlearning. For mathematical reasoning and code generation, our approaches achieve competitive downstream performance while better preserving general capabilities, offering a favorable acquisition--retention trade-off relative to the baselines. For knowledge unlearning, our main results on TOFU and MUSE show a better balance between targeted forgetting and knowledge retention than the baselines, with retention performance close to the from-scratch retraining reference.",
+  "summary_1line": "A central challenge in adapting large language models (LLMs) is capability preservation: an adaptation can achieve its target while degrading general capabilities. We introduce CurvDelta, a scalable framework that inc...",
+  "title": "CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24654v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "4c719563acf49568": {
   "first_seen": "2026-11-11T20:08:30.197010+00:00",
@@ -9517,6 +9581,22 @@
   "type": "news",
   "url": "https://widefleet.com",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "6564b67fe708d306": {
+  "first_seen": "2026-11-19T14:06:24.038545+00:00",
+  "id": "4e02a13a3c135974",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-19T13:57:14+00:00",
+  "sid": "6564b67fe708d306",
+  "source": "hackernews_ai",
+  "summary": "Hey all! I ran into a wall with n8n - hard and expensive to scale, limited streaming, heavy MCP is confusing for agents. That scaling was becoming more and more critical as I was beginning to build agentic swarms. So I built my own alternative with Elixir and Beam. Been using it in production for almost 2 months. It connects my agent to multiple databases, sandboxes, and APIs. I've even migrated over my most used n8n workflows without a hiccup. I ran some benchmarks and 10,000 concurrent workflows executed in 3 seconds and cost about 330MB of ram (listed as 512 in the case study). Equivalent workflows in n8n took 2GB of ram to run 100. It's roughly 200x the memory efficiency of the usual Node/Python stacks. And while you don't edit the workflows yourself visually, you can see and manage them through a UI, along with credentials that the agent never sees. The workflows themselves are pure TOML. Not as easy as dragging node connectors. But the idea is that AI creates the flows and you can easily understand them. This isn't a shaky demo. I'm using it as my daily driver to create complex multi-agent personas, run research and info gathering swarms, and whatever else my agent needs to get its job done. (it's built more than 70 so far) I have a live working demo on my website that was built by an agent using Purple Flow to connect to my server. The demo itself lets an agent using Purple Flow access live (Adventure Works) data and generate reports, documents, and slides on demand. M",
+  "summary_1line": "Hey all! I ran into a wall with n8n - hard and expensive to scale, limited streaming, heavy MCP is confusing for agents. That scaling was becoming more and more critical as I was beginning to build agentic swarms. So...",
+  "title": "Show HN: Purple Flow – AI-first n8n alternative, 10k+ workflows on 512MB",
+  "type": "news",
+  "url": "https://github.com/leetheguy/purple_flow",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "65811fd7da16acc1": {
   "first_seen": "2026-11-18T15:04:12.182610+00:00",
@@ -17201,6 +17281,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17313v1"
  },
+ "b4c01a00d7072c7f": {
+  "first_seen": "2026-11-19T14:06:24.038545+00:00",
+  "id": "6acaaa13bf4f1bb6",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-17T23:05:05+00:00",
+  "sid": "b4c01a00d7072c7f",
+  "source": "arxiv_agent_systems_research",
+  "summary": "We introduce MANGO Arena, an open-source testbed in which four LLM agents each run one company in a serial supply chain adapted from MANGO, a classroom factory-management game. The environment enforces hard rules (a truck limit, a no-credit cash constraint and production capacity), logs every blocked attempt to break them, and gives agents a public message board on which side payments are explicitly forbidden. This lets one environment measure three things at once: an economic outcome (the bullwhip effect), rule adherence under pressure, and proposals to collude. In a pilot with three small reasoning models, two scripted reference policies, two conditions (with and without a supplier fire) and three demand seeds, all LLM agents amplified demand variability as it moved upstream, by 7 to 25 times at the Retailer and 13 to 179 times at the Supplier, often more than a textbook order-up-to policy. They did so largely by ordering in batches (zero orders in up to 60% of decisions). Real rule violations were rare (at most 7 of 288 decisions per model) and no agent proposed a money side deal. The pilot's main lesson concerns evaluation method. API failures (rate limits and runaway hidden reasoning) entered the metrics silently as \"no order\" decisions. And when we reran games with the same seeds and no failed calls, upstream bullwhip changed by up to 17 times between runs. With three seeds, conclusions about how a disruption affects a given model did not survive a rerun. We report thes",
+  "summary_1line": "We introduce MANGO Arena, an open-source testbed in which four LLM agents each run one company in a serial supply chain adapted from MANGO, a classroom factory-management game. The environment enforces hard rules (a t...",
+  "title": "MANGO Arena: Same Seeds, Different Chains Evaluating LLM Agents in a Disrupted Supply Chain",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.23613v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "b4c9eda632e112e3": {
   "first_seen": "2026-11-09T13:04:01.061413+00:00",
   "id": "ce3024c03f260b0e",
@@ -18475,6 +18572,22 @@
   "title": "PromptOps: Iterative Prompt Optimization for LLM-as-a-Judge Systems",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.07123v1"
+ },
+ "c259fdb087f2c077": {
+  "first_seen": "2026-11-19T14:06:24.038545+00:00",
+  "id": "50c928a60e0bc11a",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-18T14:53:42+00:00",
+  "sid": "c259fdb087f2c077",
+  "source": "arxiv_cs_ai",
+  "summary": "Multimodal knowledge graph reasoning (MKGR) aims to infer missing facts by jointly exploiting relational structures, textual descriptions, and visual evidence. Existing embedding-based methods effectively capture graph topology, but their fixed multimodal representations are less effective for query-specific fine-grained semantic reasoning, while generation-based methods are vulnerable to noisy retrieval and may produce invalid entities. To address these challenges, we propose NaviGATE, a noise-aware generative framework for MKGR. NaviGATE first aligns graph-derived structural representations with textual semantics, then performs structure-aware internal knowledge activation by fine-tuning the multimodal language model with multimodal entity summaries and injected structural tokens. In the noise-aware dual-view instruction tuning stage, NaviGATE jointly optimizes retrieval-free and retrieval-aware views: reliable retrieved candidates are reinforced through contrastive logit sharpening, while misleading candidates are suppressed through parametric consistency distillation. In inference, structure-constrained decoding restricts generation to valid entities in the target knowledge graph. Experiments on standard benchmarks show that NaviGATE consistently outperforms strong unimodal, multimodal, and generation-based baselines, and remains robust under noisy retrieval scenarios.",
+  "summary_1line": "Multimodal knowledge graph reasoning (MKGR) aims to infer missing facts by jointly exploiting relational structures, textual descriptions, and visual evidence. Existing embedding-based methods effectively capture grap...",
+  "title": "NaviGATE: Noise-Aware Dual-View Generation for Multimodal Knowledge Graph Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24552v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "c2b6352c27cb01c4": {
   "content_excerpt": "Keyword matches words; semantic matches meaning and exact titles or names; hybrid combines both. In keyword mode, use quotation marks for exact phrases. Author matches published credits. Year applies to posts; wiki entries have no author or publication year. You can also use author:\"Ada\" or type:podcast in non-regex searches. November 16, 2026 — Computer gets Teammates, Perplexity ships Monitor API, and a new research lab launches. Perplexity crossed a $1B annual revenue run rate today , CEO Aravind Srinivas told Semafor at a live event. The Information reported previously under $250M at the start of the year and over $750M by August, with Computer driving some of the growth. At usual agent lab multiples (eg Cognition also crossed $1B , with Cursor crossing $4.6B ), this would roughly mean that Perplexity is now worth $30-50B — if the unit economics hold up. This is a nice bump on the $20B round in September 2025 , and qualifies for our “>$10B fundraise” rule for title stories. Computer. September’s Automations let it pick up recurring tasks where it left off. November’s Teammates take on ongoing jobs. Computer also runs fully locally on supported Macs. Monitor API. Watch a topic or page and get a webhook when something relevant changes. Frontier Research. The new research lab has access to 10,000+ GPUs and plans to publish papers, data, models, and code. Sponsored by Deepgram Deepgram is the voice AI infrastructure behind natural conversation—bringing speech-to-text, text-to",
@@ -20893,6 +21006,22 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.168.0-alpha.7",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "dd28f61c13ac813c": {
+  "first_seen": "2026-11-19T14:06:24.038545+00:00",
+  "id": "2b6b26b3951a9be9",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-18T17:35:47+00:00",
+  "sid": "dd28f61c13ac813c",
+  "source": "arxiv_cs_ai",
+  "summary": "Isabelle Pool Server (IPS), a verification service with a pool of warm headless Isabelle sessions behind an HTTP API, with session leasing and reclamation, memory-aware admission control, and a time budget on every call. Its verification interface spans single-step execution, block-level proof checking and whole-theory builds, with checkpoints for cheap branching and backtracking, and a build from scratch as the final arbiter. The service runs as a single container with monitoring and is accessible via a Python client, two MCP servers and a raw HTTP API. In our measurements IPS is level with PIDE MCP, a PIDE frontend for agents, at one worker and ahead of it at eight, at its commit of October 2026 (the tool is now PIDE AI). Once its sessions are up it scales to 32 concurrent workers on one host at 24 times the single-worker rate, and under memory pressure it refuses new sessions rather than losing existing ones. IPS is free software and publicly available at https://github.com/Deep-LCF/Isabelle-Pool-Server",
+  "summary_1line": "Isabelle Pool Server (IPS), a verification service with a pool of warm headless Isabelle sessions behind an HTTP API, with session leasing and reclamation, memory-aware admission control, and a time budget on every ca...",
+  "title": "Isabelle Pool Server: a pooled verification service for prover training and multi-agent proving",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24788v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "dd44f20650511826": {
   "first_seen": "2026-11-04T03:03:29.158969+00:00",
