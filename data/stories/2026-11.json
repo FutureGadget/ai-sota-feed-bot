@@ -1171,6 +1171,23 @@
   "url": "https://chengxuan-li.github.io/repobs",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "0c8fb121c8b50e33": {
+  "content_excerpt": "What 125 insurance questions taught us about routing, business definitions, and documents Ask Finance and Underwriting whether the loss ratio improved from 2024 to 2025, and you will get two contradictory answers that are both correct. In a fictional commercial auto insurer we built for this test, Finance reported an 8.2 percentage-point deterioration, and Underwriting reported a 1.5 percentage-point improvement. Neither was wrong. Finance tracks the calendar year net of reinsurance, so an adverse reserve development on an older claim shows up in today's numbers. Underwriting looks strictly at the policy year, gross of reinsurance and excluding catastrophes, because that's the baseline used to set rates. Reserving, meanwhile, relies on a third metric entirely: the accident-year ultimate loss ratio. The SQL can be perfectly correct and still produce an answer that doesn't make sense for the person asking. The challenge is knowing which business definition to apply when the same term has several valid definitions, while keeping shared facts, such as total policies written, consistent. This is the problem we wanted to explore with Genie One. Genie One, powered by Genie Ontology (now Generally Available), brings this business context into the analytics experience. Genie Ontology learns from the work teams already do, automatically capturing business logic, calculations, and relationships from existing dashboards, queries, notebooks, and semantic models as Ontology Snippets. This ",
+  "first_seen": "2026-11-19T21:10:43.269762+00:00",
+  "id": "1bb37477876a396a",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-19T20:15:41+00:00",
+  "sid": "0c8fb121c8b50e33",
+  "source": "databricks_blog",
+  "summary": "Ask Finance and Underwriting whether the loss ratio improved from 2024 to 2025, and...",
+  "summary_1line": "Ask Finance and Underwriting whether the loss ratio improved from 2024 to 2025, and...",
+  "title": "Genie One Accuracy: Why Curated Agents Need Governed Context",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/genie-one-accuracy-why-curated-agents-need-governed-context",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "0ca2a0dcdfefc963": {
   "content_excerpt": "If you're not using some type of agent state machine, you're completely at the mercy of the nondeterministic nature of models. Are you really okay with models deciding what actions to take and when their work is complete? This question is the driving force behind agent state machines, which define explicit execution states, the events that move an agent between them, and the rules governing those transitions. State machines have been used in software for decades, but they are finding new applications in agent infrastructure. Lately, they're being used to control an agent's internal execution loop, manage workflows, and supervise work delegated across multiple agent sessions. Existing frameworks, such as LangGraph and XState , already provide many of the primitives for managing state and controlling execution. Yet homegrown implementations are becoming increasingly common, often with surprisingly different architectures and relatively little code. So what are developers actually building when they talk about state machines for agents? How do these implementations interact with existing agent harnesses, and why are developers building their own? Most agents are built around a relatively simple execution loop. The model receives a prompt, decides whether to call a tool, processes the result, and repeats until it decides the task is finished. This is, after all, the magic of agents, and it works well when the agent can complete its work within a single session. Simple looping is ",
   "first_seen": "2026-11-05T03:05:19.238517+00:00",
@@ -2983,6 +3000,18 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.0-alpha.11",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "1df80ba4eb1bc779": {
+  "first_seen": "2026-11-19T21:10:43.269762+00:00",
+  "id": "36cf10f4b46254c9",
+  "published": "2026-11-19T20:43:57+00:00",
+  "sid": "1df80ba4eb1bc779",
+  "source": "simon_willison",
+  "summary": "PostgreSQL 19 Released Most years PostgreSQL ships a new release in September, but this year's release came two months later thanks mainly to the flurry of issues that the PostgreSQL team needed to address as part of the ongoing AI-reported vulnerability apocalypse. This release was definitely worth the wait. My favorite new feature is this one: For applications that send reads to standbys, PostgreSQL 19 adds \"read-your-writes\" consistency with the new WAIT FOR LSN command. A session on a standby can use WAIT FOR LSN to wait until the standby has replayed the write-ahead log (WAL) up to a specific log sequence number (LSN) before running a query, so the application can read data it just wrote on the primary. In practice, that looks like this: UPDATE movie SET genre = 'Dramatic' WHERE genre = 'Drama'; SELECT pg_current_wal_insert_lsn(); That returns a value like 0/0306EE20 . Store that somewhere (a signed cookie would work) such that on a subsequent request your application can do: WAIT FOR LSN '0/0306EE20' WITH (TIMEOUT '0.1s'); SELECT * FROM movie WHERE genre = 'Drama'; The timeout is optional - if you provide one you'll get an error if the replica you are talking to doesn't catch up within the specified time. I first encountered this pattern in Wikipedia , which has a hand-rolled version of this built against MySQL replication: In addition to this, MediaWiki attempts to ensure that the user sees events occurring on the wiki in chronological order. A few seconds of lag can b",
+  "summary_1line": "PostgreSQL 19 Released Most years PostgreSQL ships a new release in September, but this year's release came two months later thanks mainly to the flurry of issues that the PostgreSQL team needed to address as part of...",
+  "title": "PostgreSQL 19 Released",
+  "type": "release",
+  "url": "https://simonwillison.net/2026/Nov/19/postgresql-19"
  },
  "1e13d673398b4485": {
   "first_seen": "2026-11-17T13:05:17.629690+00:00",
@@ -9299,6 +9328,19 @@
   "url": "http://arxiv.org/abs/2611.14357v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "5ffdc5c7963d8fb2": {
+  "content_excerpt": "Abundant builds reinforcement learning environments that frontier labs like OpenAI, Anthropic, Google, and Meta use to train and evaluate their models. Labs improve agent capability by giving them difficult tasks that Abundant designs, letting the model attempt it, and grading the result as pass or fail. Each task is an RL rollout with a full environment. The model needs instructions, a defined goal, and a verifier to decide whether the task was completed. But it also needs infrastructure: compute to power the run, Dockerfiles, and isolation. Depending on the task, an agent may even need accelerators like GPUs. Abundant has created over 75,000 rollouts — ranging from GPU kernel optimization to long-horizon coding — each of which runs in a Modal Sandbox. Modal makes their rollout infrastructure easy to build and cost-efficient to run, enabling the Abundant team to focus on their core business. Today, almost all of Abundant’s rollout platform runs on Modal. Modal Functions power Abundant’s scheduler API to start tasks, clean up dead runs, and review rollouts. Modal Sandboxes power the rollout environments. Abundant initially chose to evaluate Sandbox providers because they wanted to avoid managing EC2 clusters directly, which would pull engineering time away from their core business of building RL environments. Modal enabled them to build their infrastructure directly in code, launch Sandboxes easily via API, and elastically scale their traffic as business grew. As of November ",
+  "first_seen": "2026-11-19T21:10:43.269762+00:00",
+  "id": "04a2c94bbf0ed3de",
+  "published": "2026-11-19T00:00:00+00:00",
+  "sid": "5ffdc5c7963d8fb2",
+  "source": "modal_blog",
+  "summary": "Abundant builds RL environments that run on Modal Sandboxes, powering training for frontier labs.",
+  "summary_1line": "Abundant builds RL environments that run on Modal Sandboxes, powering training for frontier labs.",
+  "title": "How Abundant designed efficient rollout architecture with Modal Sandboxes",
+  "type": "news",
+  "url": "https://modal.com/blog/abundant-efficient-rollout-architecture-with-modal-sandboxes"
+ },
  "6029e916d3c97dcd": {
   "content_excerpt": "Each agent reasons and calls tools on its paired runner. Sessions run independently and repeat automatically. Leave your contact details and we’ll get in touch when Rungrid’s MVP is ready to try. Checking computers one by one means repeating instructions and gathering context in separate sessions. Rungrid lets you describe the work once and choose which machines it applies to. Check installed software versions, inspect service status or review configuration across selected computers without repeating the same request on each machine. Ask for a snapshot of CPU, memory and disk usage from selected machines to help identify resource pressure and decide where to investigate next. Select the affected machines and ask agents to inspect logs, check relevant processes and attempt a targeted fix where the available tools allow it. Create a task describing the work. Attach one reusable agent configuration : a model and its parameters, not a running agent. Attach the runners you want to use. A runner is a background program on a local machine, not an AI agent. Execution creates a separate agent instance for each selected runner, using the attached configuration. Each instance uses tools only on its paired runner’s machine.",
   "first_seen": "2026-11-07T13:03:35.656334+00:00",
@@ -12995,6 +13037,19 @@
   "title": "Give the Drafter a Second Chance to Guess: Parallel Reconsideration for Speculative Decoding",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.05724v1"
+ },
+ "88461657b387a0e6": {
+  "content_excerpt": "NVIDIA and Microsoft are extending their full-stack collaboration to help organizations build, customize and deploy intelligent applications — from next-generation infrastructure on Azure to industrial systems and Windows PCs. At Microsoft Ignite , the companies are expanding access to Azure virtual machines powered by NVIDIA Vera Rubin NVL72 systems, as well as adding customer availability to NVIDIA open models and customization capabilities through Microsoft Foundry, and new options for running AI at the edge, where businesses generate and use their data. Microsoft is also using NVIDIA technologies to accelerate its own models and services, including NVIDIA Dynamo inference software for post-training and NVIDIA RTX PRO 6000 Blackwell GPUs for Bing search models. NVIDIA Vera Rubin NVL72 systems are running in Azure data centers , providing infrastructure designed for demanding reasoning, agentic applications, and large-scale model training and inference. Microsoft and NVIDIA are also collaborating to extend confidential computing to bare-metal and rack-scale AI infrastructure. The work will help protect sensitive models and data while they are being processed, supporting organizations that need to work with proprietary or regulated information. NVIDIA Confidential Computing and attestation help customers verify the computing environment before releasing sensitive models, data or keys. As AI workloads span more interconnected accelerators, the companies are working to extend ",
+  "first_seen": "2026-11-19T21:12:34.801725+00:00",
+  "id": "6a1b8d3b89a2a445",
+  "image_url": "https://blogs.nvidia.com/wp-content/uploads/2026/11/nvidia-microsoft.png",
+  "published": "2026-11-19T20:00:15+00:00",
+  "sid": "88461657b387a0e6",
+  "source": "nvidia_blog",
+  "summary_1line": "NVIDIA and Microsoft are extending their full-stack collaboration to help organizations build, customize and deploy intelligent applications — from next-generation infrastructure on Azure to industrial systems and Windows PCs. At Microsoft Ignite, the companies are expanding acce",
+  "title": "NVIDIA and Microsoft Expand Accelerated Computing From Azure to Windows PCs",
+  "type": "news",
+  "url": "https://blogs.nvidia.com/blog/microsoft-ignite-accelerated-computing-azure-windows-pcs"
  },
  "885bc06050a058a0": {
   "first_seen": "2026-11-09T21:05:41.308068+00:00",
@@ -24445,6 +24500,22 @@
   "title": "CUDA+ROCm dual-back ends LLM inference for mixed-vendor GPUs (up to 48% faster)",
   "type": "news",
   "url": "https://github.com/mw00/project-maya/pull/879"
+ },
+ "ff08a8aeb0567711": {
+  "first_seen": "2026-11-19T21:10:43.269762+00:00",
+  "id": "2f41444061ebf65c",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-19T20:39:52+00:00",
+  "sid": "ff08a8aeb0567711",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.171.0-alpha.13.1",
+  "summary_1line": "Release 0.171.0-alpha.13.1",
+  "title": "codex rust-v0.171.0-alpha.13.1",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.13.1",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "ff14e0cf361f2948": {
   "first_seen": "2026-11-09T00:08:10.338185+00:00",
