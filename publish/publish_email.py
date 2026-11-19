@@ -124,6 +124,7 @@ EMAIL_COPY = {
         "share_subject": "Worth a read: {title}",
         "share_body": "Today's AI brief from LLM Digest: {url}\n\nGet it by email: {sub}",
         "more_in_theme": "Also in this theme",
+        "reply": "Reply to this email to tell us what to cut or add. A person reads every reply.",
         "switch_lang": "이 메일을 한국어로 받기",
         "preheader_tail": " — then you're caught up.",
         "more": " · +{n} more",
@@ -174,6 +175,7 @@ EMAIL_COPY = {
         "share_subject": "읽어볼 만한 AI 브리프: {title}",
         "share_body": "LLM Digest의 오늘 AI 브리프: {url}\n\n이메일로 받기: {sub}",
         "more_in_theme": "이 테마의 다른 소식",
+        "reply": "빼거나 더할 것이 있으면 이 메일에 답장해 주세요. 사람이 모든 답장을 읽습니다.",
         "switch_lang": "Get this email in English",
         "preheader_tail": " — 읽고 나면 끝.",
         "more": " · 외 {n}건",
@@ -689,6 +691,23 @@ def week_range(wk: dict, locale: str = "en") -> str:
     return f"{EN_MONTHS[a.month - 1]} {a.day}–{tail}"
 
 
+def reply_to_address() -> str:
+    """Where readers' replies go (``EMAIL_REPLY_TO``); "" keeps the default,
+    replies to the sender address."""
+    return os.getenv("EMAIL_REPLY_TO", "").strip()
+
+
+def reply_html(locale: str = "en") -> str:
+    """The "reply to this email" invitation, shown only when replies reach a
+    person (``EMAIL_REPLY_TO`` is set)."""
+    if not reply_to_address():
+        return ""
+    return (
+        '<div style="margin:0 0 14px;text-align:center;font-size:14px;line-height:1.5;color:#555">'
+        f"{html.escape(_t(locale, 'reply'))}</div>"
+    )
+
+
 def share_html(cfg: dict, page_url: str, title: str, locale: str = "en") -> str:
     """"Forward it" line: a mailto link that opens a new message with the web
     version and the signup link already filled in."""
@@ -975,6 +994,7 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
   {thread_html}
   <div style="margin:26px 0 14px;padding:12px;border-radius:8px;background:#f6f8fa;text-align:center;font-size:16px;font-weight:600;color:#1a7f37">{_t(locale, "caught_up")}</div>
   {share_html(cfg, daily_page, top_title, locale)}
+  {reply_html(locale)}
   <div style="font-size:13px;color:#999;margin-top:18px;line-height:1.9">
     <a href="{html.escape(daily_page)}" style="color:#1a6dd6">{_t(locale, "web")}</a> ·
     <a href="{html.escape(feed_url)}" style="color:#1a6dd6">{_t(locale, "feed")}</a> ·
@@ -1179,7 +1199,7 @@ def render_weekly(
   {thread_html}
   {wiki_html}
   {skill_lab_html}
-  <div style="margin-top:24px">{share_html(cfg, weekly_page, title, locale)}</div>
+  <div style="margin-top:24px">{share_html(cfg, weekly_page, title, locale)}{reply_html(locale)}</div>
   <div style="font-size:13px;color:#999;margin-top:18px;line-height:1.9">
     <a href="{html.escape(weekly_page)}" style="color:#1a6dd6">{_t(locale, "full_recap")}</a> ·
     <a href="{html.escape(feed_url)}" style="color:#1a6dd6">{_t(locale, "open_feed")}</a>{lang_switch}{unsub}
@@ -1264,6 +1284,8 @@ def send_broadcast(
         }
         if name:
             payload["name"] = name
+        if reply_to_address():
+            payload["reply_to"] = reply_to_address()
         topic_id = resolve_topic_id(kind)
         if topic_id:
             payload["topic_id"] = topic_id
@@ -1307,18 +1329,16 @@ def send_test(cfg: dict, api_key: str, to: str, subject: str, html_body: str, ki
     if not from_addr:
         raise RuntimeError("test sends need EMAIL_FROM")
     body = test_body(cfg, html_body)
-    r = requests.post(
-        "https://api.resend.com/emails",
-        headers={"Authorization": f"Bearer {api_key}"},
-        json={
-            "from": from_addr,
-            "to": [to],
-            "subject": f"[TEST {kind} {locale}] {subject}",
-            "html": body,
-            "text": html_to_text(body),
-        },
-        timeout=30,
-    )
+    payload = {
+        "from": from_addr,
+        "to": [to],
+        "subject": f"[TEST {kind} {locale}] {subject}",
+        "html": body,
+        "text": html_to_text(body),
+    }
+    if reply_to_address():
+        payload["reply_to"] = reply_to_address()
+    r = requests.post("https://api.resend.com/emails", headers={"Authorization": f"Bearer {api_key}"}, json=payload, timeout=30)
     r.raise_for_status()
 
 

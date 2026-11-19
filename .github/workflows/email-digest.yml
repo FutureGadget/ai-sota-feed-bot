@@ -6,8 +6,12 @@ name: AI Feed Email Digest
 # (or config/email.yaml enabled:false) publish_email.py is a clean no-op and the
 # cursor commit finds nothing to push.
 #
-#   - daily brief:   every day 23:00 UTC -> 08:00 KST next morning, after daily-recap at 06:00 KST
-#   - weekly recap:  Friday 23:00 UTC -> Saturday 08:00 KST, after weekly-recap at Sat 06:00 KST
+#   - daily brief:   Korean every day 23:00 UTC (08:00 KST), English 11:30 UTC
+#                    (07:30 ET), both after the daily recap at 21:00 UTC
+#   - weekly recap:  Korean Friday 23:00 UTC (Sat 08:00 KST), English Saturday
+#                    12:00 UTC, after the weekly recap at Fri 21:00 UTC
+#   The cron-job.org jobs pass inputs.locale; see
+#   docs/how-to/hourly-trigger-cron-job-org.md.
 on:
   workflow_dispatch:
     inputs:
@@ -67,6 +71,9 @@ jobs:
           EMAIL_TOPIC_ID_DAILY: ${{ secrets.EMAIL_TOPIC_ID_DAILY }}
           EMAIL_TOPIC_ID_WEEKLY: ${{ secrets.EMAIL_TOPIC_ID_WEEKLY }}
           EMAIL_FROM: ${{ vars.EMAIL_FROM }}
+          # Optional: where readers' replies go. Unset = replies go to EMAIL_FROM
+          # and the email shows no "reply to this email" line.
+          EMAIL_REPLY_TO: ${{ vars.EMAIL_REPLY_TO }}
           # Test sends go to this one address only (the owner's inbox).
           EMAIL_TEST_TO: ${{ secrets.EMAIL_TEST_TO }}
           INPUT_KIND: ${{ github.event.inputs.kind }}
@@ -89,7 +96,9 @@ jobs:
       # block committing the digest cursor above, and the follow cursor only
       # advances after a successful send.
       - name: Send storyline follow alerts
-        if: ${{ github.event.inputs.kind != 'weekly' && github.event.inputs.test_send != 'true' }}
+        # Follow alerts are English and ride the English daily run (locale
+        # all or en), never the Korean-only run, so they go out once a day.
+        if: ${{ github.event.inputs.kind != 'weekly' && github.event.inputs.test_send != 'true' && github.event.inputs.locale != 'ko' }}
         continue-on-error: true
         env:
           EMAIL_API_KEY: ${{ secrets.EMAIL_API_KEY }}

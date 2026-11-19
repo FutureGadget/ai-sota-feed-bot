@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -159,6 +161,34 @@ class EmailUxTest(unittest.TestCase):
         source, used = email.localized_or_english("daily", self.day, DAILY_ID, "ko")
         _, body = email.render_daily(self.cfg, source, [english], used)
         self.assertNotIn("오늘 움직인 스토리", body)
+
+
+    def test_reply_invitation_and_header_follow_email_reply_to(self):
+        env = {k: v for k, v in os.environ.items() if k != "EMAIL_REPLY_TO"}
+        with mock.patch.dict(os.environ, env, clear=True):
+            _, (_, body) = self.daily()
+            self.assertNotIn("A person reads every reply", body)
+        with mock.patch.dict(os.environ, {"EMAIL_REPLY_TO": "owner@example.com"}):
+            _, (_, en) = self.daily()
+            _, (_, ko) = self.weekly("ko")
+            self.assertIn("A person reads every reply", en)
+            self.assertIn("사람이 모든 답장을 읽습니다", ko)
+            sent = {}
+
+            class Ok:
+                status_code = 200
+
+                def raise_for_status(self):
+                    return None
+
+            def fake_post(url, headers=None, json=None, timeout=None):
+                sent.update(json)
+                return Ok()
+
+            env2 = {"EMAIL_SEGMENT_ID": "seg", "EMAIL_FROM": "LLM Digest <d@example.com>", "EMAIL_REPLY_TO": "owner@example.com"}
+            with mock.patch.dict(os.environ, env2), mock.patch.object(email.requests, "post", side_effect=fake_post):
+                email.send_broadcast(dict(self.cfg, provider="resend"), "k", "s", "<p>b</p>", "n")
+            self.assertEqual(sent["reply_to"], "owner@example.com")
 
 
 if __name__ == "__main__":

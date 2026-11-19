@@ -219,3 +219,73 @@ test('without a Korean segment a duplicate signup makes no segment calls', async
     if (saved !== undefined) process.env.EMAIL_SEGMENT_ID_KO = saved;
   }
 });
+
+async function withFrom(fn, extra = {}) {
+  const saved = { from: process.env.EMAIL_FROM, reply: process.env.EMAIL_REPLY_TO };
+  process.env.EMAIL_FROM = 'LLM Digest <digest@example.com>';
+  if (extra.replyTo) process.env.EMAIL_REPLY_TO = extra.replyTo;
+  else delete process.env.EMAIL_REPLY_TO;
+  try {
+    await fn();
+  } finally {
+    for (const [key, value] of [['EMAIL_FROM', saved.from], ['EMAIL_REPLY_TO', saved.reply]]) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+}
+
+function capturingFetch(responses) {
+  const calls = [];
+  const impl = async (url, init) => {
+    calls.push({ url: String(url), method: init?.method || 'GET', body: init?.body ? JSON.parse(init.body) : null });
+    return responses.shift() || new Response('{}', { status: 200 });
+  };
+  return { calls, impl };
+}
+
+test('a new subscriber gets one welcome email in their language', async () => {
+  await withFrom(async () => {
+    const { calls, impl } = capturingFetch([new Response('{}', { status: 201 }), new Response('{}', { status: 200 })]);
+    const res = await invoke({ email: 'reader@example.com', locale: 'ko' }, impl);
+    assert.equal(res.statusCode, 200);
+    assert.equal(calls.length, 2);
+    assert.equal(calls[1].url, 'https://api.resend.com/emails');
+    assert.deepEqual(calls[1].body.to, ['reader@example.com']);
+    assert.equal(calls[1].body.from, 'LLM Digest <digest@example.com>');
+    assert.match(calls[1].body.subject, /구독을 환영합니다/);
+    assert.match(calls[1].body.html, /\/ko\/daily\?utm_source=email/);
+    assert.match(calls[1].body.html, /digest@example\.com을 연락처에 추가/);
+    assert.equal(calls[1].body.reply_to, undefined);
+  });
+});
+
+test('a weekly-only welcome points at the weekly recap and carries Reply-To when set', async () => {
+  await withFrom(async () => {
+    const { calls, impl } = capturingFetch([new Response('{}', { status: 201 }), new Response('{}', { status: 200 })]);
+    await invoke({ email: 'reader@example.com', weekly_only: true }, impl);
+    assert.match(calls[1].body.subject, /Welcome to LLM Digest/);
+    assert.match(calls[1].body.text, /weekly recap arrives every Saturday/);
+    assert.match(calls[1].body.html, /\/weekly\?utm_source=email/);
+    assert.equal(calls[1].body.reply_to, 'owner@example.com');
+    assert.match(calls[1].body.text, /replies reach a person/);
+  }, { replyTo: 'owner@example.com' });
+});
+
+test('an existing subscriber gets no welcome email', async () => {
+  await withFrom(async () => {
+    const { calls, impl } = capturingFetch([new Response('{}', { status: 409 })]);
+    const res = await invoke({ email: 'reader@example.com' }, impl);
+    assert.equal(res.statusCode, 200);
+    assert.equal(calls.filter((c) => c.url.endsWith('/emails')).length, 0);
+  });
+});
+
+test('a failed welcome email never fails the signup', async () => {
+  await withFrom(async () => {
+    const { impl } = capturingFetch([new Response('{}', { status: 201 }), new Response('boom', { status: 500 })]);
+    const res = await invoke({ email: 'reader@example.com' }, impl);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, { ok: true });
+  });
+});

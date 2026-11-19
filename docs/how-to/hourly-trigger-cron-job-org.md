@@ -109,43 +109,35 @@ PAT scoped to *only this repo* with the minimum permission.
 
 ## Email Digest Trigger
 
-The email digest workflow (`email-digest.yml`) is dispatched on UTC crons
-(daily `0 23 * * *`, weekly `0 23 * * 5`) chosen so the mail lands at 08:00 KST
-(Seoul morning). cron-job.org is the sole trigger; adding these jobs guarantees
-the email sends reliably. The workflow's idempotency guard (cursor in
-`data/email/state.json`) makes duplicate triggers safe — the script no-ops
-when the recap has already been sent.
+The email digest workflow (`email-digest.yml`) sends each language edition at
+its readers' morning (2026-11-19). cron-job.org is the sole trigger; the
+`locale` input picks the edition:
 
-### Job 1: Daily email digest (23:00 UTC -> 08:00 KST)
+| Job | When (UTC) | Lands | Body |
+|---|---|---|---|
+| 1. Daily, Korean | every day 23:00 | 08:00 KST | `{"ref":"main","inputs":{"kind":"daily","locale":"ko"}}` |
+| 2. Weekly, Korean | Friday 23:00 | Saturday 08:00 KST | `{"ref":"main","inputs":{"kind":"weekly","locale":"ko"}}` |
+| 3. Daily, English | every day 11:30 | 07:30 ET, 12:30 London | `{"ref":"main","inputs":{"kind":"daily","locale":"en"}}` |
+| 4. Weekly, English | Saturday 12:00 | Saturday 08:00 ET | `{"ref":"main","inputs":{"kind":"weekly","locale":"en"}}` |
 
-1. **Title:** `llm-digest daily email`
-2. **URL:**
+Both editions read the latest committed recap (the daily routine finishes at
+21:00 UTC, the weekly one Friday 21:00 UTC), and each edition has its own
+already-sent cursor in `data/email/state.json`, so a duplicate trigger is a
+no-op. Storyline follow alerts ride the English daily run only. A body without
+`locale` sends both editions at once (the pre-2026-11-19 setup).
+
+For every job:
+
+1. **URL:**
    ```
    https://api.github.com/repos/FutureGadget/ai-sota-feed-bot/actions/workflows/email-digest.yml/dispatches
    ```
-3. **Schedule:** Every day at 23:00 UTC
-   (cron-job.org pattern: minutes = `0`, hours = `23`).
-4. **Request method:** `POST`
-5. **Headers:** same four as the every-two-hour feed job (reuse the same PAT).
-6. **Request body:**
-   ```json
-   {"ref":"main","inputs":{"kind":"daily"}}
-   ```
-7. Save and enable.
-
-### Job 2: Weekly email digest (Friday 23:00 UTC -> Saturday 08:00 KST)
-
-1. **Title:** `llm-digest weekly email`
-2. **URL:** same as Job 1.
-3. **Schedule:** Every Friday at 23:00 UTC
-   (cron-job.org pattern: minutes = `0`, hours = `23`, day of week = `5`/Friday).
-4. **Request method:** `POST`
-5. **Headers:** same four.
-6. **Request body:**
-   ```json
-   {"ref":"main","inputs":{"kind":"weekly"}}
-   ```
-7. Save and enable.
+2. **Request method:** `POST`
+3. **Headers:** same four as the every-two-hour feed job (reuse the same PAT).
+   The quickest way to make jobs 3 and 4 is **Clone** on jobs 1 and 2, then
+   change the schedule and the body.
+4. **Request body:** from the table above.
+5. Save and enable.
 
 ### Verify
 
