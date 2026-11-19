@@ -71,9 +71,6 @@ jobs:
           EMAIL_TOPIC_ID_DAILY: ${{ secrets.EMAIL_TOPIC_ID_DAILY }}
           EMAIL_TOPIC_ID_WEEKLY: ${{ secrets.EMAIL_TOPIC_ID_WEEKLY }}
           EMAIL_FROM: ${{ vars.EMAIL_FROM }}
-          # Optional: where readers' replies go. Unset = replies go to EMAIL_FROM
-          # and the email shows no "reply to this email" line.
-          EMAIL_REPLY_TO: ${{ vars.EMAIL_REPLY_TO }}
           # Test sends go to this one address only (the owner's inbox).
           EMAIL_TEST_TO: ${{ secrets.EMAIL_TEST_TO }}
           INPUT_KIND: ${{ github.event.inputs.kind }}

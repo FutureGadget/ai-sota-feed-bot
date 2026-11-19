@@ -92,7 +92,6 @@ class WorkflowTest(unittest.TestCase):
         for name in ("Send storyline follow alerts", "Commit send cursor"):
             self.assertIn("test_send != 'true'", self.steps[name]["if"])
         self.assertIn("locale != 'ko'", self.steps["Send storyline follow alerts"]["if"])
-        self.assertEqual(self.steps["Send digest"]["env"]["EMAIL_REPLY_TO"], "${{ vars.EMAIL_REPLY_TO }}")
         send = self.steps["Send digest"]
         self.assertEqual(send["env"]["EMAIL_TEST_TO"], "${{ secrets.EMAIL_TEST_TO }}")
         self.assertIn('--locale "${INPUT_LOCALE:-all}"', send["run"])

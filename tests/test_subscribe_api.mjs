@@ -220,18 +220,14 @@ test('without a Korean segment a duplicate signup makes no segment calls', async
   }
 });
 
-async function withFrom(fn, extra = {}) {
-  const saved = { from: process.env.EMAIL_FROM, reply: process.env.EMAIL_REPLY_TO };
+async function withFrom(fn) {
+  const saved = process.env.EMAIL_FROM;
   process.env.EMAIL_FROM = 'LLM Digest <digest@example.com>';
-  if (extra.replyTo) process.env.EMAIL_REPLY_TO = extra.replyTo;
-  else delete process.env.EMAIL_REPLY_TO;
   try {
     await fn();
   } finally {
-    for (const [key, value] of [['EMAIL_FROM', saved.from], ['EMAIL_REPLY_TO', saved.reply]]) {
-      if (value === undefined) delete process.env[key];
-      else process.env[key] = value;
-    }
+    if (saved === undefined) delete process.env.EMAIL_FROM;
+    else process.env.EMAIL_FROM = saved;
   }
 }
 
@@ -255,21 +251,25 @@ test('a new subscriber gets one welcome email in their language', async () => {
     assert.equal(calls[1].body.from, 'LLM Digest <digest@example.com>');
     assert.match(calls[1].body.subject, /구독을 환영합니다/);
     assert.match(calls[1].body.html, /\/ko\/daily\?utm_source=email/);
-    assert.match(calls[1].body.html, /digest@example\.com을 연락처에 추가/);
+    assert.match(calls[1].body.html, /데일리 브리프/);
+    assert.match(calls[1].body.html, /<meta name="color-scheme" content="light dark">/);
+    assert.doesNotMatch(calls[1].body.html, /연락처|답장/);
     assert.equal(calls[1].body.reply_to, undefined);
   });
 });
 
-test('a weekly-only welcome points at the weekly recap and carries Reply-To when set', async () => {
+test('a weekly-only welcome describes and links only the weekly recap', async () => {
   await withFrom(async () => {
     const { calls, impl } = capturingFetch([new Response('{}', { status: 201 }), new Response('{}', { status: 200 })]);
     await invoke({ email: 'reader@example.com', weekly_only: true }, impl);
-    assert.match(calls[1].body.subject, /Welcome to LLM Digest/);
-    assert.match(calls[1].body.text, /weekly recap arrives every Saturday/);
+    assert.match(calls[1].body.subject, /welcome to LLM Digest/);
+    assert.match(calls[1].body.text, /Weekly recap: Saturday morning/);
+    assert.doesNotMatch(calls[1].body.text, /Daily brief/);
     assert.match(calls[1].body.html, /\/weekly\?utm_source=email/);
-    assert.equal(calls[1].body.reply_to, 'owner@example.com');
-    assert.match(calls[1].body.text, /replies reach a person/);
-  }, { replyTo: 'owner@example.com' });
+    assert.match(calls[1].body.html, /Read this week(?:'|&#39;)s recap/);
+    assert.doesNotMatch(calls[1].body.html, /contacts|[Rr]eply/);
+    assert.equal(calls[1].body.reply_to, undefined);
+  });
 });
 
 test('an existing subscriber gets no welcome email', async () => {

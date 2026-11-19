@@ -353,7 +353,7 @@ family but is a **conversion utility first** — clarity and trust outrank novel
   choice), and "You're getting this because you subscribed at llm-digest.com."
   Resend Broadcasts add the List-Unsubscribe headers themselves.
 
-## Send times, welcome email, replies (2026-11-19)
+## Send times and welcome email (2026-11-19)
 - **Send times:** each edition goes out at its readers' morning: Korean daily
   23:00 UTC (08:00 KST) and weekly Friday 23:00 UTC; English daily 11:30 UTC
   (07:30 ET) and weekly Saturday 12:00 UTC. One cron-job.org job per edition
@@ -361,14 +361,12 @@ family but is a **conversion utility first** — clarity and trust outrank novel
   Storyline follow alerts ride the English daily run only.
 - **Welcome email:** `api/subscribe.js` sends one welcome email when a signup
   creates a new contact (never on a re-subscribe), in the signup's language:
-  what arrives and when (weekly-only signups hear about the weekly only), a
-  button to the latest brief, "add the sender to your contacts", and where to
-  change or stop emails. Best-effort: a failed send never fails the signup.
-  Needs `EMAIL_FROM` in the Worker (`worker/wrangler.jsonc` vars).
-- **Replies:** with `EMAIL_REPLY_TO` set (GitHub variable for the digest,
-  Worker secret for the welcome email), every email carries `reply_to` and a
-  "reply to this email" line. Unset, replies go to `EMAIL_FROM` and the line is
-  hidden.
+  what arrives and when (daily brief, weekly recap, storyline memory;
+  weekly-only signups hear about the weekly only), one button to the latest
+  brief or recap, and where to switch to weekly only or unsubscribe. A card
+  layout with light and dark mode, in the digest's palette. No "add us to your
+  contacts" and no reply prompt. Best-effort: a failed send never fails the
+  signup. Needs `EMAIL_FROM` in the Worker (`worker/wrangler.jsonc` vars).
 
 ## Korean edition (2026-11-19)
 
