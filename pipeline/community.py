@@ -64,7 +64,7 @@ COPY = {
         "kind": {"daily": "데일리 리캡 스레드", "weekly": "위클리 리캡 스레드"},
         "teaser_label": "커뮤니티",
         "teaser_cta": "스레드 보기",
-        "recap_link": {"daily": "이 스레드의 데일리 리캡 읽기", "weekly": "이 스레드의 위클리 리캡 읽기"},
+        "recap_link": {"daily": "이 스레드의 데일리 리캡 읽기 (영문)", "weekly": "이 스레드의 위클리 리캡 읽기 (영문)"},
         "comments_heading": "댓글",
         "note": "편집 에이전트가 쓴 가상 스레드입니다. 닉네임·IP·추천수는 지어낸 것이며, 모든 사실은 리캡의 출처로 연결됩니다.",
         "op": "글쓴이",
@@ -371,9 +371,8 @@ def render_post_body(post: dict, recap: dict, kind: str, edition: str, locale: s
     op = {"author": t.get("author"), "tag": t.get("tag")}
     n = comment_count(t.get("comments"))
     comments = "".join(_comment_html(c, style, titles, copy) for c in t.get("comments") or [])
-    recap_href = recap_path(kind, edition, locale if locale == "en" else "en")
-    if locale == "ko" and (ROOT / "web" / "ko" / kind / f"{edition}.html").exists():
-        recap_href = recap_path(kind, edition, "ko")
+    # The English recap is the source of truth for both locales.
+    recap_href = recap_path(kind, edition, "en")
     return (
         f'<div class="community-post thread-{escape(style)}" lang="{escape(locale)}">'
         f'<div class="thread-head"><span class="thread-board">{escape(str(t.get("board")))}</span>'

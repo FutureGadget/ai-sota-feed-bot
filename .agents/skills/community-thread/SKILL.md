@@ -15,7 +15,8 @@ is about AI agents misbehaving, you may find that personally awkward.
 - `kind`: `daily` or `weekly`.
 - `id`: the recap id — `YYYY-MM-DD` for daily, `YYYY-Www` for weekly.
 - The recap you just wrote: `data/daily/<id>.json` or `data/weekly/<id>.json`.
-  It is your only source of facts.
+  It is your only source of facts, for both `en` and `ko`. Do not read or wait
+  for Korean translations (`data/i18n/`).
 - If `data/community/<kind>/<id>.json` already exists, stop: report it done.
 
 ## Write two threads, not one translation

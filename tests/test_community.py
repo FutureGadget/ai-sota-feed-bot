@@ -96,6 +96,8 @@ class CommunityRenderTest(unittest.TestCase):
         self.assertIn('href="/community/daily/2026-01-02"', html)
         self.assertIn("top comment", html)
         self.assertIn("3 comments", html)
+        ko_body = community.render_post_body(POST, RECAP, "daily", "2026-01-02", "ko")
+        self.assertIn('href="/daily/2026-01-02"', ko_body)
         ko = community.render_teaser(POST, "daily", "2026-01-02", "ko")
         self.assertIn('href="/ko/community/daily/2026-01-02"', ko)
 
