@@ -2,146 +2,146 @@
 
 Focus: AI Platform Engineering
 
-## 1. Official Microsoft agent-framework PyPI package compromised
-- Type: news | Source: hackernews_ai
-- URL: https://opensourcemalware.com/blog/agent-framework-pypi-compromised
-- Score: 3.764 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 2. Semantic Context Handoff with On-Demand Evidence for Long-Horizon Agents
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.24357v1
-- Score: 3.638 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 3. Fast Bayesian Methods for Uncertainty Quantification in Sparse AI Evaluation
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.24159v1
-- Score: 3.459 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 4. Kaer: Security-Aware Replanning for Multi-Agent Systems
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.24839v1
-- Score: 3.409 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 5. Introducing Gemini 4 Neon
+## 1. Introducing Gemini 4 Neon
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-gemini-4-neon/
-- Score: 3.24 | Reliability: 1.0
+- Score: 3.149 | Reliability: 1.0
 - Why it matters: 
 
-## 6. Verifiable Identity for AI Agents · Agent Name Service
-- Type: news | Source: hackernews_ai
-- URL: https://ansinfo.ai/
-- Score: 3.103 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 2. LEDGE: An Efficient Simulator for Distributed LLM Serving on Heterogeneous Edge Devices
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.24085v1
+- Score: 3.602 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
 
-## 7. Using a "chaos loop" to harden the Claude Docs launch: 60 server errors across billions of requests
+## 3. Reducing Inference Cost of Coding Agents with Timeout Cascades
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.24324v1
+- Score: 3.552 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 4. On Evaluating User Simulators for Interactive Agents
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.24892v1
+- Score: 3.43 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 5. Datadog Brings Production Experimentation to AI Agent Observability
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/11/datadog-ai-agent-observability/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 3.058 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 6. Using a "chaos loop" to harden the Claude Docs launch: 60 server errors across billions of requests
 - Type: news | Source: claude_dev_blog
 - URL: https://claude.dev/blog/chaos-loop-claude-docs-launch/
-- Score: 3.039 | Reliability: 1.0
+- Score: 3.028 | Reliability: 1.0
 - Why it matters: Matches feed focus: claude code.
 
-## 8. External sandboxes for coding agents
+## 7. External sandboxes for coding agents
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents/
-- Score: 3.003 | Reliability: 1.0
+- Score: 2.988 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex, claude code.
+
+## 8. langgraph==1.2.23
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.23
+- Score: 2.577 | Reliability: 1.0
+- Why it matters: 
 
 ## 9. An updated Clairic and Clairic-flash are now open-weight, from the new Workers AI Superintelligence team
 - Type: news | Source: cloudflare_blog
 - URL: https://blog.cloudflare.com/open-clairic/
-- Score: 2.619 | Reliability: 1.0
+- Score: 2.503 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. claude-code v2.1.328
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.328
-- Score: 2.431 | Reliability: 1.0
+- Score: 2.386 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 11. Jailbreak Detection on Large Language Models via Contrastive Prototype Structures
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.24936v1
-- Score: 3.236 | Reliability: 1.0
-- Why it matters: 
+## 11. Kaer: Security-Aware Replanning for Multi-Agent Systems
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2611.24839v1
+- Score: 3.318 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
 
-## 12. Openhagen Worlds: Calibrated Environments for Measuring and Training Scientific Discovery Agents
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.24711v1
-- Score: 3.172 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 12. Time-Series Models in the Streamhouse: A New Frontier and Use Cases
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/ibm-research/time-series-powered-streamhouse
+- Score: 2.759 | Reliability: 1.0
+- Why it matters: 
 
 ## 13. Genie 4 is now available
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/genie-4-is-now-available/
-- Score: 2.376 | Reliability: 1.0
+- Score: 2.365 | Reliability: 1.0
 - Why it matters: 
 
-## 14. Introducing ChatGPT for Sales
+## 14. Introducing GPT-6.2 Astra and Sol
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/introducing-chatgpt-for-sales
-- Score: 2.205 | Reliability: 1.0
-- Why it matters: 
-
-## 15. Our first phase of embedded assessments
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/our-first-phase-of-embedded-assessments
-- Score: 2.103 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 16. From tasks to goals
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/from-tasks-to-goals
-- Score: 2.076 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 17. Managing frontier AI risk: From training to deployment
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/managing-frontier-ai-risk
-- Score: 2.058 | Reliability: 1.0
-- Why it matters: 
-
-## 18. claude-agent-sdk-python v0.2.185
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.185
-- Score: 1.993 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 19. The Gemini app is now available on lower-memory Android devices.
-- Type: news | Source: google_ai_blog
-- URL: https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/
-- Score: 1.979 | Reliability: 1.0
-- Why it matters: 
-
-## 20. Building Visual Intelligence — Andreas Blattmann & Dustin Podell, Black Forest Labs
-- Type: news | Source: latent_space
-- URL: https://latent.space/p/bfl/
-- Score: 1.715 | Reliability: 1.0
-- Why it matters: 
-
-## 21. Release 2.75.0 corresponding to NGC container 26.11
-- Type: release | Source: triton_releases
-- URL: https://github.com/triton-inference-server/server/releases/tag/v2.75.0
-- Score: 1.694 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 22. Gemini Decisions API
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Nov/11/gemini-decisions-api/
-- Score: 1.638 | Reliability: 1.0
-- Why it matters: 
-
-## 23. codex 0.171.0-alpha.12
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.12
-- Score: 1.511 | Reliability: 1.0
+- URL: https://openai.com/index/introducing-gpt-6-2-astra-sol
+- Score: 2.316 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 24. tencent/Hy4-flash released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/Hy4-flash
-- Score: 1.442 | Reliability: 1.0
-- Why it matters:
+## 15. codex 0.170.0
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.170.0
+- Score: 2.203 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, codex.
+
+## 16. Introducing ChatGPT for Sales
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/introducing-chatgpt-for-sales
+- Score: 2.137 | Reliability: 1.0
+- Why it matters: 
+
+## 17. claude-agent-sdk-python v0.2.185
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.185
+- Score: 1.951 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 18. Strengthening the fight against online child sexual abuse with new tools and support
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/strengthening-online-child-safety
+- Score: 1.94 | Reliability: 1.0
+- Why it matters: 
+
+## 19. Why we rebuilt LangSmith around the agent
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/we-rebuilt-langsmith-around-the-agent
+- Score: 1.931 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 20. The Gemini app is now available on lower-memory Android devices.
+- Type: news | Source: google_ai_blog
+- URL: https://blog.google/innovation-and-ai/products/gemini-app/gemini-lower-memory-devices/
+- Score: 1.876 | Reliability: 1.0
+- Why it matters: 
+
+## 21. llm 0.37.3
+- Type: release | Source: simon_willison
+- URL: https://simonwillison.net/2026/Nov/16/llm/
+- Score: 1.728 | Reliability: 1.0
+- Why it matters: 
+
+## 22. What Breaks Going From 1 Coding Agent to 10 | James Moss, Tessl
+- Type: video | Source: ai_native_dev
+- URL: https://youtu.be/B4sTAoiyR_k
+- Score: 1.715 | Reliability: 0.861
+- Why it matters: Matches feed focus: agent, software delivery.
+
+## 23. Building Visual Intelligence — Andreas Blattmann & Dustin Podell, Black Forest Labs
+- Type: news | Source: latent_space
+- URL: https://latent.space/p/bfl/
+- Score: 1.713 | Reliability: 1.0
+- Why it matters: 
+
+## 24. Release 2.75.0 corresponding to NGC container 26.11
+- Type: release | Source: triton_releases
+- URL: https://github.com/triton-inference-server/server/releases/tag/v2.75.0
+- Score: 1.673 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
