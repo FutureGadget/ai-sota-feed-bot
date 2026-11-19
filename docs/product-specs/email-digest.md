@@ -363,6 +363,12 @@ family but is a **conversion utility first** — clarity and trust outrank novel
   send time. One cron-job.org job per send time passes `inputs.slot`
   (`docs/how-to/hourly-trigger-cron-job-org.md`); no `slot` means the original
   send. Storyline follow alerts ride the original daily run only.
+- **Status (2026-11-20): the US-morning send is off.** The code is live, but
+  Resend's free plan caps segments at 3 and all 3 are in use, so
+  `EMAIL_SEGMENT_ID_EN_US` is unset and the US-morning cron-job.org jobs are
+  disabled. Until it is set, `/subscribe` shows no time choice, emails carry no
+  time-switch link, and every reader gets the original send. Turn-on steps:
+  `docs/how-to/hourly-trigger-cron-job-org.md`.
 - **Editions and cursors:** `publish_email.py` builds one edition per language
   and send time (`EDITIONS`): `daily`/`weekly` (English, original),
   `daily_ko`/`weekly_ko`, and `daily_en_us`/`weekly_en_us`, each with its own

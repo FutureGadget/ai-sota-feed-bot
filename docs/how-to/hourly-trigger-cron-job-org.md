@@ -129,6 +129,18 @@ that secret is set. Each edition has its own already-sent cursor in
 `data/email/state.json`, so a duplicate trigger is a no-op. Storyline follow
 alerts ride the original daily run only.
 
+**Status (2026-11-20): jobs 3 and 4 exist with the bodies above but are
+disabled.** Resend's free plan caps segments at 3 (General, Korean readers,
+Storyline followers), so there is no `EMAIL_SEGMENT_ID_EN_US` segment yet.
+Jobs 1 and 2 serve every reader. To turn the US-morning send on:
+
+1. Free a segment or move to a Resend plan with more segments, then create the
+   US-morning segment.
+2. Set its id as `EMAIL_SEGMENT_ID_EN_US` in GitHub Actions secrets and in the
+   Cloudflare Worker secrets.
+3. Confirm `/api/client-config` lists `email_send_slots: ["kst","us"]`.
+4. Enable jobs 3 and 4 on cron-job.org.
+
 For every job:
 
 1. **URL:**
@@ -153,7 +165,7 @@ Same procedure as the every-two-hour feed job:
 
 ### Notes
 
-- The same GitHub PAT works for all three jobs (it has Actions:write on the repo).
+- The same GitHub PAT works for every job (it has Actions:write on the repo).
 - The GH `schedule:` entries have been **removed** from both workflows.
   cron-job.org is the sole trigger. If you need to pause email sends, disable
   the jobs on cron-job.org (or trigger manually via `workflow_dispatch`).
