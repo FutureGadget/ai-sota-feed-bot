@@ -3261,3 +3261,18 @@ content artifacts stay valid either way.
 - **Rollback / turn-on:** create the segment, set `EMAIL_SEGMENT_ID_EN_US` in
   GitHub and the Worker, and enable the two jobs
   (`docs/how-to/hourly-trigger-cron-job-org.md`).
+
+## 2026-11-20 - Bare /ko/daily and /ko/weekly serve the newest Korean edition
+
+- **Decision:** Render the newest Korean daily and weekly page a second time
+  as `web/ko/daily/index.html` and `web/ko/weekly/index.html`, and route the
+  bare `/ko/daily` and `/ko/weekly` URLs to them in the Worker.
+- **Rationale:** The Korean welcome email's button links `/ko/daily` (or
+  `/ko/weekly` for weekly-only signups), and neither had a route, so new Korean
+  subscribers landed on a 404.
+- **Impact:** two more generated files per locale. The copies keep their dated
+  canonical, so search engines still index one URL per edition.
+  `tests/test_i18n_static_pages.py` checks that every welcome-email target has
+  a Worker route.
+- **Rollback:** remove the two routes and `write_i18n_recap_hubs`; point the
+  Korean welcome button at the English `/daily` instead.
