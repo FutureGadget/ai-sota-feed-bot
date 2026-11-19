@@ -5047,7 +5047,7 @@
   "published": "2026-11-17T03:44:46+00:00",
   "sid": "364859f834c86602",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 144, downloads: 0.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 248, downloads: 159.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 1, downloads: 0.",
   "title": "tencent/Hy4-flash released on Hugging Face",
   "type": "release",
@@ -6015,6 +6015,23 @@
   "type": "news",
   "url": "https://github.com/MintCoderpro/mintigate-demo",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "4164abf114d26201": {
+  "first_seen": "2026-11-19T05:05:09.815272+00:00",
+  "id": "f6e773ead9f361c8",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-18T12:49:41+00:00",
+  "sid": "4164abf114d26201",
+  "source": "arxiv_cs_ai",
+  "summary": "Traditional long-horizon LLM agents often hand off context through full-history prompting, retaining all previous action--observation interactions. As execution proceeds, this history keeps growing, increasing inference cost and potentially degrading accuracy. Existing methods control this growth by preserving compact conclusions while removing earlier observations, but doing so can discard evidence that later becomes relevant. We introduce Semantic Context Handoff (SCH), whose central abstraction is state--evidence separation: a compact semantic state carries the agent's current interpretation, while supporting action--observation evidence remains separately addressable and can re-enter context when later execution makes it relevant, without separate summarization or retrieval-model calls. Empirically, SCH improves long-horizon agent performance while substantially reducing context cost. In a controlled 150-task SWE-bench study, SCH's evidence recovery improves Pass@1 from $80.0\\%$ to $86.9\\%$ at essentially unchanged token use and execution time. In the complete-system comparison, SCH achieves 86.9% Pass@1 while using 43% fewer tokens and 41% less wall-clock time than the strongest baseline by task performance. Across models and benchmarks, SCH consistently reduces token use relative to full-history prompting while remaining competitive with or improving upon the evaluated baselines. Trajectory analysis confirms that SCH recovers evidence from substantially earlier parts of",
+  "summary_1line": "Traditional long-horizon LLM agents often hand off context through full-history prompting, retaining all previous action--observation interactions. As execution proceeds, this history keeps growing, increasing inferen...",
+  "title": "Semantic Context Handoff with On-Demand Evidence for Long-Horizon Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24357v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "416b05f86baa94c5": {
   "first_seen": "2026-11-07T00:07:33.105822+00:00",
@@ -6990,6 +7007,22 @@
   "title": "Soteria: Formally Verified Planning with Runtime Enforcement for Safe LLM Agents",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17880v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "4dd862911b3dba5f": {
+  "content_excerpt": "Versions 1.26.1 and 1.26.2 of the official Microsoft \"agent-framework\" Python package contain malware - an account compromise is likely The OpenSourceMalware team discovered two malicious releases of Microsoft's agent-framework package on PyPI, versions 1.26.1 and 1.26.2. Both add a credential stealer that runs automatically whenever Python starts in the affected environment, without anyone importing the package. This isn't a typosquat. The releases came from the legitimate Microsoft-associated PyPI publisher, so trust in the project name, the publisher, lock files or earlier clean releases wouldn't have protected anyone who resolved either version. PyPI has quarantined the publisher, but the threat actor is still believed to have publishing access. It's a reminder that trusted publisher access and Python .pth files both deserve attention. A one-line startup file shipped under an established package name runs before the application's own code and inherits every credential on the developer workstation or CI runner. The stealer searches environment variables, credential files and other processes' environments for secrets. Then it goes further and requests fresh GitHub Actions, Azure DevOps and Azure managed identity tokens, and sends everything to a webhook.site URL hidden in the source as Base64. That combination of passive theft and active token requests makes it especially dangerous in cloud build environments, because even short-lived tokens are useful when they're exfiltra",
+  "first_seen": "2026-11-19T05:05:09.815272+00:00",
+  "id": "da35108431dd2478",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-19T04:29:50+00:00",
+  "sid": "4dd862911b3dba5f",
+  "source": "hackernews_ai",
+  "summary_1line": "Official Microsoft agent-framework PyPI package compromised",
+  "title": "Official Microsoft agent-framework PyPI package compromised",
+  "type": "news",
+  "url": "https://opensourcemalware.com/blog/agent-framework-pypi-compromised",
   "why_it_matters": "Matches feed focus: agent."
  },
  "4ddb91b237ade206": {
@@ -14940,6 +14973,22 @@
   "url": "http://arxiv.org/abs/2611.14477v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "a1b60d2b0521f078": {
+  "first_seen": "2026-11-19T05:05:09.815272+00:00",
+  "id": "2e0d40382bd30754",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-18T10:02:38+00:00",
+  "sid": "a1b60d2b0521f078",
+  "source": "arxiv_cs_ai",
+  "summary": "Estimating how an AI system will perform on a new benchmark need not require another large model. We use public evaluation counts to choose a weak Beta prior, then update it exactly from at most 31 revealed outcomes. The predictor uses no item semantics, pretrained weights, or inference API. Its single online evaluation in the AIMS competition returned a team-reported Brier ALC of 0.188477, a 24.6% reduction from the constant-0.5 reference. The complete submission is 7,754 bytes; a server microbenchmark measures 12.71 microseconds per prediction with 31 matching labels. We describe how source evaluations are compressed into 301 prior means and show why a concentration of two lets new evidence rapidly determine the prediction. The resulting posterior gives exact uncertainty about the modelled success rate without numerical integration or neural inference. A public evaluation covers 79 system-benchmark pairs and eight seeds, reaching Brier ALC 0.200250 for the submitted method. Accompanying code and sufficient statistics reconstruct the fitted prior byte for byte and replay all 632 evaluation trajectories. The result demonstrates how much predictive value a compact Bayesian model can extract from sparse target feedback at very low online cost.",
+  "summary_1line": "Estimating how an AI system will perform on a new benchmark need not require another large model. We use public evaluation counts to choose a weak Beta prior, then update it exactly from at most 31 revealed outcomes....",
+  "title": "Fast Bayesian Methods for Uncertainty Quantification in Sparse AI Evaluation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24159v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "a1dd9d54c96e3d11": {
   "first_seen": "2026-11-15T00:08:53.527868+00:00",
   "id": "4334b2c0d296a97a",
@@ -15213,6 +15262,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08615v1",
   "why_it_matters": "Matches feed focus: agent, harness, eval."
+ },
+ "a3bd9ea282cc2d46": {
+  "first_seen": "2026-11-19T05:05:09.815272+00:00",
+  "id": "83d0acbaad5b6a3f",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-18T16:36:18+00:00",
+  "sid": "a3bd9ea282cc2d46",
+  "source": "arxiv_cs_cl",
+  "summary": "Agents that do science must choose informative experiments and reason from their results, but most discovery benchmarks cannot separate that skill from recall, unstated scoring rules or shortcut policies. We introduce Openhagen Worlds, a suite of 27 procedurally generated environments (some with finite truth spaces), from classic puzzles of experimental reasoning to simulator-grounded physics and chemistry, in which an agent runs experiments under a budget and commits an answer that a deterministic verifier checks against a hidden truth. Every observation states the complete scoring rule, and each of the 178 difficulty levels is calibrated: it is admitted only if, on 64 development instances, a scripted oracle succeeds on at least 0.75, the strongest plausible non-deductive policy on at most 0.25 and each gated shortcut on at most 0.35. The 92 core levels span all 27 families and are sized to train small models; the 86 frontier rungs extend the 15 discovery worlds with harder questions and with campaigns of three, five and eight or more committed stages on one hidden system. On the same 84 withheld frontier instances, one per family and rung, DeepSeek V4.1 Flash solves 32 at its default reasoning effort with 16,384 tokens per call and 57 at its maximum effort with up to 393,216 tokens per call (oracle: 79); the headroom that remains is largest in eight-stage campaigns. On-policy expert iteration gives a 9B model modest gains: its core-tier success on trained families rises fr",
+  "summary_1line": "Agents that do science must choose informative experiments and reason from their results, but most discovery benchmarks cannot separate that skill from recall, unstated scoring rules or shortcut policies. We introduce...",
+  "title": "Openhagen Worlds: Calibrated Environments for Measuring and Training Scientific Discovery Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24711v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "a3c5674fc3daf406": {
   "content_excerpt": "Digamma is a lightweight Scheme dialect designed for AI workflow automation. It focuses on execution efficiency and Lisp-based extensibility rather than strict RnRS compliance. Digamma is a lightweight Scheme dialect designed for AI workflow automation. It focuses on execution efficiency and Lisp-based extensibility rather than strict RnRS compliance. Users seeking a complete R6RS/R7RS implementation should see Ypsilon , developed by the same author. Digamma features a self-hosted compiler, an LLVM-based JIT backend, a concurrent garbage collector, and a tagged-pointer object system with ARM64 TBI support. Its virtual machine, nanos , compiles Scheme to native code on-demand through a multi-stage pipeline. While Digamma does not target full RnRS conformance, it provides standard hygienic macros — syntax-case and syntax-rules — for expressive, composable abstractions. Digamma implements lightweight, cooperative multitasking using fibers backed by boost::fibers . The fiber scheduler is wired directly into Boost.Asio's io_context , so I/O completion handlers run inline without spawning OS threads. Digamma provides built-in, non-blocking access to Vertex AI (Gemini) and Dialogflow CX directly from Scheme. Unlike typical FFI wrappers that stall the interpreter, every AI call is dispatched through the fiber scheduler using asio-grpc , so other fibers keep running while cloud inference is in flight. Both APIs require the GOOGLE_CLOUD_PROJECT environment variable (or an explicit argu",
@@ -19030,6 +19095,22 @@
   "url": "https://flashstates.ai",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "cd69dc26882766ee": {
+  "content_excerpt": "ANS is an open specification for naming, discovering, and authenticating AI agents. It connects domain names, certificates, and transparency records so peers can verify who they are communicating with. A short introduction to agent identity and why it matters when AI agents interact. Run the Registration Authority and Transparency Log locally, inspect a registration, and verify its receipt. Use an SDK to bring verification into your application. The TSC guides project-wide technical direction, governance, and escalated decisions. Repository teams review changes, maintain implementations, and take responsibility for releases. Contribute code, improve documentation, test an integration, or help review a proposal. For web site terms of use, trademark policy and other project policies please see https://lfprojects.org .",
+  "first_seen": "2026-11-19T05:05:09.815272+00:00",
+  "id": "193bf76e9cbffede",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-19T03:41:09+00:00",
+  "sid": "cd69dc26882766ee",
+  "source": "hackernews_ai",
+  "summary_1line": "Verifiable Identity for AI Agents · Agent Name Service",
+  "title": "Verifiable Identity for AI Agents · Agent Name Service",
+  "type": "news",
+  "url": "https://ansinfo.ai",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "cd6ae98674e10ae7": {
   "first_seen": "2026-11-03T04:13:31.497634+00:00",
   "id": "02c11551bf139a00",
@@ -20681,6 +20762,23 @@
   "url": "https://offstage.cloud",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "dfde2d652caf6073": {
+  "first_seen": "2026-11-19T05:05:09.815272+00:00",
+  "id": "38b6f66671582eac",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-18T18:05:47+00:00",
+  "sid": "dfde2d652caf6073",
+  "source": "arxiv_cs_lg",
+  "summary": "One popular architecture for multi-agent systems (MAS) relies on an orchestrator that generates an initial plan, coordinates its execution, and dynamically revises the plan based on agent feedback when tasks cannot be fully specified in advance. This dynamic replanning introduces a critical vulnerability: malicious agents can embed instructions within their feedback to hijack the replanning process. Existing defenses focus exclusively on per-tool access control or static, pre-execution policy enforcement, leaving the replanning phase unsecured. We introduce Kaer, a multi-agent framework featuring security-aware replanning. Kaer shields the planner from untrusted agent feedback by conveying diagnostics to the replanning procedure strictly through abstract templates. Plan revisions are restricted to a set of deterministic repair operators, and all modified plans must satisfy preset policies. We create Cintra, a benchmark of simulated user tasks requiring replanning paired with adversarial objectives targeting the replanning phase. Using Cintra, we evaluate both task completion rates and system vulnerability to replanning exploits by malicious agents. Evaluating Kaer on Cintra against Magentic-One (an undefended MAS) and ControlValve (the state-of-the-art defense) demonstrates that Kaer achieves higher robustness than both systems while maintaining comparable utility to ControlValve. Although abstract failure templates slightly constrain utility on select tasks, Kaer enables MAS",
+  "summary_1line": "One popular architecture for multi-agent systems (MAS) relies on an orchestrator that generates an initial plan, coordinates its execution, and dynamically revises the plan based on agent feedback when tasks cannot be...",
+  "title": "Kaer: Security-Aware Replanning for Multi-Agent Systems",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24839v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "e01475b582c9f905": {
   "first_seen": "2026-11-10T21:05:43.516589+00:00",
   "id": "ba71d7f93fe1a41e",
@@ -21023,6 +21121,18 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Nov/17/external-sandboxes-for-coding-agents",
   "why_it_matters": "Matches feed focus: agent, codex, claude code."
+ },
+ "e497c044e025058b": {
+  "first_seen": "2026-11-19T05:05:09.815272+00:00",
+  "id": "2b105d524493e6d5",
+  "published": "2026-11-18T18:56:12+00:00",
+  "sid": "e497c044e025058b",
+  "source": "arxiv_cs_cl",
+  "summary": "Jailbreak attempts and harmful prompts remain a challenge for the safe deployment of large language models. We study whether contrastively learned representations can support safety detection without training an additional downstream classifier. We propose Jailbreak Detection with Prototype Inference (JDPI), which uses binary safety labels to construct harmful and benign prototypes and makes predictions from relative prototype distances. JDPI uses only binary safety labels for encoder adaptation, prototype construction, and validation. In our setup, it uses fewer labeled examples than the classifier baseline (Method A) by avoiding the separate split used to train the downstream classifier. Across four benchmarks covering different input formats, contrastive fine-tuning improves JDPI's detection accuracy by 9.1-18.0 percentage points. Using the same encoder, JDPI achieves slightly higher ROC-AUC on one benchmark and stays within 0.017 of the baseline across all four. With dataset-specific adaptation, JDPI exceeds the released Llama Guard 3-8B baseline by 0.173-0.310 in ROC-AUC across the four benchmarks. In multi-turn replay on TomGibbs, JDPI uses accumulated user history as the conversation unfolds, achieving higher conversation-level accuracy than when it uses the current turn alone. Across 12 directed transfers, JDPI outperforms the classifier by an average of 1.59 percentage points in accuracy, demonstrating stronger cross-dataset robustness.",
+  "summary_1line": "Jailbreak attempts and harmful prompts remain a challenge for the safe deployment of large language models. We study whether contrastively learned representations can support safety detection without training an addit...",
+  "title": "Jailbreak Detection on Large Language Models via Contrastive Prototype Structures",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24936v1"
  },
  "e4a8bfb7f3eb8edb": {
   "first_seen": "2026-11-11T00:09:42.029607+00:00",
