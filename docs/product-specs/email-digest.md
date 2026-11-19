@@ -359,4 +359,10 @@ single source; the Korean edition reads the agent-written translation of it.
   failure exits non-zero but never re-sends the English edition, and the
   workflow commits the cursor even when a step failed.
 - **Preview.** `python publish/publish_email.py --kind daily --locale ko --dry-run`.
+- **Test send.** Run the `AI Feed Email Digest` workflow by hand with
+  `test_send: true` (and `kind`, `locale`). Each edition goes only to the
+  `EMAIL_TEST_TO` repository secret as a normal Resend email with a
+  `[TEST <kind> <locale>]` subject: no segment, no topic, no already-sent
+  guard, no cursor change, no follow alerts. Locally:
+  `EMAIL_TEST_TO=you@example.com python publish/publish_email.py --kind daily --test`.
 

@@ -1079,6 +1079,38 @@ def send_broadcast(
         raise RuntimeError(f"unknown email provider: {provider}")
 
 
+def test_body(cfg: dict, html_body: str) -> str:
+    """A broadcast body made safe for a one-off test email: Resend fills
+    ``{{{...}}}`` tokens only in broadcasts, so the unsubscribe token points at
+    the signup page and any other token is dropped."""
+    body = html_body.replace("{{{RESEND_UNSUBSCRIBE_URL}}}", f"{cfg['site_base'].rstrip('/')}/subscribe")
+    return re.sub(r"\{\{\{[^}]*\}\}\}", "", body)
+
+
+def send_test(cfg: dict, api_key: str, to: str, subject: str, html_body: str, kind: str, locale: str) -> None:
+    """Send one edition to a single address as a normal (non-broadcast)
+    Resend email. Never touches a segment, a topic, or the send cursor."""
+    if (cfg.get("provider") or "").lower() != "resend":
+        raise RuntimeError("test sends need provider: resend")
+    from_addr = os.getenv("EMAIL_FROM", "").strip()
+    if not from_addr:
+        raise RuntimeError("test sends need EMAIL_FROM")
+    body = test_body(cfg, html_body)
+    r = requests.post(
+        "https://api.resend.com/emails",
+        headers={"Authorization": f"Bearer {api_key}"},
+        json={
+            "from": from_addr,
+            "to": [to],
+            "subject": f"[TEST {kind} {locale}] {subject}",
+            "html": body,
+            "text": html_to_text(body),
+        },
+        timeout=30,
+    )
+    r.raise_for_status()
+
+
 # --------------------------------------------------------------------------- #
 # Main
 # --------------------------------------------------------------------------- #
@@ -1285,6 +1317,11 @@ def main() -> int:
     )
     ap.add_argument("--dry-run", action="store_true", help="render to stdout, never send, never touch state")
     ap.add_argument("--force", action="store_true", help="ignore the already-sent guard")
+    ap.add_argument(
+        "--test",
+        action="store_true",
+        help="send each edition only to EMAIL_TEST_TO, ignore the already-sent guard, never touch state",
+    )
     args = ap.parse_args()
 
     cfg = load_config()
@@ -1355,6 +1392,22 @@ def main() -> int:
         # Secrets-gated no-op, like PostHog when unconfigured.
         print("email_send_skipped=true reason=disabled_or_no_api_key")
         return 0
+
+    if args.test:
+        to = os.getenv("EMAIL_TEST_TO", "").strip()
+        if not to:
+            print("email_test_failed=true reason=no_EMAIL_TEST_TO")
+            return 1
+        failed = False
+        for b in builds:
+            try:
+                send_test(cfg, api_key, to, b["subject"], b["body"], args.kind, b["locale"])
+            except Exception as exc:
+                failed = True
+                print(f"email_test_failed=true kind={args.kind} locale={b['locale']} error={str(exc)[:200]}")
+                continue
+            print(f"email_test_sent=true kind={args.kind} locale={b['locale']} {b['summary']}")
+        return 1 if failed else 0
 
     provider = (cfg.get("provider") or "").lower()
     reader_links = None
