@@ -106,8 +106,9 @@ EMAIL_COPY = {
         "theme": "Theme {idx} · {n} {items}",
         "item": "item",
         "items": "items",
-        "threads_daily": "🧵 Continuing threads",
-        "threads_daily_dek": "What happened next with stories you've been following.",
+        "threads_daily": "🧵 Storylines that moved today",
+        "threads_daily_dek": "Ongoing stories with a new development since the last brief.",
+        "storyline_meta": "Storyline · {n} stories over {d} days",
         "caught_up": "✅ You're caught up.",
         "web": "Read this on the web",
         "feed": "Open the full feed",
@@ -155,8 +156,9 @@ EMAIL_COPY = {
         "theme": "테마 {idx} · {n}건",
         "item": "건",
         "items": "건",
-        "threads_daily": "🧵 이어지는 스토리",
-        "threads_daily_dek": "지켜보던 이야기의 다음 소식입니다.",
+        "threads_daily": "🧵 오늘 움직인 스토리",
+        "threads_daily_dek": "지난 브리프 이후 새 소식이 생긴 진행 중인 이야기입니다.",
+        "storyline_meta": "스토리 · {d}일간 {n}건",
         "caught_up": "✅ 오늘 브리프는 여기까지입니다.",
         "web": "웹에서 보기",
         "feed": "전체 피드 열기",
@@ -354,11 +356,28 @@ def video_link_html(cfg: dict, recap: dict, page_path: str, label: str) -> str:
     video = recap.get("video")
     if not (isinstance(video, dict) and re.fullmatch(r"[A-Za-z0-9_-]{11}", str(video.get("youtube_id") or ""))):
         return ""
-    url = f"{cfg['site_base'].rstrip('/')}{page_path}?utm_source={cfg['utm_source']}#video"
+    url = f"{cfg['site_base'].rstrip('/')}{page_path}?utm_source={cfg['utm_source']}&utm_content=video#video"
     return (
         '<div style="margin:0 0 14px;font-size:16px">'
         f'<a href="{html.escape(url)}" style="color:#1a6dd6;font-weight:600">▶ {html.escape(label)}</a></div>'
     )
+
+
+def with_utm(cfg: dict, body: str, **params: str) -> str:
+    """Add ``utm_*`` parameters to every tracked on-site link (one that already
+    carries ``utm_source``) that does not set them yet. Fragments stay last."""
+    base = re.escape(cfg["site_base"].rstrip("/"))
+
+    def repl(m: re.Match) -> str:
+        url, hash_, frag = m.group(1).partition("#")
+        add = "".join(
+            f"&amp;{key}={quote(str(value), safe='')}"
+            for key, value in params.items()
+            if value and not re.search(rf"[?&](?:amp;)?{key}=", url)
+        )
+        return f'href="{url}{add}{hash_}{frag}"'
+
+    return re.sub(rf'href="({base}/[^"]*[?&](?:amp;)?utm_source=[^"]*)"', repl, body)
 
 
 def tag_reader_links(cfg: dict, body: str) -> str:
@@ -515,6 +534,9 @@ def storyline_deltas(state: dict, limit: int | None) -> list[dict]:
                     "label": s.get("label") or s.get("slug", ""),
                     "last_updated": last_updated,
                     "member_sids": member_sids,
+                    "latest_title": s.get("latest_title") or "",
+                    "item_count": int(s.get("item_count") or 0),
+                    "day_count": int(s.get("day_count") or 0),
                     "whats_new": narrative_copy(s.get("slug", ""), last_updated, s.get("latest_title", "")),
                 }
             )
@@ -545,6 +567,9 @@ def storylines_in_window(start: str, end: str, limit: int | None) -> list[dict]:
                     "slug": s.get("slug", ""),
                     "label": s.get("label") or s.get("slug", ""),
                     "last_updated": last_updated,
+                    "latest_title": s.get("latest_title") or "",
+                    "item_count": int(s.get("item_count") or 0),
+                    "day_count": int(s.get("day_count") or 0),
                     "whats_new": narrative_copy(s.get("slug", ""), last_updated, s.get("latest_title", "")),
                 }
             )
@@ -606,7 +631,7 @@ def language_switch_html(cfg: dict, locale: str = "en") -> str:
     if not segment_for("ko"):
         return ""
     other = "en" if locale == "ko" else "ko"
-    url = f"{cfg['site_base'].rstrip('/')}/subscribe?lang={other}&utm_source={cfg['utm_source']}"
+    url = f"{cfg['site_base'].rstrip('/')}/subscribe?lang={other}&utm_source={cfg['utm_source']}&utm_content=footer"
     return (
         f' · <a href="{html.escape(url)}" style="color:#999" lang="{other}">'
         f"{html.escape(_t(locale, 'switch_lang'))}</a>"
@@ -788,6 +813,45 @@ def html_to_text(body: str) -> str:
     return s.strip()
 
 
+HANGUL_RE = re.compile(r"[가-힣]")
+
+
+def reading_minutes(fragment: str, locale: str = "en") -> int:
+    """Minutes to read the brief itself (summary, intro, themes), from the text
+    the email actually shows, at about 230 space-separated words a minute
+    (English words, Korean eojeol). Feedback links and the footer are left out."""
+    text = re.sub(r'<span class="ld-fb">.*?</span>', " ", fragment, flags=re.S)
+    text = html.unescape(re.sub(r"<[^>]+>", " ", text))
+    return max(2, round(len(text.split()) / 230))
+
+
+def render_storyline_rows(cfg: dict, threads: list[dict], locale: str = "en") -> str:
+    """Storyline rows for the digest. The link names the thread's newest story
+    (the cluster label is a machine keyword, not a headline), the narrative
+    says what happened next, and a small meta line gives its size. The
+    Korean edition keeps only rows whose narrative is in Korean."""
+    rows = []
+    for t in threads:
+        if locale != "en" and not (t.get("localized") and HANGUL_RE.search(str(t.get("whats_new") or ""))):
+            continue
+        wn = clean(str(t.get("whats_new") or ""), 220)
+        latest = clean(str(t.get("latest_title") or ""), 120)
+        if locale == "en":
+            head, body = (latest or t.get("label") or ""), (wn if wn and wn != latest else "")
+        else:
+            head, body = wn, ""
+        meta = _t(locale, "storyline_meta", n=int(t.get("item_count") or 0), d=int(t.get("day_count") or 0))
+        url = storyline_url(cfg, t["slug"], locale if t.get("localized") else "en") + "&utm_content=storylines"
+        rows.append(
+            '<tr><td style="padding:10px 0;border-bottom:1px solid #f0f0f0">'
+            f'<div style="font-size:16px;font-weight:600;line-height:1.4"><a href="{html.escape(url)}" '
+            f'style="color:#1a6dd6;text-decoration:none">{html.escape(head)} →</a></div>'
+            + (f'<div style="font-size:15px;line-height:1.5;color:#444;margin-top:3px">{html.escape(body)}</div>' if body else "")
+            + f'<div style="font-size:13px;color:#888;margin-top:3px">{html.escape(meta)}</div></td></tr>'
+        )
+    return "".join(rows)
+
+
 def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en") -> tuple[str, str]:
     """Render the curated daily recap (``data/daily/latest.json``) as the brief.
 
@@ -799,10 +863,8 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
     articles = daily_articles(recap)
     cats = [c for c in (recap.get("categories") or []) if isinstance(c, dict)]
     n = len(articles)
-    mins = max(3, round(n * 0.5))
     recap_date = (recap.get("date") or datetime.now().strftime("%Y-%m-%d")).strip()
     top_title = clean(articles[0].get("title", "AI updates"), 60) if articles else "AI updates"
-    subject = _t(locale, "daily_subject", n=n, mins=mins, top=top_title)
 
     # "In 30 seconds" TL;DR (highlights) then the editorial intro paragraphs —
     # the same lead the /daily page shows above the categories.
@@ -839,8 +901,9 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
             url = a.get("url", "")
             title = html.escape(clean(a.get("title", ""), 140))
             src = html.escape(clean(source_name(a.get("source", "")), 40))
-            link = html.escape(story_url(cfg, url))
-            if pos < full_per_theme:
+            full = pos < full_per_theme
+            link = html.escape(story_url(cfg, url) + ("&utm_content=story" if full else "&utm_content=headline"))
+            if full:
                 asum = html.escape(clean(a.get("summary", ""), 180))
                 arts.append(
                     '<tr><td style="padding:12px 0;border-bottom:1px solid #eee">'
@@ -876,30 +939,22 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
             + f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(arts)}</table>'
         )
     cats_html = "".join(cat_html)
+    mins = reading_minutes(tldr_html + intro_html + cats_html, locale)
+    subject = _t(locale, "daily_subject", n=n, mins=mins, top=top_title)
 
     thread_html = ""
-    if threads:
-        tr = []
-        for t in threads:
-            wn = html.escape(clean(t["whats_new"], 220))
-            label = html.escape(t["label"])
-            tr.append(
-                f'<tr><td style="padding:10px 0;border-bottom:1px solid #f0f0f0">'
-                f'<div style="font-size:16px;font-weight:600">'
-                f'<a href="{html.escape(storyline_url(cfg, t["slug"], locale if t.get("localized") else "en"))}" '
-                f'style="color:#1a6dd6;text-decoration:none">{label} →</a></div>'
-                f'<div style="font-size:15px;color:#444;margin-top:3px">{wn}</div></td></tr>'
-            )
+    rows = render_storyline_rows(cfg, threads, locale)
+    if rows:
         thread_html = (
             f'<h2 style="font-size:18px;margin:28px 0 6px">{_t(locale, "threads_daily")}</h2>'
             '<div style="font-size:13px;color:#888;margin-bottom:6px">'
             f'{_t(locale, "threads_daily_dek")}</div>'
-            f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(tr)}</table>'
+            f'<table width="100%" cellpadding="0" cellspacing="0">{rows}</table>'
         )
 
-    feed_url = f"{cfg['site_base'].rstrip('/')}{site_path(locale, '/')}?utm_source={cfg['utm_source']}"
-    daily_page = f"{cfg['site_base'].rstrip('/')}{site_path(locale, f'/daily/{recap_date}')}?utm_source={cfg['utm_source']}"
-    weekly_url = f"{cfg['site_base'].rstrip('/')}/weekly?utm_source={cfg['utm_source']}"
+    feed_url = f"{cfg['site_base'].rstrip('/')}{site_path(locale, '/')}?utm_source={cfg['utm_source']}&utm_content=footer"
+    daily_page = f"{cfg['site_base'].rstrip('/')}{site_path(locale, f'/daily/{recap_date}')}?utm_source={cfg['utm_source']}&utm_content=footer"
+    weekly_url = f"{cfg['site_base'].rstrip('/')}/weekly?utm_source={cfg['utm_source']}&utm_content=footer"
     unsub = unsubscribe_html(cfg, locale)
     lang_switch = language_switch_html(cfg, locale)
     n_cats = len(cats)
@@ -927,6 +982,7 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
     <div style="margin-top:8px;line-height:1.6">{_t(locale, "why")} {_t(locale, "tagline")}</div>
   </div>
 </div>"""
+    inner = with_utm(cfg, inner, utm_medium="email", utm_campaign=f"daily-{recap_date}-{locale}")
     return subject, email_document(inner, locale)
 
 
@@ -940,7 +996,7 @@ def render_community_email(cfg: dict, kind: str, edition: str, locale: str = "en
     if not thread:
         return ""
     base = cfg["site_base"].rstrip("/")
-    url = f"{base}{community.post_path(kind, edition, locale)}?utm_source={cfg['utm_source']}"
+    url = f"{base}{community.post_path(kind, edition, locale)}?utm_source={cfg['utm_source']}&utm_content=community"
     title = html.escape(clean(str(thread.get("title") or ""), 160))
     n = community.comment_count(thread.get("comments"))
     top = community.top_comment(thread)
@@ -1060,7 +1116,7 @@ def render_weekly(
             src = html.escape(clean(source_name(a.get("source", "")), 32))
             arts.append(
                 f'<li style="margin:5px 0;font-size:15px;line-height:1.4">'
-                f'<a href="{html.escape(story_url(cfg, url))}" style="color:#111;text-decoration:none">{t}</a>'
+                f'<a href="{html.escape(story_url(cfg, url) + "&utm_content=story")}" style="color:#111;text-decoration:none">{t}</a>'
                 f' <span style="color:#999">· {src}</span></li>'
             )
         cat_html.append(
@@ -1073,26 +1129,18 @@ def render_weekly(
     )
 
     thread_html = ""
-    if threads:
-        tr = []
-        for t in threads:
-            wn = html.escape(clean(t["whats_new"], 220))
-            tr.append(
-                f'<tr><td style="padding:9px 0;border-bottom:1px solid #f0f0f0">'
-                f'<div style="font-size:16px;font-weight:600"><a href="{html.escape(storyline_url(cfg, t["slug"], locale if t.get("localized") else "en"))}" '
-                f'style="color:#1a6dd6;text-decoration:none">{html.escape(t["label"])} →</a></div>'
-                f'<div style="font-size:15px;color:#444;margin-top:3px">{wn}</div></td></tr>'
-            )
+    rows = render_storyline_rows(cfg, threads, locale)
+    if rows:
         thread_html = (
             f'<h2 style="font-size:18px;margin:26px 0 6px">{_t(locale, "threads_weekly")}</h2>'
-            f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(tr)}</table>'
+            f'<table width="100%" cellpadding="0" cellspacing="0">{rows}</table>'
         )
 
     wiki_html = ""
     if wiki:
         wr = []
         for w in wiki:
-            topic_url = f"{base}{site_path(locale if w.get('localized') else 'en', '/topic/' + str(w['slug']))}?utm_source={utm}"
+            topic_url = f"{base}{site_path(locale if w.get('localized') else 'en', '/topic/' + str(w['slug']))}?utm_source={utm}&utm_content=wiki"
             kind = _t(locale, "obstacle") if w["kind"] == "obstacle" else _t(locale, "solution")
             wr.append(
                 f'<tr><td style="padding:9px 0;border-bottom:1px solid #f0f0f0">'
@@ -1108,8 +1156,8 @@ def render_weekly(
             f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(wr)}</table>'
         )
 
-    feed_url = f"{base}{site_path(locale, '/')}?utm_source={utm}"
-    weekly_page = f"{base}{site_path(locale, '/weekly/' + str(wk.get('week', '')))}?utm_source={utm}"
+    feed_url = f"{base}{site_path(locale, '/')}?utm_source={utm}&utm_content=footer"
+    weekly_page = f"{base}{site_path(locale, '/weekly/' + str(wk.get('week', '')))}?utm_source={utm}&utm_content=footer"
     unsub = unsubscribe_html(cfg, locale)
     lang_switch = language_switch_html(cfg, locale)
     pre = clean(highlights[0], 110) if highlights else clean(" ".join(intro[:1]), 110)
@@ -1138,6 +1186,7 @@ def render_weekly(
     <div style="margin-top:8px;line-height:1.6">{_t(locale, "why")} {_t(locale, "tagline")}</div>
   </div>
 </div>"""
+    inner = with_utm(cfg, inner, utm_medium="email", utm_campaign=f"weekly-{wk.get('week', '')}-{locale}")
     return subject, email_document(inner, locale)
 
 

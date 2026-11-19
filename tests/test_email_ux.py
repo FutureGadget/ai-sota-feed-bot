@@ -38,7 +38,7 @@ class EmailUxTest(unittest.TestCase):
 
     def test_subjects_lead_with_the_news(self):
         _, (subject, _) = self.daily()
-        self.assertEqual(subject, "Microsoft agent-framework compromised twice on PyPI · 26 picks, ~13 min")
+        self.assertRegex(subject, r"^Microsoft agent-framework compromised twice on PyPI · 26 picks, ~\d+ min$")
         _, (subject, _) = self.weekly()
         self.assertEqual(subject, "Claude Fable 5.2 and Gemini 4 Carbon shipped one day apart · Your AI week, Nov 7–13")
         _, (ko_subject, _) = self.weekly("ko")
@@ -100,6 +100,65 @@ class EmailUxTest(unittest.TestCase):
         self.assertEqual(email.week_range({"start": "2026-10-30", "end": "2026-11-05"}), "Oct 30–Nov 5")
         _, (_, ko) = self.daily("ko")
         self.assertIn("LLM Digest · 11월 18일 (수)", ko)
+
+
+    def test_reading_time_counts_only_what_the_email_shows(self):
+        self.assertEqual(email.reading_minutes("<p>" + "word " * 460 + "</p>"), 2)
+        self.assertEqual(email.reading_minutes("<p>" + "word " * 1150 + "</p>"), 5)
+        fb = '<span class="ld-fb"> · <a>👍 Useful</a> · <a>👎 Not relevant</a></span>' * 500
+        self.assertEqual(email.reading_minutes(fb), 2)
+        _, (en_subject, en) = self.daily()
+        _, (ko_subject, _) = self.daily("ko")
+        en_min = int(re.search(r"~(\d+) min", en_subject).group(1))
+        ko_min = int(re.search(r"약 (\d+)분", ko_subject).group(1))
+        self.assertLess(en_min, 13, "the old estimate was half a minute per item")
+        self.assertLessEqual(abs(en_min - ko_min), 1)
+        self.assertIn(f"~{en_min} min", en)
+
+    def test_every_site_link_names_the_issue_and_section(self):
+        for kind, (src, (_, body)) in (("daily", self.daily()), ("weekly", self.weekly())):
+            ident = DAILY_ID if kind == "daily" else WEEKLY_ID
+            links = [l for l in re.findall(r'href="([^"]+)"', body) if l.startswith(self.cfg["site_base"])]
+            self.assertTrue(links)
+            for link in links:
+                self.assertIn("utm_medium=email", link)
+                self.assertTrue(f"utm_campaign={kind}-{ident}-en" in link or "utm_campaign=skill_lab" in link, link)
+            contents = {m for l in links for m in re.findall(r"utm_content=(\w+)", l)}
+            self.assertTrue({"story", "community", "footer"} <= contents, contents)
+        _, (_, daily) = self.daily()
+        self.assertIn("utm_content=headline", daily)
+        _, (_, ko) = self.daily("ko")
+        self.assertIn("utm_campaign=daily-2026-11-18-ko", ko)
+        tagged = email.tag_reader_links(self.cfg, daily)
+        video = re.findall(r'href="([^"]*#video)"', tagged)
+        self.assertTrue(video and "rid=" in video[0].split("#")[0])
+
+    def test_storylines_name_the_newest_story_not_the_cluster_label(self):
+        threads = [{
+            "slug": "routing-inference", "label": "Routing Inference", "last_updated": "2026-11-18T20:13:18+00:00",
+            "latest_title": "How Salesforce routes inference across Regions", "item_count": 4, "day_count": 4,
+            "whats_new": "AWS describes cross-Region routing for model serving.",
+        }]
+        rows = email.render_storyline_rows(self.cfg, threads, "en")
+        self.assertIn("How Salesforce routes inference across Regions →", rows)
+        self.assertIn("AWS describes cross-Region routing", rows)
+        self.assertIn("Storyline · 4 stories over 4 days", rows)
+        self.assertNotIn(">Routing Inference", rows)
+        _, (_, body) = (None, email.render_daily(self.cfg, self.day, threads))
+        self.assertIn("Storylines that moved today", body)
+        self.assertNotIn("you've been following", body)
+
+    def test_korean_edition_hides_untranslated_storylines(self):
+        english = {"slug": "x", "label": "X", "latest_title": "Title", "item_count": 3, "day_count": 2,
+                   "whats_new": "English only.", "localized": True}
+        korean = dict(english, slug="y", whats_new="한국어 설명이 있는 스토리.")
+        self.assertEqual(email.render_storyline_rows(self.cfg, [english], "ko"), "")
+        rows = email.render_storyline_rows(self.cfg, [english, korean], "ko")
+        self.assertIn("한국어 설명이 있는 스토리.", rows)
+        self.assertIn("스토리 · 2일간 3건", rows)
+        source, used = email.localized_or_english("daily", self.day, DAILY_ID, "ko")
+        _, body = email.render_daily(self.cfg, source, [english], used)
+        self.assertNotIn("오늘 움직인 스토리", body)
 
 
 if __name__ == "__main__":

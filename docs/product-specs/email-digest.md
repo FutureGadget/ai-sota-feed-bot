@@ -330,6 +330,20 @@ family but is a **conversion utility first** — clarity and trust outrank novel
   auto-tune loop without a row of its own. They are dropped from the
   plain-text part.
 - **Type:** body text 15–16px, item titles 16–17px, footer 13px.
+- **Reading time** (`reading_minutes`): words the brief itself shows (summary,
+  intro, themes; not feedback links, storylines or the footer) at about 230
+  space-separated words a minute, so English and Korean agree.
+- **Storylines** ("Storylines that moved today" / "this week"): each row links
+  the thread's newest story title (the cluster label is a machine keyword),
+  adds the narrative's what-happened-next when it differs, and a
+  "Storyline · N stories over D days" line. The Korean edition shows only rows
+  whose narrative is in Korean and drops the section when none are.
+- **Click attribution:** every tracked site link carries `utm_medium=email`,
+  `utm_campaign=<kind>-<id>-<locale>` (e.g. `daily-2026-11-18-ko`) and
+  `utm_content` for its section: `story` (items with a summary), `headline`
+  (one-line items), `community`, `storylines`, `wiki`, `video`, `footer`.
+  PostHog records these on the landing page view, so per-issue and
+  per-section clicks are a breakdown away; feedback links keep their `fb=`.
 - **Dark mode:** the email is a full HTML document that declares
   `color-scheme: light dark`; `add_dark_classes` tags every inline colour
   with a class that a `prefers-color-scheme: dark` block restyles. Clients
