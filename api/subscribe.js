@@ -25,6 +25,45 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export function subscribeLocale(value) {
   return String(value || '').trim().toLowerCase() === 'ko' ? 'ko' : 'en';
 }
+function resendCall(apiKey, method, path, payload) {
+  return fetch(`https://api.resend.com${path}`, {
+    method,
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: payload === undefined ? undefined : JSON.stringify(payload),
+  });
+}
+
+// Resend allows a few requests per second; a language switch makes up to four.
+async function withRateRetry(call) {
+  const r = await call();
+  if (r.status !== 429) return r;
+  await new Promise((resolve) => setTimeout(resolve, 1100));
+  return call();
+}
+
+// An existing subscriber who signs up again with the other language switches
+// editions: join the requested edition's segment first, then leave the other,
+// so a failure in between never leaves them with no edition.
+export async function switchEdition(apiKey, email, targetSegment, otherSegment) {
+  const contact = encodeURIComponent(email);
+  const added = await withRateRetry(() =>
+    resendCall(apiKey, 'POST', `/contacts/${contact}/segments/${encodeURIComponent(targetSegment)}`),
+  );
+  if (!added.ok && added.status !== 409 && added.status !== 422) {
+    return { ok: false, step: 'add', status: added.status };
+  }
+  const removed = await withRateRetry(() =>
+    resendCall(apiKey, 'DELETE', `/contacts/${contact}/segments/${encodeURIComponent(otherSegment)}`),
+  );
+  if (!removed.ok && removed.status !== 404) {
+    return { ok: false, step: 'remove', status: removed.status };
+  }
+  return { ok: true };
+}
+
 function createContact(apiKey, payload) {
   return fetch('https://api.resend.com/contacts', {
     method: 'POST',
@@ -119,9 +158,19 @@ export async function POST(request) {
       r = await createContact(apiKey, withoutProperties);
     }
 
-    // 2xx = added; 409/422 typically means the contact already exists — treat a
-    // re-subscribe as success (idempotent) rather than surfacing an error.
-    if (r.ok || r.status === 409 || r.status === 422) {
+    if (r.ok) return Response.json({ ok: true });
+    // 409/422 typically means the contact already exists — a re-subscribe is
+    // success (idempotent). When both language editions are configured, it
+    // also moves the contact to the edition this signup asked for.
+    if (r.status === 409 || r.status === 422) {
+      if (englishSegment && koreanSegment && englishSegment !== koreanSegment) {
+        const other = segmentId === koreanSegment ? englishSegment : koreanSegment;
+        const moved = await switchEdition(apiKey, email, segmentId, other);
+        if (!moved.ok) {
+          console.error('resend edition switch failed', moved.step, moved.status);
+          return Response.json({ error: 'provider_error', status: moved.status }, { status: 502 });
+        }
+      }
       return Response.json({ ok: true });
     }
     const detail = await r.text().catch(() => '');

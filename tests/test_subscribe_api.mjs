@@ -128,3 +128,94 @@ test('a Korean signup joins the Korean segment when it is configured', async () 
     }
   }
 });
+
+async function withSegments(fn) {
+  const saved = { en: process.env.EMAIL_SEGMENT_ID, ko: process.env.EMAIL_SEGMENT_ID_KO };
+  process.env.EMAIL_SEGMENT_ID = 'seg-en';
+  process.env.EMAIL_SEGMENT_ID_KO = 'seg-ko';
+  try {
+    await fn();
+  } finally {
+    for (const [key, value] of [['EMAIL_SEGMENT_ID', saved.en], ['EMAIL_SEGMENT_ID_KO', saved.ko]]) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+}
+
+function recordingFetch(responses) {
+  const calls = [];
+  const impl = async (url, init) => {
+    calls.push({ url: String(url), method: init?.method || 'GET' });
+    return responses.shift() || new Response('{}', { status: 200 });
+  };
+  return { calls, impl };
+}
+
+test('an existing subscriber who picks Korean moves to the Korean edition', async () => {
+  await withSegments(async () => {
+    const { calls, impl } = recordingFetch([
+      new Response('{}', { status: 409 }),
+      new Response('{}', { status: 200 }),
+      new Response('{}', { status: 200 }),
+    ]);
+    const res = await invoke({ email: 'Reader@Example.com', locale: 'ko' }, impl);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, { ok: true });
+    assert.deepEqual(calls.slice(1), [
+      { url: 'https://api.resend.com/contacts/reader%40example.com/segments/seg-ko', method: 'POST' },
+      { url: 'https://api.resend.com/contacts/reader%40example.com/segments/seg-en', method: 'DELETE' },
+    ]);
+  });
+});
+
+test('an existing Korean subscriber who picks English moves back', async () => {
+  await withSegments(async () => {
+    const { calls, impl } = recordingFetch([
+      new Response('{}', { status: 409 }),
+      new Response('{}', { status: 422 }),
+      new Response('{}', { status: 404 }),
+    ]);
+    const res = await invoke({ email: 'reader@example.com', locale: 'en' }, impl);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(calls.slice(1).map((c) => [c.method, c.url.split('/segments/')[1]]), [
+      ['POST', 'seg-en'],
+      ['DELETE', 'seg-ko'],
+    ]);
+  });
+});
+
+test('a failed join keeps the reader in their current edition', async () => {
+  await withSegments(async () => {
+    const { calls, impl } = recordingFetch([
+      new Response('{}', { status: 409 }),
+      new Response('{}', { status: 500 }),
+    ]);
+    const res = await invoke({ email: 'reader@example.com', locale: 'ko' }, impl);
+    assert.equal(res.statusCode, 502);
+    assert.equal(res.body.error, 'provider_error');
+    assert.equal(calls.length, 2, 'never leaves the old segment when the join failed');
+  });
+});
+
+test('a new subscriber is not moved between editions', async () => {
+  await withSegments(async () => {
+    const { calls, impl } = recordingFetch([new Response('{}', { status: 201 })]);
+    const res = await invoke({ email: 'reader@example.com', locale: 'ko' }, impl);
+    assert.equal(res.statusCode, 200);
+    assert.equal(calls.length, 1);
+  });
+});
+
+test('without a Korean segment a duplicate signup makes no segment calls', async () => {
+  const saved = process.env.EMAIL_SEGMENT_ID_KO;
+  delete process.env.EMAIL_SEGMENT_ID_KO;
+  try {
+    const { calls, impl } = recordingFetch([new Response('{}', { status: 409 })]);
+    const res = await invoke({ email: 'reader@example.com', locale: 'ko' }, impl);
+    assert.equal(res.statusCode, 200);
+    assert.equal(calls.length, 1);
+  } finally {
+    if (saved !== undefined) process.env.EMAIL_SEGMENT_ID_KO = saved;
+  }
+});

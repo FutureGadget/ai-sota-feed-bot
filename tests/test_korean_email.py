@@ -168,6 +168,38 @@ class KoreanEmailTest(unittest.TestCase):
         self.assertNotIn("daily_ko", state)
 
 
+class LanguageSwitchTest(unittest.TestCase):
+    def setUp(self):
+        self.cfg = email.load_config()
+        self.recap = json.loads((ROOT / "data" / "daily" / f"{DAILY_ID}.json").read_text(encoding="utf-8"))
+        self.week = json.loads((ROOT / "data" / "weekly" / f"{WEEKLY_ID}.json").read_text(encoding="utf-8"))
+
+    def test_each_edition_links_to_the_other(self):
+        with mock.patch.dict(os.environ, {"EMAIL_SEGMENT_ID_KO": "seg-ko"}):
+            _, en_daily = email.render_daily(self.cfg, self.recap, [])
+            ko_source, _ = email.localized_or_english("daily", self.recap, DAILY_ID, "ko")
+            _, ko_daily = email.render_daily(self.cfg, ko_source, [], "ko")
+            _, en_weekly = email.render_weekly(self.cfg, self.week, [], [], None)
+            ko_week, _ = email.localized_or_english("weekly", self.week, WEEKLY_ID, "ko")
+            _, ko_weekly = email.render_weekly(self.cfg, ko_week, [], [], None, "ko")
+        for body in (en_daily, en_weekly):
+            self.assertIn("/subscribe?lang=ko&amp;utm_source=", body)
+            self.assertIn("이 메일을 한국어로 받기", body)
+        for body in (ko_daily, ko_weekly):
+            self.assertIn("/subscribe?lang=en&amp;utm_source=", body)
+            self.assertIn("Get this email in English", body)
+
+    def test_no_switch_link_without_a_korean_edition(self):
+        env = {k: v for k, v in os.environ.items() if k != "EMAIL_SEGMENT_ID_KO"}
+        with mock.patch.dict(os.environ, env, clear=True):
+            _, body = email.render_daily(self.cfg, self.recap, [])
+        self.assertNotIn("/subscribe?lang=", body)
+
+    def test_signup_page_explains_switching(self):
+        page = (ROOT / "web" / "subscribe.html").read_text(encoding="utf-8")
+        self.assertIn("Already subscribed?", page)
+
+
 class KoreanEmailLineBreakTest(unittest.TestCase):
     def setUp(self):
         self.cfg = email.load_config()
