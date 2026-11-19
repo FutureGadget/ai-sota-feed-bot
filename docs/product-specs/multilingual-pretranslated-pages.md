@@ -199,3 +199,19 @@ browsers.
 - The sitemap includes localized URLs only when translations are fresh.
 - Translation validation fails on lost URLs, placeholders, model names, or stale
   `source_hash` values.
+
+## Recaps are translated by the recap agent (2026-11-19)
+
+Daily and weekly recaps are no longer sent to Google Translate. The recap
+routines write the Korean artifact themselves, in the same run as the English
+recap, with `pipeline/recap_i18n.py` (`skeleton` → translate → `write`); the
+artifact format is unchanged. `scripts/translate.py` skips `daily` and `weekly`
+unless `--surface daily`/`weekly` is passed explicitly. Story, storyline,
+topic, and foundations pages, and the live `/ko/` feed, still use Google
+Translate.
+
+The source hash ignores top-level fields attached after publication
+(`I18N_VOLATILE_KEYS`, currently `video`), so a recap's Korean version stays
+fresh when the video routine adds its video. Artifacts written with the older
+full-object hash stay fresh (`i18n_hash_matches`).
+

@@ -48,6 +48,7 @@ From `worker/` in this repo:
     npx wrangler secret put EMAIL_TOPIC_ID_DAILY
     npx wrangler secret put EMAIL_TOPIC_ID_WEEKLY
     npx wrangler secret put EMAIL_SEGMENT_ID
+    npx wrangler secret put EMAIL_SEGMENT_ID_KO          # Korean email edition (optional)
     npx wrangler secret put EMAIL_SEGMENT_ID_FOLLOWERS   # if you set it on Vercel
     npx wrangler secret put POSTHOG_PROJECT_API_KEY      # if you override the default
 

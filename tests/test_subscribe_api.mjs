@@ -108,3 +108,23 @@ test('retries without properties when the provider rejects them', async () => {
   assert.equal(calls[1].properties, undefined);
   assert.equal(calls[1].email, 'reader@example.com');
 });
+
+test('a Korean signup joins the Korean segment when it is configured', async () => {
+  const saved = { en: process.env.EMAIL_SEGMENT_ID, ko: process.env.EMAIL_SEGMENT_ID_KO };
+  process.env.EMAIL_SEGMENT_ID = 'seg-en';
+  process.env.EMAIL_SEGMENT_ID_KO = 'seg-ko';
+  try {
+    const ko = await invokeCapturing({ email: 'reader@example.com', locale: 'ko' }, [new Response('{}', { status: 201 })]);
+    assert.deepEqual(ko.calls[0].segments, [{ id: 'seg-ko' }]);
+    const en = await invokeCapturing({ email: 'reader@example.com' }, [new Response('{}', { status: 201 })]);
+    assert.deepEqual(en.calls[0].segments, [{ id: 'seg-en' }]);
+    delete process.env.EMAIL_SEGMENT_ID_KO;
+    const fallback = await invokeCapturing({ email: 'reader@example.com', locale: 'ko' }, [new Response('{}', { status: 201 })]);
+    assert.deepEqual(fallback.calls[0].segments, [{ id: 'seg-en' }]);
+  } finally {
+    for (const [key, value] of [['EMAIL_SEGMENT_ID', saved.en], ['EMAIL_SEGMENT_ID_KO', saved.ko]]) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+});

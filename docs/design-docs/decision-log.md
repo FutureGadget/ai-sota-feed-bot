@@ -3132,3 +3132,34 @@ Rollback: Remove step 4 from both recap skills, delete
 `.agents/skills/community-thread/`, `data/community/`, `pipeline/community.py`,
 the Community nav entry and routes, the email block, and re-render.
 
+## 2026-11-19 - Recap agents write the Korean recaps; Korean email edition
+
+Decision: The `daily-summary` and `weekly-summary` routines translate their own
+recap into Korean in the same run (`.agents/skills/recap-translation/`,
+`pipeline/recap_i18n.py`), writing the existing `data/i18n/ko/<kind>/<id>.json`
+artifact. Google Translate stops translating daily and weekly recaps. The email
+digest sends a Korean edition to a separate Resend segment
+(`EMAIL_SEGMENT_ID_KO`) built from those artifacts, and signup asks for a
+language. The recap source hash ignores `video`.
+
+Rationale: Google-translated recaps were incomplete and inconsistent (the
+2026-11-15 Korean recap kept its intro and highlights in English and rendered
+one term two ways), and the static translation budget ran out mid-month, so
+Korean recaps for 2026-11-10, 11, 13 and 16-18 and every weekly but W27 were
+missing. The recap agent already holds the full context, so it translates at
+no extra API cost and in the recap's own commit, ahead of the 08:00 KST email.
+The video routine adds `video` after the recap is written, which would have
+marked every agent translation stale before the email.
+
+Impact: `/ko/daily` and `/ko/weekly` pages for every new recap; a Korean daily
+and weekly email once `EMAIL_SEGMENT_ID_KO` is set (Worker env and GitHub
+secret); a Language choice on `/subscribe`. Story, storyline, topic, and
+foundations pages and the live `/ko/` feed stay on Google Translate. This
+supersedes the "translations only when explicitly asked" rule for daily and
+weekly recaps.
+
+Rollback: Remove step 4 from both recap skills, drop daily/weekly from
+`AGENT_TRANSLATED_SURFACES` in `scripts/translate.py`, unset
+`EMAIL_SEGMENT_ID_KO` (the Korean send then skips). The hash change is
+backward compatible and can stay.
+

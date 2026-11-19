@@ -11,6 +11,7 @@ How to turn on, verify, and operate the email digest (Resend). Spec:
 | `EMAIL_SEGMENT_ID` | GitHub Actions | **Secret** | send only (broadcast target) |
 | `EMAIL_FROM` | GitHub Actions | **Variable** (`vars.`) | send only — e.g. `LLM Digest <digest@llm-digest.com>` |
 | `EMAIL_TOPIC_ID` | GitHub Actions (optional) | Secret | per-topic unsubscribe |
+| `EMAIL_SEGMENT_ID_KO` | Worker **and** GitHub Actions (optional) | Worker secret / GH **Secret** | Korean edition: signup puts `locale=ko` readers here; the send targets it. Unset = English only |
 
 Plus `config/email.yaml → enabled: true` (the second send gate) and a **verified
 domain** in Resend for the `EMAIL_FROM` address.
@@ -76,3 +77,18 @@ hourly schedule.
   bodies already include Resend's `{{{RESEND_UNSUBSCRIBE_URL}}}` token.
 - **Same-day re-run sends nothing** → `data/email/state.json` guard
   (`last_sent_date` / `last_sent_week`); use the `--force` CLI flag to override.
+
+## Korean edition
+
+1. In Resend, create a segment for Korean readers and copy its id.
+2. `npx wrangler secret put EMAIL_SEGMENT_ID_KO` (signup) and add the same id as
+   the GitHub secret `EMAIL_SEGMENT_ID_KO` (send).
+3. Preview: `python publish/publish_email.py --kind daily --locale ko --dry-run`.
+4. After the next send, the job log shows `email_sent=true kind=daily locale=ko`.
+   `email_locale_fallback=en` means that day's Korean recap was missing or stale,
+   so the Korean list got the English email. `reason=no_segment` means the
+   secret is not set.
+
+Existing subscribers stay English. To move a reader to Korean, move the contact
+from the English segment to the Korean one in Resend.
+

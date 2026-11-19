@@ -48,7 +48,9 @@ from pipeline.build_skill_lab import (  # noqa: E402
     validate_record as validate_skill_lab_record,
 )
 from pipeline.story_store import story_sid  # noqa: E402
-from pipeline import community  # noqa: E402
+sys.path.insert(0, str(ROOT / "pipeline"))
+import community  # noqa: E402
+import recap_i18n  # noqa: E402
 
 STATE_PATH = ROOT / "data" / "email" / "state.json"
 SKILL_LAB_DIR = ROOT / "data" / "playbook" / "lab"
@@ -84,6 +86,163 @@ DEFAULTS = {
 # doesn't bleed into the inbox preview after the snippet (the standard hack:
 # zero-width joiners + non-breaking spaces, which render as nothing).
 PREHEADER_PAD = "&#847;&zwnj;&nbsp;" * 40
+
+
+# --------------------------------------------------------------------------- #
+# Locale copy. The English recap is the source of truth; the Korean email reads
+# the agent-written translation (data/i18n/ko/<kind>/<id>.json) and these labels.
+# --------------------------------------------------------------------------- #
+LOCALES = ("en", "ko")
+EMAIL_COPY = {
+    "en": {
+        "daily_subject": "Your AI brief — {n} picks · ~{mins} min · {top}",
+        "daily_h1": "Your AI brief",
+        "daily_meta": "{n} picks · {cats} theme{s} · ~{mins} min · one shared ranking, no filter bubble",
+        "tldr": "In 30 seconds",
+        "video_daily": "Watch the 2-minute explainer",
+        "video_weekly": "Watch the weekly explainer",
+        "theme": "Theme {idx} · {n} {items}",
+        "item": "item",
+        "items": "items",
+        "threads_daily": "🧵 Continuing threads",
+        "threads_daily_dek": "What happened next with stories you've been following.",
+        "caught_up": "✅ You're caught up.",
+        "web": "Read this on the web",
+        "feed": "Open the full feed",
+        "week_link": "This week's recap",
+        "tagline": "The finishable AI feed for platform engineers — 10 minutes a day, with memory.",
+        "useful": "👍 Useful",
+        "irrelevant": "👎 Not relevant",
+        "unsubscribe": "Unsubscribe",
+        "preheader_tail": " — then you're caught up.",
+        "more": " · +{n} more",
+        "weekly_header": "LLM Digest · Weekly recap",
+        "weekly_highlights": "⭐ Highlights",
+        "favorites": "📈 <strong>Reader favorites this week</strong> — sources you clicked most: {chips}",
+        "by_theme": "📚 By theme",
+        "threads_weekly": "🧵 Storylines that moved this week",
+        "wiki": "🪐 New agent know-how",
+        "wiki_dek": "Patterns and solutions that emerged this week — the durable layer, not the news.",
+        "obstacle": "obstacle",
+        "solution": "solution",
+        "full_recap": "Read the full recap",
+        "open_feed": "Open the feed",
+        "weekly_preheader_tail": " — your weekly catch-up.",
+        "community": "💬 From the community",
+        "community_meta": "The agent that writes this brief, on {period}'s news · {n} comments",
+        "period_daily": "today",
+        "period_weekly": "this week",
+        "read_thread": "Read the thread →",
+    },
+    "ko": {
+        "daily_subject": "AI 브리프 — {n}개 · 약 {mins}분 · {top}",
+        "daily_h1": "오늘의 AI 브리프",
+        "daily_meta": "{n}개 · 테마 {cats}개 · 약 {mins}분 · 모두에게 같은 랭킹, 필터 버블 없음",
+        "tldr": "30초 요약",
+        "video_daily": "2분 설명 영상 보기",
+        "video_weekly": "주간 설명 영상 보기",
+        "theme": "테마 {idx} · {n}건",
+        "item": "건",
+        "items": "건",
+        "threads_daily": "🧵 이어지는 스토리",
+        "threads_daily_dek": "지켜보던 이야기의 다음 소식입니다.",
+        "caught_up": "✅ 오늘 브리프는 여기까지입니다.",
+        "web": "웹에서 보기",
+        "feed": "전체 피드 열기",
+        "week_link": "이번 주 리캡",
+        "tagline": "플랫폼·에이전트 엔지니어를 위한 끝이 있는 AI 피드 — 하루 10분, 맥락까지.",
+        "useful": "👍 유용함",
+        "irrelevant": "👎 관련 없음",
+        "unsubscribe": "수신 거부",
+        "preheader_tail": " — 읽고 나면 끝.",
+        "more": " · 외 {n}건",
+        "weekly_header": "LLM Digest · 위클리 리캡",
+        "weekly_highlights": "⭐ 이번 주 핵심",
+        "favorites": "📈 <strong>이번 주 독자 인기 출처</strong> — 가장 많이 클릭한 출처: {chips}",
+        "by_theme": "📚 테마별",
+        "threads_weekly": "🧵 이번 주 움직인 스토리",
+        "wiki": "🪐 새 에이전트 노하우",
+        "wiki_dek": "이번 주에 정리된 패턴과 해법 — 뉴스가 아니라 오래 남는 지식입니다.",
+        "obstacle": "문제",
+        "solution": "해법",
+        "full_recap": "전체 리캡 보기",
+        "open_feed": "피드 열기",
+        "weekly_preheader_tail": " — 이번 주 따라잡기.",
+        "community": "💬 커뮤니티에서",
+        "community_meta": "이 브리프를 쓰는 에이전트의 {period} 이야기 · 댓글 {n}개",
+        "period_daily": "오늘",
+        "period_weekly": "이번 주",
+        "read_thread": "스레드 보기 →",
+    },
+}
+
+
+def _t(locale: str, key: str, **kw) -> str:
+    text = EMAIL_COPY.get(locale, EMAIL_COPY["en"]).get(key) or EMAIL_COPY["en"][key]
+    return text.format(**kw) if kw else text
+
+
+def site_path(locale: str, path: str) -> str:
+    """Prefix a site path for a locale: ``/daily/x`` -> ``/ko/daily/x``."""
+    return f"/ko{path}" if locale == "ko" else path
+
+
+def _fresh_i18n(surface: str, ident: str, source: dict | None, locale: str) -> dict | None:
+    """A fresh translation artifact for one storyline/topic, or None."""
+    if locale == "en" or not isinstance(source, dict):
+        return None
+    path = ROOT / "data" / "i18n" / locale / surface / f"{ident}.json"
+    if not path.exists():
+        return None
+    try:
+        artifact = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    if not recap_i18n.render.i18n_hash_matches(artifact.get("source_hash"), source):
+        return None
+    return artifact
+
+
+def localize_threads(threads: list[dict], locale: str) -> list[dict]:
+    """Storyline rows with a fresh translated label/what's-new; English otherwise."""
+    if locale == "en":
+        return threads
+    out = []
+    for t in threads:
+        row = dict(t)
+        detail_path = ROOT / "data" / "storylines" / f"{t.get('slug', '')}.json"
+        try:
+            detail = json.loads(detail_path.read_text(encoding="utf-8")) if detail_path.exists() else None
+        except Exception:
+            detail = None
+        artifact = _fresh_i18n("storyline", str(t.get("slug") or ""), detail, locale)
+        if artifact:
+            row["label"] = artifact.get("label") or row["label"]
+            editorial = artifact.get("editorial") if isinstance(artifact.get("editorial"), dict) else {}
+            if editorial.get("whats_new"):
+                row["whats_new"] = editorial["whats_new"]
+            row["localized"] = True
+        out.append(row)
+    return out
+
+
+def localize_wiki(wiki: list[dict], locale: str) -> list[dict]:
+    if locale == "en":
+        return wiki
+    try:
+        nodes = (json.loads((ROOT / "data" / "wiki" / "index.json").read_text(encoding="utf-8")).get("nodes") or {})
+    except Exception:
+        nodes = {}
+    out = []
+    for w in wiki:
+        row = dict(w)
+        artifact = _fresh_i18n("topic", str(w.get("slug") or ""), nodes.get(w.get("slug")), locale)
+        if artifact:
+            row["title"] = artifact.get("title") or row["title"]
+            row["summary"] = artifact.get("description") or row["summary"]
+            row["localized"] = True
+        out.append(row)
+    return out
 
 
 def clean(s: str, n: int = 120) -> str:
@@ -187,8 +346,8 @@ def story_url(cfg: dict, url: str) -> str:
     return f"{cfg['site_base'].rstrip('/')}/story/{sid}?utm_source={cfg['utm_source']}"
 
 
-def storyline_url(cfg: dict, slug: str) -> str:
-    return f"{cfg['site_base'].rstrip('/')}/storyline/{slug}?utm_source={cfg['utm_source']}"
+def storyline_url(cfg: dict, slug: str, locale: str = "en") -> str:
+    return f"{cfg['site_base'].rstrip('/')}{site_path(locale, f'/storyline/{slug}')}?utm_source={cfg['utm_source']}"
 
 
 def feedback_url(cfg: dict, url: str, signal: str) -> str:
@@ -264,7 +423,7 @@ def ensure_reader_id_property(api_key: str) -> bool:
         return False
 
 
-def feedback_row(cfg: dict, url: str) -> str:
+def feedback_row(cfg: dict, url: str, locale: str = "en") -> str:
     """Compact 👍 / 👎 line under a daily item."""
     if not url:
         return ""
@@ -272,9 +431,9 @@ def feedback_row(cfg: dict, url: str) -> str:
     irrel = html.escape(feedback_url(cfg, url, "irrelevant"))
     return (
         '<div style="font-size:12px;margin-top:5px">'
-        f'<a href="{useful}" style="color:#1a7f37;text-decoration:none">👍 Useful</a>'
+        f'<a href="{useful}" style="color:#1a7f37;text-decoration:none">{_t(locale, "useful")}</a>'
         '<span style="color:#ccc"> · </span>'
-        f'<a href="{irrel}" style="color:#999;text-decoration:none">👎 Not relevant</a>'
+        f'<a href="{irrel}" style="color:#999;text-decoration:none">{_t(locale, "irrelevant")}</a>'
         "</div>"
     )
 
@@ -291,18 +450,18 @@ def daily_articles(recap: dict) -> list[dict]:
     return out
 
 
-def _preheader(recap: dict, articles: list[dict]) -> str:
+def _preheader(recap: dict, articles: list[dict], locale: str = "en") -> str:
     """Inbox-preview snippet: lead with the recap's first highlight (its editorial
     "in 30 seconds"), else the top headlines + remaining count — so the brief
     sells itself in the inbox instead of leaking the boilerplate header.
     """
     highlights = [clean(h, 90) for h in (recap.get("highlights") or []) if isinstance(h, str) and h.strip()]
     if highlights:
-        return f"{highlights[0]} — then you're caught up."
+        return f"{highlights[0]}{_t(locale, 'preheader_tail')}"
     titles = [clean(a.get("title", ""), 50) for a in articles[:2] if a.get("title")]
     extra = max(0, len(articles) - len(titles))
-    tail = f" · +{extra} more" if extra else ""
-    return f"{' · '.join(titles)}{tail} — then you're caught up."
+    tail = _t(locale, "more", n=extra) if extra else ""
+    return f"{' · '.join(titles)}{tail}{_t(locale, 'preheader_tail')}"
 
 
 def reader_favorites(limit: int = 3) -> list[tuple[str, int]]:
@@ -447,14 +606,14 @@ def wiki_in_window(start: str, end: str, limit: int | None) -> list[dict]:
 # --------------------------------------------------------------------------- #
 # HTML email
 # --------------------------------------------------------------------------- #
-def unsubscribe_html(cfg: dict) -> str:
+def unsubscribe_html(cfg: dict, locale: str = "en") -> str:
     """Resend broadcasts template the unsubscribe URL into the body via the
     `{{{RESEND_UNSUBSCRIBE_URL}}}` token (compliance + one-click unsubscribe).
     Returned as a plain string so the triple braces survive f-string footers.
     Buttondown appends its own unsubscribe footer, so it needs nothing here.
     """
     if (cfg.get("provider") or "").lower() == "resend":
-        return ' · <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999">Unsubscribe</a>'
+        return ' · <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999">' + _t(locale, "unsubscribe") + "</a>"
     return ""
 
 
@@ -494,7 +653,7 @@ def html_to_text(body: str) -> str:
     return s.strip()
 
 
-def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]:
+def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en") -> tuple[str, str]:
     """Render the curated daily recap (``data/daily/latest.json``) as the brief.
 
     Mirrors the ``/daily`` page — the same intro, highlights ("In 30 seconds"),
@@ -508,7 +667,7 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
     mins = max(3, round(n * 0.5))
     recap_date = (recap.get("date") or datetime.now().strftime("%Y-%m-%d")).strip()
     top_title = clean(articles[0].get("title", "AI updates"), 60) if articles else "AI updates"
-    subject = f"Your AI brief — {n} picks · ~{mins} min · {top_title}"
+    subject = _t(locale, "daily_subject", n=n, mins=mins, top=top_title)
 
     # "In 30 seconds" TL;DR (highlights) then the editorial intro paragraphs —
     # the same lead the /daily page shows above the categories.
@@ -519,7 +678,7 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
         tldr_html = (
             '<div style="margin:6px 0 14px;padding:12px 14px;border-radius:8px;background:#f6f8fa">'
             '<div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;'
-            'color:#1a6dd6;margin-bottom:6px">In 30 seconds</div>'
+            f'color:#1a6dd6;margin-bottom:6px">{_t(locale, "tldr")}</div>'
             f'<ul style="font-size:13px;line-height:1.5;color:#333;padding-left:18px;margin:0">{lis}</ul></div>'
         )
     intro_paras = [clean(p, 500) for p in (recap.get("intro") or []) if isinstance(p, str) and p.strip()]
@@ -528,7 +687,7 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
         for p in intro_paras[:2]
     )
 
-    video_html = video_link_html(cfg, recap, f"/daily/{recap_date}", "Watch the 2-minute explainer")
+    video_html = video_link_html(cfg, recap, site_path(locale, f"/daily/{recap_date}"), _t(locale, "video_daily"))
 
     # Themed categories: each article links to its /story/<sid> permalink, carries
     # its source and one-line recap summary, and keeps the one-tap feedback row.
@@ -550,17 +709,17 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
                 f'style="color:#111;text-decoration:none">{title}</a></div>'
                 f'<div style="font-size:12px;color:#888;margin-top:3px">{src}</div>'
                 + (f'<div style="font-size:13px;color:#444;margin-top:4px">{asum}</div>' if asum else "")
-                + feedback_row(cfg, url)
+                + feedback_row(cfg, url, locale)
                 + "</td></tr>"
             )
         article_count = len(raw_articles)
-        item_label = "item" if article_count == 1 else "items"
+        item_label = _t(locale, "item") if article_count == 1 else _t(locale, "items")
         cat_html.append(
             '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
             'style="margin:24px 0 2px;border-top:1px solid #d8dee4;background:#f6f8fa">'
             '<tr><td style="padding:10px 12px">'
             f'<div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;'
-            f'color:#57606a">Theme {idx} · {article_count} {item_label}</div>'
+            f'color:#57606a">{_t(locale, "theme", idx=idx, n=article_count, items=item_label)}</div>'
             f'<div style="font-size:16px;font-weight:700;line-height:1.35;color:#111;margin-top:2px">{name}</div>'
             + (f'<div style="font-size:13px;line-height:1.45;color:#555;margin-top:3px">{csum}</div>' if csum else "")
             + "</td></tr></table>"
@@ -577,30 +736,30 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
             tr.append(
                 f'<tr><td style="padding:10px 0;border-bottom:1px solid #f0f0f0">'
                 f'<div style="font-size:14px;font-weight:600">'
-                f'<a href="{html.escape(storyline_url(cfg, t["slug"]))}" '
+                f'<a href="{html.escape(storyline_url(cfg, t["slug"], locale if t.get("localized") else "en"))}" '
                 f'style="color:#1a6dd6;text-decoration:none">{label} →</a></div>'
                 f'<div style="font-size:13px;color:#444;margin-top:3px">{wn}</div></td></tr>'
             )
         thread_html = (
-            '<h2 style="font-size:16px;margin:28px 0 6px">🧵 Continuing threads</h2>'
+            f'<h2 style="font-size:16px;margin:28px 0 6px">{_t(locale, "threads_daily")}</h2>'
             '<div style="font-size:12px;color:#888;margin-bottom:6px">'
-            "What happened next with stories you've been following.</div>"
+            f'{_t(locale, "threads_daily_dek")}</div>'
             f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(tr)}</table>'
         )
 
-    feed_url = f"{cfg['site_base'].rstrip('/')}/?utm_source={cfg['utm_source']}"
-    daily_page = f"{cfg['site_base'].rstrip('/')}/daily/{recap_date}?utm_source={cfg['utm_source']}"
+    feed_url = f"{cfg['site_base'].rstrip('/')}{site_path(locale, '/')}?utm_source={cfg['utm_source']}"
+    daily_page = f"{cfg['site_base'].rstrip('/')}{site_path(locale, f'/daily/{recap_date}')}?utm_source={cfg['utm_source']}"
     weekly_url = f"{cfg['site_base'].rstrip('/')}/weekly?utm_source={cfg['utm_source']}"
-    unsub = unsubscribe_html(cfg)
+    unsub = unsubscribe_html(cfg, locale)
     n_cats = len(cats)
-    sub_meta = f"{n} picks · {n_cats} theme{'s' if n_cats != 1 else ''} · ~{mins} min · one shared ranking, no filter bubble"
-    preheader = html.escape(_preheader(recap, articles))
-    community_html = render_community_email(cfg, "daily", recap_date)
+    sub_meta = _t(locale, "daily_meta", n=n, cats=n_cats, s="s" if n_cats != 1 else "", mins=mins)
+    preheader = html.escape(_preheader(recap, articles, locale))
+    community_html = render_community_email(cfg, "daily", recap_date, locale)
     body = f"""\
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#fff">{preheader}{PREHEADER_PAD}</div>
 <div style="max-width:640px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111">
   <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}LLM Digest · {recap_date}</div>
-  <h1 style="font-size:20px;margin:6px 0 2px">Your AI brief</h1>
+  <h1 style="font-size:20px;margin:6px 0 2px">{_t(locale, "daily_h1")}</h1>
   <div style="font-size:13px;color:#777;margin-bottom:12px">{sub_meta}</div>
   {tldr_html}
   {video_html}
@@ -608,28 +767,28 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
   {cats_html}
   {thread_html}
   {community_html}
-  <div style="margin:26px 0 10px;padding:12px;border-radius:8px;background:#f6f8fa;text-align:center;font-size:14px;font-weight:600;color:#1a7f37">✅ You're caught up.</div>
+  <div style="margin:26px 0 10px;padding:12px;border-radius:8px;background:#f6f8fa;text-align:center;font-size:14px;font-weight:600;color:#1a7f37">{_t(locale, "caught_up")}</div>
   <div style="font-size:12px;color:#999;margin-top:18px;line-height:1.6">
-    <a href="{html.escape(daily_page)}" style="color:#1a6dd6">Read this on the web</a> ·
-    <a href="{html.escape(feed_url)}" style="color:#1a6dd6">Open the full feed</a> ·
-    <a href="{html.escape(weekly_url)}" style="color:#1a6dd6">This week's recap</a>{unsub}<br>
-    The finishable AI feed for platform engineers — 10 minutes a day, with memory.
+    <a href="{html.escape(daily_page)}" style="color:#1a6dd6">{_t(locale, "web")}</a> ·
+    <a href="{html.escape(feed_url)}" style="color:#1a6dd6">{_t(locale, "feed")}</a> ·
+    <a href="{html.escape(weekly_url)}" style="color:#1a6dd6">{_t(locale, "week_link")}</a>{unsub}<br>
+    {_t(locale, "tagline")}
   </div>
 </div>"""
     return subject, body
 
 
-def render_community_email(cfg: dict, kind: str, edition: str) -> str:
+def render_community_email(cfg: dict, kind: str, edition: str, locale: str = "en") -> str:
     """The "From the community" block: the recap's agent-written thread, or ""
-    when there is no valid post for this edition. English thread only."""
+    when there is no valid post or no thread in ``locale`` for this edition."""
     if not edition:
         return ""
     post = community.load_post(kind, edition)
-    thread = community.thread_for(post, "en")
+    thread = community.thread_for(post, locale)
     if not thread:
         return ""
     base = cfg["site_base"].rstrip("/")
-    url = f"{base}{community.post_path(kind, edition, 'en')}?utm_source={cfg['utm_source']}"
+    url = f"{base}{community.post_path(kind, edition, locale)}?utm_source={cfg['utm_source']}"
     title = html.escape(clean(str(thread.get("title") or ""), 160))
     n = community.comment_count(thread.get("comments"))
     top = community.top_comment(thread)
@@ -641,17 +800,17 @@ def render_community_email(cfg: dict, kind: str, edition: str) -> str:
             f'<strong style="color:#111">{html.escape(clean(str(top.get("author") or ""), 40))}</strong> '
             f"{html.escape(clean(first, 200))}</div>"
         )
-    period = "today" if kind == "daily" else "this week"
+    period = _t(locale, "period_daily" if kind == "daily" else "period_weekly")
     return (
         '<div style="margin:24px 0 6px;padding:12px 14px;border-radius:8px;border-left:4px solid #1a6dd6;background:#f6f8fa">'
         '<div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#1a6dd6">'
-        "💬 From the community</div>"
+        f"{_t(locale, 'community')}</div>"
         f'<div style="font-size:15px;font-weight:600;line-height:1.35;margin-top:4px">'
         f'<a href="{html.escape(url)}" style="color:#111;text-decoration:none">{title}</a></div>'
-        f'<div style="font-size:12px;color:#888;margin-top:3px">The agent that writes this brief, on {period}\'s news · {n} comments</div>'
+        f'<div style="font-size:12px;color:#888;margin-top:3px">{html.escape(_t(locale, "community_meta", period=period, n=n))}</div>'
         f"{quote_html}"
         f'<div style="font-size:13px;font-weight:600;margin-top:8px"><a href="{html.escape(url)}" '
-        'style="color:#1a6dd6;text-decoration:none">Read the thread →</a></div></div>'
+        f'style="color:#1a6dd6;text-decoration:none">{_t(locale, "read_thread")}</a></div></div>'
     )
 
 
@@ -700,8 +859,9 @@ def render_weekly(
     threads: list[dict],
     wiki: list[dict],
     skill_lab: dict | None = None,
+    locale: str = "en",
 ) -> tuple[str, str]:
-    """Returns (subject, html_body) for the weekly recap."""
+    """Returns (subject, html_body) for the weekly recap in ``locale``."""
     title = wk.get("title") or f"What happened in AI — week {wk.get('week','')}"
     subject = title
     base = cfg["site_base"].rstrip("/")
@@ -718,7 +878,7 @@ def render_weekly(
     if highlights:
         lis = "".join(f'<li style="margin:4px 0">{html.escape(h)}</li>' for h in highlights)
         hl_html = (
-            '<h2 style="font-size:16px;margin:22px 0 6px">⭐ Highlights</h2>'
+            f'<h2 style="font-size:16px;margin:22px 0 6px">{_t(locale, "weekly_highlights")}</h2>'
             f'<ul style="font-size:14px;line-height:1.5;color:#333;padding-left:20px;margin:0">{lis}</ul>'
         )
 
@@ -730,7 +890,7 @@ def render_weekly(
         )
         fav_html = (
             '<div style="margin:18px 0 4px;padding:10px 12px;border-radius:8px;background:#f6f8fa;font-size:13px;color:#555">'
-            f"📈 <strong>Reader favorites this week</strong> — sources you clicked most: {chips}</div>"
+            f"{_t(locale, 'favorites', chips=chips)}</div>"
         )
 
     per_cat = int(cfg["weekly"]["articles_per_category"])
@@ -752,7 +912,7 @@ def render_weekly(
             f'<ul style="padding-left:18px;margin:0;list-style:disc">{"".join(arts)}</ul></div>'
         )
     cats_section = (
-        '<h2 style="font-size:16px;margin:24px 0 4px">📚 By theme</h2>' + "".join(cat_html) if cat_html else ""
+        f'<h2 style="font-size:16px;margin:24px 0 4px">{_t(locale, "by_theme")}</h2>' + "".join(cat_html) if cat_html else ""
     )
 
     thread_html = ""
@@ -762,12 +922,12 @@ def render_weekly(
             wn = html.escape(clean(t["whats_new"], 220))
             tr.append(
                 f'<tr><td style="padding:9px 0;border-bottom:1px solid #f0f0f0">'
-                f'<div style="font-size:14px;font-weight:600"><a href="{html.escape(storyline_url(cfg, t["slug"]))}" '
+                f'<div style="font-size:14px;font-weight:600"><a href="{html.escape(storyline_url(cfg, t["slug"], locale if t.get("localized") else "en"))}" '
                 f'style="color:#1a6dd6;text-decoration:none">{html.escape(t["label"])} →</a></div>'
                 f'<div style="font-size:13px;color:#444;margin-top:3px">{wn}</div></td></tr>'
             )
         thread_html = (
-            '<h2 style="font-size:16px;margin:26px 0 6px">🧵 Storylines that moved this week</h2>'
+            f'<h2 style="font-size:16px;margin:26px 0 6px">{_t(locale, "threads_weekly")}</h2>'
             f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(tr)}</table>'
         )
 
@@ -775,8 +935,8 @@ def render_weekly(
     if wiki:
         wr = []
         for w in wiki:
-            topic_url = f"{base}/topic/{w['slug']}?utm_source={utm}"
-            kind = "obstacle" if w["kind"] == "obstacle" else "solution"
+            topic_url = f"{base}{site_path(locale if w.get('localized') else 'en', '/topic/' + str(w['slug']))}?utm_source={utm}"
+            kind = _t(locale, "obstacle") if w["kind"] == "obstacle" else _t(locale, "solution")
             wr.append(
                 f'<tr><td style="padding:9px 0;border-bottom:1px solid #f0f0f0">'
                 f'<div style="font-size:14px;font-weight:600"><a href="{html.escape(topic_url)}" '
@@ -785,24 +945,24 @@ def render_weekly(
                 f'<div style="font-size:13px;color:#444;margin-top:3px">{html.escape(clean(w["summary"], 200))}</div></td></tr>'
             )
         wiki_html = (
-            '<h2 style="font-size:16px;margin:26px 0 6px">🪐 New agent know-how</h2>'
+            f'<h2 style="font-size:16px;margin:26px 0 6px">{_t(locale, "wiki")}</h2>'
             '<div style="font-size:12px;color:#888;margin-bottom:6px">'
-            "Patterns and solutions that emerged this week — the durable layer, not the news.</div>"
+            f'{_t(locale, "wiki_dek")}</div>'
             f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(wr)}</table>'
         )
 
-    feed_url = f"{base}/?utm_source={utm}"
-    weekly_page = f"{base}/weekly/{wk.get('week','')}?utm_source={utm}"
-    unsub = unsubscribe_html(cfg)
+    feed_url = f"{base}{site_path(locale, '/')}?utm_source={utm}"
+    weekly_page = f"{base}{site_path(locale, '/weekly/' + str(wk.get('week', '')))}?utm_source={utm}"
+    unsub = unsubscribe_html(cfg, locale)
     pre = clean(highlights[0], 110) if highlights else clean(" ".join(intro[:1]), 110)
-    preheader = html.escape(f"{pre} — your weekly catch-up.")
+    preheader = html.escape(f"{pre}{_t(locale, 'weekly_preheader_tail')}")
     skill_lab_html = render_skill_lab_email(cfg, skill_lab)
-    community_html = render_community_email(cfg, "weekly", str(wk.get("week") or ""))
-    video_html = video_link_html(cfg, wk, f"/weekly/{wk.get('week','')}", "Watch the weekly explainer")
+    community_html = render_community_email(cfg, "weekly", str(wk.get("week") or ""), locale)
+    video_html = video_link_html(cfg, wk, site_path(locale, f"/weekly/{wk.get('week','')}"), _t(locale, "video_weekly"))
     body = f"""\
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#fff">{preheader}{PREHEADER_PAD}</div>
 <div style="max-width:640px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111">
-  <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}LLM Digest · Weekly recap</div>
+  <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}{_t(locale, "weekly_header")}</div>
   <h1 style="font-size:21px;margin:6px 0 10px">{html.escape(title)}</h1>
   {video_html}
   {intro_html}
@@ -814,9 +974,9 @@ def render_weekly(
   {skill_lab_html}
   {community_html}
   <div style="font-size:12px;color:#999;margin-top:22px;line-height:1.6">
-    <a href="{html.escape(weekly_page)}" style="color:#1a6dd6">Read the full recap</a> ·
-    <a href="{html.escape(feed_url)}" style="color:#1a6dd6">Open the feed</a>{unsub}<br>
-    The finishable AI feed for platform engineers — 10 minutes a day, with memory.
+    <a href="{html.escape(weekly_page)}" style="color:#1a6dd6">{_t(locale, "full_recap")}</a> ·
+    <a href="{html.escape(feed_url)}" style="color:#1a6dd6">{_t(locale, "open_feed")}</a>{unsub}<br>
+    {_t(locale, "tagline")}
   </div>
 </div>"""
     return subject, body
@@ -825,6 +985,13 @@ def render_weekly(
 # --------------------------------------------------------------------------- #
 # Provider send (broadcast)
 # --------------------------------------------------------------------------- #
+def segment_for(locale: str) -> str:
+    """The Resend segment a locale's broadcast targets ("" when unset)."""
+    if locale == "ko":
+        return (os.getenv("EMAIL_SEGMENT_ID_KO") or "").strip()
+    return (os.getenv("EMAIL_SEGMENT_ID") or os.getenv("EMAIL_AUDIENCE_ID") or "").strip()
+
+
 def resolve_topic_id(kind: str) -> str:
     """The Resend Topic a given digest kind scopes to. Daily and weekly are
     separate topics so a reader can take "weekly only — less email" (opted out
@@ -839,17 +1006,30 @@ def resolve_topic_id(kind: str) -> str:
     return (per_kind or os.getenv("EMAIL_TOPIC_ID") or "").strip()
 
 
-def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str, name: str = "", kind: str = "daily") -> bool:
+def send_broadcast(
+    cfg: dict,
+    api_key: str,
+    subject: str,
+    html_body: str,
+    name: str = "",
+    kind: str = "daily",
+    locale: str = "en",
+) -> bool:
     """Send the broadcast. Returns True if sent, False for a clean no-op
     (e.g. the recipient segment is empty — nothing to send, not an error).
 
     ``name`` is the provider-side internal label shown in the dashboard
     broadcast list (distinct from the subscriber-facing ``subject``). Without
     it Resend lists every broadcast as "Untitled". ``kind`` selects the Resend
-    Topic the send scopes to (daily vs weekly), so per-digest opt-outs hold."""
+    Topic the send scopes to (daily vs weekly), so per-digest opt-outs hold.
+    ``locale`` selects the recipient segment: English readers are in
+    ``EMAIL_SEGMENT_ID``, Korean readers in ``EMAIL_SEGMENT_ID_KO``."""
     provider = (cfg.get("provider") or "buttondown").lower()
     text_body = html_to_text(html_body)
     if provider == "buttondown":
+        if locale != "en":
+            print(f"email_send_skipped=true locale={locale} reason=buttondown_single_list")
+            return False
         r = requests.post(
             "https://api.buttondown.com/v1/emails",
             headers={"Authorization": f"Token {api_key}"},
@@ -862,10 +1042,10 @@ def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str, name: 
         # Audiences were renamed to Segments; a broadcast targets a segment_id
         # (optionally scoped to a topic_id). `send: true` creates + sends in one
         # call. The unsubscribe link is templated into the body (see footers).
-        segment_id = (os.getenv("EMAIL_SEGMENT_ID") or os.getenv("EMAIL_AUDIENCE_ID") or "").strip()
+        segment_id = segment_for(locale)
         from_addr = os.getenv("EMAIL_FROM", "").strip()
         if not segment_id or not from_addr:
-            raise RuntimeError("resend requires EMAIL_SEGMENT_ID and EMAIL_FROM")
+            raise RuntimeError(f"resend requires the {locale} segment id and EMAIL_FROM")
         payload = {
             "segment_id": segment_id,
             "from": from_addr,
@@ -919,15 +1099,31 @@ def _latest_daily() -> dict | None:
     return recap if isinstance(recap, dict) and recap.get("categories") else None
 
 
-def build_daily(cfg: dict, state: dict) -> tuple[str, str, list[dict], str] | None:
+def localized_or_english(kind: str, recap: dict, ident: str, locale: str) -> tuple[dict, str]:
+    """The recap to render for ``locale`` and the locale it is actually in.
+
+    A Korean send uses the agent-written translation when it is fresh for the
+    English recap; otherwise it falls back to the English email."""
+    if locale == "en":
+        return recap, "en"
+    localized = recap_i18n.load_localized(kind, ident, locale)
+    if localized is None:
+        print(f"email_locale_fallback=en locale={locale} kind={kind} id={ident} reason=no_fresh_translation")
+        return recap, "en"
+    return localized, locale
+
+
+def build_daily(cfg: dict, state: dict, locale: str = "en") -> tuple[str, str, list[dict], str] | None:
     """Returns (subject, body, threads, recap_date), or None when there is no
     daily recap to send (clean no-op)."""
     recap = _latest_daily()
     if not recap:
         return None
+    recap_date = (recap.get("date") or "").strip()
     threads = storyline_deltas(state, int(cfg["daily"]["max_threads"]))
-    subject, body = render_daily(cfg, recap, threads)
-    return subject, body, threads, (recap.get("date") or "").strip()
+    source, used = localized_or_english("daily", recap, recap_date, locale)
+    subject, body = render_daily(cfg, source, localize_threads(threads, used), used)
+    return subject, body, threads, recap_date
 
 
 def _latest_weekly() -> dict | None:
@@ -1064,6 +1260,7 @@ def skill_lab_in_window(
 def build_weekly(
     cfg: dict,
     state: dict | None = None,
+    locale: str = "en",
 ) -> tuple[str, str, dict, int, int, int, str]:
     wk = _latest_weekly()
     if not wk:
@@ -1072,7 +1269,10 @@ def build_weekly(
     threads = storylines_in_window(start, end, int(cfg["weekly"]["max_threads"]))
     wiki = wiki_in_window(start, end, int(cfg["weekly"]["max_wiki"]))
     skill_lab = skill_lab_in_window(start, end, _sent_skill_lab_ids(state))
-    subject, body = render_weekly(cfg, wk, threads, wiki, skill_lab)
+    source, used = localized_or_english("weekly", wk, str(wk.get("week") or ""), locale)
+    subject, body = render_weekly(
+        cfg, source, localize_threads(threads, used), localize_wiki(wiki, used), skill_lab, used
+    )
     skill_lab_id = str(skill_lab.get("id") or "") if skill_lab else ""
     return subject, body, wk, len(threads), len(wiki), int(skill_lab is not None), skill_lab_id
 
@@ -1080,6 +1280,12 @@ def build_weekly(
 def main() -> int:
     ap = argparse.ArgumentParser(description="Send the email digest")
     ap.add_argument("--kind", choices=["daily", "weekly"], default="daily")
+    ap.add_argument(
+        "--locale",
+        choices=["all", *LOCALES],
+        default="all",
+        help="language edition(s) to build and send; all = English then Korean",
+    )
     ap.add_argument("--dry-run", action="store_true", help="render to stdout, never send, never touch state")
     ap.add_argument("--force", action="store_true", help="ignore the already-sent guard")
     args = ap.parse_args()
@@ -1087,40 +1293,63 @@ def main() -> int:
     cfg = load_config()
     state = load_state()
     today = datetime.now().strftime("%Y-%m-%d")
+    locales = list(LOCALES) if args.locale == "all" else [args.locale]
 
-    # Build the email + figure out the idempotency guard for this kind.
-    if args.kind == "weekly":
-        build_state = {} if args.force else state
-        subject, body, wk, n_threads, n_wiki, n_skill_lab, skill_lab_id = build_weekly(
-            cfg, build_state
-        )
-        week_key = wk.get("week", "")
-        already_sent = state.get("weekly", {}).get("last_sent_week") == week_key
-        guard_reason = "already_sent_week"
-        summary = f"week={week_key} threads={n_threads} wiki={n_wiki} skill_lab={n_skill_lab}"
-        broadcast_name = f"Weekly recap — {week_key or today}"
-    else:
-        built = build_daily(cfg, state)
-        if built is None:
-            # No curated recap committed yet — no-op cleanly (never the raw feed).
-            print("email_send_skipped=true kind=daily reason=no_recap")
-            return 0
-        subject, body, threads, recap_date = built
-        # Guard on the recap's own date, not the calendar day: send the latest
-        # recap once, re-send only when a newer recap appears.
-        already_sent = state.get("daily", {}).get("last_sent_date") == recap_date
-        guard_reason = "already_sent_recap"
-        summary = f"recap_date={recap_date} threads={len(threads)}"
-        broadcast_name = f"Daily brief — {recap_date or today}"
+    # Build every edition before sending anything, so each one reads the same
+    # cursor state (the English send advances the storyline cursor).
+    builds: list[dict] = []
+    for locale in locales:
+        suffix = "" if locale == "en" else f" [{locale}]"
+        state_key = args.kind if locale == "en" else f"{args.kind}_{locale}"
+        if args.kind == "weekly":
+            build_state = {} if args.force else state
+            subject, body, wk, n_threads, n_wiki, n_skill_lab, skill_lab_id = build_weekly(
+                cfg, build_state, locale
+            )
+            week_key = wk.get("week", "")
+            builds.append(
+                {
+                    "locale": locale,
+                    "subject": subject,
+                    "body": body,
+                    "already_sent": state.get(state_key, {}).get("last_sent_week") == week_key,
+                    "guard_reason": "already_sent_week",
+                    "summary": f"week={week_key} threads={n_threads} wiki={n_wiki} skill_lab={n_skill_lab}",
+                    "name": f"Weekly recap — {week_key or today}{suffix}",
+                    "week_key": week_key,
+                    "skill_lab_id": skill_lab_id,
+                    "state_key": state_key,
+                }
+            )
+        else:
+            built = build_daily(cfg, state, locale)
+            if built is None:
+                # No curated recap committed yet — no-op cleanly (never the raw feed).
+                print("email_send_skipped=true kind=daily reason=no_recap")
+                return 0
+            subject, body, threads, recap_date = built
+            # Guard on the recap's own date, not the calendar day: send the latest
+            # recap once, re-send only when a newer recap appears.
+            builds.append(
+                {
+                    "locale": locale,
+                    "subject": subject,
+                    "body": body,
+                    "already_sent": state.get(state_key, {}).get("last_sent_date") == recap_date,
+                    "guard_reason": "already_sent_recap",
+                    "summary": f"recap_date={recap_date} threads={len(threads)}",
+                    "name": f"Daily brief — {recap_date or today}{suffix}",
+                    "threads": threads,
+                    "recap_date": recap_date,
+                    "state_key": state_key,
+                }
+            )
 
     if args.dry_run:
-        print(f"<!-- subject: {subject} -->")
-        print(body)
-        print(f"\n<!-- kind={args.kind} {summary} -->")
-        return 0
-
-    if already_sent and not args.force:
-        print(f"email_skipped=true kind={args.kind} reason={guard_reason}")
+        for b in builds:
+            print(f"<!-- locale: {b['locale']} subject: {b['subject']} -->")
+            print(b["body"])
+            print(f"\n<!-- kind={args.kind} locale={b['locale']} {b['summary']} -->")
         return 0
 
     api_key = os.getenv("EMAIL_API_KEY", "").strip()
@@ -1130,39 +1359,60 @@ def main() -> int:
         print("email_send_skipped=true reason=disabled_or_no_api_key")
         return 0
 
-    reader_links = (
-        (cfg.get("provider") or "").lower() == "resend"
-        and bool(cfg.get("reader_id_links", True))
-        and ensure_reader_id_property(api_key)
-    )
-    if reader_links:
-        body = tag_reader_links(cfg, body)
-    print(f"email_reader_links={'on' if reader_links else 'off'}")
+    provider = (cfg.get("provider") or "").lower()
+    reader_links = None
+    failed = False
+    for b in builds:
+        locale = b["locale"]
+        if b["already_sent"] and not args.force:
+            print(f"email_skipped=true kind={args.kind} locale={locale} reason={b['guard_reason']}")
+            continue
+        if provider == "resend" and not segment_for(locale):
+            print(f"email_send_skipped=true kind={args.kind} locale={locale} reason=no_segment")
+            continue
+        if reader_links is None:
+            reader_links = (
+                provider == "resend"
+                and bool(cfg.get("reader_id_links", True))
+                and ensure_reader_id_property(api_key)
+            )
+            print(f"email_reader_links={'on' if reader_links else 'off'}")
+        body = tag_reader_links(cfg, b["body"]) if reader_links else b["body"]
+        try:
+            sent = send_broadcast(cfg, api_key, b["subject"], body, b["name"], kind=args.kind, locale=locale)
+        except Exception as exc:  # one edition failing must not block the others
+            failed = True
+            print(f"email_send_failed=true kind={args.kind} locale={locale} error={str(exc)[:200]}")
+            continue
+        if not sent:
+            # Nothing was sent (e.g. empty recipient segment). Leave the cursor
+            # untouched so the next run re-attempts once contacts exist.
+            print(f"email_send_skipped=true kind={args.kind} locale={locale} reason=nothing_sent")
+            continue
 
-    if not send_broadcast(cfg, api_key, subject, body, broadcast_name, kind=args.kind):
-        # Nothing was sent (e.g. empty recipient segment). Leave the cursor
-        # untouched so the next run re-attempts once contacts exist.
-        print(f"email_send_skipped=true kind={args.kind} reason=nothing_sent")
-        return 0
-
-    # Advance the cursor only after a successful send, so a failure re-sends
-    # rather than silently dropping a period.
-    if args.kind == "weekly":
-        advance_weekly_state(state, week_key, skill_lab_id)
-    else:
-        new_seen = set(state.get("storylines", {}).get("seen_sids") or [])
-        newest = state.get("storylines", {}).get("sent_through") or ""
-        for t in threads:
-            new_seen.update(t["member_sids"])
-            if t["last_updated"] > newest:
-                newest = t["last_updated"]
-        state["daily"] = {"last_sent_date": recap_date}
-        state["storylines"] = {"sent_through": newest, "seen_sids": sorted(new_seen)}
-    save_state(state)
-
-    print(f"email_sent=true kind={args.kind} {summary}")
-    return 0
-
+        # Advance the cursor only after a successful send, so a failure re-sends
+        # rather than silently dropping a period. Save after each edition so a
+        # later failure never re-sends one that already went out.
+        if args.kind == "weekly":
+            if locale == "en":
+                advance_weekly_state(state, b["week_key"], b["skill_lab_id"])
+            else:
+                state[b["state_key"]] = {"last_sent_week": b["week_key"]}
+        else:
+            if locale == "en":
+                new_seen = set(state.get("storylines", {}).get("seen_sids") or [])
+                newest = state.get("storylines", {}).get("sent_through") or ""
+                for t in b["threads"]:
+                    new_seen.update(t["member_sids"])
+                    if t["last_updated"] > newest:
+                        newest = t["last_updated"]
+                state["daily"] = {"last_sent_date": b["recap_date"]}
+                state["storylines"] = {"sent_through": newest, "seen_sids": sorted(new_seen)}
+            else:
+                state[b["state_key"]] = {"last_sent_date": b["recap_date"]}
+        save_state(state)
+        print(f"email_sent=true kind={args.kind} locale={locale} {b['summary']}")
+    return 1 if failed else 0
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -185,6 +185,8 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   - `story_store.py`, `build_storylines.py`, `render_static_pages.py` — durable
     stories, threads, static SEO pages (incl. pre-rendered latest `/daily` and
     `/weekly` and the crawler-visible feed seed in `web/index.html`)
+  - `recap_i18n.py` — agent recap translation helper (`skeleton`, `write`,
+    `check`) and `load_localized` for the Korean email
   - `community.py` — validates agent-written Community posts against their
     recaps and renders `/community` fragments, the recap teaser, and the email
     block (`--check` CLI)
@@ -239,7 +241,8 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
     ranks two lanes with separate models (`rising` velocity/spread, `shelf`
     adoption/fork-ratio/durability). `rebuild` replays stored artifacts offline
     for tuning. Config in `config/skills.yaml`
-- `publish/` — `publish_email.py` (daily email brief via Buttondown/Resend broadcast;
+- `publish/` — `publish_email.py` (daily email brief via Buttondown/Resend broadcast,
+  in an English edition and a Korean edition sent to `EMAIL_SEGMENT_ID_KO`;
   daily renders the curated `/daily` recap `data/daily/latest.json`, weekly the
   `/weekly` recap; secrets-gated no-op; reads/advances the
   `data/email/state.json` cursor — daily guard keys off the recap's `date`),
@@ -404,7 +407,11 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   only the video id as `video` on the recap JSON; specs
   `docs/product-specs/daily-video.md` and `weekly-video.md`, setup
   `docs/how-to/daily-video-routine.md`),
-  `community-thread/` (step 4 of `daily-summary` and `weekly-summary`:
+  `recap-translation/` (step 4 of `daily-summary` and `weekly-summary`:
+  translates the English recap into the `data/i18n/ko/<kind>/<id>.json`
+  artifact with `pipeline/recap_i18n.py`; feeds `/ko/daily`, `/ko/weekly`, and
+  the Korean email edition),
+  `community-thread/` (step 5 of `daily-summary` and `weekly-summary`:
   retells the recap as an agent-written thread with comments — Reddit style in
   English, DC Inside style in Korean — into `data/community/<kind>/<id>.json`;
   `pipeline/community.py` validates it and renders `/community`, the post
@@ -526,6 +533,9 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   missing/stale worklist for external translation systems. Add or refresh
   translations only when the user explicitly asks for translated pages; do not
   create or refresh localized pages opportunistically during unrelated work.
+  Exception: the daily and weekly recap routines write their own Korean recap
+  (`.agents/skills/recap-translation/`, `pipeline/recap_i18n.py`) in the same
+  run; Google Translate (`scripts/translate.py`) no longer translates them.
   Use `docs/how-to/add-pretranslated-pages.md`; product contract:
   `docs/product-specs/multilingual-pretranslated-pages.md`; live-feed contract:
   `docs/product-specs/localized-live-feed.md`.

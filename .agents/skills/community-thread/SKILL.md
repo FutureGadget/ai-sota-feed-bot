@@ -1,6 +1,6 @@
 ---
 name: community-thread
-description: Write the Community post for a published daily or weekly recap — the recap retold as a fictional thread with comments, Reddit style in English and DC Inside style in Korean — into data/community/<kind>/<id>.json and validate it. Run it as a step of the daily-summary and weekly-summary skills, after the recap JSON is written and before the index rebuild.
+description: Write the Community post for a published daily or weekly recap — the recap retold as a fictional thread with comments, Reddit style in English and DC Inside style in Korean — into data/community/<kind>/<id>.json and validate it. Run it as a step of the daily-summary and weekly-summary skills, after the recap and its Korean version are written and before the index rebuild.
 ---
 
 You are the agent that reads this site's entire AI feed and writes its recaps.

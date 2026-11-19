@@ -46,6 +46,9 @@ import persist_static_i18n as persistence  # noqa: E402
 # Constants
 # ---------------------------------------------------------------------------
 DEFAULT_LOCALE = "ko"
+# Surfaces whose Korean version the agent routine writes in the same run as
+# the English one (.agents/skills/daily-summary, weekly-summary).
+AGENT_TRANSLATED_SURFACES = {"daily", "weekly"}
 MODEL_NAME = "google-translate-v2"
 
 # Static pages get their own monthly character allowance, separate from the live
@@ -284,6 +287,10 @@ def translate_candidates(
     days: int | None = None,
 ) -> int:
     """Translate candidates and write artifact files. Return exit code."""
+    if surfaces is None:
+        # Recap routines write their own Korean recaps; only an explicit
+        # --surface daily/weekly sends a recap to Google Translate.
+        surfaces = set(exporter.SURFACE_ORDER) - AGENT_TRANSLATED_SURFACES
     # Build the candidate list via the existing exporter
     payload = exporter.build_export(
         locale=locale,

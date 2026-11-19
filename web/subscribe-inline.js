@@ -7,6 +7,8 @@
 (() => {
   const SUBSCRIBED_KEY = "ai_feed_email_subscribed_v1";
   const NUDGE_DONE_KEY = "ai_feed_subscribe_nudge_done_v1";
+  // Korean pages sign readers up for the Korean edition.
+  const pageLocale = () => ((document.documentElement.lang || "").toLowerCase().startsWith("ko") ? "ko" : "en");
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const CTA_SELECTOR = "a[data-subscribe-inline]:not([data-subscribe-inline-done])";
   const viewed = new Set();
@@ -99,13 +101,13 @@
       const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, weekly_only: false, hp: honeypot, reader_id: readerId() }),
+        body: JSON.stringify({ email, weekly_only: false, hp: honeypot, reader_id: readerId(), locale: pageLocale() }),
       });
       if (response.ok) {
         // A filled honeypot gets the same neutral UI but never counts.
         if (!honeypot) {
           markSubscribed();
-          capture("subscribe_success", { cadence: "both", placement, surface: "inline" });
+          capture("subscribe_success", { cadence: "both", placement, surface: "inline", locale: pageLocale() });
         }
         input.disabled = true;
         button.remove();

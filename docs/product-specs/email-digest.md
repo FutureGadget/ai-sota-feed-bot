@@ -313,3 +313,39 @@ family but is a **conversion utility first** — clarity and trust outrank novel
   `/subscribe` is in the sitemap, and no generated page carries `/#subscribe`
   or a visible RSS subscription CTA.
 - Confirm no email send is wired into `run_full.sh` / the hourly workflow.
+
+## Korean edition (2026-11-19)
+
+Every daily and weekly send goes out in two editions. The English recap is the
+single source; the Korean edition reads the agent-written translation of it.
+
+- **Where the Korean text comes from.** The `daily-summary` and
+  `weekly-summary` routines translate their own recap in the same run
+  (`.agents/skills/recap-translation/`) into
+  `data/i18n/ko/<kind>/<id>.json`, the artifact the `/ko/daily` and
+  `/ko/weekly` pages already render. The community post's `ko` thread fills
+  the community block. Storyline and Agent Know-How rows use their Korean page
+  translation when one is fresh, and stay in English otherwise. Nothing is
+  translated at send time.
+- **Template.** Same layout as English with Korean labels, subject
+  (`AI 브리프 — {N}개 · 약 {mins}분 · {headline}` / the Korean weekly title),
+  and links to `/ko/daily/<date>`, `/ko/weekly/<week>`, `/ko/community/...`,
+  `/ko/`. Story links stay on the English `/story/<sid>` permalink.
+- **Fallback.** No fresh Korean recap for the edition → the Korean list gets
+  the English email that day (`email_locale_fallback=en` in the log).
+- **Recipients.** Korean readers are in the Resend segment
+  `EMAIL_SEGMENT_ID_KO`; English readers stay in `EMAIL_SEGMENT_ID`. A contact
+  is in one of the two. Daily/weekly Topics apply to both editions. Without
+  `EMAIL_SEGMENT_ID_KO` the Korean send is skipped (`reason=no_segment`).
+- **Signup.** `/subscribe` has a Language choice (English / 한국어),
+  preselected by `?lang=ko` or a Korean browser; every Korean page links to
+  `/subscribe?lang=ko`, and the inline form on Korean pages signs up for Korean.
+  `api/subscribe.js` puts a `locale: "ko"` signup in the Korean segment, or in
+  the English one when the Korean segment is not configured.
+- **Cursor.** Each edition has its own already-sent guard:
+  `daily`/`weekly` (English) and `daily_ko`/`weekly_ko` in
+  `data/email/state.json`. Editions send English first, then Korean; a Korean
+  failure exits non-zero but never re-sends the English edition, and the
+  workflow commits the cursor even when a step failed.
+- **Preview.** `python publish/publish_email.py --kind daily --locale ko --dry-run`.
+

@@ -177,7 +177,7 @@ def _candidate(
     existing_hash = str((artifact or {}).get("source_hash") or "")
     if not artifact:
         status = "missing"
-    elif existing_hash != source_hash:
+    elif not render.i18n_hash_matches(existing_hash, source):
         status = "stale"
     else:
         status = "fresh"
