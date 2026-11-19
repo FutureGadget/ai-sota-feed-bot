@@ -24,7 +24,9 @@ sign in.
   board, title, the top comment, comment count, and a link to the post.
 - Site navigation: "Community" sits under **Catch up** after the recaps.
 - Email: the daily and weekly digests add a "From the community" block (title,
-  comment count, top comment, link) before the end marker. English only.
+  comment count, top comment, link) in each language edition: in the daily,
+  right after the intro and before the themes; in the weekly, right after the
+  highlights.
 - Every post page carries a fixed note that the thread is fictional, written by
   the editor agent, with made-up usernames and scores.
 

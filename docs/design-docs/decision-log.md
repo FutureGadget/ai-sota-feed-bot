@@ -3192,3 +3192,20 @@ and W46 Korean recap and community titles were shortened to the new caps.
 Rollback: Revert the CSS blocks, `RECAP_COPY` call sites, and the caps; the
 content artifacts stay valid either way.
 
+## 2026-11-19 - Digest email layout: headline-first subject, shorter daily, dark mode
+
+- **Decision:** Lead the subject with the top story; show summaries for the
+  first two items per theme and one-line headlines for the rest; move the
+  community card under the intro; put 👍/👎 on each item's source line instead
+  of its own row; raise body text to 15–16px; declare light/dark support and
+  restyle every inline colour in dark mode; add a "Forward it" mailto link and
+  a "why you're getting this" footer line.
+- **Rationale:** The daily ran about 6,200px on a phone with 12–13px text, the
+  subject buried the news after the counts, and the community card sat below
+  26 stories. Per-item feedback stays because it feeds the auto-tune loop.
+- **Impact:** `publish/publish_email.py`, `config/email.yaml`
+  (`daily.full_items_per_theme`), `docs/product-specs/email-digest.md`. The
+  send path, segments, topics and cursors are unchanged.
+- **Rollback:** revert the PR; set `full_items_per_theme` high to show every
+  summary again.
+

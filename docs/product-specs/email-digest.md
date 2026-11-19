@@ -314,6 +314,45 @@ family but is a **conversion utility first** — clarity and trust outrank novel
   or a visible RSS subscription CTA.
 - Confirm no email send is wired into `run_full.sh` / the hourly workflow.
 
+## Layout (2026-11-19)
+- **Subject** leads with the news: the daily's top story then
+  `· {N} picks, ~{mins} min`; the weekly's first highlight then
+  `· Your AI week, {range}` (Korean: `· {N}개, 약 {mins}분`, `· AI 위클리 {range}`).
+- **Order:** header (readable date), 30-second summary, video link, intro,
+  the community card, then the themes, continuing threads, the "caught up"
+  marker, a "Forward it" mailto link, and the footer. The weekly puts the
+  community card right after its highlights.
+- **Length:** each theme shows its first `daily.full_items_per_theme`
+  (`config/email.yaml`, default 2) items with their summary; the rest are
+  one-line headlines under "Also in this theme".
+- **Feedback:** the 👍 / 👎 links sit on each item's source line (words on
+  full items, icons on headline rows), so every item still feeds the
+  auto-tune loop without a row of its own. They are dropped from the
+  plain-text part.
+- **Type:** body text 15–16px, item titles 16–17px, footer 13px.
+- **Reading time** (`reading_minutes`): words the brief itself shows (summary,
+  intro, themes; not feedback links, storylines or the footer) at about 230
+  space-separated words a minute, so English and Korean agree.
+- **Storylines** ("Storylines that moved today" / "this week"): each row links
+  the thread's newest story title (the cluster label is a machine keyword),
+  adds the narrative's what-happened-next when it differs, and a
+  "Storyline · N stories over D days" line. The Korean edition shows only rows
+  whose narrative is in Korean and drops the section when none are.
+- **Click attribution:** every tracked site link carries `utm_medium=email`,
+  `utm_campaign=<kind>-<id>-<locale>` (e.g. `daily-2026-11-18-ko`) and
+  `utm_content` for its section: `story` (items with a summary), `headline`
+  (one-line items), `community`, `storylines`, `wiki`, `video`, `footer`.
+  PostHog records these on the landing page view, so per-issue and
+  per-section clicks are a breakdown away; feedback links keep their `fb=`.
+- **Dark mode:** the email is a full HTML document that declares
+  `color-scheme: light dark`; `add_dark_classes` tags every inline colour
+  with a class that a `prefers-color-scheme: dark` block restyles. Clients
+  that ignore the media query keep the light design or invert it themselves.
+- **Footer:** web/feed/week links, the language switch, "Manage preferences or
+  unsubscribe" (Resend's per-contact page, which also holds the daily/weekly
+  choice), and "You're getting this because you subscribed at llm-digest.com."
+  Resend Broadcasts add the List-Unsubscribe headers themselves.
+
 ## Korean edition (2026-11-19)
 
 Every daily and weekly send goes out in two editions. The English recap is the
