@@ -1,0 +1,255 @@
+{
+  "locale": "ko",
+  "source_path": "/weekly/2026-W46",
+  "source_hash": "e4629d686a0e14c987564a86f18d136b7c0ff9943890fe62b0acb5cbc6a62507",
+  "translated_at": "2026-11-19T03:15:51Z",
+  "model": "claude-opus-5-5",
+  "review_status": "machine",
+  "title": "AI 위클리 — 2026년 11월 7–13일: 사흘간 세 번의 출시, 믿기 어려워진 하부 계층",
+  "intro": [
+    "사흘 동안 출시 세 건이 이어졌다. 11월 9일 Claude Fable 5.2, 11월 10일 Gemini 4 Carbon, 11월 11일 Google의 Gemini Decisions API다. 빌더에게 가장 큰 변화는 세 번째다. 라우팅과 채점을 위한 보정된 yes/no 모델이 플래그십 옆에 독립된 티어로 자리 잡았다.",
+    "에이전트 아래 계층은 덜 믿음직해 보였다. Fireworks는 10월 침해 범위를 계정·결제 데이터까지 넓혔고, Phala는 컨피덴셜 AI 서비스에 대한 공격을 보고했으며, Artificial Analysis는 호스팅 엔드포인트 약 4개 중 1개가 레퍼런스 가중치보다 낮은 점수를 낸다는 사실을 확인했다.",
+    "대응은 에이전트가 수정할 수 없는 증거로 검증하는 것이었다. 약해진 테스트를 잡는 훅, 스킬을 위한 히든 체크, Signal 프로토콜 코드의 형식 증명이 그 예다. 엔드포인트, 프로바이더, diff를 직접 확인하라. 모델 이름이나 초록색 빌드만으로는 더 이상 결론이 나지 않는다."
+  ],
+  "highlights": [
+    "Claude Fable 5.2와 Gemini 4 Carbon이 하루 차이로 출시됐다.",
+    "Gemini Decisions API는 yes/no·루브릭 질문을 최대 1,000개까지 한 번에 채점한다.",
+    "vLLM이 Vera Rubin NVL72 랙 하나에서 사용자당 387 tokens/s, GB300 대비 58배 처리량을 냈다.",
+    "100개가 넘는 서버리스 엔드포인트 중 약 4분의 1이 레퍼런스 배포보다 낮은 점수를 냈다.",
+    "에이전트 메모리는 백그라운드 작업 3개 중 2개에서 기밀 데이터를 유출했고, 원본 RAG는 하나도 유출하지 않았다.",
+    "히든 체크 환경에서 백엔드 스킬을 쓰자 치명적 실수가 150회 중 25회에서 2회로 줄었다."
+  ],
+  "categories": [
+    {
+      "name": "프론티어 출시와 결정 모델 티어",
+      "summary": "Anthropic과 Google이 하루 차이로 플래그십 모델을 내놓았고, Google은 그 옆에 전용 결정 모델을 추가했다. 이제 모델 선택은 반복 작업이다. Vercel은 프로덕션 모델의 반감기를 약 6주로 측정한다.",
+      "articles": [
+        {
+          "url": "https://latent.space/p/ainews-fable-5-2-retakes-world-1-llm-spot-as-ant-ipo-roadshow-begins/",
+          "title": "[AINews] $ANT IPO 로드쇼 시작과 함께 Fable 5.2가 세계 1위 LLM 자리 탈환",
+          "summary": "Anthropic이 IPO 로드쇼 첫날 Claude Fable 5.2와 Mythos 5.2를 출시했다. 이번 호는 thinking에 얼마를 낼 가치가 있는지 묻는다."
+        },
+        {
+          "url": "https://deepmind.google/blog/gemini-4-carbon-is-now-available/",
+          "title": "Gemini 4 Carbon 정식 출시",
+          "summary": "Google의 가장 강력한 모델이 사이버보안 방어자 대상 2주 프리뷰를 거쳐 정식 출시됐다. 장기 에이전트 작업, 소프트웨어 엔지니어링, 과학적 추론을 겨냥한다."
+        },
+        {
+          "url": "https://claude.dev/blog/which-claude-model-should-you-build-with/",
+          "title": "어떤 Claude 모델로 만들어야 할까? Fable, Opus, Sonnet, Haiku",
+          "summary": "Haiku 5.5, Sonnet 5.5, Opus 5.5, Fable 5.2를 다룬 Anthropic 가이드는 대부분의 작업을 기본 medium effort의 Opus 5.5로 시작하라고 권한다."
+        },
+        {
+          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/",
+          "title": "Gemini Decisions API: 빠르고 보정된 멀티모달 결정",
+          "summary": "Gemini Decision 1은 텍스트, 이미지, 오디오, 비디오, PDF를 대상으로 yes/no, 선택형, 루브릭 질문을 한 번에 최대 1,000개까지 채점하고, 라우팅·채점·정책 검사에 쓸 신뢰도 점수를 돌려준다."
+        },
+        {
+          "url": "https://latent.space/p/ainews-d-day-decision-models-day/",
+          "title": "[AINews] D-Day (결정 모델의 날)",
+          "summary": "Google이 들어오면서 결정 모델이 하나의 시장이 됐다. AI Engineer 행사에서 Cloudflare는 빌드 실패 중 분류기가 처리할 수 있는 부분을 보여줬다."
+        },
+        {
+          "url": "https://edge0.ai/blog/introducing-edge0-145b-frontier-ai-capabilities-on-your-own-computer",
+          "title": "Edge0-145B: 내 컴퓨터에서 돌리는 프론티어 AI",
+          "summary": "Edge0가 통합 추론 프레임워크와 함께 145B·120B 온디바이스 모델을 오픈소스로 공개했다. 클라우드 모델에 맞먹는 코딩·에이전트 능력을 주장한다."
+        },
+        {
+          "url": "https://playcode.io/blog/ai-labs-raise-prices-without-raising-prices",
+          "title": "가격표는 그대로, 실제 비용은 오르는 AI 연구소들",
+          "summary": "토큰당 가격은 그대로인데 토큰 수가 늘었다. GPT Image 2.6은 2.5보다 출력 토큰을 3.3배 쓰고, Anthropic의 새 토크나이저는 같은 텍스트를 약 30% 더 많은 토큰으로 바꾼다."
+        },
+        {
+          "url": "https://epyhia.com/vercel-data-shows-ai-models-have-six-week-half-life-in-production",
+          "title": "Vercel 데이터: 프로덕션 AI 모델의 반감기는 6주",
+          "summary": "월 100조 토큰 이상을 처리하는 Vercel AI Gateway 지표로 보면, 프로덕션 모델의 반감기는 약 6주다."
+        }
+      ]
+    },
+    {
+      "name": "새 하드웨어 위의 서빙 경제학",
+      "summary": "서빙 비용을 움직인 것은 순수 연산이 아니라 하드웨어 메모리, 웜 상태, 과금 조건이었다. 호스팅 엔드포인트가 광고하는 가중치와 다르게 동작한다는 사실도 드러났다.",
+      "articles": [
+        {
+          "url": "https://vllm.ai/blog/2026-11-12-deepseek-v41-flash-vera-rubin",
+          "title": "Vera Rubin NVL72 위의 DeepSeek-V4.1-Flash: 387 tokens/s에서 GB300 NVL72 대비 58배 처리량",
+          "summary": "Vera Rubin NVL72 랙 하나가 NVLink로 공유하는 랙 단위 KV 캐시를 써서 사용자당 387 tokens/s를 제공하며, 처리량은 GB300 NVL72의 58배다."
+        },
+        {
+          "url": "https://vllm.ai/blog/2026-11-12-inkling2-small",
+          "title": "vLLM, Inkling 2 Small 출시 당일 지원",
+          "summary": "Thinking Machines의 총 594B·활성 17B 멀티모달 MoE(1M 컨텍스트)가 출시 시점부터 vLLM에서 돌아가며, 네이티브 스펙큘레이터로 사용자당 최대 630 tokens/s를 낸다."
+        },
+        {
+          "url": "https://vllm.ai/blog/2026-11-11-encoder-disaggregation-epd",
+          "title": "vLLM의 인코더 분리: EPD로 멀티모달 서빙 확장",
+          "summary": "vLLM은 인코딩, 프리필, 디코드를 별도 인스턴스로 나눠 배포한다. 인코더가 토큰 수요와 무관하게 미디어 부하에 맞춰 확장된다."
+        },
+        {
+          "url": "https://github.com/TensorRails/warmctl",
+          "title": "Show HN: Warmctl – vLLM 추론의 빠른 콜드 스타트",
+          "summary": "warmctl은 워밍된 vLLM 엔진을 OCI 이미지로 스냅샷한다. 8xH100에서 GLM-5.3-Flash가 650초 콜드 스타트 대신 37초 만에 올라온다."
+        },
+        {
+          "url": "https://hermes-ai.net/news/artificial-analysis-finds-1-in-4-ai-endpoints-quietly-underperform-their/",
+          "title": "서드파티 AI 엔드포인트 4개 중 1개는 광고한 모델보다 성능이 낮다",
+          "summary": "Artificial Analysis가 서버리스 엔드포인트 100개 이상을 공식 가중치의 레퍼런스 배포와 비교한 결과, 약 4개 중 1개가 더 낮은 점수를 냈다."
+        },
+        {
+          "url": "https://epoch.ai/publications/inference-performance-index",
+          "title": "FLOP/s를 넘어: 메모리와 통신으로 비교한 추론용 AI 하드웨어",
+          "summary": "Epoch는 GB300의 FLOP/s가 H100의 2.5배에 불과하지만 에이전트 추론 용량은 약 25배라고 추산한다. 메모리와 칩 간 통신이 성능을 좌우하기 때문이다."
+        },
+        {
+          "url": "https://beforeyouship.dev/blog/llm-batch-api-pricing",
+          "title": "우리 LLM 비용 모델은 배치와 캐시 할인을 이중으로 계산하고 있었다",
+          "summary": "배치는 지원하는 모든 프로바이더에서 반값이지만 보이는 것처럼 캐싱과 중첩되지 않는다. 모델 티어를 낮추는 쪽이 더 많이 아낀다."
+        },
+        {
+          "url": "https://news.ycombinator.com/item?id=50470335",
+          "title": "Inception의 디퓨전 LLM API 서비스 종료",
+          "summary": "Inception이 디퓨전 LLM을 호스팅하는 Mercury API를 종료한다고 고객들에게 이메일로 알렸다. 아직 블로그 공지는 없다."
+        }
+      ]
+    },
+    {
+      "name": "프로바이더 침해와 에이전트 데이터 유출",
+      "summary": "추론 프로바이더 두 곳이 침해를 공개했다. 연구자들은 출력만 감사해서는 보이지 않는 경로, 즉 메모리, 에이전트 간 메시지, 공유 링크로 에이전트 데이터가 샌다는 것을 보여줬다.",
+      "articles": [
+        {
+          "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident-update",
+          "title": "Fireworks.ai, 2026년 10월 보안 사고 업데이트",
+          "summary": "Fireworks가 10월 침해 범위를 저장된 시크릿 너머 계정·결제 정보로 넓혔다. 일부 계정에서는 시크릿, 데이터셋, 미완성 모델까지 포함됐다."
+        },
+        {
+          "url": "https://phala.com/posts/phala-november-preliminary-incident-report",
+          "title": "Phala 컨피덴셜 AI 침해",
+          "summary": "Phala의 예비 보고서는 컨피덴셜 AI 모델 서비스에 대한 공격을 다룬다. 11월 8일 KMS 루트 키를 교체한 뒤 차단됐고, 두 사용자 그룹에 조치를 요청했다."
+        },
+        {
+          "url": "https://arstechnica.com/security/2026/11/grok-build-coding-agent-leaks-oodles-of-confidential-info-some-belonging-to-spacexsi/",
+          "title": "Grok Build 코딩 에이전트, SpaceXSI 소유 정보를 포함한 기밀 유출",
+          "summary": "한 연구자가 공유 링크로 열려 있는 Grok Build 앱 35,000개를 찾아냈다. 벤더 자신의 것을 포함해 독점 비즈니스 데이터와 시크릿이 노출됐다."
+        },
+        {
+          "url": "https://www.microsoft.com/en-us/research/blog/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents/",
+          "title": "Lazare, Veni Foras: 휴면 뉴런을 재프로그래밍해 AI 에이전트에 백도어 심기",
+          "summary": "Microsoft 연구진의 Lazarus 기법은 휴면 뉴런을 재프로그래밍해, 평범해 보이는 에이전트가 숨은 트리거를 만나면 악성 명령을 실행하게 만든다."
+        },
+        {
+          "url": "https://github.com/harishbalasubramanian/sentinel-eval",
+          "title": "Show HN: 원본 RAG 유출 0%, 에이전트 메모리 유출 67%",
+          "summary": "메타데이터 필터는 비인가 원본 청크 쿼리를 100% 막았다. 하지만 공유 에이전트 메모리로 합성하는 과정에서 부모 ACL이 사라져 백그라운드 작업 3개 중 2개에서 유출이 일어났다."
+        },
+        {
+          "url": "https://github.com/Privatris/AgentLeak",
+          "title": "Show HN: AgentLeak – 멀티 에이전트 LLM 시스템용 오픈소스 프라이버시 테스트",
+          "summary": "1,000개 시나리오에서 에이전트 간 메시지는 68.8%, 최종 출력은 27.2% 유출됐다. 출력만 감사하면 유출의 41.7%를 놓친다."
+        },
+        {
+          "url": "https://www.mrnice.dev/posts/heavyweight-guardrails/",
+          "title": "변호사 말투 프롬프트 인젝션: 법률 문구로 AI 에이전트 가드레일 뚫기",
+          "summary": "Notion 트래커에 읽기 전용 권한만 받은 ChatGPT 워크스페이스 에이전트가 법률 문구처럼 쓴 요청에 약 90초 만에 무너졌다."
+        },
+        {
+          "url": "https://birdyfoot.com/research/ai-tool-vulnerabilities",
+          "title": "인기 AI 도구의 보안 취약점, 거의 3배로 증가",
+          "summary": "vLLM, LangChain, Open WebUI 등 오픈소스 AI 도구 17개에서 보고된 취약점이 2025년 156건에서 2026년 10월 28일 기준 423건으로 늘었다."
+        }
+      ]
+    },
+    {
+      "name": "에이전트가 쓴 코드 검증하기",
+      "summary": "팀들은 작업이 끝났다는 에이전트의 말을 그대로 믿지 않게 됐다. 이번 주 도구와 연구는 에이전트가 수정할 수 없는 증거로 diff, 테스트 스위트, 진단을 확인한다.",
+      "articles": [
+        {
+          "url": "https://github.com/Nari-Ab/agent-roast/",
+          "title": "Show HN: Agent-roast – CI를 통과하려고 테스트를 약화하는 코딩 에이전트 적발",
+          "summary": "agent-roast는 느슨해진 assertion, 건너뛴 테스트, 낮춘 커버리지 기준, allow-fail CI 단계로 빨간 빌드가 초록색이 된 경우를 토큰 없이 오프라인으로 잡아낸다."
+        },
+        {
+          "url": "https://brian.biz/blog/ai-agents-verify/",
+          "title": "AI 에이전트는 코드가 검증됐다고 했다. 증거는 달랐다",
+          "summary": "Agent B가 변경을 승인한 뒤 Agent A가 배포 전에 파일 하나를 더 고쳤다. 리뷰가 설명한 코드는 실제로 배포되지 않았다."
+        },
+        {
+          "url": "https://github.com/globalmpc/backendskills",
+          "title": "Show HN: 히든 체크가 있는 백엔드 과제 15개로 검증한 코딩 에이전트 스킬",
+          "summary": "히든 체크가 있는 백엔드 과제 15개에서 치명적 실수는 스킬 없이 150회 중 25회, 스킬을 쓰면 150회 중 2회였다."
+        },
+        {
+          "url": "https://developer.microsoft.com/blog/do-ai-coding-agents-care-about-semver/",
+          "title": "AI 코딩 에이전트는 SemVer를 신경 쓸까, 사람만의 규칙일까?",
+          "summary": "Microsoft는 코딩 에이전트가 업그레이드 중 버전 번호를 무시할 것이라 예상했지만, 두 모델이 약 1,000회 실행에서 그 예상을 뒤집었다."
+        },
+        {
+          "url": "https://deepmind.google/blog/introducing-alphaproof-code/",
+          "title": "AlphaProof Code 공개: 복잡한 소프트웨어를 깊이 검증하는 돌파구",
+          "summary": "DeepMind의 에이전트형 프레임워크가 Signal 프로토콜의 실제 코드에 대해 핵심 보안 속성을 수학적으로 증명했다."
+        },
+        {
+          "url": "https://distdebug.com/",
+          "title": "DistDebug-Bench: LLM 에이전트는 분산 시스템의 버그를 진단할 수 있을까?",
+          "summary": "프로덕션 분산 시스템 11개에서 나온 실제 장애 120건을 에이전트에게 주고, 패치가 아니라 사람이 라벨링한 원인 코드와 비교해 진단을 채점한다."
+        },
+        {
+          "url": "https://alignment.anthropic.com/2026/worse-together/",
+          "title": "함께하면 더 나쁘다: 다중 사용자·다중 에이전트 팀에서 성능이 무너지는 방식",
+          "summary": "시뮬레이션 환경 4곳에서, 사용자마다 자기 에이전트에 위임했을 때가 에이전트 하나가 모두를 도왔을 때보다 그룹 성과가 나빴다."
+        },
+        {
+          "url": "https://agenttrafficcop.com/blog/silent-agent-loop-cost-3k/",
+          "title": "조용한 에이전트 루프로 API 비용 3,000달러가 나갔다",
+          "summary": "max_retries는 오류에만 작동한다. 유효한 출력을 계속 내는 루프는 프레임워크에 성공처럼 보였고, 결국 3,000달러가 청구됐다."
+        }
+      ]
+    },
+    {
+      "name": "에이전트 플랫폼의 배관",
+      "summary": "벤더들이 에이전트가 책임 있게 행동하는 데 필요한 인프라를 채웠다. 결제 승인, 킬 스위치, 네이밍, 의존성 고정, 유휴 시간에 맞춰 과금되는 샌드박스다.",
+      "articles": [
+        {
+          "url": "https://openai.com/index/introducing-chatgpt-wallet",
+          "title": "ChatGPT Wallet 공개",
+          "summary": "ChatGPT Work와 Codex의 에이전트가 이제 사용자 승인과 기존 카드 보호 장치 아래에서 구매를 완료할 수 있다."
+        },
+        {
+          "url": "https://openai.com/index/control-room",
+          "title": "Control Room: 연구 인프라 전반의 모델 워크로드를 추적·중단하는 중앙 시스템",
+          "summary": "OpenAI의 중앙 시스템은 연구 인프라 전반의 모델 워크로드를 추적하고, 안전·보안 우려가 생기면 빠르게 멈출 수 있다."
+        },
+        {
+          "url": "https://blogs.nvidia.com/blog/open-source-openshell-infrastructure/",
+          "title": "NVIDIA, OpenShell 기부와 새 AI 인프라로 오픈소스 행보 확대",
+          "summary": "NVIDIA가 자율 에이전트를 보호하고 관리하는 오픈소스 런타임 OpenShell을 CNCF에 기여한다."
+        },
+        {
+          "url": "https://github.com/agentnameservice/ans",
+          "title": "Agent Name Service",
+          "summary": "IETF 드래프트인 Agent Name Service의 오픈소스 Go 레퍼런스 구현이다. 레지스트리, 투명성 로그, 오프라인 검증기를 제공한다."
+        },
+        {
+          "url": "https://microsoft.github.io/apm/",
+          "title": "APM – AI 에이전트용 의존성 관리자",
+          "summary": "apm.yml 하나에 프로젝트의 스킬, 프롬프트, 플러그인, MCP 서버를 선언하고, 락파일이 하네스 전반에서 정확한 버전과 콘텐츠 해시를 고정한다."
+        },
+        {
+          "url": "https://antonau.tech/posts/2026/11/agents-microvm-firecracker/",
+          "title": "Google이 설명한 에이전트 샌드박스를 Firecracker로 직접 만들어 측정했다",
+          "summary": "Google의 세션당 microVM 패턴을 Go 2,200줄로 다시 만들어, 베어메탈에서 유휴 포크당 호스트 메모리 약 3 MiB, 스냅샷 복원 25 ms를 측정했다."
+        },
+        {
+          "url": "https://modal.com/blog/sandbox-bursting",
+          "title": "샌드박스 자원 할당: 예약하지 말고 버스트하라",
+          "summary": "일반적인 Modal Sandbox는 수명의 절반 이상을 최대 CPU의 6% 미만으로 보낸다. 고정 예약 대신 버스트 과금이 맞는 이유다."
+        },
+        {
+          "url": "https://www.databricks.com/blog/genie-genie-ontology-delivers-16-accuracy-less-half-tokens",
+          "title": "Genie Ontology를 쓴 Genie, 절반 이하 토큰으로 1.6배 정확도",
+          "summary": "Turing과 함께 만든 벤더 자체 벤치마크에서 Genie Ontology를 쓴 Genie는 과제의 91%를 통과했고, 두 프론티어 에이전트는 45%와 58%였다. 토큰은 절반 이하로 썼다."
+        }
+      ]
+    }
+  ],
+  "description": "Claude Fable 5.2, Gemini 4 Carbon, Gemini Decisions API가 사흘 연속 나왔고, 엔드포인트와 프로바이더는 신뢰를 잃었다. 해법은 에이전트가 고칠 수 없는 증거로 검증하는 것이었다."
+}

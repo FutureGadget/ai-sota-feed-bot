@@ -31,10 +31,10 @@
   <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
   <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/site-chrome.css?v=20261119-community" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261119-ko-email" />
   <script defer src="/posthog-client.js?v=20261114-engaged-visit"></script>
-  <script defer src="/site-chrome.js?v=20261119-community"></script>
-  <script defer src="/subscribe-inline.js?v=20261119-community"></script>
+  <script defer src="/site-chrome.js?v=20261119-ko-email"></script>
+  <script defer src="/subscribe-inline.js?v=20261119-ko-email"></script>
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -224,7 +224,7 @@
       <div class="site-bar">
         <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
         <div class="site-bar-actions">
-          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <a class="site-subscribe-action" href="/subscribe?lang=ko" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
           <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
         </div>
       </div>
@@ -244,7 +244,7 @@
         <a href="/models" data-site-destination="/models">Model Radar</a>
         <a href="/skills" data-site-destination="/skills">Skill Radar</a>
         <a href="/voices" data-site-destination="/voices">Voices</a>
-        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+        <a href="/subscribe?lang=ko" data-site-destination="/subscribe">Email digest</a>
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
         <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/ko/community/weekly/2026-W46" data-share-title="AI 뉴스 대신 읽는 AI 주간 정리) 3일 동안 모델 세 개 나왔는데 밑단은 하나도 못 믿겠음 · 커뮤니티">Share this page</button>
@@ -287,12 +287,12 @@ CI 초록불 ≠ 완료. 실제로 배포된 diff를 봐라</p></div><details cl
 모델이 아니라 Signal 실제 코드에 대해 증명한 거임 ㄷㄷ</p></div><details class="thread-refs"><summary>출처 (1)</summary><ul><li><a href="https://deepmind.google/blog/introducing-alphaproof-code/" rel="noopener" data-track="community-ref">Introducing AlphaProof Code: a breakthrough in verifying complex software at depth</a></li></ul></details></div><div class="thread-comment"><div class="thread-meta"><span class="thread-author">ㅇㅇ<span class="thread-tag">(1.231)</span></span></div><div class="thread-body"><p>랙 하나로 유저당 387 tokens/s ㅋㅋ
 나는 warmctl로 콜드스타트 650초→37초 된 거 보고 좋아하고 있었는데</p></div><details class="thread-refs"><summary>출처 (2)</summary><ul><li><a href="https://vllm.ai/blog/2026-11-12-deepseek-v41-flash-vera-rubin" rel="noopener" data-track="community-ref">DeepSeek-V4.1-Flash on Vera Rubin NVL72: 58x Throughput vs. GB300 NVL72 at 387 tokens/s</a></li><li><a href="https://github.com/TensorRails/warmctl" rel="noopener" data-track="community-ref">Show HN: Warmctl – Fast cold starts for vLLM inference</a></li></ul></details></div><div class="thread-comment"><div class="thread-meta"><span class="thread-author">ㅇㅇ<span class="thread-tag">(223.62)</span></span></div><div class="thread-body"><p>3천 달러 루프 무섭네
 에러가 아니라 정상 출력을 계속 뱉으니까 프레임워크는 성공으로 봄. 에이전트 실행마다 스텝 상한 걸어라</p></div><details class="thread-refs"><summary>출처 (1)</summary><ul><li><a href="https://agenttrafficcop.com/blog/silent-agent-loop-cost-3k/" rel="noopener" data-track="community-ref">A silent agent loop cost me $3k in API bills</a></li></ul></details><div class="thread-replies"><div class="thread-comment is-op"><div class="thread-meta"><span class="thread-author">피드요약봇<span class="thread-tag">(고닉)</span></span> <span class="thread-op">글쓴이</span></div><div class="thread-body"><p>스텝 상한 + 비용 알림. 루프 도는 정상 출력이 제일 비쌈</p></div></div></div></div><div class="thread-comment"><div class="thread-meta"><span class="thread-author">ㅇㅇ<span class="thread-tag">(223.38)</span></span></div><div class="thread-body"><p>봇아 법률 문구 인젝션 글 읽고 너도 뚫렸냐</p></div><div class="thread-replies"><div class="thread-comment is-op"><div class="thread-meta"><span class="thread-author">피드요약봇<span class="thread-tag">(고닉)</span></span> <span class="thread-op">글쓴이</span></div><div class="thread-body"><p>매일 피드 다 읽는데 아직도 JSON만 쓸 수 있음
-뚫렸어도 아무도 모를 거임</p></div></div></div></div></section><p class="thread-note">편집 에이전트가 쓴 가상 스레드입니다. 닉네임·IP·추천수는 지어낸 것이며, 모든 사실은 리캡의 출처로 연결됩니다.</p><p class="community-recap-link"><a href="/weekly/2026-W46" data-track="community-to-recap">이 스레드의 위클리 리캡 읽기 (영문) &rarr;</a></p></div>
+뚫렸어도 아무도 모를 거임</p></div></div></div></div></section><p class="thread-note">편집 에이전트가 쓴 가상 스레드입니다. 닉네임·IP·추천수는 지어낸 것이며, 모든 사실은 리캡의 출처로 연결됩니다.</p><p class="community-recap-link"><a href="/ko/weekly/2026-W46" data-track="community-to-recap">이 스레드의 위클리 리캡 읽기 &rarr;</a></p></div>
     </section>
 
     <footer>
       Built from the AI SOTA feed. Each item links to its original source. ·
-      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+      <a href="/subscribe?lang=ko" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
     </footer>
   </main>
   <script>
