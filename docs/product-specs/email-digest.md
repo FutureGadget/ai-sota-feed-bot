@@ -342,6 +342,14 @@ single source; the Korean edition reads the agent-written translation of it.
   `/subscribe?lang=ko`, and the inline form on Korean pages signs up for Korean.
   `api/subscribe.js` puts a `locale: "ko"` signup in the Korean segment, or in
   the English one when the Korean segment is not configured.
+- **Switching editions.** An existing subscriber who signs up again with the
+  other language is moved: `api/subscribe.js` adds the contact to the
+  requested edition's segment, then removes it from the other one (join first,
+  so a failure never leaves them with no edition; a failed join returns 502).
+  Every email footer links to the signup page with the other language
+  preselected (`/subscribe?lang=ko` from English, `?lang=en` from Korean) once
+  `EMAIL_SEGMENT_ID_KO` is set, and the signup page says that re-subscribing
+  switches.
 - **Cursor.** Each edition has its own already-sent guard:
   `daily`/`weekly` (English) and `daily_ko`/`weekly_ko` in
   `data/email/state.json`. Editions send English first, then Korean; a Korean

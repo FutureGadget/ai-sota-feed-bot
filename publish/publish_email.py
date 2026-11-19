@@ -115,6 +115,7 @@ EMAIL_COPY = {
         "useful": "👍 Useful",
         "irrelevant": "👎 Not relevant",
         "unsubscribe": "Unsubscribe",
+        "switch_lang": "이 메일을 한국어로 받기",
         "preheader_tail": " — then you're caught up.",
         "more": " · +{n} more",
         "weekly_header": "LLM Digest · Weekly recap",
@@ -155,6 +156,7 @@ EMAIL_COPY = {
         "useful": "👍 유용함",
         "irrelevant": "👎 관련 없음",
         "unsubscribe": "수신 거부",
+        "switch_lang": "Get this email in English",
         "preheader_tail": " — 읽고 나면 끝.",
         "more": " · 외 {n}건",
         "weekly_header": "LLM Digest · 위클리 리캡",
@@ -576,6 +578,20 @@ def unsubscribe_html(cfg: dict, locale: str = "en") -> str:
     return ""
 
 
+def language_switch_html(cfg: dict, locale: str = "en") -> str:
+    """Footer link to the signup page with the other edition preselected.
+    Re-subscribing there moves an existing reader to that edition
+    (``api/subscribe.js``). Empty until the Korean segment is configured."""
+    if not segment_for("ko"):
+        return ""
+    other = "en" if locale == "ko" else "ko"
+    url = f"{cfg['site_base'].rstrip('/')}/subscribe?lang={other}&utm_source={cfg['utm_source']}"
+    return (
+        f' · <a href="{html.escape(url)}" style="color:#999" lang="{other}">'
+        f"{html.escape(_t(locale, 'switch_lang'))}</a>"
+    )
+
+
 def logo_img(cfg: dict) -> str:
     """Small brand mark for the email header (absolute URL — email clients can't
     resolve site-relative paths). Square logo served from the site root."""
@@ -710,6 +726,7 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
     daily_page = f"{cfg['site_base'].rstrip('/')}{site_path(locale, f'/daily/{recap_date}')}?utm_source={cfg['utm_source']}"
     weekly_url = f"{cfg['site_base'].rstrip('/')}/weekly?utm_source={cfg['utm_source']}"
     unsub = unsubscribe_html(cfg, locale)
+    lang_switch = language_switch_html(cfg, locale)
     n_cats = len(cats)
     sub_meta = _t(locale, "daily_meta", n=n, cats=n_cats, s="s" if n_cats != 1 else "", mins=mins)
     preheader = html.escape(_preheader(recap, articles, locale))
@@ -730,7 +747,7 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
   <div style="font-size:12px;color:#999;margin-top:18px;line-height:1.6">
     <a href="{html.escape(daily_page)}" style="color:#1a6dd6">{_t(locale, "web")}</a> ·
     <a href="{html.escape(feed_url)}" style="color:#1a6dd6">{_t(locale, "feed")}</a> ·
-    <a href="{html.escape(weekly_url)}" style="color:#1a6dd6">{_t(locale, "week_link")}</a>{unsub}<br>
+    <a href="{html.escape(weekly_url)}" style="color:#1a6dd6">{_t(locale, "week_link")}</a>{lang_switch}{unsub}<br>
     {_t(locale, "tagline")}
   </div>
 </div>"""
@@ -913,6 +930,7 @@ def render_weekly(
     feed_url = f"{base}{site_path(locale, '/')}?utm_source={utm}"
     weekly_page = f"{base}{site_path(locale, '/weekly/' + str(wk.get('week', '')))}?utm_source={utm}"
     unsub = unsubscribe_html(cfg, locale)
+    lang_switch = language_switch_html(cfg, locale)
     pre = clean(highlights[0], 110) if highlights else clean(" ".join(intro[:1]), 110)
     preheader = html.escape(f"{pre}{_t(locale, 'weekly_preheader_tail')}")
     skill_lab_html = render_skill_lab_email(cfg, skill_lab)
@@ -934,7 +952,7 @@ def render_weekly(
   {community_html}
   <div style="font-size:12px;color:#999;margin-top:22px;line-height:1.6">
     <a href="{html.escape(weekly_page)}" style="color:#1a6dd6">{_t(locale, "full_recap")}</a> ·
-    <a href="{html.escape(feed_url)}" style="color:#1a6dd6">{_t(locale, "open_feed")}</a>{unsub}<br>
+    <a href="{html.escape(feed_url)}" style="color:#1a6dd6">{_t(locale, "open_feed")}</a>{lang_switch}{unsub}<br>
     {_t(locale, "tagline")}
   </div>
 </div>"""
