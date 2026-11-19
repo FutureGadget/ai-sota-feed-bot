@@ -1,8 +1,9 @@
 ---
 title: "Brex runs the same agent workflow code on Temporal in production and in-process for evals"
 date: 2026-08-12
-theme: eval-in-production
+theme: runtime-substrate
 evidence: [a2351bb6d35107c3]
+also: [agent-evaluation]
 ---
 Brex writes workflow logic as pure business functions against a `Steps` interface and swaps the runtime underneath: **Temporal Cloud** in production, an in-process runtime for evals in Braintrust, Laminar, or LangSmith. The same orchestration code ships and gets evaluated.
 

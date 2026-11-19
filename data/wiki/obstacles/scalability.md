@@ -8,14 +8,14 @@ solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-19
 themes:
   - key: coordinator-free-scheduling
     title: Removing the central coordinator instead of scaling it
     summary: Sandbox schedulers and the MCP protocol both drop central, strongly consistent coordination so each worker or request decides locally and scales horizontally.
   - key: concurrent-serving
     title: Serving many agents at once without padding waste
-    summary: Paged KV caches and packed, ragged batching keep time to first token flat as concurrent agent requests share a batch, now down to Apple Silicon.
+    summary: Paged KV caches and packed batching keep time to first token flat as concurrent agents share a batch, but agents sharing one cache slot evict each other's prefixes and wait tens of seconds.
   - key: fleet-density
     title: Sandbox density and scale-to-zero for idle fleets
     summary: Platforms now suspend idle agent sandboxes and resume them in under a second, so idle fleets stop holding capacity; density claims are vendor-reported.
@@ -38,6 +38,9 @@ same move now shows up at three layers:
   seconds this way.
 - **Inference serving.** Paged KV caches and packed, ragged batching stop
   padding overhead from compounding as concurrent requests share a batch.
+  The failure mode is shared cache slots: two coding agents on one Ollama
+  slot waited a median 46 seconds for first token, against one second with a
+  slot each, because each evicted the other's cached prefix.
 - **Tool protocol.** Stateless MCP drops sessions and sticky routing so remote
   servers scale like any stateless service.
 
