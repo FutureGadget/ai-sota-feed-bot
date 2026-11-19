@@ -8551,6 +8551,23 @@
   "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPckFDR25sUkRoZC1yNGwtVjlVWm40dFRZTDZXbG9CaGFZUGFYWm1LMGEybTNIZzR2SHJRcXlZdWhybHJJeFpjQ2dNeTIxd1dDNFlRVkZ5aUxEX0RDbjZPcllSUV9paE1Ld1FyVjY4ZEVXQXNzZUM5UVFZVmJqdnV4WkJSNFRXcVRuSklneERVQncwUQ?oc=5",
   "why_it_matters": "Matches feed focus: harness."
  },
+ "5ce0ed8c81d3666d": {
+  "first_seen": "2026-11-19T04:06:03.259632+00:00",
+  "id": "6286ae257db35bbc",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-18T18:31:37+00:00",
+  "sid": "5ce0ed8c81d3666d",
+  "source": "arxiv_cs_cl",
+  "summary": "Large language models have been widely used to generate plausible research ideas, yet it remains unclear what makes automated ideation effective and how generated novel proposals arise from prior scientific work. We introduce the Creative AI Researcher (CAR), an agentic framework combining literature grounding, iterative development and explicit conceptual operators. CAR constructs a semantic knowledge graph from retrieved literature and equips an ideation agent with graph-retrieval tools and four operators: bisociation, analogy, exploration and elaboration. Each operator call is checked against structural acceptance conditions and recorded, producing a trace of intermediate transformations and declared literature sources. We evaluate CAR with two language-model backbones across 40 LiveIdeaBench research topics and two execution benchmarks. CAR achieves significantly higher methodological novelty (MN) than single-shot prompting and The AI Scientist. Its methodological novelty does not differ significantly from the Research Ideation Agent, while its feasibility scores are higher on both backbones. With a shared experiment executor, CAR achieves the highest pairwise win rate among the evaluated AI methods on FML-bench-Lite and BioXArena. In a ten-condition ablation study, MN point estimates favor CAR over one-step proposal on both backbones, but no MN contrast survives correction for multiple comparisons. The results do not establish a consistent quality benefit from explicit o",
+  "summary_1line": "Large language models have been widely used to generate plausible research ideas, yet it remains unclear what makes automated ideation effective and how generated novel proposals arise from prior scientific work. We i...",
+  "title": "Ground, Iterate, Trace: Decomposing AI Research Ideation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24887v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "5d33ed0c66ace544": {
   "first_seen": "2026-11-02T16:03:35.608305+00:00",
   "id": "359026f51b0f4071",
@@ -11040,6 +11057,22 @@
   "title": "[AINews] Mercor $750m Series D at $20B valuation, $3B run rate",
   "type": "news",
   "url": "https://latent.space/p/ainews-mercor-750m-series-d-at-20b-valuation-3b-run-rate"
+ },
+ "791a1b16a3fdcbe1": {
+  "first_seen": "2026-11-19T04:06:03.259632+00:00",
+  "id": "6ba1fbea5f1545ec",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-18T09:11:43+00:00",
+  "sid": "791a1b16a3fdcbe1",
+  "source": "arxiv_cs_ai",
+  "summary": "Evaluating distributed large language model (LLM) serving on heterogeneous edge devices requires exploring diverse model partitions, device placements, and network conditions, making repeated physical experiments costly. An efficient simulator for edge LLM serving must support diverse, fine-grained placement configurations, capture runtime behavior, and accurately predict execution times while keeping simulation overhead low. We present LEDGE, a lightweight simulator for fast, fine-grained evaluation of distributed LLM serving on heterogeneous edge devices without executing tensor operations. LEDGE constructs event graphs supporting non-uniform tensor and pipeline parallelism, estimates execution costs using reusable performance models calibrated from end-to-end measurements, and simulates shared-link contention. We evaluate LEDGE on a heterogeneous testbed of 10 Jetson and Raspberry Pi devices, covering 17 model--precision combinations across 4 LLM families. On Qwen deployments, LEDGE achieves request-level mean absolute percentage errors below 3.6% and a 135.3 times aggregate speedup over physical inference. Performance model calibrated on one LLM family yield 7.44% zero-shot end-to-end latency MAPE across three other families. Further simulations show how shared-link contention affects placement decisions and network topology constrains scaling. Across four edge environments, LEDGE completes 26,773 simulation runs in 83.8 minutes, enabling efficient exploration of deployme",
+  "summary_1line": "Evaluating distributed large language model (LLM) serving on heterogeneous edge devices requires exploring diverse model partitions, device placements, and network conditions, making repeated physical experiments cost...",
+  "title": "LEDGE: An Efficient Simulator for Distributed LLM Serving on Heterogeneous Edge Devices",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24085v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "7923128b87795738": {
   "first_seen": "2026-11-11T00:09:42.029607+00:00",
@@ -19567,6 +19600,23 @@
   "type": "news",
   "url": "https://github.com/cookiengineer/qwen-reasoning-trainer"
  },
+ "d5e4755c357c37b0": {
+  "first_seen": "2026-11-19T04:06:03.259632+00:00",
+  "id": "f84f41a19bdf247e",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-18T12:26:42+00:00",
+  "sid": "d5e4755c357c37b0",
+  "source": "arxiv_cs_ai",
+  "summary": "AI coding agents have become one of the most popular applications of large language models. Yet, agentic AI comes at the cost of a tremendous amount of GPU compute resources, which limits its profitability and its viability at scale. In this paper, we investigate whether smaller, cheaper models can cut this cost without sacrificing accuracy. We evaluate 36 popular large and small open-weight models released since 2024 on a software engineering benchmark, and find that recent small models are closing the accuracy gap compared to their large counterparts. We investigate the structure of this gap and find that the gap is highly concentrated around hard tasks that small language models fail to solve while achieving remarkably good accuracy for easy and medium complexity tasks. Following this observation, we show that by utilizing a hybrid inference strategy that tries a small model first and escalates to a large one only when needed, we can achieve up to 33% reduction in total GPU-hour costs and 16.4% on all tasks from SWE-bench Verified, without sacrificing accuracy. Strikingly, this simple cascade nearly matches an oracle-style task router, highlighting a practical path for deploying cost-aware coding agents in production without complex learned task routers and with minimal engineering complexity.",
+  "summary_1line": "AI coding agents have become one of the most popular applications of large language models. Yet, agentic AI comes at the cost of a tremendous amount of GPU compute resources, which limits its profitability and its via...",
+  "title": "Reducing Inference Cost of Coding Agents with Timeout Cascades",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24324v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "d646ec07a2b31e93": {
   "first_seen": "2026-11-16T16:06:16.108628+00:00",
   "id": "c8743a55c1bf6441",
@@ -21210,6 +21260,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18382v1"
  },
+ "e6b2191444b260a2": {
+  "first_seen": "2026-11-19T04:06:03.259632+00:00",
+  "id": "880399aa3b69e271",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-18T10:58:44+00:00",
+  "sid": "e6b2191444b260a2",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Automated red teaming is essential for identifying safety failures in large language models (LLMs), but its practical scalability depends on the resources required to discover those failures. Multi-agent systems can combine complementary capabilities, yet repeated planning, redundant exchanges, and ineffective information routing can make their coordination expensive. Moreover, a target model's response indicates the outcome of a test without identifying which collaboration decision should change. We present Learning to Coordinate (L2C), an LLM-guided framework that evolves an executable multi-agent workflow for each red-teaming case. L2C represents agent responsibilities, execution dependencies, and input bindings in a versioned graph, and associates each graph with records of the information actually delivered and produced. A controller trained through supervised fine-tuning integrates these records with target responses, evaluator verdicts, and remaining budget to retain the workflow, refine instructions, restructure collaboration, or lock further editing. This design connects feedback to explicit changes in subsequent execution while allowing a useful organization to continue without repeated controller intervention. The evaluation protocol covers HarmBench with three execution backbones and two target models, together with component ablations, dataset transfer, and evaluator checks. Across the six executor-target configurations, L2C improves ASR over EvoSynth by 1.4 to 4",
+  "summary_1line": "Automated red teaming is essential for identifying safety failures in large language models (LLMs), but its practical scalability depends on the resources required to discover those failures. Multi-agent systems can c...",
+  "title": "Learning to Coordinate: LLM-Guided Workflow Evolution for Token-Efficient Red Teaming",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24221v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "e6e805daf5cea453": {
   "first_seen": "2026-11-07T00:07:33.105822+00:00",
   "id": "72050327195f01b4",
@@ -22050,6 +22117,23 @@
   "type": "news",
   "url": "https://www.infoq.com/presentations/canvas-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent, harness."
+ },
+ "f1c00e19e15c137a": {
+  "first_seen": "2026-11-19T04:06:03.259632+00:00",
+  "id": "04f28b356e195693",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-18T18:34:23+00:00",
+  "sid": "f1c00e19e15c137a",
+  "source": "arxiv_cs_lg",
+  "summary": "User simulators offer a scalable way to evaluate interactive agents, but how to assess their quality remains underexplored. In particular, it is unclear whether existing user simulator evaluation frameworks reliably detect meaningful failures in simulated user behavior. This uncertainty makes it difficult to interpret simulator evaluation. To understand what a high benchmark score tells us about simulator quality, we (meta-)evaluate the metrics themselves. To instantiate this meta-evaluation, we deliberately perturb simulated replays to induce failures such as altered goals, omitted constraints, premature stopping, and acceptance of broken work, then test whether the metrics penalize these failures. Evaluation methods from three prior studies detect only 5-6 of the 10 perturbations; their combined scores even favor populations instructed to accept broken work over unmodified controls. Motivated by these gaps, we propose a new evaluation suite that combines utility of user simulators for evaluating agents and two measures of fidelity to real users: population-level fidelity assesses collective interaction patterns, while trace-level fidelity assesses the preservation of individual users' goals, constraints, and persona. Under the same detection criterion, our evaluation suite detects all 10 perturbations. Evaluating six user simulators on 351 real multi-turn sessions in which 348 distinct users across 23 languages and agents work together to create and refine artifacts such as",
+  "summary_1line": "User simulators offer a scalable way to evaluate interactive agents, but how to assess their quality remains underexplored. In particular, it is unclear whether existing user simulator evaluation frameworks reliably d...",
+  "title": "On Evaluating User Simulators for Interactive Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24892v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "f1c0a66d869dfa67": {
   "first_seen": "2026-11-10T09:06:39.874525+00:00",
