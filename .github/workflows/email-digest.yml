@@ -50,6 +50,8 @@ jobs:
           EMAIL_API_KEY: ${{ secrets.EMAIL_API_KEY }}
           # Resend: broadcasts target a Segment (formerly "Audience"); optional Topic.
           EMAIL_SEGMENT_ID: ${{ secrets.EMAIL_SEGMENT_ID }}
+          # Korean readers' segment. Unset = no Korean send (English only).
+          EMAIL_SEGMENT_ID_KO: ${{ secrets.EMAIL_SEGMENT_ID_KO }}
           EMAIL_TOPIC_ID: ${{ secrets.EMAIL_TOPIC_ID }}
           # Per-digest selection: daily/weekly each scope to their own Topic so a
           # "weekly only" subscriber is suppressed from the daily send.
@@ -87,7 +89,9 @@ jobs:
           .venv/bin/python publish/publish_follows.py $DRY
 
       - name: Commit send cursor
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+        # always(): a failed Korean send must not drop the English cursor, or the
+        # next run would re-send the English edition.
+        if: ${{ always() && github.event.inputs.dry_run != 'true' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

@@ -94,6 +94,15 @@ test('subscribe sanitizer preserves only valid Skill Lab attribution', () => {
   );
 });
 
+test('subscribe sanitizer keeps a valid email language choice', () => {
+  assert.equal(context.sanitizedSubscribePath('https://www.llm-digest.com/subscribe?lang=ko'), '/subscribe?lang=ko');
+  assert.equal(context.sanitizedSubscribePath('https://www.llm-digest.com/subscribe?lang=xx'), '/subscribe');
+  assert.equal(
+    context.sanitizedSubscribePath('https://www.llm-digest.com/subscribe?ref=skill_lab&lang=en'),
+    '/subscribe?ref=skill_lab&lang=en',
+  );
+});
+
 test('honeypot responses never count as successful subscriptions', () => {
   assert.equal(context.shouldRecordSubscribeSuccess(''), true);
   assert.equal(context.shouldRecordSubscribeSuccess('   '), true);
@@ -112,7 +121,7 @@ test('successful submit records bounded attribution but never the email', async 
   assert.equal(captured[0][0], 'subscribe_success');
   assert.deepEqual(
     JSON.parse(JSON.stringify(captured[0][1])),
-    { cadence: 'both', ref: 'skill_lab', lab_id: 'lab-debugging-skill' },
+    { locale: 'en', cadence: 'both', ref: 'skill_lab', lab_id: 'lab-debugging-skill' },
   );
   assert.equal(JSON.stringify(captured).includes('reader@example.com'), false);
   assert.equal(stored.length, 2);

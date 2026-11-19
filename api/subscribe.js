@@ -20,6 +20,11 @@ import { readerIdFor } from '../lib/reader-id.js';
 export { readerIdFor };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// The email edition a signup asked for: 'ko' or the default 'en'.
+export function subscribeLocale(value) {
+  return String(value || '').trim().toLowerCase() === 'ko' ? 'ko' : 'en';
+}
 function createContact(apiKey, payload) {
   return fetch('https://api.resend.com/contacts', {
     method: 'POST',
@@ -95,7 +100,13 @@ export async function POST(request) {
   // (publish_email.py sends to EMAIL_SEGMENT_ID). Without this the contact is
   // created segment-less and a broadcast to that segment fails with
   // 422 "...has no contacts". Mirror the broadcast's env resolution exactly.
-  const segmentId = String(process.env.EMAIL_SEGMENT_ID || process.env.EMAIL_AUDIENCE_ID || '').trim();
+  // Language edition: Korean readers go to EMAIL_SEGMENT_ID_KO, which the
+  // Korean broadcast targets; everyone else (and Korean readers when that
+  // segment is not configured) to the English segment.
+  const locale = subscribeLocale(body.locale);
+  const englishSegment = String(process.env.EMAIL_SEGMENT_ID || process.env.EMAIL_AUDIENCE_ID || '').trim();
+  const koreanSegment = String(process.env.EMAIL_SEGMENT_ID_KO || '').trim();
+  const segmentId = locale === 'ko' && koreanSegment ? koreanSegment : englishSegment;
   if (segmentId) payload.segments = [{ id: segmentId }];
 
   try {

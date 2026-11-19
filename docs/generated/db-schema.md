@@ -245,6 +245,14 @@ accumulated ranked pool (calendar ranges):
   (written by the `daily-video` / `weekly-video` routine after a successful YouTube
   upload; `youtube_id` is the 11-character id). Only the id is stored, never the
   video file. Both validators enforce the id; the weekly index does not carry it.
+- `data/i18n/ko/daily/<YYYY-MM-DD>.json`, `data/i18n/ko/weekly/<YYYY-Www>.json` —
+  Korean recap translations, now written by the recap agent routines with
+  `pipeline/recap_i18n.py` (same artifact format as the other surfaces:
+  `locale`, `source_path`, `source_hash`, `translated_at`, `model`,
+  `review_status`, `title`, `description`, `intro`, `highlights`,
+  `categories[].{name,summary,articles[].{url,title,summary}}`). Read by the
+  `/ko/` recap pages and the Korean email edition. `source_hash` ignores the
+  recap's `video` field.
 - `data/community/daily/<YYYY-MM-DD>.json`, `data/community/weekly/<YYYY-Www>.json` —
   agent-written Community posts, one per published recap: `{kind, edition,
   generated_at, source_generated_at, threads: {en: {style: "reddit", …}, ko:
@@ -693,7 +701,8 @@ capability cache are not published to R2. The build reads
   `excluded_title` when a source's `exclude_title_regex` dropped titles
 - `data/email/state.json` — email-digest send cursor (NOT subscriber PII; the
   provider owns the list). Keys: `daily.last_sent_date`, `weekly.last_sent_week`
-  (idempotency guards), and `storylines.{sent_through,seen_sids}` — the
+  (idempotency guards; the Korean edition has its own `daily_ko.last_sent_date`
+  and `weekly_ko.last_sent_week`), and `storylines.{sent_through,seen_sids}` — the
   high-water marks the **daily** brief uses to mail only storyline deltas with no
   repeats. The **weekly** recap is window-based (`[start,end]` of the recap),
   so it needs no storyline/wiki high-water mark. `follows.sent_through` is

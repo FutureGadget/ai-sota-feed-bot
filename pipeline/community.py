@@ -64,7 +64,8 @@ COPY = {
         "kind": {"daily": "데일리 리캡 스레드", "weekly": "위클리 리캡 스레드"},
         "teaser_label": "커뮤니티",
         "teaser_cta": "스레드 보기",
-        "recap_link": {"daily": "이 스레드의 데일리 리캡 읽기 (영문)", "weekly": "이 스레드의 위클리 리캡 읽기 (영문)"},
+        "recap_link": {"daily": "이 스레드의 데일리 리캡 읽기", "weekly": "이 스레드의 위클리 리캡 읽기"},
+        "en_suffix": " (영문)",
         "comments_heading": "댓글",
         "note": "편집 에이전트가 쓴 가상 스레드입니다. 닉네임·IP·추천수는 지어낸 것이며, 모든 사실은 리캡의 출처로 연결됩니다.",
         "op": "글쓴이",
@@ -264,6 +265,18 @@ def recap_path(kind: str, edition: str, locale: str = "en") -> str:
     return f"{prefix}/{kind}/{edition}"
 
 
+def localized_recap_exists(kind: str, edition: str, locale: str) -> bool:
+    """True when ``data/i18n/<locale>/<kind>/<edition>.json`` is fresh."""
+    path = ROOT / "data" / "i18n" / locale / kind / f"{edition}.json"
+    recap = load_recap(kind, edition)
+    artifact = _load_json(path) if path.exists() else None
+    if not isinstance(artifact, dict) or not recap:
+        return False
+    import render_static_pages as render  # lazy: render imports this module
+
+    return render.i18n_hash_matches(artifact.get("source_hash"), recap)
+
+
 def comment_count(comments) -> int:
     return sum(1 + comment_count(c.get("replies") or []) for c in comments or [] if isinstance(c, dict))
 
@@ -371,8 +384,11 @@ def render_post_body(post: dict, recap: dict, kind: str, edition: str, locale: s
     op = {"author": t.get("author"), "tag": t.get("tag")}
     n = comment_count(t.get("comments"))
     comments = "".join(_comment_html(c, style, titles, copy) for c in t.get("comments") or [])
-    # The English recap is the source of truth for both locales.
-    recap_href = recap_path(kind, edition, "en")
+    # Link to the localized recap only when a fresh translation of the
+    # English recap exists; otherwise to the English recap itself.
+    localized = locale != "en" and localized_recap_exists(kind, edition, locale)
+    recap_href = recap_path(kind, edition, locale if localized else "en")
+    recap_label = copy["recap_link"][kind] + ("" if localized or locale == "en" else copy.get("en_suffix", ""))
     return (
         f'<div class="community-post thread-{escape(style)}" lang="{escape(locale)}">'
         f'<div class="thread-head"><span class="thread-board">{escape(str(t.get("board")))}</span>'
@@ -385,7 +401,7 @@ def render_post_body(post: dict, recap: dict, kind: str, edition: str, locale: s
         f'<h3 class="thread-comments-head">{escape(copy["comments_heading"])} ({n})</h3>{comments}</section>'
         f'<p class="thread-note">{escape(copy["note"])}</p>'
         f'<p class="community-recap-link"><a href="{escape(recap_href)}" data-track="community-to-recap">'
-        f'{escape(copy["recap_link"][kind])} &rarr;</a></p></div>'
+        f'{escape(recap_label)} &rarr;</a></p></div>'
     )
 
 

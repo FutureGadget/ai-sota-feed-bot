@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
   <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/site-chrome.css?v=20261119-community" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261119-ko-email" />
   <script>
     function sanitizedSubscribePath(rawHref) {
       try {
@@ -36,6 +36,8 @@
           clean.set('ref', ref);
           if (/^lab-[a-z0-9][a-z0-9-]{0,76}$/.test(labId)) clean.set('lab_id', labId);
         }
+        const lang = String(url.searchParams.get('lang') || '').trim();
+        if (lang === 'ko' || lang === 'en') clean.set('lang', lang);
         const query = clean.toString();
         return `${url.pathname}${query ? `?${query}` : ''}`;
       } catch {
@@ -58,7 +60,7 @@
       document.documentElement.setAttribute('data-theme', t);
     })();
   </script>
-  <script defer src="/site-chrome.js?v=20261119-community"></script>
+  <script defer src="/site-chrome.js?v=20261119-ko-email"></script>
   <style>
     /* Email digest: Basecoat (Lyra) + Tailwind utilities, see ui/site.css.
        Only what utilities cannot express lives here. */
@@ -224,10 +226,23 @@
       return { ref, labId };
     }
 
-    function captureSubscribeSuccess(weeklyOnly) {
+    // The email edition: ?lang=ko (Korean pages link here with it) or a Korean
+    // browser preselects Korean; the reader can switch before subscribing.
+    const PREFERRED_LOCALE = (() => {
+      try {
+        const lang = new URLSearchParams(window.location.search).get('lang');
+        if (lang === 'ko' || lang === 'en') return lang;
+        return String(navigator.language || '').toLowerCase().startsWith('ko') ? 'ko' : 'en';
+      } catch {
+        return 'en';
+      }
+    })();
+
+    function captureSubscribeSuccess(weeklyOnly, locale) {
       const attribution = subscribeAttribution();
       try {
         window.aiFeedPostHog?.capture?.('subscribe_success', {
+          locale: locale || 'en',
           cadence: weeklyOnly ? 'weekly' : 'both',
           ref: attribution.ref,
           lab_id: attribution.labId,
@@ -276,6 +291,13 @@
           <label class="pref-opt"><input type="radio" name="cadence" value="weekly" form="subscribeForm" /><span>${SEND_SCHEDULE.weeklyDay} only</span></label>
         </div>
       </fieldset>
+      <fieldset class="pref mt-5 min-w-0">
+        <legend class="mb-2 text-[0.82rem] font-medium">Language</legend>
+        <div class="segmented">
+          <label class="pref-opt"><input type="radio" name="locale" value="en" form="subscribeForm" ${PREFERRED_LOCALE === 'ko' ? '' : 'checked'} /><span>English</span></label>
+          <label class="pref-opt"><input type="radio" name="locale" value="ko" form="subscribeForm" lang="ko" ${PREFERRED_LOCALE === 'ko' ? 'checked' : ''} /><span lang="ko">한국어</span></label>
+        </div>
+      </fieldset>
       <p id="formMessage" class="message" role="status" aria-live="polite" hidden></p>
       <p class="privacy mt-4 text-[0.82rem] text-ink-muted">No account needed. Every email has a one-click unsubscribe link.</p>`;
     }
@@ -292,6 +314,7 @@
       const emailInput = form.elements.email;
       const button = form.querySelector('button[type="submit"]');
       const weeklyOnly = !!(form.elements.cadence && form.elements.cadence.value === 'weekly');
+      const locale = form.elements.locale && form.elements.locale.value === 'ko' ? 'ko' : 'en';
       const email = String(emailInput.value || '').trim();
       const honeypot = String(form.elements.website.value || '').trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -305,15 +328,16 @@
         const response = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, weekly_only: weeklyOnly, hp: honeypot, reader_id: currentReaderId() }),
+          body: JSON.stringify({ email, weekly_only: weeklyOnly, hp: honeypot, reader_id: currentReaderId(), locale }),
         });
         if (response.ok) {
           if (shouldRecordSubscribeSuccess(honeypot)) {
             markSubscribed();
-            captureSubscribeSuccess(weeklyOnly);
+            captureSubscribeSuccess(weeklyOnly, locale);
           }
           emailInput.disabled = true;
           if (form.elements.cadence) Array.from(form.elements.cadence).forEach((radio) => { radio.disabled = true; });
+          if (form.elements.locale) Array.from(form.elements.locale).forEach((radio) => { radio.disabled = true; });
           button.remove();
           setMessage(
             weeklyOnly

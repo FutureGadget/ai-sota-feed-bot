@@ -13,6 +13,10 @@ enabled: true
 #       global (POST /contacts) — no audience/segment id needed to register.
 #     - SEND (publish_email.py): EMAIL_API_KEY + EMAIL_SEGMENT_ID + EMAIL_FROM
 #       (a broadcast targets a Segment, formerly "Audience").
+#     - KOREAN EDITION (optional): EMAIL_SEGMENT_ID_KO is the Korean readers'
+#       segment. Signup puts locale=ko contacts there; the send renders the
+#       Korean edition from data/i18n/ko/<kind>/<id>.json for it. Unset = no
+#       Korean send. Set it in both the Worker env and the GitHub secret.
 #     - PER-DIGEST SELECTION (optional): EMAIL_TOPIC_ID_DAILY and
 #       EMAIL_TOPIC_ID_WEEKLY are separate Resend Topics, one per digest. Signup
 #       (api/subscribe.js) opts a contact into the weekly topic always and the

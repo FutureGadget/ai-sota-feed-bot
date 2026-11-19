@@ -89,13 +89,14 @@ class SubscribeSurfaceTest(unittest.TestCase):
 
     def test_success_event_attributes_skill_lab_without_email(self) -> None:
         self.assertIn("function subscribeAttribution()", self.html)
-        self.assertIn("function captureSubscribeSuccess(weeklyOnly)", self.html)
+        self.assertIn("function captureSubscribeSuccess(weeklyOnly, locale)", self.html)
+        self.assertIn("locale: locale || 'en'", self.html)
         self.assertIn("'subscribe_success'", self.html)
         self.assertIn("cadence: weeklyOnly ? 'weekly' : 'both'", self.html)
         self.assertIn("ref: attribution.ref", self.html)
         self.assertIn("lab_id: attribution.labId", self.html)
         self.assertNotIn("'subscribe_success', { email", self.html)
-        self.assertIn("captureSubscribeSuccess(weeklyOnly);", self.html)
+        self.assertIn("captureSubscribeSuccess(weeklyOnly, locale);", self.html)
         self.assertIn("function shouldRecordSubscribeSuccess(honeypot)", self.html)
         self.assertIn("if (shouldRecordSubscribeSuccess(honeypot))", self.html)
 

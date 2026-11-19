@@ -162,12 +162,16 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
 - Never author or copy `problem`, `apply`, or `result` into recap JSON. Inline
   Playbook takeaways are overlaid deterministically after validation.
 
-### 4. Write the Community post
+### 4. Write the Korean recap
+Follow `.agents/skills/recap-translation/SKILL.md` with `kind: weekly` and
+`id: <week>`. Finish its write step (`RECAP_I18N_OK`) before continuing.
+
+### 5. Write the Community post
 Follow `.agents/skills/community-thread/SKILL.md` with `kind: weekly` and
 `id: <week>` for the recap you just wrote. Finish its validate step
 (`COMMUNITY_OK`) before continuing.
 
-### 5. Validate + rebuild the index (what the site serves)
+### 6. Validate + rebuild the index (what the site serves)
 ```bash
 python .agents/skills/weekly-summary/scripts/build_weekly_index.py
 ```
@@ -177,9 +181,10 @@ static `/weekly/<week>` pages + sitemap (`web/weekly/`, `web/sitemap.xml`) via
 `pipeline/render_static_pages.py`. It exits non-zero on a malformed recap —
 fix and re-run until clean. (`--check` validates without writing.)
 
-### 6. Post it (commit + push)
+### 7. Post it (commit + push)
 ```bash
 git add data/weekly/ web/weekly/ web/sitemap.xml web/robots.txt \
+  data/i18n/ko/weekly/ web/ko/weekly/ \
   data/community/ web/community/ web/ko/community/
 # Pin the agent identity so the commit signature can't inherit the machine's
 # ambient git config (sets both author and committer).

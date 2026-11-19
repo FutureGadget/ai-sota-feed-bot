@@ -8,7 +8,8 @@ Before acting, read these contracts completely:
 2. `AGENTS.md`, especially **Product Positioning**
 3. `.agents/skills/weekly-summary/SKILL.md`
 4. `.agents/skills/writing-style/SKILL.md`
-5. `.agents/skills/community-thread/SKILL.md`
+5. `.agents/skills/recap-translation/SKILL.md`
+6. `.agents/skills/community-thread/SKILL.md`
 
 ## Run the routine
 
@@ -37,6 +38,8 @@ Otherwise, stage only:
 ```text
 data/weekly/
 web/weekly/
+data/i18n/ko/weekly/
+web/ko/weekly/
 data/community/
 web/community/
 web/ko/community/
@@ -61,4 +64,4 @@ Never force-push or bypass failed validation. If the fallback cannot be
 completed, report the blocker and the unmerged branch or pull request.
 
 Report the ISO week ID, selected category names, included article count,
-Community post result, validation result, commit SHA or no-op reason, and final publication result.
+Korean recap result, Community post result, validation result, commit SHA or no-op reason, and final publication result.

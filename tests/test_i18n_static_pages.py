@@ -78,7 +78,7 @@ class I18nStaticPagesTest(unittest.TestCase):
                 self.foundations,
             )
             self.assertIsNotNone(source, artifact["source_path"])
-            self.assertEqual(artifact["source_hash"], render.i18n_source_hash(source))
+            self.assertTrue(render.i18n_hash_matches(artifact["source_hash"], source), artifact["source_path"])
             self.assertEqual(artifact["locale"], "ko")
             self.assertEqual(artifact["review_status"], "machine")
 
@@ -93,7 +93,7 @@ class I18nStaticPagesTest(unittest.TestCase):
                 self.wiki,
                 self.foundations,
             )
-            if source and artifact.get("source_hash") != render.i18n_source_hash(source):
+            if source and not render.i18n_hash_matches(artifact.get("source_hash"), source):
                 self.assertNotIn(source_path, published_paths)
 
     def test_korean_pages_are_rendered_with_language_and_alternates(self) -> None:
