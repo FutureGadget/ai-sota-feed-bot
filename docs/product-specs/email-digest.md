@@ -331,6 +331,9 @@ single source; the Korean edition reads the agent-written translation of it.
   (`AI 브리프 — {N}개 · 약 {mins}분 · {headline}` / the Korean weekly title),
   and links to `/ko/daily/<date>`, `/ko/weekly/<week>`, `/ko/community/...`,
   `/ko/`. Story links stay on the English `/story/<sid>` permalink.
+- **Korean line breaking.** The Korean edition's outer container carries
+  `lang="ko"`, `word-break:keep-all` and Hangul fonts first, so lines break
+  between words instead of mid-word (the same rule as the `/ko/` pages).
 - **Fallback.** No fresh Korean recap for the edition → the Korean list gets
   the English email that day (`email_locale_fallback=en` in the log).
 - **Recipients.** Korean readers are in the Resend segment

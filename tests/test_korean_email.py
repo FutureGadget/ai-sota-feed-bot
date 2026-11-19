@@ -168,6 +168,32 @@ class KoreanEmailTest(unittest.TestCase):
         self.assertNotIn("daily_ko", state)
 
 
+class KoreanEmailLineBreakTest(unittest.TestCase):
+    def setUp(self):
+        self.cfg = email.load_config()
+        self.recap = json.loads((ROOT / "data" / "daily" / f"{DAILY_ID}.json").read_text(encoding="utf-8"))
+        self.week = json.loads((ROOT / "data" / "weekly" / f"{WEEKLY_ID}.json").read_text(encoding="utf-8"))
+
+    def test_korean_editions_break_between_words(self):
+        ko_day, _ = email.localized_or_english("daily", self.recap, DAILY_ID, "ko")
+        ko_week, _ = email.localized_or_english("weekly", self.week, WEEKLY_ID, "ko")
+        for _, body in (
+            email.render_daily(self.cfg, ko_day, [], "ko"),
+            email.render_weekly(self.cfg, ko_week, [], [], None, "ko"),
+        ):
+            self.assertIn('lang="ko"', body)
+            self.assertIn("word-break:keep-all", body)
+            self.assertIn("Apple SD Gothic Neo", body)
+
+    def test_english_editions_keep_default_breaking(self):
+        for _, body in (
+            email.render_daily(self.cfg, self.recap, []),
+            email.render_weekly(self.cfg, self.week, [], [], None),
+        ):
+            self.assertNotIn("keep-all", body)
+            self.assertIn("max-width:640px", body)
+
+
 class RecapSkillWiringTest(unittest.TestCase):
     def test_recap_skills_write_korean_before_the_index_rebuild(self):
         for kind in ("daily", "weekly"):
