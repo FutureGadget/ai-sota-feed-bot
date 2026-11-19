@@ -760,9 +760,9 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
   {tldr_html}
   {video_html}
   {intro_html}
+  {community_html}
   {cats_html}
   {thread_html}
-  {community_html}
   <div style="margin:26px 0 10px;padding:12px;border-radius:8px;background:#f6f8fa;text-align:center;font-size:14px;font-weight:600;color:#1a7f37">{_t(locale, "caught_up")}</div>
   <div style="font-size:12px;color:#999;margin-top:18px;line-height:1.6">
     <a href="{html.escape(daily_page)}" style="color:#1a6dd6">{_t(locale, "web")}</a> ·
@@ -798,7 +798,7 @@ def render_community_email(cfg: dict, kind: str, edition: str, locale: str = "en
         )
     period = _t(locale, "period_daily" if kind == "daily" else "period_weekly")
     return (
-        '<div style="margin:24px 0 6px;padding:12px 14px;border-radius:8px;border-left:4px solid #1a6dd6;background:#f6f8fa">'
+        '<div style="margin:18px 0 22px;padding:12px 14px;border-radius:8px;border-left:4px solid #1a6dd6;background:#f6f8fa">'
         '<div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#1a6dd6">'
         f"{_t(locale, 'community')}</div>"
         f'<div style="font-size:15px;font-weight:600;line-height:1.35;margin-top:4px">'
@@ -964,12 +964,12 @@ def render_weekly(
   {video_html}
   {intro_html}
   {hl_html}
+  {community_html}
   {fav_html}
   {cats_section}
   {thread_html}
   {wiki_html}
   {skill_lab_html}
-  {community_html}
   <div style="font-size:12px;color:#999;margin-top:22px;line-height:1.6">
     <a href="{html.escape(weekly_page)}" style="color:#1a6dd6">{_t(locale, "full_recap")}</a> ·
     <a href="{html.escape(feed_url)}" style="color:#1a6dd6">{_t(locale, "open_feed")}</a>{lang_switch}{unsub}<br>

@@ -247,3 +247,27 @@ class RecapSkillWiringTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CommunityPositionTest(unittest.TestCase):
+    def setUp(self):
+        self.cfg = email.load_config()
+
+    def test_daily_community_card_sits_between_intro_and_themes(self):
+        recap = json.loads((ROOT / "data" / "daily" / f"{DAILY_ID}.json").read_text(encoding="utf-8"))
+        for locale in ("en", "ko"):
+            source, used = email.localized_or_english("daily", recap, DAILY_ID, locale)
+            _, body = email.render_daily(self.cfg, source, [], used)
+            card = body.index("border-left:4px solid #1a6dd6")
+            first_theme = email.html.escape(source["categories"][0]["name"])
+            self.assertLess(body.index(email._t(used, "tldr")), card)
+            self.assertLess(card, body.index(first_theme))
+
+    def test_weekly_community_card_follows_the_highlights(self):
+        wk = json.loads((ROOT / "data" / "weekly" / f"{WEEKLY_ID}.json").read_text(encoding="utf-8"))
+        for locale in ("en", "ko"):
+            source, used = email.localized_or_english("weekly", wk, WEEKLY_ID, locale)
+            _, body = email.render_weekly(self.cfg, source, [], [], None, used)
+            card = body.index("border-left:4px solid #1a6dd6")
+            self.assertLess(body.index(email._t(used, "weekly_highlights")), card)
+            self.assertLess(card, body.index(email._t(used, "by_theme")))
