@@ -34,6 +34,12 @@ Localized pages live under a locale prefix and keep the English page shape:
 | `/foundations/<slug>` | `/ko/foundations/<slug>` |
 | `/topic/<slug>` | `/ko/topic/<slug>` |
 
+The bare `/ko/daily` and `/ko/weekly` URLs serve the newest Korean edition
+(`web/ko/daily/index.html`, `web/ko/weekly/index.html`, written by
+`render_i18n_pages`), as `/daily` and `/weekly` do for English. The Korean
+welcome email's button links there. Unlike the English hubs, the copy keeps
+the dated page's canonical, so each edition stays one indexed URL.
+
 The canonical URL remains the current page's language. Each localized page
 emits `hreflang` alternates for available languages plus `x-default` pointing to
 English.
@@ -172,8 +178,8 @@ Recap Playbook overlays are locale-specific content. Today
 pages do not render Playbook overlay cards. Add the locale-specific index before
 showing those cards on translated pages.
 
-Today, Vercel exposes Korean pages for `/ko/daily/<date>`,
-`/ko/weekly/<week>`, `/ko/story/<sid>`, `/ko/storyline/<slug>`,
+Today, the Worker exposes Korean pages for `/ko/daily[/<date>]`,
+`/ko/weekly[/<week>]`, `/ko/story/<sid>`, `/ko/storyline/<slug>`,
 `/ko/topic/<slug>`, and `/ko/foundations/<slug>`.
 
 The live feed page remains English-only in this slice. The planned `/ko/` feed

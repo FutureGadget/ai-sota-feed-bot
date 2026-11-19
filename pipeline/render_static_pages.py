@@ -110,6 +110,8 @@ LOGO_PATH = "/logo.png"
 
 DATE_FILE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}\.json$")
 WEEK_FILE_RE = re.compile(r"^\d{4}-W\d{2}\.json$")
+DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+WEEK_RE = re.compile(r"^\d{4}-W\d{2}$")
 DATE_HTML_RE = re.compile(r"^\d{4}-\d{2}-\d{2}\.html$")
 WEEK_HTML_RE = re.compile(r"^\d{4}-W\d{2}\.html$")
 SID_HTML_RE = re.compile(r"^[0-9a-f]{16}\.html$")
@@ -6742,6 +6744,7 @@ def render_i18n_pages(
 ) -> list[tuple[str, str | None]]:
     """Render checked-in pre-translated pages under web/<locale>/."""
     rendered: list[tuple[str, str | None]] = []
+    recap_pages: list[tuple[str, str, str]] = []
     for source_path, pages in sorted(i18n_pages.items()):
         for page in pages:
             locale = str(page["locale"])
@@ -6761,7 +6764,42 @@ def render_i18n_pages(
             out_file.write_text(html, encoding="utf-8")
             lastmod = str(artifact.get("translated_at") or "")[:10] or None
             rendered.append((canonical_path, lastmod))
+            recap_pages.append((locale, source_path, html))
+    write_i18n_recap_hubs(pick_i18n_recap_hubs(recap_pages))
     return rendered
+
+
+def pick_i18n_recap_hubs(pages: list[tuple[str, str, str]]) -> dict[tuple[str, str], tuple[str, str]]:
+    """The newest rendered daily and weekly page per locale.
+
+    ``pages`` holds ``(locale, source_path, html)``; the result maps
+    ``(locale, kind)`` to ``(ident, html)``. Dates and ISO weeks sort as text.
+    """
+    hubs: dict[tuple[str, str], tuple[str, str]] = {}
+    for locale, source_path, html in pages:
+        parts = source_path.strip("/").split("/")
+        if len(parts) != 2 or parts[0] not in {"daily", "weekly"}:
+            continue
+        kind, ident = parts
+        if not (DATE_RE.match(ident) if kind == "daily" else WEEK_RE.match(ident)):
+            continue
+        current = hubs.get((locale, kind))
+        if current is None or ident > current[0]:
+            hubs[(locale, kind)] = (ident, html)
+    return hubs
+
+
+def write_i18n_recap_hubs(hubs: dict[tuple[str, str], tuple[str, str]]) -> None:
+    """Write ``web/<locale>/<kind>/index.html`` for the bare ``/<locale>/daily``
+    and ``/<locale>/weekly`` URLs (the welcome email's button, shared links).
+
+    The copy keeps its dated canonical, so each edition stays one indexed URL;
+    only the English ``/daily`` hub is canonical to itself.
+    """
+    for (locale, kind), (_ident, html) in sorted(hubs.items()):
+        out_file = WEB_DIR / locale / kind / "index.html"
+        out_file.parent.mkdir(parents=True, exist_ok=True)
+        out_file.write_text(html, encoding="utf-8")
 
 
 def write_sitemap(

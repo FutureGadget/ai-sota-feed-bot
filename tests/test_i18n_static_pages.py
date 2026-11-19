@@ -317,3 +317,77 @@ class SupersededStorylineI18nTest(unittest.TestCase):
 
         self.assertIn("/storyline/live-thread", pages)
         self.assertNotIn("/storyline/old-fork", pages)
+
+
+def worker_rewrites() -> list[tuple["re.Pattern[str]", str]]:
+    """STATIC_REWRITES from worker/src/index.js as (compiled pattern, target)."""
+    import re
+
+    worker = (ROOT / "worker" / "src" / "index.js").read_text(encoding="utf-8")
+    table = worker.split("const STATIC_REWRITES = [", 1)[1].split("\n];", 1)[0]
+    rows = []
+    for line in table.splitlines():
+        match = re.match(r"\s*\[/(.+?)/,\s*(?:'([^']+)'|\(m\) => `([^`]+)`)\],?\s*$", line)
+        if match:
+            rows.append((re.compile(match.group(1)), match.group(2) or match.group(3)))
+    return rows
+
+
+def route_target(path: str) -> str | None:
+    for pattern, target in worker_rewrites():
+        if pattern.search(path):
+            return target
+    return None
+
+
+class I18nRecapHubTest(unittest.TestCase):
+    def test_welcome_email_buttons_have_a_page_route(self) -> None:
+        # api/subscribe.js welcomeEmail links the bare recap URL for the
+        # signup's language; an unrouted path 404s with no asset fallback.
+        self.assertEqual(route_target("/daily"), "/web/daily/index.html")
+        self.assertEqual(route_target("/weekly"), "/web/weekly/index.html")
+        self.assertEqual(route_target("/ko/daily"), "/web/ko/daily/index.html")
+        self.assertEqual(route_target("/ko/daily/"), "/web/ko/daily/index.html")
+        self.assertEqual(route_target("/ko/weekly"), "/web/ko/weekly/index.html")
+        self.assertEqual(route_target("/ko/daily/2026-11-18"), "/web/ko/daily/${m[1]}.html")
+
+    def test_hub_is_the_newest_page_per_locale_and_kind(self) -> None:
+        hubs = render.pick_i18n_recap_hubs(
+            [
+                ("ko", "/daily/2026-11-15", "old"),
+                ("ko", "/daily/2026-11-18", "new"),
+                ("ko", "/daily/2026-11-14", "older"),
+                ("ko", "/weekly/2026-W46", "w46"),
+                ("ko", "/weekly/2026-W47", "w47"),
+                ("ko", "/story/ee2eab4f35a2124a", "story"),
+                ("ja", "/daily/2026-11-10", "ja"),
+            ]
+        )
+        self.assertEqual(
+            hubs,
+            {
+                ("ko", "daily"): ("2026-11-18", "new"),
+                ("ko", "weekly"): ("2026-W47", "w47"),
+                ("ja", "daily"): ("2026-11-10", "ja"),
+            },
+        )
+
+    def test_hub_pages_are_written_as_index_files(self) -> None:
+        previous = render.WEB_DIR
+        with tempfile.TemporaryDirectory() as tmp:
+            render.WEB_DIR = Path(tmp)
+            try:
+                render.write_i18n_recap_hubs(
+                    {("ko", "daily"): ("2026-11-18", "<html>daily</html>"),
+                     ("ko", "weekly"): ("2026-W47", "<html>weekly</html>")}
+                )
+                self.assertEqual(
+                    (Path(tmp) / "ko" / "daily" / "index.html").read_text(encoding="utf-8"),
+                    "<html>daily</html>",
+                )
+                self.assertEqual(
+                    (Path(tmp) / "ko" / "weekly" / "index.html").read_text(encoding="utf-8"),
+                    "<html>weekly</html>",
+                )
+            finally:
+                render.WEB_DIR = previous
