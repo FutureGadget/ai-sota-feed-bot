@@ -79,7 +79,7 @@ DEFAULTS = {
     "from_name": "LLM Digest",
     "site_base": "https://www.llm-digest.com",
     "utm_source": "email",
-    "daily": {"max_items": 12, "max_threads": 3},
+    "daily": {"max_items": 12, "max_threads": 3, "full_items_per_theme": 2},
     "weekly": {"max_threads": 12, "articles_per_category": 3, "max_wiki": 4, "max_favorites": 3},
 }
 
@@ -96,7 +96,8 @@ PREHEADER_PAD = "&#847;&zwnj;&nbsp;" * 40
 LOCALES = ("en", "ko")
 EMAIL_COPY = {
     "en": {
-        "daily_subject": "Your AI brief — {n} picks · ~{mins} min · {top}",
+        "daily_subject": "{top} · {n} picks, ~{mins} min",
+        "weekly_subject": "{top} · Your AI week, {range}",
         "daily_h1": "Your AI brief",
         "daily_meta": "{n} picks · {cats} theme{s} · ~{mins} min · one shared ranking, no filter bubble",
         "tldr": "In 30 seconds",
@@ -113,8 +114,15 @@ EMAIL_COPY = {
         "week_link": "This week's recap",
         "tagline": "The finishable AI feed for platform engineers — 10 minutes a day, with memory.",
         "useful": "👍 Useful",
+        "useful_short": "👍",
+        "irrelevant_short": "👎",
         "irrelevant": "👎 Not relevant",
-        "unsubscribe": "Unsubscribe",
+        "unsubscribe": "Manage preferences or unsubscribe",
+        "why": "You're getting this because you subscribed at llm-digest.com.",
+        "share": "Know someone who'd want this? Forward it →",
+        "share_subject": "Worth a read: {title}",
+        "share_body": "Today's AI brief from LLM Digest: {url}\n\nGet it by email: {sub}",
+        "more_in_theme": "Also in this theme",
         "switch_lang": "이 메일을 한국어로 받기",
         "preheader_tail": " — then you're caught up.",
         "more": " · +{n} more",
@@ -137,7 +145,8 @@ EMAIL_COPY = {
         "read_thread": "Read the thread →",
     },
     "ko": {
-        "daily_subject": "AI 브리프 — {n}개 · 약 {mins}분 · {top}",
+        "daily_subject": "{top} · {n}개, 약 {mins}분",
+        "weekly_subject": "{top} · AI 위클리 {range}",
         "daily_h1": "오늘의 AI 브리프",
         "daily_meta": "{n}개 · 테마 {cats}개 · 약 {mins}분 · 모두에게 같은 랭킹, 필터 버블 없음",
         "tldr": "30초 요약",
@@ -154,8 +163,15 @@ EMAIL_COPY = {
         "week_link": "이번 주 리캡",
         "tagline": "플랫폼·에이전트 엔지니어를 위한 끝이 있는 AI 피드 — 하루 10분, 맥락까지.",
         "useful": "👍 유용함",
+        "useful_short": "👍",
+        "irrelevant_short": "👎",
         "irrelevant": "👎 관련 없음",
-        "unsubscribe": "수신 거부",
+        "unsubscribe": "수신 설정 · 수신 거부",
+        "why": "llm-digest.com에서 구독하셔서 받는 메일입니다.",
+        "share": "이 브리프가 필요한 동료가 있나요? 전달하기 →",
+        "share_subject": "읽어볼 만한 AI 브리프: {title}",
+        "share_body": "LLM Digest의 오늘 AI 브리프: {url}\n\n이메일로 받기: {sub}",
+        "more_in_theme": "이 테마의 다른 소식",
         "switch_lang": "Get this email in English",
         "preheader_tail": " — 읽고 나면 끝.",
         "more": " · 외 {n}건",
@@ -340,7 +356,7 @@ def video_link_html(cfg: dict, recap: dict, page_path: str, label: str) -> str:
         return ""
     url = f"{cfg['site_base'].rstrip('/')}{page_path}?utm_source={cfg['utm_source']}#video"
     return (
-        '<div style="margin:0 0 14px;font-size:14px">'
+        '<div style="margin:0 0 14px;font-size:16px">'
         f'<a href="{html.escape(url)}" style="color:#1a6dd6;font-weight:600">▶ {html.escape(label)}</a></div>'
     )
 
@@ -384,18 +400,23 @@ def ensure_reader_id_property(api_key: str) -> bool:
         return False
 
 
-def feedback_row(cfg: dict, url: str, locale: str = "en") -> str:
-    """Compact 👍 / 👎 line under a daily item."""
+def feedback_links(cfg: dict, url: str, locale: str = "en", short: bool = False) -> str:
+    """One-tap 👍 / 👎 links that sit on an item's source line (no row of their
+    own). ``short`` drops the words for the compact headline rows; the full
+    label stays as the link title."""
     if not url:
         return ""
     useful = html.escape(feedback_url(cfg, url, "useful"))
     irrel = html.escape(feedback_url(cfg, url, "irrelevant"))
+    up, down = _t(locale, "useful"), _t(locale, "irrelevant")
+    up_text = _t(locale, "useful_short") if short else up
+    down_text = _t(locale, "irrelevant_short") if short else down
     return (
-        '<div style="font-size:12px;margin-top:5px">'
-        f'<a href="{useful}" style="color:#1a7f37;text-decoration:none">{_t(locale, "useful")}</a>'
-        '<span style="color:#ccc"> · </span>'
-        f'<a href="{irrel}" style="color:#999;text-decoration:none">{_t(locale, "irrelevant")}</a>'
-        "</div>"
+        '<span class="ld-fb"> · '
+        f'<a href="{useful}" title="{html.escape(up)}" style="color:#1a7f37;text-decoration:none">{up_text}</a>'
+        " · "
+        f'<a href="{irrel}" title="{html.escape(down)}" style="color:#999;text-decoration:none">{down_text}</a>'
+        "</span>"
     )
 
 
@@ -603,7 +624,7 @@ def wrapper_attrs(locale: str = "en") -> str:
     """Attributes for the email's outer container. Korean breaks lines between
     words (keep-all) instead of mid-word, the same rule the web pages use, and
     names Hangul fonts before the Latin fallbacks."""
-    style = "max-width:640px;margin:0 auto;padding:24px 18px;color:#111;"
+    style = "max-width:640px;margin:0 auto;padding:24px 18px;color:#111;background:#ffffff;"
     if locale == "ko":
         return (
             f'lang="ko" style="{style}font-family:{EMAIL_FONT_STACK_KO};'
@@ -612,12 +633,130 @@ def wrapper_attrs(locale: str = "en") -> str:
     return f'style="{style}font-family:{EMAIL_FONT_STACK}"'
 
 
+EN_MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+EN_WEEKDAYS = ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+KO_WEEKDAYS = ("월", "화", "수", "목", "금", "토", "일")
+
+
+def header_date(day: str, locale: str = "en") -> str:
+    """``2026-11-18`` as the email header shows it: ``Wed, Nov 18`` or
+    ``11월 18일 (수)``. Falls back to the raw string when it is not a date."""
+    try:
+        d = datetime.strptime(str(day)[:10], "%Y-%m-%d")
+    except ValueError:
+        return str(day)
+    if locale == "ko":
+        return f"{d.month}월 {d.day}일 ({KO_WEEKDAYS[d.weekday()]})"
+    return f"{EN_WEEKDAYS[d.weekday()]}, {EN_MONTHS[d.month - 1]} {d.day}"
+
+
+def week_range(wk: dict, locale: str = "en") -> str:
+    """The week's span for the subject line: ``Nov 7–13`` or ``11월 7–13일``."""
+    try:
+        a = datetime.strptime(str(wk.get("start"))[:10], "%Y-%m-%d")
+        b = datetime.strptime(str(wk.get("end"))[:10], "%Y-%m-%d")
+    except ValueError:
+        return str(wk.get("week") or "")
+    if locale == "ko":
+        tail = f"{b.day}일" if a.month == b.month else f"{b.month}월 {b.day}일"
+        return f"{a.month}월 {a.day}–{tail}"
+    tail = f"{b.day}" if a.month == b.month else f"{EN_MONTHS[b.month - 1]} {b.day}"
+    return f"{EN_MONTHS[a.month - 1]} {a.day}–{tail}"
+
+
+def share_html(cfg: dict, page_url: str, title: str, locale: str = "en") -> str:
+    """"Forward it" line: a mailto link that opens a new message with the web
+    version and the signup link already filled in."""
+    base = cfg["site_base"].rstrip("/")
+    sub_url = f"{base}/subscribe{'?lang=ko' if locale == 'ko' else ''}"
+    subject = _t(locale, "share_subject", title=title)
+    body = _t(locale, "share_body", url=page_url.split("?")[0], sub=sub_url)
+    href = f"mailto:?subject={quote(subject)}&body={quote(body)}"
+    return (
+        '<div style="margin:0 0 14px;text-align:center;font-size:15px">'
+        f'<a href="{html.escape(href)}" style="color:#1a6dd6;text-decoration:none;font-weight:600">'
+        f"{html.escape(_t(locale, 'share'))}</a></div>"
+    )
+
+
+# Dark mode. Clients that honour prefers-color-scheme (Apple Mail, iOS Mail,
+# Outlook for Mac) apply these; the others keep the light design or invert it
+# themselves. Every inline colour the template uses maps to one class below
+# (``add_dark_classes``), so the template stays plain inline styles.
+DARK_CSS = (
+    ":root{color-scheme:light dark;supported-color-schemes:light dark}"
+    "@media (prefers-color-scheme: dark){"
+    ".ld-bg{background:#121417!important}"
+    ".ld-card{background:#1c2026!important}"
+    ".ld-text{color:#e6edf3!important}"
+    ".ld-soft{color:#c9d1d9!important}"
+    ".ld-muted{color:#8b949e!important}"
+    ".ld-link{color:#6cb6ff!important}"
+    ".ld-ok{color:#56d364!important}"
+    ".ld-violet{color:#c297ff!important}"
+    ".ld-rule{border-color:#30363d!important}"
+    "}"
+)
+_DARK_COLOR_CLASSES = {
+    "#111": "ld-text",
+    "#333": "ld-soft",
+    "#444": "ld-soft",
+    "#555": "ld-soft",
+    "#666": "ld-muted",
+    "#777": "ld-muted",
+    "#888": "ld-muted",
+    "#999": "ld-muted",
+    "#57606a": "ld-muted",
+    "#1a6dd6": "ld-link",
+    "#1a7f37": "ld-ok",
+    "#7a3fb8": "ld-violet",
+}
+_DARK_BG_CLASSES = {"#f6f8fa": "ld-card", "#ffffff": "ld-bg"}
+_STYLED_TAG = re.compile(r'<([a-zA-Z][a-zA-Z0-9]*)((?:\s+[a-zA-Z-]+="[^"]*")*?)\s+style="([^"]*)"([^>]*)>')
+
+
+def add_dark_classes(body: str) -> str:
+    """Tag each styled element with the dark-mode class for its colours."""
+
+    def repl(m: re.Match) -> str:
+        tag, before, style, after = m.groups()
+        classes: list[str] = []
+        for prop, value in re.findall(r"(?:^|;)\s*(color|background|background-color)\s*:\s*(#[0-9a-fA-F]{3,6})", style):
+            mapping = _DARK_COLOR_CLASSES if prop == "color" else _DARK_BG_CLASSES
+            if value.lower() in mapping:
+                classes.append(mapping[value.lower()])
+        if re.search(r"border(?:-top|-bottom)?\s*:\s*1px solid #(?:eee|f0f0f0|d8dee4)", style):
+            classes.append("ld-rule")
+        if not classes:
+            return m.group(0)
+        existing = re.search(r'\sclass="([^"]*)"', before + after)
+        if existing:
+            merged = " ".join(dict.fromkeys(existing.group(1).split() + classes))
+            return m.group(0).replace(existing.group(0), f' class="{merged}"', 1)
+        return f'<{tag}{before} style="{style}" class="{" ".join(dict.fromkeys(classes))}"{after}>'
+
+    return _STYLED_TAG.sub(repl, body)
+
+
+def email_document(inner: str, locale: str = "en") -> str:
+    """Wrap a rendered body in a full HTML document that declares light and
+    dark support and carries the dark-mode styles."""
+    return (
+        f'<!DOCTYPE html><html lang="{locale}"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">'
+        '<meta name="color-scheme" content="light dark">'
+        '<meta name="supported-color-schemes" content="light dark">'
+        f"<style>{DARK_CSS}</style></head>"
+        f'<body style="margin:0;padding:0;background:#ffffff" class="ld-bg">{add_dark_classes(inner)}</body></html>'
+    )
+
+
 def logo_img(cfg: dict) -> str:
     """Small brand mark for the email header (absolute URL — email clients can't
     resolve site-relative paths). Square logo served from the site root."""
     src = f"{cfg['site_base'].rstrip('/')}/logo.png"
     return (
-        f'<img src="{html.escape(src)}" alt="LLM Digest" width="22" height="22" '
+        f'<img src="{html.escape(src)}" alt="" width="22" height="22" '
         f'style="width:22px;height:22px;vertical-align:middle;margin-right:7px;border-radius:5px">'
     )
 
@@ -629,8 +768,9 @@ def html_to_text(body: str) -> str:
     the one-tap feedback rows (noise in text), renders links as ``text (url)``,
     and turns block elements into line breaks.
     """
-    s = re.sub(r'<div style="display:none.*?</div>', "", body, count=1, flags=re.S)
-    s = re.sub(r'<div style="font-size:12px;margin-top:5px">.*?</div>', "", s, flags=re.S)
+    s = re.sub(r"<head>.*?</head>", "", body, count=1, flags=re.S | re.I)
+    s = re.sub(r'<div style="display:none.*?</div>', "", s, count=1, flags=re.S)
+    s = re.sub(r'<span class="ld-fb">.*?</span>', "", s, flags=re.S)
     s = re.sub(
         r'<a [^>]*href="([^"]*)"[^>]*>(.*?)</a>',
         lambda m: f"{re.sub('<[^>]+>', '', m.group(2))} ({html.unescape(m.group(1))})",
@@ -672,40 +812,55 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
         lis = "".join(f'<li style="margin:4px 0">{html.escape(h)}</li>' for h in highlights)
         tldr_html = (
             '<div style="margin:6px 0 14px;padding:12px 14px;border-radius:8px;background:#f6f8fa">'
-            '<div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;'
+            '<div style="font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;'
             f'color:#1a6dd6;margin-bottom:6px">{_t(locale, "tldr")}</div>'
-            f'<ul style="font-size:13px;line-height:1.5;color:#333;padding-left:18px;margin:0">{lis}</ul></div>'
+            f'<ul style="font-size:15px;line-height:1.5;color:#333;padding-left:18px;margin:0">{lis}</ul></div>'
         )
     intro_paras = [clean(p, 500) for p in (recap.get("intro") or []) if isinstance(p, str) and p.strip()]
     intro_html = "".join(
-        f'<p style="font-size:14px;line-height:1.6;color:#333;margin:0 0 10px">{html.escape(p)}</p>'
+        f'<p style="font-size:16px;line-height:1.6;color:#333;margin:0 0 10px">{html.escape(p)}</p>'
         for p in intro_paras[:2]
     )
 
     video_html = video_link_html(cfg, recap, site_path(locale, f"/daily/{recap_date}"), _t(locale, "video_daily"))
 
-    # Themed categories: each article links to its /story/<sid> permalink, carries
-    # its source and one-line recap summary, and keeps the one-tap feedback row.
+    # Themed categories: each article links to its /story/<sid> permalink. The
+    # first `full_items_per_theme` carry their source and recap summary; the
+    # rest are one-line headlines, so the brief stays short enough to finish.
+    # The one-tap 👍 / 👎 feedback rides on every item's source line.
+    full_per_theme = int((cfg.get("daily") or {}).get("full_items_per_theme", 2))
     cat_html: list[str] = []
     for idx, c in enumerate(cats, 1):
         name = html.escape(clean(c.get("name", ""), 80))
         csum = html.escape(clean(c.get("summary", ""), 220))
         arts: list[str] = []
         raw_articles = [a for a in (c.get("articles") or []) if isinstance(a, dict)]
-        for a in raw_articles:
+        for pos, a in enumerate(raw_articles):
             url = a.get("url", "")
             title = html.escape(clean(a.get("title", ""), 140))
             src = html.escape(clean(source_name(a.get("source", "")), 40))
-            asum = html.escape(clean(a.get("summary", ""), 180))
+            link = html.escape(story_url(cfg, url))
+            if pos < full_per_theme:
+                asum = html.escape(clean(a.get("summary", ""), 180))
+                arts.append(
+                    '<tr><td style="padding:12px 0;border-bottom:1px solid #eee">'
+                    f'<div style="font-size:17px;font-weight:600;line-height:1.35">'
+                    f'<a href="{link}" style="color:#111;text-decoration:none">{title}</a></div>'
+                    + (f'<div style="font-size:15px;line-height:1.5;color:#444;margin-top:4px">{asum}</div>' if asum else "")
+                    + f'<div style="font-size:13px;color:#888;margin-top:5px">{src}{feedback_links(cfg, url, locale)}</div>'
+                    + "</td></tr>"
+                )
+                continue
+            if pos == full_per_theme:
+                arts.append(
+                    '<tr><td style="padding:12px 0 2px;font-size:12px;font-weight:700;letter-spacing:.04em;'
+                    f'text-transform:uppercase;color:#57606a">{_t(locale, "more_in_theme")}</td></tr>'
+                )
             arts.append(
-                '<tr><td style="padding:11px 0;border-bottom:1px solid #eee">'
-                f'<div style="font-size:15px;font-weight:600;line-height:1.35">'
-                f'<a href="{html.escape(story_url(cfg, url))}" '
-                f'style="color:#111;text-decoration:none">{title}</a></div>'
-                f'<div style="font-size:12px;color:#888;margin-top:3px">{src}</div>'
-                + (f'<div style="font-size:13px;color:#444;margin-top:4px">{asum}</div>' if asum else "")
-                + feedback_row(cfg, url, locale)
-                + "</td></tr>"
+                '<tr><td style="padding:7px 0;border-bottom:1px solid #eee">'
+                f'<a href="{link}" style="font-size:16px;font-weight:600;line-height:1.35;color:#111;text-decoration:none">{title}</a>'
+                f'<div style="font-size:13px;color:#888;margin-top:2px">{src}{feedback_links(cfg, url, locale, short=True)}</div>'
+                "</td></tr>"
             )
         article_count = len(raw_articles)
         item_label = _t(locale, "item") if article_count == 1 else _t(locale, "items")
@@ -713,10 +868,10 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
             '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
             'style="margin:24px 0 2px;border-top:1px solid #d8dee4;background:#f6f8fa">'
             '<tr><td style="padding:10px 12px">'
-            f'<div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;'
+            f'<div style="font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;'
             f'color:#57606a">{_t(locale, "theme", idx=idx, n=article_count, items=item_label)}</div>'
-            f'<div style="font-size:16px;font-weight:700;line-height:1.35;color:#111;margin-top:2px">{name}</div>'
-            + (f'<div style="font-size:13px;line-height:1.45;color:#555;margin-top:3px">{csum}</div>' if csum else "")
+            f'<div style="font-size:18px;font-weight:700;line-height:1.35;color:#111;margin-top:2px">{name}</div>'
+            + (f'<div style="font-size:15px;line-height:1.45;color:#555;margin-top:3px">{csum}</div>' if csum else "")
             + "</td></tr></table>"
             + f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(arts)}</table>'
         )
@@ -730,14 +885,14 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
             label = html.escape(t["label"])
             tr.append(
                 f'<tr><td style="padding:10px 0;border-bottom:1px solid #f0f0f0">'
-                f'<div style="font-size:14px;font-weight:600">'
+                f'<div style="font-size:16px;font-weight:600">'
                 f'<a href="{html.escape(storyline_url(cfg, t["slug"], locale if t.get("localized") else "en"))}" '
                 f'style="color:#1a6dd6;text-decoration:none">{label} →</a></div>'
-                f'<div style="font-size:13px;color:#444;margin-top:3px">{wn}</div></td></tr>'
+                f'<div style="font-size:15px;color:#444;margin-top:3px">{wn}</div></td></tr>'
             )
         thread_html = (
-            f'<h2 style="font-size:16px;margin:28px 0 6px">{_t(locale, "threads_daily")}</h2>'
-            '<div style="font-size:12px;color:#888;margin-bottom:6px">'
+            f'<h2 style="font-size:18px;margin:28px 0 6px">{_t(locale, "threads_daily")}</h2>'
+            '<div style="font-size:13px;color:#888;margin-bottom:6px">'
             f'{_t(locale, "threads_daily_dek")}</div>'
             f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(tr)}</table>'
         )
@@ -751,27 +906,28 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
     sub_meta = _t(locale, "daily_meta", n=n, cats=n_cats, s="s" if n_cats != 1 else "", mins=mins)
     preheader = html.escape(_preheader(recap, articles, locale))
     community_html = render_community_email(cfg, "daily", recap_date, locale)
-    body = f"""\
+    inner = f"""\
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#fff">{preheader}{PREHEADER_PAD}</div>
 <div {wrapper_attrs(locale)}>
-  <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}LLM Digest · {recap_date}</div>
-  <h1 style="font-size:20px;margin:6px 0 2px">{_t(locale, "daily_h1")}</h1>
-  <div style="font-size:13px;color:#777;margin-bottom:12px">{sub_meta}</div>
+  <div style="font-size:13px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}LLM Digest · {header_date(recap_date, locale)}</div>
+  <h1 style="font-size:22px;margin:6px 0 2px">{_t(locale, "daily_h1")}</h1>
+  <div style="font-size:15px;color:#777;margin-bottom:12px">{sub_meta}</div>
   {tldr_html}
   {video_html}
   {intro_html}
   {community_html}
   {cats_html}
   {thread_html}
-  <div style="margin:26px 0 10px;padding:12px;border-radius:8px;background:#f6f8fa;text-align:center;font-size:14px;font-weight:600;color:#1a7f37">{_t(locale, "caught_up")}</div>
-  <div style="font-size:12px;color:#999;margin-top:18px;line-height:1.6">
+  <div style="margin:26px 0 14px;padding:12px;border-radius:8px;background:#f6f8fa;text-align:center;font-size:16px;font-weight:600;color:#1a7f37">{_t(locale, "caught_up")}</div>
+  {share_html(cfg, daily_page, top_title, locale)}
+  <div style="font-size:13px;color:#999;margin-top:18px;line-height:1.9">
     <a href="{html.escape(daily_page)}" style="color:#1a6dd6">{_t(locale, "web")}</a> ·
     <a href="{html.escape(feed_url)}" style="color:#1a6dd6">{_t(locale, "feed")}</a> ·
-    <a href="{html.escape(weekly_url)}" style="color:#1a6dd6">{_t(locale, "week_link")}</a>{lang_switch}{unsub}<br>
-    {_t(locale, "tagline")}
+    <a href="{html.escape(weekly_url)}" style="color:#1a6dd6">{_t(locale, "week_link")}</a>{lang_switch}{unsub}
+    <div style="margin-top:8px;line-height:1.6">{_t(locale, "why")} {_t(locale, "tagline")}</div>
   </div>
 </div>"""
-    return subject, body
+    return subject, email_document(inner, locale)
 
 
 def render_community_email(cfg: dict, kind: str, edition: str, locale: str = "en") -> str:
@@ -792,20 +948,20 @@ def render_community_email(cfg: dict, kind: str, edition: str, locale: str = "en
     if top:
         first = (community.lines(top.get("body")) or [""])[0]
         quote_html = (
-            '<div style="font-size:13px;line-height:1.5;color:#444;margin-top:6px">'
+            '<div style="font-size:15px;line-height:1.5;color:#444;margin-top:6px">'
             f'<strong style="color:#111">{html.escape(clean(str(top.get("author") or ""), 40))}</strong> '
             f"{html.escape(clean(first, 200))}</div>"
         )
     period = _t(locale, "period_daily" if kind == "daily" else "period_weekly")
     return (
         '<div style="margin:18px 0 22px;padding:12px 14px;border-radius:8px;border-left:4px solid #1a6dd6;background:#f6f8fa">'
-        '<div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#1a6dd6">'
+        '<div style="font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#1a6dd6">'
         f"{_t(locale, 'community')}</div>"
-        f'<div style="font-size:15px;font-weight:600;line-height:1.35;margin-top:4px">'
+        f'<div style="font-size:17px;font-weight:600;line-height:1.35;margin-top:4px">'
         f'<a href="{html.escape(url)}" style="color:#111;text-decoration:none">{title}</a></div>'
-        f'<div style="font-size:12px;color:#888;margin-top:3px">{html.escape(_t(locale, "community_meta", period=period, n=n))}</div>'
+        f'<div style="font-size:13px;color:#888;margin-top:3px">{html.escape(_t(locale, "community_meta", period=period, n=n))}</div>'
         f"{quote_html}"
-        f'<div style="font-size:13px;font-weight:600;margin-top:8px"><a href="{html.escape(url)}" '
+        f'<div style="font-size:15px;font-weight:600;margin-top:8px"><a href="{html.escape(url)}" '
         f'style="color:#1a6dd6;text-decoration:none">{_t(locale, "read_thread")}</a></div></div>'
     )
 
@@ -835,16 +991,16 @@ def render_skill_lab_email(cfg: dict, lab: dict | None) -> str:
         '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
         'style="margin:26px 0 4px;border-top:1px solid #d8dee4;border-bottom:1px solid #d8dee4">'
         '<tr><td style="padding:14px 12px;border-left:3px solid #2457d6;background:#f6f8fa">'
-        f'<div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#2457d6">'
+        f'<div style="font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#2457d6">'
         f'Agent Skill Lab · Pilot {edition}/{size}</div>'
         f'<div style="font-size:17px;font-weight:700;line-height:1.3;color:#111;margin-top:4px">'
         f'{html.escape(clean(str(lab.get("title") or "Agent Skill Lab"), 120))}</div>'
-        f'<div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#23875b;margin-top:8px">'
+        f'<div style="font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#23875b;margin-top:8px">'
         f'{html.escape(status)}</div>'
-        f'<div style="font-size:13px;line-height:1.5;color:#444;margin-top:3px">'
+        f'<div style="font-size:15px;line-height:1.5;color:#444;margin-top:3px">'
         f'{html.escape(clean(str(lead or ""), 240))}</div>'
         f'<div style="margin-top:10px"><a href="{html.escape(detail_url)}" '
-        f'style="color:#2457d6;font-size:13px;font-weight:700;text-decoration:none">{cta} →</a></div>'
+        f'style="color:#2457d6;font-size:15px;font-weight:700;text-decoration:none">{cta} →</a></div>'
         '</td></tr></table>'
     )
 
@@ -859,13 +1015,18 @@ def render_weekly(
 ) -> tuple[str, str]:
     """Returns (subject, html_body) for the weekly recap in ``locale``."""
     title = wk.get("title") or f"What happened in AI — week {wk.get('week','')}"
-    subject = title
+    lead = next((h for h in (wk.get("highlights") or []) if isinstance(h, str) and h.strip()), "")
+    subject = (
+        _t(locale, "weekly_subject", top=clean(lead.rstrip(". "), 70), range=week_range(wk, locale))
+        if lead
+        else title
+    )
     base = cfg["site_base"].rstrip("/")
     utm = cfg["utm_source"]
 
     intro = wk.get("intro") or []
     intro_html = "".join(
-        f'<p style="font-size:14px;line-height:1.6;color:#333;margin:0 0 10px">{html.escape(p)}</p>'
+        f'<p style="font-size:16px;line-height:1.6;color:#333;margin:0 0 10px">{html.escape(p)}</p>'
         for p in intro[:2]
     )
 
@@ -874,8 +1035,8 @@ def render_weekly(
     if highlights:
         lis = "".join(f'<li style="margin:4px 0">{html.escape(h)}</li>' for h in highlights)
         hl_html = (
-            f'<h2 style="font-size:16px;margin:22px 0 6px">{_t(locale, "weekly_highlights")}</h2>'
-            f'<ul style="font-size:14px;line-height:1.5;color:#333;padding-left:20px;margin:0">{lis}</ul>'
+            f'<h2 style="font-size:18px;margin:22px 0 6px">{_t(locale, "weekly_highlights")}</h2>'
+            f'<ul style="font-size:16px;line-height:1.5;color:#333;padding-left:20px;margin:0">{lis}</ul>'
         )
 
     fav = reader_favorites(int(cfg["weekly"].get("max_favorites", 3)))
@@ -885,7 +1046,7 @@ def render_weekly(
             f'<span style="color:#333;font-weight:600">{html.escape(source_name(s))}</span>' for s, _ in fav
         )
         fav_html = (
-            '<div style="margin:18px 0 4px;padding:10px 12px;border-radius:8px;background:#f6f8fa;font-size:13px;color:#555">'
+            '<div style="margin:18px 0 4px;padding:10px 12px;border-radius:8px;background:#f6f8fa;font-size:15px;color:#555">'
             f"{_t(locale, 'favorites', chips=chips)}</div>"
         )
 
@@ -898,17 +1059,17 @@ def render_weekly(
             t = html.escape(clean(a.get("title", ""), 130))
             src = html.escape(clean(source_name(a.get("source", "")), 32))
             arts.append(
-                f'<li style="margin:5px 0;font-size:13px;line-height:1.4">'
+                f'<li style="margin:5px 0;font-size:15px;line-height:1.4">'
                 f'<a href="{html.escape(story_url(cfg, url))}" style="color:#111;text-decoration:none">{t}</a>'
                 f' <span style="color:#999">· {src}</span></li>'
             )
         cat_html.append(
-            f'<div style="margin:14px 0"><div style="font-size:15px;font-weight:600">{html.escape(c.get("name",""))}</div>'
-            f'<div style="font-size:13px;color:#666;margin:2px 0 4px">{html.escape(clean(c.get("summary",""), 220))}</div>'
+            f'<div style="margin:14px 0"><div style="font-size:17px;font-weight:600">{html.escape(c.get("name",""))}</div>'
+            f'<div style="font-size:15px;color:#666;margin:2px 0 4px">{html.escape(clean(c.get("summary",""), 220))}</div>'
             f'<ul style="padding-left:18px;margin:0;list-style:disc">{"".join(arts)}</ul></div>'
         )
     cats_section = (
-        f'<h2 style="font-size:16px;margin:24px 0 4px">{_t(locale, "by_theme")}</h2>' + "".join(cat_html) if cat_html else ""
+        f'<h2 style="font-size:18px;margin:24px 0 4px">{_t(locale, "by_theme")}</h2>' + "".join(cat_html) if cat_html else ""
     )
 
     thread_html = ""
@@ -918,12 +1079,12 @@ def render_weekly(
             wn = html.escape(clean(t["whats_new"], 220))
             tr.append(
                 f'<tr><td style="padding:9px 0;border-bottom:1px solid #f0f0f0">'
-                f'<div style="font-size:14px;font-weight:600"><a href="{html.escape(storyline_url(cfg, t["slug"], locale if t.get("localized") else "en"))}" '
+                f'<div style="font-size:16px;font-weight:600"><a href="{html.escape(storyline_url(cfg, t["slug"], locale if t.get("localized") else "en"))}" '
                 f'style="color:#1a6dd6;text-decoration:none">{html.escape(t["label"])} →</a></div>'
-                f'<div style="font-size:13px;color:#444;margin-top:3px">{wn}</div></td></tr>'
+                f'<div style="font-size:15px;color:#444;margin-top:3px">{wn}</div></td></tr>'
             )
         thread_html = (
-            f'<h2 style="font-size:16px;margin:26px 0 6px">{_t(locale, "threads_weekly")}</h2>'
+            f'<h2 style="font-size:18px;margin:26px 0 6px">{_t(locale, "threads_weekly")}</h2>'
             f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(tr)}</table>'
         )
 
@@ -935,14 +1096,14 @@ def render_weekly(
             kind = _t(locale, "obstacle") if w["kind"] == "obstacle" else _t(locale, "solution")
             wr.append(
                 f'<tr><td style="padding:9px 0;border-bottom:1px solid #f0f0f0">'
-                f'<div style="font-size:14px;font-weight:600"><a href="{html.escape(topic_url)}" '
+                f'<div style="font-size:16px;font-weight:600"><a href="{html.escape(topic_url)}" '
                 f'style="color:#7a3fb8;text-decoration:none">{html.escape(clean(w["title"], 120))} →</a>'
-                f'<span style="font-size:11px;color:#999;font-weight:400"> · {kind}</span></div>'
-                f'<div style="font-size:13px;color:#444;margin-top:3px">{html.escape(clean(w["summary"], 200))}</div></td></tr>'
+                f'<span style="font-size:12px;color:#999;font-weight:400"> · {kind}</span></div>'
+                f'<div style="font-size:15px;color:#444;margin-top:3px">{html.escape(clean(w["summary"], 200))}</div></td></tr>'
             )
         wiki_html = (
-            f'<h2 style="font-size:16px;margin:26px 0 6px">{_t(locale, "wiki")}</h2>'
-            '<div style="font-size:12px;color:#888;margin-bottom:6px">'
+            f'<h2 style="font-size:18px;margin:26px 0 6px">{_t(locale, "wiki")}</h2>'
+            '<div style="font-size:13px;color:#888;margin-bottom:6px">'
             f'{_t(locale, "wiki_dek")}</div>'
             f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(wr)}</table>'
         )
@@ -956,11 +1117,11 @@ def render_weekly(
     skill_lab_html = render_skill_lab_email(cfg, skill_lab)
     community_html = render_community_email(cfg, "weekly", str(wk.get("week") or ""), locale)
     video_html = video_link_html(cfg, wk, site_path(locale, f"/weekly/{wk.get('week','')}"), _t(locale, "video_weekly"))
-    body = f"""\
+    inner = f"""\
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#fff">{preheader}{PREHEADER_PAD}</div>
 <div {wrapper_attrs(locale)}>
-  <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}{_t(locale, "weekly_header")}</div>
-  <h1 style="font-size:21px;margin:6px 0 10px">{html.escape(title)}</h1>
+  <div style="font-size:13px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}{_t(locale, "weekly_header")}</div>
+  <h1 style="font-size:23px;margin:6px 0 10px">{html.escape(title)}</h1>
   {video_html}
   {intro_html}
   {hl_html}
@@ -970,13 +1131,14 @@ def render_weekly(
   {thread_html}
   {wiki_html}
   {skill_lab_html}
-  <div style="font-size:12px;color:#999;margin-top:22px;line-height:1.6">
+  <div style="margin-top:24px">{share_html(cfg, weekly_page, title, locale)}</div>
+  <div style="font-size:13px;color:#999;margin-top:18px;line-height:1.9">
     <a href="{html.escape(weekly_page)}" style="color:#1a6dd6">{_t(locale, "full_recap")}</a> ·
-    <a href="{html.escape(feed_url)}" style="color:#1a6dd6">{_t(locale, "open_feed")}</a>{lang_switch}{unsub}<br>
-    {_t(locale, "tagline")}
+    <a href="{html.escape(feed_url)}" style="color:#1a6dd6">{_t(locale, "open_feed")}</a>{lang_switch}{unsub}
+    <div style="margin-top:8px;line-height:1.6">{_t(locale, "why")} {_t(locale, "tagline")}</div>
   </div>
 </div>"""
-    return subject, body
+    return subject, email_document(inner, locale)
 
 
 # --------------------------------------------------------------------------- #

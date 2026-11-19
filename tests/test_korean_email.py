@@ -79,7 +79,9 @@ class KoreanEmailTest(unittest.TestCase):
         source, used = email.localized_or_english("daily", self.recap, DAILY_ID, "ko")
         self.assertEqual(used, "ko")
         subject, body = email.render_daily(self.cfg, source, [], used)
-        self.assertTrue(subject.startswith("AI 브리프"))
+        first = source["categories"][0]["articles"][0]["title"]
+        self.assertTrue(subject.startswith(first[:12]), subject)
+        self.assertRegex(subject, r" · \d+개, 약 \d+분$")
         self.assertIn("30초 요약", body)
         self.assertIn("오늘 브리프는 여기까지입니다", body)
         self.assertIn(f"/ko/daily/{DAILY_ID}?utm_source=", body)
@@ -89,7 +91,9 @@ class KoreanEmailTest(unittest.TestCase):
 
     def test_english_daily_is_unchanged_by_locale_support(self):
         subject, body = email.render_daily(self.cfg, self.recap, [])
-        self.assertTrue(subject.startswith("Your AI brief"))
+        first = self.recap["categories"][0]["articles"][0]["title"]
+        self.assertTrue(subject.startswith(first[:12]), subject)
+        self.assertRegex(subject, r" · \d+ picks, ~\d+ min$")
         self.assertIn("In 30 seconds", body)
         self.assertIn(f"/daily/{DAILY_ID}?utm_source=", body)
         self.assertNotIn("/ko/", body)
