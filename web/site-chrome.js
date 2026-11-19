@@ -53,6 +53,7 @@
     if (pathname === "/" || pathname.startsWith("/story/")) return "/";
     if (pathname === "/daily" || pathname.startsWith("/daily/")) return "/daily";
     if (pathname === "/weekly" || pathname.startsWith("/weekly/")) return "/weekly";
+    if (pathname === "/community" || pathname.startsWith("/community/")) return "/community";
     if (pathname === "/storylines" || pathname.startsWith("/storyline/")) return "/storylines";
     if (pathname === "/playbook" || pathname.startsWith("/playbook/")) return "/playbook";
     if (pathname === "/map" || pathname.startsWith("/topic/")) return "/map";
@@ -89,7 +90,7 @@
   const groupNavigation = () => {
     let fallbackLinks = null;
     const groups = [
-      ["Catch up", ["/", "/daily", "/weekly"]],
+      ["Catch up", ["/", "/daily", "/weekly", "/community"]],
       ["Follow", ["/storylines"]],
       ["Apply", ["/playbook"]],
       ["Understand", ["/map", "/foundations", "/models", "/skills"]],
@@ -99,6 +100,7 @@
       "/": "Ranked stories, finite reading",
       "/daily": "What changed today",
       "/weekly": "What you missed this week",
+      "/community": "The recaps, retold as threads by the agent",
       "/storylines": "Developing stories over time",
       "/playbook": "Actionable engineering lessons",
       "/map": "Essential know-how for production agents",

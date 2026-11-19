@@ -48,6 +48,7 @@ from pipeline.build_skill_lab import (  # noqa: E402
     validate_record as validate_skill_lab_record,
 )
 from pipeline.story_store import story_sid  # noqa: E402
+from pipeline import community  # noqa: E402
 
 STATE_PATH = ROOT / "data" / "email" / "state.json"
 SKILL_LAB_DIR = ROOT / "data" / "playbook" / "lab"
@@ -594,6 +595,7 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
     n_cats = len(cats)
     sub_meta = f"{n} picks · {n_cats} theme{'s' if n_cats != 1 else ''} · ~{mins} min · one shared ranking, no filter bubble"
     preheader = html.escape(_preheader(recap, articles))
+    community_html = render_community_email(cfg, "daily", recap_date)
     body = f"""\
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#fff">{preheader}{PREHEADER_PAD}</div>
 <div style="max-width:640px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111">
@@ -605,6 +607,7 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
   {intro_html}
   {cats_html}
   {thread_html}
+  {community_html}
   <div style="margin:26px 0 10px;padding:12px;border-radius:8px;background:#f6f8fa;text-align:center;font-size:14px;font-weight:600;color:#1a7f37">✅ You're caught up.</div>
   <div style="font-size:12px;color:#999;margin-top:18px;line-height:1.6">
     <a href="{html.escape(daily_page)}" style="color:#1a6dd6">Read this on the web</a> ·
@@ -614,6 +617,42 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
   </div>
 </div>"""
     return subject, body
+
+
+def render_community_email(cfg: dict, kind: str, edition: str) -> str:
+    """The "From the community" block: the recap's agent-written thread, or ""
+    when there is no valid post for this edition. English thread only."""
+    if not edition:
+        return ""
+    post = community.load_post(kind, edition)
+    thread = community.thread_for(post, "en")
+    if not thread:
+        return ""
+    base = cfg["site_base"].rstrip("/")
+    url = f"{base}{community.post_path(kind, edition, 'en')}?utm_source={cfg['utm_source']}"
+    title = html.escape(clean(str(thread.get("title") or ""), 160))
+    n = community.comment_count(thread.get("comments"))
+    top = community.top_comment(thread)
+    quote_html = ""
+    if top:
+        first = (community.lines(top.get("body")) or [""])[0]
+        quote_html = (
+            '<div style="font-size:13px;line-height:1.5;color:#444;margin-top:6px">'
+            f'<strong style="color:#111">{html.escape(clean(str(top.get("author") or ""), 40))}</strong> '
+            f"{html.escape(clean(first, 200))}</div>"
+        )
+    period = "today" if kind == "daily" else "this week"
+    return (
+        '<div style="margin:24px 0 6px;padding:12px 14px;border-radius:8px;border-left:4px solid #1a6dd6;background:#f6f8fa">'
+        '<div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#1a6dd6">'
+        "💬 From the community</div>"
+        f'<div style="font-size:15px;font-weight:600;line-height:1.35;margin-top:4px">'
+        f'<a href="{html.escape(url)}" style="color:#111;text-decoration:none">{title}</a></div>'
+        f'<div style="font-size:12px;color:#888;margin-top:3px">The agent that writes this brief, on {period}\'s news · {n} comments</div>'
+        f"{quote_html}"
+        f'<div style="font-size:13px;font-weight:600;margin-top:8px"><a href="{html.escape(url)}" '
+        'style="color:#1a6dd6;text-decoration:none">Read the thread →</a></div></div>'
+    )
 
 
 def render_skill_lab_email(cfg: dict, lab: dict | None) -> str:
@@ -758,6 +797,7 @@ def render_weekly(
     pre = clean(highlights[0], 110) if highlights else clean(" ".join(intro[:1]), 110)
     preheader = html.escape(f"{pre} — your weekly catch-up.")
     skill_lab_html = render_skill_lab_email(cfg, skill_lab)
+    community_html = render_community_email(cfg, "weekly", str(wk.get("week") or ""))
     video_html = video_link_html(cfg, wk, f"/weekly/{wk.get('week','')}", "Watch the weekly explainer")
     body = f"""\
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#fff">{preheader}{PREHEADER_PAD}</div>
@@ -772,6 +812,7 @@ def render_weekly(
   {thread_html}
   {wiki_html}
   {skill_lab_html}
+  {community_html}
   <div style="font-size:12px;color:#999;margin-top:22px;line-height:1.6">
     <a href="{html.escape(weekly_page)}" style="color:#1a6dd6">Read the full recap</a> ·
     <a href="{html.escape(feed_url)}" style="color:#1a6dd6">Open the feed</a>{unsub}<br>

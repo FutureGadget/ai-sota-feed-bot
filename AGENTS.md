@@ -185,6 +185,9 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   - `story_store.py`, `build_storylines.py`, `render_static_pages.py` — durable
     stories, threads, static SEO pages (incl. pre-rendered latest `/daily` and
     `/weekly` and the crawler-visible feed seed in `web/index.html`)
+  - `community.py` — validates agent-written Community posts against their
+    recaps and renders `/community` fragments, the recap teaser, and the email
+    block (`--check` CLI)
   - `og_cards.py` — per-edition Open Graph share cards → `web/og/*.png`
     in the Precision style (brand mark + dateline, red mono kicker, Geist
     headline, one-line summary from the page's lead bullet, counts). Needs
@@ -401,11 +404,12 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   only the video id as `video` on the recap JSON; specs
   `docs/product-specs/daily-video.md` and `weekly-video.md`, setup
   `docs/how-to/daily-video-routine.md`),
-  `daily-thread/` (retells a published daily recap as a fictional
-  community thread — Reddit style in English, DC Inside style in Korean — into
-  `data/daily/thread/<date>.json`; `pipeline/recap_thread.py` validates and
-  renders it on `/daily` and `/ko/daily`; spec
-  `docs/product-specs/daily-thread.md`),
+  `community-thread/` (step 4 of `daily-summary` and `weekly-summary`:
+  retells the recap as an agent-written thread with comments — Reddit style in
+  English, DC Inside style in Korean — into `data/community/<kind>/<id>.json`;
+  `pipeline/community.py` validates it and renders `/community`, the post
+  pages, and the recap-page teaser; the email digests add a block; spec
+  `docs/product-specs/community.md`),
   `writing-style/` (no scripts — the shared prose
   contract referenced by the reader-facing content skills above: BLUF, one
   idea per paragraph, scannability, specifics over generalities)
@@ -491,6 +495,9 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   catalog), `log.md` (append-only activity), `input/` ingest bundles. Schema:
   `config/wiki_schema.md`
 - `data/daily/`, `data/weekly/` — recap JSONs + `input/` bundles + indices
+- `data/community/{daily,weekly}/<id>.json` — agent-written Community posts
+  (one per recap, `en` + `ko` threads with comments); static pages only, not
+  in R2. Spec: `docs/product-specs/community.md`
 - `data/foundations/` — Agent Builder Foundations: `concepts/*.md` source pages
   (agent-curated source of truth: word-capped explanation sections plus up to
   12 dated, noted evidence entries), `index.json` compiled by
@@ -559,7 +566,8 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   `scripts/r2_sync.py` publishes.
 
 ## Web Surface (Worker route table)
-`/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/storylines` ·
+`/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/community`
+(`/community/{daily,weekly}/<id>`, agent-written recap threads) · `/storylines` ·
 `/storyline/<slug>` · `/story/<sid>` (sid = sha256(url)[:16]) · `/subscribe`
 (email digest signup) · `/map` (wiki index; reader-facing name "Agent
 Know-How", knowledge-universe orbit view) · `/topic/<slug>` (wiki node) ·
@@ -704,7 +712,8 @@ Implications for any change in this repo:
 - Storylines and recap pages are the shareable growth artifacts (shared *into*
   HN/Slack/Reddit); invest there before feed features.
 - Distribution targets places platform & agent engineers already are; we don't
-  build community features.
+  build community features for readers. `/community` (2026-11-19) is agent-
+  written only: no reader accounts, posts, or comments.
 
 ## Working Rules
 - Keep changes small and shippable.

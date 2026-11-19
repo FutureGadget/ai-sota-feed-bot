@@ -34,6 +34,7 @@ DESTINATIONS = (
     ("/", "Live feed"),
     ("/daily", "Daily recap"),
     ("/weekly", "Weekly recap"),
+    ("/community", "Community"),
     ("/storylines", "Storylines"),
     ("/playbook", "Playbook"),
     ("/map", "Agent Know-How"),

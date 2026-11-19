@@ -8,6 +8,7 @@ Before acting, read these contracts completely:
 2. `AGENTS.md`, especially **Product Positioning**
 3. `.agents/skills/daily-summary/SKILL.md`
 4. `.agents/skills/writing-style/SKILL.md`
+5. `.agents/skills/community-thread/SKILL.md`
 
 ## Run the routine
 
@@ -35,6 +36,9 @@ Confirm the changed files contain no placeholder or sample content.
   ```text
   data/daily/
   web/daily/
+  data/community/
+  web/community/
+  web/ko/community/
   web/sitemap.xml
   web/robots.txt
   ```
@@ -71,5 +75,5 @@ Never force-push or bypass failed validation. If the fallback cannot be
 completed, report the blocker and the unmerged branch or pull request.
 
 Report the target date, input article count, published article and category
-counts, validation result, commit SHA or no-op reason, and final publication
-result.
+counts, Community post result, validation result, commit SHA or no-op
+reason, and final publication result.
