@@ -25,6 +25,29 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export function subscribeLocale(value) {
   return String(value || '').trim().toLowerCase() === 'ko' ? 'ko' : 'en';
 }
+
+// The send time an English signup asked for: 'us' (11:30 UTC) or the default
+// 'kst' (23:00 UTC, the original send). Korean is always 'kst'.
+export function subscribeSlot(value, locale = 'en') {
+  return locale === 'en' && String(value || '').trim().toLowerCase() === 'us' ? 'us' : 'kst';
+}
+
+// The Resend segment for a language + send time, and every edition segment
+// that is configured (so a switch can leave the others).
+export function editionSegments(env = process.env) {
+  const read = (name) => String(env[name] || '').trim();
+  return {
+    en: read('EMAIL_SEGMENT_ID') || read('EMAIL_AUDIENCE_ID'),
+    ko: read('EMAIL_SEGMENT_ID_KO'),
+    enUs: read('EMAIL_SEGMENT_ID_EN_US'),
+  };
+}
+
+export function segmentFor(locale, slot, segments = editionSegments()) {
+  if (locale === 'ko' && segments.ko) return segments.ko;
+  if (locale === 'en' && slot === 'us' && segments.enUs) return segments.enUs;
+  return segments.en;
+}
 function resendCall(apiKey, method, path, payload) {
   return fetch(`https://api.resend.com${path}`, {
     method,
@@ -44,10 +67,10 @@ async function withRateRetry(call) {
   return call();
 }
 
-// An existing subscriber who signs up again with the other language switches
-// editions: join the requested edition's segment first, then leave the other,
-// so a failure in between never leaves them with no edition.
-export async function switchEdition(apiKey, email, targetSegment, otherSegment) {
+// An existing subscriber who signs up again with another language or send
+// time switches editions: join the requested edition's segment first, then
+// leave the others, so a failure in between never leaves them with no edition.
+export async function switchEdition(apiKey, email, targetSegment, otherSegments) {
   const contact = encodeURIComponent(email);
   const added = await withRateRetry(() =>
     resendCall(apiKey, 'POST', `/contacts/${contact}/segments/${encodeURIComponent(targetSegment)}`),
@@ -55,11 +78,13 @@ export async function switchEdition(apiKey, email, targetSegment, otherSegment) 
   if (!added.ok && added.status !== 409 && added.status !== 422) {
     return { ok: false, step: 'add', status: added.status };
   }
-  const removed = await withRateRetry(() =>
-    resendCall(apiKey, 'DELETE', `/contacts/${contact}/segments/${encodeURIComponent(otherSegment)}`),
-  );
-  if (!removed.ok && removed.status !== 404) {
-    return { ok: false, step: 'remove', status: removed.status };
+  for (const other of [].concat(otherSegments || [])) {
+    const removed = await withRateRetry(() =>
+      resendCall(apiKey, 'DELETE', `/contacts/${contact}/segments/${encodeURIComponent(other)}`),
+    );
+    if (!removed.ok && removed.status !== 404) {
+      return { ok: false, step: 'remove', status: removed.status };
+    }
   }
   return { ok: true };
 }
@@ -75,8 +100,12 @@ const WELCOME = {
     title: "You're in.",
     lead: 'LLM Digest is the AI brief for engineers who build and run AI systems: one shared ranking, no filter bubble, and it ends.',
     whatLabel: 'What you will get',
-    daily: ['Daily brief', 'Every morning. The day’s platform and agent news, ranked, deduped and grouped by theme. About five minutes.'],
-    weekly: ['Weekly recap', 'Saturday morning. What happened this week, the storylines that moved, and what to read if you only read one thing.'],
+    daily: ['Daily brief', '{daily}. The day’s platform and agent news, ranked, deduped and grouped by theme. About five minutes.'],
+    weekly: ['Weekly recap', '{weekly}. What happened this week, the storylines that moved, and what to read if you only read one thing.'],
+    times: {
+      kst: { daily: 'Every morning at 8:00 Seoul time (23:00 UTC)', weekly: 'Saturday at 8:00 Seoul time' },
+      us: { daily: 'Every day at 11:30 UTC, early morning in New York', weekly: 'Saturday at 12:00 UTC' },
+    },
     memory: ['Memory', 'Stories are followed across days, so each brief tells you what happened next.'],
     cta: "Read today's brief",
     ctaWeekly: "Read this week's recap",
@@ -90,8 +119,11 @@ const WELCOME = {
     title: '구독이 완료됐습니다.',
     lead: 'LLM Digest는 AI 시스템을 만들고 운영하는 엔지니어를 위한 브리프입니다. 모두에게 같은 랭킹, 필터 버블 없이, 끝이 있습니다.',
     whatLabel: '받게 될 메일',
-    daily: ['데일리 브리프', '매일 오전 8시(한국 시간). 그날의 플랫폼·에이전트 소식을 랭킹하고 중복을 걸러 테마별로 묶었습니다. 약 5분.'],
-    weekly: ['위클리 리캡', '토요일 오전 8시. 이번 주에 일어난 일과 움직인 스토리, 하나만 읽는다면 읽을 것.'],
+    daily: ['데일리 브리프', '{daily}. 그날의 플랫폼·에이전트 소식을 랭킹하고 중복을 걸러 테마별로 묶었습니다. 약 5분.'],
+    weekly: ['위클리 리캡', '{weekly}. 이번 주에 일어난 일과 움직인 스토리, 하나만 읽는다면 읽을 것.'],
+    times: {
+      kst: { daily: '매일 오전 8시(한국 시간)', weekly: '토요일 오전 8시' },
+    },
     memory: ['맥락', '스토리를 날짜를 넘어 따라가서, 매 브리프가 그다음 소식을 알려 줍니다.'],
     cta: '오늘 브리프 읽기',
     ctaWeekly: '이번 주 리캡 읽기',
@@ -113,12 +145,14 @@ function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 }
 
-export function welcomeEmail({ from, locale = 'en', weeklyOnly = false, siteBase = 'https://www.llm-digest.com' }) {
+export function welcomeEmail({ from, locale = 'en', weeklyOnly = false, slot = 'kst', siteBase = 'https://www.llm-digest.com' }) {
   const t = WELCOME[locale] || WELCOME.en;
+  const when = t.times[slot] || t.times.kst;
+  const fill = ([name, desc]) => [name, desc.replace('{daily}', when.daily).replace('{weekly}', when.weekly)];
   const base = siteBase.replace(/\/$/, '');
   const prefix = locale === 'ko' ? '/ko' : '';
   const latest = `${base}${prefix}${weeklyOnly ? '/weekly' : '/daily'}?utm_source=email&utm_medium=email&utm_campaign=welcome-${locale}`;
-  const items = weeklyOnly ? [t.weekly, t.memory] : [t.daily, t.weekly, t.memory];
+  const items = (weeklyOnly ? [t.weekly, t.memory] : [t.daily, t.weekly, t.memory]).map(fill);
   const cta = weeklyOnly ? t.ctaWeekly : t.cta;
   const keepAll = locale === 'ko' ? ';word-break:keep-all' : '';
   const rows = items
@@ -165,13 +199,14 @@ export function welcomeEmail({ from, locale = 'en', weeklyOnly = false, siteBase
   return { from, to: [], subject: t.subject, html, text };
 }
 
-async function sendWelcome(apiKey, email, locale, weeklyOnly) {
+async function sendWelcome(apiKey, email, locale, weeklyOnly, slot = 'kst') {
   const from = String(process.env.EMAIL_FROM || '').trim();
   if (!from) return;
   const payload = welcomeEmail({
     from,
     locale,
     weeklyOnly,
+    slot,
     siteBase: String(process.env.SITE_BASE_URL || 'https://www.llm-digest.com'),
   });
   payload.to = [email];
@@ -261,10 +296,13 @@ export async function POST(request) {
   // Language edition: Korean readers go to EMAIL_SEGMENT_ID_KO, which the
   // Korean broadcast targets; everyone else (and Korean readers when that
   // segment is not configured) to the English segment.
+  // Send time: English readers who chose the US-morning send go to
+  // EMAIL_SEGMENT_ID_EN_US when it is configured; everyone else keeps the
+  // original 23:00 UTC send.
   const locale = subscribeLocale(body.locale);
-  const englishSegment = String(process.env.EMAIL_SEGMENT_ID || process.env.EMAIL_AUDIENCE_ID || '').trim();
-  const koreanSegment = String(process.env.EMAIL_SEGMENT_ID_KO || '').trim();
-  const segmentId = locale === 'ko' && koreanSegment ? koreanSegment : englishSegment;
+  const segments = editionSegments();
+  const slot = segments.enUs ? subscribeSlot(body.send_time, locale) : 'kst';
+  const segmentId = segmentFor(locale, slot, segments);
   if (segmentId) payload.segments = [{ id: segmentId }];
 
   try {
@@ -278,16 +316,16 @@ export async function POST(request) {
     }
 
     if (r.ok) {
-      await sendWelcome(apiKey, email, locale, weeklyOnly);
+      await sendWelcome(apiKey, email, locale, weeklyOnly, slot);
       return Response.json({ ok: true });
     }
     // 409/422 typically means the contact already exists — a re-subscribe is
     // success (idempotent). When both language editions are configured, it
     // also moves the contact to the edition this signup asked for.
     if (r.status === 409 || r.status === 422) {
-      if (englishSegment && koreanSegment && englishSegment !== koreanSegment) {
-        const other = segmentId === koreanSegment ? englishSegment : koreanSegment;
-        const moved = await switchEdition(apiKey, email, segmentId, other);
+      const others = [...new Set([segments.en, segments.ko, segments.enUs].filter((id) => id && id !== segmentId))];
+      if (segmentId && others.length) {
+        const moved = await switchEdition(apiKey, email, segmentId, others);
         if (!moved.ok) {
           console.error('resend edition switch failed', moved.step, moved.status);
           return Response.json({ error: 'provider_error', status: moved.status }, { status: 502 });

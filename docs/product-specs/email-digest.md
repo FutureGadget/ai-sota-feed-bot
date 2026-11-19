@@ -353,12 +353,35 @@ family but is a **conversion utility first** — clarity and trust outrank novel
   choice), and "You're getting this because you subscribed at llm-digest.com."
   Resend Broadcasts add the List-Unsubscribe headers themselves.
 
-## Send times and welcome email (2026-11-19)
-- **Send times:** each edition goes out at its readers' morning: Korean daily
-  23:00 UTC (08:00 KST) and weekly Friday 23:00 UTC; English daily 11:30 UTC
-  (07:30 ET) and weekly Saturday 12:00 UTC. One cron-job.org job per edition
-  passes `inputs.locale` (`docs/how-to/hourly-trigger-cron-job-org.md`).
-  Storyline follow alerts ride the English daily run only.
+## Send times and welcome email (2026-11-19, send times revised 2026-11-20)
+- **Send times:** two. The original send at 23:00 UTC (08:00 KST; weekly
+  Friday 23:00 UTC) goes to every Korean reader and to English readers on the
+  original time, which includes every subscriber from before the choice
+  existed, so nobody's delivery time changed. English readers can pick the
+  US-morning send at 11:30 UTC (06:30 EST / 07:30 EDT; weekly Saturday 12:00
+  UTC), which goes to the `EMAIL_SEGMENT_ID_EN_US` segment. Korean has one
+  send time. One cron-job.org job per send time passes `inputs.slot`
+  (`docs/how-to/hourly-trigger-cron-job-org.md`); no `slot` means the original
+  send. Storyline follow alerts ride the original daily run only.
+- **Editions and cursors:** `publish_email.py` builds one edition per language
+  and send time (`EDITIONS`): `daily`/`weekly` (English, original),
+  `daily_ko`/`weekly_ko`, and `daily_en_us`/`weekly_en_us`, each with its own
+  already-sent cursor. The US-morning edition also keeps its own storyline
+  cursor (`storylines_en_us`, seeded from the shared one) and Skill Lab ids,
+  so the earlier send does not use them up.
+- **Choosing a time:** `/subscribe` shows a Delivery time choice for English
+  once `/api/client-config` lists `email_send_slots: ["kst","us"]` (that is,
+  once `EMAIL_SEGMENT_ID_EN_US` is set in the Worker). Each option is labelled
+  in the reader's own clock ("8:00 AM" / "8:30 PM" in Seoul, "6:00 PM" /
+  "6:30 AM" in New York), and the default is the one that lands in their
+  morning, or else arrives overnight. `?time=kst|us` preselects one.
+  `api/subscribe.js` puts the contact in the matching segment; an existing
+  subscriber who signs up again with another time (or language) is moved,
+  joining the new segment first and then leaving every other edition segment.
+- **Switching from an email:** English footers link to `/subscribe` with the
+  other time preselected ("Get it in the US morning instead (11:30 UTC)" /
+  "Get it at 8:00 Seoul time instead (23:00 UTC)"), shown once the US segment
+  exists.
 - **Welcome email:** `api/subscribe.js` sends one welcome email when a signup
   creates a new contact (never on a re-subscribe), in the signup's language:
   what arrives and when (daily brief, weekly recap, storyline memory;

@@ -125,6 +125,8 @@ EMAIL_COPY = {
         "share_body": "Today's AI brief from LLM Digest: {url}\n\nGet it by email: {sub}",
         "more_in_theme": "Also in this theme",
         "switch_lang": "이 메일을 한국어로 받기",
+        "switch_time_us": "Get it in the US morning instead (11:30 UTC)",
+        "switch_time_kst": "Get it at 8:00 Seoul time instead (23:00 UTC)",
         "preheader_tail": " — then you're caught up.",
         "more": " · +{n} more",
         "weekly_header": "LLM Digest · Weekly recap",
@@ -638,6 +640,23 @@ def language_switch_html(cfg: dict, locale: str = "en") -> str:
     )
 
 
+def time_switch_html(cfg: dict, locale: str = "en", slot: str = "kst") -> str:
+    """Footer link to the signup page with the other send time preselected
+    (English only). Re-subscribing there moves the reader to that edition.
+    Empty until the US-morning segment is configured."""
+    if locale != "en" or not segment_for("en", "us"):
+        return ""
+    other = "kst" if slot == "us" else "us"
+    url = (
+        f"{cfg['site_base'].rstrip('/')}/subscribe?lang=en&time={other}"
+        f"&utm_source={cfg['utm_source']}&utm_content=footer"
+    )
+    return (
+        f' · <a href="{html.escape(url)}" style="color:#999">'
+        f"{html.escape(_t(locale, 'switch_time_' + other))}</a>"
+    )
+
+
 EMAIL_FONT_STACK = "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif"
 EMAIL_FONT_STACK_KO = (
     "-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR',"
@@ -852,7 +871,9 @@ def render_storyline_rows(cfg: dict, threads: list[dict], locale: str = "en") ->
     return "".join(rows)
 
 
-def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en") -> tuple[str, str]:
+def render_daily(
+    cfg: dict, recap: dict, threads: list[dict], locale: str = "en", slot: str = "kst"
+) -> tuple[str, str]:
     """Render the curated daily recap (``data/daily/latest.json``) as the brief.
 
     Mirrors the ``/daily`` page — the same intro, highlights ("In 30 seconds"),
@@ -956,7 +977,7 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
     daily_page = f"{cfg['site_base'].rstrip('/')}{site_path(locale, f'/daily/{recap_date}')}?utm_source={cfg['utm_source']}&utm_content=footer"
     weekly_url = f"{cfg['site_base'].rstrip('/')}/weekly?utm_source={cfg['utm_source']}&utm_content=footer"
     unsub = unsubscribe_html(cfg, locale)
-    lang_switch = language_switch_html(cfg, locale)
+    lang_switch = language_switch_html(cfg, locale) + time_switch_html(cfg, locale, slot)
     n_cats = len(cats)
     sub_meta = _t(locale, "daily_meta", n=n, cats=n_cats, s="s" if n_cats != 1 else "", mins=mins)
     preheader = html.escape(_preheader(recap, articles, locale))
@@ -982,7 +1003,8 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict], locale: str = "en"
     <div style="margin-top:8px;line-height:1.6">{_t(locale, "why")} {_t(locale, "tagline")}</div>
   </div>
 </div>"""
-    inner = with_utm(cfg, inner, utm_medium="email", utm_campaign=f"daily-{recap_date}-{locale}")
+    edition = locale if slot == "kst" else f"{locale}-{slot}"
+    inner = with_utm(cfg, inner, utm_medium="email", utm_campaign=f"daily-{recap_date}-{edition}")
     return subject, email_document(inner, locale)
 
 
@@ -1068,6 +1090,7 @@ def render_weekly(
     wiki: list[dict],
     skill_lab: dict | None = None,
     locale: str = "en",
+    slot: str = "kst",
 ) -> tuple[str, str]:
     """Returns (subject, html_body) for the weekly recap in ``locale``."""
     title = wk.get("title") or f"What happened in AI — week {wk.get('week','')}"
@@ -1159,7 +1182,7 @@ def render_weekly(
     feed_url = f"{base}{site_path(locale, '/')}?utm_source={utm}&utm_content=footer"
     weekly_page = f"{base}{site_path(locale, '/weekly/' + str(wk.get('week', '')))}?utm_source={utm}&utm_content=footer"
     unsub = unsubscribe_html(cfg, locale)
-    lang_switch = language_switch_html(cfg, locale)
+    lang_switch = language_switch_html(cfg, locale) + time_switch_html(cfg, locale, slot)
     pre = clean(highlights[0], 110) if highlights else clean(" ".join(intro[:1]), 110)
     preheader = html.escape(f"{pre}{_t(locale, 'weekly_preheader_tail')}")
     skill_lab_html = render_skill_lab_email(cfg, skill_lab)
@@ -1186,18 +1209,48 @@ def render_weekly(
     <div style="margin-top:8px;line-height:1.6">{_t(locale, "why")} {_t(locale, "tagline")}</div>
   </div>
 </div>"""
-    inner = with_utm(cfg, inner, utm_medium="email", utm_campaign=f"weekly-{wk.get('week', '')}-{locale}")
+    edition = locale if slot == "kst" else f"{locale}-{slot}"
+    inner = with_utm(cfg, inner, utm_medium="email", utm_campaign=f"weekly-{wk.get('week', '')}-{edition}")
     return subject, email_document(inner, locale)
 
 
 # --------------------------------------------------------------------------- #
 # Provider send (broadcast)
 # --------------------------------------------------------------------------- #
-def segment_for(locale: str) -> str:
-    """The Resend segment a locale's broadcast targets ("" when unset)."""
+# An edition is one language at one send time. "kst" is the original 23:00 UTC
+# send (08:00 in Seoul); every subscriber from before the time choice is in its
+# segments. "us" is 11:30 UTC (07:30 in New York) for English readers who pick it.
+SLOTS = ("kst", "us")
+EDITIONS = (("en", "kst"), ("ko", "kst"), ("en", "us"))
+
+
+def segment_for(locale: str, slot: str = "kst") -> str:
+    """The Resend segment an edition's broadcast targets ("" when unset)."""
     if locale == "ko":
         return (os.getenv("EMAIL_SEGMENT_ID_KO") or "").strip()
+    if slot == "us":
+        return (os.getenv("EMAIL_SEGMENT_ID_EN_US") or "").strip()
     return (os.getenv("EMAIL_SEGMENT_ID") or os.getenv("EMAIL_AUDIENCE_ID") or "").strip()
+
+
+def edition_state_key(kind: str, locale: str, slot: str = "kst") -> str:
+    """The send-cursor key of an edition: ``daily`` for the original English
+    edition, ``daily_ko``, ``daily_en_us``."""
+    if locale == "en" and slot == "kst":
+        return kind
+    return f"{kind}_{locale}" if slot == "kst" else f"{kind}_{locale}_{slot}"
+
+
+def slot_view(state: dict, slot: str) -> dict:
+    """The state an edition at ``slot`` builds from: the US-morning edition
+    keeps its own storyline and Skill Lab cursors, so the earlier send does
+    not use them up. Its storyline cursor starts from the shared one."""
+    if slot == "kst":
+        return state
+    view = dict(state)
+    view["storylines"] = state.get(f"storylines_en_{slot}") or state.get("storylines") or {}
+    view["weekly"] = state.get(f"weekly_en_{slot}") or {}
+    return view
 
 
 def resolve_topic_id(kind: str) -> str:
@@ -1222,6 +1275,7 @@ def send_broadcast(
     name: str = "",
     kind: str = "daily",
     locale: str = "en",
+    slot: str = "kst",
 ) -> bool:
     """Send the broadcast. Returns True if sent, False for a clean no-op
     (e.g. the recipient segment is empty — nothing to send, not an error).
@@ -1250,7 +1304,7 @@ def send_broadcast(
         # Audiences were renamed to Segments; a broadcast targets a segment_id
         # (optionally scoped to a topic_id). `send: true` creates + sends in one
         # call. The unsubscribe link is templated into the body (see footers).
-        segment_id = segment_for(locale)
+        segment_id = segment_for(locale, slot)
         from_addr = os.getenv("EMAIL_FROM", "").strip()
         if not segment_id or not from_addr:
             raise RuntimeError(f"resend requires the {locale} segment id and EMAIL_FROM")
@@ -1349,16 +1403,18 @@ def localized_or_english(kind: str, recap: dict, ident: str, locale: str) -> tup
     return localized, locale
 
 
-def build_daily(cfg: dict, state: dict, locale: str = "en") -> tuple[str, str, list[dict], str] | None:
+def build_daily(
+    cfg: dict, state: dict, locale: str = "en", slot: str = "kst"
+) -> tuple[str, str, list[dict], str] | None:
     """Returns (subject, body, threads, recap_date), or None when there is no
     daily recap to send (clean no-op)."""
     recap = _latest_daily()
     if not recap:
         return None
     recap_date = (recap.get("date") or "").strip()
-    threads = storyline_deltas(state, int(cfg["daily"]["max_threads"]))
+    threads = storyline_deltas(slot_view(state, slot), int(cfg["daily"]["max_threads"]))
     source, used = localized_or_english("daily", recap, recap_date, locale)
-    subject, body = render_daily(cfg, source, localize_threads(threads, used), used)
+    subject, body = render_daily(cfg, source, localize_threads(threads, used), used, slot)
     return subject, body, threads, recap_date
 
 
@@ -1497,6 +1553,7 @@ def build_weekly(
     cfg: dict,
     state: dict | None = None,
     locale: str = "en",
+    slot: str = "kst",
 ) -> tuple[str, str, dict, int, int, int, str]:
     wk = _latest_weekly()
     if not wk:
@@ -1504,13 +1561,25 @@ def build_weekly(
     start, end = wk.get("start", ""), wk.get("end", "")
     threads = storylines_in_window(start, end, int(cfg["weekly"]["max_threads"]))
     wiki = wiki_in_window(start, end, int(cfg["weekly"]["max_wiki"]))
-    skill_lab = skill_lab_in_window(start, end, _sent_skill_lab_ids(state))
+    skill_lab = skill_lab_in_window(start, end, _sent_skill_lab_ids(slot_view(state or {}, slot)))
     source, used = localized_or_english("weekly", wk, str(wk.get("week") or ""), locale)
     subject, body = render_weekly(
-        cfg, source, localize_threads(threads, used), localize_wiki(wiki, used), skill_lab, used
+        cfg, source, localize_threads(threads, used), localize_wiki(wiki, used), skill_lab, used, slot
     )
     skill_lab_id = str(skill_lab.get("id") or "") if skill_lab else ""
     return subject, body, wk, len(threads), len(wiki), int(skill_lab is not None), skill_lab_id
+
+
+def advance_storylines(state: dict, key: str, threads: list[dict]) -> None:
+    """Mark the threads an edition mailed as seen under its storyline cursor."""
+    cur = state.get(key) or (state.get("storylines") if key != "storylines" else {}) or {}
+    seen = set(cur.get("seen_sids") or [])
+    newest = cur.get("sent_through") or ""
+    for t in threads:
+        seen.update(t["member_sids"])
+        if t["last_updated"] > newest:
+            newest = t["last_updated"]
+    state[key] = {"sent_through": newest, "seen_sids": sorted(seen)}
 
 
 def main() -> int:
@@ -1521,6 +1590,12 @@ def main() -> int:
         choices=["all", *LOCALES],
         default="all",
         help="language edition(s) to build and send; all = English then Korean",
+    )
+    ap.add_argument(
+        "--slot",
+        choices=["all", *SLOTS],
+        default="kst",
+        help="send time: kst = the original 23:00 UTC send (default), us = 11:30 UTC English",
     )
     ap.add_argument("--dry-run", action="store_true", help="render to stdout, never send, never touch state")
     ap.add_argument("--force", action="store_true", help="ignore the already-sent guard")
@@ -1534,36 +1609,44 @@ def main() -> int:
     cfg = load_config()
     state = load_state()
     today = datetime.now().strftime("%Y-%m-%d")
-    locales = list(LOCALES) if args.locale == "all" else [args.locale]
+    editions = [
+        (locale, slot)
+        for locale, slot in EDITIONS
+        if args.locale in ("all", locale) and args.slot in ("all", slot)
+    ]
+    if not editions:
+        print(f"email_send_skipped=true kind={args.kind} reason=no_edition locale={args.locale} slot={args.slot}")
+        return 0
 
     # Build every edition before sending anything, so each one reads the same
     # cursor state (the English send advances the storyline cursor).
     builds: list[dict] = []
-    for locale in locales:
-        suffix = "" if locale == "en" else f" [{locale}]"
-        state_key = args.kind if locale == "en" else f"{args.kind}_{locale}"
+    for locale, slot in editions:
+        label = "" if (locale, slot) == ("en", "kst") else f" [{locale}{'' if slot == 'kst' else ' ' + slot}]"
+        state_key = edition_state_key(args.kind, locale, slot)
         if args.kind == "weekly":
             build_state = {} if args.force else state
             subject, body, wk, n_threads, n_wiki, n_skill_lab, skill_lab_id = build_weekly(
-                cfg, build_state, locale
+                cfg, build_state, locale, slot
             )
             week_key = wk.get("week", "")
             builds.append(
                 {
                     "locale": locale,
+                    "slot": slot,
                     "subject": subject,
                     "body": body,
                     "already_sent": state.get(state_key, {}).get("last_sent_week") == week_key,
                     "guard_reason": "already_sent_week",
                     "summary": f"week={week_key} threads={n_threads} wiki={n_wiki} skill_lab={n_skill_lab}",
-                    "name": f"Weekly recap — {week_key or today}{suffix}",
+                    "name": f"Weekly recap — {week_key or today}{label}",
                     "week_key": week_key,
                     "skill_lab_id": skill_lab_id,
                     "state_key": state_key,
                 }
             )
         else:
-            built = build_daily(cfg, state, locale)
+            built = build_daily(cfg, state, locale, slot)
             if built is None:
                 # No curated recap committed yet — no-op cleanly (never the raw feed).
                 print("email_send_skipped=true kind=daily reason=no_recap")
@@ -1574,12 +1657,13 @@ def main() -> int:
             builds.append(
                 {
                     "locale": locale,
+                    "slot": slot,
                     "subject": subject,
                     "body": body,
                     "already_sent": state.get(state_key, {}).get("last_sent_date") == recap_date,
                     "guard_reason": "already_sent_recap",
                     "summary": f"recap_date={recap_date} threads={len(threads)}",
-                    "name": f"Daily brief — {recap_date or today}{suffix}",
+                    "name": f"Daily brief — {recap_date or today}{label}",
                     "threads": threads,
                     "recap_date": recap_date,
                     "state_key": state_key,
@@ -1588,9 +1672,9 @@ def main() -> int:
 
     if args.dry_run:
         for b in builds:
-            print(f"<!-- locale: {b['locale']} subject: {b['subject']} -->")
+            print(f"<!-- locale: {b['locale']} slot: {b['slot']} subject: {b['subject']} -->")
             print(b["body"])
-            print(f"\n<!-- kind={args.kind} locale={b['locale']} {b['summary']} -->")
+            print(f"\n<!-- kind={args.kind} locale={b['locale']} slot={b['slot']} {b['summary']} -->")
         return 0
 
     api_key = os.getenv("EMAIL_API_KEY", "").strip()
@@ -1607,25 +1691,27 @@ def main() -> int:
             return 1
         failed = False
         for b in builds:
+            tag = b["locale"] if b["slot"] == "kst" else f"{b['locale']}-{b['slot']}"
             try:
-                send_test(cfg, api_key, to, b["subject"], b["body"], args.kind, b["locale"])
+                send_test(cfg, api_key, to, b["subject"], b["body"], args.kind, tag)
             except Exception as exc:
                 failed = True
-                print(f"email_test_failed=true kind={args.kind} locale={b['locale']} error={str(exc)[:200]}")
+                print(f"email_test_failed=true kind={args.kind} locale={b['locale']} slot={b['slot']} error={str(exc)[:200]}")
                 continue
-            print(f"email_test_sent=true kind={args.kind} locale={b['locale']} {b['summary']}")
+            print(f"email_test_sent=true kind={args.kind} locale={b['locale']} slot={b['slot']} {b['summary']}")
         return 1 if failed else 0
 
     provider = (cfg.get("provider") or "").lower()
     reader_links = None
     failed = False
     for b in builds:
-        locale = b["locale"]
+        locale, slot = b["locale"], b["slot"]
+        where = f"kind={args.kind} locale={locale} slot={slot}"
         if b["already_sent"] and not args.force:
-            print(f"email_skipped=true kind={args.kind} locale={locale} reason={b['guard_reason']}")
+            print(f"email_skipped=true {where} reason={b['guard_reason']}")
             continue
-        if provider == "resend" and not segment_for(locale):
-            print(f"email_send_skipped=true kind={args.kind} locale={locale} reason=no_segment")
+        if provider == "resend" and not segment_for(locale, slot):
+            print(f"email_send_skipped=true {where} reason=no_segment")
             continue
         if reader_links is None:
             reader_links = (
@@ -1636,39 +1722,35 @@ def main() -> int:
             print(f"email_reader_links={'on' if reader_links else 'off'}")
         body = tag_reader_links(cfg, b["body"]) if reader_links else b["body"]
         try:
-            sent = send_broadcast(cfg, api_key, b["subject"], body, b["name"], kind=args.kind, locale=locale)
+            sent = send_broadcast(cfg, api_key, b["subject"], body, b["name"], kind=args.kind, locale=locale, slot=slot)
         except Exception as exc:  # one edition failing must not block the others
             failed = True
-            print(f"email_send_failed=true kind={args.kind} locale={locale} error={str(exc)[:200]}")
+            print(f"email_send_failed=true {where} error={str(exc)[:200]}")
             continue
         if not sent:
             # Nothing was sent (e.g. empty recipient segment). Leave the cursor
             # untouched so the next run re-attempts once contacts exist.
-            print(f"email_send_skipped=true kind={args.kind} locale={locale} reason=nothing_sent")
+            print(f"email_send_skipped=true {where} reason=nothing_sent")
             continue
 
         # Advance the cursor only after a successful send, so a failure re-sends
         # rather than silently dropping a period. Save after each edition so a
         # later failure never re-sends one that already went out.
         if args.kind == "weekly":
-            if locale == "en":
+            if (locale, slot) == ("en", "kst"):
                 advance_weekly_state(state, b["week_key"], b["skill_lab_id"])
+            elif locale == "en":
+                view = {"weekly": state.get(b["state_key"]) or {}}
+                advance_weekly_state(view, b["week_key"], b["skill_lab_id"])
+                state[b["state_key"]] = view["weekly"]
             else:
                 state[b["state_key"]] = {"last_sent_week": b["week_key"]}
         else:
+            state[b["state_key"]] = {"last_sent_date": b["recap_date"]}
             if locale == "en":
-                new_seen = set(state.get("storylines", {}).get("seen_sids") or [])
-                newest = state.get("storylines", {}).get("sent_through") or ""
-                for t in b["threads"]:
-                    new_seen.update(t["member_sids"])
-                    if t["last_updated"] > newest:
-                        newest = t["last_updated"]
-                state["daily"] = {"last_sent_date": b["recap_date"]}
-                state["storylines"] = {"sent_through": newest, "seen_sids": sorted(new_seen)}
-            else:
-                state[b["state_key"]] = {"last_sent_date": b["recap_date"]}
+                advance_storylines(state, "storylines" if slot == "kst" else f"storylines_en_{slot}", b["threads"])
         save_state(state)
-        print(f"email_sent=true kind={args.kind} locale={locale} {b['summary']}")
+        print(f"email_sent=true {where} {b['summary']}")
     return 1 if failed else 0
 
 if __name__ == "__main__":

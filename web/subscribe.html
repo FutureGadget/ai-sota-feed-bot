@@ -38,6 +38,8 @@
         }
         const lang = String(url.searchParams.get('lang') || '').trim();
         if (lang === 'ko' || lang === 'en') clean.set('lang', lang);
+        const time = String(url.searchParams.get('time') || '').trim();
+        if (time === 'kst' || time === 'us') clean.set('time', time);
         const query = clean.toString();
         return `${url.pathname}${query ? `?${query}` : ''}`;
       } catch {
@@ -238,11 +240,62 @@
       }
     })();
 
-    function captureSubscribeSuccess(weeklyOnly, locale) {
+    // Send times (UTC) a signup can pick: the original 23:00 UTC send, and
+    // 11:30 UTC for English readers whose morning that is. Labels show the
+    // reader's own clock, so the choice reads as "8:00 AM" vs "8:30 PM".
+    const SEND_SLOTS = [
+      { id: 'kst', utcHour: 23, utcMinute: 0 },
+      { id: 'us', utcHour: 11, utcMinute: 30 },
+    ];
+    function slotDate(slot) {
+      const d = new Date();
+      d.setUTCHours(slot.utcHour, slot.utcMinute, 0, 0);
+      return d;
+    }
+    function slotLabel(slot) {
+      try {
+        return new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' }).format(slotDate(slot));
+      } catch {
+        return slot.id === 'us' ? '11:30 UTC' : '23:00 UTC';
+      }
+    }
+    // The weekly recap goes out Friday 23:00 UTC on the original send and
+    // Saturday 12:00 UTC on the US-morning one; name that day in local time.
+    function weeklyDayFor(slotId) {
+      try {
+        const d = new Date();
+        const [weekday, hour, minute] = slotId === 'us' ? [6, 12, 0] : [5, 23, 0];
+        d.setUTCHours(hour, minute, 0, 0);
+        d.setUTCDate(d.getUTCDate() + ((weekday - d.getUTCDay() + 7) % 7));
+        return new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(d);
+      } catch {
+        return SEND_SCHEDULE.weeklyDay;
+      }
+    }
+    const PREFERRED_SLOT = (() => {
+      try {
+        const time = new URLSearchParams(window.location.search).get('time');
+        if (time === 'kst' || time === 'us') return time;
+        // Prefer the send that lands in the reader's morning (5:00-10:00),
+        // then one that arrives overnight and waits for them, then daytime.
+        const score = (slot) => {
+          const d = slotDate(slot);
+          const local = d.getHours() + d.getMinutes() / 60;
+          if (local >= 5 && local <= 10) return Math.abs(local - 7.5);
+          return local >= 22 || local < 5 ? 3 : 10;
+        };
+        return score(SEND_SLOTS[1]) < score(SEND_SLOTS[0]) ? 'us' : 'kst';
+      } catch {
+        return 'kst';
+      }
+    })();
+
+    function captureSubscribeSuccess(weeklyOnly, locale, sendTime) {
       const attribution = subscribeAttribution();
       try {
         window.aiFeedPostHog?.capture?.('subscribe_success', {
           locale: locale || 'en',
+          send_time: sendTime || 'kst',
           cadence: weeklyOnly ? 'weekly' : 'both',
           ref: attribution.ref,
           lab_id: attribution.labId,
@@ -287,8 +340,8 @@
       <fieldset class="pref mt-5 min-w-0">
         <legend class="mb-2 text-[0.82rem] font-medium">Frequency</legend>
         <div class="segmented">
-          <label class="pref-opt"><input type="radio" name="cadence" value="both" form="subscribeForm" checked /><span>Daily + ${SEND_SCHEDULE.weeklyDay}</span></label>
-          <label class="pref-opt"><input type="radio" name="cadence" value="weekly" form="subscribeForm" /><span>${SEND_SCHEDULE.weeklyDay} only</span></label>
+          <label class="pref-opt"><input type="radio" name="cadence" value="both" form="subscribeForm" checked /><span>Daily + <span data-cadence-day>${SEND_SCHEDULE.weeklyDay}</span></span></label>
+          <label class="pref-opt"><input type="radio" name="cadence" value="weekly" form="subscribeForm" /><span><span data-cadence-day>${SEND_SCHEDULE.weeklyDay}</span> only</span></label>
         </div>
       </fieldset>
       <fieldset class="pref mt-5 min-w-0">
@@ -298,6 +351,13 @@
           <label class="pref-opt"><input type="radio" name="locale" value="ko" form="subscribeForm" lang="ko" ${PREFERRED_LOCALE === 'ko' ? 'checked' : ''} /><span lang="ko">한국어</span></label>
         </div>
         <p class="mt-2 text-[0.82rem] text-ink-muted">Already subscribed? Enter the same email with the other language to switch editions. <span lang="ko">이미 구독 중이라면 같은 이메일로 다시 신청하면 언어가 바뀝니다.</span></p>
+      </fieldset>
+      <fieldset class="pref mt-5 min-w-0" id="sendTimePref" hidden>
+        <legend class="mb-2 text-[0.82rem] font-medium">Delivery time</legend>
+        <div class="segmented">
+          ${SEND_SLOTS.map((slot) => `<label class="pref-opt"><input type="radio" name="send_time" value="${slot.id}" form="subscribeForm" ${PREFERRED_SLOT === slot.id ? 'checked' : ''} /><span>${slotLabel(slot)}</span></label>`).join('')}
+        </div>
+        <p class="mt-2 text-[0.82rem] text-ink-muted">In your time zone, every day. Already subscribed? Enter the same email with another time to switch.</p>
       </fieldset>
       <p id="formMessage" class="message" role="status" aria-live="polite" hidden></p>
       <p class="privacy mt-4 text-[0.82rem] text-ink-muted">No account needed. Every email has a one-click unsubscribe link.</p>`;
@@ -316,6 +376,10 @@
       const button = form.querySelector('button[type="submit"]');
       const weeklyOnly = !!(form.elements.cadence && form.elements.cadence.value === 'weekly');
       const locale = form.elements.locale && form.elements.locale.value === 'ko' ? 'ko' : 'en';
+      const timePref = document.getElementById('sendTimePref');
+      const sendTime = locale === 'en' && timePref && !timePref.hidden && form.elements.send_time
+        ? (form.elements.send_time.value === 'us' ? 'us' : 'kst')
+        : 'kst';
       const email = String(emailInput.value || '').trim();
       const honeypot = String(form.elements.website.value || '').trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -329,20 +393,21 @@
         const response = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, weekly_only: weeklyOnly, hp: honeypot, reader_id: currentReaderId(), locale }),
+          body: JSON.stringify({ email, weekly_only: weeklyOnly, hp: honeypot, reader_id: currentReaderId(), locale, send_time: sendTime }),
         });
         if (response.ok) {
           if (shouldRecordSubscribeSuccess(honeypot)) {
             markSubscribed();
-            captureSubscribeSuccess(weeklyOnly, locale);
+            captureSubscribeSuccess(weeklyOnly, locale, sendTime);
           }
           emailInput.disabled = true;
           if (form.elements.cadence) Array.from(form.elements.cadence).forEach((radio) => { radio.disabled = true; });
           if (form.elements.locale) Array.from(form.elements.locale).forEach((radio) => { radio.disabled = true; });
+          if (form.elements.send_time) Array.from(form.elements.send_time).forEach((radio) => { radio.disabled = true; });
           button.remove();
           setMessage(
             weeklyOnly
-              ? `You’re subscribed to the weekly recap. The next ${SEND_SCHEDULE.weeklyDay} recap will arrive by email.`
+              ? `You’re subscribed to the weekly recap. The next ${weeklyDayFor(sendTime)} recap will arrive by email.`
               : "You’re subscribed. The next brief will arrive by email.",
             'ok');
           return;
@@ -374,6 +439,20 @@
         if (config?.digest?.email_subscribe_enabled) {
           surface.innerHTML = formHtml();
           const form = document.getElementById('subscribeForm');
+          // The delivery-time choice is for the English edition, and only once
+          // the second send time exists (client-config lists it).
+          const slots = Array.isArray(config?.digest?.email_send_slots) ? config.digest.email_send_slots : ['kst'];
+          const timePref = document.getElementById('sendTimePref');
+          const syncTimePref = () => {
+            const locale = form.elements.locale && form.elements.locale.value === 'ko' ? 'ko' : 'en';
+            if (timePref) timePref.hidden = !(slots.includes('us') && locale === 'en');
+            const slot = timePref && !timePref.hidden && form.elements.send_time && form.elements.send_time.value === 'us' ? 'us' : 'kst';
+            const day = weeklyDayFor(slot);
+            document.querySelectorAll('[data-cadence-day]').forEach((el) => { el.textContent = day; });
+          };
+          if (form.elements.locale) Array.from(form.elements.locale).forEach((radio) => radio.addEventListener('change', syncTimePref));
+          if (form.elements.send_time) Array.from(form.elements.send_time).forEach((radio) => radio.addEventListener('change', syncTimePref));
+          syncTimePref();
           form.addEventListener('submit', (event) => {
             event.preventDefault();
             submitForm(form);
