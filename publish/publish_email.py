@@ -1307,18 +1307,14 @@ def send_test(cfg: dict, api_key: str, to: str, subject: str, html_body: str, ki
     if not from_addr:
         raise RuntimeError("test sends need EMAIL_FROM")
     body = test_body(cfg, html_body)
-    r = requests.post(
-        "https://api.resend.com/emails",
-        headers={"Authorization": f"Bearer {api_key}"},
-        json={
-            "from": from_addr,
-            "to": [to],
-            "subject": f"[TEST {kind} {locale}] {subject}",
-            "html": body,
-            "text": html_to_text(body),
-        },
-        timeout=30,
-    )
+    payload = {
+        "from": from_addr,
+        "to": [to],
+        "subject": f"[TEST {kind} {locale}] {subject}",
+        "html": body,
+        "text": html_to_text(body),
+    }
+    r = requests.post("https://api.resend.com/emails", headers={"Authorization": f"Bearer {api_key}"}, json=payload, timeout=30)
     r.raise_for_status()
 
 

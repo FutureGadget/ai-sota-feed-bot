@@ -3209,3 +3209,18 @@ content artifacts stay valid either way.
 - **Rollback:** revert the PR; set `full_items_per_theme` high to show every
   summary again.
 
+## 2026-11-19 - Per-edition send times and a welcome email
+
+- **Decision:** Send the English edition at 11:30 UTC (weekly Saturday 12:00
+  UTC) and keep the Korean one at 23:00 UTC; send a welcome email when a
+  signup creates a new contact. No Reply-To and no "reply to this email"
+  prompt: the owner does not want replies.
+- **Rationale:** 23:00 UTC is 08:00 in Seoul but mid-afternoon or evening of
+  the previous day in the US. New subscribers heard nothing until the next
+  digest.
+- **Impact:** cron-job.org gets one job per edition (the workflow already
+  takes `inputs.locale`); follow alerts run on the English daily only;
+  `api/subscribe.js` makes one extra Resend call per new contact;
+  `EMAIL_FROM` joins the Worker vars.
+- **Rollback:** point the cron-job.org jobs back to bodies without `locale`;
+  unset `EMAIL_FROM` in the Worker to stop welcome emails.

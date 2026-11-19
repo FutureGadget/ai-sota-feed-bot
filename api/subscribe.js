@@ -64,6 +64,125 @@ export async function switchEdition(apiKey, email, targetSegment, otherSegment) 
   return { ok: true };
 }
 
+// Welcome email for a brand-new subscriber: what arrives and when, and one
+// button to the latest brief. Sent once, only when the contact was just
+// created, and best-effort: a failure never fails the signup. Needs EMAIL_FROM.
+const WELCOME = {
+  en: {
+    subject: "You're in: welcome to LLM Digest",
+    preheader: 'What arrives, when, and how to read it in five minutes.',
+    kicker: 'Welcome',
+    title: "You're in.",
+    lead: 'LLM Digest is the AI brief for engineers who build and run AI systems: one shared ranking, no filter bubble, and it ends.',
+    whatLabel: 'What you will get',
+    daily: ['Daily brief', 'Every morning. The day’s platform and agent news, ranked, deduped and grouped by theme. About five minutes.'],
+    weekly: ['Weekly recap', 'Saturday morning. What happened this week, the storylines that moved, and what to read if you only read one thing.'],
+    memory: ['Memory', 'Stories are followed across days, so each brief tells you what happened next.'],
+    cta: "Read today's brief",
+    ctaWeekly: "Read this week's recap",
+    manage: 'Every email has a link at the bottom to switch to weekly only or unsubscribe.',
+    tagline: 'The finishable AI feed for platform and agent engineers.',
+  },
+  ko: {
+    subject: 'LLM Digest 구독을 환영합니다',
+    preheader: '언제 무엇이 오는지, 5분 안에 읽는 법.',
+    kicker: '환영합니다',
+    title: '구독이 완료됐습니다.',
+    lead: 'LLM Digest는 AI 시스템을 만들고 운영하는 엔지니어를 위한 브리프입니다. 모두에게 같은 랭킹, 필터 버블 없이, 끝이 있습니다.',
+    whatLabel: '받게 될 메일',
+    daily: ['데일리 브리프', '매일 오전 8시(한국 시간). 그날의 플랫폼·에이전트 소식을 랭킹하고 중복을 걸러 테마별로 묶었습니다. 약 5분.'],
+    weekly: ['위클리 리캡', '토요일 오전 8시. 이번 주에 일어난 일과 움직인 스토리, 하나만 읽는다면 읽을 것.'],
+    memory: ['맥락', '스토리를 날짜를 넘어 따라가서, 매 브리프가 그다음 소식을 알려 줍니다.'],
+    cta: '오늘 브리프 읽기',
+    ctaWeekly: '이번 주 리캡 읽기',
+    manage: '모든 메일 하단의 링크에서 위클리만 받거나 수신을 거부할 수 있습니다.',
+    tagline: '플랫폼·에이전트 엔지니어를 위한 끝이 있는 AI 피드.',
+  },
+};
+
+const WELCOME_FONTS = "-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic','Noto Sans KR','Segoe UI',Roboto,Helvetica,Arial,sans-serif";
+const WELCOME_DARK_CSS =
+  ':root{color-scheme:light dark;supported-color-schemes:light dark}' +
+  '@media (prefers-color-scheme: dark){' +
+  '.w-bg{background:#121417!important}.w-card{background:#1c2026!important;border-color:#30363d!important}' +
+  '.w-text{color:#e6edf3!important}.w-soft{color:#c9d1d9!important}.w-muted{color:#8b949e!important}' +
+  '.w-accent{color:#ff7b72!important}.w-rule{border-color:#30363d!important}' +
+  '.w-btn{background:#e6edf3!important;color:#111111!important}}';
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+}
+
+export function welcomeEmail({ from, locale = 'en', weeklyOnly = false, siteBase = 'https://www.llm-digest.com' }) {
+  const t = WELCOME[locale] || WELCOME.en;
+  const base = siteBase.replace(/\/$/, '');
+  const prefix = locale === 'ko' ? '/ko' : '';
+  const latest = `${base}${prefix}${weeklyOnly ? '/weekly' : '/daily'}?utm_source=email&utm_medium=email&utm_campaign=welcome-${locale}`;
+  const items = weeklyOnly ? [t.weekly, t.memory] : [t.daily, t.weekly, t.memory];
+  const cta = weeklyOnly ? t.ctaWeekly : t.cta;
+  const keepAll = locale === 'ko' ? ';word-break:keep-all' : '';
+  const rows = items
+    .map(
+      ([name, desc], i) =>
+        `<tr><td class="w-rule" style="padding:14px 0;${i ? 'border-top:1px solid #e6e8eb;' : ''}">` +
+        `<div class="w-text" style="font-size:17px;font-weight:700;line-height:1.35;color:#111">${escapeHtml(name)}</div>` +
+        `<div class="w-soft" style="font-size:15px;line-height:1.55;color:#444;margin-top:3px">${escapeHtml(desc)}</div></td></tr>`,
+    )
+    .join('');
+  const html =
+    `<!DOCTYPE html><html lang="${locale}"><head><meta charset="utf-8">` +
+    '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+    '<meta name="color-scheme" content="light dark"><meta name="supported-color-schemes" content="light dark">' +
+    `<style>${WELCOME_DARK_CSS}</style></head>` +
+    '<body class="w-bg" style="margin:0;padding:0;background:#f4f5f7">' +
+    `<div style="display:none;max-height:0;overflow:hidden;opacity:0">${escapeHtml(t.preheader)}</div>` +
+    `<div class="w-bg" lang="${locale}" style="background:#f4f5f7;padding:20px 12px;font-family:${WELCOME_FONTS}${keepAll}">` +
+    '<div style="max-width:560px;margin:0 auto">' +
+    `<div class="w-muted" style="font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#6e7781;margin:0 0 12px 4px">` +
+    `<img src="${base}/logo.png" alt="" width="24" height="24" style="width:24px;height:24px;vertical-align:middle;margin-right:8px;border-radius:6px">LLM Digest</div>` +
+    '<div class="w-card" style="background:#ffffff;border:1px solid #e6e8eb;border-radius:14px;padding:28px 24px">' +
+    `<div class="w-accent" style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#d1242f">${escapeHtml(t.kicker)}</div>` +
+    `<h1 class="w-text" style="font-size:30px;line-height:1.2;margin:6px 0 12px;color:#111">${escapeHtml(t.title)}</h1>` +
+    `<p class="w-soft" style="font-size:17px;line-height:1.6;color:#333;margin:0 0 22px">${escapeHtml(t.lead)}</p>` +
+    `<div class="w-muted" style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6e7781">${escapeHtml(t.whatLabel)}</div>` +
+    `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:4px 0 22px">${rows}</table>` +
+    `<a href="${escapeHtml(latest)}" class="w-btn" style="display:block;text-align:center;padding:14px 18px;border-radius:10px;background:#111;color:#ffffff;font-size:17px;font-weight:700;text-decoration:none">${escapeHtml(cta)} →</a>` +
+    '</div>' +
+    `<p class="w-muted" style="font-size:13px;line-height:1.6;color:#6e7781;margin:16px 4px 4px">${escapeHtml(t.manage)}</p>` +
+    `<p class="w-muted" style="font-size:13px;line-height:1.6;color:#6e7781;margin:0 4px">${escapeHtml(t.tagline)} · <a href="${base}${prefix}/" class="w-muted" style="color:#6e7781;white-space:nowrap">llm-digest.com</a></p>` +
+    '</div></div></body></html>';
+  const text = [
+    t.title,
+    '',
+    t.lead,
+    '',
+    ...items.map(([name, desc]) => `${name}: ${desc}`),
+    '',
+    `${cta}: ${latest}`,
+    '',
+    t.manage,
+  ].join('\n');
+  return { from, to: [], subject: t.subject, html, text };
+}
+
+async function sendWelcome(apiKey, email, locale, weeklyOnly) {
+  const from = String(process.env.EMAIL_FROM || '').trim();
+  if (!from) return;
+  const payload = welcomeEmail({
+    from,
+    locale,
+    weeklyOnly,
+    siteBase: String(process.env.SITE_BASE_URL || 'https://www.llm-digest.com'),
+  });
+  payload.to = [email];
+  try {
+    const r = await resendCall(apiKey, 'POST', '/emails', payload);
+    if (!r.ok) console.error('resend welcome failed', r.status);
+  } catch (e) {
+    console.error('resend welcome failed', String(e).slice(0, 200));
+  }
+}
+
 function createContact(apiKey, payload) {
   return fetch('https://api.resend.com/contacts', {
     method: 'POST',
@@ -158,7 +277,10 @@ export async function POST(request) {
       r = await createContact(apiKey, withoutProperties);
     }
 
-    if (r.ok) return Response.json({ ok: true });
+    if (r.ok) {
+      await sendWelcome(apiKey, email, locale, weeklyOnly);
+      return Response.json({ ok: true });
+    }
     // 409/422 typically means the contact already exists — a re-subscribe is
     // success (idempotent). When both language editions are configured, it
     // also moves the contact to the edition this signup asked for.
