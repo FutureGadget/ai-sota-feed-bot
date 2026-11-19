@@ -4852,6 +4852,18 @@
   "url": "http://arxiv.org/abs/2611.13196v1",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "30defd378edd882a": {
+  "first_seen": "2026-11-19T22:06:45.650586+00:00",
+  "id": "ca69b4905e9a2362",
+  "published": "2026-11-19T21:44:32+00:00",
+  "sid": "30defd378edd882a",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Sarvam sells DeepSeek on its Token Factory and Indian users are furious Startup Fortune",
+  "summary_1line": "Sarvam sells DeepSeek on its Token Factory and Indian users are furious Startup Fortune",
+  "title": "Sarvam sells DeepSeek on its Token Factory and Indian users are furious",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPU2RwSEwteGdXMWhMSG9tRm5CMmkyZFpteTdsVkVGNkFvS0FFdDBsTkRHTjBZS3NwT2g5S3J5dFRjNUFucmdPa0RDQU4wZVA1dEx2WGRTajg0M0U5SXRRS3pBbHRKWlZkOHhBQXIyM2hLU0JndEpqY0lUczc0b3Z3T0xBeFI3a2N0R1NvWWxjSXgtcnJZT2lqRnJhNi15RWd6?oc=5"
+ },
  "30e3fc959dd5093e": {
   "content_excerpt": "Compromised agent-framework versions 1.26.1 and 1.26.2 on PyPI use .pth startup hooks to exfiltrate Azure, GitHub Actions, and CI/CD credentials. The Microsoft agent-framework PyPI package was compromised on November 17th, affecting versions 1.26.1 and 1.26.2. Both versions install Python startup hooks that silently collect credentials, environment data, and cloud identity tokens, then exfiltrate them to a webhook[.]site endpoint. Avoid installing either version; if installed, remove them and rotate potentially exposed credentials. On Python startup, the .pth file imports a module that launches collection in a background process/thread. Version 1.26.1 routes through agent_framework_meta.pth → agent_framework_meta/**init**.py → agent_framework_meta/_telemetry.py ; 1.26.2 uses af_runtime_diag.pth → af_runtime_diag.py . The code gathers credential-related environment variables, local config/credential files, and other processes’ environments. It also requests cloud/workflow identity tokens (including Azure in both versions and GitHub Actions OIDC in 1.26.2). It serializes the results, compresses and Base64-encodes them, then POSTs them to the same concealed webhook.site endpoint: https[://]webhook[.]site/d381fd80-ec62-42ad-8f5c-d1b15103c9bb agent_framework_meta.pth executes on interpreter startup through Python’s site processing: agent_framework_meta/__init__.py adds a supposedly diagnostic hook that imports and starts the payload, suppressing errors: agent_framework_meta/_telem",
   "first_seen": "2026-11-18T05:05:12.923622+00:00",
@@ -11765,6 +11777,22 @@
   "url": "https://simonwillison.net/2026/Nov/9/details-summary",
   "why_it_matters": "Matches feed focus: agent, codex, claude code."
  },
+ "7a5e69e8b0d78e01": {
+  "content_excerpt": "Four of the five moved without one wrong answer. The fifth should stay where it is. We ran five routine AI jobs on a top closed model and on two open models. A month of that work cost $258.53 on Claude Sonnet 5.5. It cost $11.04 on the cheapest setup that got every answer right. Four of the five jobs moved without one wrong answer. The fifth did not, and it should stay where it is. An AI agent re-reads its whole instruction book every time it does anything. In this test that book was about 14,000 tokens, roughly 20 pages. Claude Sonnet 5.5 billed about 20,000 input tokens on each call. At $2 per million input tokens, each call costs about 4 cents before the model answers. A check that runs every 30 minutes is 1,440 calls a month. That is $57.57 a month, mostly to hear \"nothing new\". The open models charge far less for the same pages. gpt-oss-120b lists at $0.03 per million input tokens. DeepSeek V4 Pro lists at about $0.66. A call that cost 4 cents on Claude Sonnet 5.5 cost about a fifth of a cent on DeepSeek V4 Pro and about a twentieth of a cent on gpt-oss-120b. The baseline was Claude Sonnet 5.5, five runs per job. The open side was gpt-oss-120b and DeepSeek V4 Pro, ten runs per job each, on the two cheapest hosts our nightly grades allow. Temperature was zero. Code graded every answer against a stated answer. No model graded another model. The whole test billed $1.29. The rule for moving a job: the cheapest model that got every run right. The winning price for each job is",
+  "first_seen": "2026-11-19T22:06:45.650586+00:00",
+  "id": "62b45c29d80190d6",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-19T20:54:38+00:00",
+  "sid": "7a5e69e8b0d78e01",
+  "source": "hackernews_ai",
+  "summary_1line": "Five agent chores: $258 on a top model, $11 on open models",
+  "title": "Five agent chores: $258 on a top model, $11 on open models",
+  "type": "news",
+  "url": "https://bitdepth.dev/blog/five-routine-ai-jobs",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "7ac1c45f7bd0ae53": {
   "content_excerpt": "Stateful real-time processing, history-preserving pipelines, and faster small-data development by Jungtaek Lim , Wenchen Fan , Andreas Neumann , Serge Rielau , Hyukjin Kwon , Jerry Peng , DB Tsai , Daniel Tenedorio , Xiao Li and Reynold Xin Apache Spark 4.3 brings stateful processing to Real-Time Mode, achieving sub-150 ms P99 end-to-end latency across three representative stateful benchmarks. Streaming aggregations, deduplication, and custom stateful processing can now run in Structured Streaming's low-latency execution mode, extending it to applications that need to remember context across events. The impact goes beyond faster pipelines. For supported workloads, you no longer need a separate streaming engine just to achieve millisecond-scale latency. From fraud detection to continuously updated user activity and device monitoring, developers can build stateful applications with familiar Structured Streaming APIs in the same open engine they use for batch processing, analytics, and AI. Stateful real-time streaming is the headline of Spark 4.3, but the improvements extend across the engine. The release delivers five key benefits: Together, these changes help developers use one open engine to explore data, maintain changing context, and power analytical and AI applications. Spark 4.3 also marks the start of a quarterly feature-release cadence , moving from one release every six months to one every three months. This shorter cycle puts completed improvements into users' hands s",
   "first_seen": "2026-11-05T00:05:21.014824+00:00",
@@ -13046,6 +13074,7 @@
   "published": "2026-11-19T20:00:15+00:00",
   "sid": "88461657b387a0e6",
   "source": "nvidia_blog",
+  "summary": "NVIDIA and Microsoft are extending their full-stack collaboration to help organizations build, customize and deploy intelligent applications — from next-generation infrastructure on Azure to industrial systems and Windows PCs. At Microsoft Ignite, the companies are expanding access to Azure virtual machines powered by NVIDIA Vera Rubin NVL72 systems, as well as adding customer availability to […]",
   "summary_1line": "NVIDIA and Microsoft are extending their full-stack collaboration to help organizations build, customize and deploy intelligent applications — from next-generation infrastructure on Azure to industrial systems and Windows PCs. At Microsoft Ignite, the companies are expanding acce",
   "title": "NVIDIA and Microsoft Expand Accelerated Computing From Azure to Windows PCs",
   "type": "news",
@@ -15826,6 +15855,18 @@
   "type": "news",
   "url": "https://paneflow.dev/blog/agent-status-osc-7501",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "a34c118cc3850b60": {
+  "first_seen": "2026-11-19T22:06:45.650586+00:00",
+  "id": "1630c53ae0f14775",
+  "published": "2026-11-18T12:11:43+00:00",
+  "sid": "a34c118cc3850b60",
+  "source": "arxiv_cs_cl",
+  "summary": "Looped Transformers achieve large effective depth with compact models by repeatedly applying a weight-shared block across R recurrent steps, each maintaining a loop-specific key-value (KV) cache. To accelerate sequential loop execution, recent wave-style self-speculative methods like WaveFront Decoding (WFD) and LoopSpec pipeline draft and target tokens across loops in a single step. However, they face two critical limitations. First, they draft only at fixed loops and ignore intermediate prediction changes, wasting computation on stale trajectories. Second, batching tokens from different loops loads up to Rx the KV cache per step, severely amplifying memory traffic in long-context scenarios. To address these challenges, we propose LoopCache, an efficient self-speculative decoding framework for long-context Looped Transformers. Based on the correlation between prediction switches and output confidence, LoopCache introduces confidence-guided dynamic draft updating to refine drafts in flight across all intermediate loops. Furthermore, LoopCache employs a cyclic loop KV cache strategy that rotates through loop-specific KV caches, restricting per-step KV traffic to a single loop while batching tokens at the nearest matching cycle for lossless verification. By also selectively retaining independent KV caches for a few loop-sensitive shallow layers, LoopCache improves acceptance rates with negligible overhead. Experiments show that LoopCache achieves average 10.25x and 14.56x speed",
+  "summary_1line": "Looped Transformers achieve large effective depth with compact models by repeatedly applying a weight-shared block across R recurrent steps, each maintaining a loop-specific key-value (KV) cache. To accelerate sequent...",
+  "title": "LoopCache: Accelerating Long-Context Self-Speculative Decoding for Looped Transformers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24301v1"
  },
  "a34f1fafb710e628": {
   "first_seen": "2026-11-11T03:11:00.633338+00:00",
@@ -23694,6 +23735,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.12118v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "f660365bd40d4c4d": {
+  "content_excerpt": "AI and graph technologies give agents the understanding they need to generate trustworthy outputs, and humans the understanding they need to make better decisions. Discover how to model a knowledge graph, retrieve context with GraphRAG, connect agents with MCP, and build trustworthy AI that reasons over connected data. Load a repository’s git history into a graph with Relate’s git-to-graph extension, serve it read-only, and see what a coding agent finds with it that it cannot find in the source tree. In a popular open source codebase, security/api_key.py has been changed in 28 commits. In 18 of them oauth2.py changed too. http.py changed in 17, and open_id_connect_url.py in 16. None of those four modules imports another so nothing obvious in api_key.py points you at the other three files. The history is clear about why. Each time someone added a behavior to one security scheme, they added it to all of them: auto_error in #134, description in #1757, the 401 status code in #13786, WebSocket support in #10147. We asked three coding agents what else they would need to change before adding a constructor argument to APIKeyHeader . With only the source tree to read, none of them named those three modules. With the repository’s history loaded into a graph, all three did. This post shows how to build that graph with Relate’s git-to-graph extension , what to ask it, and what changed when Codex, OpenCode and Pi could query it. Relate is an open-source graph database built for AI agents ",
+  "first_seen": "2026-11-19T22:06:45.650586+00:00",
+  "id": "16d749728485c16c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-19T20:19:29+00:00",
+  "sid": "f660365bd40d4c4d",
+  "source": "hackernews_ai",
+  "summary_1line": "Your Coding Agent Can Read the Code. Give It the History with Relate by Neo4j",
+  "title": "Your Coding Agent Can Read the Code. Give It the History with Relate by Neo4j",
+  "type": "news",
+  "url": "https://neo4j.com/blog/developer/your-coding-agent-can-read-the-code-give-it-the-history-with-relate-by-neo4j",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "f6be7ee1b2acec0d": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. Hannes Hapke shares how Dataiku’s open-source Kiji Inspector applies Sparse Autoencoders (SAEs) directly to decision tokens to expose why agents pick specific tools. Moving past superficial chain-of-thought narratives, he discusses causal ablation, layer activation extraction via patched vLLM engines, and production monitoring workflows for software architects and senior engineering leaders. Vanessa Formicola shares how t",

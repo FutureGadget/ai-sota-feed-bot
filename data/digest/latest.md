@@ -2,146 +2,146 @@
 
 Focus: AI Platform Engineering
 
-## 1. Introducing Tool Retrieval in the Gemini API
-- Type: news | Source: google_ai_blog
-- URL: https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/
-- Score: 3.453 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+## 1. Evolving Infra: An inference framework that adapt to dynamic agent workload
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/mit-han-lab/EvolvingInfra
+- Score: 5.025 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 2. LangSmith Tool Gateway: Secure, governed tool use for agents
+## 2. Your Coding Agent Can Read the Code. Give It the History with Relate by Neo4j
+- Type: news | Source: hackernews_ai
+- URL: https://neo4j.com/blog/developer/your-coding-agent-can-read-the-code-give-it-the-history-with-relate-by-neo4j/
+- Score: 3.718 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 3. Five agent chores: $258 on a top model, $11 on open models
+- Type: news | Source: hackernews_ai
+- URL: https://bitdepth.dev/blog/five-routine-ai-jobs
+- Score: 3.588 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. Sarvam sells DeepSeek on its Token Factory and Indian users are furious
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMioAFBVV95cUxPU2RwSEwteGdXMWhMSG9tRm5CMmkyZFpteTdsVkVGNkFvS0FFdDBsTkRHTjBZS3NwT2g5S3J5dFRjNUFucmdPa0RDQU4wZVA1dEx2WGRTajg0M0U5SXRRS3pBbHRKWlZkOHhBQXIyM2hLU0JndEpqY0lUczc0b3Z3T0xBeFI3a2N0R1NvWWxjSXgtcnJZT2lqRnJhNi15RWd6?oc=5
+- Score: 3.164 | Reliability: 1.0
+- Why it matters: 
+
+## 5. LangSmith Tool Gateway: Secure, governed tool use for agents
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/langsmith-tool-gateway
-- Score: 3.182 | Reliability: 1.0
+- Score: 3.082 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. Genie One Accuracy: Why Curated Agents Need Governed Context
+## 6. Genie One Accuracy: Why Curated Agents Need Governed Context
 - Type: news | Source: databricks_blog
 - URL: https://www.databricks.com/blog/genie-one-accuracy-why-curated-agents-need-governed-context
-- Score: 3.175 | Reliability: 1.0
+- Score: 3.045 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 4. Your Software Factory Needs a Bill of Materials | Daniel Meppiel
-- Type: video | Source: ai_native_dev
-- URL: https://youtu.be/MHrw1wxSuz8
-- Score: 3.069 | Reliability: 0.833
-- Why it matters: Matches feed focus: agent, eval.
-
-## 5. PostgreSQL 19 Released
+## 7. PostgreSQL 19 Released
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Nov/19/postgresql-19/
-- Score: 3.016 | Reliability: 1.0
+- Score: 2.915 | Reliability: 1.0
 - Why it matters: 
 
-## 6. How Abundant designed efficient rollout architecture with Modal Sandboxes
+## 8. How Abundant designed efficient rollout architecture with Modal Sandboxes
 - Type: news | Source: modal_blog
 - URL: https://modal.com/blog/abundant-efficient-rollout-architecture-with-modal-sandboxes
-- Score: 2.893 | Reliability: 1.0
+- Score: 2.811 | Reliability: 1.0
 - Why it matters: 
 
-## 7. Keeping Agents Fast: High-Interactivity Decode with FlyDSL MonoKernels in vLLM
+## 9. Keeping Agents Fast: High-Interactivity Decode with FlyDSL MonoKernels in vLLM
 - Type: news | Source: vllm_blog
 - URL: https://vllm.ai/blog/2026-11-18-flydsl-monokernels
-- Score: 2.767 | Reliability: 1.0
+- Score: 2.753 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 8. LangSmith for Coding Agents: Now track spend by outcome
+## 10. LangSmith for Coding Agents: Now track spend by outcome
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/langsmith-coding-agents-roi
-- Score: 2.731 | Reliability: 1.0
+- Score: 2.715 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 9. MoE-Context: Show the Model Only What It Needs
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.24379v1
-- Score: 2.644 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 10. Vibe-Trading: Towards Agent-Native Trading
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.24845v1
-- Score: 2.643 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 11. Cap-and-Track: Optimizing LLM Inference Request Dispatch Across Shifting Capacity
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.24891v1
-- Score: 2.625 | Reliability: 1.0
+## 11. NVIDIA and Microsoft Expand Accelerated Computing From Azure to Windows PCs
+- Type: news | Source: nvidia_blog
+- URL: https://blogs.nvidia.com/blog/microsoft-ignite-accelerated-computing-azure-windows-pcs/
+- Score: 2.565 | Reliability: 1.0
 - Why it matters: 
 
-## 12. Time-Series Models in the Streamhouse: A New Frontier and Use Cases
+## 12. Why your fine-tuning job takes longer than the FLOPs say
 - Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/ibm-research/time-series-powered-streamhouse
-- Score: 2.612 | Reliability: 1.0
+- URL: https://huggingface.co/blog/Dharma-AI/predicting-fine-tuning-time
+- Score: 2.496 | Reliability: 1.0
 - Why it matters: 
 
-## 13. 180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers
+## 13. LoopCache: Accelerating Long-Context Self-Speculative Decoding for Looped Transformers
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.24301v1
+- Score: 2.425 | Reliability: 1.0
+- Why it matters: 
+
+## 14. Rumble-2-Flash: an open 0.5B speech model for 40+ languages
 - Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/moe-expert-streaming
-- Score: 2.559 | Reliability: 1.0
+- URL: https://huggingface.co/blog/rumble-2-flash
+- Score: 2.422 | Reliability: 1.0
 - Why it matters: 
 
-## 14. Moonshot AI Cancels $150 Million Nvidia B300 GPU Rental Deal in Indonesia
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiowFBVV95cUxNdVgtNlR6STVqOVNwSEZHZVVJZzVxb1MzbTZfVXdIcTI5Z1A4LUFlNjRKTmRZWS14eUFFOEhROGFnZkF2alAxamJiRDhJNnFXLS1jOFNBQVJmRGtDdEVoc3U2cktuYk9SQ3pfOURHT0V6QURDY09IQkJhMlhaeVRWMGJtVXdXaXVpd1R3TnVGLTNFZEp5R0hVdzcwQ016ajlHNVBV?oc=5
-- Score: 2.477 | Reliability: 1.0
-- Why it matters: 
-
-## 15. How OpenAI’s Performance Factory keeps ChatGPT fast
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast
-- Score: 2.38 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 16. Quoting Daniel Stenberg
+## 15. Quoting Daniel Stenberg
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Nov/18/daniel-stenberg/
-- Score: 2.346 | Reliability: 1.0
+- Score: 2.333 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. codex rust-v0.171.0-alpha.13.1
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.13.1
-- Score: 2.177 | Reliability: 1.0
+## 16. How OpenAI’s Performance Factory keeps ChatGPT fast
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast
+- Score: 2.294 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 18. Genie 4 is now available
+## 17. Genie 4 is now available
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/genie-4-is-now-available/
-- Score: 2.174 | Reliability: 1.0
+- Score: 2.163 | Reliability: 1.0
 - Why it matters: 
 
-## 19. Advancing chip design with OpenAI models
+## 18. codex 0.171.0-alpha.13.1
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.13.1
+- Score: 2.102 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 19. Inside the Codex sandbox
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/inside-the-codex-sandbox
+- Score: 2.067 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 20. Advancing chip design with OpenAI models
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/advancing-chip-design-with-our-models
-- Score: 1.921 | Reliability: 1.0
+- Score: 1.912 | Reliability: 1.0
 - Why it matters: 
 
-## 20. The Silent Consensus
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/the-silent-consensus
-- Score: 1.866 | Reliability: 1.0
-- Why it matters: 
-
-## 21. langgraph==1.2.23
+## 21. langgraph-prebuilt==1.1.3
 - Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.23
-- Score: 1.67 | Reliability: 1.0
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/prebuilt%3D%3D1.1.3
+- Score: 1.637 | Reliability: 1.0
 - Why it matters: 
 
-## 22. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
+## 22. Opening the datasets behind our AI weather models
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/opening-the-datasets-behind-our-ai-weather-models/
+- Score: 1.335 | Reliability: 1.0
+- Why it matters: 
+
+## 23. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-alphaproof-code/
-- Score: 1.613 | Reliability: 1.0
+- Score: 1.289 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 23. claude-code v2.1.326
+## 24. claude-code v2.1.325
 - Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.326
-- Score: 1.401 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 24. llama_index v0.14.26
-- Type: release | Source: llamaindex_releases
-- URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.26
-- Score: 1.27 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.325
+- Score: 1.231 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval, claude code.
