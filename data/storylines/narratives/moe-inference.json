@@ -1,56 +1,54 @@
 {
   "slug": "moe-inference",
-  "generated_at": "2026-11-04T00:00:00+00:00",
-  "covers_last_updated": "2026-11-03T21:17:06+00:00",
+  "generated_at": "2026-11-19T00:12:35Z",
+  "covers_last_updated": "2026-11-18T00:00:00+00:00",
   "covers_member_sids": [
-    "ed7966c78dc36a0b",
     "b836eb939c37ffa5",
-    "99fb85f961738c74"
+    "99fb85f961738c74",
+    "bd35aab13d66f65e",
+    "ec56b5eff9affb1c"
   ],
-  "tldr": "An Oct 27 arXiv paper framed edge MoE inference as an expert-weight movement problem rather than a compute problem. Two Hacker News posts followed within a week, showing the same memory constraint being attacked on a single DGX Spark and on Macs.",
-  "whats_new": "A Show HN project (Nov 3) claims faster MoE inference on a Mac with less RAM, following a Nov 2 post on running a 124B MoE on one DGX Spark.",
-  "why_it_matters": "MoE models only fit small hardware if expert weights are moved or compressed cleverly, so memory footprint, not FLOPs, decides which models you can serve locally.",
-  "status": {
-    "state": "Developing",
-    "tone": "rising",
-    "changed": "2026-11-03",
-    "detail": "Research and hobbyist projects converge on memory-bound MoE inference on small hardware."
-  },
+  "tldr": "This is a pattern across independent work, not one event: early November brought an NVIDIA post on fitting a 124B MoE onto one DGX Spark and a Show HN project, MoEShift, claiming faster MoE inference with half the RAM. A Nov 13 arXiv paper then took the same data-movement problem to TPUs with a fused kernel that also balances uneven expert loads.",
+  "whats_new": "Hugging Face (Nov 18) describes expert streaming in Transformers that runs a 180B-parameter MoE in 32GB of RAM, the largest model-to-memory ratio in this thread.",
+  "why_it_matters": "MoE serving is bound by moving expert weights, not FLOPs, so memory traffic and expert load balance decide which models fit your hardware and how fast they run.",
   "beats": [
     {
-      "kicker": "RESEARCH",
+      "kicker": "SMALL HARDWARE",
       "tone": "launch",
-      "headline": "CRISP: pruning plus scheduling for edge MoE",
-      "summary": "Names expert-weight movement, not compute, as the edge bottleneck.",
+      "headline": "Large MoEs squeezed onto a DGX Spark and a Mac",
+      "summary": "Two unrelated projects attack the same RAM ceiling on single machines.",
       "sids": [
-        "ed7966c78dc36a0b"
+        "b836eb939c37ffa5",
+        "99fb85f961738c74"
       ]
     },
     {
-      "kicker": "HANDS-ON",
+      "kicker": "KERNELS",
       "tone": "rising",
-      "headline": "124B MoE tuned on a single DGX Spark",
+      "headline": "Fuse-All kernel targets data movement and expert imbalance on TPUs",
       "sids": [
-        "b836eb939c37ffa5"
+        "bd35aab13d66f65e"
       ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Show HN: faster MoE on Mac with less RAM",
+      "headline": "Transformers streams experts: 180B parameters in 32GB of RAM",
       "sids": [
-        "99fb85f961738c74"
+        "ec56b5eff9affb1c"
       ]
     }
   ],
   "open_questions": [
-    "Do the Mac and DGX Spark projects publish tokens-per-second and RAM figures that others can reproduce?",
-    "Do practitioner projects adopt expert pruning or scheduling ideas like CRISP's?"
+    "What tokens-per-second does Transformers expert streaming reach at 32GB, and on which storage tier?",
+    "Do the DGX Spark and MoEShift results publish RAM and throughput figures others can reproduce?",
+    "Does the Fuse-All kernel's load balancing ship in a public TPU serving stack?"
   ],
-  "take_for_builders": "If you plan local MoE serving, benchmark peak memory and expert-load traffic on your target hardware before trusting parameter-count estimates.",
+  "take_for_builders": "Before sizing hardware for an MoE, measure peak memory and expert-load traffic with streaming on and off; parameter count alone will mislead you.",
   "day_captions": {
-    "ed7966c78dc36a0b": "Research framing: expert-weight movement dominates edge MoE inference.",
-    "b836eb939c37ffa5": "Practitioner report on fitting a 124B MoE onto one DGX Spark.",
-    "99fb85f961738c74": "Applies the memory-reduction goal to Mac hardware."
+    "b836eb939c37ffa5": "Vendor guide on fitting a 124B MoE onto a single DGX Spark.",
+    "99fb85f961738c74": "Hobbyist project claims the same memory win on Mac, at half the RAM.",
+    "bd35aab13d66f65e": "Moves the problem to datacenter TPUs and adds uneven expert load as a second bottleneck.",
+    "ec56b5eff9affb1c": "Brings expert streaming into mainstream Transformers at a 180B-to-32GB ratio."
   }
 }

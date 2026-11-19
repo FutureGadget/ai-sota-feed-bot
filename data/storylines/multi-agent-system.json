@@ -1,0 +1,152 @@
+{
+ "slug": "multi-agent-system",
+ "label": "Multi-Agent System",
+ "item_count": 6,
+ "day_count": 5,
+ "source_count": 2,
+ "first_seen": "2026-11-09T08:43:21+00:00",
+ "last_updated": "2026-11-17T17:59:13+00:00",
+ "generated_at": "2026-11-19T00:13:28.317875+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_cl"
+ ],
+ "days": [
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "MIRIX-2.0: Multi-Agent Memory System",
+     "url": "http://arxiv.org/abs/2611.12068v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Long-term memory lets LLM agents personalize, stay consistent, and reuse what worked before. Parametric memories need training, consolidation can lose details for good, and keeping every record leaves a growing store...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "3182707baf8a4d68",
+     "published": "2026-11-09T08:43:21+00:00",
+     "editor_note": "Multi-agent take on long-term agent memory, avoiding lossy consolidation and an ever-growing record store."
+    },
+    {
+     "title": "Agent4Crypto: A Dual-Reflective and Market-Feedback-Aligned LLM-Based Multi-Agent System for Cryptocurrency Trading",
+     "url": "http://arxiv.org/abs/2611.12269v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Cryptocurrency markets provide a natural testbed for autonomous AI agents because they are digital-native, high-frequency, and machine-speed environments, yet existing methods often struggle with non-stationary market...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "a3261c64a9091141",
+     "published": "2026-11-09T11:57:33+00:00",
+     "editor_note": "Domain case: reflective agents plus market feedback for non-stationary crypto trading."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "items": [
+    {
+     "title": "Only as Safe as the Weakest Agent: A Break That Appears Only When the System Is Multi-Agent",
+     "url": "http://arxiv.org/abs/2611.17520v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Major industry multi-agent systems like Codex and Claude Code can be broken by attacks that have long been unsuccessful against modern frontier models. AI Safety as a discipline has largely focused on finding the boun...",
+     "why_it_matters": "Matches feed focus: agentic, harness, codex.",
+     "sid": "e92a16b627ebc27c",
+     "published": "2026-11-12T21:14:49+00:00",
+     "editor_note": "The security counterpoint: a break that exists only at the multi-agent level, shown on Codex- and Claude Code-style systems."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-13",
+   "items": [
+    {
+     "title": "AutoRL: A Multi-Agent System towards Autonomous Reinforcement Learning",
+     "url": "http://arxiv.org/abs/2611.17790v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Recursive self-improvement (RSI) is one of the most promising paths toward an AI singularity for superintelligence. Achieving this vision requires AI systems to undertake the full training pipeline for iterative improvement. Reinforcement learning (RL) plays an essential role in",
+     "why_it_matters": "Matches feed focus: agentic, evaluation.",
+     "sid": "ea7e5e3ff883dd79",
+     "published": "2026-11-13T06:06:36+00:00",
+     "editor_note": "Pushes the pattern to automating the full reinforcement-learning training pipeline."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-16",
+   "items": [
+    {
+     "title": "MASTA: A Feedback-Scheduled Multi-Agent System for End-to-End Tamarin Modeling and Analysis",
+     "url": "http://arxiv.org/abs/2611.20671v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Tamarin-based formal verification of security protocols requires expert-authored multiset rewriting rules and temporal-logic lemmas. Translating a natural-language protocol description into a complete formal model wit...",
+     "why_it_matters": "Matches feed focus: agent, eval, codex.",
+     "sid": "c37bed8786066f0d",
+     "published": "2026-11-16T07:33:22+00:00",
+     "editor_note": "Applies feedback-scheduled agents to turning protocol descriptions into Tamarin formal models."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-17",
+   "items": [
+    {
+     "title": "Mind the Gap: A Deployed Multi-Agent System for Documentation Maintenance",
+     "url": "http://arxiv.org/abs/2611.23142v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "The \"AI revolution\" has enabled teams across the technology industry to deliver software features at unprecedented velocity. While code evolves faster than ever, customer-facing documentation often struggles to stay u...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "6c4aeadbb63ee69f",
+     "published": "2026-11-17T17:59:13+00:00",
+     "editor_note": "First item in the thread described as deployed: agents that keep customer docs current with code."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a pattern across six independent arXiv papers, not one event: separate teams keep splitting agent work across cooperating roles. It opened with a multi-agent memory design and a crypto-trading system, then a safety paper argued Codex- and Claude Code-style multi-agent setups fall to attacks single frontier models resist.",
+  "stale": false,
+  "whats_new": "The latest paper reports a multi-agent system deployed in production to keep customer-facing documentation in sync with fast-moving code.",
+  "why_it_matters": "Splitting an agent into roles adds new attack surface: the weakest agent sets the safety bar, so per-model red-teaming does not cover the whole system.",
+  "take_for_builders": "If you run sub-agents or orchestrator/worker setups, red-team the composed system end to end, not just each model, and cap what the least-trusted agent can pass downstream.",
+  "beats": [
+   {
+    "kicker": "ARCHITECTURES",
+    "tone": "launch",
+    "headline": "Memory and trading papers frame multi-agent as a design pattern",
+    "summary": "Two unrelated papers use agent roles for long-term memory and for non-stationary market trading.",
+    "sids": [
+     "3182707baf8a4d68",
+     "a3261c64a9091141"
+    ]
+   },
+   {
+    "kicker": "FAILURE MODE",
+    "tone": "turn",
+    "headline": "Attacks that fail on single models break multi-agent systems",
+    "summary": "A safety paper reports breaks in Codex- and Claude Code-style systems that only appear once work is split across agents.",
+    "sids": [
+     "e92a16b627ebc27c"
+    ]
+   },
+   {
+    "kicker": "APPLIED",
+    "tone": "now",
+    "headline": "Role-split agents take on RL training, formal verification, and docs upkeep",
+    "summary": "Three more independent papers apply the pattern to end-to-end pipelines, one of them deployed.",
+    "sids": [
+     "ea7e5e3ff883dd79",
+     "c37bed8786066f0d",
+     "6c4aeadbb63ee69f"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do Codex or Claude Code ship mitigations for the multi-agent-only break reported on Nov 12?",
+   "Does the deployed documentation system publish accuracy or rollback numbers from production?",
+   "Do any of these papers report cost or latency against a single-agent baseline?"
+  ],
+  "generated_at": "2026-11-19T00:12:35Z"
+ }
+}

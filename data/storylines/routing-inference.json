@@ -1,14 +1,15 @@
 {
  "slug": "routing-inference",
  "label": "Routing Inference",
- "item_count": 3,
- "day_count": 3,
- "source_count": 2,
+ "item_count": 4,
+ "day_count": 4,
+ "source_count": 3,
  "first_seen": "2026-10-30T16:32:47+00:00",
- "last_updated": "2026-11-10T18:32:28+00:00",
- "generated_at": "2026-11-13T00:13:02.772238+00:00",
+ "last_updated": "2026-11-18T20:13:18+00:00",
+ "generated_at": "2026-11-19T00:13:28.317875+00:00",
  "sources": [
   "arxiv_cs_lg",
+  "aws_ml_blog",
   "hackernews_ai"
  ],
  "days": [
@@ -50,21 +51,36 @@
      "url": "http://arxiv.org/abs/2611.14469v1",
      "source": "arxiv_cs_lg",
      "type": "paper",
-     "summary_1line": "Visual Question Answering (VQA) imposes substantial computational overhead on vision-language models (VLMs), motivating model-agnostic input reduction methods that can be readily applied across diverse VLMs, including in black-box settings. Simply enforcing a visual-token cap red",
+     "summary_1line": "Visual Question Answering (VQA) imposes substantial computational overhead on vision-language models (VLMs), motivating model-agnostic input reduction methods that can be readily applied across diverse VLMs, including...",
      "why_it_matters": "Matches feed focus: evaluation.",
      "sid": "d7a4f91e59e352a3",
      "published": "2026-11-10T18:32:28+00:00",
      "editor_note": "Adds the research angle: routing as input reduction for vision-language models, combining cropping and compression."
     }
    ]
+  },
+  {
+   "date": "2026-11-18",
+   "items": [
+    {
+     "title": "How Salesforce is advancing global-scale model serving with cross-Region inference routing in Amazon SageMaker AI",
+     "url": "https://aws.amazon.com/blogs/machine-learning/how-salesforce-is-advancing-global-scale-model-serving-with-cross-region-inference-routing-in-amazon-sagemaker-ai",
+     "source": "aws_ml_blog",
+     "type": "news",
+     "summary_1line": "Learn how Salesforce uses the cross-Region inference router in Amazon SageMaker AI to turn fragmented Regional capacity into reliable model serving. Salesforce adds capacity securely across Regions and accounts while...",
+     "sid": "a272cda257e80f9a",
+     "published": "2026-11-18T20:13:18+00:00",
+     "editor_note": "Adds the capacity angle: an AWS case study of Salesforce routing SageMaker AI inference across Regions and accounts."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "This is a loose topical cluster, not one event: three unrelated items that each use \"routing\" to cut inference cost or latency at a different layer. OpenRouter rebuilt provider routing in its hosted gateway on Oct 30, and a Show HN on Nov 7 introduced Sibyl, an immutable local inference appliance with routing built in.",
+  "tldr": "This is a loose topical cluster, not one event: four independent items that each use \"routing\" to cut inference cost, latency or capacity risk at a different layer. OpenRouter rebuilt provider routing on Oct 30, a Show HN introduced the Sibyl local appliance on Nov 7, and the C²-Routing paper applied routing to VLM inputs on Nov 10.",
   "stale": false,
-  "whats_new": "The arXiv paper C²-Routing (Nov 10) moves routing to the input layer, pairing image cropping with compression as a model-agnostic way to shrink what a vision-language model must process for visual question answering.",
-  "why_it_matters": "\"Routing\" now names three separate cost and latency levers (which provider serves a request, which local backend runs it, and how much input reaches the model), and each one is tuned and evaluated differently.",
-  "take_for_builders": "Treat these as three independent decisions. If you send traffic through OpenRouter, re-measure latency and provider distribution after the routing rebuild; evaluate the appliance and the paper on their own evidence before adopting either.",
+  "whats_new": "AWS describes how Salesforce uses the SageMaker AI cross-Region inference router (Nov 18) to pool fragmented Regional capacity, adding capacity across Regions and accounts for reliable model serving.",
+  "why_it_matters": "\"Routing\" now names four separate levers (which provider serves a request, which local backend runs it, how much input reaches the model, and which Region has capacity), and each is tuned, evaluated and failed over differently.",
+  "take_for_builders": "Treat these as four independent decisions. If you serve on SageMaker AI and hit Regional capacity limits, check cross-Region routing against your data-residency rules and measure the added latency; re-measure OpenRouter traffic after its routing rebuild.",
   "beats": [
    {
     "kicker": "GATEWAY",
@@ -86,19 +102,29 @@
    },
    {
     "kicker": "RESEARCH",
-    "tone": "now",
+    "tone": "neutral",
     "headline": "C²-Routing applies routing to VLM inputs: cropping plus compression",
-    "summary": "A paper on model-agnostic input reduction for visual question answering, unrelated to either product above.",
+    "summary": "A paper on model-agnostic input reduction for visual question answering, unrelated to the products around it.",
     "sids": [
      "d7a4f91e59e352a3"
+    ]
+   },
+   {
+    "kicker": "CAPACITY",
+    "tone": "now",
+    "headline": "Salesforce routes SageMaker AI inference across Regions and accounts",
+    "summary": "A vendor case study on routing for capacity: spreading model serving across AWS Regions when one Region runs short.",
+    "sids": [
+     "a272cda257e80f9a"
     ]
    }
   ],
   "open_questions": [
    "Does OpenRouter publish latency or success-rate numbers that quantify the rebuilt provider routing?",
    "Does Sibyl's routing select among local models and backends only, or can it also fall back to hosted providers?",
-   "How much accuracy does C²-Routing give up for its input reduction, and does the result hold across VLMs beyond those the paper tests?"
+   "How much accuracy does C²-Routing give up for its input reduction, and does the result hold across VLMs beyond those the paper tests?",
+   "What added latency and data-residency constraints come with SageMaker AI cross-Region routing, and does AWS publish failover numbers beyond the Salesforce account?"
   ],
-  "generated_at": "2026-11-12T00:13:57Z"
+  "generated_at": "2026-11-19T00:12:35Z"
  }
 }

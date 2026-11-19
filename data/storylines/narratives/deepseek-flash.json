@@ -1,97 +1,54 @@
 {
   "slug": "deepseek-flash",
-  "generated_at": "2026-11-02T00:17:02.506675+00:00",
-  "covers_last_updated": "2026-10-29T14:00:00+00:00",
-  "tldr": "DeepSeek V4.1 Flash posted AMD MI355X AgentPerf results by Oct 14, and OrcaRouter priced it against rival models on Oct 16. The Flash-1017 update followed Oct 17-19 with stronger coding, cheaper inference and a public search API, and an independent risk paper appeared Oct 26.",
-  "whats_new": "Rival.io launched GraphX on Oct 29, claiming to run DeepSeek V4 Flash on just eight NVIDIA L4 GPUs, a self-hosting cost claim the coverage does not yet back with benchmarks.",
-  "why_it_matters": "Flash is now cheaper per task, has an independent safety evaluation, and has a vendor claiming a small-GPU serving footprint. Hosting cost and risk posture can both be weighed, though the footprint claim is unverified.",
-  "status": {
-    "state": "Shipped · Flash-1017 under evaluation",
-    "tone": "now",
-    "changed": "2026-10-29",
-    "detail": "Flash-1017 is out; a safety paper and a low-GPU serving claim are the newest evidence."
-  },
+  "generated_at": "2026-11-19T00:12:35Z",
+  "covers_last_updated": "2026-11-18T04:56:54+00:00",
+  "covers_member_sids": [
+    "122ec7cea45d8a1a",
+    "948a560f43436d91",
+    "ada9207836ca8196",
+    "f98bc560cbed3df7"
+  ],
+  "tldr": "This thread is now a pattern across independent third parties running DeepSeek V4 and V4.1 Flash outside DeepSeek's own API, not one event. It began Oct 29 with Rival.io's GraphX claiming Flash serving on eight NVIDIA L4 GPUs, then a lawyer's private server build on Nov 14 fit 80% of V4.1 Flash on an eight-V100 server at 4-bit NVFP4.",
+  "whats_new": "Hosting provider Lebrel added an uncensored DeepSeek V4.1 Flash on Nov 18 from $0.13 per million input tokens, alongside Alibaba's Qwen4-Max on day one.",
+  "why_it_matters": "Flash is spreading to third-party hosts and modest self-hosted hardware, so price and footprint options are widening while each provider's model variant, safety tuning and performance stay unverified.",
   "beats": [
     {
-      "kicker": "DEPLOYMENT",
+      "kicker": "SMALL-GPU CLAIM",
       "tone": "launch",
-      "headline": "AMD MI355X posts V4.1 Flash AgentPerf results",
+      "headline": "Rival.io's GraphX claims V4 Flash serving on eight NVIDIA L4 GPUs",
+      "summary": "A vendor footprint claim; the coverage carries no throughput or latency numbers.",
       "sids": [
-        "2542a0a265628285"
+        "122ec7cea45d8a1a"
       ]
     },
     {
-      "kicker": "COMPARISON",
+      "kicker": "SELF-HOSTED",
       "tone": "rising",
-      "headline": "OrcaRouter prices Flash against Nemotron 3.5 and Step 5 Preview",
+      "headline": "Private eight-V100 server runs 80% of V4.1 Flash at 4-bit NVFP4",
+      "summary": "Needed 1TB of RAM, an added RTX 3090, and a PSU replacement after crashes.",
       "sids": [
-        "6e859d00d3f1f59e",
-        "cbe41f424a1a6b13"
-      ]
-    },
-    {
-      "kicker": "THE UPDATE",
-      "tone": "turn",
-      "headline": "Flash-1017 ships with stronger coding, cheaper inference and a search API",
-      "summary": "Harness v0.2.1-rc1 surfaced the same day with an unannounced snapshot.",
-      "sids": [
-        "b803fa0d4c28e1bf",
-        "f045e22fb623d831",
-        "a50f300013a679ed",
-        "c17f7f361be66b3c",
-        "20f6398bac4d28c9"
-      ]
-    },
-    {
-      "kicker": "EVALUATION",
-      "tone": "now",
-      "headline": "Roundup places Flash-1017 among open releases; a third-party paper evaluates its safety risks",
-      "sids": [
-        "a379ec2597bb3939",
-        "a9c17daa5dbfcba0"
+        "948a560f43436d91"
       ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Rival.io's GraphX claims Flash serving on eight L4 GPUs",
+      "headline": "Lebrel hosts an uncensored V4.1 Flash from $0.13 per million input tokens",
       "sids": [
-        "122ec7cea45d8a1a"
+        "f98bc560cbed3df7"
       ]
     }
   ],
   "open_questions": [
-    "Do independent evals confirm Flash-1017's agentic gains over larger rivals?",
-    "Is the new search API priced and rate-limited for production use?",
-    "Is the unannounced snapshot a separate model or the same Flash-1017?",
-    "What do the paper's loss-of-control and manipulation findings say about Flash-1017 under agentic use?",
-    "Does GraphX publish throughput and latency numbers for Flash on eight L4 GPUs?"
+    "Does GraphX publish throughput and latency numbers for Flash on eight L4 GPUs?",
+    "What does Lebrel's \"uncensored\" variant change from DeepSeek's release: weights, fine-tune, or only system prompt?",
+    "What is Lebrel's output-token price and rate limit for V4.1 Flash?",
+    "Does running 80% of the model on V100s at NVFP4 hold quality on agentic and coding evals?"
   ],
-  "take_for_builders": "Rerun your agent eval and cost-per-task numbers on Flash-1017 before switching, read the Oct 26 risk evaluation before granting tool access, and wait for GraphX throughput data before sizing any L4 deployment.",
+  "take_for_builders": "Before routing traffic to a third-party Flash host, confirm which checkpoint and safety tuning it serves and rerun your evals on it; treat the L4 and V100 footprints as unbenchmarked until throughput data appears.",
   "day_captions": {
-    "2542a0a265628285": "Hardware angle: AMD MI355X posts AA-AgentPerf results with Flash.",
-    "6e859d00d3f1f59e": "Price/index comparison against Nemotron 3.5 Super VL.",
-    "cbe41f424a1a6b13": "Price/index comparison against Step 5 Preview.",
-    "b803fa0d4c28e1bf": "Harness v0.2.1-rc1 arrives as an unannounced Flash snapshot briefly appears.",
-    "f045e22fb623d831": "Independent read: beats larger rivals on agentic tasks at lower per-task cost.",
-    "a50f300013a679ed": "Adds the first public access to DeepSeek's proprietary search API.",
-    "c17f7f361be66b3c": "Confirms a faster Flash model plus the search API.",
-    "20f6398bac4d28c9": "Names the release Flash-1017 with stronger coding and agent capabilities.",
-    "a379ec2597bb3939": "Roundup placing Flash-1017 among open model releases.",
-    "a9c17daa5dbfcba0": "Independent third-party evaluation of Flash-1017 for loss-of-control and harmful-manipulation risks.",
-    "122ec7cea45d8a1a": "Newest: a vendor claims Flash runs on eight NVIDIA L4 GPUs, a self-hosting footprint angle."
-  },
-  "covers_member_sids": [
-    "2542a0a265628285",
-    "6e859d00d3f1f59e",
-    "cbe41f424a1a6b13",
-    "b803fa0d4c28e1bf",
-    "f045e22fb623d831",
-    "a50f300013a679ed",
-    "c17f7f361be66b3c",
-    "20f6398bac4d28c9",
-    "a379ec2597bb3939",
-    "a9c17daa5dbfcba0",
-    "122ec7cea45d8a1a"
-  ]
+    "122ec7cea45d8a1a": "First small-footprint serving claim: a vendor says eight L4 GPUs suffice, without published benchmarks.",
+    "948a560f43436d91": "Hands-on self-hosting account with the real costs: partial offload, 1TB RAM, and a hardware failure along the way.",
+    "f98bc560cbed3df7": "Adds a hosted price point and a modified \"uncensored\" variant from a third-party provider."
+  }
 }

@@ -1,0 +1,40 @@
+{
+  "slug": "vera-rubin",
+  "generated_at": "2026-11-19T00:12:36Z",
+  "covers_last_updated": "2026-11-18T06:33:45+00:00",
+  "covers_member_sids": [
+    "66554ba00af6e4cb",
+    "33948c421834d8b2",
+    "8f051756c4ba2fbd"
+  ],
+  "tldr": "This is a run of separate vendor benchmark posts for NVIDIA's Vera Rubin, not one event. On Nov 12, vLLM published two day-0 serving results, for MiniMax H3-Image and DeepSeek-V4.1-Flash on a Vera Rubin NVL72 rack.",
+  "whats_new": "CoreWeave reports a 2.7x speedup for Vera Rubin over GB200 on the MLPerf DeepSeek-V3 benchmark (via HPCwire), the first Rubin number in this thread on a standardized suite.",
+  "why_it_matters": "Rubin speedup claims range from 2.7x on MLPerf to 58x on a vendor agent workload, so the generation-over-generation gain you plan capacity and cost around depends on which baseline and interactivity target you trust.",
+  "beats": [
+    {
+      "kicker": "DAY-0 SERVING",
+      "tone": "launch",
+      "headline": "vLLM posts day-0 Rubin results for two open-weight models",
+      "summary": "Two blog posts from the vLLM project: image generation on four GPUs and DeepSeek-V4.1-Flash on a full NVL72 rack, with the headline 58x figure measured against GB300 at matched per-user speed.",
+      "sids": ["66554ba00af6e4cb", "33948c421834d8b2"]
+    },
+    {
+      "kicker": "STANDARD BENCHMARK",
+      "tone": "now",
+      "headline": "CoreWeave's MLPerf run puts Rubin at 2.7x over GB200",
+      "summary": "A cloud provider's result on a standardized suite, with a far smaller multiplier than the vLLM agent-workload figure.",
+      "sids": ["8f051756c4ba2fbd"]
+    }
+  ],
+  "open_questions": [
+    "Does MLCommons publish an audited MLPerf result that matches CoreWeave's 2.7x?",
+    "Does any third party reproduce vLLM's 58x DeepSeek-V4.1-Flash figure against GB300 NVL72?",
+    "When do CoreWeave or other clouds list Vera Rubin instances with public per-hour pricing?"
+  ],
+  "take_for_builders": "Hold Rubin capacity and cost projections until you rerun your own workload at your target per-user tokens/s; treat 58x as a vendor ceiling and 2.7x on MLPerf as the more conservative planning number.",
+  "day_captions": {
+    "66554ba00af6e4cb": "First Rubin data point: vLLM's day-0 MiniMax H3-Image support, 4K in 0.87s or 6,115 images/hour on four GPUs.",
+    "33948c421834d8b2": "Source of the 58x claim: DeepSeek-V4.1-Flash on one NVL72 rack vs GB300 NVL72 at a P90 of 387 tokens/s per user.",
+    "8f051756c4ba2fbd": "First standardized-benchmark figure: CoreWeave's MLPerf DeepSeek-V3 run at 2.7x over GB200, reported by HPCwire."
+  }
+}

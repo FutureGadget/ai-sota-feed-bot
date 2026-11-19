@@ -1,0 +1,53 @@
+{
+  "slug": "multi-agent-system",
+  "generated_at": "2026-11-19T00:12:35Z",
+  "covers_last_updated": "2026-11-17T17:59:13+00:00",
+  "covers_member_sids": [
+    "3182707baf8a4d68",
+    "a3261c64a9091141",
+    "e92a16b627ebc27c",
+    "ea7e5e3ff883dd79",
+    "c37bed8786066f0d",
+    "6c4aeadbb63ee69f"
+  ],
+  "tldr": "This is a pattern across six independent arXiv papers, not one event: separate teams keep splitting agent work across cooperating roles. It opened with a multi-agent memory design and a crypto-trading system, then a safety paper argued Codex- and Claude Code-style multi-agent setups fall to attacks single frontier models resist.",
+  "whats_new": "The latest paper reports a multi-agent system deployed in production to keep customer-facing documentation in sync with fast-moving code.",
+  "why_it_matters": "Splitting an agent into roles adds new attack surface: the weakest agent sets the safety bar, so per-model red-teaming does not cover the whole system.",
+  "beats": [
+    {
+      "kicker": "ARCHITECTURES",
+      "tone": "launch",
+      "headline": "Memory and trading papers frame multi-agent as a design pattern",
+      "summary": "Two unrelated papers use agent roles for long-term memory and for non-stationary market trading.",
+      "sids": ["3182707baf8a4d68", "a3261c64a9091141"]
+    },
+    {
+      "kicker": "FAILURE MODE",
+      "tone": "turn",
+      "headline": "Attacks that fail on single models break multi-agent systems",
+      "summary": "A safety paper reports breaks in Codex- and Claude Code-style systems that only appear once work is split across agents.",
+      "sids": ["e92a16b627ebc27c"]
+    },
+    {
+      "kicker": "APPLIED",
+      "tone": "now",
+      "headline": "Role-split agents take on RL training, formal verification, and docs upkeep",
+      "summary": "Three more independent papers apply the pattern to end-to-end pipelines, one of them deployed.",
+      "sids": ["ea7e5e3ff883dd79", "c37bed8786066f0d", "6c4aeadbb63ee69f"]
+    }
+  ],
+  "open_questions": [
+    "Do Codex or Claude Code ship mitigations for the multi-agent-only break reported on Nov 12?",
+    "Does the deployed documentation system publish accuracy or rollback numbers from production?",
+    "Do any of these papers report cost or latency against a single-agent baseline?"
+  ],
+  "take_for_builders": "If you run sub-agents or orchestrator/worker setups, red-team the composed system end to end, not just each model, and cap what the least-trusted agent can pass downstream.",
+  "day_captions": {
+    "3182707baf8a4d68": "Multi-agent take on long-term agent memory, avoiding lossy consolidation and an ever-growing record store.",
+    "a3261c64a9091141": "Domain case: reflective agents plus market feedback for non-stationary crypto trading.",
+    "e92a16b627ebc27c": "The security counterpoint: a break that exists only at the multi-agent level, shown on Codex- and Claude Code-style systems.",
+    "ea7e5e3ff883dd79": "Pushes the pattern to automating the full reinforcement-learning training pipeline.",
+    "c37bed8786066f0d": "Applies feedback-scheduled agents to turning protocol descriptions into Tamarin formal models.",
+    "6c4aeadbb63ee69f": "First item in the thread described as deployed: agents that keep customer docs current with code."
+  }
+}

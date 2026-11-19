@@ -1,0 +1,40 @@
+{
+  "slug": "free-compute",
+  "generated_at": "2026-11-19T00:12:35Z",
+  "covers_last_updated": "2026-11-17T23:28:57+00:00",
+  "covers_member_sids": [
+    "c1d2f992b664442f",
+    "2eb69b8c3a5ac2dc",
+    "58ee3f8943d9ab5e"
+  ],
+  "tldr": "This is a loose cluster, not one event: an October arXiv paper on the inference cost of looping layers in trained models, and November reports on DeepSeek's free tier. The common thread is that extra inference compute is never free, whether it comes from model architecture or from serving capacity.",
+  "whats_new": "DeepSeek has capped free-user usage with compute quotas for the first time, BigGo Finance reported on Nov 16–17, citing a chip shortage while its global token usage ranks No. 1.",
+  "why_it_matters": "A free or cheap tier from a capacity-constrained open-weight lab can tighten without notice, so it is not a production dependency.",
+  "beats": [
+    {
+      "kicker": "RESEARCH",
+      "tone": "neutral",
+      "headline": "Paper asks when looping a trained model pays for its extra inference compute",
+      "summary": "Looping reuses a block of layers so parameter count and memory stay flat, but each token costs more compute at inference.",
+      "sids": ["c1d2f992b664442f"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "DeepSeek introduces quotas on its free service, citing a chip shortage",
+      "summary": "Both reports come from one outlet (BigGo Finance) via Google News; no first-party DeepSeek notice is in the thread yet.",
+      "sids": ["2eb69b8c3a5ac2dc", "58ee3f8943d9ab5e"]
+    }
+  ],
+  "open_questions": [
+    "Does DeepSeek publish the quota limits or confirm them in a first-party notice?",
+    "Do the caps extend from the free consumer service to the paid API's rate limits?",
+    "Do other Chinese open-weight labs cap their free tiers for the same chip-supply reason?"
+  ],
+  "take_for_builders": "If any agent or eval job runs on DeepSeek's free service, move it to a paid API key or self-hosted weights and add a fallback provider before the quota hits it.",
+  "day_captions": {
+    "c1d2f992b664442f": "Research side of the cluster: frames looping as a trade of flat memory for more compute per token, unrelated to DeepSeek.",
+    "2eb69b8c3a5ac2dc": "First report of DeepSeek compute quotas on free users, tied to its No. 1 global token usage.",
+    "58ee3f8943d9ab5e": "Same outlet's follow-up: calls it the first-ever cap and attributes it to a chip shortage."
+  }
+}

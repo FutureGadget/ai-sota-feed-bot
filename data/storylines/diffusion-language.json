@@ -1,12 +1,12 @@
 {
  "slug": "diffusion-language",
  "label": "Efficient Learning",
- "item_count": 11,
- "day_count": 10,
+ "item_count": 13,
+ "day_count": 11,
  "source_count": 6,
  "first_seen": "2026-10-30T16:17:43+00:00",
- "last_updated": "2026-11-17T06:53:51+00:00",
- "generated_at": "2026-11-18T00:14:17.482304+00:00",
+ "last_updated": "2026-11-18T06:40:34+00:00",
+ "generated_at": "2026-11-19T00:13:28.317875+00:00",
  "sources": [
   "arxiv_agent_systems_research",
   "arxiv_cs_ai",
@@ -171,6 +171,16 @@
    "date": "2026-11-17",
    "items": [
     {
+     "title": "Communicate the Change: Efficient Expert Parallelism via Activation Compression",
+     "url": "http://arxiv.org/abs/2611.22215v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Scaling has driven the success of large language models (LLM), with sparse mixture-of-experts (MoE) architectures enabling greater parameter capacity without a proportional increase in computation. At large scales, Mo...",
+     "sid": "dec4d075135f7b7e",
+     "published": "2026-11-17T04:52:41+00:00",
+     "editor_note": "Targets the serving bottleneck of large MoE models: compresses activations to cut expert-parallel communication."
+    },
+    {
      "title": "TokenEconomizer: Learning from Experience to Make AI Coding Agents Efficient",
      "url": "https://www.microsoft.com/en-us/research/blog/tokeneconomizer-learning-from-experience-to-make-ai-coding-agents-more-efficient",
      "source": "hackernews_ai",
@@ -179,35 +189,51 @@
      "why_it_matters": "Matches feed focus: agent.",
      "sid": "60d6d445e0dacc9d",
      "published": "2026-11-17T06:53:51+00:00",
-     "editor_note": "Newest: Microsoft Research has coding agents learn from experience to spend fewer tokens."
+     "editor_note": "Microsoft Research has coding agents learn from experience to spend fewer tokens."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-18",
+   "items": [
+    {
+     "title": "Murmur: Efficient Long-Context ASR Inference with Hierarchical Chunking",
+     "url": "https://syfi.cs.washington.edu/blog/2026-11-13-murmur",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Murmur: Efficient Long-Context ASR Inference with Hierarchical Chunking",
+     "sid": "dc09546d23d7229e",
+     "published": "2026-11-18T06:40:34+00:00",
+     "editor_note": "Newest: carries the efficiency theme to speech, with hierarchical chunking for long-context ASR inference."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This is a loose cluster of inference-efficiency work, not one event; reclustering dropped most of the earlier diffusion-LM papers. It opened Oct 30 with pruning, MoE quantization and prompt compression, and by Nov 8-12 added block-diffusion drafters and overlapping block denoising.",
+  "tldr": "This is a loose cluster of independent inference-efficiency work, not one event. It opened Oct 30 with pruning, MoE quantization and prompt compression, added block-diffusion decoding papers Nov 8-10, then shifted to vendor posts and agent-side token spend by Nov 15-17.",
   "stale": false,
-  "whats_new": "Microsoft Research's TokenEconomizer (Nov 17) has AI coding agents learn from past runs to spend fewer tokens, a day after Nemotron 3.5 Bolt E4B, a 4GB open small model tuned for fast conversational agents.",
-  "why_it_matters": "The efficiency work is moving from model internals (pruning, MoE quantization, diffusion decoding) to the agent layer, where token spend per task and small on-device models set the bill.",
-  "take_for_builders": "Log tokens per completed agent task before adopting any of these methods, so TokenEconomizer-style savings or a small-model swap can be measured against your own baseline; do not plan capacity around diffusion LLMs yet.",
+  "whats_new": "A University of Washington post (Nov 18) introduces Murmur, which uses hierarchical chunking to speed long-context speech recognition inference, a day after a paper that compresses activations to cut MoE expert-parallel communication.",
+  "why_it_matters": "Inference cost is now attacked at every layer at once: model weights, MoE communication, decoding, prompts, agent token spend, and non-text workloads like long audio.",
+  "take_for_builders": "Log tokens per completed agent task and GPU-seconds per audio hour before adopting any of these methods, so each claimed saving can be measured against your own baseline; do not plan capacity around diffusion LLMs yet.",
   "beats": [
    {
     "kicker": "COMPRESSION",
     "tone": "launch",
     "headline": "Pruning, MoE quantization and input compression shrink inference cost",
-    "summary": "Four papers cut cost on the model or input side: extreme-sparsity pruning, Matryoshka MoE with mixed precision, RL-trained prompt compression, and VLM image cropping.",
+    "summary": "Five papers cut cost on the model or input side: extreme-sparsity pruning, Matryoshka MoE with mixed precision, RL-trained prompt compression, VLM image cropping, and compressed activations for MoE expert parallelism.",
     "sids": [
      "a8a5f23cd8e10643",
      "01d6db945cd3f0c2",
      "473a95cd7c540d1a",
-     "d7a4f91e59e352a3"
+     "d7a4f91e59e352a3",
+     "dec4d075135f7b7e"
     ]
    },
    {
     "kicker": "DIFFUSION DECODING",
     "tone": "rising",
     "headline": "Block-diffusion work targets draft-tree verification and block-boundary latency",
-    "summary": "The two remaining diffusion-LM papers: D3Tree prunes block-diffusion draft trees for speculative decoding, and overlapping block denoising cuts latency in block diffusion LMs.",
+    "summary": "D3Tree prunes block-diffusion draft trees for speculative decoding, and overlapping block denoising cuts latency in block diffusion LMs.",
     "sids": [
      "a4e942d0f147f07c",
      "ca0cd6bcfdb70098"
@@ -226,22 +252,24 @@
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Efficiency reaches vendors and agent products: Baseten, Nemotron Bolt, TokenEconomizer",
-    "summary": "The latest items are a serving-vendor post, a small open model for agents, and a lab blog on coding-agent token spend, not arXiv method papers.",
+    "headline": "Efficiency reaches vendors, agent products and speech: Baseten, Nemotron Bolt, TokenEconomizer, Murmur",
+    "summary": "The latest items are blog posts and a shipped small model rather than arXiv method papers, now extending to long-context ASR.",
     "sids": [
      "018ac20c79d4eeba",
      "15de4f547fb7e7f3",
-     "60d6d445e0dacc9d"
+     "60d6d445e0dacc9d",
+     "dc09546d23d7229e"
     ]
    }
   ],
   "open_questions": [
    "How much does TokenEconomizer cut tokens per resolved coding task, and on which agent harness and benchmark?",
    "Does Nemotron 3.5 Bolt E4B hold tool-calling accuracy at 4GB against Gemma-4-E4B-it, the model it was post-trained from?",
-   "Does a block-diffusion drafter with a pruned draft tree beat existing drafters on end-to-end throughput under concurrent serving load?",
+   "Does activation compression for expert parallelism hold model quality while cutting all-to-all traffic in a production MoE serving stack?",
+   "Does Murmur's hierarchical chunking keep transcript accuracy on hour-long audio compared with full-context decoding?",
    "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?",
    "Do the pruning and MoE quantization gains hold on agentic and long-context tasks, not only perplexity and short benchmarks?"
   ],
-  "generated_at": "2026-11-18T00:13:29Z"
+  "generated_at": "2026-11-19T00:12:36Z"
  }
 }

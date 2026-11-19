@@ -1,0 +1,51 @@
+{
+  "slug": "distributed-inference",
+  "generated_at": "2026-11-19T00:12:35Z",
+  "covers_last_updated": "2026-11-17T23:56:20+00:00",
+  "covers_member_sids": [
+    "2aca440b2c0823d7",
+    "509ceae27e7b57e7",
+    "1d4bb99a8acae991",
+    "8da93282dcb219d5",
+    "7f9324af008a569c"
+  ],
+  "tldr": "This is a pattern across independent projects, not one event. It opened with vLLM's Kinference, an open-source control plane for serving vLLM on Kubernetes, plus a third-party benchmark of it against plain Kubernetes, then moved to an InfoQ podcast on llm-d.",
+  "whats_new": "Distributed inference work has moved from datacenter clusters to local hardware: an arXiv paper (Superfluid) on a local server shared by several agents, then a Show HN project (Shard) that splits inference across multiple computers.",
+  "why_it_matters": "Multi-node serving is splitting into two tracks: Kubernetes control planes that add tenant rate limits and cost tracking around vLLM, and local setups that pool your own machines to keep data private and avoid per-token cost.",
+  "beats": [
+    {
+      "kicker": "CLUSTER",
+      "tone": "launch",
+      "headline": "vLLM ships Kinference, a Kubernetes control plane, and a benchmark follows",
+      "summary": "Token rate limiting, tenant usage and cost tracking, and load balancing for vLLM, then Buoyant's comparison against plain Kubernetes.",
+      "sids": ["2aca440b2c0823d7", "509ceae27e7b57e7"]
+    },
+    {
+      "kicker": "CONTEXT",
+      "tone": "rising",
+      "headline": "InfoQ podcast covers llm-d and vLLM on Kubernetes",
+      "sids": ["1d4bb99a8acae991"]
+    },
+    {
+      "kicker": "LOCAL",
+      "tone": "now",
+      "headline": "Research and hobby projects take distributed inference off the cluster",
+      "summary": "Superfluid targets one device shared by several agents; Shard spreads a model across several computers.",
+      "sids": ["8da93282dcb219d5", "7f9324af008a569c"]
+    }
+  ],
+  "open_questions": [
+    "Does Buoyant's benchmark show Kinference beating plain Kubernetes on latency or throughput, and under what load?",
+    "Will Kinference and llm-d converge, or stay competing control planes for vLLM on Kubernetes?",
+    "Does Superfluid release code, and how does it schedule several agents on one local model?",
+    "What network bandwidth does Shard need before splitting a model across machines beats running it on one?"
+  ],
+  "take_for_builders": "If you run vLLM on Kubernetes and hand-roll per-tenant rate limits or cost tracking, check Kinference and llm-d before building more, and read the benchmark's setup before trusting its numbers.",
+  "day_captions": {
+    "2aca440b2c0823d7": "The anchor launch: vLLM's own open-source control plane for multi-tenant serving on Kubernetes.",
+    "509ceae27e7b57e7": "First third-party benchmark, from Buoyant, comparing Kinference with plain Kubernetes.",
+    "1d4bb99a8acae991": "Practitioner background on llm-d as another route to distributed vLLM on Kubernetes.",
+    "8da93282dcb219d5": "Academic take on the local case: several agents sharing one locally served model.",
+    "7f9324af008a569c": "Hobbyist project that pools multiple computers to run one model."
+  }
+}
