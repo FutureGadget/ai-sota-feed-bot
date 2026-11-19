@@ -51,6 +51,7 @@ from pipeline.story_store import story_sid  # noqa: E402
 sys.path.insert(0, str(ROOT / "pipeline"))
 import community  # noqa: E402
 import recap_i18n  # noqa: E402
+from source_labels import SOURCE_ACRONYMS, SOURCE_NAMES, source_name  # noqa: E402,F401
 
 STATE_PATH = ROOT / "data" / "email" / "state.json"
 SKILL_LAB_DIR = ROOT / "data" / "playbook" / "lab"
@@ -261,49 +262,7 @@ def clean(s: str, n: int = 120) -> str:
 # Reader-facing publisher names, mirroring web/index.html's SOURCE_NAMES so the
 # email and the site label sources identically. Unknown slugs degrade to an
 # acronym-aware prettify (same fallback as the site's sourceDisplayName).
-SOURCE_NAMES = {
-    "arxiv_cs_ai": "arXiv cs.AI",
-    "arxiv_cs_lg": "arXiv cs.LG",
-    "arxiv_cs_cl": "arXiv cs.CL",
-    "paperswithcode_latest": "Papers with Code",
-    "openai_blog": "OpenAI Blog",
-    "anthropic_newsroom": "Anthropic Newsroom",
-    "anthropic_engineering": "Anthropic Engineering",
-    "anthropic_research": "Anthropic Research",
-    "huggingface_blog": "Hugging Face Blog",
-    "nvidia_blog": "NVIDIA Blog",
-    "google_ai_blog": "Google AI Blog",
-    "aws_ml_blog": "AWS ML Blog",
-    "vllm_releases": "vLLM Releases",
-    "triton_releases": "Triton Releases",
-    "llamaindex_releases": "LlamaIndex Releases",
-    "langgraph_releases": "LangGraph Releases",
-    "openai_codex_releases": "OpenAI Codex Releases",
-    "claude_code_releases": "Claude Code Releases",
-    "claude_agent_sdk_python_releases": "Claude Agent SDK Releases",
-    "claude_blog": "Claude Blog",
-    "hackernews_ai": "Hacker News AI",
-    "infoq_ai_ml": "InfoQ AI/ML",
-    "simon_willison": "Simon Willison",
-    "latent_space": "Latent Space",
-    "langchain_blog": "LangChain Blog",
-    "search_agent_engineering_news": "Agent Engineering News",
-    "search_llm_ops_news": "LLM Ops News",
-}
-SOURCE_ACRONYMS = {"ai", "ml", "llm", "aws", "api", "sdk", "gpu"}
-
-
-def source_name(slug: str) -> str:
-    s = (slug or "").strip()
-    if not s:
-        return "unknown"
-    if s in SOURCE_NAMES:
-        return SOURCE_NAMES[s]
-    return " ".join(
-        w.upper() if w.lower() in SOURCE_ACRONYMS else w[:1].upper() + w[1:]
-        for w in re.split(r"[_\s]+", s)
-        if w
-    )
+# Source display names live in pipeline/source_labels.py (shared with the pages).
 
 
 # --------------------------------------------------------------------------- #

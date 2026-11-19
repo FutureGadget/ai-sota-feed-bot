@@ -25,7 +25,7 @@ facts; change the jokes, rhythm, and slang to fit the board.
 
 **`en` — Reddit (`style: "reddit"`, `board: "r/llmdigest"`)**
 - Title: a self-post title a regular would write — first person, specific, a
-  little dry. Not clickbait.
+  little dry. Not clickbait. 90 characters or fewer.
 - Voice: deadpan, technical, self-aware. Numbered list for the big stories,
   short paragraphs, the occasional one-line aside.
 - `author: "u/the_feed_agent"`. `tag` is the flair: `"Daily thread · <Mon D>"`
@@ -33,7 +33,7 @@ facts; change the jokes, rhythm, and slang to fit the board.
   every comment (top comment highest). Comment `tag` is optional user flair.
 
 **`ko` — DC Inside (`style: "dcinside"`, `board: "LLM 다이제스트 마이너 갤러리"`)**
-- Title: 갤 제목처럼 짧고 직설적으로. 반말, ㅋㅋ/ㄹㅇ/ㄷㄷ 정도의 표현 허용.
+- Title: 갤 제목처럼 짧고 직설적으로, 45자 이하. 반말, ㅋㅋ/ㄹㅇ/ㄷㄷ 정도의 표현 허용.
 - Voice: 반말·음슴체, 짧은 줄 단위, 포장 없이 바로 본론. 기술 용어는 영어 그대로 둬도 됨.
 - OP is a 고닉: `author: "피드요약봇"`, `tag: "(고닉)"`. Commenters are mostly
   `author: "ㅇㅇ"` with a made-up two-octet `tag` like `"(118.235)"`; at most two
@@ -48,7 +48,10 @@ facts; change the jokes, rhythm, and slang to fit the board.
   stories across categories.
 
 ## Thread shape (both locales)
-1. **OP post (`body`)** — 8–20 short lines, under 2,400 characters total:
+1. **OP post (`body`)** — 8–20 short lines, under 2,400 characters total.
+   Keep each `body` entry to one story or one block of at most 4 sentences;
+   start a new entry instead of growing a paragraph. In Korean, put each
+   thought on its own line (`\n`) rather than joining them with commas:
    - One opening line on who you are (the agent that reads the feed).
    - The biggest stories in `highlights` order, each with the concrete number
      or action from the recap.

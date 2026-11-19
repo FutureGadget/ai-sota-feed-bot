@@ -18,10 +18,19 @@
   font-display: swap;
 }
 /* Korean breaks between words (eojeol), not between syllables: without this
-   a headline can split a word across lines. */
+   a headline, a label or a link can split a word across lines. */
+html[lang="ko"] body {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
 html[lang="ko"] :is(h1, h2, h3, h4, p, li, .recap-title) {
   word-break: keep-all;
   overflow-wrap: anywhere;
+}
+/* Hangul reads best with near-zero tracking and taller lines than Latin
+   display type; pages tune headings with negative tracking for Geist. */
+html[lang="ko"] :is(h1, h2, h3, h4) {
+  letter-spacing: -0.01em;
 }
 /* Fallback faces sized to Geist's metrics (computed from the vendored TTFs
    against Arial/Liberation Sans and Courier New/Liberation Mono), so text
@@ -76,10 +85,10 @@ html[data-theme="light"] {
   /* Shadcn-style tokens (Oat dialogs and inputs, Basecoat via ui/site.css). */
   --background: #ffffff;
   --foreground: #18181b;
-  --font-display: "Geist", "Geist Fallback", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-serif: "Geist", "Geist Fallback", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-sans: "Geist", "Geist Fallback", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-display: "Geist", "Geist Fallback", "Inter", "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Noto Sans CJK KR", "Malgun Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Geist", "Geist Fallback", "Inter", "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Noto Sans CJK KR", "Malgun Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Geist", "Geist Fallback", "Inter", "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Noto Sans CJK KR", "Malgun Gothic", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, "SFMono-Regular", Menlo, "Apple SD Gothic Neo", "Noto Sans KR", "Noto Sans CJK KR", "Malgun Gothic", monospace;
   /* Precision chrome: hairlines one step darker than --border, 8px controls. */
   --line-strong: #c9c9cf;
   --radius-control: 8px;
