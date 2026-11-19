@@ -3224,3 +3224,24 @@ content artifacts stay valid either way.
   `EMAIL_FROM` joins the Worker vars.
 - **Rollback:** point the cron-job.org jobs back to bodies without `locale`;
   unset `EMAIL_FROM` in the Worker to stop welcome emails.
+
+## 2026-11-20 - Send time is the reader's choice; existing readers keep 23:00 UTC
+
+- **Decision:** Replace "English at 11:30 UTC for everyone" with a delivery
+  time choice. The original 23:00 UTC send stays the default and keeps every
+  existing subscriber (their location is unknown, so their delivery time must
+  not change). English readers can pick a US-morning send at 11:30 UTC at
+  signup, or switch from a footer link in any English email. Korean keeps one
+  send time.
+- **Rationale:** The 2026-11-19 change moved every English reader to 11:30
+  UTC, which is 20:30 in Seoul; readers who signed up for a Seoul-morning
+  email would have been moved without asking.
+- **Impact:** a new `EMAIL_SEGMENT_ID_EN_US` segment (GitHub secret and Worker
+  secret); `slot` input on the email workflow (default `kst`); per-edition
+  cursors `daily_en_us`, `weekly_en_us`, `storylines_en_us`;
+  `/api/client-config` lists `email_send_slots`; `/subscribe` shows the choice
+  in local time.
+- **Rollback:** disable the US-morning cron-job.org jobs and unset
+  `EMAIL_SEGMENT_ID_EN_US`; the signup choice hides itself and every send is
+  the original one.
+

@@ -89,14 +89,14 @@ class SubscribeSurfaceTest(unittest.TestCase):
 
     def test_success_event_attributes_skill_lab_without_email(self) -> None:
         self.assertIn("function subscribeAttribution()", self.html)
-        self.assertIn("function captureSubscribeSuccess(weeklyOnly, locale)", self.html)
+        self.assertIn("function captureSubscribeSuccess(weeklyOnly, locale, sendTime)", self.html)
         self.assertIn("locale: locale || 'en'", self.html)
         self.assertIn("'subscribe_success'", self.html)
         self.assertIn("cadence: weeklyOnly ? 'weekly' : 'both'", self.html)
         self.assertIn("ref: attribution.ref", self.html)
         self.assertIn("lab_id: attribution.labId", self.html)
         self.assertNotIn("'subscribe_success', { email", self.html)
-        self.assertIn("captureSubscribeSuccess(weeklyOnly, locale);", self.html)
+        self.assertIn("captureSubscribeSuccess(weeklyOnly, locale, sendTime);", self.html)
         self.assertIn("function shouldRecordSubscribeSuccess(honeypot)", self.html)
         self.assertIn("if (shouldRecordSubscribeSuccess(honeypot))", self.html)
 
@@ -116,3 +116,17 @@ class SubscribeSurfaceTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class DeliveryTimeSurfaceTest(unittest.TestCase):
+    def setUp(self):
+        self.html = (ROOT / "web" / "subscribe.html").read_text(encoding="utf-8")
+
+    def test_signup_offers_send_times_only_when_configured(self):
+        self.assertIn('id="sendTimePref" hidden', self.html)
+        self.assertIn("config?.digest?.email_send_slots", self.html)
+        self.assertIn("slots.includes('us') && locale === 'en'", self.html)
+        self.assertIn("send_time: sendTime", self.html)
+        self.assertIn("if (time === 'kst' || time === 'us') clean.set('time', time);", self.html)
+        self.assertIn("{ id: 'kst', utcHour: 23, utcMinute: 0 }", self.html)
+        self.assertIn("{ id: 'us', utcHour: 11, utcMinute: 30 }", self.html)

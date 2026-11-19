@@ -121,7 +121,7 @@ test('successful submit records bounded attribution but never the email', async 
   assert.equal(captured[0][0], 'subscribe_success');
   assert.deepEqual(
     JSON.parse(JSON.stringify(captured[0][1])),
-    { locale: 'en', cadence: 'both', ref: 'skill_lab', lab_id: 'lab-debugging-skill' },
+    { locale: 'en', send_time: 'kst', cadence: 'both', ref: 'skill_lab', lab_id: 'lab-debugging-skill' },
   );
   assert.equal(JSON.stringify(captured).includes('reader@example.com'), false);
   assert.equal(stored.length, 2);

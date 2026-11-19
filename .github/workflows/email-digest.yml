@@ -6,10 +6,11 @@ name: AI Feed Email Digest
 # (or config/email.yaml enabled:false) publish_email.py is a clean no-op and the
 # cursor commit finds nothing to push.
 #
-#   - daily brief:   Korean every day 23:00 UTC (08:00 KST), English 11:30 UTC
-#                    (07:30 ET), both after the daily recap at 21:00 UTC
-#   - weekly recap:  Korean Friday 23:00 UTC (Sat 08:00 KST), English Saturday
-#                    12:00 UTC, after the weekly recap at Fri 21:00 UTC
+#   - daily brief:   23:00 UTC (08:00 KST) for Korean readers and English readers
+#                    on the original send; 11:30 UTC (07:30 ET) for English
+#                    readers who chose the US-morning send (inputs.slot=us)
+#   - weekly recap:  Friday 23:00 UTC (Sat 08:00 KST); Saturday 12:00 UTC for
+#                    the US-morning send
 #   The cron-job.org jobs pass inputs.locale; see
 #   docs/how-to/hourly-trigger-cron-job-org.md.
 on:
@@ -27,10 +28,15 @@ on:
         type: boolean
         default: false
       locale:
-        description: "Edition: all | en | ko"
+        description: "Language: all | en | ko"
         type: choice
         options: [all, en, ko]
         default: all
+      slot:
+        description: "Send time: kst = 23:00 UTC (English + Korean), us = 11:30 UTC (English), all"
+        type: choice
+        options: [kst, us, all]
+        default: kst
 
 permissions:
   contents: write
@@ -65,6 +71,9 @@ jobs:
           EMAIL_SEGMENT_ID: ${{ secrets.EMAIL_SEGMENT_ID }}
           # Korean readers' segment. Unset = no Korean send (English only).
           EMAIL_SEGMENT_ID_KO: ${{ secrets.EMAIL_SEGMENT_ID_KO }}
+          # English readers who chose the US-morning send (11:30 UTC). Unset =
+          # no such edition; everyone stays on the 23:00 UTC send.
+          EMAIL_SEGMENT_ID_EN_US: ${{ secrets.EMAIL_SEGMENT_ID_EN_US }}
           EMAIL_TOPIC_ID: ${{ secrets.EMAIL_TOPIC_ID }}
           # Per-digest selection: daily/weekly each scope to their own Topic so a
           # "weekly only" subscriber is suppressed from the daily send.
@@ -75,6 +84,7 @@ jobs:
           EMAIL_TEST_TO: ${{ secrets.EMAIL_TEST_TO }}
           INPUT_KIND: ${{ github.event.inputs.kind }}
           INPUT_LOCALE: ${{ github.event.inputs.locale }}
+          INPUT_SLOT: ${{ github.event.inputs.slot }}
           SCHEDULE: ${{ github.event.schedule }}
           DRY_RUN: ${{ github.event.inputs.dry_run }}
           TEST_SEND: ${{ github.event.inputs.test_send }}
@@ -87,15 +97,15 @@ jobs:
           fi
           MODE=""
           if [ "$DRY_RUN" = "true" ]; then MODE="--dry-run"; elif [ "$TEST_SEND" = "true" ]; then MODE="--test"; fi
-          .venv/bin/python publish/publish_email.py --kind "$KIND" --locale "${INPUT_LOCALE:-all}" $MODE
+          .venv/bin/python publish/publish_email.py --kind "$KIND" --locale "${INPUT_LOCALE:-all}" --slot "${INPUT_SLOT:-kst}" $MODE
 
       # Storyline follow alerts ride the daily run. A failure here must not
       # block committing the digest cursor above, and the follow cursor only
       # advances after a successful send.
       - name: Send storyline follow alerts
-        # Follow alerts are English and ride the English daily run (locale
-        # all or en), never the Korean-only run, so they go out once a day.
-        if: ${{ github.event.inputs.kind != 'weekly' && github.event.inputs.test_send != 'true' && github.event.inputs.locale != 'ko' }}
+        # Follow alerts are English and ride the 23:00 UTC daily run, never a
+        # Korean-only or US-morning run, so they go out once a day as before.
+        if: ${{ github.event.inputs.kind != 'weekly' && github.event.inputs.test_send != 'true' && github.event.inputs.locale != 'ko' && github.event.inputs.slot != 'us' }}
         continue-on-error: true
         env:
           EMAIL_API_KEY: ${{ secrets.EMAIL_API_KEY }}

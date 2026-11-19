@@ -116,7 +116,7 @@ class KoreanEmailTest(unittest.TestCase):
         built = ("subject", "<p>body</p>", [], DAILY_ID)
         sent = []
 
-        def fake_send(cfg, api_key, subject, body, name="", kind="daily", locale="en"):
+        def fake_send(cfg, api_key, subject, body, name="", kind="daily", locale="en", slot="kst"):
             sent.append(locale)
             return True
 
@@ -149,10 +149,10 @@ class KoreanEmailTest(unittest.TestCase):
              mock.patch.object(sys, "argv", ["publish_email.py", "--kind", "daily"]), \
              redirect_stdout(out):
             self.assertEqual(email.main(), 0)
-        self.assertIn("locale=ko reason=no_segment", out.getvalue())
+        self.assertIn("locale=ko slot=kst reason=no_segment", out.getvalue())
         self.assertNotIn("daily_ko", state)
 
-        def ko_fails(cfg, api_key, subject, body, name="", kind="daily", locale="en"):
+        def ko_fails(cfg, api_key, subject, body, name="", kind="daily", locale="en", slot="kst"):
             if locale == "ko":
                 raise RuntimeError("boom")
             return True

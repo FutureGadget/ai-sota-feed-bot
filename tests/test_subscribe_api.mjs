@@ -263,7 +263,7 @@ test('a weekly-only welcome describes and links only the weekly recap', async ()
     const { calls, impl } = capturingFetch([new Response('{}', { status: 201 }), new Response('{}', { status: 200 })]);
     await invoke({ email: 'reader@example.com', weekly_only: true }, impl);
     assert.match(calls[1].body.subject, /welcome to LLM Digest/);
-    assert.match(calls[1].body.text, /Weekly recap: Saturday morning/);
+    assert.match(calls[1].body.text, /Weekly recap: Saturday at 8:00 Seoul time/);
     assert.doesNotMatch(calls[1].body.text, /Daily brief/);
     assert.match(calls[1].body.html, /\/weekly\?utm_source=email/);
     assert.match(calls[1].body.html, /Read this week(?:'|&#39;)s recap/);
@@ -288,4 +288,88 @@ test('a failed welcome email never fails the signup', async () => {
     assert.equal(res.statusCode, 200);
     assert.deepEqual(res.body, { ok: true });
   });
+});
+
+
+async function withUsSegment(fn) {
+  const keys = ['EMAIL_SEGMENT_ID', 'EMAIL_SEGMENT_ID_KO', 'EMAIL_SEGMENT_ID_EN_US', 'EMAIL_FROM'];
+  const saved = Object.fromEntries(keys.map((k) => [k, process.env[k]]));
+  Object.assign(process.env, {
+    EMAIL_SEGMENT_ID: 'seg-en', EMAIL_SEGMENT_ID_KO: 'seg-ko', EMAIL_SEGMENT_ID_EN_US: 'seg-us',
+    EMAIL_FROM: 'LLM Digest <digest@example.com>',
+  });
+  try {
+    await fn();
+  } finally {
+    for (const k of keys) {
+      if (saved[k] === undefined) delete process.env[k];
+      else process.env[k] = saved[k];
+    }
+  }
+}
+
+test('an English signup can pick the US-morning send', async () => {
+  await withUsSegment(async () => {
+    const { calls, impl } = capturingFetch([new Response('{}', { status: 201 }), new Response('{}', { status: 200 })]);
+    await invoke({ email: 'reader@example.com', send_time: 'us' }, impl);
+    assert.deepEqual(calls[0].body.segments, [{ id: 'seg-us' }]);
+    assert.match(calls[1].body.text, /11:30 UTC, early morning in New York/);
+    const def = capturingFetch([new Response('{}', { status: 201 }), new Response('{}', { status: 200 })]);
+    await invoke({ email: 'reader@example.com' }, def.impl);
+    assert.deepEqual(def.calls[0].body.segments, [{ id: 'seg-en' }]);
+    assert.match(def.calls[1].body.text, /8:00 Seoul time \(23:00 UTC\)/);
+    const ko = capturingFetch([new Response('{}', { status: 201 }), new Response('{}', { status: 200 })]);
+    await invoke({ email: 'reader@example.com', locale: 'ko', send_time: 'us' }, ko.impl);
+    assert.deepEqual(ko.calls[0].body.segments, [{ id: 'seg-ko' }]);
+  });
+});
+
+test('the US-morning choice falls back to the original send until its segment exists', async () => {
+  const saved = process.env.EMAIL_SEGMENT_ID_EN_US;
+  delete process.env.EMAIL_SEGMENT_ID_EN_US;
+  const prev = process.env.EMAIL_SEGMENT_ID;
+  process.env.EMAIL_SEGMENT_ID = 'seg-en';
+  try {
+    const { calls, impl } = capturingFetch([new Response('{}', { status: 201 })]);
+    await invoke({ email: 'reader@example.com', send_time: 'us' }, impl);
+    assert.deepEqual(calls[0].body.segments, [{ id: 'seg-en' }]);
+  } finally {
+    if (saved !== undefined) process.env.EMAIL_SEGMENT_ID_EN_US = saved;
+    if (prev === undefined) delete process.env.EMAIL_SEGMENT_ID;
+    else process.env.EMAIL_SEGMENT_ID = prev;
+  }
+});
+
+test('an existing reader who switches send time leaves every other edition', async () => {
+  await withUsSegment(async () => {
+    const { calls, impl } = capturingFetch([
+      new Response('{}', { status: 409 }),
+      new Response('{}', { status: 200 }),
+      new Response('{}', { status: 404 }),
+      new Response('{}', { status: 200 }),
+    ]);
+    const res = await invoke({ email: 'reader@example.com', send_time: 'us' }, impl);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(calls.slice(1).map((c) => [c.method, c.url.split('/segments/')[1]]), [
+      ['POST', 'seg-us'],
+      ['DELETE', 'seg-en'],
+      ['DELETE', 'seg-ko'],
+    ]);
+  });
+});
+
+test('client config lists the US-morning send only when its segment exists', async () => {
+  const { GET } = await import('../api/client-config.js');
+  const saved = process.env.EMAIL_SEGMENT_ID_EN_US;
+  try {
+    delete process.env.EMAIL_SEGMENT_ID_EN_US;
+    let body = await (await GET(new Request('https://example.com/api/client-config'))).json();
+    assert.deepEqual(body.digest.email_send_slots, ['kst']);
+    process.env.EMAIL_SEGMENT_ID_EN_US = 'seg-us';
+    body = await (await GET(new Request('https://example.com/api/client-config'))).json();
+    assert.deepEqual(body.digest.email_send_slots, ['kst', 'us']);
+  } finally {
+    if (saved === undefined) delete process.env.EMAIL_SEGMENT_ID_EN_US;
+    else process.env.EMAIL_SEGMENT_ID_EN_US = saved;
+  }
 });

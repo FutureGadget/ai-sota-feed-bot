@@ -109,22 +109,25 @@ PAT scoped to *only this repo* with the minimum permission.
 
 ## Email Digest Trigger
 
-The email digest workflow (`email-digest.yml`) sends each language edition at
-its readers' morning (2026-11-19). cron-job.org is the sole trigger; the
-`locale` input picks the edition:
+The email digest workflow (`email-digest.yml`) has two send times
+(2026-11-20). The `slot` input picks one; with no `slot` the run is the
+original 23:00 UTC send, so a body without it keeps the pre-2026-11-19
+behaviour:
 
 | Job | When (UTC) | Lands | Body |
 |---|---|---|---|
-| 1. Daily, Korean | every day 23:00 | 08:00 KST | `{"ref":"main","inputs":{"kind":"daily","locale":"ko"}}` |
-| 2. Weekly, Korean | Friday 23:00 | Saturday 08:00 KST | `{"ref":"main","inputs":{"kind":"weekly","locale":"ko"}}` |
-| 3. Daily, English | every day 11:30 | 07:30 ET, 12:30 London | `{"ref":"main","inputs":{"kind":"daily","locale":"en"}}` |
-| 4. Weekly, English | Saturday 12:00 | Saturday 08:00 ET | `{"ref":"main","inputs":{"kind":"weekly","locale":"en"}}` |
+| 1. Daily, original send | every day 23:00 | 08:00 KST | `{"ref":"main","inputs":{"kind":"daily"}}` |
+| 2. Weekly, original send | Friday 23:00 | Saturday 08:00 KST | `{"ref":"main","inputs":{"kind":"weekly"}}` |
+| 3. Daily, US morning | every day 11:30 | 06:30 EST / 07:30 EDT | `{"ref":"main","inputs":{"kind":"daily","slot":"us"}}` |
+| 4. Weekly, US morning | Saturday 12:00 | Saturday 07:00 EST | `{"ref":"main","inputs":{"kind":"weekly","slot":"us"}}` |
 
-Both editions read the latest committed recap (the daily routine finishes at
-21:00 UTC, the weekly one Friday 21:00 UTC), and each edition has its own
-already-sent cursor in `data/email/state.json`, so a duplicate trigger is a
-no-op. Storyline follow alerts ride the English daily run only. A body without
-`locale` sends both editions at once (the pre-2026-11-19 setup).
+The original send goes to every Korean reader and to every English reader who
+did not pick the US-morning time, which includes everyone who subscribed
+before the choice existed. The US-morning send goes only to the
+`EMAIL_SEGMENT_ID_EN_US` segment and is a no-op (`reason=no_segment`) until
+that secret is set. Each edition has its own already-sent cursor in
+`data/email/state.json`, so a duplicate trigger is a no-op. Storyline follow
+alerts ride the original daily run only.
 
 For every job:
 

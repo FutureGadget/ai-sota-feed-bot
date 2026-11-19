@@ -18,6 +18,9 @@ export async function GET(request) {
   // are global, so registration needs only the API key — no audience/segment id
   // (a segment id is a send-time concern). Enabled when the key is present.
   const emailSubscribeEnabled = !!String(process.env.EMAIL_API_KEY || '').trim();
+  // Send times a signup can pick: 'us' (11:30 UTC, English) only once its
+  // segment is configured; 'kst' (23:00 UTC) always.
+  const emailSendSlots = String(process.env.EMAIL_SEGMENT_ID_EN_US || '').trim() ? ['kst', 'us'] : ['kst'];
 
   return Response.json({
     posthog: {
@@ -30,6 +33,7 @@ export async function GET(request) {
     digest: {
       email_signup_url: /^https:\/\//.test(emailSignup) ? emailSignup : null,
       email_subscribe_enabled: emailSubscribeEnabled,
+      email_send_slots: emailSendSlots,
     },
   });
 }

@@ -92,7 +92,11 @@ class WorkflowTest(unittest.TestCase):
         for name in ("Send storyline follow alerts", "Commit send cursor"):
             self.assertIn("test_send != 'true'", self.steps[name]["if"])
         self.assertIn("locale != 'ko'", self.steps["Send storyline follow alerts"]["if"])
+        self.assertIn("slot != 'us'", self.steps["Send storyline follow alerts"]["if"])
         send = self.steps["Send digest"]
+        self.assertIn('--slot "${INPUT_SLOT:-kst}"', send["run"])
+        self.assertEqual(send["env"]["EMAIL_SEGMENT_ID_EN_US"], "${{ secrets.EMAIL_SEGMENT_ID_EN_US }}")
+        self.assertEqual(inputs["slot"]["default"], "kst")
         self.assertEqual(send["env"]["EMAIL_TEST_TO"], "${{ secrets.EMAIL_TEST_TO }}")
         self.assertIn('--locale "${INPUT_LOCALE:-all}"', send["run"])
 
