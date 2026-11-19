@@ -42,6 +42,17 @@ MAX_COMMENT_CHARS = 600
 # A post title should fit the thread header in about three lines on a phone.
 MAX_TITLE_CHARS = {"en": 90, "ko": 45}
 
+# Literal translations of the English thread's stock phrases. A Korean board
+# regular would never write these; `--check` rejects them so the routine
+# rewrites the line in natural Korean. Rendering does not drop a post for them.
+KO_LITERAL_PHRASES = {
+    "덜 불타는": "나머지 자잘한 거 / 그 외 소식",
+    "포장 없이": "돌려 말 안 하고 / 쉴드 없이",
+    "출력만 감사": "출력만 검사",
+    "메모리로 합성": "메모리에 요약해 넣는",
+    "빌드 바꾸는": "실제로 써먹을",
+}
+
 COPY = {
     "en": {
         "section": "Community",
@@ -212,6 +223,33 @@ def validate(post: dict, recap: dict | None, kind: str, edition: str) -> list[st
         if count[0] > MAX_COMMENTS:
             errs.append(f"{where}: {count[0]} comments, max {MAX_COMMENTS}")
     return errs
+
+
+def _thread_texts(t: dict) -> list[str]:
+    out = [str(t.get("title") or "")] + lines(t.get("body"))
+
+    def walk(comments):
+        for c in comments or []:
+            if isinstance(c, dict):
+                out.extend(lines(c.get("body")))
+                walk(c.get("replies"))
+
+    walk(t.get("comments"))
+    return out
+
+
+def style_issues(post: dict) -> list[str]:
+    """Return Korean lines that read as literal translations of English."""
+    threads = post.get("threads") if isinstance(post, dict) else None
+    ko = threads.get("ko") if isinstance(threads, dict) else None
+    if not isinstance(ko, dict):
+        return []
+    text = "\n".join(_thread_texts(ko))
+    return [
+        f"threads.ko: literal translation {phrase!r}; write it the way a 갤 regular would (e.g. {better})"
+        for phrase, better in KO_LITERAL_PHRASES.items()
+        if phrase in text
+    ]
 
 
 def load_post(kind: str, edition: str, recap: dict | None = None) -> dict | None:
@@ -567,7 +605,7 @@ def main(argv=None) -> int:
         errs = (
             ["post file missing"]
             if post is None and not path.exists()
-            else validate(post, load_recap(kind, edition), kind, edition)
+            else validate(post, load_recap(kind, edition), kind, edition) + style_issues(post)
         )
         if errs:
             bad += 1

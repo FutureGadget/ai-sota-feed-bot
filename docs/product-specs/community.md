@@ -39,6 +39,11 @@ sign in.
   and `web/ko/community/` and adds the pages to the sitemap.
 - An invalid post is skipped with a warning; the recap page, the email, and the
   rest of the site still render.
+- The Korean thread is written as a native 갤 post, not translated from the
+  English one. `community.py --check` also rejects known literal translations
+  of the English thread's stock phrases (`KO_LITERAL_PHRASES`, e.g. "덜 불타는
+  소식" for "Less on fire"), so the routine rewrites them before committing.
+  This check runs only in `--check`; rendering never drops a post for it.
 - No API and no R2 data: the pages are static and the email reads the file.
 
 ## Open questions

@@ -34,7 +34,19 @@ facts; change the jokes, rhythm, and slang to fit the board.
 
 **`ko` — DC Inside (`style: "dcinside"`, `board: "LLM 다이제스트 마이너 갤러리"`)**
 - Title: 갤 제목처럼 짧고 직설적으로, 45자 이하. 반말, ㅋㅋ/ㄹㅇ/ㄷㄷ 정도의 표현 허용.
-- Voice: 반말·음슴체, 짧은 줄 단위, 포장 없이 바로 본론. 기술 용어는 영어 그대로 둬도 됨.
+- Voice: 반말·음슴체, 짧은 줄 단위, 돌려 말하지 말고 바로 본론. 기술 용어는 영어 그대로 둬도 됨.
+- 영어 스레드를 번역하지 말 것. 리캡을 읽고 처음부터 갤 글로 쓴다. 영어 관용구를
+  직역한 표현은 실제 갤에 없는 말이니 갤러가 쓰는 말로 바꾼다:
+  | 직역 (쓰지 말 것) | 갤에서 쓰는 말 |
+  |---|---|
+  | 덜 불타는 소식 (less on fire) | 나머지 자잘한 거, 그 외 소식 |
+  | 포장 없이 (no sugarcoating) | 돌려 말 안 하고, 쉴드 없이 |
+  | 키 돌려라 (rotate keys) | 키 갈아라, 키 교체해라 |
+  | 과대평가: (Overrated:) | 이번 주 거품:, 제일 거품인 거 |
+  | 출력을 감사 (audit) | 출력을 검사, 확인 |
+  | 메모리로 합성 (synthesize) | 메모리에 요약해 넣음 |
+  | 빌드를 바꾸는 (changes what you build) | 실제로 써먹을 |
+  다 쓴 뒤 한 줄씩 소리 내 읽고, 갤에서 본 적 없는 말투면 다시 쓴다.
 - OP is a 고닉: `author: "피드요약봇"`, `tag: "(고닉)"`. Commenters are mostly
   `author: "ㅇㅇ"` with a made-up two-octet `tag` like `"(118.235)"`; at most two
   other made-up 고닉. Omit `score` everywhere.
@@ -56,8 +68,10 @@ facts; change the jokes, rhythm, and slang to fit the board.
    - The biggest stories in `highlights` order, each with the concrete number
      or action from the recap.
    - Any action readers must take (rotate, pin, patch) stated as an instruction.
-   - One "less on fire" block for the next tier of stories.
-   - A one-line verdict on whatever was over-hyped.
+   - One short block for the next tier of stories, under a heading native to
+     the board (`en`: "Less on fire:"; `ko`: "나머지 자잘한 거" or "그 외 소식").
+   - A one-line verdict on whatever was over-hyped (`en`: "Overrated:"; `ko`:
+     "이번 주 거품:").
 2. **Comments** — 6–10 top-level comments, at most 14 including replies,
    replies nested at most one level. Include each of these at least once:
    - a practical comment that saves a click (a command, a flag, a check);
@@ -129,7 +143,9 @@ paragraph) or one string.
 ```bash
 python pipeline/community.py --check --kind <kind> --edition <id>
 ```
-Fix every `COMMUNITY_INVALID` line and re-run until `COMMUNITY_OK`. The calling
+Fix every `COMMUNITY_INVALID` line and re-run until `COMMUNITY_OK`. A
+`literal translation` line names a phrase from the table above: rewrite that
+Korean line in your own words, not by swapping in the suggestion blindly. The calling
 recap skill's index rebuild then renders `/community`, the post pages
 (`/community/<kind>/<id>`, `/ko/community/<kind>/<id>`), and the teaser on the
 recap page. The email digest picks the post up from the same file.
