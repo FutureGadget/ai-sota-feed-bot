@@ -18,6 +18,15 @@ on:
         description: "Render only, do not send"
         type: boolean
         default: false
+      test_send:
+        description: "Send only to the EMAIL_TEST_TO secret (no subscribers, no cursor change)"
+        type: boolean
+        default: false
+      locale:
+        description: "Edition: all | en | ko"
+        type: choice
+        options: [all, en, ko]
+        default: all
 
 permissions:
   contents: write
@@ -58,9 +67,13 @@ jobs:
           EMAIL_TOPIC_ID_DAILY: ${{ secrets.EMAIL_TOPIC_ID_DAILY }}
           EMAIL_TOPIC_ID_WEEKLY: ${{ secrets.EMAIL_TOPIC_ID_WEEKLY }}
           EMAIL_FROM: ${{ vars.EMAIL_FROM }}
+          # Test sends go to this one address only (the owner's inbox).
+          EMAIL_TEST_TO: ${{ secrets.EMAIL_TEST_TO }}
           INPUT_KIND: ${{ github.event.inputs.kind }}
+          INPUT_LOCALE: ${{ github.event.inputs.locale }}
           SCHEDULE: ${{ github.event.schedule }}
           DRY_RUN: ${{ github.event.inputs.dry_run }}
+          TEST_SEND: ${{ github.event.inputs.test_send }}
         run: |
           # Manual dispatch picks the kind; cron maps the weekly schedule to
           # --kind weekly (github.event.schedule carries the cron expression).
@@ -68,15 +81,15 @@ jobs:
           if [ -z "$KIND" ]; then
             if [ "$SCHEDULE" = "0 23 * * 5" ]; then KIND="weekly"; else KIND="daily"; fi
           fi
-          DRY=""
-          if [ "$DRY_RUN" = "true" ]; then DRY="--dry-run"; fi
-          .venv/bin/python publish/publish_email.py --kind "$KIND" $DRY
+          MODE=""
+          if [ "$DRY_RUN" = "true" ]; then MODE="--dry-run"; elif [ "$TEST_SEND" = "true" ]; then MODE="--test"; fi
+          .venv/bin/python publish/publish_email.py --kind "$KIND" --locale "${INPUT_LOCALE:-all}" $MODE
 
       # Storyline follow alerts ride the daily run. A failure here must not
       # block committing the digest cursor above, and the follow cursor only
       # advances after a successful send.
       - name: Send storyline follow alerts
-        if: ${{ github.event.inputs.kind != 'weekly' }}
+        if: ${{ github.event.inputs.kind != 'weekly' && github.event.inputs.test_send != 'true' }}
         continue-on-error: true
         env:
           EMAIL_API_KEY: ${{ secrets.EMAIL_API_KEY }}
@@ -91,7 +104,7 @@ jobs:
       - name: Commit send cursor
         # always(): a failed Korean send must not drop the English cursor, or the
         # next run would re-send the English edition.
-        if: ${{ always() && github.event.inputs.dry_run != 'true' }}
+        if: ${{ always() && github.event.inputs.dry_run != 'true' && github.event.inputs.test_send != 'true' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
