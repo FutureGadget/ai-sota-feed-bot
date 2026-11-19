@@ -3245,3 +3245,19 @@ content artifacts stay valid either way.
   `EMAIL_SEGMENT_ID_EN_US`; the signup choice hides itself and every send is
   the original one.
 
+
+## 2026-11-20 - US-morning send stays off until a fourth Resend segment exists
+
+- **Decision:** Ship the delivery-time code with the US-morning edition turned
+  off. `EMAIL_SEGMENT_ID_EN_US` stays unset and the two US-morning
+  cron-job.org jobs stay disabled; the original 23:00 UTC send serves every
+  reader.
+- **Rationale:** Resend's free plan caps segments at 3, and General, Korean
+  readers and Storyline followers use all of them. A fourth segment needs a
+  paid plan, and identifying US-morning readers by topic instead would add
+  extra choices to the shared preferences page.
+- **Impact:** none for readers: the signup page shows no time choice and emails
+  carry no time-switch link while the secret is unset.
+- **Rollback / turn-on:** create the segment, set `EMAIL_SEGMENT_ID_EN_US` in
+  GitHub and the Worker, and enable the two jobs
+  (`docs/how-to/hourly-trigger-cron-job-org.md`).
