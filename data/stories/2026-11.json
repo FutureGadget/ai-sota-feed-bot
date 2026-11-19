@@ -4737,6 +4737,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06827v1"
  },
+ "326b64ccbaa7565a": {
+  "first_seen": "2026-11-19T07:05:05.796481+00:00",
+  "id": "92748f5f754a711c",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-18T15:37:04+00:00",
+  "sid": "326b64ccbaa7565a",
+  "source": "arxiv_cs_ai",
+  "summary": "As large language models (LLMs) and LLM-based agents are increasingly deployed, monitoring their behavior becomes important for detecting unsafe or unintended actions. Activation probes offer an efficient approach, but existing methods face trade-offs between accuracy, interpretability, and computational overhead. Probes on raw activations lack interpretable inputs, whereas sparse autoencoder (SAE) probes use interpretable features but often rely on additive classifiers and large SAE encoders, limiting interpretability and increasing memory overhead. We introduce GateWatch, a compact, interpretable classifier that expresses its entire decision rule as an explicit Boolean logic over a small number of binarized SAE features. We explore three approaches to constructing these circuits under a specified gate budget. For efficient deployment, GateWatchServe computes only selected SAE features, enables streaming of their binary values across layers during inference, and evaluates multiple GateWatch classifiers in parallel using compact lookup tables. Across 24 tasks on Gemma-2-9B, GateWatch achieves 80.49% mean test accuracy using only 3.8 SAE features and 3.5 logic gates per probe on average, just 1.17 percentage points below full 16K-feature SAE probes, while matching or outperforming them on 10 tasks and reducing probe memory by 99.98%. Inside vLLM, 1,000 concurrent multi-layer, multi-token GateWatch classifiers retain 97-98% of baseline throughput and 99.8% of KV-cache capacity.",
+  "summary_1line": "As large language models (LLMs) and LLM-based agents are increasingly deployed, monitoring their behavior becomes important for detecting unsafe or unintended actions. Activation probes offer an efficient approach, bu...",
+  "title": "GateWatch: Low-Overhead LLM Monitoring with Boolean Circuits",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24619v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "3277239334115b4b": {
   "content_excerpt": "Research on evidence and verification in multi-agent systems. Papers, proofs, code, and reproducible results. Research on evidence and verification in multi-agent systems. Manuscripts, formal proofs, code, and the recorded data behind the results. When agents share a mistake, their majority can be wrong. This paper studies a rule that lets checked passage evidence overturn the vote, while recording which evidence licensed each change. Verification improves accuracy on the evaluated benchmark, but the original scored rule misses its pre-specified harm criterion. The formal result identifies an inspectable failure condition; it does not guarantee a low error rate. The paper reports the gains, failures, and tradeoff against a stronger model judge together. The paper map collects abstracts and links. catalogue.yaml provides the machine-readable index. With Tectonic installed, or latexmk with pdfLaTeX, run from the repository root: This builds the main paper and supplement. Add the arxiv target to create a source bundle containing both standalone documents. Code, data, and proof checks have separate requirements; follow the artifact guide . The collection is being prepared for its first public release . Study freezes record when analyses were specified; they are not earlier publications. After publication, tagged releases and the history will record corrections and revisions. For a correction or reproduction report, open an issue with the paper, section, claim, and supporting evid",
   "first_seen": "2026-11-03T07:05:24.009620+00:00",
@@ -5047,7 +5064,7 @@
   "published": "2026-11-17T03:44:46+00:00",
   "sid": "364859f834c86602",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 248, downloads: 159.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 258, downloads: 159.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 1, downloads: 0.",
   "title": "tencent/Hy4-flash released on Hugging Face",
   "type": "release",
@@ -12880,6 +12897,23 @@
   "url": "https://github.com/KrypticKode007/Golden-Agent",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "8c4432adfe17d06c": {
+  "first_seen": "2026-11-19T07:05:05.796481+00:00",
+  "id": "4bf1e6c873a128e7",
+  "image_url": "https://static.simonwillison.net/static/2026/gemini-4-neon__comparison-graphi.width-2000.webp",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-18T23:59:20+00:00",
+  "sid": "8c4432adfe17d06c",
+  "source": "simon_willison",
+  "summary": "Release: llm-gemini 0.38 Today Google introduced Gemini 4 Neon . I wrote recently about how confusing the pricing for the Gemini 4 series was - Neon has somehow made this even worse. Previously the Gemini 4 lineup was Hydrogen, Argon, and Carbon - where Argon and Carbon were the same price , and Hydrogen was 3/4 of that price now but will be 1/4 of that price when the other two double an 1st December once their initial discount pricing expires. The Neon announcement pretends that Argon doesn't exist. Here's their new image explaining the model line-up: So the lineup now, from most to least expensive, is Carbon, Neon, Hydrogen. Except Carbon is currently half price, so right now Neon ($3/million input, $15/million output) is the most expensive of the three - then Carbon ($2/$10), then Hydrogen ($1.50/$7.50). I guess this will make more sense when Carbon doubles to $4/$20 on December 1st. I ran some pelicans through the three reasoning levels for Neon - low, medium, high. I dropped Argon from my Gemini 4 comparison grid - here's the new Gemini 4 lineup, where the Neon pelicans do look better than Hydrogen and worse than Carbon: As I've done with several recent models , I also fired the following prompt against Gemini 4 Neon on \"extra\" effort level in Google Antigravity: Make a three js animation where yonkers stands up as a big mech (cool stand up motion) and stomps around manhattan and queens and Brooklyn, use openstreetmap mapping data Here's the result . Tags: yonkers-rising",
+  "summary_1line": "Release: llm-gemini 0.38 Today Google introduced Gemini 4 Neon . I wrote recently about how confusing the pricing for the Gemini 4 series was - Neon has somehow made this even worse. Previously the Gemini 4 lineup was...",
+  "title": "llm-gemini 0.38",
+  "type": "release",
+  "url": "https://simonwillison.net/2026/Nov/18/llm-gemini",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "8c57ba0858b1c3ee": {
   "first_seen": "2026-11-05T05:05:30.850959+00:00",
   "id": "34daa89587bd04de",
@@ -18976,6 +19010,25 @@
   "url": "http://arxiv.org/abs/2611.16060v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "cb79c794f005cc9d": {
+  "first_seen": "2026-11-19T07:05:05.796481+00:00",
+  "id": "99dfe6d58cb216ac",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "evaluation",
+   "claude code"
+  ],
+  "published": "2026-11-18T18:52:13+00:00",
+  "sid": "cb79c794f005cc9d",
+  "source": "arxiv_cs_ai",
+  "summary": "Real-world harness engineering is driven by explicit and implicit user requirements, which guide development and validation. However, existing harness evolution methods often overlook implicit requirements and interaction needs, while using a single evolution agent to modify the harness and benchmark scores to select changes. This process often produces narrow patches and leads to benchmark-specific local optima. We introduce Agentic Harness Engineering Beta (AHE-Beta), a requirement-centered loop that brings real-world engineering practices into harness evolution. The loop consists of three steps: (1) User-driven evaluation lets simulated users raise their requirements as issues while they work with the harness over multiple turns. (2) Team-based modification implements those requirements as generalizable changes rather than task-specific patches. (3) Requirement-driven selection merges a change only when it resolves a verified requirement and passes review. Empirically, on held-out tasks, AHE-Beta raises pass@1 from 21.9% to 33.3% while using 40.8% fewer tokens than Base Harness, and achieves higher pass@1 than Claude Code, Meta-Harness, and AHE. In a blind human A/B test, real users prefer AHE-Beta in 31 of 48 valid pairs and rate it higher on all five dimensions, matching the directional preference of the user simulator. The human A/B results show that AHE-Beta achieves its goal of aligning harness evolution with real-world user requirements. Without further evolution, th",
+  "summary_1line": "Real-world harness engineering is driven by explicit and implicit user requirements, which guide development and validation. However, existing harness evolution methods often overlook implicit requirements and interac...",
+  "title": "Agentic Harness Engineering Beta: Requirement-Centered Evolution of Agent Harnesses",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24924v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
+ },
  "cb7b8ef6fb61e723": {
   "content_excerpt": "Blast-radius control for AI agents that send email: budgets, rate ceiling, loop detection, kill switch, approval holds. Node, Python, PHP, Go. Works with any provider. Blast-radius control for agents that send email: at most N sends an hour, M a minute, no repeated messages, no mail to an important or new recipient without a person, and one call that stops everything. Works in front of nodemailer, Amazon SES, Resend, Postmark, any SMTP server, or AgentiSend. Every decision is one of allow , hold_for_approval or refuse , with a stable reason token, one human sentence and the numbers behind it: Mail to everyone else keeps flowing: a key that pages its owner 30 times an hour still sends a sign-in code to a new user. agent-email-guard runs inside your agent's process. That makes it easy to adopt, and it also means code the agent controls can remove it, and two processes with the in-memory store keep two separate budgets. Use the Redis or Postgres store to share limits across processes. AgentiSend enforces the same rules at the API, where the agent cannot bypass them: the budget, rate ceiling and kill switch live on the API key and apply to every process that uses it, a key can lower its own limits but never raise them, a paused key cannot resume itself, holds wait in an approval queue in the console, and the thresholds are published. The agent-email-guard/agentisend adapter speaks to it with the same decision shape: Put the limits in agent-email-guard.json and load it from Node, ",
   "first_seen": "2026-11-10T03:11:16.614579+00:00",
@@ -22733,8 +22786,14 @@
   "first_seen": "2026-11-19T06:08:22.421285+00:00",
   "id": "15ea61d88622996f",
   "published": "2026-11-19T05:26:17+00:00",
+  "release_highlights": [
+   "release(prebuilt): 1.1.3",
+   "fix(langgraph,prebuilt): give Send-dispatched tool calls the same state as an edge",
+   "fix(prebuilt): make wrap_tool_call state overrides reach the tool"
+  ],
   "sid": "f5b5db019790445e",
   "source": "langgraph_releases",
+  "summary": "Changes since prebuilt==1.1.2 release(prebuilt): 1.1.3 ( #9741 ) fix(langgraph,prebuilt): give Send-dispatched tool calls the same state as an edge ( #9728 ) fix(prebuilt): make wrap_tool_call state overrides reach the tool ( #9730 )",
   "summary_1line": "Changes since prebuilt==1.1.2 release(prebuilt): 1.1.3 ( #9741 ) fix(langgraph,prebuilt): give Send-dispatched tool calls the same state as an edge (<a class=",
   "title": "langgraph-prebuilt==1.1.3",
   "type": "release",

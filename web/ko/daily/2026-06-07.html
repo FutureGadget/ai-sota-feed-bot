@@ -31,10 +31,10 @@
   <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
   <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/site-chrome.css?v=20261107-tabs-row" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20261119-ko-email" />
   <script defer src="/posthog-client.js?v=20261114-engaged-visit"></script>
-  <script defer src="/site-chrome.js?v=20261107-tabs-row"></script>
-  <script defer src="/subscribe-inline.js?v=20261107-tabs-row"></script>
+  <script defer src="/site-chrome.js?v=20261119-ko-email"></script>
+  <script defer src="/subscribe-inline.js?v=20261119-ko-email"></script>
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -269,7 +269,7 @@
       <div class="site-bar">
         <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
         <div class="site-bar-actions">
-          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <a class="site-subscribe-action" href="/subscribe?lang=ko" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
           <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
         </div>
       </div>
@@ -281,6 +281,7 @@
         <a href="/" data-site-destination="/">Live feed</a>
         <a href="/daily" data-site-destination="/daily" aria-current="page">Daily recap</a>
         <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/community" data-site-destination="/community">Community</a>
         <a href="/storylines" data-site-destination="/storylines">Storylines</a>
         <a href="/playbook" data-site-destination="/playbook">Playbook</a>
         <a href="/map" data-site-destination="/map">Agent Know-How</a>
@@ -288,7 +289,7 @@
         <a href="/models" data-site-destination="/models">Model Radar</a>
         <a href="/skills" data-site-destination="/skills">Skill Radar</a>
         <a href="/voices" data-site-destination="/voices">Voices</a>
-        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+        <a href="/subscribe?lang=ko" data-site-destination="/subscribe">Email digest</a>
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
         <a href="/api/daily?date=2026-06-07">View as JSON</a>
@@ -304,12 +305,12 @@
       <section class="daily-hero"><div><p class="daily-kicker">The finishable daily brief</p><h2 class="recap-title">2026년 6월 7일, 인공지능 분야에서 무슨 일이 일어났을까요?</h2></div><div><p class="daily-date">Sunday, Jun 7, 2026<br>3 articles · 2 categories</p><p class="daily-route">read top to bottom · then stop</p></div></section>
       <!-- range is included in the custom hero -->
       <div class="intro"><div class="tldr"><p class="tldr-label">In 30 seconds</p><ul><li>An Ask HN thread took the community&#x27;s pulse on which AI coding tools, harnesses, and providers people actually use day to day.</li><li>NVIDIA pushed its RTX Spark superchip — pitched for the era of personal AI agents — at Korea&#x27;s PC Bangs following its COMPUTEX debut.</li><li>AWS open-sourced ExtendDB, a DynamoDB-compatible adapter with pluggable storage backends, beginning with PostgreSQL.</li></ul></div><p>The practical edges of AI, not new frontier models, held the spotlight on a quiet Sunday. The day&#x27;s most-discussed item wasn&#x27;t an announcement at all but a community gut-check: an Ask HN thread polling what people actually reach for in AI coding today — which clients and harnesses, which providers, which local setups — a useful snapshot of a fast-churning tooling landscape.</p><p>On the hardware and infrastructure side, NVIDIA carried its COMPUTEX momentum into Korea, promoting the RTX Spark superchip for the era of personal AI agents, while AWS&#x27;s open-source ExtendDB gave developers a DynamoDB-compatible API atop pluggable storage backends, starting with PostgreSQL.</p></div>
-      <nav class="toc"><a href="#community-pulse">커뮤니티 소식 (1)</a><a href="#hardware-infrastructure">하드웨어 및 인프라 (2)</a></nav><section class="cat" id="community-pulse"><h2>커뮤니티 소식 <span class="count">1 item</span></h2><p class="cat-summary">현재 사람들이 실제로 AI 지원 코딩을 어떻게 수행하고 있는지에 대한 실무자들의 시각을 담은 개요입니다.</p><div class="articles"><article><h3><a href="https://news.ycombinator.com/item?id=48433171" target="_blank" rel="noopener" data-track="daily-link">HN에게 질문하세요: 현재 AI 코딩(개인 또는 업무용)에 어떤 도구를 사용하고 계신가요?</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 7</span><a class="badge" href="/story/67666533bb35a1ee" data-track="story-link">Details</a></div><p class="art-summary">빠르게 변화하는 환경 속에서 AI 코딩을 위해 개발자들이 어떤 클라이언트, 도구, LLM 제공업체, 그리고 현지 환경에 의존하는지 조사하는 커뮤니티 게시글입니다.</p></article></div></section><section class="cat" id="hardware-infrastructure"><h2>하드웨어 및 인프라 <span class="count">2 items</span></h2><p class="cat-summary">개인용 AI 에이전트의 구성 요소와 그 아래에 있는 데이터 계층.</p><div class="articles"><article><h3><a href="https://blogs.nvidia.com/blog/krafton-nc-t1-korea-gaming-pc-bang-rtx-spark/" target="_blank" rel="noopener" data-track="daily-link">NVIDIA , KRAFTON, NC, 그리고 현 &#x27;리그 오브 레전드&#x27; 챔피언 T1이 한국 PC방에서 RTX Spark 출시를 기념합니다.</a></h3><div class="art-meta"><span class="badge">nvidia_blog</span><span class="badge">Jun 7</span><a class="badge" href="/story/03de06baa81fd9c0" data-track="story-link">Details</a></div><p class="art-summary">NVIDIA 개인용 AI 에이전트 시대를 겨냥한 슈퍼칩인 RTX Spark 출시 행사를 한국의 PC방에서 개최하며, 젠슨 황이 현장에 함께했습니다.</p></article><article><h3><a href="https://www.infoq.com/news/2026/06/extenddb-dynamodb-adapter/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">ExtendDB: 플러그형 스토리지 백엔드를 지원하는 오픈 소스 Amazon DynamoDB 호환 어댑터</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 7</span><a class="badge" href="/story/148bf9dc3a8ad113" data-track="story-link">Details</a></div><p class="art-summary">AWS의 오픈소스 ExtendDB를 사용하면 개발자는 기존 SDKs 및 도구를 유지하면서 PostgreSQL을 비롯한 다양한 스토리지 백엔드에서 DynamoDB API 사용할 수 있습니다.</p></article></div></section><p class="finish-line">You are caught up for this edition</p><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and weekly recap.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="daily_end" data-subscribe-inline>Get the email digest →</a></aside>
+      <nav class="toc"><a href="#community-pulse">커뮤니티 소식 (1)</a><a href="#hardware-infrastructure">하드웨어 및 인프라 (2)</a></nav><section class="cat" id="community-pulse"><h2>커뮤니티 소식 <span class="count">1 item</span></h2><p class="cat-summary">현재 사람들이 실제로 AI 지원 코딩을 어떻게 수행하고 있는지에 대한 실무자들의 시각을 담은 개요입니다.</p><div class="articles"><article><h3><a href="https://news.ycombinator.com/item?id=48433171" target="_blank" rel="noopener" data-track="daily-link">HN에게 질문하세요: 현재 AI 코딩(개인 또는 업무용)에 어떤 도구를 사용하고 계신가요?</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 7</span><a class="badge" href="/story/67666533bb35a1ee" data-track="story-link">Details</a></div><p class="art-summary">빠르게 변화하는 환경 속에서 AI 코딩을 위해 개발자들이 어떤 클라이언트, 도구, LLM 제공업체, 그리고 현지 환경에 의존하는지 조사하는 커뮤니티 게시글입니다.</p></article></div></section><section class="cat" id="hardware-infrastructure"><h2>하드웨어 및 인프라 <span class="count">2 items</span></h2><p class="cat-summary">개인용 AI 에이전트의 구성 요소와 그 아래에 있는 데이터 계층.</p><div class="articles"><article><h3><a href="https://blogs.nvidia.com/blog/krafton-nc-t1-korea-gaming-pc-bang-rtx-spark/" target="_blank" rel="noopener" data-track="daily-link">NVIDIA , KRAFTON, NC, 그리고 현 &#x27;리그 오브 레전드&#x27; 챔피언 T1이 한국 PC방에서 RTX Spark 출시를 기념합니다.</a></h3><div class="art-meta"><span class="badge">nvidia_blog</span><span class="badge">Jun 7</span><a class="badge" href="/story/03de06baa81fd9c0" data-track="story-link">Details</a></div><p class="art-summary">NVIDIA 개인용 AI 에이전트 시대를 겨냥한 슈퍼칩인 RTX Spark 출시 행사를 한국의 PC방에서 개최하며, 젠슨 황이 현장에 함께했습니다.</p></article><article><h3><a href="https://www.infoq.com/news/2026/06/extenddb-dynamodb-adapter/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">ExtendDB: 플러그형 스토리지 백엔드를 지원하는 오픈 소스 Amazon DynamoDB 호환 어댑터</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 7</span><a class="badge" href="/story/148bf9dc3a8ad113" data-track="story-link">Details</a></div><p class="art-summary">AWS의 오픈소스 ExtendDB를 사용하면 개발자는 기존 SDKs 및 도구를 유지하면서 PostgreSQL을 비롯한 다양한 스토리지 백엔드에서 DynamoDB API 사용할 수 있습니다.</p></article></div></section><p class="finish-line">You are caught up for this edition</p><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and weekly recap.</span></p><a href="/subscribe?lang=ko" role="button" data-subscribe-channel="email" data-subscribe-placement="daily_end" data-subscribe-inline>Get the email digest →</a></aside>
     </section>
 
     <footer>
       Built from the AI SOTA feed. Each item links to its original source. ·
-      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+      <a href="/subscribe?lang=ko" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
     </footer>
   </main>
   <script>
