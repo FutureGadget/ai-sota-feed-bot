@@ -40,9 +40,12 @@ machine translation.
 - Use one Korean rendering per term for the whole recap. Prefer the term
   Korean engineers use: 에이전트, 추론, 서빙, 샌드박스, 벤치마크, 평가(eval),
   프롬프트 인젝션, 컨트롤 플레인, 가중치, 컨텍스트 윈도우, 레이턴시.
-- `title`: a Korean headline for the day or week, not a literal translation
-  of "What happened in AI". Include the date as in the English title
-  (e.g. "AI 데일리 — 2026년 11월 18일: …" / "AI 위클리 — 11월 7–13일: …").
+- `title`: 40 characters or fewer, as `<M>월 <D>일 AI 데일리: <headline>` or
+  `<M>월 <D>–<D>일 AI 위클리: <headline>` (e.g. "11월 18일 AI 데일리: 에이전트
+  보안, 세 곳에서 동시에 뚫렸다"). No year; the page shows the full date.
+- Readability: keep each `highlights` item to 100 characters or fewer and each
+  category `name` to 40. Split an English sentence that chains three or more
+  clauses into two Korean sentences instead of linking them with -고/-며.
 - `description`: one sentence, 160 characters or fewer.
 - Article `title`: translate it, keeping names inside. Leave it in English only
   when the title is itself a product, repository, or paper name.

@@ -39,6 +39,8 @@ MAX_COMMENTS = 14
 MAX_DEPTH = 2
 MAX_BODY_CHARS = 2400
 MAX_COMMENT_CHARS = 600
+# A post title should fit the thread header in about three lines on a phone.
+MAX_TITLE_CHARS = {"en": 90, "ko": 45}
 
 COPY = {
     "en": {
@@ -55,6 +57,8 @@ COPY = {
         "points": "points",
         "sources": "Sources",
         "comments": "comments",
+        "n_points": "{n} points",
+        "n_comments": "{n} comments",
         "empty": "No threads yet.",
     },
     "ko": {
@@ -72,6 +76,8 @@ COPY = {
         "points": "추천",
         "sources": "출처",
         "comments": "댓글",
+        "n_points": "추천 {n}",
+        "n_comments": "댓글 {n}개",
         "empty": "아직 스레드가 없습니다.",
     },
 }
@@ -185,6 +191,9 @@ def validate(post: dict, recap: dict | None, kind: str, edition: str) -> list[st
         for key in ("board", "title", "author"):
             if not str(t.get(key) or "").strip():
                 errs.append(f"{where}: {key} required")
+        title = str(t.get("title") or "").strip()
+        if len(title) > MAX_TITLE_CHARS.get(locale, 90):
+            errs.append(f"{where}: title over {MAX_TITLE_CHARS.get(locale, 90)} chars ({len(title)})")
         body = lines(t.get("body"))
         if not body:
             errs.append(f"{where}: body required")
@@ -350,7 +359,7 @@ def _author_html(c: dict, style: str, copy: dict) -> str:
 def _comment_html(c: dict, style: str, titles: dict, copy: dict) -> str:
     score = c.get("score")
     score_html = (
-        f'<span class="thread-score">{int(score)} {escape(copy["points"])}</span>'
+        f'<span class="thread-score">{escape(copy["n_points"].format(n=int(score)))}</span>'
         if isinstance(score, int)
         else ""
     )
@@ -368,8 +377,8 @@ def _comment_html(c: dict, style: str, titles: dict, copy: dict) -> str:
 def _stats(thread: dict, copy: dict) -> str:
     parts = []
     if isinstance(thread.get("score"), int):
-        parts.append(f'{int(thread["score"])} {copy["points"]}')
-    parts.append(f'{comment_count(thread.get("comments"))} {copy["comments"]}')
+        parts.append(copy["n_points"].format(n=int(thread["score"])))
+    parts.append(copy["n_comments"].format(n=comment_count(thread.get("comments"))))
     return " · ".join(parts)
 
 
@@ -428,7 +437,7 @@ def render_teaser(post: dict | None, kind: str, edition: str, locale: str = "en"
         f'<a href="{escape(href)}" data-track="community-teaser">'
         f'<span class="ct-label">{escape(copy["teaser_label"])} · {escape(str(t.get("board")))}</span>'
         f'<span class="ct-title">{escape(str(t.get("title")))}</span>{quote}'
-        f'<span class="ct-meta">{n} {escape(copy["comments"])} · {escape(copy["teaser_cta"])} &rarr;</span>'
+        f'<span class="ct-meta">{escape(copy["n_comments"].format(n=n))} · {escape(copy["teaser_cta"])} &rarr;</span>'
         "</a></aside>"
     )
 
@@ -464,6 +473,9 @@ TEASER_CSS = """\
     .ct-quote { font-size:.86rem; line-height:1.45; color:var(--muted); }
     .ct-quote-author { font-weight:600; color:var(--fg); }
     .ct-meta { font-family:var(--font-mono); font-size:.72rem; color:var(--muted); }
+    html[lang="ko"] .community-teaser :is(.ct-label, .ct-meta) { font-family:var(--font-sans); letter-spacing:0; }
+    html[lang="ko"] .ct-title { line-height:1.42; }
+    html[lang="ko"] .ct-quote { line-height:1.65; }
 """
 
 THREAD_CSS = """\
@@ -516,6 +528,19 @@ THREAD_CSS = """\
     .cr-title { font-size:1.1rem; font-weight:700; line-height:1.3; }
     .cr-meta { font-family:var(--font-mono); font-size:.72rem; color:var(--muted); }
     .community-empty { color:var(--muted); }
+    .thread-post p, .thread-body p { max-width:70ch; }
+    .thread-post p { font-size:1rem; line-height:1.65; }
+    .thread-meta .thread-author { font-size:.84rem; }
+    html[lang="ko"] :is(.thread-board, .community-kicker, .cr-kind, .cr-meta, .thread-comments-head,
+      .thread-score) { font-family:var(--font-sans); letter-spacing:0; }
+    html[lang="ko"] :is(.thread-title, .cr-title) { line-height:1.42; letter-spacing:-.01em; }
+    html[lang="ko"] :is(.thread-post p, .thread-body p) { line-height:1.78; }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .thread-head, .thread-post, .thread-comments { padding-left:.85rem; padding-right:.85rem; }
+      .thread-replies { margin-left:.35rem; padding-left:.65rem; }
+      .thread-title { font-size:1.16rem; }
+    }
 """
 
 

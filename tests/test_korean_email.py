@@ -59,7 +59,7 @@ class RecapTranslationTest(unittest.TestCase):
     def test_load_localized_overlays_korean_text(self):
         recap = recap_i18n.load_localized("daily", DAILY_ID, "ko")
         self.assertIsNotNone(recap)
-        self.assertTrue(recap["title"].startswith("AI 데일리"))
+        self.assertIn("AI 데일리", recap["title"])
         self.assertEqual(recap["categories"][0]["articles"][0]["url"], self.source["categories"][0]["articles"][0]["url"])
         self.assertIsNone(recap_i18n.load_localized("daily", "1999-01-01", "ko"))
 
@@ -104,7 +104,7 @@ class KoreanEmailTest(unittest.TestCase):
         wk = json.loads((ROOT / "data" / "weekly" / f"{WEEKLY_ID}.json").read_text(encoding="utf-8"))
         source, used = email.localized_or_english("weekly", wk, WEEKLY_ID, "ko")
         subject, body = email.render_weekly(self.cfg, source, [], [], None, used)
-        self.assertTrue(subject.startswith("AI 위클리"))
+        self.assertIn("AI 위클리", subject)
         self.assertIn("이번 주 핵심", body)
         self.assertIn(f"/ko/weekly/{WEEKLY_ID}?utm_source=", body)
 

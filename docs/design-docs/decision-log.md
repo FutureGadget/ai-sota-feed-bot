@@ -3163,3 +3163,32 @@ Rollback: Remove step 4 from both recap skills, drop daily/weekly from
 `EMAIL_SEGMENT_ID_KO` (the Korean send then skips). The hash change is
 backward compatible and can stay.
 
+## 2026-11-19 - Readable Korean and English recap and community pages
+
+Decision: Make the localized recap pages and the community pages readable in
+both languages and keep them that way for future runs. Korean pages get Korean
+chrome labels (`RECAP_COPY`), Hangul font fallbacks in the shared type tokens,
+`word-break: keep-all` on the whole page, near-zero heading tracking, a smaller
+hero title and taller line height; contents chips and source badges move to
+sans at a legible size on every page, and source slugs render as names
+(`pipeline/source_labels.py`, shared with the email). Validators cap Korean
+recap titles (40), highlights (100) and category names (40), and community
+titles (90 English, 45 Korean); the recap-translation and community-thread
+skills state the caps and the title format.
+
+Rationale: An audit of the live pages at 390px and 1280px showed Korean words
+split mid-syllable in links and labels, Hangul crushed by Geist's -0.045em
+display tracking, Hangul in mono labels falling back to a wide CJK monospace,
+English chrome ("In 30 seconds", "5 items", "Details", "Prefer to watch?") on
+Korean pages, raw source slugs such as `hackernews_ai`, deep reply indentation
+on phones, and 120+ character community titles. Renderer and CSS fixes apply
+to every regenerated page; the caps and skill text keep agent output inside
+what the layout reads well.
+
+Impact: Every Korean page (site-wide CSS) and every recap and community page
+re-renders on the next deploy. Asset version `20261119-readable`. The Nov 18
+and W46 Korean recap and community titles were shortened to the new caps.
+
+Rollback: Revert the CSS blocks, `RECAP_COPY` call sites, and the caps; the
+content artifacts stay valid either way.
+

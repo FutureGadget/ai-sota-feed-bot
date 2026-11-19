@@ -38,6 +38,11 @@ KINDS = {
 }
 SCRIPT_CHECKS = {"ko": re.compile(r"[가-힣]")}
 MAX_FIELD_CHARS = 1200
+# Readability caps per locale: a title fits the hero in about three lines on
+# a phone, a highlight in about three lines of the "30 seconds" list.
+MAX_TITLE_CHARS = {"ko": 40}
+MAX_HIGHLIGHT_CHARS = {"ko": 100}
+MAX_CATEGORY_NAME_CHARS = {"ko": 40}
 
 
 def _intro_list(value) -> list[str]:
@@ -103,6 +108,9 @@ def validate(translated: dict, source: dict, locale: str) -> list[str]:
             errs.append(f"{where}: not translated (no {locale} text)")
 
     text(translated.get("title"), "title")
+    cap = MAX_TITLE_CHARS.get(locale)
+    if cap and isinstance(translated.get("title"), str) and len(translated["title"].strip()) > cap:
+        errs.append(f"title: over {cap} chars ({len(translated['title'].strip())})")
     if translated.get("description") is not None:
         text(translated.get("description"), "description")
     intro = translated.get("intro")
@@ -117,6 +125,9 @@ def validate(translated: dict, source: dict, locale: str) -> list[str]:
     else:
         for i, h in enumerate(highlights):
             text(h, f"highlights[{i}]")
+            cap = MAX_HIGHLIGHT_CHARS.get(locale)
+            if cap and isinstance(h, str) and len(h.strip()) > cap:
+                errs.append(f"highlights[{i}]: over {cap} chars ({len(h.strip())})")
     cats = translated.get("categories")
     if not isinstance(cats, list) or len(cats) != len(want["categories"]):
         return errs + [f"categories: expected {len(want['categories'])} in English order"]
@@ -126,6 +137,9 @@ def validate(translated: dict, source: dict, locale: str) -> list[str]:
             errs.append(f"{where}: not an object")
             continue
         text(cat.get("name"), f"{where}.name")
+        cap = MAX_CATEGORY_NAME_CHARS.get(locale)
+        if cap and isinstance(cat.get("name"), str) and len(cat["name"].strip()) > cap:
+            errs.append(f"{where}.name: over {cap} chars")
         text(cat.get("summary"), f"{where}.summary")
         arts = cat.get("articles")
         if not isinstance(arts, list) or len(arts) != len(src["articles"]):

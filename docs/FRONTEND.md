@@ -71,6 +71,26 @@ dates, 1px lines, 8px controls, and a dark mode designed alongside light.
   kickers, left-border callouts, square controls. Use sentence-case labels,
   Geist Mono only for data, and Basecoat components.
 
+### Korean pages (2026-11-19)
+
+- Geist has no Hangul. Every type token names Korean fallbacks (Pretendard,
+  Apple SD Gothic Neo, Noto Sans KR, Malgun Gothic) before `system-ui`, and
+  `--font-mono` names them before `monospace`, so Hangul inside a mono label
+  renders in a sans face, not a wide CJK monospace.
+- `html[lang="ko"] body` sets `word-break: keep-all`: Korean wraps between
+  words, never inside one.
+- Korean headings use near-zero tracking (`-0.01em`); the recap hero title
+  drops to `clamp(2rem, 4.6vw, 3.3rem)` with 1.2 line height, and Korean body
+  copy runs 1.7–1.8 line height (`RECAP_READABLE_CSS`, `community.THREAD_CSS`).
+- Labels that are mono on English pages (kickers, dates, contents chips,
+  counts) switch to sans on Korean pages.
+- Localized recap pages take every chrome string from
+  `render_static_pages.RECAP_COPY[locale]`; a new label needs both `en` and
+  `ko` (`tests/test_readability.py`).
+- Content caps keep agent-written titles readable: Korean recap title ≤ 40,
+  highlight ≤ 100, category name ≤ 40 (`recap_i18n.py`); community post title
+  ≤ 90 (English) / ≤ 45 (Korean) (`community.py`).
+
 ## UI framework
 
 Every page loads Tailwind CSS v4 + Basecoat, built into `web/ui.css` from
