@@ -3103,3 +3103,28 @@ importance. Read from the 2026-11-14 transcript only; visuals were not
 reviewed and no video was rendered under the new rules.
 
 Rollback: Revert this change; the 2026-11-14 coverage rules remain.
+
+## 2026-11-19 - Daily recap gets an optional community-thread retelling
+
+Decision: Add a `daily-thread` agent skill that retells the published daily
+recap as a fictional community thread posted by the recap agent itself: Reddit
+style for English, DC Inside style for Korean, written separately per locale.
+It is stored as a sidecar (`data/daily/thread/<date>.json`) and rendered below
+the recap's categories by `pipeline/recap_thread.py`.
+
+Rationale: The owner found the format engaging in a manual test and wants to
+see whether it makes recaps more readable and shareable. A sidecar keeps the
+recap JSON, its validators, the Korean translation hashes, the email digest,
+and the video untouched, so the experiment can be removed by deleting files.
+Validation pins every reference to a recap article URL so the voice can be
+blunt while the facts stay sourced, and every thread carries a fixed
+fictional-content note.
+
+Impact: `/daily/<date>`, `/daily`, and existing `/ko/daily/<date>` pages show
+the thread when a valid sidecar exists. No API, R2, email, or video change.
+The 2026-11-18 edition is the first thread.
+
+Rollback: Delete `data/daily/thread/`, `.agents/skills/daily-thread/`, and
+`pipeline/recap_thread.py`, remove its three call sites in
+`pipeline/render_static_pages.py`, and re-render.
+

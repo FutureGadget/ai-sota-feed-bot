@@ -81,6 +81,7 @@ from urllib.parse import quote, urlparse, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import og_cards  # noqa: E402
+import recap_thread  # noqa: E402
 from build_storylines import WEAK as STORYLINE_WEAK, title_tokens  # noqa: E402
 from story_store import load_store, parse_dt, story_sid  # noqa: E402
 import watch as watch_entities  # noqa: E402
@@ -1805,6 +1806,7 @@ def render_daily_pages(
         title = squeeze(recap.get("title")) or f"AI Daily Recap — {day}"
         description = recap_description(recap)
         published = iso_or_none(recap.get("generated_at"))
+        thread = recap_thread.load_thread(day, recap)
         og_rel = og_cards.ensure(
             "daily",
             day,
@@ -1835,6 +1837,7 @@ def render_daily_pages(
                 playbook_index=playbook_index,
                 playbook_cap=3,
             )
+            + recap_thread.render_thread(thread, recap, "en")
             + '<p class="finish-line">You are caught up for this edition</p>'
             + subscribe_cta_html(
                 "daily_end",
@@ -1853,7 +1856,7 @@ def render_daily_pages(
                 ),
                 breadcrumb_node(base_url, trail),
             ],
-            extra_css=DAILY_RECAP_CSS,
+            extra_css=DAILY_RECAP_CSS + (recap_thread.THREAD_CSS if thread else ""),
             alternate_links=alternate_links_for_path(base_url, source_path, i18n_pages),
             language_links=language_links_for_path(source_path, i18n_pages),
         )
@@ -6212,6 +6215,8 @@ def render_i18n_daily_page(
         dek=og_dek(recap),
     )
     og_image = f"{base_url}{og_rel}" if og_rel else ""
+    thread = recap_thread.load_thread(day, source)
+    has_thread = bool(thread and (thread.get("threads") or {}).get(locale))
     html = render_page(
         title=title,
         description=description,
@@ -6233,6 +6238,7 @@ def render_i18n_daily_page(
             playbook_index=None,
             playbook_cap=3,
         )
+        + recap_thread.render_thread(thread, recap, locale)
         + '<p class="finish-line">You are caught up for this edition</p>'
         + subscribe_cta_html(
             "daily_end",
@@ -6255,7 +6261,7 @@ def render_i18n_daily_page(
                 [("Home", "/"), ("Daily recaps", "/daily"), (day, source_path)],
             ),
         ],
-        extra_css=DAILY_RECAP_CSS,
+        extra_css=DAILY_RECAP_CSS + (recap_thread.THREAD_CSS if has_thread else ""),
         lang=locale,
         alternate_links=[
             (locale, canonical),

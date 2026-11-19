@@ -401,6 +401,11 @@ too, and counting them as readers inflated `total_readers` 15x in October 2026
   only the video id as `video` on the recap JSON; specs
   `docs/product-specs/daily-video.md` and `weekly-video.md`, setup
   `docs/how-to/daily-video-routine.md`),
+  `daily-thread/` (retells a published daily recap as a fictional
+  community thread — Reddit style in English, DC Inside style in Korean — into
+  `data/daily/thread/<date>.json`; `pipeline/recap_thread.py` validates and
+  renders it on `/daily` and `/ko/daily`; spec
+  `docs/product-specs/daily-thread.md`),
   `writing-style/` (no scripts — the shared prose
   contract referenced by the reader-facing content skills above: BLUF, one
   idea per paragraph, scannability, specifics over generalities)

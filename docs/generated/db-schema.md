@@ -245,6 +245,14 @@ accumulated ranked pool (calendar ranges):
   (written by the `daily-video` / `weekly-video` routine after a successful YouTube
   upload; `youtube_id` is the 11-character id). Only the id is stored, never the
   video file. Both validators enforce the id; the weekly index does not carry it.
+- `data/daily/thread/<YYYY-MM-DD>.json` — agent-written community-thread sidecar
+  for a published daily recap: `{date, generated_at, source_generated_at,
+  threads: {en: {style: "reddit", …}, ko: {style: "dcinside", …}}}`. Each thread
+  has `board`, `title`, `author`, optional `tag`/`score`, `body`, `refs` (recap
+  article URLs only), and `comments[]` (`author`, `tag?`, `score?`, `body`,
+  `refs?`, `is_op?`, one level of `replies`). Validated and rendered by
+  `pipeline/recap_thread.py`; not synced to R2. Spec:
+  `docs/product-specs/daily-thread.md`
 - `data/daily/state.json` — `build_daily_input.py`'s automatic-mode cursor:
   `last_checked_date` (latest UTC day published or confirmed empty) and
   `skipped_dates` (audit trail of confirmed-empty days). Only the script's
