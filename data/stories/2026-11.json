@@ -716,6 +716,22 @@
   "url": "http://arxiv.org/abs/2611.08341v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "07a109e2a65bebbe": {
+  "content_excerpt": "Agentic evals for AI agents: 165 tests, open source, offline, deterministic, no LLM judge. Reads OpenTelemetry GenAI traces, A2A and MCP. CI-ready. pip install agentest-ai agentest is an open-source tool for agentic evals . It reads the OpenTelemetry traces your agent already recorded and runs 165 tests that judge what the agent actually did, not only what it said: claimed success it did not earn, acted before verifying, followed a hidden instruction, called a tool it should not, or leaked personal data. It runs offline, with no API key, network or LLM judge, so the same traces always give the same verdicts. Install with pip install agentest-ai . The package name is agentest-ai ; the import and the CLI are agentest . A real recorded run of a shopping agent in a mock shop (nothing was bought). Click the image to watch the 56-second video with voiceover . Works with any framework that records OpenTelemetry GenAI traces. Native-log importers: LangGraph, OpenAI Agents SDK, AutoGen, smolagents and n8n. Worked pages: LangGraph , CrewAI , OpenAI Agents SDK . All examples . Agentic evals are tests of an AI agent's actual behaviour — the tools it called, the order it called them, and the state it left behind — rather than only the text it produced. A reply can say the item was added to the cart while the cart is empty; agentic evals read the recorded trace and grade that gap. agentest runs 165 such tests, offline and without an LLM judge. The longer, citable page is What are agentic e",
+  "first_seen": "2026-11-19T16:06:21.033634+00:00",
+  "id": "988b475b5a3411f2",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-19T14:22:18+00:00",
+  "sid": "07a109e2a65bebbe",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Agentest – offline tests for AI agents from OpenTelemetry traces",
+  "title": "Show HN: Agentest – offline tests for AI agents from OpenTelemetry traces",
+  "type": "news",
+  "url": "https://github.com/srpadmanabhuni/agentest",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "07b0f4ca5cc4c25d": {
   "content_excerpt": "OpenTelemetry-native SDK for AI agent observability, tracing, evaluation, debugging, governance, and runtime policy enforcement. Framework-agnostic and built for OpenAI Agents, LangGraph, CrewAI, and LLM applications in production. Traccia is a production-ready Python SDK for observing, evaluating, and enforcing policies on AI agents and LLM applications at runtime. Built on OpenTelemetry, Traccia provides distributed tracing, token and cost tracking, evaluation, governance evidence, and runtime policy enforcement across AI agents, agentic workflows, and multi-agent systems. Framework-agnostic and built for OpenAI Agents, LangGraph, CrewAI, and LLM applications in production. Each call gets an llm.groq.chat.completions span and goes through the Spend Cap. Settlement charges Groq's reported usage at Groq's own price (cached prompt tokens at the cached rate); a stream closed or failed partway is charged an estimate of what it produced; a stream dropped without close() has its request aborted and is charged its full reservation, as is a with_streaming_response call, whose body you read yourself. A call still open at stop_tracing() ends its span; when the Spend Cap reserved budget for it, it is also aborted and charged that reservation (unless Groq reported usage), and otherwise it is left running, so a stream another thread is reading keeps working. Groq reports usage only at the end of a stream, so a call without it records its estimated token counts on the span instead ( llm.u",
   "first_seen": "2026-11-03T20:08:22.719734+00:00",
@@ -1103,6 +1119,22 @@
   "title": "Google Finds That Technical Debt Can Derail Coding Agents through \"Agent Distraction\"",
   "type": "news",
   "url": "https://www.infoq.com/news/2026/11/google-agent-distraction/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "0bb8222dedf65e8b": {
+  "content_excerpt": "A chart is one JSON spec. validate() and repair() check and fix it locally, with no model call and no hosted service. The same spec draws as SVG in React, Vue, Svelte, Solid, Qwik, Angular, Astro, plain DOM, or Node. svg is a string. It needs no browser, so the same call works in Node, in a build step, or in an edge worker. A line chart is 32 KB gzip. uPlot is smaller at 24 KB. We publish the benchmarks we lose as well as the ones we win: BENCHMARKS.md . Nothing to install: ChartKit Cloud does the same render over HTTP. Send a spec to /render and get an SVG or PNG back. Agents can call its remote MCP, which has three tools: render_chart , validate_chart and repair_chart . It goes live at cloud.chartkit.dev with v1. The service is in apps/cloud . The chart is static SVG with no client script. The build fails on an invalid spec. Add the client prop for tooltips and selection. Each of these also prints the SVG during server rendering. Their READMEs are in packages/ . By default an adapter can draw every chart type. To ship one type, pass render from createRenderer([...]) . validate() returns coded diagnostics ( CK1003 and so on), and each one carries a JSON Patch fix where a fix is safe. repair() applies those fixes. Both are deterministic and run in your process. repairAsync() from @chartkitdev/core/validate/convert also converts Chart.js, ECharts, Plotly, Vega-Lite and Recharts configs. In our agent eval, a model with no ChartKit docs got 21 of 42 specs right on its first answ",
+  "first_seen": "2026-11-19T16:06:21.033634+00:00",
+  "id": "adcab0f39002837d",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-19T14:33:40+00:00",
+  "sid": "0bb8222dedf65e8b",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: ChartKit – a chart library where the agent writes JSON, not code",
+  "title": "Show HN: ChartKit – a chart library where the agent writes JSON, not code",
+  "type": "news",
+  "url": "https://github.com/toddynho/chartkit",
   "why_it_matters": "Matches feed focus: agent."
  },
  "0c72e14fe97992c7": {
@@ -3521,6 +3553,18 @@
   "title": "MamaReason: Unfinished Reasoning and Answer Recovery in Clinical Language Models",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18264v1"
+ },
+ "25f35e84750dc38e": {
+  "first_seen": "2026-11-19T16:06:21.033634+00:00",
+  "id": "ed46606569ec7f34",
+  "published": "2026-11-18T15:09:01+00:00",
+  "sid": "25f35e84750dc38e",
+  "source": "arxiv_cs_cl",
+  "summary": "Looped language models deepen reasoning at a compact parameter count by iterating a shared layer stack T times per token, turning recurrence depth directly into sequential decoding latency. Conventional early-exit decoding halts after initial passes without cache completion, truncating cached key-value states of past tokens to shallow depth. We study the opposite strategy, late entry, where new tokens skip initial passes and enter directly into the final K T alongside subsequent steps at zero extra serial calls. Projecting these finished T-pass wake states inside the existing output GEMM (Wake verification, governed by logit-margin tolerance tau in [0, inf]) unifies greedy-exact T-pass decoding (tau = 0, matching K = T block decoding within bf16 reduction order), margin-gated verification (tau > 0), and non-rollback lossy late entry (tau = inf) inside a single static CUDA graph. On Ouro-2.6B (T = 4), K = 2 Wake reaches 5.2x greedy-exact speedup at tau = 0 (+26% over K = 4 block decoding on GSM8K) and 6.8x at tau = inf (+16.9 points over trained early exit at matched speed). Scaling test-time recurrence across T in {8, 16, 32, 64} on Huginn-3.5B cuts K = T/4 rollbacks 21.5x with depth, driving greedy-exact (tau = 0) speedups to 6.1x (T = 32) and 8.4x (T = 64, +153% over K = 64 block) and tau = inf speedups to 10.6 to 12.5x.",
+  "summary_1line": "Looped language models deepen reasoning at a compact parameter count by iterating a shared layer stack T times per token, turning recurrence depth directly into sequential decoding latency. Conventional early-exit dec...",
+  "title": "Late Entry in Looped Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24576v1"
  },
  "25f77d9f083eed7d": {
   "first_seen": "2026-11-10T04:03:44.888735+00:00",
@@ -7856,6 +7900,22 @@
   "type": "news",
   "url": "https://github.com/voidixyn/glassbrain",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "535404a8a8839ca8": {
+  "first_seen": "2026-11-19T16:06:21.033634+00:00",
+  "id": "238d20463bfebfea",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-11-18T16:25:14+00:00",
+  "sid": "535404a8a8839ca8",
+  "source": "arxiv_cs_ai",
+  "summary": "Reinforcement learning (RL) has become a common approach for training large language model (LLM) agents on long-horizon tasks. However, learning from sparse terminal rewards makes credit assignment and exploration difficult. We approach these challenges through a policy-induced capability region, the set of states from which the current policy can reliably complete a task. Near its boundary, an agent may need only a few actions to reach a more solvable state, even when the goal remains distant. This reduces long-horizon learning to two coupled subproblems of reaching that state and completing the task from there. We address them with paired advantages and a progressive reverse-to-forward curriculum. The advantages provide separate signals for reaching more solvable states and completing the task from them, while the curriculum expands the capability region backward along successful reference trajectories and then into off-reference states through on-policy exploration. On ALFWorld and WebShop, our method outperforms competitive agentic RL methods at both model scales, achieving success rates of 90.1%/96.1% and 80.2%/82.6% with Qwen2.5-1.5B/7B-Instruct, respectively.",
+  "summary_1line": "Reinforcement learning (RL) has become a common approach for training large language model (LLM) agents on long-horizon tasks. However, learning from sparse terminal rewards makes credit assignment and exploration dif...",
+  "title": "Depth Before Breadth: Reverse-to-Forward Curriculum with Advantage Decomposition for LLM Agent",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24697v1",
+  "why_it_matters": "Matches feed focus: agentic."
  },
  "535e40bb574e5495": {
   "first_seen": "2026-11-03T10:05:34.032473+00:00",
@@ -21185,6 +21245,22 @@
   "url": "http://arxiv.org/abs/2611.12777v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "de721704d1329b66": {
+  "first_seen": "2026-11-19T16:06:21.033634+00:00",
+  "id": "db3f0545a0853ffc",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-18T15:18:22+00:00",
+  "sid": "de721704d1329b66",
+  "source": "arxiv_cs_ai",
+  "summary": "Pre-trained models can read screens and reason about games, yet on an unfamiliar game, an agent still has to learn to play. We ask how an agent can self-improve on such a game from a few of its own attempts, in real-time visual games where the agent sees only the screen and the game keeps running while the agent thinks. We study two kinds of policy that can carry this improvement. In model as policy, a model selects actions during play; we adapt real-time chunking so that committed actions keep executing while the model reasons, and train a 2B controller for this interface. In code as policy, a model writes, tests, and revises a program between attempts, and the program acts during play. Across 170 GameWorld tasks, with at most eight one-minute executions per run, code as policy reaches 47.80% mean progress, against 30.90% for our trained controller, and leads in all five game categories. Improving the controller's weights on a single game, by contrast, yields only modest gains. These results favor letting a model think offline and storing what it learns in a program that acts in real time. Project repository: https://github.com/TabibitoQZP/SIGame",
+  "summary_1line": "Pre-trained models can read screens and reason about games, yet on an unfamiliar game, an agent still has to learn to play. We ask how an agent can self-improve on such a game from a few of its own attempts, in real-t...",
+  "title": "Think Offline, Act in Real Time: Self-Improving Visual Game Agents through Code",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24590v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "de8f23ee1e6f492b": {
   "first_seen": "2026-11-19T00:09:50.610543+00:00",
   "id": "681718cd459cf943",
@@ -21990,6 +22066,22 @@
   "title": "Qwen4-Max Preview in Qwen Chat: a second door, same 14 days",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5YR05pc1lJQkhLTXVZZ2tBSGlaMkF3ZEZBSmtfM085ekV6MmRreHRCb1lETWNUV1hVS1ItcXI1bTY4amxLdmxTYVFPbV9qbzFmd01jQ3hoWHFQUmc1emJ4ZElKY1JpdHpVWTR0NGZqWndiZ2Rr?oc=5"
+ },
+ "e823044e69bd7a71": {
+  "first_seen": "2026-11-19T16:06:21.033634+00:00",
+  "id": "96887bc043a2bc27",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-18T13:08:14+00:00",
+  "sid": "e823044e69bd7a71",
+  "source": "arxiv_cs_cl",
+  "summary": "AI agents read their whole history at every step. People do not work like that: we keep what the moment needs and hold the rest as a rough note we can recall. MoE-Context applies this to language models. The context is split into blocks. Before each step a fast yes or no pass decides which blocks the step needs; the rest stay as one-line notes that can be brought back, and nothing is deleted. In the version we build, one model makes this decision and then answers, over a single key-value cache where hidden blocks are masked rather than removed. On a laptop with Qwen3-1.7B and a synthetic lookup task, showing only the needed block raises accuracy from 93 to 119 of 120, and a masked block is as hidden as a deleted one. The model's own picking is the weak part. A supervised linear probe written into spare output rows lifts its accuracy from 80 to 110 of 120, but simple keyword search picks perfectly on this task, and the probe does not transfer to a second task. We report these results openly, along with two cheap usage patterns that block switching enables: undoing a failed attempt and running subagents without a new context.",
+  "summary_1line": "AI agents read their whole history at every step. People do not work like that: we keep what the moment needs and hold the rest as a rough note we can recall. MoE-Context applies this to language models. The context i...",
+  "title": "MoE-Context: Show the Model Only What It Needs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24379v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "e84d20698cc7a671": {
   "first_seen": "2026-11-09T15:04:47.831224+00:00",

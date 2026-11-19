@@ -2,127 +2,139 @@
 
 Focus: AI Platform Engineering
 
-## 1. LangSmith Tool Gateway: Secure, governed tool use for agents
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/langsmith-tool-gateway
-- Score: 3.736 | Reliability: 1.0
+## 1. Show HN: ChartKit – a chart library where the agent writes JSON, not code
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/toddynho/chartkit
+- Score: 3.788 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. KnowledgeClaw: Towards Agentic Knowledge Engineering via Omnimodal Hypergraphs
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.24294v1
-- Score: 3.3 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 3. Intent Contracts: Taking Tools Away from Agents
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.24025v1
-- Score: 3.224 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 4. Agentic Harness Engineering Beta: Requirement-Centered Evolution of Agent Harnesses
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2611.24924v1
-- Score: 3.154 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness, evaluation.
-
-## 5. Presentation: RIIIR: Rewrite It In *Idiomatic* Rust (with AI)
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/presentations/rust-ai-symposium-agent-client-protocol/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.082 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 6. llm-gemini 0.38
-- Type: release | Source: simon_willison
-- URL: https://simonwillison.net/2026/Nov/18/llm-gemini/
-- Score: 3.038 | Reliability: 1.0
+## 2. Show HN: Purple Flow – AI-first n8n alternative, 10k+ workflows on 512MB
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/leetheguy/purple_flow
+- Score: 3.667 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 7. Sarvam Prices Its Own Model Below DeepSeek In New Token Factory
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiuAFBVV95cUxQekxSVzdzd1ZVSF9pT3MwSTV1TkJnSnVEU19WVTlkblNCbXRZN3hvREVkdHdFeEtpODVfTW9oeFNsbTFBSE9xZ3lRLTlhbWJGUHpuMi1acHRKZ0xLdXg0bGVoa2NfSTlLU2djVmMxNDhzSG56UEt5anpxclUyS0RXZzFSR3AyVU8yM1N0LUE1UnhWUlV1LVUtb2lMejllaDFDWEQtcmplcFVyMlVoN3UtVjhaUVZDdl8z?oc=5
-- Score: 2.851 | Reliability: 1.0
+## 3. LangSmith Tool Gateway: Secure, governed tool use for agents
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/langsmith-tool-gateway
+- Score: 3.627 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. Show HN: Agentest – offline tests for AI agents from OpenTelemetry traces
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/srpadmanabhuni/agentest
+- Score: 3.571 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 5. Your Software Factory Needs a Bill of Materials | Daniel Meppiel
+- Type: video | Source: ai_native_dev
+- URL: https://youtu.be/MHrw1wxSuz8
+- Score: 3.424 | Reliability: 0.833
+- Why it matters: Matches feed focus: agent, eval.
+
+## 6. MoE-Context: Show the Model Only What It Needs
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.24379v1
+- Score: 2.853 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 7. Late Entry in Looped Language Models
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.24576v1
+- Score: 2.681 | Reliability: 1.0
 - Why it matters: 
 
-## 8. [AINews] Perplexity hits a $1B revenue run rate, up 4x in 2026
+## 8. Think Offline, Act in Real Time: Self-Improving Visual Game Agents through Code
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.24590v1
+- Score: 2.621 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 9. [AINews] Perplexity hits a $1B revenue run rate, up 4x in 2026
 - Type: news | Source: latent_space
 - URL: https://latent.space/p/ainews-perplexity-hits-a-1b-revenue-run-rate-up-4x-in-2026/
-- Score: 2.171 | Reliability: 1.0
+- Score: 2.128 | Reliability: 1.0
 - Why it matters: 
 
-## 9. codex rust-v0.172.0-alpha.2
+## 10. codex 0.172.0-alpha.2
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.172.0-alpha.2
-- Score: 2.167 | Reliability: 1.0
+- Score: 2.11 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 10. langgraph==1.2.23
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.23
-- Score: 1.996 | Reliability: 1.0
-- Why it matters: 
+## 11. Depth Before Breadth: Reverse-to-Forward Curriculum with Advantage Decomposition for LLM Agent
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.24697v1
+- Score: 2.589 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
 
-## 11. On Evaluating User Simulators for Interactive Agents
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.24892v1
-- Score: 3.104 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 12. Jailbreak Detection on Large Language Models via Contrastive Prototype Structures
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.24936v1
-- Score: 2.975 | Reliability: 1.0
-- Why it matters: 
-
-## 13. How Revolut raises ambition without lowering the bar
+## 12. Introducing GPT-6.2 Astra and Sol
 - Type: news | Source: openai_blog
-- URL: https://openai.com/business/customer-stories/revolut
-- Score: 1.895 | Reliability: 1.0
+- URL: https://openai.com/index/introducing-gpt-6-2-astra-sol
+- Score: 2.081 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 14. Why we rebuilt LangSmith around the agent
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/we-rebuilt-langsmith-around-the-agent
-- Score: 1.86 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 13. langgraph-prebuilt==1.1.3
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/prebuilt%3D%3D1.1.3
+- Score: 1.962 | Reliability: 1.0
+- Why it matters: 
 
-## 15. Our new blog for science
+## 14. Our new blog for science
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/our-new-blog-for-science
-- Score: 1.811 | Reliability: 1.0
+- Score: 1.821 | Reliability: 1.0
 - Why it matters: 
 
-## 16. A step toward defining the Standard Model on a lattice
+## 15. Strengthening NATO and allied cyber defenses with AI
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/step-toward-defining-the-standard-model
-- Score: 1.705 | Reliability: 1.0
+- URL: https://openai.com/index/strengthening-nato-allied-cyber-defences-ai
+- Score: 1.802 | Reliability: 1.0
 - Why it matters: 
 
-## 17. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
+## 16. Introducing AlphaProof Code: a breakthrough in verifying complex software at depth
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-alphaproof-code/
-- Score: 1.661 | Reliability: 1.0
+- Score: 1.641 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 18. claude-code v2.1.326
+## 17. claude-code v2.1.326
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.326
-- Score: 1.547 | Reliability: 1.0
+- Score: 1.537 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 19. llama_index v0.14.26
-- Type: release | Source: llamaindex_releases
-- URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.26
-- Score: 1.393 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 20. tencent/WeVisForensics released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/WeVisForensics
-- Score: 1.115 | Reliability: 1.0
+## 18. Inkling 2 Small on vLLM: Day-0 Support
+- Type: news | Source: vllm_blog
+- URL: https://vllm.ai/blog/2026-11-12-inkling2-small
+- Score: 1.524 | Reliability: 1.0
 - Why it matters: 
 
-## 21. Release 2.74.0 corresponding to NGC container 26.10
+## 19. Build once, run on any agent: A practical guide to agent skills
+- Type: news | Source: github_blog_ai_ml
+- URL: https://github.blog/ai-and-ml/github-copilot/build-once-run-on-any-agent-a-practical-guide-to-agent-skills/
+- Score: 1.505 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 20. llama_index v0.14.26
+- Type: release | Source: llamaindex_releases
+- URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.26
+- Score: 1.388 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 21. Gemini Robotics 2.5 accelerates real-world general dexterity
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/
+- Score: 1.245 | Reliability: 1.0
+- Why it matters: 
+
+## 22. tencent/WeVisForensics released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/WeVisForensics
+- Score: 1.078 | Reliability: 1.0
+- Why it matters: 
+
+## 23. Release 2.74.0 corresponding to NGC container 26.10
 - Type: release | Source: triton_releases
 - URL: https://github.com/triton-inference-server/server/releases/tag/v2.74.0
 - Score: 0.717 | Reliability: 1.0
