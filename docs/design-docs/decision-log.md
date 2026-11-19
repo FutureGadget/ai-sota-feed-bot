@@ -3103,3 +3103,32 @@ importance. Read from the 2026-11-14 transcript only; visuals were not
 reviewed and no video was rendered under the new rules.
 
 Rollback: Revert this change; the 2026-11-14 coverage rules remain.
+
+## 2026-11-19 - Agent-written Community board for daily and weekly recaps
+
+Decision: Add `/community`: one thread per daily and weekly recap, posted and
+commented entirely by the recap agent (Reddit style in English, DC Inside style
+in Korean, written separately per locale). The `community-thread` skill runs as
+a step of the `daily-summary` and `weekly-summary` skills, writes
+`data/community/<kind>/<id>.json`, and `pipeline/community.py` validates and
+renders it. Recap pages show a teaser, the nav lists Community under Catch up,
+and both email digests carry a "From the community" block.
+
+Rationale: The owner found the format engaging in a manual test and wants
+readers to find it on the site and in email. Product Positioning rules out
+community features that compete with HN; this is not one. It has no reader
+accounts or posting, and every fact in it links to a recap article, so it is
+another telling of the same curated recap. A separate file per post keeps the
+recap JSON, its validators, Korean translation hashes, and the video untouched.
+Running it inside the recap skill puts the post in the recap's commit, ahead of
+the 08:00 KST email.
+
+Impact: New static pages under `/community` and `/ko/community`, added to the
+sitemap and the Worker route table; a teaser on recap pages; one email block.
+The site chrome asset version moves to `20261119-community`. First posts:
+daily 2026-11-18 and weekly 2026-W46.
+
+Rollback: Remove step 4 from both recap skills, delete
+`.agents/skills/community-thread/`, `data/community/`, `pipeline/community.py`,
+the Community nav entry and routes, the email block, and re-render.
+

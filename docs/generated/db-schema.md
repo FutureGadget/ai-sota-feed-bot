@@ -245,6 +245,15 @@ accumulated ranked pool (calendar ranges):
   (written by the `daily-video` / `weekly-video` routine after a successful YouTube
   upload; `youtube_id` is the 11-character id). Only the id is stored, never the
   video file. Both validators enforce the id; the weekly index does not carry it.
+- `data/community/daily/<YYYY-MM-DD>.json`, `data/community/weekly/<YYYY-Www>.json` —
+  agent-written Community posts, one per published recap: `{kind, edition,
+  generated_at, source_generated_at, threads: {en: {style: "reddit", …}, ko:
+  {style: "dcinside", …}}}`. Each thread has `board`, `title`, `author`, optional
+  `tag`/`score`, `body`, `refs` (recap article URLs only), and `comments[]`
+  (`author`, `tag?`, `score?`, `body`, `refs?`, `is_op?`, one level of
+  `replies`). Validated and rendered by `pipeline/community.py`; read by
+  `publish/publish_email.py`; not synced to R2. Spec:
+  `docs/product-specs/community.md`
 - `data/daily/state.json` — `build_daily_input.py`'s automatic-mode cursor:
   `last_checked_date` (latest UTC day published or confirmed empty) and
   `skipped_dates` (audit trail of confirmed-empty days). Only the script's

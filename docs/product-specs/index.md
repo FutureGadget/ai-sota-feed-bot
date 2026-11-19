@@ -19,5 +19,6 @@
 - localized-live-feed.md
 - [Model Radar comparison](model-radar-comparison.md)
 - [Daily explainer video](daily-video.md)
+- [Community](community.md)
 - [Weekly explainer video](weekly-video.md)
 - [Watchlist](watchlist.md)

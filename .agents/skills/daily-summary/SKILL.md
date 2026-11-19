@@ -184,7 +184,12 @@ Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
   deterministic rendering may show it inline. Daily remains news-first; a
   Playbook match does not force an article into the recap.
 
-### 4. Validate + rebuild the index (what the site serves)
+### 4. Write the Community post
+Follow `.agents/skills/community-thread/SKILL.md` with `kind: daily` and
+`id: <date>` for the recap you just wrote. Finish its validate step
+(`COMMUNITY_OK`) before continuing.
+
+### 5. Validate + rebuild the index (what the site serves)
 ```bash
 python .agents/skills/daily-summary/scripts/build_daily_index.py
 ```
@@ -194,9 +199,10 @@ Validates every recap against the schema and rebuilds
 `pipeline/render_static_pages.py`. It exits non-zero on a malformed recap —
 fix and re-run until clean. (`--check` validates without writing.)
 
-### 5. Post it (commit + push)
+### 6. Post it (commit + push)
 ```bash
-git add data/daily/ web/daily/ web/sitemap.xml web/robots.txt
+git add data/daily/ web/daily/ web/sitemap.xml web/robots.txt \
+  data/community/ web/community/ web/ko/community/
 # Pin the agent identity so the commit signature can't inherit the machine's
 # ambient git config (sets both author and committer).
 git -c user.name="Claude" -c user.email="noreply@anthropic.com" \
