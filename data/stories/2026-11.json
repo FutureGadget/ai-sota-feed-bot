@@ -3569,6 +3569,22 @@
   "url": "https://latent.space/p/ainews-llms-can-read-write-neural-network-weights-weight-space-programming-cuts-autoresearch-out-of",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "226255c029778106": {
+  "content_excerpt": "Drop-in agent-browser replacement that cuts context token bloat and eliminates vision-LLM costs. A drop-in replacement for agent-browser that pairs ultra-lightweight DOM summaries with local Folate neural DOM grounding—cutting agent token costs by up to 90%+ per step. Instead of dumping full accessibility trees or hundreds of @eN element references on every snapshot , Frowse returns a compact semantic summary of the page—just enough for an AI agent to craft a precise natural-language query for Folate , which traverses the live DOM locally on CPU ( 10–25 ms , < 250 MB RAM, $0 API cost) and resolves the exact CSS/XPath selector. Paste this prompt into your AI coding agent (Claude Code, Codex, Cursor, etc.) to install Frowse, its bundled skills, and verify everything works: Note: Frowse requires Python 3.10+ on PATH . On first run, the CLI automatically provisions an isolated environment in ~/.frowse/venv if frowse is not already installed. Independent subagent runs ( o200k_base CLI output tokens, no shared context) comparing Frowse ( 0.1.0 with bundled frowse & frowse-extract skills) against agent-browser ( 0.43.0 ) across three real-world workflows: Notes: Token counts measure exact o200k_base CLI stdout/stderr during browser execution ( 21,913 total for Frowse if also including initial frowse skills show reads). On all three workflows, both independent agents completed the task end-to-end and arrived at identical verified answers (the same 4-device $977.98 Google Pixel ecosys",
+  "first_seen": "2026-11-20T16:05:40.947489+00:00",
+  "id": "3fda655ffe5498ff",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-20T14:50:44+00:00",
+  "sid": "226255c029778106",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Frowse – Drop-in agent-browser CLI that cuts token spend by up to 90%+",
+  "title": "Show HN: Frowse – Drop-in agent-browser CLI that cuts token spend by up to 90%+",
+  "type": "news",
+  "url": "https://github.com/figranium/frowse",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "2285b6c7751e89f4": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. Hannes Hapke shares how Dataiku’s open-source Kiji Inspector applies Sparse Autoencoders (SAEs) directly to decision tokens to expose why agents pick specific tools. Moving past superficial chain-of-thought narratives, he discusses causal ablation, layer activation extraction via patched vLLM engines, and production monitoring workflows for software architects and senior engineering leaders. Henry Wilson shares actionable",
   "first_seen": "2026-11-15T23:06:05.718817+00:00",
@@ -5540,6 +5556,23 @@
   "type": "news",
   "url": "https://ideas.imbue.com/p/the-long-way-to-sculptor",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "349b1438d7013255": {
+  "first_seen": "2026-11-20T16:05:40.947489+00:00",
+  "id": "893147f94acdbc9f",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-19T07:42:26+00:00",
+  "sid": "349b1438d7013255",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large Language Models show great potential for automated Register-Transfer Level repair, yet they struggle with non-local faults where root causes and failing outputs reside far apart in source code. Treating RTL as a flat token sequence obscures hardware dataflows, whereas exposing complete synthesized graphs overwhelms the model with fine-grained metadata. To resolve this representation dilemma, we propose GRODE-RTL, an anchor-centric representation that extracts the single-clock-stage fan-in cone of a suspect register from the netlist, maps netlist nodes back to editable source lines, and organizes them into a compact hop-partitioned dependency view. By prioritizing direct drivers and folding distant hops, GRODE-RTL guides standard tool-using agents without exposing ground-truth hints or oracle feedback. We evaluate GRODE-RTL across 30 formally validated non-local faults using three LLMs (DeepSeek-V4-Flash, GLM-5.2, and MiniMax-M3) alongside a controlled six-configuration ablation study. GRODE-RTL improves pass@1 over source-level exploration by 16.7% on DeepSeek, by 26.7% on GLM-5.2, and by 20.0% on MiniMax-M3, with consistent gains on the hard-to-retrieve far-distance and indirect-anchor subsets of all three models. Our controls isolate structural relevance from generic context expansion, proving that selective dependency organization rather than full graph exposure is key to effective RTL repair.",
+  "summary_1line": "Large Language Models show great potential for automated Register-Transfer Level repair, yet they struggle with non-local faults where root causes and failing outputs reside far apart in source code. Treating RTL as a...",
+  "title": "GRODE-RTL: Source-Mapped Dependency Views for LLM-Based RTL Repair",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.25661v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "34a445c230d723c1": {
   "first_seen": "2026-11-09T00:08:10.338185+00:00",
@@ -13071,6 +13104,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09722v1"
  },
+ "7ef90d5b1e124f4d": {
+  "content_excerpt": "A live API key is sitting in your agent's config. preflight-agent runs five checks before your AI agent runs — clones, secrets, hooks, fleet, skill sprawl — one local scan receipt. Deterministic, no LLM. Five things quietly go wrong in an AI-agent setup before anyone notices: a folder that executes code the moment it is opened, a live API key sitting in a config file, a safety hook that was never going to fire, two agents a router cannot tell apart, a skill collection too sprawled to discover anything in. Each used to need its own tool — five of mine, all published separately, all sitting quiet. Now one command runs all five audits and prints a single combined receipt: Static and read-only — a scan executes nothing. No module runs, imports, or installs anything in the target; the reports cite what they found instead of judging intent. And the verdicts are honest about their edges: a module with nothing to audit reports skipped with its reason , never clean, and every module prints its own limits in its own section of the receipt. One scan of the fixture with exactly one planted problem per module — an auto-run .envrc , a literal key in .mcp.json , a guard hook pointing at a script that does not exist, a duplicated agent name, a duplicated skill name — five modules, five findings, one combined receipt (29 seconds, real run, nothing staged). preflight-agent is the before it runs member of a family built on one grammar — document = claims, code = evidence, every verdict cited : ",
+  "first_seen": "2026-11-20T16:05:40.947489+00:00",
+  "id": "867bebcb36f65b41",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-20T15:14:03+00:00",
+  "sid": "7ef90d5b1e124f4d",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Preflight-agent – five checks your AI-agent setup needs before it runs",
+  "title": "Show HN: Preflight-agent – five checks your AI-agent setup needs before it runs",
+  "type": "news",
+  "url": "https://github.com/jasveerai88/preflight-agent",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "7f7e2dd5e34e020f": {
   "first_seen": "2026-11-16T09:04:08.554134+00:00",
   "id": "7b9cfe4c6cf88e21",
@@ -18116,7 +18165,7 @@
   "published": "2026-11-17T08:58:14+00:00",
   "sid": "ae467cfd399481fc",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 6, downloads: 11.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 8, downloads: 11.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 6, downloads: 11.",
   "title": "tencent/WeMM-Video-2B released on Hugging Face",
   "type": "release",
@@ -23202,6 +23251,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.24839v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "dffd3c74b5465cdc": {
+  "first_seen": "2026-11-20T16:05:40.947489+00:00",
+  "id": "b59e9b2052f82ad3",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-19T09:34:18+00:00",
+  "sid": "dffd3c74b5465cdc",
+  "source": "arxiv_llm_reliability",
+  "summary": "Preference training is the standard recipe for reducing object hallucination in vision-language models, and each new method reports a lower CHAIR score. We ask what that reduction consists of. Every trained system is compared with its base model's caption truncated to the same object recall, which removes the part of the gain that comes from saying less; the remainder is compared with what a deliberately weak, frozen, eleven-feature post-hoc probe fitted on 500 annotated images can reproduce. All criteria were specified in the analysis code and frozen before the outputs they judge existed. For eight public methods on LLaVA-1.5-7B, the probe reproduces at least two thirds of what training removes beyond saying less for 7 of 8 methods on COCO, 8 of 8 on AMBER and 6 of 8 on Object HalBench, with RLAIF-V the consistent exception; a later public method released for both LLaVA-1.5 and Qwen2.5-VL (SENTINEL) meets the same bar on both. On our own DPO checkpoints the accounting holds on Qwen2.5-VL but fails on InternVL2.5 on COCO (2 of 4 training designs). At matched recall, the base model plus the probe beats truncation for 8 of 9 LLaVA-1.5 systems on COCO and 9 of 9 on AMBER, on the two newer backbones, and when realized as actual sentence deletion. The same measure prices training signals: DPO on the model's own samples labelled by the probe or by an object-level CLIP score recovers 0.70 and 0.87 of the beyond-brevity gain of ground-truth-labelled DPO on Qwen2.5-VL (the probe 0.73 ",
+  "summary_1line": "Preference training is the standard recipe for reducing object hallucination in vision-language models, and each new method reports a lower CHAIR score. We ask what that reduction consists of. Every trained system is...",
+  "title": "What Does Anti-Hallucination Training Buy? Saying Less, Cheap Pruning, and the Rest",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.25814v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "e01475b582c9f905": {
   "first_seen": "2026-11-10T21:05:43.516589+00:00",
