@@ -1,0 +1,91 @@
+{
+ "slug": "attack-security",
+ "label": "Attack Security",
+ "item_count": 3,
+ "day_count": 2,
+ "source_count": 2,
+ "first_seen": "2026-11-10T11:52:40+00:00",
+ "last_updated": "2026-11-19T16:47:14+00:00",
+ "generated_at": "2026-11-20T00:13:34.686460+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "hackernews_ai"
+ ],
+ "days": [
+  {
+   "date": "2026-11-10",
+   "items": [
+    {
+     "title": "From Attack Surface to Defense Architecture: Compositional Security for Agentic Coding Harnesses",
+     "url": "http://arxiv.org/abs/2611.13960v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "AI coding harnesses couple language models to shells, filesystems, and network sockets, turning the harness into an automated Living-off-the-Land (LotL) platform: once an adversary injects instructions into retrieved...",
+     "why_it_matters": "Matches feed focus: agentic, harness.",
+     "sid": "455c0c72bf13295c",
+     "published": "2026-11-10T11:52:40+00:00",
+     "editor_note": "Sets the threat model: tool-connected coding harnesses as automated Living-off-the-Land platforms after injection."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-19",
+   "items": [
+    {
+     "title": "AI security engineering: the same failures, but new ways to attack",
+     "url": "https://zimmergren.net/ai-security-engineering",
+     "source": "hackernews_ai",
+     "type": "news",
+     "sid": "1b66b3acc2678fad",
+     "published": "2026-11-19T09:59:53+00:00",
+     "editor_note": "Practitioner view that AI security repeats familiar failure classes through new attack paths."
+    },
+    {
+     "title": "Did the attack work? Auditing AI-agent security benchmark verdicts",
+     "url": "https://zenodo.org/records/24321025",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Did the attack work? Auditing AI-agent security benchmark verdicts",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "cd759e6684ea23fc",
+     "published": "2026-11-19T16:47:14+00:00",
+     "editor_note": "Moves the thread to measurement: audits whether benchmark attack-success verdicts are correct."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a loose research thread on agent security, not one event. It opened with an arXiv paper arguing that coding harnesses wired to shells, filesystems, and sockets become Living-off-the-Land platforms once an injected instruction lands.",
+  "stale": false,
+  "whats_new": "A Nov 19 audit questions whether AI-agent security benchmarks score attacks correctly, asking if reported \"attack succeeded\" verdicts actually hold up.",
+  "why_it_matters": "If benchmark verdicts on agent attacks are unreliable, the security scores you use to pick a harness or guardrail may not reflect real exposure.",
+  "take_for_builders": "Before trusting an agent-security benchmark score, spot-check a sample of its \"attack succeeded\" and \"attack failed\" verdicts against the raw transcripts.",
+  "beats": [
+   {
+    "kicker": "THREAT MODEL",
+    "tone": "launch",
+    "headline": "Coding harnesses framed as Living-off-the-Land attack platforms",
+    "summary": "Paper maps prompt injection through retrieved content to shell, file, and network actions, and proposes compositional defenses.",
+    "sids": [
+     "455c0c72bf13295c"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Practitioner take on old failures, plus an audit of benchmark verdicts",
+    "summary": "Attention shifts from attack surface to whether the measurements of attack success can be trusted.",
+    "sids": [
+     "1b66b3acc2678fad",
+     "cd759e6684ea23fc"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Which named agent-security benchmarks does the verdict audit find mis-scoring attacks, and in which direction?",
+   "Do benchmark maintainers publish corrected verdicts or revised scoring rules?",
+   "Does the compositional defense architecture get an implementation or evaluation against a real harness?"
+  ],
+  "generated_at": "2026-11-20T00:12:40Z"
+ }
+}

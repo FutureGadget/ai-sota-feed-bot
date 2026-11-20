@@ -1,0 +1,145 @@
+{
+ "slug": "weight-space-programming",
+ "label": "Weight-Space Programming",
+ "item_count": 5,
+ "day_count": 5,
+ "source_count": 5,
+ "first_seen": "2026-11-03T05:35:00+00:00",
+ "last_updated": "2026-11-18T12:31:23+00:00",
+ "generated_at": "2026-11-20T00:13:34.686460+00:00",
+ "sources": [
+  "arxiv_cs_ai",
+  "arxiv_cs_cl",
+  "arxiv_llm_reliability",
+  "hackernews_ai",
+  "latent_space"
+ ],
+ "days": [
+  {
+   "date": "2026-11-03",
+   "items": [
+    {
+     "title": "[AINews] LLMs can read & write neural network weights: \"Weight Space Programming\" cuts Autoresearch out of the RSI loop",
+     "url": "https://latent.space/p/ainews-llms-can-read-write-neural-network-weights-weight-space-programming-cuts-autoresearch-out-of",
+     "source": "latent_space",
+     "type": "news",
+     "summary_1line": "Editing Qwen’s weights to reduce reasoning loops, DeepSeek’s super-agent prototype, and the GDPx benchmark.",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "22262baef95a2fe5",
+     "published": "2026-11-03T05:35:00+00:00",
+     "editor_note": "Introduced the technique to a practitioner audience, with a concrete Qwen reasoning-loop edit."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-11",
+   "items": [
+    {
+     "title": "Show HN: W-ISA – An instruction set for programming LLM weights",
+     "url": "https://github.com/eax/w-isa",
+     "source": "hackernews_ai",
+     "type": "news",
+     "sid": "3f5db491bb6150c6",
+     "published": "2026-11-11T23:47:21+00:00",
+     "editor_note": "First open-source attempt to formalize weight writing as an instruction set."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "items": [
+    {
+     "title": "Compiling Known Rules into Compact Neural Agents: Weight-Space Programming on Unseen Games",
+     "url": "http://arxiv.org/abs/2611.16981v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Weight-space programming (WSP) uses language models to construct neural network weights without training. We test whether known game mechanics can be compiled into compact agents that generalise to held-out levels, renderings and start states within a game family. Writers receive",
+     "sid": "66afd15d3cc82624",
+     "published": "2026-11-12T15:49:00+00:00",
+     "editor_note": "Tested whether compiled agents generalize to unseen levels, renderings and start states."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-16",
+   "items": [
+    {
+     "title": "Replicating and Extending Weight-Space Programming: Frontier LLMs Compile Programs into Weights and Read Input Layers",
+     "url": "http://arxiv.org/abs/2611.21449v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Researchers at MIT recently reported that GPT-6 Astra, a frontier large language model (LLM), can write the weights of small neural networks directly in a single reply, and can read the raw weights of small networks to say what they were trained to do. In a three-day sprint, we r",
+     "sid": "c6ff682be23f5497",
+     "published": "2026-11-16T17:35:18+00:00",
+     "editor_note": "Independent replication of the original MIT write-and-read results, with extensions."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-18",
+   "items": [
+    {
+     "title": "Can Weight-Space Programming Alter Learned Ethical Priorities?",
+     "url": "http://arxiv.org/abs/2611.24330v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "We investigate whether a weight edit can alter how a model trades off honoring a commitment against benefiting more people. In a concept-supervised text model, we alter fitted choice weights so that the benefit required to override a formal pledge is larger than for an ordinary p",
+     "sid": "6891036f2be78fdd",
+     "published": "2026-11-18T12:31:23+00:00",
+     "editor_note": "Moved the technique from capability edits to value edits, testing a pledge-versus-benefit trade-off."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "On Nov 3, Latent Space covered an MIT result showing frontier LLMs can read and write small neural network weights directly, with no training run. Over the next two weeks an open-source instruction set, a game-agent compilation paper, and an independent replication followed.",
+  "stale": false,
+  "whats_new": "A Nov 18 arXiv paper tests whether a weight edit can change a model's ethical trade-off, raising the benefit needed to override a formal pledge in a concept-supervised text model.",
+  "why_it_matters": "If LLMs can author and inspect weights directly, model behavior becomes editable without a training run, which is both a new tooling surface and a new tampering risk for anything you serve.",
+  "take_for_builders": "Hold off on production use: results so far cover small networks and research models. Do add checkpoint hashing and behavior regression evals, since direct weight edits leave no training trail.",
+  "beats": [
+   {
+    "kicker": "ORIGIN",
+    "tone": "launch",
+    "headline": "LLMs shown reading and writing neural network weights",
+    "summary": "Latent Space frames the MIT result as a way to cut autoresearch out of the self-improvement loop, citing weight edits to Qwen that reduce reasoning loops.",
+    "sids": [
+     "22262baef95a2fe5"
+    ]
+   },
+   {
+    "kicker": "TOOLING",
+    "tone": "rising",
+    "headline": "W-ISA proposes an instruction set for programming LLM weights",
+    "sids": [
+     "3f5db491bb6150c6"
+    ]
+   },
+   {
+    "kicker": "REPLICATION",
+    "tone": "rising",
+    "headline": "Papers compile game rules into agents and reproduce the core claim",
+    "summary": "One paper tests whether compiled game agents generalize to held-out levels; another reproduces the write-weights and read-weights results in a three-day sprint.",
+    "sids": [
+     "66afd15d3cc82624",
+     "c6ff682be23f5497"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Researchers test weight edits on a model's ethical priorities",
+    "sids": [
+     "6891036f2be78fdd"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does weight-space programming work beyond small networks, on production-scale LLM layers?",
+   "Do the Qwen reasoning-loop edits hold up on independent benchmarks?",
+   "Can weight-space edits be detected by inspecting a served checkpoint?",
+   "Does W-ISA gain adoption or a reference implementation from a major lab?"
+  ],
+  "generated_at": "2026-11-20T00:12:42Z"
+ }
+}

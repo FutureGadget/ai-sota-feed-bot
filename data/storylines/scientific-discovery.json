@@ -1,0 +1,106 @@
+{
+ "slug": "scientific-discovery",
+ "label": "Scientific Discovery",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-11-09T15:20:32+00:00",
+ "last_updated": "2026-11-18T16:36:18+00:00",
+ "generated_at": "2026-11-20T00:13:34.686460+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_cl"
+ ],
+ "days": [
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "SciMARS: Multi-Agent Recursive Self-Improvement for Closed-Loop Scientific Discovery",
+     "url": "http://arxiv.org/abs/2611.12552v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "We propose SciMARS, a framework for recursive task-local adaptation of multi-agent harnesses in closed-loop scientific discovery. Multi-agent systems coordinate analysis, experimental design, and verification as scien...",
+     "why_it_matters": "Matches feed focus: agent, harness, eval.",
+     "sid": "04524b2773c6396e",
+     "published": "2026-11-09T15:20:32+00:00",
+     "editor_note": "Opens the thread with a harness design: recursive per-task adaptation of a multi-agent discovery loop."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-10",
+   "items": [
+    {
+     "title": "Contrastive Discovery: Open-Ended Scientific Discovery over Competing Explanations",
+     "url": "http://arxiv.org/abs/2611.14514v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "LLM agents are increasingly used for open-ended, data-driven scientific discovery, yet most of them evaluate hypotheses pointwise, testing an empirical claim $h$ only against its complement $\\neg h$. When evidence rej...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "0ada6edaa8802c6a",
+     "published": "2026-11-10T18:58:43+00:00",
+     "editor_note": "Shifts the focus to hypothesis testing, proposing comparison against competing explanations."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-18",
+   "items": [
+    {
+     "title": "Openhagen Worlds: Calibrated Environments for Measuring and Training Scientific Discovery Agents",
+     "url": "http://arxiv.org/abs/2611.24711v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Agents that do science must choose informative experiments and reason from their results, but most discovery benchmarks cannot separate that skill from recall, unstated scoring rules or shortcut policies. We introduce...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "a3bd9ea282cc2d46",
+     "published": "2026-11-18T16:36:18+00:00",
+     "editor_note": "Adds the measurement side: environments built to stop recall and shortcuts from inflating discovery scores."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a research thread, not one event: three arXiv papers on LLM agents that run scientific discovery. SciMARS (Nov 9) adapts multi-agent harnesses for closed-loop experiments, and Contrastive Discovery (Nov 10) argues agents should test competing explanations instead of one hypothesis against its negation.",
+  "stale": false,
+  "whats_new": "Openhagen Worlds (Nov 18) adds calibrated environments meant to measure whether a discovery agent picks informative experiments, separate from recall, hidden scoring rules or shortcut policies.",
+  "why_it_matters": "Discovery-agent claims are hard to trust until an eval can separate experiment choice from memorized answers, and Openhagen Worlds is the first paper in this thread aimed at that gap.",
+  "take_for_builders": "If you build research or data-analysis agents, borrow the eval idea first: test experiment choice in environments where recall cannot reveal the answer, and treat benchmark gains without such controls as unproven.",
+  "beats": [
+   {
+    "kicker": "HARNESS",
+    "tone": "launch",
+    "headline": "SciMARS: multi-agent harnesses that adapt per task in closed-loop discovery",
+    "summary": "Agents split analysis, experimental design and verification, and the harness itself is tuned recursively for each task.",
+    "sids": [
+     "04524b2773c6396e"
+    ]
+   },
+   {
+    "kicker": "REASONING",
+    "tone": "rising",
+    "headline": "Contrastive Discovery: score hypotheses against rival explanations, not just their negation",
+    "summary": "Targets a failure mode where pointwise testing leaves an agent with nothing useful when evidence rejects its claim.",
+    "sids": [
+     "0ada6edaa8802c6a"
+    ]
+   },
+   {
+    "kicker": "MEASUREMENT",
+    "tone": "now",
+    "headline": "Openhagen Worlds: calibrated environments to measure and train discovery agents",
+    "summary": "Moves the thread from building discovery agents to checking whether their skill is real.",
+    "sids": [
+     "a3bd9ea282cc2d46"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do SciMARS or Contrastive Discovery get evaluated on Openhagen Worlds or another shared benchmark?",
+   "Does any lab release code or environments that others can reproduce?",
+   "Does any discovery agent here show results on real wet-lab or physical experiments rather than simulated ones?"
+  ],
+  "generated_at": "2026-11-20T00:12:41Z"
+ }
+}

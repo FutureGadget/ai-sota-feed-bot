@@ -1,0 +1,191 @@
+{
+  "generated_at": "2026-11-20T00:11:39.101631+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "speculative-decoding",
+    "label": "Speculative Decoding",
+    "item_count": 8,
+    "source_count": 3,
+    "day_count": 7,
+    "first_seen": "2026-11-03T22:52:34+00:00",
+    "last_updated": "2026-11-18T12:11:43+00:00",
+    "latest_title": "LoopCache: Accelerating Long-Context Self-Speculative Decoding for Looped Transformers",
+    "member_sids": [
+      "884381d0dd03d261",
+      "f78a35ba2c2de2e1",
+      "b1fe6c30c1c550df",
+      "0aacbce5f85ac122",
+      "d9424aebc884a5c5",
+      "256bf90ce51f6665",
+      "018074f62583197d",
+      "a34c118cc3850b60"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/speculative-decoding.json",
+    "prior_narrative": {
+      "slug": "speculative-decoding",
+      "generated_at": "2026-08-27T05:20:00+00:00",
+      "covers_last_updated": "2026-08-26T16:50:02+00:00",
+      "covers_member_sids": [
+        "80e7ec208d50f270",
+        "b4fa4d7778a6247d",
+        "aad81dd5a952ad5d"
+      ],
+      "tldr": "Speculative decoding — verifying multiple draft tokens per step to cut inference latency — is now developing on two separate fronts: new drafting research and production serving guides. A mid-August paper (DARTree) pushed the research side toward diffusion-based draft trees that predict whole token blocks instead of single tokens.",
+      "whats_new": "A new paper (AsymSpec, Aug 26) targets speculative decoding specifically at agentic pipelines, arguing that generic techniques don't address the latency cost of long, tool-call-and-retrieval-inflated context that agents accumulate.",
+      "why_it_matters": "If your agent pipeline is context-heavy (tool loops, retrieval, multi-turn memory), the generic speculative-decoding tuning already documented for production (vLLM/EAGLE-3/DFlash/DSpark) may not capture agent-specific savings — a context-aware variant like AsymSpec is what to watch for next.",
+      "beats": [
+        {
+          "kicker": "DRAFTING RESEARCH",
+          "tone": "rising",
+          "headline": "DARTree proposes diffusion-based draft trees to cut proposal latency further",
+          "summary": "A diffusion drafter predicts an entire token block at once instead of one token at a time, aiming to reduce the latency of the draft step itself.",
+          "sids": [
+            "80e7ec208d50f270"
+          ]
+        },
+        {
+          "kicker": "PRODUCTION TUNING",
+          "tone": "now",
+          "headline": "vLLM publishes a hands-on speculative-decoding tuning guide for AMD GPUs",
+          "summary": "The guide covers draft-and-verify mechanics and configuration across MTP, EAGLE-3, DFlash, and DSpark, with benchmark results — a practical reference for teams already running vLLM.",
+          "sids": [
+            "b4fa4d7778a6247d"
+          ]
+        },
+        {
+          "kicker": "AGENTIC SPECIALIZATION",
+          "tone": "turn",
+          "headline": "AsymSpec argues agentic LLM pipelines need context-asymmetric speculative decoding",
+          "summary": "Long accumulated context from retrieval, tool use, and multi-turn interaction inflates inference cost in ways generic speculative decoding and context-compression tricks don't fully address, the paper argues.",
+          "sids": [
+            "aad81dd5a952ad5d"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Does AsymSpec's context-asymmetric approach get benchmarked against production serving stacks (vLLM/EAGLE-3/DFlash) rather than only academic baselines?",
+        "Is there a reference implementation of AsymSpec that agent-pipeline builders can actually try, or is it paper-only for now?",
+        "How much of DARTree's diffusion-drafting latency win holds up outside its own benchmark suite?"
+      ],
+      "take_for_builders": "Don't assume the generic speculative-decoding tuning already documented for vLLM (EAGLE-3/DFlash/DSpark) captures agent-specific savings — if your pipeline's context keeps growing from tool calls and retrieval, watch for a runnable implementation of context-asymmetric techniques like AsymSpec before investing engineering time.",
+      "day_captions": {
+        "80e7ec208d50f270": "DARTree proposes diffusion-based draft trees that predict a whole token block per step instead of one token at a time.",
+        "b4fa4d7778a6247d": "vLLM publishes a practical speculative-decoding tuning guide for AMD GPUs covering MTP, EAGLE-3, DFlash, and DSpark.",
+        "aad81dd5a952ad5d": "AsymSpec proposes context-asymmetric speculative decoding aimed specifically at agentic LLM pipelines' inflated context cost."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-11-03",
+        "items": [
+          {
+            "sid": "884381d0dd03d261",
+            "title": "Give the Drafter a Second Chance to Guess: Parallel Reconsideration for Speculative Decoding",
+            "url": "http://arxiv.org/abs/2611.05724v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "Speculative decoding accelerates large language model inference with a small drafter, whose per-guess acceptance rate determines the achievable speedup. Feature-level drafters share a design choice: every token, easy...",
+            "published": "2026-11-03T22:52:34+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-04",
+        "items": [
+          {
+            "sid": "f78a35ba2c2de2e1",
+            "title": "Accelerating Long-Context Decoding in Large-Scale Hybrid LLMs Without Retraining",
+            "url": "http://arxiv.org/abs/2611.06133v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "The full-attention layers of large language models (LLMs) make every generated token more expensive than the previous one, slowing models down on long-context tasks. Hybrid models reduce this cost by replacing most full-attention layers with linear-attention layers, but the first",
+            "published": "2026-11-04T08:18:38+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-07",
+        "items": [
+          {
+            "sid": "b1fe6c30c1c550df",
+            "title": "D-REAL: Acceptance-Length Optimization with Unbiased Gradients for Speculative Decoding",
+            "url": "http://arxiv.org/abs/2611.10432v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Speculative decoding efficiency depends on the number of consecutively accepted draft tokens, yet token-level training objectives do not directly optimize this quantity. We introduce D-REAL (Drafter Reinforcement of E...",
+            "published": "2026-11-07T03:19:43+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-09",
+        "items": [
+          {
+            "sid": "0aacbce5f85ac122",
+            "title": "DForkTree: Accelerating Speculative Decoding with Fork-Aware Block Diffusion Draft Trees",
+            "url": "http://arxiv.org/abs/2611.12356v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Speculative decoding speeds up language models by letting a lightweight drafter propose several future tokens that the target model verifies in parallel. Block diffusion drafters such as DFlash draft a whole block in one forward pass, and DDTree builds a draft tree from their per",
+            "published": "2026-11-09T13:06:52+00:00"
+          },
+          {
+            "sid": "d9424aebc884a5c5",
+            "title": "Phrase-Level Speculative Decoding on a Frozen Target",
+            "url": "http://arxiv.org/abs/2611.12464v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Speculative decoders raise throughput by banking more target tokens per forward pass, and Medusa, EAGLE-3, DFlash and DSpark all do it the same way: more candidates that survive verification. All of them draft in the target's own vocabulary, so one node of the candidate tree is o",
+            "published": "2026-11-09T14:13:32+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-10",
+        "items": [
+          {
+            "sid": "256bf90ce51f6665",
+            "title": "REAL Loss: Optimizing Real Expected Acceptance Length for Speculative Decoding",
+            "url": "http://arxiv.org/abs/2611.14399v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Speculative decoding accelerates LLM inference by having a draft model propose multiple tokens for the target model to verify in one pass. The speedup is governed by the expected acceptance length (EAL), yet standard...",
+            "published": "2026-11-10T17:45:12+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-13",
+        "items": [
+          {
+            "sid": "018074f62583197d",
+            "title": "Callo: Serving Cache-Miss Requests with Speculative Decoding on Invalidated KV under Prefill-Decode Disaggregation",
+            "url": "http://arxiv.org/abs/2611.18459v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "Agent sessions may involve frequent context edits, which effectively invalidate cached KV state and force requests to wait for re-prefill before decoding. We present Callo, a disaggregated serving system that leverage...",
+            "published": "2026-11-13T17:28:37+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-11-18",
+        "items": [
+          {
+            "sid": "a34c118cc3850b60",
+            "title": "LoopCache: Accelerating Long-Context Self-Speculative Decoding for Looped Transformers",
+            "url": "http://arxiv.org/abs/2611.24301v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Looped Transformers achieve large effective depth with compact models by repeatedly applying a weight-shared block across R recurrent steps, each maintaining a loop-specific key-value (KV) cache. To accelerate sequent...",
+            "published": "2026-11-18T12:11:43+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}

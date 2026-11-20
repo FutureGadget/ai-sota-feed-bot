@@ -1,0 +1,43 @@
+{
+  "slug": "scientific-discovery",
+  "generated_at": "2026-11-20T00:12:41Z",
+  "covers_last_updated": "2026-11-18T16:36:18+00:00",
+  "covers_member_sids": ["04524b2773c6396e", "0ada6edaa8802c6a", "a3bd9ea282cc2d46"],
+  "tldr": "This is a research thread, not one event: three arXiv papers on LLM agents that run scientific discovery. SciMARS (Nov 9) adapts multi-agent harnesses for closed-loop experiments, and Contrastive Discovery (Nov 10) argues agents should test competing explanations instead of one hypothesis against its negation.",
+  "whats_new": "Openhagen Worlds (Nov 18) adds calibrated environments meant to measure whether a discovery agent picks informative experiments, separate from recall, hidden scoring rules or shortcut policies.",
+  "why_it_matters": "Discovery-agent claims are hard to trust until an eval can separate experiment choice from memorized answers, and Openhagen Worlds is the first paper in this thread aimed at that gap.",
+  "beats": [
+    {
+      "kicker": "HARNESS",
+      "tone": "launch",
+      "headline": "SciMARS: multi-agent harnesses that adapt per task in closed-loop discovery",
+      "summary": "Agents split analysis, experimental design and verification, and the harness itself is tuned recursively for each task.",
+      "sids": ["04524b2773c6396e"]
+    },
+    {
+      "kicker": "REASONING",
+      "tone": "rising",
+      "headline": "Contrastive Discovery: score hypotheses against rival explanations, not just their negation",
+      "summary": "Targets a failure mode where pointwise testing leaves an agent with nothing useful when evidence rejects its claim.",
+      "sids": ["0ada6edaa8802c6a"]
+    },
+    {
+      "kicker": "MEASUREMENT",
+      "tone": "now",
+      "headline": "Openhagen Worlds: calibrated environments to measure and train discovery agents",
+      "summary": "Moves the thread from building discovery agents to checking whether their skill is real.",
+      "sids": ["a3bd9ea282cc2d46"]
+    }
+  ],
+  "open_questions": [
+    "Do SciMARS or Contrastive Discovery get evaluated on Openhagen Worlds or another shared benchmark?",
+    "Does any lab release code or environments that others can reproduce?",
+    "Does any discovery agent here show results on real wet-lab or physical experiments rather than simulated ones?"
+  ],
+  "take_for_builders": "If you build research or data-analysis agents, borrow the eval idea first: test experiment choice in environments where recall cannot reveal the answer, and treat benchmark gains without such controls as unproven.",
+  "day_captions": {
+    "04524b2773c6396e": "Opens the thread with a harness design: recursive per-task adaptation of a multi-agent discovery loop.",
+    "0ada6edaa8802c6a": "Shifts the focus to hypothesis testing, proposing comparison against competing explanations.",
+    "a3bd9ea282cc2d46": "Adds the measurement side: environments built to stop recall and shortcuts from inflating discovery scores."
+  }
+}

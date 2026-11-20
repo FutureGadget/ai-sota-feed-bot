@@ -1,12 +1,12 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 24,
- "day_count": 14,
+ "item_count": 27,
+ "day_count": 16,
  "source_count": 6,
- "first_seen": "2026-10-29T09:21:26+00:00",
- "last_updated": "2026-11-16T16:19:01+00:00",
- "generated_at": "2026-11-18T00:14:17.482304+00:00",
+ "first_seen": "2026-10-30T11:39:08+00:00",
+ "last_updated": "2026-11-18T18:56:12+00:00",
+ "generated_at": "2026-11-20T00:13:34.686460+00:00",
  "sources": [
   "anthropic_research",
   "arxiv_agent_systems_research",
@@ -16,21 +16,6 @@
   "arxiv_llm_reliability"
  ],
  "days": [
-  {
-   "date": "2026-10-29",
-   "items": [
-    {
-     "title": "Incentivizing Self-Learning in Large Language Models via Reinforcement Learning",
-     "url": "http://arxiv.org/abs/2610.39671v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Large language models (LLMs) draw on parametric knowledge and retrieval-augmented generation (RAG) to solve knowledge-intensive tasks. Yet problem solving in unfamiliar domains calls for tightly coupled knowledge acquisition and reasoning, beyond factual retrieval and aggregation",
-     "sid": "d571e973b6e6916d",
-     "published": "2026-10-29T09:21:26+00:00",
-     "editor_note": "Opens the thread: RL to couple knowledge acquisition with reasoning in unfamiliar domains, beyond plain RAG."
-    }
-   ]
-  },
   {
    "date": "2026-10-30",
    "items": [
@@ -43,7 +28,7 @@
      "why_it_matters": "Matches feed focus: eval.",
      "sid": "fdfc122cd97a630f",
      "published": "2026-10-30T11:39:08+00:00",
-     "editor_note": "Survey plus empirical audit of when reasoning models can stop early without losing reliability."
+     "editor_note": "Opens the window: survey plus empirical audit of when reasoning models can stop early without losing reliability."
     },
     {
      "title": "Reimagining Text-to-SQL: A Survey of Large Language Model Architectures and Strategies",
@@ -315,6 +300,22 @@
    ]
   },
   {
+   "date": "2026-11-15",
+   "items": [
+    {
+     "title": "Interactive Structured Environment Scaling for Large Language Model Agentic Reasoning",
+     "url": "http://arxiv.org/abs/2611.19871v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Reinforcement learning via environmental interaction is a cornerstone post-training paradigm for evolving large language models into autonomous agents capable of multi-turn tool use and exploration. Because the enviro...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "baf7e4781272e609",
+     "published": "2026-11-15T08:20:34+00:00",
+     "editor_note": "Agent-side entry: scaling structured, interactive RL environments for multi-turn tool-use training."
+    }
+   ]
+  },
+  {
    "date": "2026-11-16",
    "items": [
     {
@@ -337,32 +338,64 @@
      "why_it_matters": "Matches feed focus: agent, eval.",
      "sid": "8f0034965a63d29c",
      "published": "2026-11-16T16:19:01+00:00",
-     "editor_note": "Latest item: cross-model study of LLMs clearing, flagging or escalating unknown binaries under a budget."
+     "editor_note": "Cross-model study of LLMs clearing, flagging or escalating unknown binaries under a budget."
+    },
+    {
+     "title": "Stability-Compensated Threshold Calibration for Selection-Conditioned Risk Control in Large Language Models",
+     "url": "http://arxiv.org/abs/2611.21384v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Large language models often produce hallucinated answers, motivating selective prediction policies that abstain on uncertain queries. However, heuristic uncertainty thresholds alone do not provide statistical control of errors among accepted predictions. Linear Expectation Constr",
+     "sid": "0d292c5fdc2bf79f",
+     "published": "2026-11-16T16:45:29+00:00",
+     "editor_note": "Moves abstention from heuristic thresholds to calibrated thresholds with statistical error control on accepted answers."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-17",
+   "items": [
+    {
+     "title": "PACD: Provenance-Aware Consensus Decoding for Mitigating Cross-Modal Hallucinations in Omnimodal Large Language Models",
+     "url": "http://arxiv.org/abs/2611.22456v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Omnimodal large language models (Omni-LLMs) integrate audio, video, and text for multimodal reasoning, yet remain vulnerable to cross-modal hallucinations, where one modality improperly influences predictions about another. Existing training-free decoding methods mitigate these e",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "563c7d3375862838",
+     "published": "2026-11-17T09:20:20+00:00",
+     "editor_note": "Training-free decoding that tracks which modality supports a claim, targeting cross-modal hallucination."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-18",
+   "items": [
+    {
+     "title": "Jailbreak Detection on Large Language Models via Contrastive Prototype Structures",
+     "url": "http://arxiv.org/abs/2611.24936v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Jailbreak attempts and harmful prompts remain a challenge for the safe deployment of large language models. We study whether contrastively learned representations can support safety detection without training an addit...",
+     "sid": "e497c044e025058b",
+     "published": "2026-11-18T18:56:12+00:00",
+     "editor_note": "Latest item: jailbreak detection from contrastive representations without training an additional guard model."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 29 it ran through self-learning, pruning, Anthropic's Nov 2 provable-inference update and knowledge editing to Nov 10-13 work on what eval scores measure and when a model should abstain or ask for clarification.",
+  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 30 it ran through pruning, Anthropic's Nov 2 provable-inference update, knowledge editing and eval-validity work to Nov 13-16 papers on when a model should abstain, ask or escalate.",
   "stale": false,
-  "whats_new": "Nov 16: TRIAGE-CPG compares LLMs deciding under a budget whether to clear, flag or escalate unknown binaries, and dhAIBench benchmarks LLMs for linguistic annotation under documented conditions.",
-  "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on a production question: when a model should answer, ask, abstain or escalate, and how to measure that decision rather than raw accuracy.",
-  "take_for_builders": "Score your agent's answer/ask/abstain/escalate decisions as a separate eval with perturbed controls (renamed entities, shuffled inputs), and measure the per-request call cost of any uncertainty method before wiring it into routing.",
+  "whats_new": "Nov 18: a contrastive-prototype method detects jailbreak prompts without training a separate guard model, after Nov 16-17 papers on calibrated abstention thresholds and provenance-aware decoding for omnimodal hallucinations.",
+  "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on guardrail design: calibrated refusal, modality-aware hallucination control and lightweight jailbreak screening, each a component a serving stack can test.",
+  "take_for_builders": "Before swapping in any of these guardrails, replay your own traffic: measure the jailbreak detector's false-block rate on benign prompts, check that a calibrated abstention threshold holds its error rate on your data, and count the extra model calls each method adds.",
   "beats": [
    {
-    "kicker": "OCT 29",
-    "tone": "launch",
-    "headline": "Keeping models current: RL-driven self-learning beyond plain RAG",
-    "summary": "Opens the window with knowledge acquisition coupled to reasoning in unfamiliar domains.",
-    "sids": [
-     "d571e973b6e6916d"
-    ]
-   },
-   {
     "kicker": "OCT 30",
-    "tone": "rising",
+    "tone": "launch",
     "headline": "Efficiency work: extreme-sparsity pruning and an early-stopping audit for reasoning models",
-    "summary": "A text-to-SQL architecture survey lands the same day.",
+    "summary": "Opens the window; a text-to-SQL architecture survey lands the same day.",
     "sids": [
      "fdfc122cd97a630f",
      "e46c1ab3f7ca9939",
@@ -427,25 +460,37 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
-    "headline": "Applied decisions: budgeted malware triage, annotation benchmarking and a survey of LLMs for AI infrastructure",
-    "summary": "The newest items move from model internals to LLMs making operational calls under cost and documentation constraints.",
+    "kicker": "NOV 14-16",
+    "tone": "rising",
+    "headline": "Applied decisions: budgeted malware triage, annotation benchmarking, agent RL environments and an AI-infrastructure survey",
+    "summary": "The run moves from model internals to LLMs making operational calls under cost and documentation constraints.",
     "sids": [
      "fb7a288ad791ee0d",
+     "baf7e4781272e609",
      "1e13d673398b4485",
      "8f0034965a63d29c"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Guardrails at the output: calibrated abstention, provenance-aware decoding and jailbreak detection",
+    "summary": "Nov 16-18 papers each target a control point between the model and the user: when to refuse, which modality to trust, which prompt to block.",
+    "sids": [
+     "0d292c5fdc2bf79f",
+     "563c7d3375862838",
+     "e497c044e025058b"
     ]
    }
   ],
   "open_questions": [
+   "Does the contrastive-prototype jailbreak detector report false-positive rates on benign prompts and hold up against adaptive attacks?",
+   "Does stability-compensated threshold calibration keep its error guarantee when the deployed model or prompt distribution shifts?",
+   "Does PACD report the decoding latency or extra forward passes it adds per token?",
    "Does TRIAGE-CPG report which models escalate too rarely or too often under a fixed analysis budget?",
-   "Does the ensemble-of-ensembles method report how many model calls per prompt it needs, and how that compares with deep ensembles?",
-   "Does the ambiguity-resolution eval show models asking for clarification at the right rate, or defaulting to assumptions?",
    "Do published unlearning or knowledge-editing methods still pass when probed without explicit entity names, as ShadowBench suggests they may not?",
-   "Do Chatbot Arena or other human-preference leaderboards adjust rankings for the rater drift the Nov 10 study describes?",
    "Does Anthropic publish proving cost or latency figures for zkSNARK-based provable inference?"
   ],
-  "generated_at": "2026-11-18T00:13:28Z"
+  "generated_at": "2026-11-20T00:12:48Z"
  }
 }

@@ -1,0 +1,44 @@
+{
+  "slug": "technical-report",
+  "generated_at": "2026-11-20T00:12:41Z",
+  "covers_last_updated": "2026-11-18T15:46:14+00:00",
+  "covers_member_sids": ["80bf40e7e133130c", "2f7be7ac68b1edc1", "b0b6c263afe6d2d0"],
+  "tldr": "This is a loose thread of unrelated model technical reports, not one developing event. It opened with Tencent Hunyuan's Hy-Nomas world-model report and benchmark on Oct 30, then MNN-Pocket-0.3B, a 300M-parameter on-device model with 32K context, on Nov 9.",
+  "whats_new": "Clover-35B-A3B-Preview's report (Nov 18) describes a mixture-of-experts diffusion language model with 35B total and 3B active parameters that supports a thinking mode.",
+  "why_it_matters": "Each report shows a different serving shape: world models, sub-1B INT4 on-device models, and sparse diffusion LMs, each with its own inference cost and runtime needs.",
+  "beats": [
+    {
+      "kicker": "WORLD MODELS",
+      "tone": "launch",
+      "headline": "Tencent Hunyuan publishes the Hy-Nomas report and Hy-Nomas-Bench",
+      "summary": "A lab report paired with a new benchmark for world models; coverage came via secondary press.",
+      "sids": ["80bf40e7e133130c"]
+    },
+    {
+      "kicker": "ON-DEVICE",
+      "tone": "rising",
+      "headline": "MNN-Pocket-0.3B targets on-device deployment at 300M parameters",
+      "summary": "A compact dense model with 32K context and an INT4 deployment path.",
+      "sids": ["2f7be7ac68b1edc1"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Clover-35B-A3B-Preview: a sparse MoE diffusion LM with thinking mode",
+      "summary": "35B total and 3B active parameters, built on an adapted gated architecture per the abstract.",
+      "sids": ["b0b6c263afe6d2d0"]
+    }
+  ],
+  "open_questions": [
+    "Are the Hy-Nomas, MNN-Pocket-0.3B, or Clover weights released under a license that permits commercial use?",
+    "Does Hy-Nomas-Bench gain adoption outside Tencent's own evaluations?",
+    "Do mainstream inference servers support Clover's diffusion decoding, or does it need a custom runtime?",
+    "Do independent evals reproduce MNN-Pocket-0.3B's reported quality at INT4?"
+  ],
+  "take_for_builders": "Treat these as research reads. Before adopting one, check its weight license and runtime support, especially for Clover's diffusion decoding.",
+  "day_captions": {
+    "80bf40e7e133130c": "Opens the thread: a world-model report plus a new benchmark, reported secondhand by Pandaily.",
+    "2f7be7ac68b1edc1": "Adds the small end of the range: a 300M on-device model with an INT4 path.",
+    "b0b6c263afe6d2d0": "Latest entry: a sparse diffusion LM, a different decoding approach from the autoregressive norm."
+  }
+}

@@ -2,133 +2,115 @@
  "slug": "continual-learning",
  "label": "Continual Learning",
  "item_count": 4,
- "day_count": 4,
+ "day_count": 3,
  "source_count": 3,
- "first_seen": "2026-10-22T15:03:20+00:00",
- "last_updated": "2026-10-28T20:03:05+00:00",
- "generated_at": "2026-11-01T00:13:17.975290+00:00",
+ "first_seen": "2026-11-02T17:50:48+00:00",
+ "last_updated": "2026-11-18T15:46:58+00:00",
+ "generated_at": "2026-11-20T00:13:34.686460+00:00",
  "sources": [
-  "arxiv_cs_cl",
-  "arxiv_cs_lg",
-  "arxiv_llm_reliability"
+  "arxiv_agent_systems_research",
+  "arxiv_cs_ai",
+  "arxiv_cs_lg"
  ],
  "days": [
   {
-   "date": "2026-10-22",
+   "date": "2026-11-02",
    "items": [
     {
-     "title": "HERD: Harness-Evolving Recursive Distillation for Continual Learning",
-     "url": "http://arxiv.org/abs/2610.31401v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Continual learning requires a model to keep acquiring new skills and knowledge without compromising its existing capabilities. Parametric methods suffer from catastrophic forgetting and loss of plasticity. Non-paramet...",
-     "why_it_matters": "Matches feed focus: harness.",
-     "sid": "aed209b05e4ae391",
-     "published": "2026-10-22T15:03:20+00:00",
-     "editor_note": "Frames the problem: parametric forgetting versus non-parametric limits, with a distillation approach."
-    }
-   ]
-  },
-  {
-   "date": "2026-10-25",
-   "items": [
-    {
-     "title": "Continual Learning Exam: Benchmarking Long-Horizon RSI and Experiential Learning in LLM Agents",
-     "url": "http://arxiv.org/abs/2610.33956v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Continual learning is the ability of LLM agents to improve over time by acquiring, refining, and applying knowledge from experience while retaining useful prior knowledge. It is essential for agents learning over long...",
-     "why_it_matters": "Matches feed focus: agent, harness, evaluation.",
-     "sid": "55edc2615764e1b5",
-     "published": "2026-10-25T00:00:25+00:00",
-     "editor_note": "Adds a benchmark for agents learning from experience over long horizons."
-    }
-   ]
-  },
-  {
-   "date": "2026-10-27",
-   "items": [
-    {
-     "title": "CAMR: Compatibility-Aware Memory Replay for Continual Learning in Large Language Models",
-     "url": "http://arxiv.org/abs/2610.36734v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Continual learning requires large language models to acquire new knowledge and capabilities while retaining what they have learned. Fine-tuning and replay support acquisition and retention, but deciding whether incomi...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "200271de2a2f52aa",
-     "published": "2026-10-27T06:52:54+00:00",
-     "editor_note": "Adds a replay-selection method that judges whether new data is compatible before use."
-    }
-   ]
-  },
-  {
-   "date": "2026-10-28",
-   "items": [
-    {
-     "title": "Routed Continual Learning",
-     "url": "http://arxiv.org/abs/2610.38796v1",
+     "title": "RASP: Read-All, Sparse-Plasticity Continual Learning in a Stationary-Size LoRA",
+     "url": "http://arxiv.org/abs/2611.03513v1",
      "source": "arxiv_cs_lg",
      "type": "paper",
-     "summary_1line": "Agents deployed at scale repeatedly encounter related problems, and it is natural to let them learn from each other's experience rather than starting over each time. Unfortunately, there is no single way to retain tha...",
-     "why_it_matters": "Matches feed focus: agentic, eval.",
-     "sid": "7bae6548f927e204",
-     "published": "2026-10-28T20:03:05+00:00",
-     "editor_note": "Extends the question to agents at scale learning from each other's experience."
+     "summary_1line": "Parameter-efficient continual learning on pre-trained Vision Transformers largely relies on a costly premise: preventing catastrophic forgetting requires either spawning a dedicated LoRA branch per session---causing adapter parameters to scale linearly with task horizon---or appl",
+     "sid": "d8518666be6b2970",
+     "published": "2026-11-02T17:50:48+00:00",
+     "editor_note": "Challenges the one-LoRA-branch-per-session premise with a single stationary-size adapter."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "Anchor Behavior, Not Parameters: Rehearsal-Free Continual Learning with a Single Shared Prompt",
+     "url": "http://arxiv.org/abs/2611.12777v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Prompt-based continual learning adapts a frozen pre-trained vision transformer by tuning a small set of prompt tokens. Recently, one-prompt methods which share one single prompt across all tasks make this paradigm max...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "de25d9c4c09e2ab0",
+     "published": "2026-11-09T17:50:05+00:00",
+     "editor_note": "Drops rehearsal data entirely, anchoring behavior through one shared prompt."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-18",
+   "items": [
+    {
+     "title": "Continual Tool-Space Extension Learning for Multimodal Agents",
+     "url": "http://arxiv.org/abs/2611.23810v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Multimodal agents largely rely on generic tools such as cropping, search, and code execution, leaving specialist vision models outside their tool space. However, bringing such a model into an already trained agent is...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "3d0b2294ca5ad80c",
+     "published": "2026-11-18T04:14:02+00:00",
+     "editor_note": "Brings the problem to agents: adding specialist vision models to an already trained agent's tools."
+    },
+    {
+     "title": "Hypnos: A Dual-Phase End-to-End Platform for Scalable Continual Learning at the Edge",
+     "url": "http://arxiv.org/abs/2611.24637v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Continual learning (CL) enables neural networks to adapt to non-stationary data streams by mitigating catastrophic forgetting, offering a path to robust, private, and adaptable edge devices. Yet, porting CL to real-wo...",
+     "sid": "1efbc276679369d7",
+     "published": "2026-11-18T15:46:58+00:00",
+     "editor_note": "Moves from methods to a platform, targeting continual learning on edge devices."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "An Oct 22 paper (HERD) framed continual learning as a trade-off between parametric methods, which forget, and non-parametric ones. A benchmark followed on Oct 25 for whether LLM agents improve from experience, then CAMR on Oct 27 for choosing what to replay.",
+  "tldr": "October's papers framed continual learning around forgetting, replay selection and agent benchmarks. November turned to cheaper adapters: RASP (Nov 2) keeps a single fixed-size LoRA instead of one branch per session, and a Nov 9 paper shares one prompt across tasks with no rehearsal data.",
   "stale": false,
-  "whats_new": "Oct 28: Routed Continual Learning lets deployed agents share experience, routing among retention mechanisms rather than relying on a single one.",
-  "why_it_matters": "Agents that learn from experience need retention without regressions; replay selection, long-horizon evals and now cross-agent sharing are the pieces to watch.",
-  "take_for_builders": "Treat these as research signals: do not adopt, but add a retention check to any fine-tune or agent-memory pipeline that updates on new data.",
+  "whats_new": "Nov 18: two papers move continual learning toward deployment, one adding specialist vision models to a trained multimodal agent's tool space, the other (Hypnos) running continual learning end to end on edge devices.",
+  "why_it_matters": "Updating a deployed model or agent without retraining or regressions is the cost problem here; fixed-size adapters and incremental tool addition are the mechanisms that would make it cheap.",
+  "take_for_builders": "Do not adopt yet; if you add tools or fine-tune adapters on a live agent, rerun the old task evals after each update to catch regressions.",
   "status": {
    "state": "Developing · research",
    "tone": "rising",
-   "changed": "2026-10-28",
-   "detail": "Four arXiv papers in seven days; all research-stage, none shipped in a product."
+   "changed": "2026-11-18",
+   "detail": "Four arXiv papers in November; all research-stage, none shipped in a product or framework."
   },
   "beats": [
    {
-    "kicker": "FRAMING",
+    "kicker": "ADAPTERS",
     "tone": "launch",
-    "headline": "HERD targets forgetting with recursive distillation",
-    "summary": "Positions parametric methods against catastrophic forgetting and loss of plasticity.",
+    "headline": "Fixed-cost adapters replace per-task growth",
+    "summary": "Two vision-transformer papers bound parameter cost: one stationary-size LoRA, then one shared prompt with no replay buffer.",
     "sids": [
-     "aed209b05e4ae391"
-    ]
-   },
-   {
-    "kicker": "MEASURE",
-    "tone": "rising",
-    "headline": "Continual Learning Exam benchmarks LLM agents over long horizons",
-    "sids": [
-     "55edc2615764e1b5"
-    ]
-   },
-   {
-    "kicker": "REPLAY",
-    "tone": "rising",
-    "headline": "CAMR selects what to replay by compatibility",
-    "sids": [
-     "200271de2a2f52aa"
+     "d8518666be6b2970",
+     "de25d9c4c09e2ab0"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Routed Continual Learning shares experience across agents",
+    "headline": "Continual learning reaches agent tool spaces and edge hardware",
+    "summary": "Incremental tool addition for multimodal agents and an end-to-end edge platform, both on Nov 18.",
     "sids": [
-     "7bae6548f927e204"
+     "3d0b2294ca5ad80c",
+     "1efbc276679369d7"
     ]
    }
   ],
   "open_questions": [
-   "Do any labs report results on the Continual Learning Exam benchmark?",
-   "Do HERD, CAMR or Routed Continual Learning release code or reproducible numbers on production-scale models?"
+   "Does the tool-space extension paper show that adding a specialist model leaves existing tool-use accuracy unchanged?",
+   "Do RASP or the single-prompt method report results beyond vision transformers, on LLMs?",
+   "Does Hypnos release code or report on-device memory and latency figures?",
+   "Do any of these methods report results on the Continual Learning Exam benchmark from October?"
   ],
-  "generated_at": "2026-10-31T00:13:38Z"
+  "generated_at": "2026-11-20T00:12:42Z"
  }
 }

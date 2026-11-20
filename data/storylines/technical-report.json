@@ -1,0 +1,106 @@
+{
+ "slug": "technical-report",
+ "label": "Technical Report",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-10-30T02:07:22+00:00",
+ "last_updated": "2026-11-18T15:46:14+00:00",
+ "generated_at": "2026-11-20T00:13:34.686460+00:00",
+ "sources": [
+  "arxiv_cs_cl",
+  "search_cn_open_weight_labs"
+ ],
+ "days": [
+  {
+   "date": "2026-10-30",
+   "items": [
+    {
+     "title": "Tencent Hunyuan Publishes Hy-Nomas Technical Report and Releases Hy-Nomas-Bench for World Models",
+     "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxOVlZ5am9WcWMtVE9JLUIzRkVUaDI5QS1vQ29VYWpwWVJQdjUtUWJPZGxNdmR1dDJTZ0xoc1ZIV04zQlY2M0NxdWxYMHhRTFJ3UUl5LXNCMVJ2ZTFNZW9COUZLT05OU1NQT1Y5cThXSVY3eXI2aUdpbUpqOG1UYUJITjFMdFhYeXczQ2l1SmJjWWNwZFExQnJTMm42Sm8zM2tXaHBON1FJVQ?oc=5",
+     "source": "search_cn_open_weight_labs",
+     "type": "release",
+     "summary_1line": "Tencent Hunyuan Publishes Hy-Nomas Technical Report and Releases Hy-Nomas-Bench for World Models Pandaily",
+     "sid": "80bf40e7e133130c",
+     "published": "2026-10-30T02:07:22+00:00",
+     "editor_note": "Opens the thread: a world-model report plus a new benchmark, reported secondhand by Pandaily."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "MNN-Pocket-0.3B Technical Report",
+     "url": "http://arxiv.org/abs/2611.12311v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "This technical report presents MNN-Pocket-0.3B, a compact 300M-parameter dense language model designed for efficient on-device deployment and supporting context lengths of up to 32K tokens. With an INT4 deployment foo...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "2f7be7ac68b1edc1",
+     "published": "2026-11-09T12:33:26+00:00",
+     "editor_note": "Adds the small end of the range: a 300M on-device model with an INT4 path."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-18",
+   "items": [
+    {
+     "title": "Clover-35B-A3B-Preview Technical Report",
+     "url": "http://arxiv.org/abs/2611.24636v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "We introduce Clover-35B-A3B-Preview (Clover), a mixture-of-experts diffusion language model with 35 billion total parameters and 3 billion activated parameters, supporting thinking-mode generation. Clover adapts Gated...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "b0b6c263afe6d2d0",
+     "published": "2026-11-18T15:46:14+00:00",
+     "editor_note": "Latest entry: a sparse diffusion LM, a different decoding approach from the autoregressive norm."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a loose thread of unrelated model technical reports, not one developing event. It opened with Tencent Hunyuan's Hy-Nomas world-model report and benchmark on Oct 30, then MNN-Pocket-0.3B, a 300M-parameter on-device model with 32K context, on Nov 9.",
+  "stale": false,
+  "whats_new": "Clover-35B-A3B-Preview's report (Nov 18) describes a mixture-of-experts diffusion language model with 35B total and 3B active parameters that supports a thinking mode.",
+  "why_it_matters": "Each report shows a different serving shape: world models, sub-1B INT4 on-device models, and sparse diffusion LMs, each with its own inference cost and runtime needs.",
+  "take_for_builders": "Treat these as research reads. Before adopting one, check its weight license and runtime support, especially for Clover's diffusion decoding.",
+  "beats": [
+   {
+    "kicker": "WORLD MODELS",
+    "tone": "launch",
+    "headline": "Tencent Hunyuan publishes the Hy-Nomas report and Hy-Nomas-Bench",
+    "summary": "A lab report paired with a new benchmark for world models; coverage came via secondary press.",
+    "sids": [
+     "80bf40e7e133130c"
+    ]
+   },
+   {
+    "kicker": "ON-DEVICE",
+    "tone": "rising",
+    "headline": "MNN-Pocket-0.3B targets on-device deployment at 300M parameters",
+    "summary": "A compact dense model with 32K context and an INT4 deployment path.",
+    "sids": [
+     "2f7be7ac68b1edc1"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Clover-35B-A3B-Preview: a sparse MoE diffusion LM with thinking mode",
+    "summary": "35B total and 3B active parameters, built on an adapted gated architecture per the abstract.",
+    "sids": [
+     "b0b6c263afe6d2d0"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Are the Hy-Nomas, MNN-Pocket-0.3B, or Clover weights released under a license that permits commercial use?",
+   "Does Hy-Nomas-Bench gain adoption outside Tencent's own evaluations?",
+   "Do mainstream inference servers support Clover's diffusion decoding, or does it need a custom runtime?",
+   "Do independent evals reproduce MNN-Pocket-0.3B's reported quality at INT4?"
+  ],
+  "generated_at": "2026-11-20T00:12:41Z"
+ }
+}

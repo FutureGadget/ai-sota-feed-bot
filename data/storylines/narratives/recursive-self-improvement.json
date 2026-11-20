@@ -1,40 +1,46 @@
 {
   "slug": "recursive-self-improvement",
-  "generated_at": "2026-09-23T10:30:00+00:00",
-  "covers_last_updated": "2026-09-22T14:12:13+00:00",
-  "covers_member_sids": [
-    "0539709864fedfb9",
-    "2fe4588241293ee7",
-    "b4d580fbb1f27781",
-    "f330de6f12df20ba"
-  ],
-  "tldr": "Three papers in two weeks each propose a concrete recursive self-improvement (RSI) mechanism: a system that observes its own performance and converts that evidence into its next round of training. The pattern started with a general agentic post-training framework, then moved into domain-specific self-evolution loops for medical agents and AI research agents.",
-  "whats_new": "The newest paper (Sep 22) applies RSI to AI research agents automating their own R&D -- training efficiency and inference optimization -- rather than a fixed task domain.",
-  "why_it_matters": "If an agent framework can retrain on its own output, your eval suite needs to catch capability drift in the feedback loop itself, not just score the model's latest checkpoint.",
+  "generated_at": "2026-11-20T00:12:43Z",
+  "covers_last_updated": "2026-11-18T15:53:39+00:00",
+  "covers_member_sids": ["35be0c1374147cac", "89699433fb1b1431", "04524b2773c6396e", "1b4724d33b96f50b", "a023d867fd30b5bd"],
+  "tldr": "September's recursive self-improvement (RSI) papers retrained models on their own output; November's wave instead has agents rewrite their harness (prompts, tools, memory, control loop) with the base model frozen. Early November added a benchmark for that loop, a statistical-guarantee method to keep it trustworthy, and a multi-agent version for closed-loop science.",
+  "whats_new": "Two Nov 18 papers push RSI back into the weights: BaseRSI internalizes harness gains into a base vision-language model without training, and Piccolo co-evolves 0.8B-27B decision models with their own training data.",
+  "why_it_matters": "Harness-level RSI means an agent can change its own prompts, tools, and memory in production, so the harness itself becomes a versioned artifact that needs evals and rollback.",
   "beats": [
     {
-      "kicker": "FOUNDATION",
+      "kicker": "MEASUREMENT",
       "tone": "launch",
-      "headline": "NeoHorse-1 proposes a routing-harness mechanism for RSI via agentic post-training",
-      "summary": "First concrete mechanism for how a system converts observed capability into the next training round.",
-      "sids": ["0539709864fedfb9"]
+      "headline": "Harness RSI gets a benchmark and a statistical safety check",
+      "summary": "Flex-RSI scores how well frontier agents improve their own harness; a second paper adds statistical guarantees so a self-edit is accepted only when it provably helps.",
+      "sids": ["35be0c1374147cac", "89699433fb1b1431"]
     },
     {
-      "kicker": "DOMAIN APPLICATIONS",
+      "kicker": "MULTI-AGENT",
       "tone": "rising",
-      "headline": "Self-evolution loops extend to medical agents and AI research agents",
-      "summary": "The same RSI pattern reapplied to clinically aligned medical agents, then to agents automating AI R&D itself.",
-      "sids": ["2fe4588241293ee7", "b4d580fbb1f27781"]
+      "headline": "SciMARS applies recursive harness adaptation to multi-agent scientific discovery",
+      "summary": "Analysis, experiment design, and verification agents adapt their shared harness task by task in a closed loop.",
+      "sids": ["04524b2773c6396e"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "RSI moves from the harness back into the model",
+      "summary": "BaseRSI targets harness-bound gains that stay outside the model; Piccolo co-evolves model and data across a 0.8B-27B family.",
+      "sids": ["1b4724d33b96f50b", "a023d867fd30b5bd"]
     }
   ],
   "open_questions": [
-    "Do any of these RSI mechanisms hold up outside benchmark/simulation settings, or only in the papers' own eval harnesses?",
-    "Does the self-improvement loop compound capability faster than the evaluation methodology can track it?"
+    "Does Flex-RSI publish per-model scores that show which frontier agents actually gain from editing their own harness?",
+    "Do statistical acceptance tests for self-edits hold when the eval distribution shifts after deployment?",
+    "Does BaseRSI's training-free internalization keep its gains on tasks outside the harness it learned from?",
+    "Do any of these loops report results outside their own benchmark harnesses?"
   ],
-  "take_for_builders": "Before trusting a framework's self-improvement claim, ask what concrete signal it retrains on and how that signal is audited independently of the system generating it.",
+  "take_for_builders": "If your agent edits its own prompts, tools, or memory, version every self-edit and gate it on a held-out eval with a rollback path before it reaches production.",
   "day_captions": {
-    "0539709864fedfb9": "First concrete RSI mechanism proposed: a routing harness for agentic post-training.",
-    "2fe4588241293ee7": "Extends RSI to medical agents via clinically aligned self-evolution.",
-    "b4d580fbb1f27781": "Extends RSI to AI research agents automating their own R&D pipeline."
+    "35be0c1374147cac": "Reframes RSI around the harness and adds a benchmark for frontier agents improving it.",
+    "89699433fb1b1431": "Adds statistical guarantees so harness self-edits are accepted only with evidence.",
+    "04524b2773c6396e": "Extends harness RSI from a single agent to a multi-agent scientific-discovery loop.",
+    "1b4724d33b96f50b": "Moves harness gains into a base vision-language model without a training run.",
+    "a023d867fd30b5bd": "Co-evolves model weights and training data, with a model family spanning 0.8B to 27B."
   }
 }

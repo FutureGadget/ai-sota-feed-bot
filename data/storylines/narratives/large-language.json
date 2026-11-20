@@ -1,9 +1,8 @@
 {
   "slug": "large-language",
-  "generated_at": "2026-11-18T00:13:28Z",
-  "covers_last_updated": "2026-11-16T16:19:01+00:00",
+  "generated_at": "2026-11-20T00:12:48Z",
+  "covers_last_updated": "2026-11-18T18:56:12+00:00",
   "covers_member_sids": [
-    "d571e973b6e6916d",
     "fdfc122cd97a630f",
     "e46c1ab3f7ca9939",
     "a8a5f23cd8e10643",
@@ -25,27 +24,22 @@
     "3985de9df0cd2149",
     "53cced15d557cd0b",
     "fb7a288ad791ee0d",
+    "baf7e4781272e609",
     "1e13d673398b4485",
-    "8f0034965a63d29c"
+    "8f0034965a63d29c",
+    "0d292c5fdc2bf79f",
+    "563c7d3375862838",
+    "e497c044e025058b"
   ],
-  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 29 it ran through self-learning, pruning, Anthropic's Nov 2 provable-inference update and knowledge editing to Nov 10-13 work on what eval scores measure and when a model should abstain or ask for clarification.",
-  "whats_new": "Nov 16: TRIAGE-CPG compares LLMs deciding under a budget whether to clear, flag or escalate unknown binaries, and dhAIBench benchmarks LLMs for linguistic annotation under documented conditions.",
-  "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on a production question: when a model should answer, ask, abstain or escalate, and how to measure that decision rather than raw accuracy.",
+  "tldr": "This thread is a reading list of LLM research grouped by shared wording, not one event. From Oct 30 it ran through pruning, Anthropic's Nov 2 provable-inference update, knowledge editing and eval-validity work to Nov 13-16 papers on when a model should abstain, ask or escalate.",
+  "whats_new": "Nov 18: a contrastive-prototype method detects jailbreak prompts without training a separate guard model, after Nov 16-17 papers on calibrated abstention thresholds and provenance-aware decoding for omnimodal hallucinations.",
+  "why_it_matters": "Most items are single unreplicated preprints, but the recent run converges on guardrail design: calibrated refusal, modality-aware hallucination control and lightweight jailbreak screening, each a component a serving stack can test.",
   "beats": [
     {
-      "kicker": "OCT 29",
-      "tone": "launch",
-      "headline": "Keeping models current: RL-driven self-learning beyond plain RAG",
-      "summary": "Opens the window with knowledge acquisition coupled to reasoning in unfamiliar domains.",
-      "sids": [
-        "d571e973b6e6916d"
-      ]
-    },
-    {
       "kicker": "OCT 30",
-      "tone": "rising",
+      "tone": "launch",
       "headline": "Efficiency work: extreme-sparsity pruning and an early-stopping audit for reasoning models",
-      "summary": "A text-to-SQL architecture survey lands the same day.",
+      "summary": "Opens the window; a text-to-SQL architecture survey lands the same day.",
       "sids": [
         "fdfc122cd97a630f",
         "e46c1ab3f7ca9939",
@@ -110,29 +104,40 @@
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
-      "headline": "Applied decisions: budgeted malware triage, annotation benchmarking and a survey of LLMs for AI infrastructure",
-      "summary": "The newest items move from model internals to LLMs making operational calls under cost and documentation constraints.",
+      "kicker": "NOV 14-16",
+      "tone": "rising",
+      "headline": "Applied decisions: budgeted malware triage, annotation benchmarking, agent RL environments and an AI-infrastructure survey",
+      "summary": "The run moves from model internals to LLMs making operational calls under cost and documentation constraints.",
       "sids": [
         "fb7a288ad791ee0d",
+        "baf7e4781272e609",
         "1e13d673398b4485",
         "8f0034965a63d29c"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Guardrails at the output: calibrated abstention, provenance-aware decoding and jailbreak detection",
+      "summary": "Nov 16-18 papers each target a control point between the model and the user: when to refuse, which modality to trust, which prompt to block.",
+      "sids": [
+        "0d292c5fdc2bf79f",
+        "563c7d3375862838",
+        "e497c044e025058b"
       ]
     }
   ],
   "open_questions": [
+    "Does the contrastive-prototype jailbreak detector report false-positive rates on benign prompts and hold up against adaptive attacks?",
+    "Does stability-compensated threshold calibration keep its error guarantee when the deployed model or prompt distribution shifts?",
+    "Does PACD report the decoding latency or extra forward passes it adds per token?",
     "Does TRIAGE-CPG report which models escalate too rarely or too often under a fixed analysis budget?",
-    "Does the ensemble-of-ensembles method report how many model calls per prompt it needs, and how that compares with deep ensembles?",
-    "Does the ambiguity-resolution eval show models asking for clarification at the right rate, or defaulting to assumptions?",
     "Do published unlearning or knowledge-editing methods still pass when probed without explicit entity names, as ShadowBench suggests they may not?",
-    "Do Chatbot Arena or other human-preference leaderboards adjust rankings for the rater drift the Nov 10 study describes?",
     "Does Anthropic publish proving cost or latency figures for zkSNARK-based provable inference?"
   ],
-  "take_for_builders": "Score your agent's answer/ask/abstain/escalate decisions as a separate eval with perturbed controls (renamed entities, shuffled inputs), and measure the per-request call cost of any uncertainty method before wiring it into routing.",
+  "take_for_builders": "Before swapping in any of these guardrails, replay your own traffic: measure the jailbreak detector's false-block rate on benign prompts, check that a calibrated abstention threshold holds its error rate on your data, and count the extra model calls each method adds.",
   "day_captions": {
-    "d571e973b6e6916d": "Opens the thread: RL to couple knowledge acquisition with reasoning in unfamiliar domains, beyond plain RAG.",
-    "fdfc122cd97a630f": "Survey plus empirical audit of when reasoning models can stop early without losing reliability.",
+    "fdfc122cd97a630f": "Opens the window: survey plus empirical audit of when reasoning models can stop early without losing reliability.",
     "e46c1ab3f7ca9939": "Survey of LLM architectures and strategies for text-to-SQL.",
     "a8a5f23cd8e10643": "Gradual pruning with sparse adaptation, targeting quality at extreme sparsity.",
     "43862ef771dfba65": "The only first-party lab post: Anthropic's progress on zkSNARK proofs for inference.",
@@ -153,7 +158,11 @@
     "3985de9df0cd2149": "Shifts from whether scores are trustworthy to whether individual answers are, via a black-box aleatoric/epistemic split.",
     "53cced15d557cd0b": "Evaluates interactively when a model should ask for clarification versus make an assumption.",
     "fb7a288ad791ee0d": "Survey mapping LLM use across designing, optimizing and operating AI training and serving infrastructure.",
+    "baf7e4781272e609": "Agent-side entry: scaling structured, interactive RL environments for multi-turn tool-use training.",
     "1e13d673398b4485": "Python tool and web interface for benchmarking LLM linguistic annotation under documented conditions.",
-    "8f0034965a63d29c": "Latest item: cross-model study of LLMs clearing, flagging or escalating unknown binaries under a budget."
+    "8f0034965a63d29c": "Cross-model study of LLMs clearing, flagging or escalating unknown binaries under a budget.",
+    "0d292c5fdc2bf79f": "Moves abstention from heuristic thresholds to calibrated thresholds with statistical error control on accepted answers.",
+    "563c7d3375862838": "Training-free decoding that tracks which modality supports a claim, targeting cross-modal hallucination.",
+    "e497c044e025058b": "Latest item: jailbreak detection from contrastive representations without training an additional guard model."
   }
 }
