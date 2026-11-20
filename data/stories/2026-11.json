@@ -202,6 +202,23 @@
   "url": "https://distdebug.com",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "024d4dfaa92472bb": {
+  "first_seen": "2026-11-20T06:05:26.485591+00:00",
+  "id": "5a31b85bcf6b453e",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-19T18:58:31+00:00",
+  "sid": "024d4dfaa92472bb",
+  "source": "arxiv_cs_lg",
+  "summary": "Hybrid architectures have become mainstream among open-weight language models. Their global-attention and bounded-state layers maintain heterogeneous caches whose demands vary with context length and concurrency. We present TideCache, a serving system on CPU--GPU superchips with three components for allocating GPU memory among caches and managing their residency across GPU and host memory. The Transparent Cache Pool redistributes physical pages among cache components behind fixed virtual addresses, preserving cache layouts and backend interfaces. The Cache Streamer uses computation intervals provided by bounded-state layers to prefetch the next global-attention layer's prefix into GPU slots shared across global-attention layers, reducing GPU residency while overlapping layer-wise transfers with computation. Generated KV remains resident. The Request Scheduler selects resident or streamed execution and triggers capacity adjustments according to request size and queue state. Together, they let HBM released by streaming accommodate other cache components and additional requests. Implemented in SGLang and evaluated on GB300 and GH200 across seven model/platform configurations, TideCache completes up to 2.04x as many agent turns, reduces overall P50 per-token latency by 20--59%, and improves agent P50 TTFT by 1.40--3.05x compared with SGLang with HiCache.",
+  "summary_1line": "Hybrid architectures have become mainstream among open-weight language models. Their global-attention and bounded-state layers maintain heterogeneous caches whose demands vary with context length and concurrency. We p...",
+  "title": "TideCache: Efficient Hybrid LLM Serving with Transparent Cache Management and Layer-Wise Streaming",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26619v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "025c4e742cc7984d": {
   "first_seen": "2026-11-04T06:05:16.733547+00:00",
   "id": "1340c9045f605810",
@@ -3059,6 +3076,22 @@
   "type": "news",
   "url": "https://hatchet.run/blog/agent-statefulness",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "1db1e39e61712ba4": {
+  "first_seen": "2026-11-20T06:05:26.485591+00:00",
+  "id": "fb881b6ca7822eb4",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-19T18:36:19+00:00",
+  "sid": "1db1e39e61712ba4",
+  "source": "arxiv_cs_lg",
+  "summary": "Multimodal image generation systems have made rapid progress and increasingly emphasize content safety. However, their safety mechanisms tend to rely on a single modality and lack joint consideration of both visual content and text prompts, particularly in instruction-guided image editing, where the uploaded image may itself carry risk. We thus introduce EditSafetyBench, a benchmark that measures system-level safety awareness of advanced image editing systems, containing 5,940 image-instruction pairs, covering safe and unsafe images across 11 risk categories and three edit intents. We then probe the benchmark dataset on four systems, including Gemini, GPT, Qwen API, and Qwen Local. Based on our evaluation, we observe a systematic text-vision safety mismatch: Gemini and GPT refuse 87.1\\% and 81.6\\% cases containing unsafe-intent editing prompts, while only refusing 24.2\\% and 22.4\\% cases with both unsafe images and neutral instructions. At the category level, most risks are considered inconsistently by different systems, e.g., GPT allows 70.4\\% editing attempts of unsafe political content while Gemini only allows 34.8\\%. Notably, sexual content shows the strongest visual sensitivity, likely benefiting from mature NSFW identification works. Our findings highlight the need for safety guardrails that jointly reason over both visual and textual modalities in image editing systems.",
+  "summary_1line": "Multimodal image generation systems have made rapid progress and increasingly emphasize content safety. However, their safety mechanisms tend to rely on a single modality and lack joint consideration of both visual co...",
+  "title": "Text-Aware, Vision-Blind: How Multimodal Image Editing Systems Handle Unsafe Inputs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26569v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "1df314a3d0950977": {
   "first_seen": "2026-11-11T09:05:43.406869+00:00",
@@ -19548,6 +19581,17 @@
   "url": "https://embiody.com/blog/embiody-0-9-preview",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "c1196200a3737e18": {
+  "first_seen": "2026-11-20T06:08:28.552867+00:00",
+  "id": "abec72d9a883af98",
+  "published": "2026-11-18T06:59:57+00:00",
+  "sid": "c1196200a3737e18",
+  "source": "hf_tencent_hunyuan_releases",
+  "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 2, downloads: 2.",
+  "title": "tencent/Hy4-FP8 released on Hugging Face",
+  "type": "release",
+  "url": "https://huggingface.co/tencent/Hy4-FP8"
+ },
  "c16327a14472b017": {
   "content_excerpt": "Keeps Claude Desktop, Google Antigravity, and OpenAI Codex in sync on the same project using a local-first SQLite MCP server. Switch between Claude Desktop , OpenAI Codex , and Google Antigravity without losing state. Deterministic 4-tier context compilation. Sub-2ms latency. Zero cloud dependencies. Overview • Architecture • Interactive REPL & CLI • FastMCP Tools • Quickstart • Verification Every time you switch between these assistants, your context breaks . Decisions agreed upon in Claude Desktop are invisible to Antigravity. Tasks started in Antigravity are unknown to Codex. Developers waste thousands of tokens and manual hours copy-pasting diffs, status updates, and architectural constraints across disconnected chat windows. Project-M is a local-first Model Context Protocol (MCP) server and verified project-state compiler. It passively harvests session turns, maintains an immutable ledger of Architectural Decision Records (ADRs), synchronizes task batons, and serves a deterministic Tier 1 Briefing Card (< 450 tokens) to any requesting AI agent in under 2 milliseconds . Instead of relying on expensive third-party vector databases or paid embedding APIs, Project-M uses SQLite's native FTS5 (Full-Text Search 5) virtual table engine with BM25 probabilistic relevance ranking : Project-M features a Claude-Code-inspired terminal interface with the official Brutalist Chevron Monogram Logo , live hardware specs, and a rich interactive REPL. Launch the interactive shell anytime wi",
   "first_seen": "2026-11-18T15:04:12.182610+00:00",
@@ -25429,6 +25473,22 @@
   "title": "Strategist: Evolving Reasoning with Agents",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03618v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "fe6f2ff6f95d5c58": {
+  "content_excerpt": "One file, ~/.humans/HUMANS.md , that your coding agents read at session start: how to write to you, when to ask you to decide, when to interrupt you. Draft 0.3. Plugins for your coding agents and a command line load your own profile. $ claude -p \"What does my HUMANS.md say about interruptions?\" \" W h a t d o e s m y H U M A N S . m d s a y a b o u t i n t e r r u p t i o n s ? \" TL;DR: Your HUMANS.md says to interrupt you only when blocked. Everything else waits until the end of the task. - Picking a variable name or a table layout → I decide and mention it at the end. Real session, Claude Code 2.1.302 with plugin 0.2.1, 17 Oct 2026, with the example profile from the spec. The plugin loads your file at session start; how closely a model follows it is not measured here. Another agent? Cursor, GitHub Copilot CLI, Google Antigravity, JetBrains Junie, Cline and Warp: install commands for each . › What does my HUMANS.md say about interruptions? W h a t d o e s m y H U M A N S . m d s a y a b o u t i n t e r r u p t i o n s ? • Only interrupt you when work is blocked. Save non-blocking questions for the end of the task, with a recommended answer for each. Real session, Codex CLI 0.163.0 with plugin 0.3.0, 17 Oct 2026. The plugin loads your file at session start; how closely a model follows it is not measured here. Another agent? Cursor, GitHub Copilot CLI, Google Antigravity, JetBrains Junie, Cline and Warp: install commands for each . $ devin -p \"What does my HUMANS.md say about i",
+  "first_seen": "2026-11-20T06:05:26.485591+00:00",
+  "id": "beebc94c66eca6d5",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-20T05:42:30+00:00",
+  "sid": "fe6f2ff6f95d5c58",
+  "source": "hackernews_ai",
+  "summary_1line": "Humans.md: tell your AI agents how to work with you",
+  "title": "Humans.md: tell your AI agents how to work with you",
+  "type": "news",
+  "url": "https://humansmd.dev",
   "why_it_matters": "Matches feed focus: agent."
  },
  "fed29696ba0516e2": {
