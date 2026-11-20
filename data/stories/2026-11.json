@@ -5328,13 +5328,18 @@
  "32042958efa4e483": {
   "first_seen": "2026-11-20T18:08:38.531118+00:00",
   "id": "83e80920f5ed9526",
+  "matched_topics": [
+   "agent"
+  ],
   "published": "2026-11-20T17:00:00+00:00",
   "sid": "32042958efa4e483",
   "source": "google_cloud_blog",
+  "summary": "Most Gemini prototypes start the same way. You grab an API key from Google AI Studio , then paste it into your coding agent to start building a prototype. That speed is the point, and shouldn’t be slowed down. The trouble starts later, when the prototype gets real users and the key comes along unchanged. By then it usually isn't one key. Every developer has their own, often several, sitting in .env files, shell profiles and chat threads. The app has one more, baked into its config. For example, imagine an account that normally spends $180 a month. One of those keys ends up in a public repo, a Slack channel or a mobile app bundle. Automated scrapers find it within minutes and use it to run large workloads. By the time the first billing alert arrives, the bill is in the tens of thousands. Under the shared responsibility model , the customer pays for usage made with their own valid credentials. For a seed-stage company, that’s runway gone in a weekend. In our recent post, 10 questions every startup should answer before moving to production with their AI prototype , we covered the whole path from prototype to production. This post goes deeper on one part of it: getting off raw API keys entirely. Here is what this guide covers: Authorize your people. Give everyone on the team one login with Application Default Credentials and use it to call Gemini, Claude and open models. Steps 1 and 2 take about five minutes. Authorize your application. Run your app under its own service account ",
   "summary_1line": "Most Gemini prototypes start the same way. You grab an API key from <span style=\"text-decoration: underline; vertical-alig",
   "title": "Ultimate guide for fixing your team’s API keys",
   "type": "news",
-  "url": "https://cloud.google.com/blog/topics/developers-practitioners/how-to-fix-your-teams-api-keys"
+  "url": "https://cloud.google.com/blog/topics/developers-practitioners/how-to-fix-your-teams-api-keys",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "32373812989fabcd": {
   "first_seen": "2026-11-20T08:05:31.831754+00:00",
@@ -6055,6 +6060,22 @@
   "title": "Designing an Always-On Agent",
   "type": "news",
   "url": "https://rubriclabs.com/blog/always-on-agents",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "3aa4c25fca280121": {
+  "content_excerpt": "How Enola uses source code analysis and symbol tracking to help coding agents retrieve earlier investigations and verify them against evolving codebases. Coding agents can retain information between sessions. They can save investigations, remember architectural decisions, and retrieve knowledge that would otherwise disappear when a session ends. Imagine an agent investigating a bug in a pointer-movement handler. It identifies the relevant implementation and records its conclusions. A month later, another agent investigates a related problem and retrieves those notes. The function may have moved, been renamed, or changed substantially. Even adding lines elsewhere in the file can make an old line reference point to unrelated code. There is another problem: the next agent might never retrieve the investigation because it describes the same code using different terminology. Or it might retrieve an investigation of an unrelated function with the same name. We wanted to understand how often these problems occur in real repositories, how well coding agents handle them, and whether connecting persistent knowledge to source-code structure could improve retrieval and reuse. An agent can preserve knowledge in a Markdown file, a session summary, or a dedicated memory system such as Cognee . These approaches make earlier investigations available to future sessions. Memory systems can also organize and retrieve knowledge based on the task an agent is performing. The pointer-move handler co",
+  "first_seen": "2026-11-20T22:05:14.750261+00:00",
+  "id": "3cfbbe100d88ec67",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-20T18:18:13+00:00",
+  "sid": "3aa4c25fca280121",
+  "source": "hackernews_ai",
+  "summary_1line": "Keeping AI Coding Agent Memory Relevant as Code Changes",
+  "title": "Keeping AI Coding Agent Memory Relevant as Code Changes",
+  "type": "news",
+  "url": "https://enola.tech/blog/agent-memory-needs-a-code-reference",
   "why_it_matters": "Matches feed focus: agent."
  },
  "3aa50dd624d05e28": {
@@ -10130,6 +10151,22 @@
   "url": "https://github.com/DevDizzle/gammarips-harness",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "6088bb75f10ad273": {
+  "first_seen": "2026-11-20T22:05:14.750261+00:00",
+  "id": "f40024b9fc888a5b",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-19T13:04:57+00:00",
+  "sid": "6088bb75f10ad273",
+  "source": "arxiv_cs_cl",
+  "summary": "Post-training low-rank compression of neural networks must not only approximate the original weights but also preserve the model's input-output behavior. Recent output-aware methods measure the compression error beyond the compressed layer, at the model output, weighting logit changes by the observed next token or by the model's predicted probabilities. We propose Complete-SVD, a method for large language models that minimizes the $L_2$ distance between the logits of the original and compressed models, weighting all logit changes equally. Linearizing the network around the original weights, together with a Kronecker-factored approximation, reduces this objective to a weighted SVD with a closed-form solution. Its output-side factor is intractable to compute; we estimate it without bias from random probes, at a cost of $K$ backward passes per sequence, independent of vocabulary size and sequence length. At matched settings with uniform ranks and WikiText-2 calibration, Complete-SVD achieves the lowest C4 and PTB perplexity in every setting, and at ratio 0.7 under LEMS rank allocation. Replacing the $L_2$ distance by the Kullback-Leibler divergence (KL-SVD), with the same estimation framework, lowers calibration perplexity in most settings and raises downstream accuracy, but raises cross-corpus perplexity. Complete-SVD also improves IFEval instruction-following accuracy over the strongest prior output-aware methods throughout.",
+  "summary_1line": "Post-training low-rank compression of neural networks must not only approximate the original weights but also preserve the model's input-output behavior. Recent output-aware methods measure the compression error beyon...",
+  "title": "Complete-SVD: A Functional Norm Approach to Low-Rank LLM Compression",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26059v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "6097f9821d2ffeb8": {
   "first_seen": "2026-11-11T18:06:00.744503+00:00",
   "id": "a59ded8f24c3a234",
@@ -12814,6 +12851,22 @@
   "title": "AI coding agents are installing abandoned MCP servers with known security issues",
   "type": "news",
   "url": "https://www.glow.io/blogs/mcphantom-ai-coding-agents-are-installing-vulnerable-deprecated-mcp-servers-from-training-data",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "7c2df92116551afa": {
+  "content_excerpt": "Give your AI coding agents their own machines — not your credentials. Isolated Linux workstations with full autonomy, on Linux and macOS. Give your AI coding agents their own machines, not your credentials. isx.run is the website, with the full documentation. An AI agent in your terminal can read your API keys, your GitHub token, your ~/.ssh and every repo you have checked out. Your IDE and build tools execute anything the agent writes. Each agent works in its own machine and asks for no approval, so you can run many side by side and build automations that run with nobody watching. isx runs on Linux and macOS, on your hardware, and your repositories and credentials stay there. Agents are the main use, not the only one. The same disposable machines are ideal for triaging untrusted patches, reproducing bug reports and testing on a clean system. Built with Quarkus and Tamboui , powered by Incus system containers. Written in Java, compiled to native binaries with GraalVM . isx was formerly known as incus-spawn. Requires Linux, or macOS 15 (Sequoia) or later ( Installation ); isx init sets up the rest, or your coding agent can do it all for you . On a fresh Linux host, isx init adds you to the incus-admin group and finishes its run in that group. Other terminals get the group at your next login, or in each one with newgrp incus-admin . A template is a machine image you build once: an OS, tools and repos. The template below adds Claude Code to the built-in tpl-minimal template. Sav",
+  "first_seen": "2026-11-20T22:05:14.750261+00:00",
+  "id": "64eec3ab5cb59bfe",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-20T19:04:23+00:00",
+  "sid": "7c2df92116551afa",
+  "source": "hackernews_ai",
+  "summary_1line": "Isolated Linux workstations for autonomous AI agents",
+  "title": "Isolated Linux workstations for autonomous AI agents",
+  "type": "news",
+  "url": "https://github.com/Sanne/incus-spawn",
   "why_it_matters": "Matches feed focus: agent."
  },
  "7c3740bd83f86fa5": {
@@ -18261,7 +18314,7 @@
   "published": "2026-11-17T08:58:14+00:00",
   "sid": "ae467cfd399481fc",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 8, downloads: 11.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 9, downloads: 11.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 6, downloads: 11.",
   "title": "tencent/WeMM-Video-2B released on Hugging Face",
   "type": "release",
@@ -22282,6 +22335,22 @@
   "url": "http://arxiv.org/abs/2611.26248v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "d7d5c4aa6a0ad972": {
+  "first_seen": "2026-11-20T22:05:14.750261+00:00",
+  "id": "03d1218730453d46",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-11-19T12:28:53+00:00",
+  "sid": "d7d5c4aa6a0ad972",
+  "source": "arxiv_cs_cl",
+  "summary": "Conversational AI assistants are now used for personal and emotional support. Developers report improvements in how new models respond to sensitive conversations, yet users and civil society continue to raise concerns about their behaviour in real-world, repeated interactions that safety evaluations rarely capture. Often, evaluations present signs of distress clearly and in a single message, even though people may reveal their struggles gradually in otherwise ordinary conversations. We worked with three community mental health support workers to test if models provide the same level of safeguarding when cues are shared all at once or gradually over time. We designed nine scenarios in which a user shares cues related to depression, psychosis, or domestic abuse. For each scenario, the support workers established a gold standard response, ranging from signposting support to pausing the everyday task to address safeguarding. We presented five cues either together in one message or dispersed across a conversation. Across more than 7,400 conversations, we evaluated six widely used models from five developers. GPT-5.5, Grok 4.3, DeepSeek V4, and Llama 4 Maverick met the support workers' standards in just 26-59% of conversations when cues were concentrated, and only 3-6% when dispersed. Claude Sonnet 5 and Claude Opus 5 showed a smaller gap, meeting the standards in 68-97% of concentrated conversations and 59-87% of dispersed conversations. Even the best-performing model, Claude Opus",
+  "summary_1line": "Conversational AI assistants are now used for personal and emotional support. Developers report improvements in how new models respond to sensitive conversations, yet users and civil society continue to raise concerns...",
+  "title": "Evaluating safeguarding in multi-turn conversations with AI assistants",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26009v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "d82d955d6f76407e": {
   "first_seen": "2026-11-03T04:13:31.497634+00:00",
   "id": "0d374bf9ecd04b4d",
@@ -24948,6 +25017,23 @@
   "url": "http://arxiv.org/abs/2611.02561v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "f1e32dd0ad4b585e": {
+  "first_seen": "2026-11-20T22:05:14.750261+00:00",
+  "id": "ebbed56c8eebf005",
+  "matched_topics": [
+   "agentic",
+   "harness"
+  ],
+  "published": "2026-11-19T09:55:33+00:00",
+  "sid": "f1e32dd0ad4b585e",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Medical vision-language agents increasingly rely on segmentation tools, and recent work has focused on acquiring the right mask, often treating a good mask as the end point of tool use. But do these agents use the resulting evidence effectively? To answer this question, we need a benchmark that separates evidence use from segmentation quality, spans multiple medical image types, and allows the same mask to be presented in different ways. Existing medical VQA datasets do not jointly provide these properties. We therefore construct Mask-Evidence MedVQA, a 2.5K-example benchmark spanning four image types, where each question is paired with an answer-relevant ground-truth mask and multiple possible renderings. Our study reveals two limitations of direct tool use. First, evidence presentation matters. Different renderings of the same fixed mask can substantially change model behavior. Second, masks introduce an evidence trade-off. Highlighting a relevant region can expose diagnostic evidence the model previously missed, but the added visual cue can also induce incorrect associations. As a result, even a ground-truth mask can correct some answers while turning initially correct ones into incorrect ones. Together, these findings show that acquiring the right mask is not enough. An agent must also decide how to present the evidence and whether it should change the answer. We therefore introduce TUNE (Tool Use is Not Enough), an evidence-management harness that explicitly manages what",
+  "summary_1line": "Medical vision-language agents increasingly rely on segmentation tools, and recent work has focused on acquiring the right mask, often treating a good mask as the end point of tool use. But do these agents use the res...",
+  "title": "Harnessing Medical Visual-Language Models with Agentic Evidence Management",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.25840v1",
+  "why_it_matters": "Matches feed focus: agentic, harness."
+ },
  "f1e97cf4832493a9": {
   "first_seen": "2026-11-13T00:08:39.142506+00:00",
   "id": "0ddf6d108ff23cac",
@@ -25002,6 +25088,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08092v1",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "f22d46a83ecd25c4": {
+  "content_excerpt": "Test using prompts with unique, trackable secrets proves that data doesn’t stay private. Researchers planted 2 million digital tripwires in requests sent through a sprawling network of AI services to find out what happened to sensitive information entrusted to them. What they discovered was an ecosystem that leaked highly sensitive data like a sieve. The exposure was found through an ingenious experiment designed to test if sensitive information can leak through the vast chain of widely used AI services and how that information is exploited when it does. Many of today’s AI apps use services such as OpenRouter or Vercel that act as brokers. These “AI routers,” sometimes also known as “AI gateways,” receive large numbers of prompts sent from AI app end users and route them to an available inference engine based on criteria such as the one charging the lowest price or being best suited for the given task. Instead of using Anthropic, OpenAI, or another big provider, the developer hires an AI router to find the most suitable model. To test for potential leakage, researcher HD Moore assembled a collection of AWS access keys, functioning credentials tied to empty AWS accounts, passwords for services such as SSH, and unique URLs, DNS names, and private git repository references. None of the secrets had ever been used before, and he controlled the infrastructure that received any requests using the credentials. He then seeded each secret into exactly one prompt sent to a single provid",
+  "first_seen": "2026-11-20T22:05:14.750261+00:00",
+  "id": "fdcf7981e8e53e20",
+  "published": "2026-11-20T21:53:39+00:00",
+  "sid": "f22d46a83ecd25c4",
+  "source": "hackernews_ai",
+  "summary_1line": "Leaky AI supply chain is exposing secret user data at an alarming rate",
+  "title": "Leaky AI supply chain is exposing secret user data at an alarming rate",
+  "type": "news",
+  "url": "https://arstechnica.com/security/2026/11/a-leaky-ai-supply-chain-is-exposing-secret-user-data-at-an-alarming-rate"
  },
  "f22db79b36eec11b": {
   "first_seen": "2026-11-20T02:05:26.023243+00:00",
@@ -25910,6 +26008,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5nREY5eGxfa2tXV0ZxeHZpekdIaS05UWdfYUxVTHNIR01TdnU0MEhxaHA2NE1iSHE2MnpHRUgtM3VvR2x2ZEpKQ1ljYVFEME9lQTEtOHNXSHdkT0Jjb0VPTUgtYnNVdEQ2RXBlMERLOTRTcF9ic2c?oc=5",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "faf08ecbdbee6dd2": {
+  "first_seen": "2026-11-20T22:05:14.750261+00:00",
+  "id": "e27d857f657c8484",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-20T21:17:00+00:00",
+  "sid": "faf08ecbdbee6dd2",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.173.0-alpha.3",
+  "summary_1line": "Release 0.173.0-alpha.3",
+  "title": "codex rust-v0.173.0-alpha.3",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.3",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "fb3e45410f2c29fc": {
   "first_seen": "2026-11-05T06:05:14.674295+00:00",
