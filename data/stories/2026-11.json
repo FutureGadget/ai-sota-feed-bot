@@ -963,6 +963,17 @@
   "url": "http://arxiv.org/abs/2611.05304v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "09bf1fcfdfff135a": {
+  "first_seen": "2026-11-20T01:05:23.722033+00:00",
+  "id": "894dfd632f88f9c0",
+  "published": "2026-11-18T07:48:46+00:00",
+  "sid": "09bf1fcfdfff135a",
+  "source": "arxiv_llm_reliability",
+  "summary_1line": "Large language models can infer and follow specific rules through in-context learning (ICL), yet may fail to remain faithful to provided evidence, giving rise to out-of-context (OOC) hallucination. Existing work has largely investigated the underlying mechanisms of ICL and OOC ha",
+  "title": "A Mechanistic Analysis of In-Context Learning and Out-of-Context Hallucination",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.24000v1"
+ },
  "09cb83e9836dbf26": {
   "content_excerpt": "Give AI agents a real Chrome/Firefox browser through MCP. Human-approved automation, API reverse engineering, OpenAPI generation and reusable workflows. Local-first. Give your AI agent a real browser, and turn the traffic it sees into API docs and clients. A local-first Firefox + Chrome extension and MCP server for Claude Code, OpenAI Codex and any other MCP client. Chrome, Edge and Brave use the Chrome Web Store build. Then install the small local program: on Windows run the installer above (it brings its own Node.js; Windows may warn because it is not code-signed yet: More info , then Run anyway ), elsewhere see Quick start . The approval step (12 s). Watch the full 73-second demo (MP4) : fill a form, approve the submit, turn traffic into an OpenAPI spec, open the dashboard. Recorded on the demo site in this repo; a script plays the agent. Re-record it with npm run demo:record . AI agents are good at deciding what to do on a website and bad at being trusted with your accounts. BrowserForge closes that gap: the agent works in your real browser through an extension, a small local program carries its requests, and you approve anything consequential (submit, send, pay, passwords, uploads) with a click the agent cannot answer. What the agent sees and learns stays on your computer and is turned into reusable things: replayable flows , shareable skills , and API specs and clients built from the traffic it observed. The longer story, how this differs from headless automation and ot",
   "first_seen": "2026-11-05T02:05:37.010271+00:00",
@@ -1639,7 +1650,7 @@
   "sid": "0fe69ec1eb1a4f14",
   "source": "arxiv_agent_systems_research",
   "summary": "Multimodal agentic coding requires robust visual reasoning to analyze observations and evaluate generated artifacts. Current frameworks largely rely on a Thinking-with-Images paradigm, where agents depend on their intrinsic vision to execute visually grounded tasks. However, this architectural coupling introduces a fundamental bottleneck. Agent performance remains strictly bounded by internal perceptual limitations. Furthermore, text-only agents lack native perception. Without specialized tools, they cannot perform visual reasoning. To overcome these constraints, we introduce the Vision-as-a-Tool (VaaT) paradigm. Prior visual tool-use merely manipulates images for an agent's intrinsic vision to read. In contrast, VaaT reframes general-purpose multimodal large language models (MLLMs) as callable external utilities. As a result, text-only agents can completely offload visual reasoning during agentic execution. Meanwhile, vision-capable agents can dynamically augment their native perception on demand. We instantiate this paradigm in VHarness, a unified framework driven by five atomic actions. We comprehensively evaluate VHarness across Image-to-HTML, Image-to-SVG, and Image-to-3D generation tasks. Experimental results demonstrate that VHarness consistently improves visual fidelity and geometric accuracy across both text-only and multimodal coding agents. These findings highlight that modularizing visual reasoning into callable utilities provides a flexible and scalable foundatio",
-  "summary_1line": "Multimodal agentic coding requires robust visual reasoning to analyze observations and evaluate generated artifacts. Current frameworks largely rely on a Thinking-with-Images paradigm, where agents depend on their intrinsic vision to execute visually grounded tasks. However, this",
+  "summary_1line": "Multimodal agentic coding requires robust visual reasoning to analyze observations and evaluate generated artifacts. Current frameworks largely rely on a Thinking-with-Images paradigm, where agents depend on their int...",
   "title": "Vision-as-a-Tool: Visual Harness for Multimodal Agentic Coding",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17797v1",
@@ -2744,7 +2755,7 @@
   "first_seen": "2026-11-16T22:04:19.663029+00:00",
   "id": "bee35a8d1b6f120b",
   "image_url": "https://i.ytimg.com/vi/8cGfJOU3AlQ/maxresdefault.jpg",
-  "published": "2026-11-16T21:28:46+00:00",
+  "published": "2026-11-16T21:38:03+00:00",
   "sid": "1b4a1b4f18d176aa",
   "source": "latent_space",
   "summary": "Black Forest Labs’ case for learning AGI from pixels, motion and sound.",
@@ -3060,9 +3071,14 @@
    "codex"
   ],
   "published": "2026-11-19T23:07:37+00:00",
+  "release_highlights": [
+   "Added GPT-6.2 Sol and Astra to model catalogs, with Sol as the default catalog selection",
+   "Enabled the TUI workspace by default, with searchable document previews, image previews, and subagent transcripts alongside the main conversation. ( #61352 ,...",
+   "Added configurable undo and redo shortcuts to the non-Vim prompt composer, including restoration of attachments and large pastes"
+  ],
   "sid": "1e02ab9c34ce90d4",
   "source": "openai_codex_releases",
-  "summary": "Release 0.171.0",
+  "summary": "New Features Added GPT-6.2 Sol and Astra to model catalogs, with Sol as the default catalog selection. ( #62106 ) Enabled the TUI workspace by default, with searchable document previews, image previews, and subagent transcripts alongside the main conversation. ( #61352 , #61888 , #61889 , #61919 , #62157 ) Added configurable undo and redo shortcuts to the non-Vim prompt composer, including restoration of attachments and large pastes. ( #61954 ) Added codex exec --remote to start or resume noninteractive sessions on an existing app server. ( #61707 ) Added /rc and /remote to manage local remote control and display device pairing codes from the TUI. ( #62121 ) Added custom MCP status line selection and authoring through /statusline when tui_extensions_statusline is enabled. ( #61979 , #61988 , #62037 ) Bug Fixes Preserved drafts, queued follow-ups, and interrupted input with their original threads when switching or resuming sessions. ( #61216 ) Kept permission profiles intact when changing working directories. ( #61195 ) Prevented late completion events from cancelling approvals for a newer turn. ( #61801 ) Preserved earlier edits in aggregate diffs when steering an active turn. ( #61820 ) Fixed scrolling that inserted stray characters, composer caret jumps, and redraws using stale terminal dimensions. ( #62139 , #62174 , #62175 ) Fixed enterprise MCP sign-in for identity providers that issue ID tokens without refresh tokens. ( #62129 ) Chores Updated source builds and release ",
   "summary_1line": "Release 0.171.0",
   "title": "codex rust-v0.171.0",
   "type": "release",
@@ -3974,16 +3990,16 @@
  },
  "28fc1377be045e8d": {
   "first_seen": "2026-11-16T18:04:26.950511+00:00",
-  "id": "35beb5ae13a7ddb8",
+  "id": "02203a7eb88fc5c2",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-16T17:43:57+00:00",
+  "published": "2026-11-16T19:17:33+00:00",
   "sid": "28fc1377be045e8d",
   "source": "openai_codex_releases",
   "summary": "Release 0.171.0-alpha.9",
   "summary_1line": "Release 0.171.0-alpha.9",
-  "title": "codex rust-v0.171.0-alpha.9",
+  "title": "codex 0.171.0-alpha.9",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.9",
   "why_it_matters": "Matches feed focus: codex."
@@ -5542,7 +5558,7 @@
   "sid": "3985de9df0cd2149",
   "source": "arxiv_llm_reliability",
   "summary": "Reliable use of large language models (LLMs) requires uncertainty estimates that separate ambiguity intrinsic to a prompt from genuine knowledge gaps. Bayesian and deep-ensemble methods deliver this aleatoric/epistemic decomposition in principle, but are computationally prohibitive at LLM scale and require white-box access. Existing black-box methods, in contrast, summarize to a single scalar that cannot make the distinction. We introduce a two-level ensemble that bridges this gap. Stochastic decoding of a fixed prompt forms the inner ensemble; meaning-preserving semantic perturbations of the prompt form the outer ensemble. Variability is measured in a continuous embedding space, and the law of total covariance gives an exact within-/between-perturbation decomposition to estimate aleatoric and epistemic uncertainty (AU/EU); it requires only black-box sampling access. On top of this estimator, we contribute three theoretical results that ground the framework: (i) a finite-sample bias identity for nested Monte Carlo with a closed-form bias-corrected epistemic estimator; (ii) a Bayesian bridge bounding the gap between perturbation-population AU/EU and Bayesian targets; and (iii) a separation result identifying a class of failure modes that any consistency-only black-box method provably misses while perturbation-based EU detects. Across five short QA benchmarks and four instruction-tuned LLMs spanning two families and two scales, our estimator is competitive with strong white-box",
-  "summary_1line": "Reliable use of large language models (LLMs) requires uncertainty estimates that separate ambiguity intrinsic to a prompt from genuine knowledge gaps. Bayesian and deep-ensemble methods deliver this aleatoric/epistemic decomposition in principle, but are computationally prohibiti",
+  "summary_1line": "Reliable use of large language models (LLMs) requires uncertainty estimates that separate ambiguity intrinsic to a prompt from genuine knowledge gaps. Bayesian and deep-ensemble methods deliver this aleatoric/epistemi...",
   "title": "Black-Box Uncertainty Quantification for Large Language Models via Ensemble-of-Ensembles",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18453v1"
@@ -6743,7 +6759,7 @@
   "sid": "44583beb4fa9105b",
   "source": "arxiv_llm_reliability",
   "summary": "High-level behaviors such as sycophancy and hallucination correspond to directions in a model's activation space (Chen et al., 2025). These directions, known as persona vectors, can suppress undesirable traits either at inference time, subtracting the vector during generation, or through preventative steering, adding the vector during fine-tuning, so the optimizer never needs to encode the trait in weights, then removing the vector at evaluation. Chen et al. (2025) recommend preventative steering because it preserves Massive Multitask Language Understanding (MMLU) accuracy, but validations of this recommendation have measured capability alone. We primarily evaluate results on preventative steering of sycophancy and hallucination vectors on three models, measuring three safety benchmarks alongside trait expression, coherence, and MMLU. Our findings show that preventative steering still changes refusal behavior, but by an amount that depends on the trait and does not establish that preventative persona steering is safety-neutral, and steering methods should be evaluated on several safety benchmarks.",
-  "summary_1line": "High-level behaviors such as sycophancy and hallucination correspond to directions in a model's activation space (Chen et al., 2025). These directions, known as persona vectors, can suppress undesirable traits either at inference time, subtracting the vector during generation, or",
+  "summary_1line": "High-level behaviors such as sycophancy and hallucination correspond to directions in a model's activation space (Chen et al., 2025). These directions, known as persona vectors, can suppress undesirable traits either...",
   "title": "Safety Side Effects of Preventative Persona Steering: An Empirical Audit",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17620v1",
@@ -7494,7 +7510,7 @@
   "sid": "4dca535a21e12015",
   "source": "arxiv_agent_systems_research",
   "summary": "LLM agents that execute multi-step tool calls must satisfy two objectives simultaneously: completing the user's task (utility) and conforming to domain policies and correctness constraints (safety). These objectives are in tension -- blocking an unsafe action prevents a violation but can leave the agent stranded with no principled way to recover. Existing approaches sacrifice one objective for the other. We introduce Soteria, a framework that reconciles safety and utility through verified hierarchical planning and runtime enforcement of specifications. Before execution, the agent generates a structured plan that is formally verified against the specifications prior to any tool invocation. During execution, the verified plan serves dual roles: it ensures that the agent takes specification-conformant trajectories and provides guidance when unsafe actions are blocked. Across multiple benchmarks covering a diverse range of tool-use tasks, Soteria achieves 1.7 times the average task success rate of the best baselines, with no violations of policy specifications, demonstrating that safety and utility need not be traded off.",
-  "summary_1line": "LLM agents that execute multi-step tool calls must satisfy two objectives simultaneously: completing the user's task (utility) and conforming to domain policies and correctness constraints (safety). These objectives are in tension -- blocking an unsafe action prevents a violation",
+  "summary_1line": "LLM agents that execute multi-step tool calls must satisfy two objectives simultaneously: completing the user's task (utility) and conforming to domain policies and correctness constraints (safety). These objectives a...",
   "title": "Soteria: Formally Verified Planning with Runtime Enforcement for Safe LLM Agents",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17880v1",
@@ -8139,7 +8155,7 @@
   "sid": "535404a8a8839ca8",
   "source": "arxiv_cs_ai",
   "summary": "Reinforcement learning (RL) has become a common approach for training large language model (LLM) agents on long-horizon tasks. However, learning from sparse terminal rewards makes credit assignment and exploration difficult. We approach these challenges through a policy-induced capability region, the set of states from which the current policy can reliably complete a task. Near its boundary, an agent may need only a few actions to reach a more solvable state, even when the goal remains distant. This reduces long-horizon learning to two coupled subproblems of reaching that state and completing the task from there. We address them with paired advantages and a progressive reverse-to-forward curriculum. The advantages provide separate signals for reaching more solvable states and completing the task from them, while the curriculum expands the capability region backward along successful reference trajectories and then into off-reference states through on-policy exploration. On ALFWorld and WebShop, our method outperforms competitive agentic RL methods at both model scales, achieving success rates of 90.1%/96.1% and 80.2%/82.6% with Qwen2.5-1.5B/7B-Instruct, respectively.",
-  "summary_1line": "Reinforcement learning (RL) has become a common approach for training large language model (LLM) agents on long-horizon tasks. However, learning from sparse terminal rewards makes credit assignment and exploration dif...",
+  "summary_1line": "Reinforcement learning (RL) has become a common approach for training large language model (LLM) agents on long-horizon tasks. However, learning from sparse terminal rewards makes credit assignment and exploration difficult. We approach these challenges through a policy-induced c",
   "title": "Depth Before Breadth: Reverse-to-Forward Curriculum with Advantage Decomposition for LLM Agent",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.24697v1",
@@ -8921,7 +8937,7 @@
   "sid": "5ab6290534dfbe79",
   "source": "arxiv_cs_ai",
   "summary": "Long-horizon agents increasingly serve as persistent personal assistants across modern web platforms, managing schedules, applications, and multi-step plans over weeks or months. Users often return to an ongoing conversation after a long conversational hiatus, while earlier bookings and preparation notes stay on record. During this hiatus, scheduled dates may pass even though the retained records remain unchanged and event outcomes go unrecorded. Existing evaluations of long-horizon agents focus on fact retention and explicit state updates. Whether agents perceive the passage of time and adapt their advice accordingly therefore remains unknown. We frame this ability as temporal state perception and use, which means perceiving the current time and applying it when interpreting dated records. To study it, we design session-rekindling tasks that keep the earlier conversation fixed and vary only the follow-up date and the way temporal information reaches the agent. Experiments across five model routes and five temporal-information conditions show that agents can obtain the current time but often fail to use it. They reliably query the clock and even note in their reasoning that the scheduled date has passed, yet many still tell users to prepare for the expired event. Supplying explicit temporal context reduces this error, and providing the computed date relation removes it entirely. Keeping up with time therefore depends on turning perceived time into updated plans. Based on thes",
-  "summary_1line": "Long-horizon agents increasingly serve as persistent personal assistants across modern web platforms, managing schedules, applications, and multi-step plans over weeks or months. Users often return to an ongoing conversation after a long conversational hiatus, while earlier booki",
+  "summary_1line": "Long-horizon agents increasingly serve as persistent personal assistants across modern web platforms, managing schedules, applications, and multi-step plans over weeks or months. Users often return to an ongoing conve...",
   "title": "Can Agents Keep Up with Time? An Empirical Analysis of Temporal Adaptation After a Conversational Hiatus",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17806v1",
@@ -10434,7 +10450,7 @@
   "sid": "6abf544ebe49a8ae",
   "source": "arxiv_agent_systems_research",
   "summary": "Evaluations of multi-agent language models often compare communicating architectures against a single greedy pass. This practice confounds coordination with sample multiplicity and inference compute. We synthesize nine primary empirical evaluations comprising 516 unique multi-agent configurations organized along a resource vector R with six dimensions and a baseline ladder with four categories. Against baselines with a single pass (Category A), multi-agent accuracy differences are negative overall and near zero when omitting the largest contributing study. When evaluated against baselines matched on sample count (Category B) or resource budget (Category C), multi-agent systems average -0.042 in accuracy, and multilevel random effects modeling on the log odds scale remains negative across sensitivity checks. Multi-agent accuracy equals or falls below the baseline in 74% of these comparable contrasts, and study means are nonpositive in almost all evaluated studies. Across studies reporting both baselines, moving from a greedy pass to a sampled baseline shifts accuracy differences by -0.038 on average. Because communication adds no information when agents share identical evidence, positive returns require partitioned evidence, external verification, or error diversity across models. We provide a reviewer checklist and accounting utilities.",
-  "summary_1line": "Evaluations of multi-agent language models often compare communicating architectures against a single greedy pass. This practice confounds coordination with sample multiplicity and inference compute. We synthesize nine primary empirical evaluations comprising 516 unique multi-age",
+  "summary_1line": "Evaluations of multi-agent language models often compare communicating architectures against a single greedy pass. This practice confounds coordination with sample multiplicity and inference compute. We synthesize nin...",
   "title": "More Agents, More Samples, or More Thinking? Untangling Coordination, Ensembling, and Test-Time Compute in Multi-Agent LLMs",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17610v1",
@@ -11163,6 +11179,19 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06829v1",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "735d1f9416d3ebe2": {
+  "content_excerpt": "Amazon SageMaker AI now detects latency drift, idle GPUs, and missed optimizations on your inference endpoints | Artificial Intelligence Skip to Main Content Filter: All <div class=\"rggn_34338690",
+  "first_seen": "2026-11-20T01:04:02.252515+00:00",
+  "id": "b469ea0f118a0c15",
+  "published": "2026-11-19T21:28:18+00:00",
+  "sid": "735d1f9416d3ebe2",
+  "source": "aws_ml_blog",
+  "summary": "Amazon SageMaker AI now monitors your generative AI inference endpoints by default and tells you when a change could improve performance or lower cost. It tracks latency, GPU utilization, and serving configuration, then sends a finding through AWS Health with a one-click path to benchmark alternatives in SageMaker Studio before you apply any change.",
+  "summary_1line": "Amazon SageMaker AI now monitors your generative AI inference endpoints by default and tells you when a change could improve performance or lower cost. It tracks latency, GPU utilization, and serving configuration, th...",
+  "title": "Amazon SageMaker AI now detects latency drift, idle GPUs, and missed optimizations on your inference endpoints",
+  "type": "news",
+  "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-ai-now-detects-latency-drift-idle-gpus-and-missed-optimizations-on-your-inference-endpoints"
  },
  "739956a7c1e931b4": {
   "first_seen": "2026-11-03T02:08:20.145019+00:00",
@@ -12629,7 +12658,7 @@
   "sid": "819c44e6a693e421",
   "source": "hackernews_ai",
   "summary": "Hi everyone! Installing skills globally in ~/.agents or ~/.claude consumes too much context, yet manually installing specific skills for every project is tedious. Wouldn't it be better to group skills for programming, backend architecture, or graphic design into collections, and install them with a single command only when needed? To solve this, I built Skillset. It acts as a wrapper around the Vercel Skill CLI that batch-installs sets of skills from multiple sources using a single JSON file, essentially npm for skills! While similar tools exist, most are written from scratch, which makes me concerned about their compatibility. Because Vercel’s Skill CLI is already the de facto standard (imo!), Skillset uses it directly as an underlying library. So it guarantees seamless compatibility across teams, regardless of whether they use Skillset or the standard Vercel CLI.",
-  "summary_1line": "Hi everyone! Installing skills globally in ~/.agents or ~/.claude consumes too much context, yet manually installing specific skills for every project is tedious. Wouldn't it be better to group skills for programming, backend architecture, or graphic design into collections, and",
+  "summary_1line": "Hi everyone! Installing skills globally in ~/.agents or ~/.claude consumes too much context, yet manually installing specific skills for every project is tedious. Wouldn't it be better to group skills for programming,...",
   "title": "Show HN: Skillset: Easily curate and install agent skills collection",
   "type": "news",
   "url": "https://github.com/itsmeyaw/skillset",
@@ -13812,7 +13841,7 @@
   "sid": "8da93282dcb219d5",
   "source": "arxiv_cs_ai",
   "summary": "Running large language models (LLMs) on local devices keeps data private, removes per-token cost, cuts network latency, and keeps working without a connection. Two shifts now strain how such models are served. On one device, several agents share a locally served model with an interactive user. Across devices, a developer or small team often owns several capable machines from different vendors, which sit idle most of the day because every local server serves one runtime on one machine. We present Superfluid, an open-source LLM server built for local inference at both scales. On one device, Superfluid drives llama.cpp, MLX, or BaseRT in isolated worker processes through one scheduler that moves interactive requests ahead of agent work, computes a prompt shared by many requests once, and writes every token to a durable log before it reaches the client. Across devices, one Superfluid server turns a fleet of machines into a single API endpoint. Machines with different hardware serve copies of the same model, receive work according to their measured speed, and can join or fail under load without losing a request. For Qwen3.8-27B on an Apple M5 Pro, a chat sent while eight agents are working receives its first token in 1.5 s, against 291-612 s on llama-server, Ollama, and mlx_lm.server. On six machines from three chip vendors serving 64 simulated users for one hour, Superfluid answers all 5,041 requests while machines join one at a time and one is killed and rejoins; throughput grow",
-  "summary_1line": "Running large language models (LLMs) on local devices keeps data private, removes per-token cost, cuts network latency, and keeps working without a connection. Two shifts now strain how such models are served. On one device, several agents share a locally served model with an int",
+  "summary_1line": "Running large language models (LLMs) on local devices keeps data private, removes per-token cost, cuts network latency, and keeps working without a connection. Two shifts now strain how such models are served. On one...",
   "title": "Superfluid: Local AI Server for Distributed LLM Inference",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17753v1",
@@ -14469,7 +14498,7 @@
   "url": "http://arxiv.org/abs/2611.24932v1"
  },
  "9444ee7529255986": {
-  "content_excerpt": "Policy-as-code for what AI agents produce: decide where an agent's output can go, based on what it read. Policy-as-code for what AI agents produce. Decide where your agent's output can go, based on what it read. Permission systems decide what an agent may read . They lose track the moment the agent writes something new. In May 2025, Invariant Labs showed a coding agent reading a user's private repositories and publishing what it found in a pull request on a public one, after it read a crafted issue. Every step was something the agent was allowed to do. Reading private code was fine. Opening a public pull request was fine. Nothing checked that the second came from the first. Taking away access does not fix this: the agent needs the private code to do its job. What is missing is a rule about where things derived from it may go. The same gap opens each time one agent hands its work to another: the restriction should follow the data through every step. You write one small policy file. It says who may read anything derived from each source, which agents may use it, and where each action sends output: TrustGraph records what each output was built from, through every step, and answers allow , needs approval or deny with the reason: Approval adds a requirement. It never widens who may read a source. Anything the policy does not name is denied. A policy carries its own tests. Each one states what the agent read, what it tries to do and the answer you expect. Read a policy back in plai",
+  "content_excerpt": "Policy-as-code for what AI agents produce: decide where an agent's output can go, based on what it read. Policy-as-code for what AI agents produce. Decide where your agent's output can go, based on what it read. Permission systems decide what an agent may read . They lose track the moment the agent writes something new. In May 2025, Invariant Labs showed a coding agent reading a user's private repositories and publishing what it found in a pull request on a public one, after it read a crafted issue. Every step was something the agent was allowed to do. Reading private code was fine. Opening a public pull request was fine. Nothing checked that the second came from the first. Taking away access does not fix this: the agent needs the private code to do its job. What is missing is a rule about where things derived from it may go. The same gap opens each time one agent hands its work to another: the restriction should follow the data through every step. You write one small policy file. It says who may read anything derived from each source, which agents may use it, and where each action sends output: TrustGraph records what each output was built from, through every step, and answers allow , needs approval or deny with the reason: Approval adds a requirement. It never widens who may read a source. Anything the policy does not name is denied. It starts local fake MCP servers and a real gateway, follows an injected instruction in private code, and verifies that the public PR and secr",
   "first_seen": "2026-11-16T09:04:08.554134+00:00",
   "id": "981c47afb2f45b2c",
   "matched_topics": [
@@ -15595,7 +15624,7 @@
   "matched_topics": [
    "eval"
   ],
-  "published": "2026-11-13T08:00:00+00:00",
+  "published": "2026-11-16T08:00:00+00:00",
   "sid": "9fe6d2ae73e55f52",
   "source": "openai_blog",
   "summary": "OpenAI begins embedded assessments with Apollo Research, METR, and Transluce, and Goodfire to independently evaluate model alignment, safeguards, and monitoring systems.",
@@ -16604,6 +16633,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.09223v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "a890a236270cc5e3": {
+  "first_seen": "2026-11-20T01:04:02.252515+00:00",
+  "id": "e3f6dae780c5a8a7",
+  "published": "2026-11-19T00:00:00+00:00",
+  "sid": "a890a236270cc5e3",
+  "source": "openai_blog",
+  "summary": "Explore a reference architecture for supervised security investigations with Daybreak Red, including safety controls, setup, and monitoring.",
+  "summary_1line": "Explore a reference architecture for supervised security investigations with Daybreak Red, including safety controls, setup, and monitoring.",
+  "title": "Deploying Daybreak Red",
+  "type": "news",
+  "url": "https://openai.com/business/learn/deploying-daybreak-red"
  },
  "a8b588e8a456d4f8": {
   "first_seen": "2026-11-04T06:05:16.733547+00:00",
@@ -19241,7 +19282,7 @@
   "sid": "c2d1b58f9d54b8ac",
   "source": "arxiv_cs_cl",
   "summary": "When a conversational Voice AI agent places an outbound call, the far end may be a live person, a voicemail greeting, an interactive voice response (IVR) system, or increasingly another AI system answering on the callee's behalf. Standard Answering Machine Detection (AMD) reports only whether a human or a machine picked up, a design meant for human call centres, where one machine is as uninteresting as another. That single bit does not tell a Voice AI agent what to do, since leaving a voicemail message, navigating an IVR and holding a short exchange with another AI are three different actions and a two-valued label cannot distinguish them. In 1,000 randomly sampled calls from our own outbound deployment, a live person answered 48.1%, a voicemail system 44.6%, an AI 6.9% and an IVR 0.4%. Our proposed framework, FEND, reads the far end's audio and its streaming transcript and runs one detector for each automated class (voicemail, IVR, AI callee), with human the default when nothing fires, returning a single label within 20 seconds. On a public benchmark the voicemail components reach 100% accuracy without ever misclassifying a live human, where Asterisk's AMD misclassifies 30 to 66% of them. For the AI callee, acoustic features do not transfer across recording conditions, but speech timing does, separating AI from human at 0.952 ROC-AUC, because synthesised speech leaves far shorter gaps between words. On production traffic, separating a live person from any automated far end r",
-  "summary_1line": "When a conversational Voice AI agent places an outbound call, the far end may be a live person, a voicemail greeting, an interactive voice response (IVR) system, or increasingly another AI system answering on the callee's behalf. Standard Answering Machine Detection (AMD) reports",
+  "summary_1line": "When a conversational Voice AI agent places an outbound call, the far end may be a live person, a voicemail greeting, an interactive voice response (IVR) system, or increasingly another AI system answering on the call...",
   "title": "FEND: Far-End Detection in Outbound Voice AI Calls",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18050v1",
@@ -19793,7 +19834,7 @@
    "agentic",
    "codex"
   ],
-  "published": "2026-11-16T04:27:15+00:00",
+  "published": "2026-11-18T21:02:33+00:00",
   "release_highlights": [
    "10 new models (Mistral Large 4, MiniMax-M3.1-Flash, Nemotron-3.5-Transcribe, and more!)",
    "Extensible KV cache is on by default: vLLM sizes the KV cache from memory actually free after warmup, so most models get a bigger cache and more throughput -...",
@@ -19802,7 +19843,7 @@
   "sid": "c876496118766282",
   "source": "vllm_releases",
   "summary": "v0.34.0 1,061 commits from 412 contributors (120 new). Thank you! TL;DR 10 new models (Mistral Large 4, MiniMax-M3.1-Flash, Nemotron-3.5-Transcribe, and more!) Extensible KV cache is on by default: vLLM sizes the KV cache from memory actually free after warmup, so most models get a bigger cache and more throughput - in most cases you should now remove gpu_memory_utilization from your configs. Model Runner V1 is gone. Model Runner V2 is now the only GPU runner. Big speedups on Blackwell and MI355X: up to 1.95× decode (Step5 on GB200), 1.6× throughput (GLM-5.3-Flash), 1.24–1.40× faster long-prompt TTFT (GLM-5.3). Upgrade check: default block size is now 64, ROCm 7.2 images are gone, and huggingface_hub >= 2.0.0 is required. See Before you upgrade . Before you upgrade Important These changes can break existing setups. Change What to do PR Model Runner V1 removed Remove VLLM_USE_V2_MODEL_RUNNER=0 ; it now fails at startup. Port V1 logits processors to vllm.v1.worker.gpu.sample.logits_processor . #63373 Default --block-size is 64 (was 16) Pass --block-size 16 to keep the old behavior. ROCm paged attention still uses 16. #63231 Extensible KV cache on by default; gpu_memory_utilization defaults to 1.0 In most cases it's now best to not set gpu_memory_utilization . This should provide maximum kv cache capacity while avoiding runtime OOMs. Use it to share a GPU with other processes or when extensible kv cache is disabled. #56492 ROCm 7.2 artifacts dropped Use the ROCm 10.0 wheels and ",
-  "summary_1line": "v0.34.0",
+  "summary_1line": "10 new models (Mistral Large 4, MiniMax-M3.1-Flash, Nemotron-3.5-Transcribe, and more!) · Extensible KV cache is on by default: vLLM sizes the KV cache from memory actually free after warmup, so most models get a bigg...",
   "title": "vllm v0.34.0",
   "type": "release",
   "url": "https://github.com/vllm-project/vllm/releases/tag/v0.34.0",
@@ -19840,6 +19881,24 @@
   "type": "news",
   "url": "https://github.com/yocontra/pulsar",
   "why_it_matters": "Matches feed focus: agent, harness."
+ },
+ "c9007427c31b4a2e": {
+  "content_excerpt": "AI applications can range from simple internal chatbots to customer-facing, mission-critical agents, but all LLM-based solutions have the capacity to reason independently, so establishing governance has become a key consideration for any degree of AI adoption. Recent headlines on agent security breaches have driven even greater urgency to set up governance as a prerequisite for AI usage and development. While the need for agent governance is widely recognized in most organizations, most are still figuring out where to start. There is some top-down guidance on agent governance from governing bodies, such as the OWASP Agentic AI Threats & Mitigations , NIST AI Risk Management Framework , or AI Agents under EU Law . These guidelines outline agent risks, but don’t define how to mitigate these issues or verify that governance is working. When teams we work with are shipping agents with governing standards in place, we see two main strategies in common among them: Centralizing visibility across agents. Organizations need a central view of the agents running across the company, so costly operations, unauthorized usage, and rogue agents don't fall through the cracks. This visibility makes it possible to establish limits on agents and audit their behavior to verify that guardrails are upheld. Understanding individual agent behavior. Agents are non-deterministic, so the same agent can take different paths and call different tools on the same input. The issues that surface are often spe",
+  "first_seen": "2026-11-20T01:04:02.252515+00:00",
+  "id": "af7d9a75705642b7",
+  "image_url": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6aff37bcf26186b3d445793a_agent%20governance%20observability.png",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-19T17:53:00+00:00",
+  "sid": "c9007427c31b4a2e",
+  "source": "langchain_blog",
+  "summary": "A strong AI agent governance strategy",
+  "summary_1line": "A strong AI agent governance strategy",
+  "title": "Why agent governance starts with observability",
+  "type": "news",
+  "url": "https://www.langchain.com/blog/agent-governance-observability",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "c9279d164297034c": {
   "content_excerpt": "Personal Agent Protocol — or Poppy for short — has gained real momentum since we first announced this new standard with our initial design partners Meta, Genesys, Instinct, NiCE, Rocket, Shopify, Stripe, and Walmart last month. Poppy enables personal agents to interact with companies through business agents, websites, and APIs and today we’re excited to announce that: Version 1.0 of Poppy reflects what design partners have learned over the past five weeks as they’ve tested the drafts against real websites, APIs, and agents. The protocol defines how personal agents connect with companies that implement it, providing clear and comprehensive access to everything they offer, largely built with existing standards like MCP, OpenAPI, and UCP. With authentication through OAuth, customers control what personal agents can and can’t do, and can manage their access over time. With v1.0, any company can implement Poppy on its own and immediately start delivering a better experience for customers who use Muse. Our implementation kit walks you through setup and includes a validator to check your work. Shopify powers businesses in more than 175 countries, and every Shopify store supports Universal Commerce Protocol (UCP) by default. As more shopping moves to personal agents, every Shopify store now automatically publishes a Poppy file, so merchants don’t need to do any extra implementation. UCP and Poppy complement each other. UCP handles the shopping itself, like finding products, filling a",
@@ -20808,16 +20867,16 @@
  },
  "d646ec07a2b31e93": {
   "first_seen": "2026-11-16T16:06:16.108628+00:00",
-  "id": "c8743a55c1bf6441",
+  "id": "f904281bf8b5f4fc",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-16T15:10:19+00:00",
+  "published": "2026-11-16T16:30:40+00:00",
   "sid": "d646ec07a2b31e93",
   "source": "openai_codex_releases",
   "summary": "Release 0.171.0-alpha.8",
   "summary_1line": "Release 0.171.0-alpha.8",
-  "title": "codex rust-v0.171.0-alpha.8",
+  "title": "codex 0.171.0-alpha.8",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.8",
   "why_it_matters": "Matches feed focus: codex."
@@ -20905,7 +20964,7 @@
   "sid": "d761218419b3b591",
   "source": "arxiv_agent_systems_research",
   "summary": "Multi-agent systems solve complex tasks by decomposing them into subtasks, delegating the subtasks to agents, and aggregating the agents' responses using an aggregation rule. Malicious agents can manipulate the final solution by providing malicious responses to their assigned subtasks. In this paper, we first propose response manipulation attacks (ReMA), which iteratively optimize malicious responses to maximize attack effectiveness. Specifically, we formulate untargeted and targeted attacks as optimization problems and develop an approach to approximately solve these problems by iteratively refining malicious responses based on feedback from a surrogate multi-agent system. To defend against such attacks, we further propose SecMAS, a secure aggregation rule that leverages the semantic similarities among agent responses to select the response that is most consistent with a sufficiently large subset of the other responses. We theoretically establish security guarantees for SecMAS against both untargeted and targeted attacks. Extensive evaluations demonstrate that existing aggregation rules are vulnerable to ReMA, whereas SecMAS effectively defends against all evaluated attacks, including adaptive variants of ReMA, while maintaining utility comparable to that of existing aggregation rules.",
-  "summary_1line": "Multi-agent systems solve complex tasks by decomposing them into subtasks, delegating the subtasks to agents, and aggregating the agents' responses using an aggregation rule. Malicious agents can manipulate the final solution by providing malicious responses to their assigned sub",
+  "summary_1line": "Multi-agent systems solve complex tasks by decomposing them into subtasks, delegating the subtasks to agents, and aggregating the agents' responses using an aggregation rule. Malicious agents can manipulate the final...",
   "title": "Securing Multi-Agent Systems by Design",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17883v1",
@@ -21427,7 +21486,7 @@
   "published": "2026-11-18T22:00:00+00:00",
   "sid": "daf2b3e0d41882f4",
   "source": "cloudflare_blog",
-  "summary": "Add your teaser here. It should complement the headline, not repeat it. Teaser cannot be longer than 240 characters. The Blog Review Gem will suggest an excerpt. Clairic graduates from preview, while Clairic-flash joins the repertoire on Workers AI. We’re doing an open-weight release for both extraction models.",
+  "summary": "Clairic graduates from preview, while Clairic-flash joins the repertoire on Workers AI. We’re doing an open-weight release for both extraction models.",
   "summary_1line": "Add your teaser here. It should complement the headline, not repeat it. Teaser cannot be longer than 240 characters. The Blog Review Gem will suggest an excerpt. Clairic graduates from preview, while Clairic-flash joi...",
   "title": "An updated Clairic and Clairic-flash are now open-weight, from the new Workers AI Superintelligence team",
   "type": "news",
@@ -21758,16 +21817,16 @@
  },
  "dd6b4250fdb22f84": {
   "first_seen": "2026-11-16T23:04:08.342264+00:00",
-  "id": "77ae7497ceec1d39",
+  "id": "447c2b3ecc5732af",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-16T22:07:36+00:00",
+  "published": "2026-11-16T23:37:29+00:00",
   "sid": "dd6b4250fdb22f84",
   "source": "openai_codex_releases",
   "summary": "Release 0.171.0-alpha.10",
   "summary_1line": "Release 0.171.0-alpha.10",
-  "title": "codex rust-v0.171.0-alpha.10",
+  "title": "codex 0.171.0-alpha.10",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.10",
   "why_it_matters": "Matches feed focus: codex."
@@ -23056,6 +23115,18 @@
   "type": "research",
   "url": "https://huggingface.co/blog/moe-expert-streaming"
  },
+ "eca15e08987dc4b5": {
+  "first_seen": "2026-11-20T01:04:02.252515+00:00",
+  "id": "998a8ddacedc1b3c",
+  "published": "2026-11-20T00:11:00+00:00",
+  "sid": "eca15e08987dc4b5",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Prime Intellect discloses unauthorized DeepSeek model swap that sharply reduced refusals Superpower Daily",
+  "summary_1line": "Prime Intellect discloses unauthorized DeepSeek model swap that sharply reduced refusals Superpower Daily",
+  "title": "Prime Intellect discloses unauthorized DeepSeek model swap that sharply reduced refusals",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOYzRuZUFqYnV4WTU2dkZPSnFJX3dXRldmdG14aEJvQkg4UXlHTHVQQks5X0Y0MXh0U1phVGtyMW0yOTZfS2plemFiZ2FDRVhSRXdRU0h6aVlqZV9XcnN6cGRtd2pkYVRvUktaSmR5MDhBMWV2dzJfbVVDb2FscDc0TkNNQTNJeEVhcHRjT2VYNnlBXzc0Q0hGcENleTMwMXV6QmZSMDNCbFFGOEExVjM1NWZEYV9iVlQ0TWpCMU9Ncw?oc=5"
+ },
  "ecb2e13c36b51ce4": {
   "content_excerpt": "My longest running agent testbed has been building the Interconnects Dashboard — an aggregator of all of the best data on open model adoption and performance from across the web. This dashboard is freely available and becoming quite useful. Still, all the measurements we have on open model adoption are incredibly imprecise. We have noisy platform metrics, marketing-related metrics from startups, and imperfect public evaluations. It takes an informed eye to figure out where things are going. These research notes are my current best approximations of where we stand. As with most things on Interconnects, our goal is to build well more value than we capture, so the data on the dashboard will remain free for the foreseeable future. These notes will be more raw than many of my articles, a place for sharing what I’m mulling over but don’t have complete evidence for (yet). They will be primarily paid, enabling me to speak more freely. If you work in AI policy or policy-facing research, please reach out to us and we can likely get discounted or free access. The primary question I wanted to address today is: What is the market for open model inference? Is it growing? Is it a rounding error relative to OpenAI/Anthropic? I’ve been building the best measurements I can here, primarily using the open model inference startups Baseten, Fireworks, and Together AI as the bellwethers here (along with the open model share of OpenRouter’s token volume, which they thankfully report in their API). T",
   "first_seen": "2026-11-04T17:04:44.410239+00:00",
@@ -24104,7 +24175,7 @@
   "sid": "f752a4b1a8de79f9",
   "source": "arxiv_cs_cl",
   "summary": "Industry now relies on LLMs to write a large share of production code. Although that code is mostly, but not always, correct, correctness alone does not determine whether it is fit for repeated and extensive use, which depends on what the code costs in time, memory and energy. Most code-generation benchmarks nonetheless evaluate correctness in isolation, and most performance-oriented benchmarks cover few languages and rarely measure energy consumption. To address this gap, we present PERFARENA, an open-source, reproducible arena that ranks LLMs by the performance of their generated code across multiple languages and competitions. PERFARENA executes the solutions of each LLM on a Unix-like host and reports correctness together with latency, peak memory, and energy consumption. Correctness oracles, performance oracles, profilers, and code-generation workflows are pluggable in PERFARENA, enabling the integration of new judging backends and measurement tools without changing the pipeline. We evaluate PERFARENA on two competitions: CLBGComp, 10 compute-intensive benchmarks from the Computer Language Benchmarks Game, and LeetCodeComp, 99 LeetCode problems whose accepted solutions differ measurably in latency. Currently, PERFARENA holds 9,455 correct and measured solutions from 13 state-of-the-art LLMs across 7 programming languages. Across both competitions, got-6-astra is the only LLM that no other LLM beats significantly in latency, energy consumption, or peak memory, solving 99.",
-  "summary_1line": "Industry now relies on LLMs to write a large share of production code. Although that code is mostly, but not always, correct, correctness alone does not determine whether it is fit for repeated and extensive use, which depends on what the code costs in time, memory and energy. Mo",
+  "summary_1line": "Industry now relies on LLMs to write a large share of production code. Although that code is mostly, but not always, correct, correctness alone does not determine whether it is fit for repeated and extensive use, whic...",
   "title": "PerfArena: Ranking LLMs by Code Performance",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18030v1",
@@ -24238,7 +24309,7 @@
   "sid": "f90b714a57ce9fe0",
   "source": "arxiv_cs_cl",
   "summary": "Web agents powered by large language and vision-language models are increasingly applied to realistic browser work that spans heterogeneous applications, multimodal content, and stateful workflows. However, existing reproducible web-agent benchmarks cover only a small number of web applications drawn from a few software categories, and restrict modality to text and vision. Live benchmarks broaden site coverage but sacrifice reproducibility, since pages and data drift between runs. Moreover, existing benchmarks do not meaningfully evaluate whether agents can understand and use audio and video content embedded within web tasks. To address these gaps, we introduce WebArena-Pro, a benchmark comprising 300 tasks across 20 self-hosted web applications in six domain categories, spanning distinct interface conventions, workflows, and data models. Across the evaluated agents, the best performance is achieved by both Codex with GPT 6.1 Sol and Claude Code with Claude Opus 5.5 at 62.3%, followed by OpenCode with Kimi 3.1 Pro at 60.7%. The strongest GenericAgent configurations, Gemini 3.1 Pro omni and Gemma4 31B, both achieve 30.3%. Among reproducible, human-curated web agent benchmarks, WebArena-Pro provides the broadest application coverage and the most comprehensive multimodal support to date. The benchmark treats audio and video as core observations alongside text and vision, with dedicated actions for extracting information from each. WebArena-Pro runs each task in isolation and sup",
-  "summary_1line": "Web agents powered by large language and vision-language models are increasingly applied to realistic browser work that spans heterogeneous applications, multimodal content, and stateful workflows. However, existing reproducible web-agent benchmarks cover only a small number of w",
+  "summary_1line": "Web agents powered by large language and vision-language models are increasingly applied to realistic browser work that spans heterogeneous applications, multimodal content, and stateful workflows. However, existing r...",
   "title": "WebArena-Pro: A Heterogeneous, Multimodal, Reproducible Benchmark for Web Agents",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17955v1",
@@ -24530,7 +24601,7 @@
   "sid": "fb984b4ec46a1a9a",
   "source": "arxiv_llm_reliability",
   "summary": "Whether a language model's answer is correct often depends on context: the same value can be right under one jurisdiction, date, or legal definition and wrong under another. We introduce GT-FENG (General Theory of Factual Evaluation and Normative Grounding), the first general framework to unify contextual/temporal correctness and rule-based error attribution across law, policy, and other rule-governed domains. GT-FENG checks answers against the applicable rules and identifies documented rules that match incorrect answers. It shows that when multiple rules give the same value, the answer alone cannot tell which rule the model used. In Medicaid income-limit answers from two models, documenting the asked state's own records reduces the number of wrong answers that match only other states' values by 68-78%, and more than half of stable wrong answers then match two or more documented sources. GT-FENG provides a foundation for evaluating language models in rule-governed domains and for future benchmarks and evaluation toolkits. We release GT-FENG as an open-source Python package, gtfeng.",
-  "summary_1line": "Whether a language model's answer is correct often depends on context: the same value can be right under one jurisdiction, date, or legal definition and wrong under another. We introduce GT-FENG (General Theory of Factual Evaluation and Normative Grounding), the first general fra",
+  "summary_1line": "Whether a language model's answer is correct often depends on context: the same value can be right under one jurisdiction, date, or legal definition and wrong under another. We introduce GT-FENG (General Theory of Fac...",
   "title": "GT-FENG: General Theory of Factual Evaluation and Normative Grounding in Language Models *Author(s)",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18279v1",
