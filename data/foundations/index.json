@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-18T10:10:22.014861+00:00",
+  "generated_at": "2026-11-20T18:04:41.269673+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -73,6 +73,33 @@
   ],
   "recent_evidence": [
     {
+      "concept": "llm-judge-reliability",
+      "concept_title": "Can you trust an LLM-as-judge score?",
+      "id": "verification-transport-2026",
+      "title": "Do Verifier Judgments Survive Abstraction? Measuring Verification Transport for LLM Agent Evaluation",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-20"
+    },
+    {
+      "concept": "llm-judge-reliability",
+      "concept_title": "Can you trust an LLM-as-judge score?",
+      "id": "scale-reversal-judge-bias-2026",
+      "title": "Rubric Semantics or Numerical Priors? Auditing Scale-Direction Bias in LLM Judges",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-20"
+    },
+    {
+      "concept": "llm-judge-reliability",
+      "concept_title": "Can you trust an LLM-as-judge score?",
+      "id": "agentdojo-verdict-audit-2026",
+      "title": "Did the Attack Really Work? Auditing, Re-running, and Sealing AI-Agent Security Findings with .sova",
+      "tier": "benchmark/result-backed",
+      "kind": "benchmark-result",
+      "added": "2026-11-20"
+    },
+    {
       "concept": "prompt-injection-enforcement",
       "concept_title": "Why can't a better prompt or detector stop prompt injection in a tool-using agent?",
       "id": "zhang-2026-task-tampering-ipi",
@@ -116,33 +143,6 @@
       "tier": "benchmark/result-backed",
       "kind": "benchmark-result",
       "added": "2026-11-18"
-    },
-    {
-      "concept": "multi-agent-coordination-failures",
-      "concept_title": "Why do multi-agent systems fail in ways a single agent doesn't?",
-      "id": "shared-memory-2026-unprompted-coordination",
-      "title": "Unprompted coordination through shared memory in LLM agents: a locked two-implementation replication and extension",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-13"
-    },
-    {
-      "concept": "multi-agent-coordination-failures",
-      "concept_title": "Why do multi-agent systems fail in ways a single agent doesn't?",
-      "id": "delegation-2026-lost-in-delegation",
-      "title": "Lost in Delegation: Studying the Effectiveness of Task Orchestration in Generative Search",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-13"
-    },
-    {
-      "concept": "agent-memory-poisoning",
-      "concept_title": "Can you trust what your agent remembers?",
-      "id": "memorydojo-2026-poison-lifecycle",
-      "title": "MemoryDojo: Benchmarking Poisoning Through LLM Agent Memory",
-      "tier": "benchmark/result-backed",
-      "kind": "benchmark-result",
-      "added": "2026-11-13"
     }
   ],
   "concepts": {
@@ -1927,34 +1927,34 @@
       "status": "active",
       "cluster": "evaluation",
       "cluster_label": "Evals and reliability",
-      "updated": "2026-10-21",
-      "latest_evidence_added": "2026-10-21",
+      "updated": "2026-11-20",
+      "latest_evidence_added": "2026-11-20",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
         {
           "heading": "Builder consequence",
-          "html": "<p>If you grade agent traces with an LLM judge, the score is not a fact about the agent. It is the agent filtered through a second model with its own failure modes. Before wiring a judge into CI gating or a dashboard, find out whether it favors a slot, a length, or a language, and whether its accuracy on your eval set predicts catching the production failure you care about.</p>"
+          "html": "<p>If you grade agent traces with an LLM judge, the score is not a fact about the agent. It is the agent filtered through a second model with its own failure modes. Before wiring a judge into CI gating or a dashboard, find out whether it favors a slot, a length, a language, or a rubric&#x27;s number direction, and whether it still agrees when it sees a compacted or delegated view of the same run.</p>"
         },
         {
           "heading": "Short answer",
-          "html": "<p>LLM-as-judge accuracy on a held-out set is necessary but not sufficient. Judges carry systematic biases toward position, length, and language that raw accuracy hides, and a judge that passes a benchmark can still miss the real failure the eval exists to catch.</p>\n<p>A deeper gap sits underneath: a judge grades the answer&#x27;s plausibility, not whether the trajectory earned it. In GroundEval&#x27;s case study, two frontier judges scored an answer 0.85 or higher although the agent never retrieved the evidence it depended on. Treat the judge as a component under test, and where trajectories have checkable evidence, replace it with a deterministic scorer.</p>"
+          "html": "<p>LLM-as-judge accuracy on a held-out set is necessary but not sufficient. Judges carry systematic biases toward position, length, language, and score-anchor direction that raw accuracy hides. A judge that passes a benchmark can still miss the failure the eval exists to catch.</p>\n<p>Two deeper gaps sit underneath. A judge grades the answer&#x27;s plausibility, not whether the trajectory earned it. Its verdict also depends on which view of the trajectory it reads: Verification Transport measured about 31% judgment failure once execution crossed delegation and tool-composition boundaries. Treat the judge as a component under test, give it the provenance, and where evidence is checkable, use a deterministic scorer that you audit too.</p>"
         },
         {
           "heading": "Builder model",
-          "html": "<p>A judge is a classifier with a prompt instead of a training loop, and classifiers fail in ways one aggregate accuracy number doesn&#x27;t show. Judge designs sit on a spectrum:</p>\n<ul><li><strong>Prompted frontier LLM:</strong> flexible, expensive, subtly biased.</li><li><strong>Small fine-tuned classifier</strong> (encoder or distilled LLM) trained on production labels: cheap, fast, narrower, only as good as its labels.</li></ul>\n<p>Both need what an agent needs: a held-out test set built from real failures, not the cases the judge was tuned on.</p>\n<p>Either design grades what the agent said, not what its trajectory can prove. When the task has a checkable evidence path — a document that should have been retrieved, a time window to reason within, a causal mechanism to use — a deterministic scorer over the trajectory closes a gap no judge tuning can.</p>"
+          "html": "<p>A judge is a classifier with a prompt instead of a training loop, and classifiers fail in ways one aggregate accuracy number doesn&#x27;t show. Judge designs sit on a spectrum:</p>\n<ul><li><strong>Prompted frontier LLM:</strong> flexible, expensive, subtly biased.</li><li><strong>Small fine-tuned classifier</strong> (encoder or distilled LLM) trained on production labels: cheap, fast, narrower, only as good as its labels.</li><li><strong>Deterministic check</strong> over the recorded trajectory: exact where evidence is checkable, blind to anything its rule didn&#x27;t anticipate.</li></ul>\n<p>All three need what an agent needs: a held-out test set built from real failures, not the cases the scorer was tuned on.</p>"
         },
         {
           "heading": "Mechanism",
-          "html": "<p>An LLM judge produces a verdict conditioned on the response, a rubric, and often a second response to compare. Because the verdict is a model output, it inherits model-level artifacts:</p>\n<ul><li><strong>Position bias:</strong> preferring whichever candidate is shown first.</li><li><strong>Verbosity bias:</strong> preferring longer text as a proxy for thoroughness.</li><li><strong>Distribution-shift degradation:</strong> losing calibration outside the language or domain it was tuned on.</li></ul>\n<p>Swapping the order of compared responses probes position bias directly: if the verdict flips with the slot, the judge is responding to position, not content. BabelJudge shows how much raw accuracy hides here; order consistency fell to 0.480 in Swahili, near random.</p>\n<p>Agent trajectories multiply the places bias can hide. The judge scores a sequence of tool calls and decisions, and can be well calibrated on final-answer correctness while unreliable on whether the path was sound. Cheaper judges (fine-tuned encoders, distilled small LLMs) trade rubric flexibility for cost and speed, and face the same requirement: measure them against the failures you care about, not the cases used to tune them.</p>\n<p>Deterministic trajectory scoring removes the judge where evidence is checkable. GroundEval generates questions from a domain configuration, lets the agent answer freely, then scores the answer and recorded trajectory on three tracks:</p>\n<ul><li><strong>Silence:</strong> did the agent check before claiming something was absent?</li><li><strong>Perspective:</strong> did it reason only from evidence available at the relevant time?</li><li><strong>Counterfactual:</strong> did it use the real causal mechanism, not a plausible one?</li></ul>\n<p>Each track grades against ground truth the system already knows — what was retrievable, when, and through what path — so it catches a fluent, ungrounded answer that a judge reading only the final text cannot detect by construction.</p>"
+          "html": "<p>An LLM judge produces a verdict conditioned on the response, a rubric, and often a second response to compare. Because the verdict is a model output, it inherits model-level artifacts:</p>\n<ul><li><strong>Position bias:</strong> preferring whichever candidate is shown first. BabelJudge&#x27;s order consistency fell to 0.480 in Swahili, near random.</li><li><strong>Verbosity bias:</strong> preferring longer text as a proxy for thoroughness.</li><li><strong>Distribution-shift degradation:</strong> losing calibration outside its tuned language or domain.</li><li><strong>Anchor-direction bias:</strong> scoring by numeric priors (&quot;5 is good&quot;) rather than the rubric&#x27;s words, so inverting the scale changes verdicts.</li></ul>\n<p>Agent trajectories add a representation problem. In production, one execution reaches the judge as raw tool calls, a composed macro-tool, a sub-agent summary, or a compacted history. Each view hides different evidence, so the same run can get different verdicts. Direct verification tends to flip to a wrong verdict; evidence-grounded protocols tend to abstain, which looks like lower failure but is not more reliable. Restoring provenance recovered most of the failures.</p>\n<p>Deterministic trajectory scoring removes the judge where evidence is checkable. GroundEval grades the recorded trajectory against ground truth the system knows: did the agent check before claiming absence (<strong>Silence</strong>), reason only from evidence available at the time (<strong>Perspective</strong>), and use the real causal mechanism (<strong>Counterfactual</strong>)? That catches a fluent, ungrounded answer a final-text judge cannot.</p>\n<p>Deterministic checks have their own blind spot: a rule that reads the wrong field misses real outcomes. AgentDojo&#x27;s attack checker missed 11.9% of runs where the agent executed the attacker&#x27;s action.</p>"
         },
         {
           "heading": "How to apply",
-          "html": "<p>Before trusting a judge&#x27;s verdicts, run these checks:</p>\n<ul><li><strong>Order-swap test.</strong> Run every pairwise comparison both ways and count only verdicts that agree.</li><li><strong>Verbosity check.</strong> Track response length against verdict.</li><li><strong>Per-slice reliability.</strong> Across languages or domains, report reliability per slice, not one pooled number.</li><li><strong>Held-out set from real failures.</strong> Use production failures your team has seen, not synthetic cases the judge obviously gets right; a judge accurate on easy cases and silent on the hard one is failing.</li><li><strong>Stability and human-agreement checks.</strong> Re-score identical inputs several times and track variance; compare against human labels with a chance-corrected metric.</li><li><strong>Re-validate before swapping in a cheaper judge.</strong> Test any encoder, distilled model, or decision model on the same held-out set; tune its threshold on your data, measure calibration, and re-run whenever the model, prompt, or rubric changes.</li><li><strong>Check groundedness, not plausibility, for trajectories.</strong> Where the task has a checkable evidence path, grade the recorded trajectory against that ground truth instead of asking a judge whether the answer sounds right.</li></ul>"
+          "html": "<p>Before trusting a judge&#x27;s verdicts, run these checks:</p>\n<ul><li><strong>Order-swap test.</strong> Run every pairwise comparison both ways; count only verdicts that agree.</li><li><strong>Scale-reversal probe.</strong> Re-score a sample with inverted anchors; if verdicts move beyond the judge&#x27;s own rerun noise, average both directions in production.</li><li><strong>Verbosity and per-slice checks.</strong> Track length against verdict; report reliability per language or domain, not pooled.</li><li><strong>Held-out set from real failures.</strong> Use production failures your team has seen, not cases the judge obviously gets right.</li><li><strong>Stability and human agreement.</strong> Re-score identical inputs several times; compare against human labels with a chance-corrected metric.</li><li><strong>Judge the production view, with provenance.</strong> Score the trajectory representation the verifier will see after delegation or compaction, and attach the raw tool-call log it was derived from.</li><li><strong>Re-validate any cheaper judge.</strong> Test encoders, distilled models, or decision models on the same set; tune thresholds, measure calibration, re-run on every model, prompt, or rubric change.</li><li><strong>Prefer deterministic scorers, then audit them.</strong> Where evidence is checkable, grade the trajectory against ground truth, and periodically diff the checker&#x27;s verdicts against the actions actually taken.</li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li><strong>Aggregate accuracy worship:</strong> one pooled number hiding a collapse in a slice (language, position, length band).</li><li><strong>Order blindness:</strong> never testing whether a pairwise verdict flips when the slots swap.</li><li><strong>Benchmark-only validation:</strong> tuning and validating on the same kind of cases, so the judge never sees the production failure the eval exists to catch.</li><li><strong>Set-and-forget judges:</strong> never re-validating after the agent, prompt, or judge model changes.</li><li><strong>Free cost-cutting:</strong> swapping in a cheaper judge without re-running the same bias and accuracy checks.</li><li><strong>Default threshold:</strong> shipping a decision model at 0.50 without tuning or calibrating it.</li><li><strong>Grading the answer, not the path:</strong> trusting a high score on a fluent answer without checking that the trajectory retrieved the right evidence, respected the time boundary, and used the right mechanism.</li></ul>"
+          "html": "<ul><li><strong>Aggregate accuracy worship:</strong> a pooled number hiding a collapse in one slice.</li><li><strong>Order or anchor blindness:</strong> never testing whether a verdict flips when slots swap or the scale inverts.</li><li><strong>Benchmark-only validation:</strong> the judge never sees the production failure the eval exists to catch.</li><li><strong>Set-and-forget judges:</strong> no re-validation after the agent, prompt, or judge model changes.</li><li><strong>Abstraction blindness:</strong> validating on raw traces, then judging compacted or delegated summaries.</li><li><strong>Abstention mistaken for accuracy:</strong> a protocol that refuses to rule looks reliable but grades nothing.</li><li><strong>Grading the answer, not the path:</strong> trusting a fluent answer without checking the trajectory&#x27;s evidence.</li><li><strong>Trusting the checker:</strong> treating an automated benchmark verdict as proof without auditing it against actions.</li></ul>"
         },
         {
           "heading": "Related",
@@ -1962,6 +1962,36 @@
         }
       ],
       "evidence": [
+        {
+          "id": "scale-reversal-judge-bias-2026",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Rubric Semantics or Numerical Priors? Auditing Scale-Direction Bias in LLM Judges",
+          "note": "Inverts a rubric's score anchors (1 = best instead of 5 = best) without changing the criteria and checks whether judges give consistent scores. Across five meta-evaluation benchmarks and seven open and proprietary judges, violations are widespread, and raw reversal agreement is misleading until normalized against each judge's own run-to-run noise. Averaging scores over both anchor directions reduces the dependence without hurting agreement with human ratings.",
+          "added": "2026-11-20",
+          "url": "http://arxiv.org/abs/2611.25588v1",
+          "sid": "d59766235f01efbf"
+        },
+        {
+          "id": "verification-transport-2026",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Do Verifier Judgments Survive Abstraction? Measuring Verification Transport for LLM Agent Evaluation",
+          "note": "Shows the same frozen agent execution, viewed through composed tools, delegation, or a compacted history, changes verifier verdicts. Across four benchmarks, seven verifier backbones, four protocols, and three boundaries, judgment failure reaches about 31% under macro abstraction plus delegation. Direct verification flips to wrong verdicts; evidence-grounded protocols abstain instead. Restoring execution provenance recovers 85.5% of failures.",
+          "added": "2026-11-20",
+          "url": "http://arxiv.org/abs/2611.18471v1",
+          "sid": "a44ee00fea440f11"
+        },
+        {
+          "id": "agentdojo-verdict-audit-2026",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Did the Attack Really Work? Auditing, Re-running, and Sealing AI-Agent Security Findings with .sova",
+          "note": "Audits AgentDojo's automated attack-success checks against the tool calls agents actually made. Agreement is 97.7% on 19,381 runs, but the checker scored 433 runs as no attack where the agent paid the attacker or took the decisive action: 11.9% of real attacks. A reply-text check also counted warnings as attacks. Preprint, not peer reviewed; the author's company builds the audit tool.",
+          "added": "2026-11-20",
+          "url": "https://zenodo.org/records/24321025",
+          "sid": "cd759e6684ea23fc"
+        },
         {
           "id": "google-cloud-audit-llm-evaluators-2026",
           "kind": "primary-doc",
