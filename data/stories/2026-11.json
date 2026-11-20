@@ -395,6 +395,18 @@
   "url": "http://arxiv.org/abs/2611.17239v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "048aa14a74e02d08": {
+  "content_excerpt": "JsonBit compacts nested JSON before it reaches your LLM. Send a compact digest in one prompt, or let your agent query the original data locally via SQL/MCP and read only the results it needs. Pass the output to your LLM in place of the raw JSON. (Rust cargo , Node.js npm / npx , and standalone binaries are listed under Installation & Setup .) Install the pre-built native jsonbit binary using your preferred package manager (no Rust compiler required for Python or Node.js): Standalone binaries for Linux ( x64 , arm64 ), macOS ( arm64 , x64 ), and Windows ( x64 ) are attached to every GitHub Release . jsonbit includes a built-in stdio JSON-RPC 2.0 MCP server ( jsonbit mcp ) with zero external runtime dependencies. It exposes five tools: olap_load , olap_digest , olap_ask , olap_sql , and olap_rehydrate . Add the following to opencode.json in your project root (or globally in ~/.config/opencode/opencode.json ): Add the .mcp.json configuration above to .cursor/mcp.json or ~/.codeium/windsurf/mcp_config.json . Codex and terminal agents automatically read AGENTS.md in the repository root to invoke jsonbit via CLI or MCP when inspecting .json , .jsonl , or .jsonbit files. All benchmarks execute directly against the compiled Pure-Rust jsonbit binary ( target/release/jsonbit ). Evaluates Raw JSON , Minified JSON , YAML , TOON ( @toon-format/toon ), and jsonbit across 10 production workloads ( W1 – W10 ), including flat tables, 1-to-Many e-commerce orders, sparse .jsonl OpenTelemetry lo",
+  "first_seen": "2026-11-20T23:04:11.004403+00:00",
+  "id": "88387290ee7288d1",
+  "published": "2026-11-20T22:08:26+00:00",
+  "sid": "048aa14a74e02d08",
+  "source": "hackernews_ai",
+  "summary_1line": "Jsonbit – Reduce token usage when AI reads logs",
+  "title": "Jsonbit – Reduce token usage when AI reads logs",
+  "type": "news",
+  "url": "https://github.com/prathikmurugan/jsonbit"
+ },
  "048f5d378548ff38": {
   "first_seen": "2026-11-04T06:05:16.733547+00:00",
   "id": "78a1d8da859efef7",
@@ -15331,6 +15343,7 @@
   "why_it_matters": "Matches feed focus: agent, eval."
  },
  "9342dbf934e428aa": {
+  "content_excerpt": "The staggering pace of agentic development has made traditional approaches to performance engineering unsustainable. To keep up, we built the Performance Factory, an autonomous system that uses the full capabilities of Codex and our models to find and fix regressions at an unprecedented speed. The Performance Factory, which runs in the cloud and automates investigating and resolving performance problems, enables us to keep pace with the ambition of our roadmap. In the Performance Factory, our engineers define workflows for recurring jobs and write instructions for the Codex agents that carry them out. In particular, the Regression Workflow opens a task when a performance alert fires. An agent investigates the slowdown, records its findings in the task, and proposes a fix for an engineer to review. After deployment, another agent picks up the same task to check whether performance has returned to baseline. From investigating to authoring the fix to verifying mitigation, this first workflow in the Performance Factory has automated the entire process of fixing regressions. In just over three months, the Regression Workflow tracked more than 1,700 investigations and root caused over 600 cases. That’s 17 automated investigations every day. Here, we’ll share how our use of Codex evolved into what’s now the Performance Factory, walk through our first running workflow, and share early lessons from building and running agent workflows in production. As we used Codex for more of our pe",
   "first_seen": "2026-11-19T18:06:57.815844+00:00",
   "id": "f86b76b3c863b8b7",
   "matched_topics": [
@@ -21421,6 +21434,22 @@
   "url": "https://github.com/narkco-kang/agent-fleet",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "cd04a0a732ffd2db": {
+  "first_seen": "2026-11-20T23:04:11.004403+00:00",
+  "id": "80c1cecd3ad77189",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-19T05:40:28+00:00",
+  "sid": "cd04a0a732ffd2db",
+  "source": "arxiv_llm_reliability",
+  "summary": "Omissions are difficult to verify because missing information leaves no output span to inspect: a summary may be factually supported while still excluding a decision, qualification, quantity, or condition needed to preserve the source's meaning. We introduce COVERAGE-TRACE, a source-side counterfactual framework that evaluates omission as dependence on a designated atomic source fact. It replaces only the target fact with type-matched alternatives, holds the candidate summary fixed, and measures the resulting change in its teacher-forced, length-normalized likelihood. A summary covering the target should respond more strongly than one omitting it, while aggregation across multiple counterfactuals reduces sensitivity to replacement choice. We evaluate COVERAGE-TRACE on 80 matched covered--omitted QMSum pairs spanning several fact types and four open-weight models. Multi-CF achieves 0.764--0.825 AUROC, compared with 0.640 for the strongest evaluated text-only baseline. On Falcon-7B, targeted interventions achieve 0.779 AUROC, whereas shuffling counterfactual assignments reduces performance to 0.533; target deletion is effective while unrelated deletion is not. However, adjustment for meaning-preserving paraphrases reduces AUROC to 0.591--0.624. COVERAGE-TRACE therefore provides a practical, complementary signal of target-specific source--summary dependence, but not a wording-invariant semantic coverage probability. These results establish source-side intervention as a promising",
+  "summary_1line": "Omissions are difficult to verify because missing information leaves no output span to inspect: a summary may be factually supported while still excluding a decision, qualification, quantity, or condition needed to pr...",
+  "title": "COVERAGE-TRACE: Source-Side Counterfactual Tracing for Detecting Omissions in LLM Summaries",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.25539v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "cd44a088d357479c": {
   "content_excerpt": "VindexLLM is a pure Delphi, GPU-powered LLM inference engine that uses Vulkan compute shaders to run GGUF models entirely on the GPU. It performs full transformer inference without relying on Python, CUDA, or other external runtimes, requiring only vulkan-1.dll, which is typically included with modern GPU drivers. VindexLLM is a GPU-accelerated LLM inference engine written entirely in Delphi, using Vulkan compute shaders for all heavy computation. It loads standard GGUF model files, runs the full transformer forward pass on the GPU, and produces text — no Python, no CUDA toolkit, no external runtimes. The only dependency is vulkan-1.dll , which already ships with every modern GPU driver. Feed it a prompt, get tokens back. Everything between — embedding lookup, 34 layers of attention and FFN, normalization, sampling — happens on the GPU via GLSL 450 compute shaders compiled to SPIR-V and embedded as Windows resources into the binary. Load a model, generate text, done. The chat example adds multi-turn conversation with SQLite-backed persistent memory and RAG retrieval across sessions. For the full implementations including status callbacks, cancel support, event hooks, error handling, and performance stats, see testbed\\UTest.Demo.pas . Most LLM inference stacks depend on CUDA (NVIDIA-only, ~3GB toolkit install), Python environments, or large runtime libraries. VindexLLM takes a different approach: VindexLLM implements the standard dense transformer forward pass. For each token,",
   "first_seen": "2026-11-08T07:05:34.072568+00:00",
@@ -22101,6 +22130,19 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.25588v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "d5bec1fa3b07f617": {
+  "content_excerpt": "Introducing Amazon SageMaker HyperPod Global Inference Gateway: One endpoint across Regions and clusters | Artificial Intelligence Skip to Main Content Filter: All <div class=\"rggn_a8a2854c\" aria-label=\"Secondary global navigation\" data-testid=\"uti",
+  "first_seen": "2026-11-20T23:04:11.004403+00:00",
+  "id": "0af1adc7430cb11d",
+  "published": "2026-11-20T22:35:24+00:00",
+  "sid": "d5bec1fa3b07f617",
+  "source": "aws_ml_blog",
+  "summary": "Amazon SageMaker HyperPod introduces the Global Inference Gateway, one managed endpoint that routes inference requests across your HyperPod clusters in one Region or across Regions. It picks the best cluster, fails over automatically, and authenticates every request with SigV4 and IAM over AWS PrivateLink.",
+  "summary_1line": "Amazon SageMaker HyperPod introduces the Global Inference Gateway, one managed endpoint that routes inference requests across your HyperPod clusters in one Region or across Regions. It picks the best cluster, fails ov...",
+  "title": "Introducing Amazon SageMaker HyperPod Global Inference Gateway: One endpoint across Regions and clusters",
+  "type": "news",
+  "url": "https://aws.amazon.com/blogs/machine-learning/introducing-amazon-sagemaker-hyperpod-global-inference-gateway-one-endpoint-across-regions-and-clusters"
  },
  "d5d0815a3aa9b544": {
   "content_excerpt": "This is a Pure Go Abliteration, Reasoning Training, and Inference stack. It is implemented with a CPU backend and a Vulkan backend, which uses compute shaders and GPU kernels. It implements a complete GGUF/quant stack for the Qwen 3.8 27B model in its Q4_K_M GGUF quantization. This project aims to make Qwen3.8 self-training feasible for consumer-grade hardware, open source, for everyone to reprodu",
@@ -24807,6 +24849,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06661v1"
  },
+ "efc350ef722b542e": {
+  "content_excerpt": "Run the gateway and route every agent’s requests across the network on your rules. Your keys, your budgets, no middleman. Antseed runs on your computer. Your chat, your agents and your apps all go through it. A provider sees a peer ID, not your name. By default it can read your prompt. With a verified trusted execution environment (TEE), even the server operator can’t read it. A direct connection removes the intermediary. The provider can still read what it serves unless you choose a verified TEE. Models remember obscure facts differently, including their mistakes. Auditors ask fresh questions and compare the error rate with a trusted reference. Domain and GitHub verifications establish the provider’s identity. ANTS staking backs its reputation. Your device uses these signals to help choose who serves your requests. Serve open models on your GPUs, capacity you hold, a router you built, a specialized service or an agent. Set your terms, build your reputation and reach buyers across the network. Join together with others and let your machine serve while you’re away. We started the first one, Antseed Colony. The idea is a network of many Colonies. A fully peer-to-peer network for AI — like BitTorrent for inference. Buyers connect directly to independent providers, with no middleman. Anyone can supply intelligence, on their own terms. Use the gateway to manage shared access: run your own endpoint on a server and give each agent, app, or teammate their own API key, with budgets an",
+  "first_seen": "2026-11-20T23:04:11.004403+00:00",
+  "id": "13c62f75b233ea4a",
+  "published": "2026-11-20T22:39:24+00:00",
+  "sid": "efc350ef722b542e",
+  "source": "hackernews_ai",
+  "summary_1line": "Antseed – brings people's computers together to serve AI",
+  "title": "Antseed – brings people's computers together to serve AI",
+  "type": "news",
+  "url": "https://antseed.com"
+ },
  "efec5601b7d6ac88": {
   "first_seen": "2026-11-05T02:05:37.010271+00:00",
   "id": "d4eaec59c7e8b857",
@@ -26391,6 +26445,28 @@
   "title": "Introducing Gemini 4 Neon",
   "type": "news",
   "url": "https://deepmind.google/blog/introducing-gemini-4-neon"
+ },
+ "fdc4cffb6fa79465": {
+  "first_seen": "2026-11-20T23:04:11.004403+00:00",
+  "id": "1614bd3939bdfd54",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-11-20T22:32:56+00:00",
+  "release_highlights": [
+   "Added sign-in to organizations managed in Anthropic's Enterprise Admin Console: after claude auth login , Claude Code applies the organization's settings and...",
+   "Added easel, a built-in mod that draws charts when asked and under MCP metrics results, on Pro, Max and, where available, Team and Enterprise on macOS and Li...",
+   "Added CLAUDE_CODE_FULL_SIGN_IN_LINK=1 to print the full sign-in link, if the short one shows an error or a script reads values from it"
+  ],
+  "sid": "fdc4cffb6fa79465",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added sign-in to organizations managed in Anthropic's Enterprise Admin Console: after claude auth login , Claude Code applies the organization's settings and uses its cloud provider or gateway Added easel, a built-in mod that draws charts when asked and under MCP metrics results, on Pro, Max and, where available, Team and Enterprise on macOS and Linux; turn automatic charts off in /config Added CLAUDE_CODE_FULL_SIGN_IN_LINK=1 to print the full sign-in link, if the short one shows an error or a script reads values from it Self-hosted runner: Added --start-dir / SELF_HOSTED_RUNNER_START_DIR to have Claude start its work in a folder of a repository, while settings and hooks load as without it Added a notice in cloud and self-hosted runner sessions when a plugin marketplace can't be fetched because its repository isn't one of the session's Self-hosted runner: Added a notice when Anthropic-managed git refuses a plugin's own repository, naming the plugin and what to do Added commandPrinted to claude plugin install --json results, true when the plugin's install command wrote to stderr, and commandFailed when it exited with an error, was killed or timed out Added claude_code_self_hosted_runner_order_to_registered_seconds to the self-hosted runner's /metrics : seconds from work order issued to registration accepted, on orchestrator-spawned runners Added claude_code_self_hosted_runner_order_to_first_session_seconds to the self-hosted runner's /metrics : seconds from work",
+  "summary_1line": "Added sign-in to organizations managed in Anthropic's Enterprise Admin Console: after claude auth login , Claude Code applies the organization's settings and... · Added easel, a built-in mod that draws charts when ask...",
+  "title": "claude-code v2.1.330",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.330",
+  "why_it_matters": "Matches feed focus: agent, claude code."
  },
  "fdd1e7098ce87df9": {
   "first_seen": "2026-11-19T02:06:05.050001+00:00",
