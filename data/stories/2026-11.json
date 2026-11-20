@@ -3591,6 +3591,19 @@
   "url": "https://github.com/figranium/frowse",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "227c0cb62bf0dc78": {
+  "content_excerpt": "Thinking Machines announced Inkling 2 Mini today. vLLM supports it and its variable-loop research checkpoint, TML-d24-varloop-research , on day 0 on NVIDIA Blackwell, Hopper and DGX Spark. Inkling 2 Mini is a looped model: its middle 12 layers run three times per token with shared weights, each pass with its own KV cache and gated messages from the pass before. It is a multimodal MoE with 26B total and 3.5B active parameters, up to 1M tokens of context and a native DSpark speculator. We provide a Docker image with Inkling 2 Mini support, vllm/vllm-openai:inkling-2-mini . You can serve the model with: And the variable-loop research checkpoint, here with 2 passes and one KV cache shared across passes: Figure 1. The prelude and coda run once; the loop core runs three passes, each reading messages from the one before. Prelude, core, coda. The 24 layers split into a prelude (layers 0–5), a loop core (layers 6–17) and a coda (layers 18–23). The prelude and coda run once each; the core runs three passes with shared weights, and the coda continues from the last pass. Each group of six layers is one block of the block attention residuals used in Inkling 2 Small, so one pass of the core produces exactly two blocks. Every pass starts from the prelude's output. A plain looped model feeds pass p's output into pass p + 1. Here, all three passes start from that same output, and pass p + 1 sees pass p only through messages. Messages are read at every sublayer. From the second pass on, each c",
+  "first_seen": "2026-11-20T21:04:14.791782+00:00",
+  "id": "090b802732fda381",
+  "published": "2026-11-20T00:00:00+00:00",
+  "sid": "227c0cb62bf0dc78",
+  "source": "vllm_blog",
+  "summary": "vLLM supports Thinking Machines' Inkling 2 Mini from day 0: a looped MoE that runs its middle layers three times, with per-pass KV caches, gated messages between passes, fused kernels and DSpark speculative decoding.",
+  "summary_1line": "vLLM supports Thinking Machines' Inkling 2 Mini from day 0: a looped MoE that runs its middle layers three times, with per-pass KV caches, gated messages between passes, fused kernels and DSpark speculative decoding.",
+  "title": "Inkling 2 Mini on vLLM: Day-0 Support for a Looped Model",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-11-20-inkling2-mini"
+ },
  "2285b6c7751e89f4": {
   "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. Lily Mara explains how to avoid high-risk software rewrites through incremental FFI refactoring. She shares how engineering teams can replace Python bottlenecks with Rust via PyO3, demonstrating how to achieve dramatic function-level speedups, seamless integration testing, and meaningful infrastructure cost savings without microservice overhead. Agentic AI architecture extends microservices and cloud-native architectures with AI agents that work with context, memory, and protocols such as MCP and A2A. The article covers bounded-context integration, task-dependent coordination strategies, new security risks, and observability needs. It expects gradual adoption alongside existing architectures, with platforms absorbing common components. Hannes Hapke shares how Dataiku’s open-source Kiji Inspector applies Sparse Autoencoders (SAEs) directly to decision tokens to expose why agents pick specific tools. Moving past superficial chain-of-thought narratives, he discusses causal ablation, layer activation extraction via patched vLLM engines, and production monitoring workflows for software architects and senior engineering leaders. Henry Wilson shares actionable",
   "first_seen": "2026-11-15T23:06:05.718817+00:00",
@@ -3626,6 +3639,18 @@
   "type": "news",
   "url": "https://latent.space/p/codex-work",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "22b3a577bdcb5c3a": {
+  "first_seen": "2026-11-20T21:04:14.791782+00:00",
+  "id": "975310ea17ff17ff",
+  "published": "2026-11-20T20:34:56+00:00",
+  "sid": "22b3a577bdcb5c3a",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Cursor reportedly eyes the exit for Chinese open-weight AI models Digg",
+  "summary_1line": "Cursor reportedly eyes the exit for Chinese open-weight AI models Digg",
+  "title": "Cursor reportedly eyes the exit for Chinese open-weight AI models",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE1yeUlIbmJod0ZnM3pkYzI4MG1GOGVBdmVVbUtLdUNoaFVJcE9WbDZ6STJTaWJ0YWtqNkdVaWhwUE8xQQ?oc=5"
  },
  "22dbcfb8e26e3dde": {
   "first_seen": "2026-11-04T10:05:31.670878+00:00",
@@ -10803,6 +10828,19 @@
   "url": "http://arxiv.org/abs/2611.15130v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "6728ab5448c93c9a": {
+  "content_excerpt": "Announcing Amazon Textract Insights: Verifiable generative AI for documents | Artificial Intelligence Skip to Main Content Filter: All <div class=\"rggn_f99f709a rggn_cfc97a30 rggn_53dc9aec rggn_23885d27 rggn_c82f547b rgg",
+  "first_seen": "2026-11-20T21:04:14.791782+00:00",
+  "id": "6dc5e6ce57fedfdd",
+  "published": "2026-11-20T20:22:00+00:00",
+  "sid": "6728ab5448c93c9a",
+  "source": "aws_ml_blog",
+  "summary": "Announcing the general availability of Amazon Textract Insights, a new generative AI feature of Amazon Textract. Describe the fields you need in natural language, submit a document or a mixed packet, and receive structured results with a confidence score and page-level grounding for each value, with no model training required.",
+  "summary_1line": "Announcing the general availability of Amazon Textract Insights, a new generative AI feature of Amazon Textract. Describe the fields you need in natural language, submit a document or a mixed packet, and receive struc...",
+  "title": "Announcing Amazon Textract Insights: Verifiable generative AI for documents",
+  "type": "news",
+  "url": "https://aws.amazon.com/blogs/machine-learning/announcing-amazon-textract-insights-verifiable-generative-ai-for-documents"
+ },
  "6728e97750a58875": {
   "content_excerpt": "Kubernetes’ next AI push targets GPU efficiency, massive clusters, and safer agents. SALT LAKE CITY — I’m often surprised how many people don’t know just how important Kubernetes is to AI. After all, in the Cloud Native Computing Foundation (CNCF) January 2026 Annual Cloud Native Survey , 66% of organizations hosting generative AI models use Kubernetes for their inference workloads. Throw in everyone who runs other kinds of AI workloads on Kubernetes, and it’s clear a majority of AI users depend on Kubernetes for their workloads. So, at KubeCon North America 2026 , both the CNCF and vendors presented the next wave of Kubernetes improvements, designed to keep AI productive while making the most of their cloud infrastructure with smarter scheduling, larger control planes, faster container startup, and tighter controls over autonomous agents. Kubernetes 1.38 , scheduled for December 16, is the next milestone. So you can expect, as an early Christmas present, gang scheduling and additional accelerator-allocation capabilities advancing toward stable status. But the conference’s message extended beyond one release. Other important improvements are also arriving through Karpenter. This open-source, high-performance Kubernetes node lifecycle manager automatically provisions and terminates compute resources in response to unscheduled pod requests and other emerging CNCF projects. As Mike Stefaniak, AWS’s Head of Containers, said in his keynote, “AI workloads can spin up 10s of 1000s o",
   "first_seen": "2026-11-16T21:05:25.746783+00:00",
@@ -12647,6 +12685,7 @@
   "url": "https://www.databricks.com/blog/introducing-apache-spark-43-now-available-databricks-runtime-19"
  },
  "7ad44f990f0c53ef": {
+  "content_excerpt": "How we’re addressing safety risks of distillation and lessons we’ve learned for strengthening safeguards across the industry. As frontier AI models become more capable, safeguards play an increasingly important role in how they can be used responsibly. Adversarial distillation creates a path for bad actors to reproduce these capabilities without appropriate safeguards. An actor may use a frontier model’s outputs without authorization to train another model with similar capabilities, then deploy it without comparable protections. For instance, an adversary might distill a model’s cyber capabilities and use the resulting model to help carry out cyberattacks that the original model would have refused to assist with or that its safeguards would have blocked. We’re sharing how OpenAI detects and disrupts adversarial distillation, how we’ve strengthened protections for our models’ protected reasoning, and what we’ve learned that can help strengthen defenses across the industry. Our approach to adversarial distillation combines adversarial testing, model training, classifiers, and API-level protections with investigations into coordinated attempts to extract model capabilities. These updated safeguards align more closely with those we use for biology and cybersecurity. We place particular emphasis on preventing attackers from extracting our models’ protected reasoning: the intermediate steps a model generates internally while working toward an answer, known as its chain-of-thought. ",
   "first_seen": "2026-11-20T20:05:12.769029+00:00",
   "id": "f927139d9de6de38",
   "published": "2026-11-20T10:00:00+00:00",
@@ -13474,6 +13513,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.02338v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "824c03b970f1dc58": {
+  "content_excerpt": "TLDR; Inkling 2 Mini is a new looped transformer model. It’s a multimodal Mixture-of-Experts with ~26B physical total and 3B active parameters per token. It uses a neat trick to increase capacity: some layers are visited in a loop that repeats three times, which makes it work like it had more parameters. It supports a 1M-token context size, accepts images and text inputs. Thinking Machines Lab ships the model in a mixed-precision format, with NVFP4 and MXFP8 expert weights. A DSpark drafter is also included for additional speed-up at a small memory cost. Inkling 2 Mini is much, much smaller than Inkling 2 Small, and is designed for local AI setups. We think this is a refreshingly new great local model. In our vibe tests, it's at least comparable with Qwen 3.8 27B. More validation is needed, but we are super excited about this release! We ship transformers, Llama App (llama.cpp), and MLX support. SGLang also provides day-zero inference support for production deployments on datacenter hardware. This post goes through what makes Inkling Mini different, some of our vibe tests, and how you can use it with your setup. Inkling 2 Mini is a mixture-of-experts model with 24 decoder layers, but the 12 middle layers run three times in a loop. Therefore, the model acts as if it had 48 (6+ 3*12 + 6) logical layers with just 24 physical ones. Similar to Inkling 2 Small, Inkling 2 Mini executes 48 layer visits per token. The hidden size is 2,304 instead of 4,608. At each layer visit, both va",
+  "first_seen": "2026-11-20T21:04:14.791782+00:00",
+  "id": "3ba6de586294b51c",
+  "published": "2026-11-20T00:00:00+00:00",
+  "sid": "824c03b970f1dc58",
+  "source": "huggingface_blog",
+  "summary_1line": "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup",
+  "title": "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup",
+  "type": "research",
+  "url": "https://huggingface.co/blog/inkling2mini"
  },
  "828ad059eb556d22": {
   "first_seen": "2026-11-16T03:24:13.745359+00:00",
@@ -20280,7 +20331,7 @@
   "published": "2026-11-18T06:59:57+00:00",
   "sid": "c1196200a3737e18",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 10, downloads: 71.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 11, downloads: 71.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 2, downloads: 2.",
   "title": "tencent/Hy4-FP8 released on Hugging Face",
   "type": "release",
