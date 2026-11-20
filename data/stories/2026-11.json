@@ -4804,6 +4804,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03768v1"
  },
+ "2f0e5fdb0863109a": {
+  "content_excerpt": "Hackers compromised Microsoft's official Agent Framework Python package on PyPI, publishing two malicious versions designed to steal cloud credentials and other sensitive information from developers' systems. Microsoft Agent Framework is Microsoft's open-source toolkit for building AI agents and coordinating them in workflows. It's a fairly popular tool with roughly 200,000 monthly downloads on PyPI. The malicious releases, versions 1.26.1 and 1.26.2, were published on November 17, 2026, and contained a credential stealer that executed automatically during normal Python startup in affected environments, even when the Agent Framework package was not imported. Both versions retained their dependency on the legitimate agent-framework-core 1.26.0 package, allowing the framework to function normally while the malware ran in the background. Multiple security firms discovered and documented the attack, including Socket , Step Security , and Ox Security . Version 1.26.1 contained a credential stealer that harvested secrets from environment variables, local configuration files, and other running processes where permissions allowed, targeting Azure, AWS, GitHub, Docker, Hugging Face, OpenAI, and other services. The malware also attempted to obtain Azure managed identity access tokens and Azure DevOps OIDC tokens, potentially giving attackers access to additional cloud resources. Version 1.26.2 added GitHub Actions OIDC token requests and searches of GitHub runner directories. According",
+  "first_seen": "2026-11-20T10:05:13.612812+00:00",
+  "id": "ca7c19049d6b0a08",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-20T09:43:43+00:00",
+  "sid": "2f0e5fdb0863109a",
+  "source": "hackernews_ai",
+  "summary_1line": "Microsoft's Agent Framework PyPI package compromised to steal credentials",
+  "title": "Microsoft's Agent Framework PyPI package compromised to steal credentials",
+  "type": "news",
+  "url": "https://www.bleepingcomputer.com/news/security/microsofts-agent-framework-pypi-package-compromised-to-steal-credentials",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "2f11643a689186b4": {
   "content_excerpt": "TL;DR: H200 loses money even when fully busy. B300 makes money once it's 35% busy. Which GPU card you rent matters more than which inference engine you run. A common claim on X and LinkedIn is that inference is an easy business: demand is so high that anyone who can rent GPUs can sell tokens at a profit, with no technology of their own. This post checks that claim against public data. Let's be fair about the technology first. Open-source inference engines are mature now. vLLM and SGLang are production-grade, and DeepSeek just open-sourced DeepInfer, the engine behind its own API ( DeepInfer deployment Q&A ). The vLLM team reproduced DeepInfer's decode throughput within 6% on the same hardware ( vLLM, Oct 23, 2026 ). And even so, I know several companies that hand-wrote their own engines and got excellent results. Friends at inference providers confirm it: a hand-rolled engine can reach that level too. So the engine is a solved problem, whichever way you get one. Then there's the other camp: it's a price war, margins are 10% at best and often negative. They point to OpenRouter, where 29 providers sell the same DeepSeek V4.1 Flash and the cheapest lists input at $0.056 per million against ~$0.30 for most, below cost by any math ( Jeff Xiong, Oct 23, 2026 ; OpenRouter provider listing ). OpenRouter's own data says the quiet part: V4's token volume roughly doubled in the first half of 2026 while its share of spend barely moved ( OpenRouter Insights, Jul 2026 ). Both sides cite re",
   "first_seen": "2026-11-03T09:07:00.495056+00:00",
@@ -8781,6 +8797,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.11571v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "55271ea6fb1bf836": {
+  "first_seen": "2026-11-20T10:05:13.612812+00:00",
+  "id": "b60b5313446306f9",
+  "published": "2026-11-19T18:17:38+00:00",
+  "sid": "55271ea6fb1bf836",
+  "source": "arxiv_cs_ai",
+  "summary": "Current audio-driven video diffusion models can synthesize realistic talking-head videos but generally require dozens of diffusion denoising steps over multi-second video chunks, making them unsuitable for streaming applications such as voice assistants and virtual avatars, where low-latency and online causal generation are required properties. AURA generates video chunk by chunk with a rolling KV cache, requiring only the audio of the current chunk to start generating, rather than a multi-second audio look-ahead like bidirectional models. It comes in two sizes: AURA 1.3B streams 576p video in real time on a single GPU (20.7 fps for a 16 Hz playback rate), making it suited to interactive avatar applications, and AURA 5B streams 720p video at 9.7 fps. Our two-stage distillation pipeline first aligns the causal student with the teacher, by training it to match the teacher's trajectories with fewer diffusion steps and a chunk-wise sliding window causal attention mask, then applies Distribution Matching Distillation (DMD) with backward simulation to close the remaining quality gap. On standard talking-head benchmarks, AURA 1.3B runs 23x faster than its own bidirectional teacher and reaches a quality comparable to TalkVerse at a lower resolution, and AURA 5B matches its TalkVerse teacher at 720p while running 17x faster. To support reproducibility and further research on streaming avatar generation, we release the weights of both models along with a dataset of 30K synthetic videos",
+  "summary_1line": "Current audio-driven video diffusion models can synthesize realistic talking-head videos but generally require dozens of diffusion denoising steps over multi-second video chunks, making them unsuitable for streaming a...",
+  "title": "AURA: AUdio-dRiven streaming Avatar",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26540v1"
  },
  "554e91182f04f9cb": {
   "first_seen": "2026-11-06T05:10:08.075320+00:00",
@@ -17259,6 +17287,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPMV9mRFdlRUlzazZ6ckU0NGszRUd5amVhWFBuLUhUbWN4cTUwRmNWalB4R25PY1pJN3JIUUlkS2VCT281MXpOcFNtR1dDa2sxTV9Bb2RsX0ktTGtvUWhQa1NwY0NLdERBeHZMN211dkNOd3BBV2h1X1J5Z1Z2RkdvWUF2LTkzTnIzdF92MkhjVQ?oc=5"
  },
+ "a7be3c1e57e039be": {
+  "first_seen": "2026-11-20T10:05:13.612812+00:00",
+  "id": "a9d6c62150d4ba30",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-19T18:01:28+00:00",
+  "sid": "a7be3c1e57e039be",
+  "source": "arxiv_cs_ai",
+  "summary": "Agent applications are increasingly deployed, yet agent-specific attacks pose real threats to them. Upon a security incident, organizations backtrack to identify the CEP (compromise entry point), remediate the damage, and prevent its recurrence. The main artifacts available for backtracking are trajectory logs, which record agent functionalities, and source code; app(lication)-specific function call logs are often fairly limited. However, trajectory logs are at the agent functionality abstraction layer, while the CEP candidates are function calls at the app code execution layer. Due to this semantic gap, the analyst needs to manually inspect the relevant code for each CEP candidate to infer its corresponding agent functionality. In this work, we present Origin, a backtracking tool for the analyst to submit a small number of queries to identify CEPs that existing tools cannot provide. Our approach poses two challenges: (1) define the intermediate abstraction that captures the mapping relationships between the two semantic layers; (2) determine the region-to-variable mapping for constructing the cross-layer graph defined in the intermediate abstraction. Each region is a specific group of agent functionalities. Origin addresses the challenges by (1) the cross-layer dependency graph (CLDG) that connects region-inferred functions at the semantic level to the variables in the low-level taint propagation subgraph, plus the associated query language, and (2) the region inference algo",
+  "summary_1line": "Agent applications are increasingly deployed, yet agent-specific attacks pose real threats to them. Upon a security incident, organizations backtrack to identify the CEP (compromise entry point), remediate the damage,...",
+  "title": "Backtracking Agent Applications Security Incidents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26525v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "a7c918cc21d10797": {
   "first_seen": "2026-11-09T03:07:53.897621+00:00",
   "id": "05d679aea0b785d7",
@@ -18675,6 +18719,23 @@
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.186",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "b56b6e9789110cab": {
+  "first_seen": "2026-11-20T10:05:13.612812+00:00",
+  "id": "6b8ccdcc8c5dceb5",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-19T16:49:04+00:00",
+  "sid": "b56b6e9789110cab",
+  "source": "arxiv_cs_cl",
+  "summary": "EU-funded projects produce extensive evidence in the form of deliverables, reports, and case studies. However, this knowledge is typically scattered across projects and document structures, making it difficult to locate relevant, contextual information when making decisions. This paper introduces an Agentic AI Ecosystem that consolidates heterogeneous project documentation into a domain-aware knowledge base and provides adaptive access through an agentic Retrieval-Augmented Generation pipeline. Documents from three EU-funded projects (IMPETUS, NATALIE, and InnWater) are reconstructed into hierarchical section trees and indexed with structured metadata. Retrieval is supported by two domain-specific embedding models fine-tuned on domain data (water and climate). On top of this knowledge base, a ReAct-style controller iteratively orchestrates retrieval actions by allocating retrieval budget across domain collections and accumulating evidence until a stopping criterion is met. In a retrieval benchmark over the corpus, the proposed approach improves Mean Reciprocal Rank by 26.7% (relative) compared to a single-domain embedding baseline, indicating more consistent retrieval of relevant evidence to support cross-project knowledge synthesis and climate-resilient decision-making.",
+  "summary_1line": "EU-funded projects produce extensive evidence in the form of deliverables, reports, and case studies. However, this knowledge is typically scattered across projects and document structures, making it difficult to loca...",
+  "title": "Democratizing Cross-Project Knowledge for Transforming Water Governance and Climate Resilience: an Agentic AI Ecosystem",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26398v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "b5a4f6825cea2700": {
   "first_seen": "2026-11-20T04:09:36.012602+00:00",
   "id": "fabbfce2f993f04b",
@@ -19901,7 +19962,7 @@
   "published": "2026-11-18T06:59:57+00:00",
   "sid": "c1196200a3737e18",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 4, downloads: 2.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 7, downloads: 2.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 2, downloads: 2.",
   "title": "tencent/Hy4-FP8 released on Hugging Face",
   "type": "release",
@@ -21186,6 +21247,22 @@
   "url": "http://arxiv.org/abs/2611.03614v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "cfe0b248712197f7": {
+  "content_excerpt": "On headless browser automation, the walls it runs into, and what we had to build to get past being stuck. · November 2026 Every computer-use agent I tried had the same shape: it moves your mouse, it clicks your windows, it types into whatever has focus. Watching it work is the demo. The demo is good. Then you try to use it for something that takes half an hour, and you discover the actual cost. You cannot use your computer while it runs. Not \"it is a bit annoying\" — you literally cannot type, because your keystrokes land in whatever window the agent just brought forward. So you only run it when you are away from the machine. And an assistant you can only run when you are not working is not an assistant. It is a batch job with a nicer interface. So we did the obvious thing and drove the browser headlessly instead. The agent gets its own Chrome, with its own profile and its own cursor, and it never touches yours. I kept working through a 36-minute run while it compared nine hotels and wrote 29 calendar events. The whole thing is on video, uncut , partly because that was the only way I could think of to prove the screen was never taken. The moment you stop pretending to be a human at a keyboard, a large part of the web stops letting you in. Not because of anything clever you did wrong — because headless Chrome has a fingerprint and plenty of sites just decline it. Four days earlier, the same code worked. Nothing on our side changed. That is the texture of this problem: it is not",
+  "first_seen": "2026-11-20T10:05:13.612812+00:00",
+  "id": "5623a9e689722137",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-20T09:46:45+00:00",
+  "sid": "cfe0b248712197f7",
+  "source": "hackernews_ai",
+  "summary_1line": "Agent should not take the cursor",
+  "title": "Agent should not take the cursor",
+  "type": "news",
+  "url": "https://minea.minea.workers.dev/cursor",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "cfe6b1639c3c3094": {
   "content_excerpt": "Context window optimization for AI coding agents. Sandboxes tool output (98% reduction), persists session memory, and enforces routing across 17 platforms via MCP + hooks. Every MCP tool call dumps raw data into your context window. A Playwright snapshot costs 56 KB. Twenty GitHub issues cost 59 KB. One access log — 45 KB. After 30 minutes, 40% of your context is gone. And when the agent compacts the conversation to free space, it forgets which files it was editing, what tasks are in progress, and what you last asked for. On top of that, the agent wastes output tokens on filler, pleasantries, and verbose explanations — burning context from both sides. Context Saving — Sandbox tools keep raw data out of the context window. 315 KB becomes 5.4 KB. 98% reduction. Session Continuity — Every file edit, git operation, task, error, and user decision is tracked in SQLite. When the conversation compacts, context-mode doesn't dump this data back into context — it indexes events into FTS5 and retrieves only what's relevant via BM25 search. The model picks up exactly where you left off. If you don't --continue , previous session data is deleted immediately — a fresh session means a clean slate. Think in Code — The LLM should program the analysis, not compute it. Instead of reading 50 files into context to count functions, the agent writes a script that does the counting and console.log() s only the result. One script replaces ten tool calls and saves 100x context. This is a mandatory para",
   "first_seen": "2026-11-01T12:03:26.415102+00:00",
@@ -21813,6 +21890,23 @@
   "title": "Supporting research on AI and children’s safety",
   "type": "news",
   "url": "https://openai.com/index/children-first-declaration"
+ },
+ "d7c3eae80cd3a828": {
+  "first_seen": "2026-11-20T10:05:13.612812+00:00",
+  "id": "3ddbe0a89b6aec08",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-11-19T15:25:34+00:00",
+  "sid": "d7c3eae80cd3a828",
+  "source": "arxiv_cs_cl",
+  "summary": "AI agents are increasingly expected to act as AI scientists, which requires three increasingly open abilities: carrying out a given computational workflow correctly, choosing the next measurements from a given design space, and designing their own experiments. Existing benchmarks mainly evaluate the first two abilities, in a terminal or in a closed loop that selects from predefined candidates. Evaluating the third ability requires reliably executing an experiment that an agent designs, with readings grounded in a real laboratory. We introduce TwinLab-Bench, which evaluates AI scientists on self-designed experiments in 52 tasks from laboratories in the physical sciences, the life sciences, and engineering. The benchmark supports more than 100 experimental action types, and the agent's report is scored by comparison with a hidden answer taken from real laboratory records. Each task has its own TwinLab agent, an agent that serves as the environment and executes the experiments that the tested agent designs, reading the raw materials of the laboratory and calling calculators that are built from its records. Compared with a language model that sees only the task description, the TwinLab agent almost eliminates readings that deviate from the real records and inconsistent answers to a repeated request, and closed-book probes control for answers recalled from memory. We find that these tasks remain hard for frontier models: the strongest, Claude Fable 5.2, averages a score of only 45",
+  "summary_1line": "AI agents are increasingly expected to act as AI scientists, which requires three increasingly open abilities: carrying out a given computational workflow correctly, choosing the next measurements from a given design...",
+  "title": "TwinLab-Bench: Evaluating AI Scientists in Agentic Twins of Real Labs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26248v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "d82d955d6f76407e": {
   "first_seen": "2026-11-03T04:13:31.497634+00:00",
@@ -25532,6 +25626,22 @@
   "title": "langgraph-checkpoint==4.3.2",
   "type": "release",
   "url": "https://github.com/langchain-ai/langgraph/releases/tag/checkpoint%3D%3D4.3.2"
+ },
+ "fc46bf9e269bfa75": {
+  "content_excerpt": "Production MCP Server for AI Agents: Chaumian eCash (Cashu NutZaps / NIP-61), Lightning NWC, Web-of-Trust Sybil Resistance & SQLite Budget Guardrails. Edge-ready with zero-dep CBOR. The Decentralized Stripe & Radar for Autonomous AI Agents via Nostr, Cashu eCash (NIP-61), and Model Context Protocol (MCP). NostrPulse is an open-source payment and sovereign trust layer for autonomous AI agents, built on top of the Freedom Tech Stack (Nostr + Bitcoin Lightning + Cashu Chaumian eCash + Model Context Protocol). It provides Stripe-like settlement (M2M micro-payments via NIP-61 NutZaps) and Stripe Radar-grade anti-Sybil protection (Web-of-Trust graph distance + verifiable Economic Stake) for Cursor, Claude Desktop, and autonomous LLMs. Explore Live Explorer » • AI Agent Interface • HRF Grant Roadmap & Verification • Bounty Board • Methodology • Relay Telemetry • Versus Engine NostrPulse natively exports an industry-standard Model Context Protocol (MCP) server over Stdio JSON-RPC. Any AI client (Claude Desktop, Cursor, Windsurf, LangChain, Vercel AI SDK) can instantly tap into decentralized reputation, machine-to-machine micropayments, and distributed compute without API keys or custodial accounts. Paste this configuration directly into your claude_desktop_config.json or .cursor/mcp.json : For TypeScript/Node.js AI developers who want autonomous eCash/Lightning rails with built-in anti-Sybil radar and spending limits without managing Nostr NIPs or Cashu NUTs directly: Verify tools, e",
+  "first_seen": "2026-11-20T10:05:13.612812+00:00",
+  "id": "dbf5911f75032010",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-20T10:01:27+00:00",
+  "sid": "fc46bf9e269bfa75",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: NostrPulse – Bitcoin HTTP 402 (L402 and Cashu) MCP Server for AI Agents",
+  "title": "Show HN: NostrPulse – Bitcoin HTTP 402 (L402 and Cashu) MCP Server for AI Agents",
+  "type": "news",
+  "url": "https://github.com/PHONGUIT22/nostrpulse-full",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "fc47f95d3b7d9d73": {
   "first_seen": "2026-11-03T08:05:19.021402+00:00",
