@@ -1,0 +1,110 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/cost-inference",
+  "source_hash": "9bab962df4ab85ba1d411115de4f9b3ffe84171688caa097617b030da18fee7e",
+  "translated_at": "2026-11-20T04:23:28.149593+00:00",
+  "model": "google-translate-v2",
+  "review_status": "machine",
+  "slug": "cost-inference",
+  "label": "Cost Inference",
+  "item_count": 3,
+  "day_count": 3,
+  "source_count": 2,
+  "first_seen": "2026-11-02T15:51:46+00:00",
+  "last_updated": "2026-11-18T12:26:42+00:00",
+  "generated_at": "2026-11-20T00:13:34.686460+00:00",
+  "sources": [
+    "arxiv_cs_ai",
+    "hackernews_ai"
+  ],
+  "days": [
+    {
+      "date": "2026-11-02",
+      "items": [
+        {
+          "title": "The SIMPLE Law for Energy Cost of LLM Inference",
+          "url": "http://arxiv.org/abs/2611.03330v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Generative AI is billed per token, yet tokens are not equally expensive. Each token enters the KV-cache and raises the cost of those that follow, so energy grows non-linearly along a sequence whose tokens look identic...",
+          "why_it_matters": "Matches feed focus: agentic.",
+          "sid": "282dddb5d1dcd0de",
+          "published": "2026-11-02T15:51:46+00:00",
+          "editor_note": "전제는 다음과 같습니다. 추론 에너지는 시퀀스를 따라 비선형적으로 증가하는데, 토큰당 정액 요금제는 이를 숨기고 있습니다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-16",
+      "items": [
+        {
+          "title": "Benchmarking OSS inference vendors on cost/latency",
+          "url": "https://github.com/powerset-co/inference-bench",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Benchmarking OSS inference vendors on cost/latency",
+          "sid": "2cf9e0b91befb6ce",
+          "published": "2026-11-16T14:51:47+00:00",
+          "editor_note": "OSS 추론 벤더들의 비용과 지연 시간을 비교할 수 있는 재현 가능한 도구를 추가합니다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-18",
+      "items": [
+        {
+          "title": "Reducing Inference Cost of Coding Agents with Timeout Cascades",
+          "url": "http://arxiv.org/abs/2611.24324v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "AI coding agents have become one of the most popular applications of large language models. Yet, agentic AI comes at the cost of a tremendous amount of GPU compute resources, which limits its profitability and its via...",
+          "why_it_matters": "Matches feed focus: agentic, eval.",
+          "sid": "d5e4755c357c37b0",
+          "published": "2026-11-18T12:26:42+00:00",
+          "editor_note": "코딩 에이전트의 GPU 사용량을 줄이기 위해 타임아웃 계층 구조를 제안하여 스레드를 에이전트로 이동합니다."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "This is a loose research thread on inference cost, not one event. It opened with an arXiv paper arguing that per-token billing hides cost: each token added to the KV-cache makes later tokens more expensive, so energy grows non-linearly with sequence length.",
+    "stale": false,
+    "whats_new": "A Nov 18 arXiv paper proposes timeout cascades to cut the GPU cost of coding agents, two days after an open-source benchmark compared OSS inference vendors on cost and latency.",
+    "why_it_matters": "Long-context and agentic workloads cost more than flat per-token prices suggest, so vendor choice and agent run limits are cost levers, not just latency settings.",
+    "take_for_builders": "Measure your agent's cost per completed task across context lengths before picking a vendor, and test a timeout cap on long-running agent attempts.",
+    "beats": [
+      {
+        "kicker": "THE MODEL",
+        "tone": "launch",
+        "headline": "Paper argues tokens are not equally expensive",
+        "summary": "KV-cache growth makes later tokens cost more energy than earlier ones.",
+        "sids": [
+          "282dddb5d1dcd0de"
+        ]
+      },
+      {
+        "kicker": "MEASUREMENT",
+        "tone": "rising",
+        "headline": "Open-source benchmark compares OSS inference vendors on cost and latency",
+        "sids": [
+          "2cf9e0b91befb6ce"
+        ]
+      },
+      {
+        "kicker": "NOW",
+        "tone": "now",
+        "headline": "Timeout cascades proposed to cut coding-agent compute",
+        "summary": "Targets agent runs, one of the heaviest GPU consumers.",
+        "sids": [
+          "d5e4755c357c37b0"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Do any inference providers price long-context tokens to reflect KV-cache cost?",
+      "How much do timeout cascades save on a public coding-agent benchmark, and at what pass-rate loss?",
+      "Do the inference-bench vendor rankings hold across model sizes and context lengths?"
+    ],
+    "generated_at": "2026-11-20T00:12:40Z"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/continual-learning",
+  "source_hash": "752041f36fc9dad6ada303797e1726883e7384dca5175d0b7b4d594be7938e7a",
+  "translated_at": "2026-11-20T04:23:27.985573+00:00",
+  "model": "google-translate-v2",
+  "review_status": "machine",
+  "slug": "continual-learning",
+  "label": "Continual Learning",
+  "item_count": 4,
+  "day_count": 3,
+  "source_count": 3,
+  "first_seen": "2026-11-02T17:50:48+00:00",
+  "last_updated": "2026-11-18T15:46:58+00:00",
+  "generated_at": "2026-11-20T00:13:34.686460+00:00",
+  "sources": [
+    "arxiv_agent_systems_research",
+    "arxiv_cs_ai",
+    "arxiv_cs_lg"
+  ],
+  "days": [
+    {
+      "date": "2026-11-02",
+      "items": [
+        {
+          "title": "RASP: Read-All, Sparse-Plasticity Continual Learning in a Stationary-Size LoRA",
+          "url": "http://arxiv.org/abs/2611.03513v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "Parameter-efficient continual learning on pre-trained Vision Transformers largely relies on a costly premise: preventing catastrophic forgetting requires either spawning a dedicated LoRA branch per session---causing adapter parameters to scale linearly with task horizon---or appl",
+          "sid": "d8518666be6b2970",
+          "published": "2026-11-02T17:50:48+00:00",
+          "editor_note": "단일 고정형 어댑터를 사용하여 세션당 하나의 LoRA 분기라는 전제에 도전합니다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "items": [
+        {
+          "title": "Anchor Behavior, Not Parameters: Rehearsal-Free Continual Learning with a Single Shared Prompt",
+          "url": "http://arxiv.org/abs/2611.12777v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "Prompt-based continual learning adapts a frozen pre-trained vision transformer by tuning a small set of prompt tokens. Recently, one-prompt methods which share one single prompt across all tasks make this paradigm max...",
+          "why_it_matters": "Matches feed focus: evaluation.",
+          "sid": "de25d9c4c09e2ab0",
+          "published": "2026-11-09T17:50:05+00:00",
+          "editor_note": "리허설 데이터를 완전히 삭제하고, 하나의 공통된 프롬프트를 통해 행동을 고정합니다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-18",
+      "items": [
+        {
+          "title": "Continual Tool-Space Extension Learning for Multimodal Agents",
+          "url": "http://arxiv.org/abs/2611.23810v1",
+          "source": "arxiv_agent_systems_research",
+          "type": "paper",
+          "summary_1line": "Multimodal agents largely rely on generic tools such as cropping, search, and code execution, leaving specialist vision models outside their tool space. However, bringing such a model into an already trained agent is...",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "3d0b2294ca5ad80c",
+          "published": "2026-11-18T04:14:02+00:00",
+          "editor_note": "에이전트에게 문제를 제기합니다: 이미 훈련된 에이전트의 도구에 전문적인 시각 모델을 추가합니다."
+        },
+        {
+          "title": "Hypnos: A Dual-Phase End-to-End Platform for Scalable Continual Learning at the Edge",
+          "url": "http://arxiv.org/abs/2611.24637v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Continual learning (CL) enables neural networks to adapt to non-stationary data streams by mitigating catastrophic forgetting, offering a path to robust, private, and adaptable edge devices. Yet, porting CL to real-wo...",
+          "sid": "1efbc276679369d7",
+          "published": "2026-11-18T15:46:58+00:00",
+          "editor_note": "방법론에서 플랫폼으로 전환하여 엣지 디바이스에서의 지속적인 학습을 목표로 합니다."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "October's papers framed continual learning around forgetting, replay selection and agent benchmarks. November turned to cheaper adapters: RASP (Nov 2) keeps a single fixed-size LoRA instead of one branch per session, and a Nov 9 paper shares one prompt across tasks with no rehearsal data.",
+    "stale": false,
+    "whats_new": "Nov 18: two papers move continual learning toward deployment, one adding specialist vision models to a trained multimodal agent's tool space, the other (Hypnos) running continual learning end to end on edge devices.",
+    "why_it_matters": "Updating a deployed model or agent without retraining or regressions is the cost problem here; fixed-size adapters and incremental tool addition are the mechanisms that would make it cheap.",
+    "take_for_builders": "Do not adopt yet; if you add tools or fine-tune adapters on a live agent, rerun the old task evals after each update to catch regressions.",
+    "status": {
+      "state": "Developing · research",
+      "tone": "rising",
+      "changed": "2026-11-18",
+      "detail": "Four arXiv papers in November; all research-stage, none shipped in a product or framework."
+    },
+    "beats": [
+      {
+        "kicker": "ADAPTERS",
+        "tone": "launch",
+        "headline": "Fixed-cost adapters replace per-task growth",
+        "summary": "Two vision-transformer papers bound parameter cost: one stationary-size LoRA, then one shared prompt with no replay buffer.",
+        "sids": [
+          "d8518666be6b2970",
+          "de25d9c4c09e2ab0"
+        ]
+      },
+      {
+        "kicker": "NOW",
+        "tone": "now",
+        "headline": "Continual learning reaches agent tool spaces and edge hardware",
+        "summary": "Incremental tool addition for multimodal agents and an end-to-end edge platform, both on Nov 18.",
+        "sids": [
+          "3d0b2294ca5ad80c",
+          "1efbc276679369d7"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Does the tool-space extension paper show that adding a specialist model leaves existing tool-use accuracy unchanged?",
+      "Do RASP or the single-prompt method report results beyond vision transformers, on LLMs?",
+      "Does Hypnos release code or report on-device memory and latency figures?",
+      "Do any of these methods report results on the Continual Learning Exam benchmark from October?"
+    ],
+    "generated_at": "2026-11-20T00:12:42Z"
+  }
+}

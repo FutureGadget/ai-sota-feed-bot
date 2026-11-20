@@ -1,0 +1,124 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/moe-inference",
+  "source_hash": "7a0235d7b4a1399f6c384f3c460b5ce147deb555488609ae63f680fbe106e363",
+  "translated_at": "2026-11-20T04:23:28.341822+00:00",
+  "model": "google-translate-v2",
+  "review_status": "machine",
+  "slug": "moe-inference",
+  "label": "MoE Inference",
+  "item_count": 4,
+  "day_count": 4,
+  "source_count": 3,
+  "first_seen": "2026-11-02T04:13:18+00:00",
+  "last_updated": "2026-11-18T00:00:00+00:00",
+  "generated_at": "2026-11-19T00:13:28.317875+00:00",
+  "sources": [
+    "arxiv_cs_lg",
+    "hackernews_ai",
+    "huggingface_blog"
+  ],
+  "days": [
+    {
+      "date": "2026-11-02",
+      "items": [
+        {
+          "title": "Optimizing 124B MoE inference on a single Nvidia DGX Spark",
+          "url": "https://developer.nvidia.com/blog/3-ways-to-boost-moe-inference-on-nvidia-dgx-spark",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Optimizing 124B MoE inference on a single Nvidia DGX Spark",
+          "sid": "b836eb939c37ffa5",
+          "published": "2026-11-02T04:13:18+00:00",
+          "editor_note": "DGX Spark 하나에 124B MoE 장착하는 방법에 대한 제조사 가이드입니다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-03",
+      "items": [
+        {
+          "title": "Show HN: MoEShift - Faster large MoE inference with half the RAM",
+          "url": "https://github.com/davide-troiani/moeshift",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Show HN: MoEShift - Faster large MoE inference with half the RAM",
+          "sid": "99fb85f961738c74",
+          "published": "2026-11-03T21:17:06+00:00",
+          "editor_note": "한 아마추어 프로젝트 사용자는 맥에서도 절반의 RAM으로 동일한 메모리 성능 향상을 달성했다고 주장합니다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-13",
+      "items": [
+        {
+          "title": "Fuse-All MoE Inference Kernel with Load Balancing on TPUs",
+          "url": "http://arxiv.org/abs/2611.17857v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "Mixture-of-Experts (MoE) architectures activate only a subset of experts for each token, allowing large language models (LLMs) to scale parameter capacity without a proportional increase in computation per token. However, intermediate data movement and uneven expert loads limit t",
+          "sid": "bd35aab13d66f65e",
+          "published": "2026-11-13T07:43:04+00:00",
+          "editor_note": "이 문제는 데이터센터 TPU로 옮겨가며, 전문가 부하 불균형이 두 번째 병목 현상으로 작용합니다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-18",
+      "items": [
+        {
+          "title": "180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers",
+          "url": "https://huggingface.co/blog/moe-expert-streaming",
+          "source": "huggingface_blog",
+          "type": "research",
+          "summary_1line": "180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers",
+          "sid": "ec56b5eff9affb1c",
+          "published": "2026-11-18T00:00:00+00:00",
+          "editor_note": "180B 대 32GB 비율로 전문가급 스트리밍 기능을 일반 Transformers 에 도입합니다."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "This is a pattern across independent work, not one event: early November brought an NVIDIA post on fitting a 124B MoE onto one DGX Spark and a Show HN project, MoEShift, claiming faster MoE inference with half the RAM. A Nov 13 arXiv paper then took the same data-movement problem to TPUs with a fused kernel that also balances uneven expert loads.",
+    "stale": false,
+    "whats_new": "Hugging Face (Nov 18) describes expert streaming in Transformers that runs a 180B-parameter MoE in 32GB of RAM, the largest model-to-memory ratio in this thread.",
+    "why_it_matters": "MoE serving is bound by moving expert weights, not FLOPs, so memory traffic and expert load balance decide which models fit your hardware and how fast they run.",
+    "take_for_builders": "Before sizing hardware for an MoE, measure peak memory and expert-load traffic with streaming on and off; parameter count alone will mislead you.",
+    "beats": [
+      {
+        "kicker": "SMALL HARDWARE",
+        "tone": "launch",
+        "headline": "Large MoEs squeezed onto a DGX Spark and a Mac",
+        "summary": "Two unrelated projects attack the same RAM ceiling on single machines.",
+        "sids": [
+          "b836eb939c37ffa5",
+          "99fb85f961738c74"
+        ]
+      },
+      {
+        "kicker": "KERNELS",
+        "tone": "rising",
+        "headline": "Fuse-All kernel targets data movement and expert imbalance on TPUs",
+        "sids": [
+          "bd35aab13d66f65e"
+        ]
+      },
+      {
+        "kicker": "NOW",
+        "tone": "now",
+        "headline": "Transformers streams experts: 180B parameters in 32GB of RAM",
+        "sids": [
+          "ec56b5eff9affb1c"
+        ]
+      }
+    ],
+    "open_questions": [
+      "What tokens-per-second does Transformers expert streaming reach at 32GB, and on which storage tier?",
+      "Do the DGX Spark and MoEShift results publish RAM and throughput figures others can reproduce?",
+      "Does the Fuse-All kernel's load balancing ship in a public TPU serving stack?"
+    ],
+    "generated_at": "2026-11-19T00:12:35Z"
+  }
+}
