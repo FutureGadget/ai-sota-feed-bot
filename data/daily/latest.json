@@ -1,234 +1,191 @@
 {
-  "date": "2026-11-19",
-  "title": "What happened in AI — Nov 19, 2026",
-  "generated_at": "2026-11-19T22:16:57Z",
+  "date": "2026-11-20",
+  "title": "What happened in AI — Nov 20, 2026",
+  "generated_at": "2026-11-20T22:16:32Z",
   "intro": [
-    "The tool layer moved out of the prompt today. Gemini now loads tool schemas on demand, LangSmith put credentials and permissions behind a gateway, and Vercel shipped eve 1.0.",
-    "Security evidence cut both ways. An audit found AgentDojo scored 433 real attacks as misses, while an autonomous Codex run reported 507 Webmin bugs for about $4,578."
+    "AI providers leak what you send them. Dragos seeded about 2 million canary prompts and caught three provider compromises, resellers reading prompts and ignored Zero Data Retention settings.",
+    "Builders answered at the edge. New tools put coding agents on isolated workstations and microVMs, and a local scanner checks agent configs for live keys before a run."
   ],
   "highlights": [
-    "AgentDojo scored 433 runs as no attack even when the agent paid the attacker; re-check security claims built on it.",
-    "Gemini API Tool Retrieval (preview): set defer_loading and add tool_search to load tool schemas only when needed.",
-    "An autonomous Codex campaign reported 507 reproduced Webmin vulnerabilities for about $4,578 in tokens.",
-    "Vercel's eve agent framework reached 1.0; LangSmith Tool Gateway entered public beta for governed tool calls.",
-    "agent-framework follow-up: PyPI quarantined Microsoft's publisher; the attacker may still have publish access.",
-    "DeepSeek dropped separate fees for model-triggered search and web fetch."
+    "Dragos canary test: three AI provider compromises and ignored Zero Data Retention settings across about 2M prompts.",
+    "CVE-2026-28400: a default-privilege container could corrupt Docker Desktop's VM disk through Docker Model Runner.",
+    "incus-spawn and Sandscale give coding agents their own Linux machine or Firecracker microVM, not your credentials.",
+    "Enola ties agent memory to code symbols so a later session re-checks notes against changed code.",
+    "Inkling 2 Mini loops 12 layers three times per token; vLLM serves it on day 0."
   ],
-  "article_count": 23,
+  "article_count": 19,
   "categories": [
     {
-      "name": "Tool layers: load less, govern more",
-      "slug": "tool-layers-load-less-govern-more",
-      "summary": "Vendors moved tool handling out of the prompt: schemas load on demand, credentials sit behind a gateway, and output JSON gets compressed in a proxy.",
+      "name": "Agent machines: isolate the box, not the user",
+      "slug": "agent-machines-isolate-the-box-not-the-user",
+      "summary": "Four launches move coding and computer-use agents off the developer's own desktop and credentials, onto separate VMs, headless sessions or simulated hardware.",
       "articles": [
         {
-          "title": "Introducing Tool Retrieval in the Gemini API",
-          "summary": "Preview in the Interactions API: add a tool_search tool with defer_loading true and Gemini fetches parameter schemas only when needed, cutting input tokens for large tool libraries.",
-          "source": "google_ai_blog",
-          "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemini-api-tool-retrieval/",
-          "published": "Thu, 19 Nov 2026 18:00:00 +0000"
-        },
-        {
-          "title": "LangSmith Tool Gateway: Secure, governed tool use for agents",
-          "summary": "Public beta managed tool layer that holds credentials, decides which tools each agent may call and under whose identity, and logs every action.",
-          "source": "langchain_blog",
-          "url": "https://www.langchain.com/blog/langsmith-tool-gateway",
-          "published": "2026-11-19T18:00:00+00:00"
-        },
-        {
-          "title": "Show HN: Wiretuple – Cut LLM structured-output tokens with positional tuples",
-          "summary": "Zero-dependency Go reverse proxy that rewrites repeated JSON keys into positional tuples, claiming 35–60% fewer output tokens for structured outputs and function calls.",
+          "title": "Isolated Linux workstations for autonomous AI agents",
+          "summary": "incus-spawn gives each coding agent its own isolated Linux workstation, so the agent never sees your API keys, GitHub token, ~/.ssh or other checked-out repos.",
           "source": "hackernews_ai",
-          "url": "https://github.com/Dimoncelli/wiretuple",
-          "published": "Thu, 19 Nov 2026 14:33:17 +0000"
+          "url": "https://github.com/Sanne/incus-spawn",
+          "published": "Fri, 20 Nov 2026 19:04:23 +0000"
         },
         {
-          "title": "Discovery: Fail-closed authority checks for AI agent tool calls (v1.0-v1.1.8)",
-          "summary": "Solo project that refuses tool calls when untrusted prompt text tries to mint authority or replay receipts; publishes 3,315/3,315 verified receipt hashes.",
+          "title": "Show HN: Sandscale – Firecracker microVMs for AI coding agents",
+          "summary": "Firecracker microVMs for agent-written code: start one in a single API call, pause and resume it; US East today, Frankfurt coming.",
           "source": "hackernews_ai",
-          "url": "https://github.com/2fastthompson/the-discovery",
-          "published": "Thu, 19 Nov 2026 16:57:48 +0000"
+          "url": "https://sandscale.dev",
+          "published": "Fri, 20 Nov 2026 15:29:29 +0000"
+        },
+        {
+          "title": "Agent should not take the cursor",
+          "summary": "Field report on why computer-use agents that drive your real mouse and focus block half-hour tasks, and what it took to run them headless instead.",
+          "source": "hackernews_ai",
+          "url": "https://minea.minea.workers.dev/cursor",
+          "published": "Fri, 20 Nov 2026 09:46:45 +0000"
+        },
+        {
+          "title": "Show HN: BSWorld – AI agents can now test Bluetooth code without hardware",
+          "summary": "Xiaomi's open-source simulator runs Zephyr, NuttX, NimBLE, BlueZ and other Bluetooth hosts deterministically in pytest, so agents and CI can test BLE code without radios.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/XiaoMi/bsworld",
+          "published": "Fri, 20 Nov 2026 06:06:42 +0000"
         }
       ]
     },
     {
-      "name": "Agent harnesses grow up: frameworks, state, sandboxes",
-      "slug": "agent-harnesses-frameworks-state-sandboxes",
-      "summary": "Agent runtimes are becoming infrastructure with GA labels, in-house standards, and durable state, not per-team experiments.",
+      "name": "Coding-agent context: remember, then re-verify",
+      "slug": "coding-agent-context-remember-then-re-verify",
+      "summary": "Builders attacked stale and bloated context: memory tied to code symbols, org standards fed into generation, and page summaries instead of full DOM dumps.",
       "articles": [
         {
-          "title": "Eve 1.0 – Agent framework from Vercel",
-          "summary": "Vercel's open-source agent framework hits GA after 230+ preview releases, adding approval controls for actions and an eval suite for how well coding agents build with it.",
+          "title": "Keeping AI Coding Agent Memory Relevant as Code Changes",
+          "summary": "Enola links saved agent investigations to source symbols, so a later session can check whether the function it remembers has since moved or changed.",
           "source": "hackernews_ai",
-          "url": "https://vercel.com/blog/eve-is-now-generally-available",
-          "published": "Thu, 19 Nov 2026 11:39:25 +0000"
+          "url": "https://enola.tech/blog/agent-memory-needs-a-code-reference",
+          "published": "Fri, 20 Nov 2026 18:18:13 +0000"
         },
         {
-          "title": "Aviator: HubSpot's Agent Harness",
-          "summary": "HubSpot explains why it built one internal agent harness in 2025 after teams kept making divergent model and architecture choices.",
+          "title": "OutcomeOps: Context Engineering for AI-Assisted Development OSS GitHub Repo",
+          "summary": "Apache-2.0 platform that deploys into your own AWS account and grounds code generation and PR review in your ADRs, code-maps and architecture decisions.",
           "source": "hackernews_ai",
-          "url": "https://hubspot.engineering/blog/aviator-hubspots-agent-harness/",
-          "published": "Thu, 19 Nov 2026 16:42:34 +0000"
+          "url": "https://github.com/bcarpio/outcome-ops-ai-assist",
+          "published": "Fri, 20 Nov 2026 12:59:28 +0000"
         },
         {
-          "title": "Coordinated Snapshots of Agent State",
-          "summary": "Hatchet argues agent sandboxes need coordinated snapshots of state across processes, not just isolated compute.",
+          "title": "Show HN: Frowse – Drop-in agent-browser CLI that cuts token spend by up to 90%+",
+          "summary": "agent-browser replacement that sends a compact page summary and resolves elements with a local CPU model (10–25 ms, under 250 MB RAM); claims up to 90% fewer tokens per step.",
           "source": "hackernews_ai",
-          "url": "https://hatchet.run/blog/agent-statefulness",
-          "published": "Thu, 19 Nov 2026 13:21:33 +0000"
+          "url": "https://github.com/figranium/frowse",
+          "published": "Fri, 20 Nov 2026 14:50:44 +0000"
         },
         {
-          "title": "Docker AI Rebranded",
-          "summary": "Docker docs now lead with agent sandboxes: scheduled tasks run in a fresh cloud sandbox that is deleted when the task ends or times out.",
+          "title": "Building the Agent Host Protocol for sessions that continue across devices",
+          "summary": "GitHub engineering post on the Agent Host Protocol, built so an agent session can continue when you switch devices.",
           "source": "hackernews_ai",
-          "url": "https://docs.docker.com",
-          "published": "Thu, 19 Nov 2026 14:28:57 +0000"
+          "url": "https://github.blog/engineering/engineering-principles/building-the-agent-host-protocol-for-sessions-that-continue-across-devices/",
+          "published": "Fri, 20 Nov 2026 13:52:36 +0000"
         },
         {
-          "title": "OSS Minymaton (event-driven MCP message bus for AI agents, bundled SQLite)",
-          "summary": "Durable, event-driven MCP message bus with bundled SQLite so several coding agents can hand off API changes and test failures without a human relaying them.",
+          "title": "Humans.md: tell your AI agents how to work with you",
+          "summary": "Draft 0.3 spec for one ~/.humans/HUMANS.md file that coding agents read at session start: how to write to you, when to ask, when to interrupt.",
           "source": "hackernews_ai",
-          "url": "https://github.com/immutlex-dev/minymaton",
-          "published": "Thu, 19 Nov 2026 17:59:20 +0000"
+          "url": "https://humansmd.dev/",
+          "published": "Fri, 20 Nov 2026 05:42:30 +0000"
         }
       ]
     },
     {
-      "name": "Evals that check what the agent did",
-      "slug": "evals-that-check-what-the-agent-did",
-      "summary": "Today's eval work audits actions and traces instead of trusting a model's reply text or one automated verdict.",
+      "name": "Inference supply chain: what you send does not stay put",
+      "slug": "inference-supply-chain-what-you-send-does-not-stay-put",
+      "summary": "Evidence piled up that prompts, tokens and local model runners are attack surface, not neutral pipes.",
       "articles": [
         {
-          "title": "Did the attack work? Auditing AI-agent security benchmark verdicts",
-          "summary": "Audit of AgentDojo: the benchmark scored 433 runs as no attack even though the agent paid the attacker or took another decisive action, 11.9% of real attacks. Preprint, not peer reviewed.",
+          "title": "Canary Token Test Exposes AI Provider Breaches",
+          "summary": "Dragos planted about 2 million prompts with canary URLs, DNS names and AWS keys from July to November; it found three provider compromises, resellers reading prompts and ignored Zero Data Retention settings.",
           "source": "hackernews_ai",
-          "url": "https://zenodo.org/records/24321025",
-          "published": "Thu, 19 Nov 2026 16:47:14 +0000"
+          "url": "https://epyhia.com/dragos-canary-token-test-exposes-three-ai-provider-breaches-prompt",
+          "published": "Fri, 20 Nov 2026 13:20:06 +0000"
         },
         {
-          "title": "Show HN: Agentest – offline tests for AI agents from OpenTelemetry traces",
-          "summary": "Open-source, offline suite of 165 deterministic tests over OpenTelemetry GenAI traces that flags unearned success claims, hidden-instruction follows, and forbidden tool calls with no LLM judge.",
+          "title": "Hostile Inference: Exploiting Docker Model Runner for Container Escapes",
+          "summary": "ZDI details CVE-2026-28400 in Docker Model Runner: an unauthenticated argument injection let a default-privilege container corrupt the Docker Desktop VM disk, and further work reached container escapes.",
           "source": "hackernews_ai",
-          "url": "https://github.com/srpadmanabhuni/agentest",
-          "published": "Thu, 19 Nov 2026 14:22:18 +0000"
+          "url": "https://www.thezdi.com/blog/2026/11/17/hostile-inference-exploiting-docker-model-runner-for-container-escapes",
+          "published": "Fri, 20 Nov 2026 07:42:18 +0000"
         },
         {
-          "title": "LLM call is doing more than you think",
-          "summary": "Audiala swapped an LLM router for a decision model and rolled back in 23 minutes: the old call also resolved cities, references, and tool flags nobody evaluated.",
-          "source": "hackernews_ai",
-          "url": "https://seldon-ai.com/blog/your-llm-call-is-doing-more-than-you-think",
-          "published": "Thu, 19 Nov 2026 12:59:52 +0000"
-        },
-        {
-          "title": "Genie One Accuracy: Why Curated Agents Need Governed Context",
-          "summary": "Databricks used 125 insurance questions to show agents need governed business definitions; Finance and Underwriting gave opposite, correct loss-ratio answers.",
-          "source": "databricks_blog",
-          "url": "https://www.databricks.com/blog/genie-one-accuracy-why-curated-agents-need-governed-context",
-          "published": "Thu, 19 Nov 2026 20:15:41 GMT"
+          "title": "Token fraud is here and it’s BAD (YouTube)",
+          "summary": "Simon Willison links Claire Vo's video on token fraud from running ChatPRD, a live AI product since the GPT-4 era; treat paid LLM usage as an abuse target.",
+          "source": "simon_willison",
+          "url": "https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/",
+          "published": "2026-11-20T02:49:57+00:00"
         }
       ]
     },
     {
-      "name": "Security: AI finds bugs, supply chain still leaks",
-      "slug": "security-ai-finds-bugs-supply-chain-leaks",
-      "summary": "Autonomous auditing got cheap enough to run on a whole codebase while package and model supply chains stayed the soft spot.",
+      "name": "Agent-setup hygiene: keys, hooks and root causes",
+      "slug": "agent-setup-hygiene-keys-hooks-and-root-causes",
+      "summary": "The fixes on offer are boring and local: scan the agent's config, clean up pasted keys, and read past incidents for the repeat causes.",
       "articles": [
         {
-          "title": "Autonomous AI Security Auditing of Webmin: 507 Newly Discovered Vulnerabilities",
-          "summary": "A fully autonomous Codex campaign reported 507 reproduced vulnerabilities in Webmin 2.670 using 8.35B tokens, about US$4,578 at standard API rates.",
+          "title": "Show HN: Preflight-agent – five checks your AI-agent setup needs before it runs",
+          "summary": "Deterministic local scanner with five pre-run checks: auto-executing cloned folders, live keys in config, hooks that never fire, ambiguous agents and skill sprawl.",
           "source": "hackernews_ai",
-          "url": "https://supuk.ch/papers/webmin-ai-security-audit-507-vulnerabilities",
-          "published": "Thu, 19 Nov 2026 12:27:53 +0000"
+          "url": "https://github.com/jasveerai88/preflight-agent",
+          "published": "Fri, 20 Nov 2026 15:14:03 +0000"
         },
         {
-          "title": "Official Microsoft agent-framework PyPI package compromised",
-          "summary": "Follow-up: PyPI quarantined the Microsoft publisher because the attacker is believed to still have publishing access; treat any 1.26.1 or 1.26.2 install as a credential compromise.",
-          "source": "hackernews_ai",
-          "url": "https://opensourcemalware.com/blog/agent-framework-pypi-compromised",
-          "published": "Thu, 19 Nov 2026 04:29:50 +0000"
+          "title": "Ultimate guide for fixing your team’s API keys",
+          "summary": "Google Cloud guide for teams whose Gemini prototypes started with an AI Studio key pasted into a coding agent, and how to clean that up without slowing prototyping.",
+          "source": "google_cloud_blog",
+          "url": "https://cloud.google.com/blog/topics/developers-practitioners/how-to-fix-your-teams-api-keys/",
+          "published": "Fri, 20 Nov 2026 17:00:00 +0000"
         },
         {
-          "title": "Three breaches, endless leaks: Your AI supply chain needs canaries",
-          "summary": "Dragos argues for canary tokens across the AI supply chain so a leaked key or poisoned dependency trips an alarm when used.",
+          "title": "AI incidents of 2026: Rogue agents, stolen keys, and other familiar stories",
+          "summary": "Aikido coded the stated root causes of 50 AI-related incidents disclosed in 2026 through Nov 19; many trace back to familiar problems such as stolen keys.",
           "source": "hackernews_ai",
-          "url": "https://www.dragos.com/blog/ai-supply-chain-security-canary-tokens",
-          "published": "Thu, 19 Nov 2026 16:51:00 +0000"
+          "url": "https://www.aikido.dev/blog/ai-incidents-root-causes-patterns",
+          "published": "Fri, 20 Nov 2026 09:42:13 +0000"
         }
       ]
     },
     {
-      "name": "Agents doing production engineering work",
-      "slug": "agents-doing-production-engineering-work",
-      "summary": "Large operators described agents that run inside their own engineering loops, from performance fixes to RL rollouts.",
+      "name": "Models: looped weights and provenance fights",
+      "slug": "models-looped-weights-and-provenance-fights",
+      "summary": "One new architecture shipped with day-0 serving, while labs and buyers argued over who copied, swapped or should avoid whose weights.",
       "articles": [
         {
-          "title": "How OpenAI’s Performance Factory keeps ChatGPT fast",
-          "summary": "OpenAI runs Codex-powered workflows that find and fix performance regressions to keep ChatGPT fast.",
+          "title": "Inkling 2 Mini on vLLM: Day-0 Support for a Looped Model",
+          "summary": "Thinking Machines' Inkling 2 Mini runs its middle 12 layers three times per token; 26B total / 3.5B active multimodal MoE, 1M context, served in vLLM on day 0 via vllm/vllm-openai:inkling-2-mini.",
+          "source": "vllm_blog",
+          "url": "https://vllm.ai/blog/2026-11-20-inkling2-mini",
+          "published": "Fri, 20 Nov 2026 00:00:00 GMT"
+        },
+        {
+          "title": "Combatting adversarial distillation",
+          "summary": "OpenAI describes how it fights unauthorized distillation of its models' outputs into copies that ship without safeguards, citing cyber capabilities as one risk.",
           "source": "openai_blog",
-          "url": "https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast",
-          "published": "Thu, 19 Nov 2026 08:00:00 GMT"
+          "url": "https://openai.com/index/combatting-adversarial-distillation",
+          "published": "Fri, 20 Nov 2026 10:00:00 GMT"
         },
         {
-          "title": "How Meta Uses AI Agents to Scale ML Innovations Across Ads Ranking Models",
-          "summary": "Meta uses agents to port proven ranking techniques across its many ads models, each with different architecture, data, and serving limits.",
-          "source": "hackernews_ai",
-          "url": "https://engineering.fb.com/2026/11/18/ml-applications/ai-agents-to-scale-ml-innovations-across-ads-ranking-models/",
-          "published": "Thu, 19 Nov 2026 16:06:28 +0000"
-        },
-        {
-          "title": "How Abundant designed efficient rollout architecture with Modal Sandboxes",
-          "summary": "Abundant runs RL rollouts for frontier labs on Modal Sandboxes, giving each task its own isolated environment, Dockerfile, and verifier.",
-          "source": "modal_blog",
-          "url": "https://modal.com/blog/abundant-efficient-rollout-architecture-with-modal-sandboxes",
-          "published": "2026-11-19T00:00:00.000Z"
-        }
-      ]
-    },
-    {
-      "name": "Token prices and compute deals",
-      "slug": "token-prices-and-compute-deals",
-      "summary": "Chinese and Indian labs competed on price while compute commitments shifted in both directions.",
-      "articles": [
-        {
-          "title": "DeepSeek Removes Separate Fees for Model-Triggered Search and Web Fetch",
-          "summary": "DeepSeek no longer charges separately when the model triggers search or web fetch, which simplifies cost math for tool-using agents.",
+          "title": "Prime Intellect discloses unauthorized DeepSeek model swap that sharply reduced refusals",
+          "summary": "Report: Prime Intellect disclosed that a DeepSeek model was swapped without authorization, and the swap sharply reduced refusals.",
           "source": "search_cn_open_weight_labs",
-          "publisher_name": "Pandaily",
-          "publisher_domain": "pandaily.com",
-          "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQakxYOFZROC1Xblc5S2hTUWdSb1ZOMVBNZmJ2YWt0TmRfY2tFc3hXUkIwZXAxNk5HUUZZNVRrMTlKR1FTMnBZd1F3X0ZRMTNnY3B2NmJSVW13QXJTMm5YeHlpNnY2a2JELS01WXFtU2szeXo4ZHVQcEh1YlJFUTlIZFY1b3FaSFNYekFZeFFpWkFpUQ?oc=5",
-          "published": "Thu, 19 Nov 2026 01:53:49 GMT"
+          "publisher_name": "Superpower Daily",
+          "publisher_domain": "superpowerdaily.com",
+          "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOYzRuZUFqYnV4WTU2dkZPSnFJX3dXRldmdG14aEJvQkg4UXlHTHVQQks5X0Y0MXh0U1phVGtyMW0yOTZfS2plemFiZ2FDRVhSRXdRU0h6aVlqZV9XcnN6cGRtd2pkYVRvUktaSmR5MDhBMWV2dzJfbVVDb2FscDc0TkNNQTNJeEVhcHRjT2VYNnlBXzc0Q0hGcENleTMwMXV6QmZSMDNCbFFGOEExVjM1NWZEYV9iVlQ0TWpCMU9Ncw?oc=5",
+          "published": "Fri, 20 Nov 2026 00:11:00 GMT"
         },
         {
-          "title": "Sarvam Prices Its Own Model Below DeepSeek In New Token Factory",
-          "summary": "Sarvam's new token factory lists its own model below DeepSeek's price.",
+          "title": "Cursor reportedly eyes the exit for Chinese open-weight AI models",
+          "summary": "Report: Cursor is weighing a move away from Chinese open-weight models.",
           "source": "search_cn_open_weight_labs",
-          "publisher_name": "Forbes",
-          "publisher_domain": "forbes.com",
-          "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQekxSVzdzd1ZVSF9pT3MwSTV1TkJnSnVEU19WVTlkblNCbXRZN3hvREVkdHdFeEtpODVfTW9oeFNsbTFBSE9xZ3lRLTlhbWJGUHpuMi1acHRKZ0xLdXg0bGVoa2NfSTlLU2djVmMxNDhzSG56UEt5anpxclUyS0RXZzFSR3AyVU8yM1N0LUE1UnhWUlV1LVUtb2lMejllaDFDWEQtcmplcFVyMlVoN3UtVjhaUVZDdl8z?oc=5",
-          "published": "Thu, 19 Nov 2026 12:31:02 GMT"
-        },
-        {
-          "title": "Moonshot AI Cancels $150 Million Nvidia B300 GPU Rental Deal in Indonesia",
-          "summary": "Moonshot AI cancelled a $150 million Nvidia B300 GPU rental deal in Indonesia.",
-          "source": "search_cn_open_weight_labs",
-          "publisher_name": "Gadget Review",
-          "publisher_domain": "gadgetreview.com",
-          "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNdVgtNlR6STVqOVNwSEZHZVVJZzVxb1MzbTZfVXdIcTI5Z1A4LUFlNjRKTmRZWS14eUFFOEhROGFnZkF2alAxamJiRDhJNnFXLS1jOFNBQVJmRGtDdEVoc3U2cktuYk9SQ3pfOURHT0V6QURDY09IQkJhMlhaeVRWMGJtVXdXaXVpd1R3TnVGLTNFZEp5R0hVdzcwQ016ajlHNVBV?oc=5",
-          "published": "Thu, 19 Nov 2026 18:14:24 GMT"
-        },
-        {
-          "title": "NVIDIA and Microsoft Expand Accelerated Computing From Azure to Windows PCs",
-          "summary": "At Ignite, Microsoft widens access to Azure VMs on NVIDIA Vera Rubin NVL72 systems and extends the stack to Windows PCs.",
-          "source": "nvidia_blog",
-          "url": "https://blogs.nvidia.com/blog/microsoft-ignite-accelerated-computing-azure-windows-pcs/",
-          "published": "Thu, 19 Nov 2026 20:00:15 +0000"
+          "publisher_name": "Digg",
+          "publisher_domain": "digg.com",
+          "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE1yeUlIbmJod0ZnM3pkYzI4MG1GOGVBdmVVbUtLdUNoaFVJcE9WbDZ6STJTaWJ0YWtqNkdVaWhwUE8xQQ?oc=5",
+          "published": "Fri, 20 Nov 2026 20:34:56 GMT"
         }
       ]
     }
-  ],
-  "video": {
-    "youtube_id": "X0N_-ugxZBA",
-    "title": "LLM Digest Daily Explainer: Nov 19, 2026",
-    "duration_s": 119.5
-  }
+  ]
 }
