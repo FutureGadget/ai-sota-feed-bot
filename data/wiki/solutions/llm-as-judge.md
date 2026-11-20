@@ -6,7 +6,7 @@ status: active
 obstacles: [agent-evaluation]
 related_storylines: []
 evidence: []
-updated: 2026-10-06
+updated: 2026-11-20
 themes:
   - key: structured-verdicts
     title: From a 1-5 score to structured, trace-level verdicts
@@ -16,7 +16,10 @@ themes:
     summary: Small fine-tuned judges, encoder classifiers, and shared-backbone heads cut judge cost and latency by one to two orders of magnitude.
   - key: trusting-the-judge
     title: Auditing the judge, the rubric, and whether you need one
-    summary: Judges carry position, verbosity, and language bias, and rubrics can be wrong; calibrate against human labels or replace the judge with a deterministic check.
+    summary: Judges carry position, verbosity, and language bias and flip verdicts between runs; calibrate against human labels or replace the judge with a deterministic check.
+  - key: scoring-design
+    title: "The rubric and scale are part of the judge"
+    summary: Flipping score anchors, narrowing or shifting the scale, or small prompt edits move verdicts on unchanged criteria, and LLM-written rubrics can be wrong; fix the scheme and average both anchor directions.
 ---
 
 ## TL;DR
@@ -39,10 +42,16 @@ clusters (about 1/100th the cost) or swap the generative judge for encoder
 classifiers that score many signals in one pass.
 
 **Trust is the open problem.** Judges show position, verbosity, and language
-bias that raw accuracy hides, and an LLM-written rubric can be wrong even when
-the judge is calibrated. The working practice: validate the judge against
-held-out human labels, ensemble cheap judges to cut false positives, and use a
-deterministic check instead of a judge whenever the task allows one.
+bias that raw accuracy hides, and zero-temperature judges still flip verdicts.
+The working practice: validate the judge against held-out human labels,
+ensemble cheap judges to cut false positives, and use a deterministic check
+instead of a judge whenever the task allows one.
+
+**The scoring scheme is part of the judge.** Reversing a rubric's anchors, or
+narrowing or shifting its scale, moves verdicts on unchanged criteria, and an
+LLM-written rubric can be wrong even when the judge is calibrated. Fix one
+scale per project and average both anchor directions when the verdict
+matters.
 
 ## Trade-offs
 The judge is itself a non-deterministic model: it has biases (verbosity,

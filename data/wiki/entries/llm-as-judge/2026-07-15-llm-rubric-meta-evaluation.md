@@ -1,7 +1,7 @@
 ---
 title: "Can LLMs write reliable rubrics? A meta-evaluation"
 date: 2026-07-15
-theme: trusting-the-judge
+theme: scoring-design
 evidence: [0570a6850cae75de]
 ---
 A meta-evaluation of LLM-generated grading rubrics, tested across generation setups and two model backbones on a paper-reproduction task, checks rubrics against semantic similarity and ground-truth scores.

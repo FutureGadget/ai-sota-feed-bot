@@ -6,7 +6,7 @@ status: active
 obstacles: [prompt-injection]
 related_storylines: []
 evidence: []
-updated: 2026-10-30
+updated: 2026-11-20
 themes:
   - key: credential-boundary
     title: Keeping secrets and authority out of the sandbox
@@ -64,7 +64,9 @@ concurrent sandboxes, and persistent "full computer" environments.
 **The open problem is the layer that decides what is trusted.** Guardrail
 models can be driven into denial of service, model-layer classifiers miss
 direct injection that egress controls stop, and a false environment premise
-removes containment without any attack.
+removes containment without any attack. Replicated incidents point the same
+way: 62 of 72 harmful ones had no attacker, only an ordinary hazard the agent
+missed, such as a database shared with the live site.
 
 ## Trade-offs
 More isolation and tighter scopes mean more **friction**: approval gates add
