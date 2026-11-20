@@ -948,13 +948,19 @@
   "first_seen": "2026-11-20T07:10:33.054612+00:00",
   "id": "29f5830db0338867",
   "image_url": "https://res.infoq.com/news/2026/11/aws-emulator-local-testing/en/headerimage/generatedHeaderImage-1795086946449.jpg",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
   "published": "2026-11-20T06:53:00+00:00",
   "sid": "09790aed202f0ba0",
   "source": "infoq_ai_ml",
+  "summary": "AWS has released AWS Emulator, a free, CC0-licensed local stand-in for more than 200 of its services, generated from its public API models and aimed at the test loops of coding agents. AWS says agents wrote and maintain all of the code and publishes per-release fidelity scores. The docs say it does not evaluate IAM, and practitioners are split on trusting an emulator nobody reviewed. By Steef-Jan Wiggers",
   "summary_1line": "AWS has released AWS Emulator, a free, CC0-licensed local stand-in for more than 200 of its services, generated from its public API models and aimed",
   "title": "AWS Releases a Free Local Emulator of AWS Built Entirely by Agents",
   "type": "release",
-  "url": "https://www.infoq.com/news/2026/11/aws-emulator-local-testing/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+  "url": "https://www.infoq.com/news/2026/11/aws-emulator-local-testing/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "0984c8e9f69f5209": {
   "content_excerpt": "Transaction guardrails for AI agents that hold crypto wallets - simulate, evaluate against policy + reputation, allow/block/escalate with a signed audit trail. EVM + Solana AgentGuard is a transaction guardrail layer for AI agents that hold crypto wallets. Before an agent signs or broadcasts anything, it submits the proposed transaction to AgentGuard, which simulates it against live chain state, evaluates the simulated effects against an operator-defined policy, and returns allow , block or escalate with a human-readable explanation, a 0–100 risk score and an immutable audit record. Agents never get to decide for themselves whether a transaction is safe. It works on EVM chains and Solana, decodes the usual drain vectors (unlimited approvals, setApprovalForAll , permits, swaps with zero minimum output, SetAuthority, interactions with never-seen contracts), and ships with a conservative default policy plus a TypeScript SDK that wraps any signer so that signTransaction / sendTransaction are checked transparently. On top of the rule engine, a contract reputation layer ( @agentguard/reputation , in this repo) aggregates allow/deny lists, on-chain heuristics (age, proxy, bytecode size) and optional external intel feeds, and an optional behavioral anomaly layer ( @agentguard/behavior , separately licensed, see What's open and what's not ) scores each transaction against the agent's own learned baseline. Both plug into the same pipeline and both fail closed: an outage or an unreadabl",
@@ -12640,6 +12646,18 @@
   "type": "news",
   "url": "https://www.databricks.com/blog/introducing-apache-spark-43-now-available-databricks-runtime-19"
  },
+ "7ad44f990f0c53ef": {
+  "first_seen": "2026-11-20T20:05:12.769029+00:00",
+  "id": "f927139d9de6de38",
+  "published": "2026-11-20T10:00:00+00:00",
+  "sid": "7ad44f990f0c53ef",
+  "source": "openai_blog",
+  "summary": "OpenAI’s layered approach to adversarial distillation combines model training, safeguards, detection, and enforcement to protect against capability extraction.",
+  "summary_1line": "OpenAI’s layered approach to adversarial distillation combines model training, safeguards, detection, and enforcement to protect against capability extraction.",
+  "title": "Combatting adversarial distillation",
+  "type": "news",
+  "url": "https://openai.com/index/combatting-adversarial-distillation"
+ },
  "7ae1983bc20b4540": {
   "first_seen": "2026-11-05T06:05:14.674295+00:00",
   "id": "2461d7b11b899842",
@@ -14595,7 +14613,7 @@
   ],
   "published": "2026-11-19T10:49:23+00:00",
   "sid": "8d59e72b49a65e99",
-  "source": "arxiv_cs_lg",
+  "source": "arxiv_llm_reliability",
   "summary": "Clinical large language models are usually judged by whether the final answer is right. Yet a model can reach a fluent, plausible output through invalid reasoning that static benchmarks do not detect, and confident hallucination, causally invalid inference, and spurious demographic shortcuts can pass conventional evaluation. This critical review covers four paradigms in turn: how clinical hallucination arises and why static metrics miss it; the agentic hallucination cascade, in which multi-agent and tool-augmented systems propagate and amplify early reasoning errors; process reward modeling as step-level supervision; and neuro-symbolic grounding, in which formal logic engines, ontology reasoners, and knowledge graphs place verifiable constraints on neural output. Within their encoded domains, systems with symbolic veto layers offer guarantees that hold relative to their encoded knowledge, and they report large gains on the safety measures they use. These results come from single studies, mostly in simulated or small-sample settings, and are not directly comparable with neural baselines. Process reward models remain bounded by the statistics of their training data. We propose a conceptual framework that maps each agentic failure mode to a symbolic intervention point, and we argue that clinical AI safety depends substantially on system architecture. Because current regulation emphasizes performance and does not require verification of reasoning steps, we argue that responsible ",
   "summary_1line": "Clinical large language models are usually judged by whether the final answer is right. Yet a model can reach a fluent, plausible output through invalid reasoning that static benchmarks do not detect, and confident ha...",
   "title": "Verifiable Logic in Medical LLMs: A Critical Review of Agentic Clinical Reasoning Optimization and Neuro-Symbolic Grounding",
@@ -15113,6 +15131,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03280v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "9291232aee048148": {
+  "first_seen": "2026-11-20T20:05:12.769029+00:00",
+  "id": "5f37371cbde0bfef",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-11-20T19:29:56+00:00",
+  "sid": "9291232aee048148",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.173.0-alpha.2",
+  "summary_1line": "Release 0.173.0-alpha.2",
+  "title": "codex rust-v0.173.0-alpha.2",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.2",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "92ae0dd069bbc5b2": {
   "first_seen": "2026-11-20T00:12:03.741107+00:00",

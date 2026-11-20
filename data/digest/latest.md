@@ -2,110 +2,122 @@
 
 Focus: AI Platform Engineering
 
-## 1. Drowning in clicks: Scaling Black Friday pipelines with Managed Airflow agents
+## 1. AWS Releases a Free Local Emulator of AWS Built Entirely by Agents
+- Type: release | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/11/aws-emulator-local-testing/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 3.178 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 2. Drowning in clicks: Scaling Black Friday pipelines with Managed Airflow agents
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/data-analytics/scaling-airflow-pipelines-with-ai-agents-on-managed-airflow/
-- Score: 3.142 | Reliability: 1.0
+- Score: 3.011 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, codex, claude code.
 
-## 2. STARK: Moving towards Personalized Agents That Truly Learn and Remember
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.25705v1
-- Score: 3.402 | Reliability: 1.0
+## 3. Verifiable Logic in Medical LLMs: A Critical Review of Agentic Clinical Reasoning Optimization and Neuro-Symbolic Grounding
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2611.25898v1
+- Score: 2.837 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 3. TideCache: Efficient Hybrid LLM Serving with Transparent Cache Management and Layer-Wise Streaming
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2611.26619v1
-- Score: 3.369 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 4. AgentRoboCritic: Understanding the Capability of Frontier Agents on Direct Robot Control
+## 4. Democratizing Cross-Project Knowledge for Transforming Water Governance and Climate Resilience: an Agentic AI Ecosystem
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2611.26613v1
-- Score: 3.152 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+- URL: http://arxiv.org/abs/2611.26398v1
+- Score: 2.836 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
 
-## 5. LangSmith Tool Gateway: Secure, governed tool use for agents
+## 5. World Models Favor Learned Priors over Visual Evidence
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.26366v1
+- Score: 2.834 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 6. LangSmith Tool Gateway: Secure, governed tool use for agents
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/langsmith-tool-gateway
-- Score: 2.497 | Reliability: 1.0
+- Score: 2.494 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. Introducing enhanced infrastructure observability in Amazon SageMaker HyperPod
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/introducing-enhanced-observability-in-amazon-sagemaker-hyperpod-to-diagnose-gpu-training-issues/
-- Score: 1.861 | Reliability: 1.0
+## 7. Combatting adversarial distillation
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/combatting-adversarial-distillation
+- Score: 2.482 | Reliability: 1.0
 - Why it matters: 
 
-## 7. vllm v0.34.0
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.34.0
-- Score: 1.837 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, codex.
+## 8. Your Software Factory Needs a Bill of Materials | Daniel Meppiel
+- Type: video | Source: ai_native_dev
+- URL: https://youtu.be/MHrw1wxSuz8
+- Score: 2.444 | Reliability: 0.833
+- Why it matters: Matches feed focus: agent, eval.
 
-## 8. How Revolut raises ambition without lowering the bar
-- Type: news | Source: openai_blog
-- URL: https://openai.com/business/customer-stories/revolut
-- Score: 1.812 | Reliability: 1.0
+## 9. codex rust-v0.173.0-alpha.2
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.2
+- Score: 2.141 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 9. Strengthening NATO and allied cyber defenses with AI
+## 10. How OpenAI’s Performance Factory keeps ChatGPT fast
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/how-openai-performance-factory-keeps-chatgpt-fast
+- Score: 2.05 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 11. AURA: AUdio-dRiven streaming Avatar
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.26540v1
+- Score: 2.82 | Reliability: 1.0
+- Why it matters: 
+
+## 12. TwinLab-Bench: Evaluating AI Scientists in Agentic Twins of Real Labs
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.26248v1
+- Score: 2.738 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 13. Strengthening NATO and allied cyber defenses with AI
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/strengthening-nato-allied-cyber-defences-ai
-- Score: 1.712 | Reliability: 1.0
+- Score: 1.788 | Reliability: 1.0
 - Why it matters: 
 
-## 10. Science at the Frontier: How scientists use ChatGPT
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/science-at-the-frontier
-- Score: 1.658 | Reliability: 1.0
+## 14. Introducing enhanced infrastructure observability in Amazon SageMaker HyperPod
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/introducing-enhanced-observability-in-amazon-sagemaker-hyperpod-to-diagnose-gpu-training-issues/
+- Score: 1.744 | Reliability: 1.0
 - Why it matters: 
 
-## 11. Characterizing and Detecting Unfaithful Work Reports by Coding Agents
-- Type: paper | Source: arxiv_agent_systems_research
-- URL: http://arxiv.org/abs/2611.25760v1
-- Score: 3.096 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 12. Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/harness-adapters-at-scale
-- Score: 2.969 | Reliability: 1.0
-- Why it matters: Matches feed focus: harness.
-
-## 13. claude-code v2.1.327
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.327
-- Score: 1.541 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval, claude code.
-
-## 14. llm 0.37.3
-- Type: release | Source: simon_willison
-- URL: https://simonwillison.net/2026/Nov/16/llm/
-- Score: 1.535 | Reliability: 1.0
-- Why it matters: 
-
-## 15. codex 0.172.0-alpha.2
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.172.0-alpha.2
-- Score: 1.466 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 16. tencent/WeMM-Video-4B-GGUF released on Hugging Face
+## 15. tencent/Hy4-base released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/WeMM-Video-4B-GGUF
-- Score: 1.406 | Reliability: 1.0
+- URL: https://huggingface.co/tencent/Hy4-base
+- Score: 1.511 | Reliability: 1.0
 - Why it matters: 
 
-## 17. claude-agent-sdk-python v0.2.184
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.184
-- Score: 1.167 | Reliability: 1.0
+## 16. langgraph-prebuilt==1.1.3
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/prebuilt%3D%3D1.1.3
+- Score: 1.464 | Reliability: 1.0
+- Why it matters: 
+
+## 17. Meta’s Muse: Inside the launch of the most successful consumer product this year | Mona Sarantakos
+- Type: video | Source: lennys_podcast
+- URL: https://youtu.be/WY0cdD4gNoQ
+- Score: 1.344 | Reliability: 0.833
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 18. claude-code v2.1.326
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.326
+- Score: 1.313 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 19. Release 2.75.0 corresponding to NGC container 26.11
+- Type: release | Source: triton_releases
+- URL: https://github.com/triton-inference-server/server/releases/tag/v2.75.0
+- Score: 1.257 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 18. llama_index v0.14.26
+## 20. llama_index v0.14.26
 - Type: release | Source: llamaindex_releases
 - URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.26
-- Score: 1.142 | Reliability: 1.0
+- Score: 1.159 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
