@@ -1721,6 +1721,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.24869v1"
  },
+ "107bf7631dd21fed": {
+  "first_seen": "2026-11-20T08:05:31.831754+00:00",
+  "id": "4b7346b0b0d5059b",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-19T18:57:25+00:00",
+  "sid": "107bf7631dd21fed",
+  "source": "arxiv_cs_cl",
+  "summary": "Frontier multimodal language agents such as GPT-6 Astra have demonstrated strong capabilities in controlling robots directly via low-level numerical actions without high-level primitives. However, existing benchmarks report only episode-level success rates, which show neither how these agents succeed nor where they fail. In this paper, we present a systematic action-level analysis of frontier agents on direct robot control across 12 manipulation benchmarks. We introduce AgentRoboCritic, an intent-grounded critique framework in which the policy agent states a local intent alongside each action, and a critic evaluates the action's outcome and failure mode against this intent. Our action-level analysis demonstrates the promising capabilities of frontier agents on direct robot control, including closed-loop recovery from local execution failures, reliable semantic grounding across diverse scenes, and strong zero-shot manipulation without task-specific adaptation. It also identifies their current limitations, including task-relevant physical execution bottlenecks such as grasping and alignment, and uneven recovery across failure modes. Finally, we validate our critic on a 400-action human-annotated benchmark and release a dataset of 12,844 annotated actions alongside a fine-tuned open-source critic, Muse-Glimmer-30B, whose failure-mode accuracy rises from 32.58% to 74.24%, enabling low-cost action-level analysis.",
+  "summary_1line": "Frontier multimodal language agents such as GPT-6 Astra have demonstrated strong capabilities in controlling robots directly via low-level numerical actions without high-level primitives. However, existing benchmarks...",
+  "title": "AgentRoboCritic: Understanding the Capability of Frontier Agents on Direct Robot Control",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26613v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "10ae15e7aac9f9d9": {
   "first_seen": "2026-11-05T08:05:21.535185+00:00",
   "id": "0fffbca6b9a2f5a3",
@@ -5194,6 +5211,22 @@
   "url": "http://arxiv.org/abs/2611.23362v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "32373812989fabcd": {
+  "first_seen": "2026-11-20T08:05:31.831754+00:00",
+  "id": "2cf1bd7784716333",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-19T16:29:16+00:00",
+  "sid": "32373812989fabcd",
+  "source": "arxiv_cs_ai",
+  "summary": "LLM agents on long-horizon tasks fail in recurring, procedural ways. They mis-paginate an API, resolve the wrong entity, or answer when no answer was asked. We built a pipeline that lets an agent learn from its own history. It first mines short \\emph{lessons} from the agent's own trajectories, one to three per episode. It then consolidates those lessons into a smaller set of \\emph{guidelines}, where each guideline records how many lessons it merged. At inference the agent receives either all guidelines or a selected subset. The pipeline ships in the open-source altk-evolve library and is deployed in IBM's CUGA agent and watsonx Orchestrate platform. We report what we learned building, measuring, and productizing it. Our primary instrument is the AppWorld benchmark, across models spanning 40--92\\% baseline task completion. The central finding is that the right amount of memory is a property of the model, not the memory. A strong model keeps improving as guidelines are added. DeepSeek-V3.2 gains +9.5 points of task completion and +16.1 points of scenario completion with its full 191-guideline set. A weak model gains less from the same full set than from a small selected subset. gpt-oss-120b starts at 39.9\\% task completion. It reaches 51.2\\% with all 199 of its guidelines but 55.4\\% (mean of two runs) with a selected subset of about 29. Around that result we report what went wrong: a high-support guideline that backfired, provenance silently dropped during consolidation, a swal",
+  "summary_1line": "LLM agents on long-horizon tasks fail in recurring, procedural ways. They mis-paginate an API, resolve the wrong entity, or answer when no answer was asked. We built a pipeline that lets an agent learn from its own hi...",
+  "title": "How Much Should an Agent Remember? Deployment Lessons from Self-Distilled Memory for LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26361v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "3268d0f7bc246f29": {
   "first_seen": "2026-11-06T00:05:24.381443+00:00",
   "id": "d8cde5aa70376b63",
@@ -8633,6 +8666,23 @@
   "title": "Hume launches the first decision model for voice AI",
   "type": "news",
   "url": "https://www.hume.ai/products/decision-model-api"
+ },
+ "54976c377905c837": {
+  "first_seen": "2026-11-20T08:05:31.831754+00:00",
+  "id": "b79804c54edc2fe6",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-11-19T16:15:04+00:00",
+  "sid": "54976c377905c837",
+  "source": "arxiv_cs_ai",
+  "summary": "AI agents built on large language models (LLMs) often answer questions from incomplete records. Missing information might be interpreted as unknown or false, depending on the completeness of the source. Current evaluations fail to distinguish these two aspects, as they are usually interwoven with other reasoning demands. We present ClosureBench, a benchmark that tests whether LLMs follow the stated rules for dealing with missing information. Every base scenario is tested under OWA, CWA, and LCWA, and only the treatment of missing information changes between variants. ClosureBench provides a verified base benchmark as well as agent extensions for action choice, source scope, and updates. A model is considered correct on a base scenario only if it provides correct answers in all of its closure variants. Across 960 instances, overall accuracy can mask substantial closure mistakes. Models achieve overall accuracy from 71.18% to 99.86% across replicated runs, but their core switch accuracy, measured on the scenarios whose gold label actually changes with the contract, varies between 18.23% and 99.31%. Large discrepancies emerge under LCWA. For example, some agents choose unknown despite the prompt indicating that missing information should be treated as false. Our findings demonstrate that evaluations of AI agents should not only measure whether agents can reason over existing facts but also whether they use the appropriate assumption when information is absent.",
+  "summary_1line": "AI agents built on large language models (LLMs) often answer questions from incomplete records. Missing information might be interpreted as unknown or false, depending on the completeness of the source. Current evalua...",
+  "title": "ClosureBench: A Benchmark for Reasoning under Closure Assumptions",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26335v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "54bbca33a9085b21": {
   "first_seen": "2026-11-17T07:04:48.833533+00:00",
@@ -12465,6 +12515,18 @@
   "url": "https://standardsupport.dev",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "7c57b8d3856fb0c9": {
+  "content_excerpt": "alphaXiv connects papers, researchers, and organizations, grounding its answers in the underlying work. A twelve-week archive shows how hundreds of independent AI agents develop research norms, review one another’s work, and expose both collaboration’s promise and its limits. Using an observed outcome, a factual world model can estimate alternative actions in the same hidden disturbance, enabling hindsight planning without paired counterfactual data. World models trained on first-person video and actions can map maze and city layouts in latent space while preserving objects needed for planning. AMI - Advanced Machine Intelligence, Jacob T. Schwartz Professor, CS @ New York University Anyscale, Co-Founder & Executive Chairman @ Databricks, Professor, CS @ UC Berkeley LawZero, Founder and Scientific Advisor @ Mila - Quebec Artificial Intelligence Institute, Canada CIFAR AI Chair @ CIFAR, Full Professor, CS @ Université de Montréal A single text can let frontier models identify its human author, exposing active forum users and blind peer reviewers to de-anonymization without web access or candidate lists. Graph-based nearest neighbor search algorithms like HNSW, DiskANN, NSG, and others have surged in popularity in recent years due to their excellent empirical performance in comparison to space-partitioning methods like IVF data structures and Locality Sensitive Hashing (LSH). However, in contrast to LSH and related methods, obtaining strong worst-case theoretical guarantees for",
+  "first_seen": "2026-11-20T08:05:31.831754+00:00",
+  "id": "8caa52a367b8e4cd",
+  "published": "2026-11-20T07:15:08+00:00",
+  "sid": "7c57b8d3856fb0c9",
+  "source": "hackernews_ai",
+  "summary_1line": "AlphaXiv opens a public preprint server for AI-authored research papers",
+  "title": "AlphaXiv opens a public preprint server for AI-authored research papers",
+  "type": "news",
+  "url": "https://www.alphaxiv.org"
+ },
  "7c592589ecc9e501": {
   "content_excerpt": "Databricks Genie plugins connect the agents your teams use to business context, leveraging Genie’s trusted insights and ontology Every business is adding more data to their AI-powered workflows. But more data doesn't automatically mean better insights. Inevitably, it means more places for an agent to look and more chances to find the wrong answer. Ask a frontier agent a question about your business and it starts a live search. It hops between MCP servers, opens a document, reads a schema, tries a table, backs out and tries another. It has little context on where the right answer lives, so it may guess its way through a random walk across the organization's data. What agents need is a map of the business before they start looking. That's why we announced Genie Ontology , the enterprise context layer, that combines governed definitions with continuously learned organizational knowledge giving AI agents the business understanding they need to deliver trusted insights. Today we are introducing new Databricks Genie plugins that give your team’s favorite agents a governed interface to access your enterprise context. These plugins work natively today in ChatGPT , Claude , Microsoft Copilot Cowork and Grok Bot so teams can maintain business context in Databricks and make it available across their preferred agents. Frontier agents can now draw on Genie Ontology to supply the definitions, relationships, and source context needed to interpret the business. Genie works out what the busin",
   "first_seen": "2026-11-11T17:08:48.848985+00:00",
@@ -12998,6 +13060,18 @@
   "type": "news",
   "url": "https://wasmcloud.com/blog/2025-01-15-running-distributed-ml-and-ai-workloads-with-wasmcloud"
  },
+ "818a7b201aa40d45": {
+  "content_excerpt": "Local LLM inference is seeing adoption in default developer workflows, and the tooling that serves those models now ships inside products developers already trust. One of those is Docker Model Runner (DMR), the feature in Docker Desktop that pulls, runs, and serves models locally. In November 2025, we reported ZDI-26-150 / CVE-2026-28400 , a denial-of-service (on macOS) stemming from an unauthenticated argument-injection vulnerability in DMR. A container created with the default set of privileges could overwrite and corrupt the Docker Desktop VM’s data disk. Further analysis, under non-default configurations, turned the same primitive into arbitrary code execution on the host, on both macOS and Windows. In this post, we walk through the full chain: the argument-injection primitive, the host file read/write foothold it grants, how we take partial control of what gets written, and the payoff that turns a constrained file write into arbitrary code execution on the host through Docker Extensions. We then cover two further escapes we found along the way: one from an overly permissive Seatbelt sandbox configuration on macOS, and one that pivots the WSL2 VM-to-host boundary through Docker Extensions. Docker Desktop helps run Docker containers on macOS, Windows, and Linux. Docker Desktop for Windows with Windows containers and Docker Desktop for Linux are out of scope for this blog. Since macOS and Windows don’t come with a Linux kernel to run Linux containers, Docker Desktop ships a",
+  "first_seen": "2026-11-20T08:05:31.831754+00:00",
+  "id": "90e5072d4bf7b674",
+  "published": "2026-11-20T07:42:18+00:00",
+  "sid": "818a7b201aa40d45",
+  "source": "hackernews_ai",
+  "summary_1line": "Hostile Inference: Exploiting Docker Model Runner for Container Escapes",
+  "title": "Hostile Inference: Exploiting Docker Model Runner for Container Escapes",
+  "type": "news",
+  "url": "https://www.thezdi.com/blog/2026/11/17/hostile-inference-exploiting-docker-model-runner-for-container-escapes"
+ },
  "819549b983fd9118": {
   "content_excerpt": "SageMaker Inference now supports Multi-Instance GPU to maximize GPU utilization for model endpoints | Artificial Intelligence Skip to Main Content Filter: All English Contact us AWS Marketplace Support My account re:Invent Discover AWS Products Solutions Pricing Resources Search Filter: All Sign in to console Create account Explore topics re:Invent 2026 The sessions are set and your seat is waiting. Register now Build & Deploy AI Agents 88% of agent pilots stall. Learn what the rest do differently Get started Sign up free, connect your coding agent, and start building Data for agentic AI The 7 essential data capabilities to scale agentic AI Analyst Report AWS named a Leader in the 2026 Gartner Magic Quadrant for SCPS AI for Small Businesses Solutions designed for your business. Delivered by AWS Partners News & announcements AWS blog About AWS AWS is the world's most comprehensive cloud, enabling organizations to accelerate innovation, reduce costs, and scale more efficiently Why AWS Getting Started Security Compliance Trust Center Sustainability Our Impact Global Infrastructure Careers Featured Products Analytics Application Integration Artificial Intelligence Business Applications Compute Customer Experience Databases Developer Tools End User Computing Game Tech Management Tools Media Services Migration & Modernization Multicloud & Hybrid Networking & Content Delivery Operations Security & Identity Storage Supply Chain Browse all products Transformation Hubs Migrate to moder",
   "first_seen": "2026-11-06T18:05:28.132079+00:00",
@@ -13309,13 +13383,18 @@
  "848c6951c92f6819": {
   "first_seen": "2026-11-20T03:09:01.673171+00:00",
   "id": "f058cf3df52b5d33",
+  "matched_topics": [
+   "agent"
+  ],
   "published": "2026-11-19T10:08:26+00:00",
   "sid": "848c6951c92f6819",
   "source": "arxiv_agent_systems_research",
+  "summary": "Personalized LLM agents must act on a user's current preferences, which change across interactions and are rarely stated in full. Existing memory systems store and retrieve content from the interaction history and leave the agent to work out which preferences still hold and where they apply. Such content does not indicate whether a preference is still current or where it applies, so agents often act on outdated or misapplied preferences. We instead treat memory as the assistant's belief about the user. Following Bourdieu's account of habitus as durable but revisable dispositions, we model the user as a latent preference state that every interaction, including the current request, both reveals and updates. The belief summarizes what the history supports about this state, and memory consists of the individual beliefs that bear on the agent's current decision, each with its evidence, scope, and status. We implement this view in HabitusMem, a trained writer that states these beliefs as text records for a frozen agent. Across two agent families, HabitusMem achieves the best results among memory systems on both PersonaMem-v2 and VitaBench 2.0. Controlled analyses show that learned request conditioning drives the answering gain, while auxiliary training tasks improve tool use.",
   "summary_1line": "Personalized LLM agents must act on a user's current preferences, which change across interactions and are rarely stated in full. Existing memory systems store and retrieve content from the interaction history and leave the agent to work out which preferences still hold and where",
   "title": "HabitusMem: Belief Memory over Evolving User Preferences for LLM Agents",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.25855v1"
+  "url": "http://arxiv.org/abs/2611.25855v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "84da27b8e0173e93": {
   "first_seen": "2026-11-19T06:06:12.967870+00:00",
@@ -19008,6 +19087,22 @@
   "url": "http://arxiv.org/abs/2611.04515v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "b9e5c52a4079df40": {
+  "first_seen": "2026-11-20T08:05:31.831754+00:00",
+  "id": "33269b27d476443a",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-19T17:56:44+00:00",
+  "sid": "b9e5c52a4079df40",
+  "source": "arxiv_cs_cl",
+  "summary": "Decision models enable fast, confidence-aware decisions by scoring candidate answers in a single forward pass, without generating text or intermediate reasoning. Yet reasoning can substantially improve decision quality, raising the question of whether its benefits can be retained without the cost of generating it. We investigate this question with \\textbf{GLiDE}, a family of decision models spanning 0.4B to 27B parameters. Building on Qwen hybrid language models, GLiDE enables bidirectional interactions between the context, question, and candidate answers by removing causal masking from full-attention layers. To transfer reasoning capabilities into single-pass inference, we combine soft-target distillation from multiple teachers, including a reasoning model, with progressive post-training on diverse decision tasks. We further explore parameter-free recurrent depth to increase inference-time computation without generating tokens. Across five model sizes, GLiDE lies on the performance--parameter Pareto frontier of the Hugging Face \\DI{}, with each model outperforming evaluated alternatives of equal or smaller size. \\dmtwo{} (27B) achieves a hidden-set score of 71.52, with an expected calibration error of 2.0\\% and a median latency of 92.9\\,ms on a single GPU. Further checkpoint averaging and parameter-free recurrent depth yield GLiDE~27B, which reaches 73.37 with an expected calibration error of 2.1\\%.",
+  "summary_1line": "Decision models enable fast, confidence-aware decisions by scoring candidate answers in a single forward pass, without generating text or intermediate reasoning. Yet reasoning can substantially improve decision qualit...",
+  "title": "GLiDE: A Fast, Calibrated Decision Model Distilled from Reasoning Teachers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26509v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "b9f35f290ebb4bb0": {
   "first_seen": "2026-11-17T07:04:48.833533+00:00",
   "id": "4d4d335b217937c0",
@@ -19725,6 +19820,7 @@
   "published": "2026-11-18T06:59:57+00:00",
   "sid": "c1196200a3737e18",
   "source": "hf_tencent_hunyuan_releases",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 4, downloads: 2.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 2, downloads: 2.",
   "title": "tencent/Hy4-FP8 released on Hugging Face",
   "type": "release",
