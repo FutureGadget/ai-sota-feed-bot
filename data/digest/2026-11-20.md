@@ -2,146 +2,146 @@
 
 Focus: AI Platform Engineering
 
-## 1. Show HN: Zeus – Claude Code for AI voice agents
-- Type: news | Source: hackernews_ai
-- URL: https://thunderphone.com/blog/introducing-zeus
-- Score: 4.524 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval, codex.
-
-## 2. Agent Duel
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/bottomless/agent-duel
-- Score: 3.655 | Reliability: 1.0
+## 1. Token fraud is here and it’s BAD (YouTube)
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Nov/20/token-fraud-is-here-and-its-bad/
+- Score: 3.183 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. Gke-sandboxes: Agent sandboxes with filesystem snapshots at 1.9¢/hour
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/comp-work/gke-sandboxes
+## 2. STARK: Moving towards Personalized Agents That Truly Learn and Remember
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.25705v1
+- Score: 3.804 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
+
+## 3. RoCoKV: Accelerating LLM Inference Serving through Uncertainty and Redundancy Aware KV Cache Compression
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2611.25433v1
+- Score: 3.734 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 4. Characterizing and Detecting Unfaithful Work Reports by Coding Agents
+- Type: paper | Source: arxiv_agent_systems_research
+- URL: http://arxiv.org/abs/2611.25760v1
 - Score: 3.471 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+- Why it matters: Matches feed focus: agent, evaluation.
 
-## 4. DaisyRose-27B: Pushing the Frontier of Post-Training Efficiency
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/RadixArk/daisyrose-27b-pushing-the-frontier-of-post-trainin
-- Score: 3.303 | Reliability: 1.0
-- Why it matters: 
-
-## 5. codex 0.171.0
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.171.0
-- Score: 3.073 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, eval.
-
-## 6. Scaling Linear’s GTM to $100M ARR — Cristina Cordova, COO
+## 5. Scaling Linear’s GTM to $100M ARR — Cristina Cordova, COO
 - Type: news | Source: latent_space
 - URL: https://latent.space/p/linear-scaling/
-- Score: 2.996 | Reliability: 1.0
+- Score: 2.91 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. Why agent governance starts with observability
+## 6. Why agent governance starts with observability
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/agent-governance-observability
-- Score: 2.867 | Reliability: 1.0
+- Score: 2.788 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 8. How the Claude Code team thinks about verification
+## 7. How the Claude Code team thinks about verification
 - Type: news | Source: claude_dev_blog
 - URL: https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/
-- Score: 2.743 | Reliability: 1.0
+- Score: 2.731 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 9. langgraph==1.2.24
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.24
-- Score: 2.714 | Reliability: 1.0
-- Why it matters: 
-
-## 10. Introducing Gemini 4 Neon
+## 8. Introducing Gemini 4 Neon
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-gemini-4-neon/
-- Score: 2.713 | Reliability: 1.0
+- Score: 2.698 | Reliability: 1.0
 - Why it matters: 
 
-## 11. Time-Series Models in the Streamhouse: A New Frontier and Use Cases
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/ibm-research/time-series-powered-streamhouse
-- Score: 2.573 | Reliability: 1.0
+## 9. Prime Intellect discloses unauthorized DeepSeek model swap that sharply reduced refusals
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMivwFBVV95cUxOYzRuZUFqYnV4WTU2dkZPSnFJX3dXRldmdG14aEJvQkg4UXlHTHVQQks5X0Y0MXh0U1phVGtyMW0yOTZfS2plemFiZ2FDRVhSRXdRU0h6aVlqZV9XcnN6cGRtd2pkYVRvUktaSmR5MDhBMWV2dzJfbVVDb2FscDc0TkNNQTNJeEVhcHRjT2VYNnlBXzc0Q0hGcENleTMwMXV6QmZSMDNCbFFGOEExVjM1NWZEYV9iVlQ0TWpCMU9Ncw?oc=5
+- Score: 2.634 | Reliability: 1.0
 - Why it matters: 
 
-## 12. claude-code v2.1.329
+## 10. langgraph==1.2.24
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.24
+- Score: 2.581 | Reliability: 1.0
+- Why it matters: 
+
+## 11. AppSci-Bench: Can LLMs Build AI Agents and Make Them Better?
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.25360v1
+- Score: 3.352 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 12. A Wolf in Sheep's Pixels: Visual Camouflage Attacks via HDR Gain Maps
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2611.25469v1
+- Score: 3.281 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 13. claude-code v2.1.329
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.329
-- Score: 2.544 | Reliability: 1.0
+- Score: 2.416 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 13. PostgreSQL 19 Released
+## 14. PostgreSQL 19 Released
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Nov/19/postgresql-19/
-- Score: 2.486 | Reliability: 1.0
+- Score: 2.407 | Reliability: 1.0
 - Why it matters: 
 
-## 14. How Abundant designed efficient rollout architecture with Modal Sandboxes
+## 15. How Abundant designed efficient rollout architecture with Modal Sandboxes
 - Type: news | Source: modal_blog
 - URL: https://modal.com/blog/abundant-efficient-rollout-architecture-with-modal-sandboxes
-- Score: 2.45 | Reliability: 1.0
+- Score: 2.388 | Reliability: 1.0
 - Why it matters: 
 
-## 15. Amazon SageMaker AI now detects latency drift, idle GPUs, and missed optimizations on your inference endpoints
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-ai-now-detects-latency-drift-idle-gpus-and-missed-optimizations-on-your-inference-endpoints/
-- Score: 2.28 | Reliability: 1.0
+## 16. Protect sensitive data in your traces: new controls in LangSmith
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/protect-sensitive-data-in-your-traces-new-controls-in-langsmith
+- Score: 2.358 | Reliability: 1.0
 - Why it matters: 
 
-## 16. Deploying Daybreak Red
+## 17. Explore the Codex Security Plugin
+- Type: news | Source: openai_blog
+- URL: https://openai.com/business/learn/codex-security-plugin-demo
+- Score: 2.325 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 18. codex 0.173.0-alpha.1
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.173.0-alpha.1
+- Score: 2.281 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 19. Deploying Daybreak Red
 - Type: news | Source: openai_blog
 - URL: https://openai.com/business/learn/deploying-daybreak-red
-- Score: 2.234 | Reliability: 1.0
-- Why it matters: 
-
-## 17. See PR scans in action
-- Type: news | Source: openai_blog
-- URL: https://openai.com/business/learn/pr-scans-demo
-- Score: 2.166 | Reliability: 1.0
-- Why it matters: 
-
-## 18. Genie 4 is now available
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/genie-4-is-now-available/
 - Score: 2.154 | Reliability: 1.0
 - Why it matters: 
 
-## 19. What We’ve Learned Building Proactive Agents
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/what-weve-learned-building-proactive-agents
-- Score: 2.13 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 20. claude-agent-sdk-python v0.2.186
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.186
-- Score: 2.099 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 20. Genie 4 is now available
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/genie-4-is-now-available/
+- Score: 2.143 | Reliability: 1.0
+- Why it matters: 
 
 ## 21. Paul Stack: I'll Never Write Infrastructure as Code Again
 - Type: video | Source: ai_native_dev
 - URL: https://youtu.be/Y6T_fPy3C3Q
-- Score: 2.095 | Reliability: 0.833
+- Score: 2.084 | Reliability: 0.833
 - Why it matters: Matches feed focus: agent, harness, software delivery.
 
 ## 22. Get started with Daybreak Blue
 - Type: news | Source: openai_blog
 - URL: https://openai.com/business/learn/daybreak-blue-onboarding-demo
-- Score: 2.063 | Reliability: 1.0
+- Score: 1.984 | Reliability: 1.0
 - Why it matters: 
 
-## 23. An updated Clairic and Clairic-flash are now open-weight, from the new Workers AI Superintelligence team
-- Type: news | Source: cloudflare_blog
-- URL: https://blog.cloudflare.com/open-clairic/
-- Score: 1.82 | Reliability: 1.0
-- Why it matters: 
+## 23. claude-agent-sdk-python v0.2.186
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.186
+- Score: 1.975 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 24. Why PostgreSQL 19 shipped late
-- Type: news | Source: databricks_blog
-- URL: https://www.databricks.com/blog/why-postgresql-19-shipped-late
-- Score: 1.794 | Reliability: 1.0
+## 24. Amazon SageMaker Inference: 2026 launches in review, part 2
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-inference-2026-launches-in-review-part-2/
+- Score: 1.944 | Reliability: 1.0
 - Why it matters:
