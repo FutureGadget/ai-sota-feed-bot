@@ -5541,6 +5541,22 @@
   "url": "https://github.com/grainulation/papers",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "32d2e12cf12a622f": {
+  "content_excerpt": "trace2rules is a local-first CLI. It ingests agent trajectories, mines recurring friction, audits existing AGENTS.md / CLAUDE.md rules against real sessions, and identifies whether each rule is observed, compliant, violated, unobserved, or already enforced by CI/pre-commit. Small local corpus? Results are most useful with about 10+ local sessions. With fewer, ingest a public dataset first; see Public datasets . trace2rules audit is deterministic: it prints counts, coverage, verdicts, enforcement status, and deterministic suggestions. Give audit.txt to your agent. The LLM receives the audit table but not the deterministic suggestions. --proposal parses the proposed Markdown, audits it against sessions, and prints verdicts before you apply it. On the Open-SWE swc-project/swc split (188 sessions), the current AGENTS.md audit finds 65 rules: 10 measured, 0 partial, and 55 unmeasured. The review proposed three new rules: no package-scoped test commands in root AGENTS.md , every AGENTS path must exist at HEAD , and CI must run with UPDATE unset. MSRV is not measured yet, so the review does not propose a separate MSRV enforcement rule. audit prints the audited/total session count and audits all sessions by default. Pass --latest-commit to use the latest AGENTS.md commit as a cutoff; use --since / --until for explicit dates. By default, audit output shows measured and partial rules only; pass --all-rules to include unmeasured rules. Mining produces evidence, not rules. trace2rules mi",
+  "first_seen": "2026-11-21T20:04:42.473826+00:00",
+  "id": "9708b7f945eddc45",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-21T19:55:58+00:00",
+  "sid": "32d2e12cf12a622f",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: trace2rules – Mine and audit coding-agent logs into AGENTS.md rules",
+  "title": "Show HN: trace2rules – Mine and audit coding-agent logs into AGENTS.md rules",
+  "type": "news",
+  "url": "https://github.com/rkkautsar/trace2rules",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "32d4e91d243ef07f": {
   "content_excerpt": "A 2-billion-parameter model that extracts exactly the fields you ask for, from any document type, outperforming every frontier LLM we tested, at a fraction of the cost. In April, we released DharmaOCR-LITE , a model specialized for OCR across a wide range of documents, from contracts and court filings to invoices, IDs and forms. The paper behind it made a narrow, well-measured case for domain specialization: a smaller model trained closer to its task beating general-purpose frontier APIs on that task. OCR gives you the text on a page, faithful to the original formatting. That's exactly what you want when the job is the whole document, like a contract you'll read end to end or a manuscript you're digitizing. However, there's a different use case: you don't want the page, you want specific fields out of it, in a shape a system downstream can consume. Every line item on an invoice, as a list. The patient name, exam type and date from a medical requisition, ready to schedule. The fields off an ID, mapped to the columns of an employee record. Run that document through OCR and you get back everything printed on it, line by line, with no indication of which string is the exam type, which is the date or which number is the total. Someone still has to write the code that maps each value to the right field before it reaches the database. A general-purpose LLM can do this work today, with careful prompting. At frontier API pricing and latency, on a task many businesses need to run at hi",
   "first_seen": "2026-11-04T18:04:59.867522+00:00",
@@ -15052,6 +15068,24 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Nov/11/gemini-decisions-api"
  },
+ "8d212c34c5debc7d": {
+  "content_excerpt": "Your AI coding agents, side by side. Each task gets its own git worktree. Review the changes. Choose what ships. Send one agent after a bug while another builds your next feature. Each task gets its own branch and worktree, keeping active working copies separate. Read the diff. Leave a comment. Send it back to the agent. When you're happy with the result, choose what to merge. Take a guided tour of a changed file or a whole branch. Ask follow-up questions at any stop, with the relevant code right beside you. Explore the workspace at your own pace: task views, inline reviews, guided tours, and room to think. Parallel Code is a standalone Electron app. Keep using your preferred editor — VS Code, Cursor, JetBrains, Sublime, whatever you like. It manages the agents and worktrees; your IDE handles the code. Claude Code, Codex CLI, OpenCode, Copilot CLI, and Antigravity CLI out of the box. Any CLI-based coding agent that works in a terminal can be used. Each task gets its own git branch and worktree, so agents do not overwrite the same working copy. Branches can still conflict later if they change the same code; review and resolve those integration conflicts before merging back to main. macOS (universal .dmg) and Linux (.AppImage or .deb). Download from the GitHub releases page. There is no Windows build yet. Each vendor's app runs that vendor's agent. Parallel Code puts Claude Code, Codex, Copilot and other terminal agents on one board, gives every task its own worktree, and runs ",
+  "first_seen": "2026-11-21T20:04:42.473826+00:00",
+  "id": "c4758cd1162b0a45",
+  "matched_topics": [
+   "agent",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-11-21T16:47:06+00:00",
+  "sid": "8d212c34c5debc7d",
+  "source": "hackernews_ai",
+  "summary_1line": "Parallel Code: Claude Code, Codex and Copilot Agent CLIs in Parallel Worktrees",
+  "title": "Parallel Code: Claude Code, Codex and Copilot Agent CLIs in Parallel Worktrees",
+  "type": "news",
+  "url": "https://parallelcode.app",
+  "why_it_matters": "Matches feed focus: agent, codex, claude code."
+ },
  "8d3cc1c5f384da75": {
   "first_seen": "2026-11-06T04:05:23.287739+00:00",
   "id": "6d6a08ad8bf8e42a",
@@ -23425,7 +23459,7 @@
   "published": "2026-11-17T08:57:49+00:00",
   "sid": "dbe8f9c3994a9119",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: video-text-to-text. Likes: 4, downloads: 595.",
+  "summary": "New model weights from tencent on Hugging Face. Task: video-text-to-text. Likes: 5, downloads: 595.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 1, downloads: 22.",
   "title": "tencent/WeMM-Video-4B-GGUF released on Hugging Face",
   "type": "release",
@@ -24637,6 +24671,22 @@
   "title": "LLMs Don't Know What They Know: Benchmarking Temporal Self-Knowledge for Financial Backtesting",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.06808v1"
+ },
+ "e76fa817c2806f1f": {
+  "content_excerpt": "Shared long-term memory, document search and a code index for AI agents, linked to your code. Memories point at the files and symbols they're about and surface when an agent edits them. MCP server, Claude Code and Codex plugins, SDKs. Self-hosted on ClickHouse. Shared memory, document search and code intelligence for AI agents. For Claude Code, Codex, Cursor and your own agents. What Loom is for · Benchmarks · Get started · Capabilities · Integrations · Documentation Loom is an open-source, self-hosted MCP server that gives your agents long-term, shared memory: what one agent learns in a session, the next agent or tool can find. In an authenticated team deployment, each agent uses a token scoped to namespaces and read or write roles. Check shared memory and denied access . Agents connect through MCP, HTTP, Python or TypeScript. Self-host with Docker or on Kubernetes with the Helm chart ; agent context and index data live in ClickHouse , and a deployment can choose Postgres at first boot for live memory and knowledge state. The dashboard brings memories, repositories, tasks and runs into one place. Memory for a software factory. Loom gives implementation and review agents shared lessons, issue context and source provenance across sessions. Scope each principal's access with tokens, await required writes and task handoffs in your application, and recheck code-linked lessons against the current source before review. The same service supports multi-agent workflows and autonomous ",
+  "first_seen": "2026-11-21T20:04:42.473826+00:00",
+  "id": "fb39048f5c4ac06e",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-21T18:14:29+00:00",
+  "sid": "e76fa817c2806f1f",
+  "source": "hackernews_ai",
+  "summary_1line": "Loom: Shared memory, document search, and code indexing for AI agents",
+  "title": "Loom: Shared memory, document search, and code indexing for AI agents",
+  "type": "news",
+  "url": "https://github.com/ClickHouse/loom",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "e78e01ab4cdf476a": {
   "content_excerpt": "The full git history of 52 of the most-starred repositories in GitHub's AI-tooling topics (324,088 commits), checked for AI signatures, churn and what each project publishes about its own results. In the median repository, 16.9% of the commits in its last 180 days of activity carry an AI signature (13.6% over its whole history). 21 of 52 are at 25% or more and 10 at 50% or more. 38 sign at least 5% of their commits, 9 more commit instructions for coding agents while signing less, and 5 show neither signal (unknown, not “no AI”). Stars and AI-signed share show no detectable link (Spearman ρ = -0.05, p = 0.72). The ten most-starred repos range from 0% to 73.6% AI-signed. At day 180, these repos label 2.0 times as many commits as fixes (34.1% vs 17.3%), have lower churn (1.92x vs 3.77x) and keep more of the code they write (67.1% vs 41.7%), against 12 famous pre-Copilot projects. The fix share, churn and survival gaps are concentrated in the 31 projects started in 2025 or later: among them, repositories that sign at least 5% of their commits and those that sign less show no detectable difference, and the 10 repos started earlier do not differ detectably from the baseline. Heavy AI use is concentrated in the newest projects (AI share vs start date: ρ = 0.72), so this sample cannot separate AI use from recency. At one year (20 repos old enough), the fix share gap remains but the churn and survival gaps are no longer detectable. 24 repos publish a benchmark harness with committed r",
