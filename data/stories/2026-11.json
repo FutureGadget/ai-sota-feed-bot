@@ -1743,6 +1743,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.11450v1"
  },
+ "0fd95d308fe40417": {
+  "content_excerpt": "Integration choices affect how much value a business gets from Stripe. Choosing current integration patterns helps businesses access new capabilities with less custom code and can reduce future migration work. Building an integration well also means handling payment failures, subscription changes, and webhook events. As developers build with coding agents, we have observed that agents bias towards older APIs that are more prevalent in their pretraining corpus, miss key features, and hallucinate. Existing coding benchmarks don't catch this: they check whether the code passes deterministic checks, not whether the API integration is correct. We want developers building with agents to start on the best Stripe setup, and that begins with seeing where agents fall short today. So we built Stripe evals to measure that, and to identify ways to steer agents toward better integrations, through capabilities like the Stripe agent plugin . Stripe evals measure how well coding agents build high-quality integrations given realistic, well-specified scenarios driven by a roleplaying agent. We ran 69 scenarios across one-time payments, subscriptions, and Connect (marketplaces and platforms), on 14 model and harness pairs, both with and without the Stripe agent plugin. The scenarios include tasks such as building a hosted checkout, implementing metered billing, managing per-seat subscriptions, and splitting marketplace payments. The plugin helps. All 14 coding agents scored higher with it, by ro",
+  "first_seen": "2026-11-21T14:06:16.923757+00:00",
+  "id": "cbfbec53e0deea8e",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-21T13:49:40+00:00",
+  "sid": "0fd95d308fe40417",
+  "source": "hackernews_ai",
+  "summary_1line": "Stripe evals: Measuring real-world coding agent performance",
+  "title": "Stripe evals: Measuring real-world coding agent performance",
+  "type": "news",
+  "url": "https://stripe.dev/blog/stripe-integration-evals-methodology",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "0fe69ec1eb1a4f14": {
   "first_seen": "2026-11-16T03:24:13.745359+00:00",
   "id": "5a4556ca50b53d86",
@@ -5090,15 +5107,15 @@
  "2f97c84acd3e3328": {
   "content_excerpt": "Check what your AI agents actually changed. AI agent safety for databases and health records: rules decide each tool call, a check compares what really changed with what the agent reported, and each action is sealed as a signed record anyone can check offline. Run npx deedglass and a simple local app opens in your browser. Apache-2.0 core. Safety for AI agents that work on databases and health records. Rules decide each AI agent tool call; Deedglass checks what really changed and seals a record. Open source, self-hosted, every feature free. An app opens in your browser. It runs on your own computer, signed in, with no account, no sign-up and no Docker or database to set up, and nothing is sent to us. Choose who will use it (a clinic, hospital IT, or people building with AI), then connect Claude Desktop, Cursor, VS Code, a record system or a database. You need Node 18 or newer. Read Start here for a short tour, or try it without installing anything at deedglass.com/play . Without Docker, start plays the same scene inside the binary, every line labelled live or replay , in under 30 s. More: Quickstart · Docs · Policy Generator · Healthcare · Benchmarks · Security · deedglass.com Found it useful? A star helps other people find Deedglass. To hear about new releases, use Watch › Custom › Releases . Deedglass sits between AI agents and the systems they change. Rules decide each tool call, a check compares what the system really changed with what the agent reported (Claimed, Checked",
   "first_seen": "2026-11-02T15:05:21.119752+00:00",
-  "id": "807561d186203e9a",
+  "id": "b60e991fbc644474",
   "matched_topics": [
    "agent"
   ],
-  "published": "2026-11-10T15:40:34+00:00",
+  "published": "2026-11-21T12:35:28+00:00",
   "sid": "2f97c84acd3e3328",
   "source": "hackernews_ai",
-  "summary_1line": "Show HN: Deedglass – Verify AI Agent SQL Changes Using Postgres WAL",
-  "title": "Show HN: Deedglass – Verify AI Agent SQL Changes Using Postgres WAL",
+  "summary_1line": "Show HN: Why HTTP 200 is lying to your AI agents (and what Postgres did)",
+  "title": "Show HN: Why HTTP 200 is lying to your AI agents (and what Postgres did)",
   "type": "news",
   "url": "https://github.com/deedglass/deedglass",
   "why_it_matters": "Matches feed focus: agent."
@@ -8634,7 +8651,7 @@
   "published": "2026-11-17T08:58:01+00:00",
   "sid": "516cdff60d7f3f10",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: video-text-to-text. Likes: 1, downloads: 4.",
+  "summary": "New model weights from tencent on Hugging Face. Task: video-text-to-text. Likes: 1, downloads: 81.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 0, downloads: 4.",
   "title": "tencent/WeMM-Video-4B-NVFP4 released on Hugging Face",
   "type": "release",
@@ -25255,6 +25272,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.08219v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "ef67826b8d46f737": {
+  "content_excerpt": "agent-mcts: a test-time search harness that runs Monte Carlo Tree Search over coding agents such as Claude Code and Codex CLI. agent-mcts is an open-source (MIT) test-time search harness that wraps a coding agent CLI with Monte Carlo Tree Search. It is verified with Claude Code; see Supported agents for the rest. Instead of a single trajectory that either works or doesn't, your agent explores multiple solution branches, backtracks from dead ends, and concentrates budget on the most promising path. Status: v0.3. Early but real — the full loop (search → live tree → apply) works today with Claude Code. A Codex CLI adapter ships too, but so far it has only been tested against a fake codex binary. Built in the open; star the repo to follow along, or jump in — early contributors shape the architecture. Not yet, on the tasks measured so far ( bench/ , v0.3.0, Claude Code with haiku , 5-episode budget). Each answer is scored on hidden tests the agent never sees, and compared with the first attempt of the same run, which is what a single agent run would have returned. Two harder tasks (npm semver ranges, ISO 8601 durations), 10 runs per setting: An earlier, smaller measurement on three easier tasks looked better (99% with the judge against 90% for a single attempt), but there every first attempt in the judge runs already scored 98% or more, so it never tested this case. Better judging is the next thing to work on ( full report ). Production coding agents (Claude Code, Codex, Kimi, ...",
+  "first_seen": "2026-11-21T14:06:16.923757+00:00",
+  "id": "d4eadd27a896ee25",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-11-21T13:53:08+00:00",
+  "sid": "ef67826b8d46f737",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: agent-mcts – Monte Carlo tree search on top of Claude Code",
+  "title": "Show HN: agent-mcts – Monte Carlo tree search on top of Claude Code",
+  "type": "news",
+  "url": "https://github.com/natsu0529/agent-mcts",
+  "why_it_matters": "Matches feed focus: agent, claude code."
  },
  "ef90af83544e1ea4": {
   "content_excerpt": "Amazon SageMaker AI real-time endpoints now support KV cache aware routing | Artificial Intelligence Skip to Main Content Filter: All English Contact us AWS Marketplace Support My account re:Invent Discover AWS Products Solutions Pricing Resources Search Filter: All Sign in to console Create account Explore topics re:Invent 2026 The sessions are set and your seat is waiting. Register now Build & Deploy AI Agents 88% of agent pilots stall. Learn what the rest do differently Get started Sign up free, connect your coding agent, and start building Data for agentic AI The 7 essential data capabilities to scale agentic AI Analyst Report AWS named a Leader in the 2026 Gartner Magic Quadrant for SCPS AI for Small Businesses Solutions designed for your business. Delivered by AWS Partners News & announcements AWS blog About AWS AWS is the world's most comprehensive cloud, enabling organizations to accelerate innovation, reduce costs, and scale more efficiently Why AWS Getting Started Security Compliance Trust Center Sustainability Our Impact Global Infrastructure Careers Featured Products Analytics Application Integration Artificial Intelligence Business Applications Compute Customer Experience Databases Developer Tools End User Computing Game Tech Management Tools Media Services Migration & Modernization Multicloud & Hybrid Networking & Content Delivery Operations Security & Identity Storage Supply Chain Browse all products Transformation Hubs Migrate to modernize → Modernize to unloc",
