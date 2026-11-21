@@ -4,30 +4,14 @@
  "item_count": 4,
  "day_count": 4,
  "source_count": 2,
- "first_seen": "2026-10-25T17:00:00+00:00",
- "last_updated": "2026-11-11T18:18:33+00:00",
- "generated_at": "2026-11-14T00:13:06.733465+00:00",
+ "first_seen": "2026-11-01T19:37:33+00:00",
+ "last_updated": "2026-11-19T21:28:18+00:00",
+ "generated_at": "2026-11-21T00:13:05.218527+00:00",
  "sources": [
-  "hackernews_ai",
-  "infoq_ai_ml"
+  "aws_ml_blog",
+  "hackernews_ai"
  ],
  "days": [
-  {
-   "date": "2026-10-25",
-   "items": [
-    {
-     "title": "Google ML Drift Accelerates On-Device AI Inference across Diverse GPUs",
-     "url": "https://www.infoq.com/news/2026/10/google-ml-drift/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-     "source": "infoq_ai_ml",
-     "type": "news",
-     "summary_1line": "Google has released ML Drift, an open-source, cross-platform GPU compute engine designed for on-device AI and machine learning inference. Licensed under Apache 2.0, it abstracts the complexities of different GPU hardw...",
-     "why_it_matters": "Matches feed focus: agentic.",
-     "sid": "cf9ccf494a614c63",
-     "published": "2026-10-25T17:00:00+00:00",
-     "editor_note": "First-party starting point: Google releases a vendor-neutral GPU engine, scoped to on-device inference."
-    }
-   ]
-  },
   {
    "date": "2026-11-01",
    "items": [
@@ -39,7 +23,7 @@
      "summary_1line": "An inference server for AMD GPUs, in C++ and HIP",
      "sid": "3024d09a7913b631",
      "published": "2026-11-01T19:37:33+00:00",
-     "editor_note": "Independent AMD-only server in C++ and HIP; a Hacker News link with no published benchmarks."
+     "editor_note": "Starting point: an independent AMD-only server in C++ and HIP, posted to Hacker News with no published benchmarks."
     }
    ]
   },
@@ -54,7 +38,7 @@
      "summary_1line": "CUDA+ROCm dual-back ends LLM inference for mixed-vendor GPUs (up to 48% faster)",
      "sid": "fed29696ba0516e2",
      "published": "2026-11-10T02:05:11+00:00",
-     "editor_note": "Moves the thread to datacenter LLMs: one job across NVIDIA and AMD, with a self-reported speedup claim."
+     "editor_note": "Extends the thread to one LLM job across NVIDIA and AMD, with a self-reported speedup claim."
     }
    ]
   },
@@ -72,27 +56,33 @@
      "editor_note": "Adds the low-cost-GPU angle: a new engine whose \"fastest\" billing has no independent benchmark yet."
     }
    ]
+  },
+  {
+   "date": "2026-11-19",
+   "items": [
+    {
+     "title": "Amazon SageMaker AI now detects latency drift, idle GPUs, and missed optimizations on your inference endpoints",
+     "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-ai-now-detects-latency-drift-idle-gpus-and-missed-optimizations-on-your-inference-endpoints",
+     "source": "aws_ml_blog",
+     "type": "news",
+     "summary_1line": "Amazon SageMaker AI now monitors your generative AI inference endpoints by default and tells you when a change could improve performance or lower cost. It tracks latency, GPU utilization, and serving configuration, th...",
+     "sid": "735d1f9416d3ebe2",
+     "published": "2026-11-19T21:28:18+00:00",
+     "editor_note": "First managed-cloud entry: AWS turns on default monitoring for latency drift and idle GPUs on inference endpoints."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "This is a loose thread of separate projects, not one event: each tries to run inference on GPUs beyond a single high-end CUDA stack. Google opened it with ML Drift, an Apache 2.0 engine for on-device inference across GPU vendors; a C++/HIP server for AMD GPUs and a project-maya pull request for mixed CUDA+ROCm LLM inference, titled up to 48% faster, followed.",
+  "tldr": "This is a loose thread of separate projects about getting more inference out of GPUs, not one event. It began with Hacker News projects that move LLM serving off a single high-end CUDA stack: a C++/HIP server for AMD GPUs, a project-maya pull request for mixed CUDA+ROCm inference titled up to 48% faster, and Kindi, billed by its author as the fastest engine for low-cost GPUs.",
   "stale": false,
-  "whats_new": "Kindi, a software inference engine aimed at low-cost GPUs, surfaced on Hacker News billing itself as the fastest in its class; the claim is the author's own, with no independent benchmark in the thread.",
-  "why_it_matters": "Inference that runs on cheaper or non-NVIDIA GPUs gives teams leverage on hardware cost and supply, but these projects are early and every performance claim here is self-reported.",
-  "take_for_builders": "Treat these as experiments: rerun your own latency and throughput evals on low-cost, mixed, or AMD hardware before you plan capacity around them, and keep your current CUDA serving path as the fallback.",
+  "whats_new": "Amazon SageMaker AI now monitors generative AI inference endpoints by default, flagging latency drift, idle GPUs, and serving-configuration changes that could improve performance or cut cost.",
+  "why_it_matters": "GPU spend on inference is set by utilization as much as by hardware choice; SageMaker now surfaces idle capacity and latency drift by default, while the alternative-GPU engines in this thread still rest on self-reported speed claims.",
+  "take_for_builders": "On SageMaker, review the new endpoint findings for idle GPUs before you add capacity; elsewhere, rerun your own latency and throughput evals before trusting any alternative-GPU engine, and keep your CUDA serving path as the fallback.",
   "beats": [
    {
-    "kicker": "CROSS-VENDOR",
-    "tone": "launch",
-    "headline": "Google open-sources ML Drift for on-device inference across GPUs",
-    "summary": "A first-party GPU compute engine that hides vendor differences for on-device ML inference.",
-    "sids": [
-     "cf9ccf494a614c63"
-    ]
-   },
-   {
     "kicker": "AMD-NATIVE",
-    "tone": "rising",
+    "tone": "launch",
     "headline": "A C++/HIP inference server targets AMD GPUs directly",
     "summary": "A small independent project skips CUDA and writes the server against AMD's HIP API.",
     "sids": [
@@ -109,22 +99,31 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "LOW-COST",
+    "tone": "rising",
     "headline": "Kindi pitches itself as the fastest engine for low-cost GPUs",
     "summary": "The angle shifts from GPU vendor to GPU price tier; the speed claim is unverified.",
     "sids": [
      "1adc84018e934ecd"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "SageMaker AI flags latency drift and idle GPUs on inference endpoints",
+    "summary": "The focus moves from new engines to measuring how well existing GPU endpoints are used.",
+    "sids": [
+     "735d1f9416d3ebe2"
+    ]
    }
   ],
   "open_questions": [
+   "Does SageMaker's endpoint monitoring cost extra, and can its recommendations be applied automatically or only by hand?",
    "Does Kindi publish benchmarks naming the GPUs, models, and baseline engines behind its \"fastest\" claim?",
    "Does the project-maya CUDA+ROCm pull request merge, and what workload and baseline produce the 48% figure?",
    "Does an independent benchmark compare mixed NVIDIA+AMD inference against a single-vendor setup at equal cost?",
-   "Does ML Drift add server-side or LLM-scale support, or stay on-device only?",
    "Does the AMD HIP inference server publish throughput and model-support numbers against vLLM on ROCm?"
   ],
-  "generated_at": "2026-11-12T00:13:58Z"
+  "generated_at": "2026-11-21T00:12:37Z"
  }
 }

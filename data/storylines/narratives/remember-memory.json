@@ -1,0 +1,47 @@
+{
+  "slug": "remember-memory",
+  "generated_at": "2026-11-21T00:12:20Z",
+  "covers_last_updated": "2026-11-19T16:29:16+00:00",
+  "covers_member_sids": [
+    "043490c38692d4af",
+    "f48f97340f1b60b5",
+    "32373812989fabcd"
+  ],
+  "tldr": "This is a loose grouping of three independent arXiv papers on LLM agent memory, linked by topic rather than one event. It opened on Nov 3 with a paper on choosing which text memories to retrieve, then moved to memory for long-running character dialogue on Nov 12.",
+  "whats_new": "A Nov 19 paper reports deployment lessons from agents that distill memory from their own history to avoid repeat procedural failures such as mis-paginating an API or resolving the wrong entity.",
+  "why_it_matters": "Agent memory is shifting from one fixed retrieval step to a design choice about what to store and when to inject it, which affects context cost and repeat-failure rates.",
+  "beats": [
+    {
+      "kicker": "RETRIEVAL",
+      "tone": "launch",
+      "headline": "Adaptive selection of extracted text memories",
+      "summary": "Frames production agent memory as a bottleneck built from text key points pulled out of over-limit context.",
+      "sids": ["043490c38692d4af"]
+    },
+    {
+      "kicker": "DIALOGUE",
+      "tone": "rising",
+      "headline": "Mental-state-driven memory for long-term character dialogue",
+      "summary": "Argues passive semantic retrieval misses how shared history shapes a relationship.",
+      "sids": ["f48f97340f1b60b5"]
+    },
+    {
+      "kicker": "DEPLOYMENT",
+      "tone": "now",
+      "headline": "Self-distilled memory targets recurring procedural failures",
+      "summary": "Agents learn from their own trajectories, and the paper asks how much they should keep.",
+      "sids": ["32373812989fabcd"]
+    }
+  ],
+  "open_questions": [
+    "Does self-distilled memory reduce repeat failures on public long-horizon agent benchmarks, not just the authors' tasks?",
+    "At what memory size does retrieval start hurting answers instead of helping them?",
+    "Will any agent framework ship adaptive memory selection as a built-in option?"
+  ],
+  "take_for_builders": "Log your agent's recurring failures (pagination, entity resolution, unprompted answers) before adding a memory layer, so you can measure whether stored lessons actually reduce them.",
+  "day_captions": {
+    "043490c38692d4af": "Sets the starting problem: text memory extracted from overflow context is a retrieval bottleneck.",
+    "f48f97340f1b60b5": "Extends the theme from task agents to conversational memory that tracks evolving relationships.",
+    "32373812989fabcd": "Adds deployment evidence: memory learned from the agent's own history, aimed at named procedural failure modes."
+  }
+}

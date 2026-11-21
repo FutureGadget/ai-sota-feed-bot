@@ -1,45 +1,133 @@
 {
  "slug": "routing-inference",
- "label": "Routing Inference",
- "item_count": 4,
- "day_count": 4,
- "source_count": 3,
- "first_seen": "2026-10-30T16:32:47+00:00",
- "last_updated": "2026-11-18T20:13:18+00:00",
- "generated_at": "2026-11-20T00:13:34.686460+00:00",
+ "label": "Efficient Learning",
+ "item_count": 19,
+ "day_count": 12,
+ "source_count": 7,
+ "first_seen": "2026-11-01T08:46:40+00:00",
+ "last_updated": "2026-11-19T18:58:31+00:00",
+ "generated_at": "2026-11-21T00:13:05.218527+00:00",
  "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_ai",
+  "arxiv_cs_cl",
   "arxiv_cs_lg",
+  "arxiv_llm_reliability",
   "aws_ml_blog",
   "hackernews_ai"
  ],
  "days": [
   {
-   "date": "2026-10-30",
+   "date": "2026-11-01",
    "items": [
     {
-     "title": "OpenRouter rebuilt provider routing for better, faster inference",
-     "url": "https://openrouter.ai/blog/announcements/how-we-rebuilt-provider-routing",
-     "source": "hackernews_ai",
-     "type": "news",
-     "summary_1line": "OpenRouter rebuilt provider routing for better, faster inference",
-     "sid": "0e98622582a57b4b",
-     "published": "2026-10-30T16:32:47+00:00",
-     "editor_note": "OpenRouter's own account of rebuilding provider routing, the hosted-gateway end of the cluster."
+     "title": "MatMoE: Matryoshka Mixture-of-Experts with Dynamic Mixed-Precision Quantization for Efficient Inference",
+     "url": "http://arxiv.org/abs/2611.01704v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Mixture-of-Experts (MoE) architecture has been widely adopted in large language models (LLMs) since it reduces the computational cost through sparse expert activation. However, the massive parameter scale of MoE model...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "01d6db945cd3f0c2",
+     "published": "2026-11-01T08:46:40+00:00",
+     "editor_note": "Opens the cluster at the model layer: nested MoE experts with dynamic mixed-precision quantization."
     }
    ]
   },
   {
-   "date": "2026-11-07",
+   "date": "2026-11-02",
    "items": [
     {
-     "title": "Show HN: An immutable local inference appliance with routing capability",
-     "url": "https://github.com/diffsec/sibyl",
+     "title": "EffComp: Efficient Prompt Compression via Hybrid Reinforcement & Supervised Learning",
+     "url": "http://arxiv.org/abs/2611.02766v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Prompt compression is aimed at reducing input prompt lengths to enable cheaper, faster, and potentially higher-quality LLM predictions. However, existing prompt compression methods are often limited by modest compress...",
+     "sid": "473a95cd7c540d1a",
+     "published": "2026-11-02T08:46:28+00:00",
+     "editor_note": "Adds input-side savings: prompt compression trained with mixed RL and supervised learning."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-03",
+   "items": [
+    {
+     "title": "MDSKILL: Learning to Internalize Skill Memory through Multi-View Distillation for Efficient Dynamic Agent Self-Evolution",
+     "url": "http://arxiv.org/abs/2611.05313v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Skill memories encode past experiences as textual prompts to improve reinforcement learning (RL) for self-evolving agents. Complementing RL, On-Policy Self-Distillation (OPSD) provides dense, fine-grained supervision...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "219537f3fa2b3690",
+     "published": "2026-11-03T18:19:55+00:00",
+     "editor_note": "First agent-layer item: distills textual skill memory into weights for self-evolving agents."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-06",
+   "items": [
+    {
+     "title": "Supercharging XLA-Based Inference: Announcing the Launch of XLA Serving Engine",
+     "url": "https://opensource.googleblog.com/2026/11/supercharging-xla-inference-xla-serving-engine.html",
      "source": "hackernews_ai",
      "type": "news",
-     "summary_1line": "Hey HN I’ve been working on a little side project after spending a bunch of time customising my inference stack at home. I figured it’d be nice to have something relatively portable, easily maintainable and configurable through a UI. It’s early days, there is built support for Vu",
-     "sid": "e58d58fddbc120e8",
-     "published": "2026-11-07T23:44:33+00:00",
-     "editor_note": "Adds the self-hosted angle: an early-stage, UI-configured local inference appliance that includes routing."
+     "summary_1line": "Supercharging XLA-Based Inference: Announcing the Launch of XLA Serving Engine",
+     "sid": "9b6ce22e2f29b264",
+     "published": "2026-11-06T15:21:03+00:00",
+     "editor_note": "Google's open-source launch of an XLA-based serving engine, the one new serving product in the set."
+    },
+    {
+     "title": "Intent-Aware Caching for Efficient LLM Serving",
+     "url": "http://arxiv.org/abs/2611.09715v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Modern LLM serving systems use prefix caching to accelerate multi-turn conversational workloads. They cache the key-value states of previous conversation prefixes and reuse them when subsequent requests share the same...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "e5680f897e15540f",
+     "published": "2026-11-06T16:56:48+00:00",
+     "editor_note": "First KV-cache paper: caches prefixes by conversational intent rather than exact prefix match."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-08",
+   "items": [
+    {
+     "title": "Verify Before You Fetch: Reliable KV Cache Compression for LLM Inference",
+     "url": "http://arxiv.org/abs/2611.11319v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Long-context applications, long-lived agents, and multi-agent systems require large language models (LLMs) to process and retain extensive information. In these settings, the KV cache can exceed GPU high-bandwidth mem...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "5bfc543d91bf8d2a",
+     "published": "2026-11-08T11:43:34+00:00",
+     "editor_note": "Targets KV caches that overflow GPU memory in long-lived agents, verifying before fetching offloaded entries."
+    },
+    {
+     "title": "D3Tree: Learning to Prune Block-Diffusion Draft Trees for Efficient Verification",
+     "url": "http://arxiv.org/abs/2611.11371v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Block-diffusion drafters propose a whole block of tokens in one forward pass, and draft trees built from their position-wise marginals increase the expected accepted length of speculative decoding. Every tree node occupies a query row in target verification, so under concurrent s",
+     "sid": "a4e942d0f147f07c",
+     "published": "2026-11-08T13:29:14+00:00",
+     "editor_note": "Speculative decoding: learns to prune block-diffusion draft trees so verification costs less under concurrency."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "BridgeKV: Large-Model Prefill and Small-Model Decoding for LLM Inference via KV Cache Translation",
+     "url": "http://arxiv.org/abs/2611.11761v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "LLM inference has two phases with different bottlenecks: LLM prefill runs once per request and is compute-intensive. Decoding repeats for every output token and is limited by memory bandwidth. To address the challenge...",
+     "sid": "adc7ff27af4b9288",
+     "published": "2026-11-09T02:03:03+00:00",
+     "editor_note": "Splits phases across models: a large model prefills, a small one decodes, bridged by KV translation."
     }
    ]
   },
@@ -55,13 +143,100 @@
      "why_it_matters": "Matches feed focus: evaluation.",
      "sid": "d7a4f91e59e352a3",
      "published": "2026-11-10T18:32:28+00:00",
-     "editor_note": "Adds the research angle: routing as input reduction for vision-language models, combining cropping and compression."
+     "editor_note": "Input reduction for VLMs: complementary cropping and compression for visual question answering."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-12",
+   "items": [
+    {
+     "title": "From Delegation to Coordination: Learning Efficient Multi-Agent Deep Research",
+     "url": "http://arxiv.org/abs/2611.17041v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Multi-agent deep-research systems use delegation to parallelize search and keep long tool traces out of the main agent's context. Yet delegation helps only when task allocation and subtask execution are coordinated: t...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "e267de687efb45c3",
+     "published": "2026-11-12T16:26:27+00:00",
+     "editor_note": "Agent-layer: coordinated task allocation to make multi-agent deep research cheaper than naive delegation."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-15",
+   "items": [
+    {
+     "title": "The efficient frontier of LLM inference",
+     "url": "https://www.baseten.co/blog/the-efficient-frontier-of-llm-inference/#quantization",
+     "source": "hackernews_ai",
+     "type": "news",
+     "sid": "018ac20c79d4eeba",
+     "published": "2026-11-15T23:55:50+00:00",
+     "editor_note": "Baseten's practitioner overview of inference trade-offs, including quantization."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-17",
+   "items": [
+    {
+     "title": "Communicate the Change: Efficient Expert Parallelism via Activation Compression",
+     "url": "http://arxiv.org/abs/2611.22215v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Scaling has driven the success of large language models (LLM), with sparse mixture-of-experts (MoE) architectures enabling greater parameter capacity without a proportional increase in computation. At large scales, Mo...",
+     "sid": "dec4d075135f7b7e",
+     "published": "2026-11-17T04:52:41+00:00",
+     "editor_note": "Cuts MoE expert-parallel communication by sending activation changes instead of full activations."
+    },
+    {
+     "title": "TokenEconomizer: Learning from Experience to Make AI Coding Agents Efficient",
+     "url": "https://www.microsoft.com/en-us/research/blog/tokeneconomizer-learning-from-experience-to-make-ai-coding-agents-more-efficient",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "TokenEconomizer: Learning from Experience to Make AI Coding Agents Efficient",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "60d6d445e0dacc9d",
+     "published": "2026-11-17T06:53:51+00:00",
+     "editor_note": "Microsoft Research on coding agents that learn from past runs to spend fewer tokens."
+    },
+    {
+     "title": "Storing the Gemma 4 K=V Cache Once: Exact Global-KV Memory Savings in a Paged Serving Engine with Unchanged Attention Kernels",
+     "url": "http://arxiv.org/abs/2611.23035v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "In the global attention layers of Gemma 4 31B, the value is the normalized key projection, and the key is the value scaled by a fixed weight, with rotary position encoding on one quarter of its dimensions. The Gemma 4 report states that this design reduces the global KV cache by",
+     "sid": "a2babe4c488b1701",
+     "published": "2026-11-17T16:36:28+00:00",
+     "editor_note": "Exploits Gemma 4's tied key/value design to store the global KV cache once without changing attention kernels."
     }
    ]
   },
   {
    "date": "2026-11-18",
    "items": [
+    {
+     "title": "Murmur: Efficient Long-Context ASR Inference with Hierarchical Chunking",
+     "url": "https://syfi.cs.washington.edu/blog/2026-11-13-murmur",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Murmur: Efficient Long-Context ASR Inference with Hierarchical Chunking",
+     "sid": "dc09546d23d7229e",
+     "published": "2026-11-18T06:40:34+00:00",
+     "editor_note": "Extends input reduction to speech: hierarchical chunking for long-context ASR inference."
+    },
+    {
+     "title": "LEDGE: An Efficient Simulator for Distributed LLM Serving on Heterogeneous Edge Devices",
+     "url": "http://arxiv.org/abs/2611.24085v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Evaluating distributed large language model (LLM) serving on heterogeneous edge devices requires exploring diverse model partitions, device placements, and network conditions, making repeated physical experiments cost...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "791a1b16a3fdcbe1",
+     "published": "2026-11-18T09:11:43+00:00",
+     "editor_note": "A simulator for planning distributed LLM serving across heterogeneous edge devices without physical test runs."
+    },
     {
      "title": "How Salesforce is advancing global-scale model serving with cross-Region inference routing in Amazon SageMaker AI",
      "url": "https://aws.amazon.com/blogs/machine-learning/how-salesforce-is-advancing-global-scale-model-serving-with-cross-region-inference-routing-in-amazon-sagemaker-ai",
@@ -70,61 +245,111 @@
      "summary_1line": "Learn how Salesforce uses the cross-Region inference router in Amazon SageMaker AI to turn fragmented Regional capacity into reliable model serving. Salesforce adds capacity securely across Regions and accounts while...",
      "sid": "a272cda257e80f9a",
      "published": "2026-11-18T20:13:18+00:00",
-     "editor_note": "Adds the capacity angle: an AWS case study of Salesforce routing SageMaker AI inference across Regions and accounts."
+     "editor_note": "AWS case study: Salesforce pools fragmented Regional capacity with SageMaker AI cross-Region routing."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-19",
+   "items": [
+    {
+     "title": "RoCoKV: Accelerating LLM Inference Serving through Uncertainty and Redundancy Aware KV Cache Compression",
+     "url": "http://arxiv.org/abs/2611.25433v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "KV cache compression is critical for large reasoning models, where most of the cost comes from long generated reasoning traces rather than the input prompt. These traces often contain redundant and low-utility tokens...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "a20d3952433df237",
+     "published": "2026-11-19T03:16:18+00:00",
+     "editor_note": "KV compression aimed at long reasoning traces, pruning redundant, low-utility generated tokens."
+    },
+    {
+     "title": "TideCache: Efficient Hybrid LLM Serving with Transparent Cache Management and Layer-Wise Streaming",
+     "url": "http://arxiv.org/abs/2611.26619v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Hybrid architectures have become mainstream among open-weight language models. Their global-attention and bounded-state layers maintain heterogeneous caches whose demands vary with context length and concurrency. We p...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "024d4dfaa92472bb",
+     "published": "2026-11-19T18:58:31+00:00",
+     "editor_note": "Latest item: transparent cache management and layer-wise streaming for hybrid-attention models."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This is a loose topical cluster, not one event: four independent items that each use \"routing\" to cut inference cost, latency or capacity risk at a different layer. OpenRouter rebuilt provider routing on Oct 30, a Show HN introduced the Sibyl local appliance on Nov 7, and the C²-Routing paper applied routing to VLM inputs on Nov 10.",
+  "tldr": "This is a loose topical cluster, not one event: 19 independent items from Nov 1 to Nov 19 that each cut inference or agent cost at a different layer. Most are arXiv papers; the rest are engineering posts from Google (XLA Serving Engine), Baseten, Microsoft Research, UW and AWS.",
   "stale": false,
-  "whats_new": "AWS describes how Salesforce uses the SageMaker AI cross-Region inference router (Nov 18) to pool fragmented Regional capacity, adding capacity across Regions and accounts for reliable model serving.",
-  "why_it_matters": "\"Routing\" now names four separate levers (which provider serves a request, which local backend runs it, how much input reaches the model, and which Region has capacity), and each is tuned, evaluated and failed over differently.",
-  "take_for_builders": "Treat these as four independent decisions. If you serve on SageMaker AI and hit Regional capacity limits, check cross-Region routing against your data-residency rules and measure the added latency; re-measure OpenRouter traffic after its routing rebuild.",
+  "whats_new": "Two Nov 19 papers target the KV cache again: RoCoKV compresses redundant tokens in long reasoning traces, and TideCache manages the mixed caches of hybrid-attention open-weight models with layer-wise streaming.",
+  "why_it_matters": "KV-cache memory is the most-attacked bottleneck in this set (6 of 19 items), so cache policy, not raw FLOPs, is where serving cost and long-context agent capacity are being won or lost.",
+  "take_for_builders": "If long-context or reasoning workloads are memory-bound, profile KV-cache size per request before buying GPUs; on Gemma 4 or hybrid-attention models, check whether your serving engine already exploits their cache structure.",
   "beats": [
    {
-    "kicker": "GATEWAY",
-    "tone": "launch",
-    "headline": "OpenRouter rebuilds provider routing for better, faster inference",
-    "summary": "Routing at the hosted-gateway layer: choosing which provider serves a request.",
-    "sids": [
-     "0e98622582a57b4b"
-    ]
-   },
-   {
-    "kicker": "LOCAL",
+    "kicker": "MODEL",
     "tone": "neutral",
-    "headline": "Sibyl packages a local inference stack as an immutable appliance with routing",
-    "summary": "A solo side project, described by its author as early days, that puts routing in a portable self-hosted box configured through a UI.",
+    "headline": "MoE quantization, expert-parallel compression and speculative decoding",
+    "summary": "Efficiency inside the model and decode loop: fewer bits, less all-to-all traffic, cheaper draft verification.",
     "sids": [
-     "e58d58fddbc120e8"
+     "01d6db945cd3f0c2",
+     "a4e942d0f147f07c",
+     "018ac20c79d4eeba",
+     "dec4d075135f7b7e"
     ]
    },
    {
-    "kicker": "RESEARCH",
+    "kicker": "INPUT",
     "tone": "neutral",
-    "headline": "C²-Routing applies routing to VLM inputs: cropping plus compression",
-    "summary": "A paper on model-agnostic input reduction for visual question answering, unrelated to the products around it.",
+    "headline": "Shrink what reaches the model: prompts, images and audio",
+    "summary": "Input reduction across three modalities: prompt compression, VLM cropping plus compression, and chunked long-audio ASR.",
     "sids": [
-     "d7a4f91e59e352a3"
+     "473a95cd7c540d1a",
+     "d7a4f91e59e352a3",
+     "dc09546d23d7229e"
     ]
    },
    {
-    "kicker": "CAPACITY",
-    "tone": "now",
-    "headline": "Salesforce routes SageMaker AI inference across Regions and accounts",
-    "summary": "A vendor case study on routing for capacity: spreading model serving across AWS Regions when one Region runs short.",
+    "kicker": "AGENTS",
+    "tone": "neutral",
+    "headline": "Agent-level efficiency: distilled skills, coordinated delegation, token budgets",
+    "summary": "Cost cuts at the agent layer rather than the serving stack.",
     "sids": [
+     "219537f3fa2b3690",
+     "e267de687efb45c3",
+     "60d6d445e0dacc9d"
+    ]
+   },
+   {
+    "kicker": "SERVING",
+    "tone": "neutral",
+    "headline": "Serving stacks: XLA Serving Engine, edge simulation, cross-Region routing",
+    "summary": "Infrastructure that decides where and on what hardware requests run.",
+    "sids": [
+     "9b6ce22e2f29b264",
+     "791a1b16a3fdcbe1",
      "a272cda257e80f9a"
+    ]
+   },
+   {
+    "kicker": "KV CACHE",
+    "tone": "now",
+    "headline": "The KV cache becomes the main target",
+    "summary": "Six papers attack cache memory: intent-aware prefix reuse, verified compression, prefill/decode KV translation, Gemma 4 shared K=V storage, reasoning-trace compression, and hybrid-model cache streaming.",
+    "sids": [
+     "e5680f897e15540f",
+     "5bfc543d91bf8d2a",
+     "adc7ff27af4b9288",
+     "a2babe4c488b1701",
+     "a20d3952433df237",
+     "024d4dfaa92472bb"
     ]
    }
   ],
   "open_questions": [
-   "Does OpenRouter publish latency or success-rate numbers that quantify the rebuilt provider routing?",
-   "Does Sibyl's routing select among local models and backends only, or can it also fall back to hosted providers?",
-   "How much accuracy does C²-Routing give up for its input reduction, and does the result hold across VLMs beyond those the paper tests?",
-   "What added latency and data-residency constraints come with SageMaker AI cross-Region routing, and does AWS publish failover numbers beyond the Salesforce account?"
+   "Do any of the KV-cache methods (RoCoKV, TideCache, Verify Before You Fetch) land in vLLM, SGLang or another mainstream serving engine?",
+   "Does the Gemma 4 store-K=V-once trick ship in a paged serving engine release, and with what measured memory savings?",
+   "Does Google publish throughput or latency benchmarks for XLA Serving Engine against vLLM on the same hardware?",
+   "Does TokenEconomizer report a token or cost reduction on a public coding-agent benchmark?"
   ],
-  "generated_at": "2026-11-19T00:12:35Z"
+  "generated_at": "2026-11-21T00:12:24Z"
  }
 }

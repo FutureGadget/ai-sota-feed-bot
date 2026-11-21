@@ -1,0 +1,104 @@
+{
+ "slug": "inference-across",
+ "label": "Inference Across",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-11-17T23:56:20+00:00",
+ "last_updated": "2026-11-20T22:35:24+00:00",
+ "generated_at": "2026-11-21T00:13:05.218527+00:00",
+ "sources": [
+  "arxiv_cs_lg",
+  "aws_ml_blog",
+  "hackernews_ai"
+ ],
+ "days": [
+  {
+   "date": "2026-11-17",
+   "items": [
+    {
+     "title": "Show HN: Shard – Distributed AI Inference Across Multiple Computers",
+     "url": "https://github.com/avelone123123/shard",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Show HN: Shard – Distributed AI Inference Across Multiple Computers",
+     "sid": "7f9324af008a569c",
+     "published": "2026-11-17T23:56:20+00:00",
+     "editor_note": "Hobbyist end of the theme: pooling commodity machines for one model."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-18",
+   "items": [
+    {
+     "title": "Cap-and-Track: Optimizing LLM Inference Request Dispatch Across Shifting Capacity",
+     "url": "http://arxiv.org/abs/2611.24891v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "A fixed dispatch rate for LLM inference becomes stale as serving fleets resize and request sizes change. Generative output length is unknown at admission, and shared provider pools can lose capacity. We present Cap-an...",
+     "sid": "369674385192a647",
+     "published": "2026-11-18T18:34:10+00:00",
+     "editor_note": "Research view of the same problem: dispatch that tracks shrinking or growing capacity."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-20",
+   "items": [
+    {
+     "title": "Introducing Amazon SageMaker HyperPod Global Inference Gateway: One endpoint across Regions and clusters",
+     "url": "https://aws.amazon.com/blogs/machine-learning/introducing-amazon-sagemaker-hyperpod-global-inference-gateway-one-endpoint-across-regions-and-clusters",
+     "source": "aws_ml_blog",
+     "type": "news",
+     "summary_1line": "Amazon SageMaker HyperPod introduces the Global Inference Gateway, one managed endpoint that routes inference requests across your HyperPod clusters in one Region or across Regions. It picks the best cluster, fails ov...",
+     "sid": "d5bec1fa3b07f617",
+     "published": "2026-11-20T22:35:24+00:00",
+     "editor_note": "Managed-cloud version: a single AWS endpoint with cross-cluster and cross-Region failover."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a loose grouping, not one event: three unrelated items from a hobby project, an arXiv paper and AWS share one theme, routing LLM inference across more than one pool of compute. It began with Shard, a Show HN project that splits inference across several computers, and continued with Cap-and-Track, a paper on dispatching requests when fleet capacity shifts.",
+  "stale": false,
+  "whats_new": "AWS launched the SageMaker HyperPod Global Inference Gateway, one managed endpoint that routes requests across HyperPod clusters in one Region or several and fails over between them.",
+  "why_it_matters": "Multi-cluster and multi-Region routing is moving from custom load-balancer code into managed gateways, so capacity-aware dispatch and failover become things you configure, not build.",
+  "take_for_builders": "If you run HyperPod in more than one cluster or Region, compare the gateway's failover behavior against your own router before you retire it; elsewhere, check that your dispatcher adapts its rate when capacity drops.",
+  "beats": [
+   {
+    "kicker": "DIY",
+    "tone": "launch",
+    "headline": "Shard splits inference across several ordinary computers",
+    "summary": "An open-source Show HN project pools machines you already own for one model.",
+    "sids": [
+     "7f9324af008a569c"
+    ]
+   },
+   {
+    "kicker": "RESEARCH",
+    "tone": "rising",
+    "headline": "Cap-and-Track replaces fixed dispatch rates as serving capacity shifts",
+    "summary": "The paper targets fleets that resize, unknown output lengths at admission, and shared pools that lose capacity.",
+    "sids": [
+     "369674385192a647"
+    ]
+   },
+   {
+    "kicker": "MANAGED",
+    "tone": "now",
+    "headline": "AWS ships one inference endpoint across HyperPod clusters and Regions",
+    "summary": "The gateway picks a cluster per request and fails over when one is unavailable.",
+    "sids": [
+     "d5bec1fa3b07f617"
+    ]
+   }
+  ],
+  "open_questions": [
+   "What latency and cost does the HyperPod gateway add per request compared with a direct cluster endpoint?",
+   "Does the HyperPod gateway route on live queue depth or capacity, or only on static weights and health checks?",
+   "Will Cap-and-Track's dispatch method appear in an open-source serving router such as vLLM or SGLang?"
+  ],
+  "generated_at": "2026-11-21T00:12:20Z"
+ }
+}

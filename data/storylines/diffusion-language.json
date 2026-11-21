@@ -1,96 +1,86 @@
 {
  "slug": "diffusion-language",
- "label": "Efficient Learning",
- "item_count": 13,
- "day_count": 11,
- "source_count": 6,
- "first_seen": "2026-10-30T16:17:43+00:00",
- "last_updated": "2026-11-18T06:40:34+00:00",
- "generated_at": "2026-11-19T00:13:28.317875+00:00",
+ "label": "Diffusion Language",
+ "item_count": 9,
+ "day_count": 7,
+ "source_count": 3,
+ "first_seen": "2026-11-03T15:28:11+00:00",
+ "last_updated": "2026-11-19T15:40:24+00:00",
+ "generated_at": "2026-11-21T00:13:05.218527+00:00",
  "sources": [
-  "arxiv_agent_systems_research",
   "arxiv_cs_ai",
   "arxiv_cs_cl",
-  "arxiv_cs_lg",
-  "arxiv_llm_reliability",
-  "hackernews_ai"
+  "arxiv_llm_reliability"
  ],
  "days": [
-  {
-   "date": "2026-10-30",
-   "items": [
-    {
-     "title": "Prune Gradually, Adapt Sparsely: Efficient Pruning of Large Language Models at Extreme Sparsity",
-     "url": "http://arxiv.org/abs/2610.41968v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "Weight pruning can reduce the storage and inference cost of large language models (LLMs), but preserving quality at high sparsity levels remains challenging. Existing methods face a quality-cost trade-off in this regi...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "a8a5f23cd8e10643",
-     "published": "2026-10-30T16:17:43+00:00",
-     "editor_note": "Starting point: gradual pruning with sparse adaptation to hold LLM quality at extreme sparsity."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-01",
-   "items": [
-    {
-     "title": "MatMoE: Matryoshka Mixture-of-Experts with Dynamic Mixed-Precision Quantization for Efficient Inference",
-     "url": "http://arxiv.org/abs/2611.01704v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Mixture-of-Experts (MoE) architecture has been widely adopted in large language models (LLMs) since it reduces the computational cost through sparse expert activation. However, the massive parameter scale of MoE model...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "01d6db945cd3f0c2",
-     "published": "2026-11-01T08:46:40+00:00",
-     "editor_note": "Adds MoE-specific compression: nested experts with dynamic mixed-precision quantization."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-02",
-   "items": [
-    {
-     "title": "EffComp: Efficient Prompt Compression via Hybrid Reinforcement & Supervised Learning",
-     "url": "http://arxiv.org/abs/2611.02766v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Prompt compression is aimed at reducing input prompt lengths to enable cheaper, faster, and potentially higher-quality LLM predictions. However, existing prompt compression methods are often limited by modest compress...",
-     "sid": "473a95cd7c540d1a",
-     "published": "2026-11-02T08:46:28+00:00",
-     "editor_note": "Moves compression to the input: prompt compression trained with a hybrid of RL and supervised learning."
-    }
-   ]
-  },
   {
    "date": "2026-11-03",
    "items": [
     {
-     "title": "MDSKILL: Learning to Internalize Skill Memory through Multi-View Distillation for Efficient Dynamic Agent Self-Evolution",
-     "url": "http://arxiv.org/abs/2611.05313v1",
-     "source": "arxiv_cs_cl",
+     "title": "VIGOR: Visual Gain Ordering for Hallucination Mitigation in Multimodal Discrete Diffusion Language Models",
+     "url": "http://arxiv.org/abs/2611.05066v1",
+     "source": "arxiv_llm_reliability",
      "type": "paper",
-     "summary_1line": "Skill memories encode past experiences as textual prompts to improve reinforcement learning (RL) for self-evolving agents. Complementing RL, On-Policy Self-Distillation (OPSD) provides dense, fine-grained supervision...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "219537f3fa2b3690",
-     "published": "2026-11-03T18:19:55+00:00",
-     "editor_note": "First agent-side item: distills textual skill memory into the model instead of carrying it as prompts."
+     "summary_1line": "Multimodal discrete diffusion language models (dLLMs) generate responses through iterative mask prediction and offer a promising alternative to autoregressive large vision-language models. However, they still suffer f...",
+     "sid": "57b08f9866a26766",
+     "published": "2026-11-03T15:28:11+00:00",
+     "editor_note": "Starting point: a reliability problem, hallucination in multimodal discrete diffusion LMs, mitigated by ordering mask predictions by visual gain."
     }
    ]
   },
   {
-   "date": "2026-11-08",
+   "date": "2026-11-05",
    "items": [
     {
-     "title": "D3Tree: Learning to Prune Block-Diffusion Draft Trees for Efficient Verification",
-     "url": "http://arxiv.org/abs/2611.11371v1",
-     "source": "arxiv_cs_lg",
+     "title": "Measured Coupling for Parallel Decoding in Diffusion Language Models",
+     "url": "http://arxiv.org/abs/2611.08307v1",
+     "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "Block-diffusion drafters propose a whole block of tokens in one forward pass, and draft trees built from their position-wise marginals increase the expected accepted length of speculative decoding. Every tree node occupies a query row in target verification, so under concurrent s",
-     "sid": "a4e942d0f147f07c",
-     "published": "2026-11-08T13:29:14+00:00",
-     "editor_note": "Diffusion meets speculative decoding: learns to prune block-diffusion draft trees, since every node costs a verification row on the target."
+     "summary_1line": "Diffusion language models can write many tokens per step, but must choose which tokens are safe to commit together. Mean-field decoding penalizes pairs of positions whose predictions look alike. We replace this proxy with the coupling itself: how much committing one token changes",
+     "sid": "0491c6de7a511fb5",
+     "published": "2026-11-05T17:10:03+00:00",
+     "editor_note": "Shifts to parallel decoding: measures how committing one token changes another instead of using a mean-field similarity proxy."
+    },
+    {
+     "title": "SpecCTMC: Exact Speculative Simulation of Diffusion Language Model Continuous-Time Markov Chains",
+     "url": "http://arxiv.org/abs/2611.08362v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Masked diffusion language models offer parallel text generation, but independently sampling multiple tokens can disrupt their dependencies and change the output distribution. Exact continuous-time sampling avoids this...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "2fb1a0f31494270f",
+     "published": "2026-11-05T17:41:20+00:00",
+     "editor_note": "Same question, exact answer: speculative simulation of the continuous-time Markov chain so parallel sampling keeps the output distribution."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-06",
+   "items": [
+    {
+     "title": "DUET: Dual-Sparse Inference for Block Diffusion Language Models",
+     "url": "http://arxiv.org/abs/2611.09239v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Diffusion language models (DLMs) enable parallel token generation through iterative denoising, yet their inference remains costly due to repeated attention over a growing historical prefix and repeated processing of the entire current generation block. Historical attention become",
+     "sid": "5fbc35eb022e4033",
+     "published": "2026-11-06T09:59:42+00:00",
+     "editor_note": "First block-diffusion cost paper: sparsifies both historical-prefix attention and current-block processing."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-09",
+   "items": [
+    {
+     "title": "DForkTree: Accelerating Speculative Decoding with Fork-Aware Block Diffusion Draft Trees",
+     "url": "http://arxiv.org/abs/2611.12356v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Speculative decoding speeds up language models by letting a lightweight drafter propose several future tokens that the target model verifies in parallel. Block diffusion drafters such as DFlash draft a whole block in one forward pass, and DDTree builds a draft tree from their per",
+     "sid": "0aacbce5f85ac122",
+     "published": "2026-11-09T13:06:52+00:00",
+     "editor_note": "Uses block diffusion as a drafter: fork-aware draft trees for speculative decoding of a target model."
     }
    ]
   },
@@ -107,17 +97,6 @@
      "sid": "ca0cd6bcfdb70098",
      "published": "2026-11-10T17:40:24+00:00",
      "editor_note": "Overlaps denoising blocks so block diffusion LMs stop paying latency at block boundaries."
-    },
-    {
-     "title": "C$^2$-Routing: Complementary Cropping and Compression for Efficient Vision-Language Inference",
-     "url": "http://arxiv.org/abs/2611.14469v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Visual Question Answering (VQA) imposes substantial computational overhead on vision-language models (VLMs), motivating model-agnostic input reduction methods that can be readily applied across diverse VLMs, including...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "d7a4f91e59e352a3",
-     "published": "2026-11-10T18:32:28+00:00",
-     "editor_note": "Extends input reduction to vision-language models with model-agnostic cropping and compression."
     }
    ]
   },
@@ -125,151 +104,101 @@
    "date": "2026-11-12",
    "items": [
     {
-     "title": "From Delegation to Coordination: Learning Efficient Multi-Agent Deep Research",
-     "url": "http://arxiv.org/abs/2611.17041v1",
-     "source": "arxiv_cs_ai",
+     "title": "Learning When Diffusion Language Models Should Regenerate",
+     "url": "http://arxiv.org/abs/2611.17320v1",
+     "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "Multi-agent deep-research systems use delegation to parallelize search and keep long tool traces out of the main agent's context. Yet delegation helps only when task allocation and subtask execution are coordinated: t...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "e267de687efb45c3",
-     "published": "2026-11-12T16:26:27+00:00",
-     "editor_note": "Argues multi-agent deep research wastes compute unless delegation and subtask execution are coordinated."
+     "summary_1line": "Remasking allows diffusion language models to revisit generated text, but effective correction requires knowing when and what to revise. Our diagnosis on Sudoku reveals two gaps. Hidden states contain error information that token confidence does not reliably expose, and remasking",
+     "sid": "679b2c4e802619e6",
+     "published": "2026-11-12T18:58:50+00:00",
+     "editor_note": "Turns to self-correction: hidden states expose errors that token confidence misses, so a learned signal decides when to remask."
     }
    ]
   },
   {
-   "date": "2026-11-15",
+   "date": "2026-11-19",
    "items": [
     {
-     "title": "The efficient frontier of LLM inference",
-     "url": "https://www.baseten.co/blog/the-efficient-frontier-of-llm-inference/#quantization",
-     "source": "hackernews_ai",
-     "type": "news",
-     "sid": "018ac20c79d4eeba",
-     "published": "2026-11-15T23:55:50+00:00",
-     "editor_note": "Vendor view: a Baseten post on the efficiency frontier of LLM inference, surfaced via Hacker News."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-16",
-   "items": [
-    {
-     "title": "Nemotron 3.5 Bolt E4B 4GB: An Open and Efficient Small Language Model for Fast Conversational Agents",
-     "url": "http://arxiv.org/abs/2611.20771v1",
-     "source": "arxiv_agent_systems_research",
+     "title": "One Schedule Does Not Fit All: Adaptive Inference Schedules for Diffusion Language Models",
+     "url": "http://arxiv.org/abs/2611.25895v1",
+     "source": "arxiv_cs_cl",
      "type": "paper",
-     "summary_1line": "We introduce Nemotron 3.5 Bolt E4B 4GB, an open and efficient small language model further post-trained from Gemma-4-E4B-it and optimized for speed and intelligence per GB of memory used for fast conversational agents...",
-     "why_it_matters": "Matches feed focus: agentic.",
-     "sid": "15de4f547fb7e7f3",
-     "published": "2026-11-16T09:21:45+00:00",
-     "editor_note": "A shipped artifact: an open 4GB small model post-trained from Gemma-4-E4B-it for fast conversational agents."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-17",
-   "items": [
-    {
-     "title": "Communicate the Change: Efficient Expert Parallelism via Activation Compression",
-     "url": "http://arxiv.org/abs/2611.22215v1",
-     "source": "arxiv_cs_lg",
-     "type": "paper",
-     "summary_1line": "Scaling has driven the success of large language models (LLM), with sparse mixture-of-experts (MoE) architectures enabling greater parameter capacity without a proportional increase in computation. At large scales, Mo...",
-     "sid": "dec4d075135f7b7e",
-     "published": "2026-11-17T04:52:41+00:00",
-     "editor_note": "Targets the serving bottleneck of large MoE models: compresses activations to cut expert-parallel communication."
+     "summary_1line": "Diffusion language models typically use a fixed denoising schedule across workloads. We show that the cheapest schedule that preserves quality depends on the task, model, and sampler. We propose Task-Calibrated Denois...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "cbe67172baf08ac4",
+     "published": "2026-11-19T10:47:26+00:00",
+     "editor_note": "Shows the cheapest quality-preserving schedule depends on task, model and sampler, and calibrates it per workload."
     },
     {
-     "title": "TokenEconomizer: Learning from Experience to Make AI Coding Agents Efficient",
-     "url": "https://www.microsoft.com/en-us/research/blog/tokeneconomizer-learning-from-experience-to-make-ai-coding-agents-more-efficient",
-     "source": "hackernews_ai",
-     "type": "news",
-     "summary_1line": "TokenEconomizer: Learning from Experience to Make AI Coding Agents Efficient",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "60d6d445e0dacc9d",
-     "published": "2026-11-17T06:53:51+00:00",
-     "editor_note": "Microsoft Research has coding agents learn from experience to spend fewer tokens."
-    }
-   ]
-  },
-  {
-   "date": "2026-11-18",
-   "items": [
-    {
-     "title": "Murmur: Efficient Long-Context ASR Inference with Hierarchical Chunking",
-     "url": "https://syfi.cs.washington.edu/blog/2026-11-13-murmur",
-     "source": "hackernews_ai",
-     "type": "news",
-     "summary_1line": "Murmur: Efficient Long-Context ASR Inference with Hierarchical Chunking",
-     "sid": "dc09546d23d7229e",
-     "published": "2026-11-18T06:40:34+00:00",
-     "editor_note": "Newest: carries the efficiency theme to speech, with hierarchical chunking for long-context ASR inference."
+     "title": "dLoop: Looped Diffusion Language Models via Recurrent Latent Refinement",
+     "url": "http://arxiv.org/abs/2611.26275v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Diffusion language models (DLMs) support parallel generation, yet they often require many denoising steps because only a fraction of token predictions are sufficiently reliable to be committed at each step. Existing a...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "a8a16da3f476938c",
+     "published": "2026-11-19T15:40:24+00:00",
+     "editor_note": "Newest: recurrent latent refinement so more token predictions become reliable enough to commit at each step."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "This is a loose cluster of independent inference-efficiency work, not one event. It opened Oct 30 with pruning, MoE quantization and prompt compression, added block-diffusion decoding papers Nov 8-10, then shifted to vendor posts and agent-side token spend by Nov 15-17.",
+  "tldr": "This thread is now a run of independent arXiv papers on diffusion language models, not one event or vendor launch. It opened Nov 3 with hallucination in multimodal dLLMs, moved to which tokens can be committed in parallel (Nov 5), then to block-diffusion inference cost and speculative drafting (Nov 6-10).",
   "stale": false,
-  "whats_new": "A University of Washington post (Nov 18) introduces Murmur, which uses hierarchical chunking to speed long-context speech recognition inference, a day after a paper that compresses activations to cut MoE expert-parallel communication.",
-  "why_it_matters": "Inference cost is now attacked at every layer at once: model weights, MoE communication, decoding, prompts, agent token spend, and non-text workloads like long audio.",
-  "take_for_builders": "Log tokens per completed agent task and GPU-seconds per audio hour before adopting any of these methods, so each claimed saving can be measured against your own baseline; do not plan capacity around diffusion LLMs yet.",
+  "whats_new": "Two Nov 19 papers attack the denoising step count directly: one calibrates the cheapest schedule per task, model and sampler instead of using one fixed schedule, and dLoop refines latents recurrently to commit more tokens per step.",
+  "why_it_matters": "The open problem for diffusion LMs has shifted from \"can they generate in parallel\" to \"how many denoising steps does a given workload really need\", which is the number that sets their serving latency and cost.",
+  "take_for_builders": "Do not plan capacity around diffusion LMs yet; if you evaluate one, record denoising steps per request and quality per task, because the schedule papers show the cheapest safe step count varies by workload.",
   "beats": [
    {
-    "kicker": "COMPRESSION",
+    "kicker": "RELIABILITY",
     "tone": "launch",
-    "headline": "Pruning, MoE quantization and input compression shrink inference cost",
-    "summary": "Five papers cut cost on the model or input side: extreme-sparsity pruning, Matryoshka MoE with mixed precision, RL-trained prompt compression, VLM image cropping, and compressed activations for MoE expert parallelism.",
+    "headline": "Multimodal diffusion LMs inherit the hallucination problem",
+    "summary": "VIGOR orders mask predictions by visual gain to cut hallucinations in multimodal discrete diffusion LMs.",
     "sids": [
-     "a8a5f23cd8e10643",
-     "01d6db945cd3f0c2",
-     "473a95cd7c540d1a",
-     "d7a4f91e59e352a3",
-     "dec4d075135f7b7e"
+     "57b08f9866a26766"
     ]
    },
    {
-    "kicker": "DIFFUSION DECODING",
+    "kicker": "PARALLEL DECODING",
     "tone": "rising",
-    "headline": "Block-diffusion work targets draft-tree verification and block-boundary latency",
-    "summary": "D3Tree prunes block-diffusion draft trees for speculative decoding, and overlapping block denoising cuts latency in block diffusion LMs.",
+    "headline": "Which tokens can be committed together without changing the output",
+    "summary": "Two papers replace the independent-sampling shortcut: one measures token coupling directly, the other simulates the continuous-time chain exactly.",
     "sids": [
-     "a4e942d0f147f07c",
+     "0491c6de7a511fb5",
+     "2fb1a0f31494270f"
+    ]
+   },
+   {
+    "kicker": "BLOCK DIFFUSION",
+    "tone": "rising",
+    "headline": "Block diffusion gets sparse attention, overlapping blocks and draft trees",
+    "summary": "Work targets repeated prefix attention, block-boundary latency, and block-diffusion drafters for speculative decoding of autoregressive models.",
+    "sids": [
+     "5fbc35eb022e4033",
+     "0aacbce5f85ac122",
      "ca0cd6bcfdb70098"
-    ]
-   },
-   {
-    "kicker": "AGENT OVERHEAD",
-    "tone": "rising",
-    "headline": "Agent papers attack prompt-carried skill memory and wasted delegation",
-    "summary": "MDSKILL distills skill memory into weights instead of prompts; a deep-research paper argues delegation only pays off when allocation and execution are coordinated.",
-    "sids": [
-     "219537f3fa2b3690",
-     "e267de687efb45c3"
     ]
    },
    {
     "kicker": "NOW",
     "tone": "now",
-    "headline": "Efficiency reaches vendors, agent products and speech: Baseten, Nemotron Bolt, TokenEconomizer, Murmur",
-    "summary": "The latest items are blog posts and a shipped small model rather than arXiv method papers, now extending to long-context ASR.",
+    "headline": "Fewer, better-chosen denoising steps: remasking, adaptive schedules, looped refinement",
+    "summary": "The latest papers decide when to revise a token and how many steps a workload needs, rather than speeding up each step.",
     "sids": [
-     "018ac20c79d4eeba",
-     "15de4f547fb7e7f3",
-     "60d6d445e0dacc9d",
-     "dc09546d23d7229e"
+     "679b2c4e802619e6",
+     "cbe67172baf08ac4",
+     "a8a16da3f476938c"
     ]
    }
   ],
   "open_questions": [
-   "How much does TokenEconomizer cut tokens per resolved coding task, and on which agent harness and benchmark?",
-   "Does Nemotron 3.5 Bolt E4B hold tool-calling accuracy at 4GB against Gemma-4-E4B-it, the model it was post-trained from?",
-   "Does activation compression for expert parallelism hold model quality while cutting all-to-all traffic in a production MoE serving stack?",
-   "Does Murmur's hierarchical chunking keep transcript accuracy on hour-long audio compared with full-context decoding?",
    "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?",
-   "Do the pruning and MoE quantization gains hold on agentic and long-context tasks, not only perplexity and short benchmarks?"
+   "Do task-calibrated denoising schedules keep quality on agentic and tool-calling workloads, not only the paper's benchmarks?",
+   "Do block-diffusion drafters like DForkTree beat standard autoregressive drafters on end-to-end tokens per second in a production speculative-decoding stack?",
+   "Does learned remasking transfer from Sudoku diagnostics to code and long-form text generation?",
+   "Is there a head-to-head latency and quality comparison of a diffusion LM against a same-size autoregressive model at matched serving cost?"
   ],
-  "generated_at": "2026-11-19T00:12:36Z"
+  "generated_at": "2026-11-21T00:12:23Z"
  }
 }

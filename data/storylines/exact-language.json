@@ -1,0 +1,105 @@
+{
+ "slug": "exact-language",
+ "label": "Exact Language",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-11-05T17:41:20+00:00",
+ "last_updated": "2026-11-19T12:34:25+00:00",
+ "generated_at": "2026-11-21T00:13:05.218527+00:00",
+ "sources": [
+  "arxiv_cs_cl",
+  "arxiv_cs_lg"
+ ],
+ "days": [
+  {
+   "date": "2026-11-05",
+   "items": [
+    {
+     "title": "SpecCTMC: Exact Speculative Simulation of Diffusion Language Model Continuous-Time Markov Chains",
+     "url": "http://arxiv.org/abs/2611.08362v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Masked diffusion language models offer parallel text generation, but independently sampling multiple tokens can disrupt their dependencies and change the output distribution. Exact continuous-time sampling avoids this...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "2fb1a0f31494270f",
+     "published": "2026-11-05T17:41:20+00:00",
+     "editor_note": "Opens the thread: exact sampling as an alternative to approximate parallel decoding for diffusion LMs."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-16",
+   "items": [
+    {
+     "title": "Procedure without Judgment: What Small Language Models Learn under an Exact Verifier",
+     "url": "http://arxiv.org/abs/2611.21529v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "When an authorization policy blocks an agent's tool call, the audit log should name the facts that forced the decision and nothing more. For an executable policy over an enumerable context space this minimal sufficien...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "ce03d967f429d822",
+     "published": "2026-11-16T18:20:09+00:00",
+     "editor_note": "Shifts from inference to training: what small models actually learn when an exact verifier grades them."
+    }
+   ]
+  },
+  {
+   "date": "2026-11-19",
+   "items": [
+    {
+     "title": "FrontierReplay: Split-Free Exact Prefix Caching for Hybrid Language Models",
+     "url": "http://arxiv.org/abs/2611.26020v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Hybrid language models combine self-attention with recurrent layers whose in-place state updates restrict prefix reuse to exact saved positions. Saving states on a coarse grid wastes reusable prefixes, whereas existin...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "da45bc7dce4c51b6",
+     "published": "2026-11-19T12:34:25+00:00",
+     "editor_note": "Brings exactness to serving infrastructure: prefix caching for hybrid models without coarse checkpoint grids."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "This is a loose grouping, not one event: three unrelated arXiv papers that share a theme of exactness guarantees for language models. It began with SpecCTMC (Nov 5), exact speculative sampling for diffusion LMs, then a study of small models trained under an exact verifier (Nov 16).",
+  "stale": false,
+  "whats_new": "FrontierReplay (Nov 19) proposes exact prefix-cache reuse for hybrid attention/recurrent models, whose in-place state updates normally limit reuse to saved checkpoint positions.",
+  "why_it_matters": "Each paper targets a correctness guarantee platform teams usually trade away for speed: unchanged output distributions, verifiable decisions, and exact cache reuse.",
+  "take_for_builders": "If you serve hybrid attention/recurrent models, check how your prefix cache handles recurrent state before assuming transformer-style hit rates; otherwise treat these as research to watch, not to deploy.",
+  "beats": [
+   {
+    "kicker": "SAMPLING",
+    "tone": "launch",
+    "headline": "SpecCTMC: parallel diffusion-LM decoding without changing the output distribution",
+    "summary": "Exact continuous-time speculative simulation instead of independent multi-token sampling.",
+    "sids": [
+     "2fb1a0f31494270f"
+    ]
+   },
+   {
+    "kicker": "VERIFICATION",
+    "tone": "neutral",
+    "headline": "Small models under an exact verifier learn procedure, not judgment",
+    "sids": [
+     "ce03d967f429d822"
+    ]
+   },
+   {
+    "kicker": "CACHING",
+    "tone": "now",
+    "headline": "FrontierReplay: split-free exact prefix caching for hybrid models",
+    "summary": "Targets the gap between coarse state-save grids and wasted reusable prefixes.",
+    "sids": [
+     "da45bc7dce4c51b6"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does FrontierReplay ship in an open-source inference server such as vLLM or SGLang?",
+   "What wall-clock speedup does SpecCTMC report over standard masked-diffusion decoding?",
+   "Do exact-verifier results hold for models larger than the small ones studied?"
+  ],
+  "generated_at": "2026-11-21T00:12:20Z"
+ }
+}

@@ -1,66 +1,54 @@
 {
   "slug": "same-different",
-  "generated_at": "2026-11-05T00:20:00+00:00",
-  "tldr": "Most of this thread shares a \"Same X, Different Y\" title pattern, not one event. Three arXiv papers (Oct 22-26) cover chemistry identifier binding, credit assignment for agentic RL and news framing; a Nov 1 post then reported a 17-point gap between agents using one model.",
-  "whats_new": "On Nov 3, an IBM Research Hugging Face post compared CUGA, Hermes and Deep Agents on the same model, a day after an arXiv audit showed multimodal benchmark graders can change scores on identical outputs.",
-  "why_it_matters": "Harness posts and the grader audit point the same way: scores depend on the agent harness and the scoring rule as much as the model, so evaluate the full stack, including how answers are graded.",
-  "status": {
-    "state": "Harness comparison emerging",
-    "tone": "rising",
-    "changed": "2026-11-03",
-    "detail": "Title-match papers are coincidental; the Nov 1 and Nov 3 posts plus the Nov 2 grader audit form the real thread on non-model variance in evals."
-  },
+  "generated_at": "2026-11-21T00:12:32Z",
+  "tldr": "This thread is grouped by a shared \"Same X, Different Y\" title pattern, not by one event; what links the items is variance in agent and eval results that does not come from the model. It opened Nov 1-3 with a 17-point gap between agents on one model, an IBM harness comparison, and an arXiv audit of multimodal benchmark graders.",
+  "whats_new": "A Nov 19 arXiv paper reports that the design of the numerical scoring scheme affects how reliable LLM-as-a-Judge evaluation is, extending the earlier grader audit from benchmark parsers to judge models.",
+  "why_it_matters": "Harness, error delivery and scoring scheme each move agent scores with the model held fixed, so a model-only comparison can misattribute a gain or regression.",
   "beats": [
     {
-      "kicker": "PAPERS",
-      "tone": "launch",
-      "headline": "Two arXiv papers on reliability and agentic RL",
-      "summary": "Identifier binding failures in chemistry LLMs, and twin-world credit assignment for agentic RL.",
-      "sids": ["615493c68bfd12ef", "352167f7ac41065b"]
-    },
-    {
-      "kicker": "ADJACENT",
-      "tone": "rising",
-      "headline": "A multi-agent system compares news framing across outlets",
-      "summary": "A research prototype for news analysis, loosely related.",
-      "sids": ["40a1feed41fe68a1"]
-    },
-    {
       "kicker": "HARNESS GAP",
-      "tone": "turn",
-      "headline": "Same model, different agent: 17 points apart on 21 MCP servers",
-      "summary": "A practitioner post on agent-level variance with a fixed model.",
-      "sids": ["b78023b26122d472"]
+      "tone": "launch",
+      "headline": "Same model, different harness: a 17-point gap and IBM's CUGA comparison",
+      "summary": "A blog post and an IBM Research post compare agent harnesses wrapped around one model.",
+      "sids": ["b78023b26122d472", "b05fd13d79e76b34"]
     },
     {
       "kicker": "GRADERS",
       "tone": "alert",
       "headline": "Multimodal benchmark scoring rules change scores on identical outputs",
-      "summary": "An arXiv audit of the unchecked graders that turn free-form responses into right/wrong verdicts.",
+      "summary": "An arXiv audit of the unjustified code that turns free-form answers into right/wrong verdicts.",
       "sids": ["6b0a48e52ca49e48"]
+    },
+    {
+      "kicker": "AGENT TESTS",
+      "tone": "rising",
+      "headline": "Error delivery and multi-agent testbeds probe agent behavior",
+      "summary": "One paper studies how the placement of tool-error feedback changes retry, fix or stop decisions; another releases a supply-chain arena for four LLM agents.",
+      "sids": ["41573f419013b0c4", "b4c01a00d7072c7f"]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "IBM Research compares CUGA, Hermes and Deep Agents on one model",
-      "summary": "A vendor harness comparison on Hugging Face.",
-      "sids": ["b05fd13d79e76b34"]
+      "headline": "LLM-as-a-Judge scores depend on the numerical scoring scheme",
+      "summary": "An arXiv paper on how scoring-scheme design affects judge reliability.",
+      "sids": ["4c7f163e7f53327e"]
     }
   ],
   "open_questions": [
     "Does the MCP post publish its harness differences, prompts and scoring method so the 17-point gap can be reproduced?",
     "Does the IBM CUGA post report numbers on a shared benchmark, and can they be rerun?",
-    "Do the grader-audit findings extend to the text-only and agent benchmarks used for tool-using agents?"
+    "Which scoring scale does the LLM-as-a-Judge paper find most stable, and by how much does agreement change?",
+    "Does the error-delivery paper give a recommended place to return tool errors that harness authors can adopt?"
   ],
-  "take_for_builders": "Hold the model fixed and vary the harness in your own eval on your MCP servers, and pin and review your scoring rule; treat the 17-point figure and IBM's CUGA comparison as vendor or blog results until reproduced.",
+  "take_for_builders": "Hold the model fixed and vary the harness, tool-error format and judge scoring scale in your own eval before attributing a score change to the model; treat the 17-point and CUGA figures as blog or vendor results until reproduced.",
   "day_captions": {
-    "615493c68bfd12ef": "Studies whether co-referring molecule identifiers (names, IUPAC, SMILES) are treated as interchangeable by LLMs.",
-    "352167f7ac41065b": "Proposes twin-world counterfactual branching to assign credit to individual decisions in agentic RL episodes.",
-    "40a1feed41fe68a1": "Presents a research prototype comparing what outlets emphasize and omit when covering the same event.",
     "b78023b26122d472": "Blog post whose title reports a 17-point spread between agents using the same model on 21 MCP servers.",
-    "6b0a48e52ca49e48": "Audits the scoring rules of multimodal multiple-choice benchmarks, which can score identical outputs differently.",
-    "b05fd13d79e76b34": "IBM Research frames CUGA, Hermes and Deep Agents as harnesses around one model and asks when to choose CUGA."
+    "6b0a48e52ca49e48": "Adds the grader angle: multimodal benchmark scoring rules can score identical outputs differently.",
+    "b05fd13d79e76b34": "IBM Research's vendor framing of CUGA, Hermes and Deep Agents as harnesses around one model.",
+    "41573f419013b0c4": "Shifts the variance to tool errors: the same error text can lead to different recovery actions depending on how it is delivered.",
+    "b4c01a00d7072c7f": "Adds an open-source testbed where four LLM agents each run one company in a disrupted serial supply chain.",
+    "4c7f163e7f53327e": "Moves the grader question to LLM judges: scoring-scheme design affects LLM-as-a-Judge reliability."
   },
-  "covers_last_updated": "2026-11-03T15:57:39+00:00",
-  "covers_member_sids": ["615493c68bfd12ef","352167f7ac41065b","40a1feed41fe68a1","b78023b26122d472","6b0a48e52ca49e48","b05fd13d79e76b34"]
+  "covers_last_updated": "2026-11-19T13:17:49+00:00",
+  "covers_member_sids": ["b78023b26122d472", "6b0a48e52ca49e48", "b05fd13d79e76b34", "41573f419013b0c4", "b4c01a00d7072c7f", "4c7f163e7f53327e"]
 }

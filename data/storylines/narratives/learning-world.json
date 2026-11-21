@@ -1,0 +1,53 @@
+{
+  "slug": "learning-world",
+  "generated_at": "2026-11-21T00:12:21Z",
+  "covers_last_updated": "2026-11-19T17:15:38+00:00",
+  "covers_member_sids": [
+    "25493a43cba550c7",
+    "ed02c84438586458",
+    "5a90caffb2c87d2e",
+    "6fd3ac39e855936d",
+    "6ed8ba7c268695db",
+    "1018b9cf048fca1c"
+  ],
+  "tldr": "This is a loose cluster, not one event: six unrelated pieces share the theme of AI working in and learning about the physical world. It opened with OpenAI pitching ChatGPT and Codex for CAD, PCB and simulation work, then drew in early-November research on world models and controlled robot-learning testbeds.",
+  "whats_new": "Mind2Act World (Nov 19) adds a diagnostic robotic-manipulation benchmark that scores reasoning, physical action, and their composition separately, two days after a paper argued physical-world agents ship with no test suite.",
+  "why_it_matters": "Agents that write code for robots, labs and controllers cannot be checked with unit tests, so evaluation for these workloads is still being invented in benchmarks, not settled practice.",
+  "beats": [
+    {
+      "kicker": "CONTEXT",
+      "tone": "launch",
+      "headline": "OpenAI pitches ChatGPT and Codex for physical engineering workflows",
+      "summary": "A vendor use-case post covering CAD, PCB design and simulation, not a new model or API.",
+      "sids": ["25493a43cba550c7"]
+    },
+    {
+      "kicker": "RESEARCH",
+      "tone": "rising",
+      "headline": "Three papers on how models learn and get tested on world structure",
+      "summary": "Separate groups propose a theory-from-observation benchmark, a controlled blocks world for robots, and memory inside model-based RL world models.",
+      "sids": ["ed02c84438586458", "5a90caffb2c87d2e", "6fd3ac39e855936d"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Focus shifts to verifying agents whose output acts on hardware",
+      "summary": "One paper names the missing-test-suite problem; a diagnostic benchmark splits embodied failures into reasoning, action and composition.",
+      "sids": ["6ed8ba7c268695db", "1018b9cf048fca1c"]
+    }
+  ],
+  "open_questions": [
+    "Does any vendor ship an eval or simulation harness for agents that generate robot or controller code?",
+    "Will Mind2Act World or ToyBlocks results get reported for frontier vision-language-action models?",
+    "Does OpenAI publish measured outcomes for Codex on CAD or PCB tasks beyond customer anecdotes?"
+  ],
+  "take_for_builders": "If your agents emit code for physical systems, gate deploys on a simulator or hardware-in-the-loop check; no shared benchmark here is ready to replace that.",
+  "day_captions": {
+    "25493a43cba550c7": "Vendor framing: general coding agents marketed for hardware and simulation work.",
+    "ed02c84438586458": "Benchmark for learning reusable theories from observation alone.",
+    "5a90caffb2c87d2e": "AllenAI's controlled testbed for robot learning and evaluation.",
+    "6fd3ac39e855936d": "Method paper: adds memory to world models via test-time model-based RL.",
+    "6ed8ba7c268695db": "States the core gap: physical-world agent code arrives with no test suite.",
+    "1018b9cf048fca1c": "Diagnostic benchmark separating embodied reasoning, action and their composition."
+  }
+}

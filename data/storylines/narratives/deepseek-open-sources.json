@@ -1,97 +1,47 @@
 {
   "slug": "deepseek-open-sources",
-  "generated_at": "2026-11-09T00:11:56+00:00",
-  "covers_last_updated": "2026-11-08T05:25:50+00:00",
+  "generated_at": "2026-11-21T00:12:22Z",
+  "covers_last_updated": "2026-11-20T06:55:00+00:00",
   "covers_member_sids": [
-    "0714a9511cb60f66",
-    "c1a5085521f06cf8",
-    "6ca9e1ceeea5a770",
-    "be61663792fa0af3",
-    "861b6347e652747b",
-    "b7d3f6df6ecbe2c9",
-    "8da24ee4e99be00d",
-    "ecdc2bd2da306c52",
-    "249a6af86a1f4f73",
-    "13bafceb1538461d",
-    "9c99dc597b92594a",
-    "c928ee663a751a10",
-    "5a29dcd699a504fa",
-    "b3f4301ff8d83589",
-    "520159e6ebe00b0f",
-    "4d53557cac2f8289",
-    "11667337918f4f3c",
-    "378efdb4d515dcd8",
-    "7c1fed0d11e9b516",
-    "05c46a37b489922f",
-    "96207d6b2522935e",
-    "c7641f54401d6258",
     "5bd78febd4a59e34",
     "7ae79fa7e63f017f",
     "7f903ef14a1441d8",
     "d795ff607b219d9a",
     "8ffb3cb5b711c694",
-    "e6077e10f16ce2d8",
     "a8f5be6d64b1c57f",
     "4141e315102a7089",
     "faef8337e561998f",
-    "bce25dc1c825a3e7",
-    "fc7c1780406958b5",
-    "2f11643a689186b4",
     "28c838a66808367f",
-    "9b6ce22e2f29b264",
-    "cd44a088d357479c"
+    "15cd14e6fdc7bf10"
   ],
-  "tldr": "DeepSeek open-sourced DeepInfer, the inference engine behind its production services, on Oct 20. On Oct 31 it published the architecture of an always-on coding agent, dsh-superagent.",
-  "whats_new": "Coverage of the dsh-superagent prototype, a router-worker coding agent that watches team chat for work, continued through Nov 4, while the rest of the thread is third-party inference-engine news.",
-  "why_it_matters": "DeepSeek is releasing both the serving layer (DeepInfer, reportedly 155T tokens/day) and an agent harness, so platform teams can inspect a production-scale stack, but the cost and throughput figures come from DeepSeek and press reports, not independent benchmarks.",
-  "status": {
-    "state": "Developing",
-    "tone": "rising",
-    "changed": "2026-11-04",
-    "detail": "Two DeepSeek open-source drops, DeepInfer and dsh-superagent, with no independent benchmarks yet."
+  "tldr": "On Oct 31 DeepSeek's harness team put the architecture of dsh-superagent, an always-on router-worker coding agent, on GitHub as a research prototype. Press coverage from Nov 1 to Nov 4 framed it as a challenge to Claude Code that watches team chat for work and fixes bugs on its own.",
+  "whats_new": "Former DeepSeek core member Zhang Bo open-sourced a separate personal agent on Nov 20 that reportedly runs a 125B model locally on a 12GB GPU; it is not a DeepSeek release.",
+  "why_it_matters": "dsh-superagent is a published reference design for a proactive, chat-triggered coding agent from a frontier lab, but it ships as a research prototype and every capability claim so far comes from press rewrites, not hands-on evaluation.",
+  "provenance": {
+    "5bd78febd4a59e34": { "surfaced_by": "scout" },
+    "7ae79fa7e63f017f": { "surfaced_by": "scout" },
+    "7f903ef14a1441d8": { "surfaced_by": "scout" },
+    "d795ff607b219d9a": { "surfaced_by": "scout" },
+    "8ffb3cb5b711c694": { "surfaced_by": "scout" },
+    "a8f5be6d64b1c57f": { "surfaced_by": "scout" },
+    "4141e315102a7089": { "surfaced_by": "scout" },
+    "faef8337e561998f": { "surfaced_by": "scout" },
+    "28c838a66808367f": { "surfaced_by": "scout" }
   },
   "beats": [
     {
-      "kicker": "DEEPINFER",
-      "tone": "turn",
-      "headline": "DeepSeek open-sources DeepInfer, its production inference engine",
-      "summary": "Wide press pickup of the engine, with claims of 155T tokens a day per cluster.",
-      "sids": [
-        "6ca9e1ceeea5a770",
-        "be61663792fa0af3",
-        "861b6347e652747b",
-        "b7d3f6df6ecbe2c9",
-        "8da24ee4e99be00d",
-        "ecdc2bd2da306c52",
-        "249a6af86a1f4f73",
-        "13bafceb1538461d",
-        "c928ee663a751a10",
-        "5a29dcd699a504fa"
-      ]
+      "kicker": "RELEASE",
+      "tone": "launch",
+      "headline": "DeepSeek posts the dsh-superagent prototype architecture on GitHub",
+      "summary": "The primary source: a repo describing an always-on autonomous coding agent.",
+      "sids": ["5bd78febd4a59e34"]
     },
     {
-      "kicker": "ADJACENT",
-      "tone": "neutral",
-      "headline": "Loosely related research and framework papers clustered in",
-      "summary": "Mostly arXiv and discussion items that share keywords with the thread rather than reporting on DeepSeek.",
+      "kicker": "PRESS PICKUP",
+      "tone": "rising",
+      "headline": "Coverage frames it as a router-worker agent that works from team chat",
+      "summary": "Eight outlets over Nov 1–4 repeat the same release, with a Claude Code comparison and a research-prototype label.",
       "sids": [
-        "b3f4301ff8d83589",
-        "520159e6ebe00b0f",
-        "4d53557cac2f8289",
-        "378efdb4d515dcd8",
-        "7c1fed0d11e9b516",
-        "05c46a37b489922f",
-        "96207d6b2522935e",
-        "bce25dc1c825a3e7"
-      ]
-    },
-    {
-      "kicker": "SUPER-AGENT",
-      "tone": "now",
-      "headline": "dsh-superagent: a router-worker coding agent goes open source",
-      "summary": "Positioned against Claude Code; works from team chat.",
-      "sids": [
-        "5bd78febd4a59e34",
         "7ae79fa7e63f017f",
         "7f903ef14a1441d8",
         "d795ff607b219d9a",
@@ -103,35 +53,30 @@
       ]
     },
     {
-      "kicker": "ECOSYSTEM",
+      "kicker": "ADJACENT",
       "tone": "neutral",
-      "headline": "Other inference engines and serving economics in the same window",
-      "summary": "llm-d 1.0, Nvidia Flare, XLA Serving Engine and hosting-profitability discussion.",
-      "sids": [
-        "0714a9511cb60f66",
-        "11667337918f4f3c",
-        "c7641f54401d6258",
-        "e6077e10f16ce2d8",
-        "fc7c1780406958b5",
-        "2f11643a689186b4",
-        "9b6ce22e2f29b264",
-        "cd44a088d357479c"
-      ]
+      "headline": "A former DeepSeek member open-sources a local personal agent",
+      "summary": "Zhang Bo's project is linked to the thread by the DeepSeek name, not by dsh-superagent.",
+      "sids": ["15cd14e6fdc7bf10"]
     }
   ],
   "open_questions": [
-    "Will anyone publish independent throughput or cost benchmarks of DeepInfer outside DeepSeek's own figures?",
-    "Which models and hardware does DeepInfer support beyond DeepSeek's own?",
-    "Is dsh-superagent usable beyond a research prototype, and under what license?"
+    "Will anyone publish a hands-on evaluation of dsh-superagent on real repositories?",
+    "What license does dsh-superagent ship under, and which models can its router and workers use?",
+    "Will DeepSeek move dsh-superagent beyond a research prototype into a maintained product?",
+    "Does the 125B-on-12GB claim for Zhang Bo's agent hold up, and at what quantization and speed?"
   ],
-  "take_for_builders": "Before adopting DeepInfer or dsh-superagent, check license terms and hardware support, and benchmark them against your current serving stack rather than relying on the quoted token-per-day numbers.",
+  "take_for_builders": "Read the dsh-superagent repo as a design reference for chat-triggered agents, but do not deploy it until a license and an independent evaluation exist.",
   "day_captions": {
-    "8da24ee4e99be00d": "Names DeepInfer as the engine behind production services",
-    "13bafceb1538461d": "Adds the 155T tokens/day and revenue claims",
-    "5bd78febd4a59e34": "First report of the always-on agent architecture on GitHub",
+    "5bd78febd4a59e34": "Primary source: the prototype repo on GitHub",
+    "7ae79fa7e63f017f": "First press report of the open-sourced architecture",
+    "7f903ef14a1441d8": "Attributes the release to DeepSeek's harness team; adds the find-and-fix-bugs claim",
+    "d795ff607b219d9a": "Frames it as a direct challenge to Claude Code",
     "8ffb3cb5b711c694": "Names dsh-superagent and its router-worker design",
-    "28c838a66808367f": "Latest DeepSeek coverage of the team-chat workflow",
-    "9b6ce22e2f29b264": "Newest item: a separate XLA-based serving engine",
-    "cd44a088d357479c": "Nov 8 Show HN: another GGUF inference engine (Windows/Vulkan), only keyword-adjacent to DeepInfer."
+    "a8f5be6d64b1c57f": "Labels it a research prototype",
+    "4141e315102a7089": "Describes the agent as proactive rather than prompt-driven",
+    "faef8337e561998f": "Highlights the team-chat trigger for picking up work",
+    "28c838a66808367f": "Last press rewrite of the release, Nov 4",
+    "15cd14e6fdc7bf10": "Separate project by an ex-DeepSeek member; claims a 125B model on a 12GB GPU"
   }
 }
