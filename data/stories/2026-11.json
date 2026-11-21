@@ -1153,6 +1153,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17831v1"
  },
+ "0ada1934a0788fbd": {
+  "content_excerpt": "As models ship faster, eval scores are often the first thing we learn about a new model. But how much weight should we put in them? In eight of twelve public evals studied, there’s evidence the grader failed work that should have passed. And even when the grader gets it right, many benchmarks measure what’s easy rather than what matters, and should instead focus on reliability, work velocity, multi-turn collaboration, etc. Here, we’ll cover the common patterns and principles, the errors models make, and where current benchmarks fall short. I’ll also share what we’re getting wrong and what should change, including why average pass rate isn’t enough and why dollars are the wrong measure of cost. Finally, we’ll walk through twelve evals: four on coding and science, six on knowledge work, and two on browsing and computer use. By the end, you’ll know what to trust in a benchmark and what to question. In addition, eval benchmarks are increasingly maintained like software. They ship versioned releases and accept fixes through issues and pull requests. Agents’ Last Exam v1.1 retired 30 tasks and revised 57 others, and Harvey LAB’s public set has grown from about 1,250 tasks to 2,010 since launching in May 2026. Like software, these releases can also introduce breaking changes—Terminal Bench can drop saturated tasks with each version, making scores hard to compare across releases. Deterministic checks over LLM judges. Code-based checks are reproducible and won’t shift rankings when a ",
+  "first_seen": "2026-11-21T05:05:05.042971+00:00",
+  "id": "225ef9dc242821db",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-11-19T00:00:00+00:00",
+  "sid": "0ada1934a0788fbd",
+  "source": "eugene_yan",
+  "summary": "How to read eval scores and what to question, from a teardown of 12 benchmarks.",
+  "summary_1line": "How to read eval scores and what to question, from a teardown of 12 benchmarks.",
+  "title": "How Public Evals Work and Fail, and What Should Change",
+  "type": "news",
+  "url": "https://eugeneyan.com/writing/public-evals",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "0ada6edaa8802c6a": {
   "first_seen": "2026-11-11T20:05:49.624616+00:00",
   "id": "e4f8fae0f0de8319",
@@ -4236,6 +4253,18 @@
   "url": "https://github.com/shubhamjoshipromail-svg/software-world-model",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "286e39878e96a960": {
+  "first_seen": "2026-11-21T05:05:05.042971+00:00",
+  "id": "33d039beb32ae539",
+  "published": "2026-11-19T16:24:00+00:00",
+  "sid": "286e39878e96a960",
+  "source": "arxiv_cs_lg",
+  "summary": "Irregular multivariate time series forecasting supports healthcare monitoring, environmental analysis, and activity recognition. Channel-independent (CI) approaches capture each variable's temporal patterns but do not explicitly use observations from other variables. Channel-dependent (CD) modeling exploits relationships among variables, yet asynchronous measurements make these relationships difficult to learn. Incorporating cross-variable information while preserving each variable's irregular history therefore remains a key challenge. We propose Temporal-Reference Complementary Forecasting (TRCF), a framework that augments a compact CI forecaster with a complementary CD branch. ANCHOR aggregates observed values and timestamps at shared temporal locations, retaining observation support to form compact CI features. BRIDGE constructs complementary features through history completion. It first estimates each variable's historical values from its own observations, then uses differences between other variables' observed and estimated values at nearby times to correct missing entries. The completed history preserves observed values and is encoded to supply context alongside the direct CI representation. Finally, the two representations are fused, combined with the query-time embedding, and passed to a shallow multilayer perceptron for forecasting. Experiments on four real-world datasets show that TRCF achieves the lowest mean squared error and mean absolute error in the main benchm",
+  "summary_1line": "Irregular multivariate time series forecasting supports healthcare monitoring, environmental analysis, and activity recognition. Channel-independent (CI) approaches capture each variable's temporal patterns but do not...",
+  "title": "TRCF: Temporal-Reference Complementary Forecasting for Irregular Multivariate Time Series",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26351v1"
+ },
  "28c838a66808367f": {
   "first_seen": "2026-11-04T10:05:31.670878+00:00",
   "id": "96d15bb38fc4d96e",
@@ -6244,6 +6273,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.03523v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "3b3617abd2209071": {
+  "content_excerpt": "The malicious npm package @leadstack/crm-connect installed a full AI agent on the servers it reached. It posed as the official client for a CRM called LeadStack. On install it set up Hermes Agent, an open-source agent from Nous Research that can run shell commands, edit files and drive a browser. It downloaded the agent’s keys and standing instructions from the attacker’s server and connected the agent to the attacker’s Telegram bot. Then it registered the agent as a systemd service renamed “LeadStack Lead Routing Daemon”. When npm install ran as root, the agent ran as root. From then on the attacker could give the server orders from a Telegram chat. The npm account zmaticoo published nine versions on 16 November 2026. SafeDep flagged the package five minutes after the last release, and npm has since removed it. In September, ThreatDown reported a botnet ⁠ (opens in new tab) that spreads through exposed Docker APIs and runs Hermes Agent as an implant. This is the first case SafeDep has seen of an npm install doing the same, with the agent’s persona downloaded at install time. The publisher is still active. Three packages it released on 18 November contain no code of their own and pull a dependency from the attacker’s server instead. The npm user zmaticoo (venstate25@gmail[.]com) published all nine versions between 09:44 and 15:27 UTC. The package described itself as “Official LeadStack CRM client”. Its early READMEs asked for “LeadStack partner access on npm (private org)”, a",
+  "first_seen": "2026-11-21T05:05:05.042971+00:00",
+  "id": "7d037909a2f127fb",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-21T04:33:56+00:00",
+  "sid": "3b3617abd2209071",
+  "source": "hackernews_ai",
+  "summary_1line": "NPM package installed Hermes Agent as root and tasked it over Telegram",
+  "title": "NPM package installed Hermes Agent as root and tasked it over Telegram",
+  "type": "news",
+  "url": "https://safedep.io/blog/malicious-npm-leadstack-crm-connect-hermes-agent-backdoor",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "3b3802691be914ed": {
   "content_excerpt": "Every new AI chat starts from zero. So I put my context in a private git repo of linked notes, and served it to Claude and OpenCode from a small Cloudflare Worker. Every new AI chat starts from zero. Who I am, what I'm working on, what I decided last week, how I like replies written. I was typing the same context again and again, in Claude, in OpenCode, on my phone and on my laptop. I'm dyslexic, so typing a page of background is slow and tiring. I wanted to write it down once, and have every tool read it. So I built mentat : a private repo of short linked notes, served to my AI tools over MCP. My real notes stay private, so I made a public copy with a made-up person in it: mentat-template . Image: Bill Sanderson, 1997, Wellcome Collection, via Wikimedia Commons , CC BY 4.0 . Notes link to each other with [[wiki links]] . The links are the structure. I can open the folder in Obsidian, edit it in any editor, and read it in any diff. CI builds an index and a link graph on every push. The AI tools aren't the only way in. On my Mac the repo is just a folder, and I open it in Obsidian as a vault: Pull before you start editing. If a chat's pull request merged while you were away, you want it in your copy first. MCP is a standard way for AI tools to call outside tools. A small Cloudflare Worker serves the notes as an MCP server, so Claude and OpenCode can call it from any device: On every push to main , CI bundles the notes into the Worker and redeploys it. No database, nothing to k",
@@ -23193,7 +23238,7 @@
   "published": "2026-11-17T08:57:49+00:00",
   "sid": "dbe8f9c3994a9119",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 1, downloads: 22.",
+  "summary": "New model weights from tencent on Hugging Face. Task: video-text-to-text. Likes: 2, downloads: 22.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 1, downloads: 22.",
   "title": "tencent/WeMM-Video-4B-GGUF released on Hugging Face",
   "type": "release",
