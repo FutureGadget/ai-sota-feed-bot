@@ -90,7 +90,7 @@
   "sid": "011b27afc6a841bf",
   "source": "nvidia_blog",
   "summary": "NVIDIA’s Ian Buck kicked off the company’s week at SC26 in Chicago on Monday with new tools for AI agents, software that can plan experiments, run code and check results on researchers’ own systems. In NVIDIA’s special address, Buck announced Nemotron for Science, the Rubin HPC GPU and an expanded Vera CPU platform for high-performance […]",
-  "summary_1line": "NVIDIA’s Ian Buck kicked off the company’s week at SC26 in Chicago on Monday with new tools for AI agents, software that can plan experiments, run code and check results on researchers’ own systems. In NVIDIA’s special address, Buck announced Nemotron for Science, the Rubin HPC G",
+  "summary_1line": "NVIDIA’s Ian Buck kicked off the company’s week at SC26 in Chicago on Monday with new tools for AI agents, software that can plan experiments, run code and check results on researchers’ own systems. In NVIDIA’s specia...",
   "title": "Ian Buck Kicks Off NVIDIA’s Week at SC26 as Science Enters the Age of Agents",
   "type": "news",
   "url": "https://blogs.nvidia.com/blog/ian-buck-sc26",
@@ -396,7 +396,7 @@
   "why_it_matters": "Matches feed focus: evaluation."
  },
  "048aa14a74e02d08": {
-  "content_excerpt": "JsonBit compacts nested JSON before it reaches your LLM. Send a compact digest in one prompt, or let your agent query the original data locally via SQL/MCP and read only the results it needs. Pass the output to your LLM in place of the raw JSON. (Rust cargo , Node.js npm / npx , and standalone binaries are listed under Installation & Setup .) Install the pre-built native jsonbit binary using your preferred package manager (no Rust compiler required for Python or Node.js): Standalone binaries for Linux ( x64 , arm64 ), macOS ( arm64 , x64 ), and Windows ( x64 ) are attached to every GitHub Release . jsonbit includes a built-in stdio JSON-RPC 2.0 MCP server ( jsonbit mcp ) with zero external runtime dependencies. It exposes five tools: olap_load , olap_digest , olap_ask , olap_sql , and olap_rehydrate . Add the following to opencode.json in your project root (or globally in ~/.config/opencode/opencode.json ): Add the .mcp.json configuration above to .cursor/mcp.json or ~/.codeium/windsurf/mcp_config.json . Codex and terminal agents automatically read AGENTS.md in the repository root to invoke jsonbit via CLI or MCP when inspecting .json , .jsonl , or .jsonbit files. All benchmarks execute directly against the compiled Pure-Rust jsonbit binary ( target/release/jsonbit ). Evaluates Raw JSON , Minified JSON , YAML , TOON ( @toon-format/toon ), and jsonbit across 10 production workloads ( W1 – W10 ), including flat tables, 1-to-Many e-commerce orders, sparse .jsonl OpenTelemetry lo",
+  "content_excerpt": "Cut LLM token usage on JSON and JSONL with compact digests and local queries via MCP. JsonBit compacts nested JSON before it reaches your LLM. Send a compact digest in one prompt, or let your agent query the original data locally via SQL/MCP and read only the results it needs. Pass the output to your LLM in place of the raw JSON. (Rust cargo , Node.js npm / npx , and standalone binaries are listed under Installation & Setup .) Install the pre-built native jsonbit binary using your preferred package manager (no Rust compiler required for Python or Node.js): Standalone binaries for Linux ( x64 , arm64 ), macOS ( arm64 , x64 ), and Windows ( x64 ) are attached to every GitHub Release . jsonbit includes a built-in stdio JSON-RPC 2.0 MCP server ( jsonbit mcp ) with zero external runtime dependencies. It exposes five tools: olap_load , olap_digest , olap_ask , olap_sql , and olap_rehydrate . Add the following to opencode.json in your project root (or globally in ~/.config/opencode/opencode.json ): Add the .mcp.json configuration above to .cursor/mcp.json or ~/.codeium/windsurf/mcp_config.json . Codex and terminal agents automatically read AGENTS.md in the repository root to invoke jsonbit via CLI or MCP when inspecting .json , .jsonl , or .jsonbit files. All benchmarks execute directly against the compiled Pure-Rust jsonbit binary ( target/release/jsonbit ). Evaluates Raw JSON , Minified JSON , YAML , TOON ( @toon-format/toon ), and jsonbit across 10 production workloads ( W1 – W10",
   "first_seen": "2026-11-20T23:04:11.004403+00:00",
   "id": "88387290ee7288d1",
   "published": "2026-11-20T22:08:26+00:00",
@@ -1756,6 +1756,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.26444v1",
   "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
+ "106e03d32f20d4dc": {
+  "first_seen": "2026-11-21T01:05:12.104357+00:00",
+  "id": "d470e13ffa0d670b",
+  "published": "2026-11-19T15:49:40+00:00",
+  "sid": "106e03d32f20d4dc",
+  "source": "arxiv_cs_cl",
+  "summary": "We ask how far a driving model can get with one camera and real-time latency. BADAS-3.0 is a 1B-parameter video encoder with four small heads. From two seconds of one forward camera, it predicts the current speed, the metric path just driven, a collision-risk score and six candidate futures over 6.4 seconds, in under 50 ms. Given the car's current speed, BADAS-3.0 has 44% lower minADE$_6$ over five trajectory benchmarks than the 34B Alpamayo 2 Super, which reads six cameras and runs over 100x slower. The gain comes from camera rigs that neither model was trained on. On the rig they share, the two are on par. Existing benchmarks are mostly nominal driving, so we add two open-loop safety benchmarks, one of real dashcam collisions and near-misses and one of Euro NCAP scenarios. On both, BADAS-3.0 has a higher pass rate than every published planner we tested.",
+  "summary_1line": "We ask how far a driving model can get with one camera and real-time latency. BADAS-3.0 is a 1B-parameter video encoder with four small heads. From two seconds of one forward camera, it predicts the current speed, the...",
+  "title": "BADAS-3.0: Real-Time Driving Perception and Planning from One Camera",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2611.26294v1"
  },
  "107bf7631dd21fed": {
   "first_seen": "2026-11-20T08:05:31.831754+00:00",
@@ -4375,7 +4387,7 @@
   "sid": "29af66db261f00b5",
   "source": "arxiv_cs_cl",
   "summary": "Speech applications require decisions about term presence, turn completion, and language within an audio window. We present Marimba, an interface for typed speech decisions built on frozen Qwen3-ASR 0.6B features. Lexical questions use zero-shot scoring of ASR transcripts; non-lexical questions use a question-conditioned head and a separate layer-18 turn-end readout. Language identification uses the ASR model's own language scores. On private conversational test sets, decoder AUROC is 0.80-0.92; on public read speech it is 0.92-0.97. Speech Commands four-way accuracy is 0.93; binary lexical ECE is at most 0.08. Personal-information detection, which passes the greedy transcript to a private, curated PII pipeline, reaches item-level F1 0.904 on synthetic Brazilian Portuguese speech (1.000 on reference transcripts). Layer-12 speaker readouts detect speaker change with AUROC 0.966-0.980 on AMI and VoxConverse, above an ECAPA baseline, and count speakers (0, 1, 2, or 3+) more accurately than pyannote 3.1. The turn-end readout reaches AUROC 0.930 versus Smart Turn v3.2 at 0.982 on Smart Turn's own test set. On a subset of ICSI meetings labeled by next speaker, AUROC is 0.716 versus 0.712; the paired confidence interval includes zero.",
-  "summary_1line": "Speech applications require decisions about term presence, turn completion, and language within an audio window. We present Marimba, an interface for typed speech decisions built on frozen Qwen3-ASR 0.6B features. Lexical questions use zero-shot scoring of ASR transcripts; non-le",
+  "summary_1line": "Speech applications require decisions about term presence, turn completion, and language within an audio window. We present Marimba, an interface for typed speech decisions built on frozen Qwen3-ASR 0.6B features. Lex...",
   "title": "Marimba: A System One Model for Speech",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18330v1"
@@ -5340,7 +5352,7 @@
   "sid": "31c90e17a3d4c4b3",
   "source": "arxiv_cs_ai",
   "summary": "Existing memory forensics for machine learning systems typically targets static artifacts, such as model weights or prompt logs, rather than the transient computational states of a live inference process. This gap limits an examiner's ability to analyze the specific behavior of a running large language model (LLM) service that cannot be restarted or modified. We present a method for acquiring per-layer residual-stream activations from a live GPU process using a non-modifying debugger, without requiring prior knowledge of the model's architecture parameters or weights. The approach employs a general six-stage process with platform-specific adapters, utilizing either a PyTorch allocator clock or a kernel-launch clock to identify and read tensor allocations from video memory. We validate this acquisition on 33 open-source decoder-only models across nine architecture classes, demonstrating that the recovered bytes are byte-exact and usable for downstream analysis. As a use case, we apply linear probes trained on standard framework activations to the recovered states, successfully distinguishing refusal from compliance with an AUROC of 0.88 on held-out prompts. This work establishes that live, observational access to intermediate hidden states is feasible on named inference platforms, providing a new source of evidence for examining the operational behavior of deployed AI systems.",
-  "summary_1line": "Existing memory forensics for machine learning systems typically targets static artifacts, such as model weights or prompt logs, rather than the transient computational states of a live inference process. This gap limits an examiner's ability to analyze the specific behavior of a",
+  "summary_1line": "Existing memory forensics for machine learning systems typically targets static artifacts, such as model weights or prompt logs, rather than the transient computational states of a live inference process. This gap lim...",
   "title": "From Bytes to Behavior: Request-Level Attribution from Live GPU Hidden States",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18272v1"
@@ -7352,7 +7364,7 @@
   "sid": "450d5a403be356b6",
   "source": "arxiv_cs_lg",
   "summary": "When a sequential decision system falls short of an optimum, its score does not reveal which modifications would improve its decisions. DECODE is a benchmark for testing such modifications through controlled experiments on planning and available information. Its consumer-credit collections generator provides five partially observed environments that share known dynamics matrices and vary a memory parameter and process noise. The experiments change selected inputs or planning rules while keeping the rest of the solver fixed. Each comparison specifies the solver's state inputs, response inputs and planning horizon. On the deterministic base environment, which was selected for a large gap between six-month and one-month planning with the hidden state, extending planning from one to six months increases the scores of two gradient-boosted solvers by 15 to 17 percentage points of the exact optimum, computed with the hidden state and borrower traits. Even at this horizon, the best graded solver, whose repayment response is fitted on logs, remains 15.6 points below that optimum. In a specified intervention sequence, three changes to its state inputs and their evaluation during search lower its score by 6.3 points, and replacing its fitted repayment model with the true response, evaluated with hidden borrower traits, then raises it by 15.6, a net recovery of nine of those points. Because the intermediate effects are conditional on the repayment model and the order of the changes, they",
-  "summary_1line": "When a sequential decision system falls short of an optimum, its score does not reveal which modifications would improve its decisions. DECODE is a benchmark for testing such modifications through controlled experiments on planning and available information. Its consumer-credit c",
+  "summary_1line": "When a sequential decision system falls short of an optimum, its score does not reveal which modifications would improve its decisions. DECODE is a benchmark for testing such modifications through controlled experimen...",
   "title": "DECODE: Decomposable Environments for COntrolled Sequential-Decision Evaluation",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18367v1",
@@ -7894,16 +7906,16 @@
  },
  "4c98cb9398b29993": {
   "first_seen": "2026-11-17T01:06:17.206170+00:00",
-  "id": "8038444eb4bc6205",
+  "id": "1bb56383933345d2",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-17T00:32:54+00:00",
+  "published": "2026-11-17T02:24:32+00:00",
   "sid": "4c98cb9398b29993",
   "source": "openai_codex_releases",
   "summary": "Release 0.170.0-alpha.4.1",
   "summary_1line": "Release 0.170.0-alpha.4.1",
-  "title": "codex rust-v0.170.0-alpha.4.1",
+  "title": "codex 0.170.0-alpha.4.1",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.170.0-alpha.4.1",
   "why_it_matters": "Matches feed focus: codex."
@@ -8531,9 +8543,9 @@
   ],
   "published": "2026-11-13T11:50:28+00:00",
   "sid": "51b59fa245434a4b",
-  "source": "arxiv_agent_systems_research",
+  "source": "arxiv_llm_reliability",
   "summary": "Artificial intelligence has progressed from task-specific systems toward general models spanning perception, generation, reasoning, and autonomous interaction, making reliable evaluation essential for comparison, deployment, and post-training feedback. At scale, modern evaluation pipelines increasingly rely on LLM-as-a-Judge to produce scores, preferences, and critiques; in its fixed-context setting, the judge relies on the supplied evaluand and evaluation materials. Yet a reliable verdict may require evidence beyond the supplied evaluand and context---either because critical environmental states remain unrecorded in the static execution log, or because controversial factual claims require external verification. Passive judges cannot obtain that missing evidence before deciding, especially when evaluating agent trajectories, executable artifacts, or domain-specific reports. Recent work therefore develops active evaluators that seek missing evidence and update their grounds for judgment before deciding. We bring these advances together through Agent-as-a-Judge, focusing on how evaluators construct and control checking processes within the broader LLM-based judging landscape. We define the scope through evaluation-directed checks and the use of their results, covering both structured workflows and observation-driven control. We organize the design space by multi-agent collaboration, tool integration, memory, and planning, and show how these mechanisms supply the checks and evid",
-  "summary_1line": "Artificial intelligence has progressed from task-specific systems toward general models spanning perception, generation, reasoning, and autonomous interaction, making reliable evaluation essential for comparison, deployment, and post-training feedback. At scale, modern evaluation",
+  "summary_1line": "Artificial intelligence has progressed from task-specific systems toward general models spanning perception, generation, reasoning, and autonomous interaction, making reliable evaluation essential for comparison, depl...",
   "title": "Agent-as-a-Judge",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18067v1",
@@ -12254,7 +12266,7 @@
   "sid": "75db6f155d9769a5",
   "source": "arxiv_llm_reliability",
   "summary": "Mechanistic Interpretability (MI) has made significant progress in explaining the internal computations of Large Language Models (LLMs); however, these advances have yet to demonstrate comparable success in explaining the decision-making processes of LLM-based agents. This paper examines the challenges MI tools face when applied to realistic agentic failures. We focus on one such failure: web agents hallucinating actions that are not available on a website. We apply a series of mechanistic analyzes to Qwen2.5-7B-Instruct as it interacts with live websites. We find that a linear probe trained on the last prompt token can predict hallucinations before generation begins (0.80 AUC) and steering along a probe direction corrects 85\\% of hallucinations, but disrupts 7\\% of valid actions. However, these results only provide a partial explanation of why the agent hallucinates. The probe direction is sensitive to prompt formatting, losing much of its steering effect after a minor change to how actions are represented. Additionally, circuit identification can be difficult as the computation is distributed across multiple components and positions, and the information the agent relies on varies across examples. We discuss how these observations challenge the assumptions underlying standard MI methods for circuit discovery and feature identification, and outline future directions for making these methods better suited to explain failures in LLM-based agents.",
-  "summary_1line": "Mechanistic Interpretability (MI) has made significant progress in explaining the internal computations of Large Language Models (LLMs); however, these advances have yet to demonstrate comparable success in explaining the decision-making processes of LLM-based agents. This paper",
+  "summary_1line": "Mechanistic Interpretability (MI) has made significant progress in explaining the internal computations of Large Language Models (LLMs); however, these advances have yet to demonstrate comparable success in explaining...",
   "title": "Can Mechanistic Interpretability Help Explain LLM Agent Failures? A Case Study on Web Element Hallucination",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.18514v1",
@@ -15043,6 +15055,11 @@
     "source": "simon_willison",
     "title": "GPT‑6.2 Astra and GPT‑6.2 Sol",
     "url": "https://simonwillison.net/2026/Nov/17/gpt62-astra-and-sol/"
+   },
+   {
+    "source": "latent_space",
+    "title": "[AINews] GPT-6.2 Astra, the #2 Frontier Model is better and 20%-600% cheaper, but has mixed reviews; 6.2 Sol likely main workhorse",
+    "url": "https://latent.space/p/ainews-gpt-6-2-astra-the-2-frontier-model-is-better-and-20-600-cheaper-but-has-mixed-reviews-6-2-sol/"
    }
   ],
   "first_seen": "2026-11-17T19:05:29.013393+00:00",
@@ -15794,7 +15811,7 @@
   "content_excerpt": "At SC26, an annual supercomputing conference taking place this week in Chicago, NVIDIA is introducing the DGX Spark HPC Developer Kit for researchers, academics and developers. The kit is a four-node cluster of NVIDIA DGX Spark systems , each connected directly to its two neighbors in a ring, with an NVIDIA HPC SDK installation playbook coming soon. Researchers get a place at their desk to run multi-node scientific workloads, AI models and agents, instead of waiting for time on a shared GPU cluster. The kit puts the GB10 Grace Blackwell Superchip on researchers’ desks. It scales from one system, or node, to four — linked directly to one another over NVIDIA ConnectX-7 networking, with no network switch to buy or set up. At four nodes, it provides 512GB of combined memory and 20TB of NVMe storage that provides researchers more capacity to distribute models and scientific workloads across the cluster. With NVFP4, researchers can deploy models with up to 700B parameters locally across the four DGX Spark clusters, such as DeepSeek V4.1. With that much power at the desk, researchers with a fixed compute and server allocation no longer have to wait in a queue for every job. Teams can develop and debug on their own, saving server hours for production runs and keeping unpublished results, and proprietary datasets on premises. The playbook for NVIDIA HPC SDK is coming soon, bringing GPU-accelerated C, C++ and Fortran compilers, libraries and message passing interface tools to the DGX S",
   "first_seen": "2026-11-17T00:06:08.911711+00:00",
   "id": "a741021645dc32cb",
-  "image_url": "https://blogs.nvidia.com/wp-content/uploads/2026/11/SC-Local-AI-DGX-Spark-Clusters-Blog-Header.jpg",
+  "image_url": "https://blogs.nvidia.com/wp-content/uploads/2026/11/nv-blog-1280x680-1.jpg",
   "published": "2026-11-16T23:00:05+00:00",
   "sid": "9634b5e75ef12012",
   "source": "nvidia_blog",
@@ -16415,16 +16432,16 @@
  },
  "9c3800140cead05c": {
   "first_seen": "2026-11-17T13:05:17.629690+00:00",
-  "id": "783cad022c10dbbb",
+  "id": "17386c4996769973",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-17T13:05:52+00:00",
+  "published": "2026-11-17T14:32:14+00:00",
   "sid": "9c3800140cead05c",
   "source": "openai_codex_releases",
   "summary": "Release 0.171.0-alpha.12",
   "summary_1line": "Release 0.171.0-alpha.12",
-  "title": "codex rust-v0.171.0-alpha.12",
+  "title": "codex 0.171.0-alpha.12",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.12",
   "why_it_matters": "Matches feed focus: codex."
@@ -17114,7 +17131,7 @@
   "why_it_matters": "Matches feed focus: eval."
  },
  "a21736c78b619d16": {
-  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites and Chief Security Architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. The article describes an architecture for agentic AI in regulated utility operations. Agents reason and propose actions, but a deterministic policy gate and a governed tool gateway control execution, with human approval where required. It covers an AWS reference implementation, grounding in runbooks, governed prediction, outcome validation, audit evidence, and phased autonomy. Sundara Raman Ramachandran shares how LinkedIn productionizes LLM ranking under strict P99 latency SLAs. He discusses distilling a 7B model down to 400M parameters, compressing job contexts into single-token embeddings for a 10x throughput leap, and eliminating hidden system bottlenecks - from custom flash attention masks to Python GIL workarounds, gc.freeze, and non-blocking CUDA memory copies. Henry Wilson shares actionable tools from the BBC Sounds re-architecture to hel",
+  "content_excerpt": "A monthly overview of things you need to know as an architect or aspiring architect. Facilitating the Spread of Knowledge and Innovation in Professional Software Development Unlock the full InfoQ experience by logging in! Stay updated with your favorite authors and topics, engage with content, and download exclusive resources. In this episode, Christopher \"CRob\" Robinson, CTO of OpenSSF, Akrites and Chief Security Architect of the Linux Foundation, explores the state of software supply chain security amid multiple security incidents and explains how tools like Scorecard, the Security Baseline framework, and SLSA help harden software. Jabez Eliezer Manuel discusses the 20-year evolution of Booking.com’s data management and ML platforms. He explains how they scaled MySQL topologies, sunset Hadoop for cloud architecture, and built high-throughput model serving and feature stores operating at 400B predictions per day. He also shares insights on personalization, interleaved experimentation, and their new agentic AI foundation. Sundara Raman Ramachandran shares how LinkedIn productionizes LLM ranking under strict P99 latency SLAs. He discusses distilling a 7B model down to 400M parameters, compressing job contexts into single-token embeddings for a 10x throughput leap, and eliminating hidden system bottlenecks - from custom flash attention masks to Python GIL workarounds, gc.freeze, and non-blocking CUDA memory copies. Henry Wilson shares actionable tools from the BBC Sounds re-arc",
   "first_seen": "2026-11-17T12:05:23.035404+00:00",
   "id": "65da9de7a6d8cc3e",
   "image_url": "https://res.infoq.com/news/2026/11/datadog-ai-agent-observability/en/headerimage/generatedHeaderImage-1794408423767.jpg",
@@ -21818,16 +21835,16 @@
  },
  "cf3bd3dc31c3f29b": {
   "first_seen": "2026-11-17T21:06:03.111711+00:00",
-  "id": "ae5bc56726df73c7",
+  "id": "c541e1379d947f83",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-17T21:05:52+00:00",
+  "published": "2026-11-17T22:22:49+00:00",
   "sid": "cf3bd3dc31c3f29b",
   "source": "openai_codex_releases",
   "summary": "Chores No verified release highlights available. Changelog Full Changelog: rust-v0.169.0...rust-v0.169.1",
-  "summary_1line": "Release 0.169.1",
-  "title": "codex rust-v0.169.1",
+  "summary_1line": "Chores No verified release highlights available. Changelog Full Changelog: rust-v0.169.0...rust-v0.169.1",
+  "title": "codex 0.169.1",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.169.1",
   "why_it_matters": "Matches feed focus: codex."
@@ -22141,7 +22158,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "d40d2d63ee38f7e2": {
-  "content_excerpt": "Learn how Databricks and Google are advancing interoperability through open standards. The Lakehouse architecture is becoming more open than ever. What started with open table formats – Delta Lake and Iceberg – has evolved into catalog federation for zero-copy access across multiple platforms. Through our partnership and Open Source contributions, Databricks and Google Cloud continue to drive advancements in the Open Lakehouse community. Today, we're proud to announce a significant milestone in catalog interoperability in collaboration with Google: customers can now access a single copy of data from both Unity Catalog and Google Cloud's borderless Lakehouse . The Databricks and Google Cloud partnership continues to thrive, and we're committed to making bi-directional interoperability seamless. Bringing data from Google Cloud into Databricks is simple. With Lakehouse Federation to Google Cloud , customers can mount Iceberg tables managed by Google Cloud's Lakehouse runtime catalog in Unity Catalog for analysis in Databricks. These Iceberg tables from Google's Lakehouse runtime catalog can then be queried by Databricks Lakehouse , our serverless data warehouse, or analyzed via Genie , which intelligently answers data questions from natural language – no code or SQL required. Interoperability works in the other direction as well. Data from Databricks can also be brought into Google Cloud's Lakehouse ( learn more ). This allows customers using engines like BigQuery to read Unity ",
+  "content_excerpt": "Learn how Databricks and Google are advancing interoperability through open standards. The Lakehouse architecture is becoming more open than ever. What started with open table formats – Delta Lake and Iceberg – has evolved into catalog federation for zero-copy access across multiple platforms. Through our partnership and Open Source contributions, Databricks and Google Cloud continue to drive advancements in the Open Lakehouse community. Today, we're proud to announce a significant milestone in catalog interoperability in collaboration with Google: customers can now access a single copy of data from both Unity Catalog and Google Cloud's borderless Lakehouse . The Databricks and Google Cloud partnership continues to thrive, and we're committed to making bi-directional interoperability seamless. Bringing data from Google Cloud into Databricks is simple. With Lakehouse Federation to Google Cloud , now generally available, customers can mount Iceberg tables managed by Google Cloud's Lakehouse runtime catalog in Unity Catalog for analysis in Databricks. These Iceberg tables from Google's Lakehouse runtime catalog can then be queried by Databricks Lakehouse , our serverless data warehouse, or analyzed via Genie , which intelligently answers data questions from natural language – no code or SQL required. Interoperability works in the other direction as well. Data from Databricks can also be brought into Google Cloud's Lakehouse ( learn more ). This allows customers using engines lik",
   "first_seen": "2026-11-17T17:07:12.026587+00:00",
   "id": "a5bc696dbbfa5df0",
   "published": "2026-11-17T16:30:00+00:00",
@@ -23196,13 +23213,18 @@
  "dc1af94d5139a30b": {
   "first_seen": "2026-11-20T03:09:01.673171+00:00",
   "id": "b26a0bed95a60693",
+  "matched_topics": [
+   "evaluation"
+  ],
   "published": "2026-11-19T09:22:27+00:00",
   "sid": "dc1af94d5139a30b",
   "source": "arxiv_agent_systems_research",
+  "summary": "Multimodal safety guards increasingly generate rationales alongside safety predictions, yet whether these rationales are reliable remains largely unexplored. We systematically study *rationale hallucination* from two perspectives: visual rationale hallucination, where rationales contain unsupported visual facts, and safety attribution hallucination, where grounded content is assigned an incorrect safety interpretation. Across rationale-generation methods, multiple vision-language backbones, and safety datasets, we find that rationale hallucination is widespread and does not consistently diminish with higher classification accuracy or increased model scale. Further analysis of the Think-with-Image paradigm shows that hallucination is concentrated in fine-grained attributes and relations, while visual tools are often invoked infrequently or without sufficient spatial focus. Based on these findings, we propose *Tool-Contrastive Grounding Reinforcement Learning* (TCG-RL), which rewards tool use only when it improves rationale grounding over a tool-free reference. TCG-RL substantially reduces rationale hallucination while maintaining competitive safety prediction performance. By revealing the gap between prediction correctness and rationale reliability, our study motivates a shift in multimodal safety guarding from outcome-only evaluation toward safety decisions that are both accurate and verifiably grounded.",
   "summary_1line": "Multimodal safety guards increasingly generate rationales alongside safety predictions, yet whether these rationales are reliable remains largely unexplored. We systematically study *rationale hallucination* from two perspectives: visual rationale hallucination, where rationales",
   "title": "When Safety Rationales Hallucinate: Diagnosing and Grounding Multimodal Safety Guards",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.25793v1"
+  "url": "http://arxiv.org/abs/2611.25793v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "dc60c3e88c8904ed": {
   "first_seen": "2026-11-20T00:12:03.741107+00:00",
@@ -23886,16 +23908,16 @@
  },
  "e2fd6d26a416c296": {
   "first_seen": "2026-11-17T04:04:14.578855+00:00",
-  "id": "c82a513022fb895d",
+  "id": "b88f59f1ea449797",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-11-17T03:09:14+00:00",
+  "published": "2026-11-17T04:30:04+00:00",
   "sid": "e2fd6d26a416c296",
   "source": "openai_codex_releases",
   "summary": "Release 0.171.0-alpha.11",
   "summary_1line": "Release 0.171.0-alpha.11",
-  "title": "codex rust-v0.171.0-alpha.11",
+  "title": "codex 0.171.0-alpha.11",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.171.0-alpha.11",
   "why_it_matters": "Matches feed focus: codex."
@@ -24588,7 +24610,7 @@
   "sid": "ea7e5e3ff883dd79",
   "source": "arxiv_agent_systems_research",
   "summary": "Recursive self-improvement (RSI) is one of the most promising paths toward an AI singularity for superintelligence. Achieving this vision requires AI systems to undertake the full training pipeline for iterative improvement. Reinforcement learning (RL) plays an essential role in this cycle to improve model capabilities and generalization, yet automating RL remains difficult due to unstable training dynamics and the need for sustained supervision. We introduce AutoRL, a multi-agent system for automating RL training, as a cornerstone for future RSI. Different from conducting research by end-to-end complete experiments, AutoRL monitors the evolving training state and integrates process-level supervision and research into an ongoing RL training, following the practical workflow of an RL researcher. Specifically, AutoRL consists of three RL-specific agentic roles. Perceptors track training dynamics, rollouts, evaluation, and efficiency, triggering deliberation when they detect anomalies, degradation, or stagnation. Three complementary Proposers diagnose problems and refine candidate interventions through shared evidence and checks. The Orchestrator reviews their recommendation and applies approved changes through online hot updates or checkpoint-based resumption. Experiments on Qwen3 and LongCat-Flash-Lite demonstrate the superiority of AutoRL over static RL recipes and a general agent. The research records show that existing agents can handle unattended RL supervision and dynamic",
-  "summary_1line": "Recursive self-improvement (RSI) is one of the most promising paths toward an AI singularity for superintelligence. Achieving this vision requires AI systems to undertake the full training pipeline for iterative improvement. Reinforcement learning (RL) plays an essential role in",
+  "summary_1line": "Recursive self-improvement (RSI) is one of the most promising paths toward an AI singularity for superintelligence. Achieving this vision requires AI systems to undertake the full training pipeline for iterative impro...",
   "title": "AutoRL: A Multi-Agent System towards Autonomous Reinforcement Learning",
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.17790v1",
@@ -25343,7 +25365,7 @@
   "why_it_matters": "Matches feed focus: agent."
  },
  "f22d46a83ecd25c4": {
-  "content_excerpt": "Test using prompts with unique, trackable secrets proves that data doesn’t stay private. Researchers planted 2 million digital tripwires in requests sent through a sprawling network of AI services to find out what happened to sensitive information entrusted to them. What they discovered was an ecosystem that leaked highly sensitive data like a sieve. The exposure was found through an ingenious experiment designed to test if sensitive information can leak through the vast chain of widely used AI services and how that information is exploited when it does. Many of today’s AI apps use services such as OpenRouter or Vercel that act as brokers. These “AI routers,” sometimes also known as “AI gateways,” receive large numbers of prompts sent from AI app end users and route them to an available inference engine based on criteria such as the one charging the lowest price or being best suited for the given task. Instead of using Anthropic, OpenAI, or another big provider, the developer hires an AI router to find the most suitable model. To test for potential leakage, researcher HD Moore assembled a collection of AWS access keys, functioning credentials tied to empty AWS accounts, passwords for services such as SSH, and unique URLs, DNS names, and private git repository references. None of the secrets had ever been used before, and he controlled the infrastructure that received any requests using the credentials. He then seeded each secret into exactly one prompt sent to a single provid",
+  "content_excerpt": "Test using prompts with unique, trackable secrets proves that data doesn’t stay private. Researchers planted 2 million digital tripwires in requests sent through a sprawling network of AI services to find out what happened to sensitive information entrusted to them. What they discovered was an ecosystem that leaked highly sensitive data like a sieve. The exposure was found through an ingenious experiment designed to test if sensitive information can leak through the vast chain of widely used AI services and how that information is exploited when it does. Many of today’s AI apps use services such as OpenRouter or Vercel that act as brokers. These “AI routers,” sometimes also known as “AI gateways,” receive large numbers of prompts sent from AI app end users and route them to an available inference engine based on criteria such as the one charging the lowest price or being best suited for the given task. Instead of using Anthropic, OpenAI, or another big provider, the developer hires an AI router to find the most suitable model. To test for potential leakage, researcher HD Moore assembled a collection of Amazon Web Services access keys, functioning credentials tied to empty AWS accounts, passwords for services such as SSH, and unique URLs, DNS names, and private git repository references. None of the secrets had ever been used before, and he controlled the infrastructure that received any requests using the credentials. He then seeded each secret into exactly one prompt sent to",
   "first_seen": "2026-11-20T22:05:14.750261+00:00",
   "id": "fdcf7981e8e53e20",
   "published": "2026-11-20T21:53:39+00:00",
@@ -25885,16 +25907,39 @@
   "type": "news",
   "url": "https://www.infoq.com/articles/llm-reliability-layers-limits-accuracy/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
  },
+ "f6e744ab21c05ceb": {
+  "content_excerpt": "Cut self-hosted LLM cost and latency with the distributed KV caching agent skill | Artificial Intelligence Skip to Main Content Filter: All",
+  "first_seen": "2026-11-21T01:05:12.104357+00:00",
+  "id": "e5201082dd45bf9d",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-11-21T00:14:26+00:00",
+  "sid": "f6e744ab21c05ceb",
+  "source": "aws_ml_blog",
+  "summary": "Self-hosting LLMs on GPUs means paying to recompute the same context on every turn. Distributed KV caching with Amazon ElastiCache can cut inference cost by up to 40% and time to first token by up to 80%. This post walks through the distributed KV caching skill in the Agent Toolkit for AWS, which evaluates and sets up the cache from your coding agent.",
+  "summary_1line": "Self-hosting LLMs on GPUs means paying to recompute the same context on every turn. Distributed KV caching with Amazon ElastiCache can cut inference cost by up to 40% and time to first token by up to 80%. This post wa...",
+  "title": "Cut self-hosted LLM cost and latency with the distributed KV caching agent skill",
+  "type": "news",
+  "url": "https://aws.amazon.com/blogs/machine-learning/cut-self-hosted-llm-cost-and-latency-with-the-distributed-kv-caching-agent-skill",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "f71afb7764f26157": {
   "first_seen": "2026-11-21T00:09:03.773639+00:00",
   "id": "06230102177fd6d8",
+  "matched_topics": [
+   "evaluation"
+  ],
   "published": "2026-11-19T04:32:25+00:00",
   "sid": "f71afb7764f26157",
   "source": "arxiv_llm_reliability",
+  "summary": "Large language models (LLMs) support scientific research, but some of that assistance can also undermine research integrity. Existing safety evaluations in science often measure whether models refuse misconduct requests, but rarely explain whether they even recognize the problem or why they comply. We investigate this gap across 8 LLMs using SciIntBench, an existing benchmark of 1,350 prompts about scientific research integrity. We examine the reasons behind compliance in four steps. First, when asked directly whether fulfilling a request would involve misconduct, models overwhelmingly identify such requests, even in the Most Covert cases (91%), while they refuse to carry out the request in only 34% of cases. Second, we examine which request characteristics are associated with refusal using features that capture how the request is framed, how much the assistant has been told about what it is helping to hide, and how the goal and the user's stake are stated, among others. Third, we estimate that the most significant effect was to rephrase requests as questions about permissibility rather than instructions, which increased refusal from 52% to 88%. Finally, we test two system-prompt fixes: asking models to assess the request before responding and reminding them of responsible conduct of research principles. These changes increase refusal rates on adversarial requests from 58% to 87% and 86%, respectively. Our findings show that models recognize wrongful requests but still help u",
   "summary_1line": "Large language models (LLMs) support scientific research, but some of that assistance can also undermine research integrity. Existing safety evaluations in science often measure whether models refuse misconduct requests, but rarely explain whether they even recognize the problem",
   "title": "Why Do LLMs Help with Scientific Misconduct Requests and What to Do About It?: Increasing the Trustworthiness of AI for Science",
   "type": "paper",
-  "url": "http://arxiv.org/abs/2611.25492v1"
+  "url": "http://arxiv.org/abs/2611.25492v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "f752a4b1a8de79f9": {
   "first_seen": "2026-11-16T03:24:13.745359+00:00",
@@ -26853,6 +26898,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2611.07222v1",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "ff772f090165aaae": {
+  "content_excerpt": "The living knowledge engine behind the Dragos Platform, built from over a decade of OT-specific telemetry, adversary research, and frontline expertise. xOT defines the full operational technology environment - every system that influences a physical process. Safeguarding civilization from those trying to disrupt critical infrastructure we depend on every day. The living knowledge engine behind the Dragos Platform, built from over a decade of OT-specific telemetry, adversary research, and frontline expertise. xOT defines the full operational technology environment - every system that influences a physical process. Safeguarding civilization from those trying to disrupt critical infrastructure we depend on every day. HD Moore, Chief Research Officer, will be regularly sharing work from the research team he leads at Dragos. Topics will include xOT, IT, LLMs, PQC, and more. Their findings will sharpen defenders’ understanding of exposures and vulnerabilities emerging across the threat landscape. We sent nearly two million AI prompts containing unique, trackable secrets to AI providers, then watched where those secrets surfaced. What we found revealed security breaches, prompt theft, and widespread failures to protect customer data. Over a five-month period from July through November 2026, we submitted approximately two million prompts containing unique URLs and canary token credentials to widely used AI services and monitored what happened after inference. Our investigation uncove",
+  "first_seen": "2026-11-21T01:07:05.077387+00:00",
+  "id": "86fc666480f9fe69",
+  "published": "2026-11-20T21:49:42+00:00",
+  "sid": "ff772f090165aaae",
+  "source": "hackernews_ai",
+  "title": "Prompt Canaries Detect Prompt Leaks at AI Providers",
+  "type": "news",
+  "url": "https://www.dragos.com/blog/ai-supply-chain-security-canary-tokens"
  },
  "ffb135670dcdd2fa": {
   "first_seen": "2026-11-06T07:09:24.149502+00:00",
