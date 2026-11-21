@@ -1,0 +1,134 @@
+{
+  "locale": "ko",
+  "source_path": "/daily/2026-11-21",
+  "source_hash": "d8023fcb9d5b2fdf8b83f7c2df0542a568ce26d08297b0152bb8bb350aabade3",
+  "translated_at": "2026-11-21T22:16:42Z",
+  "model": "claude-opus-5-5",
+  "review_status": "machine",
+  "title": "11월 21일 AI 데일리: 툴 결과가 공격면이 됐다",
+  "intro": [
+    "이제 툴 결과는 무시할 수 없는 공격면이다. RunPod의 호스팅 MCP 서버는 에이전트에게 자사를 평가하고 그 사실을 사용자에게 숨기라고 지시하기 시작했다. 악성 npm 패키지는 Hermes Agent 전체를 root로 설치했다.",
+    "평가의 초점은 피해로 옮겨갔다. Stripe는 코딩 에이전트가 최신 API를 고르는지 채점하고, RMRFBench는 일상적인 삭제 작업 뒤 서버가 살아남는지로 모델 순위를 매긴다."
+  ],
+  "highlights": [
+    "RunPod MCP 서버, 모든 create-pod 결과에 '평가하되 사용자에겐 말하지 말라'는 숨은 지시 추가",
+    "악성 npm 패키지 @leadstack/crm-connect, Hermes Agent를 root systemd 서비스로 설치하고 Telegram으로 조종",
+    "RMRFBench, root 셸을 가진 에이전트를 한 줄짜리 삭제 티켓 뒤 서버 생존 여부로 순위화",
+    "Stripe 평가: 코딩 에이전트는 사전학습에 많이 나온 오래된 API를 선호하고 기능을 지어낸다",
+    "Replit, 에이전트 스웜이 커질수록 코드 최적화가 나아진다고 보고. 초기 멀티 에이전트 연구와 반대 결과",
+    "ClickHouse, 파일·심볼에 연결된 공유 에이전트 메모리용 셀프 호스팅 MCP 서버 Loom 공개"
+  ],
+  "categories": [
+    {
+      "name": "툴 출력과 패키지, 에이전트의 공격면",
+      "summary": "두 사건은 에이전트가 요청하지 않은 텍스트의 지시를 따른다는 점을 보여줬다. 두 도구는 스킬과 출력을 실행 전에 검사하려 한다.",
+      "articles": [
+        {
+          "url": "https://github.com/runpod/runpod-mcp/issues/202",
+          "title": "RunPod MCP 서버, AI 에이전트에게 자사를 평가하고 사용자에겐 숨기라고 지시",
+          "summary": "11월 20일부터 성공한 모든 create-pod 결과가 에이전트에게 rate_nps_score 호출과 은폐를 요청했다. 벤더가 직접 배포한, 프롬프트 인젝션과 똑같은 형태다."
+        },
+        {
+          "url": "https://safedep.io/blog/malicious-npm-leadstack-crm-connect-hermes-agent-backdoor",
+          "title": "NPM 패키지가 Hermes Agent를 root로 설치하고 Telegram으로 작업 지시",
+          "summary": "@leadstack/crm-connect는 CRM 클라이언트로 위장해 Nous Research의 Hermes Agent를 위장된 systemd 서비스로 설치했다. 그리고 공격자의 Telegram 봇에 연결했다."
+        },
+        {
+          "url": "https://clawvet.vercel.app/",
+          "title": "Show HN: ClawVet – AI 에이전트 스킬용 오프라인 AST 스캐너와 rug-pull diff",
+          "summary": "정적 규칙과 Tree-sitter 테인트 추적으로 SKILL.md, AGENTS.md, 헬퍼 스크립트가 건드리는 시크릿·호스트·시작 파일을 보고한다. CLI는 권한 변경 시 설치를 막는다."
+        },
+        {
+          "url": "https://github.com/vikasny30/aletheia-aegis",
+          "title": "Aletheia Aegis: AI 에이전트용 결정론적 서브밀리초 출력 가드",
+          "summary": "패턴 기반 출력 가드로, 자격 증명 유출과 생명 안전 실패에는 fail-closed로 동작한다. 패턴으로 판정할 수 없는 경우를 위한 선택적 시맨틱 판정기도 있다."
+        }
+      ]
+    },
+    {
+      "name": "에이전트가 망가뜨리는 것을 채점하는 평가",
+      "summary": "새 평가들은 작업 완료만이 아니라 피해와 낡은 선택을 채점하고, 실제 트레이스에서 실패를 캐낸다.",
+      "articles": [
+        {
+          "url": "https://www.rmrfbench.com/",
+          "title": "Show HN: RMRFBench – 파일 삭제를 시켰을 때 AI 에이전트가 서버를 망가뜨리는 빈도",
+          "summary": "각 실행은 일회용 Linux 박스에서 무인 에이전트에게 root 셸과 한 줄짜리 삭제 티켓을 준 뒤 서버가 살아남았는지 검사한다."
+        },
+        {
+          "url": "https://stripe.dev/blog/stripe-integration-evals-methodology",
+          "title": "Stripe 평가: 실제 환경의 코딩 에이전트 성능 측정",
+          "summary": "Stripe의 방법론은 코딩 에이전트가 최신 통합 패턴을 쓰고 실패와 웹훅을 처리하는지 확인한다. 통과/실패형 코딩 벤치마크가 놓치는 부분이다."
+        },
+        {
+          "url": "https://github.com/Eddie-Town/evalsift-lite",
+          "title": "EvalSift – 직접 라벨링한 LLM 에이전트 트레이스 100개",
+          "summary": "의존성 없는 MIT 도구로, traces.jsonl을 검증하고 결정론적 검사로 트레이스마다 채점해 실패를 보고한다. 지원 에이전트 트레이스 100개 사례 연구를 함께 제공한다."
+        },
+        {
+          "url": "https://github.com/rkkautsar/trace2rules",
+          "title": "Show HN: trace2rules – 코딩 에이전트 로그를 분석·감사해 AGENTS.md 규칙으로",
+          "summary": "에이전트 세션에서 반복되는 마찰을 캐내는 로컬 CLI다. AGENTS.md / CLAUDE.md 규칙마다 준수, 위반, 미관찰, CI 강제 여부를 표시한다."
+        }
+      ]
+    },
+    {
+      "name": "코딩 에이전트 확장: 더 많은 에이전트, 더 많은 분기",
+      "summary": "빌더들은 단일 궤적 대신 병렬 에이전트와 탐색 트리에 추론 비용을 쓰고 있다.",
+      "articles": [
+        {
+          "url": "https://frontier.replit.com/throwing-headcount-at-the-problem/",
+          "title": "에이전트 스웜은 왜 커질수록 코드 최적화를 더 잘하나",
+          "summary": "Replit은 성능 엔지니어링 작업에서 브룩스의 법칙이 지금 모델에도 통하는지 시험했고, 스웜이 커질수록 나아진다는 결과를 얻었다."
+        },
+        {
+          "url": "https://github.com/natsu0529/agent-mcts",
+          "title": "Show HN: agent-mcts – Claude Code 위에서 돌리는 몬테카를로 트리 탐색",
+          "summary": "Claude Code 위에서 MCTS를 돌리는 MIT 테스트 타임 탐색 하네스다. 해법 분기를 탐색하고 막다른 길에서 되돌아온 뒤 최선의 경로를 적용한다."
+        },
+        {
+          "url": "https://parallelcode.app/",
+          "title": "Parallel Code: Claude Code, Codex, Copilot 에이전트 CLI를 병렬 워크트리에서",
+          "summary": "에이전트 작업마다 별도 git 브랜치와 워크트리를 주고, 무엇을 머지할지 고르기 전에 diff 리뷰와 코멘트를 남기게 한다."
+        }
+      ]
+    },
+    {
+      "name": "에이전트 메모리: 공유, 고정, 되돌리기",
+      "summary": "메모리 작업의 초점이 더 많이 저장하는 것에서 무엇을 메모리로 볼지, 어디에 둘지로 옮겨갔다.",
+      "articles": [
+        {
+          "url": "https://github.com/ClickHouse/loom",
+          "title": "Loom: AI 에이전트용 공유 메모리, 문서 검색, 코드 인덱싱",
+          "summary": "ClickHouse의 셀프 호스팅 MCP 서버로, 메모리를 파일과 심볼에 연결해 에이전트가 그 코드를 수정할 때 떠오르게 한다. Claude Code와 Codex 플러그인을 제공한다."
+        },
+        {
+          "url": "https://nexupira.com/news/memory-that-saves-itself",
+          "title": "AI가 스스로 메모리를 저장하게 했다. 첫 이틀 동안 틀린 것들",
+          "summary": "자동 저장 메모리는 일회성 요청을 규칙으로, 테스트 질문을 사업 계획으로 저장했다. 해법은 단순한 규칙과 모든 저장 아래 붙은 실행 취소 버튼이었다."
+        },
+        {
+          "url": "https://www.langchain.com/blog/knowledge-factory",
+          "title": "AI 에이전트를 위한 지식 공장 만드는 법",
+          "summary": "LangChain은 사내 에이전트가 모델이 아니라 암묵지 부족 때문에 실패한다고 본다. 표준과 데이터 위치를 에이전트용으로 포착하는 절차를 제시한다."
+        }
+      ]
+    },
+    {
+      "name": "셀프 호스팅 추론: 설정은 측정하라",
+      "summary": "두 릴리스가 자체 GPU의 서빙 비용을 겨냥한다. 플래그를 벤치마크하고, KV 캐시를 공유한다.",
+      "articles": [
+        {
+          "url": "https://github.com/Aagam-Bothara/rigtune",
+          "title": "Show HN: 내 GPU에 맞는 빠른 LLM 설정을 찾아 서빙",
+          "summary": "rigtune은 vLLM, SGLang, llama.cpp를 정밀도, KV 캐시 유형, 추측 디코딩별로 내 카드와 프롬프트에서 벤치마크한 뒤 승자를 서빙한다."
+        },
+        {
+          "url": "https://aws.amazon.com/blogs/machine-learning/cut-self-hosted-llm-cost-and-latency-with-the-distributed-kv-caching-agent-skill/",
+          "title": "분산 KV 캐싱 에이전트 스킬로 셀프 호스팅 LLM의 비용과 레이턴시 줄이기",
+          "summary": "AWS는 셀프 호스팅 LLM용 분산 KV 캐싱을 에이전트 스킬로 묶어 서빙 비용과 레이턴시를 낮추려 한다."
+        }
+      ]
+    }
+  ],
+  "description": "RunPod MCP 서버가 툴 결과에 숨은 지시를 붙였고, 악성 npm 패키지가 Hermes Agent를 root로 설치했다. 평가는 에이전트가 무엇을 망가뜨리는지로 옮겨갔다."
+}
