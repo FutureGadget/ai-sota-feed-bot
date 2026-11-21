@@ -1,0 +1,128 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/attention-sparse",
+  "source_hash": "56d76638808cbf7e72f80cccf1710b5a0870da9fd4fc1307472c65bb7f7d9028",
+  "translated_at": "2026-11-21T04:20:06.052679+00:00",
+  "model": "google-translate-v2",
+  "review_status": "machine",
+  "slug": "attention-sparse",
+  "label": "Attention Sparse",
+  "item_count": 4,
+  "day_count": 4,
+  "source_count": 4,
+  "first_seen": "2026-11-02T15:46:01+00:00",
+  "last_updated": "2026-11-19T11:23:22+00:00",
+  "generated_at": "2026-11-21T00:13:05.218527+00:00",
+  "sources": [
+    "arxiv_cn_open_weight_reports",
+    "arxiv_cs_ai",
+    "arxiv_cs_cl",
+    "arxiv_cs_lg"
+  ],
+  "days": [
+    {
+      "date": "2026-11-02",
+      "items": [
+        {
+          "title": "Multi-layer Indexer: Overlapping Selection and Attention in DeepSeek Sparse Attention",
+          "url": "http://arxiv.org/abs/2611.03768v1",
+          "source": "arxiv_cn_open_weight_reports",
+          "type": "paper",
+          "summary_1line": "Sparse attention cuts the cost of long-context inference by making the attention matrix sparse: each query attends only a subset of the sequence, chosen by a fixed pattern or, in recent production LLMs, learned per qu...",
+          "sid": "2ef0f5e9028f8dae",
+          "published": "2026-11-02T15:46:01+00:00",
+          "editor_note": "DeepSeek Sparse Attention 에서 스레드를 고정하고, 인덱서의 선택 영역과 어텐션 연산 영역을 겹치도록 합니다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-03",
+      "items": [
+        {
+          "title": "Coarse Semantic Blocks for Efficient Training-Free Sparse Attention",
+          "url": "http://arxiv.org/abs/2611.04313v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "We introduce a training-free sparse attention method that builds a prompt-specific key index to accelerate both prefill and decoding. The method clusters the keys into large semantic blocks that group tokens from nonc...",
+          "why_it_matters": "Matches feed focus: eval.",
+          "sid": "2d77f36eefa1549d",
+          "published": "2026-11-03T04:46:30+00:00",
+          "editor_note": "학습이 필요 없는 옵션을 추가합니다. 프롬프트별 키 인덱스를 대략적인 의미 블록에서 구축하여 미리 채우고 디코딩할 수 있습니다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-06",
+      "items": [
+        {
+          "title": "Attend at the Right Resolution: Head-Adaptive Sparse Attention via Query-Key Interaction Structure",
+          "url": "http://arxiv.org/abs/2611.09700v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Attention is a major scalability bottleneck in large language models (LLMs), with its computational cost and key-value (KV) memory traffic becoming increasingly prohibitive as context length grows. Sparse attention addresses this bottleneck by restricting each query to a subset o",
+          "sid": "da4e6d10d3401d6d",
+          "published": "2026-11-06T16:45:26+00:00",
+          "editor_note": "각 헤드의 쿼리-키 상호 작용 구조에서 선택되는 희소성이 헤드별로 달라야 한다고 주장합니다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-19",
+      "items": [
+        {
+          "title": "DTS: Delta-Based Tile Scoring for Efficient Long-Context Sparse Attention",
+          "url": "http://arxiv.org/abs/2611.25938v1",
+          "source": "arxiv_cs_lg",
+          "type": "paper",
+          "summary_1line": "Large language models (LLMs) increasingly need to process long documents and codebases, making long-context attention a major prefill bottleneck. Block sparse attention reduces computation by skipping unimportant bloc...",
+          "why_it_matters": "Matches feed focus: eval.",
+          "sid": "f350b66d46c34624",
+          "published": "2026-11-19T11:23:22+00:00",
+          "editor_note": "사전 채우기에 초점을 맞추고, 차이값을 기준으로 타일에 점수를 매겨 블록이 드문드문 나타나는 상황에서 어떤 블록을 건너뛸지 결정합니다."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "This is a loose cluster of four independent arXiv papers, not one event: each attacks the cost of long-context attention by letting a query attend only to a selected subset of keys. It opened with work on DeepSeek Sparse Attention's learned indexer, then two training-free methods that choose keys by semantic blocks or per-head structure.",
+    "stale": false,
+    "whats_new": "DTS (Nov 19) scores attention tiles by deltas to decide which blocks to skip, targeting the prefill bottleneck of long documents and codebases.",
+    "why_it_matters": "Sparse attention is where long-context prefill cost and KV memory traffic get cut, so these selection methods decide how cheap 100K-token RAG and codebase prompts become in serving stacks.",
+    "take_for_builders": "Treat these as research only: wait for a serving-engine kernel and an independent long-context accuracy eval before swapping attention in production.",
+    "beats": [
+      {
+        "kicker": "LEARNED INDEXER",
+        "tone": "launch",
+        "headline": "Overlapping selection and attention in DeepSeek Sparse Attention",
+        "summary": "Starts from production-style sparse attention, where a learned indexer picks keys per query.",
+        "sids": [
+          "2ef0f5e9028f8dae"
+        ]
+      },
+      {
+        "kicker": "TRAINING-FREE",
+        "tone": "rising",
+        "headline": "Two methods pick keys without retraining the model",
+        "summary": "One clusters keys into coarse semantic blocks; the other adapts sparsity per attention head.",
+        "sids": [
+          "2d77f36eefa1549d",
+          "da4e6d10d3401d6d"
+        ]
+      },
+      {
+        "kicker": "LATEST",
+        "tone": "now",
+        "headline": "DTS: delta-based tile scoring for block-sparse prefill",
+        "sids": [
+          "f350b66d46c34624"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Do any of these methods ship in vLLM, SGLang, or TensorRT-LLM kernels?",
+      "Which method holds accuracy on long-context benchmarks like RULER at matched sparsity?",
+      "Do the training-free methods compose with KV-cache quantization and prefix caching?"
+    ],
+    "generated_at": "2026-11-21T00:12:20Z"
+  }
+}

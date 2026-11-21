@@ -1,0 +1,150 @@
+{
+  "locale": "ko",
+  "source_path": "/playbook/2026-11-17",
+  "source_hash": "d3bad7fd6a7610cb3f2fa8bdad8f324ae29e4f0b00bb7878e0ac6a281d215267",
+  "translated_at": "2026-11-21T04:19:05.853700+00:00",
+  "model": "google-translate-v2",
+  "review_status": "machine",
+  "date": "2026-11-17",
+  "title": "에이전트 빌더의 플레이북 — 2026년 11월 17일",
+  "generated_at": "2026-11-17T10:04:53Z",
+  "intro": [
+    "이번 주 주제는 정상 경로를 신뢰하지 않는 검사입니다. 변경 사항으로 수정할 수 없는 검증 게이트, 조용한 정확도 손실을 위한 엔드포인트 카나리, 그리고 판정자를 고정시키는 평가 등이 이에 해당합니다."
+  ],
+  "card_count": 7,
+  "cards": [
+    {
+      "id": "pb-gate-commits-on-verify-skill",
+      "kind": "source-backed",
+      "title": "게이트 에이전트가 검증 스킬에 대해 커밋을 수행했지만 변경 사항을 편집할 수 없습니다.",
+      "area": "Reliability",
+      "problem": "상담원이 자신이 적용한 변경 사항이 제대로 작동하는지 신속하게 확인할 방법이 없다면, 사람이 직접 모든 것을 확인해야 하므로 한 번에 한두 명의 상담원만 처리할 수밖에 없습니다.",
+      "apply": "앱을 처음부터 끝까지 실행하는 `verify` 스킬을 추가하고, 각 커밋 전에 해당 스킬(또는 코드 리뷰)을 필수로 요구하세요. 변경 사항이 검증 규칙을 수정하지 않도록 기본 브랜치에 게이팅 규칙을 유지하세요. 새로운 게이트는 먼저 관찰 모드에서 실행하고, 세 번의 수정 시도 후에도 실패하면 담당자에게 보고하세요.",
+      "result": "Anthropic 별도의 평가 기준표를 통해 구조화된 파일 작업의 성공률을 최대 10점까지 향상시켰으며, 검증 루프를 통해 수십 개의 에이전트를 병렬로 실행할 수 있었다고 보고했습니다.",
+      "effort": "medium",
+      "source": "claude_dev_blog",
+      "source_url": "https://claude.dev/blog/how-the-claude-code-team-thinks-about-verification/",
+      "source_sid": "9a0aa0e71b450c03",
+      "topic_url": "/topic/agent-reliability",
+      "evidence": {
+        "kind": "source-claimed",
+        "note": "Anthropic 자체 내부 테스트 결과를 보고했으며, 외부 기관의 재현 테스트는 진행하지 않았습니다."
+      },
+      "published": "Mon, 16 Nov 2026 12:00:00 GMT"
+    },
+    {
+      "id": "pb-flex-tier-for-non-streaming-loops",
+      "kind": "source-backed",
+      "title": "스트리밍 방식이 아닌 상담원 통화를 플렉스 티어로 라우팅합니다.",
+      "area": "Cost & latency",
+      "problem": "코딩 에이전트는 응답이 완전히 완료될 때까지 기다린 후에도 실시간으로 토큰 가격을 지불합니다.",
+      "apply": "에이전트가 완료된 응답만 처리하는 경우, 기본적으로 `service_tier: \"flex\"`를 사용하여 요청을 보내고, 대기열이 쌓일 때 실시간 모드로 전환할 수 있도록 단일 명령으로 변경할 수 있는 기능을 유지하십시오. 부분 출력을 스트리밍하거나 부분적인 도구 호출에 대응하는 모든 작업에는 실시간 모드를 유지하십시오.",
+      "result": "저자가 실시한 매칭 테스트에서 플렉스 토큰 비율은 24~27% 더 낮았고, 종단 간 지연 시간 중앙값은 4.48초에서 4.84초로만 증가했으며, 첫 번째 토큰 지연 시간은 0.17초에서 4.84초로 증가했습니다.",
+      "effort": "low",
+      "source": "hackernews_ai",
+      "source_url": "https://tesseracted.com/the-price-of-patience/",
+      "source_sid": "076bcadf42543fda",
+      "topic_url": "/topic/cost-controls",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "한 모델에 대해 단계별로 5회씩 교차 진행; 비용은 청구서가 아닌 공개된 요금표를 기준으로 산정되었습니다."
+      },
+      "published": "Fri, 13 Nov 2026 19:33:19 +0000"
+    },
+    {
+      "id": "pb-check-endpoint-output-caps-and-tool-schemas",
+      "kind": "source-backed",
+      "title": "호스팅된 엔드포인트를 도입하기 전에 해당 엔드포인트의 출력 제한 및 도구 인수 유형을 확인하십시오.",
+      "area": "Tool use",
+      "problem": "호스팅된 오픈웨이트 엔드포인트 중 약 4분의 1이 동일 모델의 참조 배포보다 낮은 점수를 받습니다. 주요 원인은 FP4 양자화가 아니라 출력 제한 및 스키마 버그입니다.",
+      "apply": "공급자를 선택하기 전에 최대 출력 토큰 수를 확인하고 해당 제한이 가장 긴 추론 추적에 적합한지 확인하십시오. ID와 같은 문자열 형식의 도구 인수를 전송하는 카나리 테스트를 실행하고 해당 인수가 문자열로 반환되는지 확인하십시오.",
+      "result": "Artificial Analysis의 지표에서 출력 토큰 수가 약 32,000개로 제한된 엔드포인트는 HLE-250에서 22~29%의 점수를 기록했으며, 이는 기준 엔드포인트의 55%보다 낮은 수치입니다. 문자열 인수를 숫자로 전송한 두 엔드포인트는 BFCL에서 50~51%의 점수를 기록했으며, 이는 기준 엔드포인트의 59%보다 낮은 수치입니다.",
+      "effort": "low",
+      "source": "hackernews_ai",
+      "source_url": "https://hermes-ai.net/news/artificial-analysis-finds-1-in-4-ai-endpoints-quietly-underperform-their/",
+      "source_sid": "72eff2cf25179487",
+      "topic_url": "/topic/tool-use",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "100개 이상의 엔드포인트에 걸쳐 보고된 인공 분석 엔드포인트 정확도 지수 v1.1."
+      },
+      "published": "Fri, 13 Nov 2026 17:08:35 +0000"
+    },
+    {
+      "id": "pb-enforce-data-flow-at-send-time",
+      "kind": "source-backed",
+      "title": "데이터 전송 시 데이터 출처 및 수신자 권한을 확인하십시오.",
+      "area": "Safety",
+      "problem": "각 에이전트는 자체 도구 권한을 따를 수 있지만, 팀 전체가 개인 데이터를 유출할 수도 있습니다. 예를 들어 공격자가 데이터베이스 요약을 이메일 발신자에게 전송하는 티켓이 생성될 수 있습니다.",
+      "apply": "모델이 아닌 런타임에서 콘텐츠에 출처와 기밀성 레이블을 태그하고, 이러한 레이블을 모든 전달 과정에서 유지하도록 합니다. 이메일이나 웹훅과 같은 모든 발신 도구에서 수신자가 페이로드의 모든 레이블을 수신할 수 없는 경우 전송을 차단합니다. 읽기 도구의 범위를 요청자 자신의 레코드로 제한합니다.",
+      "result": "에이전트 간 데이터 유출 체인은 오케스트레이터가 요청을 하도록 속더라도 전송 단계에서 실패합니다.",
+      "effort": "high",
+      "source": "hackernews_ai",
+      "source_url": "https://glthr.com/transitive-policies-for-ai-agents",
+      "source_sid": "89f7bd12a1554243",
+      "topic_url": "/topic/prompt-injection",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "해당 자료는 측정 연구가 아니라, 실제 공격 사례를 제시하는 설계 논증입니다."
+      },
+      "published": "Sat, 14 Nov 2026 12:33:40 +0000"
+    },
+    {
+      "id": "pb-unread-message-guard-for-peer-agents",
+      "kind": "source-backed",
+      "title": "에이전트가 메시지를 읽을 때까지 공유 리소스 작업을 차단합니다.",
+      "area": "Orchestration",
+      "problem": "각 사용자의 담당자가 공유 예산, 일정 또는 그룹 주문을 기반으로 작업할 경우, 단일 조정 담당자가 있을 때보다 그룹 성과가 떨어집니다.",
+      "apply": "주문이나 예산 지출과 같은 작업 도구는 상담원이 읽지 않은 동료 메시지가 있는 동안 실행되지 않도록 설정하십시오. 예산을 공유하는 경우, 업무 가치를 기준으로 우선순위를 정하고 예산을 배분하는 리더 상담원을 한 명 지정하고 다른 상담원들이 그 상담원에게 보고하도록 하십시오.",
+      "result": "Anthropic 의 환경에서 읽지 않은 메시지 보호 기능은 그룹 주문을 다시 실행하는 것보다 실패한 그룹 주문을 더 많이 복구했습니다. 명확한 우선순위를 가진 지정된 리더는 공동 예산 관리의 결과를 향상시켰습니다.",
+      "effort": "low",
+      "source": "hackernews_ai",
+      "source_url": "https://alignment.anthropic.com/2026/worse-together/",
+      "source_sid": "23e8ac3f97dad8c1",
+      "topic_url": "/topic/multi-agent",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "Anthropic Fellows는 MAMUBench라는 이름으로 공개된 시뮬레이션된 다중 사용자 환경에서 측정되었습니다."
+      },
+      "published": "Thu, 12 Nov 2026 06:48:42 +0000"
+    },
+    {
+      "id": "pb-ab-test-recovery-advice-vs-neutral",
+      "kind": "source-backed",
+      "title": "도구 오류 복구 조언과 중립적인 알림을 비교하여 A/B 테스트를 진행합니다.",
+      "area": "Evals",
+      "problem": "팀들은 문제 해결에 도움이 될 것이라는 생각에 도구 오류 메시지에 복구 힌트를 추가하지만, 이러한 힌트가 오히려 작업 성공률을 떨어뜨릴 수 있습니다.",
+      "apply": "실제 도구 오류를 주입하여 두 가지 조건(복구 권고안 및 중립 알림)에서 에이전트를 실행하십시오. 에이전트 보고서가 아닌 최종 시스템 상태를 기준으로 평가하고, 권고안이 대조군보다 나은 경우에만 권고안을 배포하십시오.",
+      "result": "AgentFaultBench에서 일반적인 조언은 대조군 대비 성공률을 -8.33에서 +1.06 포인트 향상시켰습니다. 수정된 정책은 192개 최종 상태 중 161개를 정확하게 처리했으며, 대조군은 192개 중 142개를 정확하게 처리했습니다.",
+      "effort": "medium",
+      "source": "arxiv_cs_lg",
+      "source_url": "http://arxiv.org/abs/2611.20711v1",
+      "source_sid": "b9f35f290ebb4bb0",
+      "topic_url": "/topic/agent-evaluation",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "이 논문은 격리된 GitLab 환경에서 LangGraph 및 CrewAI 에이전트를 사용하여 1,944회의 기본 실행과 624회의 후속 실행을 수행했습니다."
+      },
+      "published": "2026-11-16T08:19:25Z"
+    },
+    {
+      "id": "pb-pin-judge-and-prompt-in-memory-evals",
+      "kind": "source-backed",
+      "title": "메모리 시스템을 비교하기 전에 심사위원을 고정하고 질문에 답하세요.",
+      "area": "Evals",
+      "problem": "LoCoMo와 같은 기억력 벤치마크 점수는 심사자와 답변 프롬프트에 따라 변동되므로, 보고된 점수 향상은 기억력 자체보다는 설정상의 차이에서 비롯될 수 있습니다.",
+      "apply": "기억 설계 방식을 비교할 때는 답변 모델, 답변 프롬프트, 판단 기준을 고정하고, 동일한 설정으로 전체 대화에 대한 기준선을 다시 실행하십시오. 쌍을 이룬 차이와 신뢰 구간을 보고하십시오.",
+      "result": "심사위원만 변경했을 때 LoCoMo 점수가 최대 7.2점까지 변동되었고, 답변 문구만 변경했을 때는 최대 9.3점까지 변동되었습니다.",
+      "effort": "low",
+      "source": "arxiv_cs_ai",
+      "source_url": "http://arxiv.org/abs/2611.19199v1",
+      "source_sid": "fe2344cdcbd096cd",
+      "topic_url": "/topic/agent-memory",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "시험지는 두 가지 답안 유형, 두 가지 질문 유형, 세 명의 채점자를 기준으로 총 1,540문항으로 구성됩니다."
+      },
+      "published": "2026-11-14T06:41:22Z"
+    }
+  ]
+}
