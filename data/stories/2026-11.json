@@ -2145,6 +2145,22 @@
   "url": "https://atlas.insanearts.io",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "1475b63ec37aeffc": {
+  "content_excerpt": "Vaibhav Kumar / Ibrahim Sheikh / Peter Zhong / Saurav Joshi / Patrick Ma / Jason Dellaluce / Darsh Patel / Phil MacEachron / Michele Catasta · Nov 19, 2026 Fred Brooks observed in 1975 that adding programmers to a late project makes it later because every new engineer brings more coordination than work. Early research on agent swarms found that multi-agent systems often trailed a single agent once coordination costs were accounted for [1–4]. We tested whether this still holds for today’s models using performance engineering tasks to examine how scaling inference-time compute drives both speedups and emergent coordination mechanics. On NumPy, one Claude Opus 5.5 agent made the workloads 3.7× faster in two hours, while a swarm of 32 Opus agents, given the same two hours, reached 18.9×. GPT-6.2 Astra was the strongest solo agent we tested, yet its swarms got worse as they grew. Given no instructions on how to organize, each model’s swarms arranged themselves differently, and the differences mattered. The best swarms sent few direct messages; workers claimed tasks and shared results on a common board. The ones that struggled routed everything through the coordinator, whose inbox grew with every agent added. The other deciding factor was the shape of the work. While codebases with independent problems allowed each new agent to contribute usefully, highly constrained tasks often led extra agents to compete for the same code. On Replit, an agent swarm works much like an engineering ",
+  "first_seen": "2026-11-21T21:06:11.700185+00:00",
+  "id": "476d430fbbc78ee2",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-11-21T20:33:59+00:00",
+  "sid": "1475b63ec37aeffc",
+  "source": "hackernews_ai",
+  "summary_1line": "Why agent swarms get better at optimizing code as they grow",
+  "title": "Why agent swarms get better at optimizing code as they grow",
+  "type": "news",
+  "url": "https://frontier.replit.com/throwing-headcount-at-the-problem",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "14e40cbba29645b3": {
   "content_excerpt": "How to turn the way you work into repeatable skills that Genie One can run for you Every team has “recipes” that govern how they work. The way finance puts together the month-end pack, the checks sales operations runs before a forecast call, the format leadership expects when performing a retrospective. These templates live in people's heads, in old emails and in \"here's how I do it\" documents that nobody can find. Genie One already understands a lot about your business. Through Genie Ontology , it not only learns your business definitions, but also how your teams use their data. Skills add an extra layer of control: how you like things done. A skill is a workflow recipe that Genie One can follow on demand ensuring a consistent format and output each time. For example, with a skill, users can prompt Genie One to \"Put together our trading report for last month\", and know that it will return the report the way your team would have prepared it, with the same checks, the same structure and the same level of detail. Genie One leverages skills when they are either called directly by the user, or when it decides that it's relevant to what you've requested. That means you can keep adding skills, each with as much detail as its task needs, and their guidance stays with that task rather than spilling into your other work. Skills are durable, reusable assets. A skill is a written record of how your team works, in plain language and in the open Agent Skills format, so it's yours to keep,",
   "first_seen": "2026-11-15T23:06:05.718817+00:00",
@@ -15104,7 +15120,7 @@
   "published": "2026-11-18T07:01:12+00:00",
   "sid": "8d567d16e4f61b82",
   "source": "hf_tencent_hunyuan_releases",
-  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 8, downloads: 482.",
+  "summary": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 9, downloads: 482.",
   "summary_1line": "New model weights from tencent on Hugging Face. Task: image-text-to-text. Likes: 5, downloads: 2.",
   "title": "tencent/Hy4-base released on Hugging Face",
   "type": "release",
@@ -17599,6 +17615,24 @@
   "title": "Protect sensitive data in your traces: new controls in LangSmith",
   "type": "news",
   "url": "https://www.langchain.com/blog/protect-sensitive-data-in-your-traces-new-controls-in-langsmith"
+ },
+ "a375fc1a69b6289a": {
+  "content_excerpt": "It is typically nearly three times faster than similar tools, uses less memory, and is more than 150x faster than cloc . By default, line counts are grouped by project (via Cargo.toml , package.json , pyproject.toml , etc) and attributed as either \"source\" or \"tests\" in a language and framework aware way. ripcloc splits each language into source and tests, using the conventions of its ecosystem: _test.go files in Go, tests/ and benches/ in Rust, __tests__/ and *.test.ts in JavaScript, test_*.py and conftest.py in Python, spec/ in Ruby, AppTests/ targets in Xcode, src/test/ and src/androidTest/ in Gradle, integration_test/ in Flutter, and so on. Rust's inline #[cfg(test)] modules are tests too. Their lines are counted as tests, even inside a source file. A directory with its own manifest, such as Cargo.toml , package.json or go.mod , is a project. A Python service inside a Rust workspace still has Python's tests. Each language is broken down by top-level directory and by workspace, package, or module, so you can see where the code is as well as how much there is. ripcloc skips binaries, hidden files, ignored files, build output and dependencies, such as target/ in Rust and .venv/ in Python. Counting whole repositories and a single file, with each tool's default settings: The tools disagree about which files are code, so these counted different numbers of files and lines. Here each tool counts the same files, of the languages they all count alike, with ripcloc's attribution and",
+  "first_seen": "2026-11-21T21:06:11.700185+00:00",
+  "id": "d30c84984d50ef95",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-11-21T20:38:29+00:00",
+  "sid": "a375fc1a69b6289a",
+  "source": "hackernews_ai",
+  "summary": "Hey HN. ripcloc exists because I ask agents to consider line cost in feedback early and often when they're doing work to help constrain unnecessary complexity and to trigger discussions about code smells that lead to bad architecture. It is fast enough that you can add it to a git commit hook. It is fast enough that your agent harness can run it after every tool call. The other reason it exists is to help _count your tests_. Ripcloc attributes each line as either a source line, a test line or a comment/doc line, so that you can have a better idea quickly how much your codebase is _implementation_ vs _tests_. It does this even for inline tests like `#[cfg(test)] mod tests { ... }` in Rust (and is still faster than its predecessors!).",
+  "summary_1line": "Hey HN. ripcloc exists because I ask agents to consider line cost in feedback early and often when they're doing work to help constrain unnecessary complexity and to trigger discussions about code smells that lead to...",
+  "title": "Show HN: Ripcloc – cloc every edit your agent makes",
+  "type": "news",
+  "url": "https://github.com/alfredjeanlab/ripcloc",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "a377ed74f2094c77": {
   "first_seen": "2026-11-11T00:09:42.029607+00:00",
