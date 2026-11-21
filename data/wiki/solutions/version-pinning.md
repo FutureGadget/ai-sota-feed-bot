@@ -6,7 +6,7 @@ status: active
 obstacles: []
 related_storylines: []
 evidence: []
-updated: 2026-11-18
+updated: 2026-11-21
 themes:
   - key: transitive-pinning
     title: Pinning the whole chain, not just the SDK
@@ -44,8 +44,10 @@ security-relevant one.
 November a compromised `agent-framework` release on PyPI stole CI and cloud
 credentials from anyone resolving a loose `>=1.26` range, and a hijacked
 Hugging Face account showed weights can be swapped with no code change to
-review. Exact versions with hashes, and model revision hashes rather than
-branches, are what closed both.
+review. A malicious npm package then installed Hermes Agent itself as a root
+service taking orders over Telegram, so the payload is now an agent. Exact
+versions with hashes, model revision hashes rather than branches, and blocked
+install scripts are what close these paths.
 
 **Compatibility signals are arriving.** LangGraph's CLI accepts declared API
 version ranges, and Claude Code warns when a requested model is deprecated or
