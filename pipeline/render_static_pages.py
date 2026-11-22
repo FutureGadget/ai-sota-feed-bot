@@ -6306,11 +6306,12 @@ def superseded_storyline_slugs(storyline_details: list[dict], index: dict | None
 
 
 # Localized data an API serves into a client shell (`/ko/` overlays
-# feed/cards.json onto /api/feed, `/ko/playbook` reads playbook/*.json through
-# /api/playbook). It has no English static page to localize, so the static
-# renderer leaves it alone. The `/ko/` home page itself is rendered by
-# render_home.py and listed in the sitemap next to `/`.
-I18N_API_SERVED_SURFACES = ("feed", "playbook")
+# feed/cards.json onto /api/feed and updates/titles.json onto /api/updates,
+# `/ko/playbook` reads playbook/*.json through /api/playbook). It has no English
+# static page to localize, so the static renderer leaves it alone. The `/ko/`
+# home page itself is rendered by render_home.py and listed in the sitemap next
+# to `/`.
+I18N_API_SERVED_SURFACES = ("feed", "playbook", "updates")
 
 
 def collect_i18n_pages(

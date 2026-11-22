@@ -60,12 +60,14 @@ json.loads(p.read_text(encoding='utf-8'))
 print('latest_json_valid=true')
 PY
 
-# Korean live-feed card translations are optional and translation-provider gated.
-# Missing credentials must never block the English hourly feed publish.
+# Korean live-feed card and Editor's Desk title translations are optional and
+# translation-provider gated. Missing credentials must never block the English
+# hourly feed publish.
 if [ "${STATIC_I18N_RECOVERY_BLOCKED:-0}" = "1" ]; then
   echo "localized_feed_step_skipped=true reason=unpersisted_static_usage_or_dry_run"
 elif [ "${LOCALIZED_FEED_ENABLED:-1}" = "1" ]; then
   python pipeline/build_localized_feed.py --locale ko || echo "localized_feed_step_failed=1"
+  python pipeline/build_localized_updates.py --locale ko || echo "localized_updates_step_failed=1"
 else
   echo "localized_feed_step_skipped=true reason=disabled"
 fi

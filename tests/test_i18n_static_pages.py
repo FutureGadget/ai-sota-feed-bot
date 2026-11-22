@@ -280,6 +280,28 @@ class I18nStaticPagesTest(unittest.TestCase):
         self.assertEqual(pages, {})
         self.assertEqual(stderr.getvalue(), "")
 
+    def test_desk_title_store_is_not_a_static_page(self) -> None:
+        original_i18n_dir = render.I18N_DIR
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_i18n = Path(tmp)
+            updates_dir = tmp_i18n / "ko" / "updates"
+            updates_dir.mkdir(parents=True)
+            (updates_dir / "titles.json").write_text(
+                json.dumps({"locale": "ko", "updated_at": "x", "items": {"daily:2026-11-22": {"title": "제목"}}}),
+                encoding="utf-8",
+            )
+
+            try:
+                render.I18N_DIR = tmp_i18n
+                stderr = io.StringIO()
+                with redirect_stderr(stderr):
+                    pages = render.collect_i18n_pages({}, [], {}, {})
+            finally:
+                render.I18N_DIR = original_i18n_dir
+
+        self.assertEqual(pages, {})
+        self.assertEqual(stderr.getvalue(), "")
+
 
 if __name__ == "__main__":
     unittest.main()
