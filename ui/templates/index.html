@@ -1,33 +1,67 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{var:lang}}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LLM Digest — AI news feed for platform and agent engineers</title>
-  <meta name="description" content="A low-hype AI news feed for platform and agent engineers: model releases, agent tooling, research, and evals — ranked for what changed and why it matters." />
-  <link rel="canonical" href="https://www.llm-digest.com/" />
+  <title>{{t:meta.title}}</title>
+  <meta name="description" content="{{t:meta.description}}" />
+  <link rel="canonical" href="{{var:canonical}}" />
+{{var:alternate_links}}
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="LLM Digest" />
-  <meta property="og:title" content="LLM Digest — AI news feed for platform and agent engineers" />
-  <meta property="og:description" content="A low-hype AI news feed for platform and agent engineers: model releases, agent tooling, research, and evals — ranked for what changed and why it matters." />
-  <meta property="og:url" content="https://www.llm-digest.com/" />
+  <meta property="og:title" content="{{t:meta.title}}" />
+  <meta property="og:description" content="{{t:meta.description}}" />
+  <meta property="og:url" content="{{var:canonical}}" />
   <meta property="og:image" content="https://www.llm-digest.com/og-default.png?v=ef31c609" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="LLM Digest — AI news feed for platform and agent engineers" />
-  <meta name="twitter:description" content="A low-hype AI news feed for platform and agent engineers: model releases, agent tooling, research, and evals — ranked for what changed and why it matters." />
+  <meta name="twitter:title" content="{{t:meta.title}}" />
+  <meta name="twitter:description" content="{{t:meta.description}}" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png?v=ef31c609" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"LLM Digest","url":"https://www.llm-digest.com/","description":"A low-hype AI news feed for platform and agent engineers: model releases, agent tooling, research, and evals — ranked for what changed and why it matters."},{"@type":"Organization","name":"LLM Digest","url":"https://www.llm-digest.com/","logo":"https://www.llm-digest.com/logo.png"}]}</script>
-  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"LLM Digest","url":"{{var:canonical}}","inLanguage":"{{var:lang}}","description":"{{json:meta.description}}"},{"@type":"Organization","name":"LLM Digest","url":"https://www.llm-digest.com/","logo":"https://www.llm-digest.com/logo.png"}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="{{t:meta.rssTitle}}" href="/rss.xml" />
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#0d0e10" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/ui.css?v=20261107-ui-base" />
   <link rel="preload" href="/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/GeistMono-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/site-chrome.css?v=20261119-readable" />
+  <script>
+    // Strings, language and Korean-page links for this page. The build writes
+    // window.UI (pipeline/render_home.py): `strings` holds only the keys the
+    // page's scripts use, `links` maps an English path to its localized path
+    // where that page exists (empty on the default-language page).
+    window.UI = {{var:ui_data}};
+
+    // t('time.hoursAgo', { n: 3 }) -> "3h ago". A missing key shows the key.
+    function t(key, vars) {
+      const text = Object.prototype.hasOwnProperty.call(window.UI.strings, key) ? window.UI.strings[key] : key;
+      return vars ? text.replace(/\{(\w+)\}/g, (match, name) => (name in vars ? String(vars[name]) : match)) : text;
+    }
+
+    // Like t(), for a sentence that holds trusted markup: the sentence text is
+    // escaped, the {placeholders} are inserted as given.
+    function tHtml(key, vars) {
+      const escape = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      return t(key).split(/(\{\w+\})/).map((part) => {
+        const name = part.slice(1, -1);
+        return /^\{\w+\}$/.test(part) && vars && name in vars ? vars[name] : escape(part);
+      }).join('');
+    }
+
+    // Internal links stay on this page's language only where that page exists.
+    function localHref(path) {
+      return window.UI.links[path] || path;
+    }
+
+    // "&locale=ko" for API calls on a non-default page, '' otherwise.
+    function localeParam(separator) {
+      return window.UI.locale === window.UI.defaultLocale ? '' : `${separator}locale=${encodeURIComponent(window.UI.locale)}`;
+    }
+  </script>
   <script defer src="/posthog-client.js?v=20261114-engaged-visit"></script>
   <script>
     (function () {
@@ -1441,104 +1475,98 @@
   <link rel="stylesheet" href="/watchlist.css?v=20261110-watch" />
 </head>
 <body>
-  <a class="skip-link" href="#list">Skip to stories</a>
+  <a class="skip-link" href="#list">{{t:chrome.skipToStories}}</a>
   <main>
     <header class="site-chrome" data-site-section="/" role="banner">
       <div class="site-bar">
-        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <a class="site-brand" href="{{href:/}}" aria-label="{{t:chrome.homeLabel}}"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
         <div class="site-bar-actions">
-          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
-          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
+          <a class="site-subscribe-action" href="{{href:/subscribe}}" aria-label="{{t:chrome.subscribeLabel}}" data-subscribe-channel="email" data-subscribe-placement="header">{{t:chrome.subscribe}}</a>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="{{t:chrome.deskOpen}}">{{t:chrome.desk}}</button>
         </div>
       </div>
       <div class="site-page-heading">
-        <h1>Live feed</h1>
-        <p class="h1-sub">AI news for platform &amp; agent engineers</p>
+        <h1>{{t:page.title}}</h1>
+        <p class="h1-sub">{{t:page.sub}}</p>
       </div>
       <nav class="site-nav-fallback" aria-label="LLM Digest">
-        <a href="/" data-site-destination="/" aria-current="page">Live feed</a>
-        <a href="/daily" data-site-destination="/daily">Daily recap</a>
-        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
-        <a href="/community" data-site-destination="/community">Community</a>
-        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
-        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
-        <a href="/map" data-site-destination="/map">Agent Know-How</a>
-        <a href="/foundations" data-site-destination="/foundations">Foundations</a>
-        <a href="/models" data-site-destination="/models">Model Radar</a>
-        <a href="/skills" data-site-destination="/skills">Skill Radar</a>
-        <a href="/voices" data-site-destination="/voices">Voices</a>
-        <a href="/subscribe" data-site-destination="/subscribe" data-subscribe-channel="email" data-subscribe-placement="browse">Email digest</a>
+        <a href="{{href:/}}" data-site-destination="/" aria-current="page">{{t:nav.feed}}</a>
+        <a href="{{href:/daily}}" data-site-destination="/daily">{{t:nav.daily}}</a>
+        <a href="{{href:/weekly}}" data-site-destination="/weekly">{{t:nav.weekly}}</a>
+        <a href="{{href:/community}}" data-site-destination="/community">{{t:nav.community}}</a>
+        <a href="{{href:/storylines}}" data-site-destination="/storylines">{{t:nav.storylines}}</a>
+        <a href="{{href:/playbook}}" data-site-destination="/playbook">{{t:nav.playbook}}</a>
+        <a href="{{href:/map}}" data-site-destination="/map">{{t:nav.map}}</a>
+        <a href="{{href:/foundations}}" data-site-destination="/foundations">{{t:nav.foundations}}</a>
+        <a href="{{href:/models}}" data-site-destination="/models">{{t:nav.models}}</a>
+        <a href="{{href:/skills}}" data-site-destination="/skills">{{t:nav.skills}}</a>
+        <a href="{{href:/voices}}" data-site-destination="/voices">{{t:nav.voices}}</a>
+        <a href="{{href:/subscribe}}" data-site-destination="/subscribe" data-subscribe-channel="email" data-subscribe-placement="browse">{{t:nav.digest}}</a>
       </nav>
-      <div class="site-actions-fallback" aria-label="Page actions">
-        <a class="site-language-action" href="/ko/" data-language-link data-language-locale="ko" hidden aria-label="Read this page in Korean" title="Read in Korean"><span aria-hidden="true">🌐</span><span>KO</span></a>
-        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      <div class="site-actions-fallback" aria-label="{{t:chrome.pageActions}}">
+        {{var:language_switch}}
+        <button id="themeToggle" type="button" aria-label="{{t:chrome.themeToggle}}" title="{{t:chrome.themeToggle}}">🌙</button>
       </div>
 
       <section class="feed-hero">
-        <h2 class="feed-title">The daily paper for AI engineers.</h2>
-        <p id="meta">Ranked brief · refreshes every 2 hours</p>
+        <h2 class="feed-title">{{t:hero.title}}</h2>
+        <p id="meta">{{t:hero.meta}}</p>
       </section>
 
       <div class="controls-bar">
-        <nav class="sections" id="sections" aria-label="Sections">
-          <button type="button" data-section="brief" class="active" aria-pressed="true" title="The finishable daily read - everything except release notes">Brief</button>
-          <button type="button" data-section="platform" aria-pressed="false">Platform</button>
-          <button type="button" data-section="research" aria-pressed="false" title="Papers and research write-ups">Research</button>
-          <button type="button" data-section="release" aria-pressed="false">Releases</button>
-          <button type="button" data-section="news" aria-pressed="false">News</button>
-          <button type="button" data-section="" aria-pressed="false" title="The full firehose, including release notes">All</button>
-          <button type="button" id="savedTab" aria-pressed="false">⭐ Saved</button>
+        <nav class="sections" id="sections" aria-label="{{t:tabs.label}}">
+          <button type="button" data-section="brief" class="active" aria-pressed="true" title="{{t:tabs.briefTitle}}">{{t:tabs.brief}}</button>
+          <button type="button" data-section="platform" aria-pressed="false">{{t:tabs.platform}}</button>
+          <button type="button" data-section="research" aria-pressed="false" title="{{t:tabs.researchTitle}}">{{t:tabs.research}}</button>
+          <button type="button" data-section="release" aria-pressed="false">{{t:tabs.release}}</button>
+          <button type="button" data-section="news" aria-pressed="false">{{t:tabs.news}}</button>
+          <button type="button" data-section="" aria-pressed="false" title="{{t:tabs.allTitle}}">{{t:tabs.all}}</button>
+          <button type="button" id="savedTab" aria-pressed="false">{{t:tabs.saved}}</button>
         </nav>
-        <select id="rangeSelect" aria-label="Time range">
-          <option value="1" selected>Past 24h</option>
-          <option value="3">Last 3d</option>
-          <option value="7">Last 7d</option>
-          <option value="30">Last 30d</option>
-          <option value="all">All</option>
+        <select id="rangeSelect" aria-label="{{t:range.label}}">
+          <option value="1" selected>{{t:range.1}}</option>
+          <option value="3">{{t:range.3}}</option>
+          <option value="7">{{t:range.7}}</option>
+          <option value="30">{{t:range.30}}</option>
+          <option value="all">{{t:range.all}}</option>
         </select>
-        <button id="searchToggle" type="button" aria-label="Search the feed" title="Search the feed" aria-expanded="false">🔍</button>
+        <button id="searchToggle" type="button" aria-label="{{t:search.label}}" title="{{t:search.label}}" aria-expanded="false">🔍</button>
       </div>
 
-      <input type="search" id="searchBox" class="searchbar" placeholder="Search the feed…" aria-label="Search the feed" hidden />
+      <input type="search" id="searchBox" class="searchbar" placeholder="{{t:search.placeholder}}" aria-label="{{t:search.label}}" hidden />
       <div id="selectedLabels" class="selected-labels"></div>
     </header>
 
-    <section class="skills-strip" id="skillsStrip" aria-label="Skill Radar" hidden>
+    <section class="skills-strip" id="skillsStrip" aria-label="{{t:skills.label}}" hidden>
       <div class="skills-strip-head">
-        <p class="skills-strip-kicker">Skill Radar · rising this week</p>
-        <a class="skills-strip-more" href="/skills">All tracked setups →</a>
+        <p class="skills-strip-kicker">{{t:skills.kicker}}</p>
+        <a class="skills-strip-more" href="{{href:/skills}}">{{t:skills.more}}</a>
       </div>
       <div class="skills-strip-cards" id="skillsStripCards"></div>
     </section>
 
     <div class="feed-layout">
     <div class="feed-column">
-    <section id="watchHome" class="watch-home" aria-label="Your watchlist" hidden></section>
+    <section id="watchHome" class="watch-home" aria-label="{{t:watch.label}}" hidden></section>
     <div id="freshUpdates" class="fresh-updates" aria-live="polite"></div>
     <p id="feedStatus" class="visually-hidden" role="status"></p>
-    <section id="list" tabindex="-1" aria-label="Ranked stories">
+    <section id="list" tabindex="-1" aria-label="{{t:feed.listLabel}}">
       <!-- feed-seed:start -->
       <!-- feed-seed:end -->
       <noscript>
-        <h2>The finishable AI feed for platform &amp; agent engineers</h2>
+        <h2>{{t:noscript.title}}</h2>
         <p>
-          LLM Digest is a low-hype, ranked daily brief of AI news for platform
-          and infrastructure engineers — model releases, frontier-lab research,
-          inference and serving updates, agent tooling, and selected papers.
-          One shared, transparent ranking for everyone; no engagement-optimized
-          infinite scroll. Above is a static snapshot of the current top items;
-          the live, filterable feed needs JavaScript. These pages are fully
-          readable without it:
+          {{t:noscript.intro}}
         </p>
         <ul>
-          <li><a href="/daily">Daily recap</a> — what changed in AI today, in 10 minutes.</li>
-          <li><a href="/weekly">Weekly recap</a> — what you missed this week.</li>
-          <li><a href="/storylines">Storylines</a> — follow a developing story day by day.</li>
-          <li><a href="/playbook">Playbook</a> — actionable cards: the problem, what to apply, the expected result.</li>
-          <li><a href="/map">Agent Know-How</a> — the essential know-how for production-grade agents: what breaks, and how the field fixes it.</li>
-          <li><a href="/foundations">Foundations</a> — evidence-tiered explanations behind agent-building practice.</li>
-          <li><a href="/voices">Voices</a> — influential AI engineers and their writing.</li>
-          <li><a href="/subscribe">Email digest</a> · <a href="/api/feed">JSON feed</a></li>
+          <li><a href="{{href:/daily}}">{{t:nav.daily}}</a> {{t:noscript.daily}}</li>
+          <li><a href="{{href:/weekly}}">{{t:nav.weekly}}</a> {{t:noscript.weekly}}</li>
+          <li><a href="{{href:/storylines}}">{{t:nav.storylines}}</a> {{t:noscript.storylines}}</li>
+          <li><a href="{{href:/playbook}}">{{t:nav.playbook}}</a> {{t:noscript.playbook}}</li>
+          <li><a href="{{href:/map}}">{{t:nav.map}}</a> {{t:noscript.map}}</li>
+          <li><a href="{{href:/foundations}}">{{t:nav.foundations}}</a> {{t:noscript.foundations}}</li>
+          <li><a href="{{href:/voices}}">{{t:nav.voices}}</a> {{t:noscript.voices}}</li>
+          <li><a href="{{href:/subscribe}}">{{t:nav.digest}}</a> · <a href="/api/feed{{var:locale_query}}">{{t:footer.jsonFeed}}</a></li>
         </ul>
       </noscript>
     </section>
@@ -1546,13 +1574,13 @@
     <!-- Model Release Radar teaser: optional right rail / stacked card, see
          the deferred fetch script near the end of body. Starts hidden so a
          slow or failed models fetch never shifts layout or shows a trace. -->
-    <aside id="modelRadarRail" class="model-radar-rail" aria-label="Model Release Radar" data-model-radar-placement="desktop_rail" hidden></aside>
+    <aside id="modelRadarRail" class="model-radar-rail" aria-label="{{t:radar.label}}" data-model-radar-placement="desktop_rail" hidden></aside>
     </div>
 
-    <aside id="readerTuningBanner" class="trust-banner" aria-label="Reader-tuned ranking" hidden></aside>
+    <aside id="readerTuningBanner" class="trust-banner" aria-label="{{t:tuning.label}}" hidden></aside>
 
     <footer class="sitefooter" role="contentinfo">
-      <button type="button" id="aboutToggle" aria-haspopup="dialog" aria-expanded="false">About</button> · <button type="button" id="shortcutsToggle" aria-haspopup="dialog" aria-expanded="false">Shortcuts</button> · <a href="/daily">Daily recap</a> · <a href="/weekly">Weekly recap</a> · <a href="/storylines">Storylines</a> · <a href="/models">Model Radar</a> · <a href="/rss.xml">RSS</a> · <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a> · <a href="/api/feed">JSON feed</a>
+      <button type="button" id="aboutToggle" aria-haspopup="dialog" aria-expanded="false">{{t:footer.about}}</button> · <button type="button" id="shortcutsToggle" aria-haspopup="dialog" aria-expanded="false">{{t:footer.shortcuts}}</button> · <a href="{{href:/daily}}">{{t:nav.daily}}</a> · <a href="{{href:/weekly}}">{{t:nav.weekly}}</a> · <a href="{{href:/storylines}}">{{t:nav.storylines}}</a> · <a href="{{href:/models}}">{{t:nav.models}}</a> · <a href="/rss.xml">RSS</a> · <a href="{{href:/subscribe}}" data-subscribe-channel="email" data-subscribe-placement="footer">{{t:nav.digest}}</a> · <a href="/api/feed{{var:locale_query}}">{{t:footer.jsonFeed}}</a>
     </footer>
   </main>
 
@@ -1563,8 +1591,8 @@
       const btn = document.getElementById('themeToggle');
       if (btn) {
         btn.textContent = theme === 'dark' ? '☀️' : '🌙';
-        btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
-        btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        btn.setAttribute('title', theme === 'dark' ? t('theme.toLight') : t('theme.toDark'));
+        btn.setAttribute('aria-label', theme === 'dark' ? t('theme.toLight') : t('theme.toDark'));
       }
     }
 
@@ -1625,14 +1653,15 @@
       });
     }
 
-    // Dates are forced to en-US: the UI copy is English, and the device
-    // locale (e.g. ko-KR "6월 10일") next to English chrome reads as a bug.
+    // Dates follow the page's language, not the device locale: a device
+    // locale next to chrome in another language (ko-KR "6월 10일" under English
+    // copy) reads as a bug.
     function fmtCompactDate(v) {
       if (!v) return '';
       const d = new Date(v);
       if (Number.isNaN(d.getTime())) return '';
       const sameYear = d.getFullYear() === new Date().getFullYear();
-      return d.toLocaleDateString('en-US', sameYear
+      return d.toLocaleDateString(t('format.dateLocale'), sameYear
         ? { month: 'short', day: 'numeric' }
         : { year: 'numeric', month: 'short', day: 'numeric' });
     }
@@ -1640,16 +1669,16 @@
     // Card timestamps: relative within a week ("2h ago", "yesterday") —
     // easier to scan than absolute dates — then fall back to "Jun 10".
     function fmtCardDate(v) {
-      const t = Date.parse(v || '');
-      if (!Number.isFinite(t)) return '';
-      const mins = Math.round((Date.now() - t) / 60000);
-      if (mins < 1) return 'just now';
-      if (mins < 60) return `${mins}m ago`;
+      const ts = Date.parse(v || '');
+      if (!Number.isFinite(ts)) return '';
+      const mins = Math.round((Date.now() - ts) / 60000);
+      if (mins < 1) return t('time.justNow');
+      if (mins < 60) return t('time.minutesAgo', { n: mins });
       const hours = Math.round(mins / 60);
-      if (hours < 24) return `${hours}h ago`;
+      if (hours < 24) return t('time.hoursAgo', { n: hours });
       const days = Math.round(hours / 24);
-      if (days === 1) return 'yesterday';
-      if (days < 7) return `${days}d ago`;
+      if (days === 1) return t('time.yesterday');
+      if (days < 7) return t('time.daysAgo', { n: days });
       return fmtCompactDate(v);
     }
 
@@ -1658,22 +1687,22 @@
     function fmtWatchDuration(seconds) {
       const total = Math.round(Number(seconds || 0) / 60);
       if (!Number.isFinite(total) || total <= 0) return '';
-      if (total < 60) return `${total} min watch`;
+      if (total < 60) return t('time.watchMin', { n: total });
       const hours = Math.floor(total / 60);
       const mins = total % 60;
-      return mins ? `${hours}h ${mins}m watch` : `${hours}h watch`;
+      return mins ? t('time.watchHourMin', { h: hours, m: mins }) : t('time.watchHour', { h: hours });
     }
 
     function fmtRelTime(iso) {
-      const t = Date.parse(iso || '');
-      if (!Number.isFinite(t)) return '';
-      const mins = Math.max(0, Math.round((Date.now() - t) / 60000));
-      if (mins < 1) return 'just now';
-      if (mins < 60) return `${mins}m ago`;
+      const ts = Date.parse(iso || '');
+      if (!Number.isFinite(ts)) return '';
+      const mins = Math.max(0, Math.round((Date.now() - ts) / 60000));
+      if (mins < 1) return t('time.justNow');
+      if (mins < 60) return t('time.minutesAgo', { n: mins });
       const hours = Math.round(mins / 60);
-      if (hours < 24) return `${hours}h ago`;
+      if (hours < 24) return t('time.hoursAgo', { n: hours });
       const days = Math.round(hours / 24);
-      return `${days}d ago`;
+      return t('time.daysAgo', { n: days });
     }
 
     function localDateBoundaryUtc(dateStr, endOfDay = false) {
@@ -1911,7 +1940,7 @@
         snack.setAttribute('role', 'status');
         document.body.appendChild(snack);
       }
-      const undoBtn = onUndo ? '<button type="button" data-undo="1">Undo</button>' : '';
+      const undoBtn = onUndo ? `<button type="button" data-undo="1">${t('snack.undo')}</button>` : '';
       snack.innerHTML = `<span class="undo-snack-msg"></span>${undoBtn}`;
       snack.querySelector('.undo-snack-msg').textContent = message;
       const dismiss = () => snack.classList.remove('show');
@@ -1949,7 +1978,7 @@
       } else {
         rerender();
       }
-      showUndoSnack('Hidden from your feed', () => { setUnhidden(key); rerender(); });
+      showUndoSnack(t('snack.hidden'), () => { setUnhidden(key); rerender(); });
       return true;
     }
 
@@ -1994,7 +2023,7 @@
         armed = on;
         if (!hint) return;
         hint.classList.toggle('armed', on);
-        const txt = on ? '🙈 Release to hide' : '🙈 Hide';
+        const txt = on ? t('swipe.release') : t('swipe.hide');
         hint.querySelectorAll('.swipe-hint-label').forEach((s) => { s.textContent = txt; });
       }
       function hideHint() {
@@ -2197,12 +2226,11 @@
     // sent to PostHog as `item_feedback` and synced into
     // data/feedback/events.jsonl by pipeline/feedback.py.
     const FEEDBACK_KEY = 'ai_feed_feedback_v1';
-    const FEEDBACK_PROMPT = 'Was this useful?';
-    const FEEDBACK_THANKS = 'Thanks — your feedback tunes tomorrow’s ranking.';
+    const FEEDBACK_THANKS = t('feedback.thanks');
     const FEEDBACK_SIGNALS = [
-      { signal: 'useful', label: '👍 Useful' },
-      { signal: 'irrelevant', label: '👎 Not relevant' },
-      { signal: 'hype', label: '🫧 Hype' },
+      { signal: 'useful', label: t('feedback.useful') },
+      { signal: 'irrelevant', label: t('feedback.irrelevant') },
+      { signal: 'hype', label: t('feedback.hype') },
     ];
 
     function loadFeedbackState() {
@@ -2274,7 +2302,7 @@
         share_url: url,
         method: navigator.share ? 'web_share' : 'clipboard',
       });
-      const text = `${it.title || ''} — via llm-digest.com`;
+      const text = `${it.title || ''} — ${t('share.via')}`;
       if (navigator.share) {
         try {
           await navigator.share({ title: it.title || '', text, url });
@@ -2285,19 +2313,19 @@
         await navigator.clipboard.writeText(`${text}\n${url}`);
         const orig = btn.textContent;
         btn.textContent = '✓';
-        btn.title = 'Link copied';
+        btn.title = t('share.copied');
         setTimeout(() => {
           btn.textContent = orig;
-          btn.title = 'Share';
+          btn.title = t('card.shareTitle');
         }, 1200);
       } catch {
         const orig = btn.textContent;
         btn.textContent = '✕';
-        btn.title = 'Copy failed - long-press the story link to share';
-        setFeedStatus('Could not copy the link. Long-press the story link to share it.');
+        btn.title = t('share.copyFailedTitle');
+        setFeedStatus(t('share.copyFailed'));
         setTimeout(() => {
           btn.textContent = orig;
-          btn.title = 'Share';
+          btn.title = t('card.shareTitle');
         }, 2000);
       }
     }
@@ -2339,7 +2367,7 @@
         lastRenderedListHtml = '';
         document.getElementById('list')?.insertAdjacentHTML(
           'afterbegin',
-          '<div class="state">The shared story has aged out of the live feed — here&#39;s what&#39;s new instead.</div>'
+          `<div class="state">${t('feed.sharedAgedOut')}</div>`
         );
         return;
       }
@@ -2423,7 +2451,7 @@
       const btn = document.getElementById('savedTab');
       if (!btn) return;
       const n = Object.keys(savedItemsState).length;
-      btn.textContent = n > 0 ? `⭐ Saved (${n})` : '⭐ Saved';
+      btn.textContent = n > 0 ? t('tabs.savedCount', { n }) : t('tabs.saved');
       btn.classList.toggle('active', viewState === 'saved');
       btn.setAttribute('aria-pressed', viewState === 'saved' ? 'true' : 'false');
     }
@@ -2528,7 +2556,9 @@
     // Display labels for the per-card format badge (it.type). Now that Papers
     // folded into Research, this badge is the only paper/research/release signal,
     // so it reads as a proper label rather than a lowercase token.
-    const TYPE_BADGE_LABELS = { paper: 'Paper', release: 'Release', research: 'Research', video: 'Video' };
+    const TYPE_BADGE_LABELS = {
+      paper: t('badge.paper'), release: t('badge.release'), research: t('badge.research'), video: t('badge.video'),
+    };
 
     function activeSection() {
       const labels = getSelectedLabels();
@@ -2586,6 +2616,11 @@
       syncSectionTabs();
     }
 
+    function pinApplyButtonHtml() {
+      const labels = pinnedLabelsState.map((l) => `#${l}`).join(' ');
+      return `<button type="button" class="badge" data-pin-apply="1" title="${esc(t('pin.applyTitle'))}">${esc(t('pin.myTopics', { labels }))}</button>`;
+    }
+
     function renderSelectedLabelsChips() {
       const box = document.getElementById('selectedLabels');
       if (!box) return;
@@ -2594,7 +2629,7 @@
       // Chips appear only for a real topic selection (or a pinned one to apply).
       if (sameLabels(labels, DEFAULT_SECTION_LABELS)) {
         box.innerHTML = pinnedLabelsState.length && !sameLabels(pinnedLabelsState, DEFAULT_SECTION_LABELS)
-          ? `<button type="button" class="badge" data-pin-apply="1" title="Apply your pinned labels">📌 My topics: ${pinnedLabelsState.map((l) => `#${esc(l)}`).join(' ')}</button>`
+          ? pinApplyButtonHtml()
           : '';
         return;
       }
@@ -2602,9 +2637,9 @@
 
       if (labels.length) {
         const isPinned = sameLabels(labels, pinnedLabelsState);
-        chips.push(`<button type="button" class="badge" data-pin-toggle="1" aria-pressed="${isPinned ? 'true' : 'false'}" title="${isPinned ? 'Unpin: stop applying these labels by default' : 'Pin: apply these labels by default on every visit'}">${isPinned ? '📌 Pinned ✓' : '📌 Pin as default'}</button>`);
+        chips.push(`<button type="button" class="badge" data-pin-toggle="1" aria-pressed="${isPinned ? 'true' : 'false'}" title="${esc(isPinned ? t('pin.unpinTitle') : t('pin.pinTitle'))}">${esc(isPinned ? t('pin.pinned') : t('pin.pin'))}</button>`);
       } else if (pinnedLabelsState.length) {
-        chips.push(`<button type="button" class="badge" data-pin-apply="1" title="Apply your pinned labels">📌 My topics: ${pinnedLabelsState.map((l) => `#${esc(l)}`).join(' ')}</button>`);
+        chips.push(pinApplyButtonHtml());
       }
 
       box.innerHTML = chips.join('');
@@ -2636,7 +2671,7 @@
       if (rolling24h) u.searchParams.set('window', 'arrival');
       u.searchParams.set('limit', limitState);
       for (const l of getSelectedLabels()) u.searchParams.append('label', l);
-      return u.pathname + u.search;
+      return u.pathname + u.search + localeParam(u.search ? '&' : '?');
     }
 
     // Fetch and consume JSON under one hard deadline. Keeping the timer alive
@@ -2683,7 +2718,7 @@
 
     function subscribeChannels() {
       const channels = [
-        { channel: 'email', href: '/subscribe', label: '✉️ Email digest', desc: 'Daily brief + weekly recap, in your inbox' },
+        { channel: 'email', href: localHref('/subscribe'), label: t('digest.label'), desc: t('digest.desc') },
       ];
       return channels;
     }
@@ -2707,25 +2742,26 @@
         return;
       }
 
-      const plural = (n) => (n === 1 ? '' : 's');
-      const updated = rt.updated_at ? `, updated ${fmtCompactDate(rt.updated_at)}` : '';
+      const updated = rt.updated_at ? t('tuning.updated', { date: fmtCompactDate(rt.updated_at) }) : '';
       
       const content = document.createElement('div');
       content.className = 'trust-banner-content';
       
       const lead = document.createElement('strong');
-      lead.textContent = '👍 Reader feedback is tuning this feed';
+      lead.textContent = t('tuning.lead');
       const detail = document.createElement('span');
       detail.className = 'trust-detail';
-      detail.textContent =
-        ` ${boosted.length} source${plural(boosted.length)} boosted, ` +
-        `${down.length} downweighted over the last ${rt.window_days || 30} days${updated}. ` +
-        `One shared, transparent ranking — not a personal filter bubble.`;
+      detail.textContent = ` ${t('tuning.detail', {
+        boosted: t(boosted.length === 1 ? 'tuning.boostedOne' : 'tuning.boostedMany', { n: boosted.length }),
+        down: t('tuning.downweighted', { n: down.length }),
+        days: rt.window_days || 30,
+        updated,
+      })}`;
 
       const names = (list) => list.slice(0, 5).map((b) => sourceDisplayName(b.source)).join(', ');
       detail.title = [
-        boosted.length ? `Boosted: ${names(boosted)}` : '',
-        down.length ? `Downweighted: ${names(down)}` : '',
+        boosted.length ? t('tuning.boostedTitle', { names: names(boosted) }) : '',
+        down.length ? t('tuning.downTitle', { names: names(down) }) : '',
       ].filter(Boolean).join(' · ');
 
       content.replaceChildren(lead, detail);
@@ -2733,7 +2769,7 @@
       const dismissBtn = document.createElement('button');
       dismissBtn.type = 'button';
       dismissBtn.className = 'trust-banner-dismiss';
-      dismissBtn.setAttribute('aria-label', 'Dismiss banner');
+      dismissBtn.setAttribute('aria-label', t('tuning.dismiss'));
       dismissBtn.textContent = '×';
       dismissBtn.addEventListener('click', () => {
         localStorage.setItem('ai_feed_tuning_banner_dismissed', '1');
@@ -2890,17 +2926,17 @@
         posthogCapture('storyline_notice_view', { count: updated.length });
       }
       const first = updated[0];
-      const more = updated.length > 1 ? ` + ${updated.length - 1} more` : '';
+      const headline = updated.length > 1 ? t('desk.storylineMovedMore', { n: updated.length - 1 }) : t('desk.storylineMoved');
       return `
-        <section class="editor-desk" aria-label="Editor's Desk storyline update">
+        <section class="editor-desk" aria-label="${esc(t('desk.storylineLabel'))}">
           <div class="editor-desk-head">
-            <span class="editor-desk-kicker">Editor's Desk</span>
-            <span class="editor-desk-title">A storyline you follow moved${esc(more)}</span>
-            <button type="button" class="catchup-dismiss" data-storyline-notice-dismiss="1" aria-label="Mark storyline updates as seen" title="Mark as seen">×</button>
+            <span class="editor-desk-kicker">${esc(t('chrome.desk'))}</span>
+            <span class="editor-desk-title">${esc(headline)}</span>
+            <button type="button" class="catchup-dismiss" data-storyline-notice-dismiss="1" aria-label="${esc(t('desk.markSeenLabel'))}" title="${esc(t('desk.markSeen'))}">×</button>
           </div>
-          <p class="editor-desk-copy">${esc(first.latest_title || first.label || first.slug)}${first.last_updated ? ` · updated ${esc(fmtRelTime(first.last_updated))}` : ''}</p>
+          <p class="editor-desk-copy">${esc(first.latest_title || first.label || first.slug)}${first.last_updated ? ` · ${esc(t('desk.updatedAgo', { when: fmtRelTime(first.last_updated) }))}` : ''}</p>
           <div class="editor-desk-actions">
-            <a href="/storyline/${esc(first.slug)}" data-storyline-notice="${esc(first.slug)}" data-editor-desk-link="storyline">Follow the thread</a>
+            <a href="${esc(localHref('/storyline/' + first.slug))}" data-storyline-notice="${esc(first.slug)}" data-editor-desk-link="storyline">${esc(t('desk.followThread'))}</a>
           </div>
         </section>`;
     }
@@ -2938,7 +2974,7 @@
       if (!editorDeskPromise) {
         editorDeskPromise = Promise.all([
           sharedUpdatesReady().catch(() => null),
-          fetchJsonWithTimeout('/api/playbook?sources=1', { headers: { accept: 'application/json' } }, 8000)
+          fetchJsonWithTimeout(`/api/playbook?sources=1${localeParam('&')}`, { headers: { accept: 'application/json' } }, 8000)
             .then(({ response, data }) => response.ok ? data : {})
             .catch(() => ({})),
         ]).then(([, playbookSources]) => {
@@ -3063,11 +3099,11 @@
     function editorDeskCardHtml({ id, title, copy, href, cta, kind, skillLabId = '', skillLabEdition = 0 }) {
       if (isEditorDeskDismissed(id)) return '';
       return `
-        <section class="editor-desk" aria-label="Editor's Desk"${skillLabId ? ` data-skill-lab-promo="${esc(skillLabId)}" data-skill-lab-edition="${esc(skillLabEdition)}"` : ''}>
+        <section class="editor-desk" aria-label="${esc(t('chrome.desk'))}"${skillLabId ? ` data-skill-lab-promo="${esc(skillLabId)}" data-skill-lab-edition="${esc(skillLabEdition)}"` : ''}>
           <div class="editor-desk-head">
-            <span class="editor-desk-kicker">Editor's Desk</span>
+            <span class="editor-desk-kicker">${esc(t('chrome.desk'))}</span>
             <span class="editor-desk-title">${esc(title)}</span>
-            <button type="button" class="catchup-dismiss" data-editor-desk-dismiss="${esc(id)}"${skillLabId ? ` data-skill-lab-promo="${esc(skillLabId)}"` : ''} aria-label="Dismiss Editor's Desk note" title="Dismiss">×</button>
+            <button type="button" class="catchup-dismiss" data-editor-desk-dismiss="${esc(id)}"${skillLabId ? ` data-skill-lab-promo="${esc(skillLabId)}"` : ''} aria-label="${esc(t('desk.dismissLabel'))}" title="${esc(t('common.dismiss'))}">×</button>
           </div>
           ${copy ? `<p class="editor-desk-copy">${esc(copy)}</p>` : ''}
           <div class="editor-desk-actions">
@@ -3091,10 +3127,10 @@
           after: 5,
           html: editorDeskCardHtml({
             id: `skill-lab:${skillLab.id}`,
-            title: `Skill Lab ${edition}/${size}: ${skillLab.title || 'new field test'}`,
+            title: t('desk.skillLabTitle', { edition, size, title: skillLab.title || t('desk.skillLabFallback') }),
             copy: shortDeskText(isResult ? skillLab.verdict : skillLab.summary),
             href: `/playbook/lab/${encodeURIComponent(skillLab.slug)}?ref=feed_insert`,
-            cta: isResult ? 'See the evidence' : 'Read the protocol',
+            cta: isResult ? t('desk.seeEvidence') : t('desk.readProtocol'),
             kind: 'skill-lab',
             skillLabId: skillLab.id,
             skillLabEdition: edition,
@@ -3112,10 +3148,10 @@
           after: Math.max(8, playbookMatch.i + 1),
           html: editorDeskCardHtml({
             id: `playbook:${card.id || card.source_sid || itemKey(playbookMatch.it)}`,
-            title: `Playbook takeaway: ${card.title || 'apply this pattern'}`,
+            title: t('desk.playbookTitle', { title: card.title || t('desk.playbookFallback') }),
             copy: shortDeskText(card.apply || card.problem || card.result),
-            href: card.edition_date ? `/playbook/${encodeURIComponent(card.edition_date)}` : '/playbook',
-            cta: 'Read the card',
+            href: card.edition_date ? `/playbook/${encodeURIComponent(card.edition_date)}` : localHref('/playbook'),
+            cta: t('desk.readCard'),
             kind: 'playbook',
           }),
         });
@@ -3130,10 +3166,10 @@
           after: 12,
           html: editorDeskCardHtml({
             id: 'daily',
-            title: "Today's recap is ready",
-            copy: 'The live feed stays ranked; the recap compresses the day into a finishable brief when you want the editorial version.',
-            href: '/daily',
-            cta: 'Read the recap',
+            title: t('desk.dailyTitle'),
+            copy: t('desk.dailyCopy'),
+            href: localHref('/daily'),
+            cta: t('desk.readRecap'),
             kind: 'daily',
           }),
         });
@@ -3153,7 +3189,7 @@
 
     function sourceDisplayName(slug) {
       const s = String(slug || '').trim();
-      if (!s) return 'unknown';
+      if (!s) return t('source.unknown');
       if (SOURCE_NAMES[s]) return SOURCE_NAMES[s];
       // Unknown slug: best-effort prettify so new sources degrade gracefully.
       return s.split(/[_\s]+/)
@@ -3266,16 +3302,16 @@
     }
 
     const SLOT_LABELS = {
-      frontier_official: 'frontier lab',
-      agent_tooling_releases: 'agent tooling release',
-      infra_runtime_releases: 'infra/runtime release',
-      open_weight_releases: 'open-weight release',
-      vendor_general_updates: 'vendor update',
-      cloud_platform_updates: 'cloud platform update',
-      practitioner_analysis: 'practitioner analysis',
-      community_signal: 'community signal',
-      research_watch: 'research watch',
-      overflow: 'long tail',
+      frontier_official: t('slot.frontier_official'),
+      agent_tooling_releases: t('slot.agent_tooling_releases'),
+      infra_runtime_releases: t('slot.infra_runtime_releases'),
+      open_weight_releases: t('slot.open_weight_releases'),
+      vendor_general_updates: t('slot.vendor_general_updates'),
+      cloud_platform_updates: t('slot.cloud_platform_updates'),
+      practitioner_analysis: t('slot.practitioner_analysis'),
+      community_signal: t('slot.community_signal'),
+      research_watch: t('slot.research_watch'),
+      overflow: t('slot.overflow'),
     };
 
     // Front-page kickers read like a newspaper section, not like the pipeline's
@@ -3283,13 +3319,13 @@
     // the slot label when an item is unjudged. Releases never lead the front
     // page, so release_note is intentionally absent.
     const FRONT_PAGE_CATEGORY_LABELS = {
-      agent_engineering: 'Agent engineering',
-      inference_serving: 'Inference serving',
-      evaluation_reliability: 'Evals & reliability',
-      research_method: 'Research',
-      frontier_product: 'Frontier product',
-      business_policy: 'Business & policy',
-      off_topic: 'Off topic',
+      agent_engineering: t('category.agent_engineering'),
+      inference_serving: t('category.inference_serving'),
+      evaluation_reliability: t('category.evaluation_reliability'),
+      research_method: t('category.research_method'),
+      frontier_product: t('category.frontier_product'),
+      business_policy: t('category.business_policy'),
+      off_topic: t('category.off_topic'),
     };
 
     // Deterministic stand-in for the editorial why line: states the measurable
@@ -3306,19 +3342,19 @@
         .filter((t) => String(t || '').trim())
         .slice(0, 2)
         .join(' + ');
-      if (topics) parts.push(`${topics} match`);
+      if (topics) parts.push(t('ranked.topics', { topics }));
       if (it.slot) parts.push(SLOT_LABELS[it.slot] || String(it.slot).replace(/_/g, ' '));
       if (it.time_decay_factor != null && String(it.time_decay_factor).trim() !== '') {
         const decay = Number(it.time_decay_factor);
-        if (Number.isFinite(decay)) parts.push(`fresh ${decay.toFixed(2)}`);
+        if (Number.isFinite(decay)) parts.push(t('ranked.fresh', { value: decay.toFixed(2) }));
       }
       // Use the score the story had when it was first admitted, matching the
       // stable list order. The live `final_score` keeps decaying on every run,
       // which made a stable rank 1 display a lower score than rank 2.
       const scoreRaw = it.score_at_first_seen ?? it.final_score ?? it.tier1_quick_score;
       const score = (scoreRaw == null || String(scoreRaw).trim() === '') ? NaN : Number(scoreRaw);
-      if (Number.isFinite(score)) parts.push(`score ${score.toFixed(2)}`);
-      return parts.length ? `Ranked: ${parts.join(' · ')}` : '';
+      if (Number.isFinite(score)) parts.push(t('ranked.score', { value: score.toFixed(2) }));
+      return parts.length ? t('ranked.prefix', { parts: parts.join(' · ') }) : '';
     }
 
     // Release feeds often repeat the tag name as the entire summary
@@ -3387,7 +3423,7 @@
     // only a kicker replaces the rank column so CSS can set it as a column.
     function cardHtml(it, { rank = null, runId = '', hideable = true, frontPage = '' } = {}) {
       const key = itemKey(it);
-      const rawTitle = String(it.title || 'Untitled');
+      const rawTitle = String(it.title || t('card.untitled'));
       const title = esc(trimTitleSuffix(rawTitle, it.source, it.url));
       const source = esc(cardSourceLabel(it));
       const sourceSlug = esc(it.source || 'unknown');
@@ -3432,9 +3468,12 @@
       const lastRank = it.rank_at_last_seen == null ? NaN : Number(it.rank_at_last_seen);
       const prevRank = it.rank_prev_seen == null ? NaN : Number(it.rank_prev_seen);
       const isClimbing = Number.isFinite(lastRank) && Number.isFinite(prevRank) && prevRank - lastRank >= 2;
-      const climbingLabel = isClimbing
-        ? `. Moved up from rank ${prevRank} to rank ${lastRank} between runs`
-        : '';
+      const climbingLabel = isClimbing ? t('card.climbingLabel', { prev: prevRank, last: lastRank }) : '';
+      const rankLabel = rank === null ? '' : `${t('card.rank', { rank })}${climbingLabel}`;
+      // A card the API could not translate keeps its English text; mark it so
+      // the reader knows why this one is not in their language.
+      const untranslated = Boolean(it.i18n && it.i18n.translated === false);
+      const enAttr = untranslated ? ' lang="en"' : '';
       // Reciprocity: surface when reader clicks/feedback boosted this source's
       // ranking (auto-tune adjustment via the feed API). Threshold keeps the
       // badge meaningful — only clearly boosted sources get it.
@@ -3448,7 +3487,7 @@
       const isNew = rank !== null && !isFresh && isNewSinceLastVisit(it);
       const storyline = storylineForItem(it);
       const storylineBadge = storyline
-        ? `<a class="badge badge-storyline" href="/storyline/${esc(storyline.slug)}" data-storyline-badge="${esc(storyline.slug)}" title="Day ${storylineDayNum(storyline, it)} of a developing storyline: ${esc(storyline.label || '')} — ${storyline.item_count} items from ${storyline.source_count} sources. Tap to see the whole thread.">📈 Developing · day ${storylineDayNum(storyline, it)}</a>`
+        ? `<a class="badge badge-storyline" href="${esc(localHref('/storyline/' + storyline.slug))}" data-storyline-badge="${esc(storyline.slug)}" title="${esc(t('card.storylineTitle', { day: storylineDayNum(storyline, it), label: storyline.label || '', items: storyline.item_count, sources: storyline.source_count }))}">${esc(t('card.storylineBadge', { day: storylineDayNum(storyline, it) }))}</a>`
         : '';
       const saved = isItemSaved(key);
       const hidden = isItemHidden(key);
@@ -3464,37 +3503,38 @@
       const kicker = frontPage
         ? (FRONT_PAGE_CATEGORY_LABELS[String(it.judge_category || '').toLowerCase()]
           || SLOT_LABELS[it.slot]
-          || (type !== 'news' ? typeLabel : 'News'))
-        : (SLOT_LABELS[it.slot] || (type !== 'news' ? typeLabel : 'News'));
+          || (type !== 'news' ? typeLabel : t('tabs.news')))
+        : (SLOT_LABELS[it.slot] || (type !== 'news' ? typeLabel : t('tabs.news')));
       return `
         <article${articleClass ? ` class="${articleClass}"` : ''} data-item-key="${itemId}">
-          ${frontPage === 'lead' && rank !== null ? `<p class="fp-kicker"><span class="fp-rank" aria-label="Rank ${rank}${climbingLabel}">${String(rank).padStart(2, '0')}</span> ${esc(kicker)}</p>` : ''}
-          ${frontPage !== 'lead' && rank !== null ? `<span class="rank-no"${isClimbing ? ` title="Moved up from #${prevRank} to #${lastRank} between runs"` : ''} aria-label="Rank ${rank}${climbingLabel}">${String(rank).padStart(2, '0')}</span>` : ''}
+          ${frontPage === 'lead' && rank !== null ? `<p class="fp-kicker"><span class="fp-rank" aria-label="${esc(rankLabel)}">${String(rank).padStart(2, '0')}</span> ${esc(kicker)}</p>` : ''}
+          ${frontPage !== 'lead' && rank !== null ? `<span class="rank-no"${isClimbing ? ` title="${esc(t('card.climbingTitle', { prev: prevRank, last: lastRank }))}"` : ''} aria-label="${esc(rankLabel)}">${String(rank).padStart(2, '0')}</span>` : ''}
           <div class="card-top">
             <div class="card-meta">
               <span class="src">${source}</span>
               ${published ? `<span class="when">${esc(published)}</span>` : ''}
               ${watchDuration ? `<span class="badge badge-watch">${esc(watchDuration)}</span>` : ''}
               ${type !== 'news' ? `<span class="badge">${typeLabel}</span>` : ''}
-              ${isNew ? `<span class="badge badge-new">New</span>` : ''}
+              ${untranslated ? `<span class="badge badge-lang" title="${esc(t('card.englishTitle'))}">${esc(t('card.englishTag'))}</span>` : ''}
+              ${isNew ? `<span class="badge badge-new">${esc(t('card.new'))}</span>` : ''}
               ${storylineBadge}
             </div>
             <div class="card-actions">
-              <button type="button" class="save-btn" data-save-id="${itemId}" aria-pressed="${saved ? 'true' : 'false'}" aria-label="${saved ? 'Remove from saved' : 'Save for later'}" title="${saved ? 'Remove from saved' : 'Save for later'}">${saved ? '★' : '☆'}</button>
+              <button type="button" class="save-btn" data-save-id="${itemId}" aria-pressed="${saved ? 'true' : 'false'}" aria-label="${esc(saved ? t('card.unsave') : t('card.save'))}" title="${esc(saved ? t('card.unsave') : t('card.save'))}">${saved ? '★' : '☆'}</button>
               <details class="card-more">
-                <summary aria-label="More for this story" title="More">⋯</summary>
+                <summary aria-label="${esc(t('card.moreLabel'))}" title="${esc(t('card.moreTitle'))}">⋯</summary>
                 <div class="card-more-panel">
                   <div class="card-more-actions">
-                    <button type="button" class="share-btn" data-share-id="${itemId}" aria-label="Share this story" title="Share">📤 Share</button>
-                    ${hideable ? `<button type="button" class="hide-btn" data-hide-id="${itemId}" aria-pressed="${hidden ? 'true' : 'false'}" aria-label="${hidden ? 'Restore this story to the feed' : 'Hide this story from the feed'}" title="${hidden ? 'Restore to feed' : 'Hide from feed'}">${hidden ? '↩︎ Restore' : '✕ Hide'}</button>` : ''}
+                    <button type="button" class="share-btn" data-share-id="${itemId}" aria-label="${esc(t('card.shareLabel'))}" title="${esc(t('card.shareTitle'))}">${esc(t('card.shareButton'))}</button>
+                    ${hideable ? `<button type="button" class="hide-btn" data-hide-id="${itemId}" aria-pressed="${hidden ? 'true' : 'false'}" aria-label="${esc(hidden ? t('card.restoreLabel') : t('card.hideLabel'))}" title="${esc(hidden ? t('card.restoreTitle') : t('card.hideTitle'))}">${esc(hidden ? t('card.restoreButton') : t('card.hideButton'))}</button>` : ''}
                   </div>
-                  ${why && why !== summaryRaw ? `<p class="${whyRaw ? 'matters' : 'matters ranked-why'}">${esc(why)}</p>` : ''}
+                  ${why && why !== summaryRaw ? `<p class="${whyRaw ? 'matters' : 'matters ranked-why'}"${enAttr}>${esc(why)}</p>` : ''}
                   ${isFresh || sourceCount >= 2 || isReaderBoosted ? `<p class="card-signals">
-                    ${isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
-                    ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
-                    ${isReaderBoosted ? `<span class="badge badge-boost" title="Reader clicks and feedback boosted ${source} in the ranking">👍 Reader-boosted</span>` : ''}
+                    ${isFresh ? `<span class="badge badge-fresh">${esc(t('card.fresh'))}</span>` : ''}
+                    ${sourceCount >= 2 ? `<span class="badge badge-trend" title="${esc(t('card.trendTitle', { n: sourceCount }))}">${esc(t('card.trendBadge', { n: sourceCount }))}</span>` : ''}
+                    ${isReaderBoosted ? `<span class="badge badge-boost" title="${esc(t('card.boostTitle', { source: cardSourceLabel(it) }))}">${esc(t('card.boostBadge'))}</span>` : ''}
                   </p>` : ''}
-                  ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
+                  ${alsoHtml ? `<p class="also">${esc(t('card.alsoCovered'))} ${alsoHtml}</p>` : ''}
                   <div class="watch-card-chips" data-watch-title="${title}" data-watch-source="${esc(it.source || '')}" hidden></div>
                   <div class="fb-row ${fbActive ? 'fb-has-voted' : ''}"><span class="fb-label">${fbActive ? FEEDBACK_THANKS : ''}</span><div class="fb-actions">${fbButtons}</div></div>
                 </div>
@@ -3503,8 +3543,8 @@
           </div>
           <div class="card-main">
             <div class="card-text">
-              <h3><a href="${href}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${itemId}" data-source="${sourceSlug}" data-rank="${rank ?? ''}" data-run-id="${itemRunId}" data-title="${title}">${title}</a></h3>
-              ${summary && frontPage === 'lead' ? `<p class="why">${summary}</p>` : ''}
+              <h3><a href="${href}"${enAttr} target="_blank" rel="noopener" data-track="item-link" data-item-id="${itemId}" data-source="${sourceSlug}" data-rank="${rank ?? ''}" data-run-id="${itemRunId}" data-title="${title}">${title}</a></h3>
+              ${summary && frontPage === 'lead' ? `<p class="why"${enAttr}>${summary}</p>` : ''}
             </div>
           </div>
         </article>`;
@@ -3636,20 +3676,20 @@
         .sort((a, b) => String(b.saved_at || '').localeCompare(String(a.saved_at || '')));
       const saved = all.filter((it) => matchesQuery(it, q));
       const countText = q
-        ? `${saved.length} of ${all.length} saved stories`
-        : `${all.length} saved ${all.length === 1 ? 'story' : 'stories'}`;
+        ? t('saved.countFiltered', { n: saved.length, total: all.length })
+        : t(all.length === 1 ? 'saved.countOne' : 'saved.countMany', { n: all.length });
       document.getElementById('meta').textContent = countText;
       setFeedStatus(countText);
       syncSectionTabs();
       if (!saved.length) {
         list.innerHTML = q
-          ? `<div class="state">No saved items match “${esc(q)}”.</div>`
-          : `<div class="state">Nothing saved yet — tap ☆ on any story to keep it here.</div>`;
+          ? `<div class="state">${esc(t('saved.noMatch', { q }))}</div>`
+          : `<div class="state">${esc(t('saved.empty'))}</div>`;
         restoreListFocus(list, focusSnapshot, document.getElementById('savedTab'));
         restoreCardSelection();
         return;
       }
-      const tools = `<div class="saved-tools"><button type="button" data-copy-saved="1" title="Copy saved stories as Markdown to clipboard">📋 Copy Markdown</button><button type="button" data-export-saved="1" title="Download your saved stories as a Markdown file">⬇ Export as Markdown</button></div>`;
+      const tools = `<div class="saved-tools"><button type="button" data-copy-saved="1" title="${esc(t('saved.copyTitle'))}">${esc(t('saved.copyButton'))}</button><button type="button" data-export-saved="1" title="${esc(t('saved.exportTitle'))}">${esc(t('saved.exportButton'))}</button></div>`;
       list.innerHTML = tools + saved.map((it) => cardHtml(it, { hideable: false })).join('');
       restoreListFocus(list, focusSnapshot, document.getElementById('savedTab'));
       restoreCardSelection();
@@ -3659,10 +3699,10 @@
     // pinned-labels ("my topics") default, which is otherwise hard to discover.
     const ONBOARDING_DONE_KEY = 'ai_feed_onboarding_done_v1';
     const ONBOARD_TOPICS = [
-      { value: 'platform', label: 'Platform' },
-      { value: 'research', label: 'Research' },
-      { value: 'release', label: 'Releases' },
-      { value: 'news', label: 'News' },
+      { value: 'platform', label: t('tabs.platform') },
+      { value: 'research', label: t('tabs.research') },
+      { value: 'release', label: t('tabs.release') },
+      { value: 'news', label: t('tabs.news') },
     ];
     let onboardSelection = new Set();
 
@@ -3689,12 +3729,12 @@
         `<button type="button" data-onboard-topic="${value}" aria-pressed="${onboardSelection.has(value) ? 'true' : 'false'}">${label}</button>`
       ).join('');
       return `
-        <section class="onboard" aria-label="Personalize your feed">
-          <div class="onboard-head"><strong>👋 Liking this?</strong> <span>Pick your topics — they'll be your default view here.</span></div>
+        <section class="onboard" aria-label="${esc(t('onboard.label'))}">
+          <div class="onboard-head"><strong>${esc(t('onboard.lead'))}</strong> <span>${esc(t('onboard.body'))}</span></div>
           <div class="onboard-chips">
             ${chips}
-            <button type="button" data-onboard-save="1"${onboardSelection.size ? '' : ' disabled'}>Save topics</button>
-            <button type="button" data-onboard-skip="1">Skip</button>
+            <button type="button" data-onboard-save="1"${onboardSelection.size ? '' : ' disabled'}>${esc(t('onboard.save'))}</button>
+            <button type="button" data-onboard-skip="1">${esc(t('onboard.skip'))}</button>
           </div>
         </section>`;
     }
@@ -3740,11 +3780,11 @@
         `<a role="button" href="${esc(c.href)}"${c.external ? ' target="_blank" rel="noopener"' : ''} data-subscribe-channel="${esc(c.channel)}" data-subscribe-placement="nudge">${c.label}</a>`
       ).join('');
       return `
-        <section class="onboard" aria-label="Subscribe to the feed">
-          <div class="onboard-head"><strong>🔔 Good to see you back.</strong> <span>Get tomorrow's stories without having to check in.</span></div>
+        <section class="onboard" aria-label="${esc(t('nudge.label'))}">
+          <div class="onboard-head"><strong>${esc(t('nudge.lead'))}</strong> <span>${esc(t('nudge.body'))}</span></div>
           <div class="onboard-chips">
             ${links}
-            <button type="button" data-subscribe-nudge-skip="1">Not now</button>
+            <button type="button" data-subscribe-nudge-skip="1">${esc(t('nudge.skip'))}</button>
           </div>
         </section>`;
     }
@@ -3803,8 +3843,8 @@
       const d = new Date(visitLastMs);
       if (Number.isNaN(d.getTime())) return '';
       const today = new Date();
-      if (d.toDateString() === today.toDateString()) return 'earlier today';
-      return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+      if (d.toDateString() === today.toDateString()) return t('catchup.earlierToday');
+      return d.toLocaleDateString(t('format.dateLocale'), { weekday: 'short', month: 'short', day: 'numeric' });
     }
 
     function catchupHtml(items) {
@@ -3830,8 +3870,8 @@
           : cleanReleaseSummary(summaryRaw0, it.type);
         const lineRaw = whyRaw || rankedBecauseText(it) || summaryFallback;
         const short = lineRaw.length > 110 ? `${lineRaw.slice(0, 110).trimEnd()}…` : lineRaw;
-        const flames = sources >= 2 ? ` <span class="badge badge-trend" title="Covered by ${sources} sources">🔥 ${sources} sources</span>` : '';
-        return `<li><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${esc(itemKey(it))}" data-source="${esc(it.source || '')}" data-title="${esc(it.title || '')}">${esc(trimTitleSuffix(it.title || 'Untitled', it.source, it.url))}</a>${flames}${short ? ` <span class="catchup-summary">— ${esc(short)}</span>` : ''}</li>`;
+        const flames = sources >= 2 ? ` <span class="badge badge-trend" title="${esc(t('card.trendTitle', { n: sources }))}">${esc(t('card.trendBadge', { n: sources }))}</span>` : '';
+        return `<li><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${esc(itemKey(it))}" data-source="${esc(it.source || '')}" data-title="${esc(it.title || '')}">${esc(trimTitleSuffix(it.title || t('card.untitled'), it.source, it.url))}</a>${flames}${short ? ` <span class="catchup-summary">— ${esc(short)}</span>` : ''}</li>`;
       }).join('');
 
       if (!catchupViewCaptured) {
@@ -3841,28 +3881,30 @@
 
       // "brief" is the default lens, not a reader-chosen topic — don't claim
       // the catch-up count is scoped "in your topics" when it's just the default.
-      const topicsNote = getSelectedLabels().some((l) => l !== 'brief') ? ' in your topics' : '';
+      const inTopics = getSelectedLabels().some((l) => l !== 'brief');
+      const newCount = t(fresh.length === 1 ? 'catchup.newOne' : 'catchup.newMany', { n: fresh.length });
+      const subText = t(inTopics ? 'catchup.subTopics' : 'catchup.sub', { when: lastVisitLabel(), count: newCount });
       // Collapsed by default: the body below is the stable reading order, so a
       // new arrival must not move it. The reader opts into the catch-up list.
       const open = isCatchupOpen();
       return `
-        <section class="catchup" aria-label="Catch up since your last visit" data-catchup-open="${open ? 'true' : 'false'}">
+        <section class="catchup" aria-label="${esc(t('catchup.label'))}" data-catchup-open="${open ? 'true' : 'false'}">
           <div class="catchup-head">
-            <strong>⚡ Catch me up</strong>
-            <span class="catchup-sub">Since your last visit (${esc(lastVisitLabel())}): ${fresh.length} new ${fresh.length === 1 ? 'story' : 'stories'}${topicsNote}</span>
-            <button type="button" class="catchup-toggle" data-catchup-toggle="1" aria-expanded="${open ? 'true' : 'false'}" aria-controls="catchup-new-list" aria-label="${open ? 'Hide' : 'Show'} catch-up stories">${open ? 'Hide' : 'Show'}</button>
-            <button type="button" class="catchup-dismiss" data-catchup-dismiss="1" aria-label="Dismiss catch-up brief" title="Dismiss">×</button>
+            <strong>${esc(t('catchup.title'))}</strong>
+            <span class="catchup-sub">${esc(subText)}</span>
+            <button type="button" class="catchup-toggle" data-catchup-toggle="1" aria-expanded="${open ? 'true' : 'false'}" aria-controls="catchup-new-list" aria-label="${esc(open ? t('catchup.hideLabel') : t('catchup.showLabel'))}">${esc(open ? t('common.hide') : t('common.show'))}</button>
+            <button type="button" class="catchup-dismiss" data-catchup-dismiss="1" aria-label="${esc(t('catchup.dismissLabel'))}" title="${esc(t('common.dismiss'))}">×</button>
           </div>
           <ul id="catchup-new-list"${open ? '' : ' hidden'}>${bullets}</ul>
-          <p class="catchup-more"><a href="/daily">Read the full daily recap →</a></p>
+          <p class="catchup-more"><a href="${esc(localHref('/daily'))}">${esc(t('catchup.more'))}</a></p>
           <div data-editorial-catchup></div>
         </section>`;
     }
 
     function buildSavedMarkdown(items) {
-      const lines = ['# Saved stories — AI Feed (llm-digest.com)', ''];
+      const lines = [t('saved.mdTitle'), ''];
       for (const it of items) {
-        const title = String(it.title || 'Untitled').replace(/[\[\]]/g, '');
+        const title = String(it.title || t('card.untitled')).replace(/[\[\]]/g, '');
         const date = fmtCompactDate(it.published || it.saved_at);
         lines.push(`- [${title}](${it.url || ''})${it.source ? ` — ${sourceDisplayName(it.source)}` : ''}${date ? `, ${date}` : ''}`);
         const summary = cleanText(it.summary_1line);
@@ -3899,9 +3941,9 @@
       ta.select();
       try {
         document.execCommand('copy');
-        showUndoSnack('Copied saved stories to clipboard');
+        showUndoSnack(t('saved.copied'));
       } catch {
-        alert('Could not copy to clipboard.');
+        alert(t('saved.copyFailed'));
       }
       ta.remove();
     }
@@ -3913,7 +3955,7 @@
       const md = buildSavedMarkdown(all);
       if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
         navigator.clipboard.writeText(md).then(() => {
-          showUndoSnack('Copied saved stories to clipboard');
+          showUndoSnack(t('saved.copied'));
         }).catch(() => {
           fallbackCopyText(md);
         });
@@ -3945,23 +3987,28 @@
 
     // End-of-Brief marker: a one-line finish line so the default view ends
     // ("read everything, you're caught up") instead of trailing off.
+    // The active preset as a phrase ("the past 24 hours"); empty for a custom range.
+    function presetRangeLabel() {
+      if (customRangeState.from || customRangeState.to) return '';
+      const keys = { 1: 'end.range1', 3: 'end.range3', 7: 'end.range7', 30: 'end.range30' };
+      return keys[presetDaysState] ? t(keys[presetDaysState]) : '';
+    }
+
     function endMarkerHtml(overflowCount = 0) {
-      const rangeLabel = (customRangeState.from || customRangeState.to)
-        ? ''
-        : ({ 1: 'the past 24 hours', 3: 'the last 3 days', 7: 'the last 7 days', 30: 'the last 30 days' }[presetDaysState] || '');
+      const rangeLabel = presetRangeLabel();
       const overflowNote = overflowCount > 0
-        ? `${overflowCount} more ${overflowCount === 1 ? 'story is' : 'stories are'} available under "More from ${rangeLabel || 'this window'}" above.`
+        ? t(overflowCount === 1 ? 'end.overflowOne' : 'end.overflowMany', { n: overflowCount, heading: t('pool.moreFrom', { range: rangeLabel || t('end.thisWindow') }) })
         : '';
       const sub = overflowCount > 0
-        ? `${overflowNote} Release notes are under the Releases tab.`
+        ? t('end.subOverflow', { note: overflowNote })
         : rangeLabel
-          ? `That's everything worth reading from ${rangeLabel} - release notes are under the Releases tab.`
-          : `Release notes are under the Releases tab whenever you want them.`;
+          ? t('end.subRange', { range: rangeLabel })
+          : t('end.subNone');
       return `
         <div class="end-marker">
-          <div class="end-marker-title">✓ ${overflowCount > 0 ? "You're caught up on the brief" : "You're all caught up"}</div>
+          <div class="end-marker-title">✓ ${esc(overflowCount > 0 ? t('end.caughtBrief') : t('end.caughtAll'))}</div>
           <div class="end-marker-sub">${esc(sub)}</div>
-          <a class="end-marker-cta" href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="feed_finish" data-subscribe-inline>Get the next brief by email</a>
+          <a class="end-marker-cta" href="${esc(localHref('/subscribe'))}" data-subscribe-channel="email" data-subscribe-placement="feed_finish" data-subscribe-inline>${esc(t('end.cta'))}</a>
         </div>`;
     }
 
@@ -3969,12 +4016,12 @@
       // Past 24h is the default range, so "narrow the range" is only useful
       // advice when the reader has actually widened past it.
       const advice = presetDaysState === '1' && !customRangeState.from && !customRangeState.to
-        ? 'The rest are lower-ranked than this brief. Search to find something specific, or read the daily recap.'
-        : 'The rest are older or lower-ranked than this brief. Switch the range to Past 24h for a true finish line, or search to find something specific.';
+        ? t('end.adviceDefault')
+        : t('end.adviceWide');
       return `
         <div class="end-marker">
-          <div class="end-marker-title">Top ${shownItems} of ${totalItems} stories in this window</div>
-          <div class="end-marker-sub">${advice}</div>
+          <div class="end-marker-title">${esc(t('end.truncatedTitle', { shown: shownItems, total: totalItems }))}</div>
+          <div class="end-marker-sub">${esc(advice)}</div>
         </div>`;
     }
 
@@ -3982,12 +4029,11 @@
     // current window and a toggle to reveal/restore them (dimmed, with the ↩︎
     // restore control on each card).
     function hiddenBarHtml(n) {
-      const noun = n === 1 ? 'story' : 'stories';
       return `
         <div class="feed-hidden-bar">
-          <span>🙈 ${n} hidden ${noun} in this range</span>
-          <button type="button" data-toggle-hidden="1" aria-pressed="${showHiddenState ? 'true' : 'false'}">${showHiddenState ? 'Hide them again' : 'Show hidden'}</button>
-          ${showHiddenState ? `<button type="button" data-clear-hidden="1">Restore all</button>` : ''}
+          <span>${esc(t(n === 1 ? 'hidden.barOne' : 'hidden.barMany', { n }))}</span>
+          <button type="button" data-toggle-hidden="1" aria-pressed="${showHiddenState ? 'true' : 'false'}">${esc(showHiddenState ? t('hidden.hideAgain') : t('hidden.show'))}</button>
+          ${showHiddenState ? `<button type="button" data-clear-hidden="1">${esc(t('hidden.restoreAll'))}</button>` : ''}
         </div>`;
     }
 
@@ -4056,20 +4102,20 @@
 
     function frontPageEditionName(date) {
       const hour = date.getHours();
-      if (hour >= 5 && hour < 12) return 'Morning edition';
-      if (hour >= 12 && hour < 17) return 'Afternoon edition';
-      if (hour >= 17 && hour < 21) return 'Evening edition';
-      return 'Late edition';
+      if (hour >= 5 && hour < 12) return t('fp.editionMorning');
+      if (hour >= 12 && hour < 17) return t('fp.editionAfternoon');
+      if (hour >= 17 && hour < 21) return t('fp.editionEvening');
+      return t('fp.editionLate');
     }
 
     // Section headings in the style of a paper's section fronts: a bold
     // title on the left, one quiet line of context on the right.
     function frontPageEditionHtml(latestRunAt) {
       const at = latestRunAt ? new Date(latestRunAt) : new Date();
-      const date = at.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+      const date = at.toLocaleDateString(t('format.dateLocale'), { weekday: 'long', month: 'short', day: 'numeric' });
       return `
         <div class="fp-head">
-          <h2>Front page</h2>
+          <h2>${esc(t('fp.title'))}</h2>
           <span class="fp-head-meta">${esc(date)}&ensp;·&ensp;${frontPageEditionName(at)}</span>
         </div>`;
     }
@@ -4077,21 +4123,27 @@
     function frontPageRuleHtml(remaining) {
       return `
         <div class="fp-head fp-head-more">
-          <h2>The rest of the brief</h2>
-          <span class="fp-head-meta">${remaining} more ${remaining === 1 ? 'story' : 'stories'}</span>
+          <h2>${esc(t('fp.rest'))}</h2>
+          <span class="fp-head-meta">${esc(t(remaining === 1 ? 'fp.moreOne' : 'fp.moreMany', { n: remaining }))}</span>
         </div>`;
     }
 
     // The editorial caps keep the TOP of the brief mixed. A story beyond the
     // mix is still admitted for the window, so it continues below this fold
     // instead of disappearing when a newer story arrives from the same source.
+    function poolToggleLabel(open, remaining, where) {
+      const one = remaining === 1;
+      const key = open ? (one ? 'pool.hideOne' : 'pool.hideMany') : (one ? 'pool.showOne' : 'pool.showMany');
+      return t(key, { n: remaining, range: where });
+    }
+
     function poolMarkerHtml(remaining, open, rangeLabel) {
-      const where = rangeLabel || 'this window';
+      const where = rangeLabel || t('end.thisWindow');
       return `
         <div class="fp-head fp-head-more pool-marker">
-          <h2>More from ${esc(where)}</h2>
-          <span class="fp-head-meta">${remaining} more ${remaining === 1 ? 'story' : 'stories'}</span>
-          <button type="button" class="pool-toggle" data-pool-toggle="1" aria-expanded="${open ? 'true' : 'false'}" aria-controls="list" aria-label="${open ? 'Hide' : 'Show'} ${remaining} more ${remaining === 1 ? 'story' : 'stories'} from ${esc(where)}">${open ? 'Hide' : 'Show'}</button>
+          <h2>${esc(t('pool.moreFrom', { range: where }))}</h2>
+          <span class="fp-head-meta">${esc(t(remaining === 1 ? 'fp.moreOne' : 'fp.moreMany', { n: remaining }))}</span>
+          <button type="button" class="pool-toggle" data-pool-toggle="1" data-pool-remaining="${remaining}" data-pool-range="${esc(where)}" aria-expanded="${open ? 'true' : 'false'}" aria-controls="list" aria-label="${esc(poolToggleLabel(open, remaining, where))}">${esc(open ? t('common.hide') : t('common.show'))}</button>
         </div>`;
     }
 
@@ -4128,25 +4180,26 @@
         const t = Date.parse(r?.run_at || '');
         return Number.isFinite(t) && t > acc ? t : acc;
       }, 0);
-      const updatedNote = latestRunAt ? ` · updated ${fmtRelTime(new Date(latestRunAt).toISOString())}` : '';
+      const updatedNote = latestRunAt ? ` · ${t('meta.updated', { when: fmtRelTime(new Date(latestRunAt).toISOString()) })}` : '';
       const newSince = visible.filter((it) => String(it.tier_hint || '') !== 'tier1_fresh' && isNewSinceLastVisit(it)).length;
-      const newNote = newSince > 0 ? ` · ${newSince} new since your last visit` : '';
+      const newNote = newSince > 0 ? ` · ${t('meta.newSince', { n: newSince })}` : '';
       const selectedLabels = getSelectedLabels();
       // "brief" is the default lens, not a reader-chosen topic — keep it out of
       // the "topics:" note so the default view doesn't claim a topic filter.
       const noteTopics = selectedLabels.filter((l) => l !== 'brief');
-      const labelNote = noteTopics.length ? ` · topics: ${noteTopics.join(', ')}` : '';
+      const labelNote = noteTopics.length ? ` · ${t('meta.topics', { labels: noteTopics.join(', ') })}` : '';
       // "159 stories" alone reads as homework; naming the window frames it
       // as coverage ("everything from the last 7 days") instead of a backlog.
-      const RANGE_LABELS = { 1: 'the past 24 hours', 3: 'the last 3 days', 7: 'the last 7 days', 30: 'the last 30 days' };
-      const rangeLabel = (customRangeState.from || customRangeState.to) ? '' : RANGE_LABELS[presetDaysState] || '';
-      const rangeNote = rangeLabel ? ` from ${rangeLabel}` : '';
+      const rangeLabel = presetRangeLabel();
+      const storiesText = hasMore
+        ? t('meta.storiesOf', { n: items.length, total: totalItems })
+        : t(totalItems === 1 ? 'meta.storiesOne' : 'meta.storiesMany', { n: items.length });
       const countText = q
-        ? `${visible.length} of ${items.length} stories`
+        ? t('meta.filtered', { n: visible.length, total: items.length })
         : overflowCount > 0
-          ? `${overflowStart} top stories · ${overflowCount} more from ${rangeLabel || 'this window'}`
-          : `${hasMore ? `${items.length} of ${totalItems}` : items.length} ${totalItems === 1 ? 'story' : 'stories'}${rangeNote}`;
-      const hiddenNote = hiddenInView > 0 ? ` · ${hiddenInView} hidden` : '';
+          ? t('meta.overflow', { top: overflowStart, more: overflowCount, range: rangeLabel || t('end.thisWindow') })
+          : (rangeLabel ? t('meta.withRange', { count: storiesText, range: rangeLabel }) : storiesText);
+      const hiddenNote = hiddenInView > 0 ? ` · ${t('meta.hidden', { n: hiddenInView })}` : '';
       document.getElementById('meta').textContent = `${countText}${updatedNote}${newNote}${labelNote}${hiddenNote}`;
       setFeedStatus(countText);
       syncSectionTabs();
@@ -4157,26 +4210,28 @@
           // Everything in this window is hidden — offer a way to bring it back
           // rather than implying the feed is empty.
           html = hiddenBarHtml(hiddenInView)
-            + `<div class="state">You've hidden everything in this range. Tap “Show hidden” above to bring stories back.</div>`;
+            + `<div class="state">${esc(t('state.allHidden', { action: t('hidden.show') }))}</div>`;
         } else if (q) {
           const currentTab = activeSection();
-          const tabName = currentTab === 'brief'
-            ? 'Brief'
-            : (currentTab === '' ? 'All stories' : (currentTab ? (currentTab.charAt(0).toUpperCase() + currentTab.slice(1)) : 'selected topics'));
+          const sectionNames = {
+            brief: t('tabs.brief'), platform: t('tabs.platform'), research: t('tabs.research'),
+            release: t('tabs.release'), news: t('tabs.news'),
+          };
+          const tabName = currentTab === ''
+            ? t('search.allStories')
+            : (sectionNames[currentTab] || t('search.selectedTopics'));
           const hasSectionFilter = currentTab !== '';
           const hasNarrowRange = presetDaysState !== '30' && presetDaysState !== 'all';
-          const scopeParts = [tabName];
-          if (rangeNote) scopeParts.push(rangeNote.trim());
-          const scopeLabel = scopeParts.filter(Boolean).join(', ');
+          const scopeLabel = rangeLabel ? t('search.scope', { tab: tabName, range: rangeLabel }) : tabName;
           const actions = [];
           if (hasSectionFilter) {
-            actions.push('<button type="button" data-search-action="all">Search all sections</button>');
+            actions.push(`<button type="button" data-search-action="all">${esc(t('search.actionAll'))}</button>`);
           }
           if (hasNarrowRange) {
-            actions.push('<button type="button" data-search-action="30d">Search last 30 days</button>');
+            actions.push(`<button type="button" data-search-action="30d">${esc(t('search.action30d'))}</button>`);
           }
-          actions.push('<button type="button" data-search-action="clear">Clear search</button>');
-          html = `<div class="state">No items match “${esc(q)}” in ${esc(scopeLabel)}.<div class="empty-search-actions">${actions.join(' ')}</div></div>`;
+          actions.push(`<button type="button" data-search-action="clear">${esc(t('search.actionClear'))}</button>`);
+          html = `<div class="state">${esc(t('search.noMatch', { q, scope: scopeLabel }))}<div class="empty-search-actions">${actions.join(' ')}</div></div>`;
         } else {
           // Name what's actually filtering: topic selections read differently
           // from an empty date window, and each gets its own next step. The
@@ -4190,9 +4245,9 @@
             || !!customRangeState.from || !!customRangeState.to || !!searchQueryState.trim();
           html = `<div class="state">${
             topicsActive
-              ? `Nothing under ${esc(noteTopics.join(', '))} in this range.`
-              : 'No items for that date/time range. Try widening the window.'
-          }${somethingToClear ? ` <button type="button" data-clear-filters="1">Clear filters</button>` : ''}</div>`;
+              ? esc(t('state.noTopic', { topics: noteTopics.join(', ') }))
+              : esc(t('state.noRange'))
+          }${somethingToClear ? ` <button type="button" data-clear-filters="1">${esc(t('state.clearFilters'))}</button>` : ''}</div>`;
         }
       } else {
         const frontPage = !q
@@ -4430,8 +4485,8 @@
       run().catch(err => {
         console.error(err);
         if (viewState !== 'feed') return;
-        const retry = '<button type="button" data-retry-feed="1">Retry</button>';
-        const bar = `<div class="state">Live feed failed to load just now. ${retry}</div>`;
+        const retry = `<button type="button" data-retry-feed="1">${esc(t('feed.retry'))}</button>`;
+        const bar = `<div class="state">${esc(t('feed.failedJustNow'))} ${retry}</div>`;
         const list = document.getElementById('list');
         if (lastGoodListHtml) {
           const fallback = bar + lastGoodListHtml;
@@ -4440,15 +4495,15 @@
           // Record what we wrote, or a later successful render could be
           // skipped as "unchanged" and leave this error bar stuck on screen.
           lastRenderedListHtml = fallback;
-          document.getElementById('meta').textContent = 'Showing the last good brief';
-          setFeedStatus('Live feed failed to load. Showing the last good brief.');
+          document.getElementById('meta').textContent = t('feed.showingLastGood');
+          setFeedStatus(t('feed.failedShowingLast'));
         } else {
-          const fallback = `<div class="state">Could not load the feed right now. ${retry}</div>`;
+          const fallback = `<div class="state">${esc(t('feed.couldNotLoad'))} ${retry}</div>`;
           list.innerHTML = fallback;
           list.classList.remove('feed-updating');
           lastRenderedListHtml = fallback;
-          document.getElementById('meta').textContent = 'Feed unavailable';
-          setFeedStatus('Feed unavailable. Could not load the feed right now.');
+          document.getElementById('meta').textContent = t('feed.unavailable');
+          setFeedStatus(t('feed.unavailableStatus'));
         }
       });
     }
@@ -4553,8 +4608,8 @@
           const section = catchupToggle.closest('.catchup');
           const listEl = section?.querySelector('#catchup-new-list');
           catchupToggle.setAttribute('aria-expanded', String(open));
-          catchupToggle.setAttribute('aria-label', `${open ? 'Hide' : 'Show'} catch-up stories`);
-          catchupToggle.textContent = open ? 'Hide' : 'Show';
+          catchupToggle.setAttribute('aria-label', open ? t('catchup.hideLabel') : t('catchup.showLabel'));
+          catchupToggle.textContent = open ? t('common.hide') : t('common.show');
           if (listEl) listEl.hidden = !open;
           section?.setAttribute('data-catchup-open', String(open));
           setCatchupOpen(open);
@@ -4568,9 +4623,8 @@
           setPoolOpen(open);
           document.getElementById('list')?.classList.toggle('pool-open', open);
           poolToggle.setAttribute('aria-expanded', String(open));
-          const baseLabel = String(poolToggle.getAttribute('aria-label') || '').replace(/^(Show|Hide)\s+/, '');
-          poolToggle.setAttribute('aria-label', `${open ? 'Hide' : 'Show'} ${baseLabel}`);
-          poolToggle.textContent = open ? 'Hide' : 'Show';
+          poolToggle.setAttribute('aria-label', poolToggleLabel(open, Number(poolToggle.dataset.poolRemaining), poolToggle.dataset.poolRange || ''));
+          poolToggle.textContent = open ? t('common.hide') : t('common.show');
           posthogCapture('feed_pool_toggle', { open });
           return;
         }
@@ -4667,7 +4721,7 @@
             toggleSaved(key);
             renderSavedView();
             if (previousSnapshot) {
-              showUndoSnack('Story removed from saved', () => {
+              showUndoSnack(t('snack.removedFromSaved'), () => {
                 savedItemsState[key] = previousSnapshot;
                 persistSavedItems();
                 renderSavedView();
@@ -4678,7 +4732,7 @@
             const nowSaved = toggleSaved(key);
             saveBtn.textContent = nowSaved ? '★' : '☆';
             saveBtn.setAttribute('aria-pressed', nowSaved ? 'true' : 'false');
-            const label = nowSaved ? 'Remove from saved' : 'Save for later';
+            const label = nowSaved ? t('card.unsave') : t('card.save');
             saveBtn.setAttribute('aria-label', label);
             saveBtn.title = label;
             updateSavedTab();
@@ -4800,7 +4854,7 @@
         // "All" clears the filter; any other tab selects exactly that section.
         setSelectedLabels(section ? [section] : []);
         const tabLabel = (btn.childNodes[0]?.textContent || btn.textContent || '').trim();
-        setFeedStatus(section ? `Showing ${tabLabel}` : 'Showing all stories');
+        setFeedStatus(section ? t('status.showing', { tab: tabLabel }) : t('status.showingAll'));
         refreshFeed({ exitSaved: true });
       });
 
@@ -4887,7 +4941,7 @@
     // stays on screen during the fetch (reserving vertical space with real
     // content, no CLS) and is the fallback brief if this first fetch fails.
     lastGoodListHtml = document.getElementById('list').innerHTML;
-    document.getElementById('meta').textContent = 'Updating the brief...';
+    document.getElementById('meta').textContent = t('meta.updating');
     document.getElementById('list')?.classList.add('feed-updating');
     refreshFeed();
   </script>
@@ -4950,7 +5004,7 @@
     // fixes both problems at once. Falls back to `name` for an older
     // cached artifact without the field.
     function mrDisplayName(m) {
-      return (m && m.display_name) || (m && m.name) || 'Unknown model';
+      return (m && m.display_name) || (m && m.name) || t('radar.unknownModel');
     }
 
     // Real value only - no "undisclosed" filler in a compact teaser. AA
@@ -4959,7 +5013,7 @@
     function mrFmtPrice(v) {
       var n = Number(v);
       if (v === null || v === undefined || !isFinite(n)) return '';
-      return '$' + (n < 10 ? n.toFixed(2) : n.toFixed(2).replace(/\.00$/, '')) + '/1M input';
+      return t('radar.priceInput', { price: '$' + (n < 10 ? n.toFixed(2) : n.toFixed(2).replace(/\.00$/, '')) });
     }
 
     // Picks which capability field ranks the rail: the objective AA
@@ -5042,8 +5096,8 @@
         ? '<a href="' + aaUrl + '" target="_blank" rel="noopener" title="' + mrEsc(aaFull) + '">' + mrEsc(aaLabel) + '</a>'
         : mrEsc(aaLabel);
       var credit = capField === 'aa_intelligence_index'
-        ? 'AA intelligence index from ' + aaLink + '.' : 'Coding Elo from ' + lmLink + '.';
-      if (showPrice) credit += ' Prices: <a href="https://openrouter.ai/docs/guides/overview/models">OpenRouter</a>.';
+        ? tHtml('radar.creditIndex', { source: aaLink }) : tHtml('radar.creditElo', { source: lmLink });
+      if (showPrice) credit += ' ' + tHtml('radar.creditPrices', { source: '<a href="https://openrouter.ai/docs/guides/overview/models">OpenRouter</a>' });
       return credit;
     }
 
@@ -5062,16 +5116,16 @@
       var org = m.organization ? mrEsc(m.organization) : '';
       var capIsIndex = capField === 'aa_intelligence_index';
       var capDisplay = capIsIndex ? (Math.round(capValue * 10) / 10) : Math.round(capValue);
-      var capLabel = capIsIndex ? 'AA intelligence index' : 'coding Elo';
+      var capLabel = capIsIndex ? t('radar.indexLong') : t('radar.elo');
       var price = mrFmtPrice(m.price_input_per_1m);
       var modelSlug = m && (m.url_slug || m.base_slug || m.slug) || '';
-      var badge = m.open_weights === true ? ' <span class="mr-rail-badge">Open weights</span>' : '';
+      var badge = m.open_weights === true ? ' <span class="mr-rail-badge">' + mrEsc(t('radar.openWeights')) + '</span>' : '';
       var variants = m.variantCount > 1 ? ' <span class="mr-rail-variant">+' + mrEsc(String(m.variantCount - 1)) + '</span>' : '';
       // Two short lines beat one run-on: at 200px the single meta line
       // ("anthropic - 63.1 AA intelligence index - $10/1M blended") wrapped to
       // three ragged lines. The metric label is shortened here because the
       // credit line below the list already names it in full.
-      var shortLabel = capIsIndex ? 'AA index' : 'coding Elo';
+      var shortLabel = capIsIndex ? t('radar.indexShort') : t('radar.elo');
       // Keep the input qualifier visible so this cannot read as a blended rate.
       var shortPrice = price;
       var metric = capDisplay + ' ' + shortLabel + (shortPrice ? ' &middot; ' + mrEsc(shortPrice) : '');
@@ -5103,15 +5157,15 @@
       if (!rows) return '';
 
       var hasPrice = ranked.some(function (m) { return m.price_input_per_1m !== null && m.price_input_per_1m !== undefined; });
-      var capLabelForLede = capField === 'aa_intelligence_index' ? 'the Artificial Analysis intelligence index' : 'community-voted Elo';
+      var capLabelForLede = capField === 'aa_intelligence_index' ? t('radar.metricIndex') : t('radar.metricElo');
 
       return (
-        '<p class="mr-rail-kicker">Model Release Radar</p>' +
-        '<h2 class="mr-rail-heading">Which model to route to</h2>' +
-        '<p class="mr-rail-lede">Top coding models ranked by ' + capLabelForLede + ' - one row per model, reasoning-effort variants collapsed.</p>' +
+        '<p class="mr-rail-kicker">' + mrEsc(t('radar.label')) + '</p>' +
+        '<h2 class="mr-rail-heading">' + mrEsc(t('radar.heading')) + '</h2>' +
+        '<p class="mr-rail-lede">' + mrEsc(t('radar.lede', { metric: capLabelForLede })) + '</p>' +
         '<ol class="mr-rail-list">' + rows + '</ol>' +
         '<p class="mr-rail-sources">' + mrSourcesLine(data.sources, capField, hasPrice) + '</p>' +
-        '<a class="mr-rail-cta" href="/models" data-model-radar-target="full">Full radar &rarr;</a>'
+        '<a class="mr-rail-cta" href="/models" data-model-radar-target="full">' + mrEsc(t('radar.cta')) + '</a>'
       );
     }
 
@@ -5152,7 +5206,7 @@
             return;
           }
           modelRadarInlineHtml =
-            '<aside class="model-radar-inline" aria-label="Model Release Radar" data-model-radar-placement="mobile_inline">' +
+            '<aside class="model-radar-inline" aria-label="' + mrEsc(t('radar.label')) + '" data-model-radar-placement="mobile_inline">' +
             mobileMarkup +
             '</aside>';
           // The static models payload arrives after the first feed render. A
@@ -5178,31 +5232,31 @@
   <dialog id="aboutDialog" class="about-dialog" aria-labelledby="aboutTitle">
     <div class="about-panel">
       <div class="about-head">
-        <h2 id="aboutTitle">About LLM Digest</h2>
-        <button type="button" id="aboutClose" class="about-close" aria-label="Close about dialog">Close</button>
+        <h2 id="aboutTitle">{{t:about.title}}</h2>
+        <button type="button" id="aboutClose" class="about-close" aria-label="{{t:about.closeLabel}}">{{t:common.close}}</button>
       </div>
-      <p>LLM Digest is a low-hype, ranked daily brief of AI news for platform and agent engineers - model releases, frontier-lab research, inference and serving updates, agent tooling, and selected papers.</p>
-      <p>One shared, transparent ranking for everyone. No personalized filter bubble, no engagement-optimized infinite scroll: the brief is built to end.</p>
-      <p>Privacy: pages use anonymous PostHog analytics and your preferences (saved stories, pinned topics, read history) stay in your browser only. There are no accounts.</p>
-      <p>Feedback or source suggestions: <a href="https://github.com/FutureGadget/ai-sota-feed-bot/issues" target="_blank" rel="noopener">GitHub issues</a>.</p>
+      <p>{{t:about.p1}}</p>
+      <p>{{t:about.p2}}</p>
+      <p>{{t:about.p3}}</p>
+      <p>{{t:about.feedback}} <a href="https://github.com/FutureGadget/ai-sota-feed-bot/issues" target="_blank" rel="noopener">{{t:about.issues}}</a>.</p>
     </div>
   </dialog>
 
   <dialog id="shortcutsDialog" class="about-dialog shortcuts-dialog" aria-labelledby="shortcutsTitle">
     <div class="about-panel">
       <div class="about-head">
-        <h2 id="shortcutsTitle">Keyboard shortcuts</h2>
-        <button type="button" id="shortcutsClose" class="about-close" aria-label="Close shortcuts dialog">Close</button>
+        <h2 id="shortcutsTitle">{{t:shortcuts.title}}</h2>
+        <button type="button" id="shortcutsClose" class="about-close" aria-label="{{t:shortcuts.closeLabel}}">{{t:common.close}}</button>
       </div>
-      <div class="shortcuts-list" role="table" aria-label="Keyboard shortcuts">
-        <div class="shortcut-row"><span>Next story</span><span class="shortcut-keys"><kbd>j</kbd> or <kbd>↓</kbd></span></div>
-        <div class="shortcut-row"><span>Previous story</span><span class="shortcut-keys"><kbd>k</kbd> or <kbd>↑</kbd></span></div>
-        <div class="shortcut-row"><span>Open story link</span><span class="shortcut-keys"><kbd>o</kbd> or <kbd>Enter</kbd></span></div>
-        <div class="shortcut-row"><span>Save or unsave story</span><span class="shortcut-keys"><kbd>s</kbd></span></div>
-        <div class="shortcut-row"><span>Hide story from feed</span><span class="shortcut-keys"><kbd>x</kbd> or <kbd>h</kbd></span></div>
-        <div class="shortcut-row"><span>Search stories</span><span class="shortcut-keys"><kbd>/</kbd></span></div>
-        <div class="shortcut-row"><span>Close modal or clear selection</span><span class="shortcut-keys"><kbd>Esc</kbd></span></div>
-        <div class="shortcut-row"><span>Show keyboard shortcuts</span><span class="shortcut-keys"><kbd>?</kbd></span></div>
+      <div class="shortcuts-list" role="table" aria-label="{{t:shortcuts.label}}">
+        <div class="shortcut-row"><span>{{t:shortcuts.next}}</span><span class="shortcut-keys"><kbd>j</kbd> {{t:shortcuts.or}} <kbd>↓</kbd></span></div>
+        <div class="shortcut-row"><span>{{t:shortcuts.prev}}</span><span class="shortcut-keys"><kbd>k</kbd> {{t:shortcuts.or}} <kbd>↑</kbd></span></div>
+        <div class="shortcut-row"><span>{{t:shortcuts.open}}</span><span class="shortcut-keys"><kbd>o</kbd> {{t:shortcuts.or}} <kbd>Enter</kbd></span></div>
+        <div class="shortcut-row"><span>{{t:shortcuts.save}}</span><span class="shortcut-keys"><kbd>s</kbd></span></div>
+        <div class="shortcut-row"><span>{{t:shortcuts.hide}}</span><span class="shortcut-keys"><kbd>x</kbd> {{t:shortcuts.or}} <kbd>h</kbd></span></div>
+        <div class="shortcut-row"><span>{{t:shortcuts.search}}</span><span class="shortcut-keys"><kbd>/</kbd></span></div>
+        <div class="shortcut-row"><span>{{t:shortcuts.esc}}</span><span class="shortcut-keys"><kbd>Esc</kbd></span></div>
+        <div class="shortcut-row"><span>{{t:shortcuts.help}}</span><span class="shortcut-keys"><kbd>?</kbd></span></div>
       </div>
     </div>
   </dialog>

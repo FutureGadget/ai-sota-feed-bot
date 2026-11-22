@@ -62,11 +62,12 @@ test('Past 24h sends a rolling arrival window, not the local calendar day', () =
     globalThis.Date = FixedDate;
     ${extractFunction('localDateBoundaryUtc')}
     ${extractFunction('toDateInput')}
+    ${extractFunction('localeParam')}
     ${extractFunction('buildFeedUrl')}
     const customRangeState = { from: '', to: '' };
     const presetDaysState = '1';
     const limitState = '200';
-    const window = { location: { origin: 'https://example.test' } };
+    const window = { location: { origin: 'https://example.test' }, UI: { locale: 'en', defaultLocale: 'en' } };
     function getSelectedLabels() { return ['brief']; }
     console.log(buildFeedUrl());
   `;
@@ -93,11 +94,12 @@ test('wider presets keep local calendar boundaries and publish-date windows', ()
     globalThis.Date = FixedDate;
     ${extractFunction('localDateBoundaryUtc')}
     ${extractFunction('toDateInput')}
+    ${extractFunction('localeParam')}
     ${extractFunction('buildFeedUrl')}
     const customRangeState = { from: '', to: '' };
     const presetDaysState = '3';
     const limitState = '200';
-    const window = { location: { origin: 'https://example.test' } };
+    const window = { location: { origin: 'https://example.test' }, UI: { locale: 'en', defaultLocale: 'en' } };
     function getSelectedLabels() { return ['brief']; }
     console.log(buildFeedUrl());
   `;
@@ -109,4 +111,27 @@ test('wider presets keep local calendar boundaries and publish-date windows', ()
   assert.equal(url.searchParams.get('from'), '2026-06-18T07:00:00.000Z');
   assert.equal(url.searchParams.get('to'), '2026-06-21T06:59:59.999Z');
   assert.equal(url.searchParams.get('window'), null);
+});
+
+test('a page in another language asks the feed API for that language', () => {
+  const script = `
+    ${extractFunction('localDateBoundaryUtc')}
+    ${extractFunction('toDateInput')}
+    ${extractFunction('localeParam')}
+    ${extractFunction('buildFeedUrl')}
+    const customRangeState = { from: '', to: '' };
+    const presetDaysState = 'all';
+    const limitState = '200';
+    const ui = (locale) => ({ locale, defaultLocale: 'en' });
+    const urlFor = (locale) => {
+      globalThis.window = { location: { origin: 'https://example.test' }, UI: ui(locale) };
+      return buildFeedUrl();
+    };
+    function getSelectedLabels() { return ['brief']; }
+    console.log(JSON.stringify({ en: urlFor('en'), ko: urlFor('ko') }));
+  `;
+  const urls = JSON.parse(execFileSync(process.execPath, ['-e', script], { encoding: 'utf8' }));
+  assert.equal(new URL(urls.en, 'https://example.test').searchParams.get('locale'), null);
+  assert.equal(new URL(urls.ko, 'https://example.test').searchParams.get('locale'), 'ko');
+  assert.equal(new URL(urls.ko, 'https://example.test').searchParams.get('label'), 'brief');
 });

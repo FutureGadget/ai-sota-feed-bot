@@ -3,6 +3,8 @@ import fs from 'node:fs';
 import test from 'node:test';
 import vm from 'node:vm';
 
+import { uiRuntime } from './ui_runtime.mjs';
+
 // rankedBecauseText exists twice - here in the feed shell and as _ranked_because
 // in pipeline/render_static_pages.py for the crawler seed. Both are pinned to
 // the same fixture so the two implementations cannot drift apart silently.
@@ -25,6 +27,7 @@ function extractBlock(header) {
 }
 
 const context = vm.createContext({});
+vm.runInContext(uiRuntime(source), context);
 vm.runInContext(extractBlock('function cleanText('), context);
 vm.runInContext(
   source.match(/const LEGACY_PLACEHOLDER_WHY = '[^']*';/)[0],

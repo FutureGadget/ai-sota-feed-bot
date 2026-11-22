@@ -1,6 +1,15 @@
 (() => {
   "use strict";
 
+  // UI text comes from the page's dictionary (the global t(), written by
+  // pipeline/render_home.py) where the page has one. The English fallback serves
+  // pages without it; tests/test_ui_dictionary.py pins every fallback to
+  // config/ui/en.json.
+  const tr = (key, fallback, vars) => {
+    const text = typeof globalThis.t === "function" ? globalThis.t(key) : fallback;
+    return vars ? text.replace(/\{(\w+)\}/g, (match, name) => (name in vars ? vars[name] : match)) : text;
+  };
+
   const root = document.documentElement;
   if (root.classList.contains("site-chrome-enhanced")) return;
 
@@ -36,12 +45,18 @@
     return;
   }
 
-  browseButton.setAttribute("aria-label", "Open Editor's Desk");
-  browseButton.innerHTML = '<span class="site-desk-full">Editor\'s Desk</span><span class="site-desk-short">Desk</span>';
+  browseButton.setAttribute("aria-label", tr("chrome.deskOpen", "Open Editor's Desk"));
+  const deskFull = document.createElement("span");
+  deskFull.className = "site-desk-full";
+  deskFull.textContent = tr("chrome.desk", "Editor's Desk");
+  const deskShort = document.createElement("span");
+  deskShort.className = "site-desk-short";
+  deskShort.textContent = tr("chrome.deskShort", "Desk");
+  browseButton.replaceChildren(deskFull, deskShort);
   if (moreButton) moreButton.hidden = true;
   if (themeButton) {
     themeButton.classList.add("site-theme-toggle");
-    themeButton.setAttribute("title", themeButton.getAttribute("aria-label") || "Toggle theme");
+    themeButton.setAttribute("title", themeButton.getAttribute("aria-label") || tr("chrome.themeToggle", "Toggle theme"));
     browseButton.before(themeButton);
   }
   visibleLanguageLinks.forEach((link) => {
@@ -90,27 +105,27 @@
   const groupNavigation = () => {
     let fallbackLinks = null;
     const groups = [
-      ["Catch up", ["/", "/daily", "/weekly", "/community"]],
-      ["Follow", ["/storylines"]],
-      ["Apply", ["/playbook"]],
-      ["Understand", ["/map", "/foundations", "/models", "/skills"]],
-      ["More", ["/voices", "/subscribe"]],
+      ["catchUp", tr("nav.group.catchUp", "Catch up"), ["/", "/daily", "/weekly", "/community"]],
+      ["follow", tr("nav.group.follow", "Follow"), ["/storylines"]],
+      ["apply", tr("nav.group.apply", "Apply"), ["/playbook"]],
+      ["understand", tr("nav.group.understand", "Understand"), ["/map", "/foundations", "/models", "/skills"]],
+      ["more", tr("nav.group.more", "More"), ["/voices", "/subscribe"]],
     ];
     const descriptions = {
-      "/": "Ranked stories, finite reading",
-      "/daily": "What changed today",
-      "/weekly": "What you missed this week",
-      "/community": "The recaps, retold as threads by the agent",
-      "/storylines": "Developing stories over time",
-      "/playbook": "Actionable engineering lessons",
-      "/map": "Essential know-how for production agents",
-      "/foundations": "Durable concept explainers",
-      "/models": "Model pricing and capability radar",
-      "/skills": "Agent skills ranked by adoption",
-      "/voices": "Practitioner voices worth following",
-      "/subscribe": "Get the brief by email",
+      "/": tr("nav.desc.home", "Ranked stories, finite reading"),
+      "/daily": tr("nav.desc.daily", "What changed today"),
+      "/weekly": tr("nav.desc.weekly", "What you missed this week"),
+      "/community": tr("nav.desc.community", "The recaps, retold as threads by the agent"),
+      "/storylines": tr("nav.desc.storylines", "Developing stories over time"),
+      "/playbook": tr("nav.desc.playbook", "Actionable engineering lessons"),
+      "/map": tr("nav.desc.map", "Essential know-how for production agents"),
+      "/foundations": tr("nav.desc.foundations", "Durable concept explainers"),
+      "/models": tr("nav.desc.models", "Model pricing and capability radar"),
+      "/skills": tr("nav.desc.skills", "Agent skills ranked by adoption"),
+      "/voices": tr("nav.desc.voices", "Practitioner voices worth following"),
+      "/subscribe": tr("nav.desc.subscribe", "Get the brief by email"),
     };
-    groups.forEach(([label, destinations]) => {
+    groups.forEach(([id, label, destinations]) => {
       const section = document.createElement("section");
       section.className = "site-nav-group";
       const heading = document.createElement("p");
@@ -118,7 +133,7 @@
       heading.textContent = label;
       const links = document.createElement("div");
       links.className = "site-nav-group-links";
-      if (label === "More") fallbackLinks = links;
+      if (id === "more") fallbackLinks = links;
       destinations.forEach((destination) => {
         const link = nav.querySelector(`[data-site-destination="${destination}"]`);
         if (link) {
@@ -162,7 +177,7 @@
     const close = document.createElement("button");
     close.type = "button";
     close.className = "site-dialog-close";
-    close.textContent = "Close";
+    close.textContent = tr("common.close", "Close");
     head.append(heading, close);
     panel.append(head, content);
     dialog.append(panel);
@@ -221,7 +236,7 @@
     section.className = "site-nav-group site-actions-group";
     const heading = document.createElement("p");
     heading.className = "site-nav-group-label";
-    heading.textContent = "Settings";
+    heading.textContent = tr("chrome.settings", "Settings");
     section.append(heading, actions);
     deskContent.append(section);
   } else if (actions) {
@@ -233,7 +248,7 @@
 
   createDialog({
     className: "site-browse-dialog",
-    title: "Editor's Desk",
+    title: tr("chrome.desk", "Editor's Desk"),
     trigger: browseButton,
     content: deskContent,
   });
@@ -250,7 +265,7 @@
     browseButton.append(badge);
     const sr = document.createElement("span");
     sr.className = "nav-update-sr";
-    sr.textContent = ` (${count} new or updated ${count === 1 ? "item" : "items"})`;
+    sr.textContent = ` ${count === 1 ? tr("chrome.unreadOne", "({count} new or updated item)", { count }) : tr("chrome.unreadMany", "({count} new or updated items)", { count })}`;
     browseButton.append(sr);
   };
   updateDeskCount();

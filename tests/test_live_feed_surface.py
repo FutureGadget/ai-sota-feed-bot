@@ -25,6 +25,14 @@ def _extract_js_function(source: str, name: str) -> str:
     raise AssertionError(f"unterminated function {name}")
 
 
+def _ui_runtime(source: str) -> str:
+    """The page's own t(), tHtml(), localHref(), localeParam() and embedded window.UI."""
+    data = re.search(r"window\.UI = (\{.*?\n    \});", source, re.S)
+    assert data, "the page embeds window.UI"
+    functions = "\n".join(_extract_js_function(source, name) for name in ("t", "tHtml", "localHref", "localeParam"))
+    return f"globalThis.window = globalThis;\nwindow.UI = {data.group(1)};\n{functions}\n"
+
+
 def _run_node(script: str) -> str:
     result = subprocess.run(
         ["node", "-e", script],
@@ -74,7 +82,7 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn('id="catchup-new-list"', self.html)
         self.assertIn('data-catchup-open=', self.html)
         self.assertIn('data-pool-toggle="1"', self.html)
-        self.assertIn("More from ${esc(where)}", self.html)
+        self.assertIn("t('pool.moreFrom', { range: where })", self.html)
         self.assertIn("beyond-cap-card", self.html)
         self.assertIn("beyond_cap", self.html)
 
@@ -116,7 +124,8 @@ class LiveFeedSurfaceTest(unittest.TestCase):
 
     def test_rank_climb_context_is_available_to_assistive_technology(self) -> None:
         self.assertIn("const climbingLabel = isClimbing", self.html)
-        self.assertIn("aria-label=\"Rank ${rank}${climbingLabel}\"", self.html)
+        self.assertIn("const rankLabel = rank === null ? '' : `${t('card.rank', { rank })}${climbingLabel}`;", self.html)
+        self.assertEqual(self.html.count('aria-label="${esc(rankLabel)}"'), 2)
 
     def test_list_rewrites_restore_focus_with_ordered_fallbacks(self) -> None:
         self.assertIn("function captureListFocus(list)", self.html)
@@ -148,7 +157,7 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         for anchor in (
             "setFeedStatus(countText);\n      syncSectionTabs();",
             "document.getElementById('meta').textContent = countText;\n      setFeedStatus(countText);",
-            "setFeedStatus('Feed unavailable.",
+            "setFeedStatus(t('feed.unavailableStatus'));",
         ):
             with self.subTest(anchor=anchor[:40]):
                 self.assertIn(anchor, self.html)
@@ -231,11 +240,11 @@ class LiveFeedSurfaceTest(unittest.TestCase):
     def test_story_cards_are_a_headline_and_one_source_line(self) -> None:
         card = self.html.split("function cardHtml(", 1)[1].split("function matchesQuery(", 1)[0]
         # Only the lead story carries its summary; thumbnails are gone.
-        self.assertIn("${summary && frontPage === 'lead' ? `<p class=\"why\">${summary}</p>` : ''}", card)
+        self.assertIn("${summary && frontPage === 'lead' ? `<p class=\"why\"${enAttr}>${summary}</p>` : ''}", card)
         self.assertNotIn('class="thumb"', card)
         # Save stays one tap away; everything else sits in the card's "⋯" panel.
         more = card.split('<details class="card-more">', 1)[1].split("</details>", 1)[0]
-        for marker in ("data-share-id", "data-hide-id", 'class="fb-row', "matters", "Also covered by", "badge-boost"):
+        for marker in ("data-share-id", "data-hide-id", 'class="fb-row', "matters", "card.alsoCovered", "badge-boost"):
             with self.subTest(marker=marker):
                 self.assertIn(marker, more)
         before_more = card.split('<details class="card-more">', 1)[0]
@@ -567,14 +576,22 @@ class LiveFeedSurfaceTest(unittest.TestCase):
 
     def test_model_radar_rail_row_splits_org_off_the_metric_line(self) -> None:
         # Keep organization separate and the input price basis visible on narrow rails.
-        self.assertIn('<span class="mr-rail-org">', self.html)
-        self.assertIn("var shortLabel = capIsIndex ? 'AA index'", self.html)
-        self.assertIn("'/1M input'", self.html)
+        script = f"""
+          {self._extract_model_radar_functions()}
+          console.log(mrRowHtml({{ name: 'model-a', organization: 'lab-a', aa_intelligence_index: 63.14, price_input_per_1m: 10 }}, 'aa_intelligence_index'));
+        """
+        row = _run_node(script)
+        self.assertIn('<span class="mr-rail-org">lab-a</span>', row)
+        self.assertIn("63.1 AA index &middot; $10/1M input", row)
 
     def test_model_radar_rail_badge_is_separated_from_the_model_name(self) -> None:
         # Rendered as "Kimi K3Open weights" before - the badge was concatenated
         # straight onto the name with no separator.
-        self.assertIn("""' <span class="mr-rail-badge">Open weights</span>'""", self.html)
+        script = f"""
+          {self._extract_model_radar_functions()}
+          console.log(mrRowHtml({{ name: 'Kimi K3', open_weights: true, arena_elo_coding: 1500 }}, 'arena_elo_coding'));
+        """
+        self.assertIn('Kimi K3 <span class="mr-rail-badge">Open weights</span>', _run_node(script))
 
     def test_model_radar_rail_credits_the_source_by_name_not_by_url(self) -> None:
         # The config attribution is a full sentence carrying the URL inline;
@@ -600,12 +617,13 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         )
 
     def test_model_radar_rail_cta_links_to_models_page(self) -> None:
-        self.assertIn(
-            # Short enough to hold one line in the 200px rail; the heading
-            # above it already says what the radar is.
-            'href="/models" data-model-radar-target="full">Full radar &rarr;',
-            self.html,
-        )
+        # Short enough to hold one line in the 200px rail; the heading above it
+        # already says what the radar is.
+        script = f"""
+          {self._extract_model_radar_functions()}
+          console.log(mrSurfaceHtml({{ sources: {{}}, models: [{{ name: 'm', arena_elo_coding: 1500 }}] }}));
+        """
+        self.assertIn('href="/models" data-model-radar-target="full">Full radar →</a>', _run_node(script))
 
     def test_model_radar_rail_fetches_the_prebuilt_static_slice(self) -> None:
         # A static asset, not a serverless function: the Hobby plan caps a
@@ -659,7 +677,8 @@ class LiveFeedSurfaceTest(unittest.TestCase):
             "mrEsc", "mrSafeUrl", "mrDisplayName", "mrFmtPrice", "mrCapabilityField", "mrCollapseVariants",
             "mrSourceLabel", "mrSourcesLine", "mrDetailUrl", "mrRowHtml", "mrSurfaceHtml", "mrRender",
         ]
-        return "\n".join(_extract_js_function(self.html, name) for name in names)
+        functions = "\n".join(_extract_js_function(self.html, name) for name in names)
+        return f"{_ui_runtime(self.html)}\n{functions}"
 
     def test_model_radar_mobile_snapshot_renders_three_ranked_models(self) -> None:
         functions = self._extract_model_radar_functions()

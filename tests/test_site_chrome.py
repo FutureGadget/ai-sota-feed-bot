@@ -351,8 +351,8 @@ class SiteChromeContractTest(unittest.TestCase):
 
     def test_editor_desk_dialog_groups_navigation_and_actions(self) -> None:
         js = (ROOT / "web" / "site-chrome.js").read_text(encoding="utf-8")
-        self.assertIn('["Apply", ["/playbook"]]', js)
-        self.assertIn('["Understand", ["/map", "/foundations", "/models", "/skills"]]', js)
+        self.assertIn('["apply", tr("nav.group.apply", "Apply"), ["/playbook"]]', js)
+        self.assertIn('["understand", tr("nav.group.understand", "Understand"), ["/map", "/foundations", "/models", "/skills"]]', js)
         self.assertIn("site-actions-group", js)
         self.assertIn('"Editor\'s Desk"', js)
         self.assertIn('querySelectorAll(":scope > a[data-site-destination]")', js)

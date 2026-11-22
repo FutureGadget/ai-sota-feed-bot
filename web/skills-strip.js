@@ -7,6 +7,15 @@
 (function () {
   'use strict';
 
+  // UI text comes from the page's dictionary (the global t(), written by
+  // pipeline/render_home.py) where the page has one. The English fallback serves
+  // pages without it; tests/test_ui_dictionary.py pins every fallback to
+  // config/ui/en.json.
+  function tr(key, fallback, vars) {
+    var text = typeof globalThis.t === 'function' ? globalThis.t(key) : fallback;
+    return vars ? text.replace(/\{(\w+)\}/g, function (match, name) { return name in vars ? vars[name] : match; }) : text;
+  }
+
   var strip = document.getElementById('skillsStrip');
   var cards = document.getElementById('skillsStripCards');
   if (!strip || !cards) return;
@@ -42,13 +51,13 @@
       bits.push(item.capability_label);
     }
     if (item.unique_skills) {
-      bits.push(item.unique_skills + (item.unique_skills === 1 ? ' skill' : ' skills'));
+      bits.push(item.unique_skills === 1 ? tr('skills.countOne', '{n} skill', { n: 1 }) : tr('skills.countMany', '{n} skills', { n: item.unique_skills }));
     }
     if (item.ports) {
-      bits.push(item.ports + (item.ports === 1 ? ' port' : ' ports'));
+      bits.push(item.ports === 1 ? tr('skills.portOne', '{n} port', { n: 1 }) : tr('skills.portMany', '{n} ports', { n: item.ports }));
     }
     if (item.stars) {
-      bits.push(compact(item.stars) + ' stars');
+      bits.push(tr('skills.stars', '{n} stars', { n: compact(item.stars) }));
     }
     if (bits.length) {
       var meta = document.createElement('span');

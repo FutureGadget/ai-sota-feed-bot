@@ -36,10 +36,11 @@ class GeneratedPagesTest(unittest.TestCase):
     def test_a_new_snapshot_replaces_only_the_marked_region(self) -> None:
         template = render_home.TEMPLATE_PATH.read_text(encoding="utf-8")
         seed = f"{render_home.FEED_SEED_START}\n<p>fresh seed</p>\n{render_home.FEED_SEED_END}"
+        page = render_home.substitute(template, DEFAULT)
         html = render_home.render(DEFAULT, template, seed=seed)
         self.assertIn("<p>fresh seed</p>", html)
         self.assertEqual(html.count(render_home.FEED_SEED_START), 1)
-        before, after = template.split(render_home.FEED_SEED_START)[0], template.split(render_home.FEED_SEED_END)[1]
+        before, after = page.split(render_home.FEED_SEED_START)[0], page.split(render_home.FEED_SEED_END)[1]
         self.assertIn(before.split("\n", 1)[1], html)
         self.assertTrue(html.endswith(after))
 
