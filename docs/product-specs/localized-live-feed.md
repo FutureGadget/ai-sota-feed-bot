@@ -438,7 +438,7 @@ by the translation key (the card's URL without a trailing slash):
 cards the English home's default `/api/feed` request returns (Brief, rolling
 24-hour arrival window, limit 200; `home_params` mirrors `buildFeedUrl()` in
 `web/index.html`) and the 7-day snapshot set. It skips a card whose stored
-`source_hash` and `model` still match, translates at most 20 cards per run, and
+`source_hash` and `model` still match, translates at most 60 cards per run, and
 prunes entries not seen in either set for 14 days (`last_seen`). The snapshot is
 built from the store, so a card is never translated twice. The monthly cap is
 the same `translator.Ledger`: on `BudgetExceeded` the store keeps what was

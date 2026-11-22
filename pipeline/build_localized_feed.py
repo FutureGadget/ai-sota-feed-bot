@@ -38,7 +38,7 @@ FEED_UI = {
 
 ROOT = Path(__file__).resolve().parent.parent
 FIELDS = ("title", "summary_1line", "why_it_matters")
-MAX_TRANSLATIONS = 20
+MAX_TRANSLATIONS = 60
 
 def _norm_url(url: str | None) -> str:
     s = str(url or "").strip()
