@@ -1,0 +1,135 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/inference-gpus",
+  "source_hash": "f22e99256fa9d194262d5df394c1beb80883345e29fbbc975408c0126078929e",
+  "translated_at": "2026-11-22T12:45:15.598296+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "inference-gpus",
+  "label": "Inference GPUs",
+  "item_count": 4,
+  "day_count": 4,
+  "source_count": 2,
+  "first_seen": "2026-11-01T19:37:33+00:00",
+  "last_updated": "2026-11-19T21:28:18+00:00",
+  "generated_at": "2026-11-22T00:14:27.244418+00:00",
+  "sources": [
+    "aws_ml_blog",
+    "hackernews_ai"
+  ],
+  "days": [
+    {
+      "date": "2026-11-01",
+      "items": [
+        {
+          "title": "An inference server for AMD GPUs, in C++ and HIP",
+          "url": "https://codeberg.org/StillDeadcode/radiance",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "An inference server for AMD GPUs, in C++ and HIP",
+          "sid": "3024d09a7913b631",
+          "published": "2026-11-01T19:37:33+00:00",
+          "editor_note": "출발점: C++와 HIP로 만든 독립 AMD 전용 서버로, 벤치마크 없이 Hacker News에 올라왔다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-10",
+      "items": [
+        {
+          "title": "CUDA+ROCm dual-back ends LLM inference for mixed-vendor GPUs (up to 48% faster)",
+          "url": "https://github.com/mw00/project-maya/pull/879",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "CUDA+ROCm dual-back ends LLM inference for mixed-vendor GPUs (up to 48% faster)",
+          "sid": "fed29696ba0516e2",
+          "published": "2026-11-10T02:05:11+00:00",
+          "editor_note": "하나의 LLM 작업을 NVIDIA와 AMD에 걸쳐 실행하는 쪽으로 논의를 넓히며, 자체 보고한 속도 향상을 주장한다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-11",
+      "items": [
+        {
+          "title": "Kindi: The fastest software inference engine for low-cost GPUs",
+          "url": "https://amirhusain.com/software/kindi",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Kindi: The fastest software inference engine for low-cost GPUs",
+          "sid": "1adc84018e934ecd",
+          "published": "2026-11-11T18:18:33+00:00",
+          "editor_note": "저가 GPU라는 관점을 더한다. '가장 빠르다'고 내세우는 새 엔진이지만 아직 독립적인 벤치마크는 없다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-19",
+      "items": [
+        {
+          "title": "Amazon SageMaker AI now detects latency drift, idle GPUs, and missed optimizations on your inference endpoints",
+          "url": "https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-ai-now-detects-latency-drift-idle-gpus-and-missed-optimizations-on-your-inference-endpoints",
+          "source": "aws_ml_blog",
+          "type": "news",
+          "summary_1line": "Amazon SageMaker AI now monitors your generative AI inference endpoints by default and tells you when a change could improve performance or lower cost. It tracks latency, GPU utilization, and serving configuration, th...",
+          "sid": "735d1f9416d3ebe2",
+          "published": "2026-11-19T21:28:18+00:00",
+          "editor_note": "첫 매니지드 클라우드 사례: AWS가 추론 엔드포인트에서 레이턴시 드리프트와 유휴 GPU에 대한 기본 모니터링을 켠다."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "This is a loose thread of separate projects about getting more inference out of GPUs, not one event. It began with Hacker News projects that move LLM serving off a single high-end CUDA stack: a C++/HIP server for AMD GPUs, a project-maya pull request for mixed CUDA+ROCm inference titled up to 48% faster, and Kindi, billed by its author as the fastest engine for low-cost GPUs.",
+    "stale": false,
+    "whats_new": "Amazon SageMaker AI now monitors generative AI inference endpoints by default, flagging latency drift, idle GPUs, and serving-configuration changes that could improve performance or cut cost.",
+    "why_it_matters": "GPU spend on inference is set by utilization as much as by hardware choice; SageMaker now surfaces idle capacity and latency drift by default, while the alternative-GPU engines in this thread still rest on self-reported speed claims.",
+    "take_for_builders": "On SageMaker, review the new endpoint findings for idle GPUs before you add capacity; elsewhere, rerun your own latency and throughput evals before trusting any alternative-GPU engine, and keep your CUDA serving path as the fallback.",
+    "beats": [
+      {
+        "kicker": "AMD-NATIVE",
+        "tone": "launch",
+        "headline": "A C++/HIP inference server targets AMD GPUs directly",
+        "summary": "A small independent project skips CUDA and writes the server against AMD's HIP API.",
+        "sids": [
+          "3024d09a7913b631"
+        ]
+      },
+      {
+        "kicker": "MIXED-VENDOR",
+        "tone": "rising",
+        "headline": "Dual CUDA+ROCm backend PR claims up to 48% faster mixed-vendor inference",
+        "summary": "An open pull request, not a release; the speedup comes from the PR title alone.",
+        "sids": [
+          "fed29696ba0516e2"
+        ]
+      },
+      {
+        "kicker": "LOW-COST",
+        "tone": "rising",
+        "headline": "Kindi pitches itself as the fastest engine for low-cost GPUs",
+        "summary": "The angle shifts from GPU vendor to GPU price tier; the speed claim is unverified.",
+        "sids": [
+          "1adc84018e934ecd"
+        ]
+      },
+      {
+        "kicker": "NOW",
+        "tone": "now",
+        "headline": "SageMaker AI flags latency drift and idle GPUs on inference endpoints",
+        "summary": "The focus moves from new engines to measuring how well existing GPU endpoints are used.",
+        "sids": [
+          "735d1f9416d3ebe2"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Does SageMaker's endpoint monitoring cost extra, and can its recommendations be applied automatically or only by hand?",
+      "Does Kindi publish benchmarks naming the GPUs, models, and baseline engines behind its \"fastest\" claim?",
+      "Does the project-maya CUDA+ROCm pull request merge, and what workload and baseline produce the 48% figure?",
+      "Does an independent benchmark compare mixed NVIDIA+AMD inference against a single-vendor setup at equal cost?",
+      "Does the AMD HIP inference server publish throughput and model-support numbers against vLLM on ROCm?"
+    ],
+    "generated_at": "2026-11-21T00:12:37Z"
+  }
+}

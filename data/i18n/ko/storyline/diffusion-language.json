@@ -1,0 +1,210 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/diffusion-language",
+  "source_hash": "20a99797627064411823e47beefb703c0a057ac4c4aa048cbbbea73de69a6071",
+  "translated_at": "2026-11-22T12:45:01.340398+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "diffusion-language",
+  "label": "Diffusion Language",
+  "item_count": 9,
+  "day_count": 7,
+  "source_count": 3,
+  "first_seen": "2026-11-03T15:28:11+00:00",
+  "last_updated": "2026-11-19T15:40:24+00:00",
+  "generated_at": "2026-11-21T00:13:05.218527+00:00",
+  "sources": [
+    "arxiv_cs_ai",
+    "arxiv_cs_cl",
+    "arxiv_llm_reliability"
+  ],
+  "days": [
+    {
+      "date": "2026-11-03",
+      "items": [
+        {
+          "title": "VIGOR: Visual Gain Ordering for Hallucination Mitigation in Multimodal Discrete Diffusion Language Models",
+          "url": "http://arxiv.org/abs/2611.05066v1",
+          "source": "arxiv_llm_reliability",
+          "type": "paper",
+          "summary_1line": "Multimodal discrete diffusion language models (dLLMs) generate responses through iterative mask prediction and offer a promising alternative to autoregressive large vision-language models. However, they still suffer f...",
+          "sid": "57b08f9866a26766",
+          "published": "2026-11-03T15:28:11+00:00",
+          "editor_note": "출발점은 신뢰성 문제다. 멀티모달 이산 확산 LM의 환각을 시각적 이득 순서로 마스크 예측을 정렬해 완화한다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "items": [
+        {
+          "title": "Measured Coupling for Parallel Decoding in Diffusion Language Models",
+          "url": "http://arxiv.org/abs/2611.08307v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "Diffusion language models can write many tokens per step, but must choose which tokens are safe to commit together. Mean-field decoding penalizes pairs of positions whose predictions look alike. We replace this proxy with the coupling itself: how much committing one token changes",
+          "sid": "0491c6de7a511fb5",
+          "published": "2026-11-05T17:10:03+00:00",
+          "editor_note": "병렬 디코딩으로 넘어간다. mean-field 유사도 대용 지표 대신, 토큰 하나를 확정했을 때 다른 토큰이 어떻게 달라지는지를 직접 측정한다."
+        },
+        {
+          "title": "SpecCTMC: Exact Speculative Simulation of Diffusion Language Model Continuous-Time Markov Chains",
+          "url": "http://arxiv.org/abs/2611.08362v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "Masked diffusion language models offer parallel text generation, but independently sampling multiple tokens can disrupt their dependencies and change the output distribution. Exact continuous-time sampling avoids this...",
+          "why_it_matters": "Matches feed focus: evaluation.",
+          "sid": "2fb1a0f31494270f",
+          "published": "2026-11-05T17:41:20+00:00",
+          "editor_note": "같은 질문에 정확한 답을 낸다. 연속 시간 마르코프 체인을 추측적으로 시뮬레이션해, 병렬 샘플링에서도 출력 분포를 유지한다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-06",
+      "items": [
+        {
+          "title": "DUET: Dual-Sparse Inference for Block Diffusion Language Models",
+          "url": "http://arxiv.org/abs/2611.09239v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "Diffusion language models (DLMs) enable parallel token generation through iterative denoising, yet their inference remains costly due to repeated attention over a growing historical prefix and repeated processing of the entire current generation block. Historical attention become",
+          "sid": "5fbc35eb022e4033",
+          "published": "2026-11-06T09:59:42+00:00",
+          "editor_note": "블록 확산 비용을 다룬 첫 논문이다. 과거 프리픽스 어텐션과 현재 블록 처리를 모두 희소화한다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "items": [
+        {
+          "title": "DForkTree: Accelerating Speculative Decoding with Fork-Aware Block Diffusion Draft Trees",
+          "url": "http://arxiv.org/abs/2611.12356v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Speculative decoding speeds up language models by letting a lightweight drafter propose several future tokens that the target model verifies in parallel. Block diffusion drafters such as DFlash draft a whole block in one forward pass, and DDTree builds a draft tree from their per",
+          "sid": "0aacbce5f85ac122",
+          "published": "2026-11-09T13:06:52+00:00",
+          "editor_note": "블록 확산을 드래프터로 쓴다. 타깃 모델의 추측 디코딩을 위해 분기 지점을 인식하는 드래프트 트리를 만든다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-10",
+      "items": [
+        {
+          "title": "Blurring the Block Boundaries: Overlapping Block Denoising for Efficient Diffusion Language Models",
+          "url": "http://arxiv.org/abs/2611.14387v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "Diffusion Language Models (DLMs) have emerged as effective alternatives to autoregressive models for latency-critical tasks, enabling faster token generation. Recent advances employ block diffusion with self-editing c...",
+          "why_it_matters": "Matches feed focus: eval.",
+          "sid": "ca0cd6bcfdb70098",
+          "published": "2026-11-10T17:40:24+00:00",
+          "editor_note": "디노이징 블록을 서로 겹쳐, 블록 확산 LM이 블록 경계마다 치르던 레이턴시를 없앤다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-12",
+      "items": [
+        {
+          "title": "Learning When Diffusion Language Models Should Regenerate",
+          "url": "http://arxiv.org/abs/2611.17320v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "Remasking allows diffusion language models to revisit generated text, but effective correction requires knowing when and what to revise. Our diagnosis on Sudoku reveals two gaps. Hidden states contain error information that token confidence does not reliably expose, and remasking",
+          "sid": "679b2c4e802619e6",
+          "published": "2026-11-12T18:58:50+00:00",
+          "editor_note": "자가 수정으로 방향을 돌린다. 토큰 신뢰도가 놓치는 오류를 은닉 상태가 드러내므로, 학습된 신호로 리마스크 시점을 결정한다."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-19",
+      "items": [
+        {
+          "title": "One Schedule Does Not Fit All: Adaptive Inference Schedules for Diffusion Language Models",
+          "url": "http://arxiv.org/abs/2611.25895v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "Diffusion language models typically use a fixed denoising schedule across workloads. We show that the cheapest schedule that preserves quality depends on the task, model, and sampler. We propose Task-Calibrated Denois...",
+          "why_it_matters": "Matches feed focus: evaluation.",
+          "sid": "cbe67172baf08ac4",
+          "published": "2026-11-19T10:47:26+00:00",
+          "editor_note": "품질을 유지하면서 비용이 가장 낮은 스케줄은 태스크, 모델, 샘플러에 따라 달라진다는 점을 보이고, 워크로드별로 이를 보정한다."
+        },
+        {
+          "title": "dLoop: Looped Diffusion Language Models via Recurrent Latent Refinement",
+          "url": "http://arxiv.org/abs/2611.26275v1",
+          "source": "arxiv_cs_cl",
+          "type": "paper",
+          "summary_1line": "Diffusion language models (DLMs) support parallel generation, yet they often require many denoising steps because only a fraction of token predictions are sufficiently reliable to be committed at each step. Existing a...",
+          "why_it_matters": "Matches feed focus: eval.",
+          "sid": "a8a16da3f476938c",
+          "published": "2026-11-19T15:40:24+00:00",
+          "editor_note": "최신 연구다. 순환형 잠재 정제를 통해 각 단계에서 확정해도 될 만큼 신뢰할 수 있는 토큰 예측을 더 많이 만든다."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "This thread is now a run of independent arXiv papers on diffusion language models, not one event or vendor launch. It opened Nov 3 with hallucination in multimodal dLLMs, moved to which tokens can be committed in parallel (Nov 5), then to block-diffusion inference cost and speculative drafting (Nov 6-10).",
+    "stale": false,
+    "whats_new": "Two Nov 19 papers attack the denoising step count directly: one calibrates the cheapest schedule per task, model and sampler instead of using one fixed schedule, and dLoop refines latents recurrently to commit more tokens per step.",
+    "why_it_matters": "The open problem for diffusion LMs has shifted from \"can they generate in parallel\" to \"how many denoising steps does a given workload really need\", which is the number that sets their serving latency and cost.",
+    "take_for_builders": "Do not plan capacity around diffusion LMs yet; if you evaluate one, record denoising steps per request and quality per task, because the schedule papers show the cheapest safe step count varies by workload.",
+    "beats": [
+      {
+        "kicker": "RELIABILITY",
+        "tone": "launch",
+        "headline": "Multimodal diffusion LMs inherit the hallucination problem",
+        "summary": "VIGOR orders mask predictions by visual gain to cut hallucinations in multimodal discrete diffusion LMs.",
+        "sids": [
+          "57b08f9866a26766"
+        ]
+      },
+      {
+        "kicker": "PARALLEL DECODING",
+        "tone": "rising",
+        "headline": "Which tokens can be committed together without changing the output",
+        "summary": "Two papers replace the independent-sampling shortcut: one measures token coupling directly, the other simulates the continuous-time chain exactly.",
+        "sids": [
+          "0491c6de7a511fb5",
+          "2fb1a0f31494270f"
+        ]
+      },
+      {
+        "kicker": "BLOCK DIFFUSION",
+        "tone": "rising",
+        "headline": "Block diffusion gets sparse attention, overlapping blocks and draft trees",
+        "summary": "Work targets repeated prefix attention, block-boundary latency, and block-diffusion drafters for speculative decoding of autoregressive models.",
+        "sids": [
+          "5fbc35eb022e4033",
+          "0aacbce5f85ac122",
+          "ca0cd6bcfdb70098"
+        ]
+      },
+      {
+        "kicker": "NOW",
+        "tone": "now",
+        "headline": "Fewer, better-chosen denoising steps: remasking, adaptive schedules, looped refinement",
+        "summary": "The latest papers decide when to revise a token and how many steps a workload needs, rather than speeding up each step.",
+        "sids": [
+          "679b2c4e802619e6",
+          "cbe67172baf08ac4",
+          "a8a16da3f476938c"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Does any inference framework or vendor ship diffusion LLM serving with parallel decoding?",
+      "Do task-calibrated denoising schedules keep quality on agentic and tool-calling workloads, not only the paper's benchmarks?",
+      "Do block-diffusion drafters like DForkTree beat standard autoregressive drafters on end-to-end tokens per second in a production speculative-decoding stack?",
+      "Does learned remasking transfer from Sudoku diagnostics to code and long-form text generation?",
+      "Is there a head-to-head latency and quality comparison of a diffusion LM against a same-size autoregressive model at matched serving cost?"
+    ],
+    "generated_at": "2026-11-21T00:12:23Z"
+  }
+}

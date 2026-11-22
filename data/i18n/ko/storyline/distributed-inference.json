@@ -1,0 +1,144 @@
+{
+  "locale": "ko",
+  "source_path": "/storyline/distributed-inference",
+  "source_hash": "4afc2dd828b7a6ca00c2af9578adfd667a04311386f8680ba86775ed98bd9358",
+  "translated_at": "2026-11-22T12:45:03.781112+00:00",
+  "model": "claude-sonnet-5-5",
+  "review_status": "machine",
+  "slug": "distributed-inference",
+  "label": "Distributed Inference",
+  "item_count": 5,
+  "day_count": 5,
+  "source_count": 4,
+  "first_seen": "2026-11-04T00:00:00+00:00",
+  "last_updated": "2026-11-17T23:56:20+00:00",
+  "generated_at": "2026-11-19T00:13:28.317875+00:00",
+  "sources": [
+    "arxiv_cs_ai",
+    "hackernews_ai",
+    "infoq_ai_ml",
+    "vllm_blog"
+  ],
+  "days": [
+    {
+      "date": "2026-11-04",
+      "items": [
+        {
+          "title": "Introducing Kinference: An Open Source Inference Control Plane for vLLM and Kubernetes",
+          "url": "https://vllm.ai/blog/2026-11-04-introducing-kinference",
+          "source": "vllm_blog",
+          "type": "news",
+          "summary_1line": "Kinference is a new open source inference control plane for building scalable inference platforms with vLLM and Kubernetes, providing token rate limiting, tenant usage and cost tracking, intelligent load balancing, an...",
+          "sid": "2aca440b2c0823d7",
+          "published": "2026-11-04T00:00:00+00:00",
+          "editor_note": "핵심 출시: Kubernetes에서 멀티 테넌트 서빙을 위한 vLLM 자체 오픈소스 컨트롤 플레인."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-05",
+      "items": [
+        {
+          "title": "Distributed Inference Benchmarks: [K]Inference vs. Plain Kubernetes",
+          "url": "https://www.buoyant.io/blog/distributed-inference-benchmarks-kinference-vs-plain-kubernetes",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Distributed Inference Benchmarks: [K]Inference vs. Plain Kubernetes",
+          "sid": "509ceae27e7b57e7",
+          "published": "2026-11-05T19:07:41+00:00",
+          "editor_note": "Buoyant가 Kinference와 일반 Kubernetes를 비교한 첫 서드파티 벤치마크."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-09",
+      "items": [
+        {
+          "title": "Podcast: Distributed LLM Inference on Kubernetes with llm-d, Wasm, & TornadoVM",
+          "url": "https://www.infoq.com/podcasts/distributed-llm-inference-kubernetes/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "source": "infoq_ai_ml",
+          "type": "news",
+          "summary_1line": "In this episode, Edoardo Vacchi discusses the evolving landscape of WebAssembly on the backend, running Java workloads on GPUs using TornadoVM, and optimizing distributed AI inference using llm-d and vLLM on Kubernete...",
+          "sid": "1d4bb99a8acae991",
+          "published": "2026-11-09T11:00:00+00:00",
+          "editor_note": "Kubernetes에서 vLLM을 분산 구성하는 또 다른 방법인 llm-d에 대한 실무자 관점의 배경 설명."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-13",
+      "items": [
+        {
+          "title": "Superfluid: Local AI Server for Distributed LLM Inference",
+          "url": "http://arxiv.org/abs/2611.17753v1",
+          "source": "arxiv_cs_ai",
+          "type": "paper",
+          "summary_1line": "Running large language models (LLMs) on local devices keeps data private, removes per-token cost, cuts network latency, and keeps working without a connection. Two shifts now strain how such models are served. On one device, several agents share a locally served model with an int",
+          "why_it_matters": "Matches feed focus: agent.",
+          "sid": "8da93282dcb219d5",
+          "published": "2026-11-13T05:10:32+00:00",
+          "editor_note": "로컬 환경 사례를 다룬 학계의 시각: 로컬에서 서빙하는 하나의 모델을 여러 에이전트가 공유하는 방식."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-17",
+      "items": [
+        {
+          "title": "Show HN: Shard – Distributed AI Inference Across Multiple Computers",
+          "url": "https://github.com/avelone123123/shard",
+          "source": "hackernews_ai",
+          "type": "news",
+          "summary_1line": "Show HN: Shard – Distributed AI Inference Across Multiple Computers",
+          "sid": "7f9324af008a569c",
+          "published": "2026-11-17T23:56:20+00:00",
+          "editor_note": "여러 대의 컴퓨터를 묶어 하나의 모델을 실행하는 취미 프로젝트."
+        }
+      ]
+    }
+  ],
+  "editorial": {
+    "tldr": "This is a pattern across independent projects, not one event. It opened with vLLM's Kinference, an open-source control plane for serving vLLM on Kubernetes, plus a third-party benchmark of it against plain Kubernetes, then moved to an InfoQ podcast on llm-d.",
+    "stale": false,
+    "whats_new": "Distributed inference work has moved from datacenter clusters to local hardware: an arXiv paper (Superfluid) on a local server shared by several agents, then a Show HN project (Shard) that splits inference across multiple computers.",
+    "why_it_matters": "Multi-node serving is splitting into two tracks: Kubernetes control planes that add tenant rate limits and cost tracking around vLLM, and local setups that pool your own machines to keep data private and avoid per-token cost.",
+    "take_for_builders": "If you run vLLM on Kubernetes and hand-roll per-tenant rate limits or cost tracking, check Kinference and llm-d before building more, and read the benchmark's setup before trusting its numbers.",
+    "beats": [
+      {
+        "kicker": "CLUSTER",
+        "tone": "launch",
+        "headline": "vLLM ships Kinference, a Kubernetes control plane, and a benchmark follows",
+        "summary": "Token rate limiting, tenant usage and cost tracking, and load balancing for vLLM, then Buoyant's comparison against plain Kubernetes.",
+        "sids": [
+          "2aca440b2c0823d7",
+          "509ceae27e7b57e7"
+        ]
+      },
+      {
+        "kicker": "CONTEXT",
+        "tone": "rising",
+        "headline": "InfoQ podcast covers llm-d and vLLM on Kubernetes",
+        "sids": [
+          "1d4bb99a8acae991"
+        ]
+      },
+      {
+        "kicker": "LOCAL",
+        "tone": "now",
+        "headline": "Research and hobby projects take distributed inference off the cluster",
+        "summary": "Superfluid targets one device shared by several agents; Shard spreads a model across several computers.",
+        "sids": [
+          "8da93282dcb219d5",
+          "7f9324af008a569c"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Does Buoyant's benchmark show Kinference beating plain Kubernetes on latency or throughput, and under what load?",
+      "Will Kinference and llm-d converge, or stay competing control planes for vLLM on Kubernetes?",
+      "Does Superfluid release code, and how does it schedule several agents on one local model?",
+      "What network bandwidth does Shard need before splitting a model across machines beats running it on one?"
+    ],
+    "generated_at": "2026-11-19T00:12:35Z"
+  }
+}
